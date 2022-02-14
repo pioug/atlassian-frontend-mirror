@@ -32,6 +32,7 @@ const TooltipSwitch = ({ buttonTooltip, children }: TooltipSwitchProps) =>
 
 export const Create = ({
   onClick,
+  href,
   text,
   buttonTooltip,
   iconButtonTooltip,
@@ -56,6 +57,7 @@ export const Create = ({
         <Button
           id="createGlobalItem"
           onClick={onClick}
+          href={href}
           theme={getCreateButtonTheme(theme)}
           testId={testId && `${testId}-button`}
           data-hide-on-smallscreens
@@ -69,6 +71,7 @@ export const Create = ({
         testId={testId && `${testId}-icon-button`}
         icon={<AddIcon label={text} />}
         onClick={onClick}
+        href={href}
         tooltip={iconButtonTooltip}
         theme={getCreateButtonTheme(theme)}
         aria-label={text}

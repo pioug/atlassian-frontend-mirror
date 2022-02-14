@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "marks": [
+        {
+          "type": "link",
+          "attrs": {
+            "href": "https://www.gnu.org"
+          }
+        }
+      ],
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 184,
+            "height": 60
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "marks": [
+        {
+          "type": "link",
+          "attrs": {
+            "href": "https://www.gnu.org"
+          }
+        }
+      ],
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 184,
+            "height": 60
+          },
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://www.google.com/"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "marks": [
+        {
+          "type": "link",
+          "attrs": {
+            "href": "https://www.gnu.org"
+          }
+        },
+        {
+          "type": "unsupportedBlock"
+        }
+      ],
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 184,
+            "height": 60
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "marks": [
+        {
+          "type": "unsupportedBlock"
+        }
+      ],
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 184,
+            "height": 60
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 184,
+            "height": 60
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "unsupportedBlock"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

@@ -78,4 +78,8 @@ export interface CommentProps {
    * Optional boolean to render any child comments at the same level as this comment
    */
   shouldRenderNestedCommentsInline?: boolean;
+  /**
+   * Optional semantic heading level to add to this comment (1, 2, 3 etc). Default is no heading
+   */
+  headingLevel?: string;
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 // TODO: remove this override behaviour for @atlaskit/icon-object
 export const IconObjectOverrides = `

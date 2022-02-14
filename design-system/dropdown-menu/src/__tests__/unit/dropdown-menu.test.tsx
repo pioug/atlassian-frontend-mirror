@@ -258,5 +258,47 @@ describe('dropdown menu', () => {
 
       expect(queryByTestId('ddm--content')).not.toBeInTheDocument();
     });
+
+    it('should generate a psuedorandom id to link the trigger and the popup if none was passed to it', () => {
+      const { getByTestId } = render(
+        <DropdownMenu trigger={'click to open'} isOpen testId="dropdown">
+          <DropdownItemGroup>
+            <DropdownItem>Move</DropdownItem>
+            <DropdownItem>Clone</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+      const ariaControls = getByTestId('dropdown--trigger').getAttribute(
+        'aria-controls',
+      );
+      const popupId = getByTestId('dropdown--content').getAttribute('id');
+
+      expect(ariaControls).toBe(popupId);
+    });
+
+    it('should generate a psuedorandom id to link the custom trigger and the popup if none was passed to it', () => {
+      const { getByTestId } = render(
+        <DropdownMenu
+          trigger={({ triggerRef, ...props }) => (
+            <Button ref={triggerRef} {...props} type="button" />
+          )}
+          isOpen
+          testId="dropdown"
+        >
+          <DropdownItemGroup>
+            <DropdownItem>Move</DropdownItem>
+            <DropdownItem>Clone</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+      const ariaControls = getByTestId('dropdown--trigger').getAttribute(
+        'aria-controls',
+      );
+      const popupId = getByTestId('dropdown--content').getAttribute('id');
+
+      expect(ariaControls).toBe(popupId);
+    });
   });
 });

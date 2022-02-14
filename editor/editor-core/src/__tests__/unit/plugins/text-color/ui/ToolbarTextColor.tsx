@@ -10,20 +10,17 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactWrapper } from 'enzyme';
-import Button from '@atlaskit/button/custom-theme-button';
 
 import {
   TextColorPluginState,
   pluginKey,
 } from '../../../../../plugins/text-color/pm-plugins/main';
 import Color from '../../../../../ui/ColorPalette/Color';
-import ColorPalette from '../../../../../ui/ColorPalette';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import {
   ToolbarTextColor,
   Props as ToolbarTextColorProps,
 } from '../../../../../plugins/text-color/ui/ToolbarTextColor';
-import { ShowMoreWrapper } from '../../../../../plugins/text-color/ui/ToolbarTextColor/styles';
 import { PaletteColor } from '../../../../../ui/ColorPalette/Palettes/type';
 import { createIntl } from 'react-intl-next';
 
@@ -37,21 +34,6 @@ function clickToolbarButton(
   toolbarTextColor: ReactWrapper<ToolbarTextColorProps>,
 ) {
   toolbarTextColor.find('button[aria-label="Text color"]').simulate('click');
-}
-
-/**
- * Simulate a click on the show more/less colours button.
- * @param toolbarTextColor ToolbarTextColor enzyme wrapper
- */
-function clickTogglePaletteButton(
-  toolbarTextColor: ReactWrapper<ToolbarTextColorProps>,
-) {
-  toolbarTextColor
-    .find(ShowMoreWrapper)
-    .find(Button)
-    .simulate('click', {
-      nativeEvent: { stopImmediatePropagation: function () {} },
-    });
 }
 
 /**
@@ -206,7 +188,6 @@ describe('ToolbarTextColor', () => {
           attributes: {
             experiment: 'editor.toolbarTextColor.moreColors',
             experimentGroup: 'control',
-            isShowingMoreColors: false,
             noSelect: false,
           },
           eventType: 'track',
@@ -226,7 +207,6 @@ describe('ToolbarTextColor', () => {
           attributes: {
             experiment: 'editor.toolbarTextColor.moreColors',
             experimentGroup: 'control',
-            isShowingMoreColors: false,
             noSelect: true,
           },
           eventType: 'track',
@@ -247,11 +227,10 @@ describe('ToolbarTextColor', () => {
           actionSubject: 'text',
           actionSubjectId: 'color',
           attributes: {
-            color: 'purple',
+            color: 'teal',
             experiment: 'editor.toolbarTextColor.moreColors',
             experimentGroup: 'control',
             isNewColor: false,
-            isShowingMoreColors: false,
           },
           eventType: 'track',
         }),
@@ -282,303 +261,6 @@ describe('ToolbarTextColor', () => {
 
     it('should render disabled ToolbarButton', () => {
       expect(toolbarTextColor.find(ToolbarButton).prop('disabled')).toBe(true);
-    });
-  });
-
-  describe('when showMoreColorsToggle is disabled', () => {
-    let pluginState: TextColorPluginState;
-
-    beforeEach(() => {
-      const { editorView } = editor(doc(p('text')));
-      pluginState = pluginKey.getState(editorView.state);
-      mockDispatchAnalytics.mockClear();
-      const intl = createIntl({ locale: 'en' });
-
-      toolbarTextColor = mountWithIntl(
-        <ToolbarTextColor
-          intl={intl}
-          pluginState={pluginState}
-          editorView={editorView}
-          showMoreColorsToggle={false}
-          dispatchAnalyticsEvent={mockDispatchAnalytics}
-        />,
-      );
-    });
-
-    it('should not show "more colors" button', () => {
-      clickToolbarButton(toolbarTextColor);
-
-      expect(toolbarTextColor.find(ShowMoreWrapper).find(Button).length).toBe(
-        0,
-      );
-    });
-  });
-
-  describe('when showMoreColorsToggle is enabled', () => {
-    let pluginState: TextColorPluginState;
-
-    beforeEach(() => {
-      const props = {
-        allowTextColor: {
-          allowMoreTextColors: true,
-        },
-      };
-      const { editorView } = editor(doc(p('text')), props);
-      pluginState = pluginKey.getState(editorView.state);
-      mockDispatchAnalytics.mockClear();
-      const intl = createIntl({ locale: 'en' });
-
-      toolbarTextColor = mountWithIntl(
-        <ToolbarTextColor
-          intl={intl}
-          pluginState={pluginState}
-          editorView={editorView}
-          showMoreColorsToggle
-          dispatchAnalyticsEvent={mockDispatchAnalytics}
-        />,
-      );
-    });
-
-    it('should show "more colors" button', () => {
-      clickToolbarButton(toolbarTextColor);
-
-      expect(toolbarTextColor.find(ShowMoreWrapper).find(Button).length).toBe(
-        1,
-      );
-    });
-
-    it('should show more colors when expanded', () => {
-      clickToolbarButton(toolbarTextColor);
-
-      const collapsedColorCount = toolbarTextColor
-        .find(ColorPalette)
-        .find(Color).length;
-
-      clickTogglePaletteButton(toolbarTextColor);
-
-      expect(
-        toolbarTextColor.find(ColorPalette).find(Color).length,
-      ).toBeGreaterThan(collapsedColorCount);
-    });
-
-    it('should show less colors when collapsed again', () => {
-      clickToolbarButton(toolbarTextColor);
-
-      const collapsedColorCount = toolbarTextColor
-        .find(ColorPalette)
-        .find(Color).length;
-
-      clickTogglePaletteButton(toolbarTextColor);
-
-      const expandedColorCount = toolbarTextColor.find(ColorPalette).find(Color)
-        .length;
-
-      clickTogglePaletteButton(toolbarTextColor);
-
-      expect(toolbarTextColor.find(ColorPalette).find(Color).length).toBe(
-        collapsedColorCount,
-      );
-      expect(
-        toolbarTextColor.find(ColorPalette).find(Color).length,
-      ).toBeLessThan(expandedColorCount);
-    });
-
-    it('should stay expanded when palette is shown again', () => {
-      expect(toolbarTextColor.state('isShowingMoreColors')).toBe(false);
-      // open toolbar
-      clickToolbarButton(toolbarTextColor);
-      expect(toolbarTextColor.state('isShowingMoreColors')).toBe(false);
-
-      // expand more colours
-      clickTogglePaletteButton(toolbarTextColor);
-
-      expect(toolbarTextColor.state('isShowingMoreColors')).toBe(true);
-
-      // close toolbar
-      clickToolbarButton(toolbarTextColor);
-
-      // open toolbar
-      clickToolbarButton(toolbarTextColor);
-      expect(toolbarTextColor.state('isShowingMoreColors')).toBe(true);
-    });
-
-    it('should create analytics when palette shown', () => {
-      clickToolbarButton(toolbarTextColor);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'opened',
-          actionSubject: 'toolbar',
-          actionSubjectId: 'color',
-          attributes: {
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            isShowingMoreColors: false,
-            noSelect: false,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics when palette opened and closed without selection', () => {
-      clickToolbarButton(toolbarTextColor);
-      clickToolbarButton(toolbarTextColor);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'closed',
-          actionSubject: 'toolbar',
-          actionSubjectId: 'color',
-          attributes: {
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            isShowingMoreColors: false,
-            noSelect: true,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics when palette opened, expanded and closed without selection', () => {
-      clickToolbarButton(toolbarTextColor);
-      clickTogglePaletteButton(toolbarTextColor);
-      clickToolbarButton(toolbarTextColor);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'closed',
-          actionSubject: 'toolbar',
-          actionSubjectId: 'color',
-          attributes: {
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            isShowingMoreColors: true,
-            noSelect: true,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics when show more colors clicked', () => {
-      clickToolbarButton(toolbarTextColor);
-      clickTogglePaletteButton(toolbarTextColor);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'opened',
-          actionSubject: 'toolbar',
-          actionSubjectId: 'color',
-          attributes: {
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            showLessButton: false,
-            showMoreButton: true,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics when palette opened, expanded, closed without selection and stay expanded when re-opened', () => {
-      clickToolbarButton(toolbarTextColor);
-      clickTogglePaletteButton(toolbarTextColor);
-      clickToolbarButton(toolbarTextColor);
-      clickToolbarButton(toolbarTextColor);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'opened',
-          actionSubject: 'toolbar',
-          actionSubjectId: 'color',
-          attributes: {
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            isShowingMoreColors: true,
-            noSelect: false,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics when show less colors clicked', () => {
-      clickToolbarButton(toolbarTextColor);
-      clickTogglePaletteButton(toolbarTextColor);
-      clickTogglePaletteButton(toolbarTextColor);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'closed',
-          actionSubject: 'toolbar',
-          actionSubjectId: 'color',
-          attributes: {
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            showLessButton: true,
-            showMoreButton: false,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics event when old color selected', () => {
-      const { palette } = pluginState;
-      const color = getColorFromPalette(palette, 2); // Teal
-
-      clickToolbarButton(toolbarTextColor);
-      clickColor(toolbarTextColor, color);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'formatted',
-          actionSubject: 'text',
-          actionSubjectId: 'color',
-          attributes: {
-            color: 'teal',
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            isNewColor: false,
-            isShowingMoreColors: false,
-          },
-          eventType: 'track',
-        }),
-      );
-    });
-
-    it('should create analytics event when new color selected', () => {
-      const { paletteExpanded = [] } = pluginState;
-      const color = getColorFromPalette(
-        paletteExpanded,
-        paletteExpanded.length - 1,
-      );
-
-      if (!color) {
-        throw new Error('Unable to find color');
-      }
-
-      clickToolbarButton(toolbarTextColor);
-      clickTogglePaletteButton(toolbarTextColor);
-      clickColor(toolbarTextColor, color);
-
-      expect(mockDispatchAnalytics).toHaveBeenCalledWith(
-        expect.objectContaining({
-          action: 'formatted',
-          actionSubject: 'text',
-          actionSubjectId: 'color',
-          attributes: {
-            color: 'light purple',
-            experiment: 'editor.toolbarTextColor.moreColors',
-            experimentGroup: 'subject',
-            isNewColor: true,
-            isShowingMoreColors: true,
-          },
-          eventType: 'track',
-        }),
-      );
     });
   });
 });

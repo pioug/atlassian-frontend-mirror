@@ -18,6 +18,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
 import SelectionStore from './internal/context/selection-store';
+import useGeneratedId from './internal/utils/use-generated-id';
 import type { DropdownMenuProps } from './types';
 
 const gridSize = gridSizeFn();
@@ -28,6 +29,13 @@ const spinnerContainerStyles = css({
   justifyContent: 'center',
 });
 const MAX_HEIGHT = `calc(100vh - ${gridSize * 2}px)`;
+const fallbackPlacements: PopupProps['fallbackPlacements'] = [
+  'bottom',
+  'bottom-end',
+  'right-start',
+  'left-start',
+  'auto',
+];
 
 /**
  * __Dropdown menu__
@@ -45,12 +53,13 @@ const DropdownMenu = (props: DropdownMenuProps) => {
     onOpenChange = noop,
     children,
     placement = 'bottom-start',
-    trigger: Trigger,
+    trigger,
     shouldFlip = true,
     isLoading = false,
     autoFocus = false,
     testId,
     statusLabel = 'Loading',
+    zIndex = layers.modal(),
   } = props;
   const [isLocalOpen, setLocalIsOpen] = useControlledState(
     isOpen,
@@ -94,55 +103,50 @@ const DropdownMenu = (props: DropdownMenuProps) => {
   };
   useKeydownEvent(handleDownArrow, isFocused);
 
-  const renderTrigger = (triggerProps: TriggerProps) => {
-    if (typeof Trigger === 'function') {
-      const { ref, ...providedProps } = triggerProps;
-      return (
-        <Trigger
-          {...providedProps}
-          {...bindFocus}
-          triggerRef={ref}
-          isSelected={isLocalOpen}
-          onClick={handleTriggerClicked}
-          testId={testId && `${testId}--trigger`}
-        />
-      );
-    }
-
-    return (
-      <Button
-        {...triggerProps}
-        {...bindFocus}
-        isSelected={isLocalOpen}
-        iconAfter={<ExpandIcon size="medium" label="expand" />}
-        onClick={handleTriggerClicked}
-        testId={testId && `${testId}--trigger`}
-      >
-        {Trigger}
-      </Button>
-    );
-  };
-
-  const fallbackPlacements: PopupProps['fallbackPlacements'] = [
-    'bottom',
-    'bottom-end',
-    'right-start',
-    'left-start',
-    'auto',
-  ];
+  const id = useGeneratedId();
 
   return (
     <SelectionStore>
       <Popup
+        id={isLocalOpen ? id : undefined}
         shouldFlip={shouldFlip}
         isOpen={isLocalOpen}
         onClose={handleOnClose}
-        zIndex={layers.modal()}
+        zIndex={zIndex}
         placement={placement}
         fallbackPlacements={fallbackPlacements}
         testId={testId && `${testId}--content`}
-        trigger={renderTrigger}
         shouldUseCaptureOnOutsideClick
+        trigger={(triggerProps: TriggerProps) => {
+          if (typeof trigger === 'function') {
+            const { ref, ...providedProps } = triggerProps;
+
+            return trigger({
+              ...providedProps,
+              ...bindFocus,
+              triggerRef: ref,
+              isSelected: isLocalOpen,
+              onClick: handleTriggerClicked,
+              testId: testId && `${testId}--trigger`,
+            });
+          }
+
+          return (
+            <Button
+              {...bindFocus}
+              ref={triggerProps.ref}
+              aria-controls={triggerProps['aria-controls']}
+              aria-expanded={triggerProps['aria-expanded']}
+              aria-haspopup={triggerProps['aria-haspopup']}
+              isSelected={isLocalOpen}
+              iconAfter={<ExpandIcon size="medium" label="expand" />}
+              onClick={handleTriggerClicked}
+              testId={testId && `${testId}--trigger`}
+            >
+              {trigger}
+            </Button>
+          );
+        }}
         content={({ setInitialFocusRef }) => (
           <FocusManager>
             <MenuWrapper

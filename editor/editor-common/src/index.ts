@@ -26,3 +26,5 @@ export type {
   MentionEventHandler, // temporarily keep for confluence
   SmartCardEventClickHandler, // temporarily keep for confluence
 } from './ui';
+
+export type { SafePlugin } from './safe-plugin';

@@ -16,4 +16,14 @@ export default defineMessages({
     defaultMessage: 'Cancel',
     description: 'Cancel button for floating toolbar confirmation modal.',
   },
+  floatingToolbarAriaLabel: {
+    id: 'fabric.editor.floatingToolbar.floatingToolbarAriaLabel',
+    defaultMessage: 'Floating Toolbar',
+    description: `a floating toolbar's aria label`,
+  },
+  floatingToolbarAnnouncer: {
+    id: 'fabric.editor.floatingToolbar.floatingToolbarAnnouncer',
+    defaultMessage: 'Floating toolbar controls have been opened',
+    description: `message that will be announced to screenreaders that the floating toolbar is opened`,
+  },
 });

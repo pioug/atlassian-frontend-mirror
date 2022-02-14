@@ -17,14 +17,6 @@
           "attrs": {
             "layout": "center"
           },
-          "marks": [
-            {
-              "type": "link",
-              "attrs": {
-                "href": "https://gnu.org"
-              }
-            }
-          ],
           "content": [
             {
               "type": "media",
@@ -34,7 +26,15 @@
                 "collection": "MediaServicesSample",
                 "width": 500,
                 "height": 500
-              }
+              },
+              "marks": [
+                {
+                  "type": "link",
+                  "attrs": {
+                    "href": "https://gnu.org"
+                  }
+                }
+              ]
             }
           ]
         },

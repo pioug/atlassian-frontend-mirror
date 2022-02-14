@@ -72,6 +72,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import macroPlugin, { setMacroProvider } from '../../../macro';
 import { EditorView } from 'prosemirror-view';
 import analyticsPlugin, { ACTION_SUBJECT_ID } from '../../../analytics';
+import { PastePluginOptions } from '../../index';
 
 import {
   GapCursorSelection,
@@ -140,10 +141,7 @@ describe('paste plugins', () => {
   let createAnalyticsEvent: jest.MockInstance<UIAnalyticsEvent, any>;
 
   interface PluginsOptions {
-    paste?: {
-      cardOptions?: CardOptions;
-      sanitizePrivateContent?: boolean;
-    };
+    paste?: PastePluginOptions;
     table?: TablePluginConfig;
     extensionProvider?: ExtensionProvider;
   }
@@ -190,8 +188,10 @@ describe('paste plugins', () => {
     }
 
     createAnalyticsEvent = createAnalyticsEventMock();
-    const pasteOptions = (pluginsOptions && pluginsOptions.paste) || {
+    const pasteOptions: PastePluginOptions = (pluginsOptions &&
+      pluginsOptions.paste) || {
       cardOptions: {},
+      plainTextPasteLinkification: false,
     };
     const tableOptions = (pluginsOptions && pluginsOptions.table) || {};
     const wrapper = createEditor({
@@ -288,6 +288,7 @@ describe('paste plugins', () => {
           const { editorView } = editor(doc(p('this is {<>}')), {
             paste: {
               sanitizePrivateContent: true,
+              plainTextPasteLinkification: false,
             },
           });
           dispatchPasteEvent(editorView, {
@@ -308,6 +309,7 @@ describe('paste plugins', () => {
           const { editorView } = editor(doc(p('this is {<>}')), {
             paste: {
               sanitizePrivateContent: false,
+              plainTextPasteLinkification: false,
             },
           });
           dispatchPasteEvent(editorView, {
@@ -574,7 +576,7 @@ describe('paste plugins', () => {
       const presentationSpanWrappedImageHTML = `<meta charset='utf-8'><p data-renderer-start-pos="1" style="margin: 0px; padding: 0px; font-size: 14px; line-height: 1.714; font-weight: 400; letter-spacing: -0.005em; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><strong data-renderer-mark="true">Milestones </strong>(<span data-emoji-id="1f49a" data-emoji-short-name=":green_heart:" data-emoji-text="💚"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":green_heart:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/1f49a.png" alt=":green_heart:" data-emoji-short-name=":green_heart:" data-emoji-id="1f49a" data-emoji-text="💚" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = On track,<span data-emoji-id="26a0" data-emoji-short-name=":warning:" data-emoji-text="⚠"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":warning:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/26a0.png" alt=":warning:" data-emoji-short-name=":warning:" data-emoji-id="26a0" data-emoji-text="⚠" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = At risk,<span data-emoji-id="1f534" data-emoji-short-name=":red_circle:" data-emoji-text="🔴"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":red_circle:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/1f534.png" alt=":red_circle:" data-emoji-short-name=":red_circle:" data-emoji-id="1f534" data-emoji-text="🔴" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = Off track,<span data-emoji-id="2705" data-emoji-short-name=":white_check_mark:" data-emoji-text="✅"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":white_check_mark:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/2705.png" alt=":white_check_mark:" data-emoji-short-name=":white_check_mark:" data-emoji-id="2705" data-emoji-text="✅" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> = Completed)</p><ul class="ak-ul" data-indent-level="1" style="margin: 12px 0px 0px; padding: 0px 0px 0px 24px; box-sizing: border-box; list-style-type: disc; display: flow-root; color: rgb(23, 43, 77); font-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><li><p data-renderer-start-pos="70" style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em;">​<span data-emoji-id="2705" data-emoji-short-name=":white_check_mark:" data-emoji-text="✅"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":white_check_mark:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/2705.png" alt=":white_check_mark:" data-emoji-short-name=":white_check_mark:" data-emoji-id="2705" data-emoji-text="✅" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> Completed project definition </p></li><li style="margin-top: 4px;"><p data-renderer-start-pos="116" style="margin: 0px; padding: 0px; font-size: 1em; line-height: 1.714; font-weight: normal; letter-spacing: -0.005em;">​<span data-emoji-id="2705" data-emoji-short-name=":white_check_mark:" data-emoji-text="✅"><span class="f14svvg8 emoji-common-node emoji-common-emoji-image" aria-label=":white_check_mark:" style="background-color: transparent; border-radius: 5px; display: inline-block; margin: -1px 0px; vertical-align: middle;"><span role="presentation"><img loading="lazy" src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/standard/a51a7674-8d5d-4495-a2d2-a67c090f5c3b/32x32/2705.png" alt=":white_check_mark:" data-emoji-short-name=":white_check_mark:" data-emoji-id="2705" data-emoji-text="✅" class="emoji" width="20" height="20" style="margin: 0px; padding: 0px; border: 0px; display: block; visibility: visible;"></span></span></span> Completed project</p></li></ul>`;
       const wrappedMediaInTableHTML = `<meta charset='utf-8'><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-dc605362-7fff-99d0-604f-9d37acd6f416"><div dir="ltr" style="margin-left:0pt;" align="left"><table data-table-local-id=${TABLE_LOCAL_ID} style="border:none;border-collapse:collapse;width:468pt;table-layout:fixed"><colgroup><col /><col /><col /></colgroup><tr style="height:0pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Funny</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 194px; height: 108px"><img src="https://lh4.googleusercontent.com/9lblWb7GLsczlSZQXUmuyJ9MLe-D8i19B1ITI-fdjV7bDMHzKWL5STuYhFTnOGJxfNa5HrWCgbQ35fr_ZMcZGpKX83ZWcSSeNAhOMVur7M1Ww3UOkWR64BDy1r-4atSedbwGCwyK" width="194" height="108" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Cat</span></p></td></tr><tr style="height:23pt"><td style="border-left:solid #000000 1pt;border-right:solid #000000 1pt;border-bottom:solid #000000 1pt;border-top:solid #000000 1pt;vertical-align:top;padding:5pt 5pt 5pt 5pt;overflow:hidden;overflow-wrap:break-word;"></td></tr></table></div></b>`;
       const mediaFromMicrosoftWord = `<meta charset='utf-8' xmlns:w="urn:schemas-microsoft-com:office:word"><meta charset="utf-8"><b style="font-weight:normal;" id="docs-internal-guid-36f8577a-7fff-ef0c-fd08-949e2fc1b66b"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Hello this is some text</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;"><span style="border: none; display: inline-block; overflow: hidden; width: 604px; height: 398px"><img src="https://lh5.googleusercontent.com/dnPAozzy3eYppgqEafLiZl3zzWYCrrzfwKCZiQ8nyYGeB9us9npuOVj48tM1VotqVlGriXQG2x2iYnbOVxsE54vkFErZs3n-6yYlZA8nRpu3Bt2DWhEoa8pFOkiMJHHGYrYhfLkg" width="604" height="398" style="margin-left: 0px; margin-top: 0px;" /></span></span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">And this is some more text</span></p></b><br class="Apple-interchange-newline">`;
-
+      const wrappedMediaInTableCellsFromTinyMCE = `<meta charset="utf-8" /><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><th class="confluenceTh mceSelected">c</th><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected"><div class="content-wrapper"><p><img class="confluence-embedded-image confluence-thumbnail" title="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" data-linked-resource-default-alias="some-photo.png" data-linked-resource-container-id="248651555" data-linked-resource-container-version="5" data-attachment-copy="" height="150" data-location="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" border="0" data-linked-resource-id="1393104613" src="https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-linked-resource-version="1" data-linked-resource-type="attachment" data-unresolved-comment-count="0" data-linked-resource-content-type="image/png" data-media-type="file" data-media-id="821a8389-2305-4281-9523-f309723ef356" data-base-url="https://hello.atlassian.net/wiki" data-image-width="608" data-image-src="https://hello.atlassian.net/wiki/download/attachments/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-image-height="344" /></p></div></td><td class="confluenceTd mceSelected">f</td>`;
       // dev.to nested structure
       it('hoists nested media nodes in the clipboard html', () => {
         const { editorView } = editor(doc(p('{<>}')));
@@ -657,7 +659,6 @@ describe('paste plugins', () => {
                 url: `https://www.biorbyt.com/pub/media/wysiwyg/MAPK_signaling_pathway.jpg`,
               })(),
             ),
-            p(),
             p(
               `Six subfamilies of MAPKs have been extensively characterized in mammalian cells: ERK1/2, JNKs, ERK 3, p38s, ERK5 and ERK 7/8. Transmission of signals`,
             ),
@@ -808,6 +809,39 @@ describe('paste plugins', () => {
             ),
           ),
         );
+      });
+
+      // confluence TinyMCE tables with images use case
+      it('should not hoist images that are direct descendants of table cells coming from confluence TinyMCE', () => {
+        uuid.setStatic(TABLE_LOCAL_ID);
+        const { editorView } = editor(doc(p('{<>}')));
+        dispatchPasteEvent(editorView, {
+          html: wrappedMediaInTableCellsFromTinyMCE,
+          types: ['x-tinymce/html'],
+        });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p('a')), th()(p('b')), th()(p('c'))),
+              tr(
+                td()(p('d')),
+                td()(
+                  mediaSingle()(
+                    media({
+                      __external: true,
+                      alt: '',
+                      type: 'external',
+                      url:
+                        'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                    })(),
+                  ),
+                ),
+                td()(p('f')),
+              ),
+            ),
+          ),
+        );
+        uuid.setStatic(false);
       });
     });
 
@@ -1747,6 +1781,7 @@ describe('paste plugins', () => {
       );
       return {
         paste: {
+          plainTextPasteLinkification: false,
           cardOptions: {
             provider: cardProvider,
             ...cardOptions,
@@ -1872,6 +1907,7 @@ describe('paste plugins', () => {
               'Hello world',
               inlineCard({
                 url: 'https://jdog.jira-dev.com/browse/BENTO-3677',
+                localId: 'testId',
               })(),
               ' ',
             ),
@@ -2059,6 +2095,349 @@ describe('paste plugins', () => {
           ),
         );
       });
+
+      describe('pasted from confluence tinyMCE editor', () => {
+        beforeEach(() => {
+          uuid.setStatic(TABLE_LOCAL_ID);
+        });
+        afterEach(() => {
+          uuid.setStatic(false);
+        });
+
+        const onlyTableHeadersAndCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><th class="confluenceTh mceSelected">c</th><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected">e</td><td class="confluenceTd mceSelected">f</td><td class="confluenceTd mceSelected">g</td><td class="confluenceTd mceSelected">h</td><td class="confluenceTd mceSelected">i</td>`;
+        const onlyTableHeadersAndCellsWithIncompleteRowFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><th class="confluenceTh mceSelected">c</th><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected">e</td><td class="confluenceTd mceSelected">f</td> <td class="confluenceTd mceSelected">g</td>`;
+        const onlyTableHeadersAndCellsFromTinyMCENonConfluence = onlyTableHeadersAndCellsFromTinyMCEConfluence.replace(
+          /confluenceTh|confluenceTd|confluenceTable/g,
+          '',
+        );
+        const onlyTableHeadersCellsDoubleHeaderRowFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh">ha</th><th class="confluenceTh">ha</th><th class="confluenceTh">ha</th><th class="confluenceTh" colspan="1" width="">hb</th><th class="confluenceTh" colspan="1" width="">hb</th><th class="confluenceTh" colspan="1" width="">hb</th><td class="confluenceTd">a</td><td class="confluenceTd">a</td><td class="confluenceTd">a</td><td class="confluenceTd">b</td><td class="confluenceTd">b</td><td class="confluenceTd">b</td>`;
+        const onlyTableCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><td class="confluenceTd mceSelected">a</td><td class="confluenceTd mceSelected">a</td><td class="confluenceTd mceSelected" colspan="1" width="">a</td><td class="confluenceTd mceSelected">b</td><td class="confluenceTd mceSelected">b</td><td class="confluenceTd mceSelected" colspan="1" width="">b</td><td class="confluenceTd mceSelected">c</td><td class="confluenceTd mceSelected">c</td><td class="confluenceTd mceSelected" colspan="1" width="">c</td>`;
+        const onlyTableHeadersAfterCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><td class="confluenceTd mceSelected">a</td><th class="confluenceTd mceSelected">b</th><td class="confluenceTd mceSelected">c</td>`;
+        const onlyTableHeadersAndCellsAndRowFromTinyMCEConfluence = `<meta charset="utf-8" /><tr><td>extra row</td></tr><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><td class="confluenceTd mceSelected">c</td><td class="confluenceTd mceSelected">d</td>`;
+        const onlyTableHeadersAndCellsWithNestedInsertedMediaFromTinyMCEConfluence = `<meta charset='utf-8'><th class="confluenceTh mceSelected">a</th><th class="confluenceTh mceSelected">b</th><th class="confluenceTh mceSelected">c</th><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected"><div class="content-wrapper"><p><img class="confluence-embedded-image confluence-thumbnail" title="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" data-linked-resource-default-alias="some-photo.png" data-linked-resource-container-id="248651555" data-linked-resource-container-version="5" data-attachment-copy="" height="150" data-location="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" border="0" data-linked-resource-id="1393104613" src="https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-linked-resource-version="1" data-linked-resource-type="attachment" data-unresolved-comment-count="0" data-linked-resource-content-type="image/png" data-media-type="file" data-media-id="821a8389-2305-4281-9523-f309723ef356" data-base-url="https://hello.atlassian.net/wiki" data-image-width="608" data-image-src="https://hello.atlassian.net/wiki/download/attachments/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-image-height="344" /></p></div></td><td class="confluenceTd mceSelected">f</td><td class="confluenceTd mceSelected" colspan="1" width="">g</td><td class="confluenceTd mceSelected" colspan="1" width="">h</td><td class="confluenceTd mceSelected" colspan="1" width="">i</td>`;
+        const onlyTableHeadersAndCellsWithNestedCopiedMediaFromTinyMCEConfluence = `<meta charset='utf-8'><td class="confluenceTd mceSelected">a</td><td class="confluenceTd mceSelected" colspan="1" width="">a</td><td class="confluenceTd mceSelected">b</td><td class="confluenceTd mceSelected" colspan="1" width="">b</td><td class="confluenceTd mceSelected"><img class="confluence-embedded-image confluence-thumbnail" title="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" data-linked-resource-default-alias="some-photo.png" data-linked-resource-container-id="248651555" data-linked-resource-container-version="5" data-attachment-copy="" height="150" data-location="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" border="0" data-linked-resource-id="1393104613" src="https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-linked-resource-version="1" data-linked-resource-type="attachment" data-unresolved-comment-count="0" data-linked-resource-content-type="image/png" data-media-type="file" data-media-id="821a8389-2305-4281-9523-f309723ef356" data-base-url="https://hello.atlassian.net/wiki" data-image-width="608" data-image-src="https://hello.atlassian.net/wiki/download/attachments/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-image-height="344" /></td><td class="confluenceTd mceSelected" colspan="1" width="">c</td><td class="confluenceTd mceSelected">d</td><td class="confluenceTd mceSelected" colspan="1" width="">d</td><td class="confluenceTd mceSelected" colspan="1" width="">e</td><td class="confluenceTd mceSelected" colspan="1" width=""><img class="confluence-embedded-image confluence-thumbnail" title="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" data-linked-resource-default-alias="some-photo.png" data-linked-resource-container-id="248651555" data-linked-resource-container-version="5" data-attachment-copy="" height="150" data-location="Product Management Craft &gt; APM presenter hit list &gt; some-photo.png" border="0" data-linked-resource-id="1393104613" src="https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-linked-resource-version="1" data-linked-resource-type="attachment" data-unresolved-comment-count="0" data-linked-resource-content-type="image/png" data-media-type="file" data-media-id="821a8389-2305-4281-9523-f309723ef356" data-base-url="https://hello.atlassian.net/wiki" data-image-width="608" data-image-src="https://hello.atlassian.net/wiki/download/attachments/248651555/some-photo.png?version=1&amp;modificationDate=1635802112476&amp;cacheVersion=1&amp;api=v2" data-image-height="344" /></td><td class="confluenceTd mceSelected" colspan="1" width="">f</td><td class="confluenceTd mceSelected" colspan="1" width="">f</td>`;
+        const onlyTableHeadersAndMergedCellsFromTinyMCEConfluence = `<meta charset="utf-8" /><th class="confluenceTh mceSelected"><br /></th><th class="confluenceTh mceSelected"><br /></th><td class="confluenceTd mceSelected" colspan="2"><br /></td>`;
+        const completeTableAndElementsAboveFromTinyMCEConfluence = `<meta charset="utf-8" /><p class="auto-cursor-target">outside above</p><table class="confluenceTable"><colgroup><col /><col /></colgroup><tbody><tr><th class="confluenceTh">a</th><th class="confluenceTh">b</th></tr><tr><td class="confluenceTd">c</td><td class="confluenceTd">d</td></tr></tbody></table>`;
+        const completeTableAndElementsBelowFromTinyMCEConfluence = `<meta charset="utf-8" /><table class="confluenceTable"><tbody><tr><th class="confluenceTh">a</th><th class="confluenceTh">b</th></tr><tr><td class="confluenceTd">c</td><td class="confluenceTd">d</td></tr></tbody></table><p class="auto-cursor-target">outside below</p>`;
+        const completeTableAndElementsAboveAndBelowFromTinyMCEConfluence = `<meta charset="utf-8" /><p class="auto-cursor-target">outside above</p><table class="confluenceTable"><colgroup><col /><col /></colgroup><tbody><tr><th class="confluenceTh">a</th><th class="confluenceTh">b</th></tr><tr><td class="confluenceTd">c</td><td class="confluenceTd">d</td></tr></tbody></table><p class="auto-cursor-target">outside below</p>`;
+
+        it('should try to reconstruct table rows when only top-level <th> and <td> elements copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndCellsFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p('a')), th()(p('b')), th()(p('c'))),
+                tr(td()(p('d')), td()(p('e')), td()(p('f'))),
+                tr(td()(p('g')), td()(p('h')), td()(p('i'))),
+              ),
+            ),
+          );
+        });
+
+        it('should NOT try to reconstruct table rows when <th> exists after <td> (complex table configuration) when copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAfterCellsFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td()(p('a')), th()(p('b')), td()(p('c'))),
+              ),
+            ),
+          );
+        });
+
+        it('should allow other editor paste logic to fill out uneven table rows when <th>, <td> and <tr> elements are copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndCellsAndRowFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td()(p()), td()(p()), td()(p()), td()(p('extra row'))),
+                tr(th()(p('a')), th()(p('b')), td()(p('c')), td()(p('d'))),
+              ),
+            ),
+          );
+        });
+
+        it('should try to reconstruct table rows when only top-level <th> and <td> elements (with nested media added by insertion e.g. images) copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndCellsWithNestedInsertedMediaFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p('a')), th()(p('b')), th()(p('c'))),
+                tr(
+                  td()(p('d')),
+                  td()(
+                    mediaSingle()(
+                      media({
+                        __external: true,
+                        alt: '',
+                        type: 'external',
+                        url:
+                          'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                      })(),
+                    ),
+                  ),
+                  td()(p('f')),
+                ),
+                tr(td()(p('g')), td()(p('h')), td()(p('i'))),
+              ),
+            ),
+          );
+        });
+
+        it('should try to reconstruct table rows when only top-level <th> and <td> elements (with nested media added by copying from media on-page e.g. images) copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndCellsWithNestedCopiedMediaFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td()(p('a'))),
+                tr(td()(p('a'))),
+                tr(td()(p('b'))),
+                tr(td()(p('b'))),
+                tr(
+                  td()(
+                    mediaSingle()(
+                      media({
+                        __external: true,
+                        alt: '',
+                        type: 'external',
+                        url:
+                          'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                      })(),
+                    ),
+                  ),
+                ),
+                tr(td()(p('c'))),
+                tr(td()(p('d'))),
+                tr(td()(p('d'))),
+                tr(td()(p('e'))),
+                tr(
+                  td()(
+                    mediaSingle()(
+                      media({
+                        __external: true,
+                        alt: '',
+                        type: 'external',
+                        url:
+                          'https://hello.atlassian.net/wiki/download/thumbnails/248651555/some-photo.png?version=1&modificationDate=1635802112476&cacheVersion=1&api=v2',
+                      })(),
+                    ),
+                  ),
+                ),
+                tr(td()(p('f'))),
+                tr(td()(p('f'))),
+              ),
+            ),
+          );
+        });
+
+        it('should try to fill out incomplete table rows when reconstructing table rows, when only top-level <th> and <td> elements copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndCellsWithIncompleteRowFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p('a')), th()(p('b')), th()(p('c'))),
+                tr(td()(p('d')), td()(p('e')), td()(p('f'))),
+                tr(td()(p('g')), td()(p()), td()(p())),
+              ),
+            ),
+          );
+        });
+
+        it('should construct longest possible <th> row when reconstructing table rows when only top-level <th> and <td> cells copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersCellsDoubleHeaderRowFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(
+                  th()(p('ha')),
+                  th()(p('ha')),
+                  th()(p('ha')),
+                  th()(p('hb')),
+                  th()(p('hb')),
+                  th()(p('hb')),
+                ),
+                tr(
+                  td()(p('a')),
+                  td()(p('a')),
+                  td()(p('a')),
+                  td()(p('b')),
+                  td()(p('b')),
+                  td()(p('b')),
+                ),
+              ),
+            ),
+          );
+        });
+
+        it('should construct a single row table (previous default behaviour) when top-level <th> and <td> cells copied from non-confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndCellsFromTinyMCENonConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(
+                  th()(p('a')),
+                  th()(p('b')),
+                  th()(p('c')),
+                  td()(p('d')),
+                  td()(p('e')),
+                  td()(p('f')),
+                  td()(p('g')),
+                  td()(p('h')),
+                  td()(p('i')),
+                ),
+              ),
+            ),
+          );
+        });
+
+        it('should construct a single row table (previous default behaviour) when top-level <th> and merged <td> cells copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableHeadersAndMergedCellsFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p()), th()(p()), td({ colspan: 2 })(p())),
+              ),
+            ),
+          );
+        });
+
+        it('should construct a single column table when only top-level <td> cells copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: onlyTableCellsFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(td()(p('a'))),
+                tr(td()(p('a'))),
+                tr(td()(p('a'))),
+                tr(td()(p('b'))),
+                tr(td()(p('b'))),
+                tr(td()(p('b'))),
+                tr(td()(p('c'))),
+                tr(td()(p('c'))),
+                tr(td()(p('c'))),
+              ),
+            ),
+          );
+        });
+
+        it('should construct a complete table (previous default behaviour) when <table> with elements above (e.g. paragraphs) copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: completeTableAndElementsAboveFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('outside above'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p('a')), th()(p('b'))),
+                tr(td()(p('c')), td()(p('d'))),
+              ),
+            ),
+          );
+        });
+
+        it('should construct a complete table (previous default behaviour) when <table> with elements below (e.g. paragraphs) copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: completeTableAndElementsBelowFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p('a')), th()(p('b'))),
+                tr(td()(p('c')), td()(p('d'))),
+              ),
+              p('outside below'),
+            ),
+          );
+        });
+
+        it('should construct a complete table (previous default behaviour) when <table> with elements above and below (e.g. paragraphs) copied from confluence tinyMCE editor', () => {
+          const { editorView } = editor(doc(p('{<>}')));
+
+          dispatchPasteEvent(editorView, {
+            html: completeTableAndElementsAboveAndBelowFromTinyMCEConfluence,
+            types: ['x-tinymce/html'],
+          });
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(
+              p('outside above'),
+              table({ localId: TABLE_LOCAL_ID })(
+                tr(th()(p('a')), th()(p('b'))),
+                tr(td()(p('c')), td()(p('d'))),
+              ),
+              p('outside below'),
+            ),
+          );
+        });
+      });
     });
 
     describe('when pasted list where openStart > openEnd', () => {
@@ -2138,6 +2517,7 @@ describe('paste plugins', () => {
         ),
       );
     });
+
     describe('cell with background color', () => {
       const html = `<meta charset='utf-8'><table data-table-local-id=${TABLE_LOCAL_ID} data-number-column="false" data-layout="default" data-autosize="false" data-pm-slice="1 1 []"><tbody><tr><th class="pm-table-header-content-wrap"><p></p></th></tr><tr><td style="background-color: #ffebe6;" class="pm-table-cell-content-wrap"><p></p></td></tr></tbody></table>`;
 

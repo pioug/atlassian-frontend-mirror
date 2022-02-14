@@ -1,9 +1,9 @@
-import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { useEditorContext } from '../../ui/EditorContext';
 import type { FeatureFlags } from '../../types/feature-flags';
-
-export const pluginKey = new PluginKey('featureFlagsContextPlugin');
+import { pluginKey } from './plugin-key';
 
 const featureFlagsContextPlugin = (
   featureFlags: FeatureFlags = {},
@@ -14,7 +14,7 @@ const featureFlagsContextPlugin = (
       {
         name: 'featureFlagsContext',
         plugin: () =>
-          new Plugin({
+          new SafePlugin({
             key: pluginKey,
             state: {
               init: (): FeatureFlags => ({ ...featureFlags }),

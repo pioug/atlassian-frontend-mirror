@@ -1,17 +1,20 @@
 /** @jsx jsx */
 
-import { ComponentType, memo, useMemo, useRef } from 'react';
+import { ComponentType, CSSProperties, memo, useRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
+import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
-import { itemStyles, itemWrapperStyles } from '../internal/styles';
 import { BreadcrumbsItemProps } from '../types';
 
 import Step from './internal/step';
 import useOverflowable from './internal/use-overflowable';
+
+const gridSizeUnit = gridSize();
+const height = (gridSize() * 3) / fontSize();
 
 const AKTooltip = lazyForPaint(
   () =>
@@ -20,6 +23,37 @@ const AKTooltip = lazyForPaint(
     ),
   { ssr: false },
 ) as ComponentType<TooltipProps>;
+
+const itemWrapperStyles = css({
+  display: 'flex',
+  boxSizing: 'border-box',
+  maxWidth: '100%',
+  height: `${height}em`,
+  margin: 0,
+  padding: 0,
+  flexDirection: 'row',
+  lineHeight: `${height}em`,
+  '&:not(:last-child)::after': {
+    width: gridSizeUnit,
+    padding: `0 ${gridSizeUnit}px`,
+    flexShrink: 0,
+    content: '"/"',
+    textAlign: 'center',
+  },
+});
+
+const VAR_STEP_TRUNCATION_WIDTH = '--max-width';
+
+const staticItemWithTruncationStyles = css({
+  maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH})`,
+  fontWeight: 400,
+});
+
+const staticItemWithoutTruncationStyles = css({
+  minWidth: 0,
+  flexShrink: 1,
+  fontWeight: 400,
+});
 
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -33,9 +67,21 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
     hasOverflow: showTooltip,
   };
 
-  const styles = useMemo(() => itemStyles(truncationWidth), [truncationWidth]);
+  // Note: cast to `any` is required to type verification - see https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
+  const dynamicItemStyles: CSSProperties = {
+    [VAR_STEP_TRUNCATION_WIDTH as any]: `${truncationWidth}px`,
+  };
+
   const step = (
-    <Step {...buttonProps} css={styles}>
+    <Step
+      {...buttonProps}
+      css={
+        truncationWidth
+          ? staticItemWithTruncationStyles
+          : staticItemWithoutTruncationStyles
+      }
+      style={dynamicItemStyles}
+    >
       {text}
     </Step>
   );

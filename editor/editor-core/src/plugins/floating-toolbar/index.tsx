@@ -1,11 +1,11 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-  Plugin,
   PluginKey,
   Selection,
   EditorState,
-  Transaction,
+  ReadonlyTransaction,
   AllSelection,
 } from 'prosemirror-state';
 import { findDomRefAtPos, findSelectedNodeOfType } from 'prosemirror-utils';
@@ -363,13 +363,13 @@ function floatingToolbarPluginFactory(options: {
     return relevantConfig;
   };
 
-  const apply = (tr: Transaction, pluginState: any) => {
+  const apply = (tr: ReadonlyTransaction, pluginState: any) => {
     const newPluginState = { getConfigWithNodeInfo };
     dispatch(pluginKey, newPluginState);
     return newPluginState;
   };
 
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init: () => {

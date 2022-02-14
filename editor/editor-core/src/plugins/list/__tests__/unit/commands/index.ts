@@ -156,22 +156,22 @@ describe('lists plugin -> commands', () => {
         doc(
           ol(
             li(p('A'),
-            ol(
-              li(p('B'),
               ol(
-                li(p('C'),
-                ol(
-                  li(p('D'),
+                li(p('B'),
                   ol(
-                    li(p('E'),
-                    ol(
-                      li(p('F1')),
-                      li(p('{<>}F2')),
-                    )),
+                    li(p('C'),
+                      ol(
+                        li(p('D'),
+                          ol(
+                            li(p('E'),
+                              ol(
+                                li(p('F1')),
+                                li(p('{<>}F2')),
+                              )),
+                          )),
+                      )),
                   )),
-                )),
               )),
-            )),
           ),
         ),
       );
@@ -323,6 +323,84 @@ describe('lists plugin -> commands', () => {
               layoutColumn({ width: 50 })(ul(li(p()))),
               layoutColumn({ width: 50 })(p()),
             ),
+          ),
+        ),
+      );
+    });
+
+    it('should merge paragraph and list after', () => {
+      // prettier-ignore
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('a')),
+            li(p('b')),
+            li(p('c'))
+          ),
+          p('{<}text'),
+          ol(
+            li(p('1')),
+            li(p('2')),
+            li(p('3{>}'))
+          ),
+        ),
+      );
+
+      const { state, dispatch } = editorView;
+
+      toggleList(INPUT_METHOD.TOOLBAR, 'orderedList')(state, dispatch);
+
+      // prettier-ignore
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('a')),
+            li(p('b')),
+            li(p('c'))
+          ),
+          ol(
+            li(p('text')),
+            li(p('1')),
+            li(p('2')),
+            li(p('3'))
+          ),
+        ),
+      );
+    });
+
+    it('should merge list and paragraph and list after if all the same type', () => {
+      // prettier-ignore
+      const { editorView } = editor(
+        doc(
+          ul(
+            li(p('a')),
+            li(p('b')),
+            li(p('c'))
+          ),
+          p('{<}text'),
+          ol(
+            li(p('1')),
+            li(p('2')),
+            li(p('3{>}'))
+          ),
+        ),
+      );
+
+      const { state, dispatch } = editorView;
+
+      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(state, dispatch);
+
+      // prettier-ignore
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          ul(
+            li(p('a')),
+            li(p('b')),
+            li(p('c')),
+            li(p('text')),
+            li(p('1')),
+            li(p('2')),
+            li(p('3')),
           ),
         ),
       );

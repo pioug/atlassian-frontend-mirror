@@ -15,7 +15,7 @@ import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import { RichMediaLayout, uuid } from '@atlaskit/adf-schema';
 import { SelectionBasedNodeView } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
@@ -386,6 +386,13 @@ export type EmbedCardNodeViewProps = Pick<
 >;
 
 export class EmbedCard extends SelectionBasedNodeView<EmbedCardNodeViewProps> {
+  init() {
+    super.init();
+    // localId exists to distinguish between different smart cards for the purpose of analytics
+    this.node.attrs.localId = this.node.attrs.localId || uuid.generate();
+    return this;
+  }
+
   viewShouldUpdate(nextNode: PMNode) {
     if (this.node.attrs !== nextNode.attrs) {
       return true;

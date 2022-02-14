@@ -1,9 +1,10 @@
-import { PluginKey, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { Dispatch } from '../../../event-dispatcher';
 
 export const focusStateKey = new PluginKey('focusStatePlugin');
 export default (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     key: focusStateKey,
     state: {
       init: () => true,

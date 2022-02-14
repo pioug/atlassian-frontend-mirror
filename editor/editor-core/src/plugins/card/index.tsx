@@ -6,6 +6,7 @@ import { floatingToolbar } from './toolbar';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { cardKeymap } from './pm-plugins/keymap';
 
 const cardPlugin = (
   options: CardOptions & {
@@ -37,7 +38,8 @@ const cardPlugin = (
       const allowBlockCards = options.allowBlockCards ?? true;
       const allowResizing = options.allowResizing ?? true;
       const useAlternativePreloader = options.useAlternativePreloader ?? true;
-      return [
+
+      const plugins = [
         {
           name: 'card',
           plugin: createPlugin({
@@ -48,6 +50,15 @@ const cardPlugin = (
           }),
         },
       ];
+
+      plugins.push({
+        name: 'cardKeymap',
+        plugin: ({ featureFlags }) => {
+          return cardKeymap(featureFlags);
+        },
+      });
+
+      return plugins;
     },
 
     contentComponent({ editorView }) {

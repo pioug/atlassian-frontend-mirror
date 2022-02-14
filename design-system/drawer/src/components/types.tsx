@@ -37,6 +37,9 @@ export interface BaseProps {
   overrides?: OverridesType;
 }
 
+/**
+ * @deprecated Please avoid using this type as we intend to remote it in a future release. See DSP-2673 for more information.
+ */
 export type DefaultsType = {
   Sidebar: {
     component: React.ComponentType<SidebarProps>;
@@ -48,6 +51,9 @@ export type DefaultsType = {
   };
 };
 
+/**
+ * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+ */
 export type OverridesType = {
   Sidebar?: {
     component?: React.ComponentType<SidebarProps>;
@@ -59,19 +65,31 @@ export type OverridesType = {
   };
 };
 
+/**
+ * @deprecated Please avoid using this type as we intend to remote it in a future release. See DSP-2673 for more information.
+ */
 export type DrawerPrimitiveDefaults = Pick<DefaultsType, 'Sidebar' | 'Content'>;
+/**
+ * @deprecated Please avoid using this type as we intend to remote it in a future release. See DSP-2673 for more information.
+ */
 export type DrawerPrimitiveOverrides = Pick<
   OverridesType,
   'Sidebar' | 'Content'
 >;
 
 export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
+  /**
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+   */
   cssFn: (defaultStyles: CSSObject) => CSSObject;
 }
 
 export type SidebarCSSProps = Omit<SidebarProps, 'cssFn'>;
 
 export interface ContentProps extends React.HTMLProps<HTMLDivElement> {
+  /**
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+   */
   cssFn: (defaultStyles: CSSObject) => CSSObject;
 }
 

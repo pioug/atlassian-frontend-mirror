@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import { ReadonlyTransaction } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 import {
   InsertTypeAheadStep,
@@ -72,7 +72,7 @@ export const createReducer = ({
   const findHandler = createFindHandler(typeAheadHandlers);
 
   type OpenMenuProps = {
-    tr: Transaction;
+    tr: ReadonlyTransaction;
     triggerHandler: TypeAheadHandler;
     inputMethod: TypeAheadInputMethod;
     reopenQuery?: string;
@@ -124,7 +124,7 @@ export const createReducer = ({
   };
 
   return (
-    tr: Transaction,
+    tr: ReadonlyTransaction,
     currentPluginState: TypeAheadPluginState,
     typeAheadStepOverride: InsertTypeAheadStep | null,
   ): TypeAheadPluginState => {

@@ -66,6 +66,7 @@ const CheckboxField: FC<CheckboxProps> = (props) => {
 
   return value !== undefined ? (
     <Field<any>
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
       defaultValue={defaultValue}
       transform={(event, currentValue: string[]) =>
@@ -87,6 +88,7 @@ const CheckboxField: FC<CheckboxProps> = (props) => {
     </Field>
   ) : (
     <Field<any>
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
       defaultValue={defaultIsChecked}
       transform={(event) => event.currentTarget.checked}

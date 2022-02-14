@@ -26,6 +26,8 @@ import ColorPickerButton from '../../../ui/ColorPickerButton';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { EmojiPickerButton } from './EmojiPickerButton';
 import Announcer from '../../../utils/announcer/announcer';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import messages from './messages';
 
 const akGridSize = gridSize();
 
@@ -163,7 +165,7 @@ export const areSameItems = (
   return leftArr.every((item, index) => isSameItem(rightArr[index], item));
 };
 
-export default class Toolbar extends Component<Props> {
+class Toolbar extends Component<Props & WrappedComponentProps> {
   render() {
     const {
       items,
@@ -177,6 +179,7 @@ export default class Toolbar extends Component<Props> {
       node,
       extensionsProvider,
       providerFactory,
+      intl,
     } = this.props;
     if (!items || !items.length) {
       return null;
@@ -187,12 +190,12 @@ export default class Toolbar extends Component<Props> {
 
     return (
       <ToolbarContainer
-        aria-label="Floating Toolbar"
+        aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}
         hasCompactLeftPadding={firstElementIsSelect}
         className={className}
       >
         <Announcer
-          text="Floating toolbar controls have been opened"
+          text={intl.formatMessage(messages.floatingToolbarAnnouncer)}
           delay={250}
         />
         <ButtonGroup>
@@ -235,6 +238,7 @@ export default class Toolbar extends Component<Props> {
                       testId={item.testId}
                       hideTooltipOnClick={item.hideTooltipOnClick}
                       ariaHasPopup={item.ariaHasPopup}
+                      tabIndex={item.tabIndex}
                     >
                       {item.showTitle && item.title}
                     </Button>
@@ -369,3 +373,5 @@ export default class Toolbar extends Component<Props> {
     );
   }
 }
+
+export default injectIntl(Toolbar);

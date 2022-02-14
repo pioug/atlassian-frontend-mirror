@@ -1,9 +1,9 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import { keymap } from '../../../utils/keymap';
 import { redoFromKeyboard, undoFromKeyboard } from '../commands';
 
-export function keymapPlugin(): Plugin {
+export function keymapPlugin(): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(

@@ -26,8 +26,8 @@ export interface TimeRangeState {
 }
 
 export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
-  wrapperElement?: HTMLElement;
-  thumbElement?: HTMLElement;
+  thumbElement = React.createRef<HTMLDivElement>();
+  wrapperElement = React.createRef<HTMLDivElement>();
 
   wrapperElementWidth: number = 0;
 
@@ -52,11 +52,11 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
   }
 
   private setWrapperWidth = () => {
-    if (!this.wrapperElement) {
+    if (!this.wrapperElement.current) {
       return;
     }
 
-    this.wrapperElementWidth = this.wrapperElement.getBoundingClientRect().width;
+    this.wrapperElementWidth = this.wrapperElement.current.getBoundingClientRect().width;
   };
 
   onMouseMove = (e: MouseEvent) => {
@@ -134,19 +134,6 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
     onChange(currentTime);
   };
 
-  private saveWrapperElement = (el?: HTMLElement) => {
-    if (el) {
-      this.wrapperElement = el;
-      this.setWrapperWidth();
-    }
-  };
-
-  private saveThumbElement = (el?: HTMLElement) => {
-    if (el) {
-      this.thumbElement = el;
-    }
-  };
-
   render() {
     const { isDragging } = this.state;
     const {
@@ -164,10 +151,10 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
         showAsActive={isAlwaysActive}
         onMouseDown={this.onThumbMouseDown}
       >
-        <TimeLine innerRef={this.saveWrapperElement}>
+        <TimeLine ref={this.wrapperElement}>
           <BufferedTime style={{ width: `${bufferedTimePercentage}%` }} />
           <CurrentTimeLine style={{ width: `${currentPosition}%` }}>
-            <Thumb innerRef={this.saveThumbElement}>
+            <Thumb ref={this.thumbElement}>
               {disableThumbTooltip ? null : (
                 <CurrentTimeTooltip
                   draggable={false}

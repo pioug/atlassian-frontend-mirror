@@ -31,6 +31,7 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
     children,
     ...props
   }) => {
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     return <span {...props}>{children}</span>;
   };
 

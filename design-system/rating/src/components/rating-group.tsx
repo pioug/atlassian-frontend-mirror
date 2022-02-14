@@ -1,8 +1,11 @@
+/* eslint-disable @atlaskit/design-system/use-visually-hidden */
 /** @jsx jsx */
 import { Children, cloneElement, Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
+// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { visuallyHidden } from '@atlaskit/theme/constants';
 
 export interface RatingGroupProps {

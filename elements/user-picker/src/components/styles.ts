@@ -40,43 +40,40 @@ export const getStyles = memoizeOne(
           ...css,
           width,
           borderColor: state.isFocused
-            ? token('color.border.neutral', css.borderColor)
+            ? token('color.border', css.borderColor)
             : state.selectProps.subtle || state.selectProps.noBorder
             ? 'transparent'
-            : token('color.border.neutral', N40),
+            : token('color.border', N40),
           backgroundColor: state.isFocused
-            ? token('color.background.default', css['backgroundColor'])
+            ? token('elevation.surface', css['backgroundColor'])
             : state.selectProps.subtle
             ? 'transparent'
             : state.selectProps.textFieldBackgroundColor
-            ? token('color.background.subtleBorderedNeutral.resting', N10)
-            : token('color.background.subtleNeutral.resting', N20),
+            ? token('color.background.input', N10)
+            : token('color.background.neutral', N20),
           '&:hover .fabric-user-picker__clear-indicator': { opacity: 1 },
           ':hover': {
             ...css[':hover'],
             borderColor: state.isFocused
               ? css[':hover']
-                ? token('color.border.focus', css[':hover'].borderColor)
-                : token('color.border.focus', B100)
+                ? token('color.border.focused', css[':hover'].borderColor)
+                : token('color.border.focused', B100)
               : state.selectProps.subtle
               ? state.selectProps.hoveringClearIndicator
-                ? token('color.iconBorder.danger', R50)
-                : token('color.border.neutral', N30)
-              : token('color.border.neutral', N40),
+                ? token('color.icon.danger', R50)
+                : token('color.border', N30)
+              : token('color.border', N40),
             backgroundColor:
               state.selectProps.subtle &&
               state.selectProps.hoveringClearIndicator
-                ? token('color.background.subtleDanger.resting', R50)
+                ? token('color.background.danger', R50)
                 : state.isFocused
                 ? css[':hover']
-                  ? token(
-                      'color.background.default',
-                      css[':hover'].backgroundColor,
-                    )
-                  : token('color.background.default', N0)
+                  ? token('elevation.surface', css[':hover'].backgroundColor)
+                  : token('elevation.surface', N0)
                 : state.isDisabled
                 ? token('color.background.disabled', N10)
-                : token('color.background.default', N30),
+                : token('elevation.surface', N30),
           },
           padding: 0,
           minHeight: isCompact ? 'none' : 44,
@@ -193,12 +190,12 @@ export const getStyles = memoizeOne(
         paddingLeft: isMulti ? 0 : AVATAR_PADDING,
         '& input::placeholder': {
           /* Chrome, Firefox, Opera, Safari 10.1+ */
-          color: token('color.text.lowEmphasis', N100),
+          color: token('color.text.subtlest', N100),
           opacity: 1 /* Firefox */,
         },
         '& input:-ms-input-placeholder': {
           /* Internet Explorer 10-11 */
-          color: token('color.text.lowEmphasis', N100),
+          color: token('color.text.subtlest', N100),
         },
       }),
     };

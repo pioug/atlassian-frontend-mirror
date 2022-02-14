@@ -1,4 +1,5 @@
-import { Plugin, EditorState, TextSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { PMPluginFactoryParams } from '../../../types';
 import { clipboardPluginKey } from '../plugin-key';
@@ -25,7 +26,7 @@ import {
 export const createPlugin = ({
   dispatchAnalyticsEvent,
 }: PMPluginFactoryParams) =>
-  new Plugin({
+  new SafePlugin({
     key: clipboardPluginKey,
     props: {
       handleDOMEvents: {

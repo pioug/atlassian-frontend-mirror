@@ -1,30 +1,6 @@
 import { createLogger } from '../helpers/utils';
-import { StepsPayload, CatchupResponse } from '../channel';
-import { CollabInitPayload } from '.';
+import type { CatchupOptions } from '../types';
 import { StepMap, Mapping, Step } from 'prosemirror-transform';
-import { Transaction } from 'prosemirror-state';
-
-export interface CatchupOptions {
-  getCurrentPmVersion: () => number;
-  fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>;
-  fitlerQueue: (condition: (stepsPayload: StepsPayload) => boolean) => void;
-  getUnconfirmedSteps: () =>
-    | {
-        version: number;
-        steps: Step<any>[];
-        clientID: string | number;
-        origins: Transaction<any>[];
-      }
-    | null
-    | undefined;
-  updateDocumentWithMetadata: ({
-    doc,
-    version,
-    metadata,
-    reserveCursor,
-  }: CollabInitPayload) => void;
-  applyLocalsteps: (steps: Step[]) => void;
-}
 
 const logger = createLogger('Catchup', 'red');
 

@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { Plugin, ReadonlyTransaction, Transaction } from 'prosemirror-state';
 
 import { handlePaste } from '../utils';
 import { drawCellSelection } from '../utils/draw-cell-selection';
@@ -20,7 +20,12 @@ import { tableEditingKey } from './plugin-key';
 // rather broadly, and other plugins, like the gap cursor or the
 // column-width dragging plugin, might want to get a turn first to
 // perform more specific behavior.
-export function tableEditing({ allowTableNodeSelection = false } = {}): Plugin {
+
+type PluginState = number | null;
+
+export function tableEditing({ allowTableNodeSelection = false } = {}): Plugin<
+  PluginState
+> {
   return new Plugin({
     key: tableEditingKey,
 
@@ -31,7 +36,8 @@ export function tableEditing({ allowTableNodeSelection = false } = {}): Plugin {
       init() {
         return null;
       },
-      apply(tr, cur) {
+      apply(unsafeTr: Transaction | ReadonlyTransaction, cur: PluginState) {
+        const tr = (unsafeTr as unknown) as ReadonlyTransaction;
         const set = tr.getMeta(tableEditingKey);
         if (set != null) {
           return set === -1 ? null : set;

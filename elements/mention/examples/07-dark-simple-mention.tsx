@@ -1,13 +1,13 @@
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import React from 'react';
 import { onMentionEvent } from '../example-helpers/index';
 import Mention from '../src/components/Mention';
 import { ELEMENTS_CHANNEL } from '../src/_constants';
 import debug from '../src/util/logger';
 import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 const padding = { padding: '10px' };
 
@@ -39,7 +39,7 @@ const handler = (
 export default function Example() {
   return (
     <IntlProvider locale="en">
-      <DeprecatedThemeProvider mode={'dark'} provider={StyledThemeProvider}>
+      <AtlaskitThemeProvider mode="dark">
         <div style={padding}>
           <AnalyticsListener
             onEvent={listenerHandler}
@@ -72,7 +72,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
-      </DeprecatedThemeProvider>
+      </AtlaskitThemeProvider>
     </IntlProvider>
   );
 }

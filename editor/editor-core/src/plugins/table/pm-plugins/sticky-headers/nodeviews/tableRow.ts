@@ -46,19 +46,20 @@ export class TableRowNodeView implements NodeView {
   getPos: () => number;
   eventDispatcher: EventDispatcher;
 
-  dom: HTMLTableRowElement;
+  dom: HTMLTableRowElement; // this is the sticky header table row
   contentDOM: HTMLElement;
 
   isHeaderRow: boolean;
-
-  scrollElement?: HTMLElement | Window;
+  editorScrollableElement?: HTMLElement | Window;
   colControlsOffset = 0;
   focused = false;
-  scrollElementTop = 0;
-  isSticky = false;
+  topPosEditorElement = 0;
+  isSticky: boolean;
+  isTableInit: boolean;
+  lastTimePainted: number;
+
   private intersectionObserver?: IntersectionObserver;
   private resizeObserver?: ResizeObserver;
-
   private stickyHeadersOptimization = false;
   private sentinels: {
     top?: HTMLElement | null;
@@ -87,8 +88,10 @@ export class TableRowNodeView implements NodeView {
     const featureFlags = getFeatureFlags(view.state) || {};
     const { stickyHeadersOptimization } = featureFlags;
     this.stickyHeadersOptimization = !!stickyHeadersOptimization;
-
+    this.lastTimePainted = 0;
     this.isHeaderRow = supportedHeaderRow(node);
+    this.isSticky = false;
+    this.isTableInit = false;
 
     if (this.isHeaderRow) {
       this.dom.setAttribute('data-header-row', 'true');
@@ -100,16 +103,16 @@ export class TableRowNodeView implements NodeView {
   listening = false;
 
   subscribe() {
-    this.scrollElement =
+    this.editorScrollableElement =
       findOverflowScrollParent(this.view.dom as HTMLElement) || window;
 
-    if (this.scrollElement) {
+    if (this.editorScrollableElement) {
       if (this.stickyHeadersOptimization) {
         this.initObservers();
       } else {
-        this.scrollElement.addEventListener('scroll', this.onScroll);
+        this.editorScrollableElement.addEventListener('scroll', this.onScroll);
       }
-      this.scrollElementTop = getTop(this.scrollElement);
+      this.topPosEditorElement = getTop(this.editorScrollableElement);
     }
 
     this.eventDispatcher.on(
@@ -138,8 +141,8 @@ export class TableRowNodeView implements NodeView {
       this.resizeObserver.disconnect();
     }
 
-    if (this.scrollElement && !this.stickyHeadersOptimization) {
-      this.scrollElement.removeEventListener('scroll', this.onScroll);
+    if (this.editorScrollableElement && !this.stickyHeadersOptimization) {
+      this.editorScrollableElement.removeEventListener('scroll', this.onScroll);
     }
 
     this.eventDispatcher.off(
@@ -263,7 +266,7 @@ export class TableRowNodeView implements NodeView {
           }
         });
       },
-      { root: this.scrollElement as Element },
+      { root: this.editorScrollableElement as Element },
     );
   }
   /* paint/update loop */
@@ -317,6 +320,13 @@ export class TableRowNodeView implements NodeView {
   paint = (tree: TableDOMElements) => {
     const { table, wrapper } = tree;
 
+    // If the previous refresh is less than 10ms then don't do anything.
+    // The jumpiness happen under that time and this is to avoid it.
+    const timelapse = Math.abs(performance.now() - this.lastTimePainted);
+    if (timelapse < 10) {
+      return;
+    }
+
     if (this.shouldHeaderStick(tree)) {
       this.makeHeaderRowSticky(tree);
     } else {
@@ -325,6 +335,7 @@ export class TableRowNodeView implements NodeView {
 
     // ensure scroll positions are locked
     this.dom.scrollLeft = wrapper.scrollLeft;
+    this.lastTimePainted = performance.now();
   };
 
   /* nodeview lifecycle */
@@ -412,6 +423,14 @@ export class TableRowNodeView implements NodeView {
       return;
     }
 
+    // make it non-sticky initially to avoid making it look separated
+    if (!this.isTableInit) {
+      if (this.tree) {
+        this.makeRowHeaderNotSticky(this.tree.table);
+        this.isTableInit = true;
+      }
+    }
+
     // when header rows are toggled off - mark sentinels as unobserved
     if (!state.isHeaderRowEnabled) {
       [this.sentinels.top, this.sentinels.bottom].forEach((el) => {
@@ -478,31 +497,48 @@ export class TableRowNodeView implements NodeView {
 
   shouldHeaderStick = (tree: TableDOMElements): boolean => {
     const { wrapper } = tree;
-    const scrollTop = this.scrollElementTop;
-    const refTop = this.getWrapperRefTop(wrapper);
-    const wrapperRect = wrapper.getBoundingClientRect();
+    const tableWrapperRect = wrapper.getBoundingClientRect();
+    const editorAreaRect = (this
+      .editorScrollableElement as HTMLElement).getBoundingClientRect();
 
-    // we don't have parent information in via the node,
-    // so we need to look this up on scroll
+    const stickyHeaderRect = this.contentDOM.getBoundingClientRect();
     const firstHeaderRow = !this.dom.previousElementSibling;
     const subsequentRows = !!this.dom.nextElementSibling;
+    const isHeaderValid = firstHeaderRow && subsequentRows;
 
-    const bottomVisible =
-      scrollTop - wrapperRect.bottom < this.dom.clientHeight;
+    // if the table wrapper is less than the editor top pos then make it sticky
+    // Make header sticky if table wrapper top is outside viewport
+    //  but bottom is still in the viewport.
+    if (
+      tableWrapperRect.top < editorAreaRect.top &&
+      tableWrapperRect.bottom > editorAreaRect.top &&
+      isHeaderValid
+    ) {
+      return true;
+    }
 
-    return (
-      refTop <= scrollTop && bottomVisible && firstHeaderRow && subsequentRows
-    );
+    // if the sticky header is below the editor area make it non-sticky
+    if (stickyHeaderRect.top > editorAreaRect.top) {
+      return false;
+    }
+
+    // otherwise make it non-sticky
+    return false;
   };
 
   makeHeaderRowSticky = (tree: TableDOMElements) => {
+    // If header row height is more than 50% of viewport height don't do this
+    if (this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2) {
+      return;
+    }
+
     const { table } = tree;
 
     const currentTableTop = this.getCurrentTableTop(tree);
     const domTop =
       currentTableTop > 0
-        ? this.scrollElementTop
-        : this.scrollElementTop + currentTableTop;
+        ? this.topPosEditorElement
+        : this.topPosEditorElement + currentTableTop;
 
     if (!this.isSticky) {
       syncStickyRowToTable(table);
@@ -517,21 +553,6 @@ export class TableRowNodeView implements NodeView {
 
     this.emitOn(domTop, this.colControlsOffset);
   };
-
-  getWrapperoffset = (inverse: boolean = false): number => {
-    const focusValue = inverse ? !this.focused : this.focused;
-    return focusValue ? 0 : tableControlsSpacing;
-  };
-
-  getWrapperRefTop = (wrapper: HTMLElement): number =>
-    Math.round(getTop(wrapper)) + this.getWrapperoffset();
-
-  // TODO: rename!
-  getScrolledTableTop = (wrapper: HTMLElement): number =>
-    this.getWrapperRefTop(wrapper) - this.scrollElementTop;
-
-  getCurrentTableTop = (tree: TableDOMElements): number =>
-    this.getScrolledTableTop(tree.wrapper) + tree.table.clientHeight;
 
   makeRowHeaderNotSticky = (
     table: HTMLElement,
@@ -552,6 +573,21 @@ export class TableRowNodeView implements NodeView {
 
     this.emitOff(isEditorDestroyed);
   };
+
+  getWrapperoffset = (inverse: boolean = false): number => {
+    const focusValue = inverse ? !this.focused : this.focused;
+    return focusValue ? 0 : tableControlsSpacing;
+  };
+
+  getWrapperRefTop = (wrapper: HTMLElement): number =>
+    Math.round(getTop(wrapper)) + this.getWrapperoffset();
+
+  // TODO: rename!
+  getScrolledTableTop = (wrapper: HTMLElement): number =>
+    this.getWrapperRefTop(wrapper) - this.topPosEditorElement;
+
+  getCurrentTableTop = (tree: TableDOMElements): number =>
+    this.getScrolledTableTop(tree.wrapper) + tree.table.clientHeight;
 
   /* emit external events */
 

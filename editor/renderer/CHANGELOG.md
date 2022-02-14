@@ -1,5 +1,70 @@
 # @atlaskit/renderer
 
+## 86.0.0
+
+### Major Changes
+
+- [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`9d1e0356622`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d1e0356622) - [ux] CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
+
+### Minor Changes
+
+- [`de207a6b8e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de207a6b8e0) - Fixed a bug in SSR where media components would resize due to MutationObserver not receiving all children in initial call.
+- [`49878ec3af4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49878ec3af4) - Add `smartLinks` prop to React Renderer component
+
+  ```
+  interface SmartLinksOptions {
+    ssr?: boolean;
+  }
+  ```
+
+  It contains a `ssr` field which when set to true will enable SSR support for smart links nodes
+
+  ```
+  <Renderer
+    smartLinks={{
+      ssr: true
+    }}
+  >
+  ```
+
+- [`9c9557fcdd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c9557fcdd8) - AK-279 Moved copy button outside of heading, that made heading accessible
+- [`bd283364aad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd283364aad) - Fixed a bug for SSR where some media components would be rendered in the incorrect size resulting in jumping components during hydration.
+
+### Patch Changes
+
+- [`439cf07029a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/439cf07029a) - ED-13881 Move @atlaskit/adf-schema test helpers to @atlaskit/editor-test-helpers
+
+  A new entry point for @atlaskit/editor-test-helpers/adf-schema has been
+  introduced. All test helpers that previously lived under @atlaskit/adf-schema
+  have been moved there instead.
+
+  Imports inside @atlaskit/adf-schema that previously relied on relative paths, or
+  imports from other packages that referred to @atlaskit/adf-schema/test-helpers,
+  should be updated to reference @atlaskit/editor-test-helpers/adf-schema instead.
+
+  Old usages:
+
+  ```
+  import { schema } from '../relative/path/to/test-helpers';
+  import { schema } from '@atlaskit/adf-schema/test-helpers';
+  ```
+
+  New usage:
+
+  ```
+  import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
+  ```
+
+- [`5293a48368e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5293a48368e) - fix image size in layout with ref and width observer
+- [`85bffe0fecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85bffe0fecb) - Removed portal prop from Mention node
+- [`85c4e5a71ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85c4e5a71ee) - [AK-837] added role prop for Status component
+- [`57f3b255fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57f3b255fb2) - [ux] AK-608: Action items are keyboard accessible
+- [`3b49ff824ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b49ff824ec) - ED-14043 update prosemirror schema to only allow link mark on children of paragraph and mediaSingle
+- [`16294b02fd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16294b02fd4) - CETI-242 Change the Color palette labels for panel
+- [`a36d06dee66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a36d06dee66) - [ux] Added intl tooling to all strings that were previously not using intl tooling. Should mean that more things are able to be translated. Also fixed the relevent tests to account for intl tooling.
+- Updated dependencies
+
 ## 85.0.0
 
 ### Major Changes

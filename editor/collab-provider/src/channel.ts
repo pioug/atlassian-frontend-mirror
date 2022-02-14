@@ -2,86 +2,23 @@ import { utils } from '@atlaskit/util-service-support';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Emitter } from './emitter';
 import { ErrorCodeMapper } from './error-code-mapper';
-import { Config, Socket } from './types';
+import type {
+  Config,
+  Socket,
+  ChannelEvent,
+  StepsPayload,
+  InitPayload,
+  TelepointerPayload,
+  CatchupResponse,
+  PresencePayload,
+  Metadata,
+  ErrorPayload,
+} from './types';
 import { createLogger } from './helpers/utils';
 import { startMeasure, stopMeasure } from './analytics/performance';
 import { triggerAnalyticsForCatchupSuccessfulWithLatency } from './analytics';
 
 const logger = createLogger('Channel', 'green');
-
-export interface Metadata {
-  [key: string]: string | number | boolean;
-}
-
-export type InitPayload = {
-  doc: any;
-  version: number;
-  userId?: string;
-  metadata?: Metadata;
-};
-
-export type PresencePayload = {
-  sessionId: string;
-  userId: string;
-  clientId: string;
-  timestamp: number;
-};
-
-export type TelepointerPayload = PresencePayload & {
-  selection: {
-    type: 'textSelection' | 'nodeSelection';
-    anchor: number;
-    head: number;
-  };
-};
-
-export type StepJson = {
-  from?: number;
-  to?: number;
-  stepType?: string;
-  clientId: string;
-  userId: string;
-};
-
-export type StepsPayload = {
-  version: number;
-  steps: StepJson[];
-};
-
-export type ErrorPayload = {
-  message: string;
-  data?: {
-    status: number;
-    code?: string;
-    meta?: string;
-  };
-};
-
-export type ChannelEvent = {
-  connected: {
-    sid: string;
-    initialized: boolean;
-  };
-  init: InitPayload;
-  reconnected: null;
-  'presence:joined': PresencePayload;
-  presence: PresencePayload;
-  'participant:left': PresencePayload;
-  'participant:telepointer': TelepointerPayload;
-  'participant:updated': PresencePayload;
-  'steps:commit': StepsPayload & { userId: string };
-  'steps:added': StepsPayload;
-  'metadata:changed': Metadata;
-  error: ErrorPayload;
-  disconnect: { reason: string };
-};
-
-export interface CatchupResponse {
-  doc?: string;
-  version?: number;
-  stepMaps?: any[];
-  metadata?: Metadata;
-}
 
 export class Channel extends Emitter<ChannelEvent> {
   private connected: boolean = false;

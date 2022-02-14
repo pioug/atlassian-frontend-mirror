@@ -19,7 +19,7 @@ export interface Props {
 }
 
 const advisedActionMessages: {
-  [key: string]: Formatter<{}>;
+  [key: string]: Formatter;
 } = {
   '401': LoginAgain,
   '403': DifferentText,
@@ -32,9 +32,7 @@ export default class MentionListError extends React.PureComponent<Props, {}> {
    *
    * @param error the error to be displayed
    */
-  private static getAdvisedActionMessage(
-    error: Error | undefined,
-  ): React.ComponentType<{}> {
+  private static getAdvisedActionMessage(error: Error | undefined): Formatter {
     if (error && error.hasOwnProperty('statusCode')) {
       const httpError = error as HttpError;
       return (

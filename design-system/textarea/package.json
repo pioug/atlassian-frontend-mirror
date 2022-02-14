@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "4.2.6",
+  "version": "4.3.0",
   "description": "A text area lets users enter long form text which spans over multiple lines.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/form": "^8.4.0",
+    "@atlaskit/form": "^8.5.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

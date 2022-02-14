@@ -1,5 +1,6 @@
 import { Schema } from 'prosemirror-model';
-import { Plugin, Transaction, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Transaction, EditorState } from 'prosemirror-state';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EventDispatcher, Dispatch } from '../event-dispatcher';
@@ -25,7 +26,7 @@ export type LightPMPluginFactoryParams = {
 };
 export type LightPMPluginFactory = (
   params: LightPMPluginFactoryParams,
-) => Plugin | undefined;
+) => SafePlugin | undefined;
 export type LightPMPlugin = {
   name: string;
   plugin: LightPMPluginFactory;

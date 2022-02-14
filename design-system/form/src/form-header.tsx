@@ -103,7 +103,7 @@ const FormHeader: React.FC<FormHeaderProps> = ({
       {description && (
         <FormHeaderDescription>{description}</FormHeaderDescription>
       )}
-      <FormHeaderContent>{children}</FormHeaderContent>
+      {children && <FormHeaderContent>{children}</FormHeaderContent>}
     </FormHeaderWrapper>
   );
 };

@@ -1,5 +1,6 @@
 import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
-import { EditorState, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationNodeView } from '../nodeviews';
@@ -123,7 +124,7 @@ const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
   const { provider, portalProviderAPI, eventDispatcher } = options;
 
-  return new Plugin({
+  return new SafePlugin({
     key: inlineCommentPluginKey,
     state: createPluginState(
       options.dispatch,

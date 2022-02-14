@@ -1,59 +1,44 @@
 import * as colors from '@atlaskit/theme/colors';
-import { createTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
-export interface ThemeTokensThumb {
-  background: string;
-  border?: string;
-}
+export const transitionDuration = '0.2s';
 
-export interface ThemeTokensTrack {
-  lower: string;
-  upper: string;
-}
-
-export interface ThemeTokens {
-  thumb: {
-    default: ThemeTokensThumb;
-    disabled: { boxShadow: string };
-    focus: ThemeTokensThumb;
-  };
-  track: {
-    default: ThemeTokensTrack;
-    disabled: ThemeTokensTrack;
-    hover: ThemeTokensTrack;
-  };
-}
+export const input = {
+  height: 40,
+};
 
 export const thumb = {
-  default: {
-    background: token('elevation.surface.raised', colors.N0),
+  size: 16,
+  borderWidth: 2,
+  background: token('elevation.surface.raised', colors.N0),
+  borderColor: {
+    default: 'transparent',
+    focused: token('color.border.focused', colors.B200),
   },
-  disabled: {
-    boxShadow: token('elevation.shadow.raised', `0 0 1px ${colors.N60A}`),
-  },
-  focus: {
-    background: token('color.background.neutral.bold', colors.N0),
-    border: token('color.border.focused', colors.B200),
+  boxShadow: {
+    default: token(
+      'elevation.shadow.overlay',
+      `0 4px 8px -2px ${colors.N50A}, 0 0 1px ${colors.N60A}`,
+    ),
+    disabled: token('elevation.shadow.raised', `0 0 1px ${colors.N60A}`),
   },
 };
 
 export const track = {
-  default: {
-    lower: token('color.background.brand.bold', colors.B400),
-    upper: token('color.background.neutral', colors.N30),
+  height: 4,
+  /**
+   * borderRadius >= height / 2 to create a pill shape.
+   * Using '50%' creates an ellipse.
+   */
+  borderRadius: 2,
+  background: {
+    default: token('color.background.neutral', colors.N30),
+    hovered: token('color.background.neutral.hovered', colors.N40),
+    disabled: token('color.background.disabled', colors.N30),
   },
-  disabled: {
-    lower: token('color.text.disabled', colors.N50),
-    upper: token('color.background.disabled', colors.N30),
-  },
-  hover: {
-    lower: token('color.background.brand.bold.hovered', colors.B300),
-    upper: token('color.background.neutral.hovered', colors.N40),
+  foreground: {
+    default: token('color.background.brand.bold', colors.B400),
+    hovered: token('color.background.brand.bold.hovered', colors.B300),
+    disabled: token('color.text.disabled', colors.N50),
   },
 };
-
-export const Theme = createTheme<ThemeTokens, any>(() => ({
-  thumb,
-  track,
-}));

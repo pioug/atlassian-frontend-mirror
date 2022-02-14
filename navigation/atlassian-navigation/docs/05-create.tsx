@@ -21,6 +21,14 @@ import { Create } from '@atlaskit/atlassian-navigation';
   )}
 
   ${(
+    <Example
+      title="Create as a link"
+      Component={require('../examples/create-with-link.tsx').default}
+      source={require('!!raw-loader!../examples/create-with-link.tsx')}
+    />
+  )}
+
+  ${(
     <Props
       heading="Props"
       props={require('!!extract-react-types-loader!../src/components/Create')}

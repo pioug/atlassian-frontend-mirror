@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { breakout } from '@atlaskit/adf-schema';
@@ -99,7 +99,7 @@ function shouldPluginStateUpdate(
 }
 
 function createPlugin({ dispatch, eventDispatcher }: PMPluginFactoryParams) {
-  return new Plugin({
+  return new SafePlugin({
     state: {
       init() {
         return {

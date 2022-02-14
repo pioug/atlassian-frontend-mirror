@@ -1,4 +1,4 @@
-import { schema } from '@atlaskit/adf-schema/test-helpers';
+import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
 import {
   DocBuilder,
   code_block,

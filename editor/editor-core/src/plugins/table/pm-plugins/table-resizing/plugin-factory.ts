@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import { ReadonlyTransaction } from 'prosemirror-state';
 
 import { pluginFactory } from '../../../../utils/plugin-state-factory';
 import { ColumnResizingPluginState } from '../../types';
@@ -7,7 +7,7 @@ import { pluginKey } from './plugin-key';
 import reducer from './reducer';
 
 function mapping(
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: ColumnResizingPluginState,
 ): ColumnResizingPluginState {
   if (pluginState && pluginState.resizeHandlePos !== null) {

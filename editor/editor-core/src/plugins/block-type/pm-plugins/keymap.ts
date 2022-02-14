@@ -2,7 +2,7 @@ import { chainCommands } from 'prosemirror-commands';
 import { undoInputRule } from 'prosemirror-inputrules';
 import { redo, undo } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import * as commands from '../../../commands';
 import * as blockTypes from '../types';
@@ -19,7 +19,7 @@ const tryUndoInputRuleElseUndoHistory = chainCommands(undoInputRule, undo);
 export default function keymapPlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin {
+): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -68,5 +68,5 @@ export default function keymapPlugin(
     );
   }
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }

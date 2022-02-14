@@ -1,6 +1,6 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import { shallow } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item from '@atlaskit/item';
 import DropdownMenu from '../../ui/DropdownMenu';
@@ -19,7 +19,8 @@ describe('<DropdownMenu />', () => {
         title: 'title without tooltip',
       },
     ];
-    const dropdownMenu = shallow(
+
+    const dropdownMenu = mountWithIntl(
       <DropdownMenu
         hide={jest.fn()}
         dispatchCommand={jest.fn()}

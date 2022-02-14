@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 0.6.1
+
+### Patch Changes
+
+- [`3ed3071ee35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ed3071ee35) - Updates elevation.surface.sunken base token in darkmode to DN-100A
+- Updated dependencies
+
 ## 0.6.0
 
 ### Minor Changes

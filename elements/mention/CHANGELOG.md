@@ -1,5 +1,23 @@
 # @atlaskit/mention
 
+## 20.0.0
+
+### Major Changes
+
+- [`ee723e753de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee723e753de) - [UR-3222]: Upgrade to intl v5. To consume Mentions, you will need a react-intl v5 intl provider
+
+### Minor Changes
+
+- [`0e32e4669ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e32e4669ae) - Internal changes to migrate package from 'styled-components' to @emotion. There should be no change to the UX.
+
+### Patch Changes
+
+- [`9ec7ba1a899`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9ec7ba1a899) - [ux] Add interaction state tokens to mention.
+- [`36d7a940820`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36d7a940820) - Async load heavy dependencies and assets for Mention and MentionItem
+- [`a6260fbc145`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6260fbc145) - Fix for ref not being provided back when using MentionPicker
+- [`112cd3a4024`](https://bitbucket.org/atlassian/atlassian-frontend/commits/112cd3a4024) - TeamMentionHighlight is now lazy loaded
+- Updated dependencies
+
 ## 19.9.6
 
 ### Patch Changes

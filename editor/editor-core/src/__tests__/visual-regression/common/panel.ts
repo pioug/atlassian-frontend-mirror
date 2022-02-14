@@ -237,6 +237,8 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.addYourOwnEmoji}`);
     await page.click(`${PanelSharedSelectors.emojiNameInCustomEmoji}`);
     await page.hover(`${PanelSharedSelectors.title}`);
+    await page.click(`${PanelSharedSelectors.emojiPopup} input`);
+    await waitForNoTooltip(page);
   });
 
   describe('with a duplicate short name, ', () => {

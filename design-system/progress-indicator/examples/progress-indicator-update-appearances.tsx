@@ -16,7 +16,9 @@ const footerStyles = css({
   justifyContent: 'space-between',
 });
 
-const Footer: FC = (props) => <footer css={footerStyles} {...props} />;
+const Footer: FC = ({ children }) => (
+  <footer css={footerStyles}>{children}</footer>
+);
 
 interface ExampleProps {
   selectedIndex: number;

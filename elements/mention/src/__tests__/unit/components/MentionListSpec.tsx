@@ -1,9 +1,8 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
-import { InjectedIntlProps } from 'react-intl';
 import MentionItem from '../../../components/MentionItem';
 import MentionList, { Props, State } from '../../../components/MentionList';
 import { isMentionItemSelected } from '../_test-helpers';
@@ -12,7 +11,7 @@ import { isMentionItemSelected } from '../_test-helpers';
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183
 describe('MentionList', () => {
   describe('MentionList without initial element', () => {
-    let component: ReactWrapper<Props & InjectedIntlProps, State>;
+    let component: ReactWrapper<Props, State>;
     let defaultMentionItemsShow: () => boolean;
     const setupList = (props?: Props) =>
       mountWithIntl<Props, State>(
@@ -146,7 +145,7 @@ describe('MentionList', () => {
   });
 
   describe('MentionList with initial highlight', () => {
-    let component: ReactWrapper<Props & InjectedIntlProps, State>;
+    let component: ReactWrapper<Props, State>;
     let defaultMentionItemsShow: () => boolean;
     const HighlightItem = (
       <div id="highlight">Initial highlight information</div>

@@ -44,6 +44,7 @@
   "devDependencies": {
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/logo": "^13.0.0",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/section-message": "^6.1.0",

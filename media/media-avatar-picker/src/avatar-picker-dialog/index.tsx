@@ -94,14 +94,19 @@ export class AvatarPickerDialog extends PureComponent<
    * Initialised with no-op function.  Is assigned cropped image exporting
    * function when internal ImageCropper mounts via this.onImageNavigatorLoad
    */
-  exportCroppedImage = () => '';
+  exportCroppedImage = (outputSize?: number) => '';
 
   onSaveClick = () => {
-    const { onImagePicked, onImagePickedDataURI, onAvatarPicked } = this.props;
+    const {
+      onImagePicked,
+      onImagePickedDataURI,
+      onAvatarPicked,
+      outputSize,
+    } = this.props;
     const { selectedImage, selectedAvatar } = this.state;
 
     if (selectedImage) {
-      const exportedCroppedImageURI = this.exportCroppedImage();
+      const exportedCroppedImageURI = this.exportCroppedImage(outputSize);
       if (onImagePicked) {
         onImagePicked(dataURItoFile(exportedCroppedImageURI), fixedCrop);
       }

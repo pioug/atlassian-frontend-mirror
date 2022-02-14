@@ -1,7 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import Select, { OptionsType } from '@atlaskit/select';
 import { N50A, N40A, N200 } from '@atlaskit/theme/colors';
-import styled from 'styled-components';
 
 import { CardAppearance } from '../../src';
 import { CardAuthFlowOpts } from '../../src/state/context/types';
@@ -35,13 +35,13 @@ const environmentOptions: OptionsType<EnvironmentOption> = [
   { label: 'Production', value: 'prod' },
 ];
 
-const MenuWrapper = styled.div`
+const menuWrapperStyles = css`
   display: flex;
   flex-direction: column;
   width: 240px;
   margin-right: 24px;
 `;
-const MenuTitle = styled.h6`
+const menuTitleStyles = css`
   margin-bottom: 8px;
   color: ${N200};
 `;
@@ -77,8 +77,8 @@ export const ShowcaseMenu = ({
         zIndex: 500,
       }}
     >
-      <MenuWrapper>
-        <MenuTitle>View Type</MenuTitle>
+      <div css={menuWrapperStyles}>
+        <h6 css={menuTitleStyles}>View Type</h6>
         <Select
           menuPosition="fixed"
           defaultValue={viewTypeOptions.find(
@@ -91,9 +91,9 @@ export const ShowcaseMenu = ({
             }
           }}
         />
-      </MenuWrapper>
-      <MenuWrapper>
-        <MenuTitle>Auth Flow</MenuTitle>
+      </div>
+      <div css={menuWrapperStyles}>
+        <h6 css={menuTitleStyles}>Auth Flow</h6>
         <Select
           menuPosition="fixed"
           defaultValue={authFlowOptions.find(
@@ -106,9 +106,9 @@ export const ShowcaseMenu = ({
             }
           }}
         />
-      </MenuWrapper>
-      <MenuWrapper>
-        <MenuTitle>Environment</MenuTitle>
+      </div>
+      <div css={menuWrapperStyles}>
+        <h6 css={menuTitleStyles}>Environment</h6>
         <Select
           menuPosition="fixed"
           defaultValue={environmentOptions.find(
@@ -121,9 +121,9 @@ export const ShowcaseMenu = ({
             }
           }}
         />
-      </MenuWrapper>
-      <MenuWrapper>
-        <MenuTitle>Entity</MenuTitle>
+      </div>
+      <div css={menuWrapperStyles}>
+        <h6 css={menuTitleStyles}>Entity</h6>
         <Select
           menuPosition="fixed"
           isMulti={true}
@@ -139,7 +139,7 @@ export const ShowcaseMenu = ({
           }}
           placeholder="Filter by entity..."
         />
-      </MenuWrapper>
+      </div>
     </div>
   );
 };

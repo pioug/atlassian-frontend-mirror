@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { onSelection, resourceProvider } from '../example-helpers';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
 import ResourcedMentionList from '../src/components/ResourcedMentionList';
@@ -55,17 +56,19 @@ export default class DemoResourcedMentionList extends React.Component<
     );
 
     return (
-      <div style={{ width: '400px', padding: '10px' }}>
-        <SearchTextInput
-          inputId="mention-input"
-          label="User search"
-          onChange={this.updateQuery}
-          onUp={this.handleInputUp}
-          onDown={this.handleInputDown}
-          onEnter={this.handleInputEnter}
-        />
-        {mentionList}
-      </div>
+      <IntlProvider locale="en">
+        <div style={{ width: '400px', padding: '10px' }}>
+          <SearchTextInput
+            inputId="mention-input"
+            label="User search"
+            onChange={this.updateQuery}
+            onUp={this.handleInputUp}
+            onDown={this.handleInputDown}
+            onEnter={this.handleInputEnter}
+          />
+          {mentionList}
+        </div>
+      </IntlProvider>
     );
   }
 }

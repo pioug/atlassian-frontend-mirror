@@ -31,6 +31,8 @@ import {
   ListItemActionsContext,
   UpdateListItemHeightContext,
 } from './DynamicHeightListItem';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { typeAheadListMessages } from '../messages';
 
 const ITEM_PADDING = 12;
 const LIST_ITEM_ESTIMATED_HEIGHT = ICON_HEIGHT + ITEM_PADDING * 2;
@@ -68,9 +70,16 @@ type TypeAheadListProps = {
   selectedIndex: number;
   onItemHover: OnSelectItem;
   onItemClick: (mode: SelectItemMode, index: number) => void;
-};
-export const TypeAheadList = React.memo(
-  ({ items, selectedIndex, onItemHover, onItemClick }: TypeAheadListProps) => {
+} & WrappedComponentProps;
+
+const TypeAheadListComponent = React.memo(
+  ({
+    items,
+    selectedIndex,
+    onItemHover,
+    onItemClick,
+    intl,
+  }: TypeAheadListProps) => {
     const listRef = useRef<List<TypeAheadItem[]>>() as React.MutableRefObject<
       List<TypeAheadItem[]>
     >;
@@ -171,7 +180,9 @@ export const TypeAheadList = React.memo(
         <ItemGroup
           role="listbox"
           aria-live="polite"
-          aria-label="TypeAhead results"
+          aria-label={intl.formatMessage(
+            typeAheadListMessages.typeAheadResultLabel,
+          )}
           aria-relevant="additions removals"
         >
           <ResizeObserverProvider>
@@ -202,5 +213,7 @@ export const TypeAheadList = React.memo(
     );
   },
 );
+
+export const TypeAheadList = injectIntl(TypeAheadListComponent);
 
 TypeAheadList.displayName = 'TypeAheadList';

@@ -1,3 +1,4 @@
+import type { Plugin } from 'prosemirror-state';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { sendTransaction } from '../../../events/send-transaction';
 import collabEditPlugin from '../../../';
@@ -29,7 +30,7 @@ describe('collab-edit: send-transaction.ts', () => {
   });
   let oldEditorState = EditorState.create({
     schema,
-    plugins: [pmPlugin!],
+    plugins: [pmPlugin! as Plugin],
   });
   let useNativePlugin = false;
 

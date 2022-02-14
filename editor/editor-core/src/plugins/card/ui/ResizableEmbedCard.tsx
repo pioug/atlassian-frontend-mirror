@@ -31,6 +31,7 @@ import {
   snapTo,
 } from '../../../ui/Resizer/utils';
 import { calcMediaPxWidth } from '../../../plugins/media/utils/media-single';
+import { EmbedSpacing } from './styled';
 
 type State = {
   offsetLeft: number;
@@ -387,28 +388,30 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     });
 
     return (
-      <Wrapper
-        layout={layout}
-        isResized={!!pctWidth}
-        containerWidth={containerWidth || DEFAULT_EMBED_CARD_WIDTH}
-        innerRef={(elem?: HTMLElement) => (this.wrapper = elem)}
-        fullWidthMode={fullWidthMode}
-      >
-        <Resizer
-          {...this.props}
-          width={initialWidth} // Starting or initial width of embed <iframe> itself.
-          enable={enable}
-          calcNewSize={this.calcNewSize}
-          snapPoints={this.calcSnapPoints()}
-          scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
-          highlights={this.highlights}
-          innerPadding={akEditorMediaResizeHandlerPaddingWide}
-          nodeType="embed"
+      <EmbedSpacing data-testid="resizable-embed-card-spacing">
+        <Wrapper
+          layout={layout}
+          isResized={!!pctWidth}
+          containerWidth={containerWidth || DEFAULT_EMBED_CARD_WIDTH}
+          innerRef={(elem?: HTMLElement) => (this.wrapper = elem)}
+          fullWidthMode={fullWidthMode}
         >
-          {children}
-          {this.getHeightDefiningComponent()}
-        </Resizer>
-      </Wrapper>
+          <Resizer
+            {...this.props}
+            width={initialWidth} // Starting or initial width of embed <iframe> itself.
+            enable={enable}
+            calcNewSize={this.calcNewSize}
+            snapPoints={this.calcSnapPoints()}
+            scaleFactor={!this.wrappedLayout && !this.insideInlineLike ? 2 : 1}
+            highlights={this.highlights}
+            innerPadding={akEditorMediaResizeHandlerPaddingWide}
+            nodeType="embed"
+          >
+            {children}
+            {this.getHeightDefiningComponent()}
+          </Resizer>
+        </Wrapper>
+      </EmbedSpacing>
     );
   }
 }

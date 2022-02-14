@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import React, { forwardRef, memo, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, memo, useRef, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import {
   UIAnalyticsEvent,
@@ -11,7 +11,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import GlobalTheme from '@atlaskit/theme/components';
 import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
 
-import { getStyles } from '../internal/styles';
+import { getColors } from '../internal/colors';
 import { BreadcrumbsProps } from '../types';
 
 import EllipsisItem from './ellipsis-item';
@@ -37,6 +37,13 @@ const noop = () => {};
 
 const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
 
+const breadcrumbStyles = css({
+  display: 'flex',
+  margin: 0,
+  padding: 0,
+  flexWrap: 'wrap',
+});
+
 const InnerBreadcrumbs = forwardRef(
   (props: ThemedBreadcrumbsProps, ref: React.Ref<any>) => {
     const {
@@ -61,6 +68,8 @@ const InnerBreadcrumbs = forwardRef(
     const isControlled = typeof isExpanded !== 'undefined';
     const isExpansionHandled = providedExpanse !== noop;
     const shouldExpand = isControlled ? isExpanded : expanded;
+
+    const { separatorColor } = getColors(mode);
 
     const focusFirstRevealed = () => {
       if (wrapperRef.current) {
@@ -134,7 +143,6 @@ const InnerBreadcrumbs = forwardRef(
       ];
     };
 
-    const breadcrumbStyles = useMemo(() => getStyles(mode), [mode]);
     const childrenArray = toArray(children);
     const shouldDisplayItems =
       shouldExpand || (maxItems && childrenArray.length <= maxItems);
@@ -145,7 +153,11 @@ const InnerBreadcrumbs = forwardRef(
 
     return (
       <nav aria-label={label} ref={mergeRefs([ref, wrapperRef])} tabIndex={-1}>
-        <ol data-testid={testId} css={breadcrumbStyles}>
+        <ol
+          data-testid={testId}
+          css={breadcrumbStyles}
+          style={{ color: separatorColor }}
+        >
           {breadcrumbsItems}
         </ol>
       </nav>

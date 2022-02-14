@@ -246,7 +246,9 @@ export const generateStoriesForEditableCards = () => {
                     status={status}
                     mediaItemType="file"
                     metadata={metadata}
-                    dataURI={dataURI}
+                    cardPreview={
+                      dataURI ? { dataURI, source: 'remote' } : undefined
+                    }
                     dimensions={useDimensions ? newDimensions : undefined}
                     actions={menuActions}
                     progress={progress}

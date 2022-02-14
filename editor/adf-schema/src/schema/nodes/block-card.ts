@@ -1,10 +1,12 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { uuid } from '../../utils/uuid';
 
 export interface UrlType {
   /**
    * @validatorFn safeUrl
    */
   url: string;
+  localId?: string;
 }
 
 export interface DataType {
@@ -12,6 +14,7 @@ export interface DataType {
    * @additionalProperties true
    */
   data: object;
+  localId?: string;
 }
 
 export type CardAttributes = UrlType | DataType;
@@ -32,6 +35,7 @@ export const blockCard: NodeSpec = {
   attrs: {
     url: { default: null },
     data: { default: null },
+    localId: { default: '' },
   },
   parseDOM: [
     {
@@ -47,6 +51,7 @@ export const blockCard: NodeSpec = {
         return {
           url: anchor.getAttribute('href') || null,
           data: data ? JSON.parse(data) : null,
+          localId: uuid.generate(),
         };
       },
     },
@@ -61,6 +66,7 @@ export const blockCard: NodeSpec = {
         return {
           url: anchor.getAttribute('data-card-url') || null,
           data: data ? JSON.parse(data) : null,
+          localId: uuid.generate(),
         };
       },
     },

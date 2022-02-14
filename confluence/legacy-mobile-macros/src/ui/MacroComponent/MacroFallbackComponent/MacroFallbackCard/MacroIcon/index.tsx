@@ -4,6 +4,8 @@ import AkEditorAddonIcon from '@atlaskit/icon/glyph/editor/addon';
 import AkOverviewIcon from '@atlaskit/icon/glyph/overview';
 import { JiraIcon as AkJiraIcon } from '@atlaskit/logo';
 
+import { LineChartIcon } from '../../../../../common/ui';
+
 export const macroIcon = (
   iconUrl: string,
   extensionKey: string,
@@ -15,6 +17,9 @@ export const macroIcon = (
 
     case 'jira':
       return <AkJiraIcon label={title} size="small" />;
+
+    case 'chart:default':
+      return <LineChartIcon />;
   }
 
   if (!iconUrl) {

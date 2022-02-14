@@ -13,6 +13,7 @@ const PopupMenuGroup = ({
   minWidth = 320,
   ...rest
 }: MenuGroupProps) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <MenuGroup maxWidth={maxWidth} minWidth={minWidth} {...rest} />
 );
 

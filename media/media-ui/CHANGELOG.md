@@ -1,5 +1,21 @@
 # @atlaskit/media-ui
 
+## 19.0.0
+
+### Major Changes
+
+- [`09a6d800330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09a6d800330) - Remove `fadeInKeyframe` export
+
+### Minor Changes
+
+- [`da72247beeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da72247beeb) - remove styled-components from media-ui
+- [`a5cabf7f670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5cabf7f670) - CustomMediaPlayer accepts poster property
+- [`beb3969bd64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/beb3969bd64) - [ux] Change the media floating toolbar view switcher dropdown text to Change view
+
+### Patch Changes
+
+- [`2b2425c9758`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b2425c9758) - [ux] Fixed Icon and Title padding for media inline component
+
 ## 18.1.1
 
 ### Patch Changes

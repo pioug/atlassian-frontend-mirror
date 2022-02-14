@@ -19,6 +19,7 @@ import { LongPressSelectionPluginOptions } from '../selection/types';
 
 interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
+  appearance?: EditorProps['appearance'];
 }
 
 const expandPlugin = (options: ExpandPluginOptions = {}): EditorPlugin => ({
@@ -36,7 +37,12 @@ const expandPlugin = (options: ExpandPluginOptions = {}): EditorPlugin => ({
       {
         name: 'expand',
         plugin: ({ dispatch, getIntl }) => {
-          return createPlugin(dispatch, getIntl, options.useLongPressSelection);
+          return createPlugin(
+            dispatch,
+            getIntl,
+            options.appearance,
+            options.useLongPressSelection,
+          );
         },
       },
       {

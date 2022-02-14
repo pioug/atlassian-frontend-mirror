@@ -1,7 +1,8 @@
 import { Match } from '@atlaskit/adf-schema';
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Schema } from 'prosemirror-model';
-import { Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 import { LinkMatcher, normalizeUrl } from '../utils';
 import { queueCards } from '../../card/pm-plugins/actions';
@@ -61,7 +62,7 @@ export function createInputRulePlugin(
   schema: Schema,
   skipAnalytics: boolean = false,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (!schema.marks.link) {
     return;
   }

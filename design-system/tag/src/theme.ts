@@ -1,10 +1,9 @@
 import * as colors from '@atlaskit/theme/colors';
-import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import { ChromeColors, ChromeLinkColors, TagColor } from './types';
+import { defaultBorderRadius, defaultRoundedBorderRadius } from './constants';
 
-const textColors = {
+export const textColors = {
   standard: {
     light: token('color.text', colors.N700),
     dark: token('color.text', colors.DN600),
@@ -61,7 +60,7 @@ const textColors = {
   greyLight: { light: colors.N500, dark: colors.N500 },
 };
 
-const backgroundColors = {
+export const backgroundColors = {
   standard: {
     light: token('color.background.neutral', colors.N20),
     dark: token('color.background.neutral', colors.DN100A),
@@ -100,7 +99,7 @@ const backgroundColors = {
   greyLight: { light: colors.N30, dark: colors.N30 },
 };
 
-const linkBackgroundColorHover = {
+export const linkHoverBackgroundColors = {
   standard: {
     light: token('color.background.neutral.hovered', colors.N30),
     dark: token('color.background.neutral.hovered', colors.DN60),
@@ -123,154 +122,37 @@ const linkBackgroundColorHover = {
   /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 };
 
-const focusRingColorObj = {
+export const focusRingColors = {
   light: token('color.border.focused', colors.B100),
   dark: token('color.border.focused', colors.B75),
 };
 
-const focusBoxShadowColorObj = {
-  light: token('color.border.focused', colors.B100),
-  dark: token('color.border.focused', colors.B75),
-};
-
-const linkHoverColorObj = {
+export const linkHoverTextColors = {
   light: token('color.link.pressed', colors.B300),
   dark: token('color.link.pressed', colors.B200),
 };
 
-const getTextColor = (tagColor: TagColor, mode: ThemeModes): string => {
-  const color = tagColor ? tagColor : 'standard';
-  return textColors[color][mode];
+export const linkActiveBackgroundColors = {
+  light: token('color.background.neutral.pressed', colors.N30),
+  dark: token('color.background.neutral.pressed', colors.DN600),
 };
 
-const getLinkBackgroundColorHover = (
-  tagColor: TagColor,
-  mode: ThemeModes,
-): string => {
-  const color = tagColor ? tagColor : 'standard';
-  return linkBackgroundColorHover[color][mode];
+export const borderRadius = {
+  default: defaultBorderRadius,
+  rounded: defaultRoundedBorderRadius,
 };
 
-const getBackgroundColor = (tagColor: TagColor, mode: ThemeModes): string => {
-  const color = tagColor ? tagColor : 'standard';
-  return backgroundColors[color][mode];
+export const removalHoverBackgroundColors = {
+  light: token('color.background.danger.hovered', colors.R50),
+  dark: token('color.background.danger.hovered', colors.R100),
 };
 
-const getActiveBackgroundColor = (
-  tagColor: TagColor,
-  mode: ThemeModes,
-): string => {
-  return {
-    light: token('color.background.neutral.pressed', colors.N30),
-    dark: token('color.background.neutral.pressed', colors.DN600),
-  }[mode];
+export const removalActiveBackgroundColors = {
+  light: token('color.background.danger.pressed', colors.R50),
+  dark: token('color.background.danger.pressed', colors.DN600),
 };
 
-const getActiveBackgroundColorForRemoval = (
-  tagColor: TagColor,
-  mode: ThemeModes,
-): string => {
-  return {
-    light: token('color.background.danger.pressed', colors.R50),
-    dark: token('color.background.danger.pressed', colors.DN600),
-  }[mode];
-};
-
-const getTextColorForRemoval = (
-  tagColor: TagColor,
-  mode: ThemeModes,
-): string => {
-  return {
-    light: token('color.text', colors.R500),
-    dark: token('color.text', colors.DN30),
-  }[mode];
-};
-
-const getBackgroundColorForRemoval = (
-  tagColor: TagColor,
-  mode: ThemeModes,
-): string => {
-  return {
-    light: token('color.background.danger.hovered', colors.R50),
-    dark: token('color.background.danger.hovered', colors.R100),
-  }[mode];
-};
-
-const getChromeColors = (
-  color: TagColor,
-  mode: ThemeModes,
-  isRemovable?: boolean,
-): ChromeColors => {
-  const activeBackgroundColor = getActiveBackgroundColorForRemoval(color, mode);
-  const backgroundColor = getBackgroundColor(color, mode);
-  const backgroundColorHover = isRemovable
-    ? getBackgroundColorForRemoval(color, mode)
-    : getLinkBackgroundColorHover(color, mode);
-  const textColor = getTextColor(color, mode);
-  const textColorHover = isRemovable
-    ? getTextColorForRemoval(color, mode)
-    : getTextColor(color, mode);
-
-  return {
-    activeBackgroundColor,
-    backgroundColor,
-    backgroundColorHover,
-    textColor,
-    textColorHover,
-  };
-};
-
-const getChromeLinkColors = (
-  color: TagColor,
-  mode: ThemeModes,
-): ChromeLinkColors => {
-  const activeBackgroundColor = getActiveBackgroundColor(color, mode);
-  const activeBackgroundColorRemoval = getActiveBackgroundColorForRemoval(
-    color,
-    mode,
-  );
-  const hoverBackgroundColorRemoval = getBackgroundColorForRemoval(color, mode);
-  const hoverBackgroundColor = getLinkBackgroundColorHover(color, mode);
-  const hoverTextColor = linkHoverColorObj[mode];
-  const focusRingColor = focusRingColorObj[mode];
-
-  return {
-    activeBackgroundColor,
-    activeBackgroundColorRemoval,
-    hoverBackgroundColor,
-    hoverTextColor,
-    hoverBackgroundColorRemoval,
-    focusRingColor,
-  };
-};
-
-const getButtonColors = (color: TagColor, mode: ThemeModes) => {
-  const backgroundColor = getBackgroundColor(color, mode);
-  const backgroundColorHover = getBackgroundColorForRemoval(color, mode);
-
-  const focusBoxShadowColor = focusBoxShadowColorObj[mode];
-
-  return {
-    backgroundColor,
-    backgroundColorHover,
-    focusBoxShadowColor,
-  };
-};
-
-export const getThemeColors = (
-  color: TagColor,
-  mode: ThemeModes,
-  isRemovable?: boolean,
-) => {
-  const chromeColors = getChromeColors(color, mode, isRemovable);
-  const chromeLinkColors = getChromeLinkColors(color, mode);
-  const buttonColors = getButtonColors(color, mode);
-  const linkHoverColor = linkHoverColorObj[mode];
-
-  return {
-    chromeColors,
-    chromeLinkColors,
-    buttonColors,
-    linkHoverColor,
-  };
+export const removalTextColors = {
+  light: token('color.text', colors.R500),
+  dark: token('color.text', colors.DN30),
 };

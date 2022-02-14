@@ -1,6 +1,6 @@
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createPlugin } from '../../../../utils/input-rules';
 import { createRuleForListType } from './create-list-input-rule';
 import { FeatureFlags } from '../../../../types/feature-flags';
@@ -8,7 +8,7 @@ import { FeatureFlags } from '../../../../types/feature-flags';
 export default function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const {
     nodes: { bulletList, orderedList },
   } = schema;

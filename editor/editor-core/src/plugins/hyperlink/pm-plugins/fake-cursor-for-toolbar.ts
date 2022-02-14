@@ -1,4 +1,5 @@
-import { Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { fakeCursorForToolbarPluginKey } from './fake-curor-for-toolbar-plugin-key';
 import {
@@ -26,7 +27,7 @@ const getInsertLinkToolbarState = (editorState: EditorState) => {
   return undefined;
 };
 
-const fakeCursorToolbarPlugin: Plugin = new Plugin({
+const fakeCursorToolbarPlugin: SafePlugin = new SafePlugin({
   key: fakeCursorForToolbarPluginKey,
   state: {
     init() {

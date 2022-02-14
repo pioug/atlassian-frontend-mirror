@@ -41,7 +41,7 @@
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^11.0.0",
+    "@atlaskit/dropdown-menu": "^11.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.4.0",
     "@atlaskit/visual-regression": "*",

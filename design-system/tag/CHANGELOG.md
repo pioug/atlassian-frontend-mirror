@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 11.2.5
+
+### Patch Changes
+
+- [`82149cbba48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82149cbba48) - Internal styling has been refactored in preparation for @compiled/react
+- Updated dependencies
+
 ## 11.2.4
 
 ### Patch Changes

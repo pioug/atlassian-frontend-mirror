@@ -1,4 +1,5 @@
-import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { EditorPlugin } from '../../types';
 import {
@@ -115,7 +116,7 @@ export function createPlugin(
   defaultPlaceholderText?: string,
   placeholderHints?: string[],
   bracketPlaceholderText?: string,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (!defaultPlaceholderText && !placeholderHints && !bracketPlaceholderText) {
     return;
   }
@@ -123,7 +124,7 @@ export function createPlugin(
     placeholderHints,
   );
 
-  return new Plugin<PlaceHolderState>({
+  return new SafePlugin<PlaceHolderState>({
     key: pluginKey,
     state: {
       init: (_, state) =>

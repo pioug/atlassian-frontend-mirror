@@ -6,186 +6,228 @@ import {
   MouseEvent,
   Ref,
   useCallback,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import PrimitiveSVGIcon from '@atlaskit/icon/svg';
-import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
 
-import {
-  getCheckboxStyles,
-  Label,
-  LabelText,
-  RequiredIndicator,
-} from './internal';
-import { CheckboxProps, Size } from './types';
-
-type InnerProps = CheckboxProps & {
-  mode: ThemeModes;
-};
+import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
+import type { CheckboxProps } from './types';
 
 // firefox doesn't handle cmd+click/ctrl+click properly
 const isFirefox: boolean =
   typeof navigator !== 'undefined' &&
   navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
-function getIcon(isIndeterminate: boolean, isChecked: boolean) {
-  if (isIndeterminate) {
-    return <rect fill="inherit" x="8" y="11" width="8" height="2" rx="1" />;
-  }
-
-  if (isChecked) {
-    return (
-      <path
-        d="M9.707 11.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 1 0-1.414-1.414L11 12.586l-1.293-1.293z"
-        fill="inherit"
-      />
-    );
-  }
-
-  // No icon
-  return null;
-}
-
-const CheckboxIcon = memo<{
-  size: Size;
-  isIndeterminate: boolean;
-  isChecked: boolean;
-}>(({ size, isIndeterminate, isChecked }) => (
-  <PrimitiveSVGIcon
-    label=""
-    size={size}
-    primaryColor="var(--checkbox-background-color)"
-    secondaryColor="var(--checkbox-tick-color)"
-  >
-    <g fillRule="evenodd">
-      <rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />
-      {getIcon(isIndeterminate, isChecked)}
-    </g>
-  </PrimitiveSVGIcon>
-));
-
-const CheckboxWithMode = forwardRef(function Checkbox(
-  props: InnerProps,
-  ref: Ref<HTMLInputElement>,
-) {
-  const {
-    isChecked: isCheckedProp,
-    isDisabled = false,
-    isInvalid = false,
-    defaultChecked = false,
-    isIndeterminate = false,
-    size = 'medium',
-    onChange: onChangeProps,
-    analyticsContext,
-    label,
-    mode,
-    name,
-    value,
-    isRequired,
-    testId,
-    ...rest
-  } = props;
-
-  const [isCheckedState, setIsCheckedState] = useState(
-    isCheckedProp !== undefined ? isCheckedProp : defaultChecked,
-  );
-
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => {
-      setIsCheckedState(e.target.checked);
-      if (onChangeProps) {
-        onChangeProps(e, analyticsEvent);
-      }
+/* eslint-disable @repo/internal/styles/no-nested-styles */
+const checkboxStyles = css({
+  width: 0, // Necessary to hide correctly on mobile Safari
+  height: 0, // Necessary to hide correctly on mobile Safari
+  margin: 0,
+  appearance: 'none',
+  border: 'none', // Necessary to hide correctly on mobile Safari
+  outline: 'none', // Necessary to hide focus ring on Firefox
+  '& + svg': {
+    flexShrink: 0,
+    alignSelf: 'flex-start',
+    /**
+     *  Change the variables --checkbox-background-color, --checkbox-border-color
+     *  and --checkbox-tick-color according to user interactions.
+     *  All other variables are constant.
+     *  All styles from the input target the sibling svg.
+     */
+    '--checkbox-background-color': 'var(--local-background)',
+    '--checkbox-border-color': 'var(--local-border)',
+    '--checkbox-tick-color': 'var(--local-tick-rest)',
+    color: 'var(--checkbox-background-color)',
+    fill: 'var(--checkbox-tick-color)',
+    transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
+    'rect:first-of-type': {
+      stroke: 'var(--checkbox-border-color)',
+      strokeWidth: 2,
+      transition: 'stroke 0.2s ease-in-out',
     },
-    [onChangeProps],
-  );
+  },
+  '&&:focus + svg, &&:checked:focus + svg': {
+    '--checkbox-border-color': 'var(--local-border-focus)',
+  },
+  '&:hover + svg': {
+    '--checkbox-background-color': 'var(--local-background-hover)',
+    '--checkbox-border-color': 'var(--local-border-hover)',
+  },
+  '&:checked:hover + svg': {
+    '--checkbox-background-color': 'var(--local-background-checked-hover)',
+    '--checkbox-border-color': 'var(--local-border-checked-hover)',
+  },
+  '&:checked + svg': {
+    '--checkbox-background-color': 'var(--local-background-checked)',
+    '--checkbox-border-color': 'var(--local-border-checked)',
+    '--checkbox-tick-color': 'var(--local-tick-checked)',
+  },
+  '&[data-invalid] + svg': {
+    '--checkbox-border-color': 'var(--local-border-invalid)',
+  },
+  '&:checked[data-invalid] + svg': {
+    '--checkbox-border-color': 'var(--local-border-checked-invalid)',
+  },
+  '&:active + svg': {
+    '--checkbox-background-color': 'var(--local-background-active)',
+    '--checkbox-border-color': 'var(--local-border-active)',
+  },
+  '&:checked:active + svg': {
+    '--checkbox-background-color': 'var(--local-background-active)',
+    '--checkbox-border-color': 'var(--local-border-active)',
+    '--checkbox-tick-color': 'var(--local-tick-active)',
+  },
+  '&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg': {
+    '--checkbox-background-color': 'var(--local-background-disabled)',
+    '--checkbox-border-color': 'var(--local-border-disabled)',
+    cursor: 'not-allowed',
+    pointerEvents: 'none',
+  },
+  '&:disabled:checked + svg': {
+    '--checkbox-tick-color': 'var(--local-tick-disabled)',
+  },
+  '@media screen and (forced-colors: active)': {
+    '& + svg': {
+      '--checkbox-background-color': 'Canvas',
+      '--checkbox-border-color': 'CanvasText',
+      '--checkbox-tick-color': 'CanvasText',
+    },
 
-  const onChangeAnalytics = usePlatformLeafEventHandler({
-    fn: onChange,
-    action: 'changed',
-    analyticsData: analyticsContext,
-    componentName: 'checkbox',
-    packageName: process.env._PACKAGE_NAME_ as string,
-    packageVersion: process.env._PACKAGE_VERSION_ as string,
-  });
+    '&:checked + svg, &:checked:hover + svg': {
+      '--checkbox-background-color': 'Canvas',
+      '--checkbox-border-color': 'CanvasText',
+      '--checkbox-tick-color': 'CanvasText',
+    },
 
-  const internalRef = useRef<HTMLInputElement>(null);
-  const mergedRefs = mergeRefs([internalRef, ref]);
+    '&:focus + svg rect:first-of-type': {
+      stroke: 'Highlight',
+    },
 
-  // firefox doesn't properly dispatch events from label to its child input elements
-  const onClickLabel = (event: MouseEvent<HTMLElement>) => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey) {
-      internalRef.current?.click();
-    }
-  };
+    '&[data-invalid] + svg': {
+      '--checkbox-border-color': 'Highlight',
+    },
+    '&:checked[data-invalid] + svg': {
+      '--checkbox-border-color': 'Highlight',
+    },
 
-  // Use isChecked from the state if it is controlled
-  const isChecked =
-    isCheckedProp === undefined ? isCheckedState : isCheckedProp;
-
-  // The styles are being generated for the input but are being
-  // applied to the svg with a sibling selector so we have access
-  // to the pseudo-classes of the input
-  const styles = useMemo(() => getCheckboxStyles(mode), [mode]);
-
-  return (
-    <Label
-      isDisabled={isDisabled}
-      testId={testId && `${testId}--checkbox-label`}
-      onClick={isFirefox ? onClickLabel : undefined}
-    >
-      <input
-        {...rest}
-        type="checkbox"
-        ref={mergedRefs}
-        disabled={isDisabled}
-        checked={isChecked}
-        value={value}
-        name={name}
-        required={isRequired}
-        css={styles}
-        onChange={onChangeAnalytics}
-        aria-checked={isIndeterminate ? 'mixed' : isChecked}
-        aria-invalid={isInvalid ? 'true' : undefined}
-        data-testid={testId && `${testId}--hidden-checkbox`}
-        data-invalid={isInvalid ? 'true' : undefined}
-      />
-      <CheckboxIcon
-        size={size}
-        isIndeterminate={isIndeterminate}
-        isChecked={isChecked}
-      />
-      {label && (
-        <LabelText>
-          {label}
-          {isRequired && <RequiredIndicator aria-hidden="true" />}
-        </LabelText>
-      )}
-    </Label>
-  );
+    '&:disabled + svg, &:disabled:hover + svg, &:disabled:focus + svg, &:disabled:active + svg, &:disabled[data-invalid] + svg': {
+      '--checkbox-background-color': 'Canvas',
+      '--checkbox-border-color': 'GrayText',
+      '--checkbox-tick-color': 'GrayText',
+    },
+  },
 });
+/* eslint-enable @repo/internal/styles/no-nested-styles */
 
-export const Checkbox = memo(
+/**
+ * __Checkbox__
+ *
+ * A checkbox an input control that allows a user to select one or more options from a number of choices.
+ *
+ * - [Examples](https://atlassian.design/components/checkbox/examples)
+ * - [Code](https://atlassian.design/components/checkbox/code)
+ * - [Usage](https://atlassian.design/components/checkbox/usage)
+ */
+const Checkbox = memo(
   forwardRef(function Checkbox(
     props: CheckboxProps,
     ref: Ref<HTMLInputElement>,
   ) {
+    const {
+      isChecked: isCheckedProp,
+      isDisabled = false,
+      isInvalid = false,
+      defaultChecked = false,
+      isIndeterminate = false,
+      size = 'medium',
+      onChange: onChangeProps,
+      analyticsContext,
+      label,
+      name,
+      value,
+      isRequired,
+      testId,
+      ...rest
+    } = props;
+
+    const [isCheckedState, setIsCheckedState] = useState(
+      isCheckedProp !== undefined ? isCheckedProp : defaultChecked,
+    );
+
+    const onChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => {
+        setIsCheckedState(e.target.checked);
+        if (onChangeProps) {
+          onChangeProps(e, analyticsEvent);
+        }
+      },
+      [onChangeProps],
+    );
+
+    const onChangeAnalytics = usePlatformLeafEventHandler({
+      fn: onChange,
+      action: 'changed',
+      analyticsData: analyticsContext,
+      componentName: 'checkbox',
+      packageName: process.env._PACKAGE_NAME_ as string,
+      packageVersion: process.env._PACKAGE_VERSION_ as string,
+    });
+
+    const internalRef = useRef<HTMLInputElement>(null);
+    const mergedRefs = mergeRefs([internalRef, ref]);
+
+    // firefox doesn't properly dispatch events from label to its child input elements
+    const onClickLabel = (event: MouseEvent<HTMLElement>) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey) {
+        internalRef.current?.click();
+      }
+    };
+
+    // Use isChecked from the state if it is controlled
+    const isChecked =
+      isCheckedProp === undefined ? isCheckedState : isCheckedProp;
+
     return (
-      <GlobalTheme.Consumer>
-        {({ mode }: { mode: ThemeModes }) => (
-          <CheckboxWithMode {...props} ref={ref} mode={mode} />
+      <Label
+        isDisabled={isDisabled}
+        testId={testId && `${testId}--checkbox-label`}
+        onClick={isFirefox ? onClickLabel : undefined}
+      >
+        <input
+          {...rest}
+          type="checkbox"
+          ref={mergedRefs}
+          disabled={isDisabled}
+          checked={isChecked}
+          value={value}
+          name={name}
+          required={isRequired}
+          css={checkboxStyles}
+          onChange={onChangeAnalytics}
+          aria-checked={isIndeterminate ? 'mixed' : isChecked}
+          aria-invalid={isInvalid ? 'true' : undefined}
+          data-testid={testId && `${testId}--hidden-checkbox`}
+          data-invalid={isInvalid ? 'true' : undefined}
+        />
+        <CheckboxIcon
+          size={size}
+          isIndeterminate={isIndeterminate}
+          isChecked={isChecked}
+        />
+        {label && (
+          <LabelText>
+            {label}
+            {isRequired && <RequiredIndicator />}
+          </LabelText>
         )}
-      </GlobalTheme.Consumer>
+      </Label>
     );
   }),
 );

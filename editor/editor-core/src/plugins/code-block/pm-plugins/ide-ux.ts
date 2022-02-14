@@ -1,4 +1,5 @@
-import { EditorState, Plugin, TextSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { keydownHandler } from 'prosemirror-keymap';
 import { setTextSelection } from 'prosemirror-utils';
 import { getCursor } from '../../../utils';
@@ -30,7 +31,7 @@ import {
 } from '../ide-ux/commands';
 import { CommandDispatch } from '../../../types';
 
-export default new Plugin({
+export default new SafePlugin({
   props: {
     handleTextInput(view, from, to, text) {
       const { state, dispatch } = view;

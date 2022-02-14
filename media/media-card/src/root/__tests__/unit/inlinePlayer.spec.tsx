@@ -205,6 +205,15 @@ describe('<InlinePlayer />', () => {
     );
   });
 
+  it('should pass poster to CustomMediaPlayer when cardPreview is available', async () => {
+    const cardPreview = { dataURI: 'some-data-uri', source: 'remote' } as const;
+    const { component } = setup({ cardPreview });
+    await update(component);
+    expect(component.find(CustomMediaPlayer).props().poster).toEqual(
+      cardPreview.dataURI,
+    );
+  });
+
   it('should keep existing local preview', async () => {
     const createObjectURLSpy = jest.spyOn(URL, 'createObjectURL');
     let createObjectURLCallTimes = 0;

@@ -27,7 +27,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { INPUT_METHOD } from '../../../../analytics';
-import { shallow } from 'enzyme';
 import { LinkSearchListItemData } from '../../../../../ui/LinkSearch/types';
 import {
   HyperlinkState,
@@ -50,6 +49,7 @@ import {
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plugins/actions';
 import * as Commands from '../../../commands';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
+
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
   searchRecentPromise?: ReturnType<ActivityProvider['searchRecent']>;
@@ -100,7 +100,7 @@ const assertIcon = (item: LinkSearchListItemData, iconComponent: any) => {
   if (!icon) {
     throw expect(icon).toBeDefined();
   }
-  const mountedIcon = shallow(<TestingWrapper child={icon} />);
+  const mountedIcon = mountWithIntl(<TestingWrapper child={icon} />);
   expect(mountedIcon.find(iconComponent)).toHaveLength(1);
 };
 

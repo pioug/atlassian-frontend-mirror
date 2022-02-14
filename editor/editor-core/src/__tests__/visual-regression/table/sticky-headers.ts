@@ -1,5 +1,6 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import { animationFrame } from '../../__helpers/page-objects/_editor';
 import * as stickyHeaderADF from './__fixtures__/sticky-header.adf.json';
 
 async function scrollToPos(
@@ -62,32 +63,36 @@ describe('Snapshot Test: sticky-headers', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 8/24/2021: https://product-fabric.atlassian.net/browse/ED-13660
-  it.skip(`should have the header stick for an unresized-table`, async () => {
+  it(`should have the header stick for an unresized-table`, async () => {
     await initEditor(page, stickyHeaderADF);
+    await animationFrame(page);
     const o = await scrollToPos(page, 1);
+    await animationFrame(page);
     console.log('TOP: ', o, 290 - o!); // eslint-disable-line no-console
-    // await scrollToPos(page, 290);
   });
 
   it(`should have the header stick for an unresized-table with numbered column`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 440);
+    await animationFrame(page);
     const o = await scrollToPos(page, 2);
+    await animationFrame(page);
     console.log('TOP:', o, 440 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header not stick for an unresized-table with no header row`, async () => {
     await initEditor(page, stickyHeaderADF);
+    await animationFrame(page);
     const o = await scrollToPos(page, 3);
+    await animationFrame(page);
     console.log('TOP:', o, 690 - o!); // eslint-disable-line no-console
     // await scrollToPos(page, 690);
   });
 
   it(`should have the header not stick for an table with only header row`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 820);
+    await animationFrame(page);
     const o = await scrollToPos(page, 4);
+    await animationFrame(page);
     console.log('TOP:', o, 820 - o!); // eslint-disable-line no-console
   });
 
@@ -95,72 +100,81 @@ describe('Snapshot Test: sticky-headers', () => {
   // `table:not(.pm-table-sticky)
   it(`should have the header not stick for an table with only regular row`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 920);
+    await animationFrame(page);
     const o = await scrollToPos(page, 5);
+    await animationFrame(page);
     console.log('TOP:', o, 920 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header not stick for an table with resized columns`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 1000);
+    await animationFrame(page);
     const o = await scrollToPos(page, 6);
+    await animationFrame(page);
     console.log('TOP:', o, 1000 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header stick for a broken out table with no resized columns`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 1150);
+    await animationFrame(page);
     const o = await scrollToPos(page, 7);
+    await animationFrame(page);
     console.log('TOP:', o, 1150 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header stick for a broken out table no resized columns`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 1350);
+    await animationFrame(page);
     const o = await scrollToPos(page, 8);
+    await animationFrame(page);
     console.log('TOP:', o, 1350 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header stick for a broken out table overflow`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 1750);
+    await animationFrame(page);
     const o = await scrollToPos(page, 9);
+    await animationFrame(page);
     console.log('TOP:', o, 1750 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header stick for an table with overflow`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 2900);
+    await animationFrame(page);
     const o = await scrollToPos(page, 10);
+    await animationFrame(page);
     console.log('TOP:', o, 2900 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header stick for an table with overflow and numbered column`, async () => {
     await initEditor(page, stickyHeaderADF);
+    await animationFrame(page);
     // await scrollToPos(page, 3500);
     const o = await scrollToPos(page, 11);
+    await animationFrame(page);
     console.log('TOP:', o, 3500 - o!); // eslint-disable-line no-console
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip(`should have the header stick for an table within a layout`, async () => {
+  it(`should have the header stick for an table within a layout`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 4500);
+    await animationFrame(page);
     const o = await scrollToPos(page, 12);
+    await animationFrame(page);
     console.log('TOP:', o, 4500 - o!); // eslint-disable-line no-console
   });
 
   it(`should have the header stick for an table within layout and brokenout`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 4900);
+    await animationFrame(page);
     const o = await scrollToPos(page, 13);
     console.log('TOP:', o, 4900 - o!); // eslint-disable-line no-console
   });
 
   it(`should have both headers stick for an table with multiple headers`, async () => {
     await initEditor(page, stickyHeaderADF);
-    // await scrollToPos(page, 5170);
+    await animationFrame(page);
     const o = await scrollToPos(page, 14);
+    await animationFrame(page);
     console.log('TOP:', o, 5170 - o!); // eslint-disable-line no-console
   });
 });

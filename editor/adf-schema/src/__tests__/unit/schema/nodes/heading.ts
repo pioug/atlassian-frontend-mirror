@@ -1,6 +1,6 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { fromHTML, toHTML } from '../../../../../test-helpers';
+import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import {
   strong,
   doc as editorDoc,

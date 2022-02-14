@@ -1,4 +1,10 @@
 import type { Rule } from 'eslint';
+import type {
+  CallExpression,
+  Expression,
+  TaggedTemplateExpression,
+  // eslint-disable-next-line import/no-unresolved
+} from 'estree';
 
 export const isDecendantOfGlobalToken = (node: Rule.Node): boolean => {
   if (
@@ -45,6 +51,22 @@ export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
   return false;
 };
 
+export const isStyledTemplateNode = (
+  node?: Expression | null,
+): node is TaggedTemplateExpression =>
+  node?.type === 'TaggedTemplateExpression' &&
+  node.tag.type === 'MemberExpression' &&
+  node.tag.object.type === 'Identifier' &&
+  node.tag.object.name === 'styled';
+
+export const isStyledObjectNode = (
+  node?: Expression | null,
+): node is CallExpression =>
+  node?.type === 'CallExpression' &&
+  node.callee.type === 'MemberExpression' &&
+  node.callee.object.type === 'Identifier' &&
+  node.callee.object.name === 'styled';
+
 export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
   if (node.type === 'VariableDeclarator') {
     if (node.id.type !== 'Identifier') {
@@ -82,12 +104,7 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
     return true;
   }
 
-  if (
-    node.type === 'TaggedTemplateExpression' &&
-    node.tag.type === 'MemberExpression' &&
-    node.tag.object.type === 'Identifier' &&
-    node.tag.object.name === 'styled'
-  ) {
+  if (isStyledTemplateNode(node as Expression)) {
     return true;
   }
 
@@ -108,3 +125,21 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 
 export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']) =>
   node.parent.type === type;
+
+/**
+ * Given a node, walk up the tree until there is no parent OR a common ancestor of the correct type is found
+ */
+export const getClosestNodeOfType = (
+  node: Rule.Node,
+  type: Rule.NodeTypes,
+): Rule.Node => {
+  if (!node) {
+    return node;
+  }
+
+  if (node.type === type) {
+    return node;
+  }
+
+  return getClosestNodeOfType(node.parent, type);
+};

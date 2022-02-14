@@ -4,6 +4,7 @@ import defaultTableResizedWithOverflow from './__fixtures__/default-table-resize
 import defaultTableResizedWithoutOverflow from './__fixtures__/default-table-resized-no-overflow.adf.json';
 import defaultTable from './__fixtures__/default-table.adf.json';
 import mergedColumnsResized from './__fixtures__/merged-columns-resized.adf.json';
+import { animationFrame } from '../../__helpers/page-objects/_editor';
 import {
   clickFirstCell,
   distributeColumns,
@@ -43,8 +44,7 @@ describe('Distribute Columns', () => {
       await snapshot(page);
     });
 
-    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-    it.skip('on a resized merged cells with colwidths', async () => {
+    it('on a resized merged cells with colwidths', async () => {
       await pageInit(mergedColumnsResized);
       const from = getSelectorForTableCell({
         row: 5,
@@ -52,6 +52,7 @@ describe('Distribute Columns', () => {
       });
       const to = getSelectorForTableCell({ row: 5, cell: 2 });
       await distributeColumns(page, from, to);
+      await animationFrame(page);
       await snapshot(page);
     });
   });
@@ -63,14 +64,16 @@ describe('Distribute Columns', () => {
       to: string,
     ) => {
       await page.click(from);
+      await animationFrame(page);
       await pressKeyDown(page, 'Shift');
       await page.click(to);
+      await animationFrame(page);
       await pressKeyUp(page, 'Shift');
+      await animationFrame(page);
       await clickCellOptions(page);
     };
 
-    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-    it.skip('if selected cells without colwidths', async () => {
+    it('if selected cells without colwidths', async () => {
       await pageInit(defaultTable);
       const from = getSelectorForTableCell({
         row: 1,
@@ -78,11 +81,11 @@ describe('Distribute Columns', () => {
       });
       const to = getSelectorForTableCell({ row: 2, cell: 2 });
       await showContextMenuSelection(page, from, to);
+      await animationFrame(page);
       await snapshot(page);
     });
 
-    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-    it.skip('if selection is on a single column', async () => {
+    it('if selection is on a single column', async () => {
       await pageInit(defaultTable);
       const from = getSelectorForTableCell({
         row: 1,
@@ -90,11 +93,11 @@ describe('Distribute Columns', () => {
       });
       const to = getSelectorForTableCell({ row: 2, cell: 1 });
       await showContextMenuSelection(page, from, to);
+      await animationFrame(page);
       await snapshot(page);
     });
 
-    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-    it.skip('if there will not be any change after resizing', async () => {
+    it('if there will not be any change after resizing', async () => {
       await pageInit(mergedColumnsResized);
       const from = getSelectorForTableCell({
         row: 5,
@@ -102,31 +105,38 @@ describe('Distribute Columns', () => {
       });
       const to = getSelectorForTableCell({ row: 5, cell: 2 });
 
-      // resized table is first distributed, and then trying to show the context menu on the same selection afterwards
       await distributeColumns(page, from, to);
+      await animationFrame(page);
       await showContextMenuSelection(page, from, to);
+      await animationFrame(page);
       await snapshot(page);
     });
   });
 
   describe('all of the columns should distribute and new added column should have uniform width', () => {
-    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-    it.skip('on table without overflow', async () => {
+    it('on table without overflow', async () => {
       await pageInit(defaultTableResizedWithoutOverflow);
       await distributeAllColumns(page);
+      await animationFrame(page);
       await insertColumn(page, 0, 'right', true);
+      await animationFrame(page);
       await insertColumn(page, 0, 'right', true);
+      await animationFrame(page);
       await insertColumn(page, 0, 'right', true);
+      await animationFrame(page);
       await snapshot(page);
     });
 
-    // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-    it.skip('on table with overflow', async () => {
+    it('on table with overflow', async () => {
       await pageInit(defaultTableResizedWithOverflow);
       await distributeAllColumns(page);
+      await animationFrame(page);
       await insertColumn(page, 0, 'right', true);
+      await animationFrame(page);
       await insertColumn(page, 0, 'right', true);
+      await animationFrame(page);
       await insertColumn(page, 0, 'right', true);
+      await animationFrame(page);
       await snapshot(page);
     });
   });

@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { confluenceJiraIssue } from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPluginFactory } from '../../types';
 import { ReactNodeView } from '../../nodeviews';
@@ -10,7 +11,7 @@ const createPlugin: PMPluginFactory = ({
   portalProviderAPI,
   eventDispatcher,
 }) => {
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     props: {
       nodeViews: {

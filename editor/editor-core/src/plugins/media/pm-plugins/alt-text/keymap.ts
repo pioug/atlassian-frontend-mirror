@@ -1,10 +1,10 @@
 import { keymap } from 'prosemirror-keymap';
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../../keymaps';
 import { openMediaAltTextMenu, closeMediaAltTextMenu } from './commands';
 
-export default function keymapPlugin(schema: Schema): Plugin {
+export default function keymapPlugin(schema: Schema): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -19,5 +19,5 @@ export default function keymapPlugin(schema: Schema): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }

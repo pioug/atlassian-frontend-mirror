@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.3.8
+
+### Patch Changes
+
+- [`5d27b03c5cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d27b03c5cf) - Styles have been rewritten in preparation for migration to compiled.
+- Updated dependencies
+
 ## 12.3.7
 
 ### Patch Changes

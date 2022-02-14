@@ -45,4 +45,48 @@ export const messages = defineMessages({
     description:
       'Warning message to show the user that this node option is not available inside a parent node type',
   },
+  urlTitle: {
+    id: 'fabric.editor.urlTitle',
+    defaultMessage: 'URL',
+    description:
+      'Title for option to convert the card to become a regular text-based hyperlink.',
+  },
+  cardTitle: {
+    id: 'fabric.editor.cardTitle',
+    defaultMessage: 'Card',
+    description: 'Title for option to display link in the card view.',
+  },
+  inlineTitle: {
+    id: 'fabric.editor.inlineTitle',
+    defaultMessage: 'Inline',
+    description: 'Title for option to display link in the inline view.',
+  },
+  embedTitle: {
+    id: 'fabric.editor.embedTitle',
+    defaultMessage: 'Embed',
+    description: 'Title for option to display link as an embedded object.',
+  },
+  urlDescription: {
+    id: 'fabric.editor.urlDescription',
+    defaultMessage: 'Display link as URL',
+    description:
+      'Description for option to convert the card to become a regular text-based hyperlink.',
+  },
+  cardDescription: {
+    id: 'fabric.editor.cardDescription',
+    defaultMessage:
+      'Display more information about a link, including a summary and actions',
+    description: 'Description for option to display link in the card view.',
+  },
+  inlineDescription: {
+    id: 'fabric.editor.inlineDescription',
+    defaultMessage: 'Display link as inline text',
+    description: 'Description for option to display link in the inline view.',
+  },
+  embedDescription: {
+    id: 'fabric.editor.ecombedDescription',
+    defaultMessage: 'Display an interactive preview of a link',
+    description:
+      'Description for option to display link as an embedded object.',
+  },
 });

@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 21.0.4
+
+### Patch Changes
+
+- [`62a37c2a5c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62a37c2a5c8) - replace `react-transition-group` with `@atlaskit/motion` and improve Counter component
+- [`696ba6c465d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/696ba6c465d) - The Reaction component now fires only one request to the service when being hovered.
+- [`95015909035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95015909035) - Fixed issue where some of the examples where crashing.
+- Updated dependencies
+
 ## 21.0.3
 
 ### Patch Changes

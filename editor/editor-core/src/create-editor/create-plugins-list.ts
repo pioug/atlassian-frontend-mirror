@@ -124,6 +124,8 @@ export function getDefaultPresetOptionsFromEditorProps(
     paste: {
       cardOptions: props.smartLinks || props.UNSAFE_cards,
       sanitizePrivateContent: props.sanitizePrivateContent,
+      plainTextPasteLinkification:
+        props.featureFlags?.plainTextPasteLinkification === true,
     },
     base: {
       allowInlineCursorTarget: !isMobile,
@@ -235,6 +237,7 @@ export default function createPluginsList(
       {
         allowInsertion: isExpandInsertionEnabled(props),
         useLongPressSelection: false,
+        appearance: props.appearance,
       },
     ]);
   }
@@ -286,7 +289,6 @@ export default function createPluginsList(
         sanitizePrivateContent: props.sanitizePrivateContent,
         insertDisplayName:
           props.mention?.insertDisplayName ?? props.mentionInsertDisplayName,
-        useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
         HighlightComponent: props.mention?.HighlightComponent,
       },
@@ -298,7 +300,6 @@ export default function createPluginsList(
       emojiPlugin,
       {
         createAnalyticsEvent,
-        useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
       },
     ]);
@@ -363,6 +364,7 @@ export default function createPluginsList(
   if (props.collabEdit || props.collabEditProvider) {
     let collabEditOptions: PrivateCollabEditOptions = {
       sanitizePrivateContent: props.sanitizePrivateContent,
+      createAnalyticsEvent,
     };
 
     if (props.collabEdit) {
@@ -484,7 +486,6 @@ export default function createPluginsList(
       statusPlugin,
       {
         menuDisabled: statusMenuDisabled,
-        useInlineWrapper: isMobile,
         allowZeroWidthSpaceAfter: !isMobile,
       },
     ]);

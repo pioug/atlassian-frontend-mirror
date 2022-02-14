@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.4.0
+
+### Minor Changes
+
+- [`4da624ba8f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4da624ba8f1) - allow opt-in heading levels on comments
+
 ## 10.3.3
 
 ### Patch Changes

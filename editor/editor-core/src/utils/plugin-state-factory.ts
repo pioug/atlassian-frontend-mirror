@@ -1,7 +1,8 @@
 import {
   EditorState,
-  StateField,
+  SafeStateField,
   PluginKey,
+  ReadonlyTransaction,
   Transaction,
 } from 'prosemirror-state';
 import { Dispatch } from '../event-dispatcher';
@@ -23,7 +24,7 @@ import { Command } from '../types';
  *  );
  *
  *  export const createPlugin = (dispatch: Dispatch, initialState) =>
- *    new Plugin({
+ *    new SafePlugin({
  *      state: createPluginState(dispatch, initialState),
  *      key: pluginKey
  *    });
@@ -64,15 +65,15 @@ export type Reducer<PluginState, Action> = (
 ) => PluginState;
 
 type MapState<PluginState> = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: PluginState,
 ) => PluginState;
 
-type Plugin<PluginState, Action, InitialState extends PluginState> = {
+type SafePlugin<PluginState, Action, InitialState extends PluginState> = {
   createPluginState: (
     dispatch: Dispatch,
     initialState: InitialState | ((state: EditorState) => InitialState),
-  ) => StateField<PluginState>;
+  ) => SafeStateField<PluginState>;
 
   createCommand: <A = Action>(
     action: A | ((state: Readonly<EditorState>) => A | false),
@@ -94,7 +95,7 @@ export function pluginFactory<
     onDocChanged?: MapState<PluginState>;
     onSelectionChanged?: MapState<PluginState>;
   } = {},
-): Plugin<PluginState, Action, InitialState> {
+): SafePlugin<PluginState, Action, InitialState> {
   const { mapping, onDocChanged, onSelectionChanged } = options;
 
   return {

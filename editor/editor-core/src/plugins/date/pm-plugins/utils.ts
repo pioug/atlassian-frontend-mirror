@@ -1,4 +1,8 @@
-import { Transaction, Selection, NodeSelection } from 'prosemirror-state';
+import {
+  ReadonlyTransaction,
+  Selection,
+  NodeSelection,
+} from 'prosemirror-state';
 import { DatePluginState, DatePluginMeta } from './types';
 
 export function reducer(
@@ -25,7 +29,7 @@ export function reducer(
 }
 
 export function mapping(
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: DatePluginState,
 ): DatePluginState {
   if (!pluginState.showDatePickerAt) {
@@ -42,7 +46,7 @@ export function mapping(
 }
 
 export function onSelectionChanged(
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: DatePluginState,
 ): DatePluginState {
   if (tr.docChanged && isDateNodeSelection(tr.selection)) {

@@ -34,6 +34,7 @@ const MenuGroup = ({
     }}
     css={groupStyles}
     data-testid={testId}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   />
 );

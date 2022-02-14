@@ -1,6 +1,10 @@
 import { EditorState, Transaction } from 'prosemirror-state';
 import { Step } from 'prosemirror-transform';
 
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+
+import { SyncUpErrorFunction } from '../types';
+
 export interface CollabParticipant {
   lastActive: number;
   sessionId: string;
@@ -28,7 +32,7 @@ export interface CollabEventConnectionData {
   sid: string;
 }
 
-export interface CollabEventDisonnectedData {
+export interface CollabEventDisconnectedData {
   sid: string;
   reason:
     | 'CLIENT_DISCONNECT'
@@ -65,7 +69,7 @@ export type CollabEvent = keyof CollabEventData;
 export interface CollabEventData {
   init: CollabEventInitData;
   connected: CollabEventConnectionData;
-  disconnected: CollabEventDisonnectedData;
+  disconnected: CollabEventDisconnectedData;
   data: CollabEventRemoteData;
   telepointer: CollabEventTelepointerData;
   presence: CollabEventPresenceData;
@@ -74,10 +78,20 @@ export interface CollabEventData {
   entity: any;
 }
 
+export type ResolvedEditorState = {
+  content: JSONDocNode;
+  title: string | null;
+  stepVersion: number;
+};
 export interface CollabEditProvider<
   Events extends CollabEventData = CollabEventData
 > {
-  initialize(getState: () => any, createStep: (json: object) => Step): this;
+  initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: depecrate this
+
+  setup(props: {
+    getState: () => EditorState;
+    onSyncUpError?: SyncUpErrorFunction;
+  }): this;
 
   send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
 
@@ -88,4 +102,6 @@ export interface CollabEditProvider<
   unsubscribeAll(evt: keyof Events): this;
 
   sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
+
+  getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
 }

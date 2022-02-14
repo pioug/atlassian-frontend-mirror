@@ -33,7 +33,7 @@ export default class Scrollable extends React.PureComponent<Props, {}> {
 
   render() {
     return (
-      <ScrollableStyle innerRef={this.handleRef}>
+      <ScrollableStyle ref={this.handleRef}>
         {this.props.children}
       </ScrollableStyle>
     );

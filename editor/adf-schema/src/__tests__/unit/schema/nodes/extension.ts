@@ -1,6 +1,6 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { toDOM, fromHTML } from '../../../../../test-helpers';
+import { toDOM, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { extension } from '../../../../../src';
 import { dataConsumer } from '../../../../../src';
 import { Schema } from 'prosemirror-model';

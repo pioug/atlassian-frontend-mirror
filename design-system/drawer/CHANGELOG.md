@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.1.4
+
+### Patch Changes
+
+- [`e9210b8a098`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9210b8a098) - Updates Drawer with deprecated status for `cssFn`/`overrides APIs.
+
 ## 7.1.3
 
 ### Patch Changes

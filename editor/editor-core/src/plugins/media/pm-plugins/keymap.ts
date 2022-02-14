@@ -1,5 +1,6 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin, NodeSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { NodeSelection } from 'prosemirror-state';
 
 import * as keymaps from '../../../keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
@@ -12,7 +13,7 @@ import {
   selectCaptionFromMediaSinglePos,
 } from '../commands/captions';
 
-export function keymapPlugin(options?: MediaOptions): Plugin {
+export function keymapPlugin(options?: MediaOptions): SafePlugin {
   const list = {};
   const { featureFlags } = options || {};
 
@@ -36,7 +37,7 @@ export function keymapPlugin(options?: MediaOptions): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 const ignoreLinksInSteps: Command = (state) => {

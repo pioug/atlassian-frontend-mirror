@@ -1,5 +1,6 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { RichMediaAttributes } from './types/rich-media-common';
+import { uuid } from '../../utils/uuid';
 
 export interface EmbedCardAttributes extends RichMediaAttributes {
   originalWidth?: number;
@@ -8,6 +9,7 @@ export interface EmbedCardAttributes extends RichMediaAttributes {
    * @validatorFn safeUrl
    */
   url: string;
+  localId?: string;
 }
 
 /**
@@ -28,6 +30,7 @@ export const embedCard: NodeSpec = {
     width: { default: 100 },
     originalWidth: { default: null },
     originalHeight: { default: null },
+    localId: { default: '' },
   },
   parseDOM: [
     {
@@ -44,6 +47,7 @@ export const embedCard: NodeSpec = {
           Number(
             (dom as HTMLElement).getAttribute('data-card-original-height'),
           ) || null,
+        localId: uuid.generate(),
       }),
     },
   ],

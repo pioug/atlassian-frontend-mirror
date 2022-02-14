@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import { bulletListSelector, orderedListSelector } from '@atlaskit/adf-schema';
 
+import browser from '../../utils/browser';
+
 export const listsSharedStyles = css`
   /* =============== INDENTATION SPACING ========= */
 
@@ -9,6 +11,21 @@ export const listsSharedStyles = css`
   ol {
     box-sizing: border-box;
     padding-left: 24px;
+
+    /*
+    Firefox does not handle empty block element inside li tag.
+    If there is not block element inside li tag,
+      then firefox sets inherited height to li
+    However, if there is any block element and if it's empty
+      (or has empty inline element) then
+    firefox sets li tag height to zero.
+    More details at
+    https://product-fabric.atlassian.net/wiki/spaces/~455502413/pages/3149365890/ED-14110+Investigation
+    */
+    li p:empty,
+    li p > span:empty {
+      ${browser.gecko ? 'display: inline-block;' : ''}
+    }
   }
 
   ${orderedListSelector}, ${bulletListSelector} {

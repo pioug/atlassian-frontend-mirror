@@ -4,7 +4,6 @@ import { EmojiProvider, EmojiDescription } from '@atlaskit/emoji';
 export interface EmojiPluginOptions {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   allowZeroWidthSpaceAfter?: boolean;
-  useInlineWrapper?: boolean;
   headless?: boolean;
 }
 

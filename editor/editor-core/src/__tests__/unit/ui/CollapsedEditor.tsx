@@ -1,5 +1,5 @@
 import { name } from '../../../version.json';
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import React from 'react';
 import Editor from '../../../editor';
 import CollapsedEditor from '../../../ui/CollapsedEditor';
@@ -8,7 +8,7 @@ import ChromeCollapsed from '../../../ui/ChromeCollapsed';
 describe(name, () => {
   describe('CollapsedEditor', () => {
     it('should not render the editor when isExpanded is false', () => {
-      const wrapper = mount(
+      const wrapper = mountWithIntl(
         <CollapsedEditor isExpanded={false}>
           <Editor />
         </CollapsedEditor>,
@@ -18,7 +18,7 @@ describe(name, () => {
     });
 
     it('should render the editor when isExpanded is true', () => {
-      const wrapper = mount(
+      const wrapper = mountWithIntl(
         <CollapsedEditor isExpanded={true}>
           <Editor />
         </CollapsedEditor>,
@@ -29,7 +29,7 @@ describe(name, () => {
 
     it('should call onFocus when collapsed editor is clicked', () => {
       const onFocus = jest.fn();
-      const wrapper = mount(
+      const wrapper = mountWithIntl(
         <CollapsedEditor onFocus={onFocus}>
           <Editor />
         </CollapsedEditor>,
@@ -40,7 +40,7 @@ describe(name, () => {
 
     it('should not call onExpand when the editor is initially expanded', () => {
       const onExpand = jest.fn();
-      mount(
+      mountWithIntl(
         <CollapsedEditor isExpanded={true} onExpand={onExpand}>
           <Editor />
         </CollapsedEditor>,
@@ -50,7 +50,7 @@ describe(name, () => {
 
     it('should call onExpand after the editor is expanded and mounted', () => {
       const onExpand = jest.fn();
-      const wrapper = mount(
+      const wrapper = mountWithIntl(
         <CollapsedEditor isExpanded={false} onExpand={onExpand}>
           <Editor />
         </CollapsedEditor>,
@@ -64,7 +64,7 @@ describe(name, () => {
       const setRef = (ref: Editor) => {
         editorRef = ref;
       };
-      mount(
+      mountWithIntl(
         <CollapsedEditor isExpanded={true}>
           <Editor ref={setRef} />
         </CollapsedEditor>,

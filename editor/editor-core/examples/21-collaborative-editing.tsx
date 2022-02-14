@@ -36,23 +36,24 @@ export const Content: any = styled.div`
 `;
 Content.displayName = 'Content';
 
-const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => (
-  <ButtonGroup>
-    <Button
-      appearance="primary"
-      onClick={() =>
-        props.editorActions
-          .getValue()
-          .then((value) => console.log(value.toJSON()))
-      }
-    >
-      Publish
-    </Button>
-    <Button appearance="subtle" onClick={() => props.editorActions.clear()}>
-      Close
-    </Button>
-  </ButtonGroup>
-);
+const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
+  const onClickPublish = () => {
+    props.editorActions.getResolvedEditorState().then((value) => {
+      console.log(value);
+    });
+  };
+
+  return (
+    <ButtonGroup>
+      <Button appearance="primary" onClick={onClickPublish}>
+        Publish
+      </Button>
+      <Button appearance="subtle" onClick={() => props.editorActions.clear()}>
+        Close
+      </Button>
+    </ButtonGroup>
+  );
+};
 
 interface DropzoneEditorWrapperProps {
   children: (container: HTMLElement) => React.ReactNode;

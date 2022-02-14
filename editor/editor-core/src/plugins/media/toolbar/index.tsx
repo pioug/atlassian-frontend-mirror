@@ -1,10 +1,6 @@
 import React from 'react';
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import {
-  findParentNodeOfType,
-  removeSelectedNode,
-  safeInsert,
-} from 'prosemirror-utils';
+import { findParentNodeOfType, removeSelectedNode } from 'prosemirror-utils';
 import { IntlShape } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
@@ -38,8 +34,11 @@ import { messages } from '@atlaskit/media-ui';
 import { messages as cardMessages } from '../../card/messages';
 import { FilePreviewItem } from './filePreviewItem';
 import { downloadMedia, removeMediaGroupNode } from './utils';
-import { Fragment } from 'prosemirror-model';
-import { changeInlineToMediaCard, removeInlineCard } from './commands';
+import {
+  changeInlineToMediaCard,
+  changeMediaCardToInline,
+  removeInlineCard,
+} from './commands';
 import {
   MediaInlineNodeSelector,
   MediaSingleNodeSelector,
@@ -60,35 +59,6 @@ const handleRemoveMediaGroup: Command = (state, dispatch) => {
   return true;
 };
 
-const changeMediaCardToInline: Command = (state, dispatch) => {
-  const { media, mediaInline, paragraph } = state.schema.nodes;
-  const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
-
-  if (!selectedNode || !selectedNode.type === media) {
-    return false;
-  }
-
-  const mediaInlineNode = mediaInline.create({
-    id: selectedNode.attrs.id,
-    collection: selectedNode.attrs.collection,
-  });
-  const space = state.schema.text(' ');
-  let content = Fragment.from([mediaInlineNode, space]);
-  const node = paragraph.createChecked({}, content);
-
-  const nodePos = state.tr.doc.resolve(state.selection.from).start() - 1;
-
-  let tr = removeMediaGroupNode(state);
-  tr = safeInsert(node, nodePos, true)(tr);
-
-  if (dispatch) {
-    dispatch(tr);
-  }
-
-  return true;
-};
-
 const generateMediaCardFloatingToolbar = (
   state: EditorState,
   intl: IntlShape,
@@ -99,7 +69,7 @@ const generateMediaCardFloatingToolbar = (
     {
       id: 'editor.media.view.switcher',
       type: 'dropdown',
-      title: intl.formatMessage(messages.displayThumbnail),
+      title: intl.formatMessage(messages.changeView),
       options: [
         {
           id: 'editor.media.view.switcher.inline',
@@ -177,7 +147,7 @@ const generateMediaInlineFloatingToolbar = (
     {
       id: 'editor.media.view.switcher',
       type: 'dropdown',
-      title: intl.formatMessage(cardMessages.inline),
+      title: intl.formatMessage(messages.changeView),
       options: [
         {
           id: 'editor.media.view.switcher.inline',

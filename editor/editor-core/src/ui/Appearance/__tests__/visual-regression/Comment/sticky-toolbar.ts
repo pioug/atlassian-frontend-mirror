@@ -33,8 +33,7 @@ describe('Comment with sticky toolbar', () => {
       );
     });
 
-    // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13717
-    test.skip('with scroll', async () => {
+    test('with scroll', async () => {
       await initCommentEditorWithAdf(
         page,
         createDocumentWithParagraphs(10),
@@ -59,8 +58,7 @@ describe('Comment with sticky toolbar', () => {
       );
     });
 
-    // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13717
-    test.skip('with scroll', async () => {
+    test('with scroll', async () => {
       await initCommentEditorWithAdf(
         page,
         createDocumentWithParagraphs(10),

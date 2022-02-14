@@ -14,7 +14,7 @@ import {
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
-import { FileAttributes, SSR } from '@atlaskit/media-common';
+import { FileAttributes } from '@atlaskit/media-common';
 import {
   FileDetails,
   FileIdentifier,
@@ -63,11 +63,12 @@ import {
   isLocalPreview,
   isSSRPreview,
   isSSRClientPreview,
+  isSSRDataPreview,
   fetchAndCacheRemotePreview,
 } from './getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
 import { InlinePlayer } from '../inlinePlayer';
-import { getFileAttributes } from '../../utils/analytics';
+import { getFileAttributes, extractErrorInfo } from '../../utils/analytics';
 import {
   isLocalPreviewError,
   MediaCardError,
@@ -82,9 +83,16 @@ import {
   fireScreenEvent,
 } from './cardAnalytics';
 import getDocument from '../../utils/document';
+import {
+  StoreSSRDataScript,
+  getSSRData,
+  MediaCardSsrData,
+} from '../../utils/globalScope';
 import { getCardStateFromFileState, createStateUpdater } from './cardState';
 import { isProcessedFileState } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { isBigger } from '../../utils/dimensionComparer';
+import { getMediaCardCursor } from '../../utils/getMediaCardCursor';
 
 export type CardBaseProps = CardProps &
   WithAnalyticsEventsProps &
@@ -98,6 +106,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   // to avoid extra branching on a possibly undefined value.
   private timeElapsedTillCommenced: number = performance.now();
   subscription?: Subscription;
+  private ssrData?: MediaCardSsrData;
   static defaultProps: Partial<CardProps> = {
     appearance: 'auto',
     resizeMode: 'crop',
@@ -112,15 +121,33 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     let status: CardStatus = 'loading';
     let cardPreview: CardPreview | undefined;
-
-    const { identifier, dimensions = {}, ssr } = this.props;
+    let error: MediaCardError | undefined;
+    const { identifier, dimensions = {}, ssr, mediaClient } = this.props;
 
     if (isFileIdentifier(identifier)) {
       const { id } = identifier;
       cardPreview = getCardPreviewFromCache(id, dimensions);
       if (!cardPreview && ssr) {
-        this.fireCommencedEvent();
-        cardPreview = this.resolveSSRPreview(identifier, ssr);
+        this.ssrData = getSSRData(identifier);
+        if (ssr === 'server' || !this.ssrData?.dataURI) {
+          try {
+            cardPreview = getSSRCardPreview(
+              ssr,
+              mediaClient,
+              identifier.id,
+              this.getImageURLParams(identifier),
+              this.getMediaBlobUrlAttrs(identifier),
+            );
+          } catch (e) {
+            // TODO: handle error in client MEX-770
+            // If we fail building the dataURI in server, we store the error in the state
+            // to be later stored in global scope and logged in client.
+            // We don't set the status = error to fall back to the spinner icon
+            error = ssr === 'server' ? e : undefined;
+          }
+        } else {
+          cardPreview = { dataURI: this.ssrData.dataURI, source: 'ssr-data' };
+        }
       }
     } else if (isExternalImageIdentifier(identifier)) {
       this.fireCommencedEvent();
@@ -145,13 +172,15 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       cardRef: null,
       isBannedLocalPreview: false,
       previewDidRender: false,
+      error,
     };
   }
 
   componentDidMount() {
     this.hasBeenMounted = true;
     const { isCardVisible, cardPreview } = this.state;
-    const { identifier, ssr } = this.props;
+    const { identifier, ssr, dimensions } = this.props;
+
     if (isCardVisible && isFileIdentifier(identifier)) {
       this.updateStateForIdentifier(identifier);
     }
@@ -159,12 +188,21 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       isCardVisible &&
       !!ssr &&
       !!cardPreview &&
-      isSSRClientPreview(cardPreview) &&
       isFileIdentifier(identifier)
     ) {
-      // Since the SSR preview brings the token in the query params,
-      // We need to fetch the remote preview to be able to cache it,
-      this.setCacheSSRPreview(identifier);
+      if (isSSRClientPreview(cardPreview)) {
+        // Since the SSR preview brings the token in the query params,
+        // We need to fetch the remote preview to be able to cache it,
+        this.setCacheSSRPreview(identifier);
+      }
+      if (
+        isSSRDataPreview(cardPreview) &&
+        isBigger(this.ssrData?.dimensions, dimensions)
+      ) {
+        // If dimensions from Server have changed and are bigger,
+        // we need to refetch
+        this.refetchSSRPreview(identifier);
+      }
     }
     // we add a listener for each of the cards on the page
     // and then check if the triggered listener is from the card
@@ -363,22 +401,20 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     });
   };
 
-  private resolveSSRPreview = (
-    identifier: FileIdentifier,
-    ssr: SSR,
-  ): CardPreview | undefined => {
-    const { mediaClient } = this.props;
+  private refetchSSRPreview = async (identifier: FileIdentifier) => {
+    const { mediaClient, dimensions = {} } = this.props;
     try {
-      return getSSRCardPreview(
-        ssr,
+      const cardPreview = await fetchAndCacheRemotePreview(
         mediaClient,
         identifier.id,
+        dimensions,
         this.getImageURLParams(identifier),
         this.getMediaBlobUrlAttrs(identifier),
       );
+      this.safeSetState({ cardPreview });
     } catch (e) {
-      // TODO: log SSR reliability 'failed'
-      // https://product-fabric.atlassian.net/browse/MEX-770
+      // No need to log this error.
+      // If preview fails, it will be refetched later
     }
   };
 
@@ -459,11 +495,17 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     };
   };
 
-  private onImageError = () => {
-    const { cardPreview } = this.state;
+  private onImageError = (cardPreview?: CardPreview) => {
+    const { cardPreview: currentPreview } = this.state;
+    // If the dataURI has been replaced, we can dismiss this error
+    if (cardPreview?.dataURI !== currentPreview?.dataURI) {
+      return;
+    }
     const error = new ImageLoadError(cardPreview?.source);
     const isLocal = cardPreview && isLocalPreview(cardPreview);
-    const isSSR = cardPreview && isSSRClientPreview(cardPreview);
+    const isSSR =
+      cardPreview &&
+      (isSSRClientPreview(cardPreview) || isSSRDataPreview(cardPreview));
 
     if (isLocal || isSSR) {
       const updateState: Partial<CardState> = { cardPreview: undefined };
@@ -487,7 +529,12 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     }
   };
 
-  private onImageLoad = () => {
+  private onImageLoad = (cardPreview?: CardPreview) => {
+    const { cardPreview: currentPreview } = this.state;
+    // If the dataURI has been replaced, we can dismiss this callback
+    if (cardPreview?.dataURI !== currentPreview?.dataURI) {
+      return;
+    }
     this.safeSetState({ previewDidRender: true });
   };
 
@@ -645,7 +692,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       testId,
       originalDimensions,
     } = this.props;
-    const { shouldAutoplay } = this.state;
+    const { shouldAutoplay, cardPreview } = this.state;
 
     return (
       <InlinePlayer
@@ -659,6 +706,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         selected={selected}
         ref={this.setRef}
         testId={testId}
+        cardPreview={cardPreview}
       />
     );
   };
@@ -743,15 +791,14 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       titleBoxBgColor,
       titleBoxIcon,
       ssr,
+      useInlinePlayer,
+      shouldOpenMediaViewer,
     } = this.props;
     const { mediaItemType } = identifier;
     const {
       status,
       progress,
-      cardPreview: { dataURI, orientation } = {
-        dataURI: undefined,
-        orientation: 1,
-      },
+      cardPreview,
       error,
       cardRef,
       isCardVisible,
@@ -765,13 +812,21 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     // Force Media Image to always display img for SSR
     const forceSyncDisplay = !!ssr;
 
+    const mediaCardCursor = getMediaCardCursor(
+      !!useInlinePlayer,
+      !!shouldOpenMediaViewer,
+      status === 'error' || status === 'failed-processing',
+      !!this.state.cardPreview,
+      metadata.mediaType,
+    );
+
     const card = (
       <CardView
         status={status}
         error={error}
         mediaItemType={mediaItemType}
         metadata={metadata}
-        dataURI={dataURI}
+        cardPreview={cardPreview}
         alt={alt}
         appearance={appearance}
         resizeMode={resizeMode}
@@ -784,7 +839,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         disableOverlay={disableOverlay}
         progress={progress}
         onDisplayImage={onDisplayImage}
-        previewOrientation={orientation}
         innerRef={this.setRef}
         testId={testId}
         featureFlags={featureFlags}
@@ -794,6 +848,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         onImageLoad={this.onImageLoad}
         nativeLazyLoad={nativeLazyLoad}
         forceSyncDisplay={forceSyncDisplay}
+        mediaCardCursor={mediaCardCursor}
       />
     );
 
@@ -819,12 +874,32 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     );
   };
 
+  private storeSSRData = () => {
+    const { ssr, identifier } = this.props;
+    const { cardPreview: { dataURI } = {}, error } = this.state;
+
+    const ssrDataError = !!error ? extractErrorInfo(error) : undefined;
+
+    return (
+      isFileIdentifier(identifier) &&
+      ssr === 'server' && (
+        <StoreSSRDataScript
+          identifier={identifier}
+          dataURI={dataURI}
+          dimensions={this.requestedDimensions}
+          error={ssrDataError}
+        />
+      )
+    );
+  };
+
   render() {
     const { isPlayingFile, mediaViewerSelectedItem } = this.state;
     const innerContent = (
       <>
         {isPlayingFile ? this.renderInlinePlayer() : this.renderCard()}
         {mediaViewerSelectedItem ? this.renderMediaViewer() : null}
+        {this.storeSSRData()}
       </>
     );
 

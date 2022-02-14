@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { MentionProvider } from '../src/api/MentionResource';
 import { PresenceProvider } from '../src/api/PresenceResource';
 import MentionPicker, { Position } from '../src/components/MentionPicker';
@@ -118,10 +119,12 @@ export default class MentionTextInput extends React.Component<Props, State> {
     }
 
     return (
-      <div style={{ padding: '10px' }}>
-        {searchInput}
-        {mentionPicker}
-      </div>
+      <IntlProvider locale="en">
+        <div style={{ padding: '10px' }}>
+          {searchInput}
+          {mentionPicker}
+        </div>
+      </IntlProvider>
     );
   }
 }

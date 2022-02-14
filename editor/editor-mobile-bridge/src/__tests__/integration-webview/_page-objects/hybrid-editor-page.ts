@@ -51,8 +51,7 @@ export const EDITOR_CONTENT_AREA_ELEMENT = '.ak-editor-content-area';
 export const BLOCK_QUOTE_ELEMENT = 'blockquote';
 export const CODE_BLOCK_ELEMENT = '.code-block .code-content code';
 export const TABLE_HEADER_ELEMENT = '.pm-table-header-content-wrap p strong';
-export const MENTION_VIEW_ELEMENT =
-  '.inline-node--mobile.mentionView-content-wrap';
+export const MENTION_VIEW_ELEMENT = '.mentionView-content-wrap';
 
 /**
  * Load & start the editor within the WebView

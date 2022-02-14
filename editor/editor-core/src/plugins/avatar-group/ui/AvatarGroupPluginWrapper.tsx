@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { EditorView } from 'prosemirror-view';
 import { CollabEditOptions } from '../../collab-edit';
+import { useIntl } from 'react-intl-next';
+import { avatarGroupMessages } from '../messages';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -22,7 +24,7 @@ const ToolbarButtonWrapper = styled.div<{ takeFullWidth: boolean }>`
   }
 `;
 
-export const AvatarGroupPluginWrapper = (props: {
+const AvatarGroupPluginWrapper = (props: {
   collabEdit?: CollabEditOptions;
   editorView: EditorView;
   eventDispatcher: EventDispatcher<any>;
@@ -30,6 +32,7 @@ export const AvatarGroupPluginWrapper = (props: {
   takeFullWidth: boolean;
 }) => {
   const { dispatchAnalyticsEvent } = props;
+  const intl = useIntl();
 
   useEffect(() => {
     if (!dispatchAnalyticsEvent) {
@@ -46,7 +49,7 @@ export const AvatarGroupPluginWrapper = (props: {
 
   return (
     <ToolbarButtonWrapper
-      aria-label="Editors"
+      aria-label={intl.formatMessage(avatarGroupMessages.editors)}
       data-testid={'avatar-group-in-plugin'}
       takeFullWidth={props.takeFullWidth}
     >
@@ -66,3 +69,5 @@ export const AvatarGroupPluginWrapper = (props: {
     </ToolbarButtonWrapper>
   );
 };
+
+export default AvatarGroupPluginWrapper;

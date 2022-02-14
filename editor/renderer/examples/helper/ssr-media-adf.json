@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33333333333333,
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "5556346b-b081-482b-bc4a-4faca8ecd2de",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 2400,
+            "height": 1091
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "mediaGroup",
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "5556346b-b081-482b-bc4a-4faca8ecd2de",
+            "type": "file",
+            "collection": "MediaServicesSample"
+          }
+        },
+        {
+          "type": "media",
+          "attrs": {
+            "id": "5556346b-b081-482b-bc4a-4faca8ecd2de",
+            "type": "file",
+            "collection": "MediaServicesSample"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

@@ -240,6 +240,7 @@ export const getCodeBlockStyles = (theme: CodeBlockTheme) => (
   '& [data-ds--code--row--highlight]': {
     background: `${theme.highlightedLineBgColor}`,
 
+    // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
     '&::before, &::after': {
       clipPath: 'inset(100%)',
       clip: 'rect(1px, 1px, 1px, 1px)',

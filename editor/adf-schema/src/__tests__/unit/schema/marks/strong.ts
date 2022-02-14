@@ -1,6 +1,10 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { fromHTML, toHTML, textWithMarks } from '../../../../../test-helpers';
+import {
+  fromHTML,
+  toHTML,
+  textWithMarks,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 
 describe(`${name}/schema strong mark`, () => {
   itMatches('<strong>text</strong>', 'text');

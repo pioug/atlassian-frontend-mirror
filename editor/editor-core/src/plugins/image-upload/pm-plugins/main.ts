@@ -1,4 +1,5 @@
-import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
 
 import { isPastedFile } from '../../../utils/clipboard';
 import { isDroppedFile } from '../../../utils/drag-drop';
@@ -32,7 +33,7 @@ const createDOMHandler = (pred: DOMHandlerPredicate, eventName: string) => (
 };
 
 const getNewActiveUpload = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: ImageUploadPluginState,
 ) => {
   const meta: ImageUploadPluginAction | undefined = tr.getMeta(stateKey);
@@ -51,7 +52,7 @@ export const createPlugin = ({
 }: PMPluginFactoryParams) => {
   let uploadHandler: ImageUploadProvider | undefined;
 
-  return new Plugin({
+  return new SafePlugin({
     state: {
       init(_config, state: EditorState): ImageUploadPluginState {
         return {

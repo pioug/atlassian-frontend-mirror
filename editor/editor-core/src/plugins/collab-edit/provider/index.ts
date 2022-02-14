@@ -14,4 +14,3 @@ export type {
   StepResponse,
   TelepointerData,
 } from './types';
-export { CollabProvider } from './collab-provider';

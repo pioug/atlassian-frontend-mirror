@@ -17,9 +17,13 @@ import {
   getRenderErrorRequestMetadata,
   getRenderErrorEventPayload,
   getRenderPreviewableCardPayload,
+  extractErrorInfo,
 } from '../../analytics';
 import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
-import { createRateLimitedError } from '@atlaskit/media-test-helpers';
+import {
+  createMediaStoreError,
+  createRateLimitedError,
+} from '@atlaskit/media-test-helpers';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
 import { MediaCardError } from '../../../errors';
 
@@ -210,6 +214,18 @@ describe('Media Analytics', () => {
         method: 'POST',
         endpoint: '/some-endpoint',
         statusCode: 429,
+      });
+    });
+
+    it('extractErrorInfo should return failReason, secondaryError and secondaryError detail', () => {
+      expect(
+        extractErrorInfo(
+          new MediaCardError('ssr-server-uri', createMediaStoreError()),
+        ),
+      ).toStrictEqual({
+        failReason: 'ssr-server-uri',
+        error: 'missingInitialAuth',
+        errorDetail: 'missingInitialAuth',
       });
     });
   });

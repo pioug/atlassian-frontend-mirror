@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { CardLinkView } from '@atlaskit/media-ui';
-
 import { CardWithUrlContentProps } from '../types';
+import { CardLinkView } from '../../../view/LinkView';
 
 export const loadingPlaceholderClassName = 'smart-link-loading-placeholder';
 

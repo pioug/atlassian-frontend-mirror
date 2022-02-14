@@ -1,6 +1,7 @@
 import {
   NodeSelection,
   Transaction,
+  ReadonlyTransaction,
   TextSelection,
   Selection,
   AllSelection,
@@ -71,7 +72,9 @@ export function createSelectionClickHandler(
   };
 }
 
-export const getDecorations = (tr: Transaction): DecorationSet => {
+export const getDecorations = (
+  tr: Transaction | ReadonlyTransaction,
+): DecorationSet => {
   if (tr.selection instanceof NodeSelection) {
     return DecorationSet.create(tr.doc, [
       Decoration.node(tr.selection.from, tr.selection.to, {

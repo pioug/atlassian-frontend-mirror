@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { IntlProvider } from 'react-intl-next';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -93,7 +94,7 @@ describe('<Toolbar />', () => {
         },
       ];
 
-      const wrapper = mount(
+      const wrapper = mountWithIntl(
         <Toolbar
           node={node!}
           items={items}
@@ -133,7 +134,7 @@ describe('<Toolbar />', () => {
         },
       ];
 
-      const wrapper = mount(
+      const wrapper = mountWithIntl(
         <Toolbar
           node={node!}
           items={items}

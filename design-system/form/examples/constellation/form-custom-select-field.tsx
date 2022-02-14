@@ -94,6 +94,7 @@ const CustomColorOption: React.FC<OptionProps<ColorOption>> = ({
   children,
   ...props
 }) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <components.Option {...props}>
     <ColorBox color={children as string} /> {children}
   </components.Option>
@@ -107,6 +108,7 @@ const CustomValueOption: React.FC<SingleValueProps<ColorOption>> = ({
   children,
   ...props
 }) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <components.SingleValue {...props}>
     <ColorBox color={children as string} /> {children}
   </components.SingleValue>

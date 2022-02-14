@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.3.0
+
+### Minor Changes
+
+- [`2e56ff8ea50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e56ff8ea50) - [ux] Fixed a bug where smart resize did not work when the value prop was changed
+
 ## 4.2.6
 
 ### Patch Changes

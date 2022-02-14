@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
@@ -53,7 +53,7 @@ describe('MentionItem', () => {
     expect(component.html()).not.toContain('@');
   });
 
-  it('should display access restriction if accessLevel is NONE', () => {
+  it('should display access restriction if accessLevel is NONE', async () => {
     const component = setupMentionItem({
       id: '1',
       name: 'Kaitlyn Prouty',
@@ -61,6 +61,14 @@ describe('MentionItem', () => {
       avatarUrl: '',
       accessLevel: 'NONE',
     });
+
+    // await for LockCircle async import
+    await new Promise(setImmediate);
+    component.update();
+
+    var icon = component.find(LockCircleIcon);
+    expect(icon).toHaveLength(1);
+
     expect(component.find(LockCircleIcon)).toHaveLength(1);
   });
 

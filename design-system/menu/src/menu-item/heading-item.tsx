@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { N200 } from '@atlaskit/theme/colors';
+import { N300 } from '@atlaskit/theme/colors';
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -18,7 +18,7 @@ const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
   padding: `0 ${itemSidePadding}px`,
-  color: token('color.text.subtlest', N200),
+  color: token('color.text.subtle', N300),
   fontSize: itemHeadingFontSize,
   fontWeight: 700,
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,

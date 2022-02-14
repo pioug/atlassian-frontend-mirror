@@ -1125,7 +1125,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "state": "active",
       "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
     },
-    "value": "#BCD6F00A"
+    "value": "#03040442"
   },
   "Elevation/Surface/Raised": {
     "attributes": {

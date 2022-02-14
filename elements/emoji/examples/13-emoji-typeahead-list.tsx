@@ -4,6 +4,7 @@ import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import { onSelection } from '../example-helpers';
 import EmojiTypeAheadList from '../src/components/typeahead/EmojiTypeAheadList';
 import { EmojiDescription } from '../src/types';
+import { IntlProvider } from 'react-intl-next';
 
 function randomEmojis(): EmojiDescription[] {
   return getEmojis()
@@ -51,11 +52,13 @@ export default class RefreshableEmojiList extends PureComponent<Props, State> {
 
   render() {
     const emojiList = (
-      <EmojiTypeAheadList
-        emojis={this.state.emojis}
-        onEmojiSelected={onSelection}
-        ref={this.handleEmojiTypeAheadListRef}
-      />
+      <IntlProvider locale="en">
+        <EmojiTypeAheadList
+          emojis={this.state.emojis}
+          onEmojiSelected={onSelection}
+          ref={this.handleEmojiTypeAheadListRef}
+        />
+      </IntlProvider>
     );
 
     return (

@@ -1,7 +1,7 @@
 jest.useFakeTimers();
 import React from 'react';
 import { mount } from 'enzyme';
-import { AnnotationTypes } from '@atlaskit/adf-schema/src/schema/marks/annotation';
+import { AnnotationTypes } from '@atlaskit/adf-schema/schema';
 import MobileRendererWrapper, {
   MobileRenderer,
 } from '../../mobile-renderer-element';

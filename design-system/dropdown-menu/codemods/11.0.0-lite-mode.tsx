@@ -1,6 +1,11 @@
 import { createTransformer } from '@atlaskit/codemod-utils';
 
 import convertTriggerType from './migrates/convert-trigger-type';
+import deprecateAutoFocus from './migrates/deprecate-autoFocus';
+import deprecateboundariesElement from './migrates/deprecate-boundariesElement';
+import deprecateIsCompact from './migrates/deprecate-isCompact';
+import deprecateIsHidden from './migrates/deprecate-isHidden';
+import deprecateIsMenuFixed from './migrates/deprecate-isMenuFixed';
 import deprecateItems from './migrates/deprecate-items';
 import deprecateOnItemActivated from './migrates/deprecate-onItemActivated';
 import deprecateOnPositioned from './migrates/deprecate-onPositioned';
@@ -22,6 +27,13 @@ const transformer = createTransformer([
   deprecateOnItemActivated,
   deprecateOnPositioned,
   deprecateShouldFitContainer,
+  deprecateboundariesElement,
+  deprecateIsMenuFixed,
+
+  // props on *Items
+  ...deprecateAutoFocus(),
+  ...deprecateIsCompact(),
+  ...deprecateIsHidden(),
 
   replaceShouldAllowMultiline,
   updatePositionValue,

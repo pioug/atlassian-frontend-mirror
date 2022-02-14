@@ -4,6 +4,7 @@ import Icon from '@atlaskit/icon';
 
 const Logo = (props: any) => {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <svg {...props} width="24" height="24" viewBox="0 0 24 24">
       <path
         fillRule="evenodd"

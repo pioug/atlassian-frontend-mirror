@@ -5,9 +5,6 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import Mention from '../ui/Mention';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews';
-import InlineNodeWrapper, {
-  createMobileInlineDomRef,
-} from '../../../ui/InlineNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { MentionPluginOptions } from '../types';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -19,13 +16,6 @@ export interface Props {
 
 export class MentionNodeView extends ReactNodeView<Props> {
   createDomRef() {
-    if (
-      this.reactComponentProps.options &&
-      this.reactComponentProps.options.useInlineWrapper
-    ) {
-      return createMobileInlineDomRef();
-    }
-
     return super.createDomRef();
   }
 
@@ -34,7 +24,7 @@ export class MentionNodeView extends ReactNodeView<Props> {
     const { id, text, accessLevel } = this.node.attrs;
 
     return (
-      <InlineNodeWrapper useInlineWrapper={options && options.useInlineWrapper}>
+      <>
         <Mention
           id={id}
           text={text}
@@ -42,7 +32,7 @@ export class MentionNodeView extends ReactNodeView<Props> {
           providers={providerFactory}
         />
         {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
-      </InlineNodeWrapper>
+      </>
     );
   }
 }
@@ -53,8 +43,9 @@ export default function mentionNodeView(
   providerFactory: ProviderFactory,
   options?: MentionPluginOptions,
 ) {
-  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new MentionNodeView(
+  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
+    const hasIntlContext = true;
+    return new MentionNodeView(
       node,
       view,
       getPos,
@@ -64,5 +55,10 @@ export default function mentionNodeView(
         providerFactory,
         options,
       },
+      undefined,
+      undefined,
+      undefined,
+      hasIntlContext,
     ).init();
+  };
 }

@@ -1,11 +1,12 @@
 {
   "name": "@atlaskit/icon-object",
   "version": "6.2.5",
-  "description": "An object icon is used to represent an entity specific to a product, such as a pull request for Bitbucket.",
+  "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "homepage": "https://atlassian.design/components/icon-object/",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "atlaskit:src": "src/index.ts",
@@ -18,7 +19,7 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Icon Object"
+      "name": "Icon object"
     }
   },
   "af:exports": {
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
+    "@af/icon-explorer": "^0.0.2",
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.2.0",

@@ -50,7 +50,7 @@ export interface OtherGlyphProps {
   /**
    * Text used to describe what the icon is in context.
    * A label is needed when there is no pairing visible text next to the icon.
-   * An empty string marks the icon as presentation only
+   * An empty string marks the icon as presentation only.
    */
   label: string;
 

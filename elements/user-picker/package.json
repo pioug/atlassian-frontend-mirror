@@ -55,7 +55,7 @@
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/radio": "^5.3.4",
-    "@atlaskit/range": "^5.0.11",
+    "@atlaskit/range": "^6.0.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/util-data-test": "^17.2.0",
@@ -72,6 +72,11 @@
     "mock-apollo-client": "^0.1.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "typescript": "3.9.6"
+  },
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
   },
   "keywords": [
     "fabric",

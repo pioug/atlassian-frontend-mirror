@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.3.1
+
+### Patch Changes
+
+- [`57f3b255fb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/57f3b255fb2) - [ux] AK-608: Action items are keyboard accessible
+
 ## 17.3.0
 
 ### Minor Changes

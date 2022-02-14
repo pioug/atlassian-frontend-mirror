@@ -255,3 +255,15 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
 
   folder: ['Folder', () => import('@atlaskit/icon-file-type/glyph/folder/16')],
 };
+
+export const getIframeSandboxAttribute = (isTrusted: boolean) =>
+  isTrusted
+    ? undefined
+    : 'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts';
+export const handleOnClick = (handler: Function) => (
+  e: React.MouseEvent<HTMLElement>,
+) => {
+  e.preventDefault();
+  e.stopPropagation();
+  handler();
+};

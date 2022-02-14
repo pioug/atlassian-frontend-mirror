@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 7.1.5
+
+### Patch Changes
+
+- [`f82fb6c48f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f82fb6c48f7) - [ED-13911] Fix cycle dependencies
+- [`97412280671`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97412280671) - [ED-13939] Add analytics event to track "can't syncup with collab service" error
+- [`88ada10af2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88ada10af2c) - [ED-14097] Moved getFinalAcknowledgedState control to editor and made the API public
+- [`85648c038a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85648c038a4) - ED-13939 Rename newCollabSyncUpError analytics event to newCollabSyncUpErrorNoSteps
+- [`e292f108d4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e292f108d4b) - Ensure metadata is persisted when it is updated by another participant during an editing session
+- Updated dependencies
+
 ## 7.1.4
 
 ### Patch Changes

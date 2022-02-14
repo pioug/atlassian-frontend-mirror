@@ -2,7 +2,6 @@ import {
   getExampleUrl,
   loadPage,
   PuppeteerPage,
-  takeElementScreenShot,
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
 import {
@@ -13,12 +12,16 @@ import {
   elementBrowserSelectors,
   waitForInsertMenuIcons,
 } from '../../../../__tests__/__helpers/page-objects/_element-browser';
-import { clickEditableContent } from '../../../../__tests__/__helpers/page-objects/_editor';
+import {
+  clickEditableContent,
+  animationFrame,
+} from '../../../../__tests__/__helpers/page-objects/_editor';
+import { snapshot } from '../../../../__tests__/visual-regression/_utils';
 
 let page: PuppeteerPage;
 let url: string;
 
-describe('InsertMenu', () => {
+describe('InsertMenu Button', () => {
   beforeEach(async () => {
     url = getExampleUrl(
       'editor',
@@ -28,31 +31,43 @@ describe('InsertMenu', () => {
     );
     page = global.page;
     await loadPage(page, url);
+    await animationFrame(page);
     await clickEditableContent(page);
+    await animationFrame(page);
     await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);
     await page.waitForSelector(elementBrowserSelectors.elementBrowser);
     // Move mouse away to avoid the tooltip from the clicked button
     await page.mouse.move(0, 0);
+    await animationFrame(page);
     await waitForNoTooltip(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 9/5/2021: https://product-fabric.atlassian.net/browse/ED-13701
-  it.skip('should match InsertMenu snapshot', async () => {
+  it('should match the InsertMenu item snapshot', async () => {
+    await animationFrame(page);
     await waitForInsertMenuIcons(page);
-    const image = await takeElementScreenShot(
+    await animationFrame(page);
+    await snapshot(
       page,
+      { tolerance: 0.0005 },
       elementBrowserSelectors.elementBrowser,
+      {
+        captureBeyondViewport: false,
+      },
     );
-    expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should correctly render view more element', async () => {
+  it('should correctly render the View More menu item', async () => {
+    await animationFrame(page);
     // Wait for loaded SVG icon
     await page.waitForSelector(`${elementBrowserSelectors.viewMore} svg`);
-    const image = await takeElementScreenShot(
+    await animationFrame(page);
+    await snapshot(
       page,
+      { tolerance: 0.0005 },
       elementBrowserSelectors.viewMore,
+      {
+        captureBeyondViewport: false,
+      },
     );
-    expect(image).toMatchProdImageSnapshot();
   });
 });

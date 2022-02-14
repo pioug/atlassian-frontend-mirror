@@ -1,4 +1,5 @@
-import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { pluginKey } from './plugin-key';
 import captionNodeView from './../nodeviews';
@@ -32,7 +33,7 @@ export default (
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
 ) => {
-  return new Plugin({
+  return new SafePlugin({
     appendTransaction(
       transactions: Transaction[],
       oldState: EditorState,

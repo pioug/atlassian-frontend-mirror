@@ -23,6 +23,7 @@ export type CardPreviewSource =
   | 'remote'
   | 'ssr-server'
   | 'ssr-client'
+  | 'ssr-data'
   | 'cache-local'
   | 'cache-remote'
   | 'cache-ssr-client'
@@ -33,4 +34,10 @@ export interface CardPreview {
   dataURI: string;
   orientation?: number;
   source: CardPreviewSource;
+}
+
+export enum MediaCardCursor {
+  Action = 'pointer',
+  NoAction = 'default',
+  NotReady = 'wait',
 }

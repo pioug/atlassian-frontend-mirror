@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 16.0.41
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.40
 
 ### Patch Changes

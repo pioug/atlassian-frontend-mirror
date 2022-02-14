@@ -38,12 +38,12 @@ describe('GroupOption', () => {
         </GroupOptionIconWrapper>
       ),
       primaryText: [
-        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
+        <TextWrapper key="name" color={token('color.text', N800)}>
           <HighlightText>dead-jedi-admins</HighlightText>
         </TextWrapper>,
       ],
       secondaryText: (
-        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+        <TextWrapper color={token('color.text.subtlest', N200)}>
           <FormattedMessage
             id="fabric.elements.user-picker.group.byline"
             defaultMessage="Admin-managed group"
@@ -60,12 +60,12 @@ describe('GroupOption', () => {
     expect(avatarItemOption.props()).toMatchObject(
       expect.objectContaining({
         primaryText: [
-          <TextWrapper key="name" color={token('color.text.selected', B400)}>
+          <TextWrapper key="name" color={token('color.text.brand', B400)}>
             <HighlightText>dead-jedi-admins</HighlightText>
           </TextWrapper>,
         ],
         secondaryText: (
-          <TextWrapper color={token('color.text.selected', B400)}>
+          <TextWrapper color={token('color.text.brand', B400)}>
             <FormattedMessage
               id="fabric.elements.user-picker.group.byline"
               defaultMessage="Admin-managed group"
@@ -88,7 +88,7 @@ describe('GroupOption', () => {
     const component = shallowOption({ group: groupWithHighlight });
     const avatarItemOption = component.find(AvatarItemOption);
     expect(avatarItemOption.prop('primaryText')).toEqual([
-      <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
+      <TextWrapper key="name" color={token('color.text', N800)}>
         <HighlightText highlights={[testHighlightRange]}>
           dead-jedi-admins
         </HighlightText>

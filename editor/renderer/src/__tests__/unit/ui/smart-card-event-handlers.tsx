@@ -84,7 +84,7 @@ describe('@atlaskit/renderer/event-handlers', () => {
           },
         },
       });
-      const smartCard = await findByTestId('inline-card-resolved-view');
+      const smartCard = await findByTestId('inline-card-resolving-view');
 
       smartCard.click();
 

@@ -19,6 +19,7 @@ const overflowContainerStyles = css({
 const OverflowContainer: FC<
   OverflowContainerProps & HTMLAttributes<HTMLSpanElement>
 > = ({ isSingleLine, ...props }) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <span css={isSingleLine && overflowContainerStyles} {...props} />
 );
 

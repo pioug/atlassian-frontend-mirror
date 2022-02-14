@@ -1,5 +1,11 @@
 # @atlaskit/tag-group
 
+## 10.0.11
+
+### Patch Changes
+
+- [`562a5b38aa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/562a5b38aa9) - Styles have been rewritten in preparation for migrating to compiled.
+
 ## 10.0.10
 
 ### Patch Changes

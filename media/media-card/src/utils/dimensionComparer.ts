@@ -2,6 +2,9 @@ import { isValidPercentageUnit } from './isValidPercentageUnit';
 import { containsPixelUnit } from './containsPixelUnit';
 import { CardDimensionValue, CardDimensions } from '../';
 
+const isPixelEquivalent = (dimension: CardDimensionValue) =>
+  typeof dimension === 'number' || containsPixelUnit(`${dimension}`);
+
 export const canCompareDimension = (
   current?: CardDimensionValue,
   next?: CardDimensionValue,
@@ -9,16 +12,13 @@ export const canCompareDimension = (
   if (!current || !next) {
     return false;
   }
-  if (isValidPercentageUnit(current) && isValidPercentageUnit(next)) {
-    return true;
-  }
-  if (containsPixelUnit(`${current}`) && containsPixelUnit(`${next}`)) {
-    return true;
-  }
-  if (typeof current === 'number' && typeof next === 'number') {
-    return true;
-  }
-  return false;
+  const bothPixelEquivalent =
+    isPixelEquivalent(current) && isPixelEquivalent(next);
+
+  const bothPercentage =
+    isValidPercentageUnit(current) && isValidPercentageUnit(next);
+
+  return bothPixelEquivalent || bothPercentage;
 };
 
 export const isBigger = (current?: CardDimensions, next?: CardDimensions) => {

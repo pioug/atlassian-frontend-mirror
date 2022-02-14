@@ -11,19 +11,11 @@ export interface Props {
   eventHandlers?: EventHandlers;
   text: string;
   accessLevel?: string;
-  portal?: HTMLElement;
 }
 
 export default class MentionItem extends PureComponent<Props, {}> {
   render() {
-    const {
-      eventHandlers,
-      id,
-      portal,
-      providers,
-      text,
-      accessLevel,
-    } = this.props;
+    const { eventHandlers, id, providers, text, accessLevel } = this.props;
 
     return (
       <Mention
@@ -31,7 +23,6 @@ export default class MentionItem extends PureComponent<Props, {}> {
         text={text}
         accessLevel={accessLevel}
         providers={providers}
-        portal={portal}
         eventHandlers={eventHandlers && eventHandlers.mention}
       />
     );

@@ -1,12 +1,18 @@
 {
     "name": "Tokens Test Theming Extension",
-    "version": "0.2",
+    "version": "0.3",
     "description": "An extension to test theming implementations with @atlaskit/tokens",
     "devtools_page": "devtools.html",
     "background": {
         "scripts": [
             "background.js"
         ]
+    },
+    "browser_action": {
+       "default_popup": "popup.html"
+    },
+    "icons": {
+      "128": "icon128.png"
     },
     "permissions": [
         "tabs",

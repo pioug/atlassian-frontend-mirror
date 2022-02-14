@@ -11,7 +11,8 @@
  *
  */
 import { Dispatch } from '../../../event-dispatcher';
-import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 import rafSchedule from 'raf-schd';
 
@@ -43,7 +44,7 @@ const checkIsAddingTable = (transaction: Transaction, nodeType: NodeType) => {
  * Ensures uniqueness of `localId`s on tables being created or edited
  */
 const createPlugin = (dispatch: Dispatch) =>
-  new Plugin<TableLocalIdPluginState>({
+  new SafePlugin<TableLocalIdPluginState>({
     key: pluginKey,
     state: {
       init() {

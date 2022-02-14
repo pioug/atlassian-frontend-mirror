@@ -7,7 +7,11 @@ import {
   createMediaSpec,
 } from '../../../../schema/nodes/media';
 import { image as ImageNodeSpec } from '../../../../schema/nodes/image';
-import { fromHTML, toDOM, schema } from '../../../../../test-helpers';
+import {
+  fromHTML,
+  toDOM,
+  schema,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 
 // Note: We can't use dom.dataset in jest until it's upgraded to use latest version
 //       of jsdom. In the meantime we can use this helper-method.

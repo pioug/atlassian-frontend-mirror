@@ -129,29 +129,47 @@ describe('expand actions', () => {
     });
 
     describe('ignoreMutation', () => {
-      let expandNodeView: ExpandNodeView;
-
-      beforeEach(() => {
+      const buildNodeView = (isMobile: boolean) => {
         const { editorView } = editor(doc(expand()(p('hello'))));
         const expandNode = editorView.state.doc.firstChild!;
-        expandNodeView = new ExpandNodeView(
+        return new ExpandNodeView(
           expandNode,
           editorView,
           jest.fn(),
           jest.fn(),
+          isMobile,
         );
+      };
+
+      describe('for full page', () => {
+        const expandNodeView = buildNodeView(false);
+
+        it.each<[string, string, boolean]>([
+          ['ignores mutations for expand/collapse button', 'attributes', true],
+          ['allows mutations for selection', 'selection', false],
+        ])('%s', (_, mutationType, expected) => {
+          const mutationRecord = {
+            type: mutationType,
+          };
+          expect(expandNodeView.ignoreMutation(mutationRecord as any)).toBe(
+            expected,
+          );
+        });
       });
 
-      it.each<[string, string, boolean]>([
-        ['ignores mutations for expand/collapse button', 'attributes', true],
-        ['allows mutations for selection', 'selection', false],
-      ])('%s', (_, mutationType, expected) => {
-        const mutationRecord = {
-          type: mutationType,
-        };
-        expect(expandNodeView.ignoreMutation(mutationRecord as any)).toBe(
-          expected,
-        );
+      describe('for mobile', () => {
+        const expandNodeView = buildNodeView(true);
+
+        it.each<[string, string, boolean]>([
+          ['allow childList mutations', 'childList', false],
+          ['allow characterData mutations', 'characterData', false],
+          ['allow selection mutations', 'selection', false],
+          ['ignore expand/collapse button mutations', 'attributes', true],
+        ])('%s', (_, mutationType, expected) => {
+          expect(
+            expandNodeView.ignoreMutation({ type: mutationType } as any),
+          ).toBe(expected);
+        });
       });
     });
   });

@@ -7,7 +7,7 @@ import {
   li,
   p,
   schema,
-} from '../../../../../test-helpers';
+} from '@atlaskit/editor-test-helpers/adf-schema';
 
 describe(`${name}/schema listItem node`, () => {
   it('should be possible to create a list item with a single paragraph', () => {

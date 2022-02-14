@@ -35,14 +35,6 @@
             }
           ]
         }
-      ],
-      "marks": [
-        {
-          "type": "link",
-          "attrs": {
-            "href": "https://product-fabric.atlassian.net/browse/FAB-1166"
-          }
-        }
       ]
     },
     {

@@ -94,6 +94,7 @@ export const ExpandIconButton = (props: ExpandIconButtonProps) => {
   const message = expanded
     ? expandMessages.collapseNode
     : expandMessages.expandNode;
+
   const label = (intl && intl.formatMessage(message)) || message.defaultMessage;
   // check to ensure device supports any-hover
   const supportsAnyHover: boolean = !!window.matchMedia

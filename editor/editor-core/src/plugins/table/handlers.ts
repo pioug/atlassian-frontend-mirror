@@ -1,5 +1,5 @@
 // #region Imports
-import { Transaction } from 'prosemirror-state';
+import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
@@ -14,7 +14,7 @@ import { NodeType } from 'prosemirror-model';
 // #endregion
 
 const nextTableSorting = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
   table?: ContentNodeWithPos,
 ): TableColumnOrdering | undefined => {
   const tableSortStep: TableSortStep = tr.steps.find(
@@ -27,7 +27,7 @@ const nextTableSorting = (
 };
 
 const nextResizeHandleColumnIndex = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
   resizeHandleColumnIndex?: number,
 ): number | undefined => {
   if (tr.getMeta(tableResizingPluginKey)) {
@@ -38,7 +38,7 @@ const nextResizeHandleColumnIndex = (
 };
 
 type BuilderTablePluginState = (props: {
-  tr: Transaction;
+  tr: Transaction | ReadonlyTransaction;
   table?: ContentNodeWithPos;
 }) => (pluginState: TablePluginState) => TablePluginState;
 
@@ -147,7 +147,7 @@ const buildPluginState = (
 };
 
 export const handleDocOrSelectionChanged = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
   pluginState: TablePluginState,
 ): TablePluginState =>
   buildPluginState([

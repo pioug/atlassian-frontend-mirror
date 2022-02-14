@@ -13,7 +13,6 @@ import {
   MediaType,
   getMediaTypeFromMimeType,
   isMimeTypeSupportedByBrowser,
-  getFileStreamsCache,
   MediaClient,
   globalMediaEventEmitter,
   RequestError,
@@ -225,8 +224,6 @@ export class UploadServiceImpl implements UploadService {
         });
 
         this.cancellableFilesUploads[id] = cancellableFileUpload;
-        // Save observable in the cache
-        getFileStreamsCache().set(id, sourceFileObservable);
 
         return cancellableFileUpload;
       },

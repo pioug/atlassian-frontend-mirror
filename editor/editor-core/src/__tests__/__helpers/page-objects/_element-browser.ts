@@ -9,7 +9,7 @@ export const elementBrowserSelectors = {
   viewMore: '[data-testid="view-more-elements-item"]',
   elementItems: '[data-testid="element-items"]',
   listItems: '[data-testid^="element-item-"]:not([data-testid$="--container"])',
-  modalBrowser: '[role="dialog"]',
+  modalBrowser: '[data-testid="element-browser-modal-dialog"]',
   categoryItem: '[data-testid="element-browser-category-item"]',
   elementListContainer: '.ReactVirtualized__Collection',
 };

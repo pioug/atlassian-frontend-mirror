@@ -1,7 +1,8 @@
 import { name } from '../../../version.json';
 import { mount } from 'enzyme';
 import React from 'react';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { ReadonlyTransaction } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
@@ -40,10 +41,10 @@ describe(name, () => {
               {
                 rank: 1,
                 plugin: () =>
-                  new Plugin({
+                  new SafePlugin({
                     state: {
                       init: () => null,
-                      apply(tr) {
+                      apply(tr: ReadonlyTransaction) {
                         const widthState = tr.getMeta(widthPluginKey) as
                           | WidthPluginState
                           | undefined;

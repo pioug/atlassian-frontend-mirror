@@ -1,48 +1,58 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import type { FC } from 'react';
+
+import { css, jsx } from '@emotion/core';
 
 import Textfield from '@atlaskit/textfield';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import {
+  fontSize as getFontSize,
+  gridSize as getGridSize,
+} from '@atlaskit/theme/constants';
 
 import InlineEdit from '../src';
 
-const ReadViewContainer = styled.div`
-  display: flex;
-  line-height: ${(gridSize() * 2.5) / fontSize()};
-  max-width: 100%;
-  min-height: ${(gridSize() * 2.5) / fontSize()}em;
-  padding: ${gridSize()}px ${gridSize() - 2}px;
-  word-break: break-word;
-`;
+const fontSize = getFontSize();
+const gridSize = getGridSize();
+
+const readViewContainerStyles = css({
+  display: 'flex',
+  maxWidth: '100%',
+  minHeight: `${(gridSize * 2.5) / fontSize}em`,
+  padding: `${gridSize}px ${gridSize - 2}px`,
+  lineHeight: (gridSize * 2.5) / fontSize,
+  wordBreak: 'break-word',
+});
+
+const ReadViewContainer: FC = ({ children }) => (
+  <div css={readViewContainerStyles}>{children}</div>
+);
+
+const wrapperStyles = css({
+  padding: `${gridSize}px ${gridSize}px`,
+  fontSize: '24px',
+  fontWeight: 'bold',
+  lineHeight: '24px',
+});
+
+const textFieldStyles = css({
+  fontSize: 'inherit',
+  fontWeight: 'inherit',
+  lineHeight: 'inherit',
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '& > [data-ds--text-field--input]': {
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+    lineHeight: 'inherit',
+  },
+});
 
 const InlineEditExample = () => (
-  <div
-    style={{
-      padding: `${gridSize()}px ${gridSize()}px`,
-      fontSize: '24px',
-      fontWeight: 'bold',
-      lineHeight: '24px',
-    }}
-  >
+  <div css={wrapperStyles}>
     <InlineEdit
       defaultValue="Field value"
       onConfirm={() => {}}
       editView={(fieldProps) => (
-        <Textfield
-          {...fieldProps}
-          autoFocus
-          css={{
-            fontSize: 'inherit',
-            fontWeight: 'inherit',
-            lineHeight: 'inherit',
-            '& > [data-ds--text-field--input]': {
-              fontSize: 'inherit',
-              fontWeight: 'inherit',
-              lineHeight: 'inherit',
-            },
-          }}
-        />
+        <Textfield {...fieldProps} autoFocus css={textFieldStyles} />
       )}
       readView={() => <ReadViewContainer>Field value</ReadViewContainer>}
     />

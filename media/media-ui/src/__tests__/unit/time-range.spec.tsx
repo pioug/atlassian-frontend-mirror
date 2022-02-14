@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { TimeRange, TimeRangeProps } from '../../customMediaPlayer/timeRange';
 import {
   CurrentTimeLine,
@@ -13,7 +13,7 @@ describe('<TimeRange />', () => {
   const setup = (props?: Partial<TimeRangeProps>) => {
     const onChange = jest.fn();
     const onChanged = jest.fn();
-    const component = shallow(
+    const component = mount(
       <TimeRange
         currentTime={10}
         duration={20}
@@ -56,11 +56,21 @@ describe('<TimeRange />', () => {
   it('should render the current time with the right format', () => {
     const { component } = setup();
 
-    expect(component.find(CurrentTimeTooltip).dive().text()).toEqual('0:10');
+    expect(component.find(CurrentTimeTooltip).text()).toEqual('0:10');
   });
 
   it('should notify changes when user clicks on the timeline', () => {
-    const { component, onChange, onChanged } = setup();
+    const onChange = jest.fn();
+    const onChanged = jest.fn();
+    const component = shallow(
+      <TimeRange
+        currentTime={10}
+        duration={20}
+        bufferedTime={5}
+        onChange={onChange}
+        onChanged={onChanged}
+      />,
+    );
 
     (component as any).instance()['wrapperElementWidth'] = 100;
     component.find(TimeRangeWrapper).simulate('mouseDown', {

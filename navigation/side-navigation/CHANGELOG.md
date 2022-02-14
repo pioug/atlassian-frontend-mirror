@@ -1,5 +1,12 @@
 # @atlaskit/side-navigation
 
+## 1.2.4
+
+### Patch Changes
+
+- [`0f8fe0b80aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f8fe0b80aa) - Adds deprecated status to `cssFn` prop. Please avoid using this prop as we intend to remove the prop completely in a future release.
+- Updated dependencies
+
 ## 1.2.3
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 
 import { ContentProps } from '../types';
 
-const defaultStyles = {
+const defaultStyles: CSSObject = {
   flex: 1,
   overflow: 'auto',
   marginTop: 3 * gridSize(),

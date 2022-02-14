@@ -1,8 +1,6 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
-import { TableHTMLAttributes, ComponentClass } from 'react';
-
-export const Matrix: ComponentClass<TableHTMLAttributes<{}>> = styled.table`
+export const Matrix = styled.table`
   thead {
     td {
       text-align: center;

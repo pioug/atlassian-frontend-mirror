@@ -434,7 +434,9 @@ describe('Card', () => {
     expect(component.state('cardPreview')).toMatchObject({
       orientation: 6,
     });
-    expect(component.find(CardView).prop('previewOrientation')).toEqual(6);
+    expect(component.find(CardView).prop('cardPreview')).toMatchObject({
+      orientation: 6,
+    });
   });
 
   it('should set right state when file is uploading', async () => {
@@ -756,7 +758,7 @@ describe('Card', () => {
     expect(component.find(CardView).props()).toEqual(
       expect.objectContaining({
         appearance: 'auto',
-        dataURI: 'some-data-uri',
+        cardPreview: expect.objectContaining({ dataURI: 'some-data-uri' }),
         dimensions: { width: 10, height: 20 },
         disableOverlay: true,
         progress: 1,
@@ -863,7 +865,9 @@ describe('Card', () => {
 
       const { component } = setup(undefined, { identifier });
 
-      expect(component.find(CardView).prop('dataURI')).toEqual('bla');
+      expect(component.find(CardView).prop('cardPreview')).toMatchObject({
+        dataURI: 'bla',
+      });
       expect(component.find(CardView).prop('metadata')).toEqual({
         id: identifier.mediaItemType,
         mediaType: 'image',
@@ -983,12 +987,18 @@ describe('Card', () => {
   describe('Inline player', () => {
     it('should render InlinePlayer when isPlayingFile=true', () => {
       const { component } = setup();
-
+      const cardPreview: CardPreview = {
+        dataURI: 'some-datauri',
+        source: 'remote',
+      };
       component.setState({
         isPlayingFile: true,
+        cardPreview,
       });
       component.update();
-      expect(component.find(InlinePlayer)).toHaveLength(1);
+      const player = component.find(InlinePlayer);
+      expect(player).toHaveLength(1);
+      expect(player.props().cardPreview).toBe(cardPreview);
     });
 
     it('should set isPlayingFile=true when the mediatype is a video, with useInlineplayer=true and disableOverlay=true and feature flag is on', () => {

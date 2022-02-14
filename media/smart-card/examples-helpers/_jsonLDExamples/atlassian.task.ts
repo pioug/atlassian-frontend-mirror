@@ -125,8 +125,7 @@ export const GitHubIssue = {
   ],
   'atlassian:isCompleted': false,
   'atlassian:isDeleted': false,
-  'atlassian:priority': undefined,
-  'atlassian:priorityName': undefined,
+  'atlassian:priority': 'critical',
   'atlassian:subscriber': [
     {
       '@type': 'Person',

@@ -1,5 +1,7 @@
 import React from 'react';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import { token } from '@atlaskit/tokens';
 import { N20 } from '@atlaskit/theme/colors';
 import debug from '../src/util/logger';
 import { onMentionEvent } from '../example-helpers/index';
@@ -7,10 +9,10 @@ import { mockMentionData as mentionData } from '../src/__tests__/unit/_test-help
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { ELEMENTS_CHANNEL } from '../src/_constants';
 import ResourcedMention from '../src/components/Mention/ResourcedMention';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 const style = {
-  backgroundColor: N20,
+  backgroundColor: token('elevation.surface.sunken', N20),
   width: '100%',
   padding: '20px',
 };

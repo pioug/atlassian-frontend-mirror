@@ -1,6 +1,10 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { fromHTML, toHTML, toContext } from '../../../../../test-helpers';
+import {
+  fromHTML,
+  toHTML,
+  toContext,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 import {
   layoutSection,
   layoutColumn,

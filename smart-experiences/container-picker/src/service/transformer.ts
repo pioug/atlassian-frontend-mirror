@@ -1,6 +1,6 @@
 import { ContainerOption } from '../types';
 
-enum ContainerType {
+export enum ContainerType {
   JIRA_PROJECT = 'jiraProject',
   CONFLUENCE_SPACE = 'confluenceSpace',
 }
@@ -28,7 +28,7 @@ interface Option {
   value: any;
 }
 
-interface ProjectResult extends Result {
+export interface ProjectResult extends Result {
   id: string;
   name: string;
   url: string;
@@ -63,7 +63,7 @@ interface Scope<T extends Result> {
   };
   results: [T];
 }
-interface SearchResponse<T extends Result> {
+export interface SearchResponse<T extends Result> {
   scopes: [Scope<T>];
 }
 
@@ -129,7 +129,7 @@ interface CollaborationGraphContainer {
   score: number;
 }
 
-interface CollaborationGraphResponse {
+export interface CollaborationGraphResponse {
   collaborationGraphEntities: [CollaborationGraphContainer];
 }
 

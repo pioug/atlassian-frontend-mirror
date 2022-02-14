@@ -15,6 +15,7 @@ const SkeletonItem = (props: SkeletonItemProps) => {
 
   return (
     <SkelItem
+      // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
       cssFn={() => ({
         paddingLeft: ITEM_SIDE_PADDING,
         paddingRight: ITEM_SIDE_PADDING,

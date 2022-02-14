@@ -1,6 +1,6 @@
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
-import { restrictedPaths } from '../paths';
+import { namedThemeExports, restrictedPaths } from '../paths';
 
 tester.run('no-deprecated-imports', rule, {
   valid: [
@@ -16,13 +16,31 @@ tester.run('no-deprecated-imports', rule, {
       code: `import * as _ from '@atlaskit/global-navigation';`,
       errors: [{ messageId: 'pathWithCustomMessage' }],
     },
-    ...restrictedPaths.map(({ name, message }) => ({
-      code: `import _ from '${name}';`,
+    ...namedThemeExports.map(({ importName, message }) => ({
+      code: `import { ${importName} } from '@atlaskit/theme';`,
       errors: [
         {
-          message: `'${name}' import is restricted from being used. ${message}`,
+          message,
         },
       ],
     })),
+    ...namedThemeExports.map(({ importName, message }) => ({
+      code: `import { ${importName} as randomAlias } from '@atlaskit/theme';`,
+      errors: [
+        {
+          message,
+        },
+      ],
+    })),
+    ...restrictedPaths
+      .filter((config) => 'message' in config)
+      .map(({ path, message }: any) => ({
+        code: `import _ from '${path}';`,
+        errors: [
+          {
+            message: `'${path}' import is restricted from being used. ${message}`,
+          },
+        ],
+      })),
   ],
 });

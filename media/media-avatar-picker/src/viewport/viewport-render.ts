@@ -6,6 +6,7 @@ export const renderViewport = (
   viewport: Viewport,
   image: HTMLImageElement,
   canvas: HTMLCanvasElement = document.createElement('canvas'),
+  outputSize?: number,
 ) => {
   const {
     visibleSourceBounds,
@@ -14,9 +15,14 @@ export const renderViewport = (
     orientation,
   } = viewport;
   let sourceBounds = visibleSourceBounds;
+
   const { width, height } = innerBounds;
-  canvas.width = width;
-  canvas.height = height;
+  const targetSizeActual = outputSize ?? width;
+  const outputScaleFactor = targetSizeActual / width;
+
+  canvas.width = width * outputScaleFactor;
+  canvas.height = height * outputScaleFactor;
+
   const ctx = canvas.getContext('2d');
   if (ctx && image) {
     switch (orientation) {
@@ -29,12 +35,12 @@ export const renderViewport = (
         sourceBounds = sourceBounds
           .hFlipWithin(itemSourceBounds)
           .vFlipWithin(itemSourceBounds);
-        ctx.translate(width, height);
+        ctx.translate(width * outputScaleFactor, height * outputScaleFactor);
         ctx.scale(-1, -1);
         break;
       case 4:
         sourceBounds = sourceBounds.vFlipWithin(itemSourceBounds);
-        ctx.translate(0, height);
+        ctx.translate(0, height * outputScaleFactor);
         ctx.scale(1, -1);
         break;
       case 5:
@@ -80,8 +86,8 @@ export const renderViewport = (
       sourceBounds.height,
       0,
       0,
-      width,
-      height,
+      width * outputScaleFactor,
+      height * outputScaleFactor,
     );
 
     return canvas;

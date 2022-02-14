@@ -19,6 +19,7 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
     }
 
     const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
+    // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
     return <Link ref={ref} cssFn={cssOverride} {...rest} />;
   },
 );

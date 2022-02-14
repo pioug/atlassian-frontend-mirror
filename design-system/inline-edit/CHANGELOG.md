@@ -1,5 +1,12 @@
 # @atlaskit/inline-edit
 
+## 12.1.8
+
+### Patch Changes
+
+- [`f65c4ec35c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f65c4ec35c9) - Rewrite dynamic styles to be static to aid compiled migration.
+- Updated dependencies
+
 ## 12.1.7
 
 ### Patch Changes

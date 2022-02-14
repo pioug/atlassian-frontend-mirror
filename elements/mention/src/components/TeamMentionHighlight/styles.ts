@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import { P50 } from '@atlaskit/theme/colors';
 import { h400 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 export const Actions = styled.div`
   justify-content: flex-end;
@@ -22,7 +23,7 @@ export const Heading = styled.div`
 export const Card = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: ${P50};
+  background-color: ${token('color.background.discovery', P50)};
   overflow: hidden;
   line-height: 21px;
   padding-top: ${gridSize() * 2}px;

@@ -1400,6 +1400,16 @@ describe('@atlaskit/editor-core', () => {
 
       expect(mock).toHaveBeenCalled();
     });
+
+    it('should not create a new schema when resetting editorState', () => {
+      const wrapper = mountWithIntl(<ReactEditorView {...requiredProps()} />);
+      const instance = wrapper.instance() as ReactEditorView;
+      const schema = instance.view?.state.schema;
+      expect(schema).not.toBeNull();
+      instance.resetEditorState({ doc: '', shouldScrollToBottom: false });
+
+      expect(schema === instance.view?.state.schema).toBeTruthy();
+    });
   });
 
   describe('dangerouslyAppendPlugins', () => {

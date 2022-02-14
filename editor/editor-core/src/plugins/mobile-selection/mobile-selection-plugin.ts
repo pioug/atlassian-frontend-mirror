@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin } from '../../types';
@@ -6,8 +7,8 @@ import { contentInSelection } from './content-in-selection';
 
 export const selectionPluginKey = new PluginKey('mobile-selection');
 
-export const createProseMirrorPlugin = (dispatch: Dispatch): Plugin => {
-  return new Plugin({
+export const createProseMirrorPlugin = (dispatch: Dispatch): SafePlugin => {
+  return new SafePlugin({
     view: (editorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
       return {

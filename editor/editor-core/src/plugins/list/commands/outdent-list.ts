@@ -1,3 +1,5 @@
+import { Transaction } from 'prosemirror-state';
+
 import { Command } from '../../../types';
 import {
   addAnalytics,
@@ -7,8 +9,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../analytics';
-import { Transaction } from 'prosemirror-state';
-import { isInsideListItem } from '../utils/selection';
+import { isInsideListItem, isInsideTableCell } from '../utils/selection';
 import { isBulletList } from '../utils/node';
 import { findFirstParentListNode } from '../utils/find';
 import { getCommonListAnalyticsAttributes } from '../utils/analytics';
@@ -37,7 +38,8 @@ export function outdentList(
     outdentListAction(customTr);
     if (!customTr || !customTr.docChanged) {
       // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
-      return true;
+      // If inside table cell and can't outdent list, then let it handle by table keymap
+      return !isInsideTableCell(state);
     }
 
     addAnalytics(state, customTr, {

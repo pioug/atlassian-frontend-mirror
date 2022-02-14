@@ -1,12 +1,12 @@
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
 import { keymap } from '../../../utils/keymap';
 import { INPUT_METHOD } from '../../analytics';
 import * as commands from '../commands/text-formatting';
 
-export default function keymapPlugin(schema: Schema): Plugin {
+export default function keymapPlugin(schema: Schema): SafePlugin {
   const list = {};
 
   if (schema.marks.strong) {

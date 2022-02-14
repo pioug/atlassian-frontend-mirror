@@ -114,6 +114,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
             ? linkMessages.openLink
             : linkToolbarCommonMessages.unableToOpenLink,
         );
+        // TODO: ED-14403 investigate why these are not translating?
         const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
         const editLink = formatMessage(linkToolbarCommonMessages.editLink);
         let metadata = {
@@ -171,6 +172,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               icon: OpenIcon,
               className: 'hyperlink-open-link',
               metadata: metadata,
+              tabIndex: null,
             },
             {
               type: 'separator',
@@ -182,6 +184,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               selected: false,
               title: labelUnlink,
               icon: UnlinkIcon,
+              tabIndex: null,
             },
           ],
         };

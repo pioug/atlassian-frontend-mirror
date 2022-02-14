@@ -8,6 +8,7 @@ Object {
         Object {
           "attrs": Object {
             "data": null,
+            "localId": "abc-123",
             "url": "https://inlineCardTestUrl",
           },
           "type": "inlineCard",
@@ -422,6 +423,7 @@ Object {
                             Object {
                               "attrs": Object {
                                 "data": null,
+                                "localId": "abc-123",
                                 "url": "https://inlineCardTestUrl/1",
                               },
                               "type": "inlineCard",
@@ -439,6 +441,7 @@ Object {
                             Object {
                               "attrs": Object {
                                 "data": null,
+                                "localId": "abc-123",
                                 "url": "https://inlineCardTestUrl/2",
                               },
                               "type": "inlineCard",
@@ -468,6 +471,7 @@ Object {
                     Object {
                       "attrs": Object {
                         "data": null,
+                        "localId": "abc-123",
                         "url": "https://inlineCardTestUrl/3",
                       },
                       "type": "inlineCard",
@@ -491,6 +495,7 @@ Object {
                     Object {
                       "attrs": Object {
                         "data": null,
+                        "localId": "abc-123",
                         "url": "https://inlineCardTestUrl/4",
                       },
                       "type": "inlineCard",
@@ -514,6 +519,7 @@ Object {
                     Object {
                       "attrs": Object {
                         "data": null,
+                        "localId": "abc-123",
                         "url": "https://inlineCardTestUrl/5",
                       },
                       "type": "inlineCard",
@@ -535,6 +541,7 @@ Object {
         Object {
           "attrs": Object {
             "data": null,
+            "localId": "abc-123",
             "url": "https://inlineCardTestUrl/6",
           },
           "type": "inlineCard",

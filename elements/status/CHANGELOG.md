@@ -1,5 +1,12 @@
 # @atlaskit/status
 
+## 1.0.1
+
+### Patch Changes
+
+- [`b5375cd4f66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5375cd4f66) - AK-316: add aria-label for the status picker input field
+- [`85c4e5a71ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85c4e5a71ee) - [AK-837] added role prop for Status component
+
 ## 1.0.0
 
 ### Major Changes

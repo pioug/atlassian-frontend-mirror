@@ -3,24 +3,24 @@
 exports[`generateTheme atlassian theme should match theme object for "create" 1`] = `
 Object {
   "active": Object {
-    "backgroundColor": "var(--ds-background-boldBrand-pressed, rgba(0, 82, 204, 0.8))",
+    "backgroundColor": "var(--ds-background-brand-bold-pressed, rgba(0, 82, 204, 0.8))",
     "boxShadow": "",
-    "color": "var(--ds-text-onBold, #FFFFFF)",
+    "color": "var(--ds-text-inverse, #FFFFFF)",
   },
   "default": Object {
-    "backgroundColor": "var(--ds-background-boldBrand-resting, #0052CC)",
+    "backgroundColor": "var(--ds-background-brand-bold, #0052CC)",
     "boxShadow": "",
-    "color": "var(--ds-text-onBold, #FFFFFF)",
+    "color": "var(--ds-text-inverse, #FFFFFF)",
   },
   "focus": Object {
-    "backgroundColor": "var(--ds-background-boldBrand-resting, #0052CC)",
-    "boxShadow": "0 0 0 2px var(--ds-border-focus, rgb(128,169,230))",
-    "color": "var(--ds-text-onBold, #FFFFFF)",
+    "backgroundColor": "var(--ds-background-brand-bold, #0052CC)",
+    "boxShadow": "0 0 0 2px var(--ds-border-focused, rgb(128,169,230))",
+    "color": "var(--ds-text-inverse, #FFFFFF)",
   },
   "hover": Object {
-    "backgroundColor": "var(--ds-background-boldBrand-hover, rgba(0, 82, 204, 0.9))",
+    "backgroundColor": "var(--ds-background-brand-bold-hovered, rgba(0, 82, 204, 0.9))",
     "boxShadow": "",
-    "color": "var(--ds-text-onBold, #FFFFFF)",
+    "color": "var(--ds-text-inverse, #FFFFFF)",
   },
   "selected": Object {
     "backgroundColor": "",
@@ -33,68 +33,68 @@ Object {
 exports[`generateTheme atlassian theme should match theme object for "iconButton" 1`] = `
 Object {
   "active": Object {
-    "backgroundColor": "var(--ds-background-subtleNeutral-pressed, rgba(222, 235, 255, 0.6))",
+    "backgroundColor": "var(--ds-background-neutral-pressed, rgba(222, 235, 255, 0.6))",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+    "color": "var(--ds-text-subtle, #0052CC)",
   },
   "default": Object {
     "backgroundColor": "transparent",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #344563)",
+    "color": "var(--ds-text-subtle, #344563)",
   },
   "focus": Object {
-    "backgroundColor": "var(--ds-background-subtleBrand-hover, rgba(222, 235, 255, 0.5))",
-    "boxShadow": "0 0 0 2px var(--ds-border-focus, #2684FF)",
-    "color": "var(--ds-text-mediumEmphasis, #344563)",
+    "backgroundColor": "var(--ds-background-brand-hovered, rgba(222, 235, 255, 0.5))",
+    "boxShadow": "0 0 0 2px var(--ds-border-focused, #2684FF)",
+    "color": "var(--ds-text-subtle, #344563)",
   },
   "hover": Object {
-    "backgroundColor": "var(--ds-background-subtleNeutral-hover, rgba(222, 235, 255, 0.9))",
+    "backgroundColor": "var(--ds-background-neutral-hovered, rgba(222, 235, 255, 0.9))",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+    "color": "var(--ds-text-subtle, #0052CC)",
   },
   "selected": Object {
-    "backgroundColor": "var(--ds-background-selected-resting)",
+    "backgroundColor": "var(--ds-background-brand)",
     "boxShadow": "",
-    "color": "var(--ds-text-selected)",
+    "color": "var(--ds-text-brand)",
   },
 }
 `;
 
 exports[`generateTheme atlassian theme should match theme object for "navigation" 1`] = `
 Object {
-  "backgroundColor": "var(--ds-background-default, #FFFFFF)",
-  "color": "var(--ds-text-lowEmphasis, #6B778C)",
+  "backgroundColor": "var(--ds-surface, #FFFFFF)",
+  "color": "var(--ds-text-subtlest, #6B778C)",
 }
 `;
 
 exports[`generateTheme atlassian theme should match theme object for "primaryButton" 1`] = `
 Object {
   "active": Object {
-    "backgroundColor": "var(--ds-background-subtleNeutral-pressed, rgba(222, 235, 255, 0.7))",
+    "backgroundColor": "var(--ds-background-neutral-pressed, rgba(222, 235, 255, 0.7))",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+    "color": "var(--ds-text-subtle, #0052CC)",
   },
   "default": Object {
     "backgroundColor": "transparent",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #344563)",
+    "color": "var(--ds-text-subtle, #344563)",
   },
   "focus": Object {
     "backgroundColor": "",
-    "boxShadow": "0 0 0 2px var(--ds-border-focus, #2684FF)",
-    "color": "var(--ds-text-mediumEmphasis, #344563)",
+    "boxShadow": "0 0 0 2px var(--ds-border-focused, #2684FF)",
+    "color": "var(--ds-text-subtle, #344563)",
   },
   "hover": Object {
-    "backgroundColor": "var(--ds-background-subtleNeutral-hover, rgba(222, 235, 255, 0.9))",
+    "backgroundColor": "var(--ds-background-neutral-hovered, rgba(222, 235, 255, 0.9))",
     "boxShadow": "",
-    "color": "var(--ds-text-mediumEmphasis, #0052CC)",
+    "color": "var(--ds-text-subtle, #0052CC)",
   },
   "selected": Object {
-    "backgroundColor": "var(--ds-background-selected-resting)",
-    "borderColor": "var(--ds-iconBorder-brand, #0052CC)",
-    "bordorBottom": "4px solid var(--ds-iconBorder-brand, #0052CC)",
+    "backgroundColor": "var(--ds-background-brand)",
+    "borderColor": "var(--ds-border-brand, #0052CC)",
+    "bordorBottom": "4px solid var(--ds-border-brand, #0052CC)",
     "boxShadow": "",
-    "color": "var(--ds-text-selected, #0052CC)",
+    "color": "var(--ds-text-subtle, #0052CC)",
   },
 }
 `;
@@ -102,8 +102,8 @@ Object {
 exports[`generateTheme atlassian theme should match theme object for "productHome" 1`] = `
 Object {
   "backgroundColor": "var(--ds-text-brand, #0052CC)",
-  "borderRight": "1px solid var(--ds-border-neutral, rgba(107, 119, 140, 0.3))",
-  "color": "var(--ds-text-highEmphasis, #253858)",
+  "borderRight": "1px solid var(--ds-border, rgba(107, 119, 140, 0.3))",
+  "color": "var(--ds-text, #253858)",
   "iconColor": "#2684FF",
   "iconGradientStart": "#0052CC",
   "iconGradientStop": "#2684FF",
@@ -113,15 +113,15 @@ Object {
 exports[`generateTheme atlassian theme should match theme object for "search" 1`] = `
 Object {
   "default": Object {
-    "backgroundColor": "var(--ds-background-default, #FFFFFF)",
-    "borderColor": "var(--ds-border-neutral, #DFE1E6)",
-    "color": "var(--ds-text-lowEmphasis, #6B778C)",
+    "backgroundColor": "var(--ds-surface, #FFFFFF)",
+    "borderColor": "var(--ds-border, #DFE1E6)",
+    "color": "var(--ds-text-subtlest, #6B778C)",
   },
   "focus": Object {
-    "borderColor": "var(--ds-border-focus, #2684FF)",
+    "borderColor": "var(--ds-border-focused, #2684FF)",
   },
   "hover": Object {
-    "backgroundColor": "var(--ds-background-default, rgba(222, 235, 255, 0.9))",
+    "backgroundColor": "var(--ds-surface, rgba(222, 235, 255, 0.9))",
     "color": "var(--ds-text-brand, #0052CC)",
   },
 }
@@ -129,7 +129,7 @@ Object {
 
 exports[`generateTheme atlassian theme should match theme object for "skeleton" 1`] = `
 Object {
-  "backgroundColor": "var(--ds-background-subtleNeutral-resting, #F4F5F7)",
+  "backgroundColor": "var(--ds-background-neutral, #F4F5F7)",
   "opacity": 1,
 }
 `;

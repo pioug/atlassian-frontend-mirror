@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { Dispatch } from '../../event-dispatcher';
 
@@ -26,8 +27,8 @@ won't re-render when it changes.
 */
 export function createPlugin(
   dispatch: Dispatch<EditorDisabledPluginState>,
-): Plugin | undefined {
-  return new Plugin({
+): SafePlugin | undefined {
+  return new SafePlugin({
     key: pluginKey,
     state: createPluginState(dispatch, { editorDisabled: false }),
     view: () => {

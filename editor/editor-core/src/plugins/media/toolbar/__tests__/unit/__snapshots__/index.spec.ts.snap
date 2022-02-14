@@ -40,7 +40,7 @@ Array [
         "title": "Display thumbnail",
       },
     ],
-    "title": "Display thumbnail",
+    "title": "Change view",
     "type": "dropdown",
   },
   Object {
@@ -102,7 +102,7 @@ Array [
         "title": "Display thumbnail",
       },
     ],
-    "title": "Display inline",
+    "title": "Change view",
     "type": "dropdown",
   },
   Object {

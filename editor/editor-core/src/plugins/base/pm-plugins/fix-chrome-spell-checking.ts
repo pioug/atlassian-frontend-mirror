@@ -1,9 +1,10 @@
-import { PluginKey, Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { browser } from '@atlaskit/editor-common/utils';
 
 export default () =>
-  new Plugin({
+  new SafePlugin({
     key: new PluginKey('fixChrome96SpellChecking'),
     props: {
       attributes: (editorState: EditorState) => {

@@ -1,21 +1,7 @@
-import { ComponentClass, HTMLAttributes } from 'react';
-
 import styled from 'styled-components';
 
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-
-export const ShowMoreWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  display: flex;
-  margin-top: ${gridSize() / 2}px;
-  padding: ${gridSize() / 2}px;
-  padding-bottom: 0;
-  border-top: 1px solid #dfe1e6;
-
-  > button {
-    flex-grow: 1;
-  }
-`;
 
 export const TextColorIconWrapper = styled.div`
   position: relative;

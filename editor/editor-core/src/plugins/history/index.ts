@@ -1,5 +1,6 @@
 import { pluginFactory } from '../../utils/plugin-state-factory';
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin } from '../../types';
 import reducer from './reducer';
@@ -30,7 +31,7 @@ const { createPluginState, getPluginState } = pluginFactory(
 );
 
 const createPlugin = (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     state: createPluginState(dispatch, getInitialState),
     key: historyPluginKey,
     appendTransaction: (transactions, oldState, newState) => {

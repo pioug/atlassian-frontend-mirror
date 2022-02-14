@@ -1,5 +1,4 @@
 import { Command } from '../../../types';
-import { findParentNodeOfType } from 'prosemirror-utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -13,8 +12,11 @@ import { indentListItemsSelected as indentListAction } from '../actions/indent-l
 import { isBulletList } from '../utils/node';
 import { findFirstParentListNode } from '../utils/find';
 import { MAX_NESTED_LIST_INDENTATION } from '../types';
-import { isInsideListItem } from '../utils/selection';
-import { getListItemAttributes } from '../utils/selection';
+import {
+  isInsideListItem,
+  isInsideTableCell,
+  getListItemAttributes,
+} from '../utils/selection';
 import { getCommonListAnalyticsAttributes } from '../utils/analytics';
 
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
@@ -31,10 +33,6 @@ export function indentList(
       return false;
     }
 
-    const { tableCell, tableHeader } = state.schema.nodes;
-    const cell = findParentNodeOfType([tableCell, tableHeader])(
-      state.selection,
-    )!;
     const firstListItemSelectedAttributes = getListItemAttributes($from);
     const parentListNode = findFirstParentListNode($from);
 
@@ -44,7 +42,7 @@ export function indentList(
         firstListItemSelectedAttributes.indentLevel === 0 &&
         firstListItemSelectedAttributes.itemIndex === 0)
     ) {
-      if (cell) {
+      if (isInsideTableCell(state)) {
         // dont consume tab, as table-keymap should move cursor to next cell
         return false;
       } else {

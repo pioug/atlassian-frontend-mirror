@@ -7,7 +7,8 @@
  * The implementation has been _heavily_ borrowed from
  * - packages/editor/editor-core/src/plugins/table/pm-plugins/table-local-id.ts
  */
-import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, Transaction } from 'prosemirror-state';
 import { NodeType, Schema, Node as ProsemirrorNode } from 'prosemirror-model';
 
 import { uuid } from '@atlaskit/adf-schema';
@@ -100,7 +101,7 @@ const regenerateFragmentIdIfNeeded = ({
  * Ensures presence of `fragment` mark on certain node types and the uniqueness of their `localId` attributes
  */
 export const createPlugin = (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     key: pluginKey,
     appendTransaction: (transactions, _oldState, newState) => {
       let modified = false;

@@ -145,7 +145,7 @@ describe('@atlaskit/reactions/reaction', () => {
           onClick={jest.fn()}
         />,
       );
-      component.find('button').first().simulate('mouseover');
+      component.find('button').first().simulate('mouseEnter');
 
       component.setProps({
         users: [

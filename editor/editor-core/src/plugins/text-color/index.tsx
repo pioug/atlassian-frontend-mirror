@@ -51,9 +51,6 @@ const textColorPlugin = (
     dispatchAnalyticsEvent,
     disabled,
   }) {
-    const config = pluginConfig(textColorConfig);
-    const showMoreColorsToggle = config?.allowMoreTextColors;
-
     return (
       <WithPluginState
         plugins={{
@@ -67,7 +64,6 @@ const textColorPlugin = (
             popupsMountPoint={popupsMountPoint}
             popupsBoundariesElement={popupsBoundariesElement}
             popupsScrollableElement={popupsScrollableElement}
-            showMoreColorsToggle={showMoreColorsToggle}
             dispatchAnalyticsEvent={dispatchAnalyticsEvent}
             disabled={disabled}
           />

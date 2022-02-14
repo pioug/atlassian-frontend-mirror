@@ -72,6 +72,9 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
       const isAllowedInParent =
         !parent || parent.type !== schema.nodes.codeBlock;
       const link = node.type.schema.marks.link;
+      if (link === undefined) {
+        throw new Error('Link not in schema - unable to linkify content');
+      }
       if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
         const linkified = [] as Node[];
         const text = node.text!;

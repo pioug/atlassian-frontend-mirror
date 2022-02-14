@@ -8,7 +8,10 @@ import {
   initEditorWithAdf,
   Appearance,
 } from '../../../../__tests__/visual-regression/_utils';
-import { selectors } from '../../../../__tests__/__helpers/page-objects/_editor';
+import {
+  animationFrame,
+  selectors,
+} from '../../../../__tests__/__helpers/page-objects/_editor';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
@@ -21,6 +24,11 @@ import hyperlinkAdf from '../__fixtures__/basic-hyperlink.adf.json';
 import hyperlinkWithTextAdf from '../__fixtures__/basic-hyperlink-with-text.adf.json';
 import manyHyperlinksAdf from '../__fixtures__/many-hyperlinks.adf.json';
 import mediaWithCaptionAdf from '../__fixtures__/media-with-caption.adf.json';
+import hyperlinkWithText from '../__fixtures__/hyperlink-with-text.adf.json';
+import {
+  pressKeyDown,
+  pressKeyUp,
+} from '../../../../__tests__/__helpers/page-objects/_keyboard';
 
 const click = async (page: any, selector: string) => {
   await page.waitForSelector(selector);
@@ -123,6 +131,22 @@ describe('Hyperlink', () => {
         await clickToolbarMenu(page, ToolbarMenuItem.link);
         await waitForLoadedImageElements(page, 5000);
       });
+    });
+  });
+
+  describe('selection', () => {
+    it('displayed when link is clicked with shift', async () => {
+      await initEditorWithAdf(page, {
+        appearance: Appearance.fullPage,
+        adf: hyperlinkWithText,
+        viewport: { width: 800, height: 400 },
+      });
+      await page.click(selectors.lastEditorElement);
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await pressKeyDown(page, 'Shift');
+      await page.click(hyperlinkSelectors.hyperlink);
+      await pressKeyUp(page, 'Shift');
+      await animationFrame(page);
     });
   });
 });

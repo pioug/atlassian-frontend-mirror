@@ -1,5 +1,11 @@
 # @atlaskit/ds-lib
 
+## 1.4.0
+
+### Minor Changes
+
+- [`9f8f2b902bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f8f2b902bb) - Adds a new utility function for standardised deprecation warnings.
+
 ## 1.3.0
 
 ### Minor Changes

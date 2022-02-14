@@ -1,4 +1,5 @@
-import { Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
@@ -33,7 +34,7 @@ export const createPlugin = (options: CardPluginOptions) => ({
     fullWidthMode,
     createAnalyticsEvent,
   } = options;
-  return new Plugin({
+  return new SafePlugin({
     state: {
       init(): CardPluginState {
         return {
@@ -130,7 +131,6 @@ export const createPlugin = (options: CardPluginOptions) => ({
         inlineCard: (node, view, getPos) => {
           const reactComponentProps: InlineCardNodeViewProps = {
             useAlternativePreloader,
-            useInlineWrapper: platform === 'mobile',
           };
           const hasIntlContext = true;
           return new InlineCard(

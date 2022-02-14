@@ -9,8 +9,9 @@ import {
 
 const comment = `
   The usage of the 'trigger', 'triggerType' and 'triggerButtonProps' prop in this component could not be transformed and requires manual intervention.
-  Since version 11.0.0, we simplified the API and lean towards to only use 'trigger' prop.
-  For more info please reach out to #help-design-system-code.
+  Since version 11.0.0, we have simplified the API and now only use the 'trigger' prop.
+  Please refer to https://hello.atlassian.net/wiki/spaces/DST/pages/1330997516/Dropdown+menu+upgrade+guide for more details.
+  And feel free to reach out to us on our support channel if you have more queries – #help-design-system.
   `;
 
 const convertTriggerType = (j: core.JSCodeshift, source: Collection<Node>) => {
@@ -30,8 +31,8 @@ const convertTriggerType = (j: core.JSCodeshift, source: Collection<Node>) => {
     const triggerTypeProp = getJSXAttributesByName(j, element, 'triggerType');
     const triggerProp = getJSXAttributesByName(j, element, 'trigger');
 
-    // just skip when triggerType or trigger is not defined
-    if (triggerTypeProp.length === 0 || triggerProp.length === 0) {
+    // just skip when trigger is not defined
+    if (triggerProp.length === 0) {
       return;
     }
 
@@ -49,7 +50,15 @@ const convertTriggerType = (j: core.JSCodeshift, source: Collection<Node>) => {
       });
     } else {
       // for anything else we left a inline message
-      addCommentBefore(j, elements, comment);
+      // Overriding the comment prefix to be 'TODO: (from codemod)'
+      // to avoid trailing spaces.
+      addCommentBefore(
+        j,
+        triggerProp,
+        comment,
+        'block',
+        'TODO: (from codemod)',
+      );
     }
   });
 };

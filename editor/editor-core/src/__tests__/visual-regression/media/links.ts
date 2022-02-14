@@ -10,7 +10,10 @@ import {
   initFullPageEditorWithAdf,
 } from '../_utils';
 import * as linkADf from './__fixtures__/mediasingle-and-media-with-link-mark.json';
-import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
+import {
+  mediaResizeSelectors,
+  waitForMediaToBeLoaded,
+} from '../../__helpers/page-objects/_media';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
@@ -85,8 +88,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 9/17/2021: https://product-fabric.atlassian.net/browse/ED-13772
-      it.skip('should highlight items with mouse over', async () => {
+      it('should highlight items with mouse over', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -138,13 +140,18 @@ describe('Snapshot Test: Media', () => {
     });
   });
 
-  describe('MediaSingle and Media with link marks', () => {
+  describe('Media with link mark', () => {
     it('renders', async () => {
       const { page } = global;
 
       await initFullPageEditorWithAdf(page, linkADf);
 
       await waitForMediaToBeLoaded(page);
+      await retryUntilStablePosition(
+        page,
+        async () => await page.waitForSelector(mediaResizeSelectors.left),
+        mediaResizeSelectors.left,
+      );
       await snapshot(page);
     });
   });

@@ -1,5 +1,9 @@
 import { name } from '../../../../version.json';
-import { schema, toDOM, fromHTML } from '../../../../../test-helpers';
+import {
+  schema,
+  toDOM,
+  fromHTML,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 import { expand } from '../../../../../src';
 
 describe(`${name}/schema expand node`, () => {

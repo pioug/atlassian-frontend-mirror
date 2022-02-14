@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 64.1.1
+
+### Patch Changes
+
+- [`21e15939c73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21e15939c73) - add SSR examples for emoji
+- [`95015909035`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95015909035) - Fixed issue where some of the examples where crashing.
+
 ## 64.1.0
 
 ### Minor Changes

@@ -144,7 +144,11 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           onChange={() => this.onEditorChanged(actions)}
           popupsMountPoint={popupMountPoint}
           primaryToolbarComponents={primaryToolbarComponents}
-          featureFlags={this.props.featureFlags}
+          featureFlags={{
+            ...this.props.featureFlags,
+            // Enabling to catch during dev by default
+            'safer-dispatched-transactions': true,
+          }}
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,
           }}

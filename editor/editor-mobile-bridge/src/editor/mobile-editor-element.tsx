@@ -223,6 +223,7 @@ export function MobileEditor(props: MobileEditorProps) {
             smartLinks={cardsOptions}
             allowExtension={true}
             allowTextColor={true}
+            allowTextAlignment={true}
             allowDate={true}
             allowRule={true}
             allowStatus={true}

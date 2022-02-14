@@ -20,7 +20,6 @@ export interface MentionPluginConfig {
 export interface MentionPluginOptions extends MentionPluginConfig {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   sanitizePrivateContent?: boolean;
-  useInlineWrapper?: boolean;
   allowZeroWidthSpaceAfter?: boolean;
 }
 

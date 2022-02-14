@@ -1,6 +1,10 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { toHTML, fromHTML, textWithMarks } from '../../../../../test-helpers';
+import {
+  toHTML,
+  fromHTML,
+  textWithMarks,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 import { Node } from 'prosemirror-model';
 
 const href = 'http://atlassian.com';

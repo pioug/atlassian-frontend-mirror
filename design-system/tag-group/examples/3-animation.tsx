@@ -4,11 +4,11 @@ import Tag from '@atlaskit/tag';
 
 import TagGroup from '../src';
 
-interface Props {
+interface MyTagGroupProps {
   alignment: 'start' | 'end';
 }
 
-export function MyTagGroup({ alignment }: Props) {
+export function MyTagGroup({ alignment }: MyTagGroupProps) {
   const [tags, setTags] = useState([
     'Candy canes',
     'Tiramisu',

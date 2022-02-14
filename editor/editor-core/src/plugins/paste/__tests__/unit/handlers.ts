@@ -1,5 +1,5 @@
 import { Slice } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import { TextSelection, EditorState } from 'prosemirror-state';
 import {
   doc,
   p,
@@ -11,12 +11,21 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+  LightEditorPlugin,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { toJSON } from '../../../../utils';
 import {
   handleParagraphBlockMarks,
+  handlePasteLinkOnSelectedText,
   flattenNestedListInSlice,
   insertIntoPanel,
 } from '../../handlers';
+import pastePlugin from '../../index';
+import hyperlinkPlugin from '../../../hyperlink';
+import textFormattingPlugin from '../../../text-formatting';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -381,5 +390,99 @@ describe('handleRichText', () => {
       insertIntoPanel(tr, pasteSlice, panelNode);
       expect(tr).toEqualDocumentAndSelection(resultDoc);
     });
+  });
+});
+
+describe('handlePasteLinkOnSelectedText', () => {
+  function createEditorWithSelection() {
+    const stateDocument = doc(p('hello'), p('world'));
+    const createEditor = createProsemirrorEditorFactory();
+    const pasteOptions = {
+      cardOptions: {},
+    };
+
+    const editor = createEditor({
+      doc: stateDocument,
+      preset: new Preset<LightEditorPlugin>()
+        .add([pastePlugin, pasteOptions])
+        .add(hyperlinkPlugin)
+        .add(textFormattingPlugin),
+    });
+    const { editorView } = editor;
+    const { state: oldState } = editorView;
+    editorView.dispatch(
+      oldState.tr.setSelection(TextSelection.create(oldState.doc, 1, 4)),
+    );
+
+    return editor;
+  }
+
+  function createPasteSlice(
+    state: EditorState,
+    href: string,
+    text: string,
+    isRichText: boolean,
+  ) {
+    const pasteContent = doc(
+      p(
+        a({
+          href,
+        })(isRichText ? href : text),
+      ),
+    );
+    const pasteDocument = pasteContent(state.schema);
+    const pasteJson = toJSON(pasteDocument);
+    return Slice.fromJSON(state.schema, {
+      content: pasteJson.content,
+      openStart: 0,
+      openEnd: 0,
+    });
+  }
+  it('should add link mark for url that has % in it.', () => {
+    const editor = createEditorWithSelection();
+    const { editorView } = editor;
+    const { state } = editorView;
+
+    const pasteSlice = createPasteSlice(
+      state,
+      'https://redash.data.internal.atlassian.com/queries/90971?p_Start%20date=2021-06-01#214419',
+      'https://redash.data.internal.atlassian.com/queries/90971?p_Start date=2021-06-01#214419',
+      false,
+    );
+
+    const linkMarkAdded = handlePasteLinkOnSelectedText(pasteSlice)(state);
+    expect(linkMarkAdded).toEqual(true);
+  });
+
+  it('should add link mark for url that has characters elibile for escaping.', () => {
+    const editor = createEditorWithSelection();
+    const { editorView } = editor;
+    const { state } = editorView;
+
+    const pasteSlice = createPasteSlice(
+      state,
+      'https://mozilla.org/?x=%D1%88%D0%B5%D0%BB%D0%BB%D1%8B',
+      'https://mozilla.org/?x=шеллы',
+      false,
+    );
+
+    const linkMarkAdded = handlePasteLinkOnSelectedText(pasteSlice)(state);
+    expect(linkMarkAdded).toEqual(true);
+  });
+
+  it('should add link mark for rich text where both text.text and href of marks is without decoding', () => {
+    const editor = createEditorWithSelection();
+    const { editorView } = editor;
+    const { state } = editorView;
+
+    const pasteSlice = createPasteSlice(
+      state,
+      'https://mozilla.org/?x=%D1%88%D0%B5%D0%BB%D0%BB%D1%8B',
+      'https://mozilla.org/?x=шеллы',
+      true,
+    );
+
+    const linkMarkAdded = handlePasteLinkOnSelectedText(pasteSlice)(state);
+    expect(linkMarkAdded).toEqual(true);
   });
 });

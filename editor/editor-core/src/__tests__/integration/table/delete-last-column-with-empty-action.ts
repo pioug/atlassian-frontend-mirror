@@ -41,7 +41,7 @@ BrowserTestCase(
     const controlSelector = `.${ClassName.COLUMN_CONTROLS_DECORATIONS}[data-start-index="2"]`;
     await page.waitForSelector(controlSelector);
     // We need to move the mouse to the column control first
-    await page.hover(controlSelector);
+    await page.hover(controlSelector, { x: 10, y: 1 });
     await page.click(controlSelector);
 
     // Click on delete row button

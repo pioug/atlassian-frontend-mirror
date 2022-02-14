@@ -8,6 +8,7 @@
  * - many tests have to recreate many previous operations to test some features. They should be simplified
  */
 jest.mock('../../root/card/getCardPreview/cache');
+jest.mock('../../utils/globalScope/getSSRData');
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ViewportDetector } from '../../utils/viewportDetector';
@@ -33,6 +34,7 @@ import {
 import { CardView } from '../../root/cardView';
 import * as getCardPreviewModule from '../../root/card/getCardPreview';
 import * as stateUpdaterModule from '../../root/card/cardState';
+import { getSSRData } from '../../utils/globalScope';
 
 const getCardPreviewFromCache = jest.spyOn(
   getCardPreviewModule,
@@ -108,6 +110,7 @@ const filePreviews: Record<
   | 'local'
   | 'cachedLocal'
   | 'ssrClient'
+  | 'ssrClientGlobalScope'
   | 'ssrServer',
   CardPreview
 > = {
@@ -117,12 +120,16 @@ const filePreviews: Record<
   local: { dataURI: 'some-dataURI', source: 'local' },
   cachedLocal: { dataURI: 'some-dataURI', source: 'cache-local' },
   ssrClient: {
-    dataURI: 'some-data-uri',
+    dataURI: 'client-data-uri',
     orientation: 1,
     source: 'ssr-client',
   },
+  ssrClientGlobalScope: {
+    dataURI: 'global-scope-data-uri',
+    source: 'ssr-data',
+  },
   ssrServer: {
-    dataURI: 'some-data-uri',
+    dataURI: 'server-data-uri',
     orientation: 1,
     source: 'ssr-server',
   },
@@ -182,23 +189,99 @@ describe('Media Card', () => {
       expect(mediaCard.state('isCardVisible')).toBe(true);
     });
 
-    it.each(['server', 'client'] as const)(
-      'should resolve SSR preview when ssr is %s',
-      (ssr) => {
-        const expectedPreview =
-          ssr === 'client' ? filePreviews.ssrClient : filePreviews.ssrServer;
-        getSSRCardPreview.mockReturnValueOnce(expectedPreview);
-        const mediaCard = shallow(
-          <CardBase
-            mediaClient={fakeMediaClient()}
-            identifier={indentifiers.file}
-            ssr={ssr}
-          />,
-        );
-        expect(getSSRCardPreview).toBeCalledTimes(1);
-        expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
-      },
-    );
+    it('should resolve SSR preview when ssr is server', () => {
+      const expectedPreview = filePreviews.ssrServer;
+      getSSRCardPreview.mockReturnValueOnce(expectedPreview);
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr={'server'}
+        />,
+      );
+      expect(getSSRCardPreview).toBeCalledTimes(1);
+      expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+    });
+
+    it('should resolve SSR preview when ssr is client and there is no SSR data in global scope', () => {
+      (getSSRData as jest.Mock).mockReturnValueOnce(undefined);
+      const expectedPreview = filePreviews.ssrClient;
+      getSSRCardPreview.mockReturnValueOnce(expectedPreview);
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr={'client'}
+        />,
+      );
+      expect(getSSRData).toBeCalledTimes(1);
+      expect(getSSRCardPreview).toBeCalledTimes(1);
+      expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+    });
+
+    it('should reuse dataURI from global scope when ssr is client', () => {
+      const expectedPreview = filePreviews.ssrClientGlobalScope;
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        dataURI: expectedPreview.dataURI,
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          ssr={'client'}
+        />,
+      );
+      expect(getSSRData).toBeCalledTimes(1);
+      expect(getSSRCardPreview).toBeCalledTimes(0);
+      expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+    });
+
+    it(`should refetch the preview if ssr client dimensions are bigger than server`, async () => {
+      const expectedPreview = filePreviews.ssrClient;
+      fetchAndCacheRemotePreview.mockResolvedValueOnce(expectedPreview);
+      const ssrDimensions = { width: 333, height: 222 };
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        dataURI: filePreviews.ssrClientGlobalScope.dataURI,
+        dimensions: ssrDimensions,
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          dimensions={{ width: 444, height: 222 }}
+          ssr={'client'}
+        />,
+      );
+      expect(getSSRData).toBeCalledTimes(1);
+      expect(fetchAndCacheRemotePreview).toBeCalledTimes(1);
+      // We need to flush promises after calling fetchAndCacheRemotePreview
+      await flushPromises();
+      expect(mediaCard.state('cardPreview')).toEqual(expectedPreview);
+    });
+
+    it(`should not refetch the preview if ssr client dimensions are smaller than server`, () => {
+      const ssrDimensions = { width: 333, height: 222 };
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        dataURI: filePreviews.ssrClientGlobalScope.dataURI,
+        dimensions: ssrDimensions,
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          dimensions={{ width: 222, height: 222 }}
+          ssr={'client'}
+        />,
+      );
+      expect(getSSRData).toBeCalledTimes(1);
+      expect(getSSRCardPreview).toBeCalledTimes(0);
+      expect(mediaCard.state('cardPreview')).toEqual(
+        filePreviews.ssrClientGlobalScope,
+      );
+    });
 
     it.each(['server', 'client'] as const)(
       `should start invisible if lazy load is enabled and there is SSR preview (%s)`,
@@ -287,6 +370,47 @@ describe('Media Card', () => {
         }
       },
     );
+
+    it('should set error state when ssr is server and getSSRCardPreview failed', () => {
+      const error = new Error('some-ssr-error');
+      getSSRCardPreview.mockImplementationOnce(() => {
+        throw error;
+      });
+
+      try {
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr={'server'}
+          />,
+        );
+        expect(getSSRCardPreview).toBeCalledTimes(1);
+        expect(mediaCard.state('error')).toEqual(error);
+      } catch (e) {
+        expect(e).toBeUndefined();
+      }
+    });
+
+    it('should not set error state when ssr is client and getSSRCardPreview failed', () => {
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        error: new Error('some-ssr-error'),
+      });
+
+      try {
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            ssr={'client'}
+          />,
+        );
+        expect(getSSRCardPreview).toBeCalledTimes(1);
+        expect(mediaCard.state('error')).toBeUndefined;
+      } catch (e) {
+        expect(e).toBeUndefined();
+      }
+    });
   });
 
   describe('Native Lazy Load', () => {
@@ -704,11 +828,28 @@ describe('Media Card', () => {
       const mediaCard = shallow(
         <CardBase mediaClient={mediaClient} identifier={indentifiers.file} />,
       );
+      mediaCard.setState({ cardPreview: filePreviews.remote });
       const cardView = mediaCard.find(CardView);
       const onImageLoad = cardView.prop('onImageLoad');
       expect(onImageLoad).toEqual(expect.any(Function));
-      onImageLoad();
+      onImageLoad(filePreviews.remote);
       expect(mediaCard.state('previewDidRender')).toBe(true);
+    });
+
+    it('should not set previewDidRender to true when onImageLoad is called and the preview has been replaced', () => {
+      const unsubscribe = jest.fn();
+      const mediaClient = fakeMediaClientWithObservable(
+        fakeObservable(unsubscribe),
+      );
+      const mediaCard = shallow(
+        <CardBase mediaClient={mediaClient} identifier={indentifiers.file} />,
+      );
+      mediaCard.setState({ cardPreview: filePreviews.remote });
+      const cardView = mediaCard.find(CardView);
+      const onImageLoad = cardView.prop('onImageLoad');
+      expect(onImageLoad).toEqual(expect.any(Function));
+      onImageLoad({ ...filePreviews.remote, dataURI: 'another-dataURI' });
+      expect(mediaCard.state('previewDidRender')).toBe(false);
     });
 
     it.each(['complete', 'uploading', 'error', 'failed-processing'])(
@@ -750,7 +891,7 @@ describe('Media Card', () => {
         const cardView = mediaCard.find(CardView);
         const onImageError = cardView.prop('onImageError');
         expect(onImageError).toEqual(expect.any(Function));
-        onImageError();
+        onImageError(cardPreview);
         expect(createStateUpdater).toBeCalledTimes(1);
         expect(mediaCard.state('status')).toBe('error');
         const error = mediaCard.state('error');
@@ -759,6 +900,28 @@ describe('Media Card', () => {
         expect((error as ImageLoadError).primaryReason).toBe(
           getImageLoadPrimaryReason(cardPreview.source),
         );
+      },
+    );
+
+    it.each([
+      [filePreviews.remote.source, filePreviews.remote],
+      [filePreviews.cachedRemote.source, filePreviews.cachedRemote],
+    ])(
+      `should not set status 'error' if onImageError is called when source is %s and cardPreview has been replaced`,
+      (_name, cardPreview) => {
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+          />,
+        );
+        mediaCard.setState({ cardPreview });
+        const cardView = mediaCard.find(CardView);
+        const onImageError = cardView.prop('onImageError');
+        expect(onImageError).toEqual(expect.any(Function));
+        // The preview passed in the callback is not the same as the current one
+        onImageError({ ...cardPreview, dataURI: 'another-dataURI' });
+        expect(mediaCard.state('status')).not.toBe('error');
       },
     );
 
@@ -781,7 +944,7 @@ describe('Media Card', () => {
         const cardView = mediaCard.find(CardView);
         const onImageError = cardView.prop('onImageError');
         expect(onImageError).toEqual(expect.any(Function));
-        onImageError();
+        onImageError(cardPreview);
         expect(mediaCard.state('status')).not.toBe('error');
         // should set isBannedLocalPreview to true
         expect(mediaCard.state('isBannedLocalPreview')).toBe(true);
@@ -790,6 +953,33 @@ describe('Media Card', () => {
           indentifiers.file.id,
           dimensions,
         );
+      },
+    );
+
+    it.each([
+      [filePreviews.local.source, filePreviews.local],
+      [filePreviews.cachedLocal.source, filePreviews.cachedLocal],
+    ])(
+      `should not ban local preview if onImageError is called when source is %s and cardPreview has been replaced`,
+      (_name, cardPreview) => {
+        const dimensions = {}; // We only look for object equality, not equivalency
+        const mediaCard = shallow(
+          <CardBase
+            mediaClient={fakeMediaClient()}
+            identifier={indentifiers.file}
+            dimensions={dimensions}
+          />,
+        );
+        // We add the preview to the state to test it later on the error
+        mediaCard.setState({ cardPreview });
+        const cardView = mediaCard.find(CardView);
+        const onImageError = cardView.prop('onImageError');
+        expect(onImageError).toEqual(expect.any(Function));
+        // The preview passed in the callback is not the same as the current one
+        onImageError({ ...cardPreview, dataURI: 'another-dataURI' });
+        expect(mediaCard.state('status')).not.toBe('error');
+        expect(mediaCard.state('isBannedLocalPreview')).toBe(false);
+        expect(removeCardPreviewFromCache).not.toBeCalled();
       },
     );
 
@@ -804,7 +994,7 @@ describe('Media Card', () => {
       const cardView = mediaCard.find(CardView);
       const onImageError = cardView.prop('onImageError');
       expect(onImageError).toEqual(expect.any(Function));
-      onImageError();
+      onImageError(mediaCard.state('cardPreview'));
       expect(mediaCard.state('status')).toBe('error');
       const error = mediaCard.state('error');
       expect(error).toBeDefined();
@@ -812,6 +1002,21 @@ describe('Media Card', () => {
       expect((error as ImageLoadError).primaryReason).toBe(
         getImageLoadPrimaryReason(filePreviews.external.source),
       );
+    });
+
+    it(`should not set status 'error' if onImageError is called when source is external image and cardPreview has been replaced`, () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.externalImage}
+        />,
+      );
+
+      const cardView = mediaCard.find(CardView);
+      const onImageError = cardView.prop('onImageError');
+      expect(onImageError).toEqual(expect.any(Function));
+      onImageError({ dataURI: 'another-dataURI' });
+      expect(mediaCard.state('status')).not.toBe('error');
     });
   });
 

@@ -152,8 +152,21 @@ export function handlePasteLinkOnSelectedText(slice: Slice): Command {
         isText(paragraph.content.child(0), schema)
       ) {
         const text = paragraph.content.child(0);
+
+        // If pasteType is plain text, then
+        //  @atlaskit/editor-markdown-transformer in getMarkdownSlice decode
+        //  url before setting text property of text node.
+        //  However href of marks will be without decoding.
+        //  So, if there is character (e.g space) in url eligible escaping then
+        //  mark.attrs.href will not be equal to text.text.
+        //  That's why decoding mark.attrs.href before comparing.
+        // However, if pasteType is richText, that means url in text.text
+        //  and href in marks, both won't be decoded.
         linkMark = text.marks.find(
-          (mark) => isLinkMark(mark, schema) && mark.attrs.href === text.text,
+          (mark) =>
+            isLinkMark(mark, schema) &&
+            (mark.attrs.href === text.text ||
+              decodeURI(mark.attrs.href) === text.text),
         );
       }
     }
@@ -725,7 +738,10 @@ export function insertIntoPanel(tr: Transaction, slice: Slice, panel: any) {
 
 export function handleRichText(slice: Slice): Command {
   return (state, dispatch) => {
-    const { codeBlock, panel } = state.schema.nodes;
+    const { codeBlock, heading, paragraph } = state.schema.nodes;
+    const { selection } = state;
+    const firstChildOfSlice = slice.content?.firstChild;
+
     // In case user is pasting inline code,
     // any backtick ` immediately preceding it should be removed.
     let tr = state.tr;
@@ -739,22 +755,28 @@ export function handleRichText(slice: Slice): Command {
 
     closeHistory(tr);
 
-    let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
-      tr.selection,
-    );
-
-    const isFirstChildListNode = isListNode(slice.content.firstChild);
-    const isLastChildListNode = isListNode(slice.content.lastChild);
+    const isFirstChildListNode = isListNode(firstChildOfSlice);
+    const isLastChildListNode = isListNode(firstChildOfSlice);
     const isSliceContentListNodes = isFirstChildListNode || isLastChildListNode;
-    const isTargetPanelEmpty =
-      panelParentOverCurrentSelection &&
-      panelParentOverCurrentSelection.node?.content.size === 2;
 
-    if (isSliceContentListNodes || isTargetPanelEmpty) {
+    // We want to use safeInsert to insert invalid content, as it inserts at the closest non schema violating position
+    // rather than spliting the selection parent node in half (which is what replaceSelection does)
+    // Exception is paragraph and heading nodes, these should be split, provided their parent supports the pasted content
+    const textNodes = [heading, paragraph];
+    const selectionParent = selection.$to.node(selection.$to.depth - 1);
+    const noNeedForSafeInsert =
+      selection.$to.node().type.validContent(slice.content) ||
+      (textNodes.includes(selection.$to.node().type) &&
+        selectionParent.type.validContent(slice.content));
+
+    if (isSliceContentListNodes) {
       insertSliceForLists({ tr, slice });
+    } else if (noNeedForSafeInsert) {
+      tr.replaceSelection(slice);
     } else {
-      // if inside an empty panel, try and insert content inside it rather than replace it
-      insertIntoPanel(tr, slice, panel);
+      // need safeInsert rather than replaceSelection, so that nodes aren't split in half
+      // e.g. when pasting a layout into a table, replaceSelection splits the table in half and adds the layout in the middle
+      tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
     }
 
     tr.setStoredMarks([]);

@@ -1,7 +1,12 @@
 import { Step } from 'prosemirror-transform';
 import { findParentNode } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { EditorState, NodeSelection, Transaction } from 'prosemirror-state';
+import {
+  EditorState,
+  NodeSelection,
+  ReadonlyTransaction,
+  Transaction,
+} from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { GapCursorSelection, Side } from '../selection/gap-cursor/selection';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
@@ -191,7 +196,7 @@ export function withAnalytics(
 }
 
 export function getAnalyticsEventsFromTransaction(
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
 ): AnalyticsEventPayloadWithChannel[] {
   return (tr.steps as Step[])
     .filter<AnalyticsStep<AnalyticsEventPayload>>(

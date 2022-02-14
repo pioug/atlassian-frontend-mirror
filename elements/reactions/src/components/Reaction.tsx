@@ -74,11 +74,6 @@ const flashStyle = style({
   borderRadius: '10px',
   height: `${flashHeight}px`,
 });
-
-const counterStyle = style({
-  padding: '4px 8px 4px 0',
-  lineHeight: '14px',
-});
 export interface ReactionOnClick {
   (emojiId: string, event?: SyntheticEvent<any>): void;
 }
@@ -88,7 +83,7 @@ export interface Props {
   emojiProvider: Promise<EmojiProvider>;
   onClick: ReactionOnClick;
   className?: string;
-  onMouseOver?: (
+  onMouseEnter?: (
     reaction: ReactionSummary,
     event?: SyntheticEvent<any>,
   ) => void;
@@ -106,7 +101,7 @@ class ReactionWithoutAnalytics extends PureComponent<
   static defaultProps = {
     flash: false,
     className: undefined,
-    onMouseOver: undefined,
+    onMouseEnter: undefined,
     flashOnMount: false,
   };
 
@@ -169,14 +164,14 @@ class ReactionWithoutAnalytics extends PureComponent<
     }
   };
 
-  private handleMouseOver = (event: React.MouseEvent<HTMLButtonElement>) => {
+  private handleMouseEnter = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const { onMouseOver, reaction } = this.props;
+    const { onMouseEnter, reaction } = this.props;
     if (!reaction.users || !reaction.users.length) {
       this.hoverStart = Date.now();
     }
-    if (onMouseOver) {
-      onMouseOver(this.props.reaction, event);
+    if (onMouseEnter) {
+      onMouseEnter(this.props.reaction, event);
     }
   };
 
@@ -199,7 +194,7 @@ class ReactionWithoutAnalytics extends PureComponent<
       <button
         className={classNames}
         onMouseUp={this.handleMouseDown}
-        onMouseOver={this.handleMouseOver}
+        onMouseEnter={this.handleMouseEnter}
       >
         <ReactionTooltip emojiName={emojiName} reaction={reaction}>
           <FlashAnimation flash={flash} className={flashStyle}>
@@ -210,11 +205,7 @@ class ReactionWithoutAnalytics extends PureComponent<
                 fitToHeight={16}
               />
             </div>
-            <Counter
-              className={counterStyle}
-              value={reaction.count}
-              highlight={reaction.reacted}
-            />
+            <Counter value={reaction.count} highlight={reaction.reacted} />
           </FlashAnimation>
         </ReactionTooltip>
       </button>

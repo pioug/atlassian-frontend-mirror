@@ -68,6 +68,7 @@ export const getToolbarItems = (
   activePanelColor?: string,
   activePanelIcon?: string,
 ): FloatingToolbarItem<Command>[] => {
+  // TODO: ED-14403 investigate why these titles are not getting translated for the tooltips
   const items: FloatingToolbarItem<Command>[] = [
     {
       id: 'editor.panel.info',
@@ -76,6 +77,7 @@ export const getToolbarItems = (
       onClick: changePanelType(PanelType.INFO),
       selected: activePanelType === PanelType.INFO,
       title: formatMessage(messages.info),
+      tabIndex: null,
     },
     {
       id: 'editor.panel.note',
@@ -84,6 +86,7 @@ export const getToolbarItems = (
       onClick: changePanelType(PanelType.NOTE),
       selected: activePanelType === PanelType.NOTE,
       title: formatMessage(messages.note),
+      tabIndex: null,
     },
     {
       id: 'editor.panel.success',
@@ -92,6 +95,7 @@ export const getToolbarItems = (
       onClick: changePanelType(PanelType.SUCCESS),
       selected: activePanelType === PanelType.SUCCESS,
       title: formatMessage(messages.success),
+      tabIndex: null,
     },
     {
       id: 'editor.panel.warning',
@@ -100,6 +104,7 @@ export const getToolbarItems = (
       onClick: changePanelType(PanelType.WARNING),
       selected: activePanelType === PanelType.WARNING,
       title: formatMessage(messages.warning),
+      tabIndex: null,
     },
     {
       id: 'editor.panel.error',
@@ -108,6 +113,7 @@ export const getToolbarItems = (
       onClick: changePanelType(PanelType.ERROR),
       selected: activePanelType === PanelType.ERROR,
       title: formatMessage(messages.error),
+      tabIndex: null,
     },
   ];
 
@@ -290,6 +296,7 @@ export const getToolbarItems = (
       onFocus: hoverDecoration(panelNodeType, true),
       onBlur: hoverDecoration(panelNodeType, false),
       title: formatMessage(commonMessages.remove),
+      tabIndex: null,
     },
   );
 

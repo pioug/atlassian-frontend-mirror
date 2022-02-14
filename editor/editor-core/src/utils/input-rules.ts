@@ -2,12 +2,8 @@ import type { NodeType, Node as PMNode } from 'prosemirror-model';
 import { canJoin, findWrapping } from 'prosemirror-transform';
 import { closeHistory } from 'prosemirror-history';
 import { Mark as PMMark } from 'prosemirror-model';
-import {
-  EditorState,
-  Transaction,
-  Plugin,
-  TextSelection,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
 
 import { addAnalytics } from '../plugins/analytics/utils';
 
@@ -98,7 +94,7 @@ export const createPlugin = (
   pluginName: string,
   rules: Array<InputRuleWrapper>,
   options: Options = {},
-): Plugin => {
+): SafePlugin => {
   const {
     isBlockNodeRule = false,
     allowInsertTextOnDocument = true,
@@ -480,5 +476,5 @@ function createUnpredictableInputRulePlugin(
     };
   }
 
-  return plugin;
+  return plugin as SafePlugin;
 }

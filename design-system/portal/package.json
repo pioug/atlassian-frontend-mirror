@@ -38,7 +38,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/flag": "^14.5.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/inline-dialog": "^13.2.0",
+    "@atlaskit/inline-dialog": "^13.3.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/onboarding": "^10.3.0",
     "@atlaskit/ssr": "*",

@@ -100,6 +100,15 @@ export const applyRemoteSteps = (
     const { from, to } = state.selection;
     const [firstStep] = json;
 
+    /*
+     * Persist marks across transactions. Fixes an issue where
+     * marks are lost if remote transactions are dispatched
+     * between a user creating the mark and typing.
+     */
+    if (state.tr.storedMarks) {
+      tr.setStoredMarks(state.tr.storedMarks);
+    }
+
     /**
      * If the cursor is a the same position as the first step in
      * the remote data, we need to manually set it back again

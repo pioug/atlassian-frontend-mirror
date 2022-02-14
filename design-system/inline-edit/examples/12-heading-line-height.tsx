@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 
 import Textfield from '@atlaskit/textfield';
 import { gridSize } from '@atlaskit/theme/constants';
@@ -10,48 +9,57 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-const ReadViewContainer = styled.div`
-  margin: 8px 0px;
-`;
+const readViewContainerStyles = css({
+  margin: '8px 0px',
+});
 
-const Message = styled.div`
-  background-color: ${token('color.background.danger.bold', 'orangered')};
-  color: ${token('color.text.inverse', 'white')};
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 3px;
-`;
+const ReadViewContainer: FC = ({ children }) => (
+  <div css={readViewContainerStyles}>{children}</div>
+);
 
-const HeadingOne = styled.h1`
-  font-size: 24px;
-  font-weight: 500;
-  line-height: inherit;
-`;
+const messageStyles = css({
+  margin: '8px 0',
+  padding: '8px',
+  backgroundColor: token('color.background.danger.bold', 'orangered'),
+  bordeRadius: '3px',
+  color: token('color.text.inverse', 'white'),
+});
+
+const Message: FC = ({ children }) => <div css={messageStyles}>{children}</div>;
+
+const headingOneStyles = css({
+  fontSize: '24px',
+  fontWeight: 500,
+  lineHeight: 'inherit',
+});
+
+const HeadingOne: FC = ({ children }) => (
+  <h1 css={headingOneStyles}>{children}</h1>
+);
+
+const textFieldStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '& > [data-ds--text-field--input]': {
+    margin: '-11px -4px',
+    padding: '8px 6px',
+    fontSize: 24,
+  },
+});
+
+const wrapperStyles = css({
+  padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
+});
 
 const InlineEditExample = () => {
   const [editValue, setEditValue] = useState('Field value');
 
   return (
-    <div
-      style={{
-        padding: `${gridSize()}px ${gridSize()}px ${gridSize() * 6}px`,
-      }}
-    >
+    <div css={wrapperStyles}>
       <InlineEdit
         defaultValue={editValue}
         label="Inline edit"
         editView={({ errorMessage, ...fieldProps }) => (
-          <Textfield
-            {...fieldProps}
-            autoFocus
-            css={{
-              '& > [data-ds--text-field--input]': {
-                fontSize: 24,
-                padding: '8px 6px',
-                margin: '-11px -4px',
-              },
-            }}
-          />
+          <Textfield {...fieldProps} autoFocus css={textFieldStyles} />
         )}
         readView={() => (
           <ReadViewContainer>

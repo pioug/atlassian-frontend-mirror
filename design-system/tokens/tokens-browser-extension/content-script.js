@@ -29,14 +29,18 @@ function setLocalStorage(key, value) {
 // which allows the theme CSS to seemingly persist across page refreshes
 function removeTheme() {
   const html = document.querySelector('html');
-  if (html) {
-    html.removeAttribute('data-theme');
-    setLocalStorage('theme', 'none');
+  if (!html) {
+    return;
   }
+  html.removeAttribute('data-theme');
+  setLocalStorage('theme', 'none');
 }
 
 function setTheme(themeName = 'light') {
   const html = document.querySelector('html');
+  if (!html) {
+    return;
+  }
   html.setAttribute('data-theme', themeName);
   setLocalStorage('theme', themeName);
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -9,7 +9,7 @@ import { MentionDescription, OnMentionEvent } from '../../types';
 import uniqueId from '../../util/id';
 import debug from '../../util/logger';
 import MentionList from '../MentionList';
-import TeamMentionHighlight from '../TeamMentionHighlight';
+import { LazyTeamMentionHighlight } from '../TeamMentionHighlight/lazy';
 import TeamMentionHighlightController from '../TeamMentionHighlight/TeamMentionHighlightController';
 import { fireSliAnalyticsEvent, SLI_EVENT_TYPE } from '../../util/analytics';
 
@@ -260,10 +260,12 @@ export class ResourcedMentionListWithoutAnalytics extends React.PureComponent<
     }
 
     return (
-      <TeamMentionHighlight
-        createTeamLink={createTeamPath}
-        onClose={this.closeHighlight}
-      />
+      <Suspense fallback={null}>
+        <LazyTeamMentionHighlight
+          createTeamLink={createTeamPath}
+          onClose={this.closeHighlight}
+        />
+      </Suspense>
     );
   };
 

@@ -110,7 +110,7 @@ describe('<CustomMediaPlayer />', () => {
       }
       asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
       const event = new Event('fullscreenchange');
-      videoWrapperRef.dispatchEvent(event);
+      videoWrapperRef.current?.dispatchEvent(event);
       component.update();
     };
 
@@ -335,6 +335,12 @@ describe('<CustomMediaPlayer />', () => {
       const tooltip = skipForwardButton.parents(Tooltip);
       expect(tooltip).toHaveLength(1);
       expect(tooltip.prop('content')).toEqual('fakeIntl["Forward 10 seconds"]');
+    });
+
+    it('should pass poster URL to MediaPlayer when available', () => {
+      const poster = 'some-data-uri';
+      const { component } = setup({ poster });
+      expect(component.find(MediaPlayer).props().poster).toEqual(poster);
     });
 
     describe('when hd is available', () => {

@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   isPerformanceAPIAvailable,
@@ -29,7 +29,7 @@ function createPlugin(options: AnalyticsPluginOptions) {
 
   const hasRequiredPerformanceAPIs = isPerformanceAPIAvailable();
 
-  return new Plugin({
+  return new SafePlugin({
     key: analyticsPluginKey,
     state: {
       init: () => {

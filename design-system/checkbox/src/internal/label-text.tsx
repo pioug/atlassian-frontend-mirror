@@ -1,16 +1,15 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-
-import { gridSize } from '@atlaskit/theme/constants';
+import { css, jsx } from '@emotion/core';
 
 import { LabelTextProps } from '../types';
 
-const padding = gridSize() * 0.5;
-export const labelTextCSS = {
-  paddingRight: padding,
-  paddingLeft: padding,
-};
+import { gridSize } from './constants';
+
+const labelTextStyles = css({
+  paddingRight: 0.5 * gridSize,
+  paddingLeft: 0.5 * gridSize,
+});
 
 export default function LabelText({ children }: LabelTextProps) {
-  return <span css={labelTextCSS}>{children}</span>;
+  return <span css={labelTextStyles}>{children}</span>;
 }

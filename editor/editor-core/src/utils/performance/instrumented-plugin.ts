@@ -1,43 +1,67 @@
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   EditorState,
-  Transaction,
-  Plugin,
-  PluginSpec,
+  ReadonlyTransaction,
+  SafePluginSpec,
 } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import { EditorView } from 'prosemirror-view';
 import { EditorProps } from '../../types/editor-props';
 import { TransactionTracker } from './track-transactions';
+import { freezeUnsafeTransactionProperties } from './safer-transactions';
+import { FeatureFlags } from '../../types/feature-flags';
+import { DispatchAnalyticsEvent } from '../../plugins/analytics/types';
+
+type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
+  saferDispatchedTransactions?: FeatureFlags['saferDispatchedTransactions'];
+  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+};
 
 export class InstrumentedPlugin<
   PluginState,
   NodeSchema extends Schema<any, any>
-> extends Plugin<PluginState, NodeSchema> {
+> extends SafePlugin<PluginState, NodeSchema> {
   constructor(
-    spec: PluginSpec,
-    options: EditorProps['performanceTracking'] = {},
+    spec: SafePluginSpec,
+    options: InstrumentedPluginOptions = {},
     transactionTracker?: TransactionTracker,
   ) {
     const {
       transactionTracking = { enabled: false },
       uiTracking = { enabled: false },
+      saferDispatchedTransactions = false,
+      dispatchAnalyticsEvent,
     } = options;
 
-    if (transactionTracking.enabled && spec.state && transactionTracker) {
+    const shouldOverrideApply =
+      (transactionTracking.enabled && transactionTracker) ||
+      saferDispatchedTransactions;
+
+    if (shouldOverrideApply && spec.state) {
       const originalApply = spec.state.apply.bind(spec.state);
 
       spec.state.apply = (
-        tr: Transaction<NodeSchema>,
+        aTr: ReadonlyTransaction<NodeSchema>,
         value: PluginState,
         oldState: EditorState<NodeSchema>,
         newState: EditorState<NodeSchema>,
       ) => {
-        const shouldTrackTransactions = transactionTracker.shouldTrackTransaction(
+        const self = this as any;
+        const tr = saferDispatchedTransactions
+          ? new Proxy(
+              aTr,
+              freezeUnsafeTransactionProperties<ReadonlyTransaction>({
+                dispatchAnalyticsEvent,
+                pluginKey: self.key,
+              }),
+            )
+          : aTr;
+        const shouldTrackTransactions = transactionTracker?.shouldTrackTransaction(
           transactionTracking,
         );
 
-        if (!shouldTrackTransactions) {
+        if (!shouldTrackTransactions || !transactionTracker) {
           return originalApply(tr, value, oldState, newState);
         }
 
@@ -45,7 +69,6 @@ export class InstrumentedPlugin<
           startMeasure,
           stopMeasure,
         } = transactionTracker.getMeasureHelpers(transactionTracking);
-        const self = this as any;
         const measure = `🦉${self.key}::apply`;
         startMeasure(measure);
         const result = originalApply(tr, value, oldState, newState);
@@ -80,10 +103,14 @@ export class InstrumentedPlugin<
   }
 
   public static fromPlugin<T, V extends Schema<any, any>>(
-    plugin: Plugin<T, V>,
-    options: EditorProps['performanceTracking'],
+    plugin: SafePlugin<T, V>,
+    options: InstrumentedPluginOptions,
     transactionTracker?: TransactionTracker,
   ): InstrumentedPlugin<T, V> {
-    return new InstrumentedPlugin(plugin.spec, options, transactionTracker);
+    return new InstrumentedPlugin(
+      plugin.spec as SafePluginSpec,
+      options,
+      transactionTracker,
+    );
   }
 }

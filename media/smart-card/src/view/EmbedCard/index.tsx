@@ -1,16 +1,4 @@
 import React from 'react';
-import {
-  BlockCardResolvedView,
-  BlockCardResolvingView,
-  InlineCardResolvedView,
-} from '@atlaskit/media-ui';
-import {
-  EmbedCardResolvedView,
-  EmbedCardUnauthorisedView,
-  EmbedCardForbiddenView,
-  EmbedCardNotFoundView,
-  EmbedCardErroredView,
-} from '@atlaskit/media-ui/embeds';
 import { JsonLd } from 'json-ld-types';
 
 import { EmbedCardProps } from './types';
@@ -20,6 +8,13 @@ import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';
 import { getExtensionKey } from '../../state/helpers';
 import { extractRequestAccessContext } from '../../extractors/common/context';
+import { BlockCardResolvedView, BlockCardResolvingView } from '../BlockCard';
+import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
+import { EmbedCardForbiddenView } from './views/ForbiddenView';
+import { EmbedCardNotFoundView } from './views/NotFoundView';
+import { EmbedCardResolvedView } from './views/ResolvedView';
+import { EmbedCardUnauthorisedView } from './views/UnauthorisedView';
+import { EmbedCardErroredView } from './views/ErroredView';
 
 export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
   (

@@ -160,6 +160,7 @@ type PasteAsPlainAEP = PasteBaseAEP<
   {
     inputMethod: string;
     pasteSize: number;
+    linksInPasteCount: number;
   },
   undefined
 >;

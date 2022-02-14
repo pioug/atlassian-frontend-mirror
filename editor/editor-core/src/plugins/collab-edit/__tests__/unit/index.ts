@@ -1,3 +1,4 @@
+import type { Plugin } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import collabEditPlugin from '../../';
 
@@ -48,7 +49,7 @@ describe('collab-edit: index.ts', () => {
 
       const oldEditorState = EditorState.create({
         schema,
-        plugins: [pmPlugin!],
+        plugins: [pmPlugin! as Plugin],
       });
 
       const transaction = oldEditorState.tr

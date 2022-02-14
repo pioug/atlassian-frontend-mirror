@@ -156,15 +156,13 @@ describe('media', () => {
         );
       }
       case 'mediaSingleMark': {
-        return a({ href: yahooUrl })(
-          mediaSingle({ layout: 'center' })(temporaryMedia),
+        return mediaSingle({ layout: 'center' })(
+          a({ href: yahooUrl })(temporaryMedia),
         );
       }
       case 'doubleMark': {
-        return a({ href: yahooUrl })(
-          mediaSingle({ layout: 'center' })(
-            a({ href: googleUrl })(temporaryMedia),
-          ),
+        return mediaSingle({ layout: 'center' })(
+          a({ href: yahooUrl })(a({ href: googleUrl })(temporaryMedia)),
         );
       }
       default: {
@@ -546,7 +544,7 @@ describe('media', () => {
         it('should remove the link only from media node', () => {
           linkingToolbar.props().onUnlink();
           expect(editorView.state.doc).toEqualDocument(
-            doc(temporaryMediaSingle('mediaSingleMark')),
+            doc(temporaryMediaSingle()),
           );
         });
       });

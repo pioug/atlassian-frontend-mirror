@@ -1,7 +1,7 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import { CardState } from '../../state/types';
 import { CardProviderRenderers } from '../../state/context/types';
-import { InlinePreloaderStyle } from '@atlaskit/media-ui/types';
+import { InlinePreloaderStyle } from '../types';
 
 export type InlineCardProps = {
   url: string;

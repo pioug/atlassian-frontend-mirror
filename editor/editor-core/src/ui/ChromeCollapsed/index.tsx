@@ -1,13 +1,15 @@
 import React from 'react';
 import { PureComponent } from 'react';
 import { Input } from './styles';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { messages } from './messages';
 
 export interface Props {
   text?: string;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export default class ChromeCollapsed extends PureComponent<Props, {}> {
+class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
   private input?: HTMLElement;
 
   private focusHandler = (evt: React.FocusEvent<HTMLInputElement>) => {
@@ -31,7 +33,9 @@ export default class ChromeCollapsed extends PureComponent<Props, {}> {
   };
 
   render() {
-    const placeholder = this.props.text || 'Type something…';
+    const placeholder =
+      this.props.text ||
+      this.props.intl.formatMessage(messages.chromeCollapsedPlaceholder);
 
     return (
       <Input
@@ -42,3 +46,5 @@ export default class ChromeCollapsed extends PureComponent<Props, {}> {
     );
   }
 }
+
+export default injectIntl(ChromeCollapsed);

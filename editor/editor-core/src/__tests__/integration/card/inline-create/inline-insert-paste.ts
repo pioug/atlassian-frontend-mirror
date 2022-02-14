@@ -30,3 +30,6 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+// See packages/editor/editor-core/src/__tests__/integration/paste/links.ts for more tests for
+// plain text pasting.

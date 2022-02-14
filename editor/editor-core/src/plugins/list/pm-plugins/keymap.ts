@@ -1,5 +1,5 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import {
   indentList,
@@ -11,7 +11,7 @@ import {
 import { outdentList } from '../commands/outdent-list';
 import { INPUT_METHOD } from '../../analytics';
 
-export function keymapPlugin(): Plugin | undefined {
+export function keymapPlugin(): SafePlugin | undefined {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -54,7 +54,7 @@ export function keymapPlugin(): Plugin | undefined {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 export default keymapPlugin;

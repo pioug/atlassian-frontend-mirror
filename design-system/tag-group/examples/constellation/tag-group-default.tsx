@@ -1,12 +1,19 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Tag, { SimpleTag } from '@atlaskit/tag';
 
 import TagGroup from '../../src';
 
+const layoutStyles = css({
+  display: 'flex',
+  padding: '24px 0',
+  gap: 24,
+  flexDirection: 'column',
+});
+
 export default () => (
-  <div css={{ '> *': { margin: '24px 0' } }}>
+  <div css={layoutStyles}>
     <TagGroup>
       <SimpleTag text="Tag" />
       <SimpleTag text="Tag" />

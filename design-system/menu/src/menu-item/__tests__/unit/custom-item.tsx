@@ -17,6 +17,7 @@ window.requestAnimationFrame = (cb) => {
 
 describe('<CustomItem />', () => {
   const Component = (props: CustomItemComponentProps) => (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <button type="button" {...props} />
   );
 
@@ -183,6 +184,7 @@ describe('<CustomItem />', () => {
       ...props
     }: CustomItemComponentProps & {
       href: string;
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     }) => <a {...props}>{children}</a>;
 
     const { getByTestId } = render(

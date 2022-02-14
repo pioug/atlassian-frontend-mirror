@@ -310,11 +310,23 @@ export const moveCursorBackward: Command = (state, dispatch) => {
   const { $from } = tr.selection;
   const start = $from.start(-1);
   const pos = start + $from.parent.nodeSize - 1;
+
   // move cursor to the last cell
   // it doesn't join node before (last cell) with node after (content after the cursor)
   // due to ridiculous amount of PM code that would have been required to overwrite
+  tr.setSelection(new TextSelection(state.doc.resolve(pos)));
+
+  // if we are inside an empty paragraph not at the end of the doc we delete it
+  const cursorNode = $cursor.node();
+  const docEnd = state.doc.content.size;
+  const paragraphWrapStart = $cursor.pos - 1;
+  const paragraphWrapEnd = $cursor.pos + 1;
+  if (cursorNode.content.size === 0 && $cursor.pos + 1 !== docEnd) {
+    tr.delete(paragraphWrapStart, paragraphWrapEnd);
+  }
+
   if (dispatch) {
-    dispatch(tr.setSelection(new TextSelection(state.doc.resolve(pos))));
+    dispatch(tr);
   }
 
   return true;

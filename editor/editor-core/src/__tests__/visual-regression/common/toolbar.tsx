@@ -19,6 +19,7 @@ import {
   retryUntilStablePosition,
   toolbarDropdownMenuSelectors,
 } from '../../__helpers/page-objects/_toolbar';
+import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { scrollToBottom } from '../../__helpers/page-objects/_editor';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
@@ -228,16 +229,16 @@ describe('Toolbar: Undo Redo', () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('should show the Undo button in a active state', async () => {
+  it('should show the Undo button in a active state', async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
+    await animationFrame(page);
     // Add a bullet list to the doc so something can be undone and the Undo button become active
     await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('should show the Redo button in a active state', async () => {
+  it('should show the Redo button in a active state', async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
+    await animationFrame(page);
     // Add a bullet list to the doc so something can be undone and the Undo button become active
     await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
     await clickToolbarMenu(page, ToolbarMenuItem.undo);

@@ -203,6 +203,16 @@ type DispatchedTransactionAEP = OperationalAEP<
   undefined
 >;
 
+type TransactionMutatedAEP = OperationalAEP<
+  ACTION.TRANSACTION_MUTATED_AFTER_DISPATCH,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    pluginKey: string;
+  },
+  undefined
+>;
+
 type WithPluginStateCalledAEP = OperationalAEP<
   ACTION.WITH_PLUGIN_STATE_CALLED,
   ACTION_SUBJECT.EDITOR,
@@ -381,6 +391,14 @@ type CodeBlockLanguageSelectedAEP = TrackAEP<
   undefined
 >;
 
+type MediaLinkTransformedAEP = OperationalAEP<
+  ACTION.MEDIA_LINK_TRANSFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  undefined,
+  undefined
+>;
+
 type TextLinkCodeMarkTransformedAEP = OperationalAEP<
   ACTION.TEXT_LINK_MARK_TRANSFORMED,
   ACTION_SUBJECT.EDITOR,
@@ -413,11 +431,13 @@ export type GeneralEventPayload<T = void> =
   | RichMediaLayoutAEP
   | SelectionAEP
   | SlowInputAEP
+  | TransactionMutatedAEP
   | UploadExternalFailedAEP
   | WithPluginStateCalledAEP
   | CodeBlockLanguageSelectedAEP
   | EditorContentRetrievalPerformedAEP
   | UfoSessionCompletePayloadAEP
+  | MediaLinkTransformedAEP
   | TextLinkCodeMarkTransformedAEP
   | InvalidProsemirrorDocumentErrorAEP
   | DocumentProcessingErrorAEP;

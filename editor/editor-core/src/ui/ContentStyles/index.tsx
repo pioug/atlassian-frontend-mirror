@@ -7,7 +7,6 @@ import {
   indentationSharedStyles,
   blockMarksSharedStyles,
   shadowSharedStyle,
-  inlineNodeSharedStyle,
   dateSharedStyle,
   tasksAndDecisionsStyles,
   annotationSharedStyles,
@@ -65,7 +64,6 @@ const ContentStyles = styled.div<ContentStylesProps>`
     ${listsSharedStyles};
     ${indentationSharedStyles};
     ${shadowSharedStyle};
-    ${inlineNodeSharedStyle};
   }
 
   .ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
@@ -161,7 +159,7 @@ const ContentStyles = styled.div<ContentStylesProps>`
 
   .pm-table-header-content-wrap,
   .pm-table-cell-content-wrap div.fabric-editor-block-mark {
-    p {
+    p:first-child {
       margin-top: 0;
     }
   }

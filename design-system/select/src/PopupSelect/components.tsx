@@ -3,6 +3,7 @@ import { FC, ReactNode, CSSProperties } from 'react';
 import { components } from 'react-select';
 import { jsx } from '@emotion/core';
 
+import VisuallyHidden from '@atlaskit/visually-hidden';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';
 import { layers } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
@@ -70,20 +71,9 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({
   </div>
 );
 export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
-  <div
-    css={{
-      border: 0,
-      clip: 'rect(1px, 1px, 1px, 1px)',
-      height: 1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      whiteSpace: 'nowrap',
-      width: 1,
-    }}
-  >
+  <VisuallyHidden>
     <components.Control {...props} />
-  </div>
+  </VisuallyHidden>
 );
 
 // NOTE `props` intentionally omitted from `Fragment`

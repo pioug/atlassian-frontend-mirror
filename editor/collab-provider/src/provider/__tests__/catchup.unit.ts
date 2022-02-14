@@ -1,4 +1,5 @@
-import { catchup, CatchupOptions } from '../catchup';
+import { catchup } from '../catchup';
+import { CatchupOptions } from '../../types';
 
 describe('Catchup ', () => {
   afterEach(() => {

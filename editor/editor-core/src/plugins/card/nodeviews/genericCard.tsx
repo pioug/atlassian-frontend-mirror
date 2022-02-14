@@ -11,11 +11,13 @@ import {
   CardPlatform,
 } from '@atlaskit/smart-card';
 
+import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
-import { changeSelectedCardToLink } from '../pm-plugins/doc';
+import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
+import { uuid } from '@atlaskit/adf-schema';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -82,7 +84,13 @@ export function Card(
         ? this.context.contextAdapter.card
         : undefined;
 
-      return <SmartCardComponent cardContext={cardContext} {...this.props} />;
+      return (
+        <SmartCardComponent
+          key={url}
+          cardContext={cardContext}
+          {...this.props}
+        />
+      );
     }
 
     componentDidCatch(error: Error | APIError) {
@@ -99,7 +107,7 @@ export function Card(
         if (!getPos || typeof getPos === 'boolean') {
           return;
         }
-        changeSelectedCardToLink(
+        changeSelectedCardToLinkFallback(
           undefined,
           url,
           true,
@@ -113,4 +121,13 @@ export function Card(
       }
     }
   };
+}
+
+export class GenericCard<A> extends ReactNodeView<A> {
+  init() {
+    super.init();
+    // localId exists to distinguish between different smart cards for the purpose of analytics
+    this.node.attrs.localId = this.node.attrs.localId || uuid.generate();
+    return this;
+  }
 }

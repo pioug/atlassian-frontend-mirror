@@ -25,9 +25,7 @@ export class InactivityDetector extends Component<
   InactivityDetectorState
 > {
   private checkActivityTimeout?: number;
-  private readonly contentWrapperElement: React.RefObject<
-    HTMLElement
-  > = React.createRef();
+  private contentWrapperElement = React.createRef<HTMLDivElement>();
 
   state: InactivityDetectorState = {
     controlsAreVisible: true,
@@ -83,7 +81,7 @@ export class InactivityDetector extends Component<
 
     return (
       <InactivityDetectorWrapper
-        innerRef={this.contentWrapperElement}
+        ref={this.contentWrapperElement}
         controlsAreVisible={controlsAreVisible}
         onMouseMove={this.checkMouseMovement}
         onMouseOut={() =>

@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 
 const render = (type: string) => (view: EditorView) => {
@@ -19,7 +19,7 @@ export const exampleSelectionDebugger = () => {
         {
           name: 'selection-debugger-main',
           plugin() {
-            return new Plugin({
+            return new SafePlugin({
               props: {
                 decorations: (state) =>
                   DecorationSet.create(state.doc, [

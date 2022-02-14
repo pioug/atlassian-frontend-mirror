@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.4.0
+
+### Minor Changes
+
+- [`9d0e0a31638`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d0e0a31638) - Adds ariaLabel prop to progress bar for accessibility
+
 ## 0.3.9
 
 ### Patch Changes

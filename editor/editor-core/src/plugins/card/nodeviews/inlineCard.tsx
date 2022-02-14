@@ -7,12 +7,9 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import rafSchedule from 'raf-schd';
 
-import { SmartCardProps, Card } from './genericCard';
-import ReactNodeView from '../../../nodeviews/ReactNodeView';
+import { SmartCardProps, Card, GenericCard } from './genericCard';
+
 import { registerCard } from '../pm-plugins/actions';
-import InlineNodeWrapper, {
-  createMobileInlineDomRef,
-} from '../../../ui/InlineNodeWrapper';
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;
@@ -89,31 +86,25 @@ const WrappedInlineCard = Card(InlineCardComponent, UnsupportedInline);
 export type InlineCardNodeViewProps = Pick<
   SmartCardProps,
   'useAlternativePreloader'
-> & { useInlineWrapper?: boolean };
+>;
 
-export class InlineCard extends ReactNodeView<InlineCardNodeViewProps> {
+export class InlineCard extends GenericCard<InlineCardNodeViewProps> {
   createDomRef() {
-    if (this.reactComponentProps.useInlineWrapper) {
-      return createMobileInlineDomRef();
-    }
     return super.createDomRef({ displayInlineBlockForInlineNodes: false });
   }
 
   render() {
-    const {
-      useInlineWrapper,
-      useAlternativePreloader,
-    } = this.reactComponentProps;
+    const { useAlternativePreloader } = this.reactComponentProps;
 
     return (
-      <InlineNodeWrapper useInlineWrapper={useInlineWrapper}>
+      <>
         <WrappedInlineCard
           node={this.node}
           view={this.view}
           getPos={this.getPos}
           useAlternativePreloader={useAlternativePreloader}
         />
-      </InlineNodeWrapper>
+      </>
     );
   }
 }

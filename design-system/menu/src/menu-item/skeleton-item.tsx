@@ -123,7 +123,7 @@ const SkeletonItem = ({
       hasIcon && iconStyles,
       width ? customWidthStyles : defaultWidthStyles,
       // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-      cssFn(undefined),
+      cssFn(),
     ]}
     data-testid={testId}
   />

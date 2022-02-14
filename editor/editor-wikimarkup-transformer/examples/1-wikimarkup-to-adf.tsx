@@ -7,10 +7,9 @@ import { WikiMarkupTransformer } from '../src';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
-import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Context } from '../src/interfaces';
 
@@ -40,10 +39,7 @@ const Container = styled.div`
   }
 `;
 
-const MockProfileClient = getMockProfilecardClient(
-  ProfileClient,
-  modifyResponse,
-);
+const MockProfileClient: any = simpleMockProfilecardClient();
 
 const mentionProvider = Promise.resolve({
   shouldHighlightMention(mention: any) {
@@ -55,10 +51,7 @@ const emojiProvider = getEmojiResource();
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const profilecardProvider = Promise.resolve({
   cloudId: 'DUMMY-CLOUDID',
-  resourceClient: new MockProfileClient({
-    cacheSize: 10,
-    cacheMaxAge: 5000,
-  }),
+  resourceClient: MockProfileClient,
   getActions: (id: string) => {
     const actions = [
       {

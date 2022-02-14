@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { DecorationSet } from 'prosemirror-view';
@@ -15,7 +15,7 @@ import {
 import { composeDecorations } from './compose-decorations';
 import { DecorationTransformer } from './types';
 
-const isColumnSelected = (tr: Transaction): boolean =>
+const isColumnSelected = (tr: Transaction | ReadonlyTransaction): boolean =>
   tr.selection instanceof CellSelection && tr.selection.isColSelection();
 
 // @see: https://product-fabric.atlassian.net/browse/ED-3796

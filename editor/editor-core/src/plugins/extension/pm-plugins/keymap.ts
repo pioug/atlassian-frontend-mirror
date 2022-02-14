@@ -1,10 +1,10 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { getPluginState } from './main';
 import * as keymaps from '../../../keymaps';
 import { clearEditingContext } from '../commands';
 
-export default function keymapPlugin(): Plugin {
+export default function keymapPlugin(): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -21,5 +21,5 @@ export default function keymapPlugin(): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }

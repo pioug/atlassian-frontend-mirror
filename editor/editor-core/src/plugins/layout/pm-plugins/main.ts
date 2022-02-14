@@ -1,10 +1,6 @@
 import { Node } from 'prosemirror-model';
-import {
-  EditorState,
-  Plugin,
-  TextSelection,
-  Selection,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, TextSelection, Selection } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { keydownHandler } from 'prosemirror-keymap';
 import {
@@ -91,7 +87,7 @@ const getInitialPluginState = (
 };
 
 export default (options: LayoutPluginOptions) =>
-  new Plugin({
+  new SafePlugin({
     key: pluginKey,
     state: {
       init: (_, state): LayoutState => getInitialPluginState(options, state),

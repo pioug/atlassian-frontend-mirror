@@ -8,7 +8,11 @@ import React, {
   MouseEvent,
   SyntheticEvent,
 } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import {
+  FormattedMessage,
+  WrappedComponentProps,
+  injectIntl,
+} from 'react-intl-next';
 import {
   AvatarStyle,
   CapitalizedStyle,
@@ -53,7 +57,8 @@ const InviteItem = ({
   onSelection,
   selected,
   userRole,
-}: Props) => {
+  intl,
+}: Props & WrappedComponentProps) => {
   const onSelected = useCallback(
     (event: React.MouseEvent<any>) => {
       if (leftClick(event) && onSelection) {
@@ -88,7 +93,10 @@ const InviteItem = ({
     >
       <RowStyle>
         <AvatarStyle>
-          <AddIcon label="add-icon" primaryColor={N300} />
+          <AddIcon
+            label={intl.formatMessage(messages.mentionsAddLabel)}
+            primaryColor={N300}
+          />
         </AvatarStyle>
         <NameSectionStyle>
           <FormattedMessage
@@ -104,4 +112,4 @@ const InviteItem = ({
   );
 };
 
-export default InviteItem;
+export default injectIntl(InviteItem);

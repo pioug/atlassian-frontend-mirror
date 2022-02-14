@@ -1,60 +1,98 @@
+export const namedThemeExports = [
+  {
+    importName: 'assistive',
+    message:
+      'The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead.',
+  },
+  {
+    importName: 'visuallyHidden',
+    message:
+      'The visuallyHidden mixin is deprecated. Please use `@atlaskit/visually-hidden` instead.',
+  },
+  {
+    importName: 'focusRing',
+    message:
+      'The focusRing mixin is deprecated. Please use `@atlaskit/visually-hidden` instead.',
+  },
+];
+
 export const restrictedPaths = [
   {
-    name: '@atlaskit/navigation-next',
+    path: '@atlaskit/navigation-next',
     message: `navigation-next is deprecated. Please use '@atlaskit/atlassian-navigation' instead.`,
   },
   {
-    name: '@atlaskit/field-base',
+    path: '@atlaskit/field-base',
     message: `field-base is deprecated. Please use the '@atlaskit/form' package instead.`,
   },
   {
-    name: '@atlaskit/field-radio-group',
+    path: '@atlaskit/field-radio-group',
     message: `field-radio-group is deprecated. Please use '@atlaskit/radio' instead, and check the migration guide.`,
   },
   {
-    name: '@atlaskit/field-range',
+    path: '@atlaskit/field-range',
     message: `field-range is deprecated. Please use '@atlaskit/range' instead.`,
   },
   {
-    name: '@atlaskit/field-text',
+    path: '@atlaskit/field-text',
     message: `field-text is deprecated. Please use '@atlaskit/textfield' instead.`,
   },
   {
-    name: '@atlaskit/field-text-area',
+    path: '@atlaskit/field-text-area',
     message: `field-text-area is deprecated. Please use '@atlaskit/textarea' instead.`,
   },
   {
-    name: '@atlaskit/navigation',
+    path: '@atlaskit/navigation',
     message: `navigation is deprecated. Please use '@atlaskit/atlassian-navigation' instead.`,
   },
   {
-    name: '@atlaskit/global-navigation',
+    path: '@atlaskit/global-navigation',
     message: `global-navigation is deprecated. Please use '@atlaskit/atlassian-navigation' for the horizontal nav bar, '@atlaskit/side-navigation' for the side nav, and '@atlaskit/page-layout' to layout your application.`,
   },
   {
-    name: '@atlaskit/input',
+    path: '@atlaskit/input',
     message:
       'input is deprecated. This was an internal component and should not be used directly.',
   },
   {
-    name: '@atlaskit/layer',
+    path: '@atlaskit/layer',
     message:
       'layer is deprecated. This was an internal component and should not be used directly.',
   },
   {
-    name: '@atlaskit/single-select',
+    path: '@atlaskit/single-select',
     message: `single-select is deprecated. Please use '@atlaskit/select' instead.`,
   },
   {
-    name: '@atlaskit/multi-select',
+    path: '@atlaskit/multi-select',
     message: `multi-select is deprecated. Please use '@atlaskit/select' instead.`,
   },
   {
-    name: '@atlaskit/droplist',
+    path: '@atlaskit/droplist',
     message: `droplist is deprecated. For the pop-up behaviour please use '@atlaskit/popup' and for common menu components please use '@atlaskit/menu'.`,
   },
   {
-    name: '@atlaskit/item',
+    path: '@atlaskit/item',
     message: `item is deprecated. Please use '@atlaskit/menu' instead.`,
+  },
+  // TODO uncomment me when we formally deprecate typography
+  // {
+  //   path: '@atlaskit/theme/typography',
+  //   message: 'The typography mixins are deprecated. Please use `@atlaskit/heading` instead.',
+  // },
+  {
+    path: '@atlaskit/theme/constants',
+    imports: namedThemeExports,
+  },
+  {
+    path: '@atlaskit/theme',
+    imports: namedThemeExports,
+    // .concat(
+    //   { importName: 'typography', message: 'The typography mixins are deprecated. Please use `@atlaskit/heading` instead.',}
+    // )
+  },
+  {
+    path: '@atlaskit/icon-priority',
+    message: `icon-priority is deprecated due to limited usage in Cloud products. It will be deleted after 21 April 2022.`,
   },
 ] as const;

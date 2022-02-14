@@ -18,7 +18,7 @@ export const mediaGroup: NodeSpec = {
   group: 'block',
   content: '(media|unsupportedBlock)+',
   attrs: {},
-  marks: 'unsupportedMark unsupportedNodeAttribute link',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   selectable: false,
   parseDOM: [
     {

@@ -24,7 +24,7 @@ export const layoutColumn: NodeSpec = {
   content: '(block|unsupportedBlock)+',
   isolating: true,
   marks:
-    'link alignment indentation dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+    'alignment indentation dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
   selectable: false,
   attrs: {
     width: {

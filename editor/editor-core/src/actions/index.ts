@@ -14,6 +14,9 @@ import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { Transformer } from '@atlaskit/editor-common/types';
 import { findNodePosWithLocalId } from '../plugins/extension/utils';
+import { getFeatureFlags } from '../plugins/feature-flags-context/get-feature-flags';
+import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
+import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 
 export type ContextUpdateHandler = (
   editorView: EditorView,
@@ -30,6 +33,7 @@ export interface EditorActionsOptions<T> {
   replaceSelection(rawValue: Node | Object | string): boolean;
   appendText(text: string): boolean;
   isDocumentEmpty(): boolean;
+  getResolvedEditorState(): Promise<ResolvedEditorState>;
 }
 
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
@@ -260,5 +264,41 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
         payload,
       });
     }
+  };
+
+  /**
+   * If editor is using new collab service,
+   * we want editor to call the collab provider to
+   * retrieve the final acknowledged state of the
+   * editor. The final acknowledged editor state
+   * refers to the latest state of editor with confirmed
+   * steps.
+   */
+  getResolvedEditorState = (): Promise<ResolvedEditorState> => {
+    return new Promise((resolver, reject) => {
+      if (!this.editorView) {
+        reject();
+        return;
+      }
+
+      const featureFlags = getFeatureFlags(this.editorView.state);
+      if (!featureFlags.useNativeCollabPlugin) {
+        return this.getValue()?.then((content) => {
+          resolver({
+            content: content as JSONDocNode,
+            title: null,
+            stepVersion: -1,
+          });
+        });
+      }
+      getCollabProvider(this.editorView.state)
+        ?.getFinalAcknowledgedState()
+        .then((resolvedEditorState) => {
+          resolver(resolvedEditorState);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   };
 }

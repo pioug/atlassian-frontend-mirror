@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 export const embedCardStyles = css`
   .ProseMirror {
     .embedCardView-content-wrap[layout^='wrap-'] {
@@ -18,4 +18,8 @@ export const embedCardStyles = css`
       clear: both;
     }
   }
+`;
+
+export const EmbedSpacing = styled.div`
+  margin: 0 10px;
 `;

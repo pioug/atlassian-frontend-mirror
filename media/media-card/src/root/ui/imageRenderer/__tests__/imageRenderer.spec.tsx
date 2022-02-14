@@ -7,21 +7,24 @@ import { MediaImage } from '@atlaskit/media-ui';
 
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];
 
+const cardPreview = {
+  dataURI: 'some-data',
+  orientation: 6,
+  source: 'remote',
+} as const;
+
 describe('ImageRenderer', () => {
   it('should render MediaImage with props', () => {
     const mediaType = 'image';
-    const dataURI = 'some-data';
     const resizeMode = 'stretchy-fit';
-    const previewOrientation = 6;
     const alt = 'this is a test';
     const onImageLoad = jest.fn();
     const onImageError = jest.fn();
     const component = mount(
       <ImageRenderer
+        cardPreview={cardPreview}
         mediaType={mediaType}
-        dataURI={dataURI}
         resizeMode={resizeMode}
-        previewOrientation={previewOrientation}
         alt={alt}
         onImageLoad={onImageLoad}
         onImageError={onImageError}
@@ -31,13 +34,40 @@ describe('ImageRenderer', () => {
     const mediaImage = component.find(MediaImage);
     expect(mediaImage).toHaveLength(1);
     expect(mediaImage.props()).toMatchObject({
-      dataURI,
-      previewOrientation,
+      dataURI: cardPreview.dataURI,
+      previewOrientation: cardPreview.orientation,
       alt,
-      onImageLoad,
-      onImageError,
+      onImageLoad: expect.any(Function),
+      onImageError: expect.any(Function),
       ...resizeModeToMediaImageProps(resizeMode),
     });
+  });
+
+  it('should pass card preview to image load & error callbacks', () => {
+    const mediaType = 'image';
+    const onImageLoad = jest.fn();
+    const onImageError = jest.fn();
+    const component = mount(
+      <ImageRenderer
+        cardPreview={cardPreview}
+        mediaType={mediaType}
+        onImageLoad={onImageLoad}
+        onImageError={onImageError}
+      />,
+    );
+
+    const mediaImage = component.find(MediaImage);
+    expect(mediaImage).toHaveLength(1);
+
+    const onload = mediaImage.prop('onImageLoad');
+    expect(onload).toBeInstanceOf(Function);
+    ((onload as unknown) as Function)();
+    expect(onImageLoad).toBeCalledWith(cardPreview);
+
+    const onerror = mediaImage.prop('onImageError');
+    expect(onerror).toBeInstanceOf(Function);
+    ((onerror as unknown) as Function)();
+    expect(onImageError).toBeCalledWith(cardPreview);
   });
 
   describe('Lazy Load', () => {
@@ -45,7 +75,7 @@ describe('ImageRenderer', () => {
       const component = mount(
         <ImageRenderer
           mediaType={'image'}
-          dataURI={'some-data'}
+          cardPreview={cardPreview}
           nativeLazyLoad={true}
         />,
       );
@@ -58,7 +88,7 @@ describe('ImageRenderer', () => {
       const component = mount(
         <ImageRenderer
           mediaType={'image'}
-          dataURI={'some-data'}
+          cardPreview={cardPreview}
           nativeLazyLoad={false}
         />,
       );
@@ -69,7 +99,7 @@ describe('ImageRenderer', () => {
 
     it('should not pass loading=lazy to MediaImage when nativeLazyLoad is undefined', () => {
       const component = mount(
-        <ImageRenderer mediaType={'image'} dataURI={'some-data'} />,
+        <ImageRenderer mediaType={'image'} cardPreview={cardPreview} />,
       );
       const mediaImage = component.find(MediaImage);
       expect(mediaImage).toHaveLength(1);
@@ -93,7 +123,7 @@ describe('ImageRenderer', () => {
     const card = mount(
       <ImageRenderer
         mediaType="image"
-        dataURI="some-data"
+        cardPreview={cardPreview}
         onDisplayImage={onDisplayImage}
       />,
     );
@@ -104,7 +134,7 @@ describe('ImageRenderer', () => {
 
   it('should pass forceSyncDisplay to MediaImage', () => {
     const component = mount(
-      <ImageRenderer mediaType={'image'} dataURI={'some-data'} />,
+      <ImageRenderer mediaType={'image'} cardPreview={cardPreview} />,
     );
     const mediaImage = component.find(MediaImage);
     expect(mediaImage).toHaveLength(1);
@@ -121,7 +151,7 @@ describe('ImageRenderer', () => {
       mount(
         <ImageRenderer
           mediaType={mediaType}
-          dataURI="some-data"
+          cardPreview={cardPreview}
           onDisplayImage={onDisplayImage}
         />,
       );

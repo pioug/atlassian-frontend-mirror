@@ -18,6 +18,7 @@ import {
 import {
   animationFrame,
   typeInEditorAtEndOfDocument,
+  selectors,
 } from '../../../../__tests__/__helpers/page-objects/_editor';
 import { quickInsert } from '../../../../__tests__/__helpers/page-objects/_extensions';
 import { standardDateMockMillisUnixTime } from '@atlaskit/visual-regression/helper/mock-date';
@@ -198,7 +199,10 @@ describe('Date:', () => {
 
         // Insert date by quick insert
         await typeInEditorAtEndOfDocument(page, '');
+        await animationFrame(page);
         await quickInsert(page, 'Date', false);
+        await page.waitForSelector(selectors.typeaheadPopup);
+        await animationFrame(page);
         await pressKey(page, 'Enter');
 
         // Date picker is now open
@@ -206,10 +210,12 @@ describe('Date:', () => {
 
         // Remove date in datepicker
         await pressKey(page, 'Backspace');
+        await animationFrame(page);
 
         // Type new date
         // US locale by default
         await page.type(dateInput, '2/26/10000');
+        await animationFrame(page);
 
         await snapshot(page);
       });
@@ -379,9 +385,7 @@ describe('Date:', () => {
 
       // Failing for a different reason than expected:
       // `Node is either not visible or not an HTMLElement`
-      // FIXME: Test is inconsistent and block Pupeeteer's upgrade
-      // https://product-fabric.atlassian.net/browse/ED-13502
-      it.skip('should show next month when clicking calendar arrow', async () => {
+      it('should show next month when clicking calendar arrow', async () => {
         const adf = {
           version: 1,
           type: 'doc',
@@ -400,12 +404,19 @@ describe('Date:', () => {
           ],
         };
         await initEditor(page, defaultViewPort, theme, adf);
+        await animationFrame(page);
 
         await clickOnDate(page);
+        await animationFrame(page);
         await waitForDatePicker(page);
-        await snapshot(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
         await page.click(dateSelectors.calendarNextMonth);
-        await snapshot(page);
+        await animationFrame(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
       });
 
       it('should underline the current (non-selected) day', async () => {

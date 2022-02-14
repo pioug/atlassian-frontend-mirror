@@ -1,5 +1,6 @@
 import { EditorState } from 'prosemirror-state';
 import React from 'react';
+
 import mentionsPlugin from '../../../../../plugins/mentions';
 import { PluginKey } from 'prosemirror-state';
 import { TeamMentionHighlight } from '@atlaskit/mention/spotlight';

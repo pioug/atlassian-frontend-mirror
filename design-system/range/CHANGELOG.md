@@ -1,5 +1,14 @@
 # @atlaskit/range
 
+## 6.0.0
+
+### Major Changes
+
+- [`17d9edaa415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17d9edaa415) - In preparation for compiled adoption, internal styling has been rewritten to remove dynamic styles.
+  This includes custom theming using the `theme` prop, which has been removed.
+
+  If you are not using the `theme` prop, there should be no breaking changes.
+
 ## 5.1.4
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, RefObject } from 'react';
 
 import styled, { css } from 'styled-components';
 
@@ -123,7 +123,7 @@ export interface MediaSingleWrapperProps {
   layout: MediaSingleLayout;
   pctWidth?: number;
   width?: number;
-  innerRef?: (elem: HTMLElement) => void;
+  innerRef?: ((elem: HTMLElement) => void) | RefObject<HTMLElement>;
 }
 
 /**

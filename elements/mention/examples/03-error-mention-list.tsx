@@ -1,7 +1,7 @@
 import React from 'react';
 import { HttpError } from '../src/api/MentionResource';
 import MentionList from '../src/components/MentionList';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 const resourceError = new Error('monkey trousers');
 const error401 = new HttpError(401, 'not used');

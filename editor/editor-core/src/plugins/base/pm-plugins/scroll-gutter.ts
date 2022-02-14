@@ -1,4 +1,5 @@
-import { Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { isEmptyDocument } from '../../../utils';
 import { getMobileDimensionsPluginState } from '../../mobile-dimensions/utils';
@@ -194,7 +195,7 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
   const gutter = createGutter(gutterSize);
   let scrollElement: HTMLElement | null = null; // | undefined;
 
-  return new Plugin({
+  return new SafePlugin({
     props: {
       // Determines the distance (in pixels) between the cursor and the end of the visible viewport at which point,
       // when scrolling the cursor into view, scrolling takes place.

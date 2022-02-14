@@ -1,9 +1,8 @@
-import { getConfig } from '../config';
+import { config } from '../config';
 import { transformCollaborationGraphResponse } from './transformer';
 import { CollaborationGraphContext, ProductType } from '../types';
 
-const getUrl = (baseUrl?: string) =>
-  getConfig().getCollaborationGraphUrl(baseUrl);
+const getUrl = (baseUrl?: string) => config.getCollaborationGraphUrl(baseUrl);
 
 export const collaborationGraphClient = (
   context: CollaborationGraphContext,

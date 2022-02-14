@@ -1,5 +1,9 @@
 import { name } from '../../../../version.json';
-import { schema, fromHTML, toHTML } from '../../../../../test-helpers';
+import {
+  schema,
+  fromHTML,
+  toHTML,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 import { inlineNodes } from '../../../../schema/inline-nodes';
 
 describe(`${name}/schema unknownBlock node`, () => {

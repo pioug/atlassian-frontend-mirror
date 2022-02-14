@@ -1,12 +1,12 @@
 import React from 'react';
-import v1schema from '@atlaskit/adf-schema/json-schema/v1/full.json';
+import { fullSchema } from '@atlaskit/adf-schema/json-schema';
 
 const jsonPretty = (obj: any) => JSON.stringify(obj, null, 2);
 
 export default function Example() {
   return (
     <pre>
-      <code className="json">{jsonPretty(v1schema)}</code>
+      <code className="json">{jsonPretty(fullSchema)}</code>
     </pre>
   );
 }

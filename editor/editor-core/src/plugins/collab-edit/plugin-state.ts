@@ -1,4 +1,4 @@
-import { Transaction, Selection } from 'prosemirror-state';
+import { ReadonlyTransaction, Selection } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Step, ReplaceStep } from 'prosemirror-transform';
 
@@ -22,7 +22,7 @@ export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 /**
  * Returns position where it's possible to place a decoration.
  */
-const getValidPos = (tr: Transaction, pos: number) => {
+const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
   const resolvedPos = tr.doc.resolve(pos);
   const backwardSelection = Selection.findFrom(resolvedPos, -1, true);
   // if there's no correct cursor position before the `pos`, we try to find it after the `pos`
@@ -72,7 +72,7 @@ export class PluginState {
     return participant ? participant.name.substring(0, 1).toUpperCase() : 'X';
   }
 
-  apply(tr: Transaction) {
+  apply(tr: ReadonlyTransaction) {
     let { participants, sid, isReady } = this;
 
     const presenceData = tr.getMeta('presence') as CollabEventPresenceData;

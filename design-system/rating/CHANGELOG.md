@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 0.1.10
+
+### Patch Changes
+
+- [`e1901ffa79d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1901ffa79d) - Internal changes to disable linting rules.
+
 ## 0.1.9
 
 ### Patch Changes

@@ -34,6 +34,8 @@ import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { MediaOptions } from '../types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { messages } from './messages';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;
@@ -50,7 +52,7 @@ export type MediaGroupProps = {
   anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
   headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
   mediaOptions: MediaOptions;
-};
+} & WrappedComponentProps;
 
 export interface MediaGroupState {
   viewMediaClientConfig?: MediaClientConfig;
@@ -83,10 +85,7 @@ const hasSelectionChanged = (
   return false;
 };
 
-export default class MediaGroup extends React.Component<
-  MediaGroupProps,
-  MediaGroupState
-> {
+class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
   static displayName = 'MediaGroup';
 
   private mediaPluginState: MediaPluginState;
@@ -247,7 +246,13 @@ export default class MediaGroup extends React.Component<
                       undefined,
                       getNodePos,
                     ),
-                icon: <EditorCloseIcon label="delete" />,
+                icon: (
+                  <EditorCloseIcon
+                    label={this.props.intl.formatMessage(
+                      messages.mediaGroupDeleteLabel,
+                    )}
+                  />
+                ),
               },
             ],
           };
@@ -281,6 +286,9 @@ export default class MediaGroup extends React.Component<
   }
 }
 
+const IntlMediaGroup = injectIntl(MediaGroup);
+export default IntlMediaGroup;
+
 interface MediaGroupNodeViewProps {
   allowLazyLoading?: boolean;
   isCopyPasteEnabled?: boolean;
@@ -306,7 +314,7 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
               return null;
             }
             return (
-              <MediaGroup
+              <IntlMediaGroup
                 node={this.node}
                 getPos={getPos}
                 view={this.view}

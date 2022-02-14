@@ -10,6 +10,7 @@ import {
 import {
   typeInEditor,
   clickEditableContent,
+  animationFrame,
 } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import * as singleCellTable from './__fixtures__/single-cell-table-adf.json';
@@ -33,9 +34,11 @@ describe('Snapshot Test: Media', () => {
         },
         viewport: { width: 1280, height: 800 },
       });
+      await animationFrame(page);
 
       // type some text
       await typeInEditor(page, 'some text');
+      await animationFrame(page);
       await pressKey(page, [
         // Go left 3 times to insert image in the middle of the text
         'ArrowLeft',
@@ -43,49 +46,68 @@ describe('Snapshot Test: Media', () => {
         'ArrowLeft',
         'ArrowLeft',
       ]);
+      await animationFrame(page);
     });
 
     it('can switch layouts on media', async () => {
       // now we can insert media as necessary
       await insertMedia(page);
+      await animationFrame(page);
       await waitForMediaToBeLoaded(page);
 
       await clickMediaInPosition(page, 0);
+      await animationFrame(page);
 
       // change layouts
       for (let layout of mediaSingleLayouts) {
         // click it so the toolbar appears
         await changeMediaLayout(page, layout);
+        await animationFrame(page);
         await clickMediaInPosition(page, 0);
+        await animationFrame(page);
 
-        await snapshot(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
       }
     });
 
     it('can switch layouts on individual media', async () => {
       // We need a bigger height to capture multiple large images in a row.
       await page.setViewport({ width: 1280, height: 1024 * 2 });
+      await animationFrame(page);
 
       // now we can insert media as necessary
       await insertMedia(page, ['one.svg', 'two.svg']);
+      await animationFrame(page);
       await waitForMediaToBeLoaded(page);
 
       await clickMediaInPosition(page, 1);
+      await animationFrame(page);
 
       // change layouts
       for (let layout of mediaSingleLayouts) {
         // click the *second one* so the toolbar appears
         await changeMediaLayout(page, layout);
+        await animationFrame(page);
         await clickMediaInPosition(page, 1);
+        await animationFrame(page);
 
-        await snapshot(page);
+        await snapshot(page, undefined, undefined, {
+          captureBeyondViewport: false,
+        });
       }
     });
   });
 
   describe('layout columns', () => {
-    // TODO: https://product-fabric.atlassian.net/browse/EDM-2171
-    it.skip('should hold big image in the middle layout column in fix-width mode', async () => {
+    afterEach(async () => {
+      await animationFrame(page);
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
+    });
+    it('should hold big image in the middle layout column in fix-width mode', async () => {
       page = global.page;
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
@@ -99,11 +121,9 @@ describe('Snapshot Test: Media', () => {
         },
         viewport: { width: 1280, height: 800 },
       });
-      await snapshot(page);
     });
 
-    // TODO: https://product-fabric.atlassian.net/browse/EDM-2171
-    it.skip('should hold big image in the middle layout column in full-width mode', async () => {
+    it('should hold big image in the middle layout column in full-width mode', async () => {
       page = global.page;
       await initEditorWithAdf(page, {
         appearance: Appearance.fullWidth,
@@ -117,7 +137,6 @@ describe('Snapshot Test: Media', () => {
         },
         viewport: { width: 1280, height: 800 },
       });
-      await snapshot(page);
     });
   });
 
@@ -137,9 +156,12 @@ describe('Snapshot Test: Media', () => {
         });
 
         await clickEditableContent(page);
+        await animationFrame(page);
         await insertMedia(page);
+        await animationFrame(page);
         await waitForMediaToBeLoaded(page);
         await clickMediaInPosition(page, 0);
+        await animationFrame(page);
       });
 
       for (const layout of [
@@ -151,7 +173,10 @@ describe('Snapshot Test: Media', () => {
       ]) {
         it(`using layout ${MediaLayout[layout]}`, async () => {
           await changeMediaLayout(page, layout);
-          await snapshot(page);
+          await animationFrame(page);
+          await snapshot(page, undefined, undefined, {
+            captureBeyondViewport: false,
+          });
         });
       }
     });
@@ -171,21 +196,31 @@ describe('Snapshot Test: Media', () => {
       });
 
       await clickEditableContent(page);
+      await animationFrame(page);
 
       // Media one : left wrapped
       await insertMedia(page, ['recents_tall_image.jpeg']);
+      await animationFrame(page);
       await waitForMediaToBeLoaded(page);
       await clickMediaInPosition(page, 0);
+      await animationFrame(page);
       await changeMediaLayout(page, MediaLayout.wrapLeft);
+      await animationFrame(page);
 
       await pressKey(page, 'ArrowRight');
+      await animationFrame(page);
 
       // Media two : center aligned
       await insertMedia(page, ['recents_tall_image.jpeg']);
+      await animationFrame(page);
       await waitForMediaToBeLoaded(page);
+      await animationFrame(page);
       await clickMediaInPosition(page, 0);
+      await animationFrame(page);
 
-      await snapshot(page);
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
     });
   });
 });

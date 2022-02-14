@@ -6,7 +6,7 @@ import { SSR } from '@atlaskit/media-common';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import CardLoader from '../src/root/card/cardLoader';
 import ReactDOMServer from 'react-dom/server';
-import { imageFileId } from '@atlaskit/media-test-helpers';
+import { imageFileId, videoFileId } from '@atlaskit/media-test-helpers';
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
 
 const dimensions = { width: 300, height: 200 };
@@ -25,6 +25,10 @@ const modes = {
     resizeMode: 'stretchy-fit' as const,
     disableOverlay: true,
   },
+  video: {
+    resizeMode: 'stretchy-fit' as const,
+    disableOverlay: true,
+  },
   group: {
     disableOverlay: false,
   },
@@ -38,7 +42,7 @@ const Page = ({
 }: {
   ssr: SSR;
   title: string;
-  mode: 'single' | 'group';
+  mode: 'single' | 'video' | 'group';
   mediaClientConfig: MediaClientConfig;
 }) => {
   return (
@@ -46,9 +50,10 @@ const Page = ({
       <h3>{title}</h3>
       <CardLoader
         mediaClientConfig={mediaClientConfig}
-        identifier={imageFileId}
+        identifier={mode === 'video' ? videoFileId : imageFileId}
         dimensions={dimensions}
         ssr={ssr}
+        useInlinePlayer={true}
         shouldOpenMediaViewer={true}
         {...modes[mode]}
       />
@@ -58,7 +63,7 @@ const Page = ({
 
 const runSSR = async (
   containerId: string,
-  mode: 'single' | 'group',
+  mode: 'single' | 'video' | 'group',
   hydrate?: boolean,
 ) => {
   const mediaClientConfig = await getMediaClientConfig();
@@ -95,13 +100,17 @@ const rowStyle = {
 
 export default () => {
   const serverOnlySingleId = 'container-ssr-single';
+  const serverOnlyVideoId = 'container-ssr-video';
   const serverOnlyGroupId = 'container-ssr-group';
   const hydrationSingleId = 'container-hydration-single';
+  const hydrationVideoId = 'container-hydration-video';
   const hydrationGroupId = 'container-hydration-group';
   useEffect(() => {
     Loadable.preloadAll().then(() => {
       runSSR(serverOnlySingleId, 'single');
       runSSR(hydrationSingleId, 'single', true);
+      runSSR(serverOnlyVideoId, 'video');
+      runSSR(hydrationVideoId, 'video', true);
       runSSR(serverOnlyGroupId, 'group');
       runSSR(hydrationGroupId, 'group', true);
     });
@@ -120,6 +129,12 @@ export default () => {
         <div style={rowStyle}>
           <div style={{ marginRight: 20 }} id={serverOnlySingleId}></div>
           <div style={{ marginRight: 20 }} id={hydrationSingleId}></div>
+        </div>
+        <hr />
+        <h2>Media Video</h2>
+        <div style={rowStyle}>
+          <div style={{ marginRight: 20 }} id={serverOnlyVideoId}></div>
+          <div style={{ marginRight: 20 }} id={hydrationVideoId}></div>
         </div>
         <hr />
         <h2>Media Group</h2>

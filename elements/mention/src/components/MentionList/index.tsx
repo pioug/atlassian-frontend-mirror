@@ -4,6 +4,7 @@ import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, Position } from '../../util/mouse';
 import MentionItem from '../MentionItem';
 import MentionListError from '../MentionListError';
+import MessagesIntlProvider from '../MessagesIntlProvider';
 import Scrollable from '../Scrollable';
 import { MentionListStyle } from './styles';
 
@@ -269,10 +270,12 @@ export default class MentionList extends React.PureComponent<Props, State> {
     }
 
     return (
-      <MentionListStyle empty={!hasMentions && !resourceError}>
-        {errorSection}
-        {resultSection}
-      </MentionListStyle>
+      <MessagesIntlProvider>
+        <MentionListStyle empty={!hasMentions && !resourceError}>
+          {errorSection}
+          {resultSection}
+        </MentionListStyle>
+      </MessagesIntlProvider>
     );
   }
 }

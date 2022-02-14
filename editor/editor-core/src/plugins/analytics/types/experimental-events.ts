@@ -19,7 +19,6 @@ type ExperimentalAEP<
 
 export interface TextColorSelectedAttr {
   color: string;
-  isShowingMoreColors: boolean;
   isNewColor: boolean;
 }
 export type TextColorSelectedAEP = ExperimentalAEP<
@@ -29,21 +28,8 @@ export type TextColorSelectedAEP = ExperimentalAEP<
   TextColorSelectedAttr
 >;
 
-// show more/less colours
-export interface TextColorShowMoreToggleAttr {
-  showMoreButton: boolean;
-  showLessButton: boolean;
-}
-export type TextColorShowMoreToggleAEP = ExperimentalAEP<
-  ACTION.OPENED | ACTION.CLOSED,
-  ACTION_SUBJECT.TOOLBAR,
-  ACTION_SUBJECT_ID.FORMAT_COLOR,
-  TextColorShowMoreToggleAttr
->;
-
 // panel opened/closed
 export interface TextColorShowPaletteToggleAttr {
-  isShowingMoreColors: boolean;
   noSelect: boolean;
 }
 export type TextColorShowPaletteToggleAEP = ExperimentalAEP<
@@ -55,5 +41,4 @@ export type TextColorShowPaletteToggleAEP = ExperimentalAEP<
 
 export type ExperimentalEventPayload =
   | TextColorSelectedAEP
-  | TextColorShowMoreToggleAEP
   | TextColorShowPaletteToggleAEP;

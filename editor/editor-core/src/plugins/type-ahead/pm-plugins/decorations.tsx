@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid';
-import { Transaction, TextSelection, Selection } from 'prosemirror-state';
+import {
+  ReadonlyTransaction,
+  Transaction,
+  TextSelection,
+  Selection,
+} from 'prosemirror-state';
 import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
 import { B400 } from '@atlaskit/theme/colors';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
@@ -40,7 +45,7 @@ export const factoryDecorations = ({
   createAnalyticsEvent,
 }: FactoryProps): FactoryReturn => {
   const createDecorations: CreateTypeAheadDecorations = (
-    tr: Transaction,
+    tr: ReadonlyTransaction,
     { triggerHandler, inputMethod, reopenQuery },
   ) => {
     const { selection } = tr;

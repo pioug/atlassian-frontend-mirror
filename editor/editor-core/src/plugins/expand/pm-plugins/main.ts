@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorView } from 'prosemirror-view';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { Dispatch } from '../../../event-dispatcher';
@@ -8,6 +8,7 @@ import { setExpandRef } from '../commands';
 import { findExpand } from '../utils';
 import { expandClassNames } from '../ui/class-names';
 import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
+import { EditorProps } from '../../../types';
 import { IntlShape } from 'react-intl-next';
 
 function containsClass(
@@ -20,17 +21,19 @@ function containsClass(
 export const createPlugin = (
   dispatch: Dispatch,
   getIntl: () => IntlShape,
+  appearance: EditorProps['appearance'] = 'full-page',
   useLongPressSelection: boolean = false,
 ) => {
   const state = createPluginState(dispatch, {});
+  const isMobile = appearance === 'mobile';
 
-  return new Plugin({
+  return new SafePlugin({
     state: state,
     key: pluginKey,
     props: {
       nodeViews: {
-        expand: ExpandNodeView(getIntl),
-        nestedExpand: ExpandNodeView(getIntl),
+        expand: ExpandNodeView({ getIntl, isMobile }),
+        nestedExpand: ExpandNodeView({ getIntl, isMobile }),
       },
       handleKeyDown(_view, event) {
         return containsClass(

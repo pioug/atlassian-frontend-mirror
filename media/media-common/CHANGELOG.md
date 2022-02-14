@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.10.3
+
+### Patch Changes
+
+- [`5293a48368e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5293a48368e) - fix image size in layout with ref and width observer
+
 ## 2.10.2
 
 ### Patch Changes

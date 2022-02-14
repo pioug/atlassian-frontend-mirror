@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-visually-hidden */
 import styled, { css } from 'styled-components';
 import { linkSharedStyle } from '@atlaskit/editor-common/styles';
 

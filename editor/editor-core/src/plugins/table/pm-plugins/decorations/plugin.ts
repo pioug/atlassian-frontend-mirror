@@ -1,4 +1,10 @@
-import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import {
+  EditorState,
+  PluginKey,
+  Transaction,
+  ReadonlyTransaction,
+} from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { DecorationSet } from 'prosemirror-view';
 
@@ -15,7 +21,7 @@ export const getDecorations = (state: EditorState): DecorationSet =>
   pluginKey.getState(state);
 
 export const handleDocOrSelectionChanged = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
   decorationSet: DecorationSet,
   oldState: EditorState,
 ): DecorationSet => {
@@ -42,7 +48,7 @@ export const handleDocOrSelectionChanged = (
 };
 
 export const createPlugin = () => {
-  return new Plugin({
+  return new SafePlugin({
     state: {
       init: () => DecorationSet.empty,
 

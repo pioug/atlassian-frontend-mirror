@@ -1,4 +1,4 @@
-import { Transaction, NodeSelection } from 'prosemirror-state';
+import { ReadonlyTransaction, NodeSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
@@ -9,7 +9,7 @@ import { selectionPluginKey, SelectionPluginState } from './types';
 import { getDecorations, isSelectableContainerNode } from './utils';
 
 const handleDocChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: SelectionPluginState,
 ): SelectionPluginState => {
   // in some collab edge cases mapping decorations could throw an error
@@ -36,7 +36,7 @@ const handleDocChanged = (
 };
 
 const handleSelectionChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: SelectionPluginState,
 ): SelectionPluginState => {
   // Reset relative selection pos when user clicks to select a node

@@ -1,11 +1,11 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
 import { INPUT_METHOD } from '../../analytics';
 import { insertHorizontalRule } from '../commands';
 
-export function keymapPlugin(): Plugin {
+export function keymapPlugin(): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -16,7 +16,7 @@ export function keymapPlugin(): Plugin {
 
   keymaps.bindKeymapWithCommand(keymaps.escape.common!, () => true, list);
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 export default keymapPlugin;

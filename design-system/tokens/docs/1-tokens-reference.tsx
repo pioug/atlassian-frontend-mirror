@@ -143,11 +143,15 @@ function getBoxShadow(rawShadow: any[]) {
     .join(',');
 }
 
+function cleanTokenName(name: string) {
+  return name.replace(/\.\[default\]/g, '');
+}
+
 const Token = ({ name, value, attributes, original }: Token) => (
   <div>
     <div css={tokenStyles}>
       <div css={tokenNameStyles}>
-        <Code>{name}</Code>{' '}
+        <Code>{cleanTokenName(name)}</Code>{' '}
         <Lozenge appearance={getAppearance(attributes.state)}>
           {attributes.state}
         </Lozenge>
@@ -264,8 +268,8 @@ const TokenExplorer = () => {
 
       <Tabs id="default">
         <TabList>
-          <Tab>Alassian Light Theme</Tab>
-          <Tab>Alassian Dark Theme</Tab>
+          <Tab>Atlassian Light Theme</Tab>
+          <Tab>Atlassian Dark Theme</Tab>
         </TabList>
         <TabPanel>
           <TokenList

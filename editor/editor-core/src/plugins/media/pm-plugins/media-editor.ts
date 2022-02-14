@@ -1,4 +1,5 @@
-import { Plugin, PluginSpec } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginSpec } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 
@@ -44,7 +45,7 @@ export const createPlugin = ({
   dispatch,
   providerFactory,
 }: PMPluginFactoryParams) => {
-  return new Plugin({
+  return new SafePlugin({
     state: createPluginState(dispatch, {}),
     key: pluginKey,
     view: pluginView(providerFactory),

@@ -5,7 +5,7 @@ import {
   TableAttributes,
   CellAttributes,
 } from '../../../../schema/nodes/tableNodes';
-import { fromHTML, toHTML } from '../../../../../test-helpers';
+import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { name } from '../../../../version.json';
 import {
   ATTRIBUTES_PARSE_DEFAULTS,

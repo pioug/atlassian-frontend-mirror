@@ -59,6 +59,7 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, {}> {
           objectAri={objectAri}
           taskId={localId}
           isDone={state === 'DONE'}
+          isRenderer
           disabled={disabled}
           taskDecisionProvider={taskDecisionProvider}
           contextIdentifierProvider={contextIdentifierProvider}

@@ -5,6 +5,8 @@ import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { INPUT_METHOD } from '../../../analytics';
 import { createTypeAheadTools } from '../../../type-ahead/api';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { messages } from '../../messages';
 
 export interface Props {
   editorView?: EditorView;
@@ -16,8 +18,12 @@ export interface State {
   disabled: boolean;
 }
 
-export default class ToolbarMention extends PureComponent<Props> {
+class ToolbarMention extends PureComponent<Props & WrappedComponentProps> {
   render() {
+    const mentionStringTranslated = this.props.intl.formatMessage(
+      messages.mentionsIconLabel,
+    );
+
     return (
       <ToolbarButton
         testId={this.props.testId}
@@ -25,8 +31,8 @@ export default class ToolbarMention extends PureComponent<Props> {
         spacing="none"
         onClick={this.handleInsertMention}
         disabled={this.props.isDisabled}
-        title="Mention @"
-        iconBefore={<MentionIcon label="Mention" />}
+        title={mentionStringTranslated + '@'}
+        iconBefore={<MentionIcon label={mentionStringTranslated} />}
       />
     );
   }
@@ -42,3 +48,5 @@ export default class ToolbarMention extends PureComponent<Props> {
     return true;
   };
 }
+
+export default injectIntl(ToolbarMention);

@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorView } from 'prosemirror-view';
 import {
   ProviderFactory,
@@ -27,7 +27,7 @@ export const createPlugin = (
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
 ) =>
-  new Plugin({
+  new SafePlugin({
     state: {
       init: () => ({ macroProvider: null }),
 

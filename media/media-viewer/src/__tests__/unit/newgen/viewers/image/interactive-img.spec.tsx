@@ -85,6 +85,45 @@ function clickZoomOut(component: ReactWrapper<any, any>) {
 }
 
 describe('InteractiveImg', () => {
+  it('should have image and overflow invisible until camera is defined', () => {
+    const component = mountWithIntlContext<
+      Props,
+      State,
+      InteractiveImgComponent
+    >(
+      <InteractiveImgComponent
+        onLoad={jest.fn()}
+        onError={jest.fn()}
+        src={'some-src'}
+        onClose={jest.fn()}
+        onBlanketClicked={jest.fn()}
+      />,
+    );
+
+    expect(
+      getComputedStyle(component.find('img').getDOMNode()).getPropertyValue(
+        'visibility',
+      ),
+    ).toBe('hidden');
+
+    expect(
+      getComputedStyle(component.getDOMNode()).getPropertyValue('overflow'),
+    ).toBe('hidden');
+  });
+
+  it('should have image and overflow visible when camera is defined', () => {
+    const { component } = setup();
+    expect(
+      getComputedStyle(component.find('img').getDOMNode()).getPropertyValue(
+        'visibility',
+      ),
+    ).not.toBe('hidden');
+
+    expect(
+      getComputedStyle(component.getDOMNode()).getPropertyValue('overflow'),
+    ).not.toBe('hidden');
+  });
+
   it('should allow zooming', async () => {
     const { component } = setup({
       naturalWidth: 400,

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const EmailAvatarWrapper = styled.span`
   padding: ${(props: { isLozenge?: boolean }) => (props.isLozenge ? 0 : 4)}px;
 
-  background-color: ${token('color.background.subtleNeutral.resting', N40)};
+  background-color: ${token('color.background.neutral', N40)};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
       <EmailIcon
         label={label}
         size={isLozenge ? 'small' : 'medium'}
-        primaryColor={token('color.text.mediumEmphasis', N500)}
+        primaryColor={token('color.text.subtle', N500)}
       />
     </EmailAvatarWrapper>
   );

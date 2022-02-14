@@ -7,8 +7,12 @@ import { ButtonIndicator, PresentationalIndicator } from '../../indicator';
 import ProgressDots from '../../progress-dots';
 
 // NOTE: "StubComponent" saves duplicating required props; avoids errors in the logs
-const StubComponent: FC<{ onSelect?: () => any }> = (props) => (
-  <ProgressDots selectedIndex={0} values={['one', 'two', 'three']} {...props} />
+const StubComponent: FC<{ onSelect?: () => any }> = ({ onSelect }) => (
+  <ProgressDots
+    selectedIndex={0}
+    values={['one', 'two', 'three']}
+    onSelect={onSelect}
+  />
 );
 
 describe('Progress Indicator', () => {
@@ -58,10 +62,10 @@ describe('Progress Indicator', () => {
       const wrapper = mount(<StubComponent />);
       expect(
         wrapper.find(PresentationalIndicator).at(1).prop('style'),
-      ).toEqual({ backgroundColor: '#C1C7D0' });
+      ).toEqual({ backgroundColor: 'var(--ds-background-neutral, #C1C7D0)' });
       expect(
         wrapper.find(PresentationalIndicator).at(0).prop('style'),
-      ).toEqual({ backgroundColor: '#091E42' });
+      ).toEqual({ backgroundColor: 'var(--ds-icon, #091E42)' });
     });
   });
 });

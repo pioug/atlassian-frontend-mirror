@@ -12,7 +12,7 @@ describe('apply all needed codemods for version 11.0.0 major bump', () => {
     `
     import React from "react";
     import DropdownMenu, {
-      DropdownItemGroupCheckbox as MyComponent, DropdownItemCheckbox,
+      DropdownItemGroupCheckbox as MyComponent, DropdownItemCheckbox, DropdownItem, DropdownItemRadio,
     } from "@atlaskit/dropdown-menu";
 
     export default () => (
@@ -24,14 +24,31 @@ describe('apply all needed codemods for version 11.0.0 major bump', () => {
         onPositioned={() => {}}
         position="bottom left"
         shouldFitContainer={false}
+        boundariesElement={document.body}
+        isMenuFixed
         shouldAllowMultiline>
+        <DropdownItem
+            isHidden
+            autoFocus
+            isCompact
+          >Cut</DropdownItem>
+        <DropdownItemCheckbox
+          isHidden
+          autoFocus
+          isCompact
+        >Copy</DropdownItemCheckbox>
+        <DropdownItemRadio
+          isHidden
+          autoFocus
+          isCompact
+        >Paste</DropdownItemRadio>
       </DropdownMenu>
     );
     `,
     `
     import React from "react";
     import DropdownMenu, {
-      DropdownItemCheckboxGroup as MyComponent, DropdownItemCheckbox,
+      DropdownItemCheckboxGroup as MyComponent, DropdownItemCheckbox, DropdownItem, DropdownItemRadio,
     } from "@atlaskit/dropdown-menu";
 
     export default () => (
@@ -40,6 +57,9 @@ describe('apply all needed codemods for version 11.0.0 major bump', () => {
         placement="bottom-start"
         shouldTitleWrap
         shouldDescriptionWrap>
+        <DropdownItem>Cut</DropdownItem>
+        <DropdownItemCheckbox>Copy</DropdownItemCheckbox>
+        <DropdownItemRadio>Paste</DropdownItemRadio>
       </DropdownMenu>
     );
     `,

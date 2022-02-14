@@ -16,18 +16,18 @@ import InlineEdit from '../../src';
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const ReadViewContainer = css({
+const readViewContainerStyles = css({
   display: 'flex',
-  fontSize: `${fontSize}px`,
-  height: `${(gridSize * 2.5) / fontSize}em`,
-  lineHeight: `${(gridSize * 2.5) / fontSize}`,
   maxWidth: '100%',
+  height: `${(gridSize * 2.5) / fontSize}em`,
   padding: `${gridSize}px ${gridSize - 2}px`,
+  fontSize: `${fontSize}px`,
+  lineHeight: `${(gridSize * 2.5) / fontSize}`,
 });
 
-const EditViewContainer = css({
-  zIndex: 300,
+const editViewContainerStyles = css({
   position: 'relative',
+  zIndex: 300,
 });
 
 interface OptionType {
@@ -65,7 +65,7 @@ const InlineEditCustomSelectExample = () => {
         defaultValue={editValue}
         label="Skills required"
         editView={(fieldProps) => (
-          <div css={EditViewContainer}>
+          <div css={editViewContainerStyles}>
             <Select
               {...fieldProps}
               options={selectOptions}
@@ -77,7 +77,7 @@ const InlineEditCustomSelectExample = () => {
         )}
         readView={() =>
           editValue && editValue.length === 0 ? (
-            <div css={ReadViewContainer}>Click to select options</div>
+            <div css={readViewContainerStyles}>Click to select options</div>
           ) : (
             <div style={{ padding: `${gridSize / 2}px` }}>
               <Group>

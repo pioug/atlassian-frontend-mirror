@@ -377,7 +377,7 @@ class Example extends React.Component<{}, State> {
           selectable={selectable}
           selected={selected}
           actions={hasActions ? actions : []}
-          dataURI={dataURI}
+          cardPreview={dataURI ? { dataURI, source: 'remote' } : undefined}
           dimensions={dimensions}
           titleBoxBgColor={withBgColorAndIcon ? Y75 : undefined}
           titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}

@@ -6,25 +6,23 @@ import throttle from 'lodash/throttle';
 import isequal from 'lodash/isEqual';
 
 import { Emitter } from '../emitter';
+import { Channel } from '../channel';
 import {
-  Channel,
+  CollabEditProvider,
+  CollabParticipant,
+  ResolvedEditorState,
+} from '@atlaskit/editor-common/collab';
+import type {
+  Config,
   ErrorPayload,
   Metadata,
   PresencePayload,
   StepJson,
   StepsPayload,
   TelepointerPayload,
-} from '../channel';
-import {
-  CollabEditProvider,
-  CollabParticipant,
-  CollabEventTelepointerData as EditorCollabTelepointerData,
-  CollabEventConnectionData as EditorCollabConnetedData,
-  CollabEventInitData as EditorCollabInitData,
-  CollabEventRemoteData as EditorCollabData,
-  CollabEventPresenceData as EditorCollabPresenceData,
-} from '@atlaskit/editor-common/collab';
-import { Config } from '../types';
+  CollabEvents,
+  CollabInitPayload,
+} from '../types';
 
 import { createLogger, getParticipant, sleep } from '../helpers/utils';
 import { ACK_MAX_TRY } from '../helpers/const';
@@ -40,6 +38,10 @@ import {
   socketIOReasons,
 } from '../disconnected-reason-mapper';
 
+import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
+
+import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+
 const logger = createLogger('Provider', 'black');
 
 const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
@@ -47,51 +49,8 @@ const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
 const SEND_STEPS_THROTTLE = 500; // 0.5 second
 export const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
-
+const noop = () => {};
 export const MAX_STEP_REJECTED_ERROR = 15;
-
-export type CollabConnectedPayload = EditorCollabConnetedData;
-export interface CollabDisconnectedPayload {
-  reason: DisconnectReason;
-  sid: string;
-}
-export interface CollabErrorPayload {
-  status: number;
-  code: string;
-  message: string;
-}
-export interface CollabInitPayload extends EditorCollabInitData {
-  doc: any;
-  version: number;
-  userId?: string;
-  metadata?: Metadata;
-}
-
-export interface CollabDataPayload extends EditorCollabData {
-  version: number;
-  json: StepJson[];
-  userIds: string[];
-}
-
-export type CollabTelepointerPayload = EditorCollabTelepointerData;
-export type CollabPresencePayload = EditorCollabPresenceData;
-export type CollabMetadataPayload = Metadata;
-export type CollabLocalStepsPayload = {
-  steps: Step[];
-};
-
-export interface CollabEvents {
-  'metadata:changed': CollabMetadataPayload;
-  init: CollabInitPayload;
-  connected: CollabConnectedPayload;
-  disconnected: CollabDisconnectedPayload;
-  data: CollabDataPayload;
-  telepointer: CollabTelepointerPayload;
-  presence: CollabPresencePayload;
-  'local-steps': CollabLocalStepsPayload;
-  error: CollabErrorPayload;
-  entity: any;
-}
 
 const commitStep = ({
   channel,
@@ -124,16 +83,9 @@ const throttledCommitStep = throttle(commitStep, SEND_STEPS_THROTTLE, {
   trailing: true,
 });
 
-type EditorStateGetter = () => EditorState;
-
-type InitializeOptions = {
-  getState: EditorStateGetter;
-  clientId: string;
-};
-
 type BaseEvents = Pick<
   CollabEditProvider<CollabEvents>,
-  'initialize' | 'send' | 'sendMessage'
+  'setup' | 'send' | 'sendMessage'
 >;
 
 export class Provider extends Emitter<CollabEvents> implements BaseEvents {
@@ -148,6 +100,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private stepRejectCounter: number = 0;
   private analyticsClient?: AnalyticsWebClient;
   private isChannelInitialized: boolean = false;
+
+  // Fires analytics to editor when collab editor cannot sync up
+  private onSyncUpError?: SyncUpErrorFunction;
 
   // SessionID is the unique socket-session.
   private sessionId?: string;
@@ -198,15 +153,15 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           metadata,
         });
       })
-      .on('steps:added', this.onStepsAdded)
-      .on('participant:telepointer', this.onParticipantTelepointer)
-      .on('presence:joined', this.onPresenceJoined)
-      .on('presence', this.onPresence)
-      .on('participant:left', this.onParticipantLeft)
-      .on('participant:updated', this.onParticipantUpdated)
-      .on('metadata:changed', this.onMetadataChanged)
-      .on('disconnect', this.onDisconnected)
-      .on('error', this.onErrorHandled)
+      .on('steps:added', this.onStepsAdded.bind(this))
+      .on('participant:telepointer', this.onParticipantTelepointer.bind(this))
+      .on('presence:joined', this.onPresenceJoined.bind(this))
+      .on('presence', this.onPresence.bind(this))
+      .on('participant:left', this.onParticipantLeft.bind(this))
+      .on('participant:updated', this.onParticipantUpdated.bind(this))
+      .on('metadata:changed', this.onMetadataChanged.bind(this))
+      .on('disconnect', this.onDisconnected.bind(this))
+      .on('error', this.onErrorHandled.bind(this))
       .connect();
   };
 
@@ -214,21 +169,24 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    * Called by collab plugin in editor when it's ready to
    * initialize a collab session.
    */
-  initialize(getState: EditorStateGetter): this;
-  initialize(options: InitializeOptions): this;
-  initialize(optionsOrGetState: InitializeOptions | EditorStateGetter): this {
-    // move this
-    this.getState =
-      typeof optionsOrGetState === 'function'
-        ? optionsOrGetState
-        : optionsOrGetState.getState;
+  initialize(getState: () => EditorState) {
+    return this.setup({
+      getState,
+    });
+  }
+  setup({
+    getState,
+    onSyncUpError,
+  }: {
+    getState: () => EditorState;
+    onSyncUpError?: SyncUpErrorFunction;
+  }): this {
+    this.getState = getState;
 
-    this.clientId =
-      typeof optionsOrGetState === 'function'
-        ? // Quick-hack to get clientID from native collab-plugin.
-          (this.getState().plugins.find((p: any) => p.key === 'collab$')!
-            .spec as any).config.clientID
-        : optionsOrGetState.clientId;
+    this.onSyncUpError = onSyncUpError || noop;
+
+    this.clientId = (getState().plugins.find((p: any) => p.key === 'collab$')!
+      .spec as any).config.clientID;
 
     if (!this.isChannelInitialized) {
       this.initializeChannel();
@@ -382,8 +340,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         applyLocalsteps: this.applyLocalsteps,
       });
     } catch (err) {
-      triggerAnalyticsForCatchupFailed(this.analyticsClient, err);
-      logger(`Catch-Up Failed:`, err.message);
+      triggerAnalyticsForCatchupFailed(
+        this.analyticsClient,
+        err as ErrorPayload,
+      );
+      logger(`Catch-Up Failed:`, (err as ErrorPayload).message);
     } finally {
       this.pauseQueue = false;
       this.processQueue();
@@ -540,6 +501,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   private onMetadataChanged = (metadata: Metadata) => {
     if (metadata !== undefined && !isequal(this.metadata, metadata)) {
+      this.metadata = metadata;
       this.emit('metadata:changed', metadata);
     }
   };
@@ -765,33 +727,39 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     Object.assign(this.metadata, metadata);
   }
 
-  /**
-   * Get latest state.
-   *
-   * NOTE: Should this actually convert to ADF instead?
-   */
-  async getFinalAcknowledgedState() {
-    const state = this.getState!();
+  getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
+    const maxAttemptsToSync = ACK_MAX_TRY;
     let count = 0;
-    let unconfirmedSteps =
-      this.getUnconfirmedSteps() && this.getUnconfirmedSteps()?.steps;
+    let unconfirmedSteps = this.getUnconfirmedSteps()?.steps;
 
     while (unconfirmedSteps && unconfirmedSteps.length) {
       this.sendStepsFromCurrentState();
       await sleep(500);
-      unconfirmedSteps =
-        this.getUnconfirmedSteps() && this.getUnconfirmedSteps()?.steps;
-      if (count++ >= ACK_MAX_TRY) {
+      unconfirmedSteps = this.getUnconfirmedSteps()?.steps;
+
+      if (count++ >= maxAttemptsToSync) {
+        if (this.onSyncUpError) {
+          const state = this.getState!();
+
+          this.onSyncUpError({
+            lengthOfUnconfirmedSteps: unconfirmedSteps?.length,
+            tries: count,
+            maxRetries: maxAttemptsToSync,
+            clientId: this.clientId,
+            version: getVersion(state),
+          });
+        }
         throw new Error("Can't syncup with Collab Service");
       }
     }
 
+    const state = this.getState!();
     return {
-      content: state.doc.toJSON(),
-      title: this.metadata.title,
+      content: state.doc.toJSON() as JSONDocNode,
+      title: this.metadata.title?.toString(),
       stepVersion: getVersion(state),
     };
-  }
+  };
 
   /**
    * Unsubscribe from all events emitted by this provider.

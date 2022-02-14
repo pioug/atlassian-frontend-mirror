@@ -37,6 +37,7 @@ const buttonStyles = css({
  */
 export const PresentationalIndicator = (
   props: HTMLAttributes<HTMLDivElement>,
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <div {...props} css={commonStyles} role="presentation" />;
 
 /**
@@ -48,6 +49,7 @@ export const ButtonIndicator = (props: HTMLAttributes<HTMLButtonElement>) => {
   return (
     <FocusRing>
       <button
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...props}
         role="tab"
         type="button"

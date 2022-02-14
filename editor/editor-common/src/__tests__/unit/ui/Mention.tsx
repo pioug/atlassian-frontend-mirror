@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
-
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention/element';
 
@@ -23,7 +22,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     console.error = consoleError;
   });
   it('should render resourced mention', () => {
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention id="abcd-abcd-abcd" text="@Oscar Wallhult" />,
     );
     const resourcedMention = mention.find(ResourcedMention);
@@ -37,7 +36,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     const mentionProvider = Promise.resolve({} as MentionProvider);
     providerFactory.setProvider('mentionProvider', mentionProvider);
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -53,7 +52,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     const mentionProvider = Promise.resolve({} as MentionProvider);
     providerFactory.setProvider('mentionProvider', mentionProvider);
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -71,7 +70,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     const profilecardProvider = Promise.reject(new Error());
     providerFactory.setProvider('profilecardProvider', profilecardProvider);
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -93,7 +92,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
       const profilecardProvider = Promise.resolve({} as ProfilecardProvider);
       providerFactory.setProvider('profilecardProvider', profilecardProvider);
 
-      const mention = mount(
+      const mention = mountWithIntl(
         <Mention
           id={genericUserId}
           text="@Oscar Wallhult"

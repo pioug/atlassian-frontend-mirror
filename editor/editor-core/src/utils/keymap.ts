@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keydownHandler } from 'prosemirror-keymap';
 import { base, keyName } from 'w3c-keyname';
 
@@ -10,7 +10,7 @@ import { base, keyName } from 'w3c-keyname';
  * @param bindings
  */
 export function keymap(bindings: { [key: string]: any }) {
-  return new Plugin({
+  return new SafePlugin({
     props: {
       handleKeyDown(view, event) {
         const name = keyName(event);

@@ -95,8 +95,8 @@ describe('Media Feature Flags', () => {
     it('should return false if all flags has different values set in the ff objects', () => {
       const changedMediaFeatureFlags = Object.keys(
         defaultMediaFeatureFlags,
-      ).reduce((acc: any, key: any) => {
-        acc[key] = true;
+      ).reduce<Record<string, boolean>>((acc: any, key: any) => {
+        acc[key] = !(defaultMediaFeatureFlags as Record<string, boolean>)[key];
         return acc;
       }, {});
       expect(
@@ -113,8 +113,14 @@ describe('Media Feature Flags', () => {
       );
       const changedMediaFeatureFlags = Object.keys(
         defaultMediaFeatureFlags,
-      ).reduce((acc: any, key: any, i: number) => {
-        acc[key] = i === randomIndex;
+      ).reduce<Record<string, boolean>>((acc: any, key: string, i: number) => {
+        if (i === randomIndex) {
+          acc[key] = !(defaultMediaFeatureFlags as Record<string, boolean>)[
+            key
+          ];
+        } else {
+          acc[key] = (defaultMediaFeatureFlags as Record<string, boolean>)[key];
+        }
         return acc;
       }, {});
       expect(

@@ -11,6 +11,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './analytics/enums';
 import { AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
 import { RendererAppearance } from './ui/Renderer/types';
+import { transformMediaLinkMarks } from '@atlaskit/adf-utils';
 
 export interface RenderOutput<T> {
   result: T;
@@ -57,7 +58,21 @@ export const renderDocument = <T>(
 
   const { output: validDoc, time: sanitizeTime } = withStopwatch(() => {
     if (useSpecBasedValidator) {
-      return validateADFEntity(schema, doc, dispatchAnalyticsEvent);
+      // link mark on mediaSingle is deprecated, need to move link mark to child media node
+      // https://product-fabric.atlassian.net/browse/ED-14043
+      const { transformedAdf, isTransformed } = transformMediaLinkMarks(doc);
+      if (isTransformed && dispatchAnalyticsEvent) {
+        dispatchAnalyticsEvent({
+          action: ACTION.MEDIA_LINK_TRANSFORMED,
+          actionSubject: ACTION_SUBJECT.RENDERER,
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      }
+      return validateADFEntity(
+        schema,
+        transformedAdf || doc,
+        dispatchAnalyticsEvent,
+      );
     }
     return getValidDocument(doc, schema, adfStage);
   });

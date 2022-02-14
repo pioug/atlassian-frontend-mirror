@@ -1125,7 +1125,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
           it('should create a Toggle when styled', async () => {
             const { wrapper } = await mountBoolean({ style: 'toggle' });
-            const field = wrapper.find('ForwardRef(Toggle)');
+            const field = wrapper.find('Toggle');
 
             expect(field.length).toBe(1);
           });

@@ -41,7 +41,7 @@ import {
 } from '../avatar-picker-dialog/layout-const';
 
 export interface LoadParameters {
-  export: () => string;
+  export: (outputSize?: number) => string;
 }
 export type OnLoadHandler = (params: LoadParameters) => void;
 
@@ -185,10 +185,15 @@ export class ImageNavigator extends Component<
     this.exportCrop();
   };
 
-  exportCroppedImage = () => {
+  exportCroppedImage = (outputSize?: number) => {
     const { imageElement } = this;
     if (imageElement) {
-      const canvas = renderViewport(this.state.viewport, imageElement);
+      const canvas = renderViewport(
+        this.state.viewport,
+        imageElement,
+        document.createElement('canvas'),
+        outputSize,
+      );
       if (canvas) {
         return canvas.toDataURL();
       }

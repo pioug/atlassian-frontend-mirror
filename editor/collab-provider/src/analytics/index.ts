@@ -7,7 +7,7 @@ import {
   STEPS_ADDED,
   STEPS_REJECTED,
 } from '../helpers/const';
-import { ErrorPayload } from '../channel';
+import { ErrorPayload } from '../types';
 
 export const buildAnalyticsPayload = (
   subject: string,

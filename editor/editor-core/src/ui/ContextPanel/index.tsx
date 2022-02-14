@@ -212,6 +212,8 @@ export class SwappableContentArea extends React.PureComponent<
               visible={visible}
               positionPanelOverEditor={newPosition}
               data-testid="context-panel-panel"
+              aria-labelledby="context-panel-title"
+              role="dialog"
             >
               <Content panelWidth={width} visible={visible}>
                 {this.showPluginContent() ||

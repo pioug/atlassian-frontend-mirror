@@ -7,7 +7,7 @@ const printed: PrintedMapping = {};
 /**
  * Will only print a warning message in the console once per session
  *
- * @param message: The message to write as a waring
+ * @param message: The message to write as a warning
  */
 export default function warnOnce(message: string) {
   if (printed[message]) {

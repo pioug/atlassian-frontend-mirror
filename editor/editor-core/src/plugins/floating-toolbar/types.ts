@@ -61,6 +61,7 @@ export type FloatingToolbarButton<T> = {
     | 'tree'
     | 'grid'
     | undefined;
+  tabIndex?: number | null | undefined;
 };
 
 export type FloatingToolbarInput<T> = {

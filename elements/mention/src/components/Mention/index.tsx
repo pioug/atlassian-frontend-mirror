@@ -1,17 +1,17 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { MentionStyle } from './styles';
-import { NoAccessTooltip } from '../NoAccessTooltip';
+import FocusRing from '@atlaskit/focus-ring';
+import MessagesIntlProvider from '../MessagesIntlProvider';
+import PrimitiveMention from './PrimitiveMention';
+import AsyncNoAccessTooltip from '../NoAccessTooltip';
 import { isRestricted, MentionType, MentionEventHandler } from '../../types';
 import { fireAnalyticsMentionEvent } from '../../util/analytics';
 
-import {
-  withAnalyticsEvents,
+import withAnalyticsEvents, {
   WithAnalyticsEventsProps,
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
-import { messages } from '../i18n';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { UnknownUserError } from '../../util/i18n';
 
 export const ANALYTICS_HOVER_DELAY = 1000;
 export const UNKNOWN_USER_ID = '_|unknown|_';
@@ -81,12 +81,9 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 
   renderUnknownUserError(id: string) {
     return (
-      <FormattedMessage
-        {...messages.unknownUserError}
-        values={{ userId: id.slice(-5) }}
-      >
-        {(message) => `@${message}`}
-      </FormattedMessage>
+      <UnknownUserError values={{ userId: id.slice(-5) }}>
+        {(message) => <>{`@${message}`}</>}
+      </UnknownUserError>
     );
   }
 
@@ -103,14 +100,17 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
     const failedMention = text === `@${UNKNOWN_USER_ID}`;
 
     const mentionComponent = (
-      <MentionStyle
-        mentionType={mentionType}
-        onClick={handleOnClick}
-        onMouseEnter={handleOnMouseEnter}
-        onMouseLeave={handleOnMouseLeave}
-      >
-        {failedMention ? this.renderUnknownUserError(id) : text || '@...'}
-      </MentionStyle>
+      <FocusRing>
+        <PrimitiveMention
+          mentionType={mentionType}
+          onClick={handleOnClick}
+          onMouseEnter={handleOnMouseEnter}
+          onMouseLeave={handleOnMouseLeave}
+          spellCheck={false}
+        >
+          {failedMention ? this.renderUnknownUserError(id) : text || '@...'}
+        </PrimitiveMention>
+      </FocusRing>
     );
 
     return (
@@ -119,11 +119,17 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
         data-access-level={accessLevel}
         spellCheck={false}
       >
-        {mentionType === MentionType.RESTRICTED ? (
-          <NoAccessTooltip name={text}>{mentionComponent}</NoAccessTooltip>
-        ) : (
-          mentionComponent
-        )}
+        <MessagesIntlProvider>
+          {mentionType === MentionType.RESTRICTED ? (
+            <React.Suspense fallback={mentionComponent}>
+              <AsyncNoAccessTooltip name={text}>
+                {mentionComponent}
+              </AsyncNoAccessTooltip>
+            </React.Suspense>
+          ) : (
+            mentionComponent
+          )}
+        </MessagesIntlProvider>
       </span>
     );
   }

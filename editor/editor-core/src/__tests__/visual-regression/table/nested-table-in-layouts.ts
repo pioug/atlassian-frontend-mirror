@@ -8,6 +8,7 @@ import tableIn2ColAdf from './__fixtures__/table-in-2-col-layout.adf.json';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { toolbarMessages } from '../../../plugins/layout/toolbar-messages';
 import { clickFirstCell } from '../../__helpers/page-objects/_table';
+import { animationFrame } from '../../__helpers/page-objects/_editor';
 import {
   toggleBreakout,
   waitForLayoutChange,
@@ -61,11 +62,14 @@ describe('Snapshot Test: Nested table inside layouts', () => {
         it(`should resize when changing to ${dataTestid}`, async () => {
           await page.waitForSelector(layoutSelectors.content);
           await clickOnLayoutColumn(page, 2);
+          await animationFrame(page);
           await waitForLayoutToolbar(page);
           await page.waitForSelector(layoutBtnSelector);
           await page.click(layoutBtnSelector);
+          await animationFrame(page);
           await waitForLayoutChange(page, dataTestid);
           await clickFirstCell(page, true);
+          await animationFrame(page);
         });
       });
     });
@@ -78,12 +82,14 @@ describe('Snapshot Test: Nested table inside layouts', () => {
     });
     ['wide', 'full-width'].forEach((breakout, idx) => {
       // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-      it.skip(`should display correctly for layout in ${breakout} breakout mode`, async () => {
+      it(`should display correctly for layout in ${breakout} breakout mode`, async () => {
         await toggleBreakout(page, idx + 1);
+        await animationFrame(page);
         await waitForBreakoutNestedLayout(
           page,
           breakout as 'wide' | 'full-width',
         );
+        await animationFrame(page);
         await clickFirstCell(page);
       });
     });
@@ -91,6 +97,7 @@ describe('Snapshot Test: Nested table inside layouts', () => {
 
   it('should display correctly when columns are stacked', async () => {
     await initEditor({ width: 768, height: 600 });
+    await animationFrame(page);
     await clickFirstCell(page);
   });
 });

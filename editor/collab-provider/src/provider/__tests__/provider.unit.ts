@@ -1,6 +1,7 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
 import { sleep } from '../../helpers/utils';
+import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 
 jest.mock('prosemirror-collab', () => {
   return {
@@ -61,7 +62,8 @@ jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 import { catchup } from '../catchup';
 import { triggerAnalyticsForCatchupFailed } from '../../analytics';
-import { Channel, ErrorPayload } from '../../channel';
+import { Channel } from '../../channel';
+import { ErrorPayload } from '../../types';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -559,21 +561,65 @@ describe('provider unit tests', () => {
       });
     });
 
-    it("should throw when can't syncup with server", async () => {
+    describe('when cannot syncup with server', () => {
+      let sendSpy: jest.SpyInstance;
+      let provider: Provider;
+      let getState: () => any;
+      beforeEach(() => {
+        provider = createSocketIOCollabProvider(testProviderConfig);
+        sendSpy = jest
+          .spyOn(provider as any, 'sendStepsFromCurrentState')
+          .mockImplementation(() => {});
+
+        const newState = JSON.parse(JSON.stringify(editorState));
+        newState.collab.steps = [1];
+        getState = () => newState;
+      });
+
+      it('should throw ', async () => {
+        provider.initialize(getState);
+        await expect(provider.getFinalAcknowledgedState()).rejects.toThrowError(
+          new Error("Can't syncup with Collab Service"),
+        );
+        expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+      });
+
+      it('should call onSyncUpError', async () => {
+        const onSyncUpErrorMock = jest.fn();
+        provider.setup({ getState, onSyncUpError: onSyncUpErrorMock });
+        await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
+        expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('final acknowledge state should include latest updated metadata', async () => {
+      const verifyMetadataTitle = async (title: string) => {
+        const ackState = await provider.getFinalAcknowledgedState();
+        expect(ackState).toEqual(
+          expect.objectContaining({
+            title,
+          }),
+        );
+      };
+
       const provider = createSocketIOCollabProvider(testProviderConfig);
+      provider.initialize(() => editorState);
 
-      let sendSpy = jest
-        .spyOn(provider as any, 'sendStepsFromCurrentState')
-        .mockImplementation(() => {});
+      socket.emit('init', {
+        doc: 'document-content',
+        version: 1,
+        metadata: {
+          title: 'original-title',
+        },
+      });
+      await nextTick();
+      await verifyMetadataTitle('original-title');
 
-      const newState = JSON.parse(JSON.stringify(editorState));
-      newState.collab.steps = [1];
-      provider.initialize(() => newState);
-      await expect(provider.getFinalAcknowledgedState()).rejects.toThrowError(
-        new Error("Can't syncup with Collab Service"),
-      );
-
-      expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+      socket.emit('metadata:changed', {
+        title: 'new-title',
+      });
+      await nextTick();
+      await verifyMetadataTitle('new-title');
     });
   });
 

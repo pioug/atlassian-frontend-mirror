@@ -1,11 +1,9 @@
-import styled from 'styled-components';
-// @ts-ignore: unused variable
-// prettier-ignore
-import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
+import styled from '@emotion/styled';
 import { N100 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
-export const DescriptionBylineStyle: ComponentClass<HTMLAttributes<{}>> = styled.span`
-  color: ${N100};
+export const DescriptionBylineStyle = styled.span`
+  color: ${token('color.text.subtlest', N100)};
   font-size: 12px;
 
   margin-top: 2px;

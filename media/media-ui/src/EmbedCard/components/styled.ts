@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled';
 import { size as csssize } from '../../mixins';
 import { fontFamily } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
@@ -69,12 +69,15 @@ function selected({ isSelected }: WrapperProps) {
     : '';
 }
 
-const wrapperStyles = css`
+const height = ({ inheritDimensions }: WrapperProps) =>
+  inheritDimensions ? 'height: 100%;' : `height: ${gridSize(54)}`;
+
+const wrapperStyles = (props: WrapperProps) => `
   ${borderRadius}
-  ${minWidth}
-  ${maxWidth}
-  ${getinteractiveStyles}
-  ${visible}
+  ${minWidth(props)}
+  ${maxWidth(props)}
+  ${getinteractiveStyles(props)}
+  ${visible(props)}
   display: inline-flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -84,17 +87,8 @@ const wrapperStyles = css`
   line-height: initial;
   transition: background 0.3s;
   position: relative;
-  height: 100%;
-  ${({ inheritDimensions }: WrapperProps) => {
-    if (inheritDimensions) {
-      return `
-      height: 100%;
-    `;
-    } else {
-      return `height: ${gridSize(54)}`;
-    }
-  }}
-  ${selected}
+  ${height(props)};
+  ${selected(props)}
 
   &:after {
     content: '';
@@ -123,13 +117,13 @@ function visible({ isVisible }: WrapperProps) {
 }
 
 export const LinkWrapper = styled.div`
-  ${wrapperStyles} &:hover {
+  ${(props: WrapperProps) => wrapperStyles(props)} &:hover {
     text-decoration: none;
   }
 `;
 
-export const Wrapper = styled.div`
-  ${wrapperStyles};
+export const Wrapper = styled.div<WrapperProps>`
+  ${(props) => wrapperStyles(props)};
   margin-top: 10px;
 `;
 

@@ -14,6 +14,7 @@ describe('@atlaskit/checkbox', () => {
         onChange={() => {}}
         name="stub"
         value="stub value"
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...overridingProps}
       />,
     );

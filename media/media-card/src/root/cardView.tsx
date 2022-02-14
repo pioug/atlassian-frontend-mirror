@@ -49,11 +49,14 @@ import {
 import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
 import { newFileExperienceClassName } from './card/cardConstants';
 import { isUploadError, MediaCardError } from '../errors';
+import { CardPreview } from '..';
 import { MessageDescriptor } from 'react-intl-next';
+import { MediaCardCursor } from '../types';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
+  readonly mediaCardCursor: MediaCardCursor;
   readonly metadata?: FileDetails;
   readonly error?: MediaCardError;
   readonly onClick?: (
@@ -63,15 +66,14 @@ export interface CardViewOwnProps extends SharedCardProps {
   readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
   readonly onDisplayImage?: () => void;
   // FileCardProps
-  readonly dataURI?: string;
+  readonly cardPreview?: CardPreview;
   readonly progress?: number;
-  readonly previewOrientation?: number;
   // CardView can't implement forwardRef as it needs to pass and at the same time
   // handle the HTML element internally. There is no standard way to do this.
   // Therefore, we restrict the use of refs to callbacks only, not RefObjects.
   readonly innerRef?: (instance: HTMLDivElement | null) => void;
-  readonly onImageLoad: () => void;
-  readonly onImageError: () => void;
+  readonly onImageLoad: (cardPreview: CardPreview) => void;
+  readonly onImageError: (cardPreview: CardPreview) => void;
   readonly nativeLazyLoad?: boolean;
   readonly forceSyncDisplay?: boolean;
   // Used to disable animation for testing purposes
@@ -113,6 +115,7 @@ export class CardViewBase extends React.Component<
 
   static defaultProps: Partial<CardViewOwnProps> = {
     appearance: 'auto',
+    mediaCardCursor: MediaCardCursor.NoAction,
   };
 
   componentDidMount() {
@@ -121,33 +124,38 @@ export class CardViewBase extends React.Component<
     !!innerRef && !!this.divRef.current && innerRef(this.divRef.current);
   }
 
-  componentDidUpdate({ dataURI: prevDataURI }: CardViewProps) {
-    const { dataURI } = this.props;
+  componentDidUpdate({ cardPreview: prevCardPreview }: CardViewProps) {
+    const { cardPreview } = this.props;
     // We should only switch didImageRender to false
-    // when dataURI goes undefined, not when it is updated.
+    // when cardPreview goes undefined, not when it is updated.
     // as this method could be triggered after onImageLoad callback,
     // falling on a race condition
-    prevDataURI && !dataURI && this.setState({ didImageRender: false });
+    !!prevCardPreview &&
+      !cardPreview &&
+      this.setState({ didImageRender: false });
   }
 
-  private onImageLoad = () => {
-    const { onImageLoad } = this.props;
-    // We render the icon & icon message always, even if there is dataURI available.
+  private onImageLoad = (prevCardPreview: CardPreview) => {
+    const { onImageLoad, cardPreview } = this.props;
+    if (prevCardPreview.dataURI !== cardPreview?.dataURI) {
+      return;
+    }
+    // We render the icon & icon message always, even if there is cardPreview available.
     // If the image fails to load/render, the icon will remain, i.e. the user won't see a change until
     // the root card decides to chage status to error.
     // If the image renders successfully, we switch this variable to hide the icon & icon message
     // behind the thumbnail in case the image has transparency.
-    // It is less likely that root component replaces a suceeded dataURI for a failed one
+    // It is less likely that root component replaces a suceeded cardPreview for a failed one
     // than the opposite case. Therefore we prefer to hide the icon instead show when the image fails,
     // for a smoother transition
     this.setState({ didImageRender: true });
-    onImageLoad && onImageLoad();
+    onImageLoad && onImageLoad(cardPreview);
   };
 
-  private onImageError = () => {
+  private onImageError = (cardPreview: CardPreview) => {
     const { onImageError } = this.props;
     this.setState({ didImageRender: false });
-    onImageError && onImageError();
+    onImageError && onImageError(cardPreview);
   };
   // This width is only used to calculate breakpoints, dimensions are passed down as
   // integrator pass it to the root component
@@ -234,9 +242,9 @@ export class CardViewBase extends React.Component<
   }
 
   private shouldRenderPlayButton() {
-    const { metadata, dataURI } = this.props;
+    const { metadata, cardPreview } = this.props;
     const { mediaType } = metadata || {};
-    if (mediaType !== 'video' || !dataURI) {
+    if (mediaType !== 'video' || !cardPreview) {
       return false;
     }
     return true;
@@ -295,9 +303,8 @@ export class CardViewBase extends React.Component<
 
   private renderImageRenderer() {
     const {
-      dataURI,
+      cardPreview,
       metadata: { mediaType = 'unknown' } = {},
-      previewOrientation,
       alt,
       resizeMode,
       onDisplayImage,
@@ -306,11 +313,10 @@ export class CardViewBase extends React.Component<
     } = this.props;
 
     return (
-      !!dataURI && (
+      !!cardPreview && (
         <ImageRenderer
-          dataURI={dataURI}
+          cardPreview={cardPreview}
           mediaType={mediaType}
-          previewOrientation={previewOrientation}
           alt={alt}
           resizeMode={resizeMode}
           onDisplayImage={onDisplayImage}
@@ -372,13 +378,13 @@ export class CardViewBase extends React.Component<
       selected,
       selectable,
       disableOverlay,
-      dataURI,
+      cardPreview,
+      mediaCardCursor,
     } = this.props;
+
     const { name } = metadata || {};
-    const shouldUsePointerCursor =
-      status !== 'error' && status !== 'failed-processing';
     const shouldDisplayBackground =
-      !dataURI ||
+      !cardPreview ||
       !disableOverlay ||
       status === 'error' ||
       status === 'failed-processing';
@@ -399,7 +405,7 @@ export class CardViewBase extends React.Component<
         onMouseEnter={onMouseEnter}
         innerRef={this.divRef}
         breakpoint={this.breakpoint}
-        shouldUsePointerCursor={shouldUsePointerCursor}
+        mediaCardCursor={mediaCardCursor}
         disableOverlay={!!disableOverlay}
         selected={!!selected}
         displayBackground={shouldDisplayBackground}
@@ -420,21 +426,21 @@ export class CardViewBase extends React.Component<
 
   private renderFile = () => {
     const {
+      cardPreview,
       status,
       mediaItemType,
       metadata,
-      dataURI,
       progress,
       resizeMode,
       dimensions,
       selectable,
       selected,
       disableOverlay,
-      previewOrientation,
       alt,
       onDisplayImage,
       actions,
     } = this.props;
+    const { dataURI, orientation } = cardPreview || {};
 
     const { name, mediaType, mimeType, size } = metadata || {};
     const actionsWithDetails =
@@ -460,17 +466,18 @@ export class CardViewBase extends React.Component<
         onDisplayImage={onDisplayImage}
         actions={actionsWithDetails}
         disableOverlay={disableOverlay}
-        previewOrientation={previewOrientation}
+        previewOrientation={orientation}
         alt={alt}
         onImageLoad={this.onImageLoad}
         onImageError={this.onImageError}
+        cardPreview={cardPreview}
       />
     );
   };
 
   private getRenderConfigByStatus = (): RenderConfigByStatus => {
     const {
-      dataURI,
+      cardPreview,
       status,
       metadata,
       disableOverlay,
@@ -478,14 +485,15 @@ export class CardViewBase extends React.Component<
       selectable,
       disableAnimation,
     } = this.props;
+
     const { name, mediaType } = metadata || {};
     const { didImageRender } = this.state;
     const isZeroSize = !!(metadata && metadata.size === 0);
 
     const defaultConfig: RenderConfigByStatus = {
       renderTypeIcon: !didImageRender,
-      renderImageRenderer: !!dataURI,
-      renderPlayButton: !!dataURI && mediaType === 'video',
+      renderImageRenderer: !!cardPreview,
+      renderPlayButton: !!cardPreview && mediaType === 'video',
       renderBlanket: !disableOverlay,
       renderTitleBox: !disableOverlay && !!name,
       renderTickBox: !disableOverlay && !!selectable,

@@ -1,3 +1,30 @@
+jest.mock('@atlaskit/adf-schema', () => {
+  const actualModule = jest.requireActual('@atlaskit/adf-schema');
+
+  const card = ['inlineCard', 'blockCard', 'embedCard'];
+  card.forEach((cardName) => {
+    actualModule[cardName].parseDOM = actualModule[cardName].parseDOM.map(
+      (x: ParseRule) => {
+        return {
+          ...x,
+          getAttrs: (dom: HTMLElement) => {
+            const res = x.getAttrs!(dom);
+            return {
+              ...res,
+              localId: 'cool-be4nz-rand0m-return',
+            };
+          },
+        };
+      },
+    );
+  });
+
+  return {
+    __esModule: true,
+    ...actualModule,
+  };
+});
+
 import {
   Preset,
   LightEditorPlugin,
@@ -20,6 +47,7 @@ import hyperlinkPlugin from '../../../../hyperlink';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
+import { ParseRule } from 'prosemirror-model';
 
 describe('paste paragraph edge cases', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -58,7 +86,7 @@ describe('paste paragraph edge cases', () => {
     result: doc(
       // prettier-ignore
       panel()(
-        blockCard({url: 'https://gnu.org'})()
+        blockCard({url: 'https://gnu.org', localId: 'cool-be4nz-rand0m-return'})()
       ),
     ),
   };
@@ -81,7 +109,7 @@ describe('paste paragraph edge cases', () => {
       // prettier-ignore
       layoutSection(
         layoutColumn({ width: 50 })(
-          blockCard({url: 'https://gnu.org'})()
+          blockCard({url: 'https://gnu.org', localId: 'cool-be4nz-rand0m-return'})()
         ),
         layoutColumn({ width: 50 })(
           p('')

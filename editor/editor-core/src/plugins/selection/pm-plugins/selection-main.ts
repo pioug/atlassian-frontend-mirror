@@ -1,9 +1,5 @@
-import {
-  EditorState,
-  Plugin,
-  NodeSelection,
-  TextSelection,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { browser } from '@atlaskit/editor-common/utils';
@@ -59,7 +55,7 @@ export const createPlugin = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   options: SelectionPluginOptions = {},
 ) => {
-  return new Plugin({
+  return new SafePlugin({
     key: selectionPluginKey,
     state: createPluginState(dispatch, getInitialState),
     view: () => ({

@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import { ReadonlyTransaction } from 'prosemirror-state';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { findAnnotationsInSelection, inlineCommentPluginKey } from '../utils';
 import { InlineCommentPluginState } from './types';
@@ -6,7 +6,7 @@ import { InlineCommentPluginState } from './types';
 import reducer from './reducer';
 
 const handleDocChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   prevPluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
   if (!tr.getMeta('replaceDocument')) {
@@ -17,7 +17,7 @@ const handleDocChanged = (
 };
 
 const handleSelectionChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
   const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);

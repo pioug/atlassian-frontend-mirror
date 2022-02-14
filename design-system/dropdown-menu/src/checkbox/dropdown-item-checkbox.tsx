@@ -86,6 +86,7 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
         />
       }
       ref={itemRef}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
     />
   );

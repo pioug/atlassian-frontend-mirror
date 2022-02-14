@@ -58,6 +58,7 @@ describe('EmbedCard', () => {
       url: 'https://some/url',
       layout: 'center',
       ...attributes,
+      localId: 'cool-be4nz-rand0m-return',
     })();
     const { editorView } = editor(doc(mockInlinePmNode));
     const node = editorView.state.doc.firstChild;
@@ -170,6 +171,7 @@ describe('EmbedCard', () => {
           url: 'https://some/url',
           layout: 'center',
           originalHeight: 50,
+          localId: 'cool-be4nz-rand0m-return',
         })(),
       ),
     );
@@ -188,6 +190,7 @@ describe('EmbedCard', () => {
           url: 'https://some/url',
           layout: 'center',
           originalHeight: 50,
+          localId: 'cool-be4nz-rand0m-return',
         })(),
       ),
     );
@@ -210,6 +213,7 @@ describe('EmbedCard', () => {
           url: 'https://some/url',
           layout: 'center',
           originalHeight: undefined,
+          localId: 'cool-be4nz-rand0m-return',
         })(),
       ),
     );

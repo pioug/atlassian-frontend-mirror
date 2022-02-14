@@ -52,7 +52,12 @@ export function useMobilePreset({
   featureFlags,
 }: EditorPresetMobileProps & EditorPresetProps) {
   const mediaProvider = useProvider('mediaProvider');
-  const [preset] = useDefaultPreset({ featureFlags, paste: {} });
+  const [preset] = useDefaultPreset({
+    featureFlags,
+    paste: {
+      plainTextPasteLinkification: featureFlags?.plainTextPasteLinkification,
+    },
+  });
 
   preset.add([
     basePlugin,
@@ -76,7 +81,7 @@ export function useMobilePreset({
     quickInsertPlugin,
     { headless: true, disableDefaultItems: true },
   ]);
-  preset.add([statusPlugin, { menuDisabled: false, useInlineWrapper: true }]);
+  preset.add([statusPlugin, { menuDisabled: false }]);
   preset.add([placeholderPlugin, { placeholder }]);
   preset.add(mobileDimensionsPlugin);
   preset.add(expandPlugin);
@@ -84,8 +89,8 @@ export function useMobilePreset({
   // Begin -> This would be exclude if the provider doesnt exist in the factory
   preset.add(tasksAndDecisionsPlugin);
   preset.add([cardPlugin, { allowBlockCards: true, platform: 'mobile' }]);
-  preset.add([mentionsPlugin, { useInlineWrapper: true }]);
-  preset.add([emojiPlugin, { useInlineWrapper: true }]);
+  preset.add([mentionsPlugin]);
+  preset.add([emojiPlugin]);
   // End
 
   if (maxContentSize) {

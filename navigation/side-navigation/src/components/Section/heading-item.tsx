@@ -18,6 +18,7 @@ const HeadingItem = (props: HeadingItemProps) => {
 
   const cssFn = overrideStyleFunction(sectionHeaderStyle, props.cssFn);
 
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
   return <MenuHeadingItem {...props} cssFn={cssFn} />;
 };
 

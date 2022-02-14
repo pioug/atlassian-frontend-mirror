@@ -105,6 +105,8 @@ const analyticsParams = {
 };
 
 const setSmartHeight = (el: HTMLTextAreaElement) => {
+  // Always reset height to auto before calculating new height
+  el.style.height = 'auto';
   const borderHeight = borderWidth;
   const paddingBoxHeight: number = el.scrollHeight;
   const borderBoxHeight: number = paddingBoxHeight + borderHeight * 2;
@@ -131,6 +133,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     onFocus,
     onChange,
     tokens,
+    value,
     ...rest
   } = props;
 
@@ -139,7 +142,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     if (resize === 'smart' && el) {
       setSmartHeight(el);
     }
-  }, [resize]);
+  }, [resize, value]);
 
   const onBlurWithAnalytics = usePlatformLeafEventHandler({
     fn: (event: React.FocusEvent<HTMLTextAreaElement>) => {
@@ -172,7 +175,6 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
     (e) => {
       const el: HTMLTextAreaElement | null = ourRef.current;
       if (resize === 'smart' && el) {
-        el.style.height = 'auto';
         setSmartHeight(el);
       }
       onChange && onChange(e);
@@ -207,6 +209,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
   return (
     <textarea
       {...controlProps}
+      value={value}
       disabled={isDisabled}
       readOnly={isReadOnly}
       required={isRequired}

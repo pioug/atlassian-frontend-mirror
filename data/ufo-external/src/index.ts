@@ -18,3 +18,5 @@ export {
 } from './global-stream-buffer';
 
 export type { CustomData } from './types';
+
+export { visibilityChangeObserver } from './observer/visibility-change-observer';

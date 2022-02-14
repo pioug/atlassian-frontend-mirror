@@ -156,6 +156,12 @@ export interface DropdownMenuProps {
    * Called when the menu should be open/closed. Receives an object with `isOpen` state.
    */
   onOpenChange?: (args: OnOpenChangeArgs) => void;
+  /**
+   * Z-index that the popup should be displayed in.
+   * This is passed to the portal component.
+   * Defaults to `layers.modal()` from `@atlaskit/theme` which is 510.
+   */
+  zIndex?: number;
 }
 
 export interface DropdownItemProps {

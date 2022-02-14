@@ -10,6 +10,7 @@ import SVG from '../src/entry-points/svg';
 const containerStyles = css({ display: 'inline-block' });
 
 const CanonicalGlyph = (props: SVGProps) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <SVG {...props}>
     <path
       fill="currentColor"

@@ -43,7 +43,9 @@ interface ColorColumn {
 
 const ColorColumn = (props: ColorColumn) => (
   <div style={{ ...styles.column, backgroundColor: props.borderColor }}>
+    {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
     <Avatar onClick={console.log} {...props} size="xlarge" />
+    {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
     <Avatar onClick={console.log} {...props} />
   </div>
 );

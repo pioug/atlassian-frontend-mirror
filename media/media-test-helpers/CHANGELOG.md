@@ -1,5 +1,20 @@
 # @atlaskit/media-test-helpers
 
+## 29.1.0
+
+### Minor Changes
+
+- [`3ad0bbf0f93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ad0bbf0f93) - Log media ssr getImageURLSync error in global variable ssr data.
+- [`2f682970bfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f682970bfe) - Filestates Factory accepts options for MediaClientMock constructor
+- [`da72247beeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da72247beeb) - remove styled-components from media-ui
+- [`22a39ca6f66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22a39ca6f66) - expose @atlaskit/media-test-helpers/smart-card-state
+- [`4735277e315`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4735277e315) - Extended FileState factory to update File Id internally
+- [`5571b079998`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5571b079998) - Added A File State simulator helper
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.1
 
 ### Patch Changes

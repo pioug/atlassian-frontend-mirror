@@ -1,5 +1,6 @@
 import React from 'react';
 import { token } from '@atlaskit/tokens';
+import { IntlProvider } from 'react-intl-next';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import EmojiPickerPreview from '../src/components/picker/EmojiPickerPreview';
@@ -31,8 +32,10 @@ const borderedStyle = {
 
 export default function Example() {
   return (
-    <div style={borderedStyle}>
-      <EmojiPickerPreview emoji={emoji} />
-    </div>
+    <IntlProvider locale="en">
+      <div style={borderedStyle}>
+        <EmojiPickerPreview emoji={emoji} />
+      </div>
+    </IntlProvider>
   );
 }

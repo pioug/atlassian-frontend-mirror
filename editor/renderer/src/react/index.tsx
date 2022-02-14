@@ -36,6 +36,7 @@ import {
 } from './types';
 import { insideBreakoutLayout } from './renderer-node';
 import { MediaOptions } from '../types/mediaOptions';
+import { SmartLinksOptions } from '../types/smartLinksOptions';
 import { isCodeMark } from './marks/code';
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
@@ -56,6 +57,7 @@ export interface ReactSerializerInit {
   allowMediaLinking?: boolean;
   surroundTextNodesWithTextWrapper?: boolean;
   media?: MediaOptions;
+  smartLinks?: SmartLinksOptions;
   allowCopyToClipboard?: boolean;
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
@@ -148,6 +150,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private startPos: number = 1;
   private surroundTextNodesWithTextWrapper: boolean = false;
   private media?: MediaOptions;
+  private smartLinks?: SmartLinksOptions;
   private allowAnnotations: boolean = false;
   private allowSelectAllTrap?: boolean;
 
@@ -176,6 +179,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       init.surroundTextNodesWithTextWrapper,
     );
     this.media = init.media;
+    this.smartLinks = init.smartLinks;
     this.allowSelectAllTrap = init.allowSelectAllTrap;
   }
 
@@ -588,6 +592,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       fireAnalyticsEvent: this.fireAnalyticsEvent,
       nodeType: node.type.name,
       marks: node.marks,
+      smartLinks: this.smartLinks,
       dataAttributes: {
         // We need to account for depth (path.length gives up depth) here
         // but depth doesnt increment the pos, only accounted for.

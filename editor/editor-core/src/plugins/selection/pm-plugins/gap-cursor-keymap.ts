@@ -1,12 +1,12 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import { arrow, deleteNode } from '../gap-cursor/actions';
 import { Direction } from '../gap-cursor/direction';
 import { GapCursorSelection } from '../gap-cursor/selection';
 import { createParagraphNear } from 'prosemirror-commands';
 
-export default function keymapPlugin(): Plugin {
+export default function keymapPlugin(): SafePlugin {
   const map = {};
 
   keymaps.bindKeymapWithCommand(
@@ -72,5 +72,5 @@ export default function keymapPlugin(): Plugin {
     map,
   );
 
-  return keymap(map);
+  return keymap(map) as SafePlugin;
 }

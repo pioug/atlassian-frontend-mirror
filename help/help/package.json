@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/checkbox": "^12.3.0",
-    "@atlaskit/form": "^8.4.0",
+    "@atlaskit/form": "^8.5.0",
     "@atlaskit/help-article": "^4.0.0",
     "@atlaskit/help-layout": "^4.0.0",
     "@atlaskit/icon": "^21.10.0",
@@ -41,7 +41,7 @@
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/spinner": "^15.1.0",
-    "@atlaskit/textarea": "^4.2.0",
+    "@atlaskit/textarea": "^4.3.0",
     "@atlaskit/textfield": "^5.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tooltip": "^17.5.0",

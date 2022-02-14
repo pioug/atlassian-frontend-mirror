@@ -118,11 +118,15 @@ const Header = ({
         <ItemBody>
           {summary ? (
             <ItemText>
-              <div className="item-title">{title}</div>
+              <div className="item-title" id="context-panel-title">
+                {title}
+              </div>
               <div className="item-summary">{summary}</div>
             </ItemText>
           ) : (
-            <CenteredItemTitle>{title}</CenteredItemTitle>
+            <CenteredItemTitle id="context-panel-title">
+              {title}
+            </CenteredItemTitle>
           )}
         </ItemBody>
         <CloseButtonWrapper>

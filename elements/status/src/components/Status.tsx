@@ -32,6 +32,7 @@ export interface OwnProps {
   localId?: string;
   onClick?: (event: React.SyntheticEvent<any>) => void;
   onHover?: () => void;
+  role?: string;
 }
 
 export type Props = OwnProps & WithAnalyticsEventsProps;
@@ -60,7 +61,7 @@ class StatusInternal extends PureComponent<Props, any> {
   }
 
   render() {
-    const { text, color, style, localId, onClick } = this.props;
+    const { text, color, style, role, onClick } = this.props;
     if (text.trim().length === 0) {
       return null;
     }
@@ -76,7 +77,7 @@ class StatusInternal extends PureComponent<Props, any> {
         data-node-type="status"
         data-color={color}
         data-style={style}
-        id={localId}
+        role={role}
       >
         <Lozenge appearance={appearance} maxWidth={MAX_WIDTH}>
           {text}

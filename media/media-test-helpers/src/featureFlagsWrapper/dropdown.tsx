@@ -8,9 +8,9 @@ import {
 } from './helpers';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import HipchatChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import Tooltip from '@atlaskit/tooltip';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import Popup from '@atlaskit/popup';
 import { Checkbox } from '@atlaskit/checkbox';

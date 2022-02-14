@@ -1,10 +1,10 @@
 import React from 'react';
 import { Node as PmNode } from 'prosemirror-model';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   NodeSelection,
-  Plugin,
   TextSelection,
-  Transaction,
+  ReadonlyTransaction,
 } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { placeholder } from '@atlaskit/adf-schema';
@@ -36,9 +36,9 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 export function createPlugin(
   dispatch: Dispatch<PluginState>,
   options: PlaceholderTextOptions,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const allowInserting = !!options.allowInserting;
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init: () =>
@@ -46,7 +46,7 @@ export function createPlugin(
           showInsertPanelAt: null,
           allowInserting,
         } as PluginState),
-      apply: (tr: Transaction, state: PluginState) => {
+      apply: (tr: ReadonlyTransaction, state: PluginState) => {
         const meta = tr.getMeta(pluginKey) as Partial<PluginState>;
         if (meta && meta.showInsertPanelAt !== undefined) {
           const newState = {

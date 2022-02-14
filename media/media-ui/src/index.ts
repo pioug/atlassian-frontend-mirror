@@ -53,7 +53,6 @@ export {
   easeInOutCubic,
   ellipsis,
   fadeIn,
-  fadeInKeyframe,
   size,
 } from './mixins';
 export type { LozengeColor, LozengeProps } from './common';

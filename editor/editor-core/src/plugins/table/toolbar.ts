@@ -54,6 +54,7 @@ import { findParentDomRefOfType } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { closestElement } from '../../utils/dom';
 
+// TODO: ED-14403 investigate why these translations don't work
 export const messages = defineMessages({
   tableOptions: {
     id: 'fabric.editor.tableOptions',

@@ -86,6 +86,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
         plugin: ({
           schema,
           dispatch,
+          getIntl,
           eventDispatcher,
           providerFactory,
           errorReporter,
@@ -132,6 +133,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
               allowResizing: !!(options && options.allowResizing),
             },
             reactContext,
+            getIntl,
             dispatch,
             options,
           );

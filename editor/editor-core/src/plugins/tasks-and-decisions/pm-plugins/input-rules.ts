@@ -1,12 +1,8 @@
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { FeatureFlags } from '../../../types/feature-flags';
 import { Node, Schema } from 'prosemirror-model';
-import {
-  EditorState,
-  NodeSelection,
-  Plugin,
-  TextSelection,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
 import { canInsert } from 'prosemirror-utils';
 
 import { createRule, createPlugin } from '../../../utils/input-rules';
@@ -103,7 +99,7 @@ const addItem = (start: number, end: number): AddItemTransactionCreator => ({
 export function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin {
+): SafePlugin {
   const rules: InputRuleWrapper[] = [];
 
   const { decisionList, decisionItem, taskList, taskItem } = schema.nodes;

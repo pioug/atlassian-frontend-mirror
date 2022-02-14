@@ -1,9 +1,8 @@
 import React, { RefObject } from 'react';
-import {
-  withAnalyticsEvents,
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import withAnalyticsEvents, {
   WithAnalyticsEventsProps,
-  CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/custom-theme-button';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Tooltip from '@atlaskit/tooltip';
@@ -22,6 +21,7 @@ import {
   TeamMentionHighlightDescriptionLink,
 } from '../../util/i18n';
 import * as Styled from './styles';
+import MessagesIntlProvider from '../MessagesIntlProvider';
 
 export interface OwnProps {
   createTeamLink?: string;
@@ -148,60 +148,62 @@ export class TeamMentionHighlightInternal extends React.Component<
     }
 
     return (
-      <div ref={this.elWrapper}>
-        <Styled.Card>
-          <Styled.Content>
-            <Styled.Aside>
-              <img src={ICON_URL} height={32} />
-            </Styled.Aside>
-            <Styled.Section>
-              <Styled.Heading>
-                <Styled.Title>
-                  <TeamMentionHighlightTitle />
-                </Styled.Title>
-              </Styled.Heading>
-              <Styled.Body>
-                <TeamMentionHighlightDescription>
-                  {(description) => (
-                    <div>
-                      {description}
-                      <span ref={this.elCreateTeamWrapper}>
-                        <TeamMentionHighlightDescriptionLink>
-                          {(linkText) => (
-                            <a href={createTeamLink} target="_blank">
-                              {' '}
-                              {linkText}
-                            </a>
-                            // on click fired by preventClickOnCard, not here
-                          )}
-                        </TeamMentionHighlightDescriptionLink>
-                      </span>
-                    </div>
-                  )}
-                </TeamMentionHighlightDescription>
-              </Styled.Body>
-            </Styled.Section>
-            <Styled.Actions>
-              <div ref={this.elCloseWrapper}>
-                <TeamMentionHighlightCloseTooltip>
-                  {(tooltip) => (
-                    <Tooltip content={tooltip} position="bottom">
-                      <Button
-                        appearance="subtle"
-                        iconBefore={
-                          <EditorCloseIcon label="Close" size="medium" />
-                        }
-                        spacing="none"
-                        // on click fired by preventClickOnCard, not here
-                      />
-                    </Tooltip>
-                  )}
-                </TeamMentionHighlightCloseTooltip>
-              </div>
-            </Styled.Actions>
-          </Styled.Content>
-        </Styled.Card>
-      </div>
+      <MessagesIntlProvider>
+        <div ref={this.elWrapper}>
+          <Styled.Card>
+            <Styled.Content>
+              <Styled.Aside>
+                <img src={ICON_URL} height={32} />
+              </Styled.Aside>
+              <Styled.Section>
+                <Styled.Heading>
+                  <Styled.Title>
+                    <TeamMentionHighlightTitle />
+                  </Styled.Title>
+                </Styled.Heading>
+                <Styled.Body>
+                  <TeamMentionHighlightDescription>
+                    {(description) => (
+                      <div>
+                        {description}
+                        <span ref={this.elCreateTeamWrapper}>
+                          <TeamMentionHighlightDescriptionLink>
+                            {(linkText) => (
+                              <a href={createTeamLink} target="_blank">
+                                {' '}
+                                {linkText}
+                              </a>
+                              // on click fired by preventClickOnCard, not here
+                            )}
+                          </TeamMentionHighlightDescriptionLink>
+                        </span>
+                      </div>
+                    )}
+                  </TeamMentionHighlightDescription>
+                </Styled.Body>
+              </Styled.Section>
+              <Styled.Actions>
+                <div ref={this.elCloseWrapper}>
+                  <TeamMentionHighlightCloseTooltip>
+                    {(tooltip) => (
+                      <Tooltip content={tooltip} position="bottom">
+                        <Button
+                          appearance="subtle"
+                          iconBefore={
+                            <EditorCloseIcon label="Close" size="medium" />
+                          }
+                          spacing="none"
+                          // on click fired by preventClickOnCard, not here
+                        />
+                      </Tooltip>
+                    )}
+                  </TeamMentionHighlightCloseTooltip>
+                </div>
+              </Styled.Actions>
+            </Styled.Content>
+          </Styled.Card>
+        </div>
+      </MessagesIntlProvider>
     );
   }
 }

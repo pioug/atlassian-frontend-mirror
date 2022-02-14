@@ -1,4 +1,6 @@
-import { Plugin, PluginKey, TextSelection } from 'prosemirror-state';
+import { PluginKey, TextSelection } from 'prosemirror-state';
+
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from './constants';
 import { createInputEventHandler } from './handler';
@@ -19,7 +21,7 @@ export function createInputRulePlugin(
   pluginName: string,
   rules: InputRuleWrapper[],
   options: Options = {},
-): Plugin {
+): SafePlugin {
   const onInputEvent = options?.onInputEvent;
   const onBeforeRegexMatch = options?.onBeforeRegexMatch;
   const allowInsertTextOnDocument = Boolean(options?.allowInsertTextOnDocument);
@@ -33,7 +35,7 @@ export function createInputRulePlugin(
     onBeforeRegexMatch,
   });
 
-  const plugin: Plugin = new Plugin<InputRulePluginState>({
+  const plugin = new SafePlugin<InputRulePluginState>({
     key: pluginKey,
     state: {
       init() {

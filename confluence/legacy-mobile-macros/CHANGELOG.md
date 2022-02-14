@@ -1,5 +1,16 @@
 # @atlaskit/legacy-mobile-macros
 
+## 1.2.0
+
+### Minor Changes
+
+- [`c17b3fd9e67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17b3fd9e67) - [ux] Adds support for rendering the chart extension through macro fallback on mobile
+
+### Patch Changes
+
+- [`f61c5b89050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f61c5b89050) - Loads superbatch tags from mobile macro config promise
+- Updated dependencies
+
 ## 1.1.1
 
 ### Patch Changes

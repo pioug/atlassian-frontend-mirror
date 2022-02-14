@@ -10,6 +10,7 @@ import {
   setTableLayout,
   getSelectorForTableCell,
 } from '../../__helpers/page-objects/_table';
+import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { emojiSelectors } from '../../__helpers/page-objects/_emoji';
 import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar';
 import {
@@ -25,7 +26,9 @@ describe('Table with block looks correct for fullpage:', () => {
   });
 
   afterEach(async () => {
+    await animationFrame(page);
     await waitForLoadedBackgroundImages(page, emojiSelectors.standard, 10000);
+    await animationFrame(page);
     await snapshot(page);
   });
 
@@ -50,28 +53,32 @@ describe('Table with block looks correct for fullpage:', () => {
       undefined,
       'dark',
     );
+    await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 
-  // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-  it.skip('wide layout ', async () => {
+  it('wide layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopMDPI);
+    await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
+    await animationFrame(page);
     await setTableLayout(page, 'wide');
+    await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 
-  // re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-  it.skip('full-width layout ', async () => {
+  it('full-width layout ', async () => {
     await initFullPageEditorWithAdf(page, adf, Device.LaptopHiDPI);
+    await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
+    await animationFrame(page);
     await setTableLayout(page, 'fullWidth');
+    await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 });
 
-// re-enable this test: https://product-fabric.atlassian.net/browse/ED-13630
-describe.skip('Table with block looks correct for comment:', () => {
+describe('Table with block looks correct for comment:', () => {
   let page: PuppeteerPage;
 
   beforeAll(async () => {
@@ -84,6 +91,7 @@ describe.skip('Table with block looks correct for comment:', () => {
 
   it('default layout ', async () => {
     await initCommentEditorWithAdf(page, adf, Device.LaptopMDPI);
+    await animationFrame(page);
     await page.click(getSelectorForTableCell({ row: 4, cell: 1 }));
   });
 });

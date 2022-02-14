@@ -328,12 +328,13 @@ function canContainImage(element: HTMLElement | null): boolean {
 
 /**
  * Given a html string, we attempt to hoist any nested `<img>` tags,
- * not wrapped by a `<div>` as ProseMirror no-op's on those scenarios.
+ * not directly wrapped by a `<div>` as ProseMirror no-op's
+ * on those scenarios.
  * @param html
  */
 export const unwrapNestedMediaElements = (html: string) => {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
+  let doc = parser.parseFromString(html, 'text/html');
   const wrapper = doc.body;
 
   // Remove Google Doc's wrapper <b> el
@@ -363,10 +364,10 @@ export const unwrapNestedMediaElements = (html: string) => {
       return;
     }
 
-    // If its wrapped by a div we assume its safe to bypass.
-    // ProseMirror should handle this case properly.
+    // If its wrapped by a valid container we assume its safe to bypass.
+    // ProseMirror should handle these cases properly.
     if (
-      mediaParent instanceof HTMLDivElement ||
+      canContainImage(mediaParent) ||
       (mediaParent instanceof HTMLSpanElement &&
         mediaParent.closest('[class*="emoji-common"]'))
     ) {

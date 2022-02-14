@@ -3,6 +3,7 @@ import { createPlugin } from './pm-plugins/main';
 import { CardOptions } from '@atlaskit/editor-common/card';
 
 export type PastePluginOptions = {
+  plainTextPasteLinkification?: boolean;
   cardOptions?: CardOptions;
   sanitizePrivateContent?: boolean;
 };
@@ -10,6 +11,7 @@ export type PastePluginOptions = {
 const pastePlugin = ({
   cardOptions,
   sanitizePrivateContent,
+  plainTextPasteLinkification,
 }: PastePluginOptions): EditorPlugin => ({
   name: 'paste',
 
@@ -21,6 +23,7 @@ const pastePlugin = ({
           createPlugin(
             schema,
             dispatchAnalyticsEvent,
+            plainTextPasteLinkification,
             cardOptions,
             sanitizePrivateContent,
             providerFactory,

@@ -1,4 +1,5 @@
-import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, Transaction } from 'prosemirror-state';
 
 import { EditorPlugin } from '../../types';
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules';
@@ -18,7 +19,7 @@ export const scrollIntoViewPluginKey = new PluginKey('scrollIntoViewPlugin');
 type TransactionWithScroll = Transaction & { scrolledIntoView: boolean };
 
 const createPlugin = () =>
-  new Plugin({
+  new SafePlugin({
     key: scrollIntoViewPluginKey,
     appendTransaction: (transactions, oldState, newState) => {
       if (!transactions.length) {

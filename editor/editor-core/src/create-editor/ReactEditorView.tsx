@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
+import { EditorState, Selection, Transaction, Plugin } from 'prosemirror-state';
 import { DirectEditorProps, EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
@@ -27,6 +27,7 @@ import { Transformer } from '@atlaskit/editor-common/types';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
+import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
 import { RenderTracking } from '../utils/react-hooks/use-component-renderer-tracking';
 import {
   findChangedNodesFromTransaction,
@@ -435,7 +436,7 @@ export class ReactEditorView<T = {}> extends React.Component<
       getIntl: () => this.props.intl,
     });
 
-    const newState = state.reconfigure({ plugins });
+    const newState = state.reconfigure({ plugins: plugins as Plugin[] });
 
     // need to update the state first so when the view builds the nodeviews it is
     // using the latest plugins
@@ -527,29 +528,39 @@ export class ReactEditorView<T = {}> extends React.Component<
     resetting?: boolean;
     selectionAtStart?: boolean;
   }) => {
-    if (this.view && !options.resetting) {
-      /**
-       * There's presently a number of issues with changing the schema of a
-       * editor inflight. A significant issue is that we lose the ability
-       * to keep track of a user's history as the internal plugin state
-       * keeps a list of Steps to undo/redo (which are tied to the schema).
-       * Without a good way to do work around this, we prevent this for now.
-       */
-      // eslint-disable-next-line no-console
-      console.warn(
-        'The editor does not support changing the schema dynamically.',
+    let schema;
+    if (this.view) {
+      if (options.resetting) {
+        /**
+         * ReactEditorView currently does NOT handle dynamic schema,
+         * We are reusing the existing schema, and rely on #reconfigureState
+         * to update `this.config`
+         */
+        schema = this.view.state.schema;
+      } else {
+        /**
+         * There's presently a number of issues with changing the schema of a
+         * editor inflight. A significant issue is that we lose the ability
+         * to keep track of a user's history as the internal plugin state
+         * keeps a list of Steps to undo/redo (which are tied to the schema).
+         * Without a good way to do work around this, we prevent this for now.
+         */
+        // eslint-disable-next-line no-console
+        console.warn(
+          'The editor does not support changing the schema dynamically.',
+        );
+        return this.editorState;
+      }
+    } else {
+      this.config = processPluginsList(
+        this.getPlugins(
+          options.props.editorProps,
+          undefined,
+          options.props.createAnalyticsEvent,
+        ),
       );
-      return this.editorState;
+      schema = createSchema(this.config);
     }
-
-    this.config = processPluginsList(
-      this.getPlugins(
-        options.props.editorProps,
-        undefined,
-        options.props.createAnalyticsEvent,
-      ),
-    );
-    const schema = createSchema(this.config);
 
     const { contentTransformerProvider } = options.props.editorProps;
 
@@ -599,7 +610,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     return EditorState.create({
       schema,
-      plugins,
+      plugins: plugins as Plugin[],
       doc,
       selection: patchedSelection,
     });
@@ -651,7 +662,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     }
   };
 
-  private dispatchTransaction = (transaction: Transaction) => {
+  private dispatchTransaction = (unsafeTransaction: Transaction) => {
     if (!this.view) {
       return;
     }
@@ -669,8 +680,17 @@ export class ReactEditorView<T = {}> extends React.Component<
       this.experienceStore?.start(EditorExperience.interaction);
     }
 
-    const nodes: PMNode[] = findChangedNodesFromTransaction(transaction);
+    const nodes: PMNode[] = findChangedNodesFromTransaction(unsafeTransaction);
     const changedNodesValid = validateNodes(nodes);
+    const transaction = this.featureFlags.saferDispatchedTransactions
+      ? new Proxy(
+          unsafeTransaction,
+          freezeUnsafeTransactionProperties<Transaction>({
+            dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+            pluginKey: 'unknown-reacteditorview',
+          }),
+        )
+      : unsafeTransaction;
 
     if (changedNodesValid) {
       const oldEditorState = this.view.state;

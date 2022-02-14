@@ -107,6 +107,11 @@ export const messages = defineMessages({
       '{count, plural, =0 {no results} one {# result} other {# results}} found',
     description: 'Announce search results for screen-reader users.',
   },
+  linkAriaLabel: {
+    id: 'fabric.editor.hyperlink.linkAriaLabel',
+    defaultMessage: 'Link label',
+    description: 'aria label for a link',
+  },
 });
 
 interface BaseProps {
@@ -641,7 +646,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             <PanelTextInput
               ref={(ele) => (this.displayTextInputContainer = ele)}
               placeholder={formatDisplayText}
-              ariaLabel={'Link label'}
+              ariaLabel={formatMessage(messages.linkAriaLabel)}
               testId={'link-label'}
               onChange={this.updateTextInput}
               onCancel={this.handleCancel}

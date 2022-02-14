@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
@@ -125,7 +126,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         name: 'tableSelectionKeymap',
         plugin: () => tableSelectionKeymapPlugin(),
       },
-      { name: 'tableEditing', plugin: () => tableEditing() },
+      { name: 'tableEditing', plugin: () => tableEditing() as SafePlugin },
 
       {
         name: 'tableStickyHeaders',
@@ -280,6 +281,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                       tableWidth={
                         tableRenderOptimization ? tableWidth : undefined
                       }
+                      stickyHeader={stickyHeader}
                     />
                   )}
               </>

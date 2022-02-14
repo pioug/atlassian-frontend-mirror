@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ReactWrapper } from 'enzyme';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
@@ -20,6 +20,7 @@ function setupPicker(props?: Props): ReactWrapper<Props, State> {
       resourceProvider={mentionResource}
       query=""
       createAnalyticsEvent={jest.fn()}
+      intl={{ formatMessage() {} } as any}
       {...props}
     />,
   ) as ReactWrapper<Props, State>;

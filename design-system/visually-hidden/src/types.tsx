@@ -15,4 +15,9 @@ export type VisuallyHiddenProps = {
    * Role attribute is passed on to the span to aid screen readers.
    */
   role?: string;
+  /**
+   * An id may be appropriate for this component if used in conjunction with `aria-describedby`
+   * on a paired element.
+   */
+  id?: string;
 };

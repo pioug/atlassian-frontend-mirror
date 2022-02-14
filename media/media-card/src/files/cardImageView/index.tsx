@@ -27,6 +27,7 @@ import { CardLoading } from '../../utils/lightCards/cardLoading';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
 import { ProgressBar } from '../../utils/progressBar';
 import CardActions from '../../utils/cardActions';
+import { CardPreview } from '../..';
 
 export interface FileCardImageViewProps {
   readonly mediaName?: string;
@@ -47,8 +48,9 @@ export interface FileCardImageViewProps {
   readonly actions?: CardAction[];
   readonly onDisplayImage?: () => void;
   readonly previewOrientation?: number;
-  readonly onImageError?: () => void;
-  readonly onImageLoad?: () => void;
+  readonly onImageError?: (cardPreview: CardPreview) => void;
+  readonly onImageLoad?: (cardPreview: CardPreview) => void;
+  readonly cardPreview: CardPreview;
 }
 
 export const fileCardImageViewSelector = 'media-file-card-view';
@@ -236,6 +238,15 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
     );
   };
 
+  onImageLoad = () => {
+    const { onImageLoad, cardPreview } = this.props;
+    onImageLoad && onImageLoad(cardPreview);
+  };
+  onImageError = () => {
+    const { onImageError, cardPreview } = this.props;
+    onImageError && onImageError(cardPreview);
+  };
+
   private renderMediaImage = () => {
     const {
       status,
@@ -246,8 +257,6 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
       previewOrientation,
       onDisplayImage,
       alt,
-      onImageLoad,
-      onImageError,
     } = this.props;
 
     if (
@@ -278,8 +287,8 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
         crop={this.isCropped}
         stretch={this.isStretched}
         previewOrientation={previewOrientation}
-        onImageLoad={onImageLoad}
-        onImageError={onImageError}
+        onImageLoad={this.onImageLoad}
+        onImageError={this.onImageError}
       />
     );
   };

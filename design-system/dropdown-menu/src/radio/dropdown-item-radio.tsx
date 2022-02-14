@@ -86,6 +86,7 @@ const DropdownItemRadio = (props: DropdownItemRadioProps) => {
         />
       }
       ref={itemRef}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
     />
   );

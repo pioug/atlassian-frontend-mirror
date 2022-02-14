@@ -1,5 +1,5 @@
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
@@ -14,7 +14,7 @@ export function inputRulePlugin(
   schema: Schema,
   typeAheads: TypeAheadHandler[],
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (!typeAheads || typeAheads.length === 0) {
     return;
   }

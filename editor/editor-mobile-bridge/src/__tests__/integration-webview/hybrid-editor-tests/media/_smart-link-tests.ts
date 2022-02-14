@@ -1,5 +1,6 @@
 import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
+import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import { inlineCardSelector } from '@atlaskit/media-integration-test-helpers';
 import { setADFContent } from '../../_utils/afe-app-helpers';
 import {
@@ -9,6 +10,7 @@ import {
 import smartLinkAdf from '../../__fixtures__/smart-link.adf.json';
 import smartLinkExpandAdf from '../../__fixtures__/smart-link-expand.adf.json';
 import smartLinkListAdf from '../../__fixtures__/smart-link-list.adf.json';
+import smartLinkListAdf2 from '../../__fixtures__/smart-link-list-2.adf.json';
 import { mobileSnapshot } from '../../_utils/snapshot';
 
 export default () => {
@@ -86,4 +88,19 @@ export default () => {
   //   await focusOnWebView(page);
   //   await mobileSnapshot(page);
   // });
+
+  MobileTestCase(
+    'SmartLinks: backspace smart card',
+    { skipPlatform: ['*'] },
+    async (client: any) => {
+      const page = await Page.create(client);
+      await loadEditorWithAdf(page, smartLinkListAdf2);
+      await page.tapKeys(SPECIAL_KEYS.DELETE);
+      await page.tapKeys(SPECIAL_KEYS.DELETE);
+      if (page.isIOS()) {
+        await page.tapKeys(SPECIAL_KEYS.DELETE);
+      }
+      await mobileSnapshot(page);
+    },
+  );
 };

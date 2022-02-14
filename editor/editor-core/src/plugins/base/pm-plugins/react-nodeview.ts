@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 export type StateChangeHandler = (fromPos: number, toPos: number) => any;
@@ -25,7 +26,7 @@ export class ReactNodeViewState {
 
 export const stateKey = new PluginKey<ReactNodeViewState>('reactNodeView');
 
-export const plugin = new Plugin({
+export const plugin = new SafePlugin({
   state: {
     init() {
       return new ReactNodeViewState();

@@ -40,6 +40,14 @@ export default function Table() {
             isRemovable={false}
           />
         </Row>
+        <Row name="Linked & elemBefore">
+          <Tag
+            text={cupcakeipsum}
+            href="http://www.cupcakeipsum.com/"
+            isRemovable={false}
+            elemBefore="<"
+          />
+        </Row>
         <Row name="Removable">
           <Tag text={cupcakeipsum} removeButtonLabel="No sweets for you!" />
         </Row>
@@ -48,6 +56,14 @@ export default function Table() {
             text={cupcakeipsum}
             removeButtonLabel="No sweets for you!"
             href="http://www.cupcakeipsum.com/"
+          />
+        </Row>
+        <Row name="Removable & linked & elemBefore">
+          <Tag
+            text={cupcakeipsum}
+            removeButtonLabel="No sweets for you!"
+            href="http://www.cupcakeipsum.com/"
+            elemBefore="<"
           />
         </Row>
       </tbody>

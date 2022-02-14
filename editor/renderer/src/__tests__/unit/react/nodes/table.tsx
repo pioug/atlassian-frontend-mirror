@@ -13,12 +13,13 @@ import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 
 describe('Renderer - React/Nodes/Table', () => {
   const renderWidth = akEditorDefaultLayoutWidth;
 
   it('should render table DOM with all attributes', () => {
-    const table = mount(
+    const table = mountWithIntl(
       <Table
         layout="full-width"
         isNumberColumnEnabled={true}
@@ -37,7 +38,7 @@ describe('Renderer - React/Nodes/Table', () => {
   it('should render table props', () => {
     const columnWidths = [100, 110, 120];
 
-    const table = mount(
+    const table = mountWithIntl(
       <Table
         layout="default"
         isNumberColumnEnabled={true}
@@ -59,7 +60,7 @@ describe('Renderer - React/Nodes/Table', () => {
   it('should NOT render a colgroup when columnWidths is an empty array', () => {
     const columnWidths: Array<number> = [];
 
-    const table = mount(
+    const table = mountWithIntl(
       <Table
         layout="default"
         isNumberColumnEnabled={true}
@@ -99,7 +100,7 @@ describe('Renderer - React/Nodes/Table', () => {
   });
 
   it('should render children', () => {
-    const table = mount(
+    const table = mountWithIntl(
       <Table
         layout="default"
         isNumberColumnEnabled={true}
@@ -121,7 +122,7 @@ describe('Renderer - React/Nodes/Table', () => {
   describe('When number column is enabled', () => {
     describe('When header row is enabled', () => {
       it('should start numbers from the second row', () => {
-        const table = mount(
+        const table = mountWithIntl(
           <Table
             layout="default"
             isNumberColumnEnabled={true}
@@ -151,7 +152,7 @@ describe('Renderer - React/Nodes/Table', () => {
     });
     describe('When header row is disabled', () => {
       it('should start numbers from the first row', () => {
-        const table = mount(
+        const table = mountWithIntl(
           <Table
             layout="default"
             isNumberColumnEnabled={true}
@@ -180,7 +181,7 @@ describe('Renderer - React/Nodes/Table', () => {
     it('should add an extra <col> node for number column', () => {
       const columnWidths = [300, 380];
       const resultingColumnWidths = [299, 379];
-      const table = mount(
+      const table = mountWithIntl(
         <Table
           layout="default"
           isNumberColumnEnabled={true}
@@ -216,7 +217,7 @@ describe('Renderer - React/Nodes/Table', () => {
   describe('When number column is disabled', () => {
     it('should not add an extra <col> node for number column', () => {
       const columnWidths = [300, 380];
-      const table = mount(
+      const table = mountWithIntl(
         <Table
           layout="default"
           isNumberColumnEnabled={false}
@@ -248,7 +249,7 @@ describe('Renderer - React/Nodes/Table', () => {
       it('should add minWidth to zero width columns', () => {
         const columnWidths = [260, 260, 0, 0];
 
-        const table = mount(
+        const table = mountWithIntl(
           <Table
             layout="default"
             isNumberColumnEnabled={true}
@@ -288,7 +289,7 @@ describe('Renderer - React/Nodes/Table', () => {
       it('should not add minWidth to zero width columns', () => {
         const columnWidths = [200, 200, 0, 0];
 
-        const table = mount(
+        const table = mountWithIntl(
           <Table
             layout="default"
             isNumberColumnEnabled={true}
@@ -330,7 +331,7 @@ describe('Renderer - React/Nodes/Table', () => {
     it('should scale down columns widths by 10%', () => {
       const columnWidths = [200, 200, 280];
 
-      const table = mount(
+      const table = mountWithIntl(
         <Table
           layout="default"
           isNumberColumnEnabled={false}
@@ -362,7 +363,7 @@ describe('Renderer - React/Nodes/Table', () => {
     it('should scale down columns widths by 15% and then overflow', () => {
       const columnWidths = [200, 200, 280];
 
-      const table = mount(
+      const table = mountWithIntl(
         <Table
           layout="default"
           isNumberColumnEnabled={false}
@@ -394,7 +395,7 @@ describe('Renderer - React/Nodes/Table', () => {
     it('should scale down columns widths that were created at a large breakpoint.', () => {
       const columnWidths = [81, 425, 253];
 
-      const table = mount(
+      const table = mountWithIntl(
         <Table
           layout="default"
           isNumberColumnEnabled={false}
@@ -466,7 +467,7 @@ describe('Renderer - React/Nodes/Table', () => {
     it('should add sortable props to first table row', () => {
       const tableFromSchema = schema.nodeFromJSON(tableDoc);
 
-      const wrap = mount(
+      const wrap = mountWithIntl(
         <Table
           layout="default"
           renderWidth={renderWidth}
@@ -506,7 +507,7 @@ describe('Renderer - React/Nodes/Table', () => {
       it('should not add sortable props to the first table row', () => {
         const tableFromSchema = schema.nodeFromJSON(tableDoc);
 
-        const wrap = mount(
+        const wrap = mountWithIntl(
           <Table
             layout="default"
             renderWidth={renderWidth}
@@ -544,7 +545,7 @@ describe('Renderer - React/Nodes/Table', () => {
       it('should not add sortable props to the first table row', () => {
         const tableFromSchema = schema.nodeFromJSON(tableDocWithMergedCell);
 
-        const wrap = mount(
+        const wrap = mountWithIntl(
           <Table
             layout="default"
             renderWidth={renderWidth}
@@ -579,7 +580,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
     describe('when there is no tableNode', () => {
       it('should not add sortable props to the first table row', () => {
-        const wrap = mount(
+        const wrap = mountWithIntl(
           <Table
             layout="default"
             renderWidth={renderWidth}
@@ -678,7 +679,7 @@ describe('Renderer - React/Nodes/Table', () => {
         (storage, expected) => {
           const tableFromSchema = schema.nodeFromJSON(tableWithInlineCardsDoc);
 
-          const wrap = mount(
+          const wrap = mountWithIntl(
             <SmartCardStorageContext.Provider value={storage}>
               <Table
                 layout="default"
@@ -754,7 +755,7 @@ describe('Renderer - React/Nodes/Table', () => {
       </td>
     );
     const tableFromSchema = schema.nodeFromJSON(tableDoc);
-    const wrap = mount(
+    const wrap = mountWithIntl(
       <Table
         layout="default"
         renderWidth={renderWidth}

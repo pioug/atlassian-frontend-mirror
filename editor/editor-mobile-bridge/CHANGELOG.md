@@ -1,5 +1,20 @@
 # @atlaskit/editor-mobile-bridge
 
+## 31.2.0
+
+### Minor Changes
+
+- [`89f141deaa8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89f141deaa8) - [ux] Enables text-alignment in the Mobile editor
+- [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+
+### Patch Changes
+
+- [`1892be345ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1892be345ad) - Remove empty path aliasing for @atlaskit/avatar-group and @atlaskit/avatar
+- [`0a8e556744b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a8e556744b) - [ME-1678] Stop the editorView from being in compose mode while pressing adaptive toolbar buttons
+- [`2f5133aedd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f5133aedd7) - ED-13881 Update existing imports from @atlaskit/adf-schema to use declarative entry points
+- [`78c6a40ef5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c6a40ef5e) - [ED-13118] Removing dead workaround code that causes tapping after a bullet item with a smart link to select the smart link
+- Updated dependencies
+
 ## 31.1.2
 
 ### Patch Changes

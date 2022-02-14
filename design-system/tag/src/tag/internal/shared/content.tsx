@@ -1,46 +1,99 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
+
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import {
-  hasAfterStyles,
-  hasBeforeStyles,
-  linkStyles,
-  roundedBorderStyles,
-  textStyles,
-} from './styles';
-import { SimpleTagProps } from './types';
+  buttonWidthUnitless,
+  defaultTextPadding,
+  maxTextWidth,
+  maxTextWidthUnitless,
+  textFontSize,
+  textMarginLeft,
+  textPaddingRight,
+} from '../../../constants';
+import * as theme from '../../../theme';
+
+import type { SimpleTagProps } from './types';
 
 interface ContentProps extends SimpleTagProps {
   isRemovable?: boolean;
-  isLink: boolean;
-  isRounded: boolean;
-  linkHoverColor: string;
 }
 
-const Content = (props: ContentProps) => {
-  const {
-    elemBefore = null,
-    isRemovable = true,
-    text = '',
-    color = 'standard',
-    href,
-    isRounded,
-    isLink,
-    linkComponent: Link = 'a',
-    linkHoverColor,
-  } = props;
+const baseStyles = css({
+  maxWidth: maxTextWidth,
+  paddingTop: '2px',
+  paddingRight: defaultTextPadding,
+  paddingBottom: '2px',
+  paddingLeft: defaultTextPadding,
+  fontSize: textFontSize,
+  fontWeight: 'normal',
+  lineHeight: 1,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
 
-  if (isLink) {
+const linkStyles = css({
+  pointerEvents: 'auto',
+  textDecoration: 'none',
+  '&:focus': {
+    outline: 'none',
+  },
+});
+
+const lightLinkStyles = css({
+  '&:hover': {
+    color: theme.linkHoverTextColors.light,
+  },
+});
+
+const darkLinkStyles = css({
+  '&:hover': {
+    color: theme.linkHoverTextColors.dark,
+  },
+});
+
+const colorfulLinkStyles = css({
+  color: 'inherit',
+  textDecoration: 'underline',
+});
+
+const hasAfterStyles = css({
+  maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
+  paddingRight: textPaddingRight,
+});
+
+const hasBeforeStyles = css({
+  marginLeft: textMarginLeft,
+});
+
+const Content = ({
+  elemBefore = null,
+  isRemovable = true,
+  text = '',
+  color = 'standard',
+  href,
+  linkComponent,
+}: ContentProps) => {
+  const { mode } = useGlobalTheme();
+
+  const Link = linkComponent ?? 'a';
+
+  if (href) {
     return (
       <Link
         href={href}
         data-color={color}
         css={[
-          linkStyles(linkHoverColor),
-          isRounded ? roundedBorderStyles : undefined,
-          elemBefore ? hasBeforeStyles : undefined,
-          isRemovable ? hasAfterStyles : undefined,
+          baseStyles,
+          linkStyles,
+          mode === 'light' && lightLinkStyles,
+          mode === 'dark' && darkLinkStyles,
+          color !== 'standard' && colorfulLinkStyles,
+          elemBefore && hasBeforeStyles,
+          isRemovable && hasAfterStyles,
         ]}
       >
         {text}
@@ -50,10 +103,9 @@ const Content = (props: ContentProps) => {
     return (
       <span
         css={[
-          textStyles,
-          isRounded ? roundedBorderStyles : undefined,
-          elemBefore ? hasBeforeStyles : undefined,
-          isRemovable ? hasAfterStyles : undefined,
+          baseStyles,
+          elemBefore && hasBeforeStyles,
+          isRemovable && hasAfterStyles,
         ]}
       >
         {text}

@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as PMNode } from 'prosemirror-model';
@@ -52,9 +52,11 @@ describe('mediaGroup', () => {
   });
 
   test('updates file attrs for props change', async () => {
-    const wrapper = mount(<MediaGroup {...getMediaGroupProps()} />);
+    const wrapper = mountWithIntl(<MediaGroup {...getMediaGroupProps()} />);
 
-    const mediaGroup = wrapper.instance();
+    const mediaGroup = wrapper
+      .findWhere((el) => el.name() === 'MediaGroup')
+      .instance();
     const updateNodeAttrs = jest.spyOn(mediaGroup as any, 'updateNodeAttrs');
 
     wrapper.setProps({
@@ -65,11 +67,13 @@ describe('mediaGroup', () => {
   });
 
   test('does not update file attrs for props change if copy/paste is disabled', async () => {
-    const wrapper = mount(
+    const wrapper = mountWithIntl(
       <MediaGroup {...getMediaGroupProps()} isCopyPasteEnabled={false} />,
     );
 
-    const mediaGroup = wrapper.instance();
+    const mediaGroup = wrapper
+      .findWhere((el) => el.name() === 'MediaGroup')
+      .instance();
     const updateNodeAttrs = jest.spyOn(mediaGroup as any, 'updateNodeAttrs');
 
     wrapper.setProps({
@@ -81,7 +85,7 @@ describe('mediaGroup', () => {
 
   test('should pass media feature flags to Filmstrip', () => {
     const featureFlags: MediaFeatureFlags = {};
-    const wrapper = mount(
+    const wrapper = mountWithIntl(
       <MediaGroup
         {...{
           ...getMediaGroupProps(),

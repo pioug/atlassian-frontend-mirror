@@ -1,5 +1,14 @@
 # @af/ufo-types
 
+## 0.1.0
+
+### Minor Changes
+
+- [`bc0b6059dc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc0b6059dc2) - [`ef189e01627`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef189e01627) - check for global document reference
+  [`ca2a6e3f4f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca2a6e3f4f8) - make UFO performance config optional
+  [`17cf8d10197`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17cf8d10197) - Added histograms support to UFO
+  [`5ffbba3c332`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ffbba3c332) - Added support for timings - SSR, custom, resources and bundle eval
+
 ## 0.0.6
 
 ### Patch Changes

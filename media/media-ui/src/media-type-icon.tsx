@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import AudioIcon from '@atlaskit/icon-file-type/glyph/audio/24';
 import VideoIcon from '@atlaskit/icon-file-type/glyph/video/24';

@@ -58,6 +58,7 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
       const reactSerializer = new ReactSerializer({
         surroundTextNodesWithTextWrapper: false,
       });
+
       const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(docFromSchema.content) as any,
       );

@@ -354,7 +354,7 @@ export const tableCell: NodeSpec = {
   attrs: cellAttrs,
   tableRole: 'cell',
   marks:
-    'link alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+    'alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
   isolating: true,
   parseDOM: [
     // Ignore number cell copied from renderer
@@ -390,7 +390,7 @@ export const tableHeader: NodeSpec = {
   tableRole: 'header_cell',
   isolating: true,
   marks:
-    'link alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
+    'alignment dataConsumer fragment unsupportedMark unsupportedNodeAttribute',
   parseDOM: [
     {
       tag: 'th',

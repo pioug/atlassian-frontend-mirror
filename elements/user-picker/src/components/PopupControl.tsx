@@ -18,8 +18,8 @@ const ControlWrapper = styled.div`
 `;
 
 const getColor = themed({
-  light: token('color.text.lowEmphasis', N200),
-  dark: token('color.text.lowEmphasis', DN90),
+  light: token('color.text.subtlest', N200),
+  dark: token('color.text.subtlest', DN90),
 });
 
 const getPadding = () => {

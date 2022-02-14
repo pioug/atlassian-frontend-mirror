@@ -15,7 +15,7 @@ export const GroupOptionIconWrapper = styled.span`
   padding: 2px;
 
   > span {
-    background-color: ${token('color.background.subtleNeutral.resting', N20)};
+    background-color: ${token('color.background.neutral', N20)};
     border-radius: 50%;
     padding: 4px;
   }
@@ -37,8 +37,8 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
         key="name"
         color={
           isSelected
-            ? token('color.text.selected', B400)
-            : token('color.text.highEmphasis', N800)
+            ? token('color.text.brand', B400)
+            : token('color.text', N800)
         }
       >
         <HighlightText highlights={highlight && highlight.name}>
@@ -60,8 +60,8 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
       <TextWrapper
         color={
           isSelected
-            ? token('color.text.selected', B400)
-            : token('color.text.lowEmphasis', N200)
+            ? token('color.text.brand', B400)
+            : token('color.text.subtlest', N200)
         }
       >
         <FormattedMessage {...messages.groupByline} />

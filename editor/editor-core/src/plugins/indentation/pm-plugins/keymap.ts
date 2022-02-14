@@ -1,11 +1,11 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
 import { isTextSelection } from '../../../utils';
 import { indent, outdent } from '../commands';
 
-export function keymapPlugin(): Plugin | undefined {
+export function keymapPlugin(): SafePlugin | undefined {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -36,7 +36,7 @@ export function keymapPlugin(): Plugin | undefined {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 export default keymapPlugin;

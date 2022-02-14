@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { MessageDescriptor } from '../../types/i18n';
 import { AlignmentState } from '../../plugins/alignment/pm-plugins/types';
-import { iconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
+import { IconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
 import AlignmentButton from './AlignmentButton';
 import { alignmentMessages } from './messages';
 import { AlignmentWrapper } from './styles';
@@ -39,7 +39,7 @@ class Alignment extends PureComponent<Props & WrappedComponentProps> {
           const message = intl.formatMessage(title);
           return (
             <AlignmentButton
-              content={iconMap[value]}
+              content={<IconMap alignment={value} />}
               key={value}
               value={value}
               label={message}

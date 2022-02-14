@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-schema",
-  "version": "21.0.0",
+  "version": "22.0.0",
   "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,9 +16,15 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled"
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./steps": "./src/steps.ts",
+    "./schema": "./src/schema/index.ts",
+    "./json-schema": "./src/json-schema/index.ts",
+    "./url": "./src/utils/url.ts"
   },
   "scripts": {
     "build:json-schema": "mkdir -p dist && cp -r json-schema dist",
@@ -40,8 +46,9 @@
     "prosemirror-transform": "1.3.2"
   },
   "devDependencies": {
+    "@atlaskit/adf-utils": "^16.0.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",
-    "@atlaskit/editor-test-helpers": "^16.0.0",
+    "@atlaskit/editor-test-helpers": "^16.1.0",
     "@atlaskit/json-schema-generator": "^3.2.0",
     "@atlassian/adf-sample": "^1.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

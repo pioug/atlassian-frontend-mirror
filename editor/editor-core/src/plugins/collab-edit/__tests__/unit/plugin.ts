@@ -9,13 +9,24 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // Editor plugins
 import collabEditPlugin from '../../';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
+import { EditorView } from 'prosemirror-view';
 
 describe('collab-edit: plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
+  let fireMock: jest.Mock = jest.fn();
   const editor = (doc: DocBuilder, providerFactory?: any) => {
+    fireMock = createAnalyticsEventMock();
     return createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>().add([collabEditPlugin, {}]),
+      preset: new Preset<LightEditorPlugin>().add([
+        collabEditPlugin,
+        {
+          useNativePlugin: true,
+          createAnalyticsEvent: fireMock,
+        },
+      ]),
       providerFactory,
     });
   };
@@ -35,54 +46,41 @@ describe('collab-edit: plugin', () => {
       return this;
     },
     sendMessage() {},
+    setup: jest.fn(),
   };
 
   const collabEditProviderPromise = Promise.resolve(
-    providerMock as CollabEditProvider,
+    (providerMock as unknown) as CollabEditProvider,
   );
-
+  let providerFactory: ProviderFactory;
+  let editorView: EditorView;
   beforeEach(() => {
     providerMock.send.mockClear();
+    providerMock.setup.mockClear();
+    providerFactory = ProviderFactory.create({
+      collabEditProvider: collabEditProviderPromise,
+    });
+    editorView = editor(doc(p('')), providerFactory).editorView;
   });
 
   it('should not be sending transactions through collab provider before it is ready', async () => {
-    const providerFactory = ProviderFactory.create({
-      collabEditProvider: collabEditProviderPromise,
-    });
-    const { editorView } = editor(doc(p('')), providerFactory);
-
     editorView.dispatch(editorView.state.tr.insertText('123'));
-
     await collabEditProviderPromise;
     await nextTick();
-
     expect(providerMock.send).not.toBeCalled();
   });
 
   it('should be sending transactions through collab provider when it is ready', async () => {
-    const providerFactory = ProviderFactory.create({
-      collabEditProvider: collabEditProviderPromise,
-    });
-    const { editorView } = editor(doc(p('')), providerFactory);
-
     editorView.dispatch(
       editorView.state.tr.scrollIntoView().setMeta('collabInitialised', true),
     );
-
     editorView.dispatch(editorView.state.tr.insertText('123'));
     await collabEditProviderPromise;
     await nextTick();
-
     expect(providerMock.send).toBeCalled();
   });
 
   it('should call send function for EditorState apply', async () => {
-    const providerFactory = ProviderFactory.create({
-      collabEditProvider: collabEditProviderPromise,
-    });
-
-    const { editorView } = editor(doc(p('')), providerFactory);
-
     const tr = editorView.state.tr
       .insertText('123')
       .setMeta('collabInitialised', true);
@@ -92,5 +90,26 @@ describe('collab-edit: plugin', () => {
     await nextTick();
 
     expect(providerMock.send).toHaveBeenCalledTimes(0);
+  });
+
+  it('should call setup', async () => {
+    await collabEditProviderPromise;
+    await nextTick();
+    expect(providerMock.setup).toHaveBeenCalled();
+  });
+  it('should fire analytics payload when onSyncUpError is called', async () => {
+    await collabEditProviderPromise;
+    await nextTick();
+    const { onSyncUpError } = providerMock.setup.mock.calls[0][0];
+    const mockAttributes = {
+      lengthOfUnconfirmedSteps: 1,
+    };
+    onSyncUpError(mockAttributes);
+    expect(fireMock).toHaveBeenCalledWith({
+      action: ACTION.NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS,
+      actionSubject: ACTION_SUBJECT.EDITOR,
+      eventType: EVENT_TYPE.OPERATIONAL,
+      attributes: mockAttributes,
+    });
   });
 });

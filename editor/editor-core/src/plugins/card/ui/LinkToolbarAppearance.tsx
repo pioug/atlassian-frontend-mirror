@@ -15,6 +15,9 @@ import Dropdown from '../../floating-toolbar/ui/Dropdown';
 import { messages } from '../messages';
 import nodeNames from '../../../messages';
 import { DropdownOptions } from '../../../plugins/floating-toolbar/ui/types';
+import { getFeatureFlags } from '../../../plugins/feature-flags-context';
+import LinkToolbarIconDropdown from './LinkToolbarIconDropdown';
+import LinkToolbarButtonGroup from './LinkToolbarButtonGroup';
 
 export interface LinkToolbarAppearanceProps {
   intl: IntlShape;
@@ -108,6 +111,16 @@ export class LinkToolbarAppearance extends React.Component<
 
     if (embedOption) {
       options.push(embedOption);
+    }
+
+    const { viewChangingExperimentToolbarStyle } = getFeatureFlags(editorState);
+
+    if (viewChangingExperimentToolbarStyle === 'toolbarIcons') {
+      return <LinkToolbarButtonGroup key="link-toolbar-button-group" />;
+    }
+
+    if (viewChangingExperimentToolbarStyle === 'newDropdown') {
+      return <LinkToolbarIconDropdown key="link-toolbar-icon-dropdown" />;
     }
 
     return (

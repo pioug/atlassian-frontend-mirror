@@ -10,12 +10,17 @@ import { tallImage } from '@atlaskit/media-test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClient } from '@atlaskit/media-client';
 import { SSR } from '@atlaskit/media-common';
-import { Card } from '../src/root/card';
+import { Card, CardBaseProps } from '../src/root/card';
 import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
 
 const dimensions = { width: 250, height: 150 };
+
+//An edge case found in MEX-1237: Media single and media group will fetch the same
+//image from cache in Errored DataURI case if using same card dimensions.
+//In order to avoid this edge case, use a different dimension for media single.
+const fullFitDimensions = { width: 250, height: 152 };
 
 const createMediaClient = ({
   throwError,
@@ -51,21 +56,24 @@ const Page = ({
   title,
   mode,
   throwError,
+  additionalProps,
 }: {
   ssr: SSR;
   title: string;
   mode: 'single' | 'group';
   throwError?: 'getImageUrlSync' | 'dataURI';
+  additionalProps?: Partial<CardBaseProps>;
 }) => (
   <SSRAnalyticsWrapper>
     <h3>{title}</h3>
     <Card
       mediaClient={createMediaClient({ throwError })}
       identifier={imageFileId}
-      dimensions={dimensions}
+      dimensions={mode === 'single' ? fullFitDimensions : dimensions}
       ssr={ssr}
       shouldOpenMediaViewer={true}
       {...modes[mode]}
+      {...additionalProps}
     />
   </SSRAnalyticsWrapper>
 );
@@ -78,15 +86,34 @@ type RunSSRParams = {
 };
 const runSSR = ({ containerId, mode, hydrate, throwError }: RunSSRParams) => {
   const title = !!throwError ? `Error ${throwError}` : 'Success';
+  const win = window.parent || window;
+  const urlParams = new URLSearchParams(win.document.location.search);
+  const additionalPropsJson = urlParams.get('additionalProps');
+  const additionalProps = additionalPropsJson
+    ? JSON.parse(additionalPropsJson)
+    : {};
+
   const txt = ReactDOMServer.renderToString(
-    <Page ssr="server" title={title} mode={mode} throwError={throwError} />,
+    <Page
+      ssr="server"
+      title={title}
+      mode={mode}
+      throwError={throwError}
+      additionalProps={additionalProps}
+    />,
   );
   const elem = document.querySelector(`#${containerId}`);
   if (elem) {
     elem.innerHTML = txt;
     hydrate &&
       ReactDOM.hydrate(
-        <Page ssr="client" title={title} mode={mode} throwError={throwError} />,
+        <Page
+          ssr="client"
+          title={title}
+          mode={mode}
+          throwError={throwError}
+          additionalProps={additionalProps}
+        />,
         elem,
       );
   }

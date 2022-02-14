@@ -45,6 +45,7 @@ const RangeField: FC<RangeFieldProps> = (props) => {
   const { children, ...strippedProps } = props;
   // isInvalid and isRequired are specifically invalid for range inputs
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <Field<number> {...strippedProps} transform={Number}>
       {({ fieldProps: { isInvalid, isRequired, ...fieldProps }, ...rest }) =>
         children({ fieldProps, ...rest })

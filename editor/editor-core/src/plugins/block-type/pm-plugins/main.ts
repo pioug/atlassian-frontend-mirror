@@ -1,5 +1,6 @@
 import { Node, Schema } from 'prosemirror-model';
-import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { browser } from '@atlaskit/editor-common/utils';
 import {
@@ -123,7 +124,7 @@ export const createPlugin = (
 ) => {
   let altKeyLocation = 0;
 
-  return new Plugin({
+  return new SafePlugin({
     appendTransaction(
       _transactions: Transaction[],
       _oldState: EditorState,

@@ -1,7 +1,5 @@
-import styled from 'styled-components';
-// @ts-ignore: unused variable
-// prettier-ignore
-import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
+import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 import { N100 } from '@atlaskit/theme/colors';
 
 import {
@@ -15,16 +13,13 @@ export interface MentionPickerStyleProps {
   visible?: boolean | string;
 }
 
-export const MentionPickerStyle: ComponentClass<
-  HTMLAttributes<{}> & MentionPickerStyleProps
-> = styled.div`
-  display: ${(props: MentionPickerStyleProps) =>
-    props.visible ? 'block' : 'none'};
+export const MentionPickerStyle = styled.div<MentionPickerStyleProps>`
+  display: ${(props) => (props.visible ? 'block' : 'none')};
 `;
 
-export const MentionPickerInfoStyle: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  background: #fff;
-  color: ${N100};
+export const MentionPickerInfoStyle = styled.div`
+  background: ${token('elevation.surface', '#fff')};
+  color: ${token('color.text.subtlest', N100)};
   border: 1px solid ${noDialogContainerBorderColor};
   border-radius: ${noDialogContainerBorderRadius};
   box-shadow: ${noDialogContainerBoxShadow};

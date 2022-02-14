@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import Mention from '../../../../../plugins/mentions/ui/Mention';
@@ -22,7 +22,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     console.error = consoleError;
   });
   it('should render resourced mention', () => {
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention id="abcd-abcd-abcd" text="@Oscar Wallhult" />,
     );
     const resourcedMention = mention.find(ResourcedMention);
@@ -35,7 +35,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     const mentionProvider = Promise.resolve({} as MentionProvider);
     const providerFactory = ProviderFactory.create({ mentionProvider });
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -50,7 +50,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     const mentionProvider = Promise.resolve({} as MentionProvider);
     const providerFactory = ProviderFactory.create({ mentionProvider });
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -67,7 +67,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
     const profilecardProvider = Promise.reject(new Error());
     const providerFactory = ProviderFactory.create({ profilecardProvider });
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <Mention
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -88,7 +88,7 @@ describe('@atlaskit/editor-core/ui/Mention', () => {
       const profilecardProvider = Promise.resolve({} as ProfilecardProvider);
       const providerFactory = ProviderFactory.create({ profilecardProvider });
 
-      const mention = mount(
+      const mention = mountWithIntl(
         <Mention
           id={genericUserId}
           text="@Oscar Wallhult"

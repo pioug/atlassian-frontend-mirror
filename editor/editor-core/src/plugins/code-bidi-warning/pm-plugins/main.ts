@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
 import type { EditorProps, PMPluginFactoryParams } from '../../../types';
@@ -21,7 +21,7 @@ export const createPlugin = (
     codeBidiWarningMessages.label,
   );
 
-  return new Plugin({
+  return new SafePlugin({
     key: codeBidiWarningPluginKey,
     state: createPluginState(dispatch, (state) => {
       // The appearance being mobile indicates we are in an editor being

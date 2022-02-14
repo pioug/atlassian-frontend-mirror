@@ -48,12 +48,12 @@ describe('EmailOption', () => {
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
       primaryText: (
-        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
+        <TextWrapper key="name" color={token('color.text', N800)}>
           test@test.com
         </TextWrapper>
       ),
       secondaryText: (
-        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+        <TextWrapper color={token('color.text.subtlest', N200)}>
           Invite
         </TextWrapper>
       ),
@@ -77,12 +77,12 @@ describe('EmailOption', () => {
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
       primaryText: (
-        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
+        <TextWrapper key="name" color={token('color.text', N800)}>
           test@test.com
         </TextWrapper>
       ),
       secondaryText: (
-        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+        <TextWrapper color={token('color.text.subtlest', N200)}>
           Invite
         </TextWrapper>
       ),
@@ -103,12 +103,12 @@ describe('EmailOption', () => {
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Add new user" />,
       primaryText: (
-        <TextWrapper key="name" color={token('color.text.highEmphasis', N800)}>
+        <TextWrapper key="name" color={token('color.text', N800)}>
           test@test.com
         </TextWrapper>
       ),
       secondaryText: (
-        <TextWrapper color={token('color.text.lowEmphasis', N200)}>
+        <TextWrapper color={token('color.text.subtlest', N200)}>
           Add new user
         </TextWrapper>
       ),

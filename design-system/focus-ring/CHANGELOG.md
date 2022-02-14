@@ -1,5 +1,15 @@
 # @atlaskit/focus-ring
 
+## 1.0.0
+
+### Major Changes
+
+- [`3e1a93c6b67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e1a93c6b67) - Releases FocusRing to v1.
+
+### Minor Changes
+
+- [`63b8679585b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63b8679585b) - Adds an additional prop `focus` to the `FocusRing` to allow the component to also be controlled. This prop is designed to be used in conjunction with a complementary hook; `useFocusRing`.
+
 ## 0.2.7
 
 ### Patch Changes

@@ -1,4 +1,5 @@
-import { Plugin, Transaction, TextSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Transaction, TextSelection } from 'prosemirror-state';
 import { Slice, Fragment, Schema } from 'prosemirror-model';
 import { closeHistory } from 'prosemirror-history';
 import { ReplaceStep, Step, ReplaceAroundStep } from 'prosemirror-transform';
@@ -60,7 +61,7 @@ const isSliceAddingNewlineChar = (slice: Slice, schema: Schema): boolean => {
 export const pluginKey = new PluginKey('betterTypeHistoryPlugin');
 
 export default () => {
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
 
     appendTransaction: (transactions, oldState, newState) => {

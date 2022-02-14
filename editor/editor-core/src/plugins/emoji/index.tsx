@@ -1,5 +1,6 @@
 import React from 'react';
-import { EditorState, Plugin, PluginKey, StateField } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, PluginKey, SafeStateField } from 'prosemirror-state';
 import { emoji } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Fragment } from 'prosemirror-model';
@@ -313,7 +314,7 @@ export function emojiPluginFactory(
   eventDispatcher: EventDispatcher,
   options?: EmojiPluginOptions,
 ) {
-  return new Plugin<EmojiPluginState>({
+  return new SafePlugin<EmojiPluginState>({
     key: emojiPluginKey,
     state: {
       init() {
@@ -346,7 +347,7 @@ export function emojiPluginFactory(
 
         return newPluginState;
       },
-    } as StateField<EmojiPluginState>,
+    } as SafeStateField<EmojiPluginState>,
     props: {
       nodeViews: {
         emoji(node, view, getPos) {

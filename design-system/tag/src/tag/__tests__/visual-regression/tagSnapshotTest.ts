@@ -55,6 +55,26 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('Linked tag appearance on active should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tag',
+      'basicTag',
+      global.__BASEURL__,
+    );
+    const linkTag = querySelector({
+      attribute: 'data-testid',
+      suffixValue: 'linkTag',
+    });
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector(linkTag);
+    await page.hover(linkTag);
+    await page.mouse.down();
+    const image = await takeElementScreenShot(page, linkTag);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Removable avatar tag should match production example', async () => {
     const url = getExampleUrl(
       'design-system',

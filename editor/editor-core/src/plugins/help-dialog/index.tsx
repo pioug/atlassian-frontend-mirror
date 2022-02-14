@@ -1,6 +1,7 @@
 import React from 'react';
 import { keymap } from 'prosemirror-keymap';
-import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import * as keymaps from '../../keymaps';
 import { openHelp, tooltip } from '../../keymaps';
@@ -22,13 +23,13 @@ import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
 
 export function createPlugin(dispatch: Function, imageEnabled: boolean) {
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init() {
         return { isVisible: false, imageEnabled };
       },
-      apply(tr: Transaction, _value: any, state: EditorState) {
+      apply(tr: ReadonlyTransaction, _value: any, state: EditorState) {
         const isVisible = tr.getMeta(pluginKey);
         const currentState = pluginKey.getState(state);
         if (isVisible !== undefined && isVisible !== currentState.isVisible) {
@@ -106,7 +107,7 @@ const helpDialog = (
   },
 });
 
-const keymapPlugin = (): Plugin => {
+const keymapPlugin = (): SafePlugin => {
   const list = {};
   keymaps.bindKeymapWithCommand(
     keymaps.openHelp.common!,
@@ -127,7 +128,7 @@ const keymapPlugin = (): Plugin => {
     },
     list,
   );
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 };
 
 export default helpDialog;

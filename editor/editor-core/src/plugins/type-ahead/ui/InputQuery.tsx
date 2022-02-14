@@ -67,7 +67,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
   }) => {
     const ref = useRef<HTMLSpanElement>(document.createElement('span'));
     const cleanedInputContent = useCallback(() => {
-      const raw = ref.current.textContent || '';
+      const raw = ref.current?.textContent || '';
       return raw.replace(ZERO_WIDTH_SPACE, '');
     }, []);
 
@@ -84,7 +84,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       (event: KeyboardEvent) => {
         const key = keyNameNormalized(event as any);
         const sel = document.getSelection();
-        const raw = ref.current.textContent || '';
+        const raw = ref.current?.textContent || '';
         const text = cleanedInputContent();
         let stopDefault = false;
 
@@ -168,7 +168,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         event.stopPropagation();
         event.preventDefault();
         onQueryFocus();
-        ref.current.focus();
+        ref.current?.focus();
 
         return false;
       },
@@ -192,7 +192,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           document.getSelection &&
           document.getSelection()
         ) {
-          const q = ref.current.textContent || '';
+          const q = ref.current?.textContent || '';
           const sel = document.getSelection();
 
           const isMovingRight =

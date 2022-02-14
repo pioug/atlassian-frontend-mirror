@@ -1,12 +1,8 @@
 import { autoJoin, chainCommands } from 'prosemirror-commands';
 import { keymap } from 'prosemirror-keymap';
 import { Fragment, Node, ResolvedPos, Schema, Slice } from 'prosemirror-model';
-import {
-  EditorState,
-  Plugin,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
 import {
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
@@ -453,7 +449,7 @@ export function keymapPlugin(
   schema: Schema,
   allowNestedTasks?: boolean,
   consumeTabs?: boolean,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const indentHandlers = {
     'Shift-Tab': filter(
       [
@@ -487,7 +483,7 @@ export function keymapPlugin(
     ...(allowNestedTasks ? indentHandlers : defaultHandlers),
   };
 
-  return keymap(keymaps);
+  return keymap(keymaps) as SafePlugin;
 }
 
 export default keymapPlugin;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-priority",
-  "version": "6.2.5",
+  "version": "6.3.0",
   "description": "A priority icon is used in Jira to determine relative importance.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -18,7 +18,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Icon Priority"
+      "name": "Icon Priority",
+      "deprecated": "@atlaskit/icon-priority has been deprecated due to limited usage across Cloud products. It will be deleted after 21 April 2022. If you depend on @atlaskit/icon-priority we recommend self-managing the assets."
     }
   },
   "af:exports": {
@@ -41,6 +42,7 @@
     "@atlaskit/button": "^16.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.2.0",
+    "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/theme": "^12.1.0",

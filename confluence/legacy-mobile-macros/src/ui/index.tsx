@@ -2,6 +2,8 @@ import React from 'react';
 
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 
+import { loadResourceTags } from '../common/utils';
+
 import { ChartPlaceholder } from './ChartPlaceholder';
 import { MacroComponent, macroExtensionHandlerKey } from './MacroComponent';
 
@@ -41,6 +43,15 @@ function getConfluenceMobileMacroManifests<
         resultObj = resultObj[firstKey];
       }
 
+      loadResourceTags(
+        [
+          resultObj?.superbatchTags?.css,
+          resultObj?.superbatchTags?.data,
+          resultObj?.superbatchTags?.js,
+        ],
+        true,
+      );
+
       let macroManifests = resultObj.legacyMacroManifests.macros.map(
         (macro: any) => {
           return {
@@ -55,22 +66,17 @@ function getConfluenceMobileMacroManifests<
               nodes: {
                 default: {
                   type: 'extension',
-                  render: () => {
-                    return Promise.resolve(({ node }: { node: any }) => {
-                      return (
-                        <MacroComponent
-                          extension={node}
-                          renderingStrategy={
-                            resultObj.renderingStrategyMap?.[
-                              node.extensionType
-                            ]?.[node.extensionKey]
-                          }
-                          createPromise={createPromise}
-                          eventDispatcher={eventDispatcher}
-                        />
-                      );
-                    });
-                  },
+                  render: () =>
+                    Promise.resolve(({ node }: { node: any }) =>
+                      renderFallback(
+                        node,
+                        resultObj.renderingStrategyMap?.[node.extensionType]?.[
+                          node.extensionKey
+                        ],
+                        createPromise,
+                        eventDispatcher,
+                      ),
+                    ),
                 },
               },
             },
@@ -78,16 +84,44 @@ function getConfluenceMobileMacroManifests<
         },
       );
 
-      if (
+      const chartRenderingStrategy =
         resultObj.renderingStrategyMap?.[chartExtensionType]?.[
           chartExtensionKey
-        ] === 'placeholder'
-      ) {
+        ];
+
+      if (chartRenderingStrategy === 'placeholder') {
         macroManifests.push(getChartPlaceholderManifest());
+      } else if (chartRenderingStrategy === 'fallback') {
+        macroManifests.push(
+          getChartFallbackManifest(
+            chartRenderingStrategy,
+            createPromise,
+            eventDispatcher,
+          ),
+        );
       }
 
       return macroManifests;
     });
+}
+
+function renderFallback<
+  createPromiseType extends Function,
+  eventDispatcherType
+>(
+  node: any,
+  renderingStrategy: string,
+  createPromise: createPromiseType,
+  eventDispatcher: eventDispatcherType,
+) {
+  return (
+    <MacroComponent
+      extension={node}
+      renderingStrategy={renderingStrategy}
+      createPromise={createPromise}
+      eventDispatcher={eventDispatcher}
+    />
+  );
 }
 
 function getChartPlaceholderManifest(): ExtensionManifest {
@@ -108,6 +142,37 @@ function getChartPlaceholderManifest(): ExtensionManifest {
             Promise.resolve(({ node }: { node: any }) => {
               return <ChartPlaceholder />;
             }),
+        },
+      },
+    },
+  };
+}
+
+function getChartFallbackManifest<
+  createPromiseType extends Function,
+  eventDispatcherType
+>(
+  renderingStrategy: string,
+  createPromise: createPromiseType,
+  eventDispatcher: eventDispatcherType,
+): ExtensionManifest {
+  return {
+    title: 'Chart Fallback',
+    type: chartExtensionType,
+    key: chartExtensionKey,
+    description:
+      'Adapter to render chart extensions through macro fallback on mobile',
+    icons: {
+      '48': () => import('@atlaskit/icon/glyph/editor/addon'),
+    },
+    modules: {
+      nodes: {
+        default: {
+          type: 'extension',
+          render: () =>
+            Promise.resolve(({ node }: { node: any }) =>
+              renderFallback(node, 'fallback', createPromise, eventDispatcher),
+            ),
         },
       },
     },

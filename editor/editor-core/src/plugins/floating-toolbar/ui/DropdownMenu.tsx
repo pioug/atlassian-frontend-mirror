@@ -8,6 +8,8 @@ import Item, { itemThemeNamespace } from '@atlaskit/item';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
 import { DropdownOptionT } from './types';
+import { injectIntl, WrappedComponentProps, IntlShape } from 'react-intl-next';
+import messages from './messages';
 
 export const menuItemDimensions = {
   width: 175,
@@ -51,9 +53,9 @@ export interface Props {
   items: Array<DropdownOptionT<Function>>;
 }
 
-export default class Dropdown extends Component<Props> {
+class Dropdown extends Component<Props & WrappedComponentProps> {
   render() {
-    const { hide, dispatchCommand, items } = this.props;
+    const { hide, dispatchCommand, items, intl } = this.props;
     return (
       <ThemeProvider theme={{ [itemThemeNamespace]: editorItemTheme }}>
         <MenuContainer>
@@ -64,7 +66,7 @@ export default class Dropdown extends Component<Props> {
                 <Item
                   key={idx}
                   isCompact={true}
-                  elemBefore={this.renderSelected(item)}
+                  elemBefore={this.renderSelected(item, intl)}
                   onClick={() => {
                     /**
                      * The order of dispatching the event and hide() is important, because
@@ -97,14 +99,14 @@ export default class Dropdown extends Component<Props> {
     );
   }
 
-  private renderSelected(item: DropdownOptionT<any>) {
+  private renderSelected(item: DropdownOptionT<any>, intl: IntlShape) {
     const { selected } = item;
     if (selected !== undefined) {
       return selected ? (
         <EditorDoneIcon
           primaryColor={B400}
           size="small"
-          label="test question"
+          label={intl.formatMessage(messages.confirmModalOK)}
         />
       ) : (
         <Spacer />
@@ -114,3 +116,5 @@ export default class Dropdown extends Component<Props> {
     return;
   }
 }
+
+export default injectIntl(Dropdown);

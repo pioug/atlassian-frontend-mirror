@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
   isPerformanceObserverAvailable,
@@ -105,7 +106,7 @@ export default (
     inputTracking?.severityDegradedThreshold ||
     DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED;
 
-  return new Plugin({
+  return new SafePlugin({
     key: frozenEditorPluginKey,
     props: isPerformanceAPIAvailable()
       ? {

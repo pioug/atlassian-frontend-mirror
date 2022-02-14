@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -49,7 +49,7 @@ describe('<Toolbar />', () => {
   it('renders extension items if provided', async () => {
     let wrapper;
     if (editorView.state.doc.firstChild) {
-      wrapper = mount(
+      wrapper = mountWithIntl(
         <Toolbar
           node={editorView.state.doc.firstChild}
           editorView={editorView}
@@ -85,7 +85,7 @@ describe('<Toolbar />', () => {
   it('does not render when no extension items provided', async () => {
     let wrapper;
     if (editorView.state.doc.firstChild) {
-      wrapper = mount(
+      wrapper = mountWithIntl(
         <Toolbar
           node={editorView.state.doc.firstChild}
           editorView={editorView}
@@ -142,7 +142,7 @@ describe('<Toolbar />', () => {
       );
 
     if (editorView.state.doc.firstChild) {
-      wrapper = mount(
+      wrapper = mountWithIntl(
         <Toolbar
           node={editorView.state.doc.firstChild}
           editorView={editorView}

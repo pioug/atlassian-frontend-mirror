@@ -13,7 +13,7 @@ const isPolarisView = (url: string) =>
 
 const isJwmView = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar)\/?/,
+    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board)\/?/,
   );
 
 const isSlackMessage = (url: string) =>

@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import DateNodeView from '../nodeviews/date';
 import { ReactNodeView } from '../../../nodeviews';
 import { PMPluginFactory } from '../../../types';
@@ -29,7 +29,7 @@ const createPlugin: PMPluginFactory = ({
     focusDateInput: false,
   };
   const hasIntlContext = true;
-  return new Plugin({
+  return new SafePlugin({
     state: createPluginState(dispatch, newPluginState),
     key: pluginKey,
     props: {

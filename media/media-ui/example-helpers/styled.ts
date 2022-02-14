@@ -1,21 +1,20 @@
-import styled from 'styled-components';
-import { ComponentClass, ButtonHTMLAttributes } from 'react';
+import styled from '@emotion/styled';
 
-export const InputWrapper: ComponentClass = styled.div`
+export const InputWrapper = styled.div`
   margin: 20px 0;
 `;
 
-export const PreviewList: ComponentClass = styled.ul`
+export const PreviewList = styled.ul`
   margin: 0;
   padding: 0;
   list-style-type: none;
 `;
 
-export const PreviewInfo: ComponentClass = styled.pre`
+export const PreviewInfo = styled.pre`
   font-size: 80%;
 `;
 
-export const PreviewItem: ComponentClass = styled.li`
+export const PreviewItem = styled.li`
   border-radius: 10px;
   border: 1px solid #ccc;
   padding: 10px;
@@ -25,7 +24,7 @@ export const PreviewItem: ComponentClass = styled.li`
   margin-bottom: 10px;
 `;
 
-export const Code: ComponentClass = styled.code`
+export const Code = styled.code`
   padding: 5px;
   border-radius: 5px;
   background-color: #ccc;
@@ -33,19 +32,19 @@ export const Code: ComponentClass = styled.code`
   font-size: 80%;
 `;
 
-export const CloseButton: ComponentClass<ButtonHTMLAttributes<{}>> = styled.button`
+export const CloseButton = styled.button`
   position: absolute;
   top: 5px;
   right: 5px;
   cursor: pointer;
 `;
 
-export const PreviewImageContainer: ComponentClass = styled.div`
+export const PreviewImageContainer = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
 
-export const OrientationSelectWrapper: ComponentClass = styled.label`
+export const OrientationSelectWrapper = styled.label`
   margin-bottom: 20px;
   display: block;
 `;

@@ -28,7 +28,7 @@ export interface ListItemDefinition {
 export const listItem: NodeSpec = {
   content:
     '(paragraph | mediaSingle | codeBlock) (paragraph | bulletList | orderedList | mediaSingle | codeBlock)*',
-  marks: 'link unsupportedMark unsupportedNodeAttribute',
+  marks: 'unsupportedMark unsupportedNodeAttribute',
   defining: true,
   selectable: false,
   parseDOM: [{ tag: 'li' }],

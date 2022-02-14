@@ -1,5 +1,5 @@
 import { name } from '../../../../version.json';
-import { toDOM, fromHTML } from '../../../../../test-helpers';
+import { toDOM, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { createSchema } from '../../../../schema/create-schema';
 import { blockCard } from '../../../../schema/nodes/block-card';
 
@@ -52,7 +52,10 @@ describe(`${name}/schema blockCard node`, () => {
         const node = schema.nodes.blockCard.create({ url });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-        expect(parsedNode).toEqual(node);
+        expect(parsedNode).toMatchObject({
+          ...node,
+          attrs: { localId: expect.any(String) },
+        });
       });
     });
   });
@@ -98,7 +101,10 @@ describe(`${name}/schema blockCard node`, () => {
         const node = schema.nodes.blockCard.create({ data });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-        expect(parsedNode).toEqual(node);
+        expect(parsedNode).toMatchObject({
+          ...node,
+          attrs: { localId: expect.any(String) },
+        });
       });
     });
   });

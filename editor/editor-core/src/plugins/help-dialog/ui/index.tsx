@@ -519,7 +519,11 @@ class HelpDialog extends React.Component<Props & WrappedComponentProps> {
     return (
       <ModalTransition>
         {this.props.isVisible ? (
-          <AkModalDialog width="large" onClose={this.closeDialog}>
+          <AkModalDialog
+            width="large"
+            onClose={this.closeDialog}
+            testId="help-modal-dialog"
+          >
             <ModalHeader />
             <ModalBody>
               <ContentWrapper>

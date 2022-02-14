@@ -39,16 +39,16 @@ Object {
                 "url": null,
                 "width": 500,
               },
+              "marks": Array [
+                Object {
+                  "attrs": Object {
+                    "__confluenceMetadata": null,
+                    "href": "https://gnu.org",
+                  },
+                  "type": "link",
+                },
+              ],
               "type": "media",
-            },
-          ],
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "__confluenceMetadata": null,
-                "href": "https://gnu.org",
-              },
-              "type": "link",
             },
           ],
           "type": "mediaSingle",
@@ -97,16 +97,16 @@ Object {
                     "url": null,
                     "width": 500,
                   },
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "__confluenceMetadata": null,
+                        "href": "https://gnu.org",
+                      },
+                      "type": "link",
+                    },
+                  ],
                   "type": "media",
-                },
-              ],
-              "marks": Array [
-                Object {
-                  "attrs": Object {
-                    "__confluenceMetadata": null,
-                    "href": "https://gnu.org",
-                  },
-                  "type": "link",
                 },
               ],
               "type": "mediaSingle",
@@ -194,16 +194,16 @@ Object {
                     "url": null,
                     "width": 500,
                   },
+                  "marks": Array [
+                    Object {
+                      "attrs": Object {
+                        "__confluenceMetadata": null,
+                        "href": "https://gnu.org",
+                      },
+                      "type": "link",
+                    },
+                  ],
                   "type": "media",
-                },
-              ],
-              "marks": Array [
-                Object {
-                  "attrs": Object {
-                    "__confluenceMetadata": null,
-                    "href": "https://gnu.org",
-                  },
-                  "type": "link",
                 },
               ],
               "type": "mediaSingle",
@@ -295,16 +295,16 @@ Object {
                                 "url": null,
                                 "width": 500,
                               },
+                              "marks": Array [
+                                Object {
+                                  "attrs": Object {
+                                    "__confluenceMetadata": null,
+                                    "href": "https://gnu.org",
+                                  },
+                                  "type": "link",
+                                },
+                              ],
                               "type": "media",
-                            },
-                          ],
-                          "marks": Array [
-                            Object {
-                              "attrs": Object {
-                                "__confluenceMetadata": null,
-                                "href": "https://gnu.org",
-                              },
-                              "type": "link",
                             },
                           ],
                           "type": "mediaSingle",
@@ -376,16 +376,16 @@ Object {
                         "url": null,
                         "width": 500,
                       },
+                      "marks": Array [
+                        Object {
+                          "attrs": Object {
+                            "__confluenceMetadata": null,
+                            "href": "https://gnu.org",
+                          },
+                          "type": "link",
+                        },
+                      ],
                       "type": "media",
-                    },
-                  ],
-                  "marks": Array [
-                    Object {
-                      "attrs": Object {
-                        "__confluenceMetadata": null,
-                        "href": "https://gnu.org",
-                      },
-                      "type": "link",
                     },
                   ],
                   "type": "mediaSingle",
@@ -439,16 +439,16 @@ Object {
                 "url": null,
                 "width": 500,
               },
+              "marks": Array [
+                Object {
+                  "attrs": Object {
+                    "__confluenceMetadata": null,
+                    "href": "https://gnu.org",
+                  },
+                  "type": "link",
+                },
+              ],
               "type": "media",
-            },
-          ],
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "__confluenceMetadata": null,
-                "href": "https://gnu.org",
-              },
-              "type": "link",
             },
           ],
           "type": "mediaSingle",

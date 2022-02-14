@@ -64,10 +64,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
       },
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([
-          emojiPlugin,
-          { useInlineWrapper: false, allowZeroWidthSpaceAfter: true },
-        ])
+        .add([emojiPlugin, { allowZeroWidthSpaceAfter: true }])
         .add([
           featureFlagsPlugin,
           { newInsertionBehaviour: true, useUnpredictableInputRule: false },

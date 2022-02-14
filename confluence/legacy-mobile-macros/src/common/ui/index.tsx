@@ -1,0 +1,1 @@
+export { LineChartIcon } from './LineChartIcon';

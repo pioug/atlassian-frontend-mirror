@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.2.0
+
+### Minor Changes
+
+- [`afc248d2ded`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afc248d2ded) - Adds a new rule, `use-visually-hidden` to complement the `@atlaskit/visually-hidden` component.
+- [`0c0a8b5dff4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c0a8b5dff4) - Adds an additional rule 'no-deprecated-api-usage'. This rule targets APIs/props in the Design System that we intend to remove completely. This rule should be used by all product repos as it will provide an early warning of expected deprecations.
+- [`93d6f8856f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93d6f8856f2) - @atlaskit/icon-priority has been deprecated due to low usage. It will be deleted after 21 April 2022. If you rely on these icons, @atlaskit/icon-priority will still be available as a deprecated package on NPM, but we recommend self-hosting and managing.
+
 ## 4.1.1
 
 ### Patch Changes

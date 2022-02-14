@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin } from '../../types';
 import { setWindowHeight } from './commands';
@@ -22,9 +22,23 @@ const getInitialState = (): MobileDimensionsPluginState => ({
 const createPlugin = (dispatch: Dispatch) => {
   let rafId: number | undefined;
 
-  return new Plugin({
+  return new SafePlugin({
     state: createPluginState(dispatch, getInitialState),
     key: mobileDimensionsPluginKey,
+    props: {
+      scrollThreshold: {
+        top: 12,
+        left: 0,
+        right: 0,
+        bottom: 12,
+      },
+      scrollMargin: {
+        top: 12,
+        bottom: 12,
+        left: 0,
+        right: 0,
+      },
+    },
     view(editorView) {
       const handleResize = () => {
         if (rafId) {

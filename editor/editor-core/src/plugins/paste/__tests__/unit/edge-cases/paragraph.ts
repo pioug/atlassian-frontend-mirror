@@ -7,6 +7,7 @@ import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-eve
 import {
   doc,
   h1,
+  h3,
   p,
   li,
   ul,
@@ -49,7 +50,7 @@ describe('paste paragraph edge cases', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([pastePlugin, {}])
+        .add([pastePlugin, { plainTextPasteLinkification: true }])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
         .add(listPlugin)
@@ -83,8 +84,9 @@ describe('paste paragraph edge cases', () => {
       // prettier-ignore
       h1(
         'Test ',
-        link({ href: 'https://gnu.org' })('Helloworld'),
+        link({ href: 'https://gnu.org' })('Hello'),
       ),
+      p(link({ href: 'https://gnu.org' })('world')),
     ),
   };
 
@@ -158,11 +160,11 @@ describe('paste paragraph edge cases', () => {
       // prettier-ignore
       ol(
         li(
-          p(
-            link({ href: 'https://gnu.org' })('Helloworld'),
-          ),
+          p(),
         ),
       ),
+      h1(link({ href: 'https://gnu.org' })('Hello')),
+      p(link({ href: 'https://gnu.org' })('world')),
     ),
   };
 
@@ -187,10 +189,11 @@ describe('paste paragraph edge cases', () => {
         li(
           p(
             'Test ',
-            link({ href: 'https://gnu.org' })('Helloworld'),
           ),
         ),
       ),
+      h1(link({ href: 'https://gnu.org' })('Hello')),
+      p(link({ href: 'https://gnu.org' })('world')),
     ),
   };
 
@@ -235,11 +238,12 @@ describe('paste paragraph edge cases', () => {
       ol(
         li(
           p(
-            link({ href:'https://gnu.org' })('Helloworld'),
             'Test',
           ),
         ),
       ),
+      h1(link({ href: 'https://gnu.org' })('Hello')),
+      p(link({ href: 'https://gnu.org' })('world')),
     ),
   };
 
@@ -313,7 +317,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            p(link({href: 'https://gnu.org/'})('world'))
+            h1(link({href: 'https://gnu.org/'})('world'))
           )
         )
       ),
@@ -344,7 +348,7 @@ describe('paste paragraph edge cases', () => {
       })(
         tr(
           td()(
-            p(link({href: 'https://gnu.org/'})('world'))
+            h1(link({href: 'https://gnu.org/'})('world'))
           )
         )
       ),
@@ -467,7 +471,7 @@ describe('paste paragraph edge cases', () => {
           p('One')
         ),
         layoutColumn({ width: 50 })(
-          p(link({href: 'https://gnu.org/'})('world'))
+          h1(link({href: 'https://gnu.org/'})('world'))
         ),
       ),
     ),
@@ -478,7 +482,7 @@ describe('paste paragraph edge cases', () => {
     target: doc(
       // prettier-ignore
       panel()(
-        p('{<>}')
+        p('Test {<>}')
       ),
     ),
     source: `
@@ -487,7 +491,10 @@ describe('paste paragraph edge cases', () => {
     result: doc(
       // prettier-ignore
       panel()(
-        p(link({href: 'https://gnu.org/'})('world'))
+        p(
+          'Test ',
+          link({href: 'https://gnu.org/'})('world')
+        ),
       ),
     ),
   };
@@ -550,11 +557,11 @@ describe('paste paragraph edge cases', () => {
       p('{<>}'),
     ),
     source: `
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="blockLink" data-pm-slice="1 1 []"><h3>JavaScript - MDN Web Docs</h3><p><a data-inline-card="" href="https://developer.mozilla.org" data-card-data="">https://developer.mozilla.org</a> &nbsp;› en-US › Web › JavaScript</p></a><p>28 July 2021 —&nbsp;<em>JavaScript</em>&nbsp;(JS) is a lightweight, interpre</p>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="blockLink" data-pm-slice="1 1 []"><h3>JavaScript - MDN Web Docs</h3><p><a data-inline-card="" href="https://developer.mozilla.org" data-card-data="">https://developer.mozilla.org</a> &nbsp;› en-US › Web › JavaScript</p></a><p>28 July 2021 —&nbsp;<em>JavaScript</em>&nbsp;(JS) is a lightweight, interpre</p>
     `,
     result: doc(
       // prettier-ignore
-      p(
+      h3(
         link({ href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'})('JavaScript - MDN Web Docs'),
       ),
       p(
@@ -716,7 +723,8 @@ describe('paste paragraph edge cases', () => {
         li(
           p(
             '... that ',
-            strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala'})('HMS Cicala')),
+            strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala'})('HMS ')),
+            em(strong(link({ href: 'https://en.wikipedia.org/wiki/HMS_Cicala'})('Cicala'))),
             ' was commanded at the 1941 ?'
           )
         )
@@ -792,7 +800,9 @@ describe('paste paragraph edge cases', () => {
       // prettier-ignore
       p('some'),
       mediaSingle({ layout: 'center' })(
-        link({ href: 'https://product-fabric.atlassian.net/browse/FAB-1520' })(
+        link({
+          href: 'https://product-fabric.atlassian.net/browse/FAB-1520',
+        })(
           media({
             __contextId: 'DUMMY-OBJECT-ID',
             __displayType: null,
@@ -836,14 +846,17 @@ describe('paste paragraph edge cases', () => {
       // prettier-ignore
       p('{<>}'),
     ),
-    source: `<a
-              href="https://gnu.org" ><img
-                src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png"
-                height="30"
-                width="92"
-                data-atf="1"
-                data-frt="0"
-            /></a>`,
+    source: `
+      <a
+        href="https://gnu.org" ><img
+          src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png"
+          height="30"
+          width="92"
+          data-atf="1"
+          data-frt="0"
+        />
+      </a>
+    `,
     result: doc(
       // prettier-ignore
       mediaSingle({ layout: 'center' })(
@@ -1054,14 +1067,24 @@ describe('paste paragraph edge cases', () => {
     ></div></a></div>`,
     result: doc(
       mediaSingle({ layout: 'center' })(
-        media({
-          __displayType: null,
-          __external: false,
-          alt: '',
-          collection: '',
-          id: '',
-          type: 'file',
-        })(),
+        link({
+          href: 'https://ops.internal.atlassian.com/jira/browse/HOT-97158',
+        })(
+          media({
+            __contextId: 'DUMMY-OBJECT-ID',
+            __displayType: null,
+            __external: false,
+            __fileMimeType: 'image/png',
+            __fileName: 'image-20211213-mochi.png',
+            __fileSize: 112233,
+            alt: '',
+            collection: 'MediaServicesSample',
+            height: 418,
+            id: '28dd8159-mochi-floof',
+            type: 'file',
+            width: 418,
+          })(),
+        ),
       ),
     ),
   };

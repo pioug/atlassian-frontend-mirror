@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { cleanup, render } from '@testing-library/react';
 
-import Icon, { size, IconProps } from '../../..';
+import Icon, { size, CustomGlyphProps, IconProps } from '../../..';
 import AddIcon from '../../../../glyph/add';
 import { sizes as sizeValues } from '../../../constants';
 import { Size } from '../../../types';
@@ -10,9 +10,14 @@ describe('@atlaskit/icon', () => {
   afterEach(cleanup);
   describe('Icon', () => {
     const secretContent = 'secret content';
-    const secretWrapper = (props: {}) => <svg {...props}>{secretContent}</svg>;
-    const empty = (props: {}) => <svg {...props}>Icon</svg>;
+    const secretWrapper = (props: CustomGlyphProps) => (
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      <svg {...props}>{secretContent}</svg>
+    );
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    const empty = (props: CustomGlyphProps) => <svg {...props}>Icon</svg>;
     const MyIcon = (props: IconProps) => (
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       <Icon glyph={secretWrapper} {...props} />
     );
 
@@ -26,6 +31,7 @@ describe('@atlaskit/icon', () => {
       it('should render an SVG provided via JSX', () => {
         const id = 'customSvg';
         const customGlyphJsx = (props: {}) => (
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
           <svg {...props} data-testid={id} />
         );
 

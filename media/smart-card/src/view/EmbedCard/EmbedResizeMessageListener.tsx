@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { embedHeaderHeight } from '@atlaskit/media-ui/embeds';
+import { embedHeaderHeight } from './components/styled';
 
 interface Props {
   embedIframeRef: React.RefObject<HTMLIFrameElement>;

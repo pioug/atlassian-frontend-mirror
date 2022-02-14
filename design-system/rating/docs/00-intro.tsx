@@ -49,7 +49,7 @@ ${(
 ${(
   <Props
     heading=""
-    props={require('!!extract-react-types-loader!../src/components/star-type')}
+    props={require('!!extract-react-types-loader!../src/extract-react-types/star')}
   />
 )}
 
@@ -75,7 +75,7 @@ ${(
 ${(
   <Props
     heading=""
-    props={require('!!extract-react-types-loader!../src/components/rating-type')}
+    props={require('!!extract-react-types-loader!../src/extract-react-types/rating')}
   />
 )}
 

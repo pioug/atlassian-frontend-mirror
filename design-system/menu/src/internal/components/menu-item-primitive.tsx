@@ -15,6 +15,7 @@ import { token } from '@atlaskit/tokens';
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
 
 const defaultRender: RenderFunction = (Component, props) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <Component {...props} />
 );
 

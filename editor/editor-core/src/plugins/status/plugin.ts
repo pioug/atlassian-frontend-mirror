@@ -1,7 +1,7 @@
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   EditorState,
   NodeSelection,
-  Plugin,
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
@@ -23,7 +23,7 @@ const createPlugin = (
   eventDispatcher: EventDispatcher,
   options?: StatusPluginOptions,
 ) =>
-  new Plugin({
+  new SafePlugin({
     state: {
       init: () => ({
         isNew: false,

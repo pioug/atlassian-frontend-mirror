@@ -6,12 +6,7 @@ jest.mock('uuid/v4', () => ({
   default: jest.fn().mockReturnValue('some-scope'),
 }));
 
-import {
-  MediaClient,
-  UploadableFile,
-  getFileStreamsCache,
-  FileState,
-} from '@atlaskit/media-client';
+import { MediaClient, UploadableFile, FileState } from '@atlaskit/media-client';
 import { TouchedFiles, ProcessingFileState } from '@atlaskit/media-client';
 import { AuthProvider, Auth } from '@atlaskit/media-core';
 import uuidV4 from 'uuid/v4';
@@ -27,8 +22,6 @@ import {
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
 } from '../../../types';
-
-const fileStreamCacheSpy = jest.spyOn(getFileStreamsCache(), 'set');
 
 describe('UploadService', () => {
   const baseUrl = 'some-api-url';
@@ -118,7 +111,6 @@ describe('UploadService', () => {
     authProvider = jest.fn(() =>
       Promise.resolve<Auth>({ clientId, token, baseUrl }),
     );
-    fileStreamCacheSpy.mockReset();
     (getPreviewModule.getPreviewFromBlob as any).mockReset();
     (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
       Promise.resolve(),
@@ -679,16 +671,6 @@ describe('UploadService', () => {
 
       uploadService.addFiles([file]);
       expect(userMediaClient!.file.upload).toHaveBeenCalledTimes(1);
-    });
-
-    it('should populate fileStreamsCache once we have the upfront id', async () => {
-      const { uploadService } = setup(undefined, {
-        collection: 'some-collection',
-      });
-      uploadService.addFiles([file]);
-
-      expect(fileStreamCacheSpy).toHaveBeenCalledTimes(1);
-      expect(fileStreamCacheSpy.mock.calls[0][0]).toBe('uuid1');
     });
   });
 });

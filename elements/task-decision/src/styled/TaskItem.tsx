@@ -1,12 +1,14 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 // @ts-ignore: unused variable
 // prettier-ignore
 import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
-import { N0, DN100, DN200, N30, N90, B75 } from '@atlaskit/theme/colors';
+import { N0, DN100, DN200, N30, N90, B75, B300 } from '@atlaskit/theme/colors';
 
-export const CheckBoxWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const CheckBoxWrapper = styled.span<{
+  isRenderer: boolean | undefined;
+}>`
   flex: 0 0 16px;
   width: 16px;
   height: 16px;
@@ -48,6 +50,14 @@ export const CheckBoxWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
         transform: translate(-50%, -50%);
       }
     }
+    &:focus-visible + label:after {
+      ${(props) =>
+        props.isRenderer
+          ? css`
+              outline: 2px solid ${themed({ light: B300, dark: B75 })};
+            `
+          : ''}
+    }
     &:not([disabled]) + label:hover::after {
       background: ${themed({ light: N30, dark: B75 })}
       transition: border 0.2s ease-in-out;
@@ -63,7 +73,6 @@ export const CheckBoxWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
         background-size: 16px;
         border: 0;
         border-color: transparent;
-        border-radius: 0; /* FS-1392 */
       }
       &:not([disabled]) + label:hover::after {
         background: url(data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPg0KICA8cmVjdCB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHJ4PSIyIiBmaWxsPSIjMDc0N0E2Ij48L3JlY3Q+DQogIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik05LjM3NCA0LjkxNEw1LjQ1NiA4LjgzMmEuNzY5Ljc2OSAwIDAgMS0xLjA4OCAwTDIuNjI2IDcuMDkxYS43NjkuNzY5IDAgMSAxIDEuMDg4LTEuMDg5TDQuOTEyIDcuMmwzLjM3NC0zLjM3NGEuNzY5Ljc2OSAwIDEgMSAxLjA4OCAxLjA4OCI+PC9wYXRoPg0KPC9zdmc+)

@@ -20,7 +20,12 @@ export interface CreateProps {
    * Click handler.
    * See @atlaskit/analytics-next for analyticsEvent type information
    */
-  onClick: (e: React.MouseEvent<HTMLElement>, analyticsEvent: any) => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>, analyticsEvent: any) => void;
+
+  /**
+   * Causes the Create action to be rendered as a link. This is suitable for when the Create action is handled as a full page rather than in a modal-dialog.
+   */
+  href?: string;
 
   /**
    * A `testId` prop is provided for specified elements,

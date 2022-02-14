@@ -1,10 +1,8 @@
-import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 
 import { Dispatch } from '../../../event-dispatcher';
-import {
-  textColorPalette,
-  textColorPaletteExtended,
-} from '../../../ui/ColorPalette/Palettes/textColorPalette';
+import { textColorPaletteExtended } from '../../../ui/ColorPalette/Palettes/textColorPalette';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
 import { DEFAULT_COLOR, getActiveColor } from '../utils/color';
@@ -46,7 +44,6 @@ export function createInitialPluginState(
   pluginConfig?: TextColorPluginConfig,
 ): TextColorPluginState {
   const defaultColor = pluginConfig?.defaultColor || DEFAULT_COLOR;
-  const showMoreColorsToggle = pluginConfig?.allowMoreTextColors || false;
 
   const palette: Array<PaletteColor> = [
     {
@@ -54,7 +51,7 @@ export function createInitialPluginState(
       label: defaultColor.label,
       border: DEFAULT_BORDER_COLOR,
     },
-    ...(showMoreColorsToggle ? textColorPaletteExtended : textColorPalette),
+    ...textColorPaletteExtended,
   ];
 
   const state = {
@@ -63,27 +60,6 @@ export function createInitialPluginState(
     palette,
     defaultColor: defaultColor.color,
   };
-
-  // break up the palette for extended colors
-  if (showMoreColorsToggle) {
-    // defined palette order: [normal, dark, light] (but normal[0] is default/dark)
-    // expanded palette: [dark, normal, light] with normal[0] on the dark row
-    const normalRow = palette.slice(0, 7);
-    const darkRow = palette.slice(7, 14);
-    const lightRow = palette.slice(14);
-
-    const paletteExpanded = darkRow.concat(normalRow).concat(lightRow);
-    // swap default back and slot 7
-    const defaultSwatch = paletteExpanded[0];
-    paletteExpanded[0] = paletteExpanded[7];
-    paletteExpanded[7] = defaultSwatch;
-
-    return {
-      ...state,
-      palette: normalRow,
-      paletteExpanded,
-    };
-  }
 
   return state;
 }
@@ -99,8 +75,8 @@ export const pluginKey = new PluginKey<TextColorPluginState>('textColorPlugin');
 export function createPlugin(
   dispatch: Dispatch,
   pluginConfig?: TextColorPluginConfig,
-): Plugin {
-  return new Plugin({
+): SafePlugin {
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init(_config, editorState) {

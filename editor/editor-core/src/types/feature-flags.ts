@@ -303,11 +303,51 @@ export type FeatureFlags = {
   twoLineEditorToolbar?: boolean;
 
   /**
+   * Prevent transactions from being mutated (e.g. apply, filterTransaction,
+   * appendTransaction) after being dispatched
+   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3131836958/Editor+DACI+013+Avoid+content+loss+with+bad+transactions+Ghost+Steps
+   * @see https://product-fabric.atlassian.net/browse/ED-14002
+   * @default false
+   */
+  saferDispatchedTransactions?: boolean;
+
+  /**
    * Disable Spellchecking for chrome version below the max unsafe number
    * @see https://ops.internal.atlassian.com/jira/browse/HOT-97409
    * @default null
    */
   maxUnsafeChromeSpellcheckingVersion?: number;
+
+  /**
+   * Create non-smart hyperlinks on plain text paste (Cmd/Ctrl+Shift+v)
+   * @see https://product-fabric.atlassian.net/browse/EDM-2492
+   * @default false
+   */
+  plainTextPasteLinkification?: boolean;
+
+  /**
+   * @description
+   * Enable new collab service
+   * @see https://product-fabric.atlassian.net/browse/ED-14097
+   * @default false
+   */
+  useNativeCollabPlugin?: boolean;
+
+  /**
+   * Enable custom up/down key handler when cursor below/above an inline media
+   * @see https://product-fabric.atlassian.net/browse/ED-13066
+   * Chrome bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1227468
+   * @default undefined
+   */
+  chromeCursorHandlerFixedVersion?: number;
+
+  /**
+   * Number to distinguish between which different toolbar is being displayed
+   * as part of the smart link view changing experiment run by the Linking Platform.
+   * @see https://product-fabric.atlassian.net/browse/EDM-2640
+   * @default null
+   */
+  viewChangingExperimentToolbarStyle?: string;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

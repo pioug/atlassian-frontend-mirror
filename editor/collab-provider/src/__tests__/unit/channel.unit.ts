@@ -9,15 +9,15 @@ jest.mock('@atlaskit/util-service-support', () => {
 });
 
 import { utils } from '@atlaskit/util-service-support';
+import { Channel } from '../../channel';
 import {
-  Channel,
+  Config,
   ErrorPayload,
   InitPayload,
   Metadata,
   PresencePayload,
   StepsPayload,
-} from '../../channel';
-import { Config } from '../../types';
+} from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 

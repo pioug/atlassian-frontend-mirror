@@ -1,7 +1,7 @@
 /**  @jsx jsx */
 import { forwardRef, memo, SyntheticEvent } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import {
   UIAnalyticsEvent,
@@ -16,7 +16,6 @@ import Navigator from './internal/components/navigator';
 import PageComponent from './internal/components/page';
 import renderDefaultEllipsis from './internal/components/render-ellipsis';
 import { emptyObject } from './internal/constants';
-import { navStyle } from './internal/styles';
 import collapseRange from './internal/utils/collapse-range';
 import { PaginationPropTypes } from './types';
 
@@ -30,6 +29,10 @@ interface OnChangeData {
   event: SyntheticEvent;
   selectedPageIndex: number;
 }
+
+const navStyles = css({
+  display: 'flex',
+});
 
 function InnerPagination<T>(
   {
@@ -99,7 +102,8 @@ function InnerPagination<T>(
   return (
     <nav
       data-testid={testId}
-      css={{ ...navStyle, ...style }}
+      css={navStyles}
+      style={style}
       ref={ref}
       aria-label={label}
     >

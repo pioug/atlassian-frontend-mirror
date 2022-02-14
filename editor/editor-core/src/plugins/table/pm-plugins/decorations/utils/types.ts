@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 
 export type DecorationTransformer = ({
@@ -6,5 +6,5 @@ export type DecorationTransformer = ({
   tr,
 }: {
   decorationSet: DecorationSet;
-  tr: Transaction;
+  tr: Transaction | ReadonlyTransaction;
 }) => DecorationSet;

@@ -39,9 +39,9 @@ export default md`
 
   ${(
     <Example
-      Component={require('../examples/0-JdogProjectPicker').default}
+      Component={require('../examples/0-PickerExample').default}
       title="Objects"
-      source={require('!!raw-loader!../examples/0-JdogProjectPicker')}
+      source={require('!!raw-loader!../examples/0-PickerExample')}
     />
   )}
 

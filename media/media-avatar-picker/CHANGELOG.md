@@ -1,5 +1,15 @@
 # @atlaskit/media-avatar-picker
 
+## 23.1.0
+
+### Minor Changes
+
+- [`6c6bd435635`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c6bd435635) - TC-2422: add the ability for avatars to have different output sizes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.0.0
 
 ### Major Changes

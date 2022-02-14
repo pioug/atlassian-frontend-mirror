@@ -1,4 +1,5 @@
-import { PluginKey, Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { keydownHandler } from 'prosemirror-keymap';
 import { filter } from '../../../utils/commands';
 import { typeAheadPluginKey } from '../../../plugins/type-ahead';
@@ -27,7 +28,7 @@ const splitBlockPreservingMarks: Command = (state, dispatch): boolean => {
 };
 
 export default () =>
-  new Plugin({
+  new SafePlugin({
     key: newlinePreserveMarksKey,
     props: {
       handleKeyDown: keydownHandler({

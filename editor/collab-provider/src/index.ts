@@ -10,6 +10,5 @@ export type {
   CollabMetadataPayload,
   CollabLocalStepsPayload,
   CollabEvents,
-} from './provider';
-
-export type { Socket } from './types';
+  Socket,
+} from './types';

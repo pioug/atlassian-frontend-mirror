@@ -1,5 +1,5 @@
 import { Node as PmNode } from 'prosemirror-model';
-import { Selection, Transaction } from 'prosemirror-state';
+import { Selection, Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import {
@@ -102,7 +102,7 @@ export const createControlsHoverDecoration = (
   });
 
 export const createColumnSelectedDecoration = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
 ): Decoration[] => {
   const { selection, doc } = tr;
   const table = findTable(selection);
@@ -253,7 +253,7 @@ const makeArray = (n: number) => Array.from(Array(n).keys());
  *   hence the second media will receive this class `ClassName.LAST_ITEM_IN_CELL`
  */
 export const createResizeHandleDecoration = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
   columnEndIndexTarget: Omit<CellColumnPositioning, 'left'>,
 ): [Decoration[], Decoration[]] => {
   const emptyResult: [Decoration[], Decoration[]] = [[], []];

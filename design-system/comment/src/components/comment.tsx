@@ -32,6 +32,7 @@ const Comment: FC<CommentProps> = ({
   id,
   afterContent,
   shouldRenderNestedCommentsInline,
+  headingLevel,
 }) => {
   const headerProps = {
     author,
@@ -42,6 +43,7 @@ const Comment: FC<CommentProps> = ({
     savingText,
     time,
     type,
+    headingLevel,
   };
   const footerProps = {
     actions,

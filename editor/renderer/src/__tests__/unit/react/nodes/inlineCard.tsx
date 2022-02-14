@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 
-import { Card } from '@atlaskit/smart-card';
+import { Card, Provider, Client } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import InlineCard from '../../../../react/nodes/inlineCard';
 
@@ -66,5 +67,18 @@ describe('Renderer - React/Nodes/InlineCard', () => {
     node = mount(<InlineCard url={url} />);
 
     expect(node.find(Card).prop('onClick')).toBeUndefined();
+  });
+
+  it('should use Card SSR component for ssr mode', () => {
+    node = mount(
+      <Provider client={new Client('staging')}>
+        <InlineCard url={url} smartLinks={{ ssr: true }} />
+      </Provider>,
+    );
+
+    expect(node.find(CardSSR).props()).toEqual({
+      url,
+      appearance: 'inline',
+    });
   });
 });

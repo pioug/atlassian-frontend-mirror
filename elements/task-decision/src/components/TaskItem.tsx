@@ -13,6 +13,7 @@ import { createAndFireEventInElementsChannel } from '../analytics';
 export interface Props {
   taskId: string;
   isDone?: boolean;
+  isRenderer?: boolean;
   onChange?: (taskId: string, isChecked: boolean) => void;
   contentRef?: ContentRef;
   children?: any;
@@ -66,10 +67,17 @@ export class TaskItem extends PureComponent<
     }
   };
 
+  handleOnKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      this.handleOnChange(event);
+    }
+  };
+
   render() {
     const {
       appearance,
       isDone,
+      isRenderer,
       contentRef,
       children,
       placeholder,
@@ -79,7 +87,7 @@ export class TaskItem extends PureComponent<
     } = this.props;
 
     const icon = (
-      <CheckBoxWrapper contentEditable={false}>
+      <CheckBoxWrapper contentEditable={false} isRenderer={isRenderer}>
         <input
           id={this.checkBoxId}
           aria-labelledby={`${this.checkBoxId}-wrapper`}
@@ -89,6 +97,7 @@ export class TaskItem extends PureComponent<
           checked={!!isDone}
           disabled={!!disabled}
           suppressHydrationWarning={true}
+          onKeyPress={this.handleOnKeyPress}
         />
         <label htmlFor={this.checkBoxId} suppressHydrationWarning={true} />
       </CheckBoxWrapper>

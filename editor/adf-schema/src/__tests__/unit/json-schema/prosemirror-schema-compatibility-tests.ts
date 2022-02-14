@@ -1,4 +1,5 @@
 import { generateADFDocument } from '@atlassian/adf-sample';
+import { traverse } from '@atlaskit/adf-utils';
 
 import * as fullSchema from '../../../../json-schema/v1/full.json';
 import * as stageZeroSchema from '../../../../json-schema/v1/stage-0.json';
@@ -17,6 +18,31 @@ const TMP_EXCLUDED_NODES = ['tableCell', 'tableHeader'];
 const excludedNodesRegex = new RegExp(
   `^Invalid content for node (?!${TMP_EXCLUDED_NODES.join('|')}).*`,
 );
+
+// Temporary, will be removed in https://product-fabric.atlassian.net/servicedesk/customer/portal/99/DTR-169?created=true
+// Docs with link marks currently fail test as schemas needed to diverge in following ticket
+// https://product-fabric.atlassian.net/browse/ED-14043
+// link mark only valid on children of paragraph and mediaSingle
+const removeInvalidLinkMarks = (doc: DocNode) =>
+  (traverse(doc, {
+    paragraph: (node) => node,
+    media: (node) => node,
+    mediaGroup: (node) => {
+      node.content = node.content?.map((childNode) => {
+        if (childNode?.type === 'media') {
+          childNode.marks = childNode.marks?.filter(
+            (mark) => mark.type !== 'link',
+          );
+        }
+        return childNode;
+      });
+      return node;
+    },
+    any: (node) => {
+      node.marks = node.marks?.filter((mark) => mark.type !== 'link');
+      return node;
+    },
+  }) as DocNode) || doc;
 
 describe('Full JSON Schema', () => {
   /**
@@ -51,7 +77,7 @@ describe('Stage0 JSON Schema', () => {
     () => {
       let doc: DocNode;
       beforeEach(() => {
-        doc = generateADFDocument(stageZeroSchema);
+        doc = removeInvalidLinkMarks(generateADFDocument(stageZeroSchema));
       });
 
       it(`should be compatible with stage0 prosemirror schema `, () => {

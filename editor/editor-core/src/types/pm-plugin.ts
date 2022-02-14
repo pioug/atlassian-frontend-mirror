@@ -1,6 +1,6 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Schema } from 'prosemirror-model';
 import { IntlShape } from 'react-intl-next';
 
@@ -25,7 +25,7 @@ export type PMPluginFactoryParams = {
 
 export type PMPluginFactory = (
   params: PMPluginFactoryParams,
-) => Plugin | undefined;
+) => SafePlugin | undefined;
 export type PMPlugin = {
   name: string;
   plugin: PMPluginFactory;

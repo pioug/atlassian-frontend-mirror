@@ -1,5 +1,11 @@
 # @atlaskit/page
 
+## 12.1.1
+
+### Patch Changes
+
+- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+
 ## 12.1.0
 
 ### Minor Changes

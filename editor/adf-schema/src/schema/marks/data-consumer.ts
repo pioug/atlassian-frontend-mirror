@@ -2,7 +2,14 @@ import { Mark, MarkSpec } from 'prosemirror-model';
 import { isDOMElement } from '../../utils/parseDOM';
 
 /**
- * @minLength 1
+ * This annotation is purely for reference, & does _nothing_ given annotating
+ * `minLength` on an array of strings is not supported with our schema+spec
+ * generator.
+ *
+ * We're keeping it to signal that data consumer `sources` shouldn't be empty
+ * strings
+ *
+ * // @minLength 1
  */
 type DataConsumerSource = string;
 

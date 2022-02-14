@@ -1,7 +1,7 @@
 import { NodeSpec } from 'prosemirror-model';
 import { name } from '../../../../version.json';
 import { createSchema, SchemaConfig } from '../../../../schema/create-schema';
-import { toHTML, fromHTML } from '../../../../../test-helpers';
+import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { panel } from '../../../../schema/nodes/panel';
 
 const schema = makeSchema();

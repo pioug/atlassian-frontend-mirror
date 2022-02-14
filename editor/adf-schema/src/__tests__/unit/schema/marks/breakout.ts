@@ -1,6 +1,6 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { toHTML } from '../../../../../test-helpers';
+import { toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
 describe(`${name}/schema breakout mark`, () => {
   it('serializes to the correct HTML', () => {

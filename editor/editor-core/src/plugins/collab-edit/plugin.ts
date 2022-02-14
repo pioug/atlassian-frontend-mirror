@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Dispatch } from '../../event-dispatcher';
 import { initialize } from './events/initialize';
@@ -7,6 +7,9 @@ import { CollabEditProvider } from './provider';
 import { PluginState } from './plugin-state';
 import { pluginKey } from './plugin-key';
 import { addSynchronyErrorAnalytics } from './analytics';
+import { fireAnalyticsEvent } from '../analytics/fire-analytics-event';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
 export { PluginState, pluginKey };
 export type { CollabEditProvider };
@@ -17,7 +20,10 @@ export const createPlugin = (
   collabProviderCallback: ProviderCallback,
   options: PrivateCollabEditOptions,
 ) => {
-  return new Plugin({
+  const fireAnalyticsCallback = fireAnalyticsEvent(
+    options?.createAnalyticsEvent,
+  );
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init(config) {
@@ -35,7 +41,7 @@ export const createPlugin = (
       },
     },
     props: {
-      decorations(this: Plugin, state) {
+      decorations(this: SafePlugin, state) {
         return this.getState(state).decorations;
       },
     },
@@ -60,7 +66,17 @@ export const createPlugin = (
         view.state,
         view.state.tr,
       );
-
+      const onSyncUpError: SyncUpErrorFunction = (attributes) => {
+        fireAnalyticsCallback({
+          payload: {
+            action: ACTION.NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            eventType: EVENT_TYPE.OPERATIONAL,
+            attributes,
+          },
+        });
+      };
+      options.onSyncUpError = onSyncUpError;
       const cleanup = collabProviderCallback(
         initialize({ view, options, providerFactory }),
         addErrorAnalytics,

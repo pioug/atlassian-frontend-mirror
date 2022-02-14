@@ -11,6 +11,7 @@
 // chrome.extension.*
 
 // sync options settings
+// Chrome.storage implementation has not been used, instead localStorage is used.
 function setOptions(data = {}) {
   chrome.storage.sync.set(data, function () {
     console.log('Settings saved');
@@ -34,6 +35,9 @@ function queryTheme() {
 chrome.runtime.onConnect.addListener(function (port) {
   // check for the theme in the running tab
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    if (tabs[0].id == null) {
+      return;
+    }
     chrome.tabs.executeScript(tabs[0].id, {
       code: `(${queryTheme})()`,
     });

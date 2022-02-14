@@ -1,5 +1,24 @@
 # @atlaskit/media-card
 
+## 73.2.0
+
+### Minor Changes
+
+- [`3ad0bbf0f93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ad0bbf0f93) - Log media ssr getImageURLSync error in global variable ssr data.
+- [`1dcf16cb69e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dcf16cb69e) - Reuse image url from server when hydrates and refetch if dimensions in client are bigger
+- [`a5cabf7f670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5cabf7f670) - Made InlinePlayer compatible with SSR
+
+### Patch Changes
+
+- [`46cd0dfed6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46cd0dfed6f) - Removed duplicated commenced event
+- [`5571b079998`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5571b079998) - Added example using FileState Factory helper
+- [`116ae9cd4fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/116ae9cd4fe) - Update SSR example with media single in stretchy-fit mode.
+- [`42485996554`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42485996554) - vr tests for ssr cases
+- [`a31422c7a74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a31422c7a74) - MEX-1194 introduce cursor states to media card
+- [`af3fcc847ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af3fcc847ce) - Improved filestate simulations example
+- [`8fd03048678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fd03048678) - Added example and test for media ssr usage in renderer
+- Updated dependencies
+
 ## 73.1.1
 
 ### Patch Changes

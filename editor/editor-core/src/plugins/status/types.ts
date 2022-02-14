@@ -13,6 +13,5 @@ export type StatusState = {
 
 export interface StatusPluginOptions {
   menuDisabled: boolean;
-  useInlineWrapper?: boolean;
   allowZeroWidthSpaceAfter?: boolean;
 }

@@ -1,5 +1,10 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { snapshot, initRendererWithADF, Device } from './_utils';
+import {
+  animationFrame,
+  snapshot,
+  initRendererWithADF,
+  Device,
+} from './_utils';
 import { selectors } from '../__helpers/page-objects/_expand';
 import { expandADF } from '../__fixtures__/expand-adf';
 
@@ -52,11 +57,13 @@ describe('Snapshot Test: Expand', () => {
       await page.waitForSelector(selectors.expand);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 8/23/2021: https://product-fabric.atlassian.net/browse/ED-13649
-    test.skip('should expand a collapsed nested expand on toggle', async () => {
+    test('should expand a collapsed nested expand on toggle', async () => {
       await initRenderer(page, expandADF(mode));
       await page.waitForSelector(selectors.expand);
       await page.click(selectors.expandToggle);
+
+      await animationFrame(page);
+      await page.waitForSelector(selectors.nestedExpandToggle);
       await page.click(selectors.nestedExpandToggle);
     });
   });

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
 import { jsx } from '@emotion/core';
 

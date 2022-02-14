@@ -278,7 +278,10 @@ export const NavigationContextProvider: React.FC<NavigationProviderInterface> = 
     dispatchNavigationAction,
   ] = useReducer(navigationReducer, {
     articleId: propsArticleId,
-    history: propsHistory,
+    history:
+      !isEqual(propsArticleId, DEFAULT_ARTICLE_ID) && propsHistory.length === 0
+        ? [getNewHistoryItem(propsArticleId.id, propsArticleId.type)]
+        : propsHistory,
     view: VIEW.DEFAULT_CONTENT,
   });
   const isOverlayVisible = useMemo((): boolean => {

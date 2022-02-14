@@ -15,7 +15,6 @@ import type {
   SpriteRepresentation,
 } from '@atlaskit/emoji';
 import { EmojiPluginOptions } from '../types';
-import { createMobileInlineDomRef } from '../../../ui/InlineNodeWrapper';
 
 export interface Props {
   providerFactory: ProviderFactory;
@@ -38,15 +37,7 @@ export class EmojiNodeView implements NodeView {
     this.options = context.options;
     this.dom = EmojiNodeView.toDom(node);
 
-    if (this.options?.useInlineWrapper) {
-      const dom = createMobileInlineDomRef();
-      dom.appendChild(this.dom);
-      this.dom = dom;
-    }
-
-    this.el = this.options?.useInlineWrapper
-      ? (this.dom.firstElementChild! as HTMLElement)
-      : this.dom;
+    this.el = this.dom;
 
     this.providers.subscribe('emojiProvider', this.subscribe);
 

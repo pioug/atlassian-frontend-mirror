@@ -17,6 +17,15 @@ import useButtonFocusHook from './internal/hooks/use-button-focus-hook';
 import ReadView from './internal/read-view';
 import { InlineEditProps } from './types';
 
+const fieldStyles = css({
+  maxWidth: '100%',
+  position: 'relative',
+});
+
+const buttonStyles = css({
+  display: 'none',
+});
+
 const analyticsAttributes = {
   componentName: 'inlineEdit',
   packageName: process.env._PACKAGE_NAME_ as string,
@@ -203,10 +212,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
             >
               {({ fieldProps, error }) => (
                 <div
-                  css={css`
-                    max-width: 100%;
-                    position: relative;
-                  `}
+                  css={fieldStyles}
                   onBlur={() => {
                     onEditViewWrapperBlur(
                       fieldProps.isInvalid,
@@ -236,12 +242,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                     />
                   ) : (
                     /** This is to allow Ctrl + Enter to submit without action buttons */
-                    <button
-                      css={css`
-                        display: none;
-                      `}
-                      type="submit"
-                    />
+                    <button css={buttonStyles} type="submit" />
                   )}
                 </div>
               )}

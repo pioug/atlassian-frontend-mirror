@@ -14,6 +14,7 @@ const CustomComponent: React.FC<
   }
 > = ({ children, href, ...props }) => {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <a href={href} {...props}>
       {children}
     </a>

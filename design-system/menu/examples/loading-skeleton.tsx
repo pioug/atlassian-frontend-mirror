@@ -30,6 +30,7 @@ const Item = ({
     return <SkeletonItem hasIcon isShimmering />;
   }
 
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <ButtonItem {...props} />;
 };
 
@@ -38,6 +39,7 @@ const Heading = ({ isLoading, ...props }: any) => {
     return <SkeletonHeadingItem isShimmering />;
   }
 
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <HeadingItem {...props} />;
 };
 

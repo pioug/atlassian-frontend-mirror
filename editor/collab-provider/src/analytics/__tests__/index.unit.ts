@@ -1,5 +1,5 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import type { ErrorPayload } from '../../channel';
+import type { ErrorPayload } from '../../types';
 import {
   triggerAnalyticsForStepsAddedSuccessfully,
   triggerAnalyticsForStepsRejected,

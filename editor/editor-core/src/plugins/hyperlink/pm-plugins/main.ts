@@ -1,9 +1,10 @@
 import { Node } from 'prosemirror-model';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   EditorState,
-  Plugin,
   PluginKey,
   Selection,
+  ReadonlyTransaction,
   Transaction,
   TextSelection,
 } from 'prosemirror-state';
@@ -87,7 +88,7 @@ const isSelectionAroundLink = (state: EditorState | Transaction) => {
 
 const mapTransactionToState = (
   state: LinkToolbarState,
-  tr: Transaction,
+  tr: ReadonlyTransaction,
 ): LinkToolbarState => {
   if (!state) {
     return undefined;
@@ -235,7 +236,7 @@ export interface HyperlinkState {
 export const stateKey = new PluginKey<HyperlinkState>('hyperlinkPlugin');
 
 export const plugin = (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     state: {
       init(_, state: EditorState): HyperlinkState {
         const canInsertLink = canLinkBeCreatedInRange(
@@ -256,7 +257,7 @@ export const plugin = (dispatch: Dispatch) =>
       apply(
         tr,
         pluginState: HyperlinkState,
-        _oldState,
+        oldState,
         newState,
       ): HyperlinkState {
         let state = pluginState;
@@ -301,7 +302,11 @@ export const plugin = (dispatch: Dispatch) =>
           };
         }
 
-        if (tr.selectionSet) {
+        const hasPositionChanged =
+          oldState.selection.from !== newState.selection.from ||
+          oldState.selection.to !== newState.selection.to;
+
+        if (tr.selectionSet && hasPositionChanged) {
           state = {
             activeText: getActiveText(newState.selection),
             canInsertLink: canLinkBeCreatedInRange(
@@ -326,4 +331,44 @@ export const plugin = (dispatch: Dispatch) =>
       },
     },
     key: stateKey,
+    props: {
+      handleDOMEvents: {
+        mouseup: (_, event: any) => {
+          // this prevents redundant selection transaction when clicking on link
+          // link state will be update on slection change which happens on mousedown
+          if (isLinkDirectTarget(event)) {
+            event.preventDefault();
+            return true;
+          }
+          return false;
+        },
+        mousedown: (view, event: any) => {
+          // since link clicks are disallowed by browsers inside contenteditable
+          // so we need to handle shift+click selection ourselves in this case
+          if (!event.shiftKey || !isLinkDirectTarget(event)) {
+            return false;
+          }
+          const { state } = view;
+          const {
+            selection: { $anchor },
+          } = state;
+          const newPosition = view.posAtCoords({
+            left: event.clientX,
+            top: event.clientY,
+          });
+          if (newPosition?.pos != null && newPosition.pos !== $anchor.pos) {
+            const tr = state.tr.setSelection(
+              TextSelection.create(state.doc, $anchor.pos, newPosition.pos),
+            );
+            view.dispatch(tr);
+            return true;
+          }
+          return false;
+        },
+      },
+    },
   });
+
+function isLinkDirectTarget(event: MouseEvent) {
+  return event?.target instanceof HTMLElement && event.target.tagName === 'A';
+}

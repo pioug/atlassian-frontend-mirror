@@ -1,11 +1,16 @@
 import { render } from 'enzyme';
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import TeamMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
 import { MentionDescription } from '../../../..//types';
 import { teamMention } from './_commonData';
 
 const renderByline = (teamData: MentionDescription) => {
-  return render(<TeamMentionDescriptionByline mention={teamData} />);
+  return render(
+    <IntlProvider locale="en">
+      <TeamMentionDescriptionByline mention={teamData} />
+    </IntlProvider>,
+  );
 };
 
 const buildTeamData = (memberCount: number, includesYou: boolean) => ({

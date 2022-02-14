@@ -9,6 +9,8 @@ export { default as CheckboxField } from './checkbox-field';
 export type { CheckboxFieldProps } from './checkbox-field';
 export { default as RangeField } from './range-field';
 export type { RangeFieldProps } from './range-field';
+export { default as Label } from './label';
+export type { LabelProps } from './label';
 export { HelperMessage, ErrorMessage, ValidMessage } from './messages';
 export { default as Fieldset } from './fieldset';
 // eslint-disable-next-line import/no-unresolved

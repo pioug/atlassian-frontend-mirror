@@ -23,7 +23,7 @@ describe('AddOptionAvatar', () => {
     expect(inviteIcon.props()).toMatchObject({
       label: 'Invite',
       size: 'medium',
-      primaryColor: token('color.text.mediumEmphasis', N500),
+      primaryColor: token('color.text.subtle', N500),
     });
   });
 });

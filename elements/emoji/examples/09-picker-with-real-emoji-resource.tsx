@@ -6,19 +6,22 @@ import ResourcedEmojiControl, {
 } from '../example-helpers/demo-resource-control';
 import { onSelection } from '../example-helpers';
 import { emojiPickerHeight } from '../src/util/constants';
+import { IntlProvider } from 'react-intl-next';
 
 export default function Example() {
   return (
-    <ResourcedEmojiControl
-      emojiConfig={getEmojiConfig()}
-      customEmojiProvider={getRealEmojiResource()}
-      children={
-        <EmojiPicker
-          emojiProvider={getRealEmojiResource()}
-          onSelection={onSelection}
-        />
-      }
-      customPadding={emojiPickerHeight}
-    />
+    <IntlProvider locale="en">
+      <ResourcedEmojiControl
+        emojiConfig={getEmojiConfig()}
+        customEmojiProvider={getRealEmojiResource()}
+        children={
+          <EmojiPicker
+            emojiProvider={getRealEmojiResource()}
+            onSelection={onSelection}
+          />
+        }
+        customPadding={emojiPickerHeight}
+      />
+    </IntlProvider>
   );
 }

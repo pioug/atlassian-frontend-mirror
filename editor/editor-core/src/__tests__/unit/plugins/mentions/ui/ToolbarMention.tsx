@@ -1,4 +1,5 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { ReactWrapper } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import React from 'react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -16,7 +17,9 @@ import { createTypeAheadTools } from '../../../../../plugins/type-ahead/api';
 // HELPERS
 const testId = 'toolbar-mention-test';
 const getToolbarMention = (editorView: EditorView) => {
-  return mount(<ToolbarMention testId={testId} editorView={editorView} />);
+  return mountWithIntl(
+    <ToolbarMention testId={testId} editorView={editorView} />,
+  );
 };
 const clickToolbarMention = (toolbarMention: ReactWrapper) => {
   return toolbarMention

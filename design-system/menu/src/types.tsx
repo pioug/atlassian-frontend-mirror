@@ -6,6 +6,9 @@ export interface RenderFunction<TProps = {}> {
   (Component: ComponentType | string, props: TProps): React.ReactNode;
 }
 
+/**
+ * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
+ */
 export interface TitleOverrides {
   render?: RenderFunction<{
     className?: string;
@@ -14,6 +17,9 @@ export interface TitleOverrides {
   }>;
 }
 
+/**
+ * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
+ */
 export interface Overrides {
   Title?: TitleOverrides;
 }
@@ -96,6 +102,9 @@ export interface SectionProps {
    */
   testId?: string;
 
+  /**
+   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+   */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: {
     HeadingItem?: {
@@ -124,6 +133,9 @@ export interface MenuItemPrimitiveProps {
   description: React.ReactNode | undefined;
   iconAfter: React.ReactNode | undefined;
   iconBefore: React.ReactNode | undefined;
+  /**
+   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+   */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides: Overrides | undefined;
   shouldTitleWrap: boolean | undefined;
@@ -137,6 +149,8 @@ export interface MenuItemProps {
   /**
    * A function that can be used to override the styles of the component.
    * It receives the current styles and state and expects a styles object.
+   *
+   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: CSSFn;
@@ -193,6 +207,8 @@ export interface MenuItemProps {
 
   /**
    * Custom overrides for the composed components.
+   *
+   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: Overrides;
@@ -364,6 +380,8 @@ export interface HeadingItemProps {
   /**
    * A function that can be used to override the styles.
    * It receives the current styles and returns a customised styles object.
+   *
+   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: StatelessCSSFn;
@@ -411,6 +429,8 @@ export interface SkeletonHeadingItemProps {
   /**
    * A function that can be used to override the styles of this component.
    * It receives the current styles and returns a customized styles object.
+   *
+   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: StatelessCSSFn;
@@ -424,9 +444,13 @@ export type ItemState = { isSelected: boolean; isDisabled: boolean };
  * and should return a CSSObject.
  *
  * @see @atlaskit/menu/docs/85-overriding-item-styles
+ * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
  */
-export interface CSSFn<TState = ItemState> {
+export interface CSSFn<TState = ItemState extends void ? void : ItemState> {
   (currentState: TState): CSSObject | CSSObject[];
 }
 
-export type StatelessCSSFn = CSSFn<undefined>;
+/**
+ * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
+ */
+export type StatelessCSSFn = CSSFn<void>;

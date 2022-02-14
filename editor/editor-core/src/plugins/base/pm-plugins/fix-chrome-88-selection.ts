@@ -1,4 +1,5 @@
-import { PluginKey, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { isNodeSelection } from 'prosemirror-utils';
 
 function isDivHTMLElement(elm: Element): elm is HTMLDivElement {
@@ -7,7 +8,7 @@ function isDivHTMLElement(elm: Element): elm is HTMLDivElement {
 
 export const fixChromeSelectionKey = new PluginKey('fixChromeSelectionPlugin');
 export default () =>
-  new Plugin({
+  new SafePlugin({
     key: fixChromeSelectionKey,
     props: {
       handleDOMEvents: {

@@ -10,6 +10,8 @@ import SortingIcon from '../../ui/SortingIcon';
 import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { RendererCssClassName } from '../../consts';
+import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { tableCellMessages } from '../../messages';
 
 type CellProps = CellAttributes & {
   children?: React.ReactNode;
@@ -28,7 +30,7 @@ export type CellWithSortingProps = CellProps & {
   columnIndex?: number;
   sortOrdered?: SortOrder;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-};
+} & WrappedComponentProps;
 
 const nextStatusOrder = (currentSortOrder?: SortOrder): SortOrder => {
   switch (currentSortOrder) {
@@ -43,16 +45,24 @@ const nextStatusOrder = (currentSortOrder?: SortOrder): SortOrder => {
   return SortOrder.NO_ORDER;
 };
 
-const getSortOrderLabel = (currentSortOrder?: SortOrder): string => {
+const getSortOrderLabel = (
+  intl: IntlShape,
+  currentSortOrder?: SortOrder,
+): string => {
+  const {
+    noneSortingLabel,
+    ascSortingLabel,
+    descSortingLabel,
+  } = tableCellMessages;
   switch (currentSortOrder) {
     case SortOrder.NO_ORDER:
-      return 'none';
+      return intl.formatMessage(noneSortingLabel);
     case SortOrder.ASC:
-      return 'ascending';
+      return intl.formatMessage(ascSortingLabel);
     case SortOrder.DESC:
-      return 'descending';
+      return intl.formatMessage(descSortingLabel);
     default:
-      return 'none';
+      return intl.formatMessage(noneSortingLabel);
   }
 };
 
@@ -126,9 +136,7 @@ const withCellProps = (WrapperComponent: React.ElementType) => {
 };
 
 export const withSortableColumn = (WrapperComponent: React.ElementType) => {
-  return class WithSortableColumn extends React.Component<
-    CellWithSortingProps
-  > {
+  class WithSortableColumn extends React.Component<CellWithSortingProps> {
     constructor(props: CellWithSortingProps) {
       super(props);
     }
@@ -140,6 +148,7 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
         children,
         sortOrdered,
         isHeaderRow,
+        intl,
       } = this.props;
       const sortOrderedClassName =
         sortOrdered === SortOrder.NO_ORDER
@@ -160,7 +169,7 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
         <WrapperComponent
           {...this.props}
           className={className}
-          ariaSort={getSortOrderLabel(sortOrdered)}
+          ariaSort={getSortOrderLabel(intl, sortOrdered)}
         >
           <div
             className={RendererCssClassName.SORTABLE_COLUMN_BUTTON}
@@ -236,7 +245,9 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
           });
       }
     };
-  };
+  }
+
+  return injectIntl(WithSortableColumn);
 };
 
 export const TableHeader = compose(withSortableColumn, withCellProps)('th');

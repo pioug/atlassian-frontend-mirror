@@ -1,13 +1,47 @@
 /** @jsx jsx */
 import React, { useRef } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
-import {
-  editButtonStyles,
-  readViewContainerStyles,
-  readViewWrapperStyles,
-} from './styles';
+import { B100, N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
+import { borderRadius } from './constants';
+
+const readViewContainerStyles = css({
+  lineHeight: 1,
+});
+
+const editButtonStyles = css({
+  display: 'block',
+  margin: '0',
+  padding: '0',
+  appearance: 'none',
+  background: 'transparent',
+  border: 0,
+  lineHeight: 1,
+  outline: '0',
+  '&:focus + div': {
+    border: `2px solid ${token('color.border.focused', B100)}`,
+  },
+});
+
+const readViewWrapperStyles = css({
+  display: 'inline-block',
+  boxSizing: 'border-box',
+  width: 'auto',
+  maxWidth: '100%',
+  border: '2px solid transparent',
+  borderRadius: borderRadius,
+  transition: 'background 0.2s',
+  '&:hover': {
+    background: token('color.background.neutral.subtle.hovered', N30),
+  },
+});
+
+const readViewFitContainerWidthStyles = css({
+  width: '100%',
+});
 
 const DRAG_THRESHOLD = 5;
 
@@ -67,7 +101,10 @@ const ReadView = ({
         ref={editButtonRef}
       />
       <div
-        css={readViewWrapperStyles}
+        css={[
+          readViewWrapperStyles,
+          readViewFitContainerWidth && readViewFitContainerWidthStyles,
+        ]}
         onClick={onReadViewClick}
         onMouseDown={(e) => {
           startX.current = e.clientX;

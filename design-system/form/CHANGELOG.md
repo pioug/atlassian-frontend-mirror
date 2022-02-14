@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 8.5.0
+
+### Minor Changes
+
+- [`c987bb60a89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c987bb60a89) - Exposes an additional Label component in `@atlaskit/form` - this component is designed to be wrapped by the Field component but there are certain use cases that require a Label on its own. This is to fulfill those use cases.
+
+### Patch Changes
+
+- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+
 ## 8.4.8
 
 ### Patch Changes

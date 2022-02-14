@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
 export type {
   CollabParticipant,
@@ -43,6 +45,8 @@ export type CollabEditOptions = {
 
 export type PrivateCollabEditOptions = CollabEditOptions & {
   sanitizePrivateContent?: boolean;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  onSyncUpError?: SyncUpErrorFunction;
 };
 
 export type ProviderCallback = <ReturnType>(

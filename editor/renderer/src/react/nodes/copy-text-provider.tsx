@@ -74,6 +74,7 @@ const { Provider, Consumer } = CopyTextContext;
 export const CopyArea = React.forwardRef((props: any, ref) => (
   <div
     ref={ref}
+    // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
     style={{
       position: 'absolute',
       left: '-9999px',

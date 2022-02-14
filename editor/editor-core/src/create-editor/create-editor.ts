@@ -1,5 +1,5 @@
 import { MarkSpec } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import {
@@ -106,15 +106,24 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 
 const TRACKING_DEFAULT = { enabled: false };
 
-export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
-  const { editorConfig, performanceTracking = {}, transactionTracker } = config;
+export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
+  const {
+    editorConfig,
+    performanceTracking = {},
+    transactionTracker,
+    featureFlags,
+    dispatchAnalyticsEvent,
+  } = config;
   const {
     uiTracking = TRACKING_DEFAULT,
     transactionTracking = TRACKING_DEFAULT,
   } = performanceTracking;
+  const saferDispatchedTransactions = featureFlags.saferDispatchedTransactions;
 
   const useInstrumentedPlugin =
-    uiTracking.enabled || transactionTracking.enabled;
+    uiTracking.enabled ||
+    transactionTracking.enabled ||
+    saferDispatchedTransactions;
 
   if (
     process.env.NODE_ENV === 'development' &&
@@ -128,16 +137,18 @@ export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
   }
 
   const instrumentPlugin = useInstrumentedPlugin
-    ? (plugin: Plugin): Plugin =>
+    ? (plugin: SafePlugin): SafePlugin =>
         InstrumentedPlugin.fromPlugin(
           plugin,
           {
             uiTracking,
             transactionTracking,
+            saferDispatchedTransactions,
+            dispatchAnalyticsEvent,
           },
           transactionTracker,
         )
-    : (plugin: Plugin): Plugin => plugin;
+    : (plugin: SafePlugin): SafePlugin => plugin;
 
   return editorConfig.pmPlugins
     .sort(sortByOrder('plugins'))
@@ -155,7 +166,7 @@ export function createPMPlugins(config: PMPluginCreateConfig): Plugin[] {
         getIntl: config.getIntl,
       }),
     )
-    .filter((plugin): plugin is Plugin => typeof plugin !== 'undefined')
+    .filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined')
     .map(instrumentPlugin);
 }
 

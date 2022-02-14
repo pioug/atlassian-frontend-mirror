@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditorPlugin } from '../../types';
 import { CollabEditOptions } from '../collab-edit';
-import { AvatarGroupPluginWrapper } from './ui/AvatarGroupPluginWrapper';
+import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';
 
 const avatarGroup = (props: {
   collabEdit?: CollabEditOptions;

@@ -24,7 +24,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { setTextSelection } from '../../../../../utils';
 import hyperlinkPlugin from '../../../index';
 import layoutPlugin from '../../../../layout';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey, Selection } from 'prosemirror-state';
 import listPlugin from '../../../../list';
 
 describe('hyperlink', () => {
@@ -110,6 +110,62 @@ describe('hyperlink', () => {
               },
             } as HyperlinkState),
           );
+        });
+
+        describe('and when a transaction is setting the cursor to the same position', () => {
+          it('should keep the insert link toolbar open', () => {
+            const { editorView } = editor(doc(p('para{<>}graph')));
+
+            editorView.dispatch(
+              editorView.state.tr.setMeta(hyperlinkStateKey, {
+                type: LinkAction.SHOW_INSERT_TOOLBAR,
+              }),
+            );
+            // We need to force a new selection instance to replicate the collab behavior
+            const selection = Selection.near(
+              editorView.state.doc.resolve(editorView.state.selection.from),
+            );
+
+            editorView.dispatch(editorView.state.tr.setSelection(selection));
+
+            const pluginState = hyperlinkStateKey.getState(editorView.state);
+            expect(pluginState).toEqual(
+              expect.objectContaining({
+                activeLinkMark: {
+                  type: InsertStatus.INSERT_LINK_TOOLBAR,
+                  from: 5,
+                  to: 5,
+                },
+              } as HyperlinkState),
+            );
+          });
+        });
+
+        describe('and when a transaction is changing the content before the current position', () => {
+          it('should keep the insert link toolbar open in the new position', () => {
+            const { editorView } = editor(doc(p('para{<>}graph')));
+
+            editorView.dispatch(
+              editorView.state.tr.setMeta(hyperlinkStateKey, {
+                type: LinkAction.SHOW_INSERT_TOOLBAR,
+              }),
+            );
+
+            const oldPosition = editorView.state.selection.from;
+            const tr = editorView.state.tr.insertText('BEFORE', 0);
+            editorView.dispatch(tr);
+
+            const pluginState = hyperlinkStateKey.getState(editorView.state);
+            expect(pluginState).toEqual(
+              expect.objectContaining({
+                activeLinkMark: {
+                  type: InsertStatus.INSERT_LINK_TOOLBAR,
+                  from: tr.mapping.map(oldPosition),
+                  to: tr.mapping.map(oldPosition),
+                },
+              } as HyperlinkState),
+            );
+          });
         });
 
         it('hides the insert link toolbar when HIDE_TOOLBAR action triggered', () => {

@@ -1,5 +1,13 @@
 # @atlaskit/theme
 
+## 12.1.3
+
+### Patch Changes
+
+- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [`f9ee7954a18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9ee7954a18) - Adds deprecation messages to `visuallyHidden` and `focusRing` exports.
+- Updated dependencies
+
 ## 12.1.2
 
 ### Patch Changes

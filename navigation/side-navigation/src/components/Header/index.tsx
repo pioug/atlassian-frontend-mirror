@@ -16,6 +16,7 @@ export interface HeaderProps {
   /**
    * A function that can be used to override the styles of the component.
    * It receives the current styles and state and expects a styles object.
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
    */
   cssFn?: CSSFn;
 

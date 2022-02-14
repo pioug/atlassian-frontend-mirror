@@ -17,6 +17,8 @@ export interface CustomProgressBarProps {
   value: number;
   /** When true the component is in indeterminate state. */
   isIndeterminate: boolean;
+  /** The aria-label attribute associated with the progress bar. */
+  ariaLabel?: string;
 }
 
 export interface DefaultProgressBarProps extends CustomProgressBarProps {

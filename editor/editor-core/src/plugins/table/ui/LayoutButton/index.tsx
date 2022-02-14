@@ -14,6 +14,8 @@ import commonMessages from '../../../../messages';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import { toggleTableLayoutWithAnalytics } from '../../commands-with-analytics';
 import { TableCssClassName as ClassName } from '../../types';
+import { RowStickyState } from '../../pm-plugins/sticky-headers';
+import { findDomRefAtPos } from 'prosemirror-utils';
 
 export interface Props {
   editorView: EditorView;
@@ -24,17 +26,18 @@ export interface Props {
   isResizing?: boolean;
   layout?: TableLayout;
   tableWidth?: number;
+  stickyHeader?: RowStickyState;
 }
 
 const addPopupOffset = (pos: PopupPosition) => ({
   ...pos,
 
-  // add 22 pixels to align y position with
+  // add 12 pixels to align y position with
   //the columns controls
-  top: pos.top ? pos.top + 22 : undefined,
+  top: pos.top ? pos.top + 12 : undefined,
 });
 
-const getTitle = (layout: TableLayout) => {
+const getMessage = (layout: TableLayout) => {
   switch (layout) {
     case 'default':
       return commonMessages.layoutWide;
@@ -48,20 +51,84 @@ const getTitle = (layout: TableLayout) => {
 class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   static displayName = 'LayoutButton';
 
-  render() {
+  getTitle() {
     const {
       intl: { formatMessage },
+      layout = 'default',
+    } = this.props;
+    return formatMessage(getMessage(layout));
+  }
+
+  toolbarButton() {
+    const { isResizing, layout = 'default' } = this.props;
+    const title = this.getTitle();
+
+    return (
+      <div
+        className={classnames(ClassName.LAYOUT_BUTTON, {
+          [ClassName.IS_RESIZING]: isResizing,
+        })}
+      >
+        <ToolbarButton
+          title={title}
+          onClick={this.handleClick}
+          iconBefore={
+            layout === 'full-width' ? (
+              <CollapseIcon label={title} />
+            ) : (
+              <ExpandIcon label={title} />
+            )
+          }
+        />
+      </div>
+    );
+  }
+
+  getStickyTargetRef(pos: number): Node | null {
+    const { editorView } = this.props;
+    const domAtPos = editorView.domAtPos.bind(editorView);
+    const node = findDomRefAtPos(pos, domAtPos) as HTMLElement;
+    return node.dataset['headerRow'] && node.classList.contains('sticky')
+      ? node
+      : null;
+  }
+
+  renderSticky(button: JSX.Element, targetRef: Node) {
+    const title = this.getTitle();
+
+    if (!targetRef || !(targetRef instanceof HTMLElement)) {
+      return null;
+    }
+
+    const pos = targetRef.getBoundingClientRect();
+
+    return (
+      <div
+        aria-label={title}
+        style={{
+          position: 'fixed',
+          top: pos.top + 22,
+          left: pos.right + 10,
+        }}
+      >
+        {button}
+      </div>
+    );
+  }
+
+  renderPopup(button: JSX.Element) {
+    const {
       mountPoint,
       boundariesElement,
       scrollableElement,
       targetRef,
-      isResizing,
-      layout = 'default',
     } = this.props;
+
     if (!targetRef) {
       return null;
     }
-    const title = formatMessage(getTitle(layout));
+
+    const title = this.getTitle();
 
     return (
       <Popup
@@ -76,30 +143,36 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
         scrollableElement={scrollableElement}
         forcePlacement={true}
       >
-        <div
-          className={classnames(ClassName.LAYOUT_BUTTON, {
-            [ClassName.IS_RESIZING]: isResizing,
-          })}
-        >
-          <ToolbarButton
-            title={title}
-            onClick={this.handleClick}
-            iconBefore={
-              layout === 'full-width' ? (
-                <CollapseIcon label={title} />
-              ) : (
-                <ExpandIcon label={title} />
-              )
-            }
-          />
-        </div>
+        {button}
       </Popup>
     );
   }
 
+  render() {
+    const { stickyHeader } = this.props;
+    const button = this.toolbarButton();
+
+    const stickyTargetRef =
+      stickyHeader && stickyHeader.sticky && stickyHeader.pos
+        ? this.getStickyTargetRef(stickyHeader.pos)
+        : null;
+    if (stickyTargetRef) {
+      return this.renderSticky(button, stickyTargetRef);
+    } else {
+      return this.renderPopup(button);
+    }
+  }
+
   shouldComponentUpdate(nextProps: Props) {
-    const { targetRef, layout, isResizing, tableWidth } = this.props;
+    const {
+      targetRef,
+      layout,
+      isResizing,
+      tableWidth,
+      stickyHeader,
+    } = this.props;
     return (
+      stickyHeader !== nextProps.stickyHeader ||
       targetRef !== nextProps.targetRef ||
       layout !== nextProps.layout ||
       isResizing !== nextProps.isResizing ||

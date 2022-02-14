@@ -1,5 +1,15 @@
 # @atlaskit/editor-tables
 
+## 2.1.2
+
+### Patch Changes
+
+- [`4e6fbaf5898`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6fbaf5898) - ED-14117 Change EditorState.apply type to receive readonly transaction
+
+  Transactions should not be mutated after being dispatched as it can lead to
+  unexpected behaviour. This change patches the relevant types declared in
+  prosemirror-state as a compile-time safeguard.
+
 ## 2.1.1
 
 ### Patch Changes

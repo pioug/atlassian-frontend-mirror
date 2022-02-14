@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import {
   TableHeader,
   withSortableColumn,
@@ -13,6 +12,7 @@ import {
 } from '../../../../analytics/enums';
 import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 
 describe('Renderer - React/Nodes/TableHeader', () => {
   const baseProps = {
@@ -24,13 +24,15 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
   describe('withCellProps', () => {
     it('should create a <th>-tag', () => {
-      const tableHeader = shallow(<TableHeader />).dive();
-      expect(tableHeader.name()).toEqual('th');
+      const intlTableHeader = mountWithIntl(<TableHeader />);
+      const tableHeader = intlTableHeader.find('th');
+      expect(tableHeader.length).toEqual(1);
     });
 
     it('should render the <th> props', () => {
-      const tableHeader = shallow(<TableHeader {...baseProps} />).dive();
-      expect(tableHeader.name()).toEqual('th');
+      const intlTableHeader = mountWithIntl(<TableHeader {...baseProps} />);
+      const tableHeader = intlTableHeader.find('th');
+      expect(tableHeader.length).toEqual(1);
 
       expect(tableHeader.prop('rowSpan')).toEqual(3);
       expect(tableHeader.prop('colSpan')).toEqual(6);
@@ -43,14 +45,21 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
     it('should render the colwidths', () => {
       const colwidth = [10, 12, 14];
-      const tableRow = shallow(<TableHeader colwidth={colwidth} />).dive();
+      const intlTableHeader = mountWithIntl(
+        <TableHeader colwidth={colwidth} />,
+      );
+      const tableRow = intlTableHeader.find('th');
 
+      expect(tableRow.length).toEqual(1);
       expect(tableRow.prop('data-colwidth')).toEqual('10,12,14');
     });
   });
 
   describe('withSortableColumn', () => {
-    let WithSortableColumn: React.ComponentType<CellWithSortingProps>;
+    let WithSortableColumn: React.ComponentType<Omit<
+      CellWithSortingProps,
+      'intl'
+    >>;
     const TestComp = ({ children }: CellWithSortingProps) => (
       <th>{children}</th>
     );
@@ -63,7 +72,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
     describe('when allowColumnSorting is the default value', () => {
       it('should not add sortable class name', () => {
-        const wrapper = mount(<WithSortableColumn />);
+        const wrapper = mountWithIntl(<WithSortableColumn />);
 
         expect(
           wrapper.find(TestComp).hasClass(RendererCssClassName.SORTABLE_COLUMN),
@@ -73,7 +82,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
     describe('when allowColumnSorting is false', () => {
       it('should not add sortable class name', () => {
-        const wrapper = mount(
+        const wrapper = mountWithIntl(
           <WithSortableColumn allowColumnSorting={false} />,
         );
 
@@ -85,7 +94,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
     describe('when allowColumnSorting is true', () => {
       it('should add sortable class name', () => {
-        const wrapper = mount(<WithSortableColumn allowColumnSorting />);
+        const wrapper = mountWithIntl(
+          <WithSortableColumn allowColumnSorting />,
+        );
         expect(
           wrapper.find(TestComp).hasClass(RendererCssClassName.SORTABLE_COLUMN),
         ).toBeTruthy();
@@ -93,7 +104,9 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
       describe('when onSorting function does not exist', () => {
         it('should add sortable not allowed class name', () => {
-          const wrapper = mount(<WithSortableColumn allowColumnSorting />);
+          const wrapper = mountWithIntl(
+            <WithSortableColumn allowColumnSorting />,
+          );
 
           expect(
             wrapper
@@ -107,7 +120,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
         let onSorting: any;
         let wrapper: any;
         const mountWrapper = (children?: React.ReactNode) =>
-          mount(
+          mountWithIntl(
             <WithSortableColumn
               allowColumnSorting
               columnIndex={0}
@@ -177,7 +190,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
           { from: SortOrder.DESC, to: SortOrder.NO_ORDER },
           { from: undefined, to: SortOrder.NO_ORDER },
         ])('should change %o ', ({ from, to }) => {
-          const wrapper = mount(
+          const wrapper = mountWithIntl(
             <WithSortableColumn
               sortOrdered={from}
               allowColumnSorting
@@ -200,7 +213,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
     describe('when onSorting and columnIndex is available', () => {
       it('should call the function with SORT_COLUMN_NOT_ALLOWED', () => {
         const fireAnalyticsEvent = jest.fn();
-        const tableCell = mount(
+        const tableCell = mountWithIntl(
           <TableHeader
             fireAnalyticsEvent={fireAnalyticsEvent}
             columnIndex={1}
@@ -229,7 +242,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
       it('should call the function with SORT_COLUMN_NOT_ALLOWED', () => {
         const fireAnalyticsEvent = jest.fn();
         const onSorting = jest.fn();
-        const tableCell = mount(
+        const tableCell = mountWithIntl(
           <TableHeader
             fireAnalyticsEvent={fireAnalyticsEvent}
             onSorting={onSorting}
@@ -261,7 +274,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
       it('should call the function with SORT_COLUMN_NOT_ALLOWED', () => {
         const fireAnalyticsEvent = jest.fn();
         const onSorting = jest.fn();
-        const tableCell = mount(
+        const tableCell = mountWithIntl(
           <TableHeader
             onSorting={onSorting}
             fireAnalyticsEvent={fireAnalyticsEvent}

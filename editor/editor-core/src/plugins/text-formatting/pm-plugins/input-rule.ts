@@ -1,5 +1,5 @@
 import { MarkType, Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   createPlugin,
   createRule,
@@ -330,7 +330,7 @@ function getCodeInputRules(schema: Schema): InputRuleWrapper[] {
 export function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
 
   if (schema.marks.strong) {

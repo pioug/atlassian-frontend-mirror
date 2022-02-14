@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 8.5.9
+
+### Patch Changes
+
+- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+
 ## 8.5.8
 
 ### Patch Changes

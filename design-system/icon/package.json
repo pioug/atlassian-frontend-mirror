@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/icon",
-  "version": "21.10.2",
-  "description": "An icon is used as a visual representation of common actions and commands to provide context.",
+  "version": "21.10.3",
+  "description": "An icon is a visual representation of a command, device, directory, or common action.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,6 +14,7 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "homepage": "https://atlassian.design/components/icon/",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -49,7 +50,7 @@
     "@atlaskit/dynamic-table": "^14.5.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
-    "@atlaskit/icon-priority": "^6.2.0",
+    "@atlaskit/icon-priority": "^6.3.0",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.1.0",

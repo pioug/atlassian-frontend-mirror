@@ -14,6 +14,7 @@ import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-c
 export interface Props {
   taskId: string;
   isDone?: boolean;
+  isRenderer?: boolean;
   onChange?: (taskId: string, isChecked: boolean) => void;
   contentRef?: ContentRef;
   children?: any;
@@ -156,6 +157,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
       taskId,
       disabled,
       dataAttributes,
+      isRenderer,
     } = this.props;
 
     return (
@@ -166,6 +168,7 @@ export default class ResourcedTaskItem extends PureComponent<Props, State> {
       >
         <TaskItem
           isDone={isDone}
+          isRenderer={isRenderer}
           taskId={taskId}
           onChange={this.handleOnChange}
           appearance={appearance}

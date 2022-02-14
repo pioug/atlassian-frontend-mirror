@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
-import { SmartCardProps, Card } from './genericCard';
-import { ReactNodeView, getPosHandler } from '../../../nodeviews/';
+import { SmartCardProps, Card, GenericCard } from './genericCard';
+import { getPosHandler } from '../../../nodeviews/';
 import { registerCard } from '../pm-plugins/actions';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 
@@ -106,7 +106,7 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<SmartCardProps, 'platform'>;
 
-export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
+export class BlockCard extends GenericCard<BlockCardNodeViewProps> {
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     if (browser.chrome && this.reactComponentProps.platform !== 'mobile') {

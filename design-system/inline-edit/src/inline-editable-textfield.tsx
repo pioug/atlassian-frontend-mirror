@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
@@ -8,11 +8,27 @@ import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import InlineEdit from './inline-edit';
-import {
-  errorIconContainerStyles,
-  readViewForTextFieldStyles,
-} from './internal/styles';
+import { fontSize, gridSize } from './internal/constants';
 import { InlineEditableTextfieldProps } from './types';
+
+const errorIconContainerStyles = css({
+  paddingRight: gridSize - 2,
+  lineHeight: '100%',
+});
+
+const readViewForTextFieldStyles = css({
+  display: 'flex',
+  maxWidth: '100%',
+  minHeight: `${(gridSize * 2.5) / fontSize}em`,
+  padding: `${gridSize}px ${gridSize - 2}px`,
+  fontSize: fontSize,
+  lineHeight: (gridSize * 2.5) / fontSize,
+  wordBreak: 'break-word',
+});
+
+const compactStyles = css({
+  padding: `${gridSize / 2}px ${gridSize - 2}px`,
+});
 
 const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
   const { isCompact = false, defaultValue, placeholder, testId } = props;
@@ -47,7 +63,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
       )}
       readView={() => (
         <div
-          css={readViewForTextFieldStyles}
+          css={[readViewForTextFieldStyles, isCompact && compactStyles]}
           data-compact={isCompact}
           data-testid={testId && `read-view-${testId}`}
         >

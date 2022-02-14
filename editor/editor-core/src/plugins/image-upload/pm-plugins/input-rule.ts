@@ -1,5 +1,5 @@
 import { Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 import { createExternalMediaNode } from '../utils';
 import { FeatureFlags } from '../../../types/feature-flags';
@@ -7,7 +7,7 @@ import { FeatureFlags } from '../../../types/feature-flags';
 export function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (!schema.nodes.media || !schema.nodes.mediaSingle) {
     return;
   }

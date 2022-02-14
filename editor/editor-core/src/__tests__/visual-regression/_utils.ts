@@ -497,8 +497,7 @@ export const snapshot = async (
   threshold: Threshold = {},
   selector: string = editorFullPageContentSelector,
   screenshotOptions: PuppeteerScreenshotOptions = {
-    // this will be enabled with false value by default in https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13294 PR
-    // captureBeyondViewport: false,
+    captureBeyondViewport: false,
   },
 ) => {
   const { collabPage, synchronyUrl } = global || {};

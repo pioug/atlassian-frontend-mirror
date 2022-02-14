@@ -16,7 +16,7 @@ import { Step, ReplaceStep } from 'prosemirror-transform';
 import { EditorState } from 'prosemirror-state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
-import { Metadata } from '../../channel';
+import { Metadata } from '../../types';
 
 describe('#sendData', () => {
   let fakeStep: Step;

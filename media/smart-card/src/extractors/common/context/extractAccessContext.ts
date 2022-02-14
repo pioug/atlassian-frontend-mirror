@@ -1,9 +1,7 @@
 import { JsonLd } from 'json-ld-types';
-import {
-  RequestAccessContextProps,
-  ForbiddenAction,
-  messages,
-} from '@atlaskit/media-ui';
+import { messages } from '@atlaskit/media-ui/messages';
+import { RequestAccessContextProps } from '../../../view/types';
+import { ForbiddenAction } from '../../../view/BlockCard/actions/ForbiddenAction';
 
 export const extractRequestAccessContext = ({
   jsonLd,

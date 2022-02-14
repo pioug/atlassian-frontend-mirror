@@ -1,24 +1,28 @@
 /** @jsx jsx */
 import React from 'react';
+import { css, jsx, SerializedStyles } from '@emotion/core';
 
-import { N0, N40A, N50A } from '@atlaskit/theme/colors';
-import { css, jsx } from '@emotion/core';
-
-import { SmartLinkSize } from '../../../../constants';
+import {
+  SmartLinkSize,
+  SmartLinkStatus,
+  SmartLinkTheme,
+} from '../../../../constants';
 import { ContainerProps } from './types';
-import { token } from '@atlaskit/tokens';
+import {
+  isFlexibleUiBlock,
+  isFlexibleUiTitleBlock,
+} from '../../../../utils/flexible';
+import { RetryOptions } from '../../types';
+import { tokens } from '../../../../utils/token';
 
-const getElevationStyles = () => ({
-  border: `1px solid transparent`,
-  borderRadius: '1.5px',
-  boxShadow: token(
-    'elevation.shadow.raised',
-    `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
-  ),
-  margin: '2px',
-});
+const elevationStyles: SerializedStyles = css`
+  border: 1px solid transparent;
+  border-radius: 1.5px;
+  box-shadow: ${tokens.elevation};
+  margin: 2px;
+`;
 
-const getGapSize = (size?: SmartLinkSize) => {
+const getGap = (size?: SmartLinkSize): string => {
   switch (size) {
     case SmartLinkSize.XLarge:
       return '1.25rem';
@@ -32,7 +36,7 @@ const getGapSize = (size?: SmartLinkSize) => {
   }
 };
 
-const getPaddingSize = (size?: SmartLinkSize) => {
+const getPadding = (size?: SmartLinkSize): string => {
   switch (size) {
     case SmartLinkSize.XLarge:
       return '1.5rem';
@@ -51,32 +55,36 @@ export const getContainerStyles = (
   hideBackground: boolean,
   hideElevation: boolean,
   hidePadding: boolean,
-) => {
-  const elevation = hideElevation ? {} : getElevationStyles();
-  return css({
-    backgroundColor: hideBackground
-      ? undefined
-      : token('elevation.surface', N0),
-    display: 'flex',
-    gap: `${getGapSize(size)} 0`,
-    flexDirection: 'column' as const,
-    minWidth: 0,
-    overflow: 'hidden',
-    padding: hidePadding ? undefined : getPaddingSize(size),
-    ...elevation,
-  });
-};
+): SerializedStyles => css`
+  display: flex;
+  gap: ${getGap(size)} 0;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  ${hideBackground ? '' : `background-color: ${tokens.background};`}
+  ${hidePadding ? '' : `padding: ${getPadding(size)};`}
+  ${hideElevation
+    ? ''
+    : elevationStyles}
+`;
 
 const renderChildren = (
   children: React.ReactNode,
   containerSize: SmartLinkSize,
-) =>
+  containerTheme: SmartLinkTheme,
+  status?: SmartLinkStatus,
+  retry?: RetryOptions,
+): React.ReactNode =>
   React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
+    if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
       const { size: blockSize } = child.props;
-      return React.cloneElement(child, { size: blockSize || containerSize });
+      return React.cloneElement(child, {
+        retry: isFlexibleUiTitleBlock(child) ? retry : undefined,
+        size: blockSize || containerSize,
+        status,
+        theme: containerTheme,
+      });
     }
-    return child;
   });
 
 const Container: React.FC<ContainerProps> = ({
@@ -84,15 +92,18 @@ const Container: React.FC<ContainerProps> = ({
   hideBackground = false,
   hideElevation = false,
   hidePadding = false,
+  retry,
   size = SmartLinkSize.Medium,
+  status,
   testId = 'smart-links-container',
+  theme = SmartLinkTheme.Link,
 }) => (
   <div
     css={getContainerStyles(size, hideBackground, hideElevation, hidePadding)}
     data-smart-link-container
     data-testid={testId}
   >
-    {renderChildren(children, size)}
+    {renderChildren(children, size, theme, status, retry)}
   </div>
 );
 

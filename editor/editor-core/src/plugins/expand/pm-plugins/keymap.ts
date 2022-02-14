@@ -1,10 +1,7 @@
 import { keymap } from 'prosemirror-keymap';
-import {
-  Plugin,
-  Selection,
-  TextSelection,
-  NodeSelection,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Selection, TextSelection, NodeSelection } from 'prosemirror-state';
+import { Node as PMNode } from 'prosemirror-model';
 import * as keymaps from '../../../keymaps';
 import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
 import { findExpand } from '../utils';
@@ -14,12 +11,13 @@ import { deleteExpand, focusTitle } from '../commands';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
 import { RelativeSelectionPos } from '../../selection/types';
 
+const isExpandNode = (node: PMNode) => {
+  return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';
+};
 const isExpandSelected = (selection: Selection) =>
-  selection instanceof NodeSelection &&
-  (selection.node.type.name === 'expand' ||
-    selection.node.type.name === 'nestedExpand');
+  selection instanceof NodeSelection && isExpandNode(selection.node);
 
-export function expandKeymap(): Plugin {
+export function expandKeymap(): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -196,6 +194,7 @@ export function expandKeymap(): Plugin {
     keymaps.backspace.common!,
     (state, dispatch, editorView) => {
       const { selection } = state;
+      const { $from } = selection;
       if (!editorView || !selection.empty) {
         return false;
       }
@@ -218,6 +217,14 @@ export function expandKeymap(): Plugin {
         }
         return false;
       }
+      const parentNode = state.doc.nodeAt(
+        $from.before(Math.max($from.depth - 1, 1)),
+      );
+      // ED-10012 catch cases where the expand has another node nested within it and
+      // the backspace should be applied only to the inner node instead of the expand
+      if (parentNode && !isExpandNode(parentNode)) {
+        return false;
+      }
       const textSel = Selection.findFrom(
         state.doc.resolve(expandNode.pos),
         1,
@@ -237,5 +244,5 @@ export function expandKeymap(): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }

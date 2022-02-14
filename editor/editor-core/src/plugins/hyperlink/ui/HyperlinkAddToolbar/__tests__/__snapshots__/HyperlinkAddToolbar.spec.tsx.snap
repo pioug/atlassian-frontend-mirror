@@ -72,9 +72,7 @@ Array [
   },
   Object {
     "container": "some-quick-search-container-3",
-    "icon": <Blog16Icon
-      label="Blog"
-    />,
+    "icon": <injectIntl(Blog16) />,
     "lastUpdatedDate": 2020-04-15T02:00:00.000Z,
     "name": "some-quick-search-title-3",
     "objectId": "object-id-3",
@@ -94,9 +92,7 @@ Array [
   },
   Object {
     "container": "some-quick-search-container-5",
-    "icon": <Issue16Icon
-      label="Issue"
-    />,
+    "icon": <injectIntl(Issue16) />,
     "lastUpdatedDate": 2020-04-15T04:00:00.000Z,
     "name": "some-quick-search-title-5",
     "objectId": "object-id-5",
@@ -128,9 +124,7 @@ Array [
   },
   Object {
     "container": "some-quick-search-container-3",
-    "icon": <Blog16Icon
-      label="Blog"
-    />,
+    "icon": <injectIntl(Blog16) />,
     "lastUpdatedDate": 2020-04-15T02:00:00.000Z,
     "name": "some-quick-search-title-3",
     "objectId": "object-id-3",
@@ -150,9 +144,7 @@ Array [
   },
   Object {
     "container": "some-quick-search-container-5",
-    "icon": <Issue16Icon
-      label="Issue"
-    />,
+    "icon": <injectIntl(Issue16) />,
     "lastUpdatedDate": 2020-04-15T04:00:00.000Z,
     "name": "some-quick-search-title-5",
     "objectId": "object-id-5",

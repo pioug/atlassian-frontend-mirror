@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { Dispatch } from '../../../../event-dispatcher';
 import {
@@ -20,7 +20,7 @@ export function createPlugin(
     dynamicTextSizing = false,
   }: ColumnResizingPluginState,
 ) {
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     state: createPluginState(dispatch, {
       lastColumnResizable,

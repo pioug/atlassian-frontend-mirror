@@ -44,7 +44,9 @@ export function useCXHTMLPreset({
 }: EditorPresetCXHTMLProps) {
   const [preset] = useDefaultPreset({
     featureFlags,
-    paste: {},
+    paste: {
+      plainTextPasteLinkification: featureFlags?.plainTextPasteLinkification,
+    },
   });
 
   preset.add([

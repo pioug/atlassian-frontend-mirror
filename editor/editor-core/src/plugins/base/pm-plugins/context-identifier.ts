@@ -1,6 +1,7 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { PluginKey, Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Dispatch } from '../../../event-dispatcher';
 
@@ -17,7 +18,7 @@ export const getContextIdentifier = (state?: EditorState) => {
 };
 
 export default (dispatch: Dispatch, providerFactory?: ProviderFactory) =>
-  new Plugin({
+  new SafePlugin({
     key: stateKey,
     state: {
       init: () => ({}),

@@ -1,5 +1,5 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { chainCommands } from 'prosemirror-commands';
 
 import * as keymaps from '../../../keymaps';
@@ -33,7 +33,7 @@ const createTableWithAnalytics = () =>
     eventType: EVENT_TYPE.TRACK,
   })(createTable());
 
-export function keymapPlugin(): Plugin {
+export function keymapPlugin(): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -90,7 +90,7 @@ export function keymapPlugin(): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 export default keymapPlugin;

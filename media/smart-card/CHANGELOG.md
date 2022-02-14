@@ -1,5 +1,61 @@
 # @atlaskit/smart-card
 
+## 17.1.0
+
+### Minor Changes
+
+- [`c73cde16d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c73cde16d49) - [ux] Jira Work Management (JWM) List and Board view links will be converted into smart link embed by default
+- [`948a410185b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/948a410185b) - [ux] New elements were added ModifiedOn and CreatedOn
+- [`6648e62bbfe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6648e62bbfe) - ### Expose smart-card SSR component
+
+  There is a new entry point in place for SSR which keeps the same API as the existing one, and can be used like:
+
+  ```
+  import { CardSSR } from '@atlaskit/smart-card/ssr'
+
+  <CardSSR
+    url="http://atlassian.com"
+    appearance="inline"
+  />
+  ```
+
+- [`7f0d83f7a05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f0d83f7a05) - Remove Styled Components from smart-card
+
+### Patch Changes
+
+- [`3c4e3cf2bd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c4e3cf2bd3) - Flexible UI: Update sizing and styling
+- [`15b67162087`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15b67162087) - Flexible UI: Add LinkIcon element
+- [`a53d41a0d93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a53d41a0d93) - Flexible UI: Add TitleBlock error views
+- [`12943538dde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12943538dde) - Flexible UI: Add element - Title
+- [`a46aabfcc71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a46aabfcc71) - Flexible UI: TitleBlock metadata
+- [`8e1979f21ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e1979f21ef) - Flexible UI: Update action styling and sizing
+- [`be56b069142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be56b069142) - Flexible UI: Add element type Text
+- [`6b6fa61b644`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b6fa61b644) - Flexible UI: Add mock data to examples
+- [`140f262c0c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/140f262c0c6) - Flexible UI: Add icon custom render function to support emoji renderer
+- [`856b888358b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/856b888358b) - Added a lozenge element for Smart Links Flexible UI
+- [`dc0752db477`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc0752db477) - Flexible UI: Fix icon size not showing properly
+- [`d499df97cbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d499df97cbb) - Flexible UI: Fix empty element group showing
+- [`6d50e8c688e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d50e8c688e) - Flexible UI: Add priority badge element
+- [`76851a3b80f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76851a3b80f) - Flexible UI: Add resolved view
+- [`29fab08e186`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29fab08e186) - Flexible UI: Fix icon/badge positioning
+- [`121361e494b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/121361e494b) - Flexible UI: Convert css object style to string style
+- [`7c2030d8ee6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c2030d8ee6) - use @atlaskit/media-test-helpers/smart-card-state
+- [`e528d830cda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e528d830cda) - Flexible UI: Update design token
+- [`45d97511958`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45d97511958) - Flexible UI: Add badge element
+- [`4f8e3da4bbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f8e3da4bbf) - Added AvatarGroup for flexible ui
+- [`cb7bcebb612`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb7bcebb612) - Flexible UI: Add error views
+- [`8b39fd95409`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b39fd95409) - Flexible UI: Update badge colour
+- [`b38f4e08b8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b38f4e08b8a) - Flexible UI: Add TitleBlock
+- [`5d20795553e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d20795553e) - Flexible UI: Update forbidden messages
+- [`31dc57d1a21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31dc57d1a21) - Flexible UI: Fix badge size
+- [`63993a75a59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63993a75a59) - Flexible UI: Update badge element to support image icon
+- [`919e2b13299`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919e2b13299) - Flexible UI: Add tooltip to link element
+- [`1f9c5bddeb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f9c5bddeb9) - Flexible UI: TitleBlock resolving view
+- [`7613398d13a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7613398d13a) - Added DeleteAction to flexible UI
+- [`f56022576da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f56022576da) - Flexible UI: Update design token
+- [`d764e29dd17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d764e29dd17) - update docs to include staging login url
+- Updated dependencies
+
 ## 17.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/container-picker
 
+## 2.0.0
+
+### Major Changes
+
+- [`f4b7357bc34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4b7357bc34) - setEnv has been removed from the public API. This should not affect end users as it was only used in the component examples.
+
 ## 1.1.11
 
 ### Patch Changes

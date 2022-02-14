@@ -4,7 +4,6 @@ import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
-import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import MediaGroup from '../../../../../../plugins/media/nodeviews/mediaGroup';
@@ -108,7 +107,7 @@ describe('nodeviews/mediaGroup', () => {
       mediaOptions: {},
     };
 
-    const wrapper = mount(<MediaGroup {...props} />);
+    const wrapper = mountWithIntl(<MediaGroup {...props} />);
 
     expect(wrapper.length).toEqual(1);
   });

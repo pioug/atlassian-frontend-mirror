@@ -1,4 +1,5 @@
-import { Transaction, Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { ReadonlyTransaction, PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 import { findParentNodeOfType } from 'prosemirror-utils';
@@ -59,7 +60,7 @@ export const getDecorations = (doc: Node): DecorationSet => {
 };
 
 const handleDocChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: ListState,
 ): ListState => {
   const nextPluginState = handleSelectionChanged(tr, pluginState);
@@ -71,7 +72,7 @@ const handleDocChanged = (
 };
 
 const handleSelectionChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: ListState,
 ): ListState => {
   const { bulletList, orderedList } = tr.doc.type.schema.nodes;
@@ -132,8 +133,8 @@ const createInitialState = (state: EditorState) => {
   };
 };
 
-export const createPlugin = (eventDispatch: Dispatch): Plugin =>
-  new Plugin({
+export const createPlugin = (eventDispatch: Dispatch): SafePlugin =>
+  new SafePlugin({
     state: createPluginState(eventDispatch, createInitialState),
     key: listPluginKey,
     props: {

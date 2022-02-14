@@ -29,8 +29,25 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { changeSelectedCardToLink } from '../../pm-plugins/doc';
 import { isSupportedInParent } from '../../../../utils/nodes';
+import * as featureFlags from '../../../../plugins/feature-flags-context';
 
 describe('LinkToolbarAppearance', () => {
+  const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
+
+  beforeEach(() => {
+    featureFlagSpy.mockReturnValue({
+      viewChangingExperimentToolbarStyle: undefined,
+    });
+  });
+
+  afterEach(() => {
+    featureFlagSpy.mockReset();
+  });
+
+  afterAll(() => {
+    featureFlagSpy.mockRestore();
+  });
+
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
   const editor = (doc: DocBuilder) => {
@@ -189,6 +206,7 @@ describe('LinkToolbarAppearance', () => {
           '{<node>}',
           inlineCard({
             url: 'http://www.atlassian.com/',
+            localId: 'cool-be4nz-rand0m-return',
           })(),
         ),
       ),
@@ -213,6 +231,7 @@ describe('LinkToolbarAppearance', () => {
         p(),
         blockCard({
           url: 'http://www.atlassian.com/',
+          localId: 'cool-be4nz-rand0m-return',
         })(),
       ),
     );
@@ -226,6 +245,7 @@ describe('LinkToolbarAppearance', () => {
             '{<node>}',
             inlineCard({
               url: 'http://www.atlassian.com/',
+              localId: 'cool-be4nz-rand0m-return',
             })(),
           ),
         ),
@@ -250,6 +270,7 @@ describe('LinkToolbarAppearance', () => {
           p(),
           blockCard({
             url: 'http://www.atlassian.com/',
+            localId: 'cool-be4nz-rand0m-return',
           })(),
         ),
       ),
@@ -395,5 +416,49 @@ describe('LinkToolbarAppearance', () => {
       expect.objectContaining({ testId: 'block-appearance', disabled: true }),
       expect.objectContaining({ testId: 'embed-appearance', disabled: true }),
     ]);
+  });
+
+  it('should render a LinkToolbarButtonGroup if featureflag is `toolbarIcons`', () => {
+    featureFlagSpy.mockReturnValue({
+      viewChangingExperimentToolbarStyle: 'toolbarIcons',
+    });
+    const editorState = EditorState.create({ schema: defaultSchema });
+    const toolbar = shallow(
+      <LinkToolbarAppearance
+        intl={fakeIntl}
+        currentAppearance="block"
+        editorState={editorState}
+        url="some-url"
+      />,
+    );
+    const dropdown = toolbar.find(Dropdown);
+    const buttonGroup = toolbar.find('LinkToolbarButtonGroup');
+    const iconDropdown = toolbar.find('LinkToolbarIconDropdown');
+
+    expect(dropdown).toHaveLength(0);
+    expect(buttonGroup).toHaveLength(1);
+    expect(iconDropdown).toHaveLength(0);
+  });
+
+  it('should render a LinkToolbarIconDropdown if featureflag is `newDropdown`', () => {
+    featureFlagSpy.mockReturnValue({
+      viewChangingExperimentToolbarStyle: 'newDropdown',
+    });
+    const editorState = EditorState.create({ schema: defaultSchema });
+    const toolbar = shallow(
+      <LinkToolbarAppearance
+        intl={fakeIntl}
+        currentAppearance="block"
+        editorState={editorState}
+        url="some-url"
+      />,
+    );
+    const dropdown = toolbar.find(Dropdown);
+    const buttonGroup = toolbar.find('LinkToolbarButtonGroup');
+    const iconDropdown = toolbar.find('LinkToolbarIconDropdown');
+
+    expect(dropdown).toHaveLength(0);
+    expect(buttonGroup).toHaveLength(0);
+    expect(iconDropdown).toHaveLength(1);
   });
 });

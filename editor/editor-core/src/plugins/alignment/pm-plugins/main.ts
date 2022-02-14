@@ -1,4 +1,5 @@
-import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, PluginKey } from 'prosemirror-state';
 import { Dispatch } from '../../../event-dispatcher';
 import { isAlignable } from '../commands';
 import { getActiveAlignment } from '../utils';
@@ -19,8 +20,8 @@ export const pluginKey = new PluginKey<AlignmentPluginState>('alignmentPlugin');
 export function createPlugin(
   dispatch: Dispatch,
   pluginConfig: AlignmentPluginState,
-): Plugin {
-  return new Plugin({
+): SafePlugin {
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init(_config, editorState) {

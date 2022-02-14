@@ -95,8 +95,16 @@ export const joinSiblingLists = ({
     const index = resolvedPos.index();
     const positionPreviousNode = resolvedPos.posAtIndex(index - 1);
     const positionCurrentNode = resolvedPos.posAtIndex(index);
+
+    // If the previous node is part of the selection, OR
+    // If the previous node is not part of the selection and the previous node has the same list type that we’re converting to
+    const joinBefore =
+      positionPreviousNode >= from || nodeBefore.type === forceListType;
+
     if (forceListType) {
-      tr.setNodeMarkup(positionPreviousNode, forceListType);
+      if (joinBefore) {
+        tr.setNodeMarkup(positionPreviousNode, forceListType);
+      }
       tr.setNodeMarkup(positionCurrentNode, forceListType);
     }
 
@@ -107,7 +115,9 @@ export const joinSiblingLists = ({
       tr.setNodeMarkup(positionPreviousNode, nodeType);
     }
 
-    joins.push(pos);
+    if (joinBefore) {
+      joins.push(pos);
+    }
   });
 
   if (selection.empty && rootListNode && isListNode(rootListNode)) {

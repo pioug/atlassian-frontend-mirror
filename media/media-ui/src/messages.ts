@@ -112,6 +112,7 @@ export type MessageKey =
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
+  | 'changeView'
   | 'playbackSpeed'
   | 'skipBackward'
   | 'skipForward'
@@ -726,6 +727,12 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'View Original',
     description:
       "We have a link in our preview modals to the original document. This is for when we don't know the provider name",
+  },
+  changeView: {
+    id: 'fabric.media.change_view',
+    defaultMessage: 'Change view',
+    description:
+      'In the context of a file, it allows the user to select a different way of displaying the file either as inline or a card',
   },
   playbackSpeed: {
     id: 'fabric.media.playback_speed',

@@ -17,6 +17,8 @@ import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
 import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
+import { isFlexibleUiCard } from '../../utils/flexible';
+import FlexibleCard from '../FlexibleCard';
 
 export function CardWithUrlContent({
   id,
@@ -33,6 +35,8 @@ export function CardWithUrlContent({
   inheritDimensions,
   embedIframeRef,
   inlinePreloaderStyle,
+  ui,
+  children,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
   const { state, actions, config, analytics, renderers, error } = useSmartLink(
@@ -138,6 +142,20 @@ export function CardWithUrlContent({
   // We have to keep this last to prevent hook order from being violated
   if (error) {
     throw error;
+  }
+
+  if (isFlexibleUiCard(appearance, children)) {
+    return (
+      <FlexibleCard
+        cardState={state}
+        onAuthorize={(services.length && handleAuthorize) || undefined}
+        renderers={renderers}
+        ui={ui}
+        url={url}
+      >
+        {children}
+      </FlexibleCard>
+    );
   }
 
   switch (appearance) {

@@ -1,11 +1,12 @@
 import { keymap } from 'prosemirror-keymap';
 import { ResolvedPos } from 'prosemirror-model';
-import { Transaction, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Transaction } from 'prosemirror-state';
 import { setTextSelection } from 'prosemirror-utils';
 import { Command } from '../../../types';
 
 // Somewhat broken and subverted: https://product-fabric.atlassian.net/browse/ED-6504
-export function keymapPlugin(): Plugin | undefined {
+export function keymapPlugin(): SafePlugin | undefined {
   const deleteCurrentItem = ($from: ResolvedPos, tr: Transaction) => {
     return tr.delete($from.before($from.depth) - 1, $from.end($from.depth) + 1);
   };
@@ -59,7 +60,7 @@ export function keymapPlugin(): Plugin | undefined {
       return true;
     },
   };
-  return keymap(keymaps);
+  return keymap(keymaps) as SafePlugin;
 }
 
 export default keymapPlugin;

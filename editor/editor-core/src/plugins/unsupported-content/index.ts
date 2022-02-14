@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 
 import {
   confluenceUnsupportedBlock,
@@ -25,7 +26,7 @@ const createPlugin: PMPluginFactory = ({
   dispatchAnalyticsEvent,
 }) => {
   const hasIntlContext = true;
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     props: {
       nodeViews: {

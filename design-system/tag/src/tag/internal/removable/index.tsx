@@ -1,57 +1,48 @@
 /** @jsx jsx */
 import { forwardRef, memo, useCallback, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import {
   useCallbackWithAnalytics,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
-import GlobalTheme from '@atlaskit/theme/components';
-import { GlobalThemeTokens, ThemeModes } from '@atlaskit/theme/types';
+import { useGlobalTheme } from '@atlaskit/theme/components';
 
-// eslint-disable-next-line import/order
-import { getThemeColors } from '../../../theme';
+import { cssVar } from '../../../constants';
+import * as theme from '../../../theme';
+import BaseTag from '../shared/base';
+import Before from '../shared/before';
+import Content from '../shared/content';
+import { SimpleTagProps } from '../shared/types';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
+import RemoveButton from './remove-button';
 
 export interface RemovableTagProps
   extends SimpleTagProps,
     WithAnalyticsEventsProps {
-  /** Text render as the aria-label for remove button. */
+  /**
+   * Text rendered as the aria-label for remove button.
+   **/
   removeButtonLabel?: string;
-  /** Flag to indicate if a tag is removeable. */
+  /**
+   * Flag to indicate if a tag is removable.
+   **/
   isRemovable?: boolean;
-  /** Handler to be called before the tag is removed. If it does not return a
-   truthy value, the tag will not be removed. */
+  /**
+   * Handler to be called before the tag is removed. If it does not return a
+   * truthy value, the tag will not be removed.
+   **/
   onBeforeRemoveAction?: () => boolean;
-  /** Handler to be called after tag is removed. Called with the string 'Post
-   Removal Hook'. */
+  /**
+   * Handler to be called after tag is removed. Called with the string 'Post
+   * Removal Hook'.
+   **/
   onAfterRemoveAction?: (text: string) => void;
 }
-
-import BaseTag from '../shared/base';
-import Before from '../shared/before';
-import Content from '../shared/content';
-import {
-  chromeLinkStyles,
-  chromeStyles,
-  roundedBorderStyles,
-} from '../shared/styles';
-import { SimpleTagProps } from '../shared/types';
-import { mergeRefs } from '../shared/utils';
-
-import { removeButtonStyles } from './styles';
-
-interface ThemedRemovableTagProps extends RemovableTagProps {
-  mode: ThemeModes;
-}
-
-const defaultBeforeRemoveAction = () => true;
-const noop = () => {};
 
 enum TagStatus {
   Showing = 'showing',
@@ -59,29 +50,43 @@ enum TagStatus {
   Removed = 'removed',
 }
 
-const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
-  (props, ref) => {
-    const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
-    const [isHoverCloseButton, setIsHoverCloseButton] = useState<boolean>(
-      false,
-    );
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-    const {
-      appearance = 'default',
+const defaultBeforeRemoveAction = () => true;
+
+/**
+ * These hide the focus ring for the tag when its remove button is focused,
+ * preventing a double focus ring.
+ */
+const removingStyles = css({
+  '&:focus-within': {
+    boxShadow: `0 0 0 2px transparent`,
+    outline: 'none',
+  },
+});
+
+const RemovableTag = forwardRef<any, RemovableTagProps>(
+  (
+    {
+      appearance,
       elemBefore = null,
       isRemovable = true,
       text = '',
       color = 'standard',
-      mode = 'light',
       href,
       removeButtonLabel,
       testId,
       onBeforeRemoveAction = defaultBeforeRemoveAction,
       onAfterRemoveAction = noop,
-    } = props;
+      linkComponent,
+    },
+    ref,
+  ) => {
+    const [status, setStatus] = useState<TagStatus>(TagStatus.Showing);
+    const [isHoverCloseButton, setIsHoverCloseButton] = useState(false);
 
-    const isRounded = appearance === 'rounded';
-    const isLink = Boolean(href);
+    const { mode } = useGlobalTheme();
 
     const onAfterRemoveActionWithAnalytics = useCallbackWithAnalytics(
       onAfterRemoveAction,
@@ -121,69 +126,44 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
     );
 
     const removingTag = useCallback(() => setStatus(TagStatus.Removing), []);
-
     const showingTag = useCallback(() => setStatus(TagStatus.Showing), []);
 
-    const handleHoveringRemoveButton = useCallback(
-      (isHover) => setIsHoverCloseButton(isHover),
-      [],
-    );
-
-    const {
-      chromeColors,
-      chromeLinkColors,
-      buttonColors,
-      linkHoverColor,
-    } = useMemo(() => getThemeColors(color, mode, true), [color, mode]);
-
-    const chromeContainerForLinkStyles = [
-      chromeLinkStyles(chromeLinkColors),
-      isRounded ? roundedBorderStyles : undefined,
-    ];
-
-    const chromeContainerStyles = [
-      chromeStyles({
-        ...chromeColors,
-      }),
-      isRounded ? roundedBorderStyles : undefined,
-    ];
+    const handleMouseOver = useCallback(() => setIsHoverCloseButton(true), []);
+    const handleMouseOut = useCallback(() => setIsHoverCloseButton(false), []);
 
     const removeButton = isRemovable ? (
-      <button
-        css={[
-          removeButtonStyles({
-            ...buttonColors,
-          }),
-          isRounded ? roundedBorderStyles : undefined,
-        ]}
-        tabIndex={0}
+      <RemoveButton
         aria-label={`${removeButtonLabel} ${text}`}
         onClick={handleRemoveRequest}
         onFocus={removingTag}
         onBlur={showingTag}
         onKeyPress={onKeyPress}
-        onMouseOver={() => isLink && handleHoveringRemoveButton(true)}
-        onMouseOut={() => isLink && handleHoveringRemoveButton(false)}
-        type="button"
-        data-testid={`close-button-${testId}`}
-      >
-        <EditorCloseIcon label="close tag" size="small" />
-      </button>
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+        testId={`close-button-${testId}`}
+      />
     ) : undefined;
-
-    const tagCss = [
-      ...chromeContainerStyles,
-      isLink ? chromeContainerForLinkStyles : undefined,
-    ];
 
     const content = (
       <Content
-        {...props}
+        elemBefore={elemBefore}
         isRemovable={isRemovable}
-        isLink={isLink}
-        isRounded={isRounded}
-        linkHoverColor={linkHoverColor}
+        text={text}
+        color={color}
+        href={href}
+        linkComponent={linkComponent}
       />
+    );
+
+    const hoverCloseButtonColors = useMemo(
+      () => ({
+        [cssVar.color.background.hover]:
+          theme.removalHoverBackgroundColors[mode],
+        [cssVar.color.background.active]:
+          theme.removalActiveBackgroundColors[mode],
+        [cssVar.color.text.hover]: theme.removalTextColors[mode],
+      }),
+      [mode],
     );
 
     return (
@@ -193,19 +173,19 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
             {(motion) => {
               return (
                 <BaseTag
-                  ref={mergeRefs(motion.ref, ref)}
+                  ref={mergeRefs([motion.ref, ref])}
+                  appearance={appearance}
+                  color={color}
                   testId={testId}
-                  tagCss={tagCss}
+                  css={[status === TagStatus.Removing && removingStyles]}
+                  style={
+                    isHoverCloseButton ? hoverCloseButtonColors : undefined
+                  }
                   data-removable
                   data-removing={status === TagStatus.Removing}
                   data-ishoverclosebutton={isHoverCloseButton}
-                  before={
-                    <Before
-                      isRounded={isRounded}
-                      elemBefore={elemBefore}
-                      styles={chromeColors}
-                    />
-                  }
+                  href={href}
+                  before={<Before elemBefore={elemBefore} />}
                   contentElement={content}
                   after={removeButton}
                 />
@@ -218,14 +198,4 @@ const InnerRemovableTag = forwardRef<any, ThemedRemovableTagProps>(
   },
 );
 
-const RemovableTag = memo(
-  forwardRef<any, RemovableTagProps>((props, ref) => (
-    <GlobalTheme.Consumer>
-      {(tokens: GlobalThemeTokens) => (
-        <InnerRemovableTag {...props} mode={tokens.mode} ref={ref} />
-      )}
-    </GlobalTheme.Consumer>
-  )),
-);
-
-export default RemovableTag;
+export default memo(RemovableTag);

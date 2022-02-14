@@ -1,16 +1,5 @@
 import React from 'react';
 import { FC } from 'react';
-import {
-  CardLinkView,
-  BlockCardResolvingView,
-  BlockCardErroredView,
-  BlockCardUnauthorisedView,
-  BlockCardForbiddenView,
-  BlockCardResolvedView,
-  BlockCardNotFoundView,
-  AuthorizeAction,
-  ForbiddenAction,
-} from '@atlaskit/media-ui';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
 import { getExtensionKey } from '../../state/helpers';
@@ -18,6 +7,30 @@ import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { ExtractBlockOpts } from '../../extractors/block/types';
 import { extractRequestAccessContext } from '../../extractors/common/context';
+import { CardLinkView } from '../LinkView';
+
+export { default as PreviewAction } from './actions/PreviewAction';
+import { AuthorizeAction } from './actions/AuthorizeAction';
+import { ForbiddenAction } from './actions/ForbiddenAction';
+
+import { ResolvedView as BlockCardResolvedView } from './views/ResolvedView';
+export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
+import { NotFoundView as BlockCardNotFoundView } from './views/NotFoundView';
+import { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
+import { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
+import { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';
+import { ErroredView as BlockCardErroredView } from './views/ErroredView';
+
+export {
+  ForbiddenAction,
+  AuthorizeAction,
+  BlockCardResolvedView,
+  BlockCardResolvingView,
+  BlockCardUnauthorisedView,
+  BlockCardForbiddenView,
+  BlockCardErroredView,
+  BlockCardNotFoundView,
+};
 
 export const BlockCard: FC<BlockCardProps> = ({
   url,

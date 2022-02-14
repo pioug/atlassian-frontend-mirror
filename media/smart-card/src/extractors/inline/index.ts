@@ -1,5 +1,4 @@
 import { JsonLd } from 'json-ld-types';
-import { InlineCardResolvedViewProps } from '@atlaskit/media-ui';
 
 import {
   extractLink,
@@ -12,6 +11,7 @@ import { extractTitlePrefix } from '../common/title-prefix';
 import { extractProvider } from '../common/context';
 import { CardProviderRenderers } from '../../state/context/types';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
+import { InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
 
 export const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData) => {
   const provider = extractProvider(jsonLd);

@@ -1,267 +1,152 @@
 /** @jsx jsx */
 
-/* eslint-disable no-mixed-operators */
-import { CSSProperties, forwardRef, useMemo } from 'react';
+import { CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import { N50A, N60A } from '@atlaskit/theme/colors';
-import { fontFamily } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
+import * as theme from './theme';
 
-import { ThemeTokens, ThemeTokensTrack } from './theme';
-
-const sliderThumbSize = 16;
-const sliderThumbBorderThickness = 2;
-const sliderLineThickness = 4;
-const transitionDuration = '0.2s';
-const sliderBorderRadius = sliderLineThickness / 2;
-export const overallHeight = 40;
-
-interface CustomInputProps extends ThemeTokens {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   ref: React.Ref<HTMLInputElement>;
   valuePercent: string;
-}
-
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> &
-  CustomInputProps;
-
-const getBackgroundGradient = ({ lower, upper }: ThemeTokensTrack) =>
-  `
-    background: linear-gradient(${lower}, ${lower}) 0 / var(--range-inline-width) 100%
-      no-repeat ${upper};
-    [dir='rtl'] & {
-      background-position: right;
-    }
-  `;
-const elevationStyle = token(
-  'elevation.shadow.overlay',
-  `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-);
-
-// Thumb style
-const sliderThumbStyle = ({ thumb }: ThemeTokens) => {
-  return `
-    background: ${thumb.default.background};
-    border: ${sliderThumbBorderThickness}px solid transparent;
-    border-radius: 50%;
-    height: ${sliderThumbSize}px;
-    width: ${sliderThumbSize}px;
-    box-sizing: border-box;
-    transition: border-color ${transitionDuration} ease-in-out;
-    box-shadow: ${elevationStyle}
-  `;
 };
 
-// Track styles
-const sliderTrackStyle = `
-  border-radius: ${sliderBorderRadius}px;
-  border: 0;
-  cursor: pointer;
-  height: ${sliderLineThickness}px;
-  width: 100%;
-  transition: background-color ${transitionDuration} ease-in-out;
-`;
+const VAR_THUMB_BORDER_COLOR = '--thumb-border';
+const VAR_THUMB_SHADOW = '--thumb-shadow';
+const VAR_TRACK_BACKGROUND_COLOR = '--track-bg';
+const VAR_TRACK_FOREGROUND_COLOR = '--track-fg';
+const VAR_TRACK_FOREGROUND_WIDTH = '--track-fg-width';
 
-// Range input styles
-const chromeRangeInputStyle = (tokens: ThemeTokens) => {
-  return `
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    margin-top: -${(sliderThumbSize - sliderLineThickness) / 2}px;
-    ${sliderThumbStyle(tokens)};
-  }
+const sliderThumbStyles = {
+  boxSizing: 'border-box',
+  width: theme.thumb.size,
+  height: theme.thumb.size,
+  background: theme.thumb.background,
+  border: `${theme.thumb.borderWidth}px solid var(${VAR_THUMB_BORDER_COLOR})`,
+  borderRadius: '50%',
+  boxShadow: `var(${VAR_THUMB_SHADOW})`,
+  cursor: 'pointer', // Different implicit behavior across browsers -> making it explicit
+  transition: `border-color ${theme.transitionDuration} ease-in-out`,
+} as const;
 
-  &:focus::-webkit-slider-thumb {
-    border-color: ${tokens.thumb.focus.border};
-  }
-
-  &:disabled::-webkit-slider-thumb {
-    cursor: not-allowed;
-    box-shadow: ${tokens.thumb.disabled.boxShadow};
-  }
-
-  &::-webkit-slider-runnable-track {
-    ${sliderTrackStyle};
-    ${getBackgroundGradient(tokens.track.default)};
-  }
-
-  &:focus::-webkit-slider-runnable-track {
-    ${getBackgroundGradient(tokens.track.default)};
-  }
-
-  &:active::-webkit-slider-runnable-track,
-  &:hover::-webkit-slider-runnable-track {
-    ${getBackgroundGradient(tokens.track.hover)};
-  }
-
-  &:disabled::-webkit-slider-runnable-track {
-    ${getBackgroundGradient(tokens.track.disabled)}
-    cursor: not-allowed;
-  }
-  `;
-};
-
-const firefoxRangeInputStyle = (tokens: ThemeTokens) => {
-  return `
-  &::-moz-focus-outer {
-    border: 0;
-  }
-
-  &::-moz-range-thumb {
-    ${sliderThumbStyle(tokens)};
-  }
-
-  &:focus::-moz-range-thumb {
-    border-color: ${tokens.thumb.focus.border};
-  }
-
-  &:disabled::-moz-range-thumb {
-    cursor: not-allowed;
-    box-shadow: ${tokens.thumb.disabled.boxShadow};
-  }
-
-  &::-moz-range-progress {
-    ${sliderTrackStyle};
-    background: ${tokens.track.default.lower};
-  }
-
-  &::-moz-range-track {
-    ${sliderTrackStyle};
-    background: ${tokens.track.default.upper};
-  }
-
-  &:active::-moz-range-progress,
-  &:hover::-moz-range-progress {
-    background: ${tokens.track.hover.lower};
-  }
-
-  &:active::-moz-range-track,
-  &:hover::-moz-range-track {
-    background: ${tokens.track.hover.upper};
-  }
-
-  &:disabled::-moz-range-progress {
-    background: ${tokens.track.disabled.lower};
-    cursor: not-allowed;
-  }
-
-  &:disabled::-moz-range-track {
-    background: ${tokens.track.disabled.upper};
-    cursor: not-allowed;
-  }
-`;
-};
-
-const IERangeInputStyle = (tokens: ThemeTokens) => {
-  return `
-  &::-ms-thumb {
-    margin-top: 0;
-    ${sliderThumbStyle(tokens)};
-  }
-
-  &:focus::-ms-thumb {
-    border-color: ${tokens.thumb.focus.border};
-  }
-
-  &:disabled::-ms-thumb {
-    cursor: not-allowed;
-    box-shadow: ${tokens.thumb.disabled.boxShadow};
-  }
-
-  &::-ms-track {
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-    cursor: pointer;
-    height: ${sliderLineThickness}px;
-    transition: background-color ${transitionDuration} ease-in-out;
-    width: 100%;
-  }
-
-  &::-ms-fill-lower {
-    background: ${tokens.track.default.lower};
-    border-radius: ${sliderBorderRadius}px;
-    border: 0;
-  }
-
-  &::-ms-fill-upper {
-    background: ${tokens.track.default.upper};
-    border-radius: ${sliderBorderRadius}px;
-    border: 0;
-  }
-
-  &:active::-ms-fill-lower,
-  &:hover::-ms-fill-lower {
-    background: ${tokens.track.hover.lower};
-  }
-
-  &:active::-ms-fill-upper,
-  &:hover::-ms-fill-upper {
-    background: ${tokens.track.hover.upper};
-  }
-
-  &:disabled::-ms-fill-lower {
-    background: ${tokens.track.disabled.lower};
-    cursor: not-allowed;
-  }
-
-  &:disabled::-ms-fill-upper {
-    background: ${tokens.track.disabled.upper};
-    cursor: not-allowed;
-  }
-`;
-};
+const sliderTrackStyles = {
+  borderRadius: theme.track.borderRadius,
+  border: 0,
+  cursor: 'pointer',
+  height: theme.track.height,
+  width: '100%',
+  transition: `background-color ${theme.transitionDuration} ease-in-out`,
+} as const;
 
 // Styles are split per browser as they are implemented differently
 // Cannot consolidate as Chrome & Firefox don't recognise styles if they are grouped
 // with CSS selectors they don't recognise, e.g. &::-ms-thumb
-export const rangeInputStyle = (tokens: ThemeTokens) => {
-  return css`
-    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-    background: transparent; /* Otherwise white in Chrome */
-    height: ${overallHeight}px; /* Otherwise thumb will collide with previous box element */
-    padding: 0; /* IE11 includes padding, this normalises it */
-    width: 100%; /* Specific width is required for Firefox. */
-
-    &:focus {
-      outline: none;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-    }
-
-    ${chromeRangeInputStyle(tokens)}
-    ${firefoxRangeInputStyle(tokens)}
-    ${IERangeInputStyle(tokens)};
-
-    font-family: ${fontFamily()};
-
-    background-position: right;
-  `;
+const browserStyles = {
+  webkit: css({
+    WebkitAppearance: 'none', // Hides the slider so that custom slider can be made
+    '::-webkit-slider-thumb': {
+      ...sliderThumbStyles,
+      marginTop: -(theme.thumb.size - theme.track.height) / 2,
+      WebkitAppearance: 'none',
+    },
+    '::-webkit-slider-runnable-track': {
+      ...sliderTrackStyles,
+      /**
+       * Webkit does not have separate properties for the background/foreground like firefox.
+       * Instead we use background layering:
+       * - The gray background is a simple background color.
+       * - The blue foreground is a 'gradient' (to create a color block) that is sized to the progress.
+       *
+       * Individual properties have been used over the `background` shorthand for readability.
+       */
+      backgroundColor: `var(${VAR_TRACK_BACKGROUND_COLOR})`,
+      backgroundImage: `linear-gradient(var(${VAR_TRACK_FOREGROUND_COLOR}), var(${VAR_TRACK_FOREGROUND_COLOR}))`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: `var(${VAR_TRACK_FOREGROUND_WIDTH}) 100%`,
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      '[dir="rtl"] &': {
+        backgroundPosition: 'right',
+      },
+    },
+    ':disabled': {
+      '::-webkit-slider-thumb, ::-webkit-slider-runnable-track': {
+        cursor: 'not-allowed',
+      },
+    },
+  }),
+  firefox: css({
+    '::-moz-range-thumb': sliderThumbStyles,
+    '::-moz-focus-outer': {
+      border: 0,
+    },
+    '::-moz-range-progress': {
+      ...sliderTrackStyles,
+      background: `var(${VAR_TRACK_FOREGROUND_COLOR})`,
+    },
+    '::-moz-range-track': {
+      ...sliderTrackStyles,
+      background: `var(${VAR_TRACK_BACKGROUND_COLOR})`,
+    },
+    ':disabled': {
+      '::-moz-range-thumb, ::-moz-range-progress, ::-moz-range-track': {
+        cursor: 'not-allowed',
+      },
+    },
+  }),
 };
+
+const baseStyles = css({
+  width: '100%', // Has a fixed width by default
+  height: theme.input.height, // Otherwise thumb will collide with previous box element
+  background: 'transparent', // Otherwise white
+  ':focus': {
+    outline: 'none',
+  },
+  ':disabled': {
+    cursor: 'not-allowed',
+  },
+});
+
+const themeStyles = css({
+  [VAR_THUMB_BORDER_COLOR]: theme.thumb.borderColor.default,
+  [VAR_THUMB_SHADOW]: theme.thumb.boxShadow.default,
+  [VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.default,
+  [VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.default,
+  ':active, :hover': {
+    [VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.hovered,
+    [VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.hovered,
+  },
+  ':focus': {
+    [VAR_THUMB_BORDER_COLOR]: theme.thumb.borderColor.focused,
+  },
+  ':disabled': {
+    [VAR_THUMB_SHADOW]: theme.thumb.boxShadow.disabled,
+    [VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.disabled,
+    [VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.disabled,
+  },
+});
 
 export const Input = forwardRef(
   (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
-    const { valuePercent, thumb, track, style, ...strippedProps } = props;
+    const { valuePercent, style, ...strippedProps } = props;
 
-    // Note: emotion will cache unique outputs as their own this
-    // We are memoizing the creation of this string
-    const styles = useMemo(() => rangeInputStyle({ track, thumb }), [
-      thumb,
-      track,
-    ]);
-
-    // We are creating a css variable to control the "progress" portion of the range input
-    // This avoids us needing to create a new css class for each new percentage value
     return (
       <input
         {...strippedProps}
-        style={{ '--range-inline-width': `${valuePercent}%` } as CSSProperties}
+        style={
+          {
+            // We are creating a css variable to control the "progress" portion of the range input
+            // This avoids us needing to create a new css class for each new percentage value
+            [VAR_TRACK_FOREGROUND_WIDTH]: `${valuePercent}%`,
+          } as CSSProperties
+        }
         ref={ref}
-        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-        css={styles}
+        css={[
+          baseStyles,
+          browserStyles.webkit,
+          browserStyles.firefox,
+          themeStyles,
+        ]}
       />
     );
   },

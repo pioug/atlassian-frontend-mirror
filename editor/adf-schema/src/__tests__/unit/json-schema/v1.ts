@@ -1,6 +1,6 @@
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 
-import { readFilesSync } from '../../../../test-helpers';
+import { readFilesSync } from '@atlaskit/editor-test-helpers/adf-schema';
 import { name } from '../../../version.json';
 import v1SchemaFull from '../../../../json-schema/v1/full.json';
 import v1SchemaStage0 from '../../../../json-schema/v1/stage-0.json';

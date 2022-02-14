@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { R300, N60 } from '@atlaskit/theme/colors';
 
 export interface MutedIndicatorProps {
@@ -193,7 +193,8 @@ export const CurrentTimeTooltip = styled.div`
   word-break: keep-all;
 `;
 
-export const TimeRangeWrapper = styled.div`
+export const TimeRangeWrapper = styled.div(
+  ({ showAsActive }: WithAsActiveProps) => `
   display: flex;
   align-items: center;
   height: 22px;
@@ -213,14 +214,13 @@ export const TimeRangeWrapper = styled.div`
 
   ${TimeLine} {
     transition-delay: 1s;
-    ${({ showAsActive }: WithAsActiveProps) =>
-      showAsActive ? 'height: 4px;' : ''}
+    ${showAsActive ? 'height: 4px;' : ''}
   }
   ${Thumb} {
-    ${({ showAsActive }: WithAsActiveProps) =>
-      showAsActive ? 'transform: translate(7px, -50%) scale(1);' : ''}
+    ${showAsActive ? 'transform: translate(7px, -50%) scale(1);' : ''}
   }
-`;
+`,
+);
 
 export const SpinnerWrapper = styled.div`
   position: absolute;

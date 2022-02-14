@@ -43,6 +43,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       <MenuSection
         {...props}
         ref={ref}
+        // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
         overrides={{ HeadingItem: { cssFn: sectionHeaderStyle } }}
       />
     );

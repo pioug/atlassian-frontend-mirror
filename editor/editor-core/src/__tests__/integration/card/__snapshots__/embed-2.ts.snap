@@ -16,6 +16,7 @@ Object {
               "name": "https://product-fabric.atlassian.net/wiki/spaces/E/overview",
               "url": "https://product-fabric.atlassian.net/wiki/spaces/E/overview",
             },
+            "localId": "abc-123",
             "url": null,
           },
           "type": "inlineCard",

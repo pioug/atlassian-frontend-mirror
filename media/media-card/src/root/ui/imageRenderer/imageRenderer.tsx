@@ -2,23 +2,22 @@ import React, { useEffect } from 'react';
 import { MediaType, ImageResizeMode } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import { resizeModeToMediaImageProps } from '../../../utils/resizeModeToMediaImageProps';
+import { CardPreview } from '../../..';
 
 export type ImageRendererProps = {
-  readonly dataURI: string;
+  readonly cardPreview: CardPreview;
   readonly mediaType: MediaType;
-  readonly previewOrientation?: number;
   readonly alt?: string;
   readonly resizeMode?: ImageResizeMode;
   readonly onDisplayImage?: () => void;
-  readonly onImageError?: () => void;
-  readonly onImageLoad?: () => void;
+  readonly onImageError?: (cardPreview: CardPreview) => void;
+  readonly onImageLoad?: (cardPreview: CardPreview) => void;
   readonly nativeLazyLoad?: boolean;
   readonly forceSyncDisplay?: boolean;
 };
 
 export const ImageRenderer: React.FC<ImageRendererProps> = ({
-  dataURI,
-  previewOrientation,
+  cardPreview,
   alt,
   resizeMode,
   onImageLoad,
@@ -35,13 +34,21 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({
     }
   }, [mediaType, onDisplayImage]);
 
+  const onLoad = () => {
+    onImageLoad && onImageLoad(cardPreview);
+  };
+
+  const onError = () => {
+    onImageError && onImageError(cardPreview);
+  };
+
   return (
     <MediaImage
-      dataURI={dataURI}
+      dataURI={cardPreview.dataURI}
       alt={alt}
-      previewOrientation={previewOrientation}
-      onImageLoad={onImageLoad}
-      onImageError={onImageError}
+      previewOrientation={cardPreview.orientation}
+      onImageLoad={onLoad}
+      onImageError={onError}
       loading={nativeLazyLoad ? 'lazy' : undefined}
       forceSyncDisplay={forceSyncDisplay}
       {...resizeModeToMediaImageProps(resizeMode)}

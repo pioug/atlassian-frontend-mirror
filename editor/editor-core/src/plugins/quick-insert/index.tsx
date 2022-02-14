@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlShape } from 'react-intl-next';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import memoizeOne from 'memoize-one';
 import {
   QuickInsertItem,
@@ -148,7 +148,7 @@ function quickInsertPluginFactory(
   dispatch: Dispatch,
   emptyStateHandler?: EmptyStateHandler,
 ) {
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init(): QuickInsertPluginState {

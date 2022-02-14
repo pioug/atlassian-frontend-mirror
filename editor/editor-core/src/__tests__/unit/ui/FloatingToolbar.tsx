@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { Popup } from '@atlaskit/editor-common/ui';
 import FloatingToolbar from '../../../ui/FloatingToolbar';
 import { Container } from '../../../ui/FloatingToolbar/styles';
@@ -52,7 +53,7 @@ describe('FloatingToolbar', () => {
 
 describe('Renders custom UI on toolbar', () => {
   it('should render a custom react component', () => {
-    const wrapper = mount(
+    const wrapper = mountWithIntl(
       <Toolbar
         items={items}
         dispatchCommand={() => {}}

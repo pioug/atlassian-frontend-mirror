@@ -24,6 +24,7 @@ const highlightGroupStyles = css({
 
 export const HighlightGroup: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   props,
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <div {...props} css={highlightGroupStyles} />;
 
 interface HighlightProps {
@@ -88,5 +89,6 @@ const codeStyles = css({
 });
 
 export const Code: React.FC<React.HTMLAttributes<HTMLElement>> = (props) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <code {...props} css={codeStyles} />
 );

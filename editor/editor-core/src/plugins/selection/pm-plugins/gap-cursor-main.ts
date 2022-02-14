@@ -1,4 +1,5 @@
-import { EditorState, Plugin, NodeSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, NodeSelection } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { ResolvedPos } from 'prosemirror-model';
 import { findPositionOfNodeBefore } from 'prosemirror-utils';
@@ -19,7 +20,7 @@ import { deleteNode, setGapCursorAtPos } from '../gap-cursor/actions';
 import { Direction } from '../gap-cursor/direction';
 import { gapCursorPluginKey } from './gap-cursor-plugin-key';
 
-const plugin = new Plugin({
+const plugin = new SafePlugin({
   key: gapCursorPluginKey,
   state: {
     init: () => false,

@@ -1,5 +1,9 @@
 import { name } from '../../../../version.json';
-import { schema, toDOM, fromHTML } from '../../../../../test-helpers';
+import {
+  schema,
+  toDOM,
+  fromHTML,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 import { nestedExpand } from '../../../../../src';
 import { Schema, Node } from 'prosemirror-model';
 

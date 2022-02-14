@@ -6,6 +6,7 @@ import Icon from '../src/entry-points/base';
 
 function CanonicalGlyph(props: CustomGlyphProps) {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <svg width="24" height="24" viewBox="0 0 24 24" {...props}>
       <path
         fill="currentColor"
@@ -16,6 +17,7 @@ function CanonicalGlyph(props: CustomGlyphProps) {
 }
 
 function CanonicalIcon(props: GlyphProps) {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <Icon glyph={CanonicalGlyph} {...props} />;
 }
 

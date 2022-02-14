@@ -1,6 +1,7 @@
-import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -20,7 +21,7 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
     view.someProp('handleTextInput', (f) => f(view, $from.pos, $to.pos, text));
   }
 
-  function createEditorView(lol: DocBuilder, customInputRule: Plugin) {
+  function createEditorView(lol: DocBuilder, customInputRule: SafePlugin) {
     const editorState = createEditorState(lol, customInputRule);
 
     return new EditorView(editorViewElement, {

@@ -1,3 +1,4 @@
+import type { Plugin } from 'prosemirror-state';
 import { Transaction, EditorState, PluginKey } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
 import { defaultSchemaConfig, createSchema } from '@atlaskit/adf-schema';
@@ -128,7 +129,7 @@ describe('InstrumentedPlugin.prototype.apply', () => {
 
     const state = EditorState.create({
       doc: schema.nodes.doc.create(schema.nodes.paragraph.create()),
-      plugins: [plugin],
+      plugins: [plugin as Plugin],
     });
 
     state.apply(state.tr);

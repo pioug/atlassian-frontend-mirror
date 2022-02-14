@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Media-link-transofmrm should move the link mark from mediaSingle to media 1`] = `
+Object {
+  "isTransformed": true,
+  "transformedAdf": Object {
+    "content": Array [
+      Object {
+        "attrs": Object {
+          "layout": "center",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "collection": "MediaServicesSample",
+              "height": 60,
+              "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+              "type": "file",
+              "width": 184,
+            },
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "href": "https://www.gnu.org",
+                },
+                "type": "link",
+              },
+            ],
+            "type": "media",
+          },
+        ],
+        "type": "mediaSingle",
+      },
+      Object {
+        "attrs": Object {
+          "layout": "center",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "collection": "MediaServicesSample",
+              "height": 60,
+              "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+              "type": "file",
+              "width": 184,
+            },
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "href": "https://www.google.com/",
+                },
+                "type": "link",
+              },
+            ],
+            "type": "media",
+          },
+        ],
+        "type": "mediaSingle",
+      },
+      Object {
+        "attrs": Object {
+          "layout": "center",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "collection": "MediaServicesSample",
+              "height": 60,
+              "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+              "type": "file",
+              "width": 184,
+            },
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "href": "https://www.gnu.org",
+                },
+                "type": "link",
+              },
+            ],
+            "type": "media",
+          },
+        ],
+        "marks": Array [
+          Object {
+            "type": "unsupportedBlock",
+          },
+        ],
+        "type": "mediaSingle",
+      },
+      Object {
+        "attrs": Object {
+          "layout": "center",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "collection": "MediaServicesSample",
+              "height": 60,
+              "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+              "type": "file",
+              "width": 184,
+            },
+            "type": "media",
+          },
+        ],
+        "marks": Array [
+          Object {
+            "type": "unsupportedBlock",
+          },
+        ],
+        "type": "mediaSingle",
+      },
+      Object {
+        "attrs": Object {
+          "layout": "center",
+        },
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "collection": "MediaServicesSample",
+              "height": 60,
+              "id": "0e1a2d1d-9300-4658-af9c-bd77a699401d",
+              "type": "file",
+              "width": 184,
+            },
+            "type": "media",
+          },
+        ],
+        "type": "mediaSingle",
+      },
+      Object {
+        "attrs": Object {
+          "layout": "center",
+        },
+        "content": Array [
+          Object {
+            "type": "unsupportedBlock",
+          },
+        ],
+        "type": "mediaSingle",
+      },
+      Object {
+        "content": Array [],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+}
+`;

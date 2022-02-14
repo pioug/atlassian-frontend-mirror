@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import React, { ErrorInfo } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -10,13 +12,12 @@ import TableTree, {
 } from '@atlaskit/table-tree';
 import { Provider, Card, CardAppearance, CardContext } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
-import styled from 'styled-components';
 import { IntlProvider } from 'react-intl-next';
 import { ufologger } from '@atlaskit/ufo';
 
 ufologger.enable();
 
-const PatchedCell = styled(Cell)`
+const patchedCellStyles = css`
   & > span {
     width: 100%;
   }
@@ -66,7 +67,7 @@ type ExampleState = {
   authFlow: CardContext['config']['authFlow'];
 };
 
-const DivWithMargin = styled.div`
+const divWithMarginStyles = css`
   margin: 10px 0;
 `;
 
@@ -196,13 +197,13 @@ class Example extends React.Component<{}, ExampleState> {
               hasChildren={children && children.length > 0}
             >
               <Cell singleLine>{title}</Cell>
-              <PatchedCell>
+              <Cell css={patchedCellStyles}>
                 {!example ? (
                   ''
                 ) : (
                   <Card url={example.url} appearance={appearanceMode} />
                 )}
-              </PatchedCell>
+              </Cell>
             </Row>
           )}
         />
@@ -291,7 +292,7 @@ class Example extends React.Component<{}, ExampleState> {
     return (
       <IntlProvider locale="en">
         <Provider client={new SmartCardClient(environment)} authFlow={authFlow}>
-          <DivWithMargin>
+          <div css={divWithMarginStyles}>
             {this.renderButtons(
               groupingMode,
               appearanceMode,
@@ -299,7 +300,7 @@ class Example extends React.Component<{}, ExampleState> {
               authFlow,
             )}
             {this.renderGroups(groupingMode, appearanceMode)}
-          </DivWithMargin>
+          </div>
         </Provider>
       </IntlProvider>
     );

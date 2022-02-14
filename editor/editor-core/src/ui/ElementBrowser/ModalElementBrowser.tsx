@@ -101,9 +101,8 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
       <ModalTransition>
         {props.isOpen && (
           <Modal
-            stackIndex={
-              1 /** setting stackIndex 1 disables focus control in the modal dialog which was causing conflicts with insertion methods from prosemirror */
-            }
+            testId="element-browser-modal-dialog"
+            stackIndex={0}
             key="element-browser-modal"
             onClose={props.onClose}
             height="664px"

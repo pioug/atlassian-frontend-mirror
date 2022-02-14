@@ -1,4 +1,5 @@
-import { Plugin, NodeSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { NodeSelection } from 'prosemirror-state';
 import { EditorView, EditorProps as PMEditorProps } from 'prosemirror-view';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
@@ -53,7 +54,7 @@ export const createPlugin = ({
     };
   }
 
-  return new Plugin({
+  return new SafePlugin({
     state: {
       init(_, state): CodeBlockState {
         const node = findCodeBlock(state, state.selection);

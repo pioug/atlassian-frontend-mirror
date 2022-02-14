@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { ReplaceStep } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
@@ -8,7 +8,7 @@ interface DetailedReplaceStep extends ReplaceStep {
   slice: Slice;
 }
 
-export const isTextInput = (tr: Transaction): boolean => {
+export const isTextInput = (tr: Transaction | ReadonlyTransaction): boolean => {
   const [step] = tr.steps;
   if (!step || !(step instanceof ReplaceStep)) {
     return false;

@@ -1,5 +1,64 @@
 # @atlaskit/adf-schema
 
+## 22.0.0
+
+### Major Changes
+
+- [`439cf07029a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/439cf07029a) - ED-13881 Move @atlaskit/adf-schema test helpers to @atlaskit/editor-test-helpers
+
+  A new entry point for @atlaskit/editor-test-helpers/adf-schema has been
+  introduced. All test helpers that previously lived under @atlaskit/adf-schema
+  have been moved there instead.
+
+  Imports inside @atlaskit/adf-schema that previously relied on relative paths, or
+  imports from other packages that referred to @atlaskit/adf-schema/test-helpers,
+  should be updated to reference @atlaskit/editor-test-helpers/adf-schema instead.
+
+  Old usages:
+
+  ```
+  import { schema } from '../relative/path/to/test-helpers';
+  import { schema } from '@atlaskit/adf-schema/test-helpers';
+  ```
+
+  New usage:
+
+  ```
+  import { schema } from '@atlaskit/editor-test-helpers/adf-schema';
+  ```
+
+- [`a86ac5fa763`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a86ac5fa763) - ED-13881 Migrate @atlaskit/adf-schema to declarative entry points
+
+  We are now explicitly declaring entry points as public API. Since some consumers
+  may have previously relied on file-based entry points for the generated JSON
+  schema outputs, this is considered a breaking change.
+
+  Old usage:
+
+  ```
+  import * as fullSchema from '@atlaskit/adf-schema/json-schema/v1/full.json';
+  import * as stageZeroSchema from '@atlaskit/adf-schema/json-schema/v1/stage-0.json';
+  ```
+
+  New usage:
+
+  ```
+  import { fullSchema } from '@atlaskit/adf-schema/json-schema';
+  import { stageZeroSchema } from '@atlaskit/adf-schema/json-schema';
+  ```
+
+- [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`3b49ff824ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b49ff824ec) - ED-14043 update prosemirror schema to only allow link mark on children of paragraph and mediaSingle
+
+### Minor Changes
+
+- [`e9aea0f4191`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9aea0f4191) - CETI-243 Handling Duplicate Emoji Issue When Copying From Renderer
+
+### Patch Changes
+
+- [`7f8be1a6a30`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f8be1a6a30) - clean stage0 artefacts from dataConsumer mark
+- [`783bda0d683`](https://bitbucket.org/atlassian/atlassian-frontend/commits/783bda0d683) - Extra information added to analytics for toolbar change view options
+
 ## 21.0.0
 
 ### Major Changes

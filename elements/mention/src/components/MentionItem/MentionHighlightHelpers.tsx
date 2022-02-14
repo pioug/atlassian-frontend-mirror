@@ -1,10 +1,5 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { HighlightDetail } from '../../types';
-
-export type ReactComponentConstructor = new (props: any) => React.Component<
-  any,
-  any
->;
 
 interface Part {
   value: string;
@@ -12,7 +7,7 @@ interface Part {
 }
 
 export function renderHighlight(
-  ReactComponent: ReactComponentConstructor,
+  ReactComponent: ComponentType<any>,
   value?: string,
   highlights?: HighlightDetail[],
   prefix?: string,

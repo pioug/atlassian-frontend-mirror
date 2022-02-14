@@ -37,6 +37,8 @@ export interface AvatarPickerDialogProps {
   isLoading?: boolean;
   /** This property decribe the text related to the Avatar. */
   predefinedAvatarsText?: string;
+  /** The target width/height of the resulting (square) avatar. Leave blank for default (200x200) */
+  outputSize?: number;
 }
 
 export interface AvatarPickerDialogState {

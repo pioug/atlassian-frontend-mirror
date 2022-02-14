@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
 import { ChangeEvent, useCallback, useState } from 'react';
 

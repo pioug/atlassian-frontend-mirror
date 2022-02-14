@@ -4,6 +4,8 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { B400, B300, B200 } from '@atlaskit/theme/colors';
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { hexToRgba } from '@atlaskit/adf-schema';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { dropPlaceholderMessages } from './drop-placeholder-messages';
 
 import { MEDIA_HEIGHT, FILE_WIDTH } from '../../nodeviews/mediaNodeView/media';
 
@@ -32,11 +34,21 @@ export interface Props {
   type: PlaceholderType;
 }
 
-export default ({ type = 'group' }: Props) =>
-  type === 'single' ? (
-    <DropLine />
-  ) : (
+const IconWrapperComponent = (props: WrappedComponentProps) => {
+  const { intl } = props;
+  const { dropPlaceholderLabel } = dropPlaceholderMessages;
+
+  return (
     <IconWrapper>
-      <DocumentFilledIcon label="Document" size="medium" />
+      <DocumentFilledIcon
+        label={intl.formatMessage(dropPlaceholderLabel)}
+        size="medium"
+      />
     </IconWrapper>
   );
+};
+
+const IntlIconWrapper = injectIntl(IconWrapperComponent);
+
+export default ({ type = 'group' }: Props) =>
+  type === 'single' ? <DropLine /> : <IntlIconWrapper />;

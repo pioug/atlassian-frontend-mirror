@@ -1,12 +1,12 @@
 import { fragment } from '@atlaskit/adf-schema';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { pluginKey } from './plugin-key';
 import { createPlugin as createFragmentMarkConsistencyPlugin } from './pm-plugins/fragment-consistency';
 import { EditorPlugin } from '../../types';
 
-export function createPlugin(): Plugin {
-  return new Plugin({
+export function createPlugin(): SafePlugin {
+  return new SafePlugin({
     key: pluginKey,
   });
 }

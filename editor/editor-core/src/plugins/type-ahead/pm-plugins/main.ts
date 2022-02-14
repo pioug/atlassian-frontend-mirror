@@ -1,4 +1,5 @@
-import { EditorState, Transaction, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import { IntlShape } from 'react-intl-next';
@@ -18,14 +19,18 @@ import { createReducer } from './reducer';
 import { factoryDecorations } from './decorations';
 import { isInsertionTransaction } from './utils';
 
-const hasTypeAheadStep = (tr: Transaction): InsertTypeAheadStep | null => {
-  const step = tr.steps.find((step) => step instanceof InsertTypeAheadStep);
+const hasValidTypeAheadStep = (
+  tr: ReadonlyTransaction,
+): InsertTypeAheadStep | null => {
+  const steps = tr.steps.filter((step) => step instanceof InsertTypeAheadStep);
 
-  if (!step) {
-    return null;
+  // There are some cases, like collab rebase, where the steps are re-applied
+  // We should not re open the type-ahead for those cases
+  if (steps.length === 1) {
+    return steps[0] as InsertTypeAheadStep;
   }
 
-  return step as InsertTypeAheadStep;
+  return null;
 };
 
 type Props = {
@@ -41,7 +46,7 @@ export function createPlugin({
   createAnalyticsEvent,
   typeAheadHandlers,
   getIntl,
-}: Props): Plugin {
+}: Props): SafePlugin {
   const intl = getIntl();
   const { createDecorations, removeDecorations } = factoryDecorations({
     intl,
@@ -54,7 +59,7 @@ export function createPlugin({
     typeAheadHandlers,
     popupMountRef,
   });
-  return new Plugin<TypeAheadPluginState>({
+  return new SafePlugin<TypeAheadPluginState>({
     key: pluginKey,
 
     state: {
@@ -72,7 +77,7 @@ export function createPlugin({
       },
 
       apply(tr, currentPluginState, oldEditorState, state) {
-        const customStep = hasTypeAheadStep(tr);
+        const customStep = hasValidTypeAheadStep(tr);
 
         const nextPluginState = reducer(tr, currentPluginState, customStep);
 

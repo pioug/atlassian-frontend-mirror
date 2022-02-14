@@ -2,64 +2,72 @@
 import React, { useMemo } from 'react';
 
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import { css, jsx } from '@emotion/core';
+import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import { IconProps } from './types';
-import { IconType, SmartLinkSize } from '../../../../../constants';
-import AtlaskitIcon from './atlaskit-icon';
-import ImageIcon from './image-icon';
+import {
+  IconType,
+  SmartLinkPosition,
+  SmartLinkSize,
+} from '../../../../../constants';
+import AtlaskitIcon from '../../common/atlaskit-icon';
+import ImageIcon from '../../common/image-icon';
+import { getIconSizeStyles, getTruncateStyles } from '../../utils';
 
-const getDimensionStyles = (value: string) => ({
-  maxHeight: value,
-  maxWidth: value,
-  minHeight: value,
-  minWidth: value,
-  height: value,
-  width: value,
-});
-
-const getSizeStyles = (size?: SmartLinkSize) => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return getDimensionStyles('1.75rem');
-    case SmartLinkSize.Large:
-      return getDimensionStyles('1.5rem');
-    case SmartLinkSize.Medium:
-      return getDimensionStyles('1rem');
-    case SmartLinkSize.Small:
+const getPositionStyles = (
+  size: SmartLinkSize,
+  position: SmartLinkPosition,
+): SerializedStyles => {
+  switch (position) {
+    case SmartLinkPosition.Center:
+      return css`
+        align-self: center;
+      `;
+    case SmartLinkPosition.Top:
     default:
-      return getDimensionStyles('.75rem');
+      return css`
+        align-self: flex-start;
+        margin: 0;
+      `;
   }
 };
 
-const getMargin = (size: SmartLinkSize) => {
+const getWidth = (size?: SmartLinkSize): string => {
   switch (size) {
     case SmartLinkSize.XLarge:
-      return '0.12em 0 0 0';
+      return '2rem';
     case SmartLinkSize.Large:
-      return '0';
+      return '1.5rem';
     case SmartLinkSize.Medium:
-      return '0';
+      return '1rem';
     case SmartLinkSize.Small:
     default:
-      return '-.05em 0 0 0';
+      return '.75rem';
   }
 };
 
-const getIconStyles = (size: SmartLinkSize) => {
-  const styles = getSizeStyles(size);
-  return css({
-    flex: '0 0 auto',
-    alignSelf: 'flex-start',
-    margin: getMargin(size),
-    ...styles,
-    '[class$="-Icon"],[class$="-Wrapper"]': {
-      ...styles,
-      '> svg': { ...styles, padding: 0 },
-    },
-    '& > img': styles,
-  });
-};
+const getIconStyles = (
+  size: SmartLinkSize,
+  position: SmartLinkPosition,
+  width: string,
+): SerializedStyles => css`
+  ${getPositionStyles(size, position)}
+  ${getIconSizeStyles(width)}
+`;
+
+const getCustomRenderStyles = (value: string): SerializedStyles => css`
+  ${getTruncateStyles(1, value)}
+  line-height: ${value};
+  font-size: ${value};
+  text-align: center;
+  text-overflow: clip;
+  -webkit-box-orient: unset;
+  span {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+  }
+`;
 
 const renderAtlaskitIcon = (
   icon?: IconType,
@@ -89,6 +97,8 @@ const renderImageIcon = (
 const Icon: React.FC<IconProps> = ({
   icon,
   label = 'Link',
+  position = SmartLinkPosition.Top,
+  render,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-icon',
   url,
@@ -96,14 +106,24 @@ const Icon: React.FC<IconProps> = ({
   const element = useMemo(() => {
     const defaultIcon = renderDefaultIcon(label, testId);
     return (
+      render?.() ||
       renderImageIcon(defaultIcon, icon, url, testId) ||
       renderAtlaskitIcon(icon, label, testId) ||
       defaultIcon
     );
-  }, [icon, label, testId, url]);
-  const styles = getIconStyles(size);
+  }, [icon, label, render, testId, url]);
+
+  const width = getWidth(size);
+  const styles = getIconStyles(size, position, width);
+  const renderStyles = render ? getCustomRenderStyles(width) : undefined;
+
   return (
-    <div css={styles} data-smart-element-icon data-testid={testId}>
+    <div
+      css={[styles, renderStyles]}
+      data-fit-to-content
+      data-smart-element-icon
+      data-testid={testId}
+    >
       {element}
     </div>
   );

@@ -88,6 +88,7 @@ export interface CustomMediaPlayerProps
   readonly onFirstPlay?: () => void;
   readonly originalDimensions?: NumericalCardDimensions;
   readonly featureFlags?: MediaFeatureFlags;
+  readonly poster?: string;
 }
 
 export interface CustomMediaPlayerState extends WithMediaPlayerState {}
@@ -103,7 +104,7 @@ export class CustomMediaPlayerBase extends Component<
   CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
   CustomMediaPlayerState
 > {
-  videoWrapperRef?: HTMLElement;
+  videoWrapperRef = React.createRef<HTMLDivElement>();
   private actions?: VideoActions;
   private videoState: Partial<VideoState> = {
     isLoading: true,
@@ -153,8 +154,8 @@ export class CustomMediaPlayerBase extends Component<
       createAnalyticsEvent,
     );
 
-    if (this.videoWrapperRef) {
-      this.videoWrapperRef.addEventListener(
+    if (this.videoWrapperRef.current) {
+      this.videoWrapperRef.current.addEventListener(
         'fullscreenchange',
         this.onFullScreenChange,
       );
@@ -188,8 +189,8 @@ export class CustomMediaPlayerBase extends Component<
   }
 
   componentWillUnmount() {
-    if (this.videoWrapperRef) {
-      this.videoWrapperRef.removeEventListener(
+    if (this.videoWrapperRef.current) {
+      this.videoWrapperRef.current.removeEventListener(
         'fullscreenchange',
         this.onFullScreenChange,
       );
@@ -198,7 +199,7 @@ export class CustomMediaPlayerBase extends Component<
   }
 
   private onFullScreenChange = (e: Event) => {
-    if (e.target !== this.videoWrapperRef) {
+    if (e.target !== this.videoWrapperRef.current) {
       return;
     }
     const { isFullScreenEnabled: currentFullScreenMode } = this.state;
@@ -323,7 +324,9 @@ export class CustomMediaPlayerBase extends Component<
     </VolumeWrapper>
   );
 
-  private toggleFullscreen = () => toggleFullscreen(this.videoWrapperRef);
+  private toggleFullscreen = () =>
+    this.videoWrapperRef.current &&
+    toggleFullscreen(this.videoWrapperRef.current);
 
   private onFullScreenButtonClick = () => {
     this.toggleFullscreen();
@@ -345,9 +348,6 @@ export class CustomMediaPlayerBase extends Component<
       });
     }
   };
-
-  private saveVideoWrapperRef = (el?: HTMLElement) =>
-    (this.videoWrapperRef = el);
 
   private renderFullScreenButton = () => {
     const {
@@ -725,11 +725,11 @@ export class CustomMediaPlayerBase extends Component<
   );
 
   render() {
-    const { type, src, isAutoPlay, onCanPlay, onError } = this.props;
+    const { type, src, isAutoPlay, onCanPlay, onError, poster } = this.props;
 
     return (
       <CustomVideoWrapper
-        innerRef={this.saveVideoWrapperRef}
+        ref={this.videoWrapperRef}
         data-testid="custom-media-player"
       >
         <MediaPlayer
@@ -740,6 +740,7 @@ export class CustomMediaPlayerBase extends Component<
           defaultTime={this.timeSaver.defaultTime}
           onTimeChange={this.onCurrentTimeChange}
           onError={onError}
+          poster={poster}
         >
           {(video, videoState, actions) => {
             this.onViewed(videoState);

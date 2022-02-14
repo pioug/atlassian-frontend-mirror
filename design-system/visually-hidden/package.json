@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/visually-hidden",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A composable element that hides elements from the screen while keeping them accessible.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,9 +9,10 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "continuous",
+    "inPublicMirror": true,
+    "releaseModel": "scheduled",
     "website": {
-      "name": "VisuallyHidden"
+      "name": "Visually hidden"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",

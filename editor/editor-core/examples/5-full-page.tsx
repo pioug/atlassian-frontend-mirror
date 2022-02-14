@@ -40,7 +40,7 @@ import {
 } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
 import Editor, { EditorProps, EditorAppearance } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
@@ -73,7 +73,6 @@ import {
   LOCALSTORAGE_defaultMode,
 } from '../example-helpers/example-constants';
 import { ReactRenderer } from '@atlaskit/renderer';
-import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import {
   isMediaMockOptedIn,
@@ -510,7 +509,11 @@ export class ExampleEditorComponent extends React.Component<
                   },
                 }}
                 {...this.props}
-                featureFlags={this.props.featureFlags}
+                featureFlags={{
+                  ...this.props.featureFlags,
+                  // Enabling to catch during dev by default
+                  'safer-dispatched-transactions': true,
+                }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}
                 trackValidTransactions={{ samplingRate: 100 }}
@@ -584,10 +587,7 @@ export class ExampleEditorComponent extends React.Component<
 
 export const ExampleEditor = ExampleEditorComponent;
 
-const MockProfileClient = getMockProfilecardClient(
-  ProfileClient,
-  modifyResponse,
-);
+const MockProfileClient: any = simpleMockProfilecardClient();
 
 const mentionProvider = Promise.resolve({
   shouldHighlightMention(mention: { id: string }) {
@@ -599,10 +599,7 @@ const emojiProvider = getEmojiProvider();
 
 const profilecardProvider = Promise.resolve({
   cloudId: 'DUMMY-CLOUDID',
-  resourceClient: new MockProfileClient({
-    cacheSize: 10,
-    cacheMaxAge: 5000,
-  }),
+  resourceClient: MockProfileClient,
   getActions: (id: string) => {
     const actions = [
       {
@@ -725,6 +722,8 @@ export function FullPageExample(props: EditorProps & ExampleProps) {
     stickyHeadersOptimization: true,
     tableOverflowShadowsOptimization: true,
     maxUnsafeChromeSpellcheckingVersion: 100,
+    plainTextPasteLinkification: true,
+    viewChangingExperimentToolbarStyle: 'toolbarIcons',
   };
 
   const featureFlags =

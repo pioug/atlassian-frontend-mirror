@@ -4,7 +4,7 @@ import CollapseIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 
 import { N200 } from '@atlaskit/theme/colors';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 
 import { ProviderCard } from './ProviderCard';
 import { ExampleUrl, ExampleUIConfig } from './types';

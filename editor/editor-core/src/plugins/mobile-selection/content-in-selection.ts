@@ -8,12 +8,12 @@ export const contentInSelection = ({
   nodeTypes: string[];
   markTypes: string[];
 } => {
-  const nodes = new Set<string>();
-  const marks = new Set<string>();
+  const nodes = new Array<string>();
+  const marks = new Array<string>();
 
   doc.nodesBetween(selection.from, selection.to, (node) => {
-    nodes.add(node.type.name);
-    node.marks.forEach((mark) => marks.add(mark.type.name));
+    nodes.push(node.type.name);
+    node.marks.forEach((mark) => marks.push(mark.type.name));
     return true;
   });
 

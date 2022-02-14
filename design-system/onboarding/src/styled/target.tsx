@@ -58,6 +58,7 @@ const Base: React.FC<BaseProps> = ({
         borderRadius: radius ? `${radius}px` : undefined,
       } as React.CSSProperties
     }
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
   >
     {children}
@@ -76,6 +77,7 @@ export const TargetInner: React.FC<TargetProps> = ({
   pulse,
   ...props
 }) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <Base {...props} css={[pulse && animationStyles]}>
     {children}
   </Base>
@@ -101,6 +103,7 @@ export const TargetOverlay: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
   props,
 ) => (
   <div
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
     css={targetOverlayStyles}
     style={
@@ -124,6 +127,7 @@ export const Pulse: React.FC<TargetProps> = ({
   testId,
   ...props
 }) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <Base {...props} css={[pulse && animationStyles]} testId={testId}>
     {children}
   </Base>

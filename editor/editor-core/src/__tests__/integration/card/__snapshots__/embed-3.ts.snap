@@ -9,6 +9,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "center",
+        "localId": "abc-123",
         "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",
@@ -28,6 +29,7 @@ Object {
     Object {
       "attrs": Object {
         "layout": "center",
+        "localId": "abc-123",
         "originalHeight": 282,
         "originalWidth": null,
         "url": "https://embedCardTestUrl",

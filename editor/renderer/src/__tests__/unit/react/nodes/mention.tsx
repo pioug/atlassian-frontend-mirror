@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import MentionNode from '../../../../react/nodes/mention';
 import { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';
@@ -9,7 +9,7 @@ const mentionHandler: MentionEventHandler = (_mentionId, _text, _event?) => {};
 
 describe('Renderer - React/Nodes/Mention', () => {
   it('should render UI mention component', () => {
-    const mention = mount(
+    const mention = mountWithIntl(
       <MentionNode id="abcd-abcd-abcd" text="@Oscar Wallhult" />,
     );
     expect(mention.find(Mention)).toHaveLength(1);
@@ -17,7 +17,7 @@ describe('Renderer - React/Nodes/Mention', () => {
   });
 
   it('should render with access level if prop exists', () => {
-    const mention = mount(
+    const mention = mountWithIntl(
       <MentionNode
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"
@@ -37,7 +37,7 @@ describe('Renderer - React/Nodes/Mention', () => {
       },
     };
 
-    const mention = mount(
+    const mention = mountWithIntl(
       <MentionNode
         id="abcd-abcd-abcd"
         text="@Oscar Wallhult"

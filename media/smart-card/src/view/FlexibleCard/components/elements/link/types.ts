@@ -3,7 +3,7 @@ import { SmartLinkTheme } from '../../../../../constants';
 
 export type LinkProps = ElementProps & {
   maxLines?: number;
-  text: string;
+  text?: string;
   theme?: SmartLinkTheme;
-  url: string;
+  url?: string;
 };

@@ -1,5 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -76,7 +76,7 @@ export function createEditor({
   });
   const state = EditorState.create({
     schema,
-    plugins: pmPlugins,
+    plugins: pmPlugins as Plugin[],
     doc: transformerInstance
       ? transformerInstance.parse(defaultValue)
       : processRawValue(schema, defaultValue),

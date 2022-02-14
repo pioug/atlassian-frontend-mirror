@@ -96,12 +96,14 @@ export class ExpandNodeView implements NodeView {
   pos: number;
   intl: IntlShape;
   allowInteractiveExpand: boolean = true;
+  isMobile: boolean = false;
 
   constructor(
     node: PmNode,
     view: EditorView,
     getPos: getPosHandlerNode,
     getIntl: () => IntlShape,
+    isMobile: boolean,
   ) {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
@@ -114,6 +116,7 @@ export class ExpandNodeView implements NodeView {
     this.node = node;
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
+    this.isMobile = isMobile;
     this.icon = this.dom.querySelector<HTMLElement>(
       `.${expandClassNames.icon}`,
     );
@@ -419,6 +422,16 @@ export class ExpandNodeView implements NodeView {
   ignoreMutation(
     mutationRecord: MutationRecord | { type: 'selection'; target: Element },
   ) {
+    // ME-1931: Mobile relies on composition which creates dom mutations. If we ignore them, prosemirror
+    // does not recognise the changes and reverts them.
+    if (
+      this.isMobile &&
+      (mutationRecord.type === 'characterData' ||
+        mutationRecord.type === 'childList')
+    ) {
+      return false;
+    }
+
     if (mutationRecord.type === 'selection') {
       return false;
     }
@@ -483,7 +496,19 @@ export class ExpandNodeView implements NodeView {
   }
 }
 
-export default function (getIntl: () => IntlShape) {
+export default function ({
+  getIntl,
+  isMobile,
+}: {
+  getIntl: () => IntlShape;
+  isMobile: boolean;
+}) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new ExpandNodeView(node, view, getPos as getPosHandlerNode, getIntl);
+    new ExpandNodeView(
+      node,
+      view,
+      getPos as getPosHandlerNode,
+      getIntl,
+      isMobile,
+    );
 }

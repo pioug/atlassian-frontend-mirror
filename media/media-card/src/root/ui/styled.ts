@@ -17,6 +17,7 @@ import {
 } from './playButton/styled';
 
 import { Breakpoint, responsiveSettings } from './common';
+import { MediaCardCursor } from '../../types';
 
 type BreakpointSize = [Breakpoint, number];
 
@@ -71,8 +72,7 @@ const getWrapperShadow = (disableOverlay: boolean, selected: boolean) => {
   return shadow ? `box-shadow: ${shadow};` : '';
 };
 
-const getCursorStyle = (shouldUsePointerCursor: boolean) =>
-  `cursor: ${shouldUsePointerCursor ? 'pointer' : 'default'};`;
+const getCursorStyle = (cursor: MediaCardCursor) => `cursor: ${cursor};`;
 
 const getClickablePlayButtonStyles = (isPlayButtonClickable: boolean) => {
   if (!isPlayButtonClickable) {
@@ -100,13 +100,13 @@ export interface NewFileExperienceWrapperProps {
   dimensions?: CardDimensions;
   appearance?: CardAppearance;
   mediaType?: string;
-  shouldUsePointerCursor: boolean;
   disableOverlay: boolean;
   displayBackground: boolean;
   selected: boolean;
   isPlayButtonClickable: boolean;
   isTickBoxSelectable: boolean;
   shouldDisplayTooltip: boolean;
+  mediaCardCursor: MediaCardCursor;
 }
 
 export const NewFileExperienceWrapper = styled.div`
@@ -114,13 +114,13 @@ export const NewFileExperienceWrapper = styled.div`
     breakpoint,
     dimensions,
     appearance,
-    shouldUsePointerCursor,
     disableOverlay,
     displayBackground,
     selected,
     isPlayButtonClickable,
     isTickBoxSelectable,
     shouldDisplayTooltip,
+    mediaCardCursor,
   }: NewFileExperienceWrapperProps) => `
     ${transition()}
     box-sizing: border-box;
@@ -132,7 +132,7 @@ export const NewFileExperienceWrapper = styled.div`
     ${getWrapperDimensions(dimensions, appearance)}
     ${displayBackground ? `background-color: ${N20};` : ''}
     ${borderRadius}
-    ${getCursorStyle(shouldUsePointerCursor)}
+    ${getCursorStyle(mediaCardCursor)}
     ${getWrapperShadow(disableOverlay, selected)}
     ${generateResponsiveStyles(breakpoint)}
     ${hideNativeBrowserTextSelectionStyles}

@@ -1,4 +1,5 @@
-import { PluginKey, Plugin } from 'prosemirror-state';
+import { PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 export const tableSafariDelayedDomSelectionSyncingWorkaroundKey = new PluginKey(
   'tableSafariDelayedDomSelectionSyncingWorkaround',
@@ -16,7 +17,7 @@ export const createPlugin = () => {
   // we manage this custom cleanup ourselves
   let prevMouseDownDone: null | (() => void) = null;
 
-  return new Plugin({
+  return new SafePlugin({
     key: tableSafariDelayedDomSelectionSyncingWorkaroundKey,
 
     props: {

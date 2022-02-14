@@ -146,8 +146,18 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
     const canDrag = (camera && zoomLevel.value > camera.scaleToFit) || false;
     // We use style attr instead of SC prop for perf reasons
     // @ts-ignore
-    const imgStyle: CSSProperties =
-      (camera && camera.scaledImg(zoomLevel.value)) || {};
+    const imgStyle: CSSProperties = (camera &&
+      camera.scaledImg(zoomLevel.value)) || { visibility: 'hidden' };
+    // When image loads it does two things at the same time 1) it renders itself in the browser 2) triggers onLoad
+    // visibility: 'hidden' is here to prevent image rendering on the screen (with 100%) before next
+    // react re-render when we have `camera` and can control it's zoom level.
+    // overflow: 'hidden' is here to prevent scroll going wild while image is rendered in visibility: 'hidden'
+    // We can't use display: none or not render image, because we do need `onLoad` to trigger and read it's dimensions
+    const wrapperStyleOverride: CSSProperties = camera
+      ? {}
+      : {
+          overflow: 'hidden',
+        };
     if (orientation) {
       imgStyle.transform = getCssFromImageOrientation(orientation);
     }
@@ -161,6 +171,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
         data-testid="media-viewer-image-content"
         onClick={this.onImageClicked}
         innerRef={this.saveWrapperRef}
+        style={wrapperStyleOverride}
       >
         <Img
           data-testid="media-viewer-image"
@@ -173,6 +184,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
           onMouseDown={this.startDragging}
           shouldPixelate={zoomLevel.value > 1}
         />
+
         {/*
           The BaselineExtend element is required to align the Img element in the
           vertical center of the page. It ensures that the parent container is

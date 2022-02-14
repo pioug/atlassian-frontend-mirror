@@ -48,9 +48,10 @@ type PastePayloadAttributes = {
   type: PasteType;
   content: PasteContent;
   source: PasteSource;
-
   /** Has the hyperlink been pasted while text is selected, making the text into a link? */
   hyperlinkPasteOnText: boolean;
+  /** How many links are in our pasted content? */
+  linksInPasteCount: number;
 };
 
 const contentToPasteContent: { [name: string]: PasteContent } = {
@@ -176,6 +177,7 @@ function getActionSubjectId(view: EditorView): PASTE_ACTION_SUBJECT_ID {
 function createPasteAsPlainPayload(
   actionSubjectId: PASTE_ACTION_SUBJECT_ID,
   text: string,
+  linksInPasteCount: number,
 ): AnalyticsEventPayload {
   return {
     action: ACTION.PASTED_AS_PLAIN,
@@ -185,6 +187,7 @@ function createPasteAsPlainPayload(
     attributes: {
       inputMethod: INPUT_METHOD.KEYBOARD,
       pasteSize: text.length,
+      linksInPasteCount,
     },
   };
 }
@@ -222,22 +225,6 @@ export function createPasteAnalyticsPayload(
 
   const actionSubjectId = getActionSubjectId(view);
 
-  if (pasteContext.asPlain) {
-    return createPasteAsPlainPayload(actionSubjectId, text);
-  }
-
-  const source = getPasteSource(event);
-
-  if (pasteContext.type === PasteTypes.plain) {
-    return createPastePayload(actionSubjectId, {
-      pasteSize: text.length,
-      type: pasteContext.type,
-      content: PasteContents.text,
-      source,
-      hyperlinkPasteOnText: false,
-    });
-  }
-
   const pasteSize = slice.size;
   const content = getContent(view.state, slice);
   const linkUrls: string[] = [];
@@ -254,6 +241,23 @@ export function createPasteAnalyticsPayload(
     });
   }
 
+  if (pasteContext.asPlain) {
+    return createPasteAsPlainPayload(actionSubjectId, text, linkUrls.length);
+  }
+
+  const source = getPasteSource(event);
+
+  if (pasteContext.type === PasteTypes.plain) {
+    return createPastePayload(actionSubjectId, {
+      pasteSize: text.length,
+      type: pasteContext.type,
+      content: PasteContents.text,
+      source,
+      hyperlinkPasteOnText: false,
+      linksInPasteCount: linkUrls.length,
+    });
+  }
+
   const linkDomains = linkUrls.map(getLinkDomain);
   return createPastePayload(
     actionSubjectId,
@@ -263,6 +267,7 @@ export function createPasteAnalyticsPayload(
       content,
       source,
       hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
+      linksInPasteCount: linkUrls.length,
     },
     linkDomains,
   );

@@ -1,6 +1,7 @@
+/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
 
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
 import { Checkbox } from '../src';
 
@@ -9,10 +10,10 @@ export default function MultilineLabelExample() {
     <Checkbox
       label={
         <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-          `}
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
           <span>This is spread over</span>
           <span>multiple lines</span>

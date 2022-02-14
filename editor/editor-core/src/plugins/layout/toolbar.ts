@@ -93,6 +93,7 @@ const buildLayoutButton = (
   title: intl.formatMessage(item.title),
   onClick: setPresetLayout(item.type),
   selected: !!currentLayout && currentLayout === item.type,
+  tabIndex: null,
 });
 
 export const layoutToolbarTitle = 'Layout floating controls';
@@ -127,6 +128,7 @@ export const buildToolbar = (
       onMouseLeave: hoverDecoration(nodeType, false),
       onFocus: hoverDecoration(nodeType, true),
       onBlur: hoverDecoration(nodeType, false),
+      tabIndex: null,
     };
 
     const layoutTypes = allowSingleColumnLayout

@@ -18,13 +18,13 @@ import InlineEdit from '../../src';
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const ReadViewContainer = css({
+const readViewContainerStyles = css({
   display: 'flex',
-  fontSize: `${fontSize}px`,
-  lineHeight: `${(gridSize * 2.5) / fontSize}`,
   maxWidth: '100%',
   minHeight: `${(gridSize * 2.5) / fontSize}em`,
   padding: `${gridSize}px ${gridSize - 2}px`,
+  fontSize: `${fontSize}px`,
+  lineHeight: `${(gridSize * 2.5) / fontSize}`,
   wordBreak: `break-word`,
 });
 
@@ -105,7 +105,7 @@ const InlineEditValidationExample = () => {
           </InlineDialog>
         )}
         readView={() => (
-          <div css={ReadViewContainer} data-testid="read-view">
+          <div css={readViewContainerStyles} data-testid="read-view">
             {editValue || 'Click to enter value'}
           </div>
         )}

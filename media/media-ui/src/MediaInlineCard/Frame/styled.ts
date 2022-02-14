@@ -1,5 +1,4 @@
-import { HTMLAttributes, ComponentClass } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { B300, N30A, N40A, text } from '@atlaskit/theme/colors';
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 import { themed } from '@atlaskit/theme/components';
@@ -43,11 +42,9 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-export const Wrapper: ComponentClass<
-  HTMLAttributes<{}> & WrapperProps
-> = styled.span`
+export const Wrapper = styled.span<WrapperProps>`
   line-height: 16px;
-  padding: 0px 0.3em 2px 0.23em;
+  padding: 2px 4px 2px 4px;
   box-decoration-break: clone;
   display: inline;
   border-radius: ${akBorderRadius()}px;
@@ -55,7 +52,7 @@ export const Wrapper: ComponentClass<
   background-color: ${themed({
     light: BACKGROUND_COLOR_LIGHT,
   })};
-  ${isSelected};
+  ${(props) => isSelected(props)};
   transition: 0.1s all ease-in-out;
   -moz-user-select: none;
   cursor: pointer;

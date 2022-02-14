@@ -1,5 +1,17 @@
 # @atlaskit/dropdown-menu
 
+## 11.1.0
+
+### Minor Changes
+
+- [`bb8a0f713e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb8a0f713e8) - Add zIndex prop to pass custom z-index for the menu if it clashes with other components on the screen
+
+### Patch Changes
+
+- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [`94886036118`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94886036118) - Internal refactor to properly use render props to avoid unwanted re-mounts and improve test coverage
+- Updated dependencies
+
 ## 11.0.3
 
 ### Patch Changes

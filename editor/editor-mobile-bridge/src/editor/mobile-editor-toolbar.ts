@@ -355,6 +355,13 @@ export default class MobileEditorToolbarActions {
       return;
     }
 
+    // ME-1678: If you do the editAction when the phone believes it is composing
+    // the delay can take a long time to actually apply.
+    // We force ProseMirror into not being in composition mode to make the
+    // actions instant.
+    const wasComposing = editorView.composing;
+    editorView.composing = false;
+
     const items = this.floatingToolbarItems;
     const [parentIndex, optionIndex] = key
       .split('.')
@@ -388,6 +395,8 @@ export default class MobileEditorToolbarActions {
         }
         break;
     }
+
+    editorView.composing = wasComposing;
   }
 
   private performButtonClick(

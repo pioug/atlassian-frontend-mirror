@@ -7,6 +7,7 @@ import { snapshot, initFullPageEditorWithAdf, Device } from '../_utils';
 import adf from './__fixtures__/embed-card-layouts-adf.json';
 import containerADF from './__fixtures__/embed-containers.adf.json';
 import embedSeperatorADF from './__fixtures__/embed-card-inside-expand.adf.json';
+import embedTableADF from './__fixtures__/embed-card-inside-table.adf.json';
 import {
   embedCardSelector,
   embedCombinationsWithTitle,
@@ -45,7 +46,7 @@ describe('Embed Cards:', () => {
 
     // wait for iframes to be loaded
     await waitForElementCount(page, '[originalheight="282"]', 5);
-    await waitForElementCount(page, '[originalheight="319"]', 1);
+    await waitForElementCount(page, '[originalheight="316"]', 1);
     await waitForElementCount(page, '[data-iframe-loaded="true"]', 6);
     await snapshot(page);
   });
@@ -80,8 +81,7 @@ describe('Embed Cards:', () => {
   });
 
   [true, false].forEach((allowResizing) =>
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip.each(embedCombinationsWithTitle)(
+    it.each(embedCombinationsWithTitle)(
       `should render embeds with and without dynamic height control when resizing is ${
         !allowResizing ? 'not' : ''
       } allowed with %s`,
@@ -116,9 +116,38 @@ describe('Embed Cards:', () => {
       },
     ),
   );
+
+  it('displays embed card in table correctly', async () => {
+    const { page } = global;
+
+    await initFullPageEditorWithAdf(
+      page,
+      embedTableADF,
+      Device.LaptopHiDPI,
+      {
+        width: 1440,
+        height: 1500,
+      },
+      {
+        smartLinks: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+      undefined,
+      undefined,
+      true,
+    );
+    await evaluateTeardownMockDate(page);
+
+    await waitForSuccessfullyResolvedEmbedCard(page);
+    await waitForLoadedImageElements(page, 3000);
+    await snapshot(page);
+  });
 });
-// FIXME: Test became inconsistent after Puppeteer's upgrade
-it.skip('Seperators are in correct locations in the toolbar', async () => {
+
+it('Seperators are in correct locations in the toolbar', async () => {
   const page = global.page;
 
   await initFullPageEditorWithAdf(

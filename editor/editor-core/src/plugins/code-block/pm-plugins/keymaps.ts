@@ -1,6 +1,7 @@
 import { keymap } from 'prosemirror-keymap';
 import { ResolvedPos, Schema } from 'prosemirror-model';
-import { Plugin, EditorState, Transaction, Selection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, Transaction, Selection } from 'prosemirror-state';
 import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
@@ -11,7 +12,7 @@ import { CommandDispatch } from '../../../types';
 const deleteCurrentItem = ($from: ResolvedPos) => (
   tr: Transaction,
 ): Transaction => {
-  return tr.delete($from.before($from.depth) - 1, $from.end($from.depth) + 1);
+  return tr.delete($from.before($from.depth), $from.after($from.depth));
 };
 
 const setTextSelection = (pos: number) => (tr: Transaction): Transaction => {
@@ -22,7 +23,7 @@ const setTextSelection = (pos: number) => (tr: Transaction): Transaction => {
   return tr;
 };
 
-export function keymapPlugin(schema: Schema): Plugin | undefined {
+export function keymapPlugin(schema: Schema): SafePlugin | undefined {
   return keymap({
     Backspace: (state: EditorState, dispatch: CommandDispatch) => {
       const $cursor = getCursor(state.selection);
@@ -83,7 +84,7 @@ export function keymapPlugin(schema: Schema): Plugin | undefined {
 
       return false;
     },
-  });
+  }) as SafePlugin;
 }
 
 export default keymapPlugin;

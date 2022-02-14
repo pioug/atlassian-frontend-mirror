@@ -54,9 +54,15 @@ class HeadingAnchor extends React.PureComponent<
     isClicked: boolean = false,
   ) => {
     this.setState({
+      // TODO: ED-14403 investigate why this does not translate
       tooltipMessage: this.props.intl.formatMessage(message),
       isClicked,
     });
+  };
+
+  private getCopyAriaLabel = () => {
+    const { copyAriaLabel } = headingAnchorLinkMessages;
+    return this.props.intl.formatMessage(copyAriaLabel);
   };
 
   copyToClipboard = async (event: React.SyntheticEvent<HTMLElement>) => {
@@ -82,9 +88,10 @@ class HeadingAnchor extends React.PureComponent<
       <CopyAnchorButton
         onMouseLeave={this.resetMessage}
         onClick={this.copyToClipboard}
+        aria-label={this.state.tooltipMessage}
       >
         <LinkIcon
-          label="copy"
+          label={this.getCopyAriaLabel()}
           size={this.props.level > 3 ? 'small' : 'medium'}
           primaryColor={this.state.isClicked ? B400 : N200}
         />

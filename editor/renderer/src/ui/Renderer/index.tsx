@@ -223,6 +223,7 @@ export class Renderer extends PureComponent<RendererProps> {
       allowMediaLinking: props.media && props.media.allowLinking,
       surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
       media: props.media,
+      smartLinks: props.smartLinks,
       allowCopyToClipboard: props.allowCopyToClipboard,
       allowCustomPanels: props.allowCustomPanels,
       allowAnnotations: props.allowAnnotations,

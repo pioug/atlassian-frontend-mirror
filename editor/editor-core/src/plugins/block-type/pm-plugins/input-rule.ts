@@ -1,5 +1,5 @@
 import { Schema, NodeType } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   createRule,
   createPlugin,
@@ -209,7 +209,7 @@ function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
 export function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
 
   if (schema.nodes.heading) {

@@ -6,7 +6,7 @@ import {
   onSelection,
   sampleAvatarUrl as avatarUrl,
 } from '../example-helpers';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 
 export default function Example() {
   const mention = {

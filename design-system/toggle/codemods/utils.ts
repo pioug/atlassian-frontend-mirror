@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import core, {
   API,
   ASTPath,

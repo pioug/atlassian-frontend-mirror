@@ -23,6 +23,7 @@ const DropdownItemCheckboxGroup = (props: DropdownItemCheckboxGroupProps) => {
 
   return (
     <CheckboxGroupContext.Provider value={id}>
+      {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
       <Section {...props}>{children}</Section>
     </CheckboxGroupContext.Provider>
   );

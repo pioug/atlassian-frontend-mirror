@@ -10,6 +10,9 @@ export type ExtenderType = <
   o?: O,
 ) => OverridesFunc<D, O>;
 
+/**
+ * @deprecated Please avoid using this function as we intend to remote it in a future release. See DSP-2673 for more information.
+ */
 export const createExtender: ExtenderType = function createExtender<
   DefaultType extends Record<string, any>,
   OverridesType extends Record<string, any>

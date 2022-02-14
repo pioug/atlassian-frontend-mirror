@@ -1,5 +1,14 @@
 # @atlaskit/visually-hidden
 
+## 1.0.0
+
+### Major Changes
+
+- [`08ce7935675`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08ce7935675) - Update `@atlaskit/visually-hidden` to v1. No breaking changes from previous version.
+
+  `@atlaskit/visually-hidden` now exposes an additional `id` prop. This prop is exposed to allow consumers to pair the component with the
+  `aria-describedby` HTML attribute.
+
 ## 0.1.2
 
 ### Patch Changes

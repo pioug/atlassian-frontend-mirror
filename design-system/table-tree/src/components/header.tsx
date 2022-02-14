@@ -1,5 +1,4 @@
 /** @jsx jsx */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { Component } from 'react';
 
 import { css, jsx } from '@emotion/core';

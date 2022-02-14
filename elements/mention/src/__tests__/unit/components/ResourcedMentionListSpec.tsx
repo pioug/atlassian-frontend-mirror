@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import MentionList from '../../../components/MentionList';
 import ResourcedMentionList, {
@@ -11,6 +11,7 @@ import ResourcedMentionList, {
 import * as Analytics from '../../../util/analytics';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import MentionItem from '../../../components/MentionItem';
+import { LazyTeamMentionHighlight } from '../../../components/TeamMentionHighlight/lazy';
 
 let mockRegisterClosed = jest.fn();
 let mockIsHighlightEnabled = jest.fn();
@@ -99,8 +100,8 @@ describe('ResourcedMentionList', () => {
     const element = render({ isTeamMentionHighlightEnabled: true });
     element.setState({ mentions: [{ id: 'someUser' }] });
 
-    const highlight = element.find(MentionList).props().initialHighlightElement;
-    highlight && highlight.props.onClose();
+    const highlight = element.dive().find(LazyTeamMentionHighlight);
+    highlight && highlight.props().onClose();
 
     expect(mockRegisterClosed).toHaveBeenCalled();
   });

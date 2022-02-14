@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 
 import { Dispatch } from '../../event-dispatcher';
 import { EditorPlugin } from '../../types';
@@ -13,8 +14,8 @@ export const pluginKey = new PluginKey<WidthPluginState>('widthPlugin');
 
 export function createPlugin(
   dispatch: Dispatch<WidthPluginState>,
-): Plugin | undefined {
-  return new Plugin({
+): SafePlugin | undefined {
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init: () =>

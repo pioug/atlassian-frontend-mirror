@@ -1,5 +1,4 @@
-import { ErrorPayload } from './channel';
-import { CollabErrorPayload } from './provider';
+import type { CollabErrorPayload, ErrorPayload } from './types';
 
 export const ErrorCodeMapper = {
   noPermissionError: {

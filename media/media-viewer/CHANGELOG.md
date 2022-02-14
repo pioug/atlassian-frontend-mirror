@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 46.0.1
+
+### Patch Changes
+
+- [`52e0cd4922c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52e0cd4922c) - [ux] There is no more flash of the an image at 100% when media viewer is opening
+- Updated dependencies
+
 ## 46.0.0
 
 ### Major Changes

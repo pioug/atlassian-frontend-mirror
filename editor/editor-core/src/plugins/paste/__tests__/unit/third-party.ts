@@ -37,7 +37,7 @@ describe('paste plugin: third-party', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([pastePlugin, {}])
+        .add([pastePlugin, { plainTextPasteLinkification: true }])
         .add(textColorPlugin)
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)

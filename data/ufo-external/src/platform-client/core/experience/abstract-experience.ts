@@ -7,14 +7,19 @@ import {
   unsubscribeEvent,
 } from '../../../global-stream-buffer';
 import { ufolog, ufowarn } from '../../../logger';
+import { visibilityChangeObserver } from '../../../observer/visibility-change-observer';
 import {
   CustomData,
   ExperienceData,
   ExperienceMetrics,
   FMP_MARK,
   INLINE_RESPONSE_MARK,
+  PageVisibleState,
+  PerformanceConfig,
+  ReportedTimings,
   SUBSCRIBE_ALL,
   SubscribeCallback,
+  Timing,
 } from '../../../types';
 import { roundPerfNow } from '../../utils/round-perf-now';
 
@@ -24,6 +29,12 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from './experience-types';
+
+const getPageVisibleState = () => {
+  return !window.document || window.document.visibilityState === 'visible'
+    ? PageVisibleState.VISIBLE
+    : PageVisibleState.HIDDEN;
+};
 
 export const perfNowOrTimestamp = (timestamp?: number) => {
   if (timestamp !== undefined) {
@@ -38,6 +49,10 @@ export type AbstractExperienceConfig = {
   type: ExperienceTypes;
   performanceType: ExperiencePerformanceTypes;
   platform?: { component: string };
+  featureFlags?: string[];
+  isSSROutputAsFMP?: boolean;
+  timings?: Timing[];
+  performanceConfig?: PerformanceConfig;
 };
 
 export type EndStateConfig = {
@@ -66,6 +81,15 @@ export class UFOAbstractExperience {
 
   childExperiences = [];
 
+  featureFlags: string[];
+
+  timings: Timing[];
+
+  explicitTimings: ReportedTimings = {};
+
+  // @todo move to page load experience when proper classes/inheritance prepared
+  isSSROutputAsFMP: boolean = false;
+
   handleDoneBind: SubscribeCallback;
 
   uuid: string | null = null;
@@ -74,11 +98,15 @@ export class UFOAbstractExperience {
 
   private _until: Function | null = null;
 
+  private pageVisibleState: PageVisibleState;
+
   metrics: ExperienceMetrics = {
     startTime: null,
     endTime: null,
     marks: [],
   };
+
+  performanceConfig: PerformanceConfig = {};
 
   config: AbstractExperienceConfig;
 
@@ -94,7 +122,17 @@ export class UFOAbstractExperience {
     this.handleDoneBind = this._handleDoneExperience.bind(this);
     this.type = config.type;
     this.performanceType = config.performanceType;
+    this.performanceConfig = config.performanceConfig || {};
     this.config = config;
+    this.pageVisibleState = getPageVisibleState();
+    this.featureFlags = config.featureFlags || [];
+    this.timings = config.timings || [];
+    if (
+      config.performanceType === ExperiencePerformanceTypes.PageLoad ||
+      config.performanceType === ExperiencePerformanceTypes.PageSegmentLoad
+    ) {
+      this.isSSROutputAsFMP = config.isSSROutputAsFMP || false;
+    }
   }
 
   async transition(newState: UFOExperienceStateType, timestamp?: number) {
@@ -147,6 +185,8 @@ export class UFOAbstractExperience {
       (await this.transition(UFOExperienceState.STARTED, startTime)) &&
       !this._isManualStateEnabled()
     ) {
+      this.pageVisibleState = getPageVisibleState();
+      visibilityChangeObserver.subscribe(this.setPageVisibleStateToMixed);
       ufolog('subscribed', this.id);
       getGlobalEventStream().push(
         subscribeEvent(SUBSCRIBE_ALL, this.handleDoneBind),
@@ -175,6 +215,11 @@ export class UFOAbstractExperience {
     this._mark(INLINE_RESPONSE_MARK, timestamp);
   }
 
+  private setPageVisibleStateToMixed = () => {
+    this.pageVisibleState = PageVisibleState.MIXED;
+    visibilityChangeObserver.unsubscribe(this.setPageVisibleStateToMixed);
+  };
+
   private _isManualStateEnabled() {
     return this.until === null;
   }
@@ -197,6 +242,7 @@ export class UFOAbstractExperience {
     if (config?.metadata) {
       this.addMetadata(config.metadata);
     }
+    visibilityChangeObserver.unsubscribe(this.setPageVisibleStateToMixed);
     return this.transition(state);
   }
 
@@ -249,6 +295,12 @@ export class UFOAbstractExperience {
         duration: (this.metrics.endTime || 0) - (this.metrics.startTime || 0),
       },
       platform: this.config.platform || null,
+      pageVisibleState: this.pageVisibleState,
+      featureFlags: this.featureFlags,
+      isSSROutputAsFMP: this.isSSROutputAsFMP,
+      timings: this.timings,
+      explicitTimings: this.explicitTimings,
+      performanceConfig: this.performanceConfig,
     };
   }
 

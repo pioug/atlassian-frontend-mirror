@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node as PMNode, Schema } from 'prosemirror-model';
-import { EditorState, NodeSelection, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, NodeSelection } from 'prosemirror-state';
 import { insertPoint } from 'prosemirror-transform';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -45,21 +46,35 @@ import { isInEmptyLine } from '../../../utils/document';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isInListItem } from '../../../utils';
 import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
+import { IntlShape, RawIntlProvider } from 'react-intl-next';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
 
-const createDropPlaceholder = (allowDropLine?: boolean) => {
+const createDropPlaceholder = (intl: IntlShape, allowDropLine?: boolean) => {
   const dropPlaceholder = document.createElement('div');
+  const createElement = React.createElement;
+
   if (allowDropLine) {
     ReactDOM.render(
-      React.createElement(DropPlaceholder, { type: 'single' } as {
-        type: PlaceholderType;
-      }),
+      createElement(
+        RawIntlProvider,
+        { value: intl },
+        createElement(DropPlaceholder, { type: 'single' } as {
+          type: PlaceholderType;
+        }),
+      ),
       dropPlaceholder,
     );
   } else {
-    ReactDOM.render(React.createElement(DropPlaceholder), dropPlaceholder);
+    ReactDOM.render(
+      createElement(
+        RawIntlProvider,
+        { value: intl },
+        createElement(DropPlaceholder),
+      ),
+      dropPlaceholder,
+    );
   }
   return dropPlaceholder;
 };
@@ -749,14 +764,18 @@ export const createPlugin = (
   _schema: Schema,
   options: MediaPluginOptions,
   reactContext: () => {},
+  getIntl: () => IntlShape,
   dispatch?: Dispatch,
   mediaOptions?: MediaOptions,
 ) => {
+  const intl = getIntl();
+
   const dropPlaceholder = createDropPlaceholder(
+    intl,
     mediaOptions && mediaOptions.allowDropzoneDropLine,
   );
 
-  return new Plugin({
+  return new SafePlugin({
     state: {
       init(_config, state) {
         return new MediaPluginStateImplementation(

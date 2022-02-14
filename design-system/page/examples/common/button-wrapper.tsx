@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import type { PropsWithChildren } from 'react';
+
 import { css, jsx } from '@emotion/core';
 
 const buttonWrapperStyles = css({
@@ -8,6 +10,6 @@ const buttonWrapperStyles = css({
   flexWrap: 'wrap',
 });
 
-export const ButtonWrapper = (props: any) => (
-  <div css={buttonWrapperStyles} {...props} />
+export const ButtonWrapper = ({ children }: PropsWithChildren<{}>) => (
+  <div css={buttonWrapperStyles}>{children}</div>
 );

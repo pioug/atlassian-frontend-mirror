@@ -152,7 +152,7 @@ export function toggleList(
           ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
           : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
-      if (fromNode.type.name === listType && toNode.type.name === listType) {
+      if (fromNode?.type.name === listType && toNode?.type.name === listType) {
         let tr = state.tr;
         untoggleSelectedList(tr);
         addAnalytics(state, tr, {

@@ -1,5 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`navigation.ts: pressing Backspace should NOT delete an expand when cursor is inside content within a nested code block 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`navigation.ts: pressing Backspace should NOT delete an expand when cursor is inside content within a nested panel 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "__expanded": true,
+        "title": "",
+      },
+      "content": Array [
+        Object {
+          "type": "paragraph",
+        },
+      ],
+      "type": "expand",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`navigation.ts: pressing Backspace should delete an expand when cursor is inside content 1`] = `
 Object {
   "content": Array [

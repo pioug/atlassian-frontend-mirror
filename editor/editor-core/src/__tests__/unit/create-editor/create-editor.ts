@@ -1,5 +1,6 @@
 import { name } from '../../../version.json';
 import { Selection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   sortByRank,
@@ -71,7 +72,12 @@ describe(name, () => {
             { name: 'skipped', plugin: () => undefined },
             {
               name: 'mocked',
-              plugin: () => ({ spec: {}, props: {}, getState() {} }),
+              plugin: () =>
+                (({
+                  spec: {},
+                  props: {},
+                  getState() {},
+                } as unknown) as SafePlugin),
             },
           ],
         };

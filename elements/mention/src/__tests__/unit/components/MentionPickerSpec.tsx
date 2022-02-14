@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';
@@ -31,6 +31,7 @@ function setupPicker(props?: Props): ReactWrapper<Props, State> {
       resourceProvider={resourceProvider}
       query=""
       createAnalyticsEvent={jest.fn()}
+      intl={{ formatMessage() {} } as any}
       {...props}
     />,
   ) as ReactWrapper<Props, State>;

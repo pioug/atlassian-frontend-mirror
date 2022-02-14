@@ -2,7 +2,7 @@ import React from 'react';
 
 import { layers } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const overlayZindex = layers.modal() + 10;
 

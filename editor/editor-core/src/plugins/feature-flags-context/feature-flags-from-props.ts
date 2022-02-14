@@ -141,6 +141,12 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
+    plainTextPasteLinkification: Boolean(
+      typeof props.featureFlags?.plainTextPasteLinkification === 'boolean'
+        ? !!props.featureFlags?.plainTextPasteLinkification
+        : false,
+    ),
+
     collabAvatarScroll: Boolean(
       typeof props.featureFlags?.collabAvatarScroll === 'boolean'
         ? !!props.featureFlags?.collabAvatarScroll
@@ -169,8 +175,33 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : true,
     ),
 
+    saferDispatchedTransactions: Boolean(
+      (typeof normalizedFeatureFlags.saferDispatchedTransactions ===
+        'boolean' &&
+        !!normalizedFeatureFlags.saferDispatchedTransactions) ||
+        (typeof props.featureFlags?.saferDispatchedTransactions === 'boolean'
+          ? !!props.featureFlags?.saferDispatchedTransactions
+          : false),
+    ),
+
     maxUnsafeChromeSpellcheckingVersion: safeNumberFeatureFlag(
       props.featureFlags?.maxUnsafeChromeSpellcheckingVersion,
     ),
+
+    useNativeCollabPlugin: Boolean(
+      typeof props.collabEdit?.useNativePlugin === 'boolean'
+        ? !!props.collabEdit?.useNativePlugin
+        : false,
+    ),
+    chromeCursorHandlerFixedVersion:
+      typeof props.featureFlags?.chromeCursorHandlerFixedVersion === 'string'
+        ? Number(props.featureFlags.chromeCursorHandlerFixedVersion) ||
+          undefined
+        : undefined,
+
+    viewChangingExperimentToolbarStyle:
+      typeof props.featureFlags?.viewChangingExperimentToolbarStyle === 'string'
+        ? props.featureFlags.viewChangingExperimentToolbarStyle || undefined
+        : undefined,
   };
 }

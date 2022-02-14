@@ -1,5 +1,6 @@
 import { toggleMark } from 'prosemirror-commands';
-import { EditorState, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { Dispatch } from '../../../event-dispatcher';
@@ -70,7 +71,7 @@ const getTextFormattingState = (
 };
 
 export const plugin = (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     state: {
       init(_config, state: EditorState): TextFormattingState {
         return getTextFormattingState(state);

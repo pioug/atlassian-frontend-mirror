@@ -1,4 +1,5 @@
-import { Plugin as PMPlugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { keydownHandler } from 'prosemirror-keymap';
 
@@ -14,7 +15,7 @@ import { Providers } from '@atlaskit/editor-common/provider-factory';
 export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
   const rules: Array<InputRule> = [];
 
-  return new PMPlugin({
+  return new SafePlugin({
     state: {
       init(): CustomAutoformatState {
         return {

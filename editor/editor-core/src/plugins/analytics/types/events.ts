@@ -36,6 +36,7 @@ import type {
   UserBrowserExtensionResults,
 } from '@atlaskit/editor-common/utils';
 import { AvatarEventPayload } from './avatar';
+import { NewCollabSyncUpErrorAttributes } from '@atlaskit/editor-common/types';
 
 export type AnalyticsEventPayload<T = void> =
   | AvatarEventPayload
@@ -63,7 +64,8 @@ export type AnalyticsEventPayload<T = void> =
   | TypeAheadPayload
   | UnlinkToolbarAEP
   | EditLinkToolbarAEP
-  | CustomPanelEventPayload;
+  | CustomPanelEventPayload
+  | NewCollabSyncUpErrorAEP;
 
 type CustomPanelEventPayload = TrackAEP<
   ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
@@ -145,6 +147,14 @@ type SynchronyErrorAEP = OperationalAEP<
   undefined
 >;
 
+type NewCollabSyncUpErrorAEP = OperationalAEP<
+  ACTION.NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  NewCollabSyncUpErrorAttributes,
+  undefined
+>;
+
 type InvalidDocumentEncounteredAEP = OperationalAEP<
   ACTION.INVALID_DOCUMENT_ENCOUNTERED,
   ACTION_SUBJECT.EDITOR,
@@ -218,6 +228,17 @@ type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
   undefined
 >;
 
+type SmartLinkErrorAEP = OperationalAEP<
+  ACTION.ERRORED,
+  ACTION_SUBJECT.SMART_LINK,
+  undefined,
+  {
+    error: string;
+    errorStack?: string;
+  },
+  undefined
+>;
+
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
   | InvalidTransactionStepErrorAEP
@@ -227,4 +248,5 @@ export type ErrorEventPayload =
   | SynchronyEntityErrorAEP
   | ContentComponentErrorAEP
   | ComponentCrashErrorAEP
-  | ComponentCrashAdditionalInfoErrorAEP;
+  | ComponentCrashAdditionalInfoErrorAEP
+  | SmartLinkErrorAEP;

@@ -1,16 +1,16 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../keymaps';
 import { Command } from '../../types';
 
 import { mayGetStatusAtSelection } from './utils';
 
-export function keymapPlugin(): Plugin {
+export function keymapPlugin(): SafePlugin {
   const list = {};
   keymaps.bindKeymapWithCommand(keymaps.enter.common!, consumeKeyEvent, list);
   keymaps.bindKeymapWithCommand(keymaps.tab.common!, consumeKeyEvent, list);
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 // consume event to prevent status node problems with positioning and selection

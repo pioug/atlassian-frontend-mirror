@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,8 +24,12 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
+    "@atlaskit/theme": "^12.0.2",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@emotion/core": "^10.0.9",
+    "@emotion/styled": "^10.0.7",
     "eslint": "^7.7.0",
+    "react": "^16.8.0",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "3.9.6"

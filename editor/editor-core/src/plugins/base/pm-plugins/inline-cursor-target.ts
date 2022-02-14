@@ -1,6 +1,7 @@
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { ResolvedPos, Node } from 'prosemirror-model';
-import { PluginKey, Plugin, EditorState, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState, ReadonlyTransaction } from 'prosemirror-state';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
 export const inlineCursorTargetStateKey = new PluginKey(
@@ -13,7 +14,10 @@ export const isSpecial = (node: Node | null | undefined) => {
   return node && SPECIAL_NODES.indexOf(node.type.name) !== -1;
 };
 
-export const findSpecialNodeAfter = ($pos: ResolvedPos, tr: Transaction) => {
+export const findSpecialNodeAfter = (
+  $pos: ResolvedPos,
+  tr: ReadonlyTransaction,
+) => {
   if (isSpecial($pos.nodeAfter)) {
     return $pos.pos + 1;
   }
@@ -30,7 +34,10 @@ export const findSpecialNodeAfter = ($pos: ResolvedPos, tr: Transaction) => {
   return;
 };
 
-export const findSpecialNodeBefore = ($pos: ResolvedPos, tr: Transaction) => {
+export const findSpecialNodeBefore = (
+  $pos: ResolvedPos,
+  tr: ReadonlyTransaction,
+) => {
   if (isSpecial($pos.nodeBefore)) {
     return $pos.pos - 1;
   }
@@ -55,7 +62,7 @@ export interface InlineCursorTargetState {
 }
 
 export default () => {
-  return new Plugin<InlineCursorTargetState>({
+  return new SafePlugin<InlineCursorTargetState>({
     key: inlineCursorTargetStateKey,
 
     state: {

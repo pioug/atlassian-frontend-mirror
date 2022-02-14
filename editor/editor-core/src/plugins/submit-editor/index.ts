@@ -1,5 +1,6 @@
 import { keymap } from 'prosemirror-keymap';
-import { EditorState, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { Dispatch } from '../../event-dispatcher';
@@ -19,7 +20,7 @@ import { analyticsEventKey } from '../analytics/consts';
 export function createPlugin(
   eventDispatch: Dispatch,
   onSave?: (editorView: EditorView) => void,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (!onSave) {
     return;
   }
@@ -44,7 +45,7 @@ export function createPlugin(
       onSave(editorView);
       return true;
     },
-  });
+  }) as SafePlugin;
 }
 
 const analyticsPayload = (

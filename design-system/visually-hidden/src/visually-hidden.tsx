@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 
 import type { VisuallyHiddenProps } from './types';
 
+// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 const visuallyHiddenStyles = css({
   width: '1px',
   height: '1px',
@@ -38,9 +39,10 @@ const VisuallyHidden: FC<VisuallyHiddenProps> = ({
   children,
   testId,
   role,
+  id,
 }) => {
   return (
-    <span data-testid={testId} css={visuallyHiddenStyles} role={role}>
+    <span id={id} data-testid={testId} css={visuallyHiddenStyles} role={role}>
       {children}
     </span>
   );

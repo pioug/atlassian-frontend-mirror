@@ -26,6 +26,7 @@ import { Breakpoint } from './ui/common';
 import { calcBreakpointSize } from './ui/styled';
 import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
 import { getElementDimension } from '../utils/getElementDimension';
+import type { CardPreview } from '..';
 
 export const inlinePlayerClassName = 'media-card-inline-player';
 export interface InlinePlayerOwnProps {
@@ -41,6 +42,7 @@ export interface InlinePlayerOwnProps {
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
   testId?: string;
+  readonly cardPreview?: CardPreview;
   //To Forward Ref
   readonly forwardRef?: React.Ref<HTMLDivElement>;
 }
@@ -238,6 +240,7 @@ export class InlinePlayerBase extends Component<
       identifier,
       forwardRef,
       autoplay,
+      cardPreview,
     } = this.props;
     const { fileSrc, isUploading, progress } = this.state;
 
@@ -269,6 +272,7 @@ export class InlinePlayerBase extends Component<
               }}
               originalDimensions={originalDimensions}
               showControls={checkMouseMovement}
+              poster={cardPreview?.dataURI}
             />
           )}
         </InactivityDetector>

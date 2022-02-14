@@ -1,9 +1,12 @@
+/* eslint-disable @atlaskit/design-system/use-visually-hidden */
 /** @jsx jsx */
 import { forwardRef, Fragment, useCallback } from 'react';
 
 import { jsx } from '@emotion/core';
 
 import { easeInOut, smallDurationMs } from '@atlaskit/motion';
+// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { visuallyHidden } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 

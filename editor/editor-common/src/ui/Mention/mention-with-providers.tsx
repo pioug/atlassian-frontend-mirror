@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 
-import { MentionUserType as UserType } from '@atlaskit/adf-schema';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import { MentionProvider } from '@atlaskit/mention/resource';
 
@@ -13,11 +12,9 @@ export interface Props {
   id: string;
   text: string;
   accessLevel?: string;
-  userType?: UserType;
   mentionProvider?: Promise<MentionProvider>;
   profilecardProvider?: Promise<ProfilecardProvider>;
   eventHandlers?: MentionEventHandlers;
-  portal?: HTMLElement;
 }
 
 export interface State {
@@ -61,11 +58,9 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
   render() {
     const {
       accessLevel,
-      userType,
       eventHandlers,
       id,
       mentionProvider,
-      portal,
       text,
     } = this.props;
 
@@ -89,10 +84,8 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
         id={id}
         text={text}
         accessLevel={accessLevel}
-        userType={userType}
         mentionProvider={mentionProvider}
         profilecardProvider={profilecardProvider!}
-        portal={portal}
         {...actionHandlers}
       />
     );

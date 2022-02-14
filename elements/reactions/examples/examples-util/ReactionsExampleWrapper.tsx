@@ -6,7 +6,7 @@ import {
   MemoryReactionsStore,
   ReactionsStore,
 } from '../../src/reaction-store/ReactionsStore';
-
+import { IntlProvider } from 'react-intl-next';
 export type Props = {
   client?: ReactionClient;
   children:
@@ -37,9 +37,11 @@ export class ReactionsExampleWrapper extends React.PureComponent<Props> {
 
   render() {
     return (
-      <AnalyticsViewerContainer>
-        {this.renderChildren()}
-      </AnalyticsViewerContainer>
+      <IntlProvider locale="en">
+        <AnalyticsViewerContainer>
+          {this.renderChildren()}
+        </AnalyticsViewerContainer>
+      </IntlProvider>
     );
   }
 }

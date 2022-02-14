@@ -1,5 +1,15 @@
 # @atlaskit/inline-dialog
 
+## 13.3.0
+
+### Minor Changes
+
+- [`2a53f51adc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a53f51adc6) - Introduce the prop `strategy` to allow consumers to override the default positioning strategy
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.2
 
 ### Patch Changes

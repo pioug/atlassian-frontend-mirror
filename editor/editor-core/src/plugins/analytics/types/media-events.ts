@@ -42,6 +42,18 @@ type MediaUIAction = UIAEP<
   undefined
 >;
 
+type MediaSwitchType =
+  | ACTION_SUBJECT_ID.MEDIA_INLINE
+  | ACTION_SUBJECT_ID.MEDIA_GROUP;
+
+type ChangeMediaAEP = TrackAEP<
+  ACTION.CHANGED_TYPE,
+  ACTION_SUBJECT.MEDIA,
+  undefined,
+  { newType: MediaSwitchType; previousType: MediaSwitchType },
+  undefined
+>;
+
 export type MediaAltTextActionType =
   | ACTION.ADDED
   | ACTION.CLOSED
@@ -53,4 +65,5 @@ export type MediaEventPayload =
   | MediaLinkAEP
   | MediaAltTextAction
   | MediaUIAction
-  | CaptionTrackAction;
+  | CaptionTrackAction
+  | ChangeMediaAEP;

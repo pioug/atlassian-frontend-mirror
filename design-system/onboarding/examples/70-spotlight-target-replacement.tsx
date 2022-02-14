@@ -38,8 +38,8 @@ const imageStyles = css({
 
 const Image: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
   alt,
-  ...props
-}) => <img {...props} alt={alt} css={imageStyles} />;
+  src,
+}) => <img src={src} alt={alt} css={imageStyles} />;
 
 interface State {
   active: boolean;

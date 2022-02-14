@@ -14,6 +14,7 @@ import {
   HeadingAnchorLinksProps,
 } from './Renderer/types';
 import { MediaOptions } from '../types/mediaOptions';
+import { SmartLinksOptions } from '../types/smartLinksOptions';
 
 export interface RendererProps {
   document: any;
@@ -44,6 +45,7 @@ export interface RendererProps {
   allowAltTextOnImages?: boolean;
   stickyHeaders?: StickyHeaderProps;
   media?: MediaOptions;
+  smartLinks?: SmartLinksOptions;
   allowAnnotations?: boolean;
   annotationProvider?: AnnotationProviders | null;
   innerRef?: React.RefObject<HTMLDivElement>;

@@ -37,6 +37,7 @@ export interface Props {
   nodeType?: string;
   fullWidthMode?: boolean;
   hasFallbackContainer?: boolean;
+  handleMediaSingleRef?: React.RefObject<HTMLElement>;
 }
 
 export const shouldAddDefaultWrappedWidth = (
@@ -65,6 +66,7 @@ export default function MediaSingle({
   fullWidthMode,
   lineLength,
   hasFallbackContainer = true,
+  handleMediaSingleRef,
 }: Props) {
   const children = React.Children.toArray<React.ReactNode>(propsChildren);
   if (!pctWidth && shouldAddDefaultWrappedWidth(layout, width, lineLength)) {
@@ -117,6 +119,7 @@ export default function MediaSingle({
 
   return (
     <MediaSingleWrapper
+      innerRef={handleMediaSingleRef}
       width={width}
       layout={layout}
       containerWidth={containerWidth}

@@ -58,6 +58,8 @@ export interface NestableNavigationContentProps {
 
   /**
    * Custom overrides for the composed components.
+   *
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
    */
   overrides?: {
     /**

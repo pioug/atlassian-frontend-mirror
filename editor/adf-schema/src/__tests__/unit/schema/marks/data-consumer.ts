@@ -1,6 +1,6 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { toHTML, fromHTML } from '../../../../../test-helpers';
+import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { Schema } from 'prosemirror-model';
 
 describe(`${name}/schema data-consumer mark`, () => {

@@ -9,7 +9,7 @@ import {
 
 export default md`
   ${(<AtlassianInternalWarning />)}
-  
+
   Turns a URL into a card with JSON-LD metadata sourced from either:
 
   - a Client which communicates with Object Resolver Service;
@@ -36,6 +36,10 @@ export default md`
       <Renderer />
     </SmartCardProvider>
   `}
+
+  ## Examples
+
+  You must be logged in at [https://commerce-components-preview.dev.atlassian.com](https://commerce-components-preview.dev.atlassian.com) to load the examples.
 
   ${(
     <Example

@@ -21,7 +21,7 @@ class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
   initial = true;
 
   startPageLoad(id: string, initial: boolean = false, startTime?: number) {
-    const result = super.start(perfNowOrTimestamp(startTime));
+    const result = super.start(initial ? 0 : perfNowOrTimestamp(startTime));
     this.setPageLoadId(id);
     this.initial = initial;
     return result;
@@ -31,7 +31,7 @@ class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
     Object.assign(this.config, config);
   }
 
-  private setPageLoadId(id: string) {
+  setPageLoadId(id: string) {
     this.loadingPageLoadId = id;
   }
 

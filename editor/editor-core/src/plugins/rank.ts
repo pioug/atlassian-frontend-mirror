@@ -179,8 +179,9 @@ export default {
     'breakout',
     'indentation',
     'annotation',
+    'dataConsumer',
 
-    //Unsupported mark
+    // Unsupported mark
     'unsupportedMark',
     'unsupportedNodeAttribute',
   ],

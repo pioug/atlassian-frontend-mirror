@@ -1,6 +1,16 @@
+export enum SmartLinkAlignment {
+  Left = 'left',
+  Right = 'right',
+}
+
 export enum SmartLinkDirection {
-  Horizontal = 'Horizontal',
-  Vertical = 'Vertical',
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
+}
+
+export enum SmartLinkPosition {
+  Top = 'top',
+  Center = 'center',
 }
 
 export enum SmartLinkSize {
@@ -10,9 +20,47 @@ export enum SmartLinkSize {
   Small = 'small',
 }
 
+export enum SmartLinkStatus {
+  Pending = 'pending',
+  Resolving = 'resolving',
+  Resolved = 'resolved',
+
+  Forbidden = 'forbidden',
+  Errored = 'errored',
+  NotFound = 'not_found',
+  Unauthorized = 'unauthorized',
+
+  Fallback = 'fallback',
+}
+
 export enum SmartLinkTheme {
-  Black = 'Black',
-  Link = 'Link',
+  Black = 'black',
+  Link = 'link',
+}
+
+export enum SmartLinkWidth {
+  FitToContent = 'fit-to-content',
+  Flexible = 'flexible',
+}
+
+export enum ElementName {
+  AuthorGroup = 'AuthorGroup',
+  CollaboratorGroup = 'CollaboratorGroup',
+  CommentCount = 'CommentCount',
+  CreatedBy = 'CreatedBy',
+  CreatedOn = 'CreatedOn',
+  LinkIcon = 'LinkIcon',
+  ModifiedBy = 'ModifiedBy',
+  ModifiedOn = 'ModifiedOn',
+  Priority = 'Priority',
+  ProgrammingLanguage = 'ProgrammingLanguage',
+  State = 'State',
+  SubscriberCount = 'SubscriberCount',
+  Title = 'Title',
+}
+
+export enum ActionName {
+  DeleteAction = 'DeleteAction',
 }
 
 export enum IconType {
@@ -62,4 +110,25 @@ export enum IconType {
   // Provider
   Confluence = 'Provider:Confluence',
   Jira = 'Provider:Jira',
+
+  // Fallback
+  Default = 'Default',
+  Error = 'Default:Error',
+  Forbidden = 'Default:Forbidden',
+
+  // Badge
+  Comment = 'Badge:Comment',
+  PriorityBlocker = 'Badge:PriorityBlocker',
+  PriorityCritical = 'Badge:PriorityCritical',
+  PriorityHigh = 'Badge:PriorityHigh',
+  PriorityHighest = 'Badge:PriorityHighest',
+  PriorityLow = 'Badge:PriorityLow',
+  PriorityLowest = 'Badge:PriorityLowest',
+  PriorityMajor = 'Badge:PriorityMajor',
+  PriorityMedium = 'Badge:PriorityMedium',
+  PriorityMinor = 'Badge:PriorityMinor',
+  PriorityTrivial = 'Badge:PriorityTrivial',
+  PriorityUndefined = 'Badge:PriorityUndefined',
+  ProgrammingLanguage = 'Badge:ProgrammingLanguage',
+  Subscriber = 'Badge:Subscriber',
 }

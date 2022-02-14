@@ -9,9 +9,10 @@ import DropdownMenuCustomTriggerButton from '../../examples/constellation/dropdo
 import DropdownMenuDefaultOpen from '../../examples/constellation/dropdown-menu-default-open';
 import DropdownMenuLoading from '../../examples/constellation/dropdown-menu-loading';
 import DropdownMenuOpen from '../../examples/constellation/dropdown-menu-open';
-import DropdownMenuPositionDefault from '../../examples/constellation/dropdown-menu-position-default';
-import DropdownMenuPosition from '../../examples/constellation/dropdown-menu-position';
+import DropdownMenuPlacementDefault from '../../examples/constellation/dropdown-menu-placement-default';
+import DropdownMenuPlacement from '../../examples/constellation/dropdown-menu-placement';
 import DropdownMenuShouldFlip from '../../examples/constellation/dropdown-menu-should-flip';
+import DropdownMenuZIndex from '../../examples/constellation/dropdown-menu-z-index';
 
 ## Appearance
 
@@ -85,21 +86,21 @@ Use `isOpen` to control the open state of the dropdown menu.
 
 ## Positioning
 
-### Default positioning
+### Default placement
 
-By default the dropdown menu will be positioned next to your trigger.
+By default the dropdown menu will be placed next to your trigger.
 
 <Example
-  Component={DropdownMenuPositionDefault}
+  Component={DropdownMenuPlacementDefault}
   packageName="@atlaskit/dropdown-menu"
 />
 
-### Position
+### Placement
 
-Use `position` to set the menu position, for example bottom right.
+Use `placement` to set the menu placement, for example bottom right.
 
 <Example
-  Component={DropdownMenuPosition}
+  Component={DropdownMenuPlacement}
   packageName="@atlaskit/dropdown-menu"
 />
 
@@ -109,5 +110,14 @@ Use `shouldFlip` to place to the dropdown menu on the opposite side of its trigg
 
 <Example
   Component={DropdownMenuShouldFlip}
+  packageName="@atlaskit/dropdown-menu"
+/>
+
+### Z-index
+
+Use `zIndex` to resolve clashes with other layered components with competing z-index values, such as Popup.
+
+<Example
+  Component={DropdownMenuZIndex}
   packageName="@atlaskit/dropdown-menu"
 />

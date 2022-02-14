@@ -1,5 +1,12 @@
 # @atlaskit/pagination
 
+## 14.1.4
+
+### Patch Changes
+
+- [`f8678250d08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8678250d08) - Styles have been rewritten to prepare for migration to compiled.
+- Updated dependencies
+
 ## 14.1.3
 
 ### Patch Changes

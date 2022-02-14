@@ -245,6 +245,9 @@ export const isSSRClientPreview = (preview: CardPreview) => {
   return ssrClientSources.includes(preview.source);
 };
 
+export const isSSRDataPreview = (preview: CardPreview) =>
+  preview.source === 'ssr-data';
+
 export const fetchAndCacheRemotePreview = async (
   mediaClient: MediaClient,
   id: string,

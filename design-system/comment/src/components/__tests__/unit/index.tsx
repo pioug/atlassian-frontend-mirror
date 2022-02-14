@@ -267,6 +267,20 @@ describe('@atlaskit comments', () => {
         });
       });
 
+      describe('headingLevel prop', () => {
+        it('should add aria heading role and level', () => {
+          const wrapper = mount(
+            <Comment avatar="" headingLevel="3" type="hello" />,
+          );
+
+          expect(wrapper.find(HeaderItems).prop('headingLevel')).toBe('3');
+
+          const divHeading = wrapper.find(HeaderItems).find('div').first();
+          expect(divHeading.prop('role')).toBe('heading');
+          expect(divHeading.prop('aria-level')).toBe(3);
+        });
+      });
+
       describe('Top items', () => {
         it('Should render in the order author, type, time, restrictedTo', () => {
           const time = <CommentTime>30 August, 2016</CommentTime>;

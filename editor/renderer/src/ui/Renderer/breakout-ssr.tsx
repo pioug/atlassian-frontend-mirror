@@ -60,13 +60,19 @@ function applyBreakoutAfterSSR(
   allowDynamicTextSizing: boolean,
   breakoutConsts: any,
 ) {
-  function findUp(element: HTMLElement | null, selector: string) {
+  const MEDIA_NODE_TYPE = 'mediaSingle';
+  const WIDE_LAYOUT_MODES = ['full-width', 'wide'];
+
+  function findUp(
+    element: HTMLElement | null,
+    condition: (elem: HTMLElement) => boolean,
+  ) {
     if (!element) {
       return;
     }
 
     while (element.parentElement) {
-      if (element.parentElement.classList.contains(selector)) {
+      if (condition(element)) {
         return element.parentElement;
       }
       element = element.parentElement;
@@ -75,7 +81,7 @@ function applyBreakoutAfterSSR(
 
   const renderer: HTMLElement | undefined = findUp(
     document.querySelector('[data-breakout-script-id="' + id + '"]'),
-    'ak-renderer-wrapper',
+    (elem) => !!elem.parentElement?.classList.contains('ak-renderer-wrapper'),
   );
 
   if (!renderer) {
@@ -95,7 +101,7 @@ function applyBreakoutAfterSSR(
           const node = maybeNode as HTMLElement;
           const mode = node.dataset.mode || node.dataset.layout || '';
 
-          if (!mode || !['full-width', 'wide'].includes(mode)) {
+          if (!mode || !WIDE_LAYOUT_MODES.includes(mode)) {
             return;
           }
 
@@ -122,9 +128,46 @@ function applyBreakoutAfterSSR(
             }
           }
         });
+      } else if (
+        /**
+         * The mutation observer is only called once per added node.
+         * The above condition only deals with direct children of <div class="ak-renderer-document" />
+         * When it is initially called on the direct children, not all the sub children have loaded.
+         * So nested media elements which are not immediately loaded as sub children are not availabe in the above conditional.
+         * Thus adding this conditional to deal with all meida elements directly.
+         */
+        (item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
+      ) {
+        applyMediaBreakout(item.target as HTMLElement);
       }
     });
   });
+
+  const applyMediaBreakout = (card: HTMLElement) => {
+    // width was already set by another breakout script
+    if (card.style.width) {
+      return;
+    }
+
+    const tableParent = findUp(
+      card,
+      (elem) => elem instanceof HTMLTableCellElement,
+    );
+
+    // only apply the breakout to media elements not nested inside table
+    // table sizing is not based on percentage width
+    if (tableParent) {
+      return;
+    }
+
+    const mode = card.dataset.mode || card.dataset.layout || '';
+    const width = card.dataset.width;
+    if (WIDE_LAYOUT_MODES.includes(mode)) {
+      card.style.width = '100%';
+    } else if (width) {
+      card.style.width = `${width}%`;
+    }
+  };
 
   observer.observe(renderer, {
     childList: true,

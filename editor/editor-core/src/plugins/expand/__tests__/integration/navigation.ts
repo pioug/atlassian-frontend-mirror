@@ -13,6 +13,8 @@ import { selectors } from '../../../../__tests__/__helpers/page-objects/_expand'
 
 import emptyExpandAdf from './__fixtures__/empty-expand.json';
 import doubleExpand from './__fixtures__/double-expand.json';
+import expandWithNestedPanelAdf from './__fixtures__/expand-with-nested-panel.json';
+import expandWithNestedCodeBlockAdf from './__fixtures__/expand-with-nested-code-block.json';
 
 const collapseExpandThenFocusTitle = async (page: any) => {
   await page.click(selectors.expandToggle);
@@ -52,6 +54,48 @@ BrowserTestCase(
     });
 
     await collapseExpandThenFocusTitle(page);
+    await page.keys('Backspace');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'navigation.ts: pressing Backspace should NOT delete an expand when cursor is inside content within a nested panel',
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: expandWithNestedPanelAdf,
+      allowExpand: true,
+      allowPanel: true,
+    });
+
+    await page.click(selectors.panelInExpandContent);
+    await page.keys('Backspace');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'navigation.ts: pressing Backspace should NOT delete an expand when cursor is inside content within a nested code block',
+  { skip: [] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+      defaultValue: expandWithNestedCodeBlockAdf,
+      allowExpand: true,
+      allowCodeBlock: true,
+    });
+
+    await page.click(selectors.codeBlockInExpandContent);
     await page.keys('Backspace');
 
     const doc = await page.$eval(editable, getDocFromElement);

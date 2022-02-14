@@ -7,15 +7,26 @@ import { CollabEditProvider } from '../provider';
 import { PrivateCollabEditOptions } from '../types';
 import { subscribe, Cleanup } from './handlers';
 import { pluginKey } from '../plugin-key';
+import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
 const initCollab = (
   collabEditProvider: CollabEditProvider,
   view: EditorView,
 ) => {
-  collabEditProvider.initialize(
-    () => view.state,
-    (json) => Step.fromJSON(view.state.schema, json),
-  );
+  if (collabEditProvider.initialize) {
+    collabEditProvider.initialize(
+      () => view.state,
+      (json) => Step.fromJSON(view.state.schema, json),
+    );
+  }
+};
+
+const initNewCollab = (
+  collabEditProvider: CollabEditProvider,
+  view: EditorView,
+  onSyncUpError?: SyncUpErrorFunction,
+) => {
+  collabEditProvider.setup({ getState: () => view.state, onSyncUpError });
 };
 
 const initCollabMemo = memoizeOne(initCollab);
@@ -42,7 +53,7 @@ export const initialize = ({ options, providerFactory, view }: Props) => (
   if (options.useNativePlugin) {
     // ED-13912 For NCS we don't want to use memoizeOne because it causes
     // infinite text while changing page-width
-    initCollab(provider, view);
+    initNewCollab(provider, view, options.onSyncUpError);
   } else {
     /**
      * We only want to initialise once, if we reload/reconfigure this plugin

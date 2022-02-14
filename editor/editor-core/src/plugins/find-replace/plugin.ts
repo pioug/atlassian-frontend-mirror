@@ -1,4 +1,5 @@
-import { Plugin, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { ReadonlyTransaction } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { pluginFactory } from '../../utils/plugin-state-factory';
 import reducer from './reducer';
@@ -28,7 +29,7 @@ export const initialState: FindReplacePluginState = {
 };
 
 const handleDocChanged = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: FindReplacePluginState,
 ): FindReplacePluginState => {
   const { isActive, findText } = pluginState;
@@ -161,7 +162,7 @@ export const {
 );
 
 export const createPlugin = (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     key: findReplacePluginKey,
     state: createPluginState(dispatch, () => initialState),
     props: {

@@ -85,27 +85,6 @@ interface TableState {
   [ShadowEvent.SHOW_BEFORE_SHADOW]: boolean;
   [ShadowEvent.SHOW_AFTER_SHADOW]: boolean;
 }
-
-// in Chrome, if none of the parent elements
-// have content, then it will auto-scroll the container
-// which interferes with us applying padding to the
-// sticky header to make up for us taking it out of
-// the layout flow.
-//
-// this is only an issue when scrolling down the
-// page without row controls active, and doesn't
-// occur in other browsers afaik
-const FloatingPlaceholder = () => (
-  <div
-    style={{
-      position: 'absolute',
-      top: '30px',
-    }}
-  >
-    {' '}
-  </div>
-);
-
 class TableComponent extends React.Component<ComponentProps, TableState> {
   static displayName = 'TableComponent';
 
@@ -411,7 +390,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         {stickyHeadersOptimization && (
           <div className={ClassName.TABLE_STICKY_SENTINEL_TOP} />
         )}
-        <FloatingPlaceholder />
         {allowControls &&
           (!isLoading || initialRenderOptimization) &&
           rowControls}

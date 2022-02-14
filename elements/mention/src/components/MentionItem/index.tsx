@@ -1,8 +1,8 @@
 import Avatar from '@atlaskit/avatar';
-import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import Lozenge from '@atlaskit/lozenge';
 import { N30 } from '@atlaskit/theme/colors';
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 import {
   isRestricted,
   MentionDescription,
@@ -12,7 +12,8 @@ import {
 } from '../../types';
 import { NoAccessLabel } from '../../util/i18n';
 import { leftClick } from '../../util/mouse';
-import { NoAccessTooltip } from '../NoAccessTooltip';
+import AsyncNoAccessTooltip from '../NoAccessTooltip';
+import AsyncLockCircleIcon from '../LockCircleIcon';
 import {
   AccessSectionStyle,
   AvatarStyle,
@@ -25,6 +26,7 @@ import {
 } from './styles';
 import { renderHighlight } from './MentionHighlightHelpers';
 import MentionDescriptionByline from '../MentionDescriptionByline';
+import MessagesIntlProvider from '../MessagesIntlProvider';
 
 export { MENTION_ITEM_HEIGHT } from './styles';
 
@@ -93,49 +95,53 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 
     const nameHighlights = highlight && highlight.name;
 
-    const borderColor = selected ? N30 : undefined;
+    const borderColor = selected ? token('color.border', N30) : undefined;
 
     return (
-      <MentionItemStyle
-        selected={selected}
-        onMouseDown={this.onMentionSelected}
-        onMouseMove={this.onMentionMenuItemMouseMove}
-        onMouseEnter={this.onMentionMenuItemMouseEnter}
-        data-mention-id={id}
-        data-mention-name={mentionName}
-      >
-        <RowStyle>
-          <AvatarStyle restricted={restricted}>
-            <Avatar
-              src={avatarUrl}
-              size="medium"
-              presence={status}
-              borderColor={borderColor}
-            />
-          </AvatarStyle>
-          <NameSectionStyle restricted={restricted}>
-            {renderHighlight(FullNameStyle, name, nameHighlights)}
-            <MentionDescriptionByline mention={mention} />
-          </NameSectionStyle>
-          <InfoSectionStyle restricted={restricted}>
-            {renderLozenge(lozenge)}
-            {renderTime(time)}
-          </InfoSectionStyle>
-          {restricted ? (
-            <NoAccessTooltip name={name!}>
-              <AccessSectionStyle>
-                <NoAccessLabel>
-                  {
-                    (text) => (
-                      <LockCircleIcon label={text as string} />
-                    ) /* safe to cast to string given there is no value binding */
-                  }
-                </NoAccessLabel>
-              </AccessSectionStyle>
-            </NoAccessTooltip>
-          ) : null}
-        </RowStyle>
-      </MentionItemStyle>
+      <MessagesIntlProvider>
+        <MentionItemStyle
+          selected={selected}
+          onMouseDown={this.onMentionSelected}
+          onMouseMove={this.onMentionMenuItemMouseMove}
+          onMouseEnter={this.onMentionMenuItemMouseEnter}
+          data-mention-id={id}
+          data-mention-name={mentionName}
+        >
+          <RowStyle>
+            <AvatarStyle restricted={restricted}>
+              <Avatar
+                src={avatarUrl}
+                size="medium"
+                presence={status}
+                borderColor={borderColor}
+              />
+            </AvatarStyle>
+            <NameSectionStyle restricted={restricted}>
+              {renderHighlight(FullNameStyle, name, nameHighlights)}
+              <MentionDescriptionByline mention={mention} />
+            </NameSectionStyle>
+            <InfoSectionStyle restricted={restricted}>
+              {renderLozenge(lozenge)}
+              {renderTime(time)}
+            </InfoSectionStyle>
+            {restricted ? (
+              <React.Suspense fallback={null}>
+                <AsyncNoAccessTooltip name={name!}>
+                  <AccessSectionStyle>
+                    <NoAccessLabel>
+                      {
+                        (text) => (
+                          <AsyncLockCircleIcon label={text} />
+                        ) /* safe to cast to string given there is no value binding */
+                      }
+                    </NoAccessLabel>
+                  </AccessSectionStyle>
+                </AsyncNoAccessTooltip>
+              </React.Suspense>
+            ) : null}
+          </RowStyle>
+        </MentionItemStyle>
+      </MessagesIntlProvider>
     );
   }
 }

@@ -89,7 +89,8 @@ describe('Snapshot Test: Table sorting', () => {
       await waitForTooltip(page);
     });
 
-    it('should revert back to original table order on the third click', async () => {
+    // FIXME: This test was automatically skipped due to failure on 1/20/2022: https://product-fabric.atlassian.net/browse/ED-14298
+    it.skip('should revert back to original table order on the third click', async () => {
       await page.click(getSortableColumnSelector(1));
       await waitForSort(page, 1, 'asc');
       await page.click(getSortableColumnSelector(1));

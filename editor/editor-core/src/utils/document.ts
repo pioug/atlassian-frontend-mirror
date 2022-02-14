@@ -1,6 +1,15 @@
 import { Node, Schema, ResolvedPos } from 'prosemirror-model';
-import { Transaction, EditorState, TextSelection } from 'prosemirror-state';
-import { ADFEntity, transformTextLinkCodeMarks } from '@atlaskit/adf-utils';
+import {
+  Transaction,
+  ReadonlyTransaction,
+  EditorState,
+  TextSelection,
+} from 'prosemirror-state';
+import {
+  ADFEntity,
+  transformMediaLinkMarks,
+  transformTextLinkCodeMarks,
+} from '@atlaskit/adf-utils';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import { sanitizeNodeForPrivacy } from '../utils/filter/privacy-filter';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -205,14 +214,30 @@ export function processRawValue(
       return Node.fromJSON(schema, node);
     }
 
+    // link mark on mediaSingle is deprecated, need to move link mark to child media node
+    // https://product-fabric.atlassian.net/browse/ED-14043
+    let { transformedAdf, isTransformed } = transformMediaLinkMarks(
+      node as ADFEntity,
+    );
+
+    if (isTransformed && dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.MEDIA_LINK_TRANSFORMED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+    }
+
     // See: HOT-97965 https://product-fabric.atlassian.net/browse/ED-14400
     // We declared in code mark spec that links and marks should not co-exist on
     // text nodes. This util strips code marks from bad text nodes and preserves links.
     // Otherwise, prosemirror will try to repair the invalid document by stripping links
     // and preserving code marks during content changes.
-    let { transformedAdf, isTransformed } = transformTextLinkCodeMarks(
-      node as ADFEntity,
-    );
+    const transformResult = transformTextLinkCodeMarks(node as ADFEntity);
+
+    transformedAdf = transformResult.transformedAdf;
+    isTransformed = transformResult.isTransformed;
+
     if (isTransformed && dispatchAnalyticsEvent) {
       dispatchAnalyticsEvent({
         action: ACTION.TEXT_LINK_MARK_TRANSFORMED,
@@ -295,7 +320,7 @@ const maySanitizePrivateContent = (
 };
 
 export const getStepRange = (
-  transaction: Transaction,
+  transaction: Transaction | ReadonlyTransaction,
 ): { from: number; to: number } | null => {
   let from = -1;
   let to = -1;
@@ -352,7 +377,7 @@ export function getChangedNodesIn({
   tr,
   doc,
 }: {
-  tr: Transaction;
+  tr: ReadonlyTransaction;
   doc: Node;
 }): { node: Node; pos: number }[] {
   const nodes: { node: Node; pos: number }[] = [];
@@ -373,7 +398,7 @@ export function getChangedNodesIn({
 }
 
 export function getChangedNodes(
-  tr: Transaction,
+  tr: ReadonlyTransaction,
 ): { node: Node; pos: number }[] {
   return getChangedNodesIn({
     tr: tr,
@@ -382,7 +407,7 @@ export function getChangedNodes(
 }
 
 export function nodesBetweenChanged(
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
   f: ChangedFn,
   startPos?: number,
 ) {

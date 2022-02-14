@@ -1,5 +1,5 @@
-import { ExtractReactTypeProps } from '../src/types';
+import { OwnProps } from '../src/types';
 
-export default function CheckboxProps(props: ExtractReactTypeProps) {
+export default function CheckboxProps(props: OwnProps) {
   return null;
 }

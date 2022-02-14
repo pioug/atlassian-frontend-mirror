@@ -1,7 +1,8 @@
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { EmojiDescription } from '@atlaskit/emoji/types';
 import { Schema, Node } from 'prosemirror-model';
-import { EditorState, Transaction, Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, Transaction, PluginKey } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 
@@ -22,7 +23,7 @@ export function inputRulePlugin(
   schema: Schema,
   providerFactory: ProviderFactory,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (schema.nodes.emoji && providerFactory) {
     initMatcher(providerFactory);
     const asciiEmojiRule = createRule(
@@ -281,7 +282,7 @@ const plugins = (
 ) => {
   return [inputRulePlugin(schema, providerFactory, featureFlags)].filter(
     (plugin) => !!plugin,
-  ) as Plugin[];
+  ) as SafePlugin[];
 };
 
 export default plugins;

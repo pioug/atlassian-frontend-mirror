@@ -13,6 +13,8 @@ export const selectors = {
   expandTitleInput: `${expand} .${expandClassNames.titleInput}`,
   nestedExpandTitleInput: `${nestedExpand} .${expandClassNames.titleInput}`,
   expandContent: `${expand} .${expandClassNames.content}`,
+  panelInExpandContent: `${expand} .${expandClassNames.content} .ak-editor-panel__content`,
+  codeBlockInExpandContent: `${expand} .${expandClassNames.content} .code-content`,
   removeButton: 'button[aria-label="Remove"]',
 };
 

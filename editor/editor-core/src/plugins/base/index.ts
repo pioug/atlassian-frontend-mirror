@@ -1,5 +1,6 @@
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
 import { EditorPlugin, PMPluginFactory } from '../../types';
@@ -75,7 +76,7 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
         },
       },
       { name: 'decorationPlugin', plugin: () => decorationPlugin() },
-      { name: 'history', plugin: () => history() },
+      { name: 'history', plugin: () => history() as SafePlugin },
       // should be last :(
       {
         name: 'codeBlockIndent',

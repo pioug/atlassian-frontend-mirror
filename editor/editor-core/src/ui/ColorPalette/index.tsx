@@ -13,7 +13,6 @@ export interface Props {
   onClick: (value: string, label: string) => void;
   cols?: number;
   className?: string;
-  isShowingMoreColors?: boolean;
 }
 
 /**
@@ -36,7 +35,6 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
     onClick,
     selectedColor,
     className,
-    isShowingMoreColors,
     intl: { formatMessage },
   } = props;
 
@@ -71,7 +69,6 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
               onClick={onClick}
               isSelected={value === selectedColor}
               checkMarkColor={getContrastColor(value, [N0, N500])}
-              autoFocus={isShowingMoreColors && rowIdx === 1 && colorIdx === 0}
             />
           ))}
         </ColorPaletteWrapper>

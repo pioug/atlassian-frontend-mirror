@@ -28,7 +28,7 @@ const mockProvidersResponse: ORSProvidersResponse = {
         },
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar)\\/?',
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar|list|board)\\/?',
           flags: '',
         },
       ],
@@ -288,6 +288,40 @@ describe('providers > editor', () => {
       ok: true,
     }));
     const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/calendar';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns embedCard when Jira work management (JWM) list view link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/list';
+    const adf = await provider.resolve(url, 'inline');
+    expect(adf).toEqual({
+      type: 'embedCard',
+      attrs: {
+        url,
+        layout: 'wide',
+      },
+    });
+  });
+
+  it('returns embedCard when Jira work management (JWM) board view link inserted, calling /providers endpoint', async () => {
+    const provider = new EditorCardProvider();
+    mockFetch.mockImplementationOnce(async () => ({
+      json: async () => mockProvidersResponse,
+      ok: true,
+    }));
+    const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
     const adf = await provider.resolve(url, 'inline');
     expect(adf).toEqual({
       type: 'embedCard',

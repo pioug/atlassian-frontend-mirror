@@ -2,9 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import { embedHeaderHeight } from '@atlaskit/media-ui/embeds';
-
 import { EmbedResizeMessageListener } from '../EmbedResizeMessageListener';
+import { embedHeaderHeight } from '../components/styled';
 
 describe('EmbedResizeMessageListener', () => {
   const getIframeElement = (windowId: number) => {

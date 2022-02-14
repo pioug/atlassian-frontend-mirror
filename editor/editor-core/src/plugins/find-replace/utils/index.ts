@@ -1,6 +1,10 @@
 import { Fragment, Node as PmNode, Slice } from 'prosemirror-model';
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { TextSelection, Transaction, Selection } from 'prosemirror-state';
+import {
+  TextSelection,
+  ReadonlyTransaction,
+  Selection,
+} from 'prosemirror-state';
 import { Step } from 'prosemirror-transform';
 import { Match, TextGrouping } from '../types';
 import { selectedSearchMatchClass, searchMatchClass } from '../styles';
@@ -347,7 +351,7 @@ export const findIndexBeforePosition = (
 export const isMatchAffectedByStep = (
   match: Match,
   step: Step & { from: number; to: number; slice: Slice },
-  tr: Transaction,
+  tr: ReadonlyTransaction,
 ) => {
   const { from, to, slice } = step;
   const sliceSize = slice.content.size;

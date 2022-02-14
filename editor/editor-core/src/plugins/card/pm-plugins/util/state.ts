@@ -1,4 +1,4 @@
-import { EditorState, Transaction } from 'prosemirror-state';
+import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
 
 import { CardPluginState, Request } from '../../types';
 import { pluginKey } from '../plugin-key';
@@ -13,7 +13,7 @@ export const getPluginState = (editorState: EditorState) =>
 
 export const getPluginStateWithUpdatedPos = (
   pluginState: CardPluginState,
-  tr: Transaction,
+  tr: ReadonlyTransaction,
 ) => ({
   ...pluginState,
   requests: pluginState.requests.map((request) => ({

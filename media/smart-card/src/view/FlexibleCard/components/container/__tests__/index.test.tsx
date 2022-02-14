@@ -1,18 +1,17 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+import { fireEvent, render, waitForElement } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Container from '../index';
-import { SmartLinkSize } from '../../../../../constants';
-import Block from '../../blocks/block';
-
-const mockBlockComponent = jest.fn();
-jest.mock('../../blocks/block', () => ({
-  __esModule: true,
-  default: (props: any) => {
-    mockBlockComponent(props);
-    return <div></div>;
-  },
-}));
+import {
+  SmartLinkSize,
+  SmartLinkStatus,
+  SmartLinkTheme,
+} from '../../../../../constants';
+import { TitleBlock } from '../../blocks';
+import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
+import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { messages } from '../../../../../messages';
 
 describe('Container', () => {
   const testId = 'smart-links-container';
@@ -53,14 +52,15 @@ describe('Container', () => {
   });
 
   describe('hideBackground', () => {
-    const background = 'var(--ds-surface,#FFFFFF)';
-
     it('shows background by default', async () => {
       const { getByTestId } = render(<Container testId={testId} />);
 
       const container = await waitForElement(() => getByTestId(testId));
 
-      expect(container).toHaveStyleDeclaration('background-color', background);
+      expect(container).toHaveStyleDeclaration(
+        'background-color',
+        expect.stringContaining('#FFFFFF'),
+      );
     });
 
     it('shows background', async () => {
@@ -70,7 +70,10 @@ describe('Container', () => {
 
       const container = await waitForElement(() => getByTestId(testId));
 
-      expect(container).toHaveStyleDeclaration('background-color', background);
+      expect(container).toHaveStyleDeclaration(
+        'background-color',
+        expect.stringContaining('#FFFFFF'),
+      );
     });
 
     it('hides background', async () => {
@@ -82,7 +85,7 @@ describe('Container', () => {
 
       expect(container).not.toHaveStyleDeclaration(
         'background-color',
-        background,
+        expect.any(String),
       );
     });
   });
@@ -90,7 +93,6 @@ describe('Container', () => {
   describe('hideElevation', () => {
     const border = '1px solid transparent';
     const borderRadius = '1.5px';
-    const boxShadow = `var(--ds-shadow-raised,0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13))`;
 
     it('shows elevation by default', async () => {
       const { getByTestId } = render(<Container testId={testId} />);
@@ -99,7 +101,10 @@ describe('Container', () => {
 
       expect(container).toHaveStyleDeclaration('border', border);
       expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
-      expect(container).toHaveStyleDeclaration('box-shadow', boxShadow);
+      expect(container).toHaveStyleDeclaration(
+        'box-shadow',
+        expect.any(String),
+      );
     });
 
     it('shows elevation', async () => {
@@ -111,7 +116,10 @@ describe('Container', () => {
 
       expect(container).toHaveStyleDeclaration('border', border);
       expect(container).toHaveStyleDeclaration('border-radius', borderRadius);
-      expect(container).toHaveStyleDeclaration('box-shadow', boxShadow);
+      expect(container).toHaveStyleDeclaration(
+        'box-shadow',
+        expect.any(String),
+      );
     });
 
     it('hides elevation', async () => {
@@ -126,7 +134,10 @@ describe('Container', () => {
         'border-radius',
         borderRadius,
       );
-      expect(container).not.toHaveStyleDeclaration('box-shadow', boxShadow);
+      expect(container).not.toHaveStyleDeclaration(
+        'box-shadow',
+        expect.any(String),
+      );
     });
   });
 
@@ -163,15 +174,25 @@ describe('Container', () => {
   });
 
   describe('renderChildren', () => {
-    afterEach(() => {
-      mockBlockComponent.mockClear();
-    });
-
     it('renders children', async () => {
       const { getByTestId } = render(
         <Container testId={testId}>
+          <TitleBlock />
+          <TitleBlock />
+        </Container>,
+      );
+
+      const container = await waitForElement(() => getByTestId(testId));
+
+      expect(container.children.length).toEqual(2);
+    });
+
+    it('does not render non block element', async () => {
+      const { getByTestId } = render(
+        <Container testId={testId}>
+          <TitleBlock />
           <div></div>
-          <div></div>
+          <TitleBlock />
         </Container>,
       );
 
@@ -190,33 +211,134 @@ describe('Container', () => {
       expect(container.children.length).toEqual(0);
     });
 
-    it('passes size prop to child element', async () => {
-      const size = SmartLinkSize.Small;
-      const { getByTestId } = render(
-        <Container size={size} testId={testId}>
-          <Block />
-        </Container>,
-      );
+    describe('retry', () => {
+      it('renders TitleBlock with retry message', async () => {
+        const onClick = jest.fn();
+        const { getByTestId } = render(
+          <IntlProvider locale="en">
+            <Container
+              retry={{ descriptor: messages.cannot_find_link, onClick }}
+              status={SmartLinkStatus.NotFound}
+              testId={testId}
+            >
+              <TitleBlock />
+            </Container>
+          </IntlProvider>,
+        );
 
-      await waitForElement(() => getByTestId(testId));
+        const message = await waitForElement(() =>
+          getByTestId('smart-block-title-errored-view-message'),
+        );
+        fireEvent(
+          message,
+          new MouseEvent('click', { bubbles: true, cancelable: true }),
+        );
 
-      expect(mockBlockComponent).toHaveBeenCalledWith(
-        expect.objectContaining({ size }),
-      );
+        expect(message.textContent).toEqual("Can't find link");
+        expect(onClick).toHaveBeenCalled();
+      });
     });
 
-    it('does not override child element size prop', async () => {
-      const { getByTestId } = render(
-        <Container size={SmartLinkSize.Small} testId={testId}>
-          <Block size={SmartLinkSize.Large} />
-        </Container>,
-      );
+    describe('size', () => {
+      it('renders block with the defined size', async () => {
+        const size = SmartLinkSize.Small;
+        const { getByTestId } = render(
+          <Container
+            size={size}
+            status={SmartLinkStatus.Resolved}
+            testId={testId}
+          >
+            <TitleBlock />
+          </Container>,
+        );
 
-      await waitForElement(() => getByTestId(testId));
+        const element = await waitForElement(() =>
+          getByTestId('smart-block-title-resolved-view'),
+        );
 
-      expect(mockBlockComponent).toHaveBeenCalledWith(
-        expect.objectContaining({ size: SmartLinkSize.Large }),
-      );
+        expect(element).toHaveStyleDeclaration('gap', '.25rem');
+      });
+
+      it('does not override block size if defined', async () => {
+        const { getByTestId } = render(
+          <Container
+            size={SmartLinkSize.Small}
+            status={SmartLinkStatus.Resolved}
+            testId={testId}
+          >
+            <TitleBlock size={SmartLinkSize.Large} />
+          </Container>,
+        );
+
+        const block = await waitForElement(() =>
+          getByTestId('smart-block-title-resolved-view'),
+        );
+
+        expect(block).toHaveStyleDeclaration('gap', '1rem');
+      });
+    });
+
+    describe('status', () => {
+      it('renders block with the defined status', async () => {
+        const size = SmartLinkSize.Small;
+        const { getByTestId } = render(
+          <Container
+            size={size}
+            status={SmartLinkStatus.Errored}
+            testId={testId}
+          >
+            <TitleBlock />
+          </Container>,
+        );
+
+        const element = await waitForElement(() =>
+          getByTestId('smart-block-title-errored-view'),
+        );
+
+        expect(element).toBeDefined();
+      });
+    });
+
+    describe('theme', () => {
+      it('renders block with the defined theme', async () => {
+        const theme = SmartLinkTheme.Black;
+        const { getByTestId } = render(
+          <FlexibleUiContext.Provider value={context}>
+            <Container testId={testId} theme={theme}>
+              <TitleBlock />
+            </Container>
+          </FlexibleUiContext.Provider>,
+        );
+
+        const element = await waitForElement(() =>
+          getByTestId('smart-element-link'),
+        );
+
+        expect(element).toHaveStyleDeclaration(
+          'color',
+          expect.stringContaining('#44546F'),
+        );
+        expect(element).toHaveStyleDeclaration('font-weight', '500');
+      });
+
+      it('overrides block theme', async () => {
+        const { getByTestId } = render(
+          <FlexibleUiContext.Provider value={context}>
+            <Container testId={testId} theme={SmartLinkTheme.Link}>
+              <TitleBlock theme={SmartLinkTheme.Black} />
+            </Container>
+          </FlexibleUiContext.Provider>,
+        );
+
+        const element = await waitForElement(() =>
+          getByTestId('smart-element-link'),
+        );
+
+        expect(element).toHaveStyleDeclaration(
+          'color',
+          expect.stringContaining('#0C66E4'),
+        );
+      });
     });
   });
 });

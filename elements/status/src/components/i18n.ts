@@ -31,4 +31,9 @@ export const messages = defineMessages({
     defaultMessage: 'Green',
     description: 'Tooltip for the green color in color palette',
   },
+  statusInputLabel: {
+    id: 'fabric.status.input.label',
+    defaultMessage: 'Set a status',
+    description: 'Aria label text for the status input field',
+  },
 });

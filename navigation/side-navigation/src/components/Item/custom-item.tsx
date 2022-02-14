@@ -36,6 +36,7 @@ const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
       return null;
     }
     const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
+    // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
     return <Custom ref={ref} cssFn={cssOverride} {...rest} />;
   },
   // Dirty hack to get generics working with forward ref [2/2]

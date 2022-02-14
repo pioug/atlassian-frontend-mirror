@@ -10,9 +10,6 @@ import { Color, Status, StatusStyle } from '@atlaskit/status/element';
 
 import { EventDispatcher } from '../../../event-dispatcher';
 import { getPosHandler, ReactNodeView } from '../../../nodeviews';
-import InlineNodeWrapper, {
-  createMobileInlineDomRef,
-} from '../../../ui/InlineNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { StatusPluginOptions } from '../types';
 import { messages } from './messages';
@@ -82,13 +79,6 @@ export interface Props {
 
 export class StatusNodeView extends ReactNodeView<Props> {
   createDomRef() {
-    if (
-      this.reactComponentProps.options &&
-      this.reactComponentProps.options.useInlineWrapper
-    ) {
-      return createMobileInlineDomRef();
-    }
-
     return super.createDomRef();
   }
 
@@ -105,7 +95,7 @@ export class StatusNodeView extends ReactNodeView<Props> {
     const { text, color, localId, style } = this.node.attrs;
 
     return (
-      <InlineNodeWrapper useInlineWrapper={options && options.useInlineWrapper}>
+      <>
         {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
         <IntlStatusContainerView
           view={this.view}
@@ -115,7 +105,7 @@ export class StatusNodeView extends ReactNodeView<Props> {
           localId={localId}
         />
         {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
-      </InlineNodeWrapper>
+      </>
     );
   }
 }

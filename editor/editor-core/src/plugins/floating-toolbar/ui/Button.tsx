@@ -31,6 +31,7 @@ export interface Props {
   tooltipContent?: React.ReactNode;
   testId?: string;
   hideTooltipOnClick?: boolean;
+  tabIndex?: number | null | undefined;
 }
 
 export default ({
@@ -53,6 +54,7 @@ export default ({
   testId,
   hideTooltipOnClick = true,
   ariaHasPopup,
+  tabIndex,
 }: Props) => {
   // Check if there's only an icon and add additional styles
   const iconOnly = (icon || iconAfter) && !children;
@@ -98,6 +100,11 @@ export default ({
           testId={testId}
           onFocus={onFocus}
           onBlur={onBlur}
+          // @ts-ignore
+          // tabIndex set as 0 by default in the design system  ButtonBase component
+          // this is not expected for all buttons, we have to use tabIndex={null} for some cases
+          // should be fixed here https://a11y-internal.atlassian.net/browse/DST-287
+          tabIndex={tabIndex}
         >
           {children}
         </Button>

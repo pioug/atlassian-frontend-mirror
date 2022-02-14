@@ -56,7 +56,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
   props,
 ) => {
   const { createPromise, eventDispatcher, extension } = props;
-  const { extensionKey, parameters } = extension;
+  const { extensionKey, parameters, localId } = extension;
 
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -73,7 +73,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
   };
 
   const getMacroId = () => {
-    return parameters?.macroMetadata?.macroId?.value;
+    return parameters?.macroMetadata?.macroId?.value || localId;
   };
 
   const getIconUrl = () => {
@@ -84,7 +84,8 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
   };
 
   const getMacroName = () => {
-    const macroTitle = parameters?.macroMetadata?.title;
+    const macroTitle =
+      parameters?.macroMetadata?.title || parameters?.extensionTitle;
 
     // a title can be a long string eg com.atlassian.packages.label
     // or excerpt-include vs Excerpt include
@@ -93,8 +94,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
       macroTitle &&
       typeof macroTitle === 'string' &&
       !/(\w+\.\w+)+/.test(macroTitle) &&
-      !/(\w+-\w+)+/.test(macroTitle) &&
-      macroTitle.length >= extensionKey.length
+      !/(\w+-\w+)+/.test(macroTitle)
     ) {
       return macroTitle;
     } else {
@@ -118,7 +118,7 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
     const CardButton = cardStyles(Button.type);
 
     return (
-      <div data-testid="macro-fallback">
+      <div data-testid="macro-fallback" data-macro-id={getMacroId()}>
         <CardButton
           onClick={onClick || noop}
           isDisabled={isDisabled}

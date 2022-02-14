@@ -1,5 +1,6 @@
 import { Step } from 'prosemirror-transform';
-import { Plugin, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Transaction } from 'prosemirror-state';
 import {
   DispatchAnalyticsEvent,
   ACTION_SUBJECT,
@@ -14,7 +15,7 @@ const hasInvalidSteps = (tr: Transaction) =>
   );
 
 export default (dispatchAnalyticsEvent: DispatchAnalyticsEvent) => {
-  return new Plugin({
+  return new SafePlugin({
     filterTransaction(transaction) {
       if (hasInvalidSteps(transaction)) {
         // eslint-disable-next-line no-console

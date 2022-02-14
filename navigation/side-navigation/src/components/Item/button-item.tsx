@@ -18,6 +18,7 @@ const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
       return null;
     }
     const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
+    // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
     return <Button ref={ref} cssFn={cssOverride} {...rest} />;
   },
 );

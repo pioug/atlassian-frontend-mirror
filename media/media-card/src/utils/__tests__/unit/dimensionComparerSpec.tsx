@@ -6,6 +6,8 @@ describe('dimensionComparer', () => {
       expect(canCompareDimension('10%', '30%')).toBe(true);
       expect(canCompareDimension(2, 100)).toBe(true);
       expect(canCompareDimension('2px', '100px')).toBe(true);
+      expect(canCompareDimension(2, '100px')).toBe(true);
+      expect(canCompareDimension('2px', 100)).toBe(true);
     });
 
     it('should return false when dimensions can not be compared', () => {
@@ -32,6 +34,12 @@ describe('dimensionComparer', () => {
         isBigger(
           { width: '10px', height: '10px' },
           { width: '10px', height: '101px' },
+        ),
+      ).toBe(true);
+      expect(
+        isBigger(
+          { width: '200px', height: 200 },
+          { width: 210, height: '200px' },
         ),
       ).toBe(true);
     });

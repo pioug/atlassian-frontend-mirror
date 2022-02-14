@@ -1,10 +1,10 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
 import ResourcedMention from '../../../components/Mention/ResourcedMention';
-import { MentionStyle } from '../../../components/Mention/styles';
+import PrimitiveMention from '../../../components/Mention/PrimitiveMention';
 import { ELEMENTS_CHANNEL } from '../../../_constants';
 import { MentionType, MentionNameStatus } from '../../../types';
 import MentionResource, { MentionProvider } from '../../../api/MentionResource';
@@ -49,7 +49,7 @@ describe('<Mention />', () => {
 
     it('should render a default lozenge if no accessLevel data and is not being mentioned', () => {
       const mention = mountWithIntl(<Mention {...mentionData} />);
-      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
         MentionType.DEFAULT,
       );
     });
@@ -58,7 +58,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} accessLevel={'CONTAINER'} />,
       );
-      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
         MentionType.DEFAULT,
       );
     });
@@ -67,7 +67,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} isHighlighted={true} />,
       );
-      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
         MentionType.SELF,
       );
     });
@@ -76,7 +76,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} accessLevel={'NONE'} />,
       );
-      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
         MentionType.RESTRICTED,
       );
     });
@@ -86,7 +86,7 @@ describe('<Mention />', () => {
         <Mention {...mentionData} accessLevel={'CONTAINER'} />,
       );
 
-      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
         MentionType.DEFAULT,
       );
     });
@@ -96,7 +96,7 @@ describe('<Mention />', () => {
         <Mention {...mentionData} accessLevel={'APPLICATION'} />,
       );
 
-      expect(mention.find(MentionStyle).prop('mentionType')).toEqual(
+      expect(mention.find(PrimitiveMention).prop('mentionType')).toEqual(
         MentionType.DEFAULT,
       );
     });
@@ -123,7 +123,7 @@ describe('<Mention />', () => {
     it('should dispatch onClick-event', () => {
       const spy = jest.fn();
       const mention = mountWithIntl(<Mention {...mentionData} onClick={spy} />);
-      mention.find(MentionStyle).simulate('click');
+      mention.find(PrimitiveMention).simulate('click');
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenLastCalledWith(
         mentionData.id,
@@ -143,7 +143,7 @@ describe('<Mention />', () => {
           <Mention {...mentionData} accessLevel={'CONTAINER'} />
         </AnalyticsListenerNext>,
       );
-      mention.find(MentionStyle).simulate('click');
+      mention.find(PrimitiveMention).simulate('click');
 
       expect(analyticsNextHandlerSpy).toHaveBeenCalled();
       expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
@@ -157,7 +157,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} onMouseEnter={spy} />,
       );
-      mention.find(MentionStyle).simulate('mouseenter');
+      mention.find(PrimitiveMention).simulate('mouseenter');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -171,7 +171,7 @@ describe('<Mention />', () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} onMouseLeave={spy} />,
       );
-      mention.find(MentionStyle).simulate('mouseleave');
+      mention.find(PrimitiveMention).simulate('mouseleave');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -190,7 +190,7 @@ describe('<Mention />', () => {
           <Mention {...mentionData} accessLevel={'CONTAINER'} />
         </AnalyticsListenerNext>,
       );
-      mention.find(MentionStyle).simulate('mouseenter');
+      mention.find(PrimitiveMention).simulate('mouseenter');
       jest.runTimersToTime(ANALYTICS_HOVER_DELAY);
 
       expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
@@ -209,9 +209,9 @@ describe('<Mention />', () => {
           <Mention {...mentionData} accessLevel={'CONTAINER'} />
         </AnalyticsListenerNext>,
       );
-      mention.find(MentionStyle).simulate('mouseenter');
+      mention.find(PrimitiveMention).simulate('mouseenter');
       jest.runTimersToTime(ANALYTICS_HOVER_DELAY / 5);
-      mention.find(MentionStyle).simulate('mouseleave');
+      mention.find(PrimitiveMention).simulate('mouseleave');
 
       // to make sure the clearTimeout removed the scheduled task
       jest.runTimersToTime(ANALYTICS_HOVER_DELAY);
@@ -219,10 +219,15 @@ describe('<Mention />', () => {
       expect(analyticsNextHandlerSpy).not.toBeCalled();
     });
 
-    it('should render a stateless mention component with correct data attributes', () => {
+    it('should render a stateless mention component with correct data attributes', async () => {
       const mention = mountWithIntl(
         <Mention {...mentionData} accessLevel="NONE" />,
       );
+
+      // flush promises to load async components
+      await new Promise(setImmediate);
+      mention.update();
+
       expect(
         mention.getDOMNode().attributes.getNamedItem('data-mention-id')!.value,
       ).toEqual(mentionData.id);
@@ -324,7 +329,11 @@ describe('<Mention />', () => {
       await mentionProvider;
       mention.update();
       expect(
-        mention.find(Mention).first().find(MentionStyle).prop('mentionType'),
+        mention
+          .find(Mention)
+          .first()
+          .find(PrimitiveMention)
+          .prop('mentionType'),
       ).toEqual(MentionType.SELF);
     });
 
@@ -333,7 +342,11 @@ describe('<Mention />', () => {
         <ResourcedMention id="oscar" text="@Oscar Wallhult" />,
       );
       expect(
-        mention.find(Mention).first().find(MentionStyle).prop('mentionType'),
+        mention
+          .find(Mention)
+          .first()
+          .find(PrimitiveMention)
+          .prop('mentionType'),
       ).toEqual(MentionType.DEFAULT);
     });
 
@@ -346,7 +359,7 @@ describe('<Mention />', () => {
           onClick={spy}
         />,
       );
-      mention.find(MentionStyle).simulate('click');
+      mention.find(PrimitiveMention).simulate('click');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -365,7 +378,7 @@ describe('<Mention />', () => {
           onMouseEnter={spy}
         />,
       );
-      mention.find(MentionStyle).simulate('mouseenter');
+      mention.find(PrimitiveMention).simulate('mouseenter');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,
@@ -383,7 +396,7 @@ describe('<Mention />', () => {
           onMouseLeave={spy}
         />,
       );
-      mention.find(MentionStyle).simulate('mouseleave');
+      mention.find(PrimitiveMention).simulate('mouseleave');
       expect(spy).toBeCalled();
       expect(spy).toHaveBeenCalledWith(
         mentionData.id,

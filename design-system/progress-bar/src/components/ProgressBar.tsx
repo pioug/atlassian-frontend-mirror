@@ -35,7 +35,7 @@ export default class ProgressBar extends React.PureComponent<
   };
 
   render() {
-    const { value, isIndeterminate, theme } = this.props;
+    const { ariaLabel, value, isIndeterminate, theme } = this.props;
     const valueParsed = isIndeterminate
       ? 0
       : Math.max(0, Math.min(value, maxValue));
@@ -47,10 +47,12 @@ export default class ProgressBar extends React.PureComponent<
             <div
               css={tokens.container}
               role="progressbar"
+              aria-label={ariaLabel}
               aria-valuemin={0}
               aria-valuenow={valueParsed}
               aria-valuemax={maxValue}
               tabIndex={0}
+              data-testid="progress-bar"
             >
               <Bar isIndeterminate={isIndeterminate} tokens={tokens} />
             </div>

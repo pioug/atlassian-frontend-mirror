@@ -4,6 +4,7 @@ import Icon from '../src';
 
 const BeforePropGlyph = (props: CustomGlyphProps) => (
   <svg
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
     width={24}
     height={24}
@@ -25,6 +26,7 @@ const AfterPropGlyph = (props: CustomGlyphProps) => (
     viewBox="0 0 24 24"
     role="presentation"
     data-random
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
   >
     <g fill="currentColor" fillRule="evenodd">

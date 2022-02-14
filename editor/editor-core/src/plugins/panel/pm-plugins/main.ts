@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -21,7 +21,7 @@ export const createPlugin = (
   pluginOptions: PanelPluginOptions,
 ) => {
   const { useLongPressSelection = false } = pluginOptions;
-  return new Plugin({
+  return new SafePlugin({
     key: pluginKey,
     props: {
       nodeViews: {

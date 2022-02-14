@@ -1,4 +1,5 @@
 import { keymap } from 'prosemirror-keymap';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { bindKeymapWithCommand, find as findKeymap } from '../../keymaps';
 import { activateWithAnalytics } from './commands-with-analytics';
 import { Command } from '../../types';
@@ -15,7 +16,7 @@ const activateFindReplace = (): Command => (state, dispatch) => {
 const keymapPlugin = () => {
   const list = {};
   bindKeymapWithCommand(findKeymap.common!, activateFindReplace(), list);
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 };
 
 export default keymapPlugin;

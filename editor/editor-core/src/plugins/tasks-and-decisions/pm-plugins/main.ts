@@ -1,5 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { NodeSelection, Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { uuid } from '@atlaskit/adf-schema';
@@ -46,7 +47,7 @@ export function createPlugin(
   dispatch: Dispatch,
   useLongPressSelection: boolean = false,
 ) {
-  return new Plugin({
+  return new SafePlugin({
     props: {
       nodeViews: {
         taskItem: taskItemNodeViewFactory(

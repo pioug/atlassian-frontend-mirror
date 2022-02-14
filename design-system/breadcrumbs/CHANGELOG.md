@@ -1,5 +1,12 @@
 # @atlaskit/breadcrumbs
 
+## 11.5.3
+
+### Patch Changes
+
+- [`fa68e406db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa68e406db6) - Internal styling has been refactored in preparation for @compiled/react
+- Updated dependencies
+
 ## 11.5.2
 
 ### Patch Changes

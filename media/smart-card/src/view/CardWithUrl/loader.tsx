@@ -8,8 +8,6 @@ import React, {
 } from 'react';
 import uuid from 'uuid';
 
-import { CardLinkView } from '@atlaskit/media-ui';
-
 import { CardProps } from '../Card/types';
 import { uiRenderFailedEvent, fireSmartLinkEvent } from '../../utils/analytics';
 import { AnalyticsPayload } from '../../utils/types';
@@ -19,6 +17,7 @@ import {
   failUfoExperience,
   startUfoExperience,
 } from '../../state/analytics/ufoExperiences';
+import { CardLinkView } from '../LinkView';
 
 const LazyCardWithUrlContent = lazy(
   () =>
@@ -58,6 +57,8 @@ export function CardWithURLRenderer(props: CardProps) {
     embedIframeRef,
     inlinePreloaderStyle,
     createAnalyticsEvent,
+    children,
+    ui,
   } = props;
 
   // Wrapper around analytics.
@@ -129,7 +130,10 @@ export function CardWithURLRenderer(props: CardProps) {
           platform={platform}
           embedIframeRef={embedIframeRef}
           inlinePreloaderStyle={inlinePreloaderStyle}
-        />
+          ui={ui}
+        >
+          {children}
+        </LazyCardWithUrlContent>
       </Suspense>
     </ErrorBoundary>
   );

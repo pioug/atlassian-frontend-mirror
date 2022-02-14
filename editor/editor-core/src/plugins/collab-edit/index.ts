@@ -1,4 +1,5 @@
 import { collab } from 'prosemirror-collab';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { EditorPlugin } from '../../types';
 import { createPlugin, pluginKey } from './plugin';
@@ -8,11 +9,10 @@ import {
   ProviderCallback,
   PrivateCollabEditOptions,
 } from './types';
-export { CollabProvider } from './provider';
 export type { CollabEditProvider } from './provider';
 import { sendTransaction } from './events/send-transaction';
 import { addSynchronyErrorAnalytics } from './analytics';
-
+import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';
 export { pluginKey };
 export type { CollabEditOptions };
 
@@ -26,7 +26,7 @@ const providerBuilder: ProviderBuilder = (
     }
   } catch (err) {
     if (onError) {
-      onError(err);
+      onError(err as Error);
     } else {
       // eslint-disable-next-line no-console
       console.error(err);
@@ -56,7 +56,14 @@ const collabEditPlugin = (options: PrivateCollabEditOptions): EditorPlugin => {
           ? [
               {
                 name: 'pmCollab',
-                plugin: () => collab({ clientID: userId }),
+                plugin: () => collab({ clientID: userId }) as SafePlugin,
+              },
+              {
+                name: 'nativeCollabProviderPlugin',
+                plugin: () =>
+                  nativeCollabProviderPlugin({
+                    providerPromise: collabEditProviderPromise,
+                  }),
               },
             ]
           : []),

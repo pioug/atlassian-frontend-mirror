@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/focus-ring",
-  "version": "0.2.7",
+  "version": "1.0.0",
   "description": "A focus ring is used to indicate the currently focused item.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,9 +9,9 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "continuous",
+    "releaseModel": "scheduled",
     "website": {
-      "name": "FocusRing"
+      "name": "Focus ring"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
@@ -36,10 +36,11 @@
   "devDependencies": {
     "@atlaskit/button": "^16.1.2",
     "@atlaskit/docs": "*",
-    "@atlaskit/progress-indicator": "^9.1.0",
+    "@atlaskit/progress-indicator": "^9.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.1.2",
     "@atlaskit/visual-regression": "*",
+    "@atlaskit/visually-hidden": "^1.0.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",

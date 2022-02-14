@@ -3,8 +3,8 @@
 exports[`Team mention description should not render Team Mention description component if context is not given 1`] = `null`;
 
 exports[`Team mention description should render Team Mention description component with less than 50 members, includes you 1`] = `
-.c0 {
-  color: #7A869A;
+.emotion-0 {
+  color: var(--ds-text-subtlest,#7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -14,17 +14,15 @@ exports[`Team mention description should render Team Mention description compone
 }
 
 <span
-  class="c0"
+  class="emotion-0"
 >
-  <span>
-    Team • 5 members, including you
-  </span>
+  Team • 5 members, including you
 </span>
 `;
 
 exports[`Team mention description should render Team Mention description component with less than 50 members, not including you 1`] = `
-.c0 {
-  color: #7A869A;
+.emotion-0 {
+  color: var(--ds-text-subtlest,#7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -34,17 +32,15 @@ exports[`Team mention description should render Team Mention description compone
 }
 
 <span
-  class="c0"
+  class="emotion-0"
 >
-  <span>
-    Team • 4 members
-  </span>
+  Team • 4 members
 </span>
 `;
 
 exports[`Team mention description should render Team Mention description component with more than 50 members, includes you 1`] = `
-.c0 {
-  color: #7A869A;
+.emotion-0 {
+  color: var(--ds-text-subtlest,#7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -54,17 +50,15 @@ exports[`Team mention description should render Team Mention description compone
 }
 
 <span
-  class="c0"
+  class="emotion-0"
 >
-  <span>
-    Team • 50+ members, including you
-  </span>
+  Team • 50+ members, including you
 </span>
 `;
 
 exports[`Team mention description should render Team Mention description component with more than 50 members, not including you 1`] = `
-.c0 {
-  color: #7A869A;
+.emotion-0 {
+  color: var(--ds-text-subtlest,#7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -74,10 +68,8 @@ exports[`Team mention description should render Team Mention description compone
 }
 
 <span
-  class="c0"
+  class="emotion-0"
 >
-  <span>
-    Team • 50+ members
-  </span>
+  Team • 50+ members
 </span>
 `;

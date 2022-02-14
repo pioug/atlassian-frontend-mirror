@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.2.8
+
+### Patch Changes
+
+- [`b2c25c19e38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2c25c19e38) - PopupSelect now uses `@atlaskit/visually-hidden` under the hood.
+- Updated dependencies
+
 ## 15.2.7
 
 ### Patch Changes

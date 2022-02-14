@@ -4,7 +4,7 @@ import {
   toDOM,
   fromHTML,
   toContext,
-} from '../../../../../test-helpers';
+} from '@atlaskit/editor-test-helpers/adf-schema';
 import { bodiedExtension } from '../../../../../src';
 import {
   doc,

@@ -1,6 +1,6 @@
 import { PuppeteerPage } from './_types';
 import { insertMedia as integrationInsertMedia } from '../../integration/_helpers';
-import { getBoundingRect, scrollToElement } from './_editor';
+import { getBoundingRect, scrollToElement, animationFrame } from './_editor';
 
 import { snapshot } from '../../visual-regression/_utils';
 import commonMessages, {
@@ -209,14 +209,23 @@ export async function resizeMediaInPositionWithSnapshot(
   side: MediaResizeSide = MediaResizeSide.right,
 ) {
   await clickMediaInPosition(page, position);
+  await animationFrame(page);
+
   await pickupHandle(page, side);
+  await animationFrame(page);
 
   await moveHandle(page, distance, side);
+  await animationFrame(page);
 
   await releaseHandle(page);
+  await animationFrame(page);
 
   await pickupHandle(page, side);
-  await snapshot(page);
+  await animationFrame(page);
+
+  await snapshot(page, undefined, undefined, {
+    captureBeyondViewport: false,
+  });
 }
 
 export async function resizeMediaInPosition(

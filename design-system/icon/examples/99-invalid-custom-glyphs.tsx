@@ -11,6 +11,7 @@ const dangerFlow = `
 
 const arrowRight = (props: CustomGlyphProps) => {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <svg {...props} width="24" height="24" viewBox="0 0 24 24" version="1.1">
       <path
         style={{ fill: 'currentColor' }}

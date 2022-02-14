@@ -18,7 +18,12 @@ export default class Status extends PureComponent<Props, {}> {
           userContext: 'document',
         }}
       >
-        <AkStatus text={text} color={color} localId={localId} />
+        <AkStatus
+          text={text}
+          color={color}
+          localId={localId}
+          role="presentation"
+        />
       </FabricElementsAnalyticsContext>
     );
   }

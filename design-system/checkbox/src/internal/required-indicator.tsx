@@ -1,23 +1,19 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { R500 } from '@atlaskit/theme/colors';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { RequiredIndicatorProps } from '../types';
+import { gridSize } from './constants';
 
-const paddingLeft = `${gridSize() * 0.25}px`;
+const requiredIndicatorStyles = css({
+  paddingLeft: gridSize * 0.25,
+  color: token('color.text.danger', R500),
+});
 
-export default function RequiredIndicator(props: RequiredIndicatorProps) {
+export default function RequiredIndicator() {
   return (
-    <span
-      css={{
-        color: token('color.text.danger', R500),
-        paddingLeft,
-      }}
-      {...props}
-    >
+    <span css={requiredIndicatorStyles} aria-hidden>
       *
     </span>
   );

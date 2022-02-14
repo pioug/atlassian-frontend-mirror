@@ -1,8 +1,8 @@
-import { getConfig } from '../config';
+import { config } from '../config';
 import { getSearchTransformer } from './transformer';
 import { SearchContext, ProductType, ContainerOption } from '../types';
 
-const getUrl = (baseUrl?: string) => getConfig().getSearchUrl(baseUrl);
+const getUrl = (baseUrl?: string) => config.getSearchUrl(baseUrl);
 
 const searchClient = (
   query: string,

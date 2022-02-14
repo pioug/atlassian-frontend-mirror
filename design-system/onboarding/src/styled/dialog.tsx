@@ -31,6 +31,7 @@ const actionItemStyles = css({
  */
 export const DialogImage: React.FC<React.ImgHTMLAttributes<
   HTMLImageElement
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 >> = ({ alt, ...props }) => <img css={imageStyles} alt={alt} {...props} />;
 
 /**

@@ -1,87 +1,72 @@
 /** @jsx jsx */
 import React from 'react';
+import { css, jsx, SerializedStyles } from '@emotion/core';
 
-import { B400, N800, N900, B500 } from '@atlaskit/theme/colors';
-import { h200, h400, h600, h800 } from '@atlaskit/theme/typography';
-import { token } from '@atlaskit/tokens';
-import { css, jsx } from '@emotion/core';
+import Tooltip from '@atlaskit/tooltip';
 
 import { SmartLinkSize, SmartLinkTheme } from '../../../../../constants';
 
 import { LinkProps } from './types';
+import {
+  getLinkLineHeight,
+  getLinkSizeStyles,
+  getTruncateStyles,
+} from '../../utils';
+import { tokens } from '../../../../../utils/token';
 
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;
 const MINIMUM_MAX_LINES = 1;
 
-const getSizeStyles = (size: SmartLinkSize) => {
-  const overrides = { marginTop: 'unset' };
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return { ...h800(), ...overrides };
-    case SmartLinkSize.Large:
-      return { ...h600(), ...overrides };
-    case SmartLinkSize.Medium:
-      return { ...h400(), ...overrides };
-    case SmartLinkSize.Small:
-    default:
-      return { ...h200(), ...overrides };
-  }
-};
+const containerStyles = css`
+  flex: 1 1 auto;
+`;
 
-const getThemeStyles = (theme: SmartLinkTheme) => {
+const getThemeStyles = (theme: SmartLinkTheme): SerializedStyles => {
   switch (theme) {
     case SmartLinkTheme.Black:
-      return {
-        color: token('color.text.subtle', N800),
-        fontWeight: 500,
-        ':active': {
-          color: token('color.text', N900),
-        },
-        ':hover': {
-          color: token('color.text.subtle', N800),
-          textDecoration: 'underline',
-        },
-      };
+      return css`
+        color: ${tokens.blackLink};
+        :active {
+          color: ${tokens.blackLinkPressed};
+        }
+        :hover {
+          color: ${tokens.blackLink};
+          text-decoration: underline;
+        }
+      `;
     case SmartLinkTheme.Link:
     default:
-      return {
-        color: token('color.link', B400),
-        ':active': {
-          color: token('color.link.pressed', B500),
-        },
-        ':hover': {
-          color: token('color.link', B400),
-          textDecoration: 'underline',
-        },
-      };
+      return css`
+        color: ${tokens.blueLink};
+        :active {
+          color: ${tokens.blueLinkPressed};
+        }
+        :hover {
+          color: ${tokens.blueLink};
+          text-decoration: underline;
+        }
+      `;
   }
 };
 
-const getTruncateStyles = (maxLines: number, lineHeight: number = 16) => ({
-  display: '-webkit-box',
-  flex: '1 1 auto',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  wordBreak: 'break-word' as const,
-  WebkitLineClamp: maxLines,
-  WebkitBoxOrient: 'vertical' as const,
-  // Fallback options.
-  maxHeight: `${(maxLines * lineHeight).toFixed(3)}em`,
-});
-
-const getStyles = (
+const getAnchorStyles = (
   size: SmartLinkSize,
   theme: SmartLinkTheme,
   maxLines: number,
-) => {
-  const sizeStyles = getSizeStyles(size);
-  return css({
-    ...sizeStyles,
-    ...getTruncateStyles(maxLines, sizeStyles?.lineHeight),
+): SerializedStyles => {
+  const sizeStyles = getLinkSizeStyles(size);
+  return css`
+    ${sizeStyles}
+    ${getTruncateStyles(
+      maxLines,
+      getLinkLineHeight(size),
+    )}
     // Theme should be last to be spread because it contains override values
-    ...getThemeStyles(theme),
-  });
+    ${getThemeStyles(
+      theme,
+    )}
+  `;
 };
 
 const getMaxLines = (maxLines: number) => {
@@ -104,14 +89,18 @@ const Link: React.FC<LinkProps> = ({
   theme = SmartLinkTheme.Link,
   url,
 }) => (
-  <a
-    css={getStyles(size, theme, getMaxLines(maxLines))}
-    href={url}
-    data-smart-element-link
-    data-testid={testId}
-  >
-    {text}
-  </a>
+  <span css={containerStyles}>
+    <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
+      <a
+        css={getAnchorStyles(size, theme, getMaxLines(maxLines))}
+        data-smart-element-link
+        data-testid={testId}
+        href={url}
+      >
+        {text}
+      </a>
+    </Tooltip>
+  </span>
 );
 
 export default Link;

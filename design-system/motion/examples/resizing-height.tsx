@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
+import FocusRing from '@atlaskit/focus-ring';
 import {
   BitbucketIcon,
   ConfluenceIcon,
@@ -12,8 +13,7 @@ import {
   OpsgenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
-import { B500, N10, N20 } from '@atlaskit/theme/colors';
-import { focusRing } from '@atlaskit/theme/constants';
+import { N10, N20 } from '@atlaskit/theme/colors';
 import { e500 } from '@atlaskit/theme/elevation';
 
 import { Centered } from '../examples-utils';
@@ -69,29 +69,30 @@ export default () => {
             padding-bottom: 8px;
           `}
         >
-          <input
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
-            type="text"
-            readOnly
-            value={searchTerm[`s${num}`]}
-            css={css`
-              ${focusRing(B500, 2)};
-              display: block;
-              border-radius: 3px 3px 0 0;
-              color: #172b4d;
-              font-size: 24px;
-              padding: 16px;
-              border: none;
-              box-sizing: border-box;
-              width: 100%;
-              margin-bottom: 8px;
+          <FocusRing isInset>
+            <input
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
+              type="text"
+              readOnly
+              value={searchTerm[`s${num}`]}
+              css={css`
+                display: block;
+                border-radius: 3px 3px 0 0;
+                color: #172b4d;
+                font-size: 24px;
+                padding: 16px;
+                border: none;
+                box-sizing: border-box;
+                width: 100%;
+                margin-bottom: 8px;
 
-              :hover {
-                background-color: ${N10};
-              }
-            `}
-          />
+                :hover {
+                  background-color: ${N10};
+                }
+              `}
+            />
+          </FocusRing>
           <StaggeredEntrance columns={1}>
             {Array(num)
               .fill(undefined)

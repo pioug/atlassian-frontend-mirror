@@ -6,6 +6,8 @@ import {
   tdEmpty,
   tr,
   DocBuilder,
+  p,
+  td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   Preset,
@@ -13,7 +15,7 @@ import {
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import panelPlugin from '../../../../panel';
-import { selectColumn } from '../../../commands';
+import { selectColumn, moveCursorBackward } from '../../../commands';
 import { getDecorations } from '../../../pm-plugins/decorations/plugin';
 import { getPluginState, pluginKey } from '../../../pm-plugins/plugin-factory';
 import { TableDecorations, TablePluginState } from '../../../types';
@@ -56,6 +58,107 @@ describe('table plugin: commands', () => {
       );
 
       expect(columnSelectedDecorations).toHaveLength(1);
+    });
+  });
+
+  describe('#moveCursorBackwards', () => {
+    describe(`press backspace in an empty paragraph`, () => {
+      describe(`paragraph is not last node in document`, () => {
+        it(`should delete the paragraph node and place the cursor inside the last table cell`, () => {
+          const { editorView } = editor(
+            doc(
+              table({ localId: 'testId' })(
+                tr(td({})(p()), td({})(p()), td({})(p())),
+              ),
+              p('{<>}'),
+              p(),
+            ),
+          );
+          const { state, dispatch } = editorView;
+          moveCursorBackward(state, dispatch);
+          const expectedDoc = doc(
+            table({ localId: 'testId' })(
+              tr(td({})(p()), td({})(p()), td({})(p('{<>}'))),
+            ),
+            p(),
+          );
+          expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+        });
+      });
+
+      describe(`paragraph is the last node in document`, () => {
+        it(`should just place the cursor inside the last table cell`, () => {
+          const { editorView } = editor(
+            doc(
+              table({ localId: 'testId' })(
+                tr(td({})(p()), td({})(p()), td({})(p())),
+              ),
+              p('{<>}'),
+            ),
+          );
+          const { state, dispatch } = editorView;
+          moveCursorBackward(state, dispatch);
+          const expectedDoc = doc(
+            table({ localId: 'testId' })(
+              tr(td({})(p()), td({})(p()), td({})(p('{<>}'))),
+            ),
+            p(),
+          );
+          expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
+        });
+      });
+    });
+
+    describe(`press backspace in paragraph with content`, () => {
+      it(`should place cursor inside last table cell`, () => {
+        const editorParagraphEnd = editor(
+          doc(
+            table({ localId: 'testId' })(
+              tr(td({})(p()), td({})(p()), td({})(p())),
+            ),
+            p('{<>}hello there'),
+          ),
+        );
+        const editorViewParagraphEnd = editorParagraphEnd.editorView;
+        moveCursorBackward(
+          editorViewParagraphEnd.state,
+          editorViewParagraphEnd.dispatch,
+        );
+        const paragraphEndExpectedDoc = doc(
+          table({ localId: 'testId' })(
+            tr(td({})(p()), td({})(p()), td({})(p('{<>}'))),
+          ),
+          p('hello there'),
+        );
+        expect(editorViewParagraphEnd.state).toEqualDocumentAndSelection(
+          paragraphEndExpectedDoc,
+        );
+
+        const editorParagraph = editor(
+          doc(
+            table({ localId: 'testId' })(
+              tr(td({})(p()), td({})(p()), td({})(p())),
+            ),
+            p('{<>}hello there'),
+            p('hello there'),
+          ),
+        );
+        const editorViewParagraph = editorParagraph.editorView;
+        moveCursorBackward(
+          editorViewParagraph.state,
+          editorViewParagraph.dispatch,
+        );
+        const paragraphExpectedDoc = doc(
+          table({ localId: 'testId' })(
+            tr(td({})(p()), td({})(p()), td({})(p('{<>}'))),
+          ),
+          p('hello there'),
+          p('hello there'),
+        );
+        expect(editorViewParagraph.state).toEqualDocumentAndSelection(
+          paragraphExpectedDoc,
+        );
+      });
     });
   });
 });

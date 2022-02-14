@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { Dispatch, EventDispatcher } from '../../../../event-dispatcher';
 
@@ -11,7 +11,7 @@ export const createPlugin = (
   eventDispatcher: EventDispatcher,
   initialState = () => [],
 ) => {
-  return new Plugin({
+  return new SafePlugin({
     state: createPluginState(dispatch, initialState),
     key: pluginKey,
     props: {

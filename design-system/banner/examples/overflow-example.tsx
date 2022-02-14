@@ -4,8 +4,8 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import Banner from '../src';
 
-const Padded = (props: { children: React.ReactNode }) => (
-  <div style={{ padding: 16 }} {...props} />
+const Padded = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ padding: 16 }}>{children}</div>
 );
 
 export default () => (

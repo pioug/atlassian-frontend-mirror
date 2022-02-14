@@ -32,12 +32,12 @@ describe('Viewport Renderer', () => {
 
   /* test the combinations of translate, scale, rotate required to achieve the orientation transforms */
 
-  const setup = (orientation: number) => {
+  const setup = (orientation: number, outputSize?: number) => {
     const viewport = setupViewport();
     viewport.orientation = orientation;
     const { canvas, context } = mockImagePlacerUtil.getCanvas();
 
-    renderViewport(viewport, mockImage, canvas);
+    renderViewport(viewport, mockImage, canvas, outputSize);
 
     return {
       viewport,
@@ -45,6 +45,12 @@ describe('Viewport Renderer', () => {
       context,
     };
   };
+
+  it('should apply scaling to the canvas', () => {
+    const { canvas } = setup(2, 512);
+    expect(canvas.width).toBe(512);
+    expect(canvas.height).toBe(512);
+  });
 
   it('should apply orientation 2', () => {
     setup(2);

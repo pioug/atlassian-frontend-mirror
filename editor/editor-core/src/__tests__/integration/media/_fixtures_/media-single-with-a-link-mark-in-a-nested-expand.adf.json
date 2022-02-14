@@ -47,15 +47,15 @@
                                 "collection": "MediaServicesSample",
                                 "width": 500,
                                 "height": 500
-                              }
-                            }
-                          ],
-                          "marks": [
-                            {
-                              "type": "link",
-                              "attrs": {
-                                "href": "https://gnu.org"
-                              }
+                              },
+                              "marks": [
+                                {
+                                  "type": "link",
+                                  "attrs": {
+                                    "href": "https://gnu.org"
+                                  }
+                                }
+                              ]
                             }
                           ]
                         }

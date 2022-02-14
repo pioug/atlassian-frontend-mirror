@@ -1,6 +1,7 @@
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Fragment, Schema, Slice } from 'prosemirror-model';
-import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { FeatureFlags } from '../../../types/feature-flags';
 
 import { createRule, createPlugin } from '../../../utils/input-rules';
@@ -75,7 +76,7 @@ const createHorizontalRuleAutoformat = (
 export function inputRulePlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
 
   if (schema.nodes.rule) {

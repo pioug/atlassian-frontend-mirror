@@ -1,7 +1,8 @@
 // @ts-ignore: outdated type definitions
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
-import { Plugin, PluginKey, EditorState, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState, Transaction } from 'prosemirror-state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { CardOptions } from '@atlaskit/editor-common/card';
@@ -11,6 +12,7 @@ import {
   getExtensionAutoConvertersFromProvider,
   ExtensionAutoConvertHandler,
 } from '@atlaskit/editor-common/extensions';
+sendPasteAnalyticsEvent;
 
 import * as clipboard from '../../../utils/clipboard';
 import { transformSliceForMedia } from '../../media/utils/media-single';
@@ -85,6 +87,12 @@ import {
   stripNonExistingAnnotations,
 } from '../../annotation/utils';
 import { pluginKey as betterTypePluginKey } from '../../base/pm-plugins/better-type-history';
+import { clipboardTextSerializer } from './clipboard-text-serializer';
+import {
+  htmlHasIncompleteTable,
+  tryRebuildCompleteTableHtml,
+  isPastedFromTinyMCEConfluence,
+} from '../util/tinyMCE';
 
 export const stateKey = new PluginKey('pastePlugin');
 export { md } from '../md';
@@ -107,6 +115,7 @@ function isBackgroundCellAllowed(state: EditorState) {
 export function createPlugin(
   schema: Schema,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+  plainTextPasteLinkification?: boolean,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
   providerFactory?: ProviderFactory,
@@ -154,9 +163,19 @@ export function createPlugin(
     providerFactory.subscribe('extensionProvider', setExtensionAutoConverter);
   }
 
-  return new Plugin({
+  let mostRecentPasteEvent: ClipboardEvent | null;
+
+  return new SafePlugin({
     key: stateKey,
     props: {
+      // For serialising to plain text
+      clipboardTextSerializer,
+      handleDOMEvents: {
+        paste: (view, event) => {
+          mostRecentPasteEvent = event as ClipboardEvent;
+          return false;
+        },
+      },
       handlePaste(view, rawEvent, slice) {
         const event = rawEvent as ClipboardEvent;
         if (!event.clipboardData) {
@@ -236,8 +255,13 @@ export function createPlugin(
 
         slice = handleParagraphBlockMarks(state, slice);
 
+        const plainTextPasteSlice =
+          plainTextPasteLinkification === true
+            ? linkifyContent(state.schema)(slice)
+            : slice;
+
         if (
-          handlePasteAsPlainTextWithAnalytics(view, event, slice)(
+          handlePasteAsPlainTextWithAnalytics(view, event, plainTextPasteSlice)(
             state,
             dispatch,
             view,
@@ -508,6 +532,20 @@ export function createPlugin(
           html = html.replace(/white-space:pre-wrap/g, '');
         }
 
+        // Partial fix for ED-7331: During a copy/paste from the legacy tinyMCE
+        // confluence editor, if we encounter an incomplete table (e.g. table elements
+        // not wrapped in <table>), we try to rebuild a complete, valid table if possible.
+        if (
+          mostRecentPasteEvent &&
+          isPastedFromTinyMCEConfluence(mostRecentPasteEvent, html) &&
+          htmlHasIncompleteTable(html)
+        ) {
+          const completeTableHtml = tryRebuildCompleteTableHtml(html);
+          if (completeTableHtml) {
+            html = completeTableHtml;
+          }
+        }
+
         if (
           !isPastedFromWord(html) &&
           !isPastedFromExcel(html) &&
@@ -523,6 +561,7 @@ export function createPlugin(
           html = removeDuplicateInvalidLinks(html);
         }
 
+        mostRecentPasteEvent = null;
         return html;
       },
     },

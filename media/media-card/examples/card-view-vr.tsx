@@ -88,7 +88,7 @@ function renderCardImageView(
   const isDataURIBroken = urlParams.get('brokenDataUri') === 'true';
   const isTransparentImage = urlParams.get('isTransparent') === 'true';
   const resizeMode = isTransparentImage ? 'fit' : 'crop';
-  const dataUri = isDataURIBroken
+  const dataURI = isDataURIBroken
     ? 'error-uri'
     : isTransparentImage
     ? wideTransparentImage
@@ -113,6 +113,10 @@ function renderCardImageView(
     dimensions.width = width;
   }
 
+  const cardPreview = dataURI
+    ? ({ dataURI, source: 'remote' } as const)
+    : undefined;
+
   return (
     <CardWrapper key={key} {...wrapperDimensionsSmall}>
       <CardView
@@ -127,7 +131,7 @@ function renderCardImageView(
         resizeMode={resizeMode}
         progress={0.5}
         dimensions={dimensions}
-        dataURI={dataUri}
+        cardPreview={cardPreview}
         selected={selected}
         disableAnimation={true}
       />

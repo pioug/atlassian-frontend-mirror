@@ -10,6 +10,7 @@ import Avatar from '../src';
 
 const Btn = (props: ButtonProps) => (
   <span style={{ marginLeft: gridSize() }}>
+    {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
     <Button type="button" {...props} />
   </span>
 );

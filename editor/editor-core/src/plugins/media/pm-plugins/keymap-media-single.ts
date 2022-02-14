@@ -1,6 +1,7 @@
 import { keymap } from 'prosemirror-keymap';
 import { Schema, NodeType, Node } from 'prosemirror-model';
-import { Plugin, EditorState, Selection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, Selection } from 'prosemirror-state';
 import * as keymaps from '../../../keymaps';
 import {
   isEmptyNode,
@@ -199,7 +200,7 @@ const maybeRemoveMediaSingleNode = (schema: Schema): Command => {
   };
 };
 
-export default function keymapPlugin(schema: Schema): Plugin {
+export default function keymapPlugin(schema: Schema): SafePlugin {
   const list = {};
   const removeMediaSingleCommand = maybeRemoveMediaSingleNode(schema);
 
@@ -209,5 +210,5 @@ export default function keymapPlugin(schema: Schema): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }

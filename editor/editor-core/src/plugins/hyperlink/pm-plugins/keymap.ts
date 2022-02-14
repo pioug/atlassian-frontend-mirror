@@ -1,5 +1,6 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from 'prosemirror-state';
 import { Match, getLinkMatch } from '@atlaskit/adf-schema';
 import * as keymaps from '../../../keymaps';
 import { HyperlinkState, stateKey } from '../pm-plugins/main';
@@ -11,7 +12,7 @@ import { getLinkCreationAnalyticsEvent } from '../analytics';
 
 export function createKeymapPlugin(
   skipAnalytics: boolean = false,
-): Plugin | undefined {
+): SafePlugin | undefined {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -48,7 +49,7 @@ export function createKeymapPlugin(
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 const mayConvertLastWordToHyperlink: (skipAnalytics: boolean) => Command = (

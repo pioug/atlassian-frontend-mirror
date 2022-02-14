@@ -1,9 +1,10 @@
-import { Plugin, TextSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 type PosAtDOM = (node: Node) => number | null;
 
-export default new Plugin({
+export default new SafePlugin({
   props: {
     handleClick(view: EditorView, clickPos, event) {
       // Don't apply in Edge as per ED-4546

@@ -85,8 +85,14 @@ describe('TextArea', () => {
 
     it('should auto increase/decrease height of resize:smart(default) textarea based on content', async () => {
       const selector = '[data-testid="smartResizeTextArea"]';
-      await page.waitForSelector(selector);
+      const clearTextSelector = '[data-testid="clearTextButton"]';
+      const insertTextSelector = '[data-testid="insertTextButton"]';
 
+      await page.waitForSelector(selector);
+      await page.waitForSelector(clearTextSelector);
+      await page.waitForSelector(insertTextSelector);
+
+      // Manual input
       const imageBeforeTypingLongText = await takeElementScreenShot(
         page,
         selector,
@@ -108,6 +114,23 @@ describe('TextArea', () => {
         selector,
       );
       expect(imageHeightReduceOnRemovingText).toMatchProdImageSnapshot();
+
+      // ---- Value prop change
+      // Insert text
+      await page.click(insertTextSelector);
+      const imageAfterValuePropSet = await takeElementScreenShot(
+        page,
+        selector,
+      );
+      expect(imageAfterValuePropSet).toMatchProdImageSnapshot();
+
+      // Clear text
+      await page.click(clearTextSelector);
+      const imageAfterValuePropCleared = await takeElementScreenShot(
+        page,
+        selector,
+      );
+      expect(imageAfterValuePropCleared).toMatchProdImageSnapshot();
     });
 
     it('should not auto increase/decrease height of resize:auto textarea based on content', async () => {

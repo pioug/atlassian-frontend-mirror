@@ -1,6 +1,6 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { codeBlock } from '../../../../schema/nodes/code-block';
-import { fromHTML, toHTML } from '../../../../../test-helpers';
+import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { name } from '../../../../version.json';
 
 describe(`${name}/schema codeBlock node`, () => {

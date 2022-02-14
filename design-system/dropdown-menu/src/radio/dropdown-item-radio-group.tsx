@@ -58,6 +58,7 @@ const DropdownItemRadioGroup = (props: DropdownItemRadioGroupProps) => {
     <RadioGroupContext.Provider
       value={{ id, radioGroupState, selectRadioItem }}
     >
+      {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
       <Section {...props}>{children}</Section>
     </RadioGroupContext.Provider>
   );

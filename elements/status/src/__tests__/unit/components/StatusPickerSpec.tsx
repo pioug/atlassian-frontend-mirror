@@ -1,7 +1,4 @@
-import {
-  shallowWithIntl,
-  mountWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import TextField from '@atlaskit/textfield';
 import React from 'react';
 import { StatusPicker } from '../../..';
@@ -12,7 +9,7 @@ describe('StatusPicker', () => {
     const onColorClick = jest.fn();
     const onColorHover = jest.fn();
 
-    const component = shallowWithIntl(
+    const component = mountWithIntl(
       <StatusPicker
         selectedColor="red"
         text=""
@@ -30,7 +27,7 @@ describe('StatusPicker', () => {
   });
 
   it('should render field text', () => {
-    const component = shallowWithIntl(
+    const component = mountWithIntl(
       <StatusPicker
         selectedColor="red"
         text="In progress"
@@ -77,7 +74,7 @@ describe('StatusPicker', () => {
 
   it('should pass onColorClick handler prop to color palette', () => {
     const onColorClick = () => {};
-    const component = shallowWithIntl(
+    const component = mountWithIntl(
       <StatusPicker
         selectedColor="red"
         text=""
@@ -92,7 +89,7 @@ describe('StatusPicker', () => {
 
   it('should call onTextChanged on text field change', () => {
     const onTextChanged = jest.fn();
-    const component = shallowWithIntl(
+    const component = mountWithIntl(
       <StatusPicker
         selectedColor="red"
         text=""
@@ -101,14 +98,16 @@ describe('StatusPicker', () => {
         onEnter={() => {}}
       />,
     );
-
-    component.find(TextField).simulate('change', { target: { value: 'Done' } });
+    component
+      .find(TextField)
+      .props()
+      .onChange({ target: { value: 'Done' } });
     expect(onTextChanged).toHaveBeenCalledWith('Done');
   });
 
   it('should call onEnter on enter in text field', () => {
     const onEnter = jest.fn();
-    const component = shallowWithIntl(
+    const component = mountWithIntl(
       <StatusPicker
         selectedColor="red"
         text=""
@@ -117,8 +116,7 @@ describe('StatusPicker', () => {
         onEnter={onEnter}
       />,
     );
-
-    component.find(TextField).simulate('keypress', { key: 'Enter' });
+    component.find(TextField).props().onKeyPress({ key: 'Enter' });
     expect(onEnter).toHaveBeenCalled();
   });
 });

@@ -25,6 +25,7 @@ Object {
               "name": "Welcome to Atlassian!",
               "url": "http://www.atlassian.com",
             },
+            "localId": "abc-123",
             "url": null,
           },
           "type": "inlineCard",

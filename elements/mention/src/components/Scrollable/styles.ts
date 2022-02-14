@@ -1,15 +1,9 @@
-import styled from 'styled-components';
-// @ts-ignore: unused variable
-// prettier-ignore
-import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
+import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { scrollableMaxHeight } from '../../shared-styles';
 
-export const ScrollableStyle: ComponentClass<
-  HTMLAttributes<{}> & {
-    innerRef?: any;
-  }
-> = styled.div`
+export const ScrollableStyle = styled.div`
   display: block;
   overflow-x: hidden;
   overflow-y: auto;
@@ -17,7 +11,7 @@ export const ScrollableStyle: ComponentClass<
   padding: 4px 0;
   margin: 0;
 
-  background: white;
+  background: ${token('elevation.surface', 'white')};
   max-height: ${scrollableMaxHeight};
 
   border-radius: ${borderRadius()}px;

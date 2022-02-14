@@ -1,7 +1,8 @@
 import { name } from '../../../version.json';
 import { mount } from 'enzyme';
 import React from 'react';
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import WithPluginState from '../../../ui/WithPluginState';
@@ -45,7 +46,7 @@ describe(name, () => {
           {
             name: '',
             plugin: () =>
-              new Plugin({
+              new SafePlugin({
                 key,
                 state: {
                   init() {

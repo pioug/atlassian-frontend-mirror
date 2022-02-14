@@ -1,9 +1,5 @@
-import {
-  EditorState,
-  Plugin,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
 import {
   findParentDomRefOfType,
   findParentNodeOfType,
@@ -119,7 +115,7 @@ export const createPlugin = (
   // Used to prevent invalid table cell spans being reported more than once per editor/document
   const invalidTableIds: string[] = [];
 
-  return new Plugin({
+  return new SafePlugin({
     state: state,
     key: pluginKey,
     appendTransaction: (

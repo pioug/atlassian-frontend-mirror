@@ -1,4 +1,3 @@
-import { PreviewAction, BlockCardResolvedViewProps } from '@atlaskit/media-ui';
 import { JsonLd } from 'json-ld-types';
 
 import { InvokeHandler } from '../../../model/invoke-handler';
@@ -13,6 +12,10 @@ import { extractDownloadUrl } from '../detail';
 import { extractProvider } from '../context';
 import { extractPreview } from '../preview';
 import { AnalyticsHandler } from '../../../utils/types';
+import {
+  BlockCardResolvedViewProps,
+  PreviewAction,
+} from '../../../view/BlockCard';
 
 const getMetadataFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,

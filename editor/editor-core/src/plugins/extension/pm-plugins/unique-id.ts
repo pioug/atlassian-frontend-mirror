@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { uuid } from '@atlaskit/adf-schema';
 
 import { stepAddsOneOf } from '../../../utils/step';
@@ -6,7 +7,7 @@ import { stepAddsOneOf } from '../../../utils/step';
 const pluginKey = new PluginKey('extensionUniqueIdPlugin');
 
 const createPlugin = () =>
-  new Plugin({
+  new SafePlugin({
     // TODO: @see ED-8839
     appendTransaction: (transactions, _oldState, newState) => {
       const tr = newState.tr;

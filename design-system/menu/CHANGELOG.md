@@ -1,5 +1,15 @@
 # @atlaskit/menu
 
+## 1.2.6
+
+### Patch Changes
+
+- [`58884c2f6c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58884c2f6c1) - Internal code change turning on a new linting rule.
+- [`27467f65f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27467f65f68) - [ux] Update headingStyle to color that passes WCAG AA color contrast
+- [`2066efabc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2066efabc65) - A fix for the `StatelessCSSFn` type so that it now correctly accetps a void argument.
+- [`96cfc6c1c7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96cfc6c1c7f) - Deprecates the `cssFn` and `overrides` APIs in '@atlaskit/menu'. These APIs are not performant and allow unbounded customisation of the Menu components. These APIs will be removed in a future release.
+- Updated dependencies
+
 ## 1.2.5
 
 ### Patch Changes

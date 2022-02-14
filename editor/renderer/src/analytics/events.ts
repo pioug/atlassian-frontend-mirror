@@ -245,6 +245,14 @@ export type AnnotationAEP = AEP<
   undefined
 >;
 
+type MediaLnkTransformedAEP = AEP<
+  ACTION.MEDIA_LINK_TRANSFORMED,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  undefined,
+  EVENT_TYPE.OPERATIONAL
+>;
+
 export type AnalyticsEventPayload =
   | RendererStartAEP
   | RendererRenderedAEP
@@ -264,4 +272,5 @@ export type AnalyticsEventPayload =
   | UnsupportedContentTooltipPayload
   | AnnotationAEP
   | AnnotationDeleteAEP
+  | MediaLnkTransformedAEP
   | InvalidProsemirrorDocumentErrorAEP;

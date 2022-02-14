@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.1.0
+
+### Minor Changes
+
+- [`c4e94b64308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4e94b64308) - Added a new href prop to the Create button which causes it to be rendered as a link. This is suitable for when the Create action is handled as a full page rather than in a modal-dialog.
+
 ## 2.0.4
 
 ### Patch Changes

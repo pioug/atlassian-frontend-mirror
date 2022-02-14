@@ -60,6 +60,9 @@ import {
   InsertMarker,
 } from './ui-styles.css';
 
+
+const cornerControlHeight = tableToolbarSize + 1;
+
 const rangeSelectionStyles = `
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} table tbody tr {
   th,td {
@@ -348,7 +351,7 @@ export const tableStyles = css`
     /* Corner controls */
     .${ClassName.CORNER_CONTROLS} {
       width: ${tableToolbarSize + 1}px;
-      height: ${tableToolbarSize + 1}px;
+      height: ${cornerControlHeight}px;
       display: none;
 
       .${ClassName.CORNER_CONTROLS_INSERT_ROW_MARKER} {
@@ -544,6 +547,19 @@ export const tableStyles = css`
         margin-top: 0;
       }
 
+      /*
+       * Headings have a top margin by default, but we don't want this on the
+       * first heading within table header cells.
+       *
+       * This specifically sets margin-top for the first heading within a header
+       * cell when center/right aligned.
+       */
+      th.${ClassName.TABLE_HEADER_CELL} > .fabric-editor-block-mark {
+        > h1:first-child, > h2:first-child, > h3:first-child, > h4:first-child, > h5:first-child, > h6:first-child {
+          margin-top: 0;
+        }
+      }
+
       .${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL_IN_DANGER} {
         position: relative;
       }
@@ -573,7 +589,8 @@ export const tableStyles = css`
     }
     .${ClassName.ROW_CONTROLS_WRAPPER} {
       position: absolute;
-      top: ${tableMarginTop - 1}px;
+      /* top of corner control is table margin top - corner control height + 1 pixel of table border. */
+      top: ${tableMarginTop - cornerControlHeight + 1 }px;
     }
     .${ClassName.ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_LEFT_SHADOW} {
       z-index: ${akEditorUnitZIndex};
@@ -582,15 +599,13 @@ export const tableStyles = css`
       left: -${tableToolbarSize}px;
     }
     .${ClassName.TABLE_NODE_WRAPPER} {
-      /* 
+      /*
       compensating for half of the insert column button
       that is aligned to the right edge initially on hover of the top right column control when table overflown,
       its center should be aligned with the edge
        */
       padding-right: ${tableInsertColumnButtonSize / 2}px;
       margin-right: -${tableInsertColumnButtonSize / 2}px;
-      padding-top: ${tableInsertColumnButtonSize / 2}px;
-      margin-top: -${tableInsertColumnButtonSize / 2}px;
       padding-bottom: ${tableScrollbarOffset}px;
       margin-bottom: -${tableScrollbarOffset}px;
       /* fixes gap cursor height */

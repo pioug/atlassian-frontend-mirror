@@ -10,7 +10,10 @@ import {
   insertMedia,
   scrollToMedia,
 } from '../../__helpers/page-objects/_media';
-import { clickEditableContent } from '../../__helpers/page-objects/_editor';
+import {
+  clickEditableContent,
+  animationFrame,
+} from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
 import { EditorProps } from '../../../types';
 import mediaGroupAdf from './__fixtures__/media-group-multiple-cards.adf.json';
@@ -129,7 +132,10 @@ describe('Snapshot Test: Media', () => {
       });
 
       afterEach(async () => {
+        await animationFrame(page);
         await scrollToMedia(page);
+        await animationFrame(page);
+        await animationFrame(page);
         await takeCommentSnapshot(page);
       });
 
@@ -137,7 +143,7 @@ describe('Snapshot Test: Media', () => {
         await pressKey(page, 'ArrowUp');
       });
 
-      // FIXME: This test was automatically skipped due to failure on 8/24/2021: https://product-fabric.atlassian.net/browse/ED-13662
+      // FIXME will be unskipped in https://product-fabric.atlassian.net/servicedesk/customer/portal/99/DTR-167?created=true
       it.skip('should render right side gap cursor (via arrow left)', async () => {
         await pressKey(page, 'ArrowLeft');
       });

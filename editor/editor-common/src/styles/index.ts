@@ -37,7 +37,6 @@ export {
 export { ruleSharedStyles } from './shared/rule';
 export { whitespaceSharedStyles } from './shared/whitespace';
 export { paragraphSharedStyles } from './shared/paragraph';
-export { inlineNodeSharedStyle } from './shared/inline-nodes';
 export { linkSharedStyle } from './shared/link';
 export { listsSharedStyles } from './shared/lists';
 export { indentationSharedStyles } from './shared/indentation';

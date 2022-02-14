@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.4.3
+
+### Patch Changes
+
+- [`cbf4b3928b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbf4b3928b4) - Internal changes to `@atlaskit/toggle` to support adoption of '@compiled/react'.
+
 ## 12.4.2
 
 ### Patch Changes

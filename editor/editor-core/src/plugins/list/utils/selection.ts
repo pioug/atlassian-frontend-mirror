@@ -14,6 +14,7 @@ import {
 } from 'prosemirror-state';
 import {
   findParentNodeClosestToPos,
+  findParentNodeOfType,
   hasParentNodeOfType,
 } from 'prosemirror-utils';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
@@ -63,6 +64,11 @@ export const isInsideListItem = (state: EditorState): boolean => {
   return (
     hasParentNodeOfType(listItem)(state.selection) && isParagraphNode(parent)
   );
+};
+
+export const isInsideTableCell = (state: EditorState<any>): boolean => {
+  const { tableCell, tableHeader } = state.schema.nodes;
+  return !!findParentNodeOfType([tableCell, tableHeader])(state.selection);
 };
 
 export const canJoinToPreviousListItem = (state: EditorState): boolean => {

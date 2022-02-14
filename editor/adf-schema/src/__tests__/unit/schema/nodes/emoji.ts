@@ -1,6 +1,9 @@
 import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
-import { fromHTML as fromHTML_, toHTML } from '../../../../../test-helpers';
+import {
+  fromHTML as fromHTML_,
+  toHTML,
+} from '@atlaskit/editor-test-helpers/adf-schema';
 
 const schema = makeSchema();
 const fromHTML = (html: string) => fromHTML_(html, schema);

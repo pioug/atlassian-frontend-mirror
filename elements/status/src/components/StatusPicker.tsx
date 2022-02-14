@@ -1,10 +1,12 @@
 import TextField from '@atlaskit/textfield';
 import { gridSize } from '@atlaskit/theme/constants';
 import React from 'react';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { FormEvent, PureComponent } from 'react';
 import styled from 'styled-components';
 import ColorPalette from './internal/color-palette';
 import { Color } from './Status';
+import { messages } from './i18n';
 
 export type ColorType = Color;
 
@@ -20,10 +22,9 @@ export interface Props {
   onColorHover?: (value: ColorType) => void;
   onTextChanged: (value: string) => void;
   autoFocus?: boolean;
-  localId?: string;
 }
 
-export class StatusPicker extends PureComponent<Props, any> {
+class Picker extends PureComponent<Props & WrappedComponentProps, any> {
   private fieldTextWrapperKey = Math.random().toString();
   private colorPaletteKey = Math.random().toString();
 
@@ -35,9 +36,9 @@ export class StatusPicker extends PureComponent<Props, any> {
     const {
       text,
       selectedColor,
-      localId,
       onColorClick,
       onColorHover,
+      intl,
     } = this.props;
 
     // Using <React.Fragment> instead of [] to workaround Enzyme
@@ -53,7 +54,7 @@ export class StatusPicker extends PureComponent<Props, any> {
             onKeyPress={this.onKeyPress}
             spellCheck={false}
             autoComplete="off"
-            aria-labelledby={localId}
+            aria-label={intl.formatMessage(messages.statusInputLabel)}
           />
         </FieldTextWrapper>
         <ColorPalette
@@ -86,3 +87,5 @@ export class StatusPicker extends PureComponent<Props, any> {
     }
   };
 }
+
+export const StatusPicker = injectIntl(Picker);

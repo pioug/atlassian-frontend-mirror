@@ -5,6 +5,8 @@ import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20, N30 } from '@atlaskit/theme/colors';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { sortingIconMessages } from '../messages';
+import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
 
 // We use data url here because of this issue:
 // https://product-fabric.atlassian.net/browse/ED-8001
@@ -75,31 +77,42 @@ const getClassName = (status?: SortOrder) => {
 type Props = {
   isSortingAllowed: boolean;
   sortOrdered?: SortOrder;
-};
+} & WrappedComponentProps;
 
-const getTooltipTitle = (status?: SortOrder): string => {
+const getTooltipTitle = (
+  intl: IntlShape,
+  isSortingAllowed: boolean,
+  status?: SortOrder,
+): string => {
+  const {
+    noOrderLabel,
+    ascOrderLabel,
+    descOrderLabel,
+    invalidLabel,
+  } = sortingIconMessages;
+
+  if (!isSortingAllowed) {
+    return intl.formatMessage(invalidLabel);
+  }
+
   switch (status) {
     case SortOrder.NO_ORDER:
-      return 'Sort column A to Z';
+      return intl.formatMessage(noOrderLabel);
     case SortOrder.ASC:
-      return 'Sort column Z to A';
+      return intl.formatMessage(ascOrderLabel);
     case SortOrder.DESC:
-      return 'Clear sorting';
+      return intl.formatMessage(descOrderLabel);
   }
 
   return '';
 };
 
-const notAllowedTooltip = `⚠️  You can't sort a table with merged cell`;
-
-const SortingIcon = ({ isSortingAllowed, sortOrdered }: Props) => {
+const SortingIcon = ({ isSortingAllowed, sortOrdered, intl }: Props) => {
   const activated = sortOrdered !== SortOrder.NO_ORDER;
   const wrapperClassName = !isSortingAllowed
     ? StatusClassNames.SORTING_NOT_ALLOWED
     : '';
-  const content = isSortingAllowed
-    ? getTooltipTitle(sortOrdered)
-    : notAllowedTooltip;
+  const content = getTooltipTitle(intl, isSortingAllowed, sortOrdered);
 
   return (
     <Tooltip delay={0} content={content} position="top">
@@ -114,4 +127,4 @@ const SortingIcon = ({ isSortingAllowed, sortOrdered }: Props) => {
   );
 };
 
-export default SortingIcon;
+export default injectIntl(SortingIcon);

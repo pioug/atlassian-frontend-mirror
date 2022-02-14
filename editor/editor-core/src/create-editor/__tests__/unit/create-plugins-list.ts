@@ -128,7 +128,6 @@ describe('createPluginsList', () => {
     expect(statusPlugin).toHaveBeenCalledWith({
       menuDisabled: false,
       allowZeroWidthSpaceAfter: true,
-      useInlineWrapper: false,
     });
     expect(insertBlockPlugin).toBeCalledWith(
       expect.objectContaining({ nativeStatusSupported: true }),
@@ -141,7 +140,6 @@ describe('createPluginsList', () => {
     expect(statusPlugin).toHaveBeenCalledWith({
       menuDisabled: true,
       allowZeroWidthSpaceAfter: true,
-      useInlineWrapper: false,
     });
     expect(insertBlockPlugin).toBeCalledWith(
       expect.objectContaining({ nativeStatusSupported: false }),
@@ -154,7 +152,6 @@ describe('createPluginsList', () => {
     expect(statusPlugin).toHaveBeenCalledWith({
       menuDisabled: false,
       allowZeroWidthSpaceAfter: true,
-      useInlineWrapper: false,
     });
     expect(insertBlockPlugin).toBeCalledWith(
       expect.objectContaining({ nativeStatusSupported: true }),

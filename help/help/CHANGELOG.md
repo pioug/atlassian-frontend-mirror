@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.0.2
+
+### Patch Changes
+
+- [`d4bd99015e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4bd99015e9) - [ux] Fix history initialization
+
 ## 7.0.1
 
 ### Patch Changes

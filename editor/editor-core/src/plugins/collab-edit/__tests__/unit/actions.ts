@@ -14,6 +14,8 @@ import { PrivateCollabEditOptions } from '../../types';
 import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
 import unsupportedContentPlugin from '../../../unsupported-content';
+import textFormattingPlugin from '../../../text-formatting';
+import { toggleStrong } from '../../../text-formatting/commands/text-formatting';
 
 const initializeCollab = (view: EditorView) =>
   view.dispatch(view.state.tr.setMeta('collabInitialised', true));
@@ -35,7 +37,8 @@ describe('collab-edit: actions', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([collabEditPlugin, collabEditOptions as PrivateCollabEditOptions])
         .add(unsupportedContentPlugin)
-        .add(mentionsPlugin),
+        .add(mentionsPlugin)
+        .add(textFormattingPlugin),
       providerFactory,
     });
   };
@@ -65,6 +68,34 @@ describe('collab-edit: actions', () => {
           to: 2,
         });
       });
+    });
+  });
+  describe('when there are storedMarks in prosemirror state', () => {
+    it('should set marks in the new transaction', () => {
+      const { editorView } = editor(doc(p('This is all my text{<>}')));
+      const { state, dispatch } = editorView;
+
+      toggleStrong()(state, dispatch);
+      expect(editorView.state.storedMarks).toEqual([
+        editorView.state.schema.marks.strong.create(),
+      ]);
+
+      const replaceWithAStep = [
+        {
+          stepType: 'replace',
+          from: 1,
+          to: 1,
+          slice: {
+            content: [{ type: 'text', text: 'a' }],
+          },
+        },
+      ];
+
+      initializeCollab(editorView);
+      applyRemoteSteps(replaceWithAStep, [], editorView);
+      expect(editorView.state.storedMarks).toEqual([
+        editorView.state.schema.marks.strong.create(),
+      ]);
     });
   });
 });

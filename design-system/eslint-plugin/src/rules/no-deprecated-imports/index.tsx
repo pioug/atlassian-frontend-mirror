@@ -57,34 +57,49 @@ const rule: Rule.RuleModule = {
   },
 
   create(context) {
-    const sourceCode = context.getSourceCode();
     const restrictedPathMessages = restrictedPaths.reduce(
       (memo, importSource) => {
         if (typeof importSource === 'string') {
           memo[importSource] = { message: '' };
         } else {
-          memo[importSource.name] = {
-            message: importSource.message,
-            // importNames: importSource.importNames
-          };
+          if ('message' in importSource) {
+            memo[importSource.path] = {
+              message: importSource.message,
+            };
+          }
+          if ('imports' in importSource) {
+            memo[importSource.path] = {
+              // @ts-ignore
+              imports: importSource.imports,
+            };
+          }
         }
         return memo;
       },
-      {} as Record<string, { message: string }>,
+      {} as Record<
+        string,
+        {
+          message?: string;
+          imports?: {
+            importName: string;
+            message: string;
+          }[];
+        }
+      >,
     );
 
     /**
      * Report a restricted path.
      * @param {string} importSource path of the import
-     * @param {Map<string,Object[]>} importNames Map of import names that are being imported
      * @param {node} node representing the restricted path reference
+     * @param {Map<string,Rule.Node>} importNames Map of import names that are being imported
      * @returns {void}
      * @private
      */
     function checkRestrictedPathAndReport(
       importSource: string,
-      importNames: any,
       node: Rule.Node,
+      importNames: Map<string, Rule.Node>,
     ) {
       if (
         !Object.prototype.hasOwnProperty.call(
@@ -95,16 +110,33 @@ const rule: Rule.RuleModule = {
         return;
       }
 
-      const customMessage = restrictedPathMessages[importSource].message;
+      const config = restrictedPathMessages[importSource];
 
-      context.report({
-        node,
-        messageId: customMessage ? 'pathWithCustomMessage' : 'path',
-        data: {
-          importSource,
-          customMessage,
-        },
-      });
+      // The message will only exist if the import is completely banned,
+      // eg a deprecated package
+      if ('message' in config) {
+        context.report({
+          node,
+          messageId: config.message ? 'pathWithCustomMessage' : 'path',
+          data: {
+            importSource,
+            customMessage: config.message,
+          } as any,
+        });
+      }
+
+      // if there are specific named exports that are banned,
+      // iterate through and check if they're being imported
+      if ('imports' in config) {
+        config.imports?.forEach((restrictedImport) => {
+          if (importNames.has(restrictedImport.importName)) {
+            context.report({
+              node: importNames.get(restrictedImport.importName)!,
+              message: restrictedImport.message,
+            });
+          }
+        });
+      }
     }
 
     /**
@@ -117,17 +149,12 @@ const rule: Rule.RuleModule = {
       node: ImportExportNode,
     ) => {
       const importSource = (node as any).source.value.trim();
-      const importNames = new Map();
+      const importNames = new Map<string, Rule.Node>();
 
-      if (node.type === 'ExportAllDeclaration') {
-        const starToken = sourceCode.getFirstToken(node, 1);
-
-        importNames.set('*', [{ loc: starToken?.loc }]);
-      } else if ('specifiers' in node) {
+      if ('specifiers' in node) {
         // @ts-ignore
         for (const specifier of node.specifiers) {
           let name;
-          const specifierData = { loc: specifier.loc };
 
           if (specifier.type === 'ImportDefaultSpecifier') {
             name = 'default';
@@ -140,16 +167,12 @@ const rule: Rule.RuleModule = {
           }
 
           if (name) {
-            if (importNames.has(name)) {
-              importNames.get(name).push(specifierData);
-            } else {
-              importNames.set(name, [specifierData]);
-            }
+            importNames.set(name, specifier as Rule.Node);
           }
         }
       }
 
-      checkRestrictedPathAndReport(importSource, importNames, node);
+      checkRestrictedPathAndReport(importSource, node, importNames);
     };
 
     return {
@@ -159,7 +182,6 @@ const rule: Rule.RuleModule = {
           checkNode(node);
         }
       },
-      ExportAllDeclaration: checkNode,
     };
   },
 };

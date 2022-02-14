@@ -28,13 +28,13 @@ const Wrapper = styled.span`
 
 const Text = styled.span<{ secondary?: boolean }>`
   margin: 0;
-  color: ${token('color.text.selected', B400)};
+  color: ${token('color.text.brand', B400)};
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   ${({ secondary }) =>
     secondary &&
-    `color: ${token('color.text.selected', B400)}; font-size: 0.85em;`}
+    `color: ${token('color.text.brand', B400)}; font-size: 0.85em;`}
 `;
 
 const AdditionalInfo = styled.span`

@@ -28,6 +28,12 @@ jest.mock('@atlaskit/media-ui', () => ({
   toHumanReadableMediaSize: jest.fn(() => mockHumanReadableMediaSize),
 }));
 
+const cardPreview = {
+  dataURI: 'some-data',
+  orientation: 6,
+  source: 'remote',
+} as const;
+
 describe('CardView', () => {
   const file: FileDetails = {
     id: 'abcd',
@@ -97,8 +103,6 @@ describe('CardView', () => {
     });
 
     it('should render FileCardImageView with dataUri when passed', () => {
-      const fakeDataUri: string = 'l33tdatauri';
-
       const details: FileDetails = {
         id: 'id',
         mediaType: 'image',
@@ -112,12 +116,12 @@ describe('CardView', () => {
       const card = shallowCardViewBaseElement({
         metadata: details,
         status: 'complete',
-        dataURI: fakeDataUri,
+        cardPreview,
       });
 
       expect(card.find(FileCardImageView).length).toEqual(1);
       expect(card.find(FileCardImageView).props().dataURI).toContain(
-        fakeDataUri,
+        cardPreview.dataURI,
       );
     });
 
@@ -168,7 +172,7 @@ describe('CardView', () => {
       <CardView
         status="complete"
         mediaItemType="file"
-        dataURI="a"
+        cardPreview={cardPreview}
         metadata={file}
       />,
     );
@@ -181,7 +185,7 @@ describe('CardView', () => {
       <CardView
         status="complete"
         mediaItemType="file"
-        dataURI="a"
+        cardPreview={cardPreview}
         metadata={file}
       />,
     );
@@ -194,7 +198,7 @@ describe('CardView', () => {
       <CardView
         status="complete"
         mediaItemType="file"
-        dataURI="a"
+        cardPreview={cardPreview}
         metadata={file}
         resizeMode="full-fit"
       />,
@@ -208,7 +212,7 @@ describe('CardView', () => {
       <CardView
         status="complete"
         mediaItemType="file"
-        dataURI="a"
+        cardPreview={cardPreview}
         metadata={file}
         resizeMode="stretchy-fit"
       />,
@@ -347,7 +351,7 @@ describe('CardView', () => {
       <CardView
         status="complete"
         mediaItemType="file"
-        dataURI="a"
+        cardPreview={cardPreview}
         metadata={file}
         resizeMode="stretchy-fit"
         onDisplayImage={onDisplayImage}

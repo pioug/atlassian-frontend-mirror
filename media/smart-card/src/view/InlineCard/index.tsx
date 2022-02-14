@@ -1,13 +1,5 @@
 import React from 'react';
 import { FC } from 'react';
-import {
-  CardLinkView,
-  InlineCardResolvedView,
-  InlineCardResolvingView,
-  InlineCardErroredView,
-  InlineCardForbiddenView,
-  InlineCardUnauthorizedView,
-} from '@atlaskit/media-ui';
 import { InlineCardProps } from './types';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
@@ -16,6 +8,20 @@ import {
   extractProvider,
   extractRequestAccessContext,
 } from '../../extractors/common/context';
+import { CardLinkView } from '../LinkView';
+import { InlineCardErroredView } from './ErroredView';
+import { InlineCardForbiddenView } from './ForbiddenView';
+import { InlineCardResolvedView } from './ResolvedView';
+import { InlineCardResolvingView } from './ResolvingView';
+import { InlineCardUnauthorizedView } from './UnauthorisedView';
+
+export {
+  InlineCardResolvedView,
+  InlineCardResolvingView,
+  InlineCardErroredView,
+  InlineCardForbiddenView,
+  InlineCardUnauthorizedView,
+};
 
 export const InlineCard: FC<InlineCardProps> = ({
   url,

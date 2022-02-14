@@ -10,6 +10,7 @@ export interface MediaFeatureFlags {
   // https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads?: boolean;
   timestampOnVideo?: boolean;
+  observedWidth?: boolean;
 }
 
 export interface WithMediaFeatureFlags {
@@ -25,6 +26,7 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   // TODO https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads: false,
   timestampOnVideo: false,
+  observedWidth: false,
 };
 
 /**
@@ -86,6 +88,7 @@ export const areEqualFeatureFlags = (
     mediaInline: ffA.mediaInline === ffB.mediaInline,
     folderUploads: ffA.folderUploads === ffB.folderUploads,
     timestampOnVideo: ffA.timestampOnVideo === ffB.timestampOnVideo,
+    observedWidth: ffA.observedWidth === ffB.observedWidth,
   };
   return Object.values(results).every((result) => result);
 };

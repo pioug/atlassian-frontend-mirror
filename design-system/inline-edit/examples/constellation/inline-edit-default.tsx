@@ -14,23 +14,23 @@ import InlineEdit from '../../src';
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const InlineEditDefaultExample = () => {
-  const [editValue, setEditValue] = useState('');
-
-  /*
+/*
   As inline edit allows for a custom input component, styling of `ReadViewContainer` needs to be shipped with the component.
   This keeps `editView` and `readView` components aligned when switching between the two. In this particular case, these
   styles ensure `readView` is in sync with the TextField.
   */
-  const ReadViewContainer = css({
-    display: 'flex',
-    fontSize: `${fontSize}px`,
-    lineHeight: `${(gridSize * 2.5) / fontSize}`,
-    maxWidth: '100%',
-    minHeight: `${(gridSize * 2.5) / fontSize}em`,
-    padding: `${gridSize}px ${gridSize - 2}px`,
-    wordBreak: 'break-word',
-  });
+const readViewContainerStyles = css({
+  display: 'flex',
+  maxWidth: '100%',
+  minHeight: `${(gridSize * 2.5) / fontSize}em`,
+  padding: `${gridSize}px ${gridSize - 2}px`,
+  fontSize: `${fontSize}px`,
+  lineHeight: `${(gridSize * 2.5) / fontSize}`,
+  wordBreak: 'break-word',
+});
+
+const InlineEditDefaultExample = () => {
+  const [editValue, setEditValue] = useState('');
 
   return (
     <div
@@ -45,7 +45,7 @@ const InlineEditDefaultExample = () => {
           <Textfield {...fieldProps} autoFocus />
         )}
         readView={() => (
-          <div css={ReadViewContainer} data-testid="read-view">
+          <div css={readViewContainerStyles} data-testid="read-view">
             {editValue || 'Click to enter a value'}
           </div>
         )}

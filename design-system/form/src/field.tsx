@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import React, {
+import {
+  createContext,
   FormEvent,
   MutableRefObject,
   ReactNode,
@@ -16,57 +17,27 @@ import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
 import { R400 } from '@atlaskit/theme/colors';
-import { useGlobalTheme } from '@atlaskit/theme/components';
 import {
   fontFamily as getFontFamily,
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
-import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { FormContext, IsDisabledContext } from './form';
+import Label from './label';
 
 const gridSize = getGridSize();
 const fontFamily = getFontFamily();
 
-interface LabelProps {
-  fieldId: string;
-}
-
 const fieldWrapperStyles = css({
-  marginTop: `${gridSize}px`,
-});
-
-const labelStyles = css({
-  display: 'inline-block',
-  marginTop: 0,
-  marginBottom: `${gridSize * 0.5}px`,
-  fontFamily: `${fontFamily}`,
+  marginTop: gridSize,
 });
 
 const requiredIndicatorStyles = css({
-  paddingLeft: `${gridSize * 0.25}px`,
-  color: `${token('color.text.danger', R400)}`,
-  fontFamily: `${fontFamily}`,
+  paddingLeft: `${gridSize / 4}px`,
+  color: token('color.text.danger', R400),
+  fontFamily,
 });
-
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-const darkH200Styles = css(h200({ theme: { mode: 'dark' } }));
-
-const Label: React.FC<LabelProps> = ({ children, fieldId }) => {
-  const { mode } = useGlobalTheme();
-  return (
-    <label
-      css={[mode === 'light' ? lightH200Styles : darkH200Styles, labelStyles]}
-      id={`${fieldId}-label`}
-      htmlFor={fieldId}
-    >
-      {children}
-    </label>
-  );
-};
 
 function isEvent(event: any): event is FormEvent<SupportedElements> {
   return Boolean(event && event.target);
@@ -126,7 +97,7 @@ export interface FieldComponentProps<
     // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
     valid: boolean;
     meta: Meta;
-  }) => React.ReactNode;
+  }) => ReactNode;
   /**
    * Sets the default value of the field. If a function is provided, it is called with the current default value of the field.
    */
@@ -187,7 +158,7 @@ interface State<FieldValue, Element extends SupportedElements> {
  *
  * A field id uses the context API. It provides the id of the field to message components. This links the message with the field of screenreaders.
  */
-export const FieldId = React.createContext<string | undefined>(undefined);
+export const FieldId = createContext<string | undefined>(undefined);
 
 function usePreviousRef<T>(current: T): MutableRefObject<T> {
   const ref = useRef(current);
@@ -447,7 +418,7 @@ export default function Field<
   return (
     <div css={fieldWrapperStyles}>
       {props.label && (
-        <Label fieldId={fieldId}>
+        <Label htmlFor={fieldId} id={`${fieldId}-label`}>
           {props.label}
           {props.isRequired && (
             <span css={requiredIndicatorStyles} aria-hidden="true">

@@ -2,6 +2,7 @@ import {
   RequestError,
   RequestErrorMetadata,
   PollingError,
+  MediaStoreError,
 } from '@atlaskit/media-client';
 
 export const createRateLimitedError = (metadata: RequestErrorMetadata = {}) =>
@@ -12,3 +13,6 @@ export const createRateLimitedError = (metadata: RequestErrorMetadata = {}) =>
 
 export const createPollingMaxAttemptsError = (attempts = 1) =>
   new PollingError('pollingMaxAttemptsExceeded', attempts);
+
+export const createMediaStoreError = () =>
+  new MediaStoreError('missingInitialAuth');

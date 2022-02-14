@@ -6,7 +6,7 @@ import {
   doc,
   p,
   blockquote,
-} from '../../../../../test-helpers';
+} from '@atlaskit/editor-test-helpers/adf-schema';
 
 describe(`${name}/schema blockquote node`, () => {
   it('should be possible to create a blockquote with a paragraph', () => {

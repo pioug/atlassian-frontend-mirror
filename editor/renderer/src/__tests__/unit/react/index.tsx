@@ -1,6 +1,6 @@
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
-import { mount, shallow, ReactWrapper } from 'enzyme';
+import { shallow, ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
 import {
   defaultSchema as schema,
@@ -936,7 +936,7 @@ describe('Renderer - ReactSerializer', () => {
     it('should add an extra column for numbered rows', () => {
       const reactSerializer = new ReactSerializer({});
       const tableFromSchema = schema.nodeFromJSON(tableDoc);
-      const reactDoc = mount(
+      const reactDoc = mountWithIntl(
         reactSerializer.serializeFragment(tableFromSchema.content) as any,
       );
 

@@ -1,9 +1,6 @@
 import React, { forwardRef, useCallback, useState } from 'react';
 
-import { ThemeProp } from '@atlaskit/theme/components';
-
 import { Input } from './styled';
-import { Theme, ThemeTokens } from './theme';
 
 export type OwnProps = {
   /** Sets the default value if range is not set. */
@@ -20,10 +17,6 @@ export type OwnProps = {
   step?: number;
   /** A `testId` prop is provided for specific elements. This is a unique string that appears as a data attribute `data-testid` in the rendered code and serves as a hook for automated tests. */
   testId?: string;
-  /** The theme object to be passed down. See
-  [@atlaskit/theme](https://atlaskit.atlassian.com/packages/design-system/theme) for more details on theming.
-  */
-  theme?: ThemeProp<any, any>;
   /** Sets the value of the range. */
   value?: number;
 };
@@ -78,7 +71,6 @@ export default forwardRef(function Range(
     onChange = noop,
     step = 1,
     value: propsValue,
-    theme,
     testId,
     ...rest
   } = props;
@@ -103,21 +95,14 @@ export default forwardRef(function Range(
   const valuePercent = getRoundedPercentValue(renderValue, min, max, step);
 
   return (
-    <Theme.Provider value={theme}>
-      <Theme.Consumer>
-        {(computedTheme: ThemeTokens) => (
-          <Input
-            type="range"
-            disabled={isDisabled}
-            onChange={handleChange}
-            value={renderValue}
-            valuePercent={valuePercent}
-            data-testid={testId}
-            {...computedTheme}
-            {...spreadProps}
-          />
-        )}
-      </Theme.Consumer>
-    </Theme.Provider>
+    <Input
+      type="range"
+      disabled={isDisabled}
+      onChange={handleChange}
+      value={renderValue}
+      valuePercent={valuePercent}
+      data-testid={testId}
+      {...spreadProps}
+    />
   );
 });

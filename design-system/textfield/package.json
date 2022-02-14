@@ -38,7 +38,7 @@
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/form": "^8.4.0",
+    "@atlaskit/form": "^8.5.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",

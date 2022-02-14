@@ -16,6 +16,7 @@ import {
   SkeletonItem,
 } from '../src';
 
+// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
 const Star = <StarIcon label="" />;
 

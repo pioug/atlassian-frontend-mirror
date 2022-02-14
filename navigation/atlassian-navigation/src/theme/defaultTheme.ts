@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 import {
   B200,
   B400,
@@ -19,30 +18,30 @@ const defaultTheme: { mode: Mode } = {
   mode: {
     create: {
       active: {
-        color: token('color.text.onBold', N0),
+        color: token('color.text.inverse', N0),
         backgroundColor: token(
-          'color.background.boldBrand.pressed',
+          'color.background.brand.bold.pressed',
           hexToRGBA(B400, 0.8),
         ),
         boxShadow: '',
       },
       default: {
-        color: token('color.text.onBold', N0),
-        backgroundColor: token('color.background.boldBrand.resting', B400),
+        color: token('color.text.inverse', N0),
+        backgroundColor: token('color.background.brand.bold', B400),
         boxShadow: '',
       },
       focus: {
-        color: token('color.text.onBold', N0),
-        backgroundColor: token('color.background.boldBrand.resting', B400),
+        color: token('color.text.inverse', N0),
+        backgroundColor: token('color.background.brand.bold', B400),
         boxShadow: `0 0 0 2px ${token(
-          'color.border.focus',
+          'color.border.focused',
           'rgb(128,169,230)',
         )}`,
       },
       hover: {
-        color: token('color.text.onBold', N0),
+        color: token('color.text.inverse', N0),
         backgroundColor: token(
-          'color.background.boldBrand.hover',
+          'color.background.brand.bold.hovered',
           hexToRGBA(B400, 0.9),
         ),
         boxShadow: '',
@@ -51,51 +50,48 @@ const defaultTheme: { mode: Mode } = {
     },
     iconButton: {
       active: {
-        color: token('color.text.mediumEmphasis', B400),
+        color: token('color.text.subtle', B400),
         backgroundColor: token(
-          'color.background.subtleNeutral.pressed',
+          'color.background.neutral.pressed',
           hexToRGBA(B50, 0.6),
         ),
         boxShadow: '',
       },
       default: {
-        color: token('color.text.mediumEmphasis', N600),
+        color: token('color.text.subtle', N600),
         backgroundColor: 'transparent',
         boxShadow: '',
       },
       focus: {
-        color: token('color.text.mediumEmphasis', N600),
+        color: token('color.text.subtle', N600),
         backgroundColor: token(
-          'color.background.subtleBrand.hover',
+          'color.background.brand.hovered',
           hexToRGBA(B50, 0.5),
         ),
-        boxShadow: `0 0 0 2px ${token('color.border.focus', B200)}`,
+        boxShadow: `0 0 0 2px ${token('color.border.focused', B200)}`,
       },
       hover: {
-        color: token('color.text.mediumEmphasis', B400),
+        color: token('color.text.subtle', B400),
         backgroundColor: token(
-          'color.background.subtleNeutral.hover',
+          'color.background.neutral.hovered',
           hexToRGBA(B50, 0.9),
         ),
         boxShadow: '',
       },
       selected: {
-        color: token('color.text.selected', ''),
-        backgroundColor: token('color.background.selected.resting', ''),
+        color: token('color.text.brand', ''),
+        backgroundColor: token('color.background.brand', ''),
         boxShadow: '',
       },
     },
     navigation: {
-      backgroundColor: token('color.background.default', N0),
-      color: token('color.text.lowEmphasis', N200),
+      backgroundColor: token('elevation.surface', N0),
+      color: token('color.text.subtlest', N200),
     },
     productHome: {
       backgroundColor: token('color.text.brand', B400),
-      color: token('color.text.highEmphasis', N700),
-      borderRight: `1px solid ${token(
-        'color.border.neutral',
-        hexToRGBA(N200, 0.3),
-      )}`,
+      color: token('color.text', N700),
+      borderRight: `1px solid ${token('color.border', hexToRGBA(N200, 0.3))}`,
       // TODO: (DSP-1256) These colors should be moved into the Logo package
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       iconGradientStart: B400,
@@ -106,55 +102,55 @@ const defaultTheme: { mode: Mode } = {
     },
     primaryButton: {
       active: {
-        color: token('color.text.mediumEmphasis', B400),
+        color: token('color.text.subtle', B400),
         backgroundColor: token(
-          'color.background.subtleNeutral.pressed',
+          'color.background.neutral.pressed',
           hexToRGBA(B50, 0.7),
         ),
         boxShadow: '',
       },
       default: {
-        color: token('color.text.mediumEmphasis', N600),
+        color: token('color.text.subtle', N600),
         backgroundColor: 'transparent',
         boxShadow: '',
       },
       focus: {
-        color: token('color.text.mediumEmphasis', N600),
+        color: token('color.text.subtle', N600),
         backgroundColor: '',
-        boxShadow: `0 0 0 2px ${token('color.border.focus', B200)}`,
+        boxShadow: `0 0 0 2px ${token('color.border.focused', B200)}`,
       },
       hover: {
-        color: token('color.text.mediumEmphasis', B400),
+        color: token('color.text.subtle', B400),
         backgroundColor: token(
-          'color.background.subtleNeutral.hover',
+          'color.background.neutral.hovered',
           hexToRGBA(B50, 0.9),
         ),
         boxShadow: '',
       },
       selected: {
-        color: token('color.text.selected', B400),
-        backgroundColor: token('color.background.selected.resting', ''),
+        color: token('color.text.subtle', B400),
+        backgroundColor: token('color.background.brand', ''),
         boxShadow: '',
-        borderColor: token('color.iconBorder.brand', B400),
-        bordorBottom: `4px solid ${token('color.iconBorder.brand', B400)}`,
+        borderColor: token('color.border.brand', B400),
+        bordorBottom: `4px solid ${token('color.border.brand', B400)}`,
       },
     },
     search: {
       default: {
-        backgroundColor: token('color.background.default', N0),
-        color: token('color.text.lowEmphasis', N200),
-        borderColor: token('color.border.neutral', N40),
+        backgroundColor: token('elevation.surface', N0),
+        color: token('color.text.subtlest', N200),
+        borderColor: token('color.border', N40),
       },
       focus: {
-        borderColor: token('color.border.focus', B200),
+        borderColor: token('color.border.focused', B200),
       },
       hover: {
         color: token('color.text.brand', B400),
-        backgroundColor: token('color.background.default', hexToRGBA(B50, 0.9)),
+        backgroundColor: token('elevation.surface', hexToRGBA(B50, 0.9)),
       },
     },
     skeleton: {
-      backgroundColor: token('color.background.subtleNeutral.resting', N20),
+      backgroundColor: token('color.background.neutral', N20),
       opacity: 1,
     },
   },

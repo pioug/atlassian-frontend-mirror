@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/emoji",
-  "version": "64.1.0",
+  "version": "64.1.1",
   "description": "Fabric emoji React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-test-helpers": "^16.0.0",
+    "@atlaskit/editor-test-helpers": "^16.1.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/media-core": "^32.2.0",
     "@atlaskit/section-message": "^6.0.0",

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Plugin, PluginKey, EditorState } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { ContextPanelHandler } from './types';
 import { Dispatch } from '../../event-dispatcher';
@@ -21,7 +22,7 @@ function contextPanelPluginFactory(
   contextPanels: Array<ContextPanelHandler>,
   dispatch: Dispatch<ContextPanelPluginState>,
 ) {
-  return new Plugin<ContextPanelPluginState>({
+  return new SafePlugin<ContextPanelPluginState>({
     key: pluginKey,
     state: {
       init(_config, state) {

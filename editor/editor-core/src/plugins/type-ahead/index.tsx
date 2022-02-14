@@ -1,6 +1,14 @@
+/**
+ *
+ * Revamped typeahead using decorations instead of the `typeAheadQuery` mark
+ *
+ * https://product-fabric.atlassian.net/wiki/spaces/E/pages/2992177582/Technical+TypeAhead+Data+Flow
+ *
+ *
+ */
 import React from 'react';
 import { EditorPlugin } from '../../types/editor-plugin';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from 'prosemirror-view';
 import type {
@@ -122,6 +130,14 @@ const TypeAheadMenu: React.FC<TypeAheadMenuType> = React.memo(
   },
 );
 
+/**
+ *
+ * Revamped typeahead using decorations instead of the `typeAheadQuery` mark
+ *
+ * https://product-fabric.atlassian.net/wiki/spaces/E/pages/2992177582/Technical+TypeAhead+Data+Flow
+ *
+ *
+ */
 const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,

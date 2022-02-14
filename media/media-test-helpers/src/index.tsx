@@ -183,5 +183,17 @@ export { mapDataUriToBlob } from './utils/index';
 export {
   createPollingMaxAttemptsError,
   createRateLimitedError,
+  createMediaStoreError,
 } from './mediaClientErrors';
 export { default as FeatureFlagsWrapper } from './featureFlagsWrapper';
+export {
+  FileStateFactory,
+  MediaClientMock,
+  createIdentifier,
+  createFileDetails,
+  createFileState,
+} from './fileStateFactory';
+export type {
+  FileStateFactoryOptions,
+  MediaClientMockOptions,
+} from './fileStateFactory';

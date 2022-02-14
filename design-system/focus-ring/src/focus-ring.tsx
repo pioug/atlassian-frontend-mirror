@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Children, cloneElement, FC } from 'react';
 
-import { ClassNames, css, CSSObject, jsx } from '@emotion/core';
+import { ClassNames, css, jsx } from '@emotion/core';
 
 import { B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -10,10 +10,10 @@ import type { FocusRingProps } from './types';
 
 const BORDER_WIDTH = 2;
 
-const focusOutsideStyles: CSSObject = {
-  outlineOffset: BORDER_WIDTH,
+const baseFocusOutsideStyles = css({
   outline: `${BORDER_WIDTH}px solid ${token('color.border.focused', B100)}`,
-};
+  outlineOffset: BORDER_WIDTH,
+});
 
 const baseInsetStyles = css({
   boxShadow: `inset 0px 0px 0px ${BORDER_WIDTH}px ${token(
@@ -24,9 +24,9 @@ const baseInsetStyles = css({
 });
 
 const focusRingStyles = css({
-  '&:focus-visible': focusOutsideStyles,
+  '&:focus-visible': baseFocusOutsideStyles,
   '@supports not selector(*:focus-visible)': {
-    '&:focus': focusOutsideStyles,
+    '&:focus': baseFocusOutsideStyles,
   },
   '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
     '&:focus-visible': {
@@ -66,20 +66,29 @@ const insetFocusRingStyles = css({
  * )
  * ```
  */
-const FocusRing: FC<FocusRingProps> = ({ children, isInset }) => (
-  <ClassNames>
-    {({ css, cx }) =>
-      Children.only(
-        // eslint-disable-next-line @repo/internal/react/no-clone-element
-        cloneElement(children, {
-          className: cx([
-            css(isInset ? insetFocusRingStyles : focusRingStyles),
-            children && children.props.className,
-          ]),
-        }),
-      )
-    }
-  </ClassNames>
-);
+const FocusRing: FC<FocusRingProps> = ({ children, isInset, focus }) => {
+  const controlledStyles = isInset ? baseInsetStyles : baseFocusOutsideStyles;
+  const uncontrolledStyles = isInset ? insetFocusRingStyles : focusRingStyles;
+  const focusCls =
+    typeof focus === 'undefined'
+      ? uncontrolledStyles
+      : focus === 'on' && controlledStyles;
+
+  return (
+    <ClassNames>
+      {({ css, cx }) =>
+        Children.only(
+          // This may look unwieldy but means we skip applying styles / cloning if no className is applicable
+          focusCls
+            ? // eslint-disable-next-line @repo/internal/react/no-clone-element
+              cloneElement(children, {
+                className: cx([css(focusCls), children.props.className]),
+              })
+            : children,
+        )
+      }
+    </ClassNames>
+  );
+};
 
 export default FocusRing;

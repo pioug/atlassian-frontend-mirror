@@ -1,5 +1,13 @@
 # @atlaskit/media-picker
 
+## 59.0.3
+
+### Patch Changes
+
+- [`6d50e8c688e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d50e8c688e) - Flexible UI: Add priority badge element
+- [`ef080793757`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef080793757) - stop caching observable in UploadServiceImpl
+- Updated dependencies
+
 ## 59.0.2
 
 ### Patch Changes

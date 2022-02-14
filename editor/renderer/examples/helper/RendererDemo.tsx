@@ -2,7 +2,7 @@
 import React from 'react';
 import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { getMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
+import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { CardEvent } from '@atlaskit/media-card';
 import { defaultSchema } from '@atlaskit/adf-schema';
@@ -28,8 +28,6 @@ import {
   Props as RendererProps,
 } from '../../src/ui/Renderer';
 
-import { ProfileClient, modifyResponse } from '@atlaskit/profilecard';
-
 import { renderDocument, TextSerializer } from '../../src';
 
 import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
@@ -42,10 +40,7 @@ import { MentionProvider } from '@atlaskit/mention/types';
 import { Schema } from 'prosemirror-model';
 import { MediaOptions } from '@atlaskit/editor-core';
 
-const MockProfileClient = getMockProfilecardClient(
-  ProfileClient,
-  modifyResponse,
-);
+const MockProfileClient: any = simpleMockProfilecardClient();
 
 const mentionProvider = Promise.resolve({
   shouldHighlightMention(mention: { id: string }) {
@@ -59,10 +54,7 @@ const emojiProvider = getEmojiResource();
 
 const profilecardProvider = Promise.resolve({
   cloudId: 'DUMMY-CLOUDID',
-  resourceClient: new MockProfileClient({
-    cacheSize: 10,
-    cacheMaxAge: 5000,
-  }),
+  resourceClient: MockProfileClient,
   getActions: (id: string) => {
     const actions = [
       {

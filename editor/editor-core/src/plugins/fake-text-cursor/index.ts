@@ -1,4 +1,4 @@
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
 import { drawFakeTextCursor } from './cursor';
 import { EditorPlugin } from '../../types';
@@ -6,7 +6,7 @@ import { EditorPlugin } from '../../types';
 export const stateKey = new PluginKey('fakeTextCursorPlugin');
 
 export const createPlugin = () =>
-  new Plugin({
+  new SafePlugin({
     key: stateKey,
     props: {
       decorations: drawFakeTextCursor,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Atlassian Pty Ltd",
   "description": "Tokens are a single source of truth to name and store Atlassian design decisions.",
   "license": "Apache-2.0",
@@ -26,12 +26,13 @@
     "./css": "./css"
   },
   "scripts": {
-    "ak-postbuild": "yarn codegen-tokens && yarn check-clean-git",
+    "ak-postbuild": "yarn codegen-tokens && yarn check-clean-git && yarn build-chrome-extension",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are is out of date, run yarn build tokens' && false)",
-    "codegen-tokens": "ts-node --project ../../../tsconfig.node.json ./scripts/style-dictionary/build"
+    "codegen-tokens": "ts-node --project ../../../tsconfig.node.json ./scripts/style-dictionary/build",
+    "build-chrome-extension": "yarn --cwd tokens-browser-extension build-chrome-extension"
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^1.3.0",
+    "@atlaskit/ds-lib": "^1.4.0",
     "@babel/runtime": "^7.0.0",
     "@babel/traverse": "^7.15.0",
     "@babel/types": "^7.15.0"
@@ -48,6 +49,8 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@babel/core": "^7.12.3",
     "@emotion/core": "^10.0.9",
+    "@types/chrome": "^0.0.171",
+    "copy-webpack-plugin": "^6.4.0",
     "lodash": "^4.17.21",
     "prettier": "^2.1.1",
     "react": "^16.8.0",

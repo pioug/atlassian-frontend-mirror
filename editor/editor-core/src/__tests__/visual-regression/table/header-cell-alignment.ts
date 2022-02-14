@@ -54,8 +54,7 @@ describe('Snapshot Test: table header cell alignment', () => {
     await snapshot(page, {}, tableSelectors.tableWrapper);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 9/17/2021: https://product-fabric.atlassian.net/browse/ED-13774
-  it.skip('should be able to apply left alignment to header cell', async () => {
+  it('should be able to apply left alignment to header cell', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.alignmentLeft);
   });
 

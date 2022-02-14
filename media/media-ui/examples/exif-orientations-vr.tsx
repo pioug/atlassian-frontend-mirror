@@ -1,6 +1,6 @@
 // eslint-disable-line no-console
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { MediaImage } from '../src';
 import {
   orientation_1,

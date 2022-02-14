@@ -25,3 +25,8 @@ export type {
 } from './annotation';
 
 export type { TypeAheadItem, TypeAheadItemRenderProps } from './type-ahead';
+
+export type {
+  NewCollabSyncUpErrorAttributes,
+  SyncUpErrorFunction,
+} from './collab';

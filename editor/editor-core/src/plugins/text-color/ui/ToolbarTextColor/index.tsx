@@ -7,10 +7,8 @@ import {
   injectIntl,
 } from 'react-intl-next';
 
-import Button from '@atlaskit/button/custom-theme-button';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
 
 import ColorPalette from '../../../../ui/ColorPalette';
 import { textColorPalette as originalTextColors } from '../../../../ui/ColorPalette/Palettes/textColorPalette';
@@ -32,10 +30,8 @@ import {
 } from '../../../analytics';
 import {
   TextColorSelectedAEP,
-  TextColorShowMoreToggleAEP,
   TextColorShowPaletteToggleAEP,
   TextColorSelectedAttr,
-  TextColorShowMoreToggleAttr,
   TextColorShowPaletteToggleAttr,
 } from '../../../analytics/types/experimental-events';
 import * as commands from '../../commands/change-color';
@@ -45,14 +41,12 @@ import { EditorTextColorIcon } from './icon';
 import {
   disabledRainbow,
   rainbow,
-  ShowMoreWrapper,
   TextColorIconBar,
   TextColorIconWrapper,
 } from './styles';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';
-const EXPERIMENT_GROUP_SUBJECT: string = 'subject';
 
 export const messages = defineMessages({
   textColor: {
@@ -60,21 +54,10 @@ export const messages = defineMessages({
     defaultMessage: 'Text color',
     description: '',
   },
-  moreColors: {
-    id: 'fabric.editor.textColor.moreColors',
-    defaultMessage: 'More colors',
-    description: 'More colors',
-  },
-  lessColors: {
-    id: 'fabric.editor.textColor.lessColors',
-    defaultMessage: 'Fewer colors',
-    description: 'Fewer colors',
-  },
 });
 
 export interface State {
   isOpen: boolean;
-  isShowingMoreColors: boolean;
 }
 
 export interface Props {
@@ -84,7 +67,6 @@ export interface Props {
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
   isReducedSpacing?: boolean;
-  showMoreColorsToggle?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   disabled?: boolean;
 }
@@ -100,7 +82,6 @@ export class ToolbarTextColor extends React.Component<
 > {
   state: State = {
     isOpen: false,
-    isShowingMoreColors: false,
   };
 
   changeColor = (color: string) =>
@@ -110,7 +91,7 @@ export class ToolbarTextColor extends React.Component<
     );
 
   render() {
-    const { isOpen, isShowingMoreColors } = this.state;
+    const { isOpen } = this.state;
     const {
       popupsMountPoint,
       popupsBoundariesElement,
@@ -119,16 +100,12 @@ export class ToolbarTextColor extends React.Component<
       pluginState,
       pluginState: { paletteExpanded },
       intl: { formatMessage },
-      showMoreColorsToggle,
       disabled,
     } = this.props;
 
     const labelTextColor = formatMessage(messages.textColor);
 
-    const palette =
-      isShowingMoreColors && paletteExpanded
-        ? paletteExpanded
-        : pluginState.palette;
+    const palette = paletteExpanded || pluginState.palette;
 
     let fitWidth: number | undefined;
     if (document.body.clientWidth <= 740) {
@@ -190,24 +167,8 @@ export class ToolbarTextColor extends React.Component<
                 this.changeTextColor(color, pluginState.disabled)
               }
               selectedColor={pluginState.color}
-              isShowingMoreColors={isShowingMoreColors}
             />
           </div>
-          {showMoreColorsToggle && (
-            <ShowMoreWrapper>
-              <Button
-                appearance="subtle"
-                onClick={this.handleShowMoreToggle}
-                iconBefore={<EditorBackgroundColorIcon label="" />}
-              >
-                {formatMessage(
-                  isShowingMoreColors
-                    ? messages.lessColors
-                    : messages.moreColors,
-                )}
-              </Button>
-            </ShowMoreWrapper>
-          )}
         </Dropdown>
         <Separator />
       </MenuWrapper>
@@ -219,7 +180,6 @@ export class ToolbarTextColor extends React.Component<
       const {
         pluginState: { palette, paletteExpanded, defaultColor },
       } = this.props;
-      const { isShowingMoreColors } = this.state;
 
       // we store color names in analytics
       const swatch = (paletteExpanded || palette).find(
@@ -232,7 +192,6 @@ export class ToolbarTextColor extends React.Component<
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsSelectColor({
           color: (swatch ? swatch.label : color).toLowerCase(),
-          isShowingMoreColors,
           isNewColor,
         }),
       );
@@ -255,25 +214,13 @@ export class ToolbarTextColor extends React.Component<
     isOpen,
     logCloseEvent,
   }: HandleOpenChangeData) => {
-    const {
-      pluginState: { palette, color },
-    } = this.props;
-    const { isShowingMoreColors } = this.state;
-
-    // pre-expand if a non-standard colour has been selected
-    const isExtendedPaletteSelected: boolean = !palette.find(
-      (swatch) => swatch.value === color,
-    );
-
     this.setState({
       isOpen,
-      isShowingMoreColors: isExtendedPaletteSelected || isShowingMoreColors,
     });
 
     if (logCloseEvent) {
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsPalette(isOpen ? ACTION.OPENED : ACTION.CLOSED, {
-          isShowingMoreColors: isExtendedPaletteSelected || isShowingMoreColors,
           noSelect: isOpen === false,
         }),
       );
@@ -281,12 +228,11 @@ export class ToolbarTextColor extends React.Component<
   };
 
   private hide = (e: MouseEvent | KeyboardEvent) => {
-    const { isOpen, isShowingMoreColors } = this.state;
+    const { isOpen } = this.state;
 
     if (isOpen === true) {
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsPalette(ACTION.CLOSED, {
-          isShowingMoreColors,
           noSelect: true,
         }),
       );
@@ -295,36 +241,10 @@ export class ToolbarTextColor extends React.Component<
     }
   };
 
-  private handleShowMoreToggle = (e: React.MouseEvent<HTMLElement>) => {
-    // Prevent the event from bubbling up and triggering the hide handler.
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-
-    this.setState((state) => {
-      this.dispatchAnalyticsEvent(
-        this.buildAnalyticsShowMore(
-          state.isShowingMoreColors ? ACTION.CLOSED : ACTION.OPENED,
-          {
-            showMoreButton: !state.isShowingMoreColors,
-            showLessButton: state.isShowingMoreColors,
-          },
-        ),
-      );
-
-      return {
-        isShowingMoreColors: !state.isShowingMoreColors,
-      };
-    });
-  };
-
   private getCommonAnalyticsAttributes() {
-    const { showMoreColorsToggle } = this.props;
     return {
       experiment: EXPERIMENT_NAME,
-      experimentGroup: showMoreColorsToggle
-        ? EXPERIMENT_GROUP_SUBJECT
-        : EXPERIMENT_GROUP_CONTROL,
+      experimentGroup: EXPERIMENT_GROUP_CONTROL,
     };
   }
 
@@ -332,22 +252,6 @@ export class ToolbarTextColor extends React.Component<
     action: ACTION.OPENED | ACTION.CLOSED,
     data: TextColorShowPaletteToggleAttr,
   ): TextColorShowPaletteToggleAEP {
-    return {
-      action,
-      actionSubject: ACTION_SUBJECT.TOOLBAR,
-      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_COLOR,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        ...this.getCommonAnalyticsAttributes(),
-        ...data,
-      },
-    };
-  }
-
-  private buildAnalyticsShowMore(
-    action: ACTION.OPENED | ACTION.CLOSED,
-    data: TextColorShowMoreToggleAttr,
-  ): TextColorShowMoreToggleAEP {
     return {
       action,
       actionSubject: ACTION_SUBJECT.TOOLBAR,

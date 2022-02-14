@@ -4,7 +4,7 @@ import { Emoji } from '../src/element';
 
 const emojiService = getEmojiRepository();
 
-const renderEmoji = (fitToHeight: number = 24) => {
+export const renderEmoji = (fitToHeight: number = 24) => {
   const blueStar = emojiService.findById('atlassian-blue_star');
   const blueStarEmoji = blueStar ? (
     <Emoji emoji={blueStar} showTooltip={true} fitToHeight={fitToHeight} />

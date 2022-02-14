@@ -1,11 +1,17 @@
 /** @jsx jsx */
 import React, { ReactElement, SyntheticEvent } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
+import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
-import { navigatorStyle } from '../styles';
+const gridSize = getGridSize();
+
+const navigatorStyles = css({
+  paddingRight: gridSize / 2,
+  paddingLeft: gridSize / 2,
+});
 
 export type NavigatorPropsType<T> = {
   /** This will be passed in as aria-label to button. This is what screen reader will read */
@@ -26,7 +32,7 @@ export default function Navigator<T>(props: NavigatorPropsType<T>) {
       {...props}
       appearance="subtle"
       spacing="none"
-      css={navigatorStyle}
+      css={navigatorStyles}
     />
   );
 }

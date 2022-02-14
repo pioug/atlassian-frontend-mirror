@@ -32,7 +32,7 @@ import { processRawValue } from '../../../../utils/document';
 import {
   createSchema,
   mediaSingleWithCaption,
-} from '@atlaskit/adf-schema/src/schema';
+} from '@atlaskit/adf-schema/schema';
 import schema from '@atlaskit/editor-test-helpers/schema';
 
 const createMediaState = (
@@ -447,8 +447,8 @@ describe('media-single', () => {
     });
     expect(editorView.state.doc).toEqualDocument(
       doc(
-        a({ href: 'https://product-fabric.atlassian.net/browse/FAB-1520' })(
-          mediaSingle({ layout: 'center', width: 33 })(
+        mediaSingle({ layout: 'center', width: 33 })(
+          a({ href: 'https://product-fabric.atlassian.net/browse/FAB-1520' })(
             media({
               type: 'file',
               id: '37afeb9e-dec2-4e3e-9b55-4c61dfe4e070',

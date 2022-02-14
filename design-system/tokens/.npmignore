@@ -9,4 +9,6 @@ tsconfig.json
 tsconfig.node.json
 babel-plugin.js
 dist/figma/
+dist/tokens-browser-extension
+tokens-browser-extension
 scripts/

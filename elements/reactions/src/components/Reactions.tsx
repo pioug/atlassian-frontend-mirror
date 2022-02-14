@@ -114,7 +114,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
     }
   };
 
-  private handleReactionMouseOver = (reaction: ReactionSummary) => {
+  private handleReactionMouseEnter = (reaction: ReactionSummary) => {
     if (this.props.onReactionHover) {
       this.props.onReactionHover(reaction.emojiId);
     }
@@ -189,7 +189,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
       reaction={reaction}
       emojiProvider={this.props.emojiProvider}
       onClick={this.props.onReactionClick}
-      onMouseOver={this.handleReactionMouseOver}
+      onMouseEnter={this.handleReactionMouseEnter}
       flash={this.props.flash![reaction.emojiId]}
     />
   );

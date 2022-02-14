@@ -1,10 +1,11 @@
 import { keymap } from 'prosemirror-keymap';
-import { Plugin, NodeSelection } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { NodeSelection } from 'prosemirror-state';
 import { closeDatePicker, openDatePicker, focusDateInput } from '../actions';
 import * as keymaps from '../../../keymaps';
 import { getPluginState } from './main';
 
-export function keymapPlugin(): Plugin {
+export function keymapPlugin(): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -52,7 +53,7 @@ export function keymapPlugin(): Plugin {
     list,
   );
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }
 
 export default keymapPlugin;

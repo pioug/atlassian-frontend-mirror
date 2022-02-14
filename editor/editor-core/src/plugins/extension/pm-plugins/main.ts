@@ -1,5 +1,5 @@
 import { EditorView } from 'prosemirror-view';
-import { Plugin } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   ExtensionHandlers,
   ExtensionProvider,
@@ -167,7 +167,7 @@ const createPlugin = (
     appearance: options.appearance,
   };
 
-  return new Plugin({
+  return new SafePlugin({
     state,
     view: (editorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);

@@ -16,7 +16,9 @@ const containerStyles = css({
   backgroundColor: token('color.background.neutral', N20),
 });
 
-const Container: FC = (props) => <div css={containerStyles} {...props} />;
+const Container: FC = ({ children }) => (
+  <div css={containerStyles}>{children}</div>
+);
 
 const primaryAction = (
   <Button

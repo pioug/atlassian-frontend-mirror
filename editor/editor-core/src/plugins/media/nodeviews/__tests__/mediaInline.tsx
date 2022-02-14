@@ -21,7 +21,7 @@ import { MediaPluginState } from '../../pm-plugins/types';
 import { FileIdentifier } from '@atlaskit/media-client';
 import React from 'react';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
 
 const mockSchema = getSchemaBasedOnStage('stage0');
 

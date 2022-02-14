@@ -27,7 +27,10 @@ import {
   resizeMediaInPositionWithSnapshot,
   waitForMediaToBeLoaded,
 } from '../../__helpers/page-objects/_media';
-import { getBoundingRect } from '../../__helpers/page-objects/_editor';
+import {
+  getBoundingRect,
+  animationFrame,
+} from '../../__helpers/page-objects/_editor';
 import expandBreakoutAdf from './__fixtures__/expand-breakout.adf.json';
 import nestedExpandAdf from './__fixtures__/nested-expand.adf.json';
 import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
@@ -58,7 +61,9 @@ describe('Expand: full-page', () => {
   });
 
   afterEach(async () => {
-    await snapshot(page, undefined, selectors.expand);
+    await snapshot(page, undefined, selectors.expand, {
+      captureBeyondViewport: false,
+    });
   });
 
   /**
@@ -66,8 +71,7 @@ describe('Expand: full-page', () => {
    */
   describe.each(themes)('Theme: %s', (theme) => {
     describe.each(['default', 'wide', 'full-width'])('Breakout: %s', (mode) => {
-      // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-      it.skip(`should render a ${mode} collapsed top level expand`, async () => {
+      it(`should render a ${mode} collapsed top level expand`, async () => {
         await initFullPageEditorWithAdf(
           page,
           expandADF(mode),
@@ -116,8 +120,7 @@ describe('Expand: full-page', () => {
       await page.click(tableSelectors.firstRowControl);
     });
 
-    // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-    it.skip('expands should hide their overflow content', async () => {
+    it('expands should hide their overflow content', async () => {
       await initFullPageEditorWithAdf(
         page,
         nestedExpandOverflowInTable,
@@ -195,7 +198,9 @@ describe('Expand: Selection', () => {
     });
 
     afterEach(async () => {
-      await snapshot(page);
+      await snapshot(page, undefined, undefined, {
+        captureBeyondViewport: false,
+      });
     });
 
     it('shows the breakout button when selected', async () => {
@@ -218,16 +223,18 @@ describe('Expand: Selection', () => {
       await page.hover(selectors.removeButton);
     });
 
-    it.skip('keeps node selection when breakout changed', async () => {
+    it('keeps node selection when breakout changed', async () => {
       await page.waitForSelector(selectors.expand);
 
       const bounds = await getBoundingRect(page, selectors.expand);
       const middleTopX = bounds.left + bounds.width / 2;
       await page.mouse.click(middleTopX, bounds.top);
+      await animationFrame(page);
       await page.waitForSelector(selectors.removeButton);
 
       await waitForFloatingControl(page, 'Go wide', undefined, false);
       await toggleBreakout(page, 1);
+      await animationFrame(page);
       await page.waitForSelector('div[aria-label="Go full width"]');
     });
 
@@ -256,8 +263,7 @@ describe('Expand: Media', () => {
     page = global.page;
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-  it.skip('should allow wrapped media to flow correctly', async () => {
+  it('should allow wrapped media to flow correctly', async () => {
     await initFullPageEditorWithAdf(page, wrappingMediaADF, Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
     await waitForMediaToBeLoaded(page);
@@ -265,8 +271,7 @@ describe('Expand: Media', () => {
     await snapshot(page);
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('should not show grid lines when re-sizing inside an expand', async () => {
+  it('should not show grid lines when re-sizing inside an expand', async () => {
     await initFullPageEditorWithAdf(page, mediaInExpandADF, Device.LaptopMDPI);
     await page.waitForSelector(selectors.expand);
     await waitForMediaToBeLoaded(page);
@@ -274,8 +279,7 @@ describe('Expand: Media', () => {
     await resizeMediaInPositionWithSnapshot(page, 0, 50);
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip('should not show grid lines when re-sizing inside a nested expand', async () => {
+  it('should not show grid lines when re-sizing inside a nested expand', async () => {
     await initFullPageEditorWithAdf(
       page,
       mediaInNestedExpandADF,

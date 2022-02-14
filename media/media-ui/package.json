@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "18.1.1",
+  "version": "19.0.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -60,6 +60,7 @@
     "@atlaskit/width-detector": "^3.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
+    "@emotion/styled": "^10.0.7",
     "blueimp-load-image": "2.19.0",
     "bytes": "^2.4.0",
     "exenv": "^1.2.2",
@@ -72,8 +73,7 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "styled-components": "^3.2.6"
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.2.0",
@@ -82,7 +82,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^15.0.5",
     "@atlaskit/media-integration-test-helpers": "^2.5.0",
-    "@atlaskit/media-test-helpers": "^29.0.0",
+    "@atlaskit/media-test-helpers": "^29.1.0",
     "@atlaskit/page": "^12.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.5",
@@ -94,6 +94,7 @@
     "@types/enzyme": "^3.1.15",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "jest-emotion": "^10.0.32",
     "jsverify": "^0.8.3",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

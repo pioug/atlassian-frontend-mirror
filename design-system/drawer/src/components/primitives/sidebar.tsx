@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 import { SidebarProps } from '../types';
 
-const defaultStyle = {
+const defaultStyle: CSSObject = {
   alignItems: 'center',
   boxSizing: 'border-box',
   color: token('color.text.subtle', N500),
@@ -23,11 +23,11 @@ const defaultStyle = {
   width: 8 * gridSize(),
 };
 
-const sidebarCSS = (): CSSObject => defaultStyle as CSSObject;
+const sidebarCSS = (): CSSObject => defaultStyle;
 
 const Sidebar: FC<SidebarProps> = ({ cssFn, ...props }) => {
   // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-  return <div css={cssFn(defaultStyle as CSSObject)} {...props} />;
+  return <div css={cssFn(defaultStyle)} {...props} />;
 };
 
 export default {

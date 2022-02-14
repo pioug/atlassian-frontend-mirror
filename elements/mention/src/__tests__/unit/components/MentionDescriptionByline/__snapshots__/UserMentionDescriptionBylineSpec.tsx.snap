@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`User mention description should render User Mention description component 1`] = `
-.c0 {
-  color: #7A869A;
+.emotion-0 {
+  color: var(--ds-text-subtlest,#7A869A);
   font-size: 12px;
   margin-top: 2px;
   display: block;
@@ -12,7 +12,7 @@ exports[`User mention description should render User Mention description compone
 }
 
 <span
-  class="c0"
+  class="emotion-0"
 >
   @Test User
 </span>

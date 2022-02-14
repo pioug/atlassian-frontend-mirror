@@ -53,6 +53,11 @@ export interface InlineDialogProps extends WithAnalyticsEventsProps {
    * Where the dialog should appear, relative to the contents of the children.
    */
   placement?: Placement;
+
+  /**
+   * Placement strategy used. Can be 'fixed' or 'absolute'. Defaults to 'fixed'.
+   */
+  strategy?: 'fixed' | 'absolute';
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
    */

@@ -1,13 +1,13 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { act } from 'react-dom/test-utils';
+import { easeIn, easeOut } from '@atlaskit/motion/curves';
+
 import {
   containerStyle,
   Counter,
   highlightStyle,
   Props,
-  slideDownStyle,
-  slideUpStyle,
 } from '../../../components/Counter';
 
 jest.useFakeTimers();
@@ -51,66 +51,93 @@ describe('Counter', () => {
   });
 
   it('should animate number when value increase', () => {
-    const counter = renderCounter({ value: 5 });
+    const animationDuration = 300;
+    const counter = renderCounter({ value: 5, animationDuration });
 
-    expect(counter.find(CSSTransition).prop('in')).toBeFalsy();
+    expect(counter);
 
     counter.setProps({ value: 6, highlight: true });
 
-    expect(counter.state('previous')).toEqual({
-      highlight: false,
-      value: 5,
+    // in the middle of animation
+    act(() => {
+      jest.runTimersToTime(animationDuration / 2);
     });
-    expect(counter.find(CSSTransition).prop('in')).toBeTruthy();
-    expect(counter.find(CSSTransition).prop('classNames')).toHaveProperty(
-      'enter',
-      slideUpStyle,
-    );
 
-    const container = counter.find(`.${containerStyle}`);
-    expect(container.childAt(0).prop('className')).not.toContain(
+    // previous counter container
+    const previousContainer = counter.find(`.${containerStyle}`).at(0);
+
+    // current counter container
+    const container = counter.find(`.${containerStyle}`).at(1);
+
+    expect(previousContainer.childAt(0).prop('className')).not.toContain(
       highlightStyle,
     );
-    expect(container.childAt(0).text()).toEqual('5');
-    expect(container.childAt(1).prop('className')).toContain(highlightStyle);
-    expect(container.childAt(1).text()).toEqual('6');
+    expect(
+      getComputedStyle(previousContainer.getDOMNode()).animationTimingFunction,
+    ).toEqual(easeIn);
 
-    jest.runTimersToTime(300);
+    expect(container.childAt(0).prop('className')).toContain(highlightStyle);
+    expect(
+      getComputedStyle(container.getDOMNode()).animationTimingFunction,
+    ).toEqual(easeOut);
 
-    expect(counter.state('previous')).toBeUndefined();
-    counter.update();
-    expect(counter.find(CSSTransition).prop('in')).toBeFalsy();
+    // finished animation
+    act(() => {
+      jest.runTimersToTime(animationDuration);
+    });
+
+    expect(counter.text()).toEqual('6');
+    expect(
+      getComputedStyle(container.getDOMNode()).animationTimingFunction,
+    ).toEqual('');
   });
 
   it('should animate number when value decrease', () => {
-    const counter = renderCounter({ value: 5, highlight: true });
+    const animationDuration = 300;
+    const counter = renderCounter({
+      value: 5,
+      highlight: true,
+      animationDuration,
+    });
 
-    expect(counter.find(CSSTransition).prop('in')).toBeFalsy();
+    expect(counter);
 
     counter.setProps({ value: 4, highlight: false });
 
-    expect(counter.state('previous')).toEqual({
-      highlight: true,
-      value: 5,
+    // in the middle of animation
+    act(() => {
+      jest.runTimersToTime(animationDuration / 2);
     });
-    expect(counter.find(CSSTransition).prop('in')).toBeTruthy();
-    expect(counter.find(CSSTransition).prop('classNames')).toHaveProperty(
-      'enter',
-      slideDownStyle,
+
+    // previous counter container
+    const previousContainer = counter.find(`.${containerStyle}`).at(0);
+
+    // current container of SlideIn count
+    const container = counter.find(`.${containerStyle}`).at(1);
+
+    expect(previousContainer.childAt(0).prop('className')).toContain(
+      highlightStyle,
     );
 
-    const container = counter.find(`.${containerStyle}`);
+    expect(
+      getComputedStyle(previousContainer.getDOMNode()).animationTimingFunction,
+    ).toEqual(easeIn);
+
     expect(container.childAt(0).prop('className')).not.toContain(
       highlightStyle,
     );
-    expect(container.childAt(0).text()).toEqual('4');
-    expect(container.childAt(1).prop('className')).toContain(highlightStyle);
-    expect(container.childAt(1).text()).toEqual('5');
+    expect(
+      getComputedStyle(container.getDOMNode()).animationTimingFunction,
+    ).toEqual(easeOut);
 
-    jest.runTimersToTime(300);
+    // finished animation
+    act(() => {
+      jest.runTimersToTime(animationDuration);
+    });
 
-    expect(counter.state('previous')).toBeUndefined();
-    counter.update();
-    expect(counter.find(CSSTransition).prop('in')).toBeFalsy();
+    expect(counter.text()).toEqual('4');
+    expect(
+      getComputedStyle(container.getDOMNode()).animationTimingFunction,
+    ).toEqual('');
   });
 });

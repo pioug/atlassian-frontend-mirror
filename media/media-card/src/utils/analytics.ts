@@ -32,6 +32,12 @@ import {
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
 export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';
 
+export type MediaCardErrorInfo = {
+  failReason: FailedErrorFailReason;
+  error: MediaClientErrorReason | 'nativeError';
+  errorDetail: string;
+};
+
 export type RenderFailedEventPayload = OperationalEventPayload<
   WithFileAttributes &
     WithPerformanceAttributes &
@@ -189,6 +195,14 @@ export const getRenderErrorRequestMetadata = (
   }
 };
 
+export const extractErrorInfo = (error: MediaCardError): MediaCardErrorInfo => {
+  return {
+    failReason: getRenderErrorFailReason(error),
+    error: getRenderErrorErrorReason(error),
+    errorDetail: getRenderErrorErrorDetail(error),
+  };
+};
+
 export const getRenderErrorEventPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
@@ -201,9 +215,7 @@ export const getRenderErrorEventPayload = (
     fileAttributes,
     performanceAttributes,
     status: 'fail',
-    failReason: getRenderErrorFailReason(error),
-    error: getRenderErrorErrorReason(error),
-    errorDetail: getRenderErrorErrorDetail(error),
+    ...extractErrorInfo(error),
     request: getRenderErrorRequestMetadata(error),
   },
 });

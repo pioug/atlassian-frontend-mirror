@@ -1,11 +1,10 @@
 import { JsonLd } from 'json-ld-types';
-import { EmbedCardResolvedViewProps } from '@atlaskit/media-ui/embeds';
-
 import { CardPlatform } from '../../view/Card/types';
 import { extractLink, extractTitle } from '../common/primitives';
 import { extractProvider } from '../common/context';
 import { extractPreview, LinkPreview } from '../common/preview/extractPreview';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
+import { EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';
 
 const extractEmbedPreview = (
   jsonLd: JsonLd.Data.BaseData,

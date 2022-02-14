@@ -1,4 +1,5 @@
-import { EditorState, Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { EditorPlugin } from '../../types';
 
@@ -53,7 +54,7 @@ const createViewUpdateSubscriptionPlugin = (): EditorPlugin => {
 
     pmPlugins: () => {
       const createPlugin = () =>
-        new Plugin({
+        new SafePlugin({
           key: pluginKey,
           view(editorView) {
             tracker = trackerStore.get(editorView);

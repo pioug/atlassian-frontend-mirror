@@ -35,6 +35,7 @@ interface HeaderItemsProps {
   testId?: string;
   edited?: ReactNode;
   isError?: boolean;
+  headingLevel?: string;
 }
 
 const RestrictedTo: FC = ({ children }) => (
@@ -60,6 +61,7 @@ const HeaderItems: FC<HeaderItemsProps> = ({
   time,
   testId,
   type,
+  headingLevel,
 }) => {
   const restrictedElement = restrictedTo ? (
     <RestrictedTo>{restrictedTo}</RestrictedTo>
@@ -80,8 +82,13 @@ const HeaderItems: FC<HeaderItemsProps> = ({
       </div>
     )); // eslint-disable-line react/no-array-index-key
 
+  const headingProps = headingLevel && {
+    role: 'heading',
+    'aria-level': Number(headingLevel),
+  };
+
   return items.length ? (
-    <div data-testid={testId} css={containerStyles}>
+    <div data-testid={testId} css={containerStyles} {...headingProps}>
       {items}
     </div>
   ) : null;

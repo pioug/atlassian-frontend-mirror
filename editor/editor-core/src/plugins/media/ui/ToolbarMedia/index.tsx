@@ -6,6 +6,8 @@ import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { EventDispatcher } from '../../../../event-dispatcher';
 import { MediaPluginState } from '../../pm-plugins/types';
+import { toolbarMediaMessages } from './toolbar-media-messages';
+import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 export interface Props<T extends MediaPluginState> {
   editorView: EditorView;
@@ -26,7 +28,8 @@ const ToolbarMedia = <T extends MediaPluginState>({
   pluginKey,
   isDisabled,
   isReducedSpacing,
-}: Props<T>) => (
+  intl,
+}: Props<T> & WrappedComponentProps) => (
   <WithPluginState
     editorView={editorView}
     eventDispatcher={eventDispatcher}
@@ -38,18 +41,22 @@ const ToolbarMedia = <T extends MediaPluginState>({
         return null;
       }
 
+      const { toolbarMediaTitle } = toolbarMediaMessages;
+
       return (
         <ToolbarButton
           buttonId={TOOLBAR_BUTTON.MEDIA}
           onClick={onClickMediaButton(mediaPlugin)}
           disabled={isDisabled}
-          title="Files & images"
+          title={intl.formatMessage(toolbarMediaTitle)}
           spacing={isReducedSpacing ? 'none' : 'default'}
-          iconBefore={<AttachmentIcon label="Files & images" />}
+          iconBefore={
+            <AttachmentIcon label={intl.formatMessage(toolbarMediaTitle)} />
+          }
         />
       );
     }}
   />
 );
 
-export default ToolbarMedia;
+export default injectIntl(ToolbarMedia);

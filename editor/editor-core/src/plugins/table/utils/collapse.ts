@@ -1,5 +1,5 @@
 import { NodeType, NodeRange, Schema } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { findWrapping } from 'prosemirror-transform';
 
 import { findTable } from '@atlaskit/editor-tables/utils';
@@ -22,7 +22,7 @@ const bail = () => ({
  * prosemirror-transform's `findWrapping` helper
  */
 export const isTableCollapsible = (
-  tr: Transaction,
+  tr: Transaction | ReadonlyTransaction,
 ): IsTableCollapsibleResult => {
   const selection = tr.selection;
   const schema = tr.doc.type.schema;

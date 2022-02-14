@@ -1,13 +1,19 @@
 /**  @jsx jsx */
 import { ChangeEvent, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { Checkbox } from '../../src';
 
 interface CheckedItems {
   [value: string]: boolean;
 }
+
+const checkboxGroupStyles = css({
+  display: 'flex',
+  paddingLeft: '24px',
+  flexDirection: 'column',
+});
 
 const PARENT_ID: string = 'All projects';
 const CHILD_1_ID: string = 'Design System';
@@ -72,13 +78,7 @@ const IndeterminateCheckboxExample = () => {
         value={PARENT_ID}
         name="parent"
       />
-      <div
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          paddingLeft: '24px',
-        }}
-      >
+      <div css={checkboxGroupStyles}>
         <Checkbox
           isChecked={checkedItems[CHILD_1_ID]}
           onChange={onChange}

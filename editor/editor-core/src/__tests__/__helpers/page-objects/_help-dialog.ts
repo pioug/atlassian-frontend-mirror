@@ -1,1 +1,1 @@
-export const helpDialogSelector = '[role="dialog"]';
+export const helpDialogSelector = '[data-testid="help-modal-dialog"]';

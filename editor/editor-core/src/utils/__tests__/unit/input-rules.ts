@@ -88,16 +88,16 @@ describe('createWrappingJoinRule()', () => {
         const { editorView } = editor(
           // prettier-ignore
           doc(
-          link({ href: 'http://www.atlassian.com' })(
             mediaSingle()(
-              media({
-                id: 'a559980d-cd47-43e2-8377-27359fcb905f',
-                type: 'file',
-                collection: 'MediaServicesSample',
-              })(),
+              link({ href: 'http://www.atlassian.com' })(
+                media({
+                  id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                  type: 'file',
+                  collection: 'MediaServicesSample',
+                })(),
+              ),
             ),
           ),
-        ),
         );
         const {
           state: {
@@ -118,18 +118,18 @@ describe('createWrappingJoinRule()', () => {
           doc(
           ul(
             li(
-              link({ href: 'http://www.atlassian.com' })(
                 mediaSingle()(
-                  media({
-                    id: 'a559980d-cd47-43e2-8377-27359fcb905f',
-                    type: 'file',
-                    collection: 'MediaServicesSample',
-                  })(),
+                  link({ href: 'http://www.atlassian.com' })(
+                    media({
+                      id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                      type: 'file',
+                      collection: 'MediaServicesSample',
+                    })(),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
         );
       });
     });
@@ -139,17 +139,17 @@ describe('createWrappingJoinRule()', () => {
           // prettier-ignore
           doc(
           alignment({ align: 'center' })(
-            link({ href: 'http://www.atlassian.com' })(
               mediaSingle()(
-                media({
-                  id: 'a559980d-cd47-43e2-8377-27359fcb905f',
-                  type: 'file',
-                  collection: 'MediaServicesSample',
-                })(),
+                link({ href: 'http://www.atlassian.com' })(
+                  media({
+                    id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                    type: 'file',
+                    collection: 'MediaServicesSample',
+                  })(),
+                ),
               ),
             ),
           ),
-        ),
         );
         const {
           state: {
@@ -170,18 +170,18 @@ describe('createWrappingJoinRule()', () => {
           doc(
           ul(
             li(
-              link({ href: 'http://www.atlassian.com' })(
                 mediaSingle()(
-                  media({
-                    id: 'a559980d-cd47-43e2-8377-27359fcb905f',
-                    type: 'file',
-                    collection: 'MediaServicesSample',
-                  })(),
+                  link({ href: 'http://www.atlassian.com' })(
+                    media({
+                      id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+                      type: 'file',
+                      collection: 'MediaServicesSample',
+                    })(),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
         );
       });
     });

@@ -30,7 +30,15 @@
 
 // This sends an object to the background page
 // where it can be relayed to the inspected page
+// Two message paths, one for devtools, one for toolbar popup
 function sendObjectToInspectedPage(message) {
-  message.tabId = chrome.devtools.inspectedWindow.tabId;
-  chrome.runtime.sendMessage(message);
+  if (chrome.devtools) {
+    message.tabId = chrome.devtools.inspectedWindow.tabId;
+    chrome.runtime.sendMessage(message);
+  } else {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      message.tabId = tabs[0].id;
+      chrome.runtime.sendMessage(message);
+    });
+  }
 }

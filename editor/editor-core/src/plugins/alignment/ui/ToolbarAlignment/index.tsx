@@ -11,7 +11,7 @@ import {
   TriggerWrapper,
   Wrapper,
 } from './styles';
-import { iconMap } from './icon-map';
+import { IconMap } from './icon-map';
 import { messages } from './messages';
 
 export interface State {
@@ -70,13 +70,13 @@ export class AlignmentToolbar extends React.Component<
               selected={isOpen}
               title={title}
               className="align-btn"
-              aria-label="Text alignment"
+              aria-label={title}
               aria-expanded={isOpen}
               aria-haspopup
               onClick={this.toggleOpen}
               iconBefore={
                 <TriggerWrapper>
-                  {iconMap[pluginState.align]}
+                  <IconMap alignment={pluginState.align} />
                   <ExpandIconWrapper>
                     <ExpandIcon label="" />
                   </ExpandIconWrapper>

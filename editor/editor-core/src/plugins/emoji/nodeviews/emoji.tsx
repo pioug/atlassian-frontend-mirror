@@ -5,9 +5,6 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import Emoji from '../ui/Emoji';
 import { ReactNodeView, getPosHandler } from '../../../nodeviews';
-import InlineNodeWrapper, {
-  createMobileInlineDomRef,
-} from '../../../ui/InlineNodeWrapper';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import { EmojiPluginOptions } from '../types';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -19,13 +16,6 @@ export interface Props {
 
 export class EmojiNodeView extends ReactNodeView<Props> {
   createDomRef() {
-    if (
-      this.reactComponentProps.options &&
-      this.reactComponentProps.options.useInlineWrapper
-    ) {
-      return createMobileInlineDomRef();
-    }
-
     return super.createDomRef();
   }
 
@@ -34,7 +24,7 @@ export class EmojiNodeView extends ReactNodeView<Props> {
     const { shortName, id, text } = this.node.attrs;
 
     return (
-      <InlineNodeWrapper useInlineWrapper={options && options.useInlineWrapper}>
+      <>
         <Emoji
           providers={providerFactory}
           id={id}
@@ -42,7 +32,7 @@ export class EmojiNodeView extends ReactNodeView<Props> {
           fallback={text}
         />
         {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
-      </InlineNodeWrapper>
+      </>
     );
   }
 }

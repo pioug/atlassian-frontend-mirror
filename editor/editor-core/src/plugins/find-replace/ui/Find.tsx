@@ -131,28 +131,33 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
     // We locally manage the value of the input inside this component in order to support compositions.
     // This requires some additional work inside componentDidUpdate to ensure we support changes that
     // occur to this value which do not originate from this component.
-    this.state = { localFindText: this.props.findText || '' };
+    this.state = { localFindText: '' };
   }
 
   componentDidMount() {
     this.props.onFindTextfieldRefSet(this.findTextfieldRef);
     this.focusFindTextfield();
+    this.syncFindText();
   }
 
   componentDidUpdate() {
     this.focusFindTextfield();
+    this.syncFindText();
+  }
 
-    // If the external prop findText changes and we aren't in a composition we should update to the
+  syncFindText = () => {
+    // If the external prop findText changes and we aren't in a composition we should update to
     // use the external prop value.
     //
     // An example of where this may happen is when a find occurs through the user selecting some text
     // and pressing Mod-f.
-    if (!this.isComposing && this.props.findText !== this.state.localFindText) {
-      this.setState({
-        localFindText: this.props.findText || '',
-      });
+    if (
+      !this.isComposing &&
+      this.props.findText !== this.state?.localFindText
+    ) {
+      this.updateFindValue(this.props.findText || '');
     }
-  }
+  };
 
   skipWhileComposing = (fn: Function) => {
     if (this.isComposing) {

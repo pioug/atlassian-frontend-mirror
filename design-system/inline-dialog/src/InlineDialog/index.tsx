@@ -39,6 +39,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
     onContentFocus = noop,
     onClose = noop,
     placement = 'bottom-start',
+    strategy = 'fixed',
     testId,
     content,
     children,
@@ -100,7 +101,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
     }, [isOpen, handleClickOutside]);
 
     const popper = isOpen ? (
-      <Popper placement={placement}>
+      <Popper placement={placement} strategy={strategy}>
         {({ ref, style }) => (
           <Container
             onBlur={onContentBlur}

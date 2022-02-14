@@ -77,24 +77,6 @@ describe('Snapshot Test', () => {
     expect(imageWithProjectSwitcher).toMatchProdImageSnapshot();
   });
 
-  // FIXME: https://product-fabric.atlassian.net/browse/DSP-2347
-  // caused by dropdown-menu changes.
-  it.skip('Should match Global nav', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'navigation-next',
-      'global-nav',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await page.setViewport({ width: 1500, height: 700 });
-    await loadPage(page, url);
-    await page.waitForSelector('div[class*="PrimaryItemsList"]');
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('Should match Theming', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -135,24 +117,6 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
     await page.click(button);
-  });
-
-  // FIXME: https://product-fabric.atlassian.net/browse/DSP-2347
-  // caused by dropdown-menu changes.
-  it.skip('Should match item', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'navigation-next',
-      'item',
-      global.__BASEURL__,
-    );
-
-    const { page } = global;
-    await page.setViewport({ width: 900, height: 1350 });
-    await loadPage(page, url);
-    await page.waitForSelector('button[data-testid="NavigationItem"]');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
   });
 
   it('Should match collapsed nav screenshot', async () => {

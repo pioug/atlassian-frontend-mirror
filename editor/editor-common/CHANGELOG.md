@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 64.0.0
+
+### Major Changes
+
+- [`b32b7a39a70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b32b7a39a70) - CETI-166 Increase the standard panel icons size to make it consistent with the emojis in the panel content area
+
+### Minor Changes
+
+- [`4e234e7fe93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e234e7fe93) - CETI-240 handle add custom emoji in floating toolbar
+- [`5293a48368e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5293a48368e) - fix image size in layout with ref and width observer
+- [`304351e4b1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/304351e4b1e) - CETI-241 - Added additional panel ADF attributes (panelIconId, panelIconText) to uniquely identify custom panel emojis. The change has been categorised as major since it is a change to the full-schema ADF. However, the custom panel feature is behind a feature flag, has not yet been released to production, and is only currently planned for release to Confluence. See ADF change #61 for further details.
+- [`9c9557fcdd8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c9557fcdd8) - AK-279 Moved copy button outside of heading, that made heading accessible
+- [`172ccc62c2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/172ccc62c2a) - ED-14117 Export SafePlugin definition in new entry point
+
+### Patch Changes
+
+- [`97412280671`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97412280671) - [ED-13939] Add analytics event to track "can't syncup with collab service" error
+- [`88ada10af2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88ada10af2c) - [ED-14097] Moved getFinalAcknowledgedState control to editor and made the API public
+- [`85648c038a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85648c038a4) - ED-13939 Rename newCollabSyncUpError analytics event to newCollabSyncUpErrorNoSteps
+- [`8f0bfd2b1ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0bfd2b1ef) - Use ProfileCardTrigger to display profile card popup instead of custom popup implementation
+- [`16294b02fd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16294b02fd4) - CETI-242 Change the Color palette labels for panel
+- [`86c3cb500c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86c3cb500c1) - Placeholder not rendering properly in firefox when empty issue fixed.
+- [`78c6a40ef5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78c6a40ef5e) - [ED-13118] Removing dead workaround code that causes tapping after a bullet item with a smart link to select the smart link
+- [`e292f108d4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e292f108d4b) - Ensure metadata is persisted when it is updated by another participant during an editing session
+- Updated dependencies
+
 ## 63.0.1
 
 ### Patch Changes

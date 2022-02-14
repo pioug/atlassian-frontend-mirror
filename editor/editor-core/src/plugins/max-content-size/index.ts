@@ -1,4 +1,5 @@
-import { Plugin, PluginKey, Transaction } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, Transaction } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { Dispatch } from '../../event-dispatcher';
 
@@ -11,14 +12,14 @@ export type MaxContentSizePluginState = { maxContentSizeReached: boolean };
 export function createPlugin(
   dispatch: Dispatch,
   maxContentSize?: number,
-): Plugin | undefined {
+): SafePlugin | undefined {
   if (!maxContentSize) {
     return;
   }
 
   let maxContentSizeReached = false;
 
-  return new Plugin({
+  return new SafePlugin({
     filterTransaction(tr: Transaction): boolean {
       const result = tr.doc && tr.doc.nodeSize > maxContentSize;
 

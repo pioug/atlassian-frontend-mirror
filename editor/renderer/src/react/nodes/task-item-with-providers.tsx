@@ -11,6 +11,7 @@ export interface Props {
   taskId: string;
   objectAri: string;
   isDone: boolean;
+  isRenderer?: boolean;
   contentRef?: ContentRef;
   onChange?: (taskId: string, isChecked: boolean) => void;
   showPlaceholder?: boolean;
@@ -55,12 +56,23 @@ export default class TaskItemWithProviders extends Component<Props, State> {
   }
 
   render() {
-    const { contextIdentifierProvider, objectAri, ...otherProps } = this.props;
+    const {
+      contextIdentifierProvider,
+      objectAri,
+      isRenderer,
+      ...otherProps
+    } = this.props;
     const resolvedObjectId =
       (this.state.resolvedContextProvider &&
         this.state.resolvedContextProvider.objectId) ||
       objectAri;
 
-    return <ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} />;
+    return (
+      <ResourcedTaskItem
+        {...otherProps}
+        objectAri={resolvedObjectId}
+        isRenderer={isRenderer}
+      />
+    );
   }
 }

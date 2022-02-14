@@ -1,14 +1,12 @@
 import React, { useRef, useEffect } from 'react';
-import styled, { ThemedOuterStyledProps } from 'styled-components';
+import styled from '@emotion/styled';
 import * as exenv from 'exenv';
 export interface WrapperProps {
   inline?: boolean;
 }
 
-const Wrapper: React.ComponentClass<
-  React.HTMLAttributes<{}> & ThemedOuterStyledProps<WrapperProps, {}>
-> = styled.div`
-  ${({ inline }: WrapperProps) => (inline && 'display: inline;') || ''};
+const Wrapper = styled.div<WrapperProps>`
+  ${({ inline }) => (inline && 'display: inline;') || ''};
 `;
 
 Wrapper.displayName = 'Ellipsify';
@@ -28,7 +26,7 @@ export const Ellipsify = ({
   inline,
   testId,
 }: EllipsifyProps): JSX.Element => {
-  const element = useRef<HTMLElement>(null);
+  const element = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!element.current) {
@@ -40,7 +38,7 @@ export const Ellipsify = ({
   return (
     <Wrapper
       className="ellipsed-text"
-      innerRef={element}
+      ref={element}
       aria-label={text}
       inline={inline}
       data-testid={testId}

@@ -16,10 +16,10 @@ const gridSize = getGridSize();
 const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
-const ReadViewContainer = css({
-  lineHeight: `${(gridSize * textAreaLineHeightFactor) / fontSize}`,
+const readViewContainerStyles = css({
   minHeight: `${gridSize * textAreaLineHeightFactor * minRows}px`,
   padding: `${gridSize - 2}px ${gridSize - 2}px`,
+  lineHeight: `${(gridSize * textAreaLineHeightFactor) / fontSize}`,
   wordBreak: 'break-word',
 });
 
@@ -41,7 +41,7 @@ const InlineEditCustomTextareaExample = () => {
           <TextArea {...fieldProps} ref={ref} />
         )}
         readView={() => (
-          <div css={ReadViewContainer}>
+          <div css={readViewContainerStyles}>
             {editValue || 'Click to enter a value'}
           </div>
         )}

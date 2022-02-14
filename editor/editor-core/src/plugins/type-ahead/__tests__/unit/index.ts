@@ -5,11 +5,15 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { DecorationSet, EditorView } from 'prosemirror-view';
-import { TextSelection, EditorState } from 'prosemirror-state';
+import { TextSelection, Transaction, EditorState } from 'prosemirror-state';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { undo, redo } from 'prosemirror-history';
+import {
+  InsertTypeAheadStep,
+  InsertTypeAheadStages,
+} from '@atlaskit/adf-schema/steps';
 import typeAheadPlugin from '../..';
 import { EditorPlugin } from '../../../../types/editor-plugin';
 import { getPluginState } from '../../utils';
@@ -236,6 +240,96 @@ describe('type-ahead', () => {
         const pluginState = getPluginState(editorView.state);
 
         expect(pluginState.triggerHandler).not.toBeDefined();
+      });
+    });
+  });
+
+  describe('force re-open', () => {
+    const addDeleteStep = (tr: Transaction) => {
+      const customStep = new InsertTypeAheadStep(
+        {
+          stage: InsertTypeAheadStages.DELETING_RAW_QUERY,
+          query: QUERY,
+          trigger: TRIGGER,
+          selectedIndex: 0,
+        },
+        false,
+      );
+
+      tr.step(customStep);
+    };
+    const addInsertInvertedStep = (tr: Transaction) => {
+      const customStep = new InsertTypeAheadStep(
+        {
+          stage: InsertTypeAheadStages.INSERTING_ITEM,
+          query: QUERY,
+          trigger: TRIGGER,
+          selectedIndex: 0,
+        },
+        true,
+      );
+
+      tr.step(customStep);
+    };
+
+    describe('when there are multiple custom typeahead steps', () => {
+      it('should not create the plugin state to open the typeahead', () => {
+        let { editorView } = editor(doc(p('opa {<>}')));
+
+        const tr = editorView.state.tr;
+        addDeleteStep(tr);
+        addInsertInvertedStep(tr);
+        editorView.dispatch(tr);
+
+        const pluginState = getPluginState(editorView.state);
+        expect(pluginState).not.toEqual(
+          expect.objectContaining({
+            query: QUERY,
+            triggerHandler: typeAheadHandler,
+            decorationElement: expect.any(HTMLElement),
+            selectedIndex: 0,
+          }),
+        );
+      });
+    });
+
+    describe('when there is a delete raw query custom typeahead step', () => {
+      it('should create the plugin state to open the typeahead', () => {
+        let { editorView } = editor(doc(p('opa {<>}')));
+        const tr = editorView.state.tr;
+        addDeleteStep(tr);
+        editorView.dispatch(tr);
+
+        const pluginState = getPluginState(editorView.state);
+        expect(pluginState).toEqual(
+          expect.objectContaining({
+            query: QUERY,
+            triggerHandler: typeAheadHandler,
+            decorationElement: expect.any(HTMLElement),
+            selectedIndex: 0,
+          }),
+        );
+      });
+    });
+
+    describe('when there is a inverted insert item custom typeahead step', () => {
+      it('should create the plugin state to open the typeahead', () => {
+        let { editorView } = editor(doc(p('opa {<>}')));
+
+        const tr = editorView.state.tr;
+        addInsertInvertedStep(tr);
+        editorView.dispatch(tr);
+
+        const pluginState = getPluginState(editorView.state);
+
+        expect(pluginState).toEqual(
+          expect.objectContaining({
+            query: QUERY,
+            triggerHandler: typeAheadHandler,
+            decorationElement: expect.any(HTMLElement),
+            selectedIndex: 0,
+          }),
+        );
       });
     });
   });

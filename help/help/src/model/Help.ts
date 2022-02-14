@@ -86,8 +86,8 @@ export interface Help {
     };
     // Setter for the navigation data. This prop is optional
     setNavigationData?(navigationData: {
-      articleId: articleId;
-      history: HistoryItem[];
+      articleId?: articleId;
+      history?: HistoryItem[];
     }): void;
   };
 

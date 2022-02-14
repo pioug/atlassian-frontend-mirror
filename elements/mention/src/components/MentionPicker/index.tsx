@@ -1,8 +1,8 @@
-import {
-  withAnalyticsEvents,
+import withAnalyticsEvents, {
   WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+} from '@atlaskit/analytics-next/withAnalyticsEvents';
 import React from 'react';
+import { IntlProvider, IntlShape, injectIntl } from 'react-intl-next';
 import {
   ErrorCallback,
   InfoCallback,
@@ -56,7 +56,7 @@ export interface State {
  * @class MentionPicker
  */
 export class MentionPicker extends React.PureComponent<
-  Props & WithAnalyticsEventsProps,
+  Props & WithAnalyticsEventsProps & { intl: IntlShape },
   State
 > {
   private subscriberKey: string;
@@ -68,7 +68,7 @@ export class MentionPicker extends React.PureComponent<
     onClose: () => {},
   };
 
-  constructor(props: Props & WithAnalyticsEventsProps) {
+  constructor(props: Props & WithAnalyticsEventsProps & { intl: IntlShape }) {
     super(props);
     this.subscriberKey = uniqueId('ak-mention-picker');
     this.state = {
@@ -243,6 +243,7 @@ export class MentionPicker extends React.PureComponent<
       offsetX,
       offsetY,
       showTeamMentionsHighlight,
+      intl,
     } = this.props;
     const { visible, info } = this.state;
 
@@ -278,10 +279,14 @@ export class MentionPicker extends React.PureComponent<
             offsetX={offsetX}
             offsetY={offsetY}
           >
-            <div>
-              {resourceMentionList}
-              {infoContent}
-            </div>
+            {/* Popup can be portalled outside of an intl context so providing
+            an intl provider here */}
+            <IntlProvider locale={intl?.locale || 'en'}>
+              <div>
+                {resourceMentionList}
+                {infoContent}
+              </div>
+            </IntlProvider>
           </Popup>
         );
       } else {
@@ -309,8 +314,10 @@ export class MentionPicker extends React.PureComponent<
   }
 }
 
+const MentionPickerWithIntl = injectIntl(MentionPicker, { forwardRef: true });
+
 export const MentionPickerWithAnalytics = withAnalyticsEvents({})(
-  MentionPicker,
+  MentionPickerWithIntl,
 );
 
 export type MentionPickerWithAnalytics = MentionPicker;

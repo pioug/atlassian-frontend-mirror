@@ -100,6 +100,7 @@ export const getToolbarConfig = (
           onMouseLeave: resetCopiedState,
           hideTooltipOnClick: false,
           disabled: codeBlockState.isNodeSelected,
+          tabIndex: null,
         },
         separator,
       ] as const);
@@ -115,6 +116,7 @@ export const getToolbarConfig = (
     onBlur: hoverDecoration(nodeType, false),
     onClick: removeCodeBlock,
     title: formatMessage(commonMessages.remove),
+    tabIndex: null,
   };
 
   return {

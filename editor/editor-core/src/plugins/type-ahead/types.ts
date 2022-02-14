@@ -6,7 +6,11 @@ import type {
   TypeAheadItemRenderProps,
 } from '@atlaskit/editor-common/provider-factory';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import { EditorState, Transaction } from 'prosemirror-state';
+import {
+  EditorState,
+  Transaction,
+  ReadonlyTransaction,
+} from 'prosemirror-state';
 
 import type { INPUT_METHOD } from '../analytics/types/enums';
 import type { TypeAheadPayload } from '../analytics/types/type-ahead';
@@ -144,7 +148,7 @@ export type PopupMountPointReference = Record<
 >;
 
 export type CreateTypeAheadDecorations = (
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   options: {
     triggerHandler: TypeAheadHandler;
     inputMethod: TypeAheadInputMethod;

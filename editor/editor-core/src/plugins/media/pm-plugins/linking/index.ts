@@ -1,8 +1,8 @@
 import { pluginFactory } from '../../../../utils/plugin-state-factory';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   PluginKey,
-  Transaction,
-  Plugin,
+  ReadonlyTransaction,
   NodeSelection,
 } from 'prosemirror-state';
 import { Dispatch } from '../../../../event-dispatcher';
@@ -23,7 +23,7 @@ const initialState: InitialState = {
 };
 
 function mapping(
-  tr: Transaction,
+  tr: ReadonlyTransaction,
   pluginState: MediaLinkingState,
 ): MediaLinkingState {
   if (pluginState && pluginState.mediaPos !== null) {
@@ -35,7 +35,7 @@ function mapping(
   return pluginState;
 }
 
-function onSelectionChanged(tr: Transaction): MediaLinkingState {
+function onSelectionChanged(tr: ReadonlyTransaction): MediaLinkingState {
   const isNodeSelection = tr.selection instanceof NodeSelection;
   if (!isNodeSelection) {
     return initialState;
@@ -81,7 +81,7 @@ export const {
 export type { MediaLinkingState } from './types';
 
 export default (dispatch: Dispatch) =>
-  new Plugin({
+  new SafePlugin({
     key: mediaLinkingPluginKey,
     state: mediaLinkingPluginFactory.createPluginState(dispatch, initialState),
   });

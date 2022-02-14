@@ -19,6 +19,9 @@ import {
   p,
   date,
   DocBuilder,
+  layoutSection,
+  layoutColumn,
+  panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { uuid } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
@@ -30,17 +33,24 @@ import hyperlinkPlugin from '../../../hyperlink';
 import tablesPlugin from '../../../table';
 import expandPlugin from '../../../expand';
 import datePlugin from '../../../date';
+import layoutPlugin from '../../../layout';
+import panelPlugin from '../../../panel';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
   clipboard: string,
   expected: any,
+  compareSelection: boolean = false,
 ) => {
   dispatchPasteEvent(editorView, {
     html: clipboard,
   });
 
-  expect(editorView.state.doc).toEqualDocument(expected);
+  if (compareSelection) {
+    expect(editorView.state).toEqualDocumentAndSelection(expected);
+  } else {
+    expect(editorView.state.doc).toEqualDocument(expected);
+  }
 };
 
 describe('action paste handler', () => {
@@ -49,14 +59,16 @@ describe('action paste handler', () => {
     createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
-        .add([pastePlugin, {}])
+        .add([pastePlugin, { plainTextPasteLinkification: false }])
         .add([tasksAndDecisionsPlugin])
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])
         .add(tablesPlugin)
         .add(expandPlugin)
-        .add(datePlugin),
+        .add(datePlugin)
+        .add(layoutPlugin)
+        .add(panelPlugin),
     });
 
   const listProps = { localId: 'local-uuid' };
@@ -176,6 +188,44 @@ describe('action paste handler', () => {
         clipboard,
         expected,
       );
+    });
+
+    it('should paste invalid table content after table and not delete selection', () => {
+      const tableDoc = doc(
+        table()(tr(td()(p('{<}sometext{>}')), td()(p('')), td()(p('')))),
+      );
+      const clipboard =
+        '<meta charset="utf-8"><div data-layout-section="true" data-pm-slice="0 0 []"><div data-layout-column="true" style="flex-basis: 50%" data-column-width="50"><div data-layout-content="true"><p></p></div></div><div data-layout-column="true" style="flex-basis: 50%" data-column-width="50"><div data-layout-content="true"><p></p></div></div></div>';
+      const expected = doc(
+        table({ localId: 'local-uuid' })(
+          tr(td()(p('sometext')), td()(p()), td()(p())),
+        ),
+        layoutSection(
+          layoutColumn({ width: 50 })(p('{<>}')),
+          layoutColumn({ width: 50 })(p()),
+        ),
+      );
+
+      pasteAndCompare(editor(tableDoc), clipboard, expected, true);
+    });
+
+    it('should split paragraph when pasting (table supported) node in the middle of a paragraph', () => {
+      const tableDoc = doc(
+        table()(tr(td()(p('some{<>}text')), td()(p('')), td()(p('')))),
+      );
+      const clipboard =
+        '<meta charset="utf-8"><div data-panel-type="info" data-pm-slice="0 0 []"><div><p></p></div></div>';
+      const expected = doc(
+        table({ localId: 'local-uuid' })(
+          tr(
+            td()(p('some'), panel()(p()), p('{<>}text')),
+            td()(p()),
+            td()(p()),
+          ),
+        ),
+      );
+
+      pasteAndCompare(editor(tableDoc), clipboard, expected, true);
     });
   });
 

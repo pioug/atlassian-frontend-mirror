@@ -1,5 +1,4 @@
 import { JsonLd } from 'json-ld-types';
-import { BlockCardResolvedViewProps, ActionProps } from '@atlaskit/media-ui';
 import {
   extractLink,
   extractTitle,
@@ -35,6 +34,8 @@ import { extractPreviewAction } from '../common/actions/extractPreviewAction';
 import { CardProviderRenderers } from '../../state/context/types';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { CardPlatform } from '../../view/Card';
+import { BlockCardResolvedViewProps } from '../../view/BlockCard';
+import { ActionProps } from '../../view/BlockCard/components/Action';
 
 const extractBlockIcon = (
   jsonLd: JsonLd.Data.BaseData,

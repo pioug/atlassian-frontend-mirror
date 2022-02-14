@@ -19,6 +19,8 @@ export const ITEM_SIDE_PADDING = gridSize * 1.25;
  * Allows chaining of style functions on top of base style functions
  * @param baseStyle the base custom cssFn
  * @param newStyle a new cssFn to be applied after the base style
+ *
+ * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
  */
 export const overrideStyleFunction = <TState>(
   baseStyle: CSSFn<TState>,

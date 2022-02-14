@@ -17,6 +17,7 @@ const treeRowContainerStyles = css({
  * __Tree row container__
  */
 export const TreeRowContainer: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <div css={treeRowContainerStyles} {...props} />
 );
 
@@ -33,6 +34,7 @@ const commonChevronContainerStyles = css({
  */
 export const ChevronContainer: FC<HTMLAttributes<HTMLSpanElement>> = (
   props,
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <span {...props} css={commonChevronContainerStyles} />;
 
 const chevronIconContainerStyles = css({
@@ -47,6 +49,7 @@ const chevronIconContainerStyles = css({
  */
 export const ChevronIconContainer: FC<HTMLAttributes<HTMLSpanElement>> = (
   props,
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <span {...props} css={chevronIconContainerStyles} />;
 
 const loadingItemContainerStyles = css({
@@ -73,6 +76,7 @@ export const LoaderItemContainer: FC<{ isRoot?: boolean }> = ({
       loadingItemContainerStyles,
       isRoot && paddingLeftStyles,
     ]}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
   />
 );

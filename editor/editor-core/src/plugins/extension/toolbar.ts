@@ -76,6 +76,7 @@ const breakoutOptions = (
         onClick: updateExtensionLayout('default'),
         selected: layout === 'default',
         title: formatMessage(commonMessages.layoutFixedWidth),
+        tabIndex: null,
       },
       {
         type: 'button',
@@ -83,6 +84,7 @@ const breakoutOptions = (
         onClick: updateExtensionLayout('wide'),
         selected: layout === 'wide',
         title: formatMessage(commonMessages.layoutWide),
+        tabIndex: null,
       },
       {
         type: 'button',
@@ -90,6 +92,7 @@ const breakoutOptions = (
         onClick: updateExtensionLayout('full-width'),
         selected: layout === 'full-width',
         title: formatMessage(commonMessages.layoutFullWidth),
+        tabIndex: null,
       },
     ];
   }
@@ -124,6 +127,7 @@ const editButton = (
         return true;
       },
       title: formatMessage(messages.edit),
+      tabIndex: null,
     },
   ];
 };
@@ -180,6 +184,7 @@ export const getToolbarConfig = (
           onFocus: hoverDecoration(nodeType, true),
           onBlur: hoverDecoration(nodeType, false),
           title: formatMessage(commonMessages.remove),
+          tabIndex: null,
         },
       ],
     } as FloatingToolbarConfig;

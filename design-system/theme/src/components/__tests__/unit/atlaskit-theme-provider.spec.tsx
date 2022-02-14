@@ -8,9 +8,9 @@ import { useGlobalTheme } from '../../theme';
 interface RenderCountProps {
   onRender: () => void;
 }
-const StyledComponent: FC = (props) => {
+const StyledComponent: FC = ({ children }) => {
   const theme = useGlobalTheme();
-  return <div {...theme} {...props} />;
+  return <div data-theme={theme.mode}>{children}</div>;
 };
 const RenderCount = (props: RenderCountProps) => {
   props.onRender();

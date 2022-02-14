@@ -20,7 +20,7 @@ describe('Range', () => {
     it('should have percent value on styled component', () => {
       const { getByTestId } = render(<Range {...baseProps} />);
       const input = getByTestId('range');
-      const cssVar = input.style.getPropertyValue('--range-inline-width');
+      const cssVar = input.style.getPropertyValue('--track-fg-width');
       // Will get snapped to the nearest step
       expect(cssVar).toBe('20.00%');
     });

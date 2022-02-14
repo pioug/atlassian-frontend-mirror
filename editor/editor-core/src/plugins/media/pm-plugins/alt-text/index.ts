@@ -1,4 +1,5 @@
-import { Plugin, PluginKey } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from 'prosemirror-state';
 import { PMPluginFactoryParams } from '../../../../types';
 import { pluginFactory } from '../../../../utils/plugin-state-factory';
 import reducer from './reducer';
@@ -26,7 +27,7 @@ export const createPlugin = ({
   dispatch,
   providerFactory,
 }: PMPluginFactoryParams) => {
-  return new Plugin({
+  return new SafePlugin({
     state: createPluginState(dispatch, { isAltTextEditorOpen: false }),
     key: pluginKey,
     view: () => {

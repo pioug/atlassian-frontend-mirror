@@ -1,3 +1,4 @@
+import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
 import { token } from '@atlaskit/tokens';
 
 import { B100, N30A, skeleton as skeletonColor } from './colors';
@@ -21,16 +22,29 @@ export const fontFamily = () =>
 export const codeFontFamily = () =>
   `'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
 
+/**
+ * @deprecated Please use `@atlaskit/focus-ring`
+ */
 export const focusRing = (
   color: string = token('color.border.focused', B100),
   outlineWidth: number = gridSize() / 4,
-) => `
+) => {
+  deprecationWarning(
+    '@atlaskit/theme',
+    'focus ring mixin',
+    'Please use `@atlaskit/focus-ring` instead.',
+  );
+  return `
   &:focus {
     outline: none;
     box-shadow: 0px 0px 0px ${outlineWidth}px ${color};
   }
 `;
+};
 
+/**
+ * @deprecated Please use `@atlaskit/focus-ring`
+ */
 export const noFocusRing = () => `
   box-shadow: none;
 `;
@@ -47,21 +61,30 @@ export const layers: { [P in keyof Layers]: () => Layers[P] } = {
   tooltip: () => 800,
 };
 
-export const visuallyHidden = () => ({
-  border: '0 !important',
-  clip: 'rect(1px, 1px, 1px, 1px) !important',
-  height: '1px !important',
-  overflow: 'hidden !important' as 'hidden',
-  padding: '0 !important',
-  position: 'absolute !important' as 'absolute',
-  width: '1px !important',
-  whiteSpace: 'nowrap !important' as 'nowrap',
-});
+// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
+/**
+ * @deprecated Please use `@atlaskit/visually-hidden`
+ */
+export const visuallyHidden = () => {
+  deprecationWarning(
+    '@atlaskit/theme',
+    'visually hidden mixin',
+    'Please use `@atlaskit/visually-hidden` instead.',
+  );
+  return {
+    border: '0 !important',
+    clip: 'rect(1px, 1px, 1px, 1px) !important',
+    height: '1px !important',
+    overflow: 'hidden !important' as 'hidden',
+    padding: '0 !important',
+    position: 'absolute !important' as 'absolute',
+    width: '1px !important',
+    whiteSpace: 'nowrap !important' as 'nowrap',
+  };
+};
 
 /**
- * Deprecated Styled Components mixin.
- * Use visuallyHidden instead.
- * @deprecated
+ * @deprecated Please use `@atlaskit/visually-hidden`
  */
 export const assistive = visuallyHidden;
 

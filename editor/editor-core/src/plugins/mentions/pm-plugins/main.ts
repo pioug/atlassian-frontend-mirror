@@ -1,4 +1,5 @@
-import { Plugin, StateField } from 'prosemirror-state';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafeStateField } from 'prosemirror-state';
 import {
   SLI_EVENT_TYPE,
   SMART_EVENT_TYPE,
@@ -73,7 +74,7 @@ export function createMentionPlugin(
     }
   };
 
-  return new Plugin({
+  return new SafePlugin({
     key: mentionPluginKey,
     state: {
       init() {
@@ -107,7 +108,7 @@ export function createMentionPlugin(
 
         return newPluginState;
       },
-    } as StateField<MentionPluginState>,
+    } as SafeStateField<MentionPluginState>,
     props: {
       nodeViews: {
         mention: mentionNodeView(

@@ -19,6 +19,11 @@ import {
   DefaultValue,
 } from '../types';
 import { PopupSelect } from '@atlaskit/select';
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+  ConcurrentExperience,
+} from '@atlaskit/ufo';
 
 export const isExternalUser = (option: OptionData): option is ExternalUser =>
   isUser(option) && Boolean(option.isExternal);
@@ -143,3 +148,14 @@ export const isPopupUserPickerByComponent = (
 
 export const isPopupUserPickerByProps = (selectProps: any) =>
   selectProps.searchThreshold === -1;
+
+const COMPONENT_NAME = 'user-picker';
+
+export const userPickerRenderedUfoExperience = new ConcurrentExperience(
+  'user-picker-rendered',
+  {
+    platform: { component: COMPONENT_NAME },
+    type: ExperienceTypes.Load,
+    performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+  },
+);

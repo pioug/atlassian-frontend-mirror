@@ -2,7 +2,7 @@ import {
   createAndFireEvent,
   AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
-import uuid from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { name as packageName, version as packageVersion } from './version.json';
 import { Option, OptionData, UserPickerProps, UserPickerState } from './types';
 import {
@@ -25,7 +25,7 @@ export type UserPickerSession = {
 };
 
 export const startSession = (): UserPickerSession => ({
-  id: uuid(),
+  id: uuidv4(),
   start: Date.now(),
   inputChangeTime: Date.now(),
   upCount: 0,
@@ -221,6 +221,7 @@ const createDefaultSmartPickerAttributes = (
     productKey,
     principalId,
     siteId,
+    orgId,
     filterOptions,
   } = props;
   const { sessionId, query } = state;
@@ -239,6 +240,7 @@ const createDefaultSmartPickerAttributes = (
     productKey,
     queryLength: (query || '').length,
     siteId,
+    orgId,
     sessionId,
   };
 };

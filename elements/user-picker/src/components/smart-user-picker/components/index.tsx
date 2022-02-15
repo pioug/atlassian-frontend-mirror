@@ -1,6 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
-import uuidV4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -140,6 +140,10 @@ export interface SmartProps {
    * Identifier for the product's tenant, also known as tenantId or cloudId
    */
   siteId: string;
+  /**
+   * Identifier for the organization in which to search for teams.
+   */
+  orgId?: string;
 }
 
 /**
@@ -239,6 +243,7 @@ const hasContextChanged = (
   newContext: SmartProps,
 ): boolean =>
   oldContext.siteId !== newContext.siteId ||
+  oldContext.orgId !== newContext.orgId ||
   oldContext.productKey !== newContext.productKey ||
   oldContext.principalId !== newContext.principalId ||
   oldContext.containerId !== newContext.containerId ||
@@ -382,7 +387,7 @@ class SmartUserPicker extends React.Component<
 
     const { prefetch } = this.props;
     if (prefetch) {
-      const sessionId = uuidV4();
+      const sessionId = uuidv4();
       this.fireEvent(mountedWithPrefetchEvent, { sessionId });
       this.setState({
         sessionId,
@@ -434,6 +439,7 @@ class SmartUserPicker extends React.Component<
       principalId,
       productKey,
       siteId,
+      orgId,
       baseUrl,
       includeUsers,
       includeGroups,
@@ -456,6 +462,7 @@ class SmartUserPicker extends React.Component<
         principalId,
         productKey,
         siteId,
+        orgId,
         childObjectId,
         sessionId,
         productAttributes,

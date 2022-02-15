@@ -32,9 +32,9 @@ jest.mock('react-intl-next', () => {
 
 const mockPREFETCH_SESSION_ID = 'prefetch-session-id';
 
-jest.mock('uuid/v4', () => ({
+jest.mock('uuid', () => ({
   __esModule: true, // needed for default imports
-  default: jest.fn(() => mockPREFETCH_SESSION_ID),
+  v4: jest.fn(() => mockPREFETCH_SESSION_ID),
 }));
 
 jest.mock(
@@ -67,6 +67,7 @@ const defaultProps: SmartUserPickerProps = {
   principalId: 'Context',
   productKey: 'jira',
   siteId: 'site-id',
+  orgId: 'org-id',
 };
 
 const mockReturnOptions: OptionData[] = [
@@ -633,6 +634,7 @@ describe('SmartUserPicker', () => {
         productKey: 'jira',
         sessionId: 'new-session',
         siteId: 'site-id',
+        orgId: 'org-id',
       },
       includeGroups: false,
       includeTeams: false,
@@ -914,6 +916,7 @@ describe('SmartUserPicker', () => {
         principalId: 'Context',
         productKey: 'jira',
         siteId: 'site-id',
+        orgId: 'org-id',
       };
       return constructPayload(action, actionSubject, {
         ...defaultQueryAttributes,

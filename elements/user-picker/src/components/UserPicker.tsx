@@ -9,14 +9,34 @@ import { getCreatableProps } from './creatable';
 import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
 import MessagesIntlProvider from './MessagesIntlProvider';
 import { ExusUserSourceProvider } from './../clients/UserSourceProvider';
+import { userPickerRenderedUfoExperience as experience } from './utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export class UserPickerWithoutAnalytics extends React.Component<
   UserPickerProps
 > {
+  ufoId: string;
+
+  constructor(props: UserPickerProps) {
+    super(props);
+    this.ufoId = uuidv4();
+    if (this.ufoId) {
+      const experienceForId = experience.getInstance(this.ufoId);
+      experienceForId.start();
+    }
+  }
+
   static defaultProps = {
     width: 350,
     isMulti: false,
   };
+
+  componentDidMount() {
+    if (this.ufoId) {
+      const experienceForId = experience.getInstance(this.ufoId);
+      experienceForId.success();
+    }
+  }
 
   render() {
     const {
@@ -55,6 +75,7 @@ export class UserPickerWithoutAnalytics extends React.Component<
           emailLabel,
         }
       : { ...defaultPickerProps };
+
     return (
       <MessagesIntlProvider>
         <ExusUserSourceProvider fetchUserSource={loadUserSource}>

@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 8.6.1
+
+### Patch Changes
+
+- [`9cadd6e79ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cadd6e79ac) - Add in UFO events
+
+## 8.6.0
+
+### Minor Changes
+
+- [`d2a8de20d08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2a8de20d08) - Add support in SmartUserPicker for org id for team search
+
 ## 8.5.0
 
 ### Minor Changes

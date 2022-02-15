@@ -20,6 +20,7 @@ export interface Context {
   childObjectId?: string;
   productKey: 'jira' | 'confluence' | 'people' | 'bitbucket' | 'compass';
   siteId: string;
+  orgId?: string;
   productAttributes?: ProductAttributes;
 }
 

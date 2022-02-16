@@ -1,16 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
-import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/core';
 import Button from '@atlaskit/button/custom-theme-button';
-import { ActionProps } from '../types';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { SmartLinkSize } from '../../../../../constants';
 import Tooltip from '@atlaskit/tooltip';
 import { getIconSizeStyles } from '../../utils';
-import { messages } from '../../../../../messages';
 import { tokens } from '../../../../../utils/token';
 import { handleOnClick } from '../../../../../utils';
+import { ActionProps, ActionIconProps } from './types';
 
 const getWidth = (size?: SmartLinkSize): string => {
   switch (size) {
@@ -24,37 +21,52 @@ const getWidth = (size?: SmartLinkSize): string => {
   }
 };
 
-const getStyles = (size?: SmartLinkSize) => css`
+const getIconStyles = (size?: SmartLinkSize) => css`
   color: ${tokens.actionIcon};
   ${getIconSizeStyles(getWidth(size))};
 `;
 
-const DeleteAction: React.FC<ActionProps> = ({
+const ActionIcon: React.FC<ActionIconProps> = ({ size, testId, icon }) => (
+  <span css={getIconStyles(size)} data-testid={`${testId}-icon`}>
+    {icon}
+  </span>
+);
+
+const Action: React.FC<ActionProps> = ({
   appearance = 'subtle',
   content,
   onClick,
   size = SmartLinkSize.Medium,
-  testId = 'smart-action-delete-action',
+  testId = 'smart-action',
+  icon,
+  iconPosition = 'before',
+  tooltipMessage,
 }: ActionProps) => {
   if (!onClick) {
     return null;
   }
+  const iconBefore =
+    iconPosition === 'before' ? (
+      <ActionIcon size={size} testId={testId} icon={icon} />
+    ) : undefined;
+  const iconAfter =
+    iconPosition === 'after' ? (
+      <ActionIcon size={size} testId={testId} icon={icon} />
+    ) : undefined;
   return (
-    <Tooltip content={<FormattedMessage {...messages.delete} />}>
+    <Tooltip content={tooltipMessage}>
       <Button
         spacing="none"
         appearance={appearance}
         testId={testId}
         onClick={handleOnClick(onClick)}
+        iconBefore={iconBefore}
+        iconAfter={iconAfter}
       >
-        {content || (
-          <span css={getStyles(size)} data-testid={`${testId}-icon`}>
-            <CrossIcon label="Delete"></CrossIcon>
-          </span>
-        )}
+        {content}
       </Button>
     </Tooltip>
   );
 };
 
-export default DeleteAction;
+export default Action;

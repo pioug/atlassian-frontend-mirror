@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.6.2
+
+### Patch Changes
+
+- [`5df1ae17438`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5df1ae17438) - @atlassian/smart-user-picker will now be made public and renamed @atlaskit/smart-user-picker to provide a 1-1 replacement for @atlaskit/user-picker/smart-user-picker (UR-3417).
+
 ## 8.6.1
 
 ### Patch Changes

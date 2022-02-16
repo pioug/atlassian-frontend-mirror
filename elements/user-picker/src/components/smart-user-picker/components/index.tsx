@@ -46,7 +46,7 @@ type OnValueError = (
 type OnEmpty = (query: string) => Promise<OptionData[]>;
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export type SupportedProduct =
   | 'jira'
@@ -56,14 +56,14 @@ export type SupportedProduct =
   | 'compass';
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export type ProductAttributes = BitbucketAttributes | ConfluenceAttributes;
 
 type FilterOptions = (options: OptionData[], query: string) => OptionData[];
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface BitbucketAttributes {
   /**
@@ -81,7 +81,7 @@ export interface BitbucketAttributes {
 }
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface ConfluenceAttributes {
   /**
@@ -91,7 +91,7 @@ export interface ConfluenceAttributes {
 }
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface SmartProps {
   /**
@@ -147,7 +147,7 @@ export interface SmartProps {
 }
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface Props
   extends SmartProps,
@@ -211,7 +211,7 @@ export interface Props
 }
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface State {
   users: OptionData[];
@@ -225,7 +225,7 @@ export interface State {
 }
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface RecommendationRequest {
   baseUrl?: string;
@@ -294,7 +294,7 @@ function isOptionData(
 }
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export async function hydrateDefaultValues(
   value: DefaultValue,

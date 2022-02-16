@@ -1,0 +1,56 @@
+{
+  "name": "@atlaskit/smart-user-picker",
+  "version": "4.0.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "description": "Pick users from a ranked user list based on provided context",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "atlassian": {
+    "team": "Search & Smarts: Smart Experience",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next": "^8.2.0",
+    "@atlaskit/ufo": "^0.1.0",
+    "@atlaskit/user-picker": "^8.6.0",
+    "@babel/runtime": "^7.0.0",
+    "lodash": "^4.17.21",
+    "memoize-one": "^6.0.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
+    "uuid": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/docs": "*",
+    "@atlaskit/elements-test-helpers": "^0.7.0",
+    "@atlaskit/modal-dialog": "^12.2.0",
+    "@atlaskit/select": "^15.2.0",
+    "@atlaskit/textfield": "^5.0.0",
+    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/util-data-test": "^17.2.0",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "enzyme": "^3.10.0",
+    "enzyme-react-intl": "^2.0.6",
+    "fetch-mock": "^8.0.0",
+    "graphql-tag": "^2.10.1",
+    "mock-apollo-client": "^0.1.0",
+    "typescript": "3.9.6"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

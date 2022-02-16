@@ -10,9 +10,10 @@ export default md`
     >
       Please use{' '}
       <a href="https://statlas.prod.atl-paas.net/atlassian-frontend/master#packages/smart-experiences/smart-user-picker">
-        @atlassian/smart-user-picker
+        @atlaskit/smart-user-picker
       </a>{' '}
-      instead.
+      instead. Alternatively, @atlaskit/smart-hooks will be ready by end of
+      FY22Q4. Contact #help-smart-experiences for further details.
     </SectionMessage>
   )}
 `;

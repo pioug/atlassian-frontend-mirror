@@ -9,7 +9,7 @@ import {
 import { IntlShape } from 'react-intl-next';
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface Context {
   containerId?: string;
@@ -76,6 +76,6 @@ const getUserRecommendations = (
 };
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export default getUserRecommendations;

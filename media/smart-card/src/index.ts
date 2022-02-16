@@ -47,7 +47,10 @@ export {
   SmartLinkSize,
   SmartLinkTheme,
 } from './constants';
-export { TitleBlock } from './view/FlexibleCard/components/blocks';
+export {
+  MetadataBlock,
+  TitleBlock,
+} from './view/FlexibleCard/components/blocks';
 export type {
   ActionItem,
   ElementItem,

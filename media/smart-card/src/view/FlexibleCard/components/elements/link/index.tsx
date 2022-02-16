@@ -57,6 +57,7 @@ const getAnchorStyles = (
 ): SerializedStyles => {
   const sizeStyles = getLinkSizeStyles(size);
   return css`
+    flex: 1 1 auto;
     ${sizeStyles}
     ${getTruncateStyles(
       maxLines,

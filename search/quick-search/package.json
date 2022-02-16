@@ -14,7 +14,7 @@
   "types": "dist/types/index.d.ts",
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Search & Smarts: Search Experience",
+    "team": "Search Platform: Search Experience",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

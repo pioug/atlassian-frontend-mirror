@@ -12,13 +12,19 @@ import {
 } from '../../../../../constants';
 import { getBaseStyles, renderChildren } from '../utils';
 
-const getFlexJustifyContent = (align?: SmartLinkAlignment) => {
+const getAlignmentStyles = (align?: SmartLinkAlignment) => {
   switch (align) {
     case SmartLinkAlignment.Right:
-      return 'flex-end';
+      return css`
+        justify-content: flex-end;
+        text-align: right;
+      `;
     case SmartLinkAlignment.Left:
     default:
-      return 'flex-start';
+      return css`
+        justify-content: flex-start;
+        text-align: left;
+      `;
   }
 };
 
@@ -29,7 +35,7 @@ export const getElementGroupStyles = (
   width: SmartLinkWidth,
 ): SerializedStyles => css`
   ${getBaseStyles(direction, size)}
-  justify-content: ${getFlexJustifyContent(align)};
+  ${getAlignmentStyles(align)}
   min-width: 10%;
   ${width === SmartLinkWidth.Flexible ? `flex: 1 3;` : ''}
 `;
@@ -37,13 +43,14 @@ export const getElementGroupStyles = (
 const ElementGroup: React.FC<ElementGroupProps> = ({
   align = SmartLinkAlignment.Left,
   children,
+  css,
   direction = SmartLinkDirection.Horizontal,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-group',
   width = SmartLinkWidth.FitToContent,
 }) => (
   <div
-    css={getElementGroupStyles(direction, size, align, width)}
+    css={[getElementGroupStyles(direction, size, align, width), css]}
     data-smart-element-group
     data-testid={testId}
   >

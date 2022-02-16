@@ -2,7 +2,7 @@ import { getConfig } from '../config';
 import { User, UserType } from '../../../types';
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export interface UsersRequest {
   accountIds: string[];
@@ -117,6 +117,6 @@ const transformConfluenceUser = (item: ConfluenceUserItem): User | null => {
 };
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export default getUsersById;

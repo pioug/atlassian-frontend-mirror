@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.3.7
+
+### Patch Changes
+
+- [`2d430dae7d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d430dae7d2) - Removes <template /> override for IE11.
+
 ## 6.3.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/container-picker
 
+## 2.0.1
+
+### Patch Changes
+
+- [`15d8ff5f477`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15d8ff5f477) - Fixed an issue where container picker could crash when multi-selection mode was in use
+
 ## 2.0.0
 
 ### Major Changes

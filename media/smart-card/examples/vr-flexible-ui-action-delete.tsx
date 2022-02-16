@@ -26,9 +26,17 @@ export default () => (
           <div css={containerStyles}>
             <DeleteAction
               size={size}
-              onClick={async () => {
+              onClick={() => {
                 console.log('Testing Delete Action...');
               }}
+              testId={`vr-test-delete-action`}
+            />
+            <DeleteAction
+              size={size}
+              onClick={() => {
+                console.log('Testing Delete Action...');
+              }}
+              content={'This is a test text'}
               testId={`vr-test-delete-action`}
             />
           </div>

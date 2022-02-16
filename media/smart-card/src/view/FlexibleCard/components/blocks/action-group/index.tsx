@@ -7,7 +7,7 @@ import { SmartLinkSize } from '../../../../../constants';
 
 const styles = css`
   display: inline-flex;
-  line-height: 0;
+  line-height: 1rem;
 `;
 
 const ActionGroup: React.FC<ActionGroupProps> = ({

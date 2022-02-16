@@ -83,7 +83,6 @@ export const getTruncateStyles = (
 ): SerializedStyles =>
   css`
     display: -webkit-box;
-    flex: 1 1 auto;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;

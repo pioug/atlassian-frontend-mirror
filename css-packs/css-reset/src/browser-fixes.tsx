@@ -1,11 +1,6 @@
 import evaluateInner from './utils/evaluate-inner';
 
 export default evaluateInner`
-  /* IE11 doesn't support <template> elements which shouldn't be displayed */
-  template {
-    display: none;
-  }
-
   /* IE11 and some older browsers don't support these elements yet and treat them as display: inline; */
   article,
   aside,

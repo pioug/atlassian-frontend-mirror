@@ -27,17 +27,17 @@ const getDirectionStyles = (
   }
 };
 
-const getGapSize = (size: SmartLinkSize): string => {
+export const getGapSize = (size: SmartLinkSize): number => {
   switch (size) {
     case SmartLinkSize.XLarge:
-      return '1.25rem';
+      return 1.25;
     case SmartLinkSize.Large:
-      return '1rem';
+      return 1;
     case SmartLinkSize.Medium:
-      return '.5rem';
+      return 0.5;
     case SmartLinkSize.Small:
     default:
-      return '.25rem';
+      return 0.25;
   }
 };
 
@@ -46,7 +46,7 @@ export const getBaseStyles = (
   size: SmartLinkSize,
 ): SerializedStyles => css`
   display: flex;
-  gap: ${getGapSize(size)};
+  gap: ${getGapSize(size)}rem;
   line-height: 1rem;
   min-width: 0;
   overflow: hidden;

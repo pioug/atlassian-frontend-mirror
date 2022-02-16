@@ -1,3 +1,5 @@
+import { Interpolation } from '@emotion/core';
+
 import {
   SmartLinkAlignment,
   SmartLinkDirection,
@@ -7,6 +9,7 @@ import {
 
 export type ElementGroupProps = {
   align?: SmartLinkAlignment;
+  css?: Interpolation;
   direction?: SmartLinkDirection;
   size?: SmartLinkSize;
   testId?: string;

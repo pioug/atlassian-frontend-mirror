@@ -34,6 +34,7 @@ const getMessageStyles = (
 ): SerializedStyles => {
   const sizeStyles = getLinkSizeStyles(size);
   return css`
+    flex: 1 1 auto;
     justify-content: flex-end;
     ${hasAction ? actionStyles : ''}
     ${sizeStyles}

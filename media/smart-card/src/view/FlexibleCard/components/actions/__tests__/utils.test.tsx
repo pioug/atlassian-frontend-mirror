@@ -5,7 +5,7 @@ import { ActionName } from '../../../../../constants';
 import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
-import { createAction } from '../utils';
+import { createUIAction } from '../utils';
 
 const renderAction = (
   Action: React.FC<any>,
@@ -19,12 +19,12 @@ const renderAction = (
     </FlexibleUiContext.Provider>,
   );
 
-describe('createAction', () => {
+describe('createUIAction', () => {
   const testId = 'smart-action';
 
   describe('actions', () => {
     it('creates delete action', async () => {
-      const Action = createAction(ActionName.DeleteAction);
+      const Action = createUIAction(ActionName.DeleteAction);
       const props = { onClick: () => {} };
       const { getByTestId } = renderAction(Action, context, testId, props);
 
@@ -36,20 +36,20 @@ describe('createAction', () => {
   });
 
   it('throws error if base element does not exists', () => {
-    expect(() => createAction('Random' as ActionName)).toThrow(
+    expect(() => createUIAction('Random' as ActionName)).toThrow(
       new Error('Action Random does not exist.'),
     );
   });
 
   it('does not render element if context is not available', async () => {
-    const Action = createAction(ActionName.DeleteAction);
+    const Action = createUIAction(ActionName.DeleteAction);
     const { container } = await render(<Action />);
     expect(container.children.length).toEqual(0);
   });
 
   it('allows overrides of preset props and data', async () => {
     const expectedTextContent = 'Overridden delete action';
-    const Action = createAction(ActionName.DeleteAction);
+    const Action = createUIAction(ActionName.DeleteAction);
     const { getByTestId } = renderAction(Action, context, testId, {
       onClick: () => {},
       content: expectedTextContent,

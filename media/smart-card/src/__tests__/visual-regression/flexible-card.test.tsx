@@ -19,6 +19,15 @@ describe('Flexible Card', () => {
 
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('renders MetadataBlock', async () => {
+      const url = getURL('vr-flexible-ui-block-metadata');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+      const image = await takeSnapshot(page, 1120);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 
   describe('actions', () => {

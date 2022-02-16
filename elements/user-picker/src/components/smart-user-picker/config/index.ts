@@ -32,15 +32,15 @@ const PRD_CONFIG: Config = {
   },
 };
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export const setSmartUserPickerEnv = (newEnv: 'prod' | 'local') =>
   (env = newEnv);
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export const getConfig = () => (env === 'local' ? LOCAL_CONFIG : PRD_CONFIG);
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export const JDOG_CLOUD_ID = '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5';

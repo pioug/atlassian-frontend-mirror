@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "86.0.0",
+  "version": "87.0.0",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -58,7 +58,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.2.0",
-    "@atlaskit/smart-card": "^17.1.0",
+    "@atlaskit/smart-card": "^17.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "styled-components": "^3.2.6"
@@ -68,7 +68,7 @@
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/css-reset": "^6.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^155.0.0",
+    "@atlaskit/editor-core": "^156.0.0",
     "@atlaskit/editor-test-helpers": "^16.1.0",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/media-core": "^32.2.0",
@@ -79,7 +79,7 @@
     "@atlaskit/profilecard": "^16.2.0",
     "@atlaskit/radio": "^5.3.0",
     "@atlaskit/range": "^6.0.0",
-    "@atlaskit/smart-card": "^17.1.0",
+    "@atlaskit/smart-card": "^17.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/util-data-test": "^17.2.0",
     "@atlaskit/visual-regression": "*",

@@ -256,7 +256,7 @@ describe('Container', () => {
           getByTestId('smart-block-title-resolved-view'),
         );
 
-        expect(element).toHaveStyleDeclaration('gap', '.25rem');
+        expect(element).toHaveStyleDeclaration('gap', '0.25rem');
       });
 
       it('does not override block size if defined', async () => {

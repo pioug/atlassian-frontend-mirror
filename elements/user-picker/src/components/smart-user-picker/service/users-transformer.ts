@@ -129,7 +129,7 @@ const transformUser = (
 };
 
 /**
- * @deprecated Please use @atlassian/smart-user-picker
+ * @deprecated Please use @atlaskit/smart-user-picker. Alternatively, @atlaskit/smart-hooks will be ready by end of FY22Q4. Contact #help-smart-experiences for further details.
  */
 export const transformUsers = (
   serverResponse: ServerResponse,

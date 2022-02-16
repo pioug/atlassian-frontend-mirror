@@ -7,7 +7,7 @@ import React from 'react';
  * or import '@atlaskit/css-reset' in your application code
  */
 export default () => (
-  <div>
+  <div data-testid="css-reset">
     <h2>{`<time>`}</h2>
     <p>
       Can you move that meeting on <time dateTime="20220101 10:00">May 15</time>{' '}

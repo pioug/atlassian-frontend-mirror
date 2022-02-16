@@ -2,14 +2,22 @@ import { ActionName } from '../../../../constants';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import React, { useContext } from 'react';
-import DeleteAction from './delete-action';
+import Action from './action';
+import { FormattedMessage } from 'react-intl-next';
+import { messages } from '../../../../messages';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
 
 const actionMappings: Record<
   ActionName,
   { component: React.FC<any> | undefined; props?: any }
 > = {
   [ActionName.DeleteAction]: {
-    component: DeleteAction,
+    component: Action,
+    props: {
+      testId: 'smart-action-delete-action',
+      icon: <CrossIcon label="Delete" />,
+      toolTipMessage: <FormattedMessage {...messages.delete} />,
+    },
   },
 };
 
@@ -32,13 +40,14 @@ const getActionData = (
 
   const data = context[contextKey as keyof typeof context];
   switch (actionName) {
-    case ActionName.DeleteAction:
     default:
       return data;
   }
 };
 
-export const createAction = <P extends {}>(name: ActionName): React.FC<P> => {
+export const createDataAction = <P extends {}>(
+  name: ActionName,
+): React.FC<P> => {
   const { component: BaseAction, props } = actionMappings[name] || {};
   const contextKey = getContextKey(name);
 
@@ -50,5 +59,17 @@ export const createAction = <P extends {}>(name: ActionName): React.FC<P> => {
     const context = useContext(FlexibleUiContext);
     const data = getActionData(name, contextKey, context);
     return <BaseAction {...props} {...data} {...overrides} />;
+  };
+};
+
+export const createUIAction = <P extends {}>(name: ActionName): React.FC<P> => {
+  const { component: BaseAction, props } = actionMappings[name] || {};
+
+  if (!BaseAction) {
+    throw Error(`Action ${name} does not exist.`);
+  }
+
+  return (overrides: P) => {
+    return <BaseAction {...props} {...overrides} />;
   };
 };

@@ -7,7 +7,7 @@ import React from 'react';
  * or import '@atlaskit/css-reset' in your application code
  */
 export default () => (
-  <div>
+  <div data-testid="css-reset">
     <h1>This &lt;h1&gt; element is using h800</h1>
     <h2>This &lt;h2&gt; element is using h700</h2>
     <h3>This &lt;h3&gt; element is using h600</h3>

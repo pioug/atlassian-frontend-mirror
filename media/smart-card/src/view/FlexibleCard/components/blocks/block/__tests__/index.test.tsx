@@ -31,9 +31,9 @@ describe('Block', () => {
     it.each([
       [SmartLinkSize.XLarge, '1.25rem'],
       [SmartLinkSize.Large, '1rem'],
-      [SmartLinkSize.Medium, '.5rem'],
-      [SmartLinkSize.Small, '.25rem'],
-      [undefined, '.5rem'],
+      [SmartLinkSize.Medium, '0.5rem'],
+      [SmartLinkSize.Small, '0.25rem'],
+      [undefined, '0.5rem'],
     ])(
       'renders element in %s size',
       async (size: SmartLinkSize | undefined, expected: string) => {
@@ -127,7 +127,7 @@ describe('Block', () => {
           getByTestId('smart-element-group'),
         );
 
-        expect(elementGroup).toHaveStyleDeclaration('gap', '.25rem');
+        expect(elementGroup).toHaveStyleDeclaration('gap', '0.25rem');
       });
 
       it('does not override element group size', async () => {

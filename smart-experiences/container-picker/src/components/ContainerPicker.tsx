@@ -23,6 +23,7 @@ import {
   SearchContext,
   AtlasKitSelectChange,
   Value,
+  AtlaskitSelectValue,
 } from '../types';
 import {
   EventCreator,
@@ -49,6 +50,19 @@ const optionToSelectableOption = (
   label: option.name,
   value: option,
 });
+
+const isValuesArray = (
+  value: AtlaskitSelectValue,
+): value is readonly ContainerOption[] => Array.isArray(value);
+
+const getValueIds = (value: AtlaskitSelectValue): string[] => {
+  if (!value) {
+    return [];
+  }
+  return isValuesArray(value)
+    ? value.map((item) => item.value.id)
+    : [value.value.id];
+};
 
 const optionToSelectableOptions = memoizeOne((defaultValue: Value) => {
   if (!defaultValue) {
@@ -251,16 +265,16 @@ export class ContainerPickerWithoutAnalytics extends React.Component<
     const { maxOptions, isMulti } = this.props;
     const { value } = this.state;
     let filteredOptions = options;
+    const valueIds = getValueIds(value);
     // Filter out previously selected options
-    if (isMulti && Array.isArray(value)) {
-      const valueIds: string[] = value.map((item) => item.value.id);
+    if (isMulti && isValuesArray(value)) {
       filteredOptions = options.filter(
-        (option) => valueIds.indexOf(option.value.id) === -1,
+        (option) => !valueIds.includes(option.value.id),
       );
     }
     if (!isMulti && value) {
-      filteredOptions = options.filter(
-        (option) => option.value.id === (value as ContainerOption).value.id,
+      filteredOptions = options.filter((option) =>
+        valueIds.includes(option.value.id),
       );
     }
     return filteredOptions.slice(0, maxOptions);

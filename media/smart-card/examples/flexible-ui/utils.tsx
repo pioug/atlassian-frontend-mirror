@@ -143,7 +143,6 @@ export const renderActionGroupOptions = (
   return [
     {
       name: ActionName.DeleteAction,
-
       onClick: () => {
         console.log('This is a Delete Action');
       },

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 17.2.1
+
+### Patch Changes
+
+- [`1d701660954`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d701660954) - Refactored deleteAction into a re-usable action component
+
+## 17.2.0
+
+### Minor Changes
+
+- [`3200ce3abc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3200ce3abc5) - Flexible UI: Add MetadataBlock
+
 ## 17.1.0
 
 ### Minor Changes

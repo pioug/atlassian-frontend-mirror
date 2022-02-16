@@ -33,8 +33,8 @@ describe('getBaseStyles', () => {
     it.each([
       [SmartLinkSize.XLarge, '1.25rem'],
       [SmartLinkSize.Large, '1rem'],
-      [SmartLinkSize.Medium, '.5rem'],
-      [SmartLinkSize.Small, '.25rem'],
+      [SmartLinkSize.Medium, '0.5rem'],
+      [SmartLinkSize.Small, '0.25rem'],
     ])(
       'renders element in %s size',
       (size: SmartLinkSize, expected: string) => {

@@ -7,7 +7,7 @@ import React from 'react';
  * or import '@atlaskit/css-reset' in your application code
  */
 export default () => (
-  <div>
+  <div data-testid="css-reset">
     <p>
       <a href=".">Standard link</a>
     </p>

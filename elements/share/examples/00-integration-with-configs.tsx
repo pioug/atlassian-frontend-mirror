@@ -8,8 +8,8 @@ import { Appearance } from '@atlaskit/button/types';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
+import { OptionData, setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
 import Toggle from '@atlaskit/toggle';
-import { OptionData, setSmartUserPickerEnv } from '@atlaskit/user-picker';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
 import App from '../example-helpers/AppWithFlag';

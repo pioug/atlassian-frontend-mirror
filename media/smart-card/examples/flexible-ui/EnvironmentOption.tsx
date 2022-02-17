@@ -63,7 +63,7 @@ const EnvironmentOption: React.FC<EnvironmentOptionProps> = ({
   const [isMock, setIsMock] = useState<boolean>(true);
   const [prevUrl, setPrevUrl] = useState<string>();
   const onEnvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.currentTarget.value;
     if (value === 'mock') {
       setPrevUrl(url);
       setIsMock(true);

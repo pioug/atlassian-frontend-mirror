@@ -38,7 +38,7 @@
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^156.0.0",
+    "@atlaskit/editor-core": "^157.0.0",
     "@atlaskit/editor-test-helpers": "^16.1.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/theme": "^12.1.0",

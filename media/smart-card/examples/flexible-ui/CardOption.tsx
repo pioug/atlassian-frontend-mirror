@@ -14,6 +14,7 @@ import { SmartLinkSize, SmartLinkTheme } from '../../src';
 const styles = css`
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
 `;
 
 type CardOptionProps = {

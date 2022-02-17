@@ -5,7 +5,7 @@ import {
   isUser,
   OptionData,
   Team,
-} from '@atlaskit/user-picker';
+} from '@atlaskit/smart-user-picker';
 
 import { DialogContentState, OriginTracing } from '../types';
 import {

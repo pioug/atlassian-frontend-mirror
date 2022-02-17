@@ -85,12 +85,6 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    */
   styles?: StylesConfig;
   /** Default value for the field to be used on initial render.
-   * If the `DefaultValue` contains only an `id` and `type` (it conforms to an `OptionIdentifier`)
-   * then the values will be automatically hydrated from the backend.
-   * If the value has a `name` then it is considered hydrated.
-   * If `defaultValue` is an array then only the first item is checked and the rest
-   * are assumed to conform.
-   * Hydration is only supported for Confluence and Jira.
    * `defaultValue` differs from `value` in that it sets the initial value then leaves the component 'uncontrolled'
    * whereas setting the `value` prop delegates responsibility for maintaining the value to the caller
    * (i.e. listen to `onChange`) */

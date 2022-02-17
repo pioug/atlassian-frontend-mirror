@@ -15,12 +15,20 @@ export interface GraphQLError {
   reason: string;
 }
 
+type HeaderProcessor = (headers: Headers) => Headers;
+const id: HeaderProcessor = (headers) => headers;
+
 /**
  * @param {string} serviceUrl - GraphQL service endpoint
  * @param {Query} query - GraphQL query
+ * @param {HeaderProcessor} processHeaders - a function to add extra headers to the request
  */
-export function graphqlQuery<D>(serviceUrl: string, query: Query): Promise<D> {
-  const headers = buildHeaders();
+export function graphqlQuery<D>(
+  serviceUrl: string,
+  query: Query,
+  processHeaders: HeaderProcessor = id,
+): Promise<D> {
+  const headers = processHeaders(buildHeaders());
 
   return fetch(
     new Request(serviceUrl, {

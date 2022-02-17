@@ -136,6 +136,32 @@ describe('createElement', () => {
     expect(container.children.length).toEqual(0);
   });
 
+  describe('when data is not available', () => {
+    it.each([
+      [ElementName.AuthorGroup, 'authorGroup'],
+      [ElementName.CollaboratorGroup, 'collaboratorGroup'],
+      [ElementName.CommentCount, 'commentCount'],
+      [ElementName.CreatedBy, 'createdBy'],
+      [ElementName.CreatedOn, 'createdOn'],
+      [ElementName.LinkIcon, 'linkIcon'],
+      [ElementName.ModifiedBy, 'modifiedBy'],
+      [ElementName.ModifiedOn, 'modifiedOn'],
+      [ElementName.Priority, 'priority'],
+      [ElementName.ProgrammingLanguage, 'programmingLanguage'],
+      [ElementName.State, 'state'],
+      [ElementName.SubscriberCount, 'subscriberCount'],
+      [ElementName.Title, 'title'],
+    ])('returns null on render %s', async (name: ElementName, key: string) => {
+      const Component = createElement(name);
+      const { queryByTestId } = renderComponent(
+        Component,
+        { ...context, [key]: undefined },
+        testId,
+      );
+      expect(queryByTestId(testId)).toBeNull();
+    });
+  });
+
   it('allows overrides of preset props and data', async () => {
     const expectedTextContent = 'Override title';
     const Component = createElement(ElementName.Title);

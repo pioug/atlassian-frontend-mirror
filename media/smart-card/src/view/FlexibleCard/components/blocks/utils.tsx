@@ -66,6 +66,10 @@ export const getBaseStyles = (
 const isActionGroup = (node: React.ReactNode) =>
   React.isValidElement(node) && node.type === ActionGroup;
 
+const isElementNull = (children: JSX.Element) => {
+  return Boolean(children.type() === null);
+};
+
 const isElementOrElementGroup = (node: React.ReactNode) =>
   React.isValidElement(node) &&
   (isFlexibleUiElement(node) || node.type === ElementGroup);
@@ -91,7 +95,10 @@ export const renderElementItems = (
       const { name, ...props } = curr;
       const Element = Elements[name];
       if (Element) {
-        return [...acc, <Element key={idx} {...props} />];
+        const element = <Element key={idx} {...props} />;
+        if (!isElementNull(element)) {
+          return [...acc, element];
+        }
       }
       return acc;
     },

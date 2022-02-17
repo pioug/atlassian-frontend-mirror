@@ -1,6 +1,9 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/core';
 import { JsonLd } from 'json-ld-types';
 import { Checkbox } from '@atlaskit/checkbox';
+import Select from '@atlaskit/select';
 
 import {
   ActionItem,
@@ -49,68 +52,69 @@ export const envOptions = [
 export const handleOnChange = <T extends string>(
   onChange: React.Dispatch<React.SetStateAction<T>>,
 ) => (e: React.ChangeEvent<HTMLInputElement>) => {
-  onChange(e.target.value as T);
+  onChange(e.currentTarget.value as T);
 };
 
-export const renderCheckbox = (onChange: Function, label: string) => (
-  <Checkbox label={label} onChange={(e) => onChange(e.target.checked)} />
+export const renderCheckbox = (
+  onChange: Function,
+  label: string,
+  size?: 'small' | 'medium' | 'large' | 'xlarge',
+) => (
+  <Checkbox
+    label={label}
+    onChange={(e) => onChange(e.currentTarget.checked)}
+    size={size}
+  />
 );
 
-export const renderElementGroupCheckbox = (
-  elementItems: ElementItem[],
-  setElementGroup: Function,
-  item: ElementItem,
-) => {
-  return (
-    <Checkbox
-      key={item.name}
-      label={item.name}
-      value={item.name}
-      onChange={(e) => {
-        const { checked, value } = e.target;
-        const updated = checked
-          ? [...elementItems, item]
-          : elementItems.filter((d) => d.name !== value);
-        setElementGroup(updated);
-      }}
-    />
-  );
-};
-
-export const renderActionGroupCheckbox = (
+export const renderActionOptions = (
   actionItems: ActionItem[],
-  setActionGroup: Function,
-  item: ActionItem,
+  setActionItems: Function,
 ) => {
+  const options = Object.values(ActionName).map((name) => ({
+    label: name,
+    value: name,
+  }));
+
   return (
-    <Checkbox
-      key={item.name}
-      label={item.name}
-      value={item.name}
-      onChange={(e) => {
-        const { checked, value } = e.target;
-        const updated = checked
-          ? [...actionItems, item]
-          : actionItems.filter((d) => d.name !== value);
-        setActionGroup(updated);
+    <Select
+      isMulti
+      onChange={(values) => {
+        const items = values.map(({ value }) => ({
+          name: value,
+          onClick: () => {
+            console.log(`You have clicked on ${value}`);
+          },
+        }));
+        setActionItems(items);
       }}
+      options={options}
+      placeholder="Add actions"
     />
   );
 };
 
-export const renderElementGroupOptions = (
+export const renderMetadataOptions = (
   elementItems: ElementItem[],
   setElementGroup: Function,
 ) => {
-  return Object.values(ElementName)
+  const options = Object.values(ElementName)
     .filter(
       (name) => name !== ElementName.Title && name !== ElementName.LinkIcon,
     )
-    .map((name) =>
-      renderElementGroupCheckbox(elementItems, setElementGroup, {
-        name,
-      } as ElementItem),
-    );
+    .map((name) => ({ label: name, value: name }));
+
+  return (
+    <Select
+      isMulti
+      onChange={(values) => {
+        const items = values.map(({ value }) => ({ name: value }));
+        setElementGroup(items);
+      }}
+      options={options}
+      placeholder="Add metadata"
+    />
+  );
 };
 
 export const generateResponse = (url: string, meta = {}, data = {}) =>
@@ -135,22 +139,6 @@ export const generateResponse = (url: string, meta = {}, data = {}) =>
       url,
     },
   } as JsonLd.Response);
-
-export const renderActionGroupOptions = (
-  actionItems: ActionItem[],
-  setActionItems: Function,
-) => {
-  return [
-    {
-      name: ActionName.DeleteAction,
-      onClick: () => {
-        console.log('This is a Delete Action');
-      },
-    },
-  ].map((item, idx) =>
-    renderActionGroupCheckbox(actionItems, setActionItems, item as ActionItem),
-  );
-};
 
 export const responses = {
   [statusUrls.Errored]: { data: null } as any,
@@ -181,3 +169,14 @@ export const responses = {
     ],
   }),
 };
+
+export const blockOptionStyles = css`
+  display: flex;
+  margin-top: 1rem;
+  > div {
+    flex: 1 1 auto;
+  }
+  > div:first-of-type {
+    flex: 0 1 15%;
+  }
+`;

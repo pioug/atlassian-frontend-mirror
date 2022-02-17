@@ -1,5 +1,5 @@
+import { OptionData } from '@atlaskit/smart-user-picker';
 import { layers } from '@atlaskit/theme/constants';
-import { OptionData } from '@atlaskit/user-picker';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

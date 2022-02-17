@@ -1,4 +1,4 @@
-import type { LoadOptions } from '@atlaskit/user-picker';
+import type { LoadOptions } from '@atlaskit/smart-user-picker';
 
 import type { ConfigResponse } from '../clients/ShareServiceClient';
 

@@ -24,7 +24,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-metadata');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 1120);
+      const image = await takeSnapshot(page, 1090);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -91,7 +91,7 @@ describe('Flexible Card', () => {
       await page.waitForSelector(
         '[data-testid="vr-test-author-group-xlarge-0--avatar-group"]',
       );
-      const image = await takeSnapshot(page, 340);
+      const image = await takeSnapshot(page, 330);
 
       expect(image).toMatchProdImageSnapshot();
     });

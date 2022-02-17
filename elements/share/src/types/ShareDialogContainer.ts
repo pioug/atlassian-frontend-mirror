@@ -1,6 +1,6 @@
 import type { Appearance } from '@atlaskit/button/types';
 import type { IconProps } from '@atlaskit/icon';
-import type { LoadOptions, Value } from '@atlaskit/user-picker';
+import type { LoadOptions, Value } from '@atlaskit/smart-user-picker';
 
 import type {
   ShortenRequest,

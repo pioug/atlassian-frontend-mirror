@@ -1,22 +1,13 @@
 import React from 'react';
-import { md, Props } from '@atlaskit/docs';
-import IconExplorer from '../examples/01-icon-explorer';
+
+import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-  ## Icon explorer
-
-  ${(
-    <p>
-      <IconExplorer />
-    </p>
-  )}
-
-  ### Props
-
-  ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/extract-react-types/glyph')}
-    />
-  )}
+${(
+  <SectionMessage appearance="information">
+    This component is now documented on{' '}
+    <a href="https://atlassian.design/components/icon">atlassian.design</a>
+  </SectionMessage>
+)}
 `;

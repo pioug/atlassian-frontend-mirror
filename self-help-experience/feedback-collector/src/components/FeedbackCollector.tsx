@@ -135,7 +135,7 @@ export default class FeedbackCollector extends Component<Props> {
 
   async getEntitlementInformation(): Promise<FieldType[] | []> {
     const url = this.props.url;
-    // jira / connie / bb
+    // jira / confluence / bitbucket
     let productName;
     let productEntitlement;
     let entitlementDetails;

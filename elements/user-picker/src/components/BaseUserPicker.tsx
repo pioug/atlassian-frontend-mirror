@@ -32,6 +32,7 @@ import {
   getOptions,
   isIterable,
   isPopupUserPickerByComponent,
+  isDefaultValuePopulated,
   isSingleValue,
   optionToSelectableOptions,
 } from './utils';
@@ -69,9 +70,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     if (nextProps.value !== undefined) {
       derivedState.value = optionToSelectableOptions(nextProps.value);
     } else if (
-      nextProps.defaultValue &&
-      Array.isArray(nextProps.defaultValue) &&
-      nextProps.defaultValue.length > 0 &&
+      isDefaultValuePopulated(nextProps.defaultValue) &&
       !prevState.isDefaultSet
     ) {
       derivedState.value = optionToSelectableOptions(nextProps.defaultValue);

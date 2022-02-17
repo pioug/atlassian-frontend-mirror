@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.3.0
+
+### Minor Changes
+
+- [`ce207d8ea47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce207d8ea47) - Add option to query teams with AGG
+
 ## 16.2.3
 
 ### Patch Changes

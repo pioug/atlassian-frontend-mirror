@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 17.3.1
+
+### Patch Changes
+
+- [`66dc86e0331`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dc86e0331) - Flexible UI: Check for null element
+
+## 17.3.0
+
+### Minor Changes
+
+- [`dab29fc6697`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dab29fc6697) - [ux] Flexible UI: AvatarGroup sizing updated for small and medium size
+
+### Patch Changes
+
+- [`25408fac413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/25408fac413) - Flexible UI: Add MetadataBlock example
+
 ## 17.2.1
 
 ### Patch Changes

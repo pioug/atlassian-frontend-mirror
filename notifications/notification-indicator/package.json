@@ -28,6 +28,11 @@
     "@atlaskit/notification-log-client": "^6.0.0",
     "@babel/runtime": "^7.0.0"
   },
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
+  },
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0"

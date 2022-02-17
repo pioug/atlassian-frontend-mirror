@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 9.0.1
+
+### Patch Changes
+
+- [`90a4afb3339`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90a4afb3339) - Updating only a comment
+
 ## 9.0.0
 
 ### Major Changes

@@ -3,6 +3,7 @@ import { teamRequestAnalytics } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
+import { getTeamFromAGG } from './getTeamFromAGG';
 import { GraphQLError, graphqlQuery } from './graphqlUtils';
 
 const QUERY = `query Team($teamId: String!, $organizationId: String) {
@@ -22,11 +23,6 @@ const QUERY = `query Team($teamId: String!, $organizationId: String) {
   }
 }`;
 
-/**
- * @param  {string} userId
- * @param  {string} cloudId
- * @return {string} GraphQL Query String
- */
 const buildTeamQuery = (teamId: string, orgId: string | undefined) => ({
   query: QUERY,
   variables: {
@@ -41,6 +37,19 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
   constructor(options: ProfileClientOptions) {
     super(options);
     this.options = options;
+  }
+
+  makeRequestViaGateway(
+    teamId: string,
+    _orgId: string | undefined,
+  ): Promise<Team> {
+    if (!this.options.gatewayGraphqlUrl) {
+      throw new Error(
+        'Trying to fetch via gateway with no specified config.gatewayGraphqlUrl',
+      );
+    }
+
+    return getTeamFromAGG(this.options.gatewayGraphqlUrl, teamId);
   }
 
   makeRequest(teamId: string, orgId: string | undefined): Promise<Team> {
@@ -77,7 +86,13 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
         analytics(teamRequestAnalytics('triggered'));
       }
 
-      this.makeRequest(teamId, orgId)
+      const shouldUseGateway = !!this.options.gatewayGraphqlUrl;
+
+      const promise = shouldUseGateway
+        ? this.makeRequestViaGateway(teamId, orgId)
+        : this.makeRequest(teamId, orgId);
+
+      promise
         .then((data: Team) => {
           if (this.cache) {
             this.setCachedProfile(teamId, data);
@@ -86,6 +101,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
             analytics(
               teamRequestAnalytics('succeeded', {
                 duration: getPageTime() - startTime,
+                gateway: shouldUseGateway,
               }),
             );
           }
@@ -98,6 +114,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
                 duration: getPageTime() - startTime,
                 errorStatus: error.code,
                 errorReason: error.reason,
+                gateway: shouldUseGateway,
               }),
             );
           }

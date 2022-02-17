@@ -17,30 +17,35 @@ const containerStyles = css`
   gap: 5px;
   padding: 5px;
 `;
-const authors = [{ name: 'Bob' }, { name: 'Charlie' }, { name: 'Spaghetti' }];
-const collaborators = [
+const authorGroup = [
+  { name: 'Bob' },
+  { name: 'Charlie' },
+  { name: 'Spaghetti' },
+];
+const collaboratorGroup = [
   { name: 'Alexander' },
   { name: 'Hamilton' },
   { name: 'Lasagna' },
 ];
 
-const context = getContext();
+const context = getContext({
+  authorGroup,
+  collaboratorGroup,
+});
 
 export default () => (
   <VRTestWrapper title="Flexible UI: Element: AvatarGroup">
     <FlexibleUiContext.Provider value={context}>
       {Object.values(SmartLinkSize).map((size, tIdx) => (
-        <React.Fragment>
+        <React.Fragment key={tIdx}>
           <h5>{size}</h5>
           <div css={containerStyles}>
             <AuthorGroup
               size={size}
-              items={authors}
               testId={`vr-test-author-group-${size}-${tIdx}`}
             />
             <CollaboratorGroup
               size={size}
-              items={collaborators}
               testId={`vr-test-collaborator-group-${size}-${tIdx}`}
             />
           </div>

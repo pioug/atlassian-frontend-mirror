@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Select from '@atlaskit/select';
-import { DefaultValue } from '@atlaskit/user-picker';
+import { DefaultValue, OptionIdentifier } from '@atlaskit/user-picker';
 
 import SmartUserPicker from '../src';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';
@@ -60,6 +60,13 @@ const Example: React.FC = () => {
           onChange={console.log}
           isMulti
           defaultValue={memoziedDefaultValues}
+        />
+        <SmartUserPicker
+          fieldId="example"
+          productKey={product}
+          siteId="fake-tenant-id"
+          onChange={console.log}
+          defaultValue={(memoziedDefaultValues as OptionIdentifier[])[0]}
         />
       </IntlProvider>
     </div>

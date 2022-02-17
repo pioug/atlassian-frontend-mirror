@@ -40,6 +40,10 @@ export const isGroup = (option: OptionData): option is Group =>
 export const isEmail = (option: OptionData): option is Email =>
   option.type === EmailType;
 
+export const isDefaultValuePopulated = (value?: DefaultValue) =>
+  (value && !Array.isArray(value)) ||
+  (Array.isArray(value) && value.length > 0);
+
 const isOptionData = (option: any): option is OptionData =>
   (option as OptionData).name !== undefined;
 

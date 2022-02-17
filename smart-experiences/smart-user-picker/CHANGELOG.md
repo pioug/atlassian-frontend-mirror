@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 4.0.1
+
+### Patch Changes
+
+- [`73bf59c717d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73bf59c717d) - update dependency on @atlaskit/user-picker to ensure defaultValue fix is applied
+
 ## 4.0.0
 
 ### Major Changes

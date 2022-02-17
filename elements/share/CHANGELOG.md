@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.0.12
+
+### Patch Changes
+
+- [`7d2e926ff5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2e926ff5a) - use latest SmartUserPicker in @atlaskit/share
+
 ## 3.0.11
 
 ### Patch Changes

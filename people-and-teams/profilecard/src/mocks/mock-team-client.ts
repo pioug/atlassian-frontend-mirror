@@ -27,5 +27,9 @@ export default function getMockTeamClient(data: {
         }, data.timeout);
       });
     }
+
+    makeRequestViaGateway(teamId: string) {
+      return this.makeRequest(teamId);
+    }
   };
 }

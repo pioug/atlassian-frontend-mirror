@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -6,6 +6,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
+import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
 import teamData from '../src/mocks/team-data';
 import { Team } from '../src/types';
@@ -27,6 +28,7 @@ const clientArgs = {
   cacheSize: 10,
   cacheMaxAge: 0,
   url: 'DUMMY',
+  gatewayGraphqlUrl: 'https://api-private.stg.atlassian.com/graphql',
 };
 
 const defaultTeamData = teamData({
@@ -52,8 +54,11 @@ const teamClientData: {
 
 const MockTeamClient = getMockTeamClient(teamClientData);
 
+const realTeamClient = new TeamProfileCardClient(clientArgs);
+const mockTeamClient = new MockTeamClient(clientArgs);
+
 const profileClient = new ProfileCardClient(clientArgs, {
-  teamClient: new MockTeamClient(clientArgs),
+  teamClient: mockTeamClient,
 });
 
 export const MainStage = styled.div`
@@ -79,7 +84,7 @@ const Container = styled.div`
 `;
 
 const defaultProps = {
-  teamId: '1',
+  teamId: '4ecf4119-dcc4-43a0-a60b-94ed7b7446b0',
   orgId: 'DUMMY',
   resourceClient: profileClient,
   actions: [
@@ -108,6 +113,7 @@ const defaultProps = {
   ],
   viewProfileLink: 'about:blank',
   viewProfileOnClick: () => alert('Viewing profile.'),
+  generateUserLink: (userId: string) => `/people/${userId}`,
 };
 
 function CustomizationPanel() {
@@ -143,8 +149,18 @@ function CustomizationPanel() {
 export default function Example() {
   const [includingYou, setIncludingYou] = useState(false);
   const [numActions, setNumActions] = useState(0);
+  const [isRealClient, setRealClient] = useState(false);
 
   const viewerId = includingYou ? teamClientData.team.members![0]?.id : '';
+
+  // Just here for testing purposes
+  useEffect(() => {
+    if (isRealClient) {
+      profileClient.teamClient = realTeamClient;
+    } else {
+      profileClient.teamClient = mockTeamClient;
+    }
+  }, [isRealClient]);
 
   return (
     <AnalyticsListener channel="peopleTeams" onEvent={onAnalyticsEvent}>
@@ -210,6 +226,17 @@ export default function Example() {
                 type="checkbox"
               />
               {includingYou}
+            </label>
+          </p>
+          <p>
+            Use real client?
+            <label htmlFor="realClient">
+              <input
+                checked={isRealClient}
+                id="realClient"
+                onChange={() => setRealClient(!isRealClient)}
+                type="checkbox"
+              />
             </label>
           </p>
           <TeamCustomizer

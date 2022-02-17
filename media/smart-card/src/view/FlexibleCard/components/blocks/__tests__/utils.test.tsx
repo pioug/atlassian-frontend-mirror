@@ -7,10 +7,12 @@ import {
   ElementName,
   SmartLinkDirection,
   SmartLinkSize,
+  SmartLinkStatus,
 } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
 import { getBaseStyles, renderActionItems, renderElementItems } from '../utils';
+import { MetadataBlock } from '../index';
 
 describe('getBaseStyles', () => {
   describe('getDirectionStyles', () => {
@@ -47,6 +49,16 @@ describe('getBaseStyles', () => {
 });
 
 describe('renderElementItems', () => {
+  const getElementTestId = (name: ElementName, testId: string) => {
+    switch (name) {
+      case ElementName.AuthorGroup:
+      case ElementName.CollaboratorGroup:
+        return `${testId}--avatar-group`;
+      default:
+        return testId;
+    }
+  };
+
   it.each(Object.values(ElementName).map((name) => [name]))(
     'renders %s',
     async (name: ElementName) => {
@@ -54,25 +66,33 @@ describe('renderElementItems', () => {
       const { getByTestId } = render(
         <IntlProvider locale="en">
           <FlexibleUiContext.Provider value={context}>
-            {renderElementItems([{ name, testId }])}
+            <MetadataBlock
+              primary={[{ name, testId }]}
+              status={SmartLinkStatus.Resolved}
+            />
           </FlexibleUiContext.Provider>
         </IntlProvider>,
       );
-
-      if (
-        name === ElementName.AuthorGroup ||
-        name === ElementName.CollaboratorGroup
-      ) {
-        const element = await waitForElement(() =>
-          getByTestId(`${testId}--avatar-group`),
-        );
-        expect(element).toBeDefined();
-      } else {
-        const element = await waitForElement(() => getByTestId(testId));
-        expect(element).toBeDefined();
-      }
+      const element = await waitForElement(() =>
+        getByTestId(getElementTestId(name, testId)),
+      );
+      expect(element).toBeDefined();
     },
   );
+
+  it('does not render null element', async () => {
+    const { queryByTestId } = render(
+      <FlexibleUiContext.Provider value={{ title: 'Link title' }}>
+        <MetadataBlock
+          primary={[
+            { name: ElementName.CommentCount, testId: 'comment-count' },
+          ]}
+          status={SmartLinkStatus.Resolved}
+        />
+      </FlexibleUiContext.Provider>,
+    );
+    expect(queryByTestId('comment-count')).toBeNull();
+  });
 
   it('does not render non-flexible-ui element', async () => {
     const elements = renderElementItems([

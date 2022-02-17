@@ -1,4 +1,4 @@
-import { Team } from '@atlaskit/user-picker';
+import { Team } from '@atlaskit/smart-user-picker';
 
 import {
   cancelShare,

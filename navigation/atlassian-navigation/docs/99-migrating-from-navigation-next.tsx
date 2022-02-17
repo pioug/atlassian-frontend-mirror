@@ -1,53 +1,52 @@
 import { code, md } from '@atlaskit/docs';
 
 export default md`
-  Previously [navigation next](/packages/design-system/navigation-next) was used both as the component that powers navigation,
-  and for the page layout.
-  There are three migration steps that are currently in the works.
+\`@atlaskit/navigation-next\` was deprecated due to:
 
-  ## Step one (available now)
+- Large bundle size
+- Poor runtime performance
+- Lack of flexibility with layout
+- Lack of consumer control of how and where to render the page content
 
-  Replacing the top level vertical navigation in navigation next with the horizontal Atlassian navigation.
-  You can find a [live example in the navigation next docs](/examples/design-system/navigation-next/experimental-app-navigation).
+It has been superseded by a composed navigation experience consisting of \`@atlaskit/page-layout\` to layout your application, \`@atlaskit/atlassian-navigation\` for the horizontal nav bar at the top of the screen, and \`@atlaskit/side-navigation\` for the side nav. **All Atlassian products should be using these packages instead — support is no longer provided for** \`@atlaskit/navigation-next\`.
 
-  1. Replace \`globalNavigation\` with the horizontal navigation component from this library
-  1. Add \`experimental_horizontalGlobalNav\` prop
-  1. 🥓🥓 get new horizontal navigation experience
+This page intends to serve as a high level conceptual introduction to these packages. Detailed documentation for each can be found below:
 
-  Assuming \`AtlassianNavigition\` is a new component composed from this library:
+- [Page layout](https://atlaskit.atlassian.com/packages/design-system/page-layout)
+- [Atlassian navigation](https://atlaskit.atlassian.com/packages/navigation/atlassian-navigation)
+- [Side navigation](https://atlaskit.atlassian.com/packages/navigation/side-navigation)
+- [Worked example of all packages used together](https://atlaskit.atlassian.com/examples/design-system/page-layout/integration-example)
 
-  ${code`
+## Laying out your application
+
+Where \`@atlaskit/navigation-next\` used to rely on the rigid and unperformant \`LayoutManager\`, we now have a light-weight and flexible solution in \`@atlaskit/page-layout\` ([docs](https://atlaskit.atlassian.com/packages/design-system/page-layout)). \`@atlaskit/page-layout\` can be used to wrap your entire app and help split the viewport into sections where you can render components in slots such as \`Banner\`, \`TopNavigation\`, \`Main\`, \`LeftSidebar\`, and more. It also provides valuable accessibility improvements to your application with support for [skip links](https://atlaskit.atlassian.com/packages/design-system/page-layout/docs/skip-links).
+
+## Standardised top navigation
+
+The role that used to be played by the deprecated \`@atlaskit/global-navigation\` is now played by \`@atlaskit/atlassian-navigation\` ([docs](https://atlaskit.atlassian.com/packages/navigation/atlassian-navigation)). This provides a well-structured, cohesive and performant navigation experience that is used across all Atlassian products.
+
+\`@atlaskit/atlassian-navigation\` slots into the \`TopNavigation\` section in \`PageLayout\`.
+
+If you're still using \`@atlaskit/navigation-next\`, it is also possible to incrementally adopt \`@atlaskit/atlassian-navigation\` by using the \`experimental_horizontalGlobalNav\` prop.
+
+${code`
 import { LayoutManagerWithViewController } from '@atlaskit/navigation-next';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 
 <LayoutManagerWithViewController
 -  globalNavigation={DefaultGlobalNavigation}
 +  globalNavigation={AtlassianNavigation}
 +  experimental_horizontalGlobalNav
 />
-  `}
+`}
 
-  ## Step two (in development)
+However, it is **strongly recommended** that you adopt the full suite of navigation components together as ongoing support for \`@atlaskit/navigation-next\` will not be provided.
 
-  Okay so we've replaced the top level vertical navigation with a new top level horizontal navigation.
-  Now we are going to replace the side navigation from navigation next with a new lighter weight equivlent package -
-  \`@atlaskit/side-navigation\` -
-  but keep using the page layout behaviour from Navigation next.
+## Contextual, product-specific navigation
 
-  Side navigation is still under development -
-  but as we defined above the migration strategy will follow a similar pattern of slowing breaking down parts of Navigation next into smaller pieces.
+Previously contextual navigation was handled by passing in content to the \`productNavigation\` prop in \`@atlaskit/navigation-next\`'s \`LayoutManager\`. Now, it belongs in the dedicated \`@atlaskit/side-navigation\` package ([docs](https://atlaskit.atlassian.com/packages/navigation/side-navigation)).
 
-  ## Step three (in planning)
+## Need help?
 
-  Now we have the entire page layout to replace.
-  After doing this we can completely remove navigation next from your product.
-  We will introduce a new component \`@atlaskit/page-layout\` which will be responsible for positioning the header,
-  side navigation,
-  help fly out menu,
-  page banner,
-  and page content.
-
-  This migration will be a little tricker because it completely removes the navigation next from your product,
-  and replaces it with a composed page layout,
-  horizontal nav,
-  and side nav.
+Reach out to !disturbed in #help-design-system.
 `;

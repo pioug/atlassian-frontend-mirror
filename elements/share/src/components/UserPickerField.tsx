@@ -7,16 +7,16 @@ import {
 } from 'react-intl-next';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
-import UserPicker, {
+import SmartUserPicker, {
   EmailValidationResponse,
   isValidEmail,
   LoadOptions,
   OptionData,
-  SmartUserPicker,
-  SmartUserPickerProps,
+  Props as SmartUserPickerProps,
   UserPickerProps,
   Value,
-} from '@atlaskit/user-picker';
+} from '@atlaskit/smart-user-picker';
+import UserPicker from '@atlaskit/user-picker';
 
 import { messages } from '../i18n';
 import { ConfigResponse, MessageDescriptor, ProductName } from '../types';

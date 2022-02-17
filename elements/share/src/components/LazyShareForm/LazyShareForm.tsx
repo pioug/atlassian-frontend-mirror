@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import type { LoadOptions } from '@atlaskit/user-picker';
+import type { LoadOptions } from '@atlaskit/smart-user-picker';
 
 import type {
   ShareData,

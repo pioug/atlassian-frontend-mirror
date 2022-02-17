@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.6.3
+
+### Patch Changes
+
+- [`6503f21cfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6503f21cfc0) - [ux] Fix defaultValue behavior for user-picker and smart-user-picker. user-picker previously advertised hydrating default values if provided in unhydrated form. This was never the case; it is only hydrated from smart-user-picker. defaultValue would also be ignored if provided as a single OptionValue despite the typing being advertised as supporting it - this is now fixed.
+
 ## 8.6.2
 
 ### Patch Changes

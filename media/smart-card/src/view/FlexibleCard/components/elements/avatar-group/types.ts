@@ -1,6 +1,6 @@
 import { ElementProps } from '../types';
 
-type AvatarItemProps = {
+export type AvatarItemProps = {
   /* The image to be used in an `@atlaskit/avatar - this should be a url to the image src */
   src?: string;
   /* The name of the person in the avatar. */

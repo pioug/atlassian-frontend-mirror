@@ -8,9 +8,10 @@ import { DevPreviewWarning } from '@atlaskit/docs';
 
 import { EnvironmentsKeys } from '../../src/client/types';
 import {
+  ActionItem,
   Card,
   ElementItem,
-  ActionItem,
+  MetadataBlock,
   Provider,
   SmartLinkDirection,
   SmartLinkPosition,
@@ -23,6 +24,7 @@ import CardOption from './CardOption';
 import EnvironmentOption from './EnvironmentOption';
 import { exampleTokens } from '../utils/flexible-ui';
 import { ExampleClient } from './ExampleClient';
+import MetadataBlockOption from './MetadataBlockOption';
 
 const initialUrl = 'https://BitbucketRepository';
 
@@ -41,7 +43,7 @@ const contentStyles = css`
 const FlexibleUiExample: React.FC = () => {
   const [env, setEnv] = useState<EnvironmentsKeys>('stg');
   const [url, setUrl] = useState<string>(initialUrl);
-
+  // Card options
   const [size, setSize] = useState<SmartLinkSize>(SmartLinkSize.Medium);
   const [theme, setTheme] = useState<SmartLinkTheme>(SmartLinkTheme.Link);
   const [hideBackground, setHideBackground] = useState<boolean>(false);
@@ -50,7 +52,7 @@ const FlexibleUiExample: React.FC = () => {
   const [direction, setDirection] = useState<SmartLinkDirection>(
     SmartLinkDirection.Horizontal,
   );
-
+  // TitleBlock options
   const [maxLines, setMaxLines] = useState<number>(2);
   const [position, setPosition] = useState<SmartLinkPosition>(
     SmartLinkPosition.Top,
@@ -58,6 +60,11 @@ const FlexibleUiExample: React.FC = () => {
   const [metadata, setMetadata] = useState<ElementItem[]>([]);
   const [subtitle, setSubTitle] = useState<ElementItem[]>([]);
   const [action, setAction] = useState<ActionItem[]>([]);
+  // MetadataBlock options
+  const [showMetadataBlock, setShowMetadataBlock] = useState<boolean>(false);
+  const [metadataMaxLines, setMetadataMaxLines] = useState<number>(2);
+  const [primary, setPrimary] = useState<ElementItem[]>([]);
+  const [secondary, setSecondary] = useState<ElementItem[]>([]);
 
   return (
     <div css={containerStyles}>
@@ -79,6 +86,13 @@ const FlexibleUiExample: React.FC = () => {
                   subtitle={subtitle}
                   actions={action}
                 />
+                {showMetadataBlock && (
+                  <MetadataBlock
+                    maxLines={metadataMaxLines}
+                    primary={primary}
+                    secondary={secondary}
+                  />
+                )}
               </Card>
             </Provider>
           </IntlProvider>
@@ -108,6 +122,14 @@ const FlexibleUiExample: React.FC = () => {
           setPosition={setPosition}
           setSubTitle={setSubTitle}
           setAction={setAction}
+        />
+        <MetadataBlockOption
+          primary={primary}
+          secondary={secondary}
+          setMaxLines={setMetadataMaxLines}
+          setPrimary={setPrimary}
+          setSecondary={setSecondary}
+          setShow={setShowMetadataBlock}
         />
       </div>
     </div>

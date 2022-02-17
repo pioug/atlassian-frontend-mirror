@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { RadioGroup } from '@atlaskit/radio';
 import {
   ActionItem,
@@ -10,20 +10,13 @@ import {
   SmartLinkPosition,
 } from '../../src';
 import {
+  blockOptionStyles,
   directionOptions,
   handleOnChange,
   positionOptions,
-  renderActionGroupOptions,
-  renderElementGroupOptions,
+  renderActionOptions,
+  renderMetadataOptions,
 } from './utils';
-
-const expandStyles = css`
-  flex: 1;
-`;
-
-const optionStyles = css`
-  display: flex;
-`;
 
 type TitleBlockOptionProps = {
   metadata: ElementItem[];
@@ -48,9 +41,9 @@ const TitleBlockOption: React.FC<TitleBlockOptionProps> = ({
   setSubTitle,
   setAction,
 }) => (
-  <div css={expandStyles}>
+  <React.Fragment>
     <h3>TitleBlock options</h3>
-    <div css={optionStyles}>
+    <div css={blockOptionStyles}>
       <div>
         <h6>Lines</h6>
         <RadioGroup
@@ -75,19 +68,15 @@ const TitleBlockOption: React.FC<TitleBlockOptionProps> = ({
         />
       </div>
       <div>
-        <h6>Subtitle</h6>
-        {renderElementGroupOptions(subtitle, setSubTitle)}
-      </div>
-      <div>
         <h6>Metadata</h6>
-        {renderElementGroupOptions(metadata, setMetadata)}
-      </div>
-      <div>
+        {renderMetadataOptions(metadata, setMetadata)}
+        <h6>Subtitle</h6>
+        {renderMetadataOptions(subtitle, setSubTitle)}
         <h6>Actions</h6>
-        {renderActionGroupOptions(actions, setAction)}
+        {renderActionOptions(actions, setAction)}
       </div>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 export default TitleBlockOption;

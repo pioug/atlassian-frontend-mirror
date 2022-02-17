@@ -686,6 +686,42 @@ describe('BaseUserPicker', () => {
         ]);
       });
 
+      it('should render with default option', () => {
+        const component = shallowUserPicker({
+          defaultValue: options[0],
+        });
+
+        expect(component.find(Select).prop('value')).toEqual({
+          label: 'Jace Beleren',
+          data: options[0],
+          value: ID_1,
+        });
+      });
+
+      it('should not render with default option if empty array', () => {
+        const component = shallowUserPicker({
+          defaultValue: [],
+        });
+
+        expect(component.find(Select).prop('value')).toEqual(undefined);
+      });
+
+      it('should not render with default option if null', () => {
+        const component = shallowUserPicker({
+          defaultValue: null,
+        });
+
+        expect(component.find(Select).prop('value')).toEqual(undefined);
+      });
+
+      it('should not render with default option if undefined', () => {
+        const component = shallowUserPicker({
+          defaultValue: undefined,
+        });
+
+        expect(component.find(Select).prop('value')).toEqual(undefined);
+      });
+
       it('should not remove fixed options', () => {
         const onChange = jest.fn();
         const component = shallowUserPicker({

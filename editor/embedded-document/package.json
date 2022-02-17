@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-document",
-  "version": "0.7.35",
+  "version": "0.7.36",
   "description": "Embedded Document component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,9 +23,9 @@
   "dependencies": {
     "@atlaskit/button": "^16.1.0",
     "@atlaskit/editor-common": "^64.0.0",
-    "@atlaskit/editor-core": "^156.0.0",
+    "@atlaskit/editor-core": "^157.0.0",
     "@atlaskit/editor-shared-styles": "^1.6.0",
-    "@atlaskit/renderer": "^87.0.0",
+    "@atlaskit/renderer": "^88.0.0",
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0"
   },

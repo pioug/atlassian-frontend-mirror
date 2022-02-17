@@ -37,7 +37,7 @@ export const teamRequestAnalytics = (
   action: 'triggered' | 'succeeded' | 'failed',
   attributes?: { duration: number } & Record<
     string,
-    string | number | undefined
+    string | number | boolean | undefined
   >,
 ) => createEvent('operational', action, TEAM_SUBJECT, 'request', attributes);
 

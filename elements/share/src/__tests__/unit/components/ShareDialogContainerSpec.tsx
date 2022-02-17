@@ -2,7 +2,7 @@ import React from 'react';
 
 import { shallow, ShallowWrapper } from 'enzyme';
 
-import { OptionData } from '@atlaskit/user-picker';
+import { OptionData } from '@atlaskit/smart-user-picker';
 
 import {
   ShortenResponse,

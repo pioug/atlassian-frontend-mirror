@@ -10,7 +10,8 @@ import { mount, shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl-next';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
-import UserPicker, { OptionData, SmartUserPicker } from '@atlaskit/user-picker';
+import SmartUserPicker, { OptionData } from '@atlaskit/smart-user-picker';
+import UserPicker from '@atlaskit/user-picker';
 
 import {
   Props,

@@ -12,7 +12,11 @@ import AvatarGroup from './avatar-group';
 import Text from './text';
 import { messages } from '../../../../messages';
 import DateTime from './date-time';
+import { AvatarGroupProps, AvatarItemProps } from './avatar-group/types';
+import { BadgeProps } from './badge/types';
 import { DateTimeProps } from './date-time/types';
+import { LinkProps } from './link/types';
+import { TextProps } from './text/types';
 
 const elementMappings: Record<
   ElementName,
@@ -50,16 +54,6 @@ const getContextKey = (name: ElementName) => {
     : undefined;
 };
 
-const getFormattedMessage = (descriptor: MessageDescriptor, value?: string) =>
-  value
-    ? {
-        message: {
-          descriptor,
-          values: { context: value },
-        },
-      }
-    : undefined;
-
 const getData = (
   elementName: ElementName,
   contextKey?: string,
@@ -71,37 +65,57 @@ const getData = (
 
   const data = context[contextKey as keyof typeof context];
   switch (elementName) {
+    case ElementName.AuthorGroup:
+    case ElementName.CollaboratorGroup:
+      return toAvatarGroupProps(data as AvatarItemProps[]);
     case ElementName.CommentCount:
     case ElementName.ProgrammingLanguage:
     case ElementName.SubscriberCount:
-      return { label: data };
-    case ElementName.AuthorGroup:
-      return { items: context.authorGroup };
-    case ElementName.CollaboratorGroup:
-      return { items: context.collaboratorGroup };
+      return toBadgeProps(data as string);
     case ElementName.CreatedBy:
-      return getFormattedMessage(messages.created_by, context.createdBy);
-    case ElementName.ModifiedBy:
-      return getFormattedMessage(messages.modified_by, context.modifiedBy);
-    case ElementName.ModifiedOn:
-      return context.modifiedOn
-        ? ({
-            date: new Date(context.modifiedOn),
-            type: 'modified',
-          } as DateTimeProps)
-        : undefined;
+      return toFormattedTextProps(messages.created_by, context.createdBy);
     case ElementName.CreatedOn:
-      return context.createdOn
-        ? ({
-            date: new Date(context.createdOn),
-            type: 'created',
-          } as DateTimeProps)
-        : undefined;
+      return toDateTimeProps('created', context.createdOn);
+    case ElementName.ModifiedBy:
+      return toFormattedTextProps(messages.modified_by, context.modifiedBy);
+    case ElementName.ModifiedOn:
+      return toDateTimeProps('modified', context.modifiedOn);
     case ElementName.Title:
-      return { text: context.title, url: context.url };
+      return toLinkProps(context.title, context.url);
     default:
       return data;
   }
+};
+
+const toAvatarGroupProps = (
+  items?: AvatarItemProps[],
+): Partial<AvatarGroupProps> | undefined => {
+  return items ? { items } : undefined;
+};
+
+const toBadgeProps = (label?: string): Partial<BadgeProps> | undefined => {
+  return label ? { label } : undefined;
+};
+
+const toDateTimeProps = (
+  type: 'created' | 'modified',
+  dateString?: string,
+): Partial<DateTimeProps> | undefined => {
+  return dateString ? { date: new Date(dateString), type } : undefined;
+};
+
+const toFormattedTextProps = (
+  descriptor: MessageDescriptor,
+  context?: string,
+): Partial<TextProps> | undefined => {
+  return context ? { message: { descriptor, values: { context } } } : undefined;
+};
+
+const toLinkProps = (
+  text?: string,
+  url?: string,
+): Partial<LinkProps> | undefined => {
+  return text ? { text, url } : undefined;
 };
 
 export const createElement = <P extends {}>(name: ElementName): React.FC<P> => {

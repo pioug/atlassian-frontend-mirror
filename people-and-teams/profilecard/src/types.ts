@@ -390,6 +390,7 @@ export type ProfileCardErrorType = {
 
 export interface ProfileClientOptions {
   url: string;
+  gatewayGraphqlUrl?: string;
   cacheSize?: number;
   cacheMaxAge?: number;
   /** Enables Team Central functionality if enabled */

@@ -4,7 +4,11 @@ import { render, waitForElement } from '@testing-library/react';
 
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context.json';
-import { ElementName, SmartLinkStatus } from '../../../../../../constants';
+import {
+  ElementName,
+  SmartLinkSize,
+  SmartLinkStatus,
+} from '../../../../../../constants';
 import { MetadataBlockProps } from '../types';
 import MetadataBlock from '../index';
 
@@ -91,6 +95,29 @@ describe('MetadataBlock', () => {
           status,
         });
         expect(container.children.length).toEqual(0);
+      },
+    );
+  });
+
+  describe('with specific size', () => {
+    it.each([
+      [SmartLinkSize.XLarge, '1.75rem'],
+      [SmartLinkSize.Large, '1.75rem'],
+      [SmartLinkSize.Medium, '1.5rem'],
+      [SmartLinkSize.Small, '1.5rem'],
+    ])(
+      'renders element group with line-height when size is %s',
+      async (size: SmartLinkSize, expected: string) => {
+        const { getByTestId } = renderMetadataBlock({
+          primary: [{ name: ElementName.ProgrammingLanguage }],
+          size,
+        });
+
+        const block = await waitForElement(() =>
+          getByTestId('smart-element-group'),
+        );
+
+        expect(block).toHaveStyleDeclaration('line-height', expected);
       },
     );
   });

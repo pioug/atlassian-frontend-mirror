@@ -38,6 +38,14 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
           group: 'paint',
           state: 'active',
           description:
+            'Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons.',
+        },
+      },
+      selected: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description:
             'Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items.',
         },
       },

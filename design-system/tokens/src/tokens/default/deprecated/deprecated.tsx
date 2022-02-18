@@ -131,6 +131,35 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
             'Use for the screen overlay that appears with modal dialogs',
         },
       },
+      brand: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.selected.[default].[default]',
+              description:
+                'Use for the background of elements used to reinforce our brand.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.selected.[default].hovered',
+              description: 'Hovered state for color.background.brand',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.selected.[default].pressed',
+              description: 'Pressed state for color.background.brand',
+            },
+          },
+        },
+      },
       boldBrand: {
         hover: {
           attributes: {
@@ -328,7 +357,7 @@ Combine with shadow.overlay.`,
           attributes: {
             group: 'paint',
             state: 'deprecated',
-            replacement: 'color.background.brand.[default].[default]',
+            replacement: 'color.background.selected.[default].[default]',
             description: 'Use for backgrounds of elements in a selected state',
           },
         },
@@ -336,16 +365,8 @@ Combine with shadow.overlay.`,
           attributes: {
             group: 'paint',
             state: 'deprecated',
-            replacement: 'color.background.brand.[default].hovered',
+            replacement: 'color.background.selected.[default].hovered',
             description: 'Hover state for color.background.selected',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'deprecated',
-            replacement: 'color.background.brand.[default].pressed',
-            description: 'Pressed state for color.background.selected',
           },
         },
       },
@@ -372,7 +393,7 @@ Combine with shadow.overlay.`,
           attributes: {
             group: 'paint',
             state: 'deprecated',
-            replacement: 'color.background.brand.[default].hovered',
+            replacement: 'color.background.selected.[default].hovered',
             description: 'Hover state for background.subtleBrand',
           },
         },
@@ -380,7 +401,7 @@ Combine with shadow.overlay.`,
           attributes: {
             group: 'paint',
             state: 'deprecated',
-            replacement: 'color.background.brand.[default].pressed',
+            replacement: 'color.background.selected.[default].pressed',
             description: 'Pressed state for background.subtleBrand',
           },
         },
@@ -388,7 +409,7 @@ Combine with shadow.overlay.`,
           attributes: {
             group: 'paint',
             state: 'deprecated',
-            replacement: 'color.background.brand.[default].[default]',
+            replacement: 'color.background.selected.[default].[default]',
             description:
               'Use for subdued backgrounds of UI elements like information section messages and in progress lozenges.',
           },
@@ -625,15 +646,6 @@ Use for icon-only buttons, or icons paired with text.highEmphasis text
           replacement: 'color.text.warning.inverse',
           description:
             'Use for text and icons when on bold warning backgrounds',
-        },
-      },
-      selected: {
-        attributes: {
-          group: 'paint',
-          state: 'deprecated',
-          replacement: 'color.text.brand',
-          description:
-            'Use for text, icons, borders, or other visual indicators in selected states',
         },
       },
     },

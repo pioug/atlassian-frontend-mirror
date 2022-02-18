@@ -114,6 +114,14 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "description": "Use for text that reinforces our brand."
+    },
+    "value": "#0C66E4"
+  },
+  "Color/Text/Selected": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
     },
     "value": "#0C66E4"
@@ -266,6 +274,14 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "description": "Use for icons that reinforce our brand."
+    },
+    "value": "#0C66E4"
+  },
+  "Color/Icon/Selected": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
     },
     "value": "#0C66E4"
@@ -415,6 +431,14 @@ synchronizeFigmaTokens('AtlassianLight', {
     "value": "#091E420F"
   },
   "Color/Border/Brand": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
+    },
+    "value": "#0C66E4"
+  },
+  "Color/Border/Selected": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -702,35 +726,11 @@ synchronizeFigmaTokens('AtlassianLight', {
     },
     "value": "#172B4D"
   },
-  "Color/Background/Brand/Default/Default": {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
-    },
-    "value": "#E9F2FF"
-  },
-  "Color/Background/Brand/Default/Hovered": {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "description": "Hovered state for color.background.brand"
-    },
-    "value": "#CCE0FF"
-  },
-  "Color/Background/Brand/Default/Pressed": {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "description": "Pressed state for color.background.brand"
-    },
-    "value": "#85B8FF"
-  },
   "Color/Background/Brand/Bold/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for the backgrounds of primary buttons or elements in a selected state, such as checkboxed and radio buttons."
+      "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
     "value": "#0C66E4"
   },
@@ -747,6 +747,54 @@ synchronizeFigmaTokens('AtlassianLight', {
       "group": "paint",
       "state": "active",
       "description": "Pressed state of color.background.brand.bold"
+    },
+    "value": "#09326C"
+  },
+  "Color/Background/Selected/Default/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+    },
+    "value": "#E9F2FF"
+  },
+  "Color/Background/Selected/Default/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Hovered state for color.background.selected"
+    },
+    "value": "#CCE0FF"
+  },
+  "Color/Background/Selected/Default/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Pressed state for color.background.selected"
+    },
+    "value": "#85B8FF"
+  },
+  "Color/Background/Selected/Bold/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for the backgrounds of elements in a selected state, such as checkboxed and radio buttons."
+    },
+    "value": "#0C66E4"
+  },
+  "Color/Background/Selected/Bold/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Hovered state of color.background.selected.bold"
+    },
+    "value": "#0055CC"
+  },
+  "Color/Background/Selected/Bold/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Pressed state of color.background.selected.bold"
     },
     "value": "#09326C"
   },
@@ -1140,9 +1188,13 @@ synchronizeFigmaTokens('AtlassianLight', {
   "Color/Text/MediumEmphasis": "Color/Text/Subtle",
   "Color/Text/OnBold": "Color/Text/Inverse",
   "Color/Text/OnBoldWarning": "Color/Text/Warning/Inverse",
-  "Color/Text/Selected": "Color/Text/Brand",
   "Color/Border/Focus": "Color/Border/Focused",
   "Color/Border/Neutral": "Color/Border/Default",
+  "Color/Background/Brand/Default/Default": "Color/Background/Selected/Default/Default",
+  "Color/Background/Brand/Default/Hovered": "Color/Background/Selected/Default/Hovered",
+  "Color/Background/Brand/Default/Pressed": "Color/Background/Selected/Default/Pressed",
+  "Color/Background/Selected/Resting": "Color/Background/Selected/Default/Default",
+  "Color/Background/Selected/Hover": "Color/Background/Selected/Default/Hovered",
   "Color/Background/Blanket": "Color/Blanket",
   "Color/Background/BoldBrand/Hover": "Color/Background/Brand/Bold/Hovered",
   "Color/Background/BoldBrand/Pressed": "Color/Background/Brand/Bold/Pressed",
@@ -1165,14 +1217,11 @@ synchronizeFigmaTokens('AtlassianLight', {
   "Color/Background/Card": "Elevation/Surface/Raised",
   "Color/Background/Default": "Elevation/Surface/Default",
   "Color/Background/Overlay": "Elevation/Surface/Overlay",
-  "Color/Background/Selected/Resting": "Color/Background/Brand/Default/Default",
-  "Color/Background/Selected/Hover": "Color/Background/Brand/Default/Hovered",
-  "Color/Background/Selected/Pressed": "Color/Background/Brand/Default/Pressed",
   "Color/Background/SubtleBorderedNeutral/Pressed": "Color/Background/Input/Pressed",
   "Color/Background/SubtleBorderedNeutral/Resting": "Color/Background/Input/Default",
-  "Color/Background/SubtleBrand/Hover": "Color/Background/Brand/Default/Hovered",
-  "Color/Background/SubtleBrand/Pressed": "Color/Background/Brand/Default/Pressed",
-  "Color/Background/SubtleBrand/Resting": "Color/Background/Brand/Default/Default",
+  "Color/Background/SubtleBrand/Hover": "Color/Background/Selected/Default/Hovered",
+  "Color/Background/SubtleBrand/Pressed": "Color/Background/Selected/Default/Pressed",
+  "Color/Background/SubtleBrand/Resting": "Color/Background/Selected/Default/Default",
   "Color/Background/SubtleDanger/Hover": "Color/Background/Danger/Default/Hovered",
   "Color/Background/SubtleDanger/Pressed": "Color/Background/Danger/Default/Pressed",
   "Color/Background/SubtleDanger/Resting": "Color/Background/Danger/Default/Default",

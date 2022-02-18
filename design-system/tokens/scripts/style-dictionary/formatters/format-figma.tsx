@@ -33,10 +33,13 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
     }, {});
 
   const renameMap = dictionary.allTokens
-    .filter((token) => !!token.attributes?.replacement)
+    .filter((token) => Boolean(token.attributes?.replacement))
     .reduce<Record<string, string>>((accum, token) => {
       accum[formatTokenPath(token.path)] = formatTokenPath(
-        token.attributes?.replacement.split('.'),
+        (Array.isArray(token.attributes?.replacement)
+          ? token.attributes?.replacement[0]
+          : token.attributes?.replacement
+        ).split('.'),
       );
       return accum;
     }, {});

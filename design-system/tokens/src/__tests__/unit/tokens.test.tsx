@@ -52,7 +52,7 @@ describe('tokens', () => {
   };
 
   it('should assert the count of tokens', () => {
-    expect(Object.keys(tokens)).toHaveLength(218);
+    expect(Object.keys(tokens)).toHaveLength(225);
   });
 
   it('should store token names in dot notation', () => {

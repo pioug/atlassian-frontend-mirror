@@ -18,8 +18,10 @@ const color: ValueSchema<TextColorTokenSchema> = {
       disabled: {
         value: 'N500',
       },
-
       brand: {
+        value: 'B700',
+      },
+      selected: {
         value: 'B700',
       },
       danger: {

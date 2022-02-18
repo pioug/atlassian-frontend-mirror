@@ -31,10 +31,17 @@ const color: ValueSchema<BackgroundColorTokenSchema> = {
         },
       },
       brand: {
+        bold: {
+          '[default]': { value: 'B400' },
+          hovered: { value: 'B300' },
+          pressed: { value: 'B200' },
+        },
+      },
+      selected: {
         '[default]': {
-          '[default]': { value: 'DN200A' },
-          hovered: { value: 'DN300A' },
-          pressed: { value: 'DN400A' },
+          '[default]': { value: 'B1000' },
+          hovered: { value: 'B900' },
+          pressed: { value: 'B800' },
         },
         bold: {
           '[default]': { value: 'B400' },

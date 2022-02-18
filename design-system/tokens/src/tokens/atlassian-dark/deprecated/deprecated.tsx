@@ -45,6 +45,13 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
     },
     background: {
       blanket: { value: 'DN-100A' },
+      brand: {
+        '[default]': {
+          '[default]': { value: 'DN200A' },
+          hovered: { value: 'DN300A' },
+          pressed: { value: 'DN400A' },
+        },
+      },
       boldBrand: {
         resting: { value: 'B400' },
         hover: { value: 'B300' },
@@ -81,7 +88,6 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       selected: {
         resting: { value: 'DN200A' },
         hover: { value: 'DN300A' },
-        pressed: { value: 'DN400A' },
       },
       subtleBorderedNeutral: {
         resting: { value: 'DN100A' },
@@ -133,7 +139,6 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       },
       onBold: { value: 'DN0' },
       onBoldWarning: { value: 'DN0' },
-      selected: { value: 'B400' },
     },
     border: {
       focus: { value: 'B300' },

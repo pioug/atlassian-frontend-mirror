@@ -140,7 +140,7 @@
     "@atlaskit/atlassian-navigation": "^2.1.0",
     "@atlaskit/breadcrumbs": "11.5.3",
     "@atlaskit/code": "^14.3.0",
-    "@atlaskit/collab-provider": "7.1.5",
+    "@atlaskit/collab-provider": "7.1.6",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.1.0",
     "@atlaskit/dropdown-menu": "^11.1.0",

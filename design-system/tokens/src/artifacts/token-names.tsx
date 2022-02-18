@@ -15,6 +15,7 @@ const tokens = {
   'color.text.disabled': '--ds-text-disabled',
   'color.text.inverse': '--ds-text-inverse',
   'color.text.brand': '--ds-text-brand',
+  'color.text.selected': '--ds-text-selected',
   'color.text.danger': '--ds-text-danger',
   'color.text.warning': '--ds-text-warning',
   'color.text.warning.inverse': '--ds-text-warning-inverse',
@@ -28,7 +29,6 @@ const tokens = {
   'color.text.mediumEmphasis': '--ds-text-mediumEmphasis',
   'color.text.onBold': '--ds-text-onBold',
   'color.text.onBoldWarning': '--ds-text-onBoldWarning',
-  'color.text.selected': '--ds-text-selected',
   'color.icon.accent.blue': '--ds-icon-accent-blue',
   'color.icon.accent.red': '--ds-icon-accent-red',
   'color.icon.accent.orange': '--ds-icon-accent-orange',
@@ -42,6 +42,7 @@ const tokens = {
   'color.icon.inverse': '--ds-icon-inverse',
   'color.icon.disabled': '--ds-icon-disabled',
   'color.icon.brand': '--ds-icon-brand',
+  'color.icon.selected': '--ds-icon-selected',
   'color.icon.danger': '--ds-icon-danger',
   'color.icon.warning': '--ds-icon-warning',
   'color.icon.warning.inverse': '--ds-icon-warning-inverse',
@@ -61,6 +62,7 @@ const tokens = {
   'color.border.input': '--ds-border-input',
   'color.border.disabled': '--ds-border-disabled',
   'color.border.brand': '--ds-border-brand',
+  'color.border.selected': '--ds-border-selected',
   'color.border.danger': '--ds-border-danger',
   'color.border.warning': '--ds-border-warning',
   'color.border.success': '--ds-border-success',
@@ -102,12 +104,22 @@ const tokens = {
     '--ds-background-neutral-bold-hovered',
   'color.background.neutral.bold.pressed':
     '--ds-background-neutral-bold-pressed',
-  'color.background.brand': '--ds-background-brand',
-  'color.background.brand.hovered': '--ds-background-brand-hovered',
-  'color.background.brand.pressed': '--ds-background-brand-pressed',
   'color.background.brand.bold': '--ds-background-brand-bold',
   'color.background.brand.bold.hovered': '--ds-background-brand-bold-hovered',
   'color.background.brand.bold.pressed': '--ds-background-brand-bold-pressed',
+  'color.background.brand': '--ds-background-brand',
+  'color.background.brand.hovered': '--ds-background-brand-hovered',
+  'color.background.brand.pressed': '--ds-background-brand-pressed',
+  'color.background.selected': '--ds-background-selected',
+  'color.background.selected.hovered': '--ds-background-selected-hovered',
+  'color.background.selected.pressed': '--ds-background-selected-pressed',
+  'color.background.selected.bold': '--ds-background-selected-bold',
+  'color.background.selected.bold.hovered':
+    '--ds-background-selected-bold-hovered',
+  'color.background.selected.bold.pressed':
+    '--ds-background-selected-bold-pressed',
+  'color.background.selected.resting': '--ds-background-selected-resting',
+  'color.background.selected.hover': '--ds-background-selected-hover',
   'color.background.danger': '--ds-background-danger',
   'color.background.danger.hovered': '--ds-background-danger-hovered',
   'color.background.danger.pressed': '--ds-background-danger-pressed',
@@ -170,9 +182,6 @@ const tokens = {
   'color.background.card': '--ds-background-card',
   'color.background.default': '--ds-background-default',
   'color.background.overlay': '--ds-background-overlay',
-  'color.background.selected.resting': '--ds-background-selected-resting',
-  'color.background.selected.hover': '--ds-background-selected-hover',
-  'color.background.selected.pressed': '--ds-background-selected-pressed',
   'color.background.subtleBorderedNeutral.pressed':
     '--ds-background-subtleBorderedNeutral-pressed',
   'color.background.subtleBorderedNeutral.resting':
@@ -265,6 +274,7 @@ export type CSSTokenMap = {
   'color.text.disabled': 'var(--ds-text-disabled)';
   'color.text.inverse': 'var(--ds-text-inverse)';
   'color.text.brand': 'var(--ds-text-brand)';
+  'color.text.selected': 'var(--ds-text-selected)';
   'color.text.danger': 'var(--ds-text-danger)';
   'color.text.warning': 'var(--ds-text-warning)';
   'color.text.warning.inverse': 'var(--ds-text-warning-inverse)';
@@ -278,7 +288,6 @@ export type CSSTokenMap = {
   'color.text.mediumEmphasis': 'var(--ds-text-mediumEmphasis)';
   'color.text.onBold': 'var(--ds-text-onBold)';
   'color.text.onBoldWarning': 'var(--ds-text-onBoldWarning)';
-  'color.text.selected': 'var(--ds-text-selected)';
   'color.icon.accent.blue': 'var(--ds-icon-accent-blue)';
   'color.icon.accent.red': 'var(--ds-icon-accent-red)';
   'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
@@ -292,6 +301,7 @@ export type CSSTokenMap = {
   'color.icon.inverse': 'var(--ds-icon-inverse)';
   'color.icon.disabled': 'var(--ds-icon-disabled)';
   'color.icon.brand': 'var(--ds-icon-brand)';
+  'color.icon.selected': 'var(--ds-icon-selected)';
   'color.icon.danger': 'var(--ds-icon-danger)';
   'color.icon.warning': 'var(--ds-icon-warning)';
   'color.icon.warning.inverse': 'var(--ds-icon-warning-inverse)';
@@ -311,6 +321,7 @@ export type CSSTokenMap = {
   'color.border.input': 'var(--ds-border-input)';
   'color.border.disabled': 'var(--ds-border-disabled)';
   'color.border.brand': 'var(--ds-border-brand)';
+  'color.border.selected': 'var(--ds-border-selected)';
   'color.border.danger': 'var(--ds-border-danger)';
   'color.border.warning': 'var(--ds-border-warning)';
   'color.border.success': 'var(--ds-border-success)';
@@ -348,12 +359,20 @@ export type CSSTokenMap = {
   'color.background.neutral.bold': 'var(--ds-background-neutral-bold)';
   'color.background.neutral.bold.hovered': 'var(--ds-background-neutral-bold-hovered)';
   'color.background.neutral.bold.pressed': 'var(--ds-background-neutral-bold-pressed)';
-  'color.background.brand': 'var(--ds-background-brand)';
-  'color.background.brand.hovered': 'var(--ds-background-brand-hovered)';
-  'color.background.brand.pressed': 'var(--ds-background-brand-pressed)';
   'color.background.brand.bold': 'var(--ds-background-brand-bold)';
   'color.background.brand.bold.hovered': 'var(--ds-background-brand-bold-hovered)';
   'color.background.brand.bold.pressed': 'var(--ds-background-brand-bold-pressed)';
+  'color.background.brand': 'var(--ds-background-brand)';
+  'color.background.brand.hovered': 'var(--ds-background-brand-hovered)';
+  'color.background.brand.pressed': 'var(--ds-background-brand-pressed)';
+  'color.background.selected': 'var(--ds-background-selected)';
+  'color.background.selected.hovered': 'var(--ds-background-selected-hovered)';
+  'color.background.selected.pressed': 'var(--ds-background-selected-pressed)';
+  'color.background.selected.bold': 'var(--ds-background-selected-bold)';
+  'color.background.selected.bold.hovered': 'var(--ds-background-selected-bold-hovered)';
+  'color.background.selected.bold.pressed': 'var(--ds-background-selected-bold-pressed)';
+  'color.background.selected.resting': 'var(--ds-background-selected-resting)';
+  'color.background.selected.hover': 'var(--ds-background-selected-hover)';
   'color.background.danger': 'var(--ds-background-danger)';
   'color.background.danger.hovered': 'var(--ds-background-danger-hovered)';
   'color.background.danger.pressed': 'var(--ds-background-danger-pressed)';
@@ -406,9 +425,6 @@ export type CSSTokenMap = {
   'color.background.card': 'var(--ds-background-card)';
   'color.background.default': 'var(--ds-background-default)';
   'color.background.overlay': 'var(--ds-background-overlay)';
-  'color.background.selected.resting': 'var(--ds-background-selected-resting)';
-  'color.background.selected.hover': 'var(--ds-background-selected-hover)';
-  'color.background.selected.pressed': 'var(--ds-background-selected-pressed)';
   'color.background.subtleBorderedNeutral.pressed': 'var(--ds-background-subtleBorderedNeutral-pressed)';
   'color.background.subtleBorderedNeutral.resting': 'var(--ds-background-subtleBorderedNeutral-resting)';
   'color.background.subtleBrand.hover': 'var(--ds-background-subtleBrand-hover)';

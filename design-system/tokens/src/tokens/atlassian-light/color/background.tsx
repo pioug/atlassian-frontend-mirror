@@ -31,6 +31,13 @@ const color: ValueSchema<BackgroundColorTokenSchema> = {
         },
       },
       brand: {
+        bold: {
+          '[default]': { value: 'B700' },
+          hovered: { value: 'B800' },
+          pressed: { value: 'B900' },
+        },
+      },
+      selected: {
         '[default]': {
           '[default]': { value: 'B100' },
           hovered: { value: 'B200' },

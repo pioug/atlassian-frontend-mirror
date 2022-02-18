@@ -45,6 +45,13 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
     },
     background: {
       blanket: { value: 'N500A' },
+      brand: {
+        '[default]': {
+          '[default]': { value: 'B100' },
+          hovered: { value: 'B200' },
+          pressed: { value: 'B300' },
+        },
+      },
       boldBrand: {
         resting: { value: 'B700' },
         hover: { value: 'B800' },
@@ -81,7 +88,6 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       selected: {
         resting: { value: 'B100' },
         hover: { value: 'B200' },
-        pressed: { value: 'B300' },
       },
       subtleBorderedNeutral: {
         resting: { value: 'N100A' },
@@ -133,7 +139,6 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       },
       onBold: { value: 'N0' },
       onBoldWarning: { value: 'N1000' },
-      selected: { value: 'B700' },
     },
     border: {
       focus: { value: 'B500' },

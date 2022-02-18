@@ -15,6 +15,7 @@ html[data-theme="dark"] {
   --ds-text-disabled: #5C6C7A;
   --ds-text-inverse: #161A1D;
   --ds-text-brand: #579DFF;
+  --ds-text-selected: #579DFF;
   --ds-text-danger: #FF9C8F;
   --ds-text-warning: #F5CD47;
   --ds-text-warning-inverse: #161A1D;
@@ -28,7 +29,6 @@ html[data-theme="dark"] {
   --ds-text-mediumEmphasis: #9FADBC;
   --ds-text-onBold: #161A1D;
   --ds-text-onBoldWarning: #161A1D;
-  --ds-text-selected: #579DFF;
   --ds-icon-accent-blue: #388BFF;
   --ds-icon-accent-red: #EF5C48;
   --ds-icon-accent-orange: #F18D13;
@@ -42,6 +42,7 @@ html[data-theme="dark"] {
   --ds-icon-inverse: #161A1D;
   --ds-icon-disabled: #5C6C7A;
   --ds-icon-brand: #579DFF;
+  --ds-icon-selected: #579DFF;
   --ds-icon-danger: #EF5C48;
   --ds-icon-warning: #CF9F02;
   --ds-icon-warning-inverse: #161A1D;
@@ -61,6 +62,7 @@ html[data-theme="dark"] {
   --ds-border-input: #A6C5E229;
   --ds-border-disabled: #A1BDD914;
   --ds-border-brand: #579DFF;
+  --ds-border-selected: #579DFF;
   --ds-border-danger: #EF5C48;
   --ds-border-warning: #CF9F02;
   --ds-border-success: #2ABB7F;
@@ -98,12 +100,20 @@ html[data-theme="dark"] {
   --ds-background-neutral-bold: #9FADBC;
   --ds-background-neutral-bold-hovered: #B6C2CF;
   --ds-background-neutral-bold-pressed: #C7D1DB;
-  --ds-background-brand: #A1BDD914;
-  --ds-background-brand-hovered: #A6C5E229;
-  --ds-background-brand-pressed: #BFDBF847;
   --ds-background-brand-bold: #579DFF;
   --ds-background-brand-bold-hovered: #85B8FF;
   --ds-background-brand-bold-pressed: #CCE0FF;
+  --ds-background-brand: #A1BDD914;
+  --ds-background-brand-hovered: #A6C5E229;
+  --ds-background-brand-pressed: #BFDBF847;
+  --ds-background-selected: #082145;
+  --ds-background-selected-hovered: #09326C;
+  --ds-background-selected-pressed: #0055CC;
+  --ds-background-selected-bold: #579DFF;
+  --ds-background-selected-bold-hovered: #85B8FF;
+  --ds-background-selected-bold-pressed: #CCE0FF;
+  --ds-background-selected-resting: #A1BDD914;
+  --ds-background-selected-hover: #A6C5E229;
   --ds-background-danger: #391813;
   --ds-background-danger-hovered: #601E16;
   --ds-background-danger-pressed: #AE2A19;
@@ -156,9 +166,6 @@ html[data-theme="dark"] {
   --ds-background-card: #1D2125;
   --ds-background-default: #161A1D;
   --ds-background-overlay: #22272B;
-  --ds-background-selected-resting: #A1BDD914;
-  --ds-background-selected-hover: #A6C5E229;
-  --ds-background-selected-pressed: #BFDBF847;
   --ds-background-subtleBorderedNeutral-pressed: #A1BDD914;
   --ds-background-subtleBorderedNeutral-resting: #BCD6F00A;
   --ds-background-subtleBrand-hover: #09326C;

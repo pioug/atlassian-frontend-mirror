@@ -18,6 +18,9 @@ const color: ValueSchema<BorderColorTokenSchema> = {
       brand: {
         value: 'B700',
       },
+      selected: {
+        value: 'B700',
+      },
       danger: {
         value: 'R600',
       },

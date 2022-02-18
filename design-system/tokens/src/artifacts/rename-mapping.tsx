@@ -60,11 +60,6 @@ const renameMapper: RenameMap[] = [
     "replacement": "color.text.warning.inverse"
   },
   {
-    "path": "color.text.selected",
-    "state": "deprecated",
-    "replacement": "color.text.brand"
-  },
-  {
     "path": "color.border.focus",
     "state": "deprecated",
     "replacement": "color.border.focused"
@@ -73,6 +68,31 @@ const renameMapper: RenameMap[] = [
     "path": "color.border.neutral",
     "state": "deprecated",
     "replacement": "color.border.[default]"
+  },
+  {
+    "path": "color.background.brand.[default].[default]",
+    "state": "deprecated",
+    "replacement": "color.background.selected.[default].[default]"
+  },
+  {
+    "path": "color.background.brand.[default].hovered",
+    "state": "deprecated",
+    "replacement": "color.background.selected.[default].hovered"
+  },
+  {
+    "path": "color.background.brand.[default].pressed",
+    "state": "deprecated",
+    "replacement": "color.background.selected.[default].pressed"
+  },
+  {
+    "path": "color.background.selected.resting",
+    "state": "deprecated",
+    "replacement": "color.background.selected.[default].[default]"
+  },
+  {
+    "path": "color.background.selected.hover",
+    "state": "deprecated",
+    "replacement": "color.background.selected.[default].hovered"
   },
   {
     "path": "color.background.blanket",
@@ -185,21 +205,6 @@ const renameMapper: RenameMap[] = [
     "replacement": "elevation.surface.overlay"
   },
   {
-    "path": "color.background.selected.resting",
-    "state": "deprecated",
-    "replacement": "color.background.brand.[default].[default]"
-  },
-  {
-    "path": "color.background.selected.hover",
-    "state": "deprecated",
-    "replacement": "color.background.brand.[default].hovered"
-  },
-  {
-    "path": "color.background.selected.pressed",
-    "state": "deprecated",
-    "replacement": "color.background.brand.[default].pressed"
-  },
-  {
     "path": "color.background.subtleBorderedNeutral.pressed",
     "state": "deprecated",
     "replacement": "color.background.input.pressed"
@@ -212,17 +217,17 @@ const renameMapper: RenameMap[] = [
   {
     "path": "color.background.subtleBrand.hover",
     "state": "deprecated",
-    "replacement": "color.background.brand.[default].hovered"
+    "replacement": "color.background.selected.[default].hovered"
   },
   {
     "path": "color.background.subtleBrand.pressed",
     "state": "deprecated",
-    "replacement": "color.background.brand.[default].pressed"
+    "replacement": "color.background.selected.[default].pressed"
   },
   {
     "path": "color.background.subtleBrand.resting",
     "state": "deprecated",
-    "replacement": "color.background.brand.[default].[default]"
+    "replacement": "color.background.selected.[default].[default]"
   },
   {
     "path": "color.background.subtleDanger.hover",

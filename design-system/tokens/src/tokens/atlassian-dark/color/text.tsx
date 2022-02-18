@@ -21,6 +21,9 @@ const color: ValueSchema<TextColorTokenSchema> = {
       brand: {
         value: 'B400',
       },
+      selected: {
+        value: 'B400',
+      },
       danger: {
         value: 'R300',
       },

@@ -45,6 +45,13 @@ const color: AttributeSchema<TextColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          description: 'Use for text that reinforces our brand.',
+        },
+      },
+      selected: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
           description:
             'Use for text in selected or opened states, such as tabs and dropdown buttons.',
         },

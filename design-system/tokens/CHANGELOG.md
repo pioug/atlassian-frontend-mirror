@@ -1,5 +1,37 @@
 # @atlaskit/tokens
 
+## 0.6.2
+
+### Patch Changes
+
+- [`899fd622557`](https://bitbucket.org/atlassian/atlassian-frontend/commits/899fd622557) - Re-introduces the selected and selected.bold tokens:
+
+  - `color.text.selected`
+  - `color.icon.selected`
+  - `color.border.selected`
+  - `color.background.selected`
+  - `color.background.selected.hovered`
+  - `color.background.selected.pressed`
+  - `color.background.selected.bold`
+  - `color.background.selected.bold.hovered`
+  - `color.background.selected.bold.pressed`
+
+  The following tokens are _deprecated_:
+
+  - `color.background.brand`
+  - `color.background.brand.hovered`
+  - `color.background.brand.pressed`
+
+  **IMPORTANT (Manual verification required):**
+
+  Please ensure all usages of the following tokens are replaced with their `selected` counterpart, wherever a brand token is used to represent a selected state.
+
+  - `color.background.brand.[default|hovered|pressed]` => `color.background.selected.[default|hovered|pressed]`
+  - `color.background.brand.bold.[default|hovered|pressed]` => `color.background.selected.bold.[default|hovered|pressed]`
+  - `color.text.brand` => `color.text.selected`
+  - `color.icon.brand` => `color.icon.selected`
+  - `color.border.brand` => `color.border.selected`
+
 ## 0.6.1
 
 ### Patch Changes

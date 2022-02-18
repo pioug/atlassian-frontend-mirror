@@ -1,13 +1,12 @@
 import { Provider } from './provider';
 import { io } from 'socket.io-client';
-import urlParse from 'url-parse';
 import { Socket, Config } from './types';
 
 export function createSocketIOSocket(
   url: string,
   auth?: (cb: (data: object) => void) => void,
 ): Socket {
-  const { pathname } = urlParse(url);
+  const { pathname } = new URL(url);
   return io(url, {
     withCredentials: true,
     transports: ['polling', 'websocket'],

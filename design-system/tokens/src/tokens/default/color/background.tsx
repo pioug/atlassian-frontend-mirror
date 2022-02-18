@@ -128,37 +128,13 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         },
       },
       brand: {
-        '[default]': {
-          '[default]': {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              description:
-                'Use for the background of elements in a selected state, such as in opened dropdown buttons.',
-            },
-          },
-          hovered: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              description: 'Hovered state for color.background.brand',
-            },
-          },
-          pressed: {
-            attributes: {
-              group: 'paint',
-              state: 'active',
-              description: 'Pressed state for color.background.brand',
-            },
-          },
-        },
         bold: {
           '[default]': {
             attributes: {
               group: 'paint',
               state: 'active',
               description:
-                'Use for the backgrounds of primary buttons or elements in a selected state, such as checkboxed and radio buttons.',
+                'Use for the background of elements used to reinforce our brand, but with more emphasis.',
             },
           },
           hovered: {
@@ -173,6 +149,56 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
               group: 'paint',
               state: 'active',
               description: 'Pressed state of color.background.brand.bold',
+            },
+          },
+        },
+      },
+      selected: {
+        '[default]': {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for the background of elements in a selected state, such as in opened dropdown buttons.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state for color.background.selected',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state for color.background.selected',
+            },
+          },
+        },
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for the backgrounds of elements in a selected state, such as checkboxed and radio buttons.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Hovered state of color.background.selected.bold',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Pressed state of color.background.selected.bold',
             },
           },
         },

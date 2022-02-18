@@ -15,6 +15,7 @@
   --ds-text-disabled: #8993A5;
   --ds-text-inverse: #FFFFFF;
   --ds-text-brand: #0C66E4;
+  --ds-text-selected: #0C66E4;
   --ds-text-danger: #AE2A19;
   --ds-text-warning: #974F0C;
   --ds-text-warning-inverse: #172B4D;
@@ -28,7 +29,6 @@
   --ds-text-mediumEmphasis: #44546F;
   --ds-text-onBold: #FFFFFF;
   --ds-text-onBoldWarning: #172B4D;
-  --ds-text-selected: #0C66E4;
   --ds-icon-accent-blue: #1D7AFC;
   --ds-icon-accent-red: #E34935;
   --ds-icon-accent-orange: #D97008;
@@ -42,6 +42,7 @@
   --ds-icon-inverse: #FFFFFF;
   --ds-icon-disabled: #8993A5;
   --ds-icon-brand: #0C66E4;
+  --ds-icon-selected: #0C66E4;
   --ds-icon-danger: #E34935;
   --ds-icon-warning: #D97008;
   --ds-icon-warning-inverse: #172B4D;
@@ -61,6 +62,7 @@
   --ds-border-input: #091E4224;
   --ds-border-disabled: #091E420F;
   --ds-border-brand: #0C66E4;
+  --ds-border-selected: #0C66E4;
   --ds-border-danger: #E34935;
   --ds-border-warning: #D97008;
   --ds-border-success: #22A06B;
@@ -98,12 +100,20 @@
   --ds-background-neutral-bold: #44546F;
   --ds-background-neutral-bold-hovered: #2C3E5D;
   --ds-background-neutral-bold-pressed: #172B4D;
-  --ds-background-brand: #E9F2FF;
-  --ds-background-brand-hovered: #CCE0FF;
-  --ds-background-brand-pressed: #85B8FF;
   --ds-background-brand-bold: #0C66E4;
   --ds-background-brand-bold-hovered: #0055CC;
   --ds-background-brand-bold-pressed: #09326C;
+  --ds-background-brand: #E9F2FF;
+  --ds-background-brand-hovered: #CCE0FF;
+  --ds-background-brand-pressed: #85B8FF;
+  --ds-background-selected: #E9F2FF;
+  --ds-background-selected-hovered: #CCE0FF;
+  --ds-background-selected-pressed: #85B8FF;
+  --ds-background-selected-bold: #0C66E4;
+  --ds-background-selected-bold-hovered: #0055CC;
+  --ds-background-selected-bold-pressed: #09326C;
+  --ds-background-selected-resting: #E9F2FF;
+  --ds-background-selected-hover: #CCE0FF;
   --ds-background-danger: #FFEDEB;
   --ds-background-danger-hovered: #FFD2CC;
   --ds-background-danger-pressed: #FF9C8F;
@@ -156,9 +166,6 @@
   --ds-background-card: #FFFFFF;
   --ds-background-default: #FFFFFF;
   --ds-background-overlay: #FFFFFF;
-  --ds-background-selected-resting: #E9F2FF;
-  --ds-background-selected-hover: #CCE0FF;
-  --ds-background-selected-pressed: #85B8FF;
   --ds-background-subtleBorderedNeutral-pressed: #091E420F;
   --ds-background-subtleBorderedNeutral-resting: #091E4208;
   --ds-background-subtleBrand-hover: #CCE0FF;

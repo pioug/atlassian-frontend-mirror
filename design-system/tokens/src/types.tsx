@@ -238,6 +238,13 @@ export interface BackgroundColorTokenSchema {
         };
       };
       brand: {
+        bold: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
+      selected: {
         '[default]': {
           '[default]': PaintToken;
           hovered: PaintToken;
@@ -321,6 +328,7 @@ export interface BorderColorTokenSchema {
       input: PaintToken;
       disabled: PaintToken;
       brand: PaintToken;
+      selected: PaintToken;
       danger: PaintToken;
       warning: PaintToken;
       success: PaintToken;
@@ -338,6 +346,7 @@ export interface IconColorTokenSchema {
       inverse: PaintToken;
       disabled: PaintToken;
       brand: PaintToken;
+      selected: PaintToken;
       danger: PaintToken;
       warning: {
         '[default]': PaintToken;
@@ -358,6 +367,7 @@ export interface TextColorTokenSchema {
       subtlest: PaintToken;
       inverse: PaintToken;
       brand: PaintToken;
+      selected: PaintToken;
       danger: PaintToken;
       warning: {
         '[default]': PaintToken;
@@ -517,9 +527,15 @@ export interface DeprecatedTokenSchema {
       selected: {
         resting: PaintToken;
         hover: PaintToken;
-        pressed: PaintToken;
       };
       blanket: PaintToken;
+      brand: {
+        '[default]': {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
       boldBrand: {
         resting: PaintToken;
         hover: PaintToken;
@@ -601,7 +617,6 @@ export interface DeprecatedTokenSchema {
       discovery: PaintToken;
     };
     text: {
-      selected: PaintToken;
       highEmphasis: PaintToken;
       mediumEmphasis: PaintToken;
       lowEmphasis: PaintToken;

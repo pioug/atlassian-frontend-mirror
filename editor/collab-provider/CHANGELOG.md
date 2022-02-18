@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 7.1.6
+
+### Patch Changes
+
+- [`5d5d6468ba9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d5d6468ba9) - Remove url-parse from collab-provider
+
+  Url-parse can be replaced with the built-in URL constructor
+
 ## 7.1.5
 
 ### Patch Changes

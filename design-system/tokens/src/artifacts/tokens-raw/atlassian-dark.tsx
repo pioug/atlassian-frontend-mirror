@@ -327,6 +327,30 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "description": "Use for text that reinforces our brand."
+    },
+    "value": "#579DFF",
+    "filePath": "src/tokens/atlassian-dark/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for text that reinforces our brand."
+      },
+      "value": "B400"
+    },
+    "name": "color.text.brand",
+    "path": [
+      "color",
+      "text",
+      "brand"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
     },
     "value": "#579DFF",
@@ -340,11 +364,11 @@ const tokens = [
       },
       "value": "B400"
     },
-    "name": "color.text.brand",
+    "name": "color.text.selected",
     "path": [
       "color",
       "text",
-      "brand"
+      "selected"
     ]
   },
   {
@@ -680,32 +704,6 @@ const tokens = [
   {
     "attributes": {
       "group": "paint",
-      "state": "deprecated",
-      "replacement": "color.text.brand",
-      "description": "Use for text, icons, borders, or other visual indicators in selected states"
-    },
-    "value": "#579DFF",
-    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deprecated",
-        "replacement": "color.text.brand",
-        "description": "Use for text, icons, borders, or other visual indicators in selected states"
-      },
-      "value": "B400"
-    },
-    "name": "color.text.selected",
-    "path": [
-      "color",
-      "text",
-      "selected"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
       "state": "active",
       "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
@@ -1003,6 +1001,30 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "description": "Use for icons that reinforce our brand."
+    },
+    "value": "#579DFF",
+    "filePath": "src/tokens/atlassian-dark/color/icon.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for icons that reinforce our brand."
+      },
+      "value": "B400"
+    },
+    "name": "color.icon.brand",
+    "path": [
+      "color",
+      "icon",
+      "brand"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
     },
     "value": "#579DFF",
@@ -1016,11 +1038,11 @@ const tokens = [
       },
       "value": "B400"
     },
-    "name": "color.icon.brand",
+    "name": "color.icon.selected",
     "path": [
       "color",
       "icon",
-      "brand"
+      "selected"
     ]
   },
   {
@@ -1469,6 +1491,30 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
+    },
+    "value": "#579DFF",
+    "filePath": "src/tokens/atlassian-dark/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
+      },
+      "value": "B400"
+    },
+    "name": "color.border.brand",
+    "path": [
+      "color",
+      "border",
+      "brand"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
     },
     "value": "#579DFF",
@@ -1482,11 +1528,11 @@ const tokens = [
       },
       "value": "B400"
     },
-    "name": "color.border.brand",
+    "name": "color.border.selected",
     "path": [
       "color",
       "border",
-      "brand"
+      "selected"
     ]
   },
   {
@@ -2438,85 +2484,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
-    },
-    "value": "#A1BDD914",
-    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
-      },
-      "value": "DN200A"
-    },
-    "name": "color.background.brand.[default].[default]",
-    "path": [
-      "color",
-      "background",
-      "brand",
-      "[default]",
-      "[default]"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "description": "Hovered state for color.background.brand"
-    },
-    "value": "#A6C5E229",
-    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "description": "Hovered state for color.background.brand"
-      },
-      "value": "DN300A"
-    },
-    "name": "color.background.brand.[default].hovered",
-    "path": [
-      "color",
-      "background",
-      "brand",
-      "[default]",
-      "hovered"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "description": "Pressed state for color.background.brand"
-    },
-    "value": "#BFDBF847",
-    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "description": "Pressed state for color.background.brand"
-      },
-      "value": "DN400A"
-    },
-    "name": "color.background.brand.[default].pressed",
-    "path": [
-      "color",
-      "background",
-      "brand",
-      "[default]",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "description": "Use for the backgrounds of primary buttons or elements in a selected state, such as checkboxed and radio buttons."
+      "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
     "value": "#579DFF",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
@@ -2525,7 +2493,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "description": "Use for the backgrounds of primary buttons or elements in a selected state, such as checkboxed and radio buttons."
+        "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
       },
       "value": "B400"
     },
@@ -2588,6 +2556,300 @@ const tokens = [
       "brand",
       "bold",
       "pressed"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.selected.[default].[default]",
+      "description": "Use for the background of elements used to reinforce our brand."
+    },
+    "value": "#A1BDD914",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.selected.[default].[default]",
+        "description": "Use for the background of elements used to reinforce our brand."
+      },
+      "value": "DN200A"
+    },
+    "name": "color.background.brand.[default].[default]",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.selected.[default].hovered",
+      "description": "Hovered state for color.background.brand"
+    },
+    "value": "#A6C5E229",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.selected.[default].hovered",
+        "description": "Hovered state for color.background.brand"
+      },
+      "value": "DN300A"
+    },
+    "name": "color.background.brand.[default].hovered",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.selected.[default].pressed",
+      "description": "Pressed state for color.background.brand"
+    },
+    "value": "#BFDBF847",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.selected.[default].pressed",
+        "description": "Pressed state for color.background.brand"
+      },
+      "value": "DN400A"
+    },
+    "name": "color.background.brand.[default].pressed",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "[default]",
+      "pressed"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+    },
+    "value": "#082145",
+    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
+      },
+      "value": "B1000"
+    },
+    "name": "color.background.selected.[default].[default]",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "[default]",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Hovered state for color.background.selected"
+    },
+    "value": "#09326C",
+    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Hovered state for color.background.selected"
+      },
+      "value": "B900"
+    },
+    "name": "color.background.selected.[default].hovered",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "[default]",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Pressed state for color.background.selected"
+    },
+    "value": "#0055CC",
+    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Pressed state for color.background.selected"
+      },
+      "value": "B800"
+    },
+    "name": "color.background.selected.[default].pressed",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "[default]",
+      "pressed"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for the backgrounds of elements in a selected state, such as checkboxed and radio buttons."
+    },
+    "value": "#579DFF",
+    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for the backgrounds of elements in a selected state, such as checkboxed and radio buttons."
+      },
+      "value": "B400"
+    },
+    "name": "color.background.selected.bold.[default]",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "bold",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Hovered state of color.background.selected.bold"
+    },
+    "value": "#85B8FF",
+    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Hovered state of color.background.selected.bold"
+      },
+      "value": "B300"
+    },
+    "name": "color.background.selected.bold.hovered",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "bold",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Pressed state of color.background.selected.bold"
+    },
+    "value": "#CCE0FF",
+    "filePath": "src/tokens/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Pressed state of color.background.selected.bold"
+      },
+      "value": "B200"
+    },
+    "name": "color.background.selected.bold.pressed",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "bold",
+      "pressed"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.selected.[default].[default]",
+      "description": "Use for backgrounds of elements in a selected state"
+    },
+    "value": "#A1BDD914",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.selected.[default].[default]",
+        "description": "Use for backgrounds of elements in a selected state"
+      },
+      "value": "DN200A"
+    },
+    "name": "color.background.selected.resting",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "resting"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.selected.[default].hovered",
+      "description": "Hover state for color.background.selected"
+    },
+    "value": "#A6C5E229",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.selected.[default].hovered",
+        "description": "Hover state for color.background.selected"
+      },
+      "value": "DN300A"
+    },
+    "name": "color.background.selected.hover",
+    "path": [
+      "color",
+      "background",
+      "selected",
+      "hover"
     ]
   },
   {
@@ -3964,87 +4226,6 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.brand.[default].[default]",
-      "description": "Use for backgrounds of elements in a selected state"
-    },
-    "value": "#A1BDD914",
-    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deprecated",
-        "replacement": "color.background.brand.[default].[default]",
-        "description": "Use for backgrounds of elements in a selected state"
-      },
-      "value": "DN200A"
-    },
-    "name": "color.background.selected.resting",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "resting"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deprecated",
-      "replacement": "color.background.brand.[default].hovered",
-      "description": "Hover state for color.background.selected"
-    },
-    "value": "#A6C5E229",
-    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deprecated",
-        "replacement": "color.background.brand.[default].hovered",
-        "description": "Hover state for color.background.selected"
-      },
-      "value": "DN300A"
-    },
-    "name": "color.background.selected.hover",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "hover"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deprecated",
-      "replacement": "color.background.brand.[default].pressed",
-      "description": "Pressed state for color.background.selected"
-    },
-    "value": "#BFDBF847",
-    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "deprecated",
-        "replacement": "color.background.brand.[default].pressed",
-        "description": "Pressed state for color.background.selected"
-      },
-      "value": "DN400A"
-    },
-    "name": "color.background.selected.pressed",
-    "path": [
-      "color",
-      "background",
-      "selected",
-      "pressed"
-    ]
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "deprecated",
       "replacement": "color.background.input.pressed",
       "description": "Pressed state for background.subtleBorderedNeutral"
     },
@@ -4099,7 +4280,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.brand.[default].hovered",
+      "replacement": "color.background.selected.[default].hovered",
       "description": "Hover state for background.subtleBrand"
     },
     "value": "#09326C",
@@ -4109,7 +4290,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.brand.[default].hovered",
+        "replacement": "color.background.selected.[default].hovered",
         "description": "Hover state for background.subtleBrand"
       },
       "value": "B900"
@@ -4126,7 +4307,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.brand.[default].pressed",
+      "replacement": "color.background.selected.[default].pressed",
       "description": "Pressed state for background.subtleBrand"
     },
     "value": "#0055CC",
@@ -4136,7 +4317,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.brand.[default].pressed",
+        "replacement": "color.background.selected.[default].pressed",
         "description": "Pressed state for background.subtleBrand"
       },
       "value": "B800"
@@ -4153,7 +4334,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.brand.[default].[default]",
+      "replacement": "color.background.selected.[default].[default]",
       "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
     },
     "value": "#082145",
@@ -4163,7 +4344,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.brand.[default].[default]",
+        "replacement": "color.background.selected.[default].[default]",
         "description": "Use for subdued backgrounds of UI elements like information section messages and in progress lozenges."
       },
       "value": "B1000"

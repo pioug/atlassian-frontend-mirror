@@ -1,5 +1,15 @@
 # @atlaskit/right-side-panel
 
+## 1.1.0
+
+### Minor Changes
+
+- [`aa70f95a3de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa70f95a3de) - [ux] Added new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
 ## 1.0.0
 
 ### Major Changes

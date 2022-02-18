@@ -33,7 +33,7 @@ describe('#sendData', () => {
       sendUIEvent: jest.fn(),
     };
     const testProviderConfigWithAnalytics = {
-      url: `http://provider-url:66661`,
+      url: `http://provider-url:6661`,
       documentAri: 'ari:cloud:confluence:ABC:page/testpage',
       analyticsClient: fakeAnalyticsWebClient,
     };

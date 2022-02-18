@@ -36,6 +36,13 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          description: 'Use for icons that reinforce our brand.',
+        },
+      },
+      selected: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
           description:
             'Use for icons in selected or opened states, such as those used in dropdown buttons.',
         },

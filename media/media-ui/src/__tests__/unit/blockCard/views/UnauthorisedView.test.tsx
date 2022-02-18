@@ -5,7 +5,7 @@ import { BlockCardUnauthorisedView } from '../../../../BlockCard';
 import {
   getResolvedProps,
   mockUrl,
-} from '../../../__mocks__/get-resolved-props';
+} from '../../../__mocks__/get-resolved-props-mock';
 import { ResolvedViewProps } from '../../../../BlockCard/views/ResolvedView';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();

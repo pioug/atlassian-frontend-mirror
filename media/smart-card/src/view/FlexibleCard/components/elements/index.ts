@@ -27,6 +27,7 @@ export const Priority = createElement<BadgeProps>(ElementName.Priority);
 export const ProgrammingLanguage = createElement<BadgeProps>(
   ElementName.ProgrammingLanguage,
 );
+export const Snippet = createElement<TextProps>(ElementName.Snippet);
 export const State = createElement<LozengeProps>(ElementName.State);
 export const SubscriberCount = createElement<BadgeProps>(
   ElementName.SubscriberCount,

@@ -6,7 +6,7 @@ import {
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 
 import {

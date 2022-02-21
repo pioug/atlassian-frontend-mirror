@@ -6,6 +6,7 @@ import {
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import { token } from '@atlaskit/tokens';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
@@ -93,8 +94,8 @@ export const ArticlesListItem: React.FC<
             <ShortcutIcon
               size="small"
               label=""
-              primaryColor={colors.N90}
-              secondaryColor={colors.N90}
+              primaryColor={token('color.icon.subtle', colors.N90)}
+              secondaryColor={token('color.icon.subtle', colors.N90)}
             />
           </ArticlesListItemLinkIcon>
         )}

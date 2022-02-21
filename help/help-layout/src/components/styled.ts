@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const Container = styled.div`
   position: absolute;
@@ -13,7 +14,7 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: ${token('elevation.surface', '#FFFFFF')};
 `;
 
 export const Section = styled.div`
@@ -24,7 +25,7 @@ export const Section = styled.div`
 `;
 
 export const DividerLine = styled.div`
-  background-color: ${colors.N30A};
+  background-color: ${token('color.border', colors.N30A)};
   height: 2px;
   width: 100%;
   padding: 0 ${2 * gridSize()}px;
@@ -36,8 +37,8 @@ const FOOTER_BORDER_TOP = 2;
 export const HelpFooter = styled.div`
   padding: ${gridSize()}px 0;
   box-sizing: border-box;
-  background-color: ${colors.N10};
-  border-top: ${FOOTER_BORDER_TOP}px solid ${colors.N30};
+  background-color: ${token('color.background.neutral', colors.N10)};
+  border-top: ${FOOTER_BORDER_TOP}px solid ${token('color.border', colors.N30)};
   justify-content: space-between;
 `;
 
@@ -77,12 +78,12 @@ export const LoadingRectangle = styled.div<LoadingRectangleProps>`
   animation-iteration-count: infinite;
   animation-name: ${shimmer};
   animation-timing-function: linear;
-  background-color: ${colors.N30};
+  background-color: ${token('color.background.neutral', colors.N30)};
   background-image: linear-gradient(
     to right,
-    ${colors.N30} 10%,
-    ${colors.N40} 20%,
-    ${colors.N30} 30%
+    ${token('color.background.neutral.subtle', colors.N30)} 10%,
+    ${token('color.background.neutral', colors.N40)} 20%,
+    ${token('color.background.neutral.subtle', colors.N30)} 30%
   );
   background-repeat: no-repeat;
 `;

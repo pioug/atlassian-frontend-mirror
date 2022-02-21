@@ -4,6 +4,7 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 const baseHeading = (size: number, lineHeight: number) => `
   font-size: ${size / fontSize()}em;
@@ -20,7 +21,7 @@ export const truncate = (width: string = '100%') => css`
 
 export const RelatedArticlesTitle = styled.div`
   ${baseHeading(16, 20)}
-  color: ${colors.heading};
+  color: ${token('color.text', colors.N800)};
   font-weight: 600;
   letter-spacing: -0.006em;
   padding: ${gridSize() * 2}px 0;

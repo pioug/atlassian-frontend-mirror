@@ -3,6 +3,8 @@ import { LinkPerson } from '../../extractors/common/person/types';
 import { IconType } from '../../constants';
 
 export type FlexibleUiDataContext = {
+  authorGroup?: LinkPerson[];
+  collaboratorGroup?: LinkPerson[];
   commentCount?: number;
   createdBy?: string;
   createdOn?: string;
@@ -11,12 +13,11 @@ export type FlexibleUiDataContext = {
   modifiedOn?: string;
   priority?: Icon;
   programmingLanguage?: string;
+  snippet?: string;
   subscriberCount?: number;
   state?: LinkLozenge;
   title?: string;
   url?: string;
-  authorGroup?: LinkPerson[];
-  collaboratorGroup?: LinkPerson[];
 };
 
 export type Icon = {

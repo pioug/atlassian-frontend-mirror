@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.3.2
+
+### Patch Changes
+
+- [`02ed34221ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ed34221ef) - Flexible UI: Add Snippet element
+
 ## 17.3.1
 
 ### Patch Changes

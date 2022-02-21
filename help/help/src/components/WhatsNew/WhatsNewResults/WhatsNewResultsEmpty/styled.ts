@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const WhatsNewResultsEmptyMessageImage = styled.div`
   padding: ${3 * gridSize()}px ${3 * gridSize()}px 0 ${3 * gridSize()}px;
@@ -13,6 +14,6 @@ export const WhatsNewResultsEmptyMessageText = styled.div`
   text-align: center;
 
   p {
-    color: ${colors.N200};
+    color: ${token('color.text.subtlest', colors.N200)};
   }
 `;

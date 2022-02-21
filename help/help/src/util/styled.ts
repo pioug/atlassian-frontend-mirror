@@ -3,11 +3,12 @@
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { keyframes } from '@emotion/core';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
 export const DividerLine = styled.div`
-  background-color: ${colors.N30A};
+  background-color: ${token('color.border', colors.N30A)};
   height: 2px;
   width: 100%;
   padding: 0 ${2 * gridSize()}px;
@@ -48,12 +49,12 @@ export const LoadingRectangle = styled.div<LoadingRectangleProps>`
   animation-iteration-count: infinite;
   animation-name: ${shimmer};
   animation-timing-function: linear;
-  background-color: ${colors.N30};
+  background-color: ${token('color.background.neutral', colors.N30)};
   background-image: linear-gradient(
     to right,
-    ${colors.N30} 10%,
-    ${colors.N40} 20%,
-    ${colors.N30} 30%
+    ${token('color.background.neutral.subtle', colors.N30)} 10%,
+    ${token('color.background.neutral', colors.N40)} 20%,
+    ${token('color.background.neutral.subtle', colors.N30)} 30%
   );
   background-repeat: no-repeat;
 `;
@@ -79,12 +80,12 @@ export const LoadingCircle = styled.div<LoadingCircleProps>`
   animation-iteration-count: infinite;
   animation-name: ${shimmer};
   animation-timing-function: linear;
-  background-color: ${colors.N30};
+  background-color: ${token('color.background.neutral', colors.N30)};
   background-image: linear-gradient(
     to right,
-    ${colors.N30} 10%,
-    ${colors.N40} 20%,
-    ${colors.N30} 30%
+    ${token('color.background.neutral.subtle', colors.N30)} 10%,
+    ${token('color.background.neutral', colors.N40)} 20%,
+    ${token('color.background.neutral.subtle', colors.N30)} 30%
   );
   background-repeat: no-repeat;
 `;
@@ -106,22 +107,22 @@ export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
   background-color: ${({ type }) => {
     switch (type) {
       case WHATS_NEW_ITEM_TYPES.IMPROVEMENT:
-        return colors.Y200;
+        return token('color.icon.warning', colors.Y200);
 
       case WHATS_NEW_ITEM_TYPES.NEW_FEATURE:
-        return colors.G300;
+        return token('color.icon.success', colors.G300);
 
       case WHATS_NEW_ITEM_TYPES.FIX:
-        return colors.B500;
+        return token('color.icon.information', colors.B500);
 
       case WHATS_NEW_ITEM_TYPES.EXPERIMENT:
-        return colors.P500;
+        return token('color.icon.discovery', colors.P500);
 
       case WHATS_NEW_ITEM_TYPES.REMOVED:
-        return colors.N700;
+        return token('color.icon.disabled', colors.N700);
 
       default:
-        return colors.N400;
+        return token('color.icon', colors.N400);
     }
   }};
 

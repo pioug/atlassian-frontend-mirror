@@ -43,7 +43,7 @@ describe('getContextByStatus', () => {
         '@type': ['Document', 'schema:TextDigitalDocument'],
         url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
         name: 'Everything you need to know about ShipIt53!',
-        summary: ' ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+        summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
       },
     });
 
@@ -53,6 +53,7 @@ describe('getContextByStatus', () => {
         label: 'Everything you need to know about ShipIt53!',
       },
       title: 'Everything you need to know about ShipIt53!',
+      snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
       url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
     });
   });

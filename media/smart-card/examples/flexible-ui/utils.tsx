@@ -16,6 +16,10 @@ import {
   SmartLinkTheme,
 } from '../../src';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
+import {
+  ElementDisplaySchema,
+  ElementDisplaySchemaType,
+} from '../../src/view/FlexibleCard/components/blocks/utils';
 
 export const mockUrls = Object.keys(examples).reduce(
   (acc, key) => ({ ...acc, [key]: `https://${key}` }),
@@ -97,10 +101,14 @@ export const renderActionOptions = (
 export const renderMetadataOptions = (
   elementItems: ElementItem[],
   setElementGroup: Function,
+  display: ElementDisplaySchemaType = 'inline',
 ) => {
   const options = Object.values(ElementName)
     .filter(
-      (name) => name !== ElementName.Title && name !== ElementName.LinkIcon,
+      (name) =>
+        name !== ElementName.Title &&
+        name !== ElementName.LinkIcon &&
+        ElementDisplaySchema[name].includes(display),
     )
     .map((name) => ({ label: name, value: name }));
 

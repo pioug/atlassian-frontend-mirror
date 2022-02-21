@@ -7,13 +7,7 @@ exports[`BackButton Should match snapshot 1`] = `
   left: 8px;
 }
 
-.emotion-3,
-.emotion-3:hover,
-.emotion-3:active,
-.emotion-3:focus,
-.emotion-3:visited,
-.emotion-3:disabled,
-.emotion-3[disabled] {
+.emotion-3 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -38,7 +32,7 @@ exports[`BackButton Should match snapshot 1`] = `
   transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47,0.03,0.49,1.38);
   white-space: nowrap;
   background: none;
-  color: #42526E;
+  color: var(--ds-text,#42526E) !important;
   cursor: pointer;
   height: 2.2857142857142856em;
   line-height: 2.2857142857142856em;
@@ -49,16 +43,66 @@ exports[`BackButton Should match snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.emotion-3:visited {
+  background: none;
+  color: var(--ds-text,#42526E) !important;
+}
+
+.emotion-3:hover {
+  background: var(--ds-background-neutral-subtle-hovered,rgba(9,30,66,0.08));
+  color: var(--ds-text,#42526E) !important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  -webkit-transition-duration: 0s,0.15s;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-3:focus {
+  background: none;
+  color: var(--ds-text,#42526E) !important;
+  box-shadow: 0 0 0 2px var(--ds-border-focused,#4C9AFF);
+  -webkit-transition-duration: 0s,0.2s;
+  transition-duration: 0s,0.2s;
   outline: none;
 }
 
-.emotion-3::-moz-focus-inner,
-.emotion-3:hover::-moz-focus-inner,
-.emotion-3:active::-moz-focus-inner,
-.emotion-3:focus::-moz-focus-inner,
-.emotion-3:visited::-moz-focus-inner,
-.emotion-3:disabled::-moz-focus-inner,
-.emotion-3[disabled]::-moz-focus-inner {
+.emotion-3:active {
+  background: var(--ds-background-neutral-subtle-pressed,rgba(179,212,255,0.6));
+  color: var(--ds-text,#0052CC) !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-3[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-subtle-pressed,rgba(179,212,255,0.6));
+  color: var(--ds-text,#0052CC) !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-3[disabled] {
+  background: none;
+  color: var(--ds-text-disabled,#A5ADBA) !important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-3[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-3[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-3[data-has-overlay="true"]:not([disabled]):active {
+  background: none;
+  color: var(--ds-text,#42526E) !important;
+}
+
+.emotion-3::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;

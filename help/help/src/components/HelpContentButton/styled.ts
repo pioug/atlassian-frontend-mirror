@@ -3,12 +3,13 @@
 import styled from 'styled-components';
 import * as colors from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const HelpContentButtonContainer = styled.a`
   display: block;
   cursor: pointer;
   width: calc(100% - ${gridSize() * 2}px);
-  color: ${colors.N600};
+  color: ${token('color.text.subtle', colors.N600)};
   padding: ${gridSize}px;
   border-radius: 3px;
 
@@ -19,19 +20,25 @@ export const HelpContentButtonContainer = styled.a`
     text-decoration: none;
     outline: none;
     outline-offset: none;
-    color: ${colors.N600};
+    color: ${token('color.text.subtle', colors.N600)};
   }
 
   &:focus {
-    box-shadow: ${colors.B100} 0 0 0 2px inset;
+    box-shadow: ${token('color.border.focused', colors.B100)} 0 0 0 2px inset;
   }
 
   &:hover {
-    background-color: ${colors.N30};
+    background-color: ${token(
+      'color.background.neutral.subtle.hovered',
+      colors.N30,
+    )};
   }
 
   &:active {
-    background-color: ${colors.B50};
+    background-color: ${token(
+      'color.background.neutral.subtle.pressed',
+      colors.B50,
+    )};
   }
 `;
 

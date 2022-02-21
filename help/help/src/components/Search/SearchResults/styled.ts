@@ -2,13 +2,14 @@
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const SearchResultsContainer = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
   top: 0;
-  background-color: #ffffff;
+  background-color: ${token('elevation.surface', '#FFFFFF')};
   flex: 1;
   flex-direction: column;
   box-sizing: border-box;
@@ -33,7 +34,7 @@ export const SearchResultEmptyMessageText = styled.div`
   text-align: center;
 
   p {
-    color: ${colors.N200};
+    color: ${token('color.text.subtlest', colors.N200)};
   }
 `;
 
@@ -42,6 +43,6 @@ export const SearchResultSearchExternalSiteContainer = styled.div`
   text-align: center;
 
   p {
-    color: ${colors.N200};
+    color: ${token('color.text.subtlest', colors.N200)};
   }
 `;

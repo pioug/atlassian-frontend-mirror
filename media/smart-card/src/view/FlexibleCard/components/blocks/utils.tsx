@@ -2,12 +2,38 @@ import React from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 
 import { ActionItem, ElementItem } from './types';
-import { SmartLinkDirection, SmartLinkSize } from '../../../../constants';
+import {
+  ElementName,
+  SmartLinkDirection,
+  SmartLinkSize,
+} from '../../../../constants';
 import * as Elements from '../elements';
 import * as Actions from '../actions';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import ActionGroup from './action-group';
 import ElementGroup from './element-group';
+
+// Determine whether the element can be display as inline/block.
+export type ElementDisplaySchemaType = 'inline' | 'block';
+export const ElementDisplaySchema: Record<
+  ElementName,
+  ElementDisplaySchemaType[]
+> = {
+  [ElementName.AuthorGroup]: ['inline'],
+  [ElementName.CollaboratorGroup]: ['inline'],
+  [ElementName.CommentCount]: ['inline'],
+  [ElementName.CreatedBy]: ['inline'],
+  [ElementName.CreatedOn]: ['inline'],
+  [ElementName.LinkIcon]: ['inline'],
+  [ElementName.ModifiedBy]: ['inline'],
+  [ElementName.ModifiedOn]: ['inline'],
+  [ElementName.Priority]: ['inline'],
+  [ElementName.ProgrammingLanguage]: ['inline'],
+  [ElementName.Snippet]: ['block'],
+  [ElementName.State]: ['inline'],
+  [ElementName.SubscriberCount]: ['inline'],
+  [ElementName.Title]: ['inline'],
+};
 
 const getDirectionStyles = (
   direction?: SmartLinkDirection,
@@ -66,6 +92,13 @@ export const getBaseStyles = (
 const isActionGroup = (node: React.ReactNode) =>
   React.isValidElement(node) && node.type === ActionGroup;
 
+const isElementDisplayValid = (
+  name: ElementName,
+  display: ElementDisplaySchemaType,
+): boolean => {
+  return ElementDisplaySchema[name]?.includes(display) ?? false;
+};
+
 const isElementNull = (children: JSX.Element) => {
   return Boolean(children.type() === null);
 };
@@ -89,12 +122,13 @@ export const renderChildren = (
 
 export const renderElementItems = (
   items: ElementItem[] = [],
+  display: ElementDisplaySchemaType = 'inline',
 ): React.ReactNode | undefined => {
   const elements = items.reduce(
     (acc: React.ReactElement[], curr: ElementItem, idx: number) => {
       const { name, ...props } = curr;
       const Element = Elements[name];
-      if (Element) {
+      if (Element && isElementDisplayValid(name, display)) {
         const element = <Element key={idx} {...props} />;
         if (!isElementNull(element)) {
           return [...acc, element];

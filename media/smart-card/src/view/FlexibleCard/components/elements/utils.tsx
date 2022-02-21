@@ -36,6 +36,7 @@ const elementMappings: Record<
     component: Badge,
     props: { icon: IconType.ProgrammingLanguage },
   },
+  [ElementName.Snippet]: { component: Text, props: { maxLines: 3 } },
   [ElementName.State]: { component: Lozenge },
   [ElementName.SubscriberCount]: {
     component: Badge,
@@ -80,6 +81,8 @@ const getData = (
       return toFormattedTextProps(messages.modified_by, context.modifiedBy);
     case ElementName.ModifiedOn:
       return toDateTimeProps('modified', context.modifiedOn);
+    case ElementName.Snippet:
+      return toTextProps(data as string | undefined);
     case ElementName.Title:
       return toLinkProps(context.title, context.url);
     default:
@@ -116,6 +119,10 @@ const toLinkProps = (
   url?: string,
 ): Partial<LinkProps> | undefined => {
   return text ? { text, url } : undefined;
+};
+
+const toTextProps = (content?: string): Partial<TextProps> | undefined => {
+  return content ? { content } : undefined;
 };
 
 export const createElement = <P extends {}>(name: ElementName): React.FC<P> => {

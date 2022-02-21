@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const ExampleWrapper = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ export const ExampleDefaultContent = styled.div`
 export const FooterContent = styled.div`
   text-align: center;
   font-size: 11px;
-  color: ${colors.N200};
+  color: ${token('color.text.subtlest', colors.N200)};
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -39,6 +40,7 @@ export const HelpWrapper = styled.div`
   height: 100%;
   position: relative;
   overflow-x: hidden;
+  background-color: ${token('elevation.surface', colors.N200)};
 `;
 
 export const HelpContainer = styled.div`
@@ -47,5 +49,5 @@ export const HelpContainer = styled.div`
   vertical-align: top;
   padding: ${gridSize() * 2}px;
   box-sizing: border-box;
-  background-color: ${colors.N200};
+  background-color: ${token('color.background.neutral.bold', colors.N200)};
 `;

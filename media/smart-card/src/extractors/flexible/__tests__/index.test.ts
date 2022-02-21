@@ -21,6 +21,7 @@ describe('extractFlexibleUiContext', () => {
         label: 'Everything you need to know about ShipIt53!',
       },
       title: 'Everything you need to know about ShipIt53!',
+      snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
       url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
       commentCount: 24,
       subscriberCount: 21,
@@ -35,6 +36,8 @@ describe('extractFlexibleUiContext', () => {
         icon: 'FileType:Blog',
         label: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
       },
+      snippet:
+        'A few weeks ago, we announced a brand new award for ShipIt - the Customer Fun Award. The goal was to generate ideas to create fun experiences in our new product, Canvas.',
       title: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
       url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
       commentCount: 7,
@@ -62,6 +65,7 @@ describe('extractFlexibleUiContext', () => {
         icon: 'FileType:Template',
         label: 'templateName_4815162342',
       },
+      snippet: 'Description for templateName_4815162342',
       title: 'templateName_4815162342',
       url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
     });
@@ -125,6 +129,8 @@ describe('extractFlexibleUiContext', () => {
         url: 'https://icon-url',
       },
       modifiedOn: '2015-12-10T14:30:00.000Z',
+      snippet:
+        "Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
       title: 'The Atlassian Business Model',
       url: 'https://youtube-url/watch?v=video-id',
     });

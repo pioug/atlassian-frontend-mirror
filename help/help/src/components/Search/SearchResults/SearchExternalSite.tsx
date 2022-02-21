@@ -12,6 +12,7 @@ import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../../../messages';
 
 import { SearchResultSearchExternalSiteContainer } from './styled';
+import { token } from '@atlaskit/tokens';
 
 export interface Props {
   searchExternalUrl?: string;
@@ -54,8 +55,8 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
               <ShortcutIcon
                 size="small"
                 label=""
-                primaryColor={colors.N90}
-                secondaryColor={colors.N90}
+                primaryColor={token('color.icon.subtle', colors.N90)}
+                secondaryColor={token('color.icon.subtle', colors.N90)}
               />
             }
             spacing="compact"

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import toDate from 'date-fns/toDate';
 import isYesterday from 'date-fns/isYesterday';
 import isToday from 'date-fns/isToday';
@@ -77,7 +78,9 @@ const WhatsNewResultsList: React.FC<
                   <WhatsNewResultItem
                     styles={{
                       border:
-                        style === 'secondary' ? `2px solid ${colors.N30}` : 0,
+                        style === 'secondary'
+                          ? `2px solid ${token('color.border', colors.N30)}`
+                          : 0,
                       padding:
                         style === 'secondary'
                           ? `${gridSize()}px ${gridSize() * 2}px`

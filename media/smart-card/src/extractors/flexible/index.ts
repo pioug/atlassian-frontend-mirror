@@ -1,6 +1,10 @@
 import { JsonLd } from 'json-ld-types';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
-import { extractLink, extractTitle } from '../common/primitives';
+import {
+  extractLink,
+  extractSummary,
+  extractTitle,
+} from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractLinkIcon } from './icon';
 import {
@@ -27,7 +31,6 @@ const extractFlexibleUiContext = (
   if (!response) {
     return undefined;
   }
-
   const data = response.data as JsonLd.Data.BaseData;
   const url = extractLink(data);
   return {
@@ -41,6 +44,7 @@ const extractFlexibleUiContext = (
     modifiedOn: extractDateUpdated(data),
     priority: extractPriority(data as JsonLd.Data.Task),
     programmingLanguage: extractProgrammingLanguage(data),
+    snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
     state: extractLozenge(data),
     subscriberCount: extractSubscriberCount(data),
     title: extractTitle(data) || url,

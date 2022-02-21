@@ -23,7 +23,7 @@ export default {
     name: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
     'atlassian:state': 'current',
     summary:
-      ' A few weeks ago, we announced a brand new award for ShipIt - the Customer Fun Award. The goal was to generate ideas to create fun experiences in our new product, Canvas.',
+      'A few weeks ago, we announced a brand new award for ShipIt - the Customer Fun Award. The goal was to generate ideas to create fun experiences in our new product, Canvas.',
     'schema:commentCount': 7,
     'atlassian:subscriberCount': 17,
     'atlassian:titlePrefix': {

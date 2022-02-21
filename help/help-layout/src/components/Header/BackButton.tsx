@@ -5,11 +5,10 @@ import {
   UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import * as colors from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { Transition } from 'react-transition-group';
 import ArrowleftIcon from '@atlaskit/icon/glyph/arrow-left';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import {
   name as packageName,
@@ -30,11 +29,6 @@ interface Props {
   // Defines if the back button is visible
   isVisible?: boolean;
 }
-
-const buttonTheme = {
-  color: colors.N500,
-  fontWeight: 500,
-};
 
 // Animation
 const defaultStyle = {
@@ -86,16 +80,6 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
               }
             }}
             appearance="subtle"
-            theme={(currentTheme: any, themeProps: any) => {
-              const { buttonStyles, ...rest } = currentTheme(themeProps);
-              return {
-                buttonStyles: {
-                  ...buttonStyles,
-                  ...buttonTheme,
-                },
-                ...rest,
-              };
-            }}
             iconBefore={<ArrowleftIcon label="" size="medium" />}
           >
             {formatMessage(messages.help_panel_header_back)}

@@ -1,5 +1,15 @@
 # @atlaskit/help
 
+## 7.1.0
+
+### Minor Changes
+
+- [`afca6666ced`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afca6666ced) - [ux] Added new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
 ## 7.0.2
 
 ### Patch Changes

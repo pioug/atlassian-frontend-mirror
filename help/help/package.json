@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "7.0.2",
+  "version": "7.1.0",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/form": "^8.5.0",
     "@atlaskit/help-article": "^4.0.0",
-    "@atlaskit/help-layout": "^4.0.0",
+    "@atlaskit/help-layout": "^4.1.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/item": "^12.0.0",
     "@atlaskit/notification-indicator": "^9.0.0",
@@ -44,6 +44,7 @@
     "@atlaskit/textarea": "^4.3.0",
     "@atlaskit/textfield": "^5.1.0",
     "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/tokens": "^0.6.1",
     "@atlaskit/tooltip": "^17.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
@@ -76,5 +77,10 @@
     "ui",
     "help"
   ],
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
+  }
 }

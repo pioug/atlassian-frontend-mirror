@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const ExampleWrapper = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ export const ExampleDefaultContent = styled.div`
 export const FooterContent = styled.div`
   text-align: center;
   font-size: 11px;
-  color: ${colors.N200};
+  color: ${token('color.text.subtlest', colors.N200)};
 `;
 
 export const ControlsWrapper = styled.div`

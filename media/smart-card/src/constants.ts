@@ -43,6 +43,19 @@ export enum SmartLinkWidth {
   Flexible = 'flexible',
 }
 
+// When adding an element...
+// 1) Create base element if it doesn't already existed.
+//    Base element are inside src/view/FlexibleCard/components/elements.
+//    E.g. Badge,DateTime, Icon, Lozenge, etc.
+// 2) Update FlexibleUiContext with the new prop for data representing
+//    the element, preferably with the same name as the element itself.
+//    (src/state/flexible-ui-context/types.ts)
+// 3) Update Flexible UI extractor (src/extractors/flexible/index.ts)
+// 4) Set base element and data mapping.
+//    (src/view/FlexibleCard/components/elements/utils.tsx)
+// 5) Create element. (src/view/FlexibleCard/components/elements/index.ts)
+// 6) Update element ElementDisplaySchema for inline/block display
+//    (src/view/FlexibleCard/components/blocks/utils.tsx)
 export enum ElementName {
   AuthorGroup = 'AuthorGroup',
   CollaboratorGroup = 'CollaboratorGroup',
@@ -54,6 +67,7 @@ export enum ElementName {
   ModifiedOn = 'ModifiedOn',
   Priority = 'Priority',
   ProgrammingLanguage = 'ProgrammingLanguage',
+  Snippet = 'Snippet',
   State = 'State',
   SubscriberCount = 'SubscriberCount',
   Title = 'Title',

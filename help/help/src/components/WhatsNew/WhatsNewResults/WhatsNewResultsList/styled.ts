@@ -3,6 +3,7 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { fontSizeSmall, gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import * as colors from '@atlaskit/theme/colors';
 
 export const truncate = (width: string = '100%') => css`
@@ -21,7 +22,7 @@ export const WhatsNewResultsListGroupWrapper = styled.div`
 `;
 
 export const WhatsNewResultsListGroupTitle = styled.div`
-  color: ${colors.N200};
+  color: ${token('color.text.subtlest', colors.N200)};
   font-size: ${fontSizeSmall()}px;
   font-weight: bold;
   padding: 0 ${gridSize()}px ${gridSize()}px ${gridSize()}px;

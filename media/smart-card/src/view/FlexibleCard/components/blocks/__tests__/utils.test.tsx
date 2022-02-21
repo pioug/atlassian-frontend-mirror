@@ -11,8 +11,23 @@ import {
 } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
-import { getBaseStyles, renderActionItems, renderElementItems } from '../utils';
+import {
+  ElementDisplaySchema,
+  ElementDisplaySchemaType,
+  getBaseStyles,
+  renderActionItems,
+  renderElementItems,
+} from '../utils';
 import { MetadataBlock } from '../index';
+import Block from '../block';
+import { ElementItem } from '../../blocks/types';
+
+const TestRenderElementItemBlock: React.FC<{
+  display: ElementDisplaySchemaType;
+  metadata: ElementItem[];
+}> = ({ display, metadata = [] }) => {
+  return <Block>{renderElementItems(metadata, display)}</Block>;
+};
 
 describe('getBaseStyles', () => {
   describe('getDirectionStyles', () => {
@@ -59,26 +74,57 @@ describe('renderElementItems', () => {
     }
   };
 
-  it.each(Object.values(ElementName).map((name) => [name]))(
-    'renders %s',
-    async (name: ElementName) => {
-      const testId = 'smart-element-test';
-      const { getByTestId } = render(
-        <IntlProvider locale="en">
-          <FlexibleUiContext.Provider value={context}>
-            <MetadataBlock
-              primary={[{ name, testId }]}
-              status={SmartLinkStatus.Resolved}
-            />
-          </FlexibleUiContext.Provider>
-        </IntlProvider>,
-      );
-      const element = await waitForElement(() =>
-        getByTestId(getElementTestId(name, testId)),
-      );
-      expect(element).toBeDefined();
-    },
-  );
+  const renderTestBlock = (
+    display: ElementDisplaySchemaType,
+    name: ElementName,
+    testId: string,
+  ) =>
+    render(
+      <IntlProvider locale="en">
+        <FlexibleUiContext.Provider value={context}>
+          <TestRenderElementItemBlock
+            display={display}
+            metadata={[{ name, testId }]}
+          />
+        </FlexibleUiContext.Provider>
+      </IntlProvider>,
+    );
+
+  // If you are here because you've added a new element and these
+  // tests fail, it could be that you haven't added the element
+  // into ElementDisplaySchema
+  describe.each([
+    ['inline' as ElementDisplaySchemaType],
+    ['block' as ElementDisplaySchemaType],
+  ])('with %s display schema', (display: ElementDisplaySchemaType) => {
+    const testId = 'smart-element-test';
+    const expectToRendered = Object.values(ElementName).filter((name) =>
+      ElementDisplaySchema[name].includes(display),
+    );
+    const expectedNotToRendered = Object.values(ElementName).filter(
+      (name) => !ElementDisplaySchema[name].includes(display),
+    );
+
+    it.each(expectToRendered)(
+      'renders element %s',
+      async (name: ElementName) => {
+        const { getByTestId } = renderTestBlock(display, name, testId);
+        const element = await waitForElement(() =>
+          getByTestId(getElementTestId(name, testId)),
+        );
+        expect(element).toBeDefined();
+      },
+    );
+
+    it.each(expectedNotToRendered)(
+      'does not render element %s ',
+      (name: ElementName) => {
+        const { queryByTestId } = renderTestBlock(display, name, testId);
+        const element = queryByTestId(getElementTestId(name, testId));
+        expect(element).toBeNull();
+      },
+    );
+  });
 
   it('does not render null element', async () => {
     const { queryByTestId } = render(

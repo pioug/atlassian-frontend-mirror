@@ -79,8 +79,8 @@ exports[`WhatsNewResultsLoading Should match snapshot 1`] = `
   animation-name: animation-0;
   -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
-  background-color: #EBECF0;
-  background-image: linear-gradient( to right, #EBECF0 10%, #DFE1E6 20%, #EBECF0 30% );
+  background-color: var(--ds-background-neutral,#EBECF0);
+  background-image: linear-gradient( to right, var(--ds-background-neutral-subtle,#EBECF0) 10%, var(--ds-background-neutral,#DFE1E6) 20%, var(--ds-background-neutral-subtle,#EBECF0) 30% );
   background-repeat: no-repeat;
 }
 

@@ -89,7 +89,7 @@ exports[`HelpContentButton Should match snapshot 1`] = `
 }
 
 <a
-  class="sc-bdVaJa gUXLyX"
+  class="sc-bdVaJa jbwMKo"
   href="https://www.atlassian.com/"
   id="testHelpContentButton"
   target="_blank"

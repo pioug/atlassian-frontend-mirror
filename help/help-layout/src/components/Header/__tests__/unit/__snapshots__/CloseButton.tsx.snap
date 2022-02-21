@@ -7,13 +7,7 @@ exports[`BackButton Should match snapshot 1`] = `
   top: 12px;
 }
 
-.emotion-2,
-.emotion-2:hover,
-.emotion-2:active,
-.emotion-2:focus,
-.emotion-2:visited,
-.emotion-2:disabled,
-.emotion-2[disabled] {
+.emotion-2 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -49,16 +43,66 @@ exports[`BackButton Should match snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.emotion-2:visited {
+  background: none;
+  color: var(--ds-text,#42526E) !important;
+}
+
+.emotion-2:hover {
+  background: var(--ds-background-neutral-subtle-hovered,rgba(9,30,66,0.08));
+  color: var(--ds-text,#42526E) !important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  -webkit-transition-duration: 0s,0.15s;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-2:focus {
+  background: none;
+  color: var(--ds-text,#42526E) !important;
+  box-shadow: 0 0 0 2px var(--ds-border-focused,#4C9AFF);
+  -webkit-transition-duration: 0s,0.2s;
+  transition-duration: 0s,0.2s;
   outline: none;
 }
 
-.emotion-2::-moz-focus-inner,
-.emotion-2:hover::-moz-focus-inner,
-.emotion-2:active::-moz-focus-inner,
-.emotion-2:focus::-moz-focus-inner,
-.emotion-2:visited::-moz-focus-inner,
-.emotion-2:disabled::-moz-focus-inner,
-.emotion-2[disabled]::-moz-focus-inner {
+.emotion-2:active {
+  background: var(--ds-background-neutral-subtle-pressed,rgba(179,212,255,0.6));
+  color: var(--ds-text,#0052CC) !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-2[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-subtle-pressed,rgba(179,212,255,0.6));
+  color: var(--ds-text,#0052CC) !important;
+  -webkit-transition-duration: 0s,0s;
+  transition-duration: 0s,0s;
+}
+
+.emotion-2[disabled] {
+  background: none;
+  color: var(--ds-text-disabled,#A5ADBA) !important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-2[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-2[data-has-overlay="true"]:not([disabled]):active {
+  background: none;
+  color: var(--ds-text,#42526E) !important;
+}
+
+.emotion-2::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;

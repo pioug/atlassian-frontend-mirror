@@ -13,8 +13,9 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   cursor: pointer;
-  color: #6B778C;
+  color: var(--ds-text-subtlest,#6B778C);
   border-radius: 3px;
+  background-color: var(--ds-background-neutral-subtle,transparent);
   border: 0;
   padding: 8px;
   margin-bottom: 0;
@@ -31,15 +32,15 @@ exports[`RelatedArticles Should match snapshot 1`] = `
 }
 
 .emotion-3:focus {
-  box-shadow: #4C9AFF 0px 0px 0px 2px inset;
+  box-shadow: var(--ds-border-focused,#4C9AFF) 0px 0px 0px 2px inset;
 }
 
 .emotion-3:hover {
-  background-color: #EBECF0;
+  background-color: var(--ds-background-neutral-subtle-hovered,#EBECF0);
 }
 
 .emotion-3:active {
-  background-color: #DEEBFF;
+  background-color: var(--ds-background-neutral-subtle-pressed,#DEEBFF);
 }
 
 .emotion-1 {
@@ -50,7 +51,7 @@ exports[`RelatedArticles Should match snapshot 1`] = `
 .emotion-0 {
   -webkit-text-decoration: none;
   text-decoration: none;
-  color: #172B4D;
+  color: var(--ds-text,#172B4D);
   font-size: 14px;
   font-weight: 600;
   display: block;
@@ -63,7 +64,7 @@ exports[`RelatedArticles Should match snapshot 1`] = `
 .emotion-2 {
   display: block;
   line-height: 20px;
-  color: #505F79;
+  color: var(--ds-text-subtle,#505F79);
   margin: 0;
 }
 

@@ -15,6 +15,7 @@
     "icon": "Badge:PriorityMajor",
     "label": "Major"
   },
+  "snippet": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   "subscriberCount": 20,
   "state": {
     "text": "Link state",

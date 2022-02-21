@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
 import * as colors from '@atlaskit/theme/colors';
 import { Field, HelperMessage } from '@atlaskit/form';
@@ -67,8 +68,8 @@ const Footer = (
 
 const Example: React.FC = () => {
   const {
-    token,
-    setToken,
+    token: articlesToken,
+    setToken: setArticlesToken,
     searchWhatsNewArticles,
     getWhatsNewArticle,
   } = useContentPlatformApi();
@@ -579,9 +580,9 @@ const Example: React.FC = () => {
                     <>
                       <Textfield
                         {...fieldProps}
-                        value={token}
+                        value={articlesToken}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setToken(e.target.value)
+                          setArticlesToken(e.target.value)
                         }
                       />
                       <HelperMessage>
@@ -752,7 +753,10 @@ const Example: React.FC = () => {
                           href: 'https://www.google.com',
                           icon: (
                             <ShipIcon
-                              primaryColor={colors.N600}
+                              primaryColor={token(
+                                'color.icon.subtle',
+                                colors.N600,
+                              )}
                               size="medium"
                               label=""
                             />

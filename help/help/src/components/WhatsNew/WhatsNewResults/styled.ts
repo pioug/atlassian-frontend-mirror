@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const WhatsNewResultsContainer = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
   top: 0;
-  background-color: #ffffff;
+  background-color: ${token('elevation.surface', '#FFFFFF')};
   flex: 1;
   flex-direction: column;
   box-sizing: border-box;

@@ -3,6 +3,7 @@
 import styled from '@emotion/styled';
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const ArticleFeedbackContainer = styled.div`
   position: relative;
@@ -11,7 +12,7 @@ export const ArticleFeedbackContainer = styled.div`
 export const ArticleFeedbackText = styled.div`
   font-size: 0.75rem;
   font-weight: bold;
-  color: ${colors.N200};
+  color: ${token('color.text.subtlest', colors.N200)};
   line-height: ${gridSize() * 4}px;
   position: relative;
   display: inline-block;

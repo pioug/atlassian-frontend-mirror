@@ -5,25 +5,60 @@ import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';
 import { IconType } from '../../../../constants';
 
 describe('extractProviderIcon', () => {
+  const getData = ({
+    name,
+    provider,
+    icon,
+  }: {
+    name?: string;
+    provider?: string;
+    icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link;
+  }): JsonLd.Data.BaseData => {
+    const baseData: JsonLd.Data.BaseData = {
+      '@type': 'Object',
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      url: 'https://some-url.com',
+    };
+
+    const data: JsonLd.Data.BaseData = {
+      ...baseData,
+      generator: {
+        '@type': 'Object',
+        '@id': provider,
+        icon,
+        name,
+      },
+    };
+
+    return data;
+  };
+
   describe.each([
     ['Confluence', CONFLUENCE_GENERATOR_ID, IconType.Confluence, 'Confluence'],
     ['Jira', JIRA_GENERATOR_ID, IconType.Jira, 'Jira'],
   ])('%s icon', (_, provider, expectedIconType, expectedLabel) => {
     it(`returns ${expectedIconType} with default label`, () => {
-      const [iconType, label] =
-        extractProviderIcon(provider, 'https://some-url.com') || [];
+      const data = getData({ provider });
+      const { icon, label } = extractProviderIcon(data) || {};
 
-      expect(iconType).toEqual(expectedIconType);
+      expect(icon).toEqual(expectedIconType);
       expect(label).toEqual(expectedLabel);
     });
 
     it(`returns ${expectedIconType} with custom label`, () => {
       const customLabel = 'custom-label';
-      const [iconType, label] =
-        extractProviderIcon(provider, 'https://some-url.com', customLabel) ||
-        [];
+      const data = getData({
+        provider,
+        name: customLabel,
+        icon: 'https://some-url.com',
+      });
+      const { icon, label } = extractProviderIcon(data) || {};
 
-      expect(iconType).toEqual(expectedIconType);
+      expect(icon).toEqual(expectedIconType);
       expect(label).toEqual(customLabel);
     });
   });
@@ -48,11 +83,11 @@ describe('extractProviderIcon', () => {
       ['JsonLd.Primitives.Link (LinkModel)', jsonldLinkModel],
       ['JsonLd.Primitives.Image (string)', jsonldImage],
       ['JsonLd.Primitives.Image (LinkModel)', jsonldImageLinkModel],
-    ])('returns icon url from %s', (_, jsonld) => {
-      const [iconType, label, url] =
-        extractProviderIcon(undefined, jsonld) || [];
+    ])('returns icon url from %s', (_, icon) => {
+      const { icon: actualIcon, label, url } =
+        extractProviderIcon(getData({ icon })) || {};
 
-      expect(iconType).toBeUndefined();
+      expect(actualIcon).toBeUndefined();
       expect(label).toBeUndefined();
       expect(url).toEqual(expectedUrl);
     });
@@ -60,10 +95,12 @@ describe('extractProviderIcon', () => {
     it('returns icon url with custom label', () => {
       const customLabel = 'custom-label';
 
-      const [iconType, label, url] =
-        extractProviderIcon(undefined, expectedUrl, customLabel) || [];
+      const { icon, label, url } =
+        extractProviderIcon(
+          getData({ name: customLabel, icon: expectedUrl }),
+        ) || {};
 
-      expect(iconType).toBeUndefined();
+      expect(icon).toBeUndefined();
       expect(label).toEqual(customLabel);
       expect(url).toEqual(expectedUrl);
     });
@@ -75,10 +112,11 @@ describe('extractProviderIcon', () => {
     });
 
     it('returns undefined if JSON-LD data does not have url', () => {
-      const iconDescriptor = extractProviderIcon(undefined, {
+      const icon = {
         ...jsonldImage,
         url: undefined,
-      });
+      };
+      const iconDescriptor = extractProviderIcon(getData({ icon }));
 
       expect(iconDescriptor).toBeUndefined();
     });

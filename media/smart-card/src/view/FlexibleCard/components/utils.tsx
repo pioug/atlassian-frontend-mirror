@@ -77,6 +77,23 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
   }
 };
 
+export const getMaxLines = (
+  value: number,
+  defaultValue: number,
+  max: number,
+  min: number,
+) => {
+  if (value > max) {
+    return defaultValue;
+  }
+
+  if (value < min) {
+    return min;
+  }
+
+  return value;
+};
+
 export const getTruncateStyles = (
   maxLines: number,
   lineHeight: string = '1rem',

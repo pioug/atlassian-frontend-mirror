@@ -1,7 +1,9 @@
+import React from 'react';
 import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
   ConcurrentExperience,
+  UFOExperienceState,
 } from '@atlaskit/ufo';
 import { useEffect, useState } from 'react';
 
@@ -30,12 +32,31 @@ export const useUFOConcurrentExperience = (
 
   // Replace with @atlaskit/ufo's <ExperienceSuccess> when it supports ConcurrentExperience
   useEffect(() => {
-    experienceForId.success();
+    if (experienceForId.state !== UFOExperienceState['FAILED']) {
+      experienceForId.success();
+    }
     return () => {
-      experienceForId.abort();
+      if (
+        [
+          UFOExperienceState['STARTED'],
+          UFOExperienceState['IN_PROGRESS'],
+        ].includes(experienceForId.state)
+      ) {
+        experienceForId.abort();
+      }
     };
 
     // We only want this useEffect to run once after component mount, so no deps are needed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
+
+export class UfoErrorBoundary extends React.Component<{ id: string }> {
+  componentDidCatch() {
+    smartUserPickerRenderedUfoExperience.getInstance(this.props.id).failure();
+  }
+
+  render() {
+    return this.props.children;
+  }
+}

@@ -18,6 +18,7 @@ export type FlexibleUiDataContext = {
   state?: LinkLozenge;
   title?: string;
   url?: string;
+  provider?: Icon;
 };
 
 export type Icon = {

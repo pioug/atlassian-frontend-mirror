@@ -46,9 +46,9 @@ describe('extractJsonldDataIcon', () => {
         ...baseData,
         '@type': type as JsonLd.Primitives.ObjectType,
       };
-      const [iconType, label] = extractJsonldDataIcon(data) || [];
+      const { icon, label } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBe(expectedIconType);
+      expect(icon).toBe(expectedIconType);
       expect(label).toBe(expectedLabel);
     },
   );
@@ -59,9 +59,9 @@ describe('extractJsonldDataIcon', () => {
         ...baseData,
         '@type': 'schema:BlogPosting',
       };
-      const [iconType] = extractJsonldDataIcon(data) || [];
+      const { icon } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBe(IconType.Blog);
+      expect(icon).toBe(IconType.Blog);
     });
 
     it('returns highest priority icon from array of types', () => {
@@ -69,9 +69,9 @@ describe('extractJsonldDataIcon', () => {
         ...baseData,
         '@type': ['Document', 'schema:BlogPosting'],
       };
-      const [iconType] = extractJsonldDataIcon(data) || [];
+      const { icon } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBe(IconType.Blog);
+      expect(icon).toBe(IconType.Blog);
     });
 
     it('returns highest priority icon based on priority', () => {
@@ -87,9 +87,9 @@ describe('extractJsonldDataIcon', () => {
           image: 'https://some-image-url.com',
         },
       };
-      const [iconType, , url] = extractJsonldDataIcon(data) || [];
+      const { icon, url } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBeUndefined();
+      expect(icon).toBeUndefined();
       expect(url).toBe(expectUrl);
     });
   });
@@ -119,9 +119,9 @@ describe('extractJsonldDataIcon', () => {
           generator: { '@type': 'Object', '@id': provider },
           'schema:fileFormat': 'image/png',
         } as JsonLd.Data.BaseData;
-        const [iconType] = extractJsonldDataIcon(data) || [];
+        const { icon } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBe(IconType.Image);
+        expect(icon).toBe(IconType.Image);
       });
 
       itIf(!isDocument(type))(
@@ -132,8 +132,9 @@ describe('extractJsonldDataIcon', () => {
             generator: { '@type': 'Object', '@id': provider },
             'schema:fileFormat': undefined,
           } as JsonLd.Data.BaseData;
-          const [iconType] = extractJsonldDataIcon(data) || [];
-          const [documentIconType] = extractDocumentTypeIcon(type) || [];
+          const { icon: iconType } = extractJsonldDataIcon(data) || {};
+          const { icon: documentIconType } =
+            extractDocumentTypeIcon(type) || {};
 
           expect(iconType).toBe(documentIconType);
         },
@@ -147,9 +148,9 @@ describe('extractJsonldDataIcon', () => {
             generator: { '@type': 'Object', '@id': provider },
             'schema:fileFormat': undefined,
           } as JsonLd.Data.BaseData;
-          const [iconType] = extractJsonldDataIcon(data) || [];
+          const { icon } = extractJsonldDataIcon(data) || {};
 
-          expect(iconType).toBe(providerIcon);
+          expect(icon).toBe(providerIcon);
         },
       );
     });
@@ -169,9 +170,9 @@ describe('extractJsonldDataIcon', () => {
           'schema:fileFormat': 'image/png',
         } as JsonLd.Data.BaseData;
 
-        const [iconType, , url] = extractJsonldDataIcon(data) || [];
+        const { icon, url } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBeUndefined();
+        expect(icon).toBeUndefined();
         expect(url).toBe(providerIconUrl);
       });
 
@@ -187,9 +188,9 @@ describe('extractJsonldDataIcon', () => {
           'schema:fileFormat': 'image/png',
         } as JsonLd.Data.BaseData;
 
-        const [iconType] = extractJsonldDataIcon(data) || [];
+        const { icon } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBe(IconType.Image);
+        expect(icon).toBe(IconType.Image);
       });
 
       it('returns document icon - default fallback icon', () => {
@@ -204,8 +205,8 @@ describe('extractJsonldDataIcon', () => {
           'schema:fileFormat': undefined,
         } as JsonLd.Data.BaseData;
 
-        const [iconType] = extractJsonldDataIcon(data) || [];
-        const [documentIconType] = extractDocumentTypeIcon(type) || [];
+        const { icon: iconType } = extractJsonldDataIcon(data) || {};
+        const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
 
         expect(iconType).toBe(documentIconType);
       });
@@ -218,9 +219,9 @@ describe('extractJsonldDataIcon', () => {
         ...baseData,
         '@type': 'atlassian:Task',
       };
-      const [iconType] = extractJsonldDataIcon(data) || [];
+      const { icon } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBe(IconType.Task);
+      expect(icon).toBe(IconType.Task);
     });
 
     describe('JiraCustomTaskType', () => {
@@ -247,9 +248,9 @@ describe('extractJsonldDataIcon', () => {
       it('returns task icon url - task type icon defined', () => {
         const data = { ...taskBaseData, icon: undefined } as JsonLd.Data.Task;
 
-        const [iconType, , url] = extractJsonldDataIcon(data) || [];
+        const { icon, url } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBeUndefined();
+        expect(icon).toBeUndefined();
         expect(url).toBe(taskIconUrl);
       });
 
@@ -263,9 +264,9 @@ describe('extractJsonldDataIcon', () => {
           },
         } as JsonLd.Data.Task;
 
-        const [iconType, , url] = extractJsonldDataIcon(data) || [];
+        const { icon, url } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBeUndefined();
+        expect(icon).toBeUndefined();
         expect(url).toBe(iconUrl);
       });
 
@@ -279,9 +280,9 @@ describe('extractJsonldDataIcon', () => {
           },
         } as JsonLd.Data.Task;
 
-        const [iconType, , url] = extractJsonldDataIcon(data) || [];
+        const { icon, url } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBe(IconType.Jira);
+        expect(icon).toBe(IconType.Jira);
         expect(url).toBeUndefined();
       });
 
@@ -296,9 +297,9 @@ describe('extractJsonldDataIcon', () => {
           },
         } as JsonLd.Data.Task;
 
-        const [iconType, , url] = extractJsonldDataIcon(data) || [];
+        const { icon, url } = extractJsonldDataIcon(data) || {};
 
-        expect(iconType).toBe(IconType.Task);
+        expect(icon).toBe(IconType.Task);
         expect(url).toBeUndefined();
       });
     });
@@ -312,9 +313,9 @@ describe('extractJsonldDataIcon', () => {
         icon: expectUrl,
         '@type': 'atlassian:Project',
       };
-      const [iconType, , url] = extractJsonldDataIcon(data) || [];
+      const { icon, url } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBeUndefined();
+      expect(icon).toBeUndefined();
       expect(url).toBe(expectUrl);
     });
 
@@ -323,9 +324,9 @@ describe('extractJsonldDataIcon', () => {
         ...baseData,
         '@type': 'atlassian:Project',
       };
-      const [iconType, , url] = extractJsonldDataIcon(data) || [];
+      const { icon, url } = extractJsonldDataIcon(data) || {};
 
-      expect(iconType).toBe(IconType.Project);
+      expect(icon).toBe(IconType.Project);
       expect(url).toBeUndefined();
     });
   });

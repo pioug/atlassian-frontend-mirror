@@ -14,26 +14,25 @@ describe('extractJiraTaskIcon', () => {
     ['task', 'JiraTask', IconType.Task],
   ])('%s icon', (_, taskType, expectedIconType) => {
     it(`returns ${expectedIconType} with default label`, () => {
-      const [iconType, label] = extractJiraTaskIcon(taskType) || [];
+      const { icon, label } = extractJiraTaskIcon(taskType) || {};
 
-      expect(iconType).toEqual(expectedIconType);
+      expect(icon).toEqual(expectedIconType);
       expect(label).toEqual('Task');
     });
 
     it(`returns ${expectedIconType} with custom label`, () => {
       const customLabel = 'custom-label';
-      const [iconType, label] =
-        extractJiraTaskIcon(taskType, customLabel) || [];
+      const { icon, label } = extractJiraTaskIcon(taskType, customLabel) || {};
 
-      expect(iconType).toEqual(expectedIconType);
+      expect(icon).toEqual(expectedIconType);
       expect(label).toEqual(customLabel);
     });
   });
 
   it('returns default icon if task type does not match', () => {
-    const [iconType, label] = extractJiraTaskIcon('random') || [];
+    const { icon, label } = extractJiraTaskIcon('random') || {};
 
-    expect(iconType).toEqual(IconType.Task);
+    expect(icon).toEqual(IconType.Task);
     expect(label).toEqual('Task');
   });
 });

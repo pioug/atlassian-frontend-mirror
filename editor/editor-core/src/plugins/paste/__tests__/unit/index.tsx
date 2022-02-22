@@ -1907,7 +1907,6 @@ describe('paste plugins', () => {
               'Hello world',
               inlineCard({
                 url: 'https://jdog.jira-dev.com/browse/BENTO-3677',
-                localId: 'testId',
               })(),
               ' ',
             ),

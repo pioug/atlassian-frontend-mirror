@@ -131,7 +131,6 @@ describe('BitbucketTransformer: parser', () => {
             inlineCard({
               url:
                 'https://hello.atlassian.net/wiki/spaces/WPT/pages/442895750/Forge',
-              localId: 'test-table-local-id',
             })(),
           ),
         ),

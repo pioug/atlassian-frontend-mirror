@@ -49,18 +49,17 @@ const messageMapper: {
   [IconType.PriorityUndefined]: messages.priority_undefined,
 };
 
-const getFormattedMessageOrLabel = (
+const getFormattedMessageFromIcon = (
   icon?: IconType,
-  content?: string,
 ): React.ReactNode | string | undefined => {
   if (icon) {
     const descriptor = messageMapper[icon];
     if (descriptor) {
-      return getFormattedMessage({ descriptor });
+      return getFormattedMessage({
+        descriptor,
+      });
     }
   }
-
-  return content;
 };
 
 const renderAtlaskitIcon = (
@@ -93,7 +92,7 @@ const Badge: React.FC<BadgeProps> = ({
   label,
   testId = 'smart-element-badge',
 }) => {
-  const formattedMessageOrLabel = getFormattedMessageOrLabel(icon, label);
+  const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
   const badgeIcon =
     renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId);
 

@@ -1,6 +1,5 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { CardAttributes } from './block-card';
-import { uuid } from '../../utils/uuid';
 
 /**
  * @name inlineCard_node
@@ -18,7 +17,6 @@ export const inlineCard: NodeSpec = {
   attrs: {
     url: { default: null },
     data: { default: null },
-    localId: { default: '' },
   },
   parseDOM: [
     {
@@ -38,7 +36,6 @@ export const inlineCard: NodeSpec = {
             anchor.getAttribute('data-card-url') ||
             null,
           data: data ? JSON.parse(data) : null,
-          localId: uuid.generate(),
         };
       },
     },
@@ -54,7 +51,6 @@ export const inlineCard: NodeSpec = {
         return {
           url: anchor.getAttribute('data-card-url'),
           data: data ? JSON.parse(data) : null,
-          localId: uuid.generate(),
         };
       },
     },

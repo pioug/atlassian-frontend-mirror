@@ -28,6 +28,15 @@ describe('Flexible Card', () => {
 
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('renders SnippetBlock', async () => {
+      const url = getURL('vr-flexible-ui-block-snippet');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+      const image = await takeSnapshot(page, 260);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 
   describe('actions', () => {
@@ -101,6 +110,15 @@ describe('Flexible Card', () => {
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-text"]');
       const image = await takeSnapshot(page, 170);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('renders provider', async () => {
+      const url = getURL('vr-flexible-ui-element-provider');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="vr-test-provider-confluence"]');
+      const image = await takeSnapshot(page, 360);
 
       expect(image).toMatchProdImageSnapshot();
     });

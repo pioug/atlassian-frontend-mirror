@@ -11,13 +11,11 @@ import {
   CardPlatform,
 } from '@atlaskit/smart-card';
 
-import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
-import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
-import { uuid } from '@atlaskit/adf-schema';
+import { changeSelectedCardToLink } from '../pm-plugins/doc';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -107,7 +105,7 @@ export function Card(
         if (!getPos || typeof getPos === 'boolean') {
           return;
         }
-        changeSelectedCardToLinkFallback(
+        changeSelectedCardToLink(
           undefined,
           url,
           true,
@@ -121,13 +119,4 @@ export function Card(
       }
     }
   };
-}
-
-export class GenericCard<A> extends ReactNodeView<A> {
-  init() {
-    super.init();
-    // localId exists to distinguish between different smart cards for the purpose of analytics
-    this.node.attrs.localId = this.node.attrs.localId || uuid.generate();
-    return this;
-  }
 }

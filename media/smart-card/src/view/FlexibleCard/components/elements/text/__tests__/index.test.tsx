@@ -70,4 +70,23 @@ describe('Element: Text', () => {
 
     expect(container.children.length).toBe(0);
   });
+
+  it('renders with default colour', async () => {
+    const { getByTestId } = render(<Text content="random text" />);
+
+    const element = await waitForElement(() => getByTestId(testId));
+
+    expect(element).toHaveStyleDeclaration(
+      'color',
+      expect.stringContaining('#626F86'),
+    );
+  });
+
+  it('renders with override colour', async () => {
+    const { getByTestId } = render(<Text color="#000" content="random text" />);
+
+    const element = await waitForElement(() => getByTestId(testId));
+
+    expect(element).toHaveStyleDeclaration('color', '#000');
+  });
 });

@@ -9,7 +9,7 @@ import {
 } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { Title } from '../../../elements';
-import context from '../../../../../../__fixtures__/flexible-ui-data-context.json';
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import ActionGroup from '../../action-group';
 import ElementGroup from '../../element-group';
 

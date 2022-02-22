@@ -1,30 +1,3 @@
-jest.mock('@atlaskit/adf-schema', () => {
-  const actualModule = jest.requireActual('@atlaskit/adf-schema');
-
-  const card = ['inlineCard', 'blockCard', 'embedCard'];
-  card.forEach((cardName) => {
-    actualModule[cardName].parseDOM = actualModule[cardName].parseDOM.map(
-      (x: ParseRule) => {
-        return {
-          ...x,
-          getAttrs: (dom: HTMLElement) => {
-            const res = x.getAttrs!(dom);
-            return {
-              ...res,
-              localId: 'cool-be4nz-rand0m-return',
-            };
-          },
-        };
-      },
-    );
-  });
-
-  return {
-    __esModule: true,
-    ...actualModule,
-  };
-});
-
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 import { setProvider } from '../../../../plugins/card/pm-plugins/actions';
 
@@ -40,7 +13,6 @@ import {
   blockCard,
   embedCard,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ParseRule } from 'prosemirror-model';
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -145,7 +117,6 @@ describe('card', () => {
               'Convert this into Smart link: ',
               inlineCard({
                 url: 'https://docs.google.com/spreadsheets/d/168cPaeXw/edit',
-                localId: 'cool-be4nz-rand0m-return',
               })(),
             ),
           ),
@@ -190,7 +161,6 @@ describe('card', () => {
             blockCard({
               url:
                 'https://www.dropbox.com/s/maz65d0qxp87qli/Video%20MP4%20%28440x868%29.mp4?dl=0',
-              localId: 'cool-be4nz-rand0m-return',
             })(),
           ),
         );
@@ -253,7 +223,6 @@ describe('card', () => {
             embedCard({
               url:
                 'https://drive.google.com/file/d/1Y5S4AYkoLjseAiSCdsjgYd6LjWOS1qtA/view?usp=sharing',
-              localId: 'cool-be4nz-rand0m-return',
               layout: 'center',
               width: 50,
             })(),
@@ -282,7 +251,6 @@ describe('card', () => {
                 inlineCard({
                   url:
                     'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing',
-                  localId: 'cool-be4nz-rand0m-return',
                 })(),
               ),
             ),
@@ -310,7 +278,6 @@ describe('card', () => {
               inlineCard({
                 url:
                   'https://product-fabric.atlassian.net/wiki/spaces/ADF/pages/729155214/ADF+Change+23%3A+Image+Captions',
-                localId: 'cool-be4nz-rand0m-return',
               })(),
             ),
           ),

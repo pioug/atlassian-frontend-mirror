@@ -23,6 +23,24 @@ export type BaseGridProps = {
 };
 
 /**
+ * Values set for the theme.
+ */
+export type ThemeProps = {
+  /**
+   * Number of columns in the grid.
+   */
+  columns: number;
+  /**
+   * Desired spacing of the grid.
+   */
+  spacing: GridSpacing;
+  /**
+   * Sets whether the grid is nested or not.
+   */
+  isNestedGrid?: boolean;
+};
+
+/**
  * The props accepted by the external `Grid` element.
  *
  * @extends BaseGridProps
@@ -38,6 +56,11 @@ export type GridProps = BaseGridProps & {
    * The total number of columns available in each row of the grid.
    */
   columns?: number;
+  /**
+   * For consumers still using the theme prop to set the grid layout.
+   */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  theme?: ThemeProps;
 };
 
 export type GridColumnProps = {
@@ -98,7 +121,7 @@ export type PageProps = {
    * from the dynamically heighted announcement banner.
    
    * Banner height can be retrieved from banner using its `innerRef`, which always
-   * returns its height when expanded even when it's collapsed. 
+   * returns its height when expanded even when it's collapsed.
    
    * In addition to setting the height of the banner's container for dynamically
    * heighted banners, you will need to set the `pageOffset` in navigation. Since

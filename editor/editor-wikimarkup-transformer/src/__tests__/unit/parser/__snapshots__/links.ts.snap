@@ -281,7 +281,6 @@ Object {
         Object {
           "attrs": Object {
             "data": null,
-            "localId": "",
             "url": "https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0",
           },
           "type": "inlineCard",

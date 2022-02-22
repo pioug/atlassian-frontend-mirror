@@ -9,7 +9,7 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { APIError } from '@atlaskit/smart-card';
-import { changeSelectedCardToLinkFallback } from '../../../pm-plugins/doc';
+import { changeSelectedCardToLink } from '../../../pm-plugins/doc';
 import { Command } from '../../../../../types/command';
 import {
   asMockFunction,
@@ -21,9 +21,7 @@ import { EmbedCardAttributes } from '@atlaskit/adf-schema';
 
 describe('<GenericCard/>', () => {
   let mockEditorView: EditorView;
-  const mockChangeSelectedCardToLink = asMockFunction(
-    changeSelectedCardToLinkFallback,
-  );
+  const mockChangeSelectedCardToLink = asMockFunction(changeSelectedCardToLink);
   let commandMock: jest.Mock<ReturnType<Command>, Parameters<Command>>;
 
   beforeEach(() => {
@@ -45,7 +43,7 @@ describe('<GenericCard/>', () => {
     mockChangeSelectedCardToLink.mockReturnValue(commandMock);
   });
 
-  it('should not call changeSelectedCardToLinkFallback when we do not get a fatal error', () => {
+  it('should not call changeSelectedCardToLink when we do not get a fatal error', () => {
     const ThrowingComponent = () => {
       throw new APIError('auth', 'blah', 'blah');
     };
@@ -64,7 +62,7 @@ describe('<GenericCard/>', () => {
         getPos={() => 0}
       />,
     );
-    expect(changeSelectedCardToLinkFallback).not.toHaveBeenCalled();
+    expect(changeSelectedCardToLink).not.toHaveBeenCalled();
   });
 
   it('should call changeSelectedCardToLink when we get a fatal error', () => {

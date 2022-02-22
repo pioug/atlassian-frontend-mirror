@@ -1,5 +1,17 @@
 # @atlassian/smart-user-picker
 
+## 5.0.1
+
+### Patch Changes
+
+- [`0850fe46fc8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0850fe46fc8) - Track mount errors in Smart User Picker
+
+## 5.0.0
+
+### Major Changes
+
+- [`67ca990e9cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67ca990e9cf) - Changing the URL for default value hydration from /graphql to /api/gateway/graphql
+
 ## 4.0.1
 
 ### Patch Changes

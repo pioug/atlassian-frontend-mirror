@@ -12,6 +12,16 @@ import JiraTask from './__fixtures__/jira-task';
 import YouTubeVideo from './__fixtures__/youtube-video';
 
 describe('extractFlexibleUiContext', () => {
+  const expectedConfluenceProvider = {
+    icon: 'Provider:Confluence',
+    label: 'Confluence',
+  };
+
+  const expectedJiraProvider = {
+    icon: 'Provider:Jira',
+    label: 'Jira',
+  };
+
   it('returns flexible ui context for confluence page', () => {
     const data = extractFlexibleUiContext(ConfluencePage as JsonLd.Response);
 
@@ -25,6 +35,7 @@ describe('extractFlexibleUiContext', () => {
       url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
       commentCount: 24,
       subscriberCount: 21,
+      provider: expectedConfluenceProvider,
     });
   });
 
@@ -42,6 +53,7 @@ describe('extractFlexibleUiContext', () => {
       url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
       commentCount: 7,
       subscriberCount: 17,
+      provider: expectedConfluenceProvider,
     });
   });
 
@@ -52,6 +64,7 @@ describe('extractFlexibleUiContext', () => {
       linkIcon: { label: 'ShipIt', url: 'https://icon-url' },
       title: 'ShipIt',
       url: 'https://confluence-url/wiki/spaces/space-id',
+      provider: expectedConfluenceProvider,
     });
   });
 
@@ -68,6 +81,7 @@ describe('extractFlexibleUiContext', () => {
       snippet: 'Description for templateName_4815162342',
       title: 'templateName_4815162342',
       url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+      provider: expectedConfluenceProvider,
     });
   });
 
@@ -93,6 +107,7 @@ describe('extractFlexibleUiContext', () => {
       subscriberCount: 2,
       title: 'Flexible UI Task',
       url: 'https://jira-url/browse/id',
+      provider: expectedJiraProvider,
     });
   });
 
@@ -103,6 +118,7 @@ describe('extractFlexibleUiContext', () => {
       linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
       title: 'Linking Platform',
       url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
+      provider: expectedJiraProvider,
     });
   });
 
@@ -111,12 +127,16 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       linkIcon: {
-        label: 'Flexible Links',
+        label: 'Figma',
         url: 'https://icon-url',
       },
       modifiedOn: '2021-12-14T05:07:13Z',
       title: 'Flexible Links',
       url: 'https://figma-url/Flexible-Links?node-id=node-id',
+      provider: {
+        url: 'https://icon-url',
+        label: 'Figma',
+      },
     });
   });
 
@@ -125,7 +145,7 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       linkIcon: {
-        label: 'The Atlassian Business Model',
+        label: 'YouTube',
         url: 'https://icon-url',
       },
       modifiedOn: '2015-12-10T14:30:00.000Z',
@@ -133,6 +153,10 @@ describe('extractFlexibleUiContext', () => {
         "Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
       title: 'The Atlassian Business Model',
       url: 'https://youtube-url/watch?v=video-id',
+      provider: {
+        url: 'https://icon-url',
+        label: 'YouTube',
+      },
     });
   });
 

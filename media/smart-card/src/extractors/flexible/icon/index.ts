@@ -11,10 +11,9 @@ export const extractLinkIcon = (
   renderers?: CardProviderRenderers,
 ) => {
   const data = response.data as JsonLd.Data.BaseData;
-  const [icon, label, url] = extractJsonldDataIcon(data) || [];
   const render = extractIconRenderer(data, renderers);
 
-  return { icon, label, render, url };
+  return { ...extractJsonldDataIcon(data), render };
 };
 
 export const extractErrorIcon = (
@@ -24,10 +23,7 @@ export const extractErrorIcon = (
   // Try to get provider icon first.
   if (response) {
     const data = response.data as JsonLd.Data.BaseData;
-
-    const generator = data.generator as JsonLd.Primitives.Object;
-    const provider = generator?.['@id'];
-    const [icon, , url] = extractProviderIcon(provider, generator?.icon) || [];
+    const { icon, url } = extractProviderIcon(data) || {};
 
     if (icon || url) {
       return { icon, url };

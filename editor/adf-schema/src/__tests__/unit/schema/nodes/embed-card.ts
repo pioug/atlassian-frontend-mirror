@@ -52,10 +52,7 @@ describe(`${name}/schema embedCard node`, () => {
         });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-        expect(parsedNode).toMatchObject({
-          ...node,
-          attrs: { localId: expect.any(String) },
-        });
+        expect(parsedNode).toEqual(node);
       });
     });
   });

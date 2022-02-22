@@ -5,19 +5,20 @@ import MessagesIntlProvider from './MessagesIntlProvider';
 import {
   useUFOConcurrentExperience,
   smartUserPickerRenderedUfoExperience,
+  UfoErrorBoundary,
 } from '../ufoExperiences';
 
 const SmartUserPickerWithIntlProvider: React.FunctionComponent<Props> = (
   props,
 ) => {
-  useUFOConcurrentExperience(
-    smartUserPickerRenderedUfoExperience,
-    props.inputId || props.fieldId,
-  );
+  const ufoId = props.inputId || props.fieldId;
+  useUFOConcurrentExperience(smartUserPickerRenderedUfoExperience, ufoId);
   return (
-    <MessagesIntlProvider>
-      <SmartUserPicker {...props} />
-    </MessagesIntlProvider>
+    <UfoErrorBoundary id={ufoId}>
+      <MessagesIntlProvider>
+        <SmartUserPicker {...props} />
+      </MessagesIntlProvider>
+    </UfoErrorBoundary>
   );
 };
 

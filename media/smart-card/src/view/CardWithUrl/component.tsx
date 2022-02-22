@@ -144,7 +144,7 @@ export function CardWithUrlContent({
     throw error;
   }
 
-  if (isFlexibleUiCard(appearance, children)) {
+  if (isFlexibleUiCard(children)) {
     return (
       <FlexibleCard
         cardState={state}

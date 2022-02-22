@@ -52,10 +52,7 @@ describe(`${name}/schema blockCard node`, () => {
         const node = schema.nodes.blockCard.create({ url });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-        expect(parsedNode).toMatchObject({
-          ...node,
-          attrs: { localId: expect.any(String) },
-        });
+        expect(parsedNode).toEqual(node);
       });
     });
   });
@@ -101,10 +98,7 @@ describe(`${name}/schema blockCard node`, () => {
         const node = schema.nodes.blockCard.create({ data });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-        expect(parsedNode).toMatchObject({
-          ...node,
-          attrs: { localId: expect.any(String) },
-        });
+        expect(parsedNode).toEqual(node);
       });
     });
   });

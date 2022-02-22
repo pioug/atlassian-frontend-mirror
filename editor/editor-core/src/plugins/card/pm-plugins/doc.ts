@@ -31,7 +31,6 @@ import { getLinkCreationAnalyticsEvent } from '../../../plugins/hyperlink/analyt
 import { unlinkPayload } from '../../../utils/linking-utils';
 import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { getFeatureFlags } from '../../feature-flags-context';
 
 export function insertCard(tr: Transaction, cardAdf: Node, schema: Schema) {
   const { inlineCard } = schema.nodes;
@@ -259,53 +258,14 @@ export const changeSelectedCardToLink = (
   } else {
     tr = cardToLinkWithTransaction(state, text, href);
   }
-  const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
 
-  if (sendAnalytics) {
-    if (selectedNode) {
-      const { viewChangingExperimentToolbarStyle } = getFeatureFlags(state);
-      addAnalytics(state, tr, {
-        action: ACTION.CHANGED_TYPE,
-        actionSubject: ACTION_SUBJECT.SMART_LINK,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: {
-          newType: SMART_LINK_TYPE.URL,
-          previousType: appearanceForNodeType(selectedNode.type),
-          localId: selectedNode.attrs.localId,
-          featureFlag: viewChangingExperimentToolbarStyle || 'noChange',
-        },
-      } as AnalyticsEventPayload);
-    }
-  }
-
-  if (dispatch) {
-    dispatch(tr.scrollIntoView());
-  }
-
-  return true;
-};
-
-export const changeSelectedCardToLinkFallback = (
-  text?: string,
-  href?: string,
-  sendAnalytics?: boolean,
-  node?: Node,
-  pos?: number,
-): Command => (state, dispatch) => {
-  let tr;
-  if (node && pos) {
-    tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
-  } else {
-    tr = cardToLinkWithTransaction(state, text, href);
-  }
   if (sendAnalytics) {
     addAnalytics(state, tr, {
-      action: ACTION.ERRORED,
+      action: ACTION.CHANGED_TYPE,
       actionSubject: ACTION_SUBJECT.SMART_LINK,
-      eventType: EVENT_TYPE.OPERATIONAL,
+      eventType: EVENT_TYPE.TRACK,
       attributes: {
-        error: 'Smart card falling back to link.',
+        newType: SMART_LINK_TYPE.URL,
       },
     } as AnalyticsEventPayload);
   }
@@ -429,7 +389,6 @@ export const setSelectedCardAppearance: (
   const { from } = state.selection;
   const nodeType = getLinkNodeType(appearance, state.schema.nodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
-  const { viewChangingExperimentToolbarStyle } = getFeatureFlags(state);
   addAnalytics(state, tr, {
     action: ACTION.CHANGED_TYPE,
     actionSubject: ACTION_SUBJECT.SMART_LINK,
@@ -437,8 +396,6 @@ export const setSelectedCardAppearance: (
     attributes: {
       newType: appearance,
       previousType: appearanceForNodeType(selectedNode.type),
-      localId: selectedNode.attrs.localId,
-      featureFlag: viewChangingExperimentToolbarStyle || 'noChange',
     },
   } as AnalyticsEventPayload);
 

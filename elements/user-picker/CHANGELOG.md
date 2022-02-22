@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.6.4
+
+### Patch Changes
+
+- [`3899f24cdd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3899f24cdd6) - track mount error for User Picker in UFO
+
 ## 8.6.3
 
 ### Patch Changes

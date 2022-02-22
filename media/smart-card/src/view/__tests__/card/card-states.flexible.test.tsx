@@ -12,7 +12,7 @@ jest.doMock('../../../client/errors', () => ({
 import React from 'react';
 import { render, cleanup, waitForElement } from '@testing-library/react';
 import CardClient from '../../../client';
-import { Card } from '../../Card';
+import { Card, CardAppearance } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
@@ -126,6 +126,45 @@ describe('smart-card: card states, flexible', () => {
         expect(resolvedViewName).toBeTruthy();
         expect(resolvedViewDescription).toBeTruthy();
       });
+    });
+  });
+
+  describe.each([
+    'inline' as CardAppearance,
+    'block' as CardAppearance,
+    'embed' as CardAppearance,
+  ])('with %s card appearance', (appearance: CardAppearance) => {
+    const testId = 'smart-links-container'; // default Flexible UI container testId
+    it('renders Flexible UI when card is %s', async () => {
+      const { getByTestId } = render(
+        <Provider client={mockClient}>
+          <Card appearance={appearance} url={mockUrl}>
+            <TitleBlock />
+          </Card>
+        </Provider>,
+      );
+      const block = await waitForElement(() => getByTestId(testId));
+      expect(block).toBeTruthy();
+    });
+
+    it('does not render Flexible UI when card has no children', () => {
+      const { queryByTestId } = render(
+        <Provider client={mockClient}>
+          <Card appearance={appearance} url={mockUrl} />
+        </Provider>,
+      );
+      expect(queryByTestId(testId)).toBeNull();
+    });
+
+    it('does not render Flexible UI when card has no valid children', () => {
+      const { queryByTestId } = render(
+        <Provider client={mockClient}>
+          <Card appearance={appearance} url={mockUrl}>
+            <div>Test</div>
+          </Card>
+        </Provider>,
+      );
+      expect(queryByTestId(testId)).toBeNull();
     });
   });
 });

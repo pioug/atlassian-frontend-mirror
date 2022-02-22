@@ -139,4 +139,54 @@ describe('@atlaskit/page', () => {
     const image = await takeElementScreenShot(page, pageSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  describe('edge cases', () => {
+    it('should consistently handle when content is not wrapped in columns', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'page',
+        'edge-cases',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      const image = await takeElementScreenShot(
+        page,
+        '[data-testid="column-none"]',
+      );
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('should consistently handle when content is only sometimes wrapped in columns', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'page',
+        'edge-cases',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      const image = await takeElementScreenShot(
+        page,
+        '[data-testid="column-mixed"]',
+      );
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('should consistently handle when a column is not a direct child of Grid', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'page',
+        'edge-cases',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      const image = await takeElementScreenShot(
+        page,
+        '[data-testid="column-nested"]',
+      );
+      expect(image).toMatchProdImageSnapshot();
+    });
+  });
 });

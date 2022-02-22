@@ -1,3 +1,7 @@
 import { IconType } from '../../../constants';
 
-export type IconDescriptor = [IconType?, string?, string?];
+export type IconDescriptor = {
+  icon?: IconType;
+  label?: string;
+  url?: string;
+};

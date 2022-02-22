@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import { render, waitForElement } from '@testing-library/react';
 
 import TitleBlock from '../index';
-import context from '../../../../../../__fixtures__/flexible-ui-data-context.json';
+import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import {
   ElementName,

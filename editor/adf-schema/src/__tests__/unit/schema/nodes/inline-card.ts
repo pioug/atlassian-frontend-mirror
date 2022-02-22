@@ -52,10 +52,7 @@ describe(`${name}/schema inlineCard node`, () => {
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!
           .firstChild!;
-        expect(parsedNode).toMatchObject({
-          ...node,
-          attrs: { localId: expect.any(String) },
-        });
+        expect(parsedNode).toEqual(node);
       });
     });
   });
@@ -102,10 +99,7 @@ describe(`${name}/schema inlineCard node`, () => {
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!
           .firstChild!;
-        expect(parsedNode).toMatchObject({
-          ...node,
-          attrs: { localId: expect.any(String) },
-        });
+        expect(parsedNode).toEqual(node);
       });
     });
   });

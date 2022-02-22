@@ -23,6 +23,7 @@ import {
 } from '../common/date/extractDateCreated';
 import extractPriority from './extract-priority';
 import { CardProviderRenderers } from '../../state/context/types';
+import extractProviderIcon from './icon/extract-provider-icon';
 
 const extractFlexibleUiContext = (
   response?: JsonLd.Response,
@@ -48,6 +49,7 @@ const extractFlexibleUiContext = (
     state: extractLozenge(data),
     subscriberCount: extractSubscriberCount(data),
     title: extractTitle(data) || url,
+    provider: extractProviderIcon(data),
     url,
   };
 };

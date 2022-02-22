@@ -5,59 +5,83 @@ import { css, jsx } from '@emotion/core';
 
 import {
   defaultMedium,
-  spacingMapping,
   varColumnsNum,
   varColumnSpan,
+  varGridSpacing,
 } from './constants';
 import { GridContext } from './grid-context';
-import type { GridColumnProps, GridSpacing } from './types';
-
-// IE11 and Edge both have rounding issues for flexbox which is why a width of
-// 99.9999% is used. Using 100% here causes columns to wrap prematurely.
-const divisibleFullWidth = '99.9999%';
+import type { GridColumnProps } from './types';
 
 /**
- * Sets flex basis to occupy the specified number of columns.
+ * Determines the method by which column width is calculated.
  */
-const getGridColumnSpanStyles = (spacing: GridSpacing) => {
-  const gap = `${spacingMapping[spacing]}px`;
-
+enum ColumnVariant {
   /**
-   * We need to add the gap here to get the same results as before
-   * because of how gaps were emulated with margins.
+   * Column occupies available space.
    *
-   * Before the margins on the edges could extend past the edges
-   * of the container, while still contributing to width calculations.
+   * Used when `medium` is 0 (the default).
    */
-  const availableWidth = `(${divisibleFullWidth} + ${gap})`;
-  const singleColumnWidth = `${availableWidth} / var(${varColumnsNum})`;
+  Auto = 'auto',
+  /**
+   * Column occupies specified space.
+   *
+   * Used when 0 < `medium` < `columns`.
+   */
+  Bounded = 'bounded',
+  /**
+   * Column occupies entire row.
+   *
+   * Used when `medium` >= `columns`.
+   *
+   * This case is handled separately because of rounding.
+   */
+  FullWidth = 'fullWidth',
+}
 
-  return css({
-    minWidth: `calc(${singleColumnWidth} - ${gap})`,
-    maxWidth: `calc(${singleColumnWidth} *  var(${varColumnSpan}) - ${gap})`,
-    flexBasis: `100%`,
-  });
+const getVariant = ({
+  medium,
+  columns,
+}: {
+  medium: number;
+  columns: number;
+}): ColumnVariant => {
+  if (medium === defaultMedium) {
+    return ColumnVariant.Auto;
+  } else if (medium < columns) {
+    return ColumnVariant.Bounded;
+  }
+  return ColumnVariant.FullWidth;
 };
 
-const gridColumnSpanStyles = {
-  cosy: getGridColumnSpanStyles('cosy'),
-  comfortable: getGridColumnSpanStyles('comfortable'),
-  compact: getGridColumnSpanStyles('compact'),
-  fullWidth: css({
-    maxWidth: '100%',
-    flexBasis: '100%',
-  }),
-  fillAvailable: css({
-    maxWidth: '100%',
-    flexBasis: 'auto',
-  }),
-};
+/**
+ * IE11 and Edge both have rounding issues for flexbox which is why a width of
+ * 99.9999% is used. Using 100% here causes columns to wrap prematurely.
+ */
+const availableWidth = '99.9999%';
+const singleColumnWidth = `(${availableWidth} / var(${varColumnsNum}))`;
 
 const gridColumnStyles = css({
+  minWidth: `calc(${singleColumnWidth} - var(${varGridSpacing}))`,
+  margin: `0 calc(var(${varGridSpacing}) / 2)`,
   flexGrow: 1,
   flexShrink: 0,
   wordWrap: 'break-word',
 });
+
+const gridColumnWidthStyles = {
+  [ColumnVariant.Auto]: css({
+    maxWidth: `calc(100% - var(${varGridSpacing}))`,
+    flexBasis: `auto`,
+  }),
+  [ColumnVariant.Bounded]: css({
+    maxWidth: `calc(${singleColumnWidth} *  var(${varColumnSpan}) - var(${varGridSpacing}))`,
+    flexBasis: `100%`,
+  }),
+  [ColumnVariant.FullWidth]: css({
+    maxWidth: `calc(100% - var(${varGridSpacing}))`,
+    flexBasis: `100%`,
+  }),
+};
 
 /**
  * __Grid column context__
@@ -78,39 +102,32 @@ const GridColumn = ({
   children,
   testId,
 }: GridColumnProps) => {
-  const { spacing, columns } = useContext(GridContext);
+  const { columns } = useContext(GridContext);
 
   const contextValue = useMemo(() => ({ medium }), [medium]);
 
+  /**
+   * The real column span,
+   * obtained by clamping the passed `medium` value within the allowed range.
+   */
   const colSpan = Math.max(1, Math.min(medium, columns));
 
   /**
-   * The full-width case is handled separately because of rounding.
+   * How we should calculate the column width.
    */
-  const isFullWidth = colSpan === columns;
-
-  /**
-   * A `medium` of 0 (the default) equates to an automatic flex-basis,
-   * meaning the column will fill available space.
-   */
-  const shouldFillAvailable = medium === defaultMedium;
+  const variant = getVariant({ medium, columns });
 
   return (
     <GridColumnContext.Provider value={contextValue}>
       <div
-        css={[
-          gridColumnStyles,
-          gridColumnSpanStyles[spacing],
-          isFullWidth && gridColumnSpanStyles.fullWidth,
-          shouldFillAvailable && gridColumnSpanStyles.fillAvailable,
-        ]}
+        css={[gridColumnStyles, gridColumnWidthStyles[variant]]}
         style={
           {
             /**
              * The 'auto' value here isn't actually consumed anywhere and is
-             * just to better reflect what is happening.
+             * just to better reflect what is happening when inspecting CSS.
              */
-            [varColumnSpan]: shouldFillAvailable ? 'auto' : colSpan,
+            [varColumnSpan]: variant === ColumnVariant.Auto ? 'auto' : colSpan,
           } as React.CSSProperties
         }
         data-testid={testId}

@@ -1,5 +1,16 @@
 # @atlaskit/page
 
+## 12.1.2
+
+### Patch Changes
+
+- [`b3ea181f8ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ea181f8ed) - Regressions in version `12.1.0` have been fixed:
+
+  - Move to CSS `gap` has been reverted, as some use cases were not properly handled.
+  - The `theme` prop has been re-introduced, mapping to the new props introduced in `12.1.0`.
+
+  This version should be properly minor compatible with version `12.0.7`.
+
 ## 12.1.1
 
 ### Patch Changes

@@ -14,11 +14,12 @@ import type { GridProps } from './types';
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/page)
  */
 const GridWrapper = ({
-  spacing = defaultSpacing,
-  columns,
+  spacing: spacingProp,
+  columns: columnsProp,
   layout,
   testId,
   children,
+  theme,
 }: GridProps) => {
   /**
    * isRoot is `true` only in the default context (i.e. no ancestor Grid).
@@ -32,14 +33,22 @@ const GridWrapper = ({
    */
   const defaultColumns = medium > 0 ? medium : defaultGridColumns;
 
+  /**
+   * This is to account for the eventual removal of the `theme` prop. In theory, this should not be exposed.
+   * However, consumers are still using it - there should be a major rerelease with the complete removal of this prop later.
+   */
+  const spacing = spacingProp ?? theme?.spacing ?? defaultSpacing;
+  const columns = columnsProp ?? theme?.columns ?? defaultColumns;
+  const isNested = theme?.isNestedGrid ?? !isRoot;
+
   const contextValue = useMemo(
     () => ({
       isRoot: false,
-      isNested: !isRoot,
+      isNested,
       spacing,
-      columns: columns ?? defaultColumns,
+      columns: columns,
     }),
-    [spacing, columns, isRoot, defaultColumns],
+    [spacing, columns, isNested],
   );
 
   return (

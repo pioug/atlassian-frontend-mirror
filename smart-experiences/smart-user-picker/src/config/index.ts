@@ -21,8 +21,8 @@ const LOCAL_CONFIG: Config = {
   },
   getGraphQLUrl(baseUrl: string) {
     return baseUrl
-      ? `${STG_INSTANCE}/${baseUrl}/graphql`
-      : `${STG_INSTANCE}/graphql`;
+      ? `${STG_INSTANCE}/${baseUrl}/gateway/api/graphql`
+      : `${STG_INSTANCE}/gateway/api/graphql`;
   },
   getTeamsUrl(baseUrl: string) {
     return baseUrl
@@ -43,7 +43,7 @@ const PRD_CONFIG: Config = {
       : `${baseUrl}/wiki/rest/api/user/bulk`;
   },
   getGraphQLUrl(baseUrl: string) {
-    return baseUrl ? `${baseUrl}/graphql` : `/graphql`;
+    return baseUrl ? `${baseUrl}/gateway/api/graphql` : `/gateway/api/graphql`;
   },
   getTeamsUrl(baseUrl: string) {
     return baseUrl

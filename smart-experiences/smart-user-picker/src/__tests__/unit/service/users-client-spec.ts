@@ -67,7 +67,7 @@ describe('users-client', () => {
     const hydratedUsers = await getHydratedUsers('', [ID1]);
 
     expect(hydratedUsers).toEqual(buildTransformedUsersResponse([ID1]));
-    expect(graphqlQueryMock).toHaveBeenCalledWith('/graphql', {
+    expect(graphqlQueryMock).toHaveBeenCalledWith('/gateway/api/graphql', {
       query: expectedGraphQlQuery,
       variables: {
         accountIds: [ID1],
@@ -82,7 +82,7 @@ describe('users-client', () => {
     const hydratedUsers = await getHydratedUsers('', [ID1, ID2]);
 
     expect(hydratedUsers).toEqual(buildTransformedUsersResponse([ID1, ID2]));
-    expect(graphqlQueryMock).toHaveBeenCalledWith('/graphql', {
+    expect(graphqlQueryMock).toHaveBeenCalledWith('/gateway/api/graphql', {
       query: expectedGraphQlQuery,
       variables: {
         accountIds: [ID1, ID2],

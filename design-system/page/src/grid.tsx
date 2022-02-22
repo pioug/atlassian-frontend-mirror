@@ -8,58 +8,31 @@ import {
   defaultLayout,
   spacingMapping,
   varColumnsNum,
+  varGridSpacing,
 } from './constants';
 import { GridContext } from './grid-context';
-import type { GridProps, GridSpacing } from './types';
-
-/**
- * Maximum width styles for a grid using a fixed layout.
- *
- * Equal to the space occupied by the columns + the padding required.
- */
-const getGridFixedLayoutMaxWidthStyles = (spacing: GridSpacing) =>
-  css({
-    maxWidth: `calc(var(${varColumnsNum}) * ${defaultGridColumnWidth}px + ${spacingMapping[spacing]}px)`,
-  });
-
-/**
- * Horizontal padding for the grid.
- *
- * Not applied for nested grids as they should not be inset.
- */
-const getGridPaddingStyles = (spacing: GridSpacing) =>
-  css({ padding: `0 ${spacingMapping[spacing]}px` });
-
-const getGridColumnGapStyles = (spacing: GridSpacing) =>
-  css({ columnGap: spacingMapping[spacing] });
-
-const gridFixedLayoutMaxWidthStyles = {
-  cosy: getGridFixedLayoutMaxWidthStyles('cosy'),
-  comfortable: getGridFixedLayoutMaxWidthStyles('comfortable'),
-  compact: getGridFixedLayoutMaxWidthStyles('compact'),
-};
-
-const gridFluidLayoutMaxWidthStyles = css({ maxWidth: '100%' });
-
-const gridPaddingStyles = {
-  cosy: getGridPaddingStyles('cosy'),
-  comfortable: getGridPaddingStyles('comfortable'),
-  compact: getGridPaddingStyles('compact'),
-};
-
-const gridColumnGapStyles = {
-  cosy: getGridColumnGapStyles('cosy'),
-  comfortable: getGridColumnGapStyles('comfortable'),
-  compact: getGridColumnGapStyles('compact'),
-};
+import type { GridProps } from './types';
 
 const gridStyles = css({
   display: 'flex',
-  boxSizing: 'border-box',
   margin: '0 auto',
+  padding: `0 calc(var(${varGridSpacing}) / 2)`,
   position: 'relative',
   alignItems: 'flex-start',
   flexWrap: 'wrap',
+});
+
+const gridLayoutStyles = {
+  fixed: css({
+    maxWidth: `calc(var(${varColumnsNum}) * ${defaultGridColumnWidth}px)`,
+  }),
+  fluid: css({
+    maxWidth: '100%',
+  }),
+};
+
+const nestedGridStyles = css({
+  margin: `0 calc(-1 * var(${varGridSpacing}))`,
 });
 
 /**
@@ -81,15 +54,13 @@ export const Grid: React.FC<GridProps> = ({
 
   return (
     <div
-      css={[
-        gridStyles,
-        !isNested && gridPaddingStyles[spacing],
-        layout === 'fixed'
-          ? gridFixedLayoutMaxWidthStyles[spacing]
-          : gridFluidLayoutMaxWidthStyles,
-        gridColumnGapStyles[spacing],
-      ]}
-      style={{ [varColumnsNum]: columns } as React.CSSProperties}
+      css={[gridStyles, gridLayoutStyles[layout], isNested && nestedGridStyles]}
+      style={
+        {
+          [varColumnsNum]: columns,
+          [varGridSpacing]: `${spacingMapping[spacing]}px`,
+        } as React.CSSProperties
+      }
       data-testid={testId}
     >
       {children}

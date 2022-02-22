@@ -10,7 +10,7 @@ import {
   SmartLinkStatus,
 } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
+import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import {
   ElementDisplaySchema,
   ElementDisplaySchemaType,

@@ -7,24 +7,24 @@ const extractJiraTaskIcon = (
 ): IconDescriptor | undefined => {
   switch (taskType) {
     case 'JiraBug':
-      return [IconType.Bug, label];
+      return { icon: IconType.Bug, label };
     case 'JiraChange':
-      return [IconType.Change, label];
+      return { icon: IconType.Change, label };
     case 'JiraEpic':
-      return [IconType.Epic, label];
+      return { icon: IconType.Epic, label };
     case 'JiraIncident':
-      return [IconType.Incident, label];
+      return { icon: IconType.Incident, label };
     case 'JiraProblem':
-      return [IconType.Problem, label];
+      return { icon: IconType.Problem, label };
     case 'JiraServiceRequest':
-      return [IconType.ServiceRequest, label];
+      return { icon: IconType.ServiceRequest, label };
     case 'JiraStory':
-      return [IconType.Story, label];
+      return { icon: IconType.Story, label };
     case 'JiraSubTask':
-      return [IconType.SubTask, label];
+      return { icon: IconType.SubTask, label };
     case 'JiraTask':
     default:
-      return [IconType.Task, label];
+      return { icon: IconType.Task, label };
   }
 };
 

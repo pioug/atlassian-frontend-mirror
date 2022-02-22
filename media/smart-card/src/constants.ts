@@ -1,18 +1,35 @@
+/**
+ * The alignment of Flexible UI component.
+ */
 export enum SmartLinkAlignment {
   Left = 'left',
   Right = 'right',
 }
 
+/**
+ * The direction of Flexible UI components. It establish the main-axis
+ * or how the child components laid out inside the parent component.
+ * Similar to flex's flex-direction concept.
+ */
 export enum SmartLinkDirection {
   Horizontal = 'horizontal',
   Vertical = 'vertical',
 }
 
+/**
+ * The positioning of the component within the parent component.
+ * Similar to flex's align-items or align-self concept.
+ */
 export enum SmartLinkPosition {
   Top = 'top',
   Center = 'center',
 }
 
+/**
+ * The sizing options of the Flexible UI component. Every component
+ * has or inherits the sizing props. Implementation varies
+ * as per component.
+ */
 export enum SmartLinkSize {
   XLarge = 'xlarge',
   Large = 'large',
@@ -20,6 +37,9 @@ export enum SmartLinkSize {
   Small = 'small',
 }
 
+/**
+ * Smart Links link request status
+ */
 export enum SmartLinkStatus {
   Pending = 'pending',
   Resolving = 'resolving',
@@ -33,29 +53,41 @@ export enum SmartLinkStatus {
   Fallback = 'fallback',
 }
 
+/**
+ * Flexible UI theme available on the Card level.
+ * This determine the styling of the link.
+ */
 export enum SmartLinkTheme {
   Black = 'black',
   Link = 'link',
 }
 
+/**
+ * Determines whether the container size will fit to the content
+ * or expand to the available width or the parent component.
+ * Similar to flex's flex-grow concept.
+ */
 export enum SmartLinkWidth {
   FitToContent = 'fit-to-content',
   Flexible = 'flexible',
 }
 
-// When adding an element...
-// 1) Create base element if it doesn't already existed.
-//    Base element are inside src/view/FlexibleCard/components/elements.
-//    E.g. Badge,DateTime, Icon, Lozenge, etc.
-// 2) Update FlexibleUiContext with the new prop for data representing
-//    the element, preferably with the same name as the element itself.
-//    (src/state/flexible-ui-context/types.ts)
-// 3) Update Flexible UI extractor (src/extractors/flexible/index.ts)
-// 4) Set base element and data mapping.
-//    (src/view/FlexibleCard/components/elements/utils.tsx)
-// 5) Create element. (src/view/FlexibleCard/components/elements/index.ts)
-// 6) Update element ElementDisplaySchema for inline/block display
-//    (src/view/FlexibleCard/components/blocks/utils.tsx)
+/**
+ * Flexible UI element name - each reflecting the link data its represented.
+ * When adding an element...
+ * 1) Create base element if it doesn't already existed.
+ *    Base element are inside src/view/FlexibleCard/components/elements.
+ *    E.g. Badge,DateTime, Icon, Lozenge, etc.
+ * 2) Update FlexibleUiContext with the new prop for data representing
+ *    the element, preferably with the same name as the element itself.
+ *    (src/state/flexible-ui-context/types.ts)
+ * 3) Update Flexible UI extractor (src/extractors/flexible/index.ts)
+ * 4) Set base element and data mapping
+ *    (src/view/FlexibleCard/components/elements/utils.tsx)
+ * 5) Create element. (src/view/FlexibleCard/components/elements/index.ts)
+ * 6) Update element ElementDisplaySchema for inline/block display
+ *    (src/view/FlexibleCard/components/blocks/utils.tsx)
+ */
 export enum ElementName {
   AuthorGroup = 'AuthorGroup',
   CollaboratorGroup = 'CollaboratorGroup',
@@ -71,12 +103,19 @@ export enum ElementName {
   State = 'State',
   SubscriberCount = 'SubscriberCount',
   Title = 'Title',
+  Provider = 'Provider',
 }
 
+/**
+ * Flexible UI action (button)
+ */
 export enum ActionName {
   DeleteAction = 'DeleteAction',
 }
 
+/**
+ * Flexible UI icons - each mapped to AK icons.
+ */
 export enum IconType {
   Archive = 'FileType:Archive',
   Audio = 'FileType:Audio',

@@ -17,6 +17,7 @@ import {
   SmartLinkPosition,
   SmartLinkSize,
   SmartLinkTheme,
+  SnippetBlock,
   TitleBlock,
 } from '../../src';
 import TitleBlockOption from './TitleBlockOption';
@@ -25,6 +26,7 @@ import EnvironmentOption from './EnvironmentOption';
 import { exampleTokens } from '../utils/flexible-ui';
 import { ExampleClient } from './ExampleClient';
 import MetadataBlockOption from './MetadataBlockOption';
+import SnippetBlockOption from './SnippetBlockOption';
 
 const initialUrl = 'https://BitbucketRepository';
 
@@ -65,6 +67,8 @@ const FlexibleUiExample: React.FC = () => {
   const [metadataMaxLines, setMetadataMaxLines] = useState<number>(2);
   const [primary, setPrimary] = useState<ElementItem[]>([]);
   const [secondary, setSecondary] = useState<ElementItem[]>([]);
+  // SnippetBlock options
+  const [showSnippetBlock, setShowSnippetBlock] = useState<boolean>(false);
 
   return (
     <div css={containerStyles}>
@@ -93,6 +97,7 @@ const FlexibleUiExample: React.FC = () => {
                     secondary={secondary}
                   />
                 )}
+                {showSnippetBlock && <SnippetBlock />}
               </Card>
             </Provider>
           </IntlProvider>
@@ -131,6 +136,7 @@ const FlexibleUiExample: React.FC = () => {
           setSecondary={setSecondary}
           setShow={setShowMetadataBlock}
         />
+        <SnippetBlockOption setShow={setShowSnippetBlock} />
       </div>
     </div>
   );

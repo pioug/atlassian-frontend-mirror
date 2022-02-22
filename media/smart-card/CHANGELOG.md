@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 17.4.2
+
+### Patch Changes
+
+- [`c8285bdcde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8285bdcde4) - Flexible UI: Add SnippetBlock
+
+## 17.4.1
+
+### Patch Changes
+
+- [`ecf130ca7d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ecf130ca7d8) - Flexible UI: Remove check on Smart Links appearance
+
+## 17.4.0
+
+### Minor Changes
+
+- [`392b7d2b98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/392b7d2b98f) - Add Provider element
+
 ## 17.3.2
 
 ### Patch Changes

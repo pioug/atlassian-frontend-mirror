@@ -7,8 +7,8 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import rafSchedule from 'raf-schd';
 
-import { SmartCardProps, Card, GenericCard } from './genericCard';
-
+import { SmartCardProps, Card } from './genericCard';
+import ReactNodeView from '../../../nodeviews/ReactNodeView';
 import { registerCard } from '../pm-plugins/actions';
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
@@ -88,7 +88,7 @@ export type InlineCardNodeViewProps = Pick<
   'useAlternativePreloader'
 >;
 
-export class InlineCard extends GenericCard<InlineCardNodeViewProps> {
+export class InlineCard extends ReactNodeView<InlineCardNodeViewProps> {
   createDomRef() {
     return super.createDomRef({ displayInlineBlockForInlineNodes: false });
   }

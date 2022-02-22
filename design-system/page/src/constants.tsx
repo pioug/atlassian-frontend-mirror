@@ -21,6 +21,17 @@ export const defaultMedium = 0;
 
 export const defaultLayout = 'fixed';
 
+/**
+ * The number of available columns in each row.
+ */
 export const varColumnsNum = '--ds-columns-num';
 
+/**
+ * The number of columns that a `GridColumn` covers.
+ */
 export const varColumnSpan = '--ds-column-span';
+
+/**
+ * The spacing (in `px`) between each column.
+ */
+export const varGridSpacing = '--ds-grid-spacing';

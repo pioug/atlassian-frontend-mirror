@@ -18,9 +18,34 @@ jest.mock('../../../components/MessagesIntlProvider', () =>
   jest.fn().mockImplementation(({ children }) => children),
 );
 
+const mockUfoStart = jest.fn();
+const mockUfoSuccess = jest.fn();
+const mockUfoFailure = jest.fn();
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): ConcurrentExperience => ({
+    // @ts-expect-error partial getInstance mock
+    getInstance: (id: string) => ({
+      start: mockUfoStart,
+      success: mockUfoSuccess,
+      failure: mockUfoFailure,
+    }),
+  }),
+}));
+
+jest.mock('@atlaskit/select', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/select'),
+  CreatableSelect: () => {
+    throw new Error('Error from inside CreatableSelect');
+  },
+}));
+
 import Select, { CreatableSelect } from '@atlaskit/select';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
+import { ConcurrentExperience } from '@atlaskit/ufo';
 import { getComponents } from '../../../components/components';
 import { getCreatableProps } from '../../../components/creatable';
 import { getCreatableSuggestedEmailProps } from '../../../components/creatableEmailSuggestion';
@@ -51,6 +76,9 @@ describe('UserPicker', () => {
       .dive()
       .dive();
 
+  const mountUserPicker = (props: Partial<UserPickerProps> = {}) =>
+    mount(<UserPickerWithoutAnalytics fieldId="test" {...props} />);
+
   const options: User[] = [
     {
       id: 'abc-123',
@@ -70,7 +98,7 @@ describe('UserPicker', () => {
 
   describe('default picker', () => {
     it('should render Select by default', () => {
-      const component = shallowUserPicker({ options });
+      const component = shallowUserPicker({ options }).dive();
       const select = component.find(Select);
       expect(select).toHaveLength(1);
       expect(getStyles).toHaveBeenCalledWith(350, false, undefined);
@@ -93,8 +121,12 @@ describe('UserPicker', () => {
   });
 
   describe('allowEmail', () => {
+    beforeEach(() => {
+      jest.unmock('@atlaskit/select');
+    });
+
     it('should use CreatableSelect', () => {
-      const component = shallowUserPicker({ allowEmail: true });
+      const component = shallowUserPicker({ allowEmail: true }).dive();
       const select = component.find(CreatableSelect);
       expect(select).toHaveLength(1);
       expect(getCreatableProps).toHaveBeenCalledTimes(1);
@@ -102,7 +134,7 @@ describe('UserPicker', () => {
     });
 
     it('should pass creatable props as pickerProps', () => {
-      const component = shallowUserPicker({ allowEmail: true });
+      const component = shallowUserPicker({ allowEmail: true }).dive();
       expect(getCreatableProps).toHaveBeenCalledTimes(1);
       expect(component.prop('pickerProps')).toEqual(getCreatableProps());
     });
@@ -125,6 +157,30 @@ describe('UserPicker', () => {
       });
       expect(getCreatableProps).toHaveBeenCalledTimes(0);
       expect(getCreatableSuggestedEmailProps).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('UFO', () => {
+    beforeEach(() => {
+      mockUfoStart.mockReset();
+      mockUfoSuccess.mockReset();
+      mockUfoFailure.mockReset();
+    });
+
+    it('should send a UFO success metric when mounted successfully', async () => {
+      mountUserPicker();
+      expect(mockUfoStart).toHaveBeenCalled();
+      expect(mockUfoSuccess).toHaveBeenCalled();
+    });
+
+    it('should send a UFO failure metric when mount fails', async () => {
+      mountUserPicker({
+        // allowEmail:true causes CreatableSelect to be used,
+        // which at the top of this file is mocks to throw an error
+        allowEmail: true,
+      });
+      expect(mockUfoStart).toHaveBeenCalled();
+      expect(mockUfoFailure).toHaveBeenCalled();
     });
   });
 });

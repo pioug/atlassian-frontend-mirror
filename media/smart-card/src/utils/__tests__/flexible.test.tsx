@@ -11,32 +11,20 @@ import Block from '../../view/FlexibleCard/components/blocks/block';
 import { TitleBlock } from '../../view/FlexibleCard/components/blocks';
 
 describe('isFlexibleUiCard', () => {
-  it('returns true if card appearance is inline', () => {
-    const isFlexible = isFlexibleUiCard('inline', <TitleBlock />);
+  it('returns true if card has children', () => {
+    const isFlexible = isFlexibleUiCard(<TitleBlock />);
 
     expect(isFlexible).toBeTruthy();
-  });
-
-  it('returns true if card appearance is block', () => {
-    const isFlexible = isFlexibleUiCard('block', <TitleBlock />);
-
-    expect(isFlexible).toBeTruthy();
-  });
-
-  it('returns false if card appearance is neither inline or block', () => {
-    const isFlexible = isFlexibleUiCard('embed', <TitleBlock />);
-
-    expect(isFlexible).toBeFalsy();
   });
 
   it('returns false if card does not have any children', () => {
-    const isFlexible = isFlexibleUiCard('embed');
+    const isFlexible = isFlexibleUiCard();
 
     expect(isFlexible).toBeFalsy();
   });
 
   it('returns false if card children is not a flexible ui block', () => {
-    const isFlexible = isFlexibleUiCard('embed', <div />);
+    const isFlexible = isFlexibleUiCard(<div />);
 
     expect(isFlexible).toBeFalsy();
   });

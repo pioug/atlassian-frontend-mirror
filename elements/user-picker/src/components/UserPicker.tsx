@@ -9,7 +9,10 @@ import { getCreatableProps } from './creatable';
 import { getCreatableSuggestedEmailProps } from './creatableEmailSuggestion';
 import MessagesIntlProvider from './MessagesIntlProvider';
 import { ExusUserSourceProvider } from './../clients/UserSourceProvider';
-import { userPickerRenderedUfoExperience as experience } from './utils';
+import {
+  userPickerRenderedUfoExperience as experience,
+  UfoErrorBoundary,
+} from '../util/ufoExperiences';
 import { v4 as uuidv4 } from 'uuid';
 
 export class UserPickerWithoutAnalytics extends React.Component<
@@ -20,10 +23,8 @@ export class UserPickerWithoutAnalytics extends React.Component<
   constructor(props: UserPickerProps) {
     super(props);
     this.ufoId = uuidv4();
-    if (this.ufoId) {
-      const experienceForId = experience.getInstance(this.ufoId);
-      experienceForId.start();
-    }
+    const experienceForId = experience.getInstance(this.ufoId);
+    experienceForId.start();
   }
 
   static defaultProps = {
@@ -32,10 +33,8 @@ export class UserPickerWithoutAnalytics extends React.Component<
   };
 
   componentDidMount() {
-    if (this.ufoId) {
-      const experienceForId = experience.getInstance(this.ufoId);
-      experienceForId.success();
-    }
+    const experienceForId = experience.getInstance(this.ufoId);
+    experienceForId.success();
   }
 
   render() {
@@ -77,18 +76,20 @@ export class UserPickerWithoutAnalytics extends React.Component<
       : { ...defaultPickerProps };
 
     return (
-      <MessagesIntlProvider>
-        <ExusUserSourceProvider fetchUserSource={loadUserSource}>
-          <BaseUserPickerWithoutAnalytics
-            {...this.props}
-            width={width}
-            SelectComponent={SelectComponent}
-            styles={getStyles(width, isMulti, this.props.styles)}
-            components={getComponents(isMulti, anchor)}
-            pickerProps={pickerProps}
-          />
-        </ExusUserSourceProvider>
-      </MessagesIntlProvider>
+      <UfoErrorBoundary id={this.ufoId}>
+        <MessagesIntlProvider>
+          <ExusUserSourceProvider fetchUserSource={loadUserSource}>
+            <BaseUserPickerWithoutAnalytics
+              {...this.props}
+              width={width}
+              SelectComponent={SelectComponent}
+              styles={getStyles(width, isMulti, this.props.styles)}
+              components={getComponents(isMulti, anchor)}
+              pickerProps={pickerProps}
+            />
+          </ExusUserSourceProvider>
+        </MessagesIntlProvider>
+      </UfoErrorBoundary>
     );
   }
 }

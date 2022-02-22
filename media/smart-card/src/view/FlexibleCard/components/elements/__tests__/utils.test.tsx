@@ -3,10 +3,14 @@ import { IntlProvider } from 'react-intl-next';
 import { render, waitForElement } from '@testing-library/react';
 
 import { createElement } from '../utils';
-import { ElementName, SmartLinkTheme } from '../../../../../constants';
+import {
+  ElementName,
+  IconType,
+  SmartLinkTheme,
+} from '../../../../../constants';
 import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
+import context from '../../../../../__fixtures__/flexible-ui-data-context';
 
 const renderComponent = (
   Component: React.FC<any>,
@@ -17,10 +21,12 @@ const renderComponent = (
   render(
     <IntlProvider locale="en">
       <FlexibleUiContext.Provider value={context}>
-        <Component testId={testId} {...props} />,
+        <Component testId={testId} {...props} />
       </FlexibleUiContext.Provider>
     </IntlProvider>,
   );
+
+type EnumKeysAsString<T> = keyof T;
 
 describe('createElement', () => {
   const testId = 'smart-element';
@@ -55,28 +61,56 @@ describe('createElement', () => {
       const element = await waitForElement(() => getByTestId(testId));
 
       expect(Component).toBeDefined();
-      expect(element.textContent).toEqual(context.state.text);
+      expect(element.textContent).toEqual(context.state?.text);
     });
 
     it.each([
-      [ElementName.CommentCount, 'commentCount'],
-      [ElementName.ProgrammingLanguage, 'programmingLanguage'],
-      [ElementName.SubscriberCount, 'subscriberCount'],
+      [
+        ElementName.CommentCount,
+        'commentCount' as EnumKeysAsString<FlexibleUiDataContext>,
+      ],
+      [
+        ElementName.ProgrammingLanguage,
+        'programmingLanguage' as EnumKeysAsString<FlexibleUiDataContext>,
+      ],
+      [
+        ElementName.SubscriberCount,
+        'subscriberCount' as EnumKeysAsString<FlexibleUiDataContext>,
+      ],
     ])(
       'creates %s component from Badge element',
-      async (elementName: ElementName, contextKey: string) => {
+      async (
+        elementName: ElementName,
+        contextKey: EnumKeysAsString<FlexibleUiDataContext>,
+      ) => {
         const Component = createElement(elementName);
+        expect(Component).toBeDefined();
+
         const { getByTestId } = renderComponent(Component, context, testId);
 
         const element = await waitForElement(() => getByTestId(testId));
         const icon = await waitForElement(() => getByTestId(`${testId}-icon`));
 
-        expect(Component).toBeDefined();
         expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
-        expect(element.textContent).toEqual(context[contextKey].toString());
+        expect(element.textContent).toEqual(context[contextKey]?.toString());
         expect(icon).toBeDefined();
       },
     );
+
+    it('should render Provider component from Badge element', async () => {
+      const Component = createElement(ElementName.Provider);
+      expect(Component).toBeDefined();
+
+      const { getByTestId } = renderComponent(Component, context, testId, {
+        icon: 'Provider:Confluence' as IconType,
+      });
+      const element = await waitForElement(() => getByTestId(testId));
+      expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
+      expect(element.textContent).toEqual(context.provider?.label);
+
+      const icon = await waitForElement(() => getByTestId(`${testId}-icon`));
+      expect(icon).toBeDefined();
+    });
 
     it('creates Priority component from Badge element', async () => {
       const Component = createElement(ElementName.Priority);

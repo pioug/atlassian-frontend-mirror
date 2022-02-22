@@ -23,9 +23,9 @@ describe('extractUrlIcon', () => {
     ['JsonLd.Primitives.Image (string)', jsonldImage],
     ['JsonLd.Primitives.Image (LinkModel)', jsonldImageLinkModel],
   ])('returns icon url from %s', (_, jsonld) => {
-    const [iconType, label, url] = extractUrlIcon(jsonld) || [];
+    const { icon, label, url } = extractUrlIcon(jsonld) || {};
 
-    expect(iconType).toBeUndefined();
+    expect(icon).toBeUndefined();
     expect(label).toBeUndefined();
     expect(url).toEqual(expectedUrl);
   });
@@ -33,10 +33,9 @@ describe('extractUrlIcon', () => {
   it('returns icon url with custom label', () => {
     const customLabel = 'custom-label';
 
-    const [iconType, label, url] =
-      extractUrlIcon(expectedUrl, customLabel) || [];
+    const { icon, label, url } = extractUrlIcon(expectedUrl, customLabel) || {};
 
-    expect(iconType).toBeUndefined();
+    expect(icon).toBeUndefined();
     expect(label).toEqual(customLabel);
     expect(url).toEqual(expectedUrl);
   });

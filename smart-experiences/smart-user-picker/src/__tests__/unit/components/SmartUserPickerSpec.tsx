@@ -11,6 +11,7 @@ import {
   AnalyticsListener,
   AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
+import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { flushPromises } from '../_testUtils';
 import SmartUserPicker, { Props } from '../../../index';
@@ -18,6 +19,30 @@ import SmartUserPicker, { Props } from '../../../index';
 import { getUserRecommendations, hydrateDefaultValues } from '../../../service';
 
 const mockPREFETCH_SESSION_ID = 'prefetch-session-id';
+
+const mockUfoStart = jest.fn();
+const mockUfoSuccess = jest.fn();
+const mockUfoFailure = jest.fn();
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): ConcurrentExperience => ({
+    // @ts-expect-error partial getInstance mock
+    getInstance: (id: string) => ({
+      start: mockUfoStart,
+      success: mockUfoSuccess,
+      failure: mockUfoFailure,
+    }),
+  }),
+}));
+
+jest.mock('@atlaskit/select', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/select'),
+  CreatableSelect: () => {
+    throw new Error('Error from inside CreatableSelect');
+  },
+}));
 
 jest.mock('uuid', () => ({
   __esModule: true, // needed for default imports
@@ -1039,6 +1064,30 @@ describe('SmartUserPicker', () => {
         }),
         'fabric-elements',
       );
+    });
+
+    describe('UFO metrics', () => {
+      beforeEach(() => {
+        mockUfoStart.mockReset();
+        mockUfoSuccess.mockReset();
+        mockUfoFailure.mockReset();
+      });
+
+      it('should send a UFO success metric when mounted successfully', async () => {
+        smartUserPickerWrapper();
+        expect(mockUfoStart).toHaveBeenCalled();
+        expect(mockUfoSuccess).toHaveBeenCalled();
+      });
+
+      it('should send a UFO failure metric when mount fails', async () => {
+        smartUserPickerWrapper({
+          // allowEmail:true causes CreatableSelect to be used,
+          // which at the top of this file is mocks to throw an error
+          allowEmail: true,
+        });
+        expect(mockUfoStart).toHaveBeenCalled();
+        expect(mockUfoFailure).toHaveBeenCalled();
+      });
     });
   });
 });

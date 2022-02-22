@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.2.0
+
+### Minor Changes
+
+- [`04386dad0c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04386dad0c2) - Addition of new `no-deprecated-design-token-usage` rule, which mirrors its eslint counterpart
+
 ## 0.1.3
 
 ### Patch Changes

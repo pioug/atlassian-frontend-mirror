@@ -193,7 +193,6 @@ Object {
               "name": "https://product-fabric.atlassian.net/wiki/display/H/Home+opt-in+requests",
               "url": "https://product-fabric.atlassian.net/wiki/display/H/Home+opt-in+requests",
             },
-            "localId": "abc-123",
             "url": null,
           },
           "type": "inlineCard",

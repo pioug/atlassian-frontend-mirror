@@ -9,7 +9,7 @@ import {
   SmartLinkTheme,
 } from '../../../../../constants';
 import { TitleBlock } from '../../blocks';
-import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
+import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { messages } from '../../../../../messages';
 

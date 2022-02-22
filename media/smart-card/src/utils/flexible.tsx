@@ -1,16 +1,11 @@
 import React from 'react';
 
-import { CardAppearance } from '../view/Card';
 import * as Blocks from '../view/FlexibleCard/components/blocks';
 import { TitleBlock } from '../view/FlexibleCard/components/blocks';
 import * as Elements from '../view/FlexibleCard/components/elements';
 
-export const isFlexibleUiCard = (
-  appearance: CardAppearance,
-  children?: React.ReactNode,
-): boolean => {
+export const isFlexibleUiCard = (children?: React.ReactNode): boolean => {
   if (
-    (appearance === 'inline' || appearance === 'block') &&
     children &&
     React.Children.toArray(children).some((child) => isFlexibleUiBlock(child))
   ) {

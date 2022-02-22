@@ -17,6 +17,9 @@ import { BadgeProps } from './badge/types';
 import { DateTimeProps } from './date-time/types';
 import { LinkProps } from './link/types';
 import { TextProps } from './text/types';
+import { tokens } from '../../../../utils/token';
+
+const SNIPPET_DEFAULT_MAX_LINES = 3;
 
 const elementMappings: Record<
   ElementName,
@@ -36,7 +39,10 @@ const elementMappings: Record<
     component: Badge,
     props: { icon: IconType.ProgrammingLanguage },
   },
-  [ElementName.Snippet]: { component: Text, props: { maxLines: 3 } },
+  [ElementName.Snippet]: {
+    component: Text,
+    props: { color: tokens.snippet, maxLines: SNIPPET_DEFAULT_MAX_LINES },
+  },
   [ElementName.State]: { component: Lozenge },
   [ElementName.SubscriberCount]: {
     component: Badge,
@@ -45,6 +51,7 @@ const elementMappings: Record<
   [ElementName.Title]: { component: Link },
   [ElementName.CreatedOn]: { component: DateTime },
   [ElementName.ModifiedOn]: { component: DateTime },
+  [ElementName.Provider]: { component: Badge },
 };
 
 const getContextKey = (name: ElementName) => {

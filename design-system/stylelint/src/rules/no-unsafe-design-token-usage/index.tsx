@@ -1,6 +1,7 @@
 import valueParser from 'postcss-value-parser';
 import stylelint from 'stylelint';
 
+import renameMapper from '@atlaskit/tokens/rename-mapping';
 import tokenNames from '@atlaskit/tokens/token-names';
 
 type PluginFlags = {
@@ -27,6 +28,17 @@ const isToken = (node: valueParser.Node): boolean =>
 
 const isInvalidToken = (node: valueParser.Node): boolean =>
   isWord(node) && node.value.startsWith('--ds-') && !isToken(node);
+
+const deletedTokenValues = Object.entries(tokenNames).filter(([key, value]) =>
+  renameMapper
+    .filter(({ state }) => state === 'deleted')
+    .find(({ path }) => path === key),
+);
+
+const isDeletedToken = (node: valueParser.Node): boolean =>
+  isWord(node) &&
+  node.value.startsWith('--ds-') &&
+  deletedTokenValues.findIndex(([_, value]) => node.value === value) >= 0;
 
 export default stylelint.createPlugin(ruleName, (isEnabled, flags = {}) => {
   return (root, result) => {
@@ -64,8 +76,7 @@ export default stylelint.createPlugin(ruleName, (isEnabled, flags = {}) => {
         if (!head) {
           return;
         }
-
-        if (isInvalidToken(head)) {
+        if (isInvalidToken(head) || isDeletedToken(head)) {
           return stylelint.utils.report({
             message: messages.invalidToken(head.value),
             node: decl,

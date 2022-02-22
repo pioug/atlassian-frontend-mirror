@@ -723,7 +723,6 @@ export function FullPageExample(props: EditorProps & ExampleProps) {
     tableOverflowShadowsOptimization: true,
     maxUnsafeChromeSpellcheckingVersion: 100,
     plainTextPasteLinkification: true,
-    viewChangingExperimentToolbarStyle: 'toolbarIcons',
   };
 
   const featureFlags =

@@ -108,7 +108,6 @@ Object {
         Object {
           "attrs": Object {
             "data": null,
-            "localId": "abc-123",
             "url": "https://inlineCardTestUrl",
           },
           "type": "inlineCard",

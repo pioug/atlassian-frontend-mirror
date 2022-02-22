@@ -7,52 +7,52 @@ const extractFileFormatIcon = (
   switch (fileFormat) {
     // Generic documents
     case 'folder':
-      return [IconType.Folder, 'Folder'];
+      return { icon: IconType.Folder, label: 'Folder' };
     case 'text/plain':
     case 'application/vnd.oasis.opendocument.text':
     case 'application/vnd.apple.pages':
-      return [IconType.Document, 'Document'];
+      return { icon: IconType.Document, label: 'Document' };
     case 'application/pdf':
-      return [IconType.PDF, 'PDF document'];
+      return { icon: IconType.PDF, label: 'PDF document' };
     case 'application/vnd.oasis.opendocument.presentation':
     case 'application/vnd.apple.keynote':
-      return [IconType.Presentation, 'Presentation'];
+      return { icon: IconType.Presentation, label: 'Presentation' };
     case 'application/vnd.oasis.opendocument.spreadsheet':
     case 'application/vnd.apple.numbers':
-      return [IconType.Spreadsheet, 'Spreadsheet'];
+      return { icon: IconType.Spreadsheet, label: 'Spreadsheet' };
     // Google Drive
     case 'application/vnd.google-apps.document':
-      return [IconType.GoogleDocs, 'Google Docs'];
+      return { icon: IconType.GoogleDocs, label: 'Google Docs' };
     case 'application/vnd.google-apps.form':
-      return [IconType.GoogleForms, 'Google Form'];
+      return { icon: IconType.GoogleForms, label: 'Google Form' };
     case 'application/vnd.google-apps.spreadsheet':
-      return [IconType.GoogleSheets, 'Google Sheets'];
+      return { icon: IconType.GoogleSheets, label: 'Google Sheets' };
     case 'application/vnd.google-apps.presentation':
-      return [IconType.GoogleSlides, 'Google Slides'];
+      return { icon: IconType.GoogleSlides, label: 'Google Slides' };
     // Microsoft
     case 'application/vnd.ms-excel':
     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-      return [IconType.MSExcel, 'Excel spreadsheet'];
+      return { icon: IconType.MSExcel, label: 'Excel spreadsheet' };
     case 'application/vnd.ms-powerpoint':
     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-      return [IconType.MSPowerpoint, 'PowerPoint presentation'];
+      return { icon: IconType.MSPowerpoint, label: 'PowerPoint presentation' };
     case 'application/msword':
     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-      return [IconType.MSWord, 'Word document'];
+      return { icon: IconType.MSWord, label: 'Word document' };
     case 'image/png':
     case 'image/jpeg':
     case 'image/bmp':
     case 'image/webp':
     case 'image/svg+xml':
-      return [IconType.Image, 'Image'];
+      return { icon: IconType.Image, label: 'Image' };
     case 'image/gif':
-      return [IconType.GIF, 'GIF'];
+      return { icon: IconType.GIF, label: 'GIF' };
     case 'audio/midi':
     case 'audio/mpeg':
     case 'audio/webm':
     case 'audio/ogg':
     case 'audio/wav':
-      return [IconType.Audio, 'Audio'];
+      return { icon: IconType.Audio, label: 'Audio' };
     case 'video/mp4':
     case 'video/quicktime':
     case 'video/mov':
@@ -60,27 +60,27 @@ const extractFileFormatIcon = (
     case 'video/ogg':
     case 'video/x-ms-wmv':
     case 'video/x-msvideo':
-      return [IconType.Video, 'Video'];
+      return { icon: IconType.Video, label: 'Video' };
     // Others
     case 'text/css':
     case 'text/html':
     case 'application/javascript':
-      return [IconType.Code, 'Source Code'];
+      return { icon: IconType.Code, label: 'Source Code' };
     case 'application/zip':
     case 'application/x-tar':
     case 'application/x-gtar':
     case 'application/x-7z-compressed':
     case 'application/x-apple-diskimage':
     case 'application/vnd.rar':
-      return [IconType.Archive, 'Archive'];
+      return { icon: IconType.Archive, label: 'Archive' };
     case 'application/dmg':
-      return [IconType.Executable, 'Executable'];
+      return { icon: IconType.Executable, label: 'Executable' };
     case 'application/sketch':
-      return [IconType.Sketch, 'Sketch'];
+      return { icon: IconType.Sketch, label: 'Sketch' };
     case 'application/octet-stream':
-      return [IconType.Generic, 'Binary file'];
+      return { icon: IconType.Generic, label: 'Binary file' };
     case 'application/invision.prototype':
-      return [IconType.Generic, 'Prototype'];
+      return { icon: IconType.Generic, label: 'Prototype' };
     default:
       return undefined;
   }

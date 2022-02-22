@@ -24,5 +24,6 @@ export const tokens = {
   ),
   errorMessage: safeToken('color.text.disabled', '#6B778C'),
   errorMessageHover: safeToken('color.text.subtle', '#8993A4'),
+  snippet: safeToken('color.text', '#172B4D'),
   text: safeToken('color.text.subtlest', '#626F86'),
 };

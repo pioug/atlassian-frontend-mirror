@@ -228,17 +228,6 @@ type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
   undefined
 >;
 
-type SmartLinkErrorAEP = OperationalAEP<
-  ACTION.ERRORED,
-  ACTION_SUBJECT.SMART_LINK,
-  undefined,
-  {
-    error: string;
-    errorStack?: string;
-  },
-  undefined
->;
-
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
   | InvalidTransactionStepErrorAEP
@@ -248,5 +237,4 @@ export type ErrorEventPayload =
   | SynchronyEntityErrorAEP
   | ContentComponentErrorAEP
   | ComponentCrashErrorAEP
-  | ComponentCrashAdditionalInfoErrorAEP
-  | SmartLinkErrorAEP;
+  | ComponentCrashAdditionalInfoErrorAEP;

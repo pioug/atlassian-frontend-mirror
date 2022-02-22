@@ -55,9 +55,9 @@ describe('extractFileFormatIcon', () => {
     ['generic', 'application/octet-stream', IconType.Generic, 'Binary file'],
     ['generic', 'application/invision.prototype', IconType.Generic, 'Prototype'],
   ])(`returns %s icon for %s`, (_, fileFormat, expectedIconType, expectedLabel) => {
-    const [iconType, label] = extractFileFormatIcon(fileFormat) || [];
+    const { icon, label} = extractFileFormatIcon(fileFormat) || { };
 
-    expect(iconType).toEqual(expectedIconType);
+    expect(icon).toEqual(expectedIconType);
     expect(label).toEqual(expectedLabel);
   });
 

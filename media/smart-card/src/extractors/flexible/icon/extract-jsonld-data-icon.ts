@@ -16,9 +16,7 @@ import { IconType } from '../../../constants';
 const extractTask = (data: JsonLd.Data.Task, label?: string) => {
   const { id, icon: url } = extractTaskType(data as JsonLd.Data.Task) || {};
   const taskType = id?.split('#').pop();
-  const taskIcon = url
-    ? ([undefined, label, url] as IconDescriptor)
-    : undefined;
+  const taskIcon = url ? { label, url } : undefined;
   return { taskType, taskIcon };
 };
 
@@ -45,7 +43,7 @@ const extractJsonldDataIcon = (
   const type = extractType(data);
   const urlIcon = extractUrlIcon(data.icon, label);
   const provider = generator?.['@id'];
-  const providerIcon = extractProviderIcon(provider, generator?.icon, label);
+  const providerIcon = extractProviderIcon(data);
 
   switch (type) {
     case 'Document':
@@ -72,20 +70,22 @@ const extractJsonldDataIcon = (
       if (isJiraProvider(provider)) {
         const { taskType, taskIcon } = extractTask(data as JsonLd.Data.Task);
         return taskType === 'JiraCustomTaskType'
-          ? taskIcon || urlIcon || providerIcon || [IconType.Task, taskLabel]
+          ? taskIcon ||
+              urlIcon ||
+              providerIcon || { icon: IconType.Task, label: taskLabel }
           : extractJiraTaskIcon(taskType, taskLabel);
       }
-      return [IconType.Task, taskLabel];
+      return { icon: IconType.Task, label: taskLabel };
     case 'atlassian:Project':
-      return urlIcon || [IconType.Project, label || 'Project'];
+      return urlIcon || { icon: IconType.Project, label: label || 'Project' };
     case 'atlassian:SourceCodeCommit':
-      return [IconType.Commit, label || 'Commit'];
+      return { icon: IconType.Commit, label: label || 'Commit' };
     case 'atlassian:SourceCodePullRequest':
-      return [IconType.PullRequest, label || 'Pull request'];
+      return { icon: IconType.PullRequest, label: label || 'Pull request' };
     case 'atlassian:SourceCodeReference':
-      return [IconType.Branch, label || 'Reference'];
+      return { icon: IconType.Branch, label: label || 'Reference' };
     case 'atlassian:SourceCodeRepository':
-      return [IconType.Repo, label || 'Repository'];
+      return { icon: IconType.Repo, label: label || 'Repository' };
     default:
       return providerIcon;
   }

@@ -75,16 +75,13 @@ const atlassianUrl = 'http://www.atlassian.com/';
 const googleUrl = 'http://www.google.com/';
 const localUrl = 'http://localhost:9090/';
 
-function getCardAdfAttrs() {
-  return {
-    url: atlassianUrl,
-    localId: 'cool-be4nz-rand0m-return',
-  };
-}
+const cardAdfAttrs = {
+  url: atlassianUrl,
+};
 
 const inlineCardAdf = {
   type: 'inlineCard',
-  attrs: getCardAdfAttrs(),
+  attrs: cardAdfAttrs,
 };
 
 describe('card', () => {
@@ -568,13 +565,13 @@ describe('card', () => {
     describe('#updateCard', () => {
       it('should replace selection with new url', function () {
         const { editorView } = editor(
-          doc(p('hello', '{<node>}', inlineCard(getCardAdfAttrs())())),
+          doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
         );
 
         const { state, dispatch } = editorView;
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello', inlineCard(getCardAdfAttrs())())),
+          doc(p('hello', inlineCard(inlineCardAdf.attrs)())),
         );
 
         updateCard(atlassianUrl)(state, dispatch);
@@ -606,7 +603,7 @@ describe('card', () => {
 
     describe('#changeSelectedCardToLink', () => {
       it('should replace selection with new url using provided node and position', function () {
-        const inlineCardRefsNode = inlineCard(getCardAdfAttrs())();
+        const inlineCardRefsNode = inlineCard(inlineCardAdf.attrs)();
         const inlineCardNode = cleanOne(inlineCardRefsNode)(defaultSchema);
         const { editorView } = editor(
           doc(p('hello', '{<node>}', inlineCardRefsNode, ' some other text')),
@@ -615,7 +612,9 @@ describe('card', () => {
         const { state, dispatch } = editorView;
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello', inlineCard(getCardAdfAttrs())(), ' some other text')),
+          doc(
+            p('hello', inlineCard(inlineCardAdf.attrs)(), ' some other text'),
+          ),
         );
 
         changeSelectedCardToLink(
@@ -653,7 +652,7 @@ describe('card', () => {
     describe('setSelectedCardAppearance()', () => {
       it('should use the right NodeType for the new node', () => {
         const { editorView } = editor(
-          doc(p('hello', '{<node>}', inlineCard(getCardAdfAttrs())())),
+          doc(p('hello', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
         );
         const dispatch = jest.fn();
 
@@ -665,7 +664,7 @@ describe('card', () => {
 
       it('should use the right range for the transaction', () => {
         const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
+          doc(p('hello ', '{<node>}', inlineCard(inlineCardAdf.attrs)())),
         );
         const dispatch = jest.fn();
 
@@ -678,7 +677,7 @@ describe('card', () => {
 
       it('should not remove parent panel when changing from inline to block and is only child', () => {
         const { editorView } = editor(
-          doc(panel()(p('{<node>}', inlineCard(getCardAdfAttrs())()))),
+          doc(panel()(p('{<node>}', inlineCard(cardAdfAttrs)()))),
         );
 
         // Change the card from "inline" to "block"
@@ -689,7 +688,7 @@ describe('card', () => {
 
         // The background color of the parent cell should be the same.
         expect(editorView.state.doc).toEqualDocument(
-          doc(panel()(p(), blockCard(getCardAdfAttrs())())),
+          doc(panel()(p(), blockCard(cardAdfAttrs)())),
         );
       });
 
@@ -702,7 +701,7 @@ describe('card', () => {
               tr(
                 td({ background: 'red' })(
                   '{<node>}',
-                  blockCard(getCardAdfAttrs())(),
+                  blockCard(cardAdfAttrs)(),
                 ),
                 td()(p('5')),
                 td()(p('6')),
@@ -724,7 +723,7 @@ describe('card', () => {
               tr(th()(p('1')), th()(p('2')), th()(p('3'))),
               tr(
                 td({ background: 'red' })(
-                  p('{<node>}', inlineCard(getCardAdfAttrs())()),
+                  p('{<node>}', inlineCard(cardAdfAttrs)()),
                 ),
                 td()(p('5')),
                 td()(p('6')),
@@ -736,7 +735,7 @@ describe('card', () => {
 
       it('should call setNodeMarkup with right values', () => {
         const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
+          doc(p('hello ', '{<node>}', inlineCard(cardAdfAttrs)())),
         );
         const setNodeMarkup = jest.fn().mockReturnValue({
           scrollIntoView: jest.fn(),
@@ -772,7 +771,7 @@ describe('card', () => {
     describe('convertHyperlinkToSmartCard()', () => {
       it('should create a transaction with the right request', () => {
         const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
+          doc(p('hello ', '{<node>}', inlineCard(cardAdfAttrs)())),
         );
         editorView.state.tr.doc.nodesBetween = jest
           .fn()
@@ -1130,7 +1129,7 @@ describe('card', () => {
 
     describe('#insertCard', () => {
       const getInlineCardNode = (editorView: EditorView): Node =>
-        inlineCard(getCardAdfAttrs())()(editorView.state.schema);
+        inlineCard(inlineCardAdf.attrs)()(editorView.state.schema);
       it('should insert adf node and add a white space', function () {
         const { editorView } = editor(doc(p('hello{<>}')));
 
@@ -1138,11 +1137,8 @@ describe('card', () => {
         const inlineCardNode = getInlineCardNode(editorView);
         dispatch(insertCard(state.tr, inlineCardNode, editorView.state.schema));
 
-        //console.log(editorView.state.doc.firstChild!.child(1).toJSON());
-        //const cool = inlineCard(getCardAdfAttrs());
-        //console.log('cool: ' + cool);
         expect(editorView.state.doc).toEqualDocument(
-          doc(p('hello', inlineCard(getCardAdfAttrs())(), ' ')),
+          doc(p('hello', inlineCard(inlineCardAdf.attrs)(), ' ')),
         );
       });
       it('should replace selection with inline card and add a white space', function () {
@@ -1153,89 +1149,7 @@ describe('card', () => {
         dispatch(insertCard(state.tr, inlineCardNode, editorView.state.schema));
 
         expect(editorView.state.doc).toEqualDocument(
-          doc(p(inlineCard(getCardAdfAttrs())(), ' ')),
-        );
-      });
-    });
-
-    describe('when smart card changes view', () => {
-      it('should pass unique id into changedType event attributes', function () {
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
-        );
-
-        setSelectedCardAppearance('block')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            action: 'changedType',
-            attributes: expect.objectContaining({
-              localId: 'cool-be4nz-rand0m-return',
-            }),
-          }),
-        );
-      });
-      it('feature flag should default to noChange if no value passed in', function () {
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
-        );
-
-        setSelectedCardAppearance('block')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            action: 'changedType',
-            attributes: expect.objectContaining({
-              featureFlag: 'noChange',
-            }),
-          }),
-        );
-      });
-      it('feature flag should be correctly passed to analytics event', function () {
-        editor = (doc: DocBuilder) => {
-          createAnalyticsEvent = (createAnalyticsEventMock() as unknown) as CreateUIAnalyticsEvent;
-          const editorWrapper = createEditor({
-            doc,
-            editorProps: {
-              allowTables: {
-                advanced: true,
-              },
-              allowAnalyticsGASV3: true,
-              allowExtension: true,
-              allowPanel: true,
-              allowTasksAndDecisions: true,
-              smartLinks: {},
-              featureFlags: { viewChangingExperimentToolbarStyle: 'meow' },
-            },
-            createAnalyticsEvent,
-            pluginKey,
-          });
-          (createAnalyticsEvent as any).mockClear();
-          return editorWrapper;
-        };
-        asMock(shouldReplaceLink).mockReturnValue(true);
-        const { editorView } = editor(
-          doc(p('hello ', '{<node>}', inlineCard(getCardAdfAttrs())())),
-        );
-
-        setSelectedCardAppearance('block')(
-          editorView.state,
-          editorView.dispatch,
-        );
-
-        expect(createAnalyticsEvent).toBeCalledWith(
-          expect.objectContaining({
-            action: 'changedType',
-            attributes: expect.objectContaining({
-              featureFlag: 'meow',
-            }),
-          }),
+          doc(p(inlineCard(inlineCardAdf.attrs)(), ' ')),
         );
       });
     });

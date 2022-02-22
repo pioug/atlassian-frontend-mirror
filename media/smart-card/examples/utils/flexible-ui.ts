@@ -24,6 +24,7 @@ export const getCardState = (
       generator: {
         '@type': 'Object',
         '@id': 'https://www.atlassian.com/#Confluence',
+        name: 'Confluence',
       },
       url: 'link-url',
       name:

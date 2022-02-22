@@ -4,7 +4,7 @@ import { render, waitForElement } from '@testing-library/react';
 import { ActionName } from '../../../../../constants';
 import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import context from '../../../../../__fixtures__/flexible-ui-data-context.json';
+import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { createUIAction } from '../utils';
 
 const renderAction = (

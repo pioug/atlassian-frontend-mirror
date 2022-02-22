@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 22.0.1
+
+### Patch Changes
+
+- [`c7a3ccf95cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7a3ccf95cd) - Patching versions to no longer reference localid from adf or smart-cards
+
 ## 22.0.0
 
 ### Major Changes

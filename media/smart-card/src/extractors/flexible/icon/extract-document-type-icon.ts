@@ -7,19 +7,19 @@ const extractDocumentTypeIcon = (
 ): IconDescriptor | undefined => {
   switch (documentType) {
     case 'schema:BlogPosting':
-      return [IconType.Blog, label || 'Blog'];
+      return { icon: IconType.Blog, label: label || 'Blog' };
     case 'schema:DigitalDocument':
-      return [IconType.File, label || 'File'];
+      return { icon: IconType.File, label: label || 'File' };
     case 'schema:TextDigitalDocument':
-      return [IconType.Document, label || 'Document'];
+      return { icon: IconType.Document, label: label || 'Document' };
     case 'schema:PresentationDigitalDocument':
-      return [IconType.Presentation, label || 'Presentation'];
+      return { icon: IconType.Presentation, label: label || 'Presentation' };
     case 'schema:SpreadsheetDigitalDocument':
-      return [IconType.Spreadsheet, label || 'Spreadsheet'];
+      return { icon: IconType.Spreadsheet, label: label || 'Spreadsheet' };
     case 'atlassian:Template':
-      return [IconType.Template, label || 'Template'];
+      return { icon: IconType.Template, label: label || 'Template' };
     case 'atlassian:UndefinedLink':
-      return [IconType.Document, label || 'Undefined link'];
+      return { icon: IconType.Document, label: label || 'Undefined link' };
     default:
       return undefined;
   }

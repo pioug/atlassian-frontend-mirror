@@ -33,3 +33,4 @@ export const SubscriberCount = createElement<BadgeProps>(
   ElementName.SubscriberCount,
 );
 export const Title = createElement<LinkProps>(ElementName.Title);
+export const Provider = createElement<BadgeProps>(ElementName.Provider);

@@ -206,7 +206,6 @@ describe('LinkToolbarAppearance', () => {
           '{<node>}',
           inlineCard({
             url: 'http://www.atlassian.com/',
-            localId: 'cool-be4nz-rand0m-return',
           })(),
         ),
       ),
@@ -231,7 +230,6 @@ describe('LinkToolbarAppearance', () => {
         p(),
         blockCard({
           url: 'http://www.atlassian.com/',
-          localId: 'cool-be4nz-rand0m-return',
         })(),
       ),
     );
@@ -245,7 +243,6 @@ describe('LinkToolbarAppearance', () => {
             '{<node>}',
             inlineCard({
               url: 'http://www.atlassian.com/',
-              localId: 'cool-be4nz-rand0m-return',
             })(),
           ),
         ),
@@ -270,7 +267,6 @@ describe('LinkToolbarAppearance', () => {
           p(),
           blockCard({
             url: 'http://www.atlassian.com/',
-            localId: 'cool-be4nz-rand0m-return',
           })(),
         ),
       ),

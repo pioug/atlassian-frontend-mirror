@@ -33,18 +33,18 @@ describe('extractDocumentTypeIcon', () => {
     ],
   ])('%s icon', (_, documentType, expectedIconType, expectedLabel) => {
     it(`returns ${expectedIconType} with default label`, () => {
-      const [iconType, label] = extractDocumentTypeIcon(documentType) || [];
+      const { icon, label } = extractDocumentTypeIcon(documentType) || {};
 
-      expect(iconType).toEqual(expectedIconType);
+      expect(icon).toEqual(expectedIconType);
       expect(label).toEqual(expectedLabel);
     });
 
     it(`returns ${expectedIconType} with custom label`, () => {
       const customLabel = 'custom-label';
-      const [iconType, label] =
-        extractDocumentTypeIcon(documentType, customLabel) || [];
+      const { icon, label } =
+        extractDocumentTypeIcon(documentType, customLabel) || {};
 
-      expect(iconType).toEqual(expectedIconType);
+      expect(icon).toEqual(expectedIconType);
       expect(label).toEqual(customLabel);
     });
   });

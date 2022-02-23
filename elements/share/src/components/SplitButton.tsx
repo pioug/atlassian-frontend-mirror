@@ -14,6 +14,7 @@ import { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
 import { DialogPlacement, Integration } from '../types';
@@ -132,7 +133,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
             >
               <DropDownIntegrationButtonWrapper>
                 <IntegrationButton
-                  textColor={N800}
+                  textColor={token('color.text', N800)}
                   appearance="subtle"
                   onClick={() => onIntegrationButtonClick(integration)}
                   shouldFitContainer={true}

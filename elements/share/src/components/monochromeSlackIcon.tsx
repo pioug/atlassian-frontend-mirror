@@ -1,3 +1,7 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
+// TODO : https://product-fabric.atlassian.net/browse/DSP-3518
+
 import React from 'react';
 
 const SlackIcon = () => {

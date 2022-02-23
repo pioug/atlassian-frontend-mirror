@@ -72,7 +72,7 @@ export const messages = defineMessages({
   },
   externalUserSourcesHeading: {
     id: 'fabric.elements.user-picker.external.sourced.from',
-    defaultMessage: 'Found in:',
+    defaultMessage: 'Also found in:',
     description: 'From where the external user is coming',
   },
   externalUserSourcesError: {
@@ -109,6 +109,12 @@ export const messages = defineMessages({
     id: 'fabric.elements.user-picker.source.confluence',
     defaultMessage: 'Confluence',
     description: 'This external user is sourced from Confluence',
+  },
+  otherAtlassianSource: {
+    id: 'fabric.elements.user-picker.source.other-atlassian',
+    defaultMessage: 'Other Atlassian products',
+    description:
+      'This external user is sourced from Atlassian products other than Jira and Confluence',
   },
   memberLozengeText: {
     id: 'fabric.elements.user-picker.member.lozenge.text',

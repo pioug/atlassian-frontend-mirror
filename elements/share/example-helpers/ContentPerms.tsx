@@ -4,13 +4,14 @@ import styled from 'styled-components';
 
 import UnlockIcon from '@atlaskit/icon/glyph/unlock';
 import { N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const message = 'Anyone can view';
 
 const Wrapper = styled.div`
   max-width: 100%;
   line-height: 40px;
-  color: ${N300};
+  color: ${token('color.text.subtle', N300)};
 `;
 
 const CopyWrapper = styled.span`

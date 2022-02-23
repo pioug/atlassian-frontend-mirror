@@ -1,7 +1,7 @@
+import { token } from '@atlaskit/tokens';
 import { CardState, CardType } from '../../src/state/store/types';
 import extractFlexibleLinkContext from '../../src/extractors/flexible';
 import { FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
-import { safeToken } from '../../src/utils/token';
 
 export const getCardState = (
   data = {},
@@ -46,7 +46,7 @@ export const getContext = (
 };
 
 export const exampleTokens = {
-  backgroundColor: safeToken('color.background.neutral', '#091E420F'),
-  iconBackgroundColor: safeToken('color.icon.brand', '#0C66E4'),
-  iconColor: safeToken('color.text.inverse', '#FFFFFF'),
+  backgroundColor: token('color.background.neutral', '#091E420F'),
+  iconBackgroundColor: token('color.icon.brand', '#0C66E4'),
+  iconColor: token('color.text.inverse', '#FFFFFF'),
 };

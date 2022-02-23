@@ -5,11 +5,13 @@ import { css, jsx } from '@emotion/core';
 
 import { Code } from '@atlaskit/code';
 import { md } from '@atlaskit/docs';
+import RefreshIcon from '@atlaskit/icon/glyph/refresh';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import Lozenge from '@atlaskit/lozenge';
 import SectionMessage from '@atlaskit/section-message';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import TextField from '@atlaskit/textfield';
+import { N200, N40A, N50A } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import Toggle from '@atlaskit/toggle';
 
@@ -50,6 +52,13 @@ function getTextContrast(hex: string) {
 
   return lum >= 80 ? 'black' : 'white';
 }
+
+const dividerStyles = css({
+  border: 'none',
+  borderTop: `2px solid ${token('color.border', '#ebecf0')}`,
+  marginBottom: `${gridSize() * 1.5}px`,
+  marginTop: `${gridSize() * 1.5}px`,
+});
 
 const listStyles = css({
   listStyle: 'none',
@@ -93,18 +102,36 @@ const tokenValueStyles = css({
 });
 
 const searchWrapperStyles = css({
+  position: 'sticky',
+  top: 54,
+  zIndex: 1,
+  backgroundColor: token('elevation.surface.raised', 'white'),
+  boxShadow: token(
+    'elevation.shadow.raised',
+    `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
+  ),
   display: 'flex',
   flexDirection: 'column',
   margin: `${gridSize() * 2}px 0px`,
   padding: 8,
   borderRadius: borderRadius(),
   border: `1px solid ${token('color.border', '#eaeaea')}`,
+  '@media (min-width: 1241px)': {
+    top: 0,
+  },
 });
 
 const tokenDescriptionStyles = css({
   gridRowStart: '2',
   gridColumnStart: 'span 6',
   margin: 0,
+});
+
+const tokenReplacementStyles = css({
+  gridColumn: '1/7',
+  color: token('color.text.subtlest', N200),
+  display: 'flex',
+  alignItems: 'center',
 });
 
 interface Token {
@@ -176,6 +203,13 @@ const Token = ({ name, value, attributes, original }: Token) => (
         )}
       </div>
       <p css={tokenDescriptionStyles}>{attributes.description}</p>
+      {attributes.replacement && (
+        <p css={tokenReplacementStyles}>
+          <RefreshIcon label="" />
+          <span css={{ margin: '0 4px' }}>Replace with </span>
+          <Code>{cleanTokenName(attributes.replacement)}</Code>
+        </p>
+      )}
     </div>
   </div>
 );
@@ -293,7 +327,7 @@ export default md`
         </p>
         <p>
           If you are an older version of the token package, see the
-          @atlaskit/tokens changelog to see what's changed.
+          <Code>@atlaskit/tokens</Code> changelog to see what's changed.
         </p>
       </SectionMessage>
     )}
@@ -327,10 +361,13 @@ export default md`
       </ul>
     )}
 
-    **Note on color hex values:** Tokens use a new version of the Atlassian color palette
+    ${(<hr css={dividerStyles} />)}
+    
+    #### Note on color names and hex values
+    Tokens use a new version of the Atlassian color palette
     that's currently a work in progress. As a result, color values will not match those imported from
     \`@atlaskit/theme/colors\`. When using tokens, focus on choosing a token with the
-    right **purpose** rather than an exact color match
+    right **purpose** rather than an exact color match.
 
     ## Atlassian Design Tokens
 

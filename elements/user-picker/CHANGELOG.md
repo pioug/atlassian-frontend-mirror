@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.7.0
+
+### Minor Changes
+
+- [`90f5bb4745c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90f5bb4745c) - [ux] Sources tooltip: support 'Other Atlassian products', change heading
+
 ## 8.6.4
 
 ### Patch Changes

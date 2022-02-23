@@ -3,13 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import { token } from '@atlaskit/tokens';
 
 const message =
   'Restrictions on this page may prevent people from viewing or editing';
 
 const Wrapper = styled.div`
   max-width: 100%;
-  color: #de350c;
+  color: ${token('color.text.danger', '#de350c')};
   display: flex;
 
   & > div {

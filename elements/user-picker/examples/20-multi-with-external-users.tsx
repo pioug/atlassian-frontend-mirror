@@ -13,12 +13,13 @@ interface Option {
   value: string;
 }
 
-const sources = [
-  { value: 'github', label: 'GitHub' },
-  { value: 'microsoft', label: 'Microsoft' },
-  { value: 'google', label: 'Google' },
+const sources: Array<{ value: UserSource; label: string }> = [
   { value: 'jira', label: 'Jira' },
   { value: 'confluence', label: 'Confluence' },
+  { value: 'other-atlassian', label: 'Other Atlassian Products' },
+  { value: 'slack', label: 'Slack' },
+  { value: 'microsoft', label: 'Microsoft' },
+  { value: 'google', label: 'Google' },
 ];
 
 const ExampleContainer = styled.div`

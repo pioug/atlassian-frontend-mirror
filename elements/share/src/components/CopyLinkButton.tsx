@@ -12,6 +12,7 @@ import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { messages } from '../i18n';
@@ -162,7 +163,10 @@ export class CopyLinkButton extends React.Component<
           content={() => (
             <InlineDialogContentWrapper>
               <MessageContainer>
-                <CheckCircleIcon label="" primaryColor={G300} />
+                <CheckCircleIcon
+                  label=""
+                  primaryColor={token('color.icon.success', G300)}
+                />
                 <MessageSpan>
                   <FormattedMessage {...messages.copiedToClipboardMessage} />
                 </MessageSpan>

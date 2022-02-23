@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.4.3
+
+### Patch Changes
+
+- [`5a50882a528`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a50882a528) - Flexible UI: Remove safeToken function
+
 ## 17.4.2
 
 ### Patch Changes

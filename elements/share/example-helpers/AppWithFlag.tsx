@@ -3,6 +3,7 @@ import React from 'react';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Flag } from '../src/types';
 
@@ -48,7 +49,7 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
                   <SuccessIcon
                     label="Success"
                     size="medium"
-                    primaryColor={G300}
+                    primaryColor={token('color.icon.success', G300)}
                   />
                 }
                 key={index}

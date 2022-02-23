@@ -14,6 +14,7 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { messages } from '../i18n';
@@ -200,7 +201,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
             >
               <ErrorIcon
                 label={formatMessage(messages.shareFailureIconLabel)}
-                primaryColor={R400}
+                primaryColor={token('color.icon.danger', R400)}
               />
             </Tooltip>
           )}

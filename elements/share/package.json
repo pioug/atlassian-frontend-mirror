@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "3.0.13",
+  "version": "3.1.0",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,8 +42,9 @@
     "@atlaskit/tabs": "^13.2.3",
     "@atlaskit/textarea": "^4.3.0",
     "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/tokens": "^0.6.2",
     "@atlaskit/tooltip": "^17.5.0",
-    "@atlaskit/user-picker": "^8.6.0",
+    "@atlaskit/user-picker": "^8.7.0",
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",
     "fast-deep-equal": "^3.1.1",
@@ -100,7 +101,8 @@
     "@repo/internal": {
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "theming": "tokens"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

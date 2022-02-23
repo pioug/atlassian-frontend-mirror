@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import styled from 'styled-components';
-import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
-import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
 import Spinner from '@atlaskit/spinner';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -44,7 +43,7 @@ export const EmailDomainWrapper = styled.span`
 `;
 
 type SourceInfo = {
-  key: string;
+  key: UserSource;
   icon: ReactNode;
   label: { id: string; defaultMessage: string; description: string };
 };
@@ -84,6 +83,14 @@ const SourcesInfoMap = new Map<UserSource, SourceInfo>([
       key: 'confluence',
       icon: <ConfluenceIcon size={'xsmall'} />,
       label: messages.confluenceSource,
+    },
+  ],
+  [
+    'other-atlassian',
+    {
+      key: 'other-atlassian',
+      icon: <AtlassianIcon size={'xsmall'} />,
+      label: messages.otherAtlassianSource,
     },
   ],
 ]);

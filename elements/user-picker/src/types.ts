@@ -226,7 +226,8 @@ export type UserSource =
   | 'microsoft'
   | 'github'
   | 'jira'
-  | 'confluence';
+  | 'confluence'
+  | 'other-atlassian';
 
 export interface ExternalUser extends User {
   requiresSourceHydration?: boolean;

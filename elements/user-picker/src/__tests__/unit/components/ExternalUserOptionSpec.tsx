@@ -67,7 +67,7 @@ describe('ExternalUserOption', () => {
     await findByRole('tooltip');
     const tooltip = getByRole('tooltip');
     // Tooltip has single source displayed
-    expect(tooltip).toHaveTextContent('Found in:');
+    expect(tooltip).toHaveTextContent('Also found in:');
     expect(tooltip).toHaveTextContent('Google');
     expect(tooltip).not.toHaveTextContent('GitHub');
   });
@@ -101,7 +101,7 @@ describe('ExternalUserOption', () => {
     await findByRole('tooltip');
     const tooltip = getByRole('tooltip');
     // Tooltip has expected sources displayed
-    expect(tooltip).toHaveTextContent('Found in:');
+    expect(tooltip).toHaveTextContent('Also found in:');
     expect(tooltip).toHaveTextContent('Google');
     expect(tooltip).toHaveTextContent('GitHub');
   });
@@ -175,7 +175,7 @@ describe('ExternalUserOption', () => {
     expect(tooltip).toHaveTextContent("We can't connect you right now.");
   });
 
-  it('should not call fetch sources if user does not require soruce hydration', async () => {
+  it('should not call fetch sources if user does not require source hydration', async () => {
     const mockFetch = jest.fn(
       () =>
         new Promise<UserSourceResult[]>((resolve) => {
@@ -213,7 +213,7 @@ describe('ExternalUserOption', () => {
     const tooltip = getByRole('tooltip');
 
     // Tooltip has single source displayed
-    expect(tooltip).toHaveTextContent('Found in:');
+    expect(tooltip).toHaveTextContent('Also found in:');
     expect(tooltip).toHaveTextContent('Google');
     expect(tooltip).not.toHaveTextContent('GitHub');
 

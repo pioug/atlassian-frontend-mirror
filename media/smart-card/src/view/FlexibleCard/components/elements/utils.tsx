@@ -9,6 +9,7 @@ import Lozenge from './lozenge';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import Badge from './badge';
 import AvatarGroup from './avatar-group';
+import Media from './media';
 import Text from './text';
 import { messages } from '../../../../messages';
 import DateTime from './date-time';
@@ -34,6 +35,7 @@ const elementMappings: Record<
   [ElementName.CreatedBy]: { component: Text },
   [ElementName.LinkIcon]: { component: Icon },
   [ElementName.ModifiedBy]: { component: Text },
+  [ElementName.Preview]: { component: Media },
   [ElementName.Priority]: { component: Badge },
   [ElementName.ProgrammingLanguage]: {
     component: Badge,

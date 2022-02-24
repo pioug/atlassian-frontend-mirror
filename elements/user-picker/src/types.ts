@@ -230,6 +230,7 @@ export type UserSource =
   | 'other-atlassian';
 
 export interface ExternalUser extends User {
+  externalUserType?: 'crossSite' | 'thirdParty';
   requiresSourceHydration?: boolean;
   sources: UserSource[];
 }

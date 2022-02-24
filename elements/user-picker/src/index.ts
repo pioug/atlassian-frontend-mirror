@@ -16,7 +16,7 @@ export type {
   SupportedProduct,
 } from './components/smart-user-picker/index';
 export { PopupUserPicker } from './components/PopupUserPicker';
-export { isEmail, isTeam, isUser } from './components/utils';
+export { isEmail, isExternalUser, isTeam, isUser } from './components/utils';
 export {
   // Constants
   EmailType,

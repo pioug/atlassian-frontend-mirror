@@ -12,6 +12,7 @@ import { Title } from '../../../elements';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import ActionGroup from '../../action-group';
 import ElementGroup from '../../element-group';
+import { IntlProvider } from 'react-intl-next';
 
 describe('Block', () => {
   const testId = 'smart-block';
@@ -148,11 +149,13 @@ describe('Block', () => {
     describe('action group', () => {
       it('renders action group with its size', async () => {
         const { getByTestId } = render(
-          <Block size={SmartLinkSize.Small} testId={testId}>
-            <ActionGroup
-              items={[{ name: ActionName.DeleteAction, onClick: () => {} }]}
-            />
-          </Block>,
+          <IntlProvider locale="en">
+            <Block size={SmartLinkSize.Small} testId={testId}>
+              <ActionGroup
+                items={[{ name: ActionName.DeleteAction, onClick: () => {} }]}
+              />
+            </Block>
+          </IntlProvider>,
         );
 
         const icon = await waitForElement(() =>
@@ -164,12 +167,14 @@ describe('Block', () => {
 
       it('does not override element group size', async () => {
         const { getByTestId } = render(
-          <Block size={SmartLinkSize.Small} testId={testId}>
-            <ActionGroup
-              items={[{ name: ActionName.DeleteAction, onClick: () => {} }]}
-              size={SmartLinkSize.Large}
-            />
-          </Block>,
+          <IntlProvider locale="en">
+            <Block size={SmartLinkSize.Small} testId={testId}>
+              <ActionGroup
+                items={[{ name: ActionName.DeleteAction, onClick: () => {} }]}
+                size={SmartLinkSize.Large}
+              />
+            </Block>
+          </IntlProvider>,
         );
 
         const icon = await waitForElement(() =>

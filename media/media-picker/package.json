@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "59.0.3",
+  "version": "59.0.4",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
     "bricks.js": "^1.8.0",
-    "dateformat": "^4.5.1",
+    "date-fns": "^2.17.0",
     "eventemitter2": "^4.1.0",
     "exenv": "^1.2.2",
     "filesize": "^3.2.1",
@@ -86,7 +86,6 @@
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/bricks.js": "^1.8.0",
-    "@types/dateformat": "^3.0.1",
     "@types/enzyme": "^3.1.15",
     "@types/eventemitter2": "^4.1.0",
     "@types/filesize": "^3.2.15",

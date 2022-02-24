@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 10.0.2
+
+### Patch Changes
+
+- [`6a5dc78b511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a5dc78b511) - Remove dateformat from media packages
+
 ## 10.0.1
 
 ### Patch Changes

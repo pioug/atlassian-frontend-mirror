@@ -1,5 +1,6 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Select, { CreatableSelect } from '@atlaskit/select';
+import { UFOExperienceState } from '@atlaskit/ufo';
 import React from 'react';
 import { UserPickerProps } from '../types';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
@@ -34,7 +35,16 @@ export class UserPickerWithoutAnalytics extends React.Component<
 
   componentDidMount() {
     const experienceForId = experience.getInstance(this.ufoId);
-    experienceForId.success();
+
+    // Send UFO success if the experience is still in progress i.e. hasn't failed
+    if (
+      [
+        UFOExperienceState.IN_PROGRESS.id,
+        UFOExperienceState.STARTED.id,
+      ].includes(experienceForId.state.id)
+    ) {
+      experienceForId.success();
+    }
   }
 
   render() {

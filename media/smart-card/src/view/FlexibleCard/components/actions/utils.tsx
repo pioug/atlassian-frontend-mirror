@@ -15,6 +15,7 @@ const actionMappings: Record<
     component: Action,
     props: {
       testId: 'smart-action-delete-action',
+      content: <FormattedMessage {...messages.delete} />,
       icon: <CrossIcon label="Delete" />,
       toolTipMessage: <FormattedMessage {...messages.delete} />,
     },
@@ -70,6 +71,7 @@ export const createUIAction = <P extends {}>(name: ActionName): React.FC<P> => {
   }
 
   return (overrides: P) => {
-    return <BaseAction {...props} {...overrides} />;
+    const combinedProps = { ...props, ...overrides };
+    return <BaseAction {...combinedProps} />;
   };
 };

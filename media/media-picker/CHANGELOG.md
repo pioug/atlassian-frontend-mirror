@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 59.0.4
+
+### Patch Changes
+
+- [`6a5dc78b511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a5dc78b511) - Remove dateformat from media packages
+
 ## 59.0.3
 
 ### Patch Changes

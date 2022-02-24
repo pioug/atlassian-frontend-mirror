@@ -22,6 +22,9 @@ export interface CustomProgressBarProps {
 }
 
 export interface DefaultProgressBarProps extends CustomProgressBarProps {
-  /** The theme the component should use. */
+  /**
+   * The theme the component should use.
+   * NOTE: `theme` is being deprecated, and will be deleted after May 13 2022. If you depend on `theme`, we recommend migrating to one of its variants.
+   */
   theme?: ThemeProp<ThemeTokens, ThemeProps>;
 }

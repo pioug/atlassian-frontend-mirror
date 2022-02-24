@@ -137,7 +137,7 @@ describe('<FolderViewer />', () => {
         <FolderViewer {...newProps} nextCursor="some-next-cursor" />,
       );
 
-      expect(wrapper.find(FileCreateDate).html()).toContain('0:00 AM');
+      expect(wrapper.find(FileCreateDate).html()).toContain('12:00 AM');
     });
   });
 });

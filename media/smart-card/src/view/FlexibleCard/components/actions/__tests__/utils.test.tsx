@@ -6,6 +6,7 @@ import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { createUIAction } from '../utils';
+import { IntlProvider } from 'react-intl-next';
 
 const renderAction = (
   Action: React.FC<any>,
@@ -14,9 +15,11 @@ const renderAction = (
   props?: any,
 ) =>
   render(
-    <FlexibleUiContext.Provider value={context}>
-      <Action testId={testId} {...props} />,
-    </FlexibleUiContext.Provider>,
+    <IntlProvider locale="en">
+      <FlexibleUiContext.Provider value={context}>
+        <Action testId={testId} {...props} />
+      </FlexibleUiContext.Provider>
+    </IntlProvider>,
   );
 
 describe('createUIAction', () => {
@@ -31,7 +34,7 @@ describe('createUIAction', () => {
       const element = await waitForElement(() => getByTestId(testId));
 
       expect(Action).toBeDefined();
-      expect(element.textContent).toEqual('');
+      expect(element.textContent).toEqual('Delete');
     });
   });
 

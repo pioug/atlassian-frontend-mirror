@@ -24,6 +24,7 @@ import {
 import extractPriority from './extract-priority';
 import { CardProviderRenderers } from '../../state/context/types';
 import extractProviderIcon from './icon/extract-provider-icon';
+import extractPreview from './extract-preview';
 
 const extractFlexibleUiContext = (
   response?: JsonLd.Response,
@@ -43,6 +44,7 @@ const extractFlexibleUiContext = (
     linkIcon: extractLinkIcon(response, renderers),
     modifiedBy: extractModifiedBy(data),
     modifiedOn: extractDateUpdated(data),
+    preview: extractPreview(data),
     priority: extractPriority(data as JsonLd.Data.Task),
     programmingLanguage: extractProgrammingLanguage(data),
     snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string

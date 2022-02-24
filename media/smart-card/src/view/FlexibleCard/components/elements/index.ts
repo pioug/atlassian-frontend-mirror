@@ -7,6 +7,7 @@ import { LozengeProps } from './lozenge/types';
 import { AvatarGroupProps } from './avatar-group/types';
 import { TextProps } from './text/types';
 import { DateTimeProps } from './date-time/types';
+import { MediaProps } from './media/types';
 
 // Attention: Keep the export name and element name the same.
 // This will help reducing the code for mapping elements inside
@@ -23,6 +24,7 @@ export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
 export const LinkIcon = createElement<IconProps>(ElementName.LinkIcon);
 export const ModifiedBy = createElement<TextProps>(ElementName.ModifiedBy);
 export const ModifiedOn = createElement<DateTimeProps>(ElementName.ModifiedOn);
+export const Preview = createElement<MediaProps>(ElementName.Preview);
 export const Priority = createElement<BadgeProps>(ElementName.Priority);
 export const ProgrammingLanguage = createElement<BadgeProps>(
   ElementName.ProgrammingLanguage,

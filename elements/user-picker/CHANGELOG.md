@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 8.7.2
+
+### Patch Changes
+
+- [`4d4d565e8ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d4d565e8ad) - Skip sending UFO success if already failed
+
+## 8.7.1
+
+### Patch Changes
+
+- [`dace9a85101`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dace9a85101) - Add new attribute to analytics events
+
 ## 8.7.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import dateformat from 'dateformat'; // ToDo: FIL-3207 | replace dateformat library with native solution
+import format from 'date-fns/format'; // ToDo: FIL-3207 | replace dateformat library with native solution
 import filesize from 'filesize'; // ToDo: FIL-3208 | replace filesize library with native solution
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { changeCloudAccountFolder } from '../../../../actions/changeCloudAccountFolder';
@@ -52,9 +52,9 @@ const getDateString = (timestamp?: number) => {
   const itemDate = new Date(timestamp);
   const itemDateString = itemDate.toDateString();
 
-  return dateformat(
+  return format(
     itemDate,
-    todayString === itemDateString ? 'H:MM TT' : 'd mmm yyyy',
+    todayString === itemDateString ? 'h:mm a' : 'd MMM yyyy',
   );
 };
 

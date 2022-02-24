@@ -22,5 +22,7 @@ export type ElementItem = {
 export type ActionItem = {
   name: ActionName;
   testId?: string;
+  hideContent?: boolean;
+  hideIcon?: boolean;
   onClick: () => any;
 };

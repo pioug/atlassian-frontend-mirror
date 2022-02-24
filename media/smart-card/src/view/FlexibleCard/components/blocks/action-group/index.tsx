@@ -13,12 +13,15 @@ const styles = css`
 const ActionGroup: React.FC<ActionGroupProps> = ({
   items = [],
   size = SmartLinkSize.Medium,
+  appearance,
 }) => {
   // Currently we only have delete action available, this prevents others from adding more delete actions
   const actionsToRender = items.slice(0, 1);
   return (
     <div css={styles}>
-      <ButtonGroup>{renderActionItems(actionsToRender, size)}</ButtonGroup>
+      <ButtonGroup>
+        {renderActionItems(actionsToRender, size, appearance)}
+      </ButtonGroup>
     </div>
   );
 };

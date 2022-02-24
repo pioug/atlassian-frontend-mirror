@@ -4,6 +4,7 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
   ConcurrentExperience,
+  UFOExperienceState,
 } from '@atlaskit/ufo';
 
 export const userPickerRenderedUfoExperience = new ConcurrentExperience(
@@ -17,7 +18,10 @@ export const userPickerRenderedUfoExperience = new ConcurrentExperience(
 
 export class UfoErrorBoundary extends React.Component<{ id: string }> {
   componentDidCatch() {
-    userPickerRenderedUfoExperience.getInstance(this.props.id).failure();
+    const instance = userPickerRenderedUfoExperience.getInstance(this.props.id);
+    if (instance.state.id !== UFOExperienceState.FAILED.id) {
+      instance.failure();
+    }
   }
 
   render() {

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 17.5.1
+
+### Patch Changes
+
+- [`238facb8e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/238facb8e1a) - Flexible UI: Add Preview element
+
+## 17.5.0
+
+### Minor Changes
+
+- [`be8dc55e85d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be8dc55e85d) - [ux] Add Footer block
+
 ## 17.4.3
 
 ### Patch Changes

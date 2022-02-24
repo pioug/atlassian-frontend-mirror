@@ -131,6 +131,10 @@ describe('extractFlexibleUiContext', () => {
         url: 'https://icon-url',
       },
       modifiedOn: '2021-12-14T05:07:13Z',
+      preview: {
+        type: 'image',
+        url: 'https://image-url',
+      },
       title: 'Flexible Links',
       url: 'https://figma-url/Flexible-Links?node-id=node-id',
       provider: {
@@ -149,6 +153,10 @@ describe('extractFlexibleUiContext', () => {
         url: 'https://icon-url',
       },
       modifiedOn: '2015-12-10T14:30:00.000Z',
+      preview: {
+        type: 'image',
+        url: 'https://image-url',
+      },
       snippet:
         "Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
       title: 'The Atlassian Business Model',

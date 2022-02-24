@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dateformat from 'dateformat';
+import dateFnsFormat from 'date-fns/format';
 import { MediaType } from '@atlaskit/media-client';
 import { ExampleWrapper, ROW_HIGHLIGHT_CLASSNAME } from './styled';
 import Range from '@atlaskit/range';
@@ -19,6 +19,10 @@ export { ROW_HIGHLIGHT_CLASSNAME } from './styled';
 
 export const createMockFileData = (name: string, mediaType: MediaType) => {
   return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;
+};
+
+const dateformat = (date: number, format = 'E MMM dd yyyy kk:mm:ss') => {
+  return dateFnsFormat(date, format);
 };
 
 export const RenderMediaTableWithFieldRange = (

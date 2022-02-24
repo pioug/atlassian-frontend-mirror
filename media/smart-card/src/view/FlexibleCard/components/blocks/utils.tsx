@@ -12,6 +12,8 @@ import * as Actions from '../actions';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import ActionGroup from './action-group';
 import ElementGroup from './element-group';
+import { ActionProps } from '../actions/action/types';
+import { Appearance } from '@atlaskit/button';
 
 // Determine whether the element can be display as inline/block.
 export type ElementDisplaySchemaType = 'inline' | 'block';
@@ -27,6 +29,7 @@ export const ElementDisplaySchema: Record<
   [ElementName.LinkIcon]: ['inline'],
   [ElementName.ModifiedBy]: ['inline'],
   [ElementName.ModifiedOn]: ['inline'],
+  [ElementName.Preview]: ['block'],
   [ElementName.Priority]: ['inline'],
   [ElementName.ProgrammingLanguage]: ['inline'],
   [ElementName.Snippet]: ['block'],
@@ -148,13 +151,32 @@ export const renderElementItems = (
 export const renderActionItems = (
   items: ActionItem[] = [],
   size: SmartLinkSize = SmartLinkSize.Medium,
+  appearance?: Appearance,
 ): React.ReactNode | undefined => {
   const actions = items.reduce(
     (acc: React.ReactElement[], curr: ActionItem, idx: number) => {
-      const { name, ...props } = curr;
+      const { name, hideContent, hideIcon, onClick, ...props } = curr;
       const Action = Actions[name];
+      const actionProps: Partial<ActionProps> = {
+        ...props,
+      };
+      if (hideContent) {
+        actionProps.content = '';
+      }
+      if (hideIcon) {
+        actionProps.icon = undefined;
+      }
       if (Action) {
-        return [...acc, <Action size={size} key={idx} {...props} />];
+        return [
+          ...acc,
+          <Action
+            size={size}
+            key={idx}
+            appearance={appearance}
+            onClick={onClick}
+            {...actionProps}
+          />,
+        ];
       }
       return acc;
     },

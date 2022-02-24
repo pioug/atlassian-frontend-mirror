@@ -97,6 +97,7 @@ export enum ElementName {
   LinkIcon = 'LinkIcon',
   ModifiedBy = 'ModifiedBy',
   ModifiedOn = 'ModifiedOn',
+  Preview = 'Preview',
   Priority = 'Priority',
   ProgrammingLanguage = 'ProgrammingLanguage',
   Snippet = 'Snippet',
@@ -184,4 +185,11 @@ export enum IconType {
   PriorityUndefined = 'Badge:PriorityUndefined',
   ProgrammingLanguage = 'Badge:ProgrammingLanguage',
   Subscriber = 'Badge:Subscriber',
+}
+
+/**
+ * Type for Flexible UI's Media element
+ */
+export enum MediaType {
+  Image = 'image',
 }

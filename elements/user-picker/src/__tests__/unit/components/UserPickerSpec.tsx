@@ -18,19 +18,22 @@ jest.mock('../../../components/MessagesIntlProvider', () =>
   jest.fn().mockImplementation(({ children }) => children),
 );
 
-const mockUfoStart = jest.fn();
-const mockUfoSuccess = jest.fn();
-const mockUfoFailure = jest.fn();
+const mockMounted = new MockConcurrentExperienceInstance(
+  'user-picker-rendered',
+);
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/ufo'),
-  ConcurrentExperience: (): ConcurrentExperience => ({
+  ConcurrentExperience: (experienceId: string): ConcurrentExperience => ({
     // @ts-expect-error partial getInstance mock
-    getInstance: (id: string) => ({
-      start: mockUfoStart,
-      success: mockUfoSuccess,
-      failure: mockUfoFailure,
-    }),
+    getInstance: (instanceId: string): Partial<UFOExperience> => {
+      if (experienceId === 'user-picker-rendered') {
+        return mockMounted;
+      }
+      throw new Error(
+        `ConcurrentExperience used without id mocked in UserPickerSpec: ${experienceId}`,
+      );
+    },
   }),
 }));
 
@@ -45,13 +48,14 @@ jest.mock('@atlaskit/select', () => ({
 import Select, { CreatableSelect } from '@atlaskit/select';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
 import { getComponents } from '../../../components/components';
 import { getCreatableProps } from '../../../components/creatable';
 import { getCreatableSuggestedEmailProps } from '../../../components/creatableEmailSuggestion';
 import { getStyles } from '../../../components/styles';
 import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { User, UserPickerProps } from '../../../types';
+import { MockConcurrentExperienceInstance } from '../_testUtils';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
@@ -161,26 +165,45 @@ describe('UserPicker', () => {
   });
 
   describe('UFO', () => {
+    beforeAll(() => {
+      ufologger.enable();
+    });
+
+    afterAll(() => {
+      ufologger.disable();
+    });
+
     beforeEach(() => {
-      mockUfoStart.mockReset();
-      mockUfoSuccess.mockReset();
-      mockUfoFailure.mockReset();
+      mockMounted.mockReset();
     });
 
     it('should send a UFO success metric when mounted successfully', async () => {
       mountUserPicker();
-      expect(mockUfoStart).toHaveBeenCalled();
-      expect(mockUfoSuccess).toHaveBeenCalled();
+      expect(mockMounted.startSpy).toHaveBeenCalled();
+      expect(mockMounted.successSpy).toHaveBeenCalled();
+      expect(mockMounted.transitions).toStrictEqual([
+        'NOT_STARTED',
+        // Mounted
+        'STARTED',
+        'SUCCEEDED',
+      ]);
     });
 
     it('should send a UFO failure metric when mount fails', async () => {
+      expect(mockMounted.transitions).toStrictEqual(['NOT_STARTED']);
       mountUserPicker({
         // allowEmail:true causes CreatableSelect to be used,
-        // which at the top of this file is mocks to throw an error
+        // which at the top of this file is mocked to throw an error
         allowEmail: true,
       });
-      expect(mockUfoStart).toHaveBeenCalled();
-      expect(mockUfoFailure).toHaveBeenCalled();
+      expect(mockMounted.startSpy).toHaveBeenCalled();
+      expect(mockMounted.failureSpy).toHaveBeenCalled();
+      expect(mockMounted.transitions).toStrictEqual([
+        'NOT_STARTED',
+        // Mounted but mount fails
+        'STARTED',
+        'FAILED',
+      ]);
     });
   });
 });

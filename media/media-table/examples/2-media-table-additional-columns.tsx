@@ -14,11 +14,16 @@ import {
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import CheckCircleOutlineIcon from '@atlaskit/icon/glyph/check-circle-outline';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
-import dateformat from 'dateformat';
+import dateFnsFormat from 'date-fns/format';
+
 import {
   createMockFileData,
   RenderMediaTableWithFieldRange,
 } from '../example-helpers/helpers';
+
+const dateformat = (date: number, format = 'E MMM dd yyyy kk:mm:ss') => {
+  return dateFnsFormat(date, format);
+};
 
 const items: MediaTableItem[] = [
   {

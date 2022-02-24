@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, { OptionData } from '@atlaskit/user-picker';
 
 import {
@@ -19,6 +20,7 @@ import {
 import MessagesIntlProvider from './MessagesIntlProvider';
 import { SmartProps, Props, State, FilterOptions } from '../types';
 import { getUserRecommendations, hydrateDefaultValues } from '../service';
+import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
 
@@ -66,6 +68,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
     bootstrapOptions: [],
   };
 
+  optionsShownUfoExperienceInstance: UFOExperience;
+
   static defaultProps = {
     onError: () => {},
     baseUrl: '',
@@ -76,6 +80,13 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
     principalId: 'Context',
     debounceTime: DEFAULT_DEBOUNCE_TIME_MS,
   };
+
+  constructor(props: Props & WrappedComponentProps) {
+    super(props);
+    this.optionsShownUfoExperienceInstance = smartUserPickerOptionsShownUfoExperience.getInstance(
+      props.inputId || props.fieldId,
+    );
+  }
 
   async componentDidMount() {
     try {
@@ -121,8 +132,35 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
       (this.state.query !== '' || !this.props.bootstrapOptions)
     ) {
       this.getUsers();
+    } else if (!this.state.closed && !this.state.loading) {
+      // If the component has rendered (including its dropdown list) and it
+      // is not loading anything further, send the success UFO event
+      if (
+        ![
+          UFOExperienceState.FAILED.id,
+          UFOExperienceState.SUCCEEDED.id,
+        ].includes(this.optionsShownUfoExperienceInstance.state.id)
+      ) {
+        this.optionsShownUfoExperienceInstance.success();
+      }
     }
   }
+
+  abortOptionsShownUfoExperience = () => {
+    if (
+      this.optionsShownUfoExperienceInstance.state.id ===
+      UFOExperienceState.STARTED.id
+    ) {
+      // There may be an existing UFO timing running from previous key entry or focus,
+      // so abort it and restart it just in case.
+      this.optionsShownUfoExperienceInstance.abort();
+    }
+  };
+
+  startOptionsShownUfoExperience = () => {
+    this.abortOptionsShownUfoExperience();
+    this.optionsShownUfoExperienceInstance.start();
+  };
 
   private fireEvent = (eventCreator: SmartEventCreator, ...args: any[]) => {
     const { createAnalyticsEvent } = this.props;
@@ -142,7 +180,8 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
   memoizedFilterOptions = memoizeOne(this.filterOptions);
 
   getUsers = debounce(async () => {
-    const { query, sessionId } = this.state;
+    const { query, sessionId, closed } = this.state;
+
     const {
       containerId,
       childObjectId,
@@ -214,6 +253,11 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
         return { users, loading };
       });
     } catch (e) {
+      if (!closed) {
+        // If the user lookup fails while the menu is open, send UFO failure
+        // TODO handle with-option-failovers example here (falls back to alt data source)
+        this.optionsShownUfoExperienceInstance.failure();
+      }
       this.setState({
         users: [],
         error: true,
@@ -240,6 +284,12 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
       return;
     }
     if (!closed) {
+      // If the input has been typed into and the dropdown has not been closed
+      // (i.e. input blurred) then start the UFO timer.
+      // If there's a previous UFO timer running for the same "options shown" experience,
+      // it will be aborted first.
+      this.startOptionsShownUfoExperience();
+
       this.setState({ loading: true, query, sessionId });
       if (this.props.onInputChange) {
         this.props.onInputChange(query, sessionId);
@@ -289,6 +339,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
   onFocus = (sessionId?: string) => {
     const state: Partial<State> = { query: '', closed: false };
+    this.startOptionsShownUfoExperience();
     if (this.state.users.length === 0) {
       state.sessionId = sessionId;
       state.loading = true;
@@ -307,6 +358,9 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
 
   onBlur = (sessionId?: string) => {
     this.getUsers.cancel();
+
+    this.abortOptionsShownUfoExperience();
+
     // clear old users if query is populated so that on refocus,
     // the old list is not shown
     const users = this.state.query.length === 0 ? this.state.users : [];

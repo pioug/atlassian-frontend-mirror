@@ -1,5 +1,5 @@
 import { FlexibleUiDataContext } from '../state/flexible-ui-context/types';
-import { IconType } from '../constants';
+import { IconType, MediaType } from '../constants';
 
 const context: FlexibleUiDataContext = {
   commentCount: 10,
@@ -16,11 +16,12 @@ const context: FlexibleUiDataContext = {
   createdOn: '2020-02-04T12:40:12.353+0800',
   modifiedBy: 'Tony Stark',
   modifiedOn: '2022-01-12T12:40:12.353+0800',
-  programmingLanguage: 'Javascript',
+  preview: { type: MediaType.Image, url: 'image-url' },
   priority: {
     icon: 'Badge:PriorityMajor' as IconType,
     label: 'Major',
   },
+  programmingLanguage: 'Javascript',
   snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   subscriberCount: 20,
   state: {

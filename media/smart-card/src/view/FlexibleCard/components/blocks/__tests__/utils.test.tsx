@@ -150,18 +150,59 @@ describe('renderElementItems', () => {
 });
 
 describe('renderActionItems', () => {
-  it.each(Object.values(ActionName).map((name) => [name]))(
-    'renders %s',
-    async (name: ActionName) => {
-      const onClick = () => {};
-      const testId = 'smart-element-test';
-      const { getByTestId } = render(
+  const testId = 'smart-element-test';
+  const setup = (name: ActionName, hideContent: boolean, hideIcon: boolean) => {
+    const onClick = () => {};
+
+    return render(
+      <IntlProvider locale="en">
         <FlexibleUiContext.Provider value={context}>
-          {renderActionItems([{ onClick, name, testId }])}
-        </FlexibleUiContext.Provider>,
-      );
-      const element = await waitForElement(() => getByTestId(testId));
-      expect(element).toBeDefined();
+          {renderActionItems([
+            { onClick, name, testId, hideContent, hideIcon },
+          ])}
+        </FlexibleUiContext.Provider>
+      </IntlProvider>,
+    );
+  };
+  describe.each([
+    [ActionName.DeleteAction, 'Delete', 'smart-element-test-icon'],
+  ])(
+    'with %s action',
+    async (name: ActionName, expectedContent: string, iconTestId: string) => {
+      it('should render both content and icon', async () => {
+        const { getByTestId } = setup(name, false, false);
+
+        const element = await waitForElement(() => getByTestId(testId));
+        expect(element).toBeDefined();
+
+        const icon = await waitForElement(() => getByTestId(iconTestId));
+        expect(icon).toBeDefined();
+
+        expect(element.textContent).toEqual(expectedContent);
+      });
+
+      it('should render only content', async () => {
+        const { getByTestId, queryByTestId } = setup(name, false, true);
+
+        const element = await waitForElement(() => getByTestId(testId));
+        expect(element).toBeDefined();
+
+        expect(queryByTestId(iconTestId)).toBeNull();
+
+        expect(element.textContent).toEqual(expectedContent);
+      });
+
+      it('should render only icon', async () => {
+        const { getByTestId } = setup(name, true, false);
+
+        const element = await waitForElement(() => getByTestId(testId));
+        expect(element).toBeDefined();
+
+        const icon = await waitForElement(() => getByTestId(iconTestId));
+        expect(icon).toBeDefined();
+
+        expect(element.textContent).toEqual('');
+      });
     },
   );
 });

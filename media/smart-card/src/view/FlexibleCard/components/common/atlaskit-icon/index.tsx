@@ -109,7 +109,7 @@ const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
       // Logo component has a different prop set from other icon components
       return (
         <ImportedIcon
-          data-testId={testId} // Confluence and Jira imports don't have native testId prop
+          data-testid={testId} // Confluence and Jira imports don't have native testId prop
           textColor={N700}
           iconColor={B200}
           iconGradientStart={B400}

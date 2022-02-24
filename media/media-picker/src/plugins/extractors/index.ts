@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import dateformat from 'dateformat';
+import dateformat from 'date-fns/format';
 
 export const getImageUrl = (
   data: JsonLd.Primitives.Object,

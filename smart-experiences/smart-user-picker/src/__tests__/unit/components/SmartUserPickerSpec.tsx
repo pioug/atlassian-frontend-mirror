@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
-import Select from '@atlaskit/select/Select';
+import Select from '@atlaskit/select';
 import UserPicker, {
   DefaultValue,
   OptionData,
@@ -11,28 +11,55 @@ import {
   AnalyticsListener,
   AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { ConcurrentExperience, UFOExperience } from '@atlaskit/ufo';
 
-import { flushPromises } from '../_testUtils';
+import {
+  flushPromises,
+  temporarilySilenceActAndAtlaskitDeprecationWarnings,
+  waitForUpdate,
+  MockConcurrentExperienceInstance,
+} from '../_testUtils';
 import SmartUserPicker, { Props } from '../../../index';
+import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
 
 import { getUserRecommendations, hydrateDefaultValues } from '../../../service';
 
+temporarilySilenceActAndAtlaskitDeprecationWarnings();
+
 const mockPREFETCH_SESSION_ID = 'prefetch-session-id';
 
-const mockUfoStart = jest.fn();
-const mockUfoSuccess = jest.fn();
-const mockUfoFailure = jest.fn();
+// This session id should only be needed to be used explicitly in some tests.
+// For most tests, triggering onFocus() inside the @atlaskit/select element is
+// all that's needed to auto-generate a session ID.
+const ANALYTICS_SESSION_ID = 'new-session';
+
+const mockMounted = new MockConcurrentExperienceInstance(
+  'smart-user-picker-rendered',
+);
+const mockOptionsShown = new MockConcurrentExperienceInstance(
+  'smart-user-picker-options-shown',
+);
+const mockUserPickerRendered = new MockConcurrentExperienceInstance(
+  'user-picker-rendered',
+);
+
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/ufo'),
-  ConcurrentExperience: (): ConcurrentExperience => ({
-    // @ts-expect-error partial getInstance mock
-    getInstance: (id: string) => ({
-      start: mockUfoStart,
-      success: mockUfoSuccess,
-      failure: mockUfoFailure,
-    }),
+  ConcurrentExperience: (experienceId: string): ConcurrentExperience => ({
+    // @ts-expect-error
+    getInstance: (instanceId: string): Partial<UFOExperience> => {
+      if (experienceId === 'smart-user-picker-rendered') {
+        return mockMounted;
+      } else if (experienceId === 'smart-user-picker-options-shown') {
+        return mockOptionsShown;
+      } else if (experienceId === 'user-picker-rendered') {
+        return mockUserPickerRendered;
+      }
+      throw new Error(
+        `ConcurrentExperience used without id mocked in SmartUserPickerSpec: ${experienceId}`,
+      );
+    },
   }),
 }));
 
@@ -42,6 +69,11 @@ jest.mock('@atlaskit/select', () => ({
   CreatableSelect: () => {
     throw new Error('Error from inside CreatableSelect');
   },
+}));
+
+jest.mock('../../../components/MessagesIntlProvider', () => ({
+  __esModule: true,
+  default: jest.fn().mockImplementation((props) => props.children),
 }));
 
 jest.mock('uuid', () => ({
@@ -183,16 +215,20 @@ describe('SmartUserPicker', () => {
   let getUserRecommendationsMock = getUserRecommendations as jest.Mock;
   let getUsersByIdMock = hydrateDefaultValues as jest.Mock;
 
-  const smartUserPickerWrapper = (props: Partial<Props> = {}): ReactWrapper => {
-    const smartUserPickerProps = { ...defaultProps, ...props };
-    return mount(
-      React.createElement((props) => (
+  const smartUserPickerWrapper = (
+    initialProps: Partial<Props> = {},
+  ): ReactWrapper =>
+    mount(
+      React.createElement((innerProps) => (
         <IntlProvider locale="en">
-          {<SmartUserPicker {...smartUserPickerProps} {...props} />}
+          <SmartUserPicker
+            {...defaultProps}
+            {...initialProps}
+            {...innerProps}
+          />
         </IntlProvider>
       )),
     );
-  };
 
   beforeEach(() => {
     getUserRecommendationsMock.mockReturnValue(Promise.resolve([]));
@@ -401,14 +437,14 @@ describe('SmartUserPicker', () => {
 
   it('should fetch users on focus', () => {
     const component = smartUserPickerWrapper();
-    component.find(UserPicker).props().onFocus('new-session');
+    component.find(Select).props().onFocus();
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
   });
 
   it('should fetch users on query change', () => {
     const component = smartUserPickerWrapper();
-    component.find(UserPicker).props().onFocus('new-session');
-    component.find(UserPicker).props().onInputChange('a', 'new-session');
+    component.find(Select).props().onFocus();
+    component.find(UserPicker).props().onInputChange('a');
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(2);
     expect(getUserRecommendationsMock).toHaveBeenNthCalledWith(
       1,
@@ -472,8 +508,8 @@ describe('SmartUserPicker', () => {
     });
 
     const component = smartUserPickerWrapper();
-    component.find(UserPicker).props().onFocus('new-session');
-    component.find(UserPicker).props().onInputChange('a', 'new-session');
+    component.find(Select).props().onFocus();
+    component.find(UserPicker).props().onInputChange('a');
 
     // wait until the deferrable for the initial request has been resolved
     await queries.get('');
@@ -521,7 +557,7 @@ describe('SmartUserPicker', () => {
     });
 
     // trigger on focus
-    await component.find(UserPicker).props().onFocus('new-session');
+    await component.find(Select).props().onFocus();
 
     // expect api to run and fetch a guest user
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
@@ -547,7 +583,7 @@ describe('SmartUserPicker', () => {
         principalId: 'Context',
         productAttributes: undefined,
         productKey: 'jira',
-        sessionId: 'new-session',
+        sessionId: mockPREFETCH_SESSION_ID,
         siteId: 'site-id',
         orgId: 'org-id',
       },
@@ -571,7 +607,7 @@ describe('SmartUserPicker', () => {
       onError,
     });
     expect(component.find(UserPicker).prop('options')).toEqual([]);
-    await component.find(UserPicker).props().onFocus('new-session');
+    await component.find(Select).props().onFocus();
     await flushPromises();
 
     expect(onError).toHaveBeenCalledWith(mockError, request);
@@ -594,7 +630,7 @@ describe('SmartUserPicker', () => {
       mockReturnOptions,
     );
     jest.clearAllMocks();
-    await component.find(UserPicker).props().onFocus('new-session');
+    await component.find(Select).props().onFocus();
     await flushPromises();
     expect(getUserRecommendationsMock).not.toHaveBeenCalled();
   });
@@ -613,7 +649,7 @@ describe('SmartUserPicker', () => {
 
     const component = smartUserPickerWrapper({ onEmpty });
     // trigger on focus
-    await component.find(UserPicker).props().onFocus('new-session');
+    await component.find(Select).props().onFocus();
 
     await flushPromises();
 
@@ -644,7 +680,7 @@ describe('SmartUserPicker', () => {
     });
 
     // trigger on focus
-    await component.find(UserPicker).props().onFocus('new-session');
+    await component.find(Select).props().onFocus();
 
     await flushPromises();
 
@@ -670,11 +706,8 @@ describe('SmartUserPicker', () => {
       let component = smartUserPickerWrapper({ filterOptions });
       expect(component.find(UserPicker).props().options).toEqual([]);
 
-      await component.find(UserPicker).props().onFocus('new-session');
-      await component
-        .find(UserPicker)
-        .props()
-        .onInputChange('user', 'new-session');
+      await component.find(Select).props().onFocus();
+      await component.find(UserPicker).props().onInputChange('user');
       await flushPromises();
       component.update();
       expect(filterOptions).toHaveBeenCalledWith(mockReturnOptions, 'user');
@@ -696,11 +729,8 @@ describe('SmartUserPicker', () => {
 
       let component = smartUserPickerWrapper({ filterOptions });
 
-      await component.find(UserPicker).props().onFocus('new-session');
-      await component
-        .find(UserPicker)
-        .props()
-        .onInputChange('user', 'new-session');
+      await component.find(Select).props().onFocus();
+      await component.find(UserPicker).props().onInputChange('user');
       await flushPromises();
       component.update();
 
@@ -728,7 +758,7 @@ describe('SmartUserPicker', () => {
         filterOptions,
         onError,
       });
-      await component.find(UserPicker).props().onFocus('new-session');
+      await component.find(Select).props().onFocus();
       await flushPromises();
 
       expect(onError).toHaveBeenCalled();
@@ -759,7 +789,7 @@ describe('SmartUserPicker', () => {
       });
 
       // trigger on focus
-      await component.find(UserPicker).props().onFocus('new-session');
+      await component.find(Select).props().onFocus();
       await flushPromises();
       await component.update();
 
@@ -787,7 +817,7 @@ describe('SmartUserPicker', () => {
 
   it('should pass default principalId if principalId not provided as props', async () => {
     const component = smartUserPickerWrapper({ principalId: undefined });
-    component.find(UserPicker).props().onFocus('new-session');
+    component.find(Select).props().onFocus();
     expect(getUserRecommendationsMock).toHaveBeenCalledTimes(1);
     expect(getUserRecommendationsMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -815,7 +845,7 @@ describe('SmartUserPicker', () => {
           context: 'test',
           prefetch: false,
           packageName: '@atlaskit/smart-user-picker',
-          sessionId: 'new-session',
+          sessionId: ANALYTICS_SESSION_ID,
           queryLength: 0,
           ...attributes,
         }),
@@ -860,7 +890,7 @@ describe('SmartUserPicker', () => {
     });
 
     it('should trigger users requested event', () => {
-      component.find(UserPicker).props().onFocus!('new-session');
+      component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
       expect(onEvent).toHaveBeenCalledTimes(2);
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -868,7 +898,10 @@ describe('SmartUserPicker', () => {
         }),
         'fabric-elements',
       );
-      component.find(UserPicker).props().onInputChange!('a', 'new-session');
+      component.find(UserPicker).props().onInputChange!(
+        'a',
+        ANALYTICS_SESSION_ID,
+      );
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: constructPayloadWithQueryAttributes('requested', 'users', {
@@ -881,7 +914,7 @@ describe('SmartUserPicker', () => {
 
     it('should trigger users filtered event', async () => {
       // load initial list so query-based filter can be applied
-      await component.find(UserPicker).props().onFocus!('new-session');
+      await component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
       await flushPromises();
       component.update();
 
@@ -897,7 +930,10 @@ describe('SmartUserPicker', () => {
       );
 
       // don't wait so that filter can be applied while loading is true
-      component.find(UserPicker).props().onInputChange!('u', 'new-session');
+      component.find(UserPicker).props().onInputChange!(
+        'u',
+        ANALYTICS_SESSION_ID,
+      );
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: constructPayload('filtered', 'users', {
@@ -921,7 +957,7 @@ describe('SmartUserPicker', () => {
         AnalyticsTestComponent({ filterOptions, productAttributes }),
       );
 
-      await component.find(UserPicker).props().onFocus!('new-session');
+      await component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
       await flushPromises();
 
       expect(onEvent).toHaveBeenCalledWith(
@@ -975,7 +1011,7 @@ describe('SmartUserPicker', () => {
         throw mockError;
       });
 
-      await component.find(UserPicker).props().onFocus!('new-session');
+      await component.find(UserPicker).props().onFocus!(ANALYTICS_SESSION_ID);
       await flushPromises();
 
       expect(onEvent).toHaveBeenCalledWith(
@@ -1044,11 +1080,8 @@ describe('SmartUserPicker', () => {
 
       await flushPromises();
 
-      await component.find(UserPicker).props().onFocus!('new-session');
-      await component.find(UserPicker).props().onInputChange!(
-        'a',
-        'new-session',
-      );
+      await component.find(Select).props().onFocus();
+      await component.find(UserPicker).props().onInputChange('a');
       await flushPromises();
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -1058,35 +1091,206 @@ describe('SmartUserPicker', () => {
             {
               prefetch: true,
               preparedSessionId: mockPREFETCH_SESSION_ID,
-              sessionId: 'new-session',
+              sessionId: mockPREFETCH_SESSION_ID,
             },
           ),
         }),
         'fabric-elements',
       );
     });
+  });
 
-    describe('UFO metrics', () => {
-      beforeEach(() => {
-        mockUfoStart.mockReset();
-        mockUfoSuccess.mockReset();
-        mockUfoFailure.mockReset();
-      });
+  describe('UFO metrics', () => {
+    beforeEach(() => {
+      mockMounted.mockReset();
+      mockOptionsShown.mockReset();
+    });
 
+    describe('initial mount UFO event', () => {
       it('should send a UFO success metric when mounted successfully', async () => {
         smartUserPickerWrapper();
-        expect(mockUfoStart).toHaveBeenCalled();
-        expect(mockUfoSuccess).toHaveBeenCalled();
+        expect(mockMounted.startSpy).toHaveBeenCalled();
+        expect(mockMounted.successSpy).toHaveBeenCalled();
+        expect(mockOptionsShown.startSpy).not.toHaveBeenCalled();
+        expect(mockMounted.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial mount
+          'STARTED',
+          'SUCCEEDED',
+        ]);
       });
 
       it('should send a UFO failure metric when mount fails', async () => {
-        smartUserPickerWrapper({
-          // allowEmail:true causes CreatableSelect to be used,
-          // which at the top of this file is mocks to throw an error
-          allowEmail: true,
+        // @ts-ignore
+        MessagesIntlProvider.mockImplementationOnce(() => {
+          throw new Error('Mount error1');
         });
-        expect(mockUfoStart).toHaveBeenCalled();
-        expect(mockUfoFailure).toHaveBeenCalled();
+        smartUserPickerWrapper();
+        expect(mockMounted.startSpy).toHaveBeenCalled();
+        expect(mockMounted.failureSpy).toHaveBeenCalled();
+        expect(mockOptionsShown.startSpy).not.toHaveBeenCalled();
+
+        expect(mockMounted.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial mount
+          'STARTED',
+          'FAILED',
+        ]);
+      });
+    });
+
+    [true, false].forEach((isPrefetch) => {
+      describe(`when showing list after focusing in input (prefetch=${isPrefetch})`, () => {
+        it('should send a UFO success when the list of users are shown after typing', async () => {
+          getUserRecommendationsMock.mockReturnValue(
+            Promise.resolve(mockReturnOptions),
+          );
+          const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
+
+          // Focus in the user picker so the user list is shown
+          // @ts-ignore in this case UserPicker.onFocus is not undefined
+          wrapper.find(Select).props().onFocus();
+          await waitForUpdate(wrapper);
+
+          expect(mockOptionsShown.startSpy).toHaveBeenCalled();
+          expect(mockOptionsShown.successSpy).toHaveBeenCalled();
+          expect(mockOptionsShown.failureSpy).not.toHaveBeenCalled();
+
+          expect(mockOptionsShown.transitions).toStrictEqual([
+            'NOT_STARTED',
+            // Initial focus
+            'STARTED',
+            'SUCCEEDED',
+          ]);
+        });
+
+        it('should send a UFO failure when the list of users cannot be shown after typing', async () => {
+          getUserRecommendationsMock.mockImplementationOnce(() => {
+            throw new Error('Cannot call getUserRecommendations');
+          });
+          const wrapper = smartUserPickerWrapper({ prefetch: isPrefetch });
+
+          // Focus in the user picker so the user list is shown
+          // @ts-ignore in this case UserPicker.onFocus is not undefined
+          wrapper.find(Select).props().onFocus();
+          await waitForUpdate(wrapper);
+
+          expect(mockOptionsShown.startSpy).toHaveBeenCalled();
+          expect(mockOptionsShown.failureSpy).toHaveBeenCalled();
+          expect(mockOptionsShown.successSpy).not.toHaveBeenCalled();
+
+          expect(mockOptionsShown.transitions).toStrictEqual([
+            'NOT_STARTED',
+            // Initial focus
+            'STARTED',
+            'FAILED',
+          ]);
+        });
+      });
+    });
+
+    describe('when showing list after typing input', () => {
+      it('should send a UFO success when the list of users are shown after typing', async () => {
+        getUserRecommendationsMock.mockReturnValue(
+          Promise.resolve(mockReturnOptions),
+        );
+        const wrapper = smartUserPickerWrapper({ prefetch: true });
+
+        // Focus in the user picker so the user list is shown
+        // @ts-ignore in this case UserPicker.onFocus is not undefined
+        wrapper.find(Select).props().onFocus();
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+
+        // Now that the options list is shown, type "user" to filter:
+        wrapper.find(UserPicker).props().onInputChange('user');
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+
+        expect(mockOptionsShown.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial focus
+          'STARTED',
+          'SUCCEEDED',
+          // First onInputChange which succeeds
+          'STARTED',
+          'SUCCEEDED',
+        ]);
+      });
+
+      it('should send a UFO failure when the list of users cannot be shown after typing', async () => {
+        getUserRecommendationsMock.mockImplementation(() => {
+          throw new Error('Cannot call getUserRecommendations');
+        });
+        const wrapper = smartUserPickerWrapper({ prefetch: true });
+
+        // Focus in the user picker so the user list is shown
+        // @ts-ignore in this case UserPicker.onFocus is not undefined
+        wrapper.find(Select).props().onFocus();
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+
+        // Now that the options list is shown, type "user" to filter:
+        wrapper.find(UserPicker).props().onInputChange('user');
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+
+        expect(mockOptionsShown.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial focus which fails user lookup
+          'STARTED',
+          'FAILED',
+          // First onInputChange which also fails user lookup
+          'STARTED',
+          'FAILED',
+        ]);
+      });
+
+      it('should abort the UFO show options request if a new query is typed while a previous query is already loading', async () => {
+        const wrapper = smartUserPickerWrapper({ prefetch: true });
+
+        // Focus in the user picker so the user list is shown
+        // @ts-ignore in this case UserPicker.onFocus is not undefined
+        wrapper.find(Select).props().onFocus();
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
+
+        // Now that the options list is shown, type "us" to filter:
+        wrapper.find(UserPicker).props().onInputChange('us');
+        wrapper.find(UserPicker).props().onInputChange('user');
+        await waitForUpdate(wrapper);
+
+        expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(3);
+        expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(2);
+        expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
+        expect(mockOptionsShown.failureSpy).toHaveBeenCalledTimes(0);
+
+        expect(mockOptionsShown.transitions).toStrictEqual([
+          'NOT_STARTED',
+          // Initial focus
+          'STARTED',
+          'SUCCEEDED',
+          // First onInputChange which gets aborted
+          'STARTED',
+          'ABORTED',
+          // 2nd onInputChange which finishes successfully
+          'STARTED',
+          'SUCCEEDED',
+        ]);
       });
     });
   });

@@ -64,7 +64,11 @@ const checkValidId = (id: string) => {
 const optionData2Analytics = (option: OptionData) => {
   const { id, type } = option;
   if (isExternalUser(option)) {
-    return { type: 'external_user', sources: option.sources };
+    return {
+      type: 'external_user',
+      sources: option.sources,
+      externalUserType: option.externalUserType,
+    };
   } else {
     // id's of email types are emails which is PII
     return { id: checkValidId(id) ? id : null, type: type || null };

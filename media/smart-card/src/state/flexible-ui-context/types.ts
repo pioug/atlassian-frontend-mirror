@@ -1,6 +1,6 @@
 import { LinkLozenge } from '../../extractors/common/lozenge/types';
 import { LinkPerson } from '../../extractors/common/person/types';
-import { IconType } from '../../constants';
+import { IconType, MediaType } from '../../constants';
 
 export type FlexibleUiDataContext = {
   authorGroup?: LinkPerson[];
@@ -11,6 +11,7 @@ export type FlexibleUiDataContext = {
   linkIcon?: Icon;
   modifiedBy?: string;
   modifiedOn?: string;
+  preview?: Media;
   priority?: Icon;
   programmingLanguage?: string;
   snippet?: string;
@@ -25,4 +26,9 @@ export type Icon = {
   icon?: IconType;
   label?: string;
   url?: string;
+};
+
+export type Media = {
+  type: MediaType;
+  url: string;
 };

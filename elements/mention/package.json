@@ -51,7 +51,7 @@
   "devDependencies": {
     "@atlaskit/adf-utils": "^16.0.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-core": "^158.0.0",
+    "@atlaskit/editor-core": "^159.0.0",
     "@atlaskit/editor-test-helpers": "^16.1.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/section-message": "^6.0.0",

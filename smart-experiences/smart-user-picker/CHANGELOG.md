@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 5.0.2
+
+### Patch Changes
+
+- [`6fc78303271`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fc78303271) - UFO measurement of how long it takes the list of users to be shown
+
 ## 5.0.1
 
 ### Patch Changes

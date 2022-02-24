@@ -5,6 +5,7 @@ import { jsx } from '@emotion/core';
 import { VRTestWrapper } from './utils/vr-test';
 import { TitleBlock } from '../src/view/FlexibleCard/components/blocks';
 import {
+  ActionName,
   ElementName,
   SmartLinkPosition,
   SmartLinkSize,
@@ -12,14 +13,23 @@ import {
 } from '../src/constants';
 import { getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
-import { CardType } from '../src/state/store/types';
+import { ActionItem, CardType } from '../src';
 
-const renderResolvedView = (
-  maxLines?: number,
-  size?: SmartLinkSize,
-  theme?: SmartLinkTheme,
-  position?: SmartLinkPosition,
-) => {
+interface Options {
+  maxLines?: number;
+  size?: SmartLinkSize;
+  theme?: SmartLinkTheme;
+  position?: SmartLinkPosition;
+  actions?: ActionItem[];
+}
+
+const renderResolvedView = ({
+  maxLines,
+  size,
+  theme,
+  position,
+  actions,
+}: Options) => {
   const cardState = getCardState({
     '@type': 'atlassian:Project',
     'atlassian:state': 'open',
@@ -40,6 +50,7 @@ const renderResolvedView = (
           { name: ElementName.CollaboratorGroup },
         ]}
         subtitle={[{ name: ElementName.CommentCount }]}
+        actions={actions}
       />
     </FlexibleCard>
   );
@@ -58,6 +69,16 @@ const renderErroredView = (status: CardType, meta = {}) => {
   );
 };
 
+const makeOptionsWithAction = (action: Partial<ActionItem> = {}) => ({
+  actions: [
+    {
+      name: ActionName.DeleteAction,
+      onClick: () => console.log('Delete action!'),
+      ...action,
+    },
+  ],
+});
+
 export default () => (
   <VRTestWrapper title="Flexible UI: TitleBlock">
     <h5>Default</h5>
@@ -68,20 +89,25 @@ export default () => (
     {Object.values(SmartLinkSize).map((size, idx) => (
       <React.Fragment key={idx}>
         <h5>Size: {size}</h5>
-        {renderResolvedView(undefined, size)}
+        {renderResolvedView({ size })}
       </React.Fragment>
     ))}
+    <h5>With default action items:</h5>
+    {renderResolvedView(makeOptionsWithAction())}
+    <h5>With content only action items:</h5>
+    {renderResolvedView(makeOptionsWithAction({ hideIcon: true }))}
+    <h5>With icon only action items:</h5>
+    {renderResolvedView(makeOptionsWithAction({ hideIcon: true }))}
     <h5>Theme: {SmartLinkTheme.Black}</h5>
-    {renderResolvedView(undefined, undefined, SmartLinkTheme.Black)}
+    {renderResolvedView({ theme: SmartLinkTheme.Black })}
     <h5>Max lines: 1</h5>
-    {renderResolvedView(1, SmartLinkSize.Medium, SmartLinkTheme.Link)}
+    {renderResolvedView({
+      maxLines: 1,
+      size: SmartLinkSize.Medium,
+      theme: SmartLinkTheme.Link,
+    })}
     <h5>Position: {SmartLinkPosition.Center}</h5>
-    {renderResolvedView(
-      undefined,
-      undefined,
-      undefined,
-      SmartLinkPosition.Center,
-    )}
+    {renderResolvedView({ position: SmartLinkPosition.Center })}
     <h4>Views</h4>
     <h5>Errored view</h5>
     {renderErroredView('errored')}

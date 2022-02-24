@@ -15,7 +15,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-title');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 1340);
+      const image = await takeSnapshot(page, 1660);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -37,6 +37,15 @@ describe('Flexible Card', () => {
 
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('renders Footer Block', async () => {
+      const url = getURL('vr-flexible-ui-block-footer');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+      const image = await takeSnapshot(page, 600);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 
   describe('actions', () => {
@@ -45,7 +54,7 @@ describe('Flexible Card', () => {
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-delete-action"]');
 
-      const image = await takeSnapshot(page, 300);
+      const image = await takeSnapshot(page, 400);
       expect(image).toMatchProdImageSnapshot();
     });
   });
@@ -119,6 +128,15 @@ describe('Flexible Card', () => {
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-provider-confluence"]');
       const image = await takeSnapshot(page, 360);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('renders media', async () => {
+      const url = getURL('vr-flexible-ui-element-media');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="vr-test-media"]');
+      const image = await takeSnapshot(page, 280);
 
       expect(image).toMatchProdImageSnapshot();
     });

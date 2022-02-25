@@ -27,6 +27,8 @@ import { exampleTokens } from '../utils/flexible-ui';
 import { ExampleClient } from './ExampleClient';
 import MetadataBlockOption from './MetadataBlockOption';
 import SnippetBlockOption from './SnippetBlockOption';
+import PreviewBlock from '../../src/view/FlexibleCard/components/blocks/preview-block';
+import PreviewBlockOption from './PreviewBlockOption';
 
 const initialUrl = 'https://BitbucketRepository';
 
@@ -69,6 +71,8 @@ const FlexibleUiExample: React.FC = () => {
   const [secondary, setSecondary] = useState<ElementItem[]>([]);
   // SnippetBlock options
   const [showSnippetBlock, setShowSnippetBlock] = useState<boolean>(false);
+  // Preview options
+  const [showPreviewBlock, setShowPreviewBlock] = useState<boolean>(false);
 
   return (
     <div css={containerStyles}>
@@ -82,6 +86,7 @@ const FlexibleUiExample: React.FC = () => {
                 url={url}
                 ui={{ size, hideBackground, hideElevation, hidePadding, theme }}
               >
+                {showPreviewBlock && <PreviewBlock />}
                 <TitleBlock
                   direction={direction}
                   maxLines={maxLines}
@@ -137,6 +142,7 @@ const FlexibleUiExample: React.FC = () => {
           setShow={setShowMetadataBlock}
         />
         <SnippetBlockOption setShow={setShowSnippetBlock} />
+        <PreviewBlockOption setShow={setShowPreviewBlock} />
       </div>
     </div>
   );

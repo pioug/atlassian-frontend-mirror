@@ -46,6 +46,15 @@ describe('Flexible Card', () => {
 
       expect(image).toMatchProdImageSnapshot();
     });
+
+    it('renders PreviewBlock', async () => {
+      const url = getURL('vr-flexible-ui-block-preview');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+      const image = await takeSnapshot(page, 500);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 
   describe('actions', () => {

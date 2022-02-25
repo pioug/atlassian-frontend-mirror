@@ -49,6 +49,7 @@ export {
 } from './constants';
 export {
   MetadataBlock,
+  PreviewBlock,
   SnippetBlock,
   TitleBlock,
 } from './view/FlexibleCard/components/blocks';

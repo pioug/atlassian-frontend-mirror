@@ -5855,7 +5855,7 @@ const tokens = [
       "state": "active",
       "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
     },
-    "value": "#03040442",
+    "value": "#101214",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -5864,7 +5864,7 @@ const tokens = [
         "state": "active",
         "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
       },
-      "value": "DN-100A"
+      "value": "DN-100"
     },
     "name": "elevation.surface.sunken",
     "path": [

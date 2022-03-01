@@ -1238,6 +1238,7 @@ describe('BaseUserPicker', () => {
                 downKeyCount: 3,
                 position: -1,
                 result: {
+                  id: '111111111111111111111110',
                   type: 'external_user',
                   sources: ['google'],
                 },

@@ -10,6 +10,7 @@ import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
 import cardAdfBlock from './__fixtures__/card-adf.block.json';
 import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
 import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
+import cardInsideInfoAndLayout from './__fixtures__/card-inside-info-and-layout-adf.json';
 import {
   openPreviewState,
   waitForBlockCardSelection,
@@ -244,6 +245,37 @@ describe('Cards:', () => {
     await evaluateTeardownMockDate(page);
 
     await waitForResolvedBlockCard(page);
+    await snapshot(page);
+  });
+
+  it('should select card correctly when inside info and layout panel', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardInsideInfoAndLayout,
+      Device.LaptopHiDPI,
+      {
+        width: 800,
+        height: 400,
+      },
+      {
+        smartLinks: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+      undefined,
+      undefined,
+      true,
+    );
+    await evaluateTeardownMockDate(page);
+
+    await waitForResolvedInlineCard(page);
+    await waitForInlineCardSelection(page);
+    await waitForInlineCardSelection(page);
+    await waitForInlineCardSelection(page);
+
+    await page.mouse.move(0, 0);
     await snapshot(page);
   });
 });

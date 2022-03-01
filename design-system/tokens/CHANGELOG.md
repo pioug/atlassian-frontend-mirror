@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.6.3
+
+### Patch Changes
+
+- [`39f4b3b6b48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39f4b3b6b48) - Added new base dark mode token DN-100 and modified elevation.surface.token to use it rather than the alpha.
+
 ## 0.6.2
 
 ### Patch Changes

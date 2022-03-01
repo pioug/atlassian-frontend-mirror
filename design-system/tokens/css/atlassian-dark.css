@@ -221,7 +221,7 @@ html[data-theme="dark"] {
   --ds-shadow-raised: 0px 1px 1px #03040480, 0px 0px 1px #03040480;
   --ds-shadow-overlay: inset 0px 0px 0px 1px #BCD6F00A, 0px 8px 12px #0304045C, 0px 0px 1px #03040480;
   --ds-surface: #161A1D;
-  --ds-surface-sunken: #03040442;
+  --ds-surface-sunken: #101214;
   --ds-surface-raised: #1D2125;
   --ds-surface-overlay: #22272B;
   --ds-UNSAFE_util-transparent: transparent;

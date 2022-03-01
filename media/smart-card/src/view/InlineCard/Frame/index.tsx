@@ -53,12 +53,6 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
     },
     [onClick],
   );
-
-  // prevent default on mousedown to avoid inline card losing focus
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-  }, []);
-
   const isInteractive = Boolean(onClick);
 
   // TODO Theming doesn't work right now in editor. Required React context does not trickle down atm.
@@ -74,7 +68,6 @@ export const Frame: React.FC<FrameViewProps> = (props) => {
       tabIndex={isInteractive ? 0 : undefined}
       role={isInteractive ? 'button' : undefined}
       onClick={handleClick}
-      onMouseDown={handleMouseDown}
       onKeyPress={handleKeyPress}
       data-testid={testId}
       className={className}

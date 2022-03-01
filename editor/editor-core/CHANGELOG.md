@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 159.0.1
+
+### Patch Changes
+
+- [`e68f0f554fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e68f0f554fa) - remove mousedown handler for inline links and add a vr test for the logic
+- Updated dependencies
+
 ## 159.0.0
 
 ### Patch Changes

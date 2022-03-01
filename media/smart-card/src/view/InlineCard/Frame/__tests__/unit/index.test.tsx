@@ -63,14 +63,4 @@ describe('Frame', () => {
     });
     expect(onClick).toHaveBeenCalled();
   });
-
-  it('should prevent default on mousedown to avoid card losing focus when clicking it', () => {
-    const mockedEvent = {
-      preventDefault: jest.fn(),
-    };
-
-    const element = mount(<Frame />);
-    element.simulate('mousedown', mockedEvent);
-    expect(mockedEvent.preventDefault).toHaveBeenCalled();
-  });
 });

@@ -63,15 +63,20 @@ const checkValidId = (id: string) => {
 
 const optionData2Analytics = (option: OptionData) => {
   const { id, type } = option;
+  // id's of email types are emails which is PII
+  const validatedData = {
+    id: checkValidId(id) ? id : null,
+    type: type || null,
+  };
   if (isExternalUser(option)) {
     return {
+      ...validatedData,
       type: 'external_user',
       sources: option.sources,
       externalUserType: option.externalUserType,
     };
   } else {
-    // id's of email types are emails which is PII
-    return { id: checkValidId(id) ? id : null, type: type || null };
+    return validatedData;
   }
 };
 const buildValueForAnalytics = (value?: Option[] | Option | null) => {
@@ -190,15 +195,18 @@ export const searchedEvent: EventCreator = (
   state: UserPickerState,
   session?: UserPickerSession,
   journeyId?: string,
-) =>
-  createEvent('operational', 'searched', 'userPicker', {
+) => {
+  const searchResults = results(state);
+  return createEvent('operational', 'searched', 'userPicker', {
     ...createDefaultPickerAttributes(props, session, journeyId),
     sessionDuration: sessionDuration(session),
     durationSinceInputChange: durationSinceInputChange(session),
     queryLength: queryLength(state),
     isLoading: isLoading(props, state),
-    results: results(state),
+    results: searchResults,
+    numberOfResults: searchResults.length,
   });
+};
 
 export const failedEvent: EventCreator = (
   props: UserPickerProps,

@@ -323,6 +323,10 @@ const palette: PaletteColorTokenSchema = {
         value: '#341829',
         attributes: { group: 'palette' },
       },
+      'DN-100': {
+        value: '#101214',
+        attributes: { group: 'palette' },
+      },
       'DN-100A': {
         // #030404 26%
         value: '#03040442',

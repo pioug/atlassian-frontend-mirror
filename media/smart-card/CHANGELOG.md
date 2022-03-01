@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.5.3
+
+### Patch Changes
+
+- [`e68f0f554fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e68f0f554fa) - remove mousedown handler for inline links and add a vr test for the logic
+
 ## 17.5.2
 
 ### Patch Changes

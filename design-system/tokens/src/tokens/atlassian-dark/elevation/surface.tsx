@@ -7,7 +7,7 @@ const elevation: ValueSchema<SurfaceTokenSchema> = {
         value: 'DN0',
       },
       sunken: {
-        value: 'DN-100A',
+        value: 'DN-100',
       },
       raised: {
         value: 'DN100',

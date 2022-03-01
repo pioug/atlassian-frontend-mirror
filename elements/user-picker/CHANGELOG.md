@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.7.3
+
+### Patch Changes
+
+- [`7f37f923832`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f37f923832) - updated analytics event for org people picker in core invites
+
 ## 8.7.2
 
 ### Patch Changes

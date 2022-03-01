@@ -170,6 +170,7 @@ export interface PaletteColorTokenSchema {
       M800: PaletteToken;
       M900: PaletteToken;
       M1000: PaletteToken;
+      'DN-100': PaletteToken;
       'DN-100A': PaletteToken;
       DN0: PaletteToken;
       DN100: PaletteToken;

@@ -2,15 +2,13 @@ import React, { ReactNode } from 'react';
 import { useUserSource } from '../clients/UserSourceProvider';
 import { UserSource } from '../types';
 
-type SourcesChildrenFunc = ({
-  sources,
-  sourcesLoading,
-  sourcesError,
-}: {
+export interface ExternalUserSourcesData {
   sources: UserSource[];
   sourcesLoading: boolean;
   sourcesError: string | null;
-}) => ReactNode;
+}
+
+type SourcesChildrenFunc = (sourcesData: ExternalUserSourcesData) => ReactNode;
 
 interface SourcesContainerProps {
   accountId: string;

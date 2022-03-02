@@ -5,6 +5,7 @@ import { Spacing } from '@atlaskit/button';
 import Button from '@atlaskit/button/custom-theme-button';
 import { SmartLinkSize } from '../../../../../constants';
 import Tooltip from '@atlaskit/tooltip';
+import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { getIconSizeStyles } from '../../utils';
 import { tokens } from '../../../../../utils/token';
 import { handleOnClick } from '../../../../../utils';
@@ -56,7 +57,7 @@ const ActionIcon: React.FC<ActionIconProps> = ({ size, testId, icon }) => (
   </span>
 );
 
-const sizeToSpacing: Record<SmartLinkSize, Spacing> = {
+export const sizeToSpacing: Record<SmartLinkSize, Spacing> = {
   [SmartLinkSize.Small]: 'none',
   [SmartLinkSize.Medium]: 'compact',
   [SmartLinkSize.Large]: 'compact',
@@ -72,6 +73,7 @@ const Action: React.FC<ActionProps> = ({
   icon,
   iconPosition = 'before',
   tooltipMessage,
+  asDropDownItem,
 }: ActionProps) => {
   if (!onClick) {
     return null;
@@ -85,22 +87,35 @@ const Action: React.FC<ActionProps> = ({
       <ActionIcon size={size} testId={testId} icon={icon} />
     ) : undefined;
   const iconOnly = !content;
-  return (
-    <Tooltip content={tooltipMessage}>
-      <div css={getButtonStyle(size, iconOnly)}>
-        <Button
-          spacing={sizeToSpacing[size]}
-          appearance={appearance}
-          testId={testId}
-          onClick={handleOnClick(onClick)}
-          iconBefore={iconBefore}
-          iconAfter={iconAfter}
-        >
-          {content}
-        </Button>
-      </div>
-    </Tooltip>
-  );
+  if (asDropDownItem) {
+    return (
+      <DropdownItem
+        elemBefore={iconBefore}
+        elemAfter={iconAfter}
+        testId={testId}
+        onClick={handleOnClick(onClick)}
+      >
+        {content}
+      </DropdownItem>
+    );
+  } else {
+    return (
+      <Tooltip content={tooltipMessage}>
+        <div css={getButtonStyle(size, iconOnly)}>
+          <Button
+            spacing={sizeToSpacing[size]}
+            appearance={appearance}
+            testId={testId}
+            onClick={handleOnClick(onClick)}
+            iconBefore={iconBefore}
+            iconAfter={iconAfter}
+          >
+            {content}
+          </Button>
+        </div>
+      </Tooltip>
+    );
+  }
 };
 
 export default Action;

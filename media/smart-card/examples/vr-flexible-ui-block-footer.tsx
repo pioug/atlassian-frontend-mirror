@@ -30,6 +30,41 @@ export default () => (
   <VRTestWrapper title="Flexible UI: FooterBlock">
     <h5>Default</h5>
     {renderFooter()}
+    <h5>With two actions</h5>
+    {renderFooter(SmartLinkSize.Medium, [
+      {
+        name: ActionName.DeleteAction,
+        hideIcon: true,
+        onClick: () => console.log('delete'),
+      },
+      {
+        name: ActionName.DeleteAction,
+
+        hideIcon: true,
+        onClick: () => console.log('delete'),
+      },
+    ])}
+    <h5>With three actions</h5>
+    {renderFooter(SmartLinkSize.Medium, [
+      {
+        name: ActionName.DeleteAction,
+        testId: 'first-action-item',
+        hideIcon: true,
+        onClick: () => console.log('delete'),
+      },
+      {
+        name: ActionName.DeleteAction,
+        testId: 'second-action-item',
+        hideIcon: true,
+        onClick: () => console.log('delete'),
+      },
+      {
+        name: ActionName.DeleteAction,
+        testId: 'third-action-item',
+        hideIcon: true,
+        onClick: () => console.log('delete'),
+      },
+    ])}
     {Object.values(SmartLinkSize).map((size) => (
       <React.Fragment>
         <h5>Size: {size}</h5>

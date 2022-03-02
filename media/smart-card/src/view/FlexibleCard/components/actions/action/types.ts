@@ -11,6 +11,7 @@ export type ActionProps = {
   icon?: ReactChild;
   iconPosition?: 'before' | 'after';
   tooltipMessage?: React.ReactNode;
+  asDropDownItem?: boolean;
 };
 
 export type ActionIconProps = {

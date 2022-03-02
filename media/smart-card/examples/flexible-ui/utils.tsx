@@ -1,12 +1,11 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { css, jsx } from '@emotion/core';
 import { JsonLd } from 'json-ld-types';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
 
 import {
-  ActionItem,
   ActionName,
   ElementItem,
   ElementName,
@@ -14,12 +13,14 @@ import {
   SmartLinkPosition,
   SmartLinkSize,
   SmartLinkTheme,
+  ActionItem,
 } from '../../src';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import {
   ElementDisplaySchema,
   ElementDisplaySchemaType,
 } from '../../src/view/FlexibleCard/components/blocks/utils';
+import Range from '@atlaskit/range/range';
 
 export const mockUrls = Object.keys(examples).reduce(
   (acc, key) => ({ ...acc, [key]: `https://${key}` }),
@@ -71,30 +72,77 @@ export const renderCheckbox = (
   />
 );
 
-export const renderActionOptions = (
-  actionItems: ActionItem[],
-  setActionItems: Function,
-) => {
-  const options = Object.values(ActionName).map((name) => ({
+export const RenderActionOptions = ({
+  setActionItems,
+}: {
+  setActionItems: Function;
+}) => {
+  const uniqueActionNames = useMemo(() => Object.values(ActionName), []);
+  const [selectedItems, setSelectedItems] = useState<ActionName[]>([]);
+  const [numberOfOptions, setNumberOfOptions] = useState(1);
+  const [hideIcon, setHideIcon] = useState<boolean>(false);
+  const [hideContent, setHideContent] = useState<boolean>(false);
+
+  const options = uniqueActionNames.map((name) => ({
     label: name,
     value: name,
   }));
 
+  useEffect(() => {
+    let actionNames: ActionName[] = [];
+    if (selectedItems.length > 0) {
+      if (numberOfOptions && numberOfOptions > 1) {
+        for (let i = 0; i < numberOfOptions; i++) {
+          actionNames.push(selectedItems[i % uniqueActionNames.length]);
+        }
+      } else {
+        actionNames = uniqueActionNames;
+      }
+    }
+
+    const items: ActionItem[] = actionNames.map((name) => ({
+      name,
+      onClick: () => {
+        console.log(`You have clicked on ${name}`);
+      },
+      hideIcon,
+      hideContent,
+    }));
+
+    setActionItems(items);
+  }, [
+    selectedItems,
+    numberOfOptions,
+    setActionItems,
+    uniqueActionNames,
+    hideIcon,
+    hideContent,
+  ]);
+
   return (
-    <Select
-      isMulti
-      onChange={(values) => {
-        const items = values.map(({ value }) => ({
-          name: value,
-          onClick: () => {
-            console.log(`You have clicked on ${value}`);
-          },
-        }));
-        setActionItems(items);
-      }}
-      options={options}
-      placeholder="Add actions"
-    />
+    <div>
+      <label>Unique actions to pick</label>
+      <Select
+        isMulti
+        onChange={(values) => {
+          const selectedItems: ActionName[] = values.map(
+            ({ value }) => value as ActionName,
+          );
+          setSelectedItems(selectedItems);
+        }}
+        options={options}
+        placeholder="Add actions"
+      />
+      <label>Number of actions ({numberOfOptions})</label>
+      <Range
+        step={1}
+        value={numberOfOptions}
+        max={6}
+        onChange={(value) => setNumberOfOptions(value)}
+      />
+      {renderCheckbox(setHideIcon, 'Hide icon')}
+      {renderCheckbox(setHideContent, 'Hide content')}
+    </div>
   );
 };
 

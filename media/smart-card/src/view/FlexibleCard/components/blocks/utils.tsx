@@ -152,6 +152,7 @@ export const renderActionItems = (
   items: ActionItem[] = [],
   size: SmartLinkSize = SmartLinkSize.Medium,
   appearance?: Appearance,
+  asDropDownItems?: boolean,
 ): React.ReactNode | undefined => {
   const actions = items.reduce(
     (acc: React.ReactElement[], curr: ActionItem, idx: number) => {
@@ -160,7 +161,7 @@ export const renderActionItems = (
       const actionProps: Partial<ActionProps> = {
         ...props,
       };
-      if (hideContent) {
+      if (hideContent && !asDropDownItems) {
         actionProps.content = '';
       }
       if (hideIcon) {
@@ -170,6 +171,7 @@ export const renderActionItems = (
         return [
           ...acc,
           <Action
+            asDropDownItem={asDropDownItems}
             size={size}
             key={idx}
             appearance={appearance}

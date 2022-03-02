@@ -261,7 +261,7 @@ export const getIframeSandboxAttribute = (isTrusted: boolean) =>
     ? undefined
     : 'allow-downloads allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts';
 export const handleOnClick = (handler: Function) => (
-  e: React.MouseEvent<HTMLElement>,
+  e: React.BaseSyntheticEvent,
 ) => {
   e.preventDefault();
   e.stopPropagation();

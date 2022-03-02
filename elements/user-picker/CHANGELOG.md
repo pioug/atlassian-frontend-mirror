@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 8.8.0
+
+### Minor Changes
+
+- [`091da1d5f88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/091da1d5f88) - [ux] Ensure items in the User Sources tooltip are unique and ordered correctly
+
+## 8.7.4
+
+### Patch Changes
+
+- [`35be12dee47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35be12dee47) - updated content copies for Org People Picker in user-picker and invite-people
+
 ## 8.7.3
 
 ### Patch Changes

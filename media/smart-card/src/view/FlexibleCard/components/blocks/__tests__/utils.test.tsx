@@ -151,57 +151,111 @@ describe('renderElementItems', () => {
 
 describe('renderActionItems', () => {
   const testId = 'smart-element-test';
-  const setup = (name: ActionName, hideContent: boolean, hideIcon: boolean) => {
+  const setup = (
+    name: ActionName,
+    hideContent: boolean,
+    hideIcon: boolean,
+    asDropDownItems: boolean = false,
+  ) => {
     const onClick = () => {};
 
     return render(
       <IntlProvider locale="en">
         <FlexibleUiContext.Provider value={context}>
-          {renderActionItems([
-            { onClick, name, testId, hideContent, hideIcon },
-          ])}
+          {renderActionItems(
+            [{ onClick, name, testId, hideContent, hideIcon }],
+            undefined,
+            undefined,
+            asDropDownItems,
+          )}
         </FlexibleUiContext.Provider>
       </IntlProvider>,
     );
   };
+
+  it('should be able to render DropdownItem element', async () => {
+    const { getAllByRole } = setup(ActionName.DeleteAction, false, false, true);
+    const elements = getAllByRole('menuitem');
+    expect(elements).toHaveLength(1);
+  });
+
   describe.each([
     [ActionName.DeleteAction, 'Delete', 'smart-element-test-icon'],
   ])(
     'with %s action',
-    async (name: ActionName, expectedContent: string, iconTestId: string) => {
-      it('should render both content and icon', async () => {
-        const { getByTestId } = setup(name, false, false);
+    (actionName: ActionName, expectedContent: string, iconTestId: string) => {
+      describe.each([
+        ['as dropdown item', true],
+        ['as button', false],
+      ])('%s', (_: string, asDropdownItem: boolean) => {
+        it('should render both content and icon', async () => {
+          const { getByTestId } = setup(
+            actionName,
+            false,
+            false,
+            asDropdownItem,
+          );
 
-        const element = await waitForElement(() => getByTestId(testId));
-        expect(element).toBeDefined();
+          const element = await waitForElement(() => getByTestId(testId));
+          expect(element).toBeDefined();
 
-        const icon = await waitForElement(() => getByTestId(iconTestId));
-        expect(icon).toBeDefined();
+          const icon = await waitForElement(() => getByTestId(iconTestId));
+          expect(icon).toBeDefined();
 
-        expect(element.textContent).toEqual(expectedContent);
-      });
+          expect(element.textContent).toEqual(expectedContent);
+        });
 
-      it('should render only content', async () => {
-        const { getByTestId, queryByTestId } = setup(name, false, true);
+        it('should render only content', async () => {
+          const { getByTestId, queryByTestId } = setup(
+            actionName,
+            false,
+            true,
+            asDropdownItem,
+          );
 
-        const element = await waitForElement(() => getByTestId(testId));
-        expect(element).toBeDefined();
+          const element = await waitForElement(() => getByTestId(testId));
+          expect(element).toBeDefined();
 
-        expect(queryByTestId(iconTestId)).toBeNull();
+          expect(queryByTestId(iconTestId)).toBeNull();
 
-        expect(element.textContent).toEqual(expectedContent);
-      });
+          expect(element.textContent).toEqual(expectedContent);
+        });
 
-      it('should render only icon', async () => {
-        const { getByTestId } = setup(name, true, false);
+        if (asDropdownItem) {
+          it('should render content even if hideContent is true', async () => {
+            const { getByTestId } = setup(
+              actionName,
+              true,
+              false,
+              asDropdownItem,
+            );
 
-        const element = await waitForElement(() => getByTestId(testId));
-        expect(element).toBeDefined();
+            const element = await waitForElement(() => getByTestId(testId));
+            expect(element).toBeDefined();
 
-        const icon = await waitForElement(() => getByTestId(iconTestId));
-        expect(icon).toBeDefined();
+            const icon = await waitForElement(() => getByTestId(iconTestId));
+            expect(icon).toBeDefined();
 
-        expect(element.textContent).toEqual('');
+            expect(element.textContent).toEqual(expectedContent);
+          });
+        } else {
+          it('should render only icon', async () => {
+            const { getByTestId } = setup(
+              actionName,
+              true,
+              false,
+              asDropdownItem,
+            );
+
+            const element = await waitForElement(() => getByTestId(testId));
+            expect(element).toBeDefined();
+
+            const icon = await waitForElement(() => getByTestId(iconTestId));
+            expect(icon).toBeDefined();
+
+            expect(element.textContent).toEqual('');
+          });
+        }
       });
     },
   );

@@ -19,6 +19,7 @@ import {
   SmartLinkTheme,
   SnippetBlock,
   TitleBlock,
+  FooterBlock,
 } from '../../src';
 import TitleBlockOption from './TitleBlockOption';
 import CardOption from './CardOption';
@@ -27,6 +28,7 @@ import { exampleTokens } from '../utils/flexible-ui';
 import { ExampleClient } from './ExampleClient';
 import MetadataBlockOption from './MetadataBlockOption';
 import SnippetBlockOption from './SnippetBlockOption';
+import FooterBlockOption from './FooterBlockOption';
 import PreviewBlock from '../../src/view/FlexibleCard/components/blocks/preview-block';
 import PreviewBlockOption from './PreviewBlockOption';
 
@@ -63,7 +65,8 @@ const FlexibleUiExample: React.FC = () => {
   );
   const [metadata, setMetadata] = useState<ElementItem[]>([]);
   const [subtitle, setSubTitle] = useState<ElementItem[]>([]);
-  const [action, setAction] = useState<ActionItem[]>([]);
+
+  const [titleBlockActions, setTitleBlockActions] = useState<ActionItem[]>([]);
   // MetadataBlock options
   const [showMetadataBlock, setShowMetadataBlock] = useState<boolean>(false);
   const [metadataMaxLines, setMetadataMaxLines] = useState<number>(2);
@@ -71,6 +74,11 @@ const FlexibleUiExample: React.FC = () => {
   const [secondary, setSecondary] = useState<ElementItem[]>([]);
   // SnippetBlock options
   const [showSnippetBlock, setShowSnippetBlock] = useState<boolean>(false);
+  // FooterBlock options
+  const [showFooterBlock, setShowFooterBlock] = useState<boolean>(false);
+  const [footerBlockActions, setFooterBlockActions] = useState<ActionItem[]>(
+    [],
+  );
   // Preview options
   const [showPreviewBlock, setShowPreviewBlock] = useState<boolean>(false);
 
@@ -93,7 +101,7 @@ const FlexibleUiExample: React.FC = () => {
                   position={position}
                   metadata={metadata}
                   subtitle={subtitle}
-                  actions={action}
+                  actions={titleBlockActions}
                 />
                 {showMetadataBlock && (
                   <MetadataBlock
@@ -103,6 +111,9 @@ const FlexibleUiExample: React.FC = () => {
                   />
                 )}
                 {showSnippetBlock && <SnippetBlock />}
+                {showFooterBlock && (
+                  <FooterBlock actions={footerBlockActions} />
+                )}
               </Card>
             </Provider>
           </IntlProvider>
@@ -125,13 +136,12 @@ const FlexibleUiExample: React.FC = () => {
         <TitleBlockOption
           metadata={metadata}
           subtitle={subtitle}
-          actions={action}
           setDirection={setDirection}
           setMaxLines={setMaxLines}
           setMetadata={setMetadata}
           setPosition={setPosition}
           setSubTitle={setSubTitle}
-          setAction={setAction}
+          setActions={setTitleBlockActions}
         />
         <MetadataBlockOption
           primary={primary}
@@ -142,6 +152,10 @@ const FlexibleUiExample: React.FC = () => {
           setShow={setShowMetadataBlock}
         />
         <SnippetBlockOption setShow={setShowSnippetBlock} />
+        <FooterBlockOption
+          setShow={setShowFooterBlock}
+          setActions={setFooterBlockActions}
+        />
         <PreviewBlockOption setShow={setShowPreviewBlock} />
       </div>
     </div>

@@ -42,9 +42,18 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-footer');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 600);
+      const image = await takeSnapshot(page, 750);
 
       expect(image).toMatchProdImageSnapshot();
+
+      // Click on "more actions" (three dots) button.
+      await page.waitForSelector('[data-testid="action-group-more-button"]');
+      await page.click('[data-testid="action-group-more-button"]');
+
+      await page.waitForSelector('[data-testid="third-action-item"]');
+      const image2 = await takeSnapshot(page, 750);
+
+      expect(image2).toMatchProdImageSnapshot();
     });
 
     it('renders PreviewBlock', async () => {

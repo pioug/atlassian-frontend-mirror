@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.2.1
+
+### Patch Changes
+
+- [`63a22b17621`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63a22b17621) - Fixes a bug where use of qualified type annotations would throw an error.
+
 ## 4.2.0
 
 ### Minor Changes

@@ -14,32 +14,30 @@ import {
   directionOptions,
   handleOnChange,
   positionOptions,
-  renderActionOptions,
+  RenderActionOptions,
   renderMetadataOptions,
 } from './utils';
 
 type TitleBlockOptionProps = {
   metadata: ElementItem[];
   subtitle: ElementItem[];
-  actions: ActionItem[];
   setDirection: React.Dispatch<React.SetStateAction<SmartLinkDirection>>;
   setMaxLines: React.Dispatch<React.SetStateAction<number>>;
   setMetadata: React.Dispatch<React.SetStateAction<ElementItem[]>>;
   setPosition: React.Dispatch<React.SetStateAction<SmartLinkPosition>>;
   setSubTitle: React.Dispatch<React.SetStateAction<ElementItem[]>>;
-  setAction: React.Dispatch<React.SetStateAction<ActionItem[]>>;
+  setActions: React.Dispatch<React.SetStateAction<ActionItem[]>>;
 };
 
 const TitleBlockOption: React.FC<TitleBlockOptionProps> = ({
   metadata,
   subtitle,
-  actions,
   setDirection,
   setMaxLines,
   setMetadata,
   setPosition,
   setSubTitle,
-  setAction,
+  setActions,
 }) => (
   <React.Fragment>
     <h3>TitleBlock options</h3>
@@ -73,7 +71,7 @@ const TitleBlockOption: React.FC<TitleBlockOptionProps> = ({
         <h6>Subtitle</h6>
         {renderMetadataOptions(subtitle, setSubTitle)}
         <h6>Actions</h6>
-        {renderActionOptions(actions, setAction)}
+        <RenderActionOptions setActionItems={setActions} />
       </div>
     </div>
   </React.Fragment>

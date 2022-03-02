@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.6.0
+
+### Minor Changes
+
+- [`0cab291e19e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0cab291e19e) - Add "more" and dopdown for actions when there is more then 2
+
 ## 17.5.3
 
 ### Patch Changes

@@ -52,6 +52,7 @@ export {
   PreviewBlock,
   SnippetBlock,
   TitleBlock,
+  FooterBlock,
 } from './view/FlexibleCard/components/blocks';
 export type {
   ActionItem,

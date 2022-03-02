@@ -1,22 +1,16 @@
-import React, { ReactNode } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import React from 'react';
 import styled from 'styled-components';
-import { ConfluenceIcon, JiraIcon, AtlassianIcon } from '@atlaskit/logo';
-import Spinner from '@atlaskit/spinner';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import { ExternalUser, UserSource } from '../../types';
+import { ExternalUser } from '../../types';
 import { TextWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
-import { SlackIcon } from '../assets/slack';
-import { GoogleIcon } from '../assets/google';
-import { MicrosoftIcon } from '../assets/microsoft';
-import { GitHubIcon } from '../assets/github';
-import { messages } from '../i18n';
+
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
 import InfoIcon from './InfoIcon';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
+import { SourcesTooltipContent } from './SourcesTooltipContent';
 
 export const ImageContainer = styled.span`
   height: 16px;
@@ -27,73 +21,9 @@ export const ImageContainer = styled.span`
   justify-content: center;
 `;
 
-export const SourcesTooltipContainer = styled.div`
-  padding-bottom: 4px;
-  padding-right: 4px;
-`;
-
-export const SourceWrapper = styled.div`
-  padding-top: 4px;
-  display: flex;
-  align-items: center;
-`;
-
 export const EmailDomainWrapper = styled.span`
   font-weight: bold;
 `;
-
-type SourceInfo = {
-  key: UserSource;
-  icon: ReactNode;
-  label: { id: string; defaultMessage: string; description: string };
-};
-
-const SourcesInfoMap = new Map<UserSource, SourceInfo>([
-  [
-    'slack',
-    { key: 'slack', icon: <SlackIcon />, label: messages.slackProvider },
-  ],
-  [
-    'google',
-    { key: 'google', icon: <GoogleIcon />, label: messages.googleProvider },
-  ],
-  [
-    'microsoft',
-    {
-      key: 'microsoft',
-      icon: <MicrosoftIcon />,
-      label: messages.microsoftProvider,
-    },
-  ],
-  [
-    'github',
-    { key: 'github', icon: <GitHubIcon />, label: messages.gitHubProvider },
-  ],
-  [
-    'jira',
-    {
-      key: 'jira',
-      icon: <JiraIcon size={'xsmall'} />,
-      label: messages.jiraSource,
-    },
-  ],
-  [
-    'confluence',
-    {
-      key: 'confluence',
-      icon: <ConfluenceIcon size={'xsmall'} />,
-      label: messages.confluenceSource,
-    },
-  ],
-  [
-    'other-atlassian',
-    {
-      key: 'other-atlassian',
-      icon: <AtlassianIcon size={'xsmall'} />,
-      label: messages.otherAtlassianSource,
-    },
-  ],
-]);
 
 export type ExternalUserOptionProps = {
   user: ExternalUser;
@@ -191,40 +121,7 @@ export class ExternalUserOption extends React.PureComponent<
         shouldFetchSources={Boolean(requiresSourceHydration)}
         initialSources={sources}
       >
-        {({ sources, sourcesLoading, sourcesError }) => (
-          <React.Fragment>
-            {/* If fetching fails but we have static sources, just show them instead of the error message */}
-            {sourcesError !== null && sources.length === 0 ? (
-              <span>
-                <FormattedMessage {...messages.externalUserSourcesError} />
-              </span>
-            ) : (
-              <React.Fragment>
-                <span>
-                  <FormattedMessage {...messages.externalUserSourcesHeading} />
-                </span>
-                <SourcesTooltipContainer>
-                  {sourcesLoading && (
-                    <Spinner size="small" appearance="invert" />
-                  )}
-                  {!sourcesLoading &&
-                    (sources
-                      .map((s) => SourcesInfoMap.get(s))
-                      .filter((s) => s) as SourceInfo[]).map(
-                      ({ key, icon, label }) => (
-                        <SourceWrapper key={key}>
-                          <ImageContainer>{icon}</ImageContainer>
-                          <span>
-                            <FormattedMessage {...label} />
-                          </span>
-                        </SourceWrapper>
-                      ),
-                    )}
-                </SourcesTooltipContainer>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        )}
+        {(sourceData) => <SourcesTooltipContent {...sourceData} />}
       </ExternalUserSourcesContainer>
     );
   }

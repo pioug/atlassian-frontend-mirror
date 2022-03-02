@@ -180,6 +180,8 @@ tester.run('ensure-design-token-usage', rule, {
     `console.log(\`Removed \${text}.\`);`,
     `export const App = () => <SimpleTag text="Base Tag" testId="standard" />;`,
     `export const App = () => <Avatar src="0x400" />;`,
+    // Qualified type identifiers are parsable
+    `const options: Foo.Bar = { color: 'red' };`,
   ],
   invalid: [
     {

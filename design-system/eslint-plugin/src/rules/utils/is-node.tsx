@@ -77,9 +77,11 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
       // @ts-ignore typeAnnotation is not defined by types
       node.id.typeAnnotation &&
       // @ts-ignore typeAnnotation is not defined by types
-      node.id.typeAnnotation.typeAnnotation.type === 'GenericTypeAnnotation'
+      node.id.typeAnnotation.typeAnnotation.type === 'GenericTypeAnnotation' &&
+      // @ts-ignore typeAnnotation is not defined by types
+      node.id.typeAnnotation.typeAnnotation.id.type === 'Identifier'
     ) {
-      // @ts-ignore Name is not defined by types
+      // @ts-ignore typeAnnotation is not defined by types
       const typeName = node.id.typeAnnotation.typeAnnotation.id.name;
       const hasCSSType = ['CSSProperties', 'CSSObject'].some((el) =>
         typeName.includes(el),

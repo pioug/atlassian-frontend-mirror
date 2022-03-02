@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 
 import classnames from 'classnames';
 import { EditorView } from 'prosemirror-view';
@@ -50,6 +50,18 @@ const getMessage = (layout: TableLayout) => {
 
 class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   static displayName = 'LayoutButton';
+  private stickyButtonRef = createRef<HTMLDivElement>();
+
+  private resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      const resizeButton = this.stickyButtonRef.current;
+      const tableWrapper = this.props.targetRef;
+      if (resizeButton && tableWrapper) {
+        const clientRect = tableWrapper.getBoundingClientRect();
+        resizeButton.style.left = `${clientRect.right}px`;
+      }
+    });
+  });
 
   getTitle() {
     const {
@@ -93,22 +105,26 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
       : null;
   }
 
-  renderSticky(button: JSX.Element, targetRef: Node) {
+  renderSticky(button: JSX.Element, targetRef: Node, tableRef: Node) {
     const title = this.getTitle();
 
-    if (!targetRef || !(targetRef instanceof HTMLElement)) {
+    if (
+      !(targetRef instanceof HTMLElement) ||
+      !(tableRef instanceof HTMLElement)
+    ) {
       return null;
     }
-
     const pos = targetRef.getBoundingClientRect();
+    const tablePos = tableRef.getBoundingClientRect();
 
     return (
       <div
+        ref={this.stickyButtonRef}
         aria-label={title}
         style={{
           position: 'fixed',
           top: pos.top + 22,
-          left: pos.right + 10,
+          left: tablePos.right,
         }}
       >
         {button}
@@ -156,10 +172,26 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
       stickyHeader && stickyHeader.sticky && stickyHeader.pos
         ? this.getStickyTargetRef(stickyHeader.pos)
         : null;
-    if (stickyTargetRef) {
-      return this.renderSticky(button, stickyTargetRef);
+    if (stickyTargetRef && this.props.targetRef) {
+      return this.renderSticky(button, stickyTargetRef, this.props.targetRef);
     } else {
       return this.renderPopup(button);
+    }
+  }
+
+  componentDidMount() {
+    const dom = this.props.editorView.dom;
+    const scrollPanel = dom.closest('.fabric-editor-popup-scroll-parent');
+    if (scrollPanel instanceof HTMLElement) {
+      this.resizeObserver.observe(scrollPanel);
+    }
+  }
+
+  componentWillUnmount() {
+    const dom = this.props.editorView.dom;
+    const scrollPanel = dom.closest('.fabric-editor-popup-scroll-parent');
+    if (scrollPanel instanceof HTMLElement) {
+      this.resizeObserver.unobserve(scrollPanel);
     }
   }
 

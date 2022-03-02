@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 161.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 160.0.0
+
+### Major Changes
+
+- [`a0b1dde9b9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0b1dde9b9e) - [ux] Fixed the issue where the "change table width" button was incorrectly positioned, overlapping the side panel, when the table is being rendered in sticky header mode.
+
 ## 159.0.1
 
 ### Patch Changes

@@ -3,6 +3,8 @@ import { Fragment } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   Content,
   LeftSidebarWithoutResize,
@@ -14,28 +16,31 @@ import {
 const scrollableContentCSS = {
   height: '2rem',
   width: '80%',
-  backgroundColor: 'papayawhip',
+  backgroundColor: token('color.background.accent.orange', 'papayawhip'),
   margin: '2rem auto',
   boxSizing: 'border-box',
   borderRadius: 3,
   ':nth-of-type(4n)': {
-    backgroundColor: 'cornflowerblue',
+    backgroundColor: token(
+      'color.background.accent.blue.bold',
+      'cornflowerblue',
+    ),
     position: 'sticky',
     textAlign: 'center',
     padding: 4,
     top: 65,
     '&::after': {
       content: '"Stickied element"',
-      color: '#FFF',
+      color: token('color.text.inverse', '#FFF'),
     },
   },
 } as CSSObject;
 
 const topNavCSS = {
-  backgroundColor: '#FFF',
+  backgroundColor: token('color.background.neutral.subtle', '#FFF'),
   boxSizing: 'border-box',
   padding: '1rem',
-  borderBottom: '1px solid lightgray',
+  borderBottom: `1px solid ${token('color.border', 'lightgray')}`,
 } as CSSObject;
 
 const ScrollableContent = () => {

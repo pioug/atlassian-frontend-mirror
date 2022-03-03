@@ -2,7 +2,7 @@ import React from 'react';
 
 import moment from 'moment';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DatePicker } from '../src';
 
@@ -13,8 +13,11 @@ const parseInputValue = (date: string, dateFormat: string) => {
 export default () => {
   return (
     <div>
-      <Label label="Custom date format and parseInputValue prop" />
+      <Label htmlFor="react-select-custom-parser--input">
+        Custom date format and parseInputValue prop
+      </Label>
       <DatePicker
+        id="custom-parser"
         dateFormat="DD/MM/YY"
         parseInputValue={parseInputValue}
         selectProps={{

@@ -1,5 +1,22 @@
 # @atlaskit/editor-mobile-bridge
 
+## 32.0.0
+
+### Major Changes
+
+- [`076d3d9d1b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/076d3d9d1b2) - [ME-1214] Introduced a bridge method setSelectionAtAnchor to the start or end
+
+### Minor Changes
+
+- [`d1faad40e59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1faad40e59) - [ux] Adds helper function to find caption node and hides adaptive toolbar on mobile when selection is inside caption node
+
+### Patch Changes
+
+- [`bb6f3bd5c95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb6f3bd5c95) - ED-14290 add ThemeProviders for emotion
+- [`c45cdcd7dff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c45cdcd7dff) - [ux] Adds support for rendering macros inline on mobile using the contentRenderer query. This change is only enabled when appropriate values are provided in a rendering strategy map from the Confluence native mobile apps.
+- [`e63d6997782`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e63d6997782) - Macros rendered by the legacy-mobile-macros package will now fire a macro viewed analytics event when rendered
+- Updated dependencies
+
 ## 31.2.16
 
 ### Patch Changes

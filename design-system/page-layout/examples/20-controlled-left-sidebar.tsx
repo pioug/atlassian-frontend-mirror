@@ -2,6 +2,8 @@
 
 import { jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
 
 const Wrapper = ({
@@ -27,7 +29,7 @@ const Wrapper = ({
       boxSizing: 'border-box',
       overflowY: 'auto',
       overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: 'white',
+      backgroundColor: token('color.background.neutral.subtle', 'white'),
     }}
   >
     {children}
@@ -44,7 +46,7 @@ const BasicGrid = () => {
         height={60}
         isFixed={false}
       >
-        <Wrapper borderColor="blue">
+        <Wrapper borderColor={token('color.border.accent.blue', 'blue')}>
           <h3 css={{ textAlign: 'center' }}>Product Navigation</h3>
         </Wrapper>
       </TopNavigation>

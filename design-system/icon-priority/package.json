@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.0.0",
@@ -62,5 +62,10 @@
     "atlaskit",
     "ui"
   ],
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

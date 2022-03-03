@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import truncate from 'lodash/truncate';
-
 import { FormFields, SelectOptionDetails, SelectValue } from '../types';
+import truncate from '../utils/Truncate';
 
 import FeedbackForm from './FeedbackForm';
 
@@ -101,7 +100,7 @@ const singleLineTruncatedText = (
   length: number = MAX_SUMMARY_LENGTH_CHARS,
 ) => {
   const singleLineText = text.replace(/\n/g, ' ');
-  return truncate(singleLineText, { length });
+  return truncate(singleLineText, length);
 };
 
 export default class FeedbackCollector extends Component<Props> {

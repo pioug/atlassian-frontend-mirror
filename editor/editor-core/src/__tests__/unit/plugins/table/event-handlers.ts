@@ -24,7 +24,7 @@ import {
   showInsertColumnButton,
   addResizeHandleDecorations,
 } from '../../../../plugins/table/commands';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('table event handlers', () => {
   const createEditor = createEditorFactory<TablePluginState>();

@@ -56,7 +56,10 @@ export default function IconSizes() {
       <Theme.Provider value={() => ({ mode: 'dark' })}>
         <div
           data-testid="dark-root"
-          style={{ backgroundColor: background({ theme: { mode: 'dark' } }) }}
+          style={{
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+            backgroundColor: background({ theme: { mode: 'dark' } }),
+          }}
         >
           <div data-testid="small-icons">
             {demoIcons.map((Icon, i) => (

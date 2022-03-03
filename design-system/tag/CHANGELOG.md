@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 11.2.6
+
+### Patch Changes
+
+- [`9a686cea43e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a686cea43e) - [ux] Reinstated missing hover states for simple tags
+- Updated dependencies
+
 ## 11.2.5
 
 ### Patch Changes

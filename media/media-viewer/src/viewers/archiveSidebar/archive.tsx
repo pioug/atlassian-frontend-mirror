@@ -1,5 +1,10 @@
 import React from 'react';
+import { unzip, ZipInfo, ZipEntry, HTTPRangeReader, Reader } from 'unzipit';
+import { FormattedMessage } from 'react-intl-next';
+
 import { MediaClient, FileState } from '@atlaskit/media-client';
+import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
+
 import { Outcome } from '../../domain';
 import {
   CustomVideoPlayerWrapper,
@@ -12,10 +17,7 @@ import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
 import ErrorMessage from '../../errorMessage';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';
-import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
 import { PDFRenderer } from '../doc/pdfRenderer';
-import { unzip, ZipInfo, ZipEntry, HTTPRangeReader, Reader } from 'unzipit';
-import { FormattedMessage } from 'react-intl-next';
 import {
   ArchiveItemViewerWrapper,
   ArchiveLayout,

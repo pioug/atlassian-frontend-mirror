@@ -13,7 +13,7 @@ const IconUrlGlyph = (props: CustomGlyphProps) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <rect x="6" y="15" width="20" height="2" rx="1" fill="#42526E" />
+      <rect x="6" y="15" width="20" height="2" rx="1" fill="currentColor" />
     </svg>
   );
 };

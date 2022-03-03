@@ -52,10 +52,8 @@ import {
 } from '../../../../plugins/table/utils';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
-import {
-  getPluginState,
-  pluginKey,
-} from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { getPluginState } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -889,7 +887,9 @@ describe('table plugin', () => {
       const { editorView } = editor(
         doc(table()(tr(tdCursor, tdEmpty, tdEmpty))),
       );
-      expect(checkIfNumberColumnEnabled(editorView.state)).toBe(false);
+      expect(checkIfNumberColumnEnabled(editorView.state.selection)).toBe(
+        false,
+      );
     });
   });
 
@@ -898,7 +898,9 @@ describe('table plugin', () => {
       const { editorView } = editor(
         doc(table()(tr(tdCursor, tdEmpty, tdEmpty))),
       );
-      expect(checkIfHeaderColumnEnabled(editorView.state)).toBe(false);
+      expect(checkIfHeaderColumnEnabled(editorView.state.selection)).toBe(
+        false,
+      );
     });
   });
 
@@ -907,7 +909,7 @@ describe('table plugin', () => {
       const { editorView } = editor(
         doc(table()(tr(tdCursor, tdEmpty, tdEmpty))),
       );
-      expect(checkIfHeaderRowEnabled(editorView.state)).toBe(false);
+      expect(checkIfHeaderRowEnabled(editorView.state.selection)).toBe(false);
     });
   });
 
@@ -916,7 +918,7 @@ describe('table plugin', () => {
       const { editorView } = editor(
         doc(table()(tr(tdCursor, tdEmpty, tdEmpty))),
       );
-      expect(checkIfHeaderRowEnabled(editorView.state)).toBe(false);
+      expect(checkIfHeaderRowEnabled(editorView.state.selection)).toBe(false);
     });
   });
 

@@ -1,5 +1,11 @@
 # @atlaskit/media-editor
 
+## 39.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.0.1
 
 ### Patch Changes

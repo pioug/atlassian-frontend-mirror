@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { useContext, useLayoutEffect, useRef } from 'react';
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { Schema, Node as PMNode } from 'prosemirror-model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
@@ -21,6 +23,7 @@ import {
   startMeasure,
   stopMeasure,
   shouldForceTracking,
+  measureTTI,
 } from '@atlaskit/editor-common/utils';
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
@@ -33,7 +36,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import uuid from 'uuid/v4';
 import { ReactSerializer, renderDocument, RendererContext } from '../../';
-import { Wrapper } from './style';
+import { DeprecatedWrapper, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import { RendererAppearance } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
@@ -85,6 +88,20 @@ export class Renderer extends PureComponent<RendererProps> {
     this.editorRef = props.innerRef || React.createRef();
     this.id = uuid();
     startMeasure(`Renderer Render Time: ${this.id}`);
+
+    const featureFlags = this.featureFlags(this.props.featureFlags)
+      .featureFlags;
+
+    if (featureFlags?.rendererTtiTracking) {
+      measureTTI((tti, ttiFromInvocation, canceled) => {
+        this.fireAnalyticsEvent({
+          action: ACTION.RENDERER_TTI,
+          actionSubject: ACTION_SUBJECT.RENDERER,
+          attributes: { tti, ttiFromInvocation, canceled },
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+      });
+    }
   }
 
   private anchorLinkAnalytics() {
@@ -505,6 +522,7 @@ const RendererWithIframeFallbackWrapper = React.memo(
       onClick,
       onMouseDown,
     } = props;
+
     const renderer = (
       <WidthProvider className="ak-renderer-wrapper">
         <BaseTheme
@@ -515,16 +533,17 @@ const RendererWithIframeFallbackWrapper = React.memo(
               : undefined
           }
         >
-          <Wrapper
+          <DeprecatedWrapper
             innerRef={innerRef}
             appearance={appearance}
             allowNestedHeaderLinks={allowNestedHeaderLinks}
             allowColumnSorting={!!allowColumnSorting}
             onClick={onClick}
             onMouseDown={onMouseDown}
+            css={rendererStyles}
           >
             {children}
-          </Wrapper>
+          </DeprecatedWrapper>
         </BaseTheme>
       </WidthProvider>
     );

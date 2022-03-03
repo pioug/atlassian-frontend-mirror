@@ -25,7 +25,6 @@ export interface Props {
   scrollableElement?: HTMLElement;
   isResizing?: boolean;
   layout?: TableLayout;
-  tableWidth?: number;
   stickyHeader?: RowStickyState;
 }
 
@@ -196,19 +195,12 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   }
 
   shouldComponentUpdate(nextProps: Props) {
-    const {
-      targetRef,
-      layout,
-      isResizing,
-      tableWidth,
-      stickyHeader,
-    } = this.props;
+    const { targetRef, layout, isResizing, stickyHeader } = this.props;
     return (
       stickyHeader !== nextProps.stickyHeader ||
       targetRef !== nextProps.targetRef ||
       layout !== nextProps.layout ||
-      isResizing !== nextProps.isResizing ||
-      tableWidth !== nextProps.tableWidth
+      isResizing !== nextProps.isResizing
     );
   }
 

@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
+
 export const embedCardStyles = css`
   .ProseMirror {
     .embedCardView-content-wrap[layout^='wrap-'] {
@@ -20,6 +21,6 @@ export const embedCardStyles = css`
   }
 `;
 
-export const EmbedSpacing = styled.div`
+export const embedSpacingStyles = css`
   margin: 0 10px;
 `;

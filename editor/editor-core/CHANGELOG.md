@@ -1,5 +1,49 @@
 # @atlaskit/editor-core
 
+## 162.0.0
+
+### Minor Changes
+
+- [`b70bf801c6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b70bf801c6d) - [ux] ED-14235 Fix conversion of aligned text to list
+- [`53046ba2ac3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53046ba2ac3) - [ux] Added a new dropdown menu for smart cards view changing in the floating toolbar as a variant to be tested against the current dropdown.
+- [`d1faad40e59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1faad40e59) - [ux] Adds helper function to find caption node and hides adaptive toolbar on mobile when selection is inside caption node
+- [`7f158b2734b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f158b2734b) - [ux] Shows correct toolbar state after header row or header column option is undone
+- [`9712e78abb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9712e78abb0) - ED-14255 moved some usages of editor-shared-styles to emotion
+- [`9d6e344a6d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d6e344a6d6) - [ux] EDM-2642: Added icons/buttons for smart cards view changing directly in the toolbar as opposed to the normal dropdown.
+- [`171af4f5fda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/171af4f5fda) - Ed-14165 Remove table resize button optimization code.
+  Removing the code fixes the strange behaviour in multi-user collaboration.
+
+### Patch Changes
+
+- [`35c1a07273b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35c1a07273b) - [ux] ED-13003: Fix copying table rows, ensuring they keep the original table's attributes (such as layout).
+- [`6e551822ea8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e551822ea8) - Extracted out smart-mention-resource
+- [`98304ee1b02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98304ee1b02) - import embedHeaderHeight from smart-card instead of media-ui
+- [`29c631e4e60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29c631e4e60) - ED-11866 Remove unused canSink parameter from list analytics
+- [`8984ab2e078`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8984ab2e078) - [ux] ED-14650 Ensure we locate any table node in the current list of children nodes to determine if table wrapper exists
+- [`d0eed99c3e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0eed99c3e3) - ED-14264 Moved styles to emotion css
+- [`cb6bf345163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb6bf345163) - [ED-13933] Fix issue when backspacing text into an image inside a list. Avoid also the ProseMirror error when this issue occurs.
+- [`f9a144c5a71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9a144c5a71) - ED-14255 migrated table styles to use emotion
+- [`55256125722`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55256125722) - ED-14262 update editor packages to use emotion 11
+- [`ee8e5f50b6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee8e5f50b6f) - Add regression testing for multi cell table selection
+- [`9dfdfaab7c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dfdfaab7c6) - [ux] ED-14241: fix initial visibility of edit icon on extension floating toolbar when selecting an editable extension at the first node in the document
+
+  - fixed bug in bodiedExtension where clicking on the border of 'extension-content' wont trigger a selection
+
+- [`b960f4f81ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b960f4f81ee) - [ED-11194] Fix typehead insertion from placeholders
+- [`d0dff8da956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0dff8da956) - [ED-14514] In NCS backed editor wait for media uploads to complete before getting the final acknowledged state in getResolvedEditorState EditorAction. Fixes from ED-14588 were also copied over and a fix on media uploads in the collaborative-editing atlaskit example.
+  ResolvedEditorState type updated for compatability with synchrony code.
+- [`03930b9f4c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03930b9f4c7) - ED-14253: fixed infinite transaction loop after uploading a file to the editor.
+
+  - updated ADF for MediaBaseAttributes.\_\_contextId to allow for null value
+  - fixed Editor example page 2-comment-jira-bento
+
+- [`1a664f6b1e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a664f6b1e5) - [ux][ed-14583] Solve inconsistencies in paste handler. Specifically targeting invalid nodes being pasted into decision nodes (should safe insert if not valid content) and nested expands being pasted into tables (invalid so return early out of expand paste handler).
+- [`e22509504e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e22509504e8) - ED-14255 migrate editor-shared-style to emotion
+- [`58016841de5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58016841de5) - [ux] Now allows users to use the toolbar to insert action items and decision items when wrapped within a blockquote.
+- [`92537fdfe96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92537fdfe96) - ED-14376 Removes workaround code for Chrome 58 selection bug as solution has been implemented by prosemirror
+- [`6dc2254f102`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dc2254f102) - AK-850: Text formatting shortcuts provide status updates for screen readers
+- Updated dependencies
+
 ## 161.0.0
 
 ### Patch Changes

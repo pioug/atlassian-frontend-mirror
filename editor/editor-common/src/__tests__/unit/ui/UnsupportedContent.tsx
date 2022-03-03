@@ -32,6 +32,9 @@ jest.mock('../../../utils/track-unsupported-content', () => {
   };
 });
 
+const unsupportedBlockNodeSelector = '[className$="-UnsupportedBlockNode"]';
+const unsupportedInlineNodeSelector = '[className$="-UnsupportedInlineNode"]';
+
 describe('Unsupported Content', () => {
   describe('Block Node', () => {
     let wrapper: ReactWrapper<any & WrappedComponentProps, any, any>;
@@ -49,7 +52,10 @@ describe('Unsupported Content', () => {
 
     it('should return a node of type div', () => {
       wrapper = mountWithIntl(<UnsupportedBlockNode />);
-      expect(wrapper.getDOMNode().tagName).toEqual('DIV');
+
+      expect(
+        wrapper.find(unsupportedBlockNodeSelector).getDOMNode().tagName,
+      ).toEqual('DIV');
     });
 
     it('should show correct message when hover on tooltip', () => {
@@ -68,9 +74,10 @@ describe('Unsupported Content', () => {
 
     it('should return Unsupported content when no node is provided', () => {
       wrapper = mountWithIntl(<UnsupportedBlockNode />);
-      expect(wrapper.getDOMNode().firstChild!.textContent).toEqual(
-        'This editor does not support displaying this content',
-      );
+      expect(
+        wrapper.find(unsupportedBlockNodeSelector).getDOMNode().firstChild!
+          .textContent,
+      ).toEqual('This editor does not support displaying this content');
     });
 
     it(
@@ -358,7 +365,9 @@ describe('Unsupported Content', () => {
 
     it('should return a node of type span', () => {
       wrapper = mountWithIntl(<UnsupportedInlineNode />);
-      expect(wrapper.getDOMNode().tagName).toEqual('SPAN');
+      expect(
+        wrapper.find(unsupportedInlineNodeSelector).getDOMNode().tagName,
+      ).toEqual('SPAN');
     });
 
     it('should show correct message when hover on tooltip', () => {
@@ -377,9 +386,10 @@ describe('Unsupported Content', () => {
 
     it('should return Unsupported content when no node is provided', () => {
       wrapper = mountWithIntl(<UnsupportedInlineNode />);
-      expect(wrapper.getDOMNode().firstChild!.textContent).toEqual(
-        'Unsupported content',
-      );
+      expect(
+        wrapper.find(unsupportedInlineNodeSelector).getDOMNode().firstChild!
+          .textContent,
+      ).toEqual('Unsupported content');
     });
 
     it(

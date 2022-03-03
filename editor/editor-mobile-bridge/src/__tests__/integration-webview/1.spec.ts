@@ -13,6 +13,7 @@ import unsupportedContentEditorTests from './hybrid-editor-tests/unsupported-con
 import typeAheadEditorTests from './hybrid-editor-tests/type-ahead/_type-ahead-tests';
 import toolbarEditorTests from './hybrid-editor-tests/toolbar/_toolbar-tests';
 import smartLinkEditorTests from './hybrid-editor-tests/media/_smart-link-tests';
+import placeholderTests from './hybrid-editor-tests/placeholder-text/_placeholder-text-tests';
 
 // compositionEditorTests();
 basicEditorTests();
@@ -21,3 +22,4 @@ typeAheadEditorTests();
 unsupportedContentEditorTests();
 toolbarEditorTests();
 smartLinkEditorTests();
+placeholderTests();

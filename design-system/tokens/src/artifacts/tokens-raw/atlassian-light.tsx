@@ -20,12 +20,39 @@ const tokens = [
       },
       "value": "B800"
     },
-    "name": "color.text.accent.blue",
+    "name": "color.text.accent.blue.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "blue"
+      "blue",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold blue accent backgrounds."
+    },
+    "value": "#09326C",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold blue accent backgrounds."
+      },
+      "value": "B900"
+    },
+    "name": "color.text.accent.blue.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "blue",
+      "bolder"
     ]
   },
   {
@@ -45,12 +72,39 @@ const tokens = [
       },
       "value": "R800"
     },
-    "name": "color.text.accent.red",
+    "name": "color.text.accent.red.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "red"
+      "red",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold red accent backgrounds."
+    },
+    "value": "#601E16",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold red accent backgrounds."
+      },
+      "value": "R900"
+    },
+    "name": "color.text.accent.red.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "red",
+      "bolder"
     ]
   },
   {
@@ -70,12 +124,39 @@ const tokens = [
       },
       "value": "O800"
     },
-    "name": "color.text.accent.orange",
+    "name": "color.text.accent.orange.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "orange"
+      "orange",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold orange accent backgrounds."
+    },
+    "value": "#5F3811",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold orange accent backgrounds."
+      },
+      "value": "O900"
+    },
+    "name": "color.text.accent.orange.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "orange",
+      "bolder"
     ]
   },
   {
@@ -95,12 +176,39 @@ const tokens = [
       },
       "value": "Y800"
     },
-    "name": "color.text.accent.yellow",
+    "name": "color.text.accent.yellow.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "yellow"
+      "yellow",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold yellow accent backgrounds."
+    },
+    "value": "#533F04",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold yellow accent backgrounds."
+      },
+      "value": "Y900"
+    },
+    "name": "color.text.accent.yellow.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "yellow",
+      "bolder"
     ]
   },
   {
@@ -120,12 +228,39 @@ const tokens = [
       },
       "value": "G800"
     },
-    "name": "color.text.accent.green",
+    "name": "color.text.accent.green.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "green"
+      "green",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold green accent backgrounds."
+    },
+    "value": "#164B35",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold green accent backgrounds."
+      },
+      "value": "G900"
+    },
+    "name": "color.text.accent.green.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "green",
+      "bolder"
     ]
   },
   {
@@ -145,12 +280,39 @@ const tokens = [
       },
       "value": "P800"
     },
-    "name": "color.text.accent.purple",
+    "name": "color.text.accent.purple.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "purple"
+      "purple",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold purple accent backgrounds."
+    },
+    "value": "#352C63",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold purple accent backgrounds."
+      },
+      "value": "P900"
+    },
+    "name": "color.text.accent.purple.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "purple",
+      "bolder"
     ]
   },
   {
@@ -170,12 +332,39 @@ const tokens = [
       },
       "value": "T800"
     },
-    "name": "color.text.accent.teal",
+    "name": "color.text.accent.teal.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "teal"
+      "teal",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold teal accent backgrounds."
+    },
+    "value": "#1D474C",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold teal accent backgrounds."
+      },
+      "value": "T900"
+    },
+    "name": "color.text.accent.teal.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "teal",
+      "bolder"
     ]
   },
   {
@@ -195,12 +384,39 @@ const tokens = [
       },
       "value": "M800"
     },
-    "name": "color.text.accent.magenta",
+    "name": "color.text.accent.magenta.[default]",
     "path": [
       "color",
       "text",
       "accent",
-      "magenta"
+      "magenta",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold magenta accent backgrounds."
+    },
+    "value": "#50253F",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use on bold magenta accent backgrounds."
+      },
+      "value": "M900"
+    },
+    "name": "color.text.accent.magenta.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "magenta",
+      "bolder"
     ]
   },
   {
@@ -1195,7 +1411,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#1D7AFC",
     "filePath": "src/tokens/atlassian-light/color/accent.tsx",
@@ -1204,7 +1420,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+        "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
       },
       "value": "B600"
     },
@@ -1220,7 +1436,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#E34935",
     "filePath": "src/tokens/atlassian-light/color/accent.tsx",
@@ -1229,7 +1445,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+        "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
       },
       "value": "R600"
     },
@@ -1711,6 +1927,32 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#E9F2FF",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "B100"
+    },
+    "name": "color.background.accent.blue.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtlest"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
     },
     "value": "#CCE0FF",
@@ -1724,13 +1966,13 @@ const tokens = [
       },
       "value": "B200"
     },
-    "name": "color.background.accent.blue.[default]",
+    "name": "color.background.accent.blue.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "blue",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -1750,6 +1992,88 @@ const tokens = [
       },
       "value": "B400"
     },
+    "name": "color.background.accent.blue.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#0C66E4",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "B700"
+    },
+    "name": "color.background.accent.blue.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.blue.subtler",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+    },
+    "value": "#CCE0FF",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.blue.subtler",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+      },
+      "value": "B200"
+    },
+    "name": "color.background.accent.blue.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "blue",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.blue.subtle",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#579DFF",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.blue.subtle",
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "B400"
+    },
     "name": "color.background.accent.blue.bold",
     "path": [
       "color",
@@ -1757,6 +2081,32 @@ const tokens = [
       "accent",
       "blue",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#FFEDEB",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "R100"
+    },
+    "name": "color.background.accent.red.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtlest"
     ]
   },
   {
@@ -1776,13 +2126,13 @@ const tokens = [
       },
       "value": "R200"
     },
-    "name": "color.background.accent.red.[default]",
+    "name": "color.background.accent.red.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "red",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -1802,6 +2152,88 @@ const tokens = [
       },
       "value": "R400"
     },
+    "name": "color.background.accent.red.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#CA3521",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "R700"
+    },
+    "name": "color.background.accent.red.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.red.subtler",
+      "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FFD2CC",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.red.subtler",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "R200"
+    },
+    "name": "color.background.accent.red.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "red",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.red.subtle",
+      "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#F87462",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.red.subtle",
+        "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "R400"
+    },
     "name": "color.background.accent.red.bold",
     "path": [
       "color",
@@ -1809,6 +2241,32 @@ const tokens = [
       "accent",
       "red",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#FFF4E5",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "O100"
+    },
+    "name": "color.background.accent.orange.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtlest"
     ]
   },
   {
@@ -1828,13 +2286,13 @@ const tokens = [
       },
       "value": "O200"
     },
-    "name": "color.background.accent.orange.[default]",
+    "name": "color.background.accent.orange.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "orange",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -1854,6 +2312,88 @@ const tokens = [
       },
       "value": "O400"
     },
+    "name": "color.background.accent.orange.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#B65C02",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "O700"
+    },
+    "name": "color.background.accent.orange.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.orange.subtler",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FFE2BD",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.orange.subtler",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "O200"
+    },
+    "name": "color.background.accent.orange.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "orange",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.orange.subtle",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#FAA53D",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.orange.subtle",
+        "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "O400"
+    },
     "name": "color.background.accent.orange.bold",
     "path": [
       "color",
@@ -1861,6 +2401,32 @@ const tokens = [
       "accent",
       "orange",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#FFF7D6",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "Y100"
+    },
+    "name": "color.background.accent.yellow.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtlest"
     ]
   },
   {
@@ -1880,13 +2446,13 @@ const tokens = [
       },
       "value": "Y200"
     },
-    "name": "color.background.accent.yellow.[default]",
+    "name": "color.background.accent.yellow.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "yellow",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -1906,6 +2472,88 @@ const tokens = [
       },
       "value": "Y400"
     },
+    "name": "color.background.accent.yellow.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#946F00",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "Y700"
+    },
+    "name": "color.background.accent.yellow.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.yellow.subtler",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#F8E6A0",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.yellow.subtler",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "Y200"
+    },
+    "name": "color.background.accent.yellow.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "yellow",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.yellow.subtle",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#E2B203",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.yellow.subtle",
+        "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "Y400"
+    },
     "name": "color.background.accent.yellow.bold",
     "path": [
       "color",
@@ -1913,6 +2561,32 @@ const tokens = [
       "accent",
       "yellow",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#DFFCF0",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "G100"
+    },
+    "name": "color.background.accent.green.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtlest"
     ]
   },
   {
@@ -1932,13 +2606,13 @@ const tokens = [
       },
       "value": "G200"
     },
-    "name": "color.background.accent.green.[default]",
+    "name": "color.background.accent.green.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "green",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -1958,6 +2632,88 @@ const tokens = [
       },
       "value": "G400"
     },
+    "name": "color.background.accent.green.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#1F845A",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "G700"
+    },
+    "name": "color.background.accent.green.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.green.subtler",
+      "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#BAF3DB",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.green.subtler",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "G200"
+    },
+    "name": "color.background.accent.green.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "green",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.green.subtle",
+      "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#4BCE97",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.green.subtle",
+        "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "G400"
+    },
     "name": "color.background.accent.green.bold",
     "path": [
       "color",
@@ -1965,6 +2721,32 @@ const tokens = [
       "accent",
       "green",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#E3FAFC",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "T100"
+    },
+    "name": "color.background.accent.teal.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtlest"
     ]
   },
   {
@@ -1984,13 +2766,13 @@ const tokens = [
       },
       "value": "T200"
     },
-    "name": "color.background.accent.teal.[default]",
+    "name": "color.background.accent.teal.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "teal",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -2010,6 +2792,88 @@ const tokens = [
       },
       "value": "T400"
     },
+    "name": "color.background.accent.teal.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#1D7F8C",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "T700"
+    },
+    "name": "color.background.accent.teal.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.teal.subtler",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#C1F0F5",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.teal.subtler",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "T200"
+    },
+    "name": "color.background.accent.teal.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "teal",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.teal.subtle",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#60C6D2",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.teal.subtle",
+        "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "T400"
+    },
     "name": "color.background.accent.teal.bold",
     "path": [
       "color",
@@ -2017,6 +2881,32 @@ const tokens = [
       "accent",
       "teal",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#F3F0FF",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "P100"
+    },
+    "name": "color.background.accent.purple.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtlest"
     ]
   },
   {
@@ -2036,13 +2926,13 @@ const tokens = [
       },
       "value": "P200"
     },
-    "name": "color.background.accent.purple.[default]",
+    "name": "color.background.accent.purple.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "purple",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -2062,6 +2952,88 @@ const tokens = [
       },
       "value": "P400"
     },
+    "name": "color.background.accent.purple.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#6E5DC6",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "P700"
+    },
+    "name": "color.background.accent.purple.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.purple.subtler",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#DFD8FD",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.purple.subtler",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "P200"
+    },
+    "name": "color.background.accent.purple.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "purple",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.purple.subtle",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#9F8FEF",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.purple.subtle",
+        "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "P400"
+    },
     "name": "color.background.accent.purple.bold",
     "path": [
       "color",
@@ -2069,6 +3041,32 @@ const tokens = [
       "accent",
       "purple",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#FFECF8",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "M100"
+    },
+    "name": "color.background.accent.magenta.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtlest"
     ]
   },
   {
@@ -2088,13 +3086,13 @@ const tokens = [
       },
       "value": "M200"
     },
-    "name": "color.background.accent.magenta.[default]",
+    "name": "color.background.accent.magenta.subtler",
     "path": [
       "color",
       "background",
       "accent",
       "magenta",
-      "[default]"
+      "subtler"
     ]
   },
   {
@@ -2111,6 +3109,88 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "M400"
+    },
+    "name": "color.background.accent.magenta.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#AE4787",
+    "filePath": "src/tokens/atlassian-light/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "M700"
+    },
+    "name": "color.background.accent.magenta.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.magenta.subtler",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#FDD0EC",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.magenta.subtler",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "M200"
+    },
+    "name": "color.background.accent.magenta.[default]",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "magenta",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "replacement": "color.background.accent.magenta.subtle",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#E774BB",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "replacement": "color.background.accent.magenta.subtle",
+        "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
       },
       "value": "M400"
     },
@@ -5015,7 +6095,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.blue.bold",
+      "replacement": "color.background.accent.blue.bolder",
       "description": "Use for blue backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
     },
     "value": "#579DFF",
@@ -5025,7 +6105,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.blue.bold",
+        "replacement": "color.background.accent.blue.bolder",
         "description": "Use for blue backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
       "value": "B400"
@@ -5041,7 +6121,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.green.bold",
+      "replacement": "color.background.accent.green.bolder",
       "description": "Use for green backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
     },
     "value": "#4BCE97",
@@ -5051,7 +6131,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.green.bold",
+        "replacement": "color.background.accent.green.bolder",
         "description": "Use for green backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
       "value": "G400"
@@ -5067,7 +6147,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.orange.bold",
+      "replacement": "color.background.accent.orange.bolder",
       "description": "Use for orange backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
     },
     "value": "#FAA53D",
@@ -5077,7 +6157,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.orange.bold",
+        "replacement": "color.background.accent.orange.bolder",
         "description": "Use for orange backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
       "value": "O400"
@@ -5093,7 +6173,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.purple.bold",
+      "replacement": "color.background.accent.purple.bolder",
       "description": "Use for purple backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
     },
     "value": "#9F8FEF",
@@ -5103,7 +6183,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.purple.bold",
+        "replacement": "color.background.accent.purple.bolder",
         "description": "Use for purple backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
       "value": "P400"
@@ -5119,7 +6199,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.red.bold",
+      "replacement": "color.background.accent.red.bolder",
       "description": "Use for red backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
     },
     "value": "#F87462",
@@ -5129,7 +6209,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.red.bold",
+        "replacement": "color.background.accent.red.bolder",
         "description": "Use for red backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
       "value": "R400"
@@ -5145,7 +6225,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.teal.bold",
+      "replacement": "color.background.accent.teal.bolder",
       "description": "Use for teal backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
     },
     "value": "#60C6D2",
@@ -5155,7 +6235,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.teal.bold",
+        "replacement": "color.background.accent.teal.bolder",
         "description": "Use for teal backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags."
       },
       "value": "T400"
@@ -5171,7 +6251,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.blue.[default]",
+      "replacement": "color.background.accent.blue.subtler",
       "description": "Use for blue subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#CCE0FF",
@@ -5181,7 +6261,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.blue.[default]",
+        "replacement": "color.background.accent.blue.subtler",
         "description": "Use for blue subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "B200"
@@ -5197,7 +6277,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.green.[default]",
+      "replacement": "color.background.accent.green.subtler",
       "description": "Use for green subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#BAF3DB",
@@ -5207,7 +6287,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.green.[default]",
+        "replacement": "color.background.accent.green.subtler",
         "description": "Use for green subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "G200"
@@ -5223,7 +6303,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.magenta.[default]",
+      "replacement": "color.background.accent.magenta.subtler",
       "description": "Use for magenta subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FDD0EC",
@@ -5233,7 +6313,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.magenta.[default]",
+        "replacement": "color.background.accent.magenta.subtler",
         "description": "Use for magenta subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "M200"
@@ -5249,7 +6329,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.orange.[default]",
+      "replacement": "color.background.accent.orange.subtler",
       "description": "Use for orange subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FFE2BD",
@@ -5259,7 +6339,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.orange.[default]",
+        "replacement": "color.background.accent.orange.subtler",
         "description": "Use for orange subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "O200"
@@ -5275,7 +6355,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.purple.[default]",
+      "replacement": "color.background.accent.purple.subtler",
       "description": "Use for purple subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#DFD8FD",
@@ -5285,7 +6365,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.purple.[default]",
+        "replacement": "color.background.accent.purple.subtler",
         "description": "Use for purple subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "P200"
@@ -5301,7 +6381,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.red.[default]",
+      "replacement": "color.background.accent.red.subtler",
       "description": "Use for red subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FFD2CC",
@@ -5311,7 +6391,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.red.[default]",
+        "replacement": "color.background.accent.red.subtler",
         "description": "Use for red subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "R200"
@@ -5327,7 +6407,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.background.accent.teal.[default]",
+      "replacement": "color.background.accent.teal.subtler",
       "description": "Use for teal subdued backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#C1F0F5",
@@ -5337,7 +6417,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.background.accent.teal.[default]",
+        "replacement": "color.background.accent.teal.subtler",
         "description": "Use for teal subdued backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "T200"

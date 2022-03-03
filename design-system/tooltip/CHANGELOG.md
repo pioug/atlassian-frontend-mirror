@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 17.5.5
+
+### Patch Changes
+
+- [`d0eed99c3e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0eed99c3e3) - ED-14264 Moved styles to emotion css
+- [`6007e4f9a97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6007e4f9a97) - Internal styling has been refactored in preparation for @compiled/react
+- Updated dependencies
+
 ## 17.5.4
 
 ### Patch Changes

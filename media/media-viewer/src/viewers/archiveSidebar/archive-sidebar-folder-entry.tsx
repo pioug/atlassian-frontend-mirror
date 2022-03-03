@@ -1,23 +1,27 @@
 import React from 'react';
 import { ZipEntry } from 'unzipit';
-import {
-  ArchiveSidebarFolderWrapper,
-  ArchiveSidebarFileEntryWrapper,
-  ArchiveDownloadButtonWrapper,
-  SidebarItemWrapper,
-} from './styled';
-import { Item } from '@atlaskit/navigation-next';
+
+import { ButtonItem } from '@atlaskit/side-navigation';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { MediaClient } from '@atlaskit/media-client';
+
+import {
+  ArchiveSidebarFolderWrapper,
+  ArchiveSidebarFileEntryWrapper,
+  ArchiveDownloadButtonWrapper,
+  SidebarItemWrapper,
+  itemStyle,
+} from './styled';
 import {
   getMediaTypeFromFilename,
   isMacPrivateFile,
   rejectAfter,
 } from '../../utils';
 import { ArchiveViewerError } from '../../errors';
+
 export interface ArchiveSidebarFolderProps {
   root: string;
   entries: { [key: string]: ZipEntry };
@@ -39,12 +43,13 @@ export class ArchiveSidebarFolderEntry extends React.Component<
     return (
       <ArchiveSidebarFileEntryWrapper key={entry.name}>
         <SidebarItemWrapper>
-          <Item
-            before={() => this.renderEntryIcon(entry)}
-            text={this.formatName(root, entry.name)}
-            spacing="compact"
+          <ButtonItem
+            iconBefore={this.renderEntryIcon(entry)}
             onClick={onClick}
-          />
+            cssFn={() => itemStyle}
+          >
+            {this.formatName(root, entry.name)}
+          </ButtonItem>
         </SidebarItemWrapper>
         {entry.isDirectory ? null : this.renderDownloadButton(entry, root)}
       </ArchiveSidebarFileEntryWrapper>

@@ -41,13 +41,13 @@ describe('createPaint', () => {
     });
   });
 
-  it('should handle half hex', () => {
-    const value = createPaint('#fff');
+  it('should handle 3 character shorthand hex', () => {
+    const value = createPaint('#ff0');
 
     expect(value).toEqual({
       blendMode: 'NORMAL',
       color: {
-        b: 1,
+        b: 0,
         g: 1,
         r: 1,
       },

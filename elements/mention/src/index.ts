@@ -8,9 +8,6 @@ import MentionResource, {
   TeamMentionResourceConfig,
   isResolvingMentionProvider,
 } from './api/MentionResource';
-import SmartMentionResource, {
-  SmartMentionConfig,
-} from './api/SmartMentionResource';
 
 import TeamMentionResource from './api/TeamMentionResource';
 import PresenceResource, {
@@ -39,7 +36,9 @@ import {
   InviteFlow,
   isSpecialMention,
   TeamMember,
+  UserAccessLevel,
   UserRole,
+  UserType,
 } from './types';
 import { ELEMENTS_CHANNEL } from './_constants';
 import ContextMentionResource from './api/ContextMentionResource';
@@ -48,7 +47,6 @@ export {
   // Classes
   ContextMentionResource,
   MentionResource,
-  SmartMentionResource,
   TeamMentionResource,
   PresenceResource,
   DefaultMentionNameResolver,
@@ -64,6 +62,8 @@ export {
   ResourcedMention,
   TeamMentionHighlight,
   TeamMentionHighlightController,
+  UserAccessLevel,
+  UserType,
   // Functions
   isSpecialMention,
   isResolvingMentionProvider,
@@ -85,7 +85,6 @@ export type {
   MentionStats,
   TeamMember,
   MentionResourceConfig,
-  SmartMentionConfig,
   TeamMentionResourceConfig,
   InviteExperimentCohort,
   InviteFlow,

@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import { Y75 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const decoration = css({
   // Required as otherwise the following bidi characters cause the span
@@ -23,7 +24,7 @@ const decoration = css({
     fontSize: '14px',
     lineHeight: '18px',
 
-    background: Y75,
+    background: token('color.background.warning', Y75),
 
     /**
      * Ensures the decoration receives pointer events when it occurs with
@@ -35,12 +36,13 @@ const decoration = css({
     content: '"<"attr(data-bidi-character-code)">"',
     // This color is Y800 which is not yet rolled out
     // https://hello.atlassian.net/wiki/spaces/~tswan/pages/1366555782?focusedCommentId=1370387374#comment-1370387374
-    color: '#7F5F01',
+    color: token('color.text.warning', '#7F5F01'),
     fontStyle: 'normal',
   },
 
   ':hover:before': {
-    color: '#533F04',
+    color: token('color.text.warning', '#533F04'),
+    background: token('color.background.warning.hovered', Y75),
   },
 });
 

@@ -1,5 +1,12 @@
 # @atlaskit/spinner
 
+## 15.1.7
+
+### Patch Changes
+
+- [`f0674fc2e61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0674fc2e61) - Styles have been rewritten to ensure future compatibility with compiled.
+- Updated dependencies
+
 ## 15.1.6
 
 ### Patch Changes

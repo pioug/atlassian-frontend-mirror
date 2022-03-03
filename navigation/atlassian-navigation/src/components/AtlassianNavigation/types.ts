@@ -103,4 +103,5 @@ export interface NavigationSkeletonProps {
   showSiteName?: boolean;
   shouldShowSearch?: boolean;
   theme?: NavigationTheme;
+  testId?: string;
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { TimePicker } from '../src';
 
 export default () => {
   return (
     <div>
-      <Label label="Stock" />
+      <Label htmlFor="react-select-timepicker-1--input">Stock</Label>
       <TimePicker
         onChange={console.log}
         id="timepicker-1"
@@ -15,8 +15,8 @@ export default () => {
         selectProps={{ classNamePrefix: 'timepicker-select' }}
       />
 
-      <Label label="Disabled input" />
-      <TimePicker isDisabled onChange={console.log} />
+      <Label htmlFor="react-select-timepicker-2--input">Disabled input</Label>
+      <TimePicker id="timepicker-2" isDisabled onChange={console.log} />
     </div>
   );
 };

@@ -1,30 +1,6 @@
 import { ThemeProps, ThemeTokens } from '@atlaskit/button/types';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 
-import {
-  actionSectionDesktopCSS,
-  actionSectionMobileCSS,
-  skeletonCSS,
-} from '../../common/styles';
 import { NavigationTheme } from '../../theme';
-
-const gridSize = gridSizeFn();
-
-const buttonHeight = gridSize * 4;
-
-export const createButtonCSS = actionSectionDesktopCSS;
-
-export const createButtonSkeletonCSS = (theme: NavigationTheme) => ({
-  height: `${buttonHeight}px`,
-  width: '68px',
-  borderRadius: '3px',
-  marginLeft: 12,
-  ...createButtonCSS,
-  ...skeletonCSS(theme),
-});
-
-export const createIconCSS = actionSectionMobileCSS;
-export const createIconSkeletonCSS = createIconCSS;
 
 export const getCreateButtonTheme = ({ mode: { create } }: NavigationTheme) => (
   current: (props: ThemeProps) => ThemeTokens,

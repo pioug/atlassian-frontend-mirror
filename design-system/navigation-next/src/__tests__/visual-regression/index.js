@@ -1,8 +1,4 @@
-import {
-  compareScreenshot,
-  getExampleUrl,
-  loadPage,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 async function waitForPageFrame(page) {
   await page.waitForSelector('div[data-testid="Navigation"]');
@@ -117,28 +113,5 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
     await page.click(button);
-  });
-
-  it('Should match collapsed nav screenshot', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'navigation-next',
-      'navigation-app',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    const button = '.ak-navigation-resize-button';
-
-    await page.setViewport({ width: 750, height: 700 });
-    await loadPage(page, url);
-    await page.waitForSelector(button);
-    await page.click(button);
-    // Wait for collapsed state
-    await page.waitForSelector(`${button}[aria-expanded="false"]`);
-
-    const image = await page.screenshot();
-    // Using percentage based tolerance instead of the default pixel based,
-    // because the rounded edges of the navigation bar icons cause flaky results.
-    await compareScreenshot(image);
   });
 });

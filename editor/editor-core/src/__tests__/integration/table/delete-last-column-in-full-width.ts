@@ -53,7 +53,11 @@ BrowserTestCase(
     await page.waitForVisible(deleteButtonSelector);
     await page.click(deleteButtonSelector);
 
-    await page.checkConsoleErrors();
+    await page.checkConsoleErrors({
+      ignoreErrors: [
+        /is potentially unsafe when doing server-side rendering\. Try changing it to/,
+      ],
+    });
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

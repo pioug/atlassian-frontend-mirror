@@ -1,5 +1,31 @@
 # @atlaskit/tokens
 
+## 0.7.0
+
+### Minor Changes
+
+- [`220aa7f8aab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/220aa7f8aab) - [ux] Dark Mode token colours changed for the background of elements in a selected state (color.background.brand)
+
+### Patch Changes
+
+- [`c2ec60d6a1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ec60d6a1b) - [ux] Updating existing 16 background accent colors
+
+  - Rename default to subtler (Light:200 / Dark:900)
+  - Rename bold renamed to subtle (Light:400 / Dark:700)
+  - Update this ⤴ base token for dark mode from 700 to 800 (so it is now Light:400 / Dark:800)
+
+  16 new accent background colors:
+
+  - color.background.accent.[color].subtlest (Light: 100 / Dark:1000)
+  - color.background.accent.[color].bolder (Light: 700 / Dark: 400)
+
+  8 new text accent colors:
+
+  - color.text.accent.[color].bolder (Light:900 / Dark:200)
+
+- [`7b6b994bef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b6b994bef5) - Correct shorthand hex code conversion in Figma synchronisation script
+- [`91a3f179e8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91a3f179e8c) - Prefix warnings to deprecated tokens in the Figma synchronizer script
+
 ## 0.6.3
 
 ### Patch Changes

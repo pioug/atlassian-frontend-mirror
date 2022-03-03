@@ -34,7 +34,11 @@ import {
 import { CardView } from '../../root/cardView';
 import * as getCardPreviewModule from '../../root/card/getCardPreview';
 import * as stateUpdaterModule from '../../root/card/cardState';
+import * as cardAnalyticsModule from '../../root/card/cardAnalytics';
 import { getSSRData } from '../../utils/globalScope';
+import { extractErrorInfo, getFileAttributes } from '../../utils/analytics';
+import { getFileDetails } from '../../utils/metadata';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const getCardPreviewFromCache = jest.spyOn(
   getCardPreviewModule,
@@ -61,6 +65,15 @@ const getCardStateFromFileState = jest.spyOn(
   stateUpdaterModule,
   'getCardStateFromFileState',
 );
+
+const fireOperationalEvent = jest.spyOn(
+  cardAnalyticsModule,
+  'fireOperationalEvent',
+);
+
+const createAnalyticsEvent = (jest.fn(() => ({
+  fire: () => {},
+})) as unknown) as CreateUIAnalyticsEvent;
 
 const fakeObservable = (unsubscribe?: Function) => ({
   subscribe: jest.fn(() => ({ unsubscribe })),
@@ -138,6 +151,7 @@ const filePreviews: Record<
 describe('Media Card', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(performance, 'now').mockReturnValue(1000);
   });
 
   describe('Card Init', () => {
@@ -370,47 +384,6 @@ describe('Media Card', () => {
         }
       },
     );
-
-    it('should set error state when ssr is server and getSSRCardPreview failed', () => {
-      const error = new Error('some-ssr-error');
-      getSSRCardPreview.mockImplementationOnce(() => {
-        throw error;
-      });
-
-      try {
-        const mediaCard = shallow(
-          <CardBase
-            mediaClient={fakeMediaClient()}
-            identifier={indentifiers.file}
-            ssr={'server'}
-          />,
-        );
-        expect(getSSRCardPreview).toBeCalledTimes(1);
-        expect(mediaCard.state('error')).toEqual(error);
-      } catch (e) {
-        expect(e).toBeUndefined();
-      }
-    });
-
-    it('should not set error state when ssr is client and getSSRCardPreview failed', () => {
-      (getSSRData as jest.Mock).mockReturnValueOnce({
-        error: new Error('some-ssr-error'),
-      });
-
-      try {
-        const mediaCard = shallow(
-          <CardBase
-            mediaClient={fakeMediaClient()}
-            identifier={indentifiers.file}
-            ssr={'client'}
-          />,
-        );
-        expect(getSSRCardPreview).toBeCalledTimes(1);
-        expect(mediaCard.state('error')).toBeUndefined;
-      } catch (e) {
-        expect(e).toBeUndefined();
-      }
-    });
   });
 
   describe('Native Lazy Load', () => {
@@ -1084,6 +1057,300 @@ describe('Media Card', () => {
         />,
       );
       expect(mediaCard.find(CardView).prop('forceSyncDisplay')).toBe(false);
+    });
+  });
+
+  describe('SSR Reliability', () => {
+    it('should set the status of client to fail if getImageUrlSync fails in client', () => {
+      /* 
+        For the case of ssr=server, we don't really need to set the status of server, as it won't be logged. If getImageUrlSync fails in server, we log that error in client checking for ssrData (see test below).
+      */
+      const clientError = new MediaCardError('ssr-client-uri');
+
+      getSSRCardPreview.mockImplementationOnce(() => {
+        throw clientError;
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ssr="client"
+        />,
+      );
+
+      mediaCard.setState({
+        fileState: fileStates.processed,
+      });
+      mediaCard.setState({ status: 'complete' });
+
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        'complete',
+        getFileAttributes(
+          getFileDetails(indentifiers.file, fileStates.processed),
+          fileStates.processed.status,
+        ),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
+        {
+          server: { status: 'unknown' },
+          client: { status: 'fail', ...extractErrorInfo(clientError) },
+        },
+        undefined,
+      );
+    });
+
+    it('should set the status of both client and server to fail if the dataURI from server is reused in client and it fails loading', () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ssr={'server'}
+        />,
+      );
+
+      mediaCard.setState({
+        fileState: fileStates.processed,
+        cardPreview: filePreviews.ssrClientGlobalScope,
+      });
+
+      const cardView = mediaCard.find(CardView);
+      const onImageError = cardView.prop('onImageError');
+      expect(onImageError).toEqual(expect.any(Function));
+      onImageError(filePreviews.ssrClientGlobalScope);
+
+      mediaCard.setState({ status: 'complete' });
+
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        'complete',
+        getFileAttributes(
+          getFileDetails(indentifiers.file, fileStates.processed),
+          fileStates.processed.status,
+        ),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
+        {
+          server: {
+            status: 'fail',
+            ...extractErrorInfo(
+              new ImageLoadError(filePreviews.ssrClientGlobalScope.source),
+            ),
+          },
+          client: {
+            status: 'fail',
+            ...extractErrorInfo(
+              new ImageLoadError(filePreviews.ssrClientGlobalScope.source),
+            ),
+          },
+        },
+        undefined,
+      );
+    });
+
+    it('should set the status of client to fail if dataURI fails to render in client', () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ssr={'client'}
+        />,
+      );
+
+      mediaCard.setState({
+        fileState: fileStates.processed,
+        cardPreview: filePreviews.ssrClient,
+      });
+
+      const cardView = mediaCard.find(CardView);
+      const onImageError = cardView.prop('onImageError');
+      expect(onImageError).toEqual(expect.any(Function));
+      onImageError(filePreviews.ssrClient);
+
+      mediaCard.setState({ status: 'complete' });
+
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        'complete',
+        getFileAttributes(
+          getFileDetails(indentifiers.file, fileStates.processed),
+          fileStates.processed.status,
+        ),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
+        {
+          server: { status: 'unknown' },
+          client: {
+            status: 'fail',
+            ...extractErrorInfo(
+              new ImageLoadError(filePreviews.ssrClientGlobalScope.source),
+            ),
+          },
+        },
+        undefined,
+      );
+    });
+
+    it('should preserve the fail status of server and set client to success if image load is successful only in client', () => {
+      const serverError = new MediaCardError('ssr-server-uri');
+      (getSSRData as jest.Mock).mockReturnValueOnce({
+        error: extractErrorInfo(serverError),
+      });
+
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ssr="client"
+        />,
+      );
+
+      mediaCard.setState({
+        fileState: fileStates.processed,
+        cardPreview: filePreviews.ssrClientGlobalScope,
+      });
+
+      const cardView = mediaCard.find(CardView);
+      const onImageLoad = cardView.prop('onImageLoad');
+      expect(onImageLoad).toEqual(expect.any(Function));
+      onImageLoad(filePreviews.ssrClient);
+
+      mediaCard.setState({
+        status: 'complete',
+      });
+
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        'complete',
+        getFileAttributes(
+          getFileDetails(indentifiers.file, fileStates.processed),
+          fileStates.processed.status,
+        ),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
+        {
+          server: { status: 'fail', ...extractErrorInfo(serverError) },
+          client: { status: 'success' },
+        },
+        undefined,
+      );
+    });
+
+    it('should set the status of client to success if preview source is client and image loads are successful', () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ssr="server"
+        />,
+      );
+
+      mediaCard.setState({
+        fileState: fileStates.processed,
+        cardPreview: filePreviews.ssrClient,
+      });
+
+      const cardView = mediaCard.find(CardView);
+      const onImageLoad = cardView.prop('onImageLoad');
+      expect(onImageLoad).toEqual(expect.any(Function));
+      onImageLoad(filePreviews.ssrClient);
+
+      mediaCard.setState({
+        status: 'complete',
+      });
+
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        'complete',
+        getFileAttributes(
+          getFileDetails(indentifiers.file, fileStates.processed),
+          fileStates.processed.status,
+        ),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
+        {
+          server: { status: 'unknown' },
+          client: { status: 'success' },
+        },
+        undefined,
+      );
+    });
+
+    it('should set the status of server and client to success if preview source is server and image loads are successful', () => {
+      const mediaCard = shallow(
+        <CardBase
+          mediaClient={fakeMediaClient()}
+          identifier={indentifiers.file}
+          createAnalyticsEvent={createAnalyticsEvent}
+          ssr="server"
+        />,
+      );
+
+      mediaCard.setState({
+        fileState: fileStates.processed,
+        cardPreview: filePreviews.ssrClient,
+      });
+
+      const cardView = mediaCard.find(CardView);
+      const onImageLoad = cardView.prop('onImageLoad');
+      expect(onImageLoad).toEqual(expect.any(Function));
+      onImageLoad(filePreviews.ssrClientGlobalScope);
+
+      mediaCard.setState({
+        status: 'complete',
+      });
+
+      expect(fireOperationalEvent).toBeCalledTimes(1);
+      expect(fireOperationalEvent).toBeCalledWith(
+        createAnalyticsEvent,
+        'complete',
+        getFileAttributes(
+          getFileDetails(indentifiers.file, fileStates.processed),
+          fileStates.processed.status,
+        ),
+        {
+          overall: {
+            durationSinceCommenced: 0,
+            durationSincePageStart: 1000,
+          },
+        },
+        {
+          server: { status: 'success' },
+          client: { status: 'success' },
+        },
+        undefined,
+      );
     });
   });
 });

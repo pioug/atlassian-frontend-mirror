@@ -1,5 +1,15 @@
 # @atlaskit/editor-shared-styles
 
+## 2.0.0
+
+### Major Changes
+
+- [`e22509504e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e22509504e8) - ED-14255 migrate editor-shared-style to emotion
+
+### Patch Changes
+
+- [`9712e78abb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9712e78abb0) - ED-14255 moved some usages of editor-shared-styles to emotion
+
 ## 1.6.0
 
 ### Minor Changes

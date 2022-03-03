@@ -1,5 +1,15 @@
 # @atlaskit/menu
 
+## 1.3.0
+
+### Minor Changes
+
+- [`77c46ec96a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77c46ec96a7) - Adds a prop for `role` to the MenuGroup component that acts as you'd expect the HTML attribute to act. You are now able to override the accessibility role for the element.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.6
 
 ### Patch Changes

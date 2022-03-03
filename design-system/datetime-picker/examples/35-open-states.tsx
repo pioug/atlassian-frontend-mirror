@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DatePicker } from '../src';
 
@@ -8,8 +8,8 @@ export default () => {
   return (
     <div>
       <h3>DatePicker</h3>
-      <Label label="Always open" />
-      <DatePicker isOpen />
+      <Label htmlFor="react-select-is-open--input">Always open</Label>
+      <DatePicker id="is-open" isOpen />
     </div>
   );
 };

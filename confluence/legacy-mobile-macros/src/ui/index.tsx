@@ -1,6 +1,9 @@
 import React from 'react';
 
+import { GasPurePayload } from '@atlaskit/analytics-gas-types';
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import addonIcon from '@atlaskit/icon/glyph/editor/addon';
 
 import { loadResourceTags } from '../common/utils';
 
@@ -16,10 +19,14 @@ function getConfluenceMobileMacroManifests<
 >(
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
+  handleAnalyticsEvent: (event: GasPurePayload) => void,
+  onLinkClick?: Function,
 ): Promise<ExtensionManifest[]> {
   return createPromise('customConfigurationMacro')
     .submit()
     .then((result: any) => {
+      wrapRendererIfNecessary();
+
       var resultObj = JSON.parse(JSON.stringify(result));
       /*
         The workaround below is for iOS
@@ -43,6 +50,9 @@ function getConfluenceMobileMacroManifests<
         resultObj = resultObj[firstKey];
       }
 
+      const contentId = resultObj.contentId;
+      const baseUrl = resultObj.siteUrlString;
+
       loadResourceTags(
         [
           resultObj?.superbatchTags?.css,
@@ -52,6 +62,14 @@ function getConfluenceMobileMacroManifests<
         true,
       );
 
+      const hasSuperbatch = !!(
+        resultObj?.superbatchTags?.css ||
+        resultObj?.superbatchTags?.data ||
+        resultObj?.superbatchTags?.js
+      );
+      const hasLinkHandler = !!onLinkClick;
+      const useRenderingStrategyMap = hasSuperbatch && hasLinkHandler;
+
       let macroManifests = resultObj.legacyMacroManifests.macros.map(
         (macro: any) => {
           return {
@@ -60,23 +78,30 @@ function getConfluenceMobileMacroManifests<
             key: macro.macroName,
             description: macro.description,
             icons: {
-              '48': () => import('@atlaskit/icon/glyph/editor/addon'),
+              '48': () => Promise.resolve(addonIcon),
             },
             modules: {
               nodes: {
                 default: {
                   type: 'extension',
                   render: () =>
-                    Promise.resolve(({ node }: { node: any }) =>
-                      renderFallback(
+                    Promise.resolve(({ node }: { node: any }) => {
+                      const renderingStrategy = useRenderingStrategyMap
+                        ? resultObj.renderingStrategyMap?.[
+                            node.extensionType
+                          ]?.[node.extensionKey]
+                        : 'fallback';
+                      return renderMacro(
                         node,
-                        resultObj.renderingStrategyMap?.[node.extensionType]?.[
-                          node.extensionKey
-                        ],
+                        contentId,
+                        baseUrl,
+                        renderingStrategy,
                         createPromise,
                         eventDispatcher,
-                      ),
-                    ),
+                        handleAnalyticsEvent,
+                        onLinkClick,
+                      );
+                    }),
                 },
               },
             },
@@ -94,9 +119,12 @@ function getConfluenceMobileMacroManifests<
       } else if (chartRenderingStrategy === 'fallback') {
         macroManifests.push(
           getChartFallbackManifest(
+            contentId,
             chartRenderingStrategy,
             createPromise,
             eventDispatcher,
+            handleAnalyticsEvent,
+            onLinkClick,
           ),
         );
       }
@@ -105,22 +133,57 @@ function getConfluenceMobileMacroManifests<
     });
 }
 
-function renderFallback<
-  createPromiseType extends Function,
-  eventDispatcherType
->(
+function wrapRendererIfNecessary() {
+  const existingWrapper = document.getElementById('main-content');
+  if (!existingWrapper) {
+    const renderer = document.getElementById('renderer');
+    if (renderer) {
+      const mainContent = document.createElement('DIV');
+      mainContent.setAttribute('id', 'main-content');
+      document.body.appendChild(mainContent);
+      mainContent.appendChild(renderer);
+    }
+  }
+}
+
+function createHandleAnalyticsEventWrapper(
+  handleAnalyticsEvent: (event: GasPurePayload) => void,
+): (event: UIAnalyticsEvent) => void {
+  return (event) => {
+    handleAnalyticsEvent(event.payload as GasPurePayload);
+  };
+}
+
+function renderMacro<createPromiseType extends Function, eventDispatcherType>(
   node: any,
+  contentId: number,
+  baseUrl: string,
   renderingStrategy: string,
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
+  handleAnalyticsEvent: (event: GasPurePayload) => void,
+  onLinkClick?: Function,
 ) {
+  const unhandledLinkClick: Function = () => {
+    throw new Error(
+      'Unhandled link click! No link handler provided for Confluence Macros. Some macros may not behave as expected.',
+    );
+  };
   return (
-    <MacroComponent
-      extension={node}
-      renderingStrategy={renderingStrategy}
-      createPromise={createPromise}
-      eventDispatcher={eventDispatcher}
-    />
+    <AnalyticsListener
+      channel="confluence-mobile-macros"
+      onEvent={createHandleAnalyticsEventWrapper(handleAnalyticsEvent)}
+    >
+      <MacroComponent
+        extension={node}
+        contentId={contentId}
+        baseUrl={baseUrl}
+        renderingStrategy={renderingStrategy}
+        createPromise={createPromise}
+        eventDispatcher={eventDispatcher}
+        onLinkClick={onLinkClick || unhandledLinkClick}
+      />
+    </AnalyticsListener>
   );
 }
 
@@ -132,7 +195,7 @@ function getChartPlaceholderManifest(): ExtensionManifest {
     description:
       'Placeholder for the chart extension until it can be fully supported on mobile',
     icons: {
-      '48': () => import('@atlaskit/icon/glyph/editor/addon'),
+      '48': () => Promise.resolve(addonIcon),
     },
     modules: {
       nodes: {
@@ -152,9 +215,12 @@ function getChartFallbackManifest<
   createPromiseType extends Function,
   eventDispatcherType
 >(
-  renderingStrategy: string,
+  contentId: number,
+  baseUrl: string,
   createPromise: createPromiseType,
   eventDispatcher: eventDispatcherType,
+  handleAnalyticsEvent: (event: GasPurePayload) => void,
+  onLinkClick?: Function,
 ): ExtensionManifest {
   return {
     title: 'Chart Fallback',
@@ -163,7 +229,7 @@ function getChartFallbackManifest<
     description:
       'Adapter to render chart extensions through macro fallback on mobile',
     icons: {
-      '48': () => import('@atlaskit/icon/glyph/editor/addon'),
+      '48': () => Promise.resolve(addonIcon),
     },
     modules: {
       nodes: {
@@ -171,7 +237,16 @@ function getChartFallbackManifest<
           type: 'extension',
           render: () =>
             Promise.resolve(({ node }: { node: any }) =>
-              renderFallback(node, 'fallback', createPromise, eventDispatcher),
+              renderMacro(
+                node,
+                contentId,
+                baseUrl,
+                'fallback',
+                createPromise,
+                eventDispatcher,
+                handleAnalyticsEvent,
+                onLinkClick,
+              ),
             ),
         },
       },
@@ -187,6 +262,7 @@ export {
 
 export {
   InlineMacroComponent,
+  InlineSSRMacroComponent,
   MacroFallbackCard,
   MacroFallbackComponent,
 } from './MacroComponent';

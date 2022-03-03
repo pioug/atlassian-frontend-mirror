@@ -10,6 +10,7 @@ const { N40A } = colors;
 
 import { findHorizontalOverflowScrollParent } from '../../../utils';
 import { Table } from './table';
+import { recursivelyInjectProps } from '../../utils/inject-props';
 
 export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 
@@ -49,9 +50,10 @@ export const FixedTableDiv = styled.div.attrs<FixedProps>({
 
   z-index: ${akEditorStickyHeaderZIndex};
 
-  &
+  // Fix this when move we move this to use emotion
+  &&&
     .${TableSharedCssClassName.TABLE_CONTAINER},
-    &
+    &&&
     .${TableSharedCssClassName.TABLE_STICKY_WRAPPER}
     > table {
     margin-top: 0;
@@ -66,9 +68,9 @@ export const FixedTableDiv = styled.div.attrs<FixedProps>({
     display: none;
   }
 
-  &
+  &&&
     .${TableSharedCssClassName.TABLE_CONTAINER}.right-shadow::after,
-    &
+    &&&
     .${TableSharedCssClassName.TABLE_CONTAINER}.left-shadow::before {
     top: 0px;
     height: 100%;
@@ -138,7 +140,15 @@ export const StickyTable = ({
               renderWidth={renderWidth}
               allowDynamicTextSizing={allowDynamicTextSizing}
             >
-              {children}
+              {
+                /**
+                 * @see https://product-fabric.atlassian.net/browse/ED-10235
+                 * We pass prop 'invisible' to our table's children nodes meaning
+                 * they exist inside of the 'invisible' duplicated table component that
+                 * enables sticky headers.
+                 */
+                recursivelyInjectProps(children, { invisible: true })
+              }
             </Table>
           </StyledDiv>
         </StyledDiv>

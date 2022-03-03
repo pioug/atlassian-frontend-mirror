@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
-import styled from 'styled-components';
 
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -35,11 +36,6 @@ export const WidthContext = React.createContext(createWidthContext());
 
 const { Provider, Consumer } = WidthContext;
 
-const RelativeContainer = React.memo(styled.div`
-  position: relative;
-  width: 100%;
-`);
-
 export type WidthProviderState = {
   width?: number;
 };
@@ -61,12 +57,18 @@ export class WidthProvider extends React.Component<
 
   render() {
     return (
-      <RelativeContainer className={this.props.className}>
+      <div
+        css={css`
+          position: relative;
+          width: 100%;
+        `}
+        className={this.props.className}
+      >
         <WidthObserver setWidth={this.setWidth} offscreen />
         <Provider value={createWidthContext(this.state.width)}>
           {this.props.children}
         </Provider>
-      </RelativeContainer>
+      </div>
     );
   }
 

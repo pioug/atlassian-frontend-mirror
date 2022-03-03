@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { ChangeEvent, Fragment, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 
@@ -18,19 +18,19 @@ import { DefaultSearch } from './shared/Search';
 import { DefaultSettings } from './shared/Settings';
 import { SwitcherPopup } from './shared/SwitcherPopup';
 
-const controlsCSS = {
-  alignItems: 'center',
+const controlsStyles = css({
   display: 'flex',
   margin: '1rem',
-};
+  alignItems: 'center',
+});
 
-const labelCSS = {
+const labelStyles = css({
   margin: '1rem',
-};
+});
 
-const inputCSS = {
+const inputStyles = css({
   width: '3rem',
-};
+});
 
 const InteractiveSkeletonExample = () => {
   const [isSkeleton, setIsSkeleton] = useState(true);
@@ -68,15 +68,15 @@ const InteractiveSkeletonExample = () => {
           renderSettings={DefaultSettings}
         />
       )}
-      <div css={controlsCSS}>
+      <div css={controlsStyles}>
         <Button onClick={() => setIsSkeleton(!isSkeleton)}>
           Show {isSkeleton ? 'Navigation' : 'Skeleton'}
         </Button>
-        <label css={labelCSS} htmlFor="primary">
+        <label css={labelStyles} htmlFor="primary">
           Primary Items
         </label>
         <input
-          css={inputCSS}
+          css={inputStyles}
           id="primary"
           max="4"
           min="0"
@@ -84,11 +84,11 @@ const InteractiveSkeletonExample = () => {
           type="number"
           value={primary}
         />
-        <label css={labelCSS} htmlFor="secondary">
+        <label css={labelStyles} htmlFor="secondary">
           Secondary Items
         </label>
         <input
-          css={inputCSS}
+          css={inputStyles}
           id="secondary"
           max="4"
           min="0"

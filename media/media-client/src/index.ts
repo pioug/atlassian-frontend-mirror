@@ -62,6 +62,7 @@ export type {
   MediaUpload,
   MediaChunksProbe,
 } from './models/media';
+export type { MediaSubscribableItem } from './models/media-subscribable';
 
 export { getArtifactUrl } from './models/artifacts';
 export type { MediaFileArtifact, MediaFileArtifacts } from './models/artifacts';
@@ -221,6 +222,12 @@ export {
   objectToQueryString,
 } from './utils/url';
 export type { MediaBlobUrlAttrs } from './utils/url';
+
+export { toMediaSubscribable } from './utils/toMediaSubscribable';
+export type {
+  MediaSubscribable,
+  MediaSubscription,
+} from './utils/toMediaSubscribable';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';
 

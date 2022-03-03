@@ -3,7 +3,7 @@ import { createLocalizationProvider } from '../src';
 import LocaleSelect, { Locale } from '../src/LocaleSelect';
 import styled from 'styled-components';
 import TextField from '@atlaskit/textfield';
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 const Wrapper = styled.div`
   margin-left: 20px;
@@ -55,8 +55,9 @@ export default () => {
   return (
     <Wrapper>
       <LocaleSelect onLocaleChange={onLocaleChange} />
-      <Label label="Try your date" />
+      <Label htmlFor="date">Try your date</Label>
       <TextField
+        id="date"
         onChange={onInputChange}
         placeholder={'format: 2020-07-13T14:36:25'}
         width="medium"

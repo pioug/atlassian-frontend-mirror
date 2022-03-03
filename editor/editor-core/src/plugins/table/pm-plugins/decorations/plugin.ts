@@ -8,7 +8,7 @@ import {
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { DecorationSet } from 'prosemirror-view';
 
-import { pluginKey as tablePluginKey } from '../plugin-factory';
+import { pluginKey as tablePluginKey } from '../plugin-key';
 
 import {
   buildColumnControlsDecorations,

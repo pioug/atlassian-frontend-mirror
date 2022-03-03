@@ -9,6 +9,7 @@ import {
   panel,
   media,
   mediaSingle,
+  code_block,
   br,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -19,6 +20,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../..';
 import blockTypePlugin from '../../../block-type';
+import codeBlockTypePlugin from '../../../code-block';
 import panelPlugin from '../../../panel';
 import analyticsPlugin from '../../../analytics';
 import mediaPlugin from '../../../media';
@@ -40,6 +42,7 @@ describe('lists plugin -> keymap', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add(listPlugin)
       .add(blockTypePlugin)
+      .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([mediaPlugin, { allowMediaSingle: true }]);
@@ -385,6 +388,138 @@ describe('lists plugin -> keymap', () => {
             ),
           ),
         ),
+      );
+    });
+
+    it('moves text from after list to into a new list item', () => {
+      backspaceCheck(
+        doc(
+          ol(
+            li(p('')),
+            li(
+              p('nice'),
+              mediaSingle({ layout: 'center' })(
+                media({
+                  id: temporaryFileId,
+                  type: 'file',
+                  collection: testCollectionName,
+                  __fileMimeType: 'image/png',
+                })(),
+              ),
+            ),
+          ),
+
+          p('{<>}after'),
+        ),
+        doc(
+          ol(
+            li(p('')),
+            li(
+              p('nice'),
+              mediaSingle({ layout: 'center' })(
+                media({
+                  id: temporaryFileId,
+                  type: 'file',
+                  collection: testCollectionName,
+                  __fileMimeType: 'image/png',
+                })(),
+              ),
+            ),
+            li(p('{<>}after')),
+          ),
+        ),
+      );
+    });
+
+    it('empty paragraph after list should select media', () => {
+      backspaceCheck(
+        doc(
+          ol(
+            li(p('')),
+            li(
+              p('nice'),
+              mediaSingle({ layout: 'wrap-left' })(
+                media({
+                  id: temporaryFileId,
+                  type: 'file',
+                  collection: testCollectionName,
+                  __fileMimeType: 'image/png',
+                })(),
+              ),
+            ),
+          ),
+
+          p('{<>}'),
+        ),
+        doc(
+          ol(
+            li(p('')),
+            li(
+              p('nice'),
+              '{<}',
+              mediaSingle({ layout: 'wrap-left' })(
+                media({
+                  id: temporaryFileId,
+                  type: 'file',
+                  collection: testCollectionName,
+                  __fileMimeType: 'image/png',
+                })(),
+              ),
+              '{>}',
+            ),
+          ),
+        ),
+      );
+    });
+
+    it('moves code block from after list to into a new list item', () => {
+      backspaceCheck(
+        doc(
+          ol(
+            li(p('')),
+            li(
+              p('nice'),
+              mediaSingle({ layout: 'center' })(
+                media({
+                  id: temporaryFileId,
+                  type: 'file',
+                  collection: testCollectionName,
+                  __fileMimeType: 'image/png',
+                })(),
+              ),
+            ),
+          ),
+
+          code_block()('{<>}after'),
+        ),
+        doc(
+          ol(
+            li(p('')),
+            li(
+              p('nice'),
+              mediaSingle({ layout: 'center' })(
+                media({
+                  id: temporaryFileId,
+                  type: 'file',
+                  collection: testCollectionName,
+                  __fileMimeType: 'image/png',
+                })(),
+              ),
+            ),
+            li(code_block()('{<>}after')),
+          ),
+        ),
+      );
+    });
+
+    it('moves empty paragraph inside code block', () => {
+      backspaceCheck(
+        doc(
+          ol(li(p('')), li(p('nice'), code_block()('hello'))),
+
+          p('{<>}'),
+        ),
+        doc(ol(li(p('')), li(p('nice'), code_block()('hello{<>}')))),
       );
     });
 

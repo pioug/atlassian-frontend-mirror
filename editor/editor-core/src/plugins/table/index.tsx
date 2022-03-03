@@ -28,7 +28,7 @@ import { createPlugin as createDecorationsPlugin } from './pm-plugins/decoration
 import { keymapPlugin } from './pm-plugins/keymap';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import { createPlugin } from './pm-plugins/main';
-import { pluginKey } from './pm-plugins/plugin-factory';
+import { pluginKey } from './pm-plugins/plugin-key';
 import {
   createPlugin as createStickyHeadersPlugin,
   findStickyHeaderForTable,
@@ -46,7 +46,6 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
-import { getFeatureFlags } from '../feature-flags-context';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 
 interface TablePluginOptions {
@@ -145,6 +144,9 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
     // workaround for prosemirrors delayed dom selection syncing during pointer drag
     // causing issues with table selections in Safari
     // https://github.com/ProseMirror/prosemirror-view/commit/885258b80551ac87b81601d3ed25f552aeb22293
+
+    // NOTE: this workaround can be removed when next upgrading prosemirror as the issue will be fixed
+    // https://github.com/ProseMirror/prosemirror-view/pull/116
     if (browser.safari) {
       plugins.push({
         name: 'tableSafariDelayedDomSelectionSyncingWorkaround',
@@ -195,11 +197,9 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
               isHeaderColumnEnabled,
               isHeaderRowEnabled,
               tableWrapperTarget,
-              tableWidth,
             } = tablePluginState!;
 
             const { allowControls } = pluginConfig;
-            const { tableRenderOptimization } = getFeatureFlags(state) || {};
 
             const stickyHeader = stickyHeadersState
               ? findStickyHeaderForTable(stickyHeadersState, tablePos)
@@ -277,9 +277,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
                       layout={layout}
                       isResizing={
                         !!resizingPluginState && !!resizingPluginState.dragging
-                      }
-                      tableWidth={
-                        tableRenderOptimization ? tableWidth : undefined
                       }
                       stickyHeader={stickyHeader}
                     />

@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 10.3.6
+
+### Patch Changes
+
+- [`bd38851d12f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd38851d12f) - [ux] Fixed the missing Spotlight button border by updating the token usages.
+- Updated dependencies
+
 ## 10.3.5
 
 ### Patch Changes

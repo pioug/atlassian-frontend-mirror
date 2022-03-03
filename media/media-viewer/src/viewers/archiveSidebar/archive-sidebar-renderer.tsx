@@ -1,6 +1,7 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
+
 import { MediaClient, FileState } from '@atlaskit/media-client';
+
 import { SpinnerWrapper } from '../../styled';
 import { ArchiveSidebar } from './archive-sidebar';
 import { getArchiveEntriesFromFileState } from './archive';
@@ -8,7 +9,6 @@ import { Spinner } from '../../loading';
 import { ArchiveViewerError } from '../../errors';
 import { ArchiveSideBar } from './styled';
 import { ZipEntry } from 'unzipit';
-import { ThemeProvider, dark } from '@atlaskit/navigation-next';
 
 export interface ArchiveSidebarRendererProps {
   selectedFileState: FileState;
@@ -69,12 +69,7 @@ export default class ArchiveSidebarRenderer extends Component<
       onError,
     } = this.props;
     return (
-      <ThemeProvider
-        theme={{
-          context: 'product',
-          mode: dark,
-        }}
-      >
+      <>
         {(status === 'loading' && (
           <ArchiveSideBar>
             <SpinnerWrapper>
@@ -91,7 +86,7 @@ export default class ArchiveSidebarRenderer extends Component<
             onError={onError}
           />
         )}
-      </ThemeProvider>
+      </>
     );
   }
 }

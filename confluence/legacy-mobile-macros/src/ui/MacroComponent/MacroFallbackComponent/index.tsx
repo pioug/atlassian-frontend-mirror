@@ -8,6 +8,7 @@ import Spinner from '@atlaskit/spinner';
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 
+import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 import { legacyMobileMacrosMessages } from '../../../messages';
 
 import {
@@ -336,6 +337,11 @@ export const MacroFallbackComponent: FC<MacroFallbackComponentProps> = (
       eventDispatcher.off(TAP_TO_REFRESH_EVENT, onTapToRefresh);
     };
   }, [eventDispatcher]);
+
+  const fireMacroViewedAnalyticsEvent = useMacroViewedAnalyticsEvent();
+  useEffect(() => {
+    fireMacroViewedAnalyticsEvent(extensionKey, 'fallback');
+  }, [extensionKey, fireMacroViewedAnalyticsEvent]);
 
   if (!loaded && !loading && !errorMessage) {
     // show tap to load

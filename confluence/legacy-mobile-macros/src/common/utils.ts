@@ -1,3 +1,7 @@
+import { useCallbackOne } from 'use-memo-one';
+
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 const TAG_TYPE_KEY = '__TAG_TYPE__';
 const BODY_KEY = '__BODY_KEY__';
 const DATA_WRM_KEY = 'data-wrm-key';
@@ -100,3 +104,33 @@ function parseTags(tagsString: string): { [key: string]: string }[] {
   }
   return result;
 }
+
+const makeMacroViewedAnalyticsParams = (
+  extensionKey: String,
+  renderingStrategy: String,
+) => {
+  return {
+    eventType: 'track',
+    action: 'viewed',
+    actionSubject: 'macro',
+    actionSubjectId: extensionKey,
+    attributes: {
+      renderingStrategy: renderingStrategy,
+    },
+  };
+};
+
+export const useMacroViewedAnalyticsEvent = () => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+  return useCallbackOne(
+    (extensionKey: string, renderingStrategy: string) => {
+      const analyticsParams = makeMacroViewedAnalyticsParams(
+        extensionKey,
+        renderingStrategy,
+      );
+      const event = createAnalyticsEvent(analyticsParams);
+      event.fire('confluence-mobile-macros');
+    },
+    [createAnalyticsEvent],
+  );
+};

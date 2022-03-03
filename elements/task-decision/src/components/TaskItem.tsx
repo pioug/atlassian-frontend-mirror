@@ -99,7 +99,7 @@ export class TaskItem extends PureComponent<
           suppressHydrationWarning={true}
           onKeyPress={this.handleOnKeyPress}
         />
-        <label htmlFor={this.checkBoxId} suppressHydrationWarning={true} />
+        <div />
       </CheckBoxWrapper>
     );
 

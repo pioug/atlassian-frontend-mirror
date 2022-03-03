@@ -12,6 +12,11 @@ import { TablePluginState } from './types';
 import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
 import { NodeType } from 'prosemirror-model';
 // #endregion
+import {
+  checkIfNumberColumnEnabled,
+  checkIfHeaderColumnEnabled,
+  checkIfHeaderRowEnabled,
+} from './utils/nodes';
 
 const nextTableSorting = (
   tr: Transaction | ReadonlyTransaction,
@@ -85,6 +90,9 @@ const updateTableNodePluginState: BuilderTablePluginState = ({ tr, table }) => (
       tr,
       pluginState.resizeHandleColumnIndex,
     ),
+    isNumberColumnEnabled: checkIfNumberColumnEnabled(tr.selection),
+    isHeaderColumnEnabled: checkIfHeaderColumnEnabled(tr.selection),
+    isHeaderRowEnabled: checkIfHeaderRowEnabled(tr.selection),
   };
 };
 

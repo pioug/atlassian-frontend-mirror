@@ -2,6 +2,7 @@ import { CSSObject } from '@emotion/core';
 
 import { easeOut, mediumDurationMs, smallDurationMs } from '@atlaskit/motion';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   GRAB_AREA_LINE_SELECTOR,
@@ -20,18 +21,18 @@ export const resizeControlCSS = (
   position: 'absolute',
 
   outline: 'none',
-
+  // TODO https://product-fabric.atlassian.net/browse/DSP-3392
   [`[${GRAB_AREA_SELECTOR}]:enabled`]: {
     [`&:hover [${GRAB_AREA_LINE_SELECTOR}]`]: {
-      backgroundColor: B100,
+      backgroundColor: token('color.background.brand.bold.hovered', B100),
     },
 
     [`&:active [${GRAB_AREA_LINE_SELECTOR}] , &:focus [${GRAB_AREA_LINE_SELECTOR}]`]: {
-      backgroundColor: B200,
+      backgroundColor: token('color.background.brand.bold.pressed', B200),
     },
 
     [`&:hover [${RESIZE_BUTTON_SELECTOR}]:not(:focus):not(:hover)`]: {
-      color: B100,
+      backgroundColor: token('color.background.brand.bold.hovered', B100),
     },
     [`&:hover [${RESIZE_BUTTON_SELECTOR}]`]: {
       opacity: 1,
@@ -44,15 +45,17 @@ export const resizeControlCSS = (
 });
 
 export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
-  backgroundColor: N0,
+  backgroundColor: token('elevation.surface.overlay', N0),
   position: 'absolute',
   top: 32,
   left: 0,
   transform: 'translateX(-50%)',
   border: 0,
   borderRadius: '50%',
+  // TODO https://product-fabric.atlassian.net/browse/DSP-3392
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   boxShadow: `0 0 0 1px ${N30A}, 0 2px 4px 1px ${N30A}`,
-  color: N200,
+  color: token('color.text.subtle', N200),
   cursor: 'pointer',
   height: 24,
   opacity: 0,
@@ -66,18 +69,18 @@ export const resizeIconButtonCSS = (isCollapsed: boolean): CSSObject => ({
   width: 24,
 
   ':hover': {
-    backgroundColor: B100,
-    color: N0,
+    backgroundColor: token('color.background.brand.hovered', B100),
+    color: token('color.text.inverse', N0),
     opacity: 1,
   },
   ':active': {
-    backgroundColor: B200,
-    color: N0,
+    backgroundColor: token('color.background.brand.pressed', B200),
+    color: token('color.text.inverse', N0),
     opacity: 1,
   },
   ':focus': {
-    backgroundColor: B200,
-    color: N0,
+    backgroundColor: token('color.background.brand.pressed', B200),
+    color: token('color.text.inverse', N0),
     opacity: 1,
   },
 

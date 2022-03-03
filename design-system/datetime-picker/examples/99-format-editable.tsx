@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import moment from 'moment';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DateTimePicker } from '../src';
 
@@ -17,8 +17,11 @@ export default () => {
 
   return (
     <div>
-      <Label label={`Current time is: ${value}`} />
+      <Label htmlFor="react-select-datetime--input">
+        Current time is: {value}
+      </Label>
       <DateTimePicker
+        id="datetime"
         value={value}
         onChange={onChange}
         timeIsEditable

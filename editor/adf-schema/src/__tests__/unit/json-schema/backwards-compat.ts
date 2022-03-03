@@ -50,7 +50,7 @@ expect.extend({
 
 describe('JSON schema', () => {
   // to be un-skipped after the change gets to `master` branch
-  it.skip('should be backwards compatible', async () => {
+  it('should be backwards compatible', async () => {
     const existingSchema = await fetchLastPublishedJSONSchema();
     try {
       expect(newSchema).toBeBackwardsCompatibleWith(existingSchema);

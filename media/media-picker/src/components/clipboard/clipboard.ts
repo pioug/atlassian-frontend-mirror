@@ -106,6 +106,11 @@ class ClipboardImpl {
   }
 
   static handleEvent = (event: ClipboardEvent): void => {
+    // From https://product-fabric.atlassian.net/browse/MEX-1281 ,disable the handler if event target is input
+    if (event.target instanceof HTMLInputElement) {
+      return;
+    }
+
     // last in, first served to support multiple instances listening at once
     const instance = ClipboardImpl.latestInstance;
     if (instance) {

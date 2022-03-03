@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
 import Select, { ValueType } from '@atlaskit/select';
 
@@ -39,13 +39,13 @@ export default () => {
 
   return (
     <div>
-      <Label label="Locale" />
+      <Label htmlFor="locale">Locale</Label>
       <LocaleSelect
         onLocaleChange={handleLocaleChange}
         defaultLocale={{ value: 'ja-JP', label: '日本語 (日本)' }}
       />
 
-      <Label label="Start day of the week" />
+      <Label htmlFor="week-start-day">Start day of the week</Label>
       <Select<WeekStartDayOption>
         inputId="week-start-day"
         styles={{
@@ -67,7 +67,7 @@ export default () => {
       />
 
       <h3>Date picker</h3>
-      <Label label="default" />
+      <Label htmlFor="react-select-datepicker-1--input">Default</Label>
       <DatePicker
         id="datepicker-1"
         onChange={onChange}
@@ -78,7 +78,7 @@ export default () => {
       />
 
       <h3>Time picker</h3>
-      <Label label="default" />
+      <Label htmlFor="react-select-timepicker-1--input">Default</Label>
       <TimePicker
         id="timepicker-1"
         onChange={onChange}
@@ -89,7 +89,7 @@ export default () => {
       />
 
       <h3>Date / time picker</h3>
-      <Label label="default" />
+      <Label htmlFor="react-select-timepicker-1--input">Default</Label>
       <DateTimePicker
         id="datetimepicker-1"
         onChange={onChange}

@@ -10,33 +10,26 @@ import Spinner, { Size } from '../src';
 const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge', 80];
 const grid: number = gridSize();
 
+const containerStyles = css({
+  display: 'flex',
+  gap: 2 * grid,
+  flexWrap: 'wrap',
+});
+
+const itemStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  gap: grid,
+  flexDirection: 'column',
+});
+
 export default function Example() {
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-wrap: wrap;
-      `}
-    >
+    <div css={containerStyles}>
       {sizes.map((size: Size) => (
-        <div
-          key={size}
-          css={css`
-            display: flex;
-            flex-direction: column;
-            margin-left: ${grid}px;
-            margin-right: ${grid}px;
-            align-items: center;
-            justify-content: flex-end;
-          `}
-        >
-          <span
-            css={css`
-              padding: ${grid}px;
-            `}
-          >
-            <Spinner size={size} />
-          </span>
+        <div key={size} css={itemStyles}>
+          <Spinner size={size} />
           {typeof size === 'number' ? (
             <Lozenge appearance="new">custom</Lozenge>
           ) : (

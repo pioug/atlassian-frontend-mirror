@@ -1,4 +1,8 @@
 import {
+  GasPurePayload,
+  GasPureScreenEventPayload,
+} from '@atlaskit/analytics-gas-types';
+import {
   ExtensionManifest,
   DefaultExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
@@ -6,12 +10,23 @@ import { getConfluenceMobileMacroManifests } from '@atlaskit/legacy-mobile-macro
 import { createPromise } from '../cross-platform-promise';
 import { eventDispatcher } from '../renderer/dispatcher';
 
-export function createExtensionProvider(enableConfluenceMobileMacros: boolean) {
+export function createExtensionProvider(
+  enableConfluenceMobileMacros: boolean,
+  handleAnalyticsEvent: (
+    event: GasPurePayload | GasPureScreenEventPayload,
+  ) => void,
+  onLinkClick?: Function,
+) {
   let manifests: Promise<ExtensionManifest[]> = Promise.resolve([]);
   if (enableConfluenceMobileMacros) {
     manifests = Promise.all([
       manifests,
-      getConfluenceMobileMacroManifests(createPromise, eventDispatcher),
+      getConfluenceMobileMacroManifests(
+        createPromise,
+        eventDispatcher,
+        handleAnalyticsEvent,
+        onLinkClick,
+      ),
     ]).then((nested) => nested.flat());
   }
 

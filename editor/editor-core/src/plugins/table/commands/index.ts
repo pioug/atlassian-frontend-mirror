@@ -35,7 +35,6 @@ export {
   triggerUnlessTableHeader,
   addBoldInEmptyHeaderCells,
   addResizeHandleDecorations,
-  setTableSize,
 } from './misc';
 export { sortByColumn } from './sort';
 export { goToNextCell } from './go-to-next-cell';

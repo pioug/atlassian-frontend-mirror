@@ -5,7 +5,7 @@ import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { N800 } from '@atlaskit/theme/colors';
 import { hideControlsClassName } from '@atlaskit/media-ui';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   withAnalyticsEvents,

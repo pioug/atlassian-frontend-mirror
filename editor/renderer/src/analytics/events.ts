@@ -253,6 +253,18 @@ type MediaLnkTransformedAEP = AEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
+type RendererTTIAEP = AEP<
+  ACTION.RENDERER_TTI,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  {
+    tti: number;
+    ttiFromInvocation: number;
+    canceled: boolean;
+  },
+  EVENT_TYPE.OPERATIONAL
+>;
+
 export type AnalyticsEventPayload =
   | RendererStartAEP
   | RendererRenderedAEP
@@ -273,4 +285,5 @@ export type AnalyticsEventPayload =
   | AnnotationAEP
   | AnnotationDeleteAEP
   | MediaLnkTransformedAEP
-  | InvalidProsemirrorDocumentErrorAEP;
+  | InvalidProsemirrorDocumentErrorAEP
+  | RendererTTIAEP;

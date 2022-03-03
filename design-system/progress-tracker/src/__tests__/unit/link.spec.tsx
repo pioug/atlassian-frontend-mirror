@@ -2,6 +2,9 @@ import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
+import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import ProgressTrackerLink from '../../internal/link';
 
 const item = {
@@ -26,7 +29,7 @@ describe('@atlaskit/progress-tracker/link', () => {
   it('should render the component as per props', () => {
     const { getByText } = render(<ProgressTrackerLink {...item} />);
     const element = getByText(item.label);
-    expect(element).toHaveStyleDeclaration('color', '#172B4D');
+    expect(element).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
     expect(element.getAttribute('href')).toEqual(item.href);
   });
 

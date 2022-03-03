@@ -23,6 +23,7 @@ const MenuGroup = ({
   minHeight,
   maxHeight,
   testId,
+  role,
   ...rest
 }: MenuGroupProps) => (
   <div
@@ -34,6 +35,7 @@ const MenuGroup = ({
     }}
     css={groupStyles}
     data-testid={testId}
+    role={role}
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   />

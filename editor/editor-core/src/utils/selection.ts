@@ -11,8 +11,6 @@ import {
 import { Mark, Node, ResolvedPos } from 'prosemirror-model';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 
-import { browser } from '@atlaskit/editor-common/utils';
-
 import {
   GapCursorSelection,
   Side,
@@ -96,12 +94,6 @@ export const normaliseNestedLayout = (
 
   return node;
 };
-
-// @see: https://github.com/ProseMirror/prosemirror/issues/710
-// @see: https://bugs.chromium.org/p/chromium/issues/detail?id=740085
-// Chrome >= 58 (desktop only)
-export const isChromeWithSelectionBug =
-  browser.chrome && !browser.android && browser.chrome_version >= 58;
 
 export const isSelectionAtStartOfNode = (
   $pos: ResolvedPos,

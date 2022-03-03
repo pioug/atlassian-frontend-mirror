@@ -7,23 +7,29 @@ import SearchIcon from '@atlaskit/icon/glyph/search';
 
 import Spinner from '../src';
 
+/**
+ * For VR testing purposes we are overriding the animation timing
+ * for both the fade-in and the rotating animations. This will
+ * freeze the spinner, avoiding potential for VR test flakiness.
+ */
+const animationStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  'svg, span': {
+    animationDuration: '0s',
+    animationTimingFunction: 'step-end',
+  },
+});
+
+const layoutStyles = css({
+  width: 100,
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  div: { margin: 8 },
+});
+
 export default () => (
   <div
     data-testid="spinner-buttons-container"
-    css={css`
-      width: 100px;
-      div {
-        margin: 8px;
-      }
-      // For VR testing purposes we are overriding the animation timing
-      // for both the fade-in and the rotating animations. This will
-      // freeze the spinner, avoiding potential for VR test flakiness.
-      span,
-      svg {
-        animation-timing-function: step-end;
-        animation-duration: 0s;
-      }
-    `}
+    css={[animationStyles, layoutStyles]}
   >
     {/* If you want a Spinner in a Button, you should use `LoadingButton` */}
     <div>

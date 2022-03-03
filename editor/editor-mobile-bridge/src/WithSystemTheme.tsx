@@ -2,7 +2,9 @@ import React, { ReactNode, useMemo } from 'react';
 
 import { N0 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider as DeprecatedThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
+
 import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';
 import { CHANNEL } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
@@ -26,9 +28,11 @@ const WithSystemTheme: React.FunctionComponent<
 
   return (
     <ThemeProvider theme={theme}>
-      <AtlaskitThemeProvider mode={mode} background={background}>
-        {children}
-      </AtlaskitThemeProvider>
+      <DeprecatedThemeProvider theme={theme}>
+        <AtlaskitThemeProvider mode={mode} background={background}>
+          {children}
+        </AtlaskitThemeProvider>
+      </DeprecatedThemeProvider>
     </ThemeProvider>
   );
 };

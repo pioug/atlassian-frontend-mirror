@@ -26,6 +26,40 @@ const DelayContext = React.createContext<Delays>({ spinner: 0, content: 0 });
 
 type Phase = 'stopped' | 'loading' | 'ready';
 
+const layoutStyles = css({
+  display: 'grid',
+  marginTop: grid * 4,
+  justifyContent: 'center',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(0, 300px))',
+});
+
+const controlContainerStyles = css({
+  display: 'flex',
+  maxWidth: 300,
+  margin: '0 auto',
+  gap: grid,
+  flexDirection: 'column',
+});
+
+const columnStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  textAlign: 'center',
+});
+
+const columnInfoStyles = css({ minHeight: 70 });
+
+const loadingContainerStyles = css({
+  display: 'flex',
+  width: 200,
+  height: 200,
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const spinnerStyles = css({ position: 'absolute' });
+
 function Harness({
   children,
   title,
@@ -49,41 +83,16 @@ function Harness({
   );
 
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      `}
-    >
+    <div css={columnStyles}>
       <h4>{title}</h4>
-      <p
-        css={css`
-          min-height: 70px;
-        `}
-      >
-        {description}
-      </p>
+      <p css={columnInfoStyles}>{description}</p>
       <Button
         onClick={() => setPhase('loading')}
         isDisabled={phase === 'loading'}
       >
         {phase === 'loading' ? 'running' : 'start'}
       </Button>
-      <div
-        css={css`
-          width: 200px;
-          height: 200px;
-
-          /* center align content */
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        `}
-      >
-        {children(phase, delays)}
-      </div>
+      <div css={loadingContainerStyles}>{children(phase, delays)}</div>
     </div>
   );
 }
@@ -95,11 +104,7 @@ function Basic() {
         <React.Fragment>
           {phase === 'ready' && <Avatar size="xlarge" />}
           {phase === 'loading' && (
-            <span
-              css={css`
-                position: absolute;
-              `}
-            >
+            <span css={spinnerStyles}>
               <Spinner size="xlarge" delay={delays.spinner} />
             </span>
           )}
@@ -132,12 +137,7 @@ function CrossFade() {
             {phase === 'loading' && (
               <FadeIn>
                 {(props) => (
-                  <span
-                    {...props}
-                    css={css`
-                      position: absolute;
-                    `}
-                  >
+                  <span {...props} css={spinnerStyles}>
                     <Spinner size="xlarge" delay={delays.spinner} />
                   </span>
                 )}
@@ -200,19 +200,7 @@ function Example() {
 
   return (
     <DelayContext.Provider value={delay}>
-      <div
-        css={css`
-          display: flex;
-          margin: 0 auto;
-          align-items: center;
-          flex-direction: column;
-
-          > * {
-            margin-top: ${grid}px;
-            width: 300px;
-          }
-        `}
-      >
+      <div css={controlContainerStyles}>
         <Select
           options={contentDelayOptions}
           defaultValue={defaultContentDelay}
@@ -224,14 +212,7 @@ function Example() {
           onChange={onSpinnerDelayChange}
         />
       </div>
-      <div
-        css={css`
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(0, 300px));
-          justify-content: center;
-          margin-top: ${grid * 4}px;
-        `}
-      >
+      <div css={layoutStyles}>
         <Basic />
         <CrossFade />
       </div>

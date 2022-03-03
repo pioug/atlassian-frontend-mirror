@@ -44,6 +44,40 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       },
     },
     background: {
+      accent: {
+        blue: {
+          '[default]': { value: 'B200' },
+          bold: { value: 'B400' },
+        },
+        red: {
+          '[default]': { value: 'R200' },
+          bold: { value: 'R400' },
+        },
+        orange: {
+          '[default]': { value: 'O200' },
+          bold: { value: 'O400' },
+        },
+        yellow: {
+          '[default]': { value: 'Y200' },
+          bold: { value: 'Y400' },
+        },
+        green: {
+          '[default]': { value: 'G200' },
+          bold: { value: 'G400' },
+        },
+        purple: {
+          '[default]': { value: 'P200' },
+          bold: { value: 'P400' },
+        },
+        teal: {
+          '[default]': { value: 'T200' },
+          bold: { value: 'T400' },
+        },
+        magenta: {
+          '[default]': { value: 'M200' },
+          bold: { value: 'M400' },
+        },
+      },
       blanket: { value: 'N500A' },
       brand: {
         '[default]': {

@@ -94,6 +94,31 @@ export const findHandler = (
   return typeAheadHandlers.find((h: TypeAheadHandler) => h.id === id) || null;
 };
 
+export const findHandlerByTrigger = ({
+  trigger,
+  editorState,
+}: {
+  trigger: string;
+  editorState: EditorState;
+}): TypeAheadHandler | null => {
+  const pluginState = typeAheadPluginKey.getState(editorState);
+
+  if (
+    !pluginState ||
+    !pluginState.typeAheadHandlers ||
+    pluginState.typeAheadHandlers.length === 0
+  ) {
+    return null;
+  }
+
+  const { typeAheadHandlers } = pluginState;
+
+  return (
+    typeAheadHandlers.find((h: TypeAheadHandler) => h.trigger === trigger) ||
+    null
+  );
+};
+
 type MoveSelectedIndexProps = {
   editorView: EditorView;
   direction: 'next' | 'previous';

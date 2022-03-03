@@ -34,6 +34,7 @@ describe('Cards:', () => {
     });
   };
   const appearanceSwitcherClick = async (page: PuppeteerPage) => {
+    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
     await page.click(
       'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
     );
@@ -52,18 +53,12 @@ describe('Cards:', () => {
     await initEditor(cardAppearanceAdf);
     await waitForResolvedInlineCard(page);
     await waitForInlineCardSelection(page);
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
-    await page.waitForSelector(
-      '[aria-label="Popup"][data-editor-popup="true"]',
-    );
+    await appearanceSwitcherClick(page);
     await page.mouse.move(0, 0);
     await snapshot(page);
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-  it.skip('can switch to URL appearance', async () => {
+  it('can switch to URL appearance', async () => {
     await initEditor(cardAppearanceAdf);
     // we first render a smart inline link
     await waitForResolvedInlineCard(page);
@@ -76,10 +71,7 @@ describe('Cards:', () => {
     await page.mouse.move(0, 0);
     await snapshot(page);
     await page.click('a[href="https://inlineCardTestUrl"]');
-    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
+    await appearanceSwitcherClick(page);
     // we can see the appearance switcher for the blue link
     await page.mouse.move(0, 0);
     await snapshot(page);
@@ -94,8 +86,7 @@ describe('Cards:', () => {
   });
 
   // [EDM-1679]
-  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-  it.skip('should show a tooltip when hovering a disabled appeareance', async () => {
+  it('should show a tooltip when hovering a disabled appeareance', async () => {
     const takeSnapshot = async () => {
       await appearanceSwitcherClick(page);
       await page.hover('[data-testid="block-appearance"]');
@@ -129,12 +120,10 @@ describe('Cards:', () => {
     await takeSnapshot();
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-  it.skip('should show allowed options for blue link inside a list', async () => {
+  it('should show allowed options for blue link inside a list', async () => {
     await initEditor(cardListBlueLinkAppearanceAdf);
     await page.waitForSelector('a[href="https://inlineCardTestUrl"]');
     await page.click('a[href="https://inlineCardTestUrl"]');
-    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
     await appearanceSwitcherClick(page);
     await snapshot(page);
   });
@@ -148,9 +137,7 @@ describe('Cards:', () => {
     await waitForResolvedInlineCard(page);
     await waitForInlineCardSelection(page);
     // change the appearance to block
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
+    await appearanceSwitcherClick(page);
     await page.mouse.move(0, 0);
     await page.waitForSelector(
       '[aria-label="Popup"][data-editor-popup="true"]',
@@ -159,10 +146,7 @@ describe('Cards:', () => {
     await snapshot(page);
     // change the appearance to embed
     await page.click(blockCardSelector());
-    await page.waitForSelector('div[aria-label="Floating Toolbar"]');
-    await page.click(
-      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-appearance-button"]',
-    );
+    await appearanceSwitcherClick(page);
     await page.mouse.move(0, 0);
     await page.waitForSelector(
       '[aria-label="Popup"][data-editor-popup="true"]',

@@ -92,6 +92,60 @@ describe('MacroComponent', () => {
     expect(fallback).toBeTruthy();
   });
 
+  it('should render ssr for inlineStatic strategy', () => {
+    let props = getMockMacroComponentProps();
+    props.renderingStrategy = 'inlineStatic';
+    props.extension = {
+      extensionKey: 'anchor',
+      extensionType: macroExtensionHandlerKey,
+      parameters: {
+        macroParams: {
+          '': {
+            value: 'anchorName',
+          },
+        },
+      },
+    };
+
+    const { queryByTestId } = render(
+      <IntlProvider locale="en">
+        <MacroComponent {...props} />
+      </IntlProvider>,
+    );
+
+    const inline = queryByTestId('ssr-macro-MOBILE');
+    const fallback = queryByTestId('macro-fallback');
+    expect(inline).toBeTruthy();
+    expect(fallback).toBeFalsy();
+  });
+
+  it('should render ssr for inlineDynamic strategy', () => {
+    let props = getMockMacroComponentProps();
+    props.renderingStrategy = 'inlineDynamic';
+    props.extension = {
+      extensionKey: 'anchor',
+      extensionType: macroExtensionHandlerKey,
+      parameters: {
+        macroParams: {
+          '': {
+            value: 'anchorName',
+          },
+        },
+      },
+    };
+
+    const { queryByTestId } = render(
+      <IntlProvider locale="en">
+        <MacroComponent {...props} />
+      </IntlProvider>,
+    );
+
+    const inline = queryByTestId('ssr-macro-DESKTOP');
+    const fallback = queryByTestId('macro-fallback');
+    expect(inline).toBeTruthy();
+    expect(fallback).toBeFalsy();
+  });
+
   it('should render fallback when no strategy is specified', () => {
     let props = getMockMacroComponentProps();
     props.extension = {

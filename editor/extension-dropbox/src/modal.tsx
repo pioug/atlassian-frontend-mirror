@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
 import chromatism from 'chromatism';
-import { jsx, CSSObject } from '@emotion/core';
+import { jsx, css } from '@emotion/react';
 
 import ModalDialog, {
   ModalTransition,
@@ -46,7 +46,7 @@ const hexToRGBA = (hex: string, opacity: number = 1) => {
   return `rgba(${Object.values(rgba).join(', ')})`;
 };
 
-const bottomShadow: CSSObject = {
+const bottomShadow = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'baseline',
@@ -62,7 +62,7 @@ const bottomShadow: CSSObject = {
       0,
     )} 4px)`,
   },
-};
+});
 
 const spacingDivStyle = { width: '28px' };
 const headingStyle = { marginTop: '8px' };

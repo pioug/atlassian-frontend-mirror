@@ -27,6 +27,7 @@ import {
   getRenderSucceededEventPayload,
   getCopiedFilePayload,
   getRenderCommencedEventPayload,
+  SSRStatus,
 } from '../../../utils/analytics';
 import { MediaCardError } from '../../../errors';
 
@@ -39,6 +40,10 @@ const fileAttributes = ({
 const performanceAttributes = ({
   some: 'performance attributes',
 } as unknown) as PerformanceAttributes;
+const ssrReliability: SSRStatus = {
+  server: { status: 'success' },
+  client: { status: 'success' },
+};
 
 describe('fireOperationalEvent', () => {
   beforeEach(() => {
@@ -52,11 +57,13 @@ describe('fireOperationalEvent', () => {
       'failed-processing',
       fileAttributes,
       performanceAttributes,
+      ssrReliability,
     );
 
     expect(getRenderFailedFileStatusPayload).toBeCalledWith(
       fileAttributes,
       performanceAttributes,
+      ssrReliability,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-failed-payload');
     expect(event.fire).toBeCalledTimes(1);
@@ -70,6 +77,7 @@ describe('fireOperationalEvent', () => {
       'error',
       fileAttributes,
       performanceAttributes,
+      ssrReliability,
       error,
     );
 
@@ -77,23 +85,26 @@ describe('fireOperationalEvent', () => {
       fileAttributes,
       performanceAttributes,
       error,
+      ssrReliability,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
 
-  it('should fire suceeded event if status is complete', () => {
+  it('should fire succeeded event with ssrReliability error when status is complete', () => {
     fireOperationalEvent(
       createAnalyticsEvent,
       'complete',
       fileAttributes,
       performanceAttributes,
+      ssrReliability,
     );
 
     expect(getRenderSucceededEventPayload).toBeCalledWith(
       fileAttributes,
       performanceAttributes,
+      ssrReliability,
     );
     expect(createAnalyticsEventMock).toBeCalledWith('some-suceeded-payload');
     expect(event.fire).toBeCalledTimes(1);

@@ -48,7 +48,8 @@ import {
 } from '../../analytics';
 
 import { defaultTableSelection } from './default-table-selection';
-import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
+import { createPluginState, getPluginState } from './plugin-factory';
+import { pluginKey } from './plugin-key';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { getPosHandler } from '../../../nodeviews';
 import { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';

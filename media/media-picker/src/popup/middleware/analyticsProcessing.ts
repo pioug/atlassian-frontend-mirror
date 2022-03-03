@@ -1,5 +1,4 @@
 import { MiddlewareAPI, Dispatch, Action } from 'redux';
-import pick from 'lodash/pick';
 
 import {
   UIAnalyticsEvent,
@@ -9,6 +8,7 @@ import {
 import {
   ANALYTICS_MEDIA_CHANNEL,
   MediaFeatureFlags,
+  pick,
 } from '@atlaskit/media-common';
 
 import analyticsActionHandlers from './analyticsHandlers';

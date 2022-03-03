@@ -20,7 +20,6 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartMentionResource, SmartMentionConfig } from '@atlaskit/mention';
 
 const mediaMock = createEditorMediaMock();
 const rejectedPromise = Promise.reject(
@@ -43,15 +42,6 @@ const userMentionConfig = {
   productId: 'micros-group/confluence',
 };
 
-const smartMentionConfig: SmartMentionConfig = {
-  env: 'local',
-  productKey: 'confluence',
-  siteId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-  includeGroups: true,
-  includeTeams: true,
-  principalId: 'Context',
-};
-
 const providers = {
   mentionProvider: {
     resolved: Promise.resolve(mentionResourceProvider),
@@ -60,9 +50,6 @@ const providers = {
     rejected: rejectedPromise,
     teamMentionResource: Promise.resolve(
       new TeamMentionResource(userMentionConfig, teamMentionConfig),
-    ),
-    smartMentionResource: Promise.resolve(
-      new SmartMentionResource(smartMentionConfig),
     ),
     undefined: undefined,
   },

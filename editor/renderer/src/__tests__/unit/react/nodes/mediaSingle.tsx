@@ -108,9 +108,9 @@ describe('MediaSingle', () => {
     });
 
     it('renders media with link correctly', () => {
-      expect(
-        mediaSingle.find('MediaLink[href="http://atlassian.com"]'),
-      ).toHaveLength(1);
+      expect(mediaSingle.find('a[href="http://atlassian.com"]')).toHaveLength(
+        1,
+      );
     });
 
     it('override shouldOpenMediaViewer to be falsy', () => {

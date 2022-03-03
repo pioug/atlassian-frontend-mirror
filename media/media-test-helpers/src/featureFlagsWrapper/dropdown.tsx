@@ -14,7 +14,7 @@ import styled from '@emotion/styled';
 
 import Popup from '@atlaskit/popup';
 import { Checkbox } from '@atlaskit/checkbox';
-import debounce from 'lodash/debounce';
+import { debounce } from '@atlaskit/media-common';
 
 const camelCaseToSentenceCase = (text: string) => {
   var result = text.replace(/([A-Z])/g, ' $1');

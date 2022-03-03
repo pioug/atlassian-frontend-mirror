@@ -11,7 +11,7 @@ import {
 import { uuid } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { mergeCells } from '../../../../../plugins/table/transforms';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

@@ -12,24 +12,35 @@ import TooltipPrimitive, { TooltipPrimitiveProps } from './TooltipPrimitive';
 
 export interface TooltipContainerProps extends TooltipPrimitiveProps {}
 
-const baseCss = css`
-  border-radius: ${borderRadius()}px;
-  box-sizing: border-box;
-  font-size: 12px;
-  left: 0;
-  line-height: 1.3;
-  max-width: 240px;
-  padding: 2px 6px;
-  top: 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-`;
-const truncateCss = css`
-  max-width: 420px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
+const baseStyles = css({
+  boxSizing: 'border-box',
+  maxWidth: '240px',
+  padding: '2px 6px',
+  top: 0,
+  left: 0,
+  borderRadius: `${borderRadius()}px`,
+  fontSize: '12px',
+  lineHeight: 1.3,
+  overflowWrap: 'break-word',
+  wordWrap: 'break-word',
+});
+
+const truncateStyles = css({
+  maxWidth: '420px',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
+
+const lightStyles = css({
+  backgroundColor: token('color.background.neutral.bold', N800),
+  color: token('color.text.inverse', N0),
+});
+
+const darkStyles = css({
+  backgroundColor: token('color.background.neutral.bold', DN0),
+  color: token('color.text.inverse', DN600),
+});
 
 const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
   function TooltipContainer(
@@ -60,16 +71,9 @@ const TooltipContainer = forwardRef<HTMLDivElement, TooltipContainerProps>(
             onMouseOut={onMouseOut}
             onMouseOver={onMouseOver}
             css={[
-              baseCss,
-              truncate ? truncateCss : null,
-              css`
-                background-color: ${mode === 'light'
-                  ? token('color.background.neutral.bold', N800)
-                  : token('color.background.neutral.bold', DN0)};
-                color: ${mode === 'light'
-                  ? token('color.text.inverse', N0)
-                  : token('color.text.inverse', DN600)};
-              `,
+              baseStyles,
+              truncate ? truncateStyles : null,
+              mode === 'light' ? lightStyles : darkStyles,
             ]}
           >
             {children}

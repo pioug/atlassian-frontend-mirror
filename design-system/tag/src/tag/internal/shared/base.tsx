@@ -30,7 +30,6 @@ const baseStyles = css({
   cursor: 'default',
   lineHeight: 1,
   overflow: 'hidden',
-  pointerEvents: 'none',
 });
 
 const interactiveStyles = css({
@@ -79,10 +78,15 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
       style={{
         [cssVar.color.background.default]: theme.backgroundColors[color][mode],
         [cssVar.color.text.default]: theme.textColors[color][mode],
+        [cssVar.color.text.hover]: theme.textColors[color][mode],
         [cssVar.color.background.hover]:
-          theme.linkHoverBackgroundColors[color][mode],
+          isRemovable && !isLink
+            ? theme.backgroundColors[color][mode]
+            : theme.linkHoverBackgroundColors[color][mode],
         [cssVar.color.background.active]:
-          theme.linkActiveBackgroundColors[mode],
+          isRemovable && !isLink
+            ? theme.backgroundColors[color][mode]
+            : theme.linkActiveBackgroundColors[mode],
         [cssVar.color.focusRing]: theme.focusRingColors[mode],
         [cssVar.borderRadius]: theme.borderRadius[appearance],
         ...style,

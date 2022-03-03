@@ -1,11 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState } from 'react';
 
-import Item from '@atlaskit/item';
-import DropList from '@atlaskit/droplist';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+import MoreIcon from '@atlaskit/icon/glyph/more';
+
 import { ActionProps, Action } from './Action';
 import { gs, mq } from '../utils';
 
@@ -15,8 +18,6 @@ export interface ActionListProps {
 }
 
 export const ActionList = ({ items }: ActionListProps) => {
-  const [isOpen, setOpen] = useState(false);
-
   const actionsToShow = items.slice(0, 2);
   const actionsToList = items.slice(2, items.length);
 
@@ -29,19 +30,26 @@ export const ActionList = ({ items }: ActionListProps) => {
       </ButtonGroup>
       {actionsToList.length ? (
         <div css={{ marginLeft: gs(0.5) }}>
-          <DropList
-            appearance="default"
-            position="right top"
-            isTriggerNotTabbable
-            onOpenChange={() => setOpen(true)}
-            onClick={() => setOpen(!isOpen)}
-            isOpen={isOpen}
-            trigger={<Button spacing="compact">...</Button>}
+          <DropdownMenu
+            trigger={({ triggerRef, ...props }) => (
+              <Button
+                {...props}
+                iconBefore={<MoreIcon label="more" />}
+                ref={triggerRef}
+                css={{ height: 'auto' }}
+                testId="dropdown-trigger"
+              />
+            )}
+            placement="right-start"
           >
-            {actionsToList.map((actionToList) => (
-              <Item key={actionToList.id}>{actionToList.text}</Item>
-            ))}
-          </DropList>
+            <DropdownItemGroup testId="dropdown-menu">
+              {actionsToList.map((actionToList) => (
+                <DropdownItem key={actionToList.id}>
+                  {actionToList.text}
+                </DropdownItem>
+              ))}
+            </DropdownItemGroup>
+          </DropdownMenu>
         </div>
       ) : null}
     </div>

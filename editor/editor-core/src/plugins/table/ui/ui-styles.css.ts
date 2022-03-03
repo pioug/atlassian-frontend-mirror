@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { tableCellBorderWidth, tableMarginBottom, tableMarginTop } from '@atlaskit/editor-common/styles';
 import {
   akEditorShadowZIndex,
@@ -40,6 +40,7 @@ import {
 
 import { TableCssClassName as ClassName } from '../types';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 const InsertLine = (cssString?: string) => css`
   .${ClassName.CONTROLS_INSERT_LINE} {
@@ -51,8 +52,8 @@ const InsertLine = (cssString?: string) => css`
   }
 `;
 
-const Marker = css`
-  background-color: ${tableBorderColor};
+const Marker = (props: ThemeProps) => css`
+  background-color: ${tableBorderColor(props)};
   position: absolute;
   height: ${lineMarkerSize}px;
   width: ${lineMarkerSize}px;
@@ -60,9 +61,9 @@ const Marker = css`
   pointer-events: none;
 `;
 
-export const InsertMarker = (cssString?: string) => css`
+export const InsertMarker = (props: ThemeProps, cssString?: string) => css`
   .${ClassName.CONTROLS_INSERT_MARKER} {
-    ${Marker};
+    ${Marker(props)};
     ${cssString}
   }
 `;
@@ -88,10 +89,10 @@ const Button = (cssString?: string) => css`
   ${cssString}
 `;
 
-export const HeaderButton = (cssString?: string) => css`
+export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
   .${ClassName.CONTROLS_BUTTON} {
-    background: ${tableToolbarColor};
-    border: 1px solid ${tableBorderColor};
+    background: ${tableToolbarColor(props)};
+    border: 1px solid ${tableBorderColor(props)};
     display: block;
     box-sizing: border-box;
     padding: 0;
@@ -192,14 +193,14 @@ export const insertRowButtonWrapper = css`
   `)}
 `;
 
-export const columnControlsLineMarker = css`
+export const columnControlsLineMarker = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS} table tr:first-child td,
   .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS} table tr:first-child th {
     position: relative;
 
     &::before {
       content: ' ';
-      ${Marker};
+      ${Marker(props)};
       top: -${tableToolbarSize + lineMarkerOffsetFromColumnControls}px;
       right: -${lineMarkerSize / 2}px;
     }
@@ -228,57 +229,57 @@ export const DeleteButton = css`
   }
 `;
 
-export const OverflowShadow = css`
-.${ClassName.TABLE_RIGHT_SHADOW},
-.${ClassName.TABLE_LEFT_SHADOW}{
-  display: block;
-  height: calc(100% - ${tableMarginTop + tableMarginBottom + tableToolbarSize - 2}px);
-  position: absolute;
-  pointer-events: none;
-  top: ${tableMarginTop + tableToolbarSize - 1}px;
-  z-index: ${akEditorShadowZIndex};
-  width: 8px;
-}
-.${ClassName.TABLE_LEFT_SHADOW} {
-  background: linear-gradient(
-    to left,
-    rgba(99, 114, 130, 0) 0,
-    ${N40A} 100%
-  );
-  left: 0px;
-}
-.${ClassName.TABLE_CONTAINER}[data-number-column='true'] > :not(.${ClassName.TABLE_STICKY_SHADOW}).${ClassName.TABLE_LEFT_SHADOW} {
-  left: ${akEditorTableNumberColumnWidth - 1}px;
-}
-.${ClassName.TABLE_RIGHT_SHADOW} {
-  background: linear-gradient(
-    to right,
-    rgba(99, 114, 130, 0) 0,
-    ${N40A} 100%
-  );
-  left: calc(100% + 2px);
-}
-.${ClassName.WITH_CONTROLS} {
+export const OverflowShadow = (props: ThemeProps) => css`
   .${ClassName.TABLE_RIGHT_SHADOW},
   .${ClassName.TABLE_LEFT_SHADOW}{
-    height: calc(100% - ${tableMarginTop + tableMarginBottom - 2}px);
-    top: ${tableMarginTop - 1}px;
+    display: block;
+    height: calc(100% - ${tableMarginTop + tableMarginBottom + tableToolbarSize - 2}px);
+    position: absolute;
+    pointer-events: none;
+    top: ${tableMarginTop + tableToolbarSize - 1}px;
+    z-index: ${akEditorShadowZIndex};
+    width: 8px;
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
-    border-left: 1px solid ${tableBorderColor};
+    background: linear-gradient(
+      to left,
+      rgba(99, 114, 130, 0) 0,
+      ${N40A} 100%
+    );
+    left: 0px;
   }
-}
-.${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} {
-  .${ClassName.TABLE_RIGHT_SHADOW},
-  .${ClassName.TABLE_LEFT_SHADOW} {
-    top: ${tableControlsSpacing}px;
+  .${ClassName.TABLE_CONTAINER}[data-number-column='true'] > :not(.${ClassName.TABLE_STICKY_SHADOW}).${ClassName.TABLE_LEFT_SHADOW} {
+    left: ${akEditorTableNumberColumnWidth - 1}px;
   }
-}
+  .${ClassName.TABLE_RIGHT_SHADOW} {
+    background: linear-gradient(
+      to right,
+      rgba(99, 114, 130, 0) 0,
+      ${N40A} 100%
+    );
+    left: calc(100% + 2px);
+  }
+  .${ClassName.WITH_CONTROLS} {
+    .${ClassName.TABLE_RIGHT_SHADOW},
+    .${ClassName.TABLE_LEFT_SHADOW}{
+      height: calc(100% - ${tableMarginTop + tableMarginBottom - 2}px);
+      top: ${tableMarginTop - 1}px;
+    }
+    .${ClassName.TABLE_LEFT_SHADOW} {
+      border-left: 1px solid ${tableBorderColor(props)};
+    }
+  }
+  .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} {
+    .${ClassName.TABLE_RIGHT_SHADOW},
+    .${ClassName.TABLE_LEFT_SHADOW} {
+      top: ${tableControlsSpacing}px;
+    }
+  }
 `;
 
-const columnHeaderButton = (cssString?: string) => css`
-  background: ${tableToolbarColor};
-  border: 1px solid ${tableBorderColor};
+const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
+  background: ${tableToolbarColor(props)};
+  border: 1px solid ${tableBorderColor(props)};
   display: block;
   box-sizing: border-box;
   padding: 0;
@@ -297,7 +298,7 @@ const columnHeaderButtonSelected = css`
   z-index: ${columnControlsSelectedZIndex};
 `;
 
-export const columnControlsDecoration = css`
+export const columnControlsDecoration = (props: ThemeProps) => css`
   .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
     display: none;
     cursor: pointer;
@@ -310,8 +311,8 @@ export const columnControlsDecoration = css`
     &::after {
       content: ' ';
 
-      ${columnHeaderButton(`
-        border-right: ${tableCellBorderWidth}px solid ${tableBorderColor};
+      ${columnHeaderButton(props, `
+        border-right: ${tableCellBorderWidth}px solid ${tableBorderColor(props)};
         border-bottom: none;
         height: ${tableToolbarSize}px;
         width: 100%;

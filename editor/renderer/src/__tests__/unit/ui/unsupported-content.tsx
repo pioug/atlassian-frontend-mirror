@@ -48,8 +48,10 @@ describe('Unsupported Content', () => {
       renderer = initRendererWithIntl(doc, {
         useSpecBasedValidator: true,
       });
+
       expect(
-        renderer.find('UnsupportedBlockNode').getDOMNode().tagName,
+        renderer.find('[className$="-UnsupportedBlockNode"]').getDOMNode()
+          .tagName,
       ).toEqual('DIV');
     });
 
@@ -144,8 +146,10 @@ describe('Unsupported Content', () => {
       renderer = initRendererWithIntl(doc, {
         useSpecBasedValidator: true,
       });
+
       expect(
-        renderer.find('UnsupportedInlineNode').getDOMNode().tagName,
+        renderer.find('[className$="-UnsupportedInlineNode"]').getDOMNode()
+          .tagName,
       ).toEqual('SPAN');
     });
 

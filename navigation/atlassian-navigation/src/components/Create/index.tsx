@@ -1,20 +1,41 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
-import { gridSize } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
+import { CREATE_BREAKPOINT, gridSize } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 
-import { createButtonCSS, createIconCSS, getCreateButtonTheme } from './styles';
+import { getCreateButtonTheme } from './styles';
 import { CreateProps } from './types';
 
-const grid = gridSize();
+const wrapperStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '& [data-hide-on-smallscreens]': {
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
+      display: 'none !important',
+    },
+  },
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '& [data-hide-on-largescreens]': {
+    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    [`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
+      display: 'none !important',
+    },
+  },
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '&&': {
+    marginLeft: gridSize * 1.5,
+  },
+});
 
 type TooltipSwitchProps = {
   buttonTooltip?: React.ReactNode;
@@ -41,18 +62,7 @@ export const Create = ({
   const theme = useTheme();
 
   return (
-    <div
-      css={{
-        display: 'flex',
-        alignItems: 'center',
-        '&&': {
-          marginLeft: grid * 1.5,
-        },
-        '& [data-hide-on-smallscreens]': createButtonCSS,
-        '& [data-hide-on-largescreens]': createIconCSS,
-      }}
-      data-testid="create-button-wrapper"
-    >
+    <div css={wrapperStyles} data-testid="create-button-wrapper">
       <TooltipSwitch buttonTooltip={buttonTooltip}>
         <Button
           id="createGlobalItem"

@@ -2,35 +2,6 @@ import * as untypedLocales from './i18n/index';
 
 const locales: { [key: string]: any } = untypedLocales;
 
-export type { ActionProps } from './BlockCard/components/Action';
-export { DownloadAction } from './BlockCard/actions/DownloadAction';
-export { ViewAction } from './BlockCard/actions/ViewAction';
-export {
-  AuthorizeAction,
-  BlockCardErroredView,
-  BlockCardNotFoundView,
-  BlockCardForbiddenView,
-  BlockCardResolvedView,
-  BlockCardResolvingView,
-  BlockCardUnauthorisedView,
-  ForbiddenAction,
-  PreviewAction,
-} from './BlockCard';
-export type { BlockCardResolvedViewProps } from './BlockCard';
-export {
-  InlineCardErroredView,
-  InlineCardForbiddenView,
-  InlineCardResolvedView,
-  InlineCardResolvingView,
-  InlineCardUnauthorizedView,
-} from './InlineCard';
-export type {
-  InlineCardErroredViewProps,
-  InlineCardForbiddenViewProps,
-  InlineCardResolvedViewProps,
-  InlineCardResolvingViewProps,
-  InlineCardUnauthorizedViewProps,
-} from './InlineCard';
 export {
   MediaInlineCardErroredView,
   MediaInlineCardLoadedView,
@@ -41,7 +12,6 @@ export type {
   MediaInlineCardLoadedViewProps,
   MediaInlineCardLoadingViewProps,
 } from './MediaInlineCard';
-export { CardLinkView } from './LinkView';
 export { Ellipsify } from './ellipsify';
 export type { EllipsifyProps } from './ellipsify';
 export { toHumanReadableMediaSize } from './humanReadableSize';
@@ -55,7 +25,6 @@ export {
   fadeIn,
   size,
 } from './mixins';
-export type { LozengeColor, LozengeProps } from './common';
 export { Bounds, Camera, Rectangle, Vector2 } from './camera';
 export { messages } from './messages';
 export type { MessageKey } from './messages';
@@ -114,7 +83,6 @@ export type {
   WithShowControlMethodProp,
   AccessTypes,
   AccessContext,
-  RequestAccessContextProps,
 } from './types';
 export { isIntersectionObserverSupported } from './intersectionObserver';
 export { Truncate } from './truncateText';

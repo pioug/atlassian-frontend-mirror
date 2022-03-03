@@ -14,7 +14,10 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import { fakeIntl, asMock } from '@atlaskit/media-test-helpers';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { EditorState } from 'prosemirror-state';
-import { LinkToolbarAppearance } from '../LinkToolbarAppearance';
+import {
+  LinkToolbarAppearance,
+  LinkToolbarAppearanceProps,
+} from '../LinkToolbarAppearance';
 import Dropdown from '../../../floating-toolbar/ui/Dropdown';
 import {
   doc,
@@ -30,6 +33,8 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { changeSelectedCardToLink } from '../../pm-plugins/doc';
 import { isSupportedInParent } from '../../../../utils/nodes';
 import * as featureFlags from '../../../../plugins/feature-flags-context';
+import { LinkToolbarButtonGroup } from '../LinkToolbarButtonGroup';
+import { LinkToolbarIconDropdown } from '../LinkToolbarIconDropdown';
 
 describe('LinkToolbarAppearance', () => {
   const featureFlagSpy = jest.spyOn(featureFlags, 'getFeatureFlags');
@@ -414,47 +419,109 @@ describe('LinkToolbarAppearance', () => {
     ]);
   });
 
-  it('should render a LinkToolbarButtonGroup if featureflag is `toolbarIcons`', () => {
-    featureFlagSpy.mockReturnValue({
-      viewChangingExperimentToolbarStyle: 'toolbarIcons',
-    });
-    const editorState = EditorState.create({ schema: defaultSchema });
+  it('returns a component with a `dispatchCommand` prop that can dispatch commands with the editor state and dispatch', () => {
+    const { editorView } = editor(
+      doc(
+        p(
+          '{<node>}',
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+        ),
+      ),
+    );
+
     const toolbar = shallow(
       <LinkToolbarAppearance
         intl={fakeIntl}
         currentAppearance="block"
-        editorState={editorState}
+        editorState={editorView.state}
+        editorView={editorView}
         url="some-url"
       />,
     );
-    const dropdown = toolbar.find(Dropdown);
-    const buttonGroup = toolbar.find('LinkToolbarButtonGroup');
-    const iconDropdown = toolbar.find('LinkToolbarIconDropdown');
 
-    expect(dropdown).toHaveLength(0);
-    expect(buttonGroup).toHaveLength(1);
-    expect(iconDropdown).toHaveLength(0);
+    const { dispatchCommand } = toolbar.find(Dropdown).props();
+    const fn = jest.fn();
+
+    dispatchCommand(fn);
+    expect(fn).toHaveBeenCalledWith(editorView.state, editorView.dispatch);
   });
 
-  it('should render a LinkToolbarIconDropdown if featureflag is `newDropdown`', () => {
-    featureFlagSpy.mockReturnValue({
-      viewChangingExperimentToolbarStyle: 'newDropdown',
+  describe('LinkToolbarAppearance when featureflag is `newDropdown`', () => {
+    beforeEach(() => {
+      featureFlagSpy.mockReturnValue({
+        viewChangingExperimentToolbarStyle: 'newDropdown',
+      });
     });
-    const editorState = EditorState.create({ schema: defaultSchema });
-    const toolbar = shallow(
-      <LinkToolbarAppearance
-        intl={fakeIntl}
-        currentAppearance="block"
-        editorState={editorState}
-        url="some-url"
-      />,
-    );
-    const dropdown = toolbar.find(Dropdown);
-    const buttonGroup = toolbar.find('LinkToolbarButtonGroup');
-    const iconDropdown = toolbar.find('LinkToolbarIconDropdown');
 
-    expect(dropdown).toHaveLength(0);
-    expect(buttonGroup).toHaveLength(0);
-    expect(iconDropdown).toHaveLength(1);
+    it('should render a LinkToolbarIconDropdown if featureflag is `newDropdown`', () => {
+      const editorState = EditorState.create({ schema: defaultSchema });
+      const toolbar = shallow(
+        <LinkToolbarAppearance
+          intl={fakeIntl}
+          currentAppearance="block"
+          editorState={editorState}
+          url="some-url"
+        />,
+      );
+      const dropdown = toolbar.find(Dropdown);
+      const buttonGroup = toolbar.find(LinkToolbarButtonGroup);
+      const iconDropdown = toolbar.find(LinkToolbarIconDropdown);
+
+      expect(dropdown).toHaveLength(0);
+      expect(buttonGroup).toHaveLength(0);
+      expect(iconDropdown).toHaveLength(1);
+    });
+  });
+
+  describe('LinkToolbarAppearance when featureflag is `toolbarIcons`', () => {
+    beforeEach(() => {
+      featureFlagSpy.mockReturnValue({
+        viewChangingExperimentToolbarStyle: 'toolbarIcons',
+      });
+    });
+
+    const setup = (props?: Partial<LinkToolbarAppearanceProps>) => {
+      const editorState = EditorState.create({ schema: defaultSchema });
+      return shallow(
+        <LinkToolbarAppearance
+          intl={fakeIntl}
+          currentAppearance="block"
+          editorState={editorState}
+          url="some-url"
+          {...props}
+        />,
+      );
+    };
+
+    it('should render a `LinkToolbarButtonGroup`', () => {
+      const toolbar = setup();
+      const dropdown = toolbar.find(Dropdown);
+      const buttonGroup = toolbar.find(LinkToolbarButtonGroup);
+      const iconDropdown = toolbar.find(LinkToolbarIconDropdown);
+
+      expect(dropdown).toHaveLength(0);
+      expect(buttonGroup).toHaveLength(1);
+      expect(iconDropdown).toHaveLength(0);
+    });
+
+    it('should render `LinkToolbarButtonGroup` with the required props', () => {
+      const toolbar = setup();
+      const buttonGroup = toolbar.find(LinkToolbarButtonGroup);
+
+      expect(buttonGroup.prop('options')).toHaveLength(3);
+    });
+
+    it('should render default options', () => {
+      const toolbar = setup();
+      const buttonGroup = toolbar.find(LinkToolbarButtonGroup);
+
+      expect(buttonGroup.prop('options')).toEqual([
+        expect.objectContaining({ testId: 'url-appearance' }),
+        expect.objectContaining({ testId: 'inline-appearance' }),
+        expect.objectContaining({ testId: 'block-appearance' }),
+      ]);
+    });
   });
 });

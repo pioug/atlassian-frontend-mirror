@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { forwardRef, useRef, useCallback } from 'react';
+import { jsx } from '@emotion/react';
 import styled from 'styled-components';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
@@ -9,7 +11,7 @@ import {
   WidthProvider,
   ExpandIconWrapper,
   ExpandLayoutWrapper,
-  ClearNextSiblingMarginTop,
+  clearNextSiblingMarginTopStyle,
 } from '@atlaskit/editor-common/ui';
 import {
   akEditorLineHeight,
@@ -167,7 +169,7 @@ function Expand({
       <ContentContainer expanded={expanded}>
         <div className={`${nodeType}-content-wrapper`}>
           <WidthProvider>
-            <ClearNextSiblingMarginTop />
+            <div css={clearNextSiblingMarginTopStyle} />
             {children}
           </WidthProvider>
         </div>

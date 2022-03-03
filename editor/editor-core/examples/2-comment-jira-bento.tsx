@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import Editor, { EditorProps } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
@@ -48,43 +49,45 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 
   render() {
     return (
-      <EditorContext>
-        <WithEditorActions
-          render={(actions) => (
-            <CollapsedEditor
-              isExpanded={this.state.isExpanded}
-              onFocus={this.onFocus}
-              placeholder="Add a comment..."
-            >
-              <Editor
-                appearance="comment"
-                defaultValue={this.state.defaultValue}
-                shouldFocus={true}
-                disabled={false}
-                onCancel={() => this.setState({ isExpanded: false })}
-                onChange={this.onChange(actions)}
-                onSave={() => this.setState({ isExpanded: false })}
-                {...this.providers}
-                media={{
-                  provider: mediaProvider,
-                  allowMediaSingle: true,
-                }}
-                allowRule={true}
-                allowTextColor={true}
-                allowTables={{
-                  allowControls: true,
-                }}
-                allowPanel={true}
-                allowHelpDialog={true}
-                placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
-                primaryToolbarComponents={[
-                  <ToolbarHelp titlePosition="top" title="Help" key="help" />,
-                ]}
-              />
-            </CollapsedEditor>
-          )}
-        />
-      </EditorContext>
+      <IntlProvider locale="en">
+        <EditorContext>
+          <WithEditorActions
+            render={(actions) => (
+              <CollapsedEditor
+                isExpanded={this.state.isExpanded}
+                onFocus={this.onFocus}
+                placeholder="Add a comment..."
+              >
+                <Editor
+                  appearance="comment"
+                  defaultValue={this.state.defaultValue}
+                  shouldFocus={true}
+                  disabled={false}
+                  onCancel={() => this.setState({ isExpanded: false })}
+                  onChange={this.onChange(actions)}
+                  onSave={() => this.setState({ isExpanded: false })}
+                  {...this.providers}
+                  media={{
+                    provider: mediaProvider,
+                    allowMediaSingle: true,
+                  }}
+                  allowRule={true}
+                  allowTextColor={true}
+                  allowTables={{
+                    allowControls: true,
+                  }}
+                  allowPanel={true}
+                  allowHelpDialog={true}
+                  placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
+                  primaryToolbarComponents={[
+                    <ToolbarHelp titlePosition="top" title="Help" key="help" />,
+                  ]}
+                />
+              </CollapsedEditor>
+            )}
+          />
+        </EditorContext>
+      </IntlProvider>
     );
   }
 }

@@ -5,12 +5,13 @@ import { OptionsPropType } from '@atlaskit/radio/types';
 import { setGlobalTheme, token } from '@atlaskit/tokens';
 
 import Footer from './components/footer';
-import LocalStorageFacade from './local-storage';
+import TokenSwitcher from './components/token-switcher';
+import localStorageFacade from './local-storage';
 
 const options: OptionsPropType = [
-  { name: 'theme', value: 'none', label: 'None' },
-  { name: 'theme', value: 'light', label: 'Light' },
-  { name: 'theme', value: 'dark', label: 'Dark' },
+  { name: 'theme', value: 'none', label: 'None', testId: 'none' },
+  { name: 'theme', value: 'light', label: 'Light', testId: 'light' },
+  { name: 'theme', value: 'dark', label: 'Dark', testId: 'dark' },
 ];
 
 const labelCSS = {
@@ -32,11 +33,11 @@ const labelCSS = {
  */
 const App = () => {
   const [theme, setTheme] = useState<string>(
-    LocalStorageFacade.getItem('theme') || '',
+    localStorageFacade.getItem('theme') || '',
   );
 
   useEffect(() => {
-    const tempTheme = LocalStorageFacade.getItem('theme');
+    const tempTheme = localStorageFacade.getItem('theme');
     if (tempTheme === 'light' || tempTheme === 'dark') {
       setGlobalTheme(tempTheme);
     } else {
@@ -53,7 +54,11 @@ const App = () => {
       const theme = message.theme || 'none';
       // update the extension with the theme value
       setTheme(theme);
-      LocalStorageFacade.setItem('theme', theme);
+      localStorageFacade.setItem('theme', theme);
+      // Extension will refresh on load to match the theme it finds on the webpage
+      theme === 'none'
+        ? document.documentElement.removeAttribute('data-theme')
+        : setGlobalTheme(theme);
     });
   }, []);
 
@@ -78,12 +83,11 @@ const App = () => {
       action: `${selected === 'none' ? 'removeTheme' : 'setTheme-' + selected}`,
     });
     setTheme(selected);
-    LocalStorageFacade.setItem('theme', selected);
+    localStorageFacade.setItem('theme', selected);
     selected === 'none'
       ? document.documentElement.removeAttribute('data-theme')
       : setGlobalTheme(selected);
   }
-
   return (
     <div
       style={{
@@ -92,6 +96,7 @@ const App = () => {
         backgroundColor: token('color.background.overlay', '#FFFFFF'),
         boxShadow: token('shadow.overlay'),
       }}
+      data-testid="theming-app"
     >
       <h1>Theme switcher</h1>
       <form style={{ padding: '8px 0 16px 0' }}>
@@ -105,6 +110,7 @@ const App = () => {
           value={theme}
         />
       </form>
+      <TokenSwitcher extensionTheme={theme} />
       <Footer />
     </div>
   );

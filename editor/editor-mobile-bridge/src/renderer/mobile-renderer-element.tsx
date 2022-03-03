@@ -10,24 +10,18 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/provider-factory';
 import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
-import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
-} from '@atlaskit/analytics-listeners';
-import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
-} from '@atlaskit/analytics-gas-types';
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { toNativeBridge } from './web-to-native/implementation';
 import {
   Provider as SmartCardProvider,
   Client as CardClient,
 } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji/resource';
-import { analyticsBridgeClient } from '../analytics-client';
 import {
   getEnableLightDarkTheming,
   getAllowCaptions,
 } from '../query-param-reader';
+import { rendererAnalyticsClient } from './renderer-analytics-client';
 import { useRendererContent } from './hooks/use-set-renderer-content';
 import { useCreateProviderFactory } from './hooks/use-create-provider-factory';
 import { useRendererContext } from './hooks/use-renderer-context';
@@ -56,18 +50,6 @@ export interface MobileRendererProps extends RendererProps {
   extensionProvider?: Promise<ExtensionProvider>;
   rendererBridge: RendererBridgeImplementation;
 }
-
-const handleAnalyticsEvent = (
-  event: GasPurePayload | GasPureScreenEventPayload,
-) => {
-  toNativeBridge.call('analyticsBridge', 'trackEvent', {
-    event: JSON.stringify(event),
-  });
-};
-
-const analyticsClient: AnalyticsWebClient = analyticsBridgeClient(
-  handleAnalyticsEvent,
-);
 
 type WithSmartCardClientProps = {
   cardClient: CardClient;
@@ -195,7 +177,7 @@ const withFabricAnalytics = <P extends MobileRendererProps>(
   Component: React.ComponentType<P>,
 ): React.FC<MobileRendererProps> => (props: MobileRendererProps) => {
   return (
-    <FabricAnalyticsListeners client={analyticsClient}>
+    <FabricAnalyticsListeners client={rendererAnalyticsClient}>
       <Component {...(props as P)} />
     </FabricAnalyticsListeners>
   );

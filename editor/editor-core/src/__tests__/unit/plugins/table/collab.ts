@@ -15,7 +15,7 @@ import {
 } from '../../../../plugins/table/types';
 
 import { setResizeHandlePos } from '../../../../plugins/table/pm-plugins/table-resizing/commands';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('Tables with Collab editing', () => {

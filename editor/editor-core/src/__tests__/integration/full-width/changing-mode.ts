@@ -38,7 +38,11 @@ BrowserTestCase(
     await setProseMirrorTextSelection(page, { anchor: 314, head: 308 });
     await updateEditorProps(page, { appearance: 'full-width' });
 
-    // Chrome only check
-    await page.checkConsoleErrors();
+    await page.checkConsoleErrors({
+      ignoreErrors: [
+        /is potentially unsafe when doing server-side rendering\. Try changing it to/,
+        /has been deprecated\. It is an internal component and should not be used directly\./,
+      ],
+    });
   },
 );

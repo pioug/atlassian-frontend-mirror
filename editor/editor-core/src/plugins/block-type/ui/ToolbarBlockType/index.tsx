@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
@@ -6,7 +8,7 @@ import DropdownMenu from '../../../../ui/DropdownMenu';
 import { Separator, Wrapper, MenuWrapper } from '../../../../ui/styles';
 import { BlockTypeState } from '../../pm-plugins/main';
 import { BlockType, NORMAL_TEXT } from '../../types';
-import { BlockTypeMenuItem, KeyboardShortcut } from './styled';
+import { blockTypeMenuItemStyle, KeyboardShortcut } from './styled';
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { BlockTypeButton } from './blocktype-button';
@@ -144,13 +146,14 @@ class ToolbarBlockType extends React.PureComponent<
 
     const items: MenuItem[] = availableBlockTypes.map((blockType, index) => {
       const isActive = currentBlockType === blockType;
-      const Tag = (blockType.tagName || 'p') as keyof React.ReactHTML;
+      const tagName = blockType.tagName || 'p';
+      const Tag = tagName as keyof React.ReactHTML;
 
       return {
         content: (
-          <BlockTypeMenuItem tagName={Tag} selected={isActive}>
+          <div css={blockTypeMenuItemStyle(tagName, isActive)}>
             <Tag>{formatMessage(blockType.title)}</Tag>
-          </BlockTypeMenuItem>
+          </div>
         ),
         value: blockType,
         label: formatMessage(blockType.title),

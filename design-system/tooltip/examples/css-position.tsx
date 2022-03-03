@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, forwardRef, useRef, useState } from 'react';
+import { CSSProperties, FC, forwardRef, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 import { ReactNode } from 'react-redux';
@@ -26,6 +26,14 @@ const boxShadow = token(
   `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
 );
 
+const positionStyles = css({
+  width: '280px',
+  height: '60px',
+  padding: '8px',
+  backgroundColor: `${token('color.background.neutral', N20)}`,
+  borderRadius: '5px',
+});
+
 interface PosTypes {
   children?: ReactNode;
   pos: 'relative' | 'absolute' | 'fixed';
@@ -34,32 +42,32 @@ interface PosTypes {
 }
 
 const Position = forwardRef<HTMLDivElement, PosTypes>(
-  ({ children, pos, pinned, top = 0 }, ref) => (
-    <div
-      css={css`
-        background-color: ${token('color.background.neutral', N20)};
-        border-radius: 5px;
-        height: 60px;
-        padding: 8px;
-        position: ${pos};
-        width: 280px;
-        ${pos === 'fixed' && `box-shadow: ${boxShadow};`}
-        ${pinned
-          ? `box-shadow: ${boxShadow}; top: ${top}px;`
-          : `top: ${top}px;`}
-      `}
-      ref={ref}
-    >
-      <Tooltip content={`Position "${pos}"`}>
-        <Target color={color[pos]}>{capitalize(pos)}</Target>
-      </Tooltip>
-      <p>
-        Tooltip container position is <code>{pos}</code>.
-      </p>
-      {children}
-    </div>
-  ),
+  ({ children, pos, pinned, top = 0 }, ref) => {
+    const dynamicStyles: CSSProperties = {
+      position: `${pos}`,
+      top: `${top}px`,
+      boxShadow: pinned || pos === 'fixed' ? boxShadow : 'none',
+    } as CSSProperties;
+
+    return (
+      <div css={positionStyles} ref={ref} style={dynamicStyles}>
+        <Tooltip content={`Position "${pos}"`}>
+          <Target color={color[pos]}>{capitalize(pos)}</Target>
+        </Tooltip>
+        <p>
+          Tooltip container position is <code>{pos}</code>.
+        </p>
+        {children}
+      </div>
+    );
+  },
 );
+
+const positionExampleStyles = css({
+  position: 'absolute',
+  top: 8,
+  right: 8,
+});
 
 const PositionExample: FC = () => {
   const panel = useRef<HTMLDivElement>(null);
@@ -87,14 +95,7 @@ const PositionExample: FC = () => {
         pinned={pinned}
         pos={pinned ? 'fixed' : 'relative'}
       >
-        <button
-          onClick={pinned ? unpin : pin}
-          css={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-          }}
-        >
+        <button onClick={pinned ? unpin : pin} css={positionExampleStyles}>
           {pinned ? 'Unpin' : 'Pin'}
         </button>
       </Position>

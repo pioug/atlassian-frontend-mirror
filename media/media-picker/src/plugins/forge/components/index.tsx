@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import debounce from 'lodash/debounce';
 
 import { ForgeViewProps, JsonLdCollectionEmpty } from '../types';
 import { ForgeClient } from '../client';
@@ -14,6 +13,7 @@ import { PluginLoadingView } from './loading';
 import { PluginErrorView } from './error';
 import { getMetadata } from '../utils';
 import { JsonLd } from 'json-ld-types';
+import { debounce } from '@atlaskit/media-common';
 
 export const ForgeView = ({
   extensionOpts: { name, id, view, iconUrl },

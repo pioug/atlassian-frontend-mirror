@@ -38,6 +38,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="bitbucket-nav"
     />
     <br />
     <AtlassianNavigation
@@ -51,6 +52,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="confluence-nav"
     />
     <br />
     <AtlassianNavigation
@@ -64,6 +66,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="jira-nav"
     />
     <br />
     <AtlassianNavigation
@@ -77,6 +80,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="jsm-nav"
     />
     <br />
     <AtlassianNavigation
@@ -90,6 +94,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="jsw-nav"
     />
     <br />
     <AtlassianNavigation
@@ -103,6 +108,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="opsgenie-nav"
     />
     <br />
     <AtlassianNavigation
@@ -116,6 +122,7 @@ const CustomProductHomeExample = () => (
       renderProfile={ProfilePopup}
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
+      testId="custom-nav"
     />
   </div>
 );

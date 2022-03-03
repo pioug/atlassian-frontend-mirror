@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 16.2.0
+
+### Minor Changes
+
+- [`dde969b6ef5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dde969b6ef5) - Fix type error with missing 'css' prop when importing Buttons directly from "@atlaskit/button/standard-button"
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.6
 
 ### Patch Changes

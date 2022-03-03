@@ -33,7 +33,7 @@ export interface EditorActionsOptions<T> {
   replaceSelection(rawValue: Node | Object | string): boolean;
   appendText(text: string): boolean;
   isDocumentEmpty(): boolean;
-  getResolvedEditorState(): Promise<ResolvedEditorState>;
+  getResolvedEditorState(): Promise<ResolvedEditorState | undefined>;
 }
 
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
@@ -274,31 +274,29 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
    * refers to the latest state of editor with confirmed
    * steps.
    */
-  getResolvedEditorState = (): Promise<ResolvedEditorState> => {
-    return new Promise((resolver, reject) => {
-      if (!this.editorView) {
-        reject();
-        return;
-      }
+  getResolvedEditorState = async (): Promise<
+    ResolvedEditorState | undefined
+  > => {
+    if (!this.editorView) {
+      throw new Error(
+        'Called getResolvedEditorState before editorView is ready',
+      );
+    }
 
-      const featureFlags = getFeatureFlags(this.editorView.state);
-      if (!featureFlags.useNativeCollabPlugin) {
-        return this.getValue()?.then((content) => {
-          resolver({
-            content: content as JSONDocNode,
-            title: null,
-            stepVersion: -1,
-          });
-        });
+    const featureFlags = getFeatureFlags(this.editorView.state);
+    if (!featureFlags.useNativeCollabPlugin) {
+      const editorValue = await this.getValue();
+      if (!editorValue) {
+        throw new Error('editorValue is undefined');
       }
-      getCollabProvider(this.editorView.state)
-        ?.getFinalAcknowledgedState()
-        .then((resolvedEditorState) => {
-          resolver(resolvedEditorState);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
+      return {
+        content: editorValue,
+        title: null,
+        stepVersion: -1,
+      };
+    }
+    const editorView = this.editorView;
+    await getEditorValueWithMedia(editorView);
+    return getCollabProvider(editorView.state)?.getFinalAcknowledgedState();
   };
 }

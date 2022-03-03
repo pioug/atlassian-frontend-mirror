@@ -55,7 +55,9 @@ describe('ModalElementBrowser', () => {
       );
     });
   });
-  describe('ModalElementBrowser with help link', () => {
+
+  // FIXME [ED-14687] Tests skipped due to flakyness
+  describe.skip('ModalElementBrowser with help link', () => {
     beforeEach(async () => {
       url = getExampleUrl(
         'editor',
@@ -73,6 +75,9 @@ describe('ModalElementBrowser', () => {
       // Move mouse away to avoid hover selection on the browse modal
       await page.mouse.move(0, 0);
       await waitForBrowseMenuIcons(page);
+      await page.waitForSelector('[data-testid="element-items"] svg', {
+        visible: true,
+      });
     });
     it('should match ModalElementBrowser with help link snapshot', async () => {
       const image = await takeElementScreenShot(

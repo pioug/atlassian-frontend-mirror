@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/blanket",
-  "version": "12.2.7",
+  "version": "12.2.8",
   "description": "A React component that covers the underlying UI for a layered component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
     "@atlaskit/codemod-utils": "^3.4.0",
     "@atlaskit/ds-lib": "^1.4.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.6.0",
+    "@atlaskit/tokens": "^0.7.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@atlaskit/badge": "^15.0.0",
-    "@atlaskit/button": "^16.1.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.4.0",

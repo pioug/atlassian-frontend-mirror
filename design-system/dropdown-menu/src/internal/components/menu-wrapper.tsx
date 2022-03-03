@@ -42,7 +42,7 @@ const MenuWrapper = ({
   setInitialFocusRef && setInitialFocusRef(menuItemRefs[0]);
 
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  return <MenuGroup onClick={closeOnMenuItemClick} {...props} />;
+  return <MenuGroup role="menu" onClick={closeOnMenuItemClick} {...props} />;
 };
 
 export default MenuWrapper;

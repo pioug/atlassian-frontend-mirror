@@ -2,6 +2,8 @@
 
 import { css, jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   Content,
   LeftSidebar,
@@ -33,7 +35,7 @@ const Wrapper = ({
       boxSizing: 'border-box',
       overflowY: 'auto',
       overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: 'white',
+      backgroundColor: token('color.background.neutral.subtle', 'white'),
     }}
   >
     {children}
@@ -61,7 +63,7 @@ const BasicGrid = () => {
           </div>
         </LeftSidebar>
         <Main>
-          <Wrapper noOutline borderColor="black">
+          <Wrapper noOutline borderColor={token('color.border', 'black')}>
             <h3 css={{ textAlign: 'center' }}>Main</h3>
           </Wrapper>
         </Main>

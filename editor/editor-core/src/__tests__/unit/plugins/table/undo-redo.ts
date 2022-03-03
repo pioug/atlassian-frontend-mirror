@@ -16,7 +16,7 @@ import {
   TablePluginState,
   PluginConfig,
 } from '../../../../plugins/table/types';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { redo, undo } from 'prosemirror-history';
 import { insertColumn } from '../../../../plugins/table/commands';
 import { deleteColumns } from '../../../../plugins/table/transforms';

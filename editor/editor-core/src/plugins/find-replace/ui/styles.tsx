@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { N60, N30A } from '@atlaskit/theme/colors';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
@@ -26,16 +26,20 @@ export const wrapperStyles = css({
   },
 });
 
-export const sectionWrapperStyles = css({
-  display: 'flex',
-  alignItems: 'column',
+export const sectionWrapperStyles = css`
+  display: flex;
 
-  '> *': {
-    display: 'inline-flex',
-    height: '32px',
-    flex: '0 0 auto',
-  },
-});
+  & > * {
+    display: inline-flex;
+    height: 32px;
+    flex: 0 0 auto;
+  }
+
+  & > [data-ds--text-field--container] {
+    display: flex;
+    flex: 1 1 auto;
+  }
+`;
 
 export const countStyles = css({
   color: `${N60}`,

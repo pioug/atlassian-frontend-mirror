@@ -219,7 +219,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       if (this.overflowShadowsObserver) {
         this.overflowShadowsObserver.observeCells(
           this.state.stickyHeader?.sticky,
-          containsHeaderRow(view.state, getNode()),
+          containsHeaderRow(getNode()),
         );
       }
     }
@@ -335,7 +335,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const tableHeight =
       tableRef && !tableRenderOptimization ? tableRef.offsetHeight : undefined;
 
-    const hasHeaderRow = containsHeaderRow(view.state, node);
+    const hasHeaderRow = containsHeaderRow(node);
     const rowControls = (
       <div className={ClassName.ROW_CONTROLS_WRAPPER}>
         <TableFloatingControls

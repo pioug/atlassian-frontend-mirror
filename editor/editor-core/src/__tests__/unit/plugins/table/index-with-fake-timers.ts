@@ -15,7 +15,7 @@ import {
   TablePluginState,
   PluginConfig,
 } from '../../../../plugins/table/types';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { EventDispatcher } from '../../../../event-dispatcher';
 
 describe('TableView', () => {

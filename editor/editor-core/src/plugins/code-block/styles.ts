@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
@@ -16,18 +16,21 @@ import {
   overflowShadow,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 import { codeBlockClassNames } from './ui/class-names';
 
-export const highlightingCodeBlockStyles = css`
+export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .code-block {
     position: relative;
     background-image: ${overflowShadow({
-      background: themed({ light: colors.N20, dark: colors.DN50 }),
+      background: themed({ light: colors.N20, dark: colors.DN50 })(props),
       width: '8px',
     })};
     background-repeat: no-repeat;
-    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })};
+    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })(
+      props,
+    )};
     --ds--code--bg-color: transparent;
     background-attachment: local, scroll, scroll;
     background-size: 8px 100%, 8px 100%, 8px 100%;
@@ -45,9 +48,11 @@ export const highlightingCodeBlockStyles = css`
       /* https://bitbucket.org/atlassian/atlassian-frontend/src/develop/packages/design-system/code/src/themes/themeBuilder.ts#packages/design-system/code/src/themes/themeBuilder.ts-19:28 */
       flex-shrink: 0;
       text-align: right;
-      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })};
+      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })(
+        props,
+      )};
       padding: ${gridSize()}px;
-      color: ${themed({ light: colors.N90, dark: colors.DN90 })};
+      color: ${themed({ light: colors.N90, dark: colors.DN90 })(props)};
 
       span {
         display: block;
@@ -60,7 +65,7 @@ export const highlightingCodeBlockStyles = css`
           counter-increment: line;
           font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 1.5rem;
-          color: ${themed({ light: colors.N400, dark: colors.DN400 })};
+          color: ${themed({ light: colors.N400, dark: colors.DN400 })(props)};
         }
       }
     }
@@ -111,7 +116,9 @@ export const highlightingCodeBlockStyles = css`
       &:not([data-debounce='true']) {
         > code:not([data-language='plaintext']):not([data-language='none']):not([data-language='']) {
           color: transparent;
-          caret-color: ${themed({ light: colors.N800, dark: colors.DN500 })};
+          caret-color: ${themed({ light: colors.N800, dark: colors.DN500 })(
+            props,
+          )};
         }
       }
     }
@@ -152,16 +159,18 @@ export const highlightingCodeBlockStyles = css`
   }
 `;
 
-export const codeBlockStyles = css`
+export const codeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .code-block {
     position: relative;
     background-image: ${overflowShadow({
-      background: themed({ light: colors.N20, dark: colors.DN50 }),
+      background: themed({ light: colors.N20, dark: colors.DN50 })(props),
       width: '8px',
     })};
     --ds--code--bg-color: transparent;
     background-repeat: no-repeat;
-    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })};
+    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })(
+      props,
+    )};
     background-attachment: local, scroll, scroll;
     background-size: 8px 100%, 8px 100%, 8px 100%;
     background-position: 100% 0, 100% 0, 0 0;
@@ -178,7 +187,9 @@ export const codeBlockStyles = css`
       /* https://bitbucket.org/atlassian/atlassian-frontend/src/develop/packages/design-system/code/src/themes/themeBuilder.ts#packages/design-system/code/src/themes/themeBuilder.ts-19:28 */
       flex-shrink: 0;
       text-align: right;
-      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })};
+      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })(
+        props,
+      )};
       padding: ${gridSize()}px;
 
       span {
@@ -192,7 +203,7 @@ export const codeBlockStyles = css`
           counter-increment: line;
           font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 1.5rem;
-          color: ${themed({ light: colors.N400, dark: colors.DN400 })};
+          color: ${themed({ light: colors.N400, dark: colors.DN400 })(props)};
         }
       }
     }
@@ -208,7 +219,7 @@ export const codeBlockStyles = css`
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
         font-size: ${relativeFontSizeToBase16(fontSize())};
         line-height: 1.5rem;
-        color: ${themed({ light: colors.N800, dark: colors.DN800 })};
+        color: ${themed({ light: colors.N800, dark: colors.DN800 })(props)};
         border-radius: ${borderRadius()}px;
         margin: ${gridSize()}px;
         white-space: pre;

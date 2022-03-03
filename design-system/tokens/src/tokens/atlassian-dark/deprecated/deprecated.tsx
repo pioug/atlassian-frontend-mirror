@@ -44,12 +44,46 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       },
     },
     background: {
+      accent: {
+        blue: {
+          '[default]': { value: 'B900' },
+          bold: { value: 'B700' },
+        },
+        red: {
+          '[default]': { value: 'R900' },
+          bold: { value: 'R700' },
+        },
+        orange: {
+          '[default]': { value: 'O900' },
+          bold: { value: 'O700' },
+        },
+        yellow: {
+          '[default]': { value: 'Y900' },
+          bold: { value: 'Y700' },
+        },
+        green: {
+          '[default]': { value: 'G900' },
+          bold: { value: 'G700' },
+        },
+        purple: {
+          '[default]': { value: 'P900' },
+          bold: { value: 'P700' },
+        },
+        teal: {
+          '[default]': { value: 'T900' },
+          bold: { value: 'T700' },
+        },
+        magenta: {
+          '[default]': { value: 'M900' },
+          bold: { value: 'M700' },
+        },
+      },
       blanket: { value: 'DN-100A' },
       brand: {
         '[default]': {
-          '[default]': { value: 'DN200A' },
-          hovered: { value: 'DN300A' },
-          pressed: { value: 'DN400A' },
+          '[default]': { value: 'B1000' },
+          hovered: { value: 'B900' },
+          pressed: { value: 'B800' },
         },
       },
       boldBrand: {

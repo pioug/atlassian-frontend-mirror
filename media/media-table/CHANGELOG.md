@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 10.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

@@ -17,7 +17,7 @@ import {
   tableControlsSpacing,
   tableScrollbarOffset,
 } from '../../../ui/consts';
-import { pluginKey as tablePluginKey } from '../../plugin-factory';
+import { pluginKey as tablePluginKey } from '../../plugin-key';
 import {
   syncStickyRowToTable,
   updateStickyMargins as updateTableMargin,

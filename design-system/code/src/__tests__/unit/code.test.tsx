@@ -64,6 +64,7 @@ describe('Code', () => {
 
   it('should style code container with a red color', () => {
     const { getByTestId } = render(
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       <Code testId="style-property" style={{ color: 'red' }}>
         {pyCode}
       </Code>,

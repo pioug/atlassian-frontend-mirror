@@ -24,10 +24,8 @@ import {
 } from '../../../../plugins/table/types';
 import { toggleTableLayout } from '../../../../plugins/table/commands';
 import { isLayoutSupported } from '../../../../plugins/table/utils';
-import {
-  getPluginState,
-  pluginKey as tablePluginKey,
-} from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { getPluginState } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('table toolbar', () => {
   const createEditor = createEditorFactory<TablePluginState>();

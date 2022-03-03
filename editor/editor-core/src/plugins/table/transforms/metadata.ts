@@ -1,6 +1,6 @@
 import { Transaction } from 'prosemirror-state';
 
-import { pluginKey } from '../pm-plugins/plugin-factory';
+import { pluginKey } from '../pm-plugins/plugin-key';
 
 import { fireAnalytics } from './fix-tables';
 

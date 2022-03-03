@@ -15,10 +15,8 @@ import {
   TableCssClassName as ClassName,
 } from '../../../../../plugins/table/types';
 import CornerControls from '../../../../../plugins/table/ui/TableFloatingControls/CornerControls';
-import {
-  getPluginState,
-  pluginKey,
-} from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { getPluginState } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 const CornerButton = `.${ClassName.CONTROLS_CORNER_BUTTON}`;
 

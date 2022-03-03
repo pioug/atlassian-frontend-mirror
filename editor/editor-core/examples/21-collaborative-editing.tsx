@@ -197,6 +197,7 @@ export default class Example extends React.Component<Props, State> {
                   provider: mediaProvider,
                   allowMediaSingle: true,
                   customDropzoneContainer: parentContainer,
+                  useMediaPickerPopup: false,
                 }}
                 allowPanel={true}
                 emojiProvider={getEmojiProvider()}

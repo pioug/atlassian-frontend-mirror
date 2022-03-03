@@ -27,13 +27,22 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
       state: 'deleted',
       replacement: 'tokenName.oh.no',
     },
+    {
+      path: 'tokenName.color.[default]',
+      state: 'deprecated',
+      replacement: 'tokenName.color.foo',
+    },
+    {
+      path: 'tokenName.active',
+      state: 'active',
+    },
   ],
 }));
 
 const oldTokenName = renameMapping[0].path;
 const newTokenName = renameMapping[0].replacement;
 
-tester.run('no-unsafe-design-token-usage', rule, {
+tester.run('no-deprecated-design-token-usage', rule, {
   valid: [
     { code: `token('tokenName.new')` },
     { code: `token('color.text')` },
@@ -41,7 +50,9 @@ tester.run('no-unsafe-design-token-usage', rule, {
     { code: `css({ color: token('color.text') });` },
     { code: `css\`color: token('color.text')\`;` },
     // Deleted tokens should not error
-    { code: `token('tokenName.deletd')` },
+    { code: `token('tokenName.deleted')` },
+    // Active tokens should not error
+    { code: `token('tokenName.active')` },
   ],
   invalid: [
     {
@@ -100,6 +111,17 @@ tester.run('no-unsafe-design-token-usage', rule, {
       code: `css({ color: token('${oldTokenName}', 'blue') })`,
       output: `css({ color: token('${newTokenName}', 'blue') })`,
       errors: [{ messageId: 'tokenRenamed' }],
+    },
+    // Ensures that [default] is correctly omitted from token names
+    {
+      code: `token('tokenName.color');`,
+      output: `token('tokenName.color.foo');`,
+      errors: [
+        {
+          message:
+            'The token "tokenName.color" is deprecated in favour of "tokenName.color.foo".',
+        },
+      ],
     },
   ],
 });

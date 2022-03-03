@@ -17,7 +17,8 @@ import {
 import panelPlugin from '../../../../panel';
 import { selectColumn, moveCursorBackward } from '../../../commands';
 import { getDecorations } from '../../../pm-plugins/decorations/plugin';
-import { getPluginState, pluginKey } from '../../../pm-plugins/plugin-factory';
+import { getPluginState } from '../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../pm-plugins/plugin-key';
 import { TableDecorations, TablePluginState } from '../../../types';
 import tablePlugin from '../../../';
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { Notifications as NotificationsIframe } from '@atlaskit/atlassian-notifications';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
@@ -10,16 +10,16 @@ import Popup from '@atlaskit/popup';
 
 import { Notifications } from '../../src';
 
-const wrapperCSS = {
+const wrapperStyles = css({
+  display: 'flex',
   width: 540,
   height: 'calc(100vh - 200px)',
   paddingTop: 18,
   paddingLeft: 18,
-  display: 'flex',
-};
+});
 
 const NotificationsContent = () => (
-  <div css={wrapperCSS}>
+  <div css={wrapperStyles}>
     <NotificationsIframe
       // _url="https://start.stg.atlassian.com/notificationsDrawer/iframe.html?scope=user&product=uchi&locale=en"
       _url="https://start.stg.atlassian.com/notificationsDrawer/iframe.html"

@@ -1,13 +1,13 @@
 import React from 'react';
 import { ZipEntry, ZipInfo, unzip } from 'unzipit';
-import { ArchiveSideBar } from './styled';
+
+import { MediaClient } from '@atlaskit/media-client';
+
+import { ArchiveSideBar, Separator } from './styled';
 import {
   ArchiveSidebarFolderEntry,
   ArchiveSidebarFolderProps,
 } from './archive-sidebar-folder-entry';
-import { Separator } from '@atlaskit/navigation-next';
-// TODO [BMPT-370] remove usage of navigation-next
-import { MediaClient } from '@atlaskit/media-client';
 import { ArchiveSidebarHeader } from './archive-sidebar-header';
 import {
   getMediaTypeFromFilename,

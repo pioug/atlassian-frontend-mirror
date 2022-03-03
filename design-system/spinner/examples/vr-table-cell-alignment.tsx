@@ -6,30 +6,34 @@ import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
+/**
+ * For VR testing purposes we are overriding the animation timing
+ * for both the fade-in and the rotating animations. This will
+ * freeze the spinner, avoiding potential for VR test flakiness.
+ */
+const animationStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  'svg, span': {
+    animationDuration: '0s',
+    animationTimingFunction: 'step-end',
+  },
+});
+
+const tableStyles = css({
+  width: 100,
+  margin: 8,
+});
+
+const tableCellStyles = css({
+  border: `1px solid ${token('color.border', 'black')}`,
+  textAlign: 'center',
+});
+
 export default function TableCellAlignment() {
   return (
-    <table
-      data-testid="spinner-table"
-      css={css`
-        width: 100px;
-        margin: 8px;
-
-        td {
-          border: 1px solid ${token('color.border', 'black')};
-          text-align: center;
-        }
-        // For VR testing purposes we are overriding the animation timing
-        // for both the fade-in and the rotating animations. This will
-        // freeze the spinner, avoiding potential for VR test flakiness.
-        span,
-        svg {
-          animation-timing-function: step-end;
-          animation-duration: 0s;
-        }
-      `}
-    >
+    <table data-testid="spinner-table" css={[tableStyles, animationStyles]}>
       <tr>
-        <td>
+        <td css={tableCellStyles}>
           <Spinner />
         </td>
       </tr>

@@ -17,7 +17,7 @@ import {
   getDecorations,
   handleDocOrSelectionChanged,
 } from '../../../../pm-plugins/decorations/plugin';
-import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../pm-plugins/plugin-key';
 import { TableDecorations, TablePluginState } from '../../../../types';
 
 describe('decorations plugin', () => {

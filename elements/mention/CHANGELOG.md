@@ -1,5 +1,15 @@
 # @atlaskit/mention
 
+## 21.0.0
+
+### Major Changes
+
+- [`c5d52f78847`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5d52f78847) - Extracting smart-mention-resource into its own private package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.0
 
 ### Major Changes

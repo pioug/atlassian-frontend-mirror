@@ -16,6 +16,7 @@ const ThemedSkeletonExample = () => (
           secondaryItemsCount={secondary}
           showSiteName
           theme={theme}
+          testId={`themed-skeleton-${i}`}
         />
         {i < themes.length - 1 && <br />}
       </Fragment>

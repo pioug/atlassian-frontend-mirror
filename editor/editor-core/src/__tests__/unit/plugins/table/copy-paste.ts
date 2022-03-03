@@ -36,7 +36,7 @@ import {
   transformSliceToRemoveOpenTable,
   transformSliceToFixHardBreakProblemOnCopyFromCell,
 } from '../../../../plugins/table/utils/paste';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { transformSliceToRemoveOpenExpand } from '../../../../plugins/expand/utils';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';

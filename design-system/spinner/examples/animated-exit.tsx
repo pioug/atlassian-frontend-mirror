@@ -14,6 +14,29 @@ type Phase = 'stopped' | 'loading' | 'ready';
 
 const grid: number = gridSize();
 
+const layoutStyles = css({
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+const columnStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+});
+
+const headingStyles = css({ marginBottom: grid * 2 });
+
+const loadingContainerStyles = css({
+  display: 'flex',
+  width: 200,
+  height: 200,
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const spinnerStyles = css({ position: 'absolute' });
+
 function Harness({
   children,
   title,
@@ -34,39 +57,15 @@ function Harness({
   );
 
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      `}
-    >
-      <h4
-        css={css`
-          margin-bottom: ${grid * 2}px;
-        `}
-      >
-        {title}
-      </h4>
+    <div css={columnStyles}>
+      <h4 css={headingStyles}>{title}</h4>
       <Button
         onClick={() => setPhase('loading')}
         isDisabled={phase === 'loading'}
       >
         {phase === 'loading' ? 'running' : 'start'}
       </Button>
-      <div
-        css={css`
-          width: 200px;
-          height: 200px;
-
-          /* center align content */
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        `}
-      >
-        {children(phase)}
-      </div>
+      <div css={loadingContainerStyles}>{children(phase)}</div>
     </div>
   );
 }
@@ -78,11 +77,7 @@ function NotAnimated() {
         <React.Fragment>
           {phase === 'ready' && <Avatar size="xlarge" />}
           {phase === 'loading' && (
-            <span
-              css={css`
-                position: absolute;
-              `}
-            >
+            <span css={spinnerStyles}>
               <Spinner size="xlarge" />
             </span>
           )}
@@ -114,12 +109,7 @@ function Animated() {
                 onFinish={(value) => console.log('fade in finished', value)}
               >
                 {(props) => (
-                  <span
-                    {...props}
-                    css={css`
-                      position: absolute;
-                    `}
-                  >
+                  <span {...props} css={spinnerStyles}>
                     <Spinner size="xlarge" />
                   </span>
                 )}
@@ -134,12 +124,7 @@ function Animated() {
 
 export default function Example() {
   return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: center;
-      `}
-    >
+    <div css={layoutStyles}>
       <NotAnimated />
       <Animated />
     </div>

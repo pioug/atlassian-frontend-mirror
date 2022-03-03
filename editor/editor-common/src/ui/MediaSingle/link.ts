@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 
-export const MediaLink = styled.a`
+export const mediaLinkStyle = css`
   position: absolute;
   background: transparent;
   top: 0;
@@ -11,5 +11,3 @@ export const MediaLink = styled.a`
   width: 100%;
   height: 100%;
 `;
-
-MediaLink.displayName = 'MediaLink';

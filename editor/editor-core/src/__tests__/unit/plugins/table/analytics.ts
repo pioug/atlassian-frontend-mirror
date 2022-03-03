@@ -37,7 +37,7 @@ import {
 } from '../../../../plugins/table/commands-with-analytics';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { handleCut } from '../../../../plugins/table/event-handlers';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { replaceSelectedTable } from '../../../../plugins/table/transforms';
 
 const defaultTable = table()(

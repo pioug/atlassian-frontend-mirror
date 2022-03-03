@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
 import Range from '@atlaskit/range';
 
@@ -92,8 +92,11 @@ export default class MyComponent extends Component<{}, State> {
           {isModalOpen && (
             <Modal onClose={this.closeModal}>
               <ModalBody>
-                <Label label={`Paragraphs above: ${textAbove}`} />
+                <Label htmlFor="paragraphs-above">
+                  Paragraphs above: {textAbove}
+                </Label>
                 <Range
+                  id="paragraphs-above"
                   value={textAbove}
                   min={0}
                   max={10}
@@ -101,10 +104,13 @@ export default class MyComponent extends Component<{}, State> {
                   onChange={this.onTextAboveChange}
                 />
                 {textAbove > 0 ? <Lorem count={textAbove} /> : null}
-                <Label label="Date" />
-                <DateTimePicker defaultValue={dateTimePickerValue} />
-                <Label label={`Paragraphs below: ${textBelow}`} />
+                <Label htmlFor="react-select-above--input">Date</Label>
+                <DateTimePicker id="above" defaultValue={dateTimePickerValue} />
+                <Label htmlFor="paragraphs-below">
+                  Paragraphs below: {textBelow}
+                </Label>
                 <Range
+                  id="paragraphs-below"
                   value={textBelow}
                   min={0}
                   max={10}

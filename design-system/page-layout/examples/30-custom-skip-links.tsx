@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   Banner,
   Content,
@@ -38,7 +40,7 @@ const Wrapper = ({
       boxSizing: 'border-box',
       overflowY: 'auto',
       overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: 'white',
+      backgroundColor: token('color.background.neutral.subtle', 'white'),
     }}
   >
     {children}
@@ -115,7 +117,7 @@ const BasicGrid = () => {
           height={60}
           isFixed={false}
         >
-          <Wrapper borderColor="gold">
+          <Wrapper borderColor={token('color.border.accent.yellow', 'gold')}>
             <h3 css={{ textAlign: 'center' }}>Banner</h3>
           </Wrapper>
         </Banner>
@@ -126,7 +128,7 @@ const BasicGrid = () => {
           height={60}
           isFixed={false}
         >
-          <Wrapper borderColor="blue">
+          <Wrapper borderColor={token('color.border.accent.blue', 'blue')}>
             <h3 css={{ textAlign: 'center' }}>Product Navigation</h3>
           </Wrapper>
         </TopNavigation>
@@ -138,14 +140,19 @@ const BasicGrid = () => {
             isFixed={false}
             width={125}
           >
-            <Wrapper borderColor="darkgreen">
+            <Wrapper
+              borderColor={token('color.border.accent.green', 'darkgreen')}
+            >
               <div css={{ minWidth: 50, padding: '0 20px' }}>
                 <h4 css={{ textAlign: 'center' }}>Space Navigation</h4>
               </div>
             </Wrapper>
           </LeftSidebarWithoutResize>
           <Main testId="main" id="main" skipLinkTitle="Main Content">
-            <Wrapper borderColor="black" minHeight="400px">
+            <Wrapper
+              borderColor={token('color.border', 'black')}
+              minHeight="400px"
+            >
               <h4 css={{ textAlign: 'center' }}>Main Content</h4>
               <p>
                 Visit the first focusable element on the page to see the skip
@@ -162,7 +169,7 @@ const BasicGrid = () => {
           isFixed={false}
           width={125}
         >
-          <Wrapper borderColor="orange">
+          <Wrapper borderColor={token('color.border.accent.orange', 'orange')}>
             <h3 css={{ textAlign: 'center' }}>Help Panel</h3>
             <p>It's also possible to</p>
           </Wrapper>

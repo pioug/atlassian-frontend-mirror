@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 export const indentationSharedStyles = css`
   .fabric-editor-indentation-mark {

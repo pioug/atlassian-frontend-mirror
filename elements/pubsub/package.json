@@ -35,7 +35,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/lozenge": "^11.0.0",
     "@atlaskit/textfield": "^5.1.0",

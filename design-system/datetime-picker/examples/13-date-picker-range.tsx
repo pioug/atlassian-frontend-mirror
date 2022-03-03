@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line no-restricted-imports
 import { parseISO } from 'date-fns';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DatePicker } from '../src';
 
@@ -32,9 +32,11 @@ export default () => {
   return (
     <div>
       <h3> Export Data </h3>
-      <Label label="Start date (past 30 days)" />
+      <Label htmlFor="react-select-start-date--input">
+        Start date (past 30 days)
+      </Label>
       <DatePicker
-        id="startDate"
+        id="start-date"
         onChange={(date) => setStartDate(date)}
         value={startDate}
         minDate={earliestDateString}
@@ -43,9 +45,9 @@ export default () => {
         testId={'datePicker'}
       />
 
-      <Label label="End date" />
+      <Label htmlFor="react-select-end-date--input">End date</Label>
       <DatePicker
-        id="endDate"
+        id="end-date"
         value={endDate}
         minDate={startDate || earliestDateString}
         maxDate={latestDateString}

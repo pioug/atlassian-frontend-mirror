@@ -35,11 +35,11 @@
     "rxjs": "^5.5.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-card": "^73.2.0",
-    "@atlaskit/media-common": "^2.10.0",
-    "@atlaskit/media-test-helpers": "^29.1.0",
+    "@atlaskit/media-card": "^73.3.0",
+    "@atlaskit/media-common": "^2.11.0",
+    "@atlaskit/media-test-helpers": "^29.2.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "react-dom": "^16.8.0",

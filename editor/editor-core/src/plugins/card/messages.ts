@@ -51,8 +51,8 @@ export const messages = defineMessages({
     description:
       'Title for option to convert the card to become a regular text-based hyperlink.',
   },
-  cardTitle: {
-    id: 'fabric.editor.cardTitle',
+  blockTitle: {
+    id: 'fabric.editor.blockTitle',
     defaultMessage: 'Card',
     description: 'Title for option to display link in the card view.',
   },
@@ -72,8 +72,8 @@ export const messages = defineMessages({
     description:
       'Description for option to convert the card to become a regular text-based hyperlink.',
   },
-  cardDescription: {
-    id: 'fabric.editor.cardDescription',
+  blockDescription: {
+    id: 'fabric.editor.blockDescription',
     defaultMessage:
       'Display more information about a link, including a summary and actions',
     description: 'Description for option to display link in the card view.',

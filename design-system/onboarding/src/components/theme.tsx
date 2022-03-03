@@ -12,7 +12,7 @@ const spotlightTheme = {
       focus: token('color.background.neutral', colors.P400),
     },
     boxShadow: {
-      focus: `0 0 0 2px ${token('color.icon.discovery', colors.P100)}`,
+      focus: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
     },
     color: {
       default: token('color.text.inverse', colors.N0),
@@ -67,7 +67,7 @@ const spotlightTheme = {
       active: 'none',
     },
     boxShadow: {
-      focus: `0 0 0 2px ${token('color.icon.discovery', colors.P100)}`,
+      focus: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
     },
     color: {
       default: token('color.text.inverse', colors.N0),
@@ -95,8 +95,8 @@ const modalTheme = {
     },
     boxShadow: {
       focus: {
-        light: `0 0 0 2px ${token('color.icon.discovery', colors.P100)}`,
-        dark: `0 0 0 2px ${token('color.icon.discovery', colors.P100)}`,
+        light: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
+        dark: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,
       },
     },
     color: {

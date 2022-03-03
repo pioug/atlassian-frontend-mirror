@@ -2,13 +2,21 @@
 // Re-generate by running `yarn build tokens`.
 const tokens = {
   'color.text.accent.blue': '--ds-text-accent-blue',
+  'color.text.accent.blue.bolder': '--ds-text-accent-blue-bolder',
   'color.text.accent.red': '--ds-text-accent-red',
+  'color.text.accent.red.bolder': '--ds-text-accent-red-bolder',
   'color.text.accent.orange': '--ds-text-accent-orange',
+  'color.text.accent.orange.bolder': '--ds-text-accent-orange-bolder',
   'color.text.accent.yellow': '--ds-text-accent-yellow',
+  'color.text.accent.yellow.bolder': '--ds-text-accent-yellow-bolder',
   'color.text.accent.green': '--ds-text-accent-green',
+  'color.text.accent.green.bolder': '--ds-text-accent-green-bolder',
   'color.text.accent.purple': '--ds-text-accent-purple',
+  'color.text.accent.purple.bolder': '--ds-text-accent-purple-bolder',
   'color.text.accent.teal': '--ds-text-accent-teal',
+  'color.text.accent.teal.bolder': '--ds-text-accent-teal-bolder',
   'color.text.accent.magenta': '--ds-text-accent-magenta',
+  'color.text.accent.magenta.bolder': '--ds-text-accent-magenta-bolder',
   'color.text': '--ds-text',
   'color.text.subtle': '--ds-text-subtle',
   'color.text.subtlest': '--ds-text-subtlest',
@@ -70,20 +78,72 @@ const tokens = {
   'color.border.information': '--ds-border-information',
   'color.border.focus': '--ds-border-focus',
   'color.border.neutral': '--ds-border-neutral',
+  'color.background.accent.blue.subtlest':
+    '--ds-background-accent-blue-subtlest',
+  'color.background.accent.blue.subtler': '--ds-background-accent-blue-subtler',
+  'color.background.accent.blue.subtle': '--ds-background-accent-blue-subtle',
+  'color.background.accent.blue.bolder': '--ds-background-accent-blue-bolder',
   'color.background.accent.blue': '--ds-background-accent-blue',
   'color.background.accent.blue.bold': '--ds-background-accent-blue-bold',
+  'color.background.accent.red.subtlest': '--ds-background-accent-red-subtlest',
+  'color.background.accent.red.subtler': '--ds-background-accent-red-subtler',
+  'color.background.accent.red.subtle': '--ds-background-accent-red-subtle',
+  'color.background.accent.red.bolder': '--ds-background-accent-red-bolder',
   'color.background.accent.red': '--ds-background-accent-red',
   'color.background.accent.red.bold': '--ds-background-accent-red-bold',
+  'color.background.accent.orange.subtlest':
+    '--ds-background-accent-orange-subtlest',
+  'color.background.accent.orange.subtler':
+    '--ds-background-accent-orange-subtler',
+  'color.background.accent.orange.subtle':
+    '--ds-background-accent-orange-subtle',
+  'color.background.accent.orange.bolder':
+    '--ds-background-accent-orange-bolder',
   'color.background.accent.orange': '--ds-background-accent-orange',
   'color.background.accent.orange.bold': '--ds-background-accent-orange-bold',
+  'color.background.accent.yellow.subtlest':
+    '--ds-background-accent-yellow-subtlest',
+  'color.background.accent.yellow.subtler':
+    '--ds-background-accent-yellow-subtler',
+  'color.background.accent.yellow.subtle':
+    '--ds-background-accent-yellow-subtle',
+  'color.background.accent.yellow.bolder':
+    '--ds-background-accent-yellow-bolder',
   'color.background.accent.yellow': '--ds-background-accent-yellow',
   'color.background.accent.yellow.bold': '--ds-background-accent-yellow-bold',
+  'color.background.accent.green.subtlest':
+    '--ds-background-accent-green-subtlest',
+  'color.background.accent.green.subtler':
+    '--ds-background-accent-green-subtler',
+  'color.background.accent.green.subtle': '--ds-background-accent-green-subtle',
+  'color.background.accent.green.bolder': '--ds-background-accent-green-bolder',
   'color.background.accent.green': '--ds-background-accent-green',
   'color.background.accent.green.bold': '--ds-background-accent-green-bold',
+  'color.background.accent.teal.subtlest':
+    '--ds-background-accent-teal-subtlest',
+  'color.background.accent.teal.subtler': '--ds-background-accent-teal-subtler',
+  'color.background.accent.teal.subtle': '--ds-background-accent-teal-subtle',
+  'color.background.accent.teal.bolder': '--ds-background-accent-teal-bolder',
   'color.background.accent.teal': '--ds-background-accent-teal',
   'color.background.accent.teal.bold': '--ds-background-accent-teal-bold',
+  'color.background.accent.purple.subtlest':
+    '--ds-background-accent-purple-subtlest',
+  'color.background.accent.purple.subtler':
+    '--ds-background-accent-purple-subtler',
+  'color.background.accent.purple.subtle':
+    '--ds-background-accent-purple-subtle',
+  'color.background.accent.purple.bolder':
+    '--ds-background-accent-purple-bolder',
   'color.background.accent.purple': '--ds-background-accent-purple',
   'color.background.accent.purple.bold': '--ds-background-accent-purple-bold',
+  'color.background.accent.magenta.subtlest':
+    '--ds-background-accent-magenta-subtlest',
+  'color.background.accent.magenta.subtler':
+    '--ds-background-accent-magenta-subtler',
+  'color.background.accent.magenta.subtle':
+    '--ds-background-accent-magenta-subtle',
+  'color.background.accent.magenta.bolder':
+    '--ds-background-accent-magenta-bolder',
   'color.background.accent.magenta': '--ds-background-accent-magenta',
   'color.background.accent.magenta.bold': '--ds-background-accent-magenta-bold',
   'color.background.disabled': '--ds-background-disabled',
@@ -261,13 +321,21 @@ const tokens = {
 
 export type CSSTokenMap = {
   'color.text.accent.blue': 'var(--ds-text-accent-blue)';
+  'color.text.accent.blue.bolder': 'var(--ds-text-accent-blue-bolder)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
+  'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
   'color.text.accent.orange': 'var(--ds-text-accent-orange)';
+  'color.text.accent.orange.bolder': 'var(--ds-text-accent-orange-bolder)';
   'color.text.accent.yellow': 'var(--ds-text-accent-yellow)';
+  'color.text.accent.yellow.bolder': 'var(--ds-text-accent-yellow-bolder)';
   'color.text.accent.green': 'var(--ds-text-accent-green)';
+  'color.text.accent.green.bolder': 'var(--ds-text-accent-green-bolder)';
   'color.text.accent.purple': 'var(--ds-text-accent-purple)';
+  'color.text.accent.purple.bolder': 'var(--ds-text-accent-purple-bolder)';
   'color.text.accent.teal': 'var(--ds-text-accent-teal)';
+  'color.text.accent.teal.bolder': 'var(--ds-text-accent-teal-bolder)';
   'color.text.accent.magenta': 'var(--ds-text-accent-magenta)';
+  'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
   'color.text': 'var(--ds-text)';
   'color.text.subtle': 'var(--ds-text-subtle)';
   'color.text.subtlest': 'var(--ds-text-subtlest)';
@@ -329,20 +397,52 @@ export type CSSTokenMap = {
   'color.border.information': 'var(--ds-border-information)';
   'color.border.focus': 'var(--ds-border-focus)';
   'color.border.neutral': 'var(--ds-border-neutral)';
+  'color.background.accent.blue.subtlest': 'var(--ds-background-accent-blue-subtlest)';
+  'color.background.accent.blue.subtler': 'var(--ds-background-accent-blue-subtler)';
+  'color.background.accent.blue.subtle': 'var(--ds-background-accent-blue-subtle)';
+  'color.background.accent.blue.bolder': 'var(--ds-background-accent-blue-bolder)';
   'color.background.accent.blue': 'var(--ds-background-accent-blue)';
   'color.background.accent.blue.bold': 'var(--ds-background-accent-blue-bold)';
+  'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
+  'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
+  'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
+  'color.background.accent.red.bolder': 'var(--ds-background-accent-red-bolder)';
   'color.background.accent.red': 'var(--ds-background-accent-red)';
   'color.background.accent.red.bold': 'var(--ds-background-accent-red-bold)';
+  'color.background.accent.orange.subtlest': 'var(--ds-background-accent-orange-subtlest)';
+  'color.background.accent.orange.subtler': 'var(--ds-background-accent-orange-subtler)';
+  'color.background.accent.orange.subtle': 'var(--ds-background-accent-orange-subtle)';
+  'color.background.accent.orange.bolder': 'var(--ds-background-accent-orange-bolder)';
   'color.background.accent.orange': 'var(--ds-background-accent-orange)';
   'color.background.accent.orange.bold': 'var(--ds-background-accent-orange-bold)';
+  'color.background.accent.yellow.subtlest': 'var(--ds-background-accent-yellow-subtlest)';
+  'color.background.accent.yellow.subtler': 'var(--ds-background-accent-yellow-subtler)';
+  'color.background.accent.yellow.subtle': 'var(--ds-background-accent-yellow-subtle)';
+  'color.background.accent.yellow.bolder': 'var(--ds-background-accent-yellow-bolder)';
   'color.background.accent.yellow': 'var(--ds-background-accent-yellow)';
   'color.background.accent.yellow.bold': 'var(--ds-background-accent-yellow-bold)';
+  'color.background.accent.green.subtlest': 'var(--ds-background-accent-green-subtlest)';
+  'color.background.accent.green.subtler': 'var(--ds-background-accent-green-subtler)';
+  'color.background.accent.green.subtle': 'var(--ds-background-accent-green-subtle)';
+  'color.background.accent.green.bolder': 'var(--ds-background-accent-green-bolder)';
   'color.background.accent.green': 'var(--ds-background-accent-green)';
   'color.background.accent.green.bold': 'var(--ds-background-accent-green-bold)';
+  'color.background.accent.teal.subtlest': 'var(--ds-background-accent-teal-subtlest)';
+  'color.background.accent.teal.subtler': 'var(--ds-background-accent-teal-subtler)';
+  'color.background.accent.teal.subtle': 'var(--ds-background-accent-teal-subtle)';
+  'color.background.accent.teal.bolder': 'var(--ds-background-accent-teal-bolder)';
   'color.background.accent.teal': 'var(--ds-background-accent-teal)';
   'color.background.accent.teal.bold': 'var(--ds-background-accent-teal-bold)';
+  'color.background.accent.purple.subtlest': 'var(--ds-background-accent-purple-subtlest)';
+  'color.background.accent.purple.subtler': 'var(--ds-background-accent-purple-subtler)';
+  'color.background.accent.purple.subtle': 'var(--ds-background-accent-purple-subtle)';
+  'color.background.accent.purple.bolder': 'var(--ds-background-accent-purple-bolder)';
   'color.background.accent.purple': 'var(--ds-background-accent-purple)';
   'color.background.accent.purple.bold': 'var(--ds-background-accent-purple-bold)';
+  'color.background.accent.magenta.subtlest': 'var(--ds-background-accent-magenta-subtlest)';
+  'color.background.accent.magenta.subtler': 'var(--ds-background-accent-magenta-subtler)';
+  'color.background.accent.magenta.subtle': 'var(--ds-background-accent-magenta-subtle)';
+  'color.background.accent.magenta.bolder': 'var(--ds-background-accent-magenta-bolder)';
   'color.background.accent.magenta': 'var(--ds-background-accent-magenta)';
   'color.background.accent.magenta.bold': 'var(--ds-background-accent-magenta-bold)';
   'color.background.disabled': 'var(--ds-background-disabled)';

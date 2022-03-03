@@ -101,6 +101,7 @@ export interface TablePluginState {
   pluginConfig: PluginConfig;
   isHeaderColumnEnabled: boolean;
   isHeaderRowEnabled: boolean;
+  isNumberColumnEnabled?: boolean;
   // position of a cell PM node that has cursor
   targetCellPosition?: number;
   // controls need to be re-rendered when table content changes
@@ -118,8 +119,6 @@ export interface TablePluginState {
   ordering?: TableColumnOrdering;
   resizeHandleColumnIndex?: number;
   tableCellOptimization?: boolean;
-  tableHeight?: number;
-  tableWidth?: number;
   // for table wrap/collapse
   isTableCollapsed?: boolean; // is the current table already in an expand?
   canCollapseTable?: boolean; // enabled/disabled state of collapse option
@@ -196,11 +195,7 @@ export type TablePluginAction =
   | {
       type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
     }
-  | { type: 'TOGGLE_CONTEXTUAL_MENU' }
-  | {
-      type: 'SET_TABLE_SIZE';
-      data: { tableHeight: number; tableWidth: number };
-    };
+  | { type: 'TOGGLE_CONTEXTUAL_MENU' };
 
 export type ColumnResizingPluginAction =
   | {

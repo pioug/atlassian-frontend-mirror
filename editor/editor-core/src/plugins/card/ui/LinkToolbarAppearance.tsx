@@ -14,10 +14,12 @@ import { isSupportedInParent } from '../../../utils/nodes';
 import Dropdown from '../../floating-toolbar/ui/Dropdown';
 import { messages } from '../messages';
 import nodeNames from '../../../messages';
-import { DropdownOptions } from '../../../plugins/floating-toolbar/ui/types';
 import { getFeatureFlags } from '../../../plugins/feature-flags-context';
-import LinkToolbarIconDropdown from './LinkToolbarIconDropdown';
-import LinkToolbarButtonGroup from './LinkToolbarButtonGroup';
+import { LinkToolbarIconDropdown } from './LinkToolbarIconDropdown';
+import { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
+import { getButtonGroupOption } from './link-toolbar-button-group-options';
+import { OptionConfig } from './types';
+import { getIconDropdownOption } from './link-toolbar-icon-dropdown-options';
 
 export interface LinkToolbarAppearanceProps {
   intl: IntlShape;
@@ -28,7 +30,6 @@ export interface LinkToolbarAppearanceProps {
   allowEmbeds?: boolean;
   platform?: CardPlatform;
 }
-
 export class LinkToolbarAppearance extends React.Component<
   LinkToolbarAppearanceProps,
   {}
@@ -69,6 +70,7 @@ export class LinkToolbarAppearance extends React.Component<
       : parentNodeName(editorState, intl);
     const embedOption = allowEmbeds &&
       preview && {
+        appearance: 'embed' as const,
         title: intl.formatMessage(messages.embed),
         onClick: setSelectedCardAppearance('embed'),
         selected: currentAppearance === 'embed',
@@ -77,7 +79,7 @@ export class LinkToolbarAppearance extends React.Component<
         disabled: !isSmartLinkSupportedInParent,
         tooltip,
       };
-    const options: DropdownOptions<Function> = [
+    const options: OptionConfig[] = [
       {
         title: intl.formatMessage(messages.url),
         onClick: () =>
@@ -86,27 +88,29 @@ export class LinkToolbarAppearance extends React.Component<
         testId: 'url-appearance',
       },
       {
+        appearance: 'inline',
         title: intl.formatMessage(messages.inline),
         onClick: setSelectedCardAppearance('inline'),
         selected: currentAppearance === 'inline',
-        hidden: false,
         testId: 'inline-appearance',
       },
       {
+        appearance: 'block',
         title: intl.formatMessage(messages.block),
         onClick: setSelectedCardAppearance('block'),
         selected: currentAppearance === 'block',
-        hidden: false,
         testId: 'block-appearance',
         disabled: !isSmartLinkSupportedInParent,
         tooltip,
       },
     ];
-    const title = intl.formatMessage(
-      currentAppearance ? messages[currentAppearance] : messages.url,
-    );
+
     const dispatchCommand = (fn?: Function) => {
       fn && fn(editorState, view && view.dispatch);
+      // Refocus the view to ensure the editor has focus
+      if (view && !view.hasFocus()) {
+        view.focus();
+      }
     };
 
     if (embedOption) {
@@ -116,16 +120,37 @@ export class LinkToolbarAppearance extends React.Component<
     const { viewChangingExperimentToolbarStyle } = getFeatureFlags(editorState);
 
     if (viewChangingExperimentToolbarStyle === 'toolbarIcons') {
-      return <LinkToolbarButtonGroup key="link-toolbar-button-group" />;
+      return (
+        <LinkToolbarButtonGroup
+          key="link-toolbar-button-group"
+          options={options.map((option) =>
+            getButtonGroupOption(intl, dispatchCommand, option),
+          )}
+        />
+      );
     }
 
     if (viewChangingExperimentToolbarStyle === 'newDropdown') {
-      return <LinkToolbarIconDropdown key="link-toolbar-icon-dropdown" />;
+      return (
+        <LinkToolbarIconDropdown
+          key="link-toolbar-icon-dropdown"
+          title="Change view"
+          buttonTestId="link-toolbar-appearance-button"
+          dispatchCommand={dispatchCommand}
+          options={options.map((option) =>
+            getIconDropdownOption(intl, dispatchCommand, option),
+          )}
+        />
+      );
     }
+
+    const title = intl.formatMessage(
+      currentAppearance ? messages[currentAppearance] : messages.url,
+    );
 
     return (
       <Dropdown
-        key={'link-toolbar'}
+        key="link-toolbar"
         buttonTestId="link-toolbar-appearance-button"
         title={title}
         dispatchCommand={dispatchCommand}

@@ -16,7 +16,7 @@ import {
 } from '../../../../../analytics';
 
 import { TablePluginState } from '../../../../types';
-import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../pm-plugins/plugin-key';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 
 import * as analytics from '../../../../../analytics/utils';

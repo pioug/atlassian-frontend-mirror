@@ -20,10 +20,12 @@ export interface TooltipPrimitiveProps {
   id?: string;
 }
 
-const primitiveCss = css`
-  z-index: ${layers.tooltip()};
-  cursor: default;
-`;
+const VAR_PRIMITIVE_ZINDEX = 'tooltipPrimitiveZindex';
+
+const primitiveStyles = css({
+  zindex: `var(${VAR_PRIMITIVE_ZINDEX})`,
+  cursor: `default`,
+});
 
 const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
   function TooltipPrimitive(
@@ -39,16 +41,20 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
     },
     ref,
   ) {
+    const styleWithZIndex = {
+      ...style,
+      [VAR_PRIMITIVE_ZINDEX]: layers.tooltip(),
+    };
     return (
       // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <div
         role="tooltip"
         ref={ref}
-        style={style}
+        style={styleWithZIndex}
         className={className}
         onMouseOut={onMouseOut}
         onMouseOver={onMouseOver}
-        css={primitiveCss}
+        css={primitiveStyles}
         data-placement={placement}
         data-testid={testId}
         id={id}

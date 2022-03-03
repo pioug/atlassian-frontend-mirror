@@ -11,7 +11,7 @@ const urlDateTimePicker = getExampleUrl(
 const datePicker = '[data-testid="datePicker--container"]';
 const menu = `[aria-label="calendar"]`;
 const date = '[role=gridcell]:nth-child(6)';
-const input = 'input#react-select-datepicker-input';
+const input = 'input#react-select-stock-input';
 const toggle = 'label[for="toggle"]';
 
 const value = `${datePicker} > div`;

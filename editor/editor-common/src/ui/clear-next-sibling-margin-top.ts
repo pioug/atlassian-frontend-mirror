@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 
 // We use !important to ensure next sibling gets the margin reset no matter what
-export const ClearNextSiblingMarginTop = styled.div`
+export const clearNextSiblingMarginTopStyle = css`
   & + * {
     margin-top: 0 !important;
   }

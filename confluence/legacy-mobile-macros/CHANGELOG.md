@@ -1,5 +1,16 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.0.0
+
+### Major Changes
+
+- [`c45cdcd7dff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c45cdcd7dff) - [ux] Adds support for rendering macros inline on mobile using the contentRenderer query. This change is only enabled when appropriate values are provided in a rendering strategy map from the Confluence native mobile apps.
+- [`e63d6997782`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e63d6997782) - Macros rendered by the legacy-mobile-macros package will now fire a macro viewed analytics event when rendered
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

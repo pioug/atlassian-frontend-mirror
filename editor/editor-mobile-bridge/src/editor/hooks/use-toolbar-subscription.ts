@@ -9,6 +9,7 @@ import {
 import { createFloatingToolbarConfigForStatus } from '../status-utils';
 import { createFloatingToolbarConfigForDate } from '../date-utils';
 import { isPanelNode } from '@atlaskit/editor-core/src/plugins/paste/util';
+import { isCaptionNode } from '@atlaskit/editor-core/src/plugins/media/utils/media-single';
 import { createFloatingToolbarConfigForPanel } from '../panel-utils';
 
 export function useToolbarSubscription(
@@ -68,11 +69,21 @@ export function useToolbarSubscription(
               editorConfiguration,
               toolbarConfig,
             );
+            bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+              toolbarConfig.config,
+              toolbarConfig.node,
+            );
+          } else if (isCaptionNode(editorView)) {
+            bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+              undefined,
+              null,
+            );
+          } else {
+            bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+              toolbarConfig.config,
+              toolbarConfig.node,
+            );
           }
-          bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-            toolbarConfig.config,
-            toolbarConfig.node,
-          );
         } else {
           bridge.mobileEditingToolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
             undefined,

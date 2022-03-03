@@ -43,6 +43,33 @@ describe('Clipboard', () => {
     jest.resetAllMocks();
   });
 
+  it('should disable event handler if event target is html input element', () => {
+    const clipboard = mount(
+      <Clipboard mediaClient={mediaClient} config={config} />,
+    );
+    const clipboardInstance = clipboard
+      .find(ClipboardBase)
+      .instance() as ClipboardBase;
+
+    const addFilesWithSourceSpy = jest.spyOn(
+      (clipboardInstance as any).uploadService,
+      'addFilesWithSource',
+    );
+
+    const event: any = {
+      target: document.createElement('input'),
+      clipboardData: {
+        files: [new ClipboardMockFile()],
+        types: [],
+      },
+    };
+
+    // simulate paste event on document object
+    eventsMap.paste(event);
+
+    expect(addFilesWithSourceSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('should call this.uploadService.addFilesWithSource() when a paste event is dispatched with a single file', () => {
     const clipboard = mount(
       <Clipboard mediaClient={mediaClient} config={config} />,

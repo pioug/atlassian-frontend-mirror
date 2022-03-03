@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
@@ -22,6 +22,12 @@ import { SingleToolbarButtons } from './single-toolbar-buttons';
 import { MoreButton } from './more-button';
 import { FormattingTextDropdownMenu } from './dropdown-menu';
 import { toolbarMessages } from './toolbar-messages';
+import {
+  usePreviousObjectState,
+  compareItemsArrays,
+  isArrayContainsContent,
+} from '../../utils';
+import Announcer from '../../../../utils/announcer/announcer';
 
 export type ToolbarFormattingProps = {
   editorView: EditorView;
@@ -47,6 +53,7 @@ const ToolbarFormatting: React.FC<
   intl,
 }) => {
   const editorState = useMemo(() => editorView.state, [editorView.state]);
+  const [message, setMessage] = useState('');
 
   const defaultIcons = useFormattingIcons({
     editorState,
@@ -73,6 +80,65 @@ const ToolbarFormatting: React.FC<
     responsivenessEnabled: shouldUseResponsiveToolbar,
   });
 
+  const clearFormattingStatus = intl.formatMessage(
+    toolbarMessages.textFormattingOff,
+  );
+  const superscriptOffSubscriptOnStatus = intl.formatMessage(
+    toolbarMessages.superscriptOffSubscriptOn,
+  );
+  const subscriptOffSuperscriptOnStatus = intl.formatMessage(
+    toolbarMessages.subscriptOffSuperscriptOn,
+  );
+
+  const activeItems = [...dropdownItems, ...singleItems].filter(
+    (item) => item.isActive,
+  );
+  const prevActiveItems = usePreviousObjectState(activeItems);
+
+  const fromSuperscriptToSubscript =
+    isArrayContainsContent(activeItems, 'Subscript') &&
+    isArrayContainsContent(prevActiveItems, 'Superscript');
+
+  const fromSubscriptToSuperscript =
+    isArrayContainsContent(activeItems, 'Superscript') &&
+    isArrayContainsContent(prevActiveItems, 'Subscript');
+
+  let comparedItems: Array<MenuIconItem>;
+  let screenReaderMessage: string = '';
+
+  if (prevActiveItems && activeItems.length > prevActiveItems.length) {
+    comparedItems = compareItemsArrays(activeItems, prevActiveItems);
+    screenReaderMessage = intl.formatMessage(toolbarMessages.on, {
+      formattingType: comparedItems[0].content,
+    }) as string;
+  } else {
+    comparedItems = compareItemsArrays(prevActiveItems, activeItems);
+    if (comparedItems && comparedItems.length) {
+      screenReaderMessage = intl.formatMessage(toolbarMessages.off, {
+        formattingType: comparedItems[0].content,
+      }) as string;
+      if (activeItems[0]?.content === 'Code') {
+        screenReaderMessage = intl.formatMessage(toolbarMessages.codeOn, {
+          textFormattingOff:
+            prevActiveItems?.length > 1
+              ? clearFormattingStatus
+              : screenReaderMessage,
+        });
+      }
+      if (fromSuperscriptToSubscript) {
+        screenReaderMessage = superscriptOffSubscriptOnStatus;
+      }
+      if (fromSubscriptToSuperscript) {
+        screenReaderMessage = subscriptOffSuperscriptOnStatus;
+      }
+    }
+  }
+
+  // handle 'Clear formatting' status for screen readers
+  if (!activeItems?.length && prevActiveItems?.length > 1) {
+    screenReaderMessage = clearFormattingStatus;
+  }
+
   const items: Array<MenuIconItem> = useMemo(() => {
     if (!clearIcon) {
       return dropdownItems;
@@ -85,8 +151,22 @@ const ToolbarFormatting: React.FC<
     toolbarMessages.moreFormatting,
   );
 
+  useEffect(() => {
+    if (screenReaderMessage) {
+      setMessage(screenReaderMessage);
+    }
+  }, [screenReaderMessage]);
+
   return (
     <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
+      {message && (
+        <Announcer
+          ariaLive="assertive"
+          text={message}
+          ariaRelevant="additions"
+          delay={250}
+        />
+      )}
       <SingleToolbarButtons
         items={singleItems}
         editorView={editorView}

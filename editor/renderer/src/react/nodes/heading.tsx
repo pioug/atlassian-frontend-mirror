@@ -52,9 +52,16 @@ function Heading(
     showAnchorLink?: boolean;
     allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
     marks?: PMNode['marks'];
+    invisible?: boolean;
   }>,
 ) {
-  const { headingId, dataAttributes, allowHeadingAnchorLinks, marks } = props;
+  const {
+    headingId,
+    dataAttributes,
+    allowHeadingAnchorLinks,
+    marks,
+    invisible,
+  } = props;
   const HX = `h${props.level}` as 'h1';
 
   const showAnchorLink = !!props.showAnchorLink;
@@ -64,8 +71,9 @@ function Heading(
     (allowHeadingAnchorLinks as HeadingAnchorLinksConfig)
       .allowNestedHeaderLinks;
 
+  const headingIdToUse = invisible ? undefined : headingId;
   return (
-    <HX id={headingId} {...dataAttributes}>
+    <HX id={headingIdToUse} {...dataAttributes}>
       <>
         {showAnchorLink && isRightAligned
           ? WrapChildTextInSpan(props.children)

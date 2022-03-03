@@ -1,5 +1,14 @@
 # @atlaskit/adf-schema
 
+## 22.0.2
+
+### Patch Changes
+
+- [`03930b9f4c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03930b9f4c7) - ED-14253: fixed infinite transaction loop after uploading a file to the editor.
+
+  - updated ADF for MediaBaseAttributes.\_\_contextId to allow for null value
+  - fixed Editor example page 2-comment-jira-bento
+
 ## 22.0.1
 
 ### Patch Changes

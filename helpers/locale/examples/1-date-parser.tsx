@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import TextField from '@atlaskit/textfield';
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { LocalizationProvider, createLocalizationProvider } from '../src';
 import LocaleSelect, { Locale } from '../src/LocaleSelect';
@@ -64,14 +64,15 @@ export default class Example extends Component<Props, State> {
     return (
       <Fragment>
         <h3>Date Parser</h3>
-        <Label label="Input" />
+        <Label htmlFor="input">Input</Label>
         <TextField
+          id="input"
           value={dateInput}
           onChange={this.onInputChange}
           placeholder={l10n.formatDate(now)}
         />
-        <Label label="Output" />
-        <TextField value={parsedDateISO} isReadOnly isDisabled />
+        <Label htmlFor="output">Output</Label>
+        <TextField id="output" value={parsedDateISO} isReadOnly isDisabled />
 
         {this.props.l10n ? undefined : (
           <LocaleSelect onLocaleChange={this.onLocaleChange} />

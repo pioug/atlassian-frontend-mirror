@@ -45,7 +45,8 @@ import {
 import { splitCell } from '../../commands/split-cell';
 import { wrapTableInExpand } from '../../commands/collapse';
 import { handleCut } from '../../event-handlers';
-import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
+import { getPluginState } from '../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../pm-plugins/plugin-key';
 import { TablePluginState } from '../../types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';

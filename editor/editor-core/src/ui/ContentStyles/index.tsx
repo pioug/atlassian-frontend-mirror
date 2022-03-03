@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { useMemo } from 'react';
+import { jsx, css, useTheme } from '@emotion/react';
 import styled from 'styled-components';
 import {
   whitespaceSharedStyles,
@@ -55,10 +57,10 @@ type ContentStylesProps = {
   featureFlags?: FeatureFlags;
 };
 
-const ContentStyles = styled.div<ContentStylesProps>`
+const contentStyles = (props: ContentStylesProps) => css`
   .ProseMirror {
     outline: none;
-    font-size: ${editorFontSize}px;
+    font-size: ${editorFontSize({ theme: props.theme })}px;
     ${whitespaceSharedStyles};
     ${paragraphSharedStyles};
     ${listsSharedStyles};
@@ -66,6 +68,34 @@ const ContentStyles = styled.div<ContentStylesProps>`
     ${shadowSharedStyle};
   }
 
+  ${tableStyles(props)}
+  ${props.featureFlags?.codeBlockSyntaxHighlighting
+    ? highlightingCodeBlockStyles(props)
+    : codeBlockStyles(props)}
+
+  ${blocktypeStyles(
+    props,
+  )}
+  ${textFormattingStyles(
+    props,
+  )}
+  ${textColorStyles}
+  ${mediaStyles}
+  ${layoutStyles}
+  ${tasksAndDecisionsStyles}
+  ${blockMarksSharedStyles}
+  ${dateSharedStyle}
+  ${annotationSharedStyles(
+    props,
+  )}
+  ${embedCardStyles}
+
+  .mediaGroupView-content-wrap ul {
+    padding: 0;
+  }
+`;
+
+const DeprecatedContentStyles = styled.div<ContentStylesProps>`
   .ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
     pointer-events: none;
     opacity: 0.7;
@@ -87,56 +117,33 @@ const ContentStyles = styled.div<ContentStylesProps>`
     outline: 2px solid #8cf;
   }
 
-  ${blocktypeStyles}
-  ${textFormattingStyles}
   ${placeholderTextStyles}
   ${placeholderStyles}
-  ${({
-    featureFlags,
-  }) =>
-    featureFlags?.codeBlockSyntaxHighlighting
-      ? highlightingCodeBlockStyles
-      : codeBlockStyles}
-  ${textColorStyles}
   ${listsStyles}
   ${ruleStyles}
-  ${mediaStyles}
-  ${layoutStyles}
   ${telepointerStyle}
   ${gapCursorStyles};
-  ${tableStyles}
   ${panelStyles}
   ${fakeCursorStyles}
   ${mentionsStyles}
-  ${({
-    featureFlags,
-  }) =>
+  ${({ featureFlags }) =>
     featureFlags?.nextEmojiNodeView
       ? emojiStylesNext
       : emojiStyles}
-  ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}
-  ${blockMarksSharedStyles}
-  ${dateSharedStyle}
   ${extensionStyles}
   ${expandStyles}
   ${findReplaceStyles}
   ${taskDecisionStyles}
   ${statusStyles}
-  ${annotationSharedStyles}
   ${smartCardStyles}
   ${smartCardSharedStyles}
   ${dateStyles}
-  ${embedCardStyles}
   ${unsupportedStyles}
 
   .panelView-content-wrap {
     box-sizing: border-box;
-  }
-
-  .mediaGroupView-content-wrap ul {
-    padding: 0;
   }
 
   /** Needed to override any cleared floats, e.g. image wrapping */
@@ -193,11 +200,25 @@ export default React.forwardRef(
     ref,
   ) => {
     const featureFlags = useFeatureFlags();
+    const { allowAnnotation } = props;
+    const theme = useTheme();
+
+    const memoizedStyle = useMemo(
+      () =>
+        contentStyles({
+          theme,
+          allowAnnotation,
+          featureFlags,
+        }),
+      [theme, featureFlags, allowAnnotation],
+    );
+
     return (
-      <ContentStyles
+      <DeprecatedContentStyles
         {...props}
         innerRef={ref as any}
         featureFlags={featureFlags}
+        css={memoizedStyle}
       />
     );
   },

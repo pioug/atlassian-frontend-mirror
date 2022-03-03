@@ -18,6 +18,7 @@ import {
   getRenderErrorEventPayload,
   getRenderPreviewableCardPayload,
   extractErrorInfo,
+  SSRStatus,
 } from '../../analytics';
 import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
 import {
@@ -118,11 +119,16 @@ describe('Media Analytics', () => {
         'metadata-fetch',
         createRateLimitedError(),
       );
+      const ssrReliability: SSRStatus = {
+        server: { status: 'unknown' },
+        client: { status: 'unknown' },
+      };
       expect(
         getRenderErrorEventPayload(
           fileAttributes,
           performanceAttributes,
           error,
+          ssrReliability,
         ),
       ).toMatchObject({
         eventType: 'operational',

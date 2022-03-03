@@ -8,6 +8,17 @@ import {
   li,
   alignment,
   panel,
+  table,
+  th,
+  tr,
+  decisionItem,
+  decisionList,
+  layoutColumn,
+  layoutSection,
+  nestedExpand,
+  expand,
+  emoji,
+  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -22,10 +33,18 @@ import {
   handlePasteLinkOnSelectedText,
   flattenNestedListInSlice,
   insertIntoPanel,
+  handlePasteIntoTaskAndDecision,
+  handleExpandPasteInTable,
 } from '../../handlers';
 import pastePlugin from '../../index';
 import hyperlinkPlugin from '../../../hyperlink';
 import textFormattingPlugin from '../../../text-formatting';
+import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
+import tablePlugin from '../../../table';
+import expandPlugin from '../../../expand';
+import layoutPlugin from '../../../layout';
+import panelPlugin from '../../../panel';
+import emojiPlugin from '../../../emoji';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -485,4 +504,300 @@ describe('handlePasteLinkOnSelectedText', () => {
     const linkMarkAdded = handlePasteLinkOnSelectedText(pasteSlice)(state);
     expect(linkMarkAdded).toEqual(true);
   });
+});
+
+describe('handlePasteIntoTaskAndDecision', () => {
+  const case0: [
+    string,
+    string,
+    DocBuilder,
+    DocBuilder,
+    DocBuilder,
+    number,
+    number,
+  ] = [
+    'destination is the middle of a decision node with text',
+    'paste content is a panel',
+    // Destination
+    // prettier-ignore
+    doc(
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in {<>}a decision"
+        )
+      )
+    ),
+    // Pasted Content
+    doc('{<}', panel()(p('Some text in a panel{>}'))),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in a decision"
+        )
+      ),
+      panel({ panelType: "info" })(p("Some text in a panel")),
+    ),
+    // Open Start & Open End for Paste Slice
+    1,
+    1,
+  ];
+
+  const case1: [
+    string,
+    string,
+    DocBuilder,
+    DocBuilder,
+    DocBuilder,
+    number,
+    number,
+  ] = [
+    'destination is the middle of a decision node with text',
+    'paste content is text',
+    // Destination
+    // prettier-ignore
+    doc(
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in {<>} a decision"
+        )
+      )
+    ),
+    // Pasted Content
+    doc(p('{<}TEST{>}')),
+    // Expected Document
+    // prettier-ignore
+    doc(
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in TEST a decision"
+        )
+      ),
+    ),
+    // Open Start & Open End for Paste Slice
+    1,
+    1,
+  ];
+
+  const case2: [
+    string,
+    string,
+    DocBuilder,
+    DocBuilder,
+    DocBuilder,
+    number,
+    number,
+  ] = [
+    'destination is a decision node (node selection)',
+    'paste content is a panel',
+    // Destination
+    // prettier-ignore
+    doc(
+      '{<node>}',
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in a decision"
+        )
+      ),
+    ),
+    // Pasted Content
+    doc('{<}', panel()(p('Some text in a panel{>}'))),
+
+    // Expected Document
+    doc(panel()(p('Some text in a panel'))),
+
+    // Open Start & Open End for Paste Slice
+    0,
+    0,
+  ];
+
+  const case3: [
+    string,
+    string,
+    DocBuilder,
+    DocBuilder,
+    DocBuilder,
+    number,
+    number,
+  ] = [
+    'destination is a decision node with text',
+    'paste content is an emoji (node selection)',
+    // Destination
+    // prettier-ignore
+    doc(
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in a {<>}decision"
+        )
+      ),
+    ),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      p(
+        '{<node>}',
+        emoji({ shortName: ":slight_smile:", id: "1f642", text: "🙂" })(),
+      )
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      decisionList({ localId: "test1" })(
+        decisionItem({ localId: "test2" })(
+          "Some text in a ",
+          emoji({ shortName: ":slight_smile:", id: "1f642", text: "🙂" })(),
+          "decision"
+        )
+      )
+    ),
+
+    // Open Start & Open End for Paste Slice
+    1,
+    1,
+  ];
+
+  describe.each<
+    [string, string, DocBuilder, DocBuilder, DocBuilder, number, number]
+  >([case0, case1, case2, case3])(
+    '[case%#] when %s and %s',
+    (
+      _scenarioDest,
+      _scenarioContent,
+      destinationDocument,
+      pasteContent,
+      expectedDocument,
+      openStart,
+      openEnd,
+    ) => {
+      it('should match the expected document and selection', () => {
+        const createEditor = createProsemirrorEditorFactory();
+
+        const editor = (doc: any) => {
+          const preset = new Preset<LightEditorPlugin>()
+            .add([pastePlugin, {}])
+            .add(hyperlinkPlugin)
+            .add(tasksAndDecisionsPlugin)
+            .add(panelPlugin)
+            .add(emojiPlugin);
+
+          return createEditor({
+            doc,
+            preset,
+          });
+        };
+
+        const { editorView } = editor(destinationDocument);
+        const pasteSlice = new Slice(
+          pasteContent(editorView.state.schema).content,
+          openStart,
+          openEnd,
+        );
+        handlePasteIntoTaskAndDecision(pasteSlice)(
+          editorView.state,
+          editorView.dispatch,
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+        expect(() => {
+          editorView.state.tr.doc.check();
+        }).not.toThrow();
+      });
+    },
+  );
+});
+
+describe('handleExpand', () => {
+  const case0: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is in a table',
+    'paste content is an expand',
+    // Destination
+    // prettier-ignore
+    doc(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: "test" })
+      (tr(th({})(p('{<>}'))))
+    ),
+    // Pasted Content
+    doc('{<}', expand({ title: '' })(p('Expand{>}'))),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: "test" })(
+        tr(th({})(nestedExpand({ title: "" })(p("Expand"))))
+      ),
+    ),
+  ];
+
+  const case1: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is in a table',
+    'paste content is an expand inside a layout - function should return early',
+    // Destination
+    // prettier-ignore
+    doc(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: "test" })
+      (tr(th({})(p('{<>}'))))
+    ),
+    // Pasted Content
+    doc(
+      '{<}',
+      layoutSection(
+        layoutColumn({ width: 100 })(expand({ title: '' })(p('Expand{>}'))),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      table({ isNumberColumnEnabled: false, layout: "default", localId: "test" })
+      (tr(th({})(p('{<>}'))))
+    ),
+  ];
+
+  describe.each<[string, string, DocBuilder, DocBuilder, DocBuilder]>([
+    case0,
+    case1,
+  ])(
+    '[case%#] when %s and %s',
+    (
+      _scenarioDest,
+      _scenarioContent,
+      destinationDocument,
+      pasteContent,
+      expectedDocument,
+    ) => {
+      it('should match the expected document and selection', () => {
+        const createEditor = createProsemirrorEditorFactory();
+
+        const editor = (doc: any) => {
+          const preset = new Preset<LightEditorPlugin>()
+            .add([pastePlugin, {}])
+            .add(tablePlugin)
+            .add(expandPlugin)
+            .add(layoutPlugin);
+
+          return createEditor({
+            doc,
+            preset,
+          });
+        };
+
+        const { editorView } = editor(destinationDocument);
+        const pasteSlice = new Slice(
+          pasteContent(editorView.state.schema).content,
+          1,
+          1,
+        );
+
+        handleExpandPasteInTable(pasteSlice)(
+          editorView.state,
+          editorView.dispatch,
+        );
+        expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+        expect(() => {
+          editorView.state.tr.doc.check();
+        }).not.toThrow();
+      });
+    },
+  );
 });

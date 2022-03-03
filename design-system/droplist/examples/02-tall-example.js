@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { Label } from '@atlaskit/field-base';
 import Item, { ItemGroup } from '@atlaskit/item';
 
 import DropList from '../src';
@@ -38,7 +37,6 @@ export default class TallExample extends PureComponent {
   render() {
     return (
       <div>
-        <Label label="With event handlers" />
         <div
           style={{
             borderStyle: 'dashed',

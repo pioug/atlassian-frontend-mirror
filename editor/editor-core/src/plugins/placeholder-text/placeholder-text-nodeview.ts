@@ -1,7 +1,8 @@
 import { NodeView, EditorView } from 'prosemirror-view';
-import { DOMSerializer, Node as PmNode } from 'prosemirror-model';
-import { TextSelection } from 'prosemirror-state';
+import { Node as PMNode } from 'prosemirror-model';
+import { Selection } from 'prosemirror-state';
 import { getPosHandler } from '../../nodeviews';
+import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
 type PmMutationRecord =
   | MutationRecord
@@ -10,48 +11,91 @@ type PmMutationRecord =
       target: Element;
     };
 
+const serializePlaceholderNode = (node: PMNode): HTMLElement => {
+  const element = document.createElement('span');
+
+  element.classList.add('pm-placeholder');
+  if (browser.gecko) {
+    element.setAttribute('contenteditable', 'true');
+  }
+
+  element.innerText = ZERO_WIDTH_SPACE;
+
+  const elementChildren = document.createElement('span');
+  elementChildren.classList.add('pm-placeholder__text');
+  elementChildren.dataset.placeholder = node.attrs.text;
+
+  elementChildren.setAttribute('contenteditable', 'false');
+
+  element.appendChild(elementChildren);
+  if (browser.safari) {
+    element.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
+  } else {
+    element.appendChild(document.createElement('wbr'));
+  }
+
+  return element;
+};
+
 export class PlaceholderTextNodeView implements NodeView {
   public readonly dom: Node;
 
   public constructor(
-    private readonly node: PmNode,
+    private readonly node: PMNode,
     private readonly view: EditorView,
     private readonly getPos: getPosHandler,
   ) {
-    const serializer = DOMSerializer.fromSchema(this.view.state.schema);
-    this.dom = serializer.serializeNode(this.node);
+    this.dom = serializePlaceholderNode(this.node);
+    this.getPos = getPos;
+  }
+
+  public stopEvent(e: Event) {
+    if (e.type === 'mousedown' && typeof this.getPos === 'function') {
+      e.preventDefault();
+
+      const { view } = this;
+      const startNodePosition = this.getPos();
+      const tr = view.state.tr;
+
+      tr.setSelection(Selection.near(tr.doc.resolve(startNodePosition)));
+
+      view.dispatch(tr);
+
+      return true;
+    }
+
+    return false;
   }
 
   public ignoreMutation(record: PmMutationRecord) {
-    // 😬
-    // DOM Node needs to be contenteditable so Android does
-    // not close its virtual keyboard, see ED-9613
-    // To reestablish desired behaviour we replace the placeholdeer
-    // when we detect a characterData mutation inside
-    const { view, dom, node } = this;
-    const content = dom.textContent || '';
-    const text = node.attrs.text;
-
-    if (
-      record.type === 'characterData' &&
-      content !== text &&
-      content.includes(text) &&
-      typeof this.getPos === 'function'
-    ) {
-      const start = this.getPos();
-      const end = start + this.node.nodeSize;
-      const stripped = content.replace(text, '');
-
-      let tr = view.state.tr.replaceRangeWith(
-        start,
-        end,
-        view.state.schema.text(stripped),
-      );
-      tr = tr.setSelection(TextSelection.create(tr.doc, end, end));
-
-      view.dispatch(tr);
+    if (typeof this.getPos !== 'function' || record.type !== 'selection') {
+      return true;
     }
 
-    return record.type !== 'selection';
+    const { view, node } = this;
+    const placeholderStartPosition = this.getPos();
+    const placeholderEndPosition = this.getPos() + node.nodeSize;
+    const selection = view.state.selection;
+
+    // when the selection is set right after the placeholder.
+    // we should let ProseMirror deal with this edge-case
+    if (selection.from === placeholderEndPosition) {
+      return false;
+    }
+
+    const isSelectionAtPlaceholder =
+      selection.from === placeholderStartPosition;
+    const isSelectionAfterlaceholder = selection.from > placeholderEndPosition;
+
+    if (isSelectionAtPlaceholder || isSelectionAfterlaceholder) {
+      const tr = view.state.tr;
+
+      tr.setSelection(Selection.near(tr.doc.resolve(placeholderEndPosition)));
+
+      view.dispatch(tr);
+      return true;
+    }
+
+    return true;
   }
 }

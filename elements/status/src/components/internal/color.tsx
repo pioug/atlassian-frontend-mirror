@@ -13,7 +13,9 @@ import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { Color as ColorType } from '../Status';
 
-const Button: ComponentClass<ButtonHTMLAttributes<{}>> = styled.button`
+const Button: ComponentClass<
+  ButtonHTMLAttributes<{}> & { innerRef?: any }
+> = styled.button`
   height: 24px;
   width: 24px;
   background: ${N900};
@@ -47,6 +49,7 @@ export interface ColorProps {
   onHover?: (value: ColorType) => void;
   backgroundColor: string;
   borderColor: string;
+  setRef?: (value: HTMLElement) => HTMLElement;
 }
 
 export default class Color extends PureComponent<ColorProps> {
@@ -59,6 +62,7 @@ export default class Color extends PureComponent<ColorProps> {
       isSelected,
       borderColor,
       value,
+      setRef,
     } = this.props;
     const borderStyle = `1px solid ${borderColor}`;
     return (
@@ -75,10 +79,12 @@ export default class Color extends PureComponent<ColorProps> {
               tabIndex={tabIndex}
               className={`${isSelected ? 'selected' : ''}`}
               title={labels[0] as string}
+              aria-checked={isSelected}
               style={{
                 backgroundColor: backgroundColor || 'transparent',
                 border: borderStyle,
               }}
+              innerRef={setRef}
             >
               {isSelected && (
                 <EditorDoneIcon

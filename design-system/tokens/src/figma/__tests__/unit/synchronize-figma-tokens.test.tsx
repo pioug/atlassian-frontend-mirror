@@ -390,6 +390,120 @@ Primary text color
         }),
       );
     });
+
+    it('should prefix a warning to the description of deprecated tokens', () => {
+      const styles: FigmaPaintStyle[] = [
+        {
+          name: 'foo',
+          description: 'token description',
+          paints: [
+            {
+              blendMode: 'NORMAL',
+              color: {
+                b: 1,
+                g: 1,
+                r: 1,
+              },
+              opacity: 0.33,
+              type: 'SOLID',
+              visible: true,
+            },
+          ],
+          remove: () => {},
+        },
+      ];
+
+      figma.getLocalPaintStyles.mockReturnValue(styles);
+
+      synchronizeFigmaTokens('AtlassianDark', {
+        foo: {
+          value: '#ffffff',
+          attributes: {
+            group: 'paint',
+            state: 'deprecated',
+            description: 'token description',
+          },
+        },
+      });
+
+      expect(styles[0].description).toEqual(
+        expect.stringContaining('DEPRECATED do not use. '),
+      );
+    });
+
+    it('should supply replacement options in the description of deprecated tokens', () => {
+      const styles: FigmaPaintStyle[] = [
+        {
+          name: 'foo',
+          description: 'token description',
+          paints: [
+            {
+              blendMode: 'NORMAL',
+              color: {
+                b: 1,
+                g: 1,
+                r: 1,
+              },
+              opacity: 0.33,
+              type: 'SOLID',
+              visible: true,
+            },
+          ],
+          remove: () => {},
+        },
+        {
+          name: 'bar',
+          description: 'token description',
+          paints: [
+            {
+              blendMode: 'NORMAL',
+              color: {
+                b: 1,
+                g: 1,
+                r: 1,
+              },
+              opacity: 0.33,
+              type: 'SOLID',
+              visible: true,
+            },
+          ],
+          remove: () => {},
+        },
+      ];
+
+      figma.getLocalPaintStyles.mockReturnValue(styles);
+
+      synchronizeFigmaTokens('AtlassianDark', {
+        foo: {
+          value: '#FF0000',
+          attributes: {
+            group: 'paint',
+            state: 'deprecated',
+            replacement: 'color.text.brand',
+            description: 'Primary text color',
+          },
+        },
+        bar: {
+          value: '#FF0000',
+          attributes: {
+            group: 'paint',
+            state: 'deprecated',
+            replacement: ['color.text.brand', 'color.text.danger'],
+            description: 'Primary text color',
+          },
+        },
+      });
+
+      // Single replacement option
+      expect(styles[0].description).toBe(
+        'DEPRECATED use color.text.brand instead. \nPrimary text color',
+      );
+
+      // Multiple replacement options
+      expect(styles[1].description).toBe(
+        'DEPRECATED use color.text.brand | color.text.danger instead. \nPrimary text color',
+      );
+    });
   });
 
   describe('when renaming tokens', () => {

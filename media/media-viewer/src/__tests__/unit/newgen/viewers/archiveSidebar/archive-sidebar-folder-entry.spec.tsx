@@ -7,7 +7,7 @@ import {
   ArchiveSidebarFolderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
-import { Item } from '@atlaskit/navigation-next';
+import { ButtonItem } from '@atlaskit/side-navigation';
 import {
   ArchiveSidebarFolderWrapper,
   ArchiveSidebarFileEntryWrapper,
@@ -38,10 +38,10 @@ describe('ArchiveSidebarFolderEntry', () => {
     return mount(<ArchiveSidebarFolderEntry {...passedProps} />);
   }
 
-  it('should render ArchiveSidebarFolderWrapper but not Item element if no entries', () => {
+  it('should render ArchiveSidebarFolderWrapper but not ButtonItem element if no entries', () => {
     const el = mountBaseComponent({});
     expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
-    expect(el.find(Item)).toHaveLength(0);
+    expect(el.find(ButtonItem)).toHaveLength(0);
   });
   it('should render Item and not DownloadIcon element if entry is directory', () => {
     const props = {
@@ -54,7 +54,7 @@ describe('ArchiveSidebarFolderEntry', () => {
       root: '',
     };
     const el = mountBaseComponent(props);
-    expect(el.find(Item)).toHaveLength(1);
+    expect(el.find(ButtonItem)).toHaveLength(1);
     expect(el.find(DownloadIcon)).toHaveLength(0);
   });
   it('should render DownloadIcon element if entry is not directory', () => {
@@ -109,7 +109,7 @@ describe('ArchiveSidebarFolderEntry', () => {
       root: '',
     };
     const el = mountBaseComponent(props);
-    expect(el.find(Item)).toHaveLength(0);
+    expect(el.find(ButtonItem)).toHaveLength(0);
   });
   it('should render Item as many times as entries are given', () => {
     const props = {
@@ -138,7 +138,7 @@ describe('ArchiveSidebarFolderEntry', () => {
       root: '',
     };
     const el = mountBaseComponent(props);
-    expect(el.find(Item)).toHaveLength(5);
+    expect(el.find(ButtonItem)).toHaveLength(5);
     expect(el.find(MediaTypeIcon)).toHaveLength(3);
     expect(el.find(Folder24Icon)).toHaveLength(2);
     expect(el.find(DownloadIcon)).toHaveLength(3);
@@ -170,8 +170,8 @@ describe('ArchiveSidebarFolderEntry', () => {
       root: 'root/',
     };
     const el = mountBaseComponent(props);
-    expect(el.find(Item)).toHaveLength(1);
-    expect(el.find(Item).prop('text')).toEqual('entry1.jpg');
+    expect(el.find(ButtonItem)).toHaveLength(1);
+    expect(el.find(ButtonItem).prop('children')).toEqual('entry1.jpg');
   });
   it('Clicking downloadButtonWrapper should call downloadUrl', async () => {
     const entry: Partial<ZipEntry> = {

@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  code,
-  Props,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
-import SectionMessage from '@atlaskit/section-message';
+import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
-const MentionProps = require('!!extract-react-types-loader!../src/api/extract-react-types/smart-config-props');
 import MentionWithEditorExample from '../examples/14-mention-with-editor-extending-abstract-mention-resource';
 const MentionWithEditorExampleSource = require('!!raw-loader!../examples/14-mention-with-editor-extending-abstract-mention-resource');
-import SmartMentionWithEditorExample from '../examples/16-smart-mention-resource';
-const SmartMentionWithEditorExampleSource = require('!!raw-loader!../examples/16-smart-mention-resource');
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -76,32 +66,10 @@ export default md`
     />
   )}
 
-
   ### Option 3: Extend and instantiate a \`SmartMentionResource\`
 
+  The Smart Mention Resource is now available to use at @atlassian/smart-mention-resource
 
-  ${(
-    <SectionMessage
-      appearance="warning"
-      title="The option below is only valid for internal product use"
-    >
-      The option below will only work in Atlassian internal products.
-      Recommended for internal use.
-    </SectionMessage>
-  )}
-
-    Use the \`SmartMentionResource\`, which has defaults set for both the provider and the name resolver.
-    The provider will attempt to rerank your suggestions based on the users relevant to you.
-
-    ${(
-      <Example
-        packageName="@atlaskit/mention"
-        Component={SmartMentionWithEditorExample}
-        title="Mention With Editor"
-        source={SmartMentionWithEditorExampleSource}
-      />
-    )}
-
-    ${(<Props props={MentionProps} title="SmartMentionsConfig Props" />)}
+  This is only available for internal use.
 
 `;

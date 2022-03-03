@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TablePluginState } from '../../../../plugins/table/types';
 import { handleDocOrSelectionChanged } from '../../../../plugins/table/handlers';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { defaultTableSelection } from '../../../../plugins/table/pm-plugins/default-table-selection';
 
 describe('table action handlers', () => {
@@ -31,8 +31,9 @@ describe('table action handlers', () => {
       ...defaultTableSelection,
       pluginConfig: {},
       editorHasFocus: true,
+      isNumberColumnEnabled: false,
       isHeaderColumnEnabled: false,
-      isHeaderRowEnabled: true,
+      isHeaderRowEnabled: false,
     };
   });
 
@@ -45,6 +46,8 @@ describe('table action handlers', () => {
         isInDanger: true,
         tableNode: undefined,
         targetCellPosition: undefined,
+        ordering: undefined,
+        resizeHandleColumnIndex: undefined,
       };
       const { editorView } = editor(
         doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),

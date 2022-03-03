@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.3.2
+
+### Patch Changes
+
+- [`053b9d1b25e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/053b9d1b25e) - AK-729: an empty label was removed from action item component
+
 ## 17.3.1
 
 ### Patch Changes

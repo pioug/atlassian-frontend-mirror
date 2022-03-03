@@ -16,7 +16,7 @@ import WidthEmitter from '../../ui/WidthEmitter';
 
 import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
-import { tableFullPageEditorStyles } from '../../plugins/table/ui/common-styles.css';
+import { deprecatedTableFullPageEditorStyles } from '../../plugins/table/ui/common-styles.css';
 import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
 import { EditorProps } from '../../types';
 import EditorActions from '../../actions';
@@ -90,7 +90,7 @@ const EditorContentArea = styled.div`
       clear: none;
     }
   }
-  ${tableFullPageEditorStyles};
+  ${deprecatedTableFullPageEditorStyles};
 `;
 EditorContentArea.displayName = 'EditorContentArea';
 

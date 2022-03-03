@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Fragment, KeyboardEvent, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
@@ -34,6 +34,10 @@ import { NotificationsPopup } from './shared/NotificationsPopup';
 import { avatarUrl, ProfilePopup } from './shared/ProfilePopup';
 import { SwitcherPopup } from './shared/SwitcherPopup';
 import { theme } from './shared/themes';
+
+const paragraphStyles = css({
+  padding: '8px 16px',
+});
 
 const SettingsDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -274,7 +278,7 @@ const JiraIntegrationWithSkeletonButtonsExample = () => {
         theme={theme[themeIndex]}
         testId="atlassian-navigation"
       />
-      <p css={{ padding: '8px 16px' }}>
+      <p css={paragraphStyles}>
         <Button
           testId="toggle-skeleton"
           onClick={() => setShoulUseSkeletons(!shouldUseSkeletons)}
@@ -282,7 +286,7 @@ const JiraIntegrationWithSkeletonButtonsExample = () => {
           Use {shouldUseSkeletons ? 'regular ' : 'skeleton '} buttons
         </Button>
       </p>
-      <p css={{ padding: '8px 16px' }}>
+      <p css={paragraphStyles}>
         <Button
           testId="change-theme"
           onClick={() => setThemeIndex((themeIndex + 1) % theme.length)}

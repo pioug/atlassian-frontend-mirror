@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import {
   tableCellContentDomSelector,
@@ -22,6 +22,7 @@ import {
 import { DN20 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 import browser from '../../utils/browser';
 
@@ -48,7 +49,7 @@ export const TableSharedCssClassName = {
   TABLE_HEADER_CELL_WRAPPER: tableHeaderSelector,
 };
 
-const tableSharedStyle = css`
+const tableSharedStyle = (props: ThemeProps) => css`
   .${TableSharedCssClassName.TABLE_CONTAINER} {
     position: relative;
     margin: 0 auto ${tableMarginBottom}px;
@@ -75,7 +76,7 @@ const tableSharedStyle = css`
       ${themed({
         light: akEditorTableBorder,
         dark: akEditorTableBorderDark,
-      })};
+      })(props)};
     table-layout: fixed;
     font-size: 1em;
     width: 100%;
@@ -107,7 +108,7 @@ const tableSharedStyle = css`
           ${themed({
             light: akEditorTableBorder,
             dark: akEditorTableBorderDark,
-          })};
+          })(props)};
         border-right-width: 0;
         border-bottom-width: 0;
         padding: ${tableCellPadding}px;
@@ -116,7 +117,7 @@ const tableSharedStyle = css`
           ? 'background-clip: padding-box;'
           : ''}
 
-        ${themed({ dark: getTableCellBackgroundDarkModeColors })};
+        ${themed({ dark: getTableCellBackgroundDarkModeColors })(props)};
 
         > *:first-child {
           margin-top: 0;
@@ -139,7 +140,7 @@ const tableSharedStyle = css`
         background-color: ${themed({
           light: akEditorTableToolbar,
           dark: akEditorTableToolbarDark,
-        })};
+        })(props)};
         text-align: left;
 
         /* only apply this styling to codeblocks in default background headercells */
@@ -150,7 +151,7 @@ const tableSharedStyle = css`
               background: themed({
                 light: 'rgb(235, 237, 240)',
                 dark: 'rgb(36, 47, 66)',
-              }),
+              })(props),
               width: `${gridSize()}px`,
             })};
             background-attachment: local, scroll, scroll;
@@ -158,13 +159,13 @@ const tableSharedStyle = css`
             background-color: ${themed({
               light: 'rgb(235, 237, 240)',
               dark: 'rgb(36, 47, 66)',
-            })};
+            })(props)};
 
             .line-number-gutter {
               background-color: ${themed({
                 light: 'rgb(226, 229, 233)',
                 dark: DN20,
-              })};
+              })(props)};
             }
 
             /* this is only relevant to the element taken care of by renderer */
@@ -173,20 +174,20 @@ const tableSharedStyle = css`
                 background: themed({
                   light: 'rgb(235, 237, 240)',
                   dark: 'rgb(36, 47, 66)',
-                }),
+                })(props),
                 width: `${gridSize()}px`,
               })}!important;
 
               background-color: ${themed({
                 light: 'rgb(235, 237, 240)',
                 dark: 'rgb(36, 47, 66)',
-              })}!important;
+              })(props)}!important;
 
               // selector lives inside @atlaskit/code
               --ds--code--line-number-bg-color: ${themed({
                 light: 'rgb(226, 229, 233)',
                 dark: DN20,
-              })};
+              })(props)};
             }
           }
         }

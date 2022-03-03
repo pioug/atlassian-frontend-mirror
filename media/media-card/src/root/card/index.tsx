@@ -68,7 +68,12 @@ import {
 } from './getCardPreview';
 import { getFileDetails } from '../../utils/metadata';
 import { InlinePlayer } from '../inlinePlayer';
-import { getFileAttributes, extractErrorInfo } from '../../utils/analytics';
+import {
+  getFileAttributes,
+  extractErrorInfo,
+  SSRStatus,
+  SSRStatusFail,
+} from '../../utils/analytics';
 import {
   isLocalPreviewError,
   MediaCardError,
@@ -102,6 +107,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   private hasBeenMounted: boolean = false;
   private viewportPreAnchorRef = createRef<HTMLDivElement>();
   private viewportPostAnchorRef = createRef<HTMLDivElement>();
+  private ssrReliability: SSRStatus = {
+    server: { status: 'unknown' },
+    client: { status: 'unknown' },
+  };
   // We initialise timeElapsedTillCommenced
   // to avoid extra branching on a possibly undefined value.
   private timeElapsedTillCommenced: number = performance.now();
@@ -129,7 +138,14 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       cardPreview = getCardPreviewFromCache(id, dimensions);
       if (!cardPreview && ssr) {
         this.ssrData = getSSRData(identifier);
-        if (ssr === 'server' || !this.ssrData?.dataURI) {
+        if (this.ssrData?.error) {
+          this.ssrReliability.server = {
+            status: 'fail',
+            ...this.ssrData.error,
+          };
+        }
+
+        if (!this.ssrData?.dataURI) {
           try {
             cardPreview = getSSRCardPreview(
               ssr,
@@ -139,11 +155,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
               this.getMediaBlobUrlAttrs(identifier),
             );
           } catch (e) {
-            // TODO: handle error in client MEX-770
-            // If we fail building the dataURI in server, we store the error in the state
-            // to be later stored in global scope and logged in client.
-            // We don't set the status = error to fall back to the spinner icon
-            error = ssr === 'server' ? e : undefined;
+            this.ssrReliability[ssr] = {
+              status: 'fail',
+              ...extractErrorInfo(e),
+            };
           }
         } else {
           cardPreview = { dataURI: this.ssrData.dataURI, source: 'ssr-data' };
@@ -495,7 +510,30 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     };
   };
 
+  private logSSRImageError = (cardPreview?: CardPreview) => {
+    if (cardPreview) {
+      const failedSSRObject: SSRStatusFail = {
+        status: 'fail',
+        ...extractErrorInfo(new ImageLoadError(cardPreview.source)),
+      };
+
+      if (isSSRClientPreview(cardPreview)) {
+        this.ssrReliability.client = failedSSRObject;
+      }
+
+      /* 
+        If the cardPreview failed and it comes from server (global scope / ssrData), it means that we have reused it in client and the error counts for both: server & client.
+      */
+
+      if (isSSRDataPreview(cardPreview)) {
+        this.ssrReliability.server = failedSSRObject;
+        this.ssrReliability.client = failedSSRObject;
+      }
+    }
+  };
+
   private onImageError = (cardPreview?: CardPreview) => {
+    this.logSSRImageError(cardPreview);
     const { cardPreview: currentPreview } = this.state;
     // If the dataURI has been replaced, we can dismiss this error
     if (cardPreview?.dataURI !== currentPreview?.dataURI) {
@@ -513,10 +551,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         updateState.isBannedLocalPreview = true;
         this.fireLocalPreviewErrorEvent(error);
       }
-      if (isSSR) {
-        // TODO: set SSR-client reliability 'failed'.
-        // https://product-fabric.atlassian.net/browse/MEX-770
-      }
       const { identifier, dimensions = {} } = this.props;
       isFileIdentifier(identifier) &&
         removeCardPreviewFromCache(identifier.id, dimensions);
@@ -530,11 +564,33 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 
   private onImageLoad = (cardPreview?: CardPreview) => {
+    if (cardPreview) {
+      if (
+        isSSRClientPreview(cardPreview) &&
+        this.ssrReliability.client.status === 'unknown'
+      ) {
+        this.ssrReliability.client = { status: 'success' };
+      }
+
+      /* 
+        If the image loads successfully and it comes from server (global scope / ssrData), it means that we have reused it in client and the success counts for both: server & client.
+      */
+
+      if (
+        isSSRDataPreview(cardPreview) &&
+        this.ssrReliability.server.status === 'unknown'
+      ) {
+        this.ssrReliability.server = { status: 'success' };
+        this.ssrReliability.client = { status: 'success' };
+      }
+    }
+
     const { cardPreview: currentPreview } = this.state;
     // If the dataURI has been replaced, we can dismiss this callback
     if (cardPreview?.dataURI !== currentPreview?.dataURI) {
       return;
     }
+
     this.safeSetState({ previewDidRender: true });
   };
 
@@ -548,6 +604,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         status,
         this.fileAttributes,
         this.getPerformanceAttributes(),
+        this.ssrReliability,
         error,
       );
   }
@@ -876,9 +933,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
   private storeSSRData = () => {
     const { ssr, identifier } = this.props;
-    const { cardPreview: { dataURI } = {}, error } = this.state;
-
-    const ssrDataError = !!error ? extractErrorInfo(error) : undefined;
+    const { cardPreview: { dataURI } = {} } = this.state;
 
     return (
       isFileIdentifier(identifier) &&
@@ -887,7 +942,11 @@ export class CardBase extends Component<CardBaseProps, CardState> {
           identifier={identifier}
           dataURI={dataURI}
           dimensions={this.requestedDimensions}
-          error={ssrDataError}
+          error={
+            this.ssrReliability.server?.status === 'fail'
+              ? this.ssrReliability.server
+              : undefined
+          }
         />
       )
     );

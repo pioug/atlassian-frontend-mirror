@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
@@ -100,13 +100,10 @@ export default () => {
   return (
     <div>
       <h3>Date picker</h3>
-      <Label htmlFor="react-select-datepicker-1--input" label="default" />
+      <Label htmlFor="react-select-datepicker-1--input">Default</Label>
       <DatePicker id="datepicker-1" onChange={onChange} />
 
-      <Label
-        htmlFor="react-select-datepicker-2--input"
-        label="controlled (value)"
-      />
+      <Label htmlFor="react-select-datepicker-2--input">Controlled Value</Label>
       <Controlled initialValue="2018-01-02">
         {({ value, onValueChange, onBlur }) => (
           <DatePicker
@@ -118,10 +115,9 @@ export default () => {
         )}
       </Controlled>
 
-      <Label
-        htmlFor="react-select-datepicker-3--input"
-        label="uncontrolled (defaultValue)"
-      />
+      <Label htmlFor="react-select-datepicker-3--input">
+        Uncontrolled (defaultValue)
+      </Label>
       <DatePicker
         id="datepicker-3"
         defaultValue="2018-01-02"
@@ -129,7 +125,7 @@ export default () => {
       />
 
       <h3>Time picker</h3>
-      <Label htmlFor="react-select-timepicker-1--input" label="default" />
+      <Label htmlFor="react-select-timepicker-1--input">Default</Label>
       <TimePicker
         id="timepicker-1"
         testId="timepicker-1"
@@ -137,10 +133,9 @@ export default () => {
         selectProps={{ classNamePrefix: 'timepicker-select' }}
       />
 
-      <Label
-        htmlFor="react-select-timepicker-2--input"
-        label="controlled (value, isOpen)"
-      />
+      <Label htmlFor="react-select-timepicker-2--input">
+        Controlled (value, isOpen)
+      </Label>
       <Controlled initialValue="14:30">
         {({ value, onValueChange, isOpen, onBlur }) => (
           <TimePicker
@@ -154,10 +149,9 @@ export default () => {
         )}
       </Controlled>
 
-      <Label
-        htmlFor="react-select-timepicker-3--input"
-        label="uncontrolled (defaultValue)"
-      />
+      <Label htmlFor="react-select-timepicker-3--input">
+        Uncontrolled (defaultValue)
+      </Label>
       <TimePicker
         selectProps={{ classNamePrefix: 'timepicker-select' }}
         id="timepicker-3"
@@ -165,10 +159,7 @@ export default () => {
         onChange={onChange}
       />
 
-      <Label
-        htmlFor="react-select-timepicker-4--input"
-        label="editable times"
-      />
+      <Label htmlFor="react-select-timepicker-4--input">Editable times</Label>
       <TimePicker
         selectProps={{ classNamePrefix: 'timepicker-select' }}
         id="timepicker-4"
@@ -178,17 +169,16 @@ export default () => {
       />
 
       <h3>Date / time picker</h3>
-      <Label htmlFor="react-select-datetimepicker-1--input" label="default" />
+      <Label htmlFor="react-select-datetimepicker-1--input">Default</Label>
       <DateTimePicker
         id="datetimepicker-1"
         onChange={onChange}
         testId={'dateTimePicker'}
       />
 
-      <Label
-        htmlFor="react-select-datetimepicker-2--input"
-        label="controlled (UTC-08:00)"
-      />
+      <Label htmlFor="react-select-datetimepicker-2--input">
+        Controlled (UTC-08:00)
+      </Label>
       <Controlled initialValue="2018-01-02T14:30-08:00">
         {({ value, onValueChange }) => (
           <DateTimePicker
@@ -199,20 +189,18 @@ export default () => {
         )}
       </Controlled>
 
-      <Label
-        htmlFor="react-select-datetimepicker-3--input"
-        label="uncontrolled (UTC+10:00)"
-      />
+      <Label htmlFor="react-select-datetimepicker-3--input">
+        Uncontrolled (UTC+10:00)
+      </Label>
       <DateTimePicker
         id="datetimepicker-3"
         defaultValue="2018-01-02T14:30+10:00"
         onChange={onChange}
       />
 
-      <Label
-        htmlFor="react-select-datetimepicker-4--input"
-        label="editable times (UTC+10:00)"
-      />
+      <Label htmlFor="react-select-datetimepicker-4--input">
+        Editable times (UTC+10:00)
+      </Label>
       <DateTimePicker
         id="datetimepicker-4"
         defaultValue="2018-01-02T14:30+10:00"
@@ -220,10 +208,9 @@ export default () => {
         timeIsEditable
       />
 
-      <Label
-        htmlFor="react-select-datetimepicker-5--input"
-        label="editable times with value (UTC+10:00)"
-      />
+      <Label htmlFor="react-select-datetimepicker-5--input">
+        Editable times with value (UTC+10:00)
+      </Label>
       <DateTimePicker id="datetimepicker-5" onChange={(v) => setValue(v)} />
       <pre>{value}</pre>
     </div>

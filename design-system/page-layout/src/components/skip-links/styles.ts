@@ -2,6 +2,7 @@ import { CSSObject } from '@emotion/core';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import { N30A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const skipLinkStyles: CSSObject = {
   zIndex: -1,
@@ -9,10 +10,13 @@ export const skipLinkStyles: CSSObject = {
   position: 'fixed',
   opacity: 0,
 
-  background: 'white',
+  background: token('elevation.surface.overlay', 'white'),
   border: 'none',
   padding: '0.8rem 1rem',
-  boxShadow: `0 0 0 1px ${N30A}, 0 2px 10px ${N30A}, 0 0 20px -4px ${N60A}`,
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 0 0 1px ${N30A}, 0 2px 10px ${N30A}, 0 0 20px -4px ${N60A}`,
+  ),
   borderRadius: '3px',
   margin: 10,
 

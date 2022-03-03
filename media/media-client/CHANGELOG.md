@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 14.4.0
+
+### Minor Changes
+
+- [`7d2943a6038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d2943a6038) - Created MediaSubscribable wrapper around RxJs Observable
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.2
 
 ### Patch Changes

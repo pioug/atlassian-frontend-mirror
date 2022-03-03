@@ -91,15 +91,6 @@ export default (
       }
       return { ...pluginState, ...action.data };
 
-    case 'SET_TABLE_SIZE':
-      if (
-        pluginState.tableWidth !== action.data.tableWidth ||
-        pluginState.tableHeight !== action.data.tableHeight
-      ) {
-        return { ...pluginState, ...action.data };
-      }
-      return pluginState;
-
     case 'SET_TABLE_REF':
     case 'HOVER_ROWS':
     case 'HOVER_COLUMNS':

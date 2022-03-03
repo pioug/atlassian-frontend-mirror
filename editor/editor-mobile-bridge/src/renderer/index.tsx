@@ -16,6 +16,8 @@ import useRendererConfiguration from './hooks/use-renderer-configuration';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../types';
 import { getEnableLegacyMobileMacros } from '../query-param-reader';
+import { eventHandlers } from './event-handlers';
+import { handleAnalyticsEvent } from './renderer-analytics-client';
 
 interface AppProps {
   document: string;
@@ -51,7 +53,11 @@ export const App: React.FC<AppProps> = (props) => {
       locale={rendererConfiguration.getLocale()}
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}
-      extensionProvider={createExtensionProvider(enableConfluenceMobileMacros)}
+      extensionProvider={createExtensionProvider(
+        enableConfluenceMobileMacros,
+        handleAnalyticsEvent,
+        eventHandlers?.link?.onClick,
+      )}
       onLocaleChanged={onLocaleChanged}
       onWillLocaleChange={onWillLocaleChange}
       rendererBridge={rendererBridge}

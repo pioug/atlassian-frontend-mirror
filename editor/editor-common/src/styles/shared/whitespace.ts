@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 const whitespaceSharedStyles = css`
   word-wrap: break-word;

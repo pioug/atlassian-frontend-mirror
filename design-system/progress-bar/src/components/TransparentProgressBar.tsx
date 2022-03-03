@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { CustomProgressBarProps } from '../types';
 
 import ProgressBar from './ProgressBar';
@@ -22,11 +24,14 @@ export default class TransparentProgressBar extends React.PureComponent<
             ...theme,
             container: {
               ...theme.container,
-              background: 'rgba(255, 255, 255, 0.5)',
+              background: token(
+                'color.background.inverse',
+                'rgba(255, 255, 255, 0.5)',
+              ),
             },
             bar: {
               ...theme.bar,
-              background: 'white',
+              background: token('elevation.surface', 'white'),
             },
           };
         }}

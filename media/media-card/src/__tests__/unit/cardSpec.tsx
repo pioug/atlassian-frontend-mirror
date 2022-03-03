@@ -1358,6 +1358,7 @@ describe('Card', () => {
             durationSincePageStart: 1000,
           },
         },
+        { client: { status: 'unknown' }, server: { status: 'unknown' } },
         error,
       );
 
@@ -1376,6 +1377,7 @@ describe('Card', () => {
             durationSincePageStart: 1000,
           },
         },
+        { client: { status: 'unknown' }, server: { status: 'unknown' } },
         error,
       );
     });

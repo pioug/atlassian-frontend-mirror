@@ -7,17 +7,21 @@ import {
 } from '@atlaskit/editor-common/type-ahead';
 import {
   findHandler,
+  findHandlerByTrigger,
   isTypeAheadOpen,
   getTypeAheadHandler,
   getTypeAheadQuery,
 } from './utils';
 import { INPUT_METHOD } from '../analytics/types/enums';
-import { openTypeAheadAtCursor } from './transforms/open-typeahead-at-cursor';
+import {
+  openTypeAheadAtCursor,
+  openTypeAhead,
+} from './transforms/open-typeahead-at-cursor';
 import { closeTypeAhead } from './transforms/close-type-ahead';
 import { updateQuery } from './commands/update-query';
 import { insertTypeAheadItem } from './commands/insert-type-ahead-item';
 import type { TypeAheadHandler, TypeAheadInputMethod } from './types';
-import { Command } from '../../types/command';
+import type { Command } from '../../types/command';
 
 type CommonProps = {
   editorView: EditorView;
@@ -201,6 +205,32 @@ const isOpen = ({ editorView }: CommonProps) => ():
 
 const currentQuery = ({ editorView }: CommonProps) => (): string => {
   return getTypeAheadQuery(editorView.state);
+};
+
+const find = ({ editorView }: CommonProps) => (
+  trigger: string,
+): TypeAheadHandler | null => {
+  const { state: editorState } = editorView;
+  const handler = findHandlerByTrigger({ trigger, editorState });
+
+  if (!handler) {
+    return null;
+  }
+
+  return handler;
+};
+
+// This is an internal tool to be used inside of others Editor Plugins
+// We shouldn't public export this method.
+export const createInternalTypeAheadTools = (editorView: EditorView) => {
+  const props: CommonProps = {
+    editorView,
+  };
+
+  return {
+    findTypeAheadHandler: find(props),
+    openTypeAheadHandler: openTypeAhead,
+  };
 };
 
 export const createTypeAheadTools = (editorView: EditorView) => {

@@ -38,9 +38,29 @@ export type MediaCardErrorInfo = {
   errorDetail: string;
 };
 
+export type SSRStatusFail = MediaCardErrorInfo & {
+  status: 'fail';
+};
+
+type SSRStatusSuccess = SuccessAttributes;
+
+type SSRStatusUnknown = { status: 'unknown' };
+
+type SSRStatusAttributes = SSRStatusSuccess | SSRStatusFail | SSRStatusUnknown;
+
+export type SSRStatus = {
+  server: SSRStatusAttributes;
+  client: SSRStatusAttributes;
+};
+
+export type WithSSRReliability = {
+  ssrReliability?: SSRStatus;
+};
+
 export type RenderFailedEventPayload = OperationalEventPayload<
   WithFileAttributes &
     WithPerformanceAttributes &
+    WithSSRReliability &
     FailureAttributes & {
       failReason: FailedErrorFailReason | 'failed-processing';
       error?: MediaClientErrorReason | 'nativeError';
@@ -51,7 +71,10 @@ export type RenderFailedEventPayload = OperationalEventPayload<
 >;
 
 export type RenderSucceededEventPayload = OperationalEventPayload<
-  WithFileAttributes & WithPerformanceAttributes & SuccessAttributes,
+  WithFileAttributes &
+    WithPerformanceAttributes &
+    WithSSRReliability &
+    SuccessAttributes,
   'succeeded',
   'mediaCardRender'
 >;
@@ -126,7 +149,8 @@ export const getRenderCommencedEventPayload = (
 
 export const getRenderSucceededEventPayload = (
   fileAttributes: FileAttributes,
-  performanceAttributes?: PerformanceAttributes,
+  performanceAttributes: PerformanceAttributes,
+  ssrReliability: SSRStatus,
 ): RenderSucceededEventPayload => ({
   eventType: 'operational',
   action: 'succeeded',
@@ -135,6 +159,7 @@ export const getRenderSucceededEventPayload = (
     fileAttributes,
     performanceAttributes,
     status: 'success',
+    ssrReliability,
   },
 });
 
@@ -207,6 +232,7 @@ export const getRenderErrorEventPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
   error: MediaCardError,
+  ssrReliability: SSRStatus,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: 'failed',
@@ -217,12 +243,14 @@ export const getRenderErrorEventPayload = (
     status: 'fail',
     ...extractErrorInfo(error),
     request: getRenderErrorRequestMetadata(error),
+    ssrReliability,
   },
 });
 
 export const getRenderFailedFileStatusPayload = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
+  ssrReliability: SSRStatus,
 ): RenderFailedEventPayload => ({
   eventType: 'operational',
   action: 'failed',
@@ -232,6 +260,7 @@ export const getRenderFailedFileStatusPayload = (
     performanceAttributes,
     status: 'fail',
     failReason: 'failed-processing',
+    ssrReliability,
   },
 });
 

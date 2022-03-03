@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { IconAndTitleLayout } from '../../index';
 import { TitleWrapper } from '../../styled';
-import { renderWithIntl } from '../../../../__tests__/__utils__/render';
 
 jest.mock('react-render-image');
 

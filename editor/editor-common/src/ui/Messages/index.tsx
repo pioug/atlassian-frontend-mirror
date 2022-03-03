@@ -1,30 +1,32 @@
-import React, { ReactNode } from 'react';
+/** @jsx jsx */
+import { ReactNode } from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { G400, N200, R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 import { h200 } from '@atlaskit/theme/typography';
 
-const Message = styled.div<{ error?: boolean; valid?: boolean }>`
-  ${h200} font-weight: normal;
-  color: ${(props) => {
-    if (props.error) {
-      return R400;
-    }
-    if (props.valid) {
-      return G400;
-    }
-    return N200;
-  }};
+const errorColor = css`
+  color: ${R400};
+`;
+
+const validColor = css`
+  color: ${G400};
+`;
+
+const messageStyle = (props: ThemeProps) => css`
+  ${h200(props)} font-weight: normal;
+  color: ${N200};
   margin-top: ${gridSize() / 2}px;
   display: flex;
   justify-content: baseline;
 `;
 
-const IconWrapper = styled.span`
+const iconWrapperStyle = css`
   display: flex;
   margin-right: 4px;
 `;
@@ -35,23 +37,31 @@ interface Props {
 }
 
 export const HelperMessage = ({ children }: Props) => (
-  <Message>{children}</Message>
+  <div css={messageStyle}>{children}</div>
 );
 
 export const ErrorMessage = ({ children }: Props) => (
-  <Message error>
-    <IconWrapper>
+  <div
+    css={(theme: ThemeProps) => {
+      return [messageStyle(theme), errorColor];
+    }}
+  >
+    <span css={iconWrapperStyle}>
       <ErrorIcon size="small" label="error" aria-label="error" />
-    </IconWrapper>
+    </span>
     {children}
-  </Message>
+  </div>
 );
 
 export const ValidMessage = ({ children }: Props) => (
-  <Message valid>
-    <IconWrapper>
+  <div
+    css={(theme: ThemeProps) => {
+      return [messageStyle(theme), validColor];
+    }}
+  >
+    <span css={iconWrapperStyle}>
       <SuccessIcon size="small" label="success" />
-    </IconWrapper>
+    </span>
     {children}
-  </Message>
+  </div>
 );

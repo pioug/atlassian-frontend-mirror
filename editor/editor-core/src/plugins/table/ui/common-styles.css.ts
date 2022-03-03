@@ -1,4 +1,5 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
+import { css as deprecatedCss } from 'styled-components'
 
 import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common/styles';
 import { fontSize } from '@atlaskit/theme/constants';
@@ -59,7 +60,7 @@ import {
   resizeHandle,
   InsertMarker,
 } from './ui-styles.css';
-
+import { ThemeProps } from '@atlaskit/theme/types';
 
 const cornerControlHeight = tableToolbarSize + 1;
 
@@ -101,7 +102,7 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
   }
 }`;
 
-export const tableStyles = css`
+export const tableStyles = (props: ThemeProps) => css`
   .${ClassName.LAYOUT_BUTTON} button {
     background: ${N20A};
     color: ${N300};
@@ -115,8 +116,8 @@ export const tableStyles = css`
   }
 
   .ProseMirror {
-    ${tableSharedStyle};
-    ${columnControlsLineMarker};
+    ${tableSharedStyle(props)};
+    ${columnControlsLineMarker(props)};
     ${hoveredDeleteButton};
     ${hoveredCell};
     ${hoveredWarningCell};
@@ -134,7 +135,7 @@ export const tableStyles = css`
       }
 
       td.${ClassName.TABLE_CELL} {
-        background-color: ${tableCellBackgroundColor};
+        background-color: ${tableCellBackgroundColor(props)};
       }
     }
 
@@ -236,7 +237,7 @@ export const tableStyles = css`
 
     tr.sticky th {
       border-bottom: ${stickyHeaderBorderBottomWidth}px solid
-        ${tableBorderColor};
+        ${tableBorderColor(props)};
       margin-right: -1px;
     }
 
@@ -244,7 +245,7 @@ export const tableStyles = css`
       border-right-width: 1px;
     }
 
-    /* add left edge for first cell */
+     /* add left edge for first cell */
     .${ClassName.TABLE_STICKY} tr.sticky > th:first-child {
       margin-left: 0px;
     }
@@ -303,13 +304,13 @@ export const tableStyles = css`
       border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid white;
     }
 
-    ${(props) =>
-      props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
+    ${props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
+    ${OverflowShadow(props)}
 
-    ${OverflowShadow}
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
       height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts
     }
+
     .less-padding {
       padding: 0 ${tablePadding}px;
 
@@ -346,7 +347,7 @@ export const tableStyles = css`
       width: 100% !important;
     }
 
-    ${columnControlsDecoration};
+    ${columnControlsDecoration(props)};
 
     /* Corner controls */
     .${ClassName.CORNER_CONTROLS} {
@@ -357,7 +358,7 @@ export const tableStyles = css`
       .${ClassName.CORNER_CONTROLS_INSERT_ROW_MARKER} {
         position: relative;
 
-        ${InsertMarker(`
+        ${InsertMarker(props, `
           left: -11px;
           top: 9px;
         `)};
@@ -366,27 +367,29 @@ export const tableStyles = css`
       .${ClassName.CORNER_CONTROLS_INSERT_COLUMN_MARKER} {
         position: relative;
 
-        ${InsertMarker(`
+        ${InsertMarker(props, `
           right: -1px;
           top: -12px;
         `)};
       }
     }
+
     .${ClassName.CORNER_CONTROLS}.sticky {
       .${ClassName.CORNER_CONTROLS_INSERT_ROW_MARKER} {
         /* sticky row insert dot overlaps other row insert and messes things up */
         display: none !important;
       }
     }
+
     .${ClassName.CONTROLS_CORNER_BUTTON} {
       position: absolute;
       top: 0;
       width: ${tableToolbarSize + 1}px;
       height: ${tableToolbarSize + 1}px;
-      border: 1px solid ${tableBorderColor};
+      border: 1px solid ${tableBorderColor(props)};
       border-radius: 0;
       border-top-left-radius: ${tableBorderRadiusSize}px;
-      background: ${tableToolbarColor};
+      background: ${tableToolbarColor(props)};
       box-sizing: border-box;
       padding: 0;
       :focus {
@@ -397,6 +400,7 @@ export const tableStyles = css`
       border-color: ${tableBorderSelectedColor};
       background: ${tableToolbarSelectedColor};
     }
+
     .${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
       .${ClassName.CORNER_CONTROLS}, .${ClassName.CONTROLS_CORNER_BUTTON} {
         width: ${akEditorTableToolbarSize + akEditorTableNumberColumnWidth}px;
@@ -405,11 +409,13 @@ export const tableStyles = css`
         border-right-width: 0;
       }
     }
+
     :not(.${ClassName.IS_RESIZING}) .${ClassName.CONTROLS_CORNER_BUTTON}:hover {
       border-color: ${tableBorderSelectedColor};
       background: ${tableToolbarSelectedColor};
       cursor: pointer;
     }
+
     :not(.${ClassName.IS_RESIZING})
       .${ClassName.CONTROLS_CORNER_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
       border-color: ${tableBorderDeleteColor};
@@ -423,7 +429,7 @@ export const tableStyles = css`
       display: none;
       position: relative;
 
-      ${InsertMarker(`
+      ${InsertMarker(props, `
         bottom: -1px;
         left: -11px;
       `)};
@@ -445,8 +451,8 @@ export const tableStyles = css`
         z-index: ${akEditorUnitZIndex};
       }
 
-      ${HeaderButton(`
-        border-bottom: 1px solid ${tableBorderColor};
+      ${HeaderButton(props, `
+        border-bottom: 1px solid ${tableBorderColor(props)};
         border-right: 0px;
         border-radius: 0;
         height: 100%;
@@ -464,6 +470,7 @@ export const tableStyles = css`
         }
       `)}
     }
+
     :not(.${ClassName.IS_RESIZING}) .${ClassName.ROW_CONTROLS} {
       ${HeaderButtonHover()}
       ${HeaderButtonDanger()}
@@ -478,25 +485,27 @@ export const tableStyles = css`
       width: ${akEditorTableNumberColumnWidth + 1}px;
       box-sizing: border-box;
     }
+
     .${ClassName.NUMBERED_COLUMN_BUTTON} {
-      border: 1px solid ${tableBorderColor};
+      border: 1px solid ${tableBorderColor(props)};
       box-sizing: border-box;
       margin-top: -1px;
       padding-bottom: 2px;
       padding: 10px 2px;
       text-align: center;
       font-size: ${relativeFontSizeToBase16(fontSize())};
-      background-color: ${tableToolbarColor};
-      color: ${tableTextColor};
-      border-color: ${tableBorderColor};
+      background-color: ${tableToolbarColor(props)};
+      color: ${tableTextColor(props)};
+      border-color: ${tableBorderColor(props)};
 
       :first-child {
         margin-top: 0;
       }
       :last-child {
-        border-bottom: 1px solid ${tableBorderColor};
+        border-bottom: 1px solid ${tableBorderColor(props)};
       }
     }
+
     .${ClassName.WITH_CONTROLS} {
       .${ClassName.CORNER_CONTROLS}, .${ClassName.ROW_CONTROLS} {
         display: block;
@@ -624,7 +633,7 @@ export const tableStyles = css`
   .ProseMirror.${ClassName.RESIZE_CURSOR} {
     cursor: col-resize;
   }
-`;
+`
 
 export const tableFullPageEditorStyles = css`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
@@ -634,6 +643,14 @@ export const tableFullPageEditorStyles = css`
   }
 `;
 
+export const deprecatedTableFullPageEditorStyles = deprecatedCss`
+  .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+`
+
 export const tableCommentEditorStyles = css`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
     margin-left: 0;
@@ -641,3 +658,13 @@ export const tableCommentEditorStyles = css`
     ${scrollbarStyles};
   }
 `;
+
+// TODO remove this after migrated off styled-component
+export const deprecatedTableCommentEditorStyles = deprecatedCss`
+  .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
+    margin-left: 0;
+    margin-right: 0;
+    ${scrollbarStyles};
+  }
+`;
+

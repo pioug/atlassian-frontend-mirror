@@ -1,18 +1,22 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
+
 import { InsertDraftPosition, Position } from '../types';
 import { AnnotationsDraftContext } from '../context';
 import { splitText, calcTextSplitOffset } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
-import styled from 'styled-components';
-import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 
-const DraftAnnotation = styled.mark`
+import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
+import { ThemeProps } from '@atlaskit/theme/types';
+
+const markStyles = (props: ThemeProps) => css`
   color: inherit;
   background-color: unset;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  ${AnnotationSharedCSSByState.focus};
+  ${AnnotationSharedCSSByState(props).focus};
 `;
 
 export const AnnotationDraft: React.FC<{ draftPosition: Position }> = ({
@@ -20,12 +24,13 @@ export const AnnotationDraft: React.FC<{ draftPosition: Position }> = ({
   children,
 }) => {
   return (
-    <DraftAnnotation
+    <mark
       data-renderer-mark={true}
       {...dataAttributes(draftPosition)}
+      css={markStyles}
     >
       {children}
-    </DraftAnnotation>
+    </mark>
   );
 };
 
@@ -111,7 +116,7 @@ export const TextWithAnnotationDraft: React.FC<Props> = ({
   }, [nextDraftPosition, textPosition]);
 
   if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
-    return <>{children}</>;
+    return <Fragment>{children}</Fragment>;
   }
 
   if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
@@ -129,7 +134,7 @@ export const TextWithAnnotationDraft: React.FC<Props> = ({
   );
   const texts = splitText(children, offsets);
   if (!texts) {
-    return <>{children}</>;
+    return <Fragment>{children}</Fragment>;
   }
 
   const components = applyAnnotationOnText({
@@ -138,5 +143,5 @@ export const TextWithAnnotationDraft: React.FC<Props> = ({
     draftPosition: nextDraftPosition,
   });
 
-  return <>{components}</>;
+  return <Fragment>{components}</Fragment>;
 };

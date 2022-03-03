@@ -1,20 +1,55 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import SearchIcon from '@atlaskit/icon/glyph/search';
 
+import { CREATE_BREAKPOINT, fontSize, gridSize } from '../../common/constants';
 import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 
-import {
-  searchIconCSS,
-  searchInputContainerCSS,
-  searchInputCSS,
-  searchInputIconCSS,
-} from './styles';
 import { SearchProps } from './types';
+
+const searchInputContainerStyles = css({
+  marginRight: gridSize,
+  marginLeft: 20,
+  position: 'relative',
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
+    display: 'none !important',
+  },
+});
+
+const searchInputIconStyles = css({
+  width: '20px',
+  height: '20px',
+  position: 'absolute',
+  top: '5px',
+  left: '10px',
+  pointerEvents: 'none',
+});
+
+const searchInputStyles = css({
+  boxSizing: 'border-box',
+  width: '220px',
+  height: `${gridSize * 4}px`,
+  padding: `0 ${gridSize}px 0 40px`,
+  border: '2px solid',
+  borderRadius: 6,
+  fontSize: `${fontSize}px`,
+  outline: 'none',
+  '::placeholder': {
+    color: 'inherit',
+  },
+});
+
+const searchIconStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  [`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
+    display: 'none !important',
+  },
+});
 
 type SearchComponentProps = {
   onClick: SearchProps['onClick'];
@@ -26,6 +61,7 @@ type SearchComponentProps = {
 const SearchComponent = (props: SearchComponentProps) => {
   const { onClick, placeholder, label, value } = props;
   const theme = useTheme();
+  const search = theme.mode.search;
 
   const onChange = (...args: any[]) => {
     // @ts-ignore
@@ -37,13 +73,19 @@ const SearchComponent = (props: SearchComponentProps) => {
     onClick && onClick(...args);
   };
 
+  const searchInputDynamicStyles = {
+    ...search.default,
+    ':focus': search.focus,
+  };
+
   return (
-    <div css={searchInputContainerCSS} role="search">
-      <div css={searchInputIconCSS}>
+    <div css={searchInputContainerStyles} role="search">
+      <div css={searchInputIconStyles}>
         <SearchIcon label="" />
       </div>
       <input
-        css={searchInputCSS(theme)}
+        style={searchInputDynamicStyles as React.CSSProperties}
+        css={searchInputStyles}
         aria-label={label}
         placeholder={placeholder}
         onChange={onChange}
@@ -66,7 +108,7 @@ export const Search = (props: SearchProps) => {
         value={value || ''}
       />
       <IconButton
-        css={searchIconCSS}
+        css={searchIconStyles}
         icon={<SearchIcon label={label} />}
         tooltip={tooltip}
         {...iconButtonProps}

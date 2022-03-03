@@ -8,11 +8,10 @@ type Props = {
   inputMethod: TypeAheadInputMethod;
   query?: string;
 };
-export const openTypeAheadAtCursor = ({
-  triggerHandler,
-  inputMethod,
-  query,
-}: Props) => (tr: Transaction): Transaction | null => {
+
+export const openTypeAhead = (props: Props) => (tr: Transaction) => {
+  const { triggerHandler, inputMethod, query } = props;
+
   tr.setMeta(pluginKey, {
     action: ACTIONS.OPEN_TYPEAHEAD_AT_CURSOR,
     params: {
@@ -21,6 +20,18 @@ export const openTypeAheadAtCursor = ({
       query,
     },
   });
+};
+
+export const openTypeAheadAtCursor = ({
+  triggerHandler,
+  inputMethod,
+  query,
+}: Props) => (tr: Transaction): Transaction | null => {
+  openTypeAhead({
+    triggerHandler,
+    inputMethod,
+    query,
+  })(tr);
 
   const { selection } = tr;
   if (!(selection instanceof TextSelection)) {

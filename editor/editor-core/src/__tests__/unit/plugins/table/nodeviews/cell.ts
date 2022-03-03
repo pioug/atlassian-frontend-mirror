@@ -24,7 +24,7 @@ import {
   PluginConfig,
 } from '../../../../../plugins/table/types';
 import { mergeCells } from '../../../../../plugins/table/transforms';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 import TableCellViews from '../../../../../plugins/table/nodeviews/tableCell';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import * as domHelpers from '../../../../../plugins/table/pm-plugins/sticky-headers/nodeviews/dom';

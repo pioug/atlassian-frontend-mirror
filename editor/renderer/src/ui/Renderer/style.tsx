@@ -1,5 +1,6 @@
 import { HTMLAttributes } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css as deprecatedCss } from 'styled-components';
+import { css, Theme } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import {
   gridSize,
@@ -89,7 +90,7 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 };
 
 const headingAnchorStyle = (headingTag: string) =>
-  css`
+  deprecatedCss`
     /**
      * The copy link button doesn't reserve space in the DOM so that
      * the text alignment isn't impacted by the button/icon's space.
@@ -317,8 +318,41 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
   `;
 };
 
+export const rendererStyles = (theme: Theme) => {
+  // This is required to be compatible with styled-components prop structure.
+  const props = { theme };
+
+  return css`
+    ${tableSharedStyle(props)}
+
+    ${whitespaceSharedStyles};
+    ${blockquoteSharedStyles};
+    ${headingsSharedStyles(props)};
+
+    ${paragraphSharedStyles};
+    ${listsSharedStyles};
+    ${indentationSharedStyles};
+    ${blockMarksSharedStyles};
+    ${codeMarkSharedStyles(props)};
+    ${shadowSharedStyle};
+    ${dateSharedStyle};
+    ${textColorStyles};
+    ${tasksAndDecisionsStyles};
+    ${smartCardSharedStyles}
+
+    /* plugin styles*/
+    ${mediaSingleSharedStyle} &
+    div[class^='image-wrap-'] + div[class^='image-wrap-'] {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    ${columnLayoutSharedStyle};
+  `;
+};
+
 // prettier-ignore
-export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
+export const DeprecatedWrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
   font-size: ${editorFontSize}px;
   line-height: 1.5rem;
   color: ${themed({ light: colors.N800, dark: '#B8C7E0' })};
@@ -368,21 +402,8 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     color: ${colors.placeholderText};
   }
 
-  ${whitespaceSharedStyles};
-  ${blockquoteSharedStyles};
-  ${headingsSharedStyles};
   ${panelSharedStyles};
   ${ruleSharedStyles};
-  ${paragraphSharedStyles};
-  ${listsSharedStyles};
-  ${indentationSharedStyles};
-  ${blockMarksSharedStyles};
-  ${codeMarkSharedStyles};
-  ${shadowSharedStyle};
-  ${dateSharedStyle};
-  ${textColorStyles};
-  ${tasksAndDecisionsStyles};
-  ${smartCardSharedStyles}
 
   & .UnknownBlock {
     font-family: ${fontFamily()};
@@ -441,11 +462,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
 
   ${alignedHeadingAnchorStyle}
 
-  ${mediaSingleSharedStyle} &
-  div[class^='image-wrap-'] + div[class^='image-wrap-'] {
-    margin-left: 0;
-    margin-right: 0;
-  }
+
 
   /* Breakout for tables and extensions */
   .${RendererCssClassName.DOCUMENT} > {
@@ -476,7 +493,7 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     overflow-x: auto;
   }
 
-  ${tableSharedStyle}
+
 
   .${TableSharedCssClassName.TABLE_CONTAINER} {
     z-index: 0;
@@ -644,7 +661,6 @@ export const Wrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
     }
   }
 
-  ${columnLayoutSharedStyle};
   & [data-layout-section] {
     margin-top: ${gridSize() * 2.5}px;
     & > div + div {

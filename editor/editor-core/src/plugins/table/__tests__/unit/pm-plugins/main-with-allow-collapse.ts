@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../../table';
-import { pluginKey } from '../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../pm-plugins/plugin-key';
 import { TablePluginState } from '../../../types';
 import { handleDocOrSelectionChanged } from '../../../handlers';
 import expandPlugin from '../../../../expand';

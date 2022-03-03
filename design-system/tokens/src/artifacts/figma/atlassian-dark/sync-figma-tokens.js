@@ -6,7 +6,7 @@
 // Read the instructions to use this here:
 // `packages/design-system/tokens/src/figma/README.md`
 synchronizeFigmaTokens('AtlassianDark', {
-  "Color/Text/Accent/Blue": {
+  "Color/Text/Accent/Blue/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -14,7 +14,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#85B8FF"
   },
-  "Color/Text/Accent/Red": {
+  "Color/Text/Accent/Blue/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold blue accent backgrounds."
+    },
+    "value": "#CCE0FF"
+  },
+  "Color/Text/Accent/Red/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -22,7 +30,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#FF9C8F"
   },
-  "Color/Text/Accent/Orange": {
+  "Color/Text/Accent/Red/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold red accent backgrounds."
+    },
+    "value": "#FFD2CC"
+  },
+  "Color/Text/Accent/Orange/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -30,7 +46,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#FEC57B"
   },
-  "Color/Text/Accent/Yellow": {
+  "Color/Text/Accent/Orange/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold orange accent backgrounds."
+    },
+    "value": "#FFE2BD"
+  },
+  "Color/Text/Accent/Yellow/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -38,7 +62,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#F5CD47"
   },
-  "Color/Text/Accent/Green": {
+  "Color/Text/Accent/Yellow/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold yellow accent backgrounds."
+    },
+    "value": "#F8E6A0"
+  },
+  "Color/Text/Accent/Green/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -46,7 +78,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#7EE2B8"
   },
-  "Color/Text/Accent/Purple": {
+  "Color/Text/Accent/Green/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold green accent backgrounds."
+    },
+    "value": "#BAF3DB"
+  },
+  "Color/Text/Accent/Purple/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -54,7 +94,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#B8ACF6"
   },
-  "Color/Text/Accent/Teal": {
+  "Color/Text/Accent/Purple/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold purple accent backgrounds."
+    },
+    "value": "#DFD8FD"
+  },
+  "Color/Text/Accent/Teal/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -62,13 +110,29 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#8BDBE5"
   },
-  "Color/Text/Accent/Magenta": {
+  "Color/Text/Accent/Teal/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold teal accent backgrounds."
+    },
+    "value": "#C1F0F5"
+  },
+  "Color/Text/Accent/Magenta/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for megenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#F797D2"
+  },
+  "Color/Text/Accent/Magenta/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use on bold magenta accent backgrounds."
+    },
+    "value": "#FDD0EC"
   },
   "Color/Text/Default": {
     "attributes": {
@@ -338,7 +402,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#388BFF"
   },
@@ -346,7 +410,7 @@ synchronizeFigmaTokens('AtlassianDark', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#EF5C48"
   },
@@ -486,7 +550,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#388BFF"
   },
-  "Color/Background/Accent/Blue/Default": {
+  "Color/Background/Accent/Blue/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#082145"
+  },
+  "Color/Background/Accent/Blue/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -494,15 +566,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#09326C"
   },
-  "Color/Background/Accent/Blue/Bold": {
+  "Color/Background/Accent/Blue/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags."
     },
-    "value": "#0C66E4"
+    "value": "#0055CC"
   },
-  "Color/Background/Accent/Red/Default": {
+  "Color/Background/Accent/Blue/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#579DFF"
+  },
+  "Color/Background/Accent/Red/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#391813"
+  },
+  "Color/Background/Accent/Red/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -510,15 +598,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#601E16"
   },
-  "Color/Background/Accent/Red/Bold": {
+  "Color/Background/Accent/Red/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#CA3521"
+    "value": "#AE2A19"
   },
-  "Color/Background/Accent/Orange/Default": {
+  "Color/Background/Accent/Red/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#F87462"
+  },
+  "Color/Background/Accent/Orange/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#43290F"
+  },
+  "Color/Background/Accent/Orange/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -526,15 +630,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#5F3811"
   },
-  "Color/Background/Accent/Orange/Bold": {
+  "Color/Background/Accent/Orange/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#B65C02"
+    "value": "#974F0C"
   },
-  "Color/Background/Accent/Yellow/Default": {
+  "Color/Background/Accent/Orange/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#FAA53D"
+  },
+  "Color/Background/Accent/Yellow/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#3D2E00"
+  },
+  "Color/Background/Accent/Yellow/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -542,15 +662,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#533F04"
   },
-  "Color/Background/Accent/Yellow/Bold": {
+  "Color/Background/Accent/Yellow/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#946F00"
+    "value": "#7F5F01"
   },
-  "Color/Background/Accent/Green/Default": {
+  "Color/Background/Accent/Yellow/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#E2B203"
+  },
+  "Color/Background/Accent/Green/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#133527"
+  },
+  "Color/Background/Accent/Green/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -558,15 +694,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#164B35"
   },
-  "Color/Background/Accent/Green/Bold": {
+  "Color/Background/Accent/Green/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#1F845A"
+    "value": "#216E4E"
   },
-  "Color/Background/Accent/Teal/Default": {
+  "Color/Background/Accent/Green/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#4BCE97"
+  },
+  "Color/Background/Accent/Teal/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#153337"
+  },
+  "Color/Background/Accent/Teal/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -574,15 +726,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#1D474C"
   },
-  "Color/Background/Accent/Teal/Bold": {
+  "Color/Background/Accent/Teal/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#1D7F8C"
+    "value": "#206B74"
   },
-  "Color/Background/Accent/Purple/Default": {
+  "Color/Background/Accent/Teal/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#60C6D2"
+  },
+  "Color/Background/Accent/Purple/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#231C3F"
+  },
+  "Color/Background/Accent/Purple/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -590,15 +758,31 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#352C63"
   },
-  "Color/Background/Accent/Purple/Bold": {
+  "Color/Background/Accent/Purple/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#6E5DC6"
+    "value": "#5E4DB2"
   },
-  "Color/Background/Accent/Magenta/Default": {
+  "Color/Background/Accent/Purple/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#9F8FEF"
+  },
+  "Color/Background/Accent/Magenta/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#341829"
+  },
+  "Color/Background/Accent/Magenta/Subtler": {
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -606,13 +790,21 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#50253F"
   },
-  "Color/Background/Accent/Magenta/Bold": {
+  "Color/Background/Accent/Magenta/Subtle": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#AE4787"
+    "value": "#943D73"
+  },
+  "Color/Background/Accent/Magenta/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#E774BB"
   },
   "Color/Background/Disabled": {
     "attributes": {
@@ -1201,6 +1393,22 @@ synchronizeFigmaTokens('AtlassianDark', {
   "Color/Text/OnBoldWarning": "Color/Text/Warning/Inverse",
   "Color/Border/Focus": "Color/Border/Focused",
   "Color/Border/Neutral": "Color/Border/Default",
+  "Color/Background/Accent/Blue/Default": "Color/Background/Accent/Blue/Subtler",
+  "Color/Background/Accent/Blue/Bold": "Color/Background/Accent/Blue/Subtle",
+  "Color/Background/Accent/Red/Default": "Color/Background/Accent/Red/Subtler",
+  "Color/Background/Accent/Red/Bold": "Color/Background/Accent/Red/Subtle",
+  "Color/Background/Accent/Orange/Default": "Color/Background/Accent/Orange/Subtler",
+  "Color/Background/Accent/Orange/Bold": "Color/Background/Accent/Orange/Subtle",
+  "Color/Background/Accent/Yellow/Default": "Color/Background/Accent/Yellow/Subtler",
+  "Color/Background/Accent/Yellow/Bold": "Color/Background/Accent/Yellow/Subtle",
+  "Color/Background/Accent/Green/Default": "Color/Background/Accent/Green/Subtler",
+  "Color/Background/Accent/Green/Bold": "Color/Background/Accent/Green/Subtle",
+  "Color/Background/Accent/Teal/Default": "Color/Background/Accent/Teal/Subtler",
+  "Color/Background/Accent/Teal/Bold": "Color/Background/Accent/Teal/Subtle",
+  "Color/Background/Accent/Purple/Default": "Color/Background/Accent/Purple/Subtler",
+  "Color/Background/Accent/Purple/Bold": "Color/Background/Accent/Purple/Subtle",
+  "Color/Background/Accent/Magenta/Default": "Color/Background/Accent/Magenta/Subtler",
+  "Color/Background/Accent/Magenta/Bold": "Color/Background/Accent/Magenta/Subtle",
   "Color/Background/Brand/Default/Default": "Color/Background/Selected/Default/Default",
   "Color/Background/Brand/Default/Hovered": "Color/Background/Selected/Default/Hovered",
   "Color/Background/Brand/Default/Pressed": "Color/Background/Selected/Default/Pressed",
@@ -1251,19 +1459,19 @@ synchronizeFigmaTokens('AtlassianDark', {
   "Color/Background/Sunken": "Elevation/Surface/Sunken",
   "Color/Background/TransparentNeutral/Hover": "Color/Background/Neutral/Subtle/Hovered",
   "Color/Background/TransparentNeutral/Pressed": "Color/Background/Neutral/Subtle/Pressed",
-  "Color/Accent/BoldBlue": "Color/Background/Accent/Blue/Bold",
-  "Color/Accent/BoldGreen": "Color/Background/Accent/Green/Bold",
-  "Color/Accent/BoldOrange": "Color/Background/Accent/Orange/Bold",
-  "Color/Accent/BoldPurple": "Color/Background/Accent/Purple/Bold",
-  "Color/Accent/BoldRed": "Color/Background/Accent/Red/Bold",
-  "Color/Accent/BoldTeal": "Color/Background/Accent/Teal/Bold",
-  "Color/Accent/SubtleBlue": "Color/Background/Accent/Blue/Default",
-  "Color/Accent/SubtleGreen": "Color/Background/Accent/Green/Default",
-  "Color/Accent/SubtleMagenta": "Color/Background/Accent/Magenta/Default",
-  "Color/Accent/SubtleOrange": "Color/Background/Accent/Orange/Default",
-  "Color/Accent/SubtlePurple": "Color/Background/Accent/Purple/Default",
-  "Color/Accent/SubtleRed": "Color/Background/Accent/Red/Default",
-  "Color/Accent/SubtleTeal": "Color/Background/Accent/Teal/Default",
+  "Color/Accent/BoldBlue": "Color/Background/Accent/Blue/Bolder",
+  "Color/Accent/BoldGreen": "Color/Background/Accent/Green/Bolder",
+  "Color/Accent/BoldOrange": "Color/Background/Accent/Orange/Bolder",
+  "Color/Accent/BoldPurple": "Color/Background/Accent/Purple/Bolder",
+  "Color/Accent/BoldRed": "Color/Background/Accent/Red/Bolder",
+  "Color/Accent/BoldTeal": "Color/Background/Accent/Teal/Bolder",
+  "Color/Accent/SubtleBlue": "Color/Background/Accent/Blue/Subtler",
+  "Color/Accent/SubtleGreen": "Color/Background/Accent/Green/Subtler",
+  "Color/Accent/SubtleMagenta": "Color/Background/Accent/Magenta/Subtler",
+  "Color/Accent/SubtleOrange": "Color/Background/Accent/Orange/Subtler",
+  "Color/Accent/SubtlePurple": "Color/Background/Accent/Purple/Subtler",
+  "Color/Accent/SubtleRed": "Color/Background/Accent/Red/Subtler",
+  "Color/Accent/SubtleTeal": "Color/Background/Accent/Teal/Subtler",
   "Color/IconBorder/Brand": "Color/Icon/Brand",
   "Color/IconBorder/Danger": "Color/Icon/Danger",
   "Color/IconBorder/Discovery": "Color/Icon/Discovery",

@@ -14,7 +14,7 @@ import { uuid } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { deleteColumns } from '../../../../../plugins/table/transforms';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),

@@ -3,6 +3,7 @@ import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 
 import { CSSObject, jsx } from '@emotion/core';
 
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
@@ -60,7 +61,10 @@ type InitialStateKeys = keyof InitialState;
 const scrollableContentCSS = {
   height: '2rem',
   width: '80%',
-  backgroundColor: 'papayawhip',
+  backgroundColor: token(
+    'color.background.accent.orange.subtler',
+    'papayawhip',
+  ),
   margin: '2rem auto',
   boxSizing: 'border-box',
   borderRadius: 3,
@@ -154,7 +158,7 @@ const Wrapper = ({
       boxSizing: 'border-box',
       overflowY: 'auto',
       overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: 'white',
+      backgroundColor: token('color.background.neutral.subtle', 'white'),
     }}
   >
     {children}
@@ -255,7 +259,9 @@ const BasicGrid = () => {
         >
           {gridState.isBannerShown && (
             <Banner height={60} isFixed={gridState.isBannerFixed}>
-              <Wrapper borderColor="gold">
+              <Wrapper
+                borderColor={token('color.border.accent.yellow', 'gold')}
+              >
                 <h3 css={{ textAlign: 'center' }}>Banner</h3>
                 <ToggleFixed
                   onChange={() => toggleFixed('Banner')}
@@ -266,7 +272,7 @@ const BasicGrid = () => {
           )}
           {gridState.isTopNavigationShown && (
             <TopNavigation height={60} isFixed={gridState.isTopNavigationFixed}>
-              <Wrapper borderColor="blue">
+              <Wrapper borderColor={token('color.border.accent.blue', 'blue')}>
                 <h3 css={{ textAlign: 'center' }}>TopNavigation</h3>
                 <ToggleFixed
                   onChange={() => toggleFixed('TopNavigation')}
@@ -277,7 +283,9 @@ const BasicGrid = () => {
           )}
           {gridState.isLeftPanelShown && (
             <LeftPanel isFixed={gridState.isLeftPanelFixed} width={200}>
-              <Wrapper borderColor="orange">
+              <Wrapper
+                borderColor={token('color.border.accent.orange', 'orange')}
+              >
                 <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
                 <ToggleFixed
                   onChange={() => toggleFixed('LeftPanel')}
@@ -325,7 +333,7 @@ const BasicGrid = () => {
                 <Wrapper
                   noOutline
                   noHorizontalScrollbar
-                  borderColor="darkgreen"
+                  borderColor={token('color.border.accent.green', 'darkgreen')}
                 >
                   <div css={{ minWidth: 50, padding: '0 20px' }}>
                     <h3 css={{ textAlign: 'center' }}>LeftSidebar</h3>
@@ -344,7 +352,7 @@ const BasicGrid = () => {
             )}
             {gridState.isMainShown && (
               <Main id="main" skipLinkTitle="Main">
-                <Wrapper noOutline borderColor="black">
+                <Wrapper noOutline borderColor={token('color.border', 'black')}>
                   <h3 css={{ textAlign: 'center' }}>Main</h3>
                   <ToggleExtraWide
                     onChange={() =>
@@ -364,7 +372,9 @@ const BasicGrid = () => {
             )}
             {gridState.isRightSidebarShown && (
               <RightSidebar isFixed={gridState.isRightSidebarFixed} width={200}>
-                <Wrapper borderColor="darkgreen">
+                <Wrapper
+                  borderColor={token('color.border.accent.green', 'darkgreen')}
+                >
                   <h3 css={{ textAlign: 'center' }}>RightSidebar</h3>
                   <ToggleFixed
                     onChange={() => toggleFixed('RightSidebar')}
@@ -380,7 +390,9 @@ const BasicGrid = () => {
           </Content>
           {gridState.isRightPanelShown && (
             <RightPanel isFixed={gridState.isRightPanelFixed} width={200}>
-              <Wrapper borderColor="orange">
+              <Wrapper
+                borderColor={token('color.border.accent.orange', 'orange')}
+              >
                 <h3 css={{ textAlign: 'center' }}>RightPanel</h3>
                 <ToggleFixed
                   onChange={() => toggleFixed('RightPanel')}
@@ -401,9 +413,9 @@ const BasicGrid = () => {
           bottom: '1rem',
           left: '50%',
           transform: 'translate(-50%)',
-          backgroundColor: 'white',
+          backgroundColor: token('color.background.neutral.subtle', 'white'),
           padding: '1rem',
-          border: '1px solid lightgray',
+          border: `1px solid ${token('color.border', 'lightgray')}`,
           zIndex: 2,
           borderRadius: 3,
         }}

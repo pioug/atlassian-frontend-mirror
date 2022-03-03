@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import { B300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { spacing } from '../constants';
 
@@ -26,7 +27,7 @@ const progressBarStyles = css({
   height: PROGRESS_BAR_HEIGHT,
   position: 'absolute',
   left: '50%',
-  backgroundColor: B300,
+  backgroundColor: token('color.background.brand.bold', B300),
   borderBottomRightRadius: PROGRESS_BAR_HEIGHT,
   borderTopRightRadius: PROGRESS_BAR_HEIGHT,
   transform: `translate(0, -${LABEL_TOP_SPACING}px)`,

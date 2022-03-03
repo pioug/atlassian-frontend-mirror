@@ -1,97 +1,123 @@
-import * as sinon from 'sinon';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mount, MountRendererProps } from 'enzyme';
-import PropTypes from 'prop-types';
 import React from 'react';
+import * as sinon from 'sinon';
+import { render } from '@testing-library/react';
+import CachingEmoji from '../../../../components/common/CachingEmoji';
 import EmojiResource from '../../../../api/EmojiResource';
-import CachingEmoji, {
-  CachingMediaEmoji,
-} from '../../../../components/common/CachingEmoji';
-import Emoji from '../../../../components/common/Emoji';
-import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
-import { hasSelector } from '../../_emoji-selectors';
-import { imageEmoji, loadedMediaEmoji, mediaEmoji } from '../../_test-data';
+import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
+import { imageEmoji, mediaEmoji, loadedMediaEmoji } from '../../_test-data';
+import { EmojiContextType } from '../../../../context/EmojiContext';
+import { EmojiDescription } from '../../../../types';
 
 describe('<CachingEmoji />', () => {
   describe('Non-media emoji', () => {
-    it('CachingMediaEmoji not used, just an Emoji rendered', () => {
-      const component = mount(<CachingEmoji emoji={imageEmoji} />);
-      expect(component.find(CachingMediaEmoji).length).toEqual(0);
-      expect(component.find(Emoji).length).toEqual(1);
+    it('CachingMediaEmoji not used, just an Emoji rendered', async () => {
+      const result = await render(<CachingEmoji emoji={imageEmoji} />);
+      expect(result).not.toBeNull();
+      const image = result.getByAltText(':grimacing:');
+      expect(image).not.toBeNull();
+      expect(image).toHaveAttribute('src', imageEmoji.representation.imagePath);
     });
   });
 
   describe('Media emoji', () => {
-    let contextOptions: MountRendererProps;
-    let emojiProviderStub: any;
+    it('renders nothing if context is missing', async () => {
+      const result = await render(<CachingEmoji emoji={mediaEmoji} />);
+      expect(result).not.toBeNull();
+      expect(result.container.children.length).toEqual(1);
+    });
 
-    beforeEach(() => {
-      emojiProviderStub = sinon.createStubInstance(EmojiResource);
-      contextOptions = {
-        context: {
+    describe('with a valid provider', () => {
+      const createEmojiContextWrapperRenderer = async (
+        emojiContextValue: EmojiContextType,
+        emojiDescription: EmojiDescription,
+      ) => {
+        return render(
+          <EmojiContextProvider emojiContextValue={emojiContextValue}>
+            <CachingEmoji emoji={mediaEmoji} />
+          </EmojiContextProvider>,
+        );
+      };
+
+      let emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource>;
+      beforeEach(() => {
+        emojiProviderStub = sinon.createStubInstance(EmojiResource);
+      });
+
+      it('has lazyload defined on the image attribute', async () => {
+        emojiProviderStub.optimisticMediaRendering.returns(true);
+        const emojiContextValue = {
           emoji: {
             emojiProvider: emojiProviderStub,
           },
-        },
-        childContextTypes: {
-          emoji: PropTypes.object,
-        },
-      };
-    });
+        };
+        const result = await createEmojiContextWrapperRenderer(
+          emojiContextValue,
+          mediaEmoji,
+        );
+        const image = result.container.firstChild?.firstChild;
 
-    it('Nothing rendered if missing context', () => {
-      const component = mount(<CachingEmoji emoji={mediaEmoji} />);
-      expect(component.find(CachingMediaEmoji).length).toEqual(1);
-      expect(component.find(Emoji).length).toEqual(0);
-      expect(component.find(EmojiPlaceholder).length).toEqual(1);
-    });
-
-    it('Renders direct url if optimistic rendering true', () => {
-      emojiProviderStub.optimisticMediaRendering.returns(true);
-      const component = mount(
-        <CachingEmoji emoji={mediaEmoji} />,
-        contextOptions,
-      );
-      expect(component.find(CachingMediaEmoji).length).toEqual(1);
-      return waitUntil(() => hasSelector(component, Emoji)).then(() => {
-        const emoji = component.find(Emoji);
-        expect(emoji.length).toEqual(1);
-        const emojiDescription = emoji.prop('emoji');
-        expect(emojiDescription).toEqual(mediaEmoji);
+        expect(image).toHaveAttribute('loading', 'lazy');
       });
-    });
 
-    it('Loads emoji via cache (promise) if optimistic rendering false', () => {
-      emojiProviderStub.optimisticMediaRendering.returns(false);
-      emojiProviderStub.loadMediaEmoji.returns(
-        Promise.resolve(loadedMediaEmoji),
-      );
-      const component = mount(
-        <CachingEmoji emoji={mediaEmoji} />,
-        contextOptions,
-      );
-      expect(component.find(CachingMediaEmoji).length).toEqual(1);
-      return waitUntil(() => hasSelector(component, Emoji)).then(() => {
-        const emoji = component.find(Emoji);
-        expect(emoji.length).toEqual(1);
-        const emojiDescription = emoji.prop('emoji');
-        expect(emojiDescription).toEqual(loadedMediaEmoji);
+      it('renders direct url if optimistic rendering is true', async () => {
+        emojiProviderStub.optimisticMediaRendering.returns(true);
+        const emojiContextValue = {
+          emoji: {
+            emojiProvider: emojiProviderStub,
+          },
+        };
+        const result = await createEmojiContextWrapperRenderer(
+          emojiContextValue,
+          mediaEmoji,
+        );
+        const image = result.container.firstChild?.firstChild;
+
+        expect(image).not.toBeNull();
+        expect(image).toHaveAttribute(
+          'src',
+          mediaEmoji.representation.mediaPath,
+        );
+        expect(image).toHaveAttribute('alt', mediaEmoji.shortName);
       });
-    });
 
-    it('Loads emoji via cache (non-promise) if optimistic rendering false', () => {
-      emojiProviderStub.optimisticMediaRendering.returns(false);
-      emojiProviderStub.loadMediaEmoji.returns(loadedMediaEmoji);
-      const component = mount(
-        <CachingEmoji emoji={mediaEmoji} />,
-        contextOptions,
-      );
-      expect(component.find(CachingMediaEmoji).length).toEqual(1);
-      return waitUntil(() => hasSelector(component, Emoji)).then(() => {
-        const emoji = component.find(Emoji);
-        expect(emoji.length).toEqual(1);
-        const emojiDescription = emoji.prop('emoji');
-        expect(emojiDescription).toEqual(loadedMediaEmoji);
+      it('loads emoji via cache (promise) if optimistic rendering is false', async () => {
+        emojiProviderStub.optimisticMediaRendering.returns(false);
+        emojiProviderStub.loadMediaEmoji.returns(
+          Promise.resolve(loadedMediaEmoji),
+        );
+        const emojiContextValue = {
+          emoji: {
+            emojiProvider: emojiProviderStub,
+          },
+        };
+        const result = await createEmojiContextWrapperRenderer(
+          emojiContextValue,
+          mediaEmoji,
+        );
+        const image = result.container.firstChild?.firstChild;
+
+        expect(image).not.toBeNull();
+        expect(image).toHaveAttribute('src', expect.stringContaining('base64'));
+        expect(image).toHaveAttribute('alt', loadedMediaEmoji.shortName);
+      });
+
+      it('loads emoji via cache (non promise) if optimistic rendering is false', async () => {
+        emojiProviderStub.optimisticMediaRendering.returns(false);
+        emojiProviderStub.loadMediaEmoji.returns(loadedMediaEmoji);
+        const emojiContextValue = {
+          emoji: {
+            emojiProvider: emojiProviderStub,
+          },
+        };
+        const result = await createEmojiContextWrapperRenderer(
+          emojiContextValue,
+          mediaEmoji,
+        );
+        const image = result.container.firstChild?.firstChild;
+
+        expect(image).not.toBeNull();
+        expect(image).toHaveAttribute('src', expect.stringContaining('base64'));
+        expect(image).toHaveAttribute('alt', loadedMediaEmoji.shortName);
       });
     });
   });

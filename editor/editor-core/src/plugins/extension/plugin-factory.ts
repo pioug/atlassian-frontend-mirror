@@ -2,6 +2,7 @@ import { pluginFactory } from '../../utils/plugin-state-factory';
 import { ExtensionState } from './types';
 import reducer from './reducer';
 import { pluginKey } from './plugin-key';
+import { onSelectionChanged } from './utils';
 
 const factory = pluginFactory(pluginKey, reducer, {
   mapping(tr, state) {
@@ -20,6 +21,7 @@ const factory = pluginFactory(pluginKey, reducer, {
       positions,
     };
   },
+  onSelectionChanged: onSelectionChanged,
 });
 
 export const createPluginState = factory.createPluginState;

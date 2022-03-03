@@ -17,7 +17,7 @@ import {
 import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import { sortByColumn } from '../../../../plugins/table/commands';
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

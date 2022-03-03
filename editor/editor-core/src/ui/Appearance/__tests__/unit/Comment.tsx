@@ -62,10 +62,9 @@ describe('comment editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ContentArea')
-      .childAt(0)
-      .simulate('click');
+
+    fullPage.find('div.ak-editor-content-area').simulate('click');
+
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world')));
   });
 
@@ -153,10 +152,7 @@ describe('comment editor', () => {
           editorDOMElement={<div />}
         />,
       );
-      fullPage
-        .findWhere((elm) => elm.name() === 'ContentArea')
-        .childAt(0)
-        .simulate('click');
+      fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
         fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(true);
@@ -171,10 +167,7 @@ describe('comment editor', () => {
           editorDOMElement={<div />}
         />,
       );
-      fullPage
-        .findWhere((elm) => elm.name() === 'ContentArea')
-        .childAt(0)
-        .simulate('click');
+      fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
         fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(true);
@@ -189,10 +182,7 @@ describe('comment editor', () => {
           editorDOMElement={<div />}
         />,
       );
-      fullPage
-        .findWhere((elm) => elm.name() === 'ContentArea')
-        .childAt(0)
-        .simulate('click');
+      fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
         fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(true);
@@ -206,10 +196,7 @@ describe('comment editor', () => {
           editorDOMElement={<div />}
         />,
       );
-      fullPage
-        .findWhere((elm) => elm.name() === 'ContentArea')
-        .childAt(0)
-        .simulate('click');
+      fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
         fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
       ).toBe(false);

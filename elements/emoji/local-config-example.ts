@@ -1,14 +1,14 @@
 // Copy this file to local-config.ts and customise.
 export default {
   recordConfig: {
-    url: 'https://emoji-example/',
+    url: 'https://www.example.org/',
   },
   providers: [
     {
-      url: 'https://emoji-example/emoji/standard',
+      url: 'https://www.example.org/emoji/standard',
     },
     {
-      url: 'https://emoji-example/emoji/site-id/site',
+      url: 'https://www.example.org/emoji/site-id/site',
       securityProvider: () => ({
         headers: {
           Authorization: 'Bearer token',

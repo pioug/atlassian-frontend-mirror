@@ -21,6 +21,7 @@ import { retryUntilStablePosition } from '../../__helpers/page-objects/_toolbar'
 import { isVisualRegression } from '../utils';
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../../../plugins/table/types';
 import { TestPage, WebDriverPage, isPuppeteer } from './_types';
+import { tableMarginTop } from '@atlaskit/editor-common/styles';
 
 export const tableSelectors = {
   contextualMenuButton: `.${ClassName.CONTEXTUAL_MENU_BUTTON}`,
@@ -35,7 +36,7 @@ export const tableSelectors = {
   firstRowControl: `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}:nth-child(1) button`,
   firstColumnControl: `.${ClassName.COLUMN_CONTROLS_DECORATIONS}[data-start-index='0'] `,
   lastRowControl: `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}:nth-child(3) button`,
-  rowControlSelector: ClassName.ROW_CONTROLS_BUTTON_WRAP,
+  rowControlSelector: `.${ClassName.ROW_CONTROLS_BUTTON_WRAP}`,
   deleteButtonSelector: `.${ClassName.CONTROLS_DELETE_BUTTON_WRAP} .${ClassName.CONTROLS_DELETE_BUTTON}`,
   rowControls: ClassName.ROW_CONTROLS_WRAPPER,
   insertColumnButton: `.${ClassName.CONTROLS_INSERT_COLUMN}`,
@@ -607,6 +608,91 @@ const select = (type: 'row' | 'column' | 'numbered') => async (
     await page.click(selector);
   }
   await page.waitForSelector(tableSelectors.selectedCell);
+};
+
+// This value is used as a BUFFER to ensure our cursor exists inside our table
+const BUFFER = 20;
+
+export const multiCellTableSelectionTopLeftToBottomRight = async (
+  page: TestPage,
+) => {
+  const rect = await getBoundingRect(page, `.${ClassName.TABLE_CONTAINER}`)!;
+
+  if (isPuppeteer(page)) {
+    await moveMouse(
+      page,
+      rect.left + BUFFER,
+      rect.top + tableMarginTop + BUFFER,
+    );
+    await page.mouse.down();
+    await moveMouse(
+      page,
+      rect.left + rect.width - BUFFER,
+      rect.top + rect.height - BUFFER,
+    );
+  } else {
+    await page.simulateUserDragAndDrop(
+      rect.left + BUFFER,
+      rect.top + tableMarginTop + BUFFER,
+      rect.left + rect.width - BUFFER,
+      rect.top + rect.height - BUFFER,
+    );
+  }
+};
+
+export const multiCellTableSelectionBottomRightToFirstCell = async (
+  page: TestPage,
+) => {
+  const rect = await getBoundingRect(page, `.${ClassName.TABLE_CONTAINER}`)!;
+  const tableCell = await getBoundingRect(page, `.${ClassName.TABLE_CELL}`)!;
+
+  if (isPuppeteer(page)) {
+    await moveMouse(
+      page,
+      rect.left + rect.width - BUFFER,
+      rect.top + rect.height - BUFFER,
+    );
+    await page.mouse.down();
+    await moveMouse(
+      page,
+      rect.left + BUFFER,
+      rect.top + tableMarginTop + tableCell.height + BUFFER,
+    );
+  } else {
+    await page.simulateUserDragAndDrop(
+      rect.left + rect.width - BUFFER,
+      rect.top + rect.height - BUFFER,
+      rect.left + BUFFER,
+      rect.top + tableMarginTop + tableCell.height + BUFFER,
+    );
+  }
+};
+
+export const multiCellTableSelectionBottomRightToMiddleTopCell = async (
+  page: TestPage,
+) => {
+  const rect = await getBoundingRect(page, `.${ClassName.TABLE_CONTAINER}`)!;
+
+  if (isPuppeteer(page)) {
+    await moveMouse(
+      page,
+      rect.left + rect.width - BUFFER,
+      rect.top + rect.height - BUFFER,
+    );
+    await page.mouse.down();
+    await moveMouse(
+      page,
+      rect.left + rect.width * 0.5,
+      rect.top + tableMarginTop + BUFFER,
+    );
+  } else {
+    await page.simulateUserDragAndDrop(
+      rect.left + rect.width - BUFFER,
+      rect.top + rect.height - BUFFER,
+      rect.left + rect.width * 0.5,
+      rect.top + tableMarginTop + BUFFER,
+    );
+  }
 };
 
 /**

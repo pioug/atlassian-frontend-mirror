@@ -1,7 +1,6 @@
 import { defineMessages } from 'react-intl-next';
 
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-
 import commonMessages from '../../messages';
 import { Command, CommandDispatch } from '../../types/command';
 import {
@@ -35,7 +34,6 @@ import {
   PluginConfig,
   TableCssClassName,
 } from './types';
-import { checkIfNumberColumnEnabled } from './utils';
 import { isReferencedSource } from './utils/referentiality';
 import { INPUT_METHOD } from '../analytics';
 import {
@@ -281,14 +279,7 @@ export const getToolbarConfig = (
     | undefined = tableResizingPluginKey.getState(state);
   if (tableObject && pluginState.editorHasFocus) {
     const nodeType = state.schema.nodes.table;
-    const menu = getToolbarMenuConfig(
-      config,
-      {
-        ...pluginState,
-        isNumberColumnEnabled: checkIfNumberColumnEnabled(state),
-      },
-      intl,
-    );
+    const menu = getToolbarMenuConfig(config, pluginState, intl);
 
     const cellItems = getCellItems(config, state, intl);
 

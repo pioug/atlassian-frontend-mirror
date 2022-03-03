@@ -53,7 +53,6 @@ export {
 } from './mark';
 export { isParagraph, isText, isLinkMark, validateNodes } from './nodes';
 export {
-  isChromeWithSelectionBug,
   normaliseNestedLayout,
   setNodeSelection,
   setAllSelection,

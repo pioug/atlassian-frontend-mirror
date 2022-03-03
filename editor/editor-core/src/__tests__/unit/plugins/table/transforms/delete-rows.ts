@@ -15,7 +15,7 @@ import {
 import { uuid } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { deleteRows } from '../../../../../plugins/table/transforms';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 const rowsToRect = (rows: Array<number>, noOfColumns: number): Rect => ({
   left: 0,

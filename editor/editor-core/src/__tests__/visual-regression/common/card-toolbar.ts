@@ -48,4 +48,33 @@ describe('Card toolbar:', () => {
     );
     await snapshot(page);
   });
+
+  it('renders properly when feature flag `viewChangingExperimentToolbarStyle` is set to `toolbarIcons`', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardAppearanceAdf,
+      undefined,
+      {
+        width: 950,
+        height: 1020,
+      },
+      {
+        featureFlags: {
+          viewChangingExperimentToolbarStyle: 'toolbarIcons',
+        },
+        smartLinks: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+    );
+    // we first render a smart inline link
+    await waitForResolvedInlineCard(page);
+    await waitForInlineCardSelection(page);
+    await page.waitForSelector(
+      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-edit-link-button"]',
+    );
+    await snapshot(page);
+  });
 });

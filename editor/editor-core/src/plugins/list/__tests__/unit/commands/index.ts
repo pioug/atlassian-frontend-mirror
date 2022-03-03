@@ -15,7 +15,7 @@ import {
   strong,
   code_block,
   indentation,
-  BuilderContent,
+  alignment,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -46,6 +46,7 @@ import datePlugin from '../../../../date';
 import codeBlockPlugin from '../../../../code-block';
 import panelPlugin from '../../../../panel';
 import indentationPlugin from '../../../../indentation';
+import alignmentPlugin from '../../../../alignment';
 import breakoutPlugin from '../../../../breakout';
 import widthPlugin from '../../../../width';
 import expandPlugin from '../../../../expand';
@@ -65,6 +66,7 @@ describe('lists plugin -> commands', () => {
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add(indentationPlugin)
+      .add(alignmentPlugin)
       .add(breakoutPlugin)
       .add(widthPlugin)
       .add(expandPlugin)
@@ -214,49 +216,127 @@ describe('lists plugin -> commands', () => {
   });
 
   describe('toggleList', () => {
-    describe('strips off the indent marks', () => {
+    describe('strips off indent marks', () => {
       it.each<
         [
           string,
           {
             listType: 'bulletList' | 'orderedList';
-            content: BuilderContent;
-            expected: BuilderContent;
+            content: DocBuilder;
+            expected: DocBuilder;
           },
         ]
       >([
         [
-          'when bullet list toggled on an indented text with cursor in the end',
+          'when bullet list toggled on an indented text with cursor at the end',
           {
             listType: 'bulletList',
-            content: indentation({ level: 1 })(p('text{<>}')),
-            expected: ul(li(p('text{<>}'))),
+            content: doc(indentation({ level: 1 })(p('text{<>}'))),
+            expected: doc(ul(li(p('text{<>}')))),
           },
         ],
         [
-          'when ordered list toggled on an indented text with cursor in the beginning',
+          'when ordered list toggled on an indented text with cursor at the beginning',
           {
             listType: 'orderedList',
-            content: indentation({ level: 1 })(p('{<>}text')),
-            expected: ol(li(p('text{<>}'))),
+            content: doc(indentation({ level: 1 })(p('{<>}text'))),
+            expected: doc(ol(li(p('{<>}text')))),
           },
         ],
         [
           'when bullet list toggled on an indented text with selected text',
           {
             listType: 'bulletList',
-            content: indentation({ level: 1 })(p('{<text>}')),
-            expected: ul(li(p('{<text>}'))),
+            content: doc(indentation({ level: 1 })(p('{<text>}'))),
+            expected: doc(ul(li(p('{<text>}')))),
           },
         ],
-      ])('%s', (name, { listType, content, expected }) => {
-        const { editorView } = editor(doc(content));
+      ])('%s', (_name, { listType, content, expected }) => {
+        const { editorView } = editor(content);
 
         toggleList(INPUT_METHOD.TOOLBAR, listType)(
           editorView.state,
           editorView.dispatch,
         );
-        expect(editorView.state.doc).toEqualDocument(doc(expected));
+
+        expect(editorView.state).toEqualDocumentAndSelection(expected);
+      });
+    });
+
+    describe('strips off alignment marks', () => {
+      it.each<
+        [
+          string,
+          {
+            listType: 'bulletList' | 'orderedList';
+            content: DocBuilder;
+            expected: DocBuilder;
+          },
+        ]
+      >([
+        [
+          'when bullet list toggled on cursor selection',
+          {
+            listType: 'bulletList',
+            content: doc(alignment({ align: 'center' })(p('te{<>}xt'))),
+            expected: doc(ul(li(p('te{<>}xt')))),
+          },
+        ],
+        [
+          'when bullet list toggled on range selection including centre and right aligned text',
+          {
+            listType: 'bulletList',
+            content: doc(
+              p('{<}aaa'),
+              alignment({ align: 'center' })(p('bbb')),
+              alignment({ align: 'end' })(p('ccc{>}')),
+            ),
+            expected: doc(ul(li(p('{<}aaa')), li(p('bbb')), li(p('ccc{>}')))),
+          },
+        ],
+        [
+          'when ordered list toggled on range selection including centre and right aligned text',
+          {
+            listType: 'orderedList',
+            content: doc(
+              p('{<}aaa'),
+              alignment({ align: 'center' })(p('bbb')),
+              alignment({ align: 'end' })(p('ccc{>}')),
+            ),
+            expected: doc(ol(li(p('{<}aaa')), li(p('bbb')), li(p('ccc{>}')))),
+          },
+        ],
+        [
+          'when bullet list toggled on content adjacent to existing bullet lists',
+          {
+            listType: 'bulletList',
+            content: doc(
+              ul(li(p('before'))),
+              p('{<}aaa'),
+              alignment({ align: 'center' })(p('bbb')),
+              alignment({ align: 'end' })(p('ccc{>}')),
+              ul(li(p('after'))),
+            ),
+            expected: doc(
+              ul(
+                li(p('before')),
+                li(p('{<}aaa')),
+                li(p('bbb')),
+                li(p('ccc{>}')),
+                li(p('after')),
+              ),
+            ),
+          },
+        ],
+      ])('%s', (_name, { listType, content, expected }) => {
+        const { editorView } = editor(content);
+
+        toggleList(INPUT_METHOD.TOOLBAR, listType)(
+          editorView.state,
+          editorView.dispatch,
+        );
+
+        expect(editorView.state).toEqualDocumentAndSelection(expected);
       });
     });
 

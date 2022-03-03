@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.3.0
+
+### Minor Changes
+
+- [`2dbc546f748`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2dbc546f748) - Fixes a bug where token paths including [default] were not being detected by the linter
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.1
 
 ### Patch Changes

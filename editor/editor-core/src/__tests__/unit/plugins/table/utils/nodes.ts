@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { containsHeaderColumn } from '../../../../../plugins/table/utils/nodes';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('table merging logic', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -38,9 +38,7 @@ describe('table merging logic', () => {
       );
 
       const TableWithPos = findTable(editorView.state.selection)!;
-      expect(containsHeaderColumn(editorView.state, TableWithPos.node)).toEqual(
-        true,
-      );
+      expect(containsHeaderColumn(TableWithPos.node)).toEqual(true);
     });
 
     it('should return true when first col has a rowspan', () => {
@@ -55,9 +53,7 @@ describe('table merging logic', () => {
       );
 
       const TableWithPos = findTable(editorView.state.selection)!;
-      expect(containsHeaderColumn(editorView.state, TableWithPos.node)).toEqual(
-        true,
-      );
+      expect(containsHeaderColumn(TableWithPos.node)).toEqual(true);
     });
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/mention",
-  "version": "20.0.0",
+  "version": "21.0.0",
   "description": "A React component used to display user profiles in a list for 'Mention' functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,12 +29,12 @@
     "@atlaskit/analytics-gas-types": "^5.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/avatar": "^20.5.0",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/lozenge": "^11.0.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.6.0",
+    "@atlaskit/tokens": "^0.7.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@atlaskit/adf-utils": "^16.0.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/editor-core": "^161.0.0",
+    "@atlaskit/editor-core": "^162.0.0",
     "@atlaskit/editor-test-helpers": "^16.1.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/section-message": "^6.0.0",

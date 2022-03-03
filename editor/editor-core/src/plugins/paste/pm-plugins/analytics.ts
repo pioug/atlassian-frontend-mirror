@@ -25,7 +25,7 @@ import {
   handlePastePreservingMarks,
   handleMarkdown,
   handleRichText,
-  handleExpand,
+  handleExpandPasteInTable,
   handleSelectedTable,
   handlePasteLinkOnSelectedText,
 } from '../handlers';
@@ -394,7 +394,7 @@ export const handleExpandWithAnalytics = (
   slice: Slice,
 ): Command =>
   pipe(
-    handleExpand,
+    handleExpandPasteInTable,
     pasteCommandWithAnalytics(view, event, slice, {
       type: PasteTypes.richText,
     }),

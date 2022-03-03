@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 65.0.0
+
+### Major Changes
+
+- [`09453a633c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09453a633c9) - Removed root entry point file of editor-common. Consumers is now forced to use child entry points.
+
+### Minor Changes
+
+- [`9712e78abb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9712e78abb0) - ED-14255 moved some usages of editor-shared-styles to emotion
+
+### Patch Changes
+
+- [`d0eed99c3e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0eed99c3e3) - ED-14264 Moved styles to emotion css
+- [`f9a144c5a71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9a144c5a71) - ED-14255 migrated table styles to use emotion
+- [`bb6f3bd5c95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb6f3bd5c95) - ED-14290 add ThemeProviders for emotion
+- [`3fcadf8ab52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fcadf8ab52) - ED-14263 migrate editor common styled usagese to emotion
+- [`d0dff8da956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0dff8da956) - [ED-14514] In NCS backed editor wait for media uploads to complete before getting the final acknowledged state in getResolvedEditorState EditorAction. Fixes from ED-14588 were also copied over and a fix on media uploads in the collaborative-editing atlaskit example.
+  ResolvedEditorState type updated for compatability with synchrony code.
+- Updated dependencies
+
 ## 64.0.0
 
 ### Major Changes

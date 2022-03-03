@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
 import { WidthObserver } from '@atlaskit/width-detector';
 
+import { gridSize } from '../../common/constants';
 import {
   OverflowProvider,
   useOverflowController,
@@ -14,8 +15,30 @@ import {
 import { NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
 
-import { containerCSS, widthObserverContainerStyle } from './styles';
 import { PrimaryItemsContainerProps } from './types';
+
+const containerStyles = css({
+  display: 'flex',
+  height: '100%',
+  position: 'relative',
+  alignItems: 'stretch',
+  flexBasis: 0,
+  flexGrow: 1,
+  flexShrink: 0,
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '& > *': {
+    margin: `0 ${gridSize / 2}px`,
+    flexShrink: 0,
+  },
+});
+
+const widthObserverContainerStyles = css({
+  width: '100%',
+  minWidth: '1px',
+  margin: '0px',
+  position: 'relative',
+  flexShrink: 1,
+});
 
 export const PrimaryItemsContainer = ({
   moreLabel,
@@ -75,7 +98,7 @@ export const PrimaryItemsContainer = ({
 
   return (
     <div
-      css={containerCSS(theme)}
+      css={containerStyles}
       data-testid={testId && `${testId}-primary-actions`}
     >
       <OverflowProvider
@@ -101,7 +124,7 @@ export const PrimaryItemsContainer = ({
 
       {Create && <Create />}
 
-      <div style={widthObserverContainerStyle}>
+      <div css={widthObserverContainerStyles}>
         <WidthObserver offscreen={true} setWidth={updateWidth} />
       </div>
     </div>

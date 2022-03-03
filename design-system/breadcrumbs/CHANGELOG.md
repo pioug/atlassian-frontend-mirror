@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.3
 
 ### Patch Changes

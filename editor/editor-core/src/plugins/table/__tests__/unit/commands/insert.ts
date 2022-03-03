@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../index';
-import { pluginKey } from '../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../pm-plugins/plugin-key';
 import { TablePluginState } from '../../../types';
 import { addColumnAt } from '../../../commands/insert';
 import widthPlugin from '../../../../width';

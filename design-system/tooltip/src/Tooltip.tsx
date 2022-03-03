@@ -351,7 +351,7 @@ function Tooltip({
         <Portal zIndex={tooltipZIndex}>
           <Popper
             placement={tooltipPosition}
-            referenceElement={getReferentElement()}
+            referenceElement={getReferentElement() as HTMLElement}
             strategy={strategy}
           >
             {({ ref, style, update }) => (

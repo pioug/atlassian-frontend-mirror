@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';
 import { N40A } from '@atlaskit/theme/colors';

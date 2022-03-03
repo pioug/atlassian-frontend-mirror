@@ -1,20 +1,6 @@
 import { ThemeProps, ThemeTokens } from '@atlaskit/button/types';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
 
-import { skeletonCSS } from '../../common/styles';
 import { NavigationTheme } from '../../theme';
-
-import { IconButtonSkeletonProps } from './types';
-
-const gridSize = gridSizeFn();
-
-export const margin = {
-  left: gridSize / 2,
-};
-
-export const padding = {
-  all: gridSize / 2,
-};
 
 export const getIconButtonTheme = ({
   mode: { iconButton },
@@ -52,17 +38,3 @@ export const getIconButtonTheme = ({
     spinnerStyles,
   };
 };
-
-const buttonHeight = gridSize * 4;
-
-export const iconButtonSkeletonCSS = (
-  theme: NavigationTheme,
-  { marginLeft, marginRight, size }: IconButtonSkeletonProps,
-) => ({
-  borderRadius: '50%',
-  marginLeft: typeof marginLeft === 'number' ? marginLeft : margin.left,
-  marginRight: typeof marginRight === 'number' ? marginRight : 0,
-  width: typeof size === 'number' ? size : buttonHeight,
-  height: typeof size === 'number' ? size : buttonHeight,
-  ...skeletonCSS(theme),
-});

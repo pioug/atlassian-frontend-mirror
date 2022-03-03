@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import Theme from '@atlaskit/theme/components';
 import { background } from '@atlaskit/theme/colors';
@@ -41,7 +42,9 @@ export default function IconExamples() {
       </div>
       <Theme.Provider value={() => ({ mode: 'dark' })}>
         <div
-          style={{ backgroundColor: background({ theme: { mode: 'dark' } }) }}
+          style={{
+            backgroundColor: background({ theme: { mode: 'dark' } }),
+          }}
           data-testid="dark-root"
         >
           <div>

@@ -1,14 +1,19 @@
 /** @jsx jsx */
 import { forwardRef, Ref } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import { PrimaryButton } from '../PrimaryButton';
 
-import { chevronIconCSS } from './styles';
 import { PrimaryDropdownButtonProps } from './types';
+
+const chevronIconStyles = css({
+  marginRight: '-8px',
+  marginLeft: '-8px',
+  opacity: 0.51,
+});
 
 export const PrimaryDropdownButton = forwardRef<
   HTMLElement,
@@ -17,7 +22,7 @@ export const PrimaryDropdownButton = forwardRef<
   return (
     <PrimaryButton
       iconAfter={
-        <span css={chevronIconCSS}>
+        <span css={chevronIconStyles}>
           <ChevronIcon label="" />
         </span>
       }

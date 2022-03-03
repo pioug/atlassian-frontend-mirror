@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/media-client": "^14.3.0",
+    "@atlaskit/media-client": "^14.4.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-common": "^2.10.0",
-    "@atlaskit/media-test-helpers": "^29.1.0",
+    "@atlaskit/media-common": "^2.11.0",
+    "@atlaskit/media-test-helpers": "^29.2.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^5.1.0",

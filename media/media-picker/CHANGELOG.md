@@ -1,5 +1,16 @@
 # @atlaskit/media-picker
 
+## 59.1.0
+
+### Minor Changes
+
+- [`8742dbe70bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8742dbe70bd) - MEX-1102 Removed lodash dependencies from media component and converted all to local functions (lightweight helpers)
+
+### Patch Changes
+
+- [`b0e810b8a41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0e810b8a41) - Disable clipboard paste event handler for input element.
+- Updated dependencies
+
 ## 59.0.4
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 64.2.0
+
+### Minor Changes
+
+- [`ae891ccd4c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae891ccd4c2) - Refactor legacy context providers and update tests to use react testing library
+
+### Patch Changes
+
+- [`63f11b8ade4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f11b8ade4) - support proxy via webpack config cli
+- Updated dependencies
+
 ## 64.1.1
 
 ### Patch Changes

@@ -1,12 +1,10 @@
-import { css } from 'styled-components';
-
-import { ThemedValue } from '@atlaskit/theme/types';
+import { css } from '@emotion/react';
 
 export const overflowShadow = ({
   background,
   width,
 }: {
-  background: ThemedValue<string> | string;
+  background: string;
   width: string;
 }) => css`
 /* shadow cover right */ linear-gradient(

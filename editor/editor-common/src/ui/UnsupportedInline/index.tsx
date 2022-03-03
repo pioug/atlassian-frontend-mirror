@@ -1,8 +1,9 @@
+/** @jsx jsx */
 import React, { useCallback, useRef } from 'react';
 
+import { css, jsx } from '@emotion/react';
 import { Node as PMNode } from 'prosemirror-model';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
@@ -16,7 +17,7 @@ import { ACTION_SUBJECT_ID } from '../../utils/analytics';
 import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-unsupported-content';
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
-const InlineNode = styled.span`
+const inlineNodeStyle = css`
   align-items: center;
   background: ${N30};
   border: 1px dashed ${N50};
@@ -69,7 +70,7 @@ const UnsupportedInlineNode: React.FC<Props & WrappedComponentProps> = ({
     [dispatchAnalyticsEvent, originalNodeType],
   );
   return (
-    <InlineNode>
+    <span css={inlineNodeStyle}>
       {message}
       <Tooltip
         content={tooltipContent}
@@ -82,7 +83,7 @@ const UnsupportedInlineNode: React.FC<Props & WrappedComponentProps> = ({
           <QuestionsIcon label="?" size="small" />
         </span>
       </Tooltip>
-    </InlineNode>
+    </span>
   );
 };
 

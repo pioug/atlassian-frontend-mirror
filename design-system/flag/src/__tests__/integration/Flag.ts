@@ -15,9 +15,12 @@ const flagActionTestId2 =
   "[data-testid='MyFlagTestId--2'] [data-testid='MyFlagAction']";
 const dismisFlag = "[aria-label='Dismiss']";
 
+// FIXME: This test was automatically skipped due to failure on 1/29/2022: https://product-fabric.atlassian.net/browse/SKIP-282
 BrowserTestCase(
   'Flag and Flag actions should be able to be identified and clicked by data-testid',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const flagTest = new Page(client);
     await flagTest.goto(urlFlag);

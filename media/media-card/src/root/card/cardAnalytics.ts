@@ -13,6 +13,7 @@ import {
   getRenderCommencedEventPayload,
   MediaCardAnalyticsEventPayload,
   getRenderPreviewableCardPayload,
+  SSRStatus,
 } from '../../utils/analytics';
 import { CardStatus } from '../..';
 import { MediaCardError } from './../../errors';
@@ -28,6 +29,7 @@ export const fireOperationalEvent = (
   status: CardStatus,
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
+  ssrReliability: SSRStatus,
   error?: MediaCardError,
 ) => {
   const fireEvent = (payload: MediaCardAnalyticsEventPayload) =>
@@ -36,12 +38,20 @@ export const fireOperationalEvent = (
   switch (status) {
     case 'complete':
       fireEvent(
-        getRenderSucceededEventPayload(fileAttributes, performanceAttributes),
+        getRenderSucceededEventPayload(
+          fileAttributes,
+          performanceAttributes,
+          ssrReliability,
+        ),
       );
       break;
     case 'failed-processing':
       fireEvent(
-        getRenderFailedFileStatusPayload(fileAttributes, performanceAttributes),
+        getRenderFailedFileStatusPayload(
+          fileAttributes,
+          performanceAttributes,
+          ssrReliability,
+        ),
       );
       break;
     case 'error':
@@ -51,6 +61,7 @@ export const fireOperationalEvent = (
             fileAttributes,
             performanceAttributes,
             error,
+            ssrReliability,
           ),
         );
       break;

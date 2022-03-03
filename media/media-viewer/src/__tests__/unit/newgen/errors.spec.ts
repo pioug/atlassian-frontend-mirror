@@ -1,6 +1,7 @@
 import {
   MediaClientError,
   MediaClientErrorReason,
+  MediaStoreError,
   RequestError,
 } from '@atlaskit/media-client';
 import {
@@ -60,12 +61,41 @@ describe('Errors', () => {
   });
 
   describe('Error Detail', () => {
-    it('should detect error details for nativeError MediaViewerErrors', () => {
+    it('should detect error details for MediaViewerErrors', () => {
       expect(
         getErrorDetail(
           MVError('imageviewer-fetch-url', new Error('some-error-message')),
         ),
       ).toBe('some-error-message');
+    });
+
+    it('should pass innerError message for RequestError', () => {
+      expect(
+        getErrorDetail(
+          MVError(
+            'imageviewer-fetch-url',
+            new RequestError(
+              'serverInvalidBody',
+              {},
+              new Error('some-error-message'),
+            ),
+          ),
+        ),
+      ).toEqual('some-error-message');
+    });
+
+    it('should pass innerError message for MediaStoreError', () => {
+      expect(
+        getErrorDetail(
+          MVError(
+            'imageviewer-fetch-url',
+            new MediaStoreError(
+              'failedAuthProvider',
+              new Error('some-error-message'),
+            ),
+          ),
+        ),
+      ).toEqual('some-error-message');
     });
 
     it('should detect undefined for non-nativeError detail of MediaViewerErrors', () => {

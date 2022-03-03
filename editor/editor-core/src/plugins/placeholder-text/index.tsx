@@ -32,6 +32,21 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
+import { isSelectionAtPlaceholder } from './selection-utils';
+import { createInternalTypeAheadTools } from '../type-ahead/api';
+
+const getOpenTypeAhead = (view: EditorView, content: string) => {
+  const typeAheadAPI = createInternalTypeAheadTools(view);
+  const typeAheadHandler = typeAheadAPI.findTypeAheadHandler(content);
+  if (!typeAheadHandler || !typeAheadHandler.id) {
+    return null;
+  }
+
+  return typeAheadAPI.openTypeAheadHandler({
+    triggerHandler: typeAheadHandler,
+    inputMethod: INPUT_METHOD.KEYBOARD,
+  });
+};
 
 export function createPlugin(
   dispatch: Dispatch<PluginState>,
@@ -115,6 +130,38 @@ export function createPlugin(
       return;
     },
     props: {
+      handleDOMEvents: {
+        beforeinput: (view, event) => {
+          const { state } = view;
+          if (
+            event instanceof InputEvent &&
+            !event.isComposing &&
+            event.inputType === 'insertText' &&
+            isSelectionAtPlaceholder(view.state.selection)
+          ) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            const startNodePosition = state.selection.from;
+            const content = event.data || '';
+            const tr = view.state.tr;
+
+            tr.delete(startNodePosition, startNodePosition + 1);
+
+            const openTypeAhead = getOpenTypeAhead(view, content);
+            if (openTypeAhead) {
+              openTypeAhead(tr);
+            } else {
+              tr.insertText(content);
+            }
+
+            view.dispatch(tr);
+            return true;
+          }
+
+          return false;
+        },
+      },
       nodeViews: {
         placeholder: (node: PmNode, view: EditorView, getPos: getPosHandler) =>
           new PlaceholderTextNodeView(node, view, getPos),
@@ -198,7 +245,7 @@ const decorateWithPluginOptions = (
         keywords: ['placeholder'],
         icon: () => <MediaServicesTextIcon label="" />,
         action(insert, state) {
-          const tr = insert(state.schema.nodes.placeholder.createChecked());
+          const tr = state.tr;
           tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });
 
           return addAnalytics(state, tr, {

@@ -345,3 +345,17 @@ const calcPctWidth = (
       containerWidth.lineLength || containerWidth.width,
     ),
   );
+
+export function isCaptionNode(editorView: EditorView) {
+  const { $from } = editorView.state.selection;
+  const immediateWrapperParentNode = editorView.state.doc.nodeAt(
+    $from.before(Math.max($from.depth, 1)),
+  );
+  if (
+    immediateWrapperParentNode &&
+    immediateWrapperParentNode.type.name === 'caption'
+  ) {
+    return true;
+  }
+  return false;
+}

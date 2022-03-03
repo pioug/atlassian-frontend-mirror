@@ -390,14 +390,38 @@ export interface AccentColorTokenSchema {
   color: {
     text: {
       accent: {
-        blue: PaintToken;
-        red: PaintToken;
-        orange: PaintToken;
-        yellow: PaintToken;
-        green: PaintToken;
-        purple: PaintToken;
-        teal: PaintToken;
-        magenta: PaintToken;
+        blue: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        red: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        orange: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        yellow: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        green: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        purple: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        teal: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
+        magenta: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
       };
     };
     icon: {
@@ -427,36 +451,52 @@ export interface AccentColorTokenSchema {
     background: {
       accent: {
         blue: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         red: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         orange: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         yellow: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         green: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         teal: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         purple: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
         magenta: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
         };
       };
     };
@@ -521,6 +561,40 @@ export interface DeprecatedTokenSchema {
       subtleMagenta: PaintToken;
     };
     background: {
+      accent: {
+        blue: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        red: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        orange: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        yellow: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        green: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        teal: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        purple: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+        magenta: {
+          '[default]': PaintToken;
+          bold: PaintToken;
+        };
+      };
       default: PaintToken;
       sunken: PaintToken;
       card: PaintToken;

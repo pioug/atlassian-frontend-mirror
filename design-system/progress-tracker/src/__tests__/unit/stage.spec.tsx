@@ -4,6 +4,7 @@ import { cleanup, render as renderFn } from '@testing-library/react';
 import { shallow } from 'enzyme';
 
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import ProgressBar from '../../internal/bar';
 import { varBackgroundColor } from '../../internal/constants';
@@ -72,13 +73,17 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
     // get root styles
     const styles = getComputedStyle(baseElement);
-    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(colors.N70);
+    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
+      token('color.icon.subtle', colors.N70),
+    );
     expect(marker).toHaveStyleDeclaration(
       'background-color',
       `var(${varBackgroundColor})`,
     );
 
-    expect(title).toHaveStyle(`color: ${colors.N300}`);
+    expect(title).toHaveStyle(
+      `color: ${token('color.text.subtle', colors.N300)}`,
+    );
   });
 
   it('should render current stage with correct state', () => {
@@ -111,13 +116,17 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
     // get root styles
     const styles = getComputedStyle(baseElement);
-    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(colors.B300);
+    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
+      token('color.icon.brand', colors.B300),
+    );
     expect(marker).toHaveStyleDeclaration(
       'background-color',
       `var(${varBackgroundColor})`,
     );
 
-    expect(title).toHaveStyle(`color: ${colors.B300}`);
+    expect(title).toHaveStyle(
+      `color: ${token('color.text.brand', colors.B300)}`,
+    );
   });
 
   it('should render disabled stage with correct state', () => {
@@ -150,13 +159,17 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
     // get root styles
     const styles = getComputedStyle(baseElement);
-    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(colors.B300);
+    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
+      token('color.icon.brand', colors.B300),
+    );
     expect(marker).toHaveStyleDeclaration(
       'background-color',
       `var(${varBackgroundColor})`,
     );
 
-    expect(title).toHaveStyle(`color: ${colors.N70}`);
+    expect(title).toHaveStyle(
+      `color: ${token('color.text.disabled', colors.N70)}`,
+    );
   });
 
   it('should render visited stage with default link and correct props', () => {
@@ -189,13 +202,15 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
     // get root styles
     const styles = getComputedStyle(baseElement);
-    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(colors.B300);
+    expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
+      token('color.icon.brand', colors.B300),
+    );
     expect(marker).toHaveStyleDeclaration(
       'background-color',
       `var(${varBackgroundColor})`,
     );
 
-    expect(title).toHaveStyle(`color: ${colors.N800}`);
+    expect(title).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
   });
 
   it('should render visited stage without link if noLink is true', () => {

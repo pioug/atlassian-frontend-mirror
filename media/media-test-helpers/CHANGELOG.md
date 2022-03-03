@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 29.2.0
+
+### Minor Changes
+
+- [`8bf4fdb8ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bf4fdb8ed4) - add renderWithIntl helper
+- [`8742dbe70bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8742dbe70bd) - MEX-1102 Removed lodash dependencies from media component and converted all to local functions (lightweight helpers)
+- [`94539e589cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94539e589cc) - MEX-1105 Migrated @atlaskit/button to @atlaskit/button/standard-button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.1.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Popup from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
@@ -11,13 +11,13 @@ import { mockEndpoints, REQUEST_FAST } from '@atlassian/switcher-test-utils';
 import { AppSwitcher } from '../../src';
 import { withAnalyticsLogger, withIntlProvider } from '../helpers';
 
-const spinnerCSS = {
+const spinnerStyles = css({
   display: 'flex',
-  justifyContent: 'center',
   maxWidth: 240,
   position: 'relative',
   top: '11.25rem',
-} as const;
+  justifyContent: 'center',
+});
 
 const SwitcherData: React.FC<{ update: () => void }> = ({ update }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -57,7 +57,7 @@ const SwitcherData: React.FC<{ update: () => void }> = ({ update }) => {
       </div>
     </div>
   ) : (
-    <div css={spinnerCSS}>
+    <div css={spinnerStyles}>
       <Spinner size="large" />
     </div>
   );

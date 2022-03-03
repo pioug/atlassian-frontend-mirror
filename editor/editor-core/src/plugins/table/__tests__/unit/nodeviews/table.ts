@@ -12,10 +12,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TableAttributes } from '@atlaskit/adf-schema';
 import { TablePluginState } from '../../../../../plugins/table/types';
-import {
-  getPluginState,
-  pluginKey,
-} from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 import TableView from '../../../../../plugins/table/nodeviews/table';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { EditorProps } from '../../../../../types';
@@ -36,54 +33,13 @@ describe('table -> nodeviews -> table.tsx', () => {
       },
       pluginKey,
     });
-  let originalResizeObserver: object;
-  let triggerElementResize = (
-    element: HTMLElement,
-    height: number,
-    width: number,
-  ) => {
-    const entries = [
-      {
-        target: element,
-        contentRect: { height, width },
-      },
-    ];
-    resizeCallback(entries);
-  };
-  let resizeCallback: (entries: any[]) => {};
-
-  beforeAll(() => {
-    originalResizeObserver = (window as any).ResizeObserver;
-    (window as any).ResizeObserver = function resizeObserverMock(
-      callback: () => {},
-    ) {
-      this.disconnect = jest.fn();
-      this.observe = jest.fn();
-      resizeCallback = callback;
-    };
-  });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  afterAll(() => {
-    (window as any).ResizeObserver = originalResizeObserver;
-  });
-
   describe('TableView', () => {
     describe('with tableRenderOptimization', () => {
-      it('updates plugin state on table size change', () => {
-        const { editorView } = editor(doc(table()(tr(tdCursor, tdEmpty))), {
-          featureFlags: { tableRenderOptimization: true },
-        });
-        const tableElement = editorView.domAtPos(1).node as HTMLElement;
-        triggerElementResize(tableElement, 100, 200);
-        const pluginState = getPluginState(editorView.state);
-        expect(pluginState.tableHeight).toEqual(100);
-        expect(pluginState.tableWidth).toEqual(200);
-      });
-
       describe('on view update', () => {
         let tableNode: PMNode,
           tableNodeView: TableView,

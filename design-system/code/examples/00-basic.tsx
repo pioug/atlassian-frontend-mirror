@@ -9,7 +9,7 @@ class HelloMessage extends React.Component {
   render() {
     return (
       <div>
-        Hello {this.props.name}
+        Hello {this.props.name} \u202A
       </div>
     );
   }

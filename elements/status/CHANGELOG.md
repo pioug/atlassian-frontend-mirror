@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.0.2
+
+### Patch Changes
+
+- [`56cf7af34be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56cf7af34be) - AK-832 implementation navigation arrows for status color palette
+
 ## 1.0.1
 
 ### Patch Changes

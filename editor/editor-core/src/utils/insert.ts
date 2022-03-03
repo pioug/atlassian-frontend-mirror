@@ -25,7 +25,7 @@ import {
   Side,
 } from '../plugins/selection/gap-cursor-selection';
 
-import { isChromeWithSelectionBug, normaliseNestedLayout } from './selection';
+import { normaliseNestedLayout } from './selection';
 
 export type InsertableContent = Node | Fragment;
 export enum LookDirection {
@@ -264,14 +264,6 @@ export const insertSelectedItem = (
       : Fragment.fromArray([node, state.schema.text(' ')]);
 
     tr = tr.replaceWith(start, start, fragment);
-
-    // This problem affects Chrome v58+. See: https://github.com/ProseMirror/prosemirror/issues/710
-    if (isChromeWithSelectionBug) {
-      const selection = document.getSelection();
-      if (selection) {
-        selection.empty();
-      }
-    }
 
     if (opts.selectInlineNode) {
       // Select inserted node

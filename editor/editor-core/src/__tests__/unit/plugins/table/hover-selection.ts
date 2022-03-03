@@ -27,7 +27,7 @@ import {
   TableDecorations,
   TableCssClassName as ClassName,
 } from '../../../../plugins/table/types';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { getDecorations } from '../../../../plugins/table/pm-plugins/decorations/plugin';
 
 describe('table hover selection plugin', () => {

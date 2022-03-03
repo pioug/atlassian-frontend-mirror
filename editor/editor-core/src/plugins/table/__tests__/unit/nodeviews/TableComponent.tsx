@@ -17,7 +17,7 @@ import { TableCssClassName as ClassName } from '../../../types';
 import { TablePluginState } from '../../../types';
 import TableComponent from '../../../nodeviews/TableComponent';
 import { OverflowShadowsObserver } from '../../../nodeviews/OverflowShadowsObserver';
-import { pluginKey } from '../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../pm-plugins/plugin-key';
 import { EventDispatcher } from '../../../../../event-dispatcher';
 import { toggleNumberColumn } from '../../../commands';
 import {

@@ -1,5 +1,5 @@
 import { autoJoin } from 'prosemirror-commands';
-import { NodeType, ResolvedPos, Schema } from 'prosemirror-model';
+import { NodeType, ResolvedPos, Schema, NodeRange } from 'prosemirror-model';
 import {
   EditorState,
   Selection,
@@ -13,6 +13,7 @@ import {
   safeInsert,
   setTextSelection,
 } from 'prosemirror-utils';
+import { liftTarget } from 'prosemirror-transform';
 import { EditorView } from 'prosemirror-view';
 
 import { uuid } from '@atlaskit/adf-schema';
@@ -314,6 +315,14 @@ export const createListAtSelection = (
         $from.node($from.depth).content,
       ),
     ]);
+
+    const hasBlockquoteParent = findParentNodeOfType(blockquote)(selection);
+    if (hasBlockquoteParent) {
+      const liftedDepth = $from.depth - 1;
+      const range = new NodeRange($from, $to, liftedDepth);
+      tr.lift(range, liftTarget(range) as number);
+    }
+
     const listParent =
       findParentNodeOfType(taskList)(selection) ||
       findParentNodeOfType(decisionList)(selection);
@@ -349,10 +358,13 @@ export const createListAtSelection = (
 
     // For a selection inside one of these node types we can just convert the node type
     const nodeTypesToReplace = [blockquote];
-    if (nodeType === paragraph && childCount > 0) {
+    if ((nodeType === paragraph && childCount > 0) || hasBlockquoteParent) {
       // Only convert paragraphs containing content.
       // Empty paragraphs use the default flow.
       // This distinction ensures the text selection remains in the correct location.
+
+      // We also want to replace the paragraph type when we are inside a blockQuote
+      // to avoid inserting an extra taskList whilst keeping the paragraph
       nodeTypesToReplace.push(paragraph);
     }
     let newTr = tr;

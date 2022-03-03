@@ -29,6 +29,9 @@ export const createPlugin = () => {
           //
           // https://github.com/ProseMirror/prosemirror-view/commit/885258b80551ac87b81601d3ed25f552aeb22293
 
+          // NOTE: this workaround can be removed when next upgrading prosemirror as the issue will be fixed
+          // https://github.com/ProseMirror/prosemirror-view/pull/116
+
           // This fix removes the selectionToDOM from the view
           // prior to selectionToDOM being called.
           // selectionToDOM checks if there is an "active"

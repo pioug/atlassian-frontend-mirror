@@ -17,14 +17,23 @@ const grid: number = gridSize();
 const dark: string = token('color.text', N500);
 const light: string = token('color.text', N0);
 
-const container = css`
-  width: 100px;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+const layoutStyles = css({
+  display: 'grid',
+  gap: grid,
+  placeItems: 'center',
+});
+
+const boxContainerStyles = css({ display: 'flex' });
+
+const boxStyles = css({
+  display: 'flex',
+  width: 100,
+  height: 100,
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: grid,
+  flexDirection: 'column',
+});
 
 function Example() {
   const [mode, setMode] = useState<ThemeModes>('light');
@@ -33,13 +42,7 @@ function Example() {
 
   return (
     <GlobalTheme.Provider value={getMode}>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        `}
-      >
+      <div css={layoutStyles}>
         <Button
           onClick={() =>
             setMode((current) => (current === 'light' ? 'dark' : 'light'))
@@ -47,45 +50,20 @@ function Example() {
         >
           Mode: <strong>{mode}</strong>
         </Button>
-        <div
-          css={css`
-            display: flex;
-            margin-top: ${grid}px;
-          `}
-        >
+        <div css={boxContainerStyles}>
           <div
-            css={[
-              container,
-              css`
-                background: ${mode === 'light' ? light : dark};
-              `,
-            ]}
+            css={boxStyles}
+            style={{ background: mode === 'light' ? light : dark }}
           >
             <Lozenge appearance="success">Inherit</Lozenge>
-            <span
-              css={css`
-                margin-top: ${grid}px;
-              `}
-            >
-              <Spinner appearance="inherit" />
-            </span>
+            <Spinner appearance="inherit" />
           </div>
           <div
-            css={[
-              container,
-              css`
-                background: ${mode === 'light' ? dark : light};
-              `,
-            ]}
+            css={boxStyles}
+            style={{ background: mode === 'light' ? dark : light }}
           >
             <Lozenge appearance="new">Inverted</Lozenge>
-            <span
-              css={css`
-                margin-top: ${grid}px;
-              `}
-            >
-              <Spinner appearance="invert" />
-            </span>
+            <Spinner appearance="invert" />
           </div>
         </div>
       </div>

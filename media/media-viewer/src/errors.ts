@@ -4,6 +4,7 @@ import {
   isMediaClientError,
   RequestMetadata,
   isRequestError,
+  isMediaStoreError,
 } from '@atlaskit/media-client';
 import { ZipEntry } from 'unzipit';
 
@@ -107,13 +108,19 @@ export function getSecondaryErrorReason(
 
 export function getErrorDetail(error?: Error): string | undefined {
   // when the secondaryReason is "nativeError" we extract the error message for debugging
-  if (
-    error &&
-    isMediaViewerError(error) &&
-    getSecondaryErrorReason(error) === 'nativeError'
-  ) {
-    // pls don't send stack traces, they can get polluted and blow out payload sizes
-    return error.secondaryError && error.secondaryError.message;
+  if (error && isMediaViewerError(error)) {
+    if (getSecondaryErrorReason(error) === 'nativeError') {
+      // pls don't send stack traces, they can get polluted and blow out payload sizes
+      return error.secondaryError && error.secondaryError.message;
+    }
+
+    const { secondaryError } = error;
+    if (
+      secondaryError &&
+      (isRequestError(secondaryError) || isMediaStoreError(secondaryError))
+    ) {
+      return secondaryError.innerError?.message;
+    }
   }
 }
 

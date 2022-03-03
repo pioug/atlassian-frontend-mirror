@@ -1,20 +1,21 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { N200, N400 } from '@atlaskit/theme/colors';
 
 import { messages } from './messages';
 
-const CaptionWrapper = styled.div`
+const captionWrapperStyle = css`
   margin-top: 8px;
   text-align: center;
   position: relative;
   color: ${N400};
 `;
 
-const Placeholder = styled.p`
+const placeholderStyle = css`
   color: ${N200};
   position: absolute;
   top: 0;
@@ -45,16 +46,17 @@ export class CaptionComponent extends React.Component<
     const showPlaceholder = !selected && !hasContent;
 
     return (
-      <CaptionWrapper
+      <div
         data-media-caption
         data-testid="media-caption"
         {...dataAttributes}
+        css={captionWrapperStyle}
       >
         {showPlaceholder ? (
-          <Placeholder>{formatMessage(messages.placeholder)}</Placeholder>
+          <p css={placeholderStyle}>{formatMessage(messages.placeholder)}</p>
         ) : null}
         {children}
-      </CaptionWrapper>
+      </div>
     );
   }
 }

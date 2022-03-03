@@ -13,7 +13,8 @@ import styled from 'styled-components';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 
-import { getPluginState, pluginKey } from '../../pm-plugins/plugin-factory';
+import { getPluginState } from '../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../pm-plugins/plugin-key';
 import { PluginConfig } from '../../types';
 import {
   contextualMenuDropdownWidth,

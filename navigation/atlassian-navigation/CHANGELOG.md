@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 2.1.1
+
+### Patch Changes
+
+- [`faee2b4ee52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/faee2b4ee52) - Rewrite dynamic styles to be static to aid compiled migration.
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

@@ -2,3 +2,4 @@ src/
 examples/
 example-helpers/
 index.ts
+proxy.ts

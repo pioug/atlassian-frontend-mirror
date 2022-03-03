@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useRef, useState, ComponentType, FC } from 'react';
 import styled from '@emotion/styled';
 

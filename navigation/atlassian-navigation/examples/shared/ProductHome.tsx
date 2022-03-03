@@ -26,6 +26,7 @@ export const BitbucketProductHome = () => (
     siteTitle="Extranet"
     icon={BitbucketIcon}
     logo={BitbucketLogo}
+    testId="bitbucket-product-home"
   />
 );
 
@@ -35,6 +36,7 @@ export const ConfluenceProductHome = () => (
     icon={ConfluenceIcon}
     logo={ConfluenceLogo}
     href="#"
+    testId="confluence-product-home"
   />
 );
 
@@ -45,6 +47,7 @@ export const JiraProductHome = () => (
     aria-label={'Jira'}
     icon={JiraIcon}
     logo={JiraLogo}
+    testId="jira-product-home"
   />
 );
 
@@ -54,6 +57,7 @@ export const JiraServiceManagementProductHome = () => (
     icon={JiraServiceManagementIcon}
     logo={JiraServiceManagementLogo}
     href="#"
+    testId="jsm-product-home"
   />
 );
 
@@ -63,6 +67,7 @@ export const JiraSoftwareProductHome = () => (
     icon={JiraSoftwareIcon}
     logo={JiraSoftwareLogo}
     href="#"
+    testId="jsw-product-home"
   />
 );
 
@@ -72,6 +77,7 @@ export const OpsGenieProductHome = () => (
     onClick={console.log}
     icon={OpsgenieIcon}
     logo={OpsgenieLogo}
+    testId="opsgenie-product-home"
   />
 );
 
@@ -85,5 +91,6 @@ export const DefaultCustomProductHome = () => (
     iconUrl={atlassianIconUrl}
     logoAlt="Custom logo"
     logoUrl={atlassianLogoUrl}
+    testId="custom-product-home"
   />
 );

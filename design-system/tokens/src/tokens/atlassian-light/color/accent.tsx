@@ -4,14 +4,38 @@ const color: ValueSchema<AccentColorTokenSchema> = {
   color: {
     text: {
       accent: {
-        blue: { value: 'B800' },
-        red: { value: 'R800' },
-        orange: { value: 'O800' },
-        yellow: { value: 'Y800' },
-        green: { value: 'G800' },
-        purple: { value: 'P800' },
-        teal: { value: 'T800' },
-        magenta: { value: 'M800' },
+        blue: {
+          '[default]': { value: 'B800' },
+          bolder: { value: 'B900' },
+        },
+        red: {
+          '[default]': { value: 'R800' },
+          bolder: { value: 'R900' },
+        },
+        orange: {
+          '[default]': { value: 'O800' },
+          bolder: { value: 'O900' },
+        },
+        yellow: {
+          '[default]': { value: 'Y800' },
+          bolder: { value: 'Y900' },
+        },
+        green: {
+          '[default]': { value: 'G800' },
+          bolder: { value: 'G900' },
+        },
+        purple: {
+          '[default]': { value: 'P800' },
+          bolder: { value: 'P900' },
+        },
+        teal: {
+          '[default]': { value: 'T800' },
+          bolder: { value: 'T900' },
+        },
+        magenta: {
+          '[default]': { value: 'M800' },
+          bolder: { value: 'M900' },
+        },
       },
     },
     icon: {
@@ -41,36 +65,52 @@ const color: ValueSchema<AccentColorTokenSchema> = {
     background: {
       accent: {
         blue: {
-          '[default]': { value: 'B200' },
-          bold: { value: 'B400' },
+          subtlest: { value: 'B100' },
+          subtler: { value: 'B200' },
+          subtle: { value: 'B400' },
+          bolder: { value: 'B700' },
         },
         red: {
-          '[default]': { value: 'R200' },
-          bold: { value: 'R400' },
+          subtlest: { value: 'R100' },
+          subtler: { value: 'R200' },
+          subtle: { value: 'R400' },
+          bolder: { value: 'R700' },
         },
         orange: {
-          '[default]': { value: 'O200' },
-          bold: { value: 'O400' },
+          subtlest: { value: 'O100' },
+          subtler: { value: 'O200' },
+          subtle: { value: 'O400' },
+          bolder: { value: 'O700' },
         },
         yellow: {
-          '[default]': { value: 'Y200' },
-          bold: { value: 'Y400' },
+          subtlest: { value: 'Y100' },
+          subtler: { value: 'Y200' },
+          subtle: { value: 'Y400' },
+          bolder: { value: 'Y700' },
         },
         green: {
-          '[default]': { value: 'G200' },
-          bold: { value: 'G400' },
+          subtlest: { value: 'G100' },
+          subtler: { value: 'G200' },
+          subtle: { value: 'G400' },
+          bolder: { value: 'G700' },
         },
         purple: {
-          '[default]': { value: 'P200' },
-          bold: { value: 'P400' },
+          subtlest: { value: 'P100' },
+          subtler: { value: 'P200' },
+          subtle: { value: 'P400' },
+          bolder: { value: 'P700' },
         },
         teal: {
-          '[default]': { value: 'T200' },
-          bold: { value: 'T400' },
+          subtlest: { value: 'T100' },
+          subtler: { value: 'T200' },
+          subtle: { value: 'T400' },
+          bolder: { value: 'T700' },
         },
         magenta: {
-          '[default]': { value: 'M200' },
-          bold: { value: 'M400' },
+          subtlest: { value: 'M100' },
+          subtler: { value: 'M200' },
+          subtle: { value: 'M400' },
+          bolder: { value: 'M700' },
         },
       },
     },

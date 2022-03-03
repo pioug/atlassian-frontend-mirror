@@ -90,7 +90,7 @@ describe('Media Card SSR', () => {
     );
 
     expect(data.error).toBeDefined();
-    expect(data.error).toEqual({
+    expect(data.error).toMatchObject({
       failReason: 'ssr-server-uri',
       error: 'missingInitialAuth',
       errorDetail: 'missingInitialAuth',

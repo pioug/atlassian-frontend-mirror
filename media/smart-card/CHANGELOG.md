@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 17.7.0
+
+### Minor Changes
+
+- [`924aa854655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/924aa854655) - Replaced deprecated dependency with @atlaskit/droplist and @atlaskit/item with @atlaskit/dropdown-menu in block card actions list
+- [`fb15a8a421c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb15a8a421c) - move smart-card views and helpers from media-ui into smart-card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.6.0
 
 ### Minor Changes

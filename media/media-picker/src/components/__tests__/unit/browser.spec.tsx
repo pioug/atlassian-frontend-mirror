@@ -5,7 +5,7 @@ jest.mock('../../../service/uploadServiceImpl');
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { Browser, BrowserBase } from '../../browser/browser';
 import { BrowserConfig } from '../../../types';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 
 describe('Browser', () => {
   const mediaClient = fakeMediaClient();

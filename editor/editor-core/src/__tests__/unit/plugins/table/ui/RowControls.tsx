@@ -22,7 +22,7 @@ import {
 } from '../../../../../plugins/table/types';
 import TableFloatingControls from '../../../../../plugins/table/ui/TableFloatingControls';
 import RowControls from '../../../../../plugins/table/ui/TableFloatingControls/RowControls';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 import { ReactWrapper } from 'enzyme';
 
 const ControlsButton = `.${ClassName.CONTROLS_BUTTON}`;

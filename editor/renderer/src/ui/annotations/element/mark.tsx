@@ -1,4 +1,7 @@
+/** @jsx jsx */
 import React, { useMemo, useCallback, MouseEvent } from 'react';
+import { css, jsx } from '@emotion/react';
+
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import {
@@ -6,19 +9,19 @@ import {
   AnnotationId,
   AnnotationDataAttributes,
 } from '@atlaskit/adf-schema';
-import styled from 'styled-components';
+import { ThemeProps } from '@atlaskit/theme/types';
 
-const MarkStyled = styled.mark`
+const markStyles = (props: ThemeProps) => css`
   color: inherit;
   background-color: unset;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
-    ${AnnotationSharedCSSByState.blur};
+    ${AnnotationSharedCSSByState(props).blur};
 
     &:focus,
     &[data-has-focus='true'] {
-      ${AnnotationSharedCSSByState.focus};
+      ${AnnotationSharedCSSByState(props).focus};
     }
   }
 `;
@@ -74,13 +77,14 @@ export const MarkComponent: React.FC<MarkComponentProps> = ({
         };
 
   return (
-    <MarkStyled
+    <mark
       id={id}
       onClick={onMarkClick}
       {...accessibility}
       {...overriddenData}
+      css={markStyles}
     >
       {children}
-    </MarkStyled>
+    </mark>
   );
 };

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 import uuid from 'uuid';
 import { PureComponent } from 'react';
@@ -20,7 +19,6 @@ import {
   typeaheadSelectedEvent,
   typeaheadRenderedEvent,
 } from '../../util/analytics';
-import { EmojiContext } from '../common/internal-types';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import EmojiList from './EmojiTypeAheadList';
 import * as styles from './styles';
@@ -28,6 +26,7 @@ import {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import { EmojiContextProvider } from '../../context/EmojiContextProvider';
 
 export interface OnLifecycle {
   (): void;
@@ -87,10 +86,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
   Props,
   State
 > {
-  static childContextTypes = {
-    emoji: PropTypes.object,
-  };
-
   static defaultProps = {
     onSelection: () => {},
     onOpen: () => {},
@@ -123,14 +118,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
     this.pressed = false;
     this.sessionId = uuid();
     this.selected = false;
-  }
-
-  getChildContext(): EmojiContext {
-    return {
-      emoji: {
-        emojiProvider: this.props.emojiProvider,
-      },
-    };
   }
 
   componentDidMount() {
@@ -321,16 +308,23 @@ export default class EmojiTypeAheadComponent extends PureComponent<
     };
 
     const classes = classNames(['ak-emoji-typeahead', styles.emojiTypeAhead]);
+    const emojiContextValue = {
+      emoji: {
+        emojiProvider: this.props.emojiProvider,
+      },
+    };
 
     return (
-      <div style={style} className={classes}>
-        <EmojiList
-          emojis={emojis}
-          onEmojiSelected={recordUsageOnSelection}
-          ref={this.onEmojiListRef}
-          loading={loading}
-        />
-      </div>
+      <EmojiContextProvider emojiContextValue={emojiContextValue}>
+        <div style={style} className={classes}>
+          <EmojiList
+            emojis={emojis}
+            onEmojiSelected={recordUsageOnSelection}
+            ref={this.onEmojiListRef}
+            loading={loading}
+          />
+        </div>
+      </EmojiContextProvider>
     );
   }
 }

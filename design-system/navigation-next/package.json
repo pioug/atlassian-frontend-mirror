@@ -52,7 +52,7 @@
     "@atlaskit/atlassian-navigation": "^2.1.0",
     "@atlaskit/badge": "^15.0.0",
     "@atlaskit/banner": "^11.3.0",
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/drawer": "^7.1.0",
     "@atlaskit/dropdown-menu": "^11.1.0",

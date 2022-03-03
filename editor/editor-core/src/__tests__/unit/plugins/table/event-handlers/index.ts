@@ -10,7 +10,7 @@ import {
 import { TablePluginState } from '../../../../../plugins/table/types';
 import { whenTableInFocus } from '../../../../../plugins/table/event-handlers';
 import { setDragging } from '../../../../../plugins/table/pm-plugins/table-resizing/commands';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('event-handlers', () => {
   let editor: any;

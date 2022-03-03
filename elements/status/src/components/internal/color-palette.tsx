@@ -1,6 +1,6 @@
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-import React from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { ComponentClass, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { Color as ColorType } from '../Status';
@@ -31,24 +31,77 @@ interface ColorPaletteProps {
   className?: string;
 }
 
+const VK_LEFT = 37; //ArrowLeft
+const VK_RIGHT = 39; //ArrowRight
+const VK_UP = 38; //ArrowUp
+const VK_DOWN = 40; //ArrowDown
+
 export default ({
   cols = 7,
   onClick,
   selectedColor,
   className,
   onHover,
-}: ColorPaletteProps) => (
-  <ColorPaletteWrapper className={className} style={{ maxWidth: cols * 32 }}>
-    {palette.map(([colorValue, backgroundColor, borderColor]) => (
-      <Color
-        key={colorValue}
-        value={colorValue}
-        backgroundColor={backgroundColor}
-        borderColor={borderColor}
-        onClick={onClick}
-        onHover={onHover}
-        isSelected={colorValue === selectedColor}
-      />
-    ))}
-  </ColorPaletteWrapper>
-);
+}: ColorPaletteProps) => {
+  const colorRefs: React.MutableRefObject<HTMLElement[]> = useRef([]);
+
+  useEffect(() => {
+    colorRefs.current = colorRefs.current.slice(0, palette.length);
+  }, []);
+
+  const memoizedHandleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const colorIndex = palette.findIndex(
+        ([colorValue]) => colorValue === selectedColor,
+      );
+      let newColorIndex = null;
+      switch (e.keyCode) {
+        case VK_RIGHT:
+        case VK_DOWN:
+          e.preventDefault();
+          newColorIndex =
+            colorIndex + 1 > palette.length - 1 ? 0 : colorIndex + 1;
+          break;
+        case VK_LEFT:
+        case VK_UP:
+          e.preventDefault();
+          newColorIndex =
+            colorIndex - 1 < 0 ? palette.length - 1 : colorIndex - 1;
+          break;
+      }
+      if (newColorIndex === null) {
+        return;
+      }
+      const newColorValue = palette[newColorIndex][0];
+      const newRef = colorRefs.current[newColorIndex];
+      newRef?.focus();
+      onClick(newColorValue);
+    },
+    [selectedColor, onClick, colorRefs],
+  );
+
+  return (
+    <ColorPaletteWrapper
+      className={className}
+      role="radiogroup"
+      style={{ maxWidth: cols * 32 }}
+      onKeyDown={memoizedHandleKeyDown}
+    >
+      {palette.map(([colorValue, backgroundColor, borderColor], i) => {
+        return (
+          <Color
+            key={colorValue}
+            value={colorValue}
+            backgroundColor={backgroundColor}
+            borderColor={borderColor}
+            onClick={onClick}
+            onHover={onHover}
+            isSelected={colorValue === selectedColor}
+            tabIndex={colorValue === selectedColor ? 0 : -1}
+            setRef={(el) => (colorRefs.current[i] = el)}
+          />
+        );
+      })}
+    </ColorPaletteWrapper>
+  );
+};

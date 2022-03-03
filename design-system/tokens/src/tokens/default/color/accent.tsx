@@ -5,67 +5,139 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
     text: {
       accent: {
         blue: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold blue accent backgrounds.',
+            },
           },
         },
         red: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold red accent backgrounds.',
+            },
           },
         },
         orange: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold orange accent backgrounds.',
+            },
           },
         },
         yellow: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold yellow accent backgrounds.',
+            },
           },
         },
         green: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold green accent backgrounds.',
+            },
           },
         },
         purple: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold purple accent backgrounds.',
+            },
           },
         },
         teal: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold teal accent backgrounds.',
+            },
           },
         },
         magenta: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            description:
-              'Use for megenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for megenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description: 'Use on bold magenta accent backgrounds.',
+            },
           },
         },
       },
@@ -145,7 +217,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
             group: 'paint',
             state: 'active',
             description:
-              'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+              'Use for blue borders on non-bold backgrounds when there is no meaning tied to the color.',
           },
         },
         red: {
@@ -153,7 +225,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
             group: 'paint',
             state: 'active',
             description:
-              'Use for red borders on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+              'Use for red borders on non-bold backgrounds when there is no meaning tied to the color.',
           },
         },
         orange: {
@@ -209,7 +281,15 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
     background: {
       accent: {
         blue: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -217,7 +297,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -225,9 +305,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         red: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -235,7 +331,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for red backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -243,9 +339,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         orange: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -253,7 +365,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for orange backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -261,9 +373,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         yellow: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -271,7 +399,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -279,9 +407,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         green: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -289,7 +433,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for green backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -297,9 +441,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         teal: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -307,7 +467,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for teal backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -315,9 +475,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         purple: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -325,7 +501,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for purple backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -333,9 +509,25 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
         },
         magenta: {
-          '[default]': {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
             attributes: {
               group: 'paint',
               state: 'active',
@@ -343,12 +535,20 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
                 'Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
-          bold: {
+          subtle: {
             attributes: {
               group: 'paint',
               state: 'active',
               description:
                 'Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              description:
+                'Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
             },
           },
         },

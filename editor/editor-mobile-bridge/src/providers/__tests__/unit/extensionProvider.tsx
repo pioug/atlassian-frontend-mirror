@@ -30,7 +30,11 @@ describe('createExtensionProvider', () => {
   });
 
   it('should return empty provider when enableConfluenceMobileMacros is false', () => {
-    return createExtensionProvider(false)
+    return createExtensionProvider(
+      false,
+      () => {},
+      () => {},
+    )
       .then((extensionProvider: ExtensionProvider) =>
         extensionProvider.getExtensions(),
       )
@@ -57,7 +61,11 @@ describe('createExtensionProvider', () => {
       renderingStrategyMap: {},
     });
 
-    return createExtensionProvider(true)
+    return createExtensionProvider(
+      true,
+      () => {},
+      () => {},
+    )
       .then((extensionProvider: ExtensionProvider) =>
         extensionProvider.getExtensions(),
       )

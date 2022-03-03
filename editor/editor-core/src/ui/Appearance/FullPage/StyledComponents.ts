@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import ContentStyles from '../../ContentStyles';
-import { tableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles.css';
+import { deprecatedTableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles.css';
 import { tableMarginFullWidthMode } from '../../../plugins/table/ui/consts';
 import { scrollbarStyles } from '../../styles';
 
@@ -105,7 +105,7 @@ export const EditorContentArea = styled.div`
     }
   }
 
-  ${tableFullPageEditorStyles};
+  ${deprecatedTableFullPageEditorStyles};
 
   .fabric-editor--full-width-mode {
     /* Full Width Mode styles for ignoring breakout sizes */

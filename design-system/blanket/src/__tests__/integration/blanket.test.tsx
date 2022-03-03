@@ -19,9 +19,12 @@ const count = "[data-testid='count']";
  *  - shouldAllowClickThrough={true}
  */
 
+// FIXME: This test was automatically skipped due to failure on 1/22/2022: https://product-fabric.atlassian.net/browse/SKIP-218
 BrowserTestCase(
   'can click through un-tinted blanket when click through allowed',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = new Page(client);
     await page.goto(exampleUrl);

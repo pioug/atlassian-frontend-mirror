@@ -16,7 +16,7 @@ import {
 
 import tablePlugin from '../../../table';
 import { handleMouseOut, handleMouseDown } from '../../event-handlers';
-import { pluginKey } from '../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../types';
 
 describe('table plugin: decorations', () => {

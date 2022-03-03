@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 21.0.5
+
+### Patch Changes
+
+- [`63f11b8ade4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f11b8ade4) - support proxy via webpack config cli
+- Updated dependencies
+
 ## 21.0.4
 
 ### Patch Changes

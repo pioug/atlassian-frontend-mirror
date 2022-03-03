@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { MarkType, Mark as PMMark } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -6,6 +7,8 @@ import {
   FORMATTING_MARK_TYPES,
   FORMATTING_NODE_TYPES,
 } from './commands/clear-formatting';
+
+import { MenuIconItem } from './ui/Toolbar/types';
 
 export const nodeLen = (node: Node): number => {
   return node.nodeType === 3 && node.nodeValue
@@ -121,3 +124,23 @@ const marksArePresent = (state: EditorState) => {
 export const checkFormattingIsPresent = (state: EditorState) => {
   return marksArePresent(state) || blockStylingIsPresent(state);
 };
+
+export const usePreviousObjectState = (value: any): MenuIconItem[] => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current!;
+};
+
+export const compareItemsArrays = (
+  items: MenuIconItem[],
+  prevItems: MenuIconItem[],
+) => {
+  return items && items.filter((item) => !prevItems.includes(item));
+};
+
+export const isArrayContainsContent = (
+  items: MenuIconItem[],
+  content: string,
+) => items.filter((item) => item.content === content).length > 0;

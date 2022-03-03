@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 import Toggle from '@atlaskit/toggle';
 
 import { DatePicker } from '../src';
@@ -14,10 +14,10 @@ export default () => {
 
   return (
     <div>
-      <Label label="DatePicker isDisabled" htmlFor="toggle" />
+      <Label htmlFor="toggle">DatePicker isDisabled</Label>
       <Toggle id="toggle" isChecked={isDisabled} onChange={toggleDisabled} />
-      <Label label="Disabled inputs" />
-      <DatePicker testId="datePicker" isDisabled={isDisabled} />
+      <Label htmlFor="react-select-date--input">Disabled inputs</Label>
+      <DatePicker id="date" testId="datePicker" isDisabled={isDisabled} />
     </div>
   );
 };

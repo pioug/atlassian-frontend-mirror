@@ -27,7 +27,7 @@ import {
 } from '../../../../commands/hover';
 import { getDecorations } from '../../../../pm-plugins/decorations/plugin';
 import { buildColumnResizingDecorations } from '../../../../pm-plugins/decorations/utils';
-import { pluginKey } from '../../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../pm-plugins/plugin-key';
 import { TableDecorations, TablePluginState } from '../../../../types';
 
 describe('tables: column resizing decorations', () => {

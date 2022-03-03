@@ -1,4 +1,6 @@
 import styled, { keyframes } from 'styled-components';
+import { gridSize } from '@atlaskit/theme/constants';
+import { DN10, DN500 } from '@atlaskit/theme/colors';
 
 export const ArchiveSideBarWidth = 300;
 
@@ -80,3 +82,43 @@ export const ArchiveViewerWrapper = styled.div`
   align-items: center;
   display: flex;
 `;
+export const Separator = styled.div`
+  border-radius: 1px;
+  height: 2px;
+  margin: ${(gridSize() * 5 - 2) / 2}px 0;
+  background-color: rgb(36, 50, 76);
+  flex-shrink: 0;
+`;
+
+export const SidebarHeaderWrapper = styled.span`
+  display: flex
+  align-items: center
+  flex-shrink: 0,
+`;
+
+export const SidebarHeaderIcon = styled.div`
+  display: flex
+  align-items: center
+  margin-right: 10px;
+  flex-shrink: 0
+`;
+
+export const SidebarHeaderEntry = styled.div`
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.14286;
+  color: ${DN500};
+`;
+
+/** TODO Replace background colors of item with theme from @atlaskit/tokens once ready*/
+export const itemStyle = {
+  backgroundColor: `${DN10}`,
+  fill: `${DN10}`,
+  color: `${DN500}`,
+  ':hover': {
+    backgroundColor: '#253a5f',
+    color: `${DN500}`,
+  },
+};

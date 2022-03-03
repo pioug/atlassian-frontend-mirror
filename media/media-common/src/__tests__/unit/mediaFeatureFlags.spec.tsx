@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import forEach from 'lodash/forEach';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 
 jest.mock('../../mediaFeatureFlag-local', () => ({
@@ -18,12 +17,15 @@ import { getLocalMediaFeatureFlag } from '../../mediaFeatureFlag-local';
 
 describe('Media Feature Flags', () => {
   describe('shoud return default if no value passed', () => {
-    forEach(defaultMediaFeatureFlags, (value, key: any) => {
+    let key: keyof MediaFeatureFlags;
+    for (key in defaultMediaFeatureFlags) {
       it(key, () => {
-        expect(getMediaFeatureFlag(key)).toEqual(value);
-        expect(getMediaFeatureFlag(key, {})).toEqual(value);
+        expect(getMediaFeatureFlag(key)).toEqual(defaultMediaFeatureFlags[key]);
+        expect(getMediaFeatureFlag(key, {})).toEqual(
+          defaultMediaFeatureFlags[key],
+        );
       });
-    });
+    }
   });
 
   it('should return consumer value if passed through', () => {

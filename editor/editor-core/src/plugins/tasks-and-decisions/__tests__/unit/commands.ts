@@ -144,6 +144,62 @@ describe('tasks and decisions - commands', () => {
             );
           });
 
+          it(`can convert blockquote paragraph with multiple paragraphs into ${name}`, () => {
+            ({ editorView } = editorFactory(
+              doc(blockquote(p('Hello'), p('{<>}Hello'), p('Hello'))),
+            ));
+            insertTaskDecisionCommand(listName);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                blockquote(p('Hello')),
+                list(listProps)(item(itemProps)('{<>}Hello')),
+                blockquote(p('Hello')),
+              ),
+            );
+          });
+
+          it(`can convert empty blockquote paragraph with multiple paragraphs into ${name}`, () => {
+            ({ editorView } = editorFactory(
+              doc(blockquote(p('Hello'), p('Hello'), p('{<>}'))),
+            ));
+            insertTaskDecisionCommand(listName);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                blockquote(p('Hello'), p('Hello')),
+                list(listProps)(item(itemProps)('{<>}')),
+              ),
+            );
+          });
+
+          it(`can convert nested blockquote paragraph with multiple paragraphs into ${name}`, () => {
+            ({ editorView } = editorFactory(
+              doc(
+                table({ localId: 'testId' })(
+                  tr(
+                    td({})(blockquote(p('hello'), p('{<>}hello'), p('hello'))),
+                  ),
+                ),
+              ),
+            ));
+            insertTaskDecisionCommand(listName);
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                table({ localId: 'testId' })(
+                  tr(
+                    td({})(
+                      blockquote(p('hello')),
+                      list(listProps)(item(itemProps)('{<>}hello')),
+                      blockquote(p('hello')),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          });
+
           it(`can convert content with hardbreaks to ${name}`, () => {
             ({ editorView } = editorFactory(
               doc(p('Hello', br(), ' World{<>}')),

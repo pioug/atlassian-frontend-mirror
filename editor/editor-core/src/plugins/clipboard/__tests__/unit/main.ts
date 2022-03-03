@@ -29,6 +29,12 @@ import {
   setAllSelection,
   setCellSelection,
 } from '../../../../utils/selection';
+// @ts-ignore
+import { __serializeForClipboard } from 'prosemirror-view';
+import { selectRow } from '@atlaskit/editor-tables/src/utils';
+import { TableAttributes } from '@atlaskit/adf-schema';
+
+const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('clipboard plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -36,7 +42,18 @@ describe('clipboard plugin', () => {
     .add(clipboardPlugin)
     .add(rulePlugin)
     .add(layoutPlugin)
-    .add(tablePlugin);
+    .add([
+      tablePlugin,
+      {
+        tableOptions: {
+          allowNumberColumn: true,
+          allowHeaderRow: true,
+          allowHeaderColumn: true,
+          allowBackgroundColor: true,
+          permittedLayouts: 'all',
+        },
+      },
+    ]);
 
   const editor = (doc: DocBuilder) =>
     createEditor<undefined, PluginKey>({
@@ -166,6 +183,46 @@ describe('clipboard plugin', () => {
 
     describe('copy', () => {
       analyticsTests('copied');
+    });
+  });
+
+  describe('clipboardSerializer', () => {
+    describe('when copying a table row from a table', () => {
+      it.each(['default', 'wide', 'full-width'])(
+        'should write to the clipboard a table keeping the same attributes, including the layout',
+        (tableLayout) => {
+          const { editorView } = editor(
+            doc(
+              table({
+                layout: tableLayout as TableAttributes['layout'],
+                localId: TABLE_LOCAL_ID,
+              })(
+                tr(th()(p('1')), th()(p('2')), th()(p('3'))),
+                tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+                tr(td()(p('7')), td()(p('8')), td()(p('9'))),
+              ),
+            ),
+          );
+
+          // select the row
+          const rowSelector = selectRow(0);
+          const newTr = rowSelector(editorView.state.tr);
+
+          editorView.dispatch(newTr);
+
+          const { dom } = __serializeForClipboard(
+            editorView,
+            editorView.state.selection.content(),
+          );
+
+          expect(
+            dom.querySelector('table').getAttribute('data-layout'),
+          ).toEqual(tableLayout);
+
+          // Snapshotting to ensure table and all attributes wrap the row and are written to clipboard.
+          expect(dom).toMatchSnapshot();
+        },
+      );
     });
   });
 });

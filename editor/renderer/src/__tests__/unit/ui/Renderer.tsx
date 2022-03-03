@@ -1,5 +1,22 @@
+const mockStopMeasureDuration = 1234;
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+  startMeasure: jest.fn(),
+  stopMeasure: jest.fn(
+    (
+      measureName: string,
+      onMeasureComplete?: (duration: number, startTime: number) => void,
+    ) => {
+      onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
+    },
+  ),
+  measureTTI: jest.fn(),
+}));
+
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
+
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
@@ -18,6 +35,13 @@ import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { Media } from '../../../react/nodes';
 import { IntlProvider } from 'react-intl-next';
+import { measureTTI } from '@atlaskit/editor-common/utils';
+import {
+  GasPurePayload,
+  GasPureScreenEventPayload,
+} from '@atlaskit/analytics-gas-types';
+
+const mockMeasureTTI = measureTTI as jest.Mock<typeof measureTTI>;
 
 const validDoc = doc(
   heading({ level: 1 })(text('test')),
@@ -340,6 +364,62 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
     afterEach(() => {
       (window.requestAnimationFrame as jest.Mock).mockRestore();
       jest.useRealTimers();
+    });
+
+    describe('when rendererTtiTracking is enabled', () => {
+      const tti = 1000;
+      const ttiFromInvocation = 500;
+
+      it('should dispatch an tti (time-to-interactive) renderer event after the renderer has mounted', (done) => {
+        const mockAnalyticsClient = (
+          done: jest.DoneCallback,
+        ): AnalyticsWebClient => {
+          const analyticsEventHandler = (
+            event: GasPurePayload | GasPureScreenEventPayload,
+          ) => {
+            expect(event).toEqual(
+              expect.objectContaining({
+                action: 'tti',
+                actionSubject: 'renderer',
+                attributes: expect.objectContaining({
+                  tti,
+                  ttiFromInvocation,
+                  canceled: false,
+                }),
+              }),
+            );
+
+            mockMeasureTTI.mockClear();
+            done();
+          };
+          return analyticsClient(analyticsEventHandler);
+        };
+
+        mount(
+          <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+            <Renderer
+              document={initialDoc}
+              featureFlags={{ 'renderer-tti-tracking': true }}
+            />
+          </FabricAnalyticsListeners>,
+        );
+
+        const [ttiCallback] = mockMeasureTTI.mock.calls[0];
+        ttiCallback(tti, ttiFromInvocation, false);
+      });
+    });
+
+    describe('when rendererTtiTracking is not enabled', () => {
+      it('should not dispatch an tti (time-to-interactive) renderer event after the renderer has mounted', () => {
+        mount(
+          <Renderer
+            document={initialDoc}
+            featureFlags={{ 'renderer-tti-tracking': false }}
+          />,
+        );
+
+        expect(measureTTI).not.toHaveBeenCalled();
+      });
     });
 
     it('should fire heading anchor hit analytics event', () => {

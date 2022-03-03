@@ -3,13 +3,18 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import React from 'react';
 import { ConnectedReactionsView, ReactionServiceClient } from '../src';
 import { ReactionsExampleWrapper } from './examples-util';
+import { getReactionsConfig } from './examples-util/demo-service-control';
 
 const demoAri = (id: string) => `ari:cloud:owner:demo-cloud-id:item/${id}`;
 const containerAri = (id: string) =>
   `ari:cloud:owner:demo-cloud-id:container/${id}`;
 
+const reactionsConfig = getReactionsConfig();
+
+// TODO: provide live example input later, following the examples from emoji package, may need a refactor to follow serviceConfig pattern
 const client = new ReactionServiceClient(
-  'https://api-private.stg.atlassian.com/reactions',
+  reactionsConfig.baseUrl,
+  reactionsConfig.authHeader,
 );
 
 export default () => (

@@ -689,6 +689,35 @@ export default class WebBridgeImpl
     return true;
   }
 
+  setSelectionAtAnchor(anchor: 'start' | 'end') {
+    if (!this.editorView) {
+      return false;
+    }
+    let selection;
+    let position = 0;
+    let tr = this.editorView.state.tr;
+    const { state } = this.editorView;
+    if (anchor === 'start') {
+      selection = Selection.atStart;
+    } else {
+      selection = Selection.atEnd;
+      position = state.doc.content.size;
+    }
+
+    tr = tr.setSelection(selection(tr.doc));
+
+    const { $from } = tr.selection;
+    const wrapperItem = tr.doc.nodeAt($from.before(Math.min($from.depth, 1)));
+
+    if (wrapperItem?.type.name !== 'paragraph') {
+      const newParagraph = state.schema.nodes.paragraph.createAndFill();
+      tr = tr.insert(position, newParagraph);
+      tr = tr.setSelection(selection(tr.doc));
+    }
+
+    this.editorView.dispatch(tr);
+  }
+
   scrollToSelection(): void {
     if (!this.editorView) {
       return;

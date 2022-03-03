@@ -16,4 +16,16 @@ describe('Block Card', () => {
     const image = await takeSnapshot(page, 280, 0);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('shows actions popup menu', async () => {
+    const url = getURL('vr-block-card-actions-menu');
+    const page = await setup(url);
+
+    await waitForResolvedBlockCard(page);
+
+    await page.click('button[data-testid="dropdown-trigger');
+
+    const image = await takeSnapshot(page, 280, 0);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

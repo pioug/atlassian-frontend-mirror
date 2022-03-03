@@ -21,7 +21,6 @@ import {
   CardWrapper,
 } from '../../../../ui/MediaCard';
 import { MediaSSR } from '../../../../types/mediaOptions';
-import { MediaLink } from '@atlaskit/editor-common/ui';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
@@ -174,7 +173,7 @@ describe('Media', () => {
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
     );
-    mediaComponent.find(MediaLink).simulate('click');
+    mediaComponent.find('a[data-block-link]').simulate('click');
     const mediaCardProps = mediaComponent.find(MediaCard).props();
     expect(mediaCardProps.eventHandlers).toEqual(undefined);
     expect(mediaOnClick).not.toHaveBeenCalled();
@@ -194,7 +193,7 @@ describe('Media', () => {
         eventHandlers={{ link: { onClick: linkOnClick } }}
       />,
     );
-    mediaComponent.find(MediaLink).simulate('click');
+    mediaComponent.find('a[data-block-link]').simulate('click');
     expect(linkOnClick).toHaveBeenCalled();
   });
 
@@ -235,7 +234,7 @@ describe('Media', () => {
         eventHandlers={{ media: { onClick: mediaOnClick } }}
       />,
     );
-    mediaComponent.find(MediaLink).simulate('click');
+    mediaComponent.find('a[data-block-link]').simulate('click');
 
     expect(fireAnalyticsEvent).toHaveBeenCalledWith({
       action: 'visited',

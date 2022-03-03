@@ -8,6 +8,7 @@ import {
   hasInlineImplementation,
   InlineMacroComponent,
 } from './InlineMacroComponent';
+import { InlineSSRMacroComponent } from './InlineSSRMacroComponent';
 import {
   MacroFallbackCard,
   MacroFallbackComponent,
@@ -23,6 +24,22 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
 
   const renderInline = () => <InlineMacroComponent {...props} />;
 
+  const renderInlineStatic = () => (
+    <InlineSSRMacroComponent
+      outputDeviceType="MOBILE"
+      renderFallback={renderFallback}
+      {...props}
+    />
+  );
+
+  const renderInlineDynamic = () => (
+    <InlineSSRMacroComponent
+      outputDeviceType="DESKTOP"
+      renderFallback={renderFallback}
+      {...props}
+    />
+  );
+
   switch (renderingStrategy) {
     // NOTE: Rendering as link disabled until we can fix setContent overriding
     //       nested renderer content
@@ -37,6 +54,12 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
         ? renderInline()
         : renderFallback();
 
+    case 'inlineStatic':
+      return renderInlineStatic();
+
+    case 'inlineDynamic':
+      return renderInlineDynamic();
+
     default:
       return renderFallback();
   }
@@ -44,6 +67,7 @@ const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
 
 export {
   InlineMacroComponent,
+  InlineSSRMacroComponent,
   macroExtensionHandlerKey,
   MacroFallbackCard,
   MacroFallbackComponent,

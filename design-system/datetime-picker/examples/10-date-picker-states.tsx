@@ -1,8 +1,6 @@
 import React from 'react';
 
-// import { format, parseISO } from 'date-fns';
-
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DatePicker } from '../src';
 
@@ -15,21 +13,23 @@ function now(day: number) {
 export default () => {
   return (
     <div>
-      <Label label="Stock" />
+      <Label htmlFor="react-select-stock--input">Stock</Label>
+      <DatePicker id="stock" onChange={console.log} testId={'datePicker'} />
+
+      <Label htmlFor="react-select-disabled--input">Disabled input</Label>
+      <DatePicker id="disabled" isDisabled onChange={console.log} />
+
+      <Label htmlFor="react-select-disabled-dates--input">Disabled dates</Label>
       <DatePicker
-        id="datepicker"
+        id="disabled-dates"
+        minDate={now(8)}
+        maxDate={now(28)}
         onChange={console.log}
-        testId={'datePicker'}
       />
 
-      <Label label="Disabled input" />
-      <DatePicker isDisabled onChange={console.log} />
-
-      <Label label="Disabled dates" />
-      <DatePicker minDate={now(8)} maxDate={now(28)} onChange={console.log} />
-
-      <Label label="Custom date format" />
+      <Label htmlFor="react-select-custom--input">Custom date format</Label>
       <DatePicker
+        id="custom"
         dateFormat="DD/MMM/YY"
         selectProps={{
           placeholder: 'e.g. 31/Dec/18',

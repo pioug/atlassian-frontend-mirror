@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { G300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { CustomProgressBarProps } from '../types';
 
@@ -28,7 +29,7 @@ export default class SuccessProgressBar extends React.PureComponent<
             ...theme,
             bar: {
               ...theme.bar,
-              background: G300,
+              background: token('color.background.success.bold', G300),
             },
           };
         }}

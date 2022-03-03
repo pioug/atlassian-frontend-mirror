@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
@@ -18,7 +20,7 @@ import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { embedHeaderHeight } from '@atlaskit/media-ui/embeds';
+import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { Wrapper } from '../../../ui/Resizer/styled';
 import {
   EnabledHandles,
@@ -31,7 +33,7 @@ import {
   snapTo,
 } from '../../../ui/Resizer/utils';
 import { calcMediaPxWidth } from '../../../plugins/media/utils/media-single';
-import { EmbedSpacing } from './styled';
+import { embedSpacingStyles } from './styled';
 
 type State = {
   offsetLeft: number;
@@ -388,7 +390,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     });
 
     return (
-      <EmbedSpacing data-testid="resizable-embed-card-spacing">
+      <div css={embedSpacingStyles} data-testid="resizable-embed-card-spacing">
         <Wrapper
           layout={layout}
           isResized={!!pctWidth}
@@ -411,7 +413,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
             {this.getHeightDefiningComponent()}
           </Resizer>
         </Wrapper>
-      </EmbedSpacing>
+      </div>
     );
   }
 }

@@ -13,7 +13,7 @@ import {
   PluginConfig,
 } from '../../../../plugins/table/types';
 
-import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('fix tables', () => {

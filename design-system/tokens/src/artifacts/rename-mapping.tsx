@@ -70,6 +70,86 @@ const renameMapper: RenameMap[] = [
     "replacement": "color.border.[default]"
   },
   {
+    "path": "color.background.accent.blue.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.blue.subtler"
+  },
+  {
+    "path": "color.background.accent.blue.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.blue.subtle"
+  },
+  {
+    "path": "color.background.accent.red.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.red.subtler"
+  },
+  {
+    "path": "color.background.accent.red.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.red.subtle"
+  },
+  {
+    "path": "color.background.accent.orange.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.orange.subtler"
+  },
+  {
+    "path": "color.background.accent.orange.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.orange.subtle"
+  },
+  {
+    "path": "color.background.accent.yellow.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.yellow.subtler"
+  },
+  {
+    "path": "color.background.accent.yellow.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.yellow.subtle"
+  },
+  {
+    "path": "color.background.accent.green.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.green.subtler"
+  },
+  {
+    "path": "color.background.accent.green.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.green.subtle"
+  },
+  {
+    "path": "color.background.accent.teal.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.teal.subtler"
+  },
+  {
+    "path": "color.background.accent.teal.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.teal.subtle"
+  },
+  {
+    "path": "color.background.accent.purple.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.purple.subtler"
+  },
+  {
+    "path": "color.background.accent.purple.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.purple.subtle"
+  },
+  {
+    "path": "color.background.accent.magenta.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.accent.magenta.subtler"
+  },
+  {
+    "path": "color.background.accent.magenta.bold",
+    "state": "deprecated",
+    "replacement": "color.background.accent.magenta.subtle"
+  },
+  {
     "path": "color.background.brand.[default].[default]",
     "state": "deprecated",
     "replacement": "color.background.selected.[default].[default]"
@@ -322,67 +402,67 @@ const renameMapper: RenameMap[] = [
   {
     "path": "color.accent.boldBlue",
     "state": "deprecated",
-    "replacement": "color.background.accent.blue.bold"
+    "replacement": "color.background.accent.blue.bolder"
   },
   {
     "path": "color.accent.boldGreen",
     "state": "deprecated",
-    "replacement": "color.background.accent.green.bold"
+    "replacement": "color.background.accent.green.bolder"
   },
   {
     "path": "color.accent.boldOrange",
     "state": "deprecated",
-    "replacement": "color.background.accent.orange.bold"
+    "replacement": "color.background.accent.orange.bolder"
   },
   {
     "path": "color.accent.boldPurple",
     "state": "deprecated",
-    "replacement": "color.background.accent.purple.bold"
+    "replacement": "color.background.accent.purple.bolder"
   },
   {
     "path": "color.accent.boldRed",
     "state": "deprecated",
-    "replacement": "color.background.accent.red.bold"
+    "replacement": "color.background.accent.red.bolder"
   },
   {
     "path": "color.accent.boldTeal",
     "state": "deprecated",
-    "replacement": "color.background.accent.teal.bold"
+    "replacement": "color.background.accent.teal.bolder"
   },
   {
     "path": "color.accent.subtleBlue",
     "state": "deprecated",
-    "replacement": "color.background.accent.blue.[default]"
+    "replacement": "color.background.accent.blue.subtler"
   },
   {
     "path": "color.accent.subtleGreen",
     "state": "deprecated",
-    "replacement": "color.background.accent.green.[default]"
+    "replacement": "color.background.accent.green.subtler"
   },
   {
     "path": "color.accent.subtleMagenta",
     "state": "deprecated",
-    "replacement": "color.background.accent.magenta.[default]"
+    "replacement": "color.background.accent.magenta.subtler"
   },
   {
     "path": "color.accent.subtleOrange",
     "state": "deprecated",
-    "replacement": "color.background.accent.orange.[default]"
+    "replacement": "color.background.accent.orange.subtler"
   },
   {
     "path": "color.accent.subtlePurple",
     "state": "deprecated",
-    "replacement": "color.background.accent.purple.[default]"
+    "replacement": "color.background.accent.purple.subtler"
   },
   {
     "path": "color.accent.subtleRed",
     "state": "deprecated",
-    "replacement": "color.background.accent.red.[default]"
+    "replacement": "color.background.accent.red.subtler"
   },
   {
     "path": "color.accent.subtleTeal",
     "state": "deprecated",
-    "replacement": "color.background.accent.teal.[default]"
+    "replacement": "color.background.accent.teal.subtler"
   },
   {
     "path": "color.iconBorder.brand",

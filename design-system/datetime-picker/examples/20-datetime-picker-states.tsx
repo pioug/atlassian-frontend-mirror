@@ -1,30 +1,38 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DateTimePicker } from '../src';
 
 export default () => {
   return (
     <div>
-      <Label label="Stock" />
-      <DateTimePicker onChange={console.log} />
+      <Label htmlFor="react-select-stock--input">Stock</Label>
+      <DateTimePicker id="stock" onChange={console.log} />
 
-      <Label label="Stock with value" />
-      <DateTimePicker onChange={console.log} defaultValue="2020-10-10" />
-
-      <Label label="Disabled input" />
-      <DateTimePicker isDisabled onChange={console.log} />
-
-      <Label label="Disabled input with value" />
+      <Label htmlFor="react-select-stock-value--input">Stock with value</Label>
       <DateTimePicker
+        id="stock-value"
+        onChange={console.log}
+        defaultValue="2020-10-10"
+      />
+
+      <Label htmlFor="react-select-disabled--input">Disabled input</Label>
+      <DateTimePicker id="disabled" isDisabled onChange={console.log} />
+
+      <Label htmlFor="react-select-disabled-value--input">
+        Disabled input with value
+      </Label>
+      <DateTimePicker
+        id="disabled-value"
         isDisabled
         onChange={console.log}
         defaultValue="2020-10-10"
       />
 
-      <Label label="Custom date format" />
+      <Label htmlFor="react-select-custom--input">Custom date format</Label>
       <DateTimePicker
+        id="custom"
         onChange={console.log}
         dateFormat="DD/MMM/YY"
         datePickerSelectProps={{
@@ -32,8 +40,11 @@ export default () => {
         }}
       />
 
-      <Label label="Custom date format with value" />
+      <Label htmlFor="react-select-custom-value--input">
+        Custom date format with value
+      </Label>
       <DateTimePicker
+        id="custom-value"
         onChange={console.log}
         dateFormat="DD/MMM/YY"
         datePickerSelectProps={{

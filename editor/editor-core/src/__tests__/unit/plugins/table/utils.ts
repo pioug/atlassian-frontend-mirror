@@ -21,7 +21,7 @@ import {
   getRowClassNames,
 } from '../../../../plugins/table/utils';
 import { TablePluginState } from '../../../../plugins/table/types';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('table plugin: utils', () => {
   const createEditor = createEditorFactory<TablePluginState>();

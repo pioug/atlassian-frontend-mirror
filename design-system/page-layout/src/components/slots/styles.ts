@@ -1,6 +1,7 @@
 import { css, CSSObject } from '@emotion/core';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
+import { token } from '@atlaskit/tokens';
 
 import {
   BANNER,
@@ -47,11 +48,17 @@ export const focusStyles = {
     outline: 'none',
     '&  [data-wrapper-element]': {
       outline: 'none',
-      boxShadow: '0px 0px 0px 2px inset #4C9AFF',
+      boxShadow: `0px 0px 0px 2px inset ${token(
+        'color.border.focused',
+        '#4C9AFF',
+      )}`,
     },
     '& > div:not([data-skip-link-wrapper])': {
       outline: 'none',
-      boxShadow: '0px 0px 0px 2px inset #4C9AFF',
+      boxShadow: `0px 0px 0px 2px inset ${token(
+        'color.border.focused',
+        '#4C9AFF',
+      )}`,
     },
   },
 };

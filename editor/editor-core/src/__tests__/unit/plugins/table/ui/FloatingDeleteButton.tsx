@@ -38,7 +38,7 @@ jest.mock('../../../../../plugins/table/utils', () => ({
   ...jest.requireActual<Object>('../../../../../plugins/table/utils'),
 }));
 import * as tableUtils from '../../../../../plugins/table/utils';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 
 describe('Floating Delete Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();

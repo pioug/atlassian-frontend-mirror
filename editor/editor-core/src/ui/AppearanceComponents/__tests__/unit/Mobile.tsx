@@ -9,7 +9,7 @@ import {
   tr,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../../../plugins/table';
 import {
   createProsemirrorEditorFactory,

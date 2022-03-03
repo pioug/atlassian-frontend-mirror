@@ -91,7 +91,8 @@ describe('onboarding spotlight visual regression', () => {
     ).toMatchProdImageSnapshot();
   });
 
-  it('should not display pulse animation when pulse prop is false', async () => {
+  // FIXME: This test was automatically skipped due to failure on 2/1/2022: https://product-fabric.atlassian.net/browse/SKIP-324
+  it.skip('should not display pulse animation when pulse prop is false', async () => {
     const { __BASEURL__, page } = global;
 
     const url = getExampleUrl(

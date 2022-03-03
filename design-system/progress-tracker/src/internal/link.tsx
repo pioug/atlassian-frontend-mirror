@@ -4,11 +4,12 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import { N800 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Stage } from '../types';
 
 const linkStyles = css({
-  color: N800,
+  color: token('color.text', N800),
   cursor: 'pointer',
 });
 

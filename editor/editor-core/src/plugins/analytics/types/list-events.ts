@@ -77,7 +77,6 @@ type ListIndentedAEP = TrackAEP<
   ACTION_SUBJECT_ID.FORMAT_LIST_BULLET | ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
   {
     inputMethod: INPUT_METHOD;
-    canSink?: boolean;
   } & CommonListAnalyticsAttributes,
   undefined
 >;

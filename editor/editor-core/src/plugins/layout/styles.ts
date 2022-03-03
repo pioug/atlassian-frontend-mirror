@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A, N50A } from '@atlaskit/theme/colors';
@@ -47,6 +47,10 @@ export const layoutStyles = css`
           }
 
           > .ProseMirror-gapcursor:first-child + span + * {
+            margin-top: 0;
+          }
+
+          .rich-media-item {
             margin-top: 0;
           }
 

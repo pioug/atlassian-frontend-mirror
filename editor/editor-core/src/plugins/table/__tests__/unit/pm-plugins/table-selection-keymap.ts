@@ -25,7 +25,7 @@ import panelPlugin from '../../../../panel';
 import codeBlockPlugin from '../../../../code-block';
 import tablePlugin from '../../../index';
 import { TablePluginState } from '../../../types';
-import { pluginKey } from '../../../pm-plugins/plugin-factory';
+import { pluginKey } from '../../../pm-plugins/plugin-key';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 describe('table selection keymap', () => {

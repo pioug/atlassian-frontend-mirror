@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@atlaskit/breadcrumbs": "^11.5.0",
-    "@atlaskit/button": "^16.1.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "*",
     "@atlaskit/inline-edit": "^12.1.0",
     "@atlaskit/page": "^12.1.0",

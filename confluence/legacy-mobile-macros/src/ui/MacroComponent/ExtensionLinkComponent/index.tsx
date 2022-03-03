@@ -1,10 +1,19 @@
+import { useEffect } from 'react';
+
 import { doc, link, paragraph, text } from '@atlaskit/adf-utils';
+
+import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 
 import { ExtensionLinkComponentProps } from './types';
 
 export const ExtensionLinkComponent = (props: ExtensionLinkComponentProps) => {
-  const url = props.extension.parameters.macroParams.url.value;
-  const render = props.render;
+  const { extension, render } = props;
+  const { extensionKey } = extension;
+  const fireMacroViewedAnalyticsEvent = useMacroViewedAnalyticsEvent();
+  useEffect(() => {
+    fireMacroViewedAnalyticsEvent(extensionKey, 'link');
+  }, [extensionKey, fireMacroViewedAnalyticsEvent]);
+  const url = extension.parameters.macroParams.url.value;
   const document = doc(
     paragraph(
       link({

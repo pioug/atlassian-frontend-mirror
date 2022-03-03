@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes, including the layout 1`] = `
+<div>
+  <table
+    data-autosize="false"
+    data-layout="default"
+    data-number-column="false"
+    data-pm-slice="1 1 []"
+    data-table-local-id="test-table-local-id"
+  >
+    <tbody>
+      <tr>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            1
+          </p>
+        </th>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            2
+          </p>
+        </th>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            3
+          </p>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes, including the layout 2`] = `
+<div>
+  <table
+    data-autosize="false"
+    data-layout="wide"
+    data-number-column="false"
+    data-pm-slice="1 1 []"
+    data-table-local-id="test-table-local-id"
+  >
+    <tbody>
+      <tr>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            1
+          </p>
+        </th>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            2
+          </p>
+        </th>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            3
+          </p>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`clipboard plugin clipboardSerializer when copying a table row from a table should write to the clipboard a table keeping the same attributes, including the layout 3`] = `
+<div>
+  <table
+    data-autosize="false"
+    data-layout="full-width"
+    data-number-column="false"
+    data-pm-slice="1 1 []"
+    data-table-local-id="test-table-local-id"
+  >
+    <tbody>
+      <tr>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            1
+          </p>
+        </th>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            2
+          </p>
+        </th>
+        <th
+          class="pm-table-header-content-wrap"
+        >
+          <p>
+            3
+          </p>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

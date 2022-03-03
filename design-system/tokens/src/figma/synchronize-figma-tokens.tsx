@@ -32,8 +32,11 @@ function createPaint(hex: string): FigmaPaint {
   }
 
   if (hexValue.length === 4) {
-    // We have a half hex, double it!
-    hexValue = `${hexValue}${hexValue.slice(1)}`;
+    // We have a 3 character shorthand hex, expand it!
+    hexValue = hexValue
+      .split('')
+      .map((char) => (char === '#' ? char : `${char}${char}`))
+      .join('');
   }
 
   if (hexValue.length !== 9 && hexValue.length !== 7) {
@@ -54,9 +57,6 @@ function createPaint(hex: string): FigmaPaint {
     color: { r, g, b },
   };
 }
-
-export type CreateEffects = typeof createEffects;
-export type CreatePaint = typeof createPaint;
 
 function createEffects(value: ShadowToken<string>['value']): FigmaEffect[] {
   return value.map((shadow) => {
@@ -79,6 +79,37 @@ function createEffects(value: ShadowToken<string>['value']): FigmaEffect[] {
     };
   });
 }
+
+/**
+ * Formats a token description for use in Figma,
+ * including deprecated warnings
+ *
+ * @param token
+ */
+function formatDescription(token: PaintToken<string> | ShadowToken<string>) {
+  let description = token.attributes.description.trim() || '';
+
+  if (token.attributes.state === 'deprecated') {
+    // The token is deprecated. Prefix a warning to the description!
+
+    // If the token has multiple replacement options,
+    // flatten them into a string
+    const replacements = Array.isArray(token.attributes.replacement)
+      ? token.attributes.replacement.join(' | ')
+      : token.attributes.replacement;
+
+    // If the token has replacements, prefix them to the description
+    const prefix = replacements ? `use ${replacements} instead` : 'do not use';
+
+    description = `DEPRECATED ${prefix}. \n${description}`;
+  }
+
+  return description;
+}
+
+export type CreateEffects = typeof createEffects;
+export type CreatePaint = typeof createPaint;
+export type FormatDescription = typeof formatDescription;
 
 /**
  * Adds tokens under a specified theme as paint styles to Figma.
@@ -125,7 +156,7 @@ function synchronizeFigmaTokens(
     // It's still an effect! Update it.
     console.log(`=> ${style.name} shadow style has been updated!`);
     style.effects = createEffects(token.value as ShadowToken['value']);
-    style.description = (token.attributes.description || '').trim();
+    style.description = formatDescription(token);
     // Remove from themeValues so it isn't picked up as a new token.
     delete tokens[style.name];
   });
@@ -164,7 +195,7 @@ function synchronizeFigmaTokens(
     console.log(`=> ${style.name} paint style has been updated!`);
     // Mutating is how Figma updates.
     style.paints = [createPaint(token.value as PaintToken['value'])];
-    style.description = (token.attributes.description || '').trim();
+    style.description = formatDescription(token);
     // Remove from themeValues so it isn't picked up as a new token.
     delete tokens[style.name];
   });
@@ -175,7 +206,7 @@ function synchronizeFigmaTokens(
     if (token.attributes.group === 'paint') {
       const newStyle: FigmaPaintStyle = figma.createPaintStyle();
       newStyle.name = key;
-      newStyle.description = (token.attributes.description || '').trim();
+      newStyle.description = formatDescription(token);
       newStyle.paints = [createPaint(token.value as PaintToken['value'])];
       console.log(`=> ${key} paint style has been added!`);
     }
@@ -183,7 +214,7 @@ function synchronizeFigmaTokens(
     if (token.attributes.group === 'shadow') {
       const newStyle: FigmaEffectStyle = figma.createEffectStyle();
       newStyle.name = key;
-      newStyle.description = (token.attributes.description || '').trim();
+      newStyle.description = formatDescription(token);
       newStyle.effects = createEffects(token.value as ShadowToken['value']);
       console.log(`=> ${key} shadow style has been added!`);
     }
@@ -197,5 +228,6 @@ if (typeof module !== 'undefined') {
     synchronizeFigmaTokens,
     createPaint,
     createEffects,
+    formatDescription,
   };
 }

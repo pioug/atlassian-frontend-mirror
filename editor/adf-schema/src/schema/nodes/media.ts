@@ -45,7 +45,7 @@ export interface MediaBaseAttributes {
   // For JIRA
   __displayType?: DisplayType | null;
   // For copy & paste
-  __contextId?: string;
+  __contextId?: string | null;
 
   // is set to true when new external media is inserted, false for external media in existing documents
   __external?: boolean;

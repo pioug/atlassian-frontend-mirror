@@ -25,7 +25,7 @@ import {
   TablePluginState,
   PluginConfig,
 } from '../../../../../plugins/table/types';
-import { pluginKey as tablePluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 import { CellSelection } from '@atlaskit/editor-tables';
 
 import { uuid } from '@atlaskit/adf-schema';

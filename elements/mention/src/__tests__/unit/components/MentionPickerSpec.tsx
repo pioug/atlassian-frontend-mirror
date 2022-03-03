@@ -8,8 +8,7 @@ import { HttpError } from '../../../api/MentionResource';
 import MentionItem from '../../../components/MentionItem';
 import MentionList from '../../../components/MentionList';
 import MentionListError from '../../../components/MentionListError';
-import {
-  MentionPicker,
+import MentionPicker, {
   OnClose,
   OnOpen,
   Props,
@@ -27,13 +26,7 @@ function setupPicker(props?: Props): ReactWrapper<Props, State> {
     maxWait: 0,
   });
   return mountWithIntl(
-    <MentionPicker
-      resourceProvider={resourceProvider}
-      query=""
-      createAnalyticsEvent={jest.fn()}
-      intl={{ formatMessage() {} } as any}
-      {...props}
-    />,
+    <MentionPicker resourceProvider={resourceProvider} query="" {...props} />,
   ) as ReactWrapper<Props, State>;
 }
 
@@ -83,6 +76,15 @@ function hasExpectedItems(
 // TODO: After updating to expect.hasAssertions(), it identified some tests that are not correctly written.
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183
 describe('MentionPicker', () => {
+  it('should provide the ref back', () => {
+    const refHandler = jest.fn();
+    // @ts-expect-error ref is not in component's props list as React supports it out of the box
+    const component = setupPicker({ ref: refHandler });
+    expect(component).toBeDefined();
+    expect(refHandler).toHaveBeenCalledTimes(1);
+    expect(refHandler).not.toHaveBeenCalledWith(undefined);
+  });
+
   it('should accept all mention names by default', () => {
     const component = setupPicker();
     expect(component).toBeDefined();

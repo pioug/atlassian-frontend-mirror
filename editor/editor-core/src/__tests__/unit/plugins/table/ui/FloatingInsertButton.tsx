@@ -25,7 +25,7 @@ import {
 } from '../../../../../plugins/table/ui/FloatingInsertButton';
 import InsertButton from '../../../../../plugins/table/ui/FloatingInsertButton/InsertButton';
 import safeUnmount from '../../../../__helpers/safeUnmount';
-import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../../../plugins/table/pm-plugins/plugin-key';
 import * as prosemirrorUtils from 'prosemirror-utils';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {

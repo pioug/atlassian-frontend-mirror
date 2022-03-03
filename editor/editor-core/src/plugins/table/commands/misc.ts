@@ -38,6 +38,7 @@ import {
   createColumnSelectedDecoration,
 } from '../utils/decoration';
 import {
+  checkIfNumberColumnEnabled,
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
   isIsolating,
@@ -81,8 +82,9 @@ export const setTableRef = (ref?: HTMLTableElement) =>
           tablePos,
           tableWrapperTarget,
           layout: layout || 'default',
-          isHeaderRowEnabled: checkIfHeaderRowEnabled(state),
-          isHeaderColumnEnabled: checkIfHeaderColumnEnabled(state),
+          isNumberColumnEnabled: checkIfNumberColumnEnabled(state.selection),
+          isHeaderRowEnabled: checkIfHeaderRowEnabled(state.selection),
+          isHeaderColumnEnabled: checkIfHeaderColumnEnabled(state.selection),
           decorationSet,
           resizeHandleColumnIndex: undefined,
         },
@@ -148,7 +150,7 @@ export const triggerUnlessTableHeader = (command: Command): Command => (
 
   if (selection instanceof CellSelection) {
     const rect = getSelectionRect(selection);
-    if (!checkIfHeaderRowEnabled(state) || (rect && rect.top > 0)) {
+    if (!checkIfHeaderRowEnabled(selection) || (rect && rect.top > 0)) {
       return command(state, dispatch, view);
     }
   }
@@ -458,18 +460,6 @@ export const addResizeHandleDecorations = (columnIndex: number) =>
           resizeHandleColumnIndex: columnIndex,
         },
       };
-    },
-    (tr: Transaction) => tr.setMeta('addToHistory', false),
-  );
-
-export const setTableSize = (
-  tableHeight: number,
-  tableWidth: number,
-): Command =>
-  createCommand(
-    {
-      type: 'SET_TABLE_SIZE',
-      data: { tableHeight, tableWidth },
     },
     (tr: Transaction) => tr.setMeta('addToHistory', false),
   );

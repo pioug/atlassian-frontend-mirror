@@ -1,6 +1,4 @@
 import { ReactNode } from 'react';
-import { RequestAccessMessageKey } from './messages';
-import { ActionProps } from './BlockCard/components/Action';
 
 export interface WithShowControlMethodProp {
   showControls?: () => void;
@@ -28,12 +26,6 @@ export interface AccessContext {
     | 'experiment'
     | 'control'
     | 'not-enrolled';
-}
-
-export interface RequestAccessContextProps extends AccessContext {
-  action?: ActionProps;
-  callToActionMessageKey?: RequestAccessMessageKey;
-  descriptiveMessageKey?: RequestAccessMessageKey;
 }
 
 export type InlinePreloaderStyle =

@@ -1,5 +1,12 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.2.26
+
+### Patch Changes
+
+- [`55256125722`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55256125722) - ED-14262 update editor packages to use emotion 11
+- Updated dependencies
+
 ## 0.2.25
 
 ### Patch Changes

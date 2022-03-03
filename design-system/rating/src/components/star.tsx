@@ -3,6 +3,7 @@ import React, { forwardRef, useCallback } from 'react';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Y200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Rating, { RatingProps, RatingRender } from './rating';
 
@@ -24,7 +25,14 @@ export interface StarProps extends RatingProps {
 }
 
 const Star = forwardRef<HTMLLabelElement, StarProps>(
-  ({ size = 'large', color = Y200, ...props }, ref) => {
+  (
+    {
+      size = 'large',
+      color = token('color.icon.accent.yellow', Y200),
+      ...props
+    },
+    ref,
+  ) => {
     const render: RatingRender = useCallback(
       (props) => {
         return props.isChecked ? (

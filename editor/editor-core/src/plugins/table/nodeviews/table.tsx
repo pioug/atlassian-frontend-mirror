@@ -17,14 +17,14 @@ import { PortalProviderAPI } from '../../../ui/PortalProvider';
 import WithPluginState from '../../../ui/WithPluginState';
 import { pluginKey as widthPluginKey } from '../../width';
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
-import { getPluginState, pluginKey } from '../pm-plugins/plugin-factory';
+import { getPluginState } from '../pm-plugins/plugin-factory';
+import { pluginKey } from '../pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
-import { setTableSize } from '../commands';
 import { getFeatureFlags } from '../../feature-flags-context';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import { EmitterEvents } from '../../../extensibility';
@@ -56,7 +56,6 @@ const toDOM = (node: PmNode, props: Props) => {
 export default class TableView extends ReactNodeView<Props> {
   private table: HTMLElement | undefined;
   private resizeObserver?: ResizeObserver;
-  private editorView: EditorView;
   private tableRenderOptimization?: boolean;
   eventDispatcher?: EventDispatcher;
 
@@ -72,7 +71,6 @@ export default class TableView extends ReactNodeView<Props> {
       props,
     );
     this.getPos = props.getPos;
-    this.editorView = props.view;
     this.tableRenderOptimization = props.tableRenderOptimization;
     this.eventDispatcher = props.eventDispatcher;
   }
@@ -87,28 +85,6 @@ export default class TableView extends ReactNodeView<Props> {
       this.table = rendered.dom as HTMLElement;
     }
 
-    if (
-      this.tableRenderOptimization &&
-      this.table &&
-      !this.resizeObserver &&
-      window?.ResizeObserver
-    ) {
-      this.resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          const height = entry.contentRect
-            ? entry.contentRect.height
-            : (entry.target as HTMLElement).offsetHeight;
-          const width = entry.contentRect
-            ? entry.contentRect.width
-            : (entry.target as HTMLElement).offsetWidth;
-          setTableSize(height, width)(
-            this.editorView.state,
-            this.editorView.dispatch,
-          );
-        }
-      });
-      this.resizeObserver.observe(this.table);
-    }
     return rendered;
   }
 

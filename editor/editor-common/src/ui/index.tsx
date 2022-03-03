@@ -20,7 +20,7 @@ export {
   snapToGrid,
 } from './MediaSingle/grid';
 
-export { MediaLink } from './MediaSingle/link';
+export { mediaLinkStyle } from './MediaSingle/link';
 export { default as Popup, findOverflowScrollParent } from './Popup';
 export type { Position as PopupPosition, Props as PopupProps } from './Popup';
 export { default as UnsupportedBlock } from './UnsupportedBlock';
@@ -58,7 +58,7 @@ export {
 export type { StyleProps as ExpandStyleProps } from './Expand';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
-export { ClearNextSiblingMarginTop } from './clear-next-sibling-margin-top';
+export { clearNextSiblingMarginTopStyle } from './clear-next-sibling-margin-top';
 export {
   IntlNextErrorBoundary,
   REACT_INTL_ERROR_MESSAGE,

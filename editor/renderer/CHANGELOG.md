@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 92.0.0
+
+### Minor Changes
+
+- [`9712e78abb0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9712e78abb0) - ED-14255 moved some usages of editor-shared-styles to emotion
+
+### Patch Changes
+
+- [`3c717788e4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c717788e4d) - ED-14569 Feature flag the renderer TTI analytic event
+- [`d0eed99c3e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0eed99c3e3) - ED-14264 Moved styles to emotion css
+- [`f9a144c5a71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9a144c5a71) - ED-14255 migrated table styles to use emotion
+- [`3fcadf8ab52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fcadf8ab52) - ED-14263 migrate editor common styled usagese to emotion
+- [`244512e8724`](https://bitbucket.org/atlassian/atlassian-frontend/commits/244512e8724) - ED-14301 Add tti metrics for renderer
+- [`47d10a85190`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47d10a85190) - [ED-10235] When a heading is used as a header in a sticky headers table, two headers are added into the document to enable sticky header behaviour. We need to ensure the heading ID is not duplicated so scroll behaviour remains intact when user uses the heading anchor link in renderer.
+- Updated dependencies
+
 ## 91.0.0
 
 ### Patch Changes

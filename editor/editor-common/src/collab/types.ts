@@ -78,8 +78,8 @@ export interface CollabEventData {
   entity: any;
 }
 
-export type ResolvedEditorState = {
-  content: JSONDocNode;
+export type ResolvedEditorState<T = any> = {
+  content: JSONDocNode | T;
   title: string | null;
   stepVersion: number;
 };

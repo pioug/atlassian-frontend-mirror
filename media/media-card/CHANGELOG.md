@@ -1,5 +1,15 @@
 # @atlaskit/media-card
 
+## 73.3.0
+
+### Minor Changes
+
+- [`7d8e24c4dcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d8e24c4dcd) - Log reliability of Media Card SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.2.0
 
 ### Minor Changes

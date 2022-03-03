@@ -1,4 +1,3 @@
-import { RecommendationItem } from './SmartMentionTypes';
 import { MentionContextIdentifier } from '../types';
 
 export const SMART_EVENT_TYPE = 'smart';
@@ -27,12 +26,4 @@ export const defaultAttributes = (
     pickerType: 'mentions',
     source: 'smarts',
   };
-};
-export const getUsersForAnalytics = (users: RecommendationItem[]) => {
-  return users
-    ? users.map(({ id, entityType }) => ({
-        id,
-        type: entityType.toLowerCase(),
-      }))
-    : [];
 };

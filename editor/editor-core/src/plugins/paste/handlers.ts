@@ -12,6 +12,7 @@ import {
   Selection,
   TextSelection,
   Transaction,
+  NodeSelection,
 } from 'prosemirror-state';
 import {
   findParentNodeOfType,
@@ -87,12 +88,22 @@ export function handlePasteIntoTaskAndDecision(slice: Slice): Command {
       },
     } = schema;
 
+    const isDecisionOrTaskNodeSelection =
+      state.selection instanceof NodeSelection &&
+      ['decisionList', 'decisionItem', 'taskList', 'taskItem'].includes(
+        state.selection.node.type.name,
+      );
+    const hasParentDecisionOrTaskItem = hasParentNodeOfType([
+      decisionItem,
+      taskItem,
+    ])(state.selection);
+
     if (
       !decisionItem ||
       !decisionList ||
       !taskList ||
       !taskItem ||
-      !hasParentNodeOfType([decisionItem, taskItem])(state.selection)
+      (!hasParentDecisionOrTaskItem && !isDecisionOrTaskNodeSelection)
     ) {
       return false;
     }
@@ -118,9 +129,19 @@ export function handlePasteIntoTaskAndDecision(slice: Slice): Command {
 
     const transformedSlice = compose.apply(null, filters)(slice);
 
-    const tr = closeHistory(state.tr)
-      .replaceSelection(transformedSlice)
-      .scrollIntoView();
+    const tr = closeHistory(state.tr);
+
+    const transformedSliceIsValidNode =
+      transformedSlice.content.firstChild.type.inlineContent ||
+      ['decisionList', 'decisionItem', 'taskList', 'taskItem'].includes(
+        transformedSlice.content.firstChild.type.name,
+      );
+
+    if (transformedSliceIsValidNode || isDecisionOrTaskNodeSelection) {
+      tr.replaceSelection(transformedSlice).scrollIntoView();
+    } else {
+      safeInsert(transformedSlice.content)(tr).scrollIntoView();
+    }
 
     queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {
@@ -491,9 +512,14 @@ export function handleMediaSingle(inputMethod: InputMethodInsertMedia) {
   };
 }
 
-export function handleExpand(slice: Slice): Command {
+export function handleExpandPasteInTable(slice: Slice): Command {
   return (state, dispatch) => {
-    if (!insideTable(state)) {
+    // Do not handle expand if it's not being pasted into a table
+    // OR if it's nested within another node when being pasted into a table
+    if (
+      !insideTable(state) ||
+      slice.content.firstChild?.type.name !== 'expand'
+    ) {
       return false;
     }
 

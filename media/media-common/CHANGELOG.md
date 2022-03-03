@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.11.0
+
+### Minor Changes
+
+- [`8742dbe70bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8742dbe70bd) - MEX-1102 Removed lodash dependencies from media component and converted all to local functions (lightweight helpers)
+
 ## 2.10.3
 
 ### Patch Changes

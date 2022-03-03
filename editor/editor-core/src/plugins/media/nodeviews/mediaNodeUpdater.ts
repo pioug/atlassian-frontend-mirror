@@ -144,11 +144,11 @@ export class MediaNodeUpdater {
     return undefined;
   };
 
-  getObjectId = async (): Promise<string | undefined> => {
+  getObjectId = async (): Promise<string | null> => {
     const contextIdentifierProvider = await this.props
       .contextIdentifierProvider;
 
-    return contextIdentifierProvider && contextIdentifierProvider.objectId;
+    return contextIdentifierProvider?.objectId || null;
   };
 
   uploadExternalMedia = async (getPos: ProsemirrorGetPosHandler) => {
@@ -192,13 +192,13 @@ export class MediaNodeUpdater {
     }
   };
 
-  getNodeContextId = (): string | undefined => {
+  getNodeContextId = (): string | null => {
     const attrs = this.getAttrs();
     if (!attrs || attrs.type !== 'file') {
-      return undefined;
+      return null;
     }
 
-    return attrs.__contextId;
+    return attrs.__contextId || null;
   };
 
   updateDimensions = (dimensions: RemoteDimensions) => {

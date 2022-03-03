@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import React, { SyntheticEvent } from 'react';
 import { PureComponent } from 'react';
+import { jsx } from '@emotion/react';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { MediaLink } from '@atlaskit/editor-common/ui';
+import { mediaLinkStyle } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaCard, MediaCardProps, MediaProvider } from '../../ui/MediaCard';
@@ -67,14 +69,15 @@ export default class Media extends PureComponent<MediaProps, {}> {
     );
 
     return linkHref ? (
-      <MediaLink
+      <a
         href={linkHref}
         rel="noreferrer noopener"
         onClick={this.handleMediaLinkClick}
         data-block-link={linkHref}
+        css={mediaLinkStyle}
       >
         {mediaComponent}
-      </MediaLink>
+      </a>
     ) : (
       mediaComponent
     );

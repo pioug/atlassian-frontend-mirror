@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.0.0",
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0"

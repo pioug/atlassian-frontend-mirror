@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 11.1.1
+
+### Patch Changes
+
+- [`dbf652b5183`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbf652b5183) - Fixes an accessibility issue where menu items had the ARIA role of `menuitem` but were not contained by a parent with the correct role. The `MenuWrapper` component now has `role="menu"`.
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

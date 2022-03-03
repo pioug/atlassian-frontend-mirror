@@ -4,15 +4,14 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-const atlassianNavigation = "[data-testid='atlassian-navigation-header']";
-const toggleSkeleton = "[data-testid='toggle-skeleton']";
-const changeTheme = "[data-testid='change-theme']";
+const themedSkeleton0 = "[data-testid='themed-skeleton-0']";
+const themedSkeleton5 = "[data-testid='themed-skeleton-5']";
 
 describe('<AtlassianNavigation />', () => {
   const url = getExampleUrl(
     'navigation',
     'atlassian-navigation',
-    'skeleton-buttons',
+    'themed-skeleton-example',
     global.__BASEURL__,
   );
 
@@ -31,51 +30,21 @@ describe('<AtlassianNavigation />', () => {
     await page.waitForSelector(selector);
   };
 
-  it('should render the skeleton button example', async () => {
+  it('should render the first themed skeleton example', async () => {
     const { page } = global;
-    await openExamplesAndWaitFor(atlassianNavigation);
+    await openExamplesAndWaitFor(themedSkeleton0);
 
     expect(
-      await takeElementScreenShot(page, atlassianNavigation),
+      await takeElementScreenShot(page, themedSkeleton0),
     ).toMatchProdImageSnapshot();
   });
 
-  it('should render the skeleton button example with regular buttons', async () => {
+  it('should render the last themed skeleton example', async () => {
     const { page } = global;
-    await openExamplesAndWaitFor(atlassianNavigation);
-
-    // Toggling the toolbar reflows the buttons.
-    await page.waitForSelector(toggleSkeleton);
-    await page.click(toggleSkeleton);
-
-    // Wait for new layout (create buttons get switched out from 'CREATE' to '+')
-    await page.waitForSelector('#createGlobalItemIconButton');
+    await openExamplesAndWaitFor(themedSkeleton5);
 
     expect(
-      await takeElementScreenShot(page, atlassianNavigation),
-    ).toMatchProdImageSnapshot();
-  });
-
-  it('should render the skeleton button example with skeleton buttons with a different theme', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(atlassianNavigation);
-    await page.waitForSelector(changeTheme);
-    await page.click(changeTheme);
-
-    expect(
-      await takeElementScreenShot(page, atlassianNavigation),
-    ).toMatchProdImageSnapshot();
-  });
-
-  it('should render the skeleton button example with regular buttons with a different theme', async () => {
-    const { page } = global;
-    await openExamplesAndWaitFor(atlassianNavigation);
-    await page.waitForSelector(changeTheme);
-    await page.click(changeTheme);
-    await page.click(toggleSkeleton);
-
-    expect(
-      await takeElementScreenShot(page, atlassianNavigation),
+      await takeElementScreenShot(page, themedSkeleton5),
     ).toMatchProdImageSnapshot();
   });
 });

@@ -7,7 +7,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.blue.bold',
+          replacement: 'color.background.accent.blue.bolder',
           description:
             'Use for blue backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -16,7 +16,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.green.bold',
+          replacement: 'color.background.accent.green.bolder',
           description:
             'Use for green backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -25,7 +25,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.orange.bold',
+          replacement: 'color.background.accent.orange.bolder',
           description:
             'Use for orange backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -34,7 +34,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.purple.bold',
+          replacement: 'color.background.accent.purple.bolder',
           description:
             'Use for purple backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -43,7 +43,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.red.bold',
+          replacement: 'color.background.accent.red.bolder',
           description:
             'Use for red backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -52,7 +52,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.teal.bold',
+          replacement: 'color.background.accent.teal.bolder',
           description:
             'Use for teal backgrounds of stronger emphasis when there is no meaning tied to the color, such as bold tags.',
         },
@@ -61,7 +61,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.blue.[default]',
+          replacement: 'color.background.accent.blue.subtler',
           description:
             'Use for blue subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -70,7 +70,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.green.[default]',
+          replacement: 'color.background.accent.green.subtler',
           description:
             'Use for green subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -79,7 +79,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.magenta.[default]',
+          replacement: 'color.background.accent.magenta.subtler',
           description:
             'Use for magenta subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -88,7 +88,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.orange.[default]',
+          replacement: 'color.background.accent.orange.subtler',
           description:
             'Use for orange subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -97,7 +97,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.purple.[default]',
+          replacement: 'color.background.accent.purple.subtler',
           description:
             'Use for purple subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -106,7 +106,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.red.[default]',
+          replacement: 'color.background.accent.red.subtler',
           description:
             'Use for red subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
@@ -115,13 +115,175 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.background.accent.teal.[default]',
+          replacement: 'color.background.accent.teal.subtler',
           description:
             'Use for teal subdued backgrounds when there is no meaning tied to the color, such as colored tags.',
         },
       },
     },
     background: {
+      accent: {
+        blue: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.blue.subtler',
+              description:
+                'Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.blue.subtle',
+              description:
+                'Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        red: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.red.subtler',
+              description:
+                'Use for red backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.red.subtle',
+              description:
+                'Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        orange: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.orange.subtler',
+              description:
+                'Use for orange backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.orange.subtle',
+              description:
+                'Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        yellow: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.yellow.subtler',
+              description:
+                'Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.yellow.subtle',
+              description:
+                'Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        green: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.green.subtler',
+              description:
+                'Use for green backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.green.subtle',
+              description:
+                'Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        teal: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.teal.subtler',
+              description:
+                'Use for teal backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.teal.subtle',
+              description:
+                'Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        purple: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.purple.subtler',
+              description:
+                'Use for purple backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.purple.subtle',
+              description:
+                'Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        magenta: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.magenta.subtler',
+              description:
+                'Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bold: {
+            attributes: {
+              group: 'paint',
+              state: 'deprecated',
+              replacement: 'color.background.accent.magenta.subtle',
+              description:
+                'Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+      },
       blanket: {
         attributes: {
           group: 'paint',

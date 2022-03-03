@@ -1,9 +1,11 @@
 import React from 'react';
+
+import { DN30 } from '@atlaskit/theme/colors';
+import ModalSpinner from '@atlaskit/media-ui/modalSpinner';
+
 import { ArchiveViewerProps } from './types';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
-import { DN30 } from '@atlaskit/theme/colors';
-import ModalSpinner from '@atlaskit/media-ui/modalSpinner';
 
 export type archiveViewerState = {
   ArchiveViewer?: React.ComponentType<ArchiveViewerProps>;

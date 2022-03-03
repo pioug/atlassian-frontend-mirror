@@ -43,7 +43,7 @@ const rule: Rule.RuleModule = {
 
         const migrationMeta = renameMapping
           .filter((t) => t.state === 'deprecated')
-          .find((t) => t.path === tokenKey);
+          .find((t) => getCleanPathId(t.path) === tokenKey);
 
         if (migrationMeta) {
           const cleanTokenKey = getCleanPathId(migrationMeta.replacement);

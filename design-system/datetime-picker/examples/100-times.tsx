@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/field-base';
+import { Label } from '@atlaskit/form';
 
 import { DateTimePicker, TimePicker } from '../src';
 
@@ -9,16 +9,17 @@ export default () => {
 
   return (
     <div>
-      <Label label="TimePicker - times" />
+      <Label htmlFor="react-select-timepicker--input">TimePicker - times</Label>
       <TimePicker
         id="timepicker"
         times={times}
         selectProps={{ classNamePrefix: 'timepicker-select' }}
         testId={'timePicker'}
       />
-
-      <Label label="DateTimePicker - times" />
-      <DateTimePicker times={times} />
+      <Label htmlFor="react-select-datetimepicker--input">
+        DateTimePicker - times
+      </Label>
+      <DateTimePicker id="datetimepicker" times={times} />
     </div>
   );
 };

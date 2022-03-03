@@ -34,39 +34,35 @@ exports[`GoToItemBase Default After prop should show a spinner if the incoming v
   }
 }
 
-.emotion-1 {
-  -webkit-transform-origin: center;
-  -ms-transform-origin: center;
-  transform-origin: center;
-  -webkit-animation: animation-0 0.86s infinite;
-  animation: animation-0 0.86s infinite;
-  -webkit-animation-delay: 200ms;
-  animation-delay: 200ms;
-  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
-  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
-  height: 16px;
-  width: 16px;
+.emotion-2 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+  -webkit-animation: animation-0 0.86s infinite;
+  animation: animation-0 0.86s infinite;
+  -webkit-animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  animation-timing-function: cubic-bezier(0.4,0.15,0.6,0.85);
+  -webkit-transform-origin: center;
+  -ms-transform-origin: center;
+  transform-origin: center;
 }
 
-.emotion-0 {
-  opacity: 0;
+.emotion-1 {
   -webkit-animation: animation-1 1s ease-in-out;
   animation: animation-1 1s ease-in-out;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-  -webkit-animation-delay: 200ms;
-  animation-delay: 200ms;
+  opacity: 0;
+}
+
+.emotion-0 {
   fill: none;
-  stroke: var(--ds-text-subtle,#42526E);
-  stroke-width: 1.5;
-  stroke-linecap: round;
   stroke-dasharray: 60;
   stroke-dashoffset: inherit;
+  stroke-linecap: round;
+  stroke-width: 1.5;
 }
 
 @media screen and (forced-colors:active) {
@@ -82,25 +78,41 @@ exports[`GoToItemBase Default After prop should show a spinner if the incoming v
   invertColor={true}
   size="small"
 >
-  <Consumer>
-    <span
+  <span
+    className="emotion-2"
+    style={
+      Object {
+        "animationDelay": "200ms",
+        "height": 16,
+        "width": 16,
+      }
+    }
+  >
+    <svg
       className="emotion-1"
+      height={16}
+      style={
+        Object {
+          "animationDelay": "200ms",
+        }
+      }
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <svg
+      <circle
         className="emotion-0"
-        height={16}
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="8"
-          cy="8"
-          r="7"
-        />
-      </svg>
-    </span>
-  </Consumer>
+        cx="8"
+        cy="8"
+        r="7"
+        style={
+          Object {
+            "stroke": "var(--ds-text-subtle, #42526E)",
+          }
+        }
+      />
+    </svg>
+  </span>
 </ForwardRef(Spinner)>
 `;
 

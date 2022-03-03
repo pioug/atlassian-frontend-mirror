@@ -70,10 +70,68 @@ function init() {
 function main() {
   init();
 
-  chrome.runtime.onMessage.addListener(function (message) {
+  chrome.runtime.onMessage.addListener(function (
+    message,
+    sender,
+    sendResponse,
+  ) {
     // the theme value from panel.html
-    const theme = message || 'none';
-    handleTheme(theme);
+    if (message && message.clear) {
+      const theme = getLocalStorage('theme');
+
+      const tokenSheet = document.querySelector(`style[title='tokenSheet']`);
+      if (tokenSheet) {
+        const rules = tokenSheet.sheet.cssRules || tokenSheet.sheet.rules;
+
+        const ruleIndex = [...rules].findIndex(
+          (rule) => rule.selectorText === `html[data-theme="${theme}"]`,
+        );
+        if (ruleIndex >= 0) {
+          tokenSheet.sheet.deleteRule(ruleIndex);
+        }
+      }
+    } else if (message && message.tokenName && message.newValue) {
+      const theme = getLocalStorage('theme');
+      let flag = false;
+
+      let tokenSheet = document.querySelector(`style[title='tokenSheet']`);
+      if (!tokenSheet) {
+        tokenSheet = document.createElement('style');
+        tokenSheet.type = 'text/css';
+        tokenSheet.innerText = '';
+        tokenSheet.title = 'tokenSheet';
+        document.head.appendChild(tokenSheet);
+      }
+
+      const rules = tokenSheet.sheet.cssRules || tokenSheet.sheet.rules;
+
+      const ruleIndex = [...rules].findIndex(
+        (rule) => rule.selectorText === `html[data-theme="${theme}"]`,
+      );
+      if (ruleIndex >= 0) {
+        rules[ruleIndex].style.setProperty(message.tokenName, message.newValue);
+        flag = true;
+      }
+
+      if (!flag) {
+        tokenSheet.sheet.insertRule(
+          `html[data-theme='${theme}']{${message.tokenName}: ${message.newValue};}`,
+        );
+      }
+
+      sendResponse({
+        response: `${message.tokenName} : ${message.newValue}`,
+      });
+    } else if (message && message.queryToken) {
+      sendResponse({
+        value: getComputedStyle(document.documentElement).getPropertyValue(
+          message.queryToken,
+        ),
+      });
+    } else {
+      const theme = message || 'none';
+      handleTheme(theme);
+    }
   });
 }
 main();

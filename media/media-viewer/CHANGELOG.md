@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 46.1.0
+
+### Minor Changes
+
+- [`30fffbfe4d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30fffbfe4d6) - Replaced Deprecated dependency @atlaskit/navigation-next with @atlaskit/side-navigation and styled-components
+- [`94539e589cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94539e589cc) - MEX-1105 Migrated @atlaskit/button to @atlaskit/button/standard-button
+
+### Patch Changes
+
+- [`3d9682b0377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d9682b0377) - add errorDetail logging for RequestError and MediaStoreError to getErrorDetail
+- Updated dependencies
+
 ## 46.0.1
 
 ### Patch Changes

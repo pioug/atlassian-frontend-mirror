@@ -5,6 +5,7 @@ import {
   SmartLinkSize,
   SmartLinkStatus,
 } from '../../../../constants';
+import { ActionProps } from '../actions/action/types';
 
 export type BlockProps = {
   direction?: SmartLinkDirection;
@@ -19,10 +20,32 @@ export type ElementItem = {
   testId?: string;
 };
 
-export type ActionItem = {
-  name: ActionName;
+export type BaseActionItem = {
   testId?: string;
   hideContent?: boolean;
   hideIcon?: boolean;
   onClick: () => any;
 };
+
+/**
+ * Customer can define named action item. Icon and label will be provided implicitly.
+ */
+export type NamedActionItem = BaseActionItem & {
+  name: Exclude<ActionName, ActionName.CustomAction>;
+};
+
+/**
+ * Customer can define a custom action item. This will require them to specify
+ * either `icon` and `iconPosition` OR `content` OR both BUT not neither of those things.
+ */
+export type CustomActionItem = BaseActionItem & {
+  name: ActionName.CustomAction;
+} & (
+    | (Required<Pick<ActionProps, 'icon' | 'iconPosition'>> &
+        Pick<ActionProps, 'content'>)
+    | ((Required<Pick<ActionProps, 'content'>> &
+        Pick<ActionProps, 'icon' | 'iconPosition'>) &
+        Pick<ActionProps, 'tooltipMessage'>)
+  );
+
+export type ActionItem = NamedActionItem | CustomActionItem;

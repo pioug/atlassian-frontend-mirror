@@ -68,7 +68,6 @@ const SUPPORTED_SOURCES: RenderableSource[] = [
 export const SourcesTooltipContent: React.FC<ExternalUserSourcesData> = ({
   sources,
   sourcesLoading,
-  sourcesError,
 }) => {
   const sourcesToRender = React.useMemo(
     () =>
@@ -80,7 +79,7 @@ export const SourcesTooltipContent: React.FC<ExternalUserSourcesData> = ({
   return (
     <React.Fragment>
       {/* If fetching fails but we have static sources, just show them instead of the error message */}
-      {sourcesError !== null && sources.length === 0 ? (
+      {!sourcesLoading && sources.length === 0 ? (
         <span>
           <FormattedMessage {...messages.externalUserSourcesError} />
         </span>

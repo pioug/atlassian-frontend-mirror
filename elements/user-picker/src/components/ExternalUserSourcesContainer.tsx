@@ -5,7 +5,6 @@ import { UserSource } from '../types';
 export interface ExternalUserSourcesData {
   sources: UserSource[];
   sourcesLoading: boolean;
-  sourcesError: string | null;
 }
 
 type SourcesChildrenFunc = (sourcesData: ExternalUserSourcesData) => ReactNode;
@@ -23,21 +22,20 @@ export const ExternalUserSourcesContainer: React.FC<SourcesContainerProps> = ({
   shouldFetchSources,
   initialSources,
 }) => {
-  const {
-    sources,
-    loading: sourcesLoading,
-    error: sourcesError,
-  } = useUserSource(accountId, shouldFetchSources, initialSources);
+  const { sources, loading: sourcesLoading } = useUserSource(
+    accountId,
+    shouldFetchSources,
+    initialSources,
+  );
 
   if (typeof children === 'function') {
-    return (children as Function)({ sources, sourcesLoading, sourcesError });
+    return (children as Function)({ sources, sourcesLoading });
   }
 
   return React.Children.map(children, (child) =>
     React.cloneElement(child as JSX.Element, {
       sources,
       sourcesLoading,
-      sourcesError,
     }),
   );
 };

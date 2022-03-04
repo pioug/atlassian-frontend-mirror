@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.2
+
+### Patch Changes
+
+- [`256335ab2f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/256335ab2f2) - [ux] Update example. Change CPAPI endpoint and show "getStarted" field in RN articles
+
 ## 7.1.1
 
 ### Patch Changes

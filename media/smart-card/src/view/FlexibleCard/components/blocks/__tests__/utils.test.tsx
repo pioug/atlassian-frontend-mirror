@@ -20,7 +20,8 @@ import {
 } from '../utils';
 import { MetadataBlock } from '../index';
 import Block from '../block';
-import { ElementItem } from '../../blocks/types';
+import { CustomActionItem, ElementItem } from '../../blocks/types';
+import PremiumIcon from '@atlaskit/icon/glyph/premium';
 
 const TestRenderElementItemBlock: React.FC<{
   display: ElementDisplaySchemaType;
@@ -158,16 +159,25 @@ describe('renderActionItems', () => {
     asDropDownItems: boolean = false,
   ) => {
     const onClick = () => {};
+    const commonProps = { onClick, testId, hideContent, hideIcon };
+    const action =
+      name === ActionName.CustomAction
+        ? ({
+            name: ActionName.CustomAction,
+            ...commonProps,
+            icon: <PremiumIcon label="magic" />,
+            content: 'Magic!',
+          } as CustomActionItem)
+        : {
+            name,
+            ...commonProps,
+          };
+    // const customActionItem: CustomActionItem = {...namedActionItem, name}
 
     return render(
       <IntlProvider locale="en">
         <FlexibleUiContext.Provider value={context}>
-          {renderActionItems(
-            [{ onClick, name, testId, hideContent, hideIcon }],
-            undefined,
-            undefined,
-            asDropDownItems,
-          )}
+          {renderActionItems([action], undefined, undefined, asDropDownItems)}
         </FlexibleUiContext.Provider>
       </IntlProvider>,
     );

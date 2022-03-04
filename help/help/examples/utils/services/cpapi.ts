@@ -17,8 +17,7 @@ export interface FilterConfiguration {
   releaseNoteFlagOffValues?: string[];
 }
 
-const CPAPI_URL =
-  'https://content-platform-api.stg.services.atlassian.com/graphql';
+const CPAPI_URL = 'https://jdog.jira-dev.com/gateway/api/graphql';
 const DEFAULT_NUMBER_OF_WHATS_NEW_ITEMS_RESULTS = 10;
 
 export const useContentPlatformApi = () => {
@@ -58,14 +57,6 @@ export const useContentPlatformApi = () => {
                 changeStatus {label}
                 changeType {label}
                 featureRolloutDate
-                relatedContexts {
-                  ... on ContextProduct {
-                    name: productName
-                  }
-                  ... on ContextApp {
-                    name: appName
-                  }
-                }
               }
             }
             pageInfo {
@@ -145,6 +136,7 @@ export const useContentPlatformApi = () => {
             description
             changeTargetSchedule
             changeType {label}
+            getStarted
           }
         }`,
     });
@@ -170,6 +162,13 @@ export const useContentPlatformApi = () => {
   const formatReleaseNoteData = (data: any): WhatsNewArticle => {
     if (data.data?.releaseNote) {
       const releaseNote = data.data?.releaseNote;
+
+      if (releaseNote.getStarted !== null && releaseNote.description !== null) {
+        releaseNote.description.content = [
+          ...releaseNote.getStarted.content,
+          ...releaseNote.description.content,
+        ];
+      }
 
       return {
         title: releaseNote.title,

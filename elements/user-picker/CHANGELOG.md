@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.8.2
+
+### Patch Changes
+
+- [`cc773aa7ecc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc773aa7ecc) - [ux] show error message in tooltip when there is no user source
+
 ## 8.8.1
 
 ### Patch Changes

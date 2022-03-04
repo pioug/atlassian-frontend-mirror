@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.7.1
+
+### Patch Changes
+
+- [`123201c5105`](https://bitbucket.org/atlassian/atlassian-frontend/commits/123201c5105) - Add ability to add custom action item
+
 ## 17.7.0
 
 ### Minor Changes

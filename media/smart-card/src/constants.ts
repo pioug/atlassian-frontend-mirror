@@ -112,6 +112,7 @@ export enum ElementName {
  */
 export enum ActionName {
   DeleteAction = 'DeleteAction',
+  CustomAction = 'CustomAction',
 }
 
 /**

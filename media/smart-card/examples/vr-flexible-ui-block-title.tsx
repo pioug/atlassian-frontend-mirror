@@ -5,7 +5,6 @@ import { jsx } from '@emotion/core';
 import { VRTestWrapper } from './utils/vr-test';
 import { TitleBlock } from '../src/view/FlexibleCard/components/blocks';
 import {
-  ActionName,
   ElementName,
   SmartLinkPosition,
   SmartLinkSize,
@@ -14,6 +13,11 @@ import {
 import { getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { ActionItem, CardType } from '../src';
+
+import {
+  makeDeleteActionItem,
+  makeCustomActionItem,
+} from './flexible-ui/utils';
 
 interface Options {
   maxLines?: number;
@@ -69,16 +73,6 @@ const renderErroredView = (status: CardType, meta = {}) => {
   );
 };
 
-const makeOptionsWithAction = (action: Partial<ActionItem> = {}) => ({
-  actions: [
-    {
-      name: ActionName.DeleteAction,
-      onClick: () => console.log('Delete action!'),
-      ...action,
-    },
-  ],
-});
-
 export default () => (
   <VRTestWrapper title="Flexible UI: TitleBlock">
     <h5>Default</h5>
@@ -93,11 +87,17 @@ export default () => (
       </React.Fragment>
     ))}
     <h5>With default action items:</h5>
-    {renderResolvedView(makeOptionsWithAction())}
+    {renderResolvedView({ actions: [makeDeleteActionItem()] })}
     <h5>With content only action items:</h5>
-    {renderResolvedView(makeOptionsWithAction({ hideIcon: true }))}
+    {renderResolvedView({
+      actions: [makeDeleteActionItem({ hideIcon: true })],
+    })}
     <h5>With icon only action items:</h5>
-    {renderResolvedView(makeOptionsWithAction({ hideIcon: true }))}
+    {renderResolvedView({
+      actions: [makeDeleteActionItem({ hideContent: true })],
+    })}
+    <h5>With custom action:</h5>
+    {renderResolvedView({ actions: [makeCustomActionItem()] })}
     <h5>Theme: {SmartLinkTheme.Black}</h5>
     {renderResolvedView({ theme: SmartLinkTheme.Black })}
     <h5>Max lines: 1</h5>

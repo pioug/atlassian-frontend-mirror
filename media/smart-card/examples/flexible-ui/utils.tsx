@@ -21,6 +21,12 @@ import {
   ElementDisplaySchemaType,
 } from '../../src/view/FlexibleCard/components/blocks/utils';
 import Range from '@atlaskit/range/range';
+import {
+  CustomActionItem,
+  NamedActionItem,
+} from '../../src/view/FlexibleCard/components/blocks/types';
+import LikeIcon from '@atlaskit/icon/glyph/like';
+import PremiumIcon from '@atlaskit/icon/glyph/premium';
 
 export const mockUrls = Object.keys(examples).reduce(
   (acc, key) => ({ ...acc, [key]: `https://${key}` }),
@@ -101,12 +107,20 @@ export const RenderActionOptions = ({
     }
 
     const items: ActionItem[] = actionNames.map((name) => ({
-      name,
       onClick: () => {
         console.log(`You have clicked on ${name}`);
       },
       hideIcon,
       hideContent,
+      ...(name === 'CustomAction'
+        ? {
+            name: ActionName.CustomAction,
+            icon: <PremiumIcon label="magic" />,
+            content: 'Magic!',
+          }
+        : {
+            name,
+          }),
     }));
 
     setActionItems(items);
@@ -236,3 +250,22 @@ export const blockOptionStyles = css`
     flex: 0 1 15%;
   }
 `;
+
+export const makeDeleteActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedActionItem => ({
+  name: ActionName.DeleteAction,
+  onClick: () => console.log('Delete action!'),
+  ...options,
+});
+
+export const makeCustomActionItem = (
+  options: Pick<CustomActionItem, 'icon' | 'content' | 'testId'> = {},
+): CustomActionItem => ({
+  name: ActionName.CustomAction,
+  onClick: () => console.log('Custom action!'),
+  icon: <LikeIcon label="like" />,
+  iconPosition: 'before',
+  content: 'Like',
+  ...options,
+});

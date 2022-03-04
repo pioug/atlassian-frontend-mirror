@@ -11,6 +11,10 @@ const actionMappings: Record<
   ActionName,
   { component: React.FC<any> | undefined; props?: any }
 > = {
+  [ActionName.CustomAction]: {
+    component: Action,
+    props: {},
+  },
   [ActionName.DeleteAction]: {
     component: Action,
     props: {

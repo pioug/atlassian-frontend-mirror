@@ -1,5 +1,11 @@
 # @atlaskit/smart-common
 
+## 0.1.1
+
+### Patch Changes
+
+- [`94e13732b7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/94e13732b7b) - fix graphql url
+
 ## 0.1.0
 
 ### Minor Changes

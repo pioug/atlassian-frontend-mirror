@@ -3,6 +3,8 @@ import React from 'react';
 
 import { jsx } from '@emotion/core';
 
+import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
+
 import { Theme } from '../theme';
 import { DefaultProgressBarProps, ThemeTokens } from '../types';
 
@@ -39,6 +41,12 @@ export default class ProgressBar extends React.PureComponent<
     const valueParsed = isIndeterminate
       ? 0
       : Math.max(0, Math.min(value, maxValue));
+
+    deprecationWarning(
+      '@atlaskit/progress-bar',
+      '`theme` prop',
+      'If you depend on `theme`, we recommend migrating to one of its variants.',
+    );
 
     return (
       <Theme.Provider value={theme}>

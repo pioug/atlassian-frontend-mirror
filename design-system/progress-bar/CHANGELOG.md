@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.5.1
+
+### Patch Changes
+
+- [`cc9f9e1d294`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc9f9e1d294) - Adds warning in developer console for `theme` prop, which is going to be deprecated after 13 May 2022.
+
 ## 0.5.0
 
 ### Minor Changes

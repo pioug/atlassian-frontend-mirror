@@ -17,7 +17,7 @@ export const PRD_CONFIG: Config = {
       : `/wiki/rest/api/user/bulk`;
   },
   getGraphQLUrl(baseUrl?: string) {
-    return baseUrl ? `${baseUrl}/graphql` : `/graphql`;
+    return baseUrl ? `${baseUrl}/gateway/api/graphql` : `/gateway/api/graphql`;
   },
   getTeamsUrl(baseUrl?: string) {
     return baseUrl

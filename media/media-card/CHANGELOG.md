@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 73.3.1
+
+### Patch Changes
+
+- [`9671dfa12b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9671dfa12b1) - Revert [MEX-1276] fix vertical scroll for firefox when media link is wrapped
+
 ## 73.3.0
 
 ### Minor Changes

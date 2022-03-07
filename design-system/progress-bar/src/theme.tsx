@@ -15,6 +15,9 @@ const decreasingBarAnimation = keyframes`
   to { left: 110%; width: 10%;}
 `;
 
+/**
+ * @deprecated creates the default theme, which can be customised using the `theme` prop
+ */
 export const Theme = createTheme<ThemeTokens, ThemeProps>((props) => ({
   container: {
     background: token('color.background.neutral', N40A),

@@ -16,7 +16,7 @@ export const ViewportAnchor = forwardRef<HTMLDivElement, { offsetTop: number }>(
       <div
         ref={ref}
         className="media-card-viewport-anchor"
-        style={{ position: 'absolute', top: `${props.offsetTop}px` }}
+        style={{ position: 'relative', top: `${props.offsetTop}px` }}
       />
     );
   },

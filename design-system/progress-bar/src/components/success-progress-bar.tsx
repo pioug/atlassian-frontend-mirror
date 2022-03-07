@@ -1,11 +1,12 @@
 import React from 'react';
 
+import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { CustomProgressBarProps } from '../types';
 
-import ProgressBar from './ProgressBar';
+import ProgressBar from './progress-bar';
 
 export default class SuccessProgressBar extends React.PureComponent<
   CustomProgressBarProps
@@ -16,6 +17,12 @@ export default class SuccessProgressBar extends React.PureComponent<
   };
 
   render() {
+    deprecationWarning(
+      '@atlaskit/progress-bar',
+      '`theme` prop',
+      'If you depend on `theme`, we recommend migrating to one of its variants.',
+    );
+
     return (
       <ProgressBar
         {...this.props}

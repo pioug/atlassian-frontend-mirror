@@ -8,6 +8,7 @@ import CachingEmoji from './CachingEmoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import { State as LoadingState } from './LoadingEmojiComponent';
 import { EmojiContextProvider } from '../../context/EmojiContextProvider';
+import { sampledUfoRenderedEmoji } from '../../util/analytics';
 
 export interface BaseResourcedEmojiProps {
   emojiId: EmojiId;
@@ -42,15 +43,27 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
       this.setState({
         loaded: false,
       });
-      foundEmoji.then((emoji) => {
-        if (this.ready) {
-          // don't update state if component was unmounted
-          this.setState({
-            emoji,
-            loaded: true,
+      foundEmoji
+        .then((emoji) => {
+          if (this.ready) {
+            // don't update state if component was unmounted
+            this.setState({
+              emoji,
+              loaded: true,
+            });
+            if (!emoji) {
+              // emoji is undefined
+              sampledUfoRenderedEmoji(emojiId).failure({
+                metadata: { reason: 'failed to find' },
+              });
+            }
+          }
+        })
+        .catch(() => {
+          sampledUfoRenderedEmoji(emojiId).failure({
+            metadata: { reason: 'failed to load' },
           });
-        }
-      });
+        });
     } else {
       // loaded
       this.setState({

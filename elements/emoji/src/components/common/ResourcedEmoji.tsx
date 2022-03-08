@@ -1,7 +1,10 @@
 import React from 'react';
 import { ComponentClass } from 'react';
 
-import { defaultEmojiHeight } from '../../util/constants';
+import {
+  defaultEmojiHeight,
+  SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI,
+} from '../../util/constants';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import LoadingEmojiComponent, {
   Props as LoadingProps,
@@ -12,6 +15,8 @@ import {
   Props as ComponentProps,
   BaseResourcedEmojiProps,
 } from './ResourcedEmojiComponent';
+import { sampledUfoRenderedEmoji, ufoExperiences } from '../../util/analytics';
+import { UfoErrorBoundary } from './UfoErrorBoundary';
 
 export interface Props extends BaseResourcedEmojiProps, LoadingProps {}
 
@@ -34,6 +39,23 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
   state = {
     asyncLoadedComponent: ResourcedEmoji.AsyncLoadedComponent,
   };
+
+  constructor(props: Props) {
+    super(props, {});
+    sampledUfoRenderedEmoji(props.emojiId).start({
+      samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI,
+    });
+
+    ufoExperiences['emoji-rendered']
+      .getInstance(props.emojiId.id || props.emojiId.shortName)
+      .addMetadata({
+        source: 'resourced-emoji',
+      });
+  }
+
+  componentWillUnmount() {
+    sampledUfoRenderedEmoji(this.props.emojiId).abort();
+  }
 
   asyncLoadComponent() {
     resourcedEmojiComponentLoader().then((component) => {
@@ -59,10 +81,18 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
   ) {
     const { emojiProvider, ...otherProps } = this.props;
     return (
-      <ResourcedEmojiComponent
-        {...otherProps}
-        emojiProvider={loadedEmojiProvider}
-      />
+      <UfoErrorBoundary
+        experiences={[
+          ufoExperiences['emoji-rendered'].getInstance(
+            this.props.emojiId.id || this.props.emojiId.shortName,
+          ),
+        ]}
+      >
+        <ResourcedEmojiComponent
+          {...otherProps}
+          emojiProvider={loadedEmojiProvider}
+        />
+      </UfoErrorBoundary>
     );
   }
 }

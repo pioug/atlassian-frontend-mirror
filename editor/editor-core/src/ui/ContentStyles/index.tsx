@@ -20,7 +20,7 @@ import { editorFontSize } from '@atlaskit/editor-shared-styles';
 import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
 import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
-import { tableStyles } from '../../plugins/table/ui/common-styles.css';
+import { tableStyles } from '../../plugins/table/ui/common-styles';
 import { placeholderStyles } from '../../plugins/placeholder/styles';
 import { blocktypeStyles } from '../../plugins/block-type/styles';
 import {

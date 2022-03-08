@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.7.2
+
+### Patch Changes
+
+- [`9066a1e8154`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9066a1e8154) - EDM-2926: Add title override for title block
+
 ## 17.7.1
 
 ### Patch Changes

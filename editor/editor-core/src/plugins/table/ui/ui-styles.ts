@@ -1,5 +1,9 @@
 import { css } from '@emotion/react';
-import { tableCellBorderWidth, tableMarginBottom, tableMarginTop } from '@atlaskit/editor-common/styles';
+import {
+  tableCellBorderWidth,
+  tableMarginBottom,
+  tableMarginTop,
+} from '@atlaskit/editor-common/styles';
 import {
   akEditorShadowZIndex,
   akEditorTableNumberColumnWidth,
@@ -77,7 +81,8 @@ const Button = (cssString?: string) => css`
   margin: 0px;
   padding: 0px;
   text-decoration: none;
-  transition: background 0.1s ease-out 0s, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38) 0s;
+  transition: background 0.1s ease-out 0s,
+    box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38) 0s;
   outline: none !important;
   cursor: none;
 
@@ -121,7 +126,6 @@ export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
   }
 `;
 
-
 export const HeaderButtonHover = () => css`
   .${ClassName.CONTROLS_BUTTON}:hover {
     color: ${N0};
@@ -147,7 +151,7 @@ const InsertButton = () => css`
     bottom: 0;
   }
   .${ClassName.CONTROLS_INSERT_BUTTON_INNER},
-  .${ClassName.CONTROLS_INSERT_BUTTON} {
+    .${ClassName.CONTROLS_INSERT_BUTTON} {
     height: ${tableInsertColumnButtonSize}px;
     width: ${tableInsertColumnButtonSize}px;
   }
@@ -194,8 +198,14 @@ export const insertRowButtonWrapper = css`
 `;
 
 export const columnControlsLineMarker = (props: ThemeProps) => css`
-  .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS} table tr:first-child td,
-  .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS} table tr:first-child th {
+  .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}
+    table
+    tr:first-child
+    td,
+  .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}
+    table
+    tr:first-child
+    th {
     position: relative;
 
     &::before {
@@ -205,11 +215,11 @@ export const columnControlsLineMarker = (props: ThemeProps) => css`
       right: -${lineMarkerSize / 2}px;
     }
   }
-`
+`;
 
 export const DeleteButton = css`
   .${ClassName.CONTROLS_DELETE_BUTTON_WRAP},
-  .${ClassName.CONTROLS_DELETE_BUTTON} {
+    .${ClassName.CONTROLS_DELETE_BUTTON} {
     height: ${tableDeleteButtonSize}px;
     width: ${tableDeleteButtonSize}px;
   }
@@ -230,10 +240,11 @@ export const DeleteButton = css`
 `;
 
 export const OverflowShadow = (props: ThemeProps) => css`
-  .${ClassName.TABLE_RIGHT_SHADOW},
-  .${ClassName.TABLE_LEFT_SHADOW}{
+  .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
     display: block;
-    height: calc(100% - ${tableMarginTop + tableMarginBottom + tableToolbarSize - 2}px);
+    height: calc(
+      100% - ${tableMarginTop + tableMarginBottom + tableToolbarSize - 2}px
+    );
     position: absolute;
     pointer-events: none;
     top: ${tableMarginTop + tableToolbarSize - 1}px;
@@ -241,11 +252,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
     width: 8px;
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
-    background: linear-gradient(
-      to left,
-      rgba(99, 114, 130, 0) 0,
-      ${N40A} 100%
-    );
+    background: linear-gradient(to left, rgba(99, 114, 130, 0) 0, ${N40A} 100%);
     left: 0px;
   }
   .${ClassName.TABLE_CONTAINER}[data-number-column='true'] > :not(.${ClassName.TABLE_STICKY_SHADOW}).${ClassName.TABLE_LEFT_SHADOW} {
@@ -260,8 +267,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
     left: calc(100% + 2px);
   }
   .${ClassName.WITH_CONTROLS} {
-    .${ClassName.TABLE_RIGHT_SHADOW},
-    .${ClassName.TABLE_LEFT_SHADOW}{
+    .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
       height: calc(100% - ${tableMarginTop + tableMarginBottom - 2}px);
       top: ${tableMarginTop - 1}px;
     }
@@ -270,8 +276,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
     }
   }
   .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY} {
-    .${ClassName.TABLE_RIGHT_SHADOW},
-    .${ClassName.TABLE_LEFT_SHADOW} {
+    .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
       top: ${tableControlsSpacing}px;
     }
   }
@@ -311,8 +316,12 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     &::after {
       content: ' ';
 
-      ${columnHeaderButton(props, `
-        border-right: ${tableCellBorderWidth}px solid ${tableBorderColor(props)};
+      ${columnHeaderButton(
+        props,
+        `
+        border-right: ${tableCellBorderWidth}px solid ${tableBorderColor(
+          props,
+        )};
         border-bottom: none;
         height: ${tableToolbarSize}px;
         width: 100%;
@@ -320,7 +329,8 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
         top: ${columnControlsDecorationHeight - tableToolbarSize}px;
         left: 0px;
         z-index: ${columnControlsZIndex};
-      `)}
+      `,
+      )}
     }
   }
 
@@ -328,16 +338,21 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     display: block;
   }
 
-  table tr:first-child td.${ClassName.TABLE_CELL},
-  table tr:first-child th.${ClassName.TABLE_HEADER_CELL} {
+  table
+    tr:first-child
+    td.${ClassName.TABLE_CELL},
+    table
+    tr:first-child
+    th.${ClassName.TABLE_HEADER_CELL} {
     &.${ClassName.COLUMN_SELECTED},
-    &.${ClassName.HOVERED_COLUMN},
-    &.${ClassName.HOVERED_TABLE} {
+      &.${ClassName.HOVERED_COLUMN},
+      &.${ClassName.HOVERED_TABLE} {
       .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
         ${columnHeaderButtonSelected};
       }
 
-      &.${ClassName.HOVERED_CELL_IN_DANGER} .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+      &.${ClassName.HOVERED_CELL_IN_DANGER}
+        .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
         background-color: ${tableToolbarDeleteColor};
         border: 1px solid ${tableBorderDeleteColor};
         border-bottom: none;
@@ -346,8 +361,14 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     }
   }
 
-  .${ClassName.TABLE_SELECTED} table tr:first-child td.${ClassName.TABLE_CELL},
-  .${ClassName.TABLE_SELECTED} table tr:first-child th.${ClassName.TABLE_HEADER_CELL} {
+  .${ClassName.TABLE_SELECTED}
+    table
+    tr:first-child
+    td.${ClassName.TABLE_CELL},
+    .${ClassName.TABLE_SELECTED}
+    table
+    tr:first-child
+    th.${ClassName.TABLE_HEADER_CELL} {
     .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
       ${columnHeaderButtonSelected};
     }
@@ -357,8 +378,8 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
 export const hoveredDeleteButton = css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.HOVERED_DELETE_BUTTON} {
     .${ClassName.SELECTED_CELL},
-    .${ClassName.COLUMN_SELECTED},
-    .${ClassName.HOVERED_CELL} {
+      .${ClassName.COLUMN_SELECTED},
+      .${ClassName.HOVERED_CELL} {
       border: 1px solid ${tableBorderDeleteColor};
     }
     .${ClassName.SELECTED_CELL}::after {
@@ -368,22 +389,24 @@ export const hoveredDeleteButton = css`
 `;
 
 export const hoveredCell = css`
-  :not(.${ClassName.IS_RESIZING}) .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
+  :not(.${ClassName.IS_RESIZING})
+    .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
     .${ClassName.HOVERED_CELL} {
       position: relative;
       border: 1px solid ${tableBorderSelectedColor};
     }
   }
-`
+`;
 
 export const hoveredWarningCell = css`
-  :not(.${ClassName.IS_RESIZING}) .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
+  :not(.${ClassName.IS_RESIZING})
+    .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
     td.${ClassName.HOVERED_CELL_WARNING} {
       background-color: ${Y50} !important; // We need to override the background-color added to the cell
       border: 1px solid ${Y200};
     }
   }
-`
+`;
 
 export const resizeHandle = css`
   .${ClassName.TABLE_CONTAINER} {
@@ -398,8 +421,7 @@ export const resizeHandle = css`
       z-index: ${resizeHandlerZIndex};
     }
 
-    td.${ClassName.WITH_RESIZE_LINE},
-    th.${ClassName.WITH_RESIZE_LINE} {
+    td.${ClassName.WITH_RESIZE_LINE}, th.${ClassName.WITH_RESIZE_LINE} {
       .${ClassName.RESIZE_HANDLE_DECORATION}::after {
         content: ' ';
         right: ${(resizeHandlerAreaWidth - resizeLineWidth) / 2}px;
@@ -412,8 +434,14 @@ export const resizeHandle = css`
       }
     }
 
-    table tr:first-child th.${ClassName.WITH_RESIZE_LINE} .${ClassName.RESIZE_HANDLE_DECORATION}::after,
-    table tr:first-child td.${ClassName.WITH_RESIZE_LINE} .${ClassName.RESIZE_HANDLE_DECORATION}::after {
+    table
+      tr:first-child
+      th.${ClassName.WITH_RESIZE_LINE}
+      .${ClassName.RESIZE_HANDLE_DECORATION}::after,
+      table
+      tr:first-child
+      td.${ClassName.WITH_RESIZE_LINE}
+      .${ClassName.RESIZE_HANDLE_DECORATION}::after {
       top: -${tableToolbarSize + tableCellBorderWidth}px;
       height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
     }

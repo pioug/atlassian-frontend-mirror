@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 162.0.1
+
+### Patch Changes
+
+- [`cfcc23db294`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cfcc23db294) - ED-14735 Rename table styles from '.css.ts' to '.
+
 ## 162.0.0
 
 ### Minor Changes

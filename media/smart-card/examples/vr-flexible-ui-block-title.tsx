@@ -25,6 +25,7 @@ interface Options {
   theme?: SmartLinkTheme;
   position?: SmartLinkPosition;
   actions?: ActionItem[];
+  text?: string;
 }
 
 const renderResolvedView = ({
@@ -32,6 +33,7 @@ const renderResolvedView = ({
   size,
   theme,
   position,
+  text,
   actions,
 }: Options) => {
   const cardState = getCardState({
@@ -55,6 +57,7 @@ const renderResolvedView = ({
         ]}
         subtitle={[{ name: ElementName.CommentCount }]}
         actions={actions}
+        text={text}
       />
     </FlexibleCard>
   );
@@ -107,7 +110,11 @@ export default () => (
       theme: SmartLinkTheme.Link,
     })}
     <h5>Position: {SmartLinkPosition.Center}</h5>
-    {renderResolvedView({ position: SmartLinkPosition.Center })}
+    {renderResolvedView({
+      position: SmartLinkPosition.Center,
+    })}
+    <h5>Title Override: </h5>
+    {renderResolvedView({ text: 'Test Title' })}
     <h4>Views</h4>
     <h5>Errored view</h5>
     {renderErroredView('errored')}

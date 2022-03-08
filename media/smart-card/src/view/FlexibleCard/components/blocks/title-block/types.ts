@@ -10,4 +10,5 @@ export type TitleBlockProps = BlockProps & {
   subtitle?: ElementItem[];
   actions?: ActionItem[];
   theme?: SmartLinkTheme;
+  text?: string;
 };

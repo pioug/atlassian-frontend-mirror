@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 64.2.1
+
+### Patch Changes
+
+- [`85397ad6786`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85397ad6786) - add emoji-rendered and emoji-resource-fetched UFO experiences
+
 ## 64.2.0
 
 ### Minor Changes

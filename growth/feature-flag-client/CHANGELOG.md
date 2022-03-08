@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.5.0
+
+### Minor Changes
+
+- [`c732a4cbccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c732a4cbccc) - Adds trackFeatureFlag endpoint
+
 ## 4.4.0
 
 ### Minor Changes

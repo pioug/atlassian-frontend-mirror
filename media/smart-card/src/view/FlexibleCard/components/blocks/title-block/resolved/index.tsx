@@ -20,10 +20,12 @@ const TitleBlockResolvedView: React.FC<TitleBlockProps> = ({
   actions = [],
   testId,
   theme,
+  text,
   ...blockProps
 }) => {
   const metadataElements = renderElementItems(metadata);
   const subtitleElements = renderElementItems(subtitle);
+  const overrideText = !!text ? { text } : {};
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
       <LinkIcon position={position} />
@@ -31,7 +33,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockProps> = ({
         direction={SmartLinkDirection.Vertical}
         width={SmartLinkWidth.Flexible}
       >
-        <Title maxLines={maxLines} theme={theme} />
+        <Title maxLines={maxLines} theme={theme} {...overrideText} />
         {subtitleElements && (
           <ElementGroup direction={SmartLinkDirection.Horizontal}>
             {subtitleElements}

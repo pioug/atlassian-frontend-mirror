@@ -12,7 +12,13 @@ import {
   evilburnsEmoji,
   grinEmoji,
   getEmojiResourcePromise,
+  mediaEmoji,
 } from '../../_test-data';
+
+import { ufoExperiences } from '../../../../util/analytics';
+import * as constants from '../../../../util/constants';
+import * as samplingUfo from '../../../../util/analytics/samplingUfo';
+import CachingEmoji from '../../../../components/common/CachingEmoji';
 
 const findEmoji = (component: ReactWrapper) =>
   component.update() && component.find(Emoji);
@@ -23,7 +29,27 @@ const emojiVisibleById = (component: ReactWrapper, id: string) =>
 const emojiPlaceHolderVisible = (component: ReactWrapper) =>
   component.update() && component.find(EmojiPlaceholder).length === 1;
 
+jest.mock('../../../../util/constants', () => {
+  const originalModule = jest.requireActual('../../../../util/constants');
+  return {
+    ...originalModule,
+    SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI: 1,
+  };
+});
+
+const mockConstants = constants as {
+  SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI: number;
+  SAMPLING_RATE_EMOJI_RENDERED_EXP: number;
+};
+
 describe('<ResourcedEmoji />', () => {
+  beforeEach(() => {
+    mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI = 1;
+    mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP = 1;
+    samplingUfo.clearSampled();
+    jest.clearAllMocks();
+  });
+
   it('should render emoji', () => {
     const component = mount(
       <ResourcedEmoji
@@ -219,5 +245,87 @@ describe('<ResourcedEmoji />', () => {
       const placeholder = component.find(EmojiPlaceholder);
       expect(placeholder.childAt(0).prop('title')).toBeDefined();
     });
+  });
+
+  it('should mark success for UFO experience of rendered emoji event when emoji is loaded', () => {
+    const experience = ufoExperiences['emoji-rendered'].getInstance(
+      mediaEmoji.id || mediaEmoji.shortName,
+    );
+    const startSpy = jest.spyOn(experience, 'start');
+    const markFMPSpy = jest.spyOn(experience, 'markFMP');
+    const successSpy = jest.spyOn(experience, 'success');
+    const component = mount(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+      />,
+    );
+
+    return waitUntil(() => emojiVisible(component)).then(() => {
+      findEmoji(component).find('img').simulate('load');
+      expect(startSpy).toHaveBeenCalledTimes(1);
+      expect(markFMPSpy).toHaveBeenCalledTimes(1);
+      expect(successSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should mark failure for UFO experience of rendered emoji event when emoji is on error', () => {
+    const experience = ufoExperiences['emoji-rendered'].getInstance(
+      mediaEmoji.id || mediaEmoji.shortName,
+    );
+    const startSpy = jest.spyOn(experience, 'start');
+    const failSpy = jest.spyOn(experience, 'failure');
+    const component = mount(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+      />,
+    );
+
+    return waitUntil(() => emojiVisible(component)).then(() => {
+      findEmoji(component).find('img').simulate('error');
+      expect(startSpy).toHaveBeenCalledTimes(1);
+      expect(failSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should fail UFO experience of rendered emoji event when emoji have rendering issues', () => {
+    const experience = ufoExperiences['emoji-rendered'].getInstance(
+      mediaEmoji.id || mediaEmoji.shortName,
+    );
+    const startSpy = jest.spyOn(experience, 'start');
+    const failureSpy = jest.spyOn(experience, 'failure');
+
+    const component = mount(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+      />,
+    );
+
+    return waitUntil(() => emojiVisible(component)).then(() => {
+      component.find(CachingEmoji).simulateError(new Error('test error'));
+      expect(startSpy).toHaveBeenCalledTimes(1);
+      expect(failureSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should abort UFO experience of rendered emoji event when emoji is unmounted', () => {
+    const experience = ufoExperiences['emoji-rendered'].getInstance(
+      mediaEmoji.id || mediaEmoji.shortName,
+    );
+    const startSpy = jest.spyOn(experience, 'start');
+    const abortSpy = jest.spyOn(experience, 'abort');
+    const component = mount(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+      />,
+    );
+
+    component.unmount();
+
+    expect(startSpy).toHaveBeenCalledTimes(1);
+    expect(abortSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -377,3 +377,10 @@ export interface User {
 export type OptionalUser = User | undefined;
 
 export type Message = React.ReactNode;
+
+export enum ProviderTypes {
+  SITE = 'SITE',
+  STANDARD = 'STANDARD',
+  ATLASSIAN = 'ATLASSIAN',
+  UNKNOWN = 'UNKNOWN',
+}

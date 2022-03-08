@@ -1230,13 +1230,29 @@ synchronizeFigmaTokens('AtlassianLight', {
     },
     "value": "#09326C"
   },
-  "Color/Blanket": {
+  "Color/Blanket/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
     "value": "#091E427A"
+  },
+  "Color/Blanket/Selected": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+    },
+    "value": "#388BFFCC"
+  },
+  "Color/Blanket/Danger": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
+    },
+    "value": "#EF5C48CC"
   },
   "Color/Interaction/Hovered": {
     "attributes": {
@@ -1403,7 +1419,7 @@ synchronizeFigmaTokens('AtlassianLight', {
   "Color/Background/Brand/Default/Pressed": "Color/Background/Selected/Default/Pressed",
   "Color/Background/Selected/Resting": "Color/Background/Selected/Default/Default",
   "Color/Background/Selected/Hover": "Color/Background/Selected/Default/Hovered",
-  "Color/Background/Blanket": "Color/Blanket",
+  "Color/Background/Blanket": "Color/Blanket/Default",
   "Color/Background/BoldBrand/Hover": "Color/Background/Brand/Bold/Hovered",
   "Color/Background/BoldBrand/Pressed": "Color/Background/Brand/Bold/Pressed",
   "Color/Background/BoldBrand/Resting": "Color/Background/Brand/Bold/Default",

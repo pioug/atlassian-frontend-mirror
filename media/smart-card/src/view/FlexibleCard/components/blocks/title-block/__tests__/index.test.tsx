@@ -72,13 +72,15 @@ describe('TitleBlock', () => {
   });
 
   describe('Title', () => {
-    it('renders title element with parent props', async () => {
+    it('renders title element with parent props including text override', async () => {
       const { getByTestId } = renderTitleBlock({
         theme: SmartLinkTheme.Black,
         maxLines: 2,
+        text: 'Spaghetti',
       });
 
       const element = await waitForElement(() => getByTestId(titleTestId));
+      expect(element.textContent).toEqual('Spaghetti');
 
       expect(element).toHaveStyleDeclaration(
         'color',

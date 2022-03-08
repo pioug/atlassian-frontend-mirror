@@ -20,7 +20,7 @@ import {
   contextualMenuDropdownWidth,
   contextualMenuTriggerSize,
 } from '../consts';
-import { tablePopupStyles } from './styles.css';
+import { tablePopupStyles } from './styles';
 
 import ContextualMenu from './ContextualMenu';
 

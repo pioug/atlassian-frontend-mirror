@@ -3,11 +3,55 @@ import {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { EmojiDescription } from '../types';
+import { EmojiDescription, EmojiId } from '../../types';
 import {
   name as packageName,
   version as packageVersion,
-} from '../version.json';
+} from '../../version.json';
+
+import {
+  ExperiencePerformanceTypes,
+  ExperienceTypes,
+  ConcurrentExperience,
+} from '@atlaskit/ufo';
+import { withSampling } from './samplingUfo';
+
+export type UfoExperienceName = 'emoji-rendered' | 'emoji-resource-fetched';
+
+const createRenderExperience = (componentName: string) => {
+  return {
+    platform: { component: componentName },
+    type: ExperienceTypes.Load,
+    performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+  };
+};
+
+// const createInlineExperience = (componentName: string) => {
+//   return {
+//     platform: { component: componentName },
+//     type: ExperienceTypes.Experience,
+//     performanceType: ExperiencePerformanceTypes.InlineResult,
+//   };
+// };
+
+export const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
+  'emoji-rendered': new ConcurrentExperience(
+    'emoji-rendered',
+    createRenderExperience('emoji'),
+  ),
+  'emoji-resource-fetched': new ConcurrentExperience(
+    'emoji-resource-fetched',
+    createRenderExperience('emoji-provider'),
+  ),
+};
+
+export const sampledUfoRenderedEmoji = (emojiId: EmojiId) => {
+  return withSampling(
+    ufoExperiences['emoji-rendered'].getInstance(
+      emojiId.id || emojiId.shortName,
+    ),
+  );
+};
 
 export const createAndFireEventInElementsChannel = createAndFireEvent(
   'fabric-elements',
@@ -148,17 +192,17 @@ export const uploadSucceededEvent = (attributes: Duration) =>
 export const uploadFailedEvent = (attributes: { reason: string } & Duration) =>
   createEvent('operational', 'failed', 'emojiUploader', undefined, attributes);
 
-interface EmojiId {
+interface Attributes {
   emojiId?: string;
 }
 
-export const deleteBeginEvent = (attributes: EmojiId) =>
+export const deleteBeginEvent = (attributes: Attributes) =>
   createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiTrigger', attributes);
 
-export const deleteConfirmEvent = (attributes: EmojiId) =>
+export const deleteConfirmEvent = (attributes: Attributes) =>
   createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiConfirm', attributes);
 
-export const deleteCancelEvent = (attributes: EmojiId) =>
+export const deleteCancelEvent = (attributes: Attributes) =>
   createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiCancel', attributes);
 
 export const selectedFileEvent = () =>

@@ -11,6 +11,13 @@ import debug from '../../util/logger';
 import Emoji, { Props as EmojiProps } from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import { EmojiContext, EmojiContextType } from '../../context/EmojiContext';
+import { UfoErrorBoundary } from './UfoErrorBoundary';
+import {
+  sampledUfoRenderedEmoji,
+  ufoExperiences,
+  useSampledUFOComponentExperience,
+} from '../../util/analytics';
+import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 
 export interface State {
   cachedEmoji?: EmojiDescription;
@@ -28,10 +35,33 @@ export const CachingEmoji = (props: CachingEmojiProps) => {
   // Optimisation to only render the class based CachingMediaEmoji if necessary
   // slight performance hit, which accumulates for a large number of emoji.
   const { placeholderSize, ...emojiProps } = props;
-  if (isMediaEmoji(props.emoji)) {
-    return <CachingMediaEmoji {...props} />;
-  }
-  return <Emoji {...emojiProps} />;
+  // start emoji rendered experience, it may have already started earlier in ResourcedEmoji
+  useSampledUFOComponentExperience(
+    ufoExperiences['emoji-rendered'].getInstance(
+      emojiProps.emoji.id || emojiProps.emoji.shortName,
+    ),
+    SAMPLING_RATE_EMOJI_RENDERED_EXP,
+    { source: 'caching-emoji' },
+  );
+
+  const emojiNode = () => {
+    if (isMediaEmoji(props.emoji)) {
+      return <CachingMediaEmoji {...props} />;
+    }
+    return <Emoji {...emojiProps} />;
+  };
+
+  return (
+    <UfoErrorBoundary
+      experiences={[
+        ufoExperiences['emoji-rendered'].getInstance(
+          props.emoji.id || props.emoji.shortName,
+        ),
+      ]}
+    >
+      {emojiNode()}
+    </UfoErrorBoundary>
+  );
 };
 
 /**
@@ -53,6 +83,7 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
 
   componentDidMount() {
     this.mounted = true;
+    sampledUfoRenderedEmoji(this.props.emoji).markFMP();
   }
 
   componentWillUnmount() {
@@ -118,6 +149,9 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
               cachedEmoji: undefined,
               invalidImage: true,
             });
+            sampledUfoRenderedEmoji(emoji).failure({
+              metadata: { reason: 'failed to load media emoji' },
+            });
           }
         });
       return undefined;
@@ -130,6 +164,10 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
 
   private handleLoadError = (_emojiId: EmojiId, emoji?: EmojiDescription) => {
     const { invalidImage } = this.state;
+
+    sampledUfoRenderedEmoji(_emojiId).failure({
+      metadata: { reason: 'load error' },
+    });
 
     if (invalidImage || !emoji) {
       // do nothing, bad image

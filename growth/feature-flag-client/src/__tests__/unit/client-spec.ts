@@ -1,5 +1,9 @@
 import FeatureFlagClient from '../../client';
-import { AnalyticsHandler, AutomaticAnalyticsHandler } from '../../types';
+import {
+  AnalyticsHandler,
+  AutomaticAnalyticsHandler,
+  ExposureTriggerReason,
+} from '../../types';
 
 describe('Feature Flag Client', () => {
   let analyticsHandler: AnalyticsHandler;
@@ -1934,6 +1938,214 @@ describe('Feature Flag Client', () => {
             reason: 'RULE_MATCH',
             ruleId: 'aaaa-vbbbb-ccccc',
             someCustomAttribute: 9000,
+            value: '111-bbbbbb-ccc',
+          },
+          tags: ['manualExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+    });
+
+    describe('trackFeatureFlag', () => {
+      let automaticAnalyticsHandler: AutomaticAnalyticsHandler;
+
+      beforeEach(() => {
+        automaticAnalyticsHandler = {
+          sendOperationalEvent: jest.fn(),
+        };
+      });
+
+      test('should call _trackExposure and retrieve flagValue and flagExplanation from the flags map', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: '111-bbbbbb-ccc',
+              explanation: { kind: 'SIMPLE_EVAL' },
+            },
+          },
+        });
+
+        client.setAutomaticExposuresMode(false, automaticAnalyticsHandler);
+
+        client.trackFeatureFlag('my.experiment', {
+          triggerReason: ExposureTriggerReason.Manual,
+        });
+
+        expect(automaticAnalyticsHandler.sendOperationalEvent).toBeCalledTimes(
+          0,
+        );
+
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'SIMPLE_EVAL',
+            ruleId: undefined,
+            value: '111-bbbbbb-ccc',
+          },
+          tags: ['manualExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should call _trackExposure and use values for flagValue and flagExplanation from the parameters', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: '111-bbbbbb-ccc',
+              explanation: { kind: 'SIMPLE_EVAL' },
+            },
+          },
+        });
+
+        client.setAutomaticExposuresMode(false, automaticAnalyticsHandler);
+
+        client.trackFeatureFlag('my.experiment', {
+          triggerReason: ExposureTriggerReason.Manual,
+          value: '222-cccccc-ddd',
+          explanation: { kind: 'RULE_MATCH', ruleId: 'some-rule-id' },
+        });
+
+        expect(automaticAnalyticsHandler.sendOperationalEvent).toBeCalledTimes(
+          0,
+        );
+
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: 'some-rule-id',
+            value: '222-cccccc-ddd',
+          },
+          tags: ['manualExposure', 'measurement'],
+          highPriority: true,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should call sendAutomaticExposure and retrieve flagValue and flagExplanation from the flags map', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: '111-bbbbbb-ccc',
+              explanation: { kind: 'SIMPLE_EVAL' },
+            },
+          },
+        });
+
+        client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+
+        client.trackFeatureFlag('my.experiment', {
+          triggerReason: ExposureTriggerReason.AutoExposure,
+        });
+
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
+        expect(
+          automaticAnalyticsHandler.sendOperationalEvent,
+        ).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'SIMPLE_EVAL',
+            ruleId: undefined,
+            value: '111-bbbbbb-ccc',
+          },
+          tags: ['autoExposure', 'measurement'],
+          highPriority: false,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should call sendAutomaticExposure use values for flagValue and flagExplanation from the paramaters', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: '111-bbbbbb-ccc',
+              explanation: { kind: 'SIMPLE_EVAL' },
+            },
+          },
+        });
+
+        client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+
+        client.trackFeatureFlag('my.experiment', {
+          triggerReason: ExposureTriggerReason.AutoExposure,
+          value: '222-cccccc-ddd',
+          explanation: { kind: 'RULE_MATCH', ruleId: 'some-rule-id' },
+        });
+
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
+        expect(
+          automaticAnalyticsHandler.sendOperationalEvent,
+        ).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'RULE_MATCH',
+            ruleId: 'some-rule-id',
+            value: '222-cccccc-ddd',
+          },
+          tags: ['autoExposure', 'measurement'],
+          highPriority: false,
+          source: '@atlaskit/feature-flag-client',
+        });
+      });
+
+      test('should not proceed if there is no retrievable flagValue for a flagKey', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: undefined,
+        });
+
+        client.setAutomaticExposuresMode(false, automaticAnalyticsHandler);
+
+        client.trackFeatureFlag('my.experiment', {
+          triggerReason: ExposureTriggerReason.AutoExposure,
+        });
+
+        expect(analyticsHandler).toHaveBeenCalledTimes(0);
+        expect(automaticAnalyticsHandler.sendOperationalEvent).toBeCalledTimes(
+          0,
+        );
+      });
+
+      test('should default to a manual exposure trigger if no trigger reason is supplied', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.experiment': {
+              value: '111-bbbbbb-ccc',
+              explanation: { kind: 'SIMPLE_EVAL' },
+            },
+          },
+        });
+
+        client.setAutomaticExposuresMode(false, automaticAnalyticsHandler);
+
+        client.trackFeatureFlag('my.experiment', {});
+
+        expect(automaticAnalyticsHandler.sendOperationalEvent).toBeCalledTimes(
+          0,
+        );
+
+        expect(analyticsHandler).toHaveBeenCalledWith({
+          action: 'exposed',
+          actionSubject: 'feature',
+          attributes: {
+            flagKey: 'my.experiment',
+            reason: 'SIMPLE_EVAL',
+            ruleId: undefined,
             value: '111-bbbbbb-ccc',
           },
           tags: ['manualExposure', 'measurement'],

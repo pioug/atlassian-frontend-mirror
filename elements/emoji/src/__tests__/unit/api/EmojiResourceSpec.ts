@@ -16,6 +16,7 @@ import {
   EmojiSearchResult,
   EmojiServiceResponse,
   MediaApiRepresentation,
+  ProviderTypes,
   SearchSort,
 } from '../../../types';
 import EmojiResource, { EmojiResourceConfig } from '../../../api/EmojiResource';
@@ -46,14 +47,16 @@ import { alwaysPromise } from '../_test-util';
 import { convertMediaToImageRepresentation } from '../../../util/type-helpers';
 import { ErrorEmojiResource } from './_resource-spec-util';
 
+import { ufoExperiences } from '../../../util/analytics';
+
 /**
  * Skipping 3 tests that are failing since the jest 23 upgrade
  * TODO: JEST-23
  */
 
 const baseUrl = 'https://bogus/';
-const p1Url = 'https://p1/';
-const p2Url = 'https://p2/';
+const p1Url = 'https://p1/standard';
+const p2Url = 'https://p2/site';
 
 const defaultSecurityHeader = 'X-Bogus';
 
@@ -189,6 +192,10 @@ class EmojiResourceWithEmojiRepositoryOverride extends EmojiResource {
 }
 
 describe('EmojiResource', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   afterEach(() => {
     fetchMock.restore();
   });
@@ -284,6 +291,19 @@ describe('EmojiResource', () => {
     });
 
     it('multiple providers', () => {
+      const expStandard = ufoExperiences['emoji-resource-fetched'].getInstance(
+        ProviderTypes.STANDARD,
+      );
+      const expSite = ufoExperiences['emoji-resource-fetched'].getInstance(
+        ProviderTypes.SITE,
+      );
+      const expStandardStartSpy = jest.spyOn(expStandard, 'start');
+      const expStandardFailureSpy = jest.spyOn(expStandard, 'failure');
+      const expStandardSuccessSpy = jest.spyOn(expStandard, 'success');
+      const expSiteStartSpy = jest.spyOn(expSite, 'start');
+      const expSiteFailureSpy = jest.spyOn(expSite, 'failure');
+      const expSiteSuccessSpy = jest.spyOn(expSite, 'success');
+
       const config = {
         ...defaultApiConfig,
         providers: [provider1, provider2],
@@ -307,13 +327,34 @@ describe('EmojiResource', () => {
           providerData1.length + providerData2.length,
         );
         checkOrder([...providerData1, ...providerData2], emojis);
+        // both providers fetched successfully
+        expect(expStandardStartSpy).toHaveBeenCalled();
+        expect(expStandardFailureSpy).not.toHaveBeenCalled();
+        expect(expStandardSuccessSpy).toHaveBeenCalled();
+        expect(expSiteStartSpy).toHaveBeenCalled();
+        expect(expSiteFailureSpy).not.toHaveBeenCalled();
+        expect(expSiteSuccessSpy).toHaveBeenCalled();
       });
       resource.subscribe(onChange);
       resource.filter('', { sort: SearchSort.None });
+
       return filteredPromise;
     });
 
     it('multiple providers out of order response, returned in provider config order', () => {
+      const expStandard = ufoExperiences['emoji-resource-fetched'].getInstance(
+        ProviderTypes.STANDARD,
+      );
+      const expSite = ufoExperiences['emoji-resource-fetched'].getInstance(
+        ProviderTypes.SITE,
+      );
+      const expStandardStartSpy = jest.spyOn(expStandard, 'start');
+      const expStandardFailureSpy = jest.spyOn(expStandard, 'failure');
+      const expStandardSuccessSpy = jest.spyOn(expStandard, 'success');
+      const expSiteStartSpy = jest.spyOn(expSite, 'start');
+      const expSiteFailureSpy = jest.spyOn(expSite, 'failure');
+      const expSiteSuccessSpy = jest.spyOn(expSite, 'success');
+
       const config = {
         ...defaultApiConfig,
         providers: [provider1, provider2],
@@ -354,6 +395,17 @@ describe('EmojiResource', () => {
             providerData1.length + providerData2.length,
           );
           checkOrder([...providerData1, ...providerData2], emojis);
+          // 2 providers fetched successfully
+          expect(expStandardStartSpy).toHaveBeenCalled();
+          expect(expStandardFailureSpy).not.toHaveBeenCalled();
+          expect(expStandardSuccessSpy).toHaveBeenCalled();
+          expect(expSiteStartSpy).toHaveBeenCalled();
+          expect(expSiteFailureSpy).not.toHaveBeenCalled();
+          expect(expSiteSuccessSpy).toHaveBeenCalled();
+          // site provider finished first
+          expect(expSite.metrics.endTime!).toBeLessThan(
+            expStandard.metrics.endTime!,
+          );
         });
       resource.subscribe(onChange);
       resource.filter('', { sort: SearchSort.None });
@@ -361,6 +413,19 @@ describe('EmojiResource', () => {
     });
 
     it('multiple providers, one fails', () => {
+      const expStandard = ufoExperiences['emoji-resource-fetched'].getInstance(
+        ProviderTypes.STANDARD,
+      );
+      const expSite = ufoExperiences['emoji-resource-fetched'].getInstance(
+        ProviderTypes.SITE,
+      );
+      const expStandardStartSpy = jest.spyOn(expStandard, 'start');
+      const expStandardFailureSpy = jest.spyOn(expStandard, 'failure');
+      const expStandardSuccessSpy = jest.spyOn(expStandard, 'success');
+      const expSiteStartSpy = jest.spyOn(expSite, 'start');
+      const expSiteFailureSpy = jest.spyOn(expSite, 'failure');
+      const expSiteSuccessSpy = jest.spyOn(expSite, 'success');
+
       const config = {
         ...defaultApiConfig,
         providers: [provider1, provider2],
@@ -383,6 +448,15 @@ describe('EmojiResource', () => {
         expect(emojis.length).toEqual(providerData2.length);
         checkOrder(providerData2, emojis);
         expect(onChange.errorCalls.length).toEqual(1);
+
+        // first provider fetched failed
+        expect(expStandardStartSpy).toHaveBeenCalled();
+        expect(expStandardFailureSpy).toHaveBeenCalled();
+        expect(expStandardSuccessSpy).not.toHaveBeenCalled();
+        // second provider fetched success
+        expect(expSiteStartSpy).toHaveBeenCalled();
+        expect(expSiteFailureSpy).not.toHaveBeenCalled();
+        expect(expSiteSuccessSpy).toHaveBeenCalled();
       });
       resource.subscribe(onChange);
       resource.filter('', { sort: SearchSort.None });
@@ -1265,6 +1339,35 @@ describe('EmojiResource', () => {
     });
 
     it('Two providers, ignore in failing provider', () => {
+      let resolveProvider2: (value?: any | PromiseLike<any>) => void;
+
+      fetchMock
+        .mock({
+          matcher: `begin:${provider1.url}`,
+          response: 500,
+        })
+        .mock({
+          matcher: `begin:${provider2.url}`,
+          response: new Promise((resolve) => {
+            resolveProvider2 = resolve;
+          }),
+        });
+
+      const resource = new EmojiResource({
+        ...defaultApiConfig,
+        providers: [provider1, provider2],
+      });
+      const emojiPromise = alwaysPromise(
+        resource.findByShortName(':evilburns:'),
+      );
+      const done = emojiPromise.then((emoji) => {
+        checkEmoji(evilburnsEmoji, emoji);
+      });
+      resolveProvider2!(providerServiceData2);
+      return done;
+    });
+
+    it('Two providers, ufo experience should ', () => {
       let resolveProvider2: (value?: any | PromiseLike<any>) => void;
 
       fetchMock

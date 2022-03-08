@@ -49,5 +49,10 @@
     "ui",
     "help"
   ],
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

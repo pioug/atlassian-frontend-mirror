@@ -177,7 +177,7 @@ const renameMapper: RenameMap[] = [
   {
     "path": "color.background.blanket",
     "state": "deprecated",
-    "replacement": "color.blanket"
+    "replacement": "color.blanket.[default]"
   },
   {
     "path": "color.background.boldBrand.hover",

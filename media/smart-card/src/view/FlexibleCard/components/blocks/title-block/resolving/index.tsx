@@ -31,16 +31,19 @@ const TitleBlockResolvingView: React.FC<TitleBlockProps> = ({
   position,
   testId,
   theme,
+  text,
   ...blockProps
 }) => {
   const { size = SmartLinkSize.Medium } = blockProps;
+  const overrideText = !!text ? { text } : {};
   return (
     <Block {...blockProps} testId={`${testId}-resolving-view`}>
       <Spinner
         size={getSpinnerSize(size)}
         testId={`${testId}-resolving-spinner`}
       />
-      <Title maxLines={maxLines} theme={theme} />
+
+      <Title {...overrideText} maxLines={maxLines} theme={theme} />
     </Block>
   );
 };

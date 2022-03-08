@@ -281,6 +281,8 @@ const tokens = {
   'color.background.transparentNeutral.pressed':
     '--ds-background-transparentNeutral-pressed',
   'color.blanket': '--ds-blanket',
+  'color.blanket.selected': '--ds-blanket-selected',
+  'color.blanket.danger': '--ds-blanket-danger',
   'color.interaction.hovered': '--ds-interaction-hovered',
   'color.interaction.pressed': '--ds-interaction-pressed',
   'color.interaction.inverse.hovered': '--ds-interaction-inverse-hovered',
@@ -549,6 +551,8 @@ export type CSSTokenMap = {
   'color.background.transparentNeutral.hover': 'var(--ds-background-transparentNeutral-hover)';
   'color.background.transparentNeutral.pressed': 'var(--ds-background-transparentNeutral-pressed)';
   'color.blanket': 'var(--ds-blanket)';
+  'color.blanket.selected': 'var(--ds-blanket-selected)';
+  'color.blanket.danger': 'var(--ds-blanket-danger)';
   'color.interaction.hovered': 'var(--ds-interaction-hovered)';
   'color.interaction.pressed': 'var(--ds-interaction-pressed)';
   'color.interaction.inverse.hovered': 'var(--ds-interaction-inverse-hovered)';

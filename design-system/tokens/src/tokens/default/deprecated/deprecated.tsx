@@ -288,7 +288,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'deprecated',
-          replacement: 'color.blanket',
+          replacement: 'color.blanket.[default]',
           description:
             'Use for the screen overlay that appears with modal dialogs',
         },

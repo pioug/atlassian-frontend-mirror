@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { taskListSelector, decisionListSelector } from '@atlaskit/adf-schema';
 import ContentStyles from '../../ContentStyles';
-import { deprecatedTableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles.css';
+import { deprecatedTableFullPageEditorStyles } from '../../../plugins/table/ui/common-styles';
 import { tableMarginFullWidthMode } from '../../../plugins/table/ui/consts';
 import { scrollbarStyles } from '../../styles';
 

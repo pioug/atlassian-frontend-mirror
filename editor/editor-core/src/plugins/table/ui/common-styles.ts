@@ -1,7 +1,10 @@
 import { css } from '@emotion/react';
-import { css as deprecatedCss } from 'styled-components'
+import { css as deprecatedCss } from 'styled-components';
 
-import { tableMarginTop, tableSharedStyle } from '@atlaskit/editor-common/styles';
+import {
+  tableMarginTop,
+  tableSharedStyle,
+} from '@atlaskit/editor-common/styles';
 import { fontSize } from '@atlaskit/theme/constants';
 import { N40A, B300, N300, N20A, N0, R500 } from '@atlaskit/theme/colors';
 import {
@@ -59,7 +62,7 @@ import {
   hoveredWarningCell,
   resizeHandle,
   InsertMarker,
-} from './ui-styles.css';
+} from './ui-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
 
 const cornerControlHeight = tableToolbarSize + 1;
@@ -245,7 +248,7 @@ export const tableStyles = (props: ThemeProps) => css`
       border-right-width: 1px;
     }
 
-     /* add left edge for first cell */
+    /* add left edge for first cell */
     .${ClassName.TABLE_STICKY} tr.sticky > th:first-child {
       margin-left: 0px;
     }
@@ -305,7 +308,9 @@ export const tableStyles = (props: ThemeProps) => css`
     }
 
     ${props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
-    ${OverflowShadow(props)}
+    ${OverflowShadow(
+      props,
+    )}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
       height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts
@@ -358,19 +363,25 @@ export const tableStyles = (props: ThemeProps) => css`
       .${ClassName.CORNER_CONTROLS_INSERT_ROW_MARKER} {
         position: relative;
 
-        ${InsertMarker(props, `
+        ${InsertMarker(
+          props,
+          `
           left: -11px;
           top: 9px;
-        `)};
+        `,
+        )};
       }
 
       .${ClassName.CORNER_CONTROLS_INSERT_COLUMN_MARKER} {
         position: relative;
 
-        ${InsertMarker(props, `
+        ${InsertMarker(
+          props,
+          `
           right: -1px;
           top: -12px;
-        `)};
+        `,
+        )};
       }
     }
 
@@ -429,10 +440,13 @@ export const tableStyles = (props: ThemeProps) => css`
       display: none;
       position: relative;
 
-      ${InsertMarker(props, `
+      ${InsertMarker(
+        props,
+        `
         bottom: -1px;
         left: -11px;
-      `)};
+      `,
+      )};
 
       .${ClassName.ROW_CONTROLS_INNER} {
         display: flex;
@@ -451,7 +465,9 @@ export const tableStyles = (props: ThemeProps) => css`
         z-index: ${akEditorUnitZIndex};
       }
 
-      ${HeaderButton(props, `
+      ${HeaderButton(
+        props,
+        `
         border-bottom: 1px solid ${tableBorderColor(props)};
         border-right: 0px;
         border-radius: 0;
@@ -468,7 +484,8 @@ export const tableStyles = (props: ThemeProps) => css`
         .${ClassName.CONTROLS_BUTTON_OVERLAY}:first-child {
           top: 0;
         }
-      `)}
+      `,
+      )}
     }
 
     :not(.${ClassName.IS_RESIZING}) .${ClassName.ROW_CONTROLS} {
@@ -564,7 +581,12 @@ export const tableStyles = (props: ThemeProps) => css`
        * cell when center/right aligned.
        */
       th.${ClassName.TABLE_HEADER_CELL} > .fabric-editor-block-mark {
-        > h1:first-child, > h2:first-child, > h3:first-child, > h4:first-child, > h5:first-child, > h6:first-child {
+        > h1:first-child,
+        > h2:first-child,
+        > h3:first-child,
+        > h4:first-child,
+        > h5:first-child,
+        > h6:first-child {
           margin-top: 0;
         }
       }
@@ -599,7 +621,7 @@ export const tableStyles = (props: ThemeProps) => css`
     .${ClassName.ROW_CONTROLS_WRAPPER} {
       position: absolute;
       /* top of corner control is table margin top - corner control height + 1 pixel of table border. */
-      top: ${tableMarginTop - cornerControlHeight + 1 }px;
+      top: ${tableMarginTop - cornerControlHeight + 1}px;
     }
     .${ClassName.ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_LEFT_SHADOW} {
       z-index: ${akEditorUnitZIndex};
@@ -633,7 +655,7 @@ export const tableStyles = (props: ThemeProps) => css`
   .ProseMirror.${ClassName.RESIZE_CURSOR} {
     cursor: col-resize;
   }
-`
+`;
 
 export const tableFullPageEditorStyles = css`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
@@ -649,7 +671,7 @@ export const deprecatedTableFullPageEditorStyles = deprecatedCss`
     margin-right: 0;
     width: 100%;
   }
-`
+`;
 
 export const tableCommentEditorStyles = css`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
@@ -667,4 +689,3 @@ export const deprecatedTableCommentEditorStyles = deprecatedCss`
     ${scrollbarStyles};
   }
 `;
-

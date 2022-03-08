@@ -52,15 +52,17 @@ const TitleBlockErroredView: React.FC<TitleBlockProps> = ({
   position,
   testId,
   theme,
+  text,
   ...blockProps
 }) => {
   const { descriptor, onClick, values } = retry || {};
   const { size = SmartLinkSize.Medium } = blockProps;
   const hasAction = onClick !== undefined;
+  const overrideText = !!text ? { text } : {};
   return (
     <Block {...blockProps} testId={`${testId}-errored-view`}>
       <LinkIcon position={position} />
-      <Title maxLines={maxLines} theme={theme} />
+      <Title {...overrideText} maxLines={maxLines} theme={theme} />
       {descriptor && (
         <ElementGroup
           direction={SmartLinkDirection.Horizontal}

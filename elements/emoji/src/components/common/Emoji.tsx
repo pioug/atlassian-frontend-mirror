@@ -17,6 +17,7 @@ import {
 import { leftClick } from '../../util/mouse';
 import * as styles from './styles';
 import DeleteButton from './DeleteButton';
+import { sampledUfoRenderedEmoji } from '../../util/analytics';
 
 export interface Props {
   /**
@@ -277,6 +278,10 @@ const renderAsImage = (props: Props) => {
     handleImageError(props, event);
   };
 
+  const onLoad = () => {
+    sampledUfoRenderedEmoji(emoji).success();
+  };
+
   // Pass src attribute as key to force React to rerender img node since browser does not
   // change preview image until loaded
 
@@ -296,6 +301,7 @@ const renderAsImage = (props: Props) => {
       className="emoji"
       style={{ visibility: 'visible' }}
       onError={onError}
+      onLoad={onLoad}
       {...sizing}
     />
   );
@@ -323,6 +329,7 @@ const renderAsImage = (props: Props) => {
 
 export const Emoji = (props: Props) => {
   const { emoji } = props;
+  // TODO: We always prefer render as image as having accessibility issues with sprite representation
   if (isSpriteRepresentation(emoji.representation)) {
     return renderAsSprite(props);
   }

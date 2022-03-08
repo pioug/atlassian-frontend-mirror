@@ -4716,7 +4716,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "deprecated",
-      "replacement": "color.blanket",
+      "replacement": "color.blanket.[default]",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
     "value": "#091E427A",
@@ -4726,7 +4726,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "deprecated",
-        "replacement": "color.blanket",
+        "replacement": "color.blanket.[default]",
         "description": "Use for the screen overlay that appears with modal dialogs"
       },
       "value": "N500A"
@@ -5939,10 +5939,59 @@ const tokens = [
       },
       "value": "N500A"
     },
-    "name": "color.blanket",
+    "name": "color.blanket.[default]",
     "path": [
       "color",
-      "blanket"
+      "blanket",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+    },
+    "value": "#388BFFCC",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
+      },
+      "value": "#388BFFCC"
+    },
+    "name": "color.blanket.selected",
+    "path": [
+      "color",
+      "blanket",
+      "selected"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
+    },
+    "value": "#EF5C48CC",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
+      },
+      "value": "#EF5C48CC"
+    },
+    "name": "color.blanket.danger",
+    "path": [
+      "color",
+      "blanket",
+      "danger"
     ]
   },
   {

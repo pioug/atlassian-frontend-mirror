@@ -115,4 +115,32 @@ ${(<AtlassianInternalWarning />)}
       source={require('!!raw-loader!../examples/00-basic')}
     />
   )}
+
+  ### Using the trackFeatureFlag endpoint
+  The trackFeatureFlag endpoint can be used to trigger both manual and automatic exposures depending on how your client is
+  configured and what trigger reason is provided to the endpoint. It is possible to but not required to supply a trigger reason, 
+  value and explanation. The trigger reason will be defaulted to ExposureTriggerReason.Manual and value and explanation will be retrieved
+  from the flags field on the client.
+
+  ####Accessing ExposureTriggerReason
+  This enum can be imported like so
+  ${code`import { ExposureTriggerReason } from '@atlaskit/feature-flag-client';`}
+
+  ####Firing manually
+  If no ExposureTriggerReason is provided then trackFeatureFlag will default to ExposureTriggerReason.Manual.
+
+  ${code`
+  client.trackFeatureFlag('my.detailed.boolean.flag'
+  });`}
+
+  ####Firing automatically
+  If isAutomaticExposuresEnabled is enabled via the setAutomaticExposuresMode API and the triggerReason is ExposureTriggerReason.Automatic
+  then trackFeatureFlag will trigger an automatic exposure.
+
+  ${code`
+  client.trackFeatureFlag('my.detailed.boolean.flag', {
+       triggerReason: ExposureTriggerReason.Automatic
+    }
+  });
+  `}
 `;

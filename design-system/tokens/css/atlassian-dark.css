@@ -230,6 +230,8 @@ html[data-theme="dark"] {
   --ds-background-transparentNeutral-hover: #A1BDD914;
   --ds-background-transparentNeutral-pressed: #A6C5E229;
   --ds-blanket: #03040442;
+  --ds-blanket-selected: #1D7AFCCC;
+  --ds-blanket-danger: #E34935CC;
   --ds-interaction-hovered: #00000029;
   --ds-interaction-pressed: #00000052;
   --ds-interaction-inverse-hovered: #ffffff33;

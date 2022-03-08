@@ -212,7 +212,11 @@ export interface PaletteColorTokenSchema {
 
 export interface BackgroundColorTokenSchema {
   color: {
-    blanket: PaintToken;
+    blanket: {
+      '[default]': PaintToken;
+      selected: PaintToken;
+      danger: PaintToken;
+    };
     background: {
       disabled: PaintToken;
       inverse: PaintToken;

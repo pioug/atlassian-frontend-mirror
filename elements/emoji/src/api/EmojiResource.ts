@@ -17,6 +17,7 @@ import {
   EmojiUpload,
   OptionalEmojiDescription,
   OptionalUser,
+  ProviderTypes,
   SearchOptions,
   ToneSelection,
   UploadingEmojiProvider,
@@ -26,6 +27,7 @@ import debug from '../util/logger';
 import EmojiLoader from './EmojiLoader';
 import EmojiRepository from './EmojiRepository';
 import SiteEmojiResource from './media/SiteEmojiResource';
+import { ufoExperiences } from '../util/analytics';
 
 export type { EmojiProvider, UploadingEmojiProvider } from '../types'; // Re-exporting to not cause a breaking change
 // Re-exporting to not cause a breaking change
@@ -122,6 +124,14 @@ export class EmojiResource
     this.activeLoaders = config.providers.length;
 
     config.providers.forEach((provider, index) => {
+      const providerType = this.getProviderType(provider);
+      ufoExperiences['emoji-resource-fetched']
+        .getInstance(providerType)
+        .start();
+      ufoExperiences['emoji-resource-fetched']
+        .getInstance(providerType)
+        .addMetadata({ type: providerType });
+
       const loader = new EmojiLoader(provider);
       const emojis = loader.loadEmoji();
       emojis
@@ -132,11 +142,19 @@ export class EmojiResource
             this.activeLoaders--;
             this.performRetries();
             this.refreshLastFilter();
+            // if not site emoji it would still resolve
+            // TODO: improve the logic in future
+            ufoExperiences['emoji-resource-fetched']
+              .getInstance(providerType)
+              .success();
           });
         })
         .catch((reason) => {
           this.activeLoaders--;
           this.notifyError(reason);
+          ufoExperiences['emoji-resource-fetched']
+            .getInstance(providerType)
+            .failure({ metadata: { reason } });
         });
     });
 
@@ -147,6 +165,17 @@ export class EmojiResource
     if (config.providers.length === 0) {
       throw new Error('No providers specified');
     }
+  }
+
+  private getProviderType(provider: ServiceConfig) {
+    if (provider.url.includes('/site')) {
+      return ProviderTypes.SITE;
+    } else if (provider.url.includes('/standard')) {
+      return ProviderTypes.STANDARD;
+    } else if (provider.url.includes('/atlassian')) {
+      return ProviderTypes.ATLASSIAN;
+    }
+    return ProviderTypes.UNKNOWN;
   }
 
   protected initEmojiRepository(emojiResponses: EmojiResponse[]): void {

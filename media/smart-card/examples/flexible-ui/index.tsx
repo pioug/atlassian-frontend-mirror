@@ -67,6 +67,7 @@ const FlexibleUiExample: React.FC = () => {
   const [subtitle, setSubTitle] = useState<ElementItem[]>([]);
 
   const [titleBlockActions, setTitleBlockActions] = useState<ActionItem[]>([]);
+  const [text, setText] = useState<string>('');
   // MetadataBlock options
   const [showMetadataBlock, setShowMetadataBlock] = useState<boolean>(false);
   const [metadataMaxLines, setMetadataMaxLines] = useState<number>(2);
@@ -102,6 +103,7 @@ const FlexibleUiExample: React.FC = () => {
                   metadata={metadata}
                   subtitle={subtitle}
                   actions={titleBlockActions}
+                  text={text}
                 />
                 {showMetadataBlock && (
                   <MetadataBlock
@@ -136,12 +138,14 @@ const FlexibleUiExample: React.FC = () => {
         <TitleBlockOption
           metadata={metadata}
           subtitle={subtitle}
+          text={text}
           setDirection={setDirection}
           setMaxLines={setMaxLines}
           setMetadata={setMetadata}
           setPosition={setPosition}
           setSubTitle={setSubTitle}
           setActions={setTitleBlockActions}
+          setText={setText}
         />
         <MetadataBlockOption
           primary={primary}

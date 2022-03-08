@@ -6,11 +6,29 @@ import type {
 const color: AttributeSchema<BackgroundColorTokenSchema> = {
   color: {
     blanket: {
-      attributes: {
-        group: 'paint',
-        state: 'active',
-        description:
-          'Use for the screen overlay that appears with modal dialogs',
+      '[default]': {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description:
+            'Use for the screen overlay that appears with modal dialogs',
+        },
+      },
+      selected: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description:
+            "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements",
+        },
+      },
+      danger: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          description:
+            "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements",
+        },
       },
     },
     background: {

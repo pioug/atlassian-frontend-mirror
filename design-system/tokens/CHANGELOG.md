@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.7.1
+
+### Patch Changes
+
+- [`5d35c6b1c5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d35c6b1c5f) - Adding new tokens for `color.blanket.selected` and `color.blanket.danger`
+
 ## 0.7.0
 
 ### Minor Changes

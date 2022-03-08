@@ -25,7 +25,7 @@ import {
   CONTENT_COMPONENT,
 } from '../../../analytics/types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
-import { tableFloatingCellButtonStyles } from './styles.css';
+import { tableFloatingCellButtonStyles } from './styles';
 import { Node as PMNode } from 'prosemirror-model';
 import { ErrorBoundary } from '../../../../ui/ErrorBoundary';
 

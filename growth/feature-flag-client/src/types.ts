@@ -119,3 +119,9 @@ export type EvaluationResult = {
   explanation?: FlagExplanation;
   didFallbackToDefaultValue: boolean;
 };
+
+export type TrackFeatureFlagOptions = {
+  triggerReason?: ExposureTriggerReason;
+  value?: string | boolean | object;
+  explanation?: FlagExplanation | undefined;
+};

@@ -159,6 +159,8 @@ export type ActiveTokens =
   | 'color.background.information.bold.hovered'
   | 'color.background.information.bold.pressed'
   | 'color.blanket'
+  | 'color.blanket.selected'
+  | 'color.blanket.danger'
   | 'color.interaction.hovered'
   | 'color.interaction.pressed'
   | 'color.interaction.inverse.hovered'

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/core';
 import { RadioGroup } from '@atlaskit/radio';
+import Textfield from '@atlaskit/textfield';
 import {
   ActionItem,
   ElementItem,
@@ -21,23 +22,27 @@ import {
 type TitleBlockOptionProps = {
   metadata: ElementItem[];
   subtitle: ElementItem[];
+  text: string;
   setDirection: React.Dispatch<React.SetStateAction<SmartLinkDirection>>;
   setMaxLines: React.Dispatch<React.SetStateAction<number>>;
   setMetadata: React.Dispatch<React.SetStateAction<ElementItem[]>>;
   setPosition: React.Dispatch<React.SetStateAction<SmartLinkPosition>>;
   setSubTitle: React.Dispatch<React.SetStateAction<ElementItem[]>>;
   setActions: React.Dispatch<React.SetStateAction<ActionItem[]>>;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const TitleBlockOption: React.FC<TitleBlockOptionProps> = ({
   metadata,
   subtitle,
+  text,
   setDirection,
   setMaxLines,
   setMetadata,
   setPosition,
   setSubTitle,
   setActions,
+  setText,
 }) => (
   <React.Fragment>
     <h3>TitleBlock options</h3>
@@ -66,6 +71,8 @@ const TitleBlockOption: React.FC<TitleBlockOptionProps> = ({
         />
       </div>
       <div>
+        <h6>Title Override</h6>
+        <Textfield value={text} onChange={handleOnChange(setText)} />
         <h6>Metadata</h6>
         {renderMetadataOptions(metadata, setMetadata)}
         <h6>Subtitle</h6>

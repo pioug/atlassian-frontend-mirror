@@ -11,6 +11,7 @@ import {
   FlagStats,
   FlagValue,
   ExposureTriggerReason,
+  TrackFeatureFlagOptions,
 } from './types';
 
 import {
@@ -22,7 +23,6 @@ import {
 
 import MissingFlag from './missing-flag';
 import BasicFlag from './basic-flag';
-
 export default class FeatureFlagClient {
   flags: Map<String, FlagShape> = new Map();
   flagWrapperCache: Map<string, FlagWrapper> = new Map();
@@ -188,6 +188,45 @@ export default class FeatureFlagClient {
     const wrapper = this.getFlagWrapper(flagKey);
     return wrapper.getRawValue(options);
   }
+
+  /**
+   * This method combines both the trackExposure and sendAutomaticExposure flows into
+   * one endpoint. Depending on the passed in trigger reason a manual or automatic exposure
+   * is sent.
+   **/
+  trackFeatureFlag = (flagKey: string, options?: TrackFeatureFlagOptions) => {
+    const triggerReason = options?.triggerReason
+      ? options.triggerReason
+      : ExposureTriggerReason.Manual;
+
+    // if no values for flagValue and explanation supplied then retrieve them from the flags map
+    const flagValue = options?.value
+      ? options.value
+      : this.flags.get(flagKey)?.value;
+
+    if (!flagValue) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `No value associated with the flagKey: ${flagKey} with an exposure trigger reason of: ${triggerReason}`,
+      );
+      return;
+    }
+
+    const flagExplanation = options?.explanation
+      ? options.explanation
+      : this.flags.get(flagKey)?.explanation;
+
+    if (triggerReason === ExposureTriggerReason.AutoExposure) {
+      this.sendAutomaticExposure(flagKey, flagValue, flagExplanation);
+    } else {
+      // default to fire a manual track exposure
+      this._trackExposure(
+        flagKey,
+        { value: flagValue, explanation: flagExplanation },
+        triggerReason,
+      );
+    }
+  };
 
   trackExposure = (
     flagKey: string,

@@ -2,7 +2,13 @@ import type { BackgroundColorTokenSchema, ValueSchema } from '../../../types';
 
 const color: ValueSchema<BackgroundColorTokenSchema> = {
   color: {
-    blanket: { value: 'N500A' },
+    blanket: {
+      '[default]': { value: 'N500A' },
+      // @ts-ignore temporary value (B500 8% opacity)
+      selected: { value: '#388BFFCC' },
+      // @ts-ignore temporary value (R500 8% opacity)
+      danger: { value: '#EF5C48CC' },
+    },
     background: {
       disabled: { value: 'N200A' },
       // @ts-ignore temporary value

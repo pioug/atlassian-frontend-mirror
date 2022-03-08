@@ -18,7 +18,7 @@ import {
 } from '../../../plugins/max-content-size';
 import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { ClickAreaBlock } from '../../Addon';
-import { deprecatedTableCommentEditorStyles } from '../../../plugins/table/ui/common-styles.css';
+import { deprecatedTableCommentEditorStyles } from '../../../plugins/table/ui/common-styles';
 import WithFlash from '../../WithFlash';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 17.7.4
+
+### Patch Changes
+
+- [`ff7b1126682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff7b1126682) - Set up base component and relevant tests for hover previews
+
+## 17.7.3
+
+### Patch Changes
+
+- [`474d69913ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/474d69913ef) - Title block can have an action visible only on hover
+
 ## 17.7.2
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { render, waitForElement } from '@testing-library/react';
-
+import userEvent from '@testing-library/user-event';
 import TitleBlock from '../index';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
@@ -12,6 +12,10 @@ import {
 } from '../../../../../../constants';
 import { TitleBlockProps } from '../types';
 import { messages } from '../../../../../../messages';
+import {
+  makeCustomActionItem,
+  makeDeleteActionItem,
+} from '../../../../../../../examples/flexible-ui/utils';
 
 describe('TitleBlock', () => {
   const testId = 'smart-block-title-resolved-view';
@@ -69,6 +73,53 @@ describe('TitleBlock', () => {
     const element = await waitForElement(() => getByTestId('subtitle-element'));
 
     expect(element).toBeDefined();
+  });
+
+  it('should render actions', async () => {
+    const testId = 'smart-element-test';
+    const { getByTestId, queryByTestId } = renderTitleBlock({
+      actions: [
+        makeDeleteActionItem({ testId: `${testId}-1` }),
+        makeCustomActionItem({ testId: `${testId}-2` }),
+      ],
+    });
+
+    for (let i = 0; i < 2; i++) {
+      const element = await waitForElement(() =>
+        getByTestId(`smart-element-test-${i + 1}`),
+      );
+      expect(element).toBeDefined();
+    }
+
+    expect(queryByTestId(`action-group-more-button`)).toBeNull();
+  });
+
+  it('should render only one action when on hover only activated', async () => {
+    const testId = 'smart-element-test';
+    const { getByTestId, queryByTestId } = renderTitleBlock({
+      actions: [
+        makeDeleteActionItem({ testId: `${testId}-1` }),
+        makeCustomActionItem({ testId: `${testId}-2` }),
+      ],
+      showActionOnHover: true,
+    });
+
+    const moreButton = await waitForElement(() =>
+      getByTestId('action-group-more-button'),
+    );
+    expect(moreButton).toBeDefined();
+
+    expect(queryByTestId(`smart-element-test-1`)).toBeNull();
+    expect(queryByTestId(`smart-element-test-2`)).toBeNull();
+
+    userEvent.click(moreButton);
+
+    for (let i = 0; i < 2; i++) {
+      const element = await waitForElement(() =>
+        getByTestId(`smart-element-test-${i + 1}`),
+      );
+      expect(element).toBeDefined();
+    }
   });
 
   describe('Title', () => {

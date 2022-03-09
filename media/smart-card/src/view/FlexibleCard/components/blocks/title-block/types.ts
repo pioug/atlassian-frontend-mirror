@@ -11,4 +11,5 @@ export type TitleBlockProps = BlockProps & {
   actions?: ActionItem[];
   theme?: SmartLinkTheme;
   text?: string;
+  showActionOnHover?: boolean;
 };

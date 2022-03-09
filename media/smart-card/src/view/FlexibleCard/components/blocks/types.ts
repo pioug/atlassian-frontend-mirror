@@ -5,6 +5,7 @@ import {
   SmartLinkSize,
   SmartLinkStatus,
 } from '../../../../constants';
+import { SerializedStyles } from '@emotion/core';
 import { ActionProps } from '../actions/action/types';
 
 export type BlockProps = {
@@ -12,6 +13,7 @@ export type BlockProps = {
   size?: SmartLinkSize;
   status?: SmartLinkStatus;
   testId?: string;
+  extraCss?: SerializedStyles;
 };
 
 export type ElementItem = {

@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/calendar",
   "version": "12.1.9",
-  "description": "A React component for displaying a calendar.",
+  "description": "An interactive calendar for date selection experiences.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -74,5 +74,6 @@
     "./types": "./src/entry-points/types.ts",
     ".": "./src/index.ts"
   },
+  "homepage": "https://atlassian.design/components/calendar/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -19,20 +19,30 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   items = [],
   size = SmartLinkSize.Medium,
   appearance,
+  visibleButtonsNum = 2,
+  onDropdownOpenChange,
 }) => {
-  const isMoreThenTwoItems = items.length > 2;
-  const firstActions = isMoreThenTwoItems ? items.slice(0, 1) : items;
-  const restActions = isMoreThenTwoItems ? items.slice(1) : [];
+  const isMoreThenTwoItems = items.length > visibleButtonsNum;
+  const firstActions = isMoreThenTwoItems
+    ? items.slice(0, visibleButtonsNum - 1)
+    : items;
+  const restActions = isMoreThenTwoItems
+    ? items.slice(visibleButtonsNum - 1)
+    : [];
   return (
     <div css={styles}>
       <ButtonGroup>
         {renderActionItems(firstActions, size, appearance)}
         {restActions.length > 0 ? (
           <DropdownMenu
+            onOpenChange={({ isOpen }) =>
+              onDropdownOpenChange && onDropdownOpenChange(isOpen)
+            }
             trigger={({ triggerRef, ...props }) => (
               <Button
                 {...props}
                 spacing={sizeToSpacing[size]}
+                className="action-group-more-button"
                 testId="action-group-more-button"
                 iconBefore={<MoreIcon label="more" />}
                 ref={triggerRef}

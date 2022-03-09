@@ -8,4 +8,6 @@ export type ActionGroupProps = {
   direction?: SmartLinkDirection;
   testId?: string;
   appearance?: Appearance;
+  visibleButtonsNum?: number;
+  onDropdownOpenChange?: (isOpen: boolean) => void;
 };

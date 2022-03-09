@@ -1,0 +1,41 @@
+---
+order: 0
+---
+
+import CalendarDefault from '../../examples/constellation/calendar-default';
+import CalendarDisabled from '../../examples/constellation/calendar-disabled';
+import CalendarDisabledRange from '../../examples/constellation/calendar-disabled-range';
+import CalendarDisabledFilter from '../../examples/constellation/calendar-disabled-filter';
+import CalendarLocale from '../../examples/constellation/calendar-locale';
+
+## Default
+
+The calendar component provides a way to render dates for selection or presentation purposes.
+
+<Example Component={CalendarDefault} packageName="@atlaskit/calendar" />
+
+## Disabled
+
+Calendar provides a `disabled` prop that accepts an array of arbitrary dates to disable.
+
+<Example Component={CalendarDisabled} packageName="@atlaskit/calendar" />
+
+## Disabled ranges
+
+To disable all dates before or after a certain date, use `minDate` or `maxDate`. These props disable all dates before or after a specific day respectively.
+Use a `minDate` and a `maxDate` together to create a range of days to choose from. Note that the min or max dates you choose will still be selectable (not disabled).
+
+<Example Component={CalendarDisabledRange} packageName="@atlaskit/calendar" />
+
+## Disabled filters
+
+For even more control, use the `disabledDateFilter` prop, which accepts a callback that can be configured to return whether a given date is disabled or not.
+
+<Example Component={CalendarDisabledFilter} packageName="@atlaskit/calendar" />
+
+## Localization
+
+The `locale` prop updates the calendar language and formatting for different locales.
+You may also want to pair `locale` with the `weekStartDay` prop to change the day of the week the calendar starts with.
+
+<Example Component={CalendarLocale} packageName="@atlaskit/calendar" />

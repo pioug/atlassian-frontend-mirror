@@ -42,6 +42,9 @@ const mockOptionsShown = new MockConcurrentExperienceInstance(
 const mockUserPickerRendered = new MockConcurrentExperienceInstance(
   'user-picker-rendered',
 );
+const mockUserPickerOptionsShown = new MockConcurrentExperienceInstance(
+  'user-picker-options-shown',
+);
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
@@ -55,6 +58,8 @@ jest.mock('@atlaskit/ufo', () => ({
         return mockOptionsShown;
       } else if (experienceId === 'user-picker-rendered') {
         return mockUserPickerRendered;
+      } else if (experienceId === 'user-picker-options-shown') {
+        return mockUserPickerOptionsShown;
       }
       throw new Error(
         `ConcurrentExperience used without id mocked in SmartUserPickerSpec: ${experienceId}`,

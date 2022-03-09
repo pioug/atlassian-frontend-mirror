@@ -1,5 +1,6 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
+import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
 import { mount, shallow, ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
 import React from 'react';
@@ -25,7 +26,9 @@ import {
   UserType,
   Value,
   ExternalUser,
+  LoadOptions,
 } from '../../../types';
+import { MockConcurrentExperienceInstance } from '../_testUtils';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
@@ -40,6 +43,25 @@ jest.mock('react-intl-next', () => {
     ),
   };
 });
+
+const mockOptionsShown = new MockConcurrentExperienceInstance(
+  'user-picker-rendered',
+);
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (experienceId: string): ConcurrentExperience => ({
+    // @ts-expect-error partial getInstance mock
+    getInstance: (instanceId: string): Partial<UFOExperience> => {
+      if (experienceId === 'user-picker-options-shown') {
+        return mockOptionsShown;
+      }
+      throw new Error(
+        `ConcurrentExperience used without id mocked in UserPickerSpec: ${experienceId}`,
+      );
+    },
+  }),
+}));
 
 const ID_1 = '111111111111111111111111';
 const ID_2 = '111111111111111111111110';
@@ -58,7 +80,7 @@ const getBasePicker = (
     SelectComponent={Select}
     styles={{}}
     components={getComponents(props.isMulti)}
-    width={'100%'}
+    width="100%"
     {...props}
   />
 );
@@ -1834,6 +1856,137 @@ describe('BaseUserPicker', () => {
           });
         };
       });
+    });
+  });
+
+  describe('UFO', () => {
+    beforeAll(() => {
+      ufologger.enable();
+    });
+
+    afterAll(() => {
+      ufologger.disable();
+    });
+
+    beforeEach(() => {
+      jest.useFakeTimers();
+      mockOptionsShown.mockReset();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    const getLoadOptions = () => {
+      const usersPromise = new Promise<User[]>((resolve) =>
+        window.setTimeout(() => resolve(options), 500),
+      );
+      const loadOptions: LoadOptions = jest.fn(() => usersPromise);
+      const waitForAsyncOptionsToLoad = async () => {
+        expect(loadOptions).toHaveBeenCalled();
+        jest.runAllTimers();
+        await usersPromise;
+        jest.runAllTimers();
+      };
+      return { usersPromise, loadOptions, waitForAsyncOptionsToLoad };
+    };
+
+    it('should send a UFO success metric when list shown after focus', async () => {
+      const wrapper = mount(getBasePickerWithoutAnalytics({}));
+
+      // Focus in the user picker to trigger the users list being shown
+      wrapper.find('input').simulate('focus');
+
+      expect(mockOptionsShown.startSpy).toHaveBeenCalled();
+      expect(mockOptionsShown.successSpy).toHaveBeenCalled();
+      expect(mockOptionsShown.transitions).toStrictEqual([
+        'NOT_STARTED',
+        // Focused
+        'STARTED',
+        'SUCCEEDED',
+      ]);
+    });
+
+    it('should send a UFO success metric when list shown after focus, with the options being loaded async', async () => {
+      const { usersPromise, loadOptions } = getLoadOptions();
+      const wrapper = mount(getBasePickerWithoutAnalytics({ loadOptions }));
+
+      // Focus in the user picker to trigger the users list being shown
+      wrapper.find('input').simulate('focus');
+      expect(mockOptionsShown.startSpy).toHaveBeenCalled();
+      expect(mockOptionsShown.successSpy).not.toHaveBeenCalled();
+
+      // Wait for the async options to have loaded
+      expect(loadOptions).toHaveBeenCalled();
+      jest.runAllTimers();
+      await usersPromise;
+      jest.runAllTimers();
+
+      expect(mockOptionsShown.successSpy).toHaveBeenCalled();
+      expect(mockOptionsShown.transitions).toStrictEqual([
+        'NOT_STARTED',
+        // Focused
+        'STARTED',
+        'SUCCEEDED',
+      ]);
+    });
+
+    it('should send a UFO success metric when list shown after focus AND typing, with the options being loaded async', async () => {
+      const { waitForAsyncOptionsToLoad, loadOptions } = getLoadOptions();
+      const wrapper = mount(getBasePickerWithoutAnalytics({ loadOptions }));
+
+      // Focus in the user picker to trigger the users list being shown
+      wrapper.find('input').simulate('focus');
+      expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+      expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(0);
+      expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+
+      // While the async option load from the "focus" is still loading, enter a text search as well
+      wrapper
+        .find(Select)
+        .props()
+        .onInputChange('text', { action: 'input-change' });
+      expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
+      expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
+      expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+
+      await waitForAsyncOptionsToLoad();
+
+      expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
+      expect(mockOptionsShown.transitions).toStrictEqual([
+        'NOT_STARTED',
+        // Focused
+        'STARTED',
+        'ABORTED',
+        // Text input
+        'STARTED',
+        'SUCCEEDED',
+      ]);
+    });
+
+    it('should abort the UFO metric if the input is blurred while the async options are still loading', async () => {
+      const { loadOptions } = getLoadOptions();
+      const wrapper = mount(getBasePickerWithoutAnalytics({ loadOptions }));
+
+      // Focus in the user picker to trigger the users list being shown
+      wrapper.find('input').simulate('focus');
+      expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+      expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(0);
+      expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+
+      // Blur the input while the async options are still loading
+      wrapper.find('input').simulate('blur');
+
+      expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
+      expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
+      expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
+      expect(mockOptionsShown.transitions).toStrictEqual([
+        'NOT_STARTED',
+        // Focused
+        'STARTED',
+        // Blurred
+        'ABORTED',
+      ]);
     });
   });
 });

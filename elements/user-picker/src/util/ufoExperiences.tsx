@@ -16,6 +16,15 @@ export const userPickerRenderedUfoExperience = new ConcurrentExperience(
   },
 );
 
+export const userPickerOptionsShownUfoExperience = new ConcurrentExperience(
+  'user-picker-options-shown',
+  {
+    platform: { component: 'user-picker' },
+    type: ExperienceTypes.Operation,
+    performanceType: ExperiencePerformanceTypes.InlineResult,
+  },
+);
+
 export class UfoErrorBoundary extends React.Component<{ id: string }> {
   componentDidCatch() {
     const instance = userPickerRenderedUfoExperience.getInstance(this.props.id);

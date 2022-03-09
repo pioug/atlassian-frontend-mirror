@@ -1,0 +1,32 @@
+---
+order: 0
+---
+
+import MenuDefault from '../../examples/constellation/menu-default';
+import MenuScrollable from '../../examples/constellation/menu-scrollable';
+import MenuScrollableSection from '../../examples/constellation/menu-scrollable-section';
+import MenuLoading from '../../examples/constellation/menu-loading';
+
+## Default
+
+Menu use a collection of composable menu components intended for use with navigation. A typical menu composition looks as follows.
+
+<Example Component={MenuDefault} packageName="@atlaskit/menu" />
+
+## Scrollable menu
+
+Menus can be scrollable to fit a fixed height or space.
+
+<Example Component={MenuScrollable} packageName="@atlaskit/menu" />
+
+## Scrollable sections
+
+For menus with distinct sections, its possible to have some scrollable sections while other items remain fixed.
+
+<Example Component={MenuScrollableSection} packageName="@atlaskit/menu" />
+
+## Loading experience
+
+To defer loading the entire menu, the contents can be rendered as skeleton placeholders while the items load asynchronously.
+
+<Example Component={MenuLoading} packageName="@atlaskit/menu" />

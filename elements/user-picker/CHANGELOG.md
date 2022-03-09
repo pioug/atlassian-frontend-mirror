@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.8.3
+
+### Patch Changes
+
+- [`3553b21ec20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3553b21ec20) - Render time of user picker list is now tracked with UFO
+
 ## 8.8.2
 
 ### Patch Changes

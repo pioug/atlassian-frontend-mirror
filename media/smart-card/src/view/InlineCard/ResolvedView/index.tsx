@@ -4,6 +4,7 @@ import Lozenge from '@atlaskit/lozenge';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import { LozengeProps } from '../../../types';
+import { HoverCard } from '../../../view/HoverCard/index';
 
 export interface InlineCardResolvedViewProps {
   /** The optional con of the service (e.g. Dropbox/Asana/Google/etc) to display */
@@ -24,6 +25,8 @@ export interface InlineCardResolvedViewProps {
   titleTextColor?: string;
   /** The Emoji icon prefix that was added to the title text via Add emoji button */
   titlePrefix?: React.ReactNode;
+  /** Enables showing a custom preview on hover of link */
+  showHoverPreview?: boolean;
 }
 
 export class InlineCardResolvedView extends React.Component<
@@ -56,8 +59,10 @@ export class InlineCardResolvedView extends React.Component<
       testId = 'inline-card-resolved-view',
       titleTextColor,
       titlePrefix,
+      showHoverPreview = false,
     } = this.props;
-    return (
+
+    const inlineCardResolvedView = (
       <Frame
         testId={testId}
         link={link}
@@ -73,5 +78,11 @@ export class InlineCardResolvedView extends React.Component<
         {this.renderLozenge()}
       </Frame>
     );
+
+    if (showHoverPreview && link) {
+      return <HoverCard url={link}>{inlineCardResolvedView}</HoverCard>;
+    }
+
+    return inlineCardResolvedView;
   }
 }

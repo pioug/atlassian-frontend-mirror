@@ -13,4 +13,5 @@ export type InlineCardProps = {
   onResolve?: (data: { url?: string; title?: string }) => void;
   inlinePreloaderStyle?: InlinePreloaderStyle;
   renderers?: CardProviderRenderers;
+  showHoverPreview?: boolean;
 };

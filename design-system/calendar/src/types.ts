@@ -65,8 +65,9 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   today?: string;
   /** Year to display the calendar for. */
   year?: number;
+  /** BCP 47 language tag (e.g. ja-JP) that ensures dates are in the official format for the locale. */
   locale?: string;
-  /** Additional information to be included in the `context` of analytics events */
+  /** Additional information to be included in the `context` of analytics events. */
   analyticsContext?: Record<string, any>;
   /**
    * Start day of the week for the calendar.

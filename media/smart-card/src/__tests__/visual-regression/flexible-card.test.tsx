@@ -14,9 +14,32 @@ describe('Flexible Card', () => {
     it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
       const page = await setup(url);
-      await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 1830);
 
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+
+      let image = await takeSnapshot(page, 1900);
+      expect(image).toMatchProdImageSnapshot();
+
+      // Hover over "more actions" (three dots) button on "action on hover only" row
+      const hoverActionsRowSelector =
+        '[data-testid="actions-on-hover-title-block-resolved-view"]';
+      await page.waitForSelector(hoverActionsRowSelector);
+      await page.hover(hoverActionsRowSelector);
+
+      const moreActionsSelector = `${hoverActionsRowSelector} [data-testid="action-group-more-button"]`;
+      await page.waitForSelector(moreActionsSelector, { visible: true });
+
+      image = await takeSnapshot(page, 1900);
+      expect(image).toMatchProdImageSnapshot();
+
+      await page.click(moreActionsSelector);
+
+      // Hover over "delete action". We want to test dropdown trigger does not disappear
+      const deleteActionSelector = `[data-testid="smart-action-delete-action"]`;
+      await page.waitForSelector(deleteActionSelector);
+      await page.hover(deleteActionSelector);
+
+      image = await takeSnapshot(page, 1900);
       expect(image).toMatchProdImageSnapshot();
     });
 

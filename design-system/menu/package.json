@@ -89,5 +89,6 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "homepage": "https://atlassian.design/components/menu/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

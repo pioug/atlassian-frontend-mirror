@@ -20,9 +20,10 @@ const Block: React.FC<BlockProps> = ({
   direction = SmartLinkDirection.Horizontal,
   size = SmartLinkSize.Medium,
   testId = 'smart-block',
+  extraCss,
 }) => (
   <div
-    css={getBlockStyles(direction, size)}
+    css={[getBlockStyles(direction, size), extraCss]}
     data-smart-block
     data-testid={testId}
   >

@@ -1,7 +1,9 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { v4 as uuidv4 } from 'uuid';
 import {
   cancelEvent,
   clearEvent,
@@ -36,6 +38,7 @@ import {
   isSingleValue,
   optionToSelectableOptions,
 } from './utils';
+import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 
 export type BaseUserPickerProps = UserPickerProps & {
   SelectComponent: React.ComponentClass<any>;
@@ -97,6 +100,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   // session id for focus to blur
   private journeyId?: string;
 
+  private optionsShownUfoExperienceInstance: UFOExperience;
+
   constructor(props: BaseUserPickerProps) {
     super(props);
     this.state = {
@@ -109,6 +114,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       inputValue: props.search || '',
       resolving: false,
     };
+    this.optionsShownUfoExperienceInstance = userPickerOptionsShownUfoExperience.getInstance(
+      uuidv4(),
+    );
   }
 
   private getSessionId = () =>
@@ -266,6 +274,22 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   }, 200);
 
+  abortOptionsShownUfoExperience = () => {
+    if (
+      this.optionsShownUfoExperienceInstance.state.id ===
+      UFOExperienceState.STARTED.id
+    ) {
+      // There may be an existing UFO timing running from previous key entry or focus,
+      // so abort it and restart it just in case.
+      this.optionsShownUfoExperienceInstance.abort();
+    }
+  };
+
+  startOptionsShownUfoExperience = () => {
+    this.abortOptionsShownUfoExperience();
+    this.optionsShownUfoExperienceInstance.start();
+  };
+
   private executeLoadOptions = (search?: string) => {
     const { loadOptions } = this.props;
     if (loadOptions) {
@@ -280,6 +304,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     if (!menuIsOpen || !this.session) {
       this.startSession();
     }
+    this.startOptionsShownUfoExperience();
     callCallback(this.props.onFocus, this.getSessionId());
     this.setState({ menuIsOpen: true });
     if (!this.props.isMulti && isSingleValue(value)) {
@@ -306,6 +331,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       return;
     }
     this.resetInputState();
+    this.abortOptionsShownUfoExperience();
     this.setState({
       menuIsOpen: false,
       options: [],
@@ -329,6 +355,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       callCallback(this.props.onInputChange, search, this.getSessionId());
       this.setState({ inputValue: search });
 
+      this.startOptionsShownUfoExperience();
       this.executeLoadOptions(search);
     }
   };
@@ -366,7 +393,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   }
 
   componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
-    const { menuIsOpen, options } = this.state;
+    const { menuIsOpen, options, resolving, count } = this.state;
     // load options when the picker open
     if (menuIsOpen && !prevState.menuIsOpen) {
       if (!this.session) {
@@ -393,6 +420,19 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       if (this.session) {
         this.session.inputChangeTime = Date.now();
       }
+    }
+
+    if (
+      menuIsOpen &&
+      (!_.loadOptions || prevState.menuIsOpen) &&
+      count === 0 &&
+      !resolving &&
+      [
+        UFOExperienceState.STARTED.id,
+        UFOExperienceState.IN_PROGRESS.id,
+      ].includes(this.optionsShownUfoExperienceInstance.state.id)
+    ) {
+      this.optionsShownUfoExperienceInstance.success();
     }
   }
 

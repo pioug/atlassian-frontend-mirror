@@ -26,6 +26,8 @@ interface Options {
   position?: SmartLinkPosition;
   actions?: ActionItem[];
   text?: string;
+  testId?: string;
+  showActionOnHover?: boolean;
 }
 
 const renderResolvedView = ({
@@ -35,6 +37,8 @@ const renderResolvedView = ({
   position,
   text,
   actions,
+  testId,
+  showActionOnHover,
 }: Options) => {
   const cardState = getCardState({
     '@type': 'atlassian:Project',
@@ -48,6 +52,7 @@ const renderResolvedView = ({
   return (
     <FlexibleCard cardState={cardState} ui={{ size, theme }} url="link-url">
       <TitleBlock
+        testId={testId}
         maxLines={maxLines}
         position={position}
         metadata={[
@@ -58,6 +63,7 @@ const renderResolvedView = ({
         subtitle={[{ name: ElementName.CommentCount }]}
         actions={actions}
         text={text}
+        showActionOnHover={showActionOnHover}
       />
     </FlexibleCard>
   );
@@ -101,6 +107,12 @@ export default () => (
     })}
     <h5>With custom action:</h5>
     {renderResolvedView({ actions: [makeCustomActionItem()] })}
+    <h5>With on hove only actions:</h5>
+    {renderResolvedView({
+      showActionOnHover: true,
+      actions: [makeCustomActionItem(), makeDeleteActionItem()],
+      testId: 'actions-on-hover-title-block',
+    })}
     <h5>Theme: {SmartLinkTheme.Black}</h5>
     {renderResolvedView({ theme: SmartLinkTheme.Black })}
     <h5>Max lines: 1</h5>

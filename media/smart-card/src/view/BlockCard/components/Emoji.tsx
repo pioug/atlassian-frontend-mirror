@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { gs } from '../utils';
+import { gs } from '../../common/utils';
 
 export interface EmojiProps {
   /* Element to be displayed as an icon. We naively render this if it is provided. Allows us to pass in AK icons */

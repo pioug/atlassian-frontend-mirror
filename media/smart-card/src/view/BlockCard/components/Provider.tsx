@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { N300 } from '@atlaskit/theme/colors';
-import { gs } from '../utils';
+import { gs } from '../../common/utils';
 
 export interface ProviderProps {
   name: string;

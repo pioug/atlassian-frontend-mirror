@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "17.7.4",
+  "version": "17.7.7",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -111,6 +111,7 @@
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "react-test-renderer": "^16.8.0",
+    "ts-jest": "24.3.0",
     "typescript": "3.9.6",
     "xhr-mock": "^2.4.0"
   },
@@ -119,6 +120,7 @@
     "./in-product": "./src/in-product.ts",
     "./client": "./src/client/index.ts",
     "./types": "./src/types.ts",
+    "./hooks": "./src/hooks.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

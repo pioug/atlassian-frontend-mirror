@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.4.0
+
+### Minor Changes
+
+- [`4c94bc2d6c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c94bc2d6c4) - Update profilecard to use analytics from teams common
+
 ## 16.3.1
 
 ### Patch Changes

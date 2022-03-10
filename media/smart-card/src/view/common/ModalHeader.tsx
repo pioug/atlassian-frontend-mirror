@@ -10,7 +10,7 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import Button from '@atlaskit/button/custom-theme-button';
 import { N100, N30A } from '@atlaskit/theme/colors';
 import { FormattedMessage } from 'react-intl-next';
-import { gs } from '../utils';
+import { gs } from './utils';
 import { Icon, IconProps } from './Icon';
 import { MetadataList, MetadataListProps } from './MetadataList';
 import { Byline } from './Byline';

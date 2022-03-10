@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 
 import AvatarGroup from '@atlaskit/avatar-group';
 import { AvatarClickEventHandler } from '@atlaskit/avatar';
-import { mq } from '../utils';
+import { mq } from '../../common/utils';
 
 export interface Collaborator {
   /* The image to be used in an `@atlaskit/avatar - this should be a url to the image src */

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { waitForElement, cleanup } from '@testing-library/react';
 
 let mockModalRender = jest.fn();
-jest.mock('../../../../view/BlockCard/components/Modal', () => ({
+jest.mock('../../../../view/common/Modal', () => ({
   __esModule: true,
   default: (...args: any) => mockModalRender(...args),
 }));

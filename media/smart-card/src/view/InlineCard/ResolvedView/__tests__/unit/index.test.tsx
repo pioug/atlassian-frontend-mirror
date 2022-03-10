@@ -105,4 +105,9 @@ describe('ResolvedView', () => {
     );
     expect(element.find(HoverCard)).toHaveLength(0);
   });
+
+  it('should not render a hover preview when prop is not provided', () => {
+    const element = shallow(<InlineCardResolvedView link="www.test.com" />);
+    expect(element.find(HoverCard)).toHaveLength(0);
+  });
 });

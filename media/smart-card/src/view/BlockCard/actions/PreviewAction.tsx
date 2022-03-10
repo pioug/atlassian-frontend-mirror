@@ -2,10 +2,10 @@ import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider, FormattedMessage } from 'react-intl-next';
 
-import { ModalProps } from '../components/Modal';
+import { ModalProps } from '../../common/Modal';
 import { ActionProps } from '../components/Action';
-import { IconProps } from '../components/Icon';
-import { MetadataProps } from '../components/Metadata';
+import { IconProps } from '../../common/Icon';
+import { MetadataProps } from '../../common/Metadata';
 import { messages } from '@atlaskit/media-ui/messages';
 
 export interface PreviewFunctionArg extends ModalProps {
@@ -41,7 +41,7 @@ export async function previewFunction({
     document.body.appendChild(popupMountPoint);
   }
 
-  let Modal = await import('../components/Modal');
+  let Modal = await import('../../common/Modal');
 
   ReactDOM.render(
     <IntlProvider locale="en">

@@ -1,6 +1,12 @@
 import CardClient from '../client';
 import { JsonLd } from 'json-ld-types';
 
+export const mockContext = {
+  '@vocab': 'https://www.w3.org/ns/activitystreams#',
+  atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+  schema: 'http://schema.org/',
+} as const;
+
 export const mocks = {
   success: {
     meta: {

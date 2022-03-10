@@ -6,7 +6,11 @@ import { IntlProvider } from 'react-intl-next';
 import { getMockTeamClient } from '../../../examples/helper/util';
 import ProfileClient from '../../../src/client/ProfileCardClient';
 import { TeamProfileCardTriggerInternal as TeamProfileCardTrigger } from '../../components/Team/TeamProfileCardTrigger';
-import { teamCardTriggered, teamRequestAnalytics } from '../../util/analytics';
+import {
+  fireEvent as fireAnalyticsEvent,
+  teamCardTriggered,
+  teamRequestAnalytics,
+} from '../../util/analytics';
 
 const createAnalyticsEvent = jest.fn((body) => {
   // Mocking an implementation of this so tests will run successfully
@@ -18,6 +22,13 @@ const createAnalyticsEvent = jest.fn((body) => {
   };
 
   return event as any;
+});
+
+jest.mock('../../util/analytics', () => {
+  return {
+    ...(jest.requireActual('../../util/analytics') as object),
+    fireEvent: jest.fn(),
+  };
 });
 
 const defaultProps = {
@@ -85,7 +96,8 @@ describe('TeamProfileCardTrigger', () => {
         jest.runAllTimers();
       });
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+        expect.any(Function),
         flexiTime(teamCardTriggered('click')),
       );
 
@@ -120,7 +132,8 @@ describe('TeamProfileCardTrigger', () => {
         jest.runAllTimers();
       });
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+        expect.any(Function),
         flexiTime(teamCardTriggered('hover')),
       );
 
@@ -494,11 +507,13 @@ describe('TeamProfileCardTrigger', () => {
 
       await new Promise(setImmediate);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+        expect.any(Function),
         flexiTime(teamRequestAnalytics('triggered')),
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+        expect.any(Function),
         flexiTime(
           teamRequestAnalytics('succeeded', {
             duration: expect.anything(),
@@ -544,11 +559,13 @@ describe('TeamProfileCardTrigger', () => {
 
       await new Promise(setImmediate);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+        expect.any(Function),
         flexiTime(teamRequestAnalytics('triggered')),
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(
+      expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+        expect.any(Function),
         flexiTime(
           teamRequestAnalytics('failed', {
             duration: expect.anything(),

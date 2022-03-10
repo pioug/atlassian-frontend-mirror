@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../../../../view/BlockCard/components/Icon';
+import { Icon } from '../Icon';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
 jest.mock('react-render-image');

@@ -1,5 +1,49 @@
 # @atlaskit/smart-card
 
+## 17.7.7
+
+### Patch Changes
+
+- [`c01f6404d0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c01f6404d0c) - Add ability to trigger actions for a Smart Link from outside of the Smart Link card.
+
+  Example usage:
+
+  ```tsx
+  import { useSmartLinkActions } from '@atlaskit/smart-card/hooks';
+
+  const ExampleToolbar = () => {
+    const actions = useSmartLinkActions({
+      url,
+      appearance: 'block',
+      analyticsHandler: analytics,
+    });
+
+    return (
+      <ExampleToolbarWrapper>
+        {actions.map((action) => (
+          <Tooltip content={action.text}>
+            <ExampleToolbarItem key={action.id} onClick={action.invoke}>
+              {idToIcon[action.id] ?? action.id}
+            </ExampleToolbarItem>
+          </Tooltip>
+        ))}
+      </ExampleToolbarWrapper>
+    );
+  };
+  ```
+
+## 17.7.6
+
+### Patch Changes
+
+- [`0e5c8b501d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e5c8b501d6) - add test for when hover preview prop is not provided to inline card
+
+## 17.7.5
+
+### Patch Changes
+
+- [`b89ef291fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b89ef291fb9) - EDM-2902: Move common component out of BlockCard
+
 ## 17.7.4
 
 ### Patch Changes

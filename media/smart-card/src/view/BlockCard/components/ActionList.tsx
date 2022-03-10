@@ -10,7 +10,7 @@ import DropdownMenu, {
 import MoreIcon from '@atlaskit/icon/glyph/more';
 
 import { ActionProps, Action } from './Action';
-import { gs, mq } from '../utils';
+import { gs, mq } from '../../common/utils';
 
 export interface ActionListProps {
   /* An array of action props, which will generate action buttons with the first passed appearing on the left (in LTR reading) */

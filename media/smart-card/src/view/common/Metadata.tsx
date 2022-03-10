@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import Tooltip from '@atlaskit/tooltip';
 
-import { gs } from '../utils';
+import { gs } from './utils';
 import { N300 } from '@atlaskit/theme/colors';
 
 export interface MetadataProps {

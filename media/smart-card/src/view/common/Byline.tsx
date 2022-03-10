@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { N300 } from '@atlaskit/theme/colors';
-import { gs, mq } from '../utils';
+import { gs, mq } from './utils';
 
 export interface BylineProps {
   /* Text to be displayed in the body of the card. */

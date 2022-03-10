@@ -8,11 +8,11 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import { Frame } from '../components/Frame';
 import { Provider } from '../components/Provider';
-import { Byline } from '../components/Byline';
+import { Byline } from '../../common/Byline';
 import { Content } from '../components/Content';
 import { messages } from '@atlaskit/media-ui/messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps } from '../components/Icon';
+import { IconProps } from '../../common/Icon';
 import { ContentHeader } from '../components/ContentHeader';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';

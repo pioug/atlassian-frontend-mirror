@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { N20A, N30A, B200, N40A, N50A } from '@atlaskit/theme/colors';
 
-import { gs, br, mq } from '../utils';
+import { gs, br, mq } from '../../common/utils';
 
 export interface FrameProps {
   children?: React.ReactNode;

@@ -22,7 +22,7 @@ import ModalDialog, {
 import { Header } from './ModalHeader';
 import { IconProps } from './Icon';
 import { MetadataListProps } from './MetadataList';
-import { getIframeSandboxAttribute } from '../../../utils';
+import { getIframeSandboxAttribute } from '../../utils';
 
 const iframeStyles = {
   width: `100%`,

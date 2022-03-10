@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { fontSize } from '@atlaskit/theme/constants';
 
-import { gs } from '../utils';
+import { gs } from '../../common/utils';
 
 export interface NameProps {
   name: React.ReactNode;

@@ -18,7 +18,7 @@ import type {
   TeamProfileCardTriggerState,
 } from '../../types';
 import {
-  firePeopleTeamsEvent,
+  fireEvent,
   teamCardTriggered,
   teamProfileCardRendered,
 } from '../../util/analytics';
@@ -58,7 +58,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     }
 
     if (this.props.createAnalyticsEvent) {
-      firePeopleTeamsEvent(payload)(this.props.createAnalyticsEvent);
+      fireEvent(this.props.createAnalyticsEvent, payload);
     }
   };
 

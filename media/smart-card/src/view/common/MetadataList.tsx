@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 
 import { MetadataProps, Metadata } from './Metadata';
-import { gs } from '../utils';
+import { gs } from './utils';
 
 export interface MetadataListProps {
   items: MetadataProps[];

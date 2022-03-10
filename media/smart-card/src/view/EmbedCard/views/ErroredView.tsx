@@ -9,7 +9,7 @@ import { R300 } from '@atlaskit/theme/colors';
 import { Frame } from '../../BlockCard/components/Frame';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui/messages';
-import { gs } from '../../BlockCard/utils';
+import { gs } from '../../common/utils';
 
 export interface ErroredViewProps {
   onRetry?: (val: any) => void;

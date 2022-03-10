@@ -6,7 +6,7 @@ import { R300 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import { Frame } from '../components/Frame';
-import { Byline } from '../components/Byline';
+import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
 import { messages } from '@atlaskit/media-ui/messages';
@@ -27,7 +27,7 @@ export interface ErroredViewProps {
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   /* If selected, would be true in edit mode */
   isSelected?: boolean;
-  /* If there is a way to recover from the current error, this handler is used 
+  /* If there is a way to recover from the current error, this handler is used
      to trigger a re-resolve */
   onRetry?: () => void;
   message?: string;

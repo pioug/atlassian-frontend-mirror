@@ -1,13 +1,45 @@
-import {
-  AnalyticsEventPayload,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 import { getPageTime } from './performance';
 
-const PEOPLE_TEAMS_CHANNEL = 'peopleTeams';
+/** Below lines are copied from teams common analytics */
+const ANALYTICS_CHANNEL = 'peopleTeams';
 
-export const firePeopleTeamsEvent = createAndFireEvent(PEOPLE_TEAMS_CHANNEL);
+const runItLater = (cb: (arg: any) => void) => {
+  if ((window as any).requestIdleCallback === 'function') {
+    return (window as any).requestIdleCallback(cb);
+  }
+
+  if (typeof window.requestAnimationFrame === 'function') {
+    return window.requestAnimationFrame(cb);
+  }
+
+  return () => setTimeout(cb);
+};
+
+interface AnalyticsEvent {
+  action?: string;
+  actionSubject?: string;
+  actionSubjectId?: string;
+  attributes?: Record<string, string | number | boolean | undefined>;
+  name?: string;
+  source?: string;
+}
+
+export const fireEvent = (
+  createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
+  body: AnalyticsEvent,
+) => {
+  if (!createAnalyticsEvent) {
+    return;
+  }
+
+  runItLater(() => {
+    createAnalyticsEvent(body).fire(ANALYTICS_CHANNEL);
+  });
+};
+/** Above lines are copied from teams common analytics */
 
 const TEAM_SUBJECT = 'teamProfileCard';
 

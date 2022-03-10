@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { gs, mq } from '../utils';
+import { gs, mq } from '../../common/utils';
 
 export interface ImageProps {
   src: string;

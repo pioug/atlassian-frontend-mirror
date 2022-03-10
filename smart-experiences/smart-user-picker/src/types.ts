@@ -132,7 +132,7 @@ export interface SmartProps {
    */
   filterOptions?: FilterOptions;
   /**
-   * Whether to include groups in the resultset. @default false
+   * Whether to include groups in the resultset. Only supported for Confluence. @default false
    */
   includeGroups?: boolean;
   /**

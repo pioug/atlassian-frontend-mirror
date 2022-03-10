@@ -6,7 +6,7 @@ import { N50, N90 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 
 import { Frame } from '../components/Frame';
-import { gs } from '../utils';
+import { gs } from '../../common/utils';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui/messages';
 

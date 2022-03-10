@@ -68,7 +68,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/emoji": "^64.2.0",
     "@atlaskit/mention": "^21.0.0",
-    "@atlaskit/profilecard": "^16.3.0",
+    "@atlaskit/profilecard": "^16.4.0",
     "@atlaskit/task-decision": "^17.3.0",
     "@atlaskit/util-service-support": "^6.1.0",
     "@babel/runtime": "^7.0.0",

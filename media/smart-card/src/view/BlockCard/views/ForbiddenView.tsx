@@ -7,13 +7,13 @@ import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 
 import { Frame } from '../components/Frame';
 import { Provider } from '../components/Provider';
-import { Byline } from '../components/Byline';
+import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
 import { messages } from '@atlaskit/media-ui/messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps } from '../components/Icon';
+import { IconProps } from '../../common/Icon';
 import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';

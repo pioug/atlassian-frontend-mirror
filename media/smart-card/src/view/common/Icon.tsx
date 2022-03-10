@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import ImageLoader from 'react-render-image';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import { gs } from '../utils';
+import { gs } from './utils';
 
 export interface IconProps {
   /* Url of the icon to be displayed. Note that this is only used if a JSX element is not provided */

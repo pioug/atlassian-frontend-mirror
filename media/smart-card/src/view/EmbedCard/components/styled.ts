@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/media-ui';
 import { fontFamily } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-import { gs as gridSize } from '../../BlockCard/utils';
+import { gs as gridSize } from '../../common/utils';
 
 export const className = 'media-card-frame';
 export const cardShadow = ``;

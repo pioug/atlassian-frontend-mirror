@@ -1,0 +1,125 @@
+---
+order: 0
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import PageLayoutBasic from '../../examples/constellation/page-layout-basic';
+import PageLayoutInteractive from '../../examples/constellation/page-layout-interactive';
+import PageLayoutIntegration from '../../examples/constellation/page-layout-integration';
+import PageLayoutResizeSidebar from '../../examples/constellation/page-layout-resize-sidebar';
+import PageLayoutLockedSidebar from '../../examples/constellation/page-layout-locked-sidebar';
+import PageLayoutCustomSkipLinks from '../../examples/constellation/page-layout-custom-skip-links';
+import PageLayoutServerRendered from '../../examples/constellation/page-layout-server-rendered';
+
+
+<SectionMessage>Open the examples below in Codesandbox for a full-page experience.</SectionMessage>
+
+## Basic
+
+`PageLayout` wraps an entire app view and helps split the viewport into sections where you can render components in slots, such as `TopNavigation`, `Main`, `LeftSidebar`, and more.
+
+<Example Component={PageLayoutBasic} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+Here is a customisable and more interactive example to demonstrate the page layout slots.
+
+<Example Component={PageLayoutInteractive} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+## Integrated
+
+`PageLayout` is designed to work in tandem with our other navigation components, `@atlaskit/atlassian-navigation` and `@atlaskit/side-navigation`. Here we have an example where these components are used together.
+
+<Example Component={PageLayoutIntegration} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+## Left sidebar
+
+The left sidebar houses all the navigation components for the **current** space a user is in. `PageLayout` lets a user choose to resize and/or collapse/expand the sidebar allowing a user to get more screen space to do work and for a certain level of personalisation.
+
+The left sidebar:
+- can be resized using mouse or keyboard
+- can be expanded/collapsed using mouse or keyboard
+- has a 'Flyout' feature when hovering over collapsed sidebar to quickly see navigation items
+- uses appropriate accessibility APIs to let users with assistive technologies interact with the left sidebar
+
+You can see the left sidebar can be resized and even collapsed to give more screen space to the main content:
+
+<Example Component={PageLayoutResizeSidebar} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+### Locking the sidebar open
+
+In some circumstances you may want to prevent the sidebar flyout from collapsing, such as when a pop-up menu has been opened inside the sidebar. The `useLeftSidebarFlyoutLock` hook is purpose-made for this situation.
+
+<Example Component={PageLayoutLockedSidebar} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+### Left sidebar without resize
+
+If you just need a left sidebar slot without any resize functionality, use the lighter-weight `LeftSidebarWithoutResize` component instead of the `LeftSidebar` component.
+
+
+## Skip links
+
+Skip links are hidden links that appear on focus and allow people to skip content on the page. We recommend implementing skip links for pages with complex navigation layouts as they allow people navigating by keyboard to skip to different sections of the page.
+
+Page layout automatically generates a global skip link menu based on the sections included inside `PageLayout`. To add a section to the skip link menu, give it an id to allow focus to be placed on the element, and a skipLinkTitle for the text used to describe the section. Screen readers will read the skipLinkTitle with the text 'skip to' prepended for context.
+
+### Behavior
+
+The skip links menu:
+
+- appears on keyboard focus and is the first focusable item on the page
+- can be closed by pressing escape, which brings focus to the first element after the skip link menu
+- lists all PageLayout sections that have `skipLinkTitle` and `id` props set
+- allows registering of custom skip links through the `CustomSkipLink` comoponent
+- uses a focus ring when a link is selected to highlight the selection
+
+To modify the "Skip to:" text, set the `skipLinksI18n` prop in PageLayout.
+
+On first tab into the example below, you should see the skip link menu appear:
+
+<Example Component={PageLayoutBasic} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+
+
+### Custom skip links
+
+Sometimes it may be necessary to add a skip link to a section of the page which is not one of the slots provided by `PageLayout`. This is where the `useCustomSkipLink` hook comes in handy. Here's an example of using the `useCustomSkipLink` to set up skip links to elements that are not direct children of a `PageLayout` slot.
+
+You can choose the position the link will show up in the menu by using the optional `listIndex` prop. Positions are zero-indexed.
+
+**Note:** Although `useCustomSkipLink` can link to DOM elements outside of `PageLayout` using the HTML `id`, it needs to be called from within `PageLayout`, since it relies on the context provider that wraps `PageLayout`.
+
+<Example Component={PageLayoutCustomSkipLinks} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+### Accessibility
+
+Make sure there are **no more than 4 or 5 elements** in the skip link menu unless absolutely necessary. Too many options increases cognitive load and requires too many tab presses to bypass the skip link menu.
+
+A skip link menu should be **present** for pages where a substantial number of tab presses is required to reach the main content. A log-in page may not require a skip link menu, but on any page with top and/or side navigation people will expect to be able to skip to the main content.
+
+Keep the list consistent. If a section of the UI (such as a side panel) is in a skip link menu on one page it should be in the skip links menu on all pages where it appears.
+
+Names for the sections must be understandable, including for screen reader users. 'Top navigation' does not describe the purpose of the navigation element, while 'Jira navigation' or 'global navigation' is more descriptive.
+
+All skip link text needs to be translated for different locales. This includes section skip link labels, as well as the 'skip to:' text at the top of the panel.
+
+## Server side rendering
+
+Here is an example of a server-rendered page.
+
+<Example Component={PageLayoutServerRendered} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+
+## Using CSS variables
+
+`@atlaskit/page-layout` exports a set of variables that can be used to setup the grid on non-react pages. The following variables are exported:
+
+- `LEFT_PANEL_WIDTH`
+- `RIGHT_PANEL_WIDTH`
+- `LEFT_SIDEBAR_WIDTH`
+- `RIGHT_SIDEBAR_WIDTH`
+- `TOP_NAVIGATION_HEIGHT`
+- `BANNER_HEIGHT`
+- `LEFT_SIDEBAR_FLYOUT_WIDTH`
+
+Always use these variabels instead of accessing the CSS variable names directly because these variables have sensible fallback values baked into them. Accessing the variables directly runs the risk of setting the intended styles to "unset" which can cause unintended styling issues.
+
+See the [server rendered example](PUT LINK IN HERE YOU DOOFUS) for a more complete example of how to use these variables.

@@ -9,11 +9,11 @@ import CommentIcon from '@atlaskit/icon/glyph/comment';
 
 import { Frame } from '../src/view/BlockCard/components/Frame';
 import { Thumbnail } from '../src/view/BlockCard/components/Thumbnail';
-import { Icon } from '../src/view/BlockCard/components/Icon';
+import { Icon } from '../src/view/common/Icon';
 import { Name } from '../src/view/BlockCard/components/Name';
-import { Byline } from '../src/view/BlockCard/components/Byline';
+import { Byline } from '../src/view/common/Byline';
 import { Provider } from '../src/view/BlockCard/components/Provider';
-import { MetadataList } from '../src/view/BlockCard/components/MetadataList';
+import { MetadataList } from '../src/view/common/MetadataList';
 import { CollaboratorList } from '../src/view/BlockCard/components/CollaboratorList';
 import { ActionList } from '../src/view/BlockCard/components/ActionList';
 

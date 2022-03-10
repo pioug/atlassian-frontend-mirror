@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/page-layout",
   "version": "1.1.0",
-  "description": "A collection of components which let you compose an application's page layout",
+  "description": "A collection of components which let you compose an application's page layout.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -19,9 +19,10 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Page Layout"
+      "name": "Page layout"
     }
   },
+  "homepage": "https://atlassian.design/components/page-layout/",
   "dependencies": {
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/motion": "^1.0.0",

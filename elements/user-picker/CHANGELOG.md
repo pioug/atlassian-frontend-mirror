@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 8.8.4
+
+### Patch Changes
+
+- [`d9b9077397d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b9077397d) - [ux] Updated the default copy for the byline when selecting email options in UserPicker.
+
 ## 8.8.3
 
 ### Patch Changes

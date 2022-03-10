@@ -10,7 +10,7 @@ yarn add @atlaskit/page-layout
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/design-system/page-layout).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/page-layout/).
 
-To add side navigation, use [@atlaskit/side-navigation](https://atlaskit.atlassian.com/packages/navigation/side-navigation)
-To add top/global navigation, use [@atlaskit/atlassian-navigation](https://atlaskit.atlassian.com/packages/navigation/atlassian-navigation)
+To add side navigation, use [@atlaskit/side-navigation](https://atlassian.design/components/side-navigation/)
+To add top/global navigation, use [@atlaskit/atlassian-navigation](https://atlassian.design/components/atlassian-navigation/)

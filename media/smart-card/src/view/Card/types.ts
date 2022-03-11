@@ -4,7 +4,7 @@ import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle } from '../types';
 
 export type CardAppearance = 'inline' | 'block' | 'embed';
-export type CardInnerAppearance = CardAppearance | 'preview';
+export type CardInnerAppearance = CardAppearance | 'preview' | 'flexible';
 export type CardPlatform = JsonLd.Primitives.Platforms;
 
 export type OnResolveCallback = (data: {

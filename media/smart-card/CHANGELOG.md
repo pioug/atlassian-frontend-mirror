@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 17.7.9
+
+### Patch Changes
+
+- [`63d4f963f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63d4f963f72) - Flexible UI: Set PreviewBlock image aspect ratio to 16:9
+
+## 17.7.8
+
+### Patch Changes
+
+- [`d75ce5b847d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d75ce5b847d) - Add link click analytics to flexible ui title block component
+
 ## 17.7.7
 
 ### Patch Changes

@@ -1,0 +1,68 @@
+---
+order: 0
+---
+
+import PopupDefaultExample from '../../examples/constellation/popup-default';
+import PopupCustomExample from '../../examples/constellation/popup-custom';
+import PopupPlacementExample from '../../examples/constellation/popup-placement/index';
+import PopupMultipleExample from '../../examples/constellation/popup-multiple';
+import PopupNestedExample from '../../examples/constellation/popup-nested';
+import PopupFocusExample from '../../examples/constellation/popup-focus';
+import PopupDisableAutofocusExample from '../../examples/constellation/popup-disable-autofocus';
+import PopupContentUpdateExample from '../../examples/constellation/popup-content-update';
+
+## Default
+
+The simplest form of a popup, opened from a trigger element.
+
+<Example Component={PopupDefaultExample} packageName="@atlaskit/popup" />
+
+## Placement
+
+The placement of the popup relative to the trigger can be changed using the `placement` prop.
+
+<Example Component={PopupPlacementExample} packageName="@atlaskit/popup" />
+
+## Multiple
+
+Popups may be used multiple times on the same page.
+
+<Example Component={PopupMultipleExample} packageName="@atlaskit/popup" />
+
+## Nested
+
+In general, nesting popups inside other popups works out of the box.
+
+Note that this example has additional code to prevent the parent popup closing when interacting with the child popup.
+
+<Example Component={PopupNestedExample} packageName="@atlaskit/popup" />
+
+## Content updates
+
+When changing the content inside the popup, call the `update()` function to reposition the popup.
+
+Make sure to **call this in the same callback or update step** to ensure everything happens in the same animation frame.
+
+<Example Component={PopupContentUpdateExample} packageName="@atlaskit/popup" />
+
+## Customization
+
+The popup can be customized using a component override with the `popupComponent` prop.
+
+It's important that you [forward the ref to the underlying DOM node](https://reactjs.org/docs/forwarding-refs.html), or else the positioning of the popup will not work correctly.
+
+<Example Component={PopupCustomExample} packageName="@atlaskit/popup" />
+
+## Focus
+
+### Set focus
+
+You can focus a specific element when opening the popup. The `content` render props provides a ref `setInitialFocusRef` to be set on the desired element.
+
+<Example Component={PopupFocusExample} packageName="@atlaskit/popup" />
+
+### Disable autofocus
+
+If an element is focused, setting the `autofocus` prop to `false` will ensure it keeps focus when the popup is opened.
+
+<Example Component={PopupDisableAutofocusExample} packageName="@atlaskit/popup" />

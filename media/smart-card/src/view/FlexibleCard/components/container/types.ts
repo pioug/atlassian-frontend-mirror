@@ -14,4 +14,5 @@ export type ContainerProps = {
   status?: SmartLinkStatus;
   testId?: string;
   theme?: SmartLinkTheme;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };

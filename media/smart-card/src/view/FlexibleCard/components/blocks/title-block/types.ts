@@ -12,4 +12,5 @@ export type TitleBlockProps = BlockProps & {
   theme?: SmartLinkTheme;
   text?: string;
   showActionOnHover?: boolean;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };

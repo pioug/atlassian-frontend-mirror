@@ -74,11 +74,13 @@ const renderChildren = (
   containerTheme: SmartLinkTheme,
   status?: SmartLinkStatus,
   retry?: RetryOptions,
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 ): React.ReactNode =>
   React.Children.map(children, (child) => {
     if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
       const { size: blockSize } = child.props;
       return React.cloneElement(child, {
+        onClick,
         retry: isFlexibleUiTitleBlock(child) ? retry : undefined,
         size: blockSize || containerSize,
         status,
@@ -97,13 +99,14 @@ const Container: React.FC<ContainerProps> = ({
   status,
   testId = 'smart-links-container',
   theme = SmartLinkTheme.Link,
+  onClick,
 }) => (
   <div
     css={getContainerStyles(size, hideBackground, hideElevation, hidePadding)}
     data-smart-link-container
     data-testid={testId}
   >
-    {renderChildren(children, size, theme, status, retry)}
+    {renderChildren(children, size, theme, status, retry, onClick)}
   </div>
 );
 

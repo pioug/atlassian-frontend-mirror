@@ -13,14 +13,22 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   renderers,
   ui,
   url,
-}) => {
+  onClick,
+  testId,
+}: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
   const context = getContextByStatus(url, status, details, renderers);
   const retry = getRetryOptions(url, status, details, onAuthorize);
   return (
     <FlexibleUiContext.Provider value={context}>
-      <Container {...ui} retry={retry} status={status}>
+      <Container
+        testId={testId}
+        {...ui}
+        retry={retry}
+        status={status}
+        onClick={onClick}
+      >
         {children}
       </Container>
     </FlexibleUiContext.Provider>

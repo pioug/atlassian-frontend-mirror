@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import { MouseEvent, KeyboardEvent } from 'react';
 
 import { CardWithUrlContentProps } from './types';
@@ -49,6 +49,8 @@ export function CardWithUrlContent({
   const resourceType = getResourceType(state.details);
   const services = getServices(state.details);
 
+  let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
+
   // Setup UI handlers.
   const handleClick = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
@@ -62,7 +64,13 @@ export function CardWithUrlContent({
   const handleClickWrapper = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
       if (state.status === 'resolved') {
-        analytics.ui.cardClickedEvent(appearance, definitionId, extensionKey);
+        const isModifierKeyPressed = isSpecialEvent(event);
+        analytics.ui.cardClickedEvent(
+          isFlexibleUi ? 'flexible' : appearance,
+          definitionId,
+          extensionKey,
+          isModifierKeyPressed,
+        );
       }
       onClick ? onClick(event) : handleClick(event);
     },
@@ -74,6 +82,7 @@ export function CardWithUrlContent({
       extensionKey,
       onClick,
       handleClick,
+      isFlexibleUi,
     ],
   );
   const handleAuthorize = useCallback(() => actions.authorize(appearance), [
@@ -144,14 +153,16 @@ export function CardWithUrlContent({
     throw error;
   }
 
-  if (isFlexibleUiCard(children)) {
+  if (isFlexibleUi) {
     return (
       <FlexibleCard
         cardState={state}
         onAuthorize={(services.length && handleAuthorize) || undefined}
+        onClick={handleClickWrapper}
         renderers={renderers}
         ui={ui}
         url={url}
+        testId={testId}
       >
         {children}
       </FlexibleCard>
@@ -184,7 +195,7 @@ export function CardWithUrlContent({
           handleErrorRetry={handleRetry}
           handleInvoke={handleInvoke}
           handleFrameClick={handleClickWrapper}
-          handlePreviewAnalytics={dispatchAnalytics}
+          handleAnalytics={dispatchAnalytics}
           isSelected={isSelected}
           onResolve={onResolve}
           testId={testId}

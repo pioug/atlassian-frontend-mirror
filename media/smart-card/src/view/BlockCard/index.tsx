@@ -39,7 +39,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   handleAuthorize,
   handleErrorRetry,
   handleFrameClick,
-  handlePreviewAnalytics,
+  handleAnalytics,
   handleInvoke,
   renderers,
   isSelected,
@@ -52,7 +52,7 @@ export const BlockCard: FC<BlockCardProps> = ({
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
   const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
   const extractorOpts: ExtractBlockOpts = {
-    handleAnalytics: handlePreviewAnalytics,
+    handleAnalytics,
     handleInvoke,
     extensionKey: getExtensionKey(details),
   };

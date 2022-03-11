@@ -47,9 +47,15 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
         display: CardInnerAppearance,
         definitionId?: string,
         extensionKey?: string,
+        isModifierKeyPressed?: boolean,
       ) =>
         dispatchAnalytics(
-          uiCardClickedEvent(display, definitionId, extensionKey),
+          uiCardClickedEvent(
+            display,
+            definitionId,
+            extensionKey,
+            isModifierKeyPressed,
+          ),
         ),
       actionClickedEvent: (
         id: string,

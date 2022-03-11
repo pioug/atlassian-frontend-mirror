@@ -89,6 +89,7 @@ const Link: React.FC<LinkProps> = ({
   text,
   theme = SmartLinkTheme.Link,
   url,
+  onClick,
 }) => (
   <span css={containerStyles}>
     <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
@@ -96,6 +97,7 @@ const Link: React.FC<LinkProps> = ({
         css={getAnchorStyles(size, theme, getMaxLines(maxLines))}
         data-smart-element-link
         data-testid={testId}
+        onClick={onClick}
         href={url}
       >
         {text}

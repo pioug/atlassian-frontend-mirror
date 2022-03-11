@@ -165,7 +165,7 @@ interface BaseProps {
 
   /**
    * Controls if the event which handles clicks outside the popup is be bound with
-   *  `capture: true`
+   *  `capture: true`.
    */
   shouldUseCaptureOnOutsideClick?: boolean;
 }
@@ -174,7 +174,7 @@ export interface PopupProps extends BaseProps {
   /**
    * Render props used to anchor the popup to your content.
    * Make this an interactive element,
-   * such as an @atlaskit/button component.
+   * such as an `@atlaskit/button` component.
    */
   trigger: (props: TriggerProps) => React.ReactNode;
 

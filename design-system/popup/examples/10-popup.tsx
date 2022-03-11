@@ -61,7 +61,7 @@ const placements: Placement[] = [
   'auto-end',
 ];
 
-export default () => {
+const PopupPlacementExample = () => {
   const [idx, setIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -97,3 +97,5 @@ export default () => {
     </div>
   );
 };
+
+export default PopupPlacementExample;

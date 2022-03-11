@@ -83,7 +83,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-preview');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 500);
+      const image = await takeSnapshot(page, 530);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -177,7 +177,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-media');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-media"]');
-      const image = await takeSnapshot(page, 280);
+      const image = await takeSnapshot(page, 480);
 
       expect(image).toMatchProdImageSnapshot();
     });

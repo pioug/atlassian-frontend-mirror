@@ -13,6 +13,7 @@ export type FlexibleCardProps = {
   testId?: string;
   ui?: FlexibleUiOptions;
   url: string;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };
 
 export type FlexibleUiOptions = {

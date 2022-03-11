@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.2.3
+
+### Patch Changes
+
+- [`10d1f4d4a4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10d1f4d4a4b) - Export placement options
+
 ## 5.2.2
 
 ### Patch Changes

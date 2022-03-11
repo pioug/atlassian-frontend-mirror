@@ -225,6 +225,7 @@ export const uiCardClickedEvent = (
   display: CardInnerAppearance,
   definitionId?: string,
   extensionKey?: string,
+  isModifierKeyPressed?: boolean,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
@@ -234,6 +235,7 @@ export const uiCardClickedEvent = (
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     display,
+    isModifierKeyPressed,
   },
 });
 

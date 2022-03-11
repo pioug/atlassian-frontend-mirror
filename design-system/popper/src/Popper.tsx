@@ -8,6 +8,7 @@ import {
   Popper as ReactPopper,
 } from 'react-popper';
 
+export { placements } from '@popperjs/core';
 // Export types from PopperJS / React Popper
 export type { Placement, VirtualElement } from '@popperjs/core';
 export type {

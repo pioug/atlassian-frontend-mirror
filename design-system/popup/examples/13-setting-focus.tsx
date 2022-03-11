@@ -77,7 +77,7 @@ export default () => {
             setInitialFocusRef={setInitialFocusRef}
           />
         )}
-        trigger={({ ...triggerProps }) => (
+        trigger={(triggerProps) => (
           <Button
             id="popup-trigger"
             {...triggerProps}

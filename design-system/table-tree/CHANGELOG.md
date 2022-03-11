@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.1.5
+
+### Patch Changes
+
+- [`ae03dc85756`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae03dc85756) - Moved homepage to atlassian.design.
+
 ## 9.1.4
 
 ### Patch Changes

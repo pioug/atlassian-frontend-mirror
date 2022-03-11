@@ -1,4 +1,4 @@
-export { Popper } from './Popper';
+export { Popper, placements } from './Popper';
 export type {
   ManagerProps,
   ReferenceProps,

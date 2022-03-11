@@ -13,7 +13,7 @@ export type BlockCardProps = {
   authFlow?: CardAuthFlowOpts['authFlow'];
   handleAuthorize: (() => void) | undefined;
   handleErrorRetry: () => void;
-  handlePreviewAnalytics: AnalyticsHandler;
+  handleAnalytics: AnalyticsHandler;
   handleInvoke: InvokeHandler;
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   isSelected?: boolean;

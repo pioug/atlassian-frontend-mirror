@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "17.7.9",
+  "version": "17.7.10",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/media-common": "^2.11.0",
-    "@atlaskit/media-ui": "^20.0.0",
+    "@atlaskit/media-ui": "^20.1.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/outbound-auth-flow-client": "^3.3.0",
     "@atlaskit/spinner": "^15.1.0",

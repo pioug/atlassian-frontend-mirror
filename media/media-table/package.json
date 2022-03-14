@@ -31,7 +31,7 @@
     "@atlaskit/dynamic-table": "^14.5.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/media-client": "^14.4.0",
-    "@atlaskit/media-ui": "^20.0.0",
+    "@atlaskit/media-ui": "^20.1.0",
     "@atlaskit/media-viewer": "^46.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tooltip": "^17.5.0",

@@ -114,6 +114,31 @@ describe('<MediaInlineCard />', () => {
     expect(fileTypeIcon).toBeTruthy();
   });
 
+  it('should render right icon when mimeType is more specific than media type', async () => {
+    const mockFileState: FileState = {
+      status: 'processing',
+      id: '1234',
+      name: 'file_name',
+      size: 1024,
+      mediaType: 'doc',
+      mimeType: 'text/csv',
+    };
+
+    asMock(mediaClient.file.getFileState).mockReturnValue(of(mockFileState));
+
+    const { getByTestId } = render(
+      <MediaInlineCard
+        intl={fakeIntl}
+        identifier={identifier}
+        mediaClient={mediaClient}
+      />,
+    );
+    const fileTypeIcon = await waitForElement(() =>
+      getByTestId('media-inline-card-file-type-icon'),
+    );
+    expect(fileTypeIcon.getAttribute('data-type')).toEqual('spreadsheet');
+  });
+
   it('should render error view', async () => {
     asMock(mediaClient.file.getFileState).mockReturnValueOnce(
       of({ status: 'error' }),

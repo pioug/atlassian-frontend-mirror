@@ -259,6 +259,14 @@ export const makeDeleteActionItem = (
   ...options,
 });
 
+export const makeEditActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedActionItem => ({
+  name: ActionName.EditAction,
+  onClick: () => console.log('Edit action!'),
+  ...options,
+});
+
 export const makeCustomActionItem = (
   options: Pick<CustomActionItem, 'icon' | 'content' | 'testId'> = {},
 ): CustomActionItem => ({

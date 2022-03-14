@@ -100,4 +100,29 @@ describe('MimeType Icon', () => {
       expect(mimeIcon).toHaveLength(1);
     });
   });
+
+  it('defaults to large size', () => {
+    const component = shallow(
+      <MimeTypeIcon
+        mediaType={'image'}
+        mimeType={'image/png'}
+        name={'test.png'}
+      />,
+    );
+    const icon = component.find(MediaTypeIcon);
+    expect(icon.prop('size')).toEqual('large');
+  });
+
+  it('accepts size prop', () => {
+    const component = shallow(
+      <MimeTypeIcon
+        mediaType={'image'}
+        mimeType={'image/png'}
+        name={'test.png'}
+        size="small"
+      />,
+    );
+    const icon = component.find(MediaTypeIcon);
+    expect(icon.prop('size')).toEqual('small');
+  });
 });

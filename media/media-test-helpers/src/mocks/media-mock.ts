@@ -106,7 +106,7 @@ export function generateFilesFromTestData(
     return {
       id,
       blob,
-      mimeType: (blob && blob.type) || 'inode/x-empty',
+      mimeType: (blob && blob.type) || file.mimeType || 'inode/x-empty',
       mediaType,
       name,
       size: (blob && blob.size) || 0,

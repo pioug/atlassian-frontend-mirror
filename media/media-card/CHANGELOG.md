@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 73.3.2
+
+### Patch Changes
+
+- [`4f97dd898fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f97dd898fc) - EDM-2995: fix media inline icon, use mimeType to render a better icon type
+- Updated dependencies
+
 ## 73.3.1
 
 ### Patch Changes

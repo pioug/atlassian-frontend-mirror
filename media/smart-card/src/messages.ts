@@ -7,6 +7,7 @@ export type MessageKey =
   | 'created_by'
   | 'created_on'
   | 'delete'
+  | 'edit'
   | 'modified_by'
   | 'modified_on'
   | 'priority_blocker'
@@ -66,6 +67,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.delete',
     defaultMessage: 'Delete',
     description: 'Allow a user to delete a link',
+  },
+  edit: {
+    id: 'fabric.linking.edit',
+    defaultMessage: 'Edit',
+    description: 'Allow a user to edit a link',
   },
   modified_by: {
     id: 'fabric.linking.updated_by',

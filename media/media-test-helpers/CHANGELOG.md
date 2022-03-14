@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 29.2.1
+
+### Patch Changes
+
+- [`7b8ba79b71b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8ba79b71b) - use mimeType in MediaMock when provided
+- Updated dependencies
+
 ## 29.2.0
 
 ### Minor Changes

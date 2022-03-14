@@ -22,7 +22,7 @@
     }
   },
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",

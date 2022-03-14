@@ -13,7 +13,7 @@ import {
   MediaInlineCardErroredView,
   messages,
 } from '@atlaskit/media-ui';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
@@ -148,12 +148,14 @@ export const MediaInlineCardInternal: FC<
     );
   }
 
-  const { mediaType, name } = fileState;
+  const { mediaType, name, mimeType } = fileState;
   const linkIcon = (
-    <MediaTypeIcon
+    <MimeTypeIcon
       testId={'media-inline-card-file-type-icon'}
       size="small"
-      type={mediaType}
+      mediaType={mediaType}
+      mimeType={mimeType}
+      name={name}
     />
   );
   const mediaViewer = renderMediaViewer();

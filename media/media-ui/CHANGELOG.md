@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 20.1.0
+
+### Minor Changes
+
+- [`a05dcf1b9d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a05dcf1b9d6) - allow to pass size prop to MediaMimeTypeIcon
+
 ## 20.0.0
 
 ### Major Changes

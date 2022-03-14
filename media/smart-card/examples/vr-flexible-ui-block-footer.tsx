@@ -11,6 +11,7 @@ import { ActionItem } from '../src';
 import {
   makeCustomActionItem,
   makeDeleteActionItem,
+  makeEditActionItem,
 } from './flexible-ui/utils';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 
@@ -30,12 +31,10 @@ export default () => (
     <h5>Default</h5>
     {renderFooter()}
     <h5>With two actions</h5>
-    {renderFooter(
-      SmartLinkSize.Medium,
-      Array(2)
-        .fill(null)
-        .map(() => makeDeleteActionItem()),
-    )}
+    {renderFooter(SmartLinkSize.Medium, [
+      makeDeleteActionItem(),
+      makeEditActionItem(),
+    ])}
     <h5>With 3 Custom actions</h5>
     {renderFooter(SmartLinkSize.Medium, [
       makeCustomActionItem(),

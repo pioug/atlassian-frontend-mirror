@@ -6,6 +6,7 @@ import Action from './action';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../messages';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import EditIcon from '@atlaskit/icon/glyph/edit';
 
 const actionMappings: Record<
   ActionName,
@@ -22,6 +23,15 @@ const actionMappings: Record<
       content: <FormattedMessage {...messages.delete} />,
       icon: <CrossIcon label="Delete" />,
       toolTipMessage: <FormattedMessage {...messages.delete} />,
+    },
+  },
+  [ActionName.EditAction]: {
+    component: Action,
+    props: {
+      testId: 'smart-action-edit-action',
+      content: <FormattedMessage {...messages.edit} />,
+      icon: <EditIcon label="Edit" />,
+      toolTipMessage: <FormattedMessage {...messages.edit} />,
     },
   },
 };

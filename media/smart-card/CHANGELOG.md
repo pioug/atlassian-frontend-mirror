@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.7.10
+
+### Patch Changes
+
+- [`e04b58c623e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e04b58c623e) - Add EditAction
+
 ## 17.7.9
 
 ### Patch Changes

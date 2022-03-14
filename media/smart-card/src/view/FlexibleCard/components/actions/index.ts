@@ -10,6 +10,7 @@ import { createUIAction } from './utils';
 export const DeleteAction = createUIAction<ActionProps>(
   ActionName.DeleteAction,
 );
+export const EditAction = createUIAction<ActionProps>(ActionName.EditAction);
 export const CustomAction = createUIAction<ActionProps>(
   ActionName.CustomAction,
 );

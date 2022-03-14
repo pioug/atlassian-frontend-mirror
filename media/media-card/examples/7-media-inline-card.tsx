@@ -4,6 +4,9 @@ import {
   imageFileId,
   docFileId,
   videoProcessingFailedId,
+  codeFileId,
+  videoFileId,
+  largePdfFileId,
   smallImage,
   createUploadMediaClientConfig,
   defaultCollectionName,
@@ -101,6 +104,36 @@ export default () => {
                   <MediaInlineCard
                     identifier={docFileId}
                     mediaClientConfig={mediaClientConfig}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Pdf</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={largePdfFileId}
+                    mediaClientConfig={mediaClientConfig}
+                    shouldOpenMediaViewer
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Video</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={videoFileId}
+                    mediaClientConfig={mediaClientConfig}
+                    shouldOpenMediaViewer
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Code</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={codeFileId}
+                    mediaClientConfig={mediaClientConfig}
+                    shouldOpenMediaViewer
                   />
                 </td>
               </tr>

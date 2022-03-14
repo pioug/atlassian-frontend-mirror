@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.tsx"
   },
   "atlassian": {
     "team": "Media Experience",
@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/button": "^16.2.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/media-ui": "^20.0.0",
+    "@atlaskit/media-ui": "^20.1.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/range": "^6.0.0",
     "@atlaskit/spinner": "^15.0.0",

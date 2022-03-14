@@ -22,6 +22,18 @@ const mockDocFile: MockFileInputParams = {
   mediaType: 'doc',
   mimeType: 'application/pdf',
 };
+const mockSpreadsheetFile: MockFileInputParams = {
+  id: '45334c16-9d5a-413d-bb4c-969a464db952',
+  name: 'annual_report.csv',
+  mediaType: 'doc',
+  mimeType: 'text/csv',
+};
+const mockVideoFile: MockFileInputParams = {
+  id: 'db2f29e0-75af-45a7-baaf-94093bc09293',
+  name: 'me_kickflip.mp4',
+  mediaType: 'video',
+  mimeType: 'video/mp4',
+};
 const mockErrorFile: MockFileInputParams = {
   id: '26adc5af-3af4-42a8-9c24-62b6ce0f9369',
   name: 'some-file.jpeg',
@@ -36,6 +48,8 @@ const mockLoadingFile: MockFileInputParams = {
 const files = generateFilesFromTestData([
   mockImageFile,
   mockDocFile,
+  mockSpreadsheetFile,
+  mockVideoFile,
   mockErrorFile,
 ]);
 const mediaMock = new MediaMock({
@@ -90,6 +104,32 @@ export default () => {
                   identifier={{
                     mediaItemType: 'file',
                     id: mockDocFile.id!,
+                    collectionName: defaultCollectionName,
+                  }}
+                  mediaClientConfig={mediaClientConfig}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Spreadsheet</td>
+              <td>
+                <MediaInlineCard
+                  identifier={{
+                    mediaItemType: 'file',
+                    id: mockSpreadsheetFile.id!,
+                    collectionName: defaultCollectionName,
+                  }}
+                  mediaClientConfig={mediaClientConfig}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Video</td>
+              <td>
+                <MediaInlineCard
+                  identifier={{
+                    mediaItemType: 'file',
+                    id: mockVideoFile.id!,
                     collectionName: defaultCollectionName,
                   }}
                   mediaClientConfig={mediaClientConfig}

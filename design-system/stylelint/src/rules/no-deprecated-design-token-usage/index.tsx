@@ -1,14 +1,20 @@
 import valueParser from 'postcss-value-parser';
 import stylelint from 'stylelint';
+// eslint-disable-next-line no-duplicate-imports
+import type { RuleMessageFunc } from 'stylelint';
 
 import renameMapper from '@atlaskit/tokens/rename-mapping';
 import tokenNames from '@atlaskit/tokens/token-names';
+
+type RuleMessage = {
+  invalidToken: RuleMessageFunc;
+};
 
 export const ruleName = 'design-system/no-deprecated-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
   invalidToken: (name: string, replacement: string) =>
     `The token '${name}' has been deprecated. Please use ${replacement} instead.`,
-});
+} as RuleMessage);
 
 const isFunction = (node: valueParser.Node): node is valueParser.FunctionNode =>
   node.type === 'function';

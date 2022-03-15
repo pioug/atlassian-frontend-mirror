@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 export const Actions = styled.div`
   justify-content: flex-end;
-  margin-top: -${gridSize() * 0.5}px; /* Negative margin is used to middle align x button with title*/
+  margin-top: -${gridSize() * 0.5}px; /* Negative margin is used to middle align x button with title */
   margin-right: ${gridSize() * 0.5}px;
 `;
 
@@ -30,7 +30,7 @@ export const Card = styled.div`
   padding-bottom: ${gridSize() * 2}px;
   padding-left: ${gridSize() * 2}px;
   padding-right: 0px;
-  margin-top: -${gridSize() * 0.5}px; /* Negative margin is used to fill the entire top of the mention dropdown with background colour of highlight*/
+  margin-top: -${gridSize() * 0.5}px; /* Negative margin is used to fill the entire top of the mention dropdown with background colour of highlight */
 `;
 
 export const Content = styled.div`

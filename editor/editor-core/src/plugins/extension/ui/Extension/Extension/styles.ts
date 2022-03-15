@@ -18,7 +18,7 @@ export const Wrapper = styled(WrapperDefault)<{ extensionWidth: String }>`
     overflow-x: auto;
   }
 
-  /* extension container breakout, only works on top level*/
+  /* extension container breakout, only works on top level */
   .ProseMirror
     > ${dataConsumerSelector}
     > [extensiontype]

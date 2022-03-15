@@ -41,7 +41,6 @@ export type Props = {
 };
 
 const ValidationWrapper = styled.section`
-  display: flex;
   line-height: 0;
   padding: 12px 24px 12px 0;
   margin: 0 4px 0 32px;

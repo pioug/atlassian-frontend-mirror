@@ -188,8 +188,6 @@ export interface ContentProps {
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
 export const Content = styled.div`
-  position: relative;
-
   ${borderRadius}
   ${cardShadow}
   background-color: white;

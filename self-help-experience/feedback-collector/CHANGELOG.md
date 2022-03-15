@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.0.0
+
+### Major Changes
+
+- [`2f210d2f476`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f210d2f476) - [ux] Add feedback button and place it above proforma form builder
+
 ## 9.0.2
 
 ### Patch Changes

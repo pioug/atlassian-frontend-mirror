@@ -91,16 +91,16 @@ export const Separator = styled.div`
 `;
 
 export const SidebarHeaderWrapper = styled.span`
-  display: flex
-  align-items: center
-  flex-shrink: 0,
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 `;
 
 export const SidebarHeaderIcon = styled.div`
-  display: flex
-  align-items: center
+  display: flex;
+  align-items: center;
   margin-right: 10px;
-  flex-shrink: 0
+  flex-shrink: 0;
 `;
 
 export const SidebarHeaderEntry = styled.div`

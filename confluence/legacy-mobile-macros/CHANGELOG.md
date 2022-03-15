@@ -1,5 +1,11 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.0.1
+
+### Patch Changes
+
+- [`541edde8e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541edde8e78) - [ux] Fixed a broken `text-color` CSS property inside `packages/confluence/legacy-mobile-macros/src/ui/ChartPlaceholder/index.tsx`
+
 ## 2.0.0
 
 ### Major Changes

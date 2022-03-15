@@ -13,10 +13,10 @@ const EventViewerWrapper = styled.li`
   padding: 3px;
 
   & span:first-child {
-    marginleft: 0;
+    margin-left: 0;
   }
   & span:last-child {
-    marginleft: 5;
+    margin-left: 5px;
   }
 `;
 

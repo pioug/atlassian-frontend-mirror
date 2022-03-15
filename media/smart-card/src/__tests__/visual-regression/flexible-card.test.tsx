@@ -11,6 +11,15 @@ describe('Flexible Card', () => {
   });
 
   describe('blocks', () => {
+    it('renders block feature', async () => {
+      const url = getURL('vr-flexible-ui-block');
+      const page = await setup(url);
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+      const image = await takeSnapshot(page, 400);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
+
     it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
       const page = await setup(url);

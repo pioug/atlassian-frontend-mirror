@@ -124,11 +124,13 @@ export const expandStyles = css`
     width: 100%;
   }
 
+  /* stylelint-disable property-no-unknown, value-keyword-case */
   .${expandClassNames.prefix}:(.${expandClassNames.expanded}) {
     .expand-content-wrapper {
       height: auto;
     }
   }
+  /* stylelint-enable property-no-unknown, value-keyword-case */
 
   .${expandClassNames.prefix}:not(.${expandClassNames.expanded}) {
     .ak-editor-expand__content {

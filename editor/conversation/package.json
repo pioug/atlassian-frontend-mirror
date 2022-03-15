@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "16.0.48",
+  "version": "16.0.49",
   "description": "Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

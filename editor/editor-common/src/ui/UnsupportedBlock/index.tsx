@@ -18,7 +18,6 @@ import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-un
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
 const blockNodeStyle = css`
-  align-items: center;
   background: ${N30};
   border: 1px dashed ${N50};
   border-radius: ${borderRadius()}px;

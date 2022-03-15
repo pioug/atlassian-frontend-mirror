@@ -7,11 +7,12 @@ export const overflowShadow = ({
   background: string;
   width: string;
 }) => css`
-/* shadow cover right */ linear-gradient(
-  to left,
-  ${background} ${width},
-  transparent ${width}
-),
+/* shadow cover right */
+  linear-gradient(
+    to left,
+    ${background} ${width},
+    transparent ${width}
+  ),
 /* overflow shadow right */
   linear-gradient(
     to left,

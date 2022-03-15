@@ -11,7 +11,7 @@ export const IconStyledButton = styled.span`
   display: inline !important;
 
   &:hover {
-    /* Remove the text-decoration to match other inline card hover states*/
+    /* Remove the text-decoration to match other inline card hover states */
     text-decoration: none !important;
   }
 

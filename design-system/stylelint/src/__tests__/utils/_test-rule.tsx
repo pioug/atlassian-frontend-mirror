@@ -1,8 +1,5 @@
-/// <reference types="jest-preset-stylelint" />
+import { getTestRule } from 'jest-preset-stylelint';
 
-// @ts-ignore
-import getTestRule from 'jest-preset-stylelint/getTestRule';
-
-const testRule: JestPresetStylelint.TestRule = getTestRule();
+const testRule = getTestRule();
 
 export default testRule;

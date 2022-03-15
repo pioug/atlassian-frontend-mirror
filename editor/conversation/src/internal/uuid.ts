@@ -14,6 +14,6 @@ export const uuid = {
   },
 
   generate() {
-    return staticValue || generateUuid();
+    return String(staticValue) || generateUuid();
   },
 };

@@ -47,7 +47,7 @@ const headerStyles = css`
 const lozengeWrapperStyles = css`
   margin: 0;
   margin-left: 8px;
-  display: flex,
+  display: flex;
   align-items: center;
 `;
 

@@ -27,6 +27,7 @@ const Text: React.FC<TextProps> = ({
   return (
     <span
       css={getStyles(maxLines, color)}
+      data-separator
       data-smart-element-text
       data-testid={testId}
     >

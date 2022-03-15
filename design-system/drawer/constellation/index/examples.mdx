@@ -1,0 +1,39 @@
+---
+order: 0
+---
+
+import DrawerDefaultExample from '../../examples/constellation/drawer-default';
+import DrawerWidths from '../../examples/constellation/drawer-widths/index';
+import DrawerWidthsDescription from '../../examples/constellation/drawer-widths/description';
+import DrawerOverridesExample from '../../examples/constellation/drawer-overrides';
+
+import { widths } from '../../src/constants';
+
+
+## Default
+
+The default form of a drawer.
+
+<Example Component={DrawerDefaultExample} packageName="@atlaskit/drawer" />
+
+## Width
+
+<DrawerWidthsDescription />
+
+<Example Component={DrawerWidths} packageName="@atlaskit/drawer" />
+
+<!-- This feature does not work due to a bug DSP-3912. A note has been added to
+this ticket to re-enable this example once fixed.
+
+## Unmounting
+
+The state of the drawer will be preserved by default. If you'd like to
+clear the state when the drawer is closed use `shouldUnmountOnExit`.
+
+<Example Component={DrawerUnmountExample} packageName="@atlaskit/drawer" /> -->
+
+## Overrides
+
+The `overrides` prop allows granular customisation of the drawer. Both the sidebar and content components can be overridden.
+
+<Example Component={DrawerOverridesExample} packageName="@atlaskit/drawer" />

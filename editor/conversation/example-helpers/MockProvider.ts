@@ -105,7 +105,7 @@ export class MockProvider extends AbstractConversationResource {
     objectId: string,
     containerId?: string,
   ): Promise<Conversation> {
-    const conversationId = <string>uuid.generate();
+    const conversationId = uuid.generate();
 
     const result = {
       conversationId,
@@ -173,13 +173,13 @@ export class MockProvider extends AbstractConversationResource {
     conversationId: string,
     parentId: string,
     doc: any,
-    localId: string = <string>uuid.generate(),
+    localId: string = uuid.generate(),
   ): Comment {
     return {
       commentAri: `abc:cloud:platform::comment/${localId}`,
       createdBy: this.config.user!,
       createdAt: Date.now(),
-      commentId: <string>uuid.generate(),
+      commentId: uuid.generate(),
       document: {
         adf: doc,
       },

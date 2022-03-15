@@ -17,7 +17,7 @@ const ChartPlaceholderCard = styled.div`
   line-height: 24px;
   overflow-wrap: break-word;
   padding: 8px 23px 8px 8px;
-  text-color: ${themed({ light: N800, dark: DN800 })};
+  color: ${themed({ light: N800, dark: DN800 })};
   word-break: break-word;
 `;
 

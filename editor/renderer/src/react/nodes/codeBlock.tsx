@@ -38,7 +38,7 @@ const codeBlockStyle = (props?: ThemeProps) =>
       })};
       background-attachment: local, scroll, scroll;
       background-position: 100% 0, 100% 0, 0 0;
-
+    }
   `;
 
 function CodeBlock(props: Props & WrappedComponentProps) {

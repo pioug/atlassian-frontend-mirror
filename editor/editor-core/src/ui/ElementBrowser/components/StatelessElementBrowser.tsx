@@ -315,7 +315,7 @@ const baseBrowserContainerStyles = css`
   * will default to auto if one of the containers doesn't have a specified height in pixels.
   * Setting the min-height to fill available fits safari's needs and the above 100% height works on the rest of the browsers.
   */
-  min-height: -webkit-fill-available;
+  min-height: -webkit-fill-available; /* stylelint-disable-line value-no-vendor-prefix */
 `;
 
 const MobileElementBrowserContainer = styled.div`

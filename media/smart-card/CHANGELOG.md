@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.7.11
+
+### Patch Changes
+
+- [`ca8c8db1440`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca8c8db1440) - Flexible UI: Add separator between text/date-time elements
+
 ## 17.7.10
 
 ### Patch Changes

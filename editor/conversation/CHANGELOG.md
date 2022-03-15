@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 16.0.49
+
+### Patch Changes
+
+- [`541edde8e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541edde8e78) - Convert `uuid.generate` to return type `string` instead of `string | boolean`
+
 ## 16.0.48
 
 ### Patch Changes

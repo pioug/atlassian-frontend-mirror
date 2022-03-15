@@ -1,5 +1,11 @@
 # @atlaskit/analytics-viewer
 
+## 0.4.6
+
+### Patch Changes
+
+- [`541edde8e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541edde8e78) - [ux] Fixed broken CSS property for `margin-left` in `packages/analytics/analytics-viewer/src/components/EventViewer.tsx`
+
 ## 0.4.5
 
 ### Patch Changes

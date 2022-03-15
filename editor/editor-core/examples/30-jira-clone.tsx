@@ -37,7 +37,7 @@ const ContentSection = styled.section`
 `;
 
 const Main = styled.main`
-  outline: currentcolor none medium;
+  outline: currentColor none medium;
   display: grid;
   height: 100%;
   grid-template-columns: var(--leftPanelWidth, 0px) minmax(0, 1fr) var(

@@ -31,8 +31,10 @@ export const MainToolbarWrapper = styled.div`
 MainToolbarWrapper.displayName = 'MainToolbar';
 
 const StickyToolbarWrapper = styled(MainToolbarWrapper)<{ top: number }>`
+  /* stylelint-disable declaration-block-no-duplicate-properties */
   position: relative;
   position: sticky;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
   top: ${(props) => `${props.top}px`};
   padding-bottom: ${gridSize()}px;
   z-index: ${akEditorGridLineZIndex + akEditorMenuZIndex};

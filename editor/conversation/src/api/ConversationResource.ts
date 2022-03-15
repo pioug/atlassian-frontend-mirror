@@ -521,7 +521,7 @@ export class ConversationResource extends AbstractConversationResource {
     conversationId: string,
     parentId: string,
     doc: any,
-    localId: string = <string>uuid.generate(),
+    localId: string = uuid.generate(),
   ): Comment {
     const { store } = this;
     const state = store.getState();
@@ -529,7 +529,7 @@ export class ConversationResource extends AbstractConversationResource {
     return {
       createdBy: state!.user || { id: 'unknown' },
       createdAt: Date.now(),
-      commentId: <string>uuid.generate(),
+      commentId: uuid.generate(),
       document: {
         adf: doc,
       },

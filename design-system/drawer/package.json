@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/drawer",
   "version": "7.1.5",
-  "description": "React component the renders a Drawer from the left of the screen",
+  "description": "A drawer is a panel that slides in from the left side of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,6 +14,7 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
+  "homepage": "https://atlassian.design/components/drawer",
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
@@ -41,11 +42,14 @@
   },
   "devDependencies": {
     "@atlaskit/button": "^16.2.0",
+    "@atlaskit/checkbox": "^12.3.9",
+    "@atlaskit/code": "^14.3.3",
     "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^11.1.0",
     "@atlaskit/menu": "^1.3.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",
+    "@atlaskit/textarea": "^4.3.1",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

@@ -1,5 +1,7 @@
 import valueParser from 'postcss-value-parser';
 import stylelint from 'stylelint';
+// eslint-disable-next-line no-duplicate-imports
+import type { RuleMessageFunc } from 'stylelint';
 
 import renameMapper from '@atlaskit/tokens/rename-mapping';
 import tokenNames from '@atlaskit/tokens/token-names';
@@ -8,13 +10,19 @@ type PluginFlags = {
   shouldEnsureFallbackUsage: boolean;
 };
 
+type RuleMessage = {
+  invalidToken: RuleMessageFunc;
+  missingFallback: string;
+  hasFallback: string;
+};
+
 export const ruleName = 'design-system/no-unsafe-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
   invalidToken: (name: string) =>
     `The token '${name}' does not exist. You can find the design tokens reference at <https://atlaskit.atlassian.com/packages/design-system/tokens/docs/tokens-reference>.`,
   missingFallback: 'Token usage is missing a fallback.',
   hasFallback: 'Token usage has a fallback.',
-});
+} as RuleMessage);
 
 const isFunction = (node: valueParser.Node): node is valueParser.FunctionNode =>
   node.type === 'function';

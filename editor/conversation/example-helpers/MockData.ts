@@ -212,7 +212,7 @@ function generateComment(
   parentId?: string,
   extraText: string = '',
 ): Comment {
-  const commentId = <string>uuid.generate();
+  const commentId = uuid.generate();
   return {
     commentAri: `abc:cloud:platform::comment/${commentId}`,
     localId: `${commentId}-local`,
@@ -248,7 +248,7 @@ function generateComment(
 }
 
 export const generateMockConversation = (): Conversation => {
-  const conversationId = <string>uuid.generate();
+  const conversationId = uuid.generate();
   const comments = [
     generateComment(conversationId),
     generateComment(conversationId),

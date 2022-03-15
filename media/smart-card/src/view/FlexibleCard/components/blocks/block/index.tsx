@@ -5,7 +5,7 @@ import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import { BlockProps } from '../types';
 import { SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
-import { getBaseStyles, renderChildren } from '../utils';
+import { getBaseStyles, getGapSize, renderChildren } from '../utils';
 
 const getBlockStyles = (
   direction: SmartLinkDirection,
@@ -13,6 +13,10 @@ const getBlockStyles = (
 ): SerializedStyles => css`
   ${getBaseStyles(direction, size)}
   justify-content: flex-start;
+  [data-separator] + [data-separator]:before {
+    content: '•';
+    margin-right: ${getGapSize(size)}rem;
+  }
 `;
 
 const Block: React.FC<BlockProps> = ({

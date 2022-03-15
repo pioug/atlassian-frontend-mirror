@@ -15,31 +15,24 @@ export type Widths = {
 export type DrawerWidth = 'extended' | 'full' | 'medium' | 'narrow' | 'wide';
 
 export interface BaseProps {
-  /** A unique hook to be used for testing */
+  /** A unique hook to be used for testing. */
   testId?: string;
-  /** The content of the drawer */
+  /** The content of the drawer. */
   children?: ReactNode;
-  /** Icon to be rendered in your drawer as a component, if available */
+  /** Icon to be rendered in your drawer as a component, if available. */
   icon?: ComponentType<any>;
-  /** Available drawer sizes */
+  /** Available drawer sizes. */
   width?: DrawerWidth;
-  /** A callback function that will be called when the drawer has finished its opening transition. */
+  /** Callback function called when the drawer has finished its opening transition. */
   onOpenComplete?: (node: HTMLElement) => void;
-  /** A callback function that will be called when the drawer has finished its close transition. */
+  /** Callback function called when the drawer has finished its close transition. */
   onCloseComplete?: (node: HTMLElement) => void;
-  /** Boolean that controls if drawer should be retained/discarded */
+  /** Controls if drawer state should be retained/discarded on close. */
   shouldUnmountOnExit?: boolean;
-  /**
-   * A prop for adding targeted customisations to the Drawer component
-   * For a detailed explanation of how to use this prop,
-   * please see the overrides section of the @atlaskit/drawer documentation.
-   */
+  /** Override drawer components. */
   overrides?: OverridesType;
 }
 
-/**
- * @deprecated Please avoid using this type as we intend to remote it in a future release. See DSP-2673 for more information.
- */
 export type DefaultsType = {
   Sidebar: {
     component: React.ComponentType<SidebarProps>;
@@ -51,27 +44,24 @@ export type DefaultsType = {
   };
 };
 
-/**
- * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
- */
 export type OverridesType = {
   Sidebar?: {
     component?: React.ComponentType<SidebarProps>;
+    /**
+     * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+     */
     cssFn?: (defaultStyles: CSSObject) => CSSObject;
   };
   Content?: {
     component?: React.ComponentType<ContentProps>;
+    /**
+     * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+     */
     cssFn?: (defaultStyles: CSSObject) => CSSObject;
   };
 };
 
-/**
- * @deprecated Please avoid using this type as we intend to remote it in a future release. See DSP-2673 for more information.
- */
 export type DrawerPrimitiveDefaults = Pick<DefaultsType, 'Sidebar' | 'Content'>;
-/**
- * @deprecated Please avoid using this type as we intend to remote it in a future release. See DSP-2673 for more information.
- */
 export type DrawerPrimitiveOverrides = Pick<
   OverridesType,
   'Sidebar' | 'Content'
@@ -103,38 +93,24 @@ export interface DrawerPrimitiveProps extends BaseProps {
 export type DrawerProps = BaseProps &
   FocusLockProps &
   WithAnalyticsEventsProps & {
-    /**
-      Callback function that will be called when the drawer is displayed and `keydown` event is triggered.
-    */
+    /** Callback function called while the drawer is displayed and `keydown` event is triggered. */
     onKeyDown?: (event: SyntheticEvent) => void;
-    /**
-    Callback function to be called when the drawer will be closed.
-  */
+    /** Callback function called when the drawer is closed. */
     onClose?: (event: SyntheticEvent<HTMLElement>, analyticsEvent: any) => void;
-    /** Controls if the drawer is open or close */
+    /** Controls if the drawer is open or closed. */
     isOpen: boolean;
   };
 
 export interface FocusLockProps {
-  /**
-    Boolean indicating whether to focus on the first tabbable element inside the focus lock.
-  */
+  /** Controls whether to focus the first tabbable element inside the focus lock. */
   autoFocusFirstElem?: boolean | (() => HTMLElement | null);
-  /**
-    Content inside the focus lock.
-  */
+  /** Content inside the focus lock. */
   children?: ReactNode;
-  /**
-    Whether the focus lock is active or not.
-  */
+  /**  Whether the focus lock is active or not. */
   isFocusLockEnabled?: boolean;
-  /**
-    Whether to return the focus to the previous active element on closing the drawer
-  */
+  /** Whether to return the focus to the previous active element on closing the drawer. */
   shouldReturnFocus?: boolean;
 }
 
-/**
-  Type of keyboard event that triggers which key will should close the drawer.
-*/
+/** Type of keyboard event that triggers which key will should close the drawer. */
 export type CloseTrigger = 'backButton' | 'blanket' | 'escKey';

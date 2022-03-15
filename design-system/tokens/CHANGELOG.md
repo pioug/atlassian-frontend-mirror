@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.7.2
+
+### Patch Changes
+
+- [`2229ec7c745`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2229ec7c745) - elevation.sunken no longer uses a transparent color
+
 ## 0.7.1
 
 ### Patch Changes

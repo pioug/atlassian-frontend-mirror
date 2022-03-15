@@ -7,12 +7,11 @@ const inputRightPadding = gridSize() * 2;
 export const SearchBox = styled.div`
   position: sticky;
   top: 0;
-  z-index: 1; /* required to keep the search box on top of icons in results when sticky */
   background-color: ${N0};
   color: ${N500};
   display: flex;
   height: 36px;
-  z-index: 10;
+  z-index: 10; /* required to keep the search box on top of icons in results when sticky */
 `;
 
 export const SearchFieldBaseOuter = styled.div`

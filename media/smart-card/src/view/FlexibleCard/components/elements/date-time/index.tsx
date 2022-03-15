@@ -37,7 +37,12 @@ const DateTime: React.FC<DateTimeProps> = ({
   });
 
   return (
-    <span css={styles} data-smart-element-date-time data-testid={testId}>
+    <span
+      css={styles}
+      data-separator
+      data-smart-element-date-time
+      data-testid={testId}
+    >
       <FormattedMessage {...typeToDescriptorMap[type]} values={{ context }} />
     </span>
   );

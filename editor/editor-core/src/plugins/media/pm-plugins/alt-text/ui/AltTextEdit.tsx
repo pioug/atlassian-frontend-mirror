@@ -64,7 +64,6 @@ const ValidationWrapper = styled.section`
   margin: 0 12px 0 40px;
   border-top: 1px solid ${R400};
   align-items: start;
-  display: flex;
   flex-direction: column;
 `;
 

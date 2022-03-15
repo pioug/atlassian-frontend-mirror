@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.2.2
+
+### Patch Changes
+
+- [`541edde8e78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/541edde8e78) - Upgrade `stylelint` from `8.x` to `14.x`
+
 ## 0.2.1
 
 ### Patch Changes

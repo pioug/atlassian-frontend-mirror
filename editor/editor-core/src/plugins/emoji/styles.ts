@@ -97,7 +97,6 @@ export const emojiStylesNext = css`
       overflow: hidden;
       padding: ${topAndBottomPadding}px ${leftAndRightTextPadding}px;
       pointer-events: none;
-      position: absolute;
       text-decoration: none;
       text-overflow: ellipsis;
       white-space: nowrap;

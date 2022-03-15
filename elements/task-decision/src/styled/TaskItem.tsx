@@ -37,12 +37,12 @@ export const CheckBoxWrapper = styled.span<{
       cursor: pointer;
 
       &::after {
-        background: ${themed({ light: N0, dark: DN100 })}
+        background: ${themed({ light: N0, dark: DN100 })};
         background-size: 16px;
         border-radius: 3px;
         border-style: solid;
         border-width: 1px;
-        border-color: ${themed({ light: N90, dark: DN200 })}
+        border-color: ${themed({ light: N90, dark: DN200 })};
         box-sizing: border-box;
         content: '';
         height: 16px;
@@ -63,7 +63,7 @@ export const CheckBoxWrapper = styled.span<{
           : ''}
     }
     &:not([disabled]):hover + div::after {
-      background: ${themed({ light: N30, dark: B75 })}
+      background: ${themed({ light: N30, dark: B75 })};
       transition: border 0.2s ease-in-out;
     }
     &[disabled] + div {

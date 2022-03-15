@@ -29,7 +29,7 @@ const CopyButtonWrapper = styled.span`
     padding: 2px;
     opacity: 0;
     transition: opacity 0.2s ease 0s;
-    border: 2px solid #ffffff;
+    border: 2px solid #fff;
     border-radius: 4px;
     background-color: ${N20};
     color: rgb(66, 82, 110);
@@ -41,7 +41,7 @@ const CopyButtonWrapper = styled.span`
 
   button.clicked {
     background-color: ${N700};
-    color: #ffffff !important;
+    color: #fff !important;
   }
 `;
 

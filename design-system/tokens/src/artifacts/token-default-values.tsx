@@ -267,7 +267,7 @@ const defaultTokenValues = {
   'elevation.shadow.raised': '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
   'elevation.shadow.overlay': '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
   'elevation.surface': '#FFFFFF',
-  'elevation.surface.sunken': '#091E4208',
+  'elevation.surface.sunken': '#F7F8F9',
   'elevation.surface.raised': '#FFFFFF',
   'elevation.surface.overlay': '#FFFFFF',
   'utility.UNSAFE_util.transparent': 'transparent',

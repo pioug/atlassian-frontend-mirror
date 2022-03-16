@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/comment",
   "version": "10.4.1",
-  "description": "Comments enable discussions on an entity such as a page, blog post, issue or pull request",
+  "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -14,6 +14,7 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
+  "homepage": "https://atlassian.design/components/comment",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/avatar": "^20.5.0",
+    "@atlaskit/checkbox": "^12.3.9",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^162.0.0",
     "@atlaskit/ssr": "*",

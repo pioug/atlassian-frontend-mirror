@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.7.3
+
+### Patch Changes
+
+- [`ba0ddcf976e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba0ddcf976e) - Adding new token for `elevation.shadow.overflow`
+
 ## 0.7.2
 
 ### Patch Changes

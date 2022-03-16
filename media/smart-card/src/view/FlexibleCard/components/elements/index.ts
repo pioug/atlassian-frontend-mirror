@@ -19,6 +19,9 @@ export const CollaboratorGroup = createElement<AvatarGroupProps>(
   ElementName.CollaboratorGroup,
 );
 export const CommentCount = createElement<BadgeProps>(ElementName.CommentCount);
+export const ViewCount = createElement<BadgeProps>(ElementName.ViewCount);
+export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
+export const VoteCount = createElement<BadgeProps>(ElementName.VoteCount);
 export const CreatedBy = createElement<TextProps>(ElementName.CreatedBy);
 export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
 export const LinkIcon = createElement<IconProps>(ElementName.LinkIcon);

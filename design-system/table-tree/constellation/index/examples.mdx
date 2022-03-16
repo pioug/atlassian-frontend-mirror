@@ -2,15 +2,15 @@
 order: 0
 ---
 
-import BasicExample from '../../examples/constellation/basic';
-import AdvancedExample from '../../examples/constellation/advanced';
-import UncontrolledExample from '../../examples/constellation/uncontrolled';
-import ControlledExample from '../../examples/constellation/controlled';
-import CustomChildExample from '../../examples/constellation/custom-child-component';
-import LoadingStateRootExample from '../../examples/constellation/loading-state-root';
-import LoadingStateNestedExample from '../../examples/constellation/loading-state-nested';
-import AsyncAppendExample from '../../examples/constellation/async-append';
-import AsyncUpdateExample from '../../examples/constellation/async-update';
+import BasicTableTreeExample from '../../examples/constellation/basic';
+import AdvancedTableTreeExample from '../../examples/constellation/advanced';
+import UncontrolledTableTreeExample from '../../examples/constellation/uncontrolled';
+import ControlledTableTreeExample from '../../examples/constellation/controlled';
+import CustomChildTableTreeExample from '../../examples/constellation/custom-child-component';
+import LoadingStateRootTableTreeExample from '../../examples/constellation/loading-state-root';
+import LoadingStateNestedTableTreeExample from '../../examples/constellation/loading-state-nested';
+import AsyncAppendTableTreeExample from '../../examples/constellation/async-append';
+import AsyncUpdateTableTreeExample from '../../examples/constellation/async-update';
 
 ## Basic
 
@@ -19,7 +19,7 @@ columns, column widths, and an array of table items (with child items).
 
 The `content` of each item is customizable, but your data must otherwise conform to the expected schema.
 
-<Example Component={BasicExample} packageName="@atlaskit/table-tree" />
+<Example Component={BasicTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ## Advanced
 
@@ -28,7 +28,7 @@ and `Rows` components.
 
 This approach allows you to structure your data however you wish.
 
-<Example Component={AdvancedExample} packageName="@atlaskit/table-tree" />
+<Example Component={AdvancedTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ## Uncontrolled
 
@@ -36,7 +36,7 @@ The expansion and collapsion of each row is handled automatically.
 
 Use the `isDefaultExpanded` prop to change whether a row is expanded by default.
 
-<Example Component={UncontrolledExample} packageName="@atlaskit/table-tree" />
+<Example Component={UncontrolledTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ## Controlled
 
@@ -45,13 +45,13 @@ Use the `isExpanded` prop to manually control whether a row is expanded or not.
 Respond to user interaction by providing callbacks to the `onExpand` and
 `onCollapse` props.
 
-<Example Component={ControlledExample} packageName="@atlaskit/table-tree" />
+<Example Component={ControlledTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ## Custom children
 
 You can use other components as children instead of additional rows and items.
 
-<Example Component={CustomChildExample} packageName="@atlaskit/table-tree" />
+<Example Component={CustomChildTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ## Loading states
 
@@ -63,14 +63,14 @@ loading data asynchronously.
 To display the root level in a loading state, ensure that the `items` value
 provided to `Rows` is `undefined`.
 
-<Example Component={LoadingStateRootExample} packageName="@atlaskit/table-tree" />
+<Example Component={LoadingStateRootTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ### Nested
 
 To display a nested level in a loading state, ensure that the `items` value
 provided to the corresponding `Row` is `undefined`.
 
-<Example Component={LoadingStateNestedExample} packageName="@atlaskit/table-tree" />
+<Example Component={LoadingStateNestedTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ## Managing data
 
@@ -81,10 +81,10 @@ such as when loading data asynchronously.
 
 The `appendItems` method will add to the existing items.
 
-<Example Component={AsyncAppendExample} packageName="@atlaskit/table-tree" />
+<Example Component={AsyncAppendTableTreeExample} packageName="@atlaskit/table-tree" />
 
 ### Update items
 
 The `updateItems` method will replace the existing items.
 
-<Example Component={AsyncUpdateExample} packageName="@atlaskit/table-tree" />
+<Example Component={AsyncUpdateTableTreeExample} packageName="@atlaskit/table-tree" />

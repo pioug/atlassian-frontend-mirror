@@ -1,4 +1,6 @@
 import '@babel/polyfill';
+import { tempPolyfills } from './polyfills';
+tempPolyfills();
 import React, { useCallback, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './mobile-editor-element';

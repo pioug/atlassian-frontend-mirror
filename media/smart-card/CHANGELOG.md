@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 17.7.12
+
+### Patch Changes
+
+- [`f9bbe6d0a56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9bbe6d0a56) - Add View, Vote and React badge elements
+
 ## 17.7.11
 
 ### Patch Changes

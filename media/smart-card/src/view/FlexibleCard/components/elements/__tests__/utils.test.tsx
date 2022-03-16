@@ -70,6 +70,18 @@ describe('createElement', () => {
         'commentCount' as EnumKeysAsString<FlexibleUiDataContext>,
       ],
       [
+        ElementName.ViewCount,
+        'viewCount' as EnumKeysAsString<FlexibleUiDataContext>,
+      ],
+      [
+        ElementName.ReactCount,
+        'reactCount' as EnumKeysAsString<FlexibleUiDataContext>,
+      ],
+      [
+        ElementName.VoteCount,
+        'voteCount' as EnumKeysAsString<FlexibleUiDataContext>,
+      ],
+      [
         ElementName.ProgrammingLanguage,
         'programmingLanguage' as EnumKeysAsString<FlexibleUiDataContext>,
       ],
@@ -175,6 +187,9 @@ describe('createElement', () => {
       [ElementName.AuthorGroup, 'authorGroup'],
       [ElementName.CollaboratorGroup, 'collaboratorGroup'],
       [ElementName.CommentCount, 'commentCount'],
+      [ElementName.ViewCount, 'viewCount'],
+      [ElementName.ReactCount, 'reactCount'],
+      [ElementName.VoteCount, 'voteCount'],
       [ElementName.CreatedBy, 'createdBy'],
       [ElementName.CreatedOn, 'createdOn'],
       [ElementName.LinkIcon, 'linkIcon'],

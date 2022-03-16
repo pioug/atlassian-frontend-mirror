@@ -48,7 +48,7 @@
     "exenv": "^1.2.2",
     "filesize": "^3.2.1",
     "flat-files": "^1.0.6",
-    "json-ld-types": "2.4.0",
+    "json-ld-types": "2.4.1",
     "jwt-decode": "^2.2.0",
     "perf-marks": "^1.5.0",
     "postis": "^2.2.0",

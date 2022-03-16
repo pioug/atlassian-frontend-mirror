@@ -6852,6 +6852,68 @@ const tokens = [
     "attributes": {
       "group": "shadow",
       "state": "active",
+      "description": "Use to create a shadow when content scolls under other content."
+    },
+    "value": [
+      {
+        "radius": 8,
+        "offset": {
+          "x": 0,
+          "y": 8
+        },
+        "color": "#091E42",
+        "opacity": 0.08
+      },
+      {
+        "radius": 1,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#091E42",
+        "opacity": 0.12
+      }
+    ],
+    "filePath": "src/tokens/atlassian-light/elevation/shadow.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shadow",
+        "state": "active",
+        "description": "Use to create a shadow when content scolls under other content."
+      },
+      "value": [
+        {
+          "radius": 8,
+          "offset": {
+            "x": 0,
+            "y": 8
+          },
+          "color": "N1100",
+          "opacity": 0.08
+        },
+        {
+          "radius": 1,
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "color": "N1100",
+          "opacity": 0.12
+        }
+      ]
+    },
+    "name": "elevation.shadow.overflow",
+    "path": [
+      "elevation",
+      "shadow",
+      "overflow"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "shadow",
+      "state": "active",
       "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
     },
     "value": [

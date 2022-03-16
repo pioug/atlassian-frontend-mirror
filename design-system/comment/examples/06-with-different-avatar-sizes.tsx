@@ -4,7 +4,7 @@ import Avatar, { SizeType } from '@atlaskit/avatar';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../src';
 
-import avatarImg from './utils/sample-avatar.png';
+import avatarImg from './utils/sample-avatar';
 
 const getSampleText = () =>
   `Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake fruitcake. Brownie oat cake sugar plum.`;

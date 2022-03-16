@@ -4,7 +4,7 @@ import Avatar from '@atlaskit/avatar';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited } from '../src';
 
-import avatarImg from './utils/sample-avatar.png';
+import avatarImg from './utils/sample-avatar';
 
 // hard coded for example to show how it looks with time
 const getCommentEditTime = () => 'just now';

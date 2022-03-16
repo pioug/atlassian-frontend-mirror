@@ -4,7 +4,7 @@ import Avatar from '@atlaskit/avatar';
 
 import Comment, { CommentAuthor } from '../src';
 
-import avatarImg from './utils/sample-avatar.png';
+import avatarImg from './utils/sample-avatar';
 
 interface ExampleCommentProps {
   children?: ReactNode;

@@ -168,6 +168,7 @@ export type ActiveTokens =
   | 'color.link'
   | 'color.link.pressed'
   | 'elevation.shadow.raised'
+  | 'elevation.shadow.overflow'
   | 'elevation.shadow.overlay'
   | 'elevation.surface'
   | 'elevation.surface.sunken'

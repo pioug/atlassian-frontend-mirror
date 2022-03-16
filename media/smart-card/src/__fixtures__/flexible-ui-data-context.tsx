@@ -3,6 +3,9 @@ import { IconType, MediaType } from '../constants';
 
 const context: FlexibleUiDataContext = {
   commentCount: 10,
+  viewCount: 21,
+  reactCount: 31,
+  voteCount: 41,
   linkIcon: {
     label: 'Link icon',
     icon: 'BitBucket:Project' as IconType,

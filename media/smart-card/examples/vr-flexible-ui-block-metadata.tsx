@@ -28,6 +28,9 @@ const elements = [
   { name: ElementName.ProgrammingLanguage },
   { name: ElementName.Priority },
   { name: ElementName.CommentCount },
+  { name: ElementName.ViewCount },
+  { name: ElementName.VoteCount },
+  { name: ElementName.ReactCount },
   { name: ElementName.State },
 ];
 

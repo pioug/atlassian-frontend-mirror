@@ -265,6 +265,7 @@ const defaultTokenValues = {
   'shadow.card': '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
   'shadow.overlay': '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
   'elevation.shadow.raised': '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
+  'elevation.shadow.overflow': '0px 8px 8px #091E4214, 0px 0px 1px #091E421F',
   'elevation.shadow.overlay': '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
   'elevation.surface': '#FFFFFF',
   'elevation.surface.sunken': '#F7F8F9',

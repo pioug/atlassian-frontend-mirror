@@ -168,6 +168,7 @@ export type InternalTokenIds =
   | 'color.link.[default]'
   | 'color.link.pressed'
   | 'elevation.shadow.raised'
+  | 'elevation.shadow.overflow'
   | 'elevation.shadow.overlay'
   | 'elevation.surface.[default]'
   | 'elevation.surface.sunken'

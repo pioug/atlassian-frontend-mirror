@@ -6,6 +6,9 @@ export type FlexibleUiDataContext = {
   authorGroup?: LinkPerson[];
   collaboratorGroup?: LinkPerson[];
   commentCount?: number;
+  viewCount?: number;
+  reactCount?: number;
+  voteCount?: number;
   createdBy?: string;
   createdOn?: string;
   linkIcon?: Icon;

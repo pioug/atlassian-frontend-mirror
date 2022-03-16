@@ -4,6 +4,10 @@ import type { Transform } from 'style-dictionary';
 import palette from '../../../src/tokens/palette';
 import type { ColorPalette, ShadowToken } from '../../../src/types';
 
+function isHex(hex: string) {
+  return /[0-9A-Fa-f]{6}/g.test(hex);
+}
+
 const percentToHex = (percent: number): string => {
   const normalizedPercent = percent * 100;
   const intValue = Math.round((normalizedPercent / 100) * 255); // map percent to nearest integer (0 - 255)
@@ -19,6 +23,11 @@ const shadowOpacity = (opacity: number): string => {
 };
 
 const paletteValue = (color: ColorPalette): string => {
+  // elevation.shadow.overflow doesn't use a palette colour at the moment
+  if (isHex(color)) {
+    return color;
+  }
+
   return palette.color.palette[
     color
     // Ensure we only pick the color not the alph (get the first 6 characters).

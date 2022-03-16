@@ -21,6 +21,26 @@ const shadow: ValueSchema<ShadowTokenSchema> = {
           },
         ],
       },
+      overflow: {
+        value: [
+          {
+            radius: 12,
+            offset: { x: 0, y: 0 },
+            // @ts-ignore no current palette colour for this yet
+            color: '#030404',
+            // This opacity overrides the color alpha.
+            opacity: 0.56,
+          },
+          {
+            radius: 1,
+            offset: { x: 0, y: 0 },
+            // @ts-ignore no current palette colour for this yet
+            color: '#030404',
+            // This opacity overrides the color alpha.
+            opacity: 0.5,
+          },
+        ],
+      },
       overlay: {
         value: [
           {

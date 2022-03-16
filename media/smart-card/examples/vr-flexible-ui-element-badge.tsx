@@ -10,11 +10,17 @@ import {
   Priority,
   ProgrammingLanguage,
   SubscriberCount,
+  ViewCount,
+  ReactCount,
+  VoteCount,
 } from '../src/view/FlexibleCard/components/elements';
 import { IconType, SmartLinkSize } from '../src/constants';
 
 const context = getContext({
   commentCount: 1,
+  viewCount: 2,
+  reactCount: 3,
+  voteCount: 4,
   priority: { icon: IconType.PriorityLow },
   programmingLanguage: 'JS',
   subscriberCount: 999,
@@ -28,6 +34,9 @@ export default () => (
           <h5>Size: {size}</h5>
           <HorizontalWrapper>
             <CommentCount size={size} testId="vr-test-badge-comment" />
+            <ViewCount size={size} testId="vr-test-badge-view" />
+            <ReactCount size={size} testId="vr-test-badge-react" />
+            <VoteCount size={size} testId="vr-test-badge-vote" />
             <SubscriberCount
               size={size}
               testId="vr-test-badge-subscriber-count"

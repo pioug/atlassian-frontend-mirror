@@ -20,6 +20,29 @@ const extractValue = <TData extends JsonLd.Data.BaseData, TResult>(
 export const extractCommentCount = (data: JsonLd.Data.BaseData) =>
   extractValue<LinkCommentType, number>(data, 'schema:commentCount');
 
+type LinkViewCountType =
+  | JsonLd.Data.Document
+  | JsonLd.Data.SourceCodeRepository
+  | JsonLd.Data.Task;
+export const extractViewCount = (data: JsonLd.Data.BaseData) =>
+  extractValue<LinkViewCountType, number>(data, 'atlassian:viewCount');
+
+type LinkReactCountType =
+  | JsonLd.Data.Document
+  | JsonLd.Data.Message
+  | JsonLd.Data.Project
+  | JsonLd.Data.Task;
+export const extractReactCount = (data: JsonLd.Data.BaseData) =>
+  extractValue<LinkReactCountType, number>(data, 'atlassian:reactCount');
+
+type LinkVoteCountType =
+  | JsonLd.Data.Document
+  | JsonLd.Data.SourceCodePullRequest
+  | JsonLd.Data.SourceCodeRepository
+  | JsonLd.Data.Task;
+export const extractVoteCount = (data: JsonLd.Data.BaseData) =>
+  extractValue<LinkVoteCountType, number>(data, 'atlassian:voteCount');
+
 export const extractCreatedBy = (
   data: JsonLd.Data.BaseData,
 ): string | undefined => {

@@ -542,6 +542,7 @@ export interface ShadowTokenSchema {
   elevation: {
     shadow: {
       raised: ShadowToken;
+      overflow: ShadowToken;
       overlay: ShadowToken;
     };
   };

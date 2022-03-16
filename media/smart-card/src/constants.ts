@@ -92,6 +92,9 @@ export enum ElementName {
   AuthorGroup = 'AuthorGroup',
   CollaboratorGroup = 'CollaboratorGroup',
   CommentCount = 'CommentCount',
+  ViewCount = 'ViewCount',
+  ReactCount = 'ReactCount',
+  VoteCount = 'VoteCount',
   CreatedBy = 'CreatedBy',
   CreatedOn = 'CreatedOn',
   LinkIcon = 'LinkIcon',
@@ -174,6 +177,9 @@ export enum IconType {
 
   // Badge
   Comment = 'Badge:Comment',
+  View = 'Badge:View',
+  React = 'Badge:React',
+  Vote = 'Badge:Vote',
   PriorityBlocker = 'Badge:PriorityBlocker',
   PriorityCritical = 'Badge:PriorityCritical',
   PriorityHigh = 'Badge:PriorityHigh',

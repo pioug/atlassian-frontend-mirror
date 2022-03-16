@@ -13,6 +13,9 @@ import {
   extractModifiedBy,
   extractProgrammingLanguage,
   extractSubscriberCount,
+  extractViewCount,
+  extractReactCount,
+  extractVoteCount,
 } from './utils';
 import { extractPersonCreatedBy } from '../common/person';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
@@ -39,6 +42,9 @@ const extractFlexibleUiContext = (
     authorGroup: extractPersonCreatedBy(data),
     collaboratorGroup: extractPersonsUpdatedBy(data as JsonLd.Data.Document),
     commentCount: extractCommentCount(data),
+    viewCount: extractViewCount(data),
+    reactCount: extractReactCount(data),
+    voteCount: extractVoteCount(data),
     createdBy: extractCreatedBy(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     linkIcon: extractLinkIcon(response, renderers),

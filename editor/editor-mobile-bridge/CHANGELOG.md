@@ -1,5 +1,17 @@
 # @atlaskit/editor-mobile-bridge
 
+## 32.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.16
+
+### Patch Changes
+
+- [`7e7fff3b56d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e7fff3b56d) - ED-14766: polyfill queueMicrotask in mobile-brdige
+
 ## 32.0.15
 
 ### Patch Changes

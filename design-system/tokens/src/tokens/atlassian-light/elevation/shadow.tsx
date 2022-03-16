@@ -19,6 +19,22 @@ const shadow: ValueSchema<ShadowTokenSchema> = {
           },
         ],
       },
+      overflow: {
+        value: [
+          {
+            radius: 8,
+            offset: { x: 0, y: 8 },
+            color: 'N1100',
+            opacity: 0.08,
+          },
+          {
+            radius: 1,
+            offset: { x: 0, y: 0 },
+            color: 'N1100',
+            opacity: 0.12,
+          },
+        ],
+      },
       overlay: {
         value: [
           {

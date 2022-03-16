@@ -70,6 +70,9 @@ const importIconMapper: {
 
   // Badge
   [IconType.Comment]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/comment'),
+  [IconType.View]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/watch'),
+  [IconType.React]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/like'),
+  [IconType.Vote]: () => import(/* webpackChunkName: "glyphComment" */ '@atlaskit/icon/glyph/arrow-up'),
   [IconType.PriorityBlocker]: () => import(/* webpackChunkName: "glyphBlocker" */ '@atlaskit/icon-priority/glyph/priority-blocker'),
   [IconType.PriorityCritical]: () => import(/* webpackChunkName: "glyphCritical" */ '@atlaskit/icon-priority/glyph/priority-critical'),
   [IconType.PriorityHigh]: () => import(/* webpackChunkName: "glyphHigh" */ '@atlaskit/icon-priority/glyph/priority-high'),

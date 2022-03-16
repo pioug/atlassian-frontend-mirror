@@ -1,0 +1,54 @@
+---
+order: 0
+---
+
+import CommentDefault from '../../examples/constellation/comment-default';
+import CommentFull from '../../examples/constellation/comment-full';
+import CommentNested from '../../examples/constellation/comment-nested';
+import CommentSaving from '../../examples/constellation/comment-saving';
+import CommentEdited from '../../examples/constellation/comment-edited';
+import CommentRestricted from '../../examples/constellation/comment-restricted';
+import CommentHighlighted from '../../examples/constellation/comment-highlighted';
+
+## Default
+
+The simplest form of a comment.
+
+<Example Component={CommentDefault} packageName="@atlaskit/comment" />
+
+## Full
+
+Many features are available to customize the display of the comment.
+The package exports a wrapper component, as well as several smaller components which are designed to be passed through to display a richer comment.
+
+<Example Component={CommentFull} packageName="@atlaskit/comment" />
+
+## Nested
+
+Comments can be nested inside of each other by passing comments as `children`.
+
+<Example Component={CommentNested} packageName="@atlaskit/comment" />
+
+## Saving
+
+An "optimistic saving" mode can be enabled using `isSaving`, which hides actions and shows text from the `savingText` prop.
+
+<Example Component={CommentSaving} packageName="@atlaskit/comment" />
+
+## Edited
+
+A comment can be marked as edited by passing a `CommentEdited` component to the the `edited` prop.
+
+<Example Component={CommentEdited} packageName="@atlaskit/comment" />
+
+## Restricted
+
+A message can be displayed in the comment header by using the `restrictedTo` prop.
+
+<Example Component={CommentRestricted} packageName="@atlaskit/comment" />
+
+## Highlighted
+
+A comment can be highlighted using the `highlighted` prop.
+
+<Example Component={CommentHighlighted} packageName="@atlaskit/comment" />

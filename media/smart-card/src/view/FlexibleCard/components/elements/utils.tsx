@@ -32,6 +32,18 @@ const elementMappings: Record<
     component: Badge,
     props: { icon: IconType.Comment },
   },
+  [ElementName.ViewCount]: {
+    component: Badge,
+    props: { icon: IconType.View },
+  },
+  [ElementName.ReactCount]: {
+    component: Badge,
+    props: { icon: IconType.React },
+  },
+  [ElementName.VoteCount]: {
+    component: Badge,
+    props: { icon: IconType.Vote },
+  },
   [ElementName.CreatedBy]: { component: Text },
   [ElementName.LinkIcon]: { component: Icon },
   [ElementName.ModifiedBy]: { component: Text },
@@ -79,6 +91,9 @@ const getData = (
     case ElementName.CollaboratorGroup:
       return toAvatarGroupProps(data as AvatarItemProps[]);
     case ElementName.CommentCount:
+    case ElementName.ViewCount:
+    case ElementName.ReactCount:
+    case ElementName.VoteCount:
     case ElementName.ProgrammingLanguage:
     case ElementName.SubscriberCount:
       return toBadgeProps(data as string);

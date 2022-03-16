@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { forwardRef, memo, MouseEvent, useCallback } from 'react';
+import { forwardRef, memo, MouseEvent, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
@@ -62,7 +62,7 @@ const backgroundStyle: { [index in ThemeModes]: ReturnType<typeof css> } = {
  * - [Examples](https://atlaskit.atlassian.com/examples/design-system/blanket/basic-usage)
  */
 const Blanket = memo(
-  forwardRef(function Blanket(
+  forwardRef<HTMLDivElement, BlanketProps>(function Blanket(
     {
       shouldAllowClickThrough = false,
       isTinted = false,
@@ -70,8 +70,8 @@ const Blanket = memo(
       testId,
       children,
       analyticsContext,
-    }: BlanketProps,
-    ref: React.Ref<HTMLDivElement>,
+    },
+    ref,
   ) {
     const { mode }: { mode: ThemeModes } = useGlobalTheme();
 

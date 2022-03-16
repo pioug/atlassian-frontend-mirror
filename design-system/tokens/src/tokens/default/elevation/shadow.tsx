@@ -10,6 +10,13 @@ const shadow: AttributeSchema<ShadowTokenSchema> = {
           description: `Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised`,
         },
       },
+      overflow: {
+        attributes: {
+          group: 'shadow',
+          state: 'active',
+          description: `Use to create a shadow when content scolls under other content.`,
+        },
+      },
       overlay: {
         attributes: {
           group: 'shadow',

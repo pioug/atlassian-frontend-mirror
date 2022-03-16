@@ -4,7 +4,7 @@ import Avatar from '@atlaskit/avatar';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../src';
 
-import avatarImg from './utils/sample-avatar.png';
+import avatarImg from './utils/sample-avatar';
 
 export default () => (
   <Comment

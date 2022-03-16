@@ -312,6 +312,7 @@ const tokens = {
   'shadow.card': '--ds-card',
   'shadow.overlay': '--ds-overlay',
   'elevation.shadow.raised': '--ds-shadow-raised',
+  'elevation.shadow.overflow': '--ds-shadow-overflow',
   'elevation.shadow.overlay': '--ds-shadow-overlay',
   'elevation.surface': '--ds-surface',
   'elevation.surface.sunken': '--ds-surface-sunken',
@@ -582,6 +583,7 @@ export type CSSTokenMap = {
   'shadow.card': 'var(--ds-card)';
   'shadow.overlay': 'var(--ds-overlay)';
   'elevation.shadow.raised': 'var(--ds-shadow-raised)';
+  'elevation.shadow.overflow': 'var(--ds-shadow-overflow)';
   'elevation.shadow.overlay': 'var(--ds-shadow-overlay)';
   'elevation.surface': 'var(--ds-surface)';
   'elevation.surface.sunken': 'var(--ds-surface-sunken)';

@@ -1329,6 +1329,33 @@ synchronizeFigmaTokens('AtlassianDark', {
       }
     ]
   },
+  "Elevation/Shadow/Overflow": {
+    "attributes": {
+      "group": "shadow",
+      "state": "active",
+      "description": "Use to create a shadow when content scolls under other content."
+    },
+    "value": [
+      {
+        "radius": 12,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#030404",
+        "opacity": 0.56
+      },
+      {
+        "radius": 1,
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "color": "#030404",
+        "opacity": 0.5
+      }
+    ]
+  },
   "Elevation/Shadow/Overlay": {
     "attributes": {
       "group": "shadow",

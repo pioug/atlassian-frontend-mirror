@@ -48,10 +48,16 @@ const transform: Transform = {
 
     const values = originalToken.value as ShadowToken['value'];
 
-    return values.map((value) => ({
-      ...value,
-      color: palette.color.palette[value.color].value,
-    }));
+    return values.map((value) => {
+      const color = isHex(value.color)
+        ? value.color
+        : palette.color.palette[value.color].value;
+
+      return {
+        ...value,
+        color,
+      };
+    });
   },
 };
 

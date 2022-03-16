@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 12.2.9
+
+### Patch Changes
+
+- [`a0b4a3db79c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a0b4a3db79c) - Change internal type syntax to work with extract-react-types
+
 ## 12.2.8
 
 ### Patch Changes

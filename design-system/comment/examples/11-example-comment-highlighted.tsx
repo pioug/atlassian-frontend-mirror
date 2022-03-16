@@ -9,7 +9,7 @@ import Comment, {
   CommentTime,
 } from '../src';
 
-import avatarImg from './utils/sample-avatar.png';
+import avatarImg from './utils/sample-avatar';
 
 export default () => (
   <div>

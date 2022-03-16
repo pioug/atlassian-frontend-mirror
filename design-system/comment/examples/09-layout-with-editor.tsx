@@ -5,7 +5,7 @@ import { Editor } from '@atlaskit/editor-core'; // eslint-disable-line import/ex
 
 import { CommentLayout } from '../src';
 
-import avatarImg from './utils/sample-avatar.png';
+import avatarImg from './utils/sample-avatar';
 
 export default () => (
   <CommentLayout

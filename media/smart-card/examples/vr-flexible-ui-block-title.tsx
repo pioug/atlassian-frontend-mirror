@@ -60,7 +60,12 @@ const renderResolvedView = ({
           { name: ElementName.AuthorGroup },
           { name: ElementName.CollaboratorGroup },
         ]}
-        subtitle={[{ name: ElementName.CommentCount }]}
+        subtitle={[
+          { name: ElementName.CommentCount },
+          { name: ElementName.ViewCount },
+          { name: ElementName.ReactCount },
+          { name: ElementName.VoteCount },
+        ]}
         actions={actions}
         text={text}
         showActionOnHover={showActionOnHover}

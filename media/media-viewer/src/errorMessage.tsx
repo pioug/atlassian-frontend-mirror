@@ -24,6 +24,10 @@ import {
 } from './errors';
 import { createLoadFailedEvent } from './analytics/events/operational/loadFailed';
 import { createPreviewUnsupportedEvent } from './analytics/events/operational/previewUnsupported';
+import {
+  failMediaFileUfoExperience,
+  UFOFailedEventPayload,
+} from './analytics/ufoExperiences';
 
 export type Props = Readonly<{
   error: MediaViewerError;
@@ -106,6 +110,14 @@ export class ErrorMessage extends React.Component<
     if (supressAnalytics !== true) {
       const payload = ErrorMessage.getEventPayload(error, fileId, fileState);
       fireAnalytics(payload, props);
+      const rawPayload: UFOFailedEventPayload & { status?: string } = {
+        ...payload?.attributes,
+      };
+      if (Object.keys(rawPayload).includes('status')) {
+        delete rawPayload['status'];
+      }
+      const failMediaFileUfoExperiencePayload: UFOFailedEventPayload = rawPayload;
+      failMediaFileUfoExperience(failMediaFileUfoExperiencePayload);
     }
   }
 

@@ -8,6 +8,10 @@ import {
   MediaFile,
 } from '../models/media';
 import { MediaStore, MediaStoreGetCollectionItemsParams } from './media-store';
+import {
+  toMediaSubscribable,
+  MediaSubscribable,
+} from '../utils/toMediaSubscribable';
 
 export interface MediaCollectionFileItemDetails extends FileDetails {
   occurrenceKey: string;
@@ -87,7 +91,7 @@ export class CollectionFetcher {
   getItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
-  ): ReplaySubject<MediaCollectionItem[]> {
+  ): MediaSubscribable<MediaCollectionItem[]> {
     if (!collectionCache[collectionName]) {
       collectionCache[collectionName] = createCacheEntry();
     }
@@ -111,7 +115,7 @@ export class CollectionFetcher {
       })
       .catch((error) => subject.error(error));
 
-    return subject;
+    return toMediaSubscribable(subject);
   }
 
   async removeFile(id: string, collectionName: string, occurrenceKey?: string) {

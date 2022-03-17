@@ -15,6 +15,7 @@ export type LeftSidebarState = {
   leftSidebarWidth: number;
   lastLeftSidebarWidth: number;
   flyoutLockCount: number;
+  isFixed: boolean;
 };
 
 export type SidebarResizeContextValue = {
@@ -39,6 +40,7 @@ const leftSidebarState = {
   leftSidebarWidth: 0,
   lastLeftSidebarWidth: 0,
   flyoutLockCount: 0,
+  isFixed: true,
 };
 export const SidebarResizeContext = createContext<SidebarResizeContextValue>({
   isLeftSidebarCollapsed: false,

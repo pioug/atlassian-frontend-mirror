@@ -6,7 +6,7 @@ import {
 import {
   FileState,
   getFileStreamsCache,
-  createFileStateSubject,
+  createMediaSubject,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { handleCloudFetchingEvent } from '../../handleCloudFetchingEvent';
@@ -69,7 +69,10 @@ describe('handleCloudFetchingEvent', () => {
       remoteUploads,
     });
 
-    getFileStreamsCache().set(tenantFileId, createFileStateSubject(fileState));
+    getFileStreamsCache().set(
+      tenantFileId,
+      createMediaSubject<FileState>(fileState),
+    );
 
     handleCloudFetchingEvent(store)(next)(action);
 

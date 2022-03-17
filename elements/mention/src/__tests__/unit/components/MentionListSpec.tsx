@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
 import { ReactWrapper } from 'enzyme';

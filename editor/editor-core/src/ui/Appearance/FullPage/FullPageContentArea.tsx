@@ -27,7 +27,6 @@ import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 import messages from './messages';
 
 interface FullPageEditorContentAreaProps {
-  allowAnnotation: boolean | undefined;
   appearance: EditorAppearance | undefined;
   contentArea: HTMLElement | undefined;
   contentComponents: UIComponentFactory[] | undefined;
@@ -64,7 +63,6 @@ const Content: React.FunctionComponent<
             >
               <ScrollContainer
                 innerRef={props.scrollContainerRef}
-                allowAnnotation={props.allowAnnotation}
                 className="fabric-editor-popup-scroll-parent"
               >
                 <ClickAreaBlock editorView={props.editorView}>

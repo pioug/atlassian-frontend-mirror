@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 66.0.0
+
+### Major Changes
+
+- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2 fallback helpers IntlLegacyFallbackProvider and IntlNextCompat
+- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
+
+### Minor Changes
+
+- [`bceab5fa97d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bceab5fa97d) - ED-14632: Add render count tracking reRendered event in Renderer
+
+### Patch Changes
+
+- [`ced96eebe47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ced96eebe47) - Minor changes in MarkWrapper and Expand styles.
+- [`44c6c36d8d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44c6c36d8d9) - ED-14263 replaced styled usages
+- [`de79d0babc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de79d0babc9) - ED-14663 Fixed horizontal scrollbar appearing in table in chrome version 99 issue.
+- [`fd5028f6751`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5028f6751) - EDM-2873: Promote MediaInline to full schema
+- [`1e2086467f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e2086467f1) - [ED-13775] Added resize observer on scroll parent element to realign popup components when template context panel is opened/closed.
+- [`78aec52dea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78aec52dea0) - use latest SmartUserPicker in Editor packages
+- [`5c6607ee0e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c6607ee0e7) - Migrated link, rule, panel and expand styles in editor-common to emotion.
+- Updated dependencies
+
 ## 65.0.0
 
 ### Major Changes

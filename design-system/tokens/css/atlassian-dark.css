@@ -236,6 +236,8 @@ html[data-theme="dark"] {
   --ds-interaction-pressed: #00000052;
   --ds-interaction-inverse-hovered: #ffffff33;
   --ds-interaction-inverse-pressed: #ffffff5c;
+  --ds-skeleton: #A1BDD914;
+  --ds-skeleton-subtle: #BCD6F00A;
   --ds-link: #579DFF;
   --ds-link-pressed: #85B8FF;
   --ds-accent-boldBlue: #0C66E4;

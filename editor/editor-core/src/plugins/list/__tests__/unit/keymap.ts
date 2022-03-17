@@ -2,6 +2,7 @@ import randomId from '@atlaskit/editor-test-helpers/random-id';
 
 import {
   doc,
+  emoji,
   ol,
   ul,
   li,
@@ -18,9 +19,12 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
 import listPlugin from '../..';
 import blockTypePlugin from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
+import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
 import analyticsPlugin from '../../../analytics';
 import mediaPlugin from '../../../media';
@@ -32,16 +36,28 @@ import simulatePlatform, {
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
+const emojiProvider = getTestEmojiResource();
+
+const grin = grinEmoji();
+const grinEmojiId = {
+  shortName: grin.shortName,
+  id: grin.id,
+  fallback: grin.fallback,
+};
 
 describe('lists plugin -> keymap', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  const providerFactory = ProviderFactory.create({ emojiProvider });
 
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
       .add(listPlugin)
       .add(blockTypePlugin)
+      .add(emojiPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
@@ -50,6 +66,8 @@ describe('lists plugin -> keymap', () => {
     return createEditor({
       doc,
       preset,
+      providerFactory,
+      pluginKey: emojiPluginKey,
     });
   };
 
@@ -345,6 +363,49 @@ describe('lists plugin -> keymap', () => {
         doc(
           ol(li(p('')), li(p('nice'), p('two', br(), '{<>}'))),
 
+          p('after'),
+        ),
+      );
+    });
+
+    it('backspaces correctly with paragraphs after the list items', () => {
+      backspaceCheck(
+        doc(
+          ol(li(p('')), li(p('nice'), p('two'))),
+          p('{<>}'),
+          p(''),
+          p(''),
+          p('after'),
+        ),
+        doc(
+          ol(li(p('')), li(p('nice'), p('two', '{<>}'))),
+          p(''),
+          p(''),
+          p('after'),
+        ),
+      );
+    });
+
+    it('backspaces correctly with paragraphs after an empty list item', () => {
+      backspaceCheck(
+        doc(ol(li(p('first')), li(p(''))), p('{<>}'), p(''), p(''), p('after')),
+        doc(ol(li(p('first')), li(p('{<>}'))), p(''), p(''), p('after')),
+      );
+    });
+
+    it('backspaces correctly with paragraphs after the list items with emoji', () => {
+      backspaceCheck(
+        doc(
+          ol(li(p('')), li(p('nice', emoji(grinEmojiId)()))),
+          p('{<>}'),
+          p(''),
+          p(''),
+          p('after'),
+        ),
+        doc(
+          ol(li(p('')), li(p('nice', emoji(grinEmojiId)(), '{<>}'))),
+          p(''),
+          p(''),
           p('after'),
         ),
       );

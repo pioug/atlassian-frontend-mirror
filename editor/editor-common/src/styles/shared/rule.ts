@@ -1,16 +1,17 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
 import { DN50, N30A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 const divider = themed({ light: N30A, dark: DN50 });
 
 // @see typography spreadsheet: https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
-export const ruleSharedStyles = css`
+export const ruleSharedStyles = (props: ThemeProps) => css`
   & hr {
     border: none;
-    background-color: ${divider};
+    background-color: ${divider(props)};
     margin: ${akEditorLineHeight}em 0;
     height: 2px;
     border-radius: 1px;

@@ -1,11 +1,12 @@
 import { EmojiPicker, EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import { ReactionPicker } from '../../../components/ReactionPicker';
-import { revealStyle, Selector } from '../../../components/Selector';
+import { Selector } from '../../../components/Selector';
 import { Trigger } from '../../../components/Trigger';
+import { showMoreTestId } from '../../../components/ShowMore';
 
 describe('@atlaskit/reactions/reaction-picker', () => {
   const renderPicker = (
@@ -50,7 +51,7 @@ describe('@atlaskit/reactions/reaction-picker', () => {
     const picker = mountWithIntl(renderPicker());
     const trigger = picker.find(Trigger);
     trigger.simulate('click');
-    const moreButton = picker.find(`button.${revealStyle}`);
+    const moreButton = picker.find(`button[data-testid="${showMoreTestId}"]`);
     moreButton.simulate('mousedown', { button: 0 });
     expect(picker.find(EmojiPicker).length).toEqual(1);
   });

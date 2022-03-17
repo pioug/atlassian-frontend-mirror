@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { Node as PMNode } from 'prosemirror-model';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N30, N50 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
-const WrapperNode = styled.span`
+const wrapperNode = css`
   align-items: center;
   background: ${N30};
   border: 1px solid ${N50};
@@ -28,7 +28,7 @@ const WrapperNode = styled.span`
   }
 `;
 
-const JiraChildNode = styled.span`
+const jiraChildNode = css`
   display: inline-block;
   color: #707070;
   line-height: 24px;
@@ -40,7 +40,7 @@ const JiraChildNode = styled.span`
   }
 `;
 
-const SvgChildNode = styled.span`
+const svgChildNode = css`
   display: inline-block;
   height: 24px;
   vertical-align: top;
@@ -64,11 +64,11 @@ export default function JIRAIssueNode(props: Props) {
   } = props;
 
   return (
-    <WrapperNode>
-      <SvgChildNode>
+    <span css={wrapperNode} data-testid="jira-issue-node">
+      <span css={svgChildNode}>
         <JiraIcon size="small" />
-      </SvgChildNode>
-      <JiraChildNode>{issueKey}</JiraChildNode>
-    </WrapperNode>
+      </span>
+      <span css={jiraChildNode}>{issueKey}</span>
+    </span>
   );
 }

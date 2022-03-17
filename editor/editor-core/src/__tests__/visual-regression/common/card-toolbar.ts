@@ -60,7 +60,7 @@ describe('Card toolbar:', () => {
       },
       {
         featureFlags: {
-          viewChangingExperimentToolbarStyle: 'toolbarIcons',
+          'view-changing-experiment-toolbar-style': 'toolbarIcons',
         },
         smartLinks: {
           resolveBeforeMacros: ['jira'],

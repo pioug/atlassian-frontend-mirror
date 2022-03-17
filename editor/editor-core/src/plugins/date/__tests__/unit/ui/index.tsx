@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import DatePicker from '../../../ui/DatePicker';
 
 describe('DatePicker', () => {

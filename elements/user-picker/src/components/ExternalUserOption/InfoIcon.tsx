@@ -19,10 +19,7 @@ export default () => {
         testId="source-icon"
         label=""
         size="large"
-        primaryColor={token(
-          'color.text.lowEmphasis',
-          isMouseHovered ? N200 : N50,
-        )}
+        primaryColor={token('color.text.subtlest', isMouseHovered ? N200 : N50)}
       />
     </Wrapper>
   );

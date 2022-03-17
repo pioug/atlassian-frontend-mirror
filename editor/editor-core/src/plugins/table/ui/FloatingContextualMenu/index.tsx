@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
 import { EditorState } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
@@ -8,7 +9,6 @@ import {
   isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-import styled from 'styled-components';
 
 import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
@@ -23,10 +23,6 @@ import {
 import { tablePopupStyles } from './styles';
 
 import ContextualMenu from './ContextualMenu';
-
-const MenuWrapper = styled.div`
-  ${tablePopupStyles}
-`;
 
 // offset of the contextual menu dropdown
 const calculateOffset = (targetCellRef: HTMLElement, state: EditorState) => {
@@ -102,7 +98,7 @@ const FloatingContextualMenu = ({
       forcePlacement={true}
       offset={[-7, 0]}
     >
-      <MenuWrapper>
+      <div css={tablePopupStyles}>
         <ContextualMenu
           editorView={editorView}
           offset={calculateOffset(
@@ -117,7 +113,7 @@ const FloatingContextualMenu = ({
           selectionRect={selectionRect}
           boundariesElement={boundariesElement}
         />
-      </MenuWrapper>
+      </div>
     </Popup>
   );
 };

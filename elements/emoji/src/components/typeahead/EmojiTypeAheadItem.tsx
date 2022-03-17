@@ -1,11 +1,17 @@
-import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { PureComponent } from 'react';
 import { toEmojiId } from '../../util/type-helpers';
 import { EmojiDescription, OnEmojiEvent } from '../../types';
 import { leftClick } from '../../util/mouse';
-import * as styles from './styles';
-import EmojiPickerPreview from '../picker/EmojiPickerPreview';
+import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
+import {
+  typeAheadItem,
+  selected as selectedStyles,
+  typeAheadItemRow,
+  typeaheadSelected,
+} from './styles';
 
 export interface Props {
   onMouseMove: OnEmojiEvent;
@@ -35,21 +41,20 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
 
   render() {
     const { selected, emoji } = this.props;
-    const classes = classNames({
-      'ak-emoji-typeahead-item': true,
-      [styles.typeAheadItem]: true,
-      [styles.selected]: selected,
-    });
+    const classes = [typeAheadItem, selected && selectedStyles];
 
     return (
       <div
-        className={classes}
+        className={`ak-emoji-typeahead-item ${
+          selected ? typeaheadSelected : ''
+        }`}
+        css={classes}
         onMouseDown={this.onEmojiSelected}
         onMouseMove={this.onEmojiMenuItemMouseMove}
         data-emoji-id={emoji.shortName}
       >
-        <div className={styles.typeAheadItemRow}>
-          <EmojiPickerPreview emoji={emoji} />
+        <div css={typeAheadItemRow}>
+          {emoji && <EmojiPreviewComponent emoji={emoji} />}
         </div>
       </div>
     );

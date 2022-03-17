@@ -3,7 +3,7 @@ import { ReactWrapper } from 'enzyme';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   p,

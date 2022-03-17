@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.2.10
+
+### Patch Changes
+
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 15.2.9
 
 ### Patch Changes

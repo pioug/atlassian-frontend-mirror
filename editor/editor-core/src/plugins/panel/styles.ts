@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import {
   panelSharedStyles,
@@ -14,8 +14,9 @@ import {
   akEditorDeleteIconColor,
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
+import { ThemeProps } from '@atlaskit/theme/types';
 
-export const panelStyles = css`
+export const panelStyles = (props: ThemeProps) => css`
   .ProseMirror {
     .${PanelSharedCssClassName.prefix} {
       cursor: pointer;
@@ -47,7 +48,7 @@ export const panelStyles = css`
       }
     }
 
-    ${panelSharedStyles};
+    ${panelSharedStyles(props)};
   }
 
   .${PanelSharedCssClassName.prefix}.${akEditorSelectedNodeClassName}:not(.danger) {

@@ -19,7 +19,7 @@ import type {
   ProcessedFileState,
   FileState,
 } from '@atlaskit/media-client';
-import { createFileStateSubject } from '@atlaskit/media-client';
+import { createMediaSubject } from '@atlaskit/media-client';
 import { CardBase } from '../../root/card';
 import type { CardPreview, CardState } from '../..';
 import {
@@ -536,7 +536,7 @@ describe('Media Card', () => {
             someUpdated: 'card-state',
           } as unknown) as CardState),
       );
-      const observable = createFileStateSubject();
+      const observable = createMediaSubject();
       const mediaClient = fakeMediaClientWithObservable(observable);
       const featureFlags = {};
 
@@ -1062,7 +1062,7 @@ describe('Media Card', () => {
 
   describe('SSR Reliability', () => {
     it('should set the status of client to fail if getImageUrlSync fails in client', () => {
-      /* 
+      /*
         For the case of ssr=server, we don't really need to set the status of server, as it won't be logged. If getImageUrlSync fails in server, we log that error in client checking for ssrData (see test below).
       */
       const clientError = new MediaCardError('ssr-client-uri');

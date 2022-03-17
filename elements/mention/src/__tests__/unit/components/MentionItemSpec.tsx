@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';

@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import Editor from './../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
 import { useFetchProxy } from '../src/utils/fetch-proxy';
@@ -77,7 +77,7 @@ const exampleDocument = {
   ],
 };
 
-const Wrapper: any = styled.div`
+const wrapper: any = css`
   position: absolute;
   top: 0;
   left: 0;
@@ -87,7 +87,6 @@ const Wrapper: any = styled.div`
   width: 100%;
   box-sizing: border-box;
 `;
-Wrapper.displayName = 'Wrapper';
 
 export default function Example() {
   const fetchProxy = useFetchProxy();
@@ -98,7 +97,7 @@ export default function Example() {
   );
 
   return (
-    <Wrapper>
+    <div css={wrapper}>
       <Editor
         bridge={bridge}
         {...createEditorProviders(fetchProxy)}
@@ -106,6 +105,6 @@ export default function Example() {
         editorConfiguration={editorConfiguration}
         locale={editorConfiguration.getLocale()}
       />
-    </Wrapper>
+    </div>
   );
 }

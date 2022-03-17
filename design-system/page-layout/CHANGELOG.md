@@ -1,5 +1,19 @@
 # @atlaskit/page-layout
 
+## 1.2.0
+
+### Minor Changes
+
+- [`21534d3647e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21534d3647e) - [ux] Update theme colours and remove shadow from resize bar
+
+### Patch Changes
+
+- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- [`ad0e912661a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad0e912661a) - Styles have been rewritten to be static, in preparation for compiled adoption.
+- [`8940901481d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8940901481d) - [ux] The width of right sidebars with fixed positioning (`<RightSidebar isFixed />`) has been fixed. Previously they had automatic sizing, which led to inconsistencies in appearance between static and fixed positioning.
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

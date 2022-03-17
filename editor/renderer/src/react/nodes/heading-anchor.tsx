@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React, { Ref } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { N200, N500, B400 } from '@atlaskit/theme/colors';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import Tooltip from '@atlaskit/tooltip';
@@ -20,7 +21,7 @@ const CopyAnchorWrapperWithRef = React.forwardRef(
   },
 );
 
-const CopyAnchorButton = styled.button`
+const copyAnchorButtonStyles = css`
   display: inline;
   outline: none;
   background-color: transparent;
@@ -85,7 +86,8 @@ class HeadingAnchor extends React.PureComponent<
 
   renderAnchorButton = () => {
     return (
-      <CopyAnchorButton
+      <button
+        css={copyAnchorButtonStyles}
         onMouseLeave={this.resetMessage}
         onClick={this.copyToClipboard}
         aria-label={this.state.tooltipMessage}
@@ -95,7 +97,7 @@ class HeadingAnchor extends React.PureComponent<
           size={this.props.level > 3 ? 'small' : 'medium'}
           primaryColor={this.state.isClicked ? B400 : N200}
         />
-      </CopyAnchorButton>
+      </button>
     );
   };
 

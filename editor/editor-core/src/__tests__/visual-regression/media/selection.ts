@@ -6,29 +6,34 @@ import {
   editorCommentContentSelector,
   editorSelector,
 } from '../_utils';
+import { EditorProps } from '../../../types';
 import {
-  insertMedia,
+  changeMediaLayout,
+  MediaLayout,
   scrollToMedia,
+  waitForMediaToBeLoaded,
 } from '../../__helpers/page-objects/_media';
 import {
   clickEditableContent,
   animationFrame,
 } from '../../__helpers/page-objects/_editor';
 import { pressKey } from '../../__helpers/page-objects/_keyboard';
-import { EditorProps } from '../../../types';
 import mediaGroupAdf from './__fixtures__/media-group-multiple-cards.adf.json';
+import mediaSelectionAdf from './__fixtures__/media-selection.adf.json';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
   const initEditor = async (
     appearance: Appearance,
     viewport: { width: number; height: number },
+    adf?: Object,
     editorProps?: Partial<EditorProps>,
   ) => {
     await initEditorWithAdf(page, {
       appearance,
       viewport,
       editorProps,
+      adf,
     });
 
     // click into the editor
@@ -41,16 +46,23 @@ describe('Snapshot Test: Media', () => {
 
   describe('full page editor', () => {
     beforeEach(async () => {
-      await initEditor(Appearance.fullPage, { width: 800, height: 700 });
-
-      // insert single media item
-      await insertMedia(page);
+      await initEditor(
+        Appearance.fullPage,
+        { width: 800, height: 700 },
+        mediaSelectionAdf,
+        { media: { allowMediaSingle: true } },
+      );
+      await waitForMediaToBeLoaded(page);
+      await changeMediaLayout(page, MediaLayout.alignStart);
+      await page.click(`${editorSelector} p`);
       // Move mouse out of the page to not create fake cursor
       await page.mouse.move(0, 0);
     });
 
     afterEach(async () => {
+      await animationFrame(page);
       await scrollToMedia(page);
+      await animationFrame(page);
       await snapshot(page);
     });
 
@@ -77,14 +89,12 @@ describe('Snapshot Test: Media', () => {
 
     describe('media group', () => {
       beforeEach(async () => {
-        await initEditorWithAdf(page, {
-          appearance: Appearance.comment,
-          adf: mediaGroupAdf,
-          viewport: {
-            width: 600,
-            height: 400,
-          },
-        });
+        await initEditor(
+          Appearance.comment,
+          { width: 600, height: 400 },
+          mediaGroupAdf,
+        );
+        await waitForMediaToBeLoaded(page);
         await page.click(`${editorSelector} p`);
       });
 
@@ -121,12 +131,12 @@ describe('Snapshot Test: Media', () => {
         await initEditor(
           Appearance.comment,
           { width: 550, height: 400 },
+          mediaSelectionAdf,
           { media: { allowMediaSingle: true } },
         );
-
-        // insert single media item
-        await insertMedia(page);
-
+        await waitForMediaToBeLoaded(page);
+        await changeMediaLayout(page, MediaLayout.alignStart);
+        await page.click(`${editorSelector} p`);
         // Move mouse out of the page to not create fake cursor
         await page.mouse.move(0, 0);
       });
@@ -134,7 +144,6 @@ describe('Snapshot Test: Media', () => {
       afterEach(async () => {
         await animationFrame(page);
         await scrollToMedia(page);
-        await animationFrame(page);
         await animationFrame(page);
         await takeCommentSnapshot(page);
       });

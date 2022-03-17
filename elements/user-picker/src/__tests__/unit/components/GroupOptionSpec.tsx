@@ -60,12 +60,12 @@ describe('GroupOption', () => {
     expect(avatarItemOption.props()).toMatchObject(
       expect.objectContaining({
         primaryText: [
-          <TextWrapper key="name" color={token('color.text.brand', B400)}>
+          <TextWrapper key="name" color={token('color.text.selected', B400)}>
             <HighlightText>dead-jedi-admins</HighlightText>
           </TextWrapper>,
         ],
         secondaryText: (
-          <TextWrapper color={token('color.text.brand', B400)}>
+          <TextWrapper color={token('color.text.selected', B400)}>
             <FormattedMessage
               id="fabric.elements.user-picker.group.byline"
               defaultMessage="Admin-managed group"

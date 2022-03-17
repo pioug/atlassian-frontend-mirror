@@ -29,7 +29,7 @@ const PopupContents = () => (
         description="But what is an Atlassian, anyway?"
         iconBefore={
           <QuestionCircleIcon
-            primaryColor={token('color.icon.brand', colors.B300)}
+            primaryColor={token('color.icon.information', colors.B300)}
             label=""
             size="medium"
           />

@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 16.2.1
+
+### Patch Changes
+
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 16.2.0
 
 ### Minor Changes

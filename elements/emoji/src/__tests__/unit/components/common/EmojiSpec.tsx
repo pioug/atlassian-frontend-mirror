@@ -1,16 +1,20 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import * as styles from '../../../../components/common/styles';
 import Emoji from '../../../../components/common/Emoji';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
 import DeleteButton from '../../../../components/common/DeleteButton';
+import {
+  emojiSprite,
+  commonSelectedStyles,
+  emojiMainStyle,
+} from '../../../../components/common/styles';
 
 describe('<Emoji />', () => {
   describe('as sprite', () => {
     it('should use spritesheet if present', () => {
       const wrapper = shallow(<Emoji emoji={spriteEmoji} />);
 
-      const sprite = wrapper.find(`.${styles.emojiSprite}`);
+      const sprite = wrapper.find(`.${emojiSprite}`);
       expect((sprite.prop('style') || {}).backgroundImage).toEqual(
         'url(https://path-to-spritesheet.png)',
       );
@@ -19,7 +23,7 @@ describe('<Emoji />', () => {
     it('should use percentage for background-position', () => {
       const wrapper = shallow(<Emoji emoji={spriteEmoji} />);
 
-      const sprite = wrapper.find(`.${styles.emojiSprite}`);
+      const sprite = wrapper.find(`.${emojiSprite}`);
       expect((sprite.prop('style') || {}).backgroundPosition).toEqual(
         '20% 20%',
       );
@@ -28,17 +32,14 @@ describe('<Emoji />', () => {
     it('should use zoom the background image', () => {
       const wrapper = shallow(<Emoji emoji={spriteEmoji} />);
 
-      const sprite = wrapper.find(`.${styles.emojiSprite}`);
+      const sprite = wrapper.find(`.${emojiSprite}`);
       const size = ((sprite.prop('style') || {}) as any).backgroundSize;
       expect(size).toEqual('600% 600%');
     });
 
     it('should be selected', () => {
       const wrapper = shallow(<Emoji emoji={spriteEmoji} selected={true} />);
-
-      expect(
-        wrapper.find(`.${styles.emojiContainer}`).hasClass(styles.selected),
-      ).toEqual(true);
+      expect(wrapper.hasClass(commonSelectedStyles)).toBe(true);
     });
 
     it('should be wrapped in a tooltip if showTooltip is set to true', () => {
@@ -56,36 +57,36 @@ describe('<Emoji />', () => {
     it('should use image by default', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} />);
 
-      const image = wrapper.find(`.${styles.emoji} img`);
+      const image = wrapper.find(`.${emojiMainStyle} img`);
       expect(image.prop('src') || {}).toEqual('https://path-to-image.png');
     });
 
     it('should have emoji class', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} />);
 
-      const image = wrapper.find(`.${styles.emoji} img`);
+      const image = wrapper.find(`.${emojiMainStyle} img`);
       expect(image.hasClass('emoji')).toEqual(true);
     });
 
     it('should have "data-emoji-short-name" attribute', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} />);
 
-      const image = wrapper.find(`.${styles.emoji} img`);
+      const image = wrapper.find(`.${emojiMainStyle} img`);
       expect(image.prop('data-emoji-short-name') || {}).toEqual(':grimacing:');
     });
 
     it('should use altRepresentation image if fitToHeight is larger than representation height', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} fitToHeight={26} />);
 
-      const image = wrapper.find(`.${styles.emoji} img`);
+      const image = wrapper.find(`.${emojiMainStyle} img`);
       expect(image.prop('src') || {}).toEqual('https://alt-path-to-image.png');
     });
 
     it('should be selected', () => {
       const wrapper = shallow(<Emoji emoji={imageEmoji} selected={true} />);
 
-      const image = wrapper.find(`.${styles.emoji}`);
-      expect(image.hasClass(styles.selected)).toEqual(true);
+      const image = wrapper.find(`.${emojiMainStyle}`);
+      expect(image.hasClass(commonSelectedStyles)).toEqual(true);
     });
 
     it('should be wrapped in a tooltip if showTooltip is set to true', () => {

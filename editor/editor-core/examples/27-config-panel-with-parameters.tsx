@@ -17,7 +17,7 @@ const parameters = {
   'date-start': '2020-01-18',
   'enum-select': 'a',
   'enum-select-icon': ['b', 'c', 'd'],
-  'enum-select-icon-multiple': 'b',
+  'enum-select-icon-multiple': 'long',
   'enum-checkbox-multiple': ['a', 'b'],
   'fieldset-cql': 'created-at = now(-1w) AND query = foobar AND flag = BF',
   'fieldset-jira-filter':

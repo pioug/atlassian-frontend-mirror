@@ -28,7 +28,7 @@ import { Transformer } from '@atlaskit/editor-common/types';
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '../utils';
 import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
-import { RenderTracking } from '../utils/react-hooks/use-component-renderer-tracking';
+import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import {
   findChangedNodesFromTransaction,
   validateNodes,

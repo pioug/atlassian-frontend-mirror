@@ -1,4 +1,6 @@
-import React, { useMemo, useContext, useState, useRef } from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import { useMemo, useContext, useState, useRef } from 'react';
 import {
   Card,
   Context as CardContext,
@@ -25,12 +27,11 @@ import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { getPlatform } from '../../utils';
 import { CardErrorBoundary } from './fallback';
 
-import styled from 'styled-components';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 
-const EmbedCardWrapper = styled.div`
+const embedCardWrapperStyles = css`
   width: 100%;
   height: 100%;
 
@@ -44,18 +45,11 @@ const EmbedCardWrapper = styled.div`
 
   margin: 0 auto;
 `;
-EmbedCardWrapper.displayName = 'EmbedCardWrapper';
 
-const ExtendedEmbedCard = styled(UIMediaSingle)`
-  ${({ layout }) =>
-    layout === 'full-width' || layout === 'wide'
-      ? `
+const uIMediaSingleLayoutStyles = css`
   margin-left: 50%;
   transform: translateX(-50%);
-  `
-      : ``}
 `;
-ExtendedEmbedCard.displayName = 'ExtendedEmbedCard';
 
 export default function EmbedCard(props: {
   url?: string;
@@ -174,6 +168,11 @@ export default function EmbedCard(props: {
           ? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
           : nonFullWidthSize;
 
+        const uiMediaSingleStyles =
+          layout === 'full-width' || layout === 'wide'
+            ? uIMediaSingleLayoutStyles
+            : '';
+
         return (
           <CardErrorBoundary
             unsupportedComponent={UnsupportedBlock}
@@ -183,7 +182,8 @@ export default function EmbedCard(props: {
               embedIframeRef={embedIframeRef}
               onHeightUpdate={setLiveHeight}
             >
-              <ExtendedEmbedCard
+              <UIMediaSingle
+                css={uiMediaSingleStyles}
                 layout={layout}
                 width={originalWidth}
                 containerWidth={containerWidth}
@@ -194,7 +194,7 @@ export default function EmbedCard(props: {
                 lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
                 hasFallbackContainer={hasPreview}
               >
-                <EmbedCardWrapper>
+                <div css={embedCardWrapperStyles}>
                   <div
                     className="embedCardView-content-wrap"
                     data-embed-card
@@ -212,8 +212,8 @@ export default function EmbedCard(props: {
                       embedIframeRef={embedIframeRef}
                     />
                   </div>
-                </EmbedCardWrapper>
-              </ExtendedEmbedCard>
+                </div>
+              </UIMediaSingle>
             </EmbedResizeMessageListener>
           </CardErrorBoundary>
         );

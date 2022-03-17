@@ -1,62 +1,43 @@
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-  editorCommentContentSelector,
-} from '../_utils';
-import {
-  insertMedia,
-  waitForMediaToBeLoaded,
-} from '../../__helpers/page-objects/_media';
-import {
-  clickToolbarMenu,
-  ToolbarMenuItem,
-} from '../../__helpers/page-objects/_toolbar';
-import { clickEditableContent } from '../../__helpers/page-objects/_editor';
-import { pressKey } from '../../__helpers/page-objects/_keyboard';
+import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
+import { waitForMediaToBeLoaded } from '../../__helpers/page-objects/_media';
 import { scrollToTable } from '../../__helpers/page-objects/_table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-
-const editors: { appearance: Appearance; snapshotSelector?: string }[] = [
-  { appearance: Appearance.fullPage },
-  {
-    appearance: Appearance.comment,
-    snapshotSelector: editorCommentContentSelector,
-  },
-];
+import mediaSingleAdf from './__fixtures__/mediaSingle-in-table.adf.json';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
+  const initEditorWithMedia = async (appearance: Appearance) => {
+    await initEditorWithAdf(page, {
+      appearance: appearance,
+      adf: mediaSingleAdf,
+      editorProps: {
+        media: {
+          allowMediaSingle: true,
+        },
+        allowTables: {
+          advanced: true,
+        },
+      },
+    });
+  };
+
   beforeAll(async () => {
     page = global.page;
   });
 
-  editors.forEach((editor) => {
-    describe(`${editor.appearance} editor`, () => {
-      beforeEach(async () => {
-        await initEditorWithAdf(page, {
-          appearance: editor.appearance,
-        });
+  it('can insert into fullPage appearance', async () => {
+    await initEditorWithMedia(Appearance.fullPage);
+    await waitForMediaToBeLoaded(page);
+    await scrollToTable(page);
 
-        // click into the editor
-        await clickEditableContent(page);
-      });
+    await snapshot(page);
+  });
 
-      describe('Tables', () => {
-        it('can insert into second row', async () => {
-          await clickToolbarMenu(page, ToolbarMenuItem.table);
+  it('can insert into comment appearance', async () => {
+    await initEditorWithMedia(Appearance.comment);
+    await waitForMediaToBeLoaded(page);
+    await scrollToTable(page);
 
-          // second cell
-          await pressKey(page, 'ArrowDown');
-
-          // now we can insert media as necessary
-          await insertMedia(page);
-          await waitForMediaToBeLoaded(page);
-          await scrollToTable(page);
-
-          await snapshot(page, undefined, editor.snapshotSelector);
-        });
-      });
-    });
+    await snapshot(page);
   });
 });

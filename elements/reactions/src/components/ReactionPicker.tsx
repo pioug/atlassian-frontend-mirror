@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
@@ -5,11 +7,9 @@ import { Manager, Popper, Reference, PopperProps } from '@atlaskit/popper';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import cx from 'classnames';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
-import { style } from 'typestyle';
 import { Selector } from './Selector';
 import { Trigger } from './Trigger';
 import { ReactionSource } from '../types';
@@ -33,32 +33,27 @@ export interface State {
   showFullPicker?: boolean;
 }
 
-const pickerStyle = style({
+const pickerStyle = css({
   verticalAlign: 'middle',
-  $nest: {
-    '&.miniMode': {
-      display: 'inline-block',
-      marginRight: '4px',
-    },
+  '&.miniMode': {
+    display: 'inline-block',
+    marginRight: '4px',
   },
 });
 
-const contentStyle = style({
+const contentStyle = css({
   display: 'flex',
 });
 
-const popupStyle = style({
+const popupStyle = css({
   background: token('elevation.surface.overlay', N0),
   borderRadius: `${borderRadius()}px`,
   boxShadow: token(
     'elevation.shadow.overlay',
     `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
   ),
-
-  $nest: {
-    '&> div': {
-      boxShadow: undefined,
-    },
+  '&> div': {
+    boxShadow: undefined,
   },
 });
 
@@ -131,7 +126,7 @@ export class ReactionPicker extends PureComponent<Props, State> {
     const { emojiProvider, allowAllEmojis } = this.props;
 
     return (
-      <div className={contentStyle}>
+      <div css={contentStyle}>
         <Selector
           emojiProvider={emojiProvider}
           onSelection={this.onEmojiSelected}
@@ -210,18 +205,15 @@ export class ReactionPicker extends PureComponent<Props, State> {
 
   render() {
     const { isOpen } = this.state;
-    const { miniMode } = this.props;
-    const classNames = cx(
-      pickerStyle,
-      {
-        isOpen: isOpen,
-        miniMode: miniMode,
-      },
-      this.props.className,
-    );
+    const { miniMode, className } = this.props;
 
     return (
-      <div className={classNames}>
+      <div
+        className={` ${isOpen ? 'isOpen' : ''} ${
+          miniMode ? 'miniMode' : ''
+        } ${className}`}
+        css={pickerStyle}
+      >
         <Manager>
           <Reference>
             {({ ref }) => (
@@ -237,13 +229,13 @@ export class ReactionPicker extends PureComponent<Props, State> {
             {({ ref, style, update }) => {
               this.updatePopper = update;
               return (
-                <>
-                  {this.state.isOpen && (
+                <Fragment>
+                  {isOpen && (
                     <div style={{ zIndex: layers.layer(), ...style }} ref={ref}>
-                      <div className={popupStyle}>{this.renderContent()}</div>
+                      <div css={popupStyle}>{this.renderContent()}</div>
                     </div>
                   )}
-                </>
+                </Fragment>
               );
             }}
           </Popper>

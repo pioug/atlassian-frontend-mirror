@@ -25,14 +25,14 @@ const tabColorMap = {
     labelColor: token('color.text.subtle', N500),
     activeLabelColor: token('color.text', B500),
     hoverLabelColor: token('color.text.subtle', B400),
-    selectedColor: token('color.text.brand', B400),
+    selectedColor: token('color.text.selected', B400),
     focusBorderColor: token('color.border.focused', B100),
   },
   dark: {
     labelColor: token('color.text.subtle', DN400),
     activeLabelColor: token('color.text', B200),
     hoverLabelColor: token('color.text.subtle', B75),
-    selectedColor: token('color.text.brand', B75),
+    selectedColor: token('color.text.selected', B75),
     focusBorderColor: token('color.border.focused', B75),
   },
 };
@@ -53,13 +53,13 @@ const tabLineColorMap = {
     lineColor: token('color.border', N30),
     hoveredColor: token('color.border', 'transparent'),
     activeColor: token('color.border', 'transparent'),
-    selectedColor: token('color.text.brand', B400),
+    selectedColor: token('color.border.selected', B400),
   },
   dark: {
     lineColor: token('color.border', DN0),
     hoveredColor: token('color.border', 'transparent'),
     activeColor: token('color.border', 'transparent'),
-    selectedColor: token('color.text.brand', B75),
+    selectedColor: token('color.border.selected', B75),
   },
 };
 

@@ -1,5 +1,20 @@
 # @atlaskit/media-ui
 
+## 21.0.0
+
+### Major Changes
+
+- [`e579e144052`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e579e144052) - [ux] EDM-2821: Fix media inline wrap after icon
+
+### Minor Changes
+
+- [`0c27d2645ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c27d2645ad) - Removed unused dependencies
+
+### Patch Changes
+
+- [`fb1cf506701`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1cf506701) - [ux] ED-14487: polyfill ResizeObserver and IntersectionObserver for unit tests, but mock isIntersectionObserverSupported() for tests related to smart-cards
+- Updated dependencies
+
 ## 20.1.0
 
 ### Minor Changes

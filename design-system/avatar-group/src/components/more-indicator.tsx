@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, useCallback } from 'react';
 
-import { ClassNames, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import Avatar, {
   ACTIVE_SCALE_FACTOR,
@@ -23,57 +23,50 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { CssCallback } from './types';
-
-const FONT_SIZE: Record<SizeType, number> = {
-  xsmall: 10,
-  small: 10,
-  medium: 11,
-  large: 12,
-  xlarge: 16,
-  xxlarge: 16,
+const FONT_SIZE: Record<SizeType, string> = {
+  xsmall: '10px',
+  small: '10px',
+  medium: '11px',
+  large: '12px',
+  xlarge: '16px',
+  xxlarge: '16px',
 };
 
-const getButtonStyles = (
-  css: CssCallback,
-  { size, isActive }: { size: SizeType; isActive: boolean },
-) => {
-  // eslint-disable-next-line @repo/internal/react/no-css-string-literals
-  const activeStyles = css`
-    background-color: ${token('color.background.brand', B50)};
-    transform: scale(${ACTIVE_SCALE_FACTOR});
-    box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.text.brand', B300)};
-    color: ${token('color.text.brand', B400)};
-  `;
+const buttonActiveStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '&&': {
+    backgroundColor: token('color.background.selected', B50),
+    boxShadow: `0 0 0 ${BORDER_WIDTH}px ${token('color.text.selected', B300)}`,
+    color: token('color.text.selected', B400),
+    transform: `scale(${ACTIVE_SCALE_FACTOR})`,
+  },
+});
 
-  // eslint-disable-next-line @repo/internal/react/no-css-string-literals
-  return css`
-    color: ${token('color.text', N500)};
-    background-color: ${token('color.background.neutral', N20)};
-    font-size: ${FONT_SIZE[size]}px;
-    font-family: inherit;
-    font-weight: 500;
+const buttonStyles = css({
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '&&': {
+    backgroundColor: token('color.background.neutral', N20),
+    color: token('color.text', N500),
+    fontFamily: 'inherit',
+    fontWeight: 500,
 
-    &:hover {
-      background-color: ${token('color.background.neutral.hovered', N30)};
-      color: ${token('color.text', N500)};
-      &:after {
-        background-color: ${token('color.background.neutral.hovered', N30A)};
-        opacity: 1;
-      }
-    }
-
-    &:active {
-      background-color: ${token('color.background.neutral.pressed', B50)};
-      color: ${token('color.text', B400)};
-      &:after {
-        background-color: transparent;
-      }
-    }
-
-    ${isActive && activeStyles}
-  `;
-};
+    '&:hover': {
+      backgroundColor: token('color.background.neutral.hovered', N30),
+      color: token('color.text', N500),
+      '&:after': {
+        backgroundColor: token('color.background.neutral.hovered', N30A),
+        opacity: 1,
+      },
+    },
+    '&:active': {
+      backgroundColor: token('color.background.neutral.pressed', B50),
+      color: token('color.text', B400),
+      '&:after': {
+        backgroundColor: 'transparent',
+      },
+    },
+  },
+});
 
 export interface MoreIndicatorProps extends AvatarPropTypes {
   count: number;
@@ -125,26 +118,25 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
         onClick={onClickHander}
       >
         {({ testId: _, className, ref, ...props }) => (
-          <ClassNames>
-            {({ css, cx }) => (
-              <button
-                type="submit"
-                {...buttonProps}
-                {...props}
-                ref={ref as any}
-                data-testid={testId}
-                aria-controls={ariaControls}
-                aria-expanded={ariaExpanded}
-                aria-haspopup={ariaHaspopup}
-                className={cx(
-                  className,
-                  getButtonStyles(css, { size, isActive }),
-                )}
-              >
-                +{count! > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count}
-              </button>
-            )}
-          </ClassNames>
+          <button
+            type="submit"
+            {...buttonProps}
+            {...props}
+            ref={ref as any}
+            data-testid={testId}
+            aria-controls={ariaControls}
+            aria-expanded={ariaExpanded}
+            aria-haspopup={ariaHaspopup}
+            style={
+              {
+                fontSize: FONT_SIZE[size],
+              } as React.CSSProperties
+            }
+            css={[buttonStyles, isActive && buttonActiveStyles]}
+            className={className}
+          >
+            +{count! > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count}
+          </button>
         )}
       </Avatar>
     );

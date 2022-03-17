@@ -53,15 +53,14 @@ export {
   messages as expandMessages,
   sharedExpandStyles,
   ExpandIconWrapper,
-  ExpandLayoutWrapper,
+  expandLayoutWrapperStyle,
+  ExpandLayoutWrapperWithRef,
 } from './Expand';
 export type { StyleProps as ExpandStyleProps } from './Expand';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
 export { clearNextSiblingMarginTopStyle } from './clear-next-sibling-margin-top';
 export {
-  IntlNextErrorBoundary,
+  IntlErrorBoundary,
   REACT_INTL_ERROR_MESSAGE,
-} from './IntlNextErrorBoundary';
-export { IntlLegacyFallbackProvider } from './IntlLegacyFallbackProvider';
-export { LegacyToNextIntlProvider } from './LegacyToNextIntlProvider';
+} from './IntlErrorBoundary';

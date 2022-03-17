@@ -9,6 +9,7 @@ import commentRendererAdf from './__fixtures__/comment-renderer-media-adf.json';
 import wrappedCommentRendererAdf from './__fixtures__/comment-renderer-wrapped-media.adf.json';
 import wrappedMediaAdf from './__fixtures__/wrapped-media.adf.json';
 import wrappedMediaTextAdf from './__fixtures__/wrapped-media-text.adf.json';
+import wrappedMediaTextLeftAdf from './__fixtures__/wrapped-media-text-left.adf.json';
 import wrappedMediaTextSplitAdf from './__fixtures__/wrapped-media-text-split.adf.json';
 import wrappedMediaTextLayoutAdf from './__fixtures__/wrapped-media-text-layout.adf.json';
 import wrappedMediaTextLayoutSplitAdf from './__fixtures__/wrapped-media-text-layout-split.adf.json';
@@ -61,6 +62,47 @@ const initRenderer = async (
     adf,
     viewport,
   });
+};
+
+/**
+ * Adds text content outside and after the renderer-container. Also
+ * returns a cleanup function to restore the renderer-container to
+ * its original place in the dom (for use at the end of testing)
+ */
+const addTextOutsideRenderer = async (page: PuppeteerPage) => {
+  const snapshotContainerClassName = 'snapshot-container';
+
+  await page.evaluate(
+    (snapshotContainerClassName: string, rendererTestContainerSelector) => {
+      let snapshotContainer = document.createElement('div');
+      let renderer = document.querySelector(rendererTestContainerSelector)!;
+      let outsideElement = document.createElement('div');
+      outsideElement.innerText = 'some element outside renderer';
+      renderer?.after(outsideElement);
+      renderer.parentElement?.appendChild(snapshotContainer);
+      snapshotContainer.classList.add(snapshotContainerClassName);
+      snapshotContainer.append(...[renderer, outsideElement]);
+    },
+    snapshotContainerClassName,
+    rendererSelectors.testContainer,
+  );
+
+  const cleanup = async () => {
+    await page.evaluate(
+      (snapshotContainerClassName: string, rendererTestContainerSelector) => {
+        let snapshotContainer = document.querySelector(
+          `.${snapshotContainerClassName}`,
+        );
+        let renderer = document.querySelector(rendererTestContainerSelector)!;
+        snapshotContainer?.parentElement?.appendChild(renderer);
+        snapshotContainer?.remove();
+      },
+      snapshotContainerClassName,
+      rendererSelectors.testContainer,
+    );
+  };
+
+  return { cleanup };
 };
 
 describe('Snapshot Test: Media', () => {
@@ -155,6 +197,14 @@ describe('Snapshot Test: Media', () => {
       );
       await waitForAllMedia(page, 2);
       await snapshotRenderer();
+    });
+
+    it('should not let content outside renderer slide up next to wrapped media', async () => {
+      await initRenderer(page, wrappedMediaTextLeftAdf);
+      await waitForAllMedia(page, 1);
+      const { cleanup } = await addTextOutsideRenderer(page);
+      await snapshot(page, {}, '.snapshot-container');
+      await cleanup();
     });
   });
 

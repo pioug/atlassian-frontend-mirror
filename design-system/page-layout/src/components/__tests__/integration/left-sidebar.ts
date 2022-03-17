@@ -16,6 +16,11 @@ const resizeControl = "[data-resize-button='true']";
 const leftSidebar = "[data-testid='left-sidebar']";
 const collapsedSidebar = '[aria-expanded="false"]';
 
+/**
+ * TODO: https://product-fabric.atlassian.net/browse/DSP-3548
+ * This test was disabled for being flaky. We should investigate and try to
+ * re-enable it.
+ */
 BrowserTestCase(
   'Left sidebar should be collapsed on click of grab area via keyboard',
   { skip: ['*'] },

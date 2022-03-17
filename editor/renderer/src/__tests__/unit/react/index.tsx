@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { shallow, ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';

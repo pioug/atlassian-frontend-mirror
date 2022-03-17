@@ -13,20 +13,19 @@ jest.mock('@atlaskit/tokens/rename-mapping', () => ({
       replacement: 'tokenName.new',
     },
     {
-      path: 'tokenName.deprecated',
-      state: 'deprecated',
-      replacement: 'tokenName.new',
+      // Ensure [default] is omitted from path
+      path: 'tokenName.foo.old.[default]',
+      state: 'deleted',
+      replacement: 'tokenName.foo.new.[default]',
     },
     {
-      // Ensure [default] is omitted from path
-      path: 'tokenName.deleted.[default]',
-      state: 'deleted',
+      path: 'tokenName.deprecated',
+      state: 'deprecated',
       replacement: 'tokenName.new',
     },
   ],
 }));
 
-const oldDefaultTokenName = renameMapping[2].path;
 const oldTokenName = renameMapping[0].path;
 const newTokenName = renameMapping[0].replacement;
 
@@ -258,8 +257,9 @@ tester.run('no-unsafe-design-token-usage', rule, {
       errors: [{ messageId: 'tokenRemoved' }],
     },
     {
-      code: `css({ color: token('${oldDefaultTokenName}') })`,
-      output: `css({ color: token('${newTokenName}') })`,
+      // should remove [default] from paths
+      code: `css({ color: token('tokenName.foo.old') })`,
+      output: `css({ color: token('tokenName.foo.new') })`,
       errors: [{ messageId: 'tokenRemoved' }],
     },
     // Using config -> shouldEnforceFallbacks: false

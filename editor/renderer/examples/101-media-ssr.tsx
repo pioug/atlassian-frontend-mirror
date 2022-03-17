@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import { MediaClientConfig } from '@atlaskit/media-core';

@@ -28,7 +28,7 @@ describe('<RemovableTag />', () => {
         theme.removalActiveBackgroundColors.light,
       );
 
-      expect(getCSSVar(tag, cssVar.color.text.hover)).toBe(
+      expect(getCSSVar(tag, cssVar.color.text.default)).toBe(
         theme.removalTextColors.light,
       );
     });

@@ -655,6 +655,10 @@ export const tableStyles = (props: ThemeProps) => css`
   .ProseMirror.${ClassName.RESIZE_CURSOR} {
     cursor: col-resize;
   }
+
+  .ProseMirror .pm-table-cell-content-wrap ol[data-child-count='100+'] {
+    padding-left: revert;
+  }
 `;
 
 export const tableFullPageEditorStyles = css`

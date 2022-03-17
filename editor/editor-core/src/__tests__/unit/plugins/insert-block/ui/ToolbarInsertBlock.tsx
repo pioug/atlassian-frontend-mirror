@@ -63,7 +63,6 @@ import {
   DispatchAnalyticsEvent,
 } from '../../../../../plugins/analytics';
 
-import { TooltipShortcut } from '../../../../../keymaps';
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../../../../plugins/block-type/messages';
 import { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
@@ -75,7 +74,7 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 import { openElementBrowserModal } from '../../../../../plugins/quick-insert/commands';
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 jest.mock('../../../../../plugins/quick-insert/commands', () => ({
   openElementBrowserModal: jest.fn(() => jest.fn()),
@@ -252,7 +251,9 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         });
 
         it(`the shortcut ${result} is displayed with a background`, () => {
-          expect(tooltipContent.find(TooltipShortcut).text()).toEqual(result);
+          expect(
+            tooltipContent.find('[className$="-tooltip-shortcut"]').text(),
+          ).toEqual(result);
         });
       });
     });

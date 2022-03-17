@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
@@ -6,10 +8,10 @@ import Dropdown from '../../../../ui/Dropdown';
 import Alignment from '../../../../ui/Alignment';
 import { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
 import {
-  ExpandIconWrapper,
-  Separator,
-  TriggerWrapper,
-  Wrapper,
+  expandIconWrapper,
+  separator,
+  triggerWrapper,
+  wrapper,
 } from './styles';
 import { IconMap } from './icon-map';
 import { messages } from './messages';
@@ -53,7 +55,7 @@ export class AlignmentToolbar extends React.Component<
     const title = intl.formatMessage(messages.alignment);
 
     return (
-      <Wrapper>
+      <span css={wrapper}>
         <Dropdown
           mountTo={popupsMountPoint}
           boundariesElement={popupsBoundariesElement}
@@ -75,12 +77,12 @@ export class AlignmentToolbar extends React.Component<
               aria-haspopup
               onClick={this.toggleOpen}
               iconBefore={
-                <TriggerWrapper>
+                <div css={triggerWrapper}>
                   <IconMap alignment={pluginState.align} />
-                  <ExpandIconWrapper>
+                  <span css={expandIconWrapper}>
                     <ExpandIcon label="" />
-                  </ExpandIconWrapper>
-                </TriggerWrapper>
+                  </span>
+                </div>
               }
             />
           }
@@ -90,8 +92,8 @@ export class AlignmentToolbar extends React.Component<
             selectedAlignment={pluginState.align}
           />
         </Dropdown>
-        <Separator />
-      </Wrapper>
+        <span css={separator} />
+      </span>
     );
   }
 

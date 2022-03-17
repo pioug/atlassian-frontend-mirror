@@ -20,6 +20,11 @@ import { LocalUploadConfig } from './types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { AnalyticsEventPayload } from '../types';
 import { ComponentName, getRequestMetadata } from '../util/analytics';
+import {
+  startMediaUploadUfoExperience,
+  succeedMediaUploadUfoExperience,
+  failMediaUploadUfoExperience,
+} from '../util/ufoExperiences';
 
 export type LocalUploadComponentBaseProps = {
   mediaClient: MediaClient;
@@ -99,6 +104,7 @@ export class LocalUploadComponentReact<
             },
           },
         });
+        startMediaUploadUfoExperience(fileId, this.componentName);
       },
     );
   };
@@ -129,6 +135,11 @@ export class LocalUploadComponentReact<
         uploadDurationMsec,
       },
     });
+    succeedMediaUploadUfoExperience(fileId, {
+      fileId,
+      fileSize,
+      fileMimetype,
+    });
   };
 
   private fireUploadFailed = async (payload: UploadErrorEventPayload) => {
@@ -158,6 +169,16 @@ export class LocalUploadComponentReact<
         },
         uploadDurationMsec,
       },
+    });
+
+    failMediaUploadUfoExperience(fileId, {
+      failReason: errorName,
+      error: !!rawError ? getMediaClientErrorReason(rawError) : 'unknown',
+      request: !!rawError ? getRequestMetadata(rawError) : undefined,
+      fileAttributes: {
+        fileId,
+      },
+      uploadDurationMsec,
     });
   };
 

@@ -1,5 +1,8 @@
-import { MediaClient, MediaCollectionItem } from '@atlaskit/media-client';
-import { Subscription } from 'rxjs/Subscription';
+import {
+  MediaClient,
+  MediaCollectionItem,
+  MediaSubscription,
+} from '@atlaskit/media-client';
 import { LocalUploads } from './local-upload';
 
 export type { AuthHeaders } from './auth';
@@ -36,7 +39,7 @@ export interface State {
   readonly userMediaClient: MediaClient;
   readonly lastUploadIndex: number;
   readonly giphy: GiphyState;
-  readonly collectionItemsSubscription?: Subscription;
+  readonly collectionItemsSubscription?: MediaSubscription;
   readonly onCancelUpload: CancelUploadHandler;
   readonly config: Partial<PopupConfig>;
   readonly plugins?: MediaPickerPlugin[];

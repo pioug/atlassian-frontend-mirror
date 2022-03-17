@@ -1,14 +1,15 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { B400, B300 } from '@atlaskit/theme/colors';
 import { LinkAttributes } from '@atlaskit/adf-schema';
-import styled from 'styled-components';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { MarkProps } from '../types';
 
-const StyledAnchor = styled.a`
+const anchorStyles = css`
   color: ${B400};
 
   &:hover {
@@ -45,11 +46,12 @@ export default function Link(props: MarkProps<LinkProps>) {
   const handler = getEventHandler(eventHandlers, 'link');
 
   if (isMediaLink) {
-    return <>{props.children}</>;
+    return <Fragment>{props.children}</Fragment>;
   }
 
   return (
-    <StyledAnchor
+    <a
+      css={anchorStyles}
       onClick={(e) => {
         if (fireAnalyticsEvent) {
           fireAnalyticsEvent({
@@ -71,6 +73,6 @@ export default function Link(props: MarkProps<LinkProps>) {
       {...dataAttributes}
     >
       {props.children}
-    </StyledAnchor>
+    </a>
   );
 }

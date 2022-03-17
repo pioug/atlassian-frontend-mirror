@@ -3,7 +3,7 @@ import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import {
   doc,
   table,

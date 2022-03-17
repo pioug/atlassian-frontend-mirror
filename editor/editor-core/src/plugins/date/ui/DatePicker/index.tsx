@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
@@ -11,7 +13,6 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N0 } from '@atlaskit/theme/colors';
 import withOuterListeners from '../../../../ui/with-outer-listeners';
 import { DateType } from '../../types';
-import styled from 'styled-components';
 
 const PopupWithListeners = withOuterListeners(Popup);
 import { INPUT_METHOD } from '../../../analytics/types/enums';
@@ -19,7 +20,7 @@ import { DispatchAnalyticsEvent } from '../../../analytics';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import DatePickerInput from './date-picker-input';
 
-const PopupContentWrapper = styled.div`
+const popupContentWrapper = css`
   padding: 2px;
   border-radius: ${borderRadius()}px;
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
@@ -118,7 +119,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
         boundariesElement={boundariesElement}
         scrollableElement={scrollableElement}
       >
-        <PopupContentWrapper>
+        <div css={popupContentWrapper}>
           {showTextField === true && (
             <DatePickerInput
               date={date}
@@ -140,7 +141,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
             selected={selected}
             ref={this.handleRef}
           />
-        </PopupContentWrapper>
+        </div>
       </PopupWithListeners>
     );
   }

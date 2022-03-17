@@ -15,6 +15,15 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => {
 jest.mock('../../../client/errors', () => ({
   APIError: jest.fn(),
 }));
+// force isIntersectionObserverSupported to be false until support for it is dropped.
+jest.mock('@atlaskit/media-ui', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-ui');
+  return {
+    __esModule: true,
+    ...actualModule,
+    isIntersectionObserverSupported: () => false,
+  };
+});
 
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import * as analyticsEvents from '../../../utils/analytics';

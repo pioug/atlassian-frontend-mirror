@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import retry from 'async-retry';
 import merge from 'lodash/merge';
 
-import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
+import { setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
 import ConfigPanel from '../../../ui/ConfigPanel';
 import {
   DefaultExtensionProvider,

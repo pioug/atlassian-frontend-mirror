@@ -14,7 +14,7 @@ jest.mock('prosemirror-inputrules', () => ({
 }));
 
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
 import AltTextEdit, {
   AltTextEditComponent,

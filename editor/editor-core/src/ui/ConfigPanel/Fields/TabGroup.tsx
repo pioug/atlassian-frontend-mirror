@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import React, { useState } from 'react';
+import { css, jsx } from '@emotion/react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
-import styled from 'styled-components';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { TabGroupField, TabField } from '@atlaskit/editor-common/extensions';
 
-const TabWrapper = styled.div`
+const tabWrapper = css`
   // increase specificity to make sure the tab style is overridden
   &&& [role='tabpanel'][tabindex] {
     padding: 0;
@@ -17,8 +18,9 @@ const TabWrapper = styled.div`
   }
 `;
 
-const PanelWrapper = styled.div`
+const panelWrapper = css`
   flex-grow: 1;
+  max-width: 100%;
 `;
 
 type Props = {
@@ -44,7 +46,7 @@ const TabGroupImpl = (props: Props) => {
   );
 
   return (
-    <TabWrapper>
+    <div css={tabWrapper}>
       <Tabs
         id={`configPanelTabs-${field.name}`}
         onChange={onChange}
@@ -57,11 +59,11 @@ const TabGroupImpl = (props: Props) => {
         </TabList>
         {fields.map((field) => (
           <TabPanel key={`panel-${field.name}`}>
-            <PanelWrapper>{renderPanel(field)}</PanelWrapper>
+            <div css={panelWrapper}>{renderPanel(field)}</div>
           </TabPanel>
         ))}
       </Tabs>
-    </TabWrapper>
+    </div>
   );
 };
 TabGroupImpl.displayName = 'TabGroup';

@@ -1,5 +1,4 @@
 import {
-  insertMedia,
   waitForMediaToBeLoaded,
   resizeMediaInPosition,
   MediaResizeSide,
@@ -11,7 +10,7 @@ import {
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
 import { snapshot, initEditorWithAdf, Appearance } from '../_utils';
-import defaultTableADF from '../table/__fixtures__/default-table.adf.json';
+import mediaSingleInTableAdf from './__fixtures__/mediaSingle-in-table.adf.json';
 
 describe('Snapshot Test: Media', () => {
   let page: PuppeteerPage;
@@ -20,7 +19,7 @@ describe('Snapshot Test: Media', () => {
     page = global.page;
     await initEditorWithAdf(page, {
       appearance: Appearance.fullPage,
-      adf: defaultTableADF,
+      adf: mediaSingleInTableAdf,
       editorProps: {
         media: {
           allowMediaSingle: true,
@@ -31,9 +30,7 @@ describe('Snapshot Test: Media', () => {
         },
       },
     });
-
     await clickFirstCell(page);
-    await insertMedia(page);
     await waitForMediaToBeLoaded(page);
   });
 

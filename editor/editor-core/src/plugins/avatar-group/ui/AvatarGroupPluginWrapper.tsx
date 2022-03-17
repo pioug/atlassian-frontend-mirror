@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+/** @jsx jsx */
+import { useEffect } from 'react';
+import { css, jsx } from '@emotion/react';
 import AvatarsWithPluginState from '../../collab-edit/ui/avatars-with-plugin-state';
-import styled from 'styled-components';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { EditorView } from 'prosemirror-view';
 import { CollabEditOptions } from '../../collab-edit';
@@ -14,14 +15,19 @@ import {
   DispatchAnalyticsEvent,
 } from '../../analytics';
 
-const ToolbarButtonWrapper = styled.div<{ takeFullWidth: boolean }>`
+const toolbarButtonWrapper = css`
   display: flex;
-  flex-grow: ${(props) => (props.takeFullWidth ? 1 : 0)};
   justify-content: flex-end;
+  flex-grow: 0;
   align-items: center;
   & > div {
     margin-right: 0;
   }
+`;
+
+const toolbarButtonWrapperFullWidth = css`
+  ${toolbarButtonWrapper}
+  flex-grow: 1;
 `;
 
 const AvatarGroupPluginWrapper = (props: {
@@ -48,10 +54,14 @@ const AvatarGroupPluginWrapper = (props: {
   }, [dispatchAnalyticsEvent]);
 
   return (
-    <ToolbarButtonWrapper
+    <div
       aria-label={intl.formatMessage(avatarGroupMessages.editors)}
       data-testid={'avatar-group-in-plugin'}
-      takeFullWidth={props.takeFullWidth}
+      css={
+        props.takeFullWidth
+          ? toolbarButtonWrapperFullWidth
+          : toolbarButtonWrapper
+      }
     >
       <AvatarsWithPluginState
         editorView={props.editorView}
@@ -66,7 +76,7 @@ const AvatarGroupPluginWrapper = (props: {
           props.collabEdit && props.collabEdit.isInviteToEditButtonSelected
         }
       />
-    </ToolbarButtonWrapper>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import uuid from 'uuid';
 import {
   useComponentRenderTracking,
   UseComponentRenderTrackingArgs,
-} from '../utils/react-hooks/use-component-renderer-tracking';
+} from '@atlaskit/editor-common/utils';
 
 import { RenderCountProfiler as RenderCountProfilerClass } from '@atlaskit/editor-common/utils';
 

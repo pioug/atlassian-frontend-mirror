@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import Color from '../../../../components/internal/color';

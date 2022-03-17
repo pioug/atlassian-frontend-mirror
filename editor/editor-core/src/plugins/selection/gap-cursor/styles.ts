@@ -1,4 +1,4 @@
-import { keyframes } from 'styled-components';
+import { css, keyframes } from '@emotion/react';
 
 const gapCursorBlink = keyframes`
   from, to {
@@ -15,7 +15,7 @@ const prosemirrorwidget = '.ProseMirror-widget';
 const wrapLeft = '[layout="wrap-left"]';
 const wrapRight = '[layout="wrap-right"]';
 
-export const gapCursorStyles = `
+export const gapCursorStyles = css`
   /* =============== GAP CURSOR ================== */
   .ProseMirror {
     &.${hideCaretModifier} {

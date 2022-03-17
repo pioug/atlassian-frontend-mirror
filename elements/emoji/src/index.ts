@@ -7,10 +7,11 @@ import EmojiUploader from './components/uploader/EmojiUploader';
 import EmojiTypeAhead from './components/typeahead/EmojiTypeAhead';
 import EmojiTypeAheadItem from './components/typeahead/EmojiTypeAheadItem';
 export {
-  selected,
-  selectOnHover,
+  // renaming exports to prevent breaking changes due to renaming
+  commonSelectedStyles as selected,
+  selectOnHoverStyles as selectOnHover,
   emojiSprite,
-  emojiNode,
+  emojiNodeStyles as emojiNode,
   emojiImage,
 } from './components/common/styles';
 import EmojiResource, {

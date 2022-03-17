@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { MouseEvent, SyntheticEvent } from 'react';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
@@ -15,8 +16,17 @@ import {
   SpriteRepresentation,
 } from '../../types';
 import { leftClick } from '../../util/mouse';
-import * as styles from './styles';
 import DeleteButton from './DeleteButton';
+import {
+  emojiContainer,
+  emojiNodeStyles,
+  commonSelectedStyles,
+  selectOnHoverStyles,
+  emojiSprite,
+  emojiMainStyle,
+  emojiStyles,
+  emojiImage,
+} from './styles';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
 
 export interface Props {
@@ -159,22 +169,18 @@ const renderAsSprite = (props: Props) => {
   } = props;
   const representation = emoji.representation as SpriteRepresentation;
   const sprite = representation.sprite;
-  const classes = {
-    [styles.emojiContainer]: true,
-    [styles.emojiNode]: true,
-    [styles.selected]: selected,
-    [styles.selectOnHover]: selectOnHover,
-  };
 
-  if (className) {
-    classes[className] = true;
-  }
+  const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
+    selectOnHover ? selectOnHoverStyles : ''
+  } ${className ? className : ''}`;
 
   let sizing = {};
   if (fitToHeight) {
     sizing = {
       width: `${fitToHeight}px`,
       height: `${fitToHeight}px`,
+      minHeight: `${fitToHeight}px`,
+      minWidth: `${fitToHeight}px`,
     };
   }
 
@@ -189,7 +195,7 @@ const renderAsSprite = (props: Props) => {
     ...sizing,
   };
   const emojiNode = (
-    <span className={styles.emojiSprite} style={style}>
+    <span className={emojiSprite} style={style}>
       &nbsp;
     </span>
   );
@@ -198,7 +204,8 @@ const renderAsSprite = (props: Props) => {
     <span
       tabIndex={shouldBeInteractive ? 0 : undefined}
       role={shouldBeInteractive ? 'button' : undefined}
-      className={classNames(classes)}
+      css={emojiContainer}
+      className={classes}
       onKeyPress={(event) => handleKeyPress(props, event)}
       onMouseDown={(event) => {
         handleMouseDown(props, event);
@@ -227,17 +234,11 @@ const renderAsImage = (props: Props) => {
     shouldBeInteractive,
   } = props;
 
-  const classes = {
-    [styles.emoji]: true,
-    [styles.emojiNode]: true,
-    [styles.selected]: selected,
-    [styles.selectOnHover]: selectOnHover,
-    [styles.emojiImage]: true,
-  };
-
-  if (className) {
-    classes[className] = true;
-  }
+  const classes = `${emojiMainStyle} ${emojiNodeStyles} ${
+    selected ? commonSelectedStyles : ''
+  } ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${
+    className ? className : ''
+  }`;
 
   let width;
   let height;
@@ -308,9 +309,10 @@ const renderAsImage = (props: Props) => {
 
   return (
     <span
+      css={emojiStyles}
       tabIndex={shouldBeInteractive ? 0 : undefined}
       role={shouldBeInteractive ? 'button' : undefined}
-      className={classNames(classes)}
+      className={classes}
       onKeyPress={(event) => handleKeyPress(props, event)}
       onMouseDown={(event) => {
         handleMouseDown(props, event);

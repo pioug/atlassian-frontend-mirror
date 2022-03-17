@@ -1,4 +1,4 @@
-import { style } from 'typestyle';
+import { css } from '@emotion/core';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -10,13 +10,13 @@ import {
   noDialogContainerBoxShadow,
 } from '../../util/shared-styles';
 
-export const selected = 'emoji-typeahead-selected';
-
 export const emojiTypeAhead = 'emoji-typeahead-element';
-
 export const typeAheadListContainer = 'emoji-typeahead-list-container';
 
-export const typeAheadList = style({
+// editor-core is using this static class name for testing
+export const typeaheadSelected = 'emoji-typeahead-selected';
+
+export const typeAheadList = css({
   background: token('elevation.surface.overlay', 'white'),
   border: `1px solid ${noDialogContainerBorderColor}`,
   borderRadius: noDialogContainerBorderRadius,
@@ -25,38 +25,36 @@ export const typeAheadList = style({
   width: emojiTypeAheadWidth,
 });
 
-export const typeAheadEmpty = style({
+export const typeAheadEmpty = css({
   display: 'none',
 });
 
-export const typeAheadItem = style({
+export const selected = css({
+  backgroundColor: emojiPreviewSelectedColor,
+});
+
+export const typeAheadItem = css({
   cursor: 'pointer',
   display: 'block',
   listStyleType: 'none',
   overflow: 'hidden',
   width: emojiTypeAheadWidth,
-
-  $nest: {
-    [`&.${selected}`]: {
-      backgroundColor: emojiPreviewSelectedColor,
-    },
-  },
 });
 
-export const typeAheadItemRow = style({
+export const typeAheadItemRow = css({
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
   verticalAlign: 'middle',
 });
 
-export const emojiTypeAheadSpinnerContainer = style({
+export const emojiTypeAheadSpinnerContainer = css({
   position: 'relative',
   height: `${emojiTypeAheadMaxHeight}px`,
   paddingTop: `${((emojiTypeAheadMaxHeight - 30) / 2).toFixed()}px`,
   boxSizing: 'border-box',
 });
 
-export const emojiTypeAheadSpinner = style({
+export const emojiTypeAheadSpinner = css({
   textAlign: 'center',
 });

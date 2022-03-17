@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import {
   injectIntl,
   defineMessages,
@@ -16,18 +18,18 @@ import AkModalDialog, {
   useModal,
 } from '@atlaskit/modal-dialog';
 import {
-  Header,
-  Footer,
-  ContentWrapper,
-  Line,
-  Content,
-  ColumnRight,
-  ColumnLeft,
-  Row,
-  CodeSm,
-  CodeMd,
-  CodeLg,
-  Title,
+  header,
+  footer,
+  contentWrapper,
+  line,
+  content,
+  columnRight,
+  columnLeft,
+  row,
+  codeSm,
+  codeMd,
+  codeLg,
+  title,
 } from './styles';
 import * as keymaps from '../../../keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
@@ -101,11 +103,11 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleBold,
     autoFormatting: () => (
       <span>
-        <CodeLg>
+        <span css={codeLg}>
           **
           <FormattedMessage {...toolbarMessages.bold} />
           **
-        </CodeLg>
+        </span>
       </span>
     ),
   },
@@ -115,9 +117,9 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleItalic,
     autoFormatting: () => (
       <span>
-        <CodeLg>
+        <span css={codeLg}>
           *<FormattedMessage {...toolbarMessages.italic} />*
-        </CodeLg>
+        </span>
       </span>
     ),
   },
@@ -132,11 +134,11 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleStrikethrough,
     autoFormatting: () => (
       <span>
-        <CodeLg>
+        <span css={codeLg}>
           ~~
           <FormattedMessage {...toolbarMessages.strike} />
           ~~
-        </CodeLg>
+        </span>
       </span>
     ),
   },
@@ -156,7 +158,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleHeading1,
     autoFormatting: () => (
       <span>
-        <CodeSm>#</CodeSm> <CodeLg>Space</CodeLg>
+        <span css={codeSm}>#</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -166,7 +168,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleHeading2,
     autoFormatting: () => (
       <span>
-        <CodeLg>##</CodeLg> <CodeLg>Space</CodeLg>
+        <span css={codeLg}>##</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -176,7 +178,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleHeading3,
     autoFormatting: () => (
       <span>
-        <CodeLg>###</CodeLg> <CodeLg>Space</CodeLg>
+        <span css={codeLg}>###</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -186,7 +188,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleHeading4,
     autoFormatting: () => (
       <span>
-        <CodeLg>####</CodeLg> <CodeLg>Space</CodeLg>
+        <span css={codeLg}>####</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -196,7 +198,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleHeading5,
     autoFormatting: () => (
       <span>
-        <CodeLg>#####</CodeLg> <CodeLg>Space</CodeLg>
+        <span css={codeLg}>#####</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -206,7 +208,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleHeading6,
     autoFormatting: () => (
       <span>
-        <CodeLg>######</CodeLg> <CodeLg>Space</CodeLg>
+        <span css={codeLg}>######</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -221,7 +223,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleOrderedList,
     autoFormatting: () => (
       <span>
-        <CodeSm>1.</CodeSm> <CodeLg>Space</CodeLg>
+        <span css={codeSm}>1.</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -231,7 +233,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleBulletList,
     autoFormatting: () => (
       <span>
-        <CodeSm>*</CodeSm> <CodeLg>Space</CodeLg>
+        <span css={codeSm}>*</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -241,7 +243,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleBlockQuote,
     autoFormatting: () => (
       <span>
-        <CodeLg>{'>'}</CodeLg> <CodeLg>Space</CodeLg>
+        <span css={codeLg}>{'>'}</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -250,7 +252,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     type: 'codeBlock',
     autoFormatting: () => (
       <span>
-        <CodeLg>```</CodeLg>
+        <span css={codeLg}>```</span>
       </span>
     ),
   },
@@ -260,7 +262,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.insertRule,
     autoFormatting: () => (
       <span>
-        <CodeLg>---</CodeLg>
+        <span css={codeLg}>---</span>
       </span>
     ),
   },
@@ -270,10 +272,10 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.addLink,
     autoFormatting: () => (
       <span>
-        <CodeLg>
+        <span css={codeLg}>
           [<FormattedMessage {...insertBlockMessages.link} />
           ](http://a.com)
-        </CodeLg>
+        </span>
       </span>
     ),
   },
@@ -283,9 +285,9 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     keymap: () => keymaps.toggleCode,
     autoFormatting: () => (
       <span>
-        <CodeLg>
+        <span css={codeLg}>
           `<FormattedMessage {...toolbarMessages.code} />`
-        </CodeLg>
+        </span>
       </span>
     ),
   },
@@ -294,7 +296,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     type: 'taskItem',
     autoFormatting: () => (
       <span>
-        <CodeSm>[]</CodeSm> <CodeLg>Space</CodeLg>
+        <span css={codeSm}>[]</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -303,7 +305,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     type: 'decisionItem',
     autoFormatting: () => (
       <span>
-        <CodeSm>&lt;&gt;</CodeSm> <CodeLg>Space</CodeLg>
+        <span css={codeSm}>&lt;&gt;</span> <span css={codeLg}>Space</span>
       </span>
     ),
   },
@@ -312,7 +314,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     type: 'emoji',
     autoFormatting: () => (
       <span>
-        <CodeLg>:</CodeLg>
+        <span css={codeLg}>:</span>
       </span>
     ),
   },
@@ -321,7 +323,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     type: 'mention',
     autoFormatting: () => (
       <span>
-        <CodeLg>@</CodeLg>
+        <span css={codeLg}>@</span>
       </span>
     ),
   },
@@ -375,11 +377,11 @@ const imageAutoFormat: Format = {
   type: 'image',
   autoFormatting: () => (
     <span>
-      <CodeLg>
+      <span css={codeLg}>
         ![
         <FormattedMessage {...messages.altText} />
         ](http://www.image.com)
-      </CodeLg>
+      </span>
     </span>
   ),
 };
@@ -391,7 +393,7 @@ const quickInsertAutoFormat: (intl: IntlShape) => Format = ({
   type: 'quickInsert',
   autoFormatting: () => (
     <span>
-      <CodeLg>/</CodeLg>
+      <span css={codeLg}>/</span>
     </span>
   ),
 });
@@ -425,14 +427,24 @@ export const getComponentFromKeymap = (keymap: keymaps.Keymap) => {
         if (part === '+') {
           return <span key={`${shortcut}-${index}`}>{' + '}</span>;
         } else if (part === 'Cmd') {
-          return <CodeSm key={`${shortcut}-${index}`}>⌘</CodeSm>;
+          return (
+            <span css={codeSm} key={`${shortcut}-${index}`}>
+              ⌘
+            </span>
+          );
         } else if (
           ['ctrl', 'alt', 'opt', 'shift'].indexOf(part.toLowerCase()) >= 0
         ) {
-          return <CodeMd key={`${shortcut}-${index}`}>{part}</CodeMd>;
+          return (
+            <span css={codeMd} key={`${shortcut}-${index}`}>
+              {part}
+            </span>
+          );
         }
         return (
-          <CodeSm key={`${shortcut}-${index}`}>{part.toUpperCase()}</CodeSm>
+          <span css={codeSm} key={`${shortcut}-${index}`}>
+            {part.toUpperCase()}
+          </span>
         );
       })}
     </span>
@@ -450,7 +462,7 @@ const ModalHeader = injectIntl(
   ({ intl: { formatMessage } }: WrappedComponentProps) => {
     const { onClose } = useModal();
     return (
-      <Header>
+      <div css={header}>
         <FormattedMessage {...messages.editorHelp} />
         <div>
           <ToolbarButton
@@ -466,18 +478,18 @@ const ModalHeader = injectIntl(
             }
           />
         </div>
-      </Header>
+      </div>
     );
   },
 );
 
 const ModalFooter = () => (
-  <Footer>
+  <div css={footer}>
     <FormattedMessage
       {...messages.helpDialogTips}
       values={{ keyMap: getComponentFromKeymap(keymaps.openHelp) }}
     />
-  </Footer>
+  </div>
 );
 
 class HelpDialog extends React.Component<Props & WrappedComponentProps> {
@@ -526,13 +538,13 @@ class HelpDialog extends React.Component<Props & WrappedComponentProps> {
           >
             <ModalHeader />
             <ModalBody>
-              <ContentWrapper>
-                <Line />
-                <Content>
-                  <ColumnLeft>
-                    <Title>
+              <div css={contentWrapper}>
+                <div css={line} />
+                <div css={content}>
+                  <div css={columnLeft}>
+                    <div css={title}>
                       <FormattedMessage {...messages.keyboardShortcuts} />
-                    </Title>
+                    </div>
                     <div>
                       {this.formatting
                         .filter((form) => {
@@ -542,10 +554,10 @@ class HelpDialog extends React.Component<Props & WrappedComponentProps> {
                           );
                         })
                         .map((form) => (
-                          <Row key={`textFormatting-${form.name}`}>
+                          <div css={row} key={`textFormatting-${form.name}`}>
                             <span>{form.name}</span>
                             {getComponentFromKeymap(form.keymap!())}
-                          </Row>
+                          </div>
                         ))}
 
                       {this.formatting
@@ -556,18 +568,18 @@ class HelpDialog extends React.Component<Props & WrappedComponentProps> {
                         )
                         .filter((form) => form.autoFormatting)
                         .map((form) => (
-                          <Row key={`autoFormatting-${form.name}`}>
+                          <div css={row} key={`autoFormatting-${form.name}`}>
                             <span>{form.name}</span>
                             {form.autoFormatting!()}
-                          </Row>
+                          </div>
                         ))}
                     </div>
-                  </ColumnLeft>
-                  <Line />
-                  <ColumnRight>
-                    <Title>
+                  </div>
+                  <div css={line} />
+                  <div css={columnRight}>
+                    <div css={title}>
                       <FormattedMessage {...messages.markdown} />
-                    </Title>
+                    </div>
                     <div>
                       {this.formatting
                         .filter(
@@ -578,16 +590,19 @@ class HelpDialog extends React.Component<Props & WrappedComponentProps> {
                         .map(
                           (form) =>
                             form.autoFormatting && (
-                              <Row key={`autoFormatting-${form.name}`}>
+                              <div
+                                css={row}
+                                key={`autoFormatting-${form.name}`}
+                              >
                                 <span>{form.name}</span>
                                 {form.autoFormatting()}
-                              </Row>
+                              </div>
                             ),
                         )}
                     </div>
-                  </ColumnRight>
-                </Content>
-              </ContentWrapper>
+                  </div>
+                </div>
+              </div>
             </ModalBody>
             <ModalFooter />
           </AkModalDialog>

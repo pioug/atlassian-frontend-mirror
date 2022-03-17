@@ -35,7 +35,6 @@ jest.mock('../../root/card/cardAnalytics', () => {
     fireScreenEvent: jest.fn(actualModule.fireScreenEvent),
   };
 });
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import React from 'react';
 import uuid from 'uuid/v4';
 import { shallow, mount } from 'enzyme';
@@ -54,8 +53,8 @@ import {
   globalMediaEventEmitter,
   MediaViewedEventPayload,
   RECENTS_COLLECTION,
-  createFileStateSubject,
   ProcessedFileState,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import {
@@ -151,7 +150,7 @@ describe('Card', () => {
     asMockFunction(mockMediaClient.getImage).mockReturnValue(defaultImageBlob);
     asMockReturnValue(
       mockMediaClient.file.getFileState,
-      createFileStateSubject(fileState),
+      createMediaSubscribable(fileState),
     );
     return mockMediaClient;
   };
@@ -159,7 +158,7 @@ describe('Card', () => {
   beforeEach(() => {
     asMockFunction(fireOperationalEvent).mockClear();
     mediaClient = fakeMediaClient();
-    const fileStateSubject = createFileStateSubject({
+    const fileStateSubscribable = createMediaSubscribable({
       status: 'processed',
       id: defaultFileId,
       mimeType: 'image/png',
@@ -171,7 +170,9 @@ describe('Card', () => {
         image: {},
       },
     });
-    asMock(mediaClient.file.getFileState).mockReturnValue(fileStateSubject);
+    asMock(mediaClient.file.getFileState).mockReturnValue(
+      fileStateSubscribable,
+    );
     defaultFileId = uuid();
     fileIdentifier = {
       id: defaultFileId,
@@ -231,9 +232,8 @@ describe('Card', () => {
   it('should fire onClick when passed in as a prop and CardView fires onClick', () => {
     const clickHandler = jest.fn();
 
-    const subject = new ReplaySubject<FileState>(1);
     const mediaClient = fakeMediaClient();
-    asMockReturnValue(mediaClient.file.getFileState, subject);
+    asMockReturnValue(mediaClient.file.getFileState, createMediaSubscribable());
 
     const { component } = setup(mediaClient, { onClick: clickHandler });
 
@@ -319,9 +319,8 @@ describe('Card', () => {
   });
 
   it('should pass properties down to CardView', () => {
-    const subject = new ReplaySubject<FileState>(1);
     const mediaClient = fakeMediaClient();
-    asMockReturnValue(mediaClient.file.getFileState, subject);
+    asMockReturnValue(mediaClient.file.getFileState, createMediaSubscribable());
 
     const { component } = setup(mediaClient, {
       dimensions: { width: 100, height: 50 },
@@ -544,13 +543,13 @@ describe('Card', () => {
   });
 
   it('should set error card state and wrap the error when filestate subscription sends error', async () => {
-    const subject = new ReplaySubject<FileState>(1);
     const mediaClient = fakeMediaClient();
-    asMockReturnValue(mediaClient.file.getFileState, subject);
-    const { component } = setup(mediaClient);
-
     const errorThrown = new Error('this is an error');
-    subject.error(errorThrown);
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createMediaSubscribable(errorThrown),
+    );
+    const { component } = setup(mediaClient);
 
     expect(component.state('status')).toEqual('error');
     const error = component.state('error');
@@ -605,9 +604,11 @@ describe('Card', () => {
 
   it('should render error card when getFileState fails', () => {
     const mediaClient = fakeMediaClient();
-    const fileStateSubject = createFileStateSubject();
-    fileStateSubject.error('some-error');
-    asMockReturnValue(mediaClient.file.getFileState, fileStateSubject);
+    const errorThrown = new Error('some-error');
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createMediaSubscribable(errorThrown),
+    );
     const { component } = setup(mediaClient);
     component.update();
     expect(component.find(CardView).prop('status')).toEqual('error');
@@ -618,23 +619,27 @@ describe('Card', () => {
   it('should not render error card when getFileState throws and previous state is complete', async () => {
     asMockFunction(getCardStatus).mockReturnValueOnce('complete');
     const mediaClient = fakeMediaClient();
-    const fileStateSubject = createFileStateSubject();
-    asMockReturnValue(mediaClient.file.getFileState, fileStateSubject);
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createMediaSubscribable({
+        id: 'some-id',
+        name: 'some-name',
+        size: 10,
+        status: 'uploading',
+        progress: 0.5,
+        mediaType: 'doc',
+        mimeType: 'application/pdf',
+      }),
+    );
     const { component } = setup(mediaClient);
 
-    fileStateSubject.next({
-      id: 'some-id',
-      name: 'some-name',
-      size: 10,
-      status: 'uploading',
-      progress: 0.5,
-      mediaType: 'doc',
-      mimeType: 'application/pdf',
-    });
     await nextTick();
     expect(component.state().status).toBe('complete');
 
-    fileStateSubject.error(new Error('This is a pressumable polling error'));
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createMediaSubscribable(new Error('This is a pressumable polling error')),
+    );
     await nextTick();
     expect(component.state().status).toBe('complete');
   });

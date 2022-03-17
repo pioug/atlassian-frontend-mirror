@@ -1,7 +1,7 @@
 import React from 'react';
 import { WrappedComponentProps } from 'react-intl-next';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { mockAddEventListener } from '@atlaskit/editor-test-helpers/mock-add-event-listener';
 
 import FindReplaceToolbarButton, {

@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { RefObject } from 'react';
+import { jsx } from '@emotion/react';
 import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 import type {
   SearchProvider,
@@ -51,7 +53,7 @@ import { hideLinkToolbar } from '../../commands';
 import { EditorView } from 'prosemirror-view';
 import { LinkInputType } from '../../types';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
-import { ScreenReaderText } from '../../styles';
+import { visuallyHiddenStyles } from '../../styles';
 import { browser } from '@atlaskit/editor-common/utils';
 import { transformTimeStamp } from '../../../../ui/LinkSearch/transformTimeStamp';
 import Announcer from '../../../../utils/announcer/announcer';
@@ -609,9 +611,13 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
                 delay={250}
               />
             )}
-            <ScreenReaderText aria-hidden="true" id={screenReaderDescriptionId}>
+            <div
+              css={visuallyHiddenStyles}
+              aria-hidden="true"
+              id={screenReaderDescriptionId}
+            >
               {formatMessage(messages.searchLinkAriaDescription)}
-            </ScreenReaderText>
+            </div>
             <PanelTextInput
               role="combobox"
               ariaExpanded
@@ -665,7 +671,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               </Tooltip>
             )}
           </TextInputWrapper>
-          <ScreenReaderText
+          <div
+            css={visuallyHiddenStyles}
             aria-live="polite"
             aria-atomic="true"
             id="fabric.editor.hyperlink.suggested.results"
@@ -674,7 +681,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
               formatMessage(messages.searchLinkResults, {
                 count: items.length,
               })}
-          </ScreenReaderText>
+          </div>
           <LinkSearchList
             ariaControls="fabric.editor.hyperlink.suggested.results"
             id={linkSearchListId}

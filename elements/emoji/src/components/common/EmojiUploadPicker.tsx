@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import React, { Fragment } from 'react';
 import { ChangeEvent, ChangeEventHandler, PureComponent } from 'react';
 import {
   FormattedMessage,
@@ -16,7 +18,15 @@ import EmojiErrorMessage from './EmojiErrorMessage';
 import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
-import * as styles from './styles';
+import {
+  emojiChooseFileErrorMessage,
+  emojiUpload,
+  emojiUploadBottom,
+  uploadChooseFileBrowse,
+  uploadChooseFileEmojiName,
+  uploadChooseFileMessage,
+  uploadChooseFileRow,
+} from './styles';
 
 export interface OnUploadEmoji {
   (upload: EmojiUpload, retry: boolean): void;
@@ -102,14 +112,14 @@ class ChooseEmojiFile extends PureComponent<
 
     // Note: FileChooser.accept does not work in Electron due to a bug: https://product-fabric.atlassian.net/browse/FS-1626
     return (
-      <div className={styles.emojiUpload}>
-        <div className={styles.uploadChooseFileMessage}>
+      <div css={emojiUpload}>
+        <div css={uploadChooseFileMessage}>
           <FormattedMessage {...messages.addCustomEmojiLabel}>
             {(message) => <h5>{message}</h5>}
           </FormattedMessage>
         </div>
-        <div className={styles.uploadChooseFileRow}>
-          <span className={styles.uploadChooseFileEmojiName}>
+        <div css={uploadChooseFileRow}>
+          <span css={uploadChooseFileEmojiName}>
             <TextField
               placeholder={formatMessage(messages.emojiPlaceholder)}
               aria-label={formatMessage(messages.emojiNameAriaLabel)}
@@ -121,12 +131,12 @@ class ChooseEmojiFile extends PureComponent<
               autoFocus
             />
           </span>
-          <span className={styles.uploadChooseFileBrowse}>
+          <span css={uploadChooseFileBrowse}>
             <FormattedMessage
               {...messages.emojiChooseFileScreenReaderDescription}
             >
               {(screenReaderDescription) => (
-                <>
+                <Fragment>
                   <span hidden id={fileChooserButtonDescriptionId}>
                     {screenReaderDescription}
                   </span>
@@ -138,19 +148,19 @@ class ChooseEmojiFile extends PureComponent<
                     ariaDescribedBy={fileChooserButtonDescriptionId}
                     isDisabled={disableChooser}
                   />
-                </>
+                </Fragment>
               )}
             </FormattedMessage>
           </span>
         </div>
-        <div className={styles.emojiUploadBottom}>
+        <div css={emojiUploadBottom}>
           {!errorMessage ? (
             <p>
               <FormattedMessage {...messages.emojiImageRequirements} />
             </p>
           ) : (
             <EmojiErrorMessage
-              className={styles.emojiChooseFileErrorMessage}
+              messageStyles={emojiChooseFileErrorMessage}
               message={errorMessage}
             />
           )}

@@ -1,5 +1,5 @@
 import { mockSearch } from './ModalElementBrowser.mock';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { TypeAheadInsert } from '../../../../../plugins/type-ahead/types';

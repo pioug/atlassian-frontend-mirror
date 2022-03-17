@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import DatePickerInput from '../../../ui/DatePicker/date-picker-input';
 import React from 'react';
 import { DateType } from '../../../types';

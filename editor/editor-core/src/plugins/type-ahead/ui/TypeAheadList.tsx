@@ -1,3 +1,4 @@
+/** @jsx jsx */
 import React, {
   useMemo,
   useEffect,
@@ -5,23 +6,14 @@ import React, {
   useCallback,
   useLayoutEffect,
 } from 'react';
-import {
-  text as colorsText,
-  N200,
-  N20,
-  DN70,
-  N800,
-  DN600,
-  DN300,
-} from '@atlaskit/theme/colors';
+import { jsx, css } from '@emotion/react';
+
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { ItemGroup, itemThemeNamespace } from '@atlaskit/item';
-import { themed } from '@atlaskit/theme/components';
+import { ItemGroup } from '@atlaskit/item';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { ThemeProvider } from 'styled-components';
 
 import type { TypeAheadItem, OnSelectItem } from '../types';
-import { ICON_HEIGHT } from './TypeAheadListItem';
+import { ICON_HEIGHT, itemTheme, ITEM_PADDING } from './TypeAheadListItem';
 import { VariableSizeList as List } from 'react-window';
 import { ResizeObserverProvider } from './hooks/use-resize-observer';
 import { useDynamicListHeightCalculation } from './hooks/use-dynamic-list-height-calculation';
@@ -34,36 +26,9 @@ import {
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { typeAheadListMessages } from '../messages';
 
-const ITEM_PADDING = 12;
 const LIST_ITEM_ESTIMATED_HEIGHT = ICON_HEIGHT + ITEM_PADDING * 2;
 const LIST_MAX_HEIGHT = 380;
 const LIST_WIDTH = 320;
-const itemTheme = {
-  [itemThemeNamespace]: {
-    padding: {
-      default: {
-        bottom: ITEM_PADDING,
-        left: ITEM_PADDING,
-        right: ITEM_PADDING,
-        top: ITEM_PADDING,
-      },
-    },
-    beforeItemSpacing: {
-      default: () => ITEM_PADDING,
-    },
-    borderRadius: () => 0,
-    hover: {
-      // background: colors.transparent, transparent is not a thing
-      text: colorsText,
-      secondaryText: N200,
-    },
-    selected: {
-      background: themed({ light: N20, dark: DN70 }),
-      text: themed({ light: N800, dark: DN600 }),
-      secondaryText: themed({ light: N200, dark: DN300 }),
-    },
-  },
-};
 
 type TypeAheadListProps = {
   items: Array<TypeAheadItem>;
@@ -176,40 +141,45 @@ const TypeAheadListComponent = React.memo(
       LIST_MAX_HEIGHT,
     );
     return (
-      <ThemeProvider theme={itemTheme}>
-        <ItemGroup
-          role="listbox"
-          aria-live="polite"
-          aria-label={intl.formatMessage(
-            typeAheadListMessages.typeAheadResultLabel,
-          )}
-          aria-relevant="additions removals"
-        >
-          <ResizeObserverProvider>
-            <UpdateListItemHeightContext.Provider value={setListItemHeight}>
-              <ListItemActionsContext.Provider value={actions}>
-                <SelectedIndexContext.Provider value={selectedIndex}>
-                  <List
-                    useIsScrolling
-                    ref={listRef}
-                    itemData={items}
-                    itemCount={items.length}
-                    estimatedItemSize={LIST_ITEM_ESTIMATED_HEIGHT}
-                    onScroll={onScroll}
-                    onItemsRendered={onItemsRendered}
-                    itemSize={getListItemHeight}
-                    width={LIST_WIDTH}
-                    height={height}
-                    overscanCount={3}
-                  >
-                    {DynamicHeightListItem}
-                  </List>
-                </SelectedIndexContext.Provider>
-              </ListItemActionsContext.Provider>
-            </UpdateListItemHeightContext.Provider>
-          </ResizeObserverProvider>
-        </ItemGroup>
-      </ThemeProvider>
+      <ItemGroup
+        role="listbox"
+        aria-live="polite"
+        aria-label={intl.formatMessage(
+          typeAheadListMessages.typeAheadResultLabel,
+        )}
+        aria-relevant="additions removals"
+        theme={itemTheme}
+      >
+        <ResizeObserverProvider>
+          <UpdateListItemHeightContext.Provider value={setListItemHeight}>
+            <ListItemActionsContext.Provider value={actions}>
+              <SelectedIndexContext.Provider value={selectedIndex}>
+                <List
+                  useIsScrolling
+                  ref={listRef}
+                  itemData={items}
+                  itemCount={items.length}
+                  estimatedItemSize={LIST_ITEM_ESTIMATED_HEIGHT}
+                  onScroll={onScroll}
+                  onItemsRendered={onItemsRendered}
+                  itemSize={getListItemHeight}
+                  width={LIST_WIDTH}
+                  height={height}
+                  overscanCount={3}
+                  css={css`
+                    // temporary solution before we migrated off dst/item
+                    & span[class^='ItemParts__Before'] {
+                      margin-right: 12px;
+                    }
+                  `}
+                >
+                  {DynamicHeightListItem}
+                </List>
+              </SelectedIndexContext.Provider>
+            </ListItemActionsContext.Provider>
+          </UpdateListItemHeightContext.Provider>
+        </ResizeObserverProvider>
+      </ItemGroup>
     );
   },
 );

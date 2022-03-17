@@ -2,10 +2,9 @@
 
 import { css, jsx } from '@emotion/core';
 
-import { useGlobalTheme } from '@atlaskit/theme/components';
-
 import {
   buttonWidthUnitless,
+  cssVar,
   defaultTextPadding,
   maxTextWidth,
   maxTextWidthUnitless,
@@ -13,7 +12,6 @@ import {
   textMarginLeft,
   textPaddingRight,
 } from '../../../constants';
-import * as theme from '../../../theme';
 
 import type { SimpleTagProps } from './types';
 
@@ -36,28 +34,23 @@ const baseStyles = css({
 });
 
 const linkStyles = css({
+  color: `var(${cssVar.color.text.link})`,
   pointerEvents: 'auto',
   textDecoration: 'none',
+
+  '&:hover': {
+    color: `var(${cssVar.color.text.hover})`,
+    textDecoration: 'underline',
+  },
+
+  '&:active': {
+    color: `var(${cssVar.color.text.active})`,
+    textDecoration: 'underline',
+  },
+
   '&:focus': {
     outline: 'none',
   },
-});
-
-const lightLinkStyles = css({
-  '&:hover': {
-    color: theme.linkHoverTextColors.light,
-  },
-});
-
-const darkLinkStyles = css({
-  '&:hover': {
-    color: theme.linkHoverTextColors.dark,
-  },
-});
-
-const colorfulLinkStyles = css({
-  color: 'inherit',
-  textDecoration: 'underline',
 });
 
 const hasAfterStyles = css({
@@ -77,8 +70,6 @@ const Content = ({
   href,
   linkComponent,
 }: ContentProps) => {
-  const { mode } = useGlobalTheme();
-
   const Link = linkComponent ?? 'a';
 
   if (href) {
@@ -89,9 +80,6 @@ const Content = ({
         css={[
           baseStyles,
           linkStyles,
-          mode === 'light' && lightLinkStyles,
-          mode === 'dark' && darkLinkStyles,
-          color !== 'standard' && colorfulLinkStyles,
           elemBefore && hasBeforeStyles,
           isRemovable && hasAfterStyles,
         ]}

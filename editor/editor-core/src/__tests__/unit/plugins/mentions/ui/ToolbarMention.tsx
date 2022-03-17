@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {

@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import {
   DEFAULT_LEFT_PANEL_WIDTH,
+  LEFT_PANEL,
+  LEFT_PANEL_WIDTH,
   VAR_LEFT_PANEL_WIDTH,
 } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
@@ -14,8 +16,20 @@ import {
 } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 
+import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
-import { leftPanelStyles } from './styles';
+
+const leftPanelStyles = css({
+  gridArea: LEFT_PANEL,
+});
+
+const leftPanelFixedStyles = css({
+  width: LEFT_PANEL_WIDTH,
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  left: 0,
+});
 
 const LeftPanel = (props: SlotWidthProps) => {
   const {
@@ -39,24 +53,28 @@ const LeftPanel = (props: SlotWidthProps) => {
     return () => {
       publishGridState({ [VAR_LEFT_PANEL_WIDTH]: 0 });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leftPanelWidth]);
 
   useSkipLink(id, skipLinkTitle);
 
   return (
-    <div
-      css={leftPanelStyles(isFixed)}
-      data-testid={testId}
-      id={id}
-      {...getPageLayoutSlotSelector('left-panel')}
-    >
-      <SlotDimensions
-        variableName={VAR_LEFT_PANEL_WIDTH}
-        value={leftPanelWidth}
-      />
-      {children}
-    </div>
+    <SlotFocusRing>
+      {({ className }) => (
+        <div
+          css={[leftPanelStyles, isFixed && leftPanelFixedStyles]}
+          className={className}
+          data-testid={testId}
+          id={id}
+          {...getPageLayoutSlotSelector('left-panel')}
+        >
+          <SlotDimensions
+            variableName={VAR_LEFT_PANEL_WIDTH}
+            value={leftPanelWidth}
+          />
+          {children}
+        </div>
+      )}
+    </SlotFocusRing>
   );
 };
 

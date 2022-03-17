@@ -1,5 +1,12 @@
 # @atlaskit/blanket
 
+## 12.2.10
+
+### Patch Changes
+
+- [`dcd92130cc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcd92130cc4) - Migrate deleted background accent tokens to replacements
+- Updated dependencies
+
 ## 12.2.9
 
 ### Patch Changes

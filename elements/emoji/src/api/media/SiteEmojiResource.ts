@@ -172,7 +172,10 @@ export default class SiteEmojiResource {
   }
 
   findEmoji(emojiId: EmojiId): Promise<OptionalEmojiDescription> {
-    const path = `../${emojiId.id}`;
+    if (!emojiId.id) {
+      return Promise.reject(false);
+    }
+    const path = `../${encodeURIComponent(emojiId.id)}`;
     return emojiRequest(this.siteServiceConfig, { path })
       .then((serviceResponse) => {
         const response = denormaliseEmojiServiceResponse(serviceResponse);
@@ -193,7 +196,10 @@ export default class SiteEmojiResource {
     if (!isMediaEmoji(emoji) && !isLoadedMediaEmoji(emoji)) {
       return Promise.reject(false);
     }
-    const path = `${emoji.id}`;
+    if (!emoji.id) {
+      return Promise.reject(false);
+    }
+    const path = `${encodeURIComponent(emoji.id)}`;
     const requestInit = {
       method: 'DELETE',
     };

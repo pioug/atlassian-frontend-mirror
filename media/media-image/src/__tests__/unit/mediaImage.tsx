@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import {
   nextTick,
   asMock,
@@ -12,7 +11,8 @@ import {
   FileState,
   ProcessedFileState,
   UploadingFileState,
-  createFileStateSubject,
+  createMediaSubscribable,
+  MediaSubscribable,
 } from '@atlaskit/media-client';
 import { MediaImageInternal, MediaImageInternalProps } from '../../mediaImage';
 
@@ -72,7 +72,7 @@ describe('<MediaImage />', () => {
   };
 
   const setup = (
-    fileStateResult: ReplaySubject<FileState> = createFileStateSubject(
+    fileStateResult: MediaSubscribable<FileState> = createMediaSubscribable(
       defaultFileState,
     ),
   ) => {
@@ -103,8 +103,7 @@ describe('<MediaImage />', () => {
   });
 
   it('should render error placeholder if request fails', async () => {
-    const subject = new ReplaySubject<FileState>(1);
-    subject.error('');
+    const subject = createMediaSubscribable(new Error(''));
     const props = {
       ...defaultProps,
       mediaClient: setup(subject),
@@ -121,7 +120,7 @@ describe('<MediaImage />', () => {
     };
     const props = {
       ...defaultProps,
-      mediaClient: setup(createFileStateSubject(fileState)),
+      mediaClient: setup(createMediaSubscribable(fileState)),
     };
 
     const wrapper = await shallowRender(props);
@@ -137,7 +136,7 @@ describe('<MediaImage />', () => {
 
     const props = {
       ...defaultProps,
-      mediaClient: setup(createFileStateSubject(fileState)),
+      mediaClient: setup(createMediaSubscribable(fileState)),
     };
     const wrapper = await shallowRender(props);
 
@@ -153,7 +152,7 @@ describe('<MediaImage />', () => {
 
     const props = {
       ...defaultProps,
-      mediaClient: setup(createFileStateSubject(fileState)),
+      mediaClient: setup(createMediaSubscribable(fileState)),
     };
     const wrapper = await shallowRender(props);
 
@@ -181,7 +180,7 @@ describe('<MediaImage />', () => {
 
     const props = {
       ...defaultProps,
-      mediaClient: setup(createFileStateSubject(fileState)),
+      mediaClient: setup(createMediaSubscribable(fileState)),
     };
     const wrapper = await shallowRender(props);
 
@@ -257,7 +256,7 @@ describe('<MediaImage />', () => {
       ...defaultFileState,
       preview: Promise.resolve({ value: new Blob() }),
     };
-    const mediaClient = setup(createFileStateSubject(fileState));
+    const mediaClient = setup(createMediaSubscribable(fileState));
     const props = {
       ...defaultProps,
       mediaClient,

@@ -11,7 +11,12 @@ import withAnalyticsEvents, {
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { UFOExperienceState } from '@atlaskit/ufo';
 import { UnknownUserError } from '../../util/i18n';
+import {
+  UfoErrorBoundary,
+  mentionRenderedUfoExperience,
+} from './ufoExperiences';
 
 export const ANALYTICS_HOVER_DELAY = 1000;
 export const UNKNOWN_USER_ID = '_|unknown|_';
@@ -31,6 +36,15 @@ export type Props = OwnProps & WithAnalyticsEventsProps;
 
 export class MentionInternal extends React.PureComponent<Props, {}> {
   private hoverTimeout?: number;
+
+  constructor(props: Props) {
+    super(props);
+    mentionRenderedUfoExperience.getInstance(props.id).start();
+  }
+
+  componentDidMount() {
+    mentionRenderedUfoExperience.getInstance(this.props.id).success();
+  }
 
   private handleOnClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     const { id, text, onClick } = this.props;
@@ -77,6 +91,16 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
     }
+
+    const ufoInstance = mentionRenderedUfoExperience.getInstance(this.props.id);
+    if (
+      [
+        UFOExperienceState['STARTED'],
+        UFOExperienceState['IN_PROGRESS'],
+      ].includes(ufoInstance.state)
+    ) {
+      ufoInstance.abort();
+    }
   }
 
   renderUnknownUserError(id: string) {
@@ -114,23 +138,25 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
     );
 
     return (
-      <span
-        data-mention-id={id}
-        data-access-level={accessLevel}
-        spellCheck={false}
-      >
-        <MessagesIntlProvider>
-          {mentionType === MentionType.RESTRICTED ? (
-            <React.Suspense fallback={mentionComponent}>
-              <AsyncNoAccessTooltip name={text}>
-                {mentionComponent}
-              </AsyncNoAccessTooltip>
-            </React.Suspense>
-          ) : (
-            mentionComponent
-          )}
-        </MessagesIntlProvider>
-      </span>
+      <UfoErrorBoundary id={id}>
+        <span
+          data-mention-id={id}
+          data-access-level={accessLevel}
+          spellCheck={false}
+        >
+          <MessagesIntlProvider>
+            {mentionType === MentionType.RESTRICTED ? (
+              <React.Suspense fallback={mentionComponent}>
+                <AsyncNoAccessTooltip name={text}>
+                  {mentionComponent}
+                </AsyncNoAccessTooltip>
+              </React.Suspense>
+            ) : (
+              mentionComponent
+            )}
+          </MessagesIntlProvider>
+        </span>
+      </UfoErrorBoundary>
     );
   }
 }

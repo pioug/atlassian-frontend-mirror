@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import { PanelType } from '@atlaskit/adf-schema';
 import {
@@ -234,7 +234,7 @@ const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
   `;
 };
 
-export const panelSharedStyles = css`
+export const panelSharedStyles = (props: ThemeProps) => css`
   .${PanelSharedCssClassName.prefix} {
     border-radius: ${borderRadius()}px;
     margin: ${blockNodesVerticalMargin} 0 0;
@@ -245,7 +245,7 @@ export const panelSharedStyles = css`
     align-items: baseline;
     word-break: break-word;
 
-    ${mainDynamicStyles(PanelType.INFO)}
+    ${mainDynamicStyles(PanelType.INFO)(props)}
 
     .${PanelSharedCssClassName.icon} {
       flex-shrink: 0;
@@ -258,7 +258,7 @@ export const panelSharedStyles = css`
       -moz-user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
-      ${iconDynamicStyles(PanelType.INFO)}
+      ${iconDynamicStyles(PanelType.INFO)(props)}
 
       > span {
         vertical-align: middle;
@@ -292,47 +292,47 @@ export const panelSharedStyles = css`
     }
 
     &[data-panel-type='${PanelType.NOTE}'] {
-      ${mainDynamicStyles(PanelType.NOTE)}
+      ${mainDynamicStyles(PanelType.NOTE)(props)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.NOTE)}
+        ${iconDynamicStyles(PanelType.NOTE)(props)}
       }
     }
 
     &[data-panel-type='${PanelType.TIP}'] {
-      ${mainDynamicStyles(PanelType.TIP)}
+      ${mainDynamicStyles(PanelType.TIP)(props)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.TIP)}
+        ${iconDynamicStyles(PanelType.TIP)(props)}
       }
     }
 
     &[data-panel-type='${PanelType.WARNING}'] {
-      ${mainDynamicStyles(PanelType.WARNING)}
+      ${mainDynamicStyles(PanelType.WARNING)(props)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.WARNING)}
+        ${iconDynamicStyles(PanelType.WARNING)(props)}
       }
     }
 
     &[data-panel-type='${PanelType.ERROR}'] {
-      ${mainDynamicStyles(PanelType.ERROR)}
+      ${mainDynamicStyles(PanelType.ERROR)(props)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.ERROR)}
+        ${iconDynamicStyles(PanelType.ERROR)(props)}
       }
     }
 
     &[data-panel-type='${PanelType.SUCCESS}'] {
-      ${mainDynamicStyles(PanelType.SUCCESS)}
+      ${mainDynamicStyles(PanelType.SUCCESS)(props)}
 
       .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.SUCCESS)}
+        ${iconDynamicStyles(PanelType.SUCCESS)(props)}
       }
     }
 
     &[data-panel-type='${PanelType.CUSTOM}'] {
-      ${themed({ dark: getPanelBackgroundDarkModeColors })};
+      ${themed({ dark: getPanelBackgroundDarkModeColors })(props)};
     }
   }
 `;

@@ -1,8 +1,8 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import Button from '@atlaskit/button/standard-button';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
-import cx from 'classnames';
 import React from 'react';
-import { style } from 'typestyle';
 
 export interface Props {
   onClick: Function;
@@ -10,18 +10,17 @@ export interface Props {
   disabled?: boolean;
 }
 
-const triggerStyle = style({
+const triggerStyle = css({
   width: '32px',
   height: '32px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   lineHeight: '16px',
-  $nest: {
-    '&.miniMode': {
-      width: '24px',
-      height: '24px',
-    },
+
+  '&.miniMode': {
+    width: '24px',
+    height: '24px',
   },
 });
 
@@ -35,11 +34,10 @@ export const Trigger = React.forwardRef(
       }
     };
 
-    const classNames = cx(triggerStyle, { miniMode });
-
     return (
       <Button
-        className={classNames}
+        className={miniMode ? 'miniMode' : ''}
+        css={triggerStyle}
         appearance="subtle"
         onClick={handleMouseDown}
         isDisabled={disabled}

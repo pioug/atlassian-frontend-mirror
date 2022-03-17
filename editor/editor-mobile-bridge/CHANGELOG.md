@@ -1,5 +1,95 @@
 # @atlaskit/editor-mobile-bridge
 
+## 33.0.0
+
+### Major Changes
+
+- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
+
+### Minor Changes
+
+- [`118f3af101f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/118f3af101f) - Media Client APIs has been updated to use MediaSubscribable which provides subscription functionality (similar to RxJs observables).
+  It exposes subscribe method that is called with MediaObserver as an argument and returns MediaSubscription.
+  MediaSubscription exposes unsubscribe method.
+
+  getFileState:
+  The returned type of this function has changed from RxJs ReplaySubject to MediaSubscribable.
+
+  ```
+  import { MediaClient, MediaObserver, MediaSubscribable, MediaSubscription } from '@atlaskit/media-client';
+
+  const mediaClient = new MediaClient({ authProvider });
+
+  const fileStateSubscribable: MediaSubscribable<FileState> = mediaClient.file.getFileState(id);
+
+  const mediaObserver: MediaObserver<FileState> = {
+    next: (fileState) => {
+      nextCallback(fileState)
+    },
+    error: (error) => {
+      errorCallback(error)
+    },
+  };
+
+  const subscription: MediaSubscription = fileStateSubscribable.subscribe(mediaObserver);
+
+  subscription.unsubscribe();
+  ```
+
+  upload:
+  The returned type of this function has changed from RxJs ReplaySubject to MediaSubscribable.
+
+  ```
+  import { MediaClient, MediaObserver, MediaSubscribable, MediaSubscription } from '@atlaskit/media-client';
+
+  const mediaClient = new MediaClient({ authProvider });
+
+  const uploadFileSubscribable: MediaSubscribable<FileState> = mediaClient.file.upload(uploadableFile);
+
+  const mediaObserver: MediaObserver<FileState> = {
+    next: (fileState) => {
+      nextCallback(fileState)
+    },
+    error: (error) => {
+      errorCallback(error)
+    },
+  };
+
+  const subscription: MediaSubscription = uploadFileSubscribable.subscribe(mediaObserver);
+
+  subscription.unsubscribe();
+  ```
+
+  getItems:
+  The returned type of this function has changed from RxJs ReplaySubject to MediaSubscribable.
+
+  ```
+  import { MediaClient, MediaObserver, MediaSubscribable, MediaSubscription } from '@atlaskit/media-client';
+
+  const mediaClient = new MediaClient({ authProvider });
+
+  const collectionItemsSubscribable: MediaSubscribable<MediaCollectionItem[]> = mediaClient.collection.getItems(collectionName);
+
+  const mediaObserver: MediaObserver<MediaCollectionItem[]> = {
+    next: (items) => {
+      nextCallback(items)
+    },
+    error: (error) => {
+      errorCallback(error)
+    },
+  };
+
+  const subscription: MediaSubscription = collectionItemsSubscribable.subscribe(mediaObserver);
+
+  subscription.unsubscribe();
+  ```
+
+### Patch Changes
+
+- [`1d6d5565b0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d6d5565b0d) - ED-14276: Updated this package to use emotion instead of styled for styling
+- [`fb1cf506701`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1cf506701) - [ux] ED-14487: polyfill ResizeObserver and IntersectionObserver for unit tests, but mock isIntersectionObserverSupported() for tests related to smart-cards
+- Updated dependencies
+
 ## 32.0.17
 
 ### Patch Changes

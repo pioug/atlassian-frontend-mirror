@@ -1,9 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { TableLayout } from '@atlaskit/adf-schema';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -42,10 +43,6 @@ export interface Props {
   stickyHeader?: RowStickyState;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
-
-const ButtonWrapper = styled.div`
-  ${tableFloatingCellButtonStyles}
-`;
 
 export class FloatingContextualButtonInner extends React.Component<
   Props & WrappedComponentProps,
@@ -100,7 +97,7 @@ export class FloatingContextualButtonInner extends React.Component<
     const labelCellOptions = formatMessage(messages.cellOptions);
 
     const button = (
-      <ButtonWrapper>
+      <div css={tableFloatingCellButtonStyles}>
         <ToolbarButton
           className={ClassName.CONTEXTUAL_MENU_BUTTON}
           selected={isContextualMenuOpen}
@@ -109,7 +106,7 @@ export class FloatingContextualButtonInner extends React.Component<
           iconBefore={<ExpandIcon label="" />}
           aria-label={labelCellOptions}
         />
-      </ButtonWrapper>
+      </div>
     );
 
     const parentSticky =

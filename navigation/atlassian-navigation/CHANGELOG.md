@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 2.1.2
+
+### Patch Changes
+
+- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

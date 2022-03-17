@@ -15,7 +15,6 @@ import type {
   EventHandlers,
 } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import { IframeWidthObserverFallbackWrapper } from '@atlaskit/width-detector';
 import Button from '@atlaskit/button/standard-button';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -301,9 +300,7 @@ export default class RendererDemo extends React.Component<
           ) : null}
         </fieldset>
 
-        <IframeWidthObserverFallbackWrapper>
-          {this.renderRenderer(additionalRendererProps)}
-        </IframeWidthObserverFallbackWrapper>
+        {this.renderRenderer(additionalRendererProps)}
         {this.renderText()}
       </div>
     );

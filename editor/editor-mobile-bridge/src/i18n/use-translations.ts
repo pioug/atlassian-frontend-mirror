@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { addLocaleData } from 'react-intl';
 
 export type Messages = Object | undefined;
 
@@ -29,10 +28,7 @@ export const useTranslations = (
 
       try {
         let localeFileName = locale.substring(0, 2);
-        const localeData = await import(
-          `react-intl/locale-data/${localeFileName}`
-        );
-        addLocaleData(localeData.default);
+
         if (supportedLocaleWithRegions.includes(locale)) {
           localeFileName = locale;
         }

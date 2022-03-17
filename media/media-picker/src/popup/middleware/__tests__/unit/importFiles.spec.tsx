@@ -5,9 +5,8 @@ jest.mock('uuid/v4', () => ({
 
 import {
   isErrorFileState,
-  observableToPromise,
   getFileStreamsCache,
-  createFileStateSubject,
+  createMediaSubject,
   FileState,
   ProcessedFileState,
   ProcessingFileState,
@@ -29,6 +28,7 @@ import {
   expectToEqual,
   asMockFunction,
 } from '@atlaskit/media-test-helpers';
+import { observableToPromise } from '../../../tools/observableToPromise';
 import { Action } from 'redux';
 
 import {
@@ -132,7 +132,7 @@ describe('importFiles middleware', () => {
         // Find corresponding FileState in the stream cache.
         let userFileStateSubject = getFileStreamsCache().get(id);
         if (!options.shouldExistInCache) {
-          userFileStateSubject = createFileStateSubject();
+          userFileStateSubject = createMediaSubject();
           getFileStreamsCache().set(id, userFileStateSubject);
         } else if (!userFileStateSubject) {
           return expect(userFileStateSubject).toBeDefined();
@@ -983,7 +983,7 @@ describe('importFiles middleware', () => {
     });
 
     it('should add file preview for local uploads', async () => {
-      const subject = createFileStateSubject();
+      const subject = createMediaSubject<FileState>();
       subject.next({
         id: 'user-id-1',
         status: 'processing',
@@ -1017,7 +1017,7 @@ describe('importFiles middleware', () => {
     });
 
     it('should fetch remote preview for recent files with image representation ready', async () => {
-      const subject = createFileStateSubject();
+      const subject = createMediaSubject<FileState>();
       subject.next({
         id: 'user-id-1',
         status: 'processing',
@@ -1058,7 +1058,7 @@ describe('importFiles middleware', () => {
     });
 
     it('should not fetch remote preview for recent files having local preview', async () => {
-      const subject = createFileStateSubject();
+      const subject = createMediaSubject<FileState>();
       const preview = {
         value: new Blob([], { type: 'application/pdf' }),
       };
@@ -1095,7 +1095,7 @@ describe('importFiles middleware', () => {
     });
 
     it('should not fetch remote preview for recent files in error', async () => {
-      const subject = createFileStateSubject();
+      const subject = createMediaSubject<FileState>();
       subject.next({
         id: 'user-id-1',
         status: 'error',
@@ -1154,7 +1154,7 @@ describe('importFiles middleware', () => {
         },
       };
 
-      const subject = createFileStateSubject();
+      const subject = createMediaSubject<FileState>();
       subject.next({
         id: 'user-id',
         status: 'uploading',

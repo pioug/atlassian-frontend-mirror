@@ -1,5 +1,5 @@
 import { ResolvedPos, Fragment, Slice, NodeType } from 'prosemirror-model';
-import { Transaction, NodeSelection } from 'prosemirror-state';
+import { Transaction, NodeSelection, TextSelection } from 'prosemirror-state';
 import { StepResult } from 'prosemirror-transform';
 import { EditorView } from 'prosemirror-view';
 import * as baseCommand from 'prosemirror-commands';
@@ -419,6 +419,14 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
       }
 
       if (dispatch) {
+        if (
+          !tr.doc.resolve($lastNode.pos).nodeBefore?.isBlock ||
+          tr.doc.resolve($lastNode.pos).nodeBefore === null
+        ) {
+          tr = tr.setSelection(
+            TextSelection.near(tr.doc.resolve(tr.mapping.map($cut.pos)), -1),
+          );
+        }
         dispatch(tr.scrollIntoView());
       }
       return true;

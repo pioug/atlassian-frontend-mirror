@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.1.3
+
+### Patch Changes
+
+- [`cbfbaab61bb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbfbaab61bb) - [ux][ed-14300] Remove column width from table cells being pasted into another table as it should take the formatting of the destination table.
+
 ## 2.1.2
 
 ### Patch Changes

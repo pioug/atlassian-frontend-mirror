@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import TextField from '@atlaskit/textfield';
 import React from 'react';
 import { StatusPicker } from '../../..';

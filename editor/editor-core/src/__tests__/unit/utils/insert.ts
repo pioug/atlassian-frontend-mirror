@@ -286,11 +286,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
               expect(
                 editorInstance.editorView.state,
               ).toEqualDocumentAndSelection(
-                doc(
-                  panel()(p('one')),
-                  hr(),
-                  panel()(p('{<>} two'), p('three')),
-                ),
+                doc(panel()(p('one two'), p('three')), hr()),
               );
             });
 

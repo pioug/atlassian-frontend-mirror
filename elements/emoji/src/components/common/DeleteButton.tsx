@@ -1,15 +1,17 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import Button, {
   CustomThemeButtonProps,
 } from '@atlaskit/button/custom-theme-button';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { token } from '@atlaskit/tokens';
 import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
-import * as styles from './styles';
+import { emojiDeleteButton, deleteButton } from './styles';
 
 const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
-  <span className={styles.deleteButton}>
+  <span css={deleteButton} className={emojiDeleteButton}>
     <Button
       iconBefore={
         <CrossCircleIcon

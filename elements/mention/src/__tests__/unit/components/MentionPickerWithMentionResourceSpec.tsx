@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 

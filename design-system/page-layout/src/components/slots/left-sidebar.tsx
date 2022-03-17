@@ -19,7 +19,6 @@ import {
 import { LeftSidebarProps } from '../../common/types';
 import {
   getGridStateFromStorage,
-  getPageLayoutSlotSelector,
   mergeGridStateIntoStorage,
   resolveDimension,
 } from '../../common/utils';
@@ -30,12 +29,9 @@ import {
 } from '../../controllers';
 import ResizeControl from '../resize-control';
 
-import {
-  fixedChildrenWrapperStyle,
-  fixedLeftSidebarInnerStyles,
-  leftSidebarStyles,
-  resizeableChildrenWrapperStyle,
-} from './left-sidebar-styles';
+import LeftSidebarInner from './internal/left-sidebar-inner';
+import LeftSidebarOuter from './internal/left-sidebar-outer';
+import ResizableChildrenWrapper from './internal/resizable-children-wrapper';
 import SlotDimensions from './slot-dimensions';
 
 const LeftSidebar = (props: LeftSidebarProps) => {
@@ -173,6 +169,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
       leftSidebarWidth,
       lastLeftSidebarWidth,
       flyoutLockCount: 0,
+      isFixed,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -293,29 +290,29 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
   return (
     // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-    <div
+    <LeftSidebarOuter
       ref={leftSideBarRef}
-      css={leftSidebarStyles(isFixed, isFlyoutOpen)}
-      data-testid={testId}
+      testId={testId}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
       id={id}
-      {...getPageLayoutSlotSelector('left-sidebar')}
+      isFixed={isFixed}
+      isFlyoutOpen={isFlyoutOpen}
     >
       <SlotDimensions
         variableName={VAR_LEFT_SIDEBAR_WIDTH}
         value={notFirstRun.current ? leftSidebarWidth : leftSidebarWidthOnMount}
       />
-      <div css={fixedLeftSidebarInnerStyles(isFixed, isFlyoutOpen)}>
-        <div
-          css={resizeableChildrenWrapperStyle(
-            isFlyoutOpen,
-            isLeftSidebarCollapsed,
-            !notFirstRun.current && collapsedState === 'collapsed',
-          )}
+      <LeftSidebarInner isFixed={isFixed} isFlyoutOpen={isFlyoutOpen}>
+        <ResizableChildrenWrapper
+          isFlyoutOpen={isFlyoutOpen}
+          isLeftSidebarCollapsed={isLeftSidebarCollapsed}
+          hasCollapsedState={
+            !notFirstRun.current && collapsedState === 'collapsed'
+          }
         >
-          <div css={fixedChildrenWrapperStyle}>{children}</div>
-        </div>
+          {children}
+        </ResizableChildrenWrapper>
         <ResizeControl
           testId={testId}
           resizeGrabAreaLabel={resizeGrabAreaLabel}
@@ -328,8 +325,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           leftSidebarState={leftSidebarState}
           setLeftSidebarState={setLeftSidebarState}
         />
-      </div>
-    </div>
+      </LeftSidebarInner>
+    </LeftSidebarOuter>
   );
 };
 

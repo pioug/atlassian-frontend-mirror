@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -9,6 +10,7 @@ import EmojiItem from './emoji';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { themed } from '@atlaskit/theme';
+import { ThemeProps } from '@atlaskit/theme/types';
 import { getPanelBackgroundDarkModeColors } from '@atlaskit/editor-common/styles';
 import {
   PanelInfoIcon,
@@ -23,26 +25,29 @@ interface PanelStyledProps {
   backgroundColor?: string;
 }
 
-const PanelStyled = styled.div<PanelStyledProps>`
-  ${(props) => {
-    if (
-      props['data-panel-type'] !== PanelType.CUSTOM ||
-      !props.backgroundColor
-    ) {
-      return '';
-    }
-
-    // Similar to mainDynamicStyles()
-    return `
+const PanelStyled: React.FC<
+  PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
+> = (props) => {
+  let styles = (themeProps: ThemeProps) => css``;
+  if (props['data-panel-type'] === PanelType.CUSTOM && props.backgroundColor) {
+    styles = (themeProps: ThemeProps) => css`
       &[data-panel-type=${PanelType.CUSTOM}] {
         background-color: ${props.backgroundColor};
         ${themed({
           dark: getPanelBackgroundDarkModeColors,
-        })};
+        })(themeProps)};
       }
     `;
-  }}
-`;
+  }
+
+  return (
+    <div css={styles} {...props}>
+      {props.children}
+    </div>
+  );
+};
+
+PanelStyled.displayName = 'PanelStyled';
 
 export interface Props {
   children?: React.ReactNode;

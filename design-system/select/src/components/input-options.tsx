@@ -43,7 +43,7 @@ const getPrimitiveStyles = (
     paddingLeft: `${gridSize() * 2}px`,
     paddingTop: 4,
     boxShadow: isFocused
-      ? `inset 2px 0px 0px ${token('color.text.brand', B400)};`
+      ? `inset 2px 0px 0px ${token('color.border.focused', B400)};`
       : '',
 
     ':active': {
@@ -106,18 +106,18 @@ const getPrimaryColor = ({
     });
   } else if (isSelected && isActive) {
     color = themed({
-      light: token('color.background.brand.bold.pressed', B75),
-      dark: token('color.background.brand.bold.pressed', B200),
+      light: token('color.background.selected.bold.pressed', B75),
+      dark: token('color.background.selected.bold.pressed', B200),
     });
   } else if (isActive) {
     color = themed({
-      light: token('color.background.brand.pressed', B75),
-      dark: token('color.background.brand.pressed', B200),
+      light: token('color.background.selected.pressed', B75),
+      dark: token('color.background.selected.pressed', B200),
     });
   } else if (isFocused && isSelected) {
     color = themed({
-      light: token('color.background.brand.bold.hovered', B300),
-      dark: token('color.background.brand.bold.hovered', B75),
+      light: token('color.background.selected.bold.hovered', B300),
+      dark: token('color.background.selected.bold.hovered', B75),
     });
   } else if (isFocused) {
     color = themed({
@@ -126,8 +126,8 @@ const getPrimaryColor = ({
     });
   } else if (isSelected) {
     color = themed({
-      light: token('color.background.brand.bold', B400),
-      dark: token('color.background.brand.bold', B100),
+      light: token('color.background.selected.bold', B400),
+      dark: token('color.background.selected.bold', B100),
     });
   }
   return color(rest);
@@ -174,15 +174,15 @@ const getBorderColor = ({
   } else if (isDisabled) {
     return token('color.background.disabled', N100);
   } else if (isSelected && isActive) {
-    return token('color.background.brand.bold.pressed', B400);
+    return token('color.background.selected.bold.pressed', B400);
   } else if (isActive) {
-    return token('color.background.brand.bold', B400);
+    return token('color.background.selected.bold', B400);
   } else if (isFocused && isSelected) {
-    return token('color.background.brand.bold.hovered', B400);
+    return token('color.background.selected.bold.hovered', B400);
   } else if (isFocused) {
     return token('color.border', N100);
   } else if (isSelected) {
-    return token('color.background.brand.bold', B400);
+    return token('color.background.selected.bold', B400);
   }
   return token('color.border', N100);
 };

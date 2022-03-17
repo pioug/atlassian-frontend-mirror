@@ -37,7 +37,7 @@ export default md`
 
   This component will observe the current width,
   and it will call the \`setWidth\` callback every time this changes.
- 
+
   The only required is the parent \`HTMLElement\` should have \`position: relative\`
   because this is an absolute element.
 
@@ -51,7 +51,7 @@ export default md`
 
   ${code`const [width, setWidth] = useState<number | void>(undefined);
 const throttledSetWidth = _.throttle(setWidth, 50);
-  
+
   return (
       <>
           <RelativeWrapper>
@@ -60,32 +60,4 @@ const throttledSetWidth = _.throttle(setWidth, 50);
           <WrappedComponent {...props} containerWidth={width} />
       </>
   );`}
-
-
-  **FALLBACKS:**
-  This component relies on \`ResizerObserver\` API, but some browsers do not support it,
-  for example - IE11 and Edge 18.
- 
-  For those browsers, we are using an iframe to listen when a component was resized.
-  However, we should not create an iframe for every call, so you need to use the \`IframeWidthObserverFallbackWrapper\`
-  as parent for all \`WidthObserver\`.
-
-  This Wrapper will not create an iframe when the browser support \`ResizeObserverAPI\`.
-
-  ${code`<IframeWidthObserverFallbackWrapper>
-  <BigComponent>
-    <div>
-      <WidthObserver />
-    <div>
-
-    {anyArrayofElements.map(elem => {
-       return (
-         <div>
-           <WidthObserver />
-         </div>
-       );
-    }))}
-  </BigComponent>
-</IframeWidthObserverFallbackWrapper>`}
-
 `;

@@ -1,7 +1,7 @@
-import React from 'react';
-import { KeyboardEvent } from 'react';
+/** @jsx jsx */
+import React, { KeyboardEvent } from 'react';
+import { css, jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
-import styled from 'styled-components';
 import { N100, N30, R400, N80 } from '@atlaskit/theme/colors';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
@@ -33,7 +33,7 @@ import { ErrorMessage } from '@atlaskit/editor-common/ui';
 export const CONTAINER_WIDTH_IN_PX = RECENT_SEARCH_WIDTH_IN_PX;
 export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 
-const SupportText = styled.p`
+const supportText = css`
   color: ${N100};
   font-size: ${relativeFontSizeToBase16(12)};
   padding: 12px 40px;
@@ -42,7 +42,7 @@ const SupportText = styled.p`
   margin: 0;
 `;
 
-const Container = styled.div`
+const container = css`
   width: ${CONTAINER_WIDTH_IN_PX}px;
   display: flex;
   flex-direction: column;
@@ -50,14 +50,14 @@ const Container = styled.div`
   line-height: 2;
 `;
 
-const InputWrapper = styled.section`
+const inputWrapper = css`
   display: flex;
   line-height: 0;
   padding: 5px 0;
   align-items: center;
 `;
 
-const ValidationWrapper = styled.section`
+const validationWrapper = css`
   display: flex;
   line-height: 0;
   padding: 12px 24px 12px 0;
@@ -67,12 +67,12 @@ const ValidationWrapper = styled.section`
   flex-direction: column;
 `;
 
-const ButtonWrapper = styled.div`
+const buttonWrapper = css`
   display: flex;
   padding: 4px 8px;
 `;
 
-const ClearText = styled.span`
+const clearText = css`
   color: ${N80};
 `;
 
@@ -159,9 +159,9 @@ export class AltTextEditComponent extends React.Component<
     });
 
     return (
-      <Container>
-        <InputWrapper>
-          <ButtonWrapper>
+      <div css={container}>
+        <section css={inputWrapper}>
+          <div css={buttonWrapper}>
             <Button
               title={formatMessage(messages.back)}
               icon={
@@ -170,7 +170,7 @@ export class AltTextEditComponent extends React.Component<
               tooltipContent={backButtonMessageComponent}
               onClick={this.closeMediaAltTextMenu}
             />
-          </ButtonWrapper>
+          </div>
           <PanelTextInput
             testId="alt-text-input"
             ariaLabel={formatMessage(messages.placeholder)}
@@ -185,28 +185,28 @@ export class AltTextEditComponent extends React.Component<
             autoFocus
           />
           {showClearTextButton && (
-            <ButtonWrapper>
+            <div css={buttonWrapper}>
               <Button
                 testId="alt-text-clear-button"
                 title={formatMessage(messages.clear)}
                 icon={
-                  <ClearText>
+                  <span css={clearText}>
                     <CrossCircleIcon label={formatMessage(messages.clear)} />
-                  </ClearText>
+                  </span>
                 }
                 tooltipContent={formatMessage(messages.clear)}
                 onClick={this.handleClearText}
               />
-            </ButtonWrapper>
+            </div>
           )}
-        </InputWrapper>
+        </section>
         {!!errorsList.length && (
-          <ValidationWrapper>{errorsList}</ValidationWrapper>
+          <section css={validationWrapper}>{errorsList}</section>
         )}
-        <SupportText id="support-text">
+        <p css={supportText} id="support-text">
           {formatMessage(messages.supportText)}
-        </SupportText>
-      </Container>
+        </p>
+      </div>
     );
   }
 

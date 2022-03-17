@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import { WrappedComponentProps } from 'react-intl-next';
 import MediaInline, {

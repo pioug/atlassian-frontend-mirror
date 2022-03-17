@@ -18,6 +18,7 @@ import {
 import { Browser } from '../../browser/browser';
 import { BrowserConfig } from '../../../../src/types';
 import { LocalUploadConfig } from '../../../../src/components/types';
+import * as ufoWrapper from '../../../util/ufoExperiences';
 
 describe('Browser analytics instrumentation', () => {
   const browseConfig: BrowserConfig & LocalUploadConfig = {
@@ -29,9 +30,26 @@ describe('Browser analytics instrumentation', () => {
   };
   const uploadId = 'upload id';
   let oldDateNow: () => number;
+
+  const mockstartMediaUploadUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'startMediaUploadUfoExperience',
+  );
+
+  const mocksucceedMediaUploadUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'succeedMediaUploadUfoExperience',
+  );
+
+  const mockfailMediaUploadUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'failMediaUploadUfoExperience',
+  );
+
   beforeEach(() => {
     oldDateNow = Date.now;
     Date.now = () => 111;
+    jest.clearAllMocks();
   });
 
   afterEach(() => {
@@ -95,6 +113,11 @@ describe('Browser analytics instrumentation', () => {
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
+    );
+    expect(mockstartMediaUploadUfoExperience).toBeCalledTimes(1);
+    expect(mockstartMediaUploadUfoExperience).toBeCalledWith(
+      expect.any(String),
+      'browser',
     );
   });
 
@@ -168,6 +191,14 @@ describe('Browser analytics instrumentation', () => {
       }),
       ANALYTICS_MEDIA_CHANNEL,
     );
+    expect(mocksucceedMediaUploadUfoExperience).toBeCalledWith(
+      expect.any(String),
+      {
+        fileId: expect.any(String),
+        fileSize: 13,
+        fileMimetype: 'text/plain',
+      },
+    );
   });
 
   it('should fire an uploaded fail event on end', () => {
@@ -238,6 +269,18 @@ describe('Browser analytics instrumentation', () => {
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
+    );
+    expect(mockfailMediaUploadUfoExperience).toBeCalledWith(
+      expect.any(String),
+      {
+        failReason: 'upload_fail',
+        error: 'serverBadGateway',
+        request: { method: 'GET', endpoint: '/some-endpoint' },
+        fileAttributes: {
+          fileId: expect.any(String),
+        },
+        uploadDurationMsec: -1,
+      },
     );
   });
 
@@ -348,6 +391,15 @@ describe('Browser analytics instrumentation', () => {
         },
       }),
       ANALYTICS_MEDIA_CHANNEL,
+    );
+    expect(mockstartMediaUploadUfoExperience).toBeCalledTimes(1);
+    expect(mocksucceedMediaUploadUfoExperience).toBeCalledWith(
+      expect.any(String),
+      {
+        fileId: expect.any(String),
+        fileSize: 13,
+        fileMimetype: 'text/plain',
+      },
     );
   });
 });

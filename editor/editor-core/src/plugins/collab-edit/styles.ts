@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { TELEPOINTER_DIM_CLASS } from './plugin-state';
 import { colors, Color } from './utils';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';

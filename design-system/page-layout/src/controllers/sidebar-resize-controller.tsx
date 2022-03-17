@@ -48,6 +48,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     leftSidebarWidth: 0,
     lastLeftSidebarWidth: 0,
     flyoutLockCount: 0,
+    isFixed: true,
   });
 
   const { isLeftSidebarCollapsed } = leftSidebarState;
@@ -99,6 +100,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       lastLeftSidebarWidth,
       isResizing,
       flyoutLockCount,
+      isFixed,
     } = leftSidebarState;
 
     if (isResizing) {
@@ -114,6 +116,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       lastLeftSidebarWidth,
       isResizing,
       flyoutLockCount,
+      isFixed,
     };
     setLeftSidebarState(updatedLeftSidebarState);
 
@@ -132,6 +135,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         leftSidebarWidth,
         isResizing,
         flyoutLockCount,
+        isFixed,
       } = leftSidebarState;
       if (isResizing) {
         return;
@@ -146,6 +150,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         lastLeftSidebarWidth: leftSidebarWidth,
         isResizing,
         flyoutLockCount,
+        isFixed,
       };
       setLeftSidebarState(updatedLeftSidebarState);
 

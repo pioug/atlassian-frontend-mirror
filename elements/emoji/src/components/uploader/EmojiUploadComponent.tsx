@@ -1,9 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { PureComponent } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
-import classNames from 'classnames';
-
-import * as styles from './styles';
 
 import { EmojiUpload } from '../../types';
 import { EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
@@ -21,6 +19,7 @@ import {
   uploadCancelButton,
   uploadConfirmButton,
 } from '../../util/analytics';
+import { emojiUploadFooter, emojiUploadWidget } from './styles';
 
 export interface UploadRefHandler {
   (ref: HTMLDivElement): void;
@@ -109,11 +108,8 @@ export default class EmojiUploadComponent extends PureComponent<Props, State> {
     ) : null;
 
     return (
-      <div
-        className={classNames([styles.emojiUploadWidget])}
-        ref={this.props.onUploaderRef}
-      >
-        <div className={classNames([styles.emojiUploadFooter])}>
+      <div css={emojiUploadWidget} ref={this.props.onUploaderRef}>
+        <div css={emojiUploadFooter}>
           <EmojiUploadPickerWithIntl
             ref={this.onUploaderRef}
             onFileChooserClicked={this.onFileChooserClicked}

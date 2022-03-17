@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
 import { default as Renderer } from '../src/ui/Renderer';
 import {
@@ -51,21 +52,21 @@ const AnnotationCheckbox = (props: {
   );
 };
 
-const Container = styled.section`
+const containerStyle = css`
   display: flex;
   height: 100%;
 `;
 
-const Options = styled.section`
+const optionsStyle = css`
   flex: 20%;
   padding: 16px;
 `;
 
-const Flags = styled.section`
+const flagsStyle = css`
   padding: 20px 0;
 `;
 
-const Main = styled.main`
+const mainStyle = css`
   flex: 80%;
 `;
 
@@ -137,7 +138,7 @@ const Annotations = () => {
   );
 
   return (
-    <>
+    <Fragment>
       {Object.entries(state).map(([key, val]) => (
         <AnnotationCheckbox
           id={key}
@@ -146,7 +147,7 @@ const Annotations = () => {
           onChange={onChange}
         />
       ))}
-    </>
+    </Fragment>
   );
 };
 
@@ -161,10 +162,10 @@ const App = () => {
   const [enableAutoHighlight, setEnableAutoHighlight] = React.useState(false);
 
   return (
-    <Container>
-      <Options>
+    <section css={containerStyle}>
+      <section css={optionsStyle}>
         <h2>Annotations</h2>
-        <Flags>
+        <section css={flagsStyle}>
           <h3>Options</h3>
 
           <label htmlFor="enableAutoHighlight">
@@ -179,18 +180,18 @@ const App = () => {
             />
             Enable Auto Highlight
           </label>
-        </Flags>
+        </section>
         <Annotations />
-      </Options>
-      <Main>
+      </section>
+      <main css={mainStyle}>
         <Renderer
           appearance="full-page"
           document={doc}
           annotationProvider={annotationProvider}
           allowAnnotations
         />
-      </Main>
-    </Container>
+      </main>
+    </section>
   );
 };
 

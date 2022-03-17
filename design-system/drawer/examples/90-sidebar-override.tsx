@@ -29,7 +29,7 @@ const SidebarOverrideComponent: FC = ({ children }) => {
         paddingTop: 24,
         width: 64,
         border: `3px dashed ${token(
-          'color.background.accent.teal.bold',
+          'color.background.accent.teal.subtle',
           'teal',
         )}`,
       }}

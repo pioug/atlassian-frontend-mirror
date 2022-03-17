@@ -4,14 +4,13 @@ import {
   TouchFileDescriptor,
   FileState,
   getFileStreamsCache,
-  createFileStateSubject,
+  createMediaSubject,
   getMediaTypeFromMimeType,
   isImageRepresentationReady,
   FilePreview,
   isPreviewableType,
   isPreviewableFileState,
   MediaType,
-  observableToPromise,
   isErrorFileState,
   isProcessedFileState,
   ErrorFileState,
@@ -40,6 +39,7 @@ import { getPreviewFromMetadata } from '../../domain/preview';
 import { NotifyMetadataPayload } from '../tools/websocket/upload/wsUploadEvents';
 import { UploadEvent } from '../../domain/uploadEvent';
 import { getPreviewFromBlob } from '../../util/getPreviewFromBlob';
+import { observableToPromise } from '../tools/observableToPromise';
 
 export interface RemoteFileItem extends SelectedItem {
   accountId: string;
@@ -251,7 +251,7 @@ const distributeTenantFileState = (
   tenantFileState: FileState,
   userSelectedFileId: string,
 ) => {
-  const tenantFileSubject = createFileStateSubject();
+  const tenantFileSubject = createMediaSubject<FileState>();
   const userFileObservable = getFileStreamsCache().get(userSelectedFileId);
 
   getFileStreamsCache().set(tenantFileState.id, tenantFileSubject);

@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 1.3.1
+
+### Patch Changes
+
+- [`59e2178901f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e2178901f) - The `isShimmering` prop for skeleton items has been fixed, resolving a regression in version 1.2.0.
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

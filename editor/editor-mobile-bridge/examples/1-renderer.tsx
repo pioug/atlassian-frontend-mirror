@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
@@ -14,7 +14,7 @@ import { useFetchProxy } from '../src/utils/fetch-proxy';
 import getBridge from '../src/renderer/native-to-web/bridge-initialiser';
 import useRendererConfiguration from '../src/renderer/hooks/use-renderer-configuration';
 
-export const Wrapper: any = styled.div`
+export const wrapper: any = css`
   position: absolute;
   top: 0;
   left: 0;
@@ -24,8 +24,6 @@ export const Wrapper: any = styled.div`
   width: 100%;
   box-sizing: border-box;
 `;
-
-Wrapper.displayName = 'Wrapper';
 
 window.logBridge = window.logBridge || [];
 
@@ -55,7 +53,7 @@ export default function Example() {
   const rendererConfiguration = useRendererConfiguration(rendererBridge);
 
   return (
-    <Wrapper>
+    <div css={wrapper}>
       <Renderer
         cardClient={createCardClient()}
         emojiProvider={createEmojiProvider(fetchProxy)}
@@ -70,6 +68,6 @@ export default function Example() {
         locale={rendererConfiguration.getLocale()}
         rendererBridge={rendererBridge}
       />
-    </Wrapper>
+    </div>
   );
 }

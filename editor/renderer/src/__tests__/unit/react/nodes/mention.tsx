@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import MentionNode from '../../../../react/nodes/mention';
 import { EventHandlers, MentionEventHandler } from '@atlaskit/editor-common/ui';

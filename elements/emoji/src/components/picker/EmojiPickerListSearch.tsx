@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React, { PureComponent } from 'react';
 import TextField from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { Styles } from '../../types';
 import { messages } from '../i18n';
-import * as styles from './styles';
+import { input, pickerSearch, searchIcon } from './styles';
 
 export interface Props {
   style?: Styles;
@@ -106,10 +108,10 @@ class EmojiPickerListSearch extends PureComponent<
     const { formatMessage } = intl;
 
     return (
-      <div className={styles.pickerSearch} style={style}>
+      <div css={pickerSearch} style={style}>
         <TextField
           aria-label={formatMessage(messages.searchLabel)}
-          className={styles.input}
+          css={input}
           autoComplete="off"
           name="search"
           placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
@@ -119,7 +121,7 @@ class EmojiPickerListSearch extends PureComponent<
           isCompact
           onBlur={this.onBlur}
           elemBeforeInput={
-            <span className={styles.searchIcon}>
+            <span css={searchIcon}>
               <SearchIcon label="" />
             </span>
           }

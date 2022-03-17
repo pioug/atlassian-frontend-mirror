@@ -26,7 +26,10 @@ import {
   InputMethodInsertMedia,
   InsertEventPayload,
 } from '../../analytics';
-import { safeInsert } from '../../../utils/insert';
+import {
+  safeInsert,
+  shouldSplitSelectedNodeOnNodeInsertion,
+} from '../../../utils/insert';
 import { getFeatureFlags } from '../../feature-flags-context';
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
@@ -140,14 +143,14 @@ export const insertMediaSingleNode = (
   }
 
   const { state, dispatch } = view;
-  const grandParent = state.selection.$from.node(-1);
+  const grandParentType = state.selection.$from.node(-1)?.type;
+  const parentType = state.selection.$from.parent.type;
   const node = createMediaSingleNode(
     state.schema,
     collection,
     alignLeftOnInsert,
   )(mediaState as MediaSingleState);
-  const shouldSplit =
-    grandParent && grandParent.type.validContent(Fragment.from(node));
+
   let fileExtension: string | undefined;
   if (mediaState.fileName) {
     const extensionIdx = mediaState.fileName.lastIndexOf('.');
@@ -156,8 +159,11 @@ export const insertMediaSingleNode = (
         ? mediaState.fileName.substring(extensionIdx + 1)
         : undefined;
   }
-
-  if (shouldSplit) {
+  // should split if media is valid content for the grandparent of the selected node
+  // and the parent node is a paragraph
+  if (
+    shouldSplitSelectedNodeOnNodeInsertion(parentType, grandParentType, node)
+  ) {
     insertNodesWithOptionalParagraph([node], { fileExtension, inputMethod })(
       state,
       dispatch,

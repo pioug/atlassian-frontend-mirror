@@ -46,41 +46,11 @@ describe('<Content />', () => {
       expect(content).toHaveAttribute('href', '/somewhere');
     });
 
-    describe('standard color', () => {
-      it('should not have a text color set', () => {
-        const { getByText } = render(<Content href="/somewhere" text="text" />);
-        const content = getByText('text');
-        const styles = getComputedStyle(content);
+    it('should not have an underline', () => {
+      const { getByText } = render(<Content href="/somewhere" text="text" />);
+      const content = getByText('text');
 
-        expect(styles.getPropertyValue('color')).toBe('');
-      });
-
-      it('should not have text decoration', () => {
-        const { getByText } = render(<Content href="/somewhere" text="text" />);
-        const content = getByText('text');
-
-        expect(content).toHaveStyleDeclaration('text-decoration', 'none');
-      });
-    });
-
-    describe('non-standard color', () => {
-      it('should inherit text color', () => {
-        const { getByText } = render(
-          <Content color="blueLight" href="/somewhere" text="text" />,
-        );
-        const content = getByText('text');
-
-        expect(content).toHaveStyleDeclaration('color', 'inherit');
-      });
-
-      it('should have an underline', () => {
-        const { getByText } = render(
-          <Content color="blueLight" href="/somewhere" text="text" />,
-        );
-        const content = getByText('text');
-
-        expect(content).toHaveStyleDeclaration('text-decoration', 'underline');
-      });
+      expect(content).toHaveStyleDeclaration('text-decoration', 'none');
     });
   });
 });

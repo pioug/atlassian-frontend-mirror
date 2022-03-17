@@ -101,7 +101,7 @@ BrowserTestCase(
     /**
      * First part of the test. Normal table layout.
      */
-    await insertMedia(page);
+    await insertMedia(page, ['high-res-image.jpg']);
 
     let startWidth = 742;
     let endWidth = 499;

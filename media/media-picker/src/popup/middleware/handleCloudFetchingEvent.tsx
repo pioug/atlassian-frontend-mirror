@@ -2,7 +2,6 @@ import {
   getFileStreamsCache,
   isPreviewableFileState,
   isErrorFileState,
-  observableToPromise,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 
@@ -23,6 +22,7 @@ import {
 } from '../tools/websocket/upload/wsUploadEvents';
 import { MediaFile } from '../../types';
 import { sendUploadEvent } from '../actions/sendUploadEvent';
+import { observableToPromise } from '../tools/observableToPromise';
 
 export type CloudFetchingEventAction = HandleCloudFetchingEventAction<
   keyof WsUploadEvents

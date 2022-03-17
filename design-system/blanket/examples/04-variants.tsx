@@ -29,7 +29,10 @@ const blanketStyles = css({
   maxWidth: '144px',
   flexDirection: 'column',
   background: token('elevation.surface', colors.N0),
-  border: `2px dashed ${token('color.background.accent.blue', colors.B75)}`,
+  border: `2px dashed ${token(
+    'color.background.accent.blue.subtler',
+    colors.B75,
+  )}`,
   pointerEvents: 'initial',
 });
 

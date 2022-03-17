@@ -6,8 +6,8 @@ import {
   WithMediaClientConfig,
   isDifferentIdentifier,
   FileIdentifier,
+  MediaSubscription,
 } from '@atlaskit/media-client';
-import { Subscription } from 'rxjs/Subscription';
 
 export interface MediaImageChildrenProps {
   /** Boolean with value to check if component is loading image source from API */
@@ -39,7 +39,7 @@ export class MediaImageInternal extends Component<
   MediaImageInternalProps,
   MediaImageState
 > {
-  subscription?: Subscription;
+  subscription?: MediaSubscription;
   state: MediaImageState = {
     status: 'loading',
   };

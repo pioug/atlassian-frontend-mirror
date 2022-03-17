@@ -6,8 +6,8 @@ import {
   FileState,
   MediaFileArtifacts,
   globalMediaEventEmitter,
+  MediaSubscription,
 } from '@atlaskit/media-client';
-import { Subscription } from 'rxjs/Subscription';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
 import { InlinePlayerWrapper } from './styled';
 import {
@@ -79,7 +79,7 @@ export class InlinePlayerBase extends Component<
   InlinePlayerProps,
   InlinePlayerState
 > {
-  subscription?: Subscription;
+  subscription?: MediaSubscription;
   state: InlinePlayerState = {};
   divRef: React.RefObject<HTMLDivElement> = React.createRef();
 

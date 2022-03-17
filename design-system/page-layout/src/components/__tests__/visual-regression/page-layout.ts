@@ -1,4 +1,8 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import {
+  getExampleUrl,
+  loadPage,
+  takeElementScreenShot,
+} from '@atlaskit/visual-regression/helper';
 
 const diff = (arr1: string[], arr2: string[]): string[] =>
   arr1.filter((x) => !arr2.includes(x));
@@ -183,5 +187,25 @@ describe('<PageLayout />', () => {
     await page.$eval('body', () => window.scrollBy(0, 300));
     const screenshotWithSticky = await page.screenshot();
     expect(screenshotWithSticky).toMatchProdImageSnapshot();
+  });
+
+  it('should have the correct width for fixed right sidebars', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'page-layout',
+      'customizable-page-layout',
+      global.__BASEURL__,
+    );
+    const rightSidebarSelector = '[data-testid="rightSidebar"]';
+    const inputSelector = `${rightSidebarSelector} input`;
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.waitForSelector(inputSelector);
+    await page.click(inputSelector);
+
+    const screenshot = await takeElementScreenShot(page, rightSidebarSelector);
+    expect(screenshot).toMatchProdImageSnapshot();
   });
 });

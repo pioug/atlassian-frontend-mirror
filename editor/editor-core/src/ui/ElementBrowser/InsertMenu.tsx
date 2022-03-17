@@ -4,7 +4,7 @@ import React, {
   ComponentClass,
   ReactElement,
 } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -147,17 +147,16 @@ const ViewMore = ({ item }: { item: QuickInsertItem }) => {
     [item],
   );
   return (
-    <ThemeProvider theme={viewMoreItemTheme}>
-      <Item
-        onClick={item.action}
-        elemBefore={<ItemBefore>{item.icon!()}</ItemBefore>}
-        aria-describedby={item.title}
-        data-testid="view-more-elements-item"
-        onKeyPress={onKeyPress}
-      >
-        {item.title}
-      </Item>
-    </ThemeProvider>
+    <Item
+      onClick={item.action}
+      elemBefore={<ItemBefore>{item.icon!()}</ItemBefore>}
+      aria-describedby={item.title}
+      data-testid="view-more-elements-item"
+      onKeyPress={onKeyPress}
+      theme={viewMoreItemTheme}
+    >
+      {item.title}
+    </Item>
   );
 };
 

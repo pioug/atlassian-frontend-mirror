@@ -272,10 +272,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     return type === mediaSingle;
   };
 
-  private hasUserAuthProvider = () =>
-    !!this.uploadMediaClientConfig &&
-    !!this.uploadMediaClientConfig.userAuthProvider;
-
   private getDomElement(domAtPos: EditorView['domAtPos']) {
     const { selection } = this.view.state;
     if (!(selection instanceof NodeSelection)) {
@@ -410,14 +406,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   };
 
   shouldUseMediaPickerPopup = () => {
-    if (
-      !this.mediaOptions ||
-      (this.mediaOptions && this.mediaOptions.useMediaPickerPopup === undefined)
-    ) {
-      return this.hasUserAuthProvider();
-    }
-
-    return !!this.mediaOptions.useMediaPickerPopup;
+    return false;
   };
 
   showMediaPicker = () => {

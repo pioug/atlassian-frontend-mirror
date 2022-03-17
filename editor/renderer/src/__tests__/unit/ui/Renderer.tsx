@@ -40,6 +40,7 @@ import {
   GasPurePayload,
   GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
+import { setupMultipleRendersTestHelper } from '../../__helpers/render';
 
 const mockMeasureTTI = measureTTI as jest.Mock<typeof measureTTI>;
 
@@ -366,59 +367,159 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
       jest.useRealTimers();
     });
 
-    describe('when rendererTtiTracking is enabled', () => {
-      const tti = 1000;
-      const ttiFromInvocation = 500;
+    describe('renderer tti tracking (time-to-interactive)', () => {
+      describe('when rendererTtiTracking is enabled', () => {
+        const tti = 1000;
+        const ttiFromInvocation = 500;
 
-      it('should dispatch an tti (time-to-interactive) renderer event after the renderer has mounted', (done) => {
-        const mockAnalyticsClient = (
-          done: jest.DoneCallback,
-        ): AnalyticsWebClient => {
-          const analyticsEventHandler = (
-            event: GasPurePayload | GasPureScreenEventPayload,
-          ) => {
-            expect(event).toEqual(
-              expect.objectContaining({
-                action: 'tti',
-                actionSubject: 'renderer',
-                attributes: expect.objectContaining({
-                  tti,
-                  ttiFromInvocation,
-                  canceled: false,
+        it('should fire a tti event after renderer has mounted', (done) => {
+          const mockAnalyticsClient = (
+            done: jest.DoneCallback,
+          ): AnalyticsWebClient => {
+            const analyticsEventHandler = (
+              event: GasPurePayload | GasPureScreenEventPayload,
+            ) => {
+              expect(event).toEqual(
+                expect.objectContaining({
+                  action: 'tti',
+                  actionSubject: 'renderer',
+                  attributes: expect.objectContaining({
+                    tti,
+                    ttiFromInvocation,
+                    canceled: false,
+                  }),
                 }),
-              }),
-            );
+              );
 
-            mockMeasureTTI.mockClear();
-            done();
+              mockMeasureTTI.mockClear();
+              done();
+            };
+            return analyticsClient(analyticsEventHandler);
           };
-          return analyticsClient(analyticsEventHandler);
-        };
 
-        mount(
-          <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+          mount(
+            <FabricAnalyticsListeners client={mockAnalyticsClient(done)}>
+              <Renderer
+                document={initialDoc}
+                featureFlags={{ 'renderer-tti-tracking': true }}
+              />
+            </FabricAnalyticsListeners>,
+          );
+
+          const [ttiCallback] = mockMeasureTTI.mock.calls[0];
+          ttiCallback(tti, ttiFromInvocation, false);
+        });
+      });
+
+      describe('when rendererTtiTracking is not enabled', () => {
+        it('should not fire a tti event after renderer has mounted', () => {
+          mount(
             <Renderer
               document={initialDoc}
-              featureFlags={{ 'renderer-tti-tracking': true }}
-            />
-          </FabricAnalyticsListeners>,
-        );
+              featureFlags={{ 'renderer-tti-tracking': false }}
+            />,
+          );
 
-        const [ttiCallback] = mockMeasureTTI.mock.calls[0];
-        ttiCallback(tti, ttiFromInvocation, false);
+          expect(measureTTI).not.toHaveBeenCalled();
+        });
       });
     });
 
-    describe('when rendererTtiTracking is not enabled', () => {
-      it('should not dispatch an tti (time-to-interactive) renderer event after the renderer has mounted', () => {
-        mount(
+    describe('renderer reRendered tracking (render count)', () => {
+      describe('when rendererRenderTracking is enabled', () => {
+        const {
+          expectAnalyticsEventAfterNthRenders,
+        } = setupMultipleRendersTestHelper();
+
+        const renderTrackingEnabled = {
+          ['renderer-render-tracking']: JSON.stringify({
+            renderer: {
+              enabled: true,
+              useShallow: false,
+            },
+          }),
+        };
+
+        const TestRenderer = (props: Partial<Props>) => (
           <Renderer
             document={initialDoc}
-            featureFlags={{ 'renderer-tti-tracking': false }}
-          />,
+            featureFlags={renderTrackingEnabled}
+            {...props}
+          />
         );
 
-        expect(measureTTI).not.toHaveBeenCalled();
+        describe('props changing on each render', () => {
+          const changingProps = [
+            { propA: 10 },
+            { propA: 99 },
+            { propA: 30 },
+            { propA: 200 },
+          ];
+
+          it('should fire debounced "renderer reRendered" event with correct total render count and latest prop differences', (done) => {
+            const expectedEvent = expect.objectContaining({
+              action: 'reRendered',
+              actionSubject: 'renderer',
+              attributes: expect.objectContaining({
+                // we expect 3 not 4 because render count is 0 based.
+                count: 3,
+                propsDifference: {
+                  added: [],
+                  changed: expect.arrayContaining([
+                    { key: 'propA', oldValue: 30, newValue: 200 },
+                  ]),
+                  removed: [],
+                },
+                componentId: expect.any(String),
+              }),
+            });
+
+            expectAnalyticsEventAfterNthRenders(
+              TestRenderer,
+              4,
+              changingProps,
+              expectedEvent,
+              done,
+            );
+          });
+        });
+
+        describe('props changing 1 times out of 5', () => {
+          const changingProps = [
+            { propA: 'a' },
+            { propA: 'b' },
+            { propA: 'b' },
+            { propA: 'b' },
+            { propA: 'b' },
+          ];
+          it('should fire debounced "renderer reRendered" event with correct total render count and latest prop differences', (done) => {
+            const expectedEvent = expect.objectContaining({
+              action: 'reRendered',
+              actionSubject: 'renderer',
+              attributes: expect.objectContaining({
+                // we expect 1 not 2 because render count is 0 based.
+                // we expect 1 re-render because despite force rendering 5 times, we only changed the props once.
+                count: 1,
+                propsDifference: {
+                  added: [],
+                  changed: expect.arrayContaining([
+                    { key: 'propA', oldValue: 'a', newValue: 'b' },
+                  ]),
+                  removed: [],
+                },
+                componentId: expect.any(String),
+              }),
+            });
+
+            expectAnalyticsEventAfterNthRenders(
+              TestRenderer,
+              5,
+              changingProps,
+              expectedEvent,
+              done,
+            );
+          });
+        });
       });
     });
 

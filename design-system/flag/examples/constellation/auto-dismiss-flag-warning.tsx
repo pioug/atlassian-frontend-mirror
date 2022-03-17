@@ -39,7 +39,7 @@ const AutoDismissFlagWarningExample = () => {
               icon={
                 <WarningIcon
                   label="Warning"
-                  secondaryColor={token('color.icon.warning', Y200)}
+                  secondaryColor={token('color.background.warning.bold', Y200)}
                 />
               }
               key={flagId}

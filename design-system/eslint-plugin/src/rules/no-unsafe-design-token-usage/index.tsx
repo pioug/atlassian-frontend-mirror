@@ -163,7 +163,7 @@ token('color.background.blanket');
 
         const migrationMeta = renameMapping
           .filter((t) => t.state === 'deleted')
-          .find((t) => t.path === tokenKey);
+          .find((t) => getCleanPathId(t.path) === tokenKey);
 
         if (typeof tokenKey === 'string' && migrationMeta) {
           const cleanTokenKey = getCleanPathId(migrationMeta.replacement);

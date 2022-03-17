@@ -48,7 +48,6 @@ type JoinSiblingListsProps = {
 type ListsJoined = {
   orderedList: number;
   bulletList: number;
-  [key: string]: number;
 };
 
 export const joinSiblingLists = ({
@@ -137,9 +136,11 @@ export const joinSiblingLists = ({
 
   for (let i = joins.length - 1; i >= 0; i--) {
     const listNode = tr.doc.nodeAt(joins[i]);
-    if (listNode) {
-      const amount = result[listNode.type.name] || 0;
-      result[listNode.type.name] = amount + 1;
+    const listName = listNode?.type.name;
+
+    if (listName && (listName === 'orderedList' || listName === 'bulletList')) {
+      const amount = result[listName] || 0;
+      result[listName] = amount + 1;
     }
 
     tr.join(joins[i]);

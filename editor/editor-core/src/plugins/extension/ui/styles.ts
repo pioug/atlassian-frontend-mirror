@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import {
   blockNodesVerticalMargin,
@@ -47,5 +47,6 @@ export const extensionStyles = css`
     .extensionView-content-wrap
     .extension-container {
     width: 100%;
+    max-width: 100%; // ensure width can't go over 100%;
   }
 `;

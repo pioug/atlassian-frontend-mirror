@@ -12,7 +12,7 @@ import {
 } from '../../../../analytics/enums';
 import { RendererCssClassName } from '../../../../consts';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 describe('Renderer - React/Nodes/TableHeader', () => {
   const baseProps = {

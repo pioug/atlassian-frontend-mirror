@@ -12,7 +12,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(infoPanel.name()).toEqual('styled.div');
+      expect(infoPanel.name()).toEqual('PanelStyled');
     });
 
     it('should have two children', () => {
@@ -26,7 +26,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(notePanel.name()).toEqual('styled.div');
+      expect(notePanel.name()).toEqual('PanelStyled');
     });
 
     it('should have two children', () => {
@@ -40,7 +40,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(tipPanel.name()).toEqual('styled.div');
+      expect(tipPanel.name()).toEqual('PanelStyled');
     });
 
     it('should have two children', () => {
@@ -54,7 +54,7 @@ describe('Renderer - React/Nodes/Panel', () => {
     );
 
     it('should wrap content with <div>-tag', () => {
-      expect(warningPanel.name()).toEqual('styled.div');
+      expect(warningPanel.name()).toEqual('PanelStyled');
     });
 
     it('should have two children', () => {
@@ -77,7 +77,7 @@ describe('Renderer - React/Nodes/Panel', () => {
           This is a custom panel with custom emoji and background
         </Panel>,
       );
-      expect(customPanel.name()).toEqual('styled.div');
+      expect(customPanel.name()).toEqual('PanelStyled');
       expect(customPanel.props().backgroundColor).toEqual('#b5f71ca14');
       expect(customPanel.find(EmojiItem).props().shortName).toEqual(':smiley:');
     });

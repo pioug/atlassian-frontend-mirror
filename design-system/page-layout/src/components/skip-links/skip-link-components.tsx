@@ -5,13 +5,59 @@ import {
   ReactNode,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
+
+import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
+import { N30A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { PAGE_LAYOUT_CONTAINER_SELECTOR } from '../../common/constants';
 import { SkipLinkData, useSkipLinks } from '../../controllers';
 
-import { skipLinkStyles } from './styles';
 import { SkipLinkWrapperProps } from './types';
+
+// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+const prefersReducedMotionStyles = css(prefersReducedMotion());
+
+const skipLinkStyles = css({
+  margin: 10,
+  padding: '0.8rem 1rem',
+  position: 'fixed',
+  zIndex: -1,
+  left: -999999,
+  background: token('elevation.surface.overlay', 'white'),
+  border: 'none',
+  borderRadius: 3,
+  boxShadow: token(
+    'elevation.shadow.overlay',
+    `0 0 0 1px ${N30A}, 0 2px 10px ${N30A}, 0 0 20px -4px ${N60A}`,
+  ),
+  opacity: 0,
+
+  /* Do the transform when focused */
+  transform: 'translateY(-50%)',
+  transition: `transform 0.3s ${easeOut}`,
+
+  ':focus-within': {
+    /**
+     * Max z-index is 2147483647. Skip links always be on top,
+     * but giving a few digits extra space just in case there's a future need.
+     */
+    zIndex: 2147483640,
+    left: 0,
+    opacity: 1,
+    transform: 'translateY(0%)',
+  },
+});
+
+const skipLinkListStyles = css({
+  marginTop: 4,
+  paddingLeft: 0,
+  listStylePosition: 'outside',
+  listStyleType: 'none',
+});
+
+const skipLinkListItemStyles = css({ marginTop: 0 });
 
 const assignIndex = (num: number, arr: number[]): number => {
   if (!arr.includes(num)) {
@@ -75,11 +121,11 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
     <div
       onFocus={attachEscHandler}
       onBlur={removeEscHandler}
-      css={skipLinkStyles}
+      css={[skipLinkStyles, prefersReducedMotionStyles]}
       data-skip-link-wrapper
     >
       <h5>{skipLinksLabel}</h5>
-      <ol>
+      <ol css={skipLinkListStyles}>
         {sortSkipLinks(skipLinksData).map(
           ({ id, skipLinkTitle }: SkipLinkData) => (
             <SkipLink
@@ -146,7 +192,7 @@ export const SkipLink = ({
   title: string;
 }) => {
   return (
-    <li>
+    <li css={skipLinkListItemStyles}>
       <a
         tabIndex={isFocusable ? 0 : -1}
         href={href}

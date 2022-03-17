@@ -1,4 +1,6 @@
-import { default as React, ReactElement } from 'react';
+/** @jsx jsx */
+import { default as React, Fragment, ReactElement } from 'react';
+import { jsx } from '@emotion/react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import {
   MediaADFAttrs,
@@ -8,6 +10,7 @@ import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 import {
   mapBreakpointToLayoutMaxWidth,
   getBreakpoint,
+  MediaSingle as UIMediaSingle,
   WidthConsumer,
 } from '@atlaskit/editor-common/ui';
 import type { EventHandlers, Breakpoints } from '@atlaskit/editor-common/ui';
@@ -22,7 +25,7 @@ import { FullPagePadding } from '../../../ui/Renderer/style';
 import { RendererAppearance } from '../../../ui/Renderer/types';
 import { useObservedWidth } from '../../hooks/use-observed-width';
 import { MediaProps } from '../media';
-import { ExtendedUIMediaSingle } from './styles';
+import { uiMediaSingleBaseStyles, uiMediaSingleLayoutStyles } from './styles';
 
 export interface Props {
   children: React.ReactNode;
@@ -91,7 +94,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     width: 0,
     height: 0,
   });
-  const ref = React.useRef<HTMLElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
   const onExternalImageLoaded = React.useCallback(
     ({ width, height }: { width: number; height: number }) => {
       setExternalImageDimensions({
@@ -208,8 +211,14 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
       featureFlags,
     } as MediaProps & ImageLoaderProps);
 
+    const uiMediaSingleStyles =
+      layout === 'full-width' || layout === 'wide'
+        ? [uiMediaSingleBaseStyles, uiMediaSingleLayoutStyles]
+        : [uiMediaSingleBaseStyles];
+
     return (
-      <ExtendedUIMediaSingle
+      <UIMediaSingle
+        css={uiMediaSingleStyles}
         handleMediaSingleRef={ref}
         layout={layout}
         width={width}
@@ -219,9 +228,9 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
         pctWidth={pctWidth}
         fullWidthMode={isFullWidth}
       >
-        <>{mediaComponent}</>
+        <Fragment>{mediaComponent}</Fragment>
         {isCaptionsFlaggedOn && caption}
-      </ExtendedUIMediaSingle>
+      </UIMediaSingle>
     );
   };
 

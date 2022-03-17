@@ -1,13 +1,17 @@
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { DN30, DN900, N30 } from '@atlaskit/theme/colors';
-import { Wrapper as WrapperDefault, padding } from '../styles';
+import { wrapperDefault, padding } from '../styles';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 const dataConsumerSelector = '[data-mark-type="dataConsumer"]';
 export const widerLayoutClassName = 'wider-layout';
 
-export const Wrapper = styled(WrapperDefault)<{ extensionWidth: String }>`
+export const wrapperStyle = (theme: ThemeProps, extensionWidth: string) => css`
+  ${wrapperDefault(theme)}
+
   &.without-frame {
     background: transparent;
   }
@@ -26,7 +30,7 @@ export const Wrapper = styled(WrapperDefault)<{ extensionWidth: String }>`
     .ProseMirror
     > [extensiontype]
     &.${widerLayoutClassName} {
-    width: ${({ extensionWidth }) => `${extensionWidth}`};
+    width: ${extensionWidth};
     margin-left: 50%;
     transform: translateX(-50%);
   }

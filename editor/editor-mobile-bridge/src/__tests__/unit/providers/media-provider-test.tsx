@@ -29,8 +29,8 @@ import {
   withMediaClient,
   MediaClient,
   ProcessedFileState,
-  FileState,
   isFileIdentifier,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import uuid from 'uuid/v4';
 import {
@@ -40,7 +40,6 @@ import {
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
 import { INPUT_METHOD } from '@atlaskit/editor-core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 // Quick patch for isFileIdentifier
 // TODO: please, don't mock the full @atlaskit/media-client package
@@ -117,10 +116,10 @@ describe('Mobile MediaProvider', () => {
       <Component {...props} mediaClient={mediaClient} />
     ));
 
-    const subject = new ReplaySubject<FileState>(1);
-    subject.next(testFileState);
-
-    asMockReturnValue(mediaClient.file.getFileState, subject);
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createMediaSubscribable(testFileState),
+    );
 
     promisedMediaProvider = Promise.resolve({
       viewMediaClientConfig: mediaClientConfig,

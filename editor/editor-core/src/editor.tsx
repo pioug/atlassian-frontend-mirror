@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
-import { IntlShape } from 'react-intl';
+import type { IntlShape } from 'react-intl-next';
 import memoizeOne from 'memoize-one';
 import uuid from 'uuid/v4';
 import { name, version } from './version-wrapper';
@@ -13,8 +13,6 @@ import {
   BaseTheme,
   WithCreateAnalyticsEvent,
   WidthProvider,
-  LegacyToNextIntlProvider,
-  IntlLegacyFallbackProvider,
 } from '@atlaskit/editor-common/ui';
 import {
   getAnalyticsAppearance,
@@ -59,7 +57,7 @@ import {
   QuickInsertOptions,
 } from './plugins/quick-insert/types';
 import { createFeatureFlagsFromProps } from './plugins/feature-flags-context/feature-flags-from-props';
-import { RenderTracking } from './utils/react-hooks/use-component-renderer-tracking';
+import { RenderTracking } from './utils/performance/components/RenderTracking';
 
 export type {
   AllowedBlockTypes,
@@ -629,7 +627,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     const renderTrackingEnabled = renderTracking?.enabled;
     const useShallow = renderTracking?.useShallow;
 
-    const editor = (
+    return (
       <FabricEditorAnalyticsContext
         data={{
           packageName: name,
@@ -747,9 +745,6 @@ export default class Editor extends React.Component<EditorProps, State> {
                                       }
                                       contextPanel={this.props.contextPanel}
                                       collabEdit={this.props.collabEdit}
-                                      allowAnnotation={
-                                        !!this.props.annotationProviders
-                                      }
                                       persistScrollGutter={
                                         this.props.persistScrollGutter
                                       }
@@ -784,11 +779,6 @@ export default class Editor extends React.Component<EditorProps, State> {
           }
         />
       </FabricEditorAnalyticsContext>
-    );
-    return (
-      <LegacyToNextIntlProvider>
-        <IntlLegacyFallbackProvider>{editor}</IntlLegacyFallbackProvider>
-      </LegacyToNextIntlProvider>
     );
   }
 }

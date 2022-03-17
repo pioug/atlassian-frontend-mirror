@@ -1,3 +1,4 @@
+import { animationFrame } from './_editor';
 import { PuppeteerPage, PuppeteerKeyInput } from './_types';
 
 export enum KEY {
@@ -44,6 +45,7 @@ export async function pressKey(
 
   for (let key of keys) {
     await page.keyboard.press(key as PuppeteerKeyInput, options);
+    await animationFrame(page);
   }
 }
 
@@ -66,4 +68,34 @@ export async function pressKeyCombo(page: PuppeteerPage, keys: KeyboardKey[]) {
   await Promise.all(
     keys.map((key) => page.keyboard.up(key as PuppeteerKeyInput)),
   );
+}
+
+// Pass timeoutRequired if a delay of 100ms is required after every key press (to allow the page to render)
+// Discourged to use timeoutRequired
+export async function pressWithKeyModifier(
+  page: PuppeteerPage,
+  {
+    modifierKeys,
+    keys,
+    timeoutRequired = false,
+  }: {
+    modifierKeys: KeyboardKey[];
+    keys: KeyboardKey[];
+    timeoutRequired?: boolean;
+  },
+) {
+  for (let key of modifierKeys) {
+    await page.keyboard.down(key as PuppeteerKeyInput);
+    timeoutRequired && (await page.waitForTimeout(100));
+  }
+
+  for (let key of keys) {
+    await page.keyboard.press(key as PuppeteerKeyInput);
+    timeoutRequired && (await page.waitForTimeout(100));
+  }
+
+  for (let key of modifierKeys) {
+    await page.keyboard.up(key as PuppeteerKeyInput);
+    timeoutRequired && (await page.waitForTimeout(100));
+  }
 }

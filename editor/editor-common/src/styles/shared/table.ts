@@ -66,12 +66,20 @@ const tableSharedStyle = (props: ThemeProps) => css`
     padding-left: ${akEditorTableNumberColumnWidth - 1}px;
     clear: both;
   }
+  .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {
+    margin: ${tableMarginTop}px 0 0 0;
+  }
+
+  .${TableSharedCssClassName.TABLE_CONTAINER} > table,
+  .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
+    margin: ${tableMarginTop}px ${tableMarginSides}px 0 0;
+  }
+
   /* avoid applying styles to nested tables (possible via extensions) */
   .${TableSharedCssClassName.TABLE_CONTAINER} > table,
   .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
   .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
     border-collapse: collapse;
-    margin: ${tableMarginTop}px ${tableMarginSides}px 0 0;
     border: ${tableCellBorderWidth}px solid
       ${themed({
         light: akEditorTableBorder,

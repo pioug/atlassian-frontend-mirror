@@ -1,9 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { Node as PmNode } from 'prosemirror-model';
-import { Overlay } from '../styles';
+import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
-import { Wrapper } from './styles';
+import { wrapperStyle } from './styles';
 
 export interface Props {
   node: PmNode;
@@ -21,10 +23,13 @@ export default class InlineExtension extends Component<Props, any> {
       : 'with-overlay';
 
     return (
-      <Wrapper className={`extension-container inline ${className}`}>
-        <Overlay className="extension-overlay" />
+      <div
+        css={wrapperStyle}
+        className={`extension-container inline ${className}`}
+      >
+        <div css={overlay} className="extension-overlay" />
         {children ? children : <ExtensionLozenge node={node} />}
-      </Wrapper>
+      </div>
     );
   }
 }

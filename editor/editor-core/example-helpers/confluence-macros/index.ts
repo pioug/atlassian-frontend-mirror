@@ -15,7 +15,7 @@ import {
 import { mockFieldResolver } from '../config-panel/confluence-fields-data-providers';
 
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
-import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
+import { setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
 
 import { getIconComponent } from './IconImage';
 import EditorActions from '../../src/actions';

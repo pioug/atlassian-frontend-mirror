@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import { css, jsx, keyframes } from '@emotion/react';
 import { R100 } from '@atlaskit/theme/colors';
 
 const pulseBackground = keyframes`
@@ -20,14 +21,21 @@ const pulseBackgroundReverse = keyframes`
   }
 `;
 
-const Wrapper: any = styled.div`
+const flashWrapper = css`
   &.-flash > div {
     animation: 0.25s ease-in-out ${pulseBackgroundReverse};
   }
 
   & > div {
-    animation: ${(props: Props) =>
-      props.animate ? `.25s ease-in-out ${pulseBackground}` : 'none'};
+    animation: 'none';
+  }
+`;
+
+const flashWrapperAnimated = css`
+  ${flashWrapper}
+
+  & > div {
+    animation: 0.25s ease-in-out ${pulseBackground};
   }
 `;
 
@@ -44,9 +52,12 @@ export default class WithFlash extends React.Component<Props> {
     this.toggle = animate && !this.toggle;
 
     return (
-      <Wrapper className={this.toggle ? '-flash' : ''} animate={animate}>
+      <div
+        css={animate ? flashWrapperAnimated : flashWrapper}
+        className={this.toggle ? '-flash' : ''}
+      >
         {children}
-      </Wrapper>
+      </div>
     );
   }
 }

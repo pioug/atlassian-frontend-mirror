@@ -1,8 +1,17 @@
 import React, { useCallback, useMemo, useRef, useLayoutEffect } from 'react';
-import { N200 } from '@atlaskit/theme/colors';
+import {
+  text as colorsText,
+  N200,
+  N20,
+  DN70,
+  N800,
+  DN600,
+  DN300,
+} from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item from '@atlaskit/item';
+import Item, { itemThemeNamespace } from '@atlaskit/item';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import styled from 'styled-components';
 
@@ -13,6 +22,34 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
 export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
+export const ITEM_PADDING = 12;
+
+export const itemTheme = {
+  [itemThemeNamespace]: {
+    padding: {
+      default: {
+        bottom: ITEM_PADDING,
+        left: ITEM_PADDING,
+        right: ITEM_PADDING,
+        top: ITEM_PADDING,
+      },
+    },
+    beforeItemSpacing: {
+      default: () => ITEM_PADDING,
+    },
+    borderRadius: () => 0,
+    hover: {
+      // background: colors.transparent, transparent is not a thing
+      text: colorsText,
+      secondaryText: N200,
+    },
+    selected: {
+      background: themed({ light: N20, dark: DN70 }),
+      text: themed({ light: N800, dark: DN600 }),
+      secondaryText: themed({ light: N200, dark: DN300 }),
+    },
+  },
+};
 
 export const ItemIcon = styled.div`
   width: ${ICON_WIDTH}px;
@@ -148,6 +185,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
       aria-selected={isSelected}
       aria-label={item.title}
       role="option"
+      theme={itemTheme}
     >
       <ItemBody>
         <ItemText>

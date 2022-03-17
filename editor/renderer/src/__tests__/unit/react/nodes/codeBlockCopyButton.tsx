@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { CopyTextContext } from '../../../../react/nodes/copy-text-provider';
 import CopyButton from '../../../../react/nodes/codeBlockCopyButton';
 

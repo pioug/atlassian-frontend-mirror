@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -6,7 +8,6 @@ import { EmojiProvider } from '@atlaskit/emoji/resource';
 import Tooltip from '@atlaskit/tooltip';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { style } from 'typestyle';
 import {
   createAndFireSafe,
   createPickerButtonClickedEvent,
@@ -22,13 +23,13 @@ import { messages } from './i18n';
 import { Reaction } from './Reaction';
 import { ReactionPicker } from './ReactionPicker';
 
-const reactionStyle = style({
+const reactionStyle = css({
   display: 'inline-block',
   // top margin of 2px to allow spacing between rows when wrapped (paired with top margin in reactionsStyle)
   margin: '2px 4px 0 4px',
 });
 
-const reactionsStyle = style({
+const reactionsStyle = css({
   display: 'flex',
   flexWrap: 'wrap',
   position: 'relative',
@@ -36,7 +37,7 @@ const reactionsStyle = style({
   borderRadius: '15px',
   // To allow to row spacing of 2px on wrap, and 0px on first row
   marginTop: '-2px',
-  $nest: { '& > :first-child': { marginLeft: 0 } },
+  '& > :first-of-type': { marginLeft: 0 },
 });
 
 export interface Props {
@@ -167,7 +168,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
     return (
       <Tooltip content={this.getTooltip()}>
         <ReactionPicker
-          className={reactionStyle}
+          css={reactionStyle}
           emojiProvider={emojiProvider}
           miniMode={true}
           boundariesElement={boundariesElement}
@@ -185,7 +186,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
   private renderReaction = (reaction: ReactionSummary) => (
     <Reaction
       key={reaction.emojiId}
-      className={reactionStyle}
+      css={reactionStyle}
       reaction={reaction}
       emojiProvider={this.props.emojiProvider}
       onClick={this.props.onReactionClick}
@@ -196,7 +197,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
 
   render() {
     return (
-      <div className={reactionsStyle}>
+      <div css={reactionsStyle}>
         {this.props.reactions.map(this.renderReaction)}
         {this.renderPicker()}
       </div>

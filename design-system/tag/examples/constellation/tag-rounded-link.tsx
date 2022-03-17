@@ -8,7 +8,7 @@ export default () => (
   <Tag
     appearance="rounded"
     removeButtonLabel="Remove"
-    text="Round removeable link"
+    text="Round removable link"
     href="/components/tag"
     elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
   />

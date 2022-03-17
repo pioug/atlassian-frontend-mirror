@@ -24,7 +24,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
         key="name"
         color={
           this.props.isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text', N800)
         }
       >
@@ -87,7 +87,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
     <TextWrapper
       color={
         isSelected
-          ? token('color.text.brand', B400)
+          ? token('color.text.selected', B400)
           : token('color.text.subtlest', N200)
       }
     >

@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import Spinner from '@atlaskit/spinner';
-import React from 'react';
 import { ReactNode } from 'react';
 import EmojiPickerCategoryHeading, {
   Props as CategoryHeadingProps,
@@ -8,7 +9,7 @@ import EmojiPickerEmojiRow, {
   Props as EmojiRowProps,
 } from './EmojiPickerEmojiRow';
 import { sizes } from './EmojiPickerSizes';
-import * as styles from './styles';
+import { emojiPickerSpinner } from './styles';
 
 export interface RenderItem {
   (context?: VirtualRenderContext): ReactNode;
@@ -46,7 +47,7 @@ export class LoadingItem extends AbstractItem<{}> {
   }
 
   renderItem = () => (
-    <div className={styles.emojiPickerSpinner}>
+    <div css={emojiPickerSpinner}>
       <div>
         <Spinner size="medium" />
       </div>

@@ -36,12 +36,12 @@ const spotlightTheme = {
       active: token('color.background.neutral.pressed', colors.P500),
       disabled: 'none',
       selected: {
-        light: token('color.background.brand.hovered', colors.N700),
-        dark: token('color.background.brand.hovered', colors.DN0),
+        light: token('color.background.selected.hovered', colors.N700),
+        dark: token('color.background.selected.hovered', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.brand.hovered', colors.N700),
-        dark: token('color.background.brand.hovered', colors.DN0),
+        light: token('color.background.selected.hovered', colors.N700),
+        dark: token('color.background.selected.hovered', colors.DN0),
       },
     },
     boxShadow: {
@@ -74,7 +74,7 @@ const spotlightTheme = {
       hover: token('color.text.inverse', colors.P75),
       active: token('color.text.inverse', colors.P100),
       disabled: token('color.text.discovery', colors.P500),
-      selected: token('color.text.brand', colors.N0),
+      selected: token('color.text.selected', colors.N0),
       focus: token('color.text.inverse', colors.N0),
     },
   },
@@ -90,7 +90,7 @@ const modalTheme = {
         light: token('color.background.disabled', colors.N30),
         dark: token('color.background.disabled', colors.DN70),
       },
-      selected: token('color.background.brand.hovered', colors.R500),
+      selected: token('color.background.selected.hovered', colors.R500),
       focus: token('color.background.discovery.bold.hovered', colors.P400),
     },
     boxShadow: {
@@ -105,7 +105,7 @@ const modalTheme = {
         light: token('color.text.disabled', colors.N0),
         dark: token('color.text.disabled', colors.DN30),
       },
-      selected: token('color.text.brand', colors.N0),
+      selected: token('color.text.selected', colors.N0),
       focus: token('color.text.inverse', colors.N0),
     },
   },

@@ -1286,6 +1286,22 @@ synchronizeFigmaTokens('AtlassianLight', {
     },
     "value": "#00000052"
   },
+  "Color/Skeleton/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for skeleton loading states"
+    },
+    "value": "#091E420F"
+  },
+  "Color/Skeleton/Subtle": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "description": "Use for the pulse or shimmer effect in skeleton loading states"
+    },
+    "value": "#091E4208"
+  },
   "Color/Link/Default": {
     "attributes": {
       "group": "paint",

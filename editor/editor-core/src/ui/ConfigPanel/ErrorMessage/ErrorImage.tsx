@@ -1,14 +1,15 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { gridSize } from '@atlaskit/theme/constants';
 
-const ImageContainer = styled.div`
+const imageContainer = css`
   margin: 0 auto ${gridSize() * 3}px;
   height: 80px;
 `;
 
 const ErrorImage: React.FunctionComponent = () => (
-  <ImageContainer>
+  <div css={imageContainer}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 163.28 218"
@@ -71,7 +72,7 @@ const ErrorImage: React.FunctionComponent = () => (
         </g>
       </g>
     </svg>
-  </ImageContainer>
+  </div>
 );
 
 export default ErrorImage;

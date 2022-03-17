@@ -62,6 +62,7 @@ export type {
   MediaUpload,
   MediaChunksProbe,
 } from './models/media';
+
 export type { MediaSubscribableItem } from './models/media-subscribable';
 
 export { getArtifactUrl } from './models/artifacts';
@@ -107,6 +108,7 @@ export type {
   MobileUploadErrorEvent,
 } from './models/mobile-upload';
 
+// TODO: remove access to media file stream cache https://product-fabric.atlassian.net/browse/MEX-1417
 export { getFileStreamsCache, StreamsCache } from './file-streams-cache';
 
 export { uploadFile } from './uploader';
@@ -181,12 +183,11 @@ export type { EdgeData } from './client/stargate-client';
 
 export { isImageRemote } from './utils/isImageRemote';
 export { checkWebpSupport } from './utils/checkWebpSupport';
-export { observableToPromise } from './utils/observableToPromise';
 
 export { getDimensionsFromBlob } from './utils/getDimensionsFromBlob';
 export type { Dimensions } from './utils/getDimensionsFromBlob';
 
-export { createFileStateSubject } from './utils/createFileStateSubject';
+export { createMediaSubject } from './utils/createMediaSubject';
 export { safeUnsubscribe } from './utils/safeUnsubscribe';
 
 export {
@@ -223,10 +224,12 @@ export {
 } from './utils/url';
 export type { MediaBlobUrlAttrs } from './utils/url';
 
-export { toMediaSubscribable } from './utils/toMediaSubscribable';
+export { createMediaSubscribable } from './utils/toMediaSubscribable';
+
 export type {
   MediaSubscribable,
   MediaSubscription,
+  MediaObserver,
 } from './utils/toMediaSubscribable';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';

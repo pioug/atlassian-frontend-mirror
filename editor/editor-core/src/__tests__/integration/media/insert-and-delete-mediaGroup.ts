@@ -22,7 +22,7 @@ import {
       await page.type(editable, 'some text');
 
       // now we can insert media as necessary
-      await insertMedia(page, ['one.svg', 'two.svg']);
+      await insertMedia(page, ['one.jpg', 'one.jpg']);
 
       // wait for the nodeview to appear
       await page.waitForSelector('.wrapper .image');

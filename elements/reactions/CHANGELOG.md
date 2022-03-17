@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 21.1.0
+
+### Minor Changes
+
+- [`f0c986fe03a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0c986fe03a) - Migrated styles to emotion and removed typestyle dependency from atlassian-frontend dependencies.
+
+### Patch Changes
+
+- [`876cae9c606`](https://bitbucket.org/atlassian/atlassian-frontend/commits/876cae9c606) - Changed selector first-child to first-of-type to better support SSR
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 21.0.5
 
 ### Patch Changes

@@ -11,6 +11,7 @@ import {
   a,
   extension,
   unsupportedBlock,
+  code_block,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -321,6 +322,28 @@ describe('media-single', () => {
       });
     });
 
+    describe('when current selection the middle of a code block', () => {
+      it('does not split the code block', () => {
+        const { editorView } = editor(
+          doc(code_block({})('This is a {<>}code block')),
+        );
+
+        insertMediaSingleNode(
+          editorView,
+          createMediaState(temporaryFileId),
+          INPUT_METHOD.PICKER_CLOUD,
+          testCollectionName,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            code_block({})('This is a code block'),
+            mediaSingle({ layout: 'center' })(temporaryMediaWithDimensions()),
+          ),
+        );
+      });
+    });
+
     it('should respect scaleFactor', () => {
       const { editorView } = editor(doc(p('text{<>}')));
 
@@ -389,7 +412,8 @@ describe('media-single', () => {
     });
   });
 
-  it('should be able to show mediaSingle without width', () => {
+  // ED-14263: previously we were outputting an illegal width attribute to a div. This attribute has been removed.
+  it.skip('should be able to show mediaSingle without width', () => {
     const { editorView } = editor(
       doc(p('text'), mediaSingle()(temporaryMedia), p()),
     );

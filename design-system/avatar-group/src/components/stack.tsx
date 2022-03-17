@@ -8,32 +8,30 @@ import { gridSize } from '@atlaskit/theme/constants';
 
 const gutter = BORDER_WIDTH * 2 + gridSize() / 2;
 
+const listStyles = css({
+  display: 'flex',
+  margin: 0,
+  marginRight: gutter,
+  padding: 0,
+  lineHeight: 1,
+  listStyleType: 'none !important',
+});
+
+const listItemStyles = css({
+  margin: 0,
+  marginRight: -gutter,
+});
+
 const Stack: FC<{
   children: ReactNode;
   testId?: string;
   'aria-label': string;
 }> = ({ children, testId, 'aria-label': label }) => (
-  <ul
-    data-testid={testId}
-    aria-label={label}
-    // eslint-disable-next-line @repo/internal/react/no-css-string-literals
-    css={css`
-      // removes default ul styles
-      list-style-type: none !important;
-      margin: 0;
-      padding: 0;
-
-      > li {
-        margin: 0;
-        margin-right: -${gutter}px;
-      }
-
-      display: flex;
-      line-height: 1;
-      margin-right: ${gutter}px;
-    `}
-  >
-    {Children.map(children, (child) => child && <li>{child}</li>)}
+  <ul data-testid={testId} aria-label={label} css={listStyles}>
+    {Children.map(
+      children,
+      (child) => child && <li css={listItemStyles}>{child}</li>,
+    )}
   </ul>
 );
 

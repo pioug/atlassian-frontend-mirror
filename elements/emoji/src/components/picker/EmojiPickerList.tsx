@@ -1,4 +1,6 @@
-import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { PureComponent } from 'react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
@@ -15,6 +17,7 @@ import {
   ToneSelection,
   User,
 } from '../../types';
+import { EmojiContext } from '../common/internal-types';
 import {
   CategoryDescriptionMap,
   CategoryGroupKey,
@@ -30,10 +33,10 @@ import {
   VirtualItem,
   virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
-import * as styles from './styles';
 import EmojiActions from '../common/EmojiActions';
 import { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import { OnDeleteEmoji } from '../common/EmojiDeletePreview';
+import { emojiPickerList, virtualList } from './styles';
 
 const categoryClassname = 'emoji-category';
 
@@ -93,6 +96,14 @@ export default class EmojiPickerVirtualList extends PureComponent<
   Props,
   State
 > {
+  static contextTypes = {
+    emoji: PropTypes.object,
+  };
+
+  static childContextTypes = {
+    emoji: PropTypes.object,
+  };
+
   static defaultProps = {
     onEmojiSelected: () => {},
     onEmojiActive: () => {},
@@ -106,11 +117,22 @@ export default class EmojiPickerVirtualList extends PureComponent<
   private virtualItems: VirtualItem<any>[] = [];
   private categoryTracker: CategoryTracker = new CategoryTracker();
 
+  context!: EmojiContext;
+
   constructor(props: Props) {
     super(props);
 
     this.buildEmojiGroupedByCategory(props.emojis, props.currentUser);
     this.buildVirtualItems(props, this.state);
+  }
+
+  getChildContext(): EmojiContext {
+    const { emoji } = this.context;
+    return {
+      emoji: {
+        ...emoji,
+      },
+    };
   }
 
   UNSAFE_componentWillUpdate(nextProps: Props, nextState: State) {
@@ -374,10 +396,9 @@ export default class EmojiPickerVirtualList extends PureComponent<
       onFileChooserClicked,
       onOpenUpload,
     } = this.props;
-    const classes = [styles.emojiPickerList];
 
     return (
-      <div ref="root" className={classNames(classes)}>
+      <div ref="root" css={emojiPickerList}>
         <EmojiActions
           selectedTone={selectedTone}
           onToneSelected={onToneSelected}
@@ -406,7 +427,7 @@ export default class EmojiPickerVirtualList extends PureComponent<
           rowRenderer={this.renderRow}
           scrollToAlignment="start"
           width={sizes.listWidth}
-          className={styles.virtualList}
+          css={virtualList}
           onRowsRendered={this.checkCategoryIdChange}
         />
       </div>

@@ -32,8 +32,8 @@ export const defaultBackgroundColorFocus = {
 };
 
 export const defaultBackgroundColorHover = {
-  light: token('elevation.surface', N30),
-  dark: token('elevation.surface', DN30),
+  light: token('color.background.input.hovered', N30),
+  dark: token('color.background.input.hovered', DN30),
 };
 
 export const subtleBackgroundColorHover = {

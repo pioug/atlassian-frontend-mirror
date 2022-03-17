@@ -33,7 +33,7 @@ BrowserTestCase(
     /**
      * First part of the test. Normal table layout.
      */
-    await insertMedia(page);
+    await insertMedia(page, ['high-res-image.jpg']);
 
     let startWidth = 742;
     let endWidth = 630;
@@ -56,7 +56,7 @@ BrowserTestCase(
      * Second part of the test. Wide table layout.
      */
     await setTableLayout(page, 'wide');
-    await insertMedia(page);
+    await insertMedia(page, ['high-res-image.jpg']);
 
     startWidth = 760; // Pay attention to it's being slightly bigger then 742 in normal layout 🤷🏻‍
     endWidth = 630;
@@ -80,7 +80,7 @@ BrowserTestCase(
      * Third part of the test. Full-width table layout.
      */
     await setTableLayout(page, 'fullWidth');
-    await insertMedia(page);
+    await insertMedia(page, ['high-res-image.jpg']);
 
     startWidth = 760; // Pay attention to it's being slightly bigger then 742 in normal layout 🤷🏻‍
     endWidth = 630;

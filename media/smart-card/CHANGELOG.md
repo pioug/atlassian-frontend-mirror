@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 18.0.0
+
+### Major Changes
+
+- [`dd429d9fdca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd429d9fdca) - [ux] EDM-2822: Fix smart link wraps just after the icon
+
+### Patch Changes
+
+- [`fb1cf506701`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb1cf506701) - [ux] ED-14487: polyfill ResizeObserver and IntersectionObserver for unit tests, but mock isIntersectionObserverSupported() for tests related to smart-cards
+- Updated dependencies
+
 ## 17.7.12
 
 ### Patch Changes

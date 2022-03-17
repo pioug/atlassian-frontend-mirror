@@ -11,6 +11,7 @@ import {
   getEmojiProvider,
   currentUser,
 } from '@atlaskit/util-data-test/get-emoji-provider';
+import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
@@ -271,6 +272,12 @@ function createProviders(
     }
 
     providers.extensionProviders = extensionProvidersArr;
+  }
+
+  if (opts.mentionProviderWithTeamHighlight) {
+    providers.mentionProvider = Promise.resolve(
+      mentionResourceProviderWithTeamMentionHighlight,
+    );
   }
 
   return providers;

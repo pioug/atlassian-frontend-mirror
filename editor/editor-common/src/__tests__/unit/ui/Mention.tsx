@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention/element';
 

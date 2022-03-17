@@ -1,6 +1,5 @@
 import { Node as PMNode } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import sleep from '@atlaskit/editor-test-helpers/sleep';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import { ToolbarFeatures } from '../../../example-helpers/ToolsDrawer';
 import { EditorAppearance, EditorProps } from '../../types';
@@ -10,11 +9,7 @@ import {
   tableSelectors,
   getSelectorForTableCell,
 } from '../__helpers/page-objects/_table';
-import {
-  isPuppeteer,
-  PuppeteerPage,
-  WebDriverPage,
-} from '../__helpers/page-objects/_types';
+import { WebDriverPage } from '../__helpers/page-objects/_types';
 import { selectors } from '../__helpers/page-objects/_editor';
 import { TableCssClassName } from '../../plugins/table/types';
 import { messages as insertBlockMessages } from '../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
@@ -24,6 +19,7 @@ import { emojiSearch, EMOJI_TRIGGER } from '../__helpers/page-objects/_emoji';
 import { mentionSearch } from '../__helpers/page-objects/_mention';
 
 import { getDocFromElement } from '../__helpers/page-objects/_editor';
+import { MediaPickerPageObject } from '@atlaskit/media-integration-test-helpers';
 export { getDocFromElement };
 
 export const expectToMatchDocument = async (page: any, testName: string) => {
@@ -268,100 +264,17 @@ export const rerenderEditor = async (browser: any) => {
   await browser.click('.reloadEditorButton');
 };
 
-// This function assumes the media picker modal is already shown.
-export const insertMediaFromMediaPicker = async (
-  page: WebDriverPage | PuppeteerPage,
-  filenames = ['one.svg'],
-  fileSelector = 'div=%s',
+export const insertMedia = async (
+  page: WebDriverPage,
+  filenames = ['one.jpg'],
 ) => {
-  const insertMediaButton = '[data-testid="media-picker-insert-button"]';
-  const mediaCardSelector = `${editable} .img-wrapper`;
-  const existingMediaCards = await page.$$(mediaCardSelector);
-  // wait for media item, and select it
-  await page.waitForSelector(
-    '[data-testid="media-picker-popup"] [data-testid="media-file-card-view"][data-test-media-name="one.svg"]',
-  );
+  const mediaPickerObject = new MediaPickerPageObject(page);
   if (filenames) {
     for (const filename of filenames) {
-      const selector = fileSelector.replace('%s', filename);
-      await page.waitFor(selector);
-      await page.click(selector);
+      const fileToUpload = __dirname.concat(`/media/_resources_/${filename}`);
+      await mediaPickerObject.uploadFile(fileToUpload);
     }
   }
-  // wait for insert button to show up and
-  // insert it from the picker dialog
-  await page.waitForSelector(insertMediaButton);
-  await page.click(insertMediaButton);
-  await page.waitFor('.img-wrapper');
-
-  // Wait until we have found media-cards for all inserted items.
-  const mediaCardCount = get$$Length(existingMediaCards) + filenames.length;
-
-  if (!isPuppeteer(page)) {
-    // Workaround - we need to use different wait methods depending on where we are running.
-    if (page.hasCapabilities()) {
-      await page.waitUntil(async () => {
-        const mediaCards = await page.$$(mediaCardSelector);
-
-        // media picker can still be displayed after inserting an image after some small time
-        // wait until it's completely disappeared before continuing
-        const insertButtons = await page.$$(insertMediaButton);
-        return (
-          get$$Length(mediaCards) === mediaCardCount &&
-          get$$Length(insertButtons) === 0
-        );
-      });
-    } else {
-      await page.execute(() => {
-        window.scrollBy(0, window.innerHeight);
-      });
-      await page.waitUntil(() =>
-        page.execute(
-          (mediaCardSelector: any, mediaCardCount: any) => {
-            const mediaCards = document.querySelectorAll(mediaCardSelector);
-            return mediaCards.length === mediaCardCount;
-          },
-          mediaCardSelector,
-          mediaCardCount,
-        ),
-      );
-    }
-  }
-};
-
-export const insertMedia = async (
-  page: WebDriverPage | PuppeteerPage,
-  filenames = ['one.svg'],
-  fileSelector = 'div=%s',
-) => {
-  let mediaPickerHasOpened = false;
-  const attempts = 3;
-  for (let i = 0; i < attempts; i++) {
-    const openMediaPopup = `button[aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
-    // wait for media button in toolbar and click it
-    await page.waitForSelector(openMediaPopup);
-    // Potential fix for EDM-486. The theory is media picker is not opening with following click
-    // is because click handler hasn't been assigned yet for some reason.
-    await sleep(300);
-    await page.click(openMediaPopup);
-    try {
-      await page.waitForSelector('[data-testid="media-picker-popup"]');
-      mediaPickerHasOpened = true;
-      break;
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(
-        `Clicking ${insertBlockMessages.filesAndImages.defaultMessage} toolbar button did not yielded media picker popup.`,
-      );
-    }
-  }
-  if (!mediaPickerHasOpened) {
-    throw new Error(
-      `After ${attempts} clicking ${insertBlockMessages.filesAndImages.defaultMessage} toolbar button did not yielded media picker popup.`,
-    );
-  }
-
-  await insertMediaFromMediaPicker(page, filenames, fileSelector);
 };
 
 export const removeMedia = async (page: WebDriverPage) => {

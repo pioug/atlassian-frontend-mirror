@@ -7,11 +7,15 @@ jest.mock('uuid/v4', () => ({
 }));
 
 import { MediaClient, UploadableFile, FileState } from '@atlaskit/media-client';
-import { TouchedFiles, ProcessingFileState } from '@atlaskit/media-client';
+import {
+  TouchedFiles,
+  ProcessingFileState,
+  createMediaSubscribable,
+  MediaSubscribable,
+} from '@atlaskit/media-client';
 import { AuthProvider, Auth } from '@atlaskit/media-core';
 import uuidV4 from 'uuid/v4';
 import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscriber } from 'rxjs/Subscriber';
 import { UploadServiceImpl } from '../../uploadServiceImpl';
 import * as getPreviewModule from '../../../util/getPreviewFromBlob';
@@ -33,7 +37,6 @@ describe('UploadService', () => {
   const previewObject: Preview = { someImagePreview: true } as any;
   const defaultUploadMock = {
     subscribe() {},
-    pipe() {},
   };
 
   const getMediaClient = (options = {}) =>
@@ -96,9 +99,14 @@ describe('UploadService', () => {
       jest
         .spyOn(userMediaClient.file, 'touchFiles')
         .mockResolvedValue(touchedFiles);
-      const userMediaClientUpload = jest.spyOn(userMediaClient.file, 'upload');
+
+      const userMediaClientUpload = jest.spyOn(
+        userMediaClient.file,
+
+        'upload',
+      );
       userMediaClientUpload.mockReturnValue(
-        defaultUploadMock as ReplaySubject<FileState>,
+        defaultUploadMock as MediaSubscribable<FileState>,
       );
 
       return { uploadService, filesAddedPromise, mediaClient, userMediaClient };
@@ -341,9 +349,11 @@ describe('UploadService', () => {
         name: 'some-filename',
         mimeType: 'video/mp4',
       };
+
       expect(asMock(mediaClient.file.upload).mock.calls[0][0]).toEqual(
         expectedUploadableFile1,
       );
+
       expect(asMock(mediaClient.file.upload).mock.calls[1][0]).toEqual(
         expectedUploadableFile2,
       );
@@ -356,12 +366,15 @@ describe('UploadService', () => {
       });
       const fileConvertingCallback = jest.fn();
       uploadService.on('file-converting', fileConvertingCallback);
-      const subject = new ReplaySubject<FileState>(1);
-      subject.next({
-        status: 'processing',
-        id: 'public-file-id',
-      } as ProcessingFileState);
-      jest.spyOn(mediaClient.file, 'upload').mockReturnValue(subject);
+      jest
+        .spyOn(mediaClient.file, 'upload')
+
+        .mockReturnValue(
+          createMediaSubscribable({
+            status: 'processing',
+            id: 'public-file-id',
+          } as ProcessingFileState),
+        );
       uploadService.addFiles([file]);
       window.setTimeout(() => {
         expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
@@ -386,7 +399,6 @@ describe('UploadService', () => {
       const error = new Error('Some reason');
       const fileUploadErrorCallback = jest.fn();
       uploadService.on('file-upload-error', fileUploadErrorCallback);
-
       jest.spyOn(mediaClient.file, 'upload').mockReturnValue({
         // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
         //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff

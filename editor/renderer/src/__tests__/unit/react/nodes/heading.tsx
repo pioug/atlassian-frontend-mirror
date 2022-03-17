@@ -1,6 +1,6 @@
 import React from 'react';
 import Heading, { HeadingLevels } from '../../../../react/nodes/heading';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
 import { CopyTextContext } from '../../../../react/nodes/copy-text-provider';

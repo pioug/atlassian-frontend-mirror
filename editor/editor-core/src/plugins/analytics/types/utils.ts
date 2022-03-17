@@ -65,6 +65,16 @@ export type OperationalAEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
+export type OperationalExposureAEP<
+  Action,
+  ActionSubject,
+  ActionSubjectID,
+  Attributes
+> = OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes, {}> & {
+  source?: string;
+  tags?: string[];
+};
+
 export type OperationalAEPWithObjectId<
   Action,
   ActionSubject,

@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { N0, N20, N900 } from '@atlaskit/theme/colors';
 import {
   borderRadius,

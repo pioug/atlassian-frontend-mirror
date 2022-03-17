@@ -33,12 +33,12 @@ const rowBackgroundStyles = css({
 });
 const rowHighlightedBackgroundStyles = css({
   backgroundColor: token(
-    'color.background.brand',
+    'color.background.selected',
     `var(${cssVars.CSS_VAR_HIGHLIGHTED_BACKGROUND})`,
   ),
   '&:hover': {
     backgroundColor: token(
-      'color.background.brand.hovered',
+      'color.background.selected.hovered',
       `var(${cssVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND})`,
     ),
   },

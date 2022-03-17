@@ -3,6 +3,7 @@ import { EditorView } from 'prosemirror-view';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
+import type { CellSelectionRect } from '../types';
 import { selectionCell } from '../utils/selection-cell';
 import { tableNodeTypes } from '../utils/table-node-types';
 import { isInTable } from '../utils/tables';
@@ -38,7 +39,13 @@ export function handlePaste(
       sel.$headCell.pos - start,
     );
     cells = clipCells(cells, rect.right - rect.left, rect.bottom - rect.top);
-    insertCells(view.state, view.dispatch, start, rect, cells);
+    insertCells(
+      view.state,
+      view.dispatch,
+      start,
+      rect,
+      clearColumnWidthOfCells(cells),
+    );
     return true;
   }
   if (cells) {
@@ -52,9 +59,20 @@ export function handlePaste(
       view.dispatch,
       start,
       TableMap.get($cell.node(-1)).findCell($cell.pos - start),
-      cells,
+      clearColumnWidthOfCells(cells),
     );
     return true;
   }
   return false;
 }
+
+// Clear the pasted cells column widths so that it maintains
+// the column widths of the destination table
+const clearColumnWidthOfCells = (cells: CellSelectionRect) => {
+  cells.rows.forEach((row) => {
+    for (let i = 0; i < row.childCount; i++) {
+      row.child(i).attrs.colwidth = null;
+    }
+  });
+  return cells;
+};

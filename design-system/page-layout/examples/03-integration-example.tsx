@@ -23,6 +23,8 @@ import {
 
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
 
+import { SlotLabel, SlotWrapper } from './common';
+
 export default function ProductLayout() {
   return (
     <PageLayout>
@@ -44,13 +46,9 @@ export default function ProductLayout() {
           <SideNavigationContent />
         </LeftSidebar>
         <Main id="main-content" skipLinkTitle="Main Content">
-          <div
-            css={{
-              marginTop: '8px',
-            }}
-          >
-            <h3 css={{ textAlign: 'center' }}>Main Content</h3>
-          </div>
+          <SlotWrapper>
+            <SlotLabel>Main Content</SlotLabel>
+          </SlotWrapper>
         </Main>
       </Content>
     </PageLayout>

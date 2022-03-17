@@ -1,8 +1,7 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { IntlShape } from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { useTranslations } from './use-translations';
-import { LegacyToNextIntlProvider } from '@atlaskit/editor-common/ui';
 
 type geti18NMessagesType = (localeFileName: string) => Promise<Object>;
 
@@ -35,7 +34,7 @@ const IntlProviderWrapper: React.FC<Props> = (props) => {
       locale={locale.replace('_', '-')}
       messages={messages as IntlShape['messages']}
     >
-      <LegacyToNextIntlProvider>{props.children}</LegacyToNextIntlProvider>
+      {props.children}
     </IntlProvider>
   );
 };

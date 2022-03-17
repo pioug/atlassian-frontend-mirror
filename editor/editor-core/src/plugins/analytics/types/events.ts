@@ -14,7 +14,7 @@ import { FindReplaceEventPayload } from './find-replace-events';
 import { ConfigPanelEventPayload } from './config-panel-events';
 import { ElementBrowserEventPayload } from './element-browser-events';
 import { TypeAheadPayload } from './type-ahead';
-import { OperationalAEP, TrackAEP } from './utils';
+import { OperationalAEP, OperationalExposureAEP, TrackAEP } from './utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -65,6 +65,7 @@ export type AnalyticsEventPayload<T = void> =
   | UnlinkToolbarAEP
   | EditLinkToolbarAEP
   | CustomPanelEventPayload
+  | FeatureExposureAEP
   | NewCollabSyncUpErrorAEP;
 
 type CustomPanelEventPayload = TrackAEP<
@@ -86,6 +87,13 @@ export type AnalyticsDispatch = Dispatch<{
   payload: AnalyticsEventPayload;
   channel?: string;
 }>;
+
+export type FeatureExposureAEP = OperationalExposureAEP<
+  ACTION.EXPOSED,
+  ACTION_SUBJECT.FEATURE,
+  undefined,
+  { flagKey: string; value: string | boolean }
+>;
 
 // Error events need to be in this file as they reference AnalyticsEventPayloadWithChannel
 // and so there would be a circular dependency if they were in their own file
@@ -228,6 +236,17 @@ type ComponentCrashAdditionalInfoErrorAEP = OperationalAEP<
   undefined
 >;
 
+type SmartLinkErrorAEP = OperationalAEP<
+  ACTION.ERRORED,
+  ACTION_SUBJECT.SMART_LINK,
+  undefined,
+  {
+    error: string;
+    errorStack?: string;
+  },
+  undefined
+>;
+
 export type ErrorEventPayload =
   | InvalidTransactionErrorAEP
   | InvalidTransactionStepErrorAEP
@@ -237,4 +256,5 @@ export type ErrorEventPayload =
   | SynchronyEntityErrorAEP
   | ContentComponentErrorAEP
   | ComponentCrashErrorAEP
-  | ComponentCrashAdditionalInfoErrorAEP;
+  | ComponentCrashAdditionalInfoErrorAEP
+  | SmartLinkErrorAEP;

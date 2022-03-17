@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -20,7 +20,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^0.7.0",
+    "@atlaskit/tokens": "^0.8.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

@@ -17,56 +17,24 @@ import {
   useCustomSkipLink,
 } from '../src';
 
-const Wrapper = ({
-  borderColor,
-  children,
-  minHeight,
-  noOutline,
-  noHorizontalScrollbar,
-}: {
-  borderColor: string;
-  children: React.ReactNode;
-  minHeight?: string;
-  noOutline?: boolean;
-  noHorizontalScrollbar?: boolean;
-}) => (
-  <div
-    css={{
-      outline: noOutline ? 'none' : `2px dashed ${borderColor}`,
-      outlineOffset: -4,
-      padding: 8,
-      minHeight: minHeight,
-      height: '100%',
-      boxSizing: 'border-box',
-      overflowY: 'auto',
-      overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: token('color.background.neutral.subtle', 'white'),
-    }}
-  >
-    {children}
-  </div>
-);
+import { SlotLabel, SlotWrapper } from './common';
 
+const baseId = 'list-example';
 const ListExample = () => {
-  let baseId = `list-example`;
-  let newId;
   const skipLinkCount = document.querySelectorAll('[data-skip-link-wrapper] a')
     .length;
-  const [id, setId] = useState(newId || baseId);
+  const [id, setId] = useState(baseId);
   const [position, setPosition] = useState(2);
   useCustomSkipLink(id, 'List example', position);
 
   const moveDown = () => {
-    const newPos = Math.min(position + 1, skipLinkCount);
-    setPosition(newPos);
+    setPosition((pos) => Math.min(pos + 1, skipLinkCount));
   };
   const moveUp = () => {
-    const newPos = Math.max(position - 1, 0);
-    setPosition(newPos);
+    setPosition((pos) => Math.max(pos - 1, 0));
   };
   const changeId = () => {
-    newId = baseId + Date.now();
-    setId(newId);
+    setId(`${baseId}${Date.now()}`);
   };
 
   return (
@@ -117,9 +85,11 @@ const BasicGrid = () => {
           height={60}
           isFixed={false}
         >
-          <Wrapper borderColor={token('color.border.accent.yellow', 'gold')}>
-            <h3 css={{ textAlign: 'center' }}>Banner</h3>
-          </Wrapper>
+          <SlotWrapper
+            borderColor={token('color.border.accent.yellow', 'gold')}
+          >
+            <SlotLabel>Banner</SlotLabel>
+          </SlotWrapper>
         </Banner>
         <TopNavigation
           testId="topNavigation"
@@ -128,9 +98,9 @@ const BasicGrid = () => {
           height={60}
           isFixed={false}
         >
-          <Wrapper borderColor={token('color.border.accent.blue', 'blue')}>
-            <h3 css={{ textAlign: 'center' }}>Product Navigation</h3>
-          </Wrapper>
+          <SlotWrapper borderColor={token('color.border.accent.blue', 'blue')}>
+            <SlotLabel>Product Navigation</SlotLabel>
+          </SlotWrapper>
         </TopNavigation>
         <Content testId="content">
           <LeftSidebarWithoutResize
@@ -140,26 +110,25 @@ const BasicGrid = () => {
             isFixed={false}
             width={125}
           >
-            <Wrapper
+            <SlotWrapper
               borderColor={token('color.border.accent.green', 'darkgreen')}
+              hasExtraPadding
             >
-              <div css={{ minWidth: 50, padding: '0 20px' }}>
-                <h4 css={{ textAlign: 'center' }}>Space Navigation</h4>
-              </div>
-            </Wrapper>
+              <SlotLabel isSmall>Space Navigation</SlotLabel>
+            </SlotWrapper>
           </LeftSidebarWithoutResize>
           <Main testId="main" id="main" skipLinkTitle="Main Content">
-            <Wrapper
+            <SlotWrapper
               borderColor={token('color.border', 'black')}
-              minHeight="400px"
+              minHeight={400}
             >
-              <h4 css={{ textAlign: 'center' }}>Main Content</h4>
+              <SlotLabel isSmall>Main Content</SlotLabel>
               <p>
                 Visit the first focusable element on the page to see the skip
                 links menu
               </p>
               <ListExample />
-            </Wrapper>
+            </SlotWrapper>
           </Main>
         </Content>
         <RightPanel
@@ -169,10 +138,12 @@ const BasicGrid = () => {
           isFixed={false}
           width={125}
         >
-          <Wrapper borderColor={token('color.border.accent.orange', 'orange')}>
-            <h3 css={{ textAlign: 'center' }}>Help Panel</h3>
+          <SlotWrapper
+            borderColor={token('color.border.accent.orange', 'orange')}
+          >
+            <SlotLabel>Help Panel</SlotLabel>
             <p>It's also possible to</p>
-          </Wrapper>
+          </SlotWrapper>
         </RightPanel>
       </PageLayout>
       <footer id="external-footer">

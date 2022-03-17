@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when entering plain text 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "id": "1f600",
+            "shortName": ":grinning:",
+            "text": "😀",
+          },
+          "type": "emoji",
+        },
+        Object {
+          "text": "hello",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "id": "1f600",
+            "shortName": ":grinning:",
+            "text": "😀",
+          },
+          "type": "emoji",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

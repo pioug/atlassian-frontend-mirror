@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.4.0
+
+### Minor Changes
+
+- [`1065b5b1bbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1065b5b1bbb) - Fixed bug where deleted '[default]' tokens were not being detected by lint tooling
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

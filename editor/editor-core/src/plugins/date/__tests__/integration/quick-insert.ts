@@ -4,6 +4,7 @@ import {
   quickInsert,
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
+import { stripZeroWidthSpaces } from '../../../../__tests__/__helpers/utils';
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -69,7 +70,9 @@ BrowserTestCase(
     await page.click(editable);
     await quickInsert(page, 'Date');
 
-    expect(await page.getText(dateLozenge)).toBe('Jan 1, 2019');
+    expect(stripZeroWidthSpaces(await page.getText(dateLozenge))).toBe(
+      'Jan 1, 2019',
+    );
     await page.teardownMockDate();
   },
 );
@@ -103,7 +106,7 @@ BrowserTestCase(
     await page.click(editable);
     await quickInsert(page, 'Date');
 
-    const lozengeText = await page.getText(dateLozenge);
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
 
     expect(lozengeText).toBe('1 de jan. de 2019');
 
@@ -119,7 +122,7 @@ BrowserTestCase(
     await page.click(editable);
     await quickInsert(page, 'Date');
 
-    const lozengeText2 = await page.getText(dateLozenge);
+    const lozengeText2 = stripZeroWidthSpaces(await page.getText(dateLozenge));
     expect(lozengeText2).toBe('1 ene 2019');
     await page.teardownMockDate();
   },

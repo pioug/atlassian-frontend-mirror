@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 
-export const BeforePrimaryToolbarPluginWrapper = styled.div`
+const beforePrimaryToolbarPluginWrapper = css`
   display: flex;
   margin-right: 8px;
   flex-grow: 1;
@@ -12,9 +12,10 @@ export const BeforePrimaryToolbarPluginWrapper = styled.div`
 export const BeforePrimaryToolbarWrapper = (props: {
   beforePrimaryToolbarComponents: any;
 }) => (
-  <BeforePrimaryToolbarPluginWrapper
+  <div
+    css={beforePrimaryToolbarPluginWrapper}
     data-testid={'before-primary-toolbar-components-plugin'}
   >
     {props.beforePrimaryToolbarComponents}
-  </BeforePrimaryToolbarPluginWrapper>
+  </div>
 );

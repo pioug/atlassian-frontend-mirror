@@ -45,7 +45,6 @@ describe('commands', () => {
       editorProps: {
         allowAnalyticsGASV3: true,
         media: {
-          allowAnnotation: true,
           allowMediaSingle: true,
           allowAltTextOnImages: true,
           provider: mediaProvider,

@@ -30,16 +30,16 @@ export const row = {
     dark: token('color.border.focused', colors.B100),
   }),
   highlightedBackground: themed({
-    light: token('color.background.brand', colors.B50),
-    dark: token('color.background.brand', colors.DN50),
+    light: token('color.background.selected', colors.B50),
+    dark: token('color.background.selected', colors.DN50),
   }),
   hoverBackground: themed({
     light: token('color.background.input', colors.N10),
     dark: token('color.background.input', colors.DN40),
   }),
   hoverHighlightedBackground: themed({
-    light: token('color.background.brand.hovered', colors.B75),
-    dark: token('color.background.brand.hovered', colors.DN60),
+    light: token('color.background.selected.hovered', colors.B75),
+    dark: token('color.background.selected.hovered', colors.DN60),
   }),
 };
 

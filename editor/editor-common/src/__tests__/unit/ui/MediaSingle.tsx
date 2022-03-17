@@ -1,14 +1,18 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { matchers } from '@emotion/jest';
 import { mount } from 'enzyme';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { richMediaClassName } from '@atlaskit/editor-common/styles';
 
 import MediaSingle, {
   Props as MediaSingleProps,
 } from '../../../ui/MediaSingle';
-import {
-  MediaSingleWrapper,
-  MediaWrapper,
-} from '../../../ui/MediaSingle/styled';
+import { MediaWrapper } from '../../../ui/MediaSingle/styled';
+
+expect.extend(matchers);
 
 describe('mediaSingle', () => {
   const defaultLineLength = 600;
@@ -28,14 +32,14 @@ describe('mediaSingle', () => {
 
     return {
       mediaWrapperProps: wrapper.find(MediaWrapper).props(),
-      mediaSingleWrapperProps: wrapper.find(MediaSingleWrapper).props(),
+      mediaSingleWrapper: wrapper.find(`div.${richMediaClassName}`),
     };
   };
 
   describe('when width is set', () => {
     describe('when there is no percent width', () => {
       it('should pass correct ratio and width', () => {
-        const { mediaWrapperProps, mediaSingleWrapperProps } = setup({
+        const { mediaWrapperProps, mediaSingleWrapper } = setup({
           lineLength: 30,
           width: 40,
           height: 50,
@@ -45,11 +49,11 @@ describe('mediaSingle', () => {
         // To know what the value actually is
         expect(expectedRatio).toEqual(125);
         expect(mediaWrapperProps.paddingBottom).toEqual('125.000%');
-        expect(mediaSingleWrapperProps.width).toEqual(40);
+        expect(mediaSingleWrapper).toHaveStyleRule('width', '40px');
       });
 
       it('should use percent width of 50 when aligned and width is bigger then half line length', () => {
-        const { mediaWrapperProps, mediaSingleWrapperProps } = setup({
+        const { mediaWrapperProps, mediaSingleWrapper } = setup({
           lineLength: 600,
           width: 800,
           height: 200,
@@ -66,13 +70,16 @@ describe('mediaSingle', () => {
         expect(expectedRatio).toEqual(25);
 
         expect(mediaWrapperProps.paddingBottom).toEqual('25.000%');
-        expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
+        expect(mediaSingleWrapper).toHaveStyleRule(
+          'width',
+          `${expectedWidth}px`,
+        );
       });
     });
 
     describe('when there percent width is given', () => {
       it('should pass correct ratio and width', () => {
-        const { mediaWrapperProps, mediaSingleWrapperProps } = setup({
+        const { mediaWrapperProps, mediaSingleWrapper } = setup({
           lineLength: 596,
           width: 600,
           height: 200,
@@ -91,18 +98,21 @@ describe('mediaSingle', () => {
         expect(expectedRatio).toEqual(33.33333333333333);
 
         expect(mediaWrapperProps.paddingBottom).toEqual('33.333%');
-        expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
+        expect(mediaSingleWrapper).toHaveStyleRule(
+          'width',
+          `${expectedWidth}px`,
+        );
       });
     });
 
     describe('when containerWidth is not given', () => {
       it('should pass equate containerWidth to width argument', () => {
-        const { mediaSingleWrapperProps } = setup({
+        const { mediaSingleWrapper } = setup({
           lineLength: 30,
           width: 40,
           height: 50,
         });
-        expect(mediaSingleWrapperProps.containerWidth).toEqual(40);
+        expect(mediaSingleWrapper).toHaveStyleRule('width', '40px');
       });
     });
 
@@ -128,7 +138,7 @@ describe('mediaSingle', () => {
   describe('when width is not set', () => {
     describe('when percent width is given', () => {
       it('should pass correct height and width', () => {
-        const { mediaWrapperProps, mediaSingleWrapperProps } = setup({
+        const { mediaWrapperProps, mediaSingleWrapper } = setup({
           lineLength: 600,
           width: undefined,
           height: 200,
@@ -141,7 +151,10 @@ describe('mediaSingle', () => {
 
         expect(mediaWrapperProps.paddingBottom).toBeUndefined();
         expect(mediaWrapperProps.height).toEqual(200);
-        expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
+        expect(mediaSingleWrapper).toHaveStyleRule(
+          'width',
+          `${expectedWidth}px`,
+        );
       });
     });
 
@@ -149,7 +162,7 @@ describe('mediaSingle', () => {
       it.each(['center', 'wide', 'full-width'])(
         'should pass correct height and width with %s layout',
         () => {
-          const { mediaWrapperProps, mediaSingleWrapperProps } = setup({
+          const { mediaWrapperProps, mediaSingleWrapper } = setup({
             lineLength: 600,
             width: undefined,
             height: 200,
@@ -160,7 +173,10 @@ describe('mediaSingle', () => {
 
           expect(mediaWrapperProps.paddingBottom).toBeUndefined();
           expect(mediaWrapperProps.height).toEqual(200);
-          expect(mediaSingleWrapperProps.width).toEqual(expectedWidth);
+          expect(mediaSingleWrapper).toHaveStyleRule(
+            'width',
+            `${expectedWidth}px`,
+          );
         },
       );
     });

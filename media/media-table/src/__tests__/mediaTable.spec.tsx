@@ -5,15 +5,15 @@ jest.mock('dateformat', () => ({
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider, createIntl } from 'react-intl-next';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import {
-  createFileStateSubject,
   FileState,
   MediaClient,
   MediaType,
+  MediaSubscribable,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import {
   fakeMediaClient,
@@ -51,7 +51,7 @@ describe('MediaTable', () => {
     jest.clearAllMocks();
   });
 
-  const defaultFileState = createFileStateSubject({
+  const defaultFileState = createMediaSubscribable({
     id: imageFileId.id,
     status: 'processed',
     name: 'file_name',
@@ -63,13 +63,13 @@ describe('MediaTable', () => {
   });
 
   const getDefaultMediaClient = (
-    fileStateSubject: ReplaySubject<FileState> = defaultFileState,
+    fileStateSubscribable: MediaSubscribable<FileState> = defaultFileState,
   ): MediaClient => {
     const mediaClient = fakeMediaClient();
     mockMediaClient = mediaClient;
 
-    asMockFunction(mediaClient.file.getFileState).mockReturnValue(
-      fileStateSubject,
+    asMockFunction(mediaClient.file.getFileState).mockImplementation(
+      () => fileStateSubscribable,
     );
 
     return mediaClient;
@@ -269,7 +269,7 @@ describe('MediaTable', () => {
   });
 
   it('should download file if download file is defined and fileState is still processing', async () => {
-    const processingFileSubject = createFileStateSubject({
+    const processingFileSubscribable = createMediaSubscribable({
       id: imageFileId.id,
       status: 'processing',
       name: 'file_name',
@@ -282,7 +282,7 @@ describe('MediaTable', () => {
     const { mediaClient, mediaTable } = await setup(
       true,
       defaultProps,
-      getDefaultMediaClient(processingFileSubject),
+      getDefaultMediaClient(processingFileSubscribable),
     );
 
     mediaTable

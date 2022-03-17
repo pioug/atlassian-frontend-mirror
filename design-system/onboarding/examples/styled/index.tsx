@@ -8,13 +8,13 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const highlights: Record<string, any> = {
-  blue: token('color.background.accent.blue.bold', colors.B300),
-  green: token('color.background.accent.green.bold', colors.G300),
+  blue: token('color.background.accent.blue.subtle', colors.B300),
+  green: token('color.background.accent.green.subtle', colors.G300),
   neutral: token('color.border', colors.N100),
-  purple: token('color.background.accent.purple.bold', colors.P300),
-  red: token('color.background.accent.red.bold', colors.R300),
-  teal: token('color.background.accent.teal', colors.T300),
-  yellow: token('color.background.accent.orange.bold', colors.Y300),
+  purple: token('color.background.accent.purple.subtle', colors.P300),
+  red: token('color.background.accent.red.subtle', colors.R300),
+  teal: token('color.background.accent.teal.subtle', colors.T300),
+  yellow: token('color.background.accent.orange.subtle', colors.Y300),
 };
 
 const highlightGroupStyles = css({

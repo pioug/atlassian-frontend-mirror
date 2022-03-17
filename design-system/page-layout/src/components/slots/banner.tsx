@@ -1,10 +1,14 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import {
+  BANNER,
+  BANNER_HEIGHT,
   DEFAULT_BANNER_HEIGHT,
+  LEFT_PANEL_WIDTH,
+  RIGHT_PANEL_WIDTH,
   VAR_BANNER_HEIGHT,
 } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
@@ -14,8 +18,21 @@ import {
 } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 
+import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
-import { bannerStyles } from './styles';
+
+const bannerStyles = css({
+  height: BANNER_HEIGHT,
+  gridArea: BANNER,
+});
+
+const bannerFixedStyles = css({
+  position: 'fixed',
+  zIndex: 2,
+  top: 0,
+  right: RIGHT_PANEL_WIDTH,
+  left: LEFT_PANEL_WIDTH,
+});
 
 const Banner = (props: SlotHeightProps) => {
   const {
@@ -39,21 +56,28 @@ const Banner = (props: SlotHeightProps) => {
     return () => {
       publishGridState({ [VAR_BANNER_HEIGHT]: 0 });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerHeight]);
 
   useSkipLink(id, skipLinkTitle);
 
   return (
-    <div
-      css={bannerStyles(isFixed)}
-      data-testid={testId}
-      id={id}
-      {...getPageLayoutSlotSelector('banner')}
-    >
-      <SlotDimensions variableName={VAR_BANNER_HEIGHT} value={bannerHeight} />
-      {children}
-    </div>
+    <SlotFocusRing>
+      {({ className }) => (
+        <div
+          css={[bannerStyles, isFixed && bannerFixedStyles]}
+          className={className}
+          data-testid={testId}
+          id={id}
+          {...getPageLayoutSlotSelector('banner')}
+        >
+          <SlotDimensions
+            variableName={VAR_BANNER_HEIGHT}
+            value={bannerHeight}
+          />
+          {children}
+        </div>
+      )}
+    </SlotFocusRing>
   );
 };
 

@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import type {
@@ -9,18 +11,19 @@ import { overflowShadow } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import {
-  Wrapper,
+  wrapperStyle,
   Header,
   Content,
   ContentWrapper,
   widerLayoutClassName,
 } from './styles';
-import { Overlay } from '../styles';
+import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
 import { pluginKey as widthPluginKey } from '../../../../width';
 import { EditorAppearance } from '../../../../../types/editor-appearance';
 import WithPluginState from '../../../../../ui/WithPluginState';
 import classnames from 'classnames';
+import { ThemeProps } from '@atlaskit/theme/types';
 export interface Props {
   node: PmNode;
   view: EditorView;
@@ -75,21 +78,24 @@ const Extension = (props: Props & OverflowShadowProps) => {
       }}
       render={({ widthState = { width: 0 } }) => {
         return (
-          <Wrapper
-            innerRef={handleRef}
+          <div
+            ref={handleRef}
             data-layout={node.attrs.layout}
             className={classNames}
-            extensionWidth={calcBreakoutWidth(
-              node.attrs.layout,
-              widthState.width,
-            )}
+            css={(theme: ThemeProps) => {
+              const extensionWidth = calcBreakoutWidth(
+                node.attrs.layout,
+                widthState.width,
+              );
+              return wrapperStyle(theme, extensionWidth);
+            }}
           >
             <div
               className={`extension-overflow-wrapper ${
                 hasBody ? 'with-body' : ''
               }`}
             >
-              <Overlay className="extension-overlay" />
+              <div css={overlay} className="extension-overlay" />
               <Header contentEditable={false} className={headerClassNames}>
                 {!removeBorder && <ExtensionLozenge node={node} />}
                 {children}
@@ -103,7 +109,7 @@ const Extension = (props: Props & OverflowShadowProps) => {
                 </ContentWrapper>
               )}
             </div>
-          </Wrapper>
+          </div>
         );
       }}
     />

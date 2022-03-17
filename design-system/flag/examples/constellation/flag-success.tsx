@@ -13,7 +13,7 @@ const FlagSuccessExample = () => {
       icon={
         <SuccessIcon
           label="Success"
-          secondaryColor={token('color.icon.success', G400)}
+          secondaryColor={token('color.background.success.bold', G400)}
         />
       }
       id="success"

@@ -38,7 +38,7 @@ describe('LinkToolbarAppearance', () => {
       doc,
       editorProps: {
         featureFlags: {
-          viewChangingExperimentToolbarStyle: 'newDropdown',
+          'view-changing-experiment-toolbar-style': 'newDropdown',
         },
         allowPanel: true,
         smartLinks: {},

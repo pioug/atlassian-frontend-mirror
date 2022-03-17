@@ -17,8 +17,6 @@ import {
 import { document as defaultDoc } from '../helper/story-data';
 import Sidebar from '../helper/NavigationNext';
 import { MentionProvider } from '@atlaskit/mention/types';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
@@ -32,6 +30,8 @@ import {
   AnnotationMarkStates,
 } from '@atlaskit/adf-schema';
 import { ExampleSelectionInlineComponent } from '../helper/annotations';
+import { IntlProvider } from 'react-intl-next';
+import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 const mediaMockServer = createEditorMediaMock();
 const mediaProvider = storyMediaProviderFactory({
@@ -71,34 +71,33 @@ function renderRenderer({
 }) {
   const { showSidebar, ...reactProps } = props;
   return (
-    <AnalyticsListeners client={(window as any).__analytics}>
-      <SmartCardProvider client={cardClient}>
-        <Sidebar showSidebar={!!showSidebar}>
-          {(additionalRendererProps: any) => (
-            <DeprecatedThemeProvider
-              mode={props.themeMode}
-              provider={StyledThemeProvider}
-            >
-              <Renderer
-                dataProviders={providerFactory}
-                document={adf}
-                extensionHandlers={extensionHandlers}
-                {...reactProps}
-                {...additionalRendererProps}
-                eventHandlers={
-                  setMode
-                    ? {
-                        onUnhandledClick: (e) => setMode(true),
-                      }
-                    : undefined
-                }
-              />
-            </DeprecatedThemeProvider>
-          )}
-        </Sidebar>
-        <EmbedHelper />
-      </SmartCardProvider>
-    </AnalyticsListeners>
+    <IntlProvider locale="en">
+      <AnalyticsListeners client={(window as any).__analytics}>
+        <SmartCardProvider client={cardClient}>
+          <Sidebar showSidebar={!!showSidebar}>
+            {(additionalRendererProps: any) => (
+              <AtlaskitThemeProvider mode={props.themeMode}>
+                <Renderer
+                  dataProviders={providerFactory}
+                  document={adf}
+                  extensionHandlers={extensionHandlers}
+                  {...reactProps}
+                  {...additionalRendererProps}
+                  eventHandlers={
+                    setMode
+                      ? {
+                          onUnhandledClick: (e) => setMode(true),
+                        }
+                      : undefined
+                  }
+                />
+              </AtlaskitThemeProvider>
+            )}
+          </Sidebar>
+          <EmbedHelper />
+        </SmartCardProvider>
+      </AnalyticsListeners>
+    </IntlProvider>
   );
 }
 

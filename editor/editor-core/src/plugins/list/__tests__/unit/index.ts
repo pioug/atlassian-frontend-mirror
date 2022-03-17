@@ -393,4 +393,140 @@ describe('lists', () => {
       );
     });
   });
+
+  describe('child count attribute', () => {
+    it('should add data-child-count attribute, when number of listItem is more than 99', () => {
+      const { editorView } = editor(
+        doc(
+          ol(
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+          ),
+        ),
+      );
+      const pluginState = pluginKey.getState(editorView.state);
+
+      expect(pluginState.decorationSet.find()[1].type.attrs).toEqual({
+        'data-child-count': '100+',
+      });
+    });
+
+    it('should not add data-child-count attribute, when number of listItem is less than 100', () => {
+      const { editorView } = editor(
+        doc(
+          ol(
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+            li(p('1')),
+          ),
+        ),
+      );
+      const pluginState = pluginKey.getState(editorView.state);
+
+      expect(pluginState.decorationSet.find()[1]).toBeUndefined();
+    });
+  });
 });

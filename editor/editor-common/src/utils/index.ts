@@ -97,3 +97,7 @@ export {
   validateADFEntity,
   validationErrorHandler,
 } from './validate-using-spec';
+export { getShallowPropsDifference, getPropsDifference } from './compare-props';
+export type { ShallowPropsDifference, PropsDifference } from './compare-props';
+export { useComponentRenderTracking } from './performance/hooks/use-component-render-tracking';
+export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-component-render-tracking';

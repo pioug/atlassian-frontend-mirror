@@ -1,15 +1,17 @@
-import React, { useCallback, forwardRef } from 'react';
+/** @jsx jsx */
+import React, { useCallback } from 'react';
+import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/custom-theme-button';
 import {
   expandMessages,
-  ExpandLayoutWrapper,
+  expandLayoutWrapperStyle,
+  ExpandLayoutWrapperWithRef,
 } from '@atlaskit/editor-common/ui';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
 import { IntlShape } from 'react-intl-next';
 import { expandClassNames } from './class-names';
-
 interface ExpandIconButtonProps {
   allowInteractiveExpand: boolean;
   expanded: boolean;
@@ -19,14 +21,6 @@ interface ExpandIconButtonProps {
 interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {
   label: string;
 }
-
-const ExpandLayoutWrapperWithRef = forwardRef<
-  HTMLElement,
-  React.ComponentProps<typeof ExpandLayoutWrapper>
->(function WithRef(props, ref) {
-  // @ts-ignore: incorrect innerRef typing
-  return <ExpandLayoutWrapper {...props} innerRef={ref} />;
-});
 
 export const withTooltip = (WrapperComponent: React.ElementType) => {
   return class WithSortableColumn extends React.Component<
@@ -111,8 +105,8 @@ export const ExpandIconButton = (props: ExpandIconButtonProps) => {
   }
 
   return (
-    <ExpandLayoutWrapper>
+    <div css={expandLayoutWrapperStyle}>
       <ButtonWithoutTooltip label={label} {...props} />
-    </ExpandLayoutWrapper>
+    </div>
   );
 };

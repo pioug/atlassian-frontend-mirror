@@ -1,5 +1,5 @@
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
 import {
@@ -7,10 +7,8 @@ import {
   CachingEmojiProps,
 } from '../../../../components/common/CachingEmoji';
 import DeleteButton from '../../../../components/common/DeleteButton';
-import { deleteButton as deleteButtonStyles } from '../../../../components/common/styles';
 import EmojiPickerCategoryHeading from '../../../../components/picker/EmojiPickerCategoryHeading';
 import EmojiPickerList from '../../../../components/picker/EmojiPickerList';
-import * as styles from '../../../../components/picker/styles';
 import { deleteEmojiLabel } from '../../../../util/constants';
 import { EmojiDescription } from '../../../../types';
 import {
@@ -21,6 +19,8 @@ import {
   siteEmojiFoo,
   siteEmojiWtf,
 } from '../../_test-data';
+import { emojiDeleteButton } from '../../../../components/common/styles';
+import { pickerSearch } from '../../../../components/picker/styles';
 
 const emojis = [imageEmoji];
 const customEmojis: EmojiDescription[] = [siteEmojiFoo, siteEmojiWtf];
@@ -42,7 +42,7 @@ describe('<EmojiPickerList />', () => {
         <EmojiPickerList {...props} emojis={emojis} />,
       );
 
-      expect(wrapper.find(`.${styles.pickerSearch}`)).toHaveLength(1);
+      expect(wrapper.find(`.css-${pickerSearch.name}`)).toHaveLength(1);
     });
 
     it('should show people category first if no frequently used', () => {
@@ -360,7 +360,7 @@ describe('<EmojiPickerList />', () => {
       const deleteButton = wrapper
         .find(CachingEmoji)
         .at(0)
-        .find(`.${deleteButtonStyles} button`);
+        .find(`.${emojiDeleteButton} button`);
       deleteButton.simulate('click');
       expect(onDelete.mock.calls).toHaveLength(1);
     });

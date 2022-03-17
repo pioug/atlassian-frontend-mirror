@@ -1,16 +1,18 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import { N90, B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import cx from 'classnames';
 import React, { memo } from 'react';
 import {
   SlideIn,
   ExitingPersistence,
   mediumDurationMs,
 } from '@atlaskit/motion';
-import { style } from 'typestyle';
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 
-export const countStyle = style({
+export const counterTestId = 'counter-container';
+
+export const countStyle = css({
   fontSize: 11, // TODO: nice to have a theme level token for fontSize
   color: token('color.text.subtlest', N90),
   overflow: 'hidden',
@@ -19,12 +21,12 @@ export const countStyle = style({
   lineHeight: '14px',
 });
 
-export const highlightStyle = style({
-  color: token('color.text.brand', B400),
+export const highlightStyle = css({
+  color: token('color.text.selected', B400),
   fontWeight: 600,
 });
 
-export const containerStyle = style({
+export const containerStyle = css({
   display: 'flex',
   flexDirection: 'column',
 });
@@ -62,11 +64,13 @@ export const Counter: React.FC<Props> = memo(
     const previousValue = usePreviousValue(value);
     const label = getLabel(value);
     const increase = previousValue ? previousValue < value : false;
-    const rootClassName = cx(countStyle, className);
-    const currentClassName = cx({ [highlightStyle]: highlight });
 
     return (
-      <div className={rootClassName} style={{ width: label.length * 7 }}>
+      <div
+        className={className}
+        css={countStyle}
+        style={{ width: label.length * 7 }}
+      >
         <ExitingPersistence>
           <SlideIn
             enterFrom={increase ? 'bottom' : 'top'}
@@ -76,15 +80,16 @@ export const Counter: React.FC<Props> = memo(
             {(motion, direction) => (
               <div
                 ref={motion.ref}
-                className={cx(
+                css={[
                   containerStyle,
-                  motion.className,
-                  style({
+                  css({
                     position: direction === 'exiting' ? 'absolute' : undefined,
                   }),
-                )}
+                ]}
+                className={motion.className}
+                data-testid={counterTestId}
               >
-                <div className={currentClassName} key={value}>
+                <div css={highlight && highlightStyle} key={value}>
                   {label}
                 </div>
               </div>

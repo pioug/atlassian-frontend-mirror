@@ -4,7 +4,7 @@ import React from 'react';
 import mentionsPlugin from '../../../../../plugins/mentions';
 import { PluginKey } from 'prosemirror-state';
 import { TeamMentionHighlight } from '@atlaskit/mention/spotlight';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 const CustomHighlightComponent = () => <div>HighlightComponent</div>;
 

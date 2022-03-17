@@ -88,6 +88,12 @@ export const visuallyHidden = () => {
  */
 export const assistive = visuallyHidden;
 
+/**
+ * These styles are mirrored in:
+ * packages/design-system/menu/src/internal/components/skeleton-shimmer.tsx
+ *
+ * Please update both.
+ */
 export const skeletonShimmer = () =>
   ({
     css: {

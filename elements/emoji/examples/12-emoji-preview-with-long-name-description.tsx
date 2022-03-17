@@ -4,8 +4,8 @@ import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 
 import { emojiPickerWidth } from '../src/util/constants';
 import filters from '../src/util/filters';
-import EmojiPickerPreview from '../src/components/picker/EmojiPickerPreview';
 import { IntlProvider } from 'react-intl-next';
+import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
 
 const emojis = getEmojis();
 
@@ -30,7 +30,7 @@ export default function Example() {
   return (
     <IntlProvider locale="en">
       <div style={borderedStyle}>
-        <EmojiPickerPreview emoji={longTongueEmoji} />
+        {longTongueEmoji && <EmojiPreviewComponent emoji={longTongueEmoji} />}
       </div>
     </IntlProvider>
   );

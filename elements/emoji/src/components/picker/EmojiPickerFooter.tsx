@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { PureComponent } from 'react';
 import { EmojiDescription } from '../../types';
-import * as styles from './styles';
-import EmojiPickerPreview from './EmojiPickerPreview';
+import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
+import { emojiPickerFooter, emojiPickerFooterWithTopShadow } from './styles';
 
 export interface Props {
   selectedEmoji?: EmojiDescription;
@@ -14,18 +14,18 @@ export default class EmojiPickerFooter extends PureComponent<Props, {}> {
   render() {
     const { selectedEmoji, isUploading } = this.props;
 
-    const previewFooterClassnames = classNames([
-      styles.emojiPickerFooter,
-      styles.emojiPickerFooterWithTopShadow,
-    ]);
+    const previewFooterClassnames = [
+      emojiPickerFooter,
+      emojiPickerFooterWithTopShadow,
+    ];
 
     if (!selectedEmoji || isUploading) {
       return null;
     }
 
     return (
-      <div className={previewFooterClassnames}>
-        <EmojiPickerPreview emoji={selectedEmoji} />
+      <div css={previewFooterClassnames}>
+        {selectedEmoji && <EmojiPreviewComponent emoji={selectedEmoji} />}
       </div>
     );
   }

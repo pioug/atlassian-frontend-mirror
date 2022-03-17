@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { HTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { Wrapper as WrapperDefault } from '../styles';
+import { wrapperDefault } from '../styles';
+import { ThemeProps } from '@atlaskit/theme/types';
 
-export const Wrapper: ComponentClass<HTMLAttributes<{}>> = styled(
-  WrapperDefault,
-)`
+export const wrapperStyle = (theme: ThemeProps) => css`
+  ${wrapperDefault(theme)}
+
   cursor: pointer;
   display: inline-flex;
   margin: 1px;

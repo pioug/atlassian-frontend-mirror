@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20 } from '@atlaskit/theme/colors';
 import {
@@ -6,14 +6,14 @@ import {
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 
-export const InviteTeamWrapper = styled.div`
+export const inviteTeamWrapper = css`
   background: ${N20};
   border-radius: 50%;
   min-width: ${gridSize() * 4}px;
   margin-left: -${gridSize() / 2}px;
 `;
 
-export const AvatarContainer = styled.div`
+export const avatarContainer = css`
   margin-right: ${gridSize()}px;
   display: flex;
   align-items: center;
@@ -33,7 +33,7 @@ export const AvatarContainer = styled.div`
   }
 `;
 
-export const Badge = styled.div<{ color: string }>`
+export const badge = (color: string) => css`
   display: block;
   position: absolute;
   right: 1px;
@@ -42,7 +42,7 @@ export const Badge = styled.div<{ color: string }>`
   height: 13px;
   z-index: ${akEditorSmallZIndex};
   border-radius: 3px;
-  background: ${({ color }) => color};
+  background: ${color};
   color: #fff;
   font-size: ${relativeFontSizeToBase16(9)};
   line-height: 0;

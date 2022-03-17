@@ -1,10 +1,15 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import {
+  BANNER_HEIGHT,
   DEFAULT_TOP_NAVIGATION_HEIGHT,
+  LEFT_PANEL_WIDTH,
+  RIGHT_PANEL_WIDTH,
+  TOP_NAVIGATION,
+  TOP_NAVIGATION_HEIGHT,
   VAR_TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
 import { SlotHeightProps } from '../../common/types';
@@ -14,8 +19,21 @@ import {
 } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 
+import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
-import { topNavigationStyles } from './styles';
+
+const topNavigationStyles = css({
+  height: TOP_NAVIGATION_HEIGHT,
+  gridArea: TOP_NAVIGATION,
+});
+
+const fixedStyles = css({
+  position: 'fixed',
+  zIndex: 2,
+  top: BANNER_HEIGHT,
+  right: RIGHT_PANEL_WIDTH,
+  left: LEFT_PANEL_WIDTH,
+});
 
 const TopNavigation = (props: SlotHeightProps) => {
   const {
@@ -39,24 +57,28 @@ const TopNavigation = (props: SlotHeightProps) => {
     return () => {
       publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: 0 });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topNavigationHeight]);
 
   useSkipLink(id, skipLinkTitle);
 
   return (
-    <div
-      css={topNavigationStyles(isFixed)}
-      data-testid={testId}
-      id={id}
-      {...getPageLayoutSlotSelector('top-navigation')}
-    >
-      <SlotDimensions
-        variableName={VAR_TOP_NAVIGATION_HEIGHT}
-        value={topNavigationHeight}
-      />
-      {children}
-    </div>
+    <SlotFocusRing>
+      {({ className }) => (
+        <div
+          css={[topNavigationStyles, isFixed && fixedStyles]}
+          className={className}
+          data-testid={testId}
+          id={id}
+          {...getPageLayoutSlotSelector('top-navigation')}
+        >
+          <SlotDimensions
+            variableName={VAR_TOP_NAVIGATION_HEIGHT}
+            value={topNavigationHeight}
+          />
+          {children}
+        </div>
+      )}
+    </SlotFocusRing>
   );
 };
 

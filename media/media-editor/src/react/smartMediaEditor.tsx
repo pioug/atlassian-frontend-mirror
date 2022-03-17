@@ -1,6 +1,5 @@
 import React from 'react';
 import uuidV4 from 'uuid/v4';
-import { Subscription } from 'rxjs/Subscription';
 
 import {
   IntlProvider,
@@ -19,6 +18,7 @@ import {
   UploadableFile,
   FileIdentifier,
   MediaStore,
+  MediaSubscription,
 } from '@atlaskit/media-client';
 // Importing from own entry-point, since we dont' want to bring whole media-client at this point
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
@@ -86,8 +86,8 @@ export class SmartMediaEditor extends React.Component<
     hasBeenEdited: false,
     closeIntent: false,
   };
-  getFileSubscription?: Subscription;
-  uploadFileSubscription?: Subscription;
+  getFileSubscription?: MediaSubscription;
+  uploadFileSubscription?: MediaSubscription;
 
   private getFileUnsubscribeTimeoutId: number | undefined;
   private uploadFileUnsubscribeTimeoutId: number | undefined;

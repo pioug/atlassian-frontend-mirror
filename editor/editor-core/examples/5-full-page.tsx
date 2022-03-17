@@ -10,6 +10,7 @@ import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import Flag from '@atlaskit/flag';
 import Warning from '@atlaskit/icon/glyph/warning';
 
+import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -38,7 +39,6 @@ import {
   currentUser,
   getEmojiProvider,
 } from '@atlaskit/util-data-test/get-emoji-provider';
-import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
@@ -57,7 +57,7 @@ import { copy } from '../example-helpers/copy';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
 import { TitleInput } from '../example-helpers/PageElements';
-import { EditorActions, MentionProvider } from './../src';
+import { EditorActions } from './../src';
 import { PanelPluginConfig } from '../src/plugins/panel/types';
 import {
   NORMAL_SEVERITY_THRESHOLD as BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
@@ -193,7 +193,9 @@ export const providers: Partial<Providers> = {
     uploadSupported: true,
     currentUser,
   }) as Promise<EmojiProvider>,
-  mentionProvider: Promise.resolve(mentionResourceProvider),
+  mentionProvider: Promise.resolve(
+    mentionResourceProviderWithTeamMentionHighlight,
+  ),
   taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
   activityProvider: Promise.resolve(new MockActivityResource()),
@@ -367,7 +369,6 @@ export class ExampleEditorComponent extends React.Component<
                   provider: mediaProvider,
                   allowMediaSingle: true,
                   allowResizing: true,
-                  allowAnnotation: true,
                   allowLinking: true,
                   allowResizingInTables: true,
                   allowAltTextOnImages: true,
@@ -589,11 +590,9 @@ export const ExampleEditor = ExampleEditorComponent;
 
 const MockProfileClient: any = simpleMockProfilecardClient();
 
-const mentionProvider = Promise.resolve({
-  shouldHighlightMention(mention: { id: string }) {
-    return mention.id === 'ABCDE-ABCDE-ABCDE-ABCDE';
-  },
-} as MentionProvider);
+const mentionProvider = Promise.resolve(
+  mentionResourceProviderWithTeamMentionHighlight,
+);
 
 const emojiProvider = getEmojiProvider();
 
@@ -723,7 +722,7 @@ export function FullPageExample(props: EditorProps & ExampleProps) {
     tableOverflowShadowsOptimization: true,
     maxUnsafeChromeSpellcheckingVersion: 100,
     plainTextPasteLinkification: true,
-    viewChangingExperimentToolbarStyle: 'newDropdown',
+    'view-changing-experiment-toolbar-style': 'newDropdown',
   };
 
   const featureFlags =

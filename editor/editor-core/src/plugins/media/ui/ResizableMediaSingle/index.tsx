@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
@@ -12,7 +14,7 @@ import {
   wrappedLayouts,
 } from '@atlaskit/editor-common/ui';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { Wrapper } from './styled';
+import { wrapperStyle } from './styled';
 import { Props, EnabledHandles, SnapPointsProps } from './types';
 import Resizer from '../../../../ui/Resizer';
 import {
@@ -302,7 +304,7 @@ export default class ResizableMediaSingle extends React.Component<
     return highlight;
   };
 
-  private saveWrapper = (wrapper: HTMLElement) => (this.wrapper = wrapper);
+  private saveWrapper = (wrapper: HTMLDivElement) => (this.wrapper = wrapper);
 
   render() {
     const {
@@ -355,12 +357,14 @@ export default class ResizableMediaSingle extends React.Component<
     };
 
     return (
-      <Wrapper
-        layout={layout}
-        isResized={!!pctWidth}
-        containerWidth={containerWidth || origWidth}
-        innerRef={this.saveWrapper}
-        fullWidthMode={fullWidthMode}
+      <div
+        ref={this.saveWrapper}
+        css={wrapperStyle({
+          layout,
+          isResized: !!pctWidth,
+          containerWidth: containerWidth || origWidth,
+          fullWidthMode,
+        })}
       >
         <Resizer
           {...this.props}
@@ -389,7 +393,7 @@ export default class ResizableMediaSingle extends React.Component<
         >
           {children}
         </Resizer>
-      </Wrapper>
+      </div>
     );
   }
 }

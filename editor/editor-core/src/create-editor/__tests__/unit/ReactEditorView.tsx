@@ -41,7 +41,7 @@ jest.mock('@atlaskit/editor-common/ufo', () => ({
 }));
 
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';

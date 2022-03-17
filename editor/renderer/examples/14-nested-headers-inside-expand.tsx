@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+/** @jsx jsx */
+import { useState, useEffect } from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { RadioGroup } from '@atlaskit/radio';
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
 import { OptionsPropType } from '@atlaskit/radio/types';
 import Button from '@atlaskit/button/standard-button';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 const getHeaderIdsAsRadioOptions = () =>
   Array.from(document.querySelectorAll('.heading-anchor-wrapper')).map(
@@ -19,12 +20,12 @@ const getHeaderIdsAsRadioOptions = () =>
     },
   );
 
-const HeadersIdList = styled.div`
+const headersIdListStyle = css`
   display: flex;
   flex-wrap: wrap;
 `;
 
-const Container = styled.div`
+const containerStyle = css`
   display: inline-block;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -53,9 +54,9 @@ export default function Example() {
       disableSidebar
       disableEventHandlers
       actionButtons={
-        <Container>
+        <div css={containerStyle}>
           <h4>Header Ids:</h4>
-          <HeadersIdList>
+          <div css={headersIdListStyle}>
             {headings ? (
               <RadioGroup
                 options={headings}
@@ -64,7 +65,7 @@ export default function Example() {
                 }
               />
             ) : null}
-          </HeadersIdList>
+          </div>
           <Button
             onClick={() => {
               setActiveHeadingId(undefined);
@@ -73,7 +74,7 @@ export default function Example() {
           >
             Reset Document
           </Button>
-        </Container>
+        </div>
       }
       onDocumentChange={() => setHeadings(getHeaderIdsAsRadioOptions())}
       allowHeadingAnchorLinks={{

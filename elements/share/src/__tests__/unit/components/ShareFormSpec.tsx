@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Form, { FormProps, HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';

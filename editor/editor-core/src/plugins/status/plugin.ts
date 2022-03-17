@@ -5,11 +5,11 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
+import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
 
-import { Dispatch, EventDispatcher } from '../../event-dispatcher';
-import { PortalProviderAPI } from '../../ui/PortalProvider';
+import type { PMPluginFactoryParams } from '../../types';
 
-import statusNodeView from './nodeviews/status';
+import { StatusNodeView } from './nodeviews/status';
 import { pluginKey } from './plugin-key';
 import { StatusPluginOptions, StatusState } from './types';
 import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
@@ -18,9 +18,7 @@ export { pluginKey, pluginKeyName } from './plugin-key';
 export type { StatusState, StatusType } from './types';
 
 const createPlugin = (
-  dispatch: Dispatch,
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
+  pmPluginFactoryParams: PMPluginFactoryParams,
   options?: StatusPluginOptions,
 ) =>
   new SafePlugin({
@@ -35,7 +33,7 @@ const createPlugin = (
         if (meta) {
           const newState = { ...state, ...meta };
 
-          dispatch(pluginKey, newState);
+          pmPluginFactoryParams.dispatch(pluginKey, newState);
           return newState;
         }
 
@@ -52,7 +50,7 @@ const createPlugin = (
           };
 
           if (newState.showStatusPickerAt !== state.showStatusPickerAt) {
-            dispatch(pluginKey, newState);
+            pmPluginFactoryParams.dispatch(pluginKey, newState);
 
             return newState;
           }
@@ -76,7 +74,7 @@ const createPlugin = (
               isNew: false,
               showStatusPickerAt,
             };
-            dispatch(pluginKey, newState);
+            pmPluginFactoryParams.dispatch(pluginKey, newState);
             return newState;
           }
         }
@@ -135,7 +133,11 @@ const createPlugin = (
     key: pluginKey,
     props: {
       nodeViews: {
-        status: statusNodeView(portalProviderAPI, eventDispatcher, options),
+        status: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: StatusNodeView,
+          extraComponentProps: { options },
+        }),
       },
     },
   });

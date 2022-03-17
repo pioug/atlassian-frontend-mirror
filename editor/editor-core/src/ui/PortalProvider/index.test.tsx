@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { PortalProvider, PortalRenderer, PortalProviderAPI } from './';
 import { ContextAdapter } from '../../nodeviews/context-adapter';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 const Component = () => <div className="component">My component</div>;
 const Component2 = () => {
   const { createAnalyticsEvent } = useAnalyticsEvents();

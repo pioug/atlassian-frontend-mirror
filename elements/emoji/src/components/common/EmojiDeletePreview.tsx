@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import AkButton from '@atlaskit/button/custom-theme-button';
-import React from 'react';
 import { Component } from 'react';
 import {
   FormattedMessage,
@@ -11,7 +12,14 @@ import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
-import * as styles from './styles';
+import {
+  cancelButton,
+  deleteFooter,
+  deletePreview,
+  deleteText,
+  emojiDeleteErrorMessage,
+  previewButtonGroup,
+} from './styles';
 
 export interface OnDeleteEmoji {
   (emoji: EmojiDescription): Promise<boolean>;
@@ -74,8 +82,8 @@ class EmojiDeletePreview extends Component<
     const { formatMessage } = intl;
 
     return (
-      <div className={styles.deletePreview}>
-        <div className={styles.deleteText}>
+      <div css={deletePreview}>
+        <div css={deleteText}>
           <h5>
             <FormattedMessage {...messages.deleteEmojiTitle} />
           </h5>
@@ -84,21 +92,19 @@ class EmojiDeletePreview extends Component<
             values={{ emojiShortName: emoji.shortName }}
           />
         </div>
-        <div className={styles.deleteFooter}>
+        <div css={deleteFooter}>
           <CachingEmoji emoji={emoji} />
-          <div className={styles.previewButtonGroup}>
+          <div css={previewButtonGroup}>
             {error ? (
               !loading ? (
                 <EmojiErrorMessage
                   message={formatMessage(messages.deleteEmojiFailed)}
-                  className={styles.emojiDeleteErrorMessage}
+                  messageStyles={emojiDeleteErrorMessage}
                   tooltip
                 />
               ) : null
             ) : null}
             <RetryableButton
-              className={styles.uploadEmojiButton}
-              retryClassName={styles.uploadRetryButton}
               label={formatMessage(messages.deleteEmojiLabel)}
               onSubmit={this.onSubmit}
               appearance="danger"
@@ -108,7 +114,7 @@ class EmojiDeletePreview extends Component<
             <AkButton
               appearance="subtle"
               onClick={this.onCancel}
-              className={styles.cancelButton}
+              css={cancelButton}
             >
               <FormattedMessage {...messages.cancelLabel} />
             </AkButton>

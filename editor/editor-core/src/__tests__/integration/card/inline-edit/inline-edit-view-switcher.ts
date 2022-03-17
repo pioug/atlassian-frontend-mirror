@@ -45,7 +45,7 @@ BrowserTestCase(
     await mountEditor(page, {
       appearance: 'full-page',
       featureFlags: {
-        viewChangingExperimentToolbarStyle: 'newDropdown',
+        'view-changing-experiment-toolbar-style': 'newDropdown',
       },
       allowTextAlignment: true,
       defaultValue: JSON.stringify(inlineCardAdf),
@@ -75,7 +75,7 @@ BrowserTestCase(
     await mountEditor(page, {
       appearance: 'full-page',
       featureFlags: {
-        viewChangingExperimentToolbarStyle: 'toolbarIcons',
+        'view-changing-experiment-toolbar-style': 'toolbarIcons',
       },
       allowTextAlignment: true,
       defaultValue: JSON.stringify(inlineCardAdf),

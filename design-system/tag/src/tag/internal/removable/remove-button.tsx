@@ -8,8 +8,6 @@ import {
 import { css, jsx } from '@emotion/core';
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { N500 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { cssVar } from '../../../constants';
 
@@ -38,7 +36,8 @@ const baseStyles = css({
   backgroundColor: 'transparent',
   border: 'none',
   borderRadius: `var(${cssVar.borderRadius})`,
-  color: token('color.text', N500),
+  // Once legacy theming is dropped, this can be changed to 'inherit'
+  color: `var(${cssVar.color.removeButton.default})`,
   cursor: 'pointer',
   pointerEvents: 'auto',
   '&::-moz-focus-inner': {
@@ -47,7 +46,8 @@ const baseStyles = css({
     border: 0,
   },
   ':hover': {
-    color: `var(${cssVar.color.text.default})`,
+    // Once legacy theming is dropped, this can be changed to 'cssVar.color.text.default'
+    color: `var(${cssVar.color.removeButton.hover})`,
   },
 });
 

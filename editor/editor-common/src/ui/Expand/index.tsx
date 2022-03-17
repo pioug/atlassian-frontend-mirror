@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import React, { forwardRef, Ref } from 'react';
+
+import { css, jsx } from '@emotion/react';
 import { defineMessages } from 'react-intl-next';
-import styled, { css } from 'styled-components';
 
 import {
   akEditorLineHeight,
@@ -10,6 +13,7 @@ import {
 import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 export const messages = defineMessages({
   collapseNode: {
@@ -56,10 +60,27 @@ export interface StyleProps {
   'data-title'?: string;
 }
 
-export const ExpandIconWrapper = styled.div<{ expanded: boolean }>`
+export const ExpandIconWrapper = ({
+  children,
+  expanded,
+}: React.HTMLAttributes<HTMLDivElement> & { expanded: boolean }) => {
+  return (
+    <div
+      css={(props: ThemeProps) =>
+        expanded
+          ? [expandIconWrapperStyle(props), expandIconWrapperExpandedStyle]
+          : expandIconWrapperStyle(props)
+      }
+    >
+      {children}
+    </div>
+  );
+};
+
+const expandIconWrapperStyle = (props: ThemeProps) => css`
   cursor: pointer;
   display: flex;
-  color: ${themed({ light: colors.N90, dark: '#d9dde3' })};
+  color: ${themed({ light: colors.N90, dark: '#d9dde3' })(props)};
   border-radius: ${gridSize() / 2}px;
   width: 24px;
   height: 24px;
@@ -69,69 +90,93 @@ export const ExpandIconWrapper = styled.div<{ expanded: boolean }>`
   }
 
   svg {
-    ${(props) => (props.expanded ? 'transform: rotate(90deg);' : '')}
     transition: transform 0.2s ${akEditorSwoopCubicBezier};
   }
 `;
 
-export const ExpandLayoutWrapper = styled.div`
+const expandIconWrapperExpandedStyle = css`
+  svg {
+    transform: rotate(90deg);
+  }
+`;
+
+export const expandLayoutWrapperStyle = css`
   width: ${gridSize() * 3}px;
   height: ${gridSize() * 3}px;
 `;
 
-const ContainerStyles = css<StyleProps>`
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${({ expanded, focused }) => {
-    const expandedBorderColor = expanded
-      ? EXPAND_EXPANDED_BORDER_COLOR
-      : EXPAND_COLLAPSED_BORDER_COLOR;
-    return focused ? EXPAND_FOCUSED_BORDER_COLOR : expandedBorderColor;
-  }};
-  border-radius: ${BORDER_RADIUS}px;
-  min-height: 25px;
-  background: ${({ expanded }) =>
-    !expanded ? EXPAND_COLLAPSED_BACKGROUND : EXPAND_SELECTED_BACKGROUND};
-  margin: ${(props) =>
-    `${gridSize() / 2 / fontSize()}rem ${
-      // Only only these margins if the expand isn't editable
-      // and is the root level expand.
-      props['data-node-type'] === 'expand' ? `-${akLayoutGutterOffset}px` : `0`
-    } 0`};
+export const ExpandLayoutWrapperWithRef = forwardRef(
+  (props: React.HTMLAttributes<HTMLDivElement>, ref: Ref<any>) => {
+    const { children, ...rest } = props;
+    return (
+      <div css={expandLayoutWrapperStyle} {...rest} ref={ref}>
+        {children}
+      </div>
+    );
+  },
+);
 
-  transition: background 0.3s ${akEditorSwoopCubicBezier},
-    border-color 0.3s ${akEditorSwoopCubicBezier};
-  padding: ${gridSize}px;
+const containerStyles = (styleProps: StyleProps) => {
+  const { expanded, focused } = styleProps;
+  const marginTop = `${gridSize() / 2 / fontSize()}rem`;
+  const marginBottom = 0;
+  // Only only these margins if the expand isn't editable
+  // and is the root level expand.
+  const marginHorizontal =
+    styleProps['data-node-type'] === 'expand'
+      ? `-${akLayoutGutterOffset}px`
+      : 0;
+  const margin = `${marginTop} ${marginHorizontal} ${marginBottom}`;
 
-  &:hover {
-    border: 1px solid ${themed({ light: colors.N50A, dark: colors.DN50 })};
-    background: ${EXPAND_SELECTED_BACKGROUND};
+  return (themeProps: ThemeProps) => css`
+    border-width: 1px;
+    border-style: solid;
+    border-color: ${focused
+      ? EXPAND_FOCUSED_BORDER_COLOR
+      : expanded
+      ? EXPAND_EXPANDED_BORDER_COLOR(themeProps)
+      : EXPAND_COLLAPSED_BORDER_COLOR};
+    border-radius: ${BORDER_RADIUS}px;
+    min-height: 25px;
+    background: ${!expanded
+      ? EXPAND_COLLAPSED_BACKGROUND
+      : EXPAND_SELECTED_BACKGROUND(themeProps)};
+    margin: ${margin};
+
+    transition: background 0.3s ${akEditorSwoopCubicBezier},
+      border-color 0.3s ${akEditorSwoopCubicBezier};
+    padding: ${gridSize()}px;
+
+    &:hover {
+      border: 1px solid
+        ${themed({ light: colors.N50A, dark: colors.DN50 })(themeProps)};
+      background: ${EXPAND_SELECTED_BACKGROUND(themeProps)};
+    }
+
+    td > &:first-child {
+      margin-top: 0;
+    }
+  `;
+};
+
+const contentStyles = (styleProps: StyleProps) => (
+  themeProps: ThemeProps,
+) => css`
+  padding-top: ${styleProps.expanded ? gridSize() : 0}px;
+  padding-right: ${gridSize()}px;
+  padding-left: ${gridSize() * 4 - gridSize() / 2}px;
+  display: flow-root;
+
+  // The follow rules inside @supports block are added as a part of ED-8893
+  // The fix is targeting mobile bridge on iOS 12 or below,
+  // We should consider remove this fix when we no longer support iOS 12
+  @supports not (display: flow-root) {
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  td > &:first-child {
-    margin-top: 0;
-  }
-`;
-
-const ContentStyles = css<StyleProps>`
-  ${({ expanded }) => {
-    return css`
-      padding-top: ${expanded ? gridSize() : 0}px;
-      padding-right: ${gridSize()}px;
-      padding-left: ${gridSize() * 4 - gridSize() / 2}px;
-      display: table;
-      display: flow-root;
-
-      // The follow rules inside @supports block are added as a part of ED-8893
-      // The fix is targeting mobile bridge on iOS 12 or below,
-      // We should consider remove this fix when we no longer support iOS 12
-      @supports not (display: flow-root) {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      ${!expanded
-        ? `
+  ${!styleProps.expanded
+    ? `
         .expand-content-wrapper, .nestedExpand-content-wrapper {
           /* We visually hide the content here to preserve the content during copy+paste */
           width: 100%;
@@ -143,18 +188,16 @@ const ContentStyles = css<StyleProps>`
           user-select: none;
         }
       `
-        : ''}
-    `;
-  }};
+    : ''}
 `;
 
-const TitleInputStyles = css`
+const titleInputStyles = (props: ThemeProps) => css`
   outline: none;
   border: none;
   font-size: ${relativeFontSizeToBase16(fontSize())};
   line-height: ${akEditorLineHeight};
   font-weight: normal;
-  color: ${themed({ light: colors.N200A, dark: colors.DN600 })};
+  color: ${themed({ light: colors.N200A, dark: colors.DN600 })(props)};
   background: transparent;
   display: flex;
   flex: 1;
@@ -163,11 +206,11 @@ const TitleInputStyles = css`
 
   &::placeholder {
     opacity: 0.6;
-    color: ${themed({ light: colors.N200A, dark: colors.DN600 })};
+    color: ${themed({ light: colors.N200A, dark: colors.DN600 })(props)};
   }
 `;
 
-const TitleContainerStyles = css`
+const titleContainerStyles = (props: ThemeProps) => css`
   padding: 0;
   display: flex;
   align-items: flex-start;
@@ -175,7 +218,7 @@ const TitleContainerStyles = css`
   border: none;
   font-size: ${relativeFontSizeToBase16(fontSize())};
   width: 100%;
-  color: ${themed({ light: colors.N300A, dark: colors.DN600 })};
+  color: ${themed({ light: colors.N300A, dark: colors.DN600 })(props)};
   overflow: hidden;
   cursor: pointer;
   // Prevent browser selection being inside the title container
@@ -187,8 +230,8 @@ const TitleContainerStyles = css`
 `;
 
 export const sharedExpandStyles = {
-  TitleInputStyles,
-  TitleContainerStyles,
-  ContainerStyles,
-  ContentStyles,
+  titleInputStyles,
+  titleContainerStyles,
+  containerStyles,
+  contentStyles,
 };

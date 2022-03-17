@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 14.5.5
+
+### Patch Changes
+
+- [`0739258f502`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0739258f502) - [ux] Fixed token usages on backgrounds and action links.
+- Updated dependencies
+
 ## 14.5.4
 
 ### Patch Changes

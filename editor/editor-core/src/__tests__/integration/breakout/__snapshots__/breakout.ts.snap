@@ -4,9 +4,6 @@ exports[`breakout: should be able to delete last character inside a "wide" codeB
 Object {
   "content": Array [
     Object {
-      "type": "paragraph",
-    },
-    Object {
       "attrs": Object {
         "language": null,
         "uniqueId": null,
@@ -93,9 +90,6 @@ exports[`breakout: should be able to switch to center mode back 1`] = `
 Object {
   "content": Array [
     Object {
-      "type": "paragraph",
-    },
-    Object {
       "attrs": Object {
         "language": null,
         "uniqueId": null,
@@ -110,9 +104,6 @@ Object {
 exports[`breakout: should be able to switch to full-width mode 1`] = `
 Object {
   "content": Array [
-    Object {
-      "type": "paragraph",
-    },
     Object {
       "attrs": Object {
         "language": null,
@@ -136,9 +127,6 @@ Object {
 exports[`breakout: should be able to switch to wide mode 1`] = `
 Object {
   "content": Array [
-    Object {
-      "type": "paragraph",
-    },
     Object {
       "attrs": Object {
         "language": null,

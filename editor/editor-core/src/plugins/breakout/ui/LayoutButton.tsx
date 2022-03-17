@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 
 import * as colors from '@atlaskit/theme/colors';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
@@ -9,7 +11,6 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import ToolbarButton from '../../../ui/ToolbarButton';
-import styled from 'styled-components';
 import { getBreakoutMode } from '../utils/get-breakout-mode';
 import { setBreakoutMode, BreakoutMode } from '../commands/set-breakout-mode';
 import { removeBreakout } from '../commands/remove-breakout';
@@ -23,7 +24,7 @@ import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
 
 const { B300, N300, N20A } = colors;
 
-const Wrapper = styled.div`
+const toolbarButtonWrapper = css`
   && button {
     background: ${N20A};
     color: ${N300};
@@ -158,7 +159,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
         stick={true}
         forcePlacement={true}
       >
-        <Wrapper>
+        <div css={toolbarButtonWrapper}>
           <ToolbarButton
             title={title}
             testId={titleMessage.id}
@@ -171,7 +172,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
               )
             }
           />
-        </Wrapper>
+        </div>
       </Popup>
     );
   }

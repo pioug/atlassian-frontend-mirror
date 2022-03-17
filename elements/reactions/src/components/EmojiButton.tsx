@@ -1,12 +1,13 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import { EmojiId, OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import React from 'react';
 import { PureComponent } from 'react';
-import { style } from 'typestyle';
 import { isLeftClick } from './utils';
 
-const emojiButtonStyle = style({
+const emojiButtonStyle = css({
   outline: 'none',
   display: 'flex',
   backgroundColor: 'transparent',
@@ -15,11 +16,9 @@ const emojiButtonStyle = style({
   cursor: 'pointer',
   margin: '0',
   padding: '10px 8px',
-  $nest: {
-    '&:hover > span': {
-      transition: 'transform cubic-bezier(0.23, 1, 0.32, 1) 200ms',
-      transform: 'scale(1.33)',
-    },
+  '&:hover > span': {
+    transition: 'transform cubic-bezier(0.23, 1, 0.32, 1) 200ms',
+    transform: 'scale(1.33)',
   },
 });
 
@@ -41,7 +40,7 @@ export class EmojiButton extends PureComponent<Props, {}> {
     const { emojiId, emojiProvider } = this.props;
 
     return (
-      <button onMouseUp={this.handleMouseDown} className={emojiButtonStyle}>
+      <button onMouseUp={this.handleMouseDown} css={emojiButtonStyle}>
         <ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} />
       </button>
     );

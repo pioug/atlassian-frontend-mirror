@@ -89,16 +89,14 @@ const useSubscribeToFileState = (
 ) => {
   const [fileState, setFileState] = useState<FileState | { status: string }>();
   useEffect(() => {
-    const subsription = fileStateFactory.mediaClient.file.getFileState(
-      identifier.id,
-      { ...identifier },
-    );
-    subsription.subscribe({
-      next: (filestate) => setFileState(filestate),
-      error: () => setFileState({ status: 'subscription error' }),
-    });
+    const subscription = fileStateFactory.mediaClient.file
+      .getFileState(identifier.id, { ...identifier })
+      .subscribe({
+        next: (filestate) => setFileState(filestate),
+        error: () => setFileState({ status: 'subscription error' }),
+      });
     return () => {
-      subsription.unsubscribe();
+      subscription.unsubscribe();
     };
   }, [fileStateFactory, identifier]);
   return fileState;

@@ -27,7 +27,7 @@ import {
       await page.type(editable, 'some text');
 
       // now we can insert media as necessary
-      await insertMedia(page, ['one.svg', 'two.svg', 'three.svg']);
+      await insertMedia(page, ['one.jpg', 'one.jpg', 'one.jpg']);
 
       const fileCards = await waitForAtLeastNumFileCards(page, 2);
       await fileCards[0].click();

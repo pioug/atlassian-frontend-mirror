@@ -78,18 +78,21 @@ describe('User Option', () => {
         />
       ),
       primaryText: [
-        <TextWrapper key="name" color={token('color.text.brand', colors.B400)}>
+        <TextWrapper
+          key="name"
+          color={token('color.text.selected', colors.B400)}
+        >
           <HighlightText>Jace Beleren</HighlightText>
         </TextWrapper>,
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={token('color.text.brand', colors.B400)}>
+          <TextWrapper color={token('color.text.selected', colors.B400)}>
             (<HighlightText>jbeleren</HighlightText>)
           </TextWrapper>
         </React.Fragment>,
       ],
       secondaryText: (
-        <TextWrapper color={token('color.text.brand', colors.B400)}>
+        <TextWrapper color={token('color.text.selected', colors.B400)}>
           Teammate
         </TextWrapper>
       ),

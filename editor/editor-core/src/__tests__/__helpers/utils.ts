@@ -39,3 +39,7 @@ export function calcUserDragAndDropFromMidPoint(
     boundingRect.top + padding,
   ];
 }
+
+export function stripZeroWidthSpaces(text: string): string {
+  return text.replace(/[\u200B]/g, '');
+}

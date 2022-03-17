@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Card } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
+import { ufologger } from '@atlaskit/ufo/logger';
 import { ButtonList, Container, Group } from '../example-helpers/styled';
 import {
   archiveItem,
@@ -45,6 +46,8 @@ const mediaClientConfig = createStorybookMediaClientConfig();
 export type State = {
   selectedIdentifier?: Identifier;
 };
+
+ufologger.enable();
 
 export default class Example extends React.Component<{}, State> {
   state: State = { selectedIdentifier: undefined };

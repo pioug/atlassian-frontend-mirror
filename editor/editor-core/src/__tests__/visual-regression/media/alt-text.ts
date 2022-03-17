@@ -2,7 +2,6 @@ import { PuppeteerElementHandle } from '@atlaskit/visual-regression/helper';
 import { snapshot, Appearance, initEditorWithAdf } from '../_utils';
 
 import {
-  insertMedia,
   waitForMediaToBeLoaded,
   clickMediaInPosition,
   scrollToMedia,
@@ -12,12 +11,10 @@ import {
   animationFrame,
   scrollToBottom,
 } from '../../__helpers/page-objects/_editor';
-import {
-  pressKey,
-  pressKeyCombo,
-} from '../../__helpers/page-objects/_keyboard';
+import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { EditorProps } from '../../../types';
+import mediaSingleAdf from './__fixtures__/mediaSingle-image.adf.json';
 
 describe('Snapshot Test: Media with alt text', () => {
   let page: PuppeteerPage;
@@ -31,13 +28,11 @@ describe('Snapshot Test: Media with alt text', () => {
       viewport,
       editorProps,
       invalidAltTextValues: ['<'],
+      adf: mediaSingleAdf,
     });
 
     // click into the editor
     await clickEditableContent(page);
-
-    // insert single media item
-    await insertMedia(page);
     await waitForMediaToBeLoaded(page);
   };
 
@@ -52,7 +47,12 @@ describe('Snapshot Test: Media with alt text', () => {
           width: 800,
           height: 700,
         });
-        await pressKey(page, 'ArrowUp');
+        await clickMediaInPosition(page, 0);
+        await page.waitForSelector(
+          '[aria-label="Media floating controls"] [aria-label="Floating Toolbar"]',
+          { visible: true },
+        );
+        await scrollToBottom(page);
         await snapshot(page);
       });
     });
@@ -144,6 +144,8 @@ describe('Snapshot Test: Media with alt text', () => {
           it('displays validation error if the value is invalid', async () => {
             const error = await page.waitForSelector('[aria-label="error"]');
             expect(error).toBeTruthy();
+            await animationFrame(page);
+            await scrollToBottom(page);
             await animationFrame(page);
             await snapshot(page);
           });

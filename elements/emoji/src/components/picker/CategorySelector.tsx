@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
@@ -10,7 +11,7 @@ import {
   CategoryGroupKey,
   CategoryId,
 } from './categories';
-import * as styles from './styles';
+import { active, categorySelector, disable, categoryStyles } from './styles';
 
 export interface Props {
   dynamicCategories?: CategoryId[];
@@ -105,13 +106,14 @@ class CategorySelector extends PureComponent<
         <ul>
           {categories.map((categoryId: CategoryId) => {
             const category = CategoryDescriptionMap[categoryId];
-            const categoryClasses = [styles.category];
+            const categoryClasses = [categoryStyles];
+
             if (categoryId === this.props.activeCategoryId) {
-              categoryClasses.push(styles.active);
+              categoryClasses.push(active);
             }
 
             if (disableCategories) {
-              categoryClasses.push(styles.disable);
+              categoryClasses.push(disable);
             }
 
             const Icon = category.icon;
@@ -121,7 +123,8 @@ class CategorySelector extends PureComponent<
                 <button
                   aria-label={categoryName}
                   data-category-id={category.id}
-                  className={classNames(categoryClasses)}
+                  disabled={disableCategories}
+                  css={categoryClasses}
                   onClick={this.onClick}
                   title={categoryName}
                   type="button"
@@ -134,11 +137,7 @@ class CategorySelector extends PureComponent<
         </ul>
       );
     }
-    return (
-      <div className={classNames([styles.categorySelector])}>
-        {categoriesSection}
-      </div>
-    );
+    return <div css={categorySelector}>{categoriesSection}</div>;
   }
 }
 

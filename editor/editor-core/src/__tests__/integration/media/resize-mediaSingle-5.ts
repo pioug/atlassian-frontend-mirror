@@ -213,7 +213,7 @@ BrowserTestCase(
         for (let columnIndex = 0; columnIndex < columns.length; columnIndex++) {
           await selectLayoutColumn(page, columnIndex);
 
-          await insertMedia(page);
+          await insertMedia(page, ['high-res-image.jpg']);
 
           const widths = await resizeMediaSingle(page, {
             // In layout 100% image width equals to column width (different in tables)

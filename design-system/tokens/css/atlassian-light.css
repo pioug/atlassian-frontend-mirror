@@ -236,6 +236,8 @@
   --ds-interaction-pressed: #ffffff5c;
   --ds-interaction-inverse-hovered: #00000029;
   --ds-interaction-inverse-pressed: #00000052;
+  --ds-skeleton: #091E420F;
+  --ds-skeleton-subtle: #091E4208;
   --ds-link: #0C66E4;
   --ds-link-pressed: #0055CC;
   --ds-accent-boldBlue: #579DFF;

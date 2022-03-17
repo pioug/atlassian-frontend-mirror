@@ -1,12 +1,11 @@
+import { css } from '@emotion/react';
 import { MediaSingleDimensionHelper } from '@atlaskit/editor-common/ui';
-import styled from 'styled-components';
+import type { MediaSingleDimensionHelperProps } from '@atlaskit/editor-common/ui';
 
-export const Wrapper = styled.div`
+export const wrapperStyle = (props: MediaSingleDimensionHelperProps) => css`
   & > div {
-    ${MediaSingleDimensionHelper};
+    ${MediaSingleDimensionHelper(props)};
     position: relative;
     clear: both;
   }
 `;
-
-Wrapper.displayName = 'ResizerWrapper';

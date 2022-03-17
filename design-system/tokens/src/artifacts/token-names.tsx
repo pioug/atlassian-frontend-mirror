@@ -287,6 +287,8 @@ const tokens = {
   'color.interaction.pressed': '--ds-interaction-pressed',
   'color.interaction.inverse.hovered': '--ds-interaction-inverse-hovered',
   'color.interaction.inverse.pressed': '--ds-interaction-inverse-pressed',
+  'color.skeleton': '--ds-skeleton',
+  'color.skeleton.subtle': '--ds-skeleton-subtle',
   'color.link': '--ds-link',
   'color.link.pressed': '--ds-link-pressed',
   'color.accent.boldBlue': '--ds-accent-boldBlue',
@@ -558,6 +560,8 @@ export type CSSTokenMap = {
   'color.interaction.pressed': 'var(--ds-interaction-pressed)';
   'color.interaction.inverse.hovered': 'var(--ds-interaction-inverse-hovered)';
   'color.interaction.inverse.pressed': 'var(--ds-interaction-inverse-pressed)';
+  'color.skeleton': 'var(--ds-skeleton)';
+  'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
   'color.link': 'var(--ds-link)';
   'color.link.pressed': 'var(--ds-link-pressed)';
   'color.accent.boldBlue': 'var(--ds-accent-boldBlue)';

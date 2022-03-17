@@ -37,7 +37,7 @@ describe('LinkToolbarAppearance', () => {
       doc,
       editorProps: {
         featureFlags: {
-          viewChangingExperimentToolbarStyle: 'toolbarIcons',
+          'view-changing-experiment-toolbar-style': 'toolbarIcons',
         },
         allowPanel: true,
         smartLinks: {},

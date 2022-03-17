@@ -5,7 +5,7 @@ import HyperlinkAddToolbar from '../HyperlinkAddToolbar';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { expectToEqual } from '@atlaskit/media-test-helpers/jestHelpers';
 import { activityProviderMock, searchProviderMock } from './__helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 describe('HyperlinkAddToolbar (with ProviderFactory prop)', () => {

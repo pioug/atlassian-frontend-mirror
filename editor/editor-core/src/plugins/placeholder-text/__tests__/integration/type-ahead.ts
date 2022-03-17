@@ -47,14 +47,16 @@ describe('placeholder-text: type-ahead', () => {
 
       const PARAGRAGH_BELOW_SECOND_PLACEHOLDER_POSITION = 48;
 
-      async function setCursorAfterSecondPlaceholder(page: WebDriverPage) {
+      async function setCursorInParagraphBelowSecondPlaceholder(
+        page: WebDriverPage,
+      ) {
         await setProseMirrorTextSelection(page, {
           anchor: PARAGRAGH_BELOW_SECOND_PLACEHOLDER_POSITION,
           head: PARAGRAGH_BELOW_SECOND_PLACEHOLDER_POSITION,
         });
       }
 
-      describe('and the cursor ends at the second placeholder', () => {
+      describe('and the cursor is in front of the second placeholder', () => {
         BrowserTestCase(
           'it should replace the placeholder with the type-ahead item',
           { skip: [] },
@@ -64,7 +66,7 @@ describe('placeholder-text: type-ahead', () => {
               twoPlaceholdersInsideTableCells,
             );
 
-            await setCursorAfterSecondPlaceholder(page);
+            await setCursorInParagraphBelowSecondPlaceholder(page);
 
             await sendArrowLeftKey(page, { numTimes: 2 });
 
@@ -81,7 +83,7 @@ describe('placeholder-text: type-ahead', () => {
         );
       });
 
-      describe('and the cursor ends at the first placeholder', () => {
+      describe('and the cursor is in front of the first placeholder', () => {
         BrowserTestCase(
           'it should replace the placeholder with the type-ahead item',
           { skip: [] },
@@ -91,7 +93,7 @@ describe('placeholder-text: type-ahead', () => {
               twoPlaceholdersInsideTableCells,
             );
 
-            await setCursorAfterSecondPlaceholder(page);
+            await setCursorInParagraphBelowSecondPlaceholder(page);
 
             await sendArrowLeftKey(page, { numTimes: 4 });
 

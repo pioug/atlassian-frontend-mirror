@@ -11,7 +11,7 @@ export type Option = {
   icon?: string | React.ReactNode;
 };
 
-import { SmartUserPickerProps } from '@atlaskit/user-picker';
+import { Props as SmartUserPickerProps } from '@atlaskit/smart-user-picker';
 
 export type UserFieldContext = Pick<
   SmartUserPickerProps,

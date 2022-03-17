@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext, useLayoutEffect, useRef } from 'react';
+import React, { Fragment, useContext, useLayoutEffect, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { Schema, Node as PMNode } from 'prosemirror-model';
@@ -11,9 +11,7 @@ import {
   BaseTheme,
   WidthProvider,
   WithCreateAnalyticsEvent,
-  LegacyToNextIntlProvider,
-  IntlLegacyFallbackProvider,
-  IntlNextErrorBoundary,
+  IntlErrorBoundary,
 } from '@atlaskit/editor-common/ui';
 
 import {
@@ -28,15 +26,11 @@ import {
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
-import {
-  IframeWidthObserverFallbackWrapper,
-  IframeWrapperConsumer,
-} from '@atlaskit/width-detector';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import uuid from 'uuid/v4';
 import { ReactSerializer, renderDocument, RendererContext } from '../../';
-import { DeprecatedWrapper, rendererStyles } from './style';
+import { rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import { RendererAppearance } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
@@ -52,7 +46,7 @@ import {
   RendererContext as ActionsContext,
 } from '../RendererActionsContext';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
-import { RendererProps } from '../renderer-props';
+import { NormalizedObjectFeatureFlags, RendererProps } from '../renderer-props';
 import { AnnotationsWrapper } from '../annotations';
 import {
   getActiveHeadingId,
@@ -63,6 +57,10 @@ import { isInteractiveElement } from './click-to-edit';
 import { RendererContextProvider } from '../../renderer-context';
 import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
+import {
+  FireAnalyticsCallback,
+  RenderTracking,
+} from '../../react/utils/performance/RenderTracking';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -73,6 +71,7 @@ export interface Extension<T> {
 }
 
 export type { RendererProps as Props };
+
 export class Renderer extends PureComponent<RendererProps> {
   private providerFactory: ProviderFactory;
   private serializer: ReactSerializer;
@@ -250,12 +249,19 @@ export class Renderer extends PureComponent<RendererProps> {
   }
 
   private featureFlags = memoizeOne(
-    (featureFlags: RendererProps['featureFlags']) => ({
-      featureFlags: normalizeFeatureFlags(featureFlags),
-    }),
+    (featureFlags: RendererProps['featureFlags']) => {
+      const normalizedFeatureFlags = normalizeFeatureFlags<
+        NormalizedObjectFeatureFlags
+      >(featureFlags, {
+        objectFlagKeys: ['rendererRenderTracking'],
+      });
+      return {
+        featureFlags: normalizedFeatureFlags,
+      };
+    },
   );
 
-  private fireAnalyticsEvent = (event: AnalyticsEventPayload) => {
+  private fireAnalyticsEvent: FireAnalyticsCallback = (event) => {
     const { createAnalyticsEvent } = this.props;
 
     if (createAnalyticsEvent) {
@@ -378,55 +384,71 @@ export class Renderer extends PureComponent<RendererProps> {
             <ActiveHeaderIdProvider
               value={getActiveHeadingId(allowHeadingAnchorLinks)}
             >
-              <LegacyToNextIntlProvider>
-                <IntlLegacyFallbackProvider>
-                  <AnalyticsContext.Provider
-                    value={{
-                      fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
-                        this.fireAnalyticsEvent(event),
-                    }}
+              <AnalyticsContext.Provider
+                value={{
+                  fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
+                    this.fireAnalyticsEvent(event),
+                }}
+              >
+                <SmartCardStorageProvider>
+                  <RendererWrapper
+                    appearance={appearance}
+                    dynamicTextSizing={!!allowDynamicTextSizing}
+                    allowNestedHeaderLinks={allowNestedHeaderLinks}
+                    allowColumnSorting={allowColumnSorting}
+                    allowCopyToClipboard={allowCopyToClipboard}
+                    allowCustomPanels={allowCustomPanels}
+                    allowPlaceholderText={allowPlaceholderText}
+                    innerRef={this.editorRef}
+                    onClick={handleWrapperOnClick}
+                    onMouseDown={this.onMouseDownEditView}
                   >
-                    <SmartCardStorageProvider>
-                      <RendererWrapper
-                        appearance={appearance}
-                        dynamicTextSizing={!!allowDynamicTextSizing}
-                        allowNestedHeaderLinks={allowNestedHeaderLinks}
-                        allowColumnSorting={allowColumnSorting}
-                        allowCopyToClipboard={allowCopyToClipboard}
-                        allowCustomPanels={allowCustomPanels}
-                        allowPlaceholderText={allowPlaceholderText}
-                        innerRef={this.editorRef}
-                        onClick={handleWrapperOnClick}
-                        onMouseDown={this.onMouseDownEditView}
-                      >
-                        {enableSsrInlineScripts ? (
-                          <BreakoutSSRInlineScript
-                            allowDynamicTextSizing={!!allowDynamicTextSizing}
-                          />
-                        ) : null}
-                        <RendererActionsInternalUpdater
-                          doc={pmDoc}
-                          schema={schema}
-                          onAnalyticsEvent={this.fireAnalyticsEvent}
-                        >
-                          {result}
-                        </RendererActionsInternalUpdater>
-                      </RendererWrapper>
-                    </SmartCardStorageProvider>
-                  </AnalyticsContext.Provider>
-                </IntlLegacyFallbackProvider>
-              </LegacyToNextIntlProvider>
+                    {enableSsrInlineScripts ? (
+                      <BreakoutSSRInlineScript
+                        allowDynamicTextSizing={!!allowDynamicTextSizing}
+                      />
+                    ) : null}
+                    <RendererActionsInternalUpdater
+                      doc={pmDoc}
+                      schema={schema}
+                      onAnalyticsEvent={this.fireAnalyticsEvent}
+                    >
+                      {result}
+                    </RendererActionsInternalUpdater>
+                  </RendererWrapper>
+                </SmartCardStorageProvider>
+              </AnalyticsContext.Provider>
             </ActiveHeaderIdProvider>
           </CopyTextProvider>
         </RendererContextProvider>
       );
 
-      return truncated ? (
+      let rendererResult = truncated ? (
         <TruncatedWrapper height={maxHeight} fadeHeight={fadeOutHeight}>
           {rendererOutput}
         </TruncatedWrapper>
       ) : (
         rendererOutput
+      );
+
+      const rendererRenderTracking = this.featureFlags(this.props.featureFlags)
+        ?.featureFlags?.rendererRenderTracking?.[ACTION_SUBJECT.RENDERER];
+
+      const reRenderTracking = rendererRenderTracking?.enabled && (
+        <RenderTracking
+          componentProps={this.props}
+          action={ACTION.RE_RENDERED}
+          actionSubject={ACTION_SUBJECT.RENDERER}
+          handleAnalyticsEvent={this.fireAnalyticsEvent}
+          useShallow={rendererRenderTracking.useShallow}
+        />
+      );
+
+      return (
+        <Fragment>
+          {reRenderTracking}
+          {rendererResult}
+        </Fragment>
       );
     } catch (e) {
       if (onError) {
@@ -475,7 +497,7 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
   >
     <WithCreateAnalyticsEvent
       render={(createAnalyticsEvent) => {
-        // `IntlNextErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
+        // `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
         return (
           <ErrorBoundary
             component={ACTION_SUBJECT.RENDERER}
@@ -483,12 +505,12 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
             fallbackComponent={null}
             createAnalyticsEvent={createAnalyticsEvent}
           >
-            <IntlNextErrorBoundary>
+            <IntlErrorBoundary>
               <Renderer
                 {...props}
                 createAnalyticsEvent={createAnalyticsEvent}
               />
-            </IntlNextErrorBoundary>
+            </IntlErrorBoundary>
           </ErrorBoundary>
         );
       }}
@@ -509,73 +531,44 @@ type RendererWrapperProps = {
   onMouseDown?: (event: React.MouseEvent) => void;
 } & { children?: React.ReactNode };
 
-const RendererWithIframeFallbackWrapper = React.memo(
-  (props: RendererWrapperProps & { subscribe: Function | null }) => {
-    const {
-      allowColumnSorting,
-      dynamicTextSizing,
-      allowNestedHeaderLinks,
-      innerRef,
-      appearance,
-      children,
-      subscribe,
-      onClick,
-      onMouseDown,
-    } = props;
+const RendererWrapper = React.memo((props: RendererWrapperProps) => {
+  const {
+    allowColumnSorting,
+    dynamicTextSizing,
+    allowNestedHeaderLinks,
+    innerRef,
+    appearance,
+    children,
+    onClick,
+    onMouseDown,
+  } = props;
 
-    const renderer = (
-      <WidthProvider className="ak-renderer-wrapper">
-        <BaseTheme
-          dynamicTextSizing={dynamicTextSizing}
-          baseFontSize={
-            !dynamicTextSizing && appearance && appearance !== 'comment'
-              ? akEditorFullPageDefaultFontSize
-              : undefined
-          }
-        >
-          <DeprecatedWrapper
-            innerRef={innerRef}
-            appearance={appearance}
-            allowNestedHeaderLinks={allowNestedHeaderLinks}
-            allowColumnSorting={!!allowColumnSorting}
-            onClick={onClick}
-            onMouseDown={onMouseDown}
-            css={rendererStyles}
-          >
-            {children}
-          </DeprecatedWrapper>
-        </BaseTheme>
-      </WidthProvider>
-    );
-
-    if (!subscribe) {
-      return (
-        <IframeWidthObserverFallbackWrapper>
-          {renderer}
-        </IframeWidthObserverFallbackWrapper>
-      );
-    }
-
-    return renderer;
-  },
-);
-
-/**
- * When the product doesn't provide a IframeWidthObserverFallbackWrapper,
- * we will give one to the renderer,
- *
- * so if we have more than one `WidthProvider` on the content,
- * only one iframe will be created on the older browsers.
- */
-export function RendererWrapper(props: RendererWrapperProps) {
   return (
-    <IframeWrapperConsumer>
-      {({ subscribe }) => (
-        <RendererWithIframeFallbackWrapper {...props} subscribe={subscribe} />
-      )}
-    </IframeWrapperConsumer>
+    <WidthProvider className="ak-renderer-wrapper">
+      <BaseTheme
+        dynamicTextSizing={dynamicTextSizing}
+        baseFontSize={
+          !dynamicTextSizing && appearance && appearance !== 'comment'
+            ? akEditorFullPageDefaultFontSize
+            : undefined
+        }
+      >
+        <div
+          ref={innerRef}
+          onClick={onClick}
+          onMouseDown={onMouseDown}
+          css={rendererStyles({
+            appearance,
+            allowNestedHeaderLinks,
+            allowColumnSorting: !!allowColumnSorting,
+          })}
+        >
+          {children}
+        </div>
+      </BaseTheme>
+    </WidthProvider>
   );
-}
+});
 
 function RendererActionsInternalUpdater({
   children,

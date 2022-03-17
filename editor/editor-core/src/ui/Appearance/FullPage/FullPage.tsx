@@ -114,7 +114,6 @@ export class FullPageEditor extends React.Component<
             featureFlags={featureFlags}
           />
           <FullPageContentArea
-            allowAnnotation={props.allowAnnotation}
             appearance={props.appearance}
             contentArea={this.contentArea}
             contentAreaRef={this.contentAreaRef}

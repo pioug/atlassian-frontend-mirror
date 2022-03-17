@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React, { memo, useState, useCallback, useEffect } from 'react';
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import styled, { css } from 'styled-components';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 
 import {
@@ -45,6 +46,114 @@ export type StatelessElementBrowserProps = {
   searchTerm?: string;
   emptyStateHandler?: EmptyStateHandler;
 } & WithAnalyticsEventsProps;
+
+const wrapper = css`
+  width: 100%;
+  max-height: inherit;
+  overflow: hidden;
+`;
+
+const baseBrowserContainerStyles = css`
+  display: flex;
+  height: 100%;
+  /** Needed for Safari to work with current css.
+  * 100% heights wont work and
+  * will default to auto if one of the containers doesn't have a specified height in pixels.
+  * Setting the min-height to fill available fits safari's needs and the above 100% height works on the rest of the browsers.
+  */
+
+  /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
+
+  /* stylelint-disable-next-line */
+  min-height: -webkit-fill-available;
+`;
+
+const mobileElementBrowserContainer = css`
+  ${baseBrowserContainerStyles};
+  flex-direction: column;
+`;
+
+const elementBrowserContainer = css`
+  ${baseBrowserContainerStyles};
+  flex-direction: row;
+`;
+
+const baseSidebarStyles = css`
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+`;
+
+const mobileSideBar = css`
+  ${baseSidebarStyles};
+  flex: 0 0 ${INLINE_SIDEBAR_HEIGHT};
+  padding: 12px 12px 0 12px;
+`;
+
+const mobileSideBarShowCategories = css`
+  flex: 0 0 auto;
+`;
+const sideBar = css`
+  ${baseSidebarStyles};
+  flex: 0 0 'auto';
+`;
+
+const sideBarShowCategories = css`
+  ${baseSidebarStyles};
+  flex: 0 0 ${SIDEBAR_WIDTH};
+`;
+const sidebarHeading = css`
+  flex: 0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT};
+  display: inline-flex;
+  align-items: center;
+  padding-left: ${SIDEBAR_HEADING_PADDING_LEFT};
+  font-weight: 700;
+`;
+
+const mobileMainContent = css`
+  flex: 1 1 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  height: 100%;
+`;
+
+const mainContent = css`
+  ${mobileMainContent}
+  margin-left: ${GRID_SIZE * 2}px;
+  // Needed for safari
+  height: auto;
+`;
+
+const searchContainer = css`
+  padding-bottom: ${GRID_SIZE * 2}px;
+`;
+
+const mobileCategoryListWrapper = css`
+  display: flex;
+  overflow-x: auto;
+
+  padding: ${GRID_SIZE}px 0 ${GRID_SIZE * 2}px 0;
+  min-height: ${GRID_SIZE * 4}px;
+
+  overflow: -moz-scrollbars-none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+`;
+
+const categoryListWrapper = css`
+  ${mobileCategoryListWrapper}
+  padding: 0;
+  margin-top: ${GRID_SIZE * 3}px;
+  flex-direction: column;
+`;
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   const { items, onSelectItem } = props;
@@ -112,7 +221,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   }, [onSelectItem, selectedItem]);
 
   return (
-    <Wrapper data-testid="element-browser">
+    <div css={wrapper} data-testid="element-browser">
       <ContainerWidthMonitor />
       {containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
         <MobileBrowser
@@ -139,17 +248,9 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
           onKeyDown={onKeyDown}
         />
       )}
-    </Wrapper>
+    </div>
   );
 }
-
-const Wrapper = styled.div`
-  width: 100%;
-  max-height: inherit;
-  overflow: hidden;
-`;
-
-Wrapper.displayName = 'Wrapper';
 
 function MobileBrowser({
   showCategories,
@@ -182,12 +283,19 @@ function MobileBrowser({
     setColumnCount: (columnCount: number) => void;
   }) {
   return (
-    <MobileElementBrowserContainer
+    <div
+      css={mobileElementBrowserContainer}
       onKeyPress={onKeyPress}
       onKeyDown={onKeyDown}
       data-testid="mobile__element-browser"
     >
-      <MobileSideBar showCategories={showCategories}>
+      <div
+        css={
+          showCategories
+            ? [mobileSideBar, mobileSideBarShowCategories]
+            : mobileSideBar
+        }
+      >
         {showSearch && (
           <ElementSearch
             onSearch={onSearch}
@@ -198,16 +306,16 @@ function MobileBrowser({
           />
         )}
         {showCategories && (
-          <MobileCategoryListWrapper tabIndex={-1}>
+          <nav css={mobileCategoryListWrapper} tabIndex={-1}>
             <CategoryList
               categories={categories}
               onSelectCategory={onSelectCategory}
               selectedCategory={selectedCategory}
             />
-          </MobileCategoryListWrapper>
+          </nav>
         )}
-      </MobileSideBar>
-      <MobileMainContent>
+      </div>
+      <div css={mobileMainContent}>
         <ElementList
           items={items}
           mode={mode}
@@ -221,8 +329,8 @@ function MobileBrowser({
           selectedCategory={selectedCategory}
           searchTerm={searchTerm}
         />
-      </MobileMainContent>
-    </MobileElementBrowserContainer>
+      </div>
+    </div>
   );
 }
 
@@ -257,29 +365,34 @@ function DesktopBrowser({
     setColumnCount: (columnCount: number) => void;
   }) {
   return (
-    <ElementBrowserContainer data-testid="desktop__element-browser">
+    <div css={elementBrowserContainer} data-testid="desktop__element-browser">
       {showCategories && (
-        <SideBar showCategories>
-          <SidebarHeading>
+        <div css={showCategories ? sideBarShowCategories : sideBar}>
+          <h2 css={sidebarHeading} data-testid="sidebar-heading">
             <FormattedMessage
               id="fabric.editor.elementbrowser.sidebar.heading"
               defaultMessage="Browse"
               description="Sidebar heading"
             />
-          </SidebarHeading>
-          <CategoryListWrapper>
+          </h2>
+          <nav css={categoryListWrapper}>
             <CategoryList
               categories={categories}
               onSelectCategory={onSelectCategory}
               selectedCategory={selectedCategory}
               createAnalyticsEvent={createAnalyticsEvent}
             />
-          </CategoryListWrapper>
-        </SideBar>
+          </nav>
+        </div>
       )}
-      <MainContent onKeyPress={onKeyPress} onKeyDown={onKeyDown}>
+      <div
+        css={mainContent}
+        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
+        data-testid="main-content"
+      >
         {showSearch && (
-          <SearchContainer>
+          <div css={searchContainer}>
             <ElementSearch
               onSearch={onSearch}
               mode={mode}
@@ -287,7 +400,7 @@ function DesktopBrowser({
               onClick={setFocusOnSearch}
               searchTerm={searchTerm}
             />
-          </SearchContainer>
+          </div>
         )}
         <ElementList
           items={items}
@@ -302,117 +415,10 @@ function DesktopBrowser({
           selectedCategory={selectedCategory}
           searchTerm={searchTerm}
         />
-      </MainContent>
-    </ElementBrowserContainer>
+      </div>
+    </div>
   );
 }
-
-const baseBrowserContainerStyles = css`
-  display: flex;
-  height: 100%;
-  /** Needed for Safari to work with current css.
-  * 100% heights wont work and
-  * will default to auto if one of the containers doesn't have a specified height in pixels.
-  * Setting the min-height to fill available fits safari's needs and the above 100% height works on the rest of the browsers.
-  */
-  min-height: -webkit-fill-available; /* stylelint-disable-line value-no-vendor-prefix */
-`;
-
-const MobileElementBrowserContainer = styled.div`
-  ${baseBrowserContainerStyles};
-  flex-direction: column;
-`;
-MobileElementBrowserContainer.displayName = 'MobileElementBrowserContainer';
-
-const ElementBrowserContainer = styled.div`
-  ${baseBrowserContainerStyles};
-  flex-direction: row;
-`;
-
-type SideBarType = {
-  showCategories: boolean;
-};
-
-const baseSidebarStyles = css`
-  display: flex;
-  flex-direction: column;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-`;
-
-const MobileSideBar = styled.div`
-  ${baseSidebarStyles};
-  flex: 0 0
-    ${({ showCategories }: SideBarType) =>
-      showCategories ? 'auto' : INLINE_SIDEBAR_HEIGHT};
-  padding: 12px 12px 0 12px;
-`;
-
-const SideBar = styled.div`
-  ${baseSidebarStyles};
-  flex: 0 0
-    ${({ showCategories }: SideBarType) =>
-      showCategories ? SIDEBAR_WIDTH : 'auto'};
-`;
-
-const SidebarHeading = styled.h2`
-  flex: 0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT};
-  display: inline-flex;
-  align-items: center;
-  padding-left: ${SIDEBAR_HEADING_PADDING_LEFT};
-  font-weight: 700;
-`;
-
-/**
- *  In enzyme styled components show up as styled.element
- *  and if we don't wanna export SidebarHeading just for testing.
- *  https://github.com/styled-components/styled-components/issues/896
- */
-SidebarHeading.displayName = 'SidebarHeading';
-
-const MobileMainContent = styled.div`
-  flex: 1 1 auto;
-
-  display: flex;
-  flex-direction: column;
-
-  overflow-y: auto;
-  height: 100%;
-`;
-
-const MainContent = styled(MobileMainContent)`
-  margin-left: ${GRID_SIZE * 2}px;
-  // Needed for safari
-  height: auto;
-`;
-
-MainContent.displayName = 'MainContent';
-
-const SearchContainer = styled.div`
-  padding-bottom: ${GRID_SIZE * 2}px;
-`;
-
-const MobileCategoryListWrapper = styled.nav`
-  display: flex;
-  overflow-x: auto;
-
-  padding: ${GRID_SIZE}px 0 ${GRID_SIZE * 2}px 0;
-  min-height: ${GRID_SIZE * 4}px;
-
-  overflow: -moz-scrollbars-none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-`;
-
-const CategoryListWrapper = styled(MobileCategoryListWrapper)`
-  padding: 0;
-  margin-top: ${GRID_SIZE * 3}px;
-  flex-direction: column;
-`;
 
 const MemoizedElementBrowser = memo(
   withAnalyticsContext({

@@ -13,11 +13,10 @@ interface BeforeProps {
 const beforeElementStyles = css({
   display: 'flex',
   position: 'absolute',
-  left: 0,
+  top: 0,
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: `var(${cssVar.borderRadius})`,
-  color: `var(${cssVar.color.text.default})`,
 });
 
 const Before = ({ elemBefore }: BeforeProps) =>

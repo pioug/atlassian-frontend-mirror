@@ -374,7 +374,7 @@ export const getValidNode = (
           mediaCollection = collection;
         }
 
-        if (mediaId && mediaCollection && adfStage === 'stage0') {
+        if (mediaId && mediaCollection) {
           return {
             type,
             attrs,

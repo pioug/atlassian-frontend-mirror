@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React, { useState, useCallback } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { DN50, N0 } from '@atlaskit/theme/colors';
@@ -29,6 +30,35 @@ export interface Props {
   helpUrl?: string | undefined;
   emptyStateHandler?: EmptyStateHandler;
 }
+
+const actions = css`
+  display: inline-flex;
+  margin: 0 -4px;
+`;
+
+const actionItem = css`
+  flex: 1 0 auto;
+  margin: 0 4px;
+`;
+
+const wrapper = css`
+  display: flex;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  padding: ${MODAL_WRAPPER_PADDING}px ${MODAL_WRAPPER_PADDING}px 0 10px;
+  overflow: hidden;
+  background-color: ${themed({ light: N0, dark: DN50 })()};
+  border-radius: ${borderRadius()}px;
+`;
+
+const modalFooter = css`
+  display: flex;
+  padding: ${MODAL_WRAPPER_PADDING}px;
+
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
   const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
@@ -74,7 +104,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 
   const RenderBody = useCallback(
     () => (
-      <Wrapper>
+      <div css={wrapper}>
         <ElementBrowser
           categories={getCategories(props.intl)}
           getItems={props.getItems}
@@ -85,7 +115,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
           onInsertItem={onInsertItem}
           emptyStateHandler={props.emptyStateHandler}
         />
-      </Wrapper>
+      </div>
     ),
     [
       props.intl,
@@ -135,10 +165,10 @@ const Footer = ({
 }) => {
   const { onClose } = useModal();
   return (
-    <ModalFooter>
+    <div css={modalFooter}>
       {beforeElement ? beforeElement : <span />}
-      <Actions>
-        <ActionItem>
+      <div css={actions}>
+        <div css={actionItem}>
           <Button
             appearance="primary"
             onClick={onInsert}
@@ -146,8 +176,8 @@ const Footer = ({
           >
             Insert
           </Button>
-        </ActionItem>
-        <ActionItem>
+        </div>
+        <div css={actionItem}>
           <Button
             appearance="subtle"
             onClick={onClose}
@@ -155,9 +185,9 @@ const Footer = ({
           >
             Close
           </Button>
-        </ActionItem>
-      </Actions>
-    </ModalFooter>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -172,34 +202,5 @@ const HelpLink = (url: string, helpText: string) => (
     {helpText}
   </Button>
 );
-
-const Actions = styled.div`
-  display: inline-flex;
-  margin: 0 -4px;
-`;
-
-const ActionItem = styled.div`
-  flex: 1 0 auto;
-  margin: 0 4px;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex: 1 1 auto;
-  box-sizing: border-box;
-  padding: ${MODAL_WRAPPER_PADDING}px ${MODAL_WRAPPER_PADDING}px 0 10px;
-  overflow: hidden;
-  background-color: ${themed({ light: N0, dark: DN50 })()};
-  border-radius: ${borderRadius()}px;
-`;
-
-const ModalFooter = styled.div`
-  display: flex;
-  padding: ${MODAL_WRAPPER_PADDING}px;
-
-  position: relative;
-  align-items: center;
-  justify-content: space-between;
-`;
 
 export default injectIntl(ModalElementBrowser);

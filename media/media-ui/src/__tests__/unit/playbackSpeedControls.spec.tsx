@@ -114,14 +114,21 @@ describe('<PlaybackSpeedControls />', () => {
   });
 
   it('should change max height when parent width changes', () => {
-    const { component, popupSelect } = mountSetup({
+    const { component } = mountSetup({
       originalDimensions: {
         height: 360,
         width: 640,
       },
     });
+
     // Mock WidthObserver resize
     component.find(WidthObserver).prop('setWidth')(250);
+    component.update();
+
+    const popupSelect = component.find<PopupSelectProps<OptionType>>(
+      PopupSelect,
+    );
+
     expect(popupSelect.prop('maxMenuHeight')).toEqual(100);
   });
 

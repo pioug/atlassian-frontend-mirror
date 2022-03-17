@@ -2,8 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { browser } from '@atlaskit/editor-common/utils';
-
 import { Dispatch } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../analytics';
 
@@ -153,24 +151,6 @@ export const createPlugin = (
           return false;
         },
         keydown: (editorView: EditorView, event: Event) => {
-          const { state } = editorView;
-          // Firefox bugfix to bypass issue with editing text adjacent to a DOM node with
-          // contenteditable="false". (See https://product-fabric.atlassian.net/browse/ED-9452)
-          // On keypress, if the head of cursor selection touches a node with contenteditable="false",
-          // we temporarily remove the attribute, wait one tick, then restore it with its original value.
-          if (browser.gecko) {
-            const node = editorView.nodeDOM(editorView.state.selection.head);
-            if (
-              node instanceof HTMLElement &&
-              node.getAttribute('contenteditable') === 'false'
-            ) {
-              node.removeAttribute('contenteditable');
-              requestAnimationFrame(() => {
-                node.setAttribute('contenteditable', 'false');
-              });
-            }
-          }
-
           // Bugfix for block ReactNodeViews like table and extension
           // They could not be selected with Shift + ArrowDown/ArrowUp
           // Fixed when contenteditable = false, but then you couldn't edit their contents
@@ -180,6 +160,7 @@ export const createPlugin = (
             event.shiftKey &&
             (event.key === 'ArrowDown' || event.key === 'ArrowUp')
           ) {
+            const { state } = editorView;
             let pos;
             if (event.key === 'ArrowDown') {
               pos = state.selection.$head.after();

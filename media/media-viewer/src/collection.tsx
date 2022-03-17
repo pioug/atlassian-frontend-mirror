@@ -7,10 +7,10 @@ import {
   isExternalImageIdentifier,
   MediaCollectionItem,
 } from '@atlaskit/media-client';
+import type { MediaSubscription } from '@atlaskit/media-client';
 import { Outcome } from './domain';
 import ErrorMessage from './errorMessage';
 import { List } from './list';
-import { Subscription } from 'rxjs/Subscription';
 import { toIdentifier } from './utils';
 import { Spinner } from './loading';
 import { WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -44,7 +44,7 @@ const initialState: State = {
 export class Collection extends React.Component<Props, State> {
   state: State = initialState;
 
-  private subscription?: Subscription;
+  private subscription?: MediaSubscription;
 
   UNSAFE_componentWillUpdate(nextProps: Props) {
     if (this.needsReset(this.props, nextProps)) {

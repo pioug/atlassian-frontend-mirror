@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { B75, B200 } from '@atlaskit/theme/colors';
 
 export const searchMatchBgColour = B75;

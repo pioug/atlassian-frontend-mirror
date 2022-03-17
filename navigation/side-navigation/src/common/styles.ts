@@ -43,18 +43,18 @@ const defaultStyles = {
 };
 
 const selectedStyles = {
-  backgroundColor: token('color.background.brand', N30),
-  color: token('color.text.brand', B400),
+  backgroundColor: token('color.background.selected', N30),
+  color: token('color.text.selected', B400),
   ':visited': {
-    color: token('color.text.brand', B400),
+    color: token('color.text.selected', B400),
   },
   '&:hover': {
-    backgroundColor: token('color.background.brand.hovered', N30),
-    color: token('color.text.brand', N500),
+    backgroundColor: token('color.background.selected.hovered', N30),
+    color: token('color.text.selected', N500),
   },
   '&:active': {
-    backgroundColor: token('color.background.brand.pressed', B50),
-    color: token('color.text.brand', B400),
+    backgroundColor: token('color.background.selected.pressed', B50),
+    color: token('color.text.selected', B400),
   },
 };
 

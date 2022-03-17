@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 22.1.0
+
+### Minor Changes
+
+- [`fd5028f6751`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5028f6751) - EDM-2873: Promote MediaInline to full schema
+
 ## 22.0.2
 
 ### Patch Changes

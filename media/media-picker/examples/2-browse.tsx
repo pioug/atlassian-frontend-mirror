@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
+import { ufologger } from '@atlaskit/ufo/logger';
 import { PopupHeader, PopupContainer } from '../example-helpers/styled';
 import { UploadPreviews } from '../example-helpers/upload-previews';
 import { AuthEnvironment } from '../example-helpers/types';
@@ -22,6 +23,8 @@ export interface BrowserWrapperState {
   mediaClient?: MediaClient;
   browseConfig?: BrowserConfig;
 }
+
+ufologger.enable();
 
 class BrowserWrapper extends Component<{}, BrowserWrapperState> {
   dropzoneContainer?: HTMLDivElement;

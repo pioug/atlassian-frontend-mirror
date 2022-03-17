@@ -40,7 +40,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
         key="name"
         color={
           this.props.isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text', N800)
         }
       >
@@ -54,7 +54,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
       <TextWrapper
         color={
           this.props.isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text.subtlest', N200)
         }
       >

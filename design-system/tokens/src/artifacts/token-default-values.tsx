@@ -240,6 +240,8 @@ const defaultTokenValues = {
   'color.interaction.pressed': '#ffffff5c',
   'color.interaction.inverse.hovered': '#00000029',
   'color.interaction.inverse.pressed': '#00000052',
+  'color.skeleton': '#091E420F',
+  'color.skeleton.subtle': '#091E4208',
   'color.link': '#0C66E4',
   'color.link.pressed': '#0055CC',
   'color.accent.boldBlue': '#579DFF',

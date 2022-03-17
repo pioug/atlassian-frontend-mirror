@@ -27,12 +27,13 @@ import {
   RECENTS_COLLECTION,
   isImageRepresentationReady,
   isExternalImageIdentifier,
+  isProcessedFileState,
   imageResizeModeToFileImageMode,
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
+  MediaSubscription,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
-import { Subscription } from 'rxjs/Subscription';
 import {
   injectIntl,
   IntlProvider,
@@ -94,7 +95,6 @@ import {
   MediaCardSsrData,
 } from '../../utils/globalScope';
 import { getCardStateFromFileState, createStateUpdater } from './cardState';
-import { isProcessedFileState } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isBigger } from '../../utils/dimensionComparer';
 import { getMediaCardCursor } from '../../utils/getMediaCardCursor';
@@ -114,7 +114,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   // We initialise timeElapsedTillCommenced
   // to avoid extra branching on a possibly undefined value.
   private timeElapsedTillCommenced: number = performance.now();
-  subscription?: Subscription;
+  subscription?: MediaSubscription;
   private ssrData?: MediaCardSsrData;
   static defaultProps: Partial<CardProps> = {
     appearance: 'auto',

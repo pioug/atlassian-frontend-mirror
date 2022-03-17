@@ -49,12 +49,12 @@ import {
 import { getMediaTypeFromUploadableFile } from '../../utils/getMediaTypeFromUploadableFile';
 import { overrideMediaTypeIfUnknown } from '../../utils/overrideMediaTypeIfUnknown';
 import { convertBase64ToBlob } from '../../utils/convertBase64ToBlob';
-import { observableToPromise } from '../../utils/observableToPromise';
+import { mediaSubscribableToPromise } from '../../utils/mediaSubscribableToPromise';
 import {
   getDimensionsFromBlob,
   Dimensions,
 } from '../../utils/getDimensionsFromBlob';
-import { createFileStateSubject } from '../../utils/createFileStateSubject';
+import { createMediaSubject } from '../../utils/createMediaSubject';
 import {
   isMimeTypeSupportedByBrowser,
   getMediaTypeFromMimeType,
@@ -65,6 +65,10 @@ import {
 } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
+import {
+  toMediaSubscribable,
+  MediaSubscribable,
+} from '../../utils/toMediaSubscribable';
 
 export type {
   FileFetcherErrorAttributes,
@@ -94,7 +98,10 @@ export type ExternalUploadPayload = {
 };
 
 export interface FileFetcher {
-  getFileState(id: string, options?: GetFileOptions): ReplaySubject<FileState>;
+  getFileState(
+    id: string,
+    options?: GetFileOptions,
+  ): MediaSubscribable<FileState>;
   getArtifactURL(
     artifacts: MediaFileArtifacts,
     artifactName: keyof MediaFileArtifacts,
@@ -108,7 +115,7 @@ export interface FileFetcher {
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
-  ): ReplaySubject<FileState>;
+  ): MediaSubscribable<FileState>;
   uploadExternal(
     url: string,
     collection?: string,
@@ -137,11 +144,11 @@ export class FileFetcherImpl implements FileFetcher {
   public getFileState(
     id: string,
     options: GetFileOptions = {},
-  ): ReplaySubject<FileState> {
+  ): MediaSubscribable<FileState> {
     const { collectionName, occurrenceKey } = options;
 
     if (!isValidId(id)) {
-      const subject = createFileStateSubject();
+      const subject = createMediaSubject<FileState>();
       subject.error(
         new FileFetcherError('invalidFileId', id, {
           collectionName,
@@ -149,16 +156,18 @@ export class FileFetcherImpl implements FileFetcher {
         }),
       );
 
-      return subject;
+      return toMediaSubscribable(subject);
     }
 
-    return getFileStreamsCache().getOrInsert(id, () =>
-      this.createDownloadFileStream(id, collectionName),
+    return toMediaSubscribable(
+      getFileStreamsCache().getOrInsert(id, () =>
+        this.createDownloadFileStream(id, collectionName),
+      ),
     );
   }
 
   getCurrentState(id: string, options?: GetFileOptions): Promise<FileState> {
-    return observableToPromise(this.getFileState(id, options));
+    return mediaSubscribableToPromise(this.getFileState(id, options));
   }
 
   public getArtifactURL(
@@ -182,7 +191,7 @@ export class FileFetcherImpl implements FileFetcher {
     collectionName?: string,
     occurrenceKey?: string,
   ): ReplaySubject<FileState> => {
-    const subject = createFileStateSubject();
+    const subject = createMediaSubject<FileState>();
     const poll = new PollingFunction();
 
     // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
@@ -265,7 +274,7 @@ export class FileFetcherImpl implements FileFetcher {
       collection,
     );
     const { id, occurrenceKey } = uploadableFileUpfrontIds;
-    const subject = createFileStateSubject();
+    const subject = createMediaSubject<FileState>();
 
     const deferredBlob = fetch(url)
       .then((response) => response.blob())
@@ -334,7 +343,7 @@ export class FileFetcherImpl implements FileFetcher {
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
-  ): ReplaySubject<FileState> {
+  ): MediaSubscribable<FileState> {
     if (typeof file.content === 'string') {
       file.content = convertBase64ToBlob(file.content);
     }
@@ -359,7 +368,7 @@ export class FileFetcherImpl implements FileFetcher {
     let preview: FilePreview | undefined;
     // TODO [MSW-796]: get file size for base64
     const mediaType = getMediaTypeFromUploadableFile(file);
-    const subject = createFileStateSubject();
+    const subject = createMediaSubject<FileState>();
     const processingSubscription = new Subscription();
 
     if (content instanceof Blob) {
@@ -452,7 +461,7 @@ export class FileFetcherImpl implements FileFetcher {
       });
     }
 
-    return subject;
+    return toMediaSubscribable(subject);
   }
 
   public async downloadBinary(
@@ -534,7 +543,7 @@ export class FileFetcherImpl implements FileFetcher {
       });
 
       const fileCache = cache.get(copiedId);
-      const subject = fileCache || createFileStateSubject();
+      const subject = fileCache || createMediaSubject();
 
       // if we were passed a "preview", we propagate it into the copiedFileState
       const previewOverride =
@@ -591,7 +600,7 @@ export class FileFetcherImpl implements FileFetcher {
           fileCache.error(error);
         } else {
           // Create a new subject with the error state for new subscriptions
-          cache.set(id, createFileStateSubject(error));
+          cache.set(id, createMediaSubject<FileState>(error as Error));
         }
       }
 

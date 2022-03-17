@@ -7,6 +7,7 @@ jest.mock('../../../analytics/events/operational/previewUnsupported', () => ({
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { mount } from 'enzyme';
+import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError } from '../../../errors';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -19,6 +20,11 @@ import { FileState } from '@atlaskit/media-client';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
 import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
 import { createPreviewUnsupportedEvent } from '../../../analytics/events/operational/previewUnsupported';
+
+const mockfailMediaFileUfoExperience = jest.spyOn(
+  ufoWrapper,
+  'failMediaFileUfoExperience',
+);
 
 describe('Error Message', () => {
   describe('Mapping error reason to message text', () => {
@@ -68,9 +74,10 @@ describe('Error Message', () => {
     beforeEach(() => {
       asMock(createPreviewUnsupportedEvent).mockReset();
       asMock(createLoadFailedEvent).mockReset();
+      jest.clearAllMocks();
     });
 
-    it('should trigger load fail event when displayed if error reason not "unsupported"', () => {
+    it('should not trigger load fail event when displayed if error reason is "unsupported"', () => {
       const error = new MediaViewerError('unsupported');
 
       mount(
@@ -85,6 +92,7 @@ describe('Error Message', () => {
           </ErrorMessage>
         </IntlProvider>,
       );
+
       expect(createPreviewUnsupportedEvent).toHaveBeenCalledWith(fileState);
       expect(createLoadFailedEvent).not.toHaveBeenCalled();
     });
@@ -111,7 +119,7 @@ describe('Error Message', () => {
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
     });
 
-    it('should not trigger loadFailed if supressAnalytics prop passed', () => {
+    it('should not trigger analytics and ufo events if supressAnalytics prop passed', () => {
       jest.resetAllMocks();
       const error = new MediaViewerError('imageviewer-fetch-url');
       mount(
@@ -129,6 +137,7 @@ describe('Error Message', () => {
       );
       expect(createLoadFailedEvent).not.toHaveBeenCalled();
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
+      expect(mockfailMediaFileUfoExperience).not.toHaveBeenCalled();
     });
 
     it('should give unsupported payload for correct error', () => {
@@ -164,6 +173,23 @@ describe('Error Message', () => {
         fileState,
       );
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
+    });
+
+    it('should trigger fail ufo event for error', () => {
+      const error = new MediaViewerError('imageviewer-fetch-url');
+      mount(
+        <IntlProvider locale="en">
+          <ErrorMessage
+            intl={fakeIntl}
+            fileId={smallImageFileId.id}
+            error={error}
+            fileState={fileState}
+          >
+            <Button />
+          </ErrorMessage>
+        </IntlProvider>,
+      );
+      expect(mockfailMediaFileUfoExperience).toBeCalledTimes(1);
     });
   });
 });

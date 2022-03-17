@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
 import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 
@@ -6,7 +6,7 @@ describe('<EmojiPlaceholder />', () => {
   describe('render', () => {
     it('should render with fitToHeight', () => {
       const shortName = ':rage:';
-      const wrapper = shallow(
+      const wrapper = mount(
         <EmojiPlaceholder
           shortName={shortName}
           showTooltip={false}
@@ -21,7 +21,7 @@ describe('<EmojiPlaceholder />', () => {
 
     it('should render with default height', () => {
       const shortName = ':rage:';
-      const wrapper = shallow(
+      const wrapper = mount(
         <EmojiPlaceholder shortName={shortName} showTooltip={false} />,
       );
 
@@ -32,7 +32,7 @@ describe('<EmojiPlaceholder />', () => {
 
     it('should render with provided size', () => {
       const shortName = ':rage:';
-      const wrapper = shallow(
+      const wrapper = mount(
         <EmojiPlaceholder
           shortName={shortName}
           showTooltip={false}
@@ -52,7 +52,7 @@ describe('<EmojiPlaceholder />', () => {
         width: 256,
         height: 128,
       };
-      const wrapper = shallow(
+      const wrapper = mount(
         <EmojiPlaceholder
           shortName={shortName}
           showTooltip={false}
@@ -73,7 +73,7 @@ describe('<EmojiPlaceholder />', () => {
         width: 256,
         height: 128,
       };
-      const wrapper = shallow(
+      const wrapper = mount(
         <EmojiPlaceholder
           shortName={shortName}
           showTooltip={false}

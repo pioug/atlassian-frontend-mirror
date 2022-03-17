@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import Spinner from '@atlaskit/spinner';
-import classNames from 'classnames';
 import React from 'react';
 import { MouseEvent, PureComponent } from 'react';
 import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
@@ -9,7 +10,13 @@ import debug from '../../util/logger';
 import { actualMouseMove, mouseLocation, Position } from '../../util/mouse';
 import Scrollable from '../common/Scrollable';
 import EmojiItem from './EmojiTypeAheadItem';
-import * as styles from './styles';
+import {
+  emojiTypeAheadSpinner,
+  emojiTypeAheadSpinnerContainer,
+  typeAheadEmpty,
+  typeAheadList,
+  typeAheadListContainer,
+} from './styles';
 
 function wrapIndex(emojis: EmojiDescription[], index: number): number {
   const len = emojis.length;
@@ -226,17 +233,13 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 
     const hasEmoji = emojis && emojis.length;
 
-    const classes = classNames({
-      'ak-emoji-typeahead-list': true,
-      [styles.typeAheadList]: true,
-      [styles.typeAheadEmpty]: !hasEmoji && !loading,
-    });
+    const classes = [typeAheadList, !hasEmoji && !loading && typeAheadEmpty];
 
     let listBody;
     if (loading) {
       listBody = (
-        <div className={styles.emojiTypeAheadSpinnerContainer}>
-          <div className={styles.emojiTypeAheadSpinner}>
+        <div css={emojiTypeAheadSpinnerContainer}>
+          <div css={emojiTypeAheadSpinner}>
             <Spinner size="medium" />
           </div>
         </div>
@@ -246,8 +249,8 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
     }
 
     return (
-      <div className={styles.typeAheadListContainer}>
-        <div className={classes}>
+      <div css={typeAheadListContainer}>
+        <div className={'ak-emoji-typeahead-list'} css={classes}>
           <Scrollable
             ref={this.handleScrollableRef}
             maxHeight={`${emojiTypeAheadMaxHeight}px`}

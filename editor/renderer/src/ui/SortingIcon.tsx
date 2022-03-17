@@ -1,6 +1,5 @@
-import React from 'react';
-
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N20, N30 } from '@atlaskit/theme/colors';
@@ -24,7 +23,7 @@ export enum StatusClassNames {
   SORTING_NOT_ALLOWED = 'sorting-icon-svg__not-allowed',
 }
 
-const Wrapper = styled.figure`
+const wrapperStyles = css`
   position: absolute;
   display: flex;
   height: 28px;
@@ -47,7 +46,7 @@ const Wrapper = styled.figure`
   }
 `;
 
-const TableSortingIcon = styled.div`
+const tableSortingIconStyles = css`
   width: 8px;
   height: 12px;
   transition: transform 0.3s cubic-bezier(0.15, 1, 0.3, 1);
@@ -116,13 +115,14 @@ const SortingIcon = ({ isSortingAllowed, sortOrdered, intl }: Props) => {
 
   return (
     <Tooltip delay={0} content={content} position="top">
-      <Wrapper className={wrapperClassName}>
-        <TableSortingIcon
+      <figure css={wrapperStyles} className={wrapperClassName}>
+        <div
+          css={tableSortingIconStyles}
           className={`${getClassName(
             sortOrdered,
           )} ${TABLE_SORTING_ICON_CLASS}-${activated ? 'active' : 'inactive'}`}
         />
-      </Wrapper>
+      </figure>
     </Tooltip>
   );
 };

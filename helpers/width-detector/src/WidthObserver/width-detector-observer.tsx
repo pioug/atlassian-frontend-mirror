@@ -1,18 +1,16 @@
 import React from 'react';
 import { useInView } from './hooks';
 import { WidthObserverProps } from './types';
-import { browser } from './utils';
 
 export const WidthDetectorObserver = React.memo(
   ({ setWidth, offscreen }: WidthObserverProps) => {
-    const { supportsResizeObserver } = browser;
     const [inViewRef, inView, target] = useInView({
       /* Optional options */
       threshold: 0,
     });
 
     const observer = React.useRef(() => {
-      if (typeof window === 'undefined' || !supportsResizeObserver) {
+      if (typeof window === 'undefined') {
         return null;
       }
 

@@ -16,7 +16,7 @@ import {
   unsupportedBlock,
   unsupportedInline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 
 import * as Hooks from '../../../ui/unsupported-content-helper';

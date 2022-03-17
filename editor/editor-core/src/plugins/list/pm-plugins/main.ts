@@ -43,7 +43,6 @@ export const getDecorations = (doc: Node): DecorationSet => {
 
     if (isListNode(node)) {
       processedListsStack.push({ node, startPos: currentNodeStartPos });
-
       const from = currentNodeStartPos;
       const to = currentNodeStartPos + node.nodeSize;
       const depth = processedListsStack.length;
@@ -53,6 +52,14 @@ export const getDecorations = (doc: Node): DecorationSet => {
           'data-indent-level': `${depth}`,
         }),
       );
+
+      if (node.childCount >= 100) {
+        decorations.push(
+          Decoration.node(from, to, {
+            'data-child-count': '100+',
+          }),
+        );
+      }
     }
   });
 

@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.3
 
 ### Patch Changes

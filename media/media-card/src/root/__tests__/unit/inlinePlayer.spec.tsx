@@ -17,7 +17,7 @@ import {
   FileIdentifier,
   FileState,
   MediaFileArtifacts,
-  createFileStateSubject,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import {
   asMockReturnValue,
@@ -61,7 +61,7 @@ describe('<InlinePlayer />', () => {
     const mediaClient = fakeMediaClient();
     asMockReturnValue(
       mediaClient.file.getFileState,
-      createFileStateSubject({
+      createMediaSubscribable({
         ...defaultFileState,
         artifacts,
       }),
@@ -181,21 +181,20 @@ describe('<InlinePlayer />', () => {
   it('should use local preview if available', async () => {
     const blob = new Blob([], { type: 'video/mp4' });
     const mediaClient = fakeMediaClient();
-    asMockReturnValue(
-      mediaClient.file.getFileState,
-      createFileStateSubject({
-        status: 'uploading',
-        preview: {
-          value: blob,
-        },
-        id: '',
-        mediaType: 'image',
-        mimeType: '',
-        name: '',
-        progress: 0,
-        size: 0,
-      }),
-    );
+    const fileStateSubscribable = createMediaSubscribable({
+      status: 'uploading',
+      preview: {
+        value: blob,
+      },
+      id: '',
+      mediaType: 'image',
+      mimeType: '',
+      name: '',
+      progress: 0,
+      size: 0,
+    });
+
+    asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
     const { component } = setup({ mediaClient });
 
     await update(component);
@@ -235,9 +234,9 @@ describe('<InlinePlayer />', () => {
       progress: 0,
       size: 0,
     };
-    const fileStateSubject = createFileStateSubject(baseState);
+    const fileStateSubscribable = createMediaSubscribable(baseState);
 
-    asMockReturnValue(mediaClient.file.getFileState, fileStateSubject);
+    asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
     const { component } = setup({ mediaClient });
 
     await update(component);
@@ -246,10 +245,13 @@ describe('<InlinePlayer />', () => {
       'object-url-src-1',
     );
 
-    fileStateSubject.next({
-      ...baseState,
-      progress: 0.5,
-    });
+    asMockReturnValue(
+      mediaClient.file.getFileState,
+      createMediaSubscribable({
+        ...baseState,
+        progress: 0.5,
+      }),
+    );
 
     await update(component);
 
@@ -406,21 +408,20 @@ describe('<InlinePlayer />', () => {
 
   it('should provide showControls to MediaPlayer', async () => {
     const mediaClient = fakeMediaClient();
-    asMockReturnValue(
-      mediaClient.file.getFileState,
-      createFileStateSubject({
-        status: 'uploading',
-        preview: {
-          value: new Blob([], { type: 'video/mp4' }),
-        },
-        id: '',
-        mediaType: 'image',
-        mimeType: '',
-        name: '',
-        progress: 0,
-        size: 0,
-      }),
-    );
+    const fileStateSubscribable = createMediaSubscribable({
+      status: 'uploading',
+      preview: {
+        value: new Blob([], { type: 'video/mp4' }),
+      },
+      id: '',
+      mediaType: 'image',
+      mimeType: '',
+      name: '',
+      progress: 0,
+      size: 0,
+    });
+
+    asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
     const { component } = setup({ mediaClient });
 
     await update(component);
@@ -434,21 +435,20 @@ describe('<InlinePlayer />', () => {
   describe('ProgressBar for video player', () => {
     it('should render ProgressBar for а video that is being played when status is uploading', async () => {
       const mediaClient = fakeMediaClient();
-      asMockReturnValue(
-        mediaClient.file.getFileState,
-        createFileStateSubject({
-          status: 'uploading',
-          preview: {
-            value: new Blob([], { type: 'video/mp4' }),
-          },
-          id: '',
-          mediaType: 'image',
-          mimeType: '',
-          name: '',
-          progress: 0,
-          size: 0,
-        }),
-      );
+      const fileStateSubscribable = createMediaSubscribable({
+        status: 'uploading',
+        preview: {
+          value: new Blob([], { type: 'video/mp4' }),
+        },
+        id: '',
+        mediaType: 'image',
+        mimeType: '',
+        name: '',
+        progress: 0,
+        size: 0,
+      });
+
+      asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
       const { component } = setup({ mediaClient });
       await update(component);
       expect(component.find('ProgressBar').exists()).toBe(true);
@@ -465,21 +465,20 @@ describe('<InlinePlayer />', () => {
       'should not render ProgressBar for а video that is being played when status is %s',
       async (status: any) => {
         const mediaClient = fakeMediaClient();
-        asMockReturnValue(
-          mediaClient.file.getFileState,
-          createFileStateSubject({
-            status,
-            preview: {
-              value: new Blob([], { type: 'video/mp4' }),
-            },
-            id: '',
-            mediaType: 'image',
-            mimeType: '',
-            name: '',
-            progress: 0,
-            size: 0,
-          }),
-        );
+        const fileStateSubscribable = createMediaSubscribable({
+          status,
+          preview: {
+            value: new Blob([], { type: 'video/mp4' }),
+          },
+          id: '',
+          mediaType: 'image',
+          mimeType: '',
+          name: '',
+          progress: 0,
+          size: 0,
+        });
+
+        asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
         const { component } = setup({ mediaClient });
         await update(component);
         expect(component.find('ProgressBar').exists()).toBe(false);

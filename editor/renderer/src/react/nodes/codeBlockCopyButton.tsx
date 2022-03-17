@@ -1,6 +1,7 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React, { useState } from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import styled from 'styled-components';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
@@ -12,7 +13,7 @@ type Props = {
   content: string;
 };
 
-const CopyButtonWrapper = styled.span`
+const copyButtonWrapperStyles = css`
   display: flex;
   position: sticky;
   justify-content: flex-end;
@@ -63,7 +64,7 @@ const CopyButton: React.FC<Props & WrappedComponentProps> = ({
     <CopyTextConsumer>
       {({ copyTextToClipboard }) => {
         return (
-          <CopyButtonWrapper>
+          <span css={copyButtonWrapperStyles}>
             <Tooltip
               content={tooltip}
               hideTooltipOnClick={false}
@@ -89,7 +90,7 @@ const CopyButton: React.FC<Props & WrappedComponentProps> = ({
                 ></Button>
               </div>
             </Tooltip>
-          </CopyButtonWrapper>
+          </span>
         );
       }}
     </CopyTextConsumer>

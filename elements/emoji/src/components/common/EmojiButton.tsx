@@ -1,11 +1,12 @@
-import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React, { forwardRef } from 'react';
 import { MouseEvent } from 'react';
 
-import * as styles from './styles';
 import Emoji from './Emoji';
 import { EmojiDescription } from '../../types';
 import { leftClick } from '../../util/mouse';
+import { emojiButton, hiddenToneButton } from './styles';
 
 export interface Props {
   emoji: EmojiDescription;
@@ -45,15 +46,11 @@ export const EmojiButton = forwardRef<HTMLButtonElement, Props>(
       shouldHideButton,
     } = props;
 
-    const classes = [
-      shouldHideButton ? styles.hiddenToneButton : styles.emojiButton,
-    ];
-
     return (
       <button
         ref={ref}
         aria-expanded={ariaExpanded}
-        className={classNames(classes)}
+        css={shouldHideButton ? hiddenToneButton : emojiButton}
         onMouseDown={(event) => {
           handleMouseDown(props, event);
         }}

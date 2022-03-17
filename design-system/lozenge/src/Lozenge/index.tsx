@@ -74,8 +74,8 @@ const defaultAppearanceStyles = css({
 });
 
 const inprogressAppearanceStyles = css({
-  backgroundColor: token('color.background.brand', B50),
-  color: token('color.text.brand', B500),
+  backgroundColor: token('color.background.information', B50),
+  color: token('color.text.information', B500),
 });
 
 const movedAppearanceStyles = css({
@@ -104,7 +104,7 @@ const defaultBoldAppearanceStyles = css({
 });
 
 const inprogressBoldAppearanceStyles = css({
-  backgroundColor: token('color.background.brand.bold', B400),
+  backgroundColor: token('color.background.information.bold', B400),
   color: token('color.text.inverse', N0),
 });
 

@@ -24,8 +24,8 @@ import {
   FileIdentifier,
   FileState,
   MediaClient,
+  MediaSubscribable,
 } from '@atlaskit/media-client';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import {
   CardWrapper,
   CardFlowHeader,
@@ -116,7 +116,7 @@ class Example extends Component<ComponentProps, ComponentState> {
     this.addStream(stream);
   };
 
-  addStream = (stream: ReplaySubject<FileState>) => {
+  addStream = (stream: MediaSubscribable<FileState>) => {
     let isIdSaved = false;
 
     const subscription = stream.subscribe({

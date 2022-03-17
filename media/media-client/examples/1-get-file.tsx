@@ -7,9 +7,9 @@ import {
   mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { MediaSubscribable } from '../src/utils/toMediaSubscribable';
 import { FileState, MediaClient } from '../src';
 import { FilesWrapper, FileWrapper } from '../example-helpers/styled';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export interface ComponentProps {}
 export interface ComponentState {
@@ -22,7 +22,7 @@ const mediaClientConfig: MediaClientConfig = {
 const mediaClient = new MediaClient(mediaClientConfig);
 
 class Example extends Component<ComponentProps, ComponentState> {
-  fileStreams: ReplaySubject<FileState>[];
+  fileStreams: MediaSubscribable<FileState>[];
 
   constructor(props: ComponentProps) {
     super(props);
@@ -78,7 +78,7 @@ class Example extends Component<ComponentProps, ComponentState> {
     this.addStream(stream);
   };
 
-  addStream = (stream: ReplaySubject<FileState>) => {
+  addStream = (stream: MediaSubscribable<FileState>) => {
     const streamId = new Date().getTime();
 
     stream.subscribe({

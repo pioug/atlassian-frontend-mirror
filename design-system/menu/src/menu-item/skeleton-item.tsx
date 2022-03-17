@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+import SkeletonShimmer from '../internal/components/skeleton-shimmer';
 import type { SkeletonItemProps } from '../types';
 
 const gridSize = gridSizeFn();
@@ -106,27 +107,33 @@ const iconStyles = css({
 const SkeletonItem = ({
   hasAvatar,
   hasIcon,
+  isShimmering = false,
   testId,
   width,
   cssFn = noop as any,
 }: SkeletonItemProps) => (
-  <div
-    style={
-      {
-        '--width': width,
-      } as CSSProperties
-    }
-    css={[
-      skeletonStyles,
-      (hasAvatar || hasIcon) && beforeElementStyles,
-      hasAvatar && avatarStyles,
-      hasIcon && iconStyles,
-      width ? customWidthStyles : defaultWidthStyles,
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-      cssFn(),
-    ]}
-    data-testid={testId}
-  />
+  <SkeletonShimmer isShimmering={isShimmering}>
+    {({ className }) => (
+      <div
+        className={className}
+        style={
+          {
+            '--width': width,
+          } as CSSProperties
+        }
+        css={[
+          skeletonStyles,
+          (hasAvatar || hasIcon) && beforeElementStyles,
+          hasAvatar && avatarStyles,
+          hasIcon && iconStyles,
+          width ? customWidthStyles : defaultWidthStyles,
+          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+          cssFn(),
+        ]}
+        data-testid={testId}
+      />
+    )}
+  </SkeletonShimmer>
 );
 
 export default SkeletonItem;

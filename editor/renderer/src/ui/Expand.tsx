@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React, { forwardRef, useRef, useCallback } from 'react';
-import { jsx } from '@emotion/react';
-import styled from 'styled-components';
+import React, { useRef, useCallback } from 'react';
+import { css, jsx } from '@emotion/react';
 import { gridSize, fontSize } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tooltip from '@atlaskit/tooltip';
 import {
@@ -10,8 +10,8 @@ import {
   sharedExpandStyles,
   WidthProvider,
   ExpandIconWrapper,
-  ExpandLayoutWrapper,
   clearNextSiblingMarginTopStyle,
+  ExpandLayoutWrapperWithRef,
 } from '@atlaskit/editor-common/ui';
 import {
   akEditorLineHeight,
@@ -23,14 +23,14 @@ import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import _uniqueId from 'lodash/uniqueId';
 
-export interface StyleProps {
+export type StyleProps = {
   expanded?: boolean;
   focused?: boolean;
   'data-node-type'?: 'expand' | 'nestedExpand';
   'data-title'?: string;
-}
+};
 
-const Title = styled.span`
+const titleStyles = css`
   outline: none;
   border: none;
   font-size: ${relativeFontSizeToBase16(fontSize())};
@@ -43,34 +43,60 @@ const Title = styled.span`
   text-align: left;
 `;
 
-const Container = styled.div<StyleProps>`
-  ${sharedExpandStyles.ContainerStyles}
-  padding: 0;
-  padding-bottom: ${(props) => (props.expanded ? gridSize() : 0)}px;
-`;
+const Container: React.FC<StyleProps> = (props) => {
+  const paddingBottom = `${props.expanded ? gridSize() : 0}px`;
+  const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
 
-const TitleContainer = styled.button<StyleProps>`
-  ${sharedExpandStyles.TitleContainerStyles}
-  padding: ${gridSize()}px;
-  padding-bottom: ${(props) => (!props.expanded ? gridSize() : 0)}px;
-`;
+  const styles = (themeProps: ThemeProps) => css`
+    ${sharedContainerStyles(themeProps)}
+    padding: 0;
+    padding-bottom: ${paddingBottom};
+  `;
+
+  return (
+    <div css={styles} {...props}>
+      {props.children}
+    </div>
+  );
+};
+
+const TitleContainer: React.FC<
+  StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>
+> = (props) => {
+  const paddingBottom = `${!props.expanded ? gridSize() : 0}px`;
+
+  const styles = (themeProps: ThemeProps) => css`
+    ${sharedExpandStyles.titleContainerStyles(themeProps)}
+    padding: ${gridSize()}px;
+    padding-bottom: ${paddingBottom};
+  `;
+
+  return (
+    <button css={styles} {...props}>
+      {props.children}
+    </button>
+  );
+};
 
 TitleContainer.displayName = 'TitleContainerButton';
 
-const ContentContainer = styled.div<StyleProps>`
-  ${sharedExpandStyles.ContentStyles};
-  padding-right: ${gridSize() * 2}px;
-  padding-left: ${gridSize() * 5 - gridSize() / 2}px;
-  visibility: ${(props) => (props.expanded ? 'visible' : 'hidden')};
-`;
+const ContentContainer: React.FC<StyleProps> = (props) => {
+  const sharedContentStyles = sharedExpandStyles.contentStyles(props);
+  const visibility = props.expanded ? 'visible' : 'hidden';
 
-const ExpandLayoutWrapperWithRef = forwardRef<
-  HTMLElement,
-  React.ComponentProps<typeof ExpandLayoutWrapper>
->(function WithRef(props, ref) {
-  // @ts-ignore: incorrect innerRef typing
-  return <ExpandLayoutWrapper {...props} innerRef={ref} />;
-});
+  const styles = (themeProps: ThemeProps) => css`
+    ${sharedContentStyles(themeProps)};
+    padding-right: ${gridSize() * 2}px;
+    padding-left: ${gridSize() * 5 - gridSize() / 2}px;
+    visibility: ${visibility};
+  `;
+
+  return (
+    <div css={styles} {...props}>
+      {props.children}
+    </div>
+  );
+};
 
 export interface ExpandProps {
   title: string;
@@ -162,9 +188,9 @@ function Expand({
             <ChevronRightIcon label={label} />
           </ExpandIconWrapper>
         </Tooltip>
-        <Title id={id}>
+        <span css={titleStyles} id={id}>
           {title || intl.formatMessage(expandMessages.expandDefaultTitle)}
-        </Title>
+        </span>
       </TitleContainer>
       <ContentContainer expanded={expanded}>
         <div className={`${nodeType}-content-wrapper`}>

@@ -147,8 +147,8 @@ export const background = themed({
   dark: token('elevation.surface', DN30),
 });
 export const backgroundActive = themed({
-  light: token('color.background.brand', B50),
-  dark: token('color.background.brand', B75),
+  light: token('color.background.selected', B50),
+  dark: token('color.background.selected', B75),
 });
 export const backgroundHover = themed({
   light: token('color.background.neutral.hovered', N30),
@@ -167,8 +167,8 @@ export const textHover = themed({
   dark: token('color.text', DN600),
 });
 export const textActive = themed({
-  light: token('color.text.brand', B400),
-  dark: token('color.text.brand', B400),
+  light: token('color.text.selected', B400),
+  dark: token('color.text.selected', B400),
 });
 export const subtleText = themed({
   light: token('color.text.subtlest', N200),
@@ -231,4 +231,11 @@ export const green = themed({
   light: G300,
   dark: G300,
 });
+
+/**
+ * This color is mirrored in:
+ * packages/design-system/menu/src/internal/components/skeleton-shimmer.tsx
+ *
+ * Please update both.
+ */
 export const skeleton = () => token('color.background.neutral', N20A);

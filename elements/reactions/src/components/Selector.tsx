@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css, keyframes } from '@emotion/core';
 import {
   EmojiId,
   OnEmojiEvent,
@@ -5,10 +7,8 @@ import {
 } from '@atlaskit/emoji/types';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import Tooltip from '@atlaskit/tooltip';
-import cx from 'classnames';
 import React from 'react';
 import { PureComponent, SyntheticEvent } from 'react';
-import { keyframes, style } from 'typestyle';
 import { EmojiButton } from './EmojiButton';
 import { ShowMore } from './ShowMore';
 import { equalEmojiId } from './utils';
@@ -20,20 +20,20 @@ export interface Props {
   onMoreClick: React.MouseEventHandler<HTMLElement>;
 }
 
-const selectorStyle = style({
+export const renderEmojiTestId = 'render-emoji';
+
+const selectorStyle = css({
   boxSizing: 'border-box',
   display: 'flex',
   padding: 0,
 });
 
-const emojiStyle = style({
+const emojiStyle = css({
   display: 'inline-block',
   opacity: 0,
-  $nest: {
-    '&.selected': {
-      transition: 'transform 200ms ease-in-out  ',
-      transform: 'translateY(-48px) scale(2.667)',
-    },
+  '&.selected': {
+    transition: 'transform 200ms ease-in-out  ',
+    transform: 'translateY(-48px) scale(2.667)',
   },
 });
 
@@ -51,7 +51,7 @@ const revealAnimation = keyframes({
   },
 });
 
-export const revealStyle = style({
+export const revealStyle = css({
   animation: `${revealAnimation} 150ms ease-in-out forwards`,
 });
 
@@ -120,14 +120,16 @@ export class Selector extends PureComponent<Props, State> {
     const { emojiProvider } = this.props;
     const key = emojiId.id || emojiId.shortName;
 
-    const classNames = cx(emojiStyle, revealStyle, {
-      selected: emojiId === this.state.selection,
-    });
-
     const style = revealDelay(index);
 
     return (
-      <div key={key} className={classNames} style={style}>
+      <div
+        key={key}
+        className={emojiId === this.state.selection ? 'selected' : ''}
+        css={[emojiStyle, revealStyle]}
+        style={style}
+        data-testid={renderEmojiTestId}
+      >
         <Tooltip content={emojiId.shortName}>
           <EmojiButton
             emojiId={emojiId}
@@ -142,7 +144,7 @@ export class Selector extends PureComponent<Props, State> {
   private renderShowMore = (): React.ReactNode => (
     <ShowMore
       key="more"
-      className={{ button: revealStyle }}
+      revealStyle={revealStyle}
       style={{ button: revealDelay(defaultReactions.length) }}
       onClick={this.props.onMoreClick}
     />
@@ -152,7 +154,7 @@ export class Selector extends PureComponent<Props, State> {
     const { showMore } = this.props;
 
     return (
-      <div className={selectorStyle}>
+      <div css={selectorStyle}>
         {defaultReactions.map(this.renderEmoji)}
 
         {showMore ? this.renderShowMore() : null}

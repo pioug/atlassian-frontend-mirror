@@ -52,6 +52,6 @@ describe('Snapshot Test: MediaInline', () => {
     await initRenderer(page, mediaInlineAdf);
     await waitForLoadedMediaInlineCard(page);
     await page.click(selectors.mediaInlineCardSelector());
-    await page.waitForSelector('[data-testid="media-viewer-popup"]');
+    await page.waitForSelector('[data-testid="media-viewer-image"]');
   });
 });

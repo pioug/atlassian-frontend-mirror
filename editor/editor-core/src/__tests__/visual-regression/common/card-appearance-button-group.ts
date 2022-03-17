@@ -36,7 +36,7 @@ describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `toolbarIcons`', 
         allowEmbeds: true,
       },
       featureFlags: {
-        viewChangingExperimentToolbarStyle: 'toolbarIcons',
+        'view-changing-experiment-toolbar-style': 'toolbarIcons',
       },
     });
   };

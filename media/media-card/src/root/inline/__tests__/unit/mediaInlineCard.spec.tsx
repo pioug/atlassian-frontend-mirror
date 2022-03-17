@@ -1,7 +1,12 @@
 import React from 'react';
 import { MediaInlineCardInternal as MediaInlineCard } from '../../mediaInlineCard';
 import { mount } from 'enzyme';
-import { FileIdentifier, FileState } from '@atlaskit/media-client';
+import {
+  FileIdentifier,
+  FileState,
+  createMediaSubject,
+  ErrorFileState,
+} from '@atlaskit/media-client';
 import {
   fakeMediaClient,
   fakeIntl,
@@ -9,7 +14,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { render, waitForElement } from '@testing-library/react';
-import { of } from 'rxjs/observable/of';
 
 describe('<MediaInlineCard />', () => {
   const identifier: FileIdentifier = {
@@ -27,7 +31,9 @@ describe('<MediaInlineCard />', () => {
   };
 
   beforeEach(() => {
-    asMock(mediaClient.file.getFileState).mockReturnValue(of(mockFileState));
+    asMock(mediaClient.file.getFileState).mockReturnValue(
+      createMediaSubject(mockFileState),
+    );
   });
 
   it('should render loading view while loading media file', () => {
@@ -124,7 +130,9 @@ describe('<MediaInlineCard />', () => {
       mimeType: 'text/csv',
     };
 
-    asMock(mediaClient.file.getFileState).mockReturnValue(of(mockFileState));
+    asMock(mediaClient.file.getFileState).mockReturnValue(
+      createMediaSubject(mockFileState),
+    );
 
     const { getByTestId } = render(
       <MediaInlineCard
@@ -141,7 +149,7 @@ describe('<MediaInlineCard />', () => {
 
   it('should render error view', async () => {
     asMock(mediaClient.file.getFileState).mockReturnValueOnce(
-      of({ status: 'error' }),
+      createMediaSubject({ status: 'error' } as ErrorFileState),
     );
     const { getByTestId } = render(
       <MediaInlineCard

@@ -18,7 +18,6 @@ import {
   MediaCardInternal,
   getListOfIdentifiersFromDoc,
   getClipboardAttrs,
-  CardWrapper,
 } from '../../../../ui/MediaCard';
 import { MediaSSR } from '../../../../types/mediaOptions';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -671,8 +670,8 @@ describe('Media', () => {
 
       await sleep();
       mediaFileCard.update();
-      expect(mediaFileCard.find(CardWrapper)).toHaveLength(1);
-      expect(mediaFileCard.find(CardWrapper).props()).toEqual(
+      expect(mediaFileCard.find('[data-node-type="media"]')).toHaveLength(1);
+      expect(mediaFileCard.find('[data-node-type="media"]').props()).toEqual(
         expect.objectContaining({
           'data-context-id': undefined,
           'data-type': 'file',

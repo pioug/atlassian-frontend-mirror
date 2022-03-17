@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React, { memo, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 /**
@@ -33,6 +34,10 @@ type useContainerWidthReturnType = {
   ContainerWidthMonitor: React.ElementType;
 };
 
+const widthObserverWrapper = css`
+  position: relative;
+`;
+
 export default function useContainerWidth(): useContainerWidthReturnType {
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -47,15 +52,10 @@ export default function useContainerWidth(): useContainerWidthReturnType {
 
   const ContainerWidthMonitor = memo(() => {
     return (
-      <WidthObserverWrapper innerRef={ref} tabIndex={-1}>
+      <div css={widthObserverWrapper} ref={ref} tabIndex={-1}>
         <WidthObserver setWidth={setContainerWidth} />
-      </WidthObserverWrapper>
+      </div>
     );
   });
   return { containerWidth, ContainerWidthMonitor };
 }
-
-const WidthObserverWrapper = styled.div`
-  position: relative;
-`;
-WidthObserverWrapper.displayName = 'WidthObserverWrapper';

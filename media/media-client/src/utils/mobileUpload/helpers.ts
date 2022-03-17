@@ -6,7 +6,7 @@ import { Interpreter } from 'xstate';
 
 import { FileState, mapMediaItemToFileState } from '../../models/file-state';
 import { DataloaderKey, DataloaderResult } from '../createFileDataLoader';
-import { createFileStateSubject } from '../createFileStateSubject';
+import { createMediaSubject } from '../createMediaSubject';
 import { isEmptyFile } from '../detectEmptyFile';
 import { PollingFunction } from '../polling';
 import { MobileUploadError } from './error';
@@ -39,7 +39,7 @@ export const createMobileDownloadFileStream = (
   collectionName?: string,
   occurrenceKey?: string,
 ): ReplaySubject<FileState> => {
-  const subject = createFileStateSubject();
+  const subject = createMediaSubject<FileState>();
   const poll = new PollingFunction();
 
   // ensure subject errors if polling exceeds max iterations or uncaught exception in executor

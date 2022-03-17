@@ -1,9 +1,9 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { PureComponent } from 'react';
-
-import * as styles from './styles';
 import { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
+import { emojiItem, emojiPickerRow } from './styles';
 export interface Props {
   emojis: EmojiDescription[];
   title: string;
@@ -25,13 +25,13 @@ export default class EmojiPickerEmojiRow extends PureComponent<Props, {}> {
     } = this.props;
 
     return (
-      <div className={styles.emojiPickerRow}>
+      <div css={emojiPickerRow}>
         {emojis.map((emoji) => {
           const { shortName, id } = emoji;
           const key = id ? `${id}-${title}` : `${shortName}-${title}`;
 
           return (
-            <span className={styles.emojiItem} key={key}>
+            <span css={emojiItem} key={key}>
               <CachingEmoji
                 emoji={emoji}
                 selectOnHover={true}

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { CustomItemComponentProps } from '@atlaskit/menu';
 import { Footer } from '@atlaskit/side-navigation';
@@ -12,28 +12,28 @@ const Container: React.FC<CustomItemComponentProps> = (props) => {
   return <div {...props} />;
 };
 
+const linkStyles = css({
+  color: token('color.text.subtle', N200),
+  fontSize: 12,
+  ':hover': {
+    color: token('color.link', B400),
+    cursor: 'pointer',
+    textDecoration: 'none',
+  },
+});
+
 // This example footer conforms to a design taken from Jira designs found at
 // https://www.figma.com/file/GA22za6unqO2WsBWM0Ddxk/Jira-navigation-3?node-id=124%3A7194
 const ExampleFooter = () => {
-  const linkCSS = {
-    fontSize: 12,
-    color: token('color.text.subtle', N200),
-    '&:hover': {
-      color: token('color.background.brand.hovered', B400),
-      textDecoration: 'none',
-      cursor: 'pointer',
-    },
-  };
-
   return (
     <Footer
       component={Container}
       description={
         <Fragment>
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a css={linkCSS}>Give feedback</a> {' ∙ '}
+          <a css={linkStyles}>Give feedback</a> {' ∙ '}
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a css={linkCSS}>Learn more</a>
+          <a css={linkStyles}>Learn more</a>
         </Fragment>
       }
     >

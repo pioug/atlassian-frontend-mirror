@@ -26,24 +26,24 @@ import { AppearanceTypes } from './types';
 
 const flagBackgroundColor = {
   error: {
-    light: token('elevation.surface.overlay', R400),
-    dark: token('elevation.surface.overlay', R300),
+    light: token('color.background.danger.bold', R400),
+    dark: token('color.background.danger.bold', R300),
   },
   info: {
-    light: token('elevation.surface.overlay', N500),
-    dark: token('elevation.surface.overlay', N500),
+    light: token('color.background.neutral.bold', N500),
+    dark: token('color.background.neutral.bold', N500),
   },
   normal: {
     light: token('elevation.surface.overlay', N0),
     dark: token('elevation.surface.overlay', DN50),
   },
   success: {
-    light: token('elevation.surface.overlay', G400),
-    dark: token('elevation.surface.overlay', G300),
+    light: token('color.background.success.bold', G400),
+    dark: token('color.background.success.bold', G300),
   },
   warning: {
-    light: token('elevation.surface.overlay', Y200),
-    dark: token('elevation.surface.overlay', Y300),
+    light: token('color.background.warning.bold', Y200),
+    dark: token('color.background.warning.bold', Y300),
   },
 };
 
@@ -56,47 +56,47 @@ export const flagBorderColor = token('elevation.surface.overlay', N60A);
 
 const flagIconColor = {
   error: {
-    light: token('color.icon.danger', N0),
-    dark: token('color.icon.danger', DN40),
+    light: token('color.icon.inverse', N0),
+    dark: token('color.icon.inverse', DN40),
   },
   info: {
-    light: token('color.icon.discovery', N0),
-    dark: token('color.icon.discovery', DN600),
+    light: token('color.icon.inverse', N0),
+    dark: token('color.icon.inverse', DN600),
   },
   normal: {
-    light: token('color.icon.brand', N500),
-    dark: token('color.icon.brand', DN600),
+    light: token('color.icon.subtle', N500),
+    dark: token('color.icon.subtle', DN600),
   },
   success: {
-    light: token('color.icon.success', N0),
-    dark: token('color.icon.success', DN40),
+    light: token('color.icon.inverse', N0),
+    dark: token('color.icon.inverse', DN40),
   },
   warning: {
-    light: token('color.icon.warning', N700),
-    dark: token('color.icon.warning', DN40),
+    light: token('color.icon.warning.inverse', N700),
+    dark: token('color.icon.warning.inverse', DN40),
   },
 };
 
 const flagTextColor = {
   error: {
-    light: token('color.text', N0),
-    dark: token('color.text', DN40),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN40),
   },
   info: {
-    light: token('color.text', N0),
-    dark: token('color.text', DN600),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN600),
   },
   normal: {
-    light: token('color.text', N500),
-    dark: token('color.text', DN600),
+    light: token('color.text.subtle', N500),
+    dark: token('color.text.subtle', DN600),
   },
   success: {
-    light: token('color.text', N0),
-    dark: token('color.text', DN40),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN40),
   },
   warning: {
-    light: token('color.text', N700),
-    dark: token('color.text', DN40),
+    light: token('color.text.warning.inverse', N700),
+    dark: token('color.text.warning.inverse', DN40),
   },
 };
 
@@ -144,6 +144,9 @@ export const getFlagFocusRingColor = (
 
 const lightButtonBackground = 'rgba(255, 255, 255, 0.08)';
 
+// TODO: DSP-2519 Interaction tokens should be used for hovered and pressed states
+// https://product-fabric.atlassian.net/browse/DSP-2519
+
 const actionBackground = {
   success: {
     light: token('color.background.neutral', lightButtonBackground),
@@ -162,31 +165,31 @@ const actionBackground = {
     dark: token('color.background.neutral', N30A),
   },
   normal: {
-    light: token('color.background.neutral', 'none'),
-    dark: token('color.background.neutral', 'none'),
+    light: 'none',
+    dark: 'none',
   },
 };
 
 const actionColor = {
   success: {
-    light: token('color.text.subtle', N0),
-    dark: token('color.text.subtle', DN40),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN40),
   },
   info: {
-    light: token('color.text.subtle', N0),
-    dark: token('color.text.subtle', DN600),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN600),
   },
   error: {
-    light: token('color.text.subtle', N0),
-    dark: token('color.text.subtle', DN600),
+    light: token('color.text.inverse', N0),
+    dark: token('color.text.inverse', DN600),
   },
   warning: {
-    light: token('color.text.subtle', N700),
-    dark: token('color.text.subtle', DN40),
+    light: token('color.text.warning.inverse', N700),
+    dark: token('color.text.warning.inverse', DN40),
   },
   normal: {
-    light: token('color.text.subtle', B400),
-    dark: token('color.text.subtle', B100),
+    light: token('color.link', B400),
+    dark: token('color.link', B100),
   },
 };
 

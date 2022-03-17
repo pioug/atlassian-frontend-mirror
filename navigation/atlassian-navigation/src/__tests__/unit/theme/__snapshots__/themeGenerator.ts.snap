@@ -43,7 +43,7 @@ Object {
     "color": "var(--ds-text-subtle, #344563)",
   },
   "focus": Object {
-    "backgroundColor": "var(--ds-background-brand-hovered, rgba(222, 235, 255, 0.5))",
+    "backgroundColor": "var(--ds-background-selected-hovered, rgba(222, 235, 255, 0.5))",
     "boxShadow": "0 0 0 2px var(--ds-border-focused, #2684FF)",
     "color": "var(--ds-text-subtle, #344563)",
   },
@@ -53,9 +53,9 @@ Object {
     "color": "var(--ds-text-subtle, #0052CC)",
   },
   "selected": Object {
-    "backgroundColor": "var(--ds-background-brand)",
+    "backgroundColor": "var(--ds-background-selected)",
     "boxShadow": "",
-    "color": "var(--ds-text-brand)",
+    "color": "var(--ds-text-selected)",
   },
 }
 `;
@@ -90,11 +90,11 @@ Object {
     "color": "var(--ds-text-subtle, #0052CC)",
   },
   "selected": Object {
-    "backgroundColor": "var(--ds-background-brand)",
-    "borderColor": "var(--ds-border-brand, #0052CC)",
-    "bordorBottom": "4px solid var(--ds-border-brand, #0052CC)",
+    "backgroundColor": "var(--ds-background-selected)",
+    "borderColor": "var(--ds-border-selected, #0052CC)",
+    "bordorBottom": "4px solid var(--ds-border-selected, #0052CC)",
     "boxShadow": "",
-    "color": "var(--ds-text-subtle, #0052CC)",
+    "color": "var(--ds-text-selected, #0052CC)",
   },
 }
 `;
@@ -122,7 +122,7 @@ Object {
   },
   "hover": Object {
     "backgroundColor": "var(--ds-surface, rgba(222, 235, 255, 0.9))",
-    "color": "var(--ds-text-brand, #0052CC)",
+    "color": "var(--ds-text-selected, #0052CC)",
   },
 }
 `;

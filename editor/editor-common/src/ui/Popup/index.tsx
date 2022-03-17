@@ -12,7 +12,6 @@ import {
   Position,
   validatePosition,
 } from './utils';
-
 export interface Props {
   zIndex?: number;
   // The alignments are using the same placements from Popper
@@ -47,6 +46,7 @@ export interface State {
 
 export default class Popup extends React.Component<Props, State> {
   scrollElement: undefined | false | HTMLElement;
+  scrollParentElement: undefined | false | HTMLElement;
   static defaultProps = {
     offset: [0, 0],
     allowOutOfBound: false,
@@ -198,13 +198,23 @@ export default class Popup extends React.Component<Props, State> {
     this.scheduledUpdatePosition(newProps);
   }
 
+  resizeObserver = window?.ResizeObserver
+    ? new ResizeObserver(() => {
+        this.scheduledUpdatePosition(this.props);
+      })
+    : undefined;
+
   componentDidMount() {
     window.addEventListener('resize', this.onResize);
-
     const { stick } = this.props;
 
+    this.scrollParentElement = findOverflowScrollParent(this.props.target!);
+    if (this.scrollParentElement && this.resizeObserver) {
+      this.resizeObserver.observe(this.scrollParentElement);
+    }
+
     if (stick) {
-      this.scrollElement = findOverflowScrollParent(this.props.target!);
+      this.scrollElement = this.scrollParentElement;
     } else {
       this.scrollElement = this.props.scrollableElement;
     }
@@ -217,6 +227,10 @@ export default class Popup extends React.Component<Props, State> {
     window.removeEventListener('resize', this.onResize);
     if (this.scrollElement) {
       this.scrollElement.removeEventListener('scroll', this.onResize);
+    }
+
+    if (this.scrollParentElement && this.resizeObserver) {
+      this.resizeObserver.unobserve(this.scrollParentElement);
     }
     this.scheduledUpdatePosition.cancel();
   }

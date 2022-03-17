@@ -33,6 +33,7 @@ export const createHorizontalRule = (
   }
 
   let tr: Transaction<any> | null = null;
+  const { rule } = state.schema.nodes;
   const { newInsertionBehaviour } = getFeatureFlags(state);
   if (newInsertionBehaviour) {
     /**
@@ -42,10 +43,7 @@ export const createHorizontalRule = (
      **/
     tr = state.tr.replaceWith(start, end, Fragment.empty);
 
-    tr = safeInsert(
-      state.schema.nodes.rule.createChecked(),
-      tr.selection.from,
-    )(tr);
+    tr = safeInsert(rule.createChecked(), tr.selection.from)(tr);
   }
 
   if (!tr) {

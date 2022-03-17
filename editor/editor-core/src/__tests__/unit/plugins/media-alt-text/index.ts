@@ -43,7 +43,6 @@ describe('media alt text', () => {
       doc,
       editorProps: {
         media: {
-          allowAnnotation: true,
           allowMediaSingle: true,
           allowAltTextOnImages: true,
           provider: mediaProvider,

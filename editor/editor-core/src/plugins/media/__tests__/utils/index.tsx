@@ -6,7 +6,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { wrappedLayouts } from '@atlaskit/editor-common/ui';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 
 import {

@@ -2,11 +2,10 @@ import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import LinkSearchList, {
   Props as LinkSearchListProps,
-  List as LinkSearchListList,
 } from '../LinkSearchList';
 import LinkSearchListItem from '../LinkSearchListItem';
 import { getDefaultItems } from './__helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 interface SetupOptions extends LinkSearchListProps {}
 
@@ -76,7 +75,7 @@ describe('ListSearchList', () => {
   it('should not render list when there are no items', () => {
     const { component } = setup({ items: [] });
 
-    expect(component.find(LinkSearchListList)).toHaveLength(0);
+    expect(component.find('LinkSearchListList')).toHaveLength(0);
   });
 
   it('should pass props to item component', () => {

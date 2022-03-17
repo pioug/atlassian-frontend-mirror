@@ -157,11 +157,18 @@ const RemovableTag = forwardRef<any, RemovableTagProps>(
 
     const hoverCloseButtonColors = useMemo(
       () => ({
+        // Tag background color on hover
         [cssVar.color.background.hover]:
           theme.removalHoverBackgroundColors[mode],
+        // Tag background color on press
         [cssVar.color.background.active]:
           theme.removalActiveBackgroundColors[mode],
-        [cssVar.color.text.hover]: theme.removalTextColors[mode],
+        // The tag text on hover of remove button
+        [cssVar.color.text.default]: theme.removalTextColors[mode],
+        // 'elemBefore' text on press of remove button
+        [cssVar.color.text.active]: theme.removalTextColors[mode],
+        // The tag link text on hover of remove button
+        [cssVar.color.text.link]: theme.removalTextColors[mode],
       }),
       [mode],
     );

@@ -9,7 +9,7 @@ import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils'
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { CustomData } from '@atlaskit/ufo/types';
-import { IntlNextErrorBoundary } from '@atlaskit/editor-common/ui';
+import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
 
 import {
   ACTION,
@@ -189,7 +189,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
   }
 
   render() {
-    return <IntlNextErrorBoundary>{this.props.children}</IntlNextErrorBoundary>;
+    return <IntlErrorBoundary>{this.props.children}</IntlErrorBoundary>;
   }
 }
 

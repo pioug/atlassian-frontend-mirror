@@ -62,12 +62,12 @@ const values: Values = {
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.DN0),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.DN0),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.DN0),
       },
     },
     primary: {
@@ -88,12 +88,12 @@ const values: Values = {
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.DN0),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.DN0),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.DN0),
       },
     },
     warning: {
@@ -114,12 +114,12 @@ const values: Values = {
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.brand', colors.Y400),
-        dark: token('color.background.brand', colors.Y400),
+        light: token('color.background.selected', colors.Y400),
+        dark: token('color.background.selected', colors.Y400),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.Y400),
-        dark: token('color.background.brand', colors.Y400),
+        light: token('color.background.selected', colors.Y400),
+        dark: token('color.background.selected', colors.Y400),
       },
     },
     danger: {
@@ -140,23 +140,23 @@ const values: Values = {
         dark: token('color.background.disabled', colors.DN70),
       },
       selected: {
-        light: token('color.background.brand', colors.R500),
-        dark: token('color.background.brand', colors.R500),
+        light: token('color.background.selected', colors.R500),
+        dark: token('color.background.selected', colors.R500),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.R500),
-        dark: token('color.background.brand', colors.R500),
+        light: token('color.background.selected', colors.R500),
+        dark: token('color.background.selected', colors.R500),
       },
     },
     link: {
       default: { light: 'none', dark: 'none' },
       selected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.N20),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.N20),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.N20),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.N20),
       },
     },
     subtle: {
@@ -171,23 +171,23 @@ const values: Values = {
       },
       disabled: { light: 'none', dark: 'none' },
       selected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.DN0),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.DN0),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.DN0),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.DN0),
       },
     },
     'subtle-link': {
       default: { light: 'none', dark: 'none' },
       selected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.N20),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.N20),
       },
       focusSelected: {
-        light: token('color.background.brand', colors.N700),
-        dark: token('color.background.brand', colors.N20),
+        light: token('color.background.selected', colors.N700),
+        dark: token('color.background.selected', colors.N20),
       },
     },
   },
@@ -279,12 +279,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
     },
     primary: {
@@ -297,12 +297,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
     },
     warning: {
@@ -315,12 +315,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.brand', colors.N800),
-        dark: token('color.text.brand', colors.N800),
+        light: token('color.text.selected', colors.N800),
+        dark: token('color.text.selected', colors.N800),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N800),
-        dark: token('color.text.brand', colors.N800),
+        light: token('color.text.selected', colors.N800),
+        dark: token('color.text.selected', colors.N800),
       },
     },
     danger: {
@@ -333,12 +333,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN30),
       },
       selected: {
-        light: token('color.text.brand', colors.N0),
-        dark: token('color.text.brand', colors.N0),
+        light: token('color.text.selected', colors.N0),
+        dark: token('color.text.selected', colors.N0),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N0),
-        dark: token('color.text.brand', colors.N0),
+        light: token('color.text.selected', colors.N0),
+        dark: token('color.text.selected', colors.N0),
       },
     },
     link: {
@@ -359,12 +359,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN100),
       },
       selected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.N700),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.N700),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.N700),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.N700),
       },
     },
     subtle: {
@@ -381,12 +381,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN100),
       },
       selected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
     },
     'subtle-link': {
@@ -407,12 +407,12 @@ const values: Values = {
         dark: token('color.text.disabled', colors.DN100),
       },
       selected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
       focusSelected: {
-        light: token('color.text.brand', colors.N20),
-        dark: token('color.text.brand', colors.DN400),
+        light: token('color.text.selected', colors.N20),
+        dark: token('color.text.selected', colors.DN400),
       },
     },
   },

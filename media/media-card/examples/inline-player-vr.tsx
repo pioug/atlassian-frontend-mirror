@@ -5,7 +5,7 @@ import {
   createStorybookMediaClient,
   videoSquareFileId,
 } from '@atlaskit/media-test-helpers';
-import { createFileStateSubject } from '@atlaskit/media-client';
+import { createMediaSubscribable } from '@atlaskit/media-client';
 
 import { IntlProvider } from 'react-intl-next';
 
@@ -30,8 +30,8 @@ export default () => {
 
   const mediaClient = createStorybookMediaClient();
 
-  mediaClient.file.getFileState = () =>
-    createFileStateSubject({
+  mediaClient.file.getFileState = () => {
+    return createMediaSubscribable({
       status: cardStatus,
       preview: {
         value: new Blob([], { type: 'video/mp4' }),
@@ -43,6 +43,7 @@ export default () => {
       progress: 0.5,
       size: 0,
     });
+  };
 
   return (
     <IntlProvider locale={'en'}>

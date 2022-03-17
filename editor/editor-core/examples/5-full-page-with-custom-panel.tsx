@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
 import WithEditorActions from './../src/ui/WithEditorActions';
@@ -81,13 +81,10 @@ export default class ExampleEditor extends React.Component<Props, State> {
   }
 
   private loadLocale = async (locale: string) => {
-    const localeData = await import(
-      `react-intl/locale-data/${this.getLocalTag(locale)}`
-    );
-    addLocaleData(localeData.default);
-
     const messages = await Promise.all([
+      // eslint-disable-next-line import/dynamic-import-chunkname
       import(`../src/i18n/${locale}`),
+      // eslint-disable-next-line import/dynamic-import-chunkname
       import(`@atlaskit/mention/src/i18n/${locale}`),
     ]).then((args) => ({
       ...args[0].default,
@@ -97,6 +94,5 @@ export default class ExampleEditor extends React.Component<Props, State> {
     this.setState({ locale, messages });
   };
 
-  private getLocalTag = (locale: string) => locale.substring(0, 2);
   private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
 }

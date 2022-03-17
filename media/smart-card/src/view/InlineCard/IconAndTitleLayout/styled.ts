@@ -57,12 +57,10 @@ export const EmojiWrapper = styled.span`
 
 // The main 'wrapping' element, title of the content.
 // NB: `white-space` adds little whitespace before wrapping.
-// NB: `hyphens` enables hyphenation on word break.
+// NB: `word-break` line breaks as soon as an overflow takes place.
 export const IconTitleWrapper = styled.span`
-  hyphens: auto;
   white-space: pre-wrap;
-  overflow-wrap: break-word;
-  word-break: break-word;
+  word-break: break-all;
 `;
 
 // TODO: Replace overrides with proper AtlasKit solution.

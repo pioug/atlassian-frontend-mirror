@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import MentionList from '../../../components/MentionList';
 import ResourcedMentionList, {

@@ -1,6 +1,6 @@
 import React from 'react';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 
 describe('HeadingAnchor', () => {

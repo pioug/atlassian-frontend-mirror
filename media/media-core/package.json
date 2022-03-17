@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-core",
-  "version": "32.2.0",
+  "version": "32.3.0",
   "description": "It holds shared code between MediaComponents like models, providers, interfaces and utilities",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,22 +28,21 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",
-    "lru-fast": "^0.2.2"
+    "lru-fast": "^0.2.2",
+    "rxjs": "^5.5.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
-    "rxjs": "^5.5.0"
+    "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "^9.0.0",
-    "@atlaskit/media-card": "^73.3.0",
+    "@atlaskit/media-card": "^73.4.0",
     "@atlaskit/media-common": "^2.11.0",
-    "@atlaskit/media-test-helpers": "^29.2.0",
+    "@atlaskit/media-test-helpers": "^29.3.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "react-dom": "^16.8.0",
-    "rxjs": "^5.5.0",
     "styled-components": "^3.2.6",
     "typescript": "3.9.6",
     "wait-for-expect": "^1.2.0"

@@ -1,5 +1,5 @@
 import AkButton from '@atlaskit/button/custom-theme-button';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
@@ -195,7 +195,7 @@ export const searchInputVisible = (component: ReactWrapper) =>
 
 export const findEmojiNameInput = (component: ReactWrapper) =>
   component.update() &&
-  component.find(`.${commonStyles.uploadChooseFileEmojiName} input`);
+  component.find(`.css-${commonStyles.uploadChooseFileEmojiName.name} input`);
 
 export const emojiNameInputVisible = (component: ReactWrapper): boolean =>
   findEmojiNameInput(component).length > 0;
@@ -204,7 +204,7 @@ export const emojiNameInputHasAValue = (component: ReactWrapper): boolean =>
   emojiNameInputVisible(component) &&
   !!findEmojiNameInput(component).prop('value');
 
-export const uploadAddRowSelector = `.${commonStyles.uploadAddRow}`;
+export const uploadAddRowSelector = `.css-${commonStyles.uploadAddRow.name}`;
 
 export const findAddEmojiButton = (component: ReactWrapper) =>
   component.update() &&

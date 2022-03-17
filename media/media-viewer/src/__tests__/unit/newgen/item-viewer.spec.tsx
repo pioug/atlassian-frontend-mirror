@@ -7,10 +7,11 @@ jest.mock('../../../analytics', () => {
 });
 import { fireAnalytics } from '../../../analytics';
 import * as mocks from './item-viewer.mock';
+import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import React from 'react';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button/custom-theme-button';
+
 import {
   ProcessedFileState,
   FileIdentifier,
@@ -18,7 +19,8 @@ import {
   Identifier,
   MediaClient,
   MediaType,
-  createFileStateSubject,
+  MediaSubscribable,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import {
   mountWithIntlContext,
@@ -39,6 +41,7 @@ import { InteractiveImg } from '../../../viewers/image/interactive-img';
 import ArchiveViewerLoader from '../../../viewers/archiveSidebar/archiveViewerLoader';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { CodeViewer } from '../../../viewers/codeViewer';
+import Loadable from 'react-loadable';
 
 const identifier: Identifier = {
   id: 'some-id',
@@ -52,12 +55,24 @@ const externalImageIdentifier: Identifier = {
   name: 'some-name',
 };
 
-const makeFakeMediaClient = (observable: ReplaySubject<any>) => {
+const makeFakeMediaClient = (observable: MediaSubscribable<any>) => {
   const mediaClient = fakeMediaClient();
 
   asMock(mediaClient.file.getFileState).mockReturnValue(observable);
   return mediaClient;
 };
+const mockstartMediaFileUfoExperience = jest.spyOn(
+  ufoWrapper,
+  'startMediaFileUfoExperience',
+);
+const mocksucceedMediaFileUfoExperience = jest.spyOn(
+  ufoWrapper,
+  'succeedMediaFileUfoExperience',
+);
+const mockfailMediaFileUfoExperience = jest.spyOn(
+  ufoWrapper,
+  'failMediaFileUfoExperience',
+);
 
 function mountComponent(
   mediaClient: MediaClient,
@@ -114,20 +129,22 @@ function mountBaseComponent(
 }
 
 describe('<ItemViewer />', () => {
+  Loadable.preloadAll();
   beforeEach(() => {
     mocks.clearViewerError();
   });
 
   it('shows an indicator while loading', () => {
-    const mediaClient = makeFakeMediaClient(createFileStateSubject());
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable());
     const { el } = mountComponent(mediaClient, identifier);
     expect(el.find(Spinner)).toHaveLength(1);
   });
 
   it('shows a generic error on unkown error', () => {
-    const subject = createFileStateSubject();
-    subject.error('something bad happened!');
-    const mediaClient = makeFakeMediaClient(subject);
+    const subscribable = createMediaSubscribable(
+      new Error('something bad happened!'),
+    );
+    const mediaClient = makeFakeMediaClient(subscribable);
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     const errorMessage = el.find(ErrorMessage);
@@ -148,7 +165,7 @@ describe('<ItemViewer />', () => {
       representations: { image: {} },
     };
     const mediaClient = makeFakeMediaClient(
-      createFileStateSubject(defaultFileState),
+      createMediaSubscribable(defaultFileState),
     );
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
@@ -160,7 +177,7 @@ describe('<ItemViewer />', () => {
   });
 
   it('should should error and download button if processing Status failed', () => {
-    const subject = createFileStateSubject({
+    const subject = createMediaSubscribable({
       status: 'failed-processing',
       id: 'some-id',
       name: 'some-name',
@@ -186,7 +203,7 @@ describe('<ItemViewer />', () => {
       status: 'error',
     };
     const mediaClient = makeFakeMediaClient(
-      createFileStateSubject(defaultFileState),
+      createMediaSubscribable(defaultFileState),
     );
     const el = mountWithIntlContext(
       <ItemViewer
@@ -215,7 +232,7 @@ describe('<ItemViewer />', () => {
       artifacts: {},
       representations: {},
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     expect(el.find(VideoViewer)).toHaveLength(1);
@@ -236,7 +253,7 @@ describe('<ItemViewer />', () => {
       artifacts: {},
       representations: {},
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     expect(el.find(AudioViewer)).toHaveLength(1);
@@ -257,7 +274,7 @@ describe('<ItemViewer />', () => {
       mimeType: '',
       representations: { image: {} },
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     expect(el.find(DocViewer)).toHaveLength(1);
@@ -277,7 +294,7 @@ describe('<ItemViewer />', () => {
       size: 10,
       mimeType: '',
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     expect(el.find(ArchiveViewerLoader)).toHaveLength(1);
@@ -294,7 +311,7 @@ describe('<ItemViewer />', () => {
       mimeType: '',
       representations: { image: {} },
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     const errorMessage = el.find(ErrorMessage);
@@ -314,7 +331,7 @@ describe('<ItemViewer />', () => {
       mimeType: '',
       representations: { image: {} },
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, identifier);
     el.update();
     expect(mediaClient.file.getFileState).toHaveBeenCalledWith('some-id', {
@@ -333,7 +350,7 @@ describe('<ItemViewer />', () => {
       mimeType: '',
       representations: { image: {} },
     };
-    const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
     const { el } = mountComponent(mediaClient, externalImageIdentifier);
     el.update();
 
@@ -353,7 +370,7 @@ describe('<ItemViewer />', () => {
         mimeType: '',
         representations: { image: {} },
       };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
       const release = jest.fn();
       const { el, instance } = mountComponent(mediaClient, identifier);
       instance.release = release;
@@ -364,7 +381,7 @@ describe('<ItemViewer />', () => {
 
     it('resubscribes to the provider when the data property value is changed', () => {
       const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           id: '123',
           mediaType: 'unknown',
           status: 'processed',
@@ -393,7 +410,7 @@ describe('<ItemViewer />', () => {
 
       // if the mediaClient changes, we will also resubscribe
       const newMediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           id: '123',
           mediaType: 'unknown',
           status: 'processed',
@@ -412,7 +429,7 @@ describe('<ItemViewer />', () => {
 
     it('should return to PENDING state when resets', () => {
       const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           id: '123',
           mediaType: 'unknown',
           status: 'processed',
@@ -434,7 +451,7 @@ describe('<ItemViewer />', () => {
       // since the test is executed synchronously
       // let's prevent the second call to getFile from immediately resolving and
       // updating the state to SUCCESSFUL before we run the assertion.
-      mediaClient.file.getFileState = () => createFileStateSubject();
+      mediaClient.file.getFileState = () => createMediaSubscribable();
       el.setProps({ mediaClient, identifier: identifier2 });
       el.update();
 
@@ -445,11 +462,12 @@ describe('<ItemViewer />', () => {
   describe('Analytics', () => {
     beforeEach(() => {
       asMock(fireAnalytics).mockReset();
+      jest.clearAllMocks();
     });
 
     it('should trigger commence event when the viewer mounts', () => {
       const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           status: 'processed',
           id: identifier.id,
           name: 'file-name',
@@ -473,6 +491,8 @@ describe('<ItemViewer />', () => {
         },
         eventType: 'operational',
       });
+
+      expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
     });
 
     it('should fire load success when external image loads', () => {
@@ -486,7 +506,7 @@ describe('<ItemViewer />', () => {
         mimeType: '',
         representations: { image: {} },
       };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
       const { el } = mountComponent(mediaClient, externalImageIdentifier);
       el.update();
 
@@ -506,6 +526,12 @@ describe('<ItemViewer />', () => {
         },
         eventType: 'operational',
       });
+      expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+        fileId: 'external-image',
+        fileMediatype: undefined,
+        fileMimetype: undefined,
+        fileSize: undefined,
+      });
     });
 
     it('should fire load fail when external image errors', () => {
@@ -519,8 +545,19 @@ describe('<ItemViewer />', () => {
         mimeType: '',
         representations: { image: {} },
       };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
       const { el } = mountComponent(mediaClient, externalImageIdentifier);
+      const fileAttributes = {
+        fileId: 'undefined',
+        fileMediatype: undefined,
+        fileMimetype: undefined,
+        fileSize: undefined,
+      };
+
+      const errorInfo = {
+        failReason: 'imageviewer-external-onerror',
+        errorDetail: undefined,
+      };
       el.update();
 
       el.find(InteractiveImg).prop('onError')();
@@ -529,23 +566,21 @@ describe('<ItemViewer />', () => {
         action: 'loadFailed',
         actionSubject: 'mediaFile',
         attributes: {
-          failReason: 'imageviewer-external-onerror',
-          errorDetail: undefined,
+          ...errorInfo,
           status: 'fail',
-          fileAttributes: {
-            fileId: 'undefined',
-            fileMediatype: undefined,
-            fileMimetype: undefined,
-            fileSize: undefined,
-          },
+          fileAttributes: fileAttributes,
         },
         eventType: 'operational',
+      });
+      expect(mockfailMediaFileUfoExperience).toBeCalledWith({
+        ...errorInfo,
+        fileAttributes: fileAttributes,
       });
     });
 
     it('should trigger success event when the viewer loads successfully', () => {
       const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           status: 'processed',
           id: identifier.id,
           name: 'file-name',
@@ -573,13 +608,20 @@ describe('<ItemViewer />', () => {
         },
         eventType: 'operational',
       });
+      expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+        fileId: 'some-id',
+        fileMediatype: 'image',
+        fileMimetype: 'image/png',
+        fileSize: 10,
+      });
     });
 
     it('should show error when metadata fetching ended with an error', () => {
-      const subject = createFileStateSubject();
       const errorReason: MediaViewerErrorReason = 'itemviewer-fetch-metadata';
-      subject.error(new MediaViewerError(errorReason));
-      const mediaClient = makeFakeMediaClient(subject);
+      const subscribable = createMediaSubscribable(
+        new MediaViewerError(errorReason),
+      );
+      const mediaClient = makeFakeMediaClient(subscribable);
       const { el } = mountBaseComponent(mediaClient, identifier);
       const errorMessage = el.find(ErrorMessage);
       expect(errorMessage).toHaveLength(1);
@@ -590,7 +632,7 @@ describe('<ItemViewer />', () => {
       const errorReason: MediaViewerErrorReason = 'imageviewer-fetch-url';
       mocks.setViewerError(new MediaViewerError(errorReason));
       const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           id: identifier.id,
           mediaType: 'image',
           status: 'processed',
@@ -609,7 +651,7 @@ describe('<ItemViewer />', () => {
 
     it('should show error when file failed processing', () => {
       const mediaClient = makeFakeMediaClient(
-        createFileStateSubject({
+        createMediaSubscribable({
           id: identifier.id,
           mediaType: 'image',
           status: 'failed-processing',
@@ -638,7 +680,7 @@ describe('<ItemViewer />', () => {
         mimeType: '',
         representations: { image: {} },
       };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
       const { el } = mountBaseComponent(mediaClient, identifier);
       el.update();
       const docViewer = el.find(DocViewer);
@@ -666,7 +708,7 @@ describe('<ItemViewer />', () => {
           artifacts: {},
           representations: {},
         };
-        const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+        const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
         const onErrorSpy = jest.fn();
         const { el } = mountBaseComponent(mediaClient, identifier, {
           onError: onErrorSpy,
@@ -697,7 +739,7 @@ describe('<ItemViewer />', () => {
         size: 10,
         mimeType: '',
       };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
       const { el } = mountComponent(mediaClient, identifier);
       el.update();
       expect(el.find(CodeViewer)).toHaveLength(1);
@@ -713,7 +755,7 @@ describe('<ItemViewer />', () => {
         size: 10,
         mimeType: '',
       };
-      const mediaClient = makeFakeMediaClient(createFileStateSubject(state));
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
       const { el } = mountComponent(mediaClient, identifier);
       el.update();
       expect(el.find(CodeViewer)).toHaveLength(0);

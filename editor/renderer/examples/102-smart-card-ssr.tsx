@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl-next';
 import { Provider, Client } from '@atlaskit/smart-card';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';

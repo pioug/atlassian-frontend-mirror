@@ -1,12 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React from 'react';
-import classNames from 'classnames';
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import EmojiPickerList, {
   Props,
 } from '../src/components/picker/EmojiPickerList';
 
-import * as styles from '../src/components/picker/styles';
 import { IntlProvider } from 'react-intl-next';
+import { emojiPicker } from '../src/components/picker/styles';
 
 const allEmojis = getEmojis();
 
@@ -35,7 +36,7 @@ export default function Example() {
 
   return (
     <IntlProvider locale="en">
-      <div className={classNames([styles.emojiPicker])}>
+      <div css={emojiPicker}>
         <EmojiPickerList {...(props as Props)} />
       </div>
     </IntlProvider>

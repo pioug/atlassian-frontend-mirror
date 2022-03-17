@@ -7,7 +7,6 @@ export interface MediaInlineAttributes extends MediaBaseAttributes {
 }
 
 /**
- * @stage 0
  * @name mediaInline_node
  */
 export interface MediaInlineDefinition {

@@ -1,6 +1,7 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+/** @jsx jsx */
+import React, { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
+import { css, jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
-import styled, { ThemeProvider, css } from 'styled-components';
 import { AutoSizer, Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
@@ -87,12 +88,6 @@ function ElementList({
     });
   }, [createAnalyticsEvent]);
 
-  const theme = useMemo(
-    () => ({
-      '@atlaskit-shared-theme/item': getStyles(mode),
-    }),
-    [mode],
-  );
   const cellRenderer = useMemo(
     () => ({
       index,
@@ -108,10 +103,11 @@ function ElementList({
       }
 
       return (
-        <ElementItemWrapper
+        <div
           style={style}
           key={key}
           className="element-item-wrapper"
+          css={elementItemWrapper}
         >
           <MemoizedElementItem
             inlineMode={!fullMode}
@@ -121,14 +117,14 @@ function ElementList({
             focus={focusedItemIndex === index}
             {...props}
           />
-        </ElementItemWrapper>
+        </div>
       );
     },
     [items, fullMode, selectedItemIndex, focusedItemIndex, props],
   );
 
   return (
-    <>
+    <Fragment>
       <ContainerWidthMonitor />
       {!items.length ? (
         emptyStateHandler ? (
@@ -141,37 +137,35 @@ function ElementList({
           <EmptyState onExternalLinkClick={onExternalLinkClick} />
         )
       ) : (
-        <ElementItemsWrapper data-testid="element-items">
-          <ThemeProvider theme={theme}>
-            <>
-              {containerWidth > 0 && (
-                <AutoSizer disableWidth>
-                  {({ height }: Size) => (
-                    <Collection
-                      cellCount={items.length}
-                      cellRenderer={cellRenderer}
-                      cellSizeAndPositionGetter={cellSizeAndPositionGetter(
-                        containerWidth,
-                      )}
-                      height={height}
-                      width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
-                      /**
-                       * Refresh Collection on WidthObserver value change.
-                       * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
-                       * scroll position after updating the data. If new data has different number of cells, a re-render
-                       * is forced to prevent the scroll position render bug.
-                       */
-                      key={containerWidth + items.length}
-                      scrollToCell={selectedItemIndex}
-                    />
-                  )}
-                </AutoSizer>
-              )}
-            </>
-          </ThemeProvider>
-        </ElementItemsWrapper>
+        <div css={elementItemsWrapper} data-testid="element-items">
+          <Fragment>
+            {containerWidth > 0 && (
+              <AutoSizer disableWidth>
+                {({ height }: Size) => (
+                  <Collection
+                    cellCount={items.length}
+                    cellRenderer={cellRenderer}
+                    cellSizeAndPositionGetter={cellSizeAndPositionGetter(
+                      containerWidth,
+                    )}
+                    height={height}
+                    width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
+                    /**
+                     * Refresh Collection on WidthObserver value change.
+                     * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
+                     * scroll position after updating the data. If new data has different number of cells, a re-render
+                     * is forced to prevent the scroll position render bug.
+                     */
+                    key={containerWidth + items.length}
+                    scrollToCell={selectedItemIndex}
+                  />
+                )}
+              </AutoSizer>
+            )}
+          </Fragment>
+        </div>
       )}
-    </>
+    </Fragment>
   );
 }
 
@@ -229,6 +223,13 @@ function ElementItem({
   setFocusedItemIndex,
 }: ElementItemType) {
   const ref = useFocus(focus);
+
+  const theme = useMemo(
+    () => ({
+      '@atlaskit-shared-theme/item': getStyles(inlineMode ? 'inline' : 'full'),
+    }),
+    [inlineMode],
+  );
 
   /**
    * Note: props.onSelectItem(item) is not called here as the StatelessElementBrowser's
@@ -291,6 +292,7 @@ function ElementItem({
         data-testid={`element-item-${index}`}
         tabIndex={0}
         style={inlineMode ? null : itemStyleOverrides}
+        theme={theme}
       >
         <ItemContent
           title={title}
@@ -313,22 +315,22 @@ const itemStyleOverrides = {
 };
 
 const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
-  <StyledItemIcon>{icon ? icon() : <IconFallback />}</StyledItemIcon>
+  <ItemIcon css={itemIconStyle}>{icon ? icon() : <IconFallback />}</ItemIcon>
 ));
 
 const ItemContent = memo(
   ({ title, description, keyshortcut }: Partial<QuickInsertItem>) => (
-    <ItemBody className="item-body">
-      <ItemText>
-        <ItemTitleWrapper>
-          <ItemTitle>{title}</ItemTitle>
-          <ItemAfter>
+    <div css={itemBody} className="item-body">
+      <div css={itemText}>
+        <div css={itemTitleWrapper}>
+          <p css={itemTitle}>{title}</p>
+          <div css={itemAfter}>
             {keyshortcut && <Shortcut>{keyshortcut}</Shortcut>}
-          </ItemAfter>
-        </ItemTitleWrapper>
-        {description && <ItemDescription>{description}</ItemDescription>}
-      </ItemText>
-    </ItemBody>
+          </div>
+        </div>
+        {description && <p css={itemDescription}>{description}</p>}
+      </div>
+    </div>
   ),
 );
 
@@ -349,7 +351,7 @@ const scrollbarStyle = css`
   -ms-overflow-style: -ms-autohiding-scrollbar;
 `;
 
-const ElementItemsWrapper = styled.div`
+const elementItemsWrapper = css`
   flex: 1;
   flex-flow: row wrap;
   align-items: flex-start;
@@ -371,9 +373,14 @@ const ElementItemsWrapper = styled.div`
       padding-bottom: 4px;
     }
   }
+
+  // temporary solution before we migrated off dst/item
+  & span[class^='ItemParts__Before'] {
+    margin-right: 12px;
+  }
 `;
 
-const ElementItemWrapper = styled.div`
+const elementItemWrapper = css`
   /**
      * Since we are using "Item" component's content itself for description,
      * the height of description overflows the parent container padding/margin.
@@ -386,7 +393,7 @@ const ElementItemWrapper = styled.div`
   }
 `;
 
-const ItemBody = styled.div`
+const itemBody = css`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -407,7 +414,7 @@ const multilineStyle = css`
   -webkit-box-orient: vertical;
 `;
 
-const ItemDescription = styled.p`
+const itemDescription = css`
   ${multilineStyle};
 
   overflow: hidden;
@@ -416,17 +423,17 @@ const ItemDescription = styled.p`
   margin-top: 2px;
 `;
 
-const ItemText = styled.div`
+const itemText = css`
   width: inherit;
   white-space: initial;
 `;
 
-const ItemTitleWrapper = styled.div`
+const itemTitleWrapper = css`
   display: flex;
   justify-content: space-between; // Title and keyboardshortcut are rendered in the same block
 `;
 
-const ItemTitle = styled.p`
+const itemTitle = css`
   width: 100%;
   overflow: hidden;
 
@@ -434,11 +441,11 @@ const ItemTitle = styled.p`
   text-overflow: ellipsis;
 `;
 
-const ItemAfter = styled.div`
+const itemAfter = css`
   flex: 0 0 auto;
 `;
 
-const StyledItemIcon = styled(ItemIcon)`
+const itemIconStyle = css`
   img {
     height: 40px;
     width: 40px;

@@ -11,7 +11,7 @@ import {
   NameSectionStyle,
 } from '../../../../../plugins/mentions/ui/InviteItem/styles';
 import { messages } from '../../../../../plugins/mentions/messages';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 describe('@atlaskit/editor-core/ui/InviteItem', () => {
   let inviteItem: any;

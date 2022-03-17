@@ -14,6 +14,7 @@ describe('Quick Insert Search', () => {
     {
       priority: 1,
       title: 'Table',
+      keywords: ['cell'],
       categories: ['formatting'],
       action,
       featured: true,
@@ -38,11 +39,17 @@ describe('Quick Insert Search', () => {
     { priority: 3, title: 'Horizontal rule', action },
     { priority: 4, title: 'Action', action },
     { priority: 5, title: 'Decision', action, featured: true },
+    { priority: 10, title: 'Task Report', action, featured: true },
   ];
 
   it('should find exact match', () => {
     const results = find('Date', items);
     expect(results[0].title).toBe('Date');
+  });
+
+  it('should find exact match when searching by keywords', () => {
+    const results = find('cell', items);
+    expect(results[0].title).toBe('Table');
   });
 
   it('should match substring of a word which includes first letter', () => {
@@ -54,6 +61,14 @@ describe('Quick Insert Search', () => {
   it('should match substring of a sentence which includes first letter of last word', () => {
     const result = find('rul', items);
     expect(result[0].title).toEqual('Horizontal rule');
+  });
+
+  it('should match substring and respect the priority.', () => {
+    const result = find('ta', items);
+    expect(result.length).toEqual(3);
+    expect(result[0].title).toEqual('Table');
+    expect(result[1].title).toEqual('Task Report');
+    expect(result[2].title).toEqual('Horizontal rule');
   });
 
   it('should find an item approximately matching a query', () => {
@@ -75,6 +90,7 @@ describe('Quick Insert Search', () => {
       'Date',
       'Code snippet',
       'Panel',
+      'Task Report',
     ]);
   });
 
@@ -132,6 +148,7 @@ describe('Quick Insert Search', () => {
           priority: 1,
           title: 'Table',
           categories: ['formatting'],
+          keywords: ['cell'],
           action,
           featured: true,
         },
@@ -150,6 +167,7 @@ describe('Quick Insert Search', () => {
           featured: true,
         },
         { priority: 5, title: 'Decision', action, featured: true },
+        { priority: 10, title: 'Task Report', action, featured: true },
       ]);
     });
   });
@@ -219,6 +237,7 @@ describe('Quick Insert Search', () => {
         'Panel',
         'Code inline',
         'Page builder',
+        'Task Report',
       ]);
     });
 
@@ -235,6 +254,7 @@ describe('Quick Insert Search', () => {
         'Panel',
         'Code inline',
         'Page builder',
+        'Task Report',
       ]);
     });
   });

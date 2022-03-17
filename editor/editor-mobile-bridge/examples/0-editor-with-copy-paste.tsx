@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
-import styled from 'styled-components';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import TextArea from '@atlaskit/textarea';
 import { N50 } from '@atlaskit/theme/colors';
@@ -19,7 +20,7 @@ import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
-export const Wrapper: any = styled.div`
+export const wrapper: any = css`
   position: absolute;
   top: 0;
   left: 0;
@@ -30,24 +31,22 @@ export const Wrapper: any = styled.div`
   box-sizing: border-box;
 `;
 
-export const Toolbar: any = styled.div`
+export const toolbar: any = css`
   border-bottom: 1px dashed ${N50};
   padding: 1em;
 `;
 
-export const ClipboardZone: any = styled.div`
+export const clipboardZone: any = css`
   max-width: 500px;
   display: flex;
   flex-flow: row;
   align-items: center;
 `;
 
-export const CopyWrapper: any = styled.button`
+export const copyWrapper: any = css`
   border: none;
   background: none;
 `;
-
-Wrapper.displayName = 'Wrapper';
 
 window.logBridge = window.logBridge || [];
 
@@ -92,9 +91,9 @@ export default class Example extends React.Component {
 
   render() {
     return (
-      <Wrapper>
-        <Toolbar>
-          <ClipboardZone>
+      <div css={wrapper}>
+        <div css={toolbar}>
+          <div css={clipboardZone}>
             <p>Copy to clipboard:</p>
             <TextArea
               data-id="clipboardInput"
@@ -104,13 +103,17 @@ export default class Example extends React.Component {
                 (this.textAreaRef = ref)
               }
             />
-            <CopyWrapper aria-label="copy" onClick={this.copyToClipboard}>
+            <button
+              css={copyWrapper}
+              aria-label="copy"
+              onClick={this.copyToClipboard}
+            >
               <CopyIcon label="copy-icon" />
-            </CopyWrapper>
-          </ClipboardZone>
-        </Toolbar>
+            </button>
+          </div>
+        </div>
         <EditorWithFetchProxy />
-      </Wrapper>
+      </div>
     );
   }
 }

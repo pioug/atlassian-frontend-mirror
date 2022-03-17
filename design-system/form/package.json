@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.5.1",
+  "version": "8.5.2",
   "description": "A form allows users to input information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
   "dependencies": {
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.7.0",
+    "@atlaskit/tokens": "^0.8.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "final-form": "^4.20.1",

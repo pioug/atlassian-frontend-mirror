@@ -7,6 +7,7 @@ export const selectors = {
   sentinelBefore: '[data-sentinel="before"]',
   sentinelAfter: '[data-sentinel="after"]',
   editor: '.ProseMirror[contenteditable=true]',
+  testContainer: '#renderer-container',
 };
 
 export const setSelection = async (

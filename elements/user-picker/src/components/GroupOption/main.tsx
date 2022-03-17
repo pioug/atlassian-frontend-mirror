@@ -37,7 +37,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
         key="name"
         color={
           isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text', N800)
         }
       >
@@ -60,7 +60,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
       <TextWrapper
         color={
           isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text.subtlest', N200)
         }
       >

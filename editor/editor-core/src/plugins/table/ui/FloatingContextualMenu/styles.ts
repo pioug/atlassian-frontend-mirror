@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
 import { N60A, N90 } from '@atlaskit/theme/colors';
 import { contextualMenuDropdownWidth } from '../consts';

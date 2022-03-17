@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component, SyntheticEvent } from 'react';
-import { first } from 'rxjs/operators/first';
 import {
   createUploadMediaClient,
   genericFileId,
@@ -16,6 +15,7 @@ import { Filmstrip, FilmstripItem } from '../src';
 import { ExampleWrapper, FilmstripWrapper } from '../example-helpers/styled';
 import {
   FileItem,
+  FileState,
   UploadableFile,
   MediaClient,
   FileIdentifier,
@@ -159,41 +159,38 @@ class Example extends Component<{}, ExampleState> {
     }
 
     const file = event.currentTarget.files[0];
-    const uplodableFile: UploadableFile = {
+    const uploadableFile: UploadableFile = {
       content: file,
       name: file.name,
       collection: defaultCollectionName,
     };
 
-    mediaClient.file
-      .upload(uplodableFile)
-      .pipe(first())
-      .subscribe({
-        next: (state) => {
-          if (state.status === 'uploading') {
-            const { id } = state;
-            const { items } = this.state;
-            const newItem: FilmstripItem = {
-              ...this.cardProps,
-              onClick: this.createOnClickFromId(id),
-              actions: this.createActionsFromId(id),
-              identifier: {
-                id,
-                mediaItemType: 'file',
-                collectionName: defaultCollectionName,
-              },
-              selected: true,
-            };
+    mediaClient.file.upload(uploadableFile).subscribe({
+      next: (state: FileState) => {
+        if (state.status === 'uploading') {
+          const { id } = state;
+          const { items } = this.state;
+          const newItem: FilmstripItem = {
+            ...this.cardProps,
+            onClick: this.createOnClickFromId(id),
+            actions: this.createActionsFromId(id),
+            identifier: {
+              id,
+              mediaItemType: 'file',
+              collectionName: defaultCollectionName,
+            },
+            selected: true,
+          };
 
-            this.setState({
-              items: [newItem, ...items],
-            });
-          }
-        },
-        error(error) {
-          console.log('subscription', error);
-        },
-      });
+          this.setState({
+            items: [newItem, ...items],
+          });
+        }
+      },
+      error(error: Error) {
+        console.log('subscription', error);
+      },
+    });
   };
 
   toggleMediaClient = () => {

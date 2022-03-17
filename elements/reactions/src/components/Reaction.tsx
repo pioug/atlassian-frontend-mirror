@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -6,10 +8,8 @@ import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { B50, B75, B300, N20, N40, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import cx from 'classnames';
 import React from 'react';
 import { PureComponent, SyntheticEvent } from 'react';
-import { style } from 'typestyle';
 import {
   createAndFireSafe,
   createReactionClickedEvent,
@@ -27,13 +27,13 @@ import { isLeftClick, akHeight } from './utils';
  * of FlashAnimation b/c it otherwise throws off the flash styling
  */
 
-const emojiStyle = style({
+const emojiStyle = css({
   transformOrigin: 'center center 0',
   lineHeight: '12px',
   padding: '4px 4px 4px 8px',
 });
 
-const reactionStyle = style({
+const reactionStyle = css({
   outline: 'none',
   display: 'flex',
   flexDirection: 'row',
@@ -49,26 +49,22 @@ const reactionStyle = style({
   margin: 0,
   padding: 0,
   transition: '200ms ease-in-out',
-  $nest: {
-    '&:hover': {
-      background: `${token('color.background.neutral.subtle.hovered', N20)}`,
-    },
+  '&:hover': {
+    background: `${token('color.background.neutral.subtle.hovered', N20)}`,
   },
 });
 
-const reactedStyle = style({
-  backgroundColor: token('color.background.brand', B50),
-  borderColor: token('color.icon.brand', B300),
-  $nest: {
-    '&:hover': {
-      background: `${token('color.background.brand.hovered', B75)}`,
-    },
+const reactedStyle = css({
+  backgroundColor: token('color.background.selected', B50),
+  borderColor: token('color.border.selected', B300),
+  '&:hover': {
+    background: `${token('color.background.selected.hovered', B75)}`,
   },
 });
 
 const flashHeight = akHeight - 2; // height without the 1px border
 
-const flashStyle = style({
+const flashStyle = css({
   display: 'flex',
   flexDirection: 'row',
   borderRadius: '10px',
@@ -184,21 +180,18 @@ class ReactionWithoutAnalytics extends PureComponent<
     } = this.props;
     const { emojiName } = this.state;
 
-    const classNames = cx(reactionStyle, classNameProp, {
-      [reactedStyle]: reaction.reacted,
-    });
-
     const emojiId = { id: reaction.emojiId, shortName: '' };
 
     return (
       <button
-        className={classNames}
+        className={classNameProp}
+        css={[reactionStyle, reaction.reacted && reactedStyle]}
         onMouseUp={this.handleMouseDown}
         onMouseEnter={this.handleMouseEnter}
       >
         <ReactionTooltip emojiName={emojiName} reaction={reaction}>
-          <FlashAnimation flash={flash} className={flashStyle}>
-            <div className={emojiStyle}>
+          <FlashAnimation flash={flash} css={flashStyle}>
+            <div css={emojiStyle}>
               <ResourcedEmoji
                 emojiProvider={emojiProvider}
                 emojiId={emojiId}

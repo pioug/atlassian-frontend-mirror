@@ -2,14 +2,14 @@ import { LRUCache } from 'lru-fast';
 import { StreamsCache } from '../../file-streams-cache';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { FileState } from '../../models/file-state';
-import { createFileStateSubject } from '../../utils/createFileStateSubject';
+import { createMediaSubject } from '../../utils/createMediaSubject';
 
 describe('StreamsCache', () => {
   it('should return the stream if already exist', () => {
     const cache = new StreamsCache(
       new LRUCache<string, ReplaySubject<FileState>>(10),
     );
-    const fileStateSubject = createFileStateSubject();
+    const fileStateSubject = createMediaSubject<FileState>();
 
     cache.set('1', fileStateSubject);
 

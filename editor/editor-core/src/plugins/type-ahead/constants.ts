@@ -1,5 +1,6 @@
 export const TYPE_AHEAD_DECORATION_KEY = 'typeahead_decoration_key';
 export const TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE = 'typeaheadDecoration';
+export const TYPE_AHEAD_POPUP_CONTENT_CLASS = 'fabric-editor-typeahead';
 
 export enum NavigationDirection {
   LEFT = -1,

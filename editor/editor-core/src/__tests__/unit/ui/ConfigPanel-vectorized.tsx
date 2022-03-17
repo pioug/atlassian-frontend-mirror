@@ -59,10 +59,10 @@ const MOCK_FAKE_USERS = [FAKE_USER_A, FAKE_USER_B];
 //   this request function is not needed for our purposes
 //   but, mocking this prevents JSON.parse errors
 jest.mock(
-  '../../../../../../elements/user-picker/src/components/smart-user-picker/service/UsersClient',
+  '../../../../../../smart-experiences/smart-user-picker/src/service/default-value-hydration-client',
   () => ({
     __esModule: true,
-    default: async () => [],
+    default: async () => undefined,
   }),
 );
 
@@ -70,7 +70,7 @@ jest.mock(
 //   probably needs cookie-based authentication
 //   easier to mock the request function for our purposes
 jest.mock(
-  '../../../../../../elements/user-picker/src/components/smart-user-picker/service/recommendationClient',
+  '../../../../../../smart-experiences/smart-user-picker/src/service/recommendation-client',
   () => ({
     __esModule: true,
     default: async ({ query }: { query?: string }) => {
@@ -442,12 +442,12 @@ const fieldTests: FieldTest[] = [
     tests: [
       {
         call: async (field: any) => {
-          field.find('SmartUserPicker').instance().onFocus();
+          field.find('SmartUserPickerWithoutAnalytics').instance().onFocus();
           field.update();
 
           expect(
             await resolveOption(
-              field.find('SmartUserPicker'),
+              field.find('SmartUserPickerWithoutAnalytics'),
               FAKE_USER_A.name,
             ),
           ).toBe(true);
@@ -481,12 +481,12 @@ const fieldTests: FieldTest[] = [
     tests: [
       {
         call: async (field: any) => {
-          field.find('SmartUserPicker').instance().onFocus();
+          field.find('SmartUserPickerWithoutAnalytics').instance().onFocus();
           field.update();
 
           expect(
             await resolveOption(
-              field.find('SmartUserPicker'),
+              field.find('SmartUserPickerWithoutAnalytics'),
               FAKE_USER_A.name,
             ),
           ).toBe(true);

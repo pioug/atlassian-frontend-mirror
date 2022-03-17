@@ -1,8 +1,8 @@
+/** @jsx jsx */
+import { jsx, css, keyframes } from '@emotion/core';
 import { B75, B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import cx from 'classnames';
 import React from 'react';
-import { keyframes, style } from 'typestyle';
 
 export type Props = {
   children: React.ReactNode | React.ReactNode[];
@@ -10,32 +10,34 @@ export type Props = {
   flash?: boolean;
 };
 
-const containerStyle = style({
+export const flashAnimationTestId = 'flash-animation';
+
+const containerStyle = css({
   width: '100%',
   height: '100%',
 });
 
 const flashTime = 700;
 
-const flashAnimation = keyframes({
+export const flashAnimation = keyframes({
   '0%': {
     backgroundColor: 'transparent',
   },
   '20%': {
-    backgroundColor: token('color.background.brand.pressed', B75),
-    borderColor: token('color.icon.brand', B300),
+    backgroundColor: token('color.background.selected.pressed', B75),
+    borderColor: token('color.border.selected', B300),
   },
   '75%': {
-    backgroundColor: token('color.background.brand.pressed', B75),
-    borderColor: token('color.icon.brand', B300),
+    backgroundColor: token('color.background.selected.pressed', B75),
+    borderColor: token('color.border.selected', B300),
   },
   '100%': {
-    backgroundColor: token('color.background.brand.pressed', B75),
-    borderColor: token('color.icon.brand', B300),
+    backgroundColor: token('color.background.selected.pressed', B75),
+    borderColor: token('color.border.selected', B300),
   },
 });
 
-export const flashStyle = style({
+export const flashStyle = css({
   animation: `${flashAnimation} ${flashTime}ms ease-in-out`,
 });
 
@@ -44,9 +46,9 @@ export const flashStyle = style({
  */
 export const FlashAnimation = (props: Props) => (
   <div
-    className={cx(containerStyle, props.className, {
-      [flashStyle]: props.flash,
-    })}
+    className={props.className}
+    css={[containerStyle, props.flash && flashStyle]}
+    data-testid={flashAnimationTestId}
   >
     {props.children}
   </div>

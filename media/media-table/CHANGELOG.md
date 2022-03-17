@@ -1,5 +1,90 @@
 # @atlaskit/media-table
 
+## 11.0.0
+
+### Minor Changes
+
+- [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
+- [`118f3af101f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/118f3af101f) - Media Client APIs has been updated to use MediaSubscribable which provides subscription functionality (similar to RxJs observables).
+  It exposes subscribe method that is called with MediaObserver as an argument and returns MediaSubscription.
+  MediaSubscription exposes unsubscribe method.
+
+  getFileState:
+  The returned type of this function has changed from RxJs ReplaySubject to MediaSubscribable.
+
+  ```
+  import { MediaClient, MediaObserver, MediaSubscribable, MediaSubscription } from '@atlaskit/media-client';
+
+  const mediaClient = new MediaClient({ authProvider });
+
+  const fileStateSubscribable: MediaSubscribable<FileState> = mediaClient.file.getFileState(id);
+
+  const mediaObserver: MediaObserver<FileState> = {
+    next: (fileState) => {
+      nextCallback(fileState)
+    },
+    error: (error) => {
+      errorCallback(error)
+    },
+  };
+
+  const subscription: MediaSubscription = fileStateSubscribable.subscribe(mediaObserver);
+
+  subscription.unsubscribe();
+  ```
+
+  upload:
+  The returned type of this function has changed from RxJs ReplaySubject to MediaSubscribable.
+
+  ```
+  import { MediaClient, MediaObserver, MediaSubscribable, MediaSubscription } from '@atlaskit/media-client';
+
+  const mediaClient = new MediaClient({ authProvider });
+
+  const uploadFileSubscribable: MediaSubscribable<FileState> = mediaClient.file.upload(uploadableFile);
+
+  const mediaObserver: MediaObserver<FileState> = {
+    next: (fileState) => {
+      nextCallback(fileState)
+    },
+    error: (error) => {
+      errorCallback(error)
+    },
+  };
+
+  const subscription: MediaSubscription = uploadFileSubscribable.subscribe(mediaObserver);
+
+  subscription.unsubscribe();
+  ```
+
+  getItems:
+  The returned type of this function has changed from RxJs ReplaySubject to MediaSubscribable.
+
+  ```
+  import { MediaClient, MediaObserver, MediaSubscribable, MediaSubscription } from '@atlaskit/media-client';
+
+  const mediaClient = new MediaClient({ authProvider });
+
+  const collectionItemsSubscribable: MediaSubscribable<MediaCollectionItem[]> = mediaClient.collection.getItems(collectionName);
+
+  const mediaObserver: MediaObserver<MediaCollectionItem[]> = {
+    next: (items) => {
+      nextCallback(items)
+    },
+    error: (error) => {
+      errorCallback(error)
+    },
+  };
+
+  const subscription: MediaSubscription = collectionItemsSubscribable.subscribe(mediaObserver);
+
+  subscription.unsubscribe();
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.3
 
 ### Patch Changes

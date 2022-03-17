@@ -13,6 +13,7 @@ import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { FileState } from '@atlaskit/media-client';
+import { ufologger } from '@atlaskit/ufo/logger';
 import {
   DropzoneContainer,
   PopupHeader,
@@ -37,6 +38,8 @@ const mediaClientConfig = createUploadMediaClientConfig();
 const nonUserMediaClientConfig = createStorybookMediaClientConfig({
   authType: 'asap',
 });
+
+ufologger.enable();
 
 class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
   dropzoneContainer?: HTMLDivElement;

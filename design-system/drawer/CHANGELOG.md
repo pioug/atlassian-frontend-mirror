@@ -1,5 +1,12 @@
 # @atlaskit/drawer
 
+## 7.1.6
+
+### Patch Changes
+
+- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- Updated dependencies
+
 ## 7.1.5
 
 ### Patch Changes

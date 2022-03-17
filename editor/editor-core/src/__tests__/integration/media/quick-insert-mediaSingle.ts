@@ -3,7 +3,7 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   editable,
   getDocFromElement,
-  insertMediaFromMediaPicker,
+  insertMedia,
   quickInsert,
   fullpage,
 } from '../_helpers';
@@ -71,7 +71,7 @@ import { selectors } from '../panel/_utils';
       await setup(page);
 
       await quickInsert(page, 'Files & images');
-      await insertMediaFromMediaPicker(page);
+      await insertMedia(page);
 
       const doc = await page.$eval(editable, getDocFromElement);
       expect(doc).toMatchCustomDocSnapshot(testName);

@@ -1,10 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import EditorActions from '../../actions';
 import { ToolbarInnerProps } from './toolbar-types';
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 
-const ToolbarComponentsWrapper = styled.div`
+const toolbarComponentsWrapper = css`
   display: flex;
 
   @media (max-width: ${akEditorMobileMaxWidth}px) {
@@ -49,7 +50,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
     }
 
     return (
-      <ToolbarComponentsWrapper>
+      <div css={toolbarComponentsWrapper}>
         {items.map((component, key) => {
           const props: any = { key };
           const element = component({
@@ -70,7 +71,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
           });
           return element && React.cloneElement(element, props);
         })}
-      </ToolbarComponentsWrapper>
+      </div>
     );
   }
 }

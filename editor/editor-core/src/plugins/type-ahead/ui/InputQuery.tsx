@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
-import { CloseSelectionOptions } from '../constants';
+import {
+  CloseSelectionOptions,
+  TYPE_AHEAD_POPUP_CONTENT_CLASS,
+} from '../constants';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
@@ -222,6 +225,19 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       };
 
       const onFocusOut = (event: FocusEvent) => {
+        const { relatedTarget } = event;
+
+        // Given the user is changing the focus
+        // When the target is inside the TypeAhead Popup
+        // Then the popup should stay open
+        if (
+          relatedTarget instanceof HTMLElement &&
+          relatedTarget.closest &&
+          relatedTarget.closest(`.${TYPE_AHEAD_POPUP_CONTENT_CLASS}`)
+        ) {
+          return;
+        }
+
         cancel({
           addPrefixTrigger: true,
           text: cleanedInputContent(),

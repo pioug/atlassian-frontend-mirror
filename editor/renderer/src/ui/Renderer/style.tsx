@@ -1,5 +1,3 @@
-import { HTMLAttributes } from 'react';
-import styled, { css as deprecatedCss } from 'styled-components';
 import { css, Theme } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import {
@@ -10,6 +8,7 @@ import {
 } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 import {
   tableSharedStyle,
@@ -58,7 +57,6 @@ export const FullPagePadding = 32;
 
 export type RendererWrapperProps = {
   appearance?: RendererAppearance;
-  theme?: any;
   allowNestedHeaderLinks: boolean;
   allowColumnSorting: boolean;
 };
@@ -90,7 +88,7 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 };
 
 const headingAnchorStyle = (headingTag: string) =>
-  deprecatedCss`
+  css`
     /**
      * The copy link button doesn't reserve space in the DOM so that
      * the text alignment isn't impacted by the button/icon's space.
@@ -140,9 +138,14 @@ const alignedHeadingAnchorStyle = ({
   if (!allowNestedHeaderLinks) {
     return '';
   }
-  return `
+  return css`
     .fabric-editor-block-mark[data-align] > {
-      h1, h2, h3, h4, h5, h6 {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
         position: relative;
       }
     }
@@ -153,41 +156,45 @@ const alignedHeadingAnchorStyle = ({
      * container edge.
      */
     .fabric-editor-block-mark:not([data-align='center'])[data-align] {
-        > {
-          h1, h2, h3, h4, h5, h6 {
-            // Using right to left text to achieve the inverse effect
-            // of where the copy link button icon sits for left/center
-            // alignment.
-            // Although this is unorthodox it's the only approach which
-            // allows the button to sit flush against the left edge of
-            // bottom line of text.
-            direction: rtl;
+      > {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          // Using right to left text to achieve the inverse effect
+          // of where the copy link button icon sits for left/center
+          // alignment.
+          // Although this is unorthodox it's the only approach which
+          // allows the button to sit flush against the left edge of
+          // bottom line of text.
+          direction: rtl;
 
-            // By default RTL will negatively impact the layout of special
-            // characters within the heading text, and potentially other
-            // nested inline nodes. To prevent this we insert pseudo elements
-            // containing HTML entities to retain LTR for all heading content
-            // except for the copy link button.
-            > *:not(.${HeadingAnchorWrapperClassName}):not(br) {
-              ::before {
-                // Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
-                content: '\u202A';
-              }
-              ::after {
-                // Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
-                content: '\u202C';
-              }
+          // By default RTL will negatively impact the layout of special
+          // characters within the heading text, and potentially other
+          // nested inline nodes. To prevent this we insert pseudo elements
+          // containing HTML entities to retain LTR for all heading content
+          // except for the copy link button.
+          > *:not(.${HeadingAnchorWrapperClassName}):not(br) {
+            ::before {
+              // Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
+              content: '\u202A';
+            }
+            ::after {
+              // Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
+              content: '\u202C';
             }
           }
         }
-        .${HeadingAnchorWrapperClassName} {
-          margin: 0 6px 0 0;
-        }
+      }
+      .${HeadingAnchorWrapperClassName} {
+        margin: 0 6px 0 0;
+      }
 
-        @media (hover: hover) and (pointer: fine) {
-          .${HeadingAnchorWrapperClassName} > button {
-            transform: translate(8px, 0px);
-          }
+      @media (hover: hover) and (pointer: fine) {
+        .${HeadingAnchorWrapperClassName} > button {
+          transform: translate(8px, 0px);
         }
       }
     }
@@ -227,7 +234,7 @@ const tableSortableColumnStyle = ({
       }
     `;
   }
-  return `
+  return css`
     .${RendererCssClassName.SORTABLE_COLUMN} {
       padding: 0;
 
@@ -264,7 +271,8 @@ const tableSortableColumnStyle = ({
         ${headingsCss}
       }
 
-      &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED} .${RendererCssClassName.SORTABLE_COLUMN_BUTTON} {
+      &.${RendererCssClassName.SORTABLE_COLUMN_NOT_ALLOWED}
+        .${RendererCssClassName.SORTABLE_COLUMN_BUTTON} {
         cursor: default;
       }
 
@@ -287,15 +295,18 @@ const tableSortableColumnStyle = ({
   `;
 };
 
-const fullPageStyles = ({ theme, appearance }: RendererWrapperProps) => {
+const fullPageStyles = (
+  { appearance }: RendererWrapperProps,
+  { theme }: ThemeProps,
+) => {
   if (appearance !== 'full-page' && appearance !== 'mobile') {
     return '';
   }
 
-  return `
-    max-width: ${
-      theme && theme.layoutMaxWidth ? `${theme.layoutMaxWidth}px` : 'none'
-    };
+  return css`
+    max-width: ${theme && theme.layoutMaxWidth
+      ? `${theme.layoutMaxWidth}px`
+      : 'none'};
     margin: 0 auto;
     padding: 0 ${appearance === 'full-page' ? FullPagePadding : 0}px;
   `;
@@ -306,371 +317,389 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
     return '';
   }
 
-  return `
-  max-width: ${akEditorFullWidthLayoutWidth}px;
-  margin: 0 auto;
+  return css`
+    max-width: ${akEditorFullWidthLayoutWidth}px;
+    margin: 0 auto;
 
-  .fabric-editor-breakout-mark,
-  .pm-table-container,
-  .ak-renderer-extension {
-    width: 100% !important;
-  }
+    .fabric-editor-breakout-mark,
+    .pm-table-container,
+    .ak-renderer-extension {
+      width: 100% !important;
+    }
   `;
 };
 
-export const rendererStyles = (theme: Theme) => {
+export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
+  theme: Theme,
+) => {
   // This is required to be compatible with styled-components prop structure.
-  const props = { theme };
+  const themeProps = { theme };
 
   return css`
-    ${tableSharedStyle(props)}
+    font-size: ${editorFontSize(themeProps)}px;
+    line-height: 1.5rem;
+    color: ${themed({ light: colors.N800, dark: '#B8C7E0' })(themeProps)};
+
+    .${RendererCssClassName.DOCUMENT}::after {
+      // we add a clearfix after ak-renderer-document in order to
+      // contain internal floats (such as media images that are "wrap-left")
+      // to just the renderer (and not spill outside of it)
+      content: '';
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
+
+    ${fullPageStyles(wrapperProps, themeProps)}
+    ${fullWidthStyles(wrapperProps)}
+
+    & h1 {
+      ${headingAnchorStyle('h1')}
+    }
+
+    & h2 {
+      ${headingAnchorStyle('h2')}
+    }
+
+    & h3 {
+      ${headingAnchorStyle('h3')}
+    }
+
+    & h4 {
+      ${headingAnchorStyle('h4')}
+    }
+
+    & h5 {
+      ${headingAnchorStyle('h5')}
+    }
+
+    & h6 {
+      ${headingAnchorStyle('h6')}
+    }
+
+    & span.akActionMark {
+      color: ${colors.B400};
+      text-decoration: none;
+
+      &:hover {
+        color: ${colors.B300};
+        text-decoration: underline;
+      }
+    }
+
+    & span.akActionMark {
+      cursor: pointer;
+    }
+
+    & span[data-placeholder] {
+      color: ${colors.placeholderText(themeProps)};
+    }
 
     ${whitespaceSharedStyles};
     ${blockquoteSharedStyles};
-    ${headingsSharedStyles(props)};
-
+    ${headingsSharedStyles(themeProps)};
+    ${panelSharedStyles(themeProps)};
+    ${ruleSharedStyles(themeProps)};
     ${paragraphSharedStyles};
     ${listsSharedStyles};
     ${indentationSharedStyles};
     ${blockMarksSharedStyles};
-    ${codeMarkSharedStyles(props)};
+    ${codeMarkSharedStyles(themeProps)};
     ${shadowSharedStyle};
     ${dateSharedStyle};
     ${textColorStyles};
     ${tasksAndDecisionsStyles};
     ${smartCardSharedStyles}
 
-    /* plugin styles*/
+    & .UnknownBlock {
+      font-family: ${fontFamily()};
+      font-size: ${relativeFontSizeToBase16(fontSize())};
+      font-weight: 400;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    & span.date-node {
+      background: ${themed({ light: colors.N30A, dark: colors.DN70 })(
+        themeProps,
+      )};
+      border-radius: ${borderRadius()}px;
+      color: ${themed({ light: colors.N800, dark: colors.DN600 })(themeProps)};
+      padding: 2px 4px;
+      margin: 0 1px;
+      transition: background 0.3s;
+    }
+
+    & span.date-node-highlighted {
+      background: ${colors.R50};
+      color: ${colors.R500};
+    }
+
+    & .renderer-image {
+      max-width: 100%;
+      display: block;
+      margin: ${gridSize() * 3}px 0;
+    }
+
+    .${richMediaClassName}.rich-media-wrapped
+      + .${richMediaClassName}:not(.rich-media-wrapped) {
+      clear: both;
+    }
+
+    & .code-block,
+    & blockquote,
+    & hr,
+    & > div > div:not(.rich-media-wrapped),
+    .${richMediaClassName}.rich-media-wrapped
+      + .rich-media-wrapped
+      + *:not(.rich-media-wrapped),
+    .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
+    .${richMediaClassName}.image-align-start,
+      .${richMediaClassName}.image-center,
+      .${richMediaClassName}.image-align-end {
+      clear: both;
+    }
+
+    & .rich-media-wrapped {
+      & + h1,
+      & + h2,
+      & + h3,
+      & + h4,
+      & + h5,
+      & + h6 {
+        margin-top: 8px;
+      }
+    }
+
+    ${alignedHeadingAnchorStyle(wrapperProps)}
+    /* plugin styles */
     ${mediaSingleSharedStyle} &
     div[class^='image-wrap-'] + div[class^='image-wrap-'] {
       margin-left: 0;
       margin-right: 0;
     }
 
-    ${columnLayoutSharedStyle};
-  `;
-};
+    /* Breakout for tables and extensions */
+    .${RendererCssClassName.DOCUMENT} > {
+      * .${TableSharedCssClassName.TABLE_CONTAINER} {
+        width: 100% !important;
+        left: 0 !important;
+      }
 
-// prettier-ignore
-export const DeprecatedWrapper = styled.div<RendererWrapperProps & HTMLAttributes<{}>>`
-  font-size: ${editorFontSize}px;
-  line-height: 1.5rem;
-  color: ${themed({ light: colors.N800, dark: '#B8C7E0' })};
+      * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
+        overflow-x: auto;
+      }
 
-  ${fullPageStyles}
-  ${fullWidthStyles}
-
-  & h1 {
-    ${headingAnchorStyle('h1')}
-  }
-
-  & h2 {
-    ${headingAnchorStyle('h2')}
-  }
-
-  & h3 {
-    ${headingAnchorStyle('h3')}
-  }
-
-  & h4 {
-    ${headingAnchorStyle('h4')}
-  }
-
-  & h5 {
-    ${headingAnchorStyle('h5')}
-  }
-
-  & h6 {
-    ${headingAnchorStyle('h6')}
-  }
-
-  & span.akActionMark {
-    color: ${colors.B400};
-    text-decoration: none;
-
-    &:hover {
-      color: ${colors.B300};
-      text-decoration: underline;
-    }
-  }
-
-  & span.akActionMark {
-    cursor: pointer;
-  }
-
-  & span[data-placeholder] {
-    color: ${colors.placeholderText};
-  }
-
-  ${panelSharedStyles};
-  ${ruleSharedStyles};
-
-  & .UnknownBlock {
-    font-family: ${fontFamily()};
-    font-size: ${relativeFontSizeToBase16(fontSize())};
-    font-weight: 400;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  & span.date-node {
-    background: ${themed({ light: colors.N30A, dark: colors.DN70 })};
-    border-radius: ${borderRadius()}px;
-    color: ${themed({ light: colors.N800, dark: colors.DN600 })};
-    padding: 2px 4px;
-    margin: 0 1px;
-    transition: background 0.3s;
-  }
-
-  & span.date-node-highlighted {
-    background: ${colors.R50};
-    color: ${colors.R500};
-  }
-
-  & .renderer-image {
-    max-width: 100%;
-    display: block;
-    margin: ${gridSize() * 3}px 0;
-  }
-
-  .${richMediaClassName}.rich-media-wrapped + .${richMediaClassName}:not(.rich-media-wrapped) {
-    clear: both;
-  }
-
-  & .code-block,
-  & blockquote,
-  & hr,
-  & > div > div:not(.rich-media-wrapped),
-  .${richMediaClassName}.rich-media-wrapped + .rich-media-wrapped + *:not(.rich-media-wrapped),
-  .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
-  .${richMediaClassName}.image-align-start,
-  .${richMediaClassName}.image-center,
-  .${richMediaClassName}.image-align-end {
-    clear: both;
-  }
-
-  & .rich-media-wrapped {
-    & + h1,
-    & + h2,
-    & + h3,
-    & + h4,
-    & + h5,
-    & + h6 {
-      margin-top: 8px;
-    }
-  }
-
-  ${alignedHeadingAnchorStyle}
-
-
-
-  /* Breakout for tables and extensions */
-  .${RendererCssClassName.DOCUMENT} > {
-    * .${TableSharedCssClassName.TABLE_CONTAINER} {
-      width: 100% !important;
-      left: 0 !important;
+      & .${RendererCssClassName.EXTENSION}:first-child {
+        margin-top: 0;
+      }
     }
 
-    * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
-      overflow-x: auto;
+    .${RendererCssClassName.DOCUMENT} {
+      .${RendererCssClassName.EXTENSION} {
+        margin-top: ${blockNodesVerticalMargin};
+      }
+
+      .${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
+        margin-left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
+        overflow-x: auto;
+      }
     }
 
-    & .${RendererCssClassName.EXTENSION}:first-child {
-      margin-top: 0;
-    }
-  }
+    ${tableSharedStyle(themeProps)}
 
-  .${RendererCssClassName.EXTENSION} {
-    margin-top: ${blockNodesVerticalMargin};
-  }
+    .${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER} {
+      z-index: 0;
+      transition: all 0.1s linear;
+      display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
 
-  .${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
-      margin-left: 50%;
-      transform: translateX(-50%);
-  }
+      /** Shadow overrides */
+      &.${shadowClassNames.RIGHT_SHADOW}::after,
+        &.${shadowClassNames.LEFT_SHADOW}::before {
+        top: ${tableMarginTop - 1}px;
+        height: calc(100% - ${tableMarginTop}px);
+        z-index: ${akEditorStickyHeaderZIndex};
+      }
 
-  .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
-    overflow-x: auto;
-  }
-
-
-
-  .${TableSharedCssClassName.TABLE_CONTAINER} {
-    z-index: 0;
-    transition: all 0.1s linear;
-    display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
-
-    /** Shadow overrides */
-    &.${shadowClassNames.RIGHT_SHADOW}::after, &.${
-         shadowClassNames.LEFT_SHADOW
-       }::before {
-      top: ${tableMarginTop - 1}px;
-      height: calc(100% - ${tableMarginTop}px);
-      z-index: ${akEditorStickyHeaderZIndex};
-    }
-
-    /**
+      /**
      * A hack for making all the <th /> heights equal in case some have shorter
      * content than others.
      *
      * This is done to make sort buttons fill entire <th />.
      */
-    table {
-      height: 1px; /* will be ignored */
-      ${tableSortableColumnStyle};
-      margin-left: 0;
-      margin-right: 0;
-    }
+      table {
+        height: 1px; /* will be ignored */
+        ${tableSortableColumnStyle(wrapperProps)};
+        margin-left: 0;
+        margin-right: 0;
+      }
 
-    table tr:first-child {
-      height: 100%;
+      table tr:first-child {
+        height: 100%;
 
-      td, th {
-        position: relative;
+        td,
+        th {
+          position: relative;
+        }
+      }
+
+      table[data-number-column='true'] {
+        .${RendererCssClassName.NUMBER_COLUMN} {
+          background-color: ${themed({
+            light: akEditorTableToolbar,
+            dark: akEditorTableToolbarDark,
+          })(themeProps)};
+          border-right: 1px solid
+            ${themed({
+              light: akEditorTableBorder,
+              dark: akEditorTableBorderDark,
+            })(themeProps)};
+          width: ${akEditorTableNumberColumnWidth}px;
+          text-align: center;
+          color: ${themed({
+            light: colors.N200,
+            dark: colors.DN400,
+          })(themeProps)};
+          font-size: ${relativeFontSizeToBase16(fontSize())};
+        }
+
+        .fixed .${RendererCssClassName.NUMBER_COLUMN} {
+          border-right: 0px none;
+        }
       }
     }
 
-    table[data-number-column='true'] {
-      .${RendererCssClassName.NUMBER_COLUMN} {
-        background-color: ${themed({
-          light: akEditorTableToolbar,
-          dark: akEditorTableToolbarDark,
-        })};
-        border-right: 1px solid ${themed({
+    tr[data-header-row].fixed {
+      position: fixed !important;
+      display: flex;
+      overflow: hidden;
+      z-index: ${akEditorStickyHeaderZIndex};
+
+      border-right: 1px solid
+        ${themed({
           light: akEditorTableBorder,
           dark: akEditorTableBorderDark,
-        })};
-        width: ${akEditorTableNumberColumnWidth}px;
-        text-align: center;
-        color: ${themed({
-          light: colors.N200,
-          dark: colors.DN400
-        })};
-        font-size: ${relativeFontSizeToBase16(fontSize())};
-      }
+        })(themeProps)};
+      border-bottom: 1px solid
+        ${themed({
+          light: akEditorTableBorder,
+          dark: akEditorTableBorderDark,
+        })(themeProps)};
 
-      .fixed .${RendererCssClassName.NUMBER_COLUMN} {
-        border-right: 0px none;
-      }
+      /* this is to compensate for the table border */
+      transform: translateX(-1px);
     }
-  }
 
-  tr[data-header-row].fixed {
-    position: fixed !important;
-    display: flex;
-    overflow: hidden;
-    z-index: ${akEditorStickyHeaderZIndex};
+    .sticky > th {
+      z-index: ${akEditorStickyHeaderZIndex};
+      position: sticky !important;
+      top: 0;
+    }
 
-    border-right: 1px solid ${themed({
-      light: akEditorTableBorder,
-      dark: akEditorTableBorderDark,
-    })};
-    border-bottom: 1px solid ${themed({
-      light: akEditorTableBorder,
-      dark: akEditorTableBorderDark,
-    })};
+    /* Make the number column header sticky */
+    .sticky > td {
+      position: sticky !important;
+      top: 0;
+    }
 
-    /* this is to compensate for the table border */
-    transform: translateX(-1px);
-  }
-
-  .sticky > th {
-    z-index: ${akEditorStickyHeaderZIndex};
-    position: sticky !important;
-    top: 0;
-  }
-
-  /* Make the number column header sticky */
-  .sticky > td {
-    position: sticky !important;
-    top: 0;
-  }
-
-  /* add border for position: sticky
+    /* add border for position: sticky
      and work around background-clip: padding-box
      bug for FF causing box-shadow bug in Chrome */
-  .sticky th, .sticky td {
-    box-shadow: 0px 1px ${themed({
-      light: akEditorTableBorder,
-      dark: akEditorTableBorderDark,
-    })}, 0px -0.5px ${themed({
-         light: akEditorTableBorder,
-         dark: akEditorTableBorderDark,
-       })}, inset -1px 0px ${themed({
-         light: akEditorTableToolbar,
-         dark: akEditorTableToolbarDark,
-       })}, 0px -1px ${themed({
-         light: akEditorTableToolbar,
-         dark: akEditorTableToolbarDark,
-       })};
-  }
+    .sticky th,
+    .sticky td {
+      box-shadow: 0px 1px
+          ${themed({
+            light: akEditorTableBorder,
+            dark: akEditorTableBorderDark,
+          })(themeProps)},
+        0px -0.5px ${themed({
+            light: akEditorTableBorder,
+            dark: akEditorTableBorderDark,
+          })(themeProps)},
+        inset -1px 0px ${themed({
+            light: akEditorTableToolbar,
+            dark: akEditorTableToolbarDark,
+          })(themeProps)},
+        0px -1px ${themed({
+            light: akEditorTableToolbar,
+            dark: akEditorTableToolbarDark,
+          })(themeProps)};
+    }
 
-   /* this will remove jumpiness caused in Chrome for sticky headers */
-  .fixed + tr {
-    min-height: 0px;
-  }
+    /* this will remove jumpiness caused in Chrome for sticky headers */
+    .fixed + tr {
+      min-height: 0px;
+    }
 
-  /*
+    /*
    * We wrap CodeBlock in a grid to prevent it from overflowing the container of the renderer.
    * See ED-4159.
    */
-  & .code-block {
-    max-width: 100%;
-    /* -ms- properties are necessary until MS supports the latest version of the grid spec */
-    /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: auto 1fr;
-    /* stylelint-enable */
+    & .code-block {
+      max-width: 100%;
+      /* -ms- properties are necessary until MS supports the latest version of the grid spec */
+      /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: auto 1fr;
+      /* stylelint-enable */
 
-    grid-template-columns: minmax(0, 1fr);
-    position: relative;
-    border-radius: ${borderRadius()}px;
+      grid-template-columns: minmax(0, 1fr);
+      position: relative;
+      border-radius: ${borderRadius()}px;
 
-    /*
+      /*
      * The overall renderer has word-wrap: break; which causes issues with
      * code block line numbers in Safari / iOS.
      */
-    word-wrap: normal;
+      word-wrap: normal;
 
-    & > span {
-      /* stylelint-disable value-no-vendor-prefix */
-      -ms-grid-row: 1;
-      -ms-grid-column: 2;
-      /* stylelint-enable */
-      grid-column: 1;
-    }
-  }
-
-  & .MediaGroup,
-  & .code-block {
-    margin-top: ${blockNodesVerticalMargin};
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:hover button.copy-to-clipboard, .copy-to-clipboard:focus{
-      opacity: 1;
-      position: absolute;
-      height: 32px;
-      width: 32px;
-      right: 6px;
-      top: 4px;
-      padding: 2px;
-    }
-  }
-
-  & [data-layout-section] {
-    margin-top: ${gridSize() * 2.5}px;
-    & > div + div {
-      margin-left: ${gridSize() * 4}px;
-    }
-
-    @media screen and (max-width: ${gridMediumMaxWidth}px) {
-      & > div + div {
-        margin-left: 0;
+      & > span {
+        /* stylelint-disable value-no-vendor-prefix */
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
+        /* stylelint-enable */
+        grid-column: 1;
       }
     }
-  }
-`;
+
+    & .MediaGroup,
+    & .code-block {
+      margin-top: ${blockNodesVerticalMargin};
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:hover button.copy-to-clipboard,
+      .copy-to-clipboard:focus {
+        opacity: 1;
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        right: 6px;
+        top: 4px;
+        padding: 2px;
+      }
+    }
+
+    ${columnLayoutSharedStyle};
+    & [data-layout-section] {
+      margin-top: ${gridSize() * 2.5}px;
+      & > div + div {
+        margin-left: ${gridSize() * 4}px;
+      }
+
+      @media screen and (max-width: ${gridMediumMaxWidth}px) {
+        & > div + div {
+          margin-left: 0;
+        }
+      }
+    }
+  `;
+};

@@ -9,6 +9,7 @@ describe('Inline Card', () => {
       'shows shimmer preloader when icon takes awhile to load',
       'vr-inline-card-loading-icon',
     ],
+    ['renders text wrap correctly', 'vr-inline-card-text-wrap'],
   ])('%s', async (_: string, testName: string) => {
     const url = getURL(testName);
     const page = await setup(url);

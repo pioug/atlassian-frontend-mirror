@@ -5,6 +5,7 @@ import {
   hr,
   p,
   bodiedExtension,
+  panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -12,6 +13,8 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import { insertHorizontalRule } from '../../../../plugins/rule/commands';
+import { INPUT_METHOD } from '../../../../plugins/analytics';
 
 describe('rule', () => {
   const createEditor = createEditorFactory();
@@ -28,6 +31,8 @@ describe('rule', () => {
         },
         allowAnalyticsGASV3: true,
         allowRule: true,
+        allowPanel: true,
+        allowNewInsertionBehaviour: true,
       },
       createAnalyticsEvent,
     });
@@ -63,6 +68,57 @@ describe('rule', () => {
           eventType: 'track',
         });
       });
+    });
+  });
+
+  describe('insert via toolbar', () => {
+    it('should insert rule when selection is empty paragraph', () => {
+      const { editorView } = editor(doc(p('{<>}')));
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(doc(hr()));
+    });
+
+    it('should split the paragraph and insert rule when selection is in the middle of a paragraph', () => {
+      const { editorView } = editor(doc(p('this is a{<>} paragraph')));
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        // prettier-ignore
+        doc(
+          p('this is a'),
+          hr(),
+          p(' paragraph')
+        ),
+      );
+    });
+
+    it('should insert rule below when selection is in the middle of a node which does not allow rules', () => {
+      const { editorView } = editor(
+        // prettier-ignore
+        doc(
+          panel()(p('this is a {<>}paragraph')),
+          p()
+        ),
+      );
+      insertHorizontalRule(INPUT_METHOD.TOOLBAR)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(editorView.state.doc).toEqualDocument(
+        // prettier-ignore
+        doc(
+          panel()(
+            p('this is a paragraph')
+          ),
+          hr(),
+          p(),
+        ),
+      );
     });
   });
 });

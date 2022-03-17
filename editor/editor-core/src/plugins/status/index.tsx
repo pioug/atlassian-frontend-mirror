@@ -35,13 +35,8 @@ const baseStatusPlugin = (options?: StatusPluginOptions): EditorPlugin => ({
     return [
       {
         name: 'status',
-        plugin: ({ dispatch, portalProviderAPI, eventDispatcher }) =>
-          createStatusPlugin(
-            dispatch,
-            portalProviderAPI,
-            eventDispatcher,
-            options,
-          ),
+        plugin: (pmPluginFactoryParams) =>
+          createStatusPlugin(pmPluginFactoryParams, options),
       },
       { name: 'statusKeymap', plugin: keymapPlugin },
     ];

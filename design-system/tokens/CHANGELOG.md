@@ -1,5 +1,82 @@
 # @atlaskit/tokens
 
+## 0.8.0
+
+### Minor Changes
+
+- [`1fb52fef1a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1fb52fef1a8) - [ux] New Skeleton color tokens `color.skeleton.subtle` and `color.skeleton.subtlest`. Use for skeleton loading states
+
+### Patch Changes
+
+- [`ac9343c3ed4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9343c3ed4) - Replaces usage of deprecated design tokens. No visual or functional changes
+- [`308db322b04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/308db322b04) - The following tokens have been moved from the `deprecated` to `deleted` state in their lifecycles. These tokens will continue to exist, however tooling will begin to error wherever they're used. If you haven't already, please run `yarn eslint --fix` or similar to automate your migration.
+
+  - `color.background.blanket` => `color.blanket`
+  - `color.background.boldBrand.resting` => `color.background.brand.bold`
+  - `color.background.boldBrand.hover` => `color.background.brand.bold.hovered`
+  - `color.background.boldBrand.pressed` => `color.background.brand.bold.pressed`
+  - `color.background.boldDanger.resting` => `color.background.danger.bold`
+  - `color.background.boldDanger.hover` => `color.background.danger.bold.hovered`
+  - `color.background.boldDanger.pressed` => `color.background.danger.bold.pressed`
+  - `color.background.boldDiscovery.resting` => `color.background.discovery.bold`
+  - `color.background.boldDiscovery.hover` => `color.background.discovery.bold.hovered`
+  - `color.background.boldDiscovery.pressed` => `color.background.discovery.bold.pressed`
+  - `color.background.boldNeutral.resting` => `color.background.neutral.bold`
+  - `color.background.boldNeutral.hover` => `color.background.neutral.bold.hovered`
+  - `color.background.boldNeutral.pressed` => `color.background.neutral.bold.pressed`
+  - `color.background.boldSuccess.resting` => `color.background.success.bold`
+  - `color.background.boldSuccess.hover` => `color.background.success.bold.hovered`
+  - `color.background.boldSuccess.pressed` => `color.background.success.bold.pressed`
+  - `color.background.boldWarning.resting` => `color.background.warning.bold`
+  - `color.background.boldWarning.hover` => `color.background.warning.bold.hovered`
+  - `color.background.boldWarning.pressed` => `color.background.warning.bold.pressed`
+  - `color.background.default` => `elevation.surface`
+  - `color.background.card` => `elevation.surface.raised`
+  - `color.background.overlay` => `elevation.surface.overlay`
+  - `color.background.selected.resting` => `color.background.selected`
+  - `color.background.selected.hover` => `color.background.selected.hovered`
+  - `color.background.subtleBorderedNeutral.resting` => `color.background.input`
+  - `color.background.subtleBorderedNeutral.pressed` => `color.background.input.pressed`
+  - `color.background.subtleBrand.resting` => `color.background.brand`
+  - `color.background.subtleBrand.hover` => `color.background.brand.hovered`
+  - `color.background.subtleBrand.pressed` => `color.background.brand.pressed`
+  - `color.background.subtleDanger.resting` => `color.background.danger`
+  - `color.background.subtleDanger.hover` => `color.background.danger.hovered`
+  - `color.background.subtleDanger.pressed` => `color.background.danger.pressed`
+  - `color.background.subtleDiscovery.resting` => `color.background.discovery`
+  - `color.background.subtleDiscovery.hover` => `color.background.discovery.hovered`
+  - `color.background.subtleDiscovery.pressed` => `color.background.discovery.pressed`
+  - `color.background.subtleNeutral.resting` => `color.background.neutral`
+  - `color.background.subtleNeutral.hover` => `color.background.neutral.hovered`
+  - `color.background.subtleNeutral.pressed` => `color.background.neutral.pressed`
+  - `color.background.subtleSuccess.resting` => `color.background.success`
+  - `color.background.subtleSuccess.hover` => `color.background.success.hovered`
+  - `color.background.subtleSuccess.pressed` => `color.background.success.pressed`
+  - `color.background.subtleWarning.resting` => `color.background.warning`
+  - `color.background.subtleWarning.hover` => `color.background.warning.hovered`
+  - `color.background.subtleWarning.pressed` => `color.background.warning.pressed`
+  - `color.background.sunken` => `elevation.surface.sunken`
+  - `color.background.transparentNeutral.hover` => `color.background.neutral.subtle.hovered`
+  - `color.background.transparentNeutral.pressed` => `color.background.neutral.subtle.pressed`
+  - `color.text.highEmphasis` => `color.text`
+  - `color.text.mediumEmphasis` => `color.text.subtle`
+  - `color.text.lowEmphasis` => `color.text.subtlest`
+  - `color.text.link.resting` => `color.link`
+  - `color.text.link.pressed` => `color.link.pressed`
+  - `color.text.onBold` => `color.text.inverse`
+  - `color.text.onBoldWarning` => `color.text.inverse.warning`
+  - `color.border.focus` => `color.border.focused`
+  - `color.border.neutral` => `color.border`
+  - `color.iconBorder.brand` => `color.icon.brand` or `color.border.brand`
+  - `color.iconBorder.danger` => `color.icon.danger` or `color.border.danger`
+  - `color.iconBorder.warning` => `color.icon.warning` or `color.border.warning`
+  - `color.iconBorder.success` => `color.icon.success` or `color.border.success`
+  - `color.iconBorder.discovery` => `color.icon.discovery` or `color.border.discovery`
+  - `color.overlay.hover` => `color.interaction.hovered`
+  - `color.overlay.pressed` => `color.interaction.pressed`
+  - `color.shadow.card` => `elevation.shadow.raised`
+  - `color.shadow.overlay` => `elevation.shadow.overlay`
+
 ## 0.7.3
 
 ### Patch Changes

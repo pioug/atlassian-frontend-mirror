@@ -8,7 +8,7 @@ export default () => (
   <Tag
     appearance="rounded"
     removeButtonLabel="Remove"
-    text="Round removeable tag"
+    text="Round removable tag"
     elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
   />
 );

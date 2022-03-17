@@ -1,26 +1,24 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import {
   inlineExtensionData,
   bodiedExtensionData,
   extensionData,
 } from '@atlaskit/editor-test-helpers/mock-extension-data';
-import { StyledImage } from '../../../../../plugins/extension/ui/Extension/styles';
 
 import Lozenge, {
   ICON_SIZE,
 } from '../../../../../plugins/extension/ui/Extension/Lozenge';
-import { PlaceholderFallback } from '../../../../../plugins/extension/ui/Extension/styles';
 
 describe('@atlaskit/editor-core/ui/Extension/Lozenge', () => {
   it('should render image if extension has an image param', () => {
-    const lozenge = shallow(<Lozenge node={inlineExtensionData[0] as any} />);
-    expect(lozenge.find(StyledImage)).toHaveLength(1);
+    const lozenge = mount(<Lozenge node={inlineExtensionData[0] as any} />);
+    expect(lozenge.find('img[className$="-lozenge-image"]')).toHaveLength(1);
   });
 
   it('should render icon with fallback width and height', () => {
-    const lozenge = shallow(<Lozenge node={inlineExtensionData[2] as any} />);
-    const img = lozenge.find(StyledImage);
+    const lozenge = mount(<Lozenge node={inlineExtensionData[2] as any} />);
+    const img = lozenge.find('img[className$="-lozenge-image"]');
     expect(img).toHaveLength(1);
     expect(img.props()).toHaveProperty('height', ICON_SIZE);
     expect(img.props()).toHaveProperty('width', ICON_SIZE);
@@ -51,7 +49,9 @@ describe('@atlaskit/editor-core/ui/Extension/Lozenge', () => {
   });
 
   it("should render PlaceholderFallback if extension doesn't have an image param", () => {
-    const lozenge = shallow(<Lozenge node={inlineExtensionData[1] as any} />);
-    expect(lozenge.find(PlaceholderFallback)).toHaveLength(1);
+    const lozenge = mount(<Lozenge node={inlineExtensionData[1] as any} />);
+    expect(lozenge.find('[className$="-placeholder-fallback"]')).toHaveLength(
+      1,
+    );
   });
 });

@@ -124,7 +124,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             allowMediaSingle: true,
             enableDownloadButton: true,
             allowResizing: true,
-            allowAnnotation: true,
             allowLinking: true,
             allowResizingInTables: true,
             allowAltTextOnImages: true,

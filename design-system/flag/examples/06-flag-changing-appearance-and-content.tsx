@@ -62,7 +62,7 @@ const ConnectionDemo = () => {
         return (
           <ErrorIcon
             label="Error"
-            secondaryColor={token('color.icon.danger', R400)}
+            secondaryColor={token('color.background.danger.bold', R400)}
           />
         );
       case 'info':
@@ -77,21 +77,21 @@ const ConnectionDemo = () => {
         return (
           <SuccessIcon
             label="Success"
-            secondaryColor={token('color.icon.success', G400)}
+            secondaryColor={token('color.background.success.bold', G400)}
           />
         );
       case 'warning':
         return (
           <WarningIcon
             label="Warning"
-            secondaryColor={token('color.icon.warning', Y200)}
+            secondaryColor={token('color.background.warning.bold', Y200)}
           />
         );
       default:
         return (
           <SuccessIcon
             label=""
-            secondaryColor={token('color.icon.success', G400)}
+            secondaryColor={token('color.background.success.bold', G400)}
           />
         );
     }

@@ -1,5 +1,5 @@
-import React from 'react';
-import classNames from 'classnames';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { placeholder, placeholderContainer } from './styles';
 import { defaultEmojiHeight } from '../../util/constants';
 import { EmojiImageRepresentation } from '../../types';
@@ -45,15 +45,12 @@ const EmojiPlaceholder = (props: Props) => {
     width: `${width}px`,
     height: `${height}px`,
   };
-  const classes = {
-    [placeholder]: true,
-    [placeholderContainer]: true,
-  };
 
   return (
     <span
       aria-label={shortName}
-      className={classNames(classes)}
+      className={placeholder}
+      css={placeholderContainer}
       style={style}
       title={showTooltip ? shortName : ''}
     />

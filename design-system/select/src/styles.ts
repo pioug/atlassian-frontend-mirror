@@ -168,7 +168,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       if (isDisabled) {
         color = token('color.text.disabled', N70);
       } else if (isSelected) {
-        color = token('color.text.brand', B400);
+        color = token('color.text.selected', B400);
       }
 
       let boxShadow;
@@ -176,14 +176,14 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       if (isDisabled) {
         backgroundColor = undefined;
       } else if (isSelected && isFocused) {
-        backgroundColor = token('color.background.brand.hovered', B50);
+        backgroundColor = token('color.background.selected.hovered', B50);
       } else if (isSelected) {
-        backgroundColor = token('color.background.brand', B50);
+        backgroundColor = token('color.background.selected', B50);
       } else if (isFocused) {
         backgroundColor = token('color.background.neutral.subtle.hovered', N20);
       }
       if (!isDisabled && (isFocused || isSelected)) {
-        boxShadow = `inset 2px 0px 0px ${token('color.text.brand', B400)}`;
+        boxShadow = `inset 2px 0px 0px ${token('color.border.selected', B400)}`;
       }
 
       const cursor = isDisabled ? 'not-allowed' : undefined;
@@ -198,7 +198,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         ':active': {
           backgroundColor: !isDisabled
             ? isSelected
-              ? token('color.background.brand.pressed', N20)
+              ? token('color.background.selected.pressed', N20)
               : token('color.background.neutral.subtle.pressed', N30)
             : undefined,
         },
@@ -240,7 +240,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       ...css,
       borderRadius: '2px',
       backgroundColor: isFocused
-        ? token('color.background.brand', N40)
+        ? token('color.background.selected', N40)
         : token('color.background.neutral.subtle.hovered', N40),
       boxShadow: isFocused
         ? `0 0 0 2px ${token(
@@ -257,7 +257,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       ...css,
       padding: '2px',
       color: isFocused
-        ? token('color.text.brand', 'hsl(0, 0%, 20%)')
+        ? token('color.text.selected', 'hsl(0, 0%, 20%)')
         : token('color.text', 'hsl(0, 0%, 20%)'),
       paddingRight: '2px',
     }),
@@ -269,9 +269,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       },
     ) => ({
       ...css,
-      backgroundColor: isFocused && token('color.background.brand', R75),
+      backgroundColor: isFocused && token('color.background.selected', R75),
       fill: isFocused
-        ? token('color.text.brand', '#000')
+        ? token('color.text.selected', '#000')
         : token('color.text', '#000'),
       paddingLeft: '2px',
       paddingRight: '2px',

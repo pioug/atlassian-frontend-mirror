@@ -8,11 +8,14 @@ import MediaSingle, {
 } from '../../../../react/nodes/mediaSingle';
 import Caption from '../../../../react/nodes/caption';
 import { MediaCardInternal } from '../../../../ui/MediaCard';
-import { UnsupportedBlock, WidthProvider } from '@atlaskit/editor-common/ui';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import {
+  MediaSingle as UIMediaSingle,
+  UnsupportedBlock,
+  WidthProvider,
+} from '@atlaskit/editor-common/ui';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import { WrappedComponentProps } from 'react-intl-next';
-import { ExtendedUIMediaSingle } from '../../../../react/nodes/mediaSingle/styles';
 
 describe('MediaSingle', () => {
   const editorWidth = 123;
@@ -154,9 +157,7 @@ describe('MediaSingle', () => {
   it('should use default editor width when <WidthConsumer /> value is not available', () => {
     const mediaSingle = mountMediaSingle();
 
-    expect(
-      mediaSingle.find(ExtendedUIMediaSingle).prop('containerWidth'),
-    ).toEqual(760);
+    expect(mediaSingle.find(UIMediaSingle).prop('containerWidth')).toEqual(760);
   });
 
   describe('Captions', () => {

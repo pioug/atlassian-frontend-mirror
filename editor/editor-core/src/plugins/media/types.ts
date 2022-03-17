@@ -24,7 +24,6 @@ export interface MediaOptions {
   customMediaPicker?: CustomMediaPicker;
   allowResizing?: boolean;
   allowResizingInTables?: boolean;
-  allowAnnotation?: boolean;
   allowLinking?: boolean;
   allowLazyLoading?: boolean;
   allowBreakoutSnapPoints?: boolean;
@@ -99,32 +98,6 @@ export type MediaEditorState = {
   };
 };
 
-export type OpenMediaEditor = {
-  type: 'open';
-  pos: number;
-  identifier: FileIdentifier;
-};
-
-export type UploadAnnotation = {
-  type: 'upload';
-  newIdentifier: FileIdentifier;
-};
-
-export type CloseMediaEditor = {
-  type: 'close';
-};
-
-export type SetMediaMediaClientConfig = {
-  type: 'setMediaClientConfig';
-  mediaClientConfig?: MediaClientConfig;
-};
-
-export type MediaEditorAction =
-  | OpenMediaEditor
-  | CloseMediaEditor
-  | UploadAnnotation
-  | SetMediaMediaClientConfig;
-
 export type MediaToolbarBaseConfig = {
   title: string;
   getDomRef?: (view: EditorView) => HTMLElement | undefined;
@@ -135,7 +108,6 @@ export type MediaFloatingToolbarOptions = {
   providerFactory?: ProviderFactory;
   allowResizing?: boolean;
   allowMediaInline?: boolean;
-  allowAnnotation?: boolean;
   allowLinking?: boolean;
   allowAdvancedToolBarOptions?: boolean;
   allowResizingInTables?: boolean;

@@ -55,9 +55,6 @@ Object {
       "type": "paragraph",
     },
     Object {
-      "type": "paragraph",
-    },
-    Object {
       "content": Array [
         Object {
           "text": "insidecode",
@@ -138,9 +135,6 @@ Object {
           "type": "text",
         },
       ],
-      "type": "paragraph",
-    },
-    Object {
       "type": "paragraph",
     },
     Object {

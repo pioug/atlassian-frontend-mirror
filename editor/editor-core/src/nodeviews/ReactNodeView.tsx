@@ -1,16 +1,12 @@
 import React from 'react';
 import { NodeView, EditorView, Decoration } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 
 import { PortalProviderAPI } from '../ui/PortalProvider';
-import { analyticsPluginKey } from '../plugins/analytics/plugin-key';
 import { EventDispatcher, createDispatch } from '../event-dispatcher';
 import {
-  ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EVENT_TYPE,
   AnalyticsDispatch,
   AnalyticsEventPayload,
 } from '../plugins/analytics';
@@ -21,14 +17,13 @@ import {
   getPosHandler,
   ForwardRef,
 } from './types';
-import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 import { getFeatureFlags } from '../plugins/feature-flags-context';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-
-const DEFAULT_SAMPLING_RATE = 100;
-const DEFAULT_SLOW_THRESHOLD = 7;
-let nodeViewEventsCounter = 0;
-
+import {
+  getPerformanceOptions,
+  startMeasureReactNodeViewRendered,
+  stopMeasureReactNodeViewRendered,
+} from './getPerformanceOptions';
 interface CreateDomRefOptions {
   displayInlineBlockForInlineNodes: boolean;
 }
@@ -107,32 +102,23 @@ export default class ReactNodeView<P = ReactComponentProps>
     const {
       samplingRate,
       slowThreshold,
-      enabled: trackingEnabled,
-    } = this.performanceOptions;
+      trackingEnabled,
+    } = getPerformanceOptions(this.view);
 
-    trackingEnabled && startMeasure(`🦉${this.node.type.name}::ReactNodeView`);
+    trackingEnabled &&
+      startMeasureReactNodeViewRendered({ nodeTypeName: this.node.type.name });
 
     this.renderReactComponent(() =>
       this.render(this.reactComponentProps, this.handleRef),
     );
 
     trackingEnabled &&
-      stopMeasure(`🦉${this.node.type.name}::ReactNodeView`, (duration) => {
-        if (
-          ++nodeViewEventsCounter % samplingRate === 0 &&
-          duration > slowThreshold
-        ) {
-          this.dispatchAnalyticsEvent({
-            action: ACTION.REACT_NODEVIEW_RENDERED,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            eventType: EVENT_TYPE.OPERATIONAL,
-            attributes: {
-              node: this.node.type.name,
-              duration,
-              participants: getParticipantsCount(this.view.state),
-            },
-          });
-        }
+      stopMeasureReactNodeViewRendered({
+        nodeTypeName: this.node.type.name,
+        dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+        editorState: this.view.state,
+        samplingRate,
+        slowThreshold,
       });
 
     return this;
@@ -280,29 +266,6 @@ export default class ReactNodeView<P = ReactComponentProps>
     this.portalProviderAPI.remove(this.domRef);
     this.domRef = undefined;
     this.contentDOM = undefined;
-  }
-
-  get performanceOptions(): {
-    enabled: boolean;
-    samplingRate: number;
-    slowThreshold: number;
-  } {
-    const pluginState = analyticsPluginKey.getState(this.view.state);
-
-    const nodeViewTracking =
-      pluginState && pluginState.performanceTracking
-        ? pluginState.performanceTracking.nodeViewTracking || {}
-        : {};
-
-    const samplingRate = nodeViewTracking.samplingRate || DEFAULT_SAMPLING_RATE;
-    const slowThreshold =
-      nodeViewTracking.slowThreshold || DEFAULT_SLOW_THRESHOLD;
-
-    return {
-      enabled: !!nodeViewTracking.enabled,
-      samplingRate,
-      slowThreshold,
-    };
   }
 
   private dispatchAnalyticsEvent = (payload: AnalyticsEventPayload) => {

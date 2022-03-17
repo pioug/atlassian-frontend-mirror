@@ -1,12 +1,11 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
 import { initFullPageEditorWithAdf, snapshot } from '../../_utils';
 import {
   getEditorWidth,
-  typeInEditor,
   animationFrame,
 } from '../../../__helpers/page-objects/_editor';
 import {
-  insertMedia,
   resizeMediaInPositionWithSnapshot,
   clickMediaInPosition,
   changeMediaLayout,
@@ -18,7 +17,9 @@ import {
   waitForMediaToBeLoaded,
 } from '../../../__helpers/page-objects/_media';
 import { selectors } from '../../../__helpers/page-objects/_editor';
-import * as layout2Col from '../../common/__fixtures__/basic-columns.adf.json';
+import * as layout2Col from './../__fixtures__/mediaSingle-in-column.adf.json';
+import mediaSelectionAdf from './../__fixtures__/mediaSingle-image.adf.json';
+import bulletListAdf from './../__fixtures__/mediaSingle-in-buttetList.adf.json';
 import { EditorProps } from '../../../../types';
 
 export function createResizeFullPageForConfig(config: TestPageConfig) {
@@ -66,14 +67,13 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
               allowDynamicTextSizing: dynamicTextSizing,
             },
             { width, height },
+            mediaSelectionAdf,
           );
         });
 
         if (isLayoutAvailable(MediaLayout.wide, width)) {
           it('can make an image wide', async () => {
-            // `insertMedia` etc are in each test so we don't load up
-            // the mediapicker for tests that don't end up running in beforeEach
-            await insertMedia(page);
+            await waitForMediaToBeLoaded(page);
             await clickMediaInPosition(page, 0);
             await animationFrame(page);
             await changeMediaLayout(page, MediaLayout.wide);
@@ -87,8 +87,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
 
         if (isLayoutAvailable(MediaLayout.fullWidth, width)) {
           it('can make an image full-width', async () => {
-            await insertMedia(page);
-            await animationFrame(page);
+            await waitForMediaToBeLoaded(page);
             await clickMediaInPosition(page, 0);
             await animationFrame(page);
             await changeMediaLayout(page, MediaLayout.fullWidth);
@@ -112,6 +111,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
             page,
             { allowDynamicTextSizing: dynamicTextSizing },
             { width, height },
+            mediaSelectionAdf,
           );
           editorWidth = await getEditorWidth(page);
         });
@@ -120,8 +120,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
           [2, 6, 10].forEach((cols) => {
             it(`can make an image ${cols} columns wide`, async () => {
               const distance = -((editorWidth / 2) * ((12 - cols) / 12));
-              await insertMedia(page);
-              await animationFrame(page);
+              await waitForMediaToBeLoaded(page);
               await scrollToMedia(page);
               await animationFrame(page);
               await resizeMediaInPositionWithSnapshot(page, 0, distance);
@@ -133,9 +132,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
           [2, 6, 10].forEach((cols) => {
             it(`can make an wrap-left image ${cols} columns wide`, async () => {
               const distance = -((editorWidth / 12) * (12 - cols));
-
-              await insertMedia(page);
-              await animationFrame(page);
+              await waitForMediaToBeLoaded(page);
               await scrollToMedia(page);
               await animationFrame(page);
               await clickMediaInPosition(page, 0);
@@ -150,8 +147,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
           [2, 6, 10].forEach((cols) => {
             it(`can make an wrap-right image ${cols} columns wide`, async () => {
               const distance = (editorWidth / 12) * (12 - cols);
-              await insertMedia(page);
-              await animationFrame(page);
+              await waitForMediaToBeLoaded(page);
               await scrollToMedia(page);
               await animationFrame(page);
               await clickMediaInPosition(page, 0);
@@ -172,14 +168,11 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
         describe('lists', () => {
           [2, 6, 10].forEach((cols) => {
             it(`can make an image in a list ${cols} columns wide`, async () => {
-              const distance = -((editorWidth / 12) * (12 - cols));
-
-              await typeInEditor(page, '* ');
-              await animationFrame(page);
-              await insertMedia(page);
-              await animationFrame(page);
+              await initEditor(page, {}, { width, height }, bulletListAdf);
+              await waitForMediaToBeLoaded(page);
               await scrollToMedia(page);
               await animationFrame(page);
+              const distance = -((editorWidth / 12) * (12 - cols));
               await resizeMediaInPositionWithSnapshot(page, 0, distance);
             });
           });
@@ -198,7 +191,7 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
               { width, height },
               layout2Col,
             );
-
+            await waitForMediaToBeLoaded(page);
             const editorWidth = await getEditorWidth(page);
             const distance = -((editorWidth / 12) * 10);
 
@@ -207,10 +200,6 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
             await page.waitForSelector(firstLayoutColSelector);
             await page.click(firstLayoutColSelector);
             await animationFrame(page);
-
-            await insertMedia(page);
-            await animationFrame(page);
-            await waitForMediaToBeLoaded(page);
             await resizeMediaInPositionWithSnapshot(page, 0, distance);
           });
         });

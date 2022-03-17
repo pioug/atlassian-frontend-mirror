@@ -1,14 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import AkButton from '@atlaskit/button/custom-theme-button';
 import Spinner from '@atlaskit/spinner';
-import React from 'react';
 import { Component } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../i18n';
-import * as styles from './styles';
+import { buttonSpinner, uploadEmojiButton, uploadRetryButton } from './styles';
 
 export interface Props {
-  className: string;
-  retryClassName: string;
   label: string;
   appearance: string;
   error: boolean;
@@ -23,21 +22,21 @@ export default class RetryableButton extends Component<Props, {}> {
 
   renderLoading() {
     return (
-      <span className={styles.buttonSpinner}>
+      <span css={buttonSpinner}>
         <Spinner />
       </span>
     );
   }
 
   renderRetry() {
-    const { loading, retryClassName, onSubmit } = this.props;
+    const { loading, onSubmit } = this.props;
     return loading ? (
       this.renderLoading()
     ) : (
       <FormattedMessage {...messages.retryLabel}>
         {(retryLabel) => (
           <AkButton
-            className={retryClassName}
+            css={uploadRetryButton}
             appearance="warning"
             onClick={onSubmit}
           >
@@ -49,21 +48,14 @@ export default class RetryableButton extends Component<Props, {}> {
   }
 
   render() {
-    const {
-      loading,
-      error,
-      className,
-      appearance,
-      onSubmit,
-      label,
-    } = this.props;
+    const { loading, error, appearance, onSubmit, label } = this.props;
     return error ? (
       this.renderRetry()
     ) : loading ? (
       this.renderLoading()
     ) : (
       <AkButton
-        className={className}
+        css={uploadEmojiButton}
         appearance={appearance as any}
         onClick={onSubmit}
       >

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { createUserMediaClient } from '@atlaskit/media-test-helpers';
-import { Subscription } from 'rxjs/Subscription';
+import { MediaSubscription } from '../src/utils/toMediaSubscribable';
 import { Card } from '@atlaskit/media-card';
 import Button from '@atlaskit/button/standard-button';
 import { CardsWrapper, Header } from '../example-helpers/styled';
@@ -15,7 +15,7 @@ export interface ExampleState {
 }
 
 class Example extends Component<{}, ExampleState> {
-  subscription?: Subscription;
+  subscription?: MediaSubscription;
 
   state: ExampleState = {
     fileIds: [],

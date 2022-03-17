@@ -36,43 +36,161 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Linked tag appearance on hover should match production example', async () => {
+  it('Tag color variations should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'tag',
-      'basicTag',
+      'colors',
       global.__BASEURL__,
     );
-    const linkTag = querySelector({
+    const wrapper = querySelector({
       attribute: 'data-testid',
-      suffixValue: 'linkTag',
+      suffixValue: 'wrapper',
     });
     const { page } = global;
     await loadPage(page, url);
-    await page.waitForSelector(linkTag);
-    await page.hover(linkTag);
-    const image = await takeElementScreenShot(page, linkTag);
+    await page.waitForSelector(wrapper);
+    const image = await takeElementScreenShot(page, wrapper);
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Linked tag appearance on active should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'tag',
-      'basicTag',
-      global.__BASEURL__,
-    );
-    const linkTag = querySelector({
-      attribute: 'data-testid',
-      suffixValue: 'linkTag',
+  describe('Non-interactive tag', () => {
+    it('should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'colors',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'nonInteractiveStandard',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
     });
-    const { page } = global;
-    await loadPage(page, url);
-    await page.waitForSelector(linkTag);
-    await page.hover(linkTag);
-    await page.mouse.down();
-    const image = await takeElementScreenShot(page, linkTag);
-    expect(image).toMatchProdImageSnapshot();
+
+    it('appearance on hover should match production example', async () => {
+      // Should have no hover state
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'colors',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'nonInteractiveStandard',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      await page.hover(tag);
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('appearance on active should match production example', async () => {
+      // Should have no active state
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'colors',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'nonInteractiveStandard',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      await page.hover(tag);
+      await page.mouse.down();
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
+  });
+
+  describe('Linked tag', () => {
+    it('should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'basicTag',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'linkTag',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('appearance on hover should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'basicTag',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'linkTag',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      await page.hover(tag);
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('appearance on active should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'basicTag',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'linkTag',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      await page.hover(tag);
+      await page.mouse.down();
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('with theme provider on hover should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'simpleTag-with-theme',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'linkTag',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      await page.hover(tag);
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
   });
 
   it('Removable avatar tag should match production example', async () => {
@@ -179,6 +297,26 @@ describe('Snapshot Test', () => {
     });
   });
 
+  describe('Element before tag', () => {
+    it('should match production example', async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'tag',
+        'colors',
+        global.__BASEURL__,
+      );
+      const tag = querySelector({
+        attribute: 'data-testid',
+        suffixValue: 'elemBeforeBlue',
+      });
+      const { page } = global;
+      await loadPage(page, url);
+      await page.waitForSelector(tag);
+      const image = await takeElementScreenShot(page, tag);
+      expect(image).toMatchProdImageSnapshot();
+    });
+  });
+
   it('Colored Removable tag should change bg color on remove button hover & removed when clicked', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -229,25 +367,6 @@ describe('Snapshot Test', () => {
     await loadPage(page, url);
 
     const image = await takeElementScreenShot(page, '#maxLengthTag');
-    expect(image).toMatchProdImageSnapshot();
-  });
-
-  it('Linked tag with theme provider on hover should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'tag',
-      'simpleTag-with-theme',
-      global.__BASEURL__,
-    );
-    const linkTag = querySelector({
-      attribute: 'data-testid',
-      suffixValue: 'linkTag',
-    });
-    const { page } = global;
-    await loadPage(page, url);
-    await page.waitForSelector(linkTag);
-    await page.hover(linkTag);
-    const image = await takeElementScreenShot(page, linkTag);
     expect(image).toMatchProdImageSnapshot();
   });
 

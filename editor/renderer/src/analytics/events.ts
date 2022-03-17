@@ -6,7 +6,9 @@ import {
   ACTION_SUBJECT_ID,
 } from './enums';
 import {
+  PropsDifference,
   SEVERITY,
+  ShallowPropsDifference,
   UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentPayload } from '@atlaskit/editor-common/utils';
@@ -44,6 +46,18 @@ type RendererRenderedAEP = AEP<
     ttfb?: number;
     nodes: Record<string, number>;
     severity?: SEVERITY;
+  },
+  EVENT_TYPE.OPERATIONAL
+>;
+
+type RendererReRenderedAEP<Props> = AEP<
+  ACTION.RE_RENDERED,
+  ACTION_SUBJECT.RENDERER,
+  undefined,
+  {
+    propsDifference: PropsDifference<Props> | ShallowPropsDifference<Props>;
+    count: number;
+    componentId?: string;
   },
   EVENT_TYPE.OPERATIONAL
 >;
@@ -265,9 +279,10 @@ type RendererTTIAEP = AEP<
   EVENT_TYPE.OPERATIONAL
 >;
 
-export type AnalyticsEventPayload =
+export type AnalyticsEventPayload<T = void> =
   | RendererStartAEP
   | RendererRenderedAEP
+  | RendererReRenderedAEP<T>
   | ComponentCrashErrorAEP
   | RendererUnsupportedContentLevelsTrackingSucceeded
   | RendererUnsupportedContentLevelsTrackingErrored

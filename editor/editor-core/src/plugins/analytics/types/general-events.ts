@@ -14,7 +14,7 @@ import { PluginPerformanceReportData } from '../../../utils/performance/plugin-p
 import {
   ShallowPropsDifference,
   PropsDifference,
-} from '../../../utils/compare';
+} from '@atlaskit/editor-common/utils';
 import { FeatureFlagKey } from '../../../types/feature-flags';
 import { AnnotationAEP } from './inline-comment-events';
 import { RichMediaLayout } from '@atlaskit/adf-schema';

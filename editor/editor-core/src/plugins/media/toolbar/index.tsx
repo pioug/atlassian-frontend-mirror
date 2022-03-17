@@ -13,7 +13,6 @@ import {
 } from '../../../plugins/floating-toolbar/types';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { hoverDecoration } from '../../base/pm-plugins/decoration';
-import { renderAnnotationButton } from './annotation';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
 import buildLayoutButtons from '../../../ui/MediaAndEmbedsToolbar';
 import { MediaLinkingState, getMediaLinkingState } from '../pm-plugins/linking';
@@ -225,7 +224,6 @@ const generateMediaSingleFloatingToolbar = (
   const { mediaSingle } = state.schema.nodes;
   const {
     allowResizing,
-    allowAnnotation,
     allowLinking,
     allowAdvancedToolBarOptions,
     allowResizingInTables,
@@ -241,15 +239,6 @@ const generateMediaSingleFloatingToolbar = (
       allowResizing,
       allowResizingInTables,
     );
-    if (toolbarButtons.length) {
-      if (allowAnnotation) {
-        toolbarButtons.push({
-          type: 'custom',
-          fallback: [],
-          render: renderAnnotationButton(pluginState, intl),
-        });
-      }
-    }
 
     if (toolbarButtons.length) {
       toolbarButtons.push({ type: 'separator' });

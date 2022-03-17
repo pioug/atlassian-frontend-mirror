@@ -1,4 +1,5 @@
 import React from 'react';
+import Loadable from 'react-loadable';
 import {
   MediaClient,
   FileState,
@@ -9,17 +10,13 @@ import {
   isExternalImageIdentifier,
   isFileIdentifier,
   ExternalImageIdentifier,
+  MediaSubscription,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
 import { Outcome } from './domain';
-import { ImageViewer } from './viewers/image';
-import { VideoViewer } from './viewers/video';
-import { DocViewer } from './viewers/doc';
-import { CodeViewer } from './viewers/codeViewer';
 import { Spinner } from './loading';
-import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
 import ErrorMessage from './errorMessage';
 import { MediaViewerError } from './errors';
@@ -31,10 +28,44 @@ import {
 import { createCommencedEvent } from './analytics/events/operational/commenced';
 import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';
 import { fireAnalytics, getFileAttributes } from './analytics';
-import { AudioViewer } from './viewers/audio';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { ImageViewerProps } from './viewers/image';
+import type { Props as VideoViewerProps } from './viewers/video';
+import type { Props as AudioViewerProps } from './viewers/audio';
+import type { Props as DocViewerProps } from './viewers/doc';
+import type { Props as CodeViewerProps } from './viewers/codeViewer';
+import {
+  startMediaFileUfoExperience,
+  succeedMediaFileUfoExperience,
+} from './analytics/ufoExperiences';
+
+const ImageViewer = Loadable({
+  loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
+    import('./viewers/image').then((mod) => mod.ImageViewer),
+  loading: () => <Spinner />,
+});
+const VideoViewer = Loadable({
+  loader: (): Promise<React.ComponentType<VideoViewerProps>> =>
+    import('./viewers/video').then((mod) => mod.VideoViewer),
+  loading: () => <Spinner />,
+});
+const AudioViewer = Loadable({
+  loader: (): Promise<React.ComponentType<AudioViewerProps>> =>
+    import('./viewers/audio').then((mod) => mod.AudioViewer),
+  loading: () => <Spinner />,
+});
+const DocViewer = Loadable({
+  loader: (): Promise<React.ComponentType<DocViewerProps>> =>
+    import('./viewers/doc').then((mod) => mod.DocViewer),
+  loading: () => <Spinner />,
+});
+const CodeViewer = Loadable({
+  loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
+    import('./viewers/codeViewer').then((mod) => mod.CodeViewer),
+  loading: () => <Spinner />,
+});
 
 export type Props = Readonly<{
   identifier: Identifier;
@@ -67,7 +98,7 @@ const initialState: State = {
 export class ItemViewerBase extends React.Component<Props, State> {
   state: State = initialState;
 
-  private subscription?: Subscription;
+  private subscription?: MediaSubscription;
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (this.needsReset(this.props, nextProps)) {
@@ -96,6 +127,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       if (isFileStateItem(fileItem)) {
         const fileAttributes = getFileAttributes(fileItem);
         fireAnalytics(createLoadSucceededEvent(fileAttributes), this.props);
+        succeedMediaFileUfoExperience(fileAttributes);
       }
     });
   };
@@ -113,6 +145,9 @@ export class ItemViewerBase extends React.Component<Props, State> {
       }),
       this.props,
     );
+    succeedMediaFileUfoExperience({
+      fileId: 'external-image',
+    });
   };
 
   private onExternalImgError = () => {
@@ -311,6 +346,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
 
     const { id } = identifier;
     fireAnalytics(createCommencedEvent(id), this.props);
+    startMediaFileUfoExperience();
     this.subscription = mediaClient.file
       .getFileState(id, {
         collectionName: identifier.collectionName,

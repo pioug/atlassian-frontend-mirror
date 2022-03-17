@@ -1,12 +1,13 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { Node as PmNode } from 'prosemirror-model';
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
 import { getExtensionLozengeData } from '@atlaskit/editor-common/utils';
 import {
-  PlaceholderFallback,
-  PlaceholderFallbackParams,
-  StyledImage,
+  placeholderFallback,
+  placeholderFallbackParams,
+  styledImage,
 } from './styles';
 
 export const capitalizeFirstLetter = (str: string): string => {
@@ -41,7 +42,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
   private renderImage(lozengeData: LozengeData) {
     const { extensionKey } = this.props.node.attrs;
     const { url, ...rest } = lozengeData;
-    return <StyledImage src={url} {...rest} alt={extensionKey} />;
+    return <img css={styledImage} src={url} {...rest} alt={extensionKey} />;
   }
 
   private renderFallback(lozengeData?: LozengeData) {
@@ -56,7 +57,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
       extensionKey;
     const isBlockExtension = name === 'extension';
     return (
-      <PlaceholderFallback>
+      <div css={placeholderFallback}>
         {lozengeData && !isBlockExtension ? (
           this.renderImage({
             height: ICON_SIZE,
@@ -68,13 +69,13 @@ export default class ExtensionLozenge extends Component<Props, any> {
         )}
         <span className="extension-title">{capitalizeFirstLetter(title)}</span>
         {params && !isBlockExtension && (
-          <PlaceholderFallbackParams>
+          <span css={placeholderFallbackParams}>
             {Object.keys(params).map(
               (key) => key && ` | ${key} = ${params[key].value}`,
             )}
-          </PlaceholderFallbackParams>
+          </span>
         )}
-      </PlaceholderFallback>
+      </div>
     );
   }
 }

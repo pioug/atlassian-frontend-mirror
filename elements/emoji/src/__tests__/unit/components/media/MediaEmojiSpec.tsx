@@ -1,5 +1,5 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { EmojiProvider } from '../../../../api/EmojiResource';
 import { CachingMediaEmoji } from '../../../../components/common/CachingEmoji';
@@ -19,7 +19,7 @@ import {
   emojisVisible,
   setupPicker,
 } from '../picker/_emoji-picker-test-helpers';
-import EmojiPickerPreview from '../../../../components/picker/EmojiPickerPreview';
+import { EmojiPreviewComponent } from '../../../../../src/components/common/EmojiPreviewComponent';
 
 describe('Media Emoji Handling across components', () => {
   let emojiProvider: Promise<EmojiProvider>;
@@ -75,14 +75,14 @@ describe('Media Emoji Handling across components', () => {
       // Hover to force preview
       emoji.simulate('mousemove');
 
-      let preview = component.find(EmojiPickerPreview);
+      let preview = component.find(EmojiPreviewComponent);
       expect(preview.length).toEqual(1);
 
       await waitUntil(() =>
         hasSelector(
           component,
           Emoji,
-          (preview = component.find(EmojiPickerPreview)),
+          (preview = component.find(EmojiPreviewComponent)),
         ),
       );
       const previewEmojiDescription = preview.find(Emoji).prop('emoji');

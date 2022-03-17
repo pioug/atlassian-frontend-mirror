@@ -1,5 +1,20 @@
 # @atlaskit/emoji
 
+## 64.3.0
+
+### Minor Changes
+
+- [`753e9b6b610`](https://bitbucket.org/atlassian/atlassian-frontend/commits/753e9b6b610) - Migrated styles from typestyle to emotion
+- [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
+
+### Patch Changes
+
+- [`e68c59796b5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e68c59796b5) - Fix EmojiId encoding
+- [`963a1369eac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/963a1369eac) - This is a revert commit to a refactor that has not been released for legacy context provider
+- [`876cae9c606`](https://bitbucket.org/atlassian/atlassian-frontend/commits/876cae9c606) - Changed selector first-child to first-of-type to better support SSR
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 64.2.1
 
 ### Patch Changes

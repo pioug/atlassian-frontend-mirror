@@ -38,22 +38,28 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 const iconMap = (key: string) => {
   const icons: { [key: string]: ReactElement } = {
     info: (
-      <Info label="Info" secondaryColor={token('color.icon.discovery', N500)} />
+      <Info
+        label="Info"
+        secondaryColor={token('color.background.neutral.bold', N500)}
+      />
     ),
     success: (
       <Tick
         label="Success"
-        secondaryColor={token('color.icon.success', G400)}
+        secondaryColor={token('color.background.success.bold', G400)}
       />
     ),
     warning: (
       <Warning
         label="Warning"
-        secondaryColor={token('color.icon.warning', Y300)}
+        secondaryColor={token('color.background.warning.bold', Y300)}
       />
     ),
     error: (
-      <Error label="Error" secondaryColor={token('color.icon.danger', R300)} />
+      <Error
+        label="Error"
+        secondaryColor={token('color.background.danger.bold', R300)}
+      />
     ),
   };
 

@@ -369,6 +369,15 @@ describe('block-type', () => {
       );
     });
 
+    it('should be able to insert panel after current selection if current selection is in the middle of a node that cannot contain a panel', () => {
+      const { editorView } = editor(doc(blockquote(p('test{<>} insertion'))));
+      const { state, dispatch } = editorView;
+      insertBlockType('panel')(state, dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(blockquote(p('test insertion')), panel()(p())),
+      );
+    });
+
     it('should be able to insert blockquote', () => {
       const { editorView } = editor(doc(p()));
       const { state, dispatch } = editorView;
@@ -394,11 +403,20 @@ describe('block-type', () => {
       );
     });
 
+    it('should be able to insert blockquote after current selection if current selection is in the middle of a node that cannot contain a blockquote', () => {
+      const { editorView } = editor(doc(panel()(p('test{<>} insertion'))));
+      const { state, dispatch } = editorView;
+      insertBlockType('blockquote')(state, dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(panel()(p('test insertion')), blockquote(p())),
+      );
+    });
+
     it('should be able to insert codeblock', () => {
       const { editorView } = editor(doc(p()));
       const { state, dispatch } = editorView;
       insertBlockType('codeblock')(state, dispatch);
-      expect(editorView.state.doc).toEqualDocument(doc(p(), code_block()()));
+      expect(editorView.state.doc).toEqualDocument(doc(code_block()()));
     });
 
     it('should insert code block after selection if selected block has text', () => {
@@ -407,6 +425,19 @@ describe('block-type', () => {
       insertBlockType('codeblock')(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('text{<>}'), code_block()()),
+      );
+    });
+
+    it('should be able to insert codeblock after node if it is an invalid child', () => {
+      const { editorView } = editor(doc(panel()(p('This is a {<>}panel'))));
+      const { state, dispatch } = editorView;
+      insertBlockType('codeblock')(state, dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        // prettier-ignore
+        doc(
+          panel()(p('This is a panel')),
+          code_block()()
+        ),
       );
     });
   });

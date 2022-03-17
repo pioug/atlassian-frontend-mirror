@@ -4,7 +4,7 @@ import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import Table from '../../../../react/nodes/table';
 import { TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { table, tr, th, p } from '@atlaskit/adf-utils';
 import { defaultSchema as schema } from '@atlaskit/adf-schema';
 import Heading, { HeadingLevels } from '../../../../react/nodes/heading';

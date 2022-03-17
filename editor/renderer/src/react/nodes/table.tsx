@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Node as PMNode } from 'prosemirror-model';
 
 import { UrlType } from '@atlaskit/adf-schema';
@@ -180,8 +179,6 @@ interface TableOrderStatus {
 interface TableState {
   stickyMode: StickyMode;
 }
-
-const MainTableContainer = styled.div``;
 
 const canUseLinelength = (appearance: RendererAppearance) =>
   appearance === 'full-page' || appearance === 'mobile';
@@ -386,10 +383,10 @@ export class TableContainer extends React.Component<
             {[children && children[0]]}
           </StickyTable>
         )}
-        <MainTableContainer
+        <div
           className={`${TableSharedCssClassName.TABLE_CONTAINER} ${this.props.shadowClassNames}`}
           data-layout={layout}
-          innerRef={this.props.handleRef}
+          ref={this.props.handleRef}
           style={{
             width: tableWidth,
             left: left && left < 0 ? left : undefined,
@@ -411,7 +408,7 @@ export class TableContainer extends React.Component<
               {this.grabFirstRowRef(children)}
             </Table>
           </div>
-        </MainTableContainer>
+        </div>
       </>
     );
   }

@@ -1,11 +1,11 @@
-import { style } from 'typestyle';
 import { token } from '@atlaskit/tokens';
 
 import { emojiPickerWidth } from '../../util/constants';
+import { css } from '@emotion/core';
 
 // Uploader
 
-export const emojiUploadWidget = style({
+export const emojiUploadWidget = css({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -20,6 +20,6 @@ export const emojiUploadWidget = style({
 });
 
 /// Footer
-export const emojiUploadFooter = style({
+export const emojiUploadFooter = css({
   flex: '0 0 auto',
 });

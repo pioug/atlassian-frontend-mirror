@@ -1,5 +1,21 @@
 # @atlaskit/tag
 
+## 11.3.0
+
+### Minor Changes
+
+- [`53588b7628f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53588b7628f) - [ux] Color updates
+
+  - Link tag color background + text updates: hovered and pressed states. Now using accent tokens
+  - Removable tag background, text, and remove button color updates: hovered and pressed states. Now using "danger" token color (red) on hover
+  - Elements before tags now vertically centered rather than anchored to the top
+  - Elements before tags now match text color of tag, improving visibility on color variations and interaction states
+  - Replaced some remaining colors with design tokens
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.6
 
 ### Patch Changes

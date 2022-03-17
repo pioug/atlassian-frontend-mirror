@@ -17,7 +17,10 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
-import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
+import {
+  pressKey,
+  pressWithKeyModifier,
+} from '../../__helpers/page-objects/_keyboard';
 
 describe('Panel:', () => {
   let page: PuppeteerPage;
@@ -178,7 +181,7 @@ describe('custom panels', () => {
 
   it('should show emoji picker on top of the toolbar', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
-    await pressKeyCombo(page, [
+    await pressKey(page, [
       'ArrowRight',
       'ArrowRight',
       'ArrowDown',
@@ -220,15 +223,20 @@ describe('custom panels', () => {
 
   it('should select custom panel with emoji by pressing Shift + ArrowDown', async () => {
     await page.click(`${panelSelectors.panelContent} p`);
-    await pressKeyCombo(page, [
-      'Shift',
-      'ArrowDown',
-      'ArrowDown',
-      'ArrowDown',
-      'ArrowDown',
-      'ArrowDown',
-      'ArrowDown',
-    ]);
+    await pressWithKeyModifier(page, {
+      modifierKeys: ['Shift'],
+      keys: [
+        'ArrowDown',
+        'ArrowDown',
+        'ArrowDown',
+        'ArrowDown',
+        'ArrowDown',
+        'ArrowDown',
+      ],
+      // We need a timeout here as there is custom interception of shift + Arrow down in packages/editor/editor-core/src/plugins/selection/pm-plugins/selection-main.ts,
+      // which takes time to run and update the selection.
+      timeoutRequired: true,
+    });
   });
 
   it('should open custom Emoji option when clicked on addYourOwnEmoji button', async () => {

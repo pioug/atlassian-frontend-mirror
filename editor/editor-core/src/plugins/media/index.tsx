@@ -14,8 +14,6 @@ import {
   MediaState,
 } from './pm-plugins/main';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { createPlugin as createMediaEditorPlugin } from './pm-plugins/media-editor';
-import { pluginKey as mediaEditorPluginKey } from './pm-plugins/media-editor-plugin-factory';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
 import keymapMediaSinglePlugin from './pm-plugins/keymap-media-single';
@@ -37,7 +35,6 @@ import {
 } from '../analytics';
 import { IconImages } from '../quick-insert/assets';
 import WithPluginState from '../../ui/WithPluginState';
-import MediaEditor from './ui/MediaEditor';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
@@ -149,10 +146,6 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
       });
     }
 
-    if (options && options.allowAnnotation) {
-      pmPlugins.push({ name: 'mediaEditor', plugin: createMediaEditorPlugin });
-    }
-
     if (options && options.allowAltTextOnImages) {
       pmPlugins.push({
         name: 'mediaAltText',
@@ -179,24 +172,7 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
     return pmPlugins;
   },
 
-  contentComponent({ editorView, eventDispatcher, appearance }) {
-    // render MediaEditor separately because it doesn't depend on media plugin state
-    // so we can utilise EventDispatcher-based rerendering
-    const mediaEditor =
-      options && options.allowAnnotation ? (
-        <WithPluginState
-          editorView={editorView}
-          plugins={{ mediaEditorState: mediaEditorPluginKey }}
-          eventDispatcher={eventDispatcher}
-          render={({ mediaEditorState }) => (
-            <MediaEditor
-              mediaEditorState={mediaEditorState!}
-              view={editorView}
-            />
-          )}
-        />
-      ) : null;
-
+  contentComponent({ editorView, appearance }) {
     return (
       <>
         <WithPluginState
@@ -212,8 +188,6 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
             />
           )}
         />
-
-        {mediaEditor}
       </>
     );
   },
@@ -260,7 +234,6 @@ const mediaPlugin = (options?: MediaOptions): EditorPlugin => ({
           options && getMediaFeatureFlag('mediaInline', options.featureFlags),
         allowResizing: options && options.allowResizing,
         allowResizingInTables: options && options.allowResizingInTables,
-        allowAnnotation: options && options.allowAnnotation,
         allowLinking: options && options.allowLinking,
         allowAdvancedToolBarOptions:
           options && options.allowAdvancedToolBarOptions,

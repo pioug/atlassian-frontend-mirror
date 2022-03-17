@@ -3,7 +3,7 @@ import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
 
 import { emojiPickerWidth } from '../src/util/constants';
-import EmojiPickerPreview from '../src/components/picker/EmojiPickerPreview';
+import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComponent';
 
 const emoji = {
   id: '118608',
@@ -34,7 +34,7 @@ export default function Example() {
   return (
     <IntlProvider locale="en">
       <div style={borderedStyle}>
-        <EmojiPickerPreview emoji={emoji} />
+        {emoji && <EmojiPreviewComponent emoji={emoji} />}
       </div>
     </IntlProvider>
   );

@@ -633,3 +633,8 @@ export const retryUntil = (
     }, ms);
   });
 };
+
+export const focusEditor = async (page: PuppeteerPage) => {
+  page.waitForSelector(pmSelector);
+  return await page.click(pmSelector);
+};

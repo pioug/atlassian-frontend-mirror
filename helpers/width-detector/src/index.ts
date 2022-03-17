@@ -1,6 +1,2 @@
 export { default } from './WidthDetector';
-export {
-  WidthObserver,
-  IframeWidthObserverFallbackWrapper,
-  IframeWrapperConsumer,
-} from './WidthObserver';
+export { WidthObserver } from './WidthObserver';

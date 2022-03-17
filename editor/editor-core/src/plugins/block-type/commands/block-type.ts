@@ -1,6 +1,7 @@
-import { EditorState, Selection, TextSelection } from 'prosemirror-state';
+import { EditorState, TextSelection, Selection } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
 import { findWrapping } from 'prosemirror-transform';
+import { safeInsert } from 'prosemirror-utils';
 import { Command } from '../../../types';
 import {
   CODE_BLOCK,
@@ -11,6 +12,7 @@ import {
   HeadingLevelsAndNormalText,
 } from '../types';
 import { removeBlockMarks } from '../../../utils/mark';
+import { shouldSplitSelectedNodeOnNodeInsertion } from '../../../utils/insert';
 import {
   withAnalytics,
   ACTION,
@@ -237,7 +239,6 @@ function wrapSelectionIn(type: NodeType<any>): Command {
   return function (state: EditorState, dispatch) {
     let { tr } = state;
     const { $from, $to } = state.selection;
-    const { paragraph } = state.schema.nodes;
     const { alignment, indentation } = state.schema.marks;
 
     /** Alignment or Indentation is not valid inside block types */
@@ -250,12 +251,7 @@ function wrapSelectionIn(type: NodeType<any>): Command {
       tr.wrap(range, wrapping).scrollIntoView();
     } else {
       /** We always want to append a block type */
-      tr.replaceRangeWith(
-        $to.pos + 1,
-        $to.pos + 1,
-        type.createAndFill({}, paragraph.create())!,
-      );
-      tr.setSelection(Selection.near(tr.doc.resolve(state.selection.to + 1)));
+      safeInsert(type.createAndFill() as PMNode)(tr).scrollIntoView();
     }
     if (dispatch) {
       dispatch(tr);
@@ -270,21 +266,32 @@ function wrapSelectionIn(type: NodeType<any>): Command {
 function insertCodeBlock(): Command {
   return function (state: EditorState, dispatch) {
     const { tr } = state;
-    const { $to } = state.selection;
+    const { $to, $from } = state.selection;
     const { codeBlock } = state.schema.nodes;
+    const grandParentType = state.selection.$from.node(-1)?.type;
+    const parentType = state.selection.$from.parent.type;
 
-    const getNextNode = state.doc.nodeAt($to.pos + 1);
-    const addPos = getNextNode && getNextNode.isText ? 0 : 1;
+    /** We always want to append a block type unless we're inserting into a paragraph
+     * AND it's a valid child of the grandparent node
+     */
+    if (
+      shouldSplitSelectedNodeOnNodeInsertion(
+        parentType,
+        grandParentType,
+        codeBlock.createAndFill() as PMNode,
+      )
+    ) {
+      tr.replaceRangeWith(
+        $from.pos,
+        $to.pos,
+        codeBlock.createAndFill() as PMNode,
+      );
 
-    /** We always want to append a block type */
-    tr.replaceRangeWith(
-      $to.pos + addPos,
-      $to.pos + addPos,
-      codeBlock.createAndFill() as PMNode,
-    );
-    tr.setSelection(
-      Selection.near(tr.doc.resolve(state.selection.to + addPos)),
-    );
+      tr.setSelection(Selection.near(tr.doc.resolve(state.selection.to)));
+    } else {
+      safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
+    }
+
     if (dispatch) {
       dispatch(tr);
     }

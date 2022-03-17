@@ -1,13 +1,11 @@
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css } from '@emotion/react';
 
-import { MediaSingle as UIMediaSingle } from '@atlaskit/editor-common/ui';
+export const uiMediaSingleBaseStyles = css`
+  transition: all 0.1s linear;
+`;
 
-export const ExtendedUIMediaSingle = styled(UIMediaSingle)`
-  ${({ layout }) =>
-    layout === 'full-width' || layout === 'wide'
-      ? `
+export const uiMediaSingleLayoutStyles = css`
   margin-left: 50%;
   transform: translateX(-50%);
-  `
-      : ``} transition: all 0.1s linear;
 `;

@@ -1,14 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/glyph/add';
-import classNames from 'classnames';
-import React from 'react';
 import { PureComponent } from 'react';
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
-import CachingEmoji from '../../components/common/CachingEmoji';
 import EmojiButton from '../../components/common/EmojiButton';
 import {
   EmojiDescription,
@@ -18,9 +17,16 @@ import {
   ToneSelection,
 } from '../../types';
 import { messages } from '../i18n';
-import * as styles from './styles';
 import ToneSelector from './ToneSelector';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
+import {
+  addCustomEmoji,
+  addCustomEmojiButton,
+  emojiPickerAddEmoji,
+  emojiPreview,
+  toneSelectorContainer,
+} from './styles';
+import { EmojiPreviewComponent } from './EmojiPreviewComponent';
 
 export interface Props {
   emoji?: EmojiDescription;
@@ -86,7 +92,7 @@ export class EmojiPreview extends PureComponent<
     }
 
     return (
-      <div className={styles.toneSelectorContainer}>
+      <div className={toneSelectorContainer}>
         {this.state.selectingTone && (
           <ToneSelector
             emoji={toneEmoji}
@@ -120,26 +126,7 @@ export class EmojiPreview extends PureComponent<
       return null;
     }
 
-    const previewClasses = classNames({
-      [styles.preview]: true,
-    });
-
-    const previewTextClasses = classNames({
-      [styles.previewText]: true,
-      [styles.previewSingleLine]: !emoji.name,
-    });
-
-    return (
-      <div className={previewClasses}>
-        <span className={styles.previewImg}>
-          <CachingEmoji emoji={emoji} />
-        </span>
-        <div className={previewTextClasses}>
-          <span className={styles.name}>{emoji.name}</span>
-          <span className={styles.shortName}>{emoji.shortName}</span>
-        </div>
-      </div>
-    );
+    return <EmojiPreviewComponent emoji={emoji} />;
   }
 
   // note: emoji-picker-add-emoji className is used by pollinator synthetic checks
@@ -152,7 +139,7 @@ export class EmojiPreview extends PureComponent<
       return null;
     }
     return (
-      <div className={styles.AddCustomEmoji}>
+      <div css={addCustomEmoji}>
         <FormattedMessage {...messages.addCustomEmojiLabel}>
           {(label) => (
             <AkButton
@@ -164,9 +151,8 @@ export class EmojiPreview extends PureComponent<
                 />
               }
               appearance="subtle"
-              className={
-                styles.addCustomEmojiButton + ' emoji-picker-add-emoji'
-              }
+              css={addCustomEmojiButton}
+              className={emojiPickerAddEmoji}
             >
               {label}
             </AkButton>
@@ -177,12 +163,8 @@ export class EmojiPreview extends PureComponent<
   }
 
   render() {
-    const sectionClasses = classNames([
-      styles.emojiPreview,
-      styles.emojiPreviewSection,
-    ]);
     return (
-      <div className={sectionClasses} onMouseLeave={this.onMouseLeave}>
+      <div css={emojiPreview} onMouseLeave={this.onMouseLeave}>
         {this.renderAddOwnEmoji()}
         {this.renderEmojiPreview()}
         {this.renderTones()}

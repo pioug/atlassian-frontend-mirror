@@ -15,7 +15,7 @@ import Media, {
 import { stateKey as mediaStateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
 import { isMobileUploadCompleted } from '../../../../../plugins/media/commands/helpers';

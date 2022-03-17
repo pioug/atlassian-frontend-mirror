@@ -1,16 +1,16 @@
 import { Action } from 'redux';
-import { Subscription } from 'rxjs/Subscription';
+import { MediaSubscription } from '@atlaskit/media-client';
 
 export const SAVE_COLLECTION_ITEMS_SUBSCRIPTION =
   'SAVE_COLLECTION_ITEMS_SUBSCRIPTION';
 
 export interface SaveCollectionItemsSubscriptionAction extends Action {
   type: 'SAVE_COLLECTION_ITEMS_SUBSCRIPTION';
-  subscription: Subscription;
+  subscription: MediaSubscription;
 }
 
 export function saveCollectionItemsSubscription(
-  subscription: Subscription,
+  subscription: MediaSubscription,
 ): SaveCollectionItemsSubscriptionAction {
   return {
     type: SAVE_COLLECTION_ITEMS_SUBSCRIPTION,

@@ -24,7 +24,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
         key="name"
         color={
           this.props.isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text', N800)
         }
       >
@@ -40,7 +40,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
           <TextWrapper
             color={
               this.props.isSelected
-                ? token('color.text.brand', B400)
+                ? token('color.text.selected', B400)
                 : token('color.text.subtlest', N200)
             }
           >
@@ -61,7 +61,7 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
       <TextWrapper
         color={
           this.props.isSelected
-            ? token('color.text.brand', B400)
+            ? token('color.text.selected', B400)
             : token('color.text.subtlest', N200)
         }
       >

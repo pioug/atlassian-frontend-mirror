@@ -18,6 +18,7 @@ import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { InlineCard, InlineCardNodeViewProps } from '../nodeviews/inlineCard';
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../plugins/analytics';
 
 export { pluginKey } from './plugin-key';
 
@@ -26,6 +27,7 @@ export const createPlugin = (options: CardPluginOptions) => ({
   eventDispatcher,
   providerFactory,
   dispatchAnalyticsEvent,
+  featureFlags,
 }: PMPluginFactoryParams) => {
   const {
     platform,
@@ -37,6 +39,21 @@ export const createPlugin = (options: CardPluginOptions) => ({
   return new SafePlugin({
     state: {
       init(): CardPluginState {
+        const { viewChangingExperimentToolbarStyle } = featureFlags;
+
+        dispatchAnalyticsEvent({
+          eventType: EVENT_TYPE.OPERATIONAL,
+          action: ACTION.EXPOSED,
+          actionSubject: ACTION_SUBJECT.FEATURE,
+          attributes: {
+            flagKey:
+              'confluence.frontend.fabric.editor.view-changing-experiment-toolbar-style',
+            value: viewChangingExperimentToolbarStyle || 'noChange',
+          },
+          source: '@atlaskit/feature-flag-client',
+          tags: ['measurement'],
+        });
+
         return {
           requests: [],
           provider: null,

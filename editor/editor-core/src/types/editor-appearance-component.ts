@@ -53,7 +53,6 @@ export interface EditorAppearanceComponentProps {
   collabEdit?: CollabEditOptions;
 
   allowDynamicTextSizing?: boolean;
-  allowAnnotation?: boolean;
   persistScrollGutter?: boolean;
 
   enableToolbarMinWidth?: boolean;

@@ -15,6 +15,7 @@ import {
   Parameters,
   NestedFieldDefinition,
 } from '@atlaskit/editor-common/extensions';
+import SmartUserPicker from '@atlaskit/smart-user-picker';
 
 import { flushPromises } from '../../__helpers/utils';
 
@@ -219,7 +220,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               documentationUrl: 'http://atlassian.com/docs',
             });
 
-            const description = header.find('Description');
+            const description = header.find('p[className$="-Header"]');
 
             expect(description.text()).toBe(
               'This is a description. Documentation',
@@ -239,7 +240,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               documentationUrl: 'http://atlassian.com/docs',
             });
 
-            expect(header.find('Description').text()).toBe(
+            expect(header.find('p[className$="-Header"]').text()).toBe(
               'This is a description. Documentation',
             );
           });
@@ -260,7 +261,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               summary: undefined,
             });
 
-            expect(header.find('CenteredItemTitle').text()).toBe(
+            expect(header.find('div#context-panel-title').text()).toBe(
               'Extension Title',
             );
           });
@@ -1576,7 +1577,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
         it('should create a SmartUserPicker', async () => {
           const { wrapper } = await mountUser();
-          const field = wrapper.find('SmartUserPicker');
+          const field = wrapper.find(SmartUserPicker);
 
           expect(field.length).toBe(1);
         });

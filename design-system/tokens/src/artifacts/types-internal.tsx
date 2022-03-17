@@ -165,6 +165,8 @@ export type InternalTokenIds =
   | 'color.interaction.pressed'
   | 'color.interaction.inverse.hovered'
   | 'color.interaction.inverse.pressed'
+  | 'color.skeleton.[default]'
+  | 'color.skeleton.subtle'
   | 'color.link.[default]'
   | 'color.link.pressed'
   | 'elevation.shadow.raised'

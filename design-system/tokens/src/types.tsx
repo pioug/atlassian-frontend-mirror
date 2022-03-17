@@ -520,6 +520,15 @@ export interface InteractionColorTokenSchema {
   };
 }
 
+export interface SkeletonColorTokenSchema {
+  color: {
+    skeleton: {
+      '[default]': PaintToken;
+      subtle: PaintToken;
+    };
+  };
+}
+
 export interface UtilTokenSchema {
   UNSAFE_util: {
     transparent: RawToken;

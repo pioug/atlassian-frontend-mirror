@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 163.0.0
+
+### Major Changes
+
+- [`0ba6e613e60`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ba6e613e60) - [ux] Removed media-editor references in editor-core
+- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
+
+### Minor Changes
+
+- [`8767658360f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8767658360f) - Adds support to editor-core analytics types to dispatch operational feature exposure events.
+- [`bceab5fa97d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bceab5fa97d) - ED-14632: Add render count tracking reRendered event in Renderer
+- [`c5ac02c5672`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5ac02c5672) - [ux] ED-9226 padding fix for numbered list inside table
+- [`16ffd1a95fd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16ffd1a95fd) - [ux] ED-14479 Created getInlineNodeView api and added test suite. Refactored status node view to use new api.
+- [`a94f57c6d61`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a94f57c6d61) - fix integration tests to remove dependency of mediaPicker popup and use native picker
+
+### Patch Changes
+
+- [`0863c318a75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0863c318a75) - [ED-14590] Fix unclickable links on mention team highlight
+- [`ef7b2acee8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef7b2acee8d) - [ux] ED-14633 Adds editable widgets either side of the cursor when positioned between inline node views to prevent the cursor disappearing or appearing in the wrong position. Also removes old Firefox selection workaround.
+- [`874489b6b05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/874489b6b05) - [ux] Migrate the DateNodeView to the node view producer api, which provides a number of selection fixes.
+- [`44c6c36d8d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44c6c36d8d9) - ED-14263 replaced styled usages
+- [`523d46ed69d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/523d46ed69d) - ED-11836 Restrict ListsJoined type
+- [`b38234b895c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b38234b895c) - ED-14268 editor-core replace some of styled-components with emotion
+- [`3c24bc606e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c24bc606e4) - [ux][ed-14191] Stop config panel with tabs overflowing when long dropdown option is selected
+- [`92f9b06ab4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92f9b06ab4b) - ED-14269 Migrated css in editor-core to emotion.
+- [`2cfb953f2af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cfb953f2af) - ED-14739: Fix backspace issue. When you have a list and have empty paragraphs after the list, if you position the cursor just after the list, the cursor doesn't move going into the list.
+- [`2a8cbf13f57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a8cbf13f57) - ED-14339 removed ThemeProvider from editor-core
+- [`d175ef22258`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d175ef22258) - Change default analytic value
+- [`5c1bba527ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c1bba527ee) - [ux] ED-14573 Updated getInlineNodeViewProducer markup and styles to allow multiline node views to wrap across lines and not act as a block element.
+- [`1e2086467f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e2086467f1) - [ED-13775] Added resize observer on scroll parent element to realign popup components when template context panel is opened/closed.
+- [`78aec52dea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78aec52dea0) - use latest SmartUserPicker in Editor packages
+- [`0dad4610a36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dad4610a36) - ED-14268 migrated parts of editor-core to use emotion.
+- [`b060587bd38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b060587bd38) - [ux][ed-14584] Solve inconsistencies of node insertion via the toolbar. Specifically targeting nodes being inserted into other nodes that cannot contain them. Previously the node being inserted into would split in half, but now the invalid node will insert underneath.
+- [`1b0b4544d74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b0b4544d74) - Change default value of FF for experiment
+- [`447feec5678`](https://bitbucket.org/atlassian/atlassian-frontend/commits/447feec5678) - [ED-11900] Make table node top of the quick insert result by adding "table" in the keywords list
+- [`9b5c590caae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b5c590caae) - ED-14268 replaced some styled in editor-core
+- [`ea050810214`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea050810214) - EDM-2935: Reimplement change experiment tracking event without localId
+- [`5c6607ee0e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c6607ee0e7) - Migrated link, rule, panel and expand styles in editor-common to emotion.
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- [`1bf958a90f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bf958a90f5) - EDM-2892: Fix view switcher casing in feature flags from props.
+- Updated dependencies
+
 ## 162.0.1
 
 ### Patch Changes

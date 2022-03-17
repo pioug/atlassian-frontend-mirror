@@ -1,6 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import styled from 'styled-components';
 import Loadable from 'react-loadable';
 
 import Button from '@atlaskit/button/custom-theme-button';
@@ -17,12 +18,12 @@ const buttonWidth = 40;
 const margin = 16;
 const gapSizeForEllipsis = iconWidth + buttonWidth + margin * 2;
 
-const Item = styled.div`
+const item = css`
   display: flex;
   margin-bottom: 24px;
 `;
 
-const ItemIcon = styled.div`
+const itemIcon = css`
   width: ${iconWidth}px;
   height: ${iconWidth}px;
   overflow: hidden;
@@ -40,7 +41,7 @@ const ItemIcon = styled.div`
   }
 `;
 
-const ItemBody = styled.div`
+const itemBody = css`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -51,15 +52,13 @@ const ItemBody = styled.div`
   max-width: calc(100% - ${gapSizeForEllipsis}px);
 `;
 
-const CenteredItemTitle = styled.div`
+const centeredItemTitle = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-CenteredItemTitle.displayName = 'CenteredItemTitle';
-
-const ItemText = styled.div`
+const itemText = css`
   max-width: 100%;
   white-space: initial;
   .item-summary {
@@ -73,15 +72,11 @@ const ItemText = styled.div`
   }
 `;
 
-ItemText.displayName = 'ItemText';
-
-const Description = styled.p`
+const descriptionStyle = css`
   margin-bottom: 24px;
 `;
 
-Description.displayName = 'Description';
-
-const CloseButtonWrapper = styled.div`
+const closeButtonWrapper = css`
   width: ${buttonWidth}px;
   text-align: right;
 `;
@@ -110,26 +105,26 @@ const Header = ({
   });
 
   return (
-    <>
-      <Item>
-        <ItemIcon>
+    <Fragment>
+      <div css={item}>
+        <div css={itemIcon}>
           <ResolvedIcon label={title} />
-        </ItemIcon>
-        <ItemBody>
+        </div>
+        <div css={itemBody}>
           {summary ? (
-            <ItemText>
+            <div css={itemText}>
               <div className="item-title" id="context-panel-title">
                 {title}
               </div>
               <div className="item-summary">{summary}</div>
-            </ItemText>
+            </div>
           ) : (
-            <CenteredItemTitle id="context-panel-title">
+            <div css={centeredItemTitle} id="context-panel-title">
               {title}
-            </CenteredItemTitle>
+            </div>
           )}
-        </ItemBody>
-        <CloseButtonWrapper>
+        </div>
+        <div css={closeButtonWrapper}>
           <Button
             appearance="subtle"
             iconBefore={
@@ -137,11 +132,13 @@ const Header = ({
             }
             onClick={onClose}
           />
-        </CloseButtonWrapper>
-      </Item>
+        </div>
+      </div>
       {(description || documentationUrl) && (
-        <Description>
-          {description && <>{description.replace(/([^.])$/, '$1.')} </>}
+        <p css={descriptionStyle}>
+          {description && (
+            <Fragment>{description.replace(/([^.])$/, '$1.')} </Fragment>
+          )}
           {documentationUrl && (
             <a
               target="_blank"
@@ -151,9 +148,9 @@ const Header = ({
               {intl.formatMessage(messages.documentation)}
             </a>
           )}
-        </Description>
+        </p>
       )}
-    </>
+    </Fragment>
   );
 };
 

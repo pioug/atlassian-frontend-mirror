@@ -3,7 +3,7 @@ import {
   Identifier,
   FileIdentifier,
   FileState,
-  createFileStateSubject,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import { List, Props, State } from '../../../list';
 import { nextNavButtonId } from '../../../navigation';
@@ -32,11 +32,9 @@ function createFixture(props: Partial<Props>) {
     representations: { image: {} },
   };
   const mockMediaClient = fakeMediaClient();
+  const fileStateSubscribable = createMediaSubscribable(defaultFileState);
 
-  asMockReturnValue(
-    mockMediaClient.file.getFileState,
-    createFileStateSubject(defaultFileState),
-  );
+  asMockReturnValue(mockMediaClient.file.getFileState, fileStateSubscribable);
 
   const el = mountWithIntlContext<Props, State>(
     <List

@@ -1,16 +1,13 @@
 import React from 'react';
 
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
 import { injectIntl, IntlShape } from 'react-intl-next';
 import styled from 'styled-components';
 
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
 
 import { EventDispatcher } from '../../../event-dispatcher';
-import { getPosHandler, ReactNodeView } from '../../../nodeviews';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
 import { StatusPluginOptions } from '../types';
 import { messages } from './messages';
 
@@ -32,104 +29,54 @@ export interface ContainerProps {
   eventDispatcher?: EventDispatcher;
 }
 
-class StatusContainerView extends React.Component<ContainerProps, {}> {
-  static displayName = 'StatusContainerView';
+const StatusContainerView: React.FC<ContainerProps> = (props) => {
+  const {
+    text,
+    color,
+    localId,
+    style,
+    intl: { formatMessage },
+  } = props;
 
-  constructor(props: ContainerProps) {
-    super(props);
-  }
+  const statusText = text ? text : formatMessage(messages.placeholder);
 
-  render() {
-    const {
-      text,
-      color,
-      localId,
-      style,
-      intl: { formatMessage },
-    } = this.props;
-
-    const statusText = text ? text : formatMessage(messages.placeholder);
-
-    return (
-      <StyledStatus placeholderStyle={!text}>
-        <Status
-          text={statusText}
-          color={color}
-          localId={localId}
-          style={style}
-          onClick={this.handleClick}
-        />
-      </StyledStatus>
-    );
-  }
-
-  private handleClick = (event: React.SyntheticEvent<any>) => {
+  const handleClick = (event: React.SyntheticEvent<any>) => {
     if (event.nativeEvent.stopImmediatePropagation) {
       event.nativeEvent.stopImmediatePropagation();
     }
     // handling of popup is done in plugin.apply on selection change.
   };
-}
+
+  return (
+    <StyledStatus placeholderStyle={!text}>
+      <Status
+        text={statusText}
+        color={color}
+        localId={localId}
+        style={style}
+        onClick={handleClick}
+      />
+    </StyledStatus>
+  );
+};
 
 export const IntlStatusContainerView = injectIntl(StatusContainerView);
 
-export interface Props {
-  options?: StatusPluginOptions;
-}
+export type Props = InlineNodeViewComponentProps & {
+  options: StatusPluginOptions | undefined;
+};
 
-export class StatusNodeView extends ReactNodeView<Props> {
-  createDomRef() {
-    return super.createDomRef();
-  }
+export const StatusNodeView: React.FC<Props> = (props) => {
+  const { view } = props;
+  const { text, color, localId, style } = props.node.attrs;
 
-  setDomAttrs(node: PMNode, element: HTMLElement) {
-    const { color, localId, style } = node.attrs;
-
-    element.dataset.color = color;
-    element.dataset.localId = localId;
-    element.dataset.style = style;
-  }
-
-  render(props: Props) {
-    const { options } = props;
-    const { text, color, localId, style } = this.node.attrs;
-
-    return (
-      <>
-        {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
-        <IntlStatusContainerView
-          view={this.view}
-          text={text}
-          color={color}
-          style={style}
-          localId={localId}
-        />
-        {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
-      </>
-    );
-  }
-}
-
-export default function statusNodeView(
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  options?: StatusPluginOptions,
-) {
-  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-    const hasIntlContext = true;
-    return new StatusNodeView(
-      node,
-      view,
-      getPos,
-      portalProviderAPI,
-      eventDispatcher,
-      {
-        options,
-      },
-      undefined,
-      undefined,
-      undefined,
-      hasIntlContext,
-    ).init();
-  };
-}
+  return (
+    <IntlStatusContainerView
+      view={view}
+      text={text}
+      color={color}
+      style={style}
+      localId={localId}
+    />
+  );
+};

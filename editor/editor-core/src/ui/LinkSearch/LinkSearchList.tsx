@@ -1,21 +1,21 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import Spinner from '@atlaskit/spinner';
-import styled from 'styled-components';
 import LinkSearchListItem from './LinkSearchListItem';
 import { LinkSearchListItemData } from './types';
 
-const ListContainer = styled.div`
+const listContainer = css`
   padding-top: 0;
 `;
 
-const SpinnerContainer = styled.div`
+const spinnerContainer = css`
   text-align: center;
   min-height: 80px;
   margin-top: 30px;
 `;
 
-export const List = styled.ul`
+export const linkSearchList = css`
   padding: 0;
   list-style: none;
 `;
@@ -53,7 +53,12 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
 
     if (items && items.length > 0) {
       itemsContent = (
-        <List id={id} role={role} aria-controls={ariaControls}>
+        <ul
+          css={linkSearchList}
+          id={id}
+          role={role}
+          aria-controls={ariaControls}
+        >
           {items.map((item, index) => (
             <LinkSearchListItem
               id={`link-search-list-item-${index}`}
@@ -67,23 +72,23 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
               key={item.objectId}
             />
           ))}
-        </List>
+        </ul>
       );
     }
 
     if (isLoading) {
       loadingContent = (
-        <SpinnerContainer>
+        <div css={spinnerContainer}>
           <Spinner size="medium" />
-        </SpinnerContainer>
+        </div>
       );
     }
 
     return (
-      <ListContainer>
+      <div css={listContainer}>
         {itemsContent}
         {loadingContent}
-      </ListContainer>
+      </div>
     );
   }
 }

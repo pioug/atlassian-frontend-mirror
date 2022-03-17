@@ -5,7 +5,10 @@ import { SkeletonItem } from '../src';
 export default () => (
   <>
     <SkeletonItem />
-    <SkeletonItem hasAvatar isShimmering />
-    <SkeletonItem hasIcon isShimmering />
+    <div data-testid="is-shimmering">
+      <SkeletonItem isShimmering />
+      <SkeletonItem hasAvatar isShimmering />
+      <SkeletonItem hasIcon isShimmering />
+    </div>
   </>
 );

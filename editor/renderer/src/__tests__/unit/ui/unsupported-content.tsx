@@ -2,7 +2,7 @@ import React from 'react';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import Renderer, { Props } from '../../../ui/Renderer';
 import { IntlProvider, WrappedComponentProps } from 'react-intl-next';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
 import { ReactWrapper } from 'enzyme';
 

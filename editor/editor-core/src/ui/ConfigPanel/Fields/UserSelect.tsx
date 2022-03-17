@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import { Field, FieldProps } from '@atlaskit/form';
-import {
+import SmartUserPicker, {
   hydrateDefaultValues,
-  SmartUserPicker,
   DefaultValue,
   Value as UnsafeValue,
-} from '@atlaskit/user-picker';
+  OptionData,
+  OptionIdentifier,
+} from '@atlaskit/smart-user-picker';
 import {
   UserField,
   UserFieldContext,
@@ -44,6 +45,17 @@ function makeSafe(value: UnsafeValue | DefaultValue): FieldValue {
   }
   return value.id;
 }
+
+const isOptionData = (
+  value: DefaultValue,
+): value is OptionData | OptionData[] => {
+  if (!value) {
+    return false;
+  }
+  return (Array.isArray(value) ? value : [value]).every(
+    (item: OptionData | OptionIdentifier) => 'name' in item,
+  );
+};
 
 function SafeSmartUserPicker({
   context,
@@ -85,11 +97,12 @@ function SafeSmartUserPicker({
 
     async function hydrate() {
       const hydrated = await hydrateDefaultValues(
+        undefined, // no need to override baseUrl
         makeCompat(safeValue),
         productKey,
       );
 
-      if (cancel) {
+      if (cancel || !isOptionData(hydrated)) {
         return;
       }
 

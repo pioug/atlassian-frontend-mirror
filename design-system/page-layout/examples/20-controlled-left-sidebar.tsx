@@ -6,35 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
 
-const Wrapper = ({
-  borderColor,
-  children,
-  minHeight,
-  noOutline,
-  noHorizontalScrollbar,
-}: {
-  borderColor?: string;
-  children: React.ReactNode;
-  minHeight?: string;
-  noOutline?: boolean;
-  noHorizontalScrollbar?: boolean;
-}) => (
-  <div
-    css={{
-      outline: noOutline ? 'none' : `2px dashed ${borderColor}`,
-      outlineOffset: -4,
-      padding: 8,
-      minHeight: minHeight,
-      height: '100%',
-      boxSizing: 'border-box',
-      overflowY: 'auto',
-      overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: token('color.background.neutral.subtle', 'white'),
-    }}
-  >
-    {children}
-  </div>
-);
+import { SlotLabel, SlotWrapper } from './common';
 
 const BasicGrid = () => {
   return (
@@ -46,9 +18,9 @@ const BasicGrid = () => {
         height={60}
         isFixed={false}
       >
-        <Wrapper borderColor={token('color.border.accent.blue', 'blue')}>
-          <h3 css={{ textAlign: 'center' }}>Product Navigation</h3>
-        </Wrapper>
+        <SlotWrapper borderColor={token('color.border.accent.blue', 'blue')}>
+          <SlotLabel>Product Navigation</SlotLabel>
+        </SlotWrapper>
       </TopNavigation>
       <Content testId="content">
         <LeftSidebar
@@ -58,15 +30,13 @@ const BasicGrid = () => {
           width={350}
           collapsedState="collapsed"
         >
-          <Wrapper noOutline noHorizontalScrollbar>
-            <div css={{ minWidth: 50, padding: '0 20px' }}>
-              <h4 css={{ textAlign: 'center' }}>Space Navigation</h4>
-            </div>
-          </Wrapper>
+          <SlotWrapper hasExtraPadding noHorizontalScrollbar>
+            <SlotLabel isSmall>Space Navigation</SlotLabel>
+          </SlotWrapper>
         </LeftSidebar>
         <Main testId="main" id="main" skipLinkTitle="Main Content">
-          <Wrapper noOutline noHorizontalScrollbar minHeight="400px">
-            <h4 css={{ textAlign: 'center' }}>Main Content</h4>
+          <SlotWrapper noHorizontalScrollbar minHeight={400}>
+            <SlotLabel isSmall>Main Content</SlotLabel>
             <p>
               When you set <b>collapsedState</b> to <b>expanded</b> the
               LeftSidebar will always mount expanded, and when you set{' '}
@@ -85,7 +55,7 @@ const BasicGrid = () => {
               page and expand the LeftSidebar again, the LeftSidebar will mount
               with a width of <b>350</b>.
             </p>
-          </Wrapper>
+          </SlotWrapper>
         </Main>
       </Content>
     </PageLayout>

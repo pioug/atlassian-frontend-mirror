@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { useState } from 'react';
 import { generateUuid } from '@atlaskit/adf-schema';
 import { Y75, Y200 } from '@atlaskit/theme/colors';
 
@@ -9,6 +9,7 @@ import { RendererActionsContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
 import { Node } from 'prosemirror-model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { css, jsx } from '@emotion/react';
 
 const transformer = new JSONTransformer();
 
@@ -66,7 +67,7 @@ function AnnotationSelect({
   );
 }
 
-const Wrapper = styled.div`
+const wrapperStyle = css`
   [data-mark-type='annotation'] {
     background-color: ${Y75};
     border-bottom: 2px solid ${Y200};
@@ -81,7 +82,7 @@ export default function Example() {
       <WithRendererActions
         render={(actions) => {
           return (
-            <Wrapper>
+            <div css={wrapperStyle}>
               <RendererDemo
                 serializer="react"
                 document={document}
@@ -146,7 +147,7 @@ export default function Example() {
                   />,
                 ]}
               />
-            </Wrapper>
+            </div>
           );
         }}
       />

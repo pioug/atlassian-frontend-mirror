@@ -19,7 +19,7 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
-import { OptionData, User } from '@atlaskit/user-picker';
+import { OptionData, User } from '@atlaskit/smart-user-picker';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';

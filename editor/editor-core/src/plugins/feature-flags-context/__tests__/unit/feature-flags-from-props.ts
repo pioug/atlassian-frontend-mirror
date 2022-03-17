@@ -316,7 +316,7 @@ describe('Feature Flags from Props', () => {
       expect(
         createFeatureFlagsFromProps({
           featureFlags: {
-            viewChangingExperimentToolbarStyle: 'control',
+            'view-changing-experiment-toolbar-style': 'control',
           },
         }),
       ).toEqual(
@@ -329,7 +329,7 @@ describe('Feature Flags from Props', () => {
       expect(
         createFeatureFlagsFromProps({
           featureFlags: {
-            viewChangingExperimentToolbarStyle: true,
+            'view-changing-experiment-toolbar-style': true,
           },
         }),
       ).toEqual(

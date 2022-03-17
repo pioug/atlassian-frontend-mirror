@@ -1,5 +1,14 @@
 # @atlaskit/mention
 
+## 21.0.1
+
+### Patch Changes
+
+- [`9120f857a67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9120f857a67) - Remove react-intl v2 from dev dependencies
+- [`6ee0b5cac9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee0b5cac9a) - Mention lozenge component rendering performance/reliability is now tracked
+- [`62edf20ab1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62edf20ab1e) - Migrates all usage of brand tokens to either selected or information tokens. This change is purely for semantic reasons, there are no visual or behavioural changes.
+- Updated dependencies
+
 ## 21.0.0
 
 ### Major Changes

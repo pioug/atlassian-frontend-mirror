@@ -15,7 +15,7 @@ import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
-import { changeSelectedCardToLink } from '../pm-plugins/doc';
+import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -105,7 +105,7 @@ export function Card(
         if (!getPos || typeof getPos === 'boolean') {
           return;
         }
-        changeSelectedCardToLink(
+        changeSelectedCardToLinkFallback(
           undefined,
           url,
           true,

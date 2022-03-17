@@ -15,6 +15,20 @@ import {
 } from './Renderer/types';
 import { MediaOptions } from '../types/mediaOptions';
 import { SmartLinksOptions } from '../types/smartLinksOptions';
+import { ACTION_SUBJECT } from '../analytics/enums';
+
+export interface RawObjectFeatureFlags {
+  ['renderer-render-tracking']: string;
+}
+
+export interface NormalizedObjectFeatureFlags {
+  rendererRenderTracking: {
+    [ACTION_SUBJECT.RENDERER]: {
+      enabled: boolean;
+      useShallow: boolean;
+    };
+  };
+}
 
 export interface RendererProps {
   document: any;
@@ -68,7 +82,7 @@ export interface RendererProps {
    * Flags are expected to follow these rules or they are filtered out
    *
    * 1. cased in kebab-case (match [a-z-])
-   * 2. have boolean values
+   * 2. have boolean values or object {} values
    *
    * @example
    * ```tsx
@@ -89,5 +103,7 @@ export interface RendererProps {
    * getFeatureFlags()?.productMyFeature === undefined;
    * ```
    */
-  featureFlags?: { [featureFlag: string]: boolean };
+  featureFlags?:
+    | { [featureFlag: string]: boolean }
+    | Partial<RawObjectFeatureFlags>;
 }

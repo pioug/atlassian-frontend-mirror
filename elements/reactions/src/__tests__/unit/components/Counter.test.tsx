@@ -4,8 +4,8 @@ import { act } from 'react-dom/test-utils';
 import { easeIn, easeOut } from '@atlaskit/motion/curves';
 
 import {
-  containerStyle,
   Counter,
+  counterTestId,
   highlightStyle,
   Props,
 } from '../../../components/Counter';
@@ -38,7 +38,9 @@ describe('Counter', () => {
 
   it('should add highlight class', () => {
     const counter = renderCounter({ value: 10, highlight: true });
-    expect(counter.find(`div.${highlightStyle}`).exists()).toBeTruthy();
+    expect(
+      counter.find(`div.css-${highlightStyle.name}`).exists(),
+    ).toBeTruthy();
   });
 
   it('should set width to avoid resizing', () => {
@@ -64,19 +66,26 @@ describe('Counter', () => {
     });
 
     // previous counter container
-    const previousContainer = counter.find(`.${containerStyle}`).at(0);
+    const previousContainer = counter
+      .find(`div[data-testid="${counterTestId}"]`)
+      .at(0);
 
     // current counter container
-    const container = counter.find(`.${containerStyle}`).at(1);
+    const container = counter.find(`div[data-testid="${counterTestId}"]`).at(1);
 
-    expect(previousContainer.childAt(0).prop('className')).not.toContain(
-      highlightStyle,
-    );
+    expect(
+      previousContainer
+        .childAt(0)
+        .childAt(0)
+        .hasClass(`css-${highlightStyle.name}`),
+    ).toBe(false);
     expect(
       getComputedStyle(previousContainer.getDOMNode()).animationTimingFunction,
     ).toEqual(easeIn);
 
-    expect(container.childAt(0).prop('className')).toContain(highlightStyle);
+    expect(
+      container.childAt(0).childAt(0).hasClass(`css-${highlightStyle.name}`),
+    ).toBe(true);
     expect(
       getComputedStyle(container.getDOMNode()).animationTimingFunction,
     ).toEqual(easeOut);
@@ -110,22 +119,27 @@ describe('Counter', () => {
     });
 
     // previous counter container
-    const previousContainer = counter.find(`.${containerStyle}`).at(0);
+    const previousContainer = counter
+      .find(`div[data-testid="${counterTestId}"]`)
+      .at(0);
 
-    // current container of SlideIn count
-    const container = counter.find(`.${containerStyle}`).at(1);
+    // current counter container
+    const container = counter.find(`div[data-testid="${counterTestId}"]`).at(1);
 
-    expect(previousContainer.childAt(0).prop('className')).toContain(
-      highlightStyle,
-    );
+    expect(
+      previousContainer
+        .childAt(0)
+        .childAt(0)
+        .hasClass(`css-${highlightStyle.name}`),
+    ).toBe(true);
 
     expect(
       getComputedStyle(previousContainer.getDOMNode()).animationTimingFunction,
     ).toEqual(easeIn);
 
-    expect(container.childAt(0).prop('className')).not.toContain(
-      highlightStyle,
-    );
+    expect(
+      container.childAt(0).childAt(0).hasClass(`css-${highlightStyle.name}`),
+    ).toBe(false);
     expect(
       getComputedStyle(container.getDOMNode()).animationTimingFunction,
     ).toEqual(easeOut);

@@ -121,19 +121,19 @@ const disabledStyles = css({
 });
 
 const selectedStyles = css({
-  backgroundColor: token('color.background.brand', N20),
+  backgroundColor: token('color.background.selected', N20),
   // Fallback set as babel plugin inserts one otherwise
-  color: token('color.text.brand', 'currentColor'),
+  color: token('color.text.selected', 'currentColor'),
   ':visited': {
-    color: token('color.text.brand', 'currentColor'),
+    color: token('color.text.selected', 'currentColor'),
   },
   ':hover': {
-    backgroundColor: token('color.background.brand.hovered', N20),
-    color: token('color.text.brand', 'currentColor'),
+    backgroundColor: token('color.background.selected.hovered', N20),
+    color: token('color.text.selected', 'currentColor'),
   },
   ':active': {
-    backgroundColor: token('color.background.brand.pressed', N30),
-    color: token('color.text.brand', 'currentColor'),
+    backgroundColor: token('color.background.selected.pressed', N30),
+    color: token('color.text.selected', 'currentColor'),
   },
 });
 

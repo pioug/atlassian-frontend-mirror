@@ -11,7 +11,7 @@ import { ErrorMessage } from '@atlaskit/editor-common/ui';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { render, fireEvent } from '@testing-library/react';
 
 import {

@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import rafSchd from 'raf-schd';
 
 import {
@@ -34,13 +34,22 @@ import {
 
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
-import { resizeControlCSS, shadowCSS } from './styles';
+import Shadow from './shadow';
 import { ResizeButtonProps, ResizeControlProps } from './types';
 
 const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
-const Shadow = ({ testId }: { testId?: string }) => (
-  <div data-testid={testId} css={shadowCSS} />
-);
+
+const resizeControlStyles = css({
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  left: '100%',
+  outline: 'none',
+});
+
+const showResizeButtonStyles = css({
+  '--ds--resize-button--opacity': 1,
+});
 
 const ResizeControl = ({
   testId,
@@ -317,7 +326,10 @@ const ResizeControl = ({
   return (
     <div
       {...cssSelector}
-      css={resizeControlCSS(isGrabAreaFocused, isLeftSidebarCollapsed)}
+      css={[
+        resizeControlStyles,
+        (isGrabAreaFocused || isLeftSidebarCollapsed) && showResizeButtonStyles,
+      ]}
     >
       <Shadow testId={testId && `${testId}-shadow`} />
       <GrabArea

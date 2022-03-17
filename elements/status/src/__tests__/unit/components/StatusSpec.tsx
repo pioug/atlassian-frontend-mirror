@@ -1,5 +1,5 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Lozenge from '@atlaskit/lozenge';
 import React from 'react';
 import { ELEMENTS_CHANNEL } from '../../../components/analytics';

@@ -36,7 +36,10 @@ const flagTypes: Array<FlagType> = [
     description: 'You need to take action, something has gone terribly wrong!',
     title: 'error flag',
     icon: (
-      <Error label="Error" secondaryColor={token('color.icon.danger', R300)} />
+      <Error
+        label="Error"
+        secondaryColor={token('color.background.danger.bold', R300)}
+      />
     ),
   },
   {
@@ -45,7 +48,10 @@ const flagTypes: Array<FlagType> = [
       "This alert needs your attention, but it's not super important.",
     title: 'info flag',
     icon: (
-      <Info label="Info" secondaryColor={token('color.icon.discovery', N500)} />
+      <Info
+        label="Info"
+        secondaryColor={token('color.background.discovery.bold', N500)}
+      />
     ),
   },
   {
@@ -55,7 +61,7 @@ const flagTypes: Array<FlagType> = [
     icon: (
       <Tick
         label="Success"
-        secondaryColor={token('color.icon.success', G400)}
+        secondaryColor={token('color.background.success.bold', G400)}
       />
     ),
   },
@@ -66,7 +72,7 @@ const flagTypes: Array<FlagType> = [
     icon: (
       <Warning
         label="Warning"
-        secondaryColor={token('color.icon.warning', Y300)}
+        secondaryColor={token('color.background.warning.bold', Y300)}
       />
     ),
   },
@@ -75,7 +81,10 @@ const flagTypes: Array<FlagType> = [
     description: 'There is new update available',
     title: 'normal flag',
     icon: (
-      <Tick label="Success" secondaryColor={token('color.icon.brand', N0)} />
+      <Tick
+        label="Success"
+        secondaryColor={token('elevation.surface.overlay', N0)}
+      />
     ),
   },
 ];

@@ -65,7 +65,7 @@ const defaultTheme: { mode: Mode } = {
       focus: {
         color: token('color.text.subtle', N600),
         backgroundColor: token(
-          'color.background.brand.hovered',
+          'color.background.selected.hovered',
           hexToRGBA(B50, 0.5),
         ),
         boxShadow: `0 0 0 2px ${token('color.border.focused', B200)}`,
@@ -79,8 +79,8 @@ const defaultTheme: { mode: Mode } = {
         boxShadow: '',
       },
       selected: {
-        color: token('color.text.brand', ''),
-        backgroundColor: token('color.background.brand', ''),
+        color: token('color.text.selected', ''),
+        backgroundColor: token('color.background.selected', ''),
         boxShadow: '',
       },
     },
@@ -128,11 +128,11 @@ const defaultTheme: { mode: Mode } = {
         boxShadow: '',
       },
       selected: {
-        color: token('color.text.subtle', B400),
-        backgroundColor: token('color.background.brand', ''),
+        color: token('color.text.selected', B400),
+        backgroundColor: token('color.background.selected', ''),
         boxShadow: '',
-        borderColor: token('color.border.brand', B400),
-        bordorBottom: `4px solid ${token('color.border.brand', B400)}`,
+        borderColor: token('color.border.selected', B400),
+        bordorBottom: `4px solid ${token('color.border.selected', B400)}`,
       },
     },
     search: {
@@ -145,7 +145,7 @@ const defaultTheme: { mode: Mode } = {
         borderColor: token('color.border.focused', B200),
       },
       hover: {
-        color: token('color.text.brand', B400),
+        color: token('color.text.selected', B400),
         backgroundColor: token('elevation.surface', hexToRGBA(B50, 0.9)),
       },
     },

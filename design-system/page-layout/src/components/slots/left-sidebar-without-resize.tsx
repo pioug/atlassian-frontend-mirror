@@ -5,16 +5,11 @@ import { jsx } from '@emotion/core';
 
 import { VAR_LEFT_SIDEBAR_WIDTH } from '../../common/constants';
 import { SlotWidthProps } from '../../common/types';
-import {
-  getPageLayoutSlotSelector,
-  resolveDimension,
-} from '../../common/utils';
+import { resolveDimension } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 
-import {
-  fixedLeftSidebarInnerStyles,
-  leftSidebarStyles,
-} from './left-sidebar-styles';
+import LeftSidebarInner from './internal/left-sidebar-inner';
+import LeftSidebarOuter from './internal/left-sidebar-outer';
 import SlotDimensions from './slot-dimensions';
 
 const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
@@ -39,24 +34,18 @@ const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
     return () => {
       publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: 0 });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leftSidebarWidth]);
 
   useSkipLink(id, skipLinkTitle);
 
   return (
-    <div
-      id={id}
-      data-testid={testId}
-      css={leftSidebarStyles(isFixed)}
-      {...getPageLayoutSlotSelector('left-sidebar')}
-    >
+    <LeftSidebarOuter id={id} testId={testId} isFixed={isFixed}>
       <SlotDimensions
         variableName={VAR_LEFT_SIDEBAR_WIDTH}
         value={leftSidebarWidth}
       />
-      <div css={fixedLeftSidebarInnerStyles(isFixed)}>{children}</div>
-    </div>
+      <LeftSidebarInner isFixed={isFixed}>{children}</LeftSidebarInner>
+    </LeftSidebarOuter>
   );
 };
 

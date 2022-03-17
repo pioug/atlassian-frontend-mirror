@@ -39,8 +39,12 @@ const getStyles = (
 export const iconOnlySpacing = {
   '&&': {
     padding: '0px',
-
-    '&[href]': {
+    /**
+      Increased specificity here because css for .hyperlink-open-link defined in
+      packages/editor/editor-core/src/ui/ContentStyles/index.tsx file
+      overrides padding left-right 2px with 4px.
+    */
+    '&&[href]': {
       padding: '0 2px',
     },
   },

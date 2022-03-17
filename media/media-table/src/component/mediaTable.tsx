@@ -6,7 +6,6 @@ import {
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
-import { Subscription } from 'rxjs/Subscription';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { RowType, RowCellType } from '@atlaskit/dynamic-table/types';
 import {
@@ -14,6 +13,7 @@ import {
   withMediaClient,
   isProcessedFileState,
   FileIdentifier,
+  MediaSubscription,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
 import { MediaTableWrapper } from './styled';
@@ -41,7 +41,7 @@ export class MediaTable extends Component<
     fileInfoState: new Map(),
   };
 
-  private subscriptions: Subscription[] = [];
+  private subscriptions: MediaSubscription[] = [];
   private hasBeenMounted: boolean = false;
 
   componentDidMount() {

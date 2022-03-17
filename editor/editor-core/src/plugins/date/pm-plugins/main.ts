@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import DateNodeView from '../nodeviews/date';
-import { ReactNodeView } from '../../../nodeviews';
+import { DateNodeView } from '../nodeviews/date';
+import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
 import { PMPluginFactory } from '../../../types';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 
@@ -17,31 +17,22 @@ const { createPluginState, getPluginState } = pluginFactory(
   },
 );
 
-const createPlugin: PMPluginFactory = ({
-  dispatch,
-  portalProviderAPI,
-  eventDispatcher,
-}) => {
+const createPlugin: PMPluginFactory = (pmPluginFactoryParams) => {
   const newPluginState: DatePluginState = {
     showDatePickerAt: null,
     isNew: false,
     isDateEmpty: false,
     focusDateInput: false,
   };
-  const hasIntlContext = true;
   return new SafePlugin({
-    state: createPluginState(dispatch, newPluginState),
+    state: createPluginState(pmPluginFactoryParams.dispatch, newPluginState),
     key: pluginKey,
     props: {
       nodeViews: {
-        date: ReactNodeView.fromComponent(
-          DateNodeView,
-          portalProviderAPI,
-          eventDispatcher,
-          undefined,
-          undefined,
-          hasIntlContext,
-        ),
+        date: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: DateNodeView,
+        }),
       },
     },
   });

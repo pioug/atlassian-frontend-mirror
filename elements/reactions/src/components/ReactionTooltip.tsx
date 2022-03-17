@@ -1,7 +1,8 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import Tooltip from '@atlaskit/tooltip';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { style } from 'typestyle';
 
 import { token } from '@atlaskit/tokens';
 import { N90 } from '@atlaskit/theme/colors';
@@ -11,34 +12,33 @@ import { messages } from './i18n';
 
 const verticalMargin = 5;
 
-const tooltipStyle = style({
+const tooltipStyle = css({
   maxWidth: '150px',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   marginBottom: verticalMargin,
-  $nest: {
-    ul: {
-      listStyle: 'none',
-      margin: 0,
-      padding: 0,
-      textAlign: 'left',
-    },
-    li: {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      marginTop: verticalMargin,
-    },
+
+  ul: {
+    listStyle: 'none',
+    margin: 0,
+    padding: 0,
+    textAlign: 'left',
+  },
+  li: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    marginTop: verticalMargin,
   },
 });
 
-const emojiNameStyle = style({
+const emojiNameStyle = css({
   textTransform: 'capitalize',
   color: token('color.text.inverse', N90),
   fontWeight: 600,
 });
 
-const footerStyle = style({
+const footerStyle = css({
   color: token('color.text.inverse', N90),
   fontWeight: 300,
 });
@@ -57,18 +57,18 @@ export const ReactionTooltip = ({
   reaction: { users },
 }: Props) => {
   if (!users || users.length === 0) {
-    return <>{React.Children.only(children)}</>;
+    return <Fragment>{React.Children.only(children)}</Fragment>;
   }
 
   const content = (
-    <div className={tooltipStyle}>
+    <div css={tooltipStyle}>
       <ul>
-        {emojiName ? <li className={emojiNameStyle}>{emojiName}</li> : null}
+        {emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
         {users.slice(0, TOOLTIP_USERS_LIMIT).map((user, index) => {
           return <li key={index}>{user.displayName}</li>;
         })}
         {users.length > TOOLTIP_USERS_LIMIT ? (
-          <li className={footerStyle}>
+          <li css={footerStyle}>
             <FormattedMessage
               {...messages.otherUsers}
               values={{

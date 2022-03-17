@@ -5,12 +5,11 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import {
   mountWithIntl,
   shallowWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme-next';
+} from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { reaction } from '../../../client/MockReactionsClient';
 import { messages } from '../../../components/i18n';
-import { Reaction } from '../../../components/Reaction';
 import { ReactionPicker } from '../../../components/ReactionPicker';
 import {
   Props,
@@ -42,7 +41,7 @@ describe('@atlaskit/reactions/reactions', () => {
     const onReactionClick = jest.fn();
     const reactions = renderReactions({ onReactionClick });
 
-    reactions.find(Reaction).first().simulate('click');
+    reactions.first().childAt(0).simulate('click');
 
     expect(onReactionClick).toHaveBeenCalled();
   });
@@ -53,7 +52,7 @@ describe('@atlaskit/reactions/reactions', () => {
       <FormattedMessage {...messages.loadingReactions} />,
     );
 
-    expect(reactions.find(ReactionPicker).prop('disabled')).toBeTruthy();
+    expect(reactions.find(Tooltip).childAt(0).prop('disabled')).toBeTruthy();
   });
 
   it('should show loading tooltip and disable picker when there is an error', () => {
@@ -65,13 +64,12 @@ describe('@atlaskit/reactions/reactions', () => {
     expect(reactions.find(Tooltip).prop('content')).toEqual(
       'Something is wrong',
     );
-    expect(reactions.find(ReactionPicker).prop('disabled')).toBeTruthy();
+    expect(reactions.find(Tooltip).childAt(0).prop('disabled')).toBeTruthy();
   });
 
   it('should render picker after reactions', () => {
     const reactions = renderReactions();
-    const container = reactions.find('div').first().children();
-    expect(container.last().find(ReactionPicker)).toHaveLength(1);
+    expect(reactions.last().find(Tooltip).children()).toHaveLength(1);
   });
 
   describe('with analytics', () => {

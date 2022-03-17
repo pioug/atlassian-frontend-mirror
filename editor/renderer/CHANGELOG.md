@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 93.0.0
+
+### Major Changes
+
+- [`2ec99bf6f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ec99bf6f9f) - [ux] ED-14651: removed react-intl v2.
+
+### Minor Changes
+
+- [`e78e261ac6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e78e261ac6f) - [ux] ED-14487: Removed IE11/Edge18 support in @atlaskit/width-detector. No longer exporting IframeWidthObserverFallbackWrapper and IframeWrapperConsumer.
+
+  - Fixed example pages
+  - Updated docs/comments
+  - Removed tests
+
+- [`bceab5fa97d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bceab5fa97d) - ED-14632: Add render count tracking reRendered event in Renderer
+- [`033bcd50ab8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/033bcd50ab8) - ED-14266 Removed all the usages of styled-components from renderer.
+
+### Patch Changes
+
+- [`ced96eebe47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ced96eebe47) - Minor changes in MarkWrapper and Expand styles.
+- [`44c6c36d8d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44c6c36d8d9) - ED-14263 replaced styled usages
+- [`860c5f319c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/860c5f319c9) - [ux] ED-14454: Add clearfix to renderer document container to prevent content outside renderer from sliding up alongside floated media images
+- [`08a5acc6d0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08a5acc6d0e) - ED-14338 Migrated renderer examples to emotion
+- [`5c6607ee0e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c6607ee0e7) - Migrated link, rule, panel and expand styles in editor-common to emotion.
+- [`7cc9d0d6927`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cc9d0d6927) - ED-14671 Fixed table sticky header height issue.
+- Updated dependencies
+
 ## 92.0.1
 
 ### Patch Changes

@@ -1,5 +1,4 @@
-/* eslint-disable @atlaskit/design-system/use-visually-hidden */
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { linkSharedStyle } from '@atlaskit/editor-common/styles';
 
 export const linkStyles = css`
@@ -21,7 +20,4 @@ export const visuallyHiddenStyles = css`
   overflow: hidden;
   padding: 0;
   position: absolute;
-`;
-export const ScreenReaderText = styled.div`
-  ${visuallyHiddenStyles};
 `;

@@ -200,8 +200,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : undefined,
 
     viewChangingExperimentToolbarStyle:
-      typeof props.featureFlags?.viewChangingExperimentToolbarStyle === 'string'
-        ? props.featureFlags.viewChangingExperimentToolbarStyle || undefined
+      typeof props.featureFlags?.['view-changing-experiment-toolbar-style'] ===
+      'string'
+        ? props.featureFlags['view-changing-experiment-toolbar-style'] ||
+          undefined
         : undefined,
   };
 }

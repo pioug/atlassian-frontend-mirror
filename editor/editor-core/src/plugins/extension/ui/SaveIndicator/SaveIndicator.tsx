@@ -1,11 +1,13 @@
-import React, {
+/** @jsx jsx */
+import {
+  Fragment,
   FunctionComponent,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { G300, N0 } from '@atlaskit/theme/colors';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { FormattedMessage } from 'react-intl-next';
@@ -14,12 +16,12 @@ import { messages } from './messages';
 
 const noop = () => {};
 
-const SaveIndicatorWrapper = styled.div`
+const saveIndicatorWrapper = css`
   display: flex;
   justify-content: center;
 `;
 
-const SaveIndicatorContent = styled.div`
+const saveIndicatorContent = css`
   position: fixed;
   width: 256px;
   bottom: 20px;
@@ -36,7 +38,7 @@ const SaveIndicatorContent = styled.div`
   border-radius: 16px;
 `;
 
-const SaveIndicatorText = styled.span`
+const saveIndicatorText = css`
   padding-left: 6px;
 `;
 
@@ -66,18 +68,18 @@ export const SaveIndicator: FunctionComponent<SaveIndicatorProps> = ({
   }, [saving, duration]);
 
   return (
-    <>
+    <Fragment>
       <div>{children({ onSaveStarted, onSaveEnded: noop })}</div>
       {visible && saving && (
-        <SaveIndicatorWrapper>
-          <SaveIndicatorContent data-testid="save-indicator-content">
+        <div css={saveIndicatorWrapper}>
+          <div css={saveIndicatorContent} data-testid="save-indicator-content">
             <CheckCircleIcon label="Saving" primaryColor={G300} size="small" />
-            <SaveIndicatorText>
+            <span css={saveIndicatorText}>
               <FormattedMessage {...messages.saveIndicator} />
-            </SaveIndicatorText>
-          </SaveIndicatorContent>
-        </SaveIndicatorWrapper>
+            </span>
+          </div>
+        </div>
       )}
-    </>
+    </Fragment>
   );
 };

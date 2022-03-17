@@ -1,5 +1,15 @@
 # @atlaskit/width-detector
 
+## 4.0.0
+
+### Major Changes
+
+- [`e78e261ac6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e78e261ac6f) - [ux] ED-14487: Removed IE11/Edge18 support in @atlaskit/width-detector. No longer exporting IframeWidthObserverFallbackWrapper and IframeWrapperConsumer.
+
+  - Fixed example pages
+  - Updated docs/comments
+  - Removed tests
+
 ## 3.0.8
 
 ### Patch Changes

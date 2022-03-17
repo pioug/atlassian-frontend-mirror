@@ -165,6 +165,8 @@ export type ActiveTokens =
   | 'color.interaction.pressed'
   | 'color.interaction.inverse.hovered'
   | 'color.interaction.inverse.pressed'
+  | 'color.skeleton'
+  | 'color.skeleton.subtle'
   | 'color.link'
   | 'color.link.pressed'
   | 'elevation.shadow.raised'

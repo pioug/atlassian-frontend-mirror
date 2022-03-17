@@ -1,7 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { browser } from '@atlaskit/editor-common/utils';
 import { Command } from '../types/command';
-import styled from 'styled-components';
 import { N400 } from '@atlaskit/theme/colors';
 
 export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
@@ -120,10 +121,13 @@ const arrowKeysMap: Record<string, string> = {
   ARROWDOWN: '\u2193',
 };
 
-export const TooltipShortcut = styled.span`
+const tooltipShortcutStyle = css`
   border-radius: 2px;
   background-color: ${N400};
   padding: 0 2px;
+  /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
+  /* stylelint-disable-next-line */
+  label: tooltip-shortcut;
 `;
 
 function formatShortcut(keymap: Keymap): string | undefined {
@@ -173,11 +177,11 @@ export const ToolTipContent = React.memo(
   }) => {
     const shortcut = shortcutOverride || (keymap && formatShortcut(keymap));
     return shortcut || description ? (
-      <>
+      <Fragment>
         {description}
         {shortcut && description && '\u00A0'}
-        {shortcut && <TooltipShortcut>{shortcut}</TooltipShortcut>}
-      </>
+        {shortcut && <span css={tooltipShortcutStyle}>{shortcut}</span>}
+      </Fragment>
     ) : null;
   },
 );

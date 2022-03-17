@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 
@@ -13,16 +13,16 @@ export default function EmptyState({
   onExternalLinkClick,
 }: Props): JSX.Element {
   return (
-    <EmptyStateWrapper>
+    <div css={emptyStateWrapper}>
       <NotFoundIllustration />
-      <EmptyStateHeading>
+      <div css={emptyStateHeading}>
         <FormattedMessage
           id="fabric.editor.elementbrowser.search.empty-state.heading"
           defaultMessage="Nothing matches your search"
           description="Empty state heading"
         />
-      </EmptyStateHeading>
-      <EmptyStateSubHeading>
+      </div>
+      <div css={emptyStateSubHeading}>
         <p>
           <FormattedMessage
             id="fabric.editor.elementbrowser.search.empty-state.sub-heading"
@@ -30,7 +30,7 @@ export default function EmptyState({
             description="Empty state sub-heading"
           />
         </p>
-        <ExternalLinkWrapper>
+        <div css={externalLinkWrapper}>
           <Button
             appearance="primary"
             target="_blank"
@@ -43,13 +43,13 @@ export default function EmptyState({
               description="Empty state sub-heading external link"
             />
           </Button>
-        </ExternalLinkWrapper>
-      </EmptyStateSubHeading>
-    </EmptyStateWrapper>
+        </div>
+      </div>
+    </div>
   );
 }
 
-const EmptyStateHeading = styled.div`
+const emptyStateHeading = css`
   font-size: 1.42857em;
   line-height: 1.2;
   color: rgb(23, 43, 77);
@@ -58,13 +58,13 @@ const EmptyStateHeading = styled.div`
   margin-top: 28px;
 `;
 
-const EmptyStateSubHeading = styled.div`
+const emptyStateSubHeading = css`
   margin-top: 16px;
   max-width: 400px;
   text-align: center;
 `;
 
-const EmptyStateWrapper = styled.div`
+const emptyStateWrapper = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,6 +72,6 @@ const EmptyStateWrapper = styled.div`
   width: 100%;
 `;
 
-const ExternalLinkWrapper = styled.div`
+const externalLinkWrapper = css`
   margin-top: 14px;
 `;

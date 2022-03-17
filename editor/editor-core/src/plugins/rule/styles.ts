@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import { ruleSharedStyles } from '@atlaskit/editor-common/styles';
 import {
@@ -6,10 +6,11 @@ import {
   akEditorSelectedBorderColor,
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
+import { ThemeProps } from '@atlaskit/theme/types';
 
-export const ruleStyles = css`
+export const ruleStyles = (props: ThemeProps) => css`
   .ProseMirror {
-    ${ruleSharedStyles};
+    ${ruleSharedStyles(props)};
 
     hr {
       cursor: pointer;

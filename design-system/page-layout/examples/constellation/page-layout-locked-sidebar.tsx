@@ -22,6 +22,7 @@ import {
   RightSidebar,
   useLeftSidebarFlyoutLock,
 } from '../../src';
+import { SlotLabel } from '../common';
 
 const PopupMenu = ({ closePopupMenu }: { closePopupMenu: () => void }) => {
   useLeftSidebarFlyoutLock();
@@ -85,9 +86,7 @@ const App = () => {
           </SideNavigation>
         </LeftSidebar>
         <Main>
-          <div>
-            <h3 css={{ textAlign: 'center' }}>Main Content</h3>
-          </div>
+          <SlotLabel>Main Content</SlotLabel>
         </Main>
         <RightSidebar testId="right-sidebar">
           <SideNavigation label="Aside">

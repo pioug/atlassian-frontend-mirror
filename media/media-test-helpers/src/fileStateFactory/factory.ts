@@ -3,7 +3,7 @@ import {
   FileIdentifier,
   FileState,
   MediaClient,
-  createFileStateSubject,
+  createMediaSubject,
   FileDetails,
 } from '@atlaskit/media-client';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -80,7 +80,7 @@ export class FileStateFactory {
     }: FileStateFactoryOptions = {},
   ) {
     this.fileDetails = fileDetails || createFileDetails(this.identifier.id);
-    this.observable = createFileStateSubject();
+    this.observable = createMediaSubject();
     this.mediaClient = new MediaClientMock(
       this.observable,
       mediaClientConfig,
@@ -95,7 +95,7 @@ export class FileStateFactory {
   ) => {
     this.identifier = identifier;
     this.fileDetails = fileDetails || createFileDetails(this.identifier.id);
-    this.observable = createFileStateSubject();
+    this.observable = createMediaSubject();
     this.mediaClient.updateObserbable(this.observable);
   };
 

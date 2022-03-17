@@ -1,7 +1,7 @@
 // FIXME - FAB-1732 looking at making a shared component for this
 
-import classNames from 'classnames';
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { MouseEventHandler, PureComponent, ReactNode, UIEvent } from 'react';
 import { findDOMNode } from 'react-dom';
 import * as styles from './styles';
@@ -66,17 +66,12 @@ export default class Scrollable extends PureComponent<Props, {}> {
   render() {
     const { children, className, maxHeight, onMouseLeave } = this.props;
 
-    const scrollableClasses = ['emoji-scrollable', styles.emojiScrollable];
-
-    if (className) {
-      scrollableClasses.push(className);
-    }
-
     const style = maxHeight ? { maxHeight } : {};
 
     return (
       <div
-        className={classNames(scrollableClasses)}
+        className={`emoji-scrollable ${className}`}
+        css={styles.emojiScrollable}
         onMouseLeave={onMouseLeave}
         onScroll={this.handleScroll}
         ref={this.handleRef}

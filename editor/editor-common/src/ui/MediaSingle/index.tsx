@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import {
@@ -12,7 +14,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { calcPxFromPct } from './grid';
-import { MediaSingleWrapper, MediaWrapper } from './styled';
+import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 
 export const DEFAULT_IMAGE_WIDTH = 250;
 export const DEFAULT_IMAGE_HEIGHT = 200;
@@ -37,7 +39,7 @@ export interface Props {
   nodeType?: string;
   fullWidthMode?: boolean;
   hasFallbackContainer?: boolean;
-  handleMediaSingleRef?: React.RefObject<HTMLElement>;
+  handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
 }
 
 export const shouldAddDefaultWrappedWidth = (
@@ -118,13 +120,15 @@ export default function MediaSingle({
   const [media, caption] = children;
 
   return (
-    <MediaSingleWrapper
-      innerRef={handleMediaSingleRef}
-      width={width}
-      layout={layout}
-      containerWidth={containerWidth}
-      pctWidth={pctWidth}
-      fullWidthMode={fullWidthMode}
+    <div
+      ref={handleMediaSingleRef}
+      css={MediaSingleDimensionHelper({
+        width,
+        layout,
+        containerWidth,
+        pctWidth,
+        fullWidthMode,
+      })}
       data-layout={layout}
       data-width={pctWidth}
       data-node-type={nodeType}
@@ -147,6 +151,6 @@ export default function MediaSingle({
         {media}
       </MediaWrapper>
       {caption}
-    </MediaSingleWrapper>
+    </div>
   );
 }

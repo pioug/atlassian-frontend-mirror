@@ -31,9 +31,9 @@ export const appearanceIconSchema: {
   [key in Appearance]: AppearanceIconSchema;
 } = {
   information: {
-    backgroundColor: token('color.background.brand', B50),
+    backgroundColor: token('color.background.information', B50),
     Icon: InfoIcon,
-    primaryIconColor: token('color.icon.brand', B500),
+    primaryIconColor: token('color.icon.information', B500),
   },
   warning: {
     backgroundColor: token('color.background.warning', Y50),

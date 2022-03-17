@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 import {
   defineMessages,
   WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
 import { DispatchAnalyticsEvent } from '../../../analytics';
-import styled from 'styled-components';
 import { DateType } from '../../types';
 import {
   findDateSegmentByPosition,
@@ -23,7 +24,8 @@ import {
 import TextField from '@atlaskit/textfield';
 import { ErrorMessage } from '@atlaskit/form';
 import { FormEvent } from 'react';
-const DateTextFieldWrapper = styled.div`
+
+const dateTextFieldWrapper = css`
   padding: 22px;
   padding-bottom: 12px;
 `;
@@ -86,7 +88,7 @@ class DatePickerInput extends React.Component<
     const displayError: boolean =
       (attemptedDateParse === null || !possiblyValid) && inputText !== '';
     return (
-      <DateTextFieldWrapper>
+      <div css={dateTextFieldWrapper}>
         <TextField
           name="datetextfield"
           value={inputText}
@@ -103,7 +105,7 @@ class DatePickerInput extends React.Component<
             {formatMessage(messages.invalidDateError)}
           </ErrorMessage>
         )}
-      </DateTextFieldWrapper>
+      </div>
     );
   }
 

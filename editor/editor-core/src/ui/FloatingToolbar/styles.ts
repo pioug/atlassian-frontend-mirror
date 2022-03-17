@@ -11,7 +11,8 @@ export const Container: ComponentClass<
   }
 > = styled.div`
   border-radius: ${borderRadius()}px;
-  ${dropShadow} display: flex;
+  ${dropShadow}
+  display: flex;
   align-items: center;
   box-sizing: border-box;
   padding: 4px 8px;

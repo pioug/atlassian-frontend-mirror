@@ -1,14 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ElementList should match snapshot 1`] = `
-.c0 {
+.emotion-0 {
   position: relative;
 }
 
-.c1 {
+.emotion-1 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  -webkit-box-flex-flow: row wrap;
   -webkit-flex-flow: row wrap;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -17,41 +18,44 @@ exports[`ElementList should match snapshot 1`] = `
   -ms-flex-align: flex-start;
   align-items: flex-start;
   -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
   justify-content: flex-start;
   overflow: hidden;
   padding: 2px;
 }
 
-.c1 .ReactVirtualized__Collection {
-  -webkit-scrollbar-color: #eeeeee rgba(255,255,255,0);
-  -moz-scrollbar-color: #eeeeee rgba(255,255,255,0);
-  -ms-scrollbar-color: #eeeeee rgba(255,255,255,0);
-  scrollbar-color: #eeeeee rgba(255,255,255,0);
+.emotion-1 .ReactVirtualized__Collection {
+  scrollbar-color: #eeeeee rgba(255, 255, 255, 0);
   -ms-overflow-style: -ms-autohiding-scrollbar;
   border-radius: 3px;
   outline: none;
 }
 
-.c1 .ReactVirtualized__Collection::-webkit-scrollbar {
+.emotion-1 .ReactVirtualized__Collection::-webkit-scrollbar {
   width: 8px;
 }
 
-.c1 .ReactVirtualized__Collection::-webkit-scrollbar-track-piece {
-  background: rgba(255,255,255,0);
+.emotion-1 .ReactVirtualized__Collection::-webkit-scrollbar-track-piece {
+  background: rgba(255, 255, 255, 0);
 }
 
-.c1 .ReactVirtualized__Collection::-webkit-scrollbar-thumb {
+.emotion-1 .ReactVirtualized__Collection::-webkit-scrollbar-thumb {
   background: #eeeeee;
 }
 
-.c1 .ReactVirtualized__Collection:focus {
+.emotion-1 .ReactVirtualized__Collection:focus {
   box-shadow: 0 0 0 2px #4C9AFF;
 }
 
-.c1 .ReactVirtualized__Collection__innerScrollContainer div[class='element-item-wrapper']:last-child {
+
+
+.emotion-1 .ReactVirtualized__Collection__innerScrollContainer div[class='element-item-wrapper']:last-child {
   padding-bottom: 4px;
+}
+
+.emotion-1 span[class^='ItemParts__Before'] {
+  margin-right: 12px;
 }
 
 <WithAnalyticsContext(ElementList)
@@ -148,82 +152,35 @@ exports[`ElementList should match snapshot 1`] = `
       setSelectedItemIndex={[MockFunction]}
     >
       <Memo()>
-        <WidthObserverWrapper
-          innerRef={
-            Object {
-              "current": <div
-                class="c0"
-                tabindex="-1"
-              >
-                <div />
-              </div>,
-            }
-          }
+        <Noop />
+<div
+          className="emotion-0"
           tabIndex={-1}
         >
-          <div
-            className="c0"
-            tabIndex={-1}
+          <Memo()
+            setWidth={[Function]}
           >
             <Memo()
               setWidth={[Function]}
             >
-              <Memo()
-                setWidth={[Function]}
-                useIntersectionObserver={false}
-              >
-                <Memo()
-                  setWidth={[Function]}
-                  subscribe={[Function]}
-                >
-                  <div />
-                </Memo()>
-              </Memo()>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "position": "absolute",
+                    "width": "100%",
+                  }
+                }
+              />
             </Memo()>
-          </div>
-        </WidthObserverWrapper>
-      </Memo()>
-      <styled.div
-        data-testid="element-items"
-      >
-        <div
-          className="c1"
-          data-testid="element-items"
-        >
-          <ThemeProvider
-            theme={
-              Object {
-                "@atlaskit-shared-theme/item": Object {
-                  "-ms-flex": "auto",
-                  "beforeItemSpacing": Object {
-                    "default": 12,
-                  },
-                  "borderRadius": 4,
-                  "boxSizing": "border-box",
-                  "height": Object {
-                    "default": 75,
-                  },
-                  "hover": Object {
-                    "background": "rgb(244, 245, 247)",
-                  },
-                  "padding": Object {
-                    "default": Object {
-                      "bottom": 12,
-                      "left": 12,
-                      "right": 12,
-                      "top": 12,
-                    },
-                  },
-                  "position": "relative",
-                  "selected": Object {
-                    "background": "#F4F5F7",
-                  },
-                },
-              }
-            }
-          />
+          </Memo()>
         </div>
-      </styled.div>
+      </Memo()>
+      <Noop />
+<div
+        className="emotion-1"
+        data-testid="element-items"
+      />
     </ElementList>
   </AnalyticsContext>
 </WithAnalyticsContext(ElementList)>

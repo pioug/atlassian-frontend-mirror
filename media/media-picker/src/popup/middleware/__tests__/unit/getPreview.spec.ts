@@ -13,7 +13,7 @@ import {
   PreviewableFileState,
   ErrorFileState,
   ImageMetadata,
-  createFileStateSubject,
+  createMediaSubscribable,
 } from '@atlaskit/media-client';
 import { Auth } from '@atlaskit/media-core';
 
@@ -97,9 +97,10 @@ describe('getPreviewMiddleware', () => {
       userMediaClient.config.authProvider,
       Promise.resolve(auth),
     );
+
     asMockReturnValue(
       userMediaClient.file.getFileState,
-      createFileStateSubject(fileState),
+      createMediaSubscribable(fileState),
     );
     asMockReturnValue(userMediaClient.getImageMetadata, defaultImageMetadata);
 

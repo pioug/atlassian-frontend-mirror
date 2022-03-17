@@ -1,5 +1,5 @@
 import { name } from '../../../version.json';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import Editor from '../../../editor';
 import CollapsedEditor from '../../../ui/CollapsedEditor';

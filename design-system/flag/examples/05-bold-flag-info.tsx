@@ -13,7 +13,7 @@ export default () => (
       icon={
         <InfoIcon
           label="Info"
-          secondaryColor={token('color.icon.discovery', N500)}
+          secondaryColor={token('color.background.neutral.bold', N500)}
         />
       }
       id="info"

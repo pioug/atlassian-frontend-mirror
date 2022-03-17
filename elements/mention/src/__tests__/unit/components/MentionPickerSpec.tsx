@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';

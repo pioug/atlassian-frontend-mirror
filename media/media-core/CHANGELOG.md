@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 32.3.0
+
+### Minor Changes
+
+- [`f862d5ae7aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f862d5ae7aa) - remove RxJs peer dependency
+
 ## 32.2.0
 
 ### Minor Changes

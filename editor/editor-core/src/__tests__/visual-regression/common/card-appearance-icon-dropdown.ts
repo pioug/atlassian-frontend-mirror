@@ -37,7 +37,7 @@ describe('Cards: w/ FF `viewChangingExperimentToolbarStyle` as `newDropdown`', (
         allowEmbeds: true,
       },
       featureFlags: {
-        viewChangingExperimentToolbarStyle: 'newDropdown',
+        'view-changing-experiment-toolbar-style': 'newDropdown',
       },
     });
   };

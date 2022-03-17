@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 import React from 'react';
 import { messages } from '../../../../components/i18n';
@@ -7,7 +7,6 @@ import CategorySelector, {
   Props,
   sortCategories,
 } from '../../../../components/picker/CategorySelector';
-import * as styles from '../../../../components/picker/styles';
 import { defaultCategories } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/type-helpers';
 import { CategoryId } from '../../../../types';
@@ -59,13 +58,13 @@ describe('<CategorySelector />', () => {
     defaultCategories.forEach((categoryId, i) => {
       const button = categoryButtons.at(i);
       const categoryKey = CategoryDescriptionMap[categoryId].name;
-      // eslint-disable-next-line
       expect(isMessagesKey(categoryKey)).toBeTruthy();
       if (isMessagesKey(categoryKey)) {
         expect(button.prop('title')).toEqual(
           messages[categoryKey].defaultMessage,
         );
-        expect(button.hasClass(styles.disable)).toEqual(true);
+
+        expect(button.getDOMNode()).toBeDisabled();
       }
     });
   });
@@ -101,7 +100,9 @@ describe('<CategorySelector />', () => {
         );
       }
       const shouldBeActive = i === 3;
-      expect(button.hasClass(styles.active)).toEqual(shouldBeActive);
+      if (shouldBeActive) {
+        expect(button).toMatchSnapshot();
+      }
     });
   });
 });

@@ -9,7 +9,7 @@ import {
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import { hasSelector } from '../_test-utils';
@@ -33,7 +33,7 @@ const renderEmojiButton = (onClick: OnEmojiEvent = () => {}) => {
 
 describe('@atlaskit/reactions/emoji-button', () => {
   it('should render a button', () => {
-    const emojiButton = shallow(renderEmojiButton());
+    const emojiButton = mount(renderEmojiButton());
     expect(emojiButton.find('button').length).toEqual(1);
   });
 

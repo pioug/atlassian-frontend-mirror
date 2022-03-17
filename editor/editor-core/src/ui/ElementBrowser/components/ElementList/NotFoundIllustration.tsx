@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 
-const ImageContainer = styled.div`
+const imageContainer = css`
   width: 120px;
   height: 111px;
   margin-top: 48px;
@@ -9,7 +9,7 @@ const ImageContainer = styled.div`
 
 export default function NotFoundIllustration(): JSX.Element {
   return (
-    <ImageContainer>
+    <div css={imageContainer}>
       <svg
         width="120"
         height="111"
@@ -62,6 +62,6 @@ export default function NotFoundIllustration(): JSX.Element {
           </clipPath>
         </defs>
       </svg>
-    </ImageContainer>
+    </div>
   );
 }

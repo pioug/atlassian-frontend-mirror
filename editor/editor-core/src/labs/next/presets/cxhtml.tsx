@@ -87,7 +87,6 @@ export function useCXHTMLPreset({
         provider: mediaProvider,
         allowMediaSingle: true,
         allowMediaGroup: true,
-        allowAnnotation: true,
         allowResizing: true,
         allowLinking: true,
         allowResizingInTables: true,

@@ -14,11 +14,11 @@ import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { uuid } from '@atlaskit/adf-schema';
 
 import { insertDate } from '../../actions';
-import DateNodeView from '../../nodeviews/date';
+import { DateNodeView } from '../../nodeviews/date';
 
 // Editor plugins
 import datePlugin from '../../index';
@@ -84,6 +84,7 @@ describe('date plugin', () => {
           <DateNodeView
             view={view}
             node={view.state.doc.nodeAt(view.state.selection.$from.pos)!}
+            getPos={false}
           />,
         );
         expect(
@@ -111,6 +112,7 @@ describe('date plugin', () => {
           <DateNodeView
             view={view}
             node={view.state.doc.nodeAt(view.state.selection.$from.pos)!}
+            getPos={false}
           />,
         );
         expect(

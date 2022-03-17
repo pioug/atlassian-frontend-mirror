@@ -15,7 +15,7 @@ jest.mock('../../../hooks/use-container-width', () => {
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import { act } from '@testing-library/react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { replaceRaf } from 'raf-stub';
 import { DEVICE_BREAKPOINT_NUMBERS } from '../../../constants';
 import StatelessElementBrowser from '../../StatelessElementBrowser';
@@ -49,6 +49,8 @@ export const testProps = {
 let wrapper: ReactWrapper;
 
 replaceRaf();
+
+const sidebarHeadingSelector = 'h2[data-testid="sidebar-heading"]';
 
 describe('StatelessElementBrowser', () => {
   it('should render mobile components for width < 600', () => {
@@ -88,7 +90,7 @@ describe('StatelessElementBrowser', () => {
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="inline" />,
     );
-    expect(wrapper.find('SidebarHeading')).toHaveLength(0);
+    expect(wrapper.find(sidebarHeadingSelector)).toHaveLength(0);
     wrapper.unmount();
   });
   it('should render a sidebar heading on desktop', () => {
@@ -96,7 +98,8 @@ describe('StatelessElementBrowser', () => {
     wrapper = mountWithIntl(
       <StatelessElementBrowser {...testProps} mode="full" />,
     );
-    expect(wrapper.find('SidebarHeading')).toHaveLength(1);
+
+    expect(wrapper.find(sidebarHeadingSelector)).toHaveLength(1);
     wrapper.unmount();
   });
 
@@ -153,7 +156,11 @@ describe('KeyboardNavigation for item listSize 10', () => {
     mobile: boolean;
   };
   const MainContent = (mobile: boolean) =>
-    wrapper.find(mobile ? 'MobileElementBrowserContainer' : 'MainContent');
+    wrapper.find(
+      mobile
+        ? 'div[data-testid="mobile__element-browser"]'
+        : 'div[data-testid="main-content"]',
+    );
   const keySimulation: any = {
     arrowDown: ({ mobile }: KeySimuationOptions) => {
       MainContent(mobile).simulate('keydown', {

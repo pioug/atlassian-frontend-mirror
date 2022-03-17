@@ -9,8 +9,8 @@ import {
   isExternalImageIdentifier,
   isErrorFileState,
   ErrorFileState,
+  MediaSubscription,
 } from '@atlaskit/media-client';
-import { Subscription } from 'rxjs/Subscription';
 import deepEqual from 'deep-equal';
 import {
   hideControlsClassName,
@@ -74,7 +74,7 @@ export class Header extends React.Component<
 > {
   state: State = initialState;
 
-  private subscription?: Subscription;
+  private subscription?: MediaSubscription;
 
   UNSAFE_componentWillUpdate(nextProps: Props) {
     if (this.needsReset(this.props, nextProps)) {

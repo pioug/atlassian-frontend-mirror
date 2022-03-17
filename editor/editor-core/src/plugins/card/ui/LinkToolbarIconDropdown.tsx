@@ -43,8 +43,8 @@ const primitiveStyles = css({
 
 const interactiveStyles = css({
   '&:active': {
-    backgroundColor: token('color.background.brand.pressed', B50),
-    color: token('color.text.accent.blue', B400),
+    backgroundColor: token('color.background.selected.pressed', B50),
+    color: token('color.text.selected', B400),
   },
 });
 
@@ -56,11 +56,11 @@ const unselectedStyles = css({
 });
 
 const selectedOptionStyles = css({
-  backgroundColor: token('color.background.brand.pressed', B50),
-  color: token('color.text.brand', 'currentColor'),
+  backgroundColor: token('color.background.selected.pressed', B50),
+  color: token('color.text.selected', 'currentColor'),
   '&:hover': {
-    backgroundColor: token('color.background.brand.pressed', B50),
-    color: token('color.text.brand', 'currentColor'),
+    backgroundColor: token('color.background.selected.pressed', B50),
+    color: token('color.text.selected', 'currentColor'),
   },
 });
 

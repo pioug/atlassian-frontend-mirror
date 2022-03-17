@@ -20,13 +20,22 @@ import {
   inlineCursorTargetStateKey,
 } from '../../pm-plugins/inline-cursor-target';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { PluginKey } from 'prosemirror-state';
+import { EditorState, PluginKey } from 'prosemirror-state';
 import basePlugin from '../../';
 import emojiPlugin from '../../../emoji';
 import tablesPlugin from '../../../table';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
+
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+  browser: {
+    // The inline-cursor-target plugin only runs under chrome and firefox,
+    // mocking the browser.gecko value means it runs (gecko == firefox)
+    gecko: true,
+  },
+}));
 
 describe('Inline cursor target', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -41,8 +50,8 @@ describe('Inline cursor target', () => {
         .add(tablesPlugin),
     });
 
-  it(`should give positions at the current pos when NOT at the end of a 'special' node`, () => {
-    const { pluginState, sel } = editorFactory(
+  it(`should create cursor targets when inbetween inline node views with no trailing spaces`, () => {
+    const { pluginState } = editorFactory(
       doc(
         table()(
           tr(
@@ -51,7 +60,6 @@ describe('Inline cursor target', () => {
               p(
                 emoji({ shortName: ':smiley:' })(),
                 '{<>}',
-                ' / ',
                 emoji({ shortName: ':smiley:' })(),
               ),
             ),
@@ -61,11 +69,33 @@ describe('Inline cursor target', () => {
       ),
     );
 
-    expect(pluginState.positions[0]).toEqual(sel - 1);
+    expect(pluginState.cursorTarget!.decorations.length).toEqual(2);
   });
 
-  it(`should give positions at the current pos when at the end of a 'special' node`, () => {
-    const { pluginState, sel } = editorFactory(
+  it(`should create cursor targets when at the start of a paragraph and next to an inline node view`, () => {
+    const { pluginState } = editorFactory(
+      doc(
+        table()(
+          tr(
+            tdEmpty,
+            td()(
+              p(
+                '{<>}',
+                emoji({ shortName: ':smiley:' })(),
+                emoji({ shortName: ':smiley:' })(),
+              ),
+            ),
+            tdEmpty,
+          ),
+        ),
+      ),
+    );
+
+    expect(pluginState.cursorTarget).not.toBe(undefined);
+  });
+
+  it(`should not create cursor targets when selection is not between inline nodes`, () => {
+    const { pluginState } = editorFactory(
       doc(
         table()(
           tr(
@@ -73,7 +103,6 @@ describe('Inline cursor target', () => {
             td()(
               p(
                 emoji({ shortName: ':smiley:' })(),
-                ' / ',
                 emoji({ shortName: ':smiley:' })(),
                 '{<>}',
               ),
@@ -84,6 +113,59 @@ describe('Inline cursor target', () => {
       ),
     );
 
-    expect(pluginState.positions[0]).toEqual(sel - 1);
+    expect(pluginState.cursorTarget).toBe(undefined);
+  });
+
+  it(`should not create cursor targets when inbetween inline node views with trailing spaces`, () => {
+    const { pluginState } = editorFactory(
+      doc(
+        table()(
+          tr(
+            tdEmpty,
+            td()(
+              p(
+                emoji({ shortName: ':smiley:' })(),
+                ' ',
+                '{<>}',
+                emoji({ shortName: ':smiley:' })(),
+              ),
+            ),
+            tdEmpty,
+          ),
+        ),
+      ),
+    );
+
+    expect(pluginState.cursorTarget).toBe(undefined);
+  });
+
+  it(`should remove cursor targets when content is entered between inline nodes with no trailing spaces`, () => {
+    const getPluginState = (state: EditorState) =>
+      inlineCursorTargetStateKey.getState(state);
+
+    const { pluginState, editorView } = editorFactory(
+      doc(
+        table()(
+          tr(
+            tdEmpty,
+            td()(
+              p(
+                emoji({ shortName: ':smiley:' })(),
+                '{<>}',
+                emoji({ shortName: ':smiley:' })(),
+              ),
+            ),
+            tdEmpty,
+          ),
+        ),
+      ),
+    );
+    const { selection } = editorView.state;
+
+    expect(pluginState.cursorTarget).not.toBe(undefined);
+    editorView.dispatch(
+      editorView.state.tr.insertText('hello', selection.from),
+    );
+    expect(getPluginState(editorView.state).cursorTarget).toBe(undefined);
   });
 });

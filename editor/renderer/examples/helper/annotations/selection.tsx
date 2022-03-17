@@ -1,9 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
 import uuid from 'uuid/v4';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { Popup } from '@atlaskit/editor-common/ui';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -11,7 +12,7 @@ import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
-const WhiteBox = styled.div`
+const whiteBoxStyle = css`
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(9, 30, 66, 0.6) 0px 4px 8px 0px,
     rgba(9, 30, 66, 0.31) 0px 0px 1px;
@@ -117,7 +118,7 @@ const Component = (
         alignY="bottom"
         onPositionCalculated={onPositionCalculated}
       >
-        <WhiteBox>
+        <div css={whiteBoxStyle}>
           <Button
             appearance="subtle"
             iconBefore={<AddCommentIcon size="medium" label="" />}
@@ -127,7 +128,7 @@ const Component = (
           >
             Comment
           </Button>
-        </WhiteBox>
+        </div>
       </Popup>
     );
   }

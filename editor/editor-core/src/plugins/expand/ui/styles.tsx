@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import {
@@ -10,6 +10,7 @@ import {
   DN50,
   R200,
 } from '@atlaskit/theme/colors';
+import { ThemeProps } from '@atlaskit/theme/types';
 import { sharedExpandStyles } from '@atlaskit/editor-common/ui';
 import {
   SelectionStyle,
@@ -27,8 +28,8 @@ const EXPAND_SELECTED_BACKGROUND = themed({
   dark: 'rgba(9, 10, 11, 0.29)',
 });
 
-const EXPAND_ICON_COLOR = css`
-  color: ${themed({ light: N80A, dark: '#d9dde3' })};
+const EXPAND_ICON_COLOR = (props: ThemeProps) => css`
+  color: ${themed({ light: N80A, dark: '#d9dde3' })(props)};
 `;
 
 const ACTIVE_STATE_BACKGROUND_COLOR = themed({ dark: `#0C294F` });
@@ -49,13 +50,15 @@ const DANGER_STATE_BORDER_RADIUS = themed({
   dark: '3px',
 });
 
-export const expandStyles = css`
+export const expandStyles = (props: ThemeProps) => css`
   .${expandClassNames.icon} > div {
     display: flex;
   }
 
   .${expandClassNames.prefix} {
-    ${sharedExpandStyles.ContainerStyles}
+    ${sharedExpandStyles.containerStyles({ expanded: false, focused: false })(
+      props,
+    )}
     overflow: hidden;
     cursor: pointer;
     box-sizing: border-box;
@@ -65,7 +68,7 @@ export const expandStyles = css`
     }
 
     .${expandClassNames.iconContainer} svg {
-      ${EXPAND_ICON_COLOR};
+      ${EXPAND_ICON_COLOR(props)};
       transform: rotate(90deg);
     }
 
@@ -74,17 +77,17 @@ export const expandStyles = css`
 
       ::after {
         // Custom background color and borders (for dark theme).
-        background-color: ${ACTIVE_STATE_BACKGROUND_COLOR};
-        border: ${ACTIVE_STATE_BORDER};
-        border-radius: ${ACTIVE_STATE_BORDER_RADIUS};
+        background-color: ${ACTIVE_STATE_BACKGROUND_COLOR(props)};
+        border: ${ACTIVE_STATE_BORDER(props)};
+        border-radius: ${ACTIVE_STATE_BORDER_RADIUS(props)};
       }
     }
 
     &.danger {
-      background: ${DANGER_STATE_BACKGROUND_COLOR};
-      border: ${DANGER_STATE_BORDER};
-      border-color: ${DANGER_STATE_BORDER_COLOR};
-      border-radius: ${DANGER_STATE_BORDER_RADIUS};
+      background: ${DANGER_STATE_BACKGROUND_COLOR(props)};
+      border: ${DANGER_STATE_BORDER(props)};
+      border-color: ${DANGER_STATE_BORDER_COLOR(props)};
+      border-radius: ${DANGER_STATE_BORDER_RADIUS(props)};
     }
   }
 
@@ -97,26 +100,28 @@ export const expandStyles = css`
   }
 
   .${expandClassNames.content} {
-    ${sharedExpandStyles.ContentStyles}
+    ${sharedExpandStyles.contentStyles({ expanded: false, focused: false })(
+      props,
+    )}
     cursor: text;
     padding-top: 0px;
   }
 
   .${expandClassNames.titleInput} {
-    ${sharedExpandStyles.TitleInputStyles}
+    ${sharedExpandStyles.titleInputStyles(props)}
   }
 
   .${expandClassNames.titleContainer} {
-    ${sharedExpandStyles.TitleContainerStyles};
+    ${sharedExpandStyles.titleContainerStyles(props)};
     overflow: visible;
   }
 
   .${expandClassNames.expanded} {
-    background: ${EXPAND_SELECTED_BACKGROUND};
-    border-color: ${themed({ light: N40A, dark: DN50 })};
+    background: ${EXPAND_SELECTED_BACKGROUND(props)};
+    border-color: ${themed({ light: N40A, dark: DN50 })(props)};
 
     .${expandClassNames.content} {
-      padding-top: ${gridSize}px;
+      padding-top: ${gridSize()}px;
     }
   }
 
@@ -143,7 +148,7 @@ export const expandStyles = css`
     }
 
     .${expandClassNames.iconContainer} svg {
-      ${EXPAND_ICON_COLOR};
+      ${EXPAND_ICON_COLOR(props)};
       transform: rotate(0deg);
     }
 
@@ -152,8 +157,8 @@ export const expandStyles = css`
       border-color: transparent;
 
       &:hover {
-        border-color: ${themed({ light: N50A, dark: DN50 })};
-        background: ${EXPAND_SELECTED_BACKGROUND};
+        border-color: ${themed({ light: N50A, dark: DN50 })(props)};
+        background: ${EXPAND_SELECTED_BACKGROUND(props)};
       }
     }
   }

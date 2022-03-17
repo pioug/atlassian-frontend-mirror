@@ -5,6 +5,6 @@ import { SkeletonHeadingItem } from '../src';
 export default () => (
   <>
     <SkeletonHeadingItem />
-    <SkeletonHeadingItem isShimmering />
+    <SkeletonHeadingItem isShimmering testId="is-shimmering" />
   </>
 );

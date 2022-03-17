@@ -1,17 +1,18 @@
+/** @jsx jsx */
+import { jsx, css, SerializedStyles } from '@emotion/core';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import cx from 'classnames';
 import React from 'react';
-import { style } from 'typestyle';
 import { messages } from './i18n';
 import { FormattedMessage } from 'react-intl-next';
+import { revealStyle } from './Selector';
 
-const moreEmojiContainerStyle = style({ display: 'flex' });
+const moreEmojiContainerStyle = css({ display: 'flex' });
 
-const moreButtonStyle = style({
+const moreButtonStyle = css({
   opacity: 0,
   outline: 'none',
   backgroundColor: 'transparent',
@@ -22,14 +23,13 @@ const moreButtonStyle = style({
   padding: '4px',
   width: '38px',
   verticalAlign: 'top',
-  $nest: {
-    '&:hover': {
-      backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
-    },
+
+  '&:hover': {
+    backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
   },
 });
 
-const separatorStyle = style({
+const separatorStyle = css({
   backgroundColor: token('color.border', N30A),
   margin: '8px 8px 8px 4px',
   width: '1px',
@@ -44,10 +44,11 @@ export type CommonProps<T> = {
 
 export type Props = {
   onClick?: React.MouseEventHandler<HTMLElement>;
+  revealStyle?: SerializedStyles;
   style?: CommonProps<React.CSSProperties>;
   className?: CommonProps<string>;
 };
-
+export const showMoreTestId = 'show-more-button';
 export class ShowMore extends React.PureComponent<Props> {
   static defaultProps = {
     className: {},
@@ -59,17 +60,20 @@ export class ShowMore extends React.PureComponent<Props> {
 
     return (
       <div
-        className={cx(moreEmojiContainerStyle, classNameProp!.container)}
+        className={classNameProp!.container}
+        css={moreEmojiContainerStyle}
         style={style!.container}
       >
-        <div className={separatorStyle} />
+        <div css={separatorStyle} />
         <FormattedMessage {...messages.moreEmoji}>
           {(text) => (
             <Tooltip content={text}>
               <button
-                className={cx(moreButtonStyle, classNameProp!.button)}
+                className={classNameProp!.button}
+                css={[moreButtonStyle, revealStyle]}
                 style={style!.button}
                 onMouseDown={onClick}
+                data-testid={showMoreTestId}
               >
                 <EditorMoreIcon label="More" />
               </button>

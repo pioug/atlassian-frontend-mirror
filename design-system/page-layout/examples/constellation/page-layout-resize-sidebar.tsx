@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 
-import { CSSObject, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -19,6 +19,13 @@ import {
   TopNavigation,
   usePageLayoutResize,
 } from '../../src';
+import {
+  ScrollableContent,
+  SlotLabel,
+  SlotWrapper,
+  Toggle,
+  ToggleBox,
+} from '../common';
 
 type SlotName =
   | 'Banner'
@@ -29,141 +36,6 @@ type SlotName =
   | 'RightSidebar'
   | 'RightPanel'
   | 'PageLayout';
-type ToggleElProps = {
-  onChange: () => void;
-  value: boolean;
-  name?: SlotName;
-};
-interface InitialState {
-  isBannerShown: boolean;
-  isTopNavigationShown: boolean;
-  isLeftPanelShown: boolean;
-  isLeftSidebarShown: boolean;
-  isMainShown: boolean;
-  isRightSidebarShown: boolean;
-  isRightPanelShown: boolean;
-  isBannerFixed: boolean;
-  isTopNavigationFixed: boolean;
-  isLeftPanelFixed: boolean;
-  isLeftPanelScrollable: boolean;
-  isLeftSidebarFixed: boolean;
-  isLeftSidebarScrollable: boolean;
-  isMainScrollable: boolean;
-  isMainExtraWide: boolean;
-  isRightSidebarFixed: boolean;
-  isRightSidebarScrollable: boolean;
-  isRightPanelFixed: boolean;
-  isRightPanelScrollable: boolean;
-  isPageLayoutShown: boolean;
-}
-type InitialStateKeys = keyof InitialState;
-
-const scrollableContentCSS = {
-  height: '2rem',
-  width: '80%',
-  backgroundColor: token(
-    'color.background.accent.orange.subtler',
-    'papayawhip',
-  ),
-  margin: '2rem auto',
-  boxSizing: 'border-box',
-  borderRadius: 3,
-} as CSSObject;
-
-const ScrollableContent = () => {
-  const arr = new Array(50);
-  return <Fragment>{arr.fill(<div css={scrollableContentCSS} />)}</Fragment>;
-};
-
-const ToggleFixed = ({ onChange, value }: ToggleElProps) => (
-  // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
-  <label css={{ display: 'block', whiteSpace: 'nowrap' }}>
-    <input
-      type="checkbox"
-      onChange={onChange}
-      value={value.toString()}
-      checked={value}
-    />
-    Toggle fixed
-  </label>
-);
-
-const ToggleShown = ({ onChange, value, name }: ToggleElProps) => (
-  <label htmlFor="chckbx1" css={{ display: 'block' }}>
-    <input
-      id="chckbx1"
-      type="checkbox"
-      onChange={onChange}
-      value={value.toString()}
-    />
-    {`${value ? 'Unmount' : 'Mount'} ${name}`}
-  </label>
-);
-
-const ToggleScrollableContent = ({ onChange, value }: ToggleElProps) => (
-  <Fragment>
-    <label htmlFor="chckbx2" css={{ display: 'block', whiteSpace: 'nowrap' }}>
-      <input
-        id="chckbx2"
-        data-toggle-scrollable
-        type="checkbox"
-        onChange={onChange}
-        value={value.toString()}
-      />
-      Toggle scrollable content
-    </label>
-    {value && <ScrollableContent />}
-  </Fragment>
-);
-
-const ToggleExtraWide = ({ onChange, value }: ToggleElProps) => (
-  <Fragment>
-    <label htmlFor="chckbx3" css={{ display: 'block', whiteSpace: 'nowrap' }}>
-      <input
-        id="chckbx3"
-        type="checkbox"
-        onChange={onChange}
-        value={value.toString()}
-        checked={value}
-      />
-      Toggle extra-wide content
-    </label>
-    {value && (
-      <img
-        src="https://picsum.photos/seed/picsum/1600"
-        alt="wide placeholder"
-        title="wide placeholder image"
-      />
-    )}
-  </Fragment>
-);
-
-const Wrapper = ({
-  borderColor,
-  children,
-  noOutline,
-  noHorizontalScrollbar,
-}: {
-  borderColor: string;
-  children: React.ReactNode;
-  noOutline?: boolean;
-  noHorizontalScrollbar?: boolean;
-}) => (
-  <div
-    css={{
-      outline: noOutline ? 'none' : `2px dashed ${borderColor}`,
-      outlineOffset: -4,
-      padding: 8,
-      height: '100%',
-      boxSizing: 'border-box',
-      overflowY: 'auto',
-      overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: token('color.background.neutral.subtle', 'white'),
-    }}
-  >
-    {children}
-  </div>
-);
 
 const ExpandKeyboardShortcut: FC = () => {
   const {
@@ -219,32 +91,92 @@ const initialState = {
   isRightPanelScrollable: false,
   isPageLayoutShown: true,
 };
+
 const BasicGrid = () => {
   const [gridState, setGridState] = useState(initialState);
-  const toggleFixed = (slotName: SlotName) => {
-    setGridState({
-      ...gridState,
-      [`is${slotName}Fixed`]: !gridState[
-        `is${slotName}Fixed` as InitialStateKeys
-      ],
-    });
-  };
-  const toggleScrollable = (slotName: SlotName) => {
-    setGridState({
-      ...gridState,
-      [`is${slotName}Scrollable`]: !gridState[
-        `is${slotName}Scrollable` as InitialStateKeys
-      ],
-    });
-  };
-  const toggleShown = (slotName: SlotName) => {
-    setGridState({
-      ...gridState,
-      [`is${slotName}Shown`]: !gridState[
-        `is${slotName}Shown` as InitialStateKeys
-      ],
-    });
-  };
+
+  const ToggleFixed = useCallback(
+    ({ slotName }: { slotName: SlotName }) => {
+      const gridKey = `is${slotName}Fixed` as keyof typeof gridState;
+      return (
+        <Toggle
+          id={`${slotName}--fixed`}
+          isChecked={gridState[gridKey]}
+          onChange={() =>
+            setGridState({ ...gridState, [gridKey]: !gridState[gridKey] })
+          }
+        >
+          Toggle fixed
+        </Toggle>
+      );
+    },
+    [gridState],
+  );
+
+  const ToggleScrollable = useCallback(
+    ({ slotName }: { slotName: SlotName }) => {
+      const gridKey = `is${slotName}Scrollable` as keyof typeof gridState;
+      return (
+        <Fragment>
+          <Toggle
+            data-toggle-scrollable
+            id={`${slotName}--scrollable`}
+            isChecked={gridState[gridKey]}
+            onChange={() =>
+              setGridState({ ...gridState, [gridKey]: !gridState[gridKey] })
+            }
+          >
+            Toggle scrollable content
+          </Toggle>
+          {gridState[gridKey] && <ScrollableContent />}
+        </Fragment>
+      );
+    },
+    [gridState],
+  );
+
+  const ToggleShown = useCallback(
+    ({ slotName }: { slotName: SlotName }) => {
+      const gridKey = `is${slotName}Shown` as keyof typeof gridState;
+      return (
+        <Toggle
+          id={`${slotName}--shown`}
+          onChange={() =>
+            setGridState({ ...gridState, [gridKey]: !gridState[gridKey] })
+          }
+          isChecked={gridState[gridKey] !== initialState[gridKey]}
+        >{`${gridState[gridKey] ? 'Unmount' : 'Mount'} ${slotName}`}</Toggle>
+      );
+    },
+    [gridState],
+  );
+
+  const ToggleExtraWide = useCallback(
+    () => (
+      <Fragment>
+        <Toggle
+          id={`toggle--extra-wide`}
+          onChange={() =>
+            setGridState({
+              ...gridState,
+              isMainExtraWide: !gridState.isMainExtraWide,
+            })
+          }
+          isChecked={gridState.isMainExtraWide}
+        >
+          Toggle extra-wide content
+        </Toggle>
+        {gridState.isMainExtraWide && (
+          <img
+            src="https://picsum.photos/seed/picsum/1600"
+            alt="wide placeholder"
+            title="wide placeholder image"
+          />
+        )}
+      </Fragment>
+    ),
+    [gridState],
+  );
 
   return (
     <Fragment>
@@ -259,43 +191,33 @@ const BasicGrid = () => {
         >
           {gridState.isBannerShown && (
             <Banner height={60} isFixed={gridState.isBannerFixed}>
-              <Wrapper
+              <SlotWrapper
                 borderColor={token('color.border.accent.yellow', 'gold')}
               >
-                <h3 css={{ textAlign: 'center' }}>Banner</h3>
-                <ToggleFixed
-                  onChange={() => toggleFixed('Banner')}
-                  value={gridState.isBannerFixed}
-                />
-              </Wrapper>
+                <SlotLabel>Banner</SlotLabel>
+                <ToggleFixed slotName="Banner" />
+              </SlotWrapper>
             </Banner>
           )}
           {gridState.isTopNavigationShown && (
             <TopNavigation height={60} isFixed={gridState.isTopNavigationFixed}>
-              <Wrapper borderColor={token('color.border.accent.blue', 'blue')}>
-                <h3 css={{ textAlign: 'center' }}>TopNavigation</h3>
-                <ToggleFixed
-                  onChange={() => toggleFixed('TopNavigation')}
-                  value={gridState.isTopNavigationFixed}
-                />
-              </Wrapper>
+              <SlotWrapper
+                borderColor={token('color.border.accent.blue', 'blue')}
+              >
+                <SlotLabel>TopNavigation</SlotLabel>
+                <ToggleFixed slotName="TopNavigation" />
+              </SlotWrapper>
             </TopNavigation>
           )}
           {gridState.isLeftPanelShown && (
             <LeftPanel isFixed={gridState.isLeftPanelFixed} width={200}>
-              <Wrapper
+              <SlotWrapper
                 borderColor={token('color.border.accent.orange', 'orange')}
               >
-                <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
-                <ToggleFixed
-                  onChange={() => toggleFixed('LeftPanel')}
-                  value={gridState.isLeftPanelFixed}
-                />
-                <ToggleScrollableContent
-                  onChange={() => toggleScrollable('LeftPanel')}
-                  value={gridState.isLeftPanelScrollable}
-                />
-              </Wrapper>
+                <SlotLabel>LeftPanel</SlotLabel>
+                <ToggleFixed slotName="LeftPanel" />
+                <ToggleScrollable slotName="LeftPanel" />
+              </SlotWrapper>
             </LeftPanel>
           )}
           <Content testId="content">
@@ -330,137 +252,58 @@ const BasicGrid = () => {
                   },
                 }}
               >
-                <Wrapper
-                  noOutline
-                  noHorizontalScrollbar
-                  borderColor={token('color.border.accent.green', 'darkgreen')}
-                >
-                  <div css={{ minWidth: 50, padding: '0 20px' }}>
-                    <h3 css={{ textAlign: 'center' }}>LeftSidebar</h3>
-                    <ToggleFixed
-                      onChange={() => toggleFixed('LeftSidebar')}
-                      value={gridState.isLeftSidebarFixed}
-                    />
-                    <ToggleScrollableContent
-                      onChange={() => toggleScrollable('LeftSidebar')}
-                      value={gridState.isLeftSidebarScrollable}
-                    />
-                  </div>
-                </Wrapper>
+                <SlotWrapper hasExtraPadding noHorizontalScrollbar>
+                  <SlotLabel>LeftSidebar</SlotLabel>
+                  <ToggleFixed slotName="LeftSidebar" />
+                  <ToggleScrollable slotName="LeftSidebar" />
+                </SlotWrapper>
                 <ExpandKeyboardShortcut />
               </LeftSidebar>
             )}
             {gridState.isMainShown && (
               <Main id="main" skipLinkTitle="Main">
-                <Wrapper noOutline borderColor={token('color.border', 'black')}>
-                  <h3 css={{ textAlign: 'center' }}>Main</h3>
-                  <ToggleExtraWide
-                    onChange={() =>
-                      setGridState({
-                        ...gridState,
-                        isMainExtraWide: !gridState.isMainExtraWide,
-                      })
-                    }
-                    value={gridState.isMainExtraWide}
-                  />
-                  <ToggleScrollableContent
-                    onChange={() => toggleScrollable('Main')}
-                    value={gridState.isMainScrollable}
-                  />
-                </Wrapper>
+                <SlotWrapper>
+                  <SlotLabel>Main</SlotLabel>
+                  <ToggleExtraWide />
+                  <ToggleScrollable slotName="Main" />
+                </SlotWrapper>
               </Main>
             )}
             {gridState.isRightSidebarShown && (
               <RightSidebar isFixed={gridState.isRightSidebarFixed} width={200}>
-                <Wrapper
+                <SlotWrapper
                   borderColor={token('color.border.accent.green', 'darkgreen')}
                 >
-                  <h3 css={{ textAlign: 'center' }}>RightSidebar</h3>
-                  <ToggleFixed
-                    onChange={() => toggleFixed('RightSidebar')}
-                    value={gridState.isRightSidebarFixed}
-                  />
-                  <ToggleScrollableContent
-                    onChange={() => toggleScrollable('RightSidebar')}
-                    value={gridState.isRightSidebarScrollable}
-                  />
-                </Wrapper>
+                  <SlotLabel>RightSidebar</SlotLabel>
+                  <ToggleFixed slotName="RightSidebar" />
+                  <ToggleScrollable slotName="RightSidebar" />
+                </SlotWrapper>
               </RightSidebar>
             )}
           </Content>
           {gridState.isRightPanelShown && (
             <RightPanel isFixed={gridState.isRightPanelFixed} width={200}>
-              <Wrapper
+              <SlotWrapper
                 borderColor={token('color.border.accent.orange', 'orange')}
               >
-                <h3 css={{ textAlign: 'center' }}>RightPanel</h3>
-                <ToggleFixed
-                  onChange={() => toggleFixed('RightPanel')}
-                  value={gridState.isRightPanelFixed}
-                />
-                <ToggleScrollableContent
-                  onChange={() => toggleScrollable('RightPanel')}
-                  value={gridState.isRightPanelScrollable}
-                />
-              </Wrapper>
+                <SlotLabel>RightPanel</SlotLabel>
+                <ToggleFixed slotName="RightPanel" />
+                <ToggleScrollable slotName="RightPanel" />
+              </SlotWrapper>
             </RightPanel>
           )}
         </PageLayout>
       )}
-      <div
-        css={{
-          position: 'fixed',
-          bottom: '1rem',
-          left: '50%',
-          transform: 'translate(-50%)',
-          backgroundColor: token('color.background.neutral.subtle', 'white'),
-          padding: '1rem',
-          border: `1px solid ${token('color.border', 'lightgray')}`,
-          zIndex: 2,
-          borderRadius: 3,
-        }}
-      >
-        <ToggleShown
-          name="Banner"
-          onChange={() => toggleShown('Banner')}
-          value={gridState.isBannerShown}
-        />
-        <ToggleShown
-          name="TopNavigation"
-          onChange={() => toggleShown('TopNavigation')}
-          value={gridState.isTopNavigationShown}
-        />
-        <ToggleShown
-          name="LeftPanel"
-          onChange={() => toggleShown('LeftPanel')}
-          value={gridState.isLeftPanelShown}
-        />
-        <ToggleShown
-          name="LeftSidebar"
-          onChange={() => toggleShown('LeftSidebar')}
-          value={gridState.isLeftSidebarShown}
-        />
-        <ToggleShown
-          name="Main"
-          onChange={() => toggleShown('Main')}
-          value={gridState.isMainShown}
-        />
-        <ToggleShown
-          name="RightSidebar"
-          onChange={() => toggleShown('RightSidebar')}
-          value={gridState.isRightSidebarShown}
-        />
-        <ToggleShown
-          name="RightPanel"
-          onChange={() => toggleShown('RightPanel')}
-          value={gridState.isRightPanelShown}
-        />
-        <ToggleShown
-          name="PageLayout"
-          onChange={() => toggleShown('PageLayout')}
-          value={gridState.isPageLayoutShown}
-        />
-      </div>
+      <ToggleBox>
+        <ToggleShown slotName="Banner" />
+        <ToggleShown slotName="TopNavigation" />
+        <ToggleShown slotName="LeftPanel" />
+        <ToggleShown slotName="LeftSidebar" />
+        <ToggleShown slotName="Main" />
+        <ToggleShown slotName="RightSidebar" />
+        <ToggleShown slotName="RightPanel" />
+        <ToggleShown slotName="PageLayout" />
+      </ToggleBox>
     </Fragment>
   );
 };

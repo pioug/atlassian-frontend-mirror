@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import { filter, ADFEntity } from '@atlaskit/adf-utils';
 import {
@@ -28,7 +27,6 @@ import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { RendererAppearance } from './Renderer/types';
 import { RendererContext } from '../react/types';
 import { MediaSSR } from '../types/mediaOptions';
-import styled from 'styled-components';
 
 export type MediaProvider = {
   viewMediaClientConfig: MediaClientConfig;
@@ -326,7 +324,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
     };
 
     return (
-      <CardWrapper
+      <div
         {...getClipboardAttrs({
           id,
           alt,
@@ -356,12 +354,10 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
           shouldEnableDownloadButton={shouldEnableDownloadButton}
           ssr={ssr?.mode}
         />
-      </CardWrapper>
+      </div>
     );
   }
 }
-
-export const CardWrapper = styled.div``;
 
 // Needed for copy & paste
 export const getClipboardAttrs = ({

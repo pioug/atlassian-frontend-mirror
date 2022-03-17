@@ -897,6 +897,58 @@
       ],
       "additionalProperties": false
     },
+    "mediaInline_node": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "mediaInline"
+          ]
+        },
+        "attrs": {
+          "type": "object",
+          "properties": {
+            "data": {},
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "collection": {
+              "type": "string"
+            },
+            "height": {
+              "type": "number"
+            },
+            "width": {
+              "type": "number"
+            },
+            "occurrenceKey": {
+              "type": "string",
+              "minLength": 1
+            },
+            "alt": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "collection"
+          ]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link_mark"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "attrs"
+      ],
+      "additionalProperties": false
+    },
     "formatted_text_inline_node": {
       "allOf": [
         {
@@ -995,6 +1047,9 @@
         },
         {
           "$ref": "#/definitions/status_node"
+        },
+        {
+          "$ref": "#/definitions/mediaInline_node"
         },
         {
           "$ref": "#/definitions/formatted_text_inline_node"

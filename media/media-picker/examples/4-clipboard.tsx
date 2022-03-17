@@ -10,6 +10,7 @@ import {
 import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
+import { ufologger } from '@atlaskit/ufo/logger';
 import { Clipboard } from '../src';
 import {
   ImagePreview,
@@ -41,6 +42,8 @@ export interface ClipboardWrapperState {
   pastedImgHeight: number;
   isLoading: boolean;
 }
+
+ufologger.enable();
 
 class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   dropzoneContainer?: HTMLDivElement;

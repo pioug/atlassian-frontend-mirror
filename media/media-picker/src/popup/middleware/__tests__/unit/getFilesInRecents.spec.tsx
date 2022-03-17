@@ -13,7 +13,10 @@ import {
 import { getFilesInRecents, requestRecentFiles } from '../../getFilesInRecents';
 import { of } from 'rxjs/observable/of';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { MediaCollectionItem } from '@atlaskit/media-client';
+import {
+  MediaCollectionItem,
+  createMediaSubscribable,
+} from '@atlaskit/media-client';
 
 describe('getFilesInRecents middleware', () => {
   describe('getFilesInRecents()', () => {
@@ -40,7 +43,7 @@ describe('getFilesInRecents middleware', () => {
       subject.error('');
 
       const getItems = jest.spyOn(userMediaClient.collection, 'getItems');
-      getItems.mockReturnValue(subject);
+      getItems.mockReturnValue(createMediaSubscribable(new Error('')));
 
       const store = mockStore({
         userMediaClient,

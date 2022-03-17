@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
-import styled from 'styled-components';
 import { Color as StatusColor } from '@atlaskit/status/element';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import AkButton from '@atlaskit/button/standard-button';
@@ -20,12 +21,8 @@ export interface Props {
   bridge: WebBridgeImpl;
 }
 
-const Container: React.ComponentClass<
-  React.HTMLAttributes<{}> & {
-    height?: string;
-  }
-> = styled.div`
-  height: ${(props) => (props.height ? props.height : 'auto')};
+const divStyle = (height: string) => css`
+  height: ${height ? height : 'auto'};
   border: 1px solid #ddd;
   margin: 16px 0;
   padding: 8px;
@@ -118,14 +115,14 @@ export default class Example extends React.Component<Props, {}> {
           </Form>
         </div>
         <div style={{ flex: '1 0 100%' }}>
-          <Container height="250px">
+          <div css={divStyle('250px')}>
             <h3>Mobile editor</h3>
             <MobileEditorWithFetchProxy />
-          </Container>
-          <Container height="200px">
+          </div>
+          <div css={divStyle('200px')}>
             <h3>Web to native</h3>
             <WebToNativeReporter filter={['statusBridge']} />
-          </Container>
+          </div>
         </div>
       </div>
     );

@@ -74,7 +74,7 @@ export const TimeStyle = styled.div`
 export const MENTION_ITEM_HEIGHT = 48;
 export const MentionItemStyle = styled.div<MentionItemStyleProps>`
   background-color: ${(props) =>
-    props.selected ? token('color.background.brand', N30) : 'transparent'};
+    props.selected ? token('color.background.selected', N30) : 'transparent'};
   display: block;
   overflow: hidden;
   list-style-type: none;

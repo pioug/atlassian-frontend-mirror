@@ -1,10 +1,8 @@
 import React from 'react';
-import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
-
-import * as styles from '../../../../components/common/styles';
+import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EmojiDescriptionWithVariations } from '../../../../types';
 import { imageEmoji } from '../../_test-data';
-import EmojiPickerPreview from '../../../../components/picker/EmojiPickerPreview';
+import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
 
 const emoji: EmojiDescriptionWithVariations = {
   ...imageEmoji,
@@ -12,14 +10,8 @@ const emoji: EmojiDescriptionWithVariations = {
 
 describe('<EmojiPickerPreview />', () => {
   it('should render an emoji preview if one is selected', () => {
-    const wrapper = shallowWithIntl(<EmojiPickerPreview emoji={emoji} />);
+    const wrapper = shallowWithIntl(<EmojiPreviewComponent emoji={emoji} />);
 
-    expect(wrapper.find(`.${styles.preview}`)).toHaveLength(1);
-  });
-
-  it('should not render the emoji preview if one is not selected', () => {
-    const wrapper = shallowWithIntl(<EmojiPickerPreview />);
-
-    expect(wrapper.find(`.${styles.preview}`)).toHaveLength(0);
+    expect(wrapper.find(EmojiPreviewComponent)).toBeDefined();
   });
 });

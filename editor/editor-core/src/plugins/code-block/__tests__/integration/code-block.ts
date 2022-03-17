@@ -108,7 +108,8 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       expect(firstCodeBlock.trim()).toContain('JavaScript');
 
       // Check that the language on the second code block is still the same
-      // not sure if this is working 100%
+      await page.keys('ArrowRight');
+      await page.keys('Return');
       await page.click('code[data-language="arduino"]');
       await page.waitForSelector(floatingToolbarLanguageSelector);
       const secondCodeBlock = await page.getText(
@@ -150,7 +151,7 @@ const floatingToolbarLanguageSelector = 'div[aria-label="Floating Toolbar"]';
       await page.keys(['Return']);
 
       // Check that the language on the first code block is still the same
-      await page.click('code');
+      await page.click(codeBlockSelectors.code);
       await page.waitForSelector(floatingToolbarLanguageSelector);
       const firstBlockLanguage = await page.getText(
         floatingToolbarLanguageSelector,

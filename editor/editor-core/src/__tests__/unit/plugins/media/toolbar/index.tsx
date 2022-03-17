@@ -1,4 +1,3 @@
-import React from 'react';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
@@ -33,31 +32,14 @@ jest.mock('@atlaskit/media-client', () => ({
   __esModule: true,
   ...jest.requireActual<Object>('@atlaskit/media-client'),
 }));
-import * as MediaClientModule from '@atlaskit/media-client';
-import { FileState, MediaClient } from '@atlaskit/media-client';
-import {
-  asMockReturnValue,
-  expectFunctionToHaveBeenCalledWith,
-  fakeMediaClient,
-  getDefaultMediaClientConfig,
-  nextTick,
-} from '@atlaskit/media-test-helpers';
-import { shallow } from 'enzyme';
-import { ReactElement } from 'react';
 import { createIntl } from 'react-intl-next';
 import commonMessages from '../../../../../messages';
 import { messages as altTextMessages } from '../../../../../plugins/media/pm-plugins/alt-text/messages';
-import {
-  FloatingToolbarCustom,
-  FloatingToolbarItem,
-} from '../../../../../plugins/floating-toolbar/types';
-import Button from '../../../../../plugins/floating-toolbar/ui/Button';
+import { FloatingToolbarItem } from '../../../../../plugins/floating-toolbar/types';
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
 import { toolbarMessages } from '../../../../../ui/MediaAndEmbedsToolbar/toolbar-messages';
-import { AnnotationToolbar } from '../../../../../plugins/media/toolbar/annotation';
-import { toolbarMessages as annotateMessages } from '../../../../../plugins/media/toolbar/toolbar-messages';
 import { setNodeSelection } from '../../../../../utils';
 import {
   getFreshMediaProvider,
@@ -186,22 +168,6 @@ describe('media', () => {
       });
       expect(toolbar).toBeDefined();
       expect(toolbar!.items.length).toEqual(8);
-    });
-
-    it('can render regular toolbar with annotation in full page', () => {
-      const { editorView } = editor(docWithMediaSingle);
-
-      const toolbar = floatingToolbar(editorView.state, intl, {
-        allowResizing: true,
-        allowAnnotation: true,
-        allowAdvancedToolBarOptions: true,
-      });
-      expect(toolbar).toBeDefined();
-      expect(toolbar!.items.length).toEqual(9);
-      const item = getToolbarItems(toolbar!, editorView).find(
-        (cmd) => cmd.type === 'custom',
-      );
-      expect(item).toBeDefined();
     });
 
     it('should not render any layout buttons when in comment', () => {
@@ -346,147 +312,6 @@ describe('media', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(mediaSingle({ layout: 'align-start' })(temporaryMedia)),
       );
-    });
-
-    describe('image annotation', () => {
-      let mockMediaClient: MediaClient;
-
-      beforeEach(async () => {
-        const mediaClientConfig = getDefaultMediaClientConfig();
-        mockMediaClient = fakeMediaClient({
-          ...mediaClientConfig,
-          userAuthProvider: mediaClientConfig.authProvider,
-        });
-        asMockReturnValue(
-          mockMediaClient.file.getCurrentState,
-          Promise.resolve<FileState>({
-            status: 'processed',
-            id: 'some-id',
-            name: 'some-name',
-            size: 42,
-            artifacts: {},
-            mediaType: 'image',
-            mimeType: 'image/png',
-          }),
-        );
-        jest
-          .spyOn(MediaClientModule, 'getMediaClient')
-          .mockReturnValue(mockMediaClient);
-      });
-
-      afterEach(() => {
-        jest.resetAllMocks();
-      });
-
-      it('should call getCurrentState for current state', () => {
-        shallow(
-          <AnnotationToolbar
-            viewMediaClientConfig={mockMediaClient.config}
-            id="1234"
-            collection="some-collection"
-            intl={intl}
-          />,
-        );
-
-        expectFunctionToHaveBeenCalledWith(
-          mockMediaClient.file.getCurrentState,
-          ['1234', { collectionName: 'some-collection' }],
-        );
-      });
-
-      it('should mount with default state if getCurrentState fails', async () => {
-        asMockReturnValue(
-          mockMediaClient.file.getCurrentState,
-          Promise.reject(new Error('an error')),
-        );
-
-        const toolbar = shallow(
-          <AnnotationToolbar
-            viewMediaClientConfig={mockMediaClient.config}
-            id="1234"
-            collection="some-collection"
-            intl={intl}
-          />,
-        );
-
-        expectFunctionToHaveBeenCalledWith(
-          mockMediaClient.file.getCurrentState,
-          ['1234', { collectionName: 'some-collection' }],
-        );
-
-        await nextTick();
-
-        expect(toolbar.state('isImage')).toBeFalsy();
-      });
-
-      it('has an AnnotationToolbar custom toolbar element', async () => {
-        const { editorView, pluginState } = editor(docWithMediaSingle);
-        await pluginState.setMediaProvider(getFreshMediaProvider());
-
-        setNodeSelection(editorView, 0);
-
-        const toolbar = floatingToolbar(editorView.state, intl, {
-          allowResizing: true,
-          allowAnnotation: true,
-          allowAdvancedToolBarOptions: true,
-        });
-
-        const annotateToolbarComponent = getToolbarItems(
-          toolbar!,
-          editorView,
-        ).find((item) => item.type === 'custom') as FloatingToolbarCustom<
-          Command
-        >;
-
-        const annotationToolbar = shallow(
-          annotateToolbarComponent.render(editorView) as ReactElement<any>,
-        );
-        expect(annotationToolbar.instance()).toBeInstanceOf(AnnotationToolbar);
-      });
-
-      it('renders an annotate button when an image is selected', async () => {
-        const toolbar = shallow(
-          <AnnotationToolbar
-            viewMediaClientConfig={mockMediaClient.config}
-            id="1234"
-            intl={intl}
-          />,
-        );
-
-        await mockMediaClient.file.getCurrentState('1234');
-
-        expect(toolbar.find(Button).first().prop('title')).toEqual(
-          annotateMessages.annotate.defaultMessage,
-        );
-      });
-
-      it('fires analytics when the annotate button is clicked', async () => {
-        const { editorView, pluginState } = editor(docWithMediaSingle);
-
-        await pluginState.setMediaProvider(getFreshMediaProvider());
-
-        setNodeSelection(editorView, 0);
-
-        const toolbar = shallow(
-          <AnnotationToolbar
-            viewMediaClientConfig={mockMediaClient.config}
-            id="1234"
-            intl={intl}
-            view={editorView}
-          />,
-        );
-
-        await mockMediaClient.file.getCurrentState('1234');
-
-        toolbar.find(Button).simulate('click');
-
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
-          action: 'clicked',
-          actionSubject: 'media',
-          actionSubjectId: 'annotateButton',
-          eventType: 'ui',
-        });
-      });
     });
   });
 });

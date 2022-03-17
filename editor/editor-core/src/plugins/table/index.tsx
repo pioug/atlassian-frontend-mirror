@@ -295,7 +295,7 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         id: 'table',
         title: formatMessage(messages.table),
         description: formatMessage(messages.tableDescription),
-        keywords: ['cell'],
+        keywords: ['cell', 'table'],
         priority: 600,
         keyshortcut: tooltip(toggleTable),
         icon: () => <IconTable />,

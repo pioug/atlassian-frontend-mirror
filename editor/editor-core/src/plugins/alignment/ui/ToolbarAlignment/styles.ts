@@ -1,12 +1,11 @@
-import styled from 'styled-components';
-import { HTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
 
-export const TriggerWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const triggerWrapper = css`
   display: flex;
 `;
 
-export const Separator: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const separator = css`
   background: ${N30};
   width: 1px;
   height: 24px;
@@ -14,7 +13,7 @@ export const Separator: ComponentClass<HTMLAttributes<{}>> = styled.span`
   margin: 0 8px;
 `;
 
-export const Wrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const wrapper = css`
   display: flex;
   align-items: center;
   div {
@@ -22,6 +21,6 @@ export const Wrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
   }
 `;
 
-export const ExpandIconWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const expandIconWrapper = css`
   margin-left: -8px;
 `;

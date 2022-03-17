@@ -9,6 +9,7 @@ import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics';
+import { TYPE_AHEAD_POPUP_CONTENT_CLASS } from '../constants';
 
 import { TypeAheadList } from './TypeAheadList';
 import type { TypeAheadHandler, TypeAheadItem, OnSelectItem } from '../types';
@@ -149,7 +150,10 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
         fitWidth={340}
         offset={OFFSET}
       >
-        <TypeAheadContent className="fabric-editor-typeahead">
+        <TypeAheadContent
+          tabIndex={0}
+          className={TYPE_AHEAD_POPUP_CONTENT_CLASS}
+        >
           <Highlight state={editorView.state} triggerHandler={triggerHandler} />
           <TypeAheadList
             items={items}

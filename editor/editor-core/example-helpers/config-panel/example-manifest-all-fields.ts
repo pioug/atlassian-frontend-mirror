@@ -3,7 +3,7 @@ import type {
   ExtensionModuleNodes,
   ExtensionModule,
 } from '@atlaskit/editor-common/extensions';
-import { setSmartUserPickerEnv } from '@atlaskit/user-picker';
+import { setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
 
 import { mockFieldResolver } from './confluence-fields-data-providers';
 

@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
 import AvatarGroup from '@atlaskit/avatar-group';
 
-import { AvatarContainer } from './styles';
+import { avatarContainer } from './styles';
 import { ReadOnlyParticipants } from '../participants';
 import toAvatar from './to-avatar';
 import { CollabParticipant } from '../types';
@@ -28,7 +30,7 @@ export const Avatars: React.FC<AvatarsProps> = React.memo((props) => {
   }
 
   return (
-    <AvatarContainer>
+    <div css={avatarContainer}>
       <AvatarGroup
         appearance="stack"
         size="medium"
@@ -58,6 +60,6 @@ export const Avatars: React.FC<AvatarsProps> = React.memo((props) => {
         }}
       />
       {props.children}
-    </AvatarContainer>
+    </div>
   );
 });

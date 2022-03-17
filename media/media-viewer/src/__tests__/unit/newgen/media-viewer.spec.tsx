@@ -1,12 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Subject } from 'rxjs/Subject';
 import Button from '@atlaskit/button/custom-theme-button';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
-  FileItem,
   Identifier,
-  createFileStateSubject,
+  createMediaSubscribable,
+  createMediaSubject,
 } from '@atlaskit/media-client';
 import {
   KeyboardEventWithKeyCode,
@@ -30,10 +29,10 @@ function createFixture(
   identifier: Identifier,
   overrides?: Partial<MediaViewerProps>,
 ) {
-  const subject = new Subject<FileItem>();
+  const subject = createMediaSubject();
   const mediaClient = fakeMediaClient();
   asMock(mediaClient.file.getFileState).mockReturnValue(
-    createFileStateSubject(),
+    createMediaSubscribable(),
   );
   const onClose = jest.fn();
   const itemSource: ItemSource = {

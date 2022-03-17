@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import React from 'react';
 import { ComponentClass } from 'react';
 import { EmojiProvider } from '../../api/EmojiResource';
 import { OnEmojiEvent } from '../../types';
@@ -15,7 +16,7 @@ import {
   Props as ComponentProps,
 } from './EmojiPickerComponent';
 import { LoadingItem } from './EmojiPickerVirtualItems';
-import * as styles from './styles';
+import { emojiPicker } from './styles';
 
 const emojiPickerModuleLoader = () =>
   import(
@@ -61,7 +62,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
       }
     };
     return (
-      <div className={styles.emojiPicker} ref={handlePickerRef}>
+      <div css={emojiPicker} ref={handlePickerRef}>
         {item.renderItem()}
       </div>
     );

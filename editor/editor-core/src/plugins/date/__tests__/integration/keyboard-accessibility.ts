@@ -6,6 +6,7 @@ import {
   quickInsert,
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
+import { stripZeroWidthSpaces } from '../../../../__tests__/__helpers/utils';
 import {
   goToEditorTestingWDExample,
   mountEditor,
@@ -47,7 +48,8 @@ BrowserTestCase(
     await page.keys('Enter', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(await page.getText(dateLozenge)).toBe('Feb 29, 2020');
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
+    expect(lozengeText).toBe('Feb 29, 2020');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -81,7 +83,8 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(await page.getText(dateLozenge)).toBe('29 Feb 2020');
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
+    expect(lozengeText).toBe('29 Feb 2020');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -114,7 +117,8 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(await page.getText(dateLozenge)).toBe('29 Feb 2020');
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
+    expect(lozengeText).toBe('29 Feb 2020');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -151,7 +155,8 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(await page.getText(dateLozenge)).toBe('2020. febr. 29.');
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
+    expect(lozengeText).toBe('2020. febr. 29.');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -188,7 +193,8 @@ BrowserTestCase(
     await page.keys('Escape', true);
 
     await page.waitForSelector(dateLozenge);
-    expect(await page.getText(dateLozenge)).toBe('2020. febr. 29.');
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
+    expect(lozengeText).toBe('2020. febr. 29.');
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -223,8 +229,7 @@ BrowserTestCase(
     await page.keys('ArrowUp', true);
     await page.keys(['Enter', 'Escape'], true);
 
-    const lozengeText = await page.getText(dateLozenge);
-
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
     expect(lozengeText).toBe('15 Jul 2021');
   },
 );
@@ -258,7 +263,8 @@ BrowserTestCase(
 
     await page.waitForSelector(dateLozenge);
 
-    expect(await page.getText(dateLozenge)).toBe('28 Feb 2021');
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
+    expect(lozengeText).toBe('28 Feb 2021');
 
     const doc = await page.$eval(editable, getDocFromElement);
 
@@ -337,7 +343,7 @@ BrowserTestCase(
     await page.keys('ArrowUp', true);
     await page.keys(['Enter', 'Escape'], true);
 
-    const lozengeText = await page.getText(dateLozenge);
+    const lozengeText = stripZeroWidthSpaces(await page.getText(dateLozenge));
 
     expect(lozengeText).toBe('15 Jul 2021');
   },

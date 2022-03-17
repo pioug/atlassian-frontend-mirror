@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
 import { jsx, css, useTheme } from '@emotion/react';
-import styled from 'styled-components';
 import {
   whitespaceSharedStyles,
   paragraphSharedStyles,
@@ -50,10 +49,10 @@ import { dateStyles } from '../../plugins/date/styles';
 import { embedCardStyles } from '../../plugins/card/ui/styled';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { useFeatureFlags } from '../../plugins/feature-flags-context';
+import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 
 type ContentStylesProps = {
   theme?: any;
-  allowAnnotation?: boolean;
   featureFlags?: FeatureFlags;
 };
 
@@ -66,36 +65,9 @@ const contentStyles = (props: ContentStylesProps) => css`
     ${listsSharedStyles};
     ${indentationSharedStyles};
     ${shadowSharedStyle};
+    ${InlineNodeViewSharedStyles};
   }
 
-  ${tableStyles(props)}
-  ${props.featureFlags?.codeBlockSyntaxHighlighting
-    ? highlightingCodeBlockStyles(props)
-    : codeBlockStyles(props)}
-
-  ${blocktypeStyles(
-    props,
-  )}
-  ${textFormattingStyles(
-    props,
-  )}
-  ${textColorStyles}
-  ${mediaStyles}
-  ${layoutStyles}
-  ${tasksAndDecisionsStyles}
-  ${blockMarksSharedStyles}
-  ${dateSharedStyle}
-  ${annotationSharedStyles(
-    props,
-  )}
-  ${embedCardStyles}
-
-  .mediaGroupView-content-wrap ul {
-    padding: 0;
-  }
-`;
-
-const DeprecatedContentStyles = styled.div<ContentStylesProps>`
   .ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
     pointer-events: none;
     opacity: 0.7;
@@ -119,31 +91,60 @@ const DeprecatedContentStyles = styled.div<ContentStylesProps>`
 
   ${placeholderTextStyles}
   ${placeholderStyles}
+  ${props.featureFlags?.codeBlockSyntaxHighlighting
+    ? highlightingCodeBlockStyles(props)
+    : codeBlockStyles(props)}
+
+  ${blocktypeStyles(
+    props,
+  )}
+  ${textFormattingStyles(
+    props,
+  )}
+  ${textColorStyles}
   ${listsStyles}
-  ${ruleStyles}
+  ${ruleStyles(
+    props,
+  )}
+  ${mediaStyles}
+  ${layoutStyles}
   ${telepointerStyle}
   ${gapCursorStyles};
-  ${panelStyles}
+  ${tableStyles(props)}
+  ${panelStyles(props)}
   ${fakeCursorStyles}
   ${mentionsStyles}
-  ${({ featureFlags }) =>
-    featureFlags?.nextEmojiNodeView
-      ? emojiStylesNext
-      : emojiStyles}
+  ${props
+    .featureFlags?.nextEmojiNodeView
+    ? emojiStylesNext
+    : emojiStyles}
+  ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}
+  ${blockMarksSharedStyles}
+  ${dateSharedStyle}
   ${extensionStyles}
-  ${expandStyles}
+  ${expandStyles(
+    props,
+  )}
   ${findReplaceStyles}
   ${taskDecisionStyles}
   ${statusStyles}
+  ${annotationSharedStyles(
+    props,
+  )}
   ${smartCardStyles}
   ${smartCardSharedStyles}
   ${dateStyles}
+  ${embedCardStyles}
   ${unsupportedStyles}
 
   .panelView-content-wrap {
     box-sizing: border-box;
+  }
+
+  .mediaGroupView-content-wrap ul {
+    padding: 0;
   }
 
   /** Needed to override any cleared floats, e.g. image wrapping */
@@ -189,37 +190,28 @@ const DeprecatedContentStyles = styled.div<ContentStylesProps>`
   }
 `;
 
-export default React.forwardRef(
-  (
-    props: Omit<
-      ContentStylesProps & {
-        className?: string;
-      },
-      'featureFlags'
-    >,
-    ref,
-  ) => {
-    const featureFlags = useFeatureFlags();
-    const { allowAnnotation } = props;
-    const theme = useTheme();
+type Props = Omit<
+  ContentStylesProps & React.HTMLProps<HTMLDivElement>,
+  'featureFlags'
+>;
 
-    const memoizedStyle = useMemo(
-      () =>
-        contentStyles({
-          theme,
-          allowAnnotation,
-          featureFlags,
-        }),
-      [theme, featureFlags, allowAnnotation],
-    );
+export default React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const featureFlags = useFeatureFlags();
+  const { className, children } = props;
+  const theme = useTheme();
 
-    return (
-      <DeprecatedContentStyles
-        {...props}
-        innerRef={ref as any}
-        featureFlags={featureFlags}
-        css={memoizedStyle}
-      />
-    );
-  },
-);
+  const memoizedStyle = useMemo(
+    () =>
+      contentStyles({
+        theme,
+        featureFlags,
+      }),
+    [theme, featureFlags],
+  );
+
+  return (
+    <div className={className} ref={ref as any} css={memoizedStyle}>
+      {children}
+    </div>
+  );
+});

@@ -21,7 +21,7 @@ const ContentOverrideComponent: FC = ({ children }) => {
         overflow: 'auto',
         marginTop: 24,
         border: `3px dashed ${token(
-          'color.background.accent.purple.bold',
+          'color.background.accent.purple.subtle',
           'pink',
         )}`,
       }}

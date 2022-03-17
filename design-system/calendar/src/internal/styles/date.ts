@@ -25,20 +25,20 @@ const textColor = {
 };
 const textColorMedium = token('color.text.subtle', N600);
 const todayColor = {
-  light: token('color.text.brand', B400),
-  dark: token('color.text.brand', B100),
+  light: token('color.text.selected', B400),
+  dark: token('color.text.selected', B100),
 };
 const hoverBackground = {
   light: token('color.background.neutral.subtle.hovered', N30),
   dark: token('color.background.neutral.subtle.hovered', N800),
 };
 const textSelected = {
-  light: token('color.text.brand', N0),
-  dark: token('color.text.brand', N700),
+  light: token('color.text.selected', N0),
+  dark: token('color.text.selected', N700),
 };
 const selectedBackground = {
-  light: token('color.background.brand', N500),
-  dark: token('color.background.brand', N0),
+  light: token('color.background.selected', N500),
+  dark: token('color.background.selected', N0),
 };
 const borderColorFocused = {
   light: token('color.border.focused', B100),
@@ -75,7 +75,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     },
   },
   '&[data-prev-selected]': {
-    backgroundColor: token('color.background.brand', B50),
+    backgroundColor: token('color.background.selected', B50),
     color: token('color.text.subtle', N600),
   },
   '&[data-selected]': {
@@ -101,7 +101,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     color: textColorMedium,
   },
   '&[data-prev-selected]:hover': {
-    backgroundColor: token('color.background.brand', B50),
+    backgroundColor: token('color.background.selected', B50),
     color: textColorMedium,
   },
   '&[data-sibling]:hover': {

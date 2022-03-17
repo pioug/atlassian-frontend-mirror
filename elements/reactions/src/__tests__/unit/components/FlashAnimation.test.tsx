@@ -4,7 +4,8 @@ import { mount } from 'enzyme';
 import {
   FlashAnimation,
   Props,
-  flashStyle,
+  flashAnimationTestId,
+  flashAnimation,
 } from '../../../components/FlashAnimation';
 
 jest.useFakeTimers();
@@ -18,11 +19,17 @@ describe('Flash', () => {
 
   it('should not include flash class', () => {
     const flash = mount(renderFlash());
-    expect(flash.find('div').prop('className')).not.toMatch(flashStyle);
+    const elem = flash.find(`div[data-testid="${flashAnimationTestId}"]`);
+    expect(
+      getComputedStyle(elem.getDOMNode()).getPropertyValue('animation'),
+    ).toBeFalsy();
   });
 
   it('should include flash class', () => {
     const flash = mount(renderFlash({ flash: true }));
-    expect(flash.find('div').prop('className')).toMatch(flashStyle);
+    const elem = flash.find(`div[data-testid="${flashAnimationTestId}"]`);
+    expect(
+      getComputedStyle(elem.getDOMNode()).getPropertyValue('animation'),
+    ).toBe(`${flashAnimation.name} 700ms ease-in-out`);
   });
 });

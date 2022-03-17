@@ -4,15 +4,16 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import {
   mountWithIntl,
   shallowWithIntl,
-} from '@atlaskit/editor-test-helpers/enzyme-next';
+} from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { EmojiButton } from '../../../components/EmojiButton';
 import {
   defaultReactions,
   isDefaultReaction,
-  revealStyle,
+  renderEmojiTestId,
   Selector,
 } from '../../../components/Selector';
+import { showMoreTestId } from '../../../components/ShowMore';
 
 const renderSelector = (
   onSelection: OnEmojiEvent = () => {},
@@ -67,7 +68,9 @@ describe('@atlaskit/reactions/selector', () => {
       renderSelector(onSelection, true, onMoreClick),
     );
 
-    selector.find(`button.${revealStyle}`).first().simulate('mousedown');
+    selector
+      .find(`button[data-testid="${showMoreTestId}"]`)
+      .simulate('mousedown');
 
     expect(onMoreClick.mock.calls).toHaveLength(1);
   });
@@ -75,9 +78,11 @@ describe('@atlaskit/reactions/selector', () => {
   it('should calculate animation delay based on reaction index', () => {
     const selector = mountWithIntl(renderSelector());
 
-    expect(selector.find(`.${revealStyle}`).at(2).prop('style')).toHaveProperty(
-      'animationDelay',
-      '100ms',
-    );
+    expect(
+      selector
+        .find(`div[data-testid="${renderEmojiTestId}"]`)
+        .at(2)
+        .prop('style'),
+    ).toHaveProperty('animationDelay', '100ms');
   });
 });

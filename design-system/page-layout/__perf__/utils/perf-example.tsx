@@ -15,6 +15,15 @@ import {
 import JiraIntegrationExample from './product-integration/AtlassianNavigation';
 import Sidebar from './product-integration/SideNavigation';
 
+const wrapperStyles = css({
+  boxSizing: 'border-box',
+  height: '100%',
+  padding: 8,
+  backgroundColor: token('color.background.neutral.subtle', 'white'),
+  outlineOffset: -4,
+  overflowY: 'auto',
+});
+
 const Wrapper = ({
   borderColor,
   children,
@@ -27,20 +36,26 @@ const Wrapper = ({
   noHorizontalScrollbar?: boolean;
 }) => (
   <div
-    css={{
+    css={wrapperStyles}
+    style={{
       outline: noOutline ? 'none' : `2px dashed ${borderColor}`,
-      outlineOffset: -4,
-      padding: 8,
-      height: '100%',
-      boxSizing: 'border-box',
-      overflowY: 'auto',
       overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
-      backgroundColor: token('color.background.neutral.subtle', 'white'),
     }}
   >
     {children}
   </div>
 );
+
+const sidebarWrapperStyles = css({
+  height: '100%',
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  nav: {
+    minWidth: 20,
+    overflowX: 'hidden',
+  },
+});
+
+const slotLabelStyles = css({ textAlign: 'center' });
 
 const BasicGrid = () => {
   return (
@@ -50,21 +65,13 @@ const BasicGrid = () => {
       </TopNavigation>
       <Content testId="content">
         <LeftSidebar testId="left-sidebar" isFixed={false} width={450}>
-          <div
-            css={css`
-              height: 100%;
-              & nav {
-                min-width: 20px;
-                overflow-x: hidden;
-              }
-            `}
-          >
+          <div css={sidebarWrapperStyles}>
             <Sidebar />
           </div>
         </LeftSidebar>
         <Main>
           <Wrapper noOutline borderColor={token('color.border', 'black')}>
-            <h3 css={{ textAlign: 'center' }}>Main</h3>
+            <h3 css={slotLabelStyles}>Main</h3>
           </Wrapper>
         </Main>
       </Content>

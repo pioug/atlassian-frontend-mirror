@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import rafSchedule from 'raf-schd';
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
 import {
   withAnalyticsEvents,
@@ -16,7 +17,7 @@ import WidthEmitter from '../../ui/WidthEmitter';
 
 import { ClickAreaBlock } from '../../ui/Addon';
 import { scrollbarStyles } from '../../ui/styles';
-import { deprecatedTableFullPageEditorStyles } from '../../plugins/table/ui/common-styles';
+import { tableFullPageEditorStyles } from '../../plugins/table/ui/common-styles';
 import AvatarsWithPluginState from '../../plugins/collab-edit/ui';
 import { EditorProps } from '../../types';
 import EditorActions from '../../actions';
@@ -25,17 +26,17 @@ import { Toolbar } from './Toolbar';
 import { ContentComponents } from './ContentComponents';
 import { useCreateAnalyticsHandler } from './internal/hooks/use-analytics';
 import { ContextPanelWidthProvider } from '../../ui/ContextPanel/context';
+import { ThemeProps } from '@atlaskit/theme/types';
 
-const FullPageEditorWrapper = styled.div`
+const fullPageEditorWrapper = css`
   min-width: 340px;
   height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 `;
-FullPageEditorWrapper.displayName = 'FullPageEditorWrapper';
 
-const ScrollContainer = styled(ContentStyles)`
+const scrollContainer = css`
   flex-grow: 1;
   overflow-y: scroll;
   position: relative;
@@ -44,24 +45,22 @@ const ScrollContainer = styled(ContentStyles)`
   scroll-behavior: smooth;
   ${scrollbarStyles};
 `;
-ScrollContainer.displayName = 'ScrollContainer';
 
 const GUTTER_PADDING = 32;
 const GUTTER_STYLE = { padding: `0 ${GUTTER_PADDING}px` };
 
-const ContentArea = styled.div`
+const contentArea = css`
   display: flex;
   flex-direction: row;
   height: 100%;
   box-sizing: border-box;
 `;
-ContentArea.displayName = 'ContentArea';
 
-const EditorContentArea = styled.div`
+const editorContentArea = (theme: ThemeProps) => css`
   line-height: 24px;
   height: 100%;
   width: 100%;
-  max-width: ${({ theme }: any) => theme.layoutMaxWidth + GUTTER_PADDING * 2}px;
+  max-width: ${theme.layoutMaxWidth + GUTTER_PADDING * 2}px;
   padding-top: 50px;
   margin: 0 auto;
   display: flex;
@@ -90,23 +89,14 @@ const EditorContentArea = styled.div`
       clear: none;
     }
   }
-  ${deprecatedTableFullPageEditorStyles};
+  ${tableFullPageEditorStyles};
 `;
-EditorContentArea.displayName = 'EditorContentArea';
 
-interface MainToolbarProps {
-  showKeyline: boolean;
-}
-
-const MainToolbar: React.ComponentClass<
-  React.HTMLAttributes<{}> & MainToolbarProps
-> = styled.div`
+const mainToolbar = css`
   position: relative;
   align-items: center;
-  box-shadow: ${(props: MainToolbarProps) =>
-    props.showKeyline
-      ? `0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30}`
-      : 'none'};
+  box-shadow: 'none';
+
   transition: box-shadow 200ms;
   z-index: ${akEditorMenuZIndex};
   display: flex;
@@ -118,30 +108,22 @@ const MainToolbar: React.ComponentClass<
     height: 0 !important;
   }
 `;
-MainToolbar.displayName = 'MainToolbar';
 
-const MainToolbarCustomComponentsSlot = styled.div`
+const mainToolbarWithKeyline = css`
+  ${mainToolbar}
+  box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30}
+`;
+
+const mainToolbarCustomComponentsSlot = css`
   display: flex;
   justify-content: flex-end;
   flex-grow: 1;
 `;
-MainToolbarCustomComponentsSlot.displayName = 'MainToolbar';
 
-const SecondaryToolbar = styled.div`
-  box-sizing: border-box;
-  justify-content: flex-end;
-  align-items: center;
-  flex-shrink: 0;
-  display: flex;
-  padding: 24px 0;
-`;
-SecondaryToolbar.displayName = 'SecondaryToolbar';
-
-const SidebarArea = styled.div`
+const sidebarArea = css`
   height: 100%;
   box-sizing: border-box;
 `;
-SidebarArea.displayName = 'SidebarArea';
 
 function useKeyline() {
   const [showKeyline, setShowKeyline] = React.useState<boolean>(false);
@@ -199,13 +181,13 @@ function FullPage(props: FullPageProps) {
     <ContextPanelWidthProvider>
       <Editor {...props} onAnalyticsEvent={handleAnalyticsEvent}>
         <BaseTheme dynamicTextSizing={allowDynamicTextSizing}>
-          <FullPageEditorWrapper className="akEditor">
-            <MainToolbar
+          <div css={fullPageEditorWrapper} className="akEditor">
+            <div
               data-testid="ak-editor-main-toolbar"
-              showKeyline={showKeyline}
+              css={showKeyline ? mainToolbarWithKeyline : mainToolbar}
             >
               <Toolbar containerElement={scrollContainerRef.current} />
-              <MainToolbarCustomComponentsSlot>
+              <div css={mainToolbarCustomComponentsSlot}>
                 {!config ? null : (
                   <AvatarsWithPluginState
                     editorView={config.editorView}
@@ -218,15 +200,16 @@ function FullPage(props: FullPageProps) {
                 )}
 
                 {primaryToolbarComponents}
-              </MainToolbarCustomComponentsSlot>
-            </MainToolbar>
-            <ContentArea>
-              <ScrollContainer
-                innerRef={scrollContainerRef}
+              </div>
+            </div>
+            <div css={contentArea}>
+              <ContentStyles
+                ref={scrollContainerRef}
                 className="fabric-editor-popup-scroll-parent"
+                css={scrollContainer}
               >
                 <ClickAreaBlock editorView={config?.editorView}>
-                  <EditorContentArea>
+                  <div css={editorContentArea}>
                     <div
                       style={GUTTER_STYLE}
                       className="ak-editor-content-area"
@@ -235,13 +218,13 @@ function FullPage(props: FullPageProps) {
                       <EditorContent />
                       <ContentComponents />
                     </div>
-                  </EditorContentArea>
+                  </div>
                 </ClickAreaBlock>
-              </ScrollContainer>
-              {contextPanel && <SidebarArea>{contextPanel}</SidebarArea>}
+              </ContentStyles>
+              {contextPanel && <div css={sidebarArea}>{contextPanel}</div>}
               <WidthEmitter editorView={config?.editorView} />
-            </ContentArea>
-          </FullPageEditorWrapper>
+            </div>
+          </div>
         </BaseTheme>
       </Editor>
     </ContextPanelWidthProvider>

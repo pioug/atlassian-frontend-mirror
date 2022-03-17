@@ -25,7 +25,7 @@ const triggerStyles: React.CSSProperties = {
   width: '48px',
   height: '48px',
   borderRadius: '48px',
-  background: token('color.background.accent.red.bold', '#FF5630'),
+  background: token('color.background.accent.red.subtle', '#FF5630'),
   color: token('color.text.inverse', '#fff'),
   fontSize: '16px',
   alignItems: 'center',

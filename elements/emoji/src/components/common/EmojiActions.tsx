@@ -1,5 +1,5 @@
-import classNames from 'classnames';
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { PureComponent } from 'react';
 import {
   FormattedMessage,
@@ -18,8 +18,6 @@ import EmojiDeletePreview, {
   OnDeleteEmoji,
 } from '../common/EmojiDeletePreview';
 import EmojiUploadPicker, { OnUploadEmoji } from '../common/EmojiUploadPicker';
-import * as styles from './styles';
-import * as footerStyles from '../picker/styles';
 import EmojiPickerListSearch from '../picker/EmojiPickerListSearch';
 import ToneSelector from './ToneSelector';
 import EmojiButton from './EmojiButton';
@@ -27,6 +25,16 @@ import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
+import {
+  addCustomEmoji,
+  addCustomEmojiButton,
+  emojiPickerAddEmoji,
+  emojiToneSelectorContainer,
+} from './styles';
+import {
+  emojiActionsContainerWithBottomShadow,
+  emojiPickerFooter,
+} from '../picker/styles';
 
 export interface Props {
   selectedTone?: ToneSelection;
@@ -102,7 +110,7 @@ export class EmojiActions extends PureComponent<
     }
 
     return (
-      <div className={styles.emojiToneSelectorContainer}>
+      <div css={emojiToneSelectorContainer}>
         {this.state.selectingTone && (
           <ToneSelector
             emoji={toneEmoji}
@@ -137,7 +145,7 @@ export class EmojiActions extends PureComponent<
       return null;
     }
     return (
-      <div className={styles.AddCustomEmoji}>
+      <div css={addCustomEmoji}>
         <FormattedMessage {...messages.addCustomEmojiLabel}>
           {(label) => (
             <AkButton
@@ -149,9 +157,8 @@ export class EmojiActions extends PureComponent<
                 />
               }
               appearance="subtle"
-              className={
-                styles.addCustomEmojiButton + ' emoji-picker-add-emoji'
-              }
+              css={addCustomEmojiButton}
+              className={emojiPickerAddEmoji}
             >
               {label}
             </AkButton>
@@ -176,14 +183,14 @@ export class EmojiActions extends PureComponent<
       query,
     } = this.props;
 
-    const previewFooterClassnames = classNames([
-      footerStyles.emojiPickerFooter,
-      footerStyles.emojiActionsContainerWithBottomShadow,
-    ]);
+    const previewFooterClassnames = [
+      emojiPickerFooter,
+      emojiActionsContainerWithBottomShadow,
+    ];
 
     if (uploading) {
       return (
-        <div className={previewFooterClassnames}>
+        <div css={previewFooterClassnames}>
           <EmojiUploadPicker
             onUploadCancelled={onUploadCancelled}
             onUploadEmoji={onUploadEmoji}
@@ -197,7 +204,7 @@ export class EmojiActions extends PureComponent<
 
     if (emojiToDelete) {
       return (
-        <div className={previewFooterClassnames}>
+        <div css={previewFooterClassnames}>
           <EmojiDeletePreview
             emoji={emojiToDelete}
             onDeleteEmoji={onDeleteEmoji}
@@ -208,7 +215,7 @@ export class EmojiActions extends PureComponent<
     }
 
     return (
-      <div className={previewFooterClassnames} onMouseLeave={this.onMouseLeave}>
+      <div css={previewFooterClassnames} onMouseLeave={this.onMouseLeave}>
         <div
           style={{
             display: 'flex',

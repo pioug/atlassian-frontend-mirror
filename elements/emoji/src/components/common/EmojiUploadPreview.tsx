@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import AkButton from '@atlaskit/button/custom-theme-button';
-import React from 'react';
 import { PureComponent } from 'react';
 import {
   FormattedMessage,
@@ -13,7 +14,15 @@ import Emoji from './Emoji';
 import EmojiErrorMessage from './EmojiErrorMessage';
 import { UploadStatus } from './internal-types';
 import RetryableButton from './RetryableButton';
-import * as styles from './styles';
+import {
+  bigEmojiPreview,
+  cancelButton,
+  emojiPreviewErrorMessage,
+  uploadAddRow,
+  uploadPreview,
+  uploadPreviewFooter,
+  uploadPreviewText,
+} from './styles';
 
 export interface EmojiUploadPreviewProps {
   name: string;
@@ -61,9 +70,9 @@ class EmojiUploadPreview extends PureComponent<
     const uploading = uploadStatus === UploadStatus.Uploading;
 
     return (
-      <div className={styles.uploadPreviewFooter}>
-        <div className={styles.uploadPreview}>
-          <div className={styles.uploadPreviewText}>
+      <div css={uploadPreviewFooter}>
+        <div css={uploadPreview}>
+          <div css={uploadPreviewText}>
             <h5>
               <FormattedMessage {...messages.emojiPreviewTitle} />
             </h5>
@@ -72,19 +81,17 @@ class EmojiUploadPreview extends PureComponent<
               values={{ emoji: emojiComponent }}
             />
           </div>
-          <div className={styles.bigEmojiPreview}>{emojiComponent}</div>
+          <div css={bigEmojiPreview}>{emojiComponent}</div>
         </div>
-        <div className={styles.uploadAddRow}>
+        <div css={uploadAddRow}>
           {!uploading && errorMessage ? (
             <EmojiErrorMessage
-              className={styles.emojiPreviewErrorMessage}
+              messageStyles={emojiPreviewErrorMessage}
               message={errorMessage}
               tooltip
             />
           ) : null}
           <RetryableButton
-            className={styles.uploadEmojiButton}
-            retryClassName={styles.uploadRetryButton}
             label={formatMessage(messages.addEmojiLabel)}
             onSubmit={onAddEmoji}
             appearance="primary"
@@ -95,7 +102,7 @@ class EmojiUploadPreview extends PureComponent<
             onClick={onUploadCancelled}
             appearance="subtle"
             isDisabled={uploading}
-            className={styles.cancelButton}
+            css={cancelButton}
           >
             <FormattedMessage {...messages.cancelLabel} />
           </AkButton>

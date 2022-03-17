@@ -18,7 +18,7 @@ const borderRadius = getBorderRadius();
 
 const childStyles = css({
   height: '400px',
-  backgroundColor: token('color.background.accent.magenta', 'hotpink'),
+  backgroundColor: token('color.background.accent.magenta.subtler', 'hotpink'),
 });
 
 const containerStyles = css({

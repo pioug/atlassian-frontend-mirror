@@ -1,6 +1,8 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
+import { ConcurrentExperience } from '@atlaskit/ufo';
+import FocusRing from '@atlaskit/focus-ring';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
 import ResourcedMention from '../../../components/Mention/ResourcedMention';
@@ -30,6 +32,31 @@ const createPayload = (actionSubject: string, action: string) => ({
     eventType: 'ui',
   },
 });
+
+const mockUfoStart = jest.fn();
+const mockUfoSuccess = jest.fn();
+const mockUfoFailure = jest.fn();
+jest.mock('@atlaskit/ufo', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ConcurrentExperience: (): ConcurrentExperience => ({
+    // @ts-expect-error partial getInstance mock
+    getInstance: (id: string) => ({
+      start: mockUfoStart,
+      success: mockUfoSuccess,
+      failure: mockUfoFailure,
+    }),
+  }),
+}));
+
+jest.mock('@atlaskit/focus-ring', () => ({
+  __esModule: true,
+  default: jest
+    .fn()
+    .mockImplementation(
+      (props: { children: React.ReactElement }) => props.children,
+    ),
+}));
 
 describe('<Mention />', () => {
   beforeEach(() => {
@@ -247,6 +274,31 @@ describe('<Mention />', () => {
     it('should render @... if no text attribute is supplied', () => {
       const mention = mountWithIntl(<Mention {...mentionData} text="" />);
       expect(mention.text()).toEqual('@...');
+    });
+
+    describe('UFO metrics', () => {
+      beforeEach(() => {
+        mockUfoStart.mockReset();
+        mockUfoSuccess.mockReset();
+        mockUfoFailure.mockReset();
+      });
+
+      it('should send a UFO success metric when mounted successfully', async () => {
+        mountWithIntl(<Mention {...mentionData} text="" />);
+        expect(mockUfoStart).toHaveBeenCalled();
+        expect(mockUfoSuccess).toHaveBeenCalled();
+      });
+
+      it('should send a UFO failure metric when mount fails', async () => {
+        // Mock one the things rendered by @atlaskit/mention, so we can simulate a mount error
+        (FocusRing as jest.Mock).mockImplementationOnce(() => {
+          throw new Error('Erron in FocusRing');
+        });
+
+        mountWithIntl(<Mention {...mentionData} text="" />);
+        expect(mockUfoStart).toHaveBeenCalled();
+        expect(mockUfoFailure).toHaveBeenCalled();
+      });
     });
   });
 

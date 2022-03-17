@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
-import { contentStyles } from './styles';
+import { CONTENT } from '../../common/constants';
 
 interface ContentProps {
   /** React children! */
@@ -13,6 +13,13 @@ interface ContentProps {
    **/
   testId?: string;
 }
+
+const contentStyles = css({
+  display: 'flex',
+  height: '100%',
+  position: 'relative',
+  gridArea: CONTENT,
+});
 
 const Content = (props: ContentProps) => {
   const { children, testId } = props;

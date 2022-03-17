@@ -16,6 +16,7 @@ import {
 jest.mock('../../../service/uploadServiceImpl');
 
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
+import * as ufoWrapper from '../../../util/ufoExperiences';
 import { UploadComponent } from '../../component';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 
@@ -54,6 +55,21 @@ describe('LocalUploadReact', () => {
     uploadParams: {},
   };
 
+  const mockstartMediaUploadUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'startMediaUploadUfoExperience',
+  );
+
+  const mocksucceedMediaUploadUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'succeedMediaUploadUfoExperience',
+  );
+
+  const mockfailMediaUploadUfoExperience = jest.spyOn(
+    ufoWrapper,
+    'failMediaUploadUfoExperience',
+  );
+
   beforeEach(() => {
     localUploadComponent = mount(
       <DummyLocalUploadComponent
@@ -74,7 +90,7 @@ describe('LocalUploadReact', () => {
     jest.resetAllMocks();
   });
 
-  it('should call uploadComponent.emitUploadsStart with proper arguments', () => {
+  it('should call uploadComponent.emitUploadsStart with proper arguments and should start UFO experience', () => {
     const emitUploadsStart = jest.spyOn(uploadComponent, 'emitUploadsStart');
     const files: UploadsStartEventPayload = {
       files: [imageFile],
@@ -82,6 +98,11 @@ describe('LocalUploadReact', () => {
     (localUploadComponentInstance as any).onFilesAdded(files);
     expect(emitUploadsStart).toBeCalledWith(files.files);
     expect(onUploadsStart).toBeCalledWith({ files: files.files });
+    expect(mockstartMediaUploadUfoExperience).toBeCalledTimes(1);
+    expect(mockstartMediaUploadUfoExperience).toBeCalledWith(
+      expect.any(String),
+      expect.any(String),
+    );
   });
 
   it('should call uploadComponent.emitUploadPreviewUpdate with proper arguments', () => {
@@ -110,7 +131,7 @@ describe('LocalUploadReact', () => {
     });
   });
 
-  it('should call uploadComponent.emitUploadEnd with proper arguments', () => {
+  it('should call uploadComponent.emitUploadEnd and UFO failed experience event with proper arguments', () => {
     const emitUploadEnd = jest.spyOn(uploadComponent, 'emitUploadEnd');
     const file: UploadEndEventPayload = {
       file: imageFile,
@@ -120,9 +141,14 @@ describe('LocalUploadReact', () => {
     expect(onEnd).toBeCalledWith({
       file: file.file,
     });
+    expect(mocksucceedMediaUploadUfoExperience).toBeCalledWith(imageFile.id, {
+      fileId: imageFile.id,
+      fileSize: imageFile.size,
+      fileMimetype: imageFile.type,
+    });
   });
 
-  it('should call uploadComponent.emitUploadError with proper arguments', () => {
+  it('should call uploadComponent.emitUploadError and UFO failed experience event with proper arguments', () => {
     const emitUploadError = jest.spyOn(uploadComponent, 'emitUploadError');
     const error = new Error('failed to upload');
     const payload: UploadErrorEventPayload = {
@@ -138,6 +164,15 @@ describe('LocalUploadReact', () => {
     expect(onError).toBeCalledWith({
       fileId: payload.fileId,
       error: payload.error,
+    });
+    expect(mockfailMediaUploadUfoExperience).toBeCalledWith(imageFile.id, {
+      failReason: payload.error.name,
+      error: 'unknown',
+      request: undefined,
+      fileAttributes: {
+        fileId: imageFile.id,
+      },
+      uploadDurationMsec: -1,
     });
   });
 });

@@ -21,7 +21,7 @@ import {
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
-import { Wrapper } from '../../../ui/Resizer/styled';
+import { wrapperStyle } from '../../../ui/Resizer/styled';
 import {
   EnabledHandles,
   Props as ResizerProps,
@@ -391,12 +391,13 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
     return (
       <div css={embedSpacingStyles} data-testid="resizable-embed-card-spacing">
-        <Wrapper
-          layout={layout}
-          isResized={!!pctWidth}
-          containerWidth={containerWidth || DEFAULT_EMBED_CARD_WIDTH}
-          innerRef={(elem?: HTMLElement) => (this.wrapper = elem)}
-          fullWidthMode={fullWidthMode}
+        <div
+          css={wrapperStyle({
+            layout,
+            isResized: !!pctWidth,
+            containerWidth: containerWidth || DEFAULT_EMBED_CARD_WIDTH,
+            fullWidthMode,
+          })}
         >
           <Resizer
             {...this.props}
@@ -412,7 +413,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
             {children}
             {this.getHeightDefiningComponent()}
           </Resizer>
-        </Wrapper>
+        </div>
       </div>
     );
   }

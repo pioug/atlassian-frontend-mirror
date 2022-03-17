@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { HardBreak } from '../../../../react/nodes';
 import Expand from '../../../../ui/Expand';
 
@@ -17,7 +17,7 @@ describe('Expand', () => {
         />,
       );
 
-      expand.find(`TitleContainerButton`).simulate('click');
+      expand.find('button').simulate('click');
 
       expect(fireAnalyticsEvent).toHaveBeenCalledWith({
         action: 'toggleExpand',

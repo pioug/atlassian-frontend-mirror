@@ -7,8 +7,10 @@ import {
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { FileState, MediaClient, UploadController } from '../src';
 import { FilesWrapper, FileWrapper } from '../example-helpers/styled';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subscription } from 'rxjs/Subscription';
+import {
+  MediaSubscribable,
+  MediaSubscription,
+} from '../src/utils/toMediaSubscribable';
 
 export interface ComponentProps {}
 export interface ComponentState {
@@ -21,9 +23,9 @@ const mediaClientConfig: MediaClientConfig = {
 const mediaClient = new MediaClient(mediaClientConfig);
 
 class Example extends Component<ComponentProps, ComponentState> {
-  fileStreams: ReplaySubject<FileState>[];
+  fileStreams: MediaSubscribable<FileState>[];
   uploadController?: UploadController;
-  subscription?: Subscription;
+  subscription?: MediaSubscription;
 
   constructor(props: ComponentProps) {
     super(props);
@@ -62,7 +64,7 @@ class Example extends Component<ComponentProps, ComponentState> {
     this.addStream(stream);
   };
 
-  addStream = (stream: ReplaySubject<FileState>) => {
+  addStream = (stream: MediaSubscribable<FileState>) => {
     const streamId = new Date().getTime();
 
     const subscription = stream.subscribe({

@@ -1,6 +1,6 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme-next';
+import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item from '@atlaskit/item';
 import DropdownMenu from '../../ui/DropdownMenu';

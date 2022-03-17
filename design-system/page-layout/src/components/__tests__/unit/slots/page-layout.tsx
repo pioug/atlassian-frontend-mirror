@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import { render } from '@testing-library/react';
 
 import {
@@ -13,6 +13,8 @@ import {
   RightSidebar,
   TopNavigation,
 } from '../../../index';
+
+const slotLabelStyles = css({ textAlign: 'center' });
 
 describe('page-layout', () => {
   it('should have data attribute for all the page layout slots', () => {
@@ -51,7 +53,7 @@ describe('page-layout', () => {
           skipLinkTitle={bannerName}
           id="banner"
         >
-          <h3 css={{ textAlign: 'center' }}>Banner</h3>
+          <h3 css={slotLabelStyles}>Banner</h3>
         </Banner>
 
         <TopNavigation
@@ -60,11 +62,11 @@ describe('page-layout', () => {
           skipLinkTitle={topNavName}
           id="top-navigation"
         >
-          <h3 css={{ textAlign: 'center' }}>TopNavigation</h3>
+          <h3 css={slotLabelStyles}>TopNavigation</h3>
         </TopNavigation>
 
         <LeftPanel testId="leftPanel" width={200} id="left-panel">
-          <h3 css={{ textAlign: 'center' }}>LeftPanel</h3>
+          <h3 css={slotLabelStyles}>LeftPanel</h3>
         </LeftPanel>
       </PageLayout>,
     );

@@ -1,3 +1,13 @@
+// force isIntersectionObserverSupported to be false until support for it is dropped.
+jest.mock('@atlaskit/media-ui', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-ui');
+  return {
+    __esModule: true,
+    ...actualModule,
+    isIntersectionObserverSupported: () => false,
+  };
+});
+
 import { mount } from 'enzyme';
 import React from 'react';
 import { ResolveResponse } from '@atlaskit/smart-card';

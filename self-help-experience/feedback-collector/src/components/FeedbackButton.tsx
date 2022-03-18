@@ -16,6 +16,9 @@ interface Props {
   email?: string;
 }
 
+/*
+ * Standard feedback button with "Give Feedback" as the text and speaker icon on the left of the text
+ * */
 const FeedbackButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);

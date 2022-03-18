@@ -51,7 +51,7 @@ const getClipboardContent = async (page: Page, type: string) => {
 // We should remove this test.
 BrowserTestCase(
   `Copy correct table structure`,
-  { skip: ['safari'] },
+  { skip: ['safari', 'chrome'] }, // https://product-fabric.atlassian.net/browse/DTR-330
   async (client: any) => {
     const page = await goToRendererTestingExample(client);
 

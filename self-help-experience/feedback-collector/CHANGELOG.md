@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.1.0
+
+### Minor Changes
+
+- [`b35b73e9670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b35b73e9670) - Use correct requestTypeId for feedback collector
+
 ## 10.0.1
 
 ### Patch Changes

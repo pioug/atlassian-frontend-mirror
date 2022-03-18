@@ -15,7 +15,7 @@ import isEqual from 'lodash/isEqual';
 
 BrowserTestCase(
   'multi cell table selection should correctly highlight entire table selection',
-  {},
+  { skip: ['chrome'] }, // https://product-fabric.atlassian.net/browse/DTR-330
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -41,7 +41,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'multi cell table selection should correctly highlight table selection from the second row',
-  {},
+  { skip: ['chrome'] }, // https://product-fabric.atlassian.net/browse/DTR-330
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -67,7 +67,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'multi cell table selection should correctly highlight table selection from the second column',
-  {},
+  { skip: ['chrome'] }, // https://product-fabric.atlassian.net/browse/DTR-330
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

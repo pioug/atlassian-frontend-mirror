@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/core';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 interface Props {
   children: React.ReactNode;
@@ -22,7 +23,11 @@ export default ({ children }: Props) => (
         left: ${gridSize() * 3}px;
       `}
     >
-      <CheckCircleIcon label="" aria-hidden primaryColor={G300} />
+      <CheckCircleIcon
+        label=""
+        aria-hidden
+        primaryColor={token('color.icon.success', G300)}
+      />
     </div>
     {children}
   </section>

@@ -72,7 +72,7 @@ export const messages = defineMessages({
   },
   externalUserSourcesHeading: {
     id: 'fabric.elements.user-picker.external.sourced.from',
-    defaultMessage: 'Also found in:',
+    defaultMessage: 'Found in:',
     description: 'From where the external user is coming',
   },
   externalUserSourcesError: {

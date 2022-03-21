@@ -71,19 +71,14 @@ describe('HoverCard', () => {
   let mockFetch: jest.Mock;
   let mockUrl: string;
 
-  beforeEach(() => {
+  const setup = async () => {
+    jest.useFakeTimers();
+
     mockFetch = jest.fn(() => Promise.resolve(mockResponse));
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
-  });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-    cleanup();
-  });
-
-  it('renders hover card', async () => {
-    const { getByTestId } = render(
+    const { getByTestId, queryByTestId } = render(
       <Provider client={mockClient}>
         <HoverCard url={mockUrl}>
           <span data-testid="element-to-hover" />
@@ -92,23 +87,28 @@ describe('HoverCard', () => {
     );
 
     const element = await waitForElement(() => getByTestId('element-to-hover'));
-    fireEvent.mouseOver(element);
+    fireEvent.mouseEnter(element);
+
+    return { getByTestId, queryByTestId, element };
+  };
+
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.clearAllMocks();
+    cleanup();
+  });
+
+  it('renders hover card', async () => {
+    const { getByTestId } = await setup();
+    jest.runAllTimers();
     const hoverCard = await waitForElement(() => getByTestId('hover-card'));
 
     expect(hoverCard).toBeTruthy();
   });
 
   it('renders hover card blocks', async () => {
-    const { getByTestId } = render(
-      <Provider client={mockClient}>
-        <HoverCard url={mockUrl}>
-          <span data-testid="element-to-hover" />
-        </HoverCard>
-      </Provider>,
-    );
-
-    const element = await waitForElement(() => getByTestId('element-to-hover'));
-    fireEvent.mouseOver(element);
+    const { getByTestId } = await setup();
+    jest.runAllTimers();
     const titleBlock = await waitForElement(() =>
       getByTestId('smart-block-title-resolved-view'),
     );
@@ -118,10 +118,116 @@ describe('HoverCard', () => {
     const footerBlock = await waitForElement(() =>
       getByTestId('smart-footer-block-resolved-view'),
     );
-
     //trim because the icons are causing new lines in the textContent
     expect(titleBlock.textContent?.trim()).toBe('I love cheese');
     expect(snippetBlock.textContent).toBe('Here is your serving of cheese: 🧀');
     expect(footerBlock.textContent?.trim()).toBe('Confluence');
+  });
+
+  describe('when mouse moves over the child', () => {
+    it('should wait a default delay before showing', async () => {
+      const { queryByTestId } = await setup();
+
+      // Delay not completed yet
+      jest.advanceTimersByTime(299);
+
+      expect(queryByTestId('hover-card')).toBeNull();
+
+      // Delay completed
+      jest.advanceTimersByTime(1);
+
+      expect(queryByTestId('hover-card')).not.toBeNull();
+    });
+
+    it('should wait a default delay before hiding', async () => {
+      const { queryByTestId, element } = await setup();
+      jest.runAllTimers();
+      fireEvent.mouseLeave(element);
+
+      // Delay not completed yet
+      jest.advanceTimersByTime(299);
+
+      expect(queryByTestId('hover-card')).not.toBeNull();
+
+      // Delay completed
+      jest.advanceTimersByTime(1);
+
+      expect(queryByTestId('hover-card')).toBeNull();
+    });
+  });
+
+  it('should stay shown if theres a mouseEnter before the delay elapses', async () => {
+    const { queryByTestId, element } = await setup();
+    jest.runAllTimers();
+    fireEvent.mouseLeave(element);
+
+    // Delay not completed yet
+    jest.advanceTimersByTime(299);
+    expect(queryByTestId('hover-card')).not.toBeNull();
+
+    fireEvent.mouseEnter(element);
+
+    // Delay completed
+    jest.advanceTimersByTime(1);
+
+    expect(queryByTestId('hover-card')).not.toBeNull();
+  });
+
+  it('should stay hidden if theres a mouseLeave before the delay elapses', async () => {
+    const { queryByTestId, element } = await setup();
+
+    // Delay not completed yet
+    jest.advanceTimersByTime(299);
+
+    expect(queryByTestId('hover-card')).toBeNull();
+    fireEvent.mouseLeave(element);
+
+    // Delay completed
+    jest.advanceTimersByTime(1);
+
+    expect(queryByTestId('hover-card')).toBeNull();
+  });
+
+  it('should stay shown if mouse moves over the hover card', async () => {
+    const { getByTestId, queryByTestId, element } = await setup();
+
+    jest.runAllTimers();
+
+    const hoverCard = await waitForElement(() =>
+      getByTestId('smart-links-container'),
+    );
+    fireEvent.mouseLeave(element);
+    fireEvent.mouseEnter(hoverCard);
+
+    jest.runAllTimers();
+
+    expect(queryByTestId('hover-card')).not.toBeNull();
+  });
+
+  it('should hide if mouse moves leaves the hover card', async () => {
+    const { getByTestId, queryByTestId, element } = await setup();
+
+    jest.runAllTimers();
+
+    const hoverCard = await waitForElement(() =>
+      getByTestId('smart-links-container'),
+    );
+    fireEvent.mouseLeave(element);
+    fireEvent.mouseEnter(hoverCard);
+    fireEvent.mouseLeave(hoverCard);
+
+    jest.runAllTimers();
+
+    expect(queryByTestId('hover-card')).toBeNull();
+  });
+
+  it('should hide after pressing escape', async () => {
+    const { queryByTestId } = await setup();
+
+    jest.runAllTimers();
+
+    fireEvent.keyDown(document, { key: 'Escape', code: 27 });
+
+    expect(queryByTestId('hover-card')).toBeNull();
   });
 });

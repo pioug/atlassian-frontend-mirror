@@ -8,7 +8,7 @@ export default md`
       appearance="warning"
       title="Note: @atlaskit/user-picker/smart-user-picker is deprecated."
     >
-      Please use{' '}
+      SmartUserPicker has moved packages! Please use{' '}
       <a href="https://statlas.prod.atl-paas.net/atlassian-frontend/master#packages/smart-experiences/smart-user-picker">
         @atlaskit/smart-user-picker
       </a>{' '}

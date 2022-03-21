@@ -1,5 +1,23 @@
 # @atlaskit/user-picker
 
+## 9.0.0
+
+### Major Changes
+
+- [`973e01bba77`](https://bitbucket.org/atlassian/atlassian-frontend/commits/973e01bba77) - The deprecated SmartUserPicker module is now removed from @atlaskit/user-picker. The module has now moved to its own dedicated package, @atlaskit/smart-user-picker.
+
+  ### What this means for you as a @atlaskit/user-picker/smart-user-picker consumer
+
+  - If you require an urgent change to SmartUserPicker, you will need to migrate and make changes to @atlaskit/smart-user-picker.
+
+  - if you just want to keep your packages up-to-date, please try to hold off on the migration. The long-term strategy for Smart experiences is to also deprecate @atlaskit/smart-user-picker in favor of a React hook approach to recommending users.
+
+## 8.8.6
+
+### Patch Changes
+
+- [`c78ab0991dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c78ab0991dd) - [ux] fixed external user source tooltip heading in user-picker
+
 ## 8.8.5
 
 ### Patch Changes

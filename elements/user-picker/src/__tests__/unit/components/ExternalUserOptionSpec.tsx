@@ -67,7 +67,7 @@ describe('ExternalUserOption', () => {
     await findByRole('tooltip');
     const tooltip = getByRole('tooltip');
     // Tooltip has single source displayed
-    expect(tooltip).toHaveTextContent('Also found in:');
+    expect(tooltip).toHaveTextContent('Found in:');
     expect(tooltip).toHaveTextContent('Google');
     expect(tooltip).not.toHaveTextContent('GitHub');
   });
@@ -101,7 +101,7 @@ describe('ExternalUserOption', () => {
     await findByRole('tooltip');
     const tooltip = getByRole('tooltip');
     // Tooltip has expected sources displayed
-    expect(tooltip).toHaveTextContent('Also found in:');
+    expect(tooltip).toHaveTextContent('Found in:');
     expect(tooltip).toHaveTextContent('Google');
     expect(tooltip).toHaveTextContent('GitHub');
   });
@@ -213,7 +213,7 @@ describe('ExternalUserOption', () => {
     const tooltip = getByRole('tooltip');
 
     // Tooltip has single source displayed
-    expect(tooltip).toHaveTextContent('Also found in:');
+    expect(tooltip).toHaveTextContent('Found in:');
     expect(tooltip).toHaveTextContent('Google');
     expect(tooltip).not.toHaveTextContent('GitHub');
 

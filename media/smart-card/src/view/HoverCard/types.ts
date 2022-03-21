@@ -1,1 +1,3 @@
-export type HoverCardProps = { url: string };
+export type HoverCardProps = {
+  url: string;
+};

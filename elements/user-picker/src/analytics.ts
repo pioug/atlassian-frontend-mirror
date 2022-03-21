@@ -5,10 +5,6 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { name as packageName, version as packageVersion } from './version.json';
 import { Option, OptionData, UserPickerProps, UserPickerState } from './types';
-import {
-  SmartUserPickerProps,
-  SmartUserPickerState,
-} from './components/smart-user-picker/index';
 import { isExternalUser } from './components/utils';
 
 const UUID_REGEXP_TEAMS_GROUPS = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
@@ -100,10 +96,6 @@ export interface EventCreator {
     session?: UserPickerSession,
     ...args: any[]
   ): AnalyticsEventPayload;
-}
-
-export interface SmartEventCreator {
-  (props: SmartUserPickerProps, ...args: any[]): AnalyticsEventPayload;
 }
 
 const createDefaultPickerAttributes = (
@@ -216,114 +208,6 @@ export const failedEvent: EventCreator = (
 ) =>
   createEvent('operational', 'failed', 'userPicker', {
     ...createDefaultPickerAttributes(props, session, journeyId),
-  });
-
-const createDefaultSmartPickerAttributes = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-) => {
-  const {
-    fieldId,
-    objectId,
-    containerId,
-    childObjectId,
-    prefetch,
-    maxOptions,
-    includeTeams,
-    productKey,
-    principalId,
-    siteId,
-    orgId,
-    filterOptions,
-  } = props;
-  const { sessionId, query } = state;
-
-  const maxNumberOfResults = maxOptions || 100;
-  return {
-    context: fieldId,
-    childObjectId,
-    containerId,
-    hasFilterOptions: Boolean(filterOptions),
-    includeTeams,
-    maxNumberOfResults,
-    objectId,
-    prefetch,
-    principalId,
-    productKey,
-    queryLength: (query || '').length,
-    siteId,
-    orgId,
-    sessionId,
-  };
-};
-
-const createSmartUserPickerEvent = (
-  action: string,
-  actionSubect: string,
-  attributes = {},
-): AnalyticsEventPayload => ({
-  source: 'smart-user-picker',
-  ...createEvent('operational', action, actionSubect, attributes),
-});
-
-export const preparedUsersLoadedEvent: SmartEventCreator = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-  attributes = {},
-) =>
-  createSmartUserPickerEvent('loaded', 'preparedUsers', {
-    ...createDefaultSmartPickerAttributes(props, state),
-    ...attributes,
-  });
-
-export const mountedWithPrefetchEvent: SmartEventCreator = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-  attributes = {},
-) =>
-  createSmartUserPickerEvent('mounted', 'prefetch', {
-    ...createDefaultSmartPickerAttributes(props, state),
-    ...attributes,
-  });
-
-export const filterUsersEvent: SmartEventCreator = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-  attributes = {},
-) =>
-  createSmartUserPickerEvent('filtered', 'users', {
-    ...createDefaultSmartPickerAttributes(props, state),
-    ...attributes,
-  });
-
-export const requestUsersEvent: SmartEventCreator = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-  attributes = {},
-) =>
-  createSmartUserPickerEvent('requested', 'users', {
-    ...createDefaultSmartPickerAttributes(props, state),
-    ...attributes,
-  });
-
-export const successfulRequestUsersEvent: SmartEventCreator = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-  attributes = {},
-) =>
-  createSmartUserPickerEvent('successful', 'usersRequest', {
-    ...createDefaultSmartPickerAttributes(props, state),
-    ...attributes,
-  });
-
-export const failedRequestUsersEvent: SmartEventCreator = (
-  props: SmartUserPickerProps,
-  state: SmartUserPickerState,
-  attributes = {},
-) =>
-  createSmartUserPickerEvent('failed', 'usersRequest', {
-    ...createDefaultSmartPickerAttributes(props, state),
-    ...attributes,
   });
 
 function queryLength(state: UserPickerState) {

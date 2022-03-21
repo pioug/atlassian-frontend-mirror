@@ -4,17 +4,6 @@ export type {
   EmailValidator,
 } from './components/emailValidation';
 export { UserPicker as default } from './components/UserPicker';
-export {
-  getUserRecommendations,
-  hydrateDefaultValues,
-  SmartUserPicker,
-  setSmartUserPickerEnv,
-} from './components/smart-user-picker/index';
-export type {
-  RecommendationRequest,
-  SmartUserPickerProps,
-  SupportedProduct,
-} from './components/smart-user-picker/index';
 export { PopupUserPicker } from './components/PopupUserPicker';
 export { isEmail, isExternalUser, isTeam, isUser } from './components/utils';
 export {

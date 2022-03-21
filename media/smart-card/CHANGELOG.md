@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 18.0.1
+
+### Patch Changes
+
+- [`75c16ae4964`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75c16ae4964) - refactor code to use atlaskit/popup instead of atlaskit/tooltip as a base component
+
 ## 18.0.0
 
 ### Major Changes

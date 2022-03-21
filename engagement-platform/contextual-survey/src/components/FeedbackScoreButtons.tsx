@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/core';
 import Button from '@atlaskit/button/custom-theme-button';
 import { N200 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 interface Props {
@@ -65,7 +66,7 @@ export default ({ onChange, value }: Props) => (
       css={css`
         font-size: 12px;
         font-weight: 600;
-        color: ${N200};
+        color: ${token('color.text.subtlest', N200)};
         display: flex;
         margin-top: ${gridSize()}px;
         margin-bottom: ${gridSize() * 3}px;

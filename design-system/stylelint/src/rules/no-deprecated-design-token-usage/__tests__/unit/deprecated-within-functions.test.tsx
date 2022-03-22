@@ -1,4 +1,4 @@
-jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
+jest.mock('@atlaskit/tokens/rename-mapping', (): typeof renameMapper => [
   {
     path: 'color.text.highEmphasis',
     state: 'deprecated',
@@ -23,19 +23,12 @@ jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
 
 import path from 'path';
 
-import tokens from '@atlaskit/tokens/token-names';
+import renameMapper from '@atlaskit/tokens/rename-mapping';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
 import { messages, ruleName } from '../../index';
 
 const plugin = path.resolve(__dirname, '../../../../index.tsx');
-
-type Token = keyof typeof tokens | string;
-type RenameMap = {
-  path: string;
-  state: 'deprecated' | 'deleted';
-  replacement: Token;
-};
 
 testRule({
   plugins: [plugin],

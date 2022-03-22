@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 0.8.2
+
+### Patch Changes
+
+- [`b170565a618`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b170565a618) - [ux] Update to input token colors: `color.background.input`, `color.background.input.hovered`, `color.background.input.pressed`.
+
+## 0.8.1
+
+### Patch Changes
+
+- [`a66253fc6a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a66253fc6a5) - Export token ID utility functions with new entrypoint `@atlaskit/tokens/token-ids`
+
 ## 0.8.0
 
 ### Minor Changes

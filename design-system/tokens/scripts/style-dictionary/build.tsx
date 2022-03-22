@@ -4,7 +4,8 @@ import path from 'path';
 
 import styleDictionary, { Config } from 'style-dictionary';
 
-import { DEFAULT_THEME, LONG_SHORT_MAPPING } from './constants';
+import { DEFAULT_THEME, LONG_SHORT_MAPPING } from '../../src/constants';
+
 import formatterCSSVariables from './formatters/format-css-variables';
 import formatterFigma from './formatters/format-figma';
 import formatterRaw from './formatters/format-raw';

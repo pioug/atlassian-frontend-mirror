@@ -191,4 +191,22 @@ describe('Flexible Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
   });
+
+  describe('integrated', () => {
+    it('should render error view when exception is thrown', async () => {
+      const url = getURL('flexible-ui');
+      const page = await setup(url);
+      const buttonSelector =
+        '[data-testid="mock-url-button-ResolveUnsupportedError"]';
+      await page.waitForSelector(buttonSelector);
+      await page.click(buttonSelector);
+
+      const erroredViewSelector =
+        '[data-testid="smart-block-title-errored-view"]';
+      await page.waitForSelector(erroredViewSelector);
+      const image = await takeSnapshot(page, 80);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
+  });
 });

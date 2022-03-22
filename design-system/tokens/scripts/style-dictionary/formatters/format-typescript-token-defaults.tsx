@@ -1,8 +1,8 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
-import { DEFAULT_THEME } from '../constants';
-import { getTokenId } from '../utils/token-ids';
+import { DEFAULT_THEME } from '../../../src/constants';
+import { getTokenId } from '../../../src/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens: Record<string, string> = {};

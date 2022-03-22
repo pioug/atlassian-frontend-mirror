@@ -1,4 +1,6 @@
-import React, { FC, useCallback, useRef } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import React, { FC, useCallback, useRef, useMemo } from 'react';
 import { HoverCardProps } from './types';
 import {
   TitleBlock,
@@ -7,7 +9,13 @@ import {
 } from '../FlexibleCard/components/blocks';
 import { Card } from '../Card';
 import Popup from '@atlaskit/popup';
-import { SmartLinkSize } from '../../constants';
+import { SmartLinkSize, ActionName } from '../../constants';
+import { CustomActionItem } from '../FlexibleCard/components/blocks/types';
+import {
+  useSmartLinkActions,
+  LinkAction,
+} from '../../state/hooks-external/useSmartLinkActions';
+import { HoverCardContainer } from './styled';
 
 export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
   const delay = 300;
@@ -33,8 +41,34 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
     }, delay);
   }, [delay]);
 
+  //TODO: EDM-2905: Add analytics events
+  const analyticsHandler = useCallback(() => {}, []);
+  const linkActions = useSmartLinkActions({
+    url,
+    appearance: 'block',
+    analyticsHandler,
+  });
+
+  const actions = useMemo(
+    () =>
+      linkActions.map(
+        (action: LinkAction) =>
+          ({
+            content: action.text,
+            name: ActionName.CustomAction,
+            onClick: () => action.invoke(),
+            testId: action.id,
+          } as CustomActionItem),
+      ),
+    [linkActions],
+  );
+
   const cardComponent = () => (
-    <span onMouseEnter={initShowCard} onMouseLeave={initHideCard}>
+    <div
+      onMouseEnter={initShowCard}
+      onMouseLeave={initHideCard}
+      css={HoverCardContainer}
+    >
       <Card
         appearance="block"
         url={url}
@@ -42,9 +76,9 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
       >
         <TitleBlock />
         <SnippetBlock />
-        <FooterBlock />
+        <FooterBlock actions={actions} />
       </Card>
-    </span>
+    </div>
   );
 
   const onClose = useCallback(() => setIsOpen(false), []);

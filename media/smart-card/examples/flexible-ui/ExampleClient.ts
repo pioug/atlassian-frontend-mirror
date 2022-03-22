@@ -2,7 +2,7 @@ import { JsonLd } from 'json-ld-types';
 
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import { Client } from '../../src';
-import { generateResponse, responses } from './utils';
+import { exceptionUrls, generateResponse, responses } from './utils';
 
 const getExampleData = (url: string) => {
   const key = url.replace('https://', '');
@@ -20,6 +20,9 @@ const getCustomResponse = (url: string): JsonLd.Response | undefined => {
 
 export class ExampleClient extends Client {
   fetchData(url: string) {
+    if (Object.values(exceptionUrls).indexOf(url) > -1) {
+      throw responses[url];
+    }
     const response = getCustomResponse(url);
     if (response) {
       return Promise.resolve(response);

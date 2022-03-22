@@ -1,4 +1,4 @@
-import { CSS_PREFIX } from '../../../constants';
+import { CSS_PREFIX } from '../../../../../src/constants';
 import formatter from '../../format-css-variables';
 
 describe('formatter', () => {

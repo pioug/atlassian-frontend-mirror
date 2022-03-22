@@ -1,6 +1,8 @@
 import valueParser from 'postcss-value-parser';
 import stylelint from 'stylelint';
 
+import { isFunction, isVar } from '../../utils/rules';
+
 export const ruleName = 'design-system/ensure-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
   noHardcodedColors:
@@ -33,11 +35,6 @@ const isColorNode = (node: valueParser.Node) => {
       return isHexColor(node.value);
   }
 };
-
-const isFunction = (node: valueParser.Node): node is valueParser.FunctionNode =>
-  node.type === 'function';
-
-const isVar = (node: valueParser.FunctionNode): boolean => node.value === 'var';
 
 export default stylelint.createPlugin(ruleName, isEnabled => {
   return (root, result) => {

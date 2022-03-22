@@ -828,7 +828,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "state": "active",
       "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
-    "value": "#091E4208"
+    "value": "#FFFFFF"
   },
   "Color/Background/Input/Hovered": {
     "attributes": {
@@ -836,7 +836,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "state": "active",
       "description": "Hovered state for color.background.input"
     },
-    "value": "#FFFFFF"
+    "value": "#F7F8F9"
   },
   "Color/Background/Input/Pressed": {
     "attributes": {
@@ -844,7 +844,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "state": "active",
       "description": "Pressed state for color.background.input"
     },
-    "value": "#091E420F"
+    "value": "#FFFFFF"
   },
   "Color/Background/Neutral/Default/Default": {
     "attributes": {

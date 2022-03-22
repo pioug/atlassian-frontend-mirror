@@ -6,7 +6,13 @@ import Button from '@atlaskit/button/standard-button';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
-import { envOptions, handleOnChange, mockUrls, statusUrls } from './utils';
+import {
+  envOptions,
+  exceptionUrls,
+  handleOnChange,
+  mockUrls,
+  statusUrls,
+} from './utils';
 import { EnvironmentsKeys } from '../../src/client/types';
 
 type EnvironmentOptionProps = {
@@ -44,6 +50,7 @@ const toExamples = (
   <div css={exampleStyles}>
     {Object.entries(urls).map(([key, value], idx) => (
       <Button
+        testId={`mock-url-button-${key}`}
         key={idx}
         isSelected={value === url}
         onClick={() => setUrl(value)}
@@ -90,6 +97,8 @@ const EnvironmentOption: React.FC<EnvironmentOptionProps> = ({
             {toExamples(mockUrls, url, setUrl)}
             <hr />
             {toExamples(statusUrls, url, setUrl)}
+            <hr />
+            {toExamples(exceptionUrls, url, setUrl)}
           </React.Fragment>
         )}
         {!isMock && (

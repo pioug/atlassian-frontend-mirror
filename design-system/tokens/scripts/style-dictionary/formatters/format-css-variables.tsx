@@ -4,8 +4,8 @@ import {
   ALLOWED_THEMES,
   DEFAULT_THEME,
   LONG_SHORT_MAPPING,
-} from '../constants';
-import { getCSSCustomPropertyId } from '../utils/token-ids';
+} from '../../../src/constants';
+import { getCSSCustomProperty } from '../../../src/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary, options }) => {
   if (!options.themeName) {
@@ -24,7 +24,7 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
   dictionary.allTokens
     .filter((token) => token.attributes && token.attributes.group !== 'palette')
     .forEach((token) => {
-      const tokenName = getCSSCustomPropertyId(token.path);
+      const tokenName = getCSSCustomProperty(token.path);
       tokens.push({ ...token, name: tokenName });
     });
 
@@ -41,7 +41,7 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
   }
 
   tokens.forEach((token) => {
-    output += `  --${token.name}: ${token.value};\n`;
+    output += `  ${token.name}: ${token.value};\n`;
   });
 
   output += `}\n`;

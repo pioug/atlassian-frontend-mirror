@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
-import { getCSSCustomPropertyId, getTokenId } from '../utils/token-ids';
+import { getCSSCustomProperty, getTokenId } from '../../../src/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const tokens: Record<string, string> = {};
@@ -10,15 +10,15 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     .filter((token) => token.attributes?.group !== 'palette')
     .forEach((token) => {
       const tokenName = getTokenId(token.path);
-      tokens[tokenName] = getCSSCustomPropertyId(token.path);
+      tokens[tokenName] = getCSSCustomProperty(token.path);
     });
 
   const tokensKeyValues = Object.keys(tokens)
-    .map((name) => `  '${name}': '--${tokens[name]}',`)
+    .map((name) => `  '${name}': '${tokens[name]}',`)
     .join('\n');
 
   const tokenReturnKeyValues = Object.keys(tokens)
-    .map((name) => `  '${name}': 'var(--${tokens[name]})',`)
+    .map((name) => `  '${name}': 'var(${tokens[name]})',`)
     .join('\n');
 
   return prettier.format(

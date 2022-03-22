@@ -22,13 +22,15 @@ import React from 'react';
 import { render, cleanup, waitForElement } from '@testing-library/react';
 import CardClient from '../../../client';
 import { Card, CardAppearance } from '../../Card';
-import { Provider } from '../../..';
+import { APIError, Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
+import { flushPromises } from '@atlaskit/media-test-helpers';
+import { JsonLd } from 'json-ld-types';
 
 describe('smart-card: card states, flexible', () => {
   let mockClient: CardClient;
-  let mockFetch: jest.Mock;
+  let mockFetch: jest.Mock<Promise<JsonLd.Response>>;
   let mockUrl: string;
 
   beforeEach(() => {
@@ -42,9 +44,41 @@ describe('smart-card: card states, flexible', () => {
     cleanup();
   });
 
-  describe('render method: withUrl', () => {
+  describe('with render method: withUrl', () => {
+    describe('> state: rejected with an error', () => {
+      it('should render error view', async () => {
+        mockFetch.mockRejectedValue(
+          new APIError(
+            'fatal',
+            'localhost',
+            'something wrong',
+            'ResolveUnsupportedError',
+          ),
+        );
+
+        const { getByTestId } = render(
+          <Provider client={mockClient}>
+            <Card appearance="inline" url={mockUrl}>
+              <TitleBlock />
+            </Card>
+          </Provider>,
+        );
+
+        const erroredView = await waitForElement(() =>
+          getByTestId('smart-block-title-errored-view'),
+        );
+        expect(erroredView).toBeTruthy();
+        await flushPromises();
+
+        const erroredViewAgain = await waitForElement(() =>
+          getByTestId('smart-block-title-errored-view'),
+        );
+        expect(erroredViewAgain).toBeTruthy();
+      });
+    });
+
     describe('> state: resolved', () => {
-      it('flexible: should render with metadata when resolved', async () => {
+      it('should render with metadata when resolved', async () => {
         const { getByText } = render(
           <Provider client={mockClient}>
             <Card appearance="inline" url={mockUrl}>
@@ -144,7 +178,7 @@ describe('smart-card: card states, flexible', () => {
     'embed' as CardAppearance,
   ])('with %s card appearance', (appearance: CardAppearance) => {
     const testId = 'smart-links-container'; // default Flexible UI container testId
-    it('renders Flexible UI when card is %s', async () => {
+    it('renders Flexible UI', async () => {
       const { getByTestId } = render(
         <Provider client={mockClient}>
           <Card appearance={appearance} url={mockUrl}>

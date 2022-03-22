@@ -1,46 +1,40 @@
-jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
+jest.mock('@atlaskit/tokens/rename-mapping', (): typeof renameMapper => [
   {
     path: 'color.text.highEmphasis',
     state: 'deprecated',
     replacement: 'color.text.[default]',
   },
   {
+    path: 'color.background.subtleBrand.hover',
+    state: 'deprecated',
+    replacement: 'color.background.brand.[default].hovered',
+  },
+  {
+    path: 'color.background.subtleDanger.resting',
+    state: 'deprecated',
+    replacement: 'color.background.danger.[default].[default]',
+  },
+  {
     path: 'shadow.overlay',
     state: 'deleted',
     replacement: 'elevation.shadow.overlay',
-  },
-  {
-    path: 'color.text.lowEmphasis',
-    state: 'deprecated',
-    replacement: 'color.text.subtlest',
-  },
-  {
-    path: 'color.background.boldWarning.resting',
-    state: 'deprecated',
-    replacement: 'color.background.warning.bold.[default]',
   },
 ]);
 
 import path from 'path';
 
-import tokens from '@atlaskit/tokens/token-names';
+import renameMapper from '@atlaskit/tokens/rename-mapping';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
 import { messages, ruleName } from '../../index';
 
 const plugin = path.resolve(__dirname, '../../../../index.tsx');
 
-type Token = keyof typeof tokens | string;
-type RenameMap = {
-  path: string;
-  state: 'deprecated' | 'deleted';
-  replacement: Token;
-};
-
 testRule({
   plugins: [plugin],
   ruleName,
-  config: [true],
+  config: [true, {}],
+  fix: true,
   accept: [
     {
       code: 'color: var(--my-css-variable);',
@@ -62,23 +56,26 @@ testRule({
   reject: [
     {
       code: 'color: var(--ds-text-highEmphasis);',
+      fixed: 'color: var(--ds-text);',
       description: 'should not allow token that is deprecated',
       message: messages.invalidToken('--ds-text-highEmphasis', '--ds-text'),
     },
     {
-      code: 'color: var(--ds-background-boldWarning-resting);',
+      code: 'color: var(--ds-background-subtleBrand-hover);',
+      fixed: 'color: var(--ds-background-brand-hovered);',
       description: 'should not allow token that is deprecated',
       message: messages.invalidToken(
-        '--ds-background-boldWarning-resting',
-        '--ds-background-warning-bold',
+        '--ds-background-subtleBrand-hover',
+        '--ds-background-brand-hovered',
       ),
     },
     {
-      code: 'color: var(--ds-text-lowEmphasis);',
+      code: 'color: var(--ds-background-subtleDanger-resting);',
+      fixed: 'color: var(--ds-background-danger);',
       description: 'should not allow token that is deprecated',
       message: messages.invalidToken(
-        '--ds-text-lowEmphasis',
-        '--ds-text-subtlest',
+        '--ds-background-subtleDanger-resting',
+        '--ds-background-danger',
       ),
     },
   ],
@@ -87,7 +84,8 @@ testRule({
 testRule({
   plugins: [plugin],
   ruleName,
-  config: [true],
+  config: [true, {}],
+  fix: true,
   accept: [
     {
       code: 'color: var(--my-css-variable, red);',
@@ -110,8 +108,27 @@ testRule({
   reject: [
     {
       code: 'color: var(--ds-text-highEmphasis, grey);',
+      fixed: 'color: var(--ds-text, grey);',
       description: 'should not allow token that is deprecated, with a fallback',
       message: messages.invalidToken('--ds-text-highEmphasis', '--ds-text'),
+    },
+    {
+      code: 'color: var(--ds-background-subtleBrand-hover, blue);',
+      fixed: 'color: var(--ds-background-brand-hovered, blue);',
+      description: 'should not allow token that is deprecated',
+      message: messages.invalidToken(
+        '--ds-background-subtleBrand-hover',
+        '--ds-background-brand-hovered',
+      ),
+    },
+    {
+      code: 'color: var(--ds-background-subtleDanger-resting, red);',
+      fixed: 'color: var(--ds-background-danger, red);',
+      description: 'should not allow token that is deprecated',
+      message: messages.invalidToken(
+        '--ds-background-subtleDanger-resting',
+        '--ds-background-danger',
+      ),
     },
   ],
 });

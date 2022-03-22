@@ -3257,7 +3257,7 @@ const tokens = [
       "state": "active",
       "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
-    "value": "#091E4208",
+    "value": "#FFFFFF",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3266,7 +3266,7 @@ const tokens = [
         "state": "active",
         "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "N100A"
+      "value": "N0"
     },
     "name": "color.background.input.[default]",
     "path": [
@@ -3282,7 +3282,7 @@ const tokens = [
       "state": "active",
       "description": "Hovered state for color.background.input"
     },
-    "value": "#FFFFFF",
+    "value": "#F7F8F9",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3291,7 +3291,7 @@ const tokens = [
         "state": "active",
         "description": "Hovered state for color.background.input"
       },
-      "value": "N0"
+      "value": "N100"
     },
     "name": "color.background.input.hovered",
     "path": [
@@ -3307,7 +3307,7 @@ const tokens = [
       "state": "active",
       "description": "Pressed state for color.background.input"
     },
-    "value": "#091E420F",
+    "value": "#FFFFFF",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3316,7 +3316,7 @@ const tokens = [
         "state": "active",
         "description": "Pressed state for color.background.input"
       },
-      "value": "N200A"
+      "value": "N0"
     },
     "name": "color.background.input.pressed",
     "path": [

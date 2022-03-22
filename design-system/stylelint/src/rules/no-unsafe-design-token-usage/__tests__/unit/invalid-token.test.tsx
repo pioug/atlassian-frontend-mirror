@@ -1,4 +1,4 @@
-jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
+jest.mock('@atlaskit/tokens/rename-mapping', (): typeof renameMapper => [
   {
     path: 'color.text.highEmphasis',
     state: 'deprecated',
@@ -13,19 +13,12 @@ jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
 
 import path from 'path';
 
-import tokens from '@atlaskit/tokens/token-names';
+import renameMapper from '@atlaskit/tokens/rename-mapping';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
 import { messages, ruleName } from '../../index';
 
 const plugin = path.resolve(__dirname, '../../../../index.tsx');
-
-type Token = keyof typeof tokens | string;
-type RenameMap = {
-  path: string;
-  state: 'deprecated' | 'deleted';
-  replacement: Token;
-};
 
 testRule({
   plugins: [plugin],
@@ -46,11 +39,6 @@ testRule({
       code: 'color: var(--ds-test);',
       message: messages.invalidToken('--ds-test'),
       description: 'should not allow tokens that do not exist',
-    },
-    {
-      code: 'color: var(--ds-overlay);',
-      message: messages.invalidToken('--ds-overlay'),
-      description: 'should not allow tokens that are in the deleted state',
     },
   ],
 });
@@ -75,9 +63,19 @@ testRule({
       message: messages.invalidToken('--ds-test'),
       description: 'should not allow tokens that do not exist',
     },
+  ],
+});
+
+testRule({
+  plugins: [plugin],
+  ruleName,
+  config: [true, { shouldEnsureFallbackUsage: true }],
+  fix: true,
+  reject: [
     {
       code: 'color: var(--ds-overlay, white);',
-      message: messages.invalidToken('--ds-overlay'),
+      fixed: 'color: var(--ds-shadow-overlay, white);',
+      message: messages.tokenRemoved('--ds-overlay', '--ds-shadow-overlay'),
       description: 'should not allow tokens that are in the deleted state',
     },
   ],

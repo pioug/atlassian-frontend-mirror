@@ -1,5 +1,12 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.0
+
+### Minor Changes
+
+- [`47d91601f23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47d91601f23) - - 'no-deprecated-design-token-usage' rule now provides fix for deprecated tokens by replacing with the recommended token replacement
+  - 'no-unsafe-design-token-usage' rule now provides fix for deleted tokens by replacing with the recommended token replacement
+
 ## 0.2.3
 
 ### Patch Changes

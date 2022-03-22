@@ -18,7 +18,7 @@ export function useSmartLink(
   const renderers = useSmartLinkRenderers();
 
   // NB: used to propagate errors from hooks to error boundaries.
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   // Register the current card.
   const register = () => {

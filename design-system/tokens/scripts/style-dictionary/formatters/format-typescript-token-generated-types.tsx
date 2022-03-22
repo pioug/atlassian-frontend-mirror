@@ -1,7 +1,7 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
-import { getTokenId } from '../utils/token-ids';
+import { getTokenId } from '../../../src/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
   const activeTokens: string[] = [];

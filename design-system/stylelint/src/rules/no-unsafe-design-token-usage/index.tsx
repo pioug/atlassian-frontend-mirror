@@ -3,8 +3,11 @@ import stylelint from 'stylelint';
 // eslint-disable-next-line no-duplicate-imports
 import type { RuleMessageFunc } from 'stylelint';
 
-import renameMapper from '@atlaskit/tokens/rename-mapping';
+import renameMapping from '@atlaskit/tokens/rename-mapping';
+import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
 import tokenNames from '@atlaskit/tokens/token-names';
+
+import { isFunction, isWord } from '../../utils/rules';
 
 type PluginFlags = {
   shouldEnsureFallbackUsage: boolean;
@@ -12,23 +15,20 @@ type PluginFlags = {
 
 type RuleMessage = {
   invalidToken: RuleMessageFunc;
+  tokenRemoved: RuleMessageFunc;
   missingFallback: string;
   hasFallback: string;
 };
 
 export const ruleName = 'design-system/no-unsafe-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
-  invalidToken: (name: string) =>
+  invalidToken: name =>
     `The token '${name}' does not exist. You can find the design tokens reference at <https://atlaskit.atlassian.com/packages/design-system/tokens/docs/tokens-reference>.`,
+  tokenRemoved: (name, replacement) =>
+    `The token '${name}' has been deleted. Please use ${replacement} instead.`,
   missingFallback: 'Token usage is missing a fallback.',
   hasFallback: 'Token usage has a fallback.',
 } as RuleMessage);
-
-const isFunction = (node: valueParser.Node): node is valueParser.FunctionNode =>
-  node.type === 'function';
-
-const isWord = (node: valueParser.Node): node is valueParser.WordNode =>
-  node.type === 'word';
 
 const tokenSet = new Set<string>(Object.values(tokenNames));
 const isToken = (node: valueParser.Node): boolean =>
@@ -37,83 +37,104 @@ const isToken = (node: valueParser.Node): boolean =>
 const isInvalidToken = (node: valueParser.Node): boolean =>
   isWord(node) && node.value.startsWith('--ds-') && !isToken(node);
 
-const deletedTokenValues = Object.entries(tokenNames).filter(([key, value]) =>
-  renameMapper
-    .filter(({ state }) => state === 'deleted')
-    .find(({ path }) => path === key),
-);
-
 const isDeletedToken = (node: valueParser.Node): boolean =>
   isWord(node) &&
   node.value.startsWith('--ds-') &&
-  deletedTokenValues.findIndex(([_, value]) => node.value === value) >= 0;
+  renameMapping
+    .filter(({ state }) => state === 'deleted')
+    .some(token => getCSSCustomProperty(token.path) === node.value);
 
-export default stylelint.createPlugin(ruleName, (isEnabled, flags = {}) => {
-  return (root, result) => {
-    const validOptions = stylelint.utils.validateOptions(
-      result,
-      ruleName,
-      {
-        actual: isEnabled,
-        possible: [true, false],
-      },
-      {
-        actual: flags,
-        possible: {
-          shouldEnsureFallbackUsage: [true, false],
+export default stylelint.createPlugin(
+  ruleName,
+  (isEnabled, flags = {}, context) => {
+    return (root, result) => {
+      const validOptions = stylelint.utils.validateOptions(
+        result,
+        ruleName,
+        {
+          actual: isEnabled,
+          possible: [true, false],
         },
-        optional: true,
-      },
-    );
+        {
+          actual: flags,
+          possible: {
+            shouldEnsureFallbackUsage: [true, false],
+          },
+          optional: true,
+        },
+      );
 
-    if (!validOptions || !isEnabled) {
-      return;
-    }
+      if (!validOptions || !isEnabled) {
+        return;
+      }
 
-    const { shouldEnsureFallbackUsage = false } = flags as PluginFlags;
+      const { shouldEnsureFallbackUsage = false } = flags as PluginFlags;
 
-    root.walkDecls(decl => {
-      const parsedValue = valueParser(decl.value);
+      root.walkDecls(decl => {
+        const parsedValue = valueParser(decl.value);
 
-      parsedValue.walk(node => {
-        if (!isFunction(node) || node.value !== 'var') {
-          return;
-        }
+        parsedValue.walk(node => {
+          if (!isFunction(node) || node.value !== 'var') {
+            return;
+          }
 
-        const [head, ...tail] = node.nodes;
-        if (!head) {
-          return;
-        }
-        if (isInvalidToken(head) || isDeletedToken(head)) {
-          return stylelint.utils.report({
-            message: messages.invalidToken(head.value),
-            node: decl,
-            word: node.value,
-            result,
-            ruleName,
-          });
-        }
+          const [head, ...tail] = node.nodes;
+          if (!head) {
+            return;
+          }
 
-        const isTokenUsage = isToken(head);
-        if (!isTokenUsage) {
-          return;
-        }
+          if (isDeletedToken(head)) {
+            const replacement = getCSSCustomProperty(
+              renameMapping.find(
+                ({ path }) => getCSSCustomProperty(path) === head.value,
+              )!.replacement,
+            );
 
-        const hasFallback = tail.some(node => !isToken(node));
-        const isError = shouldEnsureFallbackUsage !== hasFallback;
-        if (isError) {
-          const message = shouldEnsureFallbackUsage
-            ? messages.missingFallback
-            : messages.hasFallback;
-          stylelint.utils.report({
-            message,
-            node: decl,
-            word: node.value,
-            result,
-            ruleName,
-          });
-        }
+            if (context.fix) {
+              decl.value = decl.value.replace(head.value, replacement);
+              return;
+            } else {
+              return stylelint.utils.report({
+                message: messages.tokenRemoved(head.value, replacement),
+                node: decl,
+                word: node.value,
+                result,
+                ruleName,
+              });
+            }
+          }
+
+          if (isInvalidToken(head)) {
+            return stylelint.utils.report({
+              message: messages.invalidToken(head.value),
+              node: decl,
+              word: node.value,
+              result,
+              ruleName,
+            });
+          }
+
+          const isTokenUsage = isToken(head);
+          if (!isTokenUsage) {
+            return;
+          }
+
+          const hasFallback = tail.some(node => !isToken(node));
+          const isError = shouldEnsureFallbackUsage !== hasFallback;
+          if (isError) {
+            const message = shouldEnsureFallbackUsage
+              ? messages.missingFallback
+              : messages.hasFallback;
+            stylelint.utils.report({
+              message,
+              node: decl,
+              word: node.value,
+              result,
+              ruleName,
+            });
+          }
+        });
       });
-    });
-  };
-});
+    };
+  },
+);

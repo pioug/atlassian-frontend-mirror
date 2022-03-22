@@ -128,9 +128,9 @@ html[data-theme="dark"] {
   --ds-background-accent-magenta-bold: #AE4787;
   --ds-background-disabled: #A1BDD914;
   --ds-background-inverse: #ffffff33;
-  --ds-background-input: #BCD6F00A;
-  --ds-background-input-hovered: #161A1D;
-  --ds-background-input-pressed: #A1BDD914;
+  --ds-background-input: #1D2125;
+  --ds-background-input-hovered: #22272B;
+  --ds-background-input-pressed: #1D2125;
   --ds-background-neutral: #A1BDD914;
   --ds-background-neutral-hovered: #A6C5E229;
   --ds-background-neutral-pressed: #BFDBF847;

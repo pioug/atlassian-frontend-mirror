@@ -1,12 +1,7 @@
 import type { Rule } from 'eslint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
-
-const getCleanPathId = (path: string) =>
-  path
-    .split('.')
-    .filter((el) => el !== '[default]')
-    .join('.');
+import { getTokenId } from '@atlaskit/tokens/token-ids';
 
 const rule: Rule.RuleModule = {
   meta: {
@@ -43,20 +38,20 @@ const rule: Rule.RuleModule = {
 
         const migrationMeta = renameMapping
           .filter((t) => t.state === 'deprecated')
-          .find((t) => getCleanPathId(t.path) === tokenKey);
+          .find((t) => getTokenId(t.path) === tokenKey);
 
         if (migrationMeta) {
-          const cleanTokenKey = getCleanPathId(migrationMeta.replacement);
+          const replacement = getTokenId(migrationMeta.replacement);
 
           context.report({
             messageId: 'tokenRenamed',
             node,
             data: {
               name: tokenKey,
-              replacement: cleanTokenKey,
+              replacement,
             },
             fix: (fixer) =>
-              fixer.replaceText(node.arguments[0], `'${cleanTokenKey}'`),
+              fixer.replaceText(node.arguments[0], `'${replacement}'`),
           });
           return;
         }

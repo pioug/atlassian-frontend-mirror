@@ -1,42 +1,71 @@
-import { CSS_PREFIX } from '../../../constants';
+import { CSS_PREFIX } from '../../constants';
 import {
-  getCSSCustomPropertyId,
+  getCSSCustomProperty,
   getFullyQualifiedTokenId,
   getTokenId,
 } from '../../token-ids';
 
-describe('getCSSCustomPropertyId', () => {
+describe('getCSSCustomProperty', () => {
+  it('should parse path as a string', () => {
+    const actual = getCSSCustomProperty('color.background.bold.[default]');
+
+    expect(actual).toEqual(`--${CSS_PREFIX}-background-bold`);
+  });
+
+  it('should parse path as an array', () => {
+    const actual = getCSSCustomProperty([
+      'color',
+      'background',
+      'bold',
+      '[default]',
+    ]);
+
+    expect(actual).toEqual(`--${CSS_PREFIX}-background-bold`);
+  });
+
   it('should parse to a shortened value with camel case parts', () => {
-    const actual = getCSSCustomPropertyId([
+    const actual = getCSSCustomProperty([
       'color',
       'backgroundSubtleBorderedNeutral',
       'resting',
     ]);
 
     expect(actual).toEqual(
-      `${CSS_PREFIX}-backgroundSubtleBorderedNeutral-resting`,
+      `--${CSS_PREFIX}-backgroundSubtleBorderedNeutral-resting`,
     );
   });
 
   it('should parse to a shortened value without camel case parts', () => {
-    const actual = getCSSCustomPropertyId(['color', 'border', 'focus']);
+    const actual = getCSSCustomProperty(['color', 'border', 'focus']);
 
-    expect(actual).toEqual(`${CSS_PREFIX}-border-focus`);
+    expect(actual).toEqual(`--${CSS_PREFIX}-border-focus`);
   });
 
   it('should omit the [default] keyword', () => {
-    const actual = getCSSCustomPropertyId([
+    const actual = getCSSCustomProperty([
       'color',
       '[default]',
       'border',
       'focus',
     ]);
 
-    expect(actual).toEqual(`${CSS_PREFIX}-border-focus`);
+    expect(actual).toEqual(`--${CSS_PREFIX}-border-focus`);
   });
 });
 
 describe('getTokenId', () => {
+  it('should parse path as a string', () => {
+    const actual = getTokenId('color.background.bold.[default]');
+
+    expect(actual).toEqual('color.background.bold');
+  });
+
+  it('should parse path as an array', () => {
+    const actual = getTokenId(['color', 'background', 'bold', '[default]']);
+
+    expect(actual).toEqual('color.background.bold');
+  });
+
   it('should parse to a shortened value with camel case parts', () => {
     const actual = getTokenId([
       'color',

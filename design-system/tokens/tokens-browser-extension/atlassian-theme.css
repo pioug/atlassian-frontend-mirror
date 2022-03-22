@@ -132,9 +132,9 @@ html[data-theme='light'] {
   --ds-background-accent-magenta-bold: #E774BB;
   --ds-background-disabled: #091E420F;
   --ds-background-inverse: #00000029;
-  --ds-background-input: #091E4208;
-  --ds-background-input-hovered: #FFFFFF;
-  --ds-background-input-pressed: #091E420F;
+  --ds-background-input: #FFFFFF;
+  --ds-background-input-hovered: #F7F8F9;
+  --ds-background-input-pressed: #FFFFFF;
   --ds-background-neutral: #091E420F;
   --ds-background-neutral-hovered: #091E4224;
   --ds-background-neutral-pressed: #091E424F;
@@ -240,6 +240,8 @@ html[data-theme='light'] {
   --ds-interaction-pressed: #ffffff5c;
   --ds-interaction-inverse-hovered: #00000029;
   --ds-interaction-inverse-pressed: #00000052;
+  --ds-skeleton: #091E420F;
+  --ds-skeleton-subtle: #091E4208;
   --ds-link: #0C66E4;
   --ds-link-pressed: #0055CC;
   --ds-accent-boldBlue: #579DFF;
@@ -265,6 +267,7 @@ html[data-theme='light'] {
   --ds-card: 0px 1px 1px #091E4240, 0px 0px 1px #091E424F;
   --ds-overlay: 0px 8px 12px #091E4226, 0px 0px 1px #091E424F;
   --ds-shadow-raised: 0px 1px 1px #091E4240, 0px 0px 1px #091E424F;
+  --ds-shadow-overflow: 0px 8px 8px #091E4214, 0px 0px 1px #091E421F;
   --ds-shadow-overlay: 0px 8px 12px #091E4226, 0px 0px 1px #091E424F;
   --ds-surface: #FFFFFF;
   --ds-surface-sunken: #F7F8F9;
@@ -403,9 +406,9 @@ html[data-theme='dark'] {
   --ds-background-accent-magenta-bold: #AE4787;
   --ds-background-disabled: #A1BDD914;
   --ds-background-inverse: #ffffff33;
-  --ds-background-input: #BCD6F00A;
-  --ds-background-input-hovered: #161A1D;
-  --ds-background-input-pressed: #A1BDD914;
+  --ds-background-input: #1D2125;
+  --ds-background-input-hovered: #22272B;
+  --ds-background-input-pressed: #1D2125;
   --ds-background-neutral: #A1BDD914;
   --ds-background-neutral-hovered: #A6C5E229;
   --ds-background-neutral-pressed: #BFDBF847;
@@ -511,6 +514,8 @@ html[data-theme='dark'] {
   --ds-interaction-pressed: #00000052;
   --ds-interaction-inverse-hovered: #ffffff33;
   --ds-interaction-inverse-pressed: #ffffff5c;
+  --ds-skeleton: #A1BDD914;
+  --ds-skeleton-subtle: #BCD6F00A;
   --ds-link: #579DFF;
   --ds-link-pressed: #85B8FF;
   --ds-accent-boldBlue: #0C66E4;
@@ -536,6 +541,7 @@ html[data-theme='dark'] {
   --ds-card: 0px 1px 1px #03040480, 0px 0px 1px #03040480;
   --ds-overlay: inset 0px 0px 0px 1px #BCD6F00A, 0px 8px 12px #0304045C, 0px 0px 1px #03040480;
   --ds-shadow-raised: 0px 1px 1px #03040480, 0px 0px 1px #03040480;
+  --ds-shadow-overflow: 0px 0px 12px #0304048F, 0px 0px 1px #03040480;
   --ds-shadow-overlay: inset 0px 0px 0px 1px #BCD6F00A, 0px 8px 12px #0304045C, 0px 0px 1px #03040480;
   --ds-surface: #161A1D;
   --ds-surface-sunken: #101214;

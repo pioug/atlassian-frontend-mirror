@@ -1,6 +1,6 @@
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
-import { CSS_PREFIX } from '../../../scripts/style-dictionary/constants';
+import { CSS_PREFIX } from '../../constants';
 import token from '../../get-token';
 
 jest.mock('@atlaskit/ds-lib/warn-once');

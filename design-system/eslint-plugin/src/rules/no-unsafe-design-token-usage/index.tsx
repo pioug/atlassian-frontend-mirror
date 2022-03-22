@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
+import { getTokenId } from '@atlaskit/tokens/token-ids';
 import tokens from '@atlaskit/tokens/token-names';
 
 import {
@@ -12,12 +13,6 @@ import { isToken } from '../utils/is-token';
 type PluginConfig = {
   shouldEnforceFallbacks: boolean;
 };
-
-const getCleanPathId = (path: string) =>
-  path
-    .split('.')
-    .filter((el) => el !== '[default]')
-    .join('.');
 
 const defaultConfig: PluginConfig = {
   shouldEnforceFallbacks: false,
@@ -163,10 +158,10 @@ token('color.background.blanket');
 
         const migrationMeta = renameMapping
           .filter((t) => t.state === 'deleted')
-          .find((t) => getCleanPathId(t.path) === tokenKey);
+          .find((t) => getTokenId(t.path) === tokenKey);
 
         if (typeof tokenKey === 'string' && migrationMeta) {
-          const cleanTokenKey = getCleanPathId(migrationMeta.replacement);
+          const cleanTokenKey = getTokenId(migrationMeta.replacement);
 
           context.report({
             messageId: 'tokenRemoved',

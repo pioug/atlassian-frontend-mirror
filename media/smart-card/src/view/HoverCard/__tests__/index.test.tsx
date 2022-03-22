@@ -121,7 +121,7 @@ describe('HoverCard', () => {
     //trim because the icons are causing new lines in the textContent
     expect(titleBlock.textContent?.trim()).toBe('I love cheese');
     expect(snippetBlock.textContent).toBe('Here is your serving of cheese: 🧀');
-    expect(footerBlock.textContent?.trim()).toBe('Confluence');
+    expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
   });
 
   describe('when mouse moves over the child', () => {
@@ -229,5 +229,30 @@ describe('HoverCard', () => {
     fireEvent.keyDown(document, { key: 'Escape', code: 27 });
 
     expect(queryByTestId('hover-card')).toBeNull();
+  });
+
+  it('should render actions', async () => {
+    const { getByTestId } = await setup();
+    jest.runAllTimers();
+    const commentButton = await waitForElement(() => getByTestId('comment'));
+    const previewButton = await waitForElement(() =>
+      getByTestId('preview-content'),
+    );
+
+    expect(commentButton.textContent).toBe('Comment');
+    expect(previewButton.textContent).toBe('Preview');
+  });
+
+  it('should open preview modal after clicking preview button', async () => {
+    const { getByTestId } = await setup();
+    jest.runAllTimers();
+    const previewButton = await waitForElement(() =>
+      getByTestId('preview-content'),
+    );
+    fireEvent.click(previewButton);
+    const previewModal = await waitForElement(() =>
+      getByTestId('preview-modal'),
+    );
+    expect(previewModal).toBeTruthy();
   });
 });

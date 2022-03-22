@@ -14,6 +14,7 @@ import {
   SmartLinkSize,
   SmartLinkTheme,
   ActionItem,
+  APIError,
 } from '../../src';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import {
@@ -32,6 +33,11 @@ export const mockUrls = Object.keys(examples).reduce(
   (acc, key) => ({ ...acc, [key]: `https://${key}` }),
   {},
 );
+
+export const exceptionUrls = {
+  ResolveUnsupportedError:
+    'https://fatal-exception-url?s=ResolveUnsupportedError',
+};
 
 export const statusUrls = {
   Errored: 'https://errored-url?s=something%20went%20wrong',
@@ -238,6 +244,12 @@ export const responses = {
       },
     ],
   }),
+  [exceptionUrls.ResolveUnsupportedError]: new APIError(
+    'fatal',
+    'localhost',
+    'something wrong',
+    'ResolveUnsupportedError',
+  ),
 };
 
 export const blockOptionStyles = css`

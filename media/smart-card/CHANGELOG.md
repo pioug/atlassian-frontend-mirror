@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 18.0.3
+
+### Patch Changes
+
+- [`7dc2fb8eb8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7dc2fb8eb8b) - Handle exceptions coming from client
+
+## 18.0.2
+
+### Patch Changes
+
+- [`cff21812950`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cff21812950) - add smart link actions to footer of hover card, plus small styling changes
+
 ## 18.0.1
 
 ### Patch Changes

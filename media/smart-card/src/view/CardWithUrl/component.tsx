@@ -19,6 +19,8 @@ import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
+import { APIError } from '../..';
+import { CardState } from '../../state/store/types';
 
 export function CardWithUrlContent({
   id,
@@ -148,15 +150,13 @@ export function CardWithUrlContent({
     id,
   ]);
 
-  // We have to keep this last to prevent hook order from being violated
-  if (error) {
-    throw error;
-  }
-
   if (isFlexibleUi) {
+    let cardState: CardState =
+      error?.constructor === APIError ? { status: 'errored' } : state;
+
     return (
       <FlexibleCard
-        cardState={state}
+        cardState={cardState}
         onAuthorize={(services.length && handleAuthorize) || undefined}
         onClick={handleClickWrapper}
         renderers={renderers}
@@ -167,6 +167,11 @@ export function CardWithUrlContent({
         {children}
       </FlexibleCard>
     );
+  }
+
+  // We have to keep this last to prevent hook order from being violated
+  if (error) {
+    throw error;
   }
 
   switch (appearance) {

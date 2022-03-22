@@ -14,9 +14,9 @@ const color: ValueSchema<BackgroundColorTokenSchema> = {
       // @ts-ignore temporary value
       inverse: { value: '#ffffff33' },
       input: {
-        '[default]': { value: 'DN100A' },
-        hovered: { value: 'DN0' },
-        pressed: { value: 'DN200A' },
+        '[default]': { value: 'DN100' },
+        hovered: { value: 'DN200' },
+        pressed: { value: 'DN100' },
       },
       neutral: {
         '[default]': {

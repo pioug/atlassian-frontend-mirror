@@ -31,6 +31,7 @@ export function keymapPlugin(options?: MediaOptions): SafePlugin {
       list,
     );
   }
+
   keymaps.bindKeymapWithCommand(
     keymaps.insertNewLine.common!,
     splitMediaGroup,

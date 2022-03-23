@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 18.0.5
+
+### Patch Changes
+
+- [`54d8579fe05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d8579fe05) - Flexible UI: Reduce link title font weight
+
+## 18.0.4
+
+### Patch Changes
+
+- [`dd4ae8205d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd4ae8205d1) - Add actions for non-resolved view of flexible ui
+
 ## 18.0.3
 
 ### Patch Changes

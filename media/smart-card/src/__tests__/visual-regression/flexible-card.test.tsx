@@ -22,11 +22,12 @@ describe('Flexible Card', () => {
 
     it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
+      const screenshotSize = 2000;
       const page = await setup(url);
 
       await page.waitForSelector('[data-testid="smart-links-container"]');
 
-      let image = await takeSnapshot(page, 1900);
+      let image = await takeSnapshot(page, screenshotSize);
       expect(image).toMatchProdImageSnapshot();
 
       // Hover over "more actions" (three dots) button on "action on hover only" row
@@ -38,7 +39,7 @@ describe('Flexible Card', () => {
       const moreActionsSelector = `${hoverActionsRowSelector} [data-testid="action-group-more-button"]`;
       await page.waitForSelector(moreActionsSelector, { visible: true });
 
-      image = await takeSnapshot(page, 1900);
+      image = await takeSnapshot(page, screenshotSize);
       expect(image).toMatchProdImageSnapshot();
 
       await page.click(moreActionsSelector);
@@ -48,7 +49,7 @@ describe('Flexible Card', () => {
       await page.waitForSelector(deleteActionSelector);
       await page.hover(deleteActionSelector);
 
-      image = await takeSnapshot(page, 1900);
+      image = await takeSnapshot(page, screenshotSize);
       expect(image).toMatchProdImageSnapshot();
     });
 

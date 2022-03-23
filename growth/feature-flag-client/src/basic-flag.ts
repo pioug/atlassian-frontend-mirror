@@ -44,9 +44,17 @@ export default class BasicFlag implements FlagWrapper {
 
   private getCachedResultOrCompute(
     defaultValue: FlagValue,
-    shouldTrackExposureEvent?: boolean,
-    exposureData?: CustomAttributes,
-    oneOf?: FlagValue[],
+    {
+      shouldTrackExposureEvent,
+      exposureData,
+      oneOf,
+      ignoreTypes,
+    }: {
+      shouldTrackExposureEvent?: boolean;
+      exposureData?: CustomAttributes;
+      oneOf?: FlagValue[];
+      ignoreTypes?: boolean;
+    } = {},
   ): FlagValue {
     let exposureTriggerReason = ExposureTriggerReason.OptIn;
     if (shouldTrackExposureEvent === undefined) {
@@ -61,7 +69,7 @@ export default class BasicFlag implements FlagWrapper {
     if (result === undefined) {
       result = this._evaluationResult = this.computeWithValidation(
         defaultValue,
-        oneOf,
+        { oneOf, ignoreTypes },
       );
     }
 
@@ -87,7 +95,13 @@ export default class BasicFlag implements FlagWrapper {
 
   private computeWithValidation(
     defaultValue: FlagValue,
-    oneOf?: FlagValue[],
+    {
+      oneOf,
+      ignoreTypes,
+    }: {
+      oneOf?: FlagValue[];
+      ignoreTypes?: boolean;
+    },
   ): EvaluationResult {
     let result: EvaluationResult = {
       value: this.flag.value,
@@ -95,7 +109,7 @@ export default class BasicFlag implements FlagWrapper {
       didFallbackToDefaultValue: false,
     };
 
-    if (typeof this.flag.value !== typeof defaultValue) {
+    if (!ignoreTypes && typeof this.flag.value !== typeof defaultValue) {
       result.value = defaultValue;
       result.didFallbackToDefaultValue = true;
       result.explanation = {
@@ -121,11 +135,11 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): boolean {
-    const value = this.getCachedResultOrCompute(
-      options.default,
-      options.shouldTrackExposureEvent,
-      options.exposureData,
-    );
+    const value = this.getCachedResultOrCompute(options.default, {
+      ...options,
+      oneOf: undefined,
+      ignoreTypes: false,
+    });
 
     return value as boolean;
   }
@@ -136,18 +150,19 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): string {
-    const value = this.getCachedResultOrCompute(
-      options.default,
-      options.shouldTrackExposureEvent,
-      options.exposureData,
-      options.oneOf,
-    );
+    const value = this.getCachedResultOrCompute(options.default, {
+      ...options,
+      ignoreTypes: false,
+    });
 
     return value as string;
   }
 
   getJSONValue(): object {
-    return this.getCachedResultOrCompute({}, false) as object;
+    return this.getCachedResultOrCompute(
+      {},
+      { shouldTrackExposureEvent: false },
+    ) as object;
   }
 
   getRawValue(options: {
@@ -155,10 +170,10 @@ export default class BasicFlag implements FlagWrapper {
     shouldTrackExposureEvent?: boolean;
     exposureData?: CustomAttributes;
   }): FlagValue {
-    return this.getCachedResultOrCompute(
-      options.default,
-      options.shouldTrackExposureEvent,
-      options.exposureData,
-    );
+    return this.getCachedResultOrCompute(options.default, {
+      ...options,
+      oneOf: undefined,
+      ignoreTypes: true,
+    });
   }
 }

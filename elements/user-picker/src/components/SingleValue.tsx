@@ -1,29 +1,27 @@
+/** @jsx jsx */
 import { AvatarItem } from '@atlaskit/avatar';
-import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 import { Option } from '../types';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl } from './utils';
 
-const AvatarItemComponent = styled.div`
-  border: none !important;
-  padding: 0 !important;
-  width: auto;
-  overflow: hidden;
+const avatarItemComponent = css({
+  border: 'none !important',
+  padding: '0 !important',
+  width: 'auto',
+  overflow: 'hidden',
   /* IE 11 needs this prop explicitly to flex items */
-  flex: 1 1 auto;
-  min-width: 100px;
-
-  & > span {
-    box-sizing: border-box;
-  }
-
-  &:hover {
-    width: auto;
-    padding: 0;
-    border: none;
-  }
-`;
+  flex: '1 1 auto',
+  minWidth: '100px',
+  '& > span': {
+    boxSizing: 'border-box',
+  },
+  '&:hover': {
+    width: 'auto',
+    padding: 0,
+    border: 'none',
+  },
+});
 
 type Props = {
   data: Option;
@@ -48,7 +46,7 @@ export const SingleValue = (props: Props) => {
       }
       primaryText={label}
     >
-      {({ ref, ...props }) => <AvatarItemComponent {...props} />}
+      {({ ref, ...props }) => <div css={avatarItemComponent} {...props} />}
     </AvatarItem>
   ) : null;
 };

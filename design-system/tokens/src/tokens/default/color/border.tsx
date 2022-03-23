@@ -7,6 +7,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use to visually group or separate UI elements, such as flat cards or side panel dividers.',
         },
@@ -15,6 +16,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for focus rings of elements in a focus state.',
         },
       },
@@ -22,6 +24,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons.',
         },
@@ -30,6 +33,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for borders of elements in a disabled state.',
         },
       },
@@ -37,6 +41,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons.',
         },
@@ -45,6 +50,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.2',
           description:
             'Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items.',
         },
@@ -53,6 +59,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for borders communicating critical information, such as the borders on invalid text fields.',
         },
@@ -61,6 +68,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for borders communicating caution.',
         },
       },
@@ -68,6 +76,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for borders communicating a favourable outcome, such as the borders on validated text fields.',
         },
@@ -76,6 +85,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for borders communicating change or something new, such as the borders in onboarding spotlights.',
         },
@@ -84,6 +94,7 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for borders communicating information or something in-progress.',
         },

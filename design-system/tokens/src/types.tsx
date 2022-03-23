@@ -38,12 +38,14 @@ export interface DesignToken<TValue, Group extends Groups>
         group: Group;
         description: string;
         state: ActiveTokenStates;
+        introduced: string;
         replacement?: undefined;
       }
     | {
         group: Group;
         description: string;
         state: ReplacedTokenStates;
+        introduced: string;
         replacement?: Replacement; // Still optional, as there may be no correct replacement
       };
 }

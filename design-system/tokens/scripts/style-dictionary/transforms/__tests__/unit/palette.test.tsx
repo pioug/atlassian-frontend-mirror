@@ -32,7 +32,12 @@ describe('palette transformer', () => {
 
   it('should transform a paint token value to a palette value', () => {
     const token: PaintToken = {
-      attributes: { group: 'paint', description: '', state: 'active' },
+      attributes: {
+        group: 'paint',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: 'B600',
     };
 
@@ -43,7 +48,12 @@ describe('palette transformer', () => {
 
   it('should transform a shadow token value to a palette value', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow', description: '', state: 'active' },
+      attributes: {
+        group: 'shadow',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: [{ color: 'B100', offset: { x: 0, y: 0 }, opacity: 1, radius: 1 }],
     };
 
@@ -54,7 +64,12 @@ describe('palette transformer', () => {
 
   it('should transfer raw color values', () => {
     const token: PaintToken = {
-      attributes: { group: 'paint', description: '', state: 'active' },
+      attributes: {
+        group: 'paint',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       // @ts-ignore
       value: '#FEFEFE',
     };
@@ -66,7 +81,12 @@ describe('palette transformer', () => {
 
   it('should transfer transparent to equivallant hex representation', () => {
     const token: PaintToken = {
-      attributes: { group: 'paint', description: '', state: 'active' },
+      attributes: {
+        group: 'paint',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       // @ts-ignore
       value: 'transparent',
     };

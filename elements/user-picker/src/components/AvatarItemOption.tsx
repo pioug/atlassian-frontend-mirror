@@ -1,7 +1,6 @@
+/** @jsx jsx */
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
-import { B400 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { css, jsx } from '@emotion/core';
 import Lozenge from '@atlaskit/lozenge';
 import { LozengeProps } from '../types';
 
@@ -15,38 +14,40 @@ const AsyncTooltip = React.lazy(() =>
   }),
 );
 
-const Wrapper = styled.span`
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  line-height: 1;
-  outline: none;
-  margin: 0;
-  width: 100%;
-  cursor: pointer;
-`;
+const wrapper = css({
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  display: 'flex',
+  lineHeight: 1,
+  outline: 'none',
+  margin: 0,
+  width: '100%',
+  cursor: 'pointer',
+});
 
-const Text = styled.span<{ secondary?: boolean }>`
-  margin: 0;
-  color: ${token('color.text.brand', B400)};
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  ${({ secondary }) =>
-    secondary &&
-    `color: ${token('color.text.brand', B400)}; font-size: 0.85em;`}
-`;
+const getTextStyle = (isSecondary?: boolean) => {
+  const secondaryCssArgs = isSecondary ? { fontSize: '0.85em' } : {};
 
-const AdditionalInfo = styled.span`
-  float: right;
-`;
+  return css({
+    margin: 0,
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    ...secondaryCssArgs,
+  });
+};
 
-export const TextWrapper = styled.span`
-  color: ${({ color }) => color};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-block;
-`;
+const additionalInfo = css({
+  float: 'right',
+});
+
+export const textWrapper = (color?: string) =>
+  css({
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: 'inline-block',
+    color,
+  });
 
 export type AvatarItemOptionProps = {
   avatar: ReactNode;
@@ -61,7 +62,7 @@ export const AvatarItemOption = ({
   secondaryText,
   lozenge,
 }: AvatarItemOptionProps) => (
-  <Wrapper>
+  <span css={wrapper}>
     {avatar}
     <div
       style={{
@@ -73,8 +74,8 @@ export const AvatarItemOption = ({
       }}
     >
       <div>
-        <Text>{primaryText}</Text>
-        <AdditionalInfo>
+        <span css={getTextStyle()}>{primaryText}</span>
+        <span css={additionalInfo}>
           {lozenge?.text &&
             (lozenge?.tooltip ? (
               // Note that entire Lozenge must be wrapped in the Tooltip (rather than just the
@@ -89,11 +90,11 @@ export const AvatarItemOption = ({
             ) : (
               <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
             ))}
-        </AdditionalInfo>
+        </span>
       </div>
       <div>
-        <Text secondary>{secondaryText}</Text>
+        <span css={getTextStyle(true)}>{secondaryText}</span>
       </div>
     </div>
-  </Wrapper>
+  </span>
 );

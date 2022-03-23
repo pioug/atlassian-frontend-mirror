@@ -6,6 +6,7 @@ import TitleBlock from '../index';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import {
+  ActionName,
   ElementName,
   SmartLinkStatus,
   SmartLinkTheme,
@@ -75,24 +76,52 @@ describe('TitleBlock', () => {
     expect(element).toBeDefined();
   });
 
-  it('should render actions', async () => {
-    const testId = 'smart-element-test';
-    const { getByTestId, queryByTestId } = renderTitleBlock({
-      actions: [
-        makeDeleteActionItem({ testId: `${testId}-1` }),
-        makeCustomActionItem({ testId: `${testId}-2` }),
-      ],
-    });
+  // Do not blindly add more actions here (like Download and Preview)
+  const nonResolvedAllowedActions = [
+    ActionName.EditAction,
+    ActionName.DeleteAction,
+    ActionName.CustomAction,
+  ];
 
-    for (let i = 0; i < 2; i++) {
-      const element = await waitForElement(() =>
-        getByTestId(`smart-element-test-${i + 1}`),
-      );
-      expect(element).toBeDefined();
+  for (const [status, allowedActionNames] of [
+    [SmartLinkStatus.Resolved, Object.values(ActionName)],
+    [SmartLinkStatus.Resolving, nonResolvedAllowedActions],
+    [SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
+    [SmartLinkStatus.Errored, nonResolvedAllowedActions],
+    [SmartLinkStatus.NotFound, nonResolvedAllowedActions],
+    [SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
+    [SmartLinkStatus.Fallback, nonResolvedAllowedActions],
+  ] as [SmartLinkStatus, ActionName[]][]) {
+    for (const allowedActionName of allowedActionNames) {
+      it(`should render ${allowedActionName} action in ${status} view `, async () => {
+        const testId = 'smart-element-test';
+
+        const action =
+          allowedActionName === ActionName.CustomAction
+            ? makeCustomActionItem({
+                testId: `${testId}-1`,
+              })
+            : {
+                name: allowedActionName,
+                testId: `${testId}-1`,
+                onClick: () => {},
+              };
+
+        const { getByTestId } = renderTitleBlock({
+          status,
+          actions: [action],
+        });
+
+        const element = await waitForElement(() =>
+          getByTestId(`smart-element-test-1`),
+        );
+        expect(element).toBeDefined();
+      });
     }
+  }
 
-    expect(queryByTestId(`action-group-more-button`)).toBeNull();
-  });
+  // Uncomment and implement when new actions (like Download and preview) are added
+  // it('should not render ___ action in non resolved view ___', () => {});
 
   it('should render only one action when on hover only activated', async () => {
     const testId = 'smart-element-test';
@@ -123,21 +152,33 @@ describe('TitleBlock', () => {
   });
 
   describe('Title', () => {
-    it('renders title element with parent props including text override', async () => {
-      const { getByTestId } = renderTitleBlock({
-        theme: SmartLinkTheme.Black,
-        maxLines: 2,
-        text: 'Spaghetti',
-      });
+    it.each([
+      [SmartLinkStatus.Resolved],
+      [SmartLinkStatus.Resolving],
+      [SmartLinkStatus.Forbidden],
+      [SmartLinkStatus.Errored],
+      [SmartLinkStatus.NotFound],
+      [SmartLinkStatus.Unauthorized],
+      [SmartLinkStatus.Fallback],
+    ])(
+      'renders title element with parent props including text override in %s view ',
+      async (status: SmartLinkStatus) => {
+        const { getByTestId } = renderTitleBlock({
+          status,
+          theme: SmartLinkTheme.Black,
+          maxLines: 2,
+          text: 'Spaghetti',
+        });
 
-      const element = await waitForElement(() => getByTestId(titleTestId));
-      expect(element.textContent).toEqual('Spaghetti');
+        const element = await waitForElement(() => getByTestId(titleTestId));
+        expect(element.textContent).toEqual('Spaghetti');
 
-      expect(element).toHaveStyleDeclaration(
-        'color',
-        expect.stringContaining('#44546F'),
-      );
-    });
+        expect(element).toHaveStyleDeclaration(
+          'color',
+          expect.stringContaining('#44546F'),
+        );
+      },
+    );
   });
 
   describe('status', () => {

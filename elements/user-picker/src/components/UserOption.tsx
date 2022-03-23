@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { User } from '../types';
-import { AvatarItemOption, TextWrapper } from './AvatarItemOption';
+import { AvatarItemOption, textWrapper } from './AvatarItemOption';
 import { HighlightText } from './HighlightText';
 import { SizeableAvatar } from './SizeableAvatar';
 import { hasValue } from './utils';
@@ -20,36 +22,36 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
     } = this.props;
 
     const result = [
-      <TextWrapper
+      <span
         key="name"
-        color={
+        css={textWrapper(
           this.props.isSelected
             ? token('color.text.selected', B400)
-            : token('color.text', N800)
-        }
+            : token('color.text', N800),
+        )}
       >
         <HighlightText highlights={highlight && highlight.name}>
           {name}
         </HighlightText>
-      </TextWrapper>,
+      </span>,
     ];
     if (hasValue(publicName) && name.trim() !== publicName.trim()) {
       result.push(
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper
-            color={
+          <span
+            css={textWrapper(
               this.props.isSelected
                 ? token('color.text.selected', B400)
-                : token('color.text.subtlest', N200)
-            }
+                : token('color.text.subtlest', N200),
+            )}
           >
             (
             <HighlightText highlights={highlight && highlight.publicName}>
               {publicName}
             </HighlightText>
             )
-          </TextWrapper>
+          </span>
         </React.Fragment>,
       );
     }
@@ -58,15 +60,15 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 
   renderSecondaryText = () =>
     this.props.user.byline ? (
-      <TextWrapper
-        color={
+      <span
+        css={textWrapper(
           this.props.isSelected
             ? token('color.text.selected', B400)
-            : token('color.text.subtlest', N200)
-        }
+            : token('color.text.subtlest', N200),
+        )}
       >
         {this.props.user.byline}
-      </TextWrapper>
+      </span>
     ) : undefined;
 
   private renderAvatar = () => {

@@ -1,9 +1,11 @@
+/** @jsx jsx */
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { Team } from '../../types';
-import { AvatarItemOption, TextWrapper } from '.././AvatarItemOption';
+import { AvatarItemOption, textWrapper } from '.././AvatarItemOption';
 import { HighlightText } from '.././HighlightText';
 import { messages } from '.././i18n';
 import { SizeableAvatar } from '.././SizeableAvatar';
@@ -20,18 +22,18 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
     } = this.props;
 
     return [
-      <TextWrapper
+      <span
         key="name"
-        color={
+        css={textWrapper(
           this.props.isSelected
             ? token('color.text.selected', B400)
-            : token('color.text', N800)
-        }
+            : token('color.text', N800),
+        )}
       >
         <HighlightText highlights={highlight && highlight.name}>
           {name}
         </HighlightText>
-      </TextWrapper>,
+      </span>,
     ];
   };
 
@@ -84,15 +86,15 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
   };
 
   private getBylineComponent = (isSelected: boolean, message: JSX.Element) => (
-    <TextWrapper
-      color={
+    <span
+      css={textWrapper(
         isSelected
           ? token('color.text.selected', B400)
-          : token('color.text.subtlest', N200)
-      }
+          : token('color.text.subtlest', N200),
+      )}
     >
       {message}
-    </TextWrapper>
+    </span>
   );
 
   private renderAvatar = () => {

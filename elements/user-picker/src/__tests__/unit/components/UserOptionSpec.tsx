@@ -5,13 +5,24 @@ import React from 'react';
 import { LozengeProps } from '../../../types';
 import {
   AvatarItemOption,
-  TextWrapper,
+  textWrapper,
 } from '../../../components/AvatarItemOption';
 import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { UserOption, UserOptionProps } from '../../../components/UserOption';
 
+jest.mock('../../../components/AvatarItemOption', () => ({
+  ...(jest.requireActual('../../../components/AvatarItemOption') as any),
+  textWrapper: jest.fn(),
+}));
+
 describe('User Option', () => {
+  const mockTextWrapper = textWrapper as jest.Mock;
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   const user = {
     id: 'abc-123',
     name: 'Jace Beleren',
@@ -44,21 +55,17 @@ describe('User Option', () => {
         />
       ),
       primaryText: [
-        <TextWrapper key="name" color={token('color.text', colors.N800)}>
+        <span key="name" css={textWrapper(token('color.text', colors.N800))}>
           <HighlightText>Jace Beleren</HighlightText>
-        </TextWrapper>,
+        </span>,
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={token('color.text.subtlest', colors.N200)}>
+          <span>
             (<HighlightText>jbeleren</HighlightText>)
-          </TextWrapper>
+          </span>
         </React.Fragment>,
       ],
-      secondaryText: (
-        <TextWrapper color={token('color.text.subtlest', colors.N200)}>
-          Teammate
-        </TextWrapper>
-      ),
+      secondaryText: <span>Teammate</span>,
       lozenge: {
         text: 'WORKSPACE',
       },
@@ -68,6 +75,10 @@ describe('User Option', () => {
   it('should render Option in selected state', () => {
     const component = shallowOption({ isSelected: true });
     const avatarItemOption = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenNthCalledWith(
+      3,
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarItemOption.props()).toMatchObject({
       avatar: (
         <SizeableAvatar
@@ -78,24 +89,17 @@ describe('User Option', () => {
         />
       ),
       primaryText: [
-        <TextWrapper
-          key="name"
-          color={token('color.text.selected', colors.B400)}
-        >
+        <span key="name">
           <HighlightText>Jace Beleren</HighlightText>
-        </TextWrapper>,
+        </span>,
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={token('color.text.selected', colors.B400)}>
+          <span>
             (<HighlightText>jbeleren</HighlightText>)
-          </TextWrapper>
+          </span>
         </React.Fragment>,
       ],
-      secondaryText: (
-        <TextWrapper color={token('color.text.selected', colors.B400)}>
-          Teammate
-        </TextWrapper>
-      ),
+      secondaryText: <span>Teammate</span>,
     });
   });
 
@@ -113,6 +117,14 @@ describe('User Option', () => {
     const component = shallowOption({ user: userWithLozenge });
 
     const avatarItemOption = component.find(AvatarItemOption);
+
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text', colors.N800),
+    );
+    expect(mockTextWrapper).toHaveBeenNthCalledWith(
+      2,
+      token('color.text.subtlest', colors.N200),
+    );
     expect(avatarItemOption.props()).toMatchObject({
       avatar: (
         <SizeableAvatar
@@ -123,21 +135,17 @@ describe('User Option', () => {
         />
       ),
       primaryText: [
-        <TextWrapper key="name" color={token('color.text', colors.N800)}>
+        <span key="name">
           <HighlightText>Jace Beleren</HighlightText>
-        </TextWrapper>,
+        </span>,
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={token('color.text.subtlest', colors.N200)}>
+          <span>
             (<HighlightText>jbeleren</HighlightText>)
-          </TextWrapper>
+          </span>
         </React.Fragment>,
       ],
-      secondaryText: (
-        <TextWrapper color={token('color.text.subtlest', colors.N200)}>
-          Teammate
-        </TextWrapper>
-      ),
+      secondaryText: <span>Teammate</span>,
       lozenge: {
         text: 'GUEST',
         appearance: 'new',
@@ -155,29 +163,33 @@ describe('User Option', () => {
     };
     const component = shallowOption({ user: userWithHighlight });
     const avatarItemOption = component.find(AvatarItemOption);
+
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text', colors.N800),
+    );
+    expect(mockTextWrapper).toHaveBeenNthCalledWith(
+      2,
+      token('color.text.subtlest', colors.N200),
+    );
     expect(avatarItemOption.props()).toMatchObject({
       primaryText: [
-        <TextWrapper key="name" color={token('color.text', colors.N800)}>
+        <span key="name">
           <HighlightText highlights={[{ start: 0, end: 2 }]}>
             Jace Beleren
           </HighlightText>
-        </TextWrapper>,
+        </span>,
         <React.Fragment key="publicName">
           {' '}
-          <TextWrapper color={token('color.text.subtlest', colors.N200)}>
+          <span>
             (
             <HighlightText highlights={[{ start: 2, end: 4 }]}>
               jbeleren
             </HighlightText>
             )
-          </TextWrapper>
+          </span>
         </React.Fragment>,
       ],
-      secondaryText: (
-        <TextWrapper color={token('color.text.subtlest', colors.N200)}>
-          Teammate
-        </TextWrapper>
-      ),
+      secondaryText: <span>Teammate</span>,
     });
   });
 
@@ -192,12 +204,15 @@ describe('User Option', () => {
     };
     const component = shallowOption({ user: userWithoutName });
     const avatarItemOption = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text', colors.N800),
+    );
     expect(avatarItemOption.prop('primaryText')).toEqual([
-      <TextWrapper key="name" color={token('color.text', colors.N800)}>
+      <span key="name">
         <HighlightText highlights={[{ start: 2, end: 4 }]}>
           jbeleren
         </HighlightText>
-      </TextWrapper>,
+      </span>,
     ]);
   });
 
@@ -208,10 +223,13 @@ describe('User Option', () => {
     };
     const component = shallowOption({ user: userWithSamePublicName });
     const avatarItemOption = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text', colors.N800),
+    );
     expect(avatarItemOption.prop('primaryText')).toEqual([
-      <TextWrapper key="name" color={token('color.text', colors.N800)}>
+      <span key="name">
         <HighlightText>Jace Beleren</HighlightText>
-      </TextWrapper>,
+      </span>,
     ]);
   });
 
@@ -222,10 +240,13 @@ describe('User Option', () => {
     };
     const component = shallowOption({ user: userWithSamePublicName });
     const avatarItemOption = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text', colors.N800),
+    );
     expect(avatarItemOption.prop('primaryText')).toEqual([
-      <TextWrapper key="name" color={token('color.text', colors.N800)}>
+      <span key="name">
         <HighlightText>Jace Beleren</HighlightText>
-      </TextWrapper>,
+      </span>,
     ]);
   });
 });

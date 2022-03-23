@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { components, OptionType } from '@atlaskit/select';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
 import { messages } from './i18n';
@@ -26,13 +27,13 @@ export const scrollToValue = (
   }
 };
 
-const GroupTagContainer = styled.div`
-  padding-left: 2px;
-`;
+const groupTagContainer = css({
+  paddingLeft: '2px',
+});
 
-const NameWrapper = styled.span`
-  padding-left: 5px;
-`;
+const nameWrapper = css({
+  paddingLeft: '5px',
+});
 
 type Props = MultiValueProps<OptionType> & {
   isFocused?: boolean;
@@ -107,9 +108,9 @@ export class MultiValue extends React.Component<Props> {
 
     if (isGroup(data)) {
       return (
-        <GroupTagContainer>
+        <div css={groupTagContainer}>
           <PeopleIcon label="group-icon" size="small" />
-        </GroupTagContainer>
+        </div>
       );
     }
 
@@ -131,7 +132,7 @@ export class MultiValue extends React.Component<Props> {
         innerProps={{ ref: this.containerRef }}
         cropWithEllipsis={false}
       >
-        {this.getElemBefore()} <NameWrapper>{children}</NameWrapper>
+        {this.getElemBefore()} <div css={nameWrapper}>{children}</div>
       </components.MultiValue>
     );
   }

@@ -4,9 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
-import { LinkIcon, Title } from '../../../elements';
 import { TitleBlockProps } from '../types';
-import Block from '../../block';
 import {
   SmartLinkAlignment,
   SmartLinkDirection,
@@ -19,6 +17,7 @@ import {
 } from '../../../utils';
 import ElementGroup from '../../element-group';
 import { tokens } from '../../../../../../utils/token';
+import { BaseTitleBlockComponent } from '../utils';
 
 const actionStyles: SerializedStyles = css`
   cursor: pointer;
@@ -46,24 +45,16 @@ const getMessageStyles = (
   `;
 };
 
-const TitleBlockErroredView: React.FC<TitleBlockProps> = ({
-  maxLines,
-  retry,
-  position,
-  testId,
-  theme,
-  text,
-  ...blockProps
-}) => {
-  const { descriptor, onClick, values } = retry || {};
-  const { size = SmartLinkSize.Medium } = blockProps;
+const TitleBlockErroredView: React.FC<TitleBlockProps> = (props) => {
+  const { size = SmartLinkSize.Medium, retry, testId } = props;
+  const { descriptor: retryDescriptor, onClick, values: retryValues } =
+    retry || {};
+
   const hasAction = onClick !== undefined;
-  const overrideText = !!text ? { text } : {};
+
   return (
-    <Block {...blockProps} testId={`${testId}-errored-view`}>
-      <LinkIcon position={position} />
-      <Title {...overrideText} maxLines={maxLines} theme={theme} />
-      {descriptor && (
+    <BaseTitleBlockComponent {...props} blockTestIdPostfix="errored-view">
+      {retryDescriptor && (
         <ElementGroup
           direction={SmartLinkDirection.Horizontal}
           align={SmartLinkAlignment.Right}
@@ -73,11 +64,11 @@ const TitleBlockErroredView: React.FC<TitleBlockProps> = ({
             onClick={onClick}
             data-testid={`${testId}-errored-view-message`}
           >
-            <FormattedMessage {...descriptor} values={values} />
+            <FormattedMessage {...retryDescriptor} values={retryValues} />
           </span>
         </ElementGroup>
       )}
-    </Block>
+    </BaseTitleBlockComponent>
   );
 };
 

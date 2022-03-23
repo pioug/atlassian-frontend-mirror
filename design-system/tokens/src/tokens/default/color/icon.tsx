@@ -7,6 +7,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for icon-only buttons, or icons paired with color.text',
         },
@@ -15,6 +16,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for icons paired with color.text.subtle',
         },
       },
@@ -22,6 +24,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for icons on bold backgrounds.',
         },
       },
@@ -29,6 +32,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for icons in a disabled state.',
         },
       },
@@ -36,6 +40,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description: 'Use for icons that reinforce our brand.',
         },
       },
@@ -43,6 +48,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.2',
           description:
             'Use for icons in selected or opened states, such as those used in dropdown buttons.',
         },
@@ -51,8 +57,9 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
-            'Use for icons communicating critical informaton, such as those used in error handing.',
+            'Use for icons communicating critical information, such as those used in error handing.',
         },
       },
       warning: {
@@ -60,6 +67,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.6.0',
             description:
               'Use for icons communicating caution, such as those used in warning section messages.',
           },
@@ -68,6 +76,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.6.0',
             description: 'Use for icons when on bold warning backgrounds.',
           },
         },
@@ -76,6 +85,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for icons communicating a favourable outcome, such as those used in success section messaged.',
         },
@@ -84,6 +94,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for icons communicating change or something new, such as discovery section messages.',
         },
@@ -92,6 +103,7 @@ const color: AttributeSchema<IconColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for icons communicating information or something in-progress, such as information section messages.',
         },

@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
 import {
   AvatarItemOption,
-  TextWrapper,
+  textWrapper,
 } from '../../../components/AvatarItemOption';
 import {
   EmailOption,
@@ -15,7 +15,18 @@ import {
 import { Email, EmailType } from '../../../types';
 import { renderProp } from '../_testUtils';
 
+jest.mock('../../../components/AvatarItemOption', () => ({
+  ...(jest.requireActual('../../../components/AvatarItemOption') as any),
+  textWrapper: jest.fn(),
+}));
+
 describe('EmailOption', () => {
+  const mockTextWrapper = textWrapper as jest.Mock;
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   const shallowEmailOption = (props: EmailOptionProps) =>
     shallow(<EmailOption {...props} />);
 
@@ -45,18 +56,14 @@ describe('EmailOption', () => {
     expect(formattedMessage).toHaveLength(1);
     const message = renderProp(formattedMessage, 'children', 'Invite');
     const avatarItemOption = message.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.subtlest', N200),
+    );
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
-      primaryText: (
-        <TextWrapper key="name" color={token('color.text', N800)}>
-          test@test.com
-        </TextWrapper>
-      ),
-      secondaryText: (
-        <TextWrapper color={token('color.text.subtlest', N200)}>
-          Invite
-        </TextWrapper>
-      ),
+      primaryText: <span key="name">test@test.com</span>,
+      secondaryText: <span>Invite</span>,
       lozenge: {
         text: 'EMAIL',
       },
@@ -74,18 +81,15 @@ describe('EmailOption', () => {
     expect(formattedMessage).toHaveLength(1);
     const message = renderProp(formattedMessage, 'children', 'Invite');
     const avatarItemOption = message.find(AvatarItemOption);
+
+    expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.subtlest', N200),
+    );
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Invite" />,
-      primaryText: (
-        <TextWrapper key="name" color={token('color.text', N800)}>
-          test@test.com
-        </TextWrapper>
-      ),
-      secondaryText: (
-        <TextWrapper color={token('color.text.subtlest', N200)}>
-          Invite
-        </TextWrapper>
-      ),
+      primaryText: <span key="name">test@test.com</span>,
+      secondaryText: <span>Invite</span>,
       lozenge: {
         text: 'EMAIL',
       },
@@ -100,18 +104,14 @@ describe('EmailOption', () => {
       emailValidity: 'VALID',
     });
     const avatarItemOption = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text', N800));
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.subtlest', N200),
+    );
     expect(avatarItemOption.props()).toMatchObject({
       avatar: <AddOptionAvatar label="Add new user" />,
-      primaryText: (
-        <TextWrapper key="name" color={token('color.text', N800)}>
-          test@test.com
-        </TextWrapper>
-      ),
-      secondaryText: (
-        <TextWrapper color={token('color.text.subtlest', N200)}>
-          Add new user
-        </TextWrapper>
-      ),
+      primaryText: <span key="name">test@test.com</span>,
+      secondaryText: <span>Add new user</span>,
     });
   });
 });

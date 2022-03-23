@@ -318,7 +318,7 @@ describe('Container', () => {
           'color',
           expect.stringContaining('#44546F'),
         );
-        expect(element).toHaveStyleDeclaration('font-weight', '500');
+        expect(element).toHaveStyleDeclaration('font-weight', '400');
       });
 
       it('overrides block theme', async () => {

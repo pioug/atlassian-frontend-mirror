@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,6 +39,7 @@
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/ufo": "^0.1.0",
     "@babel/runtime": "^7.0.0",
+    "@emotion/core": "^10.0.9",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
     "uuid": "^3.1.0"
@@ -46,8 +47,7 @@
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "styled-components": "^3.2.6"
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@atlaskit/analytics-viewer": "^0.4.0",
@@ -61,6 +61,7 @@
     "@atlaskit/textfield": "^5.0.0",
     "@atlaskit/util-data-test": "^17.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@emotion/styled": "^10.0.7",
     "@testing-library/dom": "^7.7.3",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^8.0.1",

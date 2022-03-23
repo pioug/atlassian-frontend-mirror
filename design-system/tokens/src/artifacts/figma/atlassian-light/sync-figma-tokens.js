@@ -10,6 +10,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#0055CC"
@@ -18,6 +19,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold blue accent backgrounds."
     },
     "value": "#09326C"
@@ -26,6 +28,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#AE2A19"
@@ -34,6 +37,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold red accent backgrounds."
     },
     "value": "#601E16"
@@ -42,6 +46,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#974F0C"
@@ -50,6 +55,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold orange accent backgrounds."
     },
     "value": "#5F3811"
@@ -58,6 +64,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#7F5F01"
@@ -66,6 +73,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold yellow accent backgrounds."
     },
     "value": "#533F04"
@@ -74,6 +82,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#216E4E"
@@ -82,6 +91,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold green accent backgrounds."
     },
     "value": "#164B35"
@@ -90,6 +100,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#5E4DB2"
@@ -98,6 +109,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold purple accent backgrounds."
     },
     "value": "#352C63"
@@ -106,6 +118,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#206B74"
@@ -114,6 +127,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold teal accent backgrounds."
     },
     "value": "#1D474C"
@@ -122,7 +136,8 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for megenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "introduced": "0.6.0",
+      "description": "Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#943D73"
   },
@@ -130,6 +145,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use on bold magenta accent backgrounds."
     },
     "value": "#50253F"
@@ -138,6 +154,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
     },
     "value": "#172B4D"
@@ -146,6 +163,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for secondary text, such as navigation, subtle button links, input field labels, and all caps subheadings."
     },
     "value": "#44546F"
@@ -154,6 +172,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
     },
     "value": "#626F86"
@@ -162,6 +181,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for text in a disabled state."
     },
     "value": "#8993A5"
@@ -170,6 +190,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for text on bold backgrounds."
     },
     "value": "#FFFFFF"
@@ -178,6 +199,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for text that reinforces our brand."
     },
     "value": "#0C66E4"
@@ -186,6 +208,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for text in selected or opened states, such as tabs and dropdown buttons."
     },
     "value": "#0C66E4"
@@ -194,6 +217,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for critical text, such as input field error messaging."
     },
     "value": "#AE2A19"
@@ -202,6 +226,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for text to emphasize caution, such as in moved lozenges."
     },
     "value": "#974F0C"
@@ -210,6 +235,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for text when on bold warning backgrounds."
     },
     "value": "#172B4D"
@@ -218,6 +244,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for text to communicate a favourable outcome, such as input field success messaging."
     },
     "value": "#216E4E"
@@ -226,6 +253,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for text to emphasize change or something new, such as in new lozenges."
     },
     "value": "#5E4DB2"
@@ -234,6 +262,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for informative text or to communicate something is in progress, such as in-progress lozenges."
     },
     "value": "#0055CC"
@@ -242,6 +271,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for blue icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#1D7AFC"
@@ -250,6 +280,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#E34935"
@@ -258,6 +289,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for orange icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#D97008"
@@ -266,6 +298,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for yellow icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#B38600"
@@ -274,6 +307,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for green icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#22A06B"
@@ -282,6 +316,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for purple icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#8270DB"
@@ -290,6 +325,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for teal icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#1D9AAA"
@@ -298,6 +334,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
     "value": "#CD519D"
@@ -306,6 +343,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icon-only buttons, or icons paired with color.text"
     },
     "value": "#44546F"
@@ -314,6 +352,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons paired with color.text.subtle"
     },
     "value": "#626F86"
@@ -322,6 +361,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons on bold backgrounds."
     },
     "value": "#FFFFFF"
@@ -330,6 +370,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons in a disabled state."
     },
     "value": "#8993A5"
@@ -338,6 +379,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons that reinforce our brand."
     },
     "value": "#0C66E4"
@@ -346,6 +388,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Use for icons in selected or opened states, such as those used in dropdown buttons."
     },
     "value": "#0C66E4"
@@ -354,7 +397,8 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for icons communicating critical informaton, such as those used in error handing."
+      "introduced": "0.6.0",
+      "description": "Use for icons communicating critical information, such as those used in error handing."
     },
     "value": "#E34935"
   },
@@ -362,6 +406,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons communicating caution, such as those used in warning section messages."
     },
     "value": "#D97008"
@@ -370,6 +415,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons when on bold warning backgrounds."
     },
     "value": "#172B4D"
@@ -378,6 +424,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons communicating a favourable outcome, such as those used in success section messaged."
     },
     "value": "#22A06B"
@@ -386,6 +433,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons communicating change or something new, such as discovery section messages."
     },
     "value": "#8270DB"
@@ -394,6 +442,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for icons communicating information or something in-progress, such as information section messages."
     },
     "value": "#1D7AFC"
@@ -402,6 +451,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for blue borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#1D7AFC"
@@ -410,6 +460,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#E34935"
@@ -418,6 +469,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for orange borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#D97008"
@@ -426,6 +478,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for yellow borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#B38600"
@@ -434,6 +487,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for green borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#22A06B"
@@ -442,6 +496,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for purple borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#8270DB"
@@ -450,6 +505,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for teal borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#1D9AAA"
@@ -458,6 +514,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
     },
     "value": "#CD519D"
@@ -466,6 +523,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
     },
     "value": "#091E4224"
@@ -474,6 +532,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for focus rings of elements in a focus state."
     },
     "value": "#388BFF"
@@ -482,6 +541,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
     "value": "#091E4224"
@@ -490,6 +550,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders of elements in a disabled state."
     },
     "value": "#091E420F"
@@ -498,6 +559,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders or visual indicators of elements that reinforce our brand, such as logos or primary buttons."
     },
     "value": "#0C66E4"
@@ -506,6 +568,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Use for borders or visual indicators of elements in a selected or opened state, such as in tabs or menu items."
     },
     "value": "#0C66E4"
@@ -514,6 +577,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders communicating critical information, such as the borders on invalid text fields."
     },
     "value": "#E34935"
@@ -522,6 +586,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders communicating caution."
     },
     "value": "#D97008"
@@ -530,6 +595,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders communicating a favourable outcome, such as the borders on validated text fields."
     },
     "value": "#22A06B"
@@ -538,6 +604,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders communicating change or something new, such as the borders in onboarding spotlights."
     },
     "value": "#8270DB"
@@ -546,6 +613,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for borders communicating information or something in-progress."
     },
     "value": "#1D7AFC"
@@ -554,6 +622,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#E9F2FF"
@@ -562,6 +631,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
     },
     "value": "#CCE0FF"
@@ -570,6 +640,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags."
     },
     "value": "#579DFF"
@@ -578,6 +649,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for blue backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#0C66E4"
@@ -586,6 +658,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFEDEB"
@@ -594,6 +667,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for red backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FFD2CC"
@@ -602,6 +676,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant red backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#F87462"
@@ -610,6 +685,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for red backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#CA3521"
@@ -618,6 +694,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFF4E5"
@@ -626,6 +703,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for orange backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FFE2BD"
@@ -634,6 +712,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant orange backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FAA53D"
@@ -642,6 +721,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for orange backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#B65C02"
@@ -650,6 +730,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFF7D6"
@@ -658,6 +739,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for yellow backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#F8E6A0"
@@ -666,6 +748,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant yellow backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#E2B203"
@@ -674,6 +757,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for yellow backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#946F00"
@@ -682,6 +766,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#DFFCF0"
@@ -690,6 +775,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for green backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#BAF3DB"
@@ -698,6 +784,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant green backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#4BCE97"
@@ -706,6 +793,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for green backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#1F845A"
@@ -714,6 +802,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#E3FAFC"
@@ -722,6 +811,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for teal backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#C1F0F5"
@@ -730,6 +820,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant teal backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#60C6D2"
@@ -738,6 +829,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for teal backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#1D7F8C"
@@ -746,6 +838,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#F3F0FF"
@@ -754,6 +847,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for purple backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#DFD8FD"
@@ -762,6 +856,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant purple backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#9F8FEF"
@@ -770,6 +865,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for purple backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#6E5DC6"
@@ -778,6 +874,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
     "value": "#FFECF8"
@@ -786,6 +883,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#FDD0EC"
@@ -794,6 +892,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for vibrant magenta backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#E774BB"
@@ -802,6 +901,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#AE4787"
@@ -810,6 +910,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for backgrounds of elements in a disabled state."
     },
     "value": "#091E420F"
@@ -818,6 +919,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
     },
     "value": "#00000029"
@@ -826,6 +928,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
     "value": "#FFFFFF"
@@ -834,6 +937,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state for color.background.input"
     },
     "value": "#F7F8F9"
@@ -842,6 +946,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.input"
     },
     "value": "#FFFFFF"
@@ -850,6 +955,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "The default background for neutral elements, such as default buttons."
     },
     "value": "#091E420F"
@@ -858,6 +964,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state for color.background.neutral"
     },
     "value": "#091E4224"
@@ -866,6 +973,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.neutral"
     },
     "value": "#091E424F"
@@ -874,6 +982,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for the background of elements that appear to have no background in a resting state, such as subtle buttons and menu items."
     },
     "value": "#00000000"
@@ -882,6 +991,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state for color.background.neutral.subtle"
     },
     "value": "#091E420F"
@@ -890,6 +1000,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.neutral.subtle"
     },
     "value": "#091E4224"
@@ -898,6 +1009,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A vibrant background option for neutral UI elements, such as announcement banners."
     },
     "value": "#44546F"
@@ -906,6 +1018,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.neutral.bold"
     },
     "value": "#2C3E5D"
@@ -914,6 +1027,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.neutral.bold"
     },
     "value": "#172B4D"
@@ -922,6 +1036,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
     "value": "#0C66E4"
@@ -930,6 +1045,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.brand.bold"
     },
     "value": "#0055CC"
@@ -938,6 +1054,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.brand.bold"
     },
     "value": "#09326C"
@@ -946,6 +1063,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
     },
     "value": "#E9F2FF"
@@ -954,6 +1072,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Hovered state for color.background.selected"
     },
     "value": "#CCE0FF"
@@ -962,6 +1081,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Pressed state for color.background.selected"
     },
     "value": "#85B8FF"
@@ -970,7 +1090,8 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for the backgrounds of elements in a selected state, such as checkboxed and radio buttons."
+      "introduced": "0.6.2",
+      "description": "Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons."
     },
     "value": "#0C66E4"
   },
@@ -978,6 +1099,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Hovered state of color.background.selected.bold"
     },
     "value": "#0055CC"
@@ -986,6 +1108,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.2",
       "description": "Pressed state of color.background.selected.bold"
     },
     "value": "#09326C"
@@ -994,7 +1117,8 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "description": "Use for backgrounds communicating critical informaton, such in error section messages."
+      "introduced": "0.6.0",
+      "description": "Use for backgrounds communicating critical information, such in error section messages."
     },
     "value": "#FFEDEB"
   },
@@ -1002,6 +1126,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state for color.background.danger"
     },
     "value": "#FFD2CC"
@@ -1010,6 +1135,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.danger"
     },
     "value": "#FF9C8F"
@@ -1018,6 +1144,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A vibrant background option for communicating critical information, such as in danger buttons and error banners."
     },
     "value": "#CA3521"
@@ -1026,6 +1153,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.danger.bold"
     },
     "value": "#AE2A19"
@@ -1034,6 +1162,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.danger.bold"
     },
     "value": "#601E16"
@@ -1042,6 +1171,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for backgrounds communicating caution, such as in warning section messages."
     },
     "value": "#FFF7D6"
@@ -1050,6 +1180,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state for color.background.warning"
     },
     "value": "#F8E6A0"
@@ -1058,6 +1189,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.warning"
     },
     "value": "#F5CD47"
@@ -1066,6 +1198,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A vibrant background option for communicating caution, such as in warning buttons and warning banners."
     },
     "value": "#E2B203"
@@ -1074,6 +1207,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.warning.bold"
     },
     "value": "#CF9F02"
@@ -1082,6 +1216,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.warning.bold"
     },
     "value": "#B38600"
@@ -1090,6 +1225,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for backgrounds communicating a favourable outcome, such as in success section messages."
     },
     "value": "#DFFCF0"
@@ -1098,6 +1234,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state for color.background.success"
     },
     "value": "#BAF3DB"
@@ -1106,6 +1243,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.success"
     },
     "value": "#7EE2B8"
@@ -1114,6 +1252,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A vibrant background option for communicating a favourable outcome, such as in checked toggles."
     },
     "value": "#1F845A"
@@ -1122,6 +1261,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.success.bold"
     },
     "value": "#216E4E"
@@ -1130,6 +1270,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.success.bold"
     },
     "value": "#164B35"
@@ -1138,6 +1279,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
     },
     "value": "#F3F0FF"
@@ -1146,6 +1288,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hover state for color.background.discovery"
     },
     "value": "#DFD8FD"
@@ -1154,6 +1297,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state for color.background.discovery"
     },
     "value": "#B8ACF6"
@@ -1162,6 +1306,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A vibrant background option communicating change or something new, such as in onboarding spotlights."
     },
     "value": "#6E5DC6"
@@ -1170,6 +1315,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.discovery.bold"
     },
     "value": "#5E4DB2"
@@ -1178,6 +1324,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.discovery.bold"
     },
     "value": "#352C63"
@@ -1186,6 +1333,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
     },
     "value": "#E9F2FF"
@@ -1194,6 +1342,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.information"
     },
     "value": "#CCE0FF"
@@ -1202,6 +1351,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.information"
     },
     "value": "#85B8FF"
@@ -1210,6 +1360,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A vibrant background option for communicating information or something in-progress."
     },
     "value": "#0C66E4"
@@ -1218,6 +1369,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Hovered state of color.background.information.bold"
     },
     "value": "#0055CC"
@@ -1226,6 +1378,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Pressed state of color.background.information.bold"
     },
     "value": "#09326C"
@@ -1234,6 +1387,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.0.15",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
     "value": "#091E427A"
@@ -1242,6 +1396,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
     },
     "value": "#388BFFCC"
@@ -1250,6 +1405,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
     },
     "value": "#EF5C48CC"
@@ -1258,6 +1414,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
     },
     "value": "#ffffff33"
@@ -1266,6 +1423,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
     },
     "value": "#ffffff5c"
@@ -1274,6 +1432,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
     },
     "value": "#00000029"
@@ -1282,6 +1441,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
     },
     "value": "#00000052"
@@ -1290,6 +1450,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.8.0",
       "description": "Use for skeleton loading states"
     },
     "value": "#091E420F"
@@ -1298,6 +1459,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.8.0",
       "description": "Use for the pulse or shimmer effect in skeleton loading states"
     },
     "value": "#091E4208"
@@ -1306,6 +1468,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for links in a default or hovered state. Add an underline for hovered states."
     },
     "value": "#0C66E4"
@@ -1314,6 +1477,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for links in a pressed state."
     },
     "value": "#0055CC"
@@ -1322,6 +1486,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "shadow",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised"
     },
     "value": [
@@ -1349,6 +1514,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "shadow",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use to create a shadow when content scolls under other content."
     },
     "value": [
@@ -1376,6 +1542,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "shadow",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay\n\nAlso use for the box shadow of raised cards in a dragged state."
     },
     "value": [
@@ -1403,6 +1570,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use as the primary background for the UI."
     },
     "value": "#FFFFFF"
@@ -1411,6 +1579,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
     },
     "value": "#F7F8F9"
@@ -1419,6 +1588,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for the background of raised cards, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised"
     },
     "value": "#FFFFFF"
@@ -1427,6 +1597,7 @@ synchronizeFigmaTokens('AtlassianLight', {
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for the background of elements that sit on top of they UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.shadow.overlay\n\nAlso use for the background of raised cards in a dragged state."
     },
     "value": "#FFFFFF"

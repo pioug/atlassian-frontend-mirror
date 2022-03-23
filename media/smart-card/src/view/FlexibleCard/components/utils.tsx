@@ -62,7 +62,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
     case SmartLinkSize.Medium:
       return css`
         font-size: 0.875rem;
-        font-weight: 500;
+        font-weight: 400;
         letter-spacing: -0.003em;
         line-height: ${getLinkLineHeight(size)};
       `;
@@ -70,7 +70,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
     default:
       return css`
         font-size: 0.75rem;
-        font-weight: 500;
+        font-weight: 400;
         letter-spacing: 0em;
         line-height: ${getLinkLineHeight(size)};
       `;

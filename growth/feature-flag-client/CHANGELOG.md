@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.5.1
+
+### Patch Changes
+
+- [`fa66f824bac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa66f824bac) - Fixed getRawValue to not perform type check on value and defaultValue as intended
+
 ## 4.5.0
 
 ### Minor Changes

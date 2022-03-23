@@ -17,6 +17,7 @@ import { ActionItem, CardType } from '../src';
 import {
   makeDeleteActionItem,
   makeCustomActionItem,
+  makeEditActionItem,
 } from './flexible-ui/utils';
 
 interface Options {
@@ -74,7 +75,11 @@ const renderResolvedView = ({
   );
 };
 
-const renderErroredView = (status: CardType, meta = {}) => {
+const renderErroredView = (
+  status: CardType,
+  meta = {},
+  actions?: ActionItem[],
+) => {
   const cardState = getCardState(undefined, meta, status);
   return (
     <FlexibleCard
@@ -82,7 +87,7 @@ const renderErroredView = (status: CardType, meta = {}) => {
       url={`https://${status}-url?s=something%20went%20wrong`}
       onAuthorize={() => {}}
     >
-      <TitleBlock />
+      <TitleBlock actions={actions} position={SmartLinkPosition.Center} />
     </FlexibleCard>
   );
 };
@@ -134,42 +139,60 @@ export default () => (
     {renderResolvedView({ text: 'Test Title' })}
     <h4>Views</h4>
     <h5>Errored view</h5>
-    {renderErroredView('errored')}
+    {renderErroredView('errored', {}, [makeEditActionItem({ hideIcon: true })])}
     <h5>Forbidden view</h5>
-    {renderErroredView('forbidden', {
-      visibility: 'restricted',
-      access: 'forbidden',
-      auth: [
-        {
-          key: 'some-flow',
-          displayName: 'Flow',
-          url: 'https://outbound-auth/flow',
-        },
+    {renderErroredView(
+      'forbidden',
+      {
+        visibility: 'restricted',
+        access: 'forbidden',
+        auth: [
+          {
+            key: 'some-flow',
+            displayName: 'Flow',
+            url: 'https://outbound-auth/flow',
+          },
+        ],
+      },
+      [
+        makeEditActionItem({ hideContent: true }),
+        makeDeleteActionItem({ hideContent: true }),
       ],
-    })}
+    )}
     <h5>Not found view</h5>
-    {renderErroredView('not_found', {
-      visibility: 'not_found',
-      access: 'forbidden',
-    })}
+    {renderErroredView(
+      'not_found',
+      {
+        visibility: 'not_found',
+        access: 'forbidden',
+      },
+      [makeDeleteActionItem()],
+    )}
     <h5>Unauthorized view</h5>
-    {renderErroredView('unauthorized', {
-      visibility: 'restricted',
-      access: 'unauthorized',
-      auth: [
-        {
-          key: 'some-flow',
-          displayName: 'Flow',
-          url: 'https://outbound-auth/flow',
-        },
-      ],
-    })}
+    {renderErroredView(
+      'unauthorized',
+      {
+        visibility: 'restricted',
+        access: 'unauthorized',
+        auth: [
+          {
+            key: 'some-flow',
+            displayName: 'Flow',
+            url: 'https://outbound-auth/flow',
+          },
+        ],
+      },
+      [makeEditActionItem(), makeDeleteActionItem()],
+    )}
     <h5>Resolving view</h5>
     <FlexibleCard
       cardState={{ status: 'resolving' }}
       url="https://resolving-url?s=loading"
     >
-      <TitleBlock />
+      <TitleBlock
+        actions={[makeEditActionItem({ hideContent: true })]}
+        position={SmartLinkPosition.Center}
+      />
     </FlexibleCard>
   </VRTestWrapper>
 );

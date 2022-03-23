@@ -225,10 +225,29 @@ export default class FeedbackCollector extends Component<Props> {
     }
   }
 
-  getEmail(formValues: FormFields) {
-    return formValues.canBeContacted && this.props.email
-      ? this.props.email
-      : this.props.emailDefaultValue;
+  async getEmail(formValues: FormFields) {
+    try {
+      if (formValues.canBeContacted) {
+        if (this.props.email) {
+          return this.props.email;
+        }
+        const url = this.props.url;
+        const result = await fetch(`${url}/me`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+
+        const json = await result.json();
+        return json.email;
+      } else {
+        return this.props.emailDefaultValue;
+      }
+    } catch (e) {
+      return this.props.emailDefaultValue;
+    }
   }
 
   getDescription(formValues: FormFields) {
@@ -270,7 +289,7 @@ export default class FeedbackCollector extends Component<Props> {
         },
         {
           id: this.props.emailFieldId,
-          value: this.getEmail(formValues),
+          value: await this.getEmail(formValues),
         },
         {
           id: this.props.customerNameFieldId,

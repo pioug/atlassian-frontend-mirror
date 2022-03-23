@@ -1,10 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { ExternalUser } from '../../types';
-import { TextWrapper } from '../AvatarItemOption';
+import { textWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
 
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
@@ -12,18 +13,18 @@ import InfoIcon from './InfoIcon';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
 import { SourcesTooltipContent } from './SourcesTooltipContent';
 
-export const ImageContainer = styled.span`
-  height: 16px;
-  width: 16px;
-  padding-right: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+export const imageContainer = css({
+  height: '16px',
+  width: '16px',
+  paddingRight: '4px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
-export const EmailDomainWrapper = styled.span`
-  font-weight: bold;
-`;
+export const emailDomainWrapper = css({
+  fontWeight: 'bold',
+});
 
 export type ExternalUserOptionProps = {
   user: ExternalUser;
@@ -51,16 +52,16 @@ export class ExternalUserOption extends React.PureComponent<
     } = this.props;
 
     return (
-      <TextWrapper
+      <span
         key="name"
-        color={
+        css={textWrapper(
           this.props.isSelected
             ? token('color.text.selected', B400)
-            : token('color.text', N800)
-        }
+            : token('color.text', N800),
+        )}
       >
         {name}
-      </TextWrapper>
+      </span>
     );
   };
 
@@ -73,16 +74,16 @@ export class ExternalUserOption extends React.PureComponent<
     const [emailUser, emailDomain] = email.split('@');
     const emailDomainWithAt = `@${emailDomain}`;
     return (
-      <TextWrapper
-        color={
+      <span
+        css={textWrapper(
           this.props.isSelected
             ? token('color.text.selected', B400)
-            : token('color.text.subtlest', N200)
-        }
+            : token('color.text.subtlest', N200),
+        )}
       >
         {emailUser}
-        <EmailDomainWrapper>{emailDomainWithAt}</EmailDomainWrapper>
-      </TextWrapper>
+        <span css={emailDomainWrapper}>{emailDomainWithAt}</span>
+      </span>
     );
   };
 

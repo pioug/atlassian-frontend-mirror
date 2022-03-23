@@ -1,48 +1,54 @@
-import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { ReactNode } from 'react';
+import { css, jsx } from '@emotion/core';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const OuterWrapper = styled.div`
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  line-height: 1;
-  outline: none;
-  margin: 0;
-  width: 100%;
-  cursor: pointer;
-`;
+const outerWrapper = css({
+  alignItems: 'center',
+  boxSizing: 'border-box',
+  display: 'flex',
+  lineHeight: 1,
+  outline: 'none',
+  margin: 0,
+  width: '100%',
+  cursor: 'pointer',
+});
 
-const DetailsWrapper = styled.div`
-  display: flex;
-  max-width: 100%;
-  min-width: 0;
-  flex: 1 1 100%;
-  line-height: 1.4;
-  padding-left: 8px;
-  align-items: center;
-`;
+const detailsWrapper = css({
+  display: 'flex',
+  maxWidth: '100%',
+  minWidth: 0,
+  flex: '1 1 100%',
+  lineHeight: 1.4,
+  paddingLeft: '8px',
+  alignItems: 'center',
+});
 
-const TextSection = styled.div`
-  width: calc(100% - 32px);
-  flex: auto;
-`;
+const textSection = css({
+  width: 'calc(100% - 32px)',
+  flex: 'auto',
+});
 
-const Text = styled.div<{ secondary?: boolean }>`
-  display: flex;
-  max-width: 100%;
-  margin: 0;
-  color: ${token('color.text.selected', B400)};
-  ${({ secondary }) =>
-    secondary &&
-    `color: ${token('color.text.selected', B400)}; font-size: 0.85em;`}
-  white-space: nowrap;
-
-  > span {
-    max-width: inherit;
-  }
-`;
+const getTextStyle = (isSecondary?: boolean) => {
+  const secondaryCssArgs = isSecondary
+    ? {
+        color: token('color.text.selected', B400),
+        fontSize: '0.85em',
+      }
+    : {};
+  return css({
+    display: 'flex',
+    maxWidth: '100%',
+    margin: 0,
+    color: token('color.text.selected', B400),
+    ...{ secondaryCssArgs },
+    whiteSpace: 'nowrap',
+    '> span': {
+      maxWidth: 'inherit',
+    },
+  });
+};
 
 export type ExternalAvatarItemOptionProps = {
   avatar: ReactNode;
@@ -57,20 +63,20 @@ export const ExternalAvatarItemOption = ({
   secondaryText,
   sourcesInfoTooltip,
 }: ExternalAvatarItemOptionProps) => (
-  <OuterWrapper>
+  <div css={outerWrapper}>
     {avatar}
-    <DetailsWrapper>
-      <TextSection>
+    <div css={detailsWrapper}>
+      <div css={textSection}>
         <div>
-          <Text>{primaryText}</Text>
+          <div css={getTextStyle()}>{primaryText}</div>
         </div>
         {secondaryText && (
           <div>
-            <Text secondary>{secondaryText}</Text>
+            <div css={getTextStyle(true)}>{secondaryText}</div>
           </div>
         )}
-      </TextSection>
+      </div>
       <div>{sourcesInfoTooltip}</div>
-    </DetailsWrapper>
-  </OuterWrapper>
+    </div>
+  </div>
 );

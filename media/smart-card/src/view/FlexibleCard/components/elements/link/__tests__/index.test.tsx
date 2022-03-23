@@ -37,6 +37,7 @@ describe('Element: Link', () => {
         const element = await waitForElement(() => getByTestId(testId));
 
         expect(element).toHaveStyleDeclaration('font-size', expectedFontSize);
+        expect(element).toHaveStyleDeclaration('font-weight', '400');
       },
     );
   });
@@ -107,7 +108,7 @@ describe('Element: Link', () => {
         'color',
         expect.stringContaining('#44546F'),
       );
-      expect(element).toHaveStyleDeclaration('font-weight', '500');
+      expect(element).toHaveStyleDeclaration('font-weight', '400');
     });
   });
 

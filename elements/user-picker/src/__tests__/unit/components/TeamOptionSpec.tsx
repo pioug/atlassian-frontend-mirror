@@ -5,7 +5,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import {
   AvatarItemOption,
-  TextWrapper,
+  textWrapper,
 } from '../../../components/AvatarItemOption';
 import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
@@ -15,7 +15,18 @@ import {
 } from '../../../components/TeamOption/main';
 import { Team } from '../../../types';
 
+jest.mock('../../../components/AvatarItemOption', () => ({
+  ...(jest.requireActual('../../../components/AvatarItemOption') as any),
+  textWrapper: jest.fn(),
+}));
+
 describe('Team Option', () => {
+  const mockTextWrapper = textWrapper as jest.Mock;
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   const basicTeam: Team = {
     id: 'team-7',
     name: 'Team-1',
@@ -39,6 +50,9 @@ describe('Team Option', () => {
       buildTeam({ includesYou: true }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.props()).toMatchObject({
       avatar: (
         <SizeableAvatar
@@ -48,12 +62,12 @@ describe('Team Option', () => {
         />
       ),
       primaryText: [
-        <TextWrapper
+        <span
           key="name"
-          color={token('color.text.selected', colors.B400)}
+          css={textWrapper(token('color.text.selected', colors.B400))}
         >
           <HighlightText>Team-1</HighlightText>
-        </TextWrapper>,
+        </span>,
       ],
       secondaryText: undefined,
     });
@@ -67,8 +81,11 @@ describe('Team Option', () => {
       }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
-      <TextWrapper color={token('color.text.selected', colors.B400)}>
+      <span>
         <FormattedMessage
           defaultMessage="Team • {count} {count, plural, one {member} other {members}}"
           description="Byline to show the number of members in the team when the current user is not a member of the team"
@@ -77,7 +94,7 @@ describe('Team Option', () => {
             count: 45,
           }}
         />
-      </TextWrapper>,
+      </span>,
     );
   });
 
@@ -89,14 +106,17 @@ describe('Team Option', () => {
       }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
-      <TextWrapper color={token('color.text.selected', colors.B400)}>
+      <span>
         <FormattedMessage
           defaultMessage="Team • 50+ members"
           description="Byline to show the number of members in the team when the number exceeds 50"
           id="fabric.elements.user-picker.team.member.50plus"
         />
-      </TextWrapper>,
+      </span>,
     );
   });
 
@@ -109,8 +129,11 @@ describe('Team Option', () => {
       }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
-      <TextWrapper color={token('color.text.selected', colors.B400)}>
+      <span>
         <FormattedMessage
           defaultMessage="Team • {count} {count, plural, one {member} other {members}}"
           description="Byline to show the number of members in the team when the current user is not a member of the team"
@@ -119,7 +142,7 @@ describe('Team Option', () => {
             count: 45,
           }}
         />
-      </TextWrapper>,
+      </span>,
     );
   });
 
@@ -132,14 +155,17 @@ describe('Team Option', () => {
       }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
-      <TextWrapper color={token('color.text.selected', colors.B400)}>
+      <span>
         <FormattedMessage
           defaultMessage="Team • 50+ members"
           description="Byline to show the number of members in the team when the number exceeds 50"
           id="fabric.elements.user-picker.team.member.50plus"
         />
-      </TextWrapper>,
+      </span>,
     );
   });
 
@@ -152,8 +178,11 @@ describe('Team Option', () => {
       }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
-      <TextWrapper color={token('color.text.selected', colors.B400)}>
+      <span>
         <FormattedMessage
           defaultMessage="Team • {count} {count, plural, one {member} other {members}}, including you"
           description="Byline to show the number of members in the team when the current user is also a member of the team"
@@ -162,7 +191,7 @@ describe('Team Option', () => {
             count: 45,
           }}
         />
-      </TextWrapper>,
+      </span>,
     );
   });
 
@@ -175,14 +204,17 @@ describe('Team Option', () => {
       }),
     );
     const avatarOptionProps = component.find(AvatarItemOption);
+    expect(mockTextWrapper).toHaveBeenCalledWith(
+      token('color.text.selected', colors.B400),
+    );
     expect(avatarOptionProps.prop('secondaryText')).toEqual(
-      <TextWrapper color={token('color.text.selected', colors.B400)}>
+      <span>
         <FormattedMessage
           defaultMessage="Team • 50+ members, including you"
           description="Byline to show the number of members in the team when the number exceeds 50 and also includes the current user"
           id="fabric.elements.user-picker.team.member.50plus.including.you"
         />
-      </TextWrapper>,
+      </span>,
     );
   });
 });

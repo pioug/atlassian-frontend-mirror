@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { IntlProvider } from 'react-intl-next';
 import Select from '@atlaskit/select';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';

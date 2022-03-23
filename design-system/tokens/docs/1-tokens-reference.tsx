@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 
 import { Code } from '@atlaskit/code';
 import { md } from '@atlaskit/docs';
+import InfoIcon from '@atlaskit/icon/glyph/info';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import Lozenge from '@atlaskit/lozenge';
@@ -127,7 +128,7 @@ const tokenDescriptionStyles = css({
   margin: 0,
 });
 
-const tokenReplacementStyles = css({
+const tokenMetaDataStyles = css({
   gridColumn: '1/7',
   color: token('color.text.subtlest', N200),
   display: 'flex',
@@ -141,6 +142,7 @@ interface Token {
     group: string;
     description?: string;
     state?: string;
+    introduced?: string;
     replacement?: string;
   };
   original: {
@@ -204,10 +206,17 @@ const Token = ({ name, value, attributes, original }: Token) => (
       </div>
       <p css={tokenDescriptionStyles}>{attributes.description}</p>
       {attributes.replacement && (
-        <p css={tokenReplacementStyles}>
+        <p css={tokenMetaDataStyles}>
           <RefreshIcon label="" />
           <span css={{ margin: '0 4px' }}>Replace with </span>
           <Code>{cleanTokenName(attributes.replacement)}</Code>
+        </p>
+      )}
+      {!attributes.replacement && (
+        <p css={tokenMetaDataStyles}>
+          <InfoIcon label="" size="small" />
+          <span css={{ margin: '0 4px' }}>Introduced in </span>
+          <Code>v{attributes.introduced}</Code>
         </p>
       )}
     </div>

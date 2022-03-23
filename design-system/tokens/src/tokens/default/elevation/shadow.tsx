@@ -7,6 +7,7 @@ const shadow: AttributeSchema<ShadowTokenSchema> = {
         attributes: {
           group: 'shadow',
           state: 'active',
+          introduced: '0.6.0',
           description: `Use for the box shadow of raised card elements, such as Jira cards on a Kanban board. Combine with elevation.surface.raised`,
         },
       },
@@ -14,6 +15,7 @@ const shadow: AttributeSchema<ShadowTokenSchema> = {
         attributes: {
           group: 'shadow',
           state: 'active',
+          introduced: '0.6.0',
           description: `Use to create a shadow when content scolls under other content.`,
         },
       },
@@ -21,6 +23,7 @@ const shadow: AttributeSchema<ShadowTokenSchema> = {
         attributes: {
           group: 'shadow',
           state: 'active',
+          introduced: '0.6.0',
           description: `Use for the box shadow of elements that sit on top of the UI, such as modals, dropdown menus, flags, and inline dialogs. Combine with elevation.surface.overlay
 
 Also use for the box shadow of raised cards in a dragged state.`,

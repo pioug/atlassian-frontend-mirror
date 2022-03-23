@@ -15,6 +15,7 @@ describe('formatDescription', () => {
       attributes: {
         group: 'paint',
         state: 'active',
+        introduced: '0.1.0',
         description: 'Primary text color',
       },
     });
@@ -28,6 +29,7 @@ describe('formatDescription', () => {
       attributes: {
         group: 'paint',
         state: 'deprecated',
+        introduced: '0.1.0',
         description: 'Primary text color',
       },
     });
@@ -41,6 +43,7 @@ describe('formatDescription', () => {
       attributes: {
         group: 'paint',
         state: 'deprecated',
+        introduced: '0.1.0',
         replacement: 'color.text.brand',
         description: 'Primary text color',
       },
@@ -51,6 +54,7 @@ describe('formatDescription', () => {
       attributes: {
         group: 'paint',
         state: 'deprecated',
+        introduced: '0.1.0',
         replacement: ['color.text.brand', 'color.text.danger'],
         description: 'Primary text color',
       },
@@ -74,6 +78,7 @@ describe('formatDescription', () => {
         group: 'paint',
         state: 'active',
         description: 'Primary text color',
+        introduced: '0.1.0',
       },
     });
 

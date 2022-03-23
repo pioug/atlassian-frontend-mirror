@@ -24,7 +24,12 @@ describe('palette transformer', () => {
 
   it('should should transform a single shadow to box shadow', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow', description: '', state: 'active' },
+      attributes: {
+        group: 'shadow',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: [
         {
           color: 'B100',
@@ -42,7 +47,12 @@ describe('palette transformer', () => {
 
   it('should should transform a single shadow with spread to box shadow', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow', description: '', state: 'active' },
+      attributes: {
+        group: 'shadow',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: [
         {
           color: 'B100',
@@ -61,7 +71,12 @@ describe('palette transformer', () => {
 
   it('should should transform a single inset shadow to box shadow', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow', description: '', state: 'active' },
+      attributes: {
+        group: 'shadow',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: [
         {
           color: 'B100',
@@ -80,7 +95,12 @@ describe('palette transformer', () => {
 
   it('should should transform a single opaque shadow to box shadow', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow', description: '', state: 'active' },
+      attributes: {
+        group: 'shadow',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: [
         {
           color: 'B100',
@@ -98,7 +118,12 @@ describe('palette transformer', () => {
 
   it('should transform two shadows to a box shadow', () => {
     const token: ShadowToken = {
-      attributes: { group: 'shadow', description: '', state: 'active' },
+      attributes: {
+        group: 'shadow',
+        description: '',
+        state: 'active',
+        introduced: '0.1.0',
+      },
       value: [
         {
           color: 'B100',

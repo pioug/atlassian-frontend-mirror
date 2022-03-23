@@ -44,6 +44,7 @@ describe('synchronizeFigmaTokens', () => {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.1.0',
             description: 'Primary text color',
           },
         },
@@ -85,6 +86,7 @@ describe('synchronizeFigmaTokens', () => {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.1.0',
             description: '    Primary text color     ',
           },
         },
@@ -112,6 +114,7 @@ describe('synchronizeFigmaTokens', () => {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.1.0',
             description: `
 Primary text color
 Primary text color
@@ -146,15 +149,30 @@ Primary text color
       synchronizeFigmaTokens('AtlassianDark', {
         'Color/BackgroundBlanket': {
           value: '#03040421',
-          attributes: { group: 'paint', description: '', state: 'active' },
+          attributes: {
+            group: 'paint',
+            description: '',
+            state: 'active',
+            introduced: '0.1.0',
+          },
         },
         'Color/BackgroundDisabled': {
           value: '#A1BDD908',
-          attributes: { group: 'paint', description: '', state: 'active' },
+          attributes: {
+            group: 'paint',
+            description: '',
+            state: 'active',
+            introduced: '0.1.0',
+          },
         },
         'Color/BackgroundBoldBrand': {
           value: '#579DFF',
-          attributes: { group: 'paint', description: '', state: 'active' },
+          attributes: {
+            group: 'paint',
+            description: '',
+            state: 'active',
+            introduced: '0.1.0',
+          },
         },
       });
 
@@ -200,7 +218,12 @@ Primary text color
               opacity: 0.5,
             },
           ],
-          attributes: { group: 'shadow', description: '', state: 'active' },
+          attributes: {
+            group: 'shadow',
+            description: '',
+            state: 'active',
+            introduced: '0.1.0',
+          },
         },
       });
 
@@ -254,6 +277,7 @@ Primary text color
             group: 'shadow',
             description: 'token description',
             state: 'active',
+            introduced: '0.1.0',
           },
         },
       });
@@ -288,6 +312,7 @@ Primary text color
             group: 'paint',
             state: 'active',
             description: 'token description',
+            introduced: '0.1.0',
           },
         },
       });
@@ -325,7 +350,12 @@ Primary text color
       synchronizeFigmaTokens('AtlassianDark', {
         foo: {
           value: '#03040421',
-          attributes: { group: 'paint', description: '', state: 'active' },
+          attributes: {
+            group: 'paint',
+            description: '',
+            state: 'active',
+            introduced: '0.1.0',
+          },
         },
       });
 
@@ -380,6 +410,7 @@ Primary text color
             group: 'shadow',
             description: '',
             state: 'active',
+            introduced: '0.1.0',
           },
         },
       });
@@ -422,6 +453,7 @@ Primary text color
             group: 'paint',
             state: 'deprecated',
             description: 'token description',
+            introduced: '0.1.0',
           },
         },
       });
@@ -479,6 +511,7 @@ Primary text color
           attributes: {
             group: 'paint',
             state: 'deprecated',
+            introduced: '0.1.0',
             replacement: 'color.text.brand',
             description: 'Primary text color',
           },
@@ -488,6 +521,7 @@ Primary text color
           attributes: {
             group: 'paint',
             state: 'deprecated',
+            introduced: '0.1.0',
             replacement: ['color.text.brand', 'color.text.danger'],
             description: 'Primary text color',
           },
@@ -542,6 +576,7 @@ Primary text color
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.1.0',
               description: 'token description',
             },
           },
@@ -589,6 +624,7 @@ Primary text color
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.1.0',
               description: 'token description',
             },
           },
@@ -636,6 +672,7 @@ Primary text color
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.1.0',
               description: 'token description',
             },
           },
@@ -668,6 +705,7 @@ Primary text color
             attributes: {
               group: 'shadow',
               state: 'active',
+              introduced: '0.1.0',
               description: 'token description',
             },
           },
@@ -715,6 +753,7 @@ Primary text color
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.1.0',
               description: 'token description',
             },
           },
@@ -770,6 +809,7 @@ Primary text color
             attributes: {
               group: 'shadow',
               state: 'active',
+              introduced: '0.1.0',
               description: 'token description',
             },
           },

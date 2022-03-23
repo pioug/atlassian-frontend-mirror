@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Placement } from '@atlaskit/popper';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
 import { PopupUserPicker } from '../src';

@@ -1,25 +1,25 @@
+/** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 
 import { Group } from '../../types';
-import { AvatarItemOption, TextWrapper } from '.././AvatarItemOption';
+import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { messages } from '.././i18n';
-import { HighlightText } from '.././HighlightText';
+import { HighlightText } from '../HighlightText';
 
-export const GroupOptionIconWrapper = styled.span`
-  padding: 2px;
-
-  > span {
-    background-color: ${token('color.background.neutral', N20)};
-    border-radius: 50%;
-    padding: 4px;
-  }
-`;
+export const groupOptionIconWrapper = css({
+  padding: '2px',
+  '> span': {
+    backgroundColor: token('color.background.neutral', N20),
+    borderRadius: '50%',
+    padding: '4px',
+  },
+});
 
 export type GroupOptionProps = {
   group: Group;
@@ -33,39 +33,39 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
       group: { name, highlight },
     } = this.props;
     return [
-      <TextWrapper
+      <span
         key="name"
-        color={
+        css={textWrapper(
           isSelected
             ? token('color.text.selected', B400)
-            : token('color.text', N800)
-        }
+            : token('color.text', N800),
+        )}
       >
         <HighlightText highlights={highlight && highlight.name}>
           {name}
         </HighlightText>
-      </TextWrapper>,
+      </span>,
     ];
   };
 
   private renderAvatar = () => (
-    <GroupOptionIconWrapper>
+    <span css={groupOptionIconWrapper}>
       <PeopleIcon label="group-icon" size="medium" />
-    </GroupOptionIconWrapper>
+    </span>
   );
 
   private renderByline = () => {
     const { isSelected } = this.props;
     return (
-      <TextWrapper
-        color={
+      <span
+        css={textWrapper(
           isSelected
             ? token('color.text.selected', B400)
-            : token('color.text.subtlest', N200)
-        }
+            : token('color.text.subtlest', N200),
+        )}
       >
         <FormattedMessage {...messages.groupByline} />
-      </TextWrapper>
+      </span>
     );
   };
 

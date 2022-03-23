@@ -10,6 +10,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.0.15',
           description:
             'Use for the screen overlay that appears with modal dialogs',
         },
@@ -18,6 +19,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements",
         },
@@ -26,6 +28,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements",
         },
@@ -36,6 +39,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.0.15',
           description: 'Use for backgrounds of elements in a disabled state.',
         },
       },
@@ -43,6 +47,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.6.0',
           description:
             'Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards.',
         },
@@ -52,6 +57,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.6.0',
             description:
               'Use for background of form UI elements, such as text fields, checkboxes, and radio buttons.',
           },
@@ -60,6 +66,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.6.0',
             description: 'Hovered state for color.background.input',
           },
         },
@@ -67,6 +74,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
           attributes: {
             group: 'paint',
             state: 'active',
+            introduced: '0.6.0',
             description: 'Pressed state for color.background.input',
           },
         },
@@ -77,6 +85,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'The default background for neutral elements, such as default buttons.',
             },
@@ -85,6 +94,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state for color.background.neutral',
             },
           },
@@ -92,6 +102,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state for color.background.neutral',
             },
           },
@@ -101,6 +112,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'Use for the background of elements that appear to have no background in a resting state, such as subtle buttons and menu items.',
             },
@@ -109,6 +121,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state for color.background.neutral.subtle',
             },
           },
@@ -116,6 +129,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state for color.background.neutral.subtle',
             },
           },
@@ -125,6 +139,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'A vibrant background option for neutral UI elements, such as announcement banners.',
             },
@@ -133,6 +148,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.neutral.bold',
             },
           },
@@ -140,6 +156,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.neutral.bold',
             },
           },
@@ -151,6 +168,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'Use for the background of elements used to reinforce our brand, but with more emphasis.',
             },
@@ -159,6 +177,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.brand.bold',
             },
           },
@@ -166,6 +185,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.brand.bold',
             },
           },
@@ -177,6 +197,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.2',
               description:
                 'Use for the background of elements in a selected state, such as in opened dropdown buttons.',
             },
@@ -185,6 +206,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.2',
               description: 'Hovered state for color.background.selected',
             },
           },
@@ -192,6 +214,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.2',
               description: 'Pressed state for color.background.selected',
             },
           },
@@ -201,14 +224,16 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.2',
               description:
-                'Use for the backgrounds of elements in a selected state, such as checkboxed and radio buttons.',
+                'Use for the backgrounds of elements in a selected state, such as checkboxes and radio buttons.',
             },
           },
           hovered: {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.2',
               description: 'Hovered state of color.background.selected.bold',
             },
           },
@@ -216,6 +241,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.2',
               description: 'Pressed state of color.background.selected.bold',
             },
           },
@@ -227,14 +253,16 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
-                'Use for backgrounds communicating critical informaton, such in error section messages.',
+                'Use for backgrounds communicating critical information, such in error section messages.',
             },
           },
           hovered: {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state for color.background.danger',
             },
           },
@@ -242,6 +270,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state for color.background.danger',
             },
           },
@@ -251,6 +280,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'A vibrant background option for communicating critical information, such as in danger buttons and error banners.',
             },
@@ -259,6 +289,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.danger.bold',
             },
           },
@@ -266,6 +297,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.danger.bold',
             },
           },
@@ -277,6 +309,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'Use for backgrounds communicating caution, such as in warning section messages.',
             },
@@ -285,6 +318,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state for color.background.warning',
             },
           },
@@ -292,6 +326,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state for color.background.warning',
             },
           },
@@ -301,6 +336,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'A vibrant background option for communicating caution, such as in warning buttons and warning banners.',
             },
@@ -309,6 +345,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.warning.bold',
             },
           },
@@ -316,6 +353,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.warning.bold',
             },
           },
@@ -327,6 +365,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'Use for backgrounds communicating a favourable outcome, such as in success section messages.',
             },
@@ -335,6 +374,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state for color.background.success',
             },
           },
@@ -342,6 +382,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state for color.background.success',
             },
           },
@@ -351,6 +392,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'A vibrant background option for communicating a favourable outcome, such as in checked toggles.',
             },
@@ -359,6 +401,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.success.bold',
             },
           },
@@ -366,6 +409,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.success.bold',
             },
           },
@@ -377,6 +421,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'Use for backgrounds communicating change or something new, such as in discovery section messages.',
             },
@@ -385,6 +430,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hover state for color.background.discovery',
             },
           },
@@ -392,6 +438,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state for color.background.discovery',
             },
           },
@@ -401,6 +448,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'A vibrant background option communicating change or something new, such as in onboarding spotlights.',
             },
@@ -409,6 +457,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.discovery.bold',
             },
           },
@@ -416,6 +465,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.discovery.bold',
             },
           },
@@ -427,6 +477,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'Use for backgrounds communicating information or something in-progress, such as in information section messages.',
             },
@@ -435,6 +486,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.information',
             },
           },
@@ -442,6 +494,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.information',
             },
           },
@@ -451,6 +504,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description:
                 'A vibrant background option for communicating information or something in-progress.',
             },
@@ -459,6 +513,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Hovered state of color.background.information.bold',
             },
           },
@@ -466,6 +521,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
             attributes: {
               group: 'paint',
               state: 'active',
+              introduced: '0.6.0',
               description: 'Pressed state of color.background.information.bold',
             },
           },

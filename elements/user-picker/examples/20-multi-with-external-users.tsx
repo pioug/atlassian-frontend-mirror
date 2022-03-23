@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useCallback } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Select from '@atlaskit/select';
 import { RadioGroup } from '@atlaskit/radio';
 import { exampleOptions } from '../example-helpers';

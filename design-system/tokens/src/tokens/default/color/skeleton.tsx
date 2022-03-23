@@ -7,6 +7,7 @@ const color: AttributeSchema<SkeletonColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.8.0',
           description: 'Use for skeleton loading states',
         },
       },
@@ -14,6 +15,7 @@ const color: AttributeSchema<SkeletonColorTokenSchema> = {
         attributes: {
           group: 'paint',
           state: 'active',
+          introduced: '0.8.0',
           description:
             'Use for the pulse or shimmer effect in skeleton loading states',
         },

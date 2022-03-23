@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.0.1
+
+### Patch Changes
+
+- [`6df37fef2c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6df37fef2c2) - Internal changes to migrate package from 'styled-components' to @emotion. There should be no change to the UX.
+
 ## 9.0.0
 
 ### Major Changes

@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 
 import { AtlassianIcon, ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import Spinner from '@atlaskit/spinner/spinner';
@@ -12,18 +13,18 @@ import { GitHubIcon } from '../assets/github';
 import { messages } from '../i18n';
 import { UserSource } from '../../types';
 import { ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
-import { ImageContainer } from './main';
+import { imageContainer } from './main';
 
-export const SourcesTooltipContainer = styled.div`
-  padding-bottom: 4px;
-  padding-right: 4px;
-`;
+export const sourcesTooltipContainer = css({
+  paddingBottom: '4px',
+  paddingRight: '4px',
+});
 
-export const SourceWrapper = styled.div`
-  padding-top: 4px;
-  display: flex;
-  align-items: center;
-`;
+export const sourceWrapper = css({
+  paddingTop: '4px',
+  display: 'flex',
+  alignItems: 'center',
+});
 
 type RenderableSource = {
   sourceType: UserSource;
@@ -88,18 +89,18 @@ export const SourcesTooltipContent: React.FC<ExternalUserSourcesData> = ({
           <span>
             <FormattedMessage {...messages.externalUserSourcesHeading} />
           </span>
-          <SourcesTooltipContainer>
+          <div css={sourcesTooltipContainer}>
             {sourcesLoading && <Spinner size="small" appearance="invert" />}
             {!sourcesLoading &&
               sourcesToRender.map(({ sourceType, icon, label }) => (
-                <SourceWrapper key={sourceType}>
-                  <ImageContainer>{icon}</ImageContainer>
+                <div css={sourceWrapper} key={sourceType}>
+                  <span css={imageContainer}>{icon}</span>
                   <span>
                     <FormattedMessage {...label} />
                   </span>
-                </SourceWrapper>
+                </div>
               ))}
-          </SourcesTooltipContainer>
+          </div>
         </React.Fragment>
       )}
     </React.Fragment>

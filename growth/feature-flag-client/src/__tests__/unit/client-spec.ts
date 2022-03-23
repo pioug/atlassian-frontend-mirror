@@ -958,6 +958,27 @@ describe('Feature Flag Client', () => {
         expect(analyticsHandler).toHaveBeenCalledTimes(0);
       });
 
+      test('should return value if flag is set to different type', () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {
+            'my.variation.a': {
+              value: 'variation-a',
+              explanation: {
+                kind: 'RULE_MATCH',
+                ruleId: '111-bbbbb-ccc',
+              },
+            },
+          },
+        });
+
+        expect(
+          client.getRawValue('my.variation.a', {
+            default: false,
+          }),
+        ).toBe('variation-a');
+      });
+
       test('should return default if flag does not have a value attribute', () => {
         const client = new FeatureFlagClient({
           analyticsHandler,

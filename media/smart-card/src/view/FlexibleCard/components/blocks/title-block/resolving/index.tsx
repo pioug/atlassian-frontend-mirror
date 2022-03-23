@@ -4,10 +4,9 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 import Spinner from '@atlaskit/spinner';
 
-import { Title } from '../../../elements';
 import { TitleBlockProps } from '../types';
-import Block from '../../block';
 import { SmartLinkSize } from '../../../../../../constants';
+import { BaseTitleBlockComponent } from '../utils';
 
 const getSpinnerSize = (size: SmartLinkSize) => {
   // Spinner sizes should be equivalent or smaller than Icon size
@@ -25,26 +24,20 @@ const getSpinnerSize = (size: SmartLinkSize) => {
   }
 };
 
-const TitleBlockResolvingView: React.FC<TitleBlockProps> = ({
-  maxLines,
-  retry,
-  position,
-  testId,
-  theme,
-  text,
-  ...blockProps
-}) => {
-  const { size = SmartLinkSize.Medium } = blockProps;
-  const overrideText = !!text ? { text } : {};
+const TitleBlockResolvingView: React.FC<TitleBlockProps> = (props) => {
+  const { size = SmartLinkSize.Medium, testId } = props;
+  const spinnerIcon = (
+    <Spinner
+      size={getSpinnerSize(size)}
+      testId={`${testId}-resolving-spinner`}
+    />
+  );
   return (
-    <Block {...blockProps} testId={`${testId}-resolving-view`}>
-      <Spinner
-        size={getSpinnerSize(size)}
-        testId={`${testId}-resolving-spinner`}
-      />
-
-      <Title {...overrideText} maxLines={maxLines} theme={theme} />
-    </Block>
+    <BaseTitleBlockComponent
+      {...props}
+      blockIcon={spinnerIcon}
+      blockTestIdPostfix="resolving-view"
+    />
   );
 };
 

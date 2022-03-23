@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.2.0
+
+### Minor Changes
+
+- [`1781fc857bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1781fc857bd) - add email from logged in user
+
 ## 10.1.0
 
 ### Minor Changes

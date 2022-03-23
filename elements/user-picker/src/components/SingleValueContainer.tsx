@@ -1,14 +1,15 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/core';
 import { components, ValueContainerProps } from '@atlaskit/select';
 import { SizeableAvatar } from './SizeableAvatar';
 import { BORDER_PADDING } from './styles';
 import { User, Option } from '../types';
 
-const PlaceholderIconContainer = styled.div`
-  padding-left: ${BORDER_PADDING}px;
-  line-height: 0;
-`;
+const placeholderIconContainer = css({
+  paddingLeft: `${BORDER_PADDING}px`,
+  lineHeight: 0,
+});
 
 const showUserAvatar = (inputValue?: string, value?: Option<User>) =>
   value && value.data && inputValue === value.label;
@@ -42,9 +43,7 @@ export class SingleValueContainer extends React.Component<
 
     return (
       <components.ValueContainer {...valueContainerProps}>
-        <PlaceholderIconContainer>
-          {this.renderAvatar()}
-        </PlaceholderIconContainer>
+        <div css={placeholderIconContainer}>{this.renderAvatar()}</div>
         {children}
       </components.ValueContainer>
     );

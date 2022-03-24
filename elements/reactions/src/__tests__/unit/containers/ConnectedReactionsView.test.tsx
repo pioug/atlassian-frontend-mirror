@@ -1,16 +1,17 @@
+import React from 'react';
+import { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { ReactWrapper } from 'enzyme';
-import React from 'react';
-import ReactionsContainer, {
+import {
+  ConnectedReactionsView,
   Props,
-} from '../../../containers/ReactionsContainer';
-import { ReactionConsumer } from '../../../reaction-store/ReactionConsumer';
+} from '../../../containers/ConnectedReactionsView';
+import { ReactionConsumer } from '../../../store/ReactionConsumer';
 import { ReactionStatus } from '../../../types/ReactionStatus';
 import { ReactionSummary } from '../../../../src/types';
 
-describe('ReactionsContainer', () => {
+describe('ConnectedReactionsView', () => {
   const containerAri = 'container-ari';
   const ari = 'ari';
   const reactionKey = `${containerAri}|${ari}`;
@@ -39,7 +40,7 @@ describe('ReactionsContainer', () => {
 
   beforeAll(() => {
     container = mountWithIntl(
-      <ReactionsContainer
+      <ConnectedReactionsView
         store={store}
         containerAri={containerAri}
         ari={ari}
@@ -61,6 +62,7 @@ describe('ReactionsContainer', () => {
       expect(stateMapper).toBeDefined();
       expect(stateMapper!({ reactions: {}, flash: {} })).toMatchObject({
         status: ReactionStatus.notLoaded,
+        reactions: [],
       });
     });
 
@@ -90,7 +92,7 @@ describe('ReactionsContainer', () => {
           },
           flash: {},
         }),
-      ).toEqual({ status: ReactionStatus.loading });
+      ).toEqual({ status: ReactionStatus.loading, reactions: [] });
     });
   });
 

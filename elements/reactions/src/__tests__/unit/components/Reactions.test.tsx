@@ -19,6 +19,7 @@ import {
 import { Trigger } from '../../../components/Trigger';
 import { ReactionStatus } from '../../../types/ReactionStatus';
 import { ReactWrapper } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 
 describe('@atlaskit/reactions/reactions', () => {
   const renderReactions = (extraProps: Partial<Props> = {}) =>
@@ -44,6 +45,18 @@ describe('@atlaskit/reactions/reactions', () => {
     reactions.first().childAt(0).simulate('click');
 
     expect(onReactionClick).toHaveBeenCalled();
+  });
+
+  it('should NOT trigger "onReactionClick" when Tooltip is clicked', () => {
+    const onReactionClick = jest.fn();
+    const reactions = renderReactions({ onReactionClick });
+
+    act(() => {
+      reactions.first().childAt(0).simulate('mouseenter');
+      reactions.find(Tooltip).simulate('click');
+    });
+
+    expect(onReactionClick).not.toHaveBeenCalled();
   });
 
   it('should show loading tooltip and disable picker', () => {

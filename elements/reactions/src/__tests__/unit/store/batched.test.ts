@@ -1,4 +1,4 @@
-import { batch, batchByKey } from '../../../reaction-store/batched';
+import { batch, batchByKey } from '../../../store/batched';
 
 describe('batch', () => {
   const func = jest.fn();

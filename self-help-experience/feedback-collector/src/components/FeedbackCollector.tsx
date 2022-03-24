@@ -225,11 +225,16 @@ export default class FeedbackCollector extends Component<Props> {
     }
   }
 
-  async getEmail(formValues: FormFields) {
+  async getEmailAndAtlassianID(formValues: FormFields) {
     try {
       if (formValues.canBeContacted) {
         if (this.props.email) {
-          return this.props.email;
+          return {
+            email: this.props.email,
+            aaidOrHash: Buffer.from(this.props.email as string).toString(
+              'base64',
+            ),
+          };
         }
         const url = this.props.url;
         const result = await fetch(`${url}/me`, {
@@ -241,12 +246,22 @@ export default class FeedbackCollector extends Component<Props> {
         });
 
         const json = await result.json();
-        return json.email;
+        return { email: json.email, aaidOrHash: json.account_id };
       } else {
-        return this.props.emailDefaultValue;
+        return {
+          email: this.props.emailDefaultValue,
+          aaidOrHash: Buffer.from(
+            this.props.emailDefaultValue as string,
+          ).toString('base64'),
+        };
       }
     } catch (e) {
-      return this.props.emailDefaultValue;
+      return {
+        email: this.props.emailDefaultValue,
+        aaidOrHash: Buffer.from(
+          this.props.emailDefaultValue as string,
+        ).toString('base64'),
+      };
     }
   }
 
@@ -289,7 +304,11 @@ export default class FeedbackCollector extends Component<Props> {
         },
         {
           id: this.props.emailFieldId,
-          value: await this.getEmail(formValues),
+          value: (await this.getEmailAndAtlassianID(formValues)).email,
+        },
+        {
+          id: 'aaidOrHash',
+          value: (await this.getEmailAndAtlassianID(formValues)).aaidOrHash,
         },
         {
           id: this.props.customerNameFieldId,

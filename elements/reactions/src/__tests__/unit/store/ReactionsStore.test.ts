@@ -6,7 +6,7 @@ import {
   reaction,
   user,
 } from '../../../client/MockReactionsClient';
-import { MemoryReactionsStore } from '../../../reaction-store/ReactionsStore';
+import * as ReactionStore from '../../../store/ReactionsStore';
 import { ReactionStatus } from '../../../types/ReactionStatus';
 import * as AnalyticsModule from '../../../analytics';
 
@@ -42,17 +42,26 @@ const createSafeRejectedPromise = (error: any) => {
   };
 };
 
-describe('ReactionContext', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-    spyCreateAndFireSafe.mockImplementation(fakeCreateAndFireSafe);
-  });
-  afterAll(() => {
-    jest.useRealTimers();
-    spyCreateAndFireSafe.mockRestore();
-  });
-
+describe('ReactionStore', () => {
   const fakeCreateAnalyticsEvent = jest.fn();
+  const fakeAddUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+  };
+  const fakeRemoveUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+  };
+  const fakeRenderUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+  };
 
   const fakeClient: ReactionClient = {
     getReactions: jest.fn(),
@@ -69,21 +78,57 @@ describe('ReactionContext', () => {
     ],
   });
 
-  let store: MemoryReactionsStore;
+  let store: ReactionStore.MemoryReactionsStore;
+  beforeAll(() => {
+    jest.useFakeTimers();
+    spyCreateAndFireSafe.mockImplementation(fakeCreateAndFireSafe);
+    ReactionStore.ufoExperiences.add.getInstance = jest.fn(
+      () => fakeAddUFOInstance as any,
+    );
+    ReactionStore.ufoExperiences.remove.getInstance = jest.fn(
+      () => fakeRemoveUFOInstance as any,
+    );
+    ReactionStore.ufoExperiences.render.getInstance = jest.fn(
+      () => fakeRenderUFOInstance as any,
+    );
+  });
+  afterAll(() => {
+    jest.useRealTimers();
+    spyCreateAndFireSafe.mockRestore();
+  });
 
   beforeEach(() => {
     (fakeClient.getReactions as jest.Mock<any>).mockReset();
     (fakeClient.getDetailedReaction as jest.Mock<any>).mockReset();
     (fakeClient.addReaction as jest.Mock<any>).mockReset();
     (fakeClient.deleteReaction as jest.Mock<any>).mockReset();
+
     fakeCreateAndFireSafe.mockReset();
 
-    store = new MemoryReactionsStore(fakeClient);
+    // Add UFO experience reset mocks
+    fakeAddUFOInstance.start.mockReset();
+    fakeAddUFOInstance.abort.mockReset();
+    fakeAddUFOInstance.failure.mockReset();
+    fakeAddUFOInstance.success.mockReset();
+
+    // Remove UFO experience reset mocks
+    fakeRemoveUFOInstance.start.mockReset();
+    fakeRemoveUFOInstance.abort.mockReset();
+    fakeRemoveUFOInstance.failure.mockReset();
+    fakeRemoveUFOInstance.success.mockReset();
+
+    // Render UFO experience reset mocks
+    fakeRenderUFOInstance.start.mockReset();
+    fakeRenderUFOInstance.abort.mockReset();
+    fakeRenderUFOInstance.failure.mockReset();
+    fakeRenderUFOInstance.success.mockReset();
+
+    store = new ReactionStore.MemoryReactionsStore(fakeClient);
   });
 
   describe('with empty state', () => {
     beforeEach(() => {
-      store = new MemoryReactionsStore(fakeClient);
+      store = new ReactionStore.MemoryReactionsStore(fakeClient);
     });
 
     it('should set initial state', () => {
@@ -180,7 +225,7 @@ describe('ReactionContext', () => {
       subproduct: 'atlaskit-test',
     };
     beforeEach(() => {
-      store = new MemoryReactionsStore(
+      store = new ReactionStore.MemoryReactionsStore(
         fakeClient,
         {
           reactions: {
@@ -215,7 +260,7 @@ describe('ReactionContext', () => {
   });
   describe('with state set', () => {
     beforeEach(() => {
-      store = new MemoryReactionsStore(fakeClient, {
+      store = new ReactionStore.MemoryReactionsStore(fakeClient, {
         reactions: {
           [`${containerAri}|${ari}`]: {
             reactions: [
@@ -329,6 +374,10 @@ describe('ReactionContext', () => {
     });
 
     it('should call adaptor to remove reaction', () => {
+      (fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(
+        new Error('delete error'),
+      );
+
       store.toggleReaction(containerAri, ari, '1f44f');
 
       expect(store.getState()).toMatchObject({
@@ -350,7 +399,7 @@ describe('ReactionContext', () => {
 
   describe('SLI analytics', () => {
     beforeEach(() => {
-      store = new MemoryReactionsStore(fakeClient, {
+      store = new ReactionStore.MemoryReactionsStore(fakeClient, {
         reactions: {
           [`${containerAri}|${ari}`]: {
             reactions: [
@@ -374,12 +423,19 @@ describe('ReactionContext', () => {
 
         store.addReaction(containerAri, ari, '1f44d');
 
+        // Validate the start method been called
+        expect(fakeAddUFOInstance.start).toBeCalled();
+
         await response;
+
+        // Check success response
         expect(fakeCreateAndFireSafe).toBeCalledWith(
           fakeCreateAnalyticsEvent,
           AnalyticsModule.createRestSucceededEvent,
           'addReaction',
         );
+        expect(fakeAddUFOInstance.success).toBeCalled();
+        expect(fakeAddUFOInstance.failure).not.toBeCalled();
       });
 
       it('should fire SLI analytics when reaction failed to be added', async () => {
@@ -394,13 +450,18 @@ describe('ReactionContext', () => {
 
         // act
         store.addReaction(containerAri, ari, '1f44d');
+
         // assert
+        // Validate the start method been called
+        expect(fakeAddUFOInstance.start).toBeCalled();
         expect(fakeCreateAndFireSafe).toBeCalledWith(
           fakeCreateAnalyticsEvent,
           AnalyticsModule.createRestFailedEvent,
           'addReaction',
           503,
         );
+        expect(fakeAddUFOInstance.success).not.toBeCalled();
+        expect(fakeAddUFOInstance.failure).toBeCalled();
       });
 
       it('should not fire addReaction SLI analytics when createAnalyticsEvent is not provided', async () => {
@@ -414,6 +475,42 @@ describe('ReactionContext', () => {
 
         await response;
         expect(fakeCreateAndFireSafe).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('removeReaction analytics', () => {
+      it('should fire SLI analytics when reaction is removed successfully', async () => {
+        const response = Promise.resolve();
+        (fakeClient.deleteReaction as jest.Mock<any>).mockReturnValueOnce(
+          response,
+        );
+
+        store.toggleReaction(containerAri, ari, '1f44f');
+
+        // Validate the start method been called
+        expect(fakeRemoveUFOInstance.start).toBeCalled();
+        await response;
+        // Check success response
+        expect(fakeRemoveUFOInstance.success).toBeCalled();
+      });
+
+      it('should fire SLI analytics when reaction failed to be removed', async () => {
+        const response = Promise.resolve(new Error('delete error'));
+        (fakeClient.deleteReaction as jest.Mock<any>).mockRejectedValueOnce(
+          response,
+        );
+
+        store.toggleReaction(containerAri, ari, '1f44f');
+
+        // Validate the start method been called
+        expect(fakeRemoveUFOInstance.start).toBeCalled();
+
+        await response;
+
+        await waitForExpect(() => {
+          expect(fakeRemoveUFOInstance.success).not.toBeCalled();
+          expect(fakeRemoveUFOInstance.failure).toBeCalled();
+        });
       });
     });
 
@@ -432,6 +529,8 @@ describe('ReactionContext', () => {
         await getReactionsResponse;
 
         await waitForExpect(() => {
+          expect(fakeRenderUFOInstance.start).toBeCalled();
+          expect(fakeRenderUFOInstance.success).toBeCalled();
           expect(fakeCreateAndFireSafe).toBeCalledWith(
             fakeCreateAnalyticsEvent,
             AnalyticsModule.createRestSucceededEvent,
@@ -451,13 +550,18 @@ describe('ReactionContext', () => {
         // act
         store.getReactions(containerAri, ari);
         jest.runAllTimers();
+
         // assert
-        expect(fakeCreateAndFireSafe).toBeCalledWith(
-          fakeCreateAnalyticsEvent,
-          AnalyticsModule.createRestFailedEvent,
-          'getReactions',
-          503,
-        );
+        await waitForExpect(() => {
+          expect(fakeRenderUFOInstance.start).toBeCalled();
+          expect(fakeRenderUFOInstance.failure).toBeCalled();
+          expect(fakeCreateAndFireSafe).toBeCalledWith(
+            fakeCreateAnalyticsEvent,
+            AnalyticsModule.createRestFailedEvent,
+            'getReactions',
+            503,
+          );
+        });
       });
 
       it('should not fire getReactions SLI analytics when createAnalyticsEvent is not provided', async () => {

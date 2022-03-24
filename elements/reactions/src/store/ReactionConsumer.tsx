@@ -1,38 +1,36 @@
 import React from 'react';
-import { ReactionAction } from '../types';
+import { Actions } from '../types';
+import { StateMapperProps } from '../components/Reactions';
 import { ReactionsStore, State } from './ReactionsStore';
 
 export type ReactionStoreProp = ReactionsStore | Promise<ReactionsStore>;
 
 export type ReactionStoreState = State;
 
-export type Actions = {
-  getReactions: (containerId: string, aris: string) => void;
-  toggleReaction: ReactionAction;
-  addReaction: ReactionAction;
-  getDetailedReaction: ReactionAction;
-};
+export interface ExtendedPropsFromState extends StateMapperProps {}
 
-export type Props<PropsFromState extends {}, PropsFromActions extends {}> = {
-  stateMapper?: (state: State) => PropsFromState;
+export type Props<ExtendedPropsFromState, PropsFromActions extends {}> = {
+  stateMapper?: (state: State) => ExtendedPropsFromState;
   actionsMapper?: (actions: Actions) => PropsFromActions;
-  children: (props: PropsFromState & PropsFromActions) => React.ReactNode;
+  children: (
+    props: ExtendedPropsFromState & PropsFromActions,
+  ) => React.ReactNode;
   store: ReactionStoreProp;
 };
 
 type ConsumerState = { store?: ReactionsStore };
 
 export class ReactionConsumer<
-  PropsFromState extends {},
+  ExtendedPropsFromState,
   PropsFromActions extends {}
 > extends React.PureComponent<
-  Props<PropsFromState, PropsFromActions>,
+  Props<ExtendedPropsFromState, PropsFromActions>,
   ConsumerState
 > {
   private previousActions: Actions | undefined;
   private propsFromActions: PropsFromActions | undefined;
 
-  constructor(props: Props<PropsFromState, PropsFromActions>) {
+  constructor(props: Props<ExtendedPropsFromState, PropsFromActions>) {
     super(props);
     this.state = {};
   }

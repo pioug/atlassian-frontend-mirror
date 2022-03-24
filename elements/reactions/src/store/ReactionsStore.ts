@@ -1,25 +1,14 @@
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ReactionClient } from '../client';
-import {
-  createRestSucceededEvent,
-  createRestFailedEvent,
-  createAndFireSafe,
-} from '../analytics';
-import {
-  Reactions,
-  ReactionsReadyState,
-  ReactionsState,
-  ReactionStatus,
-  ReactionSummary,
-  Updater,
-} from '../types';
+import * as Analytics from '../analytics';
+import * as Types from '../types';
 import { batch, batchByKey } from './batched';
 import * as utils from './utils';
 import { isRealErrorFromService } from './utils';
 
 export type State = {
   reactions: {
-    [key: string]: ReactionsState;
+    [key: string]: Types.ReactionsState;
   };
   flash: {
     [key: string]: {
@@ -34,15 +23,16 @@ export interface StoreMetadata {
   [k: string]: any;
 }
 
-export interface ReactionsStore {
-  getReactions: (containerAri: string, ...aris: string[]) => void;
-  toggleReaction: (containerAri: string, aris: string, emojiId: string) => void;
-  addReaction: (containerAri: string, aris: string, emojiId: string) => void;
-  getDetailedReaction: (
-    containerAri: string,
-    aris: string,
-    emojiId: string,
-  ) => void;
+/**
+ * Set of all available UFO experiences relating to reaction element
+ */
+export const ufoExperiences = {
+  add: Analytics.UFO.ReactionsAdd,
+  remove: Analytics.UFO.ReactionsRemove,
+  render: Analytics.UFO.ReactionsRendered,
+};
+
+export interface ReactionsStore extends Types.Actions {
   getState: () => State;
   onChange: (callback: OnUpdateCallback) => void;
   removeOnChangeListener: (callback: OnUpdateCallback) => void;
@@ -87,7 +77,7 @@ export class MemoryReactionsStore implements ReactionsStore {
   private setReactions = (
     containerAri: string,
     ari: string,
-    reactions: ReactionsState,
+    reactions: Types.ReactionsState,
   ) => {
     this.setState({
       reactions: {
@@ -102,7 +92,7 @@ export class MemoryReactionsStore implements ReactionsStore {
   }
 
   private handleDetailedReactionResponse = (
-    detailedReaction: ReactionSummary,
+    detailedReaction: Types.ReactionSummary,
   ) => {
     const { containerAri, ari, emojiId } = detailedReaction;
     this.withReaction((reaction) => ({
@@ -128,7 +118,7 @@ export class MemoryReactionsStore implements ReactionsStore {
     });
   }
 
-  private flash = (reaction: ReactionSummary): void => {
+  private flash = (reaction: Types.ReactionSummary): void => {
     this.setFlash(reaction.containerAri, reaction.ari, reaction.emojiId, true);
     window.setTimeout(
       () =>
@@ -146,7 +136,7 @@ export class MemoryReactionsStore implements ReactionsStore {
     containerAri: string,
     ari: string,
     emojiId: string,
-  ) => (updater: Updater<ReactionSummary>) => {
+  ) => (updater: Types.Updater<Types.ReactionSummary>) => {
     this.withReadyReaction(
       containerAri,
       ari,
@@ -198,9 +188,9 @@ export class MemoryReactionsStore implements ReactionsStore {
    *  ready. If some state is returned, the new state will be applied.
    */
   private withReadyReaction(containerAri: string, ari: string) {
-    return (updater: Updater<ReactionsReadyState>) => {
+    return (updater: Types.Updater<Types.ReactionsReadyState>) => {
       const reactionsState = this.getReactionsState(containerAri, ari);
-      if (reactionsState.status === ReactionStatus.ready) {
+      if (reactionsState.status === Types.ReactionStatus.ready) {
         const updated = updater(reactionsState);
         if (updated) {
           this.setReactions(containerAri, ari, updated);
@@ -223,15 +213,15 @@ export class MemoryReactionsStore implements ReactionsStore {
    *  emojiId. If some state is returned, the new state will be applied.
    */
   private withReaction(
-    reactedCallback: Updater<ReactionSummary>,
-    notReactedCallback?: Updater<ReactionSummary>,
+    reactedCallback: Types.Updater<Types.ReactionSummary>,
+    notReactedCallback?: Types.Updater<Types.ReactionSummary>,
   ) {
     return (containerAri: string, ari: string, emojiId: string) => {
       this.withReadyReaction(
         containerAri,
         ari,
       )((reactionsState) => {
-        const reaction: ReactionSummary = reactionsState.reactions.find(
+        const reaction: Types.ReactionSummary = reactionsState.reactions.find(
           utils.byEmojiId(emojiId),
         ) || {
           containerAri,
@@ -240,17 +230,18 @@ export class MemoryReactionsStore implements ReactionsStore {
           count: 0,
           reacted: false,
         };
-        const callback: Updater<ReactionSummary> =
+        const callback: Types.Updater<Types.ReactionSummary> =
           reaction.reacted || !notReactedCallback
             ? reactedCallback
             : notReactedCallback;
+
         const updatedReaction = callback(reaction);
         if (updatedReaction && !(updatedReaction instanceof Function)) {
           return utils.readyState(
             reactionsState.reactions.map(
               utils.updateByEmojiId(emojiId, updatedReaction) as (
-                reaction: ReactionSummary,
-              ) => ReactionSummary,
+                reaction: Types.ReactionSummary,
+              ) => Types.ReactionSummary,
             ),
           );
         }
@@ -259,40 +250,66 @@ export class MemoryReactionsStore implements ReactionsStore {
     };
   }
 
-  private doAddReaction = (reaction: ReactionSummary) => {
+  private doAddReaction = (reaction: Types.ReactionSummary) => {
     const { containerAri, ari, emojiId } = reaction;
     this.optmisticUpdate(containerAri, ari, emojiId)(utils.addOne);
     this.flash(reaction);
+
+    const exp = ufoExperiences.add.getInstance(`${ari}|${emojiId}`);
+    // ufo start reaction experience
+    exp.start();
 
     this.client
       .addReaction(containerAri, ari, emojiId, this.metadata)
       .then((_) => {
         if (this.createAnalyticsEvent) {
-          createAndFireSafe(
+          Analytics.createAndFireSafe(
             this.createAnalyticsEvent,
-            createRestSucceededEvent,
+            Analytics.createRestSucceededEvent,
             'addReaction',
           );
         }
+        // ufo add reaction success
+        exp.success();
       })
       .catch((error) => {
         if (this.createAnalyticsEvent && isRealErrorFromService(error.code)) {
-          createAndFireSafe(
-            this.createAnalyticsEvent,
-            createRestFailedEvent,
-            'addReaction',
-            error.code,
-          );
+          this.createAnalyticsEvent &&
+            Analytics.createAndFireSafe(
+              this.createAnalyticsEvent,
+              Analytics.createRestFailedEvent,
+              'addReaction',
+              error.code,
+            );
+          // ufo add reaction failure
+          exp.failure({
+            metadata: { error },
+          });
         }
-
         return Promise.reject(error);
       });
   };
 
-  private doRemoveReaction = (reaction: ReactionSummary) => {
+  private doRemoveReaction = (reaction: Types.ReactionSummary) => {
     const { containerAri, ari, emojiId } = reaction;
+    const exp = ufoExperiences.remove.getInstance(`${ari}|${emojiId}`);
+
+    // ufo start reaction experience
+
+    exp.start();
     this.optmisticUpdate(containerAri, ari, emojiId)(utils.removeOne);
-    this.client.deleteReaction(containerAri, ari, emojiId, this.metadata);
+    this.client
+      .deleteReaction(containerAri, ari, emojiId, this.metadata)
+      .then((_) => {
+        // ufo add reaction success
+        exp.success();
+      })
+      .catch((error) => {
+        // ufo add reaction failure
+        exp.failure({
+          metadata: { error },
+        });
+      });
   };
 
   setCreateAnalyticsEvent = (
@@ -302,13 +319,21 @@ export class MemoryReactionsStore implements ReactionsStore {
   };
 
   getReactions = batchByKey((containerAri: string, aris: string[][]): void => {
+    /**
+     * TODO:
+     * All reactions are usually fetched in a single call to reactions-service. Need to check why "getReactions" gets called randomly 1-2 times everytime on each fetch request despite using same containerAri.
+     */
+    const exp = ufoExperiences.render.getInstance(containerAri);
+    // ufo start reaction experience
+    exp.start();
     this.client
       .getReactions(containerAri, aris.reduce(utils.flattenAris))
-      .then((value: Reactions) => {
+      .then((value: Types.Reactions) => {
         Object.keys(value).map((ari) => {
           const reactionsState = this.getReactionsState(containerAri, ari);
           const reactions =
-            reactionsState && reactionsState.status === ReactionStatus.ready
+            reactionsState &&
+            reactionsState.status === Types.ReactionStatus.ready
               ? reactionsState.reactions
               : undefined;
           this.setReactions(
@@ -322,23 +347,27 @@ export class MemoryReactionsStore implements ReactionsStore {
       })
       .then(() => {
         if (this.createAnalyticsEvent) {
-          createAndFireSafe(
+          Analytics.createAndFireSafe(
             this.createAnalyticsEvent,
-            createRestSucceededEvent,
+            Analytics.createRestSucceededEvent,
             'getReactions',
           );
         }
+        exp.success();
       })
       .catch((error) => {
-        if (this.createAnalyticsEvent && isRealErrorFromService(error.code)) {
-          createAndFireSafe(
-            this.createAnalyticsEvent,
-            createRestFailedEvent,
-            'getReactions',
-            error.code,
-          );
+        if (isRealErrorFromService(error.code)) {
+          if (this.createAnalyticsEvent) {
+            Analytics.createAndFireSafe(
+              this.createAnalyticsEvent,
+              Analytics.createRestFailedEvent,
+              'getReactions',
+              error.code,
+            );
+          }
+          exp.failure();
+          return Promise.reject(error);
         }
-        return Promise.reject(error);
       });
   });
 

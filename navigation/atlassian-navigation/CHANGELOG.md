@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.1.3
+
+### Patch Changes
+
+- [`5772d2d059c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5772d2d059c) - update root babel config to correctly compile atlassian switcher
+
 ## 2.1.2
 
 ### Patch Changes

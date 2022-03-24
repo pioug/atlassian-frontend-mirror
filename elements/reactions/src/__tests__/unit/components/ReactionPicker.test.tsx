@@ -17,7 +17,7 @@ describe('@atlaskit/reactions/reaction-picker', () => {
       <ReactionPicker
         emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
         onSelection={onSelection}
-        allowAllEmojis={true}
+        allowAllEmojis
         disabled={disabled}
       />
     );

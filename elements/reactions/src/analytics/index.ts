@@ -14,6 +14,8 @@ import {
 } from '../version.json';
 import { ReactionSummary, ReactionSource } from '../types';
 
+export * as UFO from './ufo';
+
 export type PreviousState = 'new' | 'existingNotReacted' | 'existingReacted';
 
 export const createAndFireEventInElementsChannel = createAndFireEvent(

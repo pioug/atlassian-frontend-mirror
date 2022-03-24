@@ -1,4 +1,4 @@
-export type { OnEmoji, OnReaction, ReactionAction } from './Actions';
+export type { OnEmoji, OnReaction, ReactionAction, Actions } from './Actions';
 export type { DetailedReaction } from './DetailedReaction';
 export type { Reactions } from './Reactions';
 export type { ReactionSource } from './ReactionSource';

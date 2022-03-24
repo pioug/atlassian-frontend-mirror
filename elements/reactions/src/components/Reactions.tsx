@@ -40,18 +40,21 @@ const reactionsStyle = css({
   '& > :first-of-type': { marginLeft: 0 },
 });
 
-export interface Props {
+export interface StateMapperProps {
   reactions: ReactionSummary[];
   status: ReactionStatus;
+  flash?: {
+    [emojiId: string]: boolean;
+  };
+}
+
+export interface Props extends StateMapperProps {
   loadReaction: () => void;
   onSelection: OnEmoji;
 
   onReactionClick: OnEmoji;
   onReactionHover?: OnReaction;
   allowAllEmojis?: boolean;
-  flash?: {
-    [emojiId: string]: boolean;
-  };
   boundariesElement?: string;
   errorMessage?: string;
   emojiProvider: Promise<EmojiProvider>;
@@ -170,7 +173,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
         <ReactionPicker
           css={reactionStyle}
           emojiProvider={emojiProvider}
-          miniMode={true}
+          miniMode
           boundariesElement={boundariesElement}
           allowAllEmojis={allowAllEmojis}
           disabled={this.isDisabled()}

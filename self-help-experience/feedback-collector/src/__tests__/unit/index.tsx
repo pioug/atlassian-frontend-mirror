@@ -84,6 +84,10 @@ describe('Feedback Collector unit tests', () => {
               value: 'do-not-reply@atlassian.com',
             },
             {
+              id: 'aaidOrHash',
+              value: 'ZG8tbm90LXJlcGx5QGF0bGFzc2lhbi5jb20=',
+            },
+            {
               id: 'customfield_10045',
               value: 'name',
             },
@@ -124,6 +128,10 @@ describe('Feedback Collector unit tests', () => {
               value: 'do-not-reply@atlassian.com',
             },
             {
+              id: 'aaidOrHash',
+              value: 'ZG8tbm90LXJlcGx5QGF0bGFzc2lhbi5jb20=',
+            },
+            {
               id: 'customfield_10045',
               value: 'name',
             },
@@ -162,6 +170,10 @@ describe('Feedback Collector unit tests', () => {
             {
               id: 'email',
               value: 'email',
+            },
+            {
+              id: 'aaidOrHash',
+              value: 'ZW1haWw=',
             },
             {
               id: 'customfield_10045',
@@ -210,6 +222,10 @@ describe('Feedback Collector unit tests', () => {
             {
               id: 'email',
               value: 'email',
+            },
+            {
+              id: 'aaidOrHash',
+              value: 'ZW1haWw=',
             },
             {
               id: 'customfield_10045',
@@ -276,6 +292,10 @@ describe('Feedback Collector unit tests', () => {
             {
               id: 'email',
               value: 'email',
+            },
+            {
+              id: 'aaidOrHash',
+              value: 'ZW1haWw=',
             },
             {
               id: 'customfield_10045',

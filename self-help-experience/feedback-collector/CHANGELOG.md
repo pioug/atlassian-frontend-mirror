@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.3.0
+
+### Minor Changes
+
+- [`7891017f3f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7891017f3f9) - use hash of userid or email instead of sending PII
+
 ## 10.2.0
 
 ### Minor Changes

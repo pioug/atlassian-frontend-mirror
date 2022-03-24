@@ -9,3 +9,10 @@ export interface OnEmoji {
 }
 
 export type OnReaction = (emojiId: string) => void;
+
+export type Actions = {
+  getReactions: (containerId: string, aris: string) => void;
+  toggleReaction: ReactionAction;
+  addReaction: ReactionAction;
+  getDetailedReaction: ReactionAction;
+};

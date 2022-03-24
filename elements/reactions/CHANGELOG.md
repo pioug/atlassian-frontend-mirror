@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 21.2.0
+
+### Minor Changes
+
+- [`ed9ab4d82a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed9ab4d82a3) - Adds "reactions-rendered", "reactions-picker-opened", "reaction-added" and "reaction-removed" to UFO experiences
+
 ## 21.1.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ import WebpackDevServer from 'webpack-dev-server';
 const API_URL = 'http://localhost:6688';
 
 const isTargetLocalhost = () => {
-  const target = process.env.EMOJI_API_PROXY;
+  const target = process.env.REACTIONS_API_PROXY;
   if (target && target.includes('http://localhost')) {
     return false;
   }

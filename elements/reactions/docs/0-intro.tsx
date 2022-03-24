@@ -11,7 +11,7 @@ import ReactionsExample from '../examples/00-picker-and-reactions';
 
 const ReactionsSource = require('!!raw-loader!../examples/00-picker-and-reactions');
 
-const ReactionsProps = require('!!extract-react-types-loader!../examples/examples-util/ReactionsExampleWrapper');
+const ReactionsProps = require('!!extract-react-types-loader!../examples/examples-utils/ReactionsExampleWrapper');
 
 export default md`
   ${(<AtlassianInternalWarning />)}

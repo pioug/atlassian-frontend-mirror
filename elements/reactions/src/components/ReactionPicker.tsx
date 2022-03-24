@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import React, { Fragment, PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import { jsx, css } from '@emotion/core';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
@@ -7,11 +9,9 @@ import { Manager, Popper, Reference, PopperProps } from '@atlaskit/popper';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import React, { Fragment } from 'react';
-import { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 import { Selector } from './Selector';
 import { Trigger } from './Trigger';
+import { UFO } from '../analytics';
 import { ReactionSource } from '../types';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -81,6 +81,7 @@ export class ReactionPicker extends PureComponent<Props, State> {
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
+    UFO.PickerRender.abort();
   }
 
   private handleClickOutside = (e: MouseEvent) => {
@@ -99,10 +100,16 @@ export class ReactionPicker extends PureComponent<Props, State> {
   };
 
   private close(_emojiId?: string) {
-    this.setState({
-      isOpen: false,
-      showFullPicker: false,
-    });
+    this.setState(
+      {
+        isOpen: false,
+        showFullPicker: false,
+      },
+      () => {
+        // ufo abort reaction experience
+        UFO.PickerRender.abort();
+      },
+    );
   }
 
   private showFullPicker = (e: React.MouseEvent<HTMLElement>) => {
@@ -112,7 +119,6 @@ export class ReactionPicker extends PureComponent<Props, State> {
       onMore();
     }
     // Update popper position
-
     this.setState(
       {
         isOpen: true,
@@ -167,13 +173,21 @@ export class ReactionPicker extends PureComponent<Props, State> {
   };
 
   private onTriggerClick = () => {
+    // ufo start reaction experience
+    UFO.PickerRender.start();
     if (this.props.onOpen) {
       this.props.onOpen();
     }
-    this.setState({
-      isOpen: !this.state.isOpen,
-      showFullPicker: false,
-    });
+    this.setState(
+      {
+        isOpen: !this.state.isOpen,
+        showFullPicker: false,
+      },
+      () => {
+        // ufo add reaction success
+        UFO.PickerRender.success();
+      },
+    );
   };
 
   private popperModifiers: PopperProps<{}>['modifiers'] = [

@@ -1,4 +1,4 @@
-import { isRealErrorFromService } from '../../../reaction-store/utils';
+import { isRealErrorFromService } from '../../../store/utils';
 
 describe('isRealErrorFromService', () => {
   it('should return true for a real error', async () => {

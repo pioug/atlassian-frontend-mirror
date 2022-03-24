@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { ReactionConsumer } from '../../../reaction-store/ReactionConsumer';
+import { ReactionConsumer } from '../../../store/ReactionConsumer';
 import { ReactionStatus } from '../../../types/ReactionStatus';
 
 describe('ReactionConsumer', () => {

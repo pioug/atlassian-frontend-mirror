@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 64.4.0
+
+### Minor Changes
+
+- [`39031597fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39031597fa1) - added more UFO experiences support
+
 ## 64.3.0
 
 ### Minor Changes

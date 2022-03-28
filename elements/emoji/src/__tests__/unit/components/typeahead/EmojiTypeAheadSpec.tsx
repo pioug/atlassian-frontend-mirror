@@ -39,8 +39,9 @@ import {
   typeaheadCancelledEvent,
   typeaheadRenderedEvent,
   typeaheadSelectedEvent,
-  insertionSucceeded,
-  insertionFailed,
+  recordSucceeded,
+  recordFailed,
+  ufoExperiences,
 } from '../../../../util/analytics';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
@@ -107,6 +108,16 @@ const doneLoading = (component: ReactWrapper<TypeAheadProps, TypeAheadState>) =>
   component.update() && !component.state('loading');
 
 describe('EmojiTypeAhead', () => {
+  const emojiRecordUFO = ufoExperiences['emoji-selection-recorded'];
+  const ufoEmojiRecordedStartSpy = jest.spyOn(emojiRecordUFO, 'start');
+  const ufoEmojiRecordedSuccessSpy = jest.spyOn(emojiRecordUFO, 'success');
+  const ufoEmojiRecordedFailureSpy = jest.spyOn(emojiRecordUFO, 'failure');
+
+  beforeEach(() => {
+    ufoEmojiRecordedStartSpy.mockClear();
+    ufoEmojiRecordedSuccessSpy.mockClear();
+    ufoEmojiRecordedFailureSpy.mockClear();
+  });
   it('should display max emoji by default', () =>
     setupTypeAhead().then((component) =>
       waitUntil(() => doneLoading(component)).then(() => {
@@ -244,8 +255,12 @@ describe('EmojiTypeAhead', () => {
 
     await waitUntil(() => selectionRecorded);
     expect(fireEventSpy).toHaveBeenLastCalledWith(
-      expect.objectContaining(withSessionId(insertionSucceeded('typeahead'))),
+      expect.objectContaining(withSessionId(recordSucceeded('typeahead'))),
     );
+
+    expect(ufoEmojiRecordedStartSpy).toBeCalled();
+    expect(ufoEmojiRecordedSuccessSpy).toBeCalled();
+    expect(ufoEmojiRecordedFailureSpy).not.toBeCalled();
   });
 
   it('should fire insertion failed event if provider recordSelection fails', async () => {
@@ -266,14 +281,19 @@ describe('EmojiTypeAhead', () => {
       failureOccurred = true;
       return Promise.reject();
     };
+
     const item = getEmojiTypeAheadItemById(component, allEmojis[2].id);
     item.simulate('mousedown', leftClick);
 
     await waitUntil(() => failureOccurred);
     await waitForExpect(() => {
       expect(fireEventSpy).toHaveBeenLastCalledWith(
-        expect.objectContaining(withSessionId(insertionFailed('typeahead'))),
+        expect.objectContaining(withSessionId(recordFailed('typeahead'))),
       );
+
+      expect(ufoEmojiRecordedStartSpy).toBeCalled();
+      expect(ufoEmojiRecordedSuccessSpy).not.toBeCalled();
+      expect(ufoEmojiRecordedFailureSpy).toBeCalled();
     });
   });
 

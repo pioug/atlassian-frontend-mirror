@@ -5,6 +5,7 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { ComponentClass } from 'react';
+import { ufoExperiences } from '../../util/analytics';
 import { EmojiProvider } from '../../api/EmojiResource';
 import { OnEmojiEvent } from '../../types';
 import LoadingEmojiComponent, {
@@ -17,7 +18,7 @@ import {
 } from './EmojiPickerComponent';
 import { LoadingItem } from './EmojiPickerVirtualItems';
 import { emojiPicker } from './styles';
-
+import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
 const emojiPickerModuleLoader = () =>
   import(
     /* webpackChunkName:"@atlaskit-internal_emojiPickerComponent" */ './EmojiPickerComponent'
@@ -45,6 +46,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 
   constructor(props: Props) {
     super(props, {});
+    ufoExperiences['emoji-picker-opened'].start();
   }
 
   asyncLoadComponent() {
@@ -61,6 +63,8 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
         this.props.onPickerRef(ref);
       }
     };
+    ufoExperiences['emoji-picker-opened'].markFMP();
+
     return (
       <div css={emojiPicker} ref={handlePickerRef}>
         {item.renderItem()}
@@ -74,10 +78,12 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
   ) {
     const { emojiProvider, ...otherProps } = this.props;
     return (
-      <EmojiPickerComponent
-        emojiProvider={loadedEmojiProvider}
-        {...otherProps}
-      />
+      <UfoErrorBoundary experiences={[ufoExperiences['emoji-picker-opened']]}>
+        <EmojiPickerComponent
+          emojiProvider={loadedEmojiProvider}
+          {...otherProps}
+        />
+      </UfoErrorBoundary>
     );
   }
 }

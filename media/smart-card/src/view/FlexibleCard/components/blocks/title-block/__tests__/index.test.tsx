@@ -151,6 +151,35 @@ describe('TitleBlock', () => {
     }
   });
 
+  describe('anchor link', () => {
+    it('should render', async () => {
+      const { findByTestId } = renderTitleBlock();
+
+      const element = await findByTestId('smart-element-link');
+
+      expect(element).toBeDefined();
+      expect(element).toHaveAttribute('target', '_blank');
+    });
+
+    it('should have default target attribute', async () => {
+      const { findByTestId } = renderTitleBlock();
+
+      const element = await findByTestId('smart-element-link');
+
+      expect(element).toHaveAttribute('target', '_blank');
+    });
+
+    it('should have custom target attribute', async () => {
+      const { findByTestId } = renderTitleBlock({
+        anchorTarget: '_self',
+      });
+
+      const element = await findByTestId('smart-element-link');
+
+      expect(element).toHaveAttribute('target', '_self');
+    });
+  });
+
   describe('Title', () => {
     it.each([
       [SmartLinkStatus.Resolved],

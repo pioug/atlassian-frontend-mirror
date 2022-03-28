@@ -26,6 +26,7 @@ import { toEmojiId, toOptionalEmojiId } from './util/type-helpers';
 import {
   recordSelectionFailedSli,
   recordSelectionSucceededSli,
+  ufoExperiences,
 } from './util/analytics';
 import {
   customCategory,
@@ -53,6 +54,7 @@ export {
   toOptionalEmojiId,
   recordSelectionFailedSli,
   recordSelectionSucceededSli,
+  ufoExperiences,
   // Constants
   emojiPickerWidth,
   emojiPickerHeight,

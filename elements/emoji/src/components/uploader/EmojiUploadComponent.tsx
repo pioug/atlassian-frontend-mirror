@@ -20,7 +20,7 @@ import {
   uploadConfirmButton,
 } from '../../util/analytics';
 import { emojiUploadFooter, emojiUploadWidget } from './styles';
-
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 export interface UploadRefHandler {
   (ref: HTMLDivElement): void;
 }
@@ -47,8 +47,16 @@ export default class EmojiUploadComponent extends PureComponent<Props, State> {
     this.state = {};
   }
 
+  componentWillUnmount() {
+    ufoExperiences['emoji-uploaded'].abort();
+  }
+
   private onUploadEmoji = (upload: EmojiUpload, retry: boolean) => {
     const { emojiProvider } = this.props;
+
+    ufoExperiences['emoji-uploaded'].start();
+    ufoExperiences['emoji-uploaded'].addMetadata({ retry });
+
     this.fireAnalytics(uploadConfirmButton({ retry }));
     const errorSetter = (message?: MessageDescriptor) => {
       this.setState({

@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.5.2
+
+### Patch Changes
+
+- [`0f34f1e0e2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f34f1e0e2f) - Changed client functions to be prototypes to make consistent
+
 ## 4.5.1
 
 ### Patch Changes

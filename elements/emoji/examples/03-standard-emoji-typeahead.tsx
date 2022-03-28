@@ -119,7 +119,6 @@ export class EmojiTypeAheadTextInput extends Component<
     const loremContent = (
       <div>
         <p style={{ width: '400px' }}>{lorem}</p>
-        <p style={{ width: '400px' }}>{lorem}</p>
       </div>
     );
 

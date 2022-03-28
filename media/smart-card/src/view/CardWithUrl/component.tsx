@@ -20,7 +20,6 @@ import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
 import { APIError } from '../..';
-import { CardState } from '../../state/store/types';
 
 export function CardWithUrlContent({
   id,
@@ -151,8 +150,14 @@ export function CardWithUrlContent({
   ]);
 
   if (isFlexibleUi) {
-    let cardState: CardState =
-      error?.constructor === APIError ? { status: 'errored' } : state;
+    let cardState = state;
+    if (error) {
+      if (error?.constructor === APIError) {
+        cardState = { status: 'errored' };
+      } else {
+        throw error;
+      }
+    }
 
     return (
       <FlexibleCard

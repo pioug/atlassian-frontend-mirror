@@ -30,7 +30,7 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.2.0",
     "@atlaskit/ds-lib": "^1.4.0",
-    "@atlaskit/emoji": "^64.3.0",
+    "@atlaskit/emoji": "^64.4.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/motion": "^1.0.3",
     "@atlaskit/popper": "^5.0.0",

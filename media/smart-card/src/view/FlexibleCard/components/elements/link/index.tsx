@@ -90,6 +90,7 @@ const Link: React.FC<LinkProps> = ({
   theme = SmartLinkTheme.Link,
   url,
   onClick,
+  target,
 }) => (
   <span css={containerStyles}>
     <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
@@ -99,6 +100,7 @@ const Link: React.FC<LinkProps> = ({
         data-testid={testId}
         onClick={onClick}
         href={url}
+        target={target || '_blank'}
       >
         {text}
       </a>

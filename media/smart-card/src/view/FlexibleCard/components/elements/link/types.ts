@@ -7,4 +7,5 @@ export type LinkProps = ElementProps & {
   text?: string;
   theme?: SmartLinkTheme;
   url?: string;
+  target?: '_blank' | '_self' | '_top' | '_parent';
 };

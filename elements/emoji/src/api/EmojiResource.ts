@@ -409,7 +409,6 @@ export class EmojiResource
    */
   recordSelection(emoji: EmojiDescription): Promise<any> {
     const { recordConfig } = this;
-
     if (this.emojiRepository) {
       this.emojiRepository.used(emoji);
     }

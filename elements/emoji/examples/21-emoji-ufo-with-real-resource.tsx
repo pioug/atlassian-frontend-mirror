@@ -5,13 +5,14 @@ import ResourcedEmojiControl, {
   getEmojiConfig,
   getRealEmojiResource,
 } from '../example-helpers/demo-resource-control';
-import EmojiPicker from '../src';
+import EmojiPicker, { EmojiUploader } from '../src';
 import { onSelection } from '../example-helpers';
 import {
   SAMPLING_RATE_EMOJI_RENDERED_EXP,
   SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI,
 } from '../src/util/constants';
 import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
+import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 /**
  * The publisher will be set up in product side in the real world
  * We add it in the example here so we can see events coming from UFO in the console
@@ -52,6 +53,19 @@ export default () => (
             </p>
             <br />
             <RenderRealResourcedEmojis emailProvider={provider} />
+            <hr />
+            <h4>Emoji Typeahead:</h4>
+            <EmojiTypeAheadTextInput
+              label="Emoji search"
+              onSelection={onSelection}
+              emojiProvider={provider}
+              position="below"
+            />
+            <hr />
+            <h4>Emoji Uploader:</h4>
+            <div style={{ padding: '1rem 0' }}>
+              <EmojiUploader emojiProvider={provider} />
+            </div>
           </>
         }
       />

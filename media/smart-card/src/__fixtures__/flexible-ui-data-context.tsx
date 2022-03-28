@@ -32,7 +32,7 @@ const context: FlexibleUiDataContext = {
     appearance: 'success',
   },
   title: 'Link title',
-  url: 'link-url',
+  url: 'https://www.link-url.com',
   provider: {
     icon: 'Provider:Confluence' as IconType,
     label: 'Confluence',

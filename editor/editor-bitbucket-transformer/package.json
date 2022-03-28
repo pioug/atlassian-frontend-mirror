@@ -38,7 +38,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^163.0.0",
     "@atlaskit/editor-test-helpers": "^17.0.0",
-    "@atlaskit/emoji": "^64.3.0",
+    "@atlaskit/emoji": "^64.4.0",
     "@atlaskit/smart-card": "^18.0.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/util-data-test": "^17.2.0",

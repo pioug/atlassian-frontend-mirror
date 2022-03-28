@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 18.0.6
+
+### Patch Changes
+
+- [`9945f8983f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9945f8983f0) - TitleBlock now has "anchorTarget" property
+
 ## 18.0.5
 
 ### Patch Changes

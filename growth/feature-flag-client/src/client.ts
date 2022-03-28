@@ -24,13 +24,13 @@ import {
 import MissingFlag from './missing-flag';
 import BasicFlag from './basic-flag';
 export default class FeatureFlagClient {
-  flags: Map<String, FlagShape> = new Map();
-  flagWrapperCache: Map<string, FlagWrapper> = new Map();
-  trackedFlags: Set<string> = new Set();
+  flags: Map<String, FlagShape>;
+  flagWrapperCache: Map<string, FlagWrapper>;
+  trackedFlags: Set<string>;
   analyticsHandler?: AnalyticsHandler;
   automaticAnalyticsHandler?: AutomaticAnalyticsHandler;
-  isAutomaticExposuresEnabled: boolean = false;
-  automaticExposuresCache: Set<string> = new Set();
+  isAutomaticExposuresEnabled: boolean;
+  automaticExposuresCache: Set<string>;
 
   constructor(options: {
     flags?: Flags;
@@ -39,6 +39,12 @@ export default class FeatureFlagClient {
     const { flags, analyticsHandler } = options;
 
     enforceAttributes(options, ['analyticsHandler'], 'Feature Flag Client');
+
+    this.flags = new Map();
+    this.flagWrapperCache = new Map();
+    this.automaticExposuresCache = new Set();
+    this.trackedFlags = new Set();
+    this.isAutomaticExposuresEnabled = false;
 
     this.setFlags(flags || {});
     this.setAnalyticsHandler(analyticsHandler);
@@ -127,11 +133,11 @@ export default class FeatureFlagClient {
       wrapper = new BasicFlag(
         flagKey,
         flag,
-        this._trackExposure,
-        this.sendAutomaticExposure,
+        this._trackExposure.bind(this),
+        this.sendAutomaticExposure.bind(this),
       );
     } else {
-      wrapper = new MissingFlag(flagKey, this.sendAutomaticExposure);
+      wrapper = new MissingFlag(flagKey, this.sendAutomaticExposure.bind(this));
     }
 
     this.flagWrapperCache.set(flagKey, wrapper);
@@ -194,7 +200,7 @@ export default class FeatureFlagClient {
    * one endpoint. Depending on the passed in trigger reason a manual or automatic exposure
    * is sent.
    **/
-  trackFeatureFlag = (flagKey: string, options?: TrackFeatureFlagOptions) => {
+  trackFeatureFlag(flagKey: string, options?: TrackFeatureFlagOptions) {
     const triggerReason = options?.triggerReason
       ? options.triggerReason
       : ExposureTriggerReason.Manual;
@@ -226,26 +232,27 @@ export default class FeatureFlagClient {
         triggerReason,
       );
     }
-  };
+  }
 
-  trackExposure = (
+  trackExposure(
     flagKey: string,
     flag: FlagShape,
     exposureData: CustomAttributes = {},
-  ) =>
-    this._trackExposure(
+  ) {
+    return this._trackExposure(
       flagKey,
       flag,
       ExposureTriggerReason.Manual,
       exposureData,
     );
+  }
 
-  private _trackExposure = (
+  private _trackExposure(
     flagKey: string,
     flag: FlagShape,
     exposureTriggerReason: ExposureTriggerReason,
     exposureData: CustomAttributes = {},
-  ) => {
+  ) {
     if (
       this.trackedFlags.has(flagKey) ||
       !flag ||
@@ -276,13 +283,13 @@ export default class FeatureFlagClient {
     this.analyticsHandler(exposureEvent);
 
     this.trackedFlags.add(flagKey);
-  };
+  }
 
-  private sendAutomaticExposure = (
+  private sendAutomaticExposure(
     flagKey: string,
     value: string | boolean | object,
     flagExplanation?: FlagShape['explanation'],
-  ) => {
+  ) {
     if (
       this.automaticExposuresCache.has(flagKey) ||
       !flagExplanation ||
@@ -315,7 +322,7 @@ export default class FeatureFlagClient {
     this.automaticAnalyticsHandler.sendOperationalEvent(exposureEvent);
 
     this.automaticExposuresCache.add(flagKey);
-  };
+  }
 
   getFlagStats(): FlagStats {
     const flagStats: FlagStats = {};

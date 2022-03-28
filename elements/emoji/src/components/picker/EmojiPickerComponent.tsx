@@ -54,6 +54,7 @@ import {
   uploadCancelButton,
   uploadConfirmButton,
   toneSelectorClosedEvent,
+  ufoExperiences,
 } from '../../util/analytics';
 import { emojiPicker } from './styles';
 
@@ -139,6 +140,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
+    ufoExperiences['emoji-picker-opened'].success();
     const { emojiProvider, hideToneSelector } = this.props;
     emojiProvider.subscribe(this.onProviderChange);
     this.onSearch(this.state.query);
@@ -157,10 +159,15 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
 
   componentWillUnmount() {
     const { emojiProvider } = this.props;
+
     emojiProvider.unsubscribe(this.onProviderChange);
     this.fireAnalytics(
       closedPickerEvent({ duration: this.calculateElapsedTime() }),
     );
+
+    ufoExperiences['emoji-picker-opened'].abort();
+    ufoExperiences['emoji-searched'].abort();
+    ufoExperiences['emoji-selection-recorded'].abort();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -260,7 +267,15 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
   };
 
   private onSearch = (query: string) => {
-    this.updateEmojis(query, { skinTone: this.state.selectedTone });
+    const options = { skinTone: this.state.selectedTone };
+    if (query !== this.state.query) {
+      ufoExperiences['emoji-searched'].start();
+      ufoExperiences['emoji-searched'].addMetadata({
+        queryLength: query.length,
+        source: 'picker',
+      });
+    }
+    this.updateEmojis(query, options);
   };
 
   private onSearchResult = (searchResults: EmojiSearchResult): void => {
@@ -279,6 +294,9 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
           numMatches: emojiToRender.length,
         }),
       );
+      ufoExperiences['emoji-searched'].success({
+        metadata: { emojisLength: emojiToRender.length },
+      });
     }
     this.setStateAfterEmojiChange(
       searchQuery,

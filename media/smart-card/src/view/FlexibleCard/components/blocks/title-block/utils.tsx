@@ -49,6 +49,7 @@ export const BaseTitleBlockComponent: React.FC<
   onClick,
   metadata = [],
   subtitle = [],
+  anchorTarget,
   ...blockProps
 }) => {
   const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
@@ -60,7 +61,6 @@ export const BaseTitleBlockComponent: React.FC<
   const overrideText = !!text ? { text } : {};
   const metadataElements = renderElementItems(metadata);
   const subtitleElements = renderElementItems(subtitle);
-
   return (
     <Block
       {...blockProps}
@@ -76,6 +76,7 @@ export const BaseTitleBlockComponent: React.FC<
         <Title
           maxLines={maxLines}
           theme={theme}
+          target={anchorTarget}
           onClick={onClick}
           {...overrideText}
         />

@@ -2,8 +2,9 @@ import React from 'react';
 
 import {
   EmojiInsertionAnalytic,
-  insertionFailed,
-  insertionSucceeded,
+  recordFailed,
+  recordSucceeded,
+  ufoExperiences,
 } from '../../util/analytics';
 import { EmojiId, OnEmojiEvent, OptionalEmojiDescription } from '../../types';
 import { EmojiProvider } from '../../api/EmojiResource';
@@ -28,10 +29,17 @@ export const createRecordSelectionDefault = <T>(
   ) => {
     try {
       if (provider.recordSelection && emoji) {
+        ufoExperiences['emoji-selection-recorded'].start();
         provider
           .recordSelection(emoji)
-          .then(() => fireAnalytics && fireAnalytics(insertionSucceeded))
-          .catch(() => fireAnalytics && fireAnalytics(insertionFailed));
+          .then(() => {
+            fireAnalytics && fireAnalytics(recordSucceeded);
+            ufoExperiences['emoji-selection-recorded'].success();
+          })
+          .catch(() => {
+            fireAnalytics && fireAnalytics(recordFailed);
+            ufoExperiences['emoji-selection-recorded'].failure();
+          });
       }
     } finally {
       if (onSelect) {

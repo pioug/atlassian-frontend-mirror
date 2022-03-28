@@ -3,55 +3,11 @@ import {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { EmojiDescription, EmojiId } from '../../types';
+import { EmojiDescription } from '../../types';
 import {
   name as packageName,
   version as packageVersion,
 } from '../../version.json';
-
-import {
-  ExperiencePerformanceTypes,
-  ExperienceTypes,
-  ConcurrentExperience,
-} from '@atlaskit/ufo';
-import { withSampling } from './samplingUfo';
-
-export type UfoExperienceName = 'emoji-rendered' | 'emoji-resource-fetched';
-
-const createRenderExperience = (componentName: string) => {
-  return {
-    platform: { component: componentName },
-    type: ExperienceTypes.Load,
-    performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
-  };
-};
-
-// const createInlineExperience = (componentName: string) => {
-//   return {
-//     platform: { component: componentName },
-//     type: ExperienceTypes.Experience,
-//     performanceType: ExperiencePerformanceTypes.InlineResult,
-//   };
-// };
-
-export const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
-  'emoji-rendered': new ConcurrentExperience(
-    'emoji-rendered',
-    createRenderExperience('emoji'),
-  ),
-  'emoji-resource-fetched': new ConcurrentExperience(
-    'emoji-resource-fetched',
-    createRenderExperience('emoji-provider'),
-  ),
-};
-
-export const sampledUfoRenderedEmoji = (emojiId: EmojiId) => {
-  return withSampling(
-    ufoExperiences['emoji-rendered'].getInstance(
-      emojiId.id || emojiId.shortName,
-    ),
-  );
-};
 
 export const createAndFireEventInElementsChannel = createAndFireEvent(
   'fabric-elements',
@@ -79,16 +35,29 @@ export type EmojiInsertionAnalytic = (
   source: 'picker' | 'typeahead',
 ) => AnalyticsEventPayload;
 
-export const insertionSucceeded: EmojiInsertionAnalytic = (source) =>
-  createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
-    source,
-  });
+export const recordSucceeded: EmojiInsertionAnalytic = (source) => {
+  return createEvent(
+    'operational',
+    'succeeded',
+    'recordEmojiSelection',
+    undefined,
+    {
+      source,
+    },
+  );
+};
 
-export const insertionFailed: EmojiInsertionAnalytic = (source) =>
-  createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
-    source,
-  });
-
+export const recordFailed: EmojiInsertionAnalytic = (source) => {
+  return createEvent(
+    'operational',
+    'failed',
+    'recordEmojiSelection',
+    undefined,
+    {
+      source,
+    },
+  );
+};
 interface Duration {
   duration: number;
 }
@@ -284,21 +253,23 @@ export const typeaheadRenderedEvent = (
     ...extractCommonAttributes(query, emojiList),
   });
 
+// it's used in editor typeahead to fire success record analytics
 export const recordSelectionSucceededSli = (options?: {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }) => () => {
   if (options && options.createAnalyticsEvent) {
-    createAndFireEvent('editor')(insertionSucceeded('typeahead'))(
+    createAndFireEvent('editor')(recordSucceeded('typeahead'))(
       options.createAnalyticsEvent,
     );
   }
 };
 
+// it's used in editor typeahead to fire failure record analytics
 export const recordSelectionFailedSli = (options?: {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }) => (err: Error) => {
   if (options && options.createAnalyticsEvent) {
-    createAndFireEvent('editor')(insertionFailed('typeahead'))(
+    createAndFireEvent('editor')(recordFailed('typeahead'))(
       options.createAnalyticsEvent,
     );
   }

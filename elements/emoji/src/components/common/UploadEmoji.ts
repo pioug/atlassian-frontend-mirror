@@ -7,6 +7,7 @@ import { uploadFailedEvent, uploadSucceededEvent } from '../../util/analytics';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import { messages } from '../i18n';
+import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 
 export const uploadEmoji = (
   upload: EmojiUpload,
@@ -18,6 +19,7 @@ export const uploadEmoji = (
   const startTime = Date.now();
   errorSetter(undefined);
   if (supportsUploadFeature(emojiProvider)) {
+    ufoExperiences['emoji-uploaded'].start();
     emojiProvider
       .uploadCustomEmoji(upload)
       .then((emojiDescription) => {
@@ -27,6 +29,7 @@ export const uploadEmoji = (
           }),
         );
         onSuccess(emojiDescription);
+        ufoExperiences['emoji-uploaded'].success();
       })
       .catch((err) => {
         errorSetter(messages.emojiUploadFailed);
@@ -38,6 +41,7 @@ export const uploadEmoji = (
             reason: messages.emojiUploadFailed.defaultMessage,
           }),
         );
+        ufoExperiences['emoji-uploaded'].failure();
       });
   }
 };

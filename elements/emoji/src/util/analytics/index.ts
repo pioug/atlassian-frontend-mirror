@@ -14,14 +14,13 @@ export {
   deleteBeginEvent,
   deleteCancelEvent,
   deleteConfirmEvent,
-  insertionFailed,
-  insertionSucceeded,
+  recordFailed,
+  recordSucceeded,
   openedPickerEvent,
   pickerClickedEvent,
   pickerSearchedEvent,
   recordSelectionFailedSli,
   recordSelectionSucceededSli,
-  sampledUfoRenderedEmoji,
   selectedFileEvent,
   toneSelectedEvent,
   toneSelectorClosedEvent,
@@ -29,7 +28,6 @@ export {
   typeaheadCancelledEvent,
   typeaheadRenderedEvent,
   typeaheadSelectedEvent,
-  ufoExperiences,
   uploadBeginButton,
   uploadCancelButton,
   uploadConfirmButton,
@@ -37,6 +35,8 @@ export {
   uploadSucceededEvent,
 } from './analytics';
 
-export type { EmojiInsertionAnalytic, UfoExperienceName } from './analytics';
+export { sampledUfoRenderedEmoji, ufoExperiences } from './ufoExperiences';
+
+export type { EmojiInsertionAnalytic } from './analytics';
 
 export { useSampledUFOComponentExperience } from './useSampledUFOComponentExperience';

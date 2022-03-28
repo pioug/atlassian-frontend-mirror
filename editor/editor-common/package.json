@@ -50,7 +50,7 @@
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",
     "@atlaskit/editor-shared-styles": "^2.0.0",
-    "@atlaskit/emoji": "^64.3.0",
+    "@atlaskit/emoji": "^64.4.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/in-product-testing": "^0.1.0",
     "@atlaskit/media-card": "^73.4.0",

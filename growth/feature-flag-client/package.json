@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feature-flag-client",
-  "version": "4.5.1",
+  "version": "4.5.2",
   "description": "A client to take care of feature flag evaluation and tracking of exposure events",
   "af:exports": {
     ".": "./src/index.ts",

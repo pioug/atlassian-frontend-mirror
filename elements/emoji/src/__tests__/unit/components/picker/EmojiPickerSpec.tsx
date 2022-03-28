@@ -34,24 +34,55 @@ import * as helper from './_emoji-picker-test-helpers';
 import {
   categoryClickedEvent,
   closedPickerEvent,
-  insertionSucceeded,
+  recordSucceeded,
   openedPickerEvent,
   pickerClickedEvent,
   pickerSearchedEvent,
   toneSelectorOpenedEvent,
   toneSelectedEvent,
   toneSelectorClosedEvent,
+  recordFailed,
 } from '../../../../util/analytics';
 import EmojiActions from '../../../../components/common/EmojiActions';
+import { ufoExperiences } from '../../../../util/analytics';
+import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
 
 describe('<EmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
+
+  const pickerUFO = ufoExperiences['emoji-picker-opened'];
+  const searchUFO = ufoExperiences['emoji-searched'];
+  const emojiRecordUFO = ufoExperiences['emoji-selection-recorded'];
+  const ufoPickerStartSpy = jest.spyOn(pickerUFO, 'start');
+  const ufoPickerMarkFMPSpy = jest.spyOn(pickerUFO, 'markFMP');
+  const ufoPickerSuccessSpy = jest.spyOn(pickerUFO, 'success');
+  const ufoPickerFailureSpy = jest.spyOn(pickerUFO, 'failure');
+  const ufoPickerAbortSpy = jest.spyOn(pickerUFO, 'abort');
+  const ufoSearchedStartSpy = jest.spyOn(searchUFO, 'start');
+  const ufoSearchedSuccessSpy = jest.spyOn(searchUFO, 'success');
+  const ufoSearchedAbortSpy = jest.spyOn(searchUFO, 'abort');
+  const ufoSearchedFailureSpy = jest.spyOn(searchUFO, 'failure');
+
+  const ufoEmojiRecordedStartSpy = jest.spyOn(emojiRecordUFO, 'start');
+  const ufoEmojiRecordedSuccessSpy = jest.spyOn(emojiRecordUFO, 'success');
+  const ufoEmojiRecordedFailureSpy = jest.spyOn(emojiRecordUFO, 'failure');
 
   const getUpdatedList = (component: any) =>
     component.update().find(VirtualList);
 
   beforeEach(async () => {
     onEvent = jest.fn();
+    ufoPickerStartSpy.mockClear();
+    ufoPickerSuccessSpy.mockClear();
+    ufoPickerFailureSpy.mockClear();
+    ufoPickerAbortSpy.mockClear();
+    ufoPickerMarkFMPSpy.mockClear();
+    ufoSearchedStartSpy.mockClear();
+    ufoSearchedFailureSpy.mockClear();
+    ufoSearchedSuccessSpy.mockClear();
+    ufoEmojiRecordedStartSpy.mockClear();
+    ufoEmojiRecordedSuccessSpy.mockClear();
+    ufoEmojiRecordedFailureSpy.mockClear();
   });
 
   describe('analytics for component lifecycle', () => {
@@ -337,10 +368,57 @@ describe('<EmojiPicker />', () => {
 
       expect(onEvent).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          payload: insertionSucceeded('picker'),
+          payload: recordSucceeded('picker'),
         }),
         'fabric-elements',
       );
+
+      expect(ufoEmojiRecordedStartSpy).toBeCalled();
+      expect(ufoEmojiRecordedSuccessSpy).toBeCalled();
+      expect(ufoEmojiRecordedFailureSpy).not.toBeCalled();
+    });
+
+    it('should fire insertion failed event if provider recordSelection fails', async () => {
+      let selection: OptionalEmojiDescription;
+      let failureOccurred = false;
+      const emojiProvider = getEmojiResourcePromise();
+      const clickOffset = 10;
+      const component = await helper.setupPicker(
+        {
+          onSelection: (_emojiId, emoji) => {
+            selection = emoji;
+          },
+          emojiProvider,
+        } as Props,
+        undefined,
+        onEvent,
+      );
+      const list = getUpdatedList(component);
+
+      const provider = await emojiProvider;
+      provider.recordSelection = jest.fn().mockImplementation(() => {
+        failureOccurred = true;
+        return Promise.reject(new Error('test'));
+      });
+
+      const hoverButton = () => list.find(Emoji).at(clickOffset);
+      await waitUntil(() => hoverButton().exists());
+      hoverButton().simulate('mousedown', helper.leftClick);
+
+      await waitUntil(() => failureOccurred);
+      await waitUntil(() => !!selection);
+
+      expect(selection).toBeDefined();
+      expect(selection!.id).toEqual(helper.allEmojis[clickOffset].id);
+      expect(onEvent).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          payload: recordFailed('picker'),
+        }),
+        'fabric-elements',
+      );
+      expect(ufoEmojiRecordedStartSpy).toBeCalled();
+      expect(ufoEmojiRecordedSuccessSpy).not.toBeCalled();
+      expect(ufoEmojiRecordedFailureSpy).toBeCalled();
     });
 
     it('selecting emoji should call recordSelection on EmojiProvider', async () => {
@@ -364,6 +442,10 @@ describe('<EmojiPicker />', () => {
       expect(provider.recordedSelections[0].shortName).toEqual(
         helper.allEmojis[clickOffset].shortName,
       );
+
+      expect(ufoEmojiRecordedStartSpy).toBeCalled();
+      expect(ufoEmojiRecordedSuccessSpy).toBeCalled();
+      expect(ufoEmojiRecordedFailureSpy).not.toBeCalled();
     });
   });
 
@@ -461,6 +543,31 @@ describe('<EmojiPicker />', () => {
         }),
         'fabric-elements',
       );
+    });
+
+    it('searching should fire ufo experiences', async () => {
+      const component = await helper.setupPicker(undefined, undefined, onEvent);
+      await waitUntil(() => helper.searchInputVisible(component));
+      // click search
+      const searchInput = helper.findSearchInput(component);
+      searchInput.simulate('focus');
+      // type "al"
+      searchInput.simulate('change', {
+        target: {
+          value: 'al',
+        },
+      });
+
+      await waitUntil(
+        () => helper.findEmoji(getUpdatedList(component)).length === 2,
+      );
+
+      component.unmount();
+
+      expect(ufoSearchedStartSpy).toBeCalled();
+      expect(ufoSearchedSuccessSpy).toBeCalled();
+      expect(ufoSearchedAbortSpy).toBeCalled();
+      expect(ufoSearchedFailureSpy).not.toBeCalled();
     });
   });
 
@@ -628,6 +735,25 @@ describe('<EmojiPicker />', () => {
       // Second picker should have tone set by default
       const handEmoji2 = await findToneEmojiInNewPicker();
       expect(handEmoji2.shortName).toEqual(':raised_hand::skin-tone-3:');
+    });
+  });
+
+  describe('with picker opened experiences', () => {
+    it('should track picker opened UFO experience when picker rendered and unmounted', async () => {
+      const component = await helper.setupPicker();
+      component.unmount();
+      expect(ufoPickerStartSpy).toBeCalled();
+      expect(ufoPickerMarkFMPSpy).toBeCalled();
+      expect(ufoPickerSuccessSpy).toBeCalled();
+      expect(ufoPickerAbortSpy).toBeCalled();
+    });
+
+    it('should fail picker opened UFO experience when picker throw errors', async () => {
+      const component = await helper.setupPicker();
+      component.find(EmojiPickerComponent).simulateError(new Error('test'));
+      expect(ufoPickerStartSpy).toBeCalled();
+      expect(ufoPickerSuccessSpy).toBeCalled();
+      expect(ufoPickerFailureSpy).toBeCalled();
     });
   });
 });

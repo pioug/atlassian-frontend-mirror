@@ -35,6 +35,7 @@ import {
   deleteCancelEvent,
   deleteConfirmEvent,
   selectedFileEvent,
+  ufoExperiences,
   uploadBeginButton,
   uploadCancelButton,
   uploadConfirmButton,
@@ -44,6 +45,11 @@ import {
 
 describe('<UploadingEmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
+
+  const experience = ufoExperiences['emoji-uploaded'];
+  const ufoStartSpy = jest.spyOn(experience, 'start');
+  const ufoSuccessSpy = jest.spyOn(experience, 'success');
+  const ufoFailureSpy = jest.spyOn(experience, 'failure');
 
   const safeFindCustomEmojiButton = async (component: ReactWrapper) => {
     await waitUntil(() => commonHelper.customEmojiButtonVisible(component));
@@ -108,6 +114,9 @@ describe('<UploadingEmojiPicker />', () => {
 
     afterEach(() => {
       consoleError.mockRestore();
+      ufoStartSpy.mockClear();
+      ufoSuccessSpy.mockClear();
+      ufoFailureSpy.mockClear();
     });
 
     const navigateToUploadPreview = async (
@@ -284,6 +293,13 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
+      expect(ufoStartSpy).toHaveBeenCalled();
+      expect(ufoSuccessSpy).toHaveBeenCalled();
+      expect(ufoFailureSpy).not.toHaveBeenCalled();
+
+      ufoStartSpy.mockReset();
+      ufoSuccessSpy.mockReset();
+      ufoFailureSpy.mockReset();
     });
 
     it('Upload failure with invalid file', async () => {
@@ -616,6 +632,11 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
+
+      expect(ufoStartSpy).toHaveBeenCalled();
+      expect(ufoSuccessSpy).not.toHaveBeenCalled();
+      expect(ufoFailureSpy).toHaveBeenCalled();
+
       spy.mockReset();
     });
 
@@ -652,6 +673,7 @@ describe('<UploadingEmojiPicker />', () => {
       retryButton.simulate('click');
       // wait for upload
       await waitUntil(() => provider.getUploads().length > 0);
+
       expect(onEvent).toHaveBeenCalledWith(
         expect.objectContaining({
           payload: uploadConfirmButton({ retry: false }),
@@ -681,6 +703,11 @@ describe('<UploadingEmojiPicker />', () => {
         }),
         'fabric-elements',
       );
+
+      // failed first, and retried success second time
+      expect(ufoStartSpy).toHaveBeenCalledTimes(2);
+      expect(ufoSuccessSpy).toHaveBeenCalledTimes(1);
+      expect(ufoFailureSpy).toHaveBeenCalledTimes(1);
     });
   });
 

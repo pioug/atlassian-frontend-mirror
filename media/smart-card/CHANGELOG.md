@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 18.0.9
+
+### Patch Changes
+
+- [`6adaa6b5c18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6adaa6b5c18) - Updated default renderer onClick to not fire on a Flexible UI link to prevent links from being openned twice
+
+## 18.0.8
+
+### Patch Changes
+
+- [`d9b55e7cd29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9b55e7cd29) - Add classname for placeholder element that is shown while we load js module
+
+## 18.0.7
+
+### Patch Changes
+
+- [`1f377bd17a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f377bd17a4) - Added open in new tab action to titleblock and refactored tests
+
 ## 18.0.6
 
 ### Patch Changes

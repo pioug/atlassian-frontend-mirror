@@ -19,12 +19,7 @@ jest.mock('@atlaskit/media-ui', () => {
 });
 
 import React from 'react';
-import {
-  fireEvent,
-  render,
-  waitForElement,
-  cleanup,
-} from '@testing-library/react';
+import { fireEvent, render, cleanup } from '@testing-library/react';
 import { HoverCard } from '..';
 import { fakeFactory } from '../../../utils/mocks';
 import CardClient from '../../../client';
@@ -78,7 +73,7 @@ describe('HoverCard', () => {
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
 
-    const { getByTestId, queryByTestId } = render(
+    const { queryByTestId, findByTestId } = render(
       <Provider client={mockClient}>
         <HoverCard url={mockUrl}>
           <span data-testid="element-to-hover" />
@@ -86,10 +81,10 @@ describe('HoverCard', () => {
       </Provider>,
     );
 
-    const element = await waitForElement(() => getByTestId('element-to-hover'));
+    const element = await findByTestId('element-to-hover');
     fireEvent.mouseEnter(element);
 
-    return { getByTestId, queryByTestId, element };
+    return { findByTestId, queryByTestId, element };
   };
 
   afterEach(() => {
@@ -99,25 +94,21 @@ describe('HoverCard', () => {
   });
 
   it('renders hover card', async () => {
-    const { getByTestId } = await setup();
+    const { findByTestId } = await setup();
     jest.runAllTimers();
-    const hoverCard = await waitForElement(() => getByTestId('hover-card'));
+    const hoverCard = await findByTestId('hover-card');
 
     expect(hoverCard).toBeTruthy();
   });
 
   it('renders hover card blocks', async () => {
-    const { getByTestId } = await setup();
+    const { findByTestId } = await setup();
     jest.runAllTimers();
-    const titleBlock = await waitForElement(() =>
-      getByTestId('smart-block-title-resolved-view'),
+    const titleBlock = await findByTestId('smart-block-title-resolved-view');
+    const snippetBlock = await findByTestId(
+      'smart-block-snippet-resolved-view',
     );
-    const snippetBlock = await waitForElement(() =>
-      getByTestId('smart-block-snippet-resolved-view'),
-    );
-    const footerBlock = await waitForElement(() =>
-      getByTestId('smart-footer-block-resolved-view'),
-    );
+    const footerBlock = await findByTestId('smart-footer-block-resolved-view');
     //trim because the icons are causing new lines in the textContent
     expect(titleBlock.textContent?.trim()).toBe('I love cheese');
     expect(snippetBlock.textContent).toBe('Here is your serving of cheese: 🧀');
@@ -189,13 +180,11 @@ describe('HoverCard', () => {
   });
 
   it('should stay shown if mouse moves over the hover card', async () => {
-    const { getByTestId, queryByTestId, element } = await setup();
+    const { findByTestId, queryByTestId, element } = await setup();
 
     jest.runAllTimers();
 
-    const hoverCard = await waitForElement(() =>
-      getByTestId('smart-links-container'),
-    );
+    const hoverCard = await findByTestId('smart-links-container');
     fireEvent.mouseLeave(element);
     fireEvent.mouseEnter(hoverCard);
 
@@ -205,13 +194,11 @@ describe('HoverCard', () => {
   });
 
   it('should hide if mouse moves leaves the hover card', async () => {
-    const { getByTestId, queryByTestId, element } = await setup();
+    const { findByTestId, queryByTestId, element } = await setup();
 
     jest.runAllTimers();
 
-    const hoverCard = await waitForElement(() =>
-      getByTestId('smart-links-container'),
-    );
+    const hoverCard = await findByTestId('smart-links-container');
     fireEvent.mouseLeave(element);
     fireEvent.mouseEnter(hoverCard);
     fireEvent.mouseLeave(hoverCard);
@@ -231,28 +218,46 @@ describe('HoverCard', () => {
     expect(queryByTestId('hover-card')).toBeNull();
   });
 
-  it('should render actions', async () => {
-    const { getByTestId } = await setup();
+  it('should render smartlink actions', async () => {
+    const { findByTestId } = await setup();
     jest.runAllTimers();
-    const commentButton = await waitForElement(() => getByTestId('comment'));
-    const previewButton = await waitForElement(() =>
-      getByTestId('preview-content'),
-    );
+    const commentButton = await findByTestId('comment');
+    const previewButton = await findByTestId('preview-content');
 
     expect(commentButton.textContent).toBe('Comment');
     expect(previewButton.textContent).toBe('Preview');
   });
 
   it('should open preview modal after clicking preview button', async () => {
-    const { getByTestId } = await setup();
+    const { findByTestId } = await setup();
     jest.runAllTimers();
-    const previewButton = await waitForElement(() =>
-      getByTestId('preview-content'),
-    );
+    const previewButton = await findByTestId('preview-content');
     fireEvent.click(previewButton);
-    const previewModal = await waitForElement(() =>
-      getByTestId('preview-modal'),
-    );
+    const previewModal = await findByTestId('preview-modal');
+
     expect(previewModal).toBeTruthy();
+  });
+
+  it('should render open action', async () => {
+    const { findByTestId } = await setup();
+    jest.runAllTimers();
+    const openButton = await findByTestId('hover-card-open-button');
+
+    expect(openButton).toBeTruthy();
+  });
+
+  it('should open url in a new tab after clicking open button', async () => {
+    const mockOpen = jest.fn();
+    // @ts-ignore
+    global.open = mockOpen;
+    const { findByTestId } = await setup();
+    jest.runAllTimers();
+
+    await findByTestId('smart-block-title-resolved-view');
+    const openButton = await findByTestId('hover-card-open-button');
+    fireEvent.click(openButton);
+
+    expect(open).toHaveBeenCalledWith('https://some.url', '_blank');
+    mockOpen.mockRestore();
   });
 });

@@ -232,7 +232,8 @@ describe('smart-card: success analytics', () => {
 
       fireEvent.click(resolvedCard);
 
-      expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+      // ensure default onclick for renderer is not triggered
+      expect(mockWindowOpen).toHaveBeenCalledTimes(0);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
         'flexible',
@@ -249,7 +250,8 @@ describe('smart-card: success analytics', () => {
 
       fireEvent.click(resolvedCard);
 
-      expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+      // ensure default onclick for renderer is not triggered
+      expect(mockWindowOpen).toHaveBeenCalledTimes(0);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
         'flexible',

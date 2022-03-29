@@ -17,7 +17,8 @@ import {
   failUfoExperience,
   startUfoExperience,
 } from '../../state/analytics/ufoExperiences';
-import { CardLinkView } from '../LinkView';
+import { LoadingCardLink } from './component-lazy/LazyFallback';
+import { CardWithUrlContentProps } from './types';
 
 const LazyCardWithUrlContent = lazy(
   () =>
@@ -109,29 +110,29 @@ export function CardWithURLRenderer(props: CardProps) {
     throw new Error('@atlaskit/smart-card: url property is missing.');
   }
 
+  const cardWithUrlProps: CardWithUrlContentProps = {
+    id,
+    url,
+    appearance,
+    onClick,
+    isSelected,
+    isFrameVisible,
+    dispatchAnalytics,
+    container,
+    onResolve,
+    testId,
+    showActions,
+    inheritDimensions,
+    platform,
+    embedIframeRef,
+    inlinePreloaderStyle,
+    ui,
+  };
+
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
-      <Suspense
-        fallback={<CardLinkView key={'chunk-placeholder'} link={url} />}
-      >
-        <LazyCardWithUrlContent
-          id={id}
-          url={url}
-          appearance={appearance}
-          onClick={onClick}
-          isSelected={isSelected}
-          isFrameVisible={isFrameVisible}
-          dispatchAnalytics={dispatchAnalytics}
-          container={container}
-          onResolve={onResolve}
-          testId={testId}
-          showActions={showActions}
-          inheritDimensions={inheritDimensions}
-          platform={platform}
-          embedIframeRef={embedIframeRef}
-          inlinePreloaderStyle={inlinePreloaderStyle}
-          ui={ui}
-        >
+      <Suspense fallback={<LoadingCardLink {...cardWithUrlProps} />}>
+        <LazyCardWithUrlContent {...cardWithUrlProps}>
           {children}
         </LazyCardWithUrlContent>
       </Suspense>

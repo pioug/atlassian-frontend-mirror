@@ -19,7 +19,12 @@ jest.mock('@atlaskit/media-ui', () => {
 });
 
 import React from 'react';
-import { render, cleanup, waitForElement } from '@testing-library/react';
+import {
+  render,
+  cleanup,
+  waitForElement,
+  fireEvent,
+} from '@testing-library/react';
 import CardClient from '../../../client';
 import { Card, CardAppearance } from '../../Card';
 import { APIError, Provider } from '../../..';
@@ -32,11 +37,15 @@ describe('smart-card: card states, flexible', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock<Promise<JsonLd.Response>>;
   let mockUrl: string;
+  let mockWindowOpen: jest.Mock;
 
   beforeEach(() => {
     mockFetch = jest.fn(() => Promise.resolve(mocks.success));
     mockClient = new (fakeFactory(mockFetch))();
+    mockWindowOpen = jest.fn();
     mockUrl = 'https://some.url';
+    /// @ts-ignore
+    global.open = mockWindowOpen;
   });
 
   afterEach(() => {
@@ -78,6 +87,31 @@ describe('smart-card: card states, flexible', () => {
     });
 
     describe('> state: resolved', () => {
+      it('should open window when flexible ui link with resolved URL is clicked', async () => {
+        const mockUrl = 'https://this.is.the.seventh.url';
+        const { getByTestId } = render(
+          <Provider client={mockClient}>
+            <Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
+              <TitleBlock />
+            </Card>
+          </Provider>,
+        );
+        const resolvedView = await waitForElement(
+          () => getByTestId('smart-block-title-resolved-view'),
+          {
+            timeout: 5000,
+          },
+        );
+        expect(resolvedView).toBeTruthy();
+
+        const resolvedCard = getByTestId('smart-element-link');
+        expect(resolvedCard).toBeTruthy();
+        fireEvent.click(resolvedCard);
+
+        // ensure default onclick for renderer is not triggered
+        expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+      });
+
       it('should render with metadata when resolved', async () => {
         const { getByText } = render(
           <Provider client={mockClient}>

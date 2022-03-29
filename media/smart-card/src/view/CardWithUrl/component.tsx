@@ -73,7 +73,11 @@ export function CardWithUrlContent({
           isModifierKeyPressed,
         );
       }
-      onClick ? onClick(event) : handleClick(event);
+      if (onClick) {
+        onClick(event);
+      } else if (!isFlexibleUi) {
+        handleClick(event);
+      }
     },
     [
       state.status,

@@ -20,6 +20,7 @@ import {
   SnippetBlock,
   TitleBlock,
   FooterBlock,
+  loadingPlaceholderClassName,
 } from '../../src';
 import TitleBlockOption from './TitleBlockOption';
 import CardOption from './CardOption';
@@ -44,6 +45,10 @@ const contentStyles = css`
   max-width: 680px;
   margin: 0 auto;
   padding: 1rem;
+
+  .${loadingPlaceholderClassName} {
+    display: none;
+  }
 `;
 
 const FlexibleUiExample: React.FC = () => {

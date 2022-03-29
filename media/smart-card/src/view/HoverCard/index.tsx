@@ -16,6 +16,7 @@ import {
   LinkAction,
 } from '../../state/hooks-external/useSmartLinkActions';
 import { HoverCardContainer } from './styled';
+import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 
 export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
   const delay = 300;
@@ -49,7 +50,7 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
     analyticsHandler,
   });
 
-  const actions = useMemo(
+  const smartlinkActions = useMemo(
     () =>
       linkActions.map(
         (action: LinkAction) =>
@@ -63,6 +64,16 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
     [linkActions],
   );
 
+  const openAction = useMemo(() => {
+    return {
+      name: ActionName.CustomAction,
+      icon: <ShortcutIcon label="open in new tab" size="medium" />,
+      iconPosition: 'before',
+      onClick: () => window.open(url, '_blank'),
+      testId: 'hover-card-open-button',
+    } as CustomActionItem;
+  }, [url]);
+
   const cardComponent = () => (
     <div
       onMouseEnter={initShowCard}
@@ -74,9 +85,9 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
         url={url}
         ui={{ hideElevation: true, size: SmartLinkSize.Large }}
       >
-        <TitleBlock />
+        <TitleBlock actions={[openAction]} />
         <SnippetBlock />
-        <FooterBlock actions={actions} />
+        <FooterBlock actions={smartlinkActions} />
       </Card>
     </div>
   );

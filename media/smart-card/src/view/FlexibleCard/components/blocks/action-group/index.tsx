@@ -30,7 +30,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
     ? items.slice(visibleButtonsNum - 1)
     : [];
   return (
-    <div css={styles}>
+    <div css={styles} className="actions-button-group">
       <ButtonGroup>
         {renderActionItems(firstActions, size, appearance)}
         {restActions.length > 0 ? (
@@ -42,7 +42,6 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
               <Button
                 {...props}
                 spacing={sizeToSpacing[size]}
-                className="action-group-more-button"
                 testId="action-group-more-button"
                 iconBefore={<MoreIcon label="more" />}
                 ref={triggerRef}

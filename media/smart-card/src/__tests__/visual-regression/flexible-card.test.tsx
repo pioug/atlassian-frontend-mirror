@@ -22,7 +22,7 @@ describe('Flexible Card', () => {
 
     it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
-      const screenshotSize = 2000;
+      const screenshotSize = 2050;
       const page = await setup(url);
 
       await page.waitForSelector('[data-testid="smart-links-container"]');
@@ -197,6 +197,12 @@ describe('Flexible Card', () => {
     it('should render error view when exception is thrown', async () => {
       const url = getURL('flexible-ui');
       const page = await setup(url);
+
+      // Make sure we wait for actual module to load
+      // (currently we hide placeholder module, which causes sudden change
+      // in height of the page and wrong button is pressed)
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+
       const buttonSelector =
         '[data-testid="mock-url-button-ResolveUnsupportedError"]';
       await page.waitForSelector(buttonSelector);

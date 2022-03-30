@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 18.0.11
+
+### Patch Changes
+
+- [`ec98e2d8ebc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec98e2d8ebc) - feat: Expose `useSmartLinkReload` hook.
+
+  ### Example Usage
+
+  As a consumer if you want to be able to reload the data backing a Smart Link, you may do:
+
+  ```tsx
+  export const MyComponent = () => {
+    const reloader = useSmartLinkReload(url, analytics);
+
+    return (
+      <MyInterfaceItem>
+        <Card />
+        <Button text="Retry" onClick={reloader} />
+      </MyInterfaceItem>
+    );
+  };
+  ```
+
+## 18.0.10
+
+### Patch Changes
+
+- [`b687926f768`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b687926f768) - Fix bug where individual action item was not hidden by default with showActionOnHover flag
+
 ## 18.0.9
 
 ### Patch Changes

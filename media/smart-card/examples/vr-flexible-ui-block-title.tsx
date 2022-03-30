@@ -123,6 +123,10 @@ export default () => (
       actions: [makeCustomActionItem(), makeDeleteActionItem()],
       testId: 'actions-on-hover-title-block',
     })}
+    {renderResolvedView({
+      showActionOnHover: true,
+      actions: [makeCustomActionItem()],
+    })}
     <h5>Theme: {SmartLinkTheme.Black}</h5>
     {renderResolvedView({ theme: SmartLinkTheme.Black })}
     <h5>Max lines: 1</h5>

@@ -17,12 +17,12 @@ import ElementGroup from '../element-group';
 import { renderElementItems } from '../utils';
 
 export const actionOnHoverOnlyStyle: SerializedStyles = css`
-  .action-group-more-button {
+  .actions-button-group {
     visibility: hidden;
   }
 
   &:hover {
-    .action-group-more-button {
+    .actions-button-group {
       visibility: visible;
     }
   }

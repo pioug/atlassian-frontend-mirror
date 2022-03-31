@@ -14,7 +14,7 @@ export default {
   'fabric.editor.headingLink.copyAnchorLink': 'Copiar link para cabeçalho',
   'fabric.editor.headingLink.copyAriaLabel': 'Copiar',
   'fabric.editor.headingLink.descOrderLabel':
-    '⚠ Você não pode ordenar uma tabela com células mescladas',
+    '⚠️ Você não pode ordenar uma tabela com células mescladas',
   'fabric.editor.headingLink.failedToCopy': 'Falha na cópia',
   'fabric.editor.headingLink.noOrderLabel': 'Ordenar coluna de A a Z',
   'fabric.editor.headingLink.noneSortingLabel': 'descendente',

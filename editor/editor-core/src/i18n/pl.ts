@@ -39,6 +39,7 @@ export default {
   'fabric.editor.cardFloatingControls': 'Opcje kart',
   'fabric.editor.cellBackground': 'Tło komórki',
   'fabric.editor.cellOptions': 'Opcje komórki',
+  'fabric.editor.chromeCollapsedPlaceholder': 'Wpisz cokolwiek…',
   'fabric.editor.clearAltTextEdit': 'Wyczyść tekst alternatywny',
   'fabric.editor.clearCells':
     '{0, plural, one {Wyczyść komórkę} few {Wyczyść komórki} many {Wyczyść komórki} other {Wyczyść komórki}}',
@@ -49,6 +50,7 @@ export default {
   'fabric.editor.closeFindReplaceDialog': 'Zamknij',
   'fabric.editor.closeHelpDialog': 'Zamknij okno dialogowe pomocy',
   'fabric.editor.code': 'Kod',
+  'fabric.editor.code.on': '{textFormattingOff}, formatowanie kodu wł.',
   'fabric.editor.codeblock': 'Wstawka kodu',
   'fabric.editor.codeblock.description': 'Wyświetlaj kod z wyróżnioną składnią',
   'fabric.editor.collapseTable': 'Zwiń tabelę',
@@ -96,6 +98,7 @@ export default {
     'Ta opcja wyświetlania nie jest dostępna w węźle {node}',
   'fabric.editor.displayText': 'Wyświetlany tekst',
   'fabric.editor.distributeColumns': 'Wyrównaj kolumny',
+  'fabric.editor.dropPlaceholderLabel': 'Dokument',
   'fabric.editor.ecombedDescription': 'Wyświetl interaktywny podgląd łącza',
   'fabric.editor.edit': 'Edytuj',
   'fabric.editor.editAltText': 'Edytuj tekst alternatywny',
@@ -106,6 +109,7 @@ export default {
   'fabric.editor.editStatusText': 'Edytuj status',
   'fabric.editor.editableContentLabel': 'Zawartość dostępna do edycji',
   'fabric.editor.editorHelp': 'Pomoc w edytorze',
+  'fabric.editor.editors': 'Edytujący',
   'fabric.editor.elementBrowser.help': 'Pomoc',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Administracja',
   'fabric.editor.elementbrowser.categorylist.category-all': 'Wszystko',
@@ -159,6 +163,10 @@ export default {
   'fabric.editor.floatingToolbar.confirmModalHeading':
     'Czy na pewno chcesz to zrobić?',
   'fabric.editor.floatingToolbar.confirmModalOK': 'OK',
+  'fabric.editor.floatingToolbar.floatingToolbarAnnouncer':
+    'Otwarto elementy sterujące przestawnego paska narzędzi',
+  'fabric.editor.floatingToolbar.floatingToolbarAriaLabel':
+    'Przestawny pasek narzędzi',
   'fabric.editor.headerColumn': 'Kolumna nagłówka',
   'fabric.editor.headerRow': 'Wiersz nagłówka',
   'fabric.editor.heading1': 'Nagłówek 1',
@@ -176,6 +184,13 @@ export default {
   'fabric.editor.heading6': 'Nagłówek 6',
   'fabric.editor.heading6Description':
     'Użyj tego do nagłówków niskiego poziomu',
+  'fabric.editor.headingLink.hyperlinkIconBlogLabel': 'Blog',
+  'fabric.editor.headingLink.hyperlinkIconBugLabel': 'Błąd',
+  'fabric.editor.headingLink.hyperlinkIconIssueLabel': 'Zgłoszenie',
+  'fabric.editor.headingLink.hyperlinkIconPageLabel': 'Strona',
+  'fabric.editor.headingLink.hyperlinkIconStoryLabel': 'Historyjka',
+  'fabric.editor.headingLink.hyperlinkIconTaskLabel': 'Zadanie',
+  'fabric.editor.headingLink.toolbarHelpTitle': 'Otwórz okno dialogowe pomocy',
   'fabric.editor.help': 'Pomoc',
   'fabric.editor.help.description':
     'Przeglądaj wszystkie skróty klawiszowe i opcje Markdown',
@@ -183,6 +198,7 @@ export default {
     'Naciśnij {keyMap}, aby szybko otworzyć okno dialogowe w dowolnym momencie',
   'fabric.editor.horizontalRule': 'Separator',
   'fabric.editor.horizontalRule.description': 'Oddziel treści linią poziomą',
+  'fabric.editor.hyperlink.linkAriaLabel': 'Etykieta łącza',
   'fabric.editor.hyperlink.searchLinkAriaDescription':
     'Sugestie będą pojawiały się poniżej w miarę wpisywania tekstu w polu',
   'fabric.editor.hyperlink.searchLinkResults':
@@ -216,9 +232,12 @@ export default {
   'fabric.editor.markdown': 'Markdown',
   'fabric.editor.matchCase': 'Uwzględniaj wielkość liter',
   'fabric.editor.mediaAddLink': 'Dodaj łącze',
+  'fabric.editor.mediaGroupDeleteLabel': 'Usuń',
   'fabric.editor.mention': 'Wzmianka',
   'fabric.editor.mention.description':
     'Wspomnij o kimś, aby wysłać mu powiadomienie',
+  'fabric.editor.mentionsAddLabel': 'Ikona dodawania',
+  'fabric.editor.mentionsIconLabel': 'Wzmianka',
   'fabric.editor.mergeCells': 'Scal komórki',
   'fabric.editor.moreFormatting': 'Więcej opcji formatowania',
   'fabric.editor.noResultsFound': 'Brak wyników',
@@ -227,6 +246,8 @@ export default {
   'fabric.editor.notePanel': 'Panel uwag',
   'fabric.editor.notePanel.description': 'Dodaj uwagę w kolorze',
   'fabric.editor.numberedColumn': 'Kolumna numerowana',
+  'fabric.editor.off': '{formattingType} wył.',
+  'fabric.editor.on': '{formattingType} wł.',
   'fabric.editor.orderedList': 'Lista numerowana',
   'fabric.editor.orderedList.description': 'Utwórz uporządkowaną listę',
   'fabric.editor.other': 'Inne...',
@@ -266,10 +287,14 @@ export default {
   'fabric.editor.strike': 'Przekreślenie',
   'fabric.editor.subTask': 'Zadanie podrzędne',
   'fabric.editor.subscript': 'Przypis dolny',
+  'fabric.editor.subscript.off.superscript.on':
+    'Indeks dolny wył., indeks górny wł.',
   'fabric.editor.success': 'Sukces',
   'fabric.editor.successPanel': 'Panel sukcesów',
   'fabric.editor.successPanel.description': 'Dodaj wskazówki w kolorze',
   'fabric.editor.superscript': 'Przypis górny',
+  'fabric.editor.superscript.off.subscript.on':
+    'Indeks górny wył., indeks dolny wł.',
   'fabric.editor.supportAltText':
     'Tekst alternatywny jest przydatny dla osób z zaburzeniami widzenia, korzystających z czytników ekranowych.',
   'fabric.editor.table': 'Tabela',
@@ -281,6 +306,7 @@ export default {
   'fabric.editor.task': 'Zadanie',
   'fabric.editor.taskPlaceholder':
     'Wprowadź swoją akcję, użyj „@”, aby przypisać ją do użytkownika.',
+  'fabric.editor.text.formatting.off': 'Formatowanie tekstu wył.',
   'fabric.editor.textColor': 'Kolor tekstu',
   'fabric.editor.textStyles': 'Style tekstu',
   'fabric.editor.threeColumns': 'Trzy kolumny',
@@ -289,6 +315,7 @@ export default {
   'fabric.editor.time.updated': 'Zaktualizowano',
   'fabric.editor.time.viewed': 'Wyświetlono',
   'fabric.editor.toolbarLabel': 'Pasek narzędzi edytora',
+  'fabric.editor.toolbarMediaTitle': 'Pliki i obrazy',
   'fabric.editor.tooltip.blockPanel': 'panel',
   'fabric.editor.tooltip.bulletList': 'lista',
   'fabric.editor.tooltip.decisionList': 'lista decyzji',
@@ -296,6 +323,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'zagnieżdżony węzeł rozwijany',
   'fabric.editor.tooltip.taskList': 'czynność do wykonania',
   'fabric.editor.twoColumns': 'Dwie kolumny',
+  'fabric.editor.typeAheadResultLabel': 'Wyniki autouzupełniania',
   'fabric.editor.unableToOpenLink': 'Nie można otworzyć tego łącza',
   'fabric.editor.underline': 'Podkreślenie',
   'fabric.editor.undo': 'Cofnij',

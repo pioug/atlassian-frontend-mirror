@@ -168,28 +168,28 @@ const buildInitialTableToolbarItems = () => [
     options: [
       {
         id: 'editor.table.insertColumn',
-        title: 'Insert column',
+        title: 'Insert column right',
         selected: false,
         disabled: false,
         key: '2.0',
       },
       {
         id: 'editor.table.insertRow',
-        title: 'Insert row',
+        title: 'Insert row below',
         selected: false,
         disabled: false,
         key: '2.1',
       },
       {
         id: 'editor.table.removeColumns',
-        title: 'Remove column',
+        title: 'Delete column',
         selected: false,
         disabled: false,
         key: '2.2',
       },
       {
         id: 'editor.table.removeRows',
-        title: 'Remove row',
+        title: 'Delete row',
         selected: false,
         disabled: false,
         key: '2.3',

@@ -323,7 +323,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'nút mở rộng lồng nhau',
   'fabric.editor.tooltip.taskList': 'một mục thao tác',
   'fabric.editor.twoColumns': 'Hai cột',
-  'fabric.editor.typeAheadResultLabel': 'Kết quả TypeAhead',
+  'fabric.editor.typeAheadResultLabel': 'Kết quả tự động điền',
   'fabric.editor.unableToOpenLink': 'Không thể mở liên kết này',
   'fabric.editor.underline': 'Gạch dưới',
   'fabric.editor.undo': 'Hoàn tác',

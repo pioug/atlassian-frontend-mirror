@@ -150,6 +150,11 @@ const renameMapper: RenameMap[] = [
     "replacement": "color.background.accent.magenta.subtle"
   },
   {
+    "path": "color.background.inverse.[default]",
+    "state": "deprecated",
+    "replacement": "color.background.inverse.subtle.[default]"
+  },
+  {
     "path": "color.background.brand.[default].[default]",
     "state": "deprecated",
     "replacement": "color.background.selected.[default].[default]"

@@ -11,8 +11,16 @@ const color: ValueSchema<BackgroundColorTokenSchema> = {
     },
     background: {
       disabled: { value: 'DN200A' },
-      // @ts-ignore temporary value
-      inverse: { value: '#ffffff33' },
+      inverse: {
+        subtle: {
+          // @ts-ignore temporary value (#FFFFFF 16% opacity)
+          '[default]': { value: '#FFFFFF29' },
+          // @ts-ignore temporary value (#FFFFFF 24% opacity)
+          hovered: { value: '#FFFFFF3D' },
+          // @ts-ignore temporary value (#FFFFFF 32% opacity)
+          pressed: { value: '#FFFFFF52' },
+        },
+      },
       input: {
         '[default]': { value: 'DN100' },
         hovered: { value: 'DN200' },

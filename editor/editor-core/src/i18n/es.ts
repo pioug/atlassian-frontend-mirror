@@ -237,7 +237,7 @@ export default {
   'fabric.editor.mention': 'Mención',
   'fabric.editor.mention.description':
     'Mencionar a alguien para enviarle una notificación',
-  'fabric.editor.mentionsAddLabel': 'add-icon',
+  'fabric.editor.mentionsAddLabel': 'añadir-icono',
   'fabric.editor.mentionsIconLabel': 'Mención',
   'fabric.editor.mergeCells': 'Combinar celdas',
   'fabric.editor.moreFormatting': 'Más formatos',

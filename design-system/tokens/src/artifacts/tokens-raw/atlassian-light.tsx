@@ -3483,7 +3483,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
+      "introduced": "0.8.3",
       "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
     },
     "value": "#00000029",
@@ -3493,16 +3493,103 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.6.0",
+        "introduced": "0.8.3",
         "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
       },
       "value": "#00000029"
     },
-    "name": "color.background.inverse",
+    "name": "color.background.inverse.subtle.[default]",
     "path": [
       "color",
       "background",
-      "inverse"
+      "inverse",
+      "subtle",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.8.3",
+      "description": "Use for the hovered state of color.background.inverse.subtle"
+    },
+    "value": "#0000003D",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for the hovered state of color.background.inverse.subtle"
+      },
+      "value": "#0000003D"
+    },
+    "name": "color.background.inverse.subtle.hovered",
+    "path": [
+      "color",
+      "background",
+      "inverse",
+      "subtle",
+      "hovered"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.8.3",
+      "description": "Use for the pressed state of color.background.inverse.subtle"
+    },
+    "value": "#00000052",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.8.3",
+        "description": "Use for the pressed state of color.background.inverse.subtle"
+      },
+      "value": "#00000052"
+    },
+    "name": "color.background.inverse.subtle.pressed",
+    "path": [
+      "color",
+      "background",
+      "inverse",
+      "subtle",
+      "pressed"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "deprecated",
+      "introduced": "0.1.0",
+      "replacement": "color.background.inverse.subtle.[default]",
+      "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
+    },
+    "value": "#FFFFFF29",
+    "filePath": "src/tokens/atlassian-light/deprecated/deprecated.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "deprecated",
+        "introduced": "0.1.0",
+        "replacement": "color.background.inverse.subtle.[default]",
+        "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
+      },
+      "value": "#FFFFFF29"
+    },
+    "name": "color.background.inverse.[default]",
+    "path": [
+      "color",
+      "background",
+      "inverse",
+      "[default]"
     ]
   },
   {

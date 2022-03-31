@@ -1,5 +1,11 @@
 # @atlaskit/progress-bar
 
+## 0.5.3
+
+### Patch Changes
+
+- [`e928aca1693`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e928aca1693) - Using latest color.background.inverse.subtle token
+
 ## 0.5.2
 
 ### Patch Changes

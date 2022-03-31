@@ -324,7 +324,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'en nestet utvidelse',
   'fabric.editor.tooltip.taskList': 'et handlingselement',
   'fabric.editor.twoColumns': 'To kolonner',
-  'fabric.editor.typeAheadResultLabel': 'Resultater for autofullfør',
+  'fabric.editor.typeAheadResultLabel': 'Resultater for tastaturkontroll',
   'fabric.editor.unableToOpenLink': 'Kan ikke åpne denne koblingen',
   'fabric.editor.underline': 'Understreking',
   'fabric.editor.undo': 'Angre',

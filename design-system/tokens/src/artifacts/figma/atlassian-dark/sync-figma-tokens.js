@@ -915,14 +915,32 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#A1BDD914"
   },
-  "Color/Background/Inverse": {
+  "Color/Background/Inverse/Subtle/Default": {
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.6.0",
+      "introduced": "0.8.3",
       "description": "Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards."
     },
-    "value": "#ffffff33"
+    "value": "#FFFFFF29"
+  },
+  "Color/Background/Inverse/Subtle/Hovered": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.8.3",
+      "description": "Use for the hovered state of color.background.inverse.subtle"
+    },
+    "value": "#FFFFFF3D"
+  },
+  "Color/Background/Inverse/Subtle/Pressed": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.8.3",
+      "description": "Use for the pressed state of color.background.inverse.subtle"
+    },
+    "value": "#FFFFFF52"
   },
   "Color/Background/Input/Default": {
     "attributes": {
@@ -1639,6 +1657,7 @@ synchronizeFigmaTokens('AtlassianDark', {
   "Color/Background/Accent/Purple/Bold": "Color/Background/Accent/Purple/Subtle",
   "Color/Background/Accent/Magenta/Default": "Color/Background/Accent/Magenta/Subtler",
   "Color/Background/Accent/Magenta/Bold": "Color/Background/Accent/Magenta/Subtle",
+  "Color/Background/Inverse/Default": "Color/Background/Inverse/Subtle/Default",
   "Color/Background/Brand/Default/Default": "Color/Background/Selected/Default/Default",
   "Color/Background/Brand/Default/Hovered": "Color/Background/Selected/Default/Hovered",
   "Color/Background/Brand/Default/Pressed": "Color/Background/Selected/Default/Pressed",

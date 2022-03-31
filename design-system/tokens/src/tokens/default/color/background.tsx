@@ -44,12 +44,34 @@ const color: AttributeSchema<BackgroundColorTokenSchema> = {
         },
       },
       inverse: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          introduced: '0.6.0',
-          description:
-            'Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards.',
+        subtle: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.8.3',
+              description:
+                'Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.8.3',
+              description:
+                'Use for the hovered state of color.background.inverse.subtle',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.8.3',
+              description:
+                'Use for the pressed state of color.background.inverse.subtle',
+            },
+          },
         },
       },
       input: {

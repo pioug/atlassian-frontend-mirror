@@ -221,7 +221,13 @@ export interface BackgroundColorTokenSchema {
     };
     background: {
       disabled: PaintToken;
-      inverse: PaintToken;
+      inverse: {
+        subtle: {
+          '[default]': PaintToken;
+          hovered: PaintToken;
+          pressed: PaintToken;
+        };
+      };
       input: {
         '[default]': PaintToken;
         hovered: PaintToken;
@@ -614,6 +620,9 @@ export interface DeprecatedTokenSchema {
       default: PaintToken;
       sunken: PaintToken;
       card: PaintToken;
+      inverse: {
+        '[default]': PaintToken;
+      };
       overlay: PaintToken;
       selected: {
         resting: PaintToken;

@@ -241,7 +241,7 @@ export default {
   'fabric.editor.notePanel': 'Panel poznámek',
   'fabric.editor.notePanel.description': 'Přidat poznámku do barevného panelu',
   'fabric.editor.numberedColumn': 'Číslovaný sloupec',
-  'fabric.editor.off': '{formattingType} vypnuto',
+  'fabric.editor.off': 'Formátování {formattingType} vypnuto',
   'fabric.editor.on': '{formattingType} zapnuto',
   'fabric.editor.orderedList': 'Číslovaný seznam',
   'fabric.editor.orderedList.description': 'Vytvořit seřazený seznam',

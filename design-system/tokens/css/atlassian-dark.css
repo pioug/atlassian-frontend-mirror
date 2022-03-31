@@ -127,7 +127,10 @@ html[data-theme="dark"] {
   --ds-background-accent-magenta: #50253F;
   --ds-background-accent-magenta-bold: #AE4787;
   --ds-background-disabled: #A1BDD914;
-  --ds-background-inverse: #ffffff33;
+  --ds-background-inverse-subtle: #FFFFFF29;
+  --ds-background-inverse-subtle-hovered: #FFFFFF3D;
+  --ds-background-inverse-subtle-pressed: #FFFFFF52;
+  --ds-background-inverse: #00000029;
   --ds-background-input: #1D2125;
   --ds-background-input-hovered: #22272B;
   --ds-background-input-pressed: #1D2125;

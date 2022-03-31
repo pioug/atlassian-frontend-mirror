@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 73.4.1
+
+### Patch Changes
+
+- [`de7e2ff674e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de7e2ff674e) - Applies a fix to ensure that the media card viewport detector is never a click target
+
 ## 73.4.0
 
 ### Minor Changes

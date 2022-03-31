@@ -554,6 +554,18 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
           description: 'Use as the primary background for the UI',
         },
       },
+      inverse: {
+        '[default]': {
+          attributes: {
+            group: 'paint',
+            state: 'deprecated',
+            introduced: '0.1.0',
+            replacement: 'color.background.inverse.subtle.[default]',
+            description:
+              'Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards.',
+          },
+        },
+      },
       overlay: {
         attributes: {
           group: 'paint',

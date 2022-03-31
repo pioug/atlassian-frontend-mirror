@@ -10,12 +10,12 @@ export default {
   'fabric.editor.action.description':
     'Yapılacaklar listesi oluşturun ve atayın',
   'fabric.editor.addAltText': 'Alternatif metin',
-  'fabric.editor.alignCenter': 'None',
+  'fabric.editor.alignCenter': 'Ortaya Hizalanmış',
   'fabric.editor.alignImageCenter': 'Ortaya hizala',
   'fabric.editor.alignImageLeft': 'Sola hizala',
   'fabric.editor.alignImageRight': 'Sağa hizala',
   'fabric.editor.alignLeft': 'Sola hizala',
-  'fabric.editor.alignRight': 'None',
+  'fabric.editor.alignRight': 'Sağa Hizalanmış',
   'fabric.editor.alignment': 'Metin hizalama',
   'fabric.editor.altText': 'Alternatif metin',
   'fabric.editor.alttext.validation':

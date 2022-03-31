@@ -127,7 +127,10 @@
   --ds-background-accent-magenta: #FDD0EC;
   --ds-background-accent-magenta-bold: #E774BB;
   --ds-background-disabled: #091E420F;
-  --ds-background-inverse: #00000029;
+  --ds-background-inverse-subtle: #00000029;
+  --ds-background-inverse-subtle-hovered: #0000003D;
+  --ds-background-inverse-subtle-pressed: #00000052;
+  --ds-background-inverse: #FFFFFF29;
   --ds-background-input: #FFFFFF;
   --ds-background-input-hovered: #F7F8F9;
   --ds-background-input-pressed: #FFFFFF;

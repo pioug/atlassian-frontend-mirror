@@ -147,6 +147,11 @@ const tokens = {
   'color.background.accent.magenta': '--ds-background-accent-magenta',
   'color.background.accent.magenta.bold': '--ds-background-accent-magenta-bold',
   'color.background.disabled': '--ds-background-disabled',
+  'color.background.inverse.subtle': '--ds-background-inverse-subtle',
+  'color.background.inverse.subtle.hovered':
+    '--ds-background-inverse-subtle-hovered',
+  'color.background.inverse.subtle.pressed':
+    '--ds-background-inverse-subtle-pressed',
   'color.background.inverse': '--ds-background-inverse',
   'color.background.input': '--ds-background-input',
   'color.background.input.hovered': '--ds-background-input-hovered',
@@ -451,6 +456,9 @@ export type CSSTokenMap = {
   'color.background.accent.magenta': 'var(--ds-background-accent-magenta)';
   'color.background.accent.magenta.bold': 'var(--ds-background-accent-magenta-bold)';
   'color.background.disabled': 'var(--ds-background-disabled)';
+  'color.background.inverse.subtle': 'var(--ds-background-inverse-subtle)';
+  'color.background.inverse.subtle.hovered': 'var(--ds-background-inverse-subtle-hovered)';
+  'color.background.inverse.subtle.pressed': 'var(--ds-background-inverse-subtle-pressed)';
   'color.background.inverse': 'var(--ds-background-inverse)';
   'color.background.input': 'var(--ds-background-input)';
   'color.background.input.hovered': 'var(--ds-background-input-hovered)';

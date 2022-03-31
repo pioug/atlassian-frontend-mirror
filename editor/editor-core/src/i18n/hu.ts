@@ -10,12 +10,12 @@ export default {
   'fabric.editor.action.description':
     'Műveleti elemek létrehozása és hozzárendelése',
   'fabric.editor.addAltText': 'Alternatív szöveg',
-  'fabric.editor.alignCenter': 'None',
+  'fabric.editor.alignCenter': 'Középre igazítás',
   'fabric.editor.alignImageCenter': 'Középre igazítás',
   'fabric.editor.alignImageLeft': 'Balra igazítás',
   'fabric.editor.alignImageRight': 'Jobbra igazítás',
   'fabric.editor.alignLeft': 'Balra igazítás',
-  'fabric.editor.alignRight': 'None',
+  'fabric.editor.alignRight': 'Jobbra igazítás',
   'fabric.editor.alignment': 'Szöveg igazítása',
   'fabric.editor.altText': 'Képleírás szövege',
   'fabric.editor.alttext.validation':

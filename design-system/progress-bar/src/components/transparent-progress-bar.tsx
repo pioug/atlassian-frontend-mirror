@@ -32,7 +32,7 @@ export default class TransparentProgressBar extends React.PureComponent<
             container: {
               ...theme.container,
               background: token(
-                'color.background.inverse',
+                'color.background.inverse.subtle',
                 'rgba(255, 255, 255, 0.5)',
               ),
             },

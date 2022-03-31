@@ -11,8 +11,16 @@ const color: ValueSchema<BackgroundColorTokenSchema> = {
     },
     background: {
       disabled: { value: 'N200A' },
-      // @ts-ignore temporary value
-      inverse: { value: '#00000029' },
+      inverse: {
+        subtle: {
+          // @ts-ignore temporary value (#000000 16% opacity)
+          '[default]': { value: '#00000029' },
+          // @ts-ignore temporary value (#000000 24% opacity)
+          hovered: { value: '#0000003D' },
+          // @ts-ignore temporary value (#000000 32% opacity)
+          pressed: { value: '#00000052' },
+        },
+      },
       input: {
         '[default]': { value: 'N0' },
         hovered: { value: 'N100' },

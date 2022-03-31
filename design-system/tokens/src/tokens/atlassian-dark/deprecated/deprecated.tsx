@@ -118,6 +118,10 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       },
       default: { value: 'DN0' },
       card: { value: 'DN100' },
+      inverse: {
+        // @ts-ignore temporary until a palette colour exists for it
+        '[default]': { value: '#00000029' },
+      },
       overlay: { value: 'DN200' },
       selected: {
         resting: { value: 'DN200A' },

@@ -118,6 +118,10 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       },
       default: { value: 'N0' },
       card: { value: 'N0' },
+      inverse: {
+        // @ts-ignore temporary until a palette colour exists for it
+        '[default]': { value: '#FFFFFF29' },
+      },
       overlay: { value: 'N0' },
       selected: {
         resting: { value: 'B100' },

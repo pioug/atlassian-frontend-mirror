@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.8.3
+
+### Patch Changes
+
+- [`530455156a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/530455156a8) - Deprecating color.background.inverse in favour of the new color.background.inverse.subtle token instead. Also introduced color.background.inverse.subtle.hovered and color.background.inverse.subtle.pressed tokens to supplement it.
+
 ## 0.8.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 73.4.2
+
+### Patch Changes
+
+- [`c102bb59f41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c102bb59f41) - Viewport detector needs to have absolute positioning so that it does not cause scroll bars in firefox when rendered in a table with a link.
+
 ## 73.4.1
 
 ### Patch Changes

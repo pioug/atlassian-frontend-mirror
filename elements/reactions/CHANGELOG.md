@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 21.2.1
+
+### Patch Changes
+
+- [`783c8c02335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/783c8c02335) - Update the reactions rendered UFO type
+
 ## 21.2.0
 
 ### Minor Changes

@@ -68,8 +68,8 @@ export const ReactionsRendered = new ConcurrentExperience(
   ExperienceName.REACTIONS_RENDERED,
   createExperienceConfig(
     ComponentName.REACTIONS,
-    ExperienceTypes.Experience,
-    ExperiencePerformanceTypes.InlineResult,
+    ExperienceTypes.Load,
+    ExperiencePerformanceTypes.PageSegmentLoad,
   ),
 );
 

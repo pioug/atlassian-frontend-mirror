@@ -106,7 +106,7 @@
     "react": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

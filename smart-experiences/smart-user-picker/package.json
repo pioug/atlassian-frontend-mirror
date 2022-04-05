@@ -50,7 +50,7 @@
     "fetch-mock": "^8.0.0",
     "graphql-tag": "^2.10.1",
     "mock-apollo-client": "^0.1.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

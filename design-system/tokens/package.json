@@ -59,7 +59,7 @@
     "react": "^16.8.0",
     "style-dictionary": "^3.0.0",
     "ts-node": "^10.0.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

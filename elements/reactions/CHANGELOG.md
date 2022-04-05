@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 21.2.2
+
+### Patch Changes
+
+- [`58a563ece8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58a563ece8f) - Add ComponentName as part of the exported enum collection for easier consumption inside products
+
 ## 21.2.1
 
 ### Patch Changes

@@ -67,7 +67,7 @@
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-value": "^0.2.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

@@ -55,7 +55,7 @@ tester.run('ensure-design-token-usage', rule, {
       code: `
       styled.div\`
         color: inherit;
-        color: token('color.background.blanket');
+        color: \${token('color.background.blanket')};
       \`
     `,
     },
@@ -109,7 +109,7 @@ tester.run('ensure-design-token-usage', rule, {
       code: `
       css\`
         color: inherit;
-        color: token('color.background.blanket', 'red');
+        color: \${token('color.background.blanket', 'red')};
       \`
     `,
     },
@@ -118,7 +118,7 @@ tester.run('ensure-design-token-usage', rule, {
       code: `
       styled.div\`
         color: inherit;
-        color: token('color.background.blanket', 'red');
+        color: \${token('color.background.blanket', 'red')};
       \`
     `,
     },
@@ -232,11 +232,26 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
           css\`
+            white-space: nowrap;
             color: red;
             background-color: #ccc;
+            border-color: rgb(0, 0, 0);
+            outline-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 1px 1px hsl(0, 100%, 50%);
+            border-top-color: hsla(0, 100%, 50%, 0.5);
+            border-left-color: lch(29.2345% 44.2 27);
+            border-right-color: lab(29.2345% 39.3825 20.0664);
+            border-bottom-color: color(display-p3 1 0.5 0);
           \`;
         `,
       errors: [
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
       ],
@@ -244,11 +259,26 @@ tester.run('ensure-design-token-usage', rule, {
     {
       code: `
           styled.div\`
+            white-space: nowrap;
             color: red;
             background-color: #ccc;
+            border-color: rgb(0, 0, 0);
+            outline-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 1px 1px hsl(0, 100%, 50%);
+            border-top-color: hsla(0, 100%, 50%, 0.5);
+            border-left-color: lch(29.2345% 44.2 27);
+            border-right-color: lab(29.2345% 39.3825 20.0664);
+            border-bottom-color: color(display-p3 1 0.5 0);
           \`;
         `,
       errors: [
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
       ],

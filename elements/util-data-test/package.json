@@ -84,7 +84,7 @@
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "fabric",

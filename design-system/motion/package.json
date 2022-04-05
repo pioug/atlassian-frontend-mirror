@@ -58,7 +58,7 @@
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "atlaskit",

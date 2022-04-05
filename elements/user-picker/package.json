@@ -73,7 +73,7 @@
     "faker": "^4.1.0",
     "mock-apollo-client": "^0.1.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@repo/internal": {

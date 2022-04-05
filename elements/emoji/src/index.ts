@@ -73,7 +73,10 @@ export type {
 export {
   // Enums
   SearchSort,
+  UfoExperienceName,
+  UfoComponentName,
 } from './types';
+
 export type {
   // Types
   CategoryId,

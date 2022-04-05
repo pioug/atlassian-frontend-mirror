@@ -31,7 +31,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "fetch-mock": "^8.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

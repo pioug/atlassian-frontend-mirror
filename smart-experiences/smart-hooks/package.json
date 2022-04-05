@@ -52,7 +52,7 @@
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

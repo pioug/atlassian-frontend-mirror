@@ -316,8 +316,9 @@ export const isLegacyNamedColor = (value: string) =>
 
 export const includesHardCodedColor = (raw: string): boolean => {
   const value = raw.toLowerCase();
+
   if (
-    /#(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\)/.exec(
+    /#(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|((?:rgb|hsl)a?|(lch|lab|color))\([^\)]*\)/.exec(
       value.toLowerCase(),
     )
   ) {

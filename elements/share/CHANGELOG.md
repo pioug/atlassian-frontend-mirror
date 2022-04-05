@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.1.4
+
+### Patch Changes
+
+- [`4a010959e0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a010959e0d) - [ux] Updated some hardcoded colors to use Design Tokens for theming that were missing during initial migration
+
 ## 3.1.3
 
 ### Patch Changes

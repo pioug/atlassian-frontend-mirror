@@ -57,7 +57,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.3.0",
-    "@atlaskit/smart-card": "^18.0.0",
+    "@atlaskit/smart-card": "^18.0.11",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
@@ -98,7 +98,7 @@
     "react-test-renderer": "^16.8.0",
     "rxjs": "^5.5.0",
     "sinon": "^2.2.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "worker-plugin": "^4.0.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

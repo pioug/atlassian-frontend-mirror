@@ -28,7 +28,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^0.8.0",
+    "@atlaskit/tokens": "^0.8.1",
     "@babel/runtime": "^7.0.0",
     "postcss-value-parser": "^4.2.0"
   },
@@ -40,7 +40,7 @@
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "jest-preset-stylelint": "^5.0.1",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

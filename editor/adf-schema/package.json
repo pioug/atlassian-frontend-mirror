@@ -57,7 +57,7 @@
     "json-schema-diff-validator": "^0.4.1",
     "prosemirror-history": "^1.1.3",
     "prosemirror-state": "1.3.4",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

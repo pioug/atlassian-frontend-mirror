@@ -194,7 +194,7 @@ export const messages = defineMessages({
   },
   help_whats_new_button_tooltip: {
     id: 'help.whats_new.button_tooltip',
-    defaultMessage: `Explore our full collection of help and support resources.`,
+    defaultMessage: `See our latest feature announcements, improvements, bug fixes, and more.`,
     description: `text for the "What's New" tooltip`,
   },
   help_whats_new_filter_select_option_all: {

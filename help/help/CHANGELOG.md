@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.4
+
+### Patch Changes
+
+- [`9d51d8d6aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d51d8d6aa3) - [ux] Change "What's new" button tooltip text
+
 ## 7.1.3
 
 ### Patch Changes

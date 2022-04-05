@@ -44,7 +44,7 @@
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -44,7 +44,7 @@ export enum ExperienceName {
 /**
  * UFO types of components been instrumented
  */
-enum ComponentName {
+export enum ComponentName {
   PICKER_RENDERED = 'reactions-picker',
   REACTIONS = 'reactions-list',
 }

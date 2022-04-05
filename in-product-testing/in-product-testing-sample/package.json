@@ -34,7 +34,7 @@
     "cypress-file-upload": "^5.0.2",
     "local-cypress": "^1.2.1",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

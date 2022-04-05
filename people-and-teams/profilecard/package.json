@@ -74,7 +74,7 @@
     "loader-utils": "^1.1.0",
     "react-router-dom": "^4.2.2",
     "sinon": "^2.2.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "uid": "^0.0.2"
   },
   "keywords": [

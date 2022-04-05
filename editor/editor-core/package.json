@@ -128,7 +128,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.3.0",
-    "@atlaskit/smart-card": "^18.0.0",
+    "@atlaskit/smart-card": "^18.0.11",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
@@ -200,7 +200,7 @@
     "react-test-renderer": "^16.8.0",
     "rison": "^0.1.1",
     "sinon": "^2.2.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "url-search-params": "^0.10.0",
     "worker-plugin": "^4.0.2"
   },

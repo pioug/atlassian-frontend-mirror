@@ -52,7 +52,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

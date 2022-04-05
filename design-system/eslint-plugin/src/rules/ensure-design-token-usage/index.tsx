@@ -189,7 +189,6 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         const cssProperties = value
           .replace(/\n/g, '')
           .split(/;|{|}/)
-          .filter((el) => !el.match(/\.|\@|\(|\)/))
           .map((el) => el.trim().split(':').pop() || '');
 
         cssProperties.forEach((property) => {

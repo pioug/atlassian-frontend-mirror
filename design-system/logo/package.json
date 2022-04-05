@@ -62,7 +62,7 @@
     "@testing-library/react": "^8.0.1",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

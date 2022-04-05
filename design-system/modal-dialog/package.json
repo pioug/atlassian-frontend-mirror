@@ -88,7 +88,7 @@
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "wait-for-expect": "^1.2.0"
   },
   "keywords": [

@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 64.4.1
+
+### Patch Changes
+
+- [`15f783a5684`](https://bitbucket.org/atlassian/atlassian-frontend/commits/15f783a5684) - export ufo experience name and ufo component name, update component name for emoji recorded experience
+
 ## 64.4.0
 
 ### Minor Changes

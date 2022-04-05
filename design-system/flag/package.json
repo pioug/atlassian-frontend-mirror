@@ -53,7 +53,7 @@
     "jest-emotion": "^10.0.32",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "atlaskit",

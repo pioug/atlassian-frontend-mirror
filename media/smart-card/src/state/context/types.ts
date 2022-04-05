@@ -1,8 +1,8 @@
 import { Store } from 'redux';
+import { LinkPreview } from '@atlaskit/linking-common';
 import { CardStore, CardConnections } from '../store/types';
 import { CardPlatform, CardAppearance } from '../../view/Card';
 import CardClient from '../../client';
-import { LinkPreview } from '../../extractors/common/preview/extractPreview';
 
 // TODO: Remove once mobile team move to using authentication
 // flow https://product-fabric.atlassian.net/browse/SL-347.

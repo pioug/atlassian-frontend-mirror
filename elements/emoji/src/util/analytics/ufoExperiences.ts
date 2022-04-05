@@ -1,4 +1,4 @@
-import { EmojiId } from '../../types';
+import { EmojiId, UfoComponentName, UfoExperienceName } from '../../types';
 
 import {
   ExperiencePerformanceTypes,
@@ -7,15 +7,6 @@ import {
   UFOExperience,
 } from '@atlaskit/ufo';
 import { withSampling } from './samplingUfo';
-
-// TODO: clean up as not needed
-export type UfoExperienceName =
-  | 'emoji-rendered'
-  | 'emoji-resource-fetched'
-  | 'emoji-picker-opened'
-  | 'emoji-selection-recorded'
-  | 'emoji-uploaded'
-  | 'emoji-searched';
 
 const createRenderExperience = (componentName: string) => {
   return {
@@ -35,28 +26,28 @@ const createInlineExperience = (componentName: string) => {
 
 export const ufoExperiences = {
   'emoji-rendered': new ConcurrentExperience(
-    'emoji-rendered',
-    createRenderExperience('emoji'),
+    UfoExperienceName.EMOJI_RENDERED,
+    createRenderExperience(UfoComponentName.EMOJI),
   ),
   'emoji-resource-fetched': new ConcurrentExperience(
-    'emoji-resource-fetched',
-    createRenderExperience('emoji-provider'),
+    UfoExperienceName.EMOJI_RESOURCE_FETCHED,
+    createRenderExperience(UfoComponentName.EMOJI_PROVIDER),
   ),
   'emoji-picker-opened': new UFOExperience(
-    'emoji-picker-opened',
-    createRenderExperience('emoji-picker'),
+    UfoExperienceName.EMOJI_PICKER_OPENED,
+    createRenderExperience(UfoComponentName.EMOJI_PICKER),
   ),
   'emoji-selection-recorded': new UFOExperience(
-    'emoji-selection-recorded',
-    createInlineExperience('emoji-picker'),
+    UfoExperienceName.EMOJI_SELECTION_RECORDED,
+    createInlineExperience(UfoComponentName.EMOJI_PROVIDER),
   ),
   'emoji-uploaded': new UFOExperience(
-    'emoji-uploaded',
-    createInlineExperience('emoji-picker'),
+    UfoExperienceName.EMOJI_UPLOADED,
+    createInlineExperience(UfoComponentName.EMOJI_PICKER),
   ),
   'emoji-searched': new UFOExperience(
-    'emoji-searched',
-    createInlineExperience('emoji-picker'),
+    UfoExperienceName.EMOJI_SEARCHED,
+    createInlineExperience(UfoComponentName.EMOJI_PICKER),
   ),
 };
 

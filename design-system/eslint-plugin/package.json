@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "react": "^16.8.0",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

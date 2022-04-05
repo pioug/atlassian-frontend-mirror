@@ -58,7 +58,7 @@
     "react-dom": "^16.8.0",
     "redux": "^3.7.2",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

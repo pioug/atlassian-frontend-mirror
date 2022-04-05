@@ -47,7 +47,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "react": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "ui",

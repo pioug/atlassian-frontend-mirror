@@ -1,4 +1,4 @@
-jest.mock('../../../extractors/common/preview/extractPreview', () => ({
+jest.mock('@atlaskit/linking-common', () => ({
   extractPreview: () => 'some-link-preview',
 }));
 

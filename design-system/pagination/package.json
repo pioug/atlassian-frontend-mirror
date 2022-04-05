@@ -51,7 +51,7 @@
     "react-router-dom": "^4.2.2",
     "storybook-addon-performance": "^0.16.0",
     "tiny-invariant": "^1.2.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

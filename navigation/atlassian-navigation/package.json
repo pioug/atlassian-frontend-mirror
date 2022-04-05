@@ -59,7 +59,7 @@
     "jest-emotion": "^10.0.32",
     "react": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

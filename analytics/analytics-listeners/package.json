@@ -38,7 +38,7 @@
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",
     "react": "^16.8.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "fabric",

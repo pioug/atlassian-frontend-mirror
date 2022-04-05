@@ -51,7 +51,7 @@
     "prosemirror-view": "1.23.2",
     "react": "^16.8.0",
     "styled-components": "^3.2.6",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.4.1
+
+### Patch Changes
+
+- [`236e6040fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/236e6040fb9) - Fixes a bug in the rule `ensure-design-token-usage` where some color value types were not being detected as hardcoded color usage. This affected Styled Components and Emotion CSS prop syntaxes.
+
+  These color types have been fixed:
+
+  - rgb
+  - rgba
+  - hsl
+  - hsla
+  - lch
+  - lab
+  - color()
+
 ## 4.4.0
 
 ### Minor Changes

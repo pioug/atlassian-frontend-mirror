@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 18.0.12
+
+### Patch Changes
+
+- [`b90896c18cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90896c18cd) - move helpers and types to @atlaskit/linking-common and import them
+
 ## 18.0.11
 
 ### Patch Changes

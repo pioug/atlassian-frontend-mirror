@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { extractUrlFromLinkJsonLd } from '../utils';
+import { extractUrlFromLinkJsonLd } from '@atlaskit/linking-common';
 
 export const extractLink = (
   jsonLd: JsonLd.Data.BaseData,

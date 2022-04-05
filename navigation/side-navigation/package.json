@@ -54,7 +54,7 @@
     "jscodeshift": "^0.13.0",
     "raf-stub": "^2.0.1",
     "react-beautiful-dnd": "^12.1.1",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "techstack": {
     "@atlassian/frontend": {

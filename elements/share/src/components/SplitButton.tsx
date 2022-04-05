@@ -44,7 +44,7 @@ const DropdownMenuWrapper = styled.div`
 
 const DropDownIntegrationButtonWrapper = styled.span`
   button:hover {
-    background: rgba(255, 255, 255, 0);
+    background: transparent;
   }
 `;
 

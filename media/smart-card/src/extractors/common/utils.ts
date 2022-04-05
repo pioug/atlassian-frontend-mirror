@@ -1,19 +1,6 @@
 import { JsonLd } from 'json-ld-types';
+import { extractUrlFromLinkJsonLd } from '@atlaskit/linking-common';
 import { LinkPerson } from './person/types';
-
-export const extractUrlFromLinkJsonLd = (
-  link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
-): string | undefined => {
-  if (typeof link === 'string') {
-    return link;
-  } else if (Array.isArray(link)) {
-    if (link.length > 0) {
-      return extractUrlFromLinkJsonLd(link[0]);
-    }
-  } else {
-    return link.href;
-  }
-};
 
 export const extractUrlFromIconJsonLd = (
   icon: JsonLd.Primitives.Link | JsonLd.Primitives.Image,

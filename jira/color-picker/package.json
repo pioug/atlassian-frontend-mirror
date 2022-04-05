@@ -41,7 +41,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "jscodeshift": "^0.13.0",
     "react": "^16.8.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "ui",

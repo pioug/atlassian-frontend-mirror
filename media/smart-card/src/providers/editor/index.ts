@@ -2,13 +2,8 @@
 // @see https://github.com/graphql/dataloader/issues/249
 import 'setimmediate';
 import DataLoader from 'dataloader';
-
-import {
-  CardProvider,
-  ORSProvidersResponse,
-  ORSCheckResponse,
-  CardAdf,
-} from './types';
+import { CardAdf } from '@atlaskit/linking-common';
+import { CardProvider, ORSProvidersResponse, ORSCheckResponse } from './types';
 import { Transformer } from './transformer';
 
 import { CardAppearance } from '../../view/Card';
@@ -117,11 +112,10 @@ export class EditorCardProvider implements CardProvider {
 }
 
 export const editorCardProvider = new EditorCardProvider();
+export type { CardProvider, ORSCheckResponse } from './types';
 export type {
-  CardProvider,
-  ORSCheckResponse,
   CardAdf,
   InlineCardAdf,
   BlockCardAdf,
   EmbedCardAdf,
-} from './types';
+} from '@atlaskit/linking-common';

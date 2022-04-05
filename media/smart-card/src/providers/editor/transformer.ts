@@ -1,5 +1,10 @@
+import {
+  BlockCardAdf,
+  CardAdf,
+  EmbedCardAdf,
+  InlineCardAdf,
+} from '@atlaskit/linking-common';
 import { CardAppearance } from '../../view/Card';
-import { BlockCardAdf, CardAdf, EmbedCardAdf, InlineCardAdf } from './types';
 
 const isJiraRoadMap = (url: string) =>
   url.match(

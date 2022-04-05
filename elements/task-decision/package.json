@@ -57,7 +57,7 @@
     "jest-fetch-mock": "^3.0.3",
     "react": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "3.9.6",
+    "typescript": "3.9.10",
     "url-search-params": "^0.10.0"
   },
   "techstack": {

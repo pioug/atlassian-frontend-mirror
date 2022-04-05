@@ -384,3 +384,18 @@ export enum ProviderTypes {
   ATLASSIAN = 'ATLASSIAN',
   UNKNOWN = 'UNKNOWN',
 }
+
+export enum UfoExperienceName {
+  EMOJI_RENDERED = 'emoji-rendered',
+  EMOJI_RESOURCE_FETCHED = 'emoji-resource-fetched',
+  EMOJI_PICKER_OPENED = 'emoji-picker-opened',
+  EMOJI_SELECTION_RECORDED = 'emoji-selection-recorded',
+  EMOJI_UPLOADED = 'emoji-uploaded',
+  EMOJI_SEARCHED = 'emoji-searched',
+}
+
+export enum UfoComponentName {
+  EMOJI = 'emoji',
+  EMOJI_PICKER = 'emoji-picker',
+  EMOJI_PROVIDER = 'emoji-provider',
+}

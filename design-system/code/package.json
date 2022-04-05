@@ -51,7 +51,7 @@
     "jscodeshift": "^0.13.0",
     "prismjs": "^1.25.0",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "keywords": [
     "atlaskit",

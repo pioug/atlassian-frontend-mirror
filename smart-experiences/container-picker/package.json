@@ -41,7 +41,7 @@
     "prop-types": "^15.5.10",
     "react": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.10"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

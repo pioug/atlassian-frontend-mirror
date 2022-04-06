@@ -20,6 +20,8 @@ import { token } from '../src';
 import darkTheme from '../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../src/artifacts/tokens-raw/atlassian-light';
 
+import TokenWizardModal from './token-wizard';
+
 const sortByStatus = (a: Token, b: Token) => {
   if (
     a.attributes.state === 'deprecated' &&
@@ -47,7 +49,7 @@ function hexToRGB(hex: string) {
   };
 }
 
-function getTextContrast(hex: string) {
+export function getTextContrast(hex: string) {
   const { r, g, b } = hexToRGB(hex);
   const lum = (r * 299 + g * 587 + b * 114) / 1000;
 
@@ -162,7 +164,7 @@ function getAppearance(state?: string) {
   }
 }
 
-function getBoxShadow(rawShadow: any[]) {
+export function getBoxShadow(rawShadow: any[]) {
   return rawShadow
     .map(({ radius, offset, color, opacity }) => {
       const { r, g, b } = hexToRGB(color);
@@ -172,7 +174,7 @@ function getBoxShadow(rawShadow: any[]) {
     .join(',');
 }
 
-function cleanTokenName(name: string) {
+export function cleanTokenName(name: string) {
   return name.replace(/\.\[default\]/g, '');
 }
 
@@ -378,7 +380,11 @@ export default md`
     \`@atlaskit/theme/colors\`. When using tokens, focus on choosing a token with the
     right **purpose** rather than an exact color match.
 
-    ## Atlassian Design Tokens
+    ####
+    
+    ${(<TokenWizardModal />)}
+
+    ## Atlassian Design Tokens</h2>
 
   ${(<TokenExplorer />)}
 `;

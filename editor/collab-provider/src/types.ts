@@ -23,6 +23,8 @@ export interface Config {
   documentAri: string;
   lifecycle?: Lifecycle;
   storage?: Storage;
+  // ESS-1009 Allow to opt-in into 404 response
+  need404?: boolean;
   createSocket(
     path: string,
     auth?: (cb: (data: object) => void) => void,

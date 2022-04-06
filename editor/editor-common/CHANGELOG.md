@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 66.0.1
+
+### Patch Changes
+
+- [`209fdaab573`](https://bitbucket.org/atlassian/atlassian-frontend/commits/209fdaab573) - export in product tests
+
 ## 66.0.0
 
 ### Major Changes

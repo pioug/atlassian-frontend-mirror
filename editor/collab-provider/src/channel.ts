@@ -57,6 +57,8 @@ export class Channel extends Emitter<ChannelEvent> {
               token,
               // The initialized status. If false, BE will send document, otherwise not.
               initialized: this.initialized,
+              // ESS-1009 Allow to opt-in into 404 response
+              need404: this.config.need404,
             });
           })
           .catch((err) => {
@@ -69,6 +71,8 @@ export class Channel extends Emitter<ChannelEvent> {
         cb({
           // The initialized status. If false, BE will send document, otherwise not.
           initialized: this.initialized,
+          // ESS-1009 Allow to opt-in into 404 response
+          need404: this.config.need404,
         });
       };
       this.socket = createSocket(`${url}/session/${documentAri}`, authCb);

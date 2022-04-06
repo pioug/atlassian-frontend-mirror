@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 5.0.4
+
+### Patch Changes
+
+- [`f805f47c19a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f805f47c19a) - Smart User Picker now catches errors emitted from the optional `onError` fallback data source, and also now only sends a UFO failure event if the primary data source (URS) fails AND the `onError` prop either fails or is not provided.
+
 ## 5.0.3
 
 ### Patch Changes

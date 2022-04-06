@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 7.2.0
+
+### Minor Changes
+
+- [`502a39af839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/502a39af839) - Allow collab provider to opt-in for 404 responses from NCS backend
+
 ## 7.1.8
 
 ### Patch Changes

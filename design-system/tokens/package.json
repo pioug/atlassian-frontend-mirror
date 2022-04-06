@@ -41,9 +41,13 @@
     "@babel/types": "^7.15.0"
   },
   "devDependencies": {
+    "@atlaskit/button": "^16.2.0",
     "@atlaskit/code": "^14.3.0",
+    "@atlaskit/focus-ring": "^1.0.0",
+    "@atlaskit/heading": "^0.1.8",
     "@atlaskit/icon": "^21.10.2",
     "@atlaskit/lozenge": "^11.0.0",
+    "@atlaskit/modal-dialog": "^12.2.4",
     "@atlaskit/section-message": "^6.1.7",
     "@atlaskit/tabs": "^13.2.4",
     "@atlaskit/textfield": "^5.1.5",

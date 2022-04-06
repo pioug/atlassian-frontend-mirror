@@ -61,7 +61,6 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
   state: State = {
     users: [],
     loading: false,
-    error: false,
     closed: true,
     query: '',
     defaultValue: [],
@@ -71,7 +70,6 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
   optionsShownUfoExperienceInstance: UFOExperience;
 
   static defaultProps = {
-    onError: () => {},
     baseUrl: '',
     includeUsers: true,
     includeGroups: false,
@@ -183,22 +181,24 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
     const { query, sessionId, closed } = this.state;
 
     const {
-      containerId,
-      childObjectId,
-      objectId,
-      principalId,
-      productKey,
-      siteId,
-      orgId,
       baseUrl,
-      includeUsers,
+      childObjectId,
+      containerId,
+      fieldId,
       includeGroups,
       includeTeams,
-      maxOptions,
-      searchQueryFilter,
-      onEmpty,
-      productAttributes,
+      includeUsers,
       intl,
+      maxOptions,
+      objectId,
+      onEmpty,
+      onError,
+      orgId,
+      principalId,
+      productAttributes,
+      productKey,
+      searchQueryFilter,
+      siteId,
     } = this.props;
 
     const maxNumberOfResults = maxOptions || 100;
@@ -207,7 +207,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
       baseUrl,
       context: {
         containerId,
-        contextType: this.props.fieldId,
+        contextType: fieldId,
         objectId,
         principalId,
         productKey,
@@ -253,23 +253,31 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
         return { users, loading };
       });
     } catch (e) {
-      if (!closed) {
-        // If the user lookup fails while the menu is open, send UFO failure
-        // TODO handle with-option-failovers example here (falls back to alt data source)
+      if (!closed && !onError) {
+        // If the user lookup fails while the menu is open, and the consumer is not providing a
+        // fallback data source via the onError prop, then send UFO failure
         this.optionsShownUfoExperienceInstance.failure();
       }
-      this.setState({
-        users: [],
-        error: true,
-      });
-      const defaultUsers: OptionData[] = await (this.props.onError
-        ? this.props.onError(e, recommendationsRequest) || Promise.resolve([])
-        : Promise.resolve([]));
+      this.setState({ users: [] });
+
+      let onErrorProducedError = false;
+      let defaultUsers: OptionData[] = [];
+      try {
+        defaultUsers = onError
+          ? (await onError(e, recommendationsRequest)) || []
+          : [];
+      } catch (error) {
+        onErrorProducedError = true;
+      }
+
+      if (onErrorProducedError) {
+        // Log error from fallback data source `onError` to UFO
+        this.optionsShownUfoExperienceInstance.failure();
+      }
+
+      this.setState({ users: defaultUsers, loading: false });
+
       const elapsedTimeMilli = window.performance.now() - startTime;
-      this.setState({
-        users: defaultUsers,
-        loading: false,
-      });
       this.fireEvent(failedRequestUsersEvent, {
         elapsedTimeMilli,
         productAttributes,

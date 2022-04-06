@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.1
+
+### Patch Changes
+
+- [`578055b6cf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/578055b6cf2) - Fix dependency issue with `@atlaskit/tokens` requiring minimum version ^0.8.1
+
 ## 0.3.0
 
 ### Minor Changes

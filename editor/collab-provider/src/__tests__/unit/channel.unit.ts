@@ -20,6 +20,7 @@ import {
 } from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
+import { io, Socket } from 'socket.io-client';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -103,6 +104,53 @@ describe('channel unit tests', () => {
           initialized: false,
         });
         expect(channel.getConnected()).toBe(true);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    });
+
+    expect(channel.getConnected()).toBe(false);
+    channel.getSocket()!.emit('connect');
+  });
+
+  it('should create connected channel with "need404" flag', (done) => {
+    let cbSpy: jest.SpyInstance;
+
+    // Overriding createSocket to properly spy on auth callback's callback
+    const customCreateSocket = (
+      url: string,
+      auth?: (cb: (data: object) => void) => void,
+    ): Socket => {
+      const { pathname } = new URL(url);
+      return io(url, {
+        withCredentials: true,
+        transports: ['polling', 'websocket'],
+        path: `/${pathname.split('/')[1]}/socket.io`,
+        auth: (cb) => {
+          cbSpy = jest.fn(cb);
+          auth!(cbSpy as any);
+        },
+      });
+    };
+
+    const channel = getChannel({
+      ...testChannelConfig,
+      need404: true,
+      createSocket: customCreateSocket,
+    });
+
+    channel.on('connected', async (data: any) => {
+      try {
+        expect(data).toEqual({
+          sid: channel.getSocket()!.id,
+          initialized: false,
+        });
+        expect(channel.getConnected()).toBe(true);
+        expect(cbSpy).toHaveBeenCalledWith({
+          initialized: false,
+          need404: true,
+        });
         done();
       } catch (err) {
         done(err);
@@ -395,7 +443,7 @@ describe('channel unit tests', () => {
     const channel = getChannel(configuration);
     await channel.fetchCatchup(1);
 
-    expect(permissionTokenRefresh).toBeCalledTimes(1);
+    expect(permissionTokenRefresh).toBeCalledTimes(2);
     expect(spy).toHaveBeenCalledWith(expect.anything(), {
       path: expect.any(String),
       queryParams: {

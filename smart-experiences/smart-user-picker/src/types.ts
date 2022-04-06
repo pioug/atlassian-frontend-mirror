@@ -43,7 +43,6 @@ export interface State {
   users: OptionData[];
   loading: boolean;
   closed: boolean;
-  error: boolean;
   query: string;
   sessionId?: string;
   defaultValue?: DefaultValue;

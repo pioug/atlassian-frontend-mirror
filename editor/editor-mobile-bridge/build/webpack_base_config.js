@@ -1,4 +1,4 @@
-const { moduleResolveMapBuilder } = require('@atlaskit/multi-entry-tools');
+const { moduleResolveMapBuilder } = require('@atlassian/multi-entry-tools');
 const { PORT } = require('./utils');
 
 const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {

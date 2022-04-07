@@ -65,17 +65,11 @@ describe('MediaPluginState', () => {
       providerFactory,
       nodeViews: {},
     };
-    const reactContext: any = () => {};
-    const mediaPlugin = new MediaPluginStateImplementation(
-      state,
-      options,
-      reactContext,
-      {
-        featureFlags: {
-          mediaInline: allowMediaInline,
-        },
+    const mediaPlugin = new MediaPluginStateImplementation(state, options, {
+      featureFlags: {
+        mediaInline: allowMediaInline,
       },
-    );
+    });
 
     return {
       mediaPlugin,

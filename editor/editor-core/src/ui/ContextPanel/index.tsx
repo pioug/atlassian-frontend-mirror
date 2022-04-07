@@ -1,7 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 import Transition from 'react-transition-group/Transition';
-import styled from 'styled-components';
-import { css } from 'styled-components';
 import { N30 } from '@atlaskit/theme/colors';
 import {
   akEditorSwoopCubicBezier,
@@ -38,15 +38,6 @@ type EditorWidth = WidthPluginState & {
   contentBreakoutModes: BreakoutMarkAttrs['mode'][];
 };
 
-type StyleProps = {
-  panelWidth: number;
-  visible: boolean;
-};
-
-type PanelProps = StyleProps & {
-  positionPanelOverEditor: boolean;
-};
-
 const absolutePanelStyles = css`
   position: absolute;
   right: 0;
@@ -74,32 +65,23 @@ export const shouldPanelBePositionedOverEditor = (
   );
 };
 
-/**
- * Only use absolute position for panel when screen size is wide enough
- * to accomodate breakout content and editor is not in wide mode.
- */
-const panelSlideStyles = ({ positionPanelOverEditor }: PanelProps) => {
-  if (positionPanelOverEditor) {
-    return absolutePanelStyles;
-  }
-  return;
-};
+const panelHidden = css`
+  width: 0;
+`;
 
-export const Panel = styled.div<PanelProps>`
-  width: ${(p) => (p.visible ? p.panelWidth : 0)}px;
+export const panel = css`
+  width: ${akEditorContextPanelWidth}px;
   height: 100%;
   transition: width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier};
   overflow: hidden;
   box-shadow: inset 2px 0 0 0 ${N30};
-
-  ${(props) => panelSlideStyles(props)};
 `;
 
-export const Content = styled.div<StyleProps>`
+export const content = css`
   transition: width 600ms ${akEditorSwoopCubicBezier};
   box-sizing: border-box;
   padding: 16px 16px 0px;
-  width: ${(p) => (p.visible ? p.panelWidth : 0)}px;
+  width: ${akEditorContextPanelWidth}px;
   height: 100%;
   overflow-y: auto;
 `;
@@ -207,19 +189,28 @@ export class SwappableContentArea extends React.PureComponent<
             broadcastPosition(newPosition && visible);
 
           return (
-            <Panel
-              panelWidth={width}
-              visible={visible}
-              positionPanelOverEditor={newPosition}
+            <div
+              css={[
+                panel,
+                !visible && panelHidden,
+                /**
+                 * Only use absolute position for panel when screen size is wide enough
+                 * to accommodate breakout content and editor is not in wide mode.
+                 */
+                newPosition && absolutePanelStyles,
+              ]}
               data-testid="context-panel-panel"
               aria-labelledby="context-panel-title"
               role="dialog"
             >
-              <Content panelWidth={width} visible={visible}>
+              <div
+                data-testid="context-panel-content"
+                css={[content, !visible && panelHidden]}
+              >
                 {this.showPluginContent() ||
                   this.showProvidedContent(userVisible)}
-              </Content>
-            </Panel>
+              </div>
+            </div>
           );
         }}
       </ContextPanelConsumer>

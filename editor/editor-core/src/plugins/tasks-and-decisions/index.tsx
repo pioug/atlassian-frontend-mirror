@@ -1,22 +1,19 @@
-import React from 'react';
-
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
-import styled from 'styled-components';
-
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import {
   decisionItem,
   decisionList,
   taskItem,
   taskList,
 } from '@atlaskit/adf-schema';
-
+import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Transaction } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';
 import { INPUT_METHOD } from '../analytics';
 import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { IconAction, IconDecision } from '../quick-insert/assets';
 
-import { getListTypes, insertTaskDecisionWithAnalytics } from './commands';
+import { insertTaskDecisionAction, getListTypes } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
@@ -24,37 +21,30 @@ import { TaskDecisionListType, TaskDecisionPluginOptions } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
-const TaskDecisionToolbarGroup = styled.div`
+const taskDecisionToolbarGroup = css`
   display: flex;
 `;
 
-const quickInsertItem = (
+const addItem = (
   insert: (node: PMNode) => Transaction,
-  state: EditorState,
   listType: TaskDecisionListType,
-): Transaction => {
-  const { list, item } = getListTypes(listType, state.schema);
-  const addItem = ({
-    listLocalId,
-    itemLocalId,
-  }: {
-    listLocalId?: string;
-    itemLocalId?: string;
-  }) =>
-    insert(
-      list.createChecked(
-        { localId: listLocalId },
-        item.createChecked({
-          localId: itemLocalId,
-        }),
-      ),
-    );
-  return insertTaskDecisionWithAnalytics(
-    state,
-    listType,
-    INPUT_METHOD.QUICK_INSERT,
-    addItem,
-  ) as Transaction;
+  schema: Schema,
+) => ({
+  listLocalId,
+  itemLocalId,
+}: {
+  listLocalId?: string;
+  itemLocalId?: string;
+}) => {
+  const { list, item } = getListTypes(listType, schema);
+  return insert(
+    list.createChecked(
+      { localId: listLocalId },
+      item.createChecked({
+        localId: itemLocalId,
+      }),
+    ),
+  );
 };
 
 const tasksAndDecisionsPlugin = ({
@@ -108,7 +98,7 @@ const tasksAndDecisionsPlugin = ({
 
   secondaryToolbarComponent({ editorView, disabled }) {
     return (
-      <TaskDecisionToolbarGroup>
+      <div css={taskDecisionToolbarGroup}>
         <ToolbarDecision
           editorView={editorView}
           isDisabled={disabled}
@@ -119,7 +109,7 @@ const tasksAndDecisionsPlugin = ({
           isDisabled={disabled}
           isReducedSpacing={true}
         />
-      </TaskDecisionToolbarGroup>
+      </div>
     );
   },
 
@@ -134,7 +124,12 @@ const tasksAndDecisionsPlugin = ({
         keyshortcut: '[]',
         icon: () => <IconAction />,
         action(insert, state) {
-          return quickInsertItem(insert, state, 'taskList');
+          return insertTaskDecisionAction(
+            state,
+            'taskList',
+            INPUT_METHOD.QUICK_INSERT,
+            addItem(insert, 'taskList', state.schema),
+          );
         },
       },
       {
@@ -145,7 +140,12 @@ const tasksAndDecisionsPlugin = ({
         keyshortcut: '<>',
         icon: () => <IconDecision />,
         action(insert, state) {
-          return quickInsertItem(insert, state, 'decisionList');
+          return insertTaskDecisionAction(
+            state,
+            'decisionList',
+            INPUT_METHOD.QUICK_INSERT,
+            addItem(insert, 'decisionList', state.schema),
+          );
         },
       },
     ],

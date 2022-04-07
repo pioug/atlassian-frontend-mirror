@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import React, { useMemo } from 'react';
+import { jsx } from '@emotion/react';
 import { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
-import { Shortcut } from '../../../../../ui/styles';
+import { shortcutStyle } from '../../../../../ui/styles';
 import { toolbarMessages } from '../toolbar-messages';
 import * as commands from '../../../commands/text-formatting';
 import { TOOLBAR_ACTION_SUBJECT_ID } from '../../../../../plugins/analytics/types/toolbar-button';
@@ -117,7 +119,7 @@ const getIcon = ({
       <ToolTipContent description={content} keymap={tooltipKeymap} />
     ) : undefined,
     elemAfter: tooltipKeymap ? (
-      <Shortcut>{tooltip(tooltipKeymap)}</Shortcut>
+      <div css={shortcutStyle}>{tooltip(tooltipKeymap)}</div>
     ) : undefined,
     value: {
       name: iconType,

@@ -2,12 +2,13 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { shallow, ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
+import { createSchema } from '@atlaskit/adf-schema';
 import {
-  defaultSchema as schema,
-  createSchema,
   defaultSchemaConfig,
   getSchemaBasedOnStage,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/schema-default';
+
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { Heading } from '../../../react/nodes';
 import { Expand } from '../../../react/nodes';
 import { Emoji } from '../../../react/nodes';

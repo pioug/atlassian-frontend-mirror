@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.2.5",
+  "version": "6.2.6",
   "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -63,7 +63,10 @@
   ],
   "techstack": {
     "@repo/internal": {
-      "theming": "tokens"
+      "theming": "tokens",
+      "styling": [
+        "static"
+      ]
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

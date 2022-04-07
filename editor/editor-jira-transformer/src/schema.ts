@@ -9,4 +9,4 @@ export {
   isSchemaWithMedia,
   isSchemaWithTextColor,
   isSchemaWithTables,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/schema-jira';

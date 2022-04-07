@@ -5,7 +5,7 @@ import {
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/panel';
 import {
   snapshot,
   initEditorWithAdf,

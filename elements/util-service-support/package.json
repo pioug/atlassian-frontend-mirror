@@ -16,7 +16,7 @@
   "atlassian": {
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
-    "team": "AFP: Monorepo"
+    "team": "UIP: Monorepo"
   },
   "config": {
     "access": "public"

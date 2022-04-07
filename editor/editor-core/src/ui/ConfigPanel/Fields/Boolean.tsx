@@ -9,7 +9,7 @@ import AKToggle from '@atlaskit/toggle';
 
 import { ValidationError, OnFieldChange } from '../types';
 import FieldMessages from '../FieldMessages';
-import { RequiredIndicator } from './common/RequiredIndicator';
+import { requiredIndicator } from './common/RequiredIndicator';
 
 const toggleFieldWrapper = css`
   display: flex;
@@ -110,7 +110,9 @@ function Toggle({
               <label css={toggleLabel} id={id} htmlFor={id}>
                 {label}
                 {isRequired ? (
-                  <RequiredIndicator aria-hidden="true">*</RequiredIndicator>
+                  <span css={requiredIndicator} aria-hidden="true">
+                    *
+                  </span>
                 ) : null}
               </label>
               <AKToggle

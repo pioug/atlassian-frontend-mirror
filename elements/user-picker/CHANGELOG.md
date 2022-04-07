@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.2
+
+### Patch Changes
+
+- [`85c0dcfe911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85c0dcfe911) - Added analytics event when the sources tooltip is displayed for an external user
+
 ## 9.0.1
 
 ### Patch Changes

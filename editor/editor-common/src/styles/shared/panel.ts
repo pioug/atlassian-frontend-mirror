@@ -234,105 +234,109 @@ const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (
   `;
 };
 
-export const panelSharedStyles = (props: ThemeProps) => css`
-  .${PanelSharedCssClassName.prefix} {
-    border-radius: ${borderRadius()}px;
-    margin: ${blockNodesVerticalMargin} 0 0;
-    padding: ${gridSize()}px;
-    min-width: ${akEditorTableCellMinWidth}px;
-    display: flex;
-    position: relative;
-    align-items: baseline;
-    word-break: break-word;
+export const panelSharedStylesWithoutPrefix = (props: ThemeProps) => css`
+  border-radius: ${borderRadius()}px;
+  margin: ${blockNodesVerticalMargin} 0 0;
+  padding: ${gridSize()}px;
+  min-width: ${akEditorTableCellMinWidth}px;
+  display: flex;
+  position: relative;
+  align-items: baseline;
+  word-break: break-word;
 
-    ${mainDynamicStyles(PanelType.INFO)(props)}
+  ${mainDynamicStyles(PanelType.INFO)(props)}
 
-    .${PanelSharedCssClassName.icon} {
-      flex-shrink: 0;
-      height: ${gridSize() * 3}px;
-      width: ${gridSize() * 3}px;
-      box-sizing: content-box;
-      padding-right: ${gridSize()}px;
-      text-align: center;
-      user-select: none;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      ${iconDynamicStyles(PanelType.INFO)(props)}
+  .${PanelSharedCssClassName.icon} {
+    flex-shrink: 0;
+    height: ${gridSize() * 3}px;
+    width: ${gridSize() * 3}px;
+    box-sizing: content-box;
+    padding-right: ${gridSize()}px;
+    text-align: center;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    ${iconDynamicStyles(PanelType.INFO)(props)}
 
-      > span {
-        vertical-align: middle;
-        display: inline-flex;
-      }
+    > span {
+      vertical-align: middle;
+      display: inline-flex;
+    }
 
-      .${emojiSprite} {
-        vertical-align: ${panelEmojiSpriteVerticalAlignment}px;
-      }
+    .${emojiSprite} {
+      vertical-align: ${panelEmojiSpriteVerticalAlignment}px;
+    }
 
-      .${emojiImage} {
-        vertical-align: ${panelEmojiImageVerticalAlignment}px;
+    .${emojiImage} {
+      vertical-align: ${panelEmojiImageVerticalAlignment}px;
 
-        // Vertical align only works for inline-block elements in Firefox
-        @-moz-document url-prefix() {
-          img {
-            display: inline-block;
-          }
+      // Vertical align only works for inline-block elements in Firefox
+      @-moz-document url-prefix() {
+        img {
+          display: inline-block;
         }
       }
     }
+  }
 
-    .ak-editor-panel__content {
-      margin: 1px 0 1px;
-      flex: 1 0 0;
-      /*
-        https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
-        The default value for min-width is auto, which is computed to zero. When an element is a flex item, the value of min-width doesn’t compute to zero. The minimum size of a flex item is equal to the size of its contents.
-      */
-      min-width: 0;
+  .ak-editor-panel__content {
+    margin: 1px 0 1px;
+    flex: 1 0 0;
+    /*
+      https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
+      The default value for min-width is auto, which is computed to zero. When an element is a flex item, the value of min-width doesn’t compute to zero. The minimum size of a flex item is equal to the size of its contents.
+    */
+    min-width: 0;
+  }
+
+  &[data-panel-type='${PanelType.NOTE}'] {
+    ${mainDynamicStyles(PanelType.NOTE)(props)}
+
+    .${PanelSharedCssClassName.icon} {
+      ${iconDynamicStyles(PanelType.NOTE)(props)}
     }
+  }
 
-    &[data-panel-type='${PanelType.NOTE}'] {
-      ${mainDynamicStyles(PanelType.NOTE)(props)}
+  &[data-panel-type='${PanelType.TIP}'] {
+    ${mainDynamicStyles(PanelType.TIP)(props)}
 
-      .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.NOTE)(props)}
-      }
+    .${PanelSharedCssClassName.icon} {
+      ${iconDynamicStyles(PanelType.TIP)(props)}
     }
+  }
 
-    &[data-panel-type='${PanelType.TIP}'] {
-      ${mainDynamicStyles(PanelType.TIP)(props)}
+  &[data-panel-type='${PanelType.WARNING}'] {
+    ${mainDynamicStyles(PanelType.WARNING)(props)}
 
-      .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.TIP)(props)}
-      }
+    .${PanelSharedCssClassName.icon} {
+      ${iconDynamicStyles(PanelType.WARNING)(props)}
     }
+  }
 
-    &[data-panel-type='${PanelType.WARNING}'] {
-      ${mainDynamicStyles(PanelType.WARNING)(props)}
+  &[data-panel-type='${PanelType.ERROR}'] {
+    ${mainDynamicStyles(PanelType.ERROR)(props)}
 
-      .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.WARNING)(props)}
-      }
+    .${PanelSharedCssClassName.icon} {
+      ${iconDynamicStyles(PanelType.ERROR)(props)}
     }
+  }
 
-    &[data-panel-type='${PanelType.ERROR}'] {
-      ${mainDynamicStyles(PanelType.ERROR)(props)}
+  &[data-panel-type='${PanelType.SUCCESS}'] {
+    ${mainDynamicStyles(PanelType.SUCCESS)(props)}
 
-      .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.ERROR)(props)}
-      }
+    .${PanelSharedCssClassName.icon} {
+      ${iconDynamicStyles(PanelType.SUCCESS)(props)}
     }
+  }
 
-    &[data-panel-type='${PanelType.SUCCESS}'] {
-      ${mainDynamicStyles(PanelType.SUCCESS)(props)}
+  &[data-panel-type='${PanelType.CUSTOM}'] {
+    ${themed({ dark: getPanelBackgroundDarkModeColors })(props)};
+  }
+`;
 
-      .${PanelSharedCssClassName.icon} {
-        ${iconDynamicStyles(PanelType.SUCCESS)(props)}
-      }
-    }
-
-    &[data-panel-type='${PanelType.CUSTOM}'] {
-      ${themed({ dark: getPanelBackgroundDarkModeColors })(props)};
-    }
+export const panelSharedStyles = (props: ThemeProps) => css`
+  .${PanelSharedCssClassName.prefix} {
+    ${panelSharedStylesWithoutPrefix(props)}
   }
 `;

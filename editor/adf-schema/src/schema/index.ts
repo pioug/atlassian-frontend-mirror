@@ -223,28 +223,3 @@ export { unsupportedNodeTypesForMediaCards } from './unsupported';
 export { inlineNodes } from './inline-nodes';
 
 export { sanitizeNodes, createSchema } from './create-schema';
-export { bitbucketSchema } from './bitbucket-schema';
-export {
-  confluenceSchema,
-  confluenceSchemaWithMediaSingle,
-} from './confluence-schema';
-export {
-  defaultSchema,
-  getSchemaBasedOnStage,
-  defaultSchemaConfig,
-} from './default-schema';
-
-export {
-  default as createJIRASchema,
-  isSchemaWithLists,
-  isSchemaWithMentions,
-  isSchemaWithEmojis,
-  isSchemaWithLinks,
-  isSchemaWithAdvancedTextFormattingMarks,
-  isSchemaWithCodeBlock,
-  isSchemaWithBlockQuotes,
-  isSchemaWithMedia,
-  isSchemaWithSubSupMark,
-  isSchemaWithTextColor,
-  isSchemaWithTables,
-} from './jira-schema';

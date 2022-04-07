@@ -39,6 +39,8 @@ export interface AvatarPickerDialogProps {
   predefinedAvatarsText?: string;
   /** The target width/height of the resulting (square) avatar. Leave blank for default (200x200) */
   outputSize?: number;
+  /** This optional property allows the consumer to define the maximum image size that can be uploaded. */
+  maxImageSize?: number;
 }
 
 export interface AvatarPickerDialogState {

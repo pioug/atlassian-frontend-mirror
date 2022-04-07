@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { PureComponent } from 'react';
+import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import DropList from '@atlaskit/droplist';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -10,7 +11,7 @@ import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import withOuterListeners from '../with-outer-listeners';
 import { Props, State } from './types';
 
-const Wrapper = styled.div`
+const wrapper = css`
   /* tooltip in ToolbarButton is display:block */
   & > div > div {
     display: flex;
@@ -22,15 +23,16 @@ const DropListWithOutsideListeners: any = withOuterListeners(DropList);
 /**
  * Hack for item to imitate old dropdown-menu selected styles
  */
-const ItemWrapper: any = styled.div`
-  ${(props: any) =>
-    props.isSelected
-      ? '&& > span, && > span:hover { background: #6c798f; color: #fff; }'
-      : ''};
+const itemWrapper = css`
+  && > span,
+  && > span:hover {
+    background: #6c798f;
+    color: #fff;
+  }
 `;
 
-const ItemContentWrapper: any = styled.span`
-  ${(props: any) => (props.hasElemBefore ? 'margin-left: 8px;' : '')};
+const itemContentWrapper = css`
+  margin-left: 8px;
 `;
 
 /**
@@ -79,7 +81,10 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     }
 
     const dropListItem = (
-      <ItemWrapper key={item.key || item.content} isSelected={item.isActive}>
+      <div
+        css={item.isActive ? itemWrapper : ''}
+        key={item.key || item.content}
+      >
         <Item
           role={shouldUseDefaultRole ? 'button' : 'menuitem'}
           elemBefore={item.elemBefore}
@@ -92,11 +97,11 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
           aria-label={item.label || String(item.content)}
           aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
         >
-          <ItemContentWrapper hasElemBefore={!!item.elemBefore}>
+          <span css={!!item.elemBefore ? itemContentWrapper : ''}>
             {item.content}
-          </ItemContentWrapper>
+          </span>
         </Item>
-      </ItemWrapper>
+      </div>
     );
 
     if (item.tooltipDescription) {
@@ -169,10 +174,10 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
     const { children, isOpen } = this.props;
 
     return (
-      <Wrapper>
+      <div css={wrapper}>
         <div ref={this.handleRef}>{children}</div>
         {isOpen ? this.renderDropdownMenu() : null}
-      </Wrapper>
+      </div>
     );
   }
 }

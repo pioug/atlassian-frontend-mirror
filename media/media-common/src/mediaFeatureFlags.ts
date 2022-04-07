@@ -71,6 +71,12 @@ Object.keys(defaultMediaFeatureFlags).forEach((flagName) => {
   }
 });
 
+// With this type we ensure the object will contain all the flags
+export type RequiredMediaFeatureFlags = Record<
+  keyof Required<MediaFeatureFlags>,
+  boolean
+>;
+
 export const areEqualFeatureFlags = (
   ffA?: MediaFeatureFlags,
   ffB?: MediaFeatureFlags,
@@ -81,8 +87,8 @@ export const areEqualFeatureFlags = (
   if (!ffA || !ffB) {
     return false;
   }
-  // With this type we ensure this object will compare all the flags
-  const results: Record<keyof Required<MediaFeatureFlags>, boolean> = {
+
+  const results: RequiredMediaFeatureFlags = {
     newCardExperience: ffA.newCardExperience === ffB.newCardExperience,
     captions: ffA.captions === ffB.captions,
     mediaInline: ffA.mediaInline === ffB.mediaInline,
@@ -99,4 +105,13 @@ export const useMemoizeFeatureFlags = (featureFlags?: MediaFeatureFlags) => {
     ref.current = featureFlags;
   }
   return ref.current;
+};
+
+export const filterFeatureFlagNames = (
+  flags: RequiredMediaFeatureFlags,
+): Array<keyof MediaFeatureFlags> => {
+  const pairs = Object.entries(flags) as Array<
+    [keyof RequiredMediaFeatureFlags, boolean]
+  >;
+  return pairs.filter(([_key, value]) => !!value).map(([key]) => key);
 };

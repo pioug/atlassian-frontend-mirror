@@ -1,5 +1,5 @@
-import { autoJoin } from 'prosemirror-commands';
 import { NodeType, ResolvedPos, Schema, NodeRange } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
 import {
   EditorState,
   Selection,
@@ -14,11 +14,8 @@ import {
   setTextSelection,
 } from 'prosemirror-utils';
 import { liftTarget } from 'prosemirror-transform';
-import { EditorView } from 'prosemirror-view';
-
 import { uuid } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-
 import { Command } from '../../types';
 import {
   ACTION,
@@ -32,7 +29,6 @@ import {
 } from '../analytics';
 import { GapCursorSelection } from '../selection/gap-cursor-selection';
 import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
-
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
 import {
   AddItemTransactionCreator,
@@ -40,6 +36,8 @@ import {
   TaskDecisionInputMethod,
   TaskDecisionListType,
 } from './types';
+
+import { autoJoinTr } from '../../utils/prosemirror/autojoin';
 
 const getContextData = (
   contextProvider: ContextIdentifierProvider = {} as ContextIdentifierProvider,
@@ -111,14 +109,44 @@ export const getListTypes = (
   };
 };
 
+/*
+ * @deprecated - [ED-13182] insertTaskDecision has been depreciated in favor of insertTaskDecisionCommand
+ */
 export const insertTaskDecision = (
   view: EditorView,
   listType: TaskDecisionListType,
-  inputMethod: TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+  inputMethod:
+    | INPUT_METHOD.FORMATTING
+    | INPUT_METHOD.QUICK_INSERT
+    | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
   listLocalId?: string,
   itemLocalId?: string,
 ): Command => {
-  const { state } = view;
+  // eslint-disable-next-line no-console
+  console.warn(
+    'insertTaskDecision has been depreciated in favor of insertTaskDecisionCommand',
+  );
+
+  return insertTaskDecisionCommand(
+    listType,
+    inputMethod,
+    undefined,
+    listLocalId,
+    itemLocalId,
+  );
+};
+
+export const insertTaskDecisionAction = (
+  state: EditorState,
+  listType: TaskDecisionListType,
+  inputMethod:
+    | INPUT_METHOD.FORMATTING
+    | INPUT_METHOD.QUICK_INSERT
+    | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+  addItem?: AddItemTransactionCreator,
+  listLocalId?: string,
+  itemLocalId?: string,
+): Transaction => {
   const { schema } = state;
   const addAndCreateList = ({
     tr,
@@ -161,28 +189,48 @@ export const insertTaskDecision = (
       .setSelection(new TextSelection(tr.doc.resolve(newItemParagraphPos)));
   };
 
+  const addAndCreateListFn = addItem ?? addAndCreateList;
   const tr = insertTaskDecisionWithAnalytics(
     state,
     listType,
     inputMethod,
-    addAndCreateList,
+    addAndCreateListFn,
     addToList,
     listLocalId,
     itemLocalId,
   );
 
-  return autoJoin(
-    (state, dispatch) => {
-      if (tr) {
-        if (dispatch) {
-          dispatch(tr);
-        }
-        return true;
-      }
-      return false;
-    },
-    ['taskList', 'decisionList'],
+  if (!tr) {
+    return state.tr;
+  }
+
+  autoJoinTr(tr, ['taskList', 'decisionList']);
+
+  return tr;
+};
+
+export const insertTaskDecisionCommand = (
+  listType: TaskDecisionListType,
+  inputMethod:
+    | INPUT_METHOD.FORMATTING
+    | INPUT_METHOD.QUICK_INSERT
+    | TOOLBAR_MENU_TYPE = INPUT_METHOD.TOOLBAR,
+  addItem?: AddItemTransactionCreator,
+  listLocalId?: string,
+  itemLocalId?: string,
+): Command => (state, dispatch) => {
+  const tr = insertTaskDecisionAction(
+    state,
+    listType,
+    inputMethod,
+    addItem,
+    listLocalId,
+    itemLocalId,
   );
+  if (dispatch) {
+    dispatch(tr);
+  }
+  return true;
 };
 
 export const insertTaskDecisionWithAnalytics = (

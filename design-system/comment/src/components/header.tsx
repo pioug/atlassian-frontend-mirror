@@ -22,7 +22,7 @@ const restrictedContainerStyles = css({
   display: 'flex',
   alignItems: 'baseline',
   gap: `${gridSize() / 2}px`,
-  color: token('color.text.lowEmphasis', N100A),
+  color: token('color.text.subtlest', N100A),
 });
 
 interface HeaderItemsProps {

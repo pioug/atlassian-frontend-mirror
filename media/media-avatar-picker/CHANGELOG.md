@@ -1,5 +1,15 @@
 # @atlaskit/media-avatar-picker
 
+## 23.2.0
+
+### Minor Changes
+
+- [`306b52fd9ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/306b52fd9ca) - [ux] MEX-1467 - The optional paramater maxImageSize for the media-avatar-picker can be used to modify the max file size of the image
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.1.2
 
 ### Patch Changes

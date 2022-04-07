@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
-import styled from 'styled-components';
 import Button from '@atlaskit/button';
 import { EditorView } from 'prosemirror-view';
 import {
@@ -13,14 +14,14 @@ import Tooltip from '@atlaskit/tooltip';
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
 
 // helps adjusts position of popup
-const EmojiPickerButtonWrapper = styled.div`
+const emojiPickerButtonWrapper = css`
   position: relative;
 `;
 
 // helps to vertically align emoji picker
 // both top and bottom margin should be 2px
 // https://product-fabric.atlassian.net/browse/CETI-148
-const EmojiPickerWrapper = styled.div`
+const emojiPickerWrapper = css`
   margin-bottom: -12px;
   margin-top: -4px;
 `;
@@ -88,13 +89,13 @@ export const EmojiPickerButton: React.FunctionComponent<{
         fitWidth={350}
         offset={[0, 10]}
       >
-        <EmojiPickerWrapper>
+        <div css={emojiPickerWrapper}>
           <WithProviders
             providers={['emojiProvider']}
             providerFactory={props.providerFactory!}
             renderNode={renderPicker}
           />
-        </EmojiPickerWrapper>
+        </div>
       </Popup>
     );
   };
@@ -102,7 +103,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
   const title = props.title || '';
 
   return (
-    <EmojiPickerButtonWrapper>
+    <div css={emojiPickerButtonWrapper}>
       <Tooltip content={title} position="top">
         <Button
           appearance={'subtle'}
@@ -121,6 +122,6 @@ export const EmojiPickerButton: React.FunctionComponent<{
         />
       </Tooltip>
       {renderPopup()}
-    </EmojiPickerButtonWrapper>
+    </div>
   );
 };

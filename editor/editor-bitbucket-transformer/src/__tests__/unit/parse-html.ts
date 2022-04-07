@@ -1,5 +1,6 @@
 import { BitbucketTransformer } from '../..';
-import { bitbucketSchema as schema, uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema';
+import { bitbucketSchema as schema } from '@atlaskit/adf-schema/schema-bitbucket';
 import {
   a,
   blockquote,

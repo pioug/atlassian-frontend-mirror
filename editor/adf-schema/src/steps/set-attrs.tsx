@@ -26,6 +26,12 @@ export class SetAttrsStep extends Step {
       return StepResult.fail('No node at given position');
     }
 
+    if (target.isText) {
+      return StepResult.fail(
+        'Target is a text node. Attributes are not allowed.',
+      );
+    }
+
     const attrs = {
       ...(target.attrs || {}),
       ...(this.attrs || {}),

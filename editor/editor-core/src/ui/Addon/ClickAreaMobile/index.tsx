@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
 import { clickAreaClickHandler } from '../click-area-helper';
 
@@ -8,16 +9,16 @@ import { clickAreaClickHandler } from '../click-area-helper';
  * clicks/taps within or below the content (e.g. if the content
  * doesn't exceed the viewport, or whether it overflows it).
  */
-const ClickWrapper = styled.div<{
-  minHeight: number;
-  persistScrollGutter?: boolean;
+const clickWrapper = ({
+  isExpanded,
+  minHeight,
+}: {
   isExpanded?: boolean;
-}>`
+  minHeight: number;
+}) => css`
   height: 100%;
-  ${(props) =>
-    props.isExpanded && props.minHeight && `min-height: ${props.minHeight}px`}
+  ${isExpanded && minHeight ? `min-height: ${minHeight}px` : ''};
 `;
-ClickWrapper.displayName = 'ClickWrapper';
 
 export interface Props {
   editorView?: EditorView;
@@ -42,7 +43,7 @@ export interface Props {
  * whitespace at the end of the document when it overflows the viewport.
  */
 export default class ClickAreaMobile extends React.Component<Props> {
-  private clickElementRef = React.createRef<HTMLElement>();
+  private clickElementRef = React.createRef<HTMLDivElement>();
 
   private handleClick = (event: React.MouseEvent<any>) => {
     const { editorView: view } = this.props;
@@ -64,16 +65,17 @@ export default class ClickAreaMobile extends React.Component<Props> {
 
   render() {
     return (
-      <ClickWrapper
+      <div
+        css={clickWrapper({
+          isExpanded: this.props.isExpanded,
+          minHeight: this.props.minHeight,
+        })}
         className="editor-click-wrapper"
-        minHeight={this.props.minHeight}
-        persistScrollGutter={this.props.persistScrollGutter}
         onClick={this.handleClick}
-        innerRef={this.clickElementRef}
-        isExpanded={this.props.isExpanded}
+        ref={this.clickElementRef}
       >
         {this.props.children}
-      </ClickWrapper>
+      </div>
     );
   }
 }

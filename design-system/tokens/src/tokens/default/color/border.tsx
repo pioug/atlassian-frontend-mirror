@@ -12,6 +12,14 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
             'Use to visually group or separate UI elements, such as flat cards or side panel dividers.',
         },
       },
+      inverse: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          introduced: '0.6.0',
+          description: 'Use for borders on bold backgrounds.',
+        },
+      },
       focused: {
         attributes: {
           group: 'paint',

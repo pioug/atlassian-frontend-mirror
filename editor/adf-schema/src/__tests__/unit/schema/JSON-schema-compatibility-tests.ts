@@ -3,7 +3,7 @@ import {
   pmNodeBuilder as builder,
   pmMarkBuilder as markBuilder,
 } from '@atlaskit/editor-test-helpers/schema-element-builder';
-import { defaultSchema } from '../../../schema';
+import { defaultSchema } from '../../../schema/default-schema';
 import * as v1schema from '../../../../json-schema/v1/full.json';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import { NodeType, MarkType, Node } from 'prosemirror-model';

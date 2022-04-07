@@ -7,7 +7,7 @@ import { insertPoint } from 'prosemirror-transform';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { PopupConfig, UploadParams } from '@atlaskit/media-picker/types';
+import { UploadParams } from '@atlaskit/media-picker/types';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
@@ -102,13 +102,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   private destroyed = false;
   private contextIdentifierProvider?: ContextIdentifierProvider;
   private errorReporter: ErrorReporter;
-  private popupPicker?: PickerFacade;
   // @ts-ignore: private is OK
   private customPicker?: PickerFacade;
   private removeOnCloseListener: () => void = () => {};
   private openMediaPickerBrowser?: () => void;
   private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
-  private reactContext: () => {};
 
   pickers: PickerFacade[] = [];
   pickerPromises: Array<Promise<PickerFacade>> = [];
@@ -121,11 +119,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   constructor(
     state: EditorState,
     options: MediaPluginOptions,
-    reactContext: () => {},
     mediaOptions?: MediaOptions,
     dispatch?: Dispatch,
   ) {
-    this.reactContext = reactContext;
     this.options = options;
     this.mediaOptions = mediaOptions;
     this.dispatch = dispatch;
@@ -233,11 +229,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       this.uploadMediaClientConfig = this.mediaProvider.uploadMediaClientConfig;
 
       if (this.mediaProvider.uploadParams && this.uploadMediaClientConfig) {
-        await this.initPickers(
-          this.mediaProvider.uploadParams,
-          PickerFacade,
-          this.reactContext,
-        );
+        await this.initPickers(this.mediaProvider.uploadParams, PickerFacade);
       } else {
         this.destroyPickers();
       }
@@ -405,18 +397,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     this.onPopupToggleCallback(false);
   };
 
-  shouldUseMediaPickerPopup = () => {
-    return false;
-  };
-
   showMediaPicker = () => {
-    if (this.openMediaPickerBrowser && !this.shouldUseMediaPickerPopup()) {
+    if (this.openMediaPickerBrowser) {
       return this.openMediaPickerBrowser();
     }
-    if (!this.popupPicker) {
-      return;
-    }
-    this.popupPicker.show();
     this.onPopupToggleCallback(true);
   };
 
@@ -543,14 +527,12 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       );
     }
 
-    this.popupPicker = undefined;
     this.customPicker = undefined;
   };
 
   private async initPickers(
     uploadParams: UploadParams,
     Picker: typeof PickerFacade,
-    reactContext: () => {},
   ) {
     if (this.destroyed || !this.uploadMediaClientConfig) {
       return;
@@ -562,13 +544,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         mediaClientConfig: this.uploadMediaClientConfig,
         errorReporter,
       };
-      const defaultPickerConfig = {
-        uploadParams,
-        proxyReactContext: reactContext(),
-        useForgePlugins:
-          (this.mediaOptions && this.mediaOptions.useForgePlugins) || false,
-        featureFlags: this.mediaOptions && this.mediaOptions.featureFlags,
-      };
 
       if (this.options.customMediaPicker) {
         const customPicker = new Picker(
@@ -579,17 +554,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
         pickerPromises.push(customPicker);
         pickers.push((this.customPicker = await customPicker));
-      } else if (this.shouldUseMediaPickerPopup()) {
-        const popupPicker = new Picker(
-          'popup',
-          pickerFacadeConfig,
-          defaultPickerConfig as PopupConfig,
-        ).init();
-        pickerPromises.push(popupPicker);
-        pickers.push((this.popupPicker = await popupPicker));
-        this.removeOnCloseListener = this.popupPicker.onClose(
-          this.onPopupPickerClose,
-        );
       }
 
       pickers.forEach((picker) => {
@@ -605,8 +569,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     pickerType?: string,
   ): InputMethodInsertMedia | undefined => {
     switch (pickerType) {
-      case 'popup':
-        return INPUT_METHOD.PICKER_CLOUD;
       case 'clipboard':
         return INPUT_METHOD.CLIPBOARD;
       case 'dropzone':
@@ -770,7 +732,6 @@ export const createPlugin = (
         return new MediaPluginStateImplementation(
           state,
           options,
-          reactContext,
           mediaOptions,
           dispatch,
         );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { MediaPicker } from '@atlaskit/media-picker';
 import {
   ClipboardConfig,
   BrowserConfig,
@@ -82,7 +81,6 @@ export default class PickerFacadeProvider extends React.Component<
       'customMediaPicker',
       pickerFacadeConfig,
       dummyMediaPickerObject,
-      MediaPicker,
       analyticsName,
     ).init();
 

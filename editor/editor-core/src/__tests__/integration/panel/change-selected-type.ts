@@ -13,7 +13,7 @@ import { selectors } from './_utils';
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/panel';
 
 BrowserTestCase(
   'change-selected-type.ts: Select panel and then change type',

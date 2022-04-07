@@ -6,6 +6,7 @@ import {
 import {
   ANALYTICS_MEDIA_CHANNEL,
   withMediaAnalyticsContext,
+  filterFeatureFlagNames,
 } from '@atlaskit/media-common';
 
 import {
@@ -171,6 +172,13 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 export const Clipboard = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {
-    filterFeatureFlags: ['folderUploads', 'newCardExperience'],
+    filterFeatureFlags: filterFeatureFlagNames({
+      newCardExperience: true,
+      captions: false,
+      timestampOnVideo: false,
+      observedWidth: false,
+      mediaInline: false,
+      folderUploads: true,
+    }),
   },
 )(withAnalyticsEvents()(ClipboardBase));

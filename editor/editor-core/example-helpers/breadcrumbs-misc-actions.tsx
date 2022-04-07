@@ -1,26 +1,27 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import LabelIcon from '@atlaskit/icon/glyph/label';
 import FullWidthToggle from './full-width-toggle';
 import { EditorAppearance } from '../src/types';
 
-const BreadcrumbWrapper = styled.div`
+const breadcrumbWrapper = css`
   flex: 1 1 80%;
   color: rgb(107, 119, 140);
 `;
 
-const Wrapper = styled.div`
+const wrapper = css`
   display: flex;
   align-items: center;
   margin-bottom: 24px;
 `;
 
-const Link = styled.a`
+const link = css`
   flex: 1 1 80%;
 `;
 
-const MiscActionsWrapper = styled.div`
+const miscActionsWrapper = css`
   flex: 1 1 10%;
   align-content: flex-end;
 `;
@@ -40,19 +41,19 @@ export default class BreadcrumbsMiscActions extends React.Component<
 > {
   render() {
     return (
-      <Wrapper>
-        <Link id="breadcrumb" href="#">
-          <BreadcrumbWrapper>Breadcrumbs / Placeholder / ...</BreadcrumbWrapper>
-        </Link>
-        <MiscActionsWrapper>
+      <div css={wrapper}>
+        <a css={link} id="breadcrumb" href="#">
+          <div css={breadcrumbWrapper}>Breadcrumbs / Placeholder / ...</div>
+        </a>
+        <div css={miscActionsWrapper}>
           <LabelIcon label="I do nothing" />
           <LockFilledIcon label="I do nothing" primaryColor="#de350b" />
           <FullWidthToggle
             appearance={this.props.appearance}
             onFullWidthChange={this.props.onFullWidthChange}
           />
-        </MiscActionsWrapper>
-      </Wrapper>
+        </div>
+      </div>
     );
   }
 }

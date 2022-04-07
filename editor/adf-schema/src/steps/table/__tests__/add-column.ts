@@ -26,7 +26,7 @@ import {
   tdColorC,
   testHistory,
 } from './_utils';
-import { defaultSchema } from '../../../schema';
+import { defaultSchema } from '../../../schema/default-schema';
 import { AddColumnStep } from '../add-column';
 
 import * as removeLastRowJson from './__fixtures__/basic/remove-table/remove-last-row.json';

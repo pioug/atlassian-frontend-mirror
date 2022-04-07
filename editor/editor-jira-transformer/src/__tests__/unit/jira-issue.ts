@@ -1,5 +1,6 @@
 import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
-import { createJIRASchema } from '@atlaskit/adf-schema';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
+
 import { parseWithSchema, encode } from './_test-helpers';
 
 const schema = createJIRASchema({ allowLinks: true });

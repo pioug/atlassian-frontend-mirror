@@ -94,6 +94,28 @@ describe('Inline cursor target', () => {
     expect(pluginState.cursorTarget).not.toBe(undefined);
   });
 
+  it(`should create cursor targets when selection is after an inline node that is the last child of parent`, () => {
+    const { pluginState } = editorFactory(
+      doc(
+        table()(
+          tr(
+            tdEmpty,
+            td()(
+              p(
+                emoji({ shortName: ':smiley:' })(),
+                emoji({ shortName: ':smiley:' })(),
+                '{<>}',
+              ),
+            ),
+            tdEmpty,
+          ),
+        ),
+      ),
+    );
+
+    expect(pluginState.cursorTarget).not.toBe(undefined);
+  });
+
   it(`should not create cursor targets when selection is not between inline nodes`, () => {
     const { pluginState } = editorFactory(
       doc(
@@ -105,6 +127,7 @@ describe('Inline cursor target', () => {
                 emoji({ shortName: ':smiley:' })(),
                 emoji({ shortName: ':smiley:' })(),
                 '{<>}',
+                ' ',
               ),
             ),
             tdEmpty,

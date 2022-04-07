@@ -24,7 +24,11 @@ export function useCollabListeners(
     };
 
     const onError = (payload: CollabErrorPayload) => {
-      toNativeBridge.onCollabError(payload.message);
+      toNativeBridge.onCollabError(
+        payload.message,
+        payload.status,
+        payload.code,
+      );
     };
 
     const setupPromise = collabEdit.provider.then((provider) => {

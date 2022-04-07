@@ -1,34 +1,28 @@
+/** @jsx jsx */
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { N900, N0, N50 } from '@atlaskit/theme/colors';
-import React from 'react';
-import {
-  ButtonHTMLAttributes,
-  ComponentClass,
-  HTMLAttributes,
-  PureComponent,
-} from 'react';
+import { token } from '@atlaskit/tokens';
+import React, { PureComponent } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { Color as ColorType } from '../Status';
 
-const Button: ComponentClass<
-  ButtonHTMLAttributes<{}> & { innerRef?: any }
-> = styled.button`
+const buttonStyles = css`
   height: 24px;
   width: 24px;
-  background: ${N900};
+  background: ${token('color.background.neutral', N900)};
   padding: 0;
   border-radius: 4px;
-  border: 1px solid ${N0};
+  border: 1px solid ${token('color.border', N0)};
   cursor: pointer;
   display: block;
   box-sizing: border-box;
   overflow: hidden;
 `;
 
-const ButtonWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+const buttonWrapperStyles = css`
   border: 1px solid transparent;
   margin: 0 2px;
   font-size: 0;
@@ -37,7 +31,7 @@ const ButtonWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
   padding: 1px;
   border-radius: 6px;
   &:hover {
-    border: 1px solid ${N50};
+    border: 1px solid ${token('color.border', N50)};
   }
 `;
 
@@ -49,7 +43,7 @@ export interface ColorProps {
   onHover?: (value: ColorType) => void;
   backgroundColor: string;
   borderColor: string;
-  setRef?: (value: HTMLElement) => HTMLElement;
+  setRef?: (value: HTMLButtonElement) => HTMLButtonElement;
 }
 
 export default class Color extends PureComponent<ColorProps> {
@@ -66,12 +60,13 @@ export default class Color extends PureComponent<ColorProps> {
     } = this.props;
     const borderStyle = `1px solid ${borderColor}`;
     return (
-      <ButtonWrapper>
+      <span css={buttonWrapperStyles}>
         <FormattedMessage
           {...messages[`${value}Color` as keyof typeof messages]}
         >
           {(labels) => (
-            <Button
+            <button
+              css={buttonStyles}
               onClick={this.onClick}
               onMouseEnter={this.onMouseEnter}
               onMouseLeave={this.onMouseLeave}
@@ -79,12 +74,16 @@ export default class Color extends PureComponent<ColorProps> {
               tabIndex={tabIndex}
               className={`${isSelected ? 'selected' : ''}`}
               title={labels[0] as string}
-              aria-checked={isSelected}
+              // button element does not support aria-selected.
+              // For button selected (to be precise pressed) or not
+              //  use aria-pressed as per
+              // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role#associated_aria_roles_states_and_properties
+              aria-pressed={isSelected}
               style={{
                 backgroundColor: backgroundColor || 'transparent',
                 border: borderStyle,
               }}
-              innerRef={setRef}
+              ref={setRef}
             >
               {isSelected && (
                 <EditorDoneIcon
@@ -92,10 +91,10 @@ export default class Color extends PureComponent<ColorProps> {
                   label={labels[0] as string}
                 />
               )}
-            </Button>
+            </button>
           )}
         </FormattedMessage>
-      </ButtonWrapper>
+      </span>
     );
   }
 

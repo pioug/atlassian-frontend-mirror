@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx, useTheme } from '@emotion/react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { ContextPanelConsumer } from '../../ContextPanel/context';
@@ -17,14 +19,16 @@ import ContextPanel from '../../ContextPanel';
 import PluginSlot from '../../PluginSlot';
 import WidthEmitter from '../../WidthEmitter';
 import {
-  ContentArea,
-  EditorContentArea,
-  SidebarArea,
+  contentArea,
+  editorContentAreaStyle,
+  sidebarArea,
   ScrollContainer,
-  EditorContentGutter,
+  editorContentGutterStyle,
+  positionedOverEditorStyle,
 } from './StyledComponents';
 import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 import messages from './messages';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 interface FullPageEditorContentAreaProps {
   appearance: EditorAppearance | undefined;
@@ -52,35 +56,42 @@ export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 const Content: React.FunctionComponent<
   FullPageEditorContentAreaProps & WrappedComponentProps
 > = React.memo((props) => {
+  const theme: ThemeProps = useTheme();
+  const fullWidthMode = props.appearance === 'full-width';
   return (
     <WidthConsumer>
       {({ width }) => (
         <ContextPanelConsumer>
           {({ positionedOverEditor }) => (
-            <ContentArea
+            <div
+              css={[
+                contentArea,
+                positionedOverEditor && positionedOverEditorStyle,
+              ]}
               data-testid={CONTENT_AREA_TEST_ID}
-              positionedOverEditor={positionedOverEditor}
             >
               <ScrollContainer
-                innerRef={props.scrollContainerRef}
+                ref={props.scrollContainerRef}
                 className="fabric-editor-popup-scroll-parent"
               >
                 <ClickAreaBlock editorView={props.editorView}>
-                  <EditorContentArea
+                  <div
+                    css={editorContentAreaStyle({
+                      fullWidthMode,
+                      layoutMaxWidth: theme.layoutMaxWidth,
+                      containerWidth: width,
+                    })}
                     role="region"
                     aria-label={props.intl.formatMessage(
                       messages.editableContentLabel,
                     )}
-                    fullWidthMode={props.appearance === 'full-width'}
-                    innerRef={props.contentAreaRef}
-                    containerWidth={width}
+                    ref={props.contentAreaRef}
                   >
-                    <EditorContentGutter
+                    <div
+                      css={editorContentGutterStyle}
                       className={[
                         'ak-editor-content-area',
-                        props.appearance === 'full-width'
-                          ? 'fabric-editor--full-width-mode'
-                          : '',
+                        fullWidthMode ? 'fabric-editor--full-width-mode' : '',
                       ].join(' ')}
                     >
                       {props.customContentComponents}
@@ -100,15 +111,15 @@ const Content: React.FunctionComponent<
                         dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
                       />
                       {props.editorDOMElement}
-                    </EditorContentGutter>
-                  </EditorContentArea>
+                    </div>
+                  </div>
                 </ClickAreaBlock>
               </ScrollContainer>
-              <SidebarArea>
+              <div css={sidebarArea}>
                 {props.contextPanel || <ContextPanel visible={false} />}
-              </SidebarArea>
+              </div>
               <WidthEmitter editorView={props.editorView} />
-            </ContentArea>
+            </div>
           )}
         </ContextPanelConsumer>
       )}

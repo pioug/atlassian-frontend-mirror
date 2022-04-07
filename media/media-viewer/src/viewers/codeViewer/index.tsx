@@ -100,7 +100,7 @@ export class CodeViewer extends BaseViewer<string, Props> {
 
   private getCodeLanguage(item: FileState) {
     if (!isErrorFileState(item)) {
-      return getLanguageType(item.name);
+      return getLanguageType(item.name, item.mimeType);
     }
     return DEFAULT_LANGUAGE;
   }

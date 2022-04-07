@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 6.2.6
+
+### Patch Changes
+
+- [`b3e5a62a9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3e5a62a9e3) - Adds `static` techstack to package, enforcing stricter style linting. In this case the package already satisfied this requirement so there have been no changes to styles.
+
 ## 6.2.5
 
 ### Patch Changes

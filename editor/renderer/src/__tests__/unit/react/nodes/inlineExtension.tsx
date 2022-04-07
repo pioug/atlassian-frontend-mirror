@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import InlineExtension from '../../../../react/nodes/inlineExtension';
 import { RendererContext } from '../../../../react/types';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

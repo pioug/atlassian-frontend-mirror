@@ -65,7 +65,6 @@ describe('mobile editor element', () => {
   let fetchProxy: FetchProxy;
   let bridge: WebBridgeImpl;
 
-  const updateTextMock = jest.spyOn(toNativeBridge, 'updateText');
   const updateTextWithADFStatusMock = jest.spyOn(
     toNativeBridge,
     'updateTextWithADFStatus',
@@ -334,34 +333,24 @@ describe('mobile editor element', () => {
   });
 
   describe('Mobile Editor on change content', () => {
-    it('should call updateText with content when feature flag is disabled', () => {
-      jest
-        .spyOn(
-          MobileEditorConfiguration.prototype,
-          'isAllowEmptyADFCheckEnabled',
-        )
-        .mockImplementation(() => false);
-      initEditor();
-      bridge.setContent('{"version":1,"type":"doc","content":[]}');
-
-      expect(updateTextMock).toBeCalledWith(
-        '{"version":1,"type":"doc","content":[]}',
-      );
-    });
-
-    it('should call updateText with content when feature flag is enabled', () => {
-      jest
-        .spyOn(
-          MobileEditorConfiguration.prototype,
-          'isAllowEmptyADFCheckEnabled',
-        )
-        .mockImplementation(() => true);
+    it('should call updateText with content and empty content state as true', () => {
       initEditor();
       bridge.setContent('{"version":1,"type":"doc","content":[]}');
 
       expect(updateTextWithADFStatusMock).toBeCalledWith(
         '{"version":1,"type":"doc","content":[]}',
         true,
+      );
+    });
+    it('should call updateText with content and empty content state as false', () => {
+      initEditor();
+      bridge.setContent(
+        '{"version":1,"type":"doc","content":[{"type":"codeBlock","attrs":{}}]}',
+      );
+
+      expect(updateTextWithADFStatusMock).toBeCalledWith(
+        '{"version":1,"type":"doc","content":[{"type":"codeBlock","attrs":{}}]}',
+        false,
       );
     });
   });

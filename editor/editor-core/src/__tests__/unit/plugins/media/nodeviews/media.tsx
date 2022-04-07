@@ -3,7 +3,7 @@ import { mount, ReactWrapper, shallow } from 'enzyme';
 import { NumericalCardDimensions } from '@atlaskit/media-card';
 import { EditorView } from 'prosemirror-view';
 import { media } from '@atlaskit/editor-test-helpers/doc-builder';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { browser } from '@atlaskit/editor-common/utils';
 import { MediaFeatureFlags } from '@atlaskit/media-common';

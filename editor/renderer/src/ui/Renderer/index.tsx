@@ -3,7 +3,7 @@ import React, { Fragment, useContext, useLayoutEffect, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { Schema, Node as PMNode } from 'prosemirror-model';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from '@atlaskit/adf-utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {

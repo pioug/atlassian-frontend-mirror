@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import {
   panelSharedStyles,
   PanelSharedCssClassName,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/panel';
 import {
   SelectionStyle,
   getSelectionStyles,

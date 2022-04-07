@@ -1,5 +1,16 @@
 # @af/ufo-types
 
+## 0.1.1
+
+### Patch Changes
+
+- [`7fad3a6e3c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fad3a6e3c5) - Added additional check for window object
+- [`22ef1a36ae6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22ef1a36ae6) - [`997d8c24c89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/997d8c24c89) - AFO-373: bugfix for untilAll helper
+  [`81be73d5b1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81be73d5b1c) - AFO-345 UFO: export untilAll util function
+  [`7ab325f569c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ab325f569c) - AFO-245 UFO: Fixed a bug on the experience transition
+  [`72d7c653a20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d7c653a20) - AFO-245 UFO Updated schema versions manually
+  [`37d21a8e41f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37d21a8e41f) - AFO-245 Added schema versions from packages
+
 ## 0.1.0
 
 ### Minor Changes

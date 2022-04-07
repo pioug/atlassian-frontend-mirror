@@ -302,9 +302,9 @@ export default class AndroidBridge implements NativeBridge {
     }
   }
 
-  onCollabError(message: string) {
+  onCollabError(message: string, status: number, code: string) {
     if (this.collabBridge) {
-      this.collabBridge.onCollabError(message);
+      this.collabBridge.onCollabError(message, status, code);
     }
   }
 }

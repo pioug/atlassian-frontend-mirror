@@ -46,6 +46,19 @@ describe('CodeViewer Utility Function', () => {
     },
   );
 
+  it.each([
+    { mimeType: 'fish/tuna', codeViewer: false },
+    { mimeType: 'application/json', codeViewer: true },
+    { mimeType: undefined, codeViewer: false },
+  ])(
+    'should decide that $mimeType should show a code viewere $codeViewer ',
+    ({ mimeType, codeViewer }) => {
+      expect(isCodeViewerItem('somName.doesntMatter', mimeType)).toEqual(
+        codeViewer,
+      );
+    },
+  );
+
   // extensions != language name, but it is a code item, i.e item with the filename test.py has the language "python"
   [
     { extensions: ['.as', '.asc'], language: 'actionscript' },

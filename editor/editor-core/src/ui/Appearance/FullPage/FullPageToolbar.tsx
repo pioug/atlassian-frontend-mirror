@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { ReactElement, useState, useEffect } from 'react';
+import { jsx } from '@emotion/react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorView } from 'prosemirror-view';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
@@ -8,12 +10,12 @@ import FindReplaceToolbarButtonWithState from '../../../plugins/find-replace/Fin
 import { BeforePrimaryToolbarWrapper } from '../../../plugins/before-primaryToolbar/ui/BeforePrimaryToolbarWrapper';
 import Toolbar from '../../Toolbar';
 import {
-  MainToolbar,
-  MainToolbarIconBefore,
-  MainToolbarFirstChild,
-  MainToolbarSecondChild,
-  NonCustomToolbarWrapper,
-  CustomToolbarWrapper,
+  mainToolbarStyle,
+  mainToolbarIconBeforeStyle,
+  mainToolbarFirstChildStyle,
+  mainToolbarSecondChildStyle,
+  nonCustomToolbarWrapperStyle,
+  customToolbarWrapperStyle,
   MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
 } from './MainToolbar';
 import {
@@ -57,9 +59,9 @@ export const EditorToolbar: React.FunctionComponent<
   const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
 
   const nonCustomToolbar = (
-    <NonCustomToolbarWrapper>
+    <div css={nonCustomToolbarWrapperStyle}>
       {props.beforeIcon && (
-        <MainToolbarIconBefore>{props.beforeIcon}</MainToolbarIconBefore>
+        <div css={mainToolbarIconBeforeStyle}>{props.beforeIcon}</div>
       )}
       <Toolbar
         editorView={props.editorView}
@@ -76,11 +78,11 @@ export const EditorToolbar: React.FunctionComponent<
         containerElement={props.containerElement}
         hasMinWidth={props.hasMinWidth}
       />
-    </NonCustomToolbarWrapper>
+    </div>
   );
 
   const customToolbar = (
-    <CustomToolbarWrapper>
+    <div css={customToolbarWrapperStyle}>
       {props.featureFlags?.twoLineEditorToolbar &&
       !!props.customPrimaryToolbarComponents &&
       'before' in props.customPrimaryToolbarComponents ? (
@@ -117,7 +119,7 @@ export const EditorToolbar: React.FunctionComponent<
       'after' in props.customPrimaryToolbarComponents
         ? props.customPrimaryToolbarComponents.after
         : props.customPrimaryToolbarComponents}
-    </CustomToolbarWrapper>
+    </div>
   );
 
   useEffect(() => {
@@ -135,27 +137,33 @@ export const EditorToolbar: React.FunctionComponent<
   return (
     <ContextPanelConsumer>
       {({ width: contextPanelWidth }) => (
-        <MainToolbar
+        <div
+          css={mainToolbarStyle(
+            props.showKeyline || contextPanelWidth > 0,
+            !!props.featureFlags?.twoLineEditorToolbar,
+          )}
           data-testid="ak-editor-main-toolbar"
-          showKeyline={props.showKeyline || contextPanelWidth > 0}
-          twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
         >
-          <MainToolbarFirstChild
-            twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
+          <div
+            css={mainToolbarFirstChildStyle(
+              !!props.featureFlags?.twoLineEditorToolbar,
+            )}
             role="region"
             aria-label={props.intl.formatMessage(messages.toolbarLabel)}
           >
             {shouldSplitToolbar ? customToolbar : nonCustomToolbar}
-          </MainToolbarFirstChild>
-          <MainToolbarSecondChild
+          </div>
+          <div
+            css={mainToolbarSecondChildStyle(
+              !!props.featureFlags?.twoLineEditorToolbar,
+            )}
             data-testid={'avatar-group-outside-plugin'}
-            twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
             role="region"
             aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
           >
             {shouldSplitToolbar ? nonCustomToolbar : customToolbar}
-          </MainToolbarSecondChild>
-        </MainToolbar>
+          </div>
+        </div>
       )}
     </ContextPanelConsumer>
   );

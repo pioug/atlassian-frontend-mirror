@@ -4,7 +4,6 @@ import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 import {
   codeBlockToJSON,
   dataConsumerToJSON,
-  defaultSchema,
   expandToJSON,
   fragmentToJSON,
   linkToJSON,
@@ -15,6 +14,7 @@ import {
   toJSONTableCell,
   toJSONTableHeader,
 } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 import { markOverrideRuleFor } from './markOverrideRules';
 import { sanitizeNode } from './sanitize/sanitize-node';

@@ -1,9 +1,11 @@
-import React from 'react';
-import { DropdownItem } from './styles';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { dropdownItem } from './styles';
 import { AddonProps } from '../types';
 
 const DropdownItemWrapper = (props: AddonProps) => (
-  <DropdownItem
+  <div
+    css={dropdownItem}
     onClick={() =>
       props.onClick &&
       props.onClick({
@@ -14,7 +16,7 @@ const DropdownItemWrapper = (props: AddonProps) => (
   >
     <span>{props.icon}</span>
     {props.children}
-  </DropdownItem>
+  </div>
 );
 
 export default DropdownItemWrapper;

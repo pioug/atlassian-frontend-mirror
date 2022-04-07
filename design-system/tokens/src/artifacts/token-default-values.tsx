@@ -70,6 +70,7 @@ const defaultTokenValues = {
   'color.border.accent.teal': '#1D9AAA',
   'color.border.accent.magenta': '#CD519D',
   'color.border': '#091E4224',
+  'color.border.inverse': '#FFFFFF',
   'color.border.focused': '#388BFF',
   'color.border.input': '#091E4224',
   'color.border.disabled': '#091E420F',

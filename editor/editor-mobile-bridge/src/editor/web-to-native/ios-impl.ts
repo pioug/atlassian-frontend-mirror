@@ -421,10 +421,12 @@ export default class IosBridge implements NativeBridge {
     });
   }
 
-  onCollabError(message: string) {
+  onCollabError(message: string, status: number, code: string) {
     this.window.webkit?.messageHandlers.collabBridge?.postMessage({
       name: 'onCollabError',
       message,
+      status,
+      code,
     });
   }
 }

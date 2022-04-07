@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { RefObject } from 'react';
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
 import type {
   SearchProvider,
@@ -19,7 +19,6 @@ import {
   WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
-import styled from 'styled-components';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -29,9 +28,9 @@ import { linkToolbarMessages as linkToolbarCommonMessages } from '../../../../me
 import PanelTextInput from '../../../../ui/PanelTextInput';
 import LinkSearchList from '../../../../ui/LinkSearch/LinkSearchList';
 import {
-  Container,
-  InputWrapper,
-  UrlInputWrapper,
+  container,
+  containerWithProvider,
+  inputWrapper,
 } from '../../../../ui/LinkSearch/ToolbarComponents';
 import {
   INPUT_METHOD,
@@ -60,7 +59,7 @@ import Announcer from '../../../../utils/announcer/announcer';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
-const ClearText = styled.button`
+const clearText = css`
   cursor: pointer;
   padding: 0;
   margin-right: 8px;
@@ -69,13 +68,13 @@ const ClearText = styled.button`
   border: none;
 `;
 
-const TextInputWrapper = styled.div`
-  ${InputWrapper};
+const textInputWrapper = css`
+  ${inputWrapper};
   border-top: 1px solid ${N30};
   border-bottom: 1px solid ${N30};
 `;
 
-const IconWrapper = styled.span`
+const iconWrapper = css`
   color: ${N80};
   padding: 4px 8px;
   width: 18px;
@@ -596,13 +595,16 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
     return (
       <div className="recent-list">
-        <Container provider={!!activityProvider} innerRef={this.wrapperRef}>
-          <UrlInputWrapper>
-            <IconWrapper>
+        <div
+          css={[container, !!activityProvider && containerWithProvider]}
+          ref={this.wrapperRef}
+        >
+          <div css={inputWrapper}>
+            <span css={iconWrapper}>
               <Tooltip content={formatLinkAddressText}>
                 <LinkIcon label={formatLinkAddressText} />
               </Tooltip>
-            </IconWrapper>
+            </span>
             {screenReaderText && (
               <Announcer
                 ariaLive="assertive"
@@ -637,18 +639,18 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             />
             {displayUrl && (
               <Tooltip content={formatClearLinkText}>
-                <ClearText onClick={this.handleClearText}>
+                <button css={clearText} onClick={this.handleClearText}>
                   <CrossCircleIcon label={formatClearLinkText} />
-                </ClearText>
+                </button>
               </Tooltip>
             )}
-          </UrlInputWrapper>
-          <TextInputWrapper>
-            <IconWrapper>
+          </div>
+          <div css={textInputWrapper}>
+            <span css={iconWrapper}>
               <Tooltip content={formatDisplayText}>
                 <EditorAlignLeftIcon label={formatDisplayText} />
               </Tooltip>
-            </IconWrapper>
+            </span>
             <PanelTextInput
               ref={(ele) => (this.displayTextInputContainer = ele)}
               placeholder={formatDisplayText}
@@ -662,15 +664,16 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             />
             {displayText && (
               <Tooltip content={formatMessage(messages.clearText)}>
-                <ClearText
+                <button
+                  css={clearText}
                   onClick={this.handleClearDisplayText}
                   onKeyDown={this.handleClearTextKeyDown}
                 >
                   <CrossCircleIcon label={formatMessage(messages.clearText)} />
-                </ClearText>
+                </button>
               </Tooltip>
             )}
-          </TextInputWrapper>
+          </div>
           <div
             css={visuallyHiddenStyles}
             aria-live="polite"
@@ -693,7 +696,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
             onMouseEnter={this.handleMouseEnterResultItem}
             onMouseLeave={this.handleMouseLeaveResultItem}
           />
-        </Container>
+        </div>
       </div>
     );
   }

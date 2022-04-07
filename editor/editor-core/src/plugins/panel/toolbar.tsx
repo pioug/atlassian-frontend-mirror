@@ -24,7 +24,7 @@ import { NodeType } from 'prosemirror-model';
 import { Command } from '../../types';
 import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getPanelTypeBackground } from '@atlaskit/editor-common/styles';
+import { getPanelTypeBackground } from '@atlaskit/editor-common/panel';
 import { findPanel } from './utils';
 import { EditorView } from 'prosemirror-view';
 import { findDomRefAtPos } from 'prosemirror-utils';

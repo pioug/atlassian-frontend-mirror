@@ -5,6 +5,7 @@ import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N0, DN100, DN200, N30, N90, B75, B300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const CheckBoxWrapper = styled.span<{
   isRenderer: boolean | undefined;
@@ -37,12 +38,18 @@ export const CheckBoxWrapper = styled.span<{
       cursor: pointer;
 
       &::after {
-        background: ${themed({ light: N0, dark: DN100 })};
+        background: ${themed({
+          light: token('color.background.input', N0),
+          dark: token('color.background.input', DN100),
+        })};
         background-size: 16px;
         border-radius: 3px;
         border-style: solid;
         border-width: 1px;
-        border-color: ${themed({ light: N90, dark: DN200 })};
+        border-color: ${themed({
+          light: token('color.border', N90),
+          dark: token('color.border', DN200),
+        })};
         box-sizing: border-box;
         content: '';
         height: 16px;
@@ -58,12 +65,19 @@ export const CheckBoxWrapper = styled.span<{
       ${(props) =>
         props.isRenderer
           ? css`
-              outline: 2px solid ${themed({ light: B300, dark: B75 })};
+              outline: 2px solid
+                ${themed({
+                  light: token('color.border.focused', B300),
+                  dark: token('color.border.focused', B75),
+                })};
             `
           : ''}
     }
     &:not([disabled]):hover + div::after {
-      background: ${themed({ light: N30, dark: B75 })};
+      background: ${themed({
+        light: token('color.background.input', N30),
+        dark: token('color.background.input', B75),
+      })};
       transition: border 0.2s ease-in-out;
     }
     &[disabled] + div {

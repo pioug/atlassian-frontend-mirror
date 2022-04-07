@@ -8,12 +8,13 @@ import {
   createUploadMediaClientConfig,
   createStorybookMediaClientConfig,
   fakeMediaClient,
+  enableMediaUfoLogger,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { FileState } from '@atlaskit/media-client';
-import { ufologger } from '@atlaskit/ufo/logger';
+import { payloadPublisher } from '@atlassian/ufo';
 import {
   DropzoneContainer,
   PopupHeader,
@@ -39,8 +40,7 @@ const nonUserMediaClientConfig = createStorybookMediaClientConfig({
   authType: 'asap',
 });
 
-ufologger.enable();
-
+enableMediaUfoLogger(payloadPublisher);
 class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
   dropzoneContainer?: HTMLDivElement;
 

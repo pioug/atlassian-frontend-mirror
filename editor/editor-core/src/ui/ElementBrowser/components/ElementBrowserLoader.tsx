@@ -1,11 +1,12 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
 import Loadable from 'react-loadable';
-import styled from 'styled-components';
 
 import Spinner from '@atlaskit/spinner';
 import type { Props as ElementBrowserProps } from '../ElementBrowser';
 
-const SpinnerContainer = styled.div`
+const spinnerContainer = css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,9 +22,9 @@ const ElementBrowserLoader = Loadable({
       React.ComponentType<ElementBrowserProps>
     >,
   loading: () => (
-    <SpinnerContainer>
+    <div css={spinnerContainer}>
       <Spinner size="medium" />
-    </SpinnerContainer>
+    </div>
   ),
 });
 

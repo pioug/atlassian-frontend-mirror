@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { ContextType } from 'react';
 import { PureComponent } from 'react';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
@@ -11,7 +10,6 @@ import { EmojiDescription, EmojiId } from '../../types';
 import debug from '../../util/logger';
 import Emoji, { Props as EmojiProps } from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
-import { EmojiContext } from './internal-types';
 import { UfoErrorBoundary } from './UfoErrorBoundary';
 import {
   sampledUfoRenderedEmoji,
@@ -19,6 +17,7 @@ import {
   useSampledUFOComponentExperience,
 } from '../../util/analytics';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
+import { EmojiContext, EmojiContextType } from '../../context/EmojiContext';
 
 export interface State {
   cachedEmoji?: EmojiDescription;
@@ -70,17 +69,13 @@ export const CachingEmoji = (props: CachingEmojiProps) => {
  * rendering paths depending on caching strategy.
  */
 export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
-  static contextTypes = {
-    emoji: PropTypes.object,
-  };
-
   private mounted: boolean = false;
 
-  context!: EmojiContext;
+  static contextType = EmojiContext;
+  context!: ContextType<typeof EmojiContext>;
 
-  constructor(props: EmojiProps, context: EmojiContext) {
-    super(props, context);
-
+  constructor(props: EmojiProps, context: ContextType<typeof EmojiContext>) {
+    super(props);
     this.state = {
       cachedEmoji: this.loadEmoji(props.emoji, context, false),
     };
@@ -97,7 +92,7 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
 
   UNSAFE_componentWillReceiveProps(
     nextProps: EmojiProps,
-    nextContext: EmojiContext,
+    nextContext: EmojiContextType,
   ) {
     if (nextProps.emoji !== this.props.emoji) {
       if (this.mounted) {
@@ -110,9 +105,12 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
 
   private loadEmoji(
     emoji: EmojiDescription,
-    context: EmojiContext,
+    context: EmojiContextType,
     forceLoad: boolean,
   ): EmojiDescription | undefined {
+    if (!context) {
+      return;
+    }
     if (!context.emoji) {
       return undefined;
     }

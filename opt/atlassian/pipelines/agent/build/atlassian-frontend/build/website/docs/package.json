@@ -11,7 +11,7 @@
   "atlaskit:src": "src/index.js",
   "author": "Atlassian Pty Ltd",
   "atlassian": {
-    "team": "AFP: Monorepo"
+    "team": "UIP: Monorepo"
   },
   "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
   "dependencies": {

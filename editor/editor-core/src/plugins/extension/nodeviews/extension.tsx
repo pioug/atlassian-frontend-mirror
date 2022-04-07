@@ -21,6 +21,11 @@ export interface Props {
   view: EditorView;
 }
 
+// getInlineNodeViewProducer is a new api to use instead of ReactNodeView
+// when creating inline node views, however, it is difficult to test the impact
+// on selections when migrating inlineExtension to use the new api.
+// The ReactNodeView api will be visited in the second phase of the selections
+// project whilst investigating block nodes. We will revisit the Extension node view there too.
 export class ExtensionNode extends ReactNodeView {
   ignoreMutation(
     mutation: MutationRecord | { type: 'selection'; target: Element },

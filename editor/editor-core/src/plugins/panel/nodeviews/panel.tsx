@@ -6,7 +6,7 @@ import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
 import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { Emoji } from '@atlaskit/editor-common/emoji';
 import { PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';

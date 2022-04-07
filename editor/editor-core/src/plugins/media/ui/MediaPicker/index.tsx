@@ -67,13 +67,11 @@ export class MediaPickerComponents extends React.Component<Props, State> {
                 editorDomElement={editorDomElement}
                 appearance={appearance}
               />
-              {!mediaState.shouldUseMediaPickerPopup() && (
-                <BrowserWrapper
-                  onBrowseFn={this.onBrowseFn}
-                  mediaState={mediaState}
-                  featureFlags={featureFlags}
-                />
-              )}
+              <BrowserWrapper
+                onBrowseFn={this.onBrowseFn}
+                mediaState={mediaState}
+                featureFlags={featureFlags}
+              />
             </>
           );
         }}

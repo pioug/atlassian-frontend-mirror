@@ -1,7 +1,9 @@
 import { Fragment, Node as PMNode, Schema, Slice } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
 import { flatten } from 'prosemirror-utils';
 
 import { flatmap, mapSlice } from '../../../utils/slice';
+import { getPluginState } from '../pm-plugins/plugin-factory';
 
 // lifts up the content of each cell, returning an array of nodes
 export const unwrapContentFromTable = (
@@ -48,7 +50,8 @@ export const transformSliceToFixHardBreakProblemOnCopyFromCell = (
 ): Slice => {
   const { paragraph, table, hardBreak } = schema.nodes;
   const emptyParagraphNode = paragraph.createAndFill();
-  const hardBreakNode = hardBreak.createAndFill();
+
+  const hardBreakNode = hardBreak?.createAndFill();
   const paragraphNodeSize = emptyParagraphNode
     ? emptyParagraphNode.nodeSize
     : 0;
@@ -147,3 +150,8 @@ export const transformSliceToCorrectEmptyTableCells = (
     return node;
   });
 };
+
+export function isHeaderRowRequired(state: EditorState) {
+  const tableState = getPluginState(state);
+  return tableState && tableState.pluginConfig.isHeaderRowRequired;
+}

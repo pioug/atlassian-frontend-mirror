@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/checkbox",
-  "version": "12.3.10",
+  "version": "12.3.11",
   "description": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/ds-lib": "^1.4.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.8.0",
+    "@atlaskit/tokens": "^0.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },

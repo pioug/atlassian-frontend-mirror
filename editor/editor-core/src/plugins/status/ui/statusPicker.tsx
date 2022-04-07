@@ -1,6 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import {
   CreateUIAnalyticsEvent,
@@ -49,7 +49,7 @@ export interface State {
   isNew?: boolean;
 }
 
-const PickerContainer = styled.div`
+const pickerContainer = css`
   background: ${N0};
   padding: ${gridSize()}px 0;
   border-radius: ${borderRadius()}px;
@@ -172,7 +172,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
           zIndex={akEditorFloatingDialogZIndex}
           fitHeight={40}
         >
-          <PickerContainer onClick={this.handlePopupClick}>
+          <div css={pickerContainer} onClick={this.handlePopupClick}>
             <AkStatusPicker
               autoFocus={isNew}
               selectedColor={color}
@@ -182,7 +182,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
               onTextChanged={this.onTextChanged}
               onEnter={this.onEnter}
             />
-          </PickerContainer>
+          </div>
         </PopupWithListeners>
       )
     );

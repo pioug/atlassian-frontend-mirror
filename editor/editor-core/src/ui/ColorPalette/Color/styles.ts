@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { HTMLAttributes, ButtonHTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { N900, N0, N50 } from '@atlaskit/theme/colors';
 
-export const Button: ComponentClass<ButtonHTMLAttributes<{}>> = styled.button`
+export const buttonStyle = css`
   height: 26px;
   width: 26px;
   background: ${N900};
@@ -13,7 +12,7 @@ export const Button: ComponentClass<ButtonHTMLAttributes<{}>> = styled.button`
   display: block;
 `;
 
-export const ButtonWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const buttonWrapperStyle = css`
   border: 1px solid transparent;
   margin: 1px;
   font-size: 0;

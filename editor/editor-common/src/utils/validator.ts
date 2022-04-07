@@ -2,12 +2,12 @@ import { Mark as PMMark, Schema } from 'prosemirror-model';
 
 import {
   CellAttributes,
-  defaultSchema,
   inlineNodes,
   isSafeUrl,
   PanelType,
   generateUuid as uuid,
 } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 export const ADFStages = {
   FINAL: 'final',

@@ -5,7 +5,7 @@ import { ReactWrapper } from 'enzyme';
 
 import { MediaType } from '@atlaskit/media-client';
 
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 
 import { checkMediaType } from '../../../utils/check-media-type';

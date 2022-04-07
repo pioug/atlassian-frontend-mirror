@@ -1,4 +1,4 @@
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import { calcTableWidth } from '../../../styles/shared/table';

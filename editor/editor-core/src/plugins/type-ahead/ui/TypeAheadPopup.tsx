@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React, { useEffect, useMemo } from 'react';
+import { css, jsx } from '@emotion/react';
 import { EditorView, DecorationSet } from 'prosemirror-view';
-import styled from 'styled-components';
 import { EditorState } from 'prosemirror-state';
 
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
@@ -15,7 +16,7 @@ import { TypeAheadList } from './TypeAheadList';
 import type { TypeAheadHandler, TypeAheadItem, OnSelectItem } from '../types';
 import type { FireAnalyticsCallback } from '../../analytics/fire-analytics-event';
 
-const TypeAheadContent = styled.div`
+const typeAheadContent = css`
   background: ${N0};
   border-radius: ${borderRadius()}px;
   box-shadow: 0 0 1px ${N60A}, 0 4px 8px -2px ${N50A};
@@ -150,7 +151,8 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
         fitWidth={340}
         offset={OFFSET}
       >
-        <TypeAheadContent
+        <div
+          css={typeAheadContent}
           tabIndex={0}
           className={TYPE_AHEAD_POPUP_CONTENT_CLASS}
         >
@@ -161,7 +163,7 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
             onItemHover={setSelectedItem}
             onItemClick={onItemInsert}
           />
-        </TypeAheadContent>
+        </div>
       </Popup>
     );
   },

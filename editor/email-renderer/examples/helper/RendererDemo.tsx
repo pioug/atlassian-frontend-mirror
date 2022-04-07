@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 import { document as storyDataDocument } from './story-data';
 

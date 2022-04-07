@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import { Input } from '../../../ui/PanelTextInput/styles';
+import { panelTextInput } from '../../../ui/PanelTextInput/styles';
 
 export interface Props {
   mountPoint?: HTMLElement;
@@ -53,7 +55,8 @@ export default class TextField extends Component<Props, State> {
     const { placeholder } = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
-        <Input
+        <input
+          css={panelTextInput}
           value={this.state.text}
           onChange={this.handleChange}
           placeholder={placeholder}

@@ -1,3 +1,4 @@
+import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -9,6 +10,8 @@ import {
   code_block,
   panel,
   DocBuilder,
+  mediaSingle,
+  media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { insertMediaInlineNode } from '../../../../plugins/media/utils/media-files';
@@ -32,6 +35,7 @@ describe('media-inline', () => {
       doc,
       editorProps: {
         media: {
+          allowMediaSingle: true,
           featureFlags: {
             mediaInline: true,
           },
@@ -301,6 +305,29 @@ describe('media-inline', () => {
       );
       expect(editorView.state.doc).toEqualDocument(
         doc(ul(li(p('text', temporaryMediaInline, ' ')))),
+      );
+    });
+  });
+
+  describe('when copying a mediaSingle from the renderer', () => {
+    it('pasted image is converted to a mediaSingle', async () => {
+      const { editorView } = editor(doc(p('')));
+      dispatchPasteEvent(editorView, {
+        html: `<img data-testid="media-image" draggable="false" alt="" src="blob:http://localhost:9000/de35f964-a447-4465-b3f6-ecda383ecfbf#media-blob-url=true&amp;id=260c4805-59dc-403e-a5ff-bcf14205dcb7&amp;collection=MediaServicesSample&amp;contextId=DUMMY-OBJECT-ID&amp;mimeType=image%2Fjpeg&amp;name=placeimg_640_480_animals%20(1).jpg&amp;size=200779&amp;height=480&amp;width=640&amp;alt=" style="position: absolute; left: 50%; top: 50%; object-fit: contain; image-orientation: none; transform: translate(-50%, -50%); height: 100%;">`,
+        types: ['Files', 'text/html'],
+      });
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          mediaSingle({ layout: 'center' })(
+            media({
+              type: 'external',
+              url:
+                'blob:http://localhost:9000/de35f964-a447-4465-b3f6-ecda383ecfbf#media-blob-url=true&id=260c4805-59dc-403e-a5ff-bcf14205dcb7&collection=MediaServicesSample&contextId=DUMMY-OBJECT-ID&mimeType=image%2Fjpeg&name=placeimg_640_480_animals%20(1).jpg&size=200779&height=480&width=640&alt=',
+              alt: '',
+              __external: true,
+            })(),
+          ),
+        ),
       );
     });
   });

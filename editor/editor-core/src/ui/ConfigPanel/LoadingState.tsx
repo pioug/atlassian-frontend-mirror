@@ -1,17 +1,17 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
-import styled from 'styled-components';
 
-const SpinnerWrapper = styled.div`
+const spinnerWrapper = css`
   display: flex;
   justify-content: center;
   margin-top: 64px;
 `;
 
 const LoadingState = () => (
-  <SpinnerWrapper>
+  <div css={spinnerWrapper}>
     <Spinner size="small" />
-  </SpinnerWrapper>
+  </div>
 );
 
 export default LoadingState;

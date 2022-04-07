@@ -1,5 +1,49 @@
 # @atlaskit/adf-schema
 
+## 23.0.0
+
+### Major Changes
+
+- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+
+  @atlaskit/adf-schema/schema-bitbucket for:
+
+  - bitbucketSchema
+
+  @atlaskit/adf-schema/schema-confluence for:
+
+  - confluenceSchema
+  - confluenceSchemaWithMediaSingle
+
+  @atlaskit/adf-schema/schema-jira for:
+
+  - default as createJIRASchema
+  - isSchemaWithLists
+  - isSchemaWithMentions
+  - isSchemaWithEmojis
+  - isSchemaWithLinks
+  - isSchemaWithAdvancedTextFormattingMarks
+  - isSchemaWithCodeBlock
+  - isSchemaWithBlockQuotes
+  - isSchemaWithMedia
+  - isSchemaWithSubSupMark
+  - isSchemaWithTextColor
+  - isSchemaWithTables
+
+  @atlaskit/adf-schema/schema-default for:
+
+  - defaultSchema
+  - getSchemaBasedOnStage
+  - defaultSchemaConfig
+
+  This change also includes codemods in @atlaskit/adf-schema to update these entry points. It also introduces a new util function "changeImportEntryPoint" to @atlaskit/codemod-utils to handle this scenario.
+
+### Patch Changes
+
+- [`d079ab083af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d079ab083af) - Don't make mediaInline trigger if pasted dom node is an img tag
+- [`0663a4954aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0663a4954aa) - [ED-14690] Add safe check for text node on SetAttrs custom step
+- Updated dependencies
+
 ## 22.1.0
 
 ### Minor Changes

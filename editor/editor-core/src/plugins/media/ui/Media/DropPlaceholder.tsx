@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { B400, B300, B200 } from '@atlaskit/theme/colors';
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
@@ -9,7 +9,7 @@ import { dropPlaceholderMessages } from './drop-placeholder-messages';
 
 import { MEDIA_HEIGHT, FILE_WIDTH } from '../../nodeviews/mediaNodeView/media';
 
-const IconWrapper = styled.div`
+const iconWrapper = css`
   color: ${hexToRgba(B400, 0.4) || B400};
   background: ${hexToRgba(B300, 0.6) || B300};
   border-radius: ${borderRadius()}px;
@@ -21,7 +21,7 @@ const IconWrapper = styled.div`
   justify-content: center;
 `;
 
-const DropLine = styled.div`
+const dropLine = css`
   background: ${B200};
   border-radius: ${borderRadius()}px;
   margin: 2px 0;
@@ -39,16 +39,16 @@ const IconWrapperComponent = (props: WrappedComponentProps) => {
   const { dropPlaceholderLabel } = dropPlaceholderMessages;
 
   return (
-    <IconWrapper>
+    <div css={iconWrapper}>
       <DocumentFilledIcon
         label={intl.formatMessage(dropPlaceholderLabel)}
         size="medium"
       />
-    </IconWrapper>
+    </div>
   );
 };
 
 const IntlIconWrapper = injectIntl(IconWrapperComponent);
 
 export default ({ type = 'group' }: Props) =>
-  type === 'single' ? <DropLine /> : <IntlIconWrapper />;
+  type === 'single' ? <div css={dropLine} /> : <IntlIconWrapper />;

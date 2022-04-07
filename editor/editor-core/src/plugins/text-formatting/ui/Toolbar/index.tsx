@@ -1,10 +1,16 @@
+/** @jsx jsx */
 import React, { useMemo, useState, useEffect } from 'react';
+import { jsx } from '@emotion/react';
 
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
-import { Separator, Wrapper, ButtonGroup } from '../../../../ui/styles';
+import {
+  separatorStyles,
+  wrapperStyle,
+  buttonGroupStyle,
+} from '../../../../ui/styles';
 import { ToolbarSize } from '../../../../ui/Toolbar/types';
 
 import {
@@ -158,7 +164,7 @@ const ToolbarFormatting: React.FC<
   }, [screenReaderMessage]);
 
   return (
-    <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
+    <span css={buttonGroupStyle}>
       {message && (
         <Announcer
           ariaLive="assertive"
@@ -173,7 +179,7 @@ const ToolbarFormatting: React.FC<
         isReducedSpacing={isReducedSpacing}
       />
 
-      <Wrapper>
+      <span css={wrapperStyle}>
         {isToolbarDisabled ? (
           <div>
             <MoreButton
@@ -197,9 +203,9 @@ const ToolbarFormatting: React.FC<
             items={items}
           />
         )}
-        <Separator />
-      </Wrapper>
-    </ButtonGroup>
+        <span css={separatorStyles} />
+      </span>
+    </span>
   );
 };
 

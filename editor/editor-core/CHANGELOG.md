@@ -1,5 +1,78 @@
 # @atlaskit/editor-core
 
+## 164.0.0
+
+### Major Changes
+
+- [`675613ff0f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/675613ff0f4) - [MEX-1390] Remove Media-picker popup as an export and remove useMediaPickerPopup flag
+
+### Minor Changes
+
+- [`b623cae0fe6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b623cae0fe6) - [ux][ed-13182] Uses the same logic for inserting or adding new action and decision items via different methods.
+
+  It helps to avoid inconsistent spacing between items that were inserted via different insertion methods.
+
+  Deprecates insertTaskDecision command in favor of insertTaskDecisionCommand.
+
+  New command is used to unify the logic we use in different insert methods for task(action) list or decision list items: menu toolbar, slash command, keyboard shortcut.
+
+  To avoid multi dispatch, this change transformed insertTaskDecision command into an action and added insertTaskDecisionCommand.
+
+- [`f26db4dcd65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f26db4dcd65) - ME-1322 The mobile editor with the compact appearance has a submit button which is disabled when the editor is empty. Currently, when you insert a block node such as code snippet or table, and don't add anything else, the content is still considered empty. This does not align with the web version. The comment editor in web considers this as a content and enables the submit button. With this change, the mobile editor also aligned with the web behaviour.
+- [`c4b5c9f0f0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4b5c9f0f0d) - [MEX-1100] Remove external references to MediaPicker PopUp
+
+### Patch Changes
+
+- [`0c64f6136e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c64f6136e6) - ED-14268 migrate editor-core to use emotion
+- [`546490297ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/546490297ec) - ED-14268 migrated some styled-components to use emotion
+- [`001b0e67dc4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/001b0e67dc4) - Remove table plugin dependencies from paste plugin
+- [`e2b0dbd04f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2b0dbd04f6) - Remove table plugin dependencies from the paste plugin
+- [`bb037baa675`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb037baa675) - [ED-14690] Fix media node helper functions - Make sure the media node exists before change the attributes
+- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+
+  @atlaskit/adf-schema/schema-bitbucket for:
+
+  - bitbucketSchema
+
+  @atlaskit/adf-schema/schema-confluence for:
+
+  - confluenceSchema
+  - confluenceSchemaWithMediaSingle
+
+  @atlaskit/adf-schema/schema-jira for:
+
+  - default as createJIRASchema
+  - isSchemaWithLists
+  - isSchemaWithMentions
+  - isSchemaWithEmojis
+  - isSchemaWithLinks
+  - isSchemaWithAdvancedTextFormattingMarks
+  - isSchemaWithCodeBlock
+  - isSchemaWithBlockQuotes
+  - isSchemaWithMedia
+  - isSchemaWithSubSupMark
+  - isSchemaWithTextColor
+  - isSchemaWithTables
+
+  @atlaskit/adf-schema/schema-default for:
+
+  - defaultSchema
+  - getSchemaBasedOnStage
+  - defaultSchemaConfig
+
+  This change also includes codemods in @atlaskit/adf-schema to update these entry points. It also introduces a new util function "changeImportEntryPoint" to @atlaskit/codemod-utils to handle this scenario.
+
+- [`0615f984959`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0615f984959) - [ux] Add workaround in paste plugin so that nodes like panels/decisions are not lost when pasting content into them.
+- [`3ef794dc11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef794dc11f) - Removed emoji and media packages dependencies from renderer initial load.
+- [`d1e45c6ae0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d1e45c6ae0e) - ED-14268 replace editor-core to use emotion
+- [`e18ded9309d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e18ded9309d) - ED-14268 replaced parts of editor-core to use emotion
+- [`084c7854868`](https://bitbucket.org/atlassian/atlassian-frontend/commits/084c7854868) - [ux] ED-14573 Migrate inlineCard to use getInlineNodeViewProducer. This change also includes some updates to inline node view styles to better selections in Chrome specifically.
+- [`1d1c52856f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d1c52856f2) - ED-14268 migrated some usages of styled-components to emotion
+- [`d6a5f238b34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6a5f238b34) - [ux] Bug fix for pasting multiple code blocks where previously they were being merged into one, but now they paste separately as individual code blocks (unless they are pasted from bitbucket)
+- [`41e11bd11a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41e11bd11a0) - ED-14268 migrated parts of editor-core to use emotion.
+- [`20a8be7d4af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20a8be7d4af) - [ux][ed-14731] Solve a regression where headings pasted into empty panels replaced the whole panel. Now it will paste inside the panel.
+- Updated dependencies
+
 ## 163.0.0
 
 ### Major Changes

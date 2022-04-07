@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { HTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { N800, N20 } from '@atlaskit/theme/colors';
 
-export const DropdownItem: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const dropdownItem = css`
   display: flex;
   align-items: center;
   cursor: pointer;

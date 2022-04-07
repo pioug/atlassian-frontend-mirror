@@ -12,6 +12,7 @@ import {
   typeAheadItemRow,
   typeaheadSelected,
 } from './styles';
+import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 
 export interface Props {
   onMouseMove: OnEmojiEvent;
@@ -44,19 +45,21 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
     const classes = [typeAheadItem, selected && selectedStyles];
 
     return (
-      <div
-        className={`ak-emoji-typeahead-item ${
-          selected ? typeaheadSelected : ''
-        }`}
-        css={classes}
-        onMouseDown={this.onEmojiSelected}
-        onMouseMove={this.onEmojiMenuItemMouseMove}
-        data-emoji-id={emoji.shortName}
-      >
-        <div css={typeAheadItemRow}>
-          {emoji && <EmojiPreviewComponent emoji={emoji} />}
+      <LegacyEmojiContextProvider>
+        <div
+          className={`ak-emoji-typeahead-item ${
+            selected ? typeaheadSelected : ''
+          }`}
+          css={classes}
+          onMouseDown={this.onEmojiSelected}
+          onMouseMove={this.onEmojiMenuItemMouseMove}
+          data-emoji-id={emoji.shortName}
+        >
+          <div css={typeAheadItemRow}>
+            {emoji && <EmojiPreviewComponent emoji={emoji} />}
+          </div>
         </div>
-      </div>
+      </LegacyEmojiContextProvider>
     );
   }
 }

@@ -5,8 +5,13 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 // ./getInlineNodeViewProducer -> portalChildren()
 
 export const InlineNodeViewSharedStyles = css`
-  .inlineNodeViewOuterContainer {
+  .inlineNodeView {
     display: inline;
+    user-select: all;
+  }
+
+  &.ua-chrome .inlineNodeView > span {
+    user-select: none;
   }
 
   .inlineNodeViewAddZeroWidthSpace {

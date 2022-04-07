@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { PureComponent } from 'react';
 import { List as VirtualList } from 'react-virtualized/dist/commonjs/List';
@@ -17,7 +16,6 @@ import {
   ToneSelection,
   User,
 } from '../../types';
-import { EmojiContext } from '../common/internal-types';
 import {
   CategoryDescriptionMap,
   CategoryGroupKey,
@@ -96,14 +94,6 @@ export default class EmojiPickerVirtualList extends PureComponent<
   Props,
   State
 > {
-  static contextTypes = {
-    emoji: PropTypes.object,
-  };
-
-  static childContextTypes = {
-    emoji: PropTypes.object,
-  };
-
   static defaultProps = {
     onEmojiSelected: () => {},
     onEmojiActive: () => {},
@@ -117,22 +107,11 @@ export default class EmojiPickerVirtualList extends PureComponent<
   private virtualItems: VirtualItem<any>[] = [];
   private categoryTracker: CategoryTracker = new CategoryTracker();
 
-  context!: EmojiContext;
-
   constructor(props: Props) {
     super(props);
 
     this.buildEmojiGroupedByCategory(props.emojis, props.currentUser);
     this.buildVirtualItems(props, this.state);
-  }
-
-  getChildContext(): EmojiContext {
-    const { emoji } = this.context;
-    return {
-      emoji: {
-        ...emoji,
-      },
-    };
   }
 
   UNSAFE_componentWillUpdate(nextProps: Props, nextState: State) {

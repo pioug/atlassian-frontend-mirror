@@ -17,7 +17,7 @@ import {
 } from '../analytics';
 import { findPanel } from './utils';
 import { PanelOptions } from './pm-plugins/main';
-import { getPanelTypeBackground } from '@atlaskit/editor-common/styles';
+import { getPanelTypeBackground } from '@atlaskit/editor-common/panel';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 

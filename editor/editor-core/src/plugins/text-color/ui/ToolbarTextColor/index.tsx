@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 
 import { EditorView } from 'prosemirror-view';
 import {
@@ -14,10 +16,10 @@ import ColorPalette from '../../../../ui/ColorPalette';
 import { textColorPalette as originalTextColors } from '../../../../ui/ColorPalette/Palettes/textColorPalette';
 import Dropdown from '../../../../ui/Dropdown';
 import {
-  ExpandIconWrapper,
-  MenuWrapper,
-  Separator,
-  TriggerWrapper,
+  expandIconWrapperStyle,
+  wrapperStyle,
+  separatorStyles,
+  triggerWrapperStyles,
 } from '../../../../ui/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import {
@@ -39,10 +41,9 @@ import { TextColorPluginState } from '../../pm-plugins/main';
 
 import { EditorTextColorIcon } from './icon';
 import {
-  disabledRainbow,
-  rainbow,
-  TextColorIconBar,
-  TextColorIconWrapper,
+  backgroundDisabled,
+  textColorIconBar,
+  textColorIconWrapper,
 } from './styles';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
@@ -116,8 +117,11 @@ export class ToolbarTextColor extends React.Component<
       fitWidth = 242;
     }
 
+    const selectedColor =
+      pluginState.color !== pluginState.defaultColor && pluginState.color;
+
     return (
-      <MenuWrapper>
+      <span css={wrapperStyle}>
         <Dropdown
           mountTo={popupsMountPoint}
           boundariesElement={popupsBoundariesElement}
@@ -139,23 +143,22 @@ export class ToolbarTextColor extends React.Component<
               title={labelTextColor}
               onClick={this.toggleOpen}
               iconBefore={
-                <TriggerWrapper>
-                  <TextColorIconWrapper>
+                <div css={triggerWrapperStyles}>
+                  <div css={textColorIconWrapper}>
                     <EditorTextColorIcon />
-                    <TextColorIconBar
-                      selectedColor={
-                        pluginState.color !== pluginState.defaultColor &&
-                        pluginState.color
-                      }
-                      gradientColors={
-                        pluginState.disabled ? disabledRainbow : rainbow
-                      }
+                    <div
+                      css={[
+                        textColorIconBar,
+                        selectedColor
+                          ? `background: ${selectedColor};`
+                          : pluginState.disabled && backgroundDisabled,
+                      ]}
                     />
-                  </TextColorIconWrapper>
-                  <ExpandIconWrapper>
+                  </div>
+                  <span css={expandIconWrapperStyle}>
                     <ExpandIcon label="" />
-                  </ExpandIconWrapper>
-                </TriggerWrapper>
+                  </span>
+                </div>
               }
             />
           }
@@ -170,8 +173,8 @@ export class ToolbarTextColor extends React.Component<
             />
           </div>
         </Dropdown>
-        <Separator />
-      </MenuWrapper>
+        <span css={separatorStyles} />
+      </span>
     );
   }
 

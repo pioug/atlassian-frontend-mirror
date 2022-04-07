@@ -29,8 +29,9 @@ describe('comment editor', () => {
         editorDOMElement={<div />}
       />,
     );
+
     fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
+      .find('div[data-testid="click-wrapper"]')
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
@@ -47,7 +48,7 @@ describe('comment editor', () => {
       />,
     );
     fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
+      .find('div[data-testid="click-wrapper"]')
       .simulate('click', { clientY: 200 })
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('')));
@@ -154,7 +155,9 @@ describe('comment editor', () => {
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
-        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage
+          .find('div[data-testid="ak-editor-secondary-toolbar"]')
+          .exists(),
       ).toBe(true);
     });
     it('should render the secondary toolbar if there is a cancel button', () => {
@@ -168,8 +171,11 @@ describe('comment editor', () => {
         />,
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
+
       expect(
-        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage
+          .find('div[data-testid="ak-editor-secondary-toolbar"]')
+          .exists(),
       ).toBe(true);
     });
     it('should render the secondary toolbar if there is a custom secondary toolbar button', () => {
@@ -184,7 +190,9 @@ describe('comment editor', () => {
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
-        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage
+          .find('div[data-testid="ak-editor-secondary-toolbar"]')
+          .exists(),
       ).toBe(true);
     });
     it('should not render the secondary toolbar if there is no save, cancel or custom button', () => {
@@ -198,7 +206,9 @@ describe('comment editor', () => {
       );
       fullPage.find('div.ak-editor-content-area').simulate('click');
       expect(
-        fullPage.findWhere((elm) => elm.name() === 'SecondaryToolbar').exists(),
+        fullPage
+          .find('div[data-testid="ak-editor-secondary-toolbar"]')
+          .exists(),
       ).toBe(false);
     });
   });

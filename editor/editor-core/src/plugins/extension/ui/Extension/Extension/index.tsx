@@ -12,9 +12,9 @@ import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import {
   wrapperStyle,
-  Header,
-  Content,
-  ContentWrapper,
+  header,
+  content,
+  contentWrapper,
   widerLayoutClassName,
 } from './styles';
 import { overlay } from '../styles';
@@ -96,17 +96,22 @@ const Extension = (props: Props & OverflowShadowProps) => {
               }`}
             >
               <div css={overlay} className="extension-overlay" />
-              <Header contentEditable={false} className={headerClassNames}>
+              <div
+                css={header}
+                contentEditable={false}
+                className={headerClassNames}
+              >
                 {!removeBorder && <ExtensionLozenge node={node} />}
                 {children}
-              </Header>
+              </div>
               {hasBody && (
-                <ContentWrapper>
-                  <Content
-                    innerRef={handleContentDOMRef}
+                <div css={contentWrapper}>
+                  <div
+                    css={content}
+                    ref={handleContentDOMRef}
                     className="extension-content block"
                   />
-                </ContentWrapper>
+                </div>
               )}
             </div>
           </div>

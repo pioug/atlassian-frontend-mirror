@@ -6,7 +6,7 @@ import {
   version as packageVersion,
 } from '../version.json';
 
-export type ComponentName = 'popup' | 'browser' | 'clipboard' | 'dropzone';
+export type ComponentName = 'browser' | 'clipboard' | 'dropzone';
 
 export function getPackageAttributes(
   componentName: ComponentName,

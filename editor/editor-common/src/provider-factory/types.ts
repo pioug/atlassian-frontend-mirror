@@ -1,5 +1,5 @@
 import { ActivityProvider } from '@atlaskit/activity-provider';
-import { EmojiProvider } from '@atlaskit/emoji/types';
+import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 

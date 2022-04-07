@@ -5,7 +5,7 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorTableLegacyCellMinWidth as tableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { table, tr, th, td, p, inlineCard } from '@atlaskit/adf-utils';
 import Table, { TableProcessor } from '../../../../react/nodes/table';
 import { calcScalePercent } from '../../../../react/nodes/table/colgroup';

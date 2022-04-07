@@ -1,6 +1,6 @@
 import { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode } from 'prosemirror-model';
 import { ReactSerializer } from '../../../index';
 import TextWrapperComponent from '../../nodes/text-wrapper';

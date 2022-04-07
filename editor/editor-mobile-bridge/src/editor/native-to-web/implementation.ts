@@ -11,7 +11,7 @@ import {
   InsertBlockInputMethodToolbar,
   insertBlockTypesWithAnalytics,
   insertLinkWithAnalyticsMobileNative,
-  insertTaskDecision,
+  insertTaskDecisionCommand,
   isLinkAtPos,
   LinkInputMethod,
   ListInputMethod,
@@ -554,19 +554,19 @@ export default class WebBridgeImpl
         insertBlockTypesWithAnalytics('panel', inputMethod)(state, dispatch);
         return;
       case 'action':
-        insertTaskDecision(
-          this.editorView,
+        insertTaskDecisionCommand(
           'taskList',
           inputMethod as InsertBlockInputMethodToolbar,
+          undefined,
           listLocalId,
           itemLocalId,
         )(state, dispatch);
         return;
       case 'decision':
-        insertTaskDecision(
-          this.editorView,
+        insertTaskDecisionCommand(
           'decisionList',
           inputMethod as InsertBlockInputMethodToolbar,
+          undefined,
           listLocalId,
           itemLocalId,
         )(state, dispatch);

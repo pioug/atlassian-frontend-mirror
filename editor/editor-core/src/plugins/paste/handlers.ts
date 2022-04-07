@@ -764,7 +764,7 @@ export function insertIntoPanel(tr: Transaction, slice: Slice, panel: any) {
 
 export function handleRichText(slice: Slice): Command {
   return (state, dispatch) => {
-    const { codeBlock, heading, paragraph } = state.schema.nodes;
+    const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
     const { selection } = state;
     const firstChildOfSlice = slice.content?.firstChild;
 
@@ -794,8 +794,14 @@ export function handleRichText(slice: Slice): Command {
       selection.$to.node().type.validContent(slice.content) ||
       (textNodes.includes(selection.$to.node().type) &&
         selectionParent.type.validContent(slice.content));
+    let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
+      tr.selection,
+    );
+    const isTargetPanelEmpty =
+      panelParentOverCurrentSelection &&
+      panelParentOverCurrentSelection.node?.content.size === 2;
 
-    if (isSliceContentListNodes) {
+    if (isSliceContentListNodes || isTargetPanelEmpty) {
       insertSliceForLists({ tr, slice });
     } else if (noNeedForSafeInsert) {
       tr.replaceSelection(slice);

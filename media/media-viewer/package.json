@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-viewer",
-  "version": "46.2.0",
+  "version": "46.2.1",
   "description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,8 +33,8 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/media-client": "^15.0.0",
-    "@atlaskit/media-common": "^2.11.0",
-    "@atlaskit/media-ui": "^21.0.0",
+    "@atlaskit/media-common": "^2.12.0",
+    "@atlaskit/media-ui": "^21.1.0",
     "@atlaskit/side-navigation": "^1.2.3",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/theme": "^12.1.0",
@@ -56,15 +56,16 @@
   "devDependencies": {
     "@atlaskit/button": "^16.2.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^73.4.0",
+    "@atlaskit/media-card": "^73.5.0",
     "@atlaskit/media-core": "^32.3.0",
-    "@atlaskit/media-integration-test-helpers": "^2.5.0",
-    "@atlaskit/media-test-helpers": "^29.3.0",
+    "@atlaskit/media-integration-test-helpers": "^2.6.0",
+    "@atlaskit/media-test-helpers": "^29.4.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/ufo": "^0.1.10",
     "@types/deep-equal": "^1.0.1",
     "@types/enzyme": "^3.1.15",
     "@types/mime": "^2.0.1",

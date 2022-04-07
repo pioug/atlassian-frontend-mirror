@@ -385,7 +385,6 @@ export class ExampleEditorComponent extends React.Component<
                     }
                     return errors;
                   },
-                  useMediaPickerPopup: false,
                   featureFlags: mediaEditorProps,
                 }}
                 allowHelpDialog

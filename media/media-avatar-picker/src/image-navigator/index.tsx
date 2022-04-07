@@ -67,6 +67,7 @@ export interface Props {
   onImageUploaded: (file: File) => void;
   onImageError: (errorMessage: string) => void;
   isLoading?: boolean;
+  maxImageSize?: number;
 }
 
 export interface State {
@@ -221,13 +222,14 @@ export class ImageNavigator extends Component<
   validateFile(imageFile: File): string | null {
     const {
       intl: { formatMessage },
+      maxImageSize = MAX_SIZE_MB,
     } = this.props;
 
     if (ACCEPT.indexOf(imageFile.type) === -1) {
       return formatMessage(ERROR.FORMAT);
-    } else if (fileSizeMb(imageFile) > MAX_SIZE_MB) {
+    } else if (fileSizeMb(imageFile) > maxImageSize) {
       return formatMessage(ERROR.SIZE, {
-        MAX_SIZE_MB,
+        MAX_SIZE_MB: maxImageSize,
       });
     }
     return null;

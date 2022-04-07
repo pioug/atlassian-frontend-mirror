@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { css as deprecatedCss } from 'styled-components';
 
 import {
   tableMarginTop,
@@ -150,9 +149,9 @@ export const tableStyles = (props: ThemeProps) => css`
       ${insertRowButtonWrapper}
     }
 
-    /* Delete button*/
+    /* Delete button */
     ${DeleteButton}
-    /* Ends Delete button*/
+    /* Ends Delete button */
 
     /* sticky styles */
     .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
@@ -669,24 +668,7 @@ export const tableFullPageEditorStyles = css`
   }
 `;
 
-export const deprecatedTableFullPageEditorStyles = deprecatedCss`
-  .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-  }
-`;
-
 export const tableCommentEditorStyles = css`
-  .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
-    margin-left: 0;
-    margin-right: 0;
-    ${scrollbarStyles};
-  }
-`;
-
-// TODO remove this after migrated off styled-component
-export const deprecatedTableCommentEditorStyles = deprecatedCss`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
     margin-left: 0;
     margin-right: 0;

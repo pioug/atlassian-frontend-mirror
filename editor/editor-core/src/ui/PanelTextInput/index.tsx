@@ -1,6 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { KeyboardEvent, PureComponent } from 'react';
-import { Input } from './styles';
+import { panelTextInput, panelTextInputWithCustomWidth } from './styles';
 import { FocusEvent } from 'react';
 import { browser } from '@atlaskit/editor-common/utils';
 
@@ -91,7 +92,11 @@ export default class PanelTextInput extends PureComponent<Props, State> {
     } = this.props;
     const { value } = this.state;
     return (
-      <Input
+      <input
+        css={[
+          panelTextInput,
+          width !== undefined && panelTextInputWithCustomWidth(width),
+        ]}
         role={role}
         aria-autocomplete={ariaAutoComplete ? 'list' : undefined}
         aria-expanded={ariaExpanded}
@@ -106,8 +111,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
         onKeyDown={this.handleKeydown}
         onMouseDown={this.onMouseDown}
         onBlur={this.onBlur}
-        innerRef={this.handleRef}
-        width={width}
+        ref={this.handleRef}
         maxLength={maxLength}
         aria-label={ariaLabel}
       />

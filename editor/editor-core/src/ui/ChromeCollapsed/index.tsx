@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
-import { Input } from './styles';
+import { inputStyle } from './styles';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from './messages';
 
@@ -28,7 +30,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
     }
   };
 
-  private handleInputRef = (ref: HTMLElement) => {
+  private handleInputRef = (ref: HTMLInputElement) => {
     this.input = ref;
   };
 
@@ -38,8 +40,9 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
       this.props.intl.formatMessage(messages.chromeCollapsedPlaceholder);
 
     return (
-      <Input
-        innerRef={this.handleInputRef}
+      <input
+        css={inputStyle}
+        ref={this.handleInputRef}
         onFocus={this.focusHandler}
         placeholder={placeholder}
       />

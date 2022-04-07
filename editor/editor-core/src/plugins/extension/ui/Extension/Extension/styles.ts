@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -36,7 +35,7 @@ export const wrapperStyle = (theme: ThemeProps, extensionWidth: string) => css`
   }
 `;
 
-export const Header = styled.div`
+export const header = css`
   padding: ${padding / 2}px ${padding / 2}px ${padding / 4}px;
   vertical-align: middle;
 
@@ -48,20 +47,20 @@ export const Header = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const content = (theme: ThemeProps) => css`
   padding: ${padding}px;
   background: ${themed({
     light: 'white',
     dark: DN30,
-  })};
+  })(theme)};
   color: ${themed({
     dark: DN900,
-  })};
+  })(theme)};
   border: 1px solid ${N30};
   border-radius: ${borderRadius()}px;
   cursor: initial;
 `;
 
-export const ContentWrapper = styled.div`
+export const contentWrapper = css`
   padding: 0 ${padding}px ${padding}px;
 `;

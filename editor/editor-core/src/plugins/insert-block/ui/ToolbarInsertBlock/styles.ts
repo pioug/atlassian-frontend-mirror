@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import { HTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 
-export const TriggerWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const triggerWrapper = css`
   width: 42px;
 
   display: flex;

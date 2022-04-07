@@ -1,11 +1,9 @@
 import { Node as PMNode } from 'prosemirror-model';
 
-import {
-  bitbucketSchema,
-  confluenceSchema,
-  createJIRASchema,
-  uuid,
-} from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema';
+import { bitbucketSchema } from '@atlaskit/adf-schema/schema-bitbucket';
+import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';

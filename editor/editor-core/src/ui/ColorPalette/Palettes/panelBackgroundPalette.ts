@@ -4,7 +4,7 @@ import { colors } from '@atlaskit/theme';
 
 import { PaletteColor } from './type';
 import { DEFAULT_BORDER_COLOR } from './common';
-import { darkPanelColors } from '@atlaskit/editor-common/styles';
+import { darkPanelColors } from '@atlaskit/editor-common/panel';
 
 export const panelBackgroundPalette: PaletteColor[] = [
   { label: 'White', value: colors.N0 },

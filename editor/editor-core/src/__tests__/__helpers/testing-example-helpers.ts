@@ -15,7 +15,7 @@ export async function mountEditor<T = EditorProps>(
   options?: MountEditorOptions,
   { clickInEditor = true }: { clickInEditor?: boolean } = {},
 ) {
-  await page.waitForSelector('#editor-container');
+  await page.waitForSelector('#editor-container', { timeout: 30000 });
   await page.executeAsync(
     (props: T, options: MountEditorOptions | undefined, done: () => void) => {
       function waitAndCall() {
@@ -34,7 +34,7 @@ export async function mountEditor<T = EditorProps>(
     props,
     options || {},
   );
-  await page.waitForSelector(EDITOR_SELECTOR, { timeout: 500 });
+  await page.waitForSelector(EDITOR_SELECTOR, { timeout: 5000 });
   if (clickInEditor) {
     await page.click(EDITOR_SELECTOR);
   }

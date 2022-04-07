@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, Decoration } from 'prosemirror-view';
@@ -41,7 +42,7 @@ import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { FigureWrapper, MediaSingleNodeSelector } from './styles';
+import { figureWrapper, MediaSingleNodeSelector } from './styles';
 import {
   floatingLayouts,
   isRichMediaInsideOfBlockNode,
@@ -292,12 +293,12 @@ export default class MediaSingleNode extends Component<
       state.selection instanceof NodeSelection;
 
     const MediaChildren = (
-      <FigureWrapper className={MediaSingleNodeSelector}>
+      <figure css={figureWrapper} className={MediaSingleNodeSelector}>
         <div ref={this.props.forwardRef} />
         {shouldShowPlaceholder && (
           <CaptionPlaceholder onClick={this.clickPlaceholder} />
         )}
-      </FigureWrapper>
+      </figure>
     );
 
     return canResize ? (

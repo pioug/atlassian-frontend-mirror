@@ -1,7 +1,9 @@
+/** @jsx jsx */
 import React, { useCallback } from 'react';
+import { jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
 
-import { ButtonGroup } from '../../../../ui/styles';
+import { buttonGroupStyle } from '../../../../ui/styles';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import { Command } from '../../../../types/command';
 
@@ -23,7 +25,7 @@ export const SingleToolbarButtons: React.FC<{
     [editorView.state, editorView.dispatch],
   );
   return (
-    <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
+    <span css={buttonGroupStyle}>
       {items.map((item) => (
         <ToolbarButton
           key={item.key}
@@ -38,6 +40,6 @@ export const SingleToolbarButtons: React.FC<{
           aria-label={String(item.content)}
         />
       ))}
-    </ButtonGroup>
+    </span>
   );
 });

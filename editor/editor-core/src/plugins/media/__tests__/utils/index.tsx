@@ -56,10 +56,10 @@ import {
 import {
   MediaAttributes,
   RichMediaAttributes as MediaSingleAttributes,
-  defaultSchema,
   MediaADFAttrs,
   RichMediaLayout,
 } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { CardEvent, CardOnClickCallback } from '@atlaskit/media-card';
 import { FileDetails } from '@atlaskit/media-client';
 import { Schema } from '@atlaskit/editor-test-helpers/schema';

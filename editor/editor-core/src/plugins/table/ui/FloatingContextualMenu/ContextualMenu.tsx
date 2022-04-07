@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-
+/** @jsx jsx */
+import { Component } from 'react';
+import { jsx } from '@emotion/react';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
@@ -18,7 +19,7 @@ import {
 import ColorPalette from '../../../../ui/ColorPalette';
 import cellBackgroundColorPalette from '../../../../ui/ColorPalette/Palettes/cellBackgroundColorPalette';
 import DropdownMenu from '../../../../ui/DropdownMenu';
-import { Shortcut, CellColourPreview } from '../../../../ui/styles';
+import { shortcutStyle, cellColourPreviewStyles } from '../../../../ui/styles';
 import { closestElement } from '../../../../utils/dom';
 import { INPUT_METHOD } from '../../../analytics';
 import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
@@ -200,8 +201,8 @@ export class ContextualMenu extends Component<
         value: { name: 'background' },
         elemAfter: (
           <div>
-            <CellColourPreview
-              selectedColor={background}
+            <div
+              css={cellColourPreviewStyles(background)}
               className={ClassName.CONTEXTUAL_MENU_ICON}
             />
             {isSubmenuOpen && (
@@ -225,13 +226,13 @@ export class ContextualMenu extends Component<
     items.push({
       content: formatMessage(tableMessages.insertColumn),
       value: { name: 'insert_column' },
-      elemAfter: <Shortcut>{tooltip(addColumnAfter)}</Shortcut>,
+      elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
     });
 
     items.push({
       content: formatMessage(tableMessages.insertRow),
       value: { name: 'insert_row' },
-      elemAfter: <Shortcut>{tooltip(addRowAfter)}</Shortcut>,
+      elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
     });
 
     const { top, bottom, right, left } = selectionRect;
@@ -309,7 +310,7 @@ export class ContextualMenu extends Component<
         0: Math.max(noOfColumns, noOfRows),
       }),
       value: { name: 'clear' },
-      elemAfter: <Shortcut>{tooltip(backspace)}</Shortcut>,
+      elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
     });
 
     return items.length ? [{ items }] : null;

@@ -11,7 +11,9 @@ import {
   defaultMediaFeatureFlags,
   getMediaFeatureFlag,
   useMemoizeFeatureFlags,
+  filterFeatureFlagNames,
   MediaFeatureFlags,
+  RequiredMediaFeatureFlags,
 } from '../../mediaFeatureFlags';
 import { getLocalMediaFeatureFlag } from '../../mediaFeatureFlag-local';
 
@@ -174,6 +176,18 @@ describe('Media Feature Flags', () => {
       expect(result).toBe(defaultMediaFeatureFlags);
       component.setProps({ featureFlags: nonEquivalentFlags });
       expect(result).toBe(nonEquivalentFlags);
+    });
+  });
+  describe('filterFeatureFlagNames', () => {
+    it('returns the flag names switched on', () => {
+      expect(
+        filterFeatureFlagNames(({
+          'my-first-flag': true,
+          'my-second-flag': false,
+          'my-third-flag': true,
+          'my-fourth-flag': false,
+        } as unknown) as RequiredMediaFeatureFlags),
+      ).toEqual(['my-first-flag', 'my-third-flag']);
     });
   });
 });

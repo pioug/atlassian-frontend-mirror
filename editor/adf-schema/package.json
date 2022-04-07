@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-schema",
-  "version": "22.1.0",
+  "version": "23.0.0",
   "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,11 @@
     "./steps": "./src/steps.ts",
     "./schema": "./src/schema/index.ts",
     "./json-schema": "./src/json-schema/index.ts",
-    "./url": "./src/utils/url.ts"
+    "./url": "./src/utils/url.ts",
+    "./schema-bitbucket": "./src/schema/bitbucket-schema.ts",
+    "./schema-confluence": "./src/schema/confluence-schema.ts",
+    "./schema-jira": "./src/schema/jira-schema.ts",
+    "./schema-default": "./src/schema/default-schema.ts"
   },
   "scripts": {
     "build:json-schema": "mkdir -p dist && cp -r json-schema dist",
@@ -34,6 +38,7 @@
     "ak-postbuild": "yarn build:json-schema"
   },
   "dependencies": {
+    "@atlaskit/codemod-utils": "^4.0.0",
     "@atlaskit/editor-tables": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "@types/linkify-it": "^2.0.4",
@@ -54,6 +59,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/prosemirror-history": "^1.0.1",
     "ajv": "^6.12.6",
+    "jscodeshift": "^0.13.0",
     "json-schema-diff-validator": "^0.4.1",
     "prosemirror-history": "^1.1.3",
     "prosemirror-state": "1.3.4",

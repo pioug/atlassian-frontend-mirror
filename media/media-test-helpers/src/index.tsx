@@ -150,17 +150,6 @@ export {
   unMockLoadImage,
 } from './mockLoadImage';
 export {
-  getComponentClassWithStore,
-  mockEventEmiter,
-  mockFetcher,
-  mockIsWebGLNotAvailable,
-  mockPopupUploadEventEmitter,
-  mockState,
-  mockStore,
-  mockWsConnectionHolder,
-} from './mediaPickerMocks';
-export type { PropsWithStore } from './mediaPickerMocks';
-export {
   ClipboardMockFile,
   MockDataTransfer,
   MockDragEvent,
@@ -170,6 +159,7 @@ export {
 export { getAuthFromContextProvider } from './getAuthFromContextProvider';
 export { addGlobalEventEmitterListeners } from './globalEventEmitterListeners';
 export { fakeImage } from './utils/mockData';
+export { enableMediaUfoLogger } from './ufoLogger';
 
 export {
   enableMockGlobalImage,

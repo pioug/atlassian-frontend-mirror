@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
 
@@ -10,12 +11,16 @@ import * as colors from '@atlaskit/theme/colors';
 
 import { messages } from '../messages';
 
-const RemovableFieldWrapper = styled.div<{ hasMarginBottom: Boolean }>`
+const removableFieldWrapper = css`
   position: relative;
-  margin-bottom: ${(props) => (props.hasMarginBottom ? gridSize() * 2 : 0)}px;
+  margin-bottom: 0;
 `;
 
-const RemoveButtonWrapper = styled.div<{ testId: string }>`
+const wrapperWithMarginBottom = css`
+  margin-bottom: ${gridSize() * 2}px;
+`;
+
+const removeButtonWrapper = css`
   position: absolute;
   right: 0;
   top: 0;
@@ -52,14 +57,15 @@ const RemovableField = ({
   const hasMarginBottom = children.props.field?.type !== 'expand';
 
   return (
-    <RemovableFieldWrapper
-      hasMarginBottom={hasMarginBottom}
+    <div
+      css={[removableFieldWrapper, hasMarginBottom && wrapperWithMarginBottom]}
       className={className}
     >
       {children}
       {canRemoveField && (
-        <RemoveButtonWrapper
-          testId={`remove-field-${name}`}
+        <div
+          css={removeButtonWrapper}
+          data-testid={`remove-field-${name}`}
           onClick={onClickCallback}
         >
           <Tooltip
@@ -71,9 +77,9 @@ const RemovableField = ({
               label={intl.formatMessage(messages.removeField)}
             />
           </Tooltip>
-        </RemoveButtonWrapper>
+        </div>
       )}
-    </RemovableFieldWrapper>
+    </div>
   );
 };
 

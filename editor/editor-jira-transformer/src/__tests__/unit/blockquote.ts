@@ -1,6 +1,6 @@
 import { doc, p, blockquote } from '@atlaskit/editor-test-helpers/doc-builder';
 import { checkParse, checkParseEncodeRoundTrips } from './_test-helpers';
-import { createJIRASchema } from '@atlaskit/adf-schema';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 const schema = createJIRASchema({ allowBlockQuote: true, allowLists: true });
 

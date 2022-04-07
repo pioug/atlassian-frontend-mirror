@@ -4,10 +4,19 @@ import { css, jsx } from '@emotion/core';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+import {
+  AnalyticsEventPayload,
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
+
+import {
+  createAndFireEventInElementsChannel,
+  userInfoEvent,
+} from '../../analytics';
 import { ExternalUser } from '../../types';
 import { textWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
-
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';
 import InfoIcon from './InfoIcon';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
@@ -26,13 +35,13 @@ export const emailDomainWrapper = css({
   fontWeight: 'bold',
 });
 
-export type ExternalUserOptionProps = {
+export type ExternalUserOptionProps = WithAnalyticsEventsProps & {
   user: ExternalUser;
   status?: string;
   isSelected: boolean;
 };
 
-export class ExternalUserOption extends React.PureComponent<
+class ExternalUserOptionImpl extends React.PureComponent<
   ExternalUserOptionProps
 > {
   render() {
@@ -102,11 +111,29 @@ export class ExternalUserOption extends React.PureComponent<
     );
   };
 
+  private fireEvent = <Args extends unknown[]>(
+    eventCreator: (...args: Args) => AnalyticsEventPayload,
+    ...args: Args
+  ) => {
+    const { createAnalyticsEvent } = this.props;
+    if (createAnalyticsEvent) {
+      createAndFireEventInElementsChannel(eventCreator(...args))(
+        createAnalyticsEvent,
+      );
+    }
+  };
+
+  private onShow = () => {
+    const { user } = this.props;
+    this.fireEvent(userInfoEvent, user.sources, user.id);
+  };
+
   private getSourcesInfoTooltip = () =>
     this.props.user.isExternal ? (
       <Tooltip
         content={this.formattedTooltipContent()}
         position={'right-start'}
+        onShow={this.onShow}
       >
         <InfoIcon />
       </Tooltip>
@@ -127,3 +154,5 @@ export class ExternalUserOption extends React.PureComponent<
     );
   }
 }
+
+export const ExternalUserOption = withAnalyticsEvents()(ExternalUserOptionImpl);

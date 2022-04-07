@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Component } from 'react';
 import EmojiProvider from '../../api/EmojiResource';
@@ -7,9 +6,9 @@ import { isPromise } from '../../util/type-helpers';
 import { EmojiId, OptionalEmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
-import { EmojiContext } from './internal-types';
 import { State as LoadingState } from './LoadingEmojiComponent';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
+import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 
 export interface BaseResourcedEmojiProps {
   emojiId: EmojiId;
@@ -27,10 +26,6 @@ export interface State extends LoadingState {
 }
 
 export default class ResourcedEmojiComponent extends Component<Props, State> {
-  static childContextTypes = {
-    emoji: PropTypes.object,
-  };
-
   private ready = false;
 
   constructor(props: Props) {
@@ -39,14 +34,6 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
     this.state = {
       emoji: undefined,
       loaded: false,
-    };
-  }
-
-  getChildContext(): EmojiContext {
-    return {
-      emoji: {
-        emojiProvider: this.props.emojiProvider,
-      },
     };
   }
 
@@ -140,14 +127,21 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
 
   private emojiWrapper(element: JSX.Element) {
     const { shortName, id, fallback } = this.props.emojiId;
+    const emojiContextValue = {
+      emoji: {
+        emojiProvider: this.props.emojiProvider,
+      },
+    };
     return (
-      <span
-        data-emoji-id={id}
-        data-emoji-short-name={shortName}
-        data-emoji-text={fallback || shortName}
-      >
-        {element}
-      </span>
+      <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
+        <span
+          data-emoji-id={id}
+          data-emoji-short-name={shortName}
+          data-emoji-text={fallback || shortName}
+        >
+          {element}
+        </span>
+      </LegacyEmojiContextProvider>
     );
   }
 }

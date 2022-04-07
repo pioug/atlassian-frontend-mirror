@@ -1,7 +1,5 @@
-import { MediaPicker, isImagePreview } from '@atlaskit/media-picker';
+import { isImagePreview } from '@atlaskit/media-picker';
 import {
-  Popup,
-  PopupConfig,
   MediaFile,
   UploadPreviewUpdateEventPayload,
   UploadParams,
@@ -18,13 +16,8 @@ import {
   MobileUploadEndEventPayload,
 } from './types';
 
-export type PickerType =
-  | 'popup'
-  | 'clipboard'
-  | 'dropzone'
-  | 'customMediaPicker';
+export type PickerType = 'clipboard' | 'dropzone' | 'customMediaPicker';
 export type ExtendedComponentConfigs = {
-  popup: PopupConfig;
   customMediaPicker: CustomMediaPicker;
   dropzone: null;
   clipboard: null;
@@ -49,9 +42,8 @@ export type NewMediaEvent = (
 ) => void;
 
 export default class PickerFacade {
-  private picker?: Popup | CustomMediaPicker;
+  private picker?: CustomMediaPicker;
   private onDragListeners: Array<Function> = [];
-  private errorReporter: ErrorReportingHandler;
   private pickerType: PickerType;
   private onStartListeners: Array<NewMediaEvent> = [];
   private eventListeners: Record<
@@ -64,11 +56,9 @@ export default class PickerFacade {
     pickerType: PickerType,
     readonly config: PickerFacadeConfig,
     readonly pickerConfig?: ExtendedComponentConfigs[PickerType],
-    readonly mediaPickerFactoryClass = MediaPicker,
     analyticsName?: string,
   ) {
     this.pickerType = pickerType;
-    this.errorReporter = config.errorReporter;
     this.analyticsName = analyticsName;
     this.erroredFiles = new Set();
   }
@@ -78,11 +68,6 @@ export default class PickerFacade {
 
     if (this.pickerType === 'customMediaPicker') {
       picker = this.picker = this.pickerConfig as CustomMediaPicker;
-    } else if (this.pickerType === 'popup') {
-      picker = this.picker = await this.mediaPickerFactoryClass(
-        this.config.mediaClientConfig,
-        this.pickerConfig as PopupConfig,
-      );
     }
 
     if (!picker) {
@@ -121,47 +106,11 @@ export default class PickerFacade {
 
     this.onStartListeners = [];
     this.onDragListeners = [];
-
-    try {
-      if (this.pickerType === 'popup') {
-        (picker as Popup).teardown();
-      }
-    } catch (ex) {
-      this.errorReporter.captureException(ex);
-    }
   }
 
   setUploadParams(params: UploadParams): void {
     if (this.picker) {
       this.picker.setUploadParams(params);
-    }
-  }
-
-  onClose(cb: () => void): () => void {
-    const { picker } = this;
-    if (this.pickerType === 'popup') {
-      const popupPicker = picker as Popup;
-      popupPicker.on('closed', cb);
-
-      return () => popupPicker.off('closed', cb);
-    }
-
-    return () => {};
-  }
-
-  show(): void {
-    if (this.pickerType === 'popup') {
-      try {
-        (this.picker as Popup).show();
-      } catch (ex) {
-        this.errorReporter.captureException(ex);
-      }
-    }
-  }
-
-  hide(): void {
-    if (this.pickerType === 'popup') {
-      (this.picker as Popup).hide();
     }
   }
 

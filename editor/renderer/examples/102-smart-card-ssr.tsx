@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import { Provider, Client } from '@atlaskit/smart-card';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import ReactDOMServer from 'react-dom/server';
 import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
 import { default as Renderer } from '../src/ui/Renderer';

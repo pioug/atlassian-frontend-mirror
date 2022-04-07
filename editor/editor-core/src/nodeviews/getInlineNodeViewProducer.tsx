@@ -59,7 +59,7 @@ function createNodeView<ExtraComponentProps>({
   // difference between them and it kills the nodeView
   domRef.classList.add(
     `${nodeViewParams.node.type.name}View-content-wrap`,
-    `inlineNodeViewOuterContainer`,
+    `inlineNodeView`,
   );
 
   // This util is shared for tracking rendering, and the ErrorBoundary that

@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react';
+/** @jsx jsx */
+import { useMemo } from 'react';
+import { jsx } from '@emotion/react';
 import { EditorState } from 'prosemirror-state';
-import { Shortcut } from '../../../../../ui/styles';
+import { shortcutStyle } from '../../../../../ui/styles';
 import { toolbarMessages } from '../toolbar-messages';
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
 import {
@@ -46,7 +48,9 @@ export const useClearIcon = ({
       key: 'clearFormatting',
       command: clearFormattingToolbar,
       content: clearFormattingLabel,
-      elemAfter: <Shortcut>{tooltip(clearFormattingKeymap)}</Shortcut>,
+      elemAfter: (
+        <div css={shortcutStyle}>{tooltip(clearFormattingKeymap)}</div>
+      ),
       value: {
         name: 'clearFormatting',
       },

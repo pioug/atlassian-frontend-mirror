@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import styled from 'styled-components';
 import React from 'react';
 import { Component } from 'react';

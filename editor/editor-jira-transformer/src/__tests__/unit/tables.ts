@@ -6,7 +6,8 @@ import {
   th,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { createJIRASchema } from '@atlaskit/adf-schema';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
+
 import { checkParseEncodeRoundTrips } from './_test-helpers';
 
 const schema = createJIRASchema({ allowTables: true });

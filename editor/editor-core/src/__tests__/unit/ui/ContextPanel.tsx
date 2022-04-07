@@ -4,11 +4,7 @@ import { mount, ReactWrapper } from 'enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import ContextPanel, {
-  Content,
-  Panel,
-  SwappableContentArea,
-} from '../../../ui/ContextPanel';
+import ContextPanel, { SwappableContentArea } from '../../../ui/ContextPanel';
 import EditorContext from '../../../ui/EditorContext';
 
 import {
@@ -29,6 +25,8 @@ import {
   isPushingEditorContent,
   editorWithWideBreakoutAndSidebarWidth,
 } from '../../__helpers/page-objects/_context-panel';
+
+const panelSelector = 'div[data-testid="context-panel-panel"]';
 
 describe('SwappableContentArea', () => {
   const Component: React.FC = jest.fn(() => null);
@@ -59,7 +57,8 @@ describe('SwappableContentArea', () => {
   describe('container', () => {
     it('displays content when visible is true', () => {
       wrapper = mount(<SwappableContentArea visible></SwappableContentArea>);
-      const panel = wrapper.find(Panel);
+      const panel = wrapper.find(panelSelector);
+
       expect(getComputedStyle(panel.getDOMNode()).width).toEqual('320px');
     });
 
@@ -67,13 +66,13 @@ describe('SwappableContentArea', () => {
       wrapper = mount(
         <SwappableContentArea visible={false}></SwappableContentArea>,
       );
-      const panel = wrapper.find(Panel);
+      const panel = wrapper.find(panelSelector);
       expect(getComputedStyle(panel.getDOMNode()).width).toEqual('0px');
     });
 
     it('clips content using the container', () => {
       wrapper = mount(<SwappableContentArea visible />);
-      const style = getComputedStyle(wrapper.find(Panel).getDOMNode());
+      const style = getComputedStyle(wrapper.find(panelSelector).getDOMNode());
       expect(style.overflow).toEqual('hidden');
     });
 
@@ -89,7 +88,7 @@ describe('SwappableContentArea', () => {
           }}
         />,
       );
-      const panelElement = wrapper.find(Panel).getDOMNode();
+      const panelElement = wrapper.find(panelSelector).getDOMNode();
       expect(isPushingEditorContent(panelElement)).toBeTruthy();
     });
 
@@ -105,7 +104,7 @@ describe('SwappableContentArea', () => {
           }}
         />,
       );
-      const panelElement = wrapper.find(Panel).getDOMNode();
+      const panelElement = wrapper.find(panelSelector).getDOMNode();
       expect(isPushingEditorContent(panelElement)).toBeFalsy();
     });
 
@@ -121,7 +120,7 @@ describe('SwappableContentArea', () => {
           }}
         />,
       );
-      const panelElement = wrapper.find(Panel).getDOMNode();
+      const panelElement = wrapper.find(panelSelector).getDOMNode();
       expect(isPushingEditorContent(panelElement)).toBeTruthy();
     });
 
@@ -137,7 +136,7 @@ describe('SwappableContentArea', () => {
           }}
         />,
       );
-      const panelElement = wrapper.find(Panel).getDOMNode();
+      const panelElement = wrapper.find(panelSelector).getDOMNode();
       expect(isPushingEditorContent(panelElement)).toBeFalsy();
     });
 
@@ -153,7 +152,7 @@ describe('SwappableContentArea', () => {
           }}
         />,
       );
-      const panelElement = wrapper.find(Panel).getDOMNode();
+      const panelElement = wrapper.find(panelSelector).getDOMNode();
       expect(isPushingEditorContent(panelElement)).toBeTruthy();
     });
 
@@ -169,14 +168,16 @@ describe('SwappableContentArea', () => {
           }}
         />,
       );
-      const panelElement = wrapper.find(Panel).getDOMNode();
+      const panelElement = wrapper.find(panelSelector).getDOMNode();
       expect(isPushingEditorContent(panelElement)).toBeTruthy();
     });
   });
   describe('content', () => {
     it('is scrollable up/down', () => {
       wrapper = mount(<SwappableContentArea visible />);
-      const style = getComputedStyle(wrapper.find(Content).getDOMNode());
+      const style = getComputedStyle(
+        wrapper.find('div[data-testid="context-panel-content"]').getDOMNode(),
+      );
       expect(style.overflowY).toEqual('auto');
     });
   });

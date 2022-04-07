@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
@@ -19,7 +21,7 @@ import CodeIcon from '@atlaskit/icon/glyph/editor/code';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
 
-import { Shortcut } from '../../../../ui/styles';
+import { shortcutStyle } from '../../../../ui/styles';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { tooltip, addLink, toggleTable } from '../../../../keymaps';
 import { shallowEquals } from './shallow-equals';
@@ -40,7 +42,9 @@ const from = (init: ItemInit): MenuItem => ({
   tooltipDescription: init.tooltipDescription,
   value: { name: init.name },
   elemBefore: <init.Icon label={init.content} />,
-  elemAfter: init.shortcut ? <Shortcut>{init.shortcut}</Shortcut> : undefined,
+  elemAfter: init.shortcut ? (
+    <div css={shortcutStyle}>{init.shortcut}</div>
+  ) : undefined,
   'aria-label': init.content,
   'aria-haspopup': init['aria-haspopup'],
   shortcut: init.shortcut,

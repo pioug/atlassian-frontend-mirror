@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { EditorAppearance, UIComponentFactory } from '../../types';
@@ -12,7 +13,7 @@ import {
 import { whichTransitionEvent } from '../../utils';
 import { ErrorBoundary } from '../ErrorBoundary';
 
-const PluginsComponentsWrapper = styled.div`
+const pluginsComponentsWrapper = css`
   display: flex;
 `;
 
@@ -135,7 +136,7 @@ export default class PluginSlot extends React.Component<Props, any> {
         component={ACTION_SUBJECT.PLUGIN_SLOT}
         fallbackComponent={null}
       >
-        <PluginsComponentsWrapper>
+        <div css={pluginsComponentsWrapper}>
           {items.map((component, key) => {
             const props: any = { key };
             const element = component({
@@ -153,7 +154,7 @@ export default class PluginSlot extends React.Component<Props, any> {
             });
             return element && React.cloneElement(element, props);
           })}
-        </PluginsComponentsWrapper>
+        </div>
       </ErrorBoundary>
     );
   }

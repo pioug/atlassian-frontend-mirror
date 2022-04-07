@@ -210,6 +210,15 @@ export const failedEvent: EventCreator = (
     ...createDefaultPickerAttributes(props, session, journeyId),
   });
 
+export const userInfoEvent = (
+  sources: string[],
+  accountId: string,
+): AnalyticsEventPayload =>
+  createEvent('ui', 'displayed', 'userInfo', {
+    sources,
+    accountId,
+  });
+
 function queryLength(state: UserPickerState) {
   return state.inputValue.length;
 }

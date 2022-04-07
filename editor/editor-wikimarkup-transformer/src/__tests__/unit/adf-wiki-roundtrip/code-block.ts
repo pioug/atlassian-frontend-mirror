@@ -1,4 +1,4 @@
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { adf2wiki, wiki2adf } from '../_test-helpers';
 
 import { code_block, doc } from '@atlaskit/editor-test-helpers/doc-builder';

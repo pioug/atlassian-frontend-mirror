@@ -93,8 +93,15 @@ describe('onCollabError', () => {
     // Wait for provider to resolve
     await sleep(0);
 
-    onMock.mock.calls[1][1]({ message: 'Error message' });
+    onMock.mock.calls[1][1]({
+      message: 'Error message',
+      status: 402,
+      code: 'Invalid',
+    });
     expect(onCollabErrorSpy.mock.calls).toHaveLength(1);
+    expect(onCollabErrorSpy.mock.calls[0]).toHaveLength(3);
     expect(onCollabErrorSpy.mock.calls[0][0]).toBe('Error message');
+    expect(onCollabErrorSpy.mock.calls[0][1]).toBe(402);
+    expect(onCollabErrorSpy.mock.calls[0][2]).toBe('Invalid');
   });
 });

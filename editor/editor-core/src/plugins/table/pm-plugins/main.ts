@@ -39,7 +39,13 @@ import {
   ElementContentRects,
   InvalidNodeAttr,
 } from '../types';
-import { findControlsHoverDecoration, updateResizeHandles } from '../utils';
+import {
+  findControlsHoverDecoration,
+  transformSliceToCorrectEmptyTableCells,
+  transformSliceToFixHardBreakProblemOnCopyFromCell,
+  transformSliceToRemoveOpenTable,
+  updateResizeHandles,
+} from '../utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -53,6 +59,16 @@ import { pluginKey } from './plugin-key';
 import TableCellNodeView from '../nodeviews/tableCell';
 import { getPosHandler } from '../../../nodeviews';
 import { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
+import {
+  transformSliceRemoveCellBackgroundColor,
+  transformSliceToRemoveColumnsWidths,
+  transformSliceToAddTableHeaders,
+} from '../commands/misc';
+import { transformSliceToRemoveOpenLayoutNodes } from '../../layout/utils';
+import { transformSliceToRemoveOpenExpand } from '../../expand/utils';
+import { transformSliceToRemoveOpenBodiedExtension } from '../../extension/actions';
+import { insideTable } from '../../../utils';
+import { isHeaderRowRequired } from '../utils/paste';
 
 let isBreakoutEnabled: boolean | undefined;
 let isDynamicTextSizingEnabled: boolean | undefined;
@@ -115,7 +131,15 @@ export const createPlugin = (
 
   // Used to prevent invalid table cell spans being reported more than once per editor/document
   const invalidTableIds: string[] = [];
+  let editorViewRef: EditorView | null = null;
+  const getCurrentEditorState = (): EditorState | null => {
+    const editorView = editorViewRef;
+    if (!editorView) {
+      return null;
+    }
 
+    return editorView.state;
+  };
   return new SafePlugin({
     state: state,
     key: pluginKey,
@@ -159,6 +183,7 @@ export const createPlugin = (
     },
     view: (editorView: EditorView) => {
       const domAtPos = editorView.domAtPos.bind(editorView);
+      editorViewRef = editorView;
 
       return {
         update: (view: EditorView) => {
@@ -213,6 +238,54 @@ export const createPlugin = (
       };
     },
     props: {
+      transformPasted(slice) {
+        const editorState = getCurrentEditorState();
+        if (!editorState) {
+          return slice;
+        }
+
+        const { schema } = editorState;
+
+        // if we're pasting to outside a table or outside a table
+        // header, ensure that we apply any table headers to the first
+        // row of content we see, if required
+        if (!insideTable(editorState) && isHeaderRowRequired(editorState)) {
+          slice = transformSliceToAddTableHeaders(slice, schema);
+        }
+
+        slice = transformSliceToFixHardBreakProblemOnCopyFromCell(
+          slice,
+          schema,
+        );
+
+        // We do this separately, so it also applies to drag/drop events
+        // This needs to go before `transformSliceToRemoveOpenExpand`
+        slice = transformSliceToRemoveOpenLayoutNodes(slice, schema);
+
+        // If a partial paste of expand, paste only the content
+        // This needs to go before `transformSliceToRemoveOpenTable`
+        slice = transformSliceToRemoveOpenExpand(slice, schema);
+
+        /** If a partial paste of table, paste only table's content */
+        slice = transformSliceToRemoveOpenTable(slice, schema);
+
+        /** If a partial paste of bodied extension, paste only text */
+        slice = transformSliceToRemoveOpenBodiedExtension(slice, schema);
+
+        slice = transformSliceToCorrectEmptyTableCells(slice, schema);
+
+        if (!pluginConfig.allowColumnResizing) {
+          slice = transformSliceToRemoveColumnsWidths(slice, schema);
+        }
+
+        // If we don't allow background on cells, we need to remove it
+        // from the paste slice
+        if (!pluginConfig.allowBackgroundColor) {
+          slice = transformSliceRemoveCellBackgroundColor(slice, schema);
+        }
+
+        return slice;
+      },
       handleClick: ({ state, dispatch }, _pos, event: MouseEvent) => {
         const decorationSet = decorationsPluginKey.getState(state);
         if (findControlsHoverDecoration(decorationSet).length) {

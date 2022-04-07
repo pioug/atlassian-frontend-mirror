@@ -1,6 +1,6 @@
-import React from 'react';
-import { HTMLAttributes, ComponentClass } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall } from '@atlaskit/theme';
@@ -12,24 +12,23 @@ import { getCorrectAltByIconUrl } from './listItemAlts';
 import { transformTimeStamp } from './transformTimeStamp';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
-interface ContainerProps {
-  selected: boolean;
-}
-
-export const Container = styled.li`
-  background-color: ${(props: ContainerProps) =>
-    props.selected ? N20 : 'transparent'};
+export const container = css`
+  background-color: transparent;
   padding: 8px 12px;
   cursor: pointer;
   display: flex;
   margin-top: 0;
 `;
 
-const NameWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const containerSelected = css`
+  background-color: ${N20};
+`;
+
+const nameWrapper = css`
   overflow: hidden;
 `;
 
-export const Name: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const nameStyle = css`
   color: ${N800};
   overflow: hidden;
   text-overflow: ellipsis;
@@ -37,13 +36,13 @@ export const Name: ComponentClass<HTMLAttributes<{}>> = styled.div`
   line-height: 20px;
 `;
 
-export const ContainerName: ComponentClass<React.HTMLAttributes<{}>> = styled.div`
+export const containerName = css`
   color: ${N300};
   line-height: 14px;
   font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
 `;
 
-const Icon: ComponentClass<HTMLAttributes<{}>> = styled.span`
+const iconStyle = css`
   min-width: 16px;
   margin-top: 3px;
   margin-right: 12px;
@@ -95,11 +94,11 @@ class LinkSearchListItem extends React.PureComponent<
       intl,
     } = this.props;
     if (icon) {
-      return <Icon>{icon}</Icon>;
+      return <span css={iconStyle}>{icon}</span>;
     }
     if (iconUrl) {
       return (
-        <Icon>
+        <span css={iconStyle}>
           {/*
             - getCorrectAltByIconUrl
             Workaround to get alt text for images from url
@@ -107,7 +106,7 @@ class LinkSearchListItem extends React.PureComponent<
             More details: https://a11y-internal.atlassian.net/browse/AK-811
           */}
           <img src={iconUrl} alt={getCorrectAltByIconUrl(iconUrl, intl)} />
-        </Icon>
+        </span>
       );
     }
     return null;
@@ -123,7 +122,7 @@ class LinkSearchListItem extends React.PureComponent<
 
     return (
       date && (
-        <>
+        <Fragment>
           &nbsp; •
           <span
             className="link-search-timestamp"
@@ -131,7 +130,7 @@ class LinkSearchListItem extends React.PureComponent<
           >
             &nbsp; {date.pageAction} {date.dateString} {date.timeSince || ''}
           </span>
-        </>
+        </Fragment>
       )
     );
   }
@@ -139,26 +138,29 @@ class LinkSearchListItem extends React.PureComponent<
   render() {
     const { item, selected, id, role } = this.props;
     return (
-      <Container
+      <li
+        css={[container, selected && containerSelected]}
         role={role}
         id={id}
         aria-selected={selected}
         data-testid="link-search-list-item"
-        selected={selected}
         onMouseMove={this.handleMouseMove}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onClick={this.handleSelect}
       >
         {this.renderIcon()}
-        <NameWrapper>
-          <Name>{item.name}</Name>
-          <ContainerName>
+        <span css={nameWrapper}>
+          <div css={nameStyle}>{item.name}</div>
+          <div
+            data-testid="link-search-list-item-container"
+            css={containerName}
+          >
             {item.container}
             {this.renderTimeStamp()}
-          </ContainerName>
-        </NameWrapper>
-      </Container>
+          </div>
+        </span>
+      </li>
     );
   }
 }

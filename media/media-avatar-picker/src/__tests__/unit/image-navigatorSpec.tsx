@@ -205,12 +205,32 @@ describe('Image navigator', () => {
         expect(onImageUploaded).not.toHaveBeenCalled();
       });
 
-      it('should not allow images greater than defined MB limit', () => {
+      it('should not allow images greater than the default defined MB limit', () => {
         const { onDrop } = component.find(DragZone).props();
 
         onDrop(mockDropEvent(droppedImage));
         expect(onImageError).toHaveBeenCalledWith(
           'Image is too large, must be no larger than 10Mb',
+        );
+        expect(onImageUploaded).not.toHaveBeenCalled();
+      });
+
+      it('should not allow images greater than passed maxImageSize', () => {
+        component = mountWithIntlContext(
+          <ImageNavigator
+            onImageLoaded={onImageLoaded}
+            onRemoveImage={onRemoveImage}
+            onImageError={onImageError}
+            onImageUploaded={onImageUploaded}
+            maxImageSize={4}
+          />,
+        );
+
+        const { onDrop } = component.find(DragZone).props();
+
+        onDrop(mockDropEvent(droppedImage));
+        expect(onImageError).toHaveBeenCalledWith(
+          'Image is too large, must be no larger than 4Mb',
         );
         expect(onImageUploaded).not.toHaveBeenCalled();
       });

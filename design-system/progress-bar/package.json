@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A progress bar displays the status of a given process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
   "dependencies": {
     "@atlaskit/ds-lib": "^1.4.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.8.0",
+    "@atlaskit/tokens": "^0.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"
   },

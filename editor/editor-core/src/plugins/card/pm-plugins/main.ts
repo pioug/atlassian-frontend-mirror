@@ -3,6 +3,8 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
+import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
+
 import { CardPluginOptions, CardPluginState } from '../types';
 import reducer from './reducers';
 import { PMPluginFactoryParams } from '../../../types';
@@ -16,19 +18,15 @@ import {
 import { OutstandingRequests } from '../types';
 import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
-import { InlineCard, InlineCardNodeViewProps } from '../nodeviews/inlineCard';
+import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../plugins/analytics';
 
 export { pluginKey } from './plugin-key';
 
-export const createPlugin = (options: CardPluginOptions) => ({
-  portalProviderAPI,
-  eventDispatcher,
-  providerFactory,
-  dispatchAnalyticsEvent,
-  featureFlags,
-}: PMPluginFactoryParams) => {
+export const createPlugin = (options: CardPluginOptions) => (
+  pmPluginFactoryParams: PMPluginFactoryParams,
+) => {
   const {
     platform,
     allowResizing,
@@ -39,9 +37,11 @@ export const createPlugin = (options: CardPluginOptions) => ({
   return new SafePlugin({
     state: {
       init(): CardPluginState {
-        const { viewChangingExperimentToolbarStyle } = featureFlags;
+        const {
+          viewChangingExperimentToolbarStyle,
+        } = pmPluginFactoryParams.featureFlags;
 
-        dispatchAnalyticsEvent({
+        pmPluginFactoryParams.dispatchAnalyticsEvent({
           eventType: EVENT_TYPE.OPERATIONAL,
           action: ACTION.EXPOSED,
           actionSubject: ACTION_SUBJECT.FEATURE,
@@ -90,7 +90,10 @@ export const createPlugin = (options: CardPluginOptions) => ({
       ) => handleProvider(name, provider, view);
       const rafCancellationCallbacks: Function[] = [];
 
-      providerFactory.subscribe('cardProvider', subscriptionHandler);
+      pmPluginFactoryParams.providerFactory.subscribe(
+        'cardProvider',
+        subscriptionHandler,
+      );
 
       return {
         update(view: EditorView, prevState: EditorState) {
@@ -138,32 +141,23 @@ export const createPlugin = (options: CardPluginOptions) => ({
             cancellationCallback(),
           );
 
-          providerFactory.unsubscribe('cardProvider', subscriptionHandler);
+          pmPluginFactoryParams.providerFactory.unsubscribe(
+            'cardProvider',
+            subscriptionHandler,
+          );
         },
       };
     },
 
     props: {
       nodeViews: {
-        inlineCard: (node, view, getPos) => {
-          const reactComponentProps: InlineCardNodeViewProps = {
-            useAlternativePreloader,
-          };
-          const hasIntlContext = true;
-          return new InlineCard(
-            node,
-            view,
-            getPos,
-            portalProviderAPI,
-            eventDispatcher,
-            reactComponentProps,
-            undefined,
-            true,
-            undefined,
-            hasIntlContext,
-          ).init();
-        },
+        inlineCard: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: InlineCardNodeView,
+          extraComponentProps: { useAlternativePreloader },
+        }),
         blockCard: (node, view, getPos) => {
+          const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
           const reactComponentProps: BlockCardNodeViewProps = {
             platform,
           };
@@ -182,6 +176,11 @@ export const createPlugin = (options: CardPluginOptions) => ({
           ).init();
         },
         embedCard: (node, view, getPos) => {
+          const {
+            portalProviderAPI,
+            eventDispatcher,
+            dispatchAnalyticsEvent,
+          } = pmPluginFactoryParams;
           const reactComponentProps: EmbedCardNodeViewProps = {
             eventDispatcher,
             allowResizing,

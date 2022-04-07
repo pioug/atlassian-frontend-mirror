@@ -1,5 +1,5 @@
 import EmailSerializer, { EmailSerializerOpts } from '../..';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import MockDate from 'mockdate';
 
 import * as paragraphIndents from './__fixtures__/paragraph-indents.adf.json';

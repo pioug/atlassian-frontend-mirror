@@ -190,3 +190,107 @@ Object {
   "type": "doc",
 }
 `;
+
+exports[`task-decision-2.ts: inserts new action item via typeahead on the same level as the previous action item even when it was empty 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "a ",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "c",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+      ],
+      "type": "taskList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`task-decision-2.ts: joins actions regardless of insert method 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "a",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "b",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "c",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+      ],
+      "type": "taskList",
+    },
+  ],
+  "type": "doc",
+}
+`;

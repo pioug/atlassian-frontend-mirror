@@ -42,7 +42,6 @@ export interface MediaOptions {
   // returns array of validation errors based on value, if no errors returned - value is considered to be valid
   altTextValidator?: (value: string) => string[];
   useForgePlugins?: boolean;
-  useMediaPickerPopup?: boolean;
   allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
   alignLeftOnInsert?: boolean;
   featureFlags?: MediaFeatureFlags;

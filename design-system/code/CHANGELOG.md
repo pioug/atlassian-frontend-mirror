@@ -1,5 +1,12 @@
 # @atlaskit/code
 
+## 14.3.5
+
+### Patch Changes
+
+- [`46824ff1acd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46824ff1acd) - [ux] `<CodeBlock />`s with no content no longer vertically collapse, and maintain their intended minimum height
+- Updated dependencies
+
 ## 14.3.4
 
 ### Patch Changes

@@ -1,4 +1,6 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { matchers } from '@emotion/jest';
 import { mount, ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
@@ -11,6 +13,8 @@ import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/exten
 
 import { flushPromises } from '../../../__helpers/utils';
 import ConfigPanelFieldsLoader from '../../../../ui/ConfigPanel/ConfigPanelFieldsLoader';
+
+expect.extend(matchers);
 
 const getDynamicFieldsDefinition = (newParams: Parameters) => {
   return [
@@ -350,8 +354,10 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
     expect(configForm.exists('Boolean')).toBeTruthy();
     expect(configForm.exists('Expand')).toBeTruthy();
     expect(
-      configForm.find('Expand').find('ExpandContentContainer').prop('isHidden'),
-    ).toBeTruthy();
+      configForm
+        .find('Expand')
+        .find('div[data-testid="expand-content-container"]'),
+    ).toHaveStyleRule('display', 'none');
 
     // Expand the contents
     configForm
@@ -361,8 +367,10 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
 
     configForm = wrapper?.find('ConfigForm');
     expect(
-      configForm.find('Expand').find('ExpandContentContainer').prop('isHidden'),
-    ).toBeFalsy();
+      configForm
+        .find('Expand')
+        .find('div[data-testid="expand-content-container"]'),
+    ).toHaveStyleRule('display', 'block');
 
     // Change chart type via radio field
     await changeChartType(configForm, 'bar');
@@ -376,7 +384,9 @@ describe('Dynamic ConfigPanelFieldsLoader', () => {
 
     // Check that expand is still expanded
     expect(
-      configForm.find('Expand').find('ExpandContentContainer').prop('isHidden'),
-    ).toBeFalsy();
+      configForm
+        .find('Expand')
+        .find('div[data-testid="expand-content-container"]'),
+    ).toHaveStyleRule('display', 'block');
   });
 });

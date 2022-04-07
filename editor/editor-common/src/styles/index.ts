@@ -25,15 +25,6 @@ export {
 } from './shared/media-single';
 export { blockquoteSharedStyles } from './shared/blockquote';
 export { headingsSharedStyles } from './shared/headings';
-export {
-  getPanelTypeBackground,
-  darkPanelColors,
-  getPanelDarkColor,
-  panelSharedStyles,
-  PanelSharedCssClassName,
-  PanelSharedSelectors,
-  getPanelBackgroundDarkModeColors,
-} from './shared/panel';
 export { ruleSharedStyles } from './shared/rule';
 export { whitespaceSharedStyles } from './shared/whitespace';
 export { paragraphSharedStyles } from './shared/paragraph';

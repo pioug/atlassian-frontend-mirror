@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 12.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.10
 
 ### Patch Changes

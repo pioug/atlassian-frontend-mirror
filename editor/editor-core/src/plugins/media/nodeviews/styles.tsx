@@ -1,31 +1,24 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { NumericalCardDimensions } from '@atlaskit/media-card';
 
 export const MediaInlineNodeSelector = 'media-inline-node';
 export const MediaSingleNodeSelector = 'media-single-node';
 
-export const FigureWrapper = styled.figure`
+export const figureWrapper = css`
   margin: 0;
 `;
 
-FigureWrapper.displayName = 'FigureWrapper';
-
-const AbsoluteDiv = styled.div`
+const absoluteDiv = css`
   position: absolute;
   width: 100%;
   height: 100%;
 `;
 
-type ForcedDimensionsProps = {
-  dimensions: NumericalCardDimensions;
-};
-
-const ForcedDimensions = styled.div<ForcedDimensionsProps>`
+const forcedDimensions = css`
   width: 100%;
   position: relative;
-  padding-bottom: ${(props) =>
-    (props.dimensions.height / props.dimensions.width) * 100}%;
 `;
 
 type MediaCardWrapperProps = {
@@ -40,11 +33,14 @@ export const MediaCardWrapper = ({
   onContextMenu,
 }: MediaCardWrapperProps) => {
   return (
-    <ForcedDimensions
-      dimensions={dimensions}
+    <div
+      css={forcedDimensions}
+      style={{
+        paddingBottom: `${(dimensions.height / dimensions.width) * 100}%`,
+      }}
       onContextMenuCapture={onContextMenu}
     >
-      <AbsoluteDiv>{children}</AbsoluteDiv>
-    </ForcedDimensions>
+      <div css={absoluteDiv}>{children}</div>
+    </div>
   );
 };

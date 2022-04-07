@@ -4,14 +4,17 @@ import { css, jsx } from '@emotion/react';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { PanelType } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
+import {
+  getPanelBackgroundDarkModeColors,
+  panelSharedStylesWithoutPrefix,
+  PanelSharedCssClassName,
+} from '@atlaskit/editor-common/panel';
 import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
 import EmojiItem from './emoji';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { themed } from '@atlaskit/theme';
 import { ThemeProps } from '@atlaskit/theme/types';
-import { getPanelBackgroundDarkModeColors } from '@atlaskit/editor-common/styles';
 import {
   PanelInfoIcon,
   PanelSuccessIcon,
@@ -28,14 +31,22 @@ interface PanelStyledProps {
 const PanelStyled: React.FC<
   PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
 > = (props) => {
-  let styles = (themeProps: ThemeProps) => css``;
+  let styles = (theme: ThemeProps['theme']) => css`
+    &.${PanelSharedCssClassName.prefix} {
+      ${panelSharedStylesWithoutPrefix({ theme })}
+    }
+  `;
   if (props['data-panel-type'] === PanelType.CUSTOM && props.backgroundColor) {
-    styles = (themeProps: ThemeProps) => css`
+    styles = (theme: ThemeProps['theme']) => css`
+      &.${PanelSharedCssClassName.prefix} {
+        ${panelSharedStylesWithoutPrefix({ theme })}
+      }
+
       &[data-panel-type=${PanelType.CUSTOM}] {
         background-color: ${props.backgroundColor};
         ${themed({
           dark: getPanelBackgroundDarkModeColors,
-        })(themeProps)};
+        })({ theme })};
       }
     `;
   }

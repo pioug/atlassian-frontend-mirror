@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React, { useCallback } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import {
   pluginKey as maxContentSizePluginKey,
   MaxContentSizePluginState,
@@ -8,7 +9,7 @@ import { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/typ
 import { mobileDimensionsPluginKey } from '../../plugins/mobile-dimensions/plugin-factory';
 import WithPluginState from '../WithPluginState';
 import WithFlash from '../WithFlash';
-import ContentStyles from '../ContentStyles';
+import { createEditorContentStyle } from '../ContentStyles';
 import { ClickAreaMobile as ClickArea } from '../Addon';
 import { EditorView } from 'prosemirror-view';
 
@@ -17,7 +18,7 @@ export interface MobileEditorProps {
   maxHeight?: number;
 }
 
-const MobileEditor: any = styled.div`
+const mobileEditor = css`
   min-height: 30px;
   width: 100%;
   max-width: inherit;
@@ -31,9 +32,8 @@ const MobileEditor: any = styled.div`
     margin: 0;
   }
 `;
-MobileEditor.displayName = 'MobileEditor';
 
-const ContentArea = styled(ContentStyles)``;
+const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
 
 export type MobileAppearanceProps = React.PropsWithChildren<{
@@ -89,10 +89,7 @@ export function MobileAppearance({
       }
       return (
         <WithFlash animate={maxContentSizeReached}>
-          <MobileEditor
-            isMaxContentSizeReached={maxContentSizeReached}
-            maxHeight={maxHeight}
-          >
+          <div css={mobileEditor}>
             <ClickArea
               editorView={editorView || undefined}
               minHeight={minHeight}
@@ -103,11 +100,11 @@ export function MobileAppearance({
                 <div className="ak-editor-content-area">{children}</div>
               </ContentArea>
             </ClickArea>
-          </MobileEditor>
+          </div>
         </WithFlash>
       );
     },
-    [children, maxHeight, editorView, persistScrollGutter],
+    [children, editorView, persistScrollGutter],
   );
 
   return (

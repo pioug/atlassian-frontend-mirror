@@ -3,6 +3,7 @@ import { Date, DateProps } from '../src';
 import styled, { css } from 'styled-components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { B200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 type Props = {
   selected?: boolean;
@@ -15,7 +16,7 @@ const SelectableDate = styled(Date)`
           display: 'relative';
           &:before {
             content: '';
-            border: 2px solid ${B200};
+            border: 2px solid ${token('color.border.selected', B200)};
             display: 'absolute';
             background: transparent;
             border-radius: ${borderRadius()}px;
@@ -31,6 +32,7 @@ const SelectableDate = styled(Date)`
       : null};
 ` as React.ComponentType<Props>;
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export default () => (
   <div>
     <p>
@@ -44,3 +46,4 @@ export default () => (
     </p>
   </div>
 );
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */

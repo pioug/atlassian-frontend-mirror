@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -7,7 +8,7 @@ import { N40 } from '@atlaskit/theme/colors';
 import Toolbar from '../../Toolbar';
 import PluginSlot from '../../PluginSlot';
 import WithPluginState from '../../WithPluginState';
-import ContentStyles from '../../ContentStyles';
+
 import {
   EditorAppearanceComponentProps,
   EditorAppearance,
@@ -18,7 +19,7 @@ import {
 } from '../../../plugins/max-content-size';
 import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { ClickAreaBlock } from '../../Addon';
-import { deprecatedTableCommentEditorStyles } from '../../../plugins/table/ui/common-styles';
+import { tableCommentEditorStyles } from '../../../plugins/table/ui/common-styles';
 import WithFlash from '../../WithFlash';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
@@ -32,8 +33,9 @@ import { MediaPluginState } from '../../../plugins/media/pm-plugins/types';
 import {
   TableControlsPadding,
   MainToolbar,
-  MainToolbarCustomComponentsSlot,
+  mainToolbarCustomComponentsSlotStyle,
 } from './Toolbar';
+import { createEditorContentStyle } from '../../ContentStyles';
 
 export interface CommentEditorProps {
   isMaxContentSizeReached?: boolean;
@@ -42,7 +44,7 @@ export interface CommentEditorProps {
 const CommentEditorMargin = 14;
 const CommentEditorSmallerMargin = 8;
 
-const CommentEditor: any = styled.div`
+const commentEditorStyle = css`
   display: flex;
   flex-direction: column;
 
@@ -63,15 +65,12 @@ const CommentEditor: any = styled.div`
   max-width: inherit;
   word-wrap: break-word;
 `;
-CommentEditor.displayName = 'CommentEditor';
 
-const ContentArea = styled(ContentStyles)`
+const ContentArea = createEditorContentStyle(css`
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
   line-height: 24px;
-  ${(props: CommentEditorProps) =>
-    props.maxHeight ? 'max-height: ' + props.maxHeight + 'px;' : ''};
 
   /** Hack for Bitbucket to ensure entire editorView gets drop event; see ED-3294 **/
   /** Hack for tables controlls. Otherwise marging collapse and controlls are misplaced. **/
@@ -87,18 +86,17 @@ const ContentArea = styled(ContentStyles)`
 
   padding: ${TableControlsPadding}px;
 
-  ${deprecatedTableCommentEditorStyles};
-`;
+  ${tableCommentEditorStyles};
+`);
 ContentArea.displayName = 'ContentArea';
 
-const SecondaryToolbar = styled.div`
+const secondaryToolbarStyle = css`
   box-sizing: border-box;
   justify-content: flex-end;
   align-items: center;
   display: flex;
   padding: 12px 1px;
 `;
-SecondaryToolbar.displayName = 'SecondaryToolbar';
 
 export interface EditorAppearanceComponentState {}
 
@@ -159,7 +157,7 @@ class Editor extends React.Component<
       !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
     return (
       <WithFlash animate={maxContentSizeReached}>
-        <CommentEditor maxHeight={maxHeight} className="akEditor">
+        <div css={commentEditorStyle} className="akEditor">
           <MainToolbar useStickyToolbar={useStickyToolbar}>
             <Toolbar
               editorView={editorView!}
@@ -175,20 +173,26 @@ class Editor extends React.Component<
               dispatchAnalyticsEvent={dispatchAnalyticsEvent}
               containerElement={this.containerElement}
             />
-            <MainToolbarCustomComponentsSlot>
+            <div css={mainToolbarCustomComponentsSlotStyle}>
               {customPrimaryToolbarComponents}
-            </MainToolbarCustomComponentsSlot>
+            </div>
           </MainToolbar>
           <ClickAreaBlock editorView={editorView}>
             <WidthConsumer>
               {({ width }) => {
                 return (
                   <ContentArea
-                    innerRef={(ref) => (this.containerElement = ref)}
+                    ref={(ref) => (this.containerElement = ref)}
+                    css={
+                      maxHeight
+                        ? css`
+                            max-height: ${maxHeight}px;
+                          `
+                        : null
+                    }
                     className={classnames('ak-editor-content-area', {
                       'less-margin': width < akEditorMobileBreakoutPoint,
                     })}
-                    maxHeight={maxHeight}
                   >
                     {customContentComponents}
                     <PluginSlot
@@ -212,9 +216,12 @@ class Editor extends React.Component<
             </WidthConsumer>
           </ClickAreaBlock>
           <WidthEmitter editorView={editorView!} />
-        </CommentEditor>
+        </div>
         {showSecondaryToolbar && (
-          <SecondaryToolbar data-testid="ak-editor-secondary-toolbar">
+          <div
+            css={secondaryToolbarStyle}
+            data-testid="ak-editor-secondary-toolbar"
+          >
             <ButtonGroup>
               {!!onSave && (
                 <Button
@@ -240,7 +247,7 @@ class Editor extends React.Component<
             </ButtonGroup>
             <span style={{ flexGrow: 1 }} />
             {customSecondaryToolbarComponents}
-          </SecondaryToolbar>
+          </div>
         )}
       </WithFlash>
     );

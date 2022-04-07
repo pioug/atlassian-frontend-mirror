@@ -24,7 +24,7 @@ import {
   parseWithSchema,
 } from './_test-helpers';
 import { Schema } from 'prosemirror-model';
-import { createJIRASchema } from '@atlaskit/adf-schema';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 export const schema = createJIRASchema({ allowSubSup: true });
 

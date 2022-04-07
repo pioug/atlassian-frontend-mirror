@@ -13,7 +13,6 @@ import { safeInsert } from 'prosemirror-utils';
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
 
 import { Command } from '../../../types';
-import { getPluginState } from '../pm-plugins/plugin-factory';
 import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
 import { rescaleColumns } from '../transforms/column-width';
@@ -156,9 +155,6 @@ export const insertRow = (
 };
 
 export const createTable = (): Command => (state, dispatch) => {
-  if (!getPluginState(state)) {
-    return false;
-  }
   const table = createTableNode({
     schema: state.schema,
   });

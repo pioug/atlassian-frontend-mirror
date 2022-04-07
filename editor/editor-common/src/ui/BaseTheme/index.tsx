@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { ThemeProvider } from '@emotion/react';
-import { ThemeProvider as DeprecatedThemeProvider } from 'styled-components';
 
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { useGlobalTheme } from '@atlaskit/theme/components';
@@ -60,13 +59,7 @@ export function BaseThemeWrapper({
     [breakpoint, dynamicTextSizing, baseFontSize, mode],
   );
 
-  return (
-    <ThemeProvider theme={memoizedTheme}>
-      <DeprecatedThemeProvider theme={memoizedTheme}>
-        {children}
-      </DeprecatedThemeProvider>
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={memoizedTheme}>{children}</ThemeProvider>;
 }
 
 type BaseThemeProps = {

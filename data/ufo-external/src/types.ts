@@ -137,6 +137,7 @@ export interface ExperienceData {
   id: string;
   uuid: string | null;
   type: ExperienceTypes;
+  schemaVersion: string;
   performanceType: ExperiencePerformanceTypes;
   category: string | null;
   state: UFOExperienceStateType;

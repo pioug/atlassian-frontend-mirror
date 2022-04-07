@@ -10,7 +10,7 @@ import {
   checkEncode,
   checkParse,
 } from './_test-helpers';
-import { createJIRASchema } from '@atlaskit/adf-schema';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 const schema = createJIRASchema({ allowCodeBlock: true, allowLists: true });
 

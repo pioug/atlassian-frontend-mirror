@@ -98,7 +98,10 @@ export {
 } from './plugins/block-type/commands';
 export type { InputMethod as BlockTypeInputMethod } from './plugins/block-type/commands';
 export { createTable } from './plugins/table/commands';
-export { insertTaskDecision } from './plugins/tasks-and-decisions/commands';
+export {
+  insertTaskDecision,
+  insertTaskDecisionCommand,
+} from './plugins/tasks-and-decisions/commands';
 export type { TaskDecisionInputMethod } from './plugins/tasks-and-decisions/types';
 export { EventDispatcher } from './event-dispatcher';
 export { pluginKey as statusPluginKey } from './plugins/status/plugin';
@@ -146,13 +149,14 @@ export {
   setIsExpanded,
 } from './plugins/mobile-dimensions/commands';
 
-// Used in editor-test-helpers
+// Used in editor-test-helpers and mobile bridge
 export {
   setTextSelection,
   dedupe,
   getNodesCount,
   measurements,
   hasVisibleContent,
+  isEmptyDocument,
 } from './utils';
 export { getListCommands } from './utils/list-commands';
 export { ReactEditorView, BaseReactEditorView } from './create-editor';

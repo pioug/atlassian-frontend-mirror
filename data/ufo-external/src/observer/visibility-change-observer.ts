@@ -1,3 +1,5 @@
+import { isWindowObjectAvailable } from '../platform-client/utils/window-helper';
+
 class VisibilityChangeObserver {
   private started: boolean = false;
   private observers: (() => void)[] = [];
@@ -20,7 +22,9 @@ class VisibilityChangeObserver {
      * Safari doesn’t fire visibilitychange as expected when the value of the visibilityState property transitions to hidden;
      * so for that case, you need to also include code to listen for the pagehide event.
      */
-    window.addEventListener('pagehide', this.broadcast);
+    if (isWindowObjectAvailable()) {
+      window.addEventListener('pagehide', this.broadcast);
+    }
   }
 
   subscribe(callback: () => void) {

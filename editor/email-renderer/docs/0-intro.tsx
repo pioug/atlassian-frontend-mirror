@@ -10,7 +10,7 @@ This package provides renderer that is capable of rendering email-friendly HTML 
 Use as follows:
 
 ${code`
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { EmailSerializer } from '@atlaskit/email-renderer';
 
 const document = ... // Your ADF JSON document

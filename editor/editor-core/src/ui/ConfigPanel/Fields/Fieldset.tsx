@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import SectionMessage from '@atlaskit/section-message';
@@ -29,7 +30,7 @@ type OptionType = {
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
 
-const ActionsWrapper = styled.div<{ testId?: string }>`
+const actionsWrapper = css`
   border-top: 1px solid ${N40A};
   margin-top: ${gridSize() * 2}px;
   padding-top: ${gridSize() * 2}px;
@@ -281,7 +282,7 @@ class FieldsetField extends React.Component<Props, State> {
     const children = this.renderActions();
 
     return (
-      <>
+      <Fragment>
         {error && <FieldsetError message={error} />}
         <div>
           {options.showTitle && <h5>{label}</h5>}
@@ -298,27 +299,27 @@ class FieldsetField extends React.Component<Props, State> {
           />
 
           {children && (
-            <ActionsWrapper testId="fieldset-actions">
+            <div css={actionsWrapper} data-testId="fieldset-actions">
               {children}
-            </ActionsWrapper>
+            </div>
           )}
         </div>
-      </>
+      </Fragment>
     );
   }
 }
 
 function FieldsetError({ message }: { message: string }) {
   return (
-    <SectionMessageWrapper>
+    <div css={sectionMessageWrapper}>
       <SectionMessage appearance="error">
         <p>{message}</p>
       </SectionMessage>
-    </SectionMessageWrapper>
+    </div>
   );
 }
 
-const SectionMessageWrapper = styled.div`
+const sectionMessageWrapper = css`
   margin-bottom: 24px;
 `;
 

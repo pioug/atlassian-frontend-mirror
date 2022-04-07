@@ -2,6 +2,7 @@ import {
   PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
+import { resetMousePosition } from '../../../../../__tests__/__helpers/page-objects/_mouse';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -34,6 +35,7 @@ describe('Media Toolbar:', () => {
     page = global.page;
     initEditor(mediaGroupAdf);
     await waitForMediaToBeLoaded(page);
+    await resetMousePosition(page);
   });
 
   afterEach(async () => {
@@ -53,8 +55,7 @@ describe('Media Toolbar:', () => {
     );
   });
 
-  // TODO: Unskip test https://product-fabric.atlassian.net/browse/ED-14402
-  it.skip('should open media viewer when preview button clicked', async () => {
+  it('should open media viewer when preview button clicked', async () => {
     await page.click('[data-testid="file-preview-toolbar-button"]');
     await page.waitForSelector('[data-testid="media-viewer-error"]');
   });

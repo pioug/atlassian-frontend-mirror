@@ -26,7 +26,7 @@ export const untilAll = (deps: UntilAllArgs) => () => {
     if (notMet.length > 0) {
       const doneIndexes = notMet.reduce((acc: Array<number>, dep, i) => {
         // validation logic
-        if (isUntilExperience(dep) && dep.experience.id === data.id) {
+        if (isUntilExperience(dep) && dep.experience.uuid === data.uuid) {
           acc.push(i);
         } else if (isUntilCategory(dep) && dep.category === data.category) {
           acc.push(i);

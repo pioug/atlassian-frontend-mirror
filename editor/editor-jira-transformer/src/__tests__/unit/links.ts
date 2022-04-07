@@ -1,6 +1,6 @@
 import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import { checkParseEncodeRoundTrips } from './_test-helpers';
-import { createJIRASchema } from '@atlaskit/adf-schema';
+import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 const schema = createJIRASchema({ allowLinks: true });
 

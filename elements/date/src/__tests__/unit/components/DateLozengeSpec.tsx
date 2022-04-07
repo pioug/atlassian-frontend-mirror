@@ -1,46 +1,108 @@
 import { resolveColors } from '../../../components/DateLozenge';
-import * as colors from '@atlaskit/theme/colors';
 
 describe('resolveColors', () => {
   it('return default colors', () => {
     expect(resolveColors()).toEqual({
-      light: [colors.N30A, colors.N800, colors.N40],
-      dark: [colors.DN70, colors.DN800, colors.DN60],
+      light: [
+        'var(--ds-background-neutral, rgba(9, 30, 66, 0.08))',
+        'var(--ds-text, #172B4D)',
+        'var(--ds-background-neutral-hovered, #DFE1E6)',
+      ],
+      dark: [
+        'var(--ds-background-neutral, #3B475C)',
+        'var(--ds-text, #DCE5F5)',
+        'var(--ds-background-neutral-hovered, #313D52)',
+      ],
+    });
+  });
+
+  it('return grey colors', () => {
+    expect(resolveColors('grey')).toEqual({
+      light: [
+        'var(--ds-background-neutral, rgba(9, 30, 66, 0.08))',
+        'var(--ds-text, #172B4D)',
+        'var(--ds-background-neutral-hovered, #DFE1E6)',
+      ],
+      dark: [
+        'var(--ds-background-neutral, #3B475C)',
+        'var(--ds-text, #DCE5F5)',
+        'var(--ds-background-neutral-hovered, #313D52)',
+      ],
     });
   });
 
   it('return red colors', () => {
     expect(resolveColors('red')).toEqual({
-      light: [colors.R50, colors.R500, colors.R75],
-      dark: [colors.R50, colors.R500, colors.R75],
+      light: [
+        'var(--ds-background-accent-red-subtlest, #FFEBE6)',
+        'var(--ds-text-accent-red, #BF2600)',
+        'var(--ds-background-accent-red-subtler, #FFBDAD)',
+      ],
+      dark: [
+        'var(--ds-background-accent-red-subtlest, #FFEBE6)',
+        'var(--ds-text-accent-red, #BF2600)',
+        'var(--ds-background-accent-red-subtler, #FFBDAD)',
+      ],
     });
   });
 
   it('return blue colors', () => {
     expect(resolveColors('blue')).toEqual({
-      light: [colors.B50, colors.B500, colors.B75],
-      dark: [colors.B50, colors.B500, colors.B75],
+      light: [
+        'var(--ds-background-accent-blue-subtlest, #DEEBFF)',
+        'var(--ds-text-accent-blue, #0747A6)',
+        'var(--ds-background-accent-blue-subtler, #B3D4FF)',
+      ],
+      dark: [
+        'var(--ds-background-accent-blue-subtlest, #DEEBFF)',
+        'var(--ds-text-accent-blue, #0747A6)',
+        'var(--ds-background-accent-blue-subtler, #B3D4FF)',
+      ],
     });
   });
 
   it('return green colors', () => {
     expect(resolveColors('green')).toEqual({
-      light: [colors.G50, colors.G500, colors.G75],
-      dark: [colors.G50, colors.G500, colors.G75],
+      light: [
+        'var(--ds-background-accent-green-subtlest, #E3FCEF)',
+        'var(--ds-text-accent-green, #006644)',
+        'var(--ds-background-accent-green-subtler, #ABF5D1)',
+      ],
+      dark: [
+        'var(--ds-background-accent-green-subtlest, #E3FCEF)',
+        'var(--ds-text-accent-green, #006644)',
+        'var(--ds-background-accent-green-subtler, #ABF5D1)',
+      ],
     });
   });
 
   it('return purple colors', () => {
     expect(resolveColors('purple')).toEqual({
-      light: [colors.P50, colors.P500, colors.P75],
-      dark: [colors.P50, colors.P500, colors.P75],
+      light: [
+        'var(--ds-background-accent-purple-subtlest, #EAE6FF)',
+        'var(--ds-text-accent-purple, #403294)',
+        'var(--ds-background-accent-purple-subtler, #C0B6F2)',
+      ],
+      dark: [
+        'var(--ds-background-accent-purple-subtlest, #EAE6FF)',
+        'var(--ds-text-accent-purple, #403294)',
+        'var(--ds-background-accent-purple-subtler, #C0B6F2)',
+      ],
     });
   });
 
   it('return yellow colors', () => {
     expect(resolveColors('yellow')).toEqual({
-      light: [colors.Y50, colors.Y500, colors.Y75],
-      dark: [colors.Y50, colors.Y500, colors.Y75],
+      light: [
+        'var(--ds-background-accent-yellow-subtlest, #FFFAE6)',
+        'var(--ds-text-accent-yellow, #FF8B00)',
+        'var(--ds-background-accent-yellow-subtler, #FFF0B3)',
+      ],
+      dark: [
+        'var(--ds-background-accent-yellow-subtlest, #FFFAE6)',
+        'var(--ds-text-accent-yellow, #FF8B00)',
+        'var(--ds-background-accent-yellow-subtler, #FFF0B3)',
+      ],
     });
   });
 });

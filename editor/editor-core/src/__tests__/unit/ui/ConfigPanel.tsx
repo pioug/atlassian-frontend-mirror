@@ -1862,7 +1862,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             expect(
               await resolveOption(
-                wrapper.find('[testId="fieldset-actions"]'),
+                wrapper.find('div[data-testId="fieldset-actions"] Select'),
                 'User',
               ),
             ).toBe(true);
@@ -1893,7 +1893,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             expect(
               await resolveOption(
-                wrapper.find('[testId="fieldset-actions"]'),
+                wrapper.find('div[data-testId="fieldset-actions"] Select'),
                 'Depth',
               ),
             ).toBe(true);
@@ -1949,8 +1949,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
 
             wrapper
               .find('RemovableField')
-              .find('[testId="remove-field-USER"]')
-              .first()
+              .find('div[data-testid="remove-field-USER"]')
               .simulate('click');
             wrapper.update();
 
@@ -2003,7 +2002,7 @@ const createConfigPanelTestSuite = ({ autoSave }: { autoSave: boolean }) => {
               fieldNames.forEach((fieldName) => {
                 const fieldElement = wrapper
                   .find('RemovableField')
-                  .find(`[testId="remove-field-${fieldName}"]`)
+                  .find(`div[data-testid="remove-field-${fieldName}"]`)
                   .first();
 
                 // For the only remaining field, RemovableField would be hidden.

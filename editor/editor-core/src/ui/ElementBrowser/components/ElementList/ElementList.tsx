@@ -23,8 +23,8 @@ import {
 } from '../../../../plugins/analytics';
 
 import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
-import { ItemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';
-import { Shortcut } from '../../../styles';
+import { itemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';
+import { shortcutStyle } from '../../../styles';
 import {
   ELEMENT_ITEM_HEIGHT,
   ELEMENT_LIST_PADDING,
@@ -315,7 +315,7 @@ const itemStyleOverrides = {
 };
 
 const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
-  <ItemIcon css={itemIconStyle}>{icon ? icon() : <IconFallback />}</ItemIcon>
+  <div css={[itemIcon, itemIconStyle]}>{icon ? icon() : <IconFallback />}</div>
 ));
 
 const ItemContent = memo(
@@ -325,7 +325,7 @@ const ItemContent = memo(
         <div css={itemTitleWrapper}>
           <p css={itemTitle}>{title}</p>
           <div css={itemAfter}>
-            {keyshortcut && <Shortcut>{keyshortcut}</Shortcut>}
+            {keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}
           </div>
         </div>
         {description && <p css={itemDescription}>{description}</p>}

@@ -1,5 +1,15 @@
 # @atlaskit/comment
 
+## 10.5.0
+
+### Minor Changes
+
+- [`30603005cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30603005cbd) - [ux] Migrated deprecated design tokens to recommended replacements
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.2
 
 ### Patch Changes

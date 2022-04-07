@@ -8,9 +8,7 @@ import commonMessages, {
 } from '../../../messages';
 import { toolbarMessages as mediaLayoutToolbarMessages } from '../../../ui/MediaAndEmbedsToolbar/toolbar-messages';
 import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
-import { MediaPickerPageObject } from '@atlaskit/media-integration-test-helpers';
 import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
-import { messages as insertBlockMessages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { KEY } from './_keyboard';
 import { mediaLinkToolbarMessages } from '../../../plugins/media/ui/media-linking-toolbar-messages';
 
@@ -247,21 +245,8 @@ export type TestPageConfig = {
 };
 
 export class FullPageEditor extends Page {
-  mediaPicker: MediaPickerPageObject;
-
   constructor(browserObject: BrowserObject) {
     super(browserObject);
-    this.mediaPicker = new MediaPickerPageObject(this);
-  }
-
-  async openMediaPicker() {
-    const openMediaPopup = `button:enabled [aria-label="${insertBlockMessages.filesAndImages.defaultMessage}"]`;
-    // wait for media button in toolbar
-    await this.waitForSelector(openMediaPopup);
-    await this.pause(300);
-    await this.click(openMediaPopup);
-    // wait for media picker popup
-    await this.isVisible('[data-testid="media-picker-popup"]');
   }
 
   async publish() {

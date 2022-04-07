@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import { HTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A } from '@atlaskit/theme/colors';
 
-export const Dropdown: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const dropdown = css`
   display: flex;
   flex-direction: column;
   background: white;

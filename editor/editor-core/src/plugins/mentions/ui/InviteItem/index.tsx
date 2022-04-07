@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import { MentionDescription } from '@atlaskit/mention/resource';
 import { UserRole } from '@atlaskit/mention';
@@ -14,13 +16,14 @@ import {
   injectIntl,
 } from 'react-intl-next';
 import {
-  AvatarStyle,
-  CapitalizedStyle,
-  MentionItemStyle,
-  NameSectionStyle,
-  RowStyle,
+  avatarStyle,
+  capitalizedStyle,
+  mentionItemStyle,
+  nameSectionStyle,
+  rowStyle,
   ROW_SIDE_PADDING,
   AVATAR_HEIGHT,
+  mentionItemSelectedStyle,
 } from './styles';
 import { messages } from '../../messages';
 
@@ -85,30 +88,34 @@ const InviteItem = ({
   }, [onMount]);
 
   return (
-    <MentionItemStyle
-      selected={selected}
+    <div
+      css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
       onMouseDown={onSelected}
       onMouseEnter={onItemMouseEnter}
       data-id={INVITE_ITEM_DESCRIPTION.id}
     >
-      <RowStyle>
-        <AvatarStyle>
+      <div css={rowStyle}>
+        <span css={avatarStyle}>
           <AddIcon
             label={intl.formatMessage(messages.mentionsAddLabel)}
             primaryColor={N300}
           />
-        </AvatarStyle>
-        <NameSectionStyle>
+        </span>
+        <div css={nameSectionStyle} data-testid="name-section">
           <FormattedMessage
             {...messages.inviteItemTitle}
             values={{
               userRole: userRole || 'basic',
-              productName: <CapitalizedStyle>{productName}</CapitalizedStyle>,
+              productName: (
+                <span css={capitalizedStyle} data-testid="capitalized-message">
+                  {productName}
+                </span>
+              ),
             }}
           />
-        </NameSectionStyle>
-      </RowStyle>
-    </MentionItemStyle>
+        </div>
+      </div>
+    </div>
   );
 };
 

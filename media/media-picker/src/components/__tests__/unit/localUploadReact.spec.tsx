@@ -32,7 +32,7 @@ class DummyLocalUploadComponent extends LocalUploadComponentReact<
   LocalUploadComponentBaseProps
 > {
   constructor(props: LocalUploadComponentBaseProps) {
-    super(props, 'popup');
+    super(props, 'browser');
   }
 
   render() {

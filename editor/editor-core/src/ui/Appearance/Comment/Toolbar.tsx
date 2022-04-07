@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React, { RefObject, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30 } from '@atlaskit/theme/colors';
 import {
@@ -10,7 +11,7 @@ import {
 
 export const TableControlsPadding = 20;
 
-export const MainToolbarWrapper = styled.div`
+const mainToolbarWrapperStyle = css`
   position: relative;
   align-items: center;
   padding: ${gridSize()}px ${gridSize()}px 0;
@@ -28,14 +29,12 @@ export const MainToolbarWrapper = styled.div`
     padding-left: 0;
   }
 `;
-MainToolbarWrapper.displayName = 'MainToolbar';
 
-const StickyToolbarWrapper = styled(MainToolbarWrapper)<{ top: number }>`
+const stickyToolbarWrapperStyle = css`
   /* stylelint-disable declaration-block-no-duplicate-properties */
   position: relative;
   position: sticky;
   /* stylelint-enable declaration-block-no-duplicate-properties */
-  top: ${(props) => `${props.top}px`};
   padding-bottom: ${gridSize()}px;
   z-index: ${akEditorGridLineZIndex + akEditorMenuZIndex};
   transition: box-shadow ease-in-out 0.2s;
@@ -43,7 +42,6 @@ const StickyToolbarWrapper = styled(MainToolbarWrapper)<{ top: number }>`
     box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30};
   }
 `;
-StickyToolbarWrapper.displayName = 'MainToolbarSticky';
 
 type StickyToolbarProps = {
   externalToolbarRef?: RefObject<HTMLElement>;
@@ -57,20 +55,26 @@ const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
   }, [setTop, props.externalToolbarRef]);
 
   return (
-    <StickyToolbarWrapper
+    <div
+      css={[
+        mainToolbarWrapperStyle,
+        stickyToolbarWrapperStyle,
+        css`
+          top: ${top};
+        `,
+      ]}
       data-testid="ak-editor-main-toolbar"
       className={'show-keyline'}
-      top={top}
     >
       {props.children}
-    </StickyToolbarWrapper>
+    </div>
   );
 };
 
 const FixedToolbar: React.FC = (props) => (
-  <MainToolbarWrapper data-testid="ak-editor-main-toolbar">
+  <div css={mainToolbarWrapperStyle} data-testid="ak-editor-main-toolbar">
     {props.children}
-  </MainToolbarWrapper>
+  </div>
 );
 
 type MainToolbarProps = {
@@ -95,7 +99,7 @@ export const MainToolbar: React.FC<MainToolbarProps> = ({
   return <FixedToolbar>{children}</FixedToolbar>;
 };
 
-export const MainToolbarCustomComponentsSlot = styled.div`
+export const mainToolbarCustomComponentsSlotStyle = css`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -106,4 +110,3 @@ export const MainToolbarCustomComponentsSlot = styled.div`
     flex-shrink: 0;
   }
 `;
-MainToolbarCustomComponentsSlot.displayName = 'MainToolbar';

@@ -66,7 +66,6 @@ describe('MediaPickerComponents', () => {
 
   beforeEach(() => {
     pluginState = {} as MediaPluginState;
-    pluginState.shouldUseMediaPickerPopup = jest.fn();
     pluginState.handleDrag = jest.fn();
     pluginState.options = {
       providerFactory: {} as any,
@@ -124,21 +123,7 @@ describe('MediaPickerComponents', () => {
   });
 
   describe('<BrowserWrapper />', () => {
-    it('should not render <BrowserWrapper /> component if mediaState.shouldUseMediaPickerPopup() is true', () => {
-      pluginState.shouldUseMediaPickerPopup = jest.fn().mockReturnValue(true);
-      wrapper = mount(
-        <MediaPickerComponents
-          editorDomElement={editorDomElement}
-          mediaState={pluginState}
-          appearance="full-page"
-        />,
-      );
-      expect(wrapper.find(BrowserWrapper)).toHaveLength(0);
-      expect(wrapper.find(BrowserComponent)).toHaveLength(0);
-    });
-
-    it('should render <BrowserWrapper /> component if mediaState.shouldUseMediaPickerPopup() is false', () => {
-      pluginState.shouldUseMediaPickerPopup = jest.fn().mockReturnValue(false);
+    it('should render <BrowserWrapper /> component', () => {
       wrapper = mount(
         <MediaPickerComponents
           editorDomElement={editorDomElement}
@@ -153,7 +138,6 @@ describe('MediaPickerComponents', () => {
     });
 
     it('should render <Browser /> with multiple: true (allows for multiple select of files) as a prop', () => {
-      pluginState.shouldUseMediaPickerPopup = jest.fn().mockReturnValue(false);
       wrapper = mount(
         <MediaPickerComponents
           editorDomElement={editorDomElement}

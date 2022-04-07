@@ -66,6 +66,7 @@ html[data-theme="dark"] {
   --ds-border-accent-teal: #37B4C3;
   --ds-border-accent-magenta: #DA62AC;
   --ds-border: #A6C5E229;
+  --ds-border-inverse: #161A1D;
   --ds-border-focused: #85B8FF;
   --ds-border-input: #A6C5E229;
   --ds-border-disabled: #A1BDD914;

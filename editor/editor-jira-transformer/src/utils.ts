@@ -1,3 +1,4 @@
+import { normalizeHexColor } from '@atlaskit/adf-schema';
 import {
   isSchemaWithLists,
   isSchemaWithMentions,
@@ -9,8 +10,7 @@ import {
   isSchemaWithSubSupMark,
   isSchemaWithTextColor,
   isSchemaWithTables,
-  normalizeHexColor,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/schema-jira';
 
 import {
   Fragment,

@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 
-import { TriggerWrapper } from '../../../../ui/styles';
+import { triggerWrapperStyles } from '../../../../ui/styles';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 
 type MoreButtonProps = {
@@ -30,9 +32,9 @@ export const MoreButton: React.FC<MoreButtonProps> = React.memo(
         spacing={isReducedSpacing ? 'none' : 'default'}
         title={label}
         iconBefore={
-          <TriggerWrapper>
+          <div css={triggerWrapperStyles}>
             <MoreIcon label="" />
-          </TriggerWrapper>
+          </div>
         }
         aria-expanded={ariaExpanded}
         aria-label={label}

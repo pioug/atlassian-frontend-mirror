@@ -5,10 +5,14 @@ import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
 import DropdownMenu from '../../../../ui/DropdownMenu';
-import { Separator, Wrapper, MenuWrapper } from '../../../../ui/styles';
+import { separatorStyles, wrapperStyle } from '../../../../ui/styles';
 import { BlockTypeState } from '../../pm-plugins/main';
 import { BlockType, NORMAL_TEXT } from '../../types';
-import { blockTypeMenuItemStyle, KeyboardShortcut } from './styled';
+import {
+  blockTypeMenuItemStyle,
+  keyboardShortcut,
+  keyboardShortcutSelect,
+} from './styled';
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { BlockTypeButton } from './blocktype-button';
@@ -83,7 +87,7 @@ class ToolbarBlockType extends React.PureComponent<
     if (!this.props.isDisabled && !blockTypesDisabled) {
       const items = this.createItems();
       return (
-        <MenuWrapper>
+        <span css={wrapperStyle}>
           <DropdownMenu
             items={items}
             onOpenChange={this.onOpenChange}
@@ -110,13 +114,13 @@ class ToolbarBlockType extends React.PureComponent<
               {longestDropdownMenuItem}
             </BlockTypeButton>
           </DropdownMenu>
-          <Separator />
-        </MenuWrapper>
+          <span css={separatorStyles} />
+        </span>
       );
     }
 
     return (
-      <Wrapper>
+      <span css={wrapperStyle}>
         <BlockTypeButton
           isSmall={isSmall}
           isReducedSpacing={isReducedSpacing}
@@ -129,8 +133,8 @@ class ToolbarBlockType extends React.PureComponent<
         >
           {longestDropdownMenuItem}
         </BlockTypeButton>
-        <Separator />
-      </Wrapper>
+        <span css={separatorStyles} />
+      </span>
     );
   }
 
@@ -159,9 +163,9 @@ class ToolbarBlockType extends React.PureComponent<
         label: formatMessage(blockType.title),
         key: `${blockType.name}-${index}`,
         elemAfter: (
-          <KeyboardShortcut selected={isActive}>
+          <div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>
             {tooltip(findKeymapByDescription(blockType.title.defaultMessage))}
-          </KeyboardShortcut>
+          </div>
         ),
         isActive,
       };

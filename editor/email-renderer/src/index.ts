@@ -1,4 +1,4 @@
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
 import flow from 'lodash/flow';
 import property from 'lodash/property';

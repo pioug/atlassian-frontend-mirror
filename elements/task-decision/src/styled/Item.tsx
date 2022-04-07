@@ -5,6 +5,7 @@ import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N20A, DN50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const ContentWrapper: ComponentClass<
   HTMLAttributes<{}> & {
@@ -31,7 +32,10 @@ export const DecisionWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
   padding: ${gridSize()}px;
   padding-left: ${gridSize() * 1.5}px;
   border-radius: ${borderRadius()}px;
-  background-color: ${themed({ light: N20A, dark: DN50 })};
+  background-color: ${themed({
+    light: token('color.background.neutral', N20A),
+    dark: token('color.background.neutral', DN50),
+  })};
   position: relative;
 
   .decision-item {

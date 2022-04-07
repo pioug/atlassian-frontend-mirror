@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "66.0.1",
+  "version": "66.0.2",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,28 +39,29 @@
     "./mention": "./src/mention.ts",
     "./provider-helpers": "./src/provider-helpers/index.ts",
     "./icons": "./src/icons/index.ts",
-    "./safe-plugin": "./src/safe-plugin/index.ts"
+    "./safe-plugin": "./src/safe-plugin/index.ts",
+    "./panel": "./src/panel.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.3.0",
-    "@atlaskit/adf-schema": "^22.1.0",
+    "@atlaskit/adf-schema": "^23.0.0",
     "@atlaskit/adf-utils": "^16.0.0",
     "@atlaskit/analytics-namespaced-context": "^6.4.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",
     "@atlaskit/editor-shared-styles": "^2.0.0",
-    "@atlaskit/emoji": "^64.4.0",
+    "@atlaskit/emoji": "^64.5.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/in-product-testing": "^0.1.0",
-    "@atlaskit/media-card": "^73.4.0",
+    "@atlaskit/media-card": "^73.5.0",
     "@atlaskit/media-client": "^15.0.0",
-    "@atlaskit/media-picker": "^60.0.0",
+    "@atlaskit/media-picker": "^61.0.0",
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/profilecard": "^16.4.0",
     "@atlaskit/smart-card": "^18.0.0",
     "@atlaskit/smart-user-picker": "^5.0.2",
-    "@atlaskit/task-decision": "^17.3.0",
+    "@atlaskit/task-decision": "^17.4.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/ufo": "^0.1.0",
@@ -86,8 +87,7 @@
     "@atlaskit/media-core": "^32.3.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "styled-components": "^3.2.6"
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.7.0",

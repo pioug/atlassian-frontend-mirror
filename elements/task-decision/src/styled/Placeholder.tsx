@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // prettier-ignore
 import { HTMLAttributes, ClassAttributes, ComponentClass } from 'react';
 import { N100 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export type PlaceholderProps = {
   offset: number;
@@ -13,7 +14,7 @@ export const Placeholder: ComponentClass<
 > = styled.span`
   margin: ${(props: PlaceholderProps) => `0 0 0 ${props.offset}px;`};
   position: absolute;
-  color: ${N100};
+  color: ${token('color.text.subtlest', N100)};
   pointer-events: none;
   text-overflow: ellipsis;
   overflow: hidden;

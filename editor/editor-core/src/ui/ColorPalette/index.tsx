@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import chromatism from 'chromatism';
 import Color from './Color';
 
-import { ColorPaletteWrapper } from './styles';
+import { colorPaletteWrapper } from './styles';
 import { PaletteColor } from './Palettes/type';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { N0, N500 } from '@atlaskit/theme/colors';
@@ -53,9 +55,10 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
   }, [palette, cols]);
 
   return (
-    <>
+    <React.Fragment>
       {colorsPerRow.map((row, rowIdx) => (
-        <ColorPaletteWrapper
+        <div
+          css={colorPaletteWrapper}
           className={className}
           key={`row-first-color-${row[0].value}`}
           role="radiogroup"
@@ -71,9 +74,9 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
               checkMarkColor={getContrastColor(value, [N0, N500])}
             />
           ))}
-        </ColorPaletteWrapper>
+        </div>
       ))}
-    </>
+    </React.Fragment>
   );
 };
 

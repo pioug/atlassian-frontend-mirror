@@ -1,14 +1,15 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/react';
+import { Fragment } from 'react';
 import { Field } from '@atlaskit/form';
 import { ColorField } from '@atlaskit/editor-common/extensions';
 import { PaletteColor } from '../../../ui/ColorPalette/Palettes';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
 import { OnFieldChange } from '../types';
 import { isValidHex } from '../utils';
-import styled from 'styled-components';
 import { validate } from '../utils';
 import { gridSize } from '@atlaskit/theme/constants';
-import { RequiredIndicator } from './common/RequiredIndicator';
+import { requiredIndicator } from './common/RequiredIndicator';
 import { headingSizes } from '@atlaskit/theme/typography';
 import FieldMessages from '../FieldMessages';
 import ColorPickerButton from '../../ColorPickerButton';
@@ -50,7 +51,7 @@ const colorPalette: PaletteColor[] = [
   border: DEFAULT_BORDER_COLOR,
 }));
 
-const ColorPickerWrapper = styled.div`
+const colorPickerWrapper = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,7 +59,7 @@ const ColorPickerWrapper = styled.div`
   padding-right: ${gridSize()}px;
 `;
 
-const ColorPickerLabel = styled.label`
+const colorPickerLabel = css`
   font-size: ${headingSizes.h400.size}px;
   margin-top: 0;
 `;
@@ -125,14 +126,16 @@ const ColorPickerField = ({
       validate={(value?: string) => validate<string>(field, value || '')}
     >
       {({ fieldProps, error }) => (
-        <>
-          <ColorPickerWrapper>
-            <ColorPickerLabel>
+        <Fragment>
+          <div css={colorPickerWrapper}>
+            <label css={colorPickerLabel}>
               {label}
               {isRequired && (
-                <RequiredIndicator aria-hidden="true">*</RequiredIndicator>
+                <span css={requiredIndicator} aria-hidden="true">
+                  *
+                </span>
               )}
-            </ColorPickerLabel>
+            </label>
             <ColorPicker
               name={name}
               title={label}
@@ -141,9 +144,9 @@ const ColorPickerField = ({
               onChange={fieldProps.onChange}
               onFieldChange={onFieldChange}
             />
-          </ColorPickerWrapper>
+          </div>
           {error && <FieldMessages error={error} description="" />}
-        </>
+        </Fragment>
       )}
     </Field>
   );

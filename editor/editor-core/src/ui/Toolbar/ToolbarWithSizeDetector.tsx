@@ -1,5 +1,6 @@
-import React, { ComponentClass, HTMLAttributes } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, { useMemo } from 'react';
+import { css, jsx } from '@emotion/react';
 import { WidthObserver } from '@atlaskit/width-detector';
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 import { useElementWidth } from './hooks';
@@ -8,13 +9,8 @@ import { widthToToolbarSize, toolbarSizeToWidth } from './toolbar-size';
 import { Toolbar } from './Toolbar';
 import { ToolbarSize } from './types';
 
-const StyledToolBar: ComponentClass<
-  HTMLAttributes<{}> & {
-    minWidth?: string;
-  }
-> = styled.div`
+const toolbar = css`
   width: 100%;
-  min-width: ${({ minWidth }) => minWidth};
   position: relative;
   @media (max-width: ${akEditorMobileMaxWidth}px) {
     grid-column: 1 / 2;
@@ -38,18 +34,22 @@ export const ToolbarWithSizeDetector: React.FunctionComponent<ToolbarWithSizeDet
       ? undefined
       : widthToToolbarSize((width || elementWidth)!, props.appearance);
 
-  const toolbarMinWidth = toolbarSizeToWidth(ToolbarSize.M, props.appearance);
+  const toolbarStyle = useMemo(() => {
+    const toolbarMinWidth = toolbarSizeToWidth(ToolbarSize.M, props.appearance);
+    const minWidth = `min-width: ${
+      props.hasMinWidth ? toolbarMinWidth : '254'
+    }px`;
+    return [toolbar, minWidth];
+  }, [props.appearance, props.hasMinWidth]);
 
   return (
-    <StyledToolBar
-      minWidth={props.hasMinWidth ? `${toolbarMinWidth}px` : '254px'}
-    >
+    <div css={toolbarStyle}>
       <WidthObserver setWidth={setWidth} />
       {props.editorView && toolbarSize ? (
         <Toolbar {...props} toolbarSize={toolbarSize} />
       ) : (
         <div ref={ref} />
       )}
-    </StyledToolBar>
+    </div>
   );
 };

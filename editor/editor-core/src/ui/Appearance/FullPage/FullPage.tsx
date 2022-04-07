@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 
 import { akEditorToolbarKeylineHeight } from '@atlaskit/editor-shared-styles';
 
 import { EditorAppearanceComponentProps } from '../../../types';
-import { FullPageEditorWrapper } from './StyledComponents';
+import { fullPageEditorWrapper } from './StyledComponents';
 import { ContextPanelWidthProvider } from '../../ContextPanel/context';
 import { FullPageContentArea } from './FullPageContentArea';
 import { FullPageToolbar } from './FullPageToolbar';
@@ -89,7 +91,7 @@ export class FullPageEditor extends React.Component<
 
     return (
       <ContextPanelWidthProvider>
-        <FullPageEditorWrapper className="akEditor">
+        <div css={fullPageEditorWrapper} className="akEditor">
           <FullPageToolbar
             appearance={props.appearance}
             beforeIcon={props.primaryToolbarIconBefore}
@@ -133,7 +135,7 @@ export class FullPageEditor extends React.Component<
             scrollContainer={this.scrollContainer}
             scrollContainerRef={this.scrollContainerRef}
           />
-        </FullPageEditorWrapper>
+        </div>
       </ContextPanelWidthProvider>
     );
   }

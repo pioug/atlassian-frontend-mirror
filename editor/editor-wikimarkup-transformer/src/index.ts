@@ -1,4 +1,4 @@
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { encode } from './encoder';
 import AbstractTree from './parser/abstract-tree';

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import styled from 'styled-components';
 // @ts-ignore: unused variable
 // prettier-ignore

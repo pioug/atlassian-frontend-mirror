@@ -10,11 +10,9 @@ import {
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { Transaction } from 'prosemirror-state';
 import {
   wrapInListAndJoin,
   wrapInList,
-  autoJoin,
 } from '../../../actions/wrap-and-join-lists';
 
 describe('list -> actions -> wrap-and-join-lists', () => {
@@ -177,79 +175,6 @@ describe('list -> actions -> wrap-and-join-lists', () => {
       wrapInList(listType)(tr);
 
       expect(tr).toEqualDocumentAndSelection(expected);
-    });
-  });
-
-  describe('autoJoin', () => {
-    // Adapted from https://github.com/ProseMirror/prosemirror-commands/blob/master/test/test-commands.js
-
-    const { bulletList } = defaultSchema.nodes;
-    let original: DocBuilder;
-    let expected: DocBuilder;
-    let tr: Transaction;
-
-    afterEach(() => {
-      expect(tr.doc).toEqualDocument(expected);
-    });
-
-    it('joins lists when deleting a paragraph between them', () => {
-      original = doc(ul(li(p('a{<}'))), p('b{>}'), ul(li(p('c'))));
-      expected = doc(ul(li(p('a')), li(p('c'))));
-
-      const state = createEditorState(original);
-      tr = state.tr;
-
-      tr.deleteSelection();
-      autoJoin(
-        tr,
-        (before, after) =>
-          before.type === after.type && before.type === bulletList,
-      );
-    });
-
-    it("doesn't join lists when deleting an item inside of them", () => {
-      original = doc(ul(li(p('a{<}')), li(p('b{>}'))), ul(li(p('c'))));
-      expected = doc(ul(li(p('a'))), ul(li(p('c'))));
-
-      const state = createEditorState(original);
-      tr = state.tr;
-
-      tr.deleteSelection();
-      autoJoin(
-        tr,
-        (before, after) =>
-          before.type === after.type && before.type === bulletList,
-      );
-    });
-
-    it('joins lists when wrapping a paragraph after them in a list', () => {
-      original = doc(ul(li(p('a'))), p('b{<>}'));
-      expected = doc(ul(li(p('a')), li(p('b'))));
-
-      const state = createEditorState(original);
-      tr = state.tr;
-
-      wrapInList(bulletList)(tr);
-      autoJoin(
-        tr,
-        (before, after) =>
-          before.type === after.type && before.type === bulletList,
-      );
-    });
-
-    it('joins lists when wrapping a paragraph between them in a list', () => {
-      original = doc(ul(li(p('a'))), p('b{<>}'), ul(li(p('c'))));
-      expected = doc(ul(li(p('a')), li(p('b')), li(p('c'))));
-
-      const state = createEditorState(original);
-      tr = state.tr;
-
-      wrapInList(bulletList)(tr);
-      autoJoin(
-        tr,
-        (before, after) =>
-          before.type === after.type && before.type === bulletList,
-      );
     });
   });
 });

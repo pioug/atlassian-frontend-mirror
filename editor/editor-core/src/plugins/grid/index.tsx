@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { withTheme } from 'styled-components';
+import { withTheme } from '@emotion/react';
 
 import { PluginKey } from 'prosemirror-state';
 import { EditorPlugin } from '../../types';

@@ -386,7 +386,7 @@ const results: Results = {
     suggestion: ['color.border.accent.purple'],
   },
   'border/neutral/neutral': {
-    suggestion: ['color.border', 'color.border.input'],
+    suggestion: ['color.border', 'color.border.input', 'color.border.inverse'],
   },
   'border/neutral/disabled': {
     suggestion: ['color.border.disabled'],

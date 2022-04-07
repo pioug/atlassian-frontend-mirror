@@ -1,7 +1,7 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { IntlProvider } from 'react-intl-next';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { exampleDocument } from './helper/example-doc-with-custom-panels';
 
 export type Props = {};

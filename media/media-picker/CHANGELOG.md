@@ -1,5 +1,22 @@
 # @atlaskit/media-picker
 
+## 61.0.0
+
+### Major Changes
+
+- [`8f86bfe1961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f86bfe1961) - [MEX-1389] Remove types & interfaces related to media-picker popup
+- [`675613ff0f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/675613ff0f4) - [MEX-1390] Remove Media-picker popup as an export and remove useMediaPickerPopup flag
+
+### Minor Changes
+
+- [`eaf810b0560`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaf810b0560) - [MEX-1398] Remove PopUp implementation from Media-picker
+
+### Patch Changes
+
+- [`a44c7c42fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a44c7c42fa7) - Added payload publisher wrapper for logging ufo events in examples
+- [`065ae19cb44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065ae19cb44) - Enforced "up to date" logged feature flags via type checks
+- Updated dependencies
+
 ## 60.0.0
 
 ### Minor Changes

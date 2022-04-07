@@ -22,7 +22,7 @@ interface CommentFieldProps {
 const textStyles = css({
   fontWeight: 'inherit',
   '&:not(:hover):not(:active)': {
-    color: token('color.text.mediumEmphasis', N500),
+    color: token('color.text.subtle', N500),
   },
 });
 

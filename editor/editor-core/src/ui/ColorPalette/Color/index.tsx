@@ -1,8 +1,10 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { N0 } from '@atlaskit/theme/colors';
-import { Button, ButtonWrapper } from './styles';
+import { buttonStyle, buttonWrapperStyle } from './styles';
 import Tooltip from '@atlaskit/tooltip';
 
 export interface Props {
@@ -30,8 +32,9 @@ class Color extends PureComponent<Props> {
 
     return (
       <Tooltip content={label}>
-        <ButtonWrapper>
-          <Button
+        <span css={buttonWrapperStyle}>
+          <button
+            css={buttonStyle}
             aria-label={label}
             role="radio"
             aria-checked={isSelected}
@@ -48,8 +51,8 @@ class Color extends PureComponent<Props> {
             {isSelected && (
               <EditorDoneIcon primaryColor={checkMarkColor} label="" />
             )}
-          </Button>
-        </ButtonWrapper>
+          </button>
+        </span>
       </Tooltip>
     );
   }

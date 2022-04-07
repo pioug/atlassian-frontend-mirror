@@ -1,8 +1,9 @@
-import React from 'react';
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/** @jsx jsx */
 import { Status, Color } from '../src/element';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
-const Container = styled.div`
+const containerStyles = css`
   width: 140px;
 `;
 
@@ -13,12 +14,12 @@ const StatusInParagraph = ({ text, color }: { text: string; color: Color }) => (
 );
 
 export default () => (
-  <Container id="container">
+  <div css={containerStyles} id="container">
     <StatusInParagraph text="Unavailable" color="neutral" />
     <StatusInParagraph text="New" color="purple" />
     <StatusInParagraph text="In progress" color="blue" />
     <StatusInParagraph text="Blocked" color="red" />
     <StatusInParagraph text="On hold" color="yellow" />
     <StatusInParagraph text="Done" color="green" />
-  </Container>
+  </div>
 );

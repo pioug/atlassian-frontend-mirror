@@ -1,6 +1,9 @@
 import React from 'react';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { withMediaAnalyticsContext } from '@atlaskit/media-common';
+import {
+  withMediaAnalyticsContext,
+  filterFeatureFlagNames,
+} from '@atlaskit/media-common';
 import isValidId from 'uuid-validate';
 import { BrowserConfig } from '../../types';
 import {
@@ -156,6 +159,13 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 export const Browser = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {
-    filterFeatureFlags: ['folderUploads', 'newCardExperience'],
+    filterFeatureFlags: filterFeatureFlagNames({
+      newCardExperience: true,
+      captions: false,
+      timestampOnVideo: false,
+      observedWidth: false,
+      mediaInline: false,
+      folderUploads: true,
+    }),
   },
 )(withAnalyticsEvents()(BrowserBase));

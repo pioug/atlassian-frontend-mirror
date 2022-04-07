@@ -4,7 +4,7 @@ import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { AllSelection } from 'prosemirror-state';
 import { Node } from 'prosemirror-model';
 import { getRelevantConfig } from '../index';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 describe('floating toolbar', () => {
   describe('floating toolbar', () => {

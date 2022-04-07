@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { render } from 'react-dom';
 import { Node as PMNode } from 'prosemirror-model';
 import { complexDocument as doc } from './__fixtures__/documents';

@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
@@ -14,11 +15,11 @@ import {
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import {
-  ButtonGroup,
-  Separator,
-  Wrapper,
-  ExpandIconWrapper,
-  Shortcut,
+  buttonGroupStyle,
+  separatorStyles,
+  wrapperStyle,
+  expandIconWrapperStyle,
+  shortcutStyle,
 } from '../../../../ui/styles';
 import { toggleBulletList, toggleOrderedList } from '../../commands';
 import { messages } from '../../messages';
@@ -78,7 +79,9 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
         value: { name: 'bullet_list' },
         isDisabled: bulletListDisabled,
         isActive: Boolean(bulletListActive),
-        elemAfter: <Shortcut>{tooltip(toggleBulletListKeymap)}</Shortcut>,
+        elemAfter: (
+          <div css={shortcutStyle}>{tooltip(toggleBulletListKeymap)}</div>
+        ),
       },
       {
         key: 'orderedList',
@@ -86,7 +89,9 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
         value: { name: 'ordered_list' },
         isDisabled: orderedListDisabled,
         isActive: Boolean(orderedListActive),
-        elemAfter: <Shortcut>{tooltip(toggleOrderedListKeymap)}</Shortcut>,
+        elemAfter: (
+          <div css={shortcutStyle}>{tooltip(toggleOrderedListKeymap)}</div>
+        ),
       },
     ];
     return [{ items }];
@@ -109,7 +114,7 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
       const labelUnorderedList = formatMessage(messages.unorderedList);
       const labelOrderedList = formatMessage(messages.orderedList);
       return (
-        <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
+        <span css={buttonGroupStyle}>
           <ToolbarButton
             buttonId={TOOLBAR_BUTTON.BULLET_LIST}
             spacing={isReducedSpacing ? 'none' : 'default'}
@@ -142,8 +147,8 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
             }
             iconBefore={<NumberListIcon label="" />}
           />
-          {isSeparator && <Separator />}
-        </ButtonGroup>
+          {isSeparator && <span css={separatorStyles} />}
+        </span>
       );
     } else {
       const items = this.createItems();
@@ -155,7 +160,7 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
 
       const labelLists = formatMessage(messages.lists);
       return (
-        <Wrapper>
+        <span css={wrapperStyle}>
           <DropdownMenu
             items={items}
             onItemActivated={this.onItemActivated}
@@ -178,17 +183,17 @@ class ToolbarLists extends PureComponent<Props & WrappedComponentProps, State> {
               onClick={this.handleTriggerClick}
               title={labelLists}
               iconBefore={
-                <Wrapper>
+                <span css={wrapperStyle}>
                   <BulletListIcon label={labelLists} />
-                  <ExpandIconWrapper>
+                  <span css={expandIconWrapperStyle}>
                     <ExpandIcon label="" />
-                  </ExpandIconWrapper>
-                </Wrapper>
+                  </span>
+                </span>
               }
             />
           </DropdownMenu>
-          {isSeparator && <Separator />}
-        </Wrapper>
+          {isSeparator && <span css={separatorStyles} />}
+        </span>
       );
     }
   }

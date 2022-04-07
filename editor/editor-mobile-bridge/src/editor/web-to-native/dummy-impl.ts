@@ -175,7 +175,7 @@ export default class DummyBridge implements NativeBridge {
     saveToDummyBridge('updateStepVersion', [stepVersion, error]);
   }
 
-  onCollabError(message: string) {
-    saveToDummyBridge('onCollabError', [message]);
+  onCollabError(message: string, status: number, code: string) {
+    saveToDummyBridge('onCollabError', [message, status, code]);
   }
 }

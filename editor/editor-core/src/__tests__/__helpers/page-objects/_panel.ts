@@ -1,7 +1,7 @@
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/panel';
 
 export const panelSelectors = {
   panel: `.${PanelSharedCssClassName.prefix}`,

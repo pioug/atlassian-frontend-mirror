@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { useCallback, useMemo, useRef, useLayoutEffect } from 'react';
+import { css, jsx } from '@emotion/react';
 import {
   text as colorsText,
   N200,
@@ -13,10 +15,9 @@ import { borderRadius } from '@atlaskit/theme/constants';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import Item, { itemThemeNamespace } from '@atlaskit/item';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import styled from 'styled-components';
 
 import IconFallback from '../../quick-insert/assets/fallback';
-import { Shortcut } from '../../../ui/styles';
+import { shortcutStyle } from '../../../ui/styles';
 import type { TypeAheadItem, OnSelectItem } from '../types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
@@ -51,7 +52,7 @@ export const itemTheme = {
   },
 };
 
-export const ItemIcon = styled.div`
+export const itemIcon = css`
   width: ${ICON_WIDTH}px;
   height: ${ICON_HEIGHT}px;
   overflow: hidden;
@@ -69,7 +70,7 @@ export const ItemIcon = styled.div`
   }
 `;
 
-const ItemBody = styled.div`
+const itemBody = css`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -77,7 +78,7 @@ const ItemBody = styled.div`
   line-height: 1.4;
 `;
 
-const ItemText = styled.div`
+const itemText = css`
   white-space: initial;
   .item-description {
     font-size: ${relativeFontSizeToBase16(11.67)};
@@ -86,7 +87,7 @@ const ItemText = styled.div`
   }
 `;
 
-const ItemAfter = styled.div`
+const itemAfter = css`
   flex: 0 0 auto;
 `;
 
@@ -140,7 +141,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
   const { icon, title, render: customRenderItem } = item;
   const elementIcon = useMemo(() => {
     return (
-      <ItemIcon>{icon ? icon() : <FallbackIcon label={title} />}</ItemIcon>
+      <div css={itemIcon}>{icon ? icon() : <FallbackIcon label={title} />}</div>
     );
   }, [icon, title]);
 
@@ -187,17 +188,19 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
       role="option"
       theme={itemTheme}
     >
-      <ItemBody>
-        <ItemText>
+      <div css={itemBody}>
+        <div css={itemText}>
           <div className="item-title">{item.title}</div>
           {item.description && (
             <div className="item-description">{item.description}</div>
           )}
-        </ItemText>
-        <ItemAfter>
-          {item.keyshortcut && <Shortcut>{item.keyshortcut}</Shortcut>}
-        </ItemAfter>
-      </ItemBody>
+        </div>
+        <div css={itemAfter}>
+          {item.keyshortcut && (
+            <div css={shortcutStyle}>{item.keyshortcut}</div>
+          )}
+        </div>
+      </div>
     </Item>
   );
 };

@@ -98,6 +98,6 @@ export { defaultImageCardDimensions } from './utils/cardDimensions';
 export {
   fileCardImageViewSelector,
   fileCardImageViewSelectedSelector,
-} from './files/cardImageView';
+} from './files/cardImageView/classnames';
 export { inlinePlayerClassName } from './root/inlinePlayer';
 export { newFileExperienceClassName } from './root/card/cardConstants';

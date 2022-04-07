@@ -183,13 +183,13 @@ class ReactionWithoutAnalytics extends PureComponent<
     const emojiId = { id: reaction.emojiId, shortName: '' };
 
     return (
-      <button
-        className={classNameProp}
-        css={[reactionStyle, reaction.reacted && reactedStyle]}
-        onMouseUp={this.handleMouseDown}
-        onMouseEnter={this.handleMouseEnter}
-      >
-        <ReactionTooltip emojiName={emojiName} reaction={reaction}>
+      <ReactionTooltip emojiName={emojiName} reaction={reaction}>
+        <button
+          className={classNameProp}
+          css={[reactionStyle, reaction.reacted && reactedStyle]}
+          onMouseUp={this.handleMouseDown}
+          onMouseEnter={this.handleMouseEnter}
+        >
           <FlashAnimation flash={flash} css={flashStyle}>
             <div css={emojiStyle}>
               <ResourcedEmoji
@@ -200,8 +200,8 @@ class ReactionWithoutAnalytics extends PureComponent<
             </div>
             <Counter value={reaction.count} highlight={reaction.reacted} />
           </FlashAnimation>
-        </ReactionTooltip>
-      </button>
+        </button>
+      </ReactionTooltip>
     );
   }
 }

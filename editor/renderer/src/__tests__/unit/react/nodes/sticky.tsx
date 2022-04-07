@@ -6,7 +6,7 @@ import { TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { table, tr, th, p } from '@atlaskit/adf-utils';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import Heading, { HeadingLevels } from '../../../../react/nodes/heading';
 import ReactSerializer from '../../../../react';
 

@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 29.4.0
+
+### Minor Changes
+
+- [`eaf810b0560`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaf810b0560) - [MEX-1398] Remove PopUp implementation from Media-picker
+- [`8f86bfe1961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f86bfe1961) - [MEX-1389] Remove types & interfaces related to media-picker popup
+- [`a44c7c42fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a44c7c42fa7) - Added payload publisher wrapper for logging ufo events in examples
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.3.0
 
 ### Minor Changes

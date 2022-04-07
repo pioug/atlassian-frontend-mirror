@@ -14,7 +14,7 @@ interface ContentProps {
 
 const contentStyles = css({
   marginTop: `${gridSize() / 2}px`,
-  color: token('color.text.highEmphasis', N800),
+  color: token('color.text', N800),
 });
 
 const disabledStyles = css({

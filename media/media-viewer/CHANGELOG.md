@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 46.2.1
+
+### Patch Changes
+
+- [`a44c7c42fa7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a44c7c42fa7) - Added payload publisher wrapper for logging ufo events in examples
+- [`5a79ea6f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a79ea6f7d6) - Add support for assessing the mimetype of a file when deciding what viewer to show
+- [`065ae19cb44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065ae19cb44) - Enforced "up to date" logged feature flags via type checks
+- Updated dependencies
+
 ## 46.2.0
 
 ### Minor Changes

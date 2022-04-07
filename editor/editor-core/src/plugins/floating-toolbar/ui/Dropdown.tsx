@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React, { Component, ReactElement } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import UiDropdown from '../../../ui/Dropdown';
@@ -7,21 +8,21 @@ import Button from './Button';
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 import { DropdownOptions, DropdownOptionT } from './types';
 
-const DropdownExpandContainer = styled.span`
+const dropdownExpandContainer = css`
   margin: 0px -4px;
 `;
 
-const IconGroup = styled.div`
+const iconGroup = css`
   display: flex;
 `;
 
 const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
-  <IconGroup>
+  <div css={iconGroup}>
     {icon}
-    <DropdownExpandContainer>
+    <span css={dropdownExpandContainer}>
       <ExpandIcon label="Expand dropdown menu" />
-    </DropdownExpandContainer>
-  </IconGroup>
+    </span>
+  </div>
 );
 
 export interface Props {
@@ -80,9 +81,9 @@ export default class Dropdown extends Component<Props, State> {
         <Button
           testId={buttonTestId}
           iconAfter={
-            <DropdownExpandContainer>
+            <span css={dropdownExpandContainer}>
               <ExpandIcon label="Expand dropdown menu" />
-            </DropdownExpandContainer>
+            </span>
           }
           onClick={this.toggleOpen}
           selected={isOpen}

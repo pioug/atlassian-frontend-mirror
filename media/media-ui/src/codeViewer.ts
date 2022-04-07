@@ -11,15 +11,34 @@ export function getExtension(filename: string) {
   return '';
 }
 
-export function isCodeViewerItem(name: string) {
-  return getLanguageType(name) !== null;
+const codeViewerMimeTypes: {
+  mimetype: string;
+  language: SupportedLanguages;
+}[] = [
+  { mimetype: 'application/json', language: 'json' },
+  { mimetype: 'text/html', language: 'html' },
+];
+
+export function isCodeViewerItem(name: string, mimetype: string = 'unknown') {
+  return getLanguageType(name, mimetype) !== null;
 }
 
 /*
  * Given an item, it assigns the corresponding language for that item if it is a code item. For example, an item with the filename test.py
  * would return the language 'python'. If an item is not a code item, the language returned is 'null'.
  */
-export function getLanguageType(name: string): SupportedLanguages | null {
+export function getLanguageType(
+  name: string,
+  mimetype?: string,
+): SupportedLanguages | null {
+  if (mimetype) {
+    const languageForMimeType = codeViewerMimeTypes.find(
+      (x) => x.mimetype === mimetype,
+    );
+    if (languageForMimeType) {
+      return languageForMimeType.language;
+    }
+  }
   const ext = getExtension(name);
   switch (ext) {
     case 'abap':

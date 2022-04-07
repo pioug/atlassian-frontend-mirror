@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import {
   defineMessages,
   WrappedComponentProps,
@@ -16,10 +17,10 @@ import FindReplace, { FindReplaceProps } from './FindReplace';
 import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../../analytics/types';
 import { ToolTipContent, findKeymapByDescription } from '../../../keymaps';
 
-const ToolbarButtonWrapper = styled.div<{ takeFullWidth: boolean }>`
+const toolbarButtonWrapper = css`
   display: flex;
   flex: 1 1 auto;
-  flex-grow: ${(props) => (props.takeFullWidth ? 1 : 0)};
+  flex-grow: 0;
   justify-content: flex-end;
   align-items: center;
   padding: 0 8px;
@@ -29,7 +30,11 @@ const ToolbarButtonWrapper = styled.div<{ takeFullWidth: boolean }>`
   }
 `;
 
-const Wrapper = styled.div`
+const toolbarButtonWrapperFullWith = css`
+  flex-grow: 1;
+`;
+
+const wrapper = css`
   display: flex;
   flex-direction: column;
 `;
@@ -105,7 +110,12 @@ class FindReplaceToolbarButton extends React.PureComponent<
     const stackBelowOtherEditorFloatingPanels = akEditorFloatingPanelZIndex - 1;
 
     return (
-      <ToolbarButtonWrapper takeFullWidth={takeFullWidth}>
+      <div
+        css={[
+          toolbarButtonWrapper,
+          takeFullWidth && toolbarButtonWrapperFullWith,
+        ]}
+      >
         <Dropdown
           mountTo={popupsMountPoint}
           boundariesElement={popupsBoundariesElement}
@@ -136,16 +146,16 @@ class FindReplaceToolbarButton extends React.PureComponent<
             />
           }
         >
-          <Wrapper>
+          <div css={wrapper}>
             <FindReplace
               findText={findText}
               replaceText={replaceText}
               count={{ index, total: numMatches }}
               {...this.props}
             />
-          </Wrapper>
+          </div>
         </Dropdown>
-      </ToolbarButtonWrapper>
+      </div>
     );
   }
 }

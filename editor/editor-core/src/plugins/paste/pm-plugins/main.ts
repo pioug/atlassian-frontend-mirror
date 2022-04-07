@@ -1,8 +1,6 @@
-// @ts-ignore: outdated type definitions
-import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { Schema, Slice, Node, Fragment } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, EditorState, Transaction } from 'prosemirror-state';
+import { PluginKey, Transaction } from 'prosemirror-state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { CardOptions } from '@atlaskit/editor-common/card';
@@ -26,18 +24,7 @@ import {
   removeDuplicateInvalidLinks,
 } from '../util';
 import { linkifyContent } from '../../hyperlink/utils';
-import { transformSliceToRemoveOpenBodiedExtension } from '../../extension/actions';
-import { transformSliceToRemoveOpenLayoutNodes } from '../../layout/utils';
-import {
-  transformSliceNestedExpandToExpand,
-  transformSliceToRemoveOpenExpand,
-} from '../../expand/utils';
-import {
-  transformSliceToRemoveOpenTable,
-  transformSliceToCorrectEmptyTableCells,
-  transformSliceToFixHardBreakProblemOnCopyFromCell,
-} from '../../table/utils';
-import { transformSliceToAddTableHeaders } from '../../table/commands';
+import { transformSliceNestedExpandToExpand } from '../../expand/utils';
 import {
   handleMacroAutoConvert,
   handleMention,
@@ -73,13 +60,8 @@ import {
   transformSliceToCorrectMediaWrapper,
   unwrapNestedMediaElements,
 } from '../../media/utils/media-common';
-import {
-  transformSliceToRemoveColumnsWidths,
-  transformSliceRemoveCellBackgroundColor,
-} from '../../table/commands/misc';
 import { upgradeTextToLists, splitParagraphs } from '../../list/transforms';
 import { md } from '../md';
-import { getPluginState as getTablePluginState } from '../../table/pm-plugins/plugin-factory';
 import { transformUnsupportedBlockCardToInline } from '../../card/utils';
 import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
 import {
@@ -93,24 +75,10 @@ import {
   tryRebuildCompleteTableHtml,
   isPastedFromTinyMCEConfluence,
 } from '../util/tinyMCE';
+import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 
 export const stateKey = new PluginKey('pastePlugin');
 export { md } from '../md';
-
-function isHeaderRowRequired(state: EditorState) {
-  const tableState = getTablePluginState(state);
-  return tableState && tableState.pluginConfig.isHeaderRowRequired;
-}
-
-function isAllowResizingEnabled(state: EditorState) {
-  const tableState = getTablePluginState(state);
-  return tableState && tableState.pluginConfig.allowColumnResizing;
-}
-
-function isBackgroundCellAllowed(state: EditorState) {
-  const tableState = getTablePluginState(state);
-  return tableState && tableState.pluginConfig.allowBackgroundColor;
-}
 
 export function createPlugin(
   schema: Schema,
@@ -164,6 +132,7 @@ export function createPlugin(
   }
 
   let mostRecentPasteEvent: ClipboardEvent | null;
+  let pastedFromBitBucket = false;
 
   return new SafePlugin({
     key: stateKey,
@@ -314,6 +283,29 @@ export function createPlugin(
 
         slice = transformUnsupportedBlockCardToInline(slice, state);
 
+        // Handles edge case so that when copying text from the top level of the document
+        // it can be pasted into nodes like panels/actions/decisions without removing them.
+        // Overriding openStart to be 1 when only pasting a paragraph makes the preferred
+        // depth favour the text, rather than the paragraph node.
+        // https://github.com/ProseMirror/prosemirror-transform/blob/master/src/replace.js#:~:text=Transform.prototype.-,replaceRange,-%3D%20function(from%2C%20to
+        const selectionDepth = state.selection.$head.depth;
+        const selectionParentNode = state.selection.$head.node(
+          selectionDepth - 1,
+        );
+        const selectionParentType = selectionParentNode?.type;
+        const edgeCaseNodeTypes = [
+          schema.nodes?.panel,
+          schema.nodes?.taskList,
+          schema.nodes?.decisionList,
+        ];
+        if (
+          slice.openStart === 0 &&
+          selectionParentNode &&
+          edgeCaseNodeTypes.includes(selectionParentType)
+        ) {
+          slice.openStart = 1;
+        }
+
         if (
           handlePasteIntoTaskAndDecisionWithAnalytics(
             view,
@@ -406,26 +398,6 @@ export function createPlugin(
             return true;
           }
 
-          // if we're pasting to outside a table or outside a table
-          // header, ensure that we apply any table headers to the first
-          // row of content we see, if required
-          if (!insideTable(state) && isHeaderRowRequired(state)) {
-            slice = transformSliceToAddTableHeaders(slice, state.schema);
-          }
-
-          if (!isAllowResizingEnabled(state)) {
-            slice = transformSliceToRemoveColumnsWidths(slice, state.schema);
-          }
-
-          // If we don't allow background on cells, we need to remove it
-          // from the paste slice
-          if (!isBackgroundCellAllowed(state)) {
-            slice = transformSliceRemoveCellBackgroundColor(
-              slice,
-              state.schema,
-            );
-          }
-
           // get editor-tables to handle pasting tables if it can
           // otherwise, just the replace the selection with the content
           if (handlePasteTable(view, null, slice)) {
@@ -467,7 +439,6 @@ export function createPlugin(
             slice,
           )(state, dispatch);
         }
-
         return false;
       },
       transformPasted(slice) {
@@ -475,34 +446,15 @@ export function createPlugin(
           slice = handleMention(slice, schema);
         }
 
-        slice = transformSliceToFixHardBreakProblemOnCopyFromCell(
-          slice,
-          schema,
-        );
-
-        // We do this separately so it also applies to drag/drop events
-        // This needs to go before `transformSliceToRemoveOpenExpand`
-        slice = transformSliceToRemoveOpenLayoutNodes(slice, schema);
-
-        // If a partial paste of expand, paste only the content
-        // This needs to go before `transformSliceToRemoveOpenTable`
-        slice = transformSliceToRemoveOpenExpand(slice, schema);
-
-        /** If a partial paste of table, paste only table's content */
-        slice = transformSliceToRemoveOpenTable(slice, schema);
-
-        /** If a partial paste of bodied extension, paste only text */
-        slice = transformSliceToRemoveOpenBodiedExtension(slice, schema);
-
         /* Bitbucket copies diffs as multiple adjacent code blocks
          * so we merge ALL adjacent code blocks to support paste here */
-        slice = transformSliceToJoinAdjacentCodeBlocks(slice);
+        if (pastedFromBitBucket) {
+          slice = transformSliceToJoinAdjacentCodeBlocks(slice);
+        }
 
         slice = transformSingleLineCodeBlockToCodeMark(slice, schema);
 
         slice = transformSliceToCorrectMediaWrapper(slice, schema);
-
-        slice = transformSliceToCorrectEmptyTableCells(slice, schema);
 
         slice = transformSliceToDecisionList(slice, schema);
 
@@ -560,6 +512,9 @@ export function createPlugin(
         if (htmlHasInvalidLinkTags(html)) {
           html = removeDuplicateInvalidLinks(html);
         }
+
+        // Fix for ED-13568: Code blocks being copied/pasted when next to each other get merged
+        pastedFromBitBucket = html.indexOf('data-qa="code-line"') >= 0;
 
         mostRecentPasteEvent = null;
         return html;

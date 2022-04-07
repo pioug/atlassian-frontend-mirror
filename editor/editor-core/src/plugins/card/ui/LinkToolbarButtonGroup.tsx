@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 
-import styled from 'styled-components';
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '../../floating-toolbar/ui/Button';
@@ -8,8 +9,11 @@ import Button from '../../floating-toolbar/ui/Button';
 /**
  * Applying `pointer-events: none;` when disabled allows the Tooltip to be displayed
  */
-export const StyledButton = styled(Button)`
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+const buttonStyle = css`
+  pointer-events: auto;
+`;
+const buttonStyleNoneEvent = css`
+  pointer-events: none;
 `;
 
 type DisallowedWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -24,8 +28,11 @@ const DisallowedWrapper = ({ disabled, ...props }: DisallowedWrapperProps) => {
  * The button requires `pointer-events: none;` in order to fix the tooltip, hence
  * leaving us without a disabled cursor, the following fixes this:
  */
-const StyledDisallowedWrapper = styled(DisallowedWrapper)`
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+const defaultWrapperStyle = css`
+  cursor: pointer;
+`;
+const disallowedWrapperStyle = css`
+  cursor: not-allowed;
 `;
 
 export interface ButtonOptionProps {
@@ -57,8 +64,13 @@ export const LinkToolbarButtonGroup = ({
           title,
           icon: Icon,
         }) => (
-          <StyledDisallowedWrapper key={testId} disabled={disabled}>
-            <StyledButton
+          <DisallowedWrapper
+            css={disabled ? disallowedWrapperStyle : defaultWrapperStyle}
+            key={testId}
+            disabled={disabled}
+          >
+            <Button
+              css={disabled ? buttonStyleNoneEvent : buttonStyle}
               title={title}
               icon={<Icon size="medium" label={title} />}
               selected={selected}
@@ -67,7 +79,7 @@ export const LinkToolbarButtonGroup = ({
               disabled={disabled}
               tooltipContent={tooltipContent}
             />
-          </StyledDisallowedWrapper>
+          </DisallowedWrapper>
         ),
       )}
     </ButtonGroup>

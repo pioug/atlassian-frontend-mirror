@@ -64,8 +64,11 @@ describe('tasks and decisions', () => {
   scenarios.forEach((scenario) => {
     describe('quick insert', () => {
       let editorView: EditorView;
+      let _queueMicrotask: any;
 
       beforeEach(async () => {
+        _queueMicrotask = window.queueMicrotask;
+        window.queueMicrotask = () => {};
         const { editorView: _editorView, typeAheadTool } = editor(
           doc(p('{<>}')),
         );
@@ -74,6 +77,10 @@ describe('tasks and decisions', () => {
           .searchQuickInsert(scenario.menuItem)
           ?.insert({ index: 0 });
         editorView = _editorView;
+      });
+
+      afterAll(() => {
+        window.queueMicrotask = _queueMicrotask;
       });
 
       it('should insert item', () => {

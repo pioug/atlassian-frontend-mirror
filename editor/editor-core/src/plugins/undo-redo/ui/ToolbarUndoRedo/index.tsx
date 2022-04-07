@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react';
+/** @jsx jsx */
+import { PureComponent } from 'react';
+import { jsx } from '@emotion/react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import UndoIcon from '@atlaskit/icon/glyph/undo';
@@ -9,7 +11,7 @@ import {
   redo as redoKeymap,
   ToolTipContent,
 } from '../../../../keymaps';
-import { ButtonGroup, Separator } from '../../../../ui/styles';
+import { buttonGroupStyle, separatorStyles } from '../../../../ui/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../messages';
 import { HistoryPluginState } from '../../../history/types';
@@ -75,7 +77,7 @@ export class ToolbarUndoRedo extends PureComponent<
     const { canUndo, canRedo } = historyState;
 
     return (
-      <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
+      <span css={buttonGroupStyle}>
         <ToolbarButton
           buttonId={TOOLBAR_BUTTON.UNDO}
           spacing={isReducedSpacing ? 'none' : 'default'}
@@ -96,8 +98,8 @@ export class ToolbarUndoRedo extends PureComponent<
           testId="ak-editor-toolbar-button-redo"
           aria-label={labelRedo}
         />
-        <Separator />
-      </ButtonGroup>
+        <span css={separatorStyles} />
+      </span>
     );
   }
 }

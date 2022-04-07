@@ -1,5 +1,5 @@
 import { MarkdownSerializer, marks, nodes } from '../../serializer';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
   p,
   table,

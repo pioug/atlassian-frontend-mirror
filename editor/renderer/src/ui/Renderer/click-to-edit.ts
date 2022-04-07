@@ -1,4 +1,4 @@
-import { fileCardImageViewSelector } from '@atlaskit/media-card';
+import { fileCardImageViewSelector } from '@atlaskit/media-card/classnames';
 import { mediaViewerPopupClass } from '@atlaskit/media-viewer/classnames';
 
 /**

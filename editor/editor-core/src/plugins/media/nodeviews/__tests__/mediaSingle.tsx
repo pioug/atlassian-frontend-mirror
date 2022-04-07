@@ -4,11 +4,8 @@ import { mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  ExternalMediaAttributes,
-  defaultSchema,
-  MediaAttributes,
-} from '@atlaskit/adf-schema';
+import { ExternalMediaAttributes, MediaAttributes } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode } from 'prosemirror-model';
 import MediaSingleNode from '../mediaSingle';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';

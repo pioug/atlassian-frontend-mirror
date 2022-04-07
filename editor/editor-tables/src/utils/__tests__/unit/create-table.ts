@@ -1,9 +1,8 @@
+import { createSchema, table as tableSchema } from '@atlaskit/adf-schema';
 import {
-  createSchema,
   defaultSchema,
   defaultSchemaConfig,
-  table as tableSchema,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/schema-default';
 import {
   p,
   tr as row,

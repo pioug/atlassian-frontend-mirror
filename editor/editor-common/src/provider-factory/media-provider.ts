@@ -1,5 +1,5 @@
-import { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { UploadParams } from '@atlaskit/media-picker/types';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import type { UploadParams } from '@atlaskit/media-picker/types';
 
 export type MediaProvider = {
   uploadParams?: UploadParams;

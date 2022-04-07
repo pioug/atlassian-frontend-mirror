@@ -14,7 +14,7 @@ import {
 import {
   PanelSharedCssClassName,
   PanelSharedSelectors,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/panel';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
 import {

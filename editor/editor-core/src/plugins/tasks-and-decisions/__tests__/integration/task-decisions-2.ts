@@ -7,9 +7,11 @@ import {
   getDocFromElement,
   gotoEditor,
   insertMentionUsingClick,
+  insertBlockMenuItem,
 } from '../../../../__tests__/integration/_helpers';
 
 export const loadActionButton = '[aria-label="Action item"]';
+const TYPE_AHEAD_MENU_LIST = `[aria-label="Popup"] [role="listbox"]`;
 
 /*
  * Safari adds special characters that end up in the snapshot
@@ -80,6 +82,58 @@ BrowserTestCase(
     await browser.type(editable, '[] ');
     await browser.waitForSelector('div[data-node-type="actionList"]');
     await insertMentionUsingClick(browser, '0');
+    const doc = await browser.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'task-decision-2.ts: joins actions regardless of insert method',
+  {},
+  async (client: any, testName: string) => {
+    const browser = new Page(client);
+    await gotoEditor(browser);
+    await browser.waitFor(editable);
+    // Insert an action via menu
+    await insertBlockMenuItem(browser, 'Action item', undefined, true);
+    // Type 'a', press 'Enter' to create a new action below
+    // Type 'Enter' again to remove a new action
+    await browser.keys(['a', 'Enter', 'Enter']);
+    // Insert an action via input rule
+    await browser.type(editable, '[] ');
+    await browser.waitForSelector('div[data-node-type="actionList"]');
+    // Type 'b', press 'Enter' to create a new action below
+    // Type 'Enter' again to remove a new action
+    await browser.keys(['b', 'Enter', 'Enter']);
+    // Insert an action via quickinsert/typeahead
+    await browser.keys('/Action Item'.split(''));
+    await browser.waitForVisible(TYPE_AHEAD_MENU_LIST);
+    await browser.keys(['Enter', 'c']);
+
+    const doc = await browser.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'task-decision-2.ts: inserts new action item via typeahead on the same level as the previous action item even when it was empty',
+  {},
+  async (client: any, testName: string) => {
+    const browser = new Page(client);
+    await gotoEditor(browser);
+    await browser.waitFor(editable);
+    // Create a non-empty action item
+    await insertBlockMenuItem(browser, 'Action item', undefined, true);
+    await browser.keys(['a', 'Space']);
+    // Insert a new action via quickinsert when the cursor is inside of a non-empty action
+    await browser.keys('/Action Item'.split(''));
+    await browser.waitForVisible(TYPE_AHEAD_MENU_LIST);
+    await browser.keys('Enter');
+    // Insert a new action via quickinsert when the cursor is inside of an empty action
+    await browser.keys('/Action Item'.split(''));
+    await browser.waitForVisible(TYPE_AHEAD_MENU_LIST);
+    await browser.keys(['Enter', 'c']);
+
     const doc = await browser.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

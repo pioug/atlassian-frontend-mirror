@@ -1,5 +1,12 @@
-import React, { memo, useCallback, Dispatch, SetStateAction } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import React, {
+  memo,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+  Fragment,
+} from 'react';
 import { N800, B400, B50 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/custom-theme-button';
 import {
@@ -31,7 +38,7 @@ function CategoryList({
     number | null
   >(null);
   return (
-    <>
+    <Fragment>
       {categories.map<JSX.Element>((category, index) => (
         <CategoryListItem
           key={category.title}
@@ -42,7 +49,7 @@ function CategoryList({
           {...props}
         />
       ))}
-    </>
+    </Fragment>
   );
 }
 
@@ -120,7 +127,7 @@ function CategoryListItem({
   );
 
   return (
-    <ButtonWrapper>
+    <div css={buttonWrapper}>
       <Button
         appearance="subtle"
         isSelected={selectedCategory === category.name}
@@ -132,11 +139,11 @@ function CategoryListItem({
       >
         {category.title}
       </Button>
-    </ButtonWrapper>
+    </div>
   );
 }
 
-const ButtonWrapper = styled.div`
+const buttonWrapper = css`
   height: ${GRID_SIZE * 4}px;
   margin: 4px 4px 4px 0;
 

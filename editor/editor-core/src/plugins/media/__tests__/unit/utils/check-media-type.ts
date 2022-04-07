@@ -20,7 +20,8 @@ jest.mock('@atlaskit/media-client', () => {
 });
 
 import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
-import { defaultSchema, MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 import {
   getDefaultMediaClientConfig,

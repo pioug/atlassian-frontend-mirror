@@ -1,7 +1,8 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { Container } from './styles';
+import { container } from './styles';
 
 export type Coordinates = {
   left?: number;
@@ -13,7 +14,6 @@ export type Coordinates = {
 export interface Props {
   zIndex?: number;
   className?: string;
-  containerRef?: (node: HTMLElement) => void;
   target?: HTMLElement;
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
@@ -34,7 +34,6 @@ export {
 export default class FloatingToolbar extends PureComponent<Props, any> {
   render() {
     const {
-      containerRef,
       children,
       target,
       offset,
@@ -66,13 +65,13 @@ export default class FloatingToolbar extends PureComponent<Props, any> {
         fitHeight={fitHeight}
         onPositionCalculated={onPositionCalculated}
       >
-        <Container
-          height={fitHeight}
+        <div
+          css={container(fitHeight)}
+          data-testid="popup-container"
           className={className}
-          innerRef={containerRef}
         >
           {children}
-        </Container>
+        </div>
       </Popup>
     );
   }

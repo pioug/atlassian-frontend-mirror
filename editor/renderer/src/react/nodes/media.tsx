@@ -9,7 +9,7 @@ import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaCard, MediaCardProps, MediaProvider } from '../../ui/MediaCard';
 import { LinkDefinition } from '@atlaskit/adf-schema';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { getEventHandler } from '../../utils';
 import {
   ACTION,

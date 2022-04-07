@@ -1,10 +1,9 @@
 declare var global: any;
+import { createSchema, isSafeUrl } from '@atlaskit/adf-schema';
 import {
-  createSchema,
   getSchemaBasedOnStage,
-  isSafeUrl,
   defaultSchema as schema,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/schema-default';
 
 import {
   ADDoc,

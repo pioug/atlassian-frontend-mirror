@@ -1,5 +1,47 @@
 # @atlaskit/renderer
 
+## 93.0.1
+
+### Patch Changes
+
+- [`0c64f6136e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c64f6136e6) - ED-14268 migrate editor-core to use emotion
+- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+
+  @atlaskit/adf-schema/schema-bitbucket for:
+
+  - bitbucketSchema
+
+  @atlaskit/adf-schema/schema-confluence for:
+
+  - confluenceSchema
+  - confluenceSchemaWithMediaSingle
+
+  @atlaskit/adf-schema/schema-jira for:
+
+  - default as createJIRASchema
+  - isSchemaWithLists
+  - isSchemaWithMentions
+  - isSchemaWithEmojis
+  - isSchemaWithLinks
+  - isSchemaWithAdvancedTextFormattingMarks
+  - isSchemaWithCodeBlock
+  - isSchemaWithBlockQuotes
+  - isSchemaWithMedia
+  - isSchemaWithSubSupMark
+  - isSchemaWithTextColor
+  - isSchemaWithTables
+
+  @atlaskit/adf-schema/schema-default for:
+
+  - defaultSchema
+  - getSchemaBasedOnStage
+  - defaultSchemaConfig
+
+  This change also includes codemods in @atlaskit/adf-schema to update these entry points. It also introduces a new util function "changeImportEntryPoint" to @atlaskit/codemod-utils to handle this scenario.
+
+- [`3ef794dc11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef794dc11f) - Removed emoji and media packages dependencies from renderer initial load.
+- Updated dependencies
+
 ## 93.0.0
 
 ### Major Changes

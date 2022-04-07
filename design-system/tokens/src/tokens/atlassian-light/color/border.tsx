@@ -6,6 +6,9 @@ const color: ValueSchema<BorderColorTokenSchema> = {
       '[default]': {
         value: 'N300A',
       },
+      inverse: {
+        value: 'N0',
+      },
       focused: {
         value: 'B500',
       },

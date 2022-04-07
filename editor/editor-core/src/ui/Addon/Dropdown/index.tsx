@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
-import { Dropdown } from './styles';
+import { jsx } from '@emotion/react';
+import { dropdown } from './styles';
 import { RenderOnClickHandler } from '../../Addon/types';
 import EditorActions from '../../../actions';
 import { AddonActions } from '../types';
@@ -22,7 +24,7 @@ export default class DropdownWrapper extends React.Component<Props, any> {
       }),
     );
 
-    return <Dropdown>{children}</Dropdown>;
+    return <div css={dropdown}>{children}</div>;
   }
 
   private handleClick = (actions: AddonActions) => {

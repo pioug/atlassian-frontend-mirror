@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -11,12 +12,12 @@ import ToolbarButton, { ToolbarButtonRef } from '../ToolbarButton';
 import withOuterListeners from '../with-outer-listeners';
 
 import {
-  Wrapper,
-  ButtonContent,
-  ConfirmationPopup,
-  ConfirmationText,
-  ConfirmationHeader,
-  ConfirmationImg,
+  wrapper,
+  buttonContent,
+  confirmationPopup,
+  confirmationText,
+  confirmationHeader,
+  confirmationImg,
 } from './styles';
 import {
   AnalyticsDispatch,
@@ -147,7 +148,7 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
 
     // JIRA issue collector script is using jQuery internally
     return this.hasJquery() ? (
-      <Wrapper>
+      <div css={wrapper}>
         <ToolbarButton
           ref={this.handleRef}
           iconBefore={iconBefore}
@@ -155,7 +156,7 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
           selected={false}
           spacing="compact"
         >
-          <ButtonContent>Feedback</ButtonContent>
+          <span css={buttonContent}>Feedback</span>
         </ToolbarButton>
         {this.state.showOptOutOption && (
           <PopupWithOutsideListeners
@@ -168,11 +169,11 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
             handleClickOutside={this.toggleShowOptOutOption}
             handleEscapeKeydown={this.toggleShowOptOutOption}
           >
-            <ConfirmationPopup>
-              <ConfirmationHeader>
-                <ConfirmationImg src={EDITOR_IMAGE_URL} />
-              </ConfirmationHeader>
-              <ConfirmationText>
+            <div css={confirmationPopup}>
+              <div css={confirmationHeader}>
+                <img css={confirmationImg} src={EDITOR_IMAGE_URL} />
+              </div>
+              <div css={confirmationText}>
                 <div>
                   We are rolling out a new editing experience across Atlassian
                   products. Help us improve by providing feedback.
@@ -189,11 +190,11 @@ export default class ToolbarFeedback extends PureComponent<Props, State> {
                     Learn more
                   </Button>
                 </ButtonGroup>
-              </ConfirmationText>
-            </ConfirmationPopup>
+              </div>
+            </div>
           </PopupWithOutsideListeners>
         )}
-      </Wrapper>
+      </div>
     ) : null;
   }
 

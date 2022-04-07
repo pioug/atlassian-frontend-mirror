@@ -1,8 +1,9 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 
 import { EditorView } from 'prosemirror-view';
 import { injectIntl, IntlShape } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
 
@@ -11,12 +12,12 @@ import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeVi
 import { StatusPluginOptions } from '../types';
 import { messages } from './messages';
 
-export interface StyledStatusProps {
-  placeholderStyle: boolean;
-}
+const styledStatus = css`
+  opacity: 1;
+`;
 
-export const StyledStatus = styled.span`
-  opacity: ${(props: StyledStatusProps) => (props.placeholderStyle ? 0.5 : 1)};
+const styledStatusPlaceholder = css`
+  opacity: 0.5;
 `;
 
 export interface ContainerProps {
@@ -48,7 +49,7 @@ const StatusContainerView: React.FC<ContainerProps> = (props) => {
   };
 
   return (
-    <StyledStatus placeholderStyle={!text}>
+    <span css={text ? styledStatus : styledStatusPlaceholder}>
       <Status
         text={statusText}
         color={color}
@@ -56,7 +57,7 @@ const StatusContainerView: React.FC<ContainerProps> = (props) => {
         style={style}
         onClick={handleClick}
       />
-    </StyledStatus>
+    </span>
   );
 };
 

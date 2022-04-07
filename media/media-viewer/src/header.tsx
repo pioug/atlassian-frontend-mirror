@@ -237,10 +237,10 @@ export class Header extends React.Component<
     item: Exclude<FileState, ErrorFileState>,
   ): ReactNode => {
     // render appropriate header if its a code/email item and the feature flag is enabled
-    if (isCodeViewerItem(item.name)) {
+    if (isCodeViewerItem(item.name, item.mimeType)) {
       // gather language and extension
       // i.e test.py would have a language of 'python' and an extension of 'py'
-      const language = getLanguageType(item.name);
+      const language = getLanguageType(item.name, item.mimeType);
       const ext = getExtension(item.name);
 
       // specific cases for if we want a certain word translated in other languages

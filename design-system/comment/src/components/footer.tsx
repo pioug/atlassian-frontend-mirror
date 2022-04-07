@@ -21,12 +21,13 @@ interface FooterItemsProps {
 
 const actionItemStyles = css({
   display: 'flex',
+  color: token('color.text.subtle', N500),
 
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& + &::before': {
     display: 'inline-block',
     width: `${actionsPadding}px`,
-    color: token('color.text.mediumEmphasis', N500),
+    color: token('color.text.subtle', N500),
     content: '"·"',
     textAlign: 'center',
     verticalAlign: 'middle',

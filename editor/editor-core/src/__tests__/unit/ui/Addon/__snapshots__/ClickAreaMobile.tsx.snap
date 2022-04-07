@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClickAreaMobile should set the min height of the click area as passed and set in styles 1`] = `
-.c0 {
+.emotion-0 {
   height: 100%;
   min-height: 200px;
 }
@@ -10,29 +10,16 @@ exports[`ClickAreaMobile should set the min height of the click area as passed a
   isExpanded={true}
   minHeight={200}
 >
-  <ClickWrapper
-    className="editor-click-wrapper"
-    innerRef={
-      Object {
-        "current": <div
-          class="editor-click-wrapper c0"
-        />,
-      }
-    }
-    isExpanded={true}
-    minHeight={200}
+  <Noop />
+<div
+    className="editor-click-wrapper emotion-0"
     onClick={[Function]}
-  >
-    <div
-      className="editor-click-wrapper c0"
-      onClick={[Function]}
-    />
-  </ClickWrapper>
+  />
 </ClickAreaMobile>
 `;
 
 exports[`ClickAreaMobile should set the min height of the click area as passed, but not set in styles 1`] = `
-.c0 {
+.emotion-0 {
   height: 100%;
 }
 
@@ -40,23 +27,10 @@ exports[`ClickAreaMobile should set the min height of the click area as passed, 
   isExpanded={false}
   minHeight={200}
 >
-  <ClickWrapper
-    className="editor-click-wrapper"
-    innerRef={
-      Object {
-        "current": <div
-          class="editor-click-wrapper c0"
-        />,
-      }
-    }
-    isExpanded={false}
-    minHeight={200}
+  <Noop />
+<div
+    className="editor-click-wrapper emotion-0"
     onClick={[Function]}
-  >
-    <div
-      className="editor-click-wrapper c0"
-      onClick={[Function]}
-    />
-  </ClickWrapper>
+  />
 </ClickAreaMobile>
 `;

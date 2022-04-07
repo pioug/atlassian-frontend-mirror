@@ -8,7 +8,14 @@ import {
   UserSourceResult,
 } from '../../../../src/types';
 import { ExusUserSourceProvider } from '../../../../src/clients/UserSourceProvider';
+import { createAndFireEventInElementsChannel } from '../../../../src/analytics';
 import { IntlProvider } from 'react-intl-next';
+
+jest.mock('../../../../src/analytics', () => ({
+  __esModule: true,
+  ...(jest.requireActual('../../../../src/analytics') as object),
+  createAndFireEventInElementsChannel: jest.fn().mockReturnValue(jest.fn()),
+}));
 
 describe('ExternalUserOption', () => {
   const source = 'google';
@@ -219,5 +226,37 @@ describe('ExternalUserOption', () => {
 
     // fetch was not called
     expect(mockFetch).toBeCalledTimes(0);
+  });
+
+  describe('Analytics Events', () => {
+    it('should fire an event when the sources tooltip is viewed', async () => {
+      expect.assertions(2);
+      const { getByTestId, findByRole } = render(
+        <IntlProvider messages={{}} locale="en">
+          <ExternalUserOption
+            user={user}
+            status="approved"
+            isSelected={false}
+          />
+        </IntlProvider>,
+      );
+      // Sources info icon is visible
+      expect(getByTestId('source-icon')).toBeTruthy();
+      // Hover over tooltip
+      fireEvent.mouseOver(getByTestId('source-icon'));
+      await findByRole('tooltip');
+      // Event is fired when tooltip is displayed
+      expect(createAndFireEventInElementsChannel).toHaveBeenCalledWith({
+        action: 'displayed',
+        actionSubject: 'userInfo',
+        attributes: {
+          accountId: 'abc-123',
+          packageName: '@atlaskit/user-picker',
+          packageVersion: '999.9.9',
+          sources: ['google'],
+        },
+        eventType: 'ui',
+      });
+    });
   });
 });

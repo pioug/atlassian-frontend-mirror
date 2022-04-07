@@ -1,5 +1,5 @@
 import { TextSerializer } from '../../../index';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 
 const serializer = TextSerializer.fromSchema(schema);
 

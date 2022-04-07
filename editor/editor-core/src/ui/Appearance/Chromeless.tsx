@@ -1,8 +1,9 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import PluginSlot from '../PluginSlot';
 import WithPluginState from '../WithPluginState';
-import ContentStyles from '../ContentStyles';
+import { createEditorContentStyle } from '../ContentStyles';
 import { EditorAppearanceComponentProps, EditorAppearance } from '../../types';
 import {
   pluginKey as maxContentSizePluginKey,
@@ -16,16 +17,15 @@ export interface ChromelessEditorProps {
   maxHeight?: number;
 }
 
-const ChromelessEditor: any = styled.div`
+const chromelessEditor = css`
   line-height: 20px;
   height: auto;
   min-height: 30px;
-  ${(props: ChromelessEditorProps) =>
-    props.maxHeight
-      ? 'max-height: ' + props.maxHeight + 'px;'
-      : ''} overflow-x: hidden;
+
+  overflow-x: hidden;
   overflow-y: auto;
-  ${scrollbarStyles} max-width: inherit;
+  ${scrollbarStyles};
+  max-width: inherit;
   box-sizing: border-box;
   word-wrap: break-word;
 
@@ -36,9 +36,8 @@ const ChromelessEditor: any = styled.div`
     margin: 0;
   }
 `;
-ChromelessEditor.displayName = 'ChromelessEditor';
 
-const ContentArea = styled(ContentStyles)``;
+const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
 
 export default class Editor extends React.Component<
@@ -76,9 +75,15 @@ export default class Editor extends React.Component<
 
     return (
       <WithFlash animate={maxContentSizeReached}>
-        <ChromelessEditor
-          maxHeight={maxHeight}
-          innerRef={(ref: HTMLElement | null) => (this.containerElement = ref)}
+        <div
+          css={[
+            chromelessEditor,
+            maxHeight &&
+              css`
+                max-height: ${maxHeight}px;
+              `,
+          ]}
+          ref={(ref: HTMLElement | null) => (this.containerElement = ref)}
         >
           <ContentArea>
             {customContentComponents}
@@ -98,7 +103,7 @@ export default class Editor extends React.Component<
             />
             {editorDOMElement}
           </ContentArea>
-        </ChromelessEditor>
+        </div>
       </WithFlash>
     );
   };

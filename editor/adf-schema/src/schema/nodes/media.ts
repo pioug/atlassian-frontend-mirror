@@ -1,4 +1,4 @@
-import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { NodeSpec, Node as PMNode, ParseRule } from 'prosemirror-model';
 import { N30 } from '../../utils/colors';
 import { LinkDefinition } from '../marks/link';
 
@@ -93,62 +93,70 @@ export const createMediaSpec = (
 ): NodeSpec => {
   const domNodeType = inline ? 'span' : 'div';
   const nodeName = inline ? 'mediaInline' : 'media';
+  const parseDOM: ParseRule[] = [
+    {
+      tag: `${domNodeType}[data-node-type="${nodeName}"]`,
+      getAttrs: (dom) => {
+        const attrs = {} as MutableMediaAttributes;
+
+        if (attributes) {
+          Object.keys(attributes).forEach((k) => {
+            const key = camelCaseToKebabCase(k).replace(/^__/, '');
+            const value =
+              (dom as HTMLElement).getAttribute(`data-${key}`) || '';
+            if (value) {
+              attrs[k] = value;
+            }
+          });
+        }
+
+        // Need to do validation & type conversion manually
+        if (attrs.__fileSize) {
+          attrs.__fileSize = +attrs.__fileSize;
+        }
+
+        const width = Number(attrs.width);
+        if (typeof width !== 'undefined' && !isNaN(width)) {
+          attrs.width = width;
+        }
+
+        const height = Number(attrs.height);
+        if (typeof height !== 'undefined' && !isNaN(height)) {
+          attrs.height = height;
+        }
+
+        return attrs as MediaAttributes;
+      },
+    },
+    // Don't match data URI
+    {
+      tag: 'img[src^="data:image"]',
+      ignore: true,
+    },
+  ];
+
+  // media-inline.ts uses this same function to generate the nodespec
+  // this ensures that we don't make a media inline out of a copied image
+  // https://product-fabric.atlassian.net/browse/EDM-2996
+  if (!inline) {
+    parseDOM.push({
+      tag: 'img:not(.smart-link-icon)',
+      getAttrs: (dom) => {
+        return {
+          type: 'external',
+          url: (dom as HTMLElement).getAttribute('src') || '',
+          alt: (dom as HTMLElement).getAttribute('alt') || '',
+        } as ExternalMediaAttributes;
+      },
+    });
+  }
+
   return {
     selectable: true,
     inline,
     group: inline ? 'inline' : undefined,
     attrs: attributes as NodeSpec['attrs'],
-    parseDOM: [
-      {
-        tag: `${domNodeType}[data-node-type="${nodeName}"]`,
-        getAttrs: (dom) => {
-          const attrs = {} as MutableMediaAttributes;
-
-          if (attributes) {
-            Object.keys(attributes).forEach((k) => {
-              const key = camelCaseToKebabCase(k).replace(/^__/, '');
-              const value =
-                (dom as HTMLElement).getAttribute(`data-${key}`) || '';
-              if (value) {
-                attrs[k] = value;
-              }
-            });
-          }
-
-          // Need to do validation & type conversion manually
-          if (attrs.__fileSize) {
-            attrs.__fileSize = +attrs.__fileSize;
-          }
-
-          const width = Number(attrs.width);
-          if (typeof width !== 'undefined' && !isNaN(width)) {
-            attrs.width = width;
-          }
-
-          const height = Number(attrs.height);
-          if (typeof height !== 'undefined' && !isNaN(height)) {
-            attrs.height = height;
-          }
-
-          return attrs as MediaAttributes;
-        },
-      },
-      // Don't match data URI
-      {
-        tag: 'img[src^="data:image"]',
-        ignore: true,
-      },
-      {
-        tag: 'img:not(.smart-link-icon)',
-        getAttrs: (dom) => {
-          return {
-            type: 'external',
-            url: (dom as HTMLElement).getAttribute('src') || '',
-            alt: (dom as HTMLElement).getAttribute('alt') || '',
-          } as ExternalMediaAttributes;
-        },
-      },
-    ],
+    parseDOM,
     toDOM(node: PMNode) {
       const attrs = {
         'data-id': node.attrs.id,

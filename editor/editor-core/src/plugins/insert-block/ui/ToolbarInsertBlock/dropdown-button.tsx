@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { ToolTipContent } from '../../../../keymaps';
 import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
-import { ExpandIconWrapper } from '../../../../ui/styles';
-import { TriggerWrapper } from './styles';
+import { expandIconWrapperStyle } from '../../../../ui/styles';
+import { triggerWrapper } from './styles';
 
 export interface DropDownButtonProps {
   label: string;
@@ -20,12 +22,12 @@ export interface DropDownButtonProps {
 const DropDownButtonIcon: React.StatelessComponent<{
   label: string;
 }> = React.memo((props) => (
-  <TriggerWrapper>
+  <span css={triggerWrapper}>
     <AddIcon label={props.label} />
-    <ExpandIconWrapper>
+    <span css={expandIconWrapperStyle}>
       <ExpandIcon label="" />
-    </ExpandIconWrapper>
-  </TriggerWrapper>
+    </span>
+  </span>
 ));
 
 export const DropDownButton: React.StatelessComponent<DropDownButtonProps> = React.memo(

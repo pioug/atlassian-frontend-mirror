@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.9.0
+
+### Minor Changes
+
+- [`54180abbf55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54180abbf55) - [ux] Add a new `color.border.inverse` token. Use for borders on bold backgrounds
+
 ## 0.8.3
 
 ### Patch Changes

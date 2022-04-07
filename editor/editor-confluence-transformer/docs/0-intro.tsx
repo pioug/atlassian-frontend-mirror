@@ -11,7 +11,7 @@ This transformer allows encoding ProseMirror Node in CXHTML or converting Conflu
   Use the encoder with editor-confluence-transformer as follows:
 
   ${code`import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
-  import { confluenceSchema as schema } from '@atlaskit/adf-schema';
+  import { confluenceSchema as schema } from '@atlaskit/adf-schema/schema-confluence';
 
   const serializer = new ConfluenceTransformer(schema);
   // To encode editor content as markdown

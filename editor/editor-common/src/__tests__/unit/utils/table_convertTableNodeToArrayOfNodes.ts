@@ -1,4 +1,4 @@
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {
   p,
   tr as row,

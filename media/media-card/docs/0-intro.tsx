@@ -12,19 +12,13 @@ export default md`
 ${(<AtlassianInternalWarning />)}
 
 ${createRxjsNotice('Media Card')}
-
-This component provides 2 exports:
-
-  1.  Card
-  2.  CardView
-
+  
   ### Note:
 
   Don't forget to add polyfills for fetch, ES6 & ES7 to your product build if you want to target older browsers.
   We recommend the use of [babel-preset-env](https://babeljs.io/docs/plugins/preset-env/) & [babel-polyfill](https://babeljs.io/docs/usage/polyfill/)
 
   ## Usage
-  ### Card
 
   ${code`
   import { Card } from '@atlaskit/media-card';
@@ -34,22 +28,13 @@ This component provides 2 exports:
     authProvider,
   };
 
-  // url preview
+  // external url preview
   const urlPreviewId = {
-    mediaItemType: 'link',
-    url: 'https://atlassian.com',
+    mediaItemType: 'external-image',
+    dataURI: 'http://external-image-url',
   };
 
   <Card mediaClientConfig={mediaClientConfig} identifier={urlPreviewId} />;
-
-  // stored link
-  const linkId = {
-    mediaItemType: 'link',
-    id: 'some-link-id',
-    collectionName: 'some-collection-name',
-  };
-
-  <Card mediaClientConfig={mediaClientConfig} identifier={linkId} />;
 
   // stored file
   const fileId = {
@@ -59,32 +44,6 @@ This component provides 2 exports:
   };
 
   <Card mediaClientConfig={mediaClientConfig} identifier={fileId} />;
-`}
-
-### Card View
-
-${code`
-import { CardView } from @atlaskit/media-card;
-const resizeModes: Array<ImageResizeMode> = ['crop', 'fit', 'full-fit'];
-
-export const createCardsOfDifferentResizeModes = () => {
-  return resizeModes.map(mode => {
-    const content = images.map(img => (
-      <CardView
-        appearance="image"
-        status="complete"
-        mediaItemType="file"
-        resizeMode={mode}
-        dataURI={img}
-      />
-    ));
-
-    return {
-      title: mode,
-      content,
-    };
-  });
-};
 `}
 
 ${(

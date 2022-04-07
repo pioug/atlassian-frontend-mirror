@@ -42,7 +42,6 @@ export interface MediaPluginState {
   ) => Promise<void>;
   setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
   getMediaOptions: () => MediaPluginOptions;
-  shouldUseMediaPickerPopup: () => boolean;
   insertFile: (
     mediaState: MediaState,
     onMediaStateChanged: MediaStateEventSubscriber,

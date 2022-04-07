@@ -1,13 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import Avatar from '@atlaskit/avatar';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { FormatOptionLabelMeta } from '@atlaskit/select';
 import { Option } from '@atlaskit/editor-common/extensions';
 
-import styled from 'styled-components';
-
-const ItemWrapper = styled.div`
+const itemWrapper = css`
   display: flex;
   align-items: center;
 
@@ -18,14 +17,13 @@ const ItemWrapper = styled.div`
   }
 `;
 
-const IconWrapper = styled.span<{ context: 'menu' | 'value' }>`
-  ${({ context }) =>
-    context === 'menu' &&
-    `
-    align-self: flex-start;
-    margin-top: 3px;
-  `}
+const iconWrapper = css`
   line-height: 1;
+`;
+
+const iconWrapperMenu = css`
+  align-self: flex-start;
+  margin-top: 3px;
 `;
 
 const getIconSize = (context: 'menu' | 'value', description?: string) => {
@@ -41,8 +39,8 @@ export const formatOptionLabel = (
   { context }: FormatOptionLabelMeta<Option>,
 ) => {
   return (
-    <ItemWrapper>
-      <IconWrapper context={context}>
+    <div css={itemWrapper}>
+      <span css={[iconWrapper, context === 'menu' && iconWrapperMenu]}>
         {typeof icon === 'string' ? (
           <Avatar
             src={icon}
@@ -52,13 +50,13 @@ export const formatOptionLabel = (
         ) : (
           icon
         )}
-      </IconWrapper>
+      </span>
       <div style={{ paddingLeft: icon ? gridSize() : 0 }}>
         <p>
           {label}
           {description && context !== 'value' && <small>{description}</small>}
         </p>
       </div>
-    </ItemWrapper>
+    </div>
   );
 };

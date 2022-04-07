@@ -15,11 +15,11 @@ import {
   RefsNode,
   caption,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
 import {
   defaultSchema,
   getSchemaBasedOnStage,
-  MediaAttributes,
-} from '@atlaskit/adf-schema';
+} from '@atlaskit/adf-schema/schema-default';
 import { stateKey as mediaStateKey } from '../../../../../../plugins/media/pm-plugins/plugin-key';
 import { MediaState } from '../../../../../../plugins/media/types';
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';

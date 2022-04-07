@@ -1,5 +1,18 @@
 # @atlaskit/date
 
+## 0.9.0
+
+### Minor Changes
+
+- [`cac9d2a2797`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cac9d2a2797) - [ux] Instrumented `@atlaskit/date` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.9
 
 ### Patch Changes

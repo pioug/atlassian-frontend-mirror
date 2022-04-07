@@ -1,5 +1,43 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 7.2.6
+
+### Patch Changes
+
+- [`b29ce16dad8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b29ce16dad8) - [ED-14606] Move bitbucket schema, confluence schema, jira schema, and default schema from @atlaskit/adf-schema to their own entry points. These new entry points are as follows
+
+  @atlaskit/adf-schema/schema-bitbucket for:
+
+  - bitbucketSchema
+
+  @atlaskit/adf-schema/schema-confluence for:
+
+  - confluenceSchema
+  - confluenceSchemaWithMediaSingle
+
+  @atlaskit/adf-schema/schema-jira for:
+
+  - default as createJIRASchema
+  - isSchemaWithLists
+  - isSchemaWithMentions
+  - isSchemaWithEmojis
+  - isSchemaWithLinks
+  - isSchemaWithAdvancedTextFormattingMarks
+  - isSchemaWithCodeBlock
+  - isSchemaWithBlockQuotes
+  - isSchemaWithMedia
+  - isSchemaWithSubSupMark
+  - isSchemaWithTextColor
+  - isSchemaWithTables
+
+  @atlaskit/adf-schema/schema-default for:
+
+  - defaultSchema
+  - getSchemaBasedOnStage
+  - defaultSchemaConfig
+
+  This change also includes codemods in @atlaskit/adf-schema to update these entry points. It also introduces a new util function "changeImportEntryPoint" to @atlaskit/codemod-utils to handle this scenario.
+
 ## 7.2.5
 
 ### Patch Changes

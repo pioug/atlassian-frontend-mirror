@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { MessageDescriptor } from '../../types/i18n';
@@ -6,7 +7,7 @@ import { AlignmentState } from '../../plugins/alignment/pm-plugins/types';
 import { IconMap } from '../../plugins/alignment/ui/ToolbarAlignment/icon-map';
 import AlignmentButton from './AlignmentButton';
 import { alignmentMessages } from './messages';
-import { AlignmentWrapper } from './styles';
+import { alignmentWrapper } from './styles';
 import { Keymap, alignLeft, alignRight } from '../../keymaps';
 
 export interface Props {
@@ -33,7 +34,7 @@ class Alignment extends PureComponent<Props & WrappedComponentProps> {
     const { onClick, selectedAlignment, className, intl } = this.props;
 
     return (
-      <AlignmentWrapper className={className} style={{ maxWidth: 3 * 32 }}>
+      <div css={alignmentWrapper} className={className}>
         {alignmentOptions.map((alignment) => {
           const { value, title, shortcut } = alignment;
           const message = intl.formatMessage(title);
@@ -49,7 +50,7 @@ class Alignment extends PureComponent<Props & WrappedComponentProps> {
             />
           );
         })}
-      </AlignmentWrapper>
+      </div>
     );
   }
 }

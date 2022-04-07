@@ -1,4 +1,5 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 import { StatusPicker, ColorType } from '../src/picker';
 
 export interface Props {
@@ -45,7 +46,7 @@ export default class ManagedStatusPicker extends React.Component<Props, State> {
       <div
         id="container"
         style={{
-          border: '1px solid #ccc',
+          border: `1px solid ${token('color.border', '#ccc')}`,
           width: '225px',
           borderRadius: '4px',
           padding: '10px 0',

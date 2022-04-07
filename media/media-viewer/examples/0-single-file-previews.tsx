@@ -3,10 +3,11 @@ import {
   externalImageIdentifier,
   defaultCollectionName,
   createStorybookMediaClientConfig,
+  enableMediaUfoLogger,
 } from '@atlaskit/media-test-helpers';
 import { Card } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
-import { ufologger } from '@atlaskit/ufo/logger';
+import { payloadPublisher } from '@atlassian/ufo';
 import { ButtonList, Container, Group } from '../example-helpers/styled';
 import {
   archiveItem,
@@ -47,7 +48,7 @@ export type State = {
   selectedIdentifier?: Identifier;
 };
 
-ufologger.enable();
+enableMediaUfoLogger(payloadPublisher);
 
 export default class Example extends React.Component<{}, State> {
   state: State = { selectedIdentifier: undefined };

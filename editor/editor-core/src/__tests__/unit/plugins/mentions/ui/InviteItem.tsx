@@ -5,13 +5,10 @@ import { N300 } from '@atlaskit/theme/colors';
 import InviteItem, {
   INVITE_ITEM_DESCRIPTION,
 } from '../../../../../plugins/mentions/ui/InviteItem';
-import {
-  CapitalizedStyle,
-  MentionItemStyle,
-  NameSectionStyle,
-} from '../../../../../plugins/mentions/ui/InviteItem/styles';
 import { messages } from '../../../../../plugins/mentions/messages';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+
+const mentionItemSelector = `div[data-id="${INVITE_ITEM_DESCRIPTION.id}"]`;
 
 describe('@atlaskit/editor-core/ui/InviteItem', () => {
   let inviteItem: any;
@@ -26,14 +23,19 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
     inviteItem = mountWithIntl(<InviteItem productName="jira" selected />);
 
     expect(inviteItem.length).toBe(1);
-    expect(inviteItem.find(MentionItemStyle).prop('selected')).toBe(true);
-    expect(inviteItem.find(MentionItemStyle).prop('data-id')).toBe(
-      INVITE_ITEM_DESCRIPTION.id,
-    );
+    expect(
+      getComputedStyle(inviteItem.find(mentionItemSelector).getDOMNode())
+        .backgroundColor,
+    ).toEqual('rgb(235, 236, 240)'); // N30 #EBECF0
+
     expect(inviteItem.find(AddIcon).length).toBe(1);
     expect(inviteItem.find(AddIcon).prop('primaryColor')).toBe(N300);
     expect(
-      inviteItem.find(NameSectionStyle).find(FormattedMessage).at(0).props(),
+      inviteItem
+        .find("div[data-testid='name-section']")
+        .find(FormattedMessage)
+        .at(0)
+        .props(),
     ).toEqual({
       ...messages.inviteItemTitle,
       values: {
@@ -46,7 +48,11 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
     inviteItem = mountWithIntl(<InviteItem productName="jira" />);
 
     expect(
-      inviteItem.find(NameSectionStyle).find(FormattedMessage).at(0).props(),
+      inviteItem
+        .find("div[data-testid='name-section']")
+        .find(FormattedMessage)
+        .at(0)
+        .props(),
     ).toEqual({
       ...messages.inviteItemTitle,
       values: expect.objectContaining({
@@ -55,12 +61,20 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
       }),
     });
 
-    expect(inviteItem.find(CapitalizedStyle).prop('children')).toEqual('jira');
+    expect(
+      inviteItem
+        .find("span[data-testid='capitalized-message']")
+        .prop('children'),
+    ).toEqual('jira');
 
     inviteItem.setProps({ userRole: 'admin', productName: 'confluence' });
 
     expect(
-      inviteItem.find(NameSectionStyle).find(FormattedMessage).at(0).props(),
+      inviteItem
+        .find("div[data-testid='name-section']")
+        .find(FormattedMessage)
+        .at(0)
+        .props(),
     ).toMatchObject({
       ...messages.inviteItemTitle,
       values: expect.objectContaining({
@@ -69,9 +83,11 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
       }),
     });
 
-    expect(inviteItem.find(CapitalizedStyle).prop('children')).toEqual(
-      'confluence',
-    );
+    expect(
+      inviteItem
+        .find("span[data-testid='capitalized-message']")
+        .prop('children'),
+    ).toEqual('confluence');
   });
   it('should call props.onMount if provided', () => {
     const mockOnMount = jest.fn();
@@ -86,7 +102,7 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
       <InviteItem productName="jira" onMouseEnter={mockOnMouseEnter} />,
     );
 
-    inviteItem.find(MentionItemStyle).simulate('mouseEnter');
+    inviteItem.find(mentionItemSelector).simulate('mouseEnter');
 
     expect(mockOnMouseEnter).toBeCalledWith(
       INVITE_ITEM_DESCRIPTION,
@@ -100,7 +116,9 @@ describe('@atlaskit/editor-core/ui/InviteItem', () => {
       <InviteItem productName="jira" onSelection={mockOnSelection} />,
     );
 
-    inviteItem.find(MentionItemStyle).simulate('mouseDown', mockLeftClickEvent);
+    inviteItem
+      .find(mentionItemSelector)
+      .simulate('mouseDown', mockLeftClickEvent);
 
     expect(mockOnSelection).toBeCalledWith(
       INVITE_ITEM_DESCRIPTION,

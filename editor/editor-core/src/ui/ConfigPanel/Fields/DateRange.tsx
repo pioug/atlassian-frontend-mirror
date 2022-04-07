@@ -1,6 +1,7 @@
-import React, { Fragment, useState, useEffect, useMemo } from 'react';
+/** @jsx jsx */
+import { Fragment, useState, useEffect, useMemo } from 'react';
+import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { Field } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
@@ -16,17 +17,17 @@ import FieldMessages from '../FieldMessages';
 import { validate, validateRequired } from '../utils';
 import { OnFieldChange } from '../types';
 
-const HorizontalFields = styled.div`
+const horizontalFields = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const HorizontalFieldWrapper = styled.div`
+const horizontalFieldWrapper = css`
   flex-basis: 47%;
 `;
 
-const Hidden = styled.div`
+const hidden = css`
   display: none;
 `;
 
@@ -53,7 +54,7 @@ const DateField = ({
   onFieldChange: OnFieldChange;
   isRequired?: boolean;
 } & WrappedComponentProps) => (
-  <HorizontalFieldWrapper key={fieldName}>
+  <div css={horizontalFieldWrapper} key={fieldName}>
     <Field
       name={`${scope}.${fieldName}`}
       label={intl.formatMessage(messages[fieldName])}
@@ -80,7 +81,7 @@ const DateField = ({
         </Fragment>
       )}
     </Field>
-  </HorizontalFieldWrapper>
+  </div>
 );
 
 const DateRange = function ({
@@ -120,11 +121,11 @@ const DateRange = function ({
 
   const element = (
     <Fragment>
-      <Hidden>
+      <div css={hidden}>
         <Field name={`${name}.type`} defaultValue={'date-range'}>
           {({ fieldProps }) => <TextField {...fieldProps} type="hidden" />}
         </Field>
-      </Hidden>
+      </div>
       <Field
         name={`${name}.value`}
         label={field.label}
@@ -147,16 +148,16 @@ const DateRange = function ({
         )}
       </Field>
       {currentValue !== 'custom' ? (
-        <Hidden>
+        <div css={hidden}>
           {/** this is a hidden field that will copy the selected value to a field of name 'from'
            *  when a option that is NOT 'custom' is selected. This is to comply with the atlaskit
            * form component that relies on final-form */}
           <Field name={`${name}.from`} defaultValue={currentValue}>
             {({ fieldProps }) => <TextField {...fieldProps} type="hidden" />}
           </Field>
-        </Hidden>
+        </div>
       ) : (
-        <HorizontalFields>
+        <div css={horizontalFields}>
           <DateField
             scope={name}
             parentField={field}
@@ -173,7 +174,7 @@ const DateRange = function ({
             intl={intl}
             isRequired={field.isRequired}
           />
-        </HorizontalFields>
+        </div>
       )}
 
       <FieldMessages description={field.description} />

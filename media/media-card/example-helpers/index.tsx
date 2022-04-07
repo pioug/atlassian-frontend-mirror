@@ -16,7 +16,7 @@ import FabricAnalyticsListeners, {
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { SelectableCard } from './selectableCard';
 import { Card, CardAppearance, CardEvent, CardAction } from '../src';
-import { relevantFeatureFlagNames } from '../src/root/card/cardAnalytics';
+import { getRelevantFeatureFlagNames } from '../src/root/card/cardAnalytics';
 import { MediaCardError } from '../src/errors';
 import DevelopmentUseMessage from './developmentUseMessage';
 
@@ -134,7 +134,7 @@ export const MainWrapper: React.FC<MainWrapperProps> = ({
 }) => (
   <>
     {developmentOnly && <DevelopmentUseMessage />}
-    <FeatureFlagsWrapper filterFlags={relevantFeatureFlagNames}>
+    <FeatureFlagsWrapper filterFlags={getRelevantFeatureFlagNames()}>
       {children}
     </FeatureFlagsWrapper>
   </>

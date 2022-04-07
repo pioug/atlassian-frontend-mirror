@@ -8,11 +8,11 @@ import { getDummyBridgeCalls } from '../../../integration/_utils';
 import { wait } from '@testing-library/react';
 import adfContent from '../../__fixtures__/panel-date-status-adf.json';
 import {
-  PanelSharedCssClassName,
   StatusSharedCssClassName,
   DateSharedCssClassName,
   TableSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';
 
 const buildInitialStatusToolbarItems = (color: PaletteColor) => [

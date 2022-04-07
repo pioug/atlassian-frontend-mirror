@@ -66,6 +66,7 @@ const tokens = {
   'color.border.accent.teal': '--ds-border-accent-teal',
   'color.border.accent.magenta': '--ds-border-accent-magenta',
   'color.border': '--ds-border',
+  'color.border.inverse': '--ds-border-inverse',
   'color.border.focused': '--ds-border-focused',
   'color.border.input': '--ds-border-input',
   'color.border.disabled': '--ds-border-disabled',
@@ -395,6 +396,7 @@ export type CSSTokenMap = {
   'color.border.accent.teal': 'var(--ds-border-accent-teal)';
   'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
   'color.border': 'var(--ds-border)';
+  'color.border.inverse': 'var(--ds-border-inverse)';
   'color.border.focused': 'var(--ds-border-focused)';
   'color.border.input': 'var(--ds-border-input)';
   'color.border.disabled': 'var(--ds-border-disabled)';

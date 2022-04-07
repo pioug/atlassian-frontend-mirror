@@ -7,7 +7,7 @@ import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
-import { insertTaskDecision } from '../../commands';
+import { insertTaskDecisionCommand } from '../../commands';
 
 export interface Props {
   editorView?: EditorView;
@@ -52,7 +52,7 @@ export class ToolbarTask extends PureComponent<
     if (!editorView) {
       return false;
     }
-    insertTaskDecision(editorView, 'taskList')(
+    insertTaskDecisionCommand('taskList')(
       editorView.state,
       editorView.dispatch,
     );

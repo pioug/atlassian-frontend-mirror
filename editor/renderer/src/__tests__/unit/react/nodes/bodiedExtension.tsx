@@ -4,7 +4,7 @@ import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 
 import { RendererContext } from '../../../../react/types';
 import ReactSerializer from '../../../../react';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

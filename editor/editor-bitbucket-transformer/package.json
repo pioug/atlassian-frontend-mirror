@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-bitbucket-transformer",
-  "version": "7.2.5",
+  "version": "7.2.6",
   "description": "Editor Bitbucket transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,11 +34,11 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/adf-schema": "^22.1.0",
+    "@atlaskit/adf-schema": "^23.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^163.0.0",
+    "@atlaskit/editor-core": "^164.0.0",
     "@atlaskit/editor-test-helpers": "^17.0.0",
-    "@atlaskit/emoji": "^64.4.0",
+    "@atlaskit/emoji": "^64.5.0",
     "@atlaskit/smart-card": "^18.0.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/util-data-test": "^17.2.0",
@@ -46,6 +46,11 @@
     "prosemirror-view": "1.23.2",
     "styled-components": "^3.2.6",
     "typescript": "3.9.10"
+  },
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -117,7 +117,7 @@ export interface CollabBridge {
   connect(path: string): void;
   disconnect(): void;
   updateStepVersion(stepVersion?: number, error?: string): void;
-  onCollabError(message: string): void;
+  onCollabError(message: string, status: number, code: string): void;
 }
 
 export interface LifecycleBridge {

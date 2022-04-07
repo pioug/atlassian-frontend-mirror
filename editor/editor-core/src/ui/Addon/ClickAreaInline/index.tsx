@@ -1,12 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
 import { createParagraphAtEnd } from '../../../commands';
 
-const ClickArea: any = styled.div`
+const clickArea = css`
   flex-grow: 1;
 `;
-ClickArea.displayName = 'ClickArea';
 
 export interface Props {
   editorView?: EditorView;
@@ -24,6 +24,6 @@ export default class ClickAreaInline extends React.Component<Props> {
   };
 
   render() {
-    return <ClickArea onClick={this.handleClick} />;
+    return <div css={clickArea} onClick={this.handleClick} />;
   }
 }

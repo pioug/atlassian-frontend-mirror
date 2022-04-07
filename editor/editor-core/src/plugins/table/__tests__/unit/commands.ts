@@ -5,7 +5,8 @@ import { findParentNodeOfType } from 'prosemirror-utils';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
-import { defaultSchema, uuid } from '@atlaskit/adf-schema';
+import { uuid } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,

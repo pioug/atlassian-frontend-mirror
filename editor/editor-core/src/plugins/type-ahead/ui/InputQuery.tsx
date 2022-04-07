@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, { useRef, useEffect, useCallback, Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
@@ -10,7 +11,7 @@ import {
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
-const QuerySpan = styled.span`
+const querySpan = css`
   outline: none;
 `;
 
@@ -368,19 +369,26 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
       }
     }, [forceFocus, reopenQuery]);
 
+    /**
+      When we migrated to emotion from styled component, we started getting this error.
+      jsx-a11y/interactive-supports-focus
+      Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
+     */
     return (
-      <>
+      <Fragment>
         {triggerQueryPrefix}
-        <QuerySpan
+        {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+        <span
+          css={querySpan}
           contentEditable={true}
-          innerRef={ref}
+          ref={ref}
           onKeyUp={onKeyUp}
           onClick={onClick}
           role="textbox"
-          suppressContentEditableWarning={true}
+          suppressContentEditableWarning
           data-query-prefix={triggerQueryPrefix}
         />
-      </>
+      </Fragment>
     );
   },
 );

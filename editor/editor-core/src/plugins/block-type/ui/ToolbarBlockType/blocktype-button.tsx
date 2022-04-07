@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
   defineMessages,
@@ -10,9 +12,11 @@ import TextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
 import { MessageDescriptor } from '../../../../types/i18n';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import {
-  ButtonContent,
-  Wrapper,
-  ExpandIconWrapper,
+  buttonContentStyle,
+  buttonContentReducedSpacingStyle,
+  wrapperStyle,
+  wrapperSmallStyle,
+  expandIconWrapperStyle,
 } from '../../../../ui/styles';
 import { NORMAL_TEXT } from '../../types';
 
@@ -52,19 +56,24 @@ export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = (
       aria-haspopup
       aria-expanded={props['aria-expanded']}
       iconAfter={
-        <Wrapper isSmall={props.isSmall}>
+        <span css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}>
           {props.isSmall && <TextStyleIcon label={labelTextStyles} />}
-          <ExpandIconWrapper>
+          <span css={expandIconWrapperStyle}>
             <ExpandIcon label="" />
-          </ExpandIconWrapper>
-        </Wrapper>
+          </span>
+        </span>
       }
     >
       {!props.isSmall && (
-        <ButtonContent spacing={props.isReducedSpacing ? 'none' : 'default'}>
+        <span
+          css={[
+            buttonContentStyle,
+            props.isReducedSpacing && buttonContentReducedSpacingStyle,
+          ]}
+        >
           <FormattedMessage {...(props.title || NORMAL_TEXT.title)} />
           <div style={{ overflow: 'hidden', height: 0 }}>{props.children}</div>
-        </ButtonContent>
+        </span>
       )}
     </ToolbarButton>
   );

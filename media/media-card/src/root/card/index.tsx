@@ -84,7 +84,7 @@ import {
 import {
   fireOperationalEvent,
   fireCommencedEvent,
-  relevantFeatureFlagNames,
+  getRelevantFeatureFlagNames,
   fireCopiedEvent,
   fireScreenEvent,
 } from './cardAnalytics';
@@ -98,12 +98,20 @@ import { getCardStateFromFileState, createStateUpdater } from './cardState';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isBigger } from '../../utils/dimensionComparer';
 import { getMediaCardCursor } from '../../utils/getMediaCardCursor';
+import {
+  completeUfoExperience,
+  startUfoExperience,
+} from '../../utils/ufoExperiences';
+import { generateUniqueId } from '../../utils/generateUniqueId';
 
 export type CardBaseProps = CardProps &
   WithAnalyticsEventsProps &
   Partial<WrappedComponentProps>;
 
 export class CardBase extends Component<CardBaseProps, CardState> {
+  // An internalOccurrenceKey is a randomly generated value to differentiate various instances
+  // of Cards regardless of whether it shares the same file (either internal or external)
+  private internalOccurrenceKey = generateUniqueId();
   private hasBeenMounted: boolean = false;
   private viewportPreAnchorRef = createRef<HTMLDivElement>();
   private viewportPostAnchorRef = createRef<HTMLDivElement>();
@@ -521,7 +529,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         this.ssrReliability.client = failedSSRObject;
       }
 
-      /* 
+      /*
         If the cardPreview failed and it comes from server (global scope / ssrData), it means that we have reused it in client and the error counts for both: server & client.
       */
 
@@ -572,7 +580,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         this.ssrReliability.client = { status: 'success' };
       }
 
-      /* 
+      /*
         If the image loads successfully and it comes from server (global scope / ssrData), it means that we have reused it in client and the success counts for both: server & client.
       */
 
@@ -607,6 +615,13 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         this.ssrReliability,
         error,
       );
+    completeUfoExperience(
+      this.internalOccurrenceKey,
+      status,
+      this.fileAttributes,
+      this.ssrReliability,
+      error,
+    );
   }
 
   private fireCommencedEvent() {
@@ -616,6 +631,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       fireCommencedEvent(createAnalyticsEvent, this.fileAttributes, {
         overall: { durationSincePageStart: this.timeElapsedTillCommenced },
       });
+    startUfoExperience(this.internalOccurrenceKey);
   }
 
   private fireCopiedEvent = () => {
@@ -1009,7 +1025,7 @@ export const Card: React.ComponentType<CardBaseProps> = withMediaAnalyticsContex
     component: 'mediaCard',
   },
   {
-    filterFeatureFlags: relevantFeatureFlagNames,
+    filterFeatureFlags: getRelevantFeatureFlagNames(),
   },
 )(
   withAnalyticsEvents()(

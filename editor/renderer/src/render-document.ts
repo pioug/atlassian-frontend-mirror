@@ -1,5 +1,5 @@
 import { Serializer } from './serializer';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { getValidDocument, ADFStage } from '@atlaskit/editor-common/validator';
 import {
   validateADFEntity,

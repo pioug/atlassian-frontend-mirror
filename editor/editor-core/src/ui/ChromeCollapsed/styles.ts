@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { InputHTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import {
   akEditorSubtleAccent,
   relativeFontSizeToBase16,
@@ -7,11 +6,7 @@ import {
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N300, N50 } from '@atlaskit/theme/colors';
 
-export const Input: ComponentClass<
-  InputHTMLAttributes<{}> & {
-    innerRef?: any;
-  }
-> = styled.input`
+export const inputStyle = css`
   /* Normal .className gets overridden by input[type=text] hence this hack to produce input.className */
   input& {
     background-color: white;

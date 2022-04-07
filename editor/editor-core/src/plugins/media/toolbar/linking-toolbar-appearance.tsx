@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+/** @jsx jsx */
+import React, { useState, useEffect, Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
-import styled from 'styled-components';
 
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
@@ -29,7 +30,7 @@ export interface LinkingToolbarProps {
 }
 
 // need this wrapper, need to have 4px between items.
-const Wrapper = styled.div`
+const wrapper = css`
   display: flex;
   align-items: center;
   margin-right: 4px;
@@ -78,8 +79,8 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
     );
 
     return (
-      <>
-        <Wrapper>
+      <Fragment>
+        <div css={wrapper}>
           <ToolbarButton
             onClick={onEditLink}
             title={title}
@@ -89,10 +90,10 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
           >
             {title}
           </ToolbarButton>
-        </Wrapper>
-        <Wrapper>
+        </div>
+        <div css={wrapper}>
           <Separator />
-        </Wrapper>
+        </div>
         <ToolbarButton
           target="_blank"
           href={isValidUrl ? mediaLinkingState.link : undefined}
@@ -103,12 +104,12 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
           className="hyperlink-open-link"
         />
         <Separator />
-      </>
+      </Fragment>
     );
   } else {
     const title = intl.formatMessage(linkToolbarMessages.addLink);
     return (
-      <>
+      <Fragment>
         <ToolbarButton
           testId="add-link-button"
           onClick={onAddLink}
@@ -119,7 +120,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
           icon={<LinkIcon label={title} />}
         />
         <Separator />
-      </>
+      </Fragment>
     );
   }
 };

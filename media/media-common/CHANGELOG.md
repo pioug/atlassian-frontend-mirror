@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.12.0
+
+### Minor Changes
+
+- [`bac667f95d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bac667f95d5) - Export utility filterFeatureFlagNames and type RequiredMediaFeatureFlags
+
 ## 2.11.0
 
 ### Minor Changes

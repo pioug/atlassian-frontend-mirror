@@ -1,5 +1,5 @@
 import { Schema } from 'prosemirror-model';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ADNode } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { Transformer } from '@atlaskit/editor-common/types';

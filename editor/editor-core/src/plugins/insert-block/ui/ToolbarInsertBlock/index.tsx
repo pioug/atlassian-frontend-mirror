@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
@@ -6,13 +8,17 @@ import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import { EmojiId } from '@atlaskit/emoji/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
-import { Separator, ButtonGroup, Wrapper } from '../../../../ui/styles';
+import {
+  separatorStyles,
+  buttonGroupStyle,
+  wrapperStyle,
+} from '../../../../ui/styles';
 import { createTable } from '../../../table/commands';
 import { insertDate } from '../../../date/actions';
 import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
-import { insertTaskDecision } from '../../../tasks-and-decisions/commands';
+import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
 import { showLinkToolbar } from '../../../hyperlink/commands';
 import { createTypeAheadTools } from '../../../type-ahead/api';
@@ -254,7 +260,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
     }
 
     return (
-      <ButtonGroup width={isReducedSpacing ? 'small' : 'large'}>
+      <span css={buttonGroupStyle}>
         {buttons.map((btn) => (
           <ToolbarButton
             item={btn}
@@ -270,7 +276,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
             onItemClick={this.insertToolbarMenuItem}
           />
         ))}
-        <Wrapper>
+        <span css={wrapperStyle}>
           {this.renderPopup()}
           <BlockInsertMenu
             popupsMountPoint={this.props.popupsMountPoint}
@@ -294,9 +300,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
               this.props.replacePlusMenuWithElementBrowser ?? false
             }
           />
-        </Wrapper>
-        {this.props.showSeparator && <Separator />}
-      </ButtonGroup>
+        </span>
+        {this.props.showSeparator && <span css={separatorStyles} />}
+      </span>
     );
   }
 
@@ -379,17 +385,12 @@ export class ToolbarInsertBlock extends React.PureComponent<
     name: 'action' | 'decision',
     inputMethod: TOOLBAR_MENU_TYPE,
   ) => (): boolean => {
-    const { editorView } = this.props;
-    if (!editorView) {
-      return false;
-    }
+    const {
+      editorView: { state, dispatch },
+    } = this.props;
     const listType = name === 'action' ? 'taskList' : 'decisionList';
-    insertTaskDecision(
-      editorView,
-      listType,
-      inputMethod,
-    )(editorView.state, editorView.dispatch);
-    return true;
+
+    return insertTaskDecisionCommand(listType, inputMethod)(state, dispatch);
   };
 
   private insertHorizontalRule = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

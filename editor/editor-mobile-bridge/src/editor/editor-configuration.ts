@@ -24,7 +24,6 @@ interface EditorConfig {
   allowCollabProvider?: boolean;
   useUnpredictableInputRule?: boolean;
   placeholder?: string;
-  allowEmptyADFCheck?: boolean;
   allowCustomPanel?: boolean;
   allowCustomPanelEdit?: boolean;
   allowMediaInline?: boolean;
@@ -40,7 +39,6 @@ export default class MobileEditorConfiguration
   private allowCollabProvider: boolean = false;
   private useUnpredictableInputRule: boolean = true;
   private placeholder?: string | undefined;
-  private allowEmptyADFCheck: boolean = false;
   private allowCustomPanel: boolean = false;
   private allowCustomPanelEdit: boolean = false;
 
@@ -74,10 +72,6 @@ export default class MobileEditorConfiguration
         : this.useUnpredictableInputRule;
     this.placeholder =
       config.placeholder !== undefined ? config.placeholder : this.placeholder;
-    this.allowEmptyADFCheck =
-      config.allowEmptyADFCheck !== undefined
-        ? config.allowEmptyADFCheck
-        : this.allowEmptyADFCheck;
     this.allowCustomPanel =
       config.allowCustomPanel !== undefined
         ? config.allowCustomPanel
@@ -130,10 +124,6 @@ export default class MobileEditorConfiguration
 
   getPlaceholder(): string | undefined {
     return this.placeholder;
-  }
-
-  isAllowEmptyADFCheckEnabled(): boolean {
-    return this.allowEmptyADFCheck;
   }
 
   isCustomPanelEnabled(): boolean {

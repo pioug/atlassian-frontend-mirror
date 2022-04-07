@@ -1,6 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
-import styled from 'styled-components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { B400 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -16,13 +16,13 @@ export const menuItemDimensions = {
   height: 32,
 };
 
-const Spacer = styled.span`
+const spacer = css`
   display: flex;
   flex: 1;
   padding: 8px;
 `;
 
-const MenuContainer = styled.div`
+const menuContainer = css`
   min-width: ${menuItemDimensions.width}px;
 
   // temporary solution before we migrated off dst/item
@@ -62,7 +62,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
   render() {
     const { hide, dispatchCommand, items, intl } = this.props;
     return (
-      <MenuContainer>
+      <div css={menuContainer}>
         {items
           .filter((item) => !item.hidden)
           .map((item, idx) => {
@@ -99,7 +99,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
 
             return itemContent;
           })}
-      </MenuContainer>
+      </div>
     );
   }
 
@@ -113,7 +113,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
           label={intl.formatMessage(messages.confirmModalOK)}
         />
       ) : (
-        <Spacer />
+        <span css={spacer} />
       );
     }
 

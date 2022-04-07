@@ -40,7 +40,7 @@ import {
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
 import EditorConfiguration from './editor-configuration';
-import { hasVisibleContent } from '@atlaskit/editor-core';
+import { isEmptyDocument } from '@atlaskit/editor-core';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
 import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
 export interface MobileEditorProps extends EditorProps {
@@ -140,14 +140,10 @@ export function MobileEditor(props: MobileEditorProps) {
   const handleChange = React.useCallback(
     throttle(
       () => {
-        if (editorConfiguration.isAllowEmptyADFCheckEnabled()) {
-          toNativeBridge.updateTextWithADFStatus(
-            bridge.getContent(),
-            !hasVisibleContent(bridge.editorView!.state.doc),
-          );
-        } else {
-          toNativeBridge.updateText(bridge.getContent());
-        }
+        toNativeBridge.updateTextWithADFStatus(
+          bridge.getContent(),
+          isEmptyDocument(bridge.editorView!.state.doc),
+        );
       },
       100,
       { leading: false, trailing: true },

@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import RendererDemo from './helper/RendererDemo';
 import { Provider, Client } from '@atlaskit/smart-card';
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 
 const ADF_STAGE0 = 'stage0';

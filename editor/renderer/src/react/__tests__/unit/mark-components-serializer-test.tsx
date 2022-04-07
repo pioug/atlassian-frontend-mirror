@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultSchema as schema } from '@atlaskit/adf-schema';
+import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { create } from 'react-test-renderer';
 import { Node as PMNode } from 'prosemirror-model';
 import { ReactSerializer } from '../../../index';

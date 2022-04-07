@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import PropTypes from 'prop-types';
 import { PureComponent, SyntheticEvent } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
@@ -28,7 +27,6 @@ import {
   ToneSelection,
 } from '../../types';
 import { getToneEmoji } from '../../util/filters';
-import { EmojiContext } from '../common/internal-types';
 import { uploadEmoji } from '../common/UploadEmoji';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import { CategoryId } from './categories';
@@ -57,6 +55,7 @@ import {
   ufoExperiences,
 } from '../../util/analytics';
 import { emojiPicker } from './styles';
+import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 
 const FREQUENTLY_USED_MAX = 16;
 
@@ -95,10 +94,6 @@ export interface State {
 }
 
 export default class EmojiPickerComponent extends PureComponent<Props, State> {
-  static childContextTypes = {
-    emoji: PropTypes.object,
-  };
-
   static defaultProps = {
     onSelection: () => {},
   };
@@ -125,14 +120,6 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
   }
 
   openTime: number;
-
-  getChildContext(): EmojiContext {
-    return {
-      emoji: {
-        emojiProvider: this.props.emojiProvider,
-      },
-    };
-  }
 
   UNSAFE_componentWillMount() {
     this.openTime = Date.now();
@@ -601,50 +588,58 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       <FormattedMessage {...uploadErrorMessage} />
     ) : null;
 
+    const emojiContextValue = {
+      emoji: {
+        emojiProvider: this.props.emojiProvider,
+      },
+    };
+
     const picker = (
-      <div
-        css={emojiPicker}
-        ref={this.handlePickerRef}
-        data-emoji-picker-container
-      >
-        <CategorySelector
-          activeCategoryId={activeCategory}
-          dynamicCategories={dynamicCategories}
-          disableCategories={disableCategories}
-          onCategorySelected={this.onCategorySelected}
-        />
-        <EmojiPickerList
-          emojis={filteredEmojis}
-          currentUser={emojiProvider.getCurrentUser()}
-          onEmojiSelected={recordUsageOnSelection}
-          onEmojiActive={this.onEmojiActive}
-          onEmojiDelete={this.onTriggerDelete}
-          onCategoryActivated={this.onCategoryActivated}
-          onSearch={this.onSearch}
-          query={query}
-          selectedTone={selectedTone}
-          loading={loading}
-          ref="emojiPickerList"
-          initialUploadName={query}
-          onToneSelected={this.onToneSelected}
-          onToneSelectorCancelled={this.onToneSelectorCancelled}
-          toneEmoji={toneEmoji}
-          uploading={uploading}
-          emojiToDelete={emojiToDelete}
-          uploadErrorMessage={formattedErrorMessage}
-          uploadEnabled={uploadSupported && !uploading}
-          onUploadEmoji={this.onUploadEmoji}
-          onUploadCancelled={this.onUploadCancelled}
-          onDeleteEmoji={this.onDeleteEmoji}
-          onCloseDelete={this.onCloseDelete}
-          onFileChooserClicked={this.onFileChooserClicked}
-          onOpenUpload={this.onOpenUpload}
-        />
-        <EmojiPickerFooter
-          selectedEmoji={selectedEmoji}
-          isUploading={uploading}
-        />
-      </div>
+      <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
+        <div
+          css={emojiPicker}
+          ref={this.handlePickerRef}
+          data-emoji-picker-container
+        >
+          <CategorySelector
+            activeCategoryId={activeCategory}
+            dynamicCategories={dynamicCategories}
+            disableCategories={disableCategories}
+            onCategorySelected={this.onCategorySelected}
+          />
+          <EmojiPickerList
+            emojis={filteredEmojis}
+            currentUser={emojiProvider.getCurrentUser()}
+            onEmojiSelected={recordUsageOnSelection}
+            onEmojiActive={this.onEmojiActive}
+            onEmojiDelete={this.onTriggerDelete}
+            onCategoryActivated={this.onCategoryActivated}
+            onSearch={this.onSearch}
+            query={query}
+            selectedTone={selectedTone}
+            loading={loading}
+            ref="emojiPickerList"
+            initialUploadName={query}
+            onToneSelected={this.onToneSelected}
+            onToneSelectorCancelled={this.onToneSelectorCancelled}
+            toneEmoji={toneEmoji}
+            uploading={uploading}
+            emojiToDelete={emojiToDelete}
+            uploadErrorMessage={formattedErrorMessage}
+            uploadEnabled={uploadSupported && !uploading}
+            onUploadEmoji={this.onUploadEmoji}
+            onUploadCancelled={this.onUploadCancelled}
+            onDeleteEmoji={this.onDeleteEmoji}
+            onCloseDelete={this.onCloseDelete}
+            onFileChooserClicked={this.onFileChooserClicked}
+            onOpenUpload={this.onOpenUpload}
+          />
+          <EmojiPickerFooter
+            selectedEmoji={selectedEmoji}
+            isUploading={uploading}
+          />
+        </div>
+      </LegacyEmojiContextProvider>
     );
 
     return picker;

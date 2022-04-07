@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
-import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
 
@@ -28,6 +29,7 @@ import { EmojiPickerButton } from './EmojiPickerButton';
 import Announcer from '../../../utils/announcer/announcer';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import messages from './messages';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 const akGridSize = gridSize();
 
@@ -49,8 +51,8 @@ export interface Props {
   extensionsProvider?: ExtensionProvider;
 }
 
-const ToolbarContainer = styled.div`
-  background-color: ${themed({ light: 'white', dark: DN70 })};
+const toolbarContainer = (theme: ThemeProps) => css`
+  background-color: ${themed({ light: 'white', dark: DN70 })(theme)};
   border-radius: ${borderRadius()}px;
   box-shadow: 0 0 1px rgba(9, 30, 66, 0.31),
     0 4px 8px -2px rgba(9, 30, 66, 0.25);
@@ -58,11 +60,14 @@ const ToolbarContainer = styled.div`
   display: flex;
   line-height: 1;
   box-sizing: border-box;
-  ${(props: { hasCompactLeftPadding: boolean }) =>
-    props.hasCompactLeftPadding ? `padding-left: ${akGridSize / 2}px` : ''};
+
   & > div {
     align-items: center;
   }
+`;
+
+const toolbarContainerLeftPadding = css`
+  padding-left: ${akGridSize / 2}px;
 `;
 
 function makeSameType<T>(_a: T, _b: any): _b is T {
@@ -189,9 +194,14 @@ class Toolbar extends Component<Props & WrappedComponentProps> {
     const firstElementIsSelect = items[0].type === 'select';
 
     return (
-      <ToolbarContainer
+      <div
+        css={(theme: ThemeProps) => {
+          return [
+            toolbarContainer({ theme }),
+            firstElementIsSelect && toolbarContainerLeftPadding,
+          ];
+        }}
         aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}
-        hasCompactLeftPadding={firstElementIsSelect}
         className={className}
       >
         <Announcer
@@ -361,7 +371,7 @@ class Toolbar extends Component<Props & WrappedComponentProps> {
               }
             })}
         </ButtonGroup>
-      </ToolbarContainer>
+      </div>
     );
   }
 

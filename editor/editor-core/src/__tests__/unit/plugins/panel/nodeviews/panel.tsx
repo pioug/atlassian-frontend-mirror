@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import {

@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import uuid from 'uuid';
-import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { EmojiProvider, OnEmojiProviderChange } from '../../api/EmojiResource';
 import { defaultListLimit } from '../../util/constants';
@@ -21,7 +20,6 @@ import {
   typeaheadRenderedEvent,
   ufoExperiences,
 } from '../../util/analytics';
-import { EmojiContext } from '../common/internal-types';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import EmojiList from './EmojiTypeAheadList';
 import {
@@ -29,6 +27,7 @@ import {
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { emojiTypeAhead } from './styles';
+import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 
 export interface OnLifecycle {
   (): void;
@@ -88,10 +87,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
   Props,
   State
 > {
-  static childContextTypes = {
-    emoji: PropTypes.object,
-  };
-
   static defaultProps = {
     onSelection: () => {},
     onOpen: () => {},
@@ -124,14 +119,6 @@ export default class EmojiTypeAheadComponent extends PureComponent<
     this.pressed = false;
     this.sessionId = uuid();
     this.selected = false;
-  }
-
-  getChildContext(): EmojiContext {
-    return {
-      emoji: {
-        emojiProvider: this.props.emojiProvider,
-      },
-    };
   }
 
   componentDidMount() {
@@ -334,15 +321,27 @@ export default class EmojiTypeAheadComponent extends PureComponent<
       display: visible ? 'block' : 'none',
     };
 
+    const emojiContextValue = {
+      emoji: {
+        emojiProvider: this.props.emojiProvider,
+      },
+    };
+
     return (
-      <div style={style} className={'ak-emoji-typeahead'} css={emojiTypeAhead}>
-        <EmojiList
-          emojis={emojis}
-          onEmojiSelected={recordUsageOnSelection}
-          ref={this.onEmojiListRef}
-          loading={loading}
-        />
-      </div>
+      <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
+        <div
+          style={style}
+          className={'ak-emoji-typeahead'}
+          css={emojiTypeAhead}
+        >
+          <EmojiList
+            emojis={emojis}
+            onEmojiSelected={recordUsageOnSelection}
+            ref={this.onEmojiListRef}
+            loading={loading}
+          />
+        </div>
+      </LegacyEmojiContextProvider>
     );
   }
 }

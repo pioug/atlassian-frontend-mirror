@@ -1,10 +1,7 @@
 import * as mocks from './mediaSingle.mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  createSchema,
-  getSchemaBasedOnStage,
-  MediaAttributes,
-} from '@atlaskit/adf-schema';
+import { createSchema, MediaAttributes } from '@atlaskit/adf-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaProvider } from '../../pm-plugins/main';
 import {

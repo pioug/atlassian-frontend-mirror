@@ -1,4 +1,5 @@
-import { defaultSchemaConfig, fragment } from '@atlaskit/adf-schema';
+import { fragment } from '@atlaskit/adf-schema';
+import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

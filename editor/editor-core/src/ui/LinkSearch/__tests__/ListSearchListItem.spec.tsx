@@ -1,9 +1,5 @@
 import React from 'react';
-import LinkSearchListItem, {
-  Name,
-  ContainerName,
-  Container,
-} from '../LinkSearchListItem';
+import LinkSearchListItem from '../LinkSearchListItem';
 import { getDefaultItems } from './__helpers';
 import { Props as LinkSearchListItemProps } from '../LinkSearchListItem';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
@@ -32,7 +28,7 @@ describe('ListSearchListItem', () => {
     const component = mountWithIntl(<LinkSearchListItem {...options} />);
 
     return {
-      component: component.find(Container),
+      component: component.find('li[data-testid="link-search-list-item"]'),
       item: options.item,
       onMouseMove: options.onMouseMove,
       onMouseEnter: options.onMouseEnter,
@@ -53,10 +49,11 @@ describe('ListSearchListItem', () => {
 
   it('should render the item', () => {
     const { component, item } = setup();
+    expect(getComputedStyle(component.getDOMNode()).backgroundColor).toEqual(
+      'rgb(244, 245, 247)', // N20
+    );
 
-    expect(component.find(Container).props().selected).toEqual(true);
-    expect(component.find(Name).text()).toEqual(item.name);
-    expect(component.find(ContainerName).text()).toEqual(item.container);
+    expect(component.text()).toEqual(`${item.name}${item.container}`);
     expect(component.find(HTMLImageElement).props().src).toEqual(item.iconUrl);
   });
 
@@ -150,9 +147,11 @@ describe('ListSearchListItem', () => {
       },
     });
 
-    expect(component.find(ContainerName).text()).toMatchInlineSnapshot(
-      `"some-container-1  •  Updated June 24, 2020 "`,
-    );
+    expect(
+      component
+        .find('div[data-testid="link-search-list-item-container"]')
+        .text(),
+    ).toMatchInlineSnapshot(`"some-container-1  •  Updated June 24, 2020 "`);
   });
 
   it('should render lastUpdatedDate', () => {

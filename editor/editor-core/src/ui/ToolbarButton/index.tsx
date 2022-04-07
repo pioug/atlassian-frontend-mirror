@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React, { useCallback } from 'react';
+import { css, jsx } from '@emotion/react';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
 import { ButtonProps } from '@atlaskit/button/types';
-import styled from 'styled-components';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import Button from './styles';
@@ -38,7 +39,7 @@ export type Props = {
   'aria-pressed'?: React.AriaAttributes['aria-pressed'];
 } & Pick<ButtonProps, 'aria-label' | 'children'>;
 
-const ButtonWrapper = styled.div`
+const buttonWrapper = css`
   display: flex;
   height: 100%;
 `;
@@ -141,7 +142,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
         hideTooltipOnClick={true}
         position={titlePosition}
       >
-        <ButtonWrapper>{button}</ButtonWrapper>
+        <div css={buttonWrapper}>{button}</div>
       </Tooltip>
     );
   },

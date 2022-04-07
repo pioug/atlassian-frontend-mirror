@@ -8,7 +8,11 @@ import { canInsert } from 'prosemirror-utils';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { INPUT_METHOD } from '../../analytics';
-import { changeInDepth, insertTaskDecisionWithAnalytics } from '../commands';
+import {
+  changeInDepth,
+  insertTaskDecisionAction,
+  getListTypes,
+} from '../commands';
 import { AddItemTransactionCreator, TaskDecisionListType } from '../types';
 
 const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
@@ -20,7 +24,20 @@ const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
       start: number,
       end: number,
     ) => {
-      const insertTr = insertTaskDecisionWithAnalytics(
+      const { paragraph } = state.schema.nodes;
+      const { list } = getListTypes(listType, state.schema);
+      const $end = state.doc.resolve(end);
+      const $endOfParent = state.doc.resolve($end.after());
+      // Only allow creating list in nodes that support them.
+      // Parent must be a paragraph as we don't want this applying to headings
+      if (
+        $end.parent.type !== paragraph ||
+        !canInsert($endOfParent, list.createAndFill() as Node)
+      ) {
+        return null;
+      }
+
+      const insertTr = insertTaskDecisionAction(
         state,
         listType,
         INPUT_METHOD.FORMATTING,
@@ -44,7 +61,7 @@ const addItem = (start: number, end: number): AddItemTransactionCreator => ({
     selection: { $from },
     schema,
   } = state;
-  const { paragraph, hardBreak } = schema.nodes;
+  const { hardBreak } = schema.nodes;
 
   const content = $from.node($from.depth).content;
   let shouldBreakNode = false;
@@ -53,17 +70,6 @@ const addItem = (start: number, end: number): AddItemTransactionCreator => ({
       shouldBreakNode = true;
     }
   });
-
-  const $end = state.doc.resolve(end);
-  const $endOfParent = state.doc.resolve($end.after());
-  // Only allow creating list in nodes that support them.
-  // Parent must be a paragraph as we don't want this applying to headings
-  if (
-    $end.parent.type !== paragraph ||
-    !canInsert($endOfParent, list.createAndFill() as Node)
-  ) {
-    return null;
-  }
 
   if (!shouldBreakNode) {
     tr.replaceRangeWith(

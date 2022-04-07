@@ -3,12 +3,11 @@ import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import PropTypes from 'prop-types';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
-import ReactNodeView from '../../../nodeviews/ReactNodeView';
+import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
 import { registerCard } from '../pm-plugins/actions';
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
@@ -50,23 +49,19 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
     const { node, cardContext, useAlternativePreloader } = this.props;
     const { url, data } = node.attrs;
     const card = (
-      <span>
-        <span>{ZERO_WIDTH_SPACE}</span>
-        <span className="card">
-          <SmartCard
-            key={url}
-            url={url}
-            data={data}
-            appearance="inline"
-            onClick={this.onClick}
-            container={this.scrollContainer}
-            onResolve={this.onResolve}
-            inlinePreloaderStyle={
-              useAlternativePreloader ? 'on-right-without-skeleton' : undefined
-            }
-          />
-        </span>
-        <span>{ZERO_WIDTH_SPACE}</span>
+      <span className="card">
+        <SmartCard
+          key={url}
+          url={url}
+          data={data}
+          appearance="inline"
+          onClick={this.onClick}
+          container={this.scrollContainer}
+          onResolve={this.onResolve}
+          inlinePreloaderStyle={
+            useAlternativePreloader ? 'on-right-without-skeleton' : undefined
+          }
+        />
       </span>
     );
     // [WS-2307]: we only render card wrapped into a Provider when the value is ready,
@@ -88,23 +83,17 @@ export type InlineCardNodeViewProps = Pick<
   'useAlternativePreloader'
 >;
 
-export class InlineCard extends ReactNodeView<InlineCardNodeViewProps> {
-  createDomRef() {
-    return super.createDomRef({ displayInlineBlockForInlineNodes: false });
-  }
+export function InlineCardNodeView(
+  props: InlineNodeViewComponentProps & InlineCardNodeViewProps,
+) {
+  const { useAlternativePreloader, node, view, getPos } = props;
 
-  render() {
-    const { useAlternativePreloader } = this.reactComponentProps;
-
-    return (
-      <>
-        <WrappedInlineCard
-          node={this.node}
-          view={this.view}
-          getPos={this.getPos}
-          useAlternativePreloader={useAlternativePreloader}
-        />
-      </>
-    );
-  }
+  return (
+    <WrappedInlineCard
+      node={node}
+      view={view}
+      getPos={getPos}
+      useAlternativePreloader={useAlternativePreloader}
+    />
+  );
 }

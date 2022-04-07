@@ -252,7 +252,7 @@ export function getMimeIcon(mimeType: string, fileName: string) {
     return iconInfo;
   }
 
-  if (isCodeViewerItem(fileName)) {
+  if (isCodeViewerItem(fileName, mimeType)) {
     return { label: 'source-code', icon: SourceCodeIcon };
   }
 

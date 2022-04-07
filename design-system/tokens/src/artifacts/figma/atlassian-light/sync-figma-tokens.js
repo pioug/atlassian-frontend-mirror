@@ -528,6 +528,15 @@ synchronizeFigmaTokens('AtlassianLight', {
     },
     "value": "#091E4224"
   },
+  "Color/Border/Inverse": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
+      "description": "Use for borders on bold backgrounds."
+    },
+    "value": "#FFFFFF"
+  },
   "Color/Border/Focused": {
     "attributes": {
       "group": "paint",

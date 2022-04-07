@@ -4,6 +4,7 @@ import {
   doc,
   p,
   a,
+  h1,
   ul,
   li,
   alignment,
@@ -35,6 +36,7 @@ import {
   insertIntoPanel,
   handlePasteIntoTaskAndDecision,
   handleExpandPasteInTable,
+  handleRichText,
 } from '../../handlers';
 import pastePlugin from '../../index';
 import hyperlinkPlugin from '../../../hyperlink';
@@ -45,6 +47,7 @@ import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import emojiPlugin from '../../../emoji';
+import blockTypePlugin from '../../../block-type';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -408,6 +411,39 @@ describe('handleRichText', () => {
 
       insertIntoPanel(tr, pasteSlice, panelNode);
       expect(tr).toEqualDocumentAndSelection(resultDoc);
+    });
+  });
+
+  describe('pasting into a panel', () => {
+    it('should paste inside the panel when paste content is a heading', () => {
+      const destinationDocument = doc(panel({ panelType: 'info' })(p('{<>}')));
+      const pasteContent = doc('{<}', h1('heading{>}'));
+      const expectedDocument = doc(panel({ panelType: 'info' })(h1('heading')));
+
+      const createEditor = createProsemirrorEditorFactory();
+      const editor = (doc: any) => {
+        const preset = new Preset<LightEditorPlugin>()
+          .add([pastePlugin, {}])
+          .add(panelPlugin)
+          .add(blockTypePlugin);
+
+        return createEditor({
+          doc,
+          preset,
+        });
+      };
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        0,
+        0,
+      );
+      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
     });
   });
 });

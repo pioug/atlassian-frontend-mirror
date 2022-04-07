@@ -106,4 +106,22 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
   });
+
+  it('Empty CodeBlock example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'code',
+      'code-block-empty',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForCodeblock(page);
+    const example = await page.waitForSelector(
+      '#examples [data-testid="empty-codeblocks"]',
+    );
+    const image = await example?.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

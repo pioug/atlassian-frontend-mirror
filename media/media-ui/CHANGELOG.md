@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 21.1.0
+
+### Minor Changes
+
+- [`5a79ea6f7d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a79ea6f7d6) - Add support for assessing the mimetype of a file when deciding what viewer to show
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.0
 
 ### Major Changes

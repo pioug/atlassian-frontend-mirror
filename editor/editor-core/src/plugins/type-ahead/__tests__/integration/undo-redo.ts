@@ -96,7 +96,7 @@ describe('typeahead: undo redo', () => {
 
         await page.keys(['A', 'B', 'C', ' ']);
 
-        const title = 'Act';
+        const title = 'Action';
         await quickInsert(page, title, false);
         await page.waitForVisible(TYPE_AHEAD_MENU_LIST);
 
@@ -129,7 +129,7 @@ describe('typeahead: undo redo', () => {
       async (client: any, testName: string) => {
         const page = await startEditor(client, spaceAtEnd);
 
-        const title = 'Act';
+        const title = 'Action';
         await quickInsert(page, title, false);
 
         await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
@@ -181,7 +181,7 @@ describe('typeahead: undo redo', () => {
         async (client: any, testName: string) => {
           const page = await startEditor(client, spaceAtEnd);
 
-          const title = 'Act';
+          const title = 'Action';
           await quickInsert(page, title, false);
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
@@ -197,7 +197,7 @@ describe('typeahead: undo redo', () => {
 
           const jsonDocument = await page.$eval(editable, getDocFromElement);
           const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
-          const expectedDocument = doc(p(' /Act'));
+          const expectedDocument = doc(p(' /Action'));
           expect(pmDocument).toEqualDocument(expectedDocument);
         },
       );
@@ -210,7 +210,7 @@ describe('typeahead: undo redo', () => {
         async (client: any, testName: string) => {
           const page = await startEditor(client, spaceAtEnd);
 
-          const title = 'Act';
+          const title = 'Action';
           await quickInsert(page, title, false);
 
           await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
@@ -240,7 +240,7 @@ describe('typeahead: undo redo', () => {
           async (client: any, testName: string) => {
             const page = await startEditor(client, spaceAtEnd);
 
-            const title = 'Act';
+            const title = 'Action';
             await quickInsert(page, title, false);
 
             await page.waitForSelector(TYPE_AHEAD_MENU_LIST);
@@ -259,7 +259,7 @@ describe('typeahead: undo redo', () => {
 
             const jsonDocument = await page.$eval(editable, getDocFromElement);
             const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
-            const expectedDocument = doc(p(' /Act'));
+            const expectedDocument = doc(p(' /Action'));
             expect(pmDocument).toEqualDocument(expectedDocument);
           },
         );
@@ -272,7 +272,7 @@ describe('typeahead: undo redo', () => {
           async (client: any, testName: string) => {
             const page = await startEditor(client, spaceAtEnd);
 
-            const title = 'Act';
+            const title = 'Action';
             await quickInsert(page, title, false);
 
             await page.waitForSelector(TYPE_AHEAD_MENU_LIST);

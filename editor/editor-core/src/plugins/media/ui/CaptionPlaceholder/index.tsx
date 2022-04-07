@@ -1,13 +1,13 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 
 import { FormattedMessage } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { N200 } from '@atlaskit/theme/colors';
 
 import { messages } from './messages';
 
-const Placeholder = styled.span`
+const placeholder = css`
   color: ${N200};
   width: 100%;
   text-align: center;
@@ -19,12 +19,13 @@ export const CAPTION_PLACEHOLDER_ID = 'caption-placeholder';
 
 export default ({ onClick }: { onClick: () => void }) => {
   return (
-    <Placeholder
+    <span
+      css={placeholder}
       onClick={onClick}
       data-id={CAPTION_PLACEHOLDER_ID}
       data-testid="caption-placeholder"
     >
       <FormattedMessage {...messages.placeholder} />
-    </Placeholder>
+    </span>
   );
 };

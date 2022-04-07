@@ -10,7 +10,8 @@ import {
 import { Schema } from 'prosemirror-model';
 import { setNodeSelection, setTextSelection } from '../../../utils';
 import { render, RenderResult } from '@testing-library/react';
-import { getSchemaBasedOnStage, MediaADFAttrs } from '@atlaskit/adf-schema';
+import { MediaADFAttrs } from '@atlaskit/adf-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import captionNodeView from '.';
 import { EditorView } from 'prosemirror-view';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';

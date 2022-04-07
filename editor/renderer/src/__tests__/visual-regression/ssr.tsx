@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import cssResetStyles from '@atlaskit/css-reset';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Provider, Client } from '@atlaskit/smart-card';
 import { snapshot } from './_utils';
 import doc from './__fixtures__/renderer-ssr.adf.json';

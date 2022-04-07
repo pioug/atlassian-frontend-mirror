@@ -1,5 +1,5 @@
 import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
-import { ResolvedPos, Node } from 'prosemirror-model';
+import { Node } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
@@ -12,16 +12,6 @@ export const inlineCursorTargetStateKey = new PluginKey(
 export const isInlineNodeView = (node: Node | null | undefined) => {
   return node && node.type.isInline && !node.type.isText;
 };
-
-export const findInlineNodeViewAfter = ($pos: ResolvedPos) =>
-  isInlineNodeView($pos.nodeAfter);
-
-export const findInlineNodeViewBefore = ($pos: ResolvedPos) =>
-  isInlineNodeView($pos.nodeBefore) ||
-  // This prevents the cursor from disappearing when at the beginning
-  // of a paragraph and next to an inline node view.
-  ($pos.parentOffset === 0 && isInlineNodeView($pos.nodeAfter));
-
 export interface InlineCursorTargetState {
   cursorTarget?: {
     decorations: [Decoration | null, Decoration | null];
@@ -36,20 +26,33 @@ export default () => {
     state: {
       init: () => ({ cursorTarget: undefined }),
       apply(tr) {
-        const { selection } = tr;
+        const { selection, doc } = tr;
         const { $from, $to } = selection;
 
         if (selection && isTextSelection(selection)) {
-          const hasInlineNodeViewAfter = findInlineNodeViewAfter($from);
-          const hasInlineNodeViewBefore = findInlineNodeViewBefore($from);
+          const hasInlineNodeViewAfter = isInlineNodeView($from.nodeAfter);
+          const hasInlineNodeViewBefore = isInlineNodeView($from.nodeBefore);
 
-          // Create editable widgets either side of the cursor to allow
-          // text input. This prevents issues with the cursor disappearing
-          // or apperaing in the wrong place when positioned between
-          // non contenteditable nodes.
+          const isAtStart =
+            $from.parentOffset === 0 && isInlineNodeView($from.nodeAfter);
+          const isAtEnd =
+            doc.resolve($from.pos).node().lastChild === $from.nodeBefore &&
+            isInlineNodeView($from.nodeBefore);
+
+          // Create editable decoration widgets either side of the cursor to allow
+          // text input.
           // We check beforeInput events below to prevent content
           // being added to the decorations.
-          if (hasInlineNodeViewAfter && hasInlineNodeViewBefore) {
+          //
+          // This prevents issues with the cursor disappearing
+          // or appearing in the wrong place when;
+          // - positioned between inline nodes (chrome + firefox)
+          // - positioned between the beginning of another node and an inline node (firefox)
+          // - positioned between an inline node and the end of a node (chrome)
+          if (
+            (hasInlineNodeViewAfter || isAtEnd) &&
+            (hasInlineNodeViewBefore || isAtStart)
+          ) {
             const createWidget = (side: 'left' | 'right') => {
               const node = document.createElement('span');
               node.contentEditable = 'true';

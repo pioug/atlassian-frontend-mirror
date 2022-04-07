@@ -9,7 +9,8 @@
     "./docs/**/*.ts",
     "./docs/**/*.tsx",
     "test-helpers/**/*.ts",
-    "test-helpers/**/*.tsx"
+    "test-helpers/**/*.tsx",
+    "codemods"
   ],
   "exclude": [
     "node_modules",

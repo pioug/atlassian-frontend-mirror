@@ -2,12 +2,8 @@ import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
-import popupWarning from '../example-helpers/popup-warning';
-
 export default md`
   ${(<AtlassianInternalWarning />)}
-
-  ${popupWarning}
 
   ${createRxjsNotice('Media Picker')}
 

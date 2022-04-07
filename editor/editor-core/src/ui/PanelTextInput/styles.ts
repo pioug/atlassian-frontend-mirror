@@ -1,14 +1,9 @@
-import styled from 'styled-components';
-import { InputHTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { N400, N800 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
-export const Input: ComponentClass<
-  InputHTMLAttributes<{}> & {
-    innerRef?: any;
-  }
-> = styled.input`
+export const panelTextInput = css`
   input& {
     background: transparent;
     border: 0;
@@ -19,7 +14,6 @@ export const Input: ComponentClass<
     font-size: ${relativeFontSizeToBase16(13)};
     line-height: 20px;
     padding: 0;
-    ${(props) => (props.width ? `width: ${props.width}px` : '')};
     min-width: 145px;
 
     /* Hides IE10+ built-in [x] clear input button */
@@ -35,5 +29,11 @@ export const Input: ComponentClass<
       color: ${N800};
       opacity: 0.5;
     }
+  }
+`;
+
+export const panelTextInputWithCustomWidth = (width: number) => css`
+  input& {
+    width: ${width}px;
   }
 `;

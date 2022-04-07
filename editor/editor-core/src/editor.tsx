@@ -1,6 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { EditorView } from 'prosemirror-view';
 import type { IntlShape } from 'react-intl-next';
 import memoizeOne from 'memoize-one';
@@ -94,14 +95,14 @@ type Context = {
   intl: IntlShape;
 };
 
-const WidthProviderFullHeight = styled(WidthProvider)`
-  height: 100%;
-`;
-
 type State = {
   extensionProvider?: ExtensionProvider;
   quickInsertProvider?: Promise<QuickInsertProvider>;
 };
+
+const fullHeight = css`
+  height: 100%;
+`;
 
 export default class Editor extends React.Component<EditorProps, State> {
   static defaultProps: EditorProps = {
@@ -640,7 +641,7 @@ export default class Editor extends React.Component<EditorProps, State> {
         <WithCreateAnalyticsEvent
           render={(createAnalyticsEvent) =>
             (this.createAnalyticsEvent = createAnalyticsEvent) && (
-              <>
+              <Fragment>
                 {renderTrackingEnabled && (
                   <RenderTracking
                     componentProps={this.props}
@@ -657,7 +658,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                     this.props.contextIdentifierProvider
                   }
                 >
-                  <WidthProviderFullHeight>
+                  <WidthProvider css={fullHeight}>
                     <EditorContext editorActions={this.editorActions}>
                       <ContextAdapter>
                         <PortalProvider
@@ -666,7 +667,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                             this.props.UNSAFE_useAnalyticsContext
                           }
                           render={(portalProviderAPI) => (
-                            <>
+                            <Fragment>
                               <ReactEditorView
                                 editorProps={overriddenEditorProps}
                                 createAnalyticsEvent={createAnalyticsEvent}
@@ -767,14 +768,14 @@ export default class Editor extends React.Component<EditorProps, State> {
                               <PortalRenderer
                                 portalProviderAPI={portalProviderAPI}
                               />
-                            </>
+                            </Fragment>
                           )}
                         />
                       </ContextAdapter>
                     </EditorContext>
-                  </WidthProviderFullHeight>
+                  </WidthProvider>
                 </ErrorBoundary>
-              </>
+              </Fragment>
             )
           }
         />

@@ -13,6 +13,7 @@ import { ANALYTICS_HOVER_DELAY } from './constants';
 export type Color = 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
 export type StatusStyle = 'bold' | 'subtle';
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
   neutral: 'default',
   purple: 'new',
@@ -21,6 +22,7 @@ const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
   yellow: 'moved',
   green: 'success',
 };
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const DEFAULT_APPEARANCE = 'default';
 const MAX_WIDTH = 200;

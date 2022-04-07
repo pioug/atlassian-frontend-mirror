@@ -1,5 +1,5 @@
 // NOTE: for the purposes of this test we are mocking MediaNodeUpdater using __mocks__ version
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';

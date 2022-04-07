@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import React, {
   useState,
   useCallback,
   ComponentClass,
   ReactElement,
+  HTMLAttributes,
 } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -12,6 +14,7 @@ import Item, { itemThemeNamespace } from '@atlaskit/item';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius, gridSize } from '@atlaskit/theme';
+import { ThemeProps } from '@atlaskit/theme/types';
 import { themed } from '@atlaskit/theme/components';
 import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
 
@@ -122,13 +125,13 @@ const InsertMenu = ({
   );
 
   return (
-    <InsertMenuWrapper itemCount={itemCount}>
+    <div css={(theme: ThemeProps) => insertMenuWrapper(theme, itemCount)}>
       <WithPluginState
         plugins={{ quickInsertState: pluginKey }}
         render={render}
       />
       {itemCount > 0 && viewMoreItem && <ViewMore item={viewMoreItem} />}
-    </InsertMenuWrapper>
+    </div>
   );
 };
 
@@ -149,7 +152,7 @@ const ViewMore = ({ item }: { item: QuickInsertItem }) => {
   return (
     <Item
       onClick={item.action}
-      elemBefore={<ItemBefore>{item.icon!()}</ItemBefore>}
+      elemBefore={<div css={itemBefore}>{item.icon!()}</div>}
       aria-describedby={item.title}
       data-testid="view-more-elements-item"
       onKeyPress={onKeyPress}
@@ -188,17 +191,17 @@ const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {
   return 560; // For showing 6 Elements.
 };
 
-const InsertMenuWrapper = styled.div`
+const insertMenuWrapper = (theme: ThemeProps, itemCount: number) => css`
   display: flex;
   flex-direction: column;
   width: 320px;
-  height: ${getInsertMenuHeight}px;
-  background-color: ${themed({ light: N0, dark: DN50 })()};
+  height: ${getInsertMenuHeight({ itemCount })}px;
+  background-color: ${themed({ light: N0, dark: DN50 })(theme)};
   border-radius: ${borderRadius()}px;
   box-shadow: 0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A};
 `;
 
-const ItemBefore = styled.div`
+const itemBefore = css`
   width: 40px;
   height: 40px;
   box-sizing: border-box;
@@ -222,12 +225,21 @@ const viewMoreItemTheme = {
   },
 };
 
-const FlexWrapper = styled.div`
+const flexWrapperStyles = css`
   display: flex;
   flex: 1;
   box-sizing: border-box;
   overflow: hidden;
 `;
+
+const FlexWrapper = (props: HTMLAttributes<HTMLDivElement>) => {
+  const { children, ...divProps } = props;
+  return (
+    <div css={flexWrapperStyles} {...divProps}>
+      {children}
+    </div>
+  );
+};
 
 const ElementBrowserWrapper = withOuterListeners(FlexWrapper);
 

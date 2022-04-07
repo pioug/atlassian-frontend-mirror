@@ -63,6 +63,7 @@ export type ActiveTokens =
   | 'color.border.accent.teal'
   | 'color.border.accent.magenta'
   | 'color.border'
+  | 'color.border.inverse'
   | 'color.border.focused'
   | 'color.border.input'
   | 'color.border.disabled'

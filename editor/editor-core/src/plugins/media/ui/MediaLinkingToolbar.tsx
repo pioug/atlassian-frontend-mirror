@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
@@ -9,8 +11,9 @@ import PanelTextInput from '../../../ui/PanelTextInput';
 import Button from '../../floating-toolbar/ui/Button';
 import Separator from '../../floating-toolbar/ui/Separator';
 import {
-  Container,
-  UrlInputWrapper,
+  container,
+  containerWithProvider,
+  inputWrapper,
 } from '../../../ui/LinkSearch/ToolbarComponents';
 import RecentSearch from '../../../ui/LinkSearch';
 import {
@@ -20,7 +23,6 @@ import {
 } from '../../../ui/LinkSearch/types';
 import { linkToolbarMessages } from '../../../messages';
 import { normalizeUrl } from '../../hyperlink/utils';
-import styled from 'styled-components';
 import { R400 } from '@atlaskit/theme/colors';
 import { INPUT_METHOD } from '../../analytics/types/enums';
 import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
@@ -40,7 +42,7 @@ export type Props = {
   displayUrl?: string;
 };
 
-const ValidationWrapper = styled.section`
+const validationWrapper = css`
   line-height: 0;
   padding: 12px 24px 12px 0;
   margin: 0 4px 0 32px;
@@ -50,7 +52,7 @@ const ValidationWrapper = styled.section`
   flex-direction: column;
 `;
 
-const ButtonWrapper = styled.span`
+const buttonWrapper = css`
   padding: 4px 8px 4px 0px;
 `;
 
@@ -148,9 +150,9 @@ export class LinkAddToolbar extends React.PureComponent<
 
     return (
       <div className="recent-list">
-        <Container provider={!!activityProvider}>
-          <UrlInputWrapper>
-            <ButtonWrapper>
+        <div css={[container, !!activityProvider && containerWithProvider]}>
+          <div css={inputWrapper}>
+            <span css={buttonWrapper}>
               <Button
                 title={formatLinkAddressText}
                 icon={<ChevronLeftLargeIcon label={formatLinkAddressText} />}
@@ -161,7 +163,7 @@ export class LinkAddToolbar extends React.PureComponent<
                   })
                 }
               />
-            </ButtonWrapper>
+            </span>
             <PanelTextInput
               testId="media-link-input"
               placeholder={getPlaceholder(!!activityProvider)}
@@ -185,21 +187,21 @@ export class LinkAddToolbar extends React.PureComponent<
               onKeyDown={onKeyDown}
             />
             {normalizeUrl(displayUrl) && (
-              <>
+              <Fragment>
                 <Separator />
                 <Button
                   title={formatUnlinkText}
                   icon={<EditorUnlinkIcon label={formatUnlinkText} />}
                   onClick={this.handleUnlink}
                 />
-              </>
+              </Fragment>
             )}
-          </UrlInputWrapper>
+          </div>
           {!!errorsList.length && (
-            <ValidationWrapper>{errorsList}</ValidationWrapper>
+            <section css={validationWrapper}>{errorsList}</section>
           )}
           {renderRecentList()}
-        </Container>
+        </div>
       </div>
     );
   };

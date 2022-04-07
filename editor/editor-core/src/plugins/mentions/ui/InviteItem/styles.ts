@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-// prettier-ignore
-import { HTMLAttributes, ComponentClass } from 'react';
+import { css } from '@emotion/react';
 import { N30, N300 } from '@atlaskit/theme/colors';
 
 export interface MentionItemStyleProps {
@@ -12,7 +10,7 @@ export interface NameSectionStyleProps {
 }
 
 export const ROW_SIDE_PADDING = 14;
-export const RowStyle: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const rowStyle = css`
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -24,7 +22,7 @@ export const RowStyle: ComponentClass<HTMLAttributes<{}>> = styled.div`
 `;
 
 export const AVATAR_HEIGHT = 36;
-export const AvatarStyle: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const avatarStyle = css`
   position: relative;
   flex: initial;
   opacity: inherit;
@@ -38,28 +36,26 @@ export const AvatarStyle: ComponentClass<HTMLAttributes<{}>> = styled.span`
   }
 `;
 
-export const NameSectionStyle: ComponentClass<
-  HTMLAttributes<{}> & NameSectionStyleProps
-> = styled.div`
+export const nameSectionStyle = css`
   flex: 1;
   min-width: 0;
   margin-left: 14px;
   color: ${N300};
-  opacity: ${(props: NameSectionStyleProps) =>
-    props.restricted ? '0.5' : 'inherit'};
+  opacity: inherit;
 `;
 
-export const MentionItemStyle: ComponentClass<
-  HTMLAttributes<{}> & MentionItemStyleProps
-> = styled.div`
-  background-color: ${(props: MentionItemStyleProps) =>
-    props.selected ? N30 : 'transparent'};
+export const mentionItemStyle = css`
+  background-color: transparent;
   display: block;
   overflow: hidden;
   list-style-type: none;
   cursor: pointer;
 `;
 
-export const CapitalizedStyle: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const mentionItemSelectedStyle = css`
+  background-color: ${N30};
+`;
+
+export const capitalizedStyle = css`
   text-transform: capitalize;
 `;

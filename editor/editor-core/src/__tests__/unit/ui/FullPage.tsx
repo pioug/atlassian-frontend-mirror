@@ -18,6 +18,8 @@ const mountWithContext = (node: React.ReactNode) =>
     <EditorContext>{node}</EditorContext>,
   );
 
+const clickWrapperSelector = 'div[data-testid="click-wrapper"]';
+
 describe('full page editor', () => {
   const createEditor = createEditorFactory();
   const editor = (doc: DocBuilder) =>
@@ -43,9 +45,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
@@ -69,9 +69,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(
         p('Hello world'),
@@ -95,7 +93,7 @@ describe('full page editor', () => {
       />,
     );
     fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
+      .find(clickWrapperSelector)
       .simulate('click', { clientY: 200 })
       .simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('')));
@@ -123,9 +121,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 300 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
     expect(selection.$to.pos).toEqual(sel + 2);
@@ -140,9 +136,7 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 300 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 300 });
     const { selection } = editorView.state;
     expect(selection.empty).toEqual(true);
     expect(selection.$to.pos).toEqual(sel + 2);
@@ -157,22 +151,16 @@ describe('full page editor', () => {
         editorDOMElement={<div />}
       />,
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
     (editorView.dom as HTMLElement).click();
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );
-    fullPage
-      .findWhere((elm) => elm.name() === 'ClickWrapper')
-      .simulate('click', { clientY: 200 });
+    fullPage.find(clickWrapperSelector).simulate('click', { clientY: 200 });
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Hello world'), p('Hello world'), p('')),
     );

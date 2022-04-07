@@ -1,14 +1,5 @@
 import { getBoundingRect } from '../../../__tests__/__helpers/page-objects/_editor';
 import { WebDriverPage } from '../../../__tests__/__helpers/page-objects/_types';
-import {
-  doc,
-  DocBuilder,
-  p,
-  table,
-  th,
-  tr,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 export const keyboardSelectLineFromLineEnd = async (page: WebDriverPage) => {
   // The keyboard shortcuts to extend a selection to the start of
@@ -54,32 +45,157 @@ export const clickAndDragSelectLineFromLineEnd = async ({
   await page.simulateUserDragAndDrop(startX, startY, targetX, targetY);
 };
 
-export const buildAdf = async ({
+export const buildAdfTrailingSpaces = ({
   node,
-  trailingSpaces,
-  multiLineNode,
 }: {
-  node: DocBuilder;
-  trailingSpaces: boolean;
-  multiLineNode: boolean;
+  node: { type: string; attrs: { [key: string]: any } };
 }) => {
-  if (multiLineNode) {
-    return buildMultilineNodeAdf(node);
-  }
-  return trailingSpaces
-    ? doc(p(node, ' ', node, ' ', node, ' '))(sampleSchema)
-    : doc(p(node, node, node))(sampleSchema);
+  return {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [
+          node,
+          {
+            type: 'text',
+            text: ' ',
+          },
+          node,
+          {
+            type: 'text',
+            text: ' ',
+          },
+          node,
+          {
+            type: 'text',
+            text: ' ',
+          },
+        ],
+      },
+    ],
+  };
 };
 
-const buildMultilineNodeAdf = async (node: DocBuilder) => {
-  return doc(
-    table({ isNumberColumnEnabled: false, layout: 'default' })(
-      tr(
-        th({ colwidth: [50] })(p(node, node, node)),
-        th({ colwidth: [350] })(p()),
-        th({ colwidth: [276] })(p()),
-      ),
-    ),
-    p(),
-  )(sampleSchema);
+export const buildAdfNoTrailingSpaces = ({
+  node,
+}: {
+  node: { type: string; attrs: { [key: string]: any } };
+}) => {
+  return {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [node, node, node],
+      },
+    ],
+  };
+};
+
+export const buildAdfMultiline = ({
+  node,
+}: {
+  node: { type: string; attrs: { [key: string]: any } };
+}) => {
+  return {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'table',
+        attrs: {
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: '704b4aa7-f9a6-49e0-9b14-3c2e010bd4ca',
+        },
+        content: [
+          {
+            type: 'tableRow',
+            content: [
+              {
+                type: 'tableHeader',
+                attrs: {
+                  colwidth: [56],
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [node, node, node],
+                  },
+                ],
+              },
+              {
+                type: 'tableHeader',
+                attrs: {
+                  colwidth: [346],
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
+              },
+              {
+                type: 'tableHeader',
+                attrs: {
+                  colwidth: [276],
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'tableRow',
+            content: [
+              {
+                type: 'tableCell',
+                attrs: {
+                  colwidth: [56],
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
+              },
+              {
+                type: 'tableCell',
+                attrs: {
+                  colwidth: [346],
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
+              },
+              {
+                type: 'tableCell',
+                attrs: {
+                  colwidth: [276],
+                },
+                content: [
+                  {
+                    type: 'paragraph',
+                    content: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
 };

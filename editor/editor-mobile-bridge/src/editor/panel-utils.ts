@@ -13,7 +13,7 @@ import { panelDarkModeBackgroundPalette } from '@atlaskit/editor-core/src/ui/Col
 import {
   darkPanelColors,
   getPanelDarkColor,
-} from '@atlaskit/editor-common/styles';
+} from '@atlaskit/editor-common/panel';
 
 const setColorInPalette = (color: string) => {
   return (

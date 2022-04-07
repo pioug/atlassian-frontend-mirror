@@ -1,5 +1,4 @@
-import { HTMLAttributes, ComponentClass } from 'react';
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
 import { gridSize, borderRadius } from '@atlaskit/theme/constants';
 import { N30, N100 } from '@atlaskit/theme/colors';
 import {
@@ -9,11 +8,7 @@ import {
 
 const akGridSize = gridSize() + 'px';
 
-export const ButtonGroup: ComponentClass<
-  HTMLAttributes<{}> & {
-    width?: 'small' | 'large';
-  }
-> = styled.span`
+export const buttonGroupStyle = css`
   display: inline-flex;
   align-items: center;
 
@@ -22,7 +17,7 @@ export const ButtonGroup: ComponentClass<
   }
 `;
 
-export const Separator: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const separatorStyles = css`
   background: ${N30};
   width: 1px;
   height: 24px;
@@ -30,11 +25,7 @@ export const Separator: ComponentClass<HTMLAttributes<{}>> = styled.span`
   margin: 0 8px;
 `;
 
-export const Wrapper: ComponentClass<
-  HTMLAttributes<{}> & {
-    isSmall?: boolean;
-  }
-> = styled.span`
+export const wrapperStyle = css`
   display: flex;
   align-items: center;
 
@@ -46,33 +37,36 @@ export const Wrapper: ComponentClass<
   > div > div {
     display: flex;
   }
-  margin-left: ${({ isSmall }: { isSmall?: boolean }) => (isSmall ? 4 : 0)}px;
-  min-width: ${({ isSmall }: { isSmall?: boolean }) =>
-    isSmall ? '40px' : 'auto'};
+
+  margin-left: 0;
+  min-width: auto;
 `;
 
-export const ExpandIconWrapper: ComponentClass<HTMLAttributes<{}>> = styled.span`
+export const wrapperSmallStyle = css`
+  margin-left: 4px;
+  min-width: 40px;
+`;
+
+export const expandIconWrapperStyle = css`
   margin-left: -8px;
 `;
 
-export const TriggerWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const triggerWrapperStyles = css`
   display: flex;
 `;
 
-export const MenuWrapper: ComponentClass<HTMLAttributes<{}>> = Wrapper;
-
-export const ButtonContent: ComponentClass<
-  HTMLAttributes<{}> & {
-    spacing: string;
-  }
-> = styled.span`
+export const buttonContentStyle = css`
   display: flex;
   min-width: 80px;
   align-items: center;
   overflow: hidden;
   justify-content: center;
   flex-direction: column;
-  padding: 0 ${(props: any) => (props.spacing === 'none' ? '8px' : '6px')};
+  padding: 6px;
+`;
+
+export const buttonContentReducedSpacingStyle = css`
+  padding: 8px;
 `;
 
 // Taken from the style of inline dialog components
@@ -81,6 +75,7 @@ export const dropShadow = css`
     0 4px 8px -2px rgba(9, 30, 66, 0.25);
 `;
 
+// TODO change to use emotion css
 export const scrollbarStyles = `
   -ms-overflow-style: -ms-autohiding-scrollbar;
 
@@ -107,7 +102,7 @@ export const scrollbarStyles = `
   }
 `;
 
-export const Shortcut = styled.div`
+export const shortcutStyle = css`
   background-color: rgba(223, 225, 229, 0.5); /* N60 at 50% */
   color: ${N100};
   border-radius: ${borderRadius()}px;
@@ -120,16 +115,12 @@ export const Shortcut = styled.div`
   }
 `;
 
-export const ClickSelectWrapper: React.ComponentClass<React.HTMLAttributes<{}>> = styled.span`
+export const clickSelectWrapperStyle = css`
   user-select: all;
 `;
 
-type CellColourPreviewProps = {
-  selectedColor: string;
-};
-
-export const CellColourPreview = styled.div<CellColourPreviewProps>`
+export const cellColourPreviewStyles = (selectedColor: string) => css`
   &::before {
-    background: ${(props) => props.selectedColor};
+    background: ${selectedColor};
   }
 `;

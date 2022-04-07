@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';

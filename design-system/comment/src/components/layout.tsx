@@ -48,7 +48,7 @@ const highlightStyles = css({
   width: '100%',
   height: '100%',
   padding: `${gridSize}px ${gridSize}px ${gridSize / 2}px`,
-  background: token('color.background.subtleNeutral.resting', N20A),
+  background: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
   pointerEvents: 'none',
   transform: `translate(-${gridSize}px, -${gridSize}px)`,

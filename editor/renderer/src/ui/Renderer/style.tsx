@@ -15,7 +15,6 @@ import {
   columnLayoutSharedStyle,
   blockquoteSharedStyles,
   headingsSharedStyles,
-  panelSharedStyles,
   ruleSharedStyles,
   whitespaceSharedStyles,
   paragraphSharedStyles,
@@ -399,7 +398,6 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
     ${whitespaceSharedStyles};
     ${blockquoteSharedStyles};
     ${headingsSharedStyles(themeProps)};
-    ${panelSharedStyles(themeProps)};
     ${ruleSharedStyles(themeProps)};
     ${paragraphSharedStyles};
     ${listsSharedStyles};

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { jsx, css, useTheme } from '@emotion/react';
+import { jsx, css, useTheme, SerializedStyles } from '@emotion/react';
 import {
   whitespaceSharedStyles,
   paragraphSharedStyles,
@@ -195,23 +195,27 @@ type Props = Omit<
   'featureFlags'
 >;
 
-export default React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const featureFlags = useFeatureFlags();
-  const { className, children } = props;
-  const theme = useTheme();
+export const createEditorContentStyle = (styles?: SerializedStyles) => {
+  return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+    const featureFlags = useFeatureFlags();
+    const { className, children } = props;
+    const theme = useTheme();
 
-  const memoizedStyle = useMemo(
-    () =>
-      contentStyles({
-        theme,
-        featureFlags,
-      }),
-    [theme, featureFlags],
-  );
+    const memoizedStyle = useMemo(
+      () =>
+        contentStyles({
+          theme,
+          featureFlags,
+        }),
+      [theme, featureFlags],
+    );
 
-  return (
-    <div className={className} ref={ref as any} css={memoizedStyle}>
-      {children}
-    </div>
-  );
-});
+    return (
+      <div className={className} ref={ref as any} css={[memoizedStyle, styles]}>
+        {children}
+      </div>
+    );
+  });
+};
+
+export default createEditorContentStyle();

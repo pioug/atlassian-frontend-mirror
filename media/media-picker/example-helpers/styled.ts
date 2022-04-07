@@ -21,18 +21,6 @@ export const PopupHeader = styled.div`
   }
 `;
 
-export const PopupEventsWrapper = styled.div`
-  overflow: auto;
-`;
-
-export interface PreviewImageProps {
-  fadedOut: boolean;
-}
-export const PreviewImage = styled.img`
-  width: 300px;
-  ${({ fadedOut }: PreviewImageProps) => `opacity: ${fadedOut ? 0.3 : 1};`};
-`;
-
 export const PreviewImageWrapper = styled.div`
   position: relative;
   margin-right: 15px;
@@ -89,14 +77,6 @@ export const UploadPreviewsFlexRow = styled.div`
   flex-wrap: wrap;
 `;
 
-export const ProgressCircleWrapper = styled.div`
-  position: absolute;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px);
-  width: 100px;
-  height: 100px;
-`;
-
 export const DropzoneItemsInfo = styled.div`
   flex: 1;
   min-width: 600px;
@@ -115,68 +95,6 @@ export const ClipboardContainer = styled.div`
 
   border: ${({ isWindowFocused }: ClipboardContainerProps) =>
     isWindowFocused ? `1px dashed gray` : `1px dashed transparent`};
-`;
-
-export const UploadingFilesWrapper = styled.div``;
-
-export const FileProgress = styled.progress`
-  width: 400px;
-`;
-
-export const FilesInfoWrapper = styled.div`
-  border: 1px solid;
-  padding: 10px;
-  margin-bottom: 10px;
-  max-height: 250px;
-  min-height: 250px;
-  overflow: auto;
-  display: flex;
-`;
-
-export const CardsWrapper = styled.div`
-  flex: 1;
-`;
-
-export const CardItemWrapper = styled.div`
-  display: inline-block;
-`;
-
-export const SelectWrapper = styled.div`
-  width: 150px;
-`;
-export const OptionsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  justify-content: space-around;
-  width: 400px;
-`;
-export const ResultsWrapper = styled.div`
-  > div {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    margin: 10px;
-  }
-`;
-
-export const EmojiWrapper = styled.div`
-  overflow: auto;
-`;
-
-export const EmojiHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-
-  label {
-    display: none;
-  }
-
-  > div {
-    flex: initial;
-  }
 `;
 
 export const InfoContainer = styled.div`

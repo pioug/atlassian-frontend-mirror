@@ -1,16 +1,16 @@
+/** @jsx jsx */
 import TextField from '@atlaskit/textfield';
 import { gridSize } from '@atlaskit/theme/constants';
-import React from 'react';
+import React, { FormEvent, PureComponent } from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { FormEvent, PureComponent } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import ColorPalette from './internal/color-palette';
 import { Color } from './Status';
 import { messages } from './i18n';
 
 export type ColorType = Color;
 
-const FieldTextWrapper = styled.div`
+const fieldTextWrapperStyles = css`
   margin: 0 ${gridSize()}px;
 `;
 
@@ -45,7 +45,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
     // (https://github.com/airbnb/enzyme/issues/1149)
     return (
       <React.Fragment>
-        <FieldTextWrapper key={this.fieldTextWrapperKey}>
+        <div css={fieldTextWrapperStyles} key={this.fieldTextWrapperKey}>
           <TextField
             value={text}
             isCompact
@@ -56,7 +56,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
             autoComplete="off"
             aria-label={intl.formatMessage(messages.statusInputLabel)}
           />
-        </FieldTextWrapper>
+        </div>
         <ColorPalette
           key={this.colorPaletteKey}
           onClick={onColorClick}

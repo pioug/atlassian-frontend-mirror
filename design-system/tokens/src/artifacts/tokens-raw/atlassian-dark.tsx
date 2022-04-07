@@ -1766,6 +1766,32 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
+      "description": "Use for borders on bold backgrounds."
+    },
+    "value": "#161A1D",
+    "filePath": "src/tokens/atlassian-dark/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders on bold backgrounds."
+      },
+      "value": "DN0"
+    },
+    "name": "color.border.inverse",
+    "path": [
+      "color",
+      "border",
+      "inverse"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.6.0",
       "description": "Use for focus rings of elements in a focus state."
     },
     "value": "#85B8FF",

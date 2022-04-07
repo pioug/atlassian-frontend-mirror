@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 21.2.3
+
+### Patch Changes
+
+- [`d64aafec153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d64aafec153) - Fixed bug where clicking on tooltip triggered a reaction
+- Updated dependencies
+
 ## 21.2.2
 
 ### Patch Changes

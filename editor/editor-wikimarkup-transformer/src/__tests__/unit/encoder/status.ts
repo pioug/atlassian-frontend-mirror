@@ -1,4 +1,4 @@
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import WikiMarkupTransformer from '../../../index';
 
 import { doc, status, p } from '@atlaskit/editor-test-helpers/doc-builder';

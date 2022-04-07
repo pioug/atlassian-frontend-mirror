@@ -28,6 +28,10 @@ import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumb
 import { ProgressBar } from '../../utils/progressBar';
 import CardActions from '../../utils/cardActions';
 import { CardPreview } from '../..';
+import {
+  fileCardImageViewSelectedSelector,
+  fileCardImageViewSelector,
+} from './classnames';
 
 export interface FileCardImageViewProps {
   readonly mediaName?: string;
@@ -52,10 +56,6 @@ export interface FileCardImageViewProps {
   readonly onImageLoad?: (cardPreview: CardPreview) => void;
   readonly cardPreview: CardPreview;
 }
-
-export const fileCardImageViewSelector = 'media-file-card-view';
-export const fileCardImageViewSelectedSelector =
-  'media-file-card-view-selected';
 
 export class FileCardImageView extends Component<FileCardImageViewProps> {
   private wasThumbnailDisplayed = false;

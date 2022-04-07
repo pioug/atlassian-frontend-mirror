@@ -13,7 +13,7 @@ import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const editedContentStyles = css({
-  color: token('color.text.lowEmphasis', N200),
+  color: token('color.text.subtlest', N200),
 });
 
 const packageName = process.env._PACKAGE_NAME_ as string;

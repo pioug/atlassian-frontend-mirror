@@ -1,6 +1,6 @@
 import { EditorState, Selection, TextSelection } from 'prosemirror-state';
 
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
   doc,
   p,

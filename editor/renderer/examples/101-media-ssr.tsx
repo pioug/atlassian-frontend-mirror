@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { SSR } from '@atlaskit/media-common';
-import { defaultSchema } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import ReactDOMServer from 'react-dom/server';
 import { default as Renderer } from '../src/ui/Renderer';

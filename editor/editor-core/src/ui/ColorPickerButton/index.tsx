@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
 import Button from '@atlaskit/button';
@@ -25,12 +26,12 @@ import {
 } from '../../plugins/analytics/types';
 
 // helps adjusts position of popup
-const ColorPickerButtonWrapper = styled.div`
+const colorPickerButtonWrapper = css`
   position: relative;
 `;
 
 // Control the size of color picker buttons and preview
-const ColorPickerWrapper = styled.div`
+const colorPickerWrapper = css`
   border-radius: ${borderRadius()}px;
   background-color: white;
   box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
@@ -100,7 +101,7 @@ const ColorPickerButton = (props: Props) => {
         offset={[0, 10]}
         alignX={props.alignX}
       >
-        <ColorPickerWrapper>
+        <div css={colorPickerWrapper}>
           <ColorPaletteWithListeners
             palette={props.colorPalette}
             cols={props.cols}
@@ -108,7 +109,7 @@ const ColorPickerButton = (props: Props) => {
             onClick={onColorSelected}
             handleClickOutside={togglePopup}
           />
-        </ColorPickerWrapper>
+        </div>
       </Popup>
     );
   };
@@ -116,7 +117,7 @@ const ColorPickerButton = (props: Props) => {
   const title = props.title || '';
 
   return (
-    <ColorPickerButtonWrapper>
+    <div css={colorPickerButtonWrapper}>
       <Tooltip content={title} position="top">
         <Button
           ref={buttonRef}
@@ -133,7 +134,7 @@ const ColorPickerButton = (props: Props) => {
         />
       </Tooltip>
       {renderPopup()}
-    </ColorPickerButtonWrapper>
+    </div>
   );
 };
 

@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 73.5.0
+
+### Minor Changes
+
+- [`02fb8e78fb9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02fb8e78fb9) - Implement media card render UFO experience
+
+### Patch Changes
+
+- [`3ef794dc11f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef794dc11f) - Removed emoji and media packages dependencies from renderer initial load.
+- [`7948702bf56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7948702bf56) - Fixing a bug where sometimes the media card pre-load indicator is given 100% height and renders over other components. It now has a max height of 0 and is not a click target
+- [`065ae19cb44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065ae19cb44) - Enforced "up to date" logged feature flags via type checks
+- Updated dependencies
+
 ## 73.4.2
 
 ### Patch Changes

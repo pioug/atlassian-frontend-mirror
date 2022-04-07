@@ -1,5 +1,15 @@
 # @atlaskit/emoji
 
+## 64.5.0
+
+### Minor Changes
+
+- [`fcb3b3f77e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fcb3b3f77e2) - Context Provider to convert legacy providers to non legacy providers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 64.4.1
 
 ### Patch Changes

@@ -27,7 +27,7 @@ class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
     return result;
   }
 
-  updateConfig(config: AbstractExperienceConfig) {
+  updateConfig(config: Partial<AbstractExperienceConfig>) {
     Object.assign(this.config, config);
   }
 

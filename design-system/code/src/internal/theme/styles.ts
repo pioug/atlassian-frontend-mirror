@@ -291,6 +291,11 @@ export const getCodeBlockStyles = (theme: CodeBlockTheme) => (
     paddingRight: `${SPACING}px !important`,
     flex: '1 0 auto',
   },
+
+  // Prevents empty code blocks from vertically collapsing
+  'code > span:only-child:empty:before, code > span:only-child > span:only-child:empty:before': {
+    content: '" "',
+  },
 });
 
 export const getCodeStyles = (

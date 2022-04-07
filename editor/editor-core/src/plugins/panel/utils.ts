@@ -5,7 +5,7 @@ import {
   findParentNodeOfType,
 } from 'prosemirror-utils';
 import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { DomPanelAtrrs } from './types';
 
 export const findPanel = (

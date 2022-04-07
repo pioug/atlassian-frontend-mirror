@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.2.3",
+  "version": "5.2.4",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -61,6 +61,7 @@
       "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [
+        "static",
         "emotion"
       ]
     }

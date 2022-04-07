@@ -180,7 +180,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       previewCount,
     };
 
-    if (isCodeViewerItem(fileState.name)) {
+    if (isCodeViewerItem(fileState.name, fileState.mimeType)) {
       return (
         <CodeViewer
           onSuccess={this.onSuccess}

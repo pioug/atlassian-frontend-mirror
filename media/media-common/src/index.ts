@@ -22,10 +22,12 @@ export {
   defaultMediaFeatureFlags,
   areEqualFeatureFlags,
   useMemoizeFeatureFlags,
+  filterFeatureFlagNames,
 } from './mediaFeatureFlags';
 export type {
   MediaFeatureFlags,
   WithMediaFeatureFlags,
+  RequiredMediaFeatureFlags,
 } from './mediaFeatureFlags';
 // TODO EDM-689 Please, consolidate these two CardDimensions types
 export interface NumericalCardDimensions {

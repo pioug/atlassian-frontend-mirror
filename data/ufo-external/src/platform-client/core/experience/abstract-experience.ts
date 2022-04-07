@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { UFO_EXPERIMENTAL_BUILD_VERSION } from '../../../buildVersion';
 import {
   experiencePayloadEvent,
   getGlobalEventStream,
@@ -22,6 +23,7 @@ import {
   Timing,
 } from '../../../types';
 import { roundPerfNow } from '../../utils/round-perf-now';
+import { isWindowObjectAvailable } from '../../utils/window-helper';
 
 import { UFOExperienceState, UFOExperienceStateType } from './experience-state';
 import { canTransition } from './experience-state-transitions';
@@ -31,7 +33,9 @@ import {
 } from './experience-types';
 
 const getPageVisibleState = () => {
-  return !window.document || window.document.visibilityState === 'visible'
+  return !isWindowObjectAvailable() ||
+    !window.document ||
+    window.document.visibilityState === 'visible'
     ? PageVisibleState.VISIBLE
     : PageVisibleState.HIDDEN;
 };
@@ -165,7 +169,6 @@ export class UFOAbstractExperience {
 
         const data = await this.exportData();
         ufolog('this.parent', this.parent);
-        //this.parent?._handleDoneExperience(data);
         getGlobalEventStream().push(experiencePayloadEvent(data));
       }
       return true;
@@ -181,16 +184,19 @@ export class UFOAbstractExperience {
   }
 
   async start(startTime?: number) {
-    if (
-      (await this.transition(UFOExperienceState.STARTED, startTime)) &&
-      !this._isManualStateEnabled()
-    ) {
+    const transitionSuccessful = await this.transition(
+      UFOExperienceState.STARTED,
+      startTime,
+    );
+    if (transitionSuccessful) {
       this.pageVisibleState = getPageVisibleState();
       visibilityChangeObserver.subscribe(this.setPageVisibleStateToMixed);
-      ufolog('subscribed', this.id);
-      getGlobalEventStream().push(
-        subscribeEvent(SUBSCRIBE_ALL, this.handleDoneBind),
-      );
+      if (!this._isManualStateEnabled()) {
+        ufolog('subscribed', this.id);
+        getGlobalEventStream().push(
+          subscribeEvent(SUBSCRIBE_ALL, this.handleDoneBind),
+        );
+      }
     }
   }
 
@@ -283,6 +289,7 @@ export class UFOAbstractExperience {
       id: await this.getId(),
       uuid: this.uuid,
       type: this.type,
+      schemaVersion: UFO_EXPERIMENTAL_BUILD_VERSION || 'unknown',
       performanceType: this.performanceType,
       category: this.category,
       state: this.state,

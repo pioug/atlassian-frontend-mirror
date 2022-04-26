@@ -1,5 +1,12 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.2.28
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 0.2.27
 
 ### Patch Changes

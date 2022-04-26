@@ -373,7 +373,6 @@ export class ShareDialogContainerInternal extends React.Component<
     this.setState({
       shortenedCopyLink: null,
     });
-
     const shortLinkData = this.getShortLinkData(this.props);
     if (!shortLinkData) {
       return;

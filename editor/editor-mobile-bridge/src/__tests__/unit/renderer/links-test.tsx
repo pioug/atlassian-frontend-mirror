@@ -186,7 +186,7 @@ describe('renderer bridge: links', () => {
     );
 
     // Wait 100ms for the smart link provider to resolve the url's data and re-render
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       setTimeout(() => {
         mobileRenderer.update();
         resolve();

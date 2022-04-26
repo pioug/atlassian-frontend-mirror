@@ -80,7 +80,6 @@ export class MentionPicker extends React.PureComponent<
   componentDidMount() {
     this.subscribeResourceProvider(this.props.resourceProvider);
   }
-
   UNSAFE_componentWillReceiveProps(
     nextProps: Props & WithAnalyticsEventsProps,
   ) {

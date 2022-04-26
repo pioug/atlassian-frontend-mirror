@@ -25,6 +25,8 @@ export interface BrowserOwnProps {
   children?: (browse: () => void) => React.ReactChild;
 }
 
+export type BrowseFn = () => void;
+
 export type BrowserProps = LocalUploadComponentBaseProps & BrowserOwnProps;
 
 const defaultConfig: BrowserConfig = { uploadParams: {} };
@@ -115,7 +117,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
     }
   }
 
-  public browse: () => void = () => {
+  public browse: BrowseFn = () => {
     const { onClose } = this.props;
     if (!this.browserRef.current) {
       return;

@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 3.1.6
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

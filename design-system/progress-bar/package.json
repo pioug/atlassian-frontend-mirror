@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "A progress bar displays the status of a given process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,13 +34,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
     "react-dom": "^16.8.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "keywords": [
     "atlaskit",

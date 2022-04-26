@@ -100,7 +100,6 @@ const UserPickerExample = React.memo(() => {
           checked={Boolean(state[id] as boolean)}
           id={id}
           onChange={() =>
-            // @ts-ignore
             setState({
               ...state,
               [id]: !state[id],
@@ -130,7 +129,6 @@ const UserPickerExample = React.memo(() => {
         name={id}
         value={(state[id] as string) || ''}
         onChange={(e) => {
-          // @ts-ignore
           setState({
             ...state,
             [id]: e.currentTarget.value,

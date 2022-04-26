@@ -1,5 +1,10 @@
 // Ideally this file is not used directly. But rather, you go through the entry points
-export type { Appearance, Spacing, BaseOwnProps } from './entry-points/types';
+export type {
+  Appearance,
+  Spacing,
+  BaseOwnProps,
+  BaseProps,
+} from './entry-points/types';
 export {
   // default export is Button
   default,

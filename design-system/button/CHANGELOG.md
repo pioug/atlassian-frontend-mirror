@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 16.3.0
+
+### Minor Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Export BaseProps type to prevent it being referenced via deep import path in d.ts files
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+
 ## 16.2.2
 
 ### Patch Changes

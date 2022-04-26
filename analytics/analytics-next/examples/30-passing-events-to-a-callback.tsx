@@ -2,6 +2,7 @@ import React, { MouseEvent, useCallback } from 'react';
 
 import {
   AnalyticsListener,
+  CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -44,7 +45,7 @@ const ButtonBase = ({ createAnalyticsEvent, ...rest }: ButtonBaseProps) => {
 
 const ManualButton = withAnalyticsEvents()(ManualButtonBase);
 const VerboseButton = withAnalyticsEvents({
-  onClick: (create) => create({ action: 'click' }),
+  onClick: (create: CreateUIAnalyticsEvent) => create({ action: 'click' }),
 })(ButtonBase);
 const ShorthandButton = withAnalyticsEvents({
   onClick: { action: 'click' },

@@ -63,7 +63,7 @@ describe('NotificationIndicator', () => {
   }
 
   async function asyncUpdateComponentTick(wrapper: ReactWrapper) {
-    return new Promise((tickFinished) => {
+    return new Promise<void>((tickFinished) => {
       process.nextTick(() => {
         wrapper.update();
         tickFinished();

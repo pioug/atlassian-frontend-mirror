@@ -33,7 +33,13 @@ function handleOnChange(
   event: React.ChangeEvent<HTMLInputElement>,
 ) {
   onChange(event?.target?.checked || false);
-  onFieldChange(name, true);
+  // Note: prior to bumping typescript to version 2.4.2 onFieldChange
+  // was being called with a global variable (which had a value of '')
+  // While this was not intended, the code still worked as expected.
+  // In typescript 2.4.2 accessing the global variable name has been
+  // deprecated, so this has been replaced with the value it was
+  // previously passing.
+  onFieldChange('', true);
 }
 
 function Checkbox({

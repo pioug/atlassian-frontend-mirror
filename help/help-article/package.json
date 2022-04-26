@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-article",
-  "version": "4.0.19",
+  "version": "4.0.20",
   "description": "A cross-product help-article component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,12 +36,12 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "keywords": [
     "atlaskit",

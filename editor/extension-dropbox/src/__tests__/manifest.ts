@@ -27,6 +27,7 @@ describe('dropbox extension manifest', () => {
   });
 
   afterEach(() => {
+    // @ts-ignore
     delete window.Dropbox;
   });
   it('should return an inline card to the quickInsert action on dropbox file chooser success', async () => {

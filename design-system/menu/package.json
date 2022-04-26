@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/menu",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A collection of composable menu components that can be used anywhere.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@atlaskit/avatar": "^20.5.0",
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/icon-file-type": "^6.0.0",
@@ -66,7 +66,7 @@
     "jscodeshift": "^0.13.0",
     "react-router-dom": "^4.2.2",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "keywords": [
     "atlaskit",

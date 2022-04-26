@@ -96,7 +96,7 @@ describe('UsageFrequencyTracker', () => {
 
       // now delay, and periodically check if the queued work has had a chance to complete before asserting
       // that more can be queued.
-      await new Promise((resolve) => {
+      await new Promise<void>((resolve) => {
         const intervalId = window.setInterval(() => {
           if (completedCounter > 0) {
             clearInterval(intervalId);

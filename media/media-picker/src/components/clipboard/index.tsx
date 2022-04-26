@@ -7,6 +7,7 @@ type ClipboardWithMediaClientConfigProps = WithMediaClientConfigProps<
   // ClipboardBase defines config default value, which modifies final shape of ClipboardBase component.
   // Specifically this changes one of the props - config, it makes it an optional property.
   // We want ClipboardWithMediaClientConfigProps to match this modified props of ClipboardBase here.
+
   Omit<ClipboardProps, 'config'> & {
     config?: ClipboardConfig;
   }

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-next",
-  "version": "8.3.0",
+  "version": "8.3.1",
   "description": "React components, HOCs and hooks to assist with tracking user activity with React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.0.0",
@@ -58,7 +58,7 @@
     "react-dom": "^16.8.0",
     "redux": "^3.7.2",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "techstack": {
     "@atlassian/frontend": {

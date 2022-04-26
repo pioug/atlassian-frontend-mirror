@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.5.4
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+
 ## 14.5.3
 
 ### Patch Changes

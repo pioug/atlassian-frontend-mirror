@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 5.0.5
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+
 ## 5.0.4
 
 ### Patch Changes

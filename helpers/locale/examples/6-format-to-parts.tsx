@@ -30,15 +30,19 @@ const options12Hour = {
 
 export default () => {
   const [l10n, setL10n] = useState(
+    // @ts-ignore @fixme TypeScript 4.2.4 upgrade
     createLocalizationProvider('en-AU', options),
   );
   const [l10n12Hour, setL10n12Hour] = useState(
+    // @ts-ignore @fixme TypeScript 4.2.4 upgrade
     createLocalizationProvider('en-AU', options12Hour),
   );
   const [now, setNow] = useState(new Date());
 
   const onLocaleChange = (locale: Locale) => {
+    // @ts-ignore @fixme TypeScript 4.2.4 upgrade
     setL10n(createLocalizationProvider(locale.value, options));
+    // @ts-ignore @fixme TypeScript 4.2.4 upgrade
     setL10n12Hour(createLocalizationProvider(locale.value, options12Hour));
   };
 

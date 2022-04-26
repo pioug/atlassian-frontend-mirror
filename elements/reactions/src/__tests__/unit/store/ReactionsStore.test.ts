@@ -24,7 +24,7 @@ const createSafeRejectedPromise = (error: any) => {
   const catchFn = (callback: (error: any) => Promise<void>) => {
     try {
       const promise = callback(error);
-      if (promise && promise.then) {
+      if (promise.then !== undefined) {
         promise.catch(catchError);
       }
     } catch (e) {

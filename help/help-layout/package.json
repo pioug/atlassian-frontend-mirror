@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   "dependencies": {
     "@atlaskit/analytics": "^8.0.0",
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.9.0",
@@ -50,7 +50,7 @@
     "algoliasearch": "^3.35.1",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "keywords": [
     "atlaskit",

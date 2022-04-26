@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-viewer",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Analytics viewer for the examples",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

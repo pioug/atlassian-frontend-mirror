@@ -53,7 +53,7 @@ interface PopupSelectTriggerProps {
 export interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
-  Modifiers = {}
+  Modifiers = string
 > extends ReactSelectProps<Option, IsMulti> {
   closeMenuOnSelect?: boolean;
   footer?: ReactNode;
@@ -64,7 +64,7 @@ export interface PopupSelectProps<
   ) => ReactNode;
 }
 
-interface State<Modifiers = {}> {
+interface State<Modifiers = string> {
   isOpen: boolean;
   mergedComponents: Object;
   mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
@@ -117,7 +117,9 @@ export default class PopupSelect<
   state = {
     isOpen: false,
     mergedComponents: defaultComponents,
-    mergedPopperProps: defaultPopperProps,
+    mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
+      defaultModifiers | string
+    >,
   };
 
   popperWrapperId = `${uid({ options: this.props.options })}-popup-select`;

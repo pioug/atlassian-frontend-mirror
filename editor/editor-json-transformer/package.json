@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "8.7.4",
+  "version": "8.7.5",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
     "prosemirror-view": "1.23.2",
     "react": "^16.8.0",
     "styled-components": "^3.2.6",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "techstack": {
     "@atlassian/frontend": {

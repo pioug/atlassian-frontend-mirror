@@ -61,8 +61,8 @@ export class MockDataTransfer implements DataTransfer {
     readonly files: FileList,
     readonly types: string[] = [],
     readonly items: DataTransferItemList = [] as any,
-    readonly dropEffect: string = '',
-    readonly effectAllowed: string = '',
+    readonly dropEffect: DataTransfer['dropEffect'] = 'none',
+    readonly effectAllowed: DataTransfer['effectAllowed'] = 'none',
   ) {}
 
   clearData(): boolean {

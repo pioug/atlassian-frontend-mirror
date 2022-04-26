@@ -2,6 +2,7 @@ import React, { FC, MouseEvent, useCallback } from 'react';
 
 import {
   AnalyticsListener,
+  CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -19,7 +20,7 @@ const Button: FC<ButtonProps> = ({ createAnalyticsEvent, ...props }) => (
 );
 
 const AtlaskitButton = withAnalyticsEvents({
-  onClick: (create) => {
+  onClick: (create: CreateUIAnalyticsEvent) => {
     create({ action: 'click', version: '1.2.3' }).fire('atlaskit');
     return create({ action: 'click' });
   },

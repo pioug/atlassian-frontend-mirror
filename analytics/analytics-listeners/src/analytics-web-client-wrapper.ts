@@ -11,15 +11,14 @@ const isPromise = (c: any): c is Promise<AnalyticsWebClient> => {
   return typeof c.then === 'function';
 };
 
+type GasEvent = GasPayload | GasScreenEventPayload;
+
 export const sendEvent = (
   logger: Logger,
   client?: AnalyticsWebClient | Promise<AnalyticsWebClient>,
-) => (event: GasPayload | GasScreenEventPayload): void => {
+) => (event: GasEvent): void => {
   if (client) {
-    const gasEvent = {
-      ...event,
-    };
-    delete gasEvent.eventType;
+    const { eventType, ...gasEvent } = event;
 
     const withClient = (cb: (analyticsClient: AnalyticsWebClient) => void) => {
       if (isPromise(client)) {

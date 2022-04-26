@@ -65,7 +65,7 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
   }
 
   public getAnalyticsData(): AnalyticsData {
-    const { resultId, analyticsData, type, context } = this.props;
+    const { resultId, analyticsData = {}, type, context } = this.props;
     return {
       index: context.getIndex(resultId),
       type,

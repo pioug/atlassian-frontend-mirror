@@ -1,6 +1,6 @@
 import { createLocalizationProvider } from '@atlaskit/locale';
 
-export const formatterOptions = {
+export const formatterOptions: Intl.DateTimeFormatOptions = {
   day: '2-digit',
   month: 'short',
   year: 'numeric',

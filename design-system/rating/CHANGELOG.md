@@ -1,5 +1,12 @@
 # @atlaskit/rating
 
+## 0.2.9
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 0.2.8
 
 ### Patch Changes

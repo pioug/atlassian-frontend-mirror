@@ -56,9 +56,7 @@ export function keymapPlugin(schema: Schema): SafePlugin | undefined {
         );
         return true;
       }
-
       if (
-        dispatch &&
         $cursor.node &&
         isEmptyNode(schema)($cursor.node()) &&
         (hasParentNodeOfType(layoutColumn)(state.selection) ||

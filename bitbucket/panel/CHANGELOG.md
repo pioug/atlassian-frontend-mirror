@@ -1,5 +1,12 @@
 # @atlaskit/panel
 
+## 0.4.8
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 0.4.7
 
 ### Patch Changes

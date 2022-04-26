@@ -3,8 +3,8 @@ import { ReplaceStep } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
 interface DetailedReplaceStep extends ReplaceStep {
-  from: Position;
-  to: Position;
+  from: number;
+  to: number;
   slice: Slice;
 }
 

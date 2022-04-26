@@ -115,7 +115,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                     }}
                     onCancel={async () => {
                       if (allowAutoSave) {
-                        await new Promise((resolve) => {
+                        await new Promise<void>((resolve) => {
                           forceAutoSave(resolve)(
                             editorView.state,
                             editorView.dispatch,

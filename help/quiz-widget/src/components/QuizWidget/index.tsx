@@ -95,7 +95,9 @@ const QuizWidget = (props: Props) => {
                       label={answer}
                       name={answer}
                       isChecked={answer === checkedAnswer}
-                      onChange={(e) => onChange(e, currentQuestionNumber)}
+                      //error TS7006: Parameter 'e' implicitly has an 'any' type.
+                      //@fixme TypeScript 4.2.4 upgrade
+                      onChange={(e: any) => onChange(e, currentQuestionNumber)}
                     />
                     {props.score && correctAnswer && (
                       <span>

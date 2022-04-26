@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.0.0",

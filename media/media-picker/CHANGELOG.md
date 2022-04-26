@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 61.0.1
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 61.0.0
 
 ### Major Changes

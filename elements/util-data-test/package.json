@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "17.2.2",
+  "version": "17.2.3",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -84,7 +84,7 @@
   "devDependencies": {
     "@atlaskit/docs": "^9.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "keywords": [
     "fabric",

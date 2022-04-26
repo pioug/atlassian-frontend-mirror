@@ -15,7 +15,7 @@ const isFirefox: boolean =
   typeof navigator !== 'undefined' &&
   navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
-export type ButtonProps = BaseProps;
+export interface ButtonProps extends BaseProps {}
 
 const Button = React.memo(
   React.forwardRef(function Button(

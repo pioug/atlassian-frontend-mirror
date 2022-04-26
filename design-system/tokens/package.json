@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "author": "Atlassian Pty Ltd",
   "description": "Tokens are a single source of truth to name and store Atlassian design decisions.",
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
     "@babel/types": "^7.15.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/heading": "^0.1.8",
@@ -63,7 +63,7 @@
     "react": "^16.8.0",
     "style-dictionary": "^3.0.0",
     "ts-node": "^10.0.0",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "techstack": {
     "@atlassian/frontend": {

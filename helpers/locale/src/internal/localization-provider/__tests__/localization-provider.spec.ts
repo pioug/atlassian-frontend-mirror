@@ -117,7 +117,7 @@ describe('LocalizationProvider', () => {
     const formatterOptions = { month: 'long', year: 'numeric' };
     const expectedResult = { month: 'August', year: '2020' };
     (toFormattedParts as jest.Mock).mockReturnValue(expectedResult);
-
+    // @ts-ignore non-urgent @fixme TypeScript 4.2.4 upgrade
     const provider = createLocalizationProvider('en', formatterOptions);
     const result = provider.formatToParts(date);
 
@@ -135,6 +135,7 @@ describe('LocalizationProvider', () => {
     (toFormattedParts as jest.Mock).mockReturnValue(expectedResult);
 
     const formatterOptions = { month: 'long', year: 'numeric' };
+    // @ts-ignore non-urgent @fixme TypeScript 4.2.4 upgrade
     const provider = createLocalizationProvider('en', formatterOptions);
     provider.formatToParts(date);
 

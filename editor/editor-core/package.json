@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "164.0.0",
+  "version": "164.0.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/avatar": "^20.5.0",
     "@atlaskit/avatar-group": "^8.5.0",
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/calendar": "^12.1.0",
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/code": "^14.3.0",
@@ -56,7 +56,7 @@
     "@atlaskit/locale": "^2.3.0",
     "@atlaskit/logo": "^13.5.0",
     "@atlaskit/media-card": "^73.5.0",
-    "@atlaskit/media-client": "^15.0.0",
+    "@atlaskit/media-client": "^15.1.0",
     "@atlaskit/media-common": "^2.12.0",
     "@atlaskit/media-filmstrip": "^43.0.0",
     "@atlaskit/media-picker": "^61.0.0",
@@ -127,17 +127,17 @@
     "w3c-keyname": "^2.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.3.0",
-    "@atlaskit/smart-card": "^18.0.13",
+    "@atlaskit/media-core": "^32.3.1",
+    "@atlaskit/smart-card": "^18.0.14",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@atlaskit/atlassian-navigation": "^2.1.0",
-    "@atlaskit/breadcrumbs": "11.5.6",
+    "@atlaskit/breadcrumbs": "11.5.7",
     "@atlaskit/code": "^14.3.0",
-    "@atlaskit/collab-provider": "7.3.0",
+    "@atlaskit/collab-provider": "7.3.1",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.1.0",
     "@atlaskit/dropdown-menu": "^11.1.0",
@@ -167,7 +167,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/search-provider": "2.2.2",
+    "@atlassian/search-provider": "2.2.3",
     "@atlassian/ufo": "^0.1.0",
     "@emotion/jest": "^11.8.0",
     "@testing-library/dom": "^7.7.3",
@@ -200,7 +200,7 @@
     "rison": "^0.1.1",
     "sinon": "^2.2.0",
     "styled-components": "^3.2.6",
-    "typescript": "3.9.10",
+    "typescript": "4.2.4",
     "url-search-params": "^0.10.0",
     "worker-plugin": "^4.0.2"
   },

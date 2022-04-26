@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.2.12
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Updated types for @atlaskit/select to support Typescript 4.2.4
+
 ## 15.2.11
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.1.8
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+
 ## 7.1.7
 
 ### Patch Changes

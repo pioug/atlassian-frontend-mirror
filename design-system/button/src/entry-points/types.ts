@@ -1,4 +1,4 @@
-export type { Appearance, Spacing, BaseOwnProps } from '../types';
+export type { Appearance, Spacing, BaseOwnProps, BaseProps } from '../types';
 export type { ButtonProps } from './standard-button';
 export type {
   LoadingButtonProps,

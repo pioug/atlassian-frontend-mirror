@@ -8,7 +8,7 @@ import { MentionNameClient } from './MentionNameClient';
 import { fireAnalyticsMentionHydrationEvent } from '../util/analytics';
 
 interface Callback {
-  (value?: MentionNameDetails): void;
+  (value: MentionNameDetails): void;
 }
 
 export type { MentionNameResolver } from '../types';
@@ -44,9 +44,9 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
       this.fireAnalytics(true, name);
       return name;
     }
-
-    return new Promise((resolve) => {
+    return new Promise<MentionNameDetails>((resolve) => {
       const processingItems = this.processingQueue.get(id);
+
       if (processingItems) {
         this.processingQueue.set(id, [...processingItems, resolve]);
       }

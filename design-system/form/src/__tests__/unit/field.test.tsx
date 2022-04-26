@@ -489,7 +489,7 @@ test('should associate label with field', () => {
 
 test('should indicate whether form is submitting', () => {
   let complete = () => {};
-  const promise = new Promise((res) => {
+  const promise = new Promise<void>((res) => {
     complete = res;
   });
   const wrapper = mount(

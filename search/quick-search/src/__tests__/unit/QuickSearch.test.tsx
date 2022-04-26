@@ -316,6 +316,7 @@ describe('<QuickSearch />', () => {
     let locationAssignSpy: jest.Mock<{}>;
 
     beforeAll(() => {
+      // @ts-ignore non-urgent @fixme TypeScript 4.2.4 upgrade
       delete window.location;
       window.location = Object.assign({}, window.location, {
         assign: jest.fn(),

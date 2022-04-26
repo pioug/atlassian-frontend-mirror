@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.4.11
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+
 ## 11.4.10
 
 ### Patch Changes

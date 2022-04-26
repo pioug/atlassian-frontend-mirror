@@ -1,5 +1,12 @@
 # @atlaskit/media-image
 
+## 17.2.1
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 17.2.0
 
 ### Minor Changes

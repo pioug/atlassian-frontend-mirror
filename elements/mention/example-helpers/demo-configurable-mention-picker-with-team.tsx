@@ -53,17 +53,16 @@ export default class ConfigurableTeamMentionPicker extends React.Component<
   }
 
   configTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const strJSON = event.target.value;
-
-    let config;
-
     try {
-      config = JSON.parse(strJSON.trim());
+      const config = JSON.parse(
+        event.target.value.trim(),
+      ) as MentionResourceConfig;
       const stateName = event.target.name;
-      // @ts-ignore
-      this.setState({
-        [stateName]: config,
-      });
+      if (stateName === 'userMentionConfig') {
+        this.setState({ userMentionConfig: config });
+      } else if (stateName === 'teamMentionConfig') {
+        this.setState({ teamMentionConfig: config });
+      }
     } catch (err) {
       // eslint-disable-next-line
       console.error('ERROR: cannot parse JSON', event.target.value);

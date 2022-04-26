@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "12.2.6",
+  "version": "12.2.7",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -88,7 +88,7 @@
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "3.9.10",
+    "typescript": "4.2.4",
     "wait-for-expect": "^1.2.0"
   },
   "keywords": [

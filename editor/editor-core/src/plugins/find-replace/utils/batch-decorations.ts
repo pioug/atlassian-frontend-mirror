@@ -249,11 +249,11 @@ class BatchDecorations {
   private batchRequests(
     fn: (counter: number) => void | undefined | false,
     opts: { increment: number; until: number },
-  ): Promise<undefined> {
+  ): Promise<void> {
     let counter = 0;
     const { increment, until } = opts;
 
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       const batchedFn = () => {
         let result = fn(counter);
         while (result === false && counter < until) {

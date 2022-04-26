@@ -17,9 +17,7 @@ declare global {
       choose: (args: {
         iframe?: boolean;
         windowName?: string;
-        success: (
-          value?: DropboxFile[] | PromiseLike<DropboxFile[]> | undefined,
-        ) => void;
+        success: (value: DropboxFile[] | PromiseLike<DropboxFile[]>) => void;
         cancel: () => void;
       }) => void;
     };

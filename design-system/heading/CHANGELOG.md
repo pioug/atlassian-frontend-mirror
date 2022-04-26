@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 0.1.11
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+
 ## 0.1.10
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-confluence-transformer",
-  "version": "8.1.23",
+  "version": "8.1.24",
   "description": "Editor Confluence Transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^164.0.0",
     "@atlaskit/editor-test-helpers": "^17.0.0",
@@ -47,7 +47,7 @@
     "@types/prosemirror-model": "^1.11.0",
     "pretty-data": "^0.40.0",
     "styled-components": "^3.2.6",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {

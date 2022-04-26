@@ -1,5 +1,12 @@
 # @atlaskit/embedded-document
 
+## 0.7.44
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 0.7.43
 
 ### Patch Changes

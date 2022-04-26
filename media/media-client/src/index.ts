@@ -212,6 +212,7 @@ export type {
   WithMediaClientConfig,
   WithMediaClientConfigProps,
   WithMediaClientFunction,
+  WithMediaClient,
 } from './utils/with-media-client-hoc';
 
 export { globalMediaEventEmitter } from './globalMediaEventEmitter';

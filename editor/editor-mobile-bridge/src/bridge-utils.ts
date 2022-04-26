@@ -19,11 +19,10 @@ import { IS_DEV, IS_TEST } from './utils';
  * Props object is spread as args.
  *  window.<bridgeName>.<eventName>(...<props>)
  */
-export function sendToBridge<K extends CombinedBridgeNames>(
-  bridgeName: K,
-  eventName: BridgeEventName<K>,
-  props = {},
-) {
+export function sendToBridge<
+  K extends CombinedBridgeNames,
+  EventName extends BridgeEventName<K>
+>(bridgeName: K, eventName: EventName, props = {}) {
   if (window.webkit) {
     // iOS implementation
     const bridge = window.webkit.messageHandlers[bridgeName];
@@ -32,7 +31,12 @@ export function sendToBridge<K extends CombinedBridgeNames>(
     }
   } else {
     // Android implementation
-    const bridge = window[bridgeName];
+    // @fixme TypeScript 4.2.4 this type definition is not good. bridgeName needs to be added
+    // to the window type appropiately, which isn't done.
+    const bridge = (window as any)[bridgeName] as {
+      [key in CombinedBridgeNames]: any;
+    };
+
     if (bridge && eventName in bridge) {
       const args = Object.values(props);
 

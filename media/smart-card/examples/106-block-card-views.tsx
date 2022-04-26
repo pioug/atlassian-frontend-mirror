@@ -95,25 +95,31 @@ const resolvedActionListProps = {
       id: 'like',
       text: 'Like',
       promise: () =>
-        new Promise((resolve) => setTimeout(() => resolve(), 2000)),
+        new Promise<void>((resolve) => setTimeout(() => resolve(), 2000)),
     },
     {
       id: 'subscribe',
       text: 'Subscribe',
       promise: () =>
-        new Promise((_resolve, reject) => setTimeout(() => reject(), 2000)),
+        new Promise<void>((_resolve, reject) =>
+          setTimeout(() => reject(), 2000),
+        ),
     },
     {
       id: 'open',
       text: 'Open',
       promise: () =>
-        new Promise((resolve, _reject) => setTimeout(() => resolve(), 2000)),
+        new Promise<void>((resolve, _reject) =>
+          setTimeout(() => resolve(), 2000),
+        ),
     },
     {
       id: 'download',
       text: 'Download',
       promise: () =>
-        new Promise((resolve, _reject) => setTimeout(() => resolve(), 2000)),
+        new Promise<void>((resolve, _reject) =>
+          setTimeout(() => resolve(), 2000),
+        ),
     },
   ],
 };
@@ -125,7 +131,7 @@ const failedActionListProps = {
       id: 'tryagain',
       text: 'Try a different account',
       promise: () =>
-        new Promise((resolve) => setTimeout(() => resolve(), 2000)),
+        new Promise<void>((resolve) => setTimeout(() => resolve(), 2000)),
     },
   ],
 };
@@ -138,7 +144,7 @@ const unauthorisedActionListProps = {
       text: 'Connect',
       buttonAppearance: 'default' as Appearance,
       promise: () =>
-        new Promise((resolve) => setTimeout(() => resolve(), 2000)),
+        new Promise<void>((resolve) => setTimeout(() => resolve(), 2000)),
     },
   ],
 };

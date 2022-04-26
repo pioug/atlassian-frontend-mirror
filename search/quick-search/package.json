@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/quick-search",
-  "version": "8.0.9",
+  "version": "8.0.10",
   "description": "A quick-search component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
     "prop-types": "^15.5.10",
     "react": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "3.9.10",
+    "typescript": "4.2.4",
     "uuid": "^3.1.0"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

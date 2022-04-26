@@ -234,7 +234,7 @@ export function createApiRouter(
   /** This function waits for shouldWaitUpload to be false before it resolves the promise.
    * Otherwise it recursively calls itself with a 10ms timeout until it is false.*/
   async function awaitUpload(resolver?: Function) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       if ((window as any).mediaMockControlsBackdoor.shouldWaitUpload) {
         setTimeout(() => awaitUpload(resolver || resolve), 10);
         return;

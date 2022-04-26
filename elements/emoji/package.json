@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/emoji",
-  "version": "64.5.0",
+  "version": "64.5.1",
   "description": "Fabric emoji React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,9 +27,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/media-client": "^15.0.0",
+    "@atlaskit/media-client": "^15.1.0",
     "@atlaskit/spinner": "^15.0.0",
     "@atlaskit/textfield": "^5.1.0",
     "@atlaskit/theme": "^12.1.0",
@@ -78,7 +78,7 @@
     "rxjs": "^5.5.0",
     "serialize-javascript": "^5.0.1",
     "sinon": "^2.2.0",
-    "typescript": "3.9.10",
+    "typescript": "4.2.4",
     "wait-for-expect": "^1.2.0",
     "webpack-dev-server": "^3.11.2"
   },

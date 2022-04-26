@@ -85,6 +85,7 @@ describe('find/replace commands: findPrevious', () => {
       // DecorationSet will change so we manually check the individual Decorations
       const pluginStatePostFind = { ...getPluginState(editorView.state) };
       const decorationsPostFind = pluginStatePostFind.decorationSet.find();
+      // @ts-ignore
       delete pluginStatePostFind.decorationSet;
 
       findPrevious()(editorView.state, editorView.dispatch);

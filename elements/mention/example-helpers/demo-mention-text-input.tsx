@@ -102,7 +102,6 @@ export default class MentionTextInput extends React.Component<Props, State> {
 
     if (this.state.active) {
       mentionPicker = (
-        // @ts-ignore
         <MentionPicker
           target="demo-input"
           position={relativePosition}

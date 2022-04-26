@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
     "@testing-library/react": "^8.0.1",
     "@testing-library/react-hooks": "^1.0.4",
     "jest-in-case": "^1.0.2",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "techstack": {
     "@atlassian/frontend": {

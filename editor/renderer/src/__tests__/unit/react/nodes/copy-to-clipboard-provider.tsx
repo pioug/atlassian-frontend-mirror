@@ -23,6 +23,7 @@ describe('Renderer - clipboard utils', () => {
     });
 
     it('returns false when clipboard is defined but writeText is not a function', () => {
+      // @ts-ignore
       delete navigator.clipboard.writeText;
       expect(clipboardApiSupported()).toEqual(false);
     });
@@ -120,6 +121,7 @@ describe('Renderer - clipboard utils', () => {
     });
 
     it('returns true when clipboard.writeText is defined', () => {
+      // @ts-ignore
       delete navigator.clipboard.writeText;
       expect(copyToClipboard('test')).rejects.toEqual(
         'Clipboard api is not supported',

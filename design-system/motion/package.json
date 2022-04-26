@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.2.0",
+    "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/logo": "^13.0.0",
@@ -58,7 +58,7 @@
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",
-    "typescript": "3.9.10"
+    "typescript": "4.2.4"
   },
   "keywords": [
     "atlaskit",

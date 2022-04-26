@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 15.1.0
+
+### Minor Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Export `WithMediaClient` type to resolve a deep import path d.ts reference
+
+### Patch Changes
+
+- [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- Updated dependencies
+
 ## 15.0.0
 
 ### Major Changes

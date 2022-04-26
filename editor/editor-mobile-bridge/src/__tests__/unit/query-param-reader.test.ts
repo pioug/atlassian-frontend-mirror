@@ -7,6 +7,7 @@ describe('Query param reader', () => {
   const { location } = window;
 
   beforeAll(() => {
+    // @ts-ignore
     delete window.location;
     window.location = { search: '' } as any;
   });

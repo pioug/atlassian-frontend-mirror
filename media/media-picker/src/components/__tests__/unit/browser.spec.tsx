@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 jest.mock('../../../service/uploadServiceImpl');
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { Browser, BrowserBase } from '../../browser/browser';
+import { BrowseFn, Browser, BrowserBase } from '../../browser/browser';
 import { BrowserConfig } from '../../../types';
 import Button from '@atlaskit/button/standard-button';
 
@@ -59,7 +59,7 @@ describe('Browser', () => {
   it('should render with children', () => {
     const browser = mount(
       <Browser mediaClient={mediaClient} config={browseConfig}>
-        {(browse) => <Button onClick={browse}>Upload</Button>}
+        {(browse: BrowseFn) => <Button onClick={browse}>Upload</Button>}
       </Browser>,
     );
     const instance = browser.find(BrowserBase).instance();

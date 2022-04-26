@@ -178,7 +178,7 @@ export class DropzoneBase extends LocalUploadComponentReact<
 
     //function to check if a file entry is a folder
     const hasFolder = (item: DataTransferItem) =>
-      item.webkitGetAsEntry().isDirectory;
+      item.webkitGetAsEntry()?.isDirectory;
 
     //how many folders are in a single drag and drop event
     var folderCount = toArray.filter((item) => hasFolder(item)).length;

@@ -131,7 +131,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        await new Promise((success) => {
+        await new Promise<void>((success) => {
           const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
           getTimeSinceMock.mockImplementation(
             (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
@@ -162,7 +162,7 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        await new Promise((success) => {
+        await new Promise<void>((success) => {
           const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
           getTimeSinceMock.mockImplementation(
             (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
@@ -231,7 +231,7 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        await new Promise((success) => {
+        await new Promise<void>((success) => {
           const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
           getTimeSinceMock.mockImplementation(
             (startTime) => customSettings.normalThreshold + 1,
@@ -266,7 +266,7 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        await new Promise((success) => {
+        await new Promise<void>((success) => {
           const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
           getTimeSinceMock.mockImplementation(
             (startTime) => customSettings.degradedThreshold + 1,

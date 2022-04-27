@@ -2,14 +2,17 @@
   "name": "@atlaskit/tokens",
   "version": "0.9.1",
   "author": "Atlassian Pty Ltd",
-  "description": "Tokens are a single source of truth to name and store Atlassian design decisions.",
+  "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Design tokens"
+    }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",
@@ -77,5 +80,6 @@
       "styling": "emotion"
     }
   },
+  "homepage": "https://atlassian.design/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

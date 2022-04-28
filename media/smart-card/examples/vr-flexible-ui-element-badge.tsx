@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { HorizontalWrapper, VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
-import { getContext } from './utils/flexible-ui';
+import { exampleTokens, getContext } from './utils/flexible-ui';
 import {
   CommentCount,
   Priority,
@@ -13,9 +13,18 @@ import {
   ViewCount,
   ReactCount,
   VoteCount,
+  Provider,
 } from '../src/view/FlexibleCard/components/elements';
 import { IconType, SmartLinkSize } from '../src/constants';
 
+const overrideCss = css`
+  background-color: ${exampleTokens.overrideColor};
+  border-radius: 1rem;
+  padding: 0.2rem;
+  > span {
+    color: ${exampleTokens.iconColor};
+  }
+`;
 const context = getContext({
   commentCount: 1,
   viewCount: 2,
@@ -56,9 +65,15 @@ export default () => (
             <Priority icon={IconType.PriorityMinor} />
             <Priority icon={IconType.PriorityTrivial} />
             <Priority icon={IconType.PriorityUndefined} />
+            <Provider />
+            <Provider label="Provider" />
           </HorizontalWrapper>
         </React.Fragment>
       ))}
+      <h5>Override CSS</h5>
+      <HorizontalWrapper>
+        <ProgrammingLanguage overrideCss={overrideCss} />
+      </HorizontalWrapper>
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

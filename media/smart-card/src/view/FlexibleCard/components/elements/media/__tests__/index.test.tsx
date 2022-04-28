@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { css } from '@emotion/core';
+import { render } from '@testing-library/react';
 
 import Media from '../index';
 import { MediaType } from '../../../../../../constants';
@@ -12,12 +13,12 @@ describe('Element: Media', () => {
   const testId = 'smart-element-media';
 
   it('renders element', async () => {
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <Media type={MediaType.Image} url="src-loaded" />,
     );
 
-    const element = await waitForElement(() => getByTestId(testId));
-    const image = await waitForElement(() => getByTestId(`${testId}-image`));
+    const element = await findByTestId(testId);
+    const image = await findByTestId(`${testId}-image`);
 
     expect(element).toBeTruthy();
     expect(element.getAttribute('data-smart-element-media')).toBeTruthy();
@@ -37,5 +38,22 @@ describe('Element: Media', () => {
   it('does not render element when url is not provided', async () => {
     const { container } = render(<Media type={MediaType.Image} />);
     expect(container.children.length).toBe(0);
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      background-color: blue;
+    `;
+    const { findByTestId } = render(
+      <Media
+        overrideCss={overrideCss}
+        type={MediaType.Image}
+        url="src-loaded"
+      />,
+    );
+
+    const element = await findByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('background-color', 'blue');
   });
 });

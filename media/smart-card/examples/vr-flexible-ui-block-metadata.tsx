@@ -4,7 +4,7 @@ import { jsx } from '@emotion/core';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { ElementName, MetadataBlock, SmartLinkSize } from '../src';
-import { getCardState } from './utils/flexible-ui';
+import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 
 const cardState = getCardState({
@@ -87,5 +87,9 @@ export default () => (
         </FlexibleCard>
       </React.Fragment>
     ))}
+    <h5>Override CSS</h5>
+    <FlexibleCard cardState={cardState} url="link-url">
+      <MetadataBlock overrideCss={blockOverrideCss} primary={elements} />
+    </FlexibleCard>
   </VRTestWrapper>
 );

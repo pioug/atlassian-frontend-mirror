@@ -89,6 +89,10 @@ const renderChildren = (
     }
   });
 
+/**
+ * This represents the container in which all Flexible UI Smart Links are rendered.
+ * @see Block
+ */
 const Container: React.FC<ContainerProps> = ({
   children,
   hideBackground = false,

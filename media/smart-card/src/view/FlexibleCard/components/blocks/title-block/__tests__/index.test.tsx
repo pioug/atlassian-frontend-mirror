@@ -1,7 +1,8 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { css } from '@emotion/core';
 import TitleBlock from '../index';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
@@ -34,44 +35,44 @@ describe('TitleBlock', () => {
   };
 
   it('renders block', async () => {
-    const { getByTestId } = renderTitleBlock();
+    const { findByTestId } = renderTitleBlock();
 
-    const block = await waitForElement(() => getByTestId(testId));
+    const block = await findByTestId(testId);
 
     expect(block).toBeDefined();
     expect(block.getAttribute('data-smart-block')).toBeTruthy();
   });
 
   it('renders its default elements', async () => {
-    const { getByTestId } = renderTitleBlock();
+    const { findByTestId } = renderTitleBlock();
 
-    const title = await waitForElement(() => getByTestId(titleTestId));
-    const icon = await waitForElement(() => getByTestId(iconTestId));
+    const title = await findByTestId(titleTestId);
+    const icon = await findByTestId(iconTestId);
 
     expect(title).toBeDefined();
     expect(icon).toBeDefined();
   });
 
   it('renders metadata', async () => {
-    const { getByTestId } = renderTitleBlock({
+    const { findByTestId } = renderTitleBlock({
       metadata: [
         { name: ElementName.CommentCount, testId: 'metadata-element' },
       ],
     });
 
-    const element = await waitForElement(() => getByTestId('metadata-element'));
+    const element = await findByTestId('metadata-element');
 
     expect(element).toBeDefined();
   });
 
   it('renders subtitle', async () => {
-    const { getByTestId } = renderTitleBlock({
+    const { findByTestId } = renderTitleBlock({
       subtitle: [
         { name: ElementName.CommentCount, testId: 'subtitle-element' },
       ],
     });
 
-    const element = await waitForElement(() => getByTestId('subtitle-element'));
+    const element = await findByTestId('subtitle-element');
 
     expect(element).toBeDefined();
   });
@@ -107,14 +108,12 @@ describe('TitleBlock', () => {
                 onClick: () => {},
               };
 
-        const { getByTestId } = renderTitleBlock({
+        const { findByTestId } = renderTitleBlock({
           status,
           actions: [action],
         });
 
-        const element = await waitForElement(() =>
-          getByTestId(`smart-element-test-1`),
-        );
+        const element = await findByTestId(`smart-element-test-1`);
         expect(element).toBeDefined();
       });
     }
@@ -125,7 +124,7 @@ describe('TitleBlock', () => {
 
   it('should render only one action when on hover only activated', async () => {
     const testId = 'smart-element-test';
-    const { getByTestId, queryByTestId } = renderTitleBlock({
+    const { findByTestId, queryByTestId } = renderTitleBlock({
       actions: [
         makeDeleteActionItem({ testId: `${testId}-1` }),
         makeCustomActionItem({ testId: `${testId}-2` }),
@@ -133,9 +132,7 @@ describe('TitleBlock', () => {
       showActionOnHover: true,
     });
 
-    const moreButton = await waitForElement(() =>
-      getByTestId('action-group-more-button'),
-    );
+    const moreButton = await findByTestId('action-group-more-button');
     expect(moreButton).toBeDefined();
 
     expect(queryByTestId(`smart-element-test-1`)).toBeNull();
@@ -144,9 +141,7 @@ describe('TitleBlock', () => {
     userEvent.click(moreButton);
 
     for (let i = 0; i < 2; i++) {
-      const element = await waitForElement(() =>
-        getByTestId(`smart-element-test-${i + 1}`),
-      );
+      const element = await findByTestId(`smart-element-test-${i + 1}`);
       expect(element).toBeDefined();
     }
   });
@@ -192,14 +187,14 @@ describe('TitleBlock', () => {
     ])(
       'renders title element with parent props including text override in %s view ',
       async (status: SmartLinkStatus) => {
-        const { getByTestId } = renderTitleBlock({
+        const { findByTestId } = renderTitleBlock({
           status,
           theme: SmartLinkTheme.Black,
           maxLines: 2,
           text: 'Spaghetti',
         });
 
-        const element = await waitForElement(() => getByTestId(titleTestId));
+        const element = await findByTestId(titleTestId);
         expect(element.textContent).toEqual('Spaghetti');
 
         expect(element).toHaveStyleDeclaration(
@@ -220,24 +215,53 @@ describe('TitleBlock', () => {
       [SmartLinkStatus.Unauthorized, 'smart-block-title-errored-view'],
       [SmartLinkStatus.Fallback, 'smart-block-title-errored-view'],
     ])('renders %s view', async (status: SmartLinkStatus, expectedTestId) => {
-      const { getByTestId } = renderTitleBlock({ status });
+      const { findByTestId } = renderTitleBlock({ status });
 
-      const element = await waitForElement(() => getByTestId(expectedTestId));
+      const element = await findByTestId(expectedTestId);
 
       expect(element).toBeDefined();
     });
 
     it('renders formatted message', async () => {
-      const { getByTestId } = renderTitleBlock({
+      const { findByTestId } = renderTitleBlock({
         status: SmartLinkStatus.NotFound,
         retry: { descriptor: messages.cannot_find_link },
       });
 
-      const message = await waitForElement(() =>
-        getByTestId('smart-block-title-errored-view-message'),
+      const message = await findByTestId(
+        'smart-block-title-errored-view-message',
       );
 
       expect(message.textContent).toEqual("Can't find link");
     });
+  });
+
+  describe('with css override', () => {
+    it.each([
+      [SmartLinkStatus.Errored, 'errored-view'],
+      [SmartLinkStatus.Fallback, 'errored-view'],
+      [SmartLinkStatus.Forbidden, 'errored-view'],
+      [SmartLinkStatus.NotFound, 'errored-view'],
+      [SmartLinkStatus.Pending, 'resolving-view'],
+      [SmartLinkStatus.Resolved, 'resolved-view'],
+      [SmartLinkStatus.Resolving, 'resolving-view'],
+      [SmartLinkStatus.Unauthorized, 'errored-view'],
+    ])(
+      'renders %s view with override value',
+      async (status: SmartLinkStatus, viewTestId: string) => {
+        const overrideCss = css`
+          background-color: blue;
+        `;
+        const { findByTestId } = renderTitleBlock({
+          overrideCss,
+          status,
+          testId: 'css',
+        });
+
+        const block = await findByTestId(`css-${viewTestId}`);
+
+        expect(block).toHaveStyleDeclaration('background-color', 'blue');
+      },
+    );
   });
 });

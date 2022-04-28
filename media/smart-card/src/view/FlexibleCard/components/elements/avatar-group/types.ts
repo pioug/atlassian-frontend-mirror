@@ -8,6 +8,8 @@ export type AvatarItemProps = {
 };
 
 export type AvatarGroupProps = ElementProps & {
+  /* An array of Avatars to show */
   items?: AvatarItemProps[];
+  /* The maximum number of Avatars to show in the AvatarGroup */
   maxCount?: number;
 };

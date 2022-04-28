@@ -23,6 +23,9 @@ export {
   screenAuthPopupEvent,
   uiRenderSuccessEvent,
   uiRenderFailedEvent,
+  uiHoverCardViewedEvent,
+  uiHoverCardDismissedEvent,
+  uiHoverCardOpenLinkClickedEvent,
 } from './analytics';
 
 export const instrumentEvent = (

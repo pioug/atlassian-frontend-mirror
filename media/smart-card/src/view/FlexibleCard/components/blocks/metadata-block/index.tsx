@@ -68,6 +68,12 @@ const getMaxLines = (maxLines: number) => {
   return maxLines;
 };
 
+/**
+ * Represents a MetadataBlock, designed to contain groups of metadata in the form of elements.
+ * Accepts an array of elements to be shown either primary (left hand side) or secondary (right hand side).
+ * @param {MetadataBlockProps} MetadataBlockProps
+ * @see Block
+ */
 const MetadataBlock: React.FC<MetadataBlockProps> = ({
   maxLines = DEFAULT_MAX_LINES,
   status = SmartLinkStatus.Fallback,
@@ -94,7 +100,7 @@ const MetadataBlock: React.FC<MetadataBlockProps> = ({
       {primaryElements && (
         <ElementGroup
           align={SmartLinkAlignment.Left}
-          css={elementGroupStyles}
+          overrideCss={elementGroupStyles}
           direction={SmartLinkDirection.Horizontal}
           width={SmartLinkWidth.Flexible}
         >
@@ -104,7 +110,7 @@ const MetadataBlock: React.FC<MetadataBlockProps> = ({
       {secondaryElements && (
         <ElementGroup
           align={SmartLinkAlignment.Right}
-          css={elementGroupStyles}
+          overrideCss={elementGroupStyles}
           direction={SmartLinkDirection.Horizontal}
           width={SmartLinkWidth.Flexible}
         >

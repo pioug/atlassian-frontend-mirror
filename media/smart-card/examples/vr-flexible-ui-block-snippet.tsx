@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { VRTestWrapper } from './utils/vr-test';
-import { getCardState } from './utils/flexible-ui';
+import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { SnippetBlock } from '../src/index';
 
@@ -19,6 +19,10 @@ export default () => (
     <h5>Single line</h5>
     <FlexibleCard cardState={cardState} url="link-url">
       <SnippetBlock maxLines={1} />
+    </FlexibleCard>
+    <h5>Override CSS</h5>
+    <FlexibleCard cardState={cardState} url="link-url">
+      <SnippetBlock overrideCss={blockOverrideCss} />
     </FlexibleCard>
   </VRTestWrapper>
 );

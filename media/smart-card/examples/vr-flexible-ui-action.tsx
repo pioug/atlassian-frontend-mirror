@@ -4,16 +4,16 @@ import { css, jsx } from '@emotion/core';
 import { VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
 import { SmartLinkSize } from '../src/constants';
-import { getContext } from './utils/flexible-ui';
+import { exampleTokens, getContext } from './utils/flexible-ui';
 import { DeleteAction } from '../src/view/FlexibleCard/components/actions';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 
-const containerStyles = css({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '5px',
-  padding: '5px',
-});
+const containerStyles = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 5px;
+`;
 
 const context = getContext();
 let onClick = () => {
@@ -21,7 +21,7 @@ let onClick = () => {
 };
 
 export default () => (
-  <VRTestWrapper title="Flexible UI: Action: DeleteAction">
+  <VRTestWrapper title="Flexible UI: Action">
     <FlexibleUiContext.Provider value={context}>
       <table>
         <thead>
@@ -127,6 +127,42 @@ export default () => (
           })}
         </tbody>
       </table>
+      <h5>Override CSS</h5>
+      <div css={containerStyles}>
+        <DeleteAction
+          appearance="default"
+          content="Bold"
+          onClick={onClick}
+          overrideCss={css`
+            span {
+              font-weight: bold;
+            }
+          `}
+        />
+        <DeleteAction
+          appearance="default"
+          content="Italic"
+          onClick={onClick}
+          overrideCss={css`
+            span {
+              font-style: italic;
+            }
+          `}
+        />
+        <DeleteAction
+          appearance="default"
+          content="Color"
+          onClick={onClick}
+          overrideCss={css`
+            button {
+              background-color: ${exampleTokens.iconBackgroundColor};
+            }
+            span {
+              color: ${exampleTokens.iconColor};
+            }
+          `}
+        />
+      </div>
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

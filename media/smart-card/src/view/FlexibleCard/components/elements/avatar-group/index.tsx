@@ -29,9 +29,17 @@ const getStyles = (size: SmartLinkSize) => {
   }
 };
 
+/**
+ * An element that displays a group of avatars.
+ * @public
+ * @param {AvatarGroupProps} AvatarGroupProps - The props necessary for the AvatarGroup.
+ * @see AuthorGroup
+ * @see CollaboratorGroup
+ */
 const AvatarGroup: React.FC<AvatarGroupProps> = ({
   items = [],
   maxCount = MAX_COUNT,
+  overrideCss,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-avatar-group',
 }) => {
@@ -39,7 +47,11 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
     return null;
   }
   return (
-    <span css={getStyles(size)}>
+    <span
+      css={[getStyles(size), overrideCss]}
+      data-smart-element-avatar-group
+      data-testid={testId}
+    >
       <AtlaskitAvatarGroup
         maxCount={maxCount}
         appearance="stack"

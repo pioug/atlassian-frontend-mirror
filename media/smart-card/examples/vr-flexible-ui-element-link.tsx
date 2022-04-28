@@ -1,13 +1,17 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
 import { SmartLinkSize, SmartLinkTheme } from '../src/constants';
-import { getContext } from './utils/flexible-ui';
+import { exampleTokens, getContext } from './utils/flexible-ui';
 import { Title } from '../src/view/FlexibleCard/components/elements';
 
+const overrideCss = css`
+  color: ${exampleTokens.overrideColor};
+  font-style: italic;
+`;
 const context = getContext();
 const renderTitle = (
   maxLines = 2,
@@ -38,6 +42,8 @@ export default () => (
           {renderTitle(maxLines, SmartLinkSize.Medium, SmartLinkTheme.Link)}
         </React.Fragment>
       ))}
+      <h5>Override CSS</h5>
+      <Title overrideCss={overrideCss} />
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

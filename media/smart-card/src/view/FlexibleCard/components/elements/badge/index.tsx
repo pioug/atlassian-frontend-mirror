@@ -86,11 +86,25 @@ const renderImageIcon = (
   }
 };
 
+/**
+ * An element that displays some text with an associated icon.
+ * @public
+ * @param {BadgeProps} BadgeProps - The props necessary for the Badge.
+ * @see CommentCount
+ * @see ViewCount
+ * @see ReactCount
+ * @see VoteCount
+ * @see SubscriberCount
+ * @see Priority
+ * @see ProgrammingLanguage
+ * @see Provider
+ */
 const Badge: React.FC<BadgeProps> = ({
   icon,
-  url,
   label,
+  overrideCss,
   testId = 'smart-element-badge',
+  url,
 }) => {
   const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
   const badgeIcon =
@@ -102,7 +116,7 @@ const Badge: React.FC<BadgeProps> = ({
 
   return (
     <div
-      css={badgeStyles}
+      css={[badgeStyles, overrideCss]}
       data-fit-to-content
       data-smart-element-badge
       data-testid={testId}

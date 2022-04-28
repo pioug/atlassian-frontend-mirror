@@ -15,14 +15,14 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 400);
+      const image = await takeSnapshot(page, 520);
 
       expect(image).toMatchProdImageSnapshot();
     });
 
     it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
-      const screenshotSize = 2050;
+      const screenshotSize = 2180;
       const page = await setup(url);
 
       await page.waitForSelector('[data-testid="smart-links-container"]');
@@ -57,7 +57,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-metadata');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 1090);
+      const image = await takeSnapshot(page, 1200);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -66,7 +66,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-snippet');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 260);
+      const image = await takeSnapshot(page, 400);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -75,7 +75,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-footer');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 750);
+      const image = await takeSnapshot(page, 810);
 
       expect(image).toMatchProdImageSnapshot();
 
@@ -84,7 +84,7 @@ describe('Flexible Card', () => {
       await page.click('[data-testid="action-group-more-button"]');
 
       await page.waitForSelector('[data-testid="third-action-item"]');
-      const image2 = await takeSnapshot(page, 750);
+      const image2 = await takeSnapshot(page, 810);
 
       expect(image2).toMatchProdImageSnapshot();
     });
@@ -93,19 +93,19 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block-preview');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 530);
+      const image = await takeSnapshot(page, 1000);
 
       expect(image).toMatchProdImageSnapshot();
     });
   });
 
   describe('actions', () => {
-    it('renders DeleteAction', async () => {
-      const url = getURL('vr-flexible-ui-action-delete');
+    it('renders Action', async () => {
+      const url = getURL('vr-flexible-ui-action');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-delete-action"]');
 
-      const image = await takeSnapshot(page, 400);
+      const image = await takeSnapshot(page, 450);
       expect(image).toMatchProdImageSnapshot();
     });
   });
@@ -115,7 +115,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-link');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-title"]');
-      const image = await takeSnapshot(page, 580);
+      const image = await takeSnapshot(page, 630);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -131,7 +131,7 @@ describe('Flexible Card', () => {
       });
       await page.waitForSelector('[data-testid="vr-test-image-icon-loading"]');
 
-      const image = await takeSnapshot(page, 570);
+      const image = await takeSnapshot(page, 650);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -140,7 +140,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-lozenge');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-lozenge"]');
-      const image = await takeSnapshot(page, 120);
+      const image = await takeSnapshot(page, 170);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -149,7 +149,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-badge');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-badge-comment"]');
-      const image = await takeSnapshot(page, 360);
+      const image = await takeSnapshot(page, 430);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -160,7 +160,7 @@ describe('Flexible Card', () => {
       await page.waitForSelector(
         '[data-testid="vr-test-author-group-xlarge-0--avatar-group"]',
       );
-      const image = await takeSnapshot(page, 330);
+      const image = await takeSnapshot(page, 390);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -169,16 +169,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-text-and-date');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-text"]');
-      const image = await takeSnapshot(page, 170);
-
-      expect(image).toMatchProdImageSnapshot();
-    });
-
-    it('renders provider', async () => {
-      const url = getURL('vr-flexible-ui-element-provider');
-      const page = await setup(url);
-      await page.waitForSelector('[data-testid="vr-test-provider-confluence"]');
-      const image = await takeSnapshot(page, 360);
+      const image = await takeSnapshot(page, 230);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -187,7 +178,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-media');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-media"]');
-      const image = await takeSnapshot(page, 480);
+      const image = await takeSnapshot(page, 690);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -212,6 +203,21 @@ describe('Flexible Card', () => {
         '[data-testid="smart-block-title-errored-view"]';
       await page.waitForSelector(erroredViewSelector);
       const image = await takeSnapshot(page, 80);
+
+      expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('renders various compositions', async () => {
+      const url = getURL('vr-flexible-ui-composition');
+      const page = await setup(url);
+
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+
+      const buttonSelector = '[data-testid="smart-action-delete-action"]';
+      await page.waitForSelector(buttonSelector);
+      await page.hover(buttonSelector);
+
+      const image = await takeSnapshot(page, 240);
 
       expect(image).toMatchProdImageSnapshot();
     });

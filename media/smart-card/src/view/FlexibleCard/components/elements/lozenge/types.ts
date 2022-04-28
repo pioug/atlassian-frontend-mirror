@@ -9,6 +9,8 @@ export type LozengeAppearance =
   | 'success';
 
 export type LozengeProps = ElementProps & {
+  /* Determines the appearance of the Atlaskit lozenge. */
   appearance?: LozengeAppearance;
+  /* The text to display within the lozenge. */
   text?: string;
 };

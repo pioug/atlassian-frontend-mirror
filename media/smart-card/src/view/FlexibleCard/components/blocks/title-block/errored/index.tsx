@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
-import { TitleBlockProps } from '../types';
+import { LinkIcon } from '../../../elements';
+import { TitleBlockViewProps } from '../types';
+import Block from '../../block';
 import {
   SmartLinkAlignment,
   SmartLinkDirection,
@@ -17,7 +18,6 @@ import {
 } from '../../../utils';
 import ElementGroup from '../../element-group';
 import { tokens } from '../../../../../../utils/token';
-import { BaseTitleBlockComponent } from '../utils';
 
 const actionStyles: SerializedStyles = css`
   cursor: pointer;
@@ -45,16 +45,29 @@ const getMessageStyles = (
   `;
 };
 
-const TitleBlockErroredView: React.FC<TitleBlockProps> = (props) => {
-  const { size = SmartLinkSize.Medium, retry, testId } = props;
-  const { descriptor: retryDescriptor, onClick, values: retryValues } =
-    retry || {};
-
+/**
+ * Represents an Errored TitleBlock view.
+ * This will render when a Smart Link did not successfully resolve.
+ * This may be a result of a Smart Link not having the correct credentials,
+ * or the backend response was errored or malformed.
+ * @see TitleBlock
+ */
+const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
+  actionGroup,
+  retry,
+  position,
+  testId,
+  title,
+  ...blockProps
+}) => {
+  const { descriptor, onClick, values } = retry || {};
+  const { size = SmartLinkSize.Medium } = blockProps;
   const hasAction = onClick !== undefined;
-
   return (
-    <BaseTitleBlockComponent {...props} blockTestIdPostfix="errored-view">
-      {retryDescriptor && (
+    <Block {...blockProps} testId={`${testId}-errored-view`}>
+      <LinkIcon position={position} />
+      {title}
+      {descriptor && (
         <ElementGroup
           direction={SmartLinkDirection.Horizontal}
           align={SmartLinkAlignment.Right}
@@ -64,11 +77,12 @@ const TitleBlockErroredView: React.FC<TitleBlockProps> = (props) => {
             onClick={onClick}
             data-testid={`${testId}-errored-view-message`}
           >
-            <FormattedMessage {...retryDescriptor} values={retryValues} />
+            <FormattedMessage {...descriptor} values={values} />
           </span>
         </ElementGroup>
       )}
-    </BaseTitleBlockComponent>
+      {actionGroup}
+    </Block>
   );
 };
 

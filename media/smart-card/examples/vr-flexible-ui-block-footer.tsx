@@ -5,7 +5,7 @@ import { jsx } from '@emotion/core';
 import { VRTestWrapper } from './utils/vr-test';
 import { FooterBlock } from '../src/view/FlexibleCard/components/blocks';
 import { SmartLinkSize } from '../src/constants';
-import { getCardState } from './utils/flexible-ui';
+import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { ActionItem } from '../src';
 import {
@@ -51,5 +51,9 @@ export default () => (
         {renderFooter(size, actions)}
       </React.Fragment>
     ))}
+    <h5>Override CSS</h5>
+    <FlexibleCard cardState={getCardState()} url="link-url">
+      <FooterBlock overrideCss={blockOverrideCss} />
+    </FlexibleCard>
   </VRTestWrapper>
 );

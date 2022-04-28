@@ -1,12 +1,19 @@
 import { AnalyticsHandler } from '../../utils/types';
 import { CardInnerAppearance } from '../../view/Card/types';
 import {
+  PreviewDisplay,
+  PreviewInvokeMethod,
+} from '../../view/HoverCard/types';
+import {
   uiAuthEvent,
   uiAuthAlternateAccountEvent,
   uiCardClickedEvent,
   uiActionClickedEvent,
   uiClosedAuthEvent,
   uiRenderSuccessEvent,
+  uiHoverCardViewedEvent,
+  uiHoverCardDismissedEvent,
+  uiHoverCardOpenLinkClickedEvent,
   resolvedEvent,
   unresolvedEvent,
   invokeSucceededEvent,
@@ -74,6 +81,21 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
           uiActionClickedEvent(extensionKey, actionType, display),
         );
       },
+      hoverCardOpenLinkClickedEvent: (
+        previewDisplay: PreviewDisplay,
+        definitionId?: string,
+        extensionKey?: string,
+        previewInvokeMethod?: PreviewInvokeMethod,
+      ) => {
+        dispatchAnalytics(
+          uiHoverCardOpenLinkClickedEvent(
+            previewDisplay,
+            definitionId,
+            extensionKey,
+            previewInvokeMethod,
+          ),
+        );
+      },
       closedAuthEvent: (
         display: CardInnerAppearance,
         definitionId?: string,
@@ -102,6 +124,36 @@ export const useSmartLinkAnalytics = (dispatchAnalytics: AnalyticsHandler) => {
           uiRenderSuccessEvent(display, definitionId, extensionKey),
         );
       },
+      hoverCardViewedEvent: (
+        hoverDisplay: PreviewDisplay,
+        definitionId?: string,
+        extensionKey?: string,
+        previewInvokeMethod?: PreviewInvokeMethod,
+      ) =>
+        dispatchAnalytics(
+          uiHoverCardViewedEvent(
+            hoverDisplay,
+            definitionId,
+            extensionKey,
+            previewInvokeMethod,
+          ),
+        ),
+      hoverCardDismissedEvent: (
+        hoverDisplay: PreviewDisplay,
+        hoverTime: number,
+        definitionId?: string,
+        extensionKey?: string,
+        previewInvokeMethod?: PreviewInvokeMethod,
+      ) =>
+        dispatchAnalytics(
+          uiHoverCardDismissedEvent(
+            hoverDisplay,
+            hoverTime,
+            definitionId,
+            extensionKey,
+            previewInvokeMethod,
+          ),
+        ),
     }),
     [dispatchAnalytics],
   );

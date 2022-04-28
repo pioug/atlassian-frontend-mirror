@@ -82,8 +82,15 @@ const getMaxLines = (maxLines: number) => {
   return maxLines;
 };
 
+/**
+ * An element that represent.
+ * @public
+ * @param {LinkProps} LinkProps - The props necessary for the Icon element.
+ * @see LinkIcon
+ */
 const Link: React.FC<LinkProps> = ({
   maxLines = DEFAULT_MAX_LINES,
+  overrideCss,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-link',
   text,
@@ -95,7 +102,7 @@ const Link: React.FC<LinkProps> = ({
   <span css={containerStyles}>
     <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
       <a
-        css={getAnchorStyles(size, theme, getMaxLines(maxLines))}
+        css={[getAnchorStyles(size, theme, getMaxLines(maxLines)), overrideCss]}
         data-smart-element-link
         data-testid={testId}
         onClick={onClick}

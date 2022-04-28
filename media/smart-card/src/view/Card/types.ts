@@ -31,4 +31,5 @@ export interface CardProps extends WithAnalyticsEventsProps {
   inlinePreloaderStyle?: InlinePreloaderStyle;
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;
+  showHoverPreview?: boolean;
 }

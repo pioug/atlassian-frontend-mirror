@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { css } from '@emotion/core';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Action from '../index';
 import userEvent from '@testing-library/user-event';
@@ -12,9 +13,11 @@ describe('Action', () => {
   it('should render Action with some text', async () => {
     const text = 'spaghetti';
     const onClick = () => {};
-    const { getByTestId } = render(<Action onClick={onClick} content={text} />);
+    const { findByTestId } = render(
+      <Action onClick={onClick} content={text} />,
+    );
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('spaghetti');
@@ -23,9 +26,11 @@ describe('Action', () => {
   it('should render Action with some icons', async () => {
     const text = 'spaghetti';
     const onClick = () => {};
-    const { getByTestId } = render(<Action onClick={onClick} content={text} />);
+    const { findByTestId } = render(
+      <Action onClick={onClick} content={text} />,
+    );
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('spaghetti');
@@ -34,11 +39,11 @@ describe('Action', () => {
   it('should call the supplied onClick when button is clicked', async () => {
     const text = 'spaghetti';
     const mockOnClick = jest.fn();
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <Action onClick={mockOnClick} content={text} />,
     );
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('spaghetti');
@@ -57,7 +62,7 @@ describe('Action', () => {
       'should render action in %s size',
       async (size: SmartLinkSize, expectedSize: string) => {
         const testIcon = <TestIcon label="test" />;
-        const { getByTestId } = render(
+        const { findByTestId } = render(
           <Action
             onClick={() => {}}
             size={size}
@@ -66,13 +71,28 @@ describe('Action', () => {
           />,
         );
 
-        const element = await waitForElement(() =>
-          getByTestId(`${testId}-icon`),
-        );
+        const element = await findByTestId(`${testId}-icon`);
 
         expect(element).toHaveStyleDeclaration('height', expectedSize);
         expect(element).toHaveStyleDeclaration('width', expectedSize);
       },
     );
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      font-style: italic;
+    `;
+    const testId = 'css';
+    const { findByTestId } = await render(
+      <Action
+        content="spaghetti"
+        onClick={() => {}}
+        overrideCss={overrideCss}
+        testId={testId}
+      />,
+    );
+    const action = await findByTestId(`${testId}-button-wrapper`);
+    expect(action).toHaveStyleDeclaration('font-style', 'italic');
   });
 });

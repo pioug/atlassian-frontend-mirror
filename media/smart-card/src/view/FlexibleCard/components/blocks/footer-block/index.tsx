@@ -11,6 +11,12 @@ import ElementGroup from '../element-group';
 import { Provider } from '../../elements';
 import ActionGroup from '../action-group';
 
+/**
+ * Represents a FooterBlock, designed to contain elements and actions that should appear
+ * at the bottom of a link card.
+ * @param {FooterBlockProps} FooterBlockProps
+ * @see Block
+ */
 const FooterBlock: React.FC<FooterBlockProps> = (props) => {
   const { status, actions, testId = 'smart-footer-block' } = props;
   if (status !== SmartLinkStatus.Resolved) {

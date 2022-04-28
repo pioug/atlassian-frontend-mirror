@@ -8,8 +8,15 @@ const styles = css`
   line-height: inherit;
 `;
 
+/**
+ * An element that displays a Lozenge.
+ * @public
+ * @param {LozengeProps} LozengeProps - The props necessary for the Lozenge element.
+ * @see State
+ */
 const Lozenge: React.FC<LozengeProps> = ({
   appearance = 'default',
+  overrideCss,
   text,
   testId = 'smart-element-lozenge',
 }) => {
@@ -18,8 +25,13 @@ const Lozenge: React.FC<LozengeProps> = ({
   }
 
   return (
-    <span css={styles} data-fit-to-content data-smart-element-lozenge>
-      <AtlaskitLozenge appearance={appearance} testId={testId}>
+    <span
+      css={[styles, overrideCss]}
+      data-fit-to-content
+      data-smart-element-lozenge
+      data-testid={testId}
+    >
+      <AtlaskitLozenge appearance={appearance} testId={`${testId}-lozenge`}>
         {text}
       </AtlaskitLozenge>
     </span>

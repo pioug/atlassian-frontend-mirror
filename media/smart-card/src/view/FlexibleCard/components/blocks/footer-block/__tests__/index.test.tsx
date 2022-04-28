@@ -1,8 +1,9 @@
 import React from 'react';
+import { css } from '@emotion/core';
 import { ActionName, SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { FooterBlockProps } from '../types';
 import { IntlProvider } from 'react-intl-next';
 import FooterBlock from '../index';
@@ -39,26 +40,20 @@ describe('FooterBlock', () => {
   });
 
   it('should render resolved view block with custom testId', async () => {
-    const { getByTestId } = renderFooterBlock({ testId: testIdBase });
-    const block = await waitForElement(() =>
-      getByTestId(`${testIdBase}-resolved-view`),
-    );
+    const { findByTestId } = renderFooterBlock({ testId: testIdBase });
+    const block = await findByTestId(`${testIdBase}-resolved-view`);
     expect(block).toBeDefined();
   });
 
   it('should render resolved view block with default testId', async () => {
-    const { getByTestId } = renderFooterBlock();
-    const block = await waitForElement(() =>
-      getByTestId(`smart-footer-block-resolved-view`),
-    );
+    const { findByTestId } = renderFooterBlock();
+    const block = await findByTestId(`smart-footer-block-resolved-view`);
     expect(block).toBeDefined();
   });
 
   it('should render provider', async () => {
-    const { getByTestId } = renderFooterBlock({ testId: testIdBase });
-    const provider = await waitForElement(() =>
-      getByTestId(`${testIdBase}-provider`),
-    );
+    const { findByTestId } = renderFooterBlock({ testId: testIdBase });
+    const provider = await findByTestId(`${testIdBase}-provider`);
     expect(provider).toBeDefined();
     expect(provider.textContent).toBe('Confluence');
   });
@@ -79,23 +74,35 @@ describe('FooterBlock', () => {
       name: ActionName.DeleteAction,
       onClick: jest.fn(),
     };
-    const { getByTestId } = renderFooterBlock({
+    const { findByTestId } = renderFooterBlock({
       testId: testIdBase,
       actions: [actionItem],
     });
 
-    const actionsElementGroup = await waitForElement(() =>
-      getByTestId('smart-element-group-actions'),
+    const actionsElementGroup = await findByTestId(
+      'smart-element-group-actions',
     );
     expect(actionsElementGroup).toBeDefined();
 
-    const deleteAction = await waitForElement(() =>
-      getByTestId('some-delete-actionItem-test-id'),
-    );
+    const deleteAction = await findByTestId('some-delete-actionItem-test-id');
     expect(deleteAction).toBeDefined();
     expect(deleteAction.textContent).toBe('Delete');
 
     userEvent.click(deleteAction);
     expect(actionItem.onClick).toHaveBeenCalled();
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      background-color: blue;
+    `;
+    const { findByTestId } = renderFooterBlock({
+      overrideCss,
+      testId: testIdBase,
+    });
+
+    const block = await findByTestId(`${testIdBase}-resolved-view`);
+
+    expect(block).toHaveStyleDeclaration('background-color', 'blue');
   });
 });

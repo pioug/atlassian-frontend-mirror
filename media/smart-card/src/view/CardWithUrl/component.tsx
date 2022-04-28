@@ -38,6 +38,7 @@ export function CardWithUrlContent({
   inlinePreloaderStyle,
   ui,
   children,
+  showHoverPreview,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
   const { state, actions, config, analytics, renderers, error } = useSmartLink(
@@ -196,6 +197,7 @@ export function CardWithUrlContent({
           onResolve={onResolve}
           testId={testId}
           inlinePreloaderStyle={inlinePreloaderStyle}
+          showHoverPreview={showHoverPreview}
         />
       );
     case 'block':

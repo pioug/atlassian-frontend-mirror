@@ -19,15 +19,21 @@ const getBlockStyles = (
   }
 `;
 
+/**
+ * A block represents a collection of elements and actions that are arranged in a row.
+ * All elements and actions should be contained within a Block.
+ * @param {ActionGroupProps} ActionGroupProps
+ * @see Action
+ */
 const Block: React.FC<BlockProps> = ({
   children,
   direction = SmartLinkDirection.Horizontal,
   size = SmartLinkSize.Medium,
   testId = 'smart-block',
-  extraCss,
+  overrideCss,
 }) => (
   <div
-    css={[getBlockStyles(direction, size), extraCss]}
+    css={[getBlockStyles(direction, size), overrideCss]}
     data-smart-block
     data-testid={testId}
   >

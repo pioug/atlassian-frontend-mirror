@@ -22,4 +22,5 @@ export type CardWithUrlContentProps = {
   inlinePreloaderStyle?: InlinePreloaderStyle;
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;
+  showHoverPreview?: boolean;
 };

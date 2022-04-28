@@ -10,6 +10,11 @@ const DEFAULT_MAX_LINES = 3;
 const MAXIMUM_MAX_LINES = 3;
 const MINIMUM_MAX_LINES = 1;
 
+/**
+ * Represents a SnippetBlock, which is used to display longer form text content, like descriptions.
+ * @param {SnippetBlock} SnippetBlock
+ * @see Block
+ */
 const SnippetBlock: React.FC<SnippetBlockProps> = ({
   maxLines = DEFAULT_MAX_LINES,
   status = SmartLinkStatus.Fallback,

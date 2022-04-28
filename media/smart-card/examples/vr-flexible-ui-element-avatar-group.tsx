@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/core';
 import { VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
 import { SmartLinkSize } from '../src/constants';
-import { getContext } from './utils/flexible-ui';
+import { exampleTokens, getContext } from './utils/flexible-ui';
 import {
   AuthorGroup,
   CollaboratorGroup,
@@ -16,6 +16,14 @@ const containerStyles = css`
   flex-wrap: wrap;
   gap: 5px;
   padding: 5px;
+`;
+const overrideCss = css`
+  li {
+    span,
+    svg {
+      background-color: ${exampleTokens.overrideColor};
+    }
+  }
 `;
 const authorGroup = [
   { name: 'Bob' },
@@ -51,6 +59,10 @@ export default () => (
           </div>
         </React.Fragment>
       ))}
+      <h5>Override CSS</h5>
+      <div css={containerStyles}>
+        <AuthorGroup overrideCss={overrideCss} />
+      </div>
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

@@ -14,14 +14,17 @@ export type AnalyticsAction =
   | 'renderFailed'
   | 'renderWithStatus'
   | 'renderSuccess'
-  | 'inserted';
+  | 'inserted'
+  | 'viewed'
+  | 'dismissed';
 
 export type AnalyticsActionSubject =
   | 'smartLink'
   | 'smartLinkAction'
   | 'applicationAccount'
   | 'button'
-  | 'consentModal';
+  | 'consentModal'
+  | 'hoverCard';
 
 export type AnalyticsPayload = GasPayload & {
   action?: AnalyticsAction;

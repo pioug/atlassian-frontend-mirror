@@ -30,7 +30,9 @@ describe('ElementGroup', () => {
       line-height: 20rem;
     `;
     const { getByTestId } = render(
-      <ElementGroup css={customStyles}>I am an element group.</ElementGroup>,
+      <ElementGroup overrideCss={customStyles}>
+        I am an element group.
+      </ElementGroup>,
     );
 
     const elementGroup = await waitForElement(() => getByTestId(testId));

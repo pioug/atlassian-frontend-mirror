@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { HorizontalWrapper, VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
@@ -17,6 +17,9 @@ const appearances: LozengeAppearance[] = [
   'removed',
   'success',
 ];
+const overrideCss = css`
+  font-style: italic;
+`;
 
 export default () => (
   <VRTestWrapper title="Flexible UI: Element: Lozenge">
@@ -41,6 +44,8 @@ export default () => (
           />
         ))}
       </HorizontalWrapper>
+      <h5>Override CSS</h5>
+      <State appearance="moved" overrideCss={overrideCss} text="override" />
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

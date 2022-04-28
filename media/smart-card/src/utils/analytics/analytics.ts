@@ -7,6 +7,10 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnalyticsPayload } from '../types';
 import { ErrorInfo } from 'react';
 import { CardInnerAppearance } from '../../view/Card/types';
+import {
+  PreviewDisplay,
+  PreviewInvokeMethod,
+} from '../../view/HoverCard/types';
 import { getMeasure } from '../performance';
 import { APIError } from '../../client/errors';
 
@@ -312,5 +316,62 @@ export const uiRenderFailedEvent = (
     error,
     errorInfo,
     display,
+  },
+});
+
+export const uiHoverCardViewedEvent = (
+  hoverDisplay: PreviewDisplay,
+  definitionId?: string,
+  extensionKey?: string,
+  previewInvokeMethod?: PreviewInvokeMethod,
+): AnalyticsPayload => ({
+  action: 'viewed',
+  actionSubject: 'hoverCard',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+    definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
+    hoverDisplay,
+    previewInvokeMethod,
+  },
+});
+
+export const uiHoverCardDismissedEvent = (
+  hoverDisplay: PreviewDisplay,
+  hoverTime: number,
+  definitionId?: string,
+  extensionKey?: string,
+  previewInvokeMethod?: PreviewInvokeMethod,
+): AnalyticsPayload => ({
+  action: 'dismissed',
+  actionSubject: 'hoverCard',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+    definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
+    hoverTime,
+    hoverDisplay,
+    previewInvokeMethod,
+  },
+});
+
+export const uiHoverCardOpenLinkClickedEvent = (
+  previewDisplay: string,
+  definitionId?: string,
+  extensionKey?: string,
+  previewInvokeMethod?: PreviewInvokeMethod,
+): AnalyticsPayload => ({
+  action: 'clicked',
+  actionSubject: 'button',
+  actionSubjectId: 'shortcutGoToLink',
+  eventType: 'ui',
+  attributes: {
+    ...context,
+    definitionId: definitionId || '',
+    extensionKey: extensionKey || '',
+    previewDisplay,
+    previewInvokeMethod,
   },
 });

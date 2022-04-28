@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
-import { getContext } from './utils/flexible-ui';
+import { exampleTokens, getContext } from './utils/flexible-ui';
 import {
   CreatedBy,
   ModifiedBy,
@@ -11,6 +11,11 @@ import {
   ModifiedOn,
   Snippet,
 } from '../src/view/FlexibleCard/components/elements';
+
+const overrideCss = css`
+  color: ${exampleTokens.overrideColor};
+  font-style: italic;
+`;
 
 const context = getContext({
   modifiedOn: '2022-01-12T12:40:12.353+0800',
@@ -29,6 +34,9 @@ export default () => (
       <CreatedOn />
       <ModifiedOn />
       <Snippet />
+      <h5>Override CSS</h5>
+      <CreatedBy overrideCss={overrideCss} />
+      <CreatedOn overrideCss={overrideCss} />
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

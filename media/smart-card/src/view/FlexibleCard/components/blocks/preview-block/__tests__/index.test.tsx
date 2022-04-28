@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { css } from '@emotion/core';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
@@ -20,24 +21,20 @@ describe('PreviewBlock', () => {
     );
 
   it('renders PreviewBlock', async () => {
-    const { getByTestId } = renderPreviewBlock({
+    const { findByTestId } = renderPreviewBlock({
       testId,
     });
 
-    const block = await waitForElement(() =>
-      getByTestId(`${testId}-resolved-view`),
-    );
+    const block = await findByTestId(`${testId}-resolved-view`);
 
     expect(block).toBeDefined();
   });
 
   describe('with specific status', () => {
     it('renders PreviewBlock when status is resolved', async () => {
-      const { getByTestId } = renderPreviewBlock();
+      const { findByTestId } = renderPreviewBlock();
 
-      const block = await waitForElement(() =>
-        getByTestId('smart-block-preview-resolved-view'),
-      );
+      const block = await findByTestId('smart-block-preview-resolved-view');
 
       expect(block).toBeDefined();
     });
@@ -58,5 +55,19 @@ describe('PreviewBlock', () => {
         expect(container.children.length).toEqual(0);
       },
     );
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      background-color: blue;
+    `;
+    const { findByTestId } = renderPreviewBlock({
+      overrideCss,
+      testId,
+    });
+
+    const block = await findByTestId(`${testId}-resolved-view`);
+
+    expect(block).toHaveStyleDeclaration('background-color', 'blue');
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { css } from '@emotion/core';
 
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -25,15 +26,13 @@ describe('MetadataBlock', () => {
 
   it('renders MetadataBlock', async () => {
     const testId = 'test-smart-block-metadata';
-    const { getByTestId } = renderMetadataBlock({
+    const { findByTestId } = renderMetadataBlock({
       primary: [{ name: ElementName.ProgrammingLanguage }],
       secondary: [{ name: ElementName.State }],
       testId,
     });
 
-    const block = await waitForElement(() =>
-      getByTestId(`${testId}-resolved-view`),
-    );
+    const block = await findByTestId(`${testId}-resolved-view`);
 
     expect(block).toBeDefined();
   });
@@ -44,38 +43,32 @@ describe('MetadataBlock', () => {
   });
 
   it('renders primary metadata', async () => {
-    const { getByTestId } = renderMetadataBlock({
+    const { findByTestId } = renderMetadataBlock({
       primary: [{ name: ElementName.ProgrammingLanguage }],
     });
 
-    const element = await waitForElement(() =>
-      getByTestId('smart-element-badge'),
-    );
+    const element = await findByTestId('smart-element-badge');
 
     expect(element).toBeDefined();
   });
 
   it('renders secondary metadata', async () => {
-    const { getByTestId } = renderMetadataBlock({
+    const { findByTestId } = renderMetadataBlock({
       secondary: [{ name: ElementName.State }],
     });
 
-    const element = await waitForElement(() =>
-      getByTestId('smart-element-lozenge'),
-    );
+    const element = await findByTestId('smart-element-lozenge');
 
     expect(element).toBeDefined();
   });
 
   describe('with specific status', () => {
     it('renders MetadataBlock when status is resolved', async () => {
-      const { getByTestId } = renderMetadataBlock({
+      const { findByTestId } = renderMetadataBlock({
         primary: [{ name: ElementName.ProgrammingLanguage }],
       });
 
-      const block = await waitForElement(() =>
-        getByTestId('smart-block-metadata-resolved-view'),
-      );
+      const block = await findByTestId('smart-block-metadata-resolved-view');
 
       expect(block).toBeDefined();
     });
@@ -108,17 +101,31 @@ describe('MetadataBlock', () => {
     ])(
       'renders element group with line-height when size is %s',
       async (size: SmartLinkSize, expected: string) => {
-        const { getByTestId } = renderMetadataBlock({
+        const { findByTestId } = renderMetadataBlock({
           primary: [{ name: ElementName.ProgrammingLanguage }],
           size,
         });
 
-        const block = await waitForElement(() =>
-          getByTestId('smart-element-group'),
-        );
+        const block = await findByTestId('smart-element-group');
 
         expect(block).toHaveStyleDeclaration('line-height', expected);
       },
     );
+  });
+
+  it('renders with override css', async () => {
+    const testId = 'test-smart-block-metadata';
+    const overrideCss = css`
+      background-color: blue;
+    `;
+    const { findByTestId } = renderMetadataBlock({
+      primary: [{ name: ElementName.ProgrammingLanguage }],
+      overrideCss,
+      testId,
+    });
+
+    const block = await findByTestId(`${testId}-resolved-view`);
+
+    expect(block).toHaveStyleDeclaration('background-color', 'blue');
   });
 });

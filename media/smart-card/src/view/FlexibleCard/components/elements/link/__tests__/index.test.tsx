@@ -1,6 +1,7 @@
 import React from 'react';
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { css } from '@emotion/core';
 import Link from '../index';
 import { SmartLinkSize, SmartLinkTheme } from '../../../../../../constants';
 
@@ -10,9 +11,9 @@ describe('Element: Link', () => {
   const url = 'https://some.url';
 
   it('renders element', async () => {
-    const { getByTestId } = render(<Link text={text} url={url} />);
+    const { findByTestId } = render(<Link text={text} url={url} />);
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element).toBeTruthy();
     expect(element.getAttribute('data-smart-element-link')).toBeTruthy();
@@ -30,11 +31,11 @@ describe('Element: Link', () => {
     ])(
       'renders element in %s size',
       async (size: SmartLinkSize, expectedFontSize) => {
-        const { getByTestId } = render(
+        const { findByTestId } = render(
           <Link text={text} url={url} size={size} />,
         );
 
-        const element = await waitForElement(() => getByTestId(testId));
+        const element = await findByTestId(testId);
 
         expect(element).toHaveStyleDeclaration('font-size', expectedFontSize);
         expect(element).toHaveStyleDeclaration('font-weight', '400');
@@ -44,29 +45,29 @@ describe('Element: Link', () => {
 
   describe('maxLines', () => {
     it('renders with default two maxLines', async () => {
-      const { getByTestId } = render(<Link text={text} url={url} />);
+      const { findByTestId } = render(<Link text={text} url={url} />);
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '2');
     });
 
     it('renders element to two lines when maxLines exceeds maximum', async () => {
-      const { getByTestId } = render(
+      const { findByTestId } = render(
         <Link text={text} url={url} maxLines={10} />,
       );
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '2');
     });
 
     it('renders element to one lines when maxLines belows minimum', async () => {
-      const { getByTestId } = render(
+      const { findByTestId } = render(
         <Link text={text} url={url} maxLines={-10} />,
       );
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '1');
     });
@@ -74,9 +75,9 @@ describe('Element: Link', () => {
 
   describe('theme', () => {
     it('renders with default theme', async () => {
-      const { getByTestId } = render(<Link text={text} url={url} />);
+      const { findByTestId } = render(<Link text={text} url={url} />);
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(element).toHaveStyleDeclaration(
         'color',
@@ -85,11 +86,11 @@ describe('Element: Link', () => {
     });
 
     it(`renders with ${SmartLinkTheme.Link} theme`, async () => {
-      const { getByTestId } = render(
+      const { findByTestId } = render(
         <Link text={text} url={url} theme={SmartLinkTheme.Link} />,
       );
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(element).toHaveStyleDeclaration(
         'color',
@@ -98,11 +99,11 @@ describe('Element: Link', () => {
     });
 
     it(`renders with ${SmartLinkTheme.Black} theme`, async () => {
-      const { getByTestId } = render(
+      const { findByTestId } = render(
         <Link text={text} url={url} theme={SmartLinkTheme.Black} />,
       );
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(element).toHaveStyleDeclaration(
         'color',
@@ -113,15 +114,26 @@ describe('Element: Link', () => {
   });
 
   it('shows tooltip on hover', async () => {
-    const { getByTestId } = render(<Link text={text} url={url} />);
+    const { findByTestId } = render(<Link text={text} url={url} />);
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
     fireEvent.mouseOver(element);
-    const tooltip = await waitForElement(() =>
-      getByTestId(`${testId}-tooltip`),
-    );
+    const tooltip = await findByTestId(`${testId}-tooltip`);
 
     expect(tooltip).toBeTruthy();
     expect(tooltip.textContent).toBe(text);
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      background-color: blue;
+    `;
+    const { findByTestId } = render(
+      <Link overrideCss={overrideCss} text={text} url={url} />,
+    );
+
+    const element = await findByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('background-color', 'blue');
   });
 });

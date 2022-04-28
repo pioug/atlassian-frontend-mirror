@@ -28,9 +28,24 @@ const getIconStyles = (size?: SmartLinkSize) => css`
   ${getIconSizeStyles(getIconWidth(size))};
 `;
 
-const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) =>
-  size === SmartLinkSize.Small
-    ? css`
+const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
+  switch (size) {
+    case SmartLinkSize.Large:
+      return iconOnly
+        ? css`
+            button,
+            button:hover,
+            button:focus,
+            button:active {
+              padding: 0;
+              > span {
+                margin: 0;
+              }
+            }
+          `
+        : '';
+    case SmartLinkSize.Small:
+      return css`
         font-size: 0.75rem;
         font-weight: 500;
         line-height: 1rem;
@@ -48,8 +63,13 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) =>
             padding-right: 0.25rem;
           `}
         }
-      `
-    : '';
+      `;
+    case SmartLinkSize.XLarge:
+    case SmartLinkSize.Medium:
+    default:
+      return '';
+  }
+};
 
 const ActionIcon: React.FC<ActionIconProps> = ({ size, testId, icon }) => (
   <span css={getIconStyles(size)} data-testid={`${testId}-icon`}>
@@ -64,6 +84,14 @@ export const sizeToSpacing: Record<SmartLinkSize, Spacing> = {
   [SmartLinkSize.XLarge]: 'default',
 };
 
+/**
+ * An action that can be triggered with an on click.
+ * @public
+ * @param {ActionProps} ActionProps - The props necessary for the Action.
+ * @see DeleteAction
+ * @see EditAction
+ * @see CustomAction
+ */
 const Action: React.FC<ActionProps> = ({
   appearance = 'subtle',
   content,
@@ -74,6 +102,7 @@ const Action: React.FC<ActionProps> = ({
   iconPosition = 'before',
   tooltipMessage,
   asDropDownItem,
+  overrideCss,
 }: ActionProps) => {
   if (!onClick) {
     return null;
@@ -101,7 +130,10 @@ const Action: React.FC<ActionProps> = ({
   } else {
     return (
       <Tooltip content={tooltipMessage}>
-        <div css={getButtonStyle(size, iconOnly)}>
+        <div
+          css={[getButtonStyle(size, iconOnly), overrideCss]}
+          data-testid={`${testId}-button-wrapper`}
+        >
           <Button
             spacing={sizeToSpacing[size]}
             appearance={appearance}

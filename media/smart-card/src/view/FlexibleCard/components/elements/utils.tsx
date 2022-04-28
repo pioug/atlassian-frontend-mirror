@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { MessageDescriptor } from 'react-intl-next';
+import { css } from '@emotion/core';
 
 import { ElementName, IconType } from '../../../../constants';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
@@ -55,7 +56,12 @@ const elementMappings: Record<
   },
   [ElementName.Snippet]: {
     component: Text,
-    props: { color: tokens.snippet, maxLines: SNIPPET_DEFAULT_MAX_LINES },
+    props: {
+      maxLines: SNIPPET_DEFAULT_MAX_LINES,
+      overrideCss: css`
+        color: ${tokens.snippet};
+      `,
+    },
   },
   [ElementName.State]: { component: Lozenge },
   [ElementName.SubscriberCount]: {

@@ -60,6 +60,7 @@ export function CardWithURLRenderer(props: CardProps) {
     createAnalyticsEvent,
     children,
     ui,
+    showHoverPreview,
   } = props;
 
   // Wrapper around analytics.
@@ -127,6 +128,7 @@ export function CardWithURLRenderer(props: CardProps) {
     embedIframeRef,
     inlinePreloaderStyle,
     ui,
+    showHoverPreview,
   };
 
   return (

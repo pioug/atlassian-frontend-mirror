@@ -20,11 +20,13 @@ jest.mock('@atlaskit/media-ui', () => {
 
 import React from 'react';
 import { fireEvent, render, cleanup } from '@testing-library/react';
-import { HoverCard } from '..';
 import { fakeFactory } from '../../../utils/mocks';
 import CardClient from '../../../client';
 import { Provider } from '../../..';
 import { JsonLd } from 'json-ld-types';
+import * as analytics from '../../../utils/analytics/analytics';
+import { Card } from '../../Card';
+import { IntlProvider } from 'react-intl-next';
 
 const mockResponse = {
   meta: {
@@ -67,21 +69,21 @@ describe('HoverCard', () => {
   let mockUrl: string;
 
   const setup = async () => {
-    jest.useFakeTimers();
-
     mockFetch = jest.fn(() => Promise.resolve(mockResponse));
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
 
     const { queryByTestId, findByTestId } = render(
-      <Provider client={mockClient}>
-        <HoverCard url={mockUrl}>
-          <span data-testid="element-to-hover" />
-        </HoverCard>
-      </Provider>,
+      <IntlProvider locale="en">
+        <Provider client={mockClient}>
+          <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
+        </Provider>
+      </IntlProvider>,
     );
 
-    const element = await findByTestId('element-to-hover');
+    const element = await findByTestId('inline-card-resolved-view');
+    jest.useFakeTimers();
+
     fireEvent.mouseEnter(element);
 
     return { findByTestId, queryByTestId, element };
@@ -259,5 +261,69 @@ describe('HoverCard', () => {
 
     expect(open).toHaveBeenCalledWith('https://some.url', '_blank');
     mockOpen.mockRestore();
+  });
+
+  describe('analytics', () => {
+    it('should fire viewed event when hover card is opened', async () => {
+      const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
+
+      const { findByTestId } = await setup();
+      jest.runAllTimers();
+
+      //wait for card to be resolved
+      await findByTestId('smart-block-title-resolved-view');
+      expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledWith(
+        'card',
+        'd1',
+        'object-provider',
+        undefined,
+      );
+      mock.mockRestore();
+    });
+
+    it('should fire closed event when hover card is opened then closed', async () => {
+      const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
+
+      const { queryByTestId, findByTestId, element } = await setup();
+      jest.runAllTimers();
+      // wait for card to be resolved
+      await findByTestId('smart-block-title-resolved-view');
+      fireEvent.mouseLeave(element);
+      jest.runAllTimers();
+      expect(queryByTestId('hover-card')).toBeNull();
+
+      expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledWith(
+        'card',
+        0,
+        'd1',
+        'object-provider',
+        undefined,
+      );
+      mock.mockRestore();
+    });
+
+    it('should fire clicked event when open button is clicked', async () => {
+      const mock = jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
+
+      const { findByTestId } = await setup();
+      jest.runAllTimers();
+      // wait for card to be resolved
+      await findByTestId('smart-block-title-resolved-view');
+      const openButton = await findByTestId('hover-card-open-button');
+      fireEvent.click(openButton);
+
+      expect(analytics.uiHoverCardOpenLinkClickedEvent).toHaveBeenCalledTimes(
+        1,
+      );
+      expect(analytics.uiHoverCardOpenLinkClickedEvent).toHaveBeenCalledWith(
+        'card',
+        'd1',
+        'object-provider',
+        undefined,
+      );
+      mock.mockRestore();
+    });
   });
 });

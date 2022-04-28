@@ -4,8 +4,8 @@ describe('Hover Card', () => {
   it('renders HoverCard', async () => {
     const url = getURL('vr-hover-cards');
     const page = await setup(url);
-    await page.waitForSelector('[data-testid="text-to-hover"]');
-    await page.hover('[data-testid="text-to-hover"]');
+    await page.waitForSelector('[data-testid="inline-card-resolved-view"]');
+    await page.hover('[data-testid="inline-card-resolved-view"]');
     await page.waitForSelector('[data-testid="hover-card"]');
     await page.waitForSelector('[data-testid="smart-element-icon-icon"]');
 

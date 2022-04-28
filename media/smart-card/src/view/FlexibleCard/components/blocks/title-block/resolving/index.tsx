@@ -4,9 +4,9 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 import Spinner from '@atlaskit/spinner';
 
-import { TitleBlockProps } from '../types';
+import { TitleBlockViewProps } from '../types';
+import Block from '../../block';
 import { SmartLinkSize } from '../../../../../../constants';
-import { BaseTitleBlockComponent } from '../utils';
 
 const getSpinnerSize = (size: SmartLinkSize) => {
   // Spinner sizes should be equivalent or smaller than Icon size
@@ -24,20 +24,28 @@ const getSpinnerSize = (size: SmartLinkSize) => {
   }
 };
 
-const TitleBlockResolvingView: React.FC<TitleBlockProps> = (props) => {
-  const { size = SmartLinkSize.Medium, testId } = props;
-  const spinnerIcon = (
-    <Spinner
-      size={getSpinnerSize(size)}
-      testId={`${testId}-resolving-spinner`}
-    />
-  );
+/**
+ * This represents a TitleBlock for a Smart Link that is currently waiting
+ * for a request to finish.
+ * This should render when a Smart Link has sent a request.
+ * @see TitleBlock
+ */
+const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
+  actionGroup,
+  testId,
+  title,
+  ...blockProps
+}) => {
+  const { size = SmartLinkSize.Medium } = blockProps;
   return (
-    <BaseTitleBlockComponent
-      {...props}
-      blockIcon={spinnerIcon}
-      blockTestIdPostfix="resolving-view"
-    />
+    <Block {...blockProps} testId={`${testId}-resolving-view`}>
+      <Spinner
+        size={getSpinnerSize(size)}
+        testId={`${testId}-resolving-spinner`}
+      />
+      {title}
+      {actionGroup}
+    </Block>
   );
 };
 

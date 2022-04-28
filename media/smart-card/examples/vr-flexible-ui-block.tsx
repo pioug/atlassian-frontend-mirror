@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { VRTestWrapper } from './utils/vr-test';
-import { getCardState } from './utils/flexible-ui';
+import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { ElementName, SmartLinkTheme, TitleBlock } from '../src/index';
 
@@ -72,6 +72,16 @@ export default () => (
         ]}
         text="With other element types"
       />
+    </FlexibleCard>
+    <h5>Override CSS</h5>
+    <FlexibleCard
+      cardState={cardState}
+      ui={{
+        theme: SmartLinkTheme.Black,
+      }}
+      url="link-url"
+    >
+      <TitleBlock text="Override css on block" overrideCss={blockOverrideCss} />
     </FlexibleCard>
   </VRTestWrapper>
 );

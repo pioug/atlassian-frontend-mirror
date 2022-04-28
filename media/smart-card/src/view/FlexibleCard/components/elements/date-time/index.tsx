@@ -21,8 +21,16 @@ const typeToDescriptorMap: Record<DateTimeType, MessageDescriptor> = {
   modified: messages.modified_on,
 };
 
+/**
+ * An element that displays an ISO Timestamp in text.
+ * @public
+ * @param {DateTimeProps} DateTimeProps - The props necessary for the DateTime element.
+ * @see CreatedOn
+ * @see ModifiedOn
+ */
 const DateTime: React.FC<DateTimeProps> = ({
   date,
+  overrideCss,
   type,
   testId = 'smart-element-date-time',
 }) => {
@@ -38,7 +46,7 @@ const DateTime: React.FC<DateTimeProps> = ({
 
   return (
     <span
-      css={styles}
+      css={[styles, overrideCss]}
       data-separator
       data-smart-element-date-time
       data-testid={testId}

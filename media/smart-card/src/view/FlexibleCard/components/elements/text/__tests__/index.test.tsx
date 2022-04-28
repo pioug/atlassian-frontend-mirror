@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { css } from '@emotion/core';
+import { render } from '@testing-library/react';
 
 import Text from '../index';
 import { messages } from '../../../../../../messages';
@@ -10,9 +11,9 @@ describe('Element: Text', () => {
 
   it('renders element', async () => {
     const content = 'random text';
-    const { getByTestId } = render(<Text content={content} />);
+    const { findByTestId } = render(<Text content={content} />);
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element).toBeTruthy();
     expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
@@ -23,13 +24,13 @@ describe('Element: Text', () => {
     const message = {
       descriptor: messages.cannot_find_link,
     };
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <Text message={message} />
       </IntlProvider>,
     );
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element.textContent).toBe(messages.cannot_find_link.defaultMessage);
   });
@@ -38,13 +39,13 @@ describe('Element: Text', () => {
     const message = {
       descriptor: messages.cannot_find_link,
     };
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <Text content="random text" message={message} />
       </IntlProvider>,
     );
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element.textContent).toBe(messages.cannot_find_link.defaultMessage);
   });
@@ -54,13 +55,13 @@ describe('Element: Text', () => {
       descriptor: messages.created_by,
       values: { context: 'someone' },
     };
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <Text content="random text" message={message} />
       </IntlProvider>,
     );
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element.textContent).toBe('Created by someone');
   });
@@ -71,22 +72,16 @@ describe('Element: Text', () => {
     expect(container.children.length).toBe(0);
   });
 
-  it('renders with default colour', async () => {
-    const { getByTestId } = render(<Text content="random text" />);
-
-    const element = await waitForElement(() => getByTestId(testId));
-
-    expect(element).toHaveStyleDeclaration(
-      'color',
-      expect.stringContaining('#626F86'),
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      color: black;
+    `;
+    const { findByTestId } = render(
+      <Text content="random text" overrideCss={overrideCss} />,
     );
-  });
 
-  it('renders with override colour', async () => {
-    const { getByTestId } = render(<Text color="#000" content="random text" />);
+    const element = await findByTestId(testId);
 
-    const element = await waitForElement(() => getByTestId(testId));
-
-    expect(element).toHaveStyleDeclaration('color', '#000');
+    expect(element).toHaveStyleDeclaration('color', 'black');
   });
 });

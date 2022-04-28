@@ -15,6 +15,12 @@ const styles = css`
   line-height: 1rem;
 `;
 
+/**
+ * Creates a group of Action components. Accepts an array of Actions, in addition to some styling
+ * preferences.
+ * @param {ActionGroupProps} ActionGroupProps
+ * @see Action
+ */
 const ActionGroup: React.FC<ActionGroupProps> = ({
   items = [],
   size = SmartLinkSize.Medium,

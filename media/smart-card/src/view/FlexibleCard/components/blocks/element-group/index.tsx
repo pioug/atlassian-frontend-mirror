@@ -40,17 +40,23 @@ export const getElementGroupStyles = (
   ${width === SmartLinkWidth.Flexible ? `flex: 1 3;` : ''}
 `;
 
+/**
+ * Creates a group of Action components. Accepts an array of Actions, in addition to some styling
+ * preferences.
+ * @param {ActionGroupProps} ActionGroupProps
+ * @see Action
+ */
 const ElementGroup: React.FC<ElementGroupProps> = ({
   align = SmartLinkAlignment.Left,
   children,
-  css,
+  overrideCss,
   direction = SmartLinkDirection.Horizontal,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-group',
   width = SmartLinkWidth.FitToContent,
 }) => (
   <div
-    css={[getElementGroupStyles(direction, size, align, width), css]}
+    css={[getElementGroupStyles(direction, size, align, width), overrideCss]}
     data-smart-element-group
     data-testid={testId}
   >

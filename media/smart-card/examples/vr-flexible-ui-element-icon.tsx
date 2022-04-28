@@ -14,7 +14,10 @@ const boxStyles = css`
   background-color: ${exampleTokens.iconBackgroundColor};
   border-radius: 5px;
 `;
-
+const overrideCss = css`
+  background-color: ${exampleTokens.overrideColor};
+  border-radius: 15px;
+`;
 const context = getContext();
 
 export default () => {
@@ -84,6 +87,13 @@ export default () => {
             />
           ))}
         </HorizontalWrapper>
+        <h5>Override CSS</h5>
+        <LinkIcon
+          icon={IconType.Default}
+          label="Override css"
+          overrideCss={overrideCss}
+          size={SmartLinkSize.XLarge}
+        />
       </FlexibleUiContext.Provider>
     </VRTestWrapper>
   );

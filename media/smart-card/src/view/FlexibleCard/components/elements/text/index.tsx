@@ -6,18 +6,24 @@ import { TextProps } from './types';
 import { getFormattedMessage, getTruncateStyles } from '../../utils';
 import { tokens } from '../../../../../utils/token';
 
-const getStyles = (maxLines: number, color: string) => css`
-  color: ${color};
+const getStyles = (maxLines: number) => css`
+  color: ${tokens.text};
   font-size: 0.75rem;
   line-height: 1rem;
   ${getTruncateStyles(maxLines)}
 `;
 
+/**
+ * An element that displays some Text.
+ * @public
+ * @param {TextProps} TextProps - The props necessary for the Text element.
+ * @see Title
+ */
 const Text: React.FC<TextProps> = ({
-  color = tokens.text,
   content,
   maxLines = 1,
   message,
+  overrideCss,
   testId = 'smart-element-text',
 }) => {
   if (!message && !content) {
@@ -26,7 +32,7 @@ const Text: React.FC<TextProps> = ({
 
   return (
     <span
-      css={getStyles(maxLines, color)}
+      css={[getStyles(maxLines), overrideCss]}
       data-separator
       data-smart-element-text
       data-testid={testId}

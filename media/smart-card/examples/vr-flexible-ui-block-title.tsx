@@ -10,7 +10,7 @@ import {
   SmartLinkSize,
   SmartLinkTheme,
 } from '../src/constants';
-import { getCardState } from './utils/flexible-ui';
+import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { ActionItem, CardType } from '../src';
 
@@ -19,28 +19,19 @@ import {
   makeCustomActionItem,
   makeEditActionItem,
 } from './flexible-ui/utils';
-
-interface Options {
-  maxLines?: number;
-  size?: SmartLinkSize;
-  theme?: SmartLinkTheme;
-  position?: SmartLinkPosition;
-  actions?: ActionItem[];
-  text?: string;
-  testId?: string;
-  showActionOnHover?: boolean;
-}
+import { TitleBlockProps } from '../src/view/FlexibleCard/components/blocks/title-block/types';
 
 const renderResolvedView = ({
-  maxLines,
-  size,
-  theme,
-  position,
-  text,
   actions,
-  testId,
+  maxLines,
+  position,
+  overrideCss,
   showActionOnHover,
-}: Options) => {
+  size,
+  testId,
+  text,
+  theme,
+}: TitleBlockProps) => {
   const cardState = getCardState({
     '@type': 'atlassian:Project',
     'atlassian:state': 'open',
@@ -56,6 +47,7 @@ const renderResolvedView = ({
         testId={testId}
         maxLines={maxLines}
         position={position}
+        overrideCss={overrideCss}
         metadata={[
           { name: ElementName.State },
           { name: ElementName.AuthorGroup },
@@ -198,5 +190,7 @@ export default () => (
         position={SmartLinkPosition.Center}
       />
     </FlexibleCard>
+    <h5>Override CSS</h5>
+    {renderResolvedView({ overrideCss: blockOverrideCss })}
   </VRTestWrapper>
 );

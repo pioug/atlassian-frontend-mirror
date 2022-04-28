@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { css } from '@emotion/core';
+import { render } from '@testing-library/react';
 
 import DateTime from '../index';
 
@@ -18,7 +19,7 @@ describe('Element: Text', () => {
   });
 
   it('should render created at element', async () => {
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <DateTime
           date={new Date('2020-02-04T12:40:12.353+0800')}
@@ -26,13 +27,13 @@ describe('Element: Text', () => {
         />
       </IntlProvider>,
     );
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('Created 2 years ago');
   });
 
   it('should render modified at element', async () => {
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <DateTime
           date={new Date('2021-12-31T12:40:12.353+0800')}
@@ -40,13 +41,13 @@ describe('Element: Text', () => {
         />
       </IntlProvider>,
     );
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('Updated last year');
   });
 
   it('should render another modified at element', async () => {
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <DateTime
           date={new Date('2022-01-12T12:40:12.353+0800')}
@@ -54,8 +55,27 @@ describe('Element: Text', () => {
         />
       </IntlProvider>,
     );
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('Updated 2 weeks ago');
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      font-weight: bold;
+    `;
+    const { findByTestId } = render(
+      <IntlProvider locale="en">
+        <DateTime
+          date={new Date('2020-02-04T12:40:12.353+0800')}
+          overrideCss={overrideCss}
+          type="created"
+        />
+      </IntlProvider>,
+    );
+
+    const element = await findByTestId(testId);
+
+    expect(element).toHaveStyleDeclaration('font-weight', 'bold');
   });
 });

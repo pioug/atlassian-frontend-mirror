@@ -48,7 +48,14 @@ const styles = css`
   }
 `;
 
+/**
+ * An element that displays a Media.
+ * @public
+ * @param {MediaProps} MediaProps - The props necessary for the Media element.
+ * @see Preview
+ */
 const Media: React.FC<MediaProps> = ({
+  overrideCss,
   testId = 'smart-element-media',
   type,
   url,
@@ -58,7 +65,11 @@ const Media: React.FC<MediaProps> = ({
   }
 
   return (
-    <div css={styles} data-smart-element-media data-testid={testId}>
+    <div
+      css={[styles, overrideCss]}
+      data-smart-element-media
+      data-testid={testId}
+    >
       <ImageIcon testId={`${testId}-image`} url={url} />
     </div>
   );

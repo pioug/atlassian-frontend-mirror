@@ -2,7 +2,8 @@ import { JsonLd } from 'json-ld-types';
 
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import { Client } from '../../src';
-import { exceptionUrls, generateResponse, responses } from './utils';
+import { exceptionUrls, responses } from './utils';
+import { getJsonLdResponse } from '../utils/flexible-ui';
 
 const getExampleData = (url: string) => {
   const key = url.replace('https://', '');
@@ -12,7 +13,7 @@ const getExampleData = (url: string) => {
 const getCustomResponse = (url: string): JsonLd.Response | undefined => {
   const data = getExampleData(url);
   if (data) {
-    return generateResponse(url, undefined, data);
+    return getJsonLdResponse(url, undefined, data);
   }
 
   return responses[url];

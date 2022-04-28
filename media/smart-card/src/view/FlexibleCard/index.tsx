@@ -6,6 +6,12 @@ import Container from './components/container';
 import { FlexibleUiContext } from '../../state/flexible-ui-context';
 import { getContextByStatus, getRetryOptions } from './utils';
 
+/**
+ * This represents a Flexible Card: a link represented by a card with metadata.
+ * This is the container in which all Flexible UI Blocks and Elements exist.
+ * Note: TitleBlock is mandatory for a Flexible Card to render.
+ * @see Container
+ */
 const FlexibleCard: React.FC<FlexibleCardProps> = ({
   cardState,
   children,

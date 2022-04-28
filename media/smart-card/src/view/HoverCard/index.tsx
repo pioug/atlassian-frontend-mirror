@@ -17,33 +17,76 @@ import {
 } from '../../state/hooks-external/useSmartLinkActions';
 import { HoverCardContainer } from './styled';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import {
+  withAnalyticsEvents,
+  withAnalyticsContext,
+} from '@atlaskit/analytics-next';
+import { fireSmartLinkEvent } from '../../utils/analytics';
+import { AnalyticsPayload } from '../../../src/utils/types';
+import { useSmartCardState as useLinkState } from '../../state/store';
+import { useSmartLinkAnalytics } from '../../state/analytics';
+import { getExtensionKey, getDefinitionId } from '../../state/helpers';
 
-export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
+export const HoverCardComponent: FC<HoverCardProps> = ({
+  children,
+  url,
+  createAnalyticsEvent,
+}) => {
+  const analyticsHandler = useCallback(
+    (analyticsPayload: AnalyticsPayload) => {
+      fireSmartLinkEvent(analyticsPayload, createAnalyticsEvent);
+    },
+    [createAnalyticsEvent],
+  );
+
   const delay = 300;
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeOutTimeoutId = useRef<NodeJS.Timeout>();
   const fadeInTimeoutId = useRef<NodeJS.Timeout>();
+  const cardOpenTime = useRef<number>();
+
+  const linkState = useLinkState(url);
+  const analytics = useSmartLinkAnalytics(analyticsHandler);
+  const extensionKey = useMemo(() => getExtensionKey(linkState.details), [
+    linkState,
+  ]);
+  const definitionId = useMemo(() => getDefinitionId(linkState.details), [
+    linkState,
+  ]);
 
   const initHideCard = useCallback(() => {
     if (fadeInTimeoutId.current) {
       clearTimeout(fadeInTimeoutId.current);
     }
     fadeOutTimeoutId.current = setTimeout(() => {
+      //Check its previously open to avoid firing events when moving between the child and hover card components
+      if (isOpen === true && cardOpenTime.current) {
+        const hoverTime = Date.now() - cardOpenTime.current;
+        analytics.ui.hoverCardDismissedEvent(
+          'card',
+          hoverTime,
+          definitionId,
+          extensionKey,
+        );
+      }
       setIsOpen(false);
     }, delay);
-  }, [delay]);
+  }, [delay, isOpen, definitionId, extensionKey, analytics]);
 
   const initShowCard = useCallback(() => {
     if (fadeOutTimeoutId.current) {
       clearTimeout(fadeOutTimeoutId.current);
     }
     fadeInTimeoutId.current = setTimeout(() => {
+      //Check if its previously closed to avoid firing events when moving between the child and hover card components
+      if (isOpen === false) {
+        cardOpenTime.current = Date.now();
+        analytics.ui.hoverCardViewedEvent('card', definitionId, extensionKey);
+      }
       setIsOpen(true);
     }, delay);
-  }, [delay]);
+  }, [delay, isOpen, definitionId, extensionKey, analytics]);
 
-  //TODO: EDM-2905: Add analytics events
-  const analyticsHandler = useCallback(() => {}, []);
   const linkActions = useSmartLinkActions({
     url,
     appearance: 'block',
@@ -69,10 +112,17 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
       name: ActionName.CustomAction,
       icon: <ShortcutIcon label="open in new tab" size="medium" />,
       iconPosition: 'before',
-      onClick: () => window.open(url, '_blank'),
+      onClick: () => {
+        window.open(url, '_blank');
+        analytics.ui.hoverCardOpenLinkClickedEvent(
+          'card',
+          definitionId,
+          extensionKey,
+        );
+      },
       testId: 'hover-card-open-button',
     } as CustomActionItem;
-  }, [url]);
+  }, [url, definitionId, extensionKey, analytics]);
 
   const cardComponent = () => (
     <div
@@ -99,7 +149,7 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
       testId="hover-card"
       isOpen={isOpen}
       onClose={onClose}
-      placement="bottom"
+      placement="bottom-start"
       content={cardComponent}
       trigger={(triggerProps) => (
         <span
@@ -113,3 +163,7 @@ export const HoverCard: FC<HoverCardProps> = ({ children, url }) => {
     />
   );
 };
+
+export const HoverCard = withAnalyticsContext({
+  source: 'smartLinkPreviewHoverCard',
+})(withAnalyticsEvents()(HoverCardComponent));

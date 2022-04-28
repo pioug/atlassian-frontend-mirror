@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 18.0.15
+
+### Patch Changes
+
+- [`c2a240de738`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2a240de738) - Add inline documentation for Flexible UI
+- [`6976489a51a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6976489a51a) - Flexible UI: Enable css override for actions
+- [`7d4e18ffddb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d4e18ffddb) - instrument analytics events for hover card
+- [`a123e96fc62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a123e96fc62) - expose prop on smart card
+- [`5af3b7aba2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af3b7aba2a) - Flexible UI: Fix icon-only action padding
+- [`3e19e206713`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e19e206713) - Flexible UI: Enable css override on elements
+- [`750cb867124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/750cb867124) - Flexible UI: Enable css override on blocks
+
 ## 18.0.14
 
 ### Patch Changes

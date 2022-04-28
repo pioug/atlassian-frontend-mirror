@@ -94,10 +94,17 @@ const renderImageIcon = (
   }
 };
 
+/**
+ * An element that displays an Icon or favicon.
+ * @public
+ * @param {IconProps} IconProps - The props necessary for the Icon element.
+ * @see LinkIcon
+ */
 const Icon: React.FC<IconProps> = ({
   icon,
   label = 'Link',
   position = SmartLinkPosition.Top,
+  overrideCss,
   render,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-icon',
@@ -119,7 +126,7 @@ const Icon: React.FC<IconProps> = ({
 
   return (
     <div
-      css={[styles, renderStyles]}
+      css={[styles, renderStyles, overrideCss]}
       data-fit-to-content
       data-smart-element-icon
       data-testid={testId}

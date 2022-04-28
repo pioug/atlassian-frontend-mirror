@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { css } from '@emotion/core';
 import Icon from '../index';
 import {
   IconType,
@@ -25,11 +26,9 @@ jest.mock(
 
 describe('Element: Icon', () => {
   it('renders element', async () => {
-    const { getByTestId } = render(<Icon />);
+    const { findByTestId } = render(<Icon />);
 
-    const element = await waitForElement(() =>
-      getByTestId('smart-element-icon'),
-    );
+    const element = await findByTestId('smart-element-icon');
 
     expect(element).toBeTruthy();
     expect(element.getAttribute('data-smart-element-icon')).toBeTruthy();
@@ -38,42 +37,36 @@ describe('Element: Icon', () => {
   it('renders icon using render function when provided', async () => {
     const testId = 'custom-icon';
     const renderCustomIcon = () => <span data-testid={testId}>💡</span>;
-    const { getByTestId } = render(<Icon render={renderCustomIcon} />);
+    const { findByTestId } = render(<Icon render={renderCustomIcon} />);
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element).toBeTruthy();
     expect(element.textContent).toBe('💡');
   });
 
   it('renders ImageIcon when url is provided', async () => {
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <Icon icon={IconType.Document} url="src-loaded" />,
     );
 
-    const element = await waitForElement(() =>
-      getByTestId('smart-element-icon-image'),
-    );
+    const element = await findByTestId('smart-element-icon-image');
 
     expect(element).toBeTruthy();
   });
 
   it('renders AtlaskitIcon when url is not provided', async () => {
-    const { getByTestId } = render(<Icon icon={IconType.Document} />);
+    const { findByTestId } = render(<Icon icon={IconType.Document} />);
 
-    const element = await waitForElement(() =>
-      getByTestId('smart-element-icon-icon'),
-    );
+    const element = await findByTestId('smart-element-icon-icon');
 
     expect(element).toBeTruthy();
   });
 
   it('renders default icon when neither icon nor url is provided', async () => {
-    const { getByTestId } = render(<Icon />);
+    const { findByTestId } = render(<Icon />);
 
-    const element = await waitForElement(() =>
-      getByTestId('smart-element-icon-default'),
-    );
+    const element = await findByTestId('smart-element-icon-default');
 
     expect(element).toBeTruthy();
   });
@@ -82,7 +75,7 @@ describe('Element: Icon', () => {
     it('priorities custom render function', async () => {
       const testId = 'custom-icon';
       const renderCustomIcon = () => <span data-testid={testId}>💡</span>;
-      const { getByTestId, queryByTestId } = render(
+      const { findByTestId, queryByTestId } = render(
         <Icon
           icon={IconType.Document}
           render={renderCustomIcon}
@@ -90,7 +83,7 @@ describe('Element: Icon', () => {
         />,
       );
 
-      const customIcon = await waitForElement(() => getByTestId(testId));
+      const customIcon = await findByTestId(testId);
       const imageIcon = queryByTestId('smart-element-icon-image');
       const akIcon = queryByTestId('smart-element-icon-icon');
 
@@ -101,7 +94,7 @@ describe('Element: Icon', () => {
 
     it('priorities url icon', async () => {
       const renderCustomIcon = () => undefined;
-      const { getByTestId, queryByTestId } = render(
+      const { findByTestId, queryByTestId } = render(
         <Icon
           icon={IconType.Document}
           render={renderCustomIcon}
@@ -109,9 +102,7 @@ describe('Element: Icon', () => {
         />,
       );
 
-      const imageIcon = await waitForElement(() =>
-        getByTestId('smart-element-icon-image'),
-      );
+      const imageIcon = await findByTestId('smart-element-icon-image');
       const akIcon = queryByTestId('smart-element-icon-icon');
 
       expect(imageIcon).toBeTruthy();
@@ -120,14 +111,12 @@ describe('Element: Icon', () => {
 
     it('priorities atlaskit icon', async () => {
       const renderCustomIcon = () => undefined;
-      const { getByTestId, queryByTestId } = render(
+      const { findByTestId, queryByTestId } = render(
         <Icon icon={IconType.Document} render={renderCustomIcon} />,
       );
 
       const imageIcon = queryByTestId('smart-element-icon-image');
-      const akIcon = await waitForElement(() =>
-        getByTestId('smart-element-icon-icon'),
-      );
+      const akIcon = await findByTestId('smart-element-icon-icon');
 
       expect(imageIcon).not.toBeInTheDocument();
       expect(akIcon).toBeTruthy();
@@ -143,11 +132,9 @@ describe('Element: Icon', () => {
     ])(
       'renders element in %s size',
       async (size: SmartLinkSize, expectedSize: string) => {
-        const { getByTestId } = render(<Icon size={size} />);
+        const { findByTestId } = render(<Icon size={size} />);
 
-        const element = await waitForElement(() =>
-          getByTestId('smart-element-icon'),
-        );
+        const element = await findByTestId('smart-element-icon');
 
         expect(element).toHaveStyleDeclaration('height', expectedSize);
         expect(element).toHaveStyleDeclaration('width', expectedSize);
@@ -162,13 +149,11 @@ describe('Element: Icon', () => {
     ])(
       'renders element at %s position',
       async (position, expectedAlignSelf) => {
-        const { getByTestId } = render(
+        const { findByTestId } = render(
           <Icon position={position} size={SmartLinkSize.Small} />,
         );
 
-        const element = await waitForElement(() =>
-          getByTestId('smart-element-icon'),
-        );
+        const element = await findByTestId('smart-element-icon');
 
         expect(element).toHaveStyleDeclaration('align-self', expectedAlignSelf);
       },
@@ -177,33 +162,38 @@ describe('Element: Icon', () => {
 
   describe('ImageIcon', () => {
     it('renders image icon', async () => {
-      const { getByTestId } = render(<Icon url="src-loaded" />);
+      const { findByTestId } = render(<Icon url="src-loaded" />);
 
-      const element = await waitForElement(() =>
-        getByTestId('smart-element-icon-image'),
-      );
+      const element = await findByTestId('smart-element-icon-image');
 
       expect(element).toBeTruthy();
     });
 
     it('renders shimmer placeholder on loading', async () => {
-      const { getByTestId } = render(<Icon url="src-loading" />);
+      const { findByTestId } = render(<Icon url="src-loading" />);
 
-      const element = await waitForElement(() =>
-        getByTestId('smart-element-icon-loading'),
-      );
+      const element = await findByTestId('smart-element-icon-loading');
 
       expect(element).toBeTruthy();
     });
 
     it('renders default icon on error', async () => {
-      const { getByTestId } = render(<Icon url="src-error" />);
+      const { findByTestId } = render(<Icon url="src-error" />);
 
-      const element = await waitForElement(() =>
-        getByTestId('smart-element-icon-default'),
-      );
+      const element = await findByTestId('smart-element-icon-default');
 
       expect(element).toBeTruthy();
     });
+  });
+
+  it('renders with override css', async () => {
+    const overrideCss = css`
+      background-color: blue;
+    `;
+    const { findByTestId } = render(<Icon overrideCss={overrideCss} />);
+
+    const element = await findByTestId('smart-element-icon');
+
+    expect(element).toHaveStyleDeclaration('background-color', 'blue');
   });
 });

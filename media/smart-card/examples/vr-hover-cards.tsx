@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
-import { HoverCard } from '../src/view/HoverCard';
 import { VRTestWrapper } from './utils/vr-test';
 import { Provider, Client, ResolveResponse } from '../src';
+import { Card } from '../src';
 
 const mockResponse = {
   meta: {
@@ -49,9 +49,11 @@ class CustomClient extends Client {
 export default () => (
   <VRTestWrapper title="Hover Card">
     <Provider client={new CustomClient('staging')}>
-      <HoverCard url={'https://www.mockurl.com'}>
-        <span data-testid="text-to-hover">test123</span>
-      </HoverCard>
+      <Card
+        url={'https://www.mockurl.com'}
+        appearance="inline"
+        showHoverPreview={true}
+      />
     </Provider>
   </VRTestWrapper>
 );

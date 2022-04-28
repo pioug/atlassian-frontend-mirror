@@ -1,20 +1,19 @@
 /** @jsx jsx */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/core';
-import { JsonLd } from 'json-ld-types';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
 
 import {
+  ActionItem,
   ActionName,
+  APIError,
   ElementItem,
   ElementName,
   SmartLinkDirection,
   SmartLinkPosition,
   SmartLinkSize,
   SmartLinkTheme,
-  ActionItem,
-  APIError,
 } from '../../src';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import {
@@ -28,6 +27,7 @@ import {
 } from '../../src/view/FlexibleCard/components/blocks/types';
 import LikeIcon from '@atlaskit/icon/glyph/like';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
+import { getJsonLdResponse } from '../utils/flexible-ui';
 
 export const mockUrls = Object.keys(examples).reduce(
   (acc, key) => ({ ...acc, [key]: `https://${key}` }),
@@ -193,32 +193,9 @@ export const renderMetadataOptions = (
   );
 };
 
-export const generateResponse = (url: string, meta = {}, data = {}) =>
-  ({
-    meta: {
-      visibility: 'public',
-      access: 'granted',
-      auth: [],
-      definitionId: 'd1',
-      key: 'object-provider',
-      ...meta,
-    },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
-      },
-      '@type': 'Object',
-      name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      ...data,
-      url,
-    },
-  } as JsonLd.Response);
-
 export const responses = {
   [statusUrls.Errored]: { data: null } as any,
-  [statusUrls.Forbidden]: generateResponse(statusUrls.Forbidden, {
+  [statusUrls.Forbidden]: getJsonLdResponse(statusUrls.Forbidden, {
     visibility: 'restricted',
     access: 'forbidden',
     auth: [
@@ -229,11 +206,11 @@ export const responses = {
       },
     ],
   }),
-  [statusUrls.NotFound]: generateResponse(statusUrls.NotFound, {
+  [statusUrls.NotFound]: getJsonLdResponse(statusUrls.NotFound, {
     visibility: 'not_found',
     access: 'forbidden',
   }),
-  [statusUrls.Unauthorized]: generateResponse(statusUrls.Unauthorized, {
+  [statusUrls.Unauthorized]: getJsonLdResponse(statusUrls.Unauthorized, {
     visibility: 'restricted',
     access: 'unauthorized',
     auth: [

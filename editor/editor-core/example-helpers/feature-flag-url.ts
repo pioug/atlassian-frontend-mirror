@@ -15,7 +15,7 @@ export function decode<T = unknown>(input: string): T {
 }
 
 export function amend(location: Partial<UrlObject>, value: string): string {
-  const search = new URLSearchParams(location.search);
+  const search = new URLSearchParams(location.search || '');
   search.set('ff', value);
 
   return format({
@@ -27,7 +27,7 @@ export function amend(location: Partial<UrlObject>, value: string): string {
 export function fromLocation<T>(
   location: Partial<UrlObject>,
 ): T | Error | undefined {
-  const search = new URLSearchParams(location.search);
+  const search = new URLSearchParams(location.search || '');
   const data = search.get('ff');
 
   if (!data) {
@@ -37,7 +37,7 @@ export function fromLocation<T>(
   try {
     return decode(data);
   } catch (err) {
-    return err;
+    return err as Error;
   }
 }
 

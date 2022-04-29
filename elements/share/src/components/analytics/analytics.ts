@@ -7,11 +7,11 @@ import {
   Team,
 } from '@atlaskit/smart-user-picker';
 
-import { DialogContentState, OriginTracing } from '../types';
+import { DialogContentState, OriginTracing } from '../../types';
 import {
   name as packageName,
   version as packageVersion,
-} from '../version.json';
+} from '../../version.json';
 
 const buildAttributes = (attributes = {}) => ({
   packageName,

@@ -37,7 +37,8 @@ import {
   errorEncountered,
   shortUrlGenerated,
   shortUrlRequested,
-} from './analytics';
+} from './analytics/analytics';
+import { renderShareDialogExp } from './analytics/ufoExperiences';
 import ErrorBoundary from './ErrorBoundary';
 import MessagesIntlProvider from './MessagesIntlProvider';
 import { ShareDialogWithTrigger } from './ShareDialogWithTrigger';
@@ -145,23 +146,32 @@ export class ShareDialogContainerInternal extends React.Component<
       },
       async () => {
         try {
+          renderShareDialogExp.start();
           const config: ConfigResponse = await this.shareClient.getConfig(
             this.props.cloudId,
           );
-
           if (this._isMounted) {
             this.setState({
               config,
               isFetchingConfig: false,
             });
           }
-        } catch (error) {
+          renderShareDialogExp.success();
+        } catch (error: any) {
           if (this._isMounted) {
             this.setState({
               config: defaultConfig,
               isFetchingConfig: false,
             });
           }
+
+          let { ...errObj }: { [key: string]: any } = error;
+
+          if (error instanceof Error) {
+            errObj = { ...errObj, className: error.constructor.name };
+          }
+
+          renderShareDialogExp.failure({ metadata: { error: errObj } });
         }
       },
     );

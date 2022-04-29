@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/emoji",
-  "version": "64.5.1",
+  "version": "64.5.2",
   "description": "Fabric emoji React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,7 +70,6 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",
-    "jest-fetch-mock": "^3.0.3",
     "p-wait-for": "^3.2.0",
     "react": "^16.8.0",
     "react-addons-perf": "^15.3.2",

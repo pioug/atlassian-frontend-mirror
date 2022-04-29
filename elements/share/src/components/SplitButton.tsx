@@ -19,7 +19,7 @@ import { token } from '@atlaskit/tokens';
 import { messages } from '../i18n';
 import { DialogPlacement, Integration } from '../types';
 
-import { shareIntegrationButtonEvent } from './analytics';
+import { shareIntegrationButtonEvent } from './analytics/analytics';
 import IntegrationButton from './IntegrationButton';
 
 const SplitButtonWrapper = styled.div`

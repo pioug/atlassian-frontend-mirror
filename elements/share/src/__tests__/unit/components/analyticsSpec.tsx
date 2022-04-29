@@ -8,7 +8,7 @@ import {
   shareTriggerButtonClicked,
   shortUrlGenerated,
   shortUrlRequested,
-} from '../../../components/analytics';
+} from '../../../components/analytics/analytics';
 import { DialogContentState, OriginTracing } from '../../../types';
 
 describe('share analytics', () => {

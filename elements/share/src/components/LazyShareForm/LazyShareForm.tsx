@@ -8,7 +8,7 @@ import type {
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
 } from '../../types';
-import { INTEGRATION_MODAL_SOURCE } from '../analytics';
+import { INTEGRATION_MODAL_SOURCE } from '../analytics/analytics';
 import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
 import { ShareForm } from '../ShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';

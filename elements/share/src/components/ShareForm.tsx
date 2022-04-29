@@ -20,7 +20,10 @@ import Tooltip from '@atlaskit/tooltip';
 import { messages } from '../i18n';
 import { FormChildrenArgs, ShareData, ShareFormProps, TabType } from '../types';
 
-import { ANALYTICS_SOURCE, INTEGRATION_MODAL_SOURCE } from './analytics';
+import {
+  ANALYTICS_SOURCE,
+  INTEGRATION_MODAL_SOURCE,
+} from './analytics/analytics';
 import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
 import { IntegrationForm } from './IntegrationForm';

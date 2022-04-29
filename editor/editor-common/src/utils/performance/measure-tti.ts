@@ -37,7 +37,7 @@ export function measureTTI(
 
   observer.observe({ entryTypes: ['longtask'] });
 
-  const checkIdle = () => {
+  const checkIdle = (): void | NodeJS.Timer => {
     // 1. There hasn't been any long task in `idleThreshold` time: Interactive from the start.
     // 2. Only 1 long task: Interactive from the end of the only long task.
     // 3. Several long tasks:

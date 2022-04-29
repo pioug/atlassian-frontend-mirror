@@ -5,7 +5,7 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
-import { CHANNEL_ID, errorEncountered } from './analytics';
+import { CHANNEL_ID, errorEncountered } from './analytics/analytics';
 
 type Props = WithAnalyticsEventsProps;
 type State = {

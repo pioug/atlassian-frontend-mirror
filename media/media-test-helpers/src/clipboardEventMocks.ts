@@ -26,6 +26,8 @@ export class ClipboardMockFile implements File {
   arrayBuffer() {
     return Promise.resolve(new ArrayBuffer(0));
   }
+
+  // @ts-expect-error Property 'stream' in type 'ClipboardMockFile' is not assignable to the same property in base type 'File'.
   stream() {
     // IE11 compat
     // eslint-disable-next-line compat/compat

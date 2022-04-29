@@ -9,7 +9,4 @@
   "compilerOptions": {
     "baseUrl": "./"
   },
-  "files": [
-    "../../../typings/rusha.d.ts"
-  ]
 }

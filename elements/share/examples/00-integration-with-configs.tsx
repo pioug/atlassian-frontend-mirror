@@ -10,6 +10,7 @@ import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import { OptionData, setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
 import Toggle from '@atlaskit/toggle';
+import { ufologger } from '@atlaskit/ufo';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
 import App from '../example-helpers/AppWithFlag';
@@ -52,6 +53,8 @@ type UserData = {
   publicName?: string;
   type?: string;
 };
+
+ufologger.enable();
 
 const WrapperWithMarginTop = styled.div`
   margin-top: 10px;
@@ -246,7 +249,6 @@ const ShareFieldsFooter = () => (
     </SectionMessage>
   </FieldsFooterWrapper>
 );
-
 class MockUrlShortenerClient implements UrlShortenerClient {
   count = 0;
 

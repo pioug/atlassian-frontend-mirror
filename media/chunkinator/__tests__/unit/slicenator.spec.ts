@@ -5,7 +5,7 @@ const createFakeBlob = (size: number): { blob: Blob; sliceFn: any } => {
   const blob = {
     size,
     // slice: sliceFn
-    slice(start, end) {
+    slice(start: number, end: number) {
       sliceFn(start, end);
       // return start;
     },

@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 21.0.4
+
+### Patch Changes
+
+- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+
 ## 21.0.3
 
 ### Patch Changes

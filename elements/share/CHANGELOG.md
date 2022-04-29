@@ -1,5 +1,17 @@
 # @atlaskit/share
 
+## 3.2.0
+
+### Minor Changes
+
+- [`bbadcbc3c29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbadcbc3c29) - Add analytics through @atlassian/ufo
+
+## 3.1.7
+
+### Patch Changes
+
+- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+
 ## 3.1.6
 
 ### Patch Changes

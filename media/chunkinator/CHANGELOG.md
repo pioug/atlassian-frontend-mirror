@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.2
+
+### Patch Changes
+
+- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+
 ## 3.1.1
 
 ### Patch Changes

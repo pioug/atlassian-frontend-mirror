@@ -22,7 +22,7 @@ export function decode<T = unknown>(input: string): T {
 }
 
 export function amend(location: Partial<UrlObject>, value: string): string {
-  const search = new URLSearchParams(location.search);
+  const search = new URLSearchParams(location.search || '');
   search.set('adf', value);
 
   return format({
@@ -34,7 +34,7 @@ export function amend(location: Partial<UrlObject>, value: string): string {
 export function fromLocation<T>(
   location: Partial<UrlObject>,
 ): T | Error | undefined {
-  const search = new URLSearchParams(location.search);
+  const search = new URLSearchParams(location.search || '');
   const data = search.get('adf');
 
   if (!data) {

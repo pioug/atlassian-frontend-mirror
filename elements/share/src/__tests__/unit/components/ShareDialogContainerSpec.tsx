@@ -9,7 +9,7 @@ import {
   UrlShortenerClient,
 } from '../../../clients/AtlassianUrlShortenerClient';
 import * as ShareServiceExports from '../../../clients/ShareServiceClient';
-import { copyLinkButtonClicked } from '../../../components/analytics';
+import { copyLinkButtonClicked } from '../../../components/analytics/analytics';
 import {
   defaultConfig,
   ShareDialogContainerInternal,

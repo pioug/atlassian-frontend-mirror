@@ -39,9 +39,13 @@ import {
   shareTabClicked,
   shareTriggerButtonClicked,
   // type TabSubjectIdType,
-} from './analytics';
+} from './analytics/analytics';
 // eslint-disable-next-line no-duplicate-imports
-import type { TabSubjectIdType } from './analytics';
+import type { TabSubjectIdType } from './analytics/analytics';
+import {
+  renderShareDialogExp,
+  shareSubmitExp,
+} from './analytics/ufoExperiences';
 import LazyShareFormLazy from './LazyShareForm/lazy';
 import ShareButton from './ShareButton';
 import SplitButton from './SplitButton';
@@ -199,6 +203,10 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           // The dialog will auto-close in @atlaskit/popup, we just need to fire
           // the right events.
           if (shouldCloseOnEscapePress) {
+            // This experience should be aborted in a scenario when a user closes the dialog before the shareClient.getConfig() call is finished
+            // It is a race condition between the `SUCCEEDED` case and the `ABORTED` case of this experience
+            // UFO experiences can only have one FINAL state so it doesn't matter if we call .abort() after the experience has succeeded and vice versa
+            renderShareDialogExp.abort();
             this.createAndFireEvent(cancelShare(this.start));
             this.closeAndResetDialog();
           }
@@ -251,6 +259,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     if (this.props.onDialogClose) {
       this.props.onDialogClose();
     }
+
+    // This experience should be aborted in a scenario when a user closes the dialog before the shareClient.getConfig() call is finished
+    // It is a race condition between the `SUCCEEDED` case and the `ABORTED` case of this experience
+    // UFO experiences can only have one FINAL state so it doesn't matter if we call .abort() after the experience has succeeded and vice versa
+    renderShareDialogExp.abort();
+
     this.setState({
       isDialogOpen: false,
       showIntegrationForm: false,
@@ -271,6 +285,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       return;
     }
 
+    shareSubmitExp.start();
+
     this.setState({ isSharing: true });
 
     this.createAndFireEvent(
@@ -288,6 +304,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         this.closeAndResetDialog();
         this.setState({ isSharing: false });
         showFlags(this.getFlags());
+
+        shareSubmitExp.success();
       })
       .catch((err: Error) => {
         this.setState({
@@ -295,6 +313,10 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           shareError: {
             message: err.message,
           },
+        });
+
+        shareSubmitExp.failure({
+          metadata: { error: { message: err.message, name: err.name } },
         });
       });
   };

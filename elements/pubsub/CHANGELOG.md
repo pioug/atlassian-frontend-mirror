@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.0.7
+
+### Patch Changes
+
+- [`a424e62b264`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a424e62b264) - Changes to support Node 16 Typescript definitions from `@types/node`.
+
 ## 6.0.6
 
 ### Patch Changes

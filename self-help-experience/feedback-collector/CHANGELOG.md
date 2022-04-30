@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.4.0
+
+### Minor Changes
+
+- [`271e4374f58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/271e4374f58) - [ux] Add support for i18n
+
 ## 10.3.2
 
 ### Patch Changes

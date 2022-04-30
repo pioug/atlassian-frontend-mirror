@@ -6,9 +6,11 @@ import Button from '@atlaskit/button';
 import { FlagGroup } from '@atlaskit/flag';
 import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
 
+import { IntlProviderWithResolvedMessages } from '../components/IntlProviderWithResolvedMessages';
+import { messages } from '../messages';
+
 import FeedbackCollector from './FeedbackCollector';
 import FeedbackFlag from './FeedbackFlag';
-import { messages } from './messages';
 
 interface Props {
   embeddableKey: string;
@@ -22,11 +24,11 @@ interface Props {
 const FeedbackButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);
-  const { formatMessage } = useIntl();
+  const { locale, formatMessage } = useIntl();
   const { embeddableKey, requestTypeId, email } = props;
 
   return (
-    <>
+    <IntlProviderWithResolvedMessages locale={locale}>
       <Button
         onClick={() => setIsOpen(true)}
         iconBefore={
@@ -52,7 +54,7 @@ const FeedbackButton = (props: Props) => {
       <FlagGroup onDismissed={() => setDisplayFlag(false)}>
         {displayFlag && <FeedbackFlag />}
       </FlagGroup>
-    </>
+    </IntlProviderWithResolvedMessages>
   );
 };
 

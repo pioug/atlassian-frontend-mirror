@@ -91,6 +91,8 @@ export interface Props {
   onClose: () => void;
   /** Function that will be called optimistically after a delay when the feedback is submitted. */
   onSubmit: (formFields: FormFields) => void;
+  /**  Optional locale for i18n */
+  locale?: string;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -393,6 +395,7 @@ export default class FeedbackCollector extends Component<Props> {
         feedbackGroupLabels={this.props.feedbackGroupLabels}
         onSubmit={this.postFeedback}
         onClose={this.props.onClose}
+        locale={this.props.locale}
       />
     );
   }

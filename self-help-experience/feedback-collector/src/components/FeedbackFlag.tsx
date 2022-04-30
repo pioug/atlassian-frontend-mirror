@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+
+import { useIntl } from 'react-intl-next';
 
 import { AutoDismissFlag } from '@atlaskit/flag';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import { messages } from '../messages';
+
+import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface AkProps {
   isDismissAllowed?: boolean;
@@ -11,23 +17,32 @@ interface AkProps {
   title?: React.ReactText;
   onDismissed?: (...args: Array<any>) => void;
 }
-const FeedbackFlag = (props: AkProps) => (
-  <AutoDismissFlag
-    icon={
-      <SuccessIcon
-        primaryColor={token('color.icon.success', G300)}
-        label="Success"
-      />
-    }
-    id="feedbackSent"
-    description={
-      props.description
-        ? props.description
-        : 'Your valuable feedback helps us continually improve our products.'
-    }
-    title={props.title ? props.title : 'Thanks!'}
-    {...props}
-  />
+const FeedbackFlag = ({ description, title }: AkProps) => {
+  const { formatMessage } = useIntl();
+  return (
+    <AutoDismissFlag
+      icon={
+        <SuccessIcon
+          primaryColor={token('color.icon.success', G300)}
+          label="Success"
+        />
+      }
+      id="feedbackSent"
+      description={
+        description ||
+        formatMessage({ ...messages.feedbackSuccessFlagDescription })
+      }
+      title={title || formatMessage({ ...messages.feedbackSuccessFlagTitle })}
+    />
+  );
+};
+
+const FeedbackFlagWithIntl: FunctionComponent<AkProps & { locale?: string }> = (
+  props,
+) => (
+  <IntlProviderWithResolvedMessages locale={props.locale}>
+    <FeedbackFlag {...props} />
+  </IntlProviderWithResolvedMessages>
 );
 
-export default FeedbackFlag;
+export default FeedbackFlagWithIntl;

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
+import { render } from '@testing-library/react';
+import { mount, ReactWrapper, shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { AutoDismissFlag } from '@atlaskit/flag';
@@ -18,6 +20,10 @@ import {
   defaultFieldRecords,
   emptyOptionData,
 } from './_data';
+
+jest.mock('../../i18n/fr', () => ({
+  'feedback-collector.feedback-title': 'Translated feedback title (FR)',
+}));
 
 jest
   .spyOn(FeedbackCollector.prototype, 'getEntitlementInformation')
@@ -401,7 +407,10 @@ describe('Feedback Collector unit tests', () => {
         expect(options).toEqual(customOptionsData);
         for (const [key, value] of Object.entries(customFieldRecords)) {
           if (key !== 'empty') {
-            feedbackFormWrapper.setState({ type: key });
+            act(() => {
+              feedbackFormWrapper.find(Select).props().onChange({ value: key });
+            });
+            feedbackFormWrapper.update();
             expect(wrapper.find(Field).at(0).props().label).toBe(
               value.fieldLabel,
             );
@@ -507,6 +516,22 @@ describe('Feedback Collector unit tests', () => {
         expect(entitlementSpy).toHaveBeenCalled();
       });
     });
+
+    describe('Localisation', () => {
+      test('should be supported when a locale is passed', async () => {
+        const wrapper = render(
+          <FeedbackCollector
+            locale="fr"
+            requestTypeId="request_type_id"
+            embeddableKey="embeddable_key"
+          />,
+        );
+
+        expect(
+          await wrapper.findByText('Translated feedback title (FR)'),
+        ).toBeDefined();
+      });
+    });
   });
 
   describe('Feedback Form integration', () => {
@@ -525,7 +550,9 @@ describe('Feedback Collector unit tests', () => {
         <FeedbackForm onClose={() => {}} onSubmit={() => {}} />,
       );
 
-      wrapper.setState({ type: 'comment' });
+      act(() => {
+        wrapper.find(Select).props().onChange({ value: 'comment' });
+      });
 
       // explicitly update the wrapper to ensure the subsequent renders are flushed.
       wrapper.update();
@@ -542,7 +569,10 @@ describe('Feedback Collector unit tests', () => {
 
       for (const [key, value] of Object.entries(defaultFieldRecords)) {
         if (key !== 'empty') {
-          wrapper.setState({ type: key });
+          act(() => {
+            wrapper.find(Select).props().onChange({ value: key });
+          });
+          wrapper.update();
           expect(wrapper.find(Field).at(0).props().label).toBe(
             value.fieldLabel,
           );
@@ -552,13 +582,8 @@ describe('Feedback Collector unit tests', () => {
   });
 
   describe('Feedback Flag', () => {
-    let wrapper: ShallowWrapper<typeof FeedbackFlag>;
-
-    beforeEach(() => {
-      wrapper = shallow(<FeedbackFlag />);
-    });
-
     test('FeedbackFlag should have default content', () => {
+      const wrapper = mount(<FeedbackFlag />);
       const { title, description } = wrapper.find(AutoDismissFlag).props();
       expect(title).toEqual('Thanks!');
       expect(description).toEqual(
@@ -567,10 +592,12 @@ describe('Feedback Collector unit tests', () => {
     });
 
     test('FeedbackFlag should have custom copy', () => {
-      wrapper.setProps({
-        title: 'Feedback Title',
-        description: 'Feedback Description',
-      });
+      const wrapper = mount(
+        <FeedbackFlag
+          title={'Feedback Title'}
+          description={'Feedback Description'}
+        />,
+      );
       const { title, description } = wrapper.find(AutoDismissFlag).props();
       expect(title).toEqual('Feedback Title');
       expect(description).toEqual('Feedback Description');

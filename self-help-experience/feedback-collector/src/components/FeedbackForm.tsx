@@ -1,4 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { FunctionComponent, useState } from 'react';
+
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -12,7 +14,10 @@ import Modal, {
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
 
+import { messages } from '../messages';
 import { FormFields, SelectOptionDetails, SelectValue } from '../types';
+
+import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface Props {
   /**  Message which will be shown as the title of the feedback dialog **/
@@ -22,7 +27,7 @@ interface Props {
   /**  Message which will be shown below the title of the feedback dialog **/
   feedbackTitleDetails?: React.ReactChild;
   /**  Message which will be shown next to the enrol in research checkbox **/
-  enrolInResearchLabel: React.ReactChild;
+  enrolInResearchLabel?: React.ReactChild;
   /**  Message which will be shown next to the can be contacted checkbox **/
   canBeContactedLabel?: React.ReactChild;
   /**  Message which will be shown inside the summary text field **/
@@ -37,230 +42,228 @@ interface Props {
   onClose: () => void;
   /** Function that will be called immediately after the submit action  */
   onSubmit: (formValues: FormFields) => void;
+  /**  Optional locale for i18n **/
+  locale?: string;
 }
 
 export interface OptionType {
-  label: string;
+  label: React.ReactText;
   value: SelectValue;
 }
 
-const getFieldLabels = (
-  record?: Record<SelectValue, SelectOptionDetails>,
-): Record<SelectValue, string> => {
-  return {
-    bug: record?.bug.fieldLabel
-      ? record.bug.fieldLabel
-      : 'Describe the bug or issue',
-    comment: record?.comment.fieldLabel
-      ? record.comment.fieldLabel
-      : "Let us know what's on your mind",
-    suggestion: record?.suggestion.fieldLabel
-      ? record.suggestion.fieldLabel
-      : "Let us know what you'd like to improve",
-    question: record?.question.fieldLabel
-      ? record.question.fieldLabel
-      : 'What would you like to know?',
-    empty: record?.empty.fieldLabel
-      ? record.empty.fieldLabel
-      : 'Select an option',
-  };
-};
+const FeedbackForm: React.FunctionComponent<Props> = ({
+  showTypeField = true,
+  onClose,
+  onSubmit,
+  feedbackTitle,
+  feedbackTitleDetails,
+  feedbackGroupLabels,
+  summaryPlaceholder,
+  canBeContactedLabel,
+  enrolInResearchLabel,
+  submitButtonLabel,
+  cancelButtonLabel,
+}) => {
+  const [canBeContacted, setCanBeContacted] = useState<
+    FormFields['canBeContacted']
+  >(false);
+  const [description, setDescription] = useState<FormFields['description']>('');
+  const [enrollInResearchGroup, setEnrollInResearchGroup] = useState<
+    FormFields['enrollInResearchGroup']
+  >(false);
+  const [type, setType] = useState<FormFields['type']>('empty');
+  const { formatMessage } = useIntl();
+  const isTypeSelected = () => type !== 'empty';
 
-const getSelectOptions = (
-  record?: Record<SelectValue, SelectOptionDetails>,
-): OptionType[] => {
-  return [
+  const canShowTextField = isTypeSelected() || !showTypeField;
+
+  const isDisabled = showTypeField
+    ? !isTypeSelected() || !description
+    : !description;
+
+  const getFieldLabels = (
+    record?: Record<SelectValue, SelectOptionDetails>,
+  ): Record<SelectValue, React.ReactText> => ({
+    bug: record?.bug.fieldLabel || formatMessage(messages.formBugLabel),
+    comment:
+      record?.comment.fieldLabel || formatMessage(messages.formCommentLabel),
+    suggestion:
+      record?.suggestion.fieldLabel ||
+      formatMessage(messages.formSuggestionLabel),
+    question:
+      record?.question.fieldLabel || formatMessage(messages.formQuestionLabel),
+    empty: record?.empty.fieldLabel || formatMessage(messages.formEmptyLabel),
+  });
+
+  const getSelectOptions = (
+    record?: Record<SelectValue, SelectOptionDetails>,
+  ): OptionType[] => [
     {
-      label: record?.question.selectOptionLabel
-        ? record.question.selectOptionLabel
-        : 'Ask a question',
+      label:
+        record?.question.selectOptionLabel ||
+        formatMessage(messages.selectionOptionQuestionLabel),
       value: 'question',
     },
     {
-      label: record?.comment.selectOptionLabel
-        ? record.comment.selectOptionLabel
-        : 'Leave a comment',
+      label:
+        record?.comment.selectOptionLabel ||
+        formatMessage(messages.selectionOptionCommentLabel),
       value: 'comment',
     },
     {
-      label: record?.bug.selectOptionLabel
-        ? record.bug.selectOptionLabel
-        : 'Report a bug',
+      label:
+        record?.bug.selectOptionLabel ||
+        formatMessage(messages.selectionOptionBugLabel),
       value: 'bug',
     },
     {
-      label: record?.suggestion.selectOptionLabel
-        ? record.suggestion.selectOptionLabel
-        : 'Suggest an improvement',
+      label:
+        record?.suggestion.selectOptionLabel ||
+        formatMessage(messages.selectionOptionSuggestionLabel),
       value: 'suggestion',
     },
   ];
-};
 
-const getDefaultSelectValue = (
-  record?: Record<SelectValue, SelectOptionDetails>,
-): OptionType => {
-  return {
-    label: record?.empty.selectOptionLabel
-      ? record.empty.selectOptionLabel
-      : 'I want to...',
+  const getDefaultSelectValue = (
+    record?: Record<SelectValue, SelectOptionDetails>,
+  ): OptionType => ({
+    label:
+      record?.empty.selectOptionLabel ||
+      formatMessage(messages.selectionOptionDefaultLabel),
     value: 'empty',
-  };
+  });
+
+  return (
+    <Modal onClose={onClose} testId="feedbackCollectorModalDialog">
+      <Form
+        onSubmit={() => {
+          onSubmit({
+            canBeContacted,
+            description,
+            enrollInResearchGroup,
+            type,
+          });
+        }}
+      >
+        {({ formProps }) => (
+          <form {...formProps}>
+            <ModalHeader>
+              <ModalTitle>
+                {feedbackTitle || (
+                  <FormattedMessage {...messages.feedbackTitle} />
+                )}
+              </ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              {feedbackTitleDetails}
+              {showTypeField ? (
+                <Select<OptionType>
+                  onChange={(option) => {
+                    if (!option || option instanceof Array) {
+                      return;
+                    }
+                    setType(option.value);
+                  }}
+                  menuPortalTarget={document.body}
+                  styles={{
+                    menuPortal: (base) => ({
+                      ...base,
+                      zIndex: 9999,
+                    }),
+                  }}
+                  defaultValue={getDefaultSelectValue(feedbackGroupLabels)}
+                  options={getSelectOptions(feedbackGroupLabels)}
+                />
+              ) : null}
+              {canShowTextField && (
+                <>
+                  <Field
+                    label={
+                      showTypeField
+                        ? getFieldLabels(feedbackGroupLabels)[type]
+                        : null
+                    }
+                    isRequired
+                    name="description"
+                  >
+                    {({ fieldProps }) => (
+                      <TextArea
+                        {...fieldProps}
+                        name="foo"
+                        minimumRows={6}
+                        placeholder={
+                          summaryPlaceholder ||
+                          formatMessage(messages.summaryPlaceholder)
+                        }
+                        onChange={(e) => setDescription(e.target.value)}
+                        value={description}
+                      />
+                    )}
+                  </Field>
+                  <Field name="can-be-contacted">
+                    {({ fieldProps }) => (
+                      <Checkbox
+                        {...fieldProps}
+                        label={
+                          canBeContactedLabel ||
+                          formatMessage(messages.canBeContactedLabel)
+                        }
+                        onChange={(event) =>
+                          setCanBeContacted(event.target.checked)
+                        }
+                      />
+                    )}
+                  </Field>
+
+                  <Field name="enroll-in-research-group">
+                    {({ fieldProps }) => (
+                      <Checkbox
+                        {...fieldProps}
+                        label={
+                          enrolInResearchLabel ||
+                          formatMessage(messages.enrolInResearchLabel)
+                        }
+                        onChange={(event) =>
+                          setEnrollInResearchGroup(event.target.checked)
+                        }
+                      />
+                    )}
+                  </Field>
+                </>
+              )}
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="subtle" onClick={onClose}>
+                {cancelButtonLabel || (
+                  <FormattedMessage {...messages.cancelButtonLabel} />
+                )}
+              </Button>
+              <Button
+                appearance="primary"
+                type="submit"
+                isDisabled={isDisabled}
+              >
+                {submitButtonLabel || (
+                  <FormattedMessage {...messages.submitButtonLabel} />
+                )}
+              </Button>
+            </ModalFooter>
+          </form>
+        )}
+      </Form>
+    </Modal>
+  );
 };
 
-export default class FeedbackForm extends Component<Props, FormFields> {
-  state: FormFields = {
-    type: 'empty',
-    description: '',
-    canBeContacted: false,
-    enrollInResearchGroup: false,
-  };
+const FeedbackFormWithIntl: FunctionComponent<Props & { locale?: string }> = ({
+  locale,
+  ...props
+}) => {
+  return (
+    <IntlProviderWithResolvedMessages locale={locale}>
+      <FeedbackForm {...props} />
+    </IntlProviderWithResolvedMessages>
+  );
+};
 
-  static defaultProps = {
-    showTypeField: true,
-    feedbackTitle: 'Share your thoughts',
-    enrolInResearchLabel: "I'd like to participate in product research",
-    canBeContactedLabel: 'Atlassian can contact me about this feedback',
-    submitButtonLabel: 'Send feedback',
-    cancelButtonLabel: 'Cancel',
-    onClose: () => {},
-    onSubmit: () => {},
-  };
-
-  isTypeSelected = () => this.state.type !== 'empty';
-
-  onSubmit = () => {
-    const {
-      type,
-      description,
-      canBeContacted,
-      enrollInResearchGroup,
-    } = this.state;
-
-    this.props.onSubmit({
-      type,
-      description,
-      canBeContacted,
-      enrollInResearchGroup,
-    });
-  };
-
-  render() {
-    const { showTypeField } = this.props;
-    const canShowTextField = this.isTypeSelected() || !showTypeField;
-    const isDisabled = showTypeField
-      ? !this.isTypeSelected() || !this.state.description
-      : !this.state.description;
-
-    return (
-      <Modal onClose={this.props.onClose}>
-        <Form onSubmit={this.onSubmit}>
-          {({ formProps }) => (
-            <form {...formProps}>
-              <ModalHeader>
-                <ModalTitle>{this.props.feedbackTitle}</ModalTitle>
-              </ModalHeader>
-              <ModalBody>
-                {this.props.feedbackTitleDetails}
-                {showTypeField ? (
-                  <Select<OptionType>
-                    onChange={(option) => {
-                      if (!option || option instanceof Array) {
-                        return;
-                      }
-
-                      this.setState({ type: (option as OptionType).value });
-                    }}
-                    menuPortalTarget={document.body}
-                    styles={{
-                      menuPortal: (base) => ({
-                        ...base,
-                        zIndex: 9999,
-                      }),
-                    }}
-                    defaultValue={getDefaultSelectValue(
-                      this.props.feedbackGroupLabels,
-                    )}
-                    options={getSelectOptions(this.props.feedbackGroupLabels)}
-                  />
-                ) : null}
-
-                {canShowTextField ? (
-                  <Fragment>
-                    <Field
-                      label={
-                        showTypeField
-                          ? getFieldLabels(this.props.feedbackGroupLabels)[
-                              this.state.type
-                            ]
-                          : null
-                      }
-                      isRequired
-                      name="description"
-                    >
-                      {({ fieldProps }) => (
-                        <TextArea
-                          {...fieldProps}
-                          name="foo"
-                          minimumRows={6}
-                          placeholder={this.props.summaryPlaceholder}
-                          onChange={(e) =>
-                            this.setState({
-                              description: e.target.value,
-                            })
-                          }
-                          value={this.state.description}
-                        />
-                      )}
-                    </Field>
-                    <Field name="can-be-contacted">
-                      {({ fieldProps }) => (
-                        <Checkbox
-                          {...fieldProps}
-                          label={this.props.canBeContactedLabel}
-                          onChange={(event) =>
-                            this.setState({
-                              canBeContacted: event.target.checked,
-                            })
-                          }
-                        />
-                      )}
-                    </Field>
-
-                    <Field name="enroll-in-research-group">
-                      {({ fieldProps }) => (
-                        <Checkbox
-                          {...fieldProps}
-                          label={this.props.enrolInResearchLabel}
-                          onChange={(event) =>
-                            this.setState({
-                              enrollInResearchGroup: event.target.checked,
-                            })
-                          }
-                        />
-                      )}
-                    </Field>
-                  </Fragment>
-                ) : (
-                  <Fragment />
-                )}
-              </ModalBody>
-              <ModalFooter>
-                <Button appearance="subtle" onClick={this.props.onClose}>
-                  {this.props.cancelButtonLabel}
-                </Button>
-                <Button
-                  appearance="primary"
-                  type="submit"
-                  isDisabled={isDisabled}
-                >
-                  {this.props.submitButtonLabel}
-                </Button>
-              </ModalFooter>
-            </form>
-          )}
-        </Form>
-      </Modal>
-    );
-  }
-}
+export default FeedbackFormWithIntl;

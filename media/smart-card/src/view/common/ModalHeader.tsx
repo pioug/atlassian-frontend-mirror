@@ -9,6 +9,7 @@ import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import Button from '@atlaskit/button/custom-theme-button';
 import { N100, N30A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { FormattedMessage } from 'react-intl-next';
 import { gs } from './utils';
 import { Icon, IconProps } from './Icon';
@@ -55,7 +56,7 @@ export const Header = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'baseline',
-          borderBottom: `1px solid ${N30A}`,
+          borderBottom: `1px solid ${token('color.border', N30A)}`,
         }}
       >
         <div css={{ flex: 1 }}>
@@ -63,7 +64,7 @@ export const Header = ({
             {icon && <Icon {...icon} />}
             <div css={{ paddingLeft: gs(2), paddingBottom: gs(2) }}>
               <h3>{title}</h3>
-              <div css={{ color: N100 }}>
+              <div css={{ color: token('color.text.subtlest', N100) }}>
                 {(metadata.items.length && (
                   <MetadataList items={metadata.items} />
                 )) || <Byline>{byline}</Byline>}

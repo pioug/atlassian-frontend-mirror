@@ -58,6 +58,7 @@ export enum SmartLinkStatus {
  * This determine the styling of the link.
  */
 export enum SmartLinkTheme {
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   Black = 'black',
   Link = 'link',
 }

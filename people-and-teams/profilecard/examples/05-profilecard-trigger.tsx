@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -37,6 +37,8 @@ const defaultProps = {
 };
 
 export default function Example() {
+  const [clickCount, setCount] = useState(0);
+
   return (
     <LocaleIntlProvider>
       <MainStage>
@@ -108,6 +110,31 @@ export default function Example() {
               {...defaultProps}
               userId="1"
               resourceClient={mockClientForInactiveAccount}
+              trigger="click"
+            >
+              <strong>click me</strong>
+            </ProfileCardTrigger>{' '}
+            dolor sit amet
+          </span>
+        </Section>
+
+        <Section>
+          <h4>Counting clicks of parent container</h4>
+          {/**
+           * If the user clicks on the trigger then we don't want that click
+           * event to propagate out to parent containers. For example when
+           * clicking a mention lozenge in an inline-edit.
+           *
+           * This example has the parent span counting how many times it was
+           * clicked so we can easily verify that it's not triggered when
+           * clicking the profile card trigger.
+           */}
+          <span onClick={() => setCount((c) => c + 1)}>
+            Lorem ipsum. Parent clicked {clickCount} times!{' '}
+            <ProfileCardTrigger
+              {...defaultProps}
+              userId="1"
+              resourceClient={mockClientForClosedAccountAndCustomMessage}
               trigger="click"
             >
               <strong>click me</strong>

@@ -1,4 +1,5 @@
 import React, { ErrorInfo } from 'react';
+import { token } from '@atlaskit/tokens';
 import { Card } from '../../src';
 import { ExampleUIConfig } from './types';
 
@@ -27,7 +28,12 @@ export class ProviderCardExampleWithErrorBoundary extends React.Component<
     if (this.state.error) {
       console.error(this.props.url, this.state.error);
       return (
-        <span style={{ color: 'red', fontWeight: 'bolder' }}>
+        <span
+          style={{
+            color: token('color.text.danger', 'red'),
+            fontWeight: 'bolder',
+          }}
+        >
           Something went wrong rendering: {this.props.url}, reason:{' '}
           {typeof this.state.error.message === 'string'
             ? this.state.error.message

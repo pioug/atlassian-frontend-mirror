@@ -4,6 +4,7 @@ import CodeIcon from '@atlaskit/icon/glyph/code';
 
 import { JsonLd } from 'json-ld-types';
 import { LinkDetail } from './types';
+import { token } from '@atlaskit/tokens';
 
 export type LinkProgrammingLanguageType =
   | JsonLd.Data.SourceCodeDocument
@@ -19,7 +20,13 @@ export const extractProgrammingLanguage = (
   if (programmingLanguage) {
     return {
       text: programmingLanguage,
-      icon: <CodeIcon size="small" label="code" primaryColor={N600} />,
+      icon: (
+        <CodeIcon
+          size="small"
+          label="code"
+          primaryColor={token('color.icon.subtle', N600)}
+        />
+      ),
     };
   }
 };

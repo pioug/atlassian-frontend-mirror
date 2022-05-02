@@ -12,7 +12,7 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate pagination correctly', async () => {
-  const [example] = await getExamplesFor('pagination');
+  const [example] = await getExamplesFor('@atlaskit/pagination');
   const Example = require(example.filePath).default;
 
   const elem = document.createElement('div');

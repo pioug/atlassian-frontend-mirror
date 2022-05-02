@@ -1,5 +1,6 @@
 import React from 'react';
 import { N600 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import ChatIcon from '@atlaskit/icon/glyph/comment';
 
 import { JsonLd } from 'json-ld-types';
@@ -24,7 +25,7 @@ export const extractCommentCount = (
           label="comment-count"
           key="comments-count-icon"
           size="small"
-          primaryColor={N600}
+          primaryColor={token('color.icon.subtle', N600)}
         />
       ),
     };

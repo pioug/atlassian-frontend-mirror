@@ -24,6 +24,7 @@ const containerStyles = css`
 
 const getThemeStyles = (theme: SmartLinkTheme): SerializedStyles => {
   switch (theme) {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     case SmartLinkTheme.Black:
       return css`
         color: ${tokens.blackLink};

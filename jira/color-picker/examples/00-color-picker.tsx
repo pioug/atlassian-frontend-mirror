@@ -4,10 +4,10 @@ import { simplePalette } from '../mock-data';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
-
+import { token } from '@atlaskit/tokens';
 class ColorPickerExample extends React.Component<{}, { color: string }> {
   state = {
-    color: colors.P200,
+    color: token('color.background.accent.purple.subtle', colors.P200),
   };
 
   render() {

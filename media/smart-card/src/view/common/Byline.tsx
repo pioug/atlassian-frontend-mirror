@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { gs, mq } from './utils';
 
 export interface BylineProps {
@@ -16,7 +17,7 @@ export const Byline = ({ text, children, testId, className }: BylineProps) => (
     css={mq({
       fontSize: gs(1.5),
       lineHeight: gs(2.5),
-      color: `${N300}`,
+      color: `${token('color.text.subtlest', N300)}`,
       fontWeight: 'normal',
       marginTop: gs(0.5),
       // Spec: only allow two lines MAX to be shown.

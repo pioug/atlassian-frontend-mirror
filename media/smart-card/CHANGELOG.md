@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 18.0.17
+
+### Patch Changes
+
+- [`79b365c3757`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79b365c3757) - [ux] If the "authFlow: disabled" prop is provided on the Smart Card Provider, then the call to action to authenticate forbidden links will also be disabled (in addition to the existing behaviour where only unauthenticated links have the call to action disabled).
+
+## 18.0.16
+
+### Patch Changes
+
+- [`63d05619104`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63d05619104) - [ux] Instrumented `@atlaskit/smart-card` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
 ## 18.0.15
 
 ### Patch Changes

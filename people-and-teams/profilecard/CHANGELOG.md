@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.4.4
+
+### Patch Changes
+
+- [`b876346271a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b876346271a) - Ensure that component wrapping a ProfileCardTrigger is not clicked when clicking the trigger
+
 ## 16.4.3
 
 ### Patch Changes

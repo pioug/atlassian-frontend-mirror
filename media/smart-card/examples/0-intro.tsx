@@ -12,6 +12,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import SmartCardClient from '../src/client';
 import { ufologger } from '@atlaskit/ufo';
+import { token } from '@atlaskit/tokens';
 
 ufologger.enable();
 
@@ -84,7 +85,7 @@ class Example extends React.Component<{}, ExampleState> {
                   style={{
                     margin: '20px 0',
                     minHeight: 150,
-                    borderBottom: '1px solid #eee',
+                    borderBottom: `1px solid ${token('color.border', '#eee')}`,
                   }}
                 >
                   {this.renderCard(url, isSelected, appearance)}

@@ -4,7 +4,11 @@ import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
-import { ColorCardOption, ColorCardContent } from '../styled/ColorCard';
+import {
+  ColorCardOption,
+  ColorCardContent,
+  ColorCardContentCheckMark,
+} from '../styled/ColorCard';
 import { KEY_SPACE, KEY_ENTER } from '../constants';
 
 export interface Props {
@@ -49,6 +53,7 @@ export default class ColorCard extends PureComponent<Props> {
       label,
       selected,
       focused,
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       checkMarkColor = colors.N0,
     } = this.props;
 
@@ -63,7 +68,9 @@ export default class ColorCard extends PureComponent<Props> {
       >
         <ColorCardContent color={value || 'transparent'}>
           {selected && (
-            <EditorDoneIcon primaryColor={checkMarkColor} label="" />
+            <ColorCardContentCheckMark>
+              <EditorDoneIcon primaryColor={checkMarkColor} label="" />
+            </ColorCardContentCheckMark>
           )}
         </ColorCardContent>
       </ColorCardOption>

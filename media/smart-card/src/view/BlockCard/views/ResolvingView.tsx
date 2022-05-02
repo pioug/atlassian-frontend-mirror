@@ -4,6 +4,7 @@ import { jsx } from '@emotion/core';
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { N50, N90 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { Frame } from '../components/Frame';
 import { gs } from '../../common/utils';
@@ -30,11 +31,15 @@ export const ResolvingView = ({
     testId={testId}
     className={blockCardResolvingViewClassName}
   >
-    <DocumentFilledIcon size="small" primaryColor={N50} label="document-icon" />
+    <DocumentFilledIcon
+      size="small"
+      primaryColor={token('color.icon.subtle', N50)}
+      label="document-icon"
+    />
     <span
       css={{
         fontSize: `${fontSize()}px`,
-        color: N90,
+        color: token('color.text.subtlest', N90),
         marginLeft: gs(0.5),
       }}
     >

@@ -4,6 +4,7 @@ import CollapseIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 
 import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import Button from '@atlaskit/button/standard-button';
 
 import { ProviderCard } from './ProviderCard';
@@ -86,7 +87,12 @@ export const ProviderCategory = ({
           >
             {categoryTitle}
           </h4>
-          <h5 style={{ color: N200, paddingBottom: '24px' }}>
+          <h5
+            style={{
+              color: token('color.text.subtlest', N200),
+              paddingBottom: '24px',
+            }}
+          >
             {categoryExamplesTotal} entities supported across {examples.length}{' '}
             providers.
           </h5>

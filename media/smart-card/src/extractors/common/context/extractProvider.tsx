@@ -1,5 +1,6 @@
 import React from 'react';
 import { N700, B200, B400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { JsonLd } from 'json-ld-types';
@@ -45,20 +46,24 @@ const extractProviderIcon = (
     if (id === CONFLUENCE_GENERATOR_ID) {
       return (
         <ConfluenceIcon
-          textColor={N700}
+          textColor={token('color.text.subtle', N700)}
+          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
           iconColor={B200}
           iconGradientStart={B400}
           iconGradientStop={B200}
+          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
           size="xsmall"
         />
       );
     } else if (id === JIRA_GENERATOR_ID) {
       return (
         <JiraIcon
-          textColor={N700}
+          textColor={token('color.text.subtle', N700)}
+          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
           iconColor={B200}
           iconGradientStart={B400}
           iconGradientStop={B200}
+          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
           size="xsmall"
         />
       );

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { css } from '@emotion/core';

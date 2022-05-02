@@ -5,6 +5,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { fontSize } from '@atlaskit/theme/constants';
 import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Frame } from '../../BlockCard/components/Frame';
 import { FormattedMessage } from 'react-intl-next';
@@ -30,7 +31,11 @@ export const EmbedCardErroredView = ({
     isSelected={isSelected}
     testId={testId}
   >
-    <ErrorIcon size="small" primaryColor={R300} label="error-icon" />
+    <ErrorIcon
+      size="small"
+      primaryColor={token('color.icon.danger', R300)}
+      label="error-icon"
+    />
     <span
       css={{
         fontSize: `${fontSize()}px`,

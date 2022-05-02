@@ -4,6 +4,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { gs } from './utils';
 import { N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export interface MetadataProps {
   /* Text to be displayed at the bottom of a card - most often the provider name. */
@@ -27,7 +28,7 @@ export const Metadata = ({ text, icon, iconUrl, tooltip }: MetadataProps) => {
       <span
         css={{
           fontSize: gs(1.5),
-          color: `${N300}`,
+          color: `${token('color.text.subtlest', N300)}`,
           marginRight: gs(0.5),
           marginLeft: '2px',
         }}

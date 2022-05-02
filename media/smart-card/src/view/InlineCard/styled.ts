@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { B400, N200 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 const LINK_COLOR_DARK = '#4794FF';
 
@@ -26,7 +27,10 @@ export const IconStyledButton = styled.span`
 `;
 
 export const NoLinkAppearance = styled.span`
-  color: ${themed({ light: N200, dark: LINK_COLOR_DARK })};
+  color: ${themed({
+    light: token('color.text.subtlest', N200),
+    dark: token('color.text.subtlest', LINK_COLOR_DARK),
+  })};
 `;
 
 export const LowercaseAppearance = styled.span`
@@ -34,5 +38,8 @@ export const LowercaseAppearance = styled.span`
 `;
 
 export const LinkAppearance = styled.span`
-  color: ${themed({ light: B400, dark: LINK_COLOR_DARK })};
+  color: ${themed({
+    light: token('color.link', B400),
+    dark: token('color.link', LINK_COLOR_DARK),
+  })};
 `;

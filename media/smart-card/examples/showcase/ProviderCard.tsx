@@ -10,6 +10,7 @@ import ExpandIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import CollapseIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import { N50A, N40A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { ExampleUrl, ExampleUIConfig, ExampleRolloutStatus } from './types';
 import { ProviderCardExampleList } from './ProviderCardExampleList';
@@ -18,14 +19,20 @@ const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {
   const base = css`
     padding: 24px;
     margin-bottom: 24px;
-    box-shadow: 0 1px 1px ${N50A}, 0 0 1px 1px ${N40A};
+    box-shadow: ${token(
+      'elevation.shadow.raised',
+      `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
+    )};
     width: calc(85% - 48px);
     border-radius: ${borderRadius()}px;
-    background-color: white;
+    background-color: ${token('elevation.surface.raised', 'white')};
     cursor: pointer;
     transition: 0.3s ease-in-out all;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.03);
+      background-color: ${token(
+        'color.background.neutral.subtle.hovered',
+        'rgba(0, 0, 0, 0.03)',
+      )};
     }
   `;
   const disabledCss = disabled

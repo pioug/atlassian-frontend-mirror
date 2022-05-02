@@ -1,5 +1,6 @@
 import React from 'react';
 import { N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { ExampleUrl, ExampleUIConfig } from './types';
 import { ProviderCardExampleWithErrorBoundary } from './ProviderCardExampleWithErrorBoundaryProps';
 
@@ -18,7 +19,7 @@ export const ProviderCardExampleList = ({
             <h6
               style={{
                 textTransform: 'uppercase',
-                color: N300,
+                color: token('color.text.subtle', N300),
               }}
             >
               {example.displayName}

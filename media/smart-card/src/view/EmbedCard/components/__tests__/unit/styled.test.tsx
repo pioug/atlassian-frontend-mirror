@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { matchers } from 'jest-emotion';
-import { N30 } from '@atlaskit/theme/colors';
 import {
   Wrapper,
   LinkWrapper,
@@ -91,23 +90,35 @@ describe('Content', () => {
 describe('IconWrapper', () => {
   it('should look like a placeholder when isPlaceholder=true', () => {
     const element = mount(<IconWrapper isPlaceholder={true} />);
-    expect(element).toHaveStyleRule('background-color', N30);
+    expect(element).toHaveStyleRule(
+      'background-color',
+      'var(--ds-skeleton,#EBECF0)',
+    );
   });
 
   it('should look like a placeholder when isPlaceholder=false', () => {
     const element = mount(<IconWrapper isPlaceholder={false} />);
-    expect(element).not.toHaveStyleRule('background-color', N30);
+    expect(element).not.toHaveStyleRule(
+      'background-color',
+      'var(--ds-skeleton,#EBECF0)',
+    );
   });
 });
 
 describe('TextWrapper', () => {
   it('should look like a placeholder when isPlaceholder=true', () => {
     const element = mount(<TextWrapper isPlaceholder={true} />);
-    expect(element).toHaveStyleRule('background-color', N30);
+    expect(element).toHaveStyleRule(
+      'background-color',
+      'var(--ds-skeleton,#EBECF0)',
+    );
   });
 
   it('should look like a placeholder when isPlaceholder=false', () => {
     const element = mount(<TextWrapper isPlaceholder={false} />);
-    expect(element).not.toHaveStyleRule('background-color', N30);
+    expect(element).not.toHaveStyleRule(
+      'background-color',
+      'var(--ds-skeleton,#EBECF0)',
+    );
   });
 });

@@ -17,6 +17,7 @@ import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
 import { ActionProps } from '../components/Action';
 import { RetryAction } from '../actions/RetryAction';
+import { token } from '@atlaskit/tokens';
 
 const textDescriptionProps = { ...messages.could_not_load_link };
 
@@ -72,7 +73,7 @@ export const ErroredView = ({
                 <WarningIcon
                   label="errored-warning-icon"
                   size="small"
-                  primaryColor={R300}
+                  primaryColor={token('color.icon.warning', R300)}
                   testId={`${testId}-warning-icon`}
                 />
               }

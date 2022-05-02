@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { N300 } from '@atlaskit/theme/colors';
 import { gs } from '../../common/utils';
+import { token } from '@atlaskit/tokens';
 
 export interface ProviderProps {
   name: string;
@@ -27,7 +28,7 @@ export const Provider = ({ name, icon }: ProviderProps) => {
       <span
         css={{
           fontSize: gs(1.5),
-          color: N300,
+          color: token('color.text.subtlest', N300),
           margin: 0,
           marginLeft: gs(0.5),
           // EDM-713: fixes copy-paste from renderer to editor for Firefox

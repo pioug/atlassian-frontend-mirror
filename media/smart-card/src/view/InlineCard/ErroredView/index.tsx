@@ -1,5 +1,6 @@
 import React from 'react';
 import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import Button from '@atlaskit/button/custom-theme-button';
 import { Frame } from '../Frame';
@@ -91,7 +92,11 @@ export class InlineCardErroredView extends React.Component<
           icon={
             icon || (
               <AKIconWrapper>
-                <ErrorIcon label="error" size="small" primaryColor={R300} />
+                <ErrorIcon
+                  label="error"
+                  size="small"
+                  primaryColor={token('color.icon.danger', R300)}
+                />
               </AKIconWrapper>
             )
           }

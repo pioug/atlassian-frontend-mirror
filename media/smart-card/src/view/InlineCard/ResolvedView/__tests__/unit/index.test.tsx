@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Lozenge from '@atlaskit/lozenge';

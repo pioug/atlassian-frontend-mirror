@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import Select, { OptionsType } from '@atlaskit/select';
 import { N50A, N40A, N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { CardAppearance } from '../../src';
 import { CardAuthFlowOpts } from '../../src/state/context/types';
@@ -43,7 +44,7 @@ const menuWrapperStyles = css`
 `;
 const menuTitleStyles = css`
   margin-bottom: 8px;
-  color: ${N200};
+  color: ${token('color.text.subtlest', N200)};
 `;
 
 interface ShowcaseMenuProps {
@@ -71,8 +72,11 @@ export const ShowcaseMenu = ({
         left: 0,
         width: '100%',
         padding: '24px 60px',
-        backgroundColor: 'white',
-        boxShadow: `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
+        backgroundColor: token('elevation.surface', 'white'),
+        boxShadow: token(
+          'elevation.shadow.overflow',
+          `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
+        ),
         display: 'flex',
         zIndex: 500,
       }}

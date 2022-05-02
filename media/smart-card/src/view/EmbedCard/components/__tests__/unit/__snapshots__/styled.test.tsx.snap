@@ -26,11 +26,11 @@ exports[`LinkWrapper should have hover styles when isInteractive=true 1`] = `
 }
 
 .emotion-0:hover {
-  background-color: #EBECF0;
+  background-color: var(--ds-background-neutral-subtle,#EBECF0);
 }
 
 .emotion-0:hover:after {
-  background: #EBECF0 !important;
+  background: var(--ds-background-neutral,#EBECF0) !important;
 }
 
 .emotion-0:hover .embed-header {
@@ -38,7 +38,7 @@ exports[`LinkWrapper should have hover styles when isInteractive=true 1`] = `
 }
 
 .emotion-0:active {
-  background-color: #DEEBFF;
+  background-color: var(--ds-background-selected,#DEEBFF);
 }
 
 .emotion-0:after {
@@ -145,11 +145,11 @@ exports[`Wrapper should have hover styles when isInteractive=true 1`] = `
 }
 
 .emotion-0:hover {
-  background-color: #EBECF0;
+  background-color: var(--ds-background-neutral-subtle,#EBECF0);
 }
 
 .emotion-0:hover:after {
-  background: #EBECF0 !important;
+  background: var(--ds-background-neutral,#EBECF0) !important;
 }
 
 .emotion-0:hover .embed-header {
@@ -157,7 +157,7 @@ exports[`Wrapper should have hover styles when isInteractive=true 1`] = `
 }
 
 .emotion-0:active {
-  background-color: #DEEBFF;
+  background-color: var(--ds-background-selected,#DEEBFF);
 }
 
 .emotion-0:after {

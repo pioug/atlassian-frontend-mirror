@@ -7,6 +7,7 @@ import {
 } from '@atlaskit/media-ui';
 import { fontFamily } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
 
 export const className = 'media-card-frame';
@@ -46,7 +47,7 @@ function getinteractiveStyles({ isInteractive, isFrameVisible }: WrapperProps) {
     ${visibleStyles}
   }
   &:active {
-    background-color: ${colors.B50};
+    background-color: ${token('color.background.selected', colors.B50)};
   }
 `
     : '';
@@ -60,7 +61,7 @@ function selected({ isSelected }: WrapperProps) {
     ${visibleStyles}
     &::after {
       cursor: pointer;
-      box-shadow: 0 0 0 3px ${colors.B100};
+      box-shadow: 0 0 0 3px ${token('color.border.selected', colors.B100)};
       content: '';
       outline: none;
       position: absolute;
@@ -107,10 +108,10 @@ const wrapperStyles = (props: WrapperProps) => `
 `;
 
 const visibleStyles = `
-  background-color: ${colors.N30};
+  background-color: ${token('color.background.neutral.subtle', colors.N30)};
 
   &:after {
-    background: ${colors.N30} !important;
+    background: ${token('color.background.neutral', colors.N30)} !important;
   }
   .embed-header {
     opacity: 1;
@@ -139,7 +140,7 @@ export const Header = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  color: ${colors.N300};
+  color: ${token('color.icon', colors.N300)};
   opacity: 0;
   transition: 300ms opacity cubic-bezier(0.15, 1, 0.3, 1);
 `;
@@ -154,7 +155,7 @@ export const IconWrapper = styled.div`
   ${({ isPlaceholder }: PlaceholderProps) => {
     if (isPlaceholder) {
       return `
-      background-color: ${colors.N30};
+      background-color: ${token('color.skeleton', colors.N30)};
     `;
     } else {
       return '';
@@ -169,12 +170,12 @@ export const TextWrapper = styled.div`
         ${borderRadius}
         width: 125px;
         height: 12px;
-        background-color: ${colors.N30};
+        background-color: ${token('color.skeleton', colors.N30)};
       `;
     } else {
       return '';
     }
-  }} color: ${colors.N300};
+  }} color: ${token('color.text.subtlest', colors.N300)};
   font-size: 12px;
   line-height: 16px;
   ${ellipsis('none')};
@@ -190,7 +191,7 @@ export interface ContentProps {
 export const Content = styled.div`
   ${borderRadius}
   ${cardShadow}
-  background-color: white;
+  background-color: ${token('elevation.surface', 'white')};
   position: absolute;
   z-index: 1;
   width: 100%;
@@ -214,8 +215,10 @@ export const Content = styled.div`
     if (isInteractive) {
       return `
           .${className}:hover & {
-            box-shadow: 0 4px 8px -2px rgba(23, 43, 77, 0.32),
-              0 0 1px rgba(23, 43, 77, 0.25);
+            box-shadow: ${token(
+              'elevation.shadow.overlay',
+              '0 4px 8px -2px rgba(23, 43, 77, 0.32), 0 0 1px rgba(23, 43, 77, 0.25)',
+            )};
           }
         `;
     } else {
@@ -246,7 +249,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  color: ${colors.N900};
+  color: ${token('color.text', colors.N900)};
   font-size: 16px;
   font-weight: 500;
   line-height: ${20 / 16};
@@ -256,7 +259,7 @@ export const Title = styled.div`
 
 export const Byline = styled.div`
   margin-top: 4px;
-  color: ${colors.N300};
+  color: ${token('color.text.subtlest', colors.N300)};
   font-size: 12px;
   font-weight: normal;
   line-height: ${16 / 12};
@@ -265,7 +268,7 @@ export const Byline = styled.div`
 
 export const Description = styled.div`
   margin-top: 7px;
-  color: ${colors.N800};
+  color: ${token('color.text', colors.N800)};
   font-size: 12px;
   font-weight: normal;
   line-height: ${18 / 12};
@@ -286,7 +289,7 @@ export const Thumbnail = styled.div`
   ${size(48)}
   float: right;
   margin: 4px 0 12px 12px;
-  background-color: ${colors.N30};
+  background-color: ${token('color.skeleton', colors.N30)};
   background-image: url(${({ src }: ThumbnailProps) => src});
   background-size: cover;
 `;

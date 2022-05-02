@@ -5,6 +5,7 @@ import { B200, B400, N700, R400 } from '@atlaskit/theme/colors';
 
 import { IconType } from '../../../../../constants';
 import { AtlaskitIconProps } from './types';
+import { token } from '@atlaskit/tokens';
 
 // prettier-ignore
 const importIconMapper: {
@@ -113,15 +114,23 @@ const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
       return (
         <ImportedIcon
           data-testid={testId} // Confluence and Jira imports don't have native testId prop
-          textColor={N700}
+          textColor={token('color.text.subtle', N700)}
+          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
           iconColor={B200}
           iconGradientStart={B400}
           iconGradientStop={B200}
+          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
         />
       );
     case IconType.Error:
     case IconType.Forbidden:
-      return <ImportedIcon label={label} testId={testId} primaryColor={R400} />;
+      return (
+        <ImportedIcon
+          label={label}
+          testId={testId}
+          primaryColor={token('color.icon.danger', R400)}
+        />
+      );
     default:
       return <ImportedIcon label={label} testId={testId} />;
   }

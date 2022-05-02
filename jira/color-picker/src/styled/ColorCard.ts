@@ -3,12 +3,16 @@ import styled, { css } from 'styled-components';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius, colors } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from '../constants';
+import { token } from '@atlaskit/tokens';
 
 type ColorCardProps = {
   focused?: boolean;
 };
 
-const buttonFocusedBorder = `border-color: ${colors.B100};`;
+const buttonFocusedBorder = `border-color: ${token(
+  'color.border.focused',
+  colors.B100,
+)};`;
 
 const sharedColorContainerStyles = css`
   display: inline-block;
@@ -26,7 +30,7 @@ const sharedColorContainerStyles = css`
   outline: none;
   &:hover,
   &:focus {
-    border-color: ${colors.B75};
+    border-color: ${token('color.border.focused', colors.B75)};
   }
 `;
 
@@ -37,7 +41,7 @@ export const ColorCardOption = styled.div<
 
   ${(props) => {
     if (props.focused) {
-      return `border-color: ${colors.B75}`;
+      return `border-color: ${token('color.border.focused', colors.B75)}`;
     }
   }};
 `;
@@ -65,13 +69,19 @@ type ColorCardContentProps = {
   color: string;
 };
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const ColorCardContent = styled.div<ColorCardContentProps>`
   position: absolute;
   top: 1px;
   left: 1px;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: ${borderRadius()}px;
   background: ${(props) => props.color};
-  border: 1px solid hsla(0, 0%, 0%, 0.2);
+  box-shadow: inset 0px 0px 0px 1px
+    ${token('color.background.inverse.subtle', colors.DN600A)};
+`;
+
+export const ColorCardContentCheckMark = styled.div`
+  margin: 1px;
 `;

@@ -17,6 +17,7 @@ import { ContentHeader } from '../components/ContentHeader';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
 import { handleClickCommon } from '../utils/handlers';
+import { token } from '@atlaskit/tokens';
 
 const textDescriptionProps = { ...messages.not_found_description };
 
@@ -63,7 +64,7 @@ export const NotFoundView = ({
                 <WarningIcon
                   label="not-found-warning-icon"
                   size="small"
-                  primaryColor={R300}
+                  primaryColor={token('color.icon.warning', R300)}
                   testId={`${testId}-warning-icon`}
                 />
               }

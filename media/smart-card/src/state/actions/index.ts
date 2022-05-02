@@ -82,7 +82,10 @@ export const useSmartCardActions = (
 
       // If we require authorization & do not have an authFlow available,
       // throw an error and render as a normal blue link.
-      if (nextStatus === 'unauthorized' && !hasAuthFlowSupported) {
+      if (
+        (nextStatus === 'unauthorized' || nextStatus === 'forbidden') &&
+        !hasAuthFlowSupported
+      ) {
         handleResolvedLinkError(
           resourceUrl,
           new APIError('fallback', hostname, ERROR_MESSAGE_OAUTH),

@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import { FormattedMessage } from 'react-intl-next';
 import { MouseEvent } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 
 import { Frame } from '../components/Frame';
@@ -85,7 +86,7 @@ export const ForbiddenView = ({
                 <LockIcon
                   label="forbidden-lock-icon"
                   size="small"
-                  primaryColor={R300}
+                  primaryColor={token('color.icon.danger', R300)}
                   testId={`${testId}-lock-icon`}
                 />
               }

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Provider, Client } from '../../src';
 import { IntlProvider } from 'react-intl-next';
 import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { ProviderCategory } from './ProviderCategory';
 import { ShowcaseMenu } from './Menu';
 import { exampleSpinner } from './Spinner';
@@ -69,7 +70,12 @@ export const SmartLinksShowcase = () => {
               }}
             >
               <h1>✨ Smart Links Showcase ✨</h1>
-              <h3 style={{ paddingBottom: '60px', color: N200 }}>
+              <h3
+                style={{
+                  paddingBottom: '60px',
+                  color: token('color.text.subtlest', N200),
+                }}
+              >
                 {entitiesSupported} entities supported across{' '}
                 {providersSupported} providers.
               </h3>

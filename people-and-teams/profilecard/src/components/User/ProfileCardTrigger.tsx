@@ -55,6 +55,15 @@ class ProfilecardTrigger extends React.PureComponent<
     }, this.showDelay);
   };
 
+  onClick = (event: React.MouseEvent) => {
+    // If the user clicks on the trigger then we don't want that click event to
+    // propagate out to parent containers. For example when clicking a mention
+    // lozenge in an inline-edit.
+    event.stopPropagation();
+
+    this.showProfilecard();
+  };
+
   containerListeners =
     this.props.trigger === 'hover'
       ? {
@@ -62,7 +71,7 @@ class ProfilecardTrigger extends React.PureComponent<
           onMouseLeave: this.hideProfilecard,
         }
       : {
-          onClick: this.showProfilecard,
+          onClick: this.onClick,
         };
 
   layerListeners = {

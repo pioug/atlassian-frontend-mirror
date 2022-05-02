@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
+import { token } from '@atlaskit/tokens';
 
 const placeholderShimmer = keyframes`
   0% {
@@ -45,14 +46,14 @@ export const Shimmer = styled.span`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  background: #f6f7f8;
+  background: ${token('color.skeleton.subtle', '#f6f7f8')};
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-4236
   background-image: linear-gradient(
     to right,
-    #f6f7f8 0%,
-    #edeef1 20%,
-    #f6f7f8 40%,
-    #f6f7f8 100%
+    ${token('color.skeleton.subtle', '#f6f7f8')} 0%,
+    ${token('color.skeleton', '#edeef1')} 20%,
+    ${token('color.skeleton.subtle', '#f6f7f8')} 40%,
+    ${token('color.skeleton.subtle', '#f6f7f8')}100%
   );
   background-repeat: no-repeat;
   background-size: 40px 14px;

@@ -5,6 +5,7 @@ import { css, jsx, keyframes } from '@emotion/core';
 import ImageLoader from 'react-render-image';
 
 import { ImageIconProps } from './types';
+import { token } from '@atlaskit/tokens';
 
 const placeholderShimmer = keyframes`
   0% { background-position: -20px 0; }
@@ -14,14 +15,14 @@ const placeholderShimmer = keyframes`
 const shimmer = css`
   border-radius: 2px;
   user-select: none;
-
-  background: #f6f7f8;
+  background: ${token('color.skeleton.subtle', '#f6f7f8')};
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-4236
   background-image: linear-gradient(
     to right,
-    #f6f7f8 0%,
-    #edeef1 20%,
-    #f6f7f8 40%,
-    #f6f7f8 100%
+    ${token('color.skeleton.subtle', '#f6f7f8')} 0%,
+    ${token('color.skeleton', '#edeef1')} 20%,
+    ${token('color.skeleton.subtle', '#f6f7f8')} 40%,
+    ${token('color.skeleton.subtle', '#f6f7f8')}100%
   );
   background-repeat: no-repeat;
   background-size: 280% 100%;

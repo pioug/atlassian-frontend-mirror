@@ -1,5 +1,6 @@
 import React from 'react';
 import { R400, N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Button from '@atlaskit/button/custom-theme-button';
 import { Frame } from '../Frame';
@@ -35,7 +36,11 @@ export interface InlineCardForbiddenViewProps {
 
 const FallbackForbiddenIcon = (
   <AKIconWrapper>
-    <LockIcon label="error" size="small" primaryColor={R400} />
+    <LockIcon
+      label="error"
+      size="small"
+      primaryColor={token('color.icon.danger', R400)}
+    />
   </AKIconWrapper>
 );
 
@@ -123,7 +128,7 @@ export class InlineCardForbiddenView extends React.Component<
         <IconAndTitleLayout
           icon={icon ? icon : FallbackForbiddenIcon}
           title={this.renderMessage()}
-          titleColor={N500}
+          titleColor={token('color.text.subtle', N500)}
         />
       </Frame>
     );

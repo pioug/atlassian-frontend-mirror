@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { css } from '@emotion/core';
 import { render } from '@testing-library/react';

@@ -122,7 +122,7 @@ describe('Smart Card: Actions', () => {
       });
     });
 
-    it('resolves to error data if no authFlow is available and authorisation is required', async () => {
+    it('resolves to error data if no authFlow is available and authorisation is required (unauthorized)', async () => {
       mockContext = {
         ...mockContext,
         config: {
@@ -133,6 +133,40 @@ describe('Smart Card: Actions', () => {
       mockFetchData(Promise.resolve(mocks.unauthorized));
       mockState({
         status: 'unauthorized',
+        details: undefined,
+      });
+
+      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const actions = useSmartCardActions(id, url, analytics);
+      const promise = actions.register();
+      await expect(promise).resolves.toBeUndefined();
+
+      expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+        url,
+      );
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+      expect(mockContext.store.dispatch).nthCalledWith(2, {
+        type: 'fallback',
+        url: 'https://some/url',
+        error: new APIError(
+          'fallback',
+          'https://some',
+          'Provider.authFlow is not set to OAuth2.',
+        ),
+      });
+    });
+
+    it('resolves to error data if no authFlow is available and authorisation is required (forbidden)', async () => {
+      mockContext = {
+        ...mockContext,
+        config: {
+          ...mockContext.config,
+          authFlow: 'disabled',
+        },
+      };
+      mockFetchData(Promise.resolve(mocks.forbidden));
+      mockState({
+        status: 'forbidden',
         details: undefined,
       });
 

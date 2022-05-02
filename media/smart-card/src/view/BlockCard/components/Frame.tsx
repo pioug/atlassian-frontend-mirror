@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { N20A, N30A, B200, N40A, N50A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { gs, br, mq } from '../../common/utils';
 
@@ -33,7 +34,7 @@ const sharedFrameStyles = {
   maxWidth: gs(95),
   width: '100%',
   display: 'flex',
-  backgroundColor: 'white',
+  backgroundColor: token('elevation.surface', 'white'),
 } as const;
 
 export const ExpandedFrame = ({
@@ -50,16 +51,25 @@ export const ExpandedFrame = ({
         ...sharedFrameStyles,
         '&:hover': isHoverable
           ? {
-              backgroundColor: N20A,
+              // TODO: https://product-fabric.atlassian.net/browse/DSP-4064
+              backgroundColor: token(
+                'color.background.neutral.subtle.hovered',
+                N20A,
+              ),
               cursor: 'pointer',
             }
           : undefined,
         minHeight: isFluidHeight ? 0 : [gs(21), gs(15)],
         borderRadius: isSelected ? br() : br(0.5),
-        border: `2px solid ${isSelected ? B200 : 'transparent'}`,
+        border: `2px solid ${
+          isSelected ? token('color.border.selected', B200) : 'transparent'
+        }`,
         justifyContent: 'space-between',
         overflow: 'hidden',
-        boxShadow: `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A};`,
+        boxShadow: token(
+          'elevation.shadow.raised',
+          `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
+        ),
       })}
       data-testid={testId}
       className={className}
@@ -84,15 +94,17 @@ export const CompactFrame = ({
         ...sharedFrameStyles,
         '&:hover': isHoverable
           ? {
-              backgroundColor: N30A,
+              backgroundColor: token('color.background.neutral.hovered', N30A),
             }
           : undefined,
         borderRadius: isSelected ? br() : br(0.5),
-        border: isSelected ? `2px solid ${B200}` : '',
+        border: isSelected
+          ? `2px solid ${token('color.border.selected', B200)}`
+          : '',
         justifyContent: 'center',
         alignItems: 'center',
         height: inheritDimensions ? '100%' : gs(5),
-        backgroundColor: N20A,
+        backgroundColor: token('color.background.neutral', N20A),
         width: ['calc(100% - 16px)', '100%'],
         padding: [`0px ${gs(1)}`, '0'],
       })}

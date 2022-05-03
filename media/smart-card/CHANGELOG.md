@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 18.0.19
+
+### Patch Changes
+
+- [`c09b670ffa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c09b670ffa1) - Flexible UI: Add container clickable option and improve keyboard navigation
+
+## 18.0.18
+
+### Patch Changes
+
+- [`63f6330be06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63f6330be06) - [ux] Flexible UI: Change loading spinner on resolving view to loading skeleton
+
 ## 18.0.17
 
 ### Patch Changes

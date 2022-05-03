@@ -2,27 +2,12 @@
 import React from 'react';
 
 import { jsx } from '@emotion/core';
-import Spinner from '@atlaskit/spinner';
 
 import { TitleBlockViewProps } from '../types';
 import Block from '../../block';
 import { SmartLinkSize } from '../../../../../../constants';
-
-const getSpinnerSize = (size: SmartLinkSize) => {
-  // Spinner sizes should be equivalent or smaller than Icon size
-  // to avoid the jumping.
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return 28;
-    case SmartLinkSize.Large:
-      return 24;
-    case SmartLinkSize.Medium:
-      return 16;
-    case SmartLinkSize.Small:
-    default:
-      return 12;
-  }
-};
+import LoadingSkeleton from '../../../common/loading-skeleton';
+import { getIconSizeStyles, getIconWidth } from '../../../utils';
 
 /**
  * This represents a TitleBlock for a Smart Link that is currently waiting
@@ -37,12 +22,14 @@ const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
   ...blockProps
 }) => {
   const { size = SmartLinkSize.Medium } = blockProps;
+  const iconWidth = getIconWidth(size);
+  const iconStyles = getIconSizeStyles(iconWidth);
+
   return (
     <Block {...blockProps} testId={`${testId}-resolving-view`}>
-      <Spinner
-        size={getSpinnerSize(size)}
-        testId={`${testId}-resolving-spinner`}
-      />
+      <span css={iconStyles} data-testid={`${testId}-icon`}>
+        <LoadingSkeleton testId={`${testId}-icon-loading`} />
+      </span>
       {title}
       {actionGroup}
     </Block>

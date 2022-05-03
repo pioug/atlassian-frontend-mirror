@@ -454,6 +454,7 @@ Primary text color
             state: 'deprecated',
             description: 'token description',
             introduced: '0.1.0',
+            deprecated: '0.2.0',
           },
         },
       });
@@ -512,6 +513,7 @@ Primary text color
             group: 'paint',
             state: 'deprecated',
             introduced: '0.1.0',
+            deprecated: '0.2.0',
             replacement: 'color.text.brand',
             description: 'Primary text color',
           },
@@ -522,6 +524,7 @@ Primary text color
             group: 'paint',
             state: 'deprecated',
             introduced: '0.1.0',
+            deprecated: '0.2.0',
             replacement: ['color.text.brand', 'color.text.danger'],
             description: 'Primary text color',
           },

@@ -12,20 +12,25 @@ import {
 } from './_utils';
 import { selectors } from '../__helpers/page-objects/_annotation';
 import * as annotationAdf from '../__fixtures__/annotation-adf.json';
+import { ThemeModes } from '@atlaskit/theme/types';
+import { RendererAppearance } from '../../ui/Renderer/types';
 
 const initRenderer = async (
   page: PuppeteerPage,
   adf: any,
   isMobile = false,
+  themeMode: ThemeModes = 'light',
 ) => {
   let device = Device.LaptopMDPI;
   let viewport: ViewPortOptions = deviceViewPorts[device];
+  let appearance: RendererAppearance = 'full-page';
   if (isMobile) {
+    appearance = 'mobile';
     device = Device.iPhonePlus;
     viewport = { ...deviceViewPorts[device], hasTouch: true, isMobile: true };
   }
   await initRendererWithADF(page, {
-    appearance: 'full-page',
+    appearance,
     device: device,
     viewport: viewport,
     rendererProps: {
@@ -34,6 +39,7 @@ const initRenderer = async (
       mockInlineComments: true,
     },
     adf,
+    themeMode,
   });
 };
 
@@ -45,6 +51,12 @@ describe('Snapshot Test: Annotation in renderer', () => {
 
   test(`displays annotation correctly`, async () => {
     await initRenderer(page, annotationAdf);
+    await page.waitForSelector(selectors.annotation);
+    await snapshot(page, undefined, selectors.annotation);
+  });
+
+  test(`displays annotation correctly in dark mode`, async () => {
+    await initRenderer(page, annotationAdf, false, 'dark');
     await page.waitForSelector(selectors.annotation);
     await snapshot(page, undefined, selectors.annotation);
   });

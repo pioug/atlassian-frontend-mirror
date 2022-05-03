@@ -1,4 +1,4 @@
-import { CSS_PREFIX } from './constants';
+import { CSS_PREFIX } from '../constants';
 
 /**
  * Transforms a style dictionary token path to a CSS custom property.

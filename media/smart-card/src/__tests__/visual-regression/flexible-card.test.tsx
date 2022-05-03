@@ -6,7 +6,7 @@ describe('Flexible Card', () => {
     const page = await setup(url);
     await page.waitForSelector('[data-testid="smart-links-container"]');
 
-    const image = await takeSnapshot(page, 750);
+    const image = await takeSnapshot(page, 850);
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -220,6 +220,67 @@ describe('Flexible Card', () => {
       const image = await takeSnapshot(page, 240);
 
       expect(image).toMatchProdImageSnapshot();
+    });
+
+    it('able to navigate with keyboard', async () => {
+      const height = 240;
+      const url = getURL('vr-flexible-ui-accessibility');
+      const page = await setup(url);
+
+      await page.waitForSelector('[data-testid="smart-links-container"]');
+      await page.waitForSelector('[data-testid="keyboard-1-resolved-view"]');
+
+      // Focus on link
+      const linkSelector = '[data-testid="smart-element-link"]';
+      await page.waitForSelector(linkSelector);
+      await page.focus(linkSelector);
+      await page.waitForSelector('[data-testid="smart-element-link-tooltip"]');
+      const imageFocusOnLink = await takeSnapshot(page, height);
+      expect(imageFocusOnLink).toMatchProdImageSnapshot();
+
+      // Focus on More action button
+      await page.keyboard.press('Tab');
+      await page.waitForSelector('[data-testid="smart-element-link-tooltip"]', {
+        hidden: true,
+      });
+      const imageMoreAction = await takeSnapshot(page, height);
+      expect(imageMoreAction).toMatchProdImageSnapshot();
+
+      // Open More action menu and focus on the first action
+      await page.keyboard.press('Enter');
+      await page.waitForSelector('[data-testid="action-item-custom"]');
+      const imageOpenMoreAction = await takeSnapshot(page, height);
+      expect(imageOpenMoreAction).toMatchProdImageSnapshot();
+
+      // Focus on second action
+      await page.keyboard.press('Tab');
+      const imageSecondAction = await takeSnapshot(page, height);
+      expect(imageSecondAction).toMatchProdImageSnapshot();
+
+      // Unresolved view: Focus on link
+      await page.waitForSelector('[data-testid="keyboard-2-errored-view"]');
+      await page.keyboard.press('Escape'); // Close more menu
+      await page.waitForSelector(
+        '.atlaskit-portal-container [data-testid="action-item-custom"]',
+        { hidden: true },
+      );
+      await page.keyboard.press('Tab'); // Go to next link
+      await page.waitForSelector('[data-testid="smart-element-link-tooltip"]');
+      const imageUnresolvedLink = await takeSnapshot(page, height);
+      expect(imageUnresolvedLink).toMatchProdImageSnapshot();
+
+      // Unresolved view: Focus on try to connect
+      await page.keyboard.press('Tab');
+      await page.waitForSelector('[data-testid="smart-element-link-tooltip"]', {
+        hidden: true,
+      });
+      const imageUnresolvedAuthenticate = await takeSnapshot(page, height);
+      expect(imageUnresolvedAuthenticate).toMatchProdImageSnapshot();
+
+      // Unresolved view: Focus on first action
+      await page.keyboard.press('Tab');
+      const imageUnresolvedAction = await takeSnapshot(page, height);
+      expect(imageUnresolvedAction).toMatchProdImageSnapshot();
     });
   });
 });

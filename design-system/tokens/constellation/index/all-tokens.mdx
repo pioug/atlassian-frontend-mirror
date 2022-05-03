@@ -2,4 +2,29 @@
 order: 1
 ---
 
-All design tokens
+import SectionMessage, {
+  SectionMessageAction,
+} from '@atlaskit/section-message';
+import TokenExplorer from '../../docs/token-explorer';
+
+<SectionMessage
+  title="Tokens and theming are in beta — expect frequent changes"
+  appearance="warning"
+  actions={[
+    <SectionMessageAction href="/foundations/colors/">
+      Learn more about the new colors
+    </SectionMessageAction>,
+  ]}
+>
+  <p>
+    For now, we recommend that only Atlassian employees use tokens and theming
+    in production. We’ll post an update in the developer community when tokens
+    are ready for adoption.
+  </p>
+  <p>
+    Note that tokens use a new version of the Atlassian color palette. Color
+    values will not always match those imported from @atlaskit/theme/colors.
+  </p>
+</SectionMessage>
+
+<TokenExplorer scrollOffset={56} />

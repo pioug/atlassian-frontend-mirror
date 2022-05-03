@@ -5,7 +5,7 @@ import {
   DEFAULT_THEME,
   LONG_SHORT_MAPPING,
 } from '../../../src/constants';
-import { getCSSCustomProperty } from '../../../src/token-ids';
+import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary, options }) => {
   if (!options.themeName) {

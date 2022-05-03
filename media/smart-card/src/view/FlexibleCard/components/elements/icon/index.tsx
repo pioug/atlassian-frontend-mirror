@@ -12,7 +12,11 @@ import {
 } from '../../../../../constants';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
-import { getIconSizeStyles, getTruncateStyles } from '../../utils';
+import {
+  getIconSizeStyles,
+  getIconWidth,
+  getTruncateStyles,
+} from '../../utils';
 
 const getPositionStyles = (
   size: SmartLinkSize,
@@ -29,20 +33,6 @@ const getPositionStyles = (
         align-self: flex-start;
         margin: 0;
       `;
-  }
-};
-
-const getWidth = (size?: SmartLinkSize): string => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return '2rem';
-    case SmartLinkSize.Large:
-      return '1.5rem';
-    case SmartLinkSize.Medium:
-      return '1rem';
-    case SmartLinkSize.Small:
-    default:
-      return '.75rem';
   }
 };
 
@@ -120,7 +110,7 @@ const Icon: React.FC<IconProps> = ({
     );
   }, [icon, label, render, testId, url]);
 
-  const width = getWidth(size);
+  const width = getIconWidth(size);
   const styles = getIconStyles(size, position, width);
   const renderStyles = render ? getCustomRenderStyles(width) : undefined;
 

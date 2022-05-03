@@ -31,6 +31,12 @@ const buildTeamQuery = (teamId: string, orgId: string | undefined) => ({
   },
 });
 
+const IGNORED_ERRORS = ['NotPermitted', 'Gone'];
+
+function isRealError(error: GraphQLError): boolean {
+  return !IGNORED_ERRORS.includes(error.reason);
+}
+
 export default class TeamProfileCardClient extends CachingClient<Team> {
   options: ProfileClientOptions;
 
@@ -108,7 +114,7 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
           resolve(data);
         })
         .catch((error: GraphQLError) => {
-          if (analytics) {
+          if (analytics && isRealError(error)) {
             analytics(
               teamRequestAnalytics('failed', {
                 duration: getPageTime() - startTime,

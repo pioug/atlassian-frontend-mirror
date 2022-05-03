@@ -6,6 +6,8 @@ import {
 import { RetryOptions } from '../../types';
 
 export type ContainerProps = {
+  /* Determines whether the entire Smart Link container should be clickable. */
+  clickableContainer?: boolean;
   /* Determines whether to hide elevation styling. */
   hideElevation?: boolean;
   /* Determines whether to hide css padding styling. */

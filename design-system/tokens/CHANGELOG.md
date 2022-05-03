@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.9.2
+
+### Patch Changes
+
+- [`c1de986e861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1de986e861) - Added new entrypoint `@atlaskit/tokens/palettes-raw` for raw palette token data (used in documentation)
+
 ## 0.9.1
 
 ### Patch Changes

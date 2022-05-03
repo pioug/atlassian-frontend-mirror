@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "93.0.2",
+  "version": "93.0.3",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -57,7 +57,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.3.1",
-    "@atlaskit/smart-card": "^18.0.14",
+    "@atlaskit/smart-card": "^18.0.18",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },

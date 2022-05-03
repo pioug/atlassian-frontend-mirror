@@ -88,8 +88,8 @@ export default () => (
       <h5>Simple list view with actions</h5>
       <Provider client={new CustomClient('staging')}>
         <ul css={listStyles}>
-          {Object.keys(examples).map((key) => (
-            <li>{renderSimpleListItem(key)}</li>
+          {Object.keys(examples).map((key: string, idx: number) => (
+            <li key={idx}>{renderSimpleListItem(key)}</li>
           ))}
         </ul>
       </Provider>

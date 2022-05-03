@@ -1,4 +1,4 @@
-import type { ShadowToken } from '../../../../../src/types';
+import type { ShadowToken } from '../../../../../../src/types';
 import boxShadow from '../../box-shadow';
 
 describe('palette transformer', () => {

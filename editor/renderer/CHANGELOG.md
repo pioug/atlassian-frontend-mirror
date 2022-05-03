@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 93.0.3
+
+### Patch Changes
+
+- [`dd0d549d232`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0d549d232) - [ux] ED-14943 Fix dark theme colors for annotations (inline comments) in renderer
+- Updated dependencies
+
 ## 93.0.2
 
 ### Patch Changes

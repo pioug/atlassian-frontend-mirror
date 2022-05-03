@@ -83,7 +83,6 @@ export const getBaseStyles = (
   line-height: 1rem;
   min-width: 0;
   overflow: hidden;
-  overflow-y: hidden;
   ${getDirectionStyles(direction)};
   &:empty {
     display: none;

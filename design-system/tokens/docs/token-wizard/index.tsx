@@ -1,36 +1,19 @@
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
-import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import DecisionIcon from '@atlaskit/icon/glyph/decision';
 import Modal, {
   ModalBody,
   ModalHeader,
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { B50 } from '@atlaskit/theme/colors';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-
-import { token } from '../../src';
 
 import TokenWizardModalBody from './components/modal-body';
-
-const sectionWrapperStyles = css({
-  display: 'flex',
-  padding: gridSize() * 3,
-  flexDirection: 'column',
-  alignItems: 'center',
-  backgroundColor: token('color.background.information', B50),
-  borderRadius: borderRadius(),
-
-  h3: {
-    marginBottom: gridSize() * 4,
-  },
-});
 
 const ModalHeaderStyles = css({
   display: 'flex',
@@ -49,11 +32,11 @@ const TokenWizardModal = () => {
   const closeModal = useCallback(() => setIsOpen(false), []);
 
   return (
-    <div css={sectionWrapperStyles}>
-      <Heading level="h600">Need help finding a design token?</Heading>
-      <Button appearance="primary" onClick={openModal}>
-        Open token wizard
+    <Fragment>
+      <Button onClick={openModal} iconBefore={<DecisionIcon label="" />}>
+        Token picker
       </Button>
+
       <ModalTransition>
         {isOpen && (
           <Modal
@@ -76,7 +59,7 @@ const TokenWizardModal = () => {
           </Modal>
         )}
       </ModalTransition>
-    </div>
+    </Fragment>
   );
 };
 

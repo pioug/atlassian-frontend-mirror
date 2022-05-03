@@ -87,7 +87,7 @@ Dynamic table uses a spinner to denote loading state. This is toggled by the `is
 Use the `emptyView` prop to show an empty state in the dynamic table.
 Empty states communicate that the table has no content to show.
 If there is an action that a user must take to create or show table content,
-add this to the empty state. See [empty state](https://atlassian.design/components/empty-state/examples) guidelines for more guidance.
+add this to the empty state. See [empty state](/components/empty-state/examples) guidelines for more guidance.
 
 <Example Component={EmptyView} packageName="@atlaskit/dynamic-table" />
 
@@ -100,7 +100,7 @@ Dynamic table can render without a table header if no `head` is supplied.
 ## Pagination
 
 Pagination is enabled or disabled by setting or unsetting the `rowsPerPageprop`.
-When the table data exceeds the `rowsPerPage` quantity, the [pagination](https://atlassian.design/components/pagination/examples) component is added.
+If the `rowsPerPage` prop is set, the [pagination](/components/pagination/examples) component is added below the table.
 
 <Example Component={Pagination} packageName="@atlaskit/dynamic-table" />
 

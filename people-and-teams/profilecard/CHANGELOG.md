@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.4.5
+
+### Patch Changes
+
+- [`18ab5ef3325`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18ab5ef3325) - Filter out certain types of failures for team profilecard data fetch
+
 ## 16.4.4
 
 ### Patch Changes

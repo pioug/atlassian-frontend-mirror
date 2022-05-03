@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useContext } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import {
@@ -14,6 +14,10 @@ import {
 } from '../../../../utils/flexible';
 import { RetryOptions } from '../../types';
 import { tokens } from '../../../../utils/token';
+import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
+import LayeredLink from './layered-link';
+import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { TitleBlockProps } from '../blocks/title-block/types';
 
 const elevationStyles: SerializedStyles = css`
   border: 1px solid transparent;
@@ -50,22 +54,44 @@ const getPadding = (size?: SmartLinkSize): string => {
   }
 };
 
+const clickableContainerStyles = css`
+  // Position any interactive elements at the top of the z-index stack.
+  a,
+  button,
+  .has-action {
+    position: relative;
+    z-index: 1;
+  }
+`;
+
 export const getContainerStyles = (
   size: SmartLinkSize,
   hideBackground: boolean,
   hideElevation: boolean,
   hidePadding: boolean,
+  clickableContainer: boolean,
 ): SerializedStyles => css`
   display: flex;
   gap: ${getGap(size)} 0;
   flex-direction: column;
   min-width: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  position: relative;
   ${hideBackground ? '' : `background-color: ${tokens.background};`}
   ${hidePadding ? '' : `padding: ${getPadding(size)};`}
   ${hideElevation
     ? ''
     : elevationStyles}
+  ${clickableContainer
+    ? clickableContainerStyles
+    : ''}
+  &:hover ~ .actions-button-group {
+    opacity: 1;
+  }
+  a:focus,
+  .has-action:focus {
+    outline-offset: -2px;
+  }
 `;
 
 const renderChildren = (
@@ -89,29 +115,69 @@ const renderChildren = (
     }
   });
 
+const getTitleBlockProps = (
+  children: React.ReactNode,
+): TitleBlockProps | undefined => {
+  const block = React.Children.toArray(children).find((child) =>
+    isFlexibleUiTitleBlock(child),
+  );
+
+  if (React.isValidElement(block)) {
+    return block.props;
+  }
+};
+
+const getLayeredLink = (
+  testId: string,
+  context?: FlexibleUiDataContext,
+  children?: React.ReactNode,
+): React.ReactNode => {
+  const { title, url = '' } = context || {};
+  const { anchorTarget: target, text } = getTitleBlockProps(children) || {};
+  return (
+    <LayeredLink
+      target={target}
+      testId={testId}
+      text={text || title}
+      url={url}
+    />
+  );
+};
 /**
  * This represents the container in which all Flexible UI Smart Links are rendered.
  * @see Block
  */
 const Container: React.FC<ContainerProps> = ({
   children,
+  clickableContainer = false,
   hideBackground = false,
   hideElevation = false,
   hidePadding = false,
+  onClick,
   retry,
   size = SmartLinkSize.Medium,
   status,
   testId = 'smart-links-container',
   theme = SmartLinkTheme.Link,
-  onClick,
-}) => (
-  <div
-    css={getContainerStyles(size, hideBackground, hideElevation, hidePadding)}
-    data-smart-link-container
-    data-testid={testId}
-  >
-    {renderChildren(children, size, theme, status, retry, onClick)}
-  </div>
-);
+}) => {
+  const context = useContext(FlexibleUiContext);
+
+  return (
+    <div
+      css={getContainerStyles(
+        size,
+        hideBackground,
+        hideElevation,
+        hidePadding,
+        clickableContainer,
+      )}
+      data-smart-link-container
+      data-testid={testId}
+    >
+      {clickableContainer ? getLayeredLink(testId, context, children) : null}
+      {renderChildren(children, size, theme, status, retry, onClick)}
+    </div>
+  );
+};
 
 export default Container;

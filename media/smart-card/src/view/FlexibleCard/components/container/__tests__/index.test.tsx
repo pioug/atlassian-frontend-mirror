@@ -16,6 +16,7 @@ import { messages } from '../../../../../messages';
 
 describe('Container', () => {
   const testId = 'smart-links-container';
+  const url = 'https://www.link-url.com';
 
   it('renders container', async () => {
     const { getByTestId } = render(<Container testId={testId} />);
@@ -50,6 +51,67 @@ describe('Container', () => {
         expect(block).toHaveStyleDeclaration('padding', expectedPadding);
       },
     );
+  });
+
+  describe('clickableContainer', () => {
+    it('does not apply link to container by default', () => {
+      const { queryByTestId } = render(<Container testId={testId} />);
+
+      const link = queryByTestId(`${testId}-layered-link`);
+
+      expect(link).toBeNull();
+    });
+
+    it('applies link to container', async () => {
+      const { findByTestId } = render(
+        <Container clickableContainer={true} testId={testId} />,
+      );
+
+      const link = await findByTestId(`${testId}-layered-link`);
+
+      expect(link).toBeDefined();
+    });
+
+    it('does not applies link to container', () => {
+      const { queryByTestId } = render(
+        <Container clickableContainer={false} testId={testId} />,
+      );
+
+      const link = queryByTestId(`${testId}-layered-link`);
+
+      expect(link).toBeNull();
+    });
+
+    it('has link attributes', async () => {
+      const { findByTestId } = render(
+        <FlexibleUiContext.Provider value={context}>
+          <Container clickableContainer={true} testId={testId} />
+        </FlexibleUiContext.Provider>,
+      );
+
+      const link = await findByTestId(`${testId}-layered-link`);
+
+      expect(link).toHaveAttribute('href', url);
+      expect(link.textContent).toBe(context.title);
+    });
+
+    it('has link attributes override from TitleBlock', async () => {
+      const target = '_blank';
+      const text = 'title-block-text';
+      const { findByTestId } = render(
+        <FlexibleUiContext.Provider value={context}>
+          <Container clickableContainer={true} testId={testId}>
+            <TitleBlock anchorTarget={target} text={text} />
+          </Container>
+        </FlexibleUiContext.Provider>,
+      );
+
+      const link = await findByTestId(`${testId}-layered-link`);
+
+      expect(link).toHaveAttribute('href', url);
+      expect(link).toHaveAttribute('target', target);
+      expect(link.textContent).toBe(text);
+    });
   });
 
   describe('hideBackground', () => {

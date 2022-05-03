@@ -2,4 +2,4 @@ export {
   getCSSCustomProperty,
   getTokenId,
   getFullyQualifiedTokenId,
-} from '../token-ids';
+} from '../utils/token-ids';

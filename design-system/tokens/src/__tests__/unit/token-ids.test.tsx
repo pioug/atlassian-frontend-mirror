@@ -3,7 +3,7 @@ import {
   getCSSCustomProperty,
   getFullyQualifiedTokenId,
   getTokenId,
-} from '../../token-ids';
+} from '../../utils/token-ids';
 
 describe('getCSSCustomProperty', () => {
   it('should parse path as a string', () => {

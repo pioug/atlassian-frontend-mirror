@@ -67,7 +67,8 @@ describe('FormErrorBoundary', () => {
         .findWhere(
           (el) =>
             el.name() === 'i' &&
-            el.text() === `Cannot read property 'provider' of undefined`,
+            el.text() ===
+              `Cannot read properties of undefined (reading 'provider')`,
         )
         .exists(),
     ).toBeTruthy();

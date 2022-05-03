@@ -1,12 +1,19 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { TitleBlock } from '../src/view/FlexibleCard/components/blocks';
 import { SmartLinkSize } from '../src/constants';
-import { getCardState } from './utils/flexible-ui';
+import { exampleTokens, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
+
+const clickableContainerStyles = css`
+  .layered-link {
+    background-color: ${exampleTokens.iconBackgroundColor};
+    opacity: 0.2;
+  }
+`;
 
 const cardState = getCardState();
 const render = (
@@ -14,10 +21,12 @@ const render = (
   hideElevation = false,
   hidePadding = false,
   size = SmartLinkSize.Medium,
+  clickableContainer = false,
 ) => (
   <FlexibleCard
     cardState={cardState}
     ui={{
+      clickableContainer,
       hideBackground,
       hideElevation,
       hidePadding,
@@ -42,5 +51,9 @@ export default () => (
         {render(false, false, false, size)}
       </React.Fragment>
     ))}
+    <h5>Clickable container</h5>
+    <div css={clickableContainerStyles}>
+      {render(false, false, false, undefined, true)}
+    </div>
   </VRTestWrapper>
 );

@@ -16,13 +16,12 @@ const getActionStyles = (
   if (showOnHover && !isOpen) {
     return css`
       .actions-button-group {
-        visibility: hidden;
+        opacity: 0;
       }
 
-      &:hover {
-        .actions-button-group {
-          visibility: visible;
-        }
+      &:hover .actions-button-group,
+      .actions-button-group:focus-within {
+        opacity: 1;
       }
     `;
   }

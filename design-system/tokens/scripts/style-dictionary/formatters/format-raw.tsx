@@ -1,9 +1,12 @@
 import type { Format } from 'style-dictionary';
 
-const formatter: Format['formatter'] = ({ dictionary }) => {
-  const tokens = dictionary.allTokens.filter(
-    (token) => token.attributes && token.attributes.group !== 'palette',
-  );
+const formatter: Format['formatter'] = ({ dictionary, options }) => {
+  const tokens = options?.groups
+    ? dictionary.allTokens.filter(
+        (token) =>
+          token.attributes && options.groups.includes(token.attributes.group),
+      )
+    : dictionary.allTokens;
 
   return `
 // THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY

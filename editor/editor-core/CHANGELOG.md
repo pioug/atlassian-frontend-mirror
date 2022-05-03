@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 164.0.3
+
+### Patch Changes
+
+- [`1f18014c3c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f18014c3c3) - [ux] ED-14909: Fix Chrome bug where typeahead would write duplicate slash prefix triggers on multiple focusout events
+
 ## 164.0.2
 
 ### Patch Changes

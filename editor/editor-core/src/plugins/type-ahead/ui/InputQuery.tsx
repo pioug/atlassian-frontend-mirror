@@ -239,6 +239,20 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
           return;
         }
 
+        // See ED-14909: Chrome may emit focusout events where an input
+        // device was not directly responsible. (This rears in react v17+ consumers
+        // where react-managed node removal now appears to propagate focusout events to
+        // our event listener). As this path is strictly for click or other typeahead
+        // dismissals that don't involve typeahead item selection, we carve out an
+        // exception for Chrome-specific events where an input device was not the initiator.
+        if (
+          browser.chrome &&
+          !(window.getSelection()?.type === 'Range') &&
+          !('sourceCapabilities' in event && (event as any).sourceCapabilities)
+        ) {
+          return;
+        }
+
         cancel({
           addPrefixTrigger: true,
           text: cleanedInputContent(),

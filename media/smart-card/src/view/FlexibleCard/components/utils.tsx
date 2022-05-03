@@ -37,6 +37,20 @@ export const getIconSizeStyles = (width: string): SerializedStyles => {
   `;
 };
 
+export const getIconWidth = (size?: SmartLinkSize): string => {
+  switch (size) {
+    case SmartLinkSize.XLarge:
+      return '2rem';
+    case SmartLinkSize.Large:
+      return '1.5rem';
+    case SmartLinkSize.Medium:
+      return '1rem';
+    case SmartLinkSize.Small:
+    default:
+      return '.75rem';
+  }
+};
+
 export const getLinkLineHeight = (size: SmartLinkSize): string => {
   switch (size) {
     case SmartLinkSize.XLarge:

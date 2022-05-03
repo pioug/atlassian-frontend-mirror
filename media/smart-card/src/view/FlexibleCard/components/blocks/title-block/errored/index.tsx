@@ -42,6 +42,9 @@ const getMessageStyles = (
       getLinkLineHeight(size),
     )}
     color: ${tokens.errorMessage};
+    :focus {
+      outline: ${tokens.focus} solid 2px;
+    }
   `;
 };
 
@@ -73,9 +76,11 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
           align={SmartLinkAlignment.Right}
         >
           <span
+            className={hasAction ? 'has-action' : ''}
             css={getMessageStyles(size, hasAction)}
             onClick={onClick}
             data-testid={`${testId}-errored-view-message`}
+            tabIndex={hasAction ? 0 : -1}
           >
             <FormattedMessage {...descriptor} values={values} />
           </span>

@@ -10,6 +10,7 @@ import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import {
   ActionName,
   ElementName,
+  SmartLinkSize,
   SmartLinkStatus,
   SmartLinkTheme,
 } from '../../../../../../constants';
@@ -264,5 +265,28 @@ describe('TitleBlock', () => {
         expect(block).toHaveStyleDeclaration('background-color', 'blue');
       },
     );
+  });
+
+  describe('with loading skeleton', () => {
+    it.each([
+      [SmartLinkSize.XLarge, '2rem'],
+      [SmartLinkSize.Large, '1.5rem'],
+      [SmartLinkSize.Medium, '1rem'],
+      [SmartLinkSize.Small, '.75rem'],
+    ])('renders by size %s', async (size: SmartLinkSize, dimension: string) => {
+      const { findByTestId } = renderTitleBlock({
+        size,
+        status: SmartLinkStatus.Resolving,
+      });
+
+      const icon = await findByTestId('smart-block-title-icon');
+      const loadingSkeleton = await findByTestId(
+        'smart-block-title-icon-loading',
+      );
+
+      expect(icon).toHaveStyleDeclaration('width', dimension);
+      expect(icon).toHaveStyleDeclaration('height', dimension);
+      expect(loadingSkeleton).toBeDefined();
+    });
   });
 });

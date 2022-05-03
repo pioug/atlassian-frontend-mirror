@@ -1,10 +1,25 @@
 import { InternalTokenIds } from './artifacts/types-internal';
 
 export type Groups = 'raw' | 'paint' | 'shadow' | 'palette';
-export type ActiveTokenStates = 'active';
-export type ReplacedTokenStates = 'deprecated' | 'deleted';
-export type TokenState = ActiveTokenStates | ReplacedTokenStates;
+export type ActiveTokenState = 'active';
+export type DeprecatedTokenState = 'deprecated';
+export type DeletedTokenState = 'deleted';
+export type TokenState =
+  | ActiveTokenState
+  | DeprecatedTokenState
+  | DeletedTokenState;
 export type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
+export type PaletteCategory =
+  | 'blue'
+  | 'purple'
+  | 'red'
+  | 'magenta'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'teal'
+  | 'light neutral'
+  | 'dark neutral';
 
 export interface Token<TValue, Group extends Groups> {
   value: TValue;
@@ -35,17 +50,26 @@ export interface DesignToken<TValue, Group extends Groups>
   extends Token<TValue, Group> {
   attributes:
     | {
+        state: ActiveTokenState;
         group: Group;
         description: string;
-        state: ActiveTokenStates;
         introduced: string;
-        replacement?: undefined;
       }
     | {
+        state: DeprecatedTokenState;
         group: Group;
         description: string;
-        state: ReplacedTokenStates;
         introduced: string;
+        deprecated: string;
+        replacement?: Replacement; // Still optional, as there may be no correct replacement
+      }
+    | {
+        state: DeletedTokenState;
+        group: Group;
+        description: string;
+        introduced: string;
+        deprecated: string;
+        deleted: string;
         replacement?: Replacement; // Still optional, as there may be no correct replacement
       };
 }
@@ -67,7 +91,12 @@ export type ValueSchema<Schema extends object> = DeepOmit<Schema, 'attributes'>;
 // Recursively strips out values from schema
 export type AttributeSchema<Schema extends object> = DeepOmit<Schema, 'value'>;
 
-export type PaletteToken = BaseToken<string, 'palette'>;
+export interface PaletteToken extends BaseToken<string, 'palette'> {
+  attributes: {
+    group: 'palette';
+    category: PaletteCategory;
+  };
+}
 export type ColorPalette = keyof PaletteColorTokenSchema['color']['palette'];
 
 export type PaintToken<Value extends string = ColorPalette> = DesignToken<

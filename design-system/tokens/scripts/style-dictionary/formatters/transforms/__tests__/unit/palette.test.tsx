@@ -1,4 +1,4 @@
-import type { PaintToken, ShadowToken } from '../../../../../src/types';
+import type { PaintToken, ShadowToken } from '../../../../../../src/types';
 import palette from '../../palette';
 
 describe('palette transformer', () => {

@@ -1,8 +1,8 @@
 import padStart from 'lodash/padStart';
 import type { Transform } from 'style-dictionary';
 
-import palette from '../../../src/tokens/palette';
-import type { ColorPalette, ShadowToken } from '../../../src/types';
+import palette from '../../../../src/tokens/palette';
+import type { ColorPalette, ShadowToken } from '../../../../src/types';
 
 function isHex(hex: string) {
   return /[0-9A-Fa-f]{6}/g.test(hex);

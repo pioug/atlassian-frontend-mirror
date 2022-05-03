@@ -49,6 +49,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
   return (
     <span
       css={[getStyles(size), overrideCss]}
+      data-fit-to-content
       data-smart-element-avatar-group
       data-testid={testId}
     >

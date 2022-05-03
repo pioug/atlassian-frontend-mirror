@@ -17,11 +17,11 @@ const markStyles = (props: ThemeProps) => css`
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
-    ${AnnotationSharedCSSByState(props).blur};
+    ${AnnotationSharedCSSByState({ theme: props }).blur};
 
     &:focus,
     &[data-has-focus='true'] {
-      ${AnnotationSharedCSSByState(props).focus};
+      ${AnnotationSharedCSSByState({ theme: props }).focus};
     }
   }
 `;

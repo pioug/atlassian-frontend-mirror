@@ -1,8 +1,8 @@
 import type { Transform } from 'style-dictionary';
 
-import { getTokenId } from '../../../src/token-ids';
-import palette from '../../../src/tokens/palette';
-import type { PaintToken, RawToken, ShadowToken } from '../../../src/types';
+import palette from '../../../../src/tokens/palette';
+import type { PaintToken, RawToken, ShadowToken } from '../../../../src/types';
+import { getTokenId } from '../../../../src/utils/token-ids';
 
 function isHex(hex: string) {
   return /[0-9A-Fa-f]{6}/g.test(hex);

@@ -15,6 +15,7 @@ export const tokens = {
   ),
   errorMessage: token('color.text.disabled', '#6B778C'),
   errorMessageHover: token('color.text.subtle', '#8993A4'),
+  focus: token('color.border.focused', '#388BFF'),
   snippet: token('color.text', '#172B4D'),
   text: token('color.text.subtlest', '#626F86'),
 };

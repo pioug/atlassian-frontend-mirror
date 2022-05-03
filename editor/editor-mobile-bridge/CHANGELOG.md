@@ -1,5 +1,29 @@
 # @atlaskit/editor-mobile-bridge
 
+## 33.1.9
+
+### Patch Changes
+
+- [`eb513953a19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb513953a19) - Fix misaligned font-size in editor-mobile-bridge renderer
+
+## 33.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.1.5
 
 ### Patch Changes

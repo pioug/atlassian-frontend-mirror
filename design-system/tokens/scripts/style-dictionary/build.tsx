@@ -14,8 +14,8 @@ import formatterTSTokenDefaults from './formatters/format-typescript-token-defau
 import formatterTSGeneratedTypes from './formatters/format-typescript-token-generated-types';
 import formatterTSGeneratedTypesInternal from './formatters/format-typescript-token-generated-types-internal';
 import formatterTSTokenNames from './formatters/format-typescript-token-names';
-import boxShadowTransform from './transforms/box-shadow';
-import paletteTransform from './transforms/palette';
+import boxShadowTransform from './formatters/transforms/box-shadow';
+import paletteTransform from './formatters/transforms/palette';
 
 const TOKENS_INPUT_DIR = './src/tokens/';
 const TOKENS_OUTPUT_DIR = './src/artifacts/';
@@ -106,11 +106,25 @@ const createConfig = (themeName: string): Config => {
         buildPath: path.join(TOKENS_OUTPUT_DIR, '/tokens-raw/'),
         options: {
           themeName,
+          groups: ['paint', 'shadow', 'raw'],
         },
         files: [
           {
             format: 'raw',
             destination: `${themeName}.tsx`,
+          },
+        ],
+      },
+      rawPalette: {
+        transforms: ['name/custom-dot', 'color/custom-palette'],
+        buildPath: TOKENS_OUTPUT_DIR,
+        options: {
+          groups: ['palette'],
+        },
+        files: [
+          {
+            format: 'raw',
+            destination: 'palettes-raw.tsx',
           },
         ],
       },

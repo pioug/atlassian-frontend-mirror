@@ -31,9 +31,9 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
       <Container
         testId={testId}
         {...ui}
+        onClick={onClick}
         retry={retry}
         status={status}
-        onClick={onClick}
       >
         {children}
       </Container>

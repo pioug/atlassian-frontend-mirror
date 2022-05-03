@@ -39,6 +39,8 @@ export const VRTestWrapper = ({ title, children }: VRTestWrapperOptions) => (
             * {
               animation-timing-function: step-end !important;
               animation-duration: 0s !important;
+              transition-timing-function: step-end !important;
+              transition-duration: 0s !important;
             }
           `}
         />

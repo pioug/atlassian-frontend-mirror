@@ -11,6 +11,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '../../__helpers/testing-example-helpers';
+import { selectors } from '../../__helpers/page-objects/_editor';
 
 BrowserTestCase(
   'mention-2.ts: user should see picker if they type "@"',
@@ -105,7 +106,25 @@ BrowserTestCase(
 
     await page.type(editable, '@');
     await page.waitForSelector(typeAheadPicker);
-    await page.type(editable, 'Escape');
+    await page.keys(['Escape']);
+    await page.waitForSelector(typeAheadPicker, undefined, true);
+
+    expect(await page.isExisting(typeAheadPicker)).toBe(false);
+  },
+);
+
+BrowserTestCase(
+  'mention-2.ts: mouseclick outside picker closes picker',
+  {},
+  async (client: any) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: fullpage.appearance,
+    });
+
+    await page.type(editable, '@');
+    await page.waitForSelector(typeAheadPicker);
+    await page.click(selectors.lastEditorChildParagraph);
     await page.waitForSelector(typeAheadPicker, undefined, true);
 
     expect(await page.isExisting(typeAheadPicker)).toBe(false);

@@ -8,13 +8,22 @@ import {
 } from '../flexible';
 import { Title } from '../../view/FlexibleCard/components/elements';
 import Block from '../../view/FlexibleCard/components/blocks/block';
-import { TitleBlock } from '../../view/FlexibleCard/components/blocks';
+import {
+  SnippetBlock,
+  TitleBlock,
+} from '../../view/FlexibleCard/components/blocks';
 
 describe('isFlexibleUiCard', () => {
-  it('returns true if card has children', () => {
+  it('returns true if card has TitleBlock as children', () => {
     const isFlexible = isFlexibleUiCard(<TitleBlock />);
 
     expect(isFlexible).toBeTruthy();
+  });
+
+  it('returns false if card does not have TitleBlock as children', () => {
+    const isFlexible = isFlexibleUiCard(<SnippetBlock />);
+
+    expect(isFlexible).toBeFalsy();
   });
 
   it('returns false if card does not have any children', () => {

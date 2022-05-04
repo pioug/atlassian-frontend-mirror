@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { VRTestWrapper } from './utils/vr-test';
 import { TitleBlock } from '../src/view/FlexibleCard/components/blocks';
@@ -21,6 +21,11 @@ import {
   makeEditActionItem,
 } from './flexible-ui/utils';
 import { TitleBlockProps } from '../src/view/FlexibleCard/components/blocks/title-block/types';
+
+const gridStyles = css`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
 
 const renderResolvedView = ({
   actions,
@@ -132,8 +137,25 @@ export default () => (
     {renderResolvedView({
       position: SmartLinkPosition.Center,
     })}
-    <h5>Title Override: </h5>
+    <h5>Title override </h5>
     {renderResolvedView({ text: 'Test Title' })}
+    <div css={gridStyles}>
+      <div>
+        {renderResolvedView({
+          maxLines: 1,
+          text: 'https://product-fabric.atlassian.net/browse/EDM-3050',
+        })}
+      </div>
+      <div>
+        {renderResolvedView({
+          maxLines: 1,
+          text:
+            'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QBgRXhpZgAASUkqAAgAAAACADEBAgAHAAAAJgAAAGmHBAABAAAALgAAAAAAAABHb29nbGUAAAMAAJAHAAQAAAAwM==',
+        })}
+      </div>
+    </div>
+    <h5>CSS override</h5>
+    {renderResolvedView({ overrideCss: blockOverrideCss })}
     <h4>Views</h4>
     <h5>Errored view</h5>
     {renderErroredView('errored', {}, [makeEditActionItem({ hideIcon: true })])}
@@ -191,7 +213,5 @@ export default () => (
         position={SmartLinkPosition.Center}
       />
     </FlexibleCard>
-    <h5>Override CSS</h5>
-    {renderResolvedView({ overrideCss: blockOverrideCss })}
   </VRTestWrapper>
 );

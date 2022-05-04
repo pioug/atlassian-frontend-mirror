@@ -48,7 +48,7 @@ const Container: React.FC<StyleProps> = (props) => {
   const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
 
   const styles = (themeProps: ThemeProps) => css`
-    ${sharedContainerStyles(themeProps)}
+    ${sharedContainerStyles({ theme: themeProps })}
     padding: 0;
     padding-bottom: ${paddingBottom};
   `;
@@ -66,7 +66,7 @@ const TitleContainer: React.FC<
   const paddingBottom = `${!props.expanded ? gridSize() : 0}px`;
 
   const styles = (themeProps: ThemeProps) => css`
-    ${sharedExpandStyles.titleContainerStyles(themeProps)}
+    ${sharedExpandStyles.titleContainerStyles({ theme: themeProps })}
     padding: ${gridSize()}px;
     padding-bottom: ${paddingBottom};
   `;
@@ -85,7 +85,7 @@ const ContentContainer: React.FC<StyleProps> = (props) => {
   const visibility = props.expanded ? 'visible' : 'hidden';
 
   const styles = (themeProps: ThemeProps) => css`
-    ${sharedContentStyles(themeProps)};
+    ${sharedContentStyles({ theme: themeProps })};
     padding-right: ${gridSize() * 2}px;
     padding-left: ${gridSize() * 5 - gridSize() / 2}px;
     visibility: ${visibility};

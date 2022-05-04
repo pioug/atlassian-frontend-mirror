@@ -7,7 +7,9 @@ import * as Elements from '../view/FlexibleCard/components/elements';
 export const isFlexibleUiCard = (children?: React.ReactNode): boolean => {
   if (
     children &&
-    React.Children.toArray(children).some((child) => isFlexibleUiBlock(child))
+    React.Children.toArray(children).some((child) =>
+      isFlexibleUiTitleBlock(child),
+    )
   ) {
     return true;
   }

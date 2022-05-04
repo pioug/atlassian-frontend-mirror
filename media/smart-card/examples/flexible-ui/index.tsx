@@ -4,13 +4,14 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl-next';
 
 import { css, jsx } from '@emotion/core';
-import { DevPreviewWarning } from '@atlaskit/docs';
 
 import { EnvironmentsKeys } from '../../src/client/types';
 import {
   ActionItem,
   Card,
   ElementItem,
+  FooterBlock,
+  loadingPlaceholderClassName,
   MetadataBlock,
   Provider,
   SmartLinkDirection,
@@ -19,8 +20,6 @@ import {
   SmartLinkTheme,
   SnippetBlock,
   TitleBlock,
-  FooterBlock,
-  loadingPlaceholderClassName,
 } from '../../src';
 import TitleBlockOption from './TitleBlockOption';
 import CardOption from './CardOption';
@@ -90,7 +89,6 @@ const FlexibleUiExample: React.FC = () => {
 
   return (
     <div css={containerStyles}>
-      <DevPreviewWarning />
       <div css={contentStyles}>
         <ErrorBoundary fallback={<div>Whoops! Something went wrong.</div>}>
           <IntlProvider locale="en">

@@ -5,9 +5,9 @@ const color: ValueSchema<BackgroundColorTokenSchema> = {
     blanket: {
       '[default]': { value: 'DN-100A' },
       // @ts-ignore temporary value (B600 8% opacity)
-      selected: { value: '#1D7AFCCC' },
+      selected: { value: '#1D7AFC14' },
       // @ts-ignore temporary value (R600 8% opacity)
-      danger: { value: '#E34935CC' },
+      danger: { value: '#E3493514' },
     },
     background: {
       disabled: { value: 'DN200A' },

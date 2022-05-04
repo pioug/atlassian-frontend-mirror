@@ -22,7 +22,7 @@ describe('Flexible Card', () => {
 
     it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
-      const screenshotSize = 2180;
+      const screenshotSize = 2240;
       const page = await setup(url);
 
       await page.waitForSelector('[data-testid="smart-links-container"]');
@@ -202,7 +202,7 @@ describe('Flexible Card', () => {
       const erroredViewSelector =
         '[data-testid="smart-block-title-errored-view"]';
       await page.waitForSelector(erroredViewSelector);
-      const image = await takeSnapshot(page, 80);
+      const image = await takeSnapshot(page, 80, 20);
 
       expect(image).toMatchProdImageSnapshot();
     });

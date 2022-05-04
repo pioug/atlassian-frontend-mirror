@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 93.0.4
+
+### Patch Changes
+
+- [`42d1107698a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42d1107698a) - [ux] ED-14913 Fix expand text in renderer dark mode
+
 ## 93.0.3
 
 ### Patch Changes

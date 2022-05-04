@@ -114,6 +114,31 @@ describe('Element: Link', () => {
     });
   });
 
+  describe('truncate', () => {
+    it('truncates with break-word when text contains whitespace', async () => {
+      const { findByTestId } = render(
+        <Link text="This is a sentence." url={url} />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toHaveStyleDeclaration('word-break', 'break-word');
+    });
+
+    it('truncates with break-all when text does not contain whitespace', async () => {
+      const { findByTestId } = render(
+        <Link
+          text="https://product-fabric.atlassian.net/browse/EDM-3050"
+          url={url}
+        />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toHaveStyleDeclaration('word-break', 'break-all');
+    });
+  });
+
   it('shows tooltip on hover', async () => {
     const { findByTestId } = render(<Link text={text} url={url} />);
 

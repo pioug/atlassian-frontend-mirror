@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 18.0.21
+
+### Patch Changes
+
+- [`ffaf122189e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffaf122189e) - Flexible UI: TitleBlock is now composory to display Flexible UI on Smart Links
+
+## 18.0.20
+
+### Patch Changes
+
+- [`451f99db28a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/451f99db28a) - Flexible UI: Improve link title truncate to support url string
+
 ## 18.0.19
 
 ### Patch Changes

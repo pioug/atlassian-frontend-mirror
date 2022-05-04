@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import Tooltip from '@atlaskit/tooltip';
@@ -11,6 +11,7 @@ import {
   getLinkLineHeight,
   getLinkSizeStyles,
   getTruncateStyles,
+  hasWhiteSpace,
 } from '../../utils';
 import { tokens } from '../../../../../utils/token';
 
@@ -55,6 +56,7 @@ const getAnchorStyles = (
   size: SmartLinkSize,
   theme: SmartLinkTheme,
   maxLines: number,
+  hasSpace: boolean,
 ): SerializedStyles => {
   const sizeStyles = getLinkSizeStyles(size);
   return css`
@@ -63,6 +65,7 @@ const getAnchorStyles = (
     ${getTruncateStyles(
       maxLines,
       getLinkLineHeight(size),
+      hasSpace ? 'break-word' : 'break-all',
     )}
     // Theme should be last to be spread because it contains override values
     ${getThemeStyles(
@@ -99,21 +102,27 @@ const Link: React.FC<LinkProps> = ({
   url,
   onClick,
   target,
-}) => (
-  <span css={containerStyles}>
-    <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
-      <a
-        css={[getAnchorStyles(size, theme, getMaxLines(maxLines)), overrideCss]}
-        data-smart-element-link
-        data-testid={testId}
-        onClick={onClick}
-        href={url}
-        target={target || '_blank'}
-      >
-        {text}
-      </a>
-    </Tooltip>
-  </span>
-);
+}) => {
+  const hasSpace = useMemo(() => (text ? hasWhiteSpace(text) : false), [text]);
+  return (
+    <span css={containerStyles}>
+      <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
+        <a
+          css={[
+            getAnchorStyles(size, theme, getMaxLines(maxLines), hasSpace),
+            overrideCss,
+          ]}
+          data-smart-element-link
+          data-testid={testId}
+          onClick={onClick}
+          href={url}
+          target={target || '_blank'}
+        >
+          {text}
+        </a>
+      </Tooltip>
+    </span>
+  );
+};
 
 export default Link;

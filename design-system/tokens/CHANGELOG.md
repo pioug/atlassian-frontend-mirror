@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.9.3
+
+### Patch Changes
+
+- [`ae9eab2df7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae9eab2df7d) - Fixing blanket selected and danger tokens that were 80% instead of 8% opacity
+
 ## 0.9.2
 
 ### Patch Changes

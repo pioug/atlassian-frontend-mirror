@@ -6810,7 +6810,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
     },
-    "value": "#388BFFCC",
+    "value": "#388BFF14",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -6820,7 +6820,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
       },
-      "value": "#388BFFCC"
+      "value": "#388BFF14"
     },
     "name": "color.blanket.selected",
     "path": [
@@ -6836,7 +6836,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
     },
-    "value": "#EF5C48CC",
+    "value": "#EF5C4814",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -6846,7 +6846,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
       },
-      "value": "#EF5C48CC"
+      "value": "#EF5C4814"
     },
     "name": "color.blanket.danger",
     "path": [

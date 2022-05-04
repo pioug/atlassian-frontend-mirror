@@ -7,12 +7,20 @@ import {
 } from './_utils';
 import { selectors } from '../__helpers/page-objects/_expand';
 import { expandADF } from '../__fixtures__/expand-adf';
+import { ThemeModes } from '@atlaskit/theme/types';
 
-const initRenderer = async (page: PuppeteerPage, adf: any) => {
+const themes: ThemeModes[] = ['light', 'dark'];
+
+const initRenderer = async (
+  page: PuppeteerPage,
+  adf: any,
+  themeMode: ThemeModes = 'light',
+) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
     device: Device.LaptopMDPI,
     adf,
+    themeMode,
   });
 };
 
@@ -28,27 +36,33 @@ describe('Snapshot Test: Expand', () => {
     await page.mouse.move(0, 0);
   });
 
-  test(`should render a border on hover of a collapsed top level expand`, async () => {
-    await initRenderer(page, expandADF());
-    await page.waitForSelector(selectors.expand);
-    await page.hover(selectors.expand);
-  });
+  /**
+   * All tests in the `describe.each(themes)` block below are executed twice for both light and dark themes.
+   */
+  describe.each(themes)('Theme: %s', (theme) => {
+    test(`should render a border on hover of a collapsed top level expand`, async () => {
+      await initRenderer(page, expandADF(), theme);
+      await page.waitForSelector(selectors.expand);
+      await page.hover(selectors.expand);
+    });
 
-  test('should expand a collapsed top level expand on toggle', async () => {
-    await initRenderer(page, expandADF());
-    await page.waitForSelector(selectors.expand);
-    await page.click(selectors.expandToggle);
-  });
+    test('should expand a collapsed top level expand on toggle', async () => {
+      await initRenderer(page, expandADF(), theme);
+      await page.waitForSelector(selectors.expand);
+      await page.click(selectors.expandToggle);
+    });
 
-  test('should have a left aligned title when wrapped', async () => {
-    await initRenderer(
-      page,
-      expandADF(
-        undefined,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem',
-      ),
-    );
-    await page.waitForSelector(selectors.expand);
+    test('should have a left aligned title when wrapped', async () => {
+      await initRenderer(
+        page,
+        expandADF(
+          undefined,
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisl, venenatis eget auctor vitae, venenatis quis lorem',
+        ),
+        theme,
+      );
+      await page.waitForSelector(selectors.expand);
+    });
   });
 
   describe.each(['default', 'wide', 'full-width'])('Breakout: %s', (mode) => {

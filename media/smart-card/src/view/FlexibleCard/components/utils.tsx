@@ -111,14 +111,19 @@ export const getMaxLines = (
 export const getTruncateStyles = (
   maxLines: number,
   lineHeight: string = '1rem',
+  wordBreak: 'break-word' | 'break-all' = 'break-word',
 ): SerializedStyles =>
   css`
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-break: break-word;
+    word-break: ${wordBreak};
     -webkit-line-clamp: ${maxLines};
     -webkit-box-orient: vertical;
     // Fallback options
     max-height: calc(${maxLines} * ${lineHeight});
   `;
+
+export const hasWhiteSpace = (str: string): boolean => {
+  return str.search(/\s/) >= 0;
+};

@@ -1,5 +1,11 @@
 # @atlaskit/docs
 
+## 9.0.11
+
+### Patch Changes
+
+- [`88612fc2020`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88612fc2020) - patch bumps Pretty-proptypes to fix null check regression
+
 ## 9.0.10
 
 ### Patch Changes

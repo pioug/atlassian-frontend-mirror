@@ -1426,7 +1426,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "introduced": "0.6.0",
       "description": "Use as an overlay to communicate selected states when a simple background color change isn't possible, such as in Editor block elements"
     },
-    "value": "#1D7AFCCC"
+    "value": "#1D7AFC14"
   },
   "Color/Blanket/Danger": {
     "attributes": {
@@ -1435,7 +1435,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "introduced": "0.6.0",
       "description": "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
     },
-    "value": "#E34935CC"
+    "value": "#E3493514"
   },
   "Color/Interaction/Hovered": {
     "attributes": {

@@ -1,5 +1,6 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
+  "description": "The essential plugin for use with the Atlassian Design System.",
   "version": "4.4.3",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -7,7 +8,11 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "ESLint plugin",
+      "category": "Tooling"
+    }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",
@@ -48,5 +53,6 @@
       ]
     }
   },
+  "homepage": "https://atlassian.design/components/eslint-plugin-design-system",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

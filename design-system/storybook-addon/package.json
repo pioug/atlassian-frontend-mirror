@@ -8,7 +8,11 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled"
+    "releaseModel": "scheduled",
+    "website": {
+      "name": "Storybook addon",
+      "category": "Tooling"
+    }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",
@@ -43,5 +47,6 @@
       "styling": "emotion"
     }
   },
+  "homepage": "https://atlassian.design/components/storybook-addon-design-system",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -14,7 +14,8 @@
     "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
-      "name": "StylelintPluginDesignSystem"
+      "name": "Stylelint plugin",
+      "category": "Tooling"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
@@ -53,5 +54,6 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "homepage": "https://atlassian.design/components/stylelint-design-system",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

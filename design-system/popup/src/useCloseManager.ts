@@ -55,15 +55,14 @@ export const useCloseManager = ({
     };
 
     const unbind = bindAll(window, [
-      // --strictFunctionTypes prevents the above events from being recognised as event listeners
       {
         type: 'click',
-        listener: onClick as EventListener,
+        listener: onClick,
         options: { capture },
       },
       {
         type: 'keydown',
-        listener: onKeyDown as EventListener,
+        listener: onKeyDown,
       },
     ]);
     return unbind;

@@ -182,6 +182,8 @@ export default class FeedbackCollector extends Component<Props> {
 
     let entitlement;
     const entitlementInformation = [];
+    const cloudSiteId =
+      (entitlementDetails && entitlementDetails.cloudSiteId) || '';
     if (entitlementDetails && entitlementDetails.children) {
       entitlement = entitlementDetails.children.find(
         (entitlement: { key: string }) => {
@@ -205,6 +207,10 @@ export default class FeedbackCollector extends Component<Props> {
       {
         id: 'entitlementEdition',
         value: productEntitlement || '',
+      },
+      {
+        id: 'cloudId',
+        value: cloudSiteId,
       },
     );
 

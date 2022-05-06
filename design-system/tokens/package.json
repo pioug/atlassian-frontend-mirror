@@ -12,7 +12,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Design tokens",
-      "category": "Libraries"
+      "category": "Libraries",
+      "draft": true
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",

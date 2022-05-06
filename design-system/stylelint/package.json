@@ -15,7 +15,8 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Stylelint plugin",
-      "category": "Tooling"
+      "category": "Tooling",
+      "draft": true
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",

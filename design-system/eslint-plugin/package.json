@@ -11,7 +11,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "ESLint plugin",
-      "category": "Tooling"
+      "category": "Tooling",
+      "draft": true
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",

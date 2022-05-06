@@ -2,7 +2,7 @@
 import React, { FC, memo, useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/core';
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind } from 'bind-event-listener';
 import NodeResolver from 'react-node-resolver';
 
 import {
@@ -89,11 +89,9 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(
         return;
       }
 
-      let unbind: UnbindFn;
-
-      unbind = bind(window, {
+      const unbind = bind(window, {
         type: 'click',
-        listener: (e) => handleClickOutside(e as MouseEvent),
+        listener: handleClickOutside,
         options: { capture: true },
       });
 

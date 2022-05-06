@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.5.9
+
+### Patch Changes
+
+- [`2e7bbdfd813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7bbdfd813) - Upgrading internal dependency 'bind-event-listener' to 2.1.0 for improved types
+
 ## 17.5.8
 
 ### Patch Changes

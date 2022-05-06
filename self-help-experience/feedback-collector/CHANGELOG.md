@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.4.1
+
+### Patch Changes
+
+- [`55b7d39a841`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55b7d39a841) - Send Cloud Tenant ID with feedback (if available)
+
 ## 10.4.0
 
 ### Minor Changes

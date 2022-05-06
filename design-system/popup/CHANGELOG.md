@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.3.7
+
+### Patch Changes
+
+- [`2e7bbdfd813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7bbdfd813) - Upgrading internal dependency 'bind-event-listener' to 2.1.0 for improved types
+
 ## 1.3.6
 
 ### Patch Changes

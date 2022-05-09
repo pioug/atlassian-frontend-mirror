@@ -21,11 +21,6 @@ const isJwmView = (url: string) =>
     /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board)\/?/,
   );
 
-const isSlackMessage = (url: string) =>
-  url.match(
-    /^https:\/\/.+?\.slack\.com\/archives\/[CG][A-Z0-9]+\/p[0-9]+(\?.*)?$/,
-  );
-
 export class Transformer {
   private buildInlineAdf(url: string): InlineCardAdf {
     return {
@@ -58,8 +53,6 @@ export class Transformer {
   toAdf(url: string, appearance: CardAppearance): CardAdf {
     if (isJiraRoadMap(url) || isPolarisView(url) || isJwmView(url)) {
       return this.buildEmbedAdf(url);
-    } else if (isSlackMessage(url)) {
-      return this.buildBlockAdf(url);
     } else {
       switch (appearance) {
         case 'inline':

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "164.0.3",
+  "version": "164.0.4",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -131,7 +131,8 @@
     "@atlaskit/smart-card": "^18.0.14",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
+    "react-intl-next": "npm:react-intl@^5.18.1",
+    "styled-components": "^3.2.6"
   },
   "devDependencies": {
     "@atlaskit/atlassian-navigation": "^2.1.0",

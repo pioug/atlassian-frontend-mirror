@@ -158,7 +158,7 @@ describe('providers > editor', () => {
     });
   });
 
-  it('returns blockCard when Slack message link inserted, calling /providers endpoint', async () => {
+  it('returns inline when Slack message link inserted, calling /providers endpoint', async () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
@@ -168,14 +168,14 @@ describe('providers > editor', () => {
       'https://atlassian.slack.com/archives/C014W1DTRHS/p1614244582005100';
     const adf = await provider.resolve(url, 'inline');
     expect(adf).toEqual({
-      type: 'blockCard',
+      type: 'inlineCard',
       attrs: {
         url,
       },
     });
   });
 
-  it('returns blockCard when Slack message in thread link inserted, calling /providers endpoint', async () => {
+  it('returns inline when Slack message in thread link inserted, calling /providers endpoint', async () => {
     const provider = new EditorCardProvider();
     mockFetch.mockImplementationOnce(async () => ({
       json: async () => mockProvidersResponse,
@@ -185,7 +185,7 @@ describe('providers > editor', () => {
       'https://atlassian.slack.com/archives/C014W1DTRHS/p1614306173007200?thread_ts=1614244582.005100&cid=C014W1DTRHS';
     const adf = await provider.resolve(url, 'inline');
     expect(adf).toEqual({
-      type: 'blockCard',
+      type: 'inlineCard',
       attrs: {
         url,
       },

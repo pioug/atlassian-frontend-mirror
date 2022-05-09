@@ -36,7 +36,11 @@ import { EditorProps, ExtensionProvidersProp } from './types/editor-props';
 import { ReactEditorView } from './create-editor';
 import { EventDispatcher } from './event-dispatcher';
 import EditorContext from './ui/EditorContext';
-import { PortalProvider, PortalRenderer } from './ui/PortalProvider';
+import {
+  PortalProvider,
+  PortalProviderWithThemeProviders,
+  PortalRenderer,
+} from './ui/PortalProvider';
 import { nextMajorVersion } from './version-wrapper';
 import { ContextAdapter } from './nodeviews/context-adapter';
 import measurements from './utils/performance/measure-enum';
@@ -59,6 +63,7 @@ import {
 } from './plugins/quick-insert/types';
 import { createFeatureFlagsFromProps } from './plugins/feature-flags-context/feature-flags-from-props';
 import { RenderTracking } from './utils/performance/components/RenderTracking';
+import { checkIfMobileBridge } from './utils/check-if-mobile-bridge';
 
 export type {
   AllowedBlockTypes,
@@ -628,6 +633,24 @@ export default class Editor extends React.Component<EditorProps, State> {
     const renderTrackingEnabled = renderTracking?.enabled;
     const useShallow = renderTracking?.useShallow;
 
+    /**
+     * The PortalProviderWithThemeProviders renders portals with atlaskit
+     * and the deprecated styled components theme providers.
+     *
+     * Without this the node views react trees;
+     * - do not have access to the atlaskit theme via the `useGlobalTheme` hook
+     * - do not have access to the theme when using the `styled`${({theme}) => theme.}` api.
+     *
+     * Added for a mobile regression, which needed to be fixed on master.
+     * Once this makes it's way to develop, we should consider making it the default
+     * behaviour.
+     *
+     * https://product-fabric.atlassian.net/browse/ED-14204
+     */
+    const EnvironmentDrivenPortalProvider = checkIfMobileBridge()
+      ? PortalProviderWithThemeProviders
+      : PortalProvider;
+
     return (
       <FabricEditorAnalyticsContext
         data={{
@@ -661,7 +684,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                   <WidthProvider css={fullHeight}>
                     <EditorContext editorActions={this.editorActions}>
                       <ContextAdapter>
-                        <PortalProvider
+                        <EnvironmentDrivenPortalProvider
                           onAnalyticsEvent={this.handleAnalyticsEvent}
                           useAnalyticsContext={
                             this.props.UNSAFE_useAnalyticsContext

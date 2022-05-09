@@ -23,53 +23,22 @@ import { fireEvent, render, cleanup } from '@testing-library/react';
 import { fakeFactory } from '../../../utils/mocks';
 import CardClient from '../../../client';
 import { Provider } from '../../..';
-import { JsonLd } from 'json-ld-types';
 import * as analytics from '../../../utils/analytics/analytics';
 import { Card } from '../../Card';
 import { IntlProvider } from 'react-intl-next';
-
-const mockResponse = {
-  meta: {
-    visibility: 'public',
-    access: 'granted',
-    auth: [],
-    definitionId: 'd1',
-    key: 'object-provider',
-  },
-  data: {
-    '@context': {
-      '@vocab': 'https://www.w3.org/ns/activitystreams#',
-      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-      schema: 'http://schema.org/',
-    },
-    '@type': 'Object',
-    name: 'I love cheese',
-    summary: 'Here is your serving of cheese: 🧀',
-    'schema:potentialAction': {
-      '@id': 'comment',
-      '@type': 'CommentAction',
-      identifier: 'object-provider',
-      name: 'Comment',
-    },
-    preview: {
-      href: 'https://www.ilovecheese.com',
-    },
-    url: 'https://some.url',
-    generator: {
-      '@type': 'Application',
-      '@id': 'https://www.atlassian.com/#Confluence',
-      name: 'Confluence',
-    },
-  },
-} as JsonLd.Response;
+import {
+  mockConfluenceResponse,
+  mockJiraResponse,
+  mockIframelyResponse,
+} from './__mocks__/mocks';
 
 describe('HoverCard', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockUrl: string;
 
-  const setup = async () => {
-    mockFetch = jest.fn(() => Promise.resolve(mockResponse));
+  const setup = async (mock: any = mockConfluenceResponse) => {
+    mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
     mockUrl = 'https://some.url';
 
@@ -83,6 +52,9 @@ describe('HoverCard', () => {
 
     const element = await findByTestId('inline-card-resolved-view');
     jest.useFakeTimers();
+    jest
+      .spyOn(Date, 'now')
+      .mockImplementation(() => new Date('April 1, 2022 00:00:00').getTime());
 
     fireEvent.mouseEnter(element);
 
@@ -91,7 +63,7 @@ describe('HoverCard', () => {
 
   afterEach(() => {
     jest.useRealTimers();
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
     cleanup();
   });
 
@@ -107,14 +79,51 @@ describe('HoverCard', () => {
     const { findByTestId } = await setup();
     jest.runAllTimers();
     const titleBlock = await findByTestId('smart-block-title-resolved-view');
+    await findByTestId('smart-block-metadata-resolved-view');
     const snippetBlock = await findByTestId(
       'smart-block-snippet-resolved-view',
     );
     const footerBlock = await findByTestId('smart-footer-block-resolved-view');
     //trim because the icons are causing new lines in the textContent
     expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-    expect(snippetBlock.textContent).toBe('Here is your serving of cheese: 🧀');
+    expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
     expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
+  });
+
+  describe('metadata', () => {
+    it('renders correctly for confluence links', async () => {
+      const { findByTestId } = await setup();
+      jest.runAllTimers();
+      await findByTestId('authorgroup-metadata-element');
+      const createdBy = await findByTestId('createdby-metadata-element');
+      const commentCount = await findByTestId('commentcount-metadata-element');
+      const reactCount = await findByTestId('reactcount-metadata-element');
+
+      expect(createdBy.textContent).toBe('Created by Michael Schrute');
+      expect(commentCount.textContent).toBe('4');
+      expect(reactCount.textContent).toBe('8');
+    });
+
+    it('renders correctly for jira links', async () => {
+      const { findByTestId } = await setup(mockJiraResponse);
+      jest.runAllTimers();
+      await findByTestId('authorgroup-metadata-element');
+      const priority = await findByTestId('priority-metadata-element');
+      const state = await findByTestId('state-metadata-element');
+
+      expect(priority.textContent).toBe('Major');
+      expect(state.textContent).toBe('Done');
+    });
+
+    it('renders correctly for other providers', async () => {
+      const { findByTestId } = await setup(mockIframelyResponse);
+      jest.runAllTimers();
+      const titleBlock = await findByTestId('smart-block-title-resolved-view');
+      const modifiedOn = await findByTestId('modifiedon-metadata-element');
+
+      expect(titleBlock.textContent?.trim()).toBe('I love cheese');
+      expect(modifiedOn.textContent).toBe('Updated 3 months ago');
+    });
   });
 
   describe('when mouse moves over the child', () => {
@@ -276,7 +285,7 @@ describe('HoverCard', () => {
       expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledWith(
         'card',
         'd1',
-        'object-provider',
+        'confluence-object-provider',
         undefined,
       );
       mock.mockRestore();
@@ -298,14 +307,14 @@ describe('HoverCard', () => {
         'card',
         0,
         'd1',
-        'object-provider',
+        'confluence-object-provider',
         undefined,
       );
       mock.mockRestore();
     });
 
     it('should fire clicked event when open button is clicked', async () => {
-      const mock = jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
+      jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
 
       const { findByTestId } = await setup();
       jest.runAllTimers();
@@ -320,10 +329,9 @@ describe('HoverCard', () => {
       expect(analytics.uiHoverCardOpenLinkClickedEvent).toHaveBeenCalledWith(
         'card',
         'd1',
-        'object-provider',
+        'confluence-object-provider',
         undefined,
       );
-      mock.mockRestore();
     });
   });
 });

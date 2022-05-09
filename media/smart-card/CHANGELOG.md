@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 18.0.22
+
+### Patch Changes
+
+- [`8b9f08cbc1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9f08cbc1c) - [ux] Default representation for Slack links was changed from 'block' to 'inline'
+- [`f4811ca8c6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4811ca8c6a) - add provider based metadata to hover previews
+
 ## 18.0.21
 
 ### Patch Changes

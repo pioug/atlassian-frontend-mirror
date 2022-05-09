@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 0.1.3
+
+### Patch Changes
+
+- [`8b9f08cbc1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9f08cbc1c) - [ux] Default representation for Slack links was changed from 'block' to 'inline'
+
 ## 0.1.2
 
 ### Patch Changes

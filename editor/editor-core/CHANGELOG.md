@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 164.0.4
+
+### Patch Changes
+
+- [`798c0d0b9c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/798c0d0b9c3) - [ux] Fixes an issue where some editor nodes did not work with dark mode (which is only used on mobile). When the environment is detected to be mobile, this adds a Atlaskit Theme Provider and a styled-components theme provider to the top of the editors "portals" (not react portals), which allows theming to work.
+
 ## 164.0.3
 
 ### Patch Changes

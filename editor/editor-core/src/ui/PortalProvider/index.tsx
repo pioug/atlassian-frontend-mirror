@@ -15,11 +15,16 @@ import {
   EVENT_TYPE,
 } from '../../plugins/analytics/types/enums';
 import {
-  injectIntl,
+  useIntl,
   IntlShape,
   RawIntlProvider,
   WrappedComponentProps,
+  injectIntl,
 } from 'react-intl-next';
+import { useGlobalTheme } from '@atlaskit/theme/components';
+import type { ThemeModes } from '@atlaskit/theme/types';
+
+import { PortalProviderThemeProviders } from './PortalProviderThemesProvider';
 
 export type BasePortalProviderProps = {
   render: (
@@ -27,6 +32,7 @@ export type BasePortalProviderProps = {
   ) => React.ReactChild | JSX.Element | null;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
+  themeMode?: ThemeModes;
 } & WrappedComponentProps;
 
 export type Portals = Map<HTMLElement, React.ReactChild>;
@@ -47,16 +53,19 @@ export class PortalProviderAPI extends EventDispatcher {
   intl: IntlShape;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
+  themeMode?: ThemeModes;
 
   constructor(
     intl: IntlShape,
     onAnalyticsEvent?: FireAnalyticsCallback,
     analyticsContext?: boolean,
+    themeMode?: ThemeModes,
   ) {
     super();
     this.intl = intl;
     this.onAnalyticsEvent = onAnalyticsEvent;
     this.useAnalyticsContext = analyticsContext;
+    this.themeMode = themeMode;
   }
 
   setContext = (context: any) => {
@@ -69,6 +78,37 @@ export class PortalProviderAPI extends EventDispatcher {
     hasAnalyticsContext: boolean = false,
     hasIntlContext: boolean = false,
   ) {
+    if (this.themeMode) {
+      const childrenWithThemeProviders = () => (
+        <PortalProviderThemeProviders mode={this.themeMode!}>
+          {children()}
+        </PortalProviderThemeProviders>
+      );
+      this.portals.set(container, {
+        children: childrenWithThemeProviders,
+        hasAnalyticsContext,
+        hasIntlContext,
+      });
+      let wrappedChildren = this.useAnalyticsContext ? (
+        <AnalyticsContextWrapper>
+          {childrenWithThemeProviders()}
+        </AnalyticsContextWrapper>
+      ) : (
+        (childrenWithThemeProviders() as JSX.Element)
+      );
+      if (hasIntlContext) {
+        wrappedChildren = (
+          <RawIntlProvider value={this.intl}>{wrappedChildren}</RawIntlProvider>
+        );
+      }
+      unstable_renderSubtreeIntoContainer(
+        this.context,
+        wrappedChildren,
+        container,
+      );
+      return;
+    }
+
     this.portals.set(container, {
       children,
       hasAnalyticsContext,
@@ -174,6 +214,7 @@ class BasePortalProvider extends React.Component<BasePortalProviderProps> {
       props.intl,
       props.onAnalyticsEvent,
       props.useAnalyticsContext,
+      props.themeMode,
     );
   }
 
@@ -187,6 +228,22 @@ class BasePortalProvider extends React.Component<BasePortalProviderProps> {
 }
 
 export const PortalProvider = injectIntl(BasePortalProvider);
+export const PortalProviderWithThemeProviders = (
+  props: Omit<BasePortalProviderProps, 'intl' | 'themeMode'>,
+) => {
+  const intl = useIntl();
+  const globalTheme = useGlobalTheme();
+
+  return (
+    <BasePortalProvider
+      intl={intl}
+      themeMode={globalTheme.mode}
+      onAnalyticsEvent={props.onAnalyticsEvent}
+      useAnalyticsContext={props.useAnalyticsContext}
+      render={props.render}
+    />
+  );
+};
 
 export class PortalRenderer extends React.Component<
   { portalProviderAPI: PortalProviderAPI },

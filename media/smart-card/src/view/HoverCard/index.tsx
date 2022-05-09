@@ -6,6 +6,7 @@ import {
   TitleBlock,
   SnippetBlock,
   FooterBlock,
+  MetadataBlock,
 } from '../FlexibleCard/components/blocks';
 import { Card } from '../Card';
 import Popup from '@atlaskit/popup';
@@ -26,6 +27,8 @@ import { AnalyticsPayload } from '../../../src/utils/types';
 import { useSmartCardState as useLinkState } from '../../state/store';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { getExtensionKey, getDefinitionId } from '../../state/helpers';
+import { extractMetadata } from '../../extractors/hover/extractMetadata';
+import { getSimulatedMetadata } from './utils';
 
 export const HoverCardComponent: FC<HoverCardProps> = ({
   children,
@@ -124,23 +127,34 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
     } as CustomActionItem;
   }, [url, definitionId, extensionKey, analytics]);
 
-  const cardComponent = () => (
-    <div
-      onMouseEnter={initShowCard}
-      onMouseLeave={initHideCard}
-      css={HoverCardContainer}
-    >
-      <Card
-        appearance="block"
-        url={url}
-        ui={{ hideElevation: true, size: SmartLinkSize.Large }}
+  const CardComponent = () => {
+    //TODO: EDM-3224 deleted simulated and use real JsonLd
+    const metadataElements = extractMetadata(
+      getSimulatedMetadata(extensionKey),
+    );
+
+    return (
+      <div
+        onMouseEnter={initShowCard}
+        onMouseLeave={initHideCard}
+        css={HoverCardContainer}
       >
-        <TitleBlock actions={[openAction]} />
-        <SnippetBlock />
-        <FooterBlock actions={smartlinkActions} />
-      </Card>
-    </div>
-  );
+        <Card
+          appearance="block"
+          url={url}
+          ui={{ hideElevation: true, size: SmartLinkSize.Large }}
+        >
+          <TitleBlock actions={[openAction]} />
+          <MetadataBlock
+            primary={metadataElements.primary}
+            secondary={metadataElements.secondary}
+          />
+          <SnippetBlock />
+          <FooterBlock actions={smartlinkActions} />
+        </Card>
+      </div>
+    );
+  };
 
   const onClose = useCallback(() => setIsOpen(false), []);
 
@@ -150,7 +164,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       placement="bottom-start"
-      content={cardComponent}
+      content={CardComponent}
       trigger={(triggerProps) => (
         <span
           {...triggerProps}

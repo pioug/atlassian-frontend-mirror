@@ -1,15 +1,13 @@
 /* eslint-disable @atlaskit/design-system/use-visually-hidden */
 import type { Rule } from 'eslint';
-import type {
-  ImportSpecifier,
-  // eslint-disable-next-line import/no-unresolved
-} from 'estree';
-
 import {
-  getClosestNodeOfType,
-  isStyledObjectNode,
-  isStyledTemplateNode,
-} from '../utils/is-node';
+  closestOfType,
+  hasImportDeclaration,
+  ImportSpecifier,
+  isNodeOfType,
+} from 'eslint-codemod-utils';
+
+import { isStyledObjectNode, isStyledTemplateNode } from '../utils/is-node';
 
 import fixJsx from './fix-jsx';
 import fixVanilla from './fix-vanilla';
@@ -46,8 +44,8 @@ const rule: Rule.RuleModule = {
     return {
       ImportDeclaration(node) {
         const isThemeNode =
-          node.source.value === '@atlaskit/theme' ||
-          node.source.value === '@atlaskit/theme/constants';
+          hasImportDeclaration(node, '@atlaskit/theme') ||
+          hasImportDeclaration(node, '@atlaskit/theme/constants');
 
         if (!isThemeNode) {
           return;
@@ -110,10 +108,10 @@ const rule: Rule.RuleModule = {
                       },
                       fix: fixVanilla(
                         source,
-                        getClosestNodeOfType(
+                        closestOfType(
                           idNode.parent,
                           'TaggedTemplateExpression',
-                        ),
+                        ) as Rule.Node,
                       ),
                     });
                   }
@@ -192,7 +190,7 @@ const rule: Rule.RuleModule = {
       'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
         node: Rule.Node,
       ) => {
-        if (node.type !== 'TaggedTemplateExpression') {
+        if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
           return;
         }
 

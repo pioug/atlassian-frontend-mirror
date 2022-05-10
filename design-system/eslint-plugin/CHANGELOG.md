@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.4.4
+
+### Patch Changes
+
+- [`55a212b8b01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55a212b8b01) - Adds an additional rule for DS users to opt into to using 'noop' as a common reference rather than rewriting anonymous functions.
+
 ## 4.4.3
 
 ### Patch Changes

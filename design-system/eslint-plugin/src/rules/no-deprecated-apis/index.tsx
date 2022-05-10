@@ -1,9 +1,11 @@
 import type { Rule } from 'eslint';
-// eslint-disable-next-line import/no-unresolved
-import type { BaseNode } from 'estree';
+import {
+  closestOfType,
+  isNodeOfType,
+  JSXAttribute,
+} from 'eslint-codemod-utils';
 
 import { getImportedNodeBySource } from '../utils/get-import-node-by-source';
-import { getClosestNodeOfType } from '../utils/is-node';
 
 const unsafeOverridesConfig = {
   cssFn: ['@atlaskit/menu', '@atlaskit/side-navigation'],
@@ -13,18 +15,6 @@ const unsafeOverridesConfig = {
     '@atlaskit/side-navigation',
   ],
 };
-
-type JSXIdentifier = {
-  type: 'JSXIdentifier';
-  name: string;
-};
-
-// create a mock type based on ast explorer
-interface JSXAttribute extends BaseNode {
-  type: 'JSXAttribute';
-  name: JSXIdentifier;
-  value: any;
-}
 
 type BannedAPIs = keyof typeof unsafeOverridesConfig;
 
@@ -46,7 +36,7 @@ const rule: Rule.RuleModule = {
   create(context) {
     return {
       // find JSX atribute - find name of attribute - get source and find relevant identifiers.
-      JSXAttribute(node: JSXAttribute) {
+      JSXAttribute(node: JSXAttribute & Rule.NodeParentExtension) {
         if (!unsafeOverrides.includes(node?.name?.name as BannedAPIs)) {
           return;
         }
@@ -55,13 +45,11 @@ const rule: Rule.RuleModule = {
         const bannedApi = node.name.name as BannedAPIs;
 
         // traverse the tree to the nearest JSX Element and get its name
-        const closesetJSXElement = getClosestNodeOfType(
-          node as any,
-          'JSXOpeningElement' as any,
-        );
+        const closesetJSXElement = closestOfType(node, 'JSXOpeningElement')!;
 
-        // @ts-ignore
-        const jsxElementName = closesetJSXElement?.name?.name;
+        const jsxElementName =
+          isNodeOfType(closesetJSXElement?.name, 'JSXIdentifier') &&
+          closesetJSXElement.name.name;
 
         if (!jsxElementName) {
           return;

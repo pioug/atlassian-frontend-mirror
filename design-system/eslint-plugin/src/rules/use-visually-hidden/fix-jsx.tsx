@@ -1,7 +1,7 @@
 import type { Rule, SourceCode } from 'eslint';
+import { closestOfType } from 'eslint-codemod-utils';
 
 import { getImportedNodeBySource } from '../utils/get-import-node-by-source';
-import { getClosestNodeOfType } from '../utils/is-node';
 
 import {
   IMPORT_NAME,
@@ -24,10 +24,7 @@ export default (source: SourceCode, node: Rule.Node) => (
     return [];
   }
 
-  const jsxOpeningElement = getClosestNodeOfType(
-    node,
-    'JSXOpeningElement' as any,
-  );
+  const jsxOpeningElement = closestOfType(node, 'JSXOpeningElement') as any;
 
   if (visuallyHiddenNode) {
     fixes.push(

@@ -1,10 +1,10 @@
 import type { Rule } from 'eslint';
-import type {
+import {
   CallExpression,
   Expression,
+  isNodeOfType,
   TaggedTemplateExpression,
-  // eslint-disable-next-line import/no-unresolved
-} from 'estree';
+} from 'eslint-codemod-utils';
 
 export const isDecendantOfGlobalToken = (node: Rule.Node): boolean => {
   if (
@@ -126,22 +126,4 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
 };
 
 export const isChildOfType = (node: Rule.Node, type: Rule.Node['type']) =>
-  node.parent.type === type;
-
-/**
- * Given a node, walk up the tree until there is no parent OR a common ancestor of the correct type is found
- */
-export const getClosestNodeOfType = (
-  node: Rule.Node,
-  type: Rule.NodeTypes,
-): Rule.Node => {
-  if (!node) {
-    return node;
-  }
-
-  if (node.type === type) {
-    return node;
-  }
-
-  return getClosestNodeOfType(node.parent, type);
-};
+  isNodeOfType(node.parent, type);

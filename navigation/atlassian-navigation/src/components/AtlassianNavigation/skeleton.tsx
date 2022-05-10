@@ -114,3 +114,5 @@ export const NavigationSkeleton = ({
     </ThemeProvider>
   );
 };
+
+export default NavigationSkeleton;

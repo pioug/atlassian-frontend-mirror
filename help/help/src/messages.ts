@@ -158,7 +158,7 @@ export const messages = defineMessages({
   },
   help_article_error_text: {
     id: 'help.article_error.text',
-    defaultMessage: `Something prevented the page from loading. We will try to reconect automatically`,
+    defaultMessage: `Something prevented the page from loading. We will try to reconnect automatically.`,
     description: `Error message body for article loading`,
   },
   help_article_error_button_label: {

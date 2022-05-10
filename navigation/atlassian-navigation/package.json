@@ -43,6 +43,7 @@
   "devDependencies": {
     "@atlaskit/analytics-next": "*",
     "@atlaskit/atlassian-notifications": "*",
+    "@atlaskit/avatar": "*",
     "@atlaskit/badge": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "*",
@@ -76,5 +77,6 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "homepage": "https://atlassian.design/components/atlassian-navigation/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

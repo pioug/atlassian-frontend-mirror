@@ -8,14 +8,10 @@ import {
 } from '@atlaskit/smart-user-picker';
 
 import { DialogContentState, OriginTracing } from '../../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 
 const buildAttributes = (attributes = {}) => ({
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
   ...attributes,
 });
 

@@ -1,5 +1,7 @@
 // We don't statically export these so we suppress the error.
 // This is done so we can copy and paste the script to run it in Figma.
+import __noop from '@atlaskit/ds-lib/noop';
+
 import {
   // @ts-ignore
   synchronizeFigmaTokens as sync,
@@ -34,7 +36,7 @@ describe('synchronizeFigmaTokens', () => {
         name: '',
         description: '',
         paints: [],
-        remove: () => {},
+        remove: __noop,
       };
       figma.createPaintStyle.mockReturnValue(style);
 
@@ -76,7 +78,7 @@ describe('synchronizeFigmaTokens', () => {
         name: '',
         description: '',
         paints: [],
-        remove: () => {},
+        remove: __noop,
       };
       figma.createPaintStyle.mockReturnValue(style);
 
@@ -104,7 +106,7 @@ describe('synchronizeFigmaTokens', () => {
         name: '',
         description: '',
         paints: [],
-        remove: () => {},
+        remove: __noop,
       };
       figma.createPaintStyle.mockReturnValue(style);
 
@@ -138,7 +140,7 @@ Primary text color
           name: '',
           description: '',
           paints: [],
-          remove: () => {},
+          remove: __noop,
         };
 
         styles.push(style);
@@ -200,7 +202,7 @@ Primary text color
         name: '',
         description: '',
         effects: [],
-        remove: () => {},
+        remove: __noop,
       };
 
       figma.createEffectStyle.mockReturnValue(style);
@@ -257,7 +259,7 @@ Primary text color
         name: '',
         description: '',
         effects: [],
-        remove: () => {},
+        remove: __noop,
       };
 
       figma.createEffectStyle.mockReturnValue(newEffectStyle);
@@ -292,7 +294,7 @@ Primary text color
         name: '',
         description: '',
         paints: [],
-        remove: () => {},
+        remove: __noop,
       };
 
       figma.createPaintStyle.mockReturnValue(newPaintStyle);
@@ -341,7 +343,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -390,7 +392,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -440,7 +442,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -482,7 +484,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
         {
           name: 'bar',
@@ -500,7 +502,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -562,7 +564,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -610,7 +612,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -658,7 +660,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -694,7 +696,7 @@ Primary text color
           name: 'foo',
           description: 'token description',
           effects: [],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -739,7 +741,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 
@@ -785,7 +787,7 @@ Primary text color
               visible: true,
             },
           ],
-          remove: () => {},
+          remove: __noop,
         },
       ];
 

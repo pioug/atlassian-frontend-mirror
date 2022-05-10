@@ -674,8 +674,8 @@ describe('ShareDialogContainer', () => {
             actionSubjectId: undefined,
             attributes: {
               duration: expect.any(Number),
-              packageName: '@atlaskit/share',
-              packageVersion: '999.9.9',
+              packageName: expect.any(String),
+              packageVersion: expect.any(String),
               source: 'shareModal',
               tooSlow: false,
             },
@@ -745,8 +745,8 @@ describe('ShareDialogContainer', () => {
           actionSubjectId: undefined,
           source: 'shareModal',
           attributes: {
-            packageName: '@atlaskit/share',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             source: 'shareModal',
           },
         });
@@ -763,8 +763,8 @@ describe('ShareDialogContainer', () => {
           actionSubjectId: 'urlShortening',
           source: 'shareModal',
           attributes: {
-            packageName: '@atlaskit/share',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             source: 'shareModal',
           },
         });

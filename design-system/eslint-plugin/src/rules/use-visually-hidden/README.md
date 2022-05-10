@@ -42,7 +42,7 @@ const VisuallyHidden = styled.span`
 import { visuallyHidden } from '@atlaskit/theme/constants';
 
 const VisuallyHidden = styled.span`${visuallyHidden()}`;
-                                      ^^^^              
+                                     ^^^^^^^^^^^^^^              
 ```
 
 👍 Example of **correct** code for this rule:

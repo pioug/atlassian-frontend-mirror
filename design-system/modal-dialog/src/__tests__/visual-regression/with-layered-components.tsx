@@ -113,8 +113,15 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // TODO: DSP-1663 fix flakey VR
-  it.skip('with DropdownMenu', async () => {
+  /**
+   * This test was originally identified as flakey and skipped.
+   *
+   * Investigation from DSP-1663 found it was just outdated,
+   * so it was regenerated and un-skipped.
+   *
+   * If it is later re-identified as flakey, it will need further investigation.
+   */
+  it('with DropdownMenu', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToBottom);
@@ -135,7 +142,19 @@ describe('<Modal />', () => {
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();
   });
-  // TODO: DSP-1663 fix flakey VR
+
+  /**
+   * This test is flakey and was investigated in DSP-1663.
+   *
+   * Sometimes the scroll indicator keyline appears and sometimes it does not.
+   *
+   * It seems that occasionally either the scroll height or position changes
+   * after scrolling to the bottom, causing the container to no longer be
+   * scrolled to the bottom.
+   *
+   * Some attempts at adding delays reduced the frequency of this occurring,
+   * but did not completely eliminate it. It was not clear why this happens.
+   */
   it.skip('with DatePicker', async () => {
     const page = await openModal(url, options);
 

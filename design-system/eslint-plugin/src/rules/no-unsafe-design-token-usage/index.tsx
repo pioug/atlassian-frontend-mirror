@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+import { isNodeOfType } from 'eslint-codemod-utils';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getTokenId } from '@atlaskit/tokens/token-ids';
@@ -64,7 +65,7 @@ token('color.background.blanket');
       'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]': (
         node: Rule.Node,
       ) => {
-        if (node.type !== 'TaggedTemplateExpression') {
+        if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
           return;
         }
 
@@ -113,7 +114,7 @@ token('color.background.blanket');
       },
 
       'CallExpression[callee.name="token"]': (node: Rule.Node) => {
-        if (node.type !== 'CallExpression') {
+        if (!isNodeOfType(node, 'CallExpression')) {
           return;
         }
 

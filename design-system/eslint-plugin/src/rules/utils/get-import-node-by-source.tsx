@@ -1,6 +1,5 @@
-/* eslint-disable import/no-unresolved */
 import type { SourceCode } from 'eslint';
-import type { ImportDeclaration } from 'estree';
+import type { ImportDeclaration } from 'eslint-codemod-utils';
 
 /**
  * @param {SourceCode} source The eslint source

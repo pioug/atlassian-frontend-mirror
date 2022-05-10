@@ -1,4 +1,5 @@
 import type { Rule } from 'eslint';
+import { isNodeOfType } from 'eslint-codemod-utils';
 
 import {
   includesHardCodedColor,
@@ -51,8 +52,7 @@ const getTokenSuggestion = (
       fix: (fixer: Rule.RuleFixer) =>
         fixer.replaceText(
           node,
-          // @ts-ignore JSXAttribute is not available in @types/estree
-          node.parent.type === 'JSXAttribute'
+          isNodeOfType(node.parent, 'JSXAttribute')
             ? `{token('', ${reference})}`
             : `token('', ${reference})`,
         ),

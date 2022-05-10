@@ -12,5 +12,5 @@ yarn add @atlaskit/side-navigation
 
 Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/navigation/side-navigation).
 
-To add a top navigation, use [@atlaskit/atlassian-navigation](https://atlaskit.atlassian.com/packages/navigation/atlassian-navigation)
+To add a top navigation, use [@atlaskit/atlassian-navigation](https://atlassian.design/components/atlassian-navigation)
 To control the layout of these navigation elements and add expand/collapse functionality to `side-navigation`, use [@atlaskit/page-layout](https://atlaskit.atlassian.com/packages/design-system/page-layout).

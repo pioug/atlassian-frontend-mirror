@@ -32,7 +32,7 @@ describe('share analytics', () => {
         attributes: expect.objectContaining({
           source: 'shareModal',
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
         }),
       });
     });
@@ -48,7 +48,7 @@ describe('share analytics', () => {
         source: 'shareModal',
         attributes: expect.objectContaining({
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
         }),
       });
     });
@@ -64,7 +64,7 @@ describe('share analytics', () => {
         attributes: expect.objectContaining({
           duration: expect.any(Number),
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
         }),
       });
     });
@@ -81,7 +81,7 @@ describe('share analytics', () => {
         attributes: expect.objectContaining({
           source: 'shareModal',
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
         }),
       });
     });
@@ -114,7 +114,7 @@ describe('share analytics', () => {
         attributes: expect.objectContaining({
           duration: expect.any(Number),
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
           shortUrl: undefined,
           isPublicLink: false,
         }),
@@ -133,7 +133,7 @@ describe('share analytics', () => {
         attributes: expect.objectContaining({
           duration: expect.any(Number),
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
           originIdGenerated: 'abc-123',
           shortUrl: undefined,
           originProduct: 'jest',
@@ -186,7 +186,7 @@ describe('share analytics', () => {
           users: ['abc-123'],
           teams: ['123-abc'],
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
           isMessageEnabled: true,
           messageLength: 12,
           isPublicLink: false,
@@ -209,7 +209,7 @@ describe('share analytics', () => {
           users: ['abc-123'],
           teams: ['123-abc'],
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
           isMessageEnabled: true,
           messageLength: 12,
         }),
@@ -233,7 +233,7 @@ describe('share analytics', () => {
             users: ['abc-123'],
             teams: ['123-abc'],
             packageVersion: expect.any(String),
-            packageName: '@atlaskit/share',
+            packageName: expect.any(String),
             isMessageEnabled: true,
             messageLength: 12,
             originIdGenerated: 'abc-123',
@@ -264,7 +264,7 @@ describe('share analytics', () => {
             users: ['abc-123'],
             teams: ['123-abc'],
             packageVersion: expect.any(String),
-            packageName: '@atlaskit/share',
+            packageName: expect.any(String),
             isMessageEnabled: true,
             messageLength: 12,
             originIdGenerated: 'abc-123',
@@ -320,7 +320,7 @@ describe('share analytics', () => {
           teams: ['abc-123', 'abc-1234'],
           teamUserCounts: [2, 5],
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
           isMessageEnabled: true,
           messageLength: 12,
           originIdGenerated: 'abc-123',
@@ -357,7 +357,7 @@ describe('share analytics', () => {
           teams: ['abc-123', 'abc-1234', 'abc-1235'],
           teamUserCounts: [2, 5, 0],
           packageVersion: expect.any(String),
-          packageName: '@atlaskit/share',
+          packageName: expect.any(String),
           isMessageEnabled: true,
           messageLength: 12,
           originIdGenerated: 'abc-123',

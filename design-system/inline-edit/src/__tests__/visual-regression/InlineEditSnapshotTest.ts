@@ -15,6 +15,8 @@ const readViewEditableTextField =
 const error = 'span[aria-label="error"]';
 const errorMessage = '#error-message';
 
+const textFieldContainer = '[data-ds--text-field--container]';
+
 describe('Snapshot Test', () => {
   it('Default usage should match production example', async () => {
     const url = getExampleUrl(
@@ -167,8 +169,7 @@ describe('Snapshot Test', () => {
     });
   });
 
-  // TODO: DSP-1663 fix flakey VR
-  it.skip('Validation - should show error message when input is invalid', async () => {
+  it('Validation - should show error message when input is invalid', async () => {
     const url = getExampleUrl(
       'design-system',
       'inline-edit',
@@ -194,6 +195,13 @@ describe('Snapshot Test', () => {
 
     await page.waitForSelector(error);
     await page.waitForSelector(errorMessage);
+
+    /**
+     * Added in DSP-1663 to fix inconsistency between local and CI.
+     *
+     * CI was showing the hover state, but local was not.
+     */
+    await page.hover(textFieldContainer);
 
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();

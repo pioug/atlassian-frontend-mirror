@@ -2,12 +2,14 @@
 /* eslint-disable no-undef */
 import { RuleTester } from 'eslint';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 (RuleTester as any).describe = (text: string, method: Function) => {
   const origHasAssertions = expect.hasAssertions;
   describe(text, () => {
     beforeAll(() => {
       // Stub out expect.hasAssertions beforeEach from jest-presetup.js
-      expect.hasAssertions = () => {};
+      expect.hasAssertions = __noop;
     });
     afterAll(() => {
       expect.hasAssertions = origHasAssertions;

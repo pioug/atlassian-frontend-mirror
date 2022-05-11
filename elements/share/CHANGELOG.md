@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.2.1
+
+### Patch Changes
+
+- [`f68c0d8a877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f68c0d8a877) - Stop depending on missing version.json file
+
 ## 3.2.0
 
 ### Minor Changes

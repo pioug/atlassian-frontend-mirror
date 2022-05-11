@@ -9,7 +9,7 @@ import { isExternalUser } from './components/utils';
 
 const UUID_REGEXP_TEAMS_GROUPS = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 const UUID_REGEXP_OLD_AAID = /^[a-fA-F0-9]{1,8}:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-const UUID_REGEXP_NEW_AAID = /^[a-fA-F0-9]{24,24}/;
+const UUID_REGEXP_NEW_AAID = /^[a-fA-F0-9]{24,24}$/;
 
 export type UserPickerSession = {
   id: string;
@@ -216,7 +216,8 @@ export const userInfoEvent = (
 ): AnalyticsEventPayload =>
   createEvent('ui', 'displayed', 'userInfo', {
     sources,
-    accountId,
+    // accountId can be PII if it is an email so check that it's an AAID first
+    accountId: checkValidId(accountId) ? accountId : null,
   });
 
 function queryLength(state: UserPickerState) {

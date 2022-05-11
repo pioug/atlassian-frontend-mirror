@@ -20,7 +20,7 @@ jest.mock('../../../../src/analytics', () => ({
 describe('ExternalUserOption', () => {
   const source = 'google';
   const user: ExternalUser = {
-    id: 'abc-123',
+    id: 'abc123abc123abc123abc123',
     name: 'Jace Beleren',
     email: 'jbeleren@email.com',
     avatarUrl: 'http://avatars.atlassian.com/jace.png',
@@ -250,7 +250,37 @@ describe('ExternalUserOption', () => {
         action: 'displayed',
         actionSubject: 'userInfo',
         attributes: {
-          accountId: 'abc-123',
+          accountId: 'abc123abc123abc123abc123',
+          packageName: '@atlaskit/user-picker',
+          packageVersion: '999.9.9',
+          sources: ['google'],
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should not include PII when the sources tooltip is viewed', async () => {
+      expect.assertions(2);
+      const { getByTestId, findByRole } = render(
+        <IntlProvider messages={{}} locale="en">
+          <ExternalUserOption
+            user={{ ...user, id: 'test@atlassian.com' }}
+            status="approved"
+            isSelected={false}
+          />
+        </IntlProvider>,
+      );
+      // Sources info icon is visible
+      expect(getByTestId('source-icon')).toBeTruthy();
+      // Hover over tooltip
+      fireEvent.mouseOver(getByTestId('source-icon'));
+      await findByRole('tooltip');
+      // Event is fired when tooltip is displayed
+      expect(createAndFireEventInElementsChannel).toHaveBeenCalledWith({
+        action: 'displayed',
+        actionSubject: 'userInfo',
+        attributes: {
+          accountId: null,
           packageName: '@atlaskit/user-picker',
           packageVersion: '999.9.9',
           sources: ['google'],

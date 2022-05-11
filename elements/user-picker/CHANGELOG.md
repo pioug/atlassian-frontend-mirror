@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.0.5
+
+### Patch Changes
+
+- [`9b66179b615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b66179b615) - Removed potential logging of PII in the external user hover analytics event.
+
 ## 9.0.4
 
 ### Patch Changes

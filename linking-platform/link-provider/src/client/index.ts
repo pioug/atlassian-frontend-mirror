@@ -5,9 +5,8 @@ import DataLoader from 'dataloader';
 import { JsonLd } from 'json-ld-types';
 import retry, { Options } from 'async-retry';
 import pThrottle from 'p-throttle';
-import { InvokePayload } from '@atlaskit/linking-common';
+import { InvokePayload, APIError } from '@atlaskit/linking-common';
 import * as api from './api';
-import { APIError } from './errors';
 import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
 import { getResolverUrl } from './utils/environments';
 import {

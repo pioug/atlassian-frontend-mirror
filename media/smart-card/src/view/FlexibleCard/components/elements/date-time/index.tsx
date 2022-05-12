@@ -22,8 +22,8 @@ const typeToDescriptorMap: Record<DateTimeType, MessageDescriptor> = {
 };
 
 /**
- * An element that displays an ISO Timestamp in text.
- * @public
+ * A base element that displays an ISO Timestamp in text.
+ * @internal
  * @param {DateTimeProps} DateTimeProps - The props necessary for the DateTime element.
  * @see CreatedOn
  * @see ModifiedOn

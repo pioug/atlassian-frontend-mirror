@@ -6,13 +6,13 @@ import {
   CardPlatform,
   LinkPreview,
   extractPreview,
+  CardStore,
+  getUrl,
 } from '@atlaskit/linking-common';
 import { cardReducer } from './reducers';
 import { SmartCardContext } from './state/context';
 import { CardProviderProps } from './state/context/types';
 import CardClient from './client';
-import { getUrl } from './helpers';
-import { CardStore } from './state/store/types';
 
 export function SmartCardProvider({
   storeOptions,

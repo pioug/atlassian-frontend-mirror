@@ -93,9 +93,6 @@ export enum ElementName {
   AuthorGroup = 'AuthorGroup',
   CollaboratorGroup = 'CollaboratorGroup',
   CommentCount = 'CommentCount',
-  ViewCount = 'ViewCount',
-  ReactCount = 'ReactCount',
-  VoteCount = 'VoteCount',
   CreatedBy = 'CreatedBy',
   CreatedOn = 'CreatedOn',
   LinkIcon = 'LinkIcon',
@@ -104,11 +101,14 @@ export enum ElementName {
   Preview = 'Preview',
   Priority = 'Priority',
   ProgrammingLanguage = 'ProgrammingLanguage',
+  Provider = 'Provider',
+  ReactCount = 'ReactCount',
   Snippet = 'Snippet',
   State = 'State',
   SubscriberCount = 'SubscriberCount',
   Title = 'Title',
-  Provider = 'Provider',
+  ViewCount = 'ViewCount',
+  VoteCount = 'VoteCount',
 }
 
 /**

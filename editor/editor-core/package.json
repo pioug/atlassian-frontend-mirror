@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "164.0.4",
+  "version": "165.0.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -128,7 +128,7 @@
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^32.3.1",
-    "@atlaskit/smart-card": "^18.0.14",
+    "@atlaskit/smart-card": "^19.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
@@ -155,10 +155,10 @@
     "@atlaskit/page-layout": "^1.2.0",
     "@atlaskit/profilecard": "^16.4.0",
     "@atlaskit/pubsub": "^6.0.0",
-    "@atlaskit/renderer": "^93.0.0",
+    "@atlaskit/renderer": "^94.0.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/share": "*",
-    "@atlaskit/smart-card": "^18.0.0",
+    "@atlaskit/smart-card": "^19.0.0",
     "@atlaskit/smart-user-picker": "^5.0.2",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
     "@atlaskit/textarea": "^4.3.0",

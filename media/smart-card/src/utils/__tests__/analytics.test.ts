@@ -1,3 +1,4 @@
+import { APIError } from '@atlaskit/linking-common';
 import {
   fireSmartLinkEvent,
   ANALYTICS_CHANNEL,
@@ -6,7 +7,6 @@ import {
   instrumentEvent,
 } from '../analytics';
 import { AnalyticsPayload } from '../types';
-import { APIError } from '../../client/errors';
 
 // Mock our fire analytics function
 describe('fireSmartLinkEvent', () => {

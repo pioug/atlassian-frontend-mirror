@@ -9,8 +9,8 @@ const styles = css`
 `;
 
 /**
- * An element that displays a Lozenge.
- * @public
+ * A base element that displays a Lozenge.
+ * @internal
  * @param {LozengeProps} LozengeProps - The props necessary for the Lozenge element.
  * @see State
  */

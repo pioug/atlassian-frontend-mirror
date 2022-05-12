@@ -3,6 +3,7 @@ import {
   version as packageVersion,
 } from '../../version.json';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { APIError } from '@atlaskit/linking-common';
 
 import { AnalyticsPayload } from '../types';
 import { ErrorInfo } from 'react';
@@ -12,7 +13,6 @@ import {
   PreviewInvokeMethod,
 } from '../../view/HoverCard/types';
 import { getMeasure } from '../performance';
-import { APIError } from '../../client/errors';
 
 export const ANALYTICS_CHANNEL = 'media';
 

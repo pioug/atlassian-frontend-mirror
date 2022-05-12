@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { CardState, getUrl } from '@atlaskit/linking-common';
 
-import { CardState } from './types';
-import { useSmartLinkContext } from '../context';
-import { getUrl } from '../helpers';
+export type { CardType } from '@atlaskit/linking-common';
 
 export function useSmartCardState(url: string): CardState {
   const { store } = useSmartLinkContext();
@@ -19,5 +19,3 @@ export function useSmartCardState(url: string): CardState {
   // State for use in view components.
   return state;
 }
-
-export type { CardType } from './types';

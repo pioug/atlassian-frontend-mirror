@@ -3,10 +3,6 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
 );
 jest.doMock('../../../utils/analytics/analytics');
-const mockAPIError = jest.fn();
-jest.doMock('../../../client/errors', () => ({
-  APIError: mockAPIError,
-}));
 
 // force isIntersectionObserverSupported to be false until support for it is dropped.
 jest.mock('@atlaskit/media-ui', () => {
@@ -21,7 +17,7 @@ jest.mock('@atlaskit/media-ui', () => {
 import React from 'react';
 import { fireEvent, render, cleanup } from '@testing-library/react';
 import { fakeFactory } from '../../../utils/mocks';
-import CardClient from '../../../client';
+import { CardClient } from '@atlaskit/link-provider';
 import { Provider } from '../../..';
 import * as analytics from '../../../utils/analytics/analytics';
 import { Card } from '../../Card';

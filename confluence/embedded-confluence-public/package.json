@@ -1,0 +1,53 @@
+{
+  "name": "@atlaskit/embedded-confluence",
+  "version": "1.0.0",
+  "description": "Public release version of Embeddedable Pages for Confluence",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Confluence Better Together",
+    "inPublicMirror": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Embedded Confluence"
+    }
+  },
+  "scripts": {
+    "prepack": "node ./scripts/devCleanup.js",
+    "postpublish": "node ./scripts/devRestore.js",
+    "webpack-build": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --progress --config config/webpack.prod.js",
+    "ak-postbuild": "yarn webpack-build"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/embedded-confluence-bundle.js",
+  "browser": "dist/embedded-confluence-bundle.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0"
+  },
+  "optionalDependencies": {
+    "@atlassian/embedded-confluence-common": "^1.5.0",
+    "@atlassian/experience-tracker": "^2.1.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/analytics-next": "^8.3.0",
+    "@atlaskit/docs": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/react": "^8.0.1",
+    "typescript": "4.2.4",
+    "wait-for-expect": "^1.2.0"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

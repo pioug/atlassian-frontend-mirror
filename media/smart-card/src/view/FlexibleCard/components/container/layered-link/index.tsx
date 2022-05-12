@@ -39,6 +39,11 @@ const styles = css`
   }
 `;
 
+/**
+ * An anchor component to cover the entire container creating a clickable area.
+ * @internal
+ * @see `clickableContainer`
+ */
 const LayeredLink: React.FC<LayeredLinkProps> = ({
   target,
   testId,

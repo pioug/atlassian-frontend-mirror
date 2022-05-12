@@ -49,8 +49,8 @@ const styles = css`
 `;
 
 /**
- * An element that displays a Media.
- * @public
+ * A base element that displays a Media.
+ * @internal
  * @param {MediaProps} MediaProps - The props necessary for the Media element.
  * @see Preview
  */

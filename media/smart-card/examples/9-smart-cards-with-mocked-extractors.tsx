@@ -20,7 +20,7 @@ import {
   JiraTasks,
   GitHubIssue,
 } from '../examples-helpers/_jsonLDExamples/atlassian.task';
-import { EnvironmentsKeys } from '../src/client/types';
+import { EnvironmentsKeys } from '@atlaskit/link-provider';
 
 const metaMock = {
   access: 'granted',

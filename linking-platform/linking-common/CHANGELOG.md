@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.1.0
+
+### Minor Changes
+
+- [`f69424339b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f69424339b2) - Expose common types and helpers from linking-common rather than from link-picker
+
 ## 1.0.2
 
 ### Patch Changes

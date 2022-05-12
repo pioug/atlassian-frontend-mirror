@@ -1,4 +1,5 @@
 jest.mock('react', () => ({
+  ...jest.requireActual<Object>('react'),
   useMemo: jest.fn().mockImplementation((fn) => fn()),
   useCallback: jest.fn().mockImplementation((fn) => fn),
 }));
@@ -14,15 +15,16 @@ jest.doMock('../../../utils/analytics/analytics');
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: jest.fn(),
 }));
+import { CardContext } from '@atlaskit/link-provider';
 
-export const mockGetContext = () => ({
+export const mockGetContext = (): CardContext => ({
   config: {},
   connections: {
     client: {
       prefetchData: jest.fn(),
       fetchData: jest.fn(),
       postData: jest.fn(),
-    },
+    } as any,
   },
   store: {
     getState: jest.fn(() => ({})),
@@ -36,6 +38,7 @@ export const mockGetContext = () => ({
   },
 });
 
-jest.doMock('../../context', () => ({
+jest.doMock('@atlaskit/link-provider', () => ({
+  ...jest.requireActual<Object>('@atlaskit/link-provider'),
   useSmartLinkContext: jest.fn(() => mockGetContext()),
 }));

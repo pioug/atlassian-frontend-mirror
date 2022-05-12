@@ -105,13 +105,17 @@ const renderChildren = (
   React.Children.map(children, (child) => {
     if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
       const { size: blockSize } = child.props;
-      return React.cloneElement(child, {
-        onClick,
-        retry: isFlexibleUiTitleBlock(child) ? retry : undefined,
-        size: blockSize || containerSize,
-        status,
-        theme: containerTheme,
-      });
+      const size = blockSize || containerSize;
+      if (isFlexibleUiTitleBlock(child)) {
+        return React.cloneElement(child, {
+          onClick,
+          retry,
+          size,
+          status,
+          theme: containerTheme,
+        });
+      }
+      return React.cloneElement(child, { size, status });
     }
   });
 
@@ -143,8 +147,13 @@ const getLayeredLink = (
     />
   );
 };
+
 /**
- * This represents the container in which all Flexible UI Smart Links are rendered.
+ * A container is a hidden component that build the Flexible Smart Link.
+ * All of the Flexible UI components are wrapped inside the container.
+ * It inherits the ui props from Card component and applies the custom styling
+ * accordingly.
+ * @internal
  * @see Block
  */
 const Container: React.FC<ContainerProps> = ({

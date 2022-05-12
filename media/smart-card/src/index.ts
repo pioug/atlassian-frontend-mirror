@@ -4,19 +4,22 @@ export type ResolveResponse = JsonLd.Response;
 
 export { SmartCardProvider as Provider, SmartCardContext } from './state';
 export type { ProviderProps, CardType } from './state';
-export { EditorCardProvider, editorCardProvider } from './providers/editor';
+export {
+  EditorCardProvider,
+  editorCardProvider,
+} from '@atlaskit/link-provider';
 export type {
   CardAdf,
   InlineCardAdf,
   BlockCardAdf,
   EmbedCardAdf,
-} from './providers/editor';
-export { default as Client } from './client';
-export { APIError } from './client/errors';
+} from '@atlaskit/linking-common';
+export { APIError } from '@atlaskit/linking-common';
+export { CardClient as Client } from '@atlaskit/link-provider';
 export { Card } from './view/Card';
 export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
-export { default as Context } from './state/context';
-export type { CardContext } from './state/context';
+export { SmartCardContext as Context } from '@atlaskit/link-provider';
+export type { CardContext } from '@atlaskit/link-provider';
 export { EmbedResizeMessageListener } from './view/EmbedCard/EmbedResizeMessageListener';
 export { embedHeaderHeight } from './view/EmbedCard/components/styled';
 export { SmartLinkEvents } from './utils/analytics/analytics';

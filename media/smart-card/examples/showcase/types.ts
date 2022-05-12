@@ -1,6 +1,5 @@
 import { CardAppearance } from '../../src';
-import { EnvironmentsKeys } from '../../src/client/types';
-import { CardAuthFlowOpts } from '../../src/state/context/types';
+import { EnvironmentsKeys, CardAuthFlowOpts } from '@atlaskit/link-provider';
 
 export type ExampleUrls = Array<ExampleUrl>;
 export interface ExampleResourceType {

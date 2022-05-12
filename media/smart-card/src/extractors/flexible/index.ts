@@ -1,4 +1,5 @@
 import { JsonLd } from 'json-ld-types';
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import {
   extractLink,
@@ -25,7 +26,6 @@ import {
   LinkTypeCreated,
 } from '../common/date/extractDateCreated';
 import extractPriority from './extract-priority';
-import { CardProviderRenderers } from '../../state/context/types';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
 

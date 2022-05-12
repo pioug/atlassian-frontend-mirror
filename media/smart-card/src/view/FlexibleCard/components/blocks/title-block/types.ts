@@ -1,38 +1,88 @@
 import React from 'react';
 
-import { BlockProps, ElementItem, ActionItem } from '../types';
+import { ActionItem, BlockProps, ElementItem } from '../types';
 import { SmartLinkPosition, SmartLinkTheme } from '../../../../../constants';
 import { RetryOptions } from '../../../types';
-import { LinkProps } from '../../elements/link/types';
+import { AnchorTarget } from '../../types';
 
-export type TitleBlockProps = BlockProps & {
-  /* Determines the maximum number of lines for the underlying link text to spread over. Maximum value of 2. */
+export type TitleBlockProps = {
+  /**
+   * An array of action items to be displayed after the title
+   * on the right of the block.
+   * An action item provides preset icon and label, with exception of
+   * a custom action which either Icon or label must be provided.
+   * @see ActionItem
+   */
+  actions?: ActionItem[];
+
+  /**
+   * Determines the href target behaviour of the Link.
+   */
+  anchorTarget?: AnchorTarget;
+
+  /**
+   * Determines the maximum number of lines for the underlying link text to
+   * spread over. Default is 2. Maximum is 2.
+   */
   maxLines?: number;
-  /* An array of elements to display in the TitleBlock. By default elements will be shown to the right of the TitleBlock */
+
+  /**
+   * An array of metadata elements to display in the TitleBlock.
+   * By default elements will be shown to the right of the TitleBlock.
+   * The visibility of the element is determine by the link data.
+   * If link contain no data to display a particular element, the element
+   * will simply not show up.
+   * @see ElementItem
+   */
   metadata?: ElementItem[];
-  /** Determines the position of the icon in the TitleBlock.
-   * Top: Icon will be rendered in the "top" left of the TitleBlock
-   * Center: Icon will be rendered "center" relative to the vertical height of the TitleBlock.
-   * If direction is Horizontal, icon will be rendered in the center relative to the horizontal width of the TitleBlock.
+
+  /**
+   * Determines the position of the link icon in relative to the vertical
+   * height of the TitleBlock.  It can either be centred or placed on “top”.
+   * Default is top.
    */
   position?: SmartLinkPosition;
-  /* The options that determine the retry behaviour when a Smart Link errors. */
-  retry?: RetryOptions;
-  /* An array of elements to display below the Title text. */
-  subtitle?: ElementItem[];
-  /* An array of actions to display in the TitleBlock. By default will be shown on the most left of the TitleBlock */
-  actions?: ActionItem[];
-  /* The theme of the Title text. Can be Black or Link (default URL blue) */
-  theme?: SmartLinkTheme;
-  /* The text to display in the Title. Overrides any text that is retreived from the Smart Link. */
-  text?: string;
-  /* Determines whether TitleBlock will hide actions until the user is hovering over the Smart Link. */
-  showActionOnHover?: boolean;
-  /* Determines the onClick behaviour of the Link. By default used for analytics. */
+
+  /**
+   * Determines the onClick behaviour of the Link. By default used for analytics.
+   * @internal
+   */
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-  /* Determines the href target behaviour of the Link. */
-  anchorTarget?: LinkProps['target'];
-};
+
+  /**
+   * The options that determine the retry behaviour when a Smart Link errors.
+   * @internal
+   */
+  retry?: RetryOptions;
+
+  /**
+   * Determines whether TitleBlock will hide actions until the user is hovering
+   * over the link.
+   */
+  showActionOnHover?: boolean;
+
+  /**
+   * An array of metadata elements to display in the TitleBlock.
+   * By default elements will be shown below the link text.
+   * The visibility of the element is determine by the link data.
+   * If link contain no data to display a particular element, the element
+   * will simply not show up.
+   * @see ElementItem
+   */
+  subtitle?: ElementItem[];
+
+  /**
+   * The text to display in the link. Overrides any text that is retrieved from
+   * the Smart Link.
+   */
+  text?: string;
+
+  /**
+   * The theme of the link text. Can be Black or Link (default URL blue)
+   * @internal
+   */
+  theme?: SmartLinkTheme;
+} & BlockProps;
 
 export type TitleBlockViewProps = TitleBlockProps & {
   actionGroup?: React.ReactNode;

@@ -1177,6 +1177,7 @@ describe('BaseUserPicker', () => {
                 upKeyCount: 1,
                 downKeyCount: 3,
                 position: 0,
+                numberOfResults: 2,
                 result: { id: ID_1, type: UserType },
               },
             }),
@@ -1218,6 +1219,7 @@ describe('BaseUserPicker', () => {
                 upKeyCount: 1,
                 downKeyCount: 3,
                 position: 0,
+                numberOfResults: 2,
                 result: { id: ID_1, type: UserType },
               },
             }),
@@ -1259,6 +1261,7 @@ describe('BaseUserPicker', () => {
                 upKeyCount: 1,
                 downKeyCount: 3,
                 position: -1,
+                numberOfResults: 0,
                 result: {
                   id: '111111111111111111111110',
                   type: 'external_user',

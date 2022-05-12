@@ -12,6 +12,7 @@ const MINIMUM_MAX_LINES = 1;
 
 /**
  * Represents a SnippetBlock, which is used to display longer form text content, like descriptions.
+ * @public
  * @param {SnippetBlock} SnippetBlock
  * @see Block
  */

@@ -1,4 +1,4 @@
-import { CardType } from '../state/store/types';
+import { CardType } from '@atlaskit/linking-common';
 
 const isPerformanceAPIAvailable = (): boolean => {
   return (

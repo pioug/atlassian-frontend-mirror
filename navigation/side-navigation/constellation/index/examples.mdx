@@ -1,0 +1,97 @@
+---
+order: 0
+---
+
+import ButtonItemExample from '../../examples/constellation/button-item';
+import ContainerExample from '../../examples/constellation/container';
+import ContentExample from '../../examples/constellation/content';
+import CustomItemExample from '../../examples/constellation/custom-item';
+import DefaultExample from '../../examples/constellation/default';
+import GoBackExample from '../../examples/constellation/go-back';
+import HeaderAndFooterExample from '../../examples/constellation/header-and-footer';
+import LinkItemExample from '../../examples/constellation/link-item';
+import LoadingExample from '../../examples/constellation/loading';
+import NestedExample from '../../examples/constellation/nested';
+import SectionExample from '../../examples/constellation/section';
+
+## Default
+
+A side navigation example showing all [components](#side-navigation-components) and [items](#side-navigation-items) composed together.
+
+<Example Component={DefaultExample} packageName="@atlaskit/side-navigation" />
+
+## Side navigation components
+
+### Container
+
+Uses 100% of its parent's height and width, so make sure to place it into an element with explicit values set.<br />
+**Minimum width of 240px.**
+
+<Example Component={ContainerExample} packageName="@atlaskit/side-navigation"/>
+
+### Header and footer
+
+You can customise header and footer using `NavigationHeader` and `NavigationFooter`.
+
+<Example Component={HeaderAndFooterExample} packageName="@atlaskit/side-navigation"/>
+
+### Content
+
+Used as the container for [navigation items](#side-navigation-items). For nested views see the following example.
+
+<Example Component={ContentExample} packageName="@atlaskit/side-navigation"/>
+
+### Section
+
+Used to separate items into sections. Using the `title` prop makes a section implicitly group the items for screen readers with no additional work required.
+
+<Example Component={SectionExample} packageName="@atlaskit/side-navigation"/>
+
+### Nested navigation
+
+The container for navigation items with nested views is `NestableNavigationContent`.
+
+<Example Component={NestedExample} packageName="@atlaskit/side-navigation"/>
+
+## Side navigation items
+
+Granular items that can be rendered as part of the navigation experience.<br />
+The `Section` component **must** be used to ensure consistent spacing around blocks of items.
+
+### Go back item
+
+This item is used to provide a customized "go back" button in nested navigations.
+
+<Example Component={GoBackExample} packageName="@atlaskit/side-navigation"/>
+
+### Link item
+
+Renders an item wrapped in an anchor tag, useful when you have an item that should change routes using native browser navigation.
+
+For custom SPA transitions use a custom item with the respective router logic, following the next example.
+
+<Example Component={LinkItemExample} packageName="@atlaskit/side-navigation"/>
+
+### Custom item
+
+Handles use cases where a custom router link component is needed.
+
+The custom component receives all overflow props passed to the custom item component, as well as when using TypeScript will add the custom component props to the root component props type for type safety.
+
+<Example Component={CustomItemExample} packageName="@atlaskit/side-navigation"/>
+
+### Button item
+
+Renders an item wrapped in a button tag, used primarily when an action does something other than changing routes.
+
+<Example Component={ButtonItemExample} packageName="@atlaskit/side-navigation"/>
+
+### Heading item
+
+Available for advanced use cases, for most situations providing a `title` to `Section` should be enough.
+
+## Loading
+
+Use loading skeletons to reduce the perceived loading time.
+
+<Example Component={LoadingExample} packageName="@atlaskit/side-navigation"/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import { CardProviderRenderers } from '../../../state/context/types';
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { CardAppearance } from '../../../view/Card';
 
 const sanitizeEmojiValue = (value: string | undefined) =>

@@ -1,6 +1,5 @@
+import { APIError, CardType } from '@atlaskit/linking-common';
 import { resolvedEvent, unresolvedEvent } from './analytics';
-import { CardType } from '../../state/store/types';
-import { APIError } from '../../client/errors';
 import { AnalyticsPayload } from '../types';
 import { getMeasure } from '../performance';
 

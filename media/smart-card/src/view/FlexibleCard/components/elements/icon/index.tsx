@@ -85,8 +85,8 @@ const renderImageIcon = (
 };
 
 /**
- * An element that displays an Icon or favicon.
- * @public
+ * A base element that displays an Icon or favicon.
+ * @internal
  * @param {IconProps} IconProps - The props necessary for the Icon element.
  * @see LinkIcon
  */

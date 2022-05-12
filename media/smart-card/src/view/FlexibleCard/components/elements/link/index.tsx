@@ -87,9 +87,9 @@ const getMaxLines = (maxLines: number) => {
 };
 
 /**
- * An element that represent.
- * @public
- * @param {LinkProps} LinkProps - The props necessary for the Icon element.
+ * A base element that represent an anchor.
+ * @internal
+ * @param {LinkProps} LinkProps - The props necessary for the Link element.
  * @see LinkIcon
  */
 const Link: React.FC<LinkProps> = ({

@@ -71,6 +71,7 @@ const getMaxLines = (maxLines: number) => {
 /**
  * Represents a MetadataBlock, designed to contain groups of metadata in the form of elements.
  * Accepts an array of elements to be shown either primary (left hand side) or secondary (right hand side).
+ * @public
  * @param {MetadataBlockProps} MetadataBlockProps
  * @see Block
  */

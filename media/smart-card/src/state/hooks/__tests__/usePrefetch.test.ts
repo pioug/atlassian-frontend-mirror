@@ -2,13 +2,13 @@ import { usePrefetch } from '../usePrefetch';
 import { mocks } from '../../../utils/mocks';
 
 let mockUseSmartLinkContext = jest.fn();
-jest.mock('../../context', () => ({
+jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => mockUseSmartLinkContext(),
 }));
 
-let mockUseCallback = jest.fn().mockImplementation((fn) => fn);
 jest.mock('react', () => ({
-  useCallback: (...args: any) => mockUseCallback(...args),
+  ...jest.requireActual<Object>('react'),
+  useCallback: jest.fn().mockImplementation((fn) => fn),
 }));
 
 interface MockStore {

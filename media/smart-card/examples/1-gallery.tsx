@@ -10,6 +10,7 @@ import TableTree, {
   Row,
   Cell,
 } from '@atlaskit/table-tree';
+import { CardClient as SmartCardClient } from '@atlaskit/link-provider';
 import { Provider, Card, CardAppearance, CardContext } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { IntlProvider } from 'react-intl-next';
@@ -25,7 +26,6 @@ const patchedCellStyles = css`
 
 type EnvironmentsKeys = 'prod' | 'stg' | 'dev';
 const environments = ['prod', 'stg', 'dev'];
-import SmartCardClient from '../src/client';
 
 enum GroupingModes {
   none = 'none',

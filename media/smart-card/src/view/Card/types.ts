@@ -1,11 +1,10 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { JsonLd } from 'json-ld-types';
+import { CardAppearance, CardPlatform } from '@atlaskit/linking-common';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle } from '../types';
 
-export type CardAppearance = 'inline' | 'block' | 'embed';
+export type { CardAppearance, CardPlatform };
 export type CardInnerAppearance = CardAppearance | 'preview' | 'flexible';
-export type CardPlatform = JsonLd.Primitives.Platforms;
 
 export type OnResolveCallback = (data: {
   url?: string;

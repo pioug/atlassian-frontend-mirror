@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider, Client } from '../src';
 import { CardSSR } from '../src/ssr';
 import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
-import { CardProviderStoreOpts } from '../src/state/context/types';
+import { CardProviderStoreOpts } from '@atlaskit/link-provider';
 
 const storeOptions: CardProviderStoreOpts = {
   initialState: {

@@ -79,17 +79,16 @@ describe('renderElementItems', () => {
     display: ElementDisplaySchemaType,
     name: ElementName,
     testId: string,
-  ) =>
-    render(
+  ) => {
+    const metadata = [{ name, testId }] as ElementItem[];
+    return render(
       <IntlProvider locale="en">
         <FlexibleUiContext.Provider value={context}>
-          <TestRenderElementItemBlock
-            display={display}
-            metadata={[{ name, testId }]}
-          />
+          <TestRenderElementItemBlock display={display} metadata={metadata} />
         </FlexibleUiContext.Provider>
       </IntlProvider>,
     );
+  };
 
   // If you are here because you've added a new element and these
   // tests fail, it could be that you haven't added the element
@@ -143,6 +142,7 @@ describe('renderElementItems', () => {
 
   it('does not render non-flexible-ui element', async () => {
     const elements = renderElementItems([
+      // @ts-ignore: This violation is intentional for testing purpose.
       { name: 'random-node' as ElementName },
     ]);
 

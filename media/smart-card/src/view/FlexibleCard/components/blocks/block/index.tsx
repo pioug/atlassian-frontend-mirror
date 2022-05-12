@@ -20,8 +20,9 @@ const getBlockStyles = (
 `;
 
 /**
- * A block represents a collection of elements and actions that are arranged in a row.
- * All elements and actions should be contained within a Block.
+ * A block represents a collection of elements and actions that are arranged
+ * in a row. All elements and actions should be contained within a Block.
+ * @internal
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */

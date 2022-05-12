@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { RetryOptions } from './types';
 import { SmartLinkStatus } from '../../constants';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
@@ -12,7 +12,6 @@ import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import extractFlexibleLinkContext from '../../extractors/flexible';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { handleOnClick } from '../../utils';
-import { CardProviderRenderers } from '../../state/context/types';
 
 export const getContextByStatus = (
   url: string,

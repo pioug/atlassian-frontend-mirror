@@ -1,4 +1,4 @@
-import CardClient from '../client';
+import { CardClient } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
 
 export const mockContext = {

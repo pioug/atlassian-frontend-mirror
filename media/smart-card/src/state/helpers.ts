@@ -1,6 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { CardType, CardStore } from './store/types';
-import { Store } from 'redux';
+import { CardType, CardStore } from '@atlaskit/linking-common';
 import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
 
 export const getByDefinitionId = (
@@ -12,14 +11,6 @@ export const getByDefinitionId = (
     const { details } = store[url];
     return details && details.meta.definitionId === definitionId;
   });
-};
-
-export const getUrl = (store: Store<CardStore>, url: string) => {
-  return (
-    store.getState()[url] || {
-      status: 'pending',
-    }
-  );
 };
 
 export const getClickUrl = (url: string, jsonLd?: JsonLd.Response): string => {

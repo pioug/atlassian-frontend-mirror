@@ -1,7 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { css } from '@emotion/core';
 import { token } from '@atlaskit/tokens';
-import { CardState, CardType } from '../../src/state/store/types';
+import { CardType, CardState } from '@atlaskit/linking-common';
 import extractFlexibleLinkContext from '../../src/extractors/flexible';
 import { FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
 

@@ -1,4 +1,5 @@
 import { JsonLd } from 'json-ld-types';
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import {
   extractLink,
   extractTitle,
@@ -31,7 +32,7 @@ import { extractImage } from '../common/preview/extractImage';
 import { extractActions } from '../common/actions/extractActions';
 import { ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';
-import { CardProviderRenderers } from '../../state/context/types';
+
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { CardPlatform } from '../../view/Card';
 import { BlockCardResolvedViewProps } from '../../view/BlockCard';

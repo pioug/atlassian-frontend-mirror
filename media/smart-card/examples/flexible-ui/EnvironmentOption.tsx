@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/core';
 import Button from '@atlaskit/button/standard-button';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
-
+import { EnvironmentsKeys } from '@atlaskit/link-provider';
 import {
   envOptions,
   exceptionUrls,
@@ -13,7 +13,6 @@ import {
   mockUrls,
   statusUrls,
 } from './utils';
-import { EnvironmentsKeys } from '../../src/client/types';
 
 type EnvironmentOptionProps = {
   env: EnvironmentsKeys;

@@ -1,5 +1,15 @@
 # @atlaskit/link-provider
 
+## 1.0.0
+
+### Major Changes
+
+- [`99fa7e54884`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99fa7e54884) - Move non critical things into linking-common & release first stable version
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.3
 
 ### Patch Changes

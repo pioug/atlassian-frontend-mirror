@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.0.6
+
+### Patch Changes
+
+- [`1d0b82f07d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d0b82f07d6) - Added numberOfResults to clicked and pressed events.
+
 ## 9.0.5
 
 ### Patch Changes

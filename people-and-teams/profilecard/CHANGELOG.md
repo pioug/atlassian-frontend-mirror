@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.4.6
+
+### Patch Changes
+
+- [`386249e4be4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/386249e4be4) - [ux] Fix hide handler when the profile card is triggered via click
+
 ## 16.4.5
 
 ### Patch Changes

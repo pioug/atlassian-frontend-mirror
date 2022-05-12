@@ -14,8 +14,8 @@ const getStyles = (maxLines: number) => css`
 `;
 
 /**
- * An element that displays some Text.
- * @public
+ * A base element that displays some Text.
+ * @internal
  * @param {TextProps} TextProps - The props necessary for the Text element.
  * @see Title
  */

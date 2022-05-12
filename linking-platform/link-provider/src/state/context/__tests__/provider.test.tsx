@@ -1,4 +1,5 @@
 jest.mock('@atlaskit/linking-common', () => ({
+  ...jest.requireActual<Object>('@atlaskit/linking-common'),
   extractPreview: () => 'some-link-preview',
 }));
 
@@ -7,7 +8,7 @@ import { mount } from 'enzyme';
 import { SmartCardContext as Context } from '../../context';
 import CardClient from '../../../client';
 import { SmartCardProvider, CardContext } from '..';
-import { CardStore } from '../../store/types';
+import { CardStore } from '@atlaskit/linking-common';
 
 describe('Provider', () => {
   it('should setup provider with default options', () => {

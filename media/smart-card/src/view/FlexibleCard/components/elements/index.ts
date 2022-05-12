@@ -13,14 +13,14 @@ import { MediaProps } from './media/types';
 // This will help reducing the code for mapping elements inside
 // createElement and renderElementItems
 /**
- * Creates an AvatarGroup element using the data from AuthorGroup in the Flexible UI Context.
+ * An AvatarGroup element using the data from AuthorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
 export const AuthorGroup = createElement<AvatarGroupProps>(
   ElementName.AuthorGroup,
 );
 /**
- * Creates an AvatarGroup element using the data from CollaboratorGroup in the Flexible UI Context.
+ * An AvatarGroup element using the data from CollaboratorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
 export const CollaboratorGroup = createElement<AvatarGroupProps>(

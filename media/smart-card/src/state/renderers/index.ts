@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useSmartLinkContext, CardContext } from '../context';
+import { useSmartLinkContext, CardContext } from '@atlaskit/link-provider';
 
 export const useSmartLinkRenderers = ():
   | CardContext['renderers']

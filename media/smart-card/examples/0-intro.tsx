@@ -5,12 +5,12 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/standard-button';
+import { CardClient as SmartCardClient } from '@atlaskit/link-provider';
 import { Provider, Card } from '../src';
 import { CardAppearance } from '../src/view/Card/types';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import urlsJSON from '../examples-helpers/example-urls.json';
-import SmartCardClient from '../src/client';
 import { ufologger } from '@atlaskit/ufo';
 import { token } from '@atlaskit/tokens';
 

@@ -1,6 +1,6 @@
 import { useSmartCardState } from '..';
 import { CardStore } from '../../types';
-import CardClient from '../../../client';
+import { CardClient } from '@atlaskit/link-provider';
 import { renderHook, RenderHookOptions } from '@testing-library/react-hooks';
 import { SmartCardProvider, ProviderProps } from '../../../state';
 import React from 'react';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/side-navigation",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "A highly composable side navigation component that supports nested views.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -67,5 +67,6 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "homepage": "https://atlassian.design/components/side-navigation/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

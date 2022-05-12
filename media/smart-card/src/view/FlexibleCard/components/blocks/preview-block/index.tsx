@@ -7,6 +7,7 @@ import { Preview } from '../../elements';
 
 /**
  * Represents a PreviewBlock, which typically contains media or other large format content.
+ * @public
  * @param {PreviewBlock} PreviewBlock
  * @see Block
  */

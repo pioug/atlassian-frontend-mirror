@@ -1,8 +1,15 @@
 import { useMemo, useCallback } from 'react';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { JsonLd } from 'json-ld-types';
-
-import { cardAction } from './helpers';
+import { APIError } from '@atlaskit/linking-common';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+import {
+  ACTION_PENDING,
+  ACTION_RESOLVED,
+  ACTION_ERROR,
+  ACTION_ERROR_FALLBACK,
+  cardAction,
+} from '@atlaskit/linking-common';
 import {
   getDefinitionId,
   getByDefinitionId,
@@ -10,20 +17,12 @@ import {
   getStatus,
   getExtensionKey,
 } from '../helpers';
-import {
-  ACTION_PENDING,
-  ACTION_RESOLVED,
-  ACTION_ERROR,
-  ERROR_MESSAGE_OAUTH,
-  ERROR_MESSAGE_FATAL,
-  ACTION_ERROR_FALLBACK,
-} from './constants';
+import { ERROR_MESSAGE_OAUTH, ERROR_MESSAGE_FATAL } from './constants';
+
 import { CardAppearance } from '../../view/Card';
-import { useSmartLinkContext } from '../context';
 import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
 import * as measure from '../../utils/performance';
 import { AnalyticsFacade } from '../analytics';
-import { APIError } from '../../client/errors';
 import { getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { addMetadataToExperience } from '../analytics';
 

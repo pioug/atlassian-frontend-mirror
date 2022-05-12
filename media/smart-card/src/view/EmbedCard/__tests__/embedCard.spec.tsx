@@ -4,8 +4,8 @@ import {
   expectFunctionToHaveBeenCalledWith,
   JestFunction,
 } from '@atlaskit/media-test-helpers';
+import { CardState } from '@atlaskit/linking-common';
 import { EmbedCard } from '../index';
-import { CardState } from '../../../state/store/types';
 import { EmbedCardProps } from '../types';
 
 describe('EmbedCard view component', () => {

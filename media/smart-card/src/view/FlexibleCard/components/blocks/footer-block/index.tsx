@@ -14,6 +14,7 @@ import ActionGroup from '../action-group';
 /**
  * Represents a FooterBlock, designed to contain elements and actions that should appear
  * at the bottom of a link card.
+ * @public
  * @param {FooterBlockProps} FooterBlockProps
  * @see Block
  */

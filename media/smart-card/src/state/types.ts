@@ -1,1 +1,1 @@
-export type { CardStore, CardState } from './store/types';
+export type { CardStore, CardState } from '@atlaskit/linking-common';

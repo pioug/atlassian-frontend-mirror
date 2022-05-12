@@ -1,5 +1,5 @@
 import React from 'react';
-import CardClient from '../client';
+import { CardClient } from '@atlaskit/link-provider';
 import { SmartCardProvider, ProviderProps } from '../state';
 
 const Hook = (props: { callback: Function }) => {

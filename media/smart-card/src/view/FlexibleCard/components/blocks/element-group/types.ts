@@ -18,5 +18,6 @@ export type ElementGroupProps = {
   size?: SmartLinkSize;
   /* Determines whether the container size will fit to the content or expand to the available width or the parent component. Similar to flex's flex-grow concept. */
   width?: SmartLinkWidth;
+  /* A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
 };

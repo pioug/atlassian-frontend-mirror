@@ -5,8 +5,7 @@ import { N50A, N40A, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { CardAppearance } from '../../src';
-import { CardAuthFlowOpts } from '../../src/state/context/types';
-import { EnvironmentsKeys } from '../../src/client/types';
+import { CardAuthFlowOpts, EnvironmentsKeys } from '@atlaskit/link-provider';
 import { ExampleUIConfig } from './types';
 
 interface ViewTypeOption {

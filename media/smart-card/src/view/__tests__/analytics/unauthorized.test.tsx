@@ -2,7 +2,7 @@ import './unauthorized.test.mock';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import * as analytics from '../../../utils/analytics';
-import CardClient from '../../../client';
+import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import { Card } from '../../Card';
 import { Provider } from '../../..';

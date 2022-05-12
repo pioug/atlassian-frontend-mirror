@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useSmartLinkContext } from '../context';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 export function usePrefetch(url: string) {
   const { store, prefetchStore, connections } = useSmartLinkContext();

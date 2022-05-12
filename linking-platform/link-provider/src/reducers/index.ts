@@ -1,18 +1,25 @@
 import { JsonLd } from 'json-ld-types';
 
-import * as actions from '../actions/constants';
+import {
+  ACTION_PENDING,
+  ACTION_RESOLVING,
+  ACTION_RESOLVED,
+  ACTION_ERROR,
+  ACTION_ERROR_FALLBACK,
+  CardStore,
+  CardState,
+} from '@atlaskit/linking-common';
 import { CardReducerMap, CardReducer } from '../types';
 import { getStatus } from '../helpers';
-import { CardStore, CardState } from '../state/store/types';
 
 const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
-  [actions.ACTION_PENDING]: (_state, { type }) => {
+  [ACTION_PENDING]: (_state, { type }) => {
     return { status: type };
   },
-  [actions.ACTION_RESOLVING]: (state, { type }) => {
+  [ACTION_RESOLVING]: (state, { type }) => {
     return { ...state, status: type };
   },
-  [actions.ACTION_RESOLVED]: (state, { type, payload }) => {
+  [ACTION_RESOLVED]: (state, { type, payload }) => {
     const nextDetails = payload;
     const nextState = { ...state };
     if (nextDetails) {
@@ -25,10 +32,10 @@ const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
     }
     return nextState;
   },
-  [actions.ACTION_ERROR]: (state, { type, error }) => {
+  [ACTION_ERROR]: (state, { type, error }) => {
     return { ...state, status: type, error };
   },
-  [actions.ACTION_ERROR_FALLBACK]: (state, { type, error }) => {
+  [ACTION_ERROR_FALLBACK]: (state, { type, error }) => {
     return { ...state, status: type, error };
   },
 };

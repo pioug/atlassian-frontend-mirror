@@ -1,6 +1,6 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
-import { CardProviderRenderers } from '../../state/context/types';
 import { InlinePreloaderStyle } from '../types';
 
 export type InlineCardProps = {

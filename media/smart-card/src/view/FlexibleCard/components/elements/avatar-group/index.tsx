@@ -30,8 +30,8 @@ const getStyles = (size: SmartLinkSize) => {
 };
 
 /**
- * An element that displays a group of avatars.
- * @public
+ * A base element that displays a group of avatars.
+ * @internal
  * @param {AvatarGroupProps} AvatarGroupProps - The props necessary for the AvatarGroup.
  * @see AuthorGroup
  * @see CollaboratorGroup

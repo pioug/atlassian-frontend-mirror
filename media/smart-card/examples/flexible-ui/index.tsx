@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { css, jsx } from '@emotion/core';
 
-import { EnvironmentsKeys } from '../../src/client/types';
+import { EnvironmentsKeys } from '@atlaskit/link-provider';
 import {
   ActionItem,
   Card,

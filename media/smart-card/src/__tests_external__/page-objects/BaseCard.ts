@@ -3,9 +3,7 @@ import {
   CypressType,
 } from '@atlaskit/in-product-testing';
 
-import { CardType } from '../../state/store/types';
-import { CardAppearance } from '../../view/Card';
-
+import { CardType, CardAppearance } from '@atlaskit/linking-common';
 export class BaseCardPageObject extends InProductTestPageObject {
   protected constructor(
     protected cy: CypressType,

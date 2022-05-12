@@ -85,8 +85,8 @@ export const sizeToSpacing: Record<SmartLinkSize, Spacing> = {
 };
 
 /**
- * An action that can be triggered with an on click.
- * @public
+ * A base action that can be triggered with an on click.
+ * @internal
  * @param {ActionProps} ActionProps - The props necessary for the Action.
  * @see DeleteAction
  * @see EditAction

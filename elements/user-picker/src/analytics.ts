@@ -179,6 +179,7 @@ export const selectEvent: EventCreator = (
     upKeyCount: upKeyCount(session),
     downKeyCount: downKeyCount(session),
     result: result(args[0]),
+    numberOfResults: numberOfResults(state),
   });
 };
 
@@ -280,4 +281,8 @@ function values(state: UserPickerState) {
       ? state.value.map((option) => optionData2Analytics(option.data))
       : [optionData2Analytics(state.value.data)]
     : [];
+}
+
+function numberOfResults(state: UserPickerState) {
+  return (state.options || []).length;
 }

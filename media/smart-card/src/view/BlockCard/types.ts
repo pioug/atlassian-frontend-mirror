@@ -1,9 +1,9 @@
+import {
+  CardProviderRenderers,
+  CardAuthFlowOpts,
+} from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import {
-  CardAuthFlowOpts,
-  CardProviderRenderers,
-} from '../../state/context/types';
 import { AnalyticsHandler } from '../../utils/types';
 import { OnResolveCallback, CardPlatform } from '../Card/types';
 

@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-
+import { ServerErrorType } from '@atlaskit/linking-common';
 export type BatchResponse = Array<SuccessResponse | ErrorResponse>;
 
 export type SuccessResponse = {
@@ -17,17 +17,6 @@ export interface ErrorResponseBody {
   message: string;
   status: number;
 }
-
-export type ServerErrorType =
-  | 'ResolveBadRequestError'
-  | 'ResolveAuthError'
-  | 'ResolveUnsupportedError'
-  | 'ResolveFailedError'
-  | 'ResolveTimeoutError'
-  | 'InternalServerError';
-
-// Used to catch any other errors - not server-side.
-export type ErrorType = ServerErrorType | 'UnexpectedError';
 
 export const isSuccessfulResponse = (
   response?: SuccessResponse | ErrorResponse,

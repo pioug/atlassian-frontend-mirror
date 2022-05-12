@@ -3,11 +3,11 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
 );
 jest.doMock('../../../utils/analytics/analytics');
-
-const mockAPIError = jest.fn();
-jest.doMock('../../../client/errors', () => ({
-  APIError: mockAPIError,
-}));
+import { APIError } from '@atlaskit/linking-common';
+import {
+  CardClient,
+  SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
 // force isIntersectionObserverSupported to be false until support for it is dropped.
 jest.mock('@atlaskit/media-ui', () => {
   const actualModule = jest.requireActual('@atlaskit/media-ui');
@@ -25,9 +25,7 @@ import {
   waitForElement,
   fireEvent,
 } from '@testing-library/react';
-import CardClient from '../../../client';
 import { Card, CardAppearance } from '../../Card';
-import { APIError, Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import { flushPromises } from '@atlaskit/media-test-helpers';

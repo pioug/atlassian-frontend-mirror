@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+import { CardType, APIError } from '@atlaskit/linking-common';
 import { AnalyticsHandler } from '../../utils/types';
 import { CardInnerAppearance } from '../../view/Card/types';
 import {
@@ -24,9 +26,7 @@ import {
   screenAuthPopupEvent,
   instrumentEvent,
 } from '../../utils/analytics';
-import { useMemo } from 'react';
-import { CardType } from '../store/types';
-import { APIError } from '../../client/errors';
+
 import {
   failUfoExperience,
   startUfoExperience,

@@ -6,7 +6,8 @@ jest.mock('../../../utils/analytics/analytics');
 jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: jest.fn(),
 }));
-jest.mock('../../../client/errors', () => ({
+jest.mock('@atlaskit/link-provider', () => ({
+  ...jest.requireActual<Object>('@atlaskit/link-provider'),
   APIError: jest.fn(),
 }));
 jest.mock('uuid', () => {

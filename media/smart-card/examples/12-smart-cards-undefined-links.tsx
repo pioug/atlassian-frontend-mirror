@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider, Card, Client, ResolveResponse } from '../src';
-import { EnvironmentsKeys } from '../src/client/types';
+import { EnvironmentsKeys } from '@atlaskit/link-provider';
 
 class ConfluenceClient extends Client {
   constructor(config: EnvironmentsKeys) {

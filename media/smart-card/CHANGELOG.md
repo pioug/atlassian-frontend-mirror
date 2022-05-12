@@ -1,5 +1,47 @@
 # @atlaskit/smart-card
 
+## 19.0.1
+
+### Patch Changes
+
+- [`49f905e71e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49f905e71e5) - Flexible UI: Add API document and update prop types.
+
+## 19.0.0
+
+### Major Changes
+
+- [`6ee499cbb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee499cbb73) - - Add @atlaskit/link-provider as peerDependency.
+
+  - Use Provider/Client from @atlaskit/link-provider and remove local version.
+  - Re export moved things from @atlaskit/link-provider to make adoption easier
+
+  These changes are needed in order to make future adoption of smart-card easier from consumers and to mitigate breaking changes.
+
+  ### Before
+
+  ```
+  import { Provider, Client, Card } from '@atlastkit/smart-card'
+
+  <Provider client={new Client()}>
+    <Card />
+  </Provider>
+  ```
+
+  ### Before
+
+  ```
+  import { Provider, Client } from '@atlastkit/link-provider'
+  import { Card } from '@atlastkit/smart-card'
+
+  <Provider client={new Client()}>
+    <Card />
+  </Provider>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.22
 
 ### Patch Changes

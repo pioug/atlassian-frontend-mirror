@@ -1,10 +1,9 @@
 import { JsonLd } from 'json-ld-types';
-
+import { CardProviderRenderers } from '@atlaskit/link-provider';
 import extractJsonldDataIcon from './extract-jsonld-data-icon';
 import extractProviderIcon from './extract-provider-icon';
 import { IconType, SmartLinkStatus } from '../../../constants';
 import extractIconRenderer from './extract-icon-renderer';
-import { CardProviderRenderers } from '../../../state/context/types';
 
 export const extractLinkIcon = (
   response: JsonLd.Response,

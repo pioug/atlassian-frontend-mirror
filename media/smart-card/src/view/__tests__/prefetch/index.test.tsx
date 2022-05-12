@@ -1,7 +1,4 @@
-const mockAPIError = jest.fn();
-
 jest.mock('../../../utils/analytics/analytics');
-jest.mock('../../../client/errors', () => ({ APIError: mockAPIError }));
 jest.mock('react-lazily-render', () => (data: any) => data.content);
 jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
@@ -9,7 +6,7 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
 
 import React from 'react';
 import { render, cleanup, waitForElement } from '@testing-library/react';
-import CardClient from '../../../client';
+import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';

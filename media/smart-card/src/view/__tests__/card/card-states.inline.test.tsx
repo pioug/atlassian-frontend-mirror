@@ -4,10 +4,6 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
 );
 jest.doMock('../../../utils/analytics/analytics');
 
-const mockAPIError = jest.fn();
-jest.doMock('../../../client/errors', () => ({
-  APIError: mockAPIError,
-}));
 // force isIntersectionObserverSupported to be false until support for it is dropped.
 jest.mock('@atlaskit/media-ui', () => {
   const actualModule = jest.requireActual('@atlaskit/media-ui');
@@ -21,7 +17,7 @@ jest.mock('@atlaskit/media-ui', () => {
 import React from 'react';
 import { useEffect, useState, ReactNode, FC } from 'react';
 import { render, cleanup, waitForElement } from '@testing-library/react';
-import CardClient from '../../../client';
+import { CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';

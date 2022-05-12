@@ -87,8 +87,8 @@ const renderImageIcon = (
 };
 
 /**
- * An element that displays some text with an associated icon.
- * @public
+ * A base element that displays some text with an associated icon.
+ * @internal
  * @param {BadgeProps} BadgeProps - The props necessary for the Badge.
  * @see CommentCount
  * @see ViewCount

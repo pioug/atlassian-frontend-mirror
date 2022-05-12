@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx } from '@emotion/core';
 
 import { VRTestWrapper } from './utils/vr-test';
-import { ElementName, MetadataBlock, SmartLinkSize } from '../src';
+import { ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../src';
 import { blockOverrideCss, getCardState } from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 
@@ -23,7 +23,7 @@ const cardState = getCardState({
   'schema:programmingLanguage': 'Javascript',
 });
 
-const elements = [
+const elements: ElementItem[] = [
   { name: ElementName.AuthorGroup },
   { name: ElementName.ProgrammingLanguage },
   { name: ElementName.Priority },
@@ -34,7 +34,7 @@ const elements = [
   { name: ElementName.State },
 ];
 
-const multiLineElements = [
+const multiLineElements: ElementItem[] = [
   ...elements,
   { name: ElementName.SubscriberCount },
   { name: ElementName.CreatedBy },

@@ -250,6 +250,7 @@ class ProfilecardTrigger extends React.PureComponent<
           );
         }}
         zIndex={layers.modal()}
+        shouldUseCaptureOnOutsideClick
       />
     );
   }

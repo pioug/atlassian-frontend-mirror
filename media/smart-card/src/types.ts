@@ -1,7 +1,8 @@
 import { JsonLd } from 'json-ld-types';
+import { RequestAccessMessageKey } from '@atlaskit/media-ui/messages';
+export type { CardContext } from '@atlaskit/link-provider';
 import { AccessContext } from './view/types';
 import { ActionProps } from './view/BlockCard/components/Action';
-import { RequestAccessMessageKey } from '@atlaskit/media-ui/messages';
 
 export type ResolveResponse = JsonLd.Response;
 export type { ProviderProps, CardType } from './state';
@@ -10,7 +11,6 @@ export type {
   CardAppearance,
   CardPlatform,
 } from './view/Card/types';
-export type { CardContext } from './state/context/types';
 export interface RequestAccessContextProps extends AccessContext {
   action?: ActionProps;
   callToActionMessageKey?: RequestAccessMessageKey;

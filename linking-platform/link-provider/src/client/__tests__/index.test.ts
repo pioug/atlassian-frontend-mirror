@@ -7,7 +7,7 @@ jest.mock('../api', () => ({
 import { mocks } from './__fixtures__/mocks';
 import SmartCardClient from '..';
 import { isSuccessfulResponse, SuccessResponse } from '../types/responses';
-import { APIError } from '../errors';
+import { APIError } from '@atlaskit/linking-common';
 import { NetworkError } from '../api';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 

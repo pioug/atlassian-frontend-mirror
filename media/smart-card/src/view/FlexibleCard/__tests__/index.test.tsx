@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { CardState } from '@atlaskit/linking-common';
 import FlexibleCard from '../index';
 import { TitleBlock } from '../components/blocks';
-import { CardState } from '../../../state/store/types';
 
 describe('FlexibleCard', () => {
   it('renders flexible card', async () => {

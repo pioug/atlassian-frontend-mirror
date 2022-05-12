@@ -18,3 +18,18 @@ export type {
 } from './types';
 
 export { extractUrlFromLinkJsonLd, extractPreview } from './extractors';
+export {
+  ACTION_ERROR,
+  ACTION_ERROR_FALLBACK,
+  ACTION_PENDING,
+  ACTION_PRELOAD,
+  ACTION_RESOLVED,
+  ACTION_RESOLVING,
+  cardAction,
+} from './actions';
+export type { CardActionParams, CardBaseActionCreator } from './actions';
+
+export { APIError } from './errors';
+export type { APIErrorKind, ErrorType, ServerErrorType } from './errors';
+export type { CardState, CardStore } from './store';
+export { getUrl } from './store';

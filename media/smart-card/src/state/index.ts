@@ -2,7 +2,7 @@ export {
   SmartCardContext,
   SmartCardProvider,
   useSmartLinkContext,
-} from './context';
-export type { CardContext, ProviderProps } from './context';
+} from '@atlaskit/link-provider';
+export type { CardContext, ProviderProps } from '@atlaskit/link-provider';
+export type { CardType } from '@atlaskit/linking-common';
 export { useSmartLink, usePrefetch } from './hooks';
-export type { CardType } from './store/types';

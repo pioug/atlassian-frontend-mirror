@@ -43,6 +43,7 @@ export const getElementGroupStyles = (
 /**
  * Creates a group of Action components. Accepts an array of Actions, in addition to some styling
  * preferences.
+ * @internal
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */

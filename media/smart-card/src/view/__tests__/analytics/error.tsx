@@ -1,14 +1,13 @@
 import './error.mock';
-
+import { JsonLd } from 'json-ld-types';
 import React from 'react';
-import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { TestErrorBoundary } from '../_boundary';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { render, waitForElement, cleanup } from '@testing-library/react';
 import { mocks } from '../../../utils/mocks';
-import { request } from '../../../client/api';
-import { APIError } from '../../../client/errors';
+import { APIError } from '@atlaskit/linking-common';
+import { CardClient } from '@atlaskit/link-provider';
 import * as analytics from '../../../utils/analytics';
 
 describe('smart-card: error analytics', () => {
@@ -16,7 +15,6 @@ describe('smart-card: error analytics', () => {
   let mockUrl: string;
 
   beforeEach(() => {
-    asMockFunction(request).mockReset();
     mockWindowOpen = jest.fn();
     mockUrl = 'https://my.url';
     /// @ts-ignore
@@ -29,18 +27,20 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should fallback on ResolveBadRequestError', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        status: 200,
-        error: {
-          type: 'ResolveBadRequestError',
-          message: 'received bad request',
-        },
-      },
-    ]);
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'fallback',
+          new URL(url).hostname,
+          'received bad request',
+          'ResolveBadRequestError',
+        );
+      }
+    }
+    const client = new MockClient();
 
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
@@ -62,15 +62,19 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should render unauthorized on ResolveAuthError', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        status: 200,
-        error: { type: 'ResolveAuthError' },
-      },
-    ]);
-
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'auth',
+          new URL(url).hostname,
+          'received bad request',
+          'ResolveAuthError',
+        );
+      }
+    }
+    const client = new MockClient();
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
@@ -92,19 +96,20 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should throw fatal error on ResolveUnsupportedError', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        status: 200,
-        error: {
-          type: 'ResolveUnsupportedError',
-          message: 'received unsupported error',
-        },
-      },
-    ]);
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'fatal',
+          new URL(url).hostname,
+          'received unsupported error',
+          'ResolveUnsupportedError',
+        );
+      }
+    }
+    const client = new MockClient();
     const onError = jest.fn();
-
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <TestErrorBoundary onError={onError}>
           <Card testId="erroredLink" appearance="inline" url={mockUrl} />
         </TestErrorBoundary>
@@ -130,18 +135,19 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should throw error on ResolveFailedError', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        status: 200,
-        error: {
-          type: 'ResolveFailedError',
-          message: 'received failure error',
-        },
-      },
-    ]);
-
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'error',
+          new URL(url).hostname,
+          'received failure error',
+          'ResolveFailedError',
+        );
+      }
+    }
+    const client = new MockClient();
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
@@ -163,18 +169,19 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should throw error on ResolveTimeoutError', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        status: 200,
-        error: {
-          type: 'ResolveTimeoutError',
-          message: 'received timeout error',
-        },
-      },
-    ]);
-
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'error',
+          new URL(url).hostname,
+          'received timeout error',
+          'ResolveTimeoutError',
+        );
+      }
+    }
+    const client = new MockClient();
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
@@ -196,18 +203,19 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should throw error on InternalServerError', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        status: 200,
-        error: {
-          type: 'InternalServerError',
-          message: 'received internal server error',
-        },
-      },
-    ]);
-
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'error',
+          new URL(url).hostname,
+          'received internal server error',
+          'InternalServerError',
+        );
+      }
+    }
+    const client = new MockClient();
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <Card testId="erroredLink" appearance="inline" url={mockUrl} />
       </Provider>,
     );
@@ -229,16 +237,20 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should throw fatal error on unexpected err', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        cats: 'sleep a lot',
-      },
-    ]);
-
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'fatal',
+          new URL(url).hostname,
+          'received internal server error',
+          'InternalServerError',
+        );
+      }
+    }
+    const client = new MockClient();
     const onError = jest.fn();
-
     const { getByTestId } = render(
-      <Provider>
+      <Provider client={client}>
         <TestErrorBoundary onError={onError}>
           <Card testId="erroredLink" appearance="inline" url={mockUrl} />
         </TestErrorBoundary>
@@ -263,16 +275,21 @@ describe('smart-card: error analytics', () => {
   });
 
   it('should render with current data on unexpected err', async () => {
-    asMockFunction(request).mockResolvedValue([
-      {
-        cats: 'sleep a lot',
-      },
-    ]);
-
+    class MockClient extends CardClient {
+      async fetchData(url: string): Promise<JsonLd.Response> {
+        throw new APIError(
+          'fatal',
+          new URL(url).hostname,
+          'received internal server error',
+          'InternalServerError',
+        );
+      }
+    }
+    const client = new MockClient();
     const onError = jest.fn();
-
     const { getByTestId, getByRole } = render(
       <Provider
+        client={client}
         storeOptions={{
           initialState: {
             [mockUrl]: {

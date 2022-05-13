@@ -250,6 +250,9 @@ export interface EditorProps {
   // Set to configure the maximum editor height in pixels for `comment`, `chromeless` and `mobile` editor modes.
   maxHeight?: number;
 
+  // Set to configure the minimum editor height in pixels for `comment`, `chromeless` editor modes.
+  minHeight?: number;
+
   // Set to configure the maximum ADF node document size.
   // Understandably this isn’t the best logical max parameter for content, but its the cheapest for now.
   maxContentSize?: number;

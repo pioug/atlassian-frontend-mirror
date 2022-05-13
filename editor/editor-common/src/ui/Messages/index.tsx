@@ -9,18 +9,19 @@ import { G400, N200, R400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { h200 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 
 const errorColor = css`
-  color: ${R400};
+  color: ${token('color.text.danger', R400)};
 `;
 
 const validColor = css`
-  color: ${G400};
+  color: ${token('color.text.success', G400)};
 `;
 
 const messageStyle = (props: ThemeProps) => css`
   ${h200(props)} font-weight: normal;
-  color: ${N200};
+  color: ${token('color.text.subtlest', N200)};
   margin-top: ${gridSize() / 2}px;
   display: flex;
   justify-content: baseline;

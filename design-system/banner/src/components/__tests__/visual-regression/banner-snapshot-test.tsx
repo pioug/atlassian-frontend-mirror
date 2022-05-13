@@ -30,6 +30,7 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
   it('basic-usage example should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
@@ -40,6 +41,68 @@ describe('Snapshot Test', () => {
     const { page } = global;
     await loadPage(page, url);
     await waitForBannerVisible(page);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('error banner example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'banner',
+      'error-banner',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForBannerVisible(page);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('open/close behavior should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'banner',
+      'open-close-example',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.waitForSelector('button');
+    let image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+
+    await page.click('button');
+    await waitForBannerVisible(page);
+    image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Announcement banner example with long text should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'banner',
+      'announcement-banner-with-long-text',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForAnnouncementBannerVisible(page);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Announcement banner example with multiple lines should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'banner',
+      'announcement-banner-with-multiple-lines',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForAnnouncementBannerVisible(page);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

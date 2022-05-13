@@ -53,12 +53,12 @@ const errorStatuses: Array<CardStatus> = ['failed-processing', 'error'];
 const nonErrorOrLoadingStatuses: Array<CardStatus> = [
   'uploading',
   'processing',
-  'loading-preview',
   'complete',
 ];
 
 const nonErrorStatuses: Array<CardStatus> = [
   ...nonErrorOrLoadingStatuses,
+  'loading-preview',
   'loading',
 ];
 
@@ -260,6 +260,19 @@ describe('CardView New Experience', () => {
       const componentB = shallowCardViewBase({
         cardPreview,
         status: 'loading',
+      });
+      expect(componentB.find(SpinnerIcon)).toHaveLength(1);
+      expect(componentB.find(IconWrapper)).toHaveLength(1);
+    });
+
+    it(`should render Spinner when status is loading-preview`, () => {
+      const component = shallowCardViewBase({ status: 'loading-preview' });
+      expect(component.find(SpinnerIcon)).toHaveLength(1);
+      expect(component.find(IconWrapper)).toHaveLength(1);
+
+      const componentB = shallowCardViewBase({
+        cardPreview,
+        status: 'loading-preview',
       });
       expect(componentB.find(SpinnerIcon)).toHaveLength(1);
       expect(componentB.find(IconWrapper)).toHaveLength(1);
@@ -469,12 +482,6 @@ describe('CardView New Experience', () => {
 
     it(`should render CreatingPreview when status is processing`, () => {
       const component = shallowCardViewBase({ status: 'processing' });
-      const creatingPreview = component.find(CreatingPreview);
-      expect(creatingPreview).toHaveLength(1);
-    });
-
-    it(`should render CreatingPreview when status is loading-preview`, () => {
-      const component = shallowCardViewBase({ status: 'loading-preview' });
       const creatingPreview = component.find(CreatingPreview);
       expect(creatingPreview).toHaveLength(1);
     });

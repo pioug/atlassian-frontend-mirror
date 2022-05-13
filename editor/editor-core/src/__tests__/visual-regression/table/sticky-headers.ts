@@ -177,4 +177,41 @@ describe('Snapshot Test: sticky-headers', () => {
     await animationFrame(page);
     console.log('TOP:', o, 5170 - o!); // eslint-disable-line no-console
   });
+
+  it(`should be able to scroll with mouse wheel even if mouse is hovering the stickied header row`, async () => {
+    await initEditor(page, stickyHeaderADF);
+    await animationFrame(page);
+    await scrollToPos(page, 9);
+    await animationFrame(page);
+
+    // wait for header to become sticky
+    await page.waitForSelector(
+      '.ProseMirror .tableView-content-wrap:nth-child(11) tr[data-header-row=true].sticky',
+    );
+
+    const headerRow = await page.$(
+      '.ProseMirror .tableView-content-wrap:nth-child(11) tr[data-header-row=true]',
+    );
+    if (!headerRow) {
+      fail('Could not find header row');
+    }
+
+    const boundingBox = await headerRow.boundingBox();
+    if (!boundingBox) {
+      fail('Could not get bounding box of header row');
+    }
+
+    await page.mouse.move(
+      boundingBox.x + boundingBox.width / 2,
+      boundingBox.y + boundingBox.height / 2,
+    );
+
+    // scroll up 50 pixels
+    await page.mouse.wheel({ deltaY: -50 });
+
+    // wait for scroll to finish
+    await page.waitForTimeout(200);
+
+    await animationFrame(page);
+  });
 });

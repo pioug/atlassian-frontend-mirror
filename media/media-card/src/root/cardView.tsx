@@ -508,7 +508,6 @@ export class CardViewBase extends React.Component<
           renderProgressBar: true,
         };
       case 'processing':
-      case 'loading-preview':
         return {
           ...defaultConfig,
           iconMessage:
@@ -559,6 +558,7 @@ export class CardViewBase extends React.Component<
           ...baseErrorConfig,
           iconMessage,
         };
+      case 'loading-preview':
       case 'loading':
       default:
         return {

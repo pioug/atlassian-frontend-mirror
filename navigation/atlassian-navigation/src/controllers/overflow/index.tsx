@@ -81,7 +81,7 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
   ]);
 
   useEffect(() => {
-    const lastItemWidth = itemsWidths[itemsLimit];
+    const lastItemWidth = itemsWidths[itemsLimit] || 0;
     const wasJustLimited = lastItemWidth < 0;
     const currentHash = calculateHash(width, itemsLimit);
 
@@ -122,7 +122,7 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
     }
 
     if (
-      width - itemsWidths[itemsLimit] > ITEM_APPROX_MINWIDTH * 1.1 &&
+      width - lastItemWidth > ITEM_APPROX_MINWIDTH * 1.1 &&
       itemsLimit < items.length
     ) {
       // If we have enough room to accomodate next item width we increase the limit

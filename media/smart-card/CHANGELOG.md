@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 19.1.0
+
+### Minor Changes
+
+- [`6b7ba46a96b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b7ba46a96b) - [MEX-1456] Remove unused infinite scroll from Media-UI and Remove lodash from Media package
+
+### Patch Changes
+
+- [`7c926026ca3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c926026ca3) - Adds testId to FlexibleCard test.
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- [`3eea7c153d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3eea7c153d6) - Handle onResolve prop from smart-card in flexible-card and use the prop inside hover-card to dynamically update popup positioning
+
+## 19.0.3
+
+### Patch Changes
+
+- [`cae40e59c49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cae40e59c49) - Show relative date for dates less then 7 days away (flexible ui)
+
+## 19.0.2
+
+### Patch Changes
+
+- [`f3026520fc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3026520fc6) - Fix long tti times for UFO smart-link-rendered experience
+
 ## 19.0.1
 
 ### Patch Changes

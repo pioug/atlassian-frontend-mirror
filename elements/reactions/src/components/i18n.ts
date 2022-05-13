@@ -7,8 +7,8 @@ export const messages = defineMessages({
     description: 'Message while reactions are being loaded',
   },
   moreEmoji: {
-    id: 'fabric.reactions.more.emoji',
-    defaultMessage: 'More emoji',
+    id: 'fabric.reactions.more.emojis',
+    defaultMessage: 'More emojis',
     description:
       'Tooltip of the "show more" button in the quick reaction selector. The full emoji selector is displayed when the user clicks on it.',
   },

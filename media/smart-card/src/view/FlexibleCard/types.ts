@@ -3,6 +3,7 @@ import { CardState } from '@atlaskit/linking-common';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { CardAppearance } from '../../view/Card';
+import { OnResolveCallback } from '../Card/types';
 
 export type FlexibleCardProps = {
   /**
@@ -59,6 +60,11 @@ export type FlexibleCardProps = {
    * Determines the URL of the Smart Link.
    */
   url: string;
+
+  /**
+   * function to be called after a flexible card has rendered its resolved state
+   */
+  onResolve?: OnResolveCallback;
 };
 
 export type FlexibleUiOptions = {

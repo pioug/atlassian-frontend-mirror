@@ -40,6 +40,7 @@ import { createEditorContentStyle } from '../../ContentStyles';
 export interface CommentEditorProps {
   isMaxContentSizeReached?: boolean;
   maxHeight?: number;
+  minHeight?: number;
 }
 const CommentEditorMargin = 14;
 const CommentEditorSmallerMargin = 8;
@@ -55,7 +56,7 @@ const commentEditorStyle = css`
   min-width: 272px;
   /* Border + Toolbar + Footer + (Paragraph + ((Parahraph + Margin) * (DefaultLines - 1)) */
   /* calc(2px + 40px + 24px + ( 20px + (32px * 2))) */
-  min-height: 150px;
+
   height: auto;
   background-color: white;
   border: 1px solid ${N40};
@@ -143,6 +144,7 @@ class Editor extends React.Component<
       popupsBoundariesElement,
       popupsScrollableElement,
       maxHeight,
+      minHeight = 150,
       onSave,
       onCancel,
       disabled,
@@ -157,7 +159,15 @@ class Editor extends React.Component<
       !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
     return (
       <WithFlash animate={maxContentSizeReached}>
-        <div css={commentEditorStyle} className="akEditor">
+        <div
+          css={[
+            commentEditorStyle,
+            css`
+              min-height: ${minHeight}px;
+            `,
+          ]}
+          className="akEditor"
+        >
           <MainToolbar useStickyToolbar={useStickyToolbar}>
             <Toolbar
               editorView={editorView!}

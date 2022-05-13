@@ -12,9 +12,7 @@ import {
 import { TitleArea } from '../example-helpers/PageElements';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
-export const mediaProvider = storyMediaProviderFactory({
-  includeUserAuthProvider: false,
-});
+export const mediaProvider = storyMediaProviderFactory();
 
 /**
  * arch next imports

@@ -2,6 +2,7 @@
  * Mocking out emojis for the editor, so they easily fall back to text.
  */
 import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { EmojiDescription } from '@atlaskit/emoji';
 
 class EmojiProviderImpl implements EmojiProvider {
   findByShortName() {
@@ -50,6 +51,10 @@ class EmojiProviderImpl implements EmojiProvider {
 
   getCurrentUser() {
     return undefined;
+  }
+
+  getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription) {
+    return Promise.resolve(emoji);
   }
 
   setSelectedTone() {}

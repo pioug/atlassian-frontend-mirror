@@ -3,9 +3,9 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import {
   MediaCollectionItem,
   MediaCollectionItemDetails,
-  getFileStreamsCache,
   RECENTS_COLLECTION,
 } from '../..';
+import { getFileStreamsCache } from '../../file-streams-cache';
 import {
   CollectionFetcher,
   collectionCache,

@@ -1,5 +1,12 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.1.27
+
+### Patch Changes
+
+- [`6f4c0380224`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f4c0380224) - Update the @atlaskit/editor-jira-transformer to use emotion instead of styled and also updated the dependencies
+- Updated dependencies
+
 ## 8.1.26
 
 ### Patch Changes

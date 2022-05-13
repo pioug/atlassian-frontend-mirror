@@ -300,7 +300,6 @@ export default function createPluginsList(
       emojiPlugin,
       {
         createAnalyticsEvent,
-        allowZeroWidthSpaceAfter: !isMobile,
       },
     ]);
   }

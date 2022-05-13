@@ -285,7 +285,6 @@ describe('Feature Flags from Props', () => {
             twoLineEditorToolbar: false,
             // already using .featureFlags explicitly
             // stickyHeadersOptimization: true,
-            // nextEmojiNodeView: true,
             // initialRenderOptimization: true,
             // mouseMoveOptimization: true,
             // tableRenderOptimization: true,

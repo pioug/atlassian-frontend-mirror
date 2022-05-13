@@ -3,7 +3,6 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 import { StoryBookAuthProvider } from './authProvider';
 import { collectionNames } from './collectionNames';
 import { mediaPickerAuthProvider } from './mediaPickerAuthProvider';
-import { userAuthProvider } from './userAuthProvider';
 
 export const defaultBaseUrl = 'https://media.dev.atl-paas.net';
 
@@ -57,5 +56,4 @@ export const createUploadMediaClientConfig = (
 ): MediaClientConfig => ({
   authProvider: mediaPickerAuthProvider('asap'),
   stargateBaseUrl,
-  userAuthProvider: stargateBaseUrl ? undefined : userAuthProvider,
 });

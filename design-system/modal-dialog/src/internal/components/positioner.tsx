@@ -23,7 +23,6 @@ const positionerStyles = css({
 });
 
 const viewportScrollStyles = css({
-  width: 'max-content',
   height: 'auto',
   position: 'relative',
   '@media (min-width: 480px)': {
@@ -33,7 +32,6 @@ const viewportScrollStyles = css({
 
 const bodyScrollStyles = css({
   '@media (min-width: 480px)': {
-    width: 'max-content',
     maxWidth: maxWidthDimensions,
     maxHeight: maxHeightDimensions,
 

@@ -18,46 +18,56 @@ describe('Element: Text', () => {
     Date.now = oldDateNowFn;
   });
 
-  it('should render created at element', async () => {
-    const { findByTestId } = render(
-      <IntlProvider locale="en">
-        <DateTime
-          date={new Date('2020-02-04T12:40:12.353+0800')}
-          type="created"
-        />
-      </IntlProvider>,
-    );
-    const element = await findByTestId(testId);
-    expect(element).toBeTruthy();
-    expect(element.textContent).toBe('Created 2 years ago');
+  describe('with relative mode', () => {
+    it('should render created at element', async () => {
+      const oneDayBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 1);
+      const { findByTestId } = render(
+        <IntlProvider locale="en">
+          <DateTime date={oneDayBack} type="created" />
+        </IntlProvider>,
+      );
+      const element = await findByTestId(testId);
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('Created yesterday');
+    });
+
+    it('should render modified at element', async () => {
+      const sixDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 6);
+      const { findByTestId } = render(
+        <IntlProvider locale="en">
+          <DateTime date={sixDaysBack} type="modified" />
+        </IntlProvider>,
+      );
+      const element = await findByTestId(testId);
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('Updated last week');
+    });
   });
 
-  it('should render modified at element', async () => {
-    const { findByTestId } = render(
-      <IntlProvider locale="en">
-        <DateTime
-          date={new Date('2021-12-31T12:40:12.353+0800')}
-          type="modified"
-        />
-      </IntlProvider>,
-    );
-    const element = await findByTestId(testId);
-    expect(element).toBeTruthy();
-    expect(element.textContent).toBe('Updated last year');
-  });
+  describe('with absolute mode', () => {
+    it('should render created at element', async () => {
+      const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+      const { findByTestId } = render(
+        <IntlProvider locale="en">
+          <DateTime date={new Date(eightDaysBack)} type="created" />
+        </IntlProvider>,
+      );
+      const element = await findByTestId(testId);
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('Created on January 17, 2022');
+    });
 
-  it('should render another modified at element', async () => {
-    const { findByTestId } = render(
-      <IntlProvider locale="en">
-        <DateTime
-          date={new Date('2022-01-12T12:40:12.353+0800')}
-          type="modified"
-        />
-      </IntlProvider>,
-    );
-    const element = await findByTestId(testId);
-    expect(element).toBeTruthy();
-    expect(element.textContent).toBe('Updated 2 weeks ago');
+    it('should render another modified at element', async () => {
+      const twentyDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 20);
+      const { findByTestId } = render(
+        <IntlProvider locale="en">
+          <DateTime date={new Date(twentyDaysBack)} type="modified" />
+        </IntlProvider>,
+      );
+      const element = await findByTestId(testId);
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('Updated on January 5, 2022');
+    });
   });
 
   it('renders with override css', async () => {

@@ -9,6 +9,8 @@ import { N20, N30, N700 } from '@atlaskit/theme/colors';
 import { CopyTextConsumer } from './copy-text-provider';
 import { codeBlockCopyButtonMessages } from '../../messages';
 
+import { token } from '@atlaskit/tokens';
+
 type Props = {
   content: string;
 };
@@ -30,19 +32,19 @@ const copyButtonWrapperStyles = css`
     padding: 2px;
     opacity: 0;
     transition: opacity 0.2s ease 0s;
-    border: 2px solid #fff;
+    border: 2px solid ${token('color.border.inverse', '#fff')};
     border-radius: 4px;
-    background-color: ${N20};
-    color: rgb(66, 82, 110);
+    background-color: ${token('color.background.neutral.subtle', N20)};
+    color: ${token('color.icon', 'rgb(66, 82, 110)')};
   }
 
   button:hover {
-    background-color: ${N30};
+    background-color: ${token('color.background.neutral.hovered', N30)};
   }
 
   button.clicked {
-    background-color: ${N700};
-    color: #fff !important;
+    background-color: ${token('color.background.neutral.bold.pressed', N700)};
+    color: ${token('color.icon.inverse', '#fff')} !important;
   }
 `;
 

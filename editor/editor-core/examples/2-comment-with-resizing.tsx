@@ -3,9 +3,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { exampleDocument } from '../example-helpers/grid-document';
 import CommentExample from './2-comment';
 
-const mediaProvider = storyMediaProviderFactory({
-  includeUserAuthProvider: false,
-});
+const mediaProvider = storyMediaProviderFactory();
 
 export default function CommentWithResizingExample() {
   return (

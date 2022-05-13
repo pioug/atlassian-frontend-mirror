@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LazilyRender from 'react-lazily-render';
 
 import { CardWithUrlContentProps } from '../types';
 import { CardWithUrlContent } from '../component';
 import { LoadingCardLink } from './LazyFallback';
+import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
 
 export function LazyLazilyRenderCard(props: CardWithUrlContentProps) {
-  const { appearance, container, showActions } = props;
+  const { appearance, container, showActions, id } = props;
   const offset = Math.ceil(window.innerHeight / 4);
+
+  useState(() => {
+    // Start of experience when intersectionObserver is not supported.
+    startUfoExperience('smart-link-rendered', id);
+  });
+
   return (
     <LazilyRender
       offset={offset}

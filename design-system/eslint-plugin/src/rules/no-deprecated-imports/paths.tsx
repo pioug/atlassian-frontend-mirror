@@ -12,7 +12,7 @@ export const namedThemeExports = [
   {
     importName: 'focusRing',
     message:
-      'The focusRing mixin is deprecated. Please use `@atlaskit/visually-hidden` instead.',
+      'The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead.',
   },
 ];
 

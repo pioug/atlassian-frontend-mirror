@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 95.0.0
+
+### Minor Changes
+
+- [`bd24b9d71d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd24b9d71d2) - [ux] Instrumented `@atlaskit/renderer` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`ccde3d9eb43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ccde3d9eb43) - [ux] ED-10335: memoize schema, validation and serialization for Renderer
+- [`59e17ae76c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59e17ae76c1) - [ux] ED-14961-table-sticky-header-overlap-popup
+- [`47a59c220af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47a59c220af) - [ux] ED-10334: memoised schema.nodeFromJSON() and node.check() in Renderer.renderDocument()
+- [`08edcd36c6f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08edcd36c6f) - [ux] Convert RGB color usage to Design Tokens. This change is backwards compatible with existing theming
+- Updated dependencies
+
 ## 94.0.0
 
 ### Patch Changes

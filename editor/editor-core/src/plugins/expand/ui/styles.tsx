@@ -32,8 +32,8 @@ const EXPAND_ICON_COLOR = (props: ThemeProps) => css`
   color: ${themed({ light: N80A, dark: '#d9dde3' })(props)};
 `;
 
-const ACTIVE_STATE_BACKGROUND_COLOR = themed({ dark: `#0C294F` });
-const ACTIVE_STATE_BORDER = themed({ dark: `1px solid #4794ff` });
+const ACTIVE_STATE_BACKGROUND_COLOR = themed({ dark: `#0C294F4B` });
+const ACTIVE_STATE_BORDER = themed({ dark: `1px solid #4794ff4B` });
 const ACTIVE_STATE_BORDER_RADIUS = themed({ dark: '3px' });
 
 const DANGER_STATE_BACKGROUND_COLOR = themed({

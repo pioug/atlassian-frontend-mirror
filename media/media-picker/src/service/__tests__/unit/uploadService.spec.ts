@@ -11,9 +11,7 @@ import {
   TouchedFiles,
   ProcessingFileState,
   createMediaSubscribable,
-  MediaSubscribable,
 } from '@atlaskit/media-client';
-import { AuthProvider, Auth } from '@atlaskit/media-core';
 import uuidV4 from 'uuid/v4';
 import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { Subscriber } from 'rxjs/Subscriber';
@@ -29,9 +27,6 @@ import {
 
 describe('UploadService', () => {
   const baseUrl = 'some-api-url';
-  const clientId = 'some-client-id';
-  const token = 'some-token';
-  let authProvider: AuthProvider;
   const usersClientId = 'some-users-collection-client-id';
   const usersToken = 'some-users-collection-client-id';
   const previewObject: Preview = { someImagePreview: true } as any;
@@ -92,33 +87,10 @@ describe('UploadService', () => {
       uploadService.on('files-added', () => resolve()),
     );
 
-    if (mediaClient.config.userAuthProvider) {
-      const userMediaClient: MediaClient = (uploadService as any)[
-        'userMediaClient'
-      ];
-      jest
-        .spyOn(userMediaClient.file, 'touchFiles')
-        .mockResolvedValue(touchedFiles);
-
-      const userMediaClientUpload = jest.spyOn(
-        userMediaClient.file,
-
-        'upload',
-      );
-      userMediaClientUpload.mockReturnValue(
-        defaultUploadMock as MediaSubscribable<FileState>,
-      );
-
-      return { uploadService, filesAddedPromise, mediaClient, userMediaClient };
-    } else {
-      return { uploadService, filesAddedPromise, mediaClient };
-    }
+    return { uploadService, filesAddedPromise, mediaClient };
   };
 
   beforeEach(() => {
-    authProvider = jest.fn(() =>
-      Promise.resolve<Auth>({ clientId, token, baseUrl }),
-    );
     (getPreviewModule.getPreviewFromBlob as any).mockReset();
     (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
       Promise.resolve(),
@@ -498,191 +470,6 @@ describe('UploadService', () => {
           Object.keys((uploadService as any).cancellableFilesUploads),
         ).toHaveLength(1);
       });
-    });
-  });
-
-  // TODO it seems quite strange that we are testing a private method here. (MSW-691)
-  // we should tease this out into a separate module/class
-  describe('#copyFileToUsersCollection()', () => {
-    const setup = (config: {
-      uploadParams?: UploadParams;
-      userAuthProvider?: AuthProvider;
-      copyFileWithTokenSpy: Function;
-    }) => {
-      const mediaClient = fakeMediaClient({
-        authProvider,
-        userAuthProvider: config.userAuthProvider,
-      });
-
-      const collectionNameStub = 'some-collection-name';
-      const uploadService = new UploadServiceImpl(
-        mediaClient,
-        { collection: collectionNameStub },
-        true,
-      );
-      (uploadService as any).userMediaStore = config.userAuthProvider && {
-        copyFileWithToken: config.copyFileWithTokenSpy,
-      };
-
-      const sourceFileId = 'some-source-file-id';
-      return {
-        uploadService,
-        authProvider: mediaClient.config.authProvider,
-        sourceFileId,
-        sourceFileCollection: collectionNameStub,
-      };
-    };
-
-    it('resolves immediately when userAuthProvider was not passed in to UploadService constructor', () => {
-      const copyFileWithTokenSpy = jest
-        .fn()
-        .mockReturnValue(Promise.resolve('some-upload-id'));
-
-      const { uploadService, sourceFileId } = setup({
-        copyFileWithTokenSpy,
-      });
-
-      return uploadService['copyFileToUsersCollection'](sourceFileId).then(
-        () => {
-          expect(copyFileWithTokenSpy).not.toHaveBeenCalled();
-        },
-      );
-    });
-
-    it('calls the authProvider with the sourceCollection', () => {
-      const copyFileWithTokenSpy = () => Promise.resolve('some-upload-id');
-      const {
-        uploadService,
-        authProvider,
-        sourceFileId,
-        sourceFileCollection,
-      } = setup({
-        userAuthProvider: () =>
-          Promise.resolve({
-            clientId: usersClientId,
-            token: usersToken,
-            baseUrl,
-          }),
-        copyFileWithTokenSpy,
-      });
-
-      return uploadService['copyFileToUsersCollection'](sourceFileId).then(
-        () => {
-          expect(authProvider).toHaveBeenCalledWith({
-            collectionName: sourceFileCollection,
-          });
-        },
-      );
-    });
-
-    it('resolves with api#copyFileToCollection response when userAuthProvider was passed into UploadService', () => {
-      const copyFileWithTokenSpy = jest
-        .fn()
-        .mockReturnValue(Promise.resolve('some-MediaApi-response'));
-
-      const { uploadService, sourceFileId } = setup({
-        userAuthProvider: () =>
-          Promise.resolve({
-            clientId: usersClientId,
-            token: usersToken,
-            baseUrl,
-          }),
-        copyFileWithTokenSpy,
-      });
-
-      return uploadService['copyFileToUsersCollection'](sourceFileId).then(
-        (response) => {
-          expect(response).toEqual('some-MediaApi-response');
-        },
-      );
-    });
-
-    it('rejects with api#copyFileToCollection rejection when authProvider resolves', () => {
-      const copyFileToCollectionRejection = new Error('some-error');
-      const copyFileWithTokenSpy = jest
-        .fn()
-        .mockReturnValue(Promise.reject(copyFileToCollectionRejection));
-
-      const { uploadService, sourceFileId } = setup({
-        userAuthProvider: () =>
-          Promise.resolve({
-            clientId: usersClientId,
-            token: usersToken,
-            baseUrl,
-          }),
-        copyFileWithTokenSpy,
-      });
-
-      const fileUploadErrorCallback = jest.fn();
-      uploadService.on('file-upload-error', fileUploadErrorCallback);
-
-      return uploadService['copyFileToUsersCollection'](sourceFileId).then(
-        () => expect(true).toBe(false),
-        (error: Error) => {
-          expect(error).toEqual(copyFileToCollectionRejection);
-          expect(fileUploadErrorCallback).not.toHaveBeenCalled();
-        },
-      );
-    });
-    //TODO: to discuss with Hector: https://jestjs.io/docs/en/asynchronous.html
-    // https://product-fabric.atlassian.net/browse/MS-2223
-    it.skip('resolves when userAuthProvider fails', () => {
-      const userAuthProvider = () => Promise.reject(new Error('some-error'));
-
-      const copyFileWithTokenSpy = jest
-        .fn()
-        .mockReturnValue(Promise.resolve('some-MediaApi-response'));
-
-      const { uploadService, sourceFileId } = setup({
-        userAuthProvider,
-        copyFileWithTokenSpy,
-      });
-
-      const fileUploadErrorCallback = jest.fn();
-      uploadService.on('file-upload-error', fileUploadErrorCallback);
-      return uploadService['copyFileToUsersCollection'](sourceFileId).catch(
-        (error) => {
-          expect(error).toEqual(new Error('some-error'));
-          expect(fileUploadErrorCallback).toHaveBeenCalledWith({
-            file: {
-              id: 'some-id-42',
-              creationDate: 1234,
-              name: 'some-name',
-              size: 4200,
-              type: 'some-type',
-            },
-            error: {
-              fileId: 'some-id-42',
-              name: 'token_fetch_fail',
-              description: 'some-error',
-            },
-          });
-        },
-      );
-    });
-  });
-
-  describe('upfront id', () => {
-    it('should use tenantMediaClient to upload file when shouldCopyFileToRecents=true', () => {
-      const { uploadService, mediaClient } = setup(undefined, undefined, true);
-
-      uploadService.addFiles([file]);
-      expect(mediaClient.file.upload).toHaveBeenCalledTimes(1);
-    });
-
-    it('should use userMediaClient to upload file when shouldCopyFileToRecents=false', () => {
-      const mediaClient = getMediaClient({
-        userAuthProvider: () =>
-          Promise.resolve({
-            clientId: usersClientId,
-            token: usersToken,
-            baseUrl,
-          }),
-      });
-      const { uploadService, userMediaClient } = setup(mediaClient, {}, false);
-
-      uploadService.addFiles([file]);
-      expect(userMediaClient!.file.upload).toHaveBeenCalledTimes(1);
     });
   });
 });

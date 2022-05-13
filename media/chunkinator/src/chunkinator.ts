@@ -1,5 +1,6 @@
 import { tap } from 'rxjs/operators/tap';
 import { concatMap } from 'rxjs/operators/concatMap';
+import { bufferCount } from 'rxjs/operators/bufferCount';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -15,6 +16,7 @@ import { probinator } from './probinator';
 import { uploadinator } from './uploadinator';
 import { processinator } from './processinator';
 import { fetchBlob } from './utils';
+import { from } from 'rxjs/observable/from';
 
 export const getObservableFromFile = (
   file: ChunkinatorFile,
@@ -54,7 +56,12 @@ export const getObservableFromFile = (
       return processinator(uploadedBlobs, {
         batchSize: options.processingBatchSize,
         processor: options.processingFunction,
-      });
+      }).pipe(
+        concatMap((batchedChunks) => {
+          return from(batchedChunks);
+        }),
+        bufferCount(totalChunks),
+      );
     }),
   );
 

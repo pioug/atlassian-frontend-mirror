@@ -43,7 +43,6 @@ export interface MediaClientConfig {
   readonly authProvider: AuthProvider;
   readonly initialAuth?: Auth;
   readonly stargateBaseUrl?: string;
-  readonly userAuthProvider?: AuthProvider;
   readonly getAuthFromContext?: AuthFromContextProvider;
 }
 

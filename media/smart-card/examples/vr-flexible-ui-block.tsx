@@ -18,7 +18,7 @@ const cardState = getCardState({
   'schema:commentCount': 20,
   'schema:dateCreated': '2020-02-04T12:40:12.353+0800',
   'schema:programmingLanguage': 'Javascript',
-  updated: '2021-02-04T12:40:12.353+0800',
+  updated: '2022-01-23T16:44:00.000+1000',
 });
 
 export default () => (
@@ -48,7 +48,7 @@ export default () => (
         text="Between date-time elements"
       />
       <TitleBlock
-        subtitle={[{ name: ElementName.CreatedOn }]}
+        subtitle={[{ name: ElementName.ModifiedOn }]}
         text="Single date-time element (omitted)"
       />
       <TitleBlock

@@ -33,7 +33,7 @@ import { layoutStyles } from '../../plugins/layout/styles';
 import { panelStyles } from '../../plugins/panel/styles';
 import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
 import { mentionsStyles } from '../../plugins/mentions/styles';
-import { emojiStyles, emojiStylesNext } from '../../plugins/emoji/styles';
+import { emojiStyles } from '../../plugins/emoji/styles';
 import { textFormattingStyles } from '../../plugins/text-formatting/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { gridStyles } from '../../plugins/grid/styles';
@@ -111,13 +111,12 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${telepointerStyle}
   ${gapCursorStyles};
   ${tableStyles(props)}
-  ${panelStyles(props)}
+  ${panelStyles(
+    props,
+  )}
   ${fakeCursorStyles}
   ${mentionsStyles}
-  ${props
-    .featureFlags?.nextEmojiNodeView
-    ? emojiStylesNext
-    : emojiStyles}
+  ${emojiStyles}
   ${tasksAndDecisionsStyles}
   ${gridStyles}
   ${linkStyles}

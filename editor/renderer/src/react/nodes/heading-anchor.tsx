@@ -8,6 +8,8 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { headingAnchorLinkMessages } from '../../messages';
 import { MessageDescriptor } from '../../types/i18n';
 
+import { token } from '@atlaskit/tokens';
+
 export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
 
 const CopyAnchorWrapperWithRef = React.forwardRef(
@@ -26,7 +28,7 @@ const copyAnchorButtonStyles = css`
   outline: none;
   background-color: transparent;
   border: none;
-  color: ${N500};
+  color: ${token('color.icon', N500)};
   cursor: pointer;
   right: 0;
 `;
@@ -95,7 +97,11 @@ class HeadingAnchor extends React.PureComponent<
         <LinkIcon
           label={this.getCopyAriaLabel()}
           size={this.props.level > 3 ? 'small' : 'medium'}
-          primaryColor={this.state.isClicked ? B400 : N200}
+          primaryColor={
+            this.state.isClicked
+              ? token('color.icon.selected', B400)
+              : token('color.icon.subtle', N200)
+          }
         />
       </button>
     );

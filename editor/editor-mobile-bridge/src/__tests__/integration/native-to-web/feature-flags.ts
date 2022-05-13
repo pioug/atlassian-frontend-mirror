@@ -8,7 +8,6 @@ import {
   editable,
   configureEditor,
   navigateOrClear,
-  skipBrowsers as skip,
   getDocFromElement,
   callNativeBridge,
   USE_UNPREDICTABLE_INPUT_RULE,
@@ -17,7 +16,7 @@ import {
 
 BrowserTestCase(
   `feature-flag.ts: Input Rules should be predictable when 'useUnpredictableInputRules FF is set to false`,
-  { skip },
+  {},
   async (client: any) => {
     const page = new Page(client);
     await navigateOrClear(page, editor.path);
@@ -39,7 +38,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   `feature-flag.ts: Input Rules should be unpredictable when 'useUnpredictableInputRules FF is set to true`,
-  { skip },
+  {},
   async (client: any) => {
     const page = new Page(client);
     await navigateOrClear(page, editor.path);

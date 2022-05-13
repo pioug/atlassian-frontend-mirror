@@ -16,9 +16,20 @@ const styles = css`
   ${getTruncateStyles(1)}
 `;
 
-const typeToDescriptorMap: Record<DateTimeType, MessageDescriptor> = {
-  created: messages.created_on,
-  modified: messages.modified_on,
+type DateTypeVariation = 'relative' | 'absolute';
+
+const typeToDescriptorMap: Record<
+  DateTimeType,
+  Record<DateTypeVariation, MessageDescriptor>
+> = {
+  created: {
+    relative: messages.created_on_relative,
+    absolute: messages.created_on_absolute,
+  },
+  modified: {
+    relative: messages.modified_on_relative,
+    absolute: messages.modified_on_absolute,
+  },
 };
 
 /**
@@ -34,15 +45,28 @@ const DateTime: React.FC<DateTimeProps> = ({
   type,
   testId = 'smart-element-date-time',
 }) => {
-  const { formatRelativeTime } = useIntl();
+  const { formatRelativeTime, formatDate } = useIntl();
   if (!type || !date) {
     return null;
   }
-  const { value, unit } = selectUnit(date, Date.now());
-
-  const context = formatRelativeTime(value, unit, {
-    numeric: 'auto',
-  });
+  const isLongerThenWeek =
+    Math.abs(date.getTime() - Date.now()) > 1000 * 60 * 60 * 24 * 7;
+  let context: string;
+  let typeVariant: DateTypeVariation;
+  if (isLongerThenWeek) {
+    typeVariant = 'absolute';
+    context = formatDate(date, {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  } else {
+    const { value, unit } = selectUnit(date, Date.now());
+    typeVariant = 'relative';
+    context = formatRelativeTime(value, unit, {
+      numeric: 'auto',
+    });
+  }
 
   return (
     <span
@@ -51,7 +75,10 @@ const DateTime: React.FC<DateTimeProps> = ({
       data-smart-element-date-time
       data-testid={testId}
     >
-      <FormattedMessage {...typeToDescriptorMap[type]} values={{ context }} />
+      <FormattedMessage
+        {...typeToDescriptorMap[type][typeVariant]}
+        values={{ context }}
+      />
     </span>
   );
 };

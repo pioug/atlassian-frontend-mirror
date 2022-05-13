@@ -15,6 +15,7 @@ import {
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export const panelStyles = (props: ThemeProps) => css`
   .ProseMirror {
@@ -25,10 +26,16 @@ export const panelStyles = (props: ThemeProps) => css`
       &.danger {
         box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
           ${akEditorDeleteBorder};
-        background-color: ${akEditorDeleteBackground} !important;
+        background-color: ${token(
+          'color.background.danger',
+          akEditorDeleteBackground,
+        )} !important;
 
         .${PanelSharedCssClassName.icon} {
-          color: ${akEditorDeleteIconColor} !important;
+          color: ${token(
+            'color.icon.danger',
+            akEditorDeleteIconColor,
+          )} !important;
         }
       }
     }
@@ -40,10 +47,13 @@ export const panelStyles = (props: ThemeProps) => css`
     /* Danger when nested node */
     .danger .${PanelSharedCssClassName.prefix} {
       &[data-panel-type] {
-        background-color: ${akEditorDeleteBackgroundWithOpacity};
+        background-color: ${token(
+          'color.blanket.danger',
+          akEditorDeleteBackgroundWithOpacity,
+        )};
 
         .${PanelSharedCssClassName.icon} {
-          color: ${akEditorDeleteIconColor};
+          color: ${token('color.icon.danger', akEditorDeleteIconColor)};
         }
       }
     }

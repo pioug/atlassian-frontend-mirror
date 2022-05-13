@@ -17,7 +17,7 @@ import ModalDialog, {
 } from '../src';
 import { width } from '../src/internal/constants';
 
-const units = [420, '42%', '42em'];
+const units = [420, '42%', '42em', '100%'];
 const sizes: (string | number)[] = width.values;
 
 const containerStyles = css({
@@ -33,7 +33,11 @@ export default function ModalDemo() {
   const close = useCallback(() => setWidth(null), []);
 
   const btn = (name: string | number) => (
-    <Button key={name} onClick={() => setWidth(name)}>
+    <Button
+      key={name}
+      testId={`custom-width-${name}-trigger`}
+      onClick={() => setWidth(name)}
+    >
       {name}
     </Button>
   );
@@ -47,7 +51,7 @@ export default function ModalDemo() {
 
       <ModalTransition>
         {width && (
-          <ModalDialog key={width} onClose={close} width={width}>
+          <ModalDialog key={width} onClose={close} width={width} testId="modal">
             <ModalHeader>
               <ModalTitle>Modal: {String(width)}</ModalTitle>
             </ModalHeader>

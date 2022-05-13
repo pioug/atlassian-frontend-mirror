@@ -278,7 +278,7 @@ const extractListFromParagraph = (
  * Walks the slice, creating paragraphs that were previously separated by hardbreaks.
  * Returns the original paragraph node (as a fragment), or a fragment containing multiple nodes.
  */
-const splitIntoParagraphs = ({
+export const splitIntoParagraphs = ({
   fragment,
   blockMarks = [],
   schema,
@@ -293,8 +293,20 @@ const splitIntoParagraphs = ({
 
   const { hardBreak, paragraph } = schema.nodes;
 
-  fragment.forEach((node) => {
-    if (lastNode && lastNode.type === hardBreak && node.type === hardBreak) {
+  fragment.forEach((node, i) => {
+    // ED-14725 Fixed the issue that it make duplicated line
+    // when pasting <br /> from google docs.
+    if (i === 0 && node.type === hardBreak) {
+      paragraphs.push(
+        paragraph.createChecked(undefined, curChildren, [...blockMarks]),
+      );
+      lastNode = node;
+      return;
+    } else if (
+      lastNode &&
+      lastNode.type === hardBreak &&
+      node.type === hardBreak
+    ) {
       // double hardbreak
 
       // backtrack a little; remove the trailing hardbreak we added last loop

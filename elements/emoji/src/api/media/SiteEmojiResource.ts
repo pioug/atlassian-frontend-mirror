@@ -61,6 +61,28 @@ export default class SiteEmojiResource {
   }
 
   /**
+   * Will generate an emoji media path that is inclusive of client and token within the query parameter
+   */
+  async generateTokenisedMediaURL(emoji: EmojiDescription): Promise<string> {
+    if (emoji && isMediaRepresentation(emoji.representation)) {
+      const currentMediaPathURL = new URL(emoji.representation.mediaPath);
+      const currentMediaPathPARAMS = currentMediaPathURL.searchParams;
+      const readToken = await this.tokenManager.getToken('read');
+
+      if (currentMediaPathPARAMS.get('token') !== readToken.jwt) {
+        currentMediaPathPARAMS.set('token', readToken.jwt);
+      }
+      if (currentMediaPathPARAMS.get('client') !== readToken.clientId) {
+        currentMediaPathPARAMS.set('client', readToken.clientId);
+      }
+
+      return currentMediaPathURL.toString();
+    }
+
+    throw Error('Emoji resource is not of type Media Representation');
+  }
+
+  /**
    * Will load media emoji, returning a new EmojiDescription if, for example,
    * the URL has changed.
    */

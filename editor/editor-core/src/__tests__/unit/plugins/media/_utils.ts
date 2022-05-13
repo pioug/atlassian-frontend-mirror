@@ -61,7 +61,6 @@ export const imagePreview: ImagePreview = {
 export const getFreshMediaProvider = (collectionName = testCollectionName) =>
   storyMediaProviderFactory({
     collectionName,
-    includeUserAuthProvider: false,
   });
 
 const createEditor = createEditorFactory<MediaPluginState>();

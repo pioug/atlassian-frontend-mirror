@@ -4,7 +4,11 @@ import {
   ExperienceTypes,
 } from '@atlaskit/ufo';
 import { FileAttributes, WithFileAttributes } from '@atlaskit/media-common';
-import { RequestMetadata } from '@atlaskit/media-client';
+import {
+  RequestMetadata,
+  getMediaEnvironment,
+  getMediaRegion,
+} from '@atlaskit/media-client';
 import { ComponentName } from './analytics';
 import {
   name as packageName,
@@ -24,7 +28,7 @@ let ufoExperience: ConcurrentExperience | undefined;
 const initExperience = (id: string, componentName: ComponentName) => {
   if (!ufoExperience) {
     const inlineExperience = {
-      platform: { component: componentName },
+      platform: { component: `media-picker-${componentName}` },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
     };
@@ -41,9 +45,9 @@ const getExperience = (id: string) => {
 
 export const startMediaUploadUfoExperience = (
   id: string,
-  properties: ComponentName,
+  componentName: ComponentName,
 ) => {
-  initExperience(id, properties).start();
+  initExperience(id, componentName).start();
 };
 
 export const succeedMediaUploadUfoExperience = (
@@ -51,7 +55,13 @@ export const succeedMediaUploadUfoExperience = (
   properties: FileAttributes,
 ) => {
   getExperience(id)?.success({
-    metadata: { fileAttributes: properties, packageName, packageVersion },
+    metadata: {
+      fileAttributes: properties,
+      packageName,
+      packageVersion,
+      mediaEnvironment: getMediaEnvironment(),
+      mediaRegion: getMediaRegion(),
+    },
   });
 };
 
@@ -63,6 +73,8 @@ export const failMediaUploadUfoExperience = (
     ...properties,
     packageName,
     packageVersion,
+    mediaEnvironment: getMediaEnvironment(),
+    mediaRegion: getMediaRegion(),
   };
   getExperience(id)?.failure({
     metadata: refinedMetadata,

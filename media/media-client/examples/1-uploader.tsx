@@ -25,7 +25,7 @@ export interface UploaderExampleState {
 }
 
 const store = new MediaStore({
-  authProvider: defaultMediaPickerAuthProvider,
+  authProvider: defaultMediaPickerAuthProvider(),
 });
 
 class UploaderExample extends Component<
@@ -128,7 +128,7 @@ class UploaderExample extends Component<
 
   private uploadFile(uploadableFile: UploadableFile) {
     const mediaStore = new MediaStore({
-      authProvider: defaultMediaPickerAuthProvider,
+      authProvider: defaultMediaPickerAuthProvider(),
     });
     const fileId = uuid();
     const deferredTouchedFiles = mediaStore.touchFiles({

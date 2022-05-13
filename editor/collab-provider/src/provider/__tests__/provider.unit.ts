@@ -99,6 +99,7 @@ describe('provider unit tests', () => {
     ],
     collab: {
       steps: [],
+      origins: [],
       version: 0,
     },
     doc: {
@@ -561,34 +562,66 @@ describe('provider unit tests', () => {
       });
     });
 
-    describe('when cannot syncup with server', () => {
+    describe('when syncing up with server', () => {
       let sendSpy: jest.SpyInstance;
       let provider: Provider;
       let getState: () => any;
+      let newState: any;
+
       beforeEach(() => {
         provider = createSocketIOCollabProvider(testProviderConfig);
         sendSpy = jest
           .spyOn(provider as any, 'sendStepsFromCurrentState')
           .mockImplementation(() => {});
 
-        const newState = JSON.parse(JSON.stringify(editorState));
+        newState = JSON.parse(JSON.stringify(editorState));
         newState.collab.steps = [1];
+        newState.collab.origins = [1];
+        newState.doc = {
+          toJSON: () => {
+            return 'test';
+          },
+        };
+
         getState = () => newState;
       });
 
-      it('should throw ', async () => {
-        provider.initialize(getState);
-        await expect(provider.getFinalAcknowledgedState()).rejects.toThrowError(
-          new Error("Can't syncup with Collab Service"),
-        );
-        expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+      describe('should fail if cant syncup', () => {
+        it('should throw ', async () => {
+          provider.initialize(getState);
+          await expect(
+            provider.getFinalAcknowledgedState(),
+          ).rejects.toThrowError(new Error("Can't syncup with Collab Service"));
+          expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
+        });
+
+        it('should call onSyncUpError', async () => {
+          const onSyncUpErrorMock = jest.fn();
+          provider.setup({ getState, onSyncUpError: onSyncUpErrorMock });
+          await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
+          expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
+        });
       });
 
-      it('should call onSyncUpError', async () => {
-        const onSyncUpErrorMock = jest.fn();
-        provider.setup({ getState, onSyncUpError: onSyncUpErrorMock });
-        await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
-        expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
+      it('should return if it can syncup', async () => {
+        let called = 0;
+        jest
+          .spyOn(provider as any, 'sendStepsFromCurrentState')
+          .mockImplementation(() => {
+            if (called > 0) {
+              newState.collab.steps = [called + 1];
+              newState.collab.origins = [called + 1];
+            }
+
+            called++;
+          });
+
+        provider.initialize(() => editorState);
+        const finalAck = await provider.getFinalAcknowledgedState();
+        expect(finalAck).toEqual({
+          content: 'test',
+          stepVersion: 0,
+        });
       });
     });
 

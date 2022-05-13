@@ -10,22 +10,28 @@ import {
   unsupportedNodeAttribute,
 } from '@atlaskit/adf-schema';
 
-import {
-  UnsupportedBlock,
-  UnsupportedInline,
-} from '@atlaskit/editor-common/ui';
+import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
+import { UnsupportedInlineNodeView } from './unsupported-inline-node-view';
 
 import { ReactNodeView } from '../../nodeviews';
-import { EditorPlugin, PMPluginFactory } from '../../types';
+import {
+  EditorPlugin,
+  PMPluginFactory,
+  PMPluginFactoryParams,
+} from '../../types';
+import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
 
-const createPlugin: PMPluginFactory = ({
-  portalProviderAPI,
-  eventDispatcher,
-  dispatchAnalyticsEvent,
-}) => {
+const createPlugin: PMPluginFactory = (
+  pmPluginFactoryParams: PMPluginFactoryParams,
+) => {
   const hasIntlContext = true;
+  const {
+    portalProviderAPI,
+    eventDispatcher,
+    dispatchAnalyticsEvent,
+  } = pmPluginFactoryParams;
   return new SafePlugin({
     key: pluginKey,
     props: {
@@ -38,14 +44,11 @@ const createPlugin: PMPluginFactory = ({
           undefined,
           hasIntlContext,
         ),
-        confluenceUnsupportedInline: ReactNodeView.fromComponent(
-          UnsupportedInline,
-          portalProviderAPI,
-          eventDispatcher,
-          { dispatchAnalyticsEvent },
-          undefined,
-          hasIntlContext,
-        ),
+        confluenceUnsupportedInline: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: UnsupportedInlineNodeView,
+          extraComponentProps: { dispatchAnalyticsEvent },
+        }),
         unsupportedBlock: ReactNodeView.fromComponent(
           UnsupportedBlock,
           portalProviderAPI,
@@ -54,14 +57,11 @@ const createPlugin: PMPluginFactory = ({
           undefined,
           hasIntlContext,
         ),
-        unsupportedInline: ReactNodeView.fromComponent(
-          UnsupportedInline,
-          portalProviderAPI,
-          eventDispatcher,
-          { dispatchAnalyticsEvent },
-          undefined,
-          hasIntlContext,
-        ),
+        unsupportedInline: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: UnsupportedInlineNodeView,
+          extraComponentProps: { dispatchAnalyticsEvent },
+        }),
       },
     },
   });

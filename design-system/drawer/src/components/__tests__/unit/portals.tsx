@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import Drawer from '../../index';
 
 describe('Drawer portal', () => {
   it('should not be rendered if not open', () => {
-    mount(
-      <Drawer width="narrow" isOpen={false}>
+    render(
+      <Drawer width="narrow" isOpen={false} testId="drawer">
         <div />
       </Drawer>,
     );
 
-    const renderedPortal = document.querySelector(
-      'body > .atlaskit-portal-container .atlaskit-portal',
-    );
-    expect(renderedPortal).toBe(null);
+    expect(
+      document.querySelectorAll('.atlaskit-portal-container > atlaskit-portal')
+        .length,
+    ).toBe(0);
   });
 });

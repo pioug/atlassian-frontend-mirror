@@ -47,10 +47,9 @@ export default class DrawersExample extends Component<{}, State> {
     });
   };
 
-  onCloseComplete = (...args: [HTMLElement]) =>
-    console.log('onCloseComplete', args);
+  onCloseComplete = (args: any) => console.log('onCloseComplete', args);
 
-  onNestedCloseComplete = (...args: [HTMLElement]) =>
+  onNestedCloseComplete = (args: any) =>
     console.log('onNestedCloseComplete', args);
 
   render() {

@@ -9,6 +9,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
 import { N30, N50 } from '@atlaskit/theme/colors';
 import { borderRadius, fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { unsupportedContentMessages } from '../../messages/unsupportedContent';
@@ -18,8 +19,8 @@ import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-un
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
 const blockNodeStyle = css`
-  background: ${N30};
-  border: 1px dashed ${N50};
+  background: ${token('color.background.disabled', N30)};
+  border: 1px dashed ${token('color.border.disabled', N50)};
   border-radius: ${borderRadius()}px;
   box-sizing: border-box;
   cursor: default;

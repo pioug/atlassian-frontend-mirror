@@ -1,51 +1,23 @@
 import React from 'react';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
+
+import type { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
+
 import Emoji from '../ui/Emoji';
-import { ReactNodeView, getPosHandler } from '../../../nodeviews';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { EmojiPluginOptions } from '../types';
-import { EventDispatcher } from '../../../event-dispatcher';
 
-export interface Props {
+export type Props = InlineNodeViewComponentProps & {
   providerFactory: ProviderFactory;
-  options?: EmojiPluginOptions;
-}
+};
 
-export class EmojiNodeView extends ReactNodeView<Props> {
-  createDomRef() {
-    return super.createDomRef();
-  }
+export function EmojiNodeView(props: Props) {
+  const { shortName, id, text } = props.node.attrs;
 
-  render(props: Props) {
-    const { providerFactory, options } = props;
-    const { shortName, id, text } = this.node.attrs;
-
-    return (
-      <>
-        <Emoji
-          providers={providerFactory}
-          id={id}
-          shortName={shortName}
-          fallback={text}
-        />
-        {options && options.allowZeroWidthSpaceAfter && ZERO_WIDTH_SPACE}
-      </>
-    );
-  }
-}
-
-export default function emojiNodeView(
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  providerFactory: ProviderFactory,
-  options?: EmojiPluginOptions,
-) {
-  return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView =>
-    new EmojiNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
-      providerFactory,
-      options,
-    }).init();
+  return (
+    <Emoji
+      providers={props.providerFactory}
+      id={id}
+      shortName={shortName}
+      fallback={text}
+    />
+  );
 }

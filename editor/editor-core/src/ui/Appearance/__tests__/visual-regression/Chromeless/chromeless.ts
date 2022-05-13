@@ -20,6 +20,12 @@ describe('Chromeless', () => {
     await initChromelessEditorWithAdf(page, {});
   });
 
+  test('empty content with minHeight', async () => {
+    await initChromelessEditorWithAdf(page, {}, undefined, undefined, {
+      minHeight: 250,
+    });
+  });
+
   test('with short content', async () => {
     await initChromelessEditorWithAdf(page, createDocumentWithParagraphs());
   });

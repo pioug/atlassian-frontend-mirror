@@ -30,6 +30,7 @@ export interface EditorAppearanceComponentProps {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 
   maxHeight?: number;
+  minHeight?: number;
 
   contentComponents?: UIComponentFactory[];
   primaryToolbarComponents?: ToolbarUIComponentFactory[];

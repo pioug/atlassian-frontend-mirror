@@ -1,5 +1,12 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 7.2.8
+
+### Patch Changes
+
+- [`244097b480c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/244097b480c) - Updated the package to use emotion instead of styled components, also go rid of styled from dependencies and add emotion instead
+- Updated dependencies
+
 ## 7.2.7
 
 ### Patch Changes

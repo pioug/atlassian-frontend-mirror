@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import {
   B100,
   B300,
@@ -26,6 +27,7 @@ import {
   gridSize,
   layers,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { EditorTheme } from './types';
 
@@ -54,8 +56,14 @@ export const akEditorSelectedBorderColor = B300;
 export const akEditorSelectedBgColor = B50;
 export const akEditorSelectedBlanketColor = B75;
 export const akEditorSelectedBorderSize = 1;
-export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${akEditorSelectedBorderColor}`;
-export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${akEditorSelectedBorderColor}`;
+export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${token(
+  'color.border.selected',
+  akEditorSelectedBorderColor,
+)}`;
+export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
+  'color.border.selected',
+  akEditorSelectedBorderColor,
+)}`;
 export const akEditorSelectedIconColor = B400;
 export const akEditorSelectedBorderBoldSize = 2;
 export const akEditorSelectedBlanketOpacity = 0.3;

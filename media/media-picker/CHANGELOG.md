@@ -1,5 +1,22 @@
 # @atlaskit/media-picker
 
+## 62.0.0
+
+### Major Changes
+
+- [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
+
+### Minor Changes
+
+- [`fe7a1aaddd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe7a1aaddd6) - Attach media environment to Media Picker UFO events
+- [`7dad7e0c299`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7dad7e0c299) - [MEX-1413] Removed user auth from media-picker
+
+### Patch Changes
+
+- [`a5d25a077bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5d25a077bc) - removed duplicated module from Confluence's node_modules introduced with our components
+- [`e368c622418`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e368c622418) - Updated component names in UFO experiences
+- Updated dependencies
+
 ## 61.0.1
 
 ### Patch Changes

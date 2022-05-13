@@ -204,9 +204,7 @@ export const providers: Partial<Providers> = {
   autoformattingProvider: Promise.resolve(autoformattingProvider),
 };
 
-export const mediaProvider = storyMediaProviderFactory({
-  includeUserAuthProvider: false,
-});
+export const mediaProvider = storyMediaProviderFactory();
 
 export const quickInsertProvider = quickInsertProviderFactory();
 

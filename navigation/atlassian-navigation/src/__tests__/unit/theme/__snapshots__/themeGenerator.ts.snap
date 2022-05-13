@@ -251,6 +251,7 @@ Object {
   },
   "focus": Object {
     "borderColor": "rgba(233, 78, 52, 0.8)",
+    "boxShadow": "0 0 0 2px rgba(233, 78, 52, 0.5)",
   },
   "hover": Object {
     "backgroundColor": "rgba(119, 119, 119, 0.6)",
@@ -383,6 +384,7 @@ Object {
   },
   "focus": Object {
     "borderColor": "rgba(51, 51, 51, 0.8)",
+    "boxShadow": "0 0 0 2px rgba(51, 51, 51, 0.5)",
   },
   "hover": Object {
     "backgroundColor": "rgba(138, 135, 136, 0.3)",

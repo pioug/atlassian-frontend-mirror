@@ -1,5 +1,11 @@
 # @atlaskit/logo
 
+## 13.6.0
+
+### Minor Changes
+
+- [`4caed6d5063`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4caed6d5063) - Refactors logo converting it from class components to functional components. This includes file renames and some API changes such as prop name changes but is still backwards compatible. These old APIs will be deprecated in a later release.
+
 ## 13.5.5
 
 ### Patch Changes

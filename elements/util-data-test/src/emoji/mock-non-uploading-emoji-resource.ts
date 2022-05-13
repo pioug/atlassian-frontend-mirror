@@ -114,6 +114,10 @@ export class MockNonUploadingEmojiResource
     );
   }
 
+  async getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription) {
+    return emoji;
+  }
+
   recordSelection?(emoji: EmojiDescription): Promise<any> {
     this.recordedSelections.push(emoji);
     this.emojiRepository.used(emoji);

@@ -270,14 +270,16 @@ export class Renderer extends PureComponent<RendererProps> {
     }
   };
 
-  private getSchema = () => {
-    const { schema, adfStage } = this.props;
-    if (schema) {
-      return schema;
-    }
+  private getSchema = memoizeOne(
+    (schema?: Schema, adfStage?: 'final' | 'stage0') => {
+      if (schema) {
+        return schema;
+      }
 
-    return getSchemaBasedOnStage(adfStage);
-  };
+      return getSchemaBasedOnStage(adfStage);
+    },
+  );
+
   private onMouseDownEditView = () => {
     // When the user is deselecting text on the screen by clicking, if they are clicking outside
     // the current selection, by the time the onclick handler is called the window.getSelection()
@@ -359,7 +361,8 @@ export class Renderer extends PureComponent<RendererProps> {
     };
 
     try {
-      const schema = this.getSchema();
+      const schema = this.getSchema(this.props.schema, this.props.adfStage);
+
       const { result, stat, pmDoc } = renderDocument(
         document,
         this.serializer,

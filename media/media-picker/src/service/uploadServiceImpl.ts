@@ -1,12 +1,7 @@
 import uuidV4 from 'uuid/v4';
 import {
   FileState,
-  MediaStore,
-  MediaStoreCopyFileWithTokenBody,
   UploadController,
-  MediaStoreCopyFileWithTokenParams,
-  MediaStoreResponse,
-  MediaFile as MediaStoreMediaFile,
   TouchFileDescriptor,
   UploadableFileUpfrontIds,
   UploadableFile,
@@ -22,7 +17,6 @@ import { EventEmitter2 } from 'eventemitter2';
 import { Subscriber } from 'rxjs/Subscriber';
 import { MediaFile, UploadParams } from '../types';
 
-import { mapAuthToSourceFileOwner } from '../popup/domain/source-file';
 import { getPreviewFromImage } from '../util/getPreviewFromImage';
 import { MediaErrorName } from '../types';
 import {
@@ -41,7 +35,6 @@ export interface CancellableFileUpload {
 }
 
 export class UploadServiceImpl implements UploadService {
-  private readonly userMediaStore?: MediaStore;
   private readonly userMediaClient?: MediaClient;
   private readonly emitter: EventEmitter2;
   private cancellableFilesUploads: { [key: string]: CancellableFileUpload };
@@ -53,19 +46,6 @@ export class UploadServiceImpl implements UploadService {
   ) {
     this.emitter = new EventEmitter2();
     this.cancellableFilesUploads = {};
-    const { userAuthProvider } = tenantMediaClient.config;
-
-    if (userAuthProvider) {
-      this.userMediaStore = new MediaStore({
-        authProvider: userAuthProvider,
-      });
-
-      // We need to use the userAuth to upload this file (recents)
-      this.userMediaClient = new MediaClient({
-        userAuthProvider,
-        authProvider: userAuthProvider,
-      });
-    }
   }
 
   setUploadParams(uploadParams: UploadParams): void {
@@ -334,9 +314,6 @@ export class UploadServiceImpl implements UploadService {
   ) => {
     const { mediaFile } = cancellableFileUpload;
 
-    this.copyFileToUsersCollection(fileId)
-      // eslint-disable-next-line no-console
-      .catch(console.log); // We intentionally swallow these errors
     this.emit('file-converting', {
       file: mediaFile,
     });
@@ -372,39 +349,4 @@ export class UploadServiceImpl implements UploadService {
       },
     });
   };
-
-  // This method copies the file from the "tenant collection" to the "user collection" (recents).
-  // that means we need "tenant auth" as input and "user auth" as output
-  private copyFileToUsersCollection(
-    sourceFileId: string,
-  ): Promise<MediaStoreResponse<MediaStoreMediaFile> | void> {
-    const {
-      shouldCopyFileToRecents,
-      userMediaStore,
-      tenantUploadParams,
-    } = this;
-    if (!shouldCopyFileToRecents || !userMediaStore) {
-      return Promise.resolve();
-    }
-    const { collection: sourceCollection } = tenantUploadParams;
-    const { authProvider: tenantAuthProvider } = this.tenantMediaClient.config;
-    return tenantAuthProvider({ collectionName: sourceCollection }).then(
-      (auth) => {
-        const body: MediaStoreCopyFileWithTokenBody = {
-          sourceFile: {
-            id: sourceFileId,
-            collection: sourceCollection,
-            owner: {
-              ...mapAuthToSourceFileOwner(auth),
-            },
-          },
-        };
-        const params: MediaStoreCopyFileWithTokenParams = {
-          collection: RECENTS_COLLECTION,
-        };
-
-        return userMediaStore.copyFileWithToken(body, params);
-      },
-    );
-  }
 }

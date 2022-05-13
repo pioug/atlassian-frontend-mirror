@@ -2,6 +2,8 @@ export {
   MediaStore,
   MediaStoreError,
   isMediaStoreError,
+  getMediaEnvironment,
+  getMediaRegion,
 } from './client/media-store';
 export type {
   ResponseFileItem,
@@ -109,7 +111,7 @@ export type {
 } from './models/mobile-upload';
 
 // TODO: remove access to media file stream cache https://product-fabric.atlassian.net/browse/MEX-1417
-export { getFileStreamsCache, StreamsCache } from './file-streams-cache';
+export { StreamsCache } from './file-streams-cache';
 
 export { uploadFile } from './uploader';
 export type {

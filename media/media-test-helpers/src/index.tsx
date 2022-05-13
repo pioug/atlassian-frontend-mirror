@@ -85,14 +85,10 @@ export { createMouseEvent } from './createMouseEvent';
 export type { MouseEventProps } from './createMouseEvent';
 export { createTouchEvent } from './createTouchEvent';
 export type { TouchEventProps } from './createTouchEvent';
+export const authProviderBaseURL = 'https://media.dev.atl-paas.net';
 export {
-  createUserMediaClient,
-  userAuthProvider,
-  userAuthProviderBaseURL,
-} from './userAuthProvider';
-export {
-  defaultMediaPickerAuthProvider,
   mediaPickerAuthProvider,
+  defaultMediaPickerAuthProvider,
 } from './mediaPickerAuthProvider';
 export {
   generateFilesFromTestData,

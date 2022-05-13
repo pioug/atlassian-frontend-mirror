@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import {
   blockNodesVerticalMargin,
   akEditorTableCellMinWidth,
@@ -136,15 +137,19 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
 
   /* Danger when top level node */
   .ProseMirror .danger.code-block {
-    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+      ${token('color.border.danger', akEditorDeleteBorder)};
 
     .${codeBlockClassNames.gutter} {
       background-color: ${colors.R75};
-      color: ${akEditorDeleteIconColor};
+      color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
     .${codeBlockClassNames.content} {
-      background-color: ${akEditorDeleteBackground};
+      background-color: ${token(
+        'color.background.danger',
+        akEditorDeleteBackground,
+      )};
     }
   }
 
@@ -152,7 +157,7 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .danger .code-block {
     .${codeBlockClassNames.gutter} {
       background-color: rgba(255, 143, 115, 0.5);
-      color: ${akEditorDeleteIconColor};
+      color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
     .${codeBlockClassNames.content} {
@@ -241,15 +246,19 @@ export const codeBlockStyles = (props: ThemeProps) => css`
 
   /* Danger when top level node */
   .ProseMirror .danger.code-block {
-    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+      ${token('color.border.danger', akEditorDeleteBorder)};
 
     .${codeBlockClassNames.gutter} {
       background-color: ${colors.R75};
-      color: ${akEditorDeleteIconColor};
+      color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
     .${codeBlockClassNames.content} {
-      background-color: ${akEditorDeleteBackground};
+      background-color: ${token(
+        'color.background.danger',
+        akEditorDeleteBackground,
+      )};
     }
   }
 
@@ -257,7 +266,7 @@ export const codeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .danger .code-block {
     .${codeBlockClassNames.gutter} {
       background-color: rgba(255, 143, 115, 0.5);
-      color: ${akEditorDeleteIconColor};
+      color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
     .${codeBlockClassNames.content} {

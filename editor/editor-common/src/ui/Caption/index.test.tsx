@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { N200, N400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
 
@@ -24,14 +25,16 @@ describe('CaptionComponent', () => {
     const { getByText } = renderWithIntl(<Caption />);
 
     expect(getByText(messages.placeholder.defaultMessage)).toHaveStyle(
-      `color: ${N200}`,
+      `color: ${token('color.text.subtlest', N200)}`,
     );
   });
 
   it('should have the colour N400', () => {
     const { container } = renderWithIntl(<Caption />);
 
-    expect(container.firstChild).toHaveStyle(`color: ${N400}`);
+    expect(container.firstChild).toHaveStyle(
+      `color: ${token('color.text.subtle', N400)}`,
+    );
   });
 
   it('should have centered text', () => {

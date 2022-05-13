@@ -24,7 +24,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -37,7 +36,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -52,7 +50,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -67,7 +64,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -91,7 +87,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -106,7 +101,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -125,7 +119,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -140,7 +133,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -156,7 +148,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -173,7 +164,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -190,7 +180,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -204,7 +193,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -218,7 +206,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -234,7 +221,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -248,7 +234,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',
@@ -264,7 +249,6 @@ describe('Media Card New Experience', () => {
       it.each([
         'uploading',
         'processing',
-        'loading-preview',
         'complete',
         'failed-processing',
         'error',

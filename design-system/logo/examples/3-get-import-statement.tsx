@@ -7,7 +7,7 @@ import CodeBlock from '@atlaskit/code/block';
 import Select, { ValueType } from '@atlaskit/select';
 
 import * as Logos from '../src';
-import type { Props as ConstantProps } from '../src/constants';
+import type { LogoProps as ConstantProps } from '../src/types';
 
 interface Product {
   label: string;

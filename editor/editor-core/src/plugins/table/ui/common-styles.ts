@@ -224,6 +224,10 @@ export const tableStyles = (props: ThemeProps) => css`
 
       box-shadow: 0 6px 4px -4px ${N40A};
       margin-left: -1px;
+
+      &.no-pointer-events {
+        pointer-events: none;
+      }
     }
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {

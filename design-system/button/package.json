@@ -45,7 +45,7 @@
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/logo": "^13.5.0",
+    "@atlaskit/logo": "^13.6.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.0.0",
     "@atlaskit/ssr": "*",

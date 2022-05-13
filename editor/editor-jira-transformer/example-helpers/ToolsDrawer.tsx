@@ -3,7 +3,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { JIRATransformer } from '../src';
 
-import { Content } from './styles';
+import { content } from './styles';
 
 import { MentionResource } from '@atlaskit/editor-core';
 
@@ -86,7 +86,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
       editorEnabled,
     } = this.state;
     return (
-      <Content>
+      <div css={content}>
         <div style={{ padding: '5px 0' }}>Editor</div>
         {reloadEditor
           ? ''
@@ -98,7 +98,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
             } as RenderEditorProps)}
         <legend>Output:</legend>
         <pre>{document}</pre>
-      </Content>
+      </div>
     );
   }
 }

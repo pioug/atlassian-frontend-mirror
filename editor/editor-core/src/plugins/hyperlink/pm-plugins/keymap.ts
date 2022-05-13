@@ -5,7 +5,6 @@ import { Match, getLinkMatch } from '@atlaskit/adf-schema';
 import * as keymaps from '../../../keymaps';
 import { HyperlinkState, stateKey } from '../pm-plugins/main';
 import { showLinkToolbar, hideLinkToolbar } from '../commands';
-import { queueCards } from '../../card/pm-plugins/actions';
 import { Command } from '../../../types';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';
@@ -77,15 +76,7 @@ const mayConvertLastWordToHyperlink: (skipAnalytics: boolean) => Command = (
       const url = match.url;
       const markType = state.schema.mark('link', { href: url });
 
-      const tr = queueCards([
-        {
-          url,
-          pos: start,
-          appearance: 'inline',
-          compareLinkText: true,
-          source: INPUT_METHOD.AUTO_DETECT,
-        },
-      ])(state.tr.addMark(start, end, markType));
+      const tr = state.tr.addMark(start, end, markType);
       if (dispatch) {
         if (skipAnalytics) {
           dispatch(tr);

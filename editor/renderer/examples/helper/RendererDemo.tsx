@@ -39,6 +39,8 @@ import { MentionProvider } from '@atlaskit/mention/types';
 import { Schema } from 'prosemirror-model';
 import { MediaOptions } from '@atlaskit/editor-core';
 
+import { token } from '@atlaskit/tokens';
+
 const MockProfileClient: any = simpleMockProfilecardClient();
 
 const mentionProvider = Promise.resolve({
@@ -256,7 +258,7 @@ export default class RendererDemo extends React.Component<
             id="renderer-value-input"
             style={{
               boxSizing: 'border-box',
-              border: '1px solid lightgray',
+              border: `1px solid ${token('color.border.input', 'lightgray')}`,
               fontFamily: 'monospace',
               fontSize: 16,
               padding: 10,
@@ -381,7 +383,12 @@ export default class RendererDemo extends React.Component<
 
       return (
         <div>
-          <div style={{ color: '#ccc', marginBottom: '8px' }}>
+          <div
+            style={{
+              color: token('color.text.subtle', '#ccc'),
+              marginBottom: '8px',
+            }}
+          >
             &lt;Renderer&gt;
           </div>
           <div id="RendererOutput">
@@ -390,7 +397,12 @@ export default class RendererDemo extends React.Component<
             ))}
           </div>
           {this.props.truncationEnabled ? expandButton : null}
-          <div style={{ color: '#ccc', marginTop: '8px' }}>
+          <div
+            style={{
+              color: token('color.text.subtle', '#ccc'),
+              marginTop: '8px',
+            }}
+          >
             &lt;/Renderer&gt;
           </div>
           <div ref={this.handlePortalRef} />

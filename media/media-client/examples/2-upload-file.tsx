@@ -2,7 +2,7 @@ import React from 'react';
 import { Component, SyntheticEvent } from 'react';
 import {
   defaultCollectionName,
-  mediaPickerAuthProvider,
+  defaultMediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { FileState, MediaClient, UploadController } from '../src';
@@ -18,7 +18,7 @@ export interface ComponentState {
 }
 
 const mediaClientConfig: MediaClientConfig = {
-  authProvider: mediaPickerAuthProvider('asap'),
+  authProvider: defaultMediaPickerAuthProvider(),
 };
 const mediaClient = new MediaClient(mediaClientConfig);
 

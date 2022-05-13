@@ -34,6 +34,8 @@ import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
 
+const MEDIA_API_REGION = 'media-api-region';
+
 const defaultImageOptions: MediaStoreGetFileImageParams = {
   'max-age': FILE_CACHE_MAX_AGE,
   allowAnimated: true,
@@ -60,7 +62,7 @@ const jsonHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
-
+let mediaEnvironment: string;
 export class MediaStore {
   constructor(
     private readonly config: MediaApiConfig,
@@ -498,7 +500,7 @@ export class MediaStore {
     );
 
     updateMediaRegion(response.headers.get('x-media-region'));
-
+    updateMediaEnvironment(response.headers.get('x-media-env'));
     return response;
   }
 
@@ -513,12 +515,31 @@ function updateMediaRegion(region: string | null) {
     return;
   }
 
-  const currentRegion = window.sessionStorage.getItem('media-api-region');
+  const currentRegion = window.sessionStorage.getItem(MEDIA_API_REGION);
 
   if (currentRegion !== region) {
-    window.sessionStorage.setItem('media-api-region', region);
+    window.sessionStorage.setItem(MEDIA_API_REGION, region);
   }
 }
+
+const updateMediaEnvironment = (mediaEnv: string | null) => {
+  if (mediaEnv) {
+    mediaEnvironment = mediaEnv;
+  }
+};
+
+export const getMediaEnvironment = (): string | undefined => {
+  return mediaEnvironment;
+};
+
+export const getMediaRegion = (): string | undefined => {
+  return (
+    (window &&
+      window.sessionStorage &&
+      window.sessionStorage.getItem(MEDIA_API_REGION)) ||
+    undefined
+  );
+};
 
 export interface ResponseFileItem {
   id: string;

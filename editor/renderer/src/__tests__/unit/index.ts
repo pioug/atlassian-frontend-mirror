@@ -22,6 +22,9 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 
 import { PLATFORM } from '../../analytics/events';
 import doc from '../__fixtures__/basic-document.adf.json';
+import dateDoc from '../__fixtures__/date.adf.json';
+import headingsDoc from '../__fixtures__/headings-adf.json';
+
 class MockSerializer implements Serializer<string> {
   serializeFragment(_fragment: any) {
     return 'dummy';
@@ -46,16 +49,37 @@ describe('Renderer', () => {
       expect(getValidDocumentSpy.calledWith(doc)).toEqual(true);
     });
 
-    it('should call schema.nodeFromJSON', () => {
+    it('should only call schema.nodeFromJSON when needed', () => {
+      // Different doc to all the other tests to avoid memoize
       const spy = sinon.spy(schema, 'nodeFromJSON');
-      renderDocument(doc, serializer, schema);
+
+      renderDocument(headingsDoc, serializer, schema);
       expect(spy.called).toEqual(true);
+      const { callCount } = spy;
+
+      // Call again to ensure memoize worked on objA===objB
+      renderDocument(headingsDoc, serializer, schema);
+      expect(spy.callCount).toEqual(callCount);
+
+      // Call again to ensure memoize worked on equal doc content
+      renderDocument({ ...headingsDoc }, serializer, schema);
+      expect(spy.callCount).toEqual(callCount);
+
+      // Call again to ensure memoize worked on different doc
+      renderDocument(doc, serializer, schema);
+      expect(spy.callCount).toEqual(callCount + 4);
     });
 
-    it('should call serializer.serializeFragment', () => {
+    it('should only call serializer.serializeFragment when needed', () => {
+      // Different doc to all the other tests to avoid memoize
       const spy = sinon.spy(serializer, 'serializeFragment');
-      renderDocument(doc, serializer, schema);
+      renderDocument(dateDoc, serializer, schema);
       expect(spy.called).toEqual(true);
+      expect(spy.callCount).toEqual(1);
+
+      // Call again to ensure memoize worked
+      renderDocument(dateDoc, serializer, schema);
+      expect(spy.callCount).toEqual(1);
     });
 
     it('should return result and stat fields', () => {
@@ -174,39 +198,47 @@ describe('Renderer', () => {
     });
 
     describe('when there is an invalid ProseMirror document', () => {
-      const initialDoc = {
-        version: 1,
-        type: 'doc',
-        content: [
-          {
-            type: 'paragraph',
-            content: [
-              {
-                type: 'text',
-                text: 'lol',
-                marks: [
-                  {
-                    type: 'link',
-                    attrs: {
-                      href: 'http://gnu.org',
+      const getInvalidDoc = (text: string) => {
+        return {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text,
+                  marks: [
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: 'http://gnu.org',
+                      },
                     },
-                  },
-                  {
-                    type: 'link',
-                    attrs: {
-                      href: 'http://atlassian.com',
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: 'http://atlassian.com',
+                      },
                     },
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+                  ],
+                },
+              ],
+            },
+          ],
+        };
       };
 
       it('should not throw an error', () => {
         expect(() => {
-          renderDocument(initialDoc, serializer, schema, 'final', true);
+          renderDocument(
+            getInvalidDoc('no throw'),
+            serializer,
+            schema,
+            'final',
+            true,
+          );
         }).not.toThrow();
       });
 
@@ -214,7 +246,7 @@ describe('Renderer', () => {
         const dispatchAnalyticsEvent = jest.fn();
         try {
           renderDocument(
-            initialDoc,
+            getInvalidDoc('call dispatch'),
             serializer,
             schema,
             'final',

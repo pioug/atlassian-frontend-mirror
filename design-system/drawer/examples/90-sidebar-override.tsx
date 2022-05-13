@@ -28,6 +28,7 @@ const SidebarOverrideComponent: FC = ({ children }) => {
         paddingBottom: 16,
         paddingTop: 24,
         width: 64,
+        // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
         border: `3px dashed ${token(
           'color.background.accent.teal.subtle',
           'teal',
@@ -57,8 +58,7 @@ export default class DrawersExample extends Component<{}, State> {
     });
   };
 
-  onCloseComplete = (...args: [HTMLElement]) =>
-    console.log('onCloseComplete', args);
+  onCloseComplete = (args: any) => console.log('onCloseComplete', args);
 
   render() {
     return (

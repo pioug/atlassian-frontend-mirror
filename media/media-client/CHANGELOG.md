@@ -1,5 +1,22 @@
 # @atlaskit/media-client
 
+## 16.0.0
+
+### Major Changes
+
+- [`b6d47de3fd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6d47de3fd9) - [MEX-1417] remove access to media file streams cache
+
+### Minor Changes
+
+- [`5e249d1ad05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e249d1ad05) - Exposed media environment
+
+### Patch Changes
+
+- [`bde94d1a336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bde94d1a336) - When chunkinator has multiple processing batches of chunks, file will only be finalised uploading for once.
+- [`567b33b2eeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/567b33b2eeb) - stripe out null and undefined params when calling media server
+- [`c4c75f5a769`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4c75f5a769) - Removed query string from media client
+- Updated dependencies
+
 ## 15.1.1
 
 ### Patch Changes

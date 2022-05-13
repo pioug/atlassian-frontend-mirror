@@ -20,6 +20,7 @@ const ContentOverrideComponent: FC = ({ children }) => {
         flex: 1,
         overflow: 'auto',
         marginTop: 24,
+        // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
         border: `3px dashed ${token(
           'color.background.accent.purple.subtle',
           'pink',
@@ -49,8 +50,7 @@ export default class DrawersExample extends Component<{}, State> {
     });
   };
 
-  onCloseComplete = (...args: [HTMLElement]) =>
-    console.log('onCloseComplete', args);
+  onCloseComplete = (args: any) => console.log('onCloseComplete', args);
 
   render() {
     return (

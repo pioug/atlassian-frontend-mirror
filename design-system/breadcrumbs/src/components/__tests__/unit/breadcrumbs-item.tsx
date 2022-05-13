@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
 
@@ -48,5 +48,30 @@ describe('BreadcrumbsItem', () => {
 
     const icons = container.querySelectorAll('span[aria-label="Test icon"]');
     expect(icons.length).toEqual(2);
+  });
+
+  it('should call onTooltipShown when tooltip is shown', () => {
+    const onTooltipShown = jest.fn();
+
+    const { getByTestId } = render(
+      <BreadcrumbsItem
+        truncationWidth={200}
+        href="/item"
+        iconBefore={TestIcon}
+        iconAfter={TestIcon}
+        testId="item-1"
+        text="Long content, icons before and after"
+        onTooltipShown={onTooltipShown}
+      />,
+    );
+
+    const tooltipTrigger = getByTestId('item-1');
+    expect(tooltipTrigger).toBeDefined();
+    fireEvent.mouseOver(tooltipTrigger);
+
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(onTooltipShown).toHaveBeenCalled;
   });
 });

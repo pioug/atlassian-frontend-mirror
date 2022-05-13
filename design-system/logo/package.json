@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/logo",
-  "version": "13.5.5",
+  "version": "13.6.0",
   "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -22,22 +22,23 @@
     }
   },
   "af:exports": {
-    "./atlassian-icon": "./src/AtlassianLogo/Icon.tsx",
-    "./bitbucket-icon": "./src/BitbucketLogo/Icon.tsx",
-    "./confluence-icon": "./src/ConfluenceLogo/Icon.tsx",
-    "./hipchat-icon": "./src/HipchatLogo/Icon.tsx",
-    "./jira-icon": "./src/JiraLogo/Icon.tsx",
-    "./jira-core-icon": "./src/JiraCoreLogo/Icon.tsx",
-    "./jra-service-desk-icon": "./src/JiraServiceDeskLogo/Icon.tsx",
-    "./jira-service-management-icon": "./src/JiraServiceManagementLogo/Icon.tsx",
-    "./jira-software-icon": "./src/JiraSoftwareLogo/Icon.tsx",
-    "./ops-genie-icon": "./src/OpsGenieLogo/Icon.tsx",
-    "./statuspage-icon": "./src/StatuspageLogo/Icon.tsx",
-    "./stride-icon": "./src/StrideLogo/Icon.tsx",
-    "./trello-icon": "./src/TrelloLogo/Icon.tsx",
-    "./constants": "./src/constants.ts",
-    "./Wrapper": "./src/Wrapper.tsx",
-    ".": "./src/index.ts"
+    "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
+    "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
+    "./confluence-icon": "./src/confluence-logo/icon.tsx",
+    "./hipchat-icon": "./src/hipchat-logo/icon.tsx",
+    "./jira-icon": "./src/jira-logo/icon.tsx",
+    "./jira-core-icon": "./src/jira-core-logo/icon.tsx",
+    "./jra-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
+    "./jira-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
+    "./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
+    "./jira-software-icon": "./src/jira-software-logo/icon.tsx",
+    "./ops-genie-icon": "./src/opsgenie-logo/old-icon.tsx",
+    "./statuspage-icon": "./src/statuspage-logo/icon.tsx",
+    "./stride-icon": "./src/stride-logo/icon.tsx",
+    "./trello-icon": "./src/trello-logo/icon.tsx",
+    "./constants": "./src/constants.tsx",
+    "./Wrapper": "./src/wrapper.tsx",
+    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^1.4.0",

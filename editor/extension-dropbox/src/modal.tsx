@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import chromatism from 'chromatism';
 import { jsx, css } from '@emotion/react';
 
 import ModalDialog, {
@@ -11,12 +10,8 @@ import ModalDialog, {
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Button from '@atlaskit/button/custom-theme-button';
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
-import { N40A, N30A, N900 } from '@atlaskit/theme/colors';
 
 import { DROPBOX_IFRAME_NAME } from './constants';
-
-const gridSize = gridSizeFn();
 
 const ModalBody = React.forwardRef<
   HTMLDivElement,
@@ -35,33 +30,10 @@ const iframeStyle = {
   borderRadius: '0 0 3px 3px',
 };
 
-/*
-BC: I have stolen hexToRGBA and bottomShadow from atlassian-navigation. Having a direct dependency
-on Atlassian navigation seemed bad, but wanted to get us close enough. Finding a
-better solution to have this as common would be good.
-*/
-const hexToRGBA = (hex: string, opacity: number = 1) => {
-  const rgba = { ...chromatism.convert(hex).rgb, ...{ a: opacity } };
-
-  return `rgba(${Object.values(rgba).join(', ')})`;
-};
-
 const bottomShadow = css({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'baseline',
-  '&:after': {
-    content: '""',
-    left: 0,
-    right: 0,
-    position: 'absolute',
-    top: '33px',
-    height: gridSize / 2,
-    background: `linear-gradient(180deg, ${N40A} 0, ${N40A} 1px, ${N30A} 1px, ${hexToRGBA(
-      N900,
-      0,
-    )} 4px)`,
-  },
 });
 
 const spacingDivStyle = { width: '28px' };

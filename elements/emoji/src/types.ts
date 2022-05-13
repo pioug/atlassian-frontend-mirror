@@ -8,6 +8,15 @@ export type { CategoryId } from './components/picker/categories';
 export interface EmojiProvider
   extends Provider<string, EmojiSearchResult, any, undefined, SearchOptions> {
   /**
+   * Returns an immutable copy of EmojiDescription where mediaPath has token and client appended to url
+   *
+   * Will allow emoji to render site emojis without needing to fail first
+   */
+
+  getMediaEmojiDescriptionURLWithInlineToken(
+    emoji: EmojiDescription,
+  ): Promise<EmojiDescription>;
+  /**
    * Returns the first matching emoji matching the shortName, or null if none found.
    *
    * Will load media api images before returning.

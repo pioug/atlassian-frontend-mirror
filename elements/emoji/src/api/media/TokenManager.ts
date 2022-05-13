@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/util-service-support';
 
 // expire 30 seconds early to factor in latency, slow services, etc
-export const expireAdjustment = 30;
+export const EXPIRES_AT_LATENCY_IN_SECONDS = 30;
 
 interface TokenDetail {
   mediaApiToken?: MediaApiToken;
@@ -23,6 +23,16 @@ export default class TokenManager {
     this.tokens = new Map<TokenType, TokenDetail>();
   }
 
+  isValidToken(mediaApiToken: MediaApiToken): boolean {
+    const nowInSeconds = Date.now() / 1000;
+    const expiresAt = mediaApiToken.expiresAt - EXPIRES_AT_LATENCY_IN_SECONDS;
+    if (nowInSeconds < expiresAt) {
+      return true;
+    }
+
+    return false;
+  }
+
   addToken(type: TokenType, mediaApiToken: MediaApiToken): void {
     this.tokens.set(type, {
       mediaApiToken,
@@ -37,9 +47,7 @@ export default class TokenManager {
     }
     const { mediaApiToken, activeTokenRefresh } = tokenDetail;
     if (mediaApiToken) {
-      const nowInSeconds = Date.now() / 1000;
-      const expiresAt = mediaApiToken.expiresAt - expireAdjustment;
-      if (nowInSeconds < expiresAt && !forceRefresh) {
+      if (this.isValidToken(mediaApiToken) && !forceRefresh) {
         // still valid
         return Promise.resolve(mediaApiToken);
       }

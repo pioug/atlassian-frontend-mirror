@@ -20,6 +20,7 @@ const warningModalBtn = "[data-testid='warning']";
 const dangerModalBtn = "[data-testid='danger']";
 const visibilitySelector = '[data-testid="visibility--checkbox-label"]';
 const multilineSelector = '[data-testid="multiline--checkbox-label"]';
+const customWidthSelector = '[data-testid="custom-width-100%-trigger"]';
 const scrollSelector = '[data-testid="scroll--checkbox-label"]';
 const scrollIntoViewBtn = "[data-testid='scroll-into-view']";
 const moreBorderRadiusSelector = '[data-testid="more--radio-label"]';
@@ -380,6 +381,24 @@ describe('Snapshot test', () => {
 
     const footer = await takeElementScreenShot(page, modalFooter);
     expect(footer).toMatchProdImageSnapshot();
+  });
+
+  it('Modal with a custom width should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'width',
+      global.__BASEURL__,
+    );
+
+    const page = await openModal(url, {
+      ...defaultOptions,
+      triggerSelector: customWidthSelector,
+      viewport: { width: 1800, height: 600 },
+    });
+
+    const image = await takeElementScreenShot(page, modalDialog);
+    expect(image).toMatchProdImageSnapshot();
   });
 
   it('Modal on mobile should match production example', async () => {

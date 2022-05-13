@@ -14,6 +14,7 @@ import {
   getSelectionStyles,
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName } from '../table/types';
 import { tableMarginFullWidthMode } from '../table/ui/consts';
@@ -105,8 +106,11 @@ export const layoutStyles = css`
       }
 
       &.selected.danger > [data-layout-column] {
-        background-color: ${akEditorDeleteBackground};
-        border-color: ${akEditorDeleteBorder};
+        background-color: ${token(
+          'color.background.danger',
+          akEditorDeleteBackground,
+        )};
+        border-color: ${token('color.border.danger', akEditorDeleteBorder)};
       }
 
       &.${akEditorSelectedNodeClassName}:not(.danger) {

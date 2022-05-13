@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 7.4.0
+
+### Minor Changes
+
+- [`de9e3c28026`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de9e3c28026) - [ED-14689] Refactor getFinalAcknowledgedState to only wait for the unconfirmed steps at the time of calling it to be confirmed. It will no longer wait for there to be no unconfirmed steps at all.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.1
 
 ### Patch Changes

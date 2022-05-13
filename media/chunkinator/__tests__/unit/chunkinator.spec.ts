@@ -123,4 +123,47 @@ describe('chunkinator', () => {
       { blob: new Blob(['12345']), exists: false, hash: 'random-hash-5' },
     ]);
   });
+
+  it('should return a single array of processed chunks when processing batches are 2', async () => {
+    const observable = chunkinator(file, options, { onProgress });
+    const res = await observable.toPromise();
+
+    expect(res.length).toEqual(3);
+  });
+
+  it('should return a single array of processed chunks when processing batch is 1', async () => {
+    options.processingBatchSize = 1;
+    const observable = chunkinator(file, options, { onProgress });
+    const res = await observable.toPromise();
+
+    expect(res.length).toEqual(3);
+  });
+
+  it('should return a single array of processed chunks when processing batch is 0', async () => {
+    options.processingBatchSize = 0;
+    const observable = chunkinator(file, options, { onProgress });
+    const res = await observable.toPromise();
+
+    expect(res.length).toEqual(3);
+  });
+
+  it('should call chunkinator once, and call processingFunction multiple times', async () => {
+    const file = new Blob(['123456789012345123456789012345123456789012345'], {
+      type: 'plain/text',
+    });
+    const totalChunks = Math.ceil(file.size / options.chunkSize);
+    const totalProcessingBatches =
+      options.processingBatchSize === 0
+        ? 0
+        : Math.ceil(totalChunks / options.processingBatchSize);
+
+    const observable = chunkinator(file, options, { onProgress });
+    const callback = jest.fn();
+    await observable.toPromise().then(callback);
+
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(options.processingFunction).toHaveBeenCalledTimes(
+      totalProcessingBatches,
+    );
+  });
 });

@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import React from 'react';
-import { css, jsx } from '@emotion/react';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
 import * as colors from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const { N40A } = colors;
+import { token } from '@atlaskit/tokens';
 
 import { findHorizontalOverflowScrollParent } from '../../../utils';
 import { Table } from './table';
@@ -23,28 +25,24 @@ interface FixedProps {
   mode: StickyMode;
 }
 
-const fixedTableDivModeToPosition = {
-  stick: 'fixed',
-  'pin-bottom': 'absolute',
+const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
+  none: css`
+    display: none;
+  `,
+  stick: css`
+    position: fixed;
+  `,
+  'pin-bottom': css`
+    position: absolute;
+  `,
 };
 
-const getModeSpecificStyles = (mode: StickyMode) => {
-  if (mode === 'none') {
-    return css`
-      display: none;
-    `;
-  } else {
-    return css`
-      position: ${fixedTableDivModeToPosition[mode]};
-    `;
-  }
-};
-
+// TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4123
 const fixedTableDivStaticStyles = (
   top: number | undefined,
   width: number,
 ) => css`
-  top: ${top}px;
+  ${typeof top === 'number' && `top: ${top}px;`}
   width: ${width}px;
   z-index: ${akEditorStickyHeaderZIndex};
   &
@@ -56,9 +54,10 @@ const fixedTableDivStaticStyles = (
     margin-bottom: 0;
   }
 
-  border-top: ${tableStickyPadding}px solid white;
-  background: white;
-  box-shadow: 0 6px 4px -4px ${N40A};
+  border-top: ${tableStickyPadding}px solid
+    ${token('elevation.surface', 'white')};
+  background: ${token('elevation.surface.overlay', 'white')};
+  box-shadow: ${token('elevation.shadow.overflow', `0 6px 4px -4px ${N40A}`)};
 
   div[data-expanded='false'] & {
     display: none;
@@ -77,10 +76,16 @@ export const FixedTableDiv: React.FC<FixedProps> = (props) => {
   const { top, wrapperWidth, mode } = props;
   const fixedTableCss = [
     fixedTableDivStaticStyles(top, wrapperWidth),
-    getModeSpecificStyles(mode),
+    modeSpecficStyles?.[mode],
   ];
 
-  return <div css={fixedTableCss}>{props.children}</div>;
+  const attrs = { mode };
+
+  return (
+    <div {...attrs} data-testid="sticky-table-fixed" css={fixedTableCss}>
+      {props.children}
+    </div>
+  );
 };
 
 export type StickyTableProps = {

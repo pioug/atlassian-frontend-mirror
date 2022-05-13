@@ -5,7 +5,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState } from 'prosemirror-state';
 import { createRule, createPlugin } from '../../../utils/input-rules';
 import { LinkMatcher, normalizeUrl } from '../utils';
-import { queueCards } from '../../card/pm-plugins/actions';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';
 import { FeatureFlags } from '../../../types/feature-flags';
@@ -31,15 +30,7 @@ export function createLinkInputRule(
       const from = start;
       const to = Math.min(start + link.text.length, state.doc.content.size);
 
-      const tr = queueCards([
-        {
-          url: link.url,
-          pos: from,
-          appearance: 'inline',
-          compareLinkText: true,
-          source: INPUT_METHOD.AUTO_DETECT,
-        },
-      ])(state.tr.addMark(from, to, markType));
+      const tr = state.tr.addMark(from, to, markType);
 
       // Keep old behavior that will delete the space after the link
       if (useUnpredictableInputRule || to === end) {

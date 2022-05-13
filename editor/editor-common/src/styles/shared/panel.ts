@@ -1,3 +1,7 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4066
+
 import { css } from '@emotion/react';
 
 import { PanelType } from '@atlaskit/adf-schema';

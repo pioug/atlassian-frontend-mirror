@@ -133,7 +133,9 @@ export async function snapshot(
     useUnsafeThreshold?: boolean;
   } = {},
   selector: string = '#RendererOutput',
-  screenshotOptions: PuppeteerScreenshotOptions = {},
+  screenshotOptions: PuppeteerScreenshotOptions = {
+    captureBeyondViewport: false,
+  },
 ) {
   const { tolerance, useUnsafeThreshold } = threshold;
   const renderer = await page.$(selector);

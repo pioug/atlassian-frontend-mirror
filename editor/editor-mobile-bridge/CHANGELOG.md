@@ -1,5 +1,37 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.0.0
+
+### Minor Changes
+
+- [`4573a95b655`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4573a95b655) - [ux] Instrumented `@atlaskit/editor-mobile-bridge` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`b926172a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b926172a999) - Custom Emoji Assets now load using inline media tokens preventing 401s
+- Updated dependencies
+
+## 33.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.1.16
 
 ### Patch Changes

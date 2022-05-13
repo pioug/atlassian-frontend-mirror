@@ -14,6 +14,8 @@ import { ChangeEvent, PureComponent } from 'react';
 
 import Renderer from '../src/ui/Renderer';
 
+import { token } from '@atlaskit/tokens';
+
 export interface State {
   value: string;
   validator?: (...args: any[]) => any;
@@ -113,7 +115,7 @@ export default class Example extends PureComponent<{}, State> {
         <textarea
           style={{
             boxSizing: 'border-box',
-            border: '1px solid lightgray',
+            border: `1px solid ${token('color.border', 'lightgray')}`,
             fontFamily: 'monospace',
             fontSize: 16,
             padding: 10,

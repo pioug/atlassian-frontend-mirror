@@ -12,7 +12,6 @@ const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
 const getFreshMediaProvider = () =>
   storyMediaProviderFactory({
     collectionName: testCollectionName,
-    includeUserAuthProvider: false,
   });
 
 describe('Media with mock facade', () => {

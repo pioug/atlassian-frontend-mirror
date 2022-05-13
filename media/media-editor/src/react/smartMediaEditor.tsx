@@ -187,13 +187,13 @@ export class SmartMediaEditor extends React.Component<
   copyFileToUserCollection = async (fileId: string) => {
     const {
       mediaClient: {
-        config: { userAuthProvider, authProvider },
+        config: { authProvider },
         file,
       },
       identifier: { collectionName },
     } = this.props;
 
-    if (userAuthProvider) {
+    if (authProvider) {
       const source = {
         id: fileId,
         collection: collectionName,
@@ -201,10 +201,10 @@ export class SmartMediaEditor extends React.Component<
       };
       const destination = {
         collection: RECENTS_COLLECTION,
-        authProvider: userAuthProvider,
+        authProvider: authProvider,
         occurrenceKey: uuidV4(),
         mediaStore: new MediaStore({
-          authProvider: userAuthProvider,
+          authProvider: authProvider,
         }),
       };
       await file.copyFile(source, destination);

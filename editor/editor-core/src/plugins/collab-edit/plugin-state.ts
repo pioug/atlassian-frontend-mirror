@@ -22,16 +22,20 @@ export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 /**
  * Returns position where it's possible to place a decoration.
  */
-const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
-  const resolvedPos = tr.doc.resolve(pos);
-  const backwardSelection = Selection.findFrom(resolvedPos, -1, true);
-  // if there's no correct cursor position before the `pos`, we try to find it after the `pos`
-  const forwardSelection = Selection.findFrom(resolvedPos, 1, true);
-  return backwardSelection
-    ? backwardSelection.from
-    : forwardSelection
-    ? forwardSelection.from
-    : pos;
+export const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
+  const endOfDocPos = tr.doc.nodeSize - 2;
+  if (pos <= endOfDocPos) {
+    const resolvedPos = tr.doc.resolve(pos);
+    const backwardSelection = Selection.findFrom(resolvedPos, -1, true);
+    // if there's no correct cursor position before the `pos`, we try to find it after the `pos`
+    const forwardSelection = Selection.findFrom(resolvedPos, 1, true);
+    return backwardSelection
+      ? backwardSelection.from
+      : forwardSelection
+      ? forwardSelection.from
+      : pos;
+  }
+  return endOfDocPos;
 };
 export class PluginState {
   private decorationSet: DecorationSet;
@@ -123,11 +127,19 @@ export class PluginState {
           remove = remove.concat(oldPointers);
         }
 
+        const endOfDocPos = tr.doc.nodeSize - 2;
         const { anchor, head } = telepointerData.selection;
-        const rawFrom = anchor < head ? anchor : head;
-        const rawTo = anchor >= head ? anchor : head;
-        const isSelection = rawTo - rawFrom > 0;
+        let rawFrom = anchor < head ? anchor : head;
+        let rawTo = anchor >= head ? anchor : head;
 
+        if (rawFrom > endOfDocPos) {
+          rawFrom = endOfDocPos;
+        }
+        if (rawTo > endOfDocPos) {
+          rawTo = endOfDocPos;
+        }
+
+        const isSelection = rawTo - rawFrom > 0;
         let from = 1;
         let to = 1;
 

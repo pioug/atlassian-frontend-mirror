@@ -1,5 +1,15 @@
 # @atlaskit/emoji
 
+## 64.6.0
+
+### Minor Changes
+
+- [`b926172a999`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b926172a999) - Custom Emoji Assets now load using inline media tokens preventing 401s
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 64.5.2
 
 ### Patch Changes

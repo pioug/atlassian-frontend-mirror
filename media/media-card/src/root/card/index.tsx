@@ -85,6 +85,7 @@ import {
   fireOperationalEvent,
   fireCommencedEvent,
   getRelevantFeatureFlagNames,
+  getRelevantFeatureFlagKeysWithAllProducts,
   fireCopiedEvent,
   fireScreenEvent,
 } from './cardAnalytics';
@@ -103,6 +104,7 @@ import {
   startUfoExperience,
 } from '../../utils/ufoExperiences';
 import { generateUniqueId } from '../../utils/generateUniqueId';
+import { FileStateFlags } from '../../types';
 
 export type CardBaseProps = CardProps &
   WithAnalyticsEventsProps &
@@ -113,6 +115,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   // of Cards regardless of whether it shares the same file (either internal or external)
   private internalOccurrenceKey = generateUniqueId();
   private hasBeenMounted: boolean = false;
+  private fileStateFlags: FileStateFlags = {
+    wasStatusUploading: false,
+    wasStatusProcessing: false,
+  };
   private viewportPreAnchorRef = createRef<HTMLDivElement>();
   private viewportPostAnchorRef = createRef<HTMLDivElement>();
   private ssrReliability: SSRStatus = {
@@ -262,6 +268,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
     const turnedVisible = !prevIsCardVisible && isCardVisible;
     const isNewMediaClient = prevMediaClient !== mediaClient;
+
+    this.updateFileStateFlag(fileState);
 
     if (isExternalImageIdentifier(identifier) && isDifferent) {
       this.fireCommencedEvent();
@@ -463,6 +471,18 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     }
   };
 
+  updateFileStateFlag(fileState?: FileState) {
+    if (!fileState) {
+      return;
+    }
+    const { status } = fileState;
+    if (status === 'processing') {
+      this.fileStateFlags.wasStatusProcessing = true;
+    } else if (status === 'uploading') {
+      this.fileStateFlags.wasStatusUploading = true;
+    }
+  }
+
   subscribeInternalFile(identifier: FileIdentifier) {
     const { mediaClient } = this.props;
     const { isBannedLocalPreview } = this.state;
@@ -619,7 +639,9 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       this.internalOccurrenceKey,
       status,
       this.fileAttributes,
+      this.fileStateFlags,
       this.ssrReliability,
+      getRelevantFeatureFlagKeysWithAllProducts(),
       error,
     );
   }
@@ -631,7 +653,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       fireCommencedEvent(createAnalyticsEvent, this.fileAttributes, {
         overall: { durationSincePageStart: this.timeElapsedTillCommenced },
       });
-    startUfoExperience(this.internalOccurrenceKey);
+    startUfoExperience(
+      this.internalOccurrenceKey,
+      getRelevantFeatureFlagKeysWithAllProducts(),
+    );
   }
 
   private fireCopiedEvent = () => {

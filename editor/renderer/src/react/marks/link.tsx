@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
-import { B400, B300 } from '@atlaskit/theme/colors';
+import { B400, B300, B500 } from '@atlaskit/theme/colors';
 import { LinkAttributes } from '@atlaskit/adf-schema';
 
 import { getEventHandler } from '../../utils';
@@ -9,12 +9,18 @@ import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { MarkProps } from '../types';
 
+import { token } from '@atlaskit/tokens';
+
 const anchorStyles = css`
-  color: ${B400};
+  color: ${token('color.link', B400)};
 
   &:hover {
-    color: ${B300};
+    color: ${token('color.link', B300)};
     text-decoration: underline;
+  }
+
+  &:active {
+    color: ${token('color.link.pressed', B500)};
   }
 `;
 

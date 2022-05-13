@@ -1,8 +1,5 @@
 import { MediaClientConfig } from '@atlaskit/media-core';
-import {
-  StoryBookAuthProvider,
-  userAuthProvider,
-} from '@atlaskit/media-test-helpers';
+import { StoryBookAuthProvider } from '@atlaskit/media-test-helpers';
 import { MediaError, MediaFile } from '@atlaskit/media-picker/types';
 
 import PickerFacade from '../../../../plugins/media/picker-facade';
@@ -16,7 +13,6 @@ describe('Media PickerFacade', () => {
 
   const mediaClientConfig: MediaClientConfig = {
     authProvider: StoryBookAuthProvider.create(false),
-    userAuthProvider,
   };
 
   const pickerFacadeConfig = {

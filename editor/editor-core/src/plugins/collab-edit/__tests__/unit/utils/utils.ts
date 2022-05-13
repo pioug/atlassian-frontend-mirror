@@ -1,4 +1,5 @@
 import { EditorView } from 'prosemirror-view';
+import { ReadonlyTransaction } from 'prosemirror-state';
 import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   createProsemirrorEditorFactory,
@@ -14,6 +15,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { getPositionOfTelepointer, scrollToCollabCursor } from '../../../utils';
 import { CollabParticipant } from '../../../types';
+import { getValidPos } from '../../../plugin-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 
 const initializeCollab = (view: EditorView) =>
@@ -63,6 +65,40 @@ describe('collab-edit: utils', () => {
 
       const result = getPositionOfTelepointer(sessionId, decorationSet);
       expect(result).toEqual(20);
+    });
+
+    it('should return the a position that is inside the document', () => {
+      const { editorView } = editor(
+        doc(
+          p('{<>}First Paragraph'),
+          p('Paragraph'),
+          p('Paragraph'),
+          p('Last Paragraph'),
+        ),
+      );
+
+      let tr = editorView.state.tr;
+      // testing inside the document
+      const posInsideDoc = getValidPos((tr as any) as ReadonlyTransaction, 12);
+      expect(posInsideDoc).toEqual(12);
+      expect(posInsideDoc < tr.doc.nodeSize - 2).toBe(true);
+    });
+
+    it('should return the end of the document position if the position is greater than the size of the document.', () => {
+      const { editorView } = editor(
+        doc(
+          p('{<>}First Paragraph'),
+          p('Paragraph'),
+          p('Paragraph'),
+          p('Last Paragraph'),
+        ),
+      );
+
+      let tr = editorView.state.tr;
+      // if the position is outside the document it should point to the end position of the doc.
+      expect(getValidPos((tr as any) as ReadonlyTransaction, 100)).toEqual(
+        tr.doc.nodeSize - 2,
+      );
     });
   });
 

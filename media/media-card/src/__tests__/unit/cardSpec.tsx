@@ -35,10 +35,37 @@ jest.mock('../../root/card/cardAnalytics', () => {
     fireScreenEvent: jest.fn(actualModule.fireScreenEvent),
   };
 });
+jest.mock('../../utils/ufoExperiences', () => {
+  const actualModule = jest.requireActual('../../utils/ufoExperiences');
+  return {
+    __esModule: true,
+    ...actualModule,
+    startUfoExperience: jest.fn(actualModule.startUfoExperience),
+    completeUfoExperience: jest.fn(actualModule.completeUfoExperience),
+  };
+});
+jest.mock('../../utils/generateUniqueId', () => ({
+  generateUniqueId: () => 'some-id',
+}));
+jest.mock('@atlaskit/media-common', () => {
+  const actualModule = jest.requireActual('@atlaskit/media-common');
+  return {
+    __esModule: true,
+    ...actualModule,
+    filterFeatureFlagKeysAllProducts: jest.fn(
+      actualModule.filterFeatureFlagKeysAllProducts,
+    ),
+  };
+});
+
 import React from 'react';
 import uuid from 'uuid/v4';
 import { shallow, mount } from 'enzyme';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import {
+  MediaFeatureFlags,
+  MediaType,
+  filterFeatureFlagKeysAllProducts,
+} from '@atlaskit/media-common';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
   AnalyticsContext,
@@ -55,6 +82,8 @@ import {
   RECENTS_COLLECTION,
   ProcessedFileState,
   createMediaSubscribable,
+  UploadingFileState,
+  ProcessingFileState,
 } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import {
@@ -85,12 +114,28 @@ import {
   fireCopiedEvent,
   fireCommencedEvent,
   fireScreenEvent,
+  REQUIRED_FEATURE_FLAGS,
 } from '../../root/card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
 import { CardStatus } from '../../types';
 import getDocument from '../../utils/document';
+import {
+  completeUfoExperience,
+  startUfoExperience,
+} from '../../utils/ufoExperiences';
 
 asMock(getDocument).mockImplementation(() => document);
+
+const mockFeatureFlagsKeysAllProducts = [
+  'confluence.media.cards.new.experience',
+  'issue.details.media-cards-new-experience',
+  'confluence.frontend.fabric.editor.media.captions',
+  'issue.details.editor.media.captions',
+];
+
+asMockFunction(filterFeatureFlagKeysAllProducts).mockReturnValue(
+  mockFeatureFlagsKeysAllProducts,
+);
 
 const mockViewportDetectorOnce = () => {
   const onVisibleMock = { onVisible: () => {} };
@@ -106,8 +151,11 @@ const mockViewportDetectorOnce = () => {
 describe('Card', () => {
   let identifier: Identifier;
   let defaultFileId: string;
+  let mediaType: MediaType;
   let fileIdentifier: FileIdentifier;
   let defaultFileState: ProcessedFileState;
+  let uploadingFileState: UploadingFileState;
+  let processingFileState: ProcessingFileState;
   let mediaClient: MediaClient;
 
   const defaultCardPreview: CardPreview = {
@@ -1339,52 +1387,155 @@ describe('Card', () => {
       expect(actualEvent).toBeDefined();
     });
 
-    it(`should fire an operational event on card status change`, () => {
-      const { component } = setup(fakeMediaClient(), { createAnalyticsEvent });
-      const fileState: FileState = defaultFileState;
-      const error = new MediaCardError('metadata-fetch');
-      component.setState({
-        fileState,
-        error,
+    describe('Operational Event', () => {
+      let fileState: FileState;
+      beforeEach(() => {
+        let defaultStateAttributes = {
+          id: defaultFileId,
+          name: 'file-name',
+          size: 10,
+          mediaType: mediaType,
+          mimeType: 'image/png',
+        };
+        uploadingFileState = {
+          status: 'uploading',
+          ...defaultStateAttributes,
+          progress: 1,
+        };
+        processingFileState = {
+          status: 'processing',
+          ...defaultStateAttributes,
+        };
+        asMock(fireOperationalEvent).mockClear();
+        asMock(filterFeatureFlagKeysAllProducts).mockReturnValue(
+          mockFeatureFlagsKeysAllProducts,
+        );
       });
 
-      component.setState({ status: 'some-status' as CardStatus });
-      expect(fireOperationalEvent).toBeCalledTimes(1);
-      expect(fireOperationalEvent).toHaveBeenLastCalledWith(
-        createAnalyticsEvent,
-        'some-status',
-        getFileAttributes(
-          getFileDetails(identifier, fileState),
-          fileState.status,
-        ),
-        {
-          overall: {
-            durationSinceCommenced: 0,
-            durationSincePageStart: 1000,
-          },
-        },
-        { client: { status: 'unknown' }, server: { status: 'unknown' } },
-        error,
-      );
+      it('should attach an uploading file status flag with value as true when completing the UFO experience', () => {
+        const { component } = setup(fakeMediaClient(), {
+          createAnalyticsEvent,
+        });
+        fileState = uploadingFileState;
+        component.setState({
+          fileState,
+        });
 
-      component.setState({ status: 'another-status' as CardStatus });
-      expect(fireOperationalEvent).toBeCalledTimes(2);
-      expect(fireOperationalEvent).toHaveBeenLastCalledWith(
-        createAnalyticsEvent,
-        'another-status',
-        getFileAttributes(
-          getFileDetails(identifier, fileState),
-          fileState.status,
-        ),
-        {
-          overall: {
-            durationSinceCommenced: 0,
-            durationSincePageStart: 1000,
+        component.setState({ status: 'some-state' as CardStatus });
+        expect(filterFeatureFlagKeysAllProducts).toHaveBeenCalledWith(
+          REQUIRED_FEATURE_FLAGS,
+        );
+        expect(completeUfoExperience).toHaveBeenCalledTimes(1);
+        expect(completeUfoExperience).toHaveBeenLastCalledWith(
+          expect.any(String),
+          expect.any(String),
+          expect.any(Object),
+          { wasStatusUploading: true, wasStatusProcessing: false },
+          expect.any(Object),
+          mockFeatureFlagsKeysAllProducts,
+          undefined,
+        );
+      });
+
+      it('should attach a processing file status flag with value as true when completing the UFO experience', () => {
+        const { component } = setup(fakeMediaClient(), {
+          createAnalyticsEvent,
+        });
+        fileState = processingFileState;
+        component.setState({
+          fileState,
+        });
+
+        component.setState({ status: 'some-state' as CardStatus });
+        expect(filterFeatureFlagKeysAllProducts).toHaveBeenCalledWith(
+          REQUIRED_FEATURE_FLAGS,
+        );
+        expect(completeUfoExperience).toHaveBeenCalledTimes(1);
+        expect(completeUfoExperience).toHaveBeenLastCalledWith(
+          expect.any(String),
+          expect.any(String),
+          expect.any(Object),
+          { wasStatusUploading: false, wasStatusProcessing: true },
+          expect.any(Object),
+          mockFeatureFlagsKeysAllProducts,
+          undefined,
+        );
+      });
+
+      it('should attach uploading and processing file status flags with values as false when completing the UFO experience', () => {
+        const { component } = setup(fakeMediaClient(), {
+          createAnalyticsEvent,
+        });
+        fileState = defaultFileState;
+        component.setState({
+          fileState,
+        });
+
+        component.setState({ status: 'some-state' as CardStatus });
+        expect(filterFeatureFlagKeysAllProducts).toHaveBeenCalledWith(
+          REQUIRED_FEATURE_FLAGS,
+        );
+        expect(completeUfoExperience).toHaveBeenCalledTimes(1);
+        expect(completeUfoExperience).toHaveBeenLastCalledWith(
+          expect.any(String),
+          expect.any(String),
+          expect.any(Object),
+          { wasStatusUploading: false, wasStatusProcessing: false },
+          expect.any(Object),
+          mockFeatureFlagsKeysAllProducts,
+          undefined,
+        );
+      });
+
+      it('should fire an operational event on card status change', () => {
+        const { component } = setup(fakeMediaClient(), {
+          createAnalyticsEvent,
+        });
+        fileState = defaultFileState;
+        const error = new MediaCardError('metadata-fetch');
+        component.setState({
+          fileState,
+          error,
+        });
+
+        component.setState({ status: 'some-status' as CardStatus });
+        expect(fireOperationalEvent).toBeCalledTimes(1);
+        expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+          createAnalyticsEvent,
+          'some-status',
+          getFileAttributes(
+            getFileDetails(identifier, fileState),
+            fileState.status,
+          ),
+          {
+            overall: {
+              durationSinceCommenced: 0,
+              durationSincePageStart: 1000,
+            },
           },
-        },
-        { client: { status: 'unknown' }, server: { status: 'unknown' } },
-        error,
-      );
+          { client: { status: 'unknown' }, server: { status: 'unknown' } },
+          error,
+        );
+
+        component.setState({ status: 'another-status' as CardStatus });
+        expect(fireOperationalEvent).toBeCalledTimes(2);
+        expect(fireOperationalEvent).toHaveBeenLastCalledWith(
+          createAnalyticsEvent,
+          'another-status',
+          getFileAttributes(
+            getFileDetails(identifier, fileState),
+            fileState.status,
+          ),
+          {
+            overall: {
+              durationSinceCommenced: 0,
+              durationSincePageStart: 1000,
+            },
+          },
+          { client: { status: 'unknown' }, server: { status: 'unknown' } },
+          error,
+        );
+      });
     });
 
     describe('Impressions', () => {
@@ -1453,6 +1604,13 @@ describe('Card', () => {
           expect.objectContaining({ fileId: fileIdentifier.id }),
           { overall: { durationSincePageStart: 1000 } },
         );
+        expect(startUfoExperience).toBeCalledTimes(1);
+        expect(startUfoExperience).toBeCalledWith('some-id', [
+          'confluence.media.cards.new.experience',
+          'issue.details.media-cards-new-experience',
+          'confluence.frontend.fabric.editor.media.captions',
+          'issue.details.editor.media.captions',
+        ]);
       });
 
       it('should fire commenced analytics event on file load start with external file Id', async () => {
@@ -1475,6 +1633,13 @@ describe('Card', () => {
           expect.objectContaining({ fileId: 'external-image' }),
           { overall: { durationSincePageStart: 1000 } },
         );
+        expect(startUfoExperience).toBeCalledTimes(1);
+        expect(startUfoExperience).toBeCalledWith('some-id', [
+          'confluence.media.cards.new.experience',
+          'issue.details.media-cards-new-experience',
+          'confluence.frontend.fabric.editor.media.captions',
+          'issue.details.editor.media.captions',
+        ]);
       });
     });
 

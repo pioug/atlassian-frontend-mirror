@@ -23,11 +23,14 @@ export interface BaseProps {
   icon?: ComponentType<any>;
   /** Available drawer sizes. */
   width?: DrawerWidth;
-  /** Callback function called when the drawer has finished its opening transition. */
-  onOpenComplete?: (node: HTMLElement) => void;
-  /** Callback function called when the drawer has finished its close transition. */
-  onCloseComplete?: (node: HTMLElement) => void;
-  /** Controls if drawer state should be retained/discarded on close. */
+  /** A callback function that will be called when the drawer has finished its opening transition. */
+  onOpenComplete?: (node: HTMLElement | null) => void;
+  /** A callback function that will be called when the drawer has finished its close transition. */
+  onCloseComplete?: (node: HTMLElement | null) => void;
+  /**
+   *  * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release.
+   * Boolean that controls if drawer should be retained/discarded
+   * */
   shouldUnmountOnExit?: boolean;
   /** Override drawer components. */
   overrides?: OverridesType;

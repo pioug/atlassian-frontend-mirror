@@ -26,6 +26,8 @@ export interface Props {
   className?: string;
 }
 
+// TODO: Quality ticket https://product-fabric.atlassian.net/browse/DSP-4118
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const codeBlockStyle = (props?: ThemeProps) =>
   css`
     tab-size: 4;
@@ -40,6 +42,7 @@ const codeBlockStyle = (props?: ThemeProps) =>
       background-position: 100% 0, 100% 0, 0 0;
     }
   `;
+/* eslint-enable */
 
 function CodeBlock(props: Props & WrappedComponentProps) {
   const {

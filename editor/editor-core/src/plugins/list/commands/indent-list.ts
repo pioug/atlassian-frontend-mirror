@@ -18,6 +18,7 @@ import {
   getListItemAttributes,
 } from '../utils/selection';
 import { getCommonListAnalyticsAttributes } from '../utils/analytics';
+import { closeHistory } from 'prosemirror-history';
 
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 export function indentList(
@@ -28,10 +29,14 @@ export function indentList(
       tr,
       selection: { $from },
     } = state;
+
     // don't indent if selection is not inside a list
     if (!isInsideListItem(state)) {
       return false;
     }
+
+    // Save the history, so it could undo/revert to the same state before the indent, see https://product-fabric.atlassian.net/browse/ED-14753
+    closeHistory(tr);
 
     const firstListItemSelectedAttributes = getListItemAttributes($from);
     const parentListNode = findFirstParentListNode($from);

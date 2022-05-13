@@ -1,3 +1,8 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4118
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4153
+
 import { css } from '@emotion/react';
 
 import {
@@ -23,6 +28,7 @@ import { DN20 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import browser from '../../utils/browser';
 
@@ -82,8 +88,8 @@ const tableSharedStyle = (props: ThemeProps) => css`
     border-collapse: collapse;
     border: ${tableCellBorderWidth}px solid
       ${themed({
-        light: akEditorTableBorder,
-        dark: akEditorTableBorderDark,
+        light: token('color.border', akEditorTableBorder),
+        dark: token('color.border', akEditorTableBorderDark),
       })(props)};
     table-layout: fixed;
     font-size: 1em;
@@ -105,7 +111,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
         border-bottom: none;
       }
       th td {
-        background-color: white;
+        background-color: ${token('color.background.neutral.subtle', 'white')};
       }
       th,
       td {
@@ -114,8 +120,8 @@ const tableSharedStyle = (props: ThemeProps) => css`
         vertical-align: top;
         border: 1px solid
           ${themed({
-            light: akEditorTableBorder,
-            dark: akEditorTableBorderDark,
+            light: token('color.border', akEditorTableBorder),
+            dark: token('color.border', akEditorTableBorderDark),
           })(props)};
         border-right-width: 0;
         border-bottom-width: 0;
@@ -146,8 +152,8 @@ const tableSharedStyle = (props: ThemeProps) => css`
       }
       th {
         background-color: ${themed({
-          light: akEditorTableToolbar,
-          dark: akEditorTableToolbarDark,
+          light: token('color.background.neutral', akEditorTableToolbar),
+          dark: token('color.background.neutral', akEditorTableToolbarDark),
         })(props)};
         text-align: left;
 
@@ -165,14 +171,14 @@ const tableSharedStyle = (props: ThemeProps) => css`
             background-attachment: local, scroll, scroll;
             background-position: 100% 0, 100% 0, 0 0;
             background-color: ${themed({
-              light: 'rgb(235, 237, 240)',
-              dark: 'rgb(36, 47, 66)',
+              light: token('color.background.neutral', 'rgb(235, 237, 240)'),
+              dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
             })(props)};
 
             .line-number-gutter {
               background-color: ${themed({
-                light: 'rgb(226, 229, 233)',
-                dark: DN20,
+                light: token('color.background.neutral', 'rgb(226, 229, 233)'),
+                dark: token('color.background.neutral', DN20),
               })(props)};
             }
 
@@ -187,14 +193,14 @@ const tableSharedStyle = (props: ThemeProps) => css`
               })}!important;
 
               background-color: ${themed({
-                light: 'rgb(235, 237, 240)',
-                dark: 'rgb(36, 47, 66)',
+                light: token('color.background.neutral', 'rgb(235, 237, 240)'),
+                dark: token('color.background.neutral', 'rgb(36, 47, 66)'),
               })(props)}!important;
 
               // selector lives inside @atlaskit/code
               --ds--code--line-number-bg-color: ${themed({
-                light: 'rgb(226, 229, 233)',
-                dark: DN20,
+                light: token('color.background.neutral', 'rgb(226, 229, 233)'),
+                dark: token('color.background.neutral', DN20),
               })(props)};
             }
           }

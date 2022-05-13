@@ -143,15 +143,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Switch to a performance optimised NodeView for Emoji
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-10585
-   * @default false
-   */
-  nextEmojiNodeView?: boolean;
-
-  /**
-   * @description
    * Enables performance optimization for sticky headers in tables
    *
    * @see https://product-fabric.atlassian.net/browse/ED-11807
@@ -229,13 +220,6 @@ export type FeatureFlags = {
    * @default false
    */
   extendFloatingToolbar?: boolean;
-
-  /**
-   * Set display inline-block; CSS to any inline node
-   * @see https://product-fabric.atlassian.net/browse/ED-12361
-   * @default true
-   */
-  displayInlineBlockForInlineNodes?: boolean;
 
   /**
    * Set editor to use the input rule with unpredictable undo results

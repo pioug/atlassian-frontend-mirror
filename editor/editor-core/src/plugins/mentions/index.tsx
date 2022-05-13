@@ -60,20 +60,8 @@ const mentionsPlugin = (options?: MentionPluginOptions): EditorPlugin => {
       return [
         {
           name: 'mention',
-          plugin: ({
-            providerFactory,
-            dispatch,
-            portalProviderAPI,
-            eventDispatcher,
-          }) =>
-            createMentionPlugin(
-              dispatch,
-              providerFactory,
-              portalProviderAPI,
-              eventDispatcher,
-              fireEvent,
-              options,
-            ),
+          plugin: (pmPluginFactoryParams) =>
+            createMentionPlugin(pmPluginFactoryParams, fireEvent, options),
         },
       ];
     },

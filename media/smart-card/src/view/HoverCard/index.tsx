@@ -127,7 +127,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
     } as CustomActionItem;
   }, [url, definitionId, extensionKey, analytics]);
 
-  const CardComponent = () => {
+  const CardComponent = ({ update }: { update: () => void }) => {
     //TODO: EDM-3224 deleted simulated and use real JsonLd
     const metadataElements = extractMetadata(
       getSimulatedMetadata(extensionKey),
@@ -143,6 +143,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
           appearance="block"
           url={url}
           ui={{ hideElevation: true, size: SmartLinkSize.Large }}
+          onResolve={update}
         >
           <TitleBlock actions={[openAction]} />
           <MetadataBlock
@@ -164,7 +165,9 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       placement="bottom-start"
-      content={CardComponent}
+      content={({ update }) => {
+        return <CardComponent update={update} />;
+      }}
       trigger={(triggerProps) => (
         <span
           {...triggerProps}

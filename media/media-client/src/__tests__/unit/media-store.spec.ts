@@ -1,6 +1,5 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
-import { stringify } from 'query-string';
 import {
   CreatedTouchedFile,
   MediaStore,
@@ -20,6 +19,8 @@ import {
   isRequestError,
   isMediaStoreError,
   MediaStoreError,
+  getMediaEnvironment,
+  getMediaRegion,
 } from '../..';
 import { FILE_CACHE_MAX_AGE } from '../../constants';
 import {
@@ -49,6 +50,26 @@ describe('MediaStore', () => {
   });
 
   describe('given auth provider resolves', () => {
+    const setup = async (headers: any) => {
+      const collectionName = 'some-collection-name';
+      const data: MediaCollectionItems = {
+        nextInclusiveStartKey: '121',
+        contents: [],
+      };
+
+      fetchMock.once(JSON.stringify({ data }), {
+        status: 201,
+        statusText: 'Created',
+        headers,
+      });
+
+      await mediaStore.getCollectionItems(collectionName, {
+        limit: 10,
+        details: 'full',
+        inclusiveStartKey: 'some-inclusive-start-key',
+        sortDirection: 'desc',
+      });
+    };
     const data: MediaFile = {
       id: 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6',
       mediaType: 'doc',
@@ -65,31 +86,39 @@ describe('MediaStore', () => {
       mediaStore = new MediaStore({ authProvider });
     });
 
-    it('should store region from header in sessionStorage', async () => {
-      const collectionName = 'some-collection-name';
-      const data: MediaCollectionItems = {
-        nextInclusiveStartKey: '121',
-        contents: [],
-      };
+    describe('fetch media environment', () => {
+      it('should give media environment as undefined if not received', async () => {
+        await setup({});
 
-      fetchMock.once(JSON.stringify({ data }), {
-        status: 201,
-        statusText: 'Created',
-        headers: {
-          'x-media-region': 'someRegion',
-        },
+        const receivedMediaEnv = getMediaEnvironment();
+
+        expect(receivedMediaEnv).toEqual(undefined);
       });
 
-      await mediaStore.getCollectionItems(collectionName, {
-        limit: 10,
-        details: 'full',
-        inclusiveStartKey: 'some-inclusive-start-key',
-        sortDirection: 'desc',
+      it('should get media environment from header', async () => {
+        await setup({ 'x-media-env': 'mediaRegion' });
+
+        const receivedMediaEnv = getMediaEnvironment();
+
+        expect(receivedMediaEnv).toEqual('mediaRegion');
+      });
+    });
+
+    describe('fetch media region', () => {
+      it('should return media region as undefined if not set', () => {
+        const receivedMediaRegion = getMediaRegion();
+
+        expect(receivedMediaRegion).toBe(undefined);
       });
 
-      expect(window.sessionStorage.getItem('media-api-region')).toEqual(
-        'someRegion',
-      );
+      it('should store region from header in sessionStorage', async () => {
+        await setup({ 'x-media-region': 'someRegion' });
+
+        expect(window.sessionStorage.getItem('media-api-region')).toEqual(
+          'someRegion',
+        );
+        expect(getMediaRegion()).toEqual('someRegion');
+      });
     });
 
     describe('createUpload', () => {
@@ -276,10 +305,11 @@ describe('MediaStore', () => {
         });
 
         const response = await mediaStore.createFileFromUpload(body, params);
-
+        const expectedQueryParams =
+          'collection=some-collection&expireAfter=123&occurrenceKey=some-occurrence-key&replaceFileId=some-replace-file-id&skipConversions=true';
         expect(response).toEqual({ data });
         expect(fetchMock).toHaveBeenCalledWith(
-          `${baseUrl}/file/upload?${stringify(params)}`,
+          `${baseUrl}/file/upload?${expectedQueryParams}`,
           {
             method: 'POST',
             headers: {

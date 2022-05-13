@@ -212,7 +212,11 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
       );
     },
 
-    onEditorViewStateUpdated({ oldEditorState, newEditorState }) {
+    onEditorViewStateUpdated({
+      originalTransaction,
+      oldEditorState,
+      newEditorState,
+    }) {
       const oldPluginState = getPluginState(oldEditorState);
       const newPluginState = getPluginState(newEditorState);
 
@@ -225,10 +229,17 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
 
       const isANewHandler = oldTriggerHandler !== newTriggerHandler;
       if (oldTriggerHandler?.dismiss && isANewHandler) {
+        const typeAheadMessage = originalTransaction.getMeta(
+          typeAheadPluginKey,
+        );
+        const wasItemInserted =
+          typeAheadMessage && typeAheadMessage.action === 'INSERT_RAW_QUERY';
+
         oldTriggerHandler.dismiss({
           editorState: newEditorState,
           query: oldPluginState.query,
           stats: (oldPluginState.stats || new StatsModifier()).serialize(),
+          wasItemInserted,
         });
       }
 

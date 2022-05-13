@@ -109,11 +109,22 @@ const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
 
   switch (icon) {
     case IconType.Confluence:
+      return (
+        <ImportedIcon
+          testId={testId}
+          textColor={token('color.text.subtle', N700)}
+          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+          iconColor={B200}
+          iconGradientStart={B400}
+          iconGradientStop={B200}
+          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+        />
+      );
     case IconType.Jira:
       // Logo component has a different prop set from other icon components
       return (
         <ImportedIcon
-          data-testid={testId} // Confluence and Jira imports don't have native testId prop
+          testId={testId}
           textColor={token('color.text.subtle', N700)}
           /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
           iconColor={B200}

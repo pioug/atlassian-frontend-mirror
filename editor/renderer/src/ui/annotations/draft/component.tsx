@@ -14,7 +14,7 @@ import { ThemeProps } from '@atlaskit/theme/types';
 const markStyles = (props: ThemeProps) => css`
   color: inherit;
   background-color: unset;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
 
   ${AnnotationSharedCSSByState(props).focus};
 `;

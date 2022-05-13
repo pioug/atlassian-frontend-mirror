@@ -1,5 +1,4 @@
 import { Auth, isClientBasedAuth } from '@atlaskit/media-core';
-import { parse, stringify } from 'query-string';
 
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
@@ -42,21 +41,6 @@ export function isRateLimitedError(error: Error | undefined) {
   );
 }
 
-export function extract(url: string): { baseUrl: string; queryParams?: any } {
-  const index = url.indexOf('?');
-
-  if (index > 0) {
-    return {
-      baseUrl: url.substring(0, index),
-      queryParams: parse(url.substring(index + 1, url.length)),
-    };
-  } else {
-    return {
-      baseUrl: url,
-    };
-  }
-}
-
 export function mapAuthToRequestHeaders(auth: Auth): RequestHeaders {
   if (isClientBasedAuth(auth)) {
     return {
@@ -75,16 +59,19 @@ export function createUrl(
   url: string,
   { params, auth }: CreateUrlOptions,
 ): string {
-  const { baseUrl, queryParams } = extract(url);
-  const authParams = auth && mapAuthToQueryParameters(auth);
-  const queryString = stringify({
-    ...queryParams,
+  const parsedUrl = new URL(url);
+  const authParams = (auth && mapAuthToQueryParameters(auth)) || {};
+  const paramsToAppend: { [key: string]: any } = {
     ...params,
     ...authParams,
-  });
-  const shouldAppendQueryString = queryString.length > 0;
-
-  return `${baseUrl}${shouldAppendQueryString ? `?${queryString}` : ''}`;
+  };
+  Object.entries(paramsToAppend)
+    .filter(([_, value]) => value != null)
+    .forEach((pair) => {
+      parsedUrl.searchParams.append(...pair);
+    });
+  parsedUrl.searchParams.sort();
+  return parsedUrl.toString();
 }
 
 export function withAuth(auth?: Auth) {

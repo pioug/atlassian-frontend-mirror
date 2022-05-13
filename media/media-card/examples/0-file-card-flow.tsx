@@ -16,7 +16,9 @@ import {
   noMetadataFileId,
   createUploadMediaClientConfig,
   emptyImageFileId,
+  enableMediaUfoLogger,
 } from '@atlaskit/media-test-helpers';
+import { payloadPublisher } from '@atlassian/ufo';
 import Button from '@atlaskit/button/standard-button';
 import { Card } from '../src';
 import {
@@ -61,6 +63,8 @@ const fileIds = [
   { id: noMetadataFileId.id, name: 'No metadata file' },
   { id: emptyImageFileId.id, name: 'Empty image file' },
 ];
+
+enableMediaUfoLogger(payloadPublisher);
 
 class Example extends Component<ComponentProps, ComponentState> {
   uploadController?: UploadController;

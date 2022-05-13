@@ -173,6 +173,7 @@ export function CardWithUrlContent({
         ui={ui}
         url={url}
         testId={testId}
+        onResolve={onResolve}
       >
         {children}
       </FlexibleCard>

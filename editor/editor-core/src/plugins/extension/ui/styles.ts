@@ -9,6 +9,7 @@ import {
   getSelectionStyles,
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const extensionStyles = css`
   .extensionView-content-wrap,
@@ -30,8 +31,12 @@ export const extensionStyles = css`
     }
 
     &.danger > span > .extension-container {
-      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
-      background-color: ${akEditorDeleteBackground};
+      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+        ${token('color.border.danger', akEditorDeleteBorder)};
+      background-color: ${token(
+        'color.background.danger',
+        akEditorDeleteBackground,
+      )};
     }
 
     &.inline {

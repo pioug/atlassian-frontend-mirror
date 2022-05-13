@@ -76,7 +76,7 @@ async function mountRenderer(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: plain text',
-  { skip: ['safari'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -97,7 +97,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: text formatting',
-  { skip: ['safari'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -120,7 +120,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: bullet list',
-  { skip: ['safari'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -143,7 +143,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: ordered list',
-  { skip: ['safari'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -166,7 +166,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: block node containing paragraph containing hardbreak and list',
-  { skip: [] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -190,10 +190,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: decision item copied from renderer and pasted',
-  /* NOTE: https://product-fabric.atlassian.net/browse/ED-9822:
-     we've got this bug in Firefox where it doubles up the items when pasting
-  */
-  { skip: ['safari', 'firefox'] },
+  {},
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -242,7 +239,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: code block copied from renderer and pasted',
-  { skip: ['safari'] },
+  {},
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -272,7 +269,7 @@ BrowserTestCase(
    * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
    * which would actually paste the text.
    */
-  { skip: ['safari', 'firefox'] },
+  {},
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(
@@ -335,7 +332,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: paste tests on fullpage editor: hyperlink',
-  { skip: ['safari'] },
+  {},
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

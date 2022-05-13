@@ -1,5 +1,20 @@
 # @atlaskit/media-card
 
+## 73.6.0
+
+### Minor Changes
+
+- [`b4fd2a59367`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b4fd2a59367) - Attach media environment and region to the media-card UFO events
+- [`7e767393469`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e767393469) - Add ufo feature flag logging to `media-card`
+- [`ade1a5c3e23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ade1a5c3e23) - Flagged events with file states processing and uploading for UFO payload
+
+### Patch Changes
+
+- [`bf0e7c8e46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf0e7c8e46b) - [MEX-1413] Hot fix for remove useMediaPickerAuthProvider flag
+- [`79c431ca1a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c431ca1a6) - Removed "Creating Preview" message for files already processed
+- [`f87afac53b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f87afac53b3) - Add ufo logging for media-card
+- Updated dependencies
+
 ## 73.5.1
 
 ### Patch Changes

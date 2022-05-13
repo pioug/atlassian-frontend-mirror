@@ -6,7 +6,12 @@ import {
 } from '@atlaskit/util-service-support';
 import { CategoryId } from '../components/picker/categories';
 import { selectedToneStorageKey } from '../util/constants';
-import { isMediaEmoji, isPromise, toEmojiId } from '../util/type-helpers';
+import {
+  isMediaEmoji,
+  isMediaRepresentation,
+  isPromise,
+  toEmojiId,
+} from '../util/type-helpers';
 import storageAvailable from '../util/storage-available';
 import {
   EmojiDescription,
@@ -273,6 +278,28 @@ export class EmojiResource
     if (this.lastQuery && result.query === this.lastQuery.query) {
       super.notifyResult(result);
     }
+  }
+
+  /**
+   *  Returns the EmojiDescription with a valid media path that includes query token and client attributes to access the emoji media inline.
+   */
+  async getMediaEmojiDescriptionURLWithInlineToken(
+    emoji: EmojiDescription,
+  ): Promise<EmojiDescription> {
+    if (this.siteEmojiResource && isMediaRepresentation(emoji.representation)) {
+      const tokenisedMediaPath = await this.siteEmojiResource.generateTokenisedMediaURL(
+        emoji,
+      );
+      return {
+        ...emoji,
+        representation: {
+          ...emoji.representation,
+          mediaPath: tokenisedMediaPath,
+        },
+      } as EmojiDescription;
+    }
+
+    return emoji;
   }
 
   loadMediaEmoji(

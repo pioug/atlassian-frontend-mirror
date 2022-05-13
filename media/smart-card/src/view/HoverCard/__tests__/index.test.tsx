@@ -118,7 +118,7 @@ describe('HoverCard', () => {
       const modifiedOn = await findByTestId('modifiedon-metadata-element');
 
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-      expect(modifiedOn.textContent).toBe('Updated 3 months ago');
+      expect(modifiedOn.textContent).toBe('Updated on January 1, 2022');
     });
   });
 

@@ -25,9 +25,6 @@ const testIt = async (
   await mountEditor(page, {
     appearance: fullpage.appearance,
     allowStatus: true,
-    featureFlags: {
-      displayInlineBlockForInlineNodes: true,
-    },
     defaultValue: adfs[inlineNodeType],
   });
 
@@ -69,9 +66,6 @@ const testSelectLineOfInlineNodes = async (
   const page = await goToEditorTestingWDExample(client);
   await mountEditor(page, {
     appearance: fullpage.appearance,
-    featureFlags: {
-      displayInlineBlockForInlineNodes: true,
-    },
     defaultValue: adfs['multipleMentions'],
   });
 

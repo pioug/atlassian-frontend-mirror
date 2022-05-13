@@ -227,10 +227,10 @@ describe('ToolbarTextColor', () => {
           actionSubject: 'text',
           actionSubjectId: 'color',
           attributes: {
-            color: 'teal',
+            color: 'dark teal',
             experiment: 'editor.toolbarTextColor.moreColors',
             experimentGroup: 'control',
-            isNewColor: false,
+            isNewColor: true,
           },
           eventType: 'track',
         }),

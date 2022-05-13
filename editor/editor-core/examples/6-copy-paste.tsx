@@ -31,7 +31,6 @@ import {
 } from '@atlaskit/media-test-helpers/collectionNames';
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { getFileStreamsCache } from '@atlaskit/media-client';
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -135,7 +134,6 @@ const getProviders = (collectionName: string): Providers => {
     };
     const mediaProvider = storyMediaProviderFactory({
       collectionName,
-      includeUserAuthProvider: false,
     });
     providers = {
       mediaProvider,
@@ -473,25 +471,9 @@ class ExampleEditorComponent extends React.Component<
     );
   };
 
-  clearMediaCache = () => {
-    console.log(getFileStreamsCache()['streams'].keys());
-    getFileStreamsCache().removeAll();
-  };
-
-  renderHeader = () => {
-    return (
-      <div>
-        <Button appearance="primary" onClick={this.clearMediaCache}>
-          Clear media cache
-        </Button>
-      </div>
-    );
-  };
-
   render() {
     return (
       <div>
-        {this.renderHeader()}
         <Wrapper>
           {this.renderEditor(defaultCollectionName)}
           {this.renderEditor(defaultMediaPickerCollectionName)}

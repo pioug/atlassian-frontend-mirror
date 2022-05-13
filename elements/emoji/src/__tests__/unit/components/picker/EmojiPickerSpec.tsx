@@ -162,7 +162,7 @@ describe('<EmojiPicker />', () => {
     it('media emoji should render placeholder while loading', async () => {
       const mockConfig = {
         promiseBuilder: (result: any, context: string) => {
-          if (context === 'loadMediaEmoji') {
+          if (context === 'getMediaEmojiDescriptionURLWithInlineToken') {
             // unresolved promise
             return new Promise(() => {});
           }

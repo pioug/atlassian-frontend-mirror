@@ -24,6 +24,7 @@ import {
   akEditorUnitZIndex,
   akRichMediaResizeZIndex,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
 
@@ -35,13 +36,13 @@ import { themed } from '@atlaskit/theme/components';
 export const tableCellBackgroundColor = themed({ light: N0, dark: DN30 });
 
 export const tableToolbarColor = themed({
-  light: akEditorTableToolbar,
-  dark: akEditorTableToolbarDark,
+  light: token('color.background.neutral', akEditorTableToolbar),
+  dark: token('color.background.neutral', akEditorTableToolbarDark),
 });
 export const tableTextColor = themed({ light: N200, dark: DN400 });
 export const tableBorderColor = themed({
-  light: akEditorTableBorder,
-  dark: akEditorTableBorderDark,
+  light: token('color.border', akEditorTableBorder),
+  dark: token('color.border', akEditorTableBorderDark),
 });
 export const tableFloatingControlsColor = N20;
 export const tableCellSelectedColor = B75;

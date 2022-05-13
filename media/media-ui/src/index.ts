@@ -30,12 +30,6 @@ export { messages } from './messages';
 export type { MessageKey } from './messages';
 export { default as languages } from './i18n/languages';
 export { locales };
-export { InfiniteScroll } from './infiniteScroll';
-export type {
-  InfiniteScrollProps,
-  InfiniteScrollState,
-  ThresholdReachedEventHandler,
-} from './infiniteScroll';
 export {
   ExifOrientation,
   getCssFromImageOrientation,

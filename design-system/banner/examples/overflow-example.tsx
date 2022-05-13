@@ -15,7 +15,7 @@ export default () => (
       months.
     </Banner>
     <Padded>
-      There should only be 1 line of text, with elipsis (…) shown when text
+      There should only be 1 line of text, with ellipsis (…) shown when text
       overflows.
     </Padded>
   </div>

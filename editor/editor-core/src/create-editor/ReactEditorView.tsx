@@ -476,8 +476,6 @@ export class ReactEditorView<T = {}> extends React.Component<
     // from an async dispatched transaction after it's unmounted.
     this.canDispatchTransactions = false;
 
-    this.eventDispatcher.destroy();
-
     clearTimeout(this.focusTimeoutId);
     if (this.reliabilityInterval) {
       clearInterval(this.reliabilityInterval);
@@ -495,10 +493,9 @@ export class ReactEditorView<T = {}> extends React.Component<
         }
       });
     }
-    // this.view will be destroyed when React unmounts in handleEditorViewRef
 
-    this.eventDispatcher.off(analyticsEventKey, this.handleAnalyticsEvent);
-    this.eventDispatcher.off('resetEditorState', this.resetEditorState);
+    this.eventDispatcher.destroy();
+    // this.view will be destroyed when React unmounts in handleEditorViewRef
   }
 
   // Helper to allow tests to inject plugins directly
@@ -937,7 +934,22 @@ export class ReactEditorView<T = {}> extends React.Component<
         eventDispatcher: this.eventDispatcher,
         transformer: this.contentTransformer,
       });
+
+      // Allows us to dispatch analytics within the plugin view.destory methods
+      const analyticsConnected = this.eventDispatcher.has(
+        analyticsEventKey,
+        this.handleAnalyticsEvent,
+      );
+      if (!analyticsConnected) {
+        this.eventDispatcher.on(analyticsEventKey, this.handleAnalyticsEvent);
+      }
+
       this.view.destroy(); // Destroys the dom node & all node views
+
+      if (!analyticsConnected) {
+        this.eventDispatcher.off(analyticsEventKey, this.handleAnalyticsEvent);
+      }
+
       this.view = undefined;
     }
   };

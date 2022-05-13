@@ -6,15 +6,11 @@ import {
   buildSliPayload,
   MentionProvider,
 } from '@atlaskit/mention/resource';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-
-import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import mentionNodeView from '../nodeviews/mention';
+import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
+import { MentionNodeView } from '../nodeviews/mention';
 import { mentionPluginKey } from './key';
-
-import type { Command } from '../../../types';
+import type { Command, PMPluginFactoryParams } from '../../../types';
 import type { MentionPluginOptions, MentionPluginState } from '../types';
 
 const ACTIONS = {
@@ -52,10 +48,7 @@ export const setContext = (
 };
 
 export function createMentionPlugin(
-  dispatch: Dispatch,
-  providerFactory: ProviderFactory,
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
+  pmPluginFactoryParams: PMPluginFactoryParams,
   fireEvent: (payload: any) => void,
   options?: MentionPluginOptions,
 ) {
@@ -94,7 +87,7 @@ export function createMentionPlugin(
               ...pluginState,
               mentionProvider: params.provider,
             };
-            dispatch(mentionPluginKey, newPluginState);
+            pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
 
             return newPluginState;
           case ACTIONS.SET_CONTEXT:
@@ -102,7 +95,7 @@ export function createMentionPlugin(
               ...pluginState,
               contextIdentifierProvider: params.context,
             };
-            dispatch(mentionPluginKey, newPluginState);
+            pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
             return newPluginState;
         }
 
@@ -111,12 +104,14 @@ export function createMentionPlugin(
     } as SafeStateField<MentionPluginState>,
     props: {
       nodeViews: {
-        mention: mentionNodeView(
-          portalProviderAPI,
-          eventDispatcher,
-          providerFactory,
-          options,
-        ),
+        mention: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: MentionNodeView,
+          extraComponentProps: {
+            providerFactory: pmPluginFactoryParams.providerFactory,
+            options,
+          },
+        }),
       },
     },
     view(editorView) {
@@ -173,14 +168,23 @@ export function createMentionPlugin(
         return;
       };
 
-      providerFactory.subscribe('mentionProvider', providerHandler);
-      providerFactory.subscribe('contextIdentifierProvider', providerHandler);
+      pmPluginFactoryParams.providerFactory.subscribe(
+        'mentionProvider',
+        providerHandler,
+      );
+      pmPluginFactoryParams.providerFactory.subscribe(
+        'contextIdentifierProvider',
+        providerHandler,
+      );
 
       return {
         destroy() {
-          if (providerFactory) {
-            providerFactory.unsubscribe('mentionProvider', providerHandler);
-            providerFactory.unsubscribe(
+          if (pmPluginFactoryParams.providerFactory) {
+            pmPluginFactoryParams.providerFactory.unsubscribe(
+              'mentionProvider',
+              providerHandler,
+            );
+            pmPluginFactoryParams.providerFactory.unsubscribe(
               'contextIdentifierProvider',
               providerHandler,
             );

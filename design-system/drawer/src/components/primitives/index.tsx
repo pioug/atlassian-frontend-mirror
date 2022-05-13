@@ -1,20 +1,26 @@
 /** @jsx jsx */
 
-import { Component, CSSProperties, FC, ReactChildren } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
+import {
+  ExitingPersistence,
+  SlideIn,
+  Transition,
+  useExitingPersistence,
+} from '@atlaskit/motion';
+import type { SlideInProps } from '@atlaskit/motion/types';
 import { N0 } from '@atlaskit/theme/colors';
 import { gridSize, layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { Slide } from '../transitions';
+import { animationTimingFunction, transitionDurationMs } from '../../constants';
 import {
   DrawerPrimitiveDefaults,
   DrawerPrimitiveOverrides,
   DrawerPrimitiveProps,
-  DrawerWidth,
   Widths,
 } from '../types';
 import { createExtender } from '../utils';
@@ -34,13 +40,6 @@ const widths: Widths = {
   wide: 75 * gridSize(),
 };
 
-interface WrapperProps {
-  style?: CSSProperties;
-  children?: ReactChildren;
-  shouldUnmountOnExit?: boolean;
-  width: DrawerWidth;
-}
-
 const wrapperStyles = css({
   display: 'flex',
   height: '100vh',
@@ -52,65 +51,106 @@ const wrapperStyles = css({
   overflow: 'hidden',
 });
 
-const Wrapper: FC<WrapperProps> = ({
-  width = 'narrow',
-  shouldUnmountOnExit,
-  style,
-  ...props
-}) => {
-  return (
-    <div
-      style={{ ...style, width: widths[width] }}
-      css={wrapperStyles}
-      {...props}
-    />
-  );
-};
-
 const defaults: DrawerPrimitiveDefaults = {
   Sidebar: SidebarOverrides,
   Content: ContentOverrides,
 };
 
-export default class DrawerPrimitive extends Component<DrawerPrimitiveProps> {
-  render() {
-    const {
-      children,
-      icon: Icon,
-      onClose,
-      onCloseComplete,
-      onOpenComplete,
-      overrides,
-      testId,
-      ...props
-    } = this.props;
+/**
+ * This wrapper is used to specify separate durations for enter and exit.
+ */
+const CustomSlideIn = ({
+  children,
+  onFinish,
+}: Pick<SlideInProps, 'children' | 'onFinish'>) => {
+  const { isExiting } = useExitingPersistence();
 
-    const getOverrides = createExtender<
-      DrawerPrimitiveDefaults,
-      DrawerPrimitiveOverrides
-    >(defaults, overrides);
+  /**
+   * The actual duration should be the same for both enter and exit,
+   * but motion halves the passed duration for exit animations,
+   * so we double it when exiting.
+   */
+  const duration = isExiting ? transitionDurationMs * 2 : transitionDurationMs;
 
-    const { component: Sidebar, ...sideBarOverrides } = getOverrides('Sidebar');
-    const { component: Content, ...contentOverrides } = getOverrides('Content');
+  return (
+    <SlideIn
+      animationTimingFunction={animationTimingFunction}
+      duration={duration}
+      enterFrom="left"
+      exitTo="left"
+      fade="none"
+      onFinish={onFinish}
+    >
+      {children}
+    </SlideIn>
+  );
+};
 
-    return (
-      <Slide
-        component={Wrapper}
-        onExited={onCloseComplete}
-        onEntered={onOpenComplete}
-        data-testid={testId}
-        {...props}
-      >
-        <Sidebar {...sideBarOverrides}>
-          <IconButton
-            onClick={onClose}
-            testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
-          >
-            {Icon ? <Icon size="large" /> : <ArrowLeft label="Close drawer" />}
-          </IconButton>
-        </Sidebar>
-        <Content {...contentOverrides}>{children}</Content>
-      </Slide>
-    );
-  }
-}
+const DrawerPrimitive = ({
+  children,
+  icon: Icon,
+  onClose,
+  onCloseComplete,
+  onOpenComplete,
+  overrides,
+  testId,
+  in: isOpen,
+  ...props
+}: DrawerPrimitiveProps) => {
+  const getOverrides = createExtender<
+    DrawerPrimitiveDefaults,
+    DrawerPrimitiveOverrides
+  >(defaults, overrides);
+
+  const { component: Sidebar, ...sideBarOverrides } = getOverrides('Sidebar');
+  const { component: Content, ...contentOverrides } = getOverrides('Content');
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  const onFinish = useCallback(
+    (state: Transition) => {
+      if (state === 'entering') {
+        onOpenComplete?.(ref.current);
+      } else if (state === 'exiting') {
+        onCloseComplete?.(ref.current);
+      }
+    },
+    [onCloseComplete, onOpenComplete],
+  );
+
+  return (
+    <ExitingPersistence appear>
+      {isOpen && (
+        <CustomSlideIn onFinish={onFinish}>
+          {({ className }) => (
+            <div
+              className={className}
+              css={wrapperStyles}
+              style={{
+                width: widths[props.width ?? 'narrow'],
+              }}
+              data-testid={testId}
+              ref={ref}
+            >
+              <Sidebar {...sideBarOverrides}>
+                <IconButton
+                  onClick={onClose}
+                  testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
+                >
+                  {Icon ? (
+                    <Icon size="large" />
+                  ) : (
+                    <ArrowLeft label="Close drawer" />
+                  )}
+                </IconButton>
+              </Sidebar>
+              <Content {...contentOverrides}>{children}</Content>
+            </div>
+          )}
+        </CustomSlideIn>
+      )}
+    </ExitingPersistence>
+  );
+};
+
+export default DrawerPrimitive;

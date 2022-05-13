@@ -13,9 +13,7 @@ import Editor, { EditorProps } from '../src/editor';
 
 function useRendererProviderFactory() {
   return React.useMemo(() => {
-    const mediaProvider = storyMediaProviderFactory({
-      useMediaPickerAuthProvider: false,
-    });
+    const mediaProvider = storyMediaProviderFactory();
     const emojiProvider = getEmojiProvider();
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
     const mentionProvider = Promise.resolve({

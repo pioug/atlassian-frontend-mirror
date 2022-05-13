@@ -251,9 +251,7 @@ function createProviders(
   };
 
   if (opts.media || (props && props.media)) {
-    providers.mediaProvider = storyMediaProviderFactory({
-      useMediaPickerAuthProvider: false,
-    });
+    providers.mediaProvider = storyMediaProviderFactory();
   }
   if (opts.cards || (props && (props.smartLinks || props.UNSAFE_cards))) {
     providers.cardsProvider = Promise.resolve(cardProvider);

@@ -51,6 +51,7 @@ export enum ACTION {
   INDENTED = 'indented',
   INITIALISED = 'initialised',
   INPUT_PERF_SAMPLING = 'inputPerfSampling',
+  INPUT_PERF_SAMPLING_AVG = 'inputPerfSamplingAvg',
   INSERTED = 'inserted',
   INVALID_DOCUMENT_ENCOUNTERED = 'invalidDocumentEncountered',
   INVOKED = 'invoked',

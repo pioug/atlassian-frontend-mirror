@@ -37,13 +37,13 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/atlassian-navigation": "^2.1.0",
+    "@atlaskit/atlassian-navigation": "^2.2.0",
     "@atlaskit/atlassian-notifications": "^0.3.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.1.0",
     "@atlaskit/icon": "*",
-    "@atlaskit/logo": "^13.0.0",
+    "@atlaskit/logo": "^13.6.0",
     "@atlaskit/menu": "^1.3.0",
     "@atlaskit/notification-indicator": "^9.0.0",
     "@atlaskit/notification-log-client": "^6.0.0",

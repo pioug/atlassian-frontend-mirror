@@ -3,7 +3,6 @@ import React from 'react';
 import { Component } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import {
-  userAuthProvider,
   defaultMediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
@@ -60,25 +59,6 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
     pastedImgHeight: -1,
   };
 
-  // TODO: Move into example-helpers
-  fetchLastItems() {
-    this.setState({ isFetchingLastItems: true });
-
-    userAuthProvider()
-      .then(({ clientId, token, baseUrl }) => {
-        const queryParams = `client=${clientId}&token=${token}&limit=5&details=full&sortDirection=desc`;
-        return fetch(`${baseUrl}/collection/recents/items?${queryParams}`);
-      })
-      .then((r) => r.json())
-      .then((data) => {
-        const lastItems = data.data.contents;
-        this.setState({
-          lastItems,
-          isFetchingLastItems: false,
-        });
-      });
-  }
-
   onFocus = () => {
     this.setState({ isWindowFocused: true });
   };
@@ -90,8 +70,6 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   async componentDidMount() {
     window.addEventListener('focus', this.onFocus);
     window.addEventListener('blur', this.onBlur);
-
-    this.fetchLastItems();
   }
 
   componentWillUnmount() {
@@ -131,10 +109,6 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
     });
   };
 
-  onFetchLastItems = () => {
-    this.fetchLastItems();
-  };
-
   onCloseImg = () => {
     this.setState({
       isLoading: false,
@@ -155,9 +129,6 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
     return (
       <PopupContainer>
         <PopupHeader>
-          <Button appearance="primary" onClick={this.onFetchLastItems}>
-            Fetch last items
-          </Button>
           Connected to users collection
           <Toggle
             defaultChecked={isConnectedToUsersCollection}
@@ -191,12 +162,9 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   }
 
   private renderClipboard() {
-    const { isConnectedToUsersCollection, isActive } = this.state;
+    const { isActive } = this.state;
     const mediaClientConfig = {
-      authProvider: defaultMediaPickerAuthProvider,
-      userAuthProvider: isConnectedToUsersCollection
-        ? userAuthProvider
-        : undefined,
+      authProvider: defaultMediaPickerAuthProvider(),
     };
     const config = {
       uploadParams: {

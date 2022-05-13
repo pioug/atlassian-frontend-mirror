@@ -1,3 +1,7 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4116
+
 import { css } from '@emotion/react';
 
 import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';

@@ -14,6 +14,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export const messages = defineMessages({
   collapseNode: {
@@ -40,17 +41,20 @@ export const messages = defineMessages({
 
 const BORDER_RADIUS = gridSize() / 2;
 
-const EXPAND_COLLAPSED_BACKGROUND = 'transparent';
+const EXPAND_COLLAPSED_BACKGROUND = token(
+  'color.background.neutral.subtle',
+  'transparent',
+);
 const EXPAND_SELECTED_BACKGROUND = themed({
-  light: 'rgba(255, 255, 255, 0.6)',
-  dark: 'rgba(9, 10, 11, 0.29)',
+  light: token('elevation.surface', 'rgba(255, 255, 255, 0.6)'),
+  dark: token('elevation.surface', 'rgba(9, 10, 11, 0.29)'),
 });
 
-const EXPAND_FOCUSED_BORDER_COLOR = colors.B300;
+const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused', colors.B300);
 const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
 const EXPAND_EXPANDED_BORDER_COLOR = themed({
-  light: colors.N40A,
-  dark: colors.DN50,
+  light: token('color.border', colors.N40A),
+  dark: token('color.border', colors.DN50),
 });
 
 export interface StyleProps {
@@ -80,13 +84,19 @@ export const ExpandIconWrapper = ({
 const expandIconWrapperStyle = (props: ThemeProps) => css`
   cursor: pointer;
   display: flex;
-  color: ${themed({ light: colors.N90, dark: '#d9dde3' })(props)};
+  color: ${themed({
+    light: token('color.icon', colors.N90),
+    dark: token('color.icon', '#d9dde3'),
+  })(props)};
   border-radius: ${gridSize() / 2}px;
   width: 24px;
   height: 24px;
 
   &:hover {
-    background: ${colors.N30A};
+    background: ${token(
+      'color.background.neutral.subtle.hovered',
+      colors.N30A,
+    )};
   }
 
   svg {
@@ -147,9 +157,13 @@ const containerStyles = (styleProps: StyleProps) => {
       border-color 0.3s ${akEditorSwoopCubicBezier};
     padding: ${gridSize()}px;
 
+    // TODO: https://product-fabric.atlassian.net/browse/DSP-4152
     &:hover {
       border: 1px solid
-        ${themed({ light: colors.N50A, dark: colors.DN50 })(themeProps)};
+        ${themed({
+          light: token('color.border', colors.N50A),
+          dark: token('color.border', colors.DN50),
+        })(themeProps)};
       background: ${EXPAND_SELECTED_BACKGROUND(themeProps)};
     }
 
@@ -197,7 +211,10 @@ const titleInputStyles = (props: ThemeProps) => css`
   font-size: ${relativeFontSizeToBase16(fontSize())};
   line-height: ${akEditorLineHeight};
   font-weight: normal;
-  color: ${themed({ light: colors.N200A, dark: colors.DN600 })(props)};
+  color: ${themed({
+    light: token('color.text.subtlest', colors.N200A),
+    dark: token('color.text.subtlest', colors.DN600),
+  })(props)};
   background: transparent;
   display: flex;
   flex: 1;
@@ -206,7 +223,10 @@ const titleInputStyles = (props: ThemeProps) => css`
 
   &::placeholder {
     opacity: 0.6;
-    color: ${themed({ light: colors.N200A, dark: colors.DN600 })(props)};
+    color: ${themed({
+      light: token('color.text.subtlest', colors.N200A),
+      dark: token('color.text.subtlest', colors.DN600),
+    })(props)};
   }
 `;
 
@@ -218,7 +238,10 @@ const titleContainerStyles = (props: ThemeProps) => css`
   border: none;
   font-size: ${relativeFontSizeToBase16(fontSize())};
   width: 100%;
-  color: ${themed({ light: colors.N300A, dark: colors.DN600 })(props)};
+  color: ${themed({
+    light: token('color.text.subtle', colors.N300A),
+    dark: token('color.text.subtle', colors.DN600),
+  })(props)};
   overflow: hidden;
   cursor: pointer;
   // Prevent browser selection being inside the title container

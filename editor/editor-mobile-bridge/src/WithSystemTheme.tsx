@@ -1,3 +1,5 @@
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4044
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { ReactNode, useMemo } from 'react';
 
 import { N0 } from '@atlaskit/theme/colors';

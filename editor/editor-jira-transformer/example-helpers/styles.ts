@@ -1,12 +1,8 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import styled from 'styled-components';
-// @ts-ignore: unused variable
-// prettier-ignore
-import { HTMLAttributes, ClassAttributes } from 'react';
-import React from 'react';
+import { css } from '@emotion/react';
 import { N800 } from '@atlaskit/theme/colors';
 
-export const Content: React.ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const content = css`
   & div.toolsDrawer {
     padding: 8px 16px;
     background: ${N800};

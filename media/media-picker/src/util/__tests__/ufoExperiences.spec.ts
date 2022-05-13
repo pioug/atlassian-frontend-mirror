@@ -1,3 +1,6 @@
+const mockMediaEnvironment = 'test-local';
+const mockMediaRegion = 'test-local-region';
+
 jest.mock('@atlaskit/ufo', () => {
   const actualUfo = jest.requireActual('@atlaskit/ufo');
   return {
@@ -9,6 +12,16 @@ jest.mock('../../version.json', () => ({
   name: 'test package',
   version: '1.0',
 }));
+
+jest.mock('@atlaskit/media-client', () => {
+  const mediaClient = jest.requireActual('@atlaskit/media-client');
+
+  return {
+    ...mediaClient,
+    getMediaEnvironment: () => mockMediaEnvironment,
+    getMediaRegion: () => mockMediaRegion,
+  };
+});
 import { ConcurrentExperience } from '@atlaskit/ufo';
 import {
   startMediaUploadUfoExperience,
@@ -38,9 +51,7 @@ describe('ufoExperience', () => {
     failure: mockFailure,
   }) as any;
 
-  (ConcurrentExperience as jest.MockedClass<
-    typeof ConcurrentExperience
-  >).mockImplementation((experienceId, config) => {
+  const concurrentExperienceConstructor = jest.fn((experienceId, config) => {
     return {
       experienceId,
       config,
@@ -49,6 +60,10 @@ describe('ufoExperience', () => {
       release: jest.fn(),
     };
   });
+
+  (ConcurrentExperience as jest.MockedClass<
+    typeof ConcurrentExperience
+  >).mockImplementation(concurrentExperienceConstructor);
 
   beforeEach(() => {});
 
@@ -63,6 +78,17 @@ describe('ufoExperience', () => {
       expect(mockGetInstance).toBeCalledTimes(1);
       expect(mockGetInstance).toBeCalledWith('file-test-id');
       expect(mockStart).toHaveBeenCalledTimes(1);
+      expect(concurrentExperienceConstructor).toHaveBeenCalledWith(
+        'media-upload',
+        expect.objectContaining({
+          type: 'experience',
+          performanceType: 'inline-result',
+          platform: expect.objectContaining({
+            // We expect the component name to be prefixed with media-picker
+            component: 'media-picker-browser',
+          }),
+        }),
+      );
     });
   });
 
@@ -74,7 +100,12 @@ describe('ufoExperience', () => {
       expect(mockGetInstance).toBeCalledWith('a-test-id');
       expect(mockSuccess).toBeCalledTimes(1);
       expect(mockSuccess).toBeCalledWith({
-        metadata: { fileAttributes: fileAttributes, ...packageInfo },
+        metadata: {
+          fileAttributes: fileAttributes,
+          ...packageInfo,
+          mediaEnvironment: mockMediaEnvironment,
+          mediaRegion: mockMediaRegion,
+        },
       });
     });
 
@@ -112,6 +143,8 @@ describe('ufoExperience', () => {
           },
           uploadDurationMsec: -1,
           ...packageInfo,
+          mediaEnvironment: mockMediaEnvironment,
+          mediaRegion: mockMediaRegion,
         },
       });
     });

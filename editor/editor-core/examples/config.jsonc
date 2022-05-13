@@ -19,7 +19,8 @@
     "5-full-page.tsx",
     "99-testing.tsx",
     "99-vr-testing.tsx",
-    "99-wysiwyg-testing.tsx"
+    "99-wysiwyg-testing.tsx",
+    "99-testing-collaborative-editing-catchup.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/atlassian-navigation",

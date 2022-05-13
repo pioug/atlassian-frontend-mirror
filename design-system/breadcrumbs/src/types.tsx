@@ -119,4 +119,9 @@ export interface BreadcrumbsItemProps extends WithAnalyticsEventsProps {
    * This can be used to click the elements when they are collapsed.
    */
   testId?: string;
+
+  /**
+   * A function to be called when a truncated breadcrumb item's tooltip is shown
+   */
+  onTooltipShown?: () => void;
 }

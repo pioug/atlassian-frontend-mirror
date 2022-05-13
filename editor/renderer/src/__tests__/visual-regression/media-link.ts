@@ -31,8 +31,7 @@ describe('media link:', () => {
     page = global.page;
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip(`should render a linked media image correctly`, async () => {
+  it(`should render a linked media image correctly`, async () => {
     await loadAdf(page, mediaLink);
     await waitForAllMedia(page, 1);
 
@@ -54,8 +53,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip(`should render a linked media image below a wrapped image correctly`, async () => {
+  it(`should render a linked media image below a wrapped image correctly`, async () => {
     await loadAdf(page, wrappedMediaLink);
     await waitForAllMedia(page, 2);
 
@@ -81,8 +79,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-  it.skip(`should render a linked media image inside an expand correctly`, async () => {
+  it(`should render a linked media image inside an expand correctly`, async () => {
     await loadAdf(page, mediaLinkInsideExpand);
 
     await waitForAllMedia(page, 1);
@@ -99,8 +96,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  it.skip(`should render a linked media image inside a nested expand correctly`, async () => {
+  it(`should render a linked media image inside a nested expand correctly`, async () => {
     await loadAdf(page, mediaLinkInsideNestedExpand);
 
     await waitForAllMedia(page, 1);
@@ -117,8 +113,7 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 9/7/2021: https://product-fabric.atlassian.net/browse/ED-13719
-  it.skip(`should render a linked media image inside a table correctly`, async () => {
+  it(`should render a linked media image inside a table correctly`, async () => {
     await loadAdf(page, mediaLinkInsideTable);
 
     await waitForAllMedia(page, 2);

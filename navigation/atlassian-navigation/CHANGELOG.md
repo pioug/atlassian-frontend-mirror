@@ -1,5 +1,21 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.0
+
+### Minor Changes
+
+- [`81addc0c144`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81addc0c144) - [ux] Pass boxShadow for the focus styling of search section in the theme generator.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.6
+
+### Patch Changes
+
+- [`3622df604ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3622df604ee) - Fixes bug where navigation items cannot be added after intial render if the initial item array was empty
+
 ## 2.1.5
 
 ### Patch Changes

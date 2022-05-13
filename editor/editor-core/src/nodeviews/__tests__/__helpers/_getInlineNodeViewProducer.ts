@@ -40,7 +40,7 @@ export const clickAndDragSelectLineFromLineEnd = async ({
   const startX = bounds.left + bounds.width + 20;
   const startY = bounds.top + 10;
   const targetX = 0;
-  const targetY = bounds.top - 10;
+  const targetY = bounds.top - 20;
 
   await page.simulateUserDragAndDrop(startX, startY, targetX, targetY);
 };

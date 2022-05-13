@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import TextColor from '../../../../react/marks/textColor';

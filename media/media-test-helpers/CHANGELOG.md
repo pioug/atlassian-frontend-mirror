@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 30.0.0
+
+### Major Changes
+
+- [`593d2d788e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/593d2d788e5) - [MEX-1413] Remove Media-picker-auth-provider
+- [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
+
+### Patch Changes
+
+- [`bf0e7c8e46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf0e7c8e46b) - [MEX-1413] Hot fix for remove useMediaPickerAuthProvider flag
+- Updated dependencies
+
 ## 29.4.2
 
 ### Patch Changes

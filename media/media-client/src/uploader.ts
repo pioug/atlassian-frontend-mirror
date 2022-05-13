@@ -92,6 +92,8 @@ export const uploadFile = (
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
   callbacks?: UploadFileCallbacks,
+  chunkSize: number = 4 * 1024 * 1024,
+  processingBatchSize: number = 1000,
 ): UploadFileResult => {
   const { content, collection } = file;
   const { deferredUploadId } = uploadableFileUpfrontIds;
@@ -102,11 +104,11 @@ export const uploadFile = (
       hashingFunction,
       hashingConcurrency: 5,
       probingBatchSize: 100,
-      chunkSize: 4 * 1024 * 1024,
+      chunkSize,
       uploadingConcurrency: 3,
       uploadingFunction: createUploadingFunction(store, collection),
       probingFunction: createProbingFunction(store, collection),
-      processingBatchSize: 1000,
+      processingBatchSize,
       processingFunction: createProcessingFunction(
         store,
         deferredUploadId,

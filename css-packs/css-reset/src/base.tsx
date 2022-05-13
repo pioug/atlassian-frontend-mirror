@@ -97,12 +97,6 @@ export default evaluateInner`
   dl {
     padding-left: ${gridSize() * 5}px;
   }
-  [dir='rtl']ul,
-  [dir='rtl']ol,
-  [dir='rtl']dl {
-    padding-left: 0;
-    padding-right: ${gridSize() * 5}px;
-  }
 
   dd,
   dd + dt,

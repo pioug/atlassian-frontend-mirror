@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^29.4.0",
+    "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

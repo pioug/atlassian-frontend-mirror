@@ -119,6 +119,21 @@ export default class Editor extends React.Component<EditorProps, State> {
     quickInsert: true,
   };
 
+  static propTypes = {
+    minHeight: ({ appearance, minHeight }: EditorProps) => {
+      if (
+        minHeight &&
+        appearance &&
+        !['comment', 'chromeless'].includes(appearance)
+      ) {
+        return new Error(
+          'minHeight only supports editor appearance chromeless and comment',
+        );
+      }
+      return null;
+    },
+  };
+
   static contextTypes = {
     editorActions: PropTypes.object,
   };
@@ -728,6 +743,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                                         dispatchAnalyticsEvent
                                       }
                                       maxHeight={this.props.maxHeight}
+                                      minHeight={this.props.minHeight}
                                       onSave={
                                         this.props.onSave
                                           ? this.handleSave

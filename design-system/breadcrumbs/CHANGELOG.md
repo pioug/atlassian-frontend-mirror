@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 11.6.0
+
+### Minor Changes
+
+- [`c963742d9cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c963742d9cd) - Added a prop to allow a function to be called when a breadcrumb item tooltip is shown
+
 ## 11.5.7
 
 ### Patch Changes

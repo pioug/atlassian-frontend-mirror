@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-shared-styles",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Style values used in the editor/renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/tokens": "^0.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -42,7 +43,8 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "theming": "tokens"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

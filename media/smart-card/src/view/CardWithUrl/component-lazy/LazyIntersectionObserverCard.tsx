@@ -4,6 +4,7 @@ import { CardWithUrlContentProps } from '../types';
 import { usePrefetch } from '../../../state';
 import { CardWithUrlContent } from '../component';
 import { LoadingCardLink } from './LazyFallback';
+import { startUfoExperience } from '../../../state/analytics/ufoExperiences';
 
 // This property enables the intersection observer to be run once the
 // HTML element being observed is within `X` px of the target container it is
@@ -13,7 +14,7 @@ const ROOT_MARGIN_VERTICAL = '360px';
 
 export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
   const [isIntersecting, setIsIntersecting] = useState(false);
-  const { showActions, appearance, url } = props;
+  const { showActions, appearance, url, id } = props;
   const prefetch = usePrefetch(url);
 
   const Component = appearance === 'inline' ? 'span' : 'div';
@@ -23,13 +24,14 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
     (entries, observer) => {
       const isVisible = entries.some((entry) => entry.isIntersecting);
       if (isVisible) {
+        startUfoExperience('smart-link-rendered', id);
         setIsIntersecting(true);
         observer.disconnect();
       } else {
         prefetch();
       }
     },
-    [prefetch],
+    [prefetch, id],
   );
   const onRef = useCallback(
     (element: HTMLElement | null) => {

@@ -9,6 +9,7 @@ import {
 import { N20 } from '@atlaskit/theme/colors';
 import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const smartCardStyles = css`
   .${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER} {
@@ -39,7 +40,8 @@ export const smartCardStyles = css`
 
     &.danger {
       .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a {
-        box-shadow: 0 0 0 1px ${akEditorDeleteBorder};
+        box-shadow: 0 0 0 1px
+          ${token('color.border.danger', akEditorDeleteBorder)};
         /* EDM-1717: box-shadow Safari fix start */
         z-index: 2;
         /* EDM-1717: box-shadow Safari fix end */
@@ -63,7 +65,8 @@ export const smartCardStyles = css`
 
     &.danger {
       .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
-        box-shadow: 0 0 0 1px ${akEditorDeleteBorder} !important;
+        box-shadow: 0 0 0 1px
+          ${token('color.border.danger', akEditorDeleteBorder)} !important;
       }
     }
   }
@@ -89,12 +92,16 @@ export const smartCardStyles = css`
 
     &.danger {
       .media-card-frame::after {
-        box-shadow: 0 0 0 1px ${akEditorDeleteBorder} !important;
-        background: ${akEditorDeleteBackground} !important;
+        box-shadow: 0 0 0 1px
+          ${token('color.border.danger', akEditorDeleteBorder)} !important;
+        background: ${token(
+          'color.background.danger',
+          akEditorDeleteBackground,
+        )} !important;
       }
       .richMedia-resize-handle-right::after,
       .richMedia-resize-handle-left::after {
-        background: ${akEditorDeleteBorder};
+        background: ${token('color.border.danger', akEditorDeleteBorder)};
       }
     }
   }

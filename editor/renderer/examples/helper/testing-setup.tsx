@@ -34,9 +34,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 const mediaMockServer = createEditorMediaMock();
-const mediaProvider = storyMediaProviderFactory({
-  useMediaPickerAuthProvider: false,
-});
+const mediaProvider = storyMediaProviderFactory();
 const emojiProvider = getEmojiResource();
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const mentionProvider = Promise.resolve({

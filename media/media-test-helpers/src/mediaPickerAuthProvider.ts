@@ -1,5 +1,5 @@
-import { Auth, AuthContext, AuthProvider } from '@atlaskit/media-core';
-import { userAuthProviderBaseURL } from './userAuthProvider';
+import { Auth, AuthContext } from '@atlaskit/media-core';
+import { authProviderBaseURL } from './';
 import { defaultCollectionName } from './collectionNames';
 
 const cachedAuths: { [key: string]: Promise<Auth> } = {};
@@ -65,12 +65,12 @@ export const mediaPickerAuthProvider = (authEnvironment: string = 'asap') => (
   return cachedAuths[cacheKey];
 };
 
-export const defaultMediaPickerAuthProvider: AuthProvider = () => {
+export const defaultMediaPickerAuthProvider = () => (): Promise<Auth> => {
   const auth: Auth = {
     clientId: 'a89be2a1-f91f-485c-9962-a8fb25ccfa13',
     token:
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhODliZTJhMS1mOTFmLTQ4NWMtOTk2Mi1hOGZiMjVjY2ZhMTMiLCJ1bnNhZmUiOnRydWUsImlhdCI6MTQ3MzIyNTEzNn0.6Isj5jKgKzWDnPqfoMLiC_LVIlGM8kg_wxG6eGGwhTw',
-    baseUrl: userAuthProviderBaseURL,
+    baseUrl: authProviderBaseURL,
   };
 
   return Promise.resolve(auth);

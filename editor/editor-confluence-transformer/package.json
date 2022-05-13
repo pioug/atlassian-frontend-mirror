@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-confluence-transformer",
-  "version": "8.1.24",
+  "version": "8.1.25",
   "description": "Editor Confluence Transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^23.0.0",
-    "@atlaskit/editor-common": "^66.0.0",
-    "@atlaskit/editor-shared-styles": "^2.0.0",
+    "@atlaskit/editor-common": "^67.0.0",
+    "@atlaskit/editor-shared-styles": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6",
     "prosemirror-model": "1.14.3"
@@ -38,7 +38,7 @@
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^165.0.0",
+    "@atlaskit/editor-core": "^166.0.0",
     "@atlaskit/editor-test-helpers": "^17.0.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/theme": "^12.1.0",

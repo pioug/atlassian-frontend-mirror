@@ -20,6 +20,12 @@ describe('Comment', () => {
     await initCommentEditorWithAdf(page, {});
   });
 
+  test('empty content with minHeight', async () => {
+    await initCommentEditorWithAdf(page, {}, undefined, undefined, {
+      minHeight: 250,
+    });
+  });
+
   test('with short content', async () => {
     await initCommentEditorWithAdf(page, createDocumentWithParagraphs());
   });

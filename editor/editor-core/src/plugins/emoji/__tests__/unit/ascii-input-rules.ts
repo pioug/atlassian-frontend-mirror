@@ -52,7 +52,7 @@ describe('ascii emojis - input rules', () => {
           doc,
           preset: new Preset<LightEditorPlugin>()
             .add([analyticsPlugin, { createAnalyticsEvent }])
-            .add([emojiPlugin, { allowZeroWidthSpaceAfter: true }])
+            .add([emojiPlugin])
             .add(blockTypePlugin)
             .add([codeBlockPlugin, { appearance: 'full-page' }])
             .add(textFormattingPlugin)

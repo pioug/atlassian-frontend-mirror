@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 33.0.0
+
+### Major Changes
+
+- [`ad13b4d0bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad13b4d0bc6) - [MEX-1525] Remove userAuth from Media-Core & Media-client
+
 ## 32.3.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0
+
+### Major Changes
+
+- [`bde94d1a336`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bde94d1a336) - When chunkinator has multiple processing batches of chunks, file will only be finalised uploading for once.
+
 ## 3.1.2
 
 ### Patch Changes

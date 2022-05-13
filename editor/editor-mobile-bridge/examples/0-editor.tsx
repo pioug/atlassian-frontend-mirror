@@ -36,7 +36,6 @@ function EditorWithFetchProxy() {
       mentionProvider={createMentionProvider()}
       mediaProvider={storyMediaProviderFactory({
         collectionName: 'InitialCollectionForTesting',
-        includeUserAuthProvider: false,
       })}
       placeholder="Type something here"
       shouldFocus={true}

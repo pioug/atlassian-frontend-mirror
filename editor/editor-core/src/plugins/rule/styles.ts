@@ -7,6 +7,7 @@ import {
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export const ruleStyles = (props: ThemeProps) => css`
   .ProseMirror {
@@ -20,7 +21,10 @@ export const ruleStyles = (props: ThemeProps) => css`
 
       &.${akEditorSelectedNodeClassName} {
         outline: none;
-        background-color: ${akEditorSelectedBorderColor};
+        background-color: ${token(
+          'color.border.selected',
+          akEditorSelectedBorderColor,
+        )};
       }
     }
   }

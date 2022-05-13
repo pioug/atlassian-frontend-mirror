@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.2.8
+
+### Patch Changes
+
+- [`0d1c80fe00d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d1c80fe00d) - [ux] The width of the modal dialog now respect the custom value of the `width` prop.
+
 ## 12.2.7
 
 ### Patch Changes

@@ -8,6 +8,15 @@ export const InlineNodeViewSharedStyles = css`
   .inlineNodeView {
     display: inline;
     user-select: all;
+    /* Collapses zero width spaces inside the inline node view
+    to prevent the node from line breaking too early.
+    */
+    white-space: nowrap;
+    /* Then reset to the Editor default so we don't interfere
+    with any component styling. */
+    & > * {
+      white-space: pre-wrap;
+    }
   }
 
   &.ua-chrome .inlineNodeView > span {

@@ -1,3 +1,6 @@
+const mockMediaEnvironment = 'test-local';
+const mockMediaRegion = 'test-local-region';
+
 jest.mock('@atlaskit/ufo', () => {
   const actualUfo = jest.requireActual('@atlaskit/ufo');
   return {
@@ -14,6 +17,15 @@ jest.mock('../../../../version.json', () => ({
   name: 'test package',
   version: '1.0',
 }));
+
+jest.mock('@atlaskit/media-client', () => {
+  const mediaClient = jest.requireActual('@atlaskit/media-client');
+  return {
+    ...mediaClient,
+    getMediaEnvironment: () => mockMediaEnvironment,
+    getMediaRegion: () => mockMediaRegion,
+  };
+});
 
 import {
   UFOExperience,
@@ -69,6 +81,8 @@ describe('ufoExperience', () => {
           metadata: {
             fileAttributes: fileAttributes,
             ...packageInfo,
+            mediaEnvironment: mockMediaEnvironment,
+            mediaRegion: mockMediaRegion,
           },
         });
       });
@@ -79,6 +93,8 @@ describe('ufoExperience', () => {
         expect(mocks.success).toBeCalledWith({
           metadata: {
             ...packageInfo,
+            mediaEnvironment: mockMediaEnvironment,
+            mediaRegion: mockMediaRegion,
           },
         });
       });
@@ -98,6 +114,8 @@ describe('ufoExperience', () => {
             errorDetail: undefined,
             fileAttributes: fileAttributes,
             ...packageInfo,
+            mediaEnvironment: mockMediaEnvironment,
+            mediaRegion: mockMediaRegion,
           },
         });
       });
@@ -108,6 +126,8 @@ describe('ufoExperience', () => {
         expect(mocks.failure).toBeCalledWith({
           metadata: {
             ...packageInfo,
+            mediaEnvironment: mockMediaEnvironment,
+            mediaRegion: mockMediaRegion,
           },
         });
       });

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const INLINE_UNSUPPORTED_CONTENT_TEXT_ATTR_VALUE =
   'Invalid inline node content';
 

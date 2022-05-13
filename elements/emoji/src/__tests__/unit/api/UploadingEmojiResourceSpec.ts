@@ -346,6 +346,8 @@ describe('helpers', () => {
     findById = (_emojiIdStr: string) => Promise.resolve(evilburnsEmoji);
     findInCategory = (_categoryId: string) => Promise.resolve([]);
     getSelectedTone = () => -1;
+    getMediaEmojiDescriptionURLWithInlineToken = () =>
+      Promise.resolve(evilburnsEmoji);
     setSelectedTone = (_tone: ToneSelection) => {};
     deleteSiteEmoji = (_emoji: EmojiDescription) => Promise.resolve(false);
     getCurrentUser = () => undefined;

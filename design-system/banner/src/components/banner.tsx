@@ -1,15 +1,16 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import { gridSize } from '@atlaskit/theme/constants';
+import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
+import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
-import {
-  getBackgroundColor,
-  getTextColor,
-  TRANSITION_DURATION,
-} from '../styles';
+const gridSize = getGridSize();
+
+const MAX_HEIGHT_SCROLLABLE = gridSize * 11;
+const MAX_HEIGHT_TRUNCATED = gridSize * 6.5;
 
 const iconStyles = css({
   display: 'flex',
@@ -24,19 +25,17 @@ const iconStyles = css({
 
 const visibilityStyles = css({
   overflow: 'hidden',
-  transition: `max-height ${TRANSITION_DURATION}`,
 });
 
 const contentStyles = css({
   display: 'flex',
   margin: 'auto',
-  padding: gridSize() * 1.5,
+  padding: gridSize * 1.5,
   alignItems: 'center',
   justifyContent: 'center',
   color: 'currentColor',
   fontWeight: 500,
   textAlign: 'center',
-  transition: `color ${TRANSITION_DURATION}`,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
@@ -49,8 +48,10 @@ const cappedWidthStyles = css({
 });
 
 const childrenTextStyles = css({
-  padding: gridSize() / 2,
+  maxWidth: 876,
+  padding: gridSize / 2,
   flex: '0 1 auto',
+  alignSelf: 'center',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
@@ -61,14 +62,30 @@ const noOverflowStyles = css({
 });
 
 const containerStyles = css({
-  maxHeight: 52,
+  maxHeight: MAX_HEIGHT_TRUNCATED,
+
   overflow: 'visible',
 });
 
 const scrollStyles = css({
-  maxHeight: 88,
+  maxHeight: MAX_HEIGHT_SCROLLABLE,
   overflow: 'scroll',
 });
+
+const appearanceStyles = {
+  warning: {
+    backgroundColor: token('color.background.warning.bold', Y300),
+    color: token('color.text.warning.inverse', N700),
+  },
+  error: {
+    backgroundColor: token('color.background.danger.bold', R400),
+    color: token('color.text.inverse', N0),
+  },
+  announcement: {
+    backgroundColor: token('color.background.neutral.bold', N500),
+    color: token('color.text.inverse', N0),
+  },
+};
 
 interface BannerProps {
   /**
@@ -97,108 +114,90 @@ interface BannerProps {
   testId?: string;
 }
 
-class Banner extends React.Component<BannerProps, { height: number }> {
-  state = {
-    height: 0,
-  };
+const Banner: FC<BannerProps> = ({
+  appearance = 'warning',
+  children,
+  icon,
+  isOpen = false,
+  innerRef,
+  testId,
+}) => {
+  const [maxHeight, setMaxHeight] = useState(0);
 
-  static defaultProps = {
-    appearance: 'warning',
-    isOpen: false,
-  };
+  const bannerRef = useCallback(
+    (ref: HTMLElement | null) => {
+      if (!ref) {
+        return;
+      }
 
-  containerRef?: HTMLElement;
+      if (innerRef) {
+        innerRef(ref);
+      }
 
-  getHeight = () => {
-    if (this.containerRef) {
-      this.setState({ height: this.containerRef.clientHeight });
-    }
-  };
+      setMaxHeight(ref.clientHeight);
+    },
 
-  innerRef = (ref: HTMLElement | null) => {
-    if (!ref) {
-      return;
-    }
-    this.containerRef = ref;
-    if (this.props.innerRef) {
-      this.props.innerRef(ref);
-    }
-    this.getHeight();
-  };
+    [innerRef],
+  );
 
-  getA11yProps = (
-    appearance?: 'warning' | 'error' | 'announcement',
-  ): {
-    role: string;
-    'aria-hidden': boolean;
-    tabIndex?: number;
-    'aria-label'?: string;
-  } => {
-    const { isOpen } = this.props;
-
-    const defaultProps = {
+  const accessibilityProps = useMemo(() => {
+    let baseProps = {
       'aria-hidden': !isOpen,
       role: 'alert',
     };
 
     if (appearance === 'announcement') {
       return {
-        ...defaultProps,
+        ...baseProps,
         'aria-label': 'announcement',
         tabIndex: 0,
         role: 'region',
       };
     }
-    return defaultProps;
-  };
 
-  render() {
-    const { appearance, children, icon, isOpen, testId } = this.props;
-    const allyProps = this.getA11yProps(appearance);
-    const isAnnouncementAppearance = appearance === 'announcement';
-    const backgroundColorByAppearance = getBackgroundColor({ appearance });
-    const textColorByAppearance = getTextColor({ appearance });
+    return baseProps;
+  }, [isOpen, appearance]);
 
-    return (
+  const isAnnouncementAppearance = appearance === 'announcement';
+
+  return (
+    <div
+      css={visibilityStyles}
+      style={{ maxHeight: `${isOpen ? maxHeight : 0}px` }}
+      data-testid={testId}
+    >
       <div
-        css={visibilityStyles}
-        style={{ maxHeight: `${isOpen ? this.state.height : 0}px` }}
+        css={[containerStyles, isAnnouncementAppearance && scrollStyles]}
+        style={{
+          ...appearanceStyles[appearance],
+        }}
+        ref={bannerRef}
+        {...accessibilityProps}
       >
         <div
-          css={[containerStyles, isAnnouncementAppearance && scrollStyles]}
-          style={{
-            backgroundColor: backgroundColorByAppearance,
-            color: textColorByAppearance,
-          }}
-          ref={this.innerRef}
-          data-testid={testId}
-          {...allyProps}
+          css={[contentStyles, isAnnouncementAppearance && cappedWidthStyles]}
         >
-          <div
-            css={[contentStyles, isAnnouncementAppearance && cappedWidthStyles]}
+          <span
+            css={iconStyles}
+            style={{
+              fill: appearanceStyles[appearance].backgroundColor,
+            }}
           >
-            <span
-              css={iconStyles}
-              style={{
-                fill: backgroundColorByAppearance,
-              }}
-            >
-              {icon}
-            </span>
-            <div
-              css={[
-                childrenTextStyles,
-                isAnnouncementAppearance && noOverflowStyles,
-              ]}
-            >
-              {children}
-            </div>
-          </div>
+            {icon}
+          </span>
+          <span
+            css={[
+              childrenTextStyles,
+              isAnnouncementAppearance && noOverflowStyles,
+            ]}
+          >
+            {children}
+          </span>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Banner;

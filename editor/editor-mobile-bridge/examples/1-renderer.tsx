@@ -61,7 +61,6 @@ export default function Example() {
         document={initialDocument}
         mediaProvider={storyMediaProviderFactory({
           collectionName: 'InitialCollectionForTesting',
-          includeUserAuthProvider: false,
         })}
         dataProviders={providerFactory}
         allowHeadingAnchorLinks

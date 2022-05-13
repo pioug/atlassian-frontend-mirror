@@ -14,6 +14,11 @@ export type FilePreviewStatus = {
   isSupportedByBrowser: boolean;
 };
 
+export type FileStateFlags = {
+  wasStatusProcessing: boolean;
+  wasStatusUploading: boolean;
+};
+
 export type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
 
 export declare type CardDimensionValue = number | string;

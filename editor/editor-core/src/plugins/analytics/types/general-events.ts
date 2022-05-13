@@ -192,6 +192,22 @@ type InputPerfSamlingAEP = OperationalAEPWithObjectId<
   undefined
 >;
 
+type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
+  ACTION.INPUT_PERF_SAMPLING_AVG,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    mean: number;
+    median: number;
+    sampleSize: number;
+    participants: number;
+    nodeCount?: Record<string, number>;
+    nodeSize: number;
+    severity?: SEVERITY;
+  },
+  undefined
+>;
+
 type DispatchedTransactionAEP = OperationalAEP<
   ACTION.TRANSACTION_DISPATCHED,
   ACTION_SUBJECT.EDITOR,
@@ -425,6 +441,7 @@ export type GeneralEventPayload<T = void> =
   | FullWidthModeAEP
   | HelpQuickInsertAEP
   | InputPerfSamlingAEP
+  | InputPerfSamplingAvgAEP
   | PickerEmojiAEP
   | PickerImageAEP
   | ReactNodeViewRenderedAEP

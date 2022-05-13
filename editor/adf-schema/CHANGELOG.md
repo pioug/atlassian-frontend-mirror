@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 23.0.2
+
+### Patch Changes
+
+- [`702b032500c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/702b032500c) - [ux] Corrected ordering of the toolbar text colour picker's drop down menu, updated its rows to be from darkest to lightest.
+
 ## 23.0.1
 
 ### Patch Changes

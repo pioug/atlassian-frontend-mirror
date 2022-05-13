@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { N90, B400 } from '@atlaskit/theme/colors';
+import { N500, B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React, { memo } from 'react';
 import {
@@ -14,7 +14,7 @@ export const counterTestId = 'counter-container';
 
 export const countStyle = css({
   fontSize: 11, // TODO: nice to have a theme level token for fontSize
-  color: token('color.text.subtlest', N90),
+  color: token('color.text.subtlest', N500),
   overflow: 'hidden',
   position: 'relative',
   padding: '4px 8px 4px 0',

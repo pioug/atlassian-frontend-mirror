@@ -22,16 +22,16 @@ import {
   UploadableFileUpfrontIds,
   UploadableFile,
   UploadController,
-  getFileStreamsCache,
   MediaStoreGetFileImageParams,
 } from '../..';
+import { getFileStreamsCache } from '../../file-streams-cache';
 import { uploadFile } from '../../uploader';
 import * as resolveAuth from '../../client/media-store/resolveAuth';
 
 const auth = {
   token: 'some-token-that-does-not-really-matter-in-this-tests',
   clientId: 'some-clientId',
-  baseUrl: 'some-base-url',
+  baseUrl: 'http://some-base-url',
 };
 const authProvider: AuthProvider = () => Promise.resolve(auth);
 

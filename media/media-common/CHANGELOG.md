@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 2.13.0
+
+### Minor Changes
+
+- [`501240ef964`](https://bitbucket.org/atlassian/atlassian-frontend/commits/501240ef964) - Export `filterFeatureFlagKeysAllProducts`
+- [`a09f961b9b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a09f961b9b2) - Add filterFeatureFlagNamesWithAllProducts for returning the feature flags for all the products
+- [`a4f822c2d5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4f822c2d5d) - Add MediaFeatureFlagMap for Confluence and Jira
+
 ## 2.12.1
 
 ### Patch Changes

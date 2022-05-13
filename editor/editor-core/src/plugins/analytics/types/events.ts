@@ -33,6 +33,7 @@ import {
 import { ExtensionEventPayload } from './extension-events';
 import type {
   UnsupportedContentPayload,
+  UnsupportedContentTooltipPayload,
   UserBrowserExtensionResults,
 } from '@atlaskit/editor-common/utils';
 import { AvatarEventPayload } from './avatar';
@@ -66,7 +67,8 @@ export type AnalyticsEventPayload<T = void> =
   | EditLinkToolbarAEP
   | CustomPanelEventPayload
   | FeatureExposureAEP
-  | NewCollabSyncUpErrorAEP;
+  | NewCollabSyncUpErrorAEP
+  | UnsupportedContentTooltipPayload;
 
 type CustomPanelEventPayload = TrackAEP<
   ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { N200, N400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
 
@@ -12,11 +13,11 @@ const captionWrapperStyle = css`
   margin-top: 8px;
   text-align: center;
   position: relative;
-  color: ${N400};
+  color: ${token('color.text.subtle', N400)};
 `;
 
 const placeholderStyle = css`
-  color: ${N200};
+  color: ${token('color.text.subtlest', N200)};
   position: absolute;
   top: 0;
   width: 100%;

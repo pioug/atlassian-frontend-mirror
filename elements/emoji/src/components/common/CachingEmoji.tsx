@@ -1,11 +1,6 @@
 import React, { ContextType } from 'react';
 import { PureComponent } from 'react';
-import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
-import {
-  isEmojiDescription,
-  isMediaEmoji,
-  isPromise,
-} from '../../util/type-helpers';
+import { isMediaEmoji } from '../../util/type-helpers';
 import { EmojiDescription, EmojiId } from '../../types';
 import debug from '../../util/logger';
 import Emoji, { Props as EmojiProps } from './Emoji';
@@ -69,44 +64,30 @@ export const CachingEmoji = (props: CachingEmojiProps) => {
  * rendering paths depending on caching strategy.
  */
 export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
-  private mounted: boolean = false;
-
   static contextType = EmojiContext;
   context!: ContextType<typeof EmojiContext>;
 
   constructor(props: EmojiProps, context: ContextType<typeof EmojiContext>) {
     super(props);
     this.state = {
-      cachedEmoji: this.loadEmoji(props.emoji, context, false),
+      cachedEmoji: undefined,
     };
+    this.loadEmoji(props.emoji, context);
   }
 
   componentDidMount() {
-    this.mounted = true;
     sampledUfoRenderedEmoji(this.props.emoji).markFMP();
   }
 
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
-  UNSAFE_componentWillReceiveProps(
-    nextProps: EmojiProps,
-    nextContext: EmojiContextType,
-  ) {
-    if (nextProps.emoji !== this.props.emoji) {
-      if (this.mounted) {
-        this.setState({
-          cachedEmoji: this.loadEmoji(nextProps.emoji, nextContext, false),
-        });
-      }
+  componentDidUpdate() {
+    if (this.props.emoji.shortName !== this.state.cachedEmoji?.shortName) {
+      this.loadEmoji(this.props.emoji, this.context);
     }
   }
 
   private loadEmoji(
     emoji: EmojiDescription,
     context: EmojiContextType,
-    forceLoad: boolean,
   ): EmojiDescription | undefined {
     if (!context) {
       return;
@@ -118,73 +99,42 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
     if (!emojiProvider) {
       return undefined;
     }
-    const { fitToHeight } = this.props;
-    const useAlt = shouldUseAltRepresentation(emoji, fitToHeight);
 
-    const optimisticRendering = emojiProvider.optimisticMediaRendering(
-      emoji,
-      useAlt,
-    );
-
-    if (optimisticRendering && !forceLoad) {
-      debug('Optimistic rendering', emoji.shortName);
-      return emoji;
-    }
     debug('Loading image via media cache', emoji.shortName);
-    const loadedEmoji = emojiProvider.loadMediaEmoji(emoji, useAlt);
-
-    if (isPromise<EmojiDescription>(loadedEmoji)) {
-      loadedEmoji
-        .then((cachedEmoji) => {
-          if (this.mounted) {
-            this.setState({
-              cachedEmoji,
-              invalidImage: !cachedEmoji,
-            });
-          }
-        })
-        .catch(() => {
-          if (this.mounted) {
-            this.setState({
-              cachedEmoji: undefined,
-              invalidImage: true,
-            });
-            sampledUfoRenderedEmoji(emoji).failure({
-              metadata: { reason: 'failed to load media emoji' },
-            });
-          }
+    emojiProvider
+      .getMediaEmojiDescriptionURLWithInlineToken(emoji)
+      .then((cachedEmoji) => {
+        this.setState({
+          cachedEmoji,
+          invalidImage: false,
         });
-      return undefined;
-    }
-    if (isEmojiDescription(loadedEmoji)) {
-      return loadedEmoji;
-    }
-    return undefined;
+      })
+      .catch(() => {
+        this.setState({
+          cachedEmoji: undefined,
+          invalidImage: true,
+        });
+        sampledUfoRenderedEmoji(emoji).failure({
+          metadata: { reason: 'failed to load media emoji' },
+        });
+      });
   }
 
-  private handleLoadError = (_emojiId: EmojiId, emoji?: EmojiDescription) => {
-    const { invalidImage } = this.state;
-
+  private handleLoadError = (_emojiId: EmojiId) => {
     sampledUfoRenderedEmoji(_emojiId).failure({
       metadata: { reason: 'load error' },
     });
-
-    if (invalidImage || !emoji) {
-      // do nothing, bad image
-      return;
-    }
-
     this.setState({
-      cachedEmoji: this.loadEmoji(emoji, this.context, true),
+      invalidImage: true,
     });
   };
 
   render() {
-    const { cachedEmoji } = this.state;
+    const { cachedEmoji, invalidImage } = this.state;
     const { children, placeholderSize, ...otherProps } = this.props;
 
     let emojiComponent;
-    if (cachedEmoji) {
+    if (cachedEmoji && !invalidImage) {
       emojiComponent = (
         <Emoji
           {...otherProps}

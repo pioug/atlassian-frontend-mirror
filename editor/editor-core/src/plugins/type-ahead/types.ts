@@ -92,6 +92,7 @@ export type TypeAheadHandler = {
     editorState: EditorState;
     query: string;
     stats: TypeAheadStats;
+    wasItemInserted?: boolean;
   }) => void;
   getHighlight?: (state: EditorState) => JSX.Element | null;
 };

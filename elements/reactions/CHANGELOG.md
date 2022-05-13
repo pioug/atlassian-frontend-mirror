@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 21.3.0
+
+### Minor Changes
+
+- [`8db47b60a8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8db47b60a8f) - [ux] Updated reactions count color to be accessible, pluralize the more emojis tooltip, and stopped the reactions button click event from propagating into the reactions tooltip.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.2.5
 
 ### Patch Changes

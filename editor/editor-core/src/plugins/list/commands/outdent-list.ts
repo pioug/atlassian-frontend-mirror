@@ -14,6 +14,7 @@ import { isBulletList } from '../utils/node';
 import { findFirstParentListNode } from '../utils/find';
 import { getCommonListAnalyticsAttributes } from '../utils/analytics';
 import { outdentListItemsSelected as outdentListAction } from '../actions/outdent-list-items-selected';
+import { closeHistory } from 'prosemirror-history';
 
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 export function outdentList(
@@ -29,6 +30,9 @@ export function outdentList(
       // Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place
       return true;
     }
+
+    // Save the history, so it could undo/revert to the same state before the outdent, see https://product-fabric.atlassian.net/browse/ED-14753
+    closeHistory(state.tr);
 
     const actionSubjectId = isBulletList(parentListNode.node)
       ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET

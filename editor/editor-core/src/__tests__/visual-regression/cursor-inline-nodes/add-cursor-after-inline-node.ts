@@ -10,11 +10,6 @@ const initEditor = async (_adf: Object, page: PuppeteerPage) =>
   initEditorWithAdf(page, {
     adf: _adf,
     appearance: Appearance.fullPage,
-    editorProps: {
-      featureFlags: {
-        displayInlineBlockForInlineNodes: true,
-      },
-    },
   });
 
 describe('Cursor/status:', () => {

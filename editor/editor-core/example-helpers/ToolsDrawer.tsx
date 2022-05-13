@@ -89,17 +89,12 @@ const providers = {
   },
   mediaProvider: {
     resolved: storyMediaProviderFactory(),
-    'resolved (no auth provider)': storyMediaProviderFactory({
-      useMediaPickerAuthProvider: false,
-    }),
+    'resolved (no auth provider)': storyMediaProviderFactory(),
 
     pending: pendingPromise,
     rejected: rejectedPromise,
     'view only': storyMediaProviderFactory({
       includeUploadMediaClientConfig: false,
-    }),
-    'w/o userAuthProvider': storyMediaProviderFactory({
-      includeUserAuthProvider: false,
     }),
 
     undefined: undefined,

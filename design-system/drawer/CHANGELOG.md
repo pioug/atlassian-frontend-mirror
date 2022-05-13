@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.1.9
+
+### Patch Changes
+
+- [`45e0af67ad3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45e0af67ad3) - Internal change to make styles statically analyzable
+
 ## 7.1.8
 
 ### Patch Changes

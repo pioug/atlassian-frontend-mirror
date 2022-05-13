@@ -36,6 +36,9 @@ const whitelistedURLPatterns = [
   /^#/im,
 ];
 
+/**
+ * Please notify the Editor Mobile team (Slack: #help-mobilekit) if the logic for this changes.
+ */
 export const isSafeUrl = (url: string): boolean => {
   const urlTrimmed = url.trim();
   if (urlTrimmed.length === 0) {

@@ -8,13 +8,14 @@ import {
   akEditorDeleteBorder,
   akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const UnsupportedSharedCssClassName = {
   BLOCK_CONTAINER: 'unsupportedBlockView-content-wrap',
   INLINE_CONTAINER: 'unsupportedInlineView-content-wrap',
 };
 
-const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} > span`;
+const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} > span:nth-child(2)`;
 const blockUnsupportedSelector = `.${UnsupportedSharedCssClassName.BLOCK_CONTAINER} > div`;
 
 export const unsupportedStyles = css`
@@ -30,8 +31,12 @@ export const unsupportedStyles = css`
   .danger {
     .${akEditorSelectedNodeClassName}${blockUnsupportedSelector},
       .${akEditorSelectedNodeClassName}${inlineUnsupportedSelector} {
-      border: ${akEditorSelectedBorderSize}px solid ${akEditorDeleteBorder};
-      background-color: ${akEditorDeleteBackgroundWithOpacity};
+      border: ${akEditorSelectedBorderSize}px solid
+        ${token('color.border.danger', akEditorDeleteBorder)};
+      background-color: ${token(
+        'color.blanket.danger',
+        akEditorDeleteBackgroundWithOpacity,
+      )};
     }
   }
 `;

@@ -58,7 +58,7 @@ const staticItemWithoutTruncationStyles = css({
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const { truncationWidth, text, ...restButtonProps } = props;
+  const { truncationWidth, text, onTooltipShown, ...restButtonProps } = props;
 
   const showTooltip = useOverflowable(truncationWidth, buttonRef);
   const buttonProps = {
@@ -90,7 +90,7 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
       {showTooltip ? (
         /* The div exists because of tooltip */
         <LazySuspense fallback={<div>{step}</div>}>
-          <AKTooltip content={text} position="bottom">
+          <AKTooltip content={text} position="bottom" onShow={onTooltipShown}>
             {step}
           </AKTooltip>
         </LazySuspense>

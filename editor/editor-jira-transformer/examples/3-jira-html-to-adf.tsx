@@ -1,10 +1,11 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
-import styled from 'styled-components';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { JIRATransformer } from '../src';
 
-const Container = styled.div`
+const container = css`
   #source,
   #output {
     box-sizing: border-box;
@@ -48,12 +49,12 @@ class Example extends React.PureComponent<{}, State> {
 
   render() {
     return (
-      <Container>
+      <div css={container}>
         <textarea id="source" onChange={this.handleChange} />
         <pre id="output">
           {JSON.stringify(getADF(this.state.source), null, 2)}
         </pre>
-      </Container>
+      </div>
     );
   }
 }

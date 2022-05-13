@@ -55,7 +55,6 @@ describe('<ResizableMediaSingle />', () => {
 
     const mockMediaClient = fakeMediaClient({
       ...mediaClientConfig,
-      userAuthProvider: mediaClientConfig.authProvider,
     });
 
     return { mediaClient: mockMediaClient };

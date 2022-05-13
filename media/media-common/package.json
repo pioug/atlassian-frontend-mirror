@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.12.1",
+  "version": "2.13.0",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,7 +16,7 @@
   "atlaskit:src": "src/index.ts",
   "af:exports": {
     "./downloadUrl": "./src/downloadUrl.ts",
-    "./mediaFeatureFlags": "./src/mediaFeatureFlags.ts",
+    "./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
     "./analytics": "./src/analytics/index.ts",
     "./docs": "./src/docs/index.ts",
     "./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/media-test-helpers": "^29.4.0",
+    "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react": "^16.8.0",

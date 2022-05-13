@@ -1,5 +1,18 @@
 # @atlaskit/banner
 
+## 11.5.0
+
+### Minor Changes
+
+- [`46ea9efa81e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46ea9efa81e) - [ux] Remove open/close animation. Restructure component to reduce nested divs.
+
+### Patch Changes
+
+- [`9fd5ab9a6b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fd5ab9a6b4) - Refactor dynamic styles that rely on appearance
+- [`8da8f216d84`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8da8f216d84) - Memoize getA11yProps() function and clean up a11y unit tests.
+- [`05872fbd60e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05872fbd60e) - Convert from class component to a functional component. Migrate unit tests from enzyme to RTL.
+- [`7952548ec4a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7952548ec4a) - Revert changes made to DOM structure and refs
+
 ## 11.4.11
 
 ### Patch Changes

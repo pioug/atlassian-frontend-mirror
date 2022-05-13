@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
-  mediaPickerAuthProvider,
+  defaultMediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
@@ -37,7 +37,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 
   componentDidMount() {
     const mediaClientConfig: MediaClientConfig = {
-      authProvider: mediaPickerAuthProvider(),
+      authProvider: defaultMediaPickerAuthProvider(),
     };
     const uploadParams: UploadParams = {
       collection: this.state.collectionName,

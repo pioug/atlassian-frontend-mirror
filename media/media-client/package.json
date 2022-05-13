@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "15.1.1",
+  "version": "16.0.0",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,14 +27,13 @@
     }
   },
   "dependencies": {
-    "@atlaskit/chunkinator": "^3.1.0",
-    "@atlaskit/media-common": "^2.12.0",
+    "@atlaskit/chunkinator": "^4.0.0",
+    "@atlaskit/media-common": "^2.13.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
     "deep-equal": "^1.0.1",
     "eventemitter2": "^4.1.0",
     "lru-fast": "^0.2.2",
-    "query-string": "^6.14.1",
     "rusha": "^0.8.13",
     "rxjs": "^5.5.0",
     "setimmediate": "^1.0.5",
@@ -44,19 +43,18 @@
     "xstate": "^4.20.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^32.3.1",
+    "@atlaskit/media-core": "^33.0.0",
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^73.5.0",
-    "@atlaskit/media-core": "^32.3.0",
-    "@atlaskit/media-test-helpers": "^29.4.0",
+    "@atlaskit/media-card": "^73.6.0",
+    "@atlaskit/media-core": "^33.0.0",
+    "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/deep-equal": "^1.0.1",
-    "@types/query-string": "^4.3.1",
     "@types/uuid-validate": "^0.0.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",

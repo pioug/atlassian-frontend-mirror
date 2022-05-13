@@ -6,10 +6,12 @@ import { N20, N30 } from '@atlaskit/theme/colors';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { sortingIconMessages } from '../messages';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { token } from '@atlaskit/tokens';
 
 // We use data url here because of this issue:
 // https://product-fabric.atlassian.net/browse/ED-8001
 // Remove this workaround if Firefox has fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1664350
+// TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4136
 export const TableSortIconDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M-8-6h24v24H-8z"></path><path d="M3 8.509V1c0-.552.449-1 1-1 .552 0 1 .448 1 1V8.51l1.217-1.206a1.05 1.05 0 011.477 0 1.03 1.03 0 01.004 1.463l-.003.002-2.956 2.93a1.053 1.053 0 01-1.478 0L.305 8.767a1.03 1.03 0 01.001-1.464 1.05 1.05 0 011.477 0L3 8.508z" fill="#42526E"></path></g></svg>`,
 )}`;
@@ -23,6 +25,7 @@ export enum StatusClassNames {
   SORTING_NOT_ALLOWED = 'sorting-icon-svg__not-allowed',
 }
 
+// TODO: get design to check border
 const wrapperStyles = css`
   position: absolute;
   display: flex;
@@ -31,14 +34,14 @@ const wrapperStyles = css`
   margin: 6px;
   right: 0;
   top: 0;
-  border: 2px solid #fff;
+  border: 2px solid ${token('color.border.inverse', '#fff')};
   border-radius: ${gridSize() / 2}px;
-  background-color: ${N20};
+  background-color: ${token('color.background.neutral.subtle', N20)};
   justify-content: center;
   align-items: center;
 
   &:hover {
-    background-color: ${N30};
+    background-color: ${token('color.background.neutral.subtle.hovered', N30)};
   }
 
   &.${StatusClassNames.SORTING_NOT_ALLOWED} {

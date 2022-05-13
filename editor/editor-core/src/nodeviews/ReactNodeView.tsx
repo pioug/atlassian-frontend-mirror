@@ -17,16 +17,12 @@ import {
   getPosHandler,
   ForwardRef,
 } from './types';
-import { getFeatureFlags } from '../plugins/feature-flags-context';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import {
   getPerformanceOptions,
   startMeasureReactNodeViewRendered,
   stopMeasureReactNodeViewRendered,
 } from './getPerformanceOptions';
-interface CreateDomRefOptions {
-  displayInlineBlockForInlineNodes: boolean;
-}
 export default class ReactNodeView<P = ReactComponentProps>
   implements NodeView {
   private domRef?: HTMLElement;
@@ -152,24 +148,12 @@ export default class ReactNodeView<P = ReactComponentProps>
     );
   }
 
-  createDomRef(options?: CreateDomRefOptions): HTMLElement {
+  createDomRef(): HTMLElement {
     if (!this.node.isInline) {
       return document.createElement('div');
     }
 
     const htmlElement = document.createElement('span');
-    const state = this.view.state;
-    const featureFlags = getFeatureFlags(state);
-
-    if (
-      featureFlags &&
-      featureFlags.displayInlineBlockForInlineNodes &&
-      options?.displayInlineBlockForInlineNodes !== false
-    ) {
-      htmlElement.style.display = 'inline-block';
-      htmlElement.style.userSelect = 'all';
-    }
-
     return htmlElement;
   }
 

@@ -10,6 +10,7 @@ import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRender
 import { Node } from 'prosemirror-model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { css, jsx } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
 const transformer = new JSONTransformer();
 
@@ -69,8 +70,8 @@ function AnnotationSelect({
 
 const wrapperStyle = css`
   [data-mark-type='annotation'] {
-    background-color: ${Y75};
-    border-bottom: 2px solid ${Y200};
+    background-color: ${token('color.background.accent.yellow.subtler', Y75)};
+    border-bottom: 2px solid ${token('color.border.accent.yellow', Y200)};
   }
 `;
 

@@ -86,13 +86,14 @@ export const getDecorations = (
     tr.selection instanceof TextSelection ||
     tr.selection instanceof AllSelection
   ) {
-    const decorations = getTopLevelNodesFromSelection(tr.selection, tr.doc).map(
-      ({ node, pos }) => {
-        return Decoration.node(pos, pos + node.nodeSize, {
-          class: akEditorSelectedNodeClassName,
-        });
-      },
-    );
+    const decorations = getNodesToDecorateFromSelection(
+      tr.selection,
+      tr.doc,
+    ).map(({ node, pos }) => {
+      return Decoration.node(pos, pos + node.nodeSize, {
+        class: akEditorSelectedNodeClassName,
+      });
+    });
     return DecorationSet.create(tr.doc, decorations);
   }
   return DecorationSet.empty;
@@ -145,39 +146,60 @@ export function getCellSelectionAnalyticsPayload(
   }
 }
 
+const topLevelBlockNodesThatHaveSelectionStyles = [
+  'table',
+  'panel',
+  'expand',
+  'layoutSection',
+  'decisionList',
+  'decisionItem',
+  'codeBlock',
+];
+
 /**
- * Use `getTopLevelNodesFromSelection` to collect and return
- * a list of only the outermost nodes of the given/passed `Selection`. This
- * function will ignore `paragraph` and `text` node types when collecting
- * top-level nodes. It will also ignore any top-level nodes that don't
- * completely sit within the given `Selection`.
- *
- * For example, using the following document:
- * ```
- * doc(p('{<}one'), blockquote(p('hello')), p(expand({ title: 'two' })(p('three'))), p('four{>}'))))
- * ```
- * we would expect `getTopLevelNodesFromSelection` to return:
- * ```
- * [blockquote(p('hello')), expand({ title: 'two' })(p('three')))]
- * ```
+ * Use `getNodesToDecorateFromSelection` to collect and return
+ * a list of nodes within the Selection that should have Selection
+ * decorations applied. This allows selection styles to be added to
+ * nested nodes. It will ignore text nodes as decorations are
+ * applied natively and also ignore nodes that don't completely
+ * sit within the given `Selection`.
  */
-export const getTopLevelNodesFromSelection = (
+export const getNodesToDecorateFromSelection = (
   selection: Selection,
   doc: PmNode,
 ) => {
   const nodes: { node: PmNode; pos: number }[] = [];
   if (selection.from !== selection.to) {
     const { from, to } = selection;
+
     doc.nodesBetween(from, to, (node, pos) => {
       const withinSelection = from <= pos && pos + node.nodeSize <= to;
-      if (
-        node &&
-        node.type.name !== 'paragraph' &&
-        !node.isText &&
-        withinSelection
-      ) {
+      // The reason we need to check for these nodes is to stop
+      // traversing their children if they are within a selection -
+      // this is to prevent selection styles from being added to
+      // the children as well as the parent node.
+      // Example scenario is if an entire table has been selected
+      // we should not traverse its children so we can apply the
+      // selection styles to the table. But if an entire tableRow
+      // has been selected (but the parent table has not) we should
+      // traverse it as it could contain other nodes that need
+      // selection styles. I couldn’t see a clear way to differentiate
+      // without explicitly stating which nodes should be traversed
+      // and which shouldn’t.
+      const isTopLevelNodeThatHasSelectionStyles = topLevelBlockNodesThatHaveSelectionStyles.includes(
+        node.type.name,
+      );
+      // If the node is a top-level block node and completely sits within
+      // the selection, we do not recurse it's children to prevent selection
+      // styles being added to its child nodes. The expected behaviour
+      // is that selection styles are only added to the parent.
+      if (node && withinSelection && isTopLevelNodeThatHasSelectionStyles) {
         nodes.push({ node, pos });
         return false;
+        // Otherwise we recurse the children and return them so we can apply
+        // selection styles. Text is handled by the browser.
+      } else if (node && withinSelection && !node.isText) {
+        nodes.push({ node, pos });
       }
       return true;
     });

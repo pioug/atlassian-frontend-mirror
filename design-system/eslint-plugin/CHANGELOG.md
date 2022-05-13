@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.4.5
+
+### Patch Changes
+
+- [`344784eec9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/344784eec9e) - Fix linting error message for focusRing import
+
 ## 4.4.4
 
 ### Patch Changes

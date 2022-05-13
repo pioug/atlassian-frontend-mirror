@@ -2,7 +2,6 @@ import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, PluginKey, SafeStateField } from 'prosemirror-state';
 import { emoji } from '@atlaskit/adf-schema';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Fragment } from 'prosemirror-model';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import {
@@ -13,9 +12,11 @@ import {
   recordSelectionSucceededSli,
   recordSelectionFailedSli,
 } from '@atlaskit/emoji';
-import { Command, EditorPlugin } from '../../types';
-import { Dispatch } from '../../event-dispatcher';
-import { PortalProviderAPI } from '../../ui/PortalProvider';
+
+import type { Command, EditorPlugin, PMPluginFactoryParams } from '../../types';
+
+import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
+
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
 import {
   ACTION,
@@ -26,14 +27,11 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { IconEmoji } from '../quick-insert/assets';
-import emojiNodeView from './nodeviews/emoji';
-import emojiNodeViewNext from './nodeviews/emoji-next';
+import { EmojiNodeView } from './nodeviews/emoji';
 import { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { EmojiContextProvider } from './ui/EmojiContextProvider';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
-import { EventDispatcher } from '../../event-dispatcher';
-import { getFeatureFlags } from '../feature-flags-context';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 
 export const emojiToTypeaheadItem = (
@@ -207,19 +205,8 @@ const emojiPlugin = (options?: EmojiPluginOptions): EditorPlugin => {
       return [
         {
           name: 'emoji',
-          plugin: ({
-            providerFactory,
-            dispatch,
-            portalProviderAPI,
-            eventDispatcher,
-          }) =>
-            emojiPluginFactory(
-              dispatch,
-              providerFactory,
-              portalProviderAPI,
-              eventDispatcher,
-              options,
-            ),
+          plugin: (pmPluginFactoryParams) =>
+            createEmojiPlugin(pmPluginFactoryParams),
         },
         {
           name: 'emojiAsciiInputRule',
@@ -307,12 +294,8 @@ export function getEmojiPluginState(state: EditorState) {
   return (emojiPluginKey.getState(state) || {}) as EmojiPluginState;
 }
 
-export function emojiPluginFactory(
-  dispatch: Dispatch,
-  providerFactory: ProviderFactory,
-  portalProviderAPI: PortalProviderAPI,
-  eventDispatcher: EventDispatcher,
-  options?: EmojiPluginOptions,
+export function createEmojiPlugin(
+  pmPluginFactoryParams: PMPluginFactoryParams,
 ) {
   return new SafePlugin<EmojiPluginState>({
     key: emojiPluginKey,
@@ -334,14 +317,14 @@ export function emojiPluginFactory(
               ...pluginState,
               emojiProvider: params.provider,
             };
-            dispatch(emojiPluginKey, newPluginState);
+            pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
             return newPluginState;
           case ACTIONS.SET_ASCII_MAP:
             newPluginState = {
               ...pluginState,
               asciiMap: params.asciiMap,
             };
-            dispatch(emojiPluginKey, newPluginState);
+            pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
             return newPluginState;
         }
 
@@ -350,18 +333,13 @@ export function emojiPluginFactory(
     } as SafeStateField<EmojiPluginState>,
     props: {
       nodeViews: {
-        emoji(node, view, getPos) {
-          const featureFlags = getFeatureFlags(view.state);
-          const createEmojiNodeView = featureFlags?.nextEmojiNodeView
-            ? emojiNodeViewNext(providerFactory, options)
-            : emojiNodeView(
-                portalProviderAPI,
-                eventDispatcher,
-                providerFactory,
-                options,
-              );
-          return createEmojiNodeView(node, view, getPos);
-        },
+        emoji: getInlineNodeViewProducer({
+          pmPluginFactoryParams,
+          Component: EmojiNodeView,
+          extraComponentProps: {
+            providerFactory: pmPluginFactoryParams.providerFactory,
+          },
+        }),
       },
     },
     view(editorView) {
@@ -393,12 +371,18 @@ export function emojiPluginFactory(
         return;
       };
 
-      providerFactory.subscribe('emojiProvider', providerHandler);
+      pmPluginFactoryParams.providerFactory.subscribe(
+        'emojiProvider',
+        providerHandler,
+      );
 
       return {
         destroy() {
-          if (providerFactory) {
-            providerFactory.unsubscribe('emojiProvider', providerHandler);
+          if (pmPluginFactoryParams.providerFactory) {
+            pmPluginFactoryParams.providerFactory.unsubscribe(
+              'emojiProvider',
+              providerHandler,
+            );
           }
         },
       };

@@ -1,5 +1,16 @@
 # @atlaskit/media-ui
 
+## 22.0.0
+
+### Major Changes
+
+- [`6b7ba46a96b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b7ba46a96b) - [MEX-1456] Remove unused infinite scroll from Media-UI and Remove lodash from Media package
+
+### Patch Changes
+
+- [`a5d25a077bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5d25a077bc) - removed duplicated module from Confluence's node_modules introduced with our components
+- Updated dependencies
+
 ## 21.1.1
 
 ### Patch Changes

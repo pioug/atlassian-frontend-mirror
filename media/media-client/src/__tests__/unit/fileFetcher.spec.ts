@@ -7,7 +7,6 @@ import {
   RECENTS_COLLECTION,
   globalMediaEventEmitter,
   MediaViewedEventPayload,
-  getFileStreamsCache,
   uploadFile,
   UploadableFile,
   UploadableFileUpfrontIds,
@@ -19,6 +18,7 @@ import {
   FileFetcherError,
   FileState,
 } from '../..';
+import { getFileStreamsCache } from '../../file-streams-cache';
 import uuid from 'uuid';
 import { UploadFileCallbacks } from '../../uploader';
 import { FileFetcherImpl } from '../../client/file-fetcher';
@@ -527,8 +527,8 @@ describe('FileFetcher', () => {
       const copyFileWithTokenMock = jest
         .fn()
         .mockResolvedValue({ data: { mimeType: 'application/octet-stream' } });
-      const userAuthProvider = jest.fn();
-      const mediaStore = createMockMediaStore(userAuthProvider);
+      const authProvider = jest.fn();
+      const mediaStore = createMockMediaStore(authProvider);
 
       mediaStore.copyFileWithToken = copyFileWithTokenMock;
 

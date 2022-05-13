@@ -5,12 +5,13 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N300, N50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const inputStyle = css`
   /* Normal .className gets overridden by input[type=text] hence this hack to produce input.className */
   input& {
     background-color: white;
-    border: 1px solid ${akEditorSubtleAccent};
+    border: 1px solid ${token('color.border.input', akEditorSubtleAccent)};
     border-radius: ${borderRadius()}px;
     box-sizing: border-box;
     height: 40px;

@@ -4,8 +4,8 @@ import { Component } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import {
-  mediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
+  defaultMediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import { Browser } from '../src';
@@ -25,7 +25,7 @@ export interface BrowserWrapperState {
 }
 
 const mediaClientConfig: MediaClientConfig = {
-  authProvider: mediaPickerAuthProvider(),
+  authProvider: defaultMediaPickerAuthProvider(),
 };
 
 const browseConfig: BrowserConfig = {

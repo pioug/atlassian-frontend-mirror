@@ -20,6 +20,14 @@ export class EventDispatcher<T = any> {
     this.listeners[event].add(cb);
   }
 
+  has(event: string, cb: Listener<T>): boolean {
+    if (!this.listeners[event]) {
+      return false;
+    }
+
+    return this.listeners[event].has(cb);
+  }
+
   off(event: string, cb: Listener<T>): void {
     if (!this.listeners[event]) {
       return;

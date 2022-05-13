@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
@@ -21,11 +21,17 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   url,
   onClick,
   testId,
+  onResolve,
 }: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
   const context = getContextByStatus(url, status, details, renderers);
   const retry = getRetryOptions(url, status, details, onAuthorize);
+  useEffect(() => {
+    if (status === 'resolved' && onResolve) {
+      onResolve({ url });
+    }
+  }, [onResolve, status, url]);
   return (
     <FlexibleUiContext.Provider value={context}>
       <Container

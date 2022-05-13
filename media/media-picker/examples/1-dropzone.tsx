@@ -3,7 +3,6 @@ import React from 'react';
 import { Component } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import {
-  userAuthProvider,
   defaultMediaPickerCollectionName,
   createUploadMediaClientConfig,
   createStorybookMediaClientConfig,
@@ -51,25 +50,6 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
     lastItems: [],
     fileIds: [],
   };
-
-  // TODO: Move into example-helpers
-  fetchLastItems() {
-    this.setState({ isFetchingLastItems: true });
-
-    userAuthProvider()
-      .then(({ clientId, token, baseUrl }) => {
-        const queryParams = `client=${clientId}&token=${token}&limit=5&details=full&sortDirection=desc`;
-        return fetch(`${baseUrl}/collection/recents/items?${queryParams}`);
-      })
-      .then((r) => r.json())
-      .then((data) => {
-        const lastItems = data.data.contents;
-        this.setState({
-          lastItems,
-          isFetchingLastItems: false,
-        });
-      });
-  }
 
   onUploadsStart = (payload: UploadsStartEventPayload) => {
     const fileIds = payload.files.map(({ id }) => id);
@@ -124,7 +104,6 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
 
   saveDropzoneContainer = async (element: HTMLDivElement) => {
     this.setState({ dropzoneContainer: element });
-    this.fetchLastItems();
   };
 
   onConnectionChange = () => {
@@ -160,10 +139,6 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
     });
   };
 
-  onFetchLastItems = () => {
-    this.fetchLastItems();
-  };
-
   render() {
     const { isConnectedToUsersCollection, isActive } = this.state;
 
@@ -171,9 +146,6 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
       <IntlProvider locale={'en'}>
         <PopupContainer>
           <PopupHeader>
-            <Button appearance="primary" onClick={this.onFetchLastItems}>
-              Fetch last items
-            </Button>
             <Button appearance="danger">Cancel uploads</Button>
             Connected to users collection
             <Toggle

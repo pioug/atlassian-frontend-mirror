@@ -6,12 +6,7 @@ import { fireEvent, render } from '@testing-library/react';
 import CachingEmoji from '../../../../components/common/CachingEmoji';
 import EmojiResource from '../../../../api/EmojiResource';
 import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
-import {
-  imageEmoji,
-  mediaEmoji,
-  missingMediaEmoji,
-  loadedMediaEmoji,
-} from '../../_test-data';
+import { imageEmoji, mediaEmoji } from '../../_test-data';
 import { EmojiContextType } from '../../../../context/EmojiContext';
 import { EmojiDescription } from '../../../../types';
 import { ufoExperiences } from '../../../../util/analytics';
@@ -70,8 +65,10 @@ describe('<CachingEmoji />', () => {
         emojiProviderStub = sinon.createStubInstance(EmojiResource);
       });
 
-      it('has lazyload defined on the image attribute', async () => {
-        emojiProviderStub.optimisticMediaRendering.returns(true);
+      it('Renders placeholder emoji tokenisation transform fails to parse emoji description', async () => {
+        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
+          Promise.reject(),
+        );
         const emojiContextValue = {
           emoji: {
             emojiProvider: emojiProviderStub,
@@ -81,13 +78,21 @@ describe('<CachingEmoji />', () => {
           emojiContextValue,
           mediaEmoji,
         );
-        const image = result.container.firstChild?.firstChild;
 
-        expect(image).toHaveAttribute('loading', 'lazy');
+        const span = await result.findByTitle('');
+        expect(span).toHaveAttribute('aria-label', ':media:');
       });
 
-      it('renders direct url if optimistic rendering is true', async () => {
-        emojiProviderStub.optimisticMediaRendering.returns(true);
+      it('renders caching emoji when emoji decription can be transformed', async () => {
+        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
+          Promise.resolve({
+            ...mediaEmoji,
+            representation: {
+              ...mediaEmoji.representation,
+              mediaPath: `${mediaEmoji.representation.mediaPath}&token=abc&client=def`,
+            },
+          }),
+        );
         const emojiContextValue = {
           emoji: {
             emojiProvider: emojiProviderStub,
@@ -97,54 +102,13 @@ describe('<CachingEmoji />', () => {
           emojiContextValue,
           mediaEmoji,
         );
+
         const image = result.container.firstChild?.firstChild;
 
-        expect(image).not.toBeNull();
         expect(image).toHaveAttribute(
           'src',
-          mediaEmoji.representation.mediaPath,
+          'https://media.example.com/path-to-image.png&token=abc&client=def',
         );
-        expect(image).toHaveAttribute('alt', mediaEmoji.shortName);
-      });
-
-      it('loads emoji via cache (promise) if optimistic rendering is false', async () => {
-        emojiProviderStub.optimisticMediaRendering.returns(false);
-        emojiProviderStub.loadMediaEmoji.returns(
-          Promise.resolve(loadedMediaEmoji),
-        );
-        const emojiContextValue = {
-          emoji: {
-            emojiProvider: emojiProviderStub,
-          },
-        };
-        const result = await createEmojiContextWrapperRenderer(
-          emojiContextValue,
-          mediaEmoji,
-        );
-        const image = result.container.firstChild?.firstChild;
-
-        expect(image).not.toBeNull();
-        expect(image).toHaveAttribute('src', expect.stringContaining('base64'));
-        expect(image).toHaveAttribute('alt', loadedMediaEmoji.shortName);
-      });
-
-      it('loads emoji via cache (non promise) if optimistic rendering is false', async () => {
-        emojiProviderStub.optimisticMediaRendering.returns(false);
-        emojiProviderStub.loadMediaEmoji.returns(loadedMediaEmoji);
-        const emojiContextValue = {
-          emoji: {
-            emojiProvider: emojiProviderStub,
-          },
-        };
-        const result = await createEmojiContextWrapperRenderer(
-          emojiContextValue,
-          mediaEmoji,
-        );
-        const image = result.container.firstChild?.firstChild;
-
-        expect(image).not.toBeNull();
-        expect(image).toHaveAttribute('src', expect.stringContaining('base64'));
-        expect(image).toHaveAttribute('alt', loadedMediaEmoji.shortName);
       });
 
       it('should success rendered emoji UFO experience', async () => {
@@ -154,6 +118,15 @@ describe('<CachingEmoji />', () => {
         const startSpy = jest.spyOn(experience, 'start');
         const successSpy = jest.spyOn(experience, 'success');
         emojiProviderStub.optimisticMediaRendering.returns(true);
+        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
+          Promise.resolve({
+            ...mediaEmoji,
+            representation: {
+              ...mediaEmoji.representation,
+              mediaPath: `${mediaEmoji.representation.mediaPath}&token=abc&client=def`,
+            },
+          }),
+        );
 
         const emojiContextValue = {
           emoji: {
@@ -182,6 +155,15 @@ describe('<CachingEmoji />', () => {
         const successSpy = jest.spyOn(experience, 'success');
         const failureSpy = jest.spyOn(experience, 'failure');
         emojiProviderStub.optimisticMediaRendering.returns(true);
+        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
+          Promise.resolve({
+            ...mediaEmoji,
+            representation: {
+              ...mediaEmoji.representation,
+              mediaPath: `${mediaEmoji.representation.mediaPath}&token=abc&client=def`,
+            },
+          }),
+        );
 
         const emojiContextValue = {
           emoji: {
@@ -204,41 +186,22 @@ describe('<CachingEmoji />', () => {
         expect(failureSpy).toHaveBeenCalled();
       });
 
-      it('fails to load emojis via cache (promise) if optimistic rendering is false', async () => {
-        const experience = ufoExperiences['emoji-rendered'].getInstance(
-          missingMediaEmoji.id || missingMediaEmoji.shortName,
-        );
-        const startSpy = jest.spyOn(experience, 'start');
-        const successSpy = jest.spyOn(experience, 'success');
-        const failureSpy = jest.spyOn(experience, 'failure');
-        emojiProviderStub.optimisticMediaRendering.returns(false);
-        emojiProviderStub.loadMediaEmoji.returns(Promise.reject());
-
-        const emojiContextValue = {
-          emoji: {
-            emojiProvider: emojiProviderStub,
-          },
-        };
-
-        const result = await createEmojiContextWrapperRenderer(
-          emojiContextValue,
-          missingMediaEmoji,
-        );
-
-        const image = result.container.firstChild?.firstChild;
-        expect(image).toBeNull();
-        await new Promise((r) => setTimeout(r, 1));
-        expect(startSpy).toHaveBeenCalled();
-        expect(successSpy).not.toHaveBeenCalled();
-        expect(failureSpy).toHaveBeenCalled();
-      });
-      test('should abort rendered emoji UFO experience on unmount', async () => {
+      it('should abort rendered emoji UFO experience on unmount', async () => {
         const experience = ufoExperiences['emoji-rendered'].getInstance(
           mediaEmoji.id || mediaEmoji.shortName,
         );
         const startSpy = jest.spyOn(experience, 'start');
         const abortSpy = jest.spyOn(experience, 'abort');
         emojiProviderStub.optimisticMediaRendering.returns(true);
+        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
+          Promise.resolve({
+            ...mediaEmoji,
+            representation: {
+              ...mediaEmoji.representation,
+              mediaPath: `${mediaEmoji.representation.mediaPath}&token=abc&client=def`,
+            },
+          }),
+        );
 
         const emojiContextValue = {
           emoji: {
@@ -255,8 +218,8 @@ describe('<CachingEmoji />', () => {
         expect(startSpy).toHaveBeenCalled();
         expect(abortSpy).toHaveBeenCalled();
       });
-      // Use enzyme for this test at the moment while trying to figure out how to simulate component error in testing library
-      test('should fail rendered emoji UFO experience on render issue', () => {
+
+      it('should fail rendered emoji UFO experience on render issue', () => {
         const contextOptions = {
           context: {
             emoji: {
@@ -275,6 +238,15 @@ describe('<CachingEmoji />', () => {
         const failureSpy = jest.spyOn(experience, 'failure');
 
         emojiProviderStub.optimisticMediaRendering.returns(true);
+        emojiProviderStub.getMediaEmojiDescriptionURLWithInlineToken.returns(
+          Promise.resolve({
+            ...mediaEmoji,
+            representation: {
+              ...mediaEmoji.representation,
+              mediaPath: `${mediaEmoji.representation.mediaPath}&token=abc&client=def`,
+            },
+          }),
+        );
 
         const component = mount(
           <CachingEmoji emoji={mediaEmoji} />,

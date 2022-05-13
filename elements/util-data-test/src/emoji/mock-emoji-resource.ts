@@ -23,6 +23,18 @@ export class MockEmojiResource
     }
   }
 
+  async getMediaEmojiDescriptionURLWithInlineToken(
+    emoji: EmojiDescription,
+  ): Promise<EmojiDescription> {
+    if (this.promiseBuilder) {
+      return this.promiseBuilder(
+        emoji,
+        'getMediaEmojiDescriptionURLWithInlineToken',
+      );
+    }
+    return emoji;
+  }
+
   isUploadSupported(): Promise<boolean> {
     return this.promiseBuilder(this.uploadSupported, 'isUploadSupported');
   }

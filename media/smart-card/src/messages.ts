@@ -5,11 +5,13 @@ export type MessageKey =
   | 'click_to_join'
   | 'connect_link_account'
   | 'created_by'
-  | 'created_on'
+  | 'created_on_relative'
+  | 'created_on_absolute'
   | 'delete'
   | 'edit'
   | 'modified_by'
-  | 'modified_on'
+  | 'modified_on_relative'
+  | 'modified_on_absolute'
   | 'priority_blocker'
   | 'priority_critical'
   | 'priority_high'
@@ -58,10 +60,15 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Created by {context}',
     description: 'Indicates the person or entity that created the resource.',
   },
-  created_on: {
-    id: 'fabric.linking.create_on',
+  created_on_relative: {
+    id: 'fabric.linking.create_on_relative',
     defaultMessage: 'Created {context}',
-    description: 'Indicated when entity was created',
+    description: 'Indicated when entity was created (relative form)',
+  },
+  created_on_absolute: {
+    id: 'fabric.linking.create_on_absolute',
+    defaultMessage: 'Created on {context}',
+    description: 'Indicated when entity was created (absolute form)',
   },
   delete: {
     id: 'fabric.linking.delete',
@@ -78,10 +85,15 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Modified by {context}',
     description: 'Indicates the person or entity that modified the resource.',
   },
-  modified_on: {
-    id: 'fabric.linking.modified_on',
+  modified_on_relative: {
+    id: 'fabric.linking.modified_on_relative',
     defaultMessage: 'Updated {context}',
-    description: 'Indicated when entity was modified',
+    description: 'Indicated when entity was modified (relative form)',
+  },
+  modified_on_absolute: {
+    id: 'fabric.linking.modified_on_absolute',
+    defaultMessage: 'Updated on {context}',
+    description: 'Indicated when entity was modified (absolute form)',
   },
   priority_blocker: {
     id: 'fabric.linking.priority_blocker',

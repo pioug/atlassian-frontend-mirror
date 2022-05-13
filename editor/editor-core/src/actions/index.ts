@@ -17,6 +17,7 @@ import { findNodePosWithLocalId } from '../plugins/extension/utils';
 import { getFeatureFlags } from '../plugins/feature-flags-context/get-feature-flags';
 import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
 import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import deprecationWarnings from '../utils/deprecation-warnings';
 
 export type ContextUpdateHandler = (
   editorView: EditorView,
@@ -192,8 +193,22 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   replaceDocument(
     rawValue: any,
     shouldScrollToBottom = true,
+    /** @deprecated [ED-14158] shouldAddToHistory is not being used in this function */
     shouldAddToHistory = true,
   ): boolean {
+    deprecationWarnings(
+      'EditorActions.replaceDocument',
+      { shouldAddToHistory },
+      [
+        {
+          property: 'shouldAddToHistory',
+          description:
+            '[ED-14158] EditorActions.replaceDocument does not use the shouldAddToHistory arg',
+          type: 'removed',
+        },
+      ],
+    );
+
     if (!this.editorView || rawValue === undefined || rawValue === null) {
       return false;
     }

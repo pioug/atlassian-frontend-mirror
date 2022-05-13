@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "33.1.16",
+  "version": "34.0.0",
   "description": "Mobile distribution of the Editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,15 +32,15 @@
     "@atlaskit/analytics-gas-types": "5.0.6",
     "@atlaskit/analytics-listeners": "8.2.1",
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/collab-provider": "^7.3.0",
-    "@atlaskit/editor-common": "66.0.5",
-    "@atlaskit/editor-core": "165.0.0",
+    "@atlaskit/collab-provider": "^7.4.0",
+    "@atlaskit/editor-common": "67.0.0",
+    "@atlaskit/editor-core": "166.0.0",
     "@atlaskit/editor-json-transformer": "8.7.5",
-    "@atlaskit/emoji": "64.5.2",
-    "@atlaskit/legacy-mobile-macros": "2.0.7",
+    "@atlaskit/emoji": "64.6.0",
+    "@atlaskit/legacy-mobile-macros": "2.0.8",
     "@atlaskit/mention": "21.0.4",
-    "@atlaskit/renderer": "94.0.0",
-    "@atlaskit/smart-card": "19.0.1",
+    "@atlaskit/renderer": "95.0.0",
+    "@atlaskit/smart-card": "19.1.0",
     "@atlaskit/status": "1.1.1",
     "@atlaskit/task-decision": "17.4.2",
     "@atlaskit/theme": "12.1.7",
@@ -58,7 +58,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "32.3.1",
+    "@atlaskit/media-core": "33.0.0",
     "@emotion/react": "^11.7.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
@@ -72,10 +72,10 @@
     "@atlaskit/editor-test-helpers": "^17.0.0",
     "@atlaskit/form": "^8.5.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/media-client": "^15.1.0",
-    "@atlaskit/media-core": "^32.3.0",
+    "@atlaskit/media-client": "^16.0.0",
+    "@atlaskit/media-core": "^33.0.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",
-    "@atlaskit/media-test-helpers": "^29.4.0",
+    "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/select": "^15.2.0",
     "@atlaskit/textarea": "^4.3.0",
     "@atlaskit/textfield": "^5.1.0",
@@ -119,7 +119,8 @@
       ]
     },
     "@repo/internal": {
-      "deprecation": "no-deprecated-imports"
+      "deprecation": "no-deprecated-imports",
+      "theming": "tokens"
     }
   },
   "homepage": "https://bitbucket.org/atlaskit/atlaskit-mk-2#readme",

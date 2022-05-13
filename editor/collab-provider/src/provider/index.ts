@@ -730,26 +730,43 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
     const maxAttemptsToSync = ACK_MAX_TRY;
     let count = 0;
-    let unconfirmedSteps = this.getUnconfirmedSteps()?.steps;
+    let unconfirmedState = this.getUnconfirmedSteps();
 
-    while (unconfirmedSteps && unconfirmedSteps.length) {
-      this.sendStepsFromCurrentState();
-      await sleep(500);
-      unconfirmedSteps = this.getUnconfirmedSteps()?.steps;
+    if (unconfirmedState && unconfirmedState.steps.length) {
+      // We use origins here as steps can be rebased. When steps are rebased a new step is created.
+      // This means that we can not track if it has been removed from the unconfirmed array or not.
+      // Origins points to the original transaction that the step was created in. This is never changed
+      // and gets passed down when a step is rebased.
+      const unconfirmedTrs = unconfirmedState.origins;
+      const lastTr = unconfirmedTrs[unconfirmedTrs.length - 1];
+      let isLastTrConfirmed = false;
 
-      if (count++ >= maxAttemptsToSync) {
-        if (this.onSyncUpError) {
-          const state = this.getState!();
+      while (!isLastTrConfirmed) {
+        this.sendStepsFromCurrentState();
+        await sleep(500);
 
-          this.onSyncUpError({
-            lengthOfUnconfirmedSteps: unconfirmedSteps?.length,
-            tries: count,
-            maxRetries: maxAttemptsToSync,
-            clientId: this.clientId,
-            version: getVersion(state),
-          });
+        const nextUnconfirmedState = this.getUnconfirmedSteps();
+        if (nextUnconfirmedState && nextUnconfirmedState.steps.length) {
+          const nextUnconfirmedTrs = nextUnconfirmedState.origins;
+          isLastTrConfirmed = !nextUnconfirmedTrs.some((tr) => tr === lastTr);
+        } else {
+          isLastTrConfirmed = true;
         }
-        throw new Error("Can't syncup with Collab Service");
+
+        if (!isLastTrConfirmed && count++ >= maxAttemptsToSync) {
+          if (this.onSyncUpError) {
+            const state = this.getState!();
+
+            this.onSyncUpError({
+              lengthOfUnconfirmedSteps: nextUnconfirmedState?.steps.length,
+              tries: count,
+              maxRetries: maxAttemptsToSync,
+              clientId: this.clientId,
+              version: getVersion(state),
+            });
+          }
+          throw new Error("Can't syncup with Collab Service");
+        }
       }
     }
 

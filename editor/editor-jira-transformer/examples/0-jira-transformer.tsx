@@ -1,6 +1,7 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 /* eslint-disable no-console */
 import React from 'react';
-import styled from 'styled-components';
 import {
   Editor,
   EditorContext,
@@ -11,7 +12,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { JIRATransformer } from '../src';
 
-const Container = styled.div`
+const container = css`
   display: grid;
   grid-template-columns: 33% 33% 33%;
   #source,
@@ -62,7 +63,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <Container>
+      <div css={container}>
         <div
           id="source"
           contentEditable={true}
@@ -91,7 +92,7 @@ class TransformerPanels extends React.PureComponent<Props, State> {
         >
           {this.state.output}
         </div>
-      </Container>
+      </div>
     );
   }
 }

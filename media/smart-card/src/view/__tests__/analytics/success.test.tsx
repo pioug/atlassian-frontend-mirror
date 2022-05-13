@@ -396,6 +396,11 @@ describe('smart-card: success analytics', () => {
     expect(downloadActionButton).toBeTruthy();
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
+    // Clearing the render experience mocks to ensure we check correct invocation
+    // order of only action invocation experience.
+    mockStartUfoExperience.mockClear();
+    mockSucceedUfoExperience.mockClear();
+
     fireEvent.click(downloadActionButton);
     await wait(() => {
       expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
@@ -449,6 +454,11 @@ describe('smart-card: success analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+
+    // Clearing the render experience mocks to ensure we check correct invocation
+    // order of only action invocation experience.
+    mockStartUfoExperience.mockClear();
+    mockSucceedUfoExperience.mockClear();
 
     fireEvent.click(downloadActionButton);
     await wait(() => {
@@ -507,6 +517,11 @@ describe('smart-card: success analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(previewActionButton).toBeTruthy();
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+
+    // Clearing the render experience mocks to ensure we check correct invocation
+    // order of only action invocation experience.
+    mockStartUfoExperience.mockClear();
+    mockSucceedUfoExperience.mockClear();
 
     fireEvent.click(previewActionButton);
     // Analytics tied to block card should be fired.

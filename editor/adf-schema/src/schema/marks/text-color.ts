@@ -85,20 +85,20 @@ const colorArrayPalette: Array<[string, TextColorKey]> = [
 const colorArrayPaletteExtended: Array<[string, TextColorKey]> = [
   // default row - first color is added programatically
   // [N800, 'Squid ink'], // default dark gray
-  [B100, 'Blue'], // Arvo breeze
-  [T300, 'Teal'], // Tamarama
-  [G300, 'Green'], // Fine pine
-  [Y200, 'Yellow'], // Pub mix
-  [R300, 'Red'], // Poppy surprise
-  [P300, 'Purple'], // Da' juice
-  // row 2
-  [N80, 'Light gray'], // Spooky ghost
   [B500, 'Dark blue'], // Chore coat
   [T500, 'Dark teal'], // Shabby chic
   [G500, 'Dark green'], // Keen green
   [Y400, 'Orange'], // Cheezy blasters
   [R500, 'Dark red'], // Dragon's blood
   [P500, 'Dark purple'], // Prince
+  // row 2
+  [N80, 'Light gray'], // Spooky ghost
+  [B100, 'Blue'], // Arvo breeze
+  [T300, 'Teal'], // Tamarama
+  [G300, 'Green'], // Fine pine
+  [Y200, 'Yellow'], // Pub mix
+  [R300, 'Red'], // Poppy surprise
+  [P300, 'Purple'], // Da' juice
   // row 3
   [N0, 'White'],
   [B75, 'Light blue'], // Schwag

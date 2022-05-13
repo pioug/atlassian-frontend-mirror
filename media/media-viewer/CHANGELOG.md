@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 46.3.0
+
+### Minor Changes
+
+- [`d2e212a2676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2e212a2676) - Added media environment to UFO payload
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.2.2
 
 ### Patch Changes

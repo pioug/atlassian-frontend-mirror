@@ -51,7 +51,7 @@
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/icon-priority": "^6.3.0",
-    "@atlaskit/logo": "^13.5.0",
+    "@atlaskit/logo": "^13.6.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",

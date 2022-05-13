@@ -465,21 +465,23 @@ export const createTypeAheadConfig = ({
 
       return insert(Fragment.from([mentionNode, space]));
     },
-    dismiss({ editorState, query, stats }) {
+    dismiss({ editorState, query, stats, wasItemInserted }) {
       firstQueryWithoutResults = null;
       const pickerElapsedTime = stats.startedAt
         ? Date.now() - stats.startedAt
         : 0;
 
-      fireEvent(
-        buildTypeAheadCancelPayload(
-          pickerElapsedTime,
-          stats.keyCount.arrowUp,
-          stats.keyCount.arrowDown,
-          sessionId,
-          query || '',
-        ),
-      );
+      if (!wasItemInserted) {
+        fireEvent(
+          buildTypeAheadCancelPayload(
+            pickerElapsedTime,
+            stats.keyCount.arrowUp,
+            stats.keyCount.arrowDown,
+            sessionId,
+            query || '',
+          ),
+        );
+      }
 
       const pluginState = getMentionPluginState(editorState);
 

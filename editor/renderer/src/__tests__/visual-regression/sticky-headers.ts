@@ -10,6 +10,12 @@ async function scrollToPos(page: PuppeteerPage, pos: number) {
       return;
     }
     window.scrollTo(0, pos);
+    // wait for the scroll animation
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(null);
+      }, 50);
+    });
   }, pos);
 }
 

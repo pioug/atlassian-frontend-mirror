@@ -47,6 +47,7 @@ describe('Input performance latency', () => {
     trackSeverity?: boolean,
     severityNormalThreshold?: number,
     severityDegradedThreshold?: number,
+    samplingRate = 1, // send analytics event every x keystrokes
   ) => {
     return editorFactory({
       doc,
@@ -55,7 +56,7 @@ describe('Input performance latency', () => {
         {
           inputTracking: {
             enabled: true,
-            samplingRate: 1, // send analytics for every second keystroke
+            samplingRate,
             trackSeverity,
             severityNormalThreshold,
             severityDegradedThreshold,
@@ -71,10 +72,13 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = createEditor(adfDoc);
         typeText(editorView, 'XY');
 
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation((startTime) => 1);
+
         //@ts-ignore
         requestAnimationFrame.step();
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
           action: ACTION.INPUT_PERF_SAMPLING,
           actionSubject: ACTION_SUBJECT.EDITOR,
           attributes: expect.not.objectContaining({
@@ -83,7 +87,20 @@ describe('Input performance latency', () => {
           eventType: EVENT_TYPE.OPERATIONAL,
         });
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: 1,
+            median: 1,
+            sampleSize: 1,
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+        getTimeSinceMock.mockClear();
       });
 
       it('should not send analytics event with severity when trackSeverity is turned off', () => {
@@ -91,10 +108,13 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation((startTime) => 1);
+
         //@ts-ignore
         requestAnimationFrame.step();
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
           action: ACTION.INPUT_PERF_SAMPLING,
           actionSubject: ACTION_SUBJECT.EDITOR,
           attributes: expect.not.objectContaining({
@@ -103,7 +123,20 @@ describe('Input performance latency', () => {
           eventType: EVENT_TYPE.OPERATIONAL,
         });
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: 1,
+            median: 1,
+            sampleSize: 1,
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+        getTimeSinceMock.mockClear();
       });
 
       it('should send analytics event with severity normal when duration < DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL', () => {
@@ -111,10 +144,13 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation((startTime) => 1);
+
         //@ts-ignore
         requestAnimationFrame.step();
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
           action: ACTION.INPUT_PERF_SAMPLING,
           actionSubject: ACTION_SUBJECT.EDITOR,
           attributes: expect.objectContaining({
@@ -123,7 +159,21 @@ describe('Input performance latency', () => {
           eventType: EVENT_TYPE.OPERATIONAL,
         });
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: 1,
+            median: 1,
+            sampleSize: 1,
+            severity: 'normal',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+        getTimeSinceMock.mockClear();
       });
 
       it('should send analytics event with severity degraded when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL', async () => {
@@ -131,30 +181,38 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        await new Promise<void>((success) => {
-          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-          getTimeSinceMock.mockImplementation(
-            (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
-          );
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation(
+          (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
+        );
 
-          //@ts-ignore
-          requestAnimationFrame.step();
+        //@ts-ignore
+        requestAnimationFrame.step();
 
-          expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
-            action: ACTION.INPUT_PERF_SAMPLING,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: expect.objectContaining({
-              severity: 'degraded',
-            }),
-            eventType: EVENT_TYPE.OPERATIONAL,
-          });
-
-          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
-
-          getTimeSinceMock.mockClear();
-
-          success();
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+          action: ACTION.INPUT_PERF_SAMPLING,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            severity: 'degraded',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
         });
+
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
+            median: DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL + 1,
+            sampleSize: 1,
+            severity: 'degraded',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+        getTimeSinceMock.mockClear();
       });
 
       it('should send analytics event with severity blocking when duration > DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED', async () => {
@@ -162,31 +220,48 @@ describe('Input performance latency', () => {
         const { editorView, dispatchAnalyticsEvent } = editor;
         typeText(editorView, 'XY');
 
-        await new Promise<void>((success) => {
-          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-          getTimeSinceMock.mockImplementation(
-            (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
-          );
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation(
+          (startTime) => DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
+        );
 
-          //@ts-ignore
-          requestAnimationFrame.step();
+        //@ts-ignore
+        requestAnimationFrame.step();
 
-          expect(dispatchAnalyticsEvent).nthCalledWith(2, {
-            action: ACTION.INPUT_PERF_SAMPLING,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: expect.objectContaining({
-              severity: 'blocking',
-            }),
-            eventType: EVENT_TYPE.OPERATIONAL,
-          });
-
-          // once for INPUT_PERF_SAMPLING, second is SLOW_INPUT
-          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-          getTimeSinceMock.mockClear();
-
-          success();
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+          action: ACTION.SLOW_INPUT,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            time: DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
         });
+
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            severity: 'blocking',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).nthCalledWith(3, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
+            median: DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED + 1,
+            sampleSize: 1,
+            severity: 'blocking',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        // once for INPUT_PERF_SAMPLING, once for INPUT_PERF_SAMPLING_AVG and once for SLOW_INPUT
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(3);
+
+        getTimeSinceMock.mockClear();
       });
     });
 
@@ -208,7 +283,7 @@ describe('Input performance latency', () => {
         //@ts-ignore
         requestAnimationFrame.step();
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
           action: ACTION.INPUT_PERF_SAMPLING,
           actionSubject: ACTION_SUBJECT.EDITOR,
           attributes: expect.objectContaining({
@@ -217,7 +292,19 @@ describe('Input performance latency', () => {
           eventType: EVENT_TYPE.OPERATIONAL,
         });
 
-        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL,
+            median: DEFAULT_TRACK_SEVERITY_THRESHOLD_NORMAL,
+            sampleSize: 1,
+            severity: 'normal',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
 
         getTimeSinceMock.mockClear();
       });
@@ -231,30 +318,38 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        await new Promise<void>((success) => {
-          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-          getTimeSinceMock.mockImplementation(
-            (startTime) => customSettings.normalThreshold + 1,
-          );
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation(
+          (startTime) => customSettings.normalThreshold + 1,
+        );
 
-          //@ts-ignore
-          requestAnimationFrame.step();
+        //@ts-ignore
+        requestAnimationFrame.step();
 
-          expect(dispatchAnalyticsEvent).toHaveBeenCalledWith({
-            action: ACTION.INPUT_PERF_SAMPLING,
-            actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: expect.objectContaining({
-              severity: 'degraded',
-            }),
-            eventType: EVENT_TYPE.OPERATIONAL,
-          });
-
-          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(1);
-
-          getTimeSinceMock.mockClear();
-
-          success();
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+          action: ACTION.INPUT_PERF_SAMPLING,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            severity: 'degraded',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
         });
+
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: customSettings.normalThreshold + 1,
+            median: customSettings.normalThreshold + 1,
+            sampleSize: 1,
+            severity: 'degraded',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+        getTimeSinceMock.mockClear();
       });
 
       it('should send analytics event with severity blocking when duration > custom severityDegradedThreshold', async () => {
@@ -266,30 +361,87 @@ describe('Input performance latency', () => {
         );
         typeText(editorView, 'XY');
 
-        await new Promise<void>((success) => {
-          const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
-          getTimeSinceMock.mockImplementation(
-            (startTime) => customSettings.degradedThreshold + 1,
-          );
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation(
+          (startTime) => customSettings.degradedThreshold + 1,
+        );
 
-          //@ts-ignore
-          requestAnimationFrame.step();
+        //@ts-ignore
+        requestAnimationFrame.step();
 
-          expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+        expect(dispatchAnalyticsEvent).nthCalledWith(1, {
+          action: ACTION.SLOW_INPUT,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            time: customSettings.degradedThreshold + 1,
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).nthCalledWith(2, {
+          action: ACTION.INPUT_PERF_SAMPLING,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            severity: 'blocking',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).nthCalledWith(3, {
+          action: ACTION.INPUT_PERF_SAMPLING_AVG,
+          actionSubject: ACTION_SUBJECT.EDITOR,
+          attributes: expect.objectContaining({
+            mean: customSettings.degradedThreshold + 1,
+            median: customSettings.degradedThreshold + 1,
+            sampleSize: 1,
+            severity: 'blocking',
+          }),
+          eventType: EVENT_TYPE.OPERATIONAL,
+        });
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(3);
+
+        getTimeSinceMock.mockClear();
+      });
+
+      it('should flush analytics when editorView is destroyed', () => {
+        const { editorView, dispatchAnalyticsEvent } = createEditor(
+          adfDoc,
+          true,
+          undefined,
+          undefined,
+          3,
+        );
+        typeText(editorView, 'XY');
+
+        const getTimeSinceMock = jest.spyOn(timingUtils, 'getTimeSince');
+        getTimeSinceMock.mockImplementation((startTime) => 1);
+
+        //@ts-ignore
+        requestAnimationFrame.step();
+
+        expect(dispatchAnalyticsEvent).not.toHaveBeenCalled();
+
+        editorView.destroy();
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
+        expect(dispatchAnalyticsEvent).toHaveBeenNthCalledWith(
+          1,
+          expect.objectContaining({
             action: ACTION.INPUT_PERF_SAMPLING,
             actionSubject: ACTION_SUBJECT.EDITOR,
-            attributes: expect.objectContaining({
-              severity: 'blocking',
-            }),
             eventType: EVENT_TYPE.OPERATIONAL,
-          });
+          }),
+        );
 
-          expect(dispatchAnalyticsEvent).toHaveBeenCalledTimes(2);
-
-          getTimeSinceMock.mockClear();
-
-          success();
-        });
+        expect(dispatchAnalyticsEvent).toHaveBeenNthCalledWith(
+          2,
+          expect.objectContaining({
+            action: ACTION.INPUT_PERF_SAMPLING_AVG,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            eventType: EVENT_TYPE.OPERATIONAL,
+          }),
+        );
       });
     });
   });

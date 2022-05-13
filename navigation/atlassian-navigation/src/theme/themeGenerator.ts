@@ -106,6 +106,7 @@ export const generateTheme = (
         },
         focus: {
           borderColor: hexToRGBA(highlightColor, 0.8),
+          boxShadow: getBoxShadow(hexToRGBA(highlightColor, 0.5)),
         },
         hover: {
           backgroundColor: getContrastColor(

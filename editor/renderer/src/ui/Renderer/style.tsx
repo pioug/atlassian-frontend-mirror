@@ -10,6 +10,8 @@ import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import { ThemeProps } from '@atlaskit/theme/types';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   tableSharedStyle,
   columnLayoutSharedStyle,
@@ -263,7 +265,7 @@ const tableSortableColumnStyle = ({
             outline: unset;
           }
           &:focus-visible {
-            border-color: ${colors.B300};
+            border-color: ${token('color.border.focused', colors.B300)};
           }
         }
 
@@ -337,7 +339,10 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
   return css`
     font-size: ${editorFontSize(themeProps)}px;
     line-height: 1.5rem;
-    color: ${themed({ light: colors.N800, dark: '#B8C7E0' })(themeProps)};
+    color: ${themed({
+      light: token('color.text', colors.N800),
+      dark: token('color.text', '#B8C7E0'),
+    })(themeProps)};
 
     .${RendererCssClassName.DOCUMENT}::after {
       // we add a clearfix after ak-renderer-document in order to
@@ -378,12 +383,16 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
     }
 
     & span.akActionMark {
-      color: ${colors.B400};
+      color: ${token('color.link', colors.B400)};
       text-decoration: none;
 
       &:hover {
-        color: ${colors.B300};
+        color: ${token('color.link', colors.B300)};
         text-decoration: underline;
+      }
+
+      &:active {
+        color: ${token('color.link.pressed', colors.B500)};
       }
     }
 
@@ -419,19 +428,23 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
     }
 
     & span.date-node {
-      background: ${themed({ light: colors.N30A, dark: colors.DN70 })(
-        themeProps,
-      )};
+      background: ${themed({
+        light: token('color.background.neutral', colors.N30A),
+        dark: token('color.background.neutral', colors.DN70),
+      })(themeProps)};
       border-radius: ${borderRadius()}px;
-      color: ${themed({ light: colors.N800, dark: colors.DN600 })(themeProps)};
+      color: ${themed({
+        light: token('color.text', colors.N800),
+        dark: token('color.text', colors.DN600),
+      })(themeProps)};
       padding: 2px 4px;
       margin: 0 1px;
       transition: background 0.3s;
     }
 
     & span.date-node-highlighted {
-      background: ${colors.R50};
-      color: ${colors.R500};
+      background: ${token('color.background.danger', colors.R50)};
+      color: ${token('color.text.danger', colors.R500)};
     }
 
     & .renderer-image {
@@ -549,19 +562,19 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
       table[data-number-column='true'] {
         .${RendererCssClassName.NUMBER_COLUMN} {
           background-color: ${themed({
-            light: akEditorTableToolbar,
-            dark: akEditorTableToolbarDark,
+            light: token('color.background.neutral', akEditorTableToolbar),
+            dark: token('color.background.neutral', akEditorTableToolbarDark),
           })(themeProps)};
           border-right: 1px solid
             ${themed({
-              light: akEditorTableBorder,
-              dark: akEditorTableBorderDark,
+              light: token('color.border', akEditorTableBorder),
+              dark: token('color.border', akEditorTableBorderDark),
             })(themeProps)};
           width: ${akEditorTableNumberColumnWidth}px;
           text-align: center;
           color: ${themed({
-            light: colors.N200,
-            dark: colors.DN400,
+            light: token('color.text.subtlest', colors.N200),
+            dark: token('color.text.subtlest', colors.DN400),
           })(themeProps)};
           font-size: ${relativeFontSizeToBase16(fontSize())};
         }
@@ -580,13 +593,13 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
 
       border-right: 1px solid
         ${themed({
-          light: akEditorTableBorder,
-          dark: akEditorTableBorderDark,
+          light: token('color.border', akEditorTableBorder),
+          dark: token('color.border', akEditorTableBorderDark),
         })(themeProps)};
       border-bottom: 1px solid
         ${themed({
-          light: akEditorTableBorder,
-          dark: akEditorTableBorderDark,
+          light: token('color.border', akEditorTableBorder),
+          dark: token('color.border', akEditorTableBorderDark),
         })(themeProps)};
 
       /* this is to compensate for the table border */
@@ -612,20 +625,20 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
     .sticky td {
       box-shadow: 0px 1px
           ${themed({
-            light: akEditorTableBorder,
-            dark: akEditorTableBorderDark,
+            light: token('color.border', akEditorTableBorder),
+            dark: token('color.border', akEditorTableBorderDark),
           })(themeProps)},
         0px -0.5px ${themed({
-            light: akEditorTableBorder,
-            dark: akEditorTableBorderDark,
+            light: token('color.border', akEditorTableBorder),
+            dark: token('color.border', akEditorTableBorderDark),
           })(themeProps)},
         inset -1px 0px ${themed({
-            light: akEditorTableToolbar,
-            dark: akEditorTableToolbarDark,
+            light: token('color.border', akEditorTableToolbar),
+            dark: token('color.border', akEditorTableToolbarDark),
           })(themeProps)},
         0px -1px ${themed({
-            light: akEditorTableToolbar,
-            dark: akEditorTableToolbarDark,
+            light: token('color.border', akEditorTableToolbar),
+            dark: token('color.border', akEditorTableToolbarDark),
           })(themeProps)};
     }
 

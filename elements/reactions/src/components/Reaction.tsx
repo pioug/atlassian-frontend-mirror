@@ -146,6 +146,7 @@ class ReactionWithoutAnalytics extends PureComponent<
 
   private handleMouseDown = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    event.stopPropagation();
     if (this.props.onClick && isLeftClick(event)) {
       const { reaction, createAnalyticsEvent } = this.props;
       const { reacted, emojiId } = reaction;

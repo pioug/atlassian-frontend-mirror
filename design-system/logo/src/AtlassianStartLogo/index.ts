@@ -1,1 +1,0 @@
-export { AtlassianStartLogo } from './Logo';

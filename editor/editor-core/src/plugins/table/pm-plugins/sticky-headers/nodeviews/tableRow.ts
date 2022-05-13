@@ -26,6 +26,16 @@ import { updateStickyState } from '../commands';
 import { getTop, getTree, TableDOMElements } from './dom';
 import { getFeatureFlags } from '../../../../feature-flags-context';
 
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
+
+// limit scroll event calls
+const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
+
+// timeout for resetting the scroll class - if it’s too long then users won’t be able to click on the header cells,
+// if too short it would trigger too many dom udpates.
+const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
+
 export const supportedHeaderRow = (node: PmNode) => {
   const allHeaders = mapChildren(
     node,
@@ -102,6 +112,20 @@ export class TableRowNodeView implements NodeView {
   /* external events */
   listening = false;
 
+  headerRowMouseScrollEnd = debounce(() => {
+    this.dom.classList.remove('no-pointer-events');
+  }, HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT);
+
+  // When the header is sticky, the header row is set to position: fixed
+  // This prevents mouse wheel scrolling on the scroll-parent div when user's mouse is hovering the header row.
+  // This fix sets pointer-events: none on the header row briefly to avoid this behaviour
+  headerRowMouseScroll = throttle(() => {
+    if (this.isSticky) {
+      this.dom.classList.add('no-pointer-events');
+      this.headerRowMouseScrollEnd();
+    }
+  }, HEADER_ROW_SCROLL_THROTTLE_TIMEOUT);
+
   subscribe() {
     this.editorScrollableElement =
       findOverflowScrollParent(this.view.dom as HTMLElement) || window;
@@ -126,6 +150,12 @@ export class TableRowNodeView implements NodeView {
     );
 
     this.listening = true;
+
+    this.dom.addEventListener('wheel', this.headerRowMouseScroll.bind(this));
+    this.dom.addEventListener(
+      'touchmove',
+      this.headerRowMouseScroll.bind(this),
+    );
   }
 
   unsubscribe() {
@@ -155,6 +185,9 @@ export class TableRowNodeView implements NodeView {
     );
 
     this.listening = false;
+
+    this.dom.removeEventListener('wheel', this.headerRowMouseScroll);
+    this.dom.removeEventListener('touchmove', this.headerRowMouseScroll);
   }
 
   // initialize intersection observer to track if table is within scroll area

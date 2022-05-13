@@ -15,12 +15,12 @@ import WithFlash from '../WithFlash';
 export interface ChromelessEditorProps {
   isMaxContentSizeReached?: boolean;
   maxHeight?: number;
+  minHeight?: number;
 }
 
 const chromelessEditor = css`
   line-height: 20px;
   height: auto;
-  min-height: 30px;
 
   overflow-x: hidden;
   overflow-y: auto;
@@ -63,6 +63,7 @@ export default class Editor extends React.Component<
       contentComponents,
       customContentComponents,
       maxHeight,
+      minHeight = 30,
       popupsMountPoint,
       popupsBoundariesElement,
       popupsScrollableElement,
@@ -82,7 +83,11 @@ export default class Editor extends React.Component<
               css`
                 max-height: ${maxHeight}px;
               `,
+            css`
+              min-height: ${minHeight}px;
+            `,
           ]}
+          data-testid="chromeless-editor"
           ref={(ref: HTMLElement | null) => (this.containerElement = ref)}
         >
           <ContentArea>

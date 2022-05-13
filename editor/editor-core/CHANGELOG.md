@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 166.0.0
+
+### Minor Changes
+
+- [`2a04b47848b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a04b47848b) - Removed unused emoji experiment (emojiNext).
+- [`d86aa096946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d86aa096946) - [ux] Added prop minHeight for editor appearance='comment' and 'chromeless'
+- [`b6d47de3fd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6d47de3fd9) - [MEX-1417] remove access to media file streams cache
+- [`19486acfe8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19486acfe8f) - [ED-14501] Add a new input latency performance analytics event `editor.inputPerfSamplingAvg`. Refactor the input latency tracking logic into a class.
+- [`de9e3c28026`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de9e3c28026) - [ED-14689] Refactor getFinalAcknowledgedState to only wait for the unconfirmed steps at the time of calling it to be confirmed. It will no longer wait for there to be no unconfirmed steps at all.
+- [`02bfb564e45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02bfb564e45) - [ux] Instrumented `@atlaskit/editor-shared-styles` and partial `@atlaskit/editor-core` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`74f39b3fcf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74f39b3fcf8) - [ux] EDM-2398: When a user types a link as opposed to pasting one, it will only be made into a link, not a smart card.
+- [`ea41bc8a2ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea41bc8a2ed) - [ux] ED-14577 add support for skipable tests for placeholder-text
+- [`aec3f6e6d01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aec3f6e6d01) - Add closeHistory() on indentList / outdentList at the beginning as for a undo restore point
+- [`67ebd08a55c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67ebd08a55c) - [ux] ED-14581 Reworks unsupportedInline and confluenceUnsupportedInline to use getInlineNodeViewProducer api.
+- [`05502fa8c02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05502fa8c02) - [ux] ED-14572 Migrated Mention node view to use the new getInlineNodeViewProducer api.
+- [`994b3c53e55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/994b3c53e55) - ED-14373 Removed displayInlineBlockForInlineNodes feature flag as it is no longer required. Inline nodes now use the getInlineNodeViewProducer api which addresses issues that the feature flag was intended to fix.
+- [`f0f5ea7e9b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0f5ea7e9b2) - [ux] ED-14050 Fixes mouse wheel not working when hovering table header row while its sticky
+- [`6e7c648ddb7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e7c648ddb7) - ED-14055: Fix out of range error during a collab session when deleting a paragraph at the end of the document and another user has a selection inside that paragraph.
+- [`1b59c7df167`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b59c7df167) - [ED-14700] Checks if typeAhead was dismissed after inserting an item to make sure we don't sent cancelled analytics events when an item was inserted successfully
+- [`b1f97a33e1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1f97a33e1e) - [ux] Rework emoji to use getInlineNodeViewProducer api.
+- [`a702917cbde`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a702917cbde) - [ux][ed-14725] Fixed duplicated line when pasted from google docs
+- [`513476f63a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/513476f63a0) - ED-14158 deprecate shouldAddToHistory arg from EditorActions.replaceDocument
+- [`702b032500c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/702b032500c) - [ux] Corrected ordering of the toolbar text colour picker's drop down menu, updated its rows to be from darkest to lightest.
+- Updated dependencies
+
 ## 165.0.0
 
 ### Patch Changes

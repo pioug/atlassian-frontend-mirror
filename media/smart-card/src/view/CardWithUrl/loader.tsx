@@ -29,11 +29,6 @@ const LazyCardWithUrlContent = lazy(
 
 export function CardWithURLRenderer(props: CardProps) {
   const [id] = useState(() => uuid());
-  // Equivalent to ComponentWillMount
-  useState(() => {
-    // We want to start timing of render event only once and right at the start
-    startUfoExperience('smart-link-rendered', id);
-  });
 
   useEffect(() => {
     // ComponentWillUnmount
@@ -99,6 +94,9 @@ export function CardWithURLRenderer(props: CardProps) {
         const errorInfo: ErrorInfo = {
           componentStack,
         };
+        // Start and fail the smart-link-rendered experience. If it has already
+        // been started nothing happens.
+        startUfoExperience('smart-link-rendered', id);
         failUfoExperience('smart-link-rendered', id);
         failUfoExperience('smart-link-authenticated', id);
         dispatchAnalytics(uiRenderFailedEvent(appearance, error, errorInfo));

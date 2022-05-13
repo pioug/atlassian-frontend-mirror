@@ -12,9 +12,7 @@ const CANCEL_ACTION = () => console.log('Cancel');
 const EXPAND_ACTION = () => console.log('Expand');
 
 const mediaProvider = storyMediaProviderFactory({
-  useMediaPickerAuthProvider: false,
   includeUploadMediaClientConfig: true,
-  includeUserAuthProvider: false,
   collectionName: 'test',
 });
 

@@ -7,7 +7,7 @@ import { ActivityProvider } from '@atlaskit/activity';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { BitbucketTransformer } from '../src';
-import { Content } from './styles';
+import { content } from './styles';
 
 const rejectedPromise = Promise.reject(
   new Error('Simulated provider rejection'),
@@ -95,7 +95,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
       editorEnabled,
     } = this.state;
     return (
-      <Content>
+      <div css={content}>
         <div style={{ padding: '5px 0' }}>️️️ Bitbucket Editor</div>
         {reloadEditor
           ? ''
@@ -108,7 +108,7 @@ export default class ToolsDrawer extends React.Component<Props, State> {
             })}
         <legend>Markdown output:</legend>
         <pre>{document}</pre>
-      </Content>
+      </div>
     );
   }
 }

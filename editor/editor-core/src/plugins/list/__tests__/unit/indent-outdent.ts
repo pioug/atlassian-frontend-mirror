@@ -14,6 +14,8 @@ import {
 import listPlugin from '../..';
 import codeBlockPlugin from '../../../code-block';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import { undo } from 'prosemirror-history';
 
 describe('lists plugin -> indent and outdent', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -223,6 +225,38 @@ describe('lists plugin -> indent and outdent', () => {
 
     expect(editorView.state.doc).toEqualDocument(
       doc(ol(li(p('text')), li(p('{<>}')), li(p('text')))),
+    );
+  });
+
+  it('should the undo on the second list item revert back without cleared out the text', () => {
+    const { editorView } = editor(doc(ol(li(p('item{<>}')))));
+
+    sendKeyToPm(editorView, 'Enter');
+    insertText(editorView, 'item');
+    sendKeyToPm(editorView, 'Tab');
+    expect(editorView.state.doc).toEqualDocument(
+      doc(ol(li(p('item'), ol(li(p('item{<>}')))))),
+    );
+
+    undo(editorView.state, editorView.dispatch);
+    expect(editorView.state.doc).toEqualDocument(
+      doc(ol(li(p('item')), li(p('item{<>}')))),
+    );
+  });
+
+  it('should the undo on the second level list item revert back without cleared out the text', () => {
+    const { editorView } = editor(
+      doc(ol(li(p('item'), ol(li(p('item{<>}')))))),
+    );
+
+    sendKeyToPm(editorView, 'Shift-Tab');
+    expect(editorView.state.doc).toEqualDocument(
+      doc(ol(li(p('item')), li(p('item{<>}')))),
+    );
+
+    undo(editorView.state, editorView.dispatch);
+    expect(editorView.state.doc).toEqualDocument(
+      doc(ol(li(p('item'), ol(li(p('item{<>}')))))),
     );
   });
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Component } from 'react';
-import { createUserMediaClient } from '@atlaskit/media-test-helpers';
+import { createUploadMediaClient } from '@atlaskit/media-test-helpers';
 import { MediaSubscription } from '../src/utils/toMediaSubscribable';
 import { Card } from '@atlaskit/media-card';
 import Button from '@atlaskit/button/standard-button';
 import { CardsWrapper, Header } from '../example-helpers/styled';
 import { FileIdentifier, RECENTS_COLLECTION } from '../src';
 
-const mediaClient = createUserMediaClient();
+const mediaClient = createUploadMediaClient();
 
 const collectionName = RECENTS_COLLECTION;
 export interface ExampleState {

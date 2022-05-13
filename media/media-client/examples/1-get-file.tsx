@@ -4,7 +4,7 @@ import {
   videoProcessingFailedId,
   imageFileId,
   defaultCollectionName,
-  mediaPickerAuthProvider,
+  defaultMediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaSubscribable } from '../src/utils/toMediaSubscribable';
@@ -17,7 +17,7 @@ export interface ComponentState {
 }
 
 const mediaClientConfig: MediaClientConfig = {
-  authProvider: mediaPickerAuthProvider('asap'),
+  authProvider: defaultMediaPickerAuthProvider(),
 };
 const mediaClient = new MediaClient(mediaClientConfig);
 

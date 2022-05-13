@@ -5,7 +5,11 @@ import {
 } from '@atlaskit/ufo';
 
 import { FileAttributes } from '@atlaskit/media-common';
-import { RequestMetadata } from '@atlaskit/media-client';
+import {
+  getMediaEnvironment,
+  getMediaRegion,
+  RequestMetadata,
+} from '@atlaskit/media-client';
 
 import {
   name as packageName,
@@ -42,7 +46,13 @@ export const startMediaFileUfoExperience = () => {
 
 export const succeedMediaFileUfoExperience = (properties?: FileAttributes) => {
   getExperience().success({
-    metadata: { fileAttributes: properties, packageName, packageVersion },
+    metadata: {
+      fileAttributes: properties,
+      packageName,
+      packageVersion,
+      mediaEnvironment: getMediaEnvironment(),
+      mediaRegion: getMediaRegion(),
+    },
   });
 };
 
@@ -53,6 +63,8 @@ export const failMediaFileUfoExperience = (
     ...properties,
     packageName,
     packageVersion,
+    mediaEnvironment: getMediaEnvironment(),
+    mediaRegion: getMediaRegion(),
   };
   getExperience().failure({ metadata: refinedMetadata });
 };

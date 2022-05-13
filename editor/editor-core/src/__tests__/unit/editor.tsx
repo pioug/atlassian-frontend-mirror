@@ -96,7 +96,12 @@ const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>(
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { measureTTI as mockMeasureTTI } from '@atlaskit/editor-common/utils';
 import { CardOptions } from '@atlaskit/editor-common/card';
+import * as sinon from 'sinon';
+import { matchers } from '@emotion/jest';
+
 const measureTTI: any = mockMeasureTTI;
+
+expect.extend(matchers);
 
 describe(name, () => {
   describe('Editor', () => {
@@ -126,6 +131,47 @@ describe(name, () => {
 
           saveButton.first().simulate('click');
           expect(handleSave).toHaveBeenCalled();
+        });
+
+        it('should minHeight default 150px', () => {
+          const wrapper = mount(<Editor appearance="comment" />);
+
+          expect(wrapper.find('.akEditor').first()).toHaveStyleRule(
+            'min-height',
+            '150px',
+          );
+        });
+
+        it('should set minHeight', () => {
+          const wrapper = mount(
+            <Editor appearance="comment" minHeight={250} />,
+          );
+
+          expect(wrapper.find('.akEditor').first()).toHaveStyleRule(
+            'min-height',
+            '250px',
+          );
+        });
+
+        it('should set minHeight for chromeless', () => {
+          const wrapper = mount(
+            <Editor appearance="chromeless" minHeight={250} />,
+          );
+
+          expect(
+            wrapper.find('[data-testid="chromeless-editor"]').first(),
+          ).toHaveStyleRule('min-height', '250px');
+        });
+
+        it('should minHeight prop error for full-page', () => {
+          const stub = sinon.stub(console, 'error');
+          shallow(<Editor appearance="full-page" minHeight={250} />);
+          expect(stub.getCall(0).args[0]).toEqual(
+            expect.stringMatching(
+              'minHeight only supports editor appearance chromeless and comment',
+            ),
+          );
+          stub.restore();
         });
 
         it('should fire onCancel when Cancel is clicked', () => {

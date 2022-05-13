@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.3.12
+
+### Patch Changes
+
+- [`70968c17cc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70968c17cc9) - Remove invalid selectors and associated rules
+
 ## 6.3.11
 
 ### Patch Changes

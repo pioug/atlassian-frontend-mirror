@@ -179,6 +179,27 @@ describe('smart-card: card states, flexible', () => {
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
       });
+
+      it('should call onResolve prop after flexible card is resolved', async () => {
+        const mockFn = jest.fn();
+        const mockUrl = 'https://this.is.the.seventh.url';
+        const { getByTestId } = render(
+          <Provider client={mockClient}>
+            <Card appearance="inline" url={mockUrl} onResolve={mockFn}>
+              <TitleBlock />
+            </Card>
+          </Provider>,
+        );
+        const resolvedView = await waitForElement(
+          () => getByTestId('smart-block-title-resolved-view'),
+          {
+            timeout: 5000,
+          },
+        );
+        expect(resolvedView).toBeTruthy();
+
+        expect(mockFn).toHaveBeenCalledTimes(1);
+      });
     });
   });
 

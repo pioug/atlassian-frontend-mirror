@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 67.0.0
+
+### Minor Changes
+
+- [`025ee31e9bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/025ee31e9bc) - [ux] Instrumented `@atlaskit/editor-common` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking change.
+
+- [`bd24b9d71d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd24b9d71d2) - [ux] Instrumented `@atlaskit/renderer` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- [`facd9f48e88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/facd9f48e88) - Fixed confluence inline comment missing background colour.
+- Updated dependencies
+
 ## 66.0.5
 
 ### Patch Changes

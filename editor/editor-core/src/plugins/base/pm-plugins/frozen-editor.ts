@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import {
   isPerformanceObserverAvailable,
@@ -24,7 +24,7 @@ import {
 } from '../../../types/performance-tracking';
 import { getContextIdentifier } from './context-identifier';
 import { setInteractionType } from '../utils/frozen-editor';
-import { getTimeSince } from '../../../utils/performance/get-performance-timing';
+import InputLatencyTracker from '../utils/input-latency-tracking';
 
 export const frozenEditorPluginKey = new PluginKey('frozenEditor');
 
@@ -41,13 +41,12 @@ const dispatchLongTaskEvent = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   view: EditorView,
   time: number,
-  allowCountNodes?: boolean,
+  getNodeCount: (state: EditorState) => object,
   interactionType?: BROWSER_FREEZE_INTERACTION_TYPE,
   severity?: SEVERITY,
 ) => {
   const { state } = view;
-
-  const nodesCount = allowCountNodes ? countNodes(view.state) : {};
+  const nodesCount = getNodeCount(state);
 
   return dispatchAnalyticsEvent({
     action: ACTION.BROWSER_FREEZE,
@@ -71,8 +70,8 @@ export default (
   browserFreezeTracking?: BrowserFreezetracking,
   ufo?: boolean,
 ) => {
-  let keystrokeCount = 0;
   let interactionType: BROWSER_FREEZE_INTERACTION_TYPE;
+  let inputLatencyTracker: InputLatencyTracker | null = null;
 
   if (browserFreezeTracking?.trackInteractionType) {
     interactionType = setInteractionType(
@@ -96,6 +95,21 @@ export default (
       : DEFAULT_FREEZE_THRESHOLD;
 
   const allowCountNodes = inputTracking && inputTracking.countNodes;
+  let prevNodeCountState: EditorState | null = null;
+  let prevNodeCount: object = {};
+
+  // Cache the result as we were calling this multiple times
+  // and has potential to be expensive
+  const getNodeCount = (state: EditorState) => {
+    if (state === prevNodeCountState) {
+      return prevNodeCount;
+    }
+
+    prevNodeCount = allowCountNodes ? countNodes(state) : {};
+    prevNodeCountState = state;
+
+    return prevNodeCount;
+  };
 
   const shouldTrackSeverity =
     inputTracking?.trackSeverity || DEFAULT_TRACK_SEVERITY_ENABLED;
@@ -111,91 +125,16 @@ export default (
     props: isPerformanceAPIAvailable()
       ? {
           handleTextInput(view) {
-            const { state } = view;
-            const now = performance.now();
+            inputLatencyTracker?.start();
+
             if (browserFreezeTracking?.trackInteractionType) {
               interactionType = BROWSER_FREEZE_INTERACTION_TYPE.TYPING;
             }
-            const experienceStore = ufo
-              ? ExperienceStore.getInstance(view)
-              : undefined;
-            const trackTyping =
-              samplingRate && ++keystrokeCount === samplingRate;
-
-            if (trackTyping) {
-              experienceStore?.start(EditorExperience.typing);
-            }
 
             requestAnimationFrame(() => {
-              const diff = getTimeSince(now);
-
-              if (diff > slowThreshold) {
-                const nodesCount = allowCountNodes
-                  ? countNodes(view.state)
-                  : {};
-
-                if (inputTracking?.enabled) {
-                  dispatchAnalyticsEvent({
-                    action: ACTION.SLOW_INPUT,
-                    actionSubject: ACTION_SUBJECT.EDITOR,
-                    attributes: {
-                      time: diff,
-                      nodeSize: state.doc.nodeSize,
-                      ...nodesCount,
-                      participants: getParticipantsCount(state),
-                      objectId: getContextIdentifier(state)?.objectId,
-                    },
-                    eventType: EVENT_TYPE.OPERATIONAL,
-                  });
-                }
-
-                experienceStore?.addMetadata(EditorExperience.typing, {
-                  slowInput: true,
-                });
-              }
-
-              if (trackTyping) {
-                const nodesCount = allowCountNodes
-                  ? countNodes(view.state)
-                  : {};
-                keystrokeCount = 0;
-
-                const severity = shouldTrackSeverity
-                  ? getAnalyticsEventSeverity(
-                      diff,
-                      severityThresholdNormal,
-                      severityThresholdDegraded,
-                    )
-                  : undefined;
-
-                if (inputTracking?.enabled) {
-                  const payload: AnalyticsEventPayload = {
-                    action: ACTION.INPUT_PERF_SAMPLING,
-                    actionSubject: ACTION_SUBJECT.EDITOR,
-                    attributes: {
-                      time: diff,
-                      nodeSize: state.doc.nodeSize,
-                      ...nodesCount,
-                      participants: getParticipantsCount(state),
-                      objectId: getContextIdentifier(state)?.objectId,
-                      severity,
-                    },
-                    eventType: EVENT_TYPE.OPERATIONAL,
-                  };
-
-                  dispatchAnalyticsEvent(payload);
-                }
-
-                experienceStore?.success(EditorExperience.typing, {
-                  nodeSize: state.doc.nodeSize,
-                  ...nodesCount,
-                  participants: getParticipantsCount(state),
-                  objectId: getContextIdentifier(state)?.objectId,
-                  time: diff,
-                  severity,
-                });
-              }
+              inputLatencyTracker?.end();
             });
+
             return false;
           },
           handleDOMEvents: browserFreezeTracking?.trackInteractionType
@@ -220,6 +159,101 @@ export default (
       if (!isPerformanceObserverAvailable()) {
         return {};
       }
+
+      const experienceStore = ufo
+        ? ExperienceStore.getInstance(view)
+        : undefined;
+
+      if (inputTracking?.enabled) {
+        inputLatencyTracker = new InputLatencyTracker({
+          samplingRate,
+          slowThreshold,
+          normalThreshold: severityThresholdNormal,
+          degradedThreshold: severityThresholdDegraded,
+          onSampleStart: () => {
+            experienceStore?.start(EditorExperience.typing);
+          },
+          onSampleEnd: (time, { isSlow, severity }) => {
+            const { state } = view;
+            const nodesCount = getNodeCount(state);
+
+            if (isSlow) {
+              experienceStore?.addMetadata(EditorExperience.typing, {
+                slowInput: true,
+              });
+            }
+
+            experienceStore?.success(EditorExperience.typing, {
+              nodeSize: state.doc.nodeSize,
+              ...nodesCount,
+              participants: getParticipantsCount(state),
+              objectId: getContextIdentifier(state)?.objectId,
+              time,
+              severity: shouldTrackSeverity ? severity : undefined,
+            });
+          },
+          dispatchSample: (time, severity) => {
+            const { state } = view;
+            const nodesCount = getNodeCount(state);
+
+            const samplePayload: AnalyticsEventPayload = {
+              action: ACTION.INPUT_PERF_SAMPLING,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              attributes: {
+                time,
+                nodeSize: state.doc.nodeSize,
+                ...nodesCount,
+                participants: getParticipantsCount(state),
+                objectId: getContextIdentifier(state)?.objectId,
+                severity: shouldTrackSeverity ? severity : undefined,
+              },
+              eventType: EVENT_TYPE.OPERATIONAL,
+            };
+
+            dispatchAnalyticsEvent(samplePayload);
+          },
+          dispatchAverage: ({ mean, median, sampleSize }, severity) => {
+            const { state } = view;
+            const nodeCount = getNodeCount(state);
+
+            const averagePayload: AnalyticsEventPayload = {
+              action: ACTION.INPUT_PERF_SAMPLING_AVG,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              attributes: {
+                mean,
+                median,
+                sampleSize,
+                ...nodeCount,
+                nodeSize: state.doc.nodeSize,
+                severity: shouldTrackSeverity ? severity : undefined,
+                participants: getParticipantsCount(state),
+                objectId: getContextIdentifier(state)?.objectId,
+              },
+              eventType: EVENT_TYPE.OPERATIONAL,
+            };
+
+            dispatchAnalyticsEvent(averagePayload);
+          },
+          onSlowInput: (time) => {
+            const { state } = view;
+            const nodesCount = getNodeCount(state);
+
+            dispatchAnalyticsEvent({
+              action: ACTION.SLOW_INPUT,
+              actionSubject: ACTION_SUBJECT.EDITOR,
+              attributes: {
+                time,
+                nodeSize: state.doc.nodeSize,
+                ...nodesCount,
+                participants: getParticipantsCount(state),
+                objectId: getContextIdentifier(state)?.objectId,
+              },
+              eventType: EVENT_TYPE.OPERATIONAL,
+            });
+          },
+        });
+      }
+
       let observer: PerformanceObserver | undefined;
       try {
         const observer = new PerformanceObserver((list) => {
@@ -231,7 +265,7 @@ export default (
                 dispatchAnalyticsEvent,
                 view,
                 duration,
-                allowCountNodes,
+                getNodeCount,
                 browserFreezeTracking?.trackInteractionType
                   ? interactionType
                   : undefined,
@@ -255,9 +289,8 @@ export default (
 
       return {
         destroy: () => {
-          if (observer) {
-            observer.disconnect();
-          }
+          inputLatencyTracker?.flush();
+          observer?.disconnect();
         },
       };
     },

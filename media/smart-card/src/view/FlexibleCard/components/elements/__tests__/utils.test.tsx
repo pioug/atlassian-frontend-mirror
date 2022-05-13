@@ -120,8 +120,9 @@ describe('createElement', () => {
       const element = await waitForElement(() => getByTestId(testId));
       expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
       expect(element.textContent).toEqual(context.provider?.label);
-
-      const icon = await waitForElement(() => getByTestId(`${testId}-icon`));
+      const icon = await waitForElement(() =>
+        getByTestId(`${testId}-icon--wrapper`),
+      );
       expect(icon).toBeDefined();
     });
 

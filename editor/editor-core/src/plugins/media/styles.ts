@@ -19,6 +19,7 @@ import {
   inlinePlayerClassName,
   newFileExperienceClassName,
 } from '@atlaskit/media-card';
+import { token } from '@atlaskit/tokens';
 
 export const mediaStyles = css`
   .ProseMirror {
@@ -132,35 +133,39 @@ export const mediaStyles = css`
   /* Danger when top level node for smart cards / inline links */
   .danger > div > div > .media-card-frame,
   .danger > span > a {
-    background-color: ${akEditorDeleteBackground};
+    background-color: ${token(
+      'color.background.danger',
+      akEditorDeleteBackground,
+    )};
     box-shadow: 0px 0px 0px ${akEditorSelectedBorderBoldSize}px
-      ${akEditorDeleteBorder};
+      ${token('color.border.danger', akEditorDeleteBorder)};
     transition: background-color 0s, box-shadow 0s;
   }
   .mediaGroupView-content-wrap.danger {
     /* Media inline */
     .${fileCardImageViewSelectedSelector}::after {
-      border: 1px solid ${akEditorDeleteIconColor};
+      border: 1px solid ${token('color.border.danger', akEditorDeleteIconColor)};
     }
   }
   /* Danger when nested node or common */
   .danger {
     /* Media single */
     .${richMediaClassName} .${fileCardImageViewSelector}::after {
-      border: 1px solid ${akEditorDeleteIconColor};
+      border: 1px solid ${token('color.border.danger', akEditorDeleteIconColor)};
     }
     /* Media single video player */
     .${richMediaClassName} .${inlinePlayerClassName}::after {
-      border: 1px solid ${akEditorDeleteIconColor};
+      border: 1px solid ${token('color.border.danger', akEditorDeleteIconColor)};
     }
     /* New file experience */
     .${richMediaClassName} .${newFileExperienceClassName} {
-      box-shadow: 0 0 0 1px ${akEditorDeleteIconColor} !important;
+      box-shadow: 0 0 0 1px
+        ${token('color.border.danger', akEditorDeleteIconColor)} !important;
     }
     /* Media resize handlers */
     .richMedia-resize-handle-right::after,
     .richMedia-resize-handle-left::after {
-      background: ${akEditorDeleteIconColor};
+      background: ${token('color.icon.danger', akEditorDeleteIconColor)};
     }
 
     /* Smart cards */

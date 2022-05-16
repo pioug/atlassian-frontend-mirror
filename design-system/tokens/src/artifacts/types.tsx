@@ -1,8 +1,7 @@
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running `yarn build tokens`.
-
 /**
- * Type representing the currently active tokens
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::cbc11cad85705333139fd9d6eda82f31>>
+ * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
   | 'color.text.accent.blue'

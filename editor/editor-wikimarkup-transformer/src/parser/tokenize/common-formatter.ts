@@ -51,7 +51,10 @@ export function commonFormatter(
            * formatter
            */
           const charBeforeOpening = input.charAt(position - 1);
-          if (/[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charBeforeOpening)) {
+          if (
+            /[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charBeforeOpening) &&
+            charBeforeOpening !== '\u00A0'
+          ) {
             return fallback(input, index, openingSymbolLength);
           }
         }
@@ -106,12 +109,16 @@ export function commonFormatter(
         /**
          * If the closing symbol is followed by a alphanumeric, it's
          * not a valid formatter, and we keep looking for
-         * next valid closing formatter
+         * next valid closing formatter.
+         * ESS-1402: checking for the non-breaking space after closing symbol.
          */
         if (index < input.length) {
           const charAfterEnd = input.charAt(index);
 
-          if (/[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charAfterEnd)) {
+          if (
+            /[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charAfterEnd) &&
+            charAfterEnd !== '\u00A0'
+          ) {
             buffer.push(charsMatchClosingSymbol);
             state = processState.BUFFER;
             continue;

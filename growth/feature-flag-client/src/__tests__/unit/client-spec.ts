@@ -3,6 +3,7 @@ import {
   AnalyticsHandler,
   AutomaticAnalyticsHandler,
   ExposureTriggerReason,
+  FlagShape,
 } from '../../types';
 
 describe('Feature Flag Client', () => {
@@ -2139,6 +2140,131 @@ describe('Feature Flag Client', () => {
         expect(automaticAnalyticsHandler.sendOperationalEvent).toBeCalledTimes(
           0,
         );
+      });
+
+      const callTrackFeatureFlagWithoutFlagData = (
+        client: FeatureFlagClient,
+        flags: { [flagKey: string]: FlagShape },
+      ) => {
+        Object.keys(flags).forEach((key) =>
+          client.trackFeatureFlag(key, {
+            triggerReason: ExposureTriggerReason.AutoExposure,
+          }),
+        );
+      };
+
+      const callTrackFeatureFlagWithFlagData = (
+        client: FeatureFlagClient,
+        flags: { [flagKey: string]: FlagShape },
+      ) => {
+        Object.entries(flags).forEach(([key, { value, explanation }]) =>
+          client.trackFeatureFlag(key, {
+            triggerReason: ExposureTriggerReason.AutoExposure,
+            value,
+            explanation,
+          }),
+        );
+      };
+
+      const triggerAutomaticExposureAndAssert = (
+        client: FeatureFlagClient,
+        flags: { [flagKey: string]: FlagShape },
+        triggerExposures: (
+          client: FeatureFlagClient,
+          flags: { [flagKey: string]: FlagShape },
+        ) => void,
+      ) => {
+        client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+        const sendAutomaticExposureSpy = jest.spyOn(
+          client,
+          // @ts-ignore Spying on private function
+          'sendAutomaticExposure',
+        );
+
+        triggerExposures(client, flags);
+
+        expect(sendAutomaticExposureSpy).toHaveBeenCalledTimes(
+          Object.keys(flags).length,
+        );
+        Object.entries(flags).forEach(([key, { value, explanation }]) =>
+          expect(sendAutomaticExposureSpy).toHaveBeenCalledWith(
+            key,
+            value,
+            explanation,
+          ),
+        );
+      };
+
+      const flasey_flags: { [flagKey: string]: FlagShape } = {
+        false: {
+          value: false,
+          explanation: { kind: 'SIMPLE_EVAL' },
+        },
+        'empty-string': {
+          value: '',
+          explanation: { kind: 'SIMPLE_EVAL' },
+        },
+        null: {
+          // @ts-ignore Worst case scenario
+          value: null,
+          explanation: { kind: 'SIMPLE_EVAL' },
+        },
+        undefined: {
+          // @ts-ignore Worst case scenario
+          value: undefined,
+          explanation: { kind: 'SIMPLE_EVAL' },
+        },
+        '0': {
+          // @ts-ignore Worst case scenario
+          value: 0,
+          explanation: { kind: 'SIMPLE_EVAL' },
+        },
+      };
+
+      test('should call sendAutomaticExposure when flagValue from flags if falsey', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: flasey_flags,
+        });
+
+        triggerAutomaticExposureAndAssert(
+          client,
+          flasey_flags,
+          callTrackFeatureFlagWithoutFlagData,
+        );
+      });
+
+      test('should call sendAutomaticExposure when flagValue from options if falsey', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        triggerAutomaticExposureAndAssert(
+          client,
+          flasey_flags,
+          callTrackFeatureFlagWithFlagData,
+        );
+      });
+
+      test('should not call sendAutomaticExposure when flagValue is not set', async () => {
+        const client = new FeatureFlagClient({
+          analyticsHandler,
+          flags: {},
+        });
+
+        client.setAutomaticExposuresMode(true, automaticAnalyticsHandler);
+        const sendAutomaticExposureSpy = jest.spyOn(
+          client,
+          // @ts-ignore Spying on private function
+          'sendAutomaticExposure',
+        );
+
+        client.trackFeatureFlag('non-existant-key', {
+          triggerReason: ExposureTriggerReason.AutoExposure,
+        });
+
+        expect(sendAutomaticExposureSpy).not.toHaveBeenCalled();
       });
 
       test('should default to a manual exposure trigger if no trigger reason is supplied', async () => {

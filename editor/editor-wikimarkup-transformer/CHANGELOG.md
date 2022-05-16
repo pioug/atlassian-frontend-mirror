@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.5
+
+### Patch Changes
+
+- [`34d3354b80e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34d3354b80e) - ESS-1402: bug fix to parse the non-breaking space wikimarkup to adf.
+
 ## 11.0.4
 
 ### Patch Changes

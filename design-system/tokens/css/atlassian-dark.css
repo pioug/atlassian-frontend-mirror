@@ -1,5 +1,8 @@
-/* THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY */
-/* Re-generate by running `yarn build tokens`. */
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::72839d415565553fa9a4a239d93dc7e1>>
+ * @codegenCommand yarn build tokens
+ */
 html[data-theme="dark"] {
   --ds-text-accent-blue: #85B8FF;
   --ds-text-accent-blue-bolder: #CCE0FF;

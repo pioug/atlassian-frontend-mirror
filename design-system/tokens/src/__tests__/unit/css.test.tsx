@@ -17,9 +17,9 @@ describe('generated CSS', () => {
     );
 
     names.forEach((name) => {
-      const css = getCSSFile(name).split('\n').slice(2, 3).join('');
+      const css = getCSSFile(name);
 
-      expect(css).toEqual(':root, html[data-theme="light"] {');
+      expect(css).toMatch(/\n:root, html\[data-theme="\w+"\] {\n/);
     });
   });
 
@@ -29,9 +29,9 @@ describe('generated CSS', () => {
     );
 
     names.forEach((name) => {
-      const css = getCSSFile(name).split('\n').slice(2, 3).join('');
+      const css = getCSSFile(name);
 
-      expect(css).toMatch(/^html\[data-theme="\w+"\] {$/);
+      expect(css).toMatch(/\nhtml\[data-theme="\w+"\] {\n/);
     });
   });
 

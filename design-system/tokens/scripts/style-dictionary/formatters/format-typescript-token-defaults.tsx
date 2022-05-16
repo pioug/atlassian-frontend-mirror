@@ -1,6 +1,8 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import { createSignedArtifact } from '@af/codegen';
+
 import { DEFAULT_THEME } from '../../../src/constants';
 import { getTokenId } from '../../../src/utils/token-ids';
 
@@ -18,19 +20,19 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     .map((name) => `  '${name}': '${tokens[name]}',`)
     .join('\n');
 
-  return prettier.format(
-    `// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running \`yarn build tokens\`.
+  const source = prettier.format(
+    `const defaultTokenValues = {
+  ${tokensDefaultKeyValues}
+  } as const;
 
-/**
- * A map of token names to their value in the default Atlassian theme ('${DEFAULT_THEME}')
-*/
-const defaultTokenValues = {
-${tokensDefaultKeyValues}
-} as const;
-
-export default defaultTokenValues;\n`,
+  export default defaultTokenValues;\n`,
     { parser: 'typescript', singleQuote: true },
+  );
+
+  return createSignedArtifact(
+    source,
+    `yarn build tokens`,
+    `Token names mapped to their value in the default Atlassian theme ('${DEFAULT_THEME}')`,
   );
 };
 

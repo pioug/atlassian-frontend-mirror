@@ -1,5 +1,7 @@
 import type { DesignToken, Format } from 'style-dictionary';
 
+import { createSignedArtifact } from '@af/codegen';
+
 import {
   ALLOWED_THEMES,
   DEFAULT_THEME,
@@ -7,7 +9,10 @@ import {
 } from '../../../src/constants';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 
-const formatter: Format['formatter'] = ({ dictionary, options }) => {
+export const cssVariableFormatter: Format['formatter'] = ({
+  dictionary,
+  options,
+}) => {
   if (!options.themeName) {
     throw new Error('options.themeName required');
   }
@@ -28,9 +33,7 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
       tokens.push({ ...token, name: tokenName });
     });
 
-  let output = `/* THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY */
-/* Re-generate by running \`yarn build tokens\`. */
-`;
+  let output = '';
 
   if (themeMode === DEFAULT_THEME) {
     // Base theme
@@ -49,4 +52,7 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
   return output;
 };
 
-export default formatter;
+const fileFormatter: Format['formatter'] = (args) =>
+  createSignedArtifact(cssVariableFormatter(args), `yarn build tokens`);
+
+export default fileFormatter;

@@ -1,5 +1,8 @@
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running `yarn build tokens`.
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::1ab44c57c547c6cb7bb389b286bdd50f>>
+ * @codegenCommand yarn build tokens
+ */
 const tokens = {
   'color.text.accent.blue': '--ds-text-accent-blue',
   'color.text.accent.blue.bolder': '--ds-text-accent-blue-bolder',

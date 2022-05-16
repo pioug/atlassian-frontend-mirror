@@ -1,9 +1,13 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import { createSignedArtifact } from '@af/codegen';
+
 import { getCSSCustomProperty, getTokenId } from '../../../src/utils/token-ids';
 
-const formatter: Format['formatter'] = ({ dictionary }) => {
+export const typescriptTokenFormatter: Format['formatter'] = ({
+  dictionary,
+}) => {
   const tokens: Record<string, string> = {};
 
   dictionary.allTokens
@@ -22,21 +26,22 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     .join('\n');
 
   return prettier.format(
-    `// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running \`yarn build tokens\`.
-const tokens = {
-${tokensKeyValues}
-} as const;
+    `const tokens = {
+      ${tokensKeyValues}
+    } as const;
 
-export type CSSTokenMap = {
-${tokenReturnKeyValues}
-};
+    export type CSSTokenMap = {
+      ${tokenReturnKeyValues}
+    };
 
-export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
+    export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
-export default tokens;\n`,
+    export default tokens;\n`,
     { parser: 'typescript', singleQuote: true },
   );
 };
 
-export default formatter;
+const fileFormatter: Format['formatter'] = (args) =>
+  createSignedArtifact(typescriptTokenFormatter(args), `yarn build tokens`);
+
+export default fileFormatter;

@@ -1,12 +1,9 @@
-import formatter from '../../format-figma';
+import { figmaFormatter as formatter } from '../../format-figma';
 
 const output = (
   themeName: string,
   formattedOutput: string,
-) => `// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running \`yarn build tokens\`.
-// Read the instructions to use this here:
-// \`packages/design-system/tokens/src/figma/README.md\`
+) => `// eslint-disable-next-line no-undef
 synchronizeFigmaTokens('${themeName}', ${formattedOutput}, {});
 `;
 

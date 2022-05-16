@@ -2,7 +2,7 @@ import prettier from 'prettier';
 
 jest.mock('prettier');
 
-import formatter from '../../format-typescript-token-generated-types-internal';
+import { typescriptFormatter as formatter } from '../../format-typescript-token-generated-types-internal';
 
 describe('formatter', () => {
   beforeEach(() => {

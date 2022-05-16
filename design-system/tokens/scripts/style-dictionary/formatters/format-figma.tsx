@@ -2,13 +2,18 @@ import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 import type { Format } from 'style-dictionary';
 
+import { createSignedArtifact } from '@af/codegen';
+
 const formatTokenPath = (path: string[]) =>
   path
     .map(upperFirst)
     .join('/')
     .replace(/\[default\]/g, 'Default');
 
-const formatter: Format['formatter'] = ({ dictionary, options }) => {
+export const figmaFormatter: Format['formatter'] = ({
+  dictionary,
+  options,
+}) => {
   if (!options.themeName) {
     throw new Error('options.themeName required');
   }
@@ -44,19 +49,19 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
       return accum;
     }, {});
 
-  return `
-/* eslint-disable no-undef */
-
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running \`yarn build tokens\`.
-// Read the instructions to use this here:
-// \`packages/design-system/tokens/src/figma/README.md\`
+  return `// eslint-disable-next-line no-undef
 synchronizeFigmaTokens('${themeName}', ${JSON.stringify(
     tokens,
     null,
     2,
-  )}, ${JSON.stringify(renameMap, null, 2)});
-`;
+  )}, ${JSON.stringify(renameMap, null, 2)});\n`;
 };
 
-export default formatter;
+const fileFormatter: Format['formatter'] = (args) =>
+  createSignedArtifact(
+    figmaFormatter(args),
+    `yarn build tokens`,
+    'Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}',
+  );
+
+export default fileFormatter;

@@ -1,5 +1,7 @@
 import type { Format } from 'style-dictionary';
 
+import { createSignedArtifact } from '@af/codegen';
+
 const formatter: Format['formatter'] = ({ dictionary, options }) => {
   const tokens = options?.groups
     ? dictionary.allTokens.filter(
@@ -8,14 +10,11 @@ const formatter: Format['formatter'] = ({ dictionary, options }) => {
       )
     : dictionary.allTokens;
 
-  return `
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running \`yarn build tokens\`.
+  const output = `const tokens = ${JSON.stringify(tokens, null, 2)};
 
-const tokens = ${JSON.stringify(tokens, null, 2)};
+export default tokens;\n`;
 
-export default tokens;
-`;
+  return createSignedArtifact(output, `yarn build tokens`);
 };
 
 export default formatter;

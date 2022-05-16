@@ -116,4 +116,14 @@ https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#
       expect(transformer.parse(markup)).toMatchSnapshot();
     });
   }
+
+  const symbols = ['*', '_', '+', '-', '^', '~', '??'];
+
+  for (const symbol of symbols) {
+    it(`ESS-1402 tests non-breaking space before and after every ${symbol}`, () => {
+      const markup = `This string tests the ${symbol}symbol${symbol} .`;
+      const transformer = new WikiMarkupTransformer();
+      expect(transformer.parse(markup)).toMatchSnapshot();
+    });
+  }
 });

@@ -1,10 +1,12 @@
-
-/* eslint-disable no-undef */
-
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running `yarn build tokens`.
-// Read the instructions to use this here:
-// `packages/design-system/tokens/src/figma/README.md`
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ *
+ * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
+ *
+ * @codegen <<SignedSource::3b607c13264108cd25ae473c22805115>>
+ * @codegenCommand yarn build tokens
+ */
+// eslint-disable-next-line no-undef
 synchronizeFigmaTokens('AtlassianDark', {
   "Color/Text/Accent/Blue/Default": {
     "attributes": {

@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 0.9.5
+
+### Patch Changes
+
+- [`4942487a9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4942487a9f6) - Fixes internal representation of CSS entrypoints for themes. This is an internal change only and does not effect public APIs.
+
+## 0.9.4
+
+### Patch Changes
+
+- [`1dad88929cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dad88929cd) - Adds the `@af/codegen` package that is designed to be used in concert with packages that utilise built assets in their source. Initial release adds an integrity header to assets from `@atlaskit/tokens`.
+
 ## 0.9.3
 
 ### Patch Changes

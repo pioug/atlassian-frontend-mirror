@@ -1,6 +1,8 @@
 import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import { createSignedArtifact } from '@af/codegen';
+
 import { getTokenId } from '../../../src/utils/token-ids';
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
@@ -18,18 +20,12 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     .map((value) => ` | '${value}'`)
     .join('\n');
 
-  return prettier.format(
-    `// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running \`yarn build tokens\`.
-
-/**
- * Type representing the currently active tokens
- */
-export type ActiveTokens = ${activeTokenType};
-
-\n`,
+  const source = prettier.format(
+    `export type ActiveTokens = ${activeTokenType};\n`,
     { parser: 'typescript', singleQuote: true },
   );
+
+  return createSignedArtifact(source, `yarn build tokens`);
 };
 
 export default formatter;

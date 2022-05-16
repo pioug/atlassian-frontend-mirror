@@ -200,23 +200,24 @@ export default class FeatureFlagClient {
    * one endpoint. Depending on the passed in trigger reason a manual or automatic exposure
    * is sent.
    **/
-  trackFeatureFlag(flagKey: string, options?: TrackFeatureFlagOptions) {
+  trackFeatureFlag(flagKey: string, options: TrackFeatureFlagOptions = {}) {
     const triggerReason = options?.triggerReason
       ? options.triggerReason
       : ExposureTriggerReason.Manual;
 
-    // if no values for flagValue and explanation supplied then retrieve them from the flags map
-    const flagValue = options?.value
-      ? options.value
-      : this.flags.get(flagKey)?.value;
+    const isValueSet = this.flags.has(flagKey) || 'value' in options;
 
-    if (!flagValue) {
+    if (!isValueSet) {
       // eslint-disable-next-line no-console
       console.warn(
         `No value associated with the flagKey: ${flagKey} with an exposure trigger reason of: ${triggerReason}`,
       );
       return;
     }
+
+    // if no values for flagValue and explanation supplied then retrieve them from the flags map
+    const flagValue =
+      'value' in options ? options.value : this.flags.get(flagKey)?.value;
 
     const flagExplanation = options?.explanation
       ? options.explanation
@@ -249,7 +250,7 @@ export default class FeatureFlagClient {
 
   private _trackExposure(
     flagKey: string,
-    flag: FlagShape,
+    flag: Omit<FlagShape, 'value'> & { value: unknown },
     exposureTriggerReason: ExposureTriggerReason,
     exposureData: CustomAttributes = {},
   ) {
@@ -287,7 +288,7 @@ export default class FeatureFlagClient {
 
   private sendAutomaticExposure(
     flagKey: string,
-    value: string | boolean | object,
+    value: unknown,
     flagExplanation?: FlagShape['explanation'],
   ) {
     if (

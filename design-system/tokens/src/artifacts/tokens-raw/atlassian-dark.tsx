@@ -1,7 +1,8 @@
-
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running `yarn build tokens`.
-
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::9d619d23cbcf93e5c937313843744a22>>
+ * @codegenCommand yarn build tokens
+ */
 const tokens = [
   {
     "attributes": {

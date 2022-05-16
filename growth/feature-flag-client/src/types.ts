@@ -59,7 +59,7 @@ export type ReservedAttributes = {
   flagKey: string;
   reason: Reason;
   ruleId?: string;
-  value: FlagValue;
+  value: unknown;
   errorKind?: ErrorKind;
 };
 

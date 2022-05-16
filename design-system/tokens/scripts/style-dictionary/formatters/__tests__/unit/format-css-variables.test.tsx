@@ -1,5 +1,5 @@
 import { CSS_PREFIX } from '../../../../../src/constants';
-import formatter from '../../format-css-variables';
+import { cssVariableFormatter as formatter } from '../../format-css-variables';
 
 describe('formatter', () => {
   it('should parse token', () => {

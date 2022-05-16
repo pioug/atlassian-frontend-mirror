@@ -1,8 +1,7 @@
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running `yarn build tokens`.
-
 /**
- * Internally types used for handling token ids
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::b41790657bd6ccb424e840279549eee6>>
+ * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
   | 'color.text.accent.blue.[default]'

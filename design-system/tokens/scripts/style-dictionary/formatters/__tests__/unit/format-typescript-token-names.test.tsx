@@ -3,7 +3,7 @@ import prettier from 'prettier';
 jest.mock('prettier');
 
 import { CSS_PREFIX } from '../../../../../src/constants';
-import formatter from '../../format-typescript-token-names';
+import { typescriptTokenFormatter as formatter } from '../../format-typescript-token-names';
 
 describe('formatter', () => {
   beforeEach(() => {

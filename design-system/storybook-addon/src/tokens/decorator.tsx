@@ -4,9 +4,7 @@ import { makeDecorator, useEffect } from '@storybook/addons';
 
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line
 import '@atlaskit/tokens/css/atlassian-light.css';
-// eslint-disable-next-line
 import '@atlaskit/tokens/css/atlassian-dark.css';
 
 import { DECORATOR_ID, DECORATOR_PARAM } from './constants';

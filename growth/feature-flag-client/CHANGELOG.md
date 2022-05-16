@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 4.5.4
+
+### Patch Changes
+
+- [`fbc99902b9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbc99902b9e) - Fixed trackFeatureFlag to send value when falsey
+
 ## 4.5.3
 
 ### Patch Changes

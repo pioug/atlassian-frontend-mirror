@@ -1,5 +1,11 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.2.6
+
+### Patch Changes
+
+- [`4942487a9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4942487a9f6) - Fixes internal representation of CSS entrypoints for themes. This is an internal change only and does not effect public APIs.
+
 ## 0.2.5
 
 ### Patch Changes

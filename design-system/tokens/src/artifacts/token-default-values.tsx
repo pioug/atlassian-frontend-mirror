@@ -1,8 +1,10 @@
-// THIS IS AN AUTO-GENERATED FILE DO NOT MODIFY DIRECTLY
-// Re-generate by running `yarn build tokens`.
-
 /**
- * A map of token names to their value in the default Atlassian theme ('light')
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ *
+ * Token names mapped to their value in the default Atlassian theme ('light')
+ *
+ * @codegen <<SignedSource::3dd78c77e87d6557a4bade2368be7eb8>>
+ * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
   'color.text.accent.blue': '#0055CC',

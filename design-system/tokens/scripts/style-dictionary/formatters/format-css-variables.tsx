@@ -2,11 +2,7 @@ import type { DesignToken, Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@af/codegen';
 
-import {
-  ALLOWED_THEMES,
-  DEFAULT_THEME,
-  LONG_SHORT_MAPPING,
-} from '../../../src/constants';
+import { ALLOWED_THEMES, LONG_SHORT_MAPPING } from '../../../src/constants';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 
 export const cssVariableFormatter: Format['formatter'] = ({
@@ -33,15 +29,7 @@ export const cssVariableFormatter: Format['formatter'] = ({
       tokens.push({ ...token, name: tokenName });
     });
 
-  let output = '';
-
-  if (themeMode === DEFAULT_THEME) {
-    // Base theme
-    output += `:root, html[data-theme="${themeMode}"] {\n`;
-  } else {
-    // Supplementary theme
-    output += `html[data-theme="${themeMode}"] {\n`;
-  }
+  let output = `html[data-theme="${themeMode}"] {\n`;
 
   tokens.forEach((token) => {
     output += `  ${token.name}: ${token.value};\n`;

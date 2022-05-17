@@ -1,5 +1,11 @@
 # @atlaskit/docs
 
+## 9.0.12
+
+### Patch Changes
+
+- [`7f083c2c69d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f083c2c69d) - Bump version of pretty-proptypes to 1.7.0
+
 ## 9.0.11
 
 ### Patch Changes

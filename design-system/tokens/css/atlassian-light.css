@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a31766961d6fde4e7bcac3fcab880711>>
+ * @codegen <<SignedSource::2e7937ac84595597ac1147c208f1d259>>
  * @codegenCommand yarn build tokens
  */
-:root, html[data-theme="light"] {
+html[data-theme="light"] {
   --ds-text-accent-blue: #0055CC;
   --ds-text-accent-blue-bolder: #09326C;
   --ds-text-accent-red: #AE2A19;

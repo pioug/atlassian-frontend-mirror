@@ -107,6 +107,21 @@ A notifications button with indicator can be added with the `Notifications` comp
 
 <Example Component={AtlassianNavigationNotificationsExample} packageName="@atlaskit/atlassian-navigation"/>
 
+## Routing
+
+Atlassian Navigation buttons extend [all props](/components/button/code) from `@atlaskit/button/custom-theme-button`.
+
+This includes the `component` prop, which allows you to pass in a custom element to render,
+such as the `<Link>` component from popular routing libraries.
+
+```js
+import Link from '@popular/routing-library'
+import { PrimaryButton } from '@atlaskit/atlassian-navigation';
+
+// Set a custom component
+<PrimaryButton component={Link}>Your Work</PrimaryButton>
+```
+
 ## Responsive
 
 There may be too many menu items to display on small viewports. In these cases, the overflowing items should collapse into a dropdown menu.

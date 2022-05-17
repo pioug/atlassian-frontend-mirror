@@ -26,6 +26,7 @@ import {
   mockConfluenceResponse,
   mockJiraResponse,
   mockIframelyResponse,
+  mockBaseResponseWithPreview,
 } from './__mocks__/mocks';
 
 describe('HoverCard', () => {
@@ -84,6 +85,18 @@ describe('HoverCard', () => {
     expect(titleBlock.textContent?.trim()).toBe('I love cheese');
     expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
     expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
+  });
+
+  it('should render preview instead of snippet when it is available', async () => {
+    const { findByTestId, queryByTestId } = await setup(
+      mockBaseResponseWithPreview,
+    );
+    jest.runAllTimers();
+
+    await findByTestId('smart-block-title-resolved-view');
+    await findByTestId('smart-block-preview-resolved-view');
+
+    expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
   });
 
   describe('metadata', () => {

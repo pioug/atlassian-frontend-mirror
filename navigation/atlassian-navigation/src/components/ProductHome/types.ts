@@ -16,7 +16,7 @@ export interface ProductHomeProps {
   logo: ComponentType<Partial<LogoProps>>;
 
   /**
-   * Maximum width in pixel, that logo can aquire. Defaults to 260px.
+   * Maximum width in pixel, that logo can acquire. Defaults to 260px.
    */
   logoMaxWidth?: number;
 
@@ -41,17 +41,18 @@ export interface ProductHomeProps {
    */
   siteTitle?: string;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
+    A `testId` prop is provided for specified elements,
+    which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+    serving as a hook for automated tests.
 
-   * Will set these elements when defined:
+    Will set these elements when defined:
 
-   * - Root element of the component - `{testId}-container`
-   * - Product logo shown at large screen sizes - `{testId}-logo`
-   * - Product icon shown at small screen sizes - `{testId}-icon`
-   * - Site title - `{testId}-site-title`
+    - Root element of the component - `{testId}-container`
+    - Product logo shown at large screen sizes - `{testId}-logo`
+    - Product icon shown at small screen sizes - `{testId}-icon`
+    - Site title - `{testId}-site-title`
    */
   testId?: string;
 }
@@ -78,7 +79,7 @@ export interface CustomProductHomeProps {
   logoUrl: string;
 
   /**
-   * Maximum width in pixel, that logo can aquire. Defaults to 260px.
+   * Maximum width of the logo, in pixels. Defaults to 260px.
    */
   logoMaxWidth?: number;
 
@@ -103,17 +104,18 @@ export interface CustomProductHomeProps {
    */
   siteTitle?: string;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
+    A `testId` prop is provided for specified elements,
+    which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+    serving as a hook for automated tests.
 
-   * Will set these elements when defined:
+    Will set these elements when defined:
 
-   * - Root element of the component - `{testId}-container`
-   * - Product logo shown at large screen sizes - `{testId}-logo`
-   * - Product icon shown at small screen sizes - `{testId}-icon`
-   * - Site title - `{testId}-site-title`
+    - Root element of the component - `{testId}-container`
+    - Product logo shown at large screen sizes - `{testId}-logo`
+    - Product icon shown at small screen sizes - `{testId}-icon`
+    - Site title - `{testId}-site-title`
    */
   testId?: string;
 }

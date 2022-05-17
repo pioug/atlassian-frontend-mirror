@@ -1,5 +1,11 @@
 # @atlaskit/spinner
 
+## 15.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.10
 
 ### Patch Changes

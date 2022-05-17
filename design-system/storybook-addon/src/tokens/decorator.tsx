@@ -40,31 +40,6 @@ const withDesignTokens = makeDecorator({
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      document.querySelectorAll('style').forEach((el) => {
-        if (el.innerText.includes(':root, html[data-theme="light"]')) {
-          // HACK: Allows us to disable the light mode style since it uses root:
-          el.innerText = el.textContent!.replace(':root,', '');
-
-          // HACK: Allows us to apply the theme to children elements
-          el.innerText = el.textContent!.replace(
-            'html[data-theme="light"]',
-            'html[data-theme="light"],.ads-theme-override[data-theme="light"]',
-          );
-        }
-      });
-      document.querySelectorAll('style').forEach((el) => {
-        if (el.innerText.includes('html[data-theme="dark"]')) {
-          // HACK: Allows us to apply the theme to children elements
-          el.innerText = el.textContent!.replace(
-            'html[data-theme="dark"]',
-            'html[data-theme="dark"],.ads-theme-override[data-theme="dark"]',
-          );
-        }
-      });
-    }, [context.id]);
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
       if (!theme || theme === 'none') {
         delete document.documentElement.dataset.theme;
         return;

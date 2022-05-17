@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 19.1.3
+
+### Patch Changes
+
+- [`3de372f6670`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3de372f6670) - Hover Previews: use black flex-ui theme
+
+## 19.1.2
+
+### Patch Changes
+
+- [`3a0fdf3c651`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a0fdf3c651) - change hover previews to show preview over snippet when its available
+
+## 19.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.1.0
 
 ### Minor Changes

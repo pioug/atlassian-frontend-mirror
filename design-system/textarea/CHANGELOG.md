@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.4
 
 ### Patch Changes

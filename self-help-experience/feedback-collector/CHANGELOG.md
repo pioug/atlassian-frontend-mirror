@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 10.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.0
+
+### Minor Changes
+
+- [`11dd69e5a0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11dd69e5a0f) - Fix details for Bitbucket Cloud feedback
+
 ## 10.4.1
 
 ### Patch Changes

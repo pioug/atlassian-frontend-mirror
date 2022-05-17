@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.0
+
+### Minor Changes
+
+- [`aa06bcc3c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa06bcc3c48) - Removes the :root selector from the light theme, which allows the light theme to be turned off once the css is mounted. This is to support our migration efforts, but we will ultimately reintroduce this behaviour once tokens are the default experience
+
 ## 0.9.5
 
 ### Patch Changes

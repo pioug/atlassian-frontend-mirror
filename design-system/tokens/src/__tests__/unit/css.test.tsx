@@ -11,19 +11,7 @@ describe('generated CSS', () => {
     expect(names).toEqual(['atlassian-dark.css', 'atlassian-light.css']);
   });
 
-  it('should place all light themes on the root and theme attribute', () => {
-    const names = getCSSFileNames().filter((name) =>
-      name.endsWith('-light.css'),
-    );
-
-    names.forEach((name) => {
-      const css = getCSSFile(name);
-
-      expect(css).toMatch(/\n:root, html\[data-theme="\w+"\] {\n/);
-    });
-  });
-
-  it('should place all other themes on the theme attribute', () => {
+  it('should place all themes on the theme attribute', () => {
     const names = getCSSFileNames().filter(
       (name) => !name.endsWith('-light.css'),
     );

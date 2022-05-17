@@ -153,3 +153,18 @@ Display an icon before the text.
 Display an icon after the text.
 
 <Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
+
+## Routing
+
+Button's `component` prop allows a custom React component or HTML element to render
+in place of a `<button>` or `<a>` element.
+
+This is useful for using Button with the `<Link>` component from popular routing libraries.
+
+```js
+import Link from '@popular/routing-library'
+import Button from '@atlaskit/button';
+
+// Set a custom component
+<PrimaryButton component={Link}>Your Work</PrimaryButton>
+```

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-confluence",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Public release version of Embeddedable Pages for Confluence",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -46,6 +46,7 @@
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
+    "react-markdown": "^3.6.0",
     "typescript": "4.2.4",
     "wait-for-expect": "^1.2.0"
   },

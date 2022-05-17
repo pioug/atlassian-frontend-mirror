@@ -147,7 +147,7 @@ export default class FeedbackCollector extends Component<Props> {
       entitlementDetails = JSON.parse(
         JSON.stringify(
           document
-            .querySelector('meta[name="bb-bootstrap"]')
+            .querySelector('meta[id="bb-bootstrap"]')
             ?.getAttribute('data-current-user'),
         ),
       );

@@ -1,8 +1,22 @@
 # @atlaskit/motion
 
+## 1.1.0
+
+### Minor Changes
+
+- [`8630371ec57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8630371ec57) - **Note**: It is a re-release of the wrongly `patched` version `1.0.4` that should have been a `minor` release.
+
+  Add a useIsReducedMotion() hook that returns the user's current motion preference.
+
+  Other internal changes:
+
+  - Upgrade to TypeScript 4.2.4
+
 ## 1.0.4
 
 ### Patch Changes
+
+_WRONG RELEASE TYPE - DON'T USE_
 
 - [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
 

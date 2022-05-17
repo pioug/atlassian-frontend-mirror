@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.0.1
+
+### Patch Changes
+
+- [`4d30d4a0b8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d30d4a0b8f) - Updating user documentation for @atlaskit/embedded-confluence
+
 ## 1.0.0
 
 ### Major Changes

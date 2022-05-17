@@ -1,5 +1,15 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.3.0
+
+### Minor Changes
+
+- [`6c65a3147c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c65a3147c1) - Removes root selector hack from lightmode, this is no longer necessary since the default theme no longer enables tokens by default
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.6
 
 ### Patch Changes

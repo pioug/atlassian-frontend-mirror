@@ -68,18 +68,19 @@ export interface AtlassianNavigationProps {
    */
   theme?: NavigationTheme;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
+    A `testId` prop is provided for specified elements,
+    which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+    serving as a hook for automated tests.
 
-   * Will set these elements when defined:
+    Will set these elements when defined:
 
-   * - Header element - `{testId}-header`
-   * - Primary actions container - `{testId}-primary-actions`
-   * - Secondary actions container - `{testId}-secondary-actions`
-   * - Overflow menu popup - `{testId}-overflow-menu-popup`
-   * - Overflow menu button - `{testId}-overflow-menu-trigger`
+    - Header element - `{testId}-header`
+    - Primary actions container - `{testId}-primary-actions`
+    - Secondary actions container - `{testId}-secondary-actions`
+    - Overflow menu popup - `{testId}-overflow-menu-popup`
+    - Overflow menu button - `{testId}-overflow-menu-trigger`
    */
   testId?: string;
 }
@@ -110,18 +111,19 @@ export interface NavigationSkeletonProps {
    */
   theme?: NavigationTheme;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
+    A `testId` prop is provided for specified elements,
+    which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+    serving as a hook for automated tests.
 
-   * Will set these elements when defined:
+    Will set these elements when defined:
 
-   * - Header element - `{testId}-header`
-   * - Primary actions container - `{testId}-primary-actions`
-   * - Secondary actions container - `{testId}-secondary-actions`
-   * - Overflow menu popup - `{testId}-overflow-menu-popup`
-   * - Overflow menu button - `{testId}-overflow-menu-trigger`
+    - Header element - `{testId}-header`
+    - Primary actions container - `{testId}-primary-actions`
+    - Secondary actions container - `{testId}-secondary-actions`
+    - Overflow menu popup - `{testId}-overflow-menu-popup`
+    - Overflow menu button - `{testId}-overflow-menu-trigger`
    */
   testId?: string;
 }

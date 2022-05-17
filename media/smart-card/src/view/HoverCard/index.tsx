@@ -7,10 +7,11 @@ import {
   SnippetBlock,
   FooterBlock,
   MetadataBlock,
+  PreviewBlock,
 } from '../FlexibleCard/components/blocks';
 import { Card } from '../Card';
 import Popup from '@atlaskit/popup';
-import { SmartLinkSize, ActionName } from '../../constants';
+import { SmartLinkSize, ActionName, SmartLinkTheme } from '../../constants';
 import { CustomActionItem } from '../FlexibleCard/components/blocks/types';
 import {
   useSmartLinkActions,
@@ -29,6 +30,8 @@ import { useSmartLinkAnalytics } from '../../state/analytics';
 import { getExtensionKey, getDefinitionId } from '../../state/helpers';
 import { extractMetadata } from '../../extractors/hover/extractMetadata';
 import { getSimulatedMetadata } from './utils';
+import extractPreview from '../../extractors/flexible/extract-preview';
+import { JsonLd } from 'json-ld-types';
 
 export const HoverCardComponent: FC<HoverCardProps> = ({
   children,
@@ -133,6 +136,13 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
       getSimulatedMetadata(extensionKey),
     );
 
+    const linkData = linkState.details?.data as JsonLd.Data.BaseData;
+    const content = extractPreview(linkData) ? (
+      <PreviewBlock />
+    ) : (
+      <SnippetBlock />
+    );
+
     return (
       <div
         onMouseEnter={initShowCard}
@@ -142,7 +152,12 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
         <Card
           appearance="block"
           url={url}
-          ui={{ hideElevation: true, size: SmartLinkSize.Large }}
+          ui={{
+            hideElevation: true,
+            size: SmartLinkSize.Large,
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+            theme: SmartLinkTheme.Black,
+          }}
           onResolve={update}
         >
           <TitleBlock actions={[openAction]} />
@@ -150,7 +165,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
             primary={metadataElements.primary}
             secondary={metadataElements.secondary}
           />
-          <SnippetBlock />
+          {content}
           <FooterBlock actions={smartlinkActions} />
         </Card>
       </div>

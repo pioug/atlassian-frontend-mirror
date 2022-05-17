@@ -101,3 +101,16 @@ export const mockIframelyResponse = {
     },
   },
 };
+
+export const mockBaseResponseWithPreview = {
+  meta: {
+    ...mockBaseResponse.meta,
+  },
+  data: {
+    ...mockBaseResponse.data,
+    image: {
+      '@type': 'Image',
+      url: 'mock-image-url',
+    },
+  },
+};

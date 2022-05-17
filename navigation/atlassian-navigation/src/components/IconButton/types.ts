@@ -70,21 +70,22 @@ export interface BaseIconButtonProps {
    */
   target?: string;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Allows for overriding the component used to render the button.
-   *
-   * This is primarily intended for compatibility with custom
-   * routing libraries when using the `href` prop.
-   *
-   * For further usage information, refer to the [documentation for button](https://atlassian.design/components/button/code).
-   *
-   * @example
-   * ```tsx
-   * <Settings
-   *   component={CustomRouterLink}
-   *   href="/path/to/url"
-   * />
-   * ```
+    Allows for overriding the component used to render the button.
+
+    This is primarily intended for compatibility with custom
+    routing libraries when using the `href` prop.
+
+    For further usage information, refer to the [documentation for button](https://atlassian.design/components/button/code).
+
+    @example
+    ```tsx
+    <Settings
+      component={CustomRouterLink}
+      href="/path/to/url"
+    />
+    ```
    */
   component?: CustomThemeButtonProps['component'];
 

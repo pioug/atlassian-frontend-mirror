@@ -1,9 +1,29 @@
+import { AllHTMLAttributes, ComponentType, ElementType } from 'react';
+
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export type PrimaryButtonProps = Omit<
   CustomThemeButtonProps,
   'appearance' | 'onClick'
 > & {
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /**
+    Allows for overriding the component used to render the button.
+
+    This is primarily intended for compatibility with custom
+    routing libraries when using the `href` prop.
+
+    For further usage information, refer to the [documentation for button](https://atlassian.design/components/button/code).
+
+    @example
+    ```tsx
+    <Settings
+      component={CustomRouterLink}
+      href="/path/to/url"
+    />
+    ```
+   */
+  component?: ComponentType<AllHTMLAttributes<HTMLElement>> | ElementType<any>;
   /**
    * Will set the appearance of the button to look highlighted.
    */

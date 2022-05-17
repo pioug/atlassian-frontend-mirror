@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/docs",
-  "version": "9.0.11",
+  "version": "9.0.12",
   "description": "Utilities for building documentation",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,7 +22,7 @@
     "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
     "codesandboxer": "^1.0.3",
-    "pretty-proptypes": "^1.6.1",
+    "pretty-proptypes": "^1.7.0",
     "react-markings": "^1.3.0",
     "string-raw": "^1.0.1"
   },

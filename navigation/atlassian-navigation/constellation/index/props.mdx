@@ -1,17 +1,108 @@
-import Props from '!!extract-react-types-loader!../../src/components/AtlassianNavigation';
-import ProductHomeProps from '!!extract-react-types-loader!../../src/components/ProductHome/product-home';
-import NavigationSkeletonProps from '!!extract-react-types-loader!../../src/components/AtlassianNavigation/skeleton';
+
+import AtlassianNavigation from '!!extract-react-types-loader!../../docs/ert/skeleton-icon-button';
+import AppSwitcher from '!!extract-react-types-loader!../../src/components/AppSwitcher';
+import Create from '!!extract-react-types-loader!../../src/components/Create';
+import Help from '!!extract-react-types-loader!../../src/components/Help';
+import Notifications from '!!extract-react-types-loader!../../src/components/Notifications';
+import PrimaryButton from '!!extract-react-types-loader!../../src/components/PrimaryButton';
+import PrimaryDropdownButton from '!!extract-react-types-loader!../../src/components/PrimaryDropdownButton';
+import IconButton from '!!extract-react-types-loader!../../src/components/IconButton';
+import ProductHome from '!!extract-react-types-loader!../../src/components/ProductHome/product-home';
+import CustomProductHome from '!!extract-react-types-loader!../../src/components/ProductHome/custom-product-home';
+import Profile from '!!extract-react-types-loader!../../src/components/Profile';
+import Search from '!!extract-react-types-loader!../../src/components/Search';
+import Settings from '!!extract-react-types-loader!../../src/components/Settings';
+import SignIn from '!!extract-react-types-loader!../../src/components/SignIn'
+
+import NavigationSkeleton from '!!extract-react-types-loader!../../src/components/AtlassianNavigation/skeleton';
+import SkeletonCreateButton from '!!extract-react-types-loader!../../docs/ert/skeleton-create-button';
+import SkeletonIconButton from '!!extract-react-types-loader!../../docs/ert/skeleton-icon-button';
+import SkeletonPrimaryButton from '!!extract-react-types-loader!../../docs/ert/skeleton-primary-button';
+import SkeletonSwitcherButton from '!!extract-react-types-loader!../../docs/ert/skeleton-switcher-button';
 
 ## Props
 
-### Container props
+### Container (Atlassian navigation)
 
-<PropsTable heading="" props={Props} />
+<PropsTable heading="" props={AtlassianNavigation} />
 
-### Product home props
+### App Switcher
 
-<PropsTable heading="" props={ProductHomeProps} />
+<PropsTable heading="" props={AppSwitcher} />
 
-### Navigation skeleton props
+### Product home
 
-<PropsTable heading="" props={NavigationSkeletonProps} />
+<PropsTable heading="" props={ProductHome} />
+
+### Custom product Home
+
+<PropsTable heading="" props={CustomProductHome} />
+
+### Primary button
+
+<PropsTable heading="" props={PrimaryButton} />
+
+### Primary dropdown button
+
+<PropsTable heading="" props={PrimaryDropdownButton} />
+
+### Create button
+
+<PropsTable heading="" props={Create} />
+
+### Icon button
+
+<PropsTable heading="" props={IconButton} />
+
+### Search
+
+<PropsTable heading="" props={Search} />
+
+### Notifications button
+
+<PropsTable heading="" props={Notifications} />
+
+### Help button
+
+<PropsTable heading="" props={Help} />
+
+### Settings button
+
+<PropsTable heading="" props={Settings} />
+
+### Sign In button
+
+<PropsTable heading="" props={SignIn} />
+
+### Profile button
+
+<PropsTable heading="" props={Profile} />
+
+
+## Skeleton Props
+
+### Navigation skeleton
+
+<PropsTable heading="" props={NavigationSkeleton} />
+
+### Create button skeleton
+
+<PropsTable heading="" props={SkeletonCreateButton} />
+
+### Icon button skeleton
+
+<PropsTable heading="" props={SkeletonIconButton} />
+
+### Primary button skeleton
+<PropsTable heading="" props={SkeletonPrimaryButton} />
+
+### Secondary button skeletons
+
+These props are shared by:
+
+- switcher button skeleton
+- notifications button skeleton
+- help button skeleton
+- settings button skeleton
+
+<PropsTable heading="" props={SkeletonSwitcherButton} />

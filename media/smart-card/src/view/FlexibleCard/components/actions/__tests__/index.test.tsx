@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { DeleteAction, EditAction } from '../index';
 import { SmartLinkSize } from '../../../../../constants';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, waitForElement } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 import { ActionProps } from '../action/types';
@@ -102,6 +102,26 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
           expect(element).toHaveStyleDeclaration('width', expectedSize);
         },
       );
+    });
+
+    it('show tooltips on hover', async () => {
+      const mockOnClick = jest.fn();
+      const { findByTestId } = render(
+        <IntlProvider locale="en">
+          <NamedAction
+            asDropDownItem={false}
+            onClick={mockOnClick}
+            testId={testId}
+          />
+        </IntlProvider>,
+      );
+
+      const element = await findByTestId(testId);
+      fireEvent.mouseOver(element);
+      const tooltip = await findByTestId(`${testId}-tooltip`);
+
+      expect(tooltip).toBeTruthy();
+      expect(tooltip.textContent).toBe(name);
     });
   });
 };

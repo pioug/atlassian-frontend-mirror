@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 19.1.5
+
+### Patch Changes
+
+- [`db78a813922`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db78a813922) - Add error handling to smart-card ssr component
+
+## 19.1.4
+
+### Patch Changes
+
+- [`cd2e7183aa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd2e7183aa5) - Flexible UI: Fix action tooltips not displayed on hover
+
 ## 19.1.3
 
 ### Patch Changes

@@ -10,7 +10,6 @@ import DropdownMenu, {
   DropdownItemCheckboxGroup,
 } from '@atlaskit/dropdown-menu';
 import FocusRing from '@atlaskit/focus-ring';
-import SectionLink from '@atlaskit/gatsby-theme-brisk/src/components/section-link';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import FilterIcon from '@atlaskit/icon/glyph/filter';
 import SearchIcon from '@atlaskit/icon/glyph/search';
@@ -18,6 +17,8 @@ import TextField from '@atlaskit/textfield';
 import { gridSize } from '@atlaskit/theme/constants';
 import ToolTip from '@atlaskit/tooltip';
 
+// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
+import SectionLink from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
 import { token } from '../../src';
 import TokenWizardModal from '../token-wizard';
 

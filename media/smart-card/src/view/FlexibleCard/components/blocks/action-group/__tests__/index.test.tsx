@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, waitForElement } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import ActionGroup from '..';
 import { ActionName } from '../../../../../../constants';
 import { ActionItem } from '../../types';
+import { messages } from '../../../../../../messages';
 
 describe('ActionGroup', () => {
   const testId = 'smart-element-test';
@@ -124,6 +125,23 @@ describe('ActionGroup', () => {
             expect(secondActionElement).toBeDefined();
             expect(secondActionElement?.textContent).toMatch('Delete');
           }
+        });
+
+        it('renders tooltip when "more actions" button is hovered', async () => {
+          const { findByTestId } = setup(
+            visibleButtonsNum + 1,
+            visibleButtonsNum,
+          );
+          const moreButton = await findByTestId('action-group-more-button');
+          fireEvent.mouseOver(moreButton);
+          const tooltip = await findByTestId(
+            'action-group-more-button-tooltip',
+          );
+
+          expect(tooltip).toBeTruthy();
+          expect(tooltip.textContent).toBe(
+            messages.more_actions.defaultMessage,
+          );
         });
       });
     },

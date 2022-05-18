@@ -129,7 +129,7 @@ const Action: React.FC<ActionProps> = ({
     );
   } else {
     return (
-      <Tooltip content={tooltipMessage}>
+      <Tooltip content={tooltipMessage} testId={`${testId}-tooltip`}>
         <div
           css={[getButtonStyle(size, iconOnly), overrideCss]}
           data-testid={`${testId}-button-wrapper`}

@@ -16,6 +16,21 @@
           "text": " "
         }
       ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://hello.atlassian.net/wiki/spaces/CCB/pages/1138153345"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ]
     }
   ]
 }

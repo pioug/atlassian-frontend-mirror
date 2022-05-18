@@ -12,6 +12,7 @@ export type MessageKey =
   | 'modified_by'
   | 'modified_on_relative'
   | 'modified_on_absolute'
+  | 'more_actions'
   | 'priority_blocker'
   | 'priority_critical'
   | 'priority_high'
@@ -94,6 +95,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.modified_on_absolute',
     defaultMessage: 'Updated on {context}',
     description: 'Indicated when entity was modified (absolute form)',
+  },
+  more_actions: {
+    id: 'fabric.linking.more_actions',
+    defaultMessage: 'More actions',
+    description: 'Allows the users to see more link actions',
   },
   priority_blocker: {
     id: 'fabric.linking.priority_blocker',

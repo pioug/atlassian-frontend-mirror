@@ -249,6 +249,10 @@ describe('Flexible Card', () => {
       // Open More action menu and focus on the first action
       await page.keyboard.press('Enter');
       await page.waitForSelector('[data-testid="action-item-custom"]');
+      await page.waitForSelector(
+        '[data-testid="action-group-more-button-tooltip"]',
+        { hidden: true },
+      );
       const imageOpenMoreAction = await takeSnapshot(page, height);
       expect(imageOpenMoreAction).toMatchProdImageSnapshot();
 

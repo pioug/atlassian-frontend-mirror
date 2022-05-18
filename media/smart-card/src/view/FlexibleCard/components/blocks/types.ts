@@ -69,6 +69,7 @@ export type ElementItem = {
 
   /**
    * The size of the element to render.
+   * The elements that support sizing are AuthorGroup and CollaboratorGroup.
    */
   size?: SmartLinkSize;
 

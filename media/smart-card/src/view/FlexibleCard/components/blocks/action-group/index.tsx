@@ -1,6 +1,8 @@
 /** @jsx jsx */
+import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/core';
 import ButtonGroup from '@atlaskit/button/button-group';
+import Tooltip from '@atlaskit/tooltip';
 import { renderActionItems } from '../utils';
 import { ActionGroupProps } from './types';
 import DropdownMenu from '@atlaskit/dropdown-menu';
@@ -10,6 +12,7 @@ import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { sizeToSpacing } from '../../actions/action';
 import { tokens } from '../../../../../utils/token';
+import { messages } from '../../../../../messages';
 
 const styles = css`
   display: inline-flex;
@@ -41,6 +44,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   appearance,
   visibleButtonsNum = 2,
   onDropdownOpenChange,
+  testId,
 }) => {
   const isMoreThenTwoItems = items.length > visibleButtonsNum;
   const firstActions = isMoreThenTwoItems
@@ -59,13 +63,19 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
               onDropdownOpenChange && onDropdownOpenChange(isOpen)
             }
             trigger={({ triggerRef, ...props }) => (
-              <Button
-                {...props}
-                spacing={sizeToSpacing[size]}
-                testId="action-group-more-button"
-                iconBefore={<MoreIcon label="more" />}
-                ref={triggerRef}
-              />
+              <Tooltip
+                content={<FormattedMessage {...messages.more_actions} />}
+                testId="action-group-more-button-tooltip"
+                tag="span"
+              >
+                <Button
+                  {...props}
+                  spacing={sizeToSpacing[size]}
+                  testId="action-group-more-button"
+                  iconBefore={<MoreIcon label="more" />}
+                  ref={triggerRef}
+                />
+              </Tooltip>
             )}
           >
             {renderActionItems(restActions, size, appearance, true)}

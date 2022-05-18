@@ -22,7 +22,7 @@ const actionMappings: Record<
       testId: 'smart-action-delete-action',
       content: <FormattedMessage {...messages.delete} />,
       icon: <CrossIcon label="Delete" />,
-      toolTipMessage: <FormattedMessage {...messages.delete} />,
+      tooltipMessage: <FormattedMessage {...messages.delete} />,
     },
   },
   [ActionName.EditAction]: {
@@ -31,7 +31,7 @@ const actionMappings: Record<
       testId: 'smart-action-edit-action',
       content: <FormattedMessage {...messages.edit} />,
       icon: <EditIcon label="Edit" />,
-      toolTipMessage: <FormattedMessage {...messages.edit} />,
+      tooltipMessage: <FormattedMessage {...messages.edit} />,
     },
   },
 };

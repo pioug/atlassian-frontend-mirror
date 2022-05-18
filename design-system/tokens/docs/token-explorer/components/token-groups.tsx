@@ -5,8 +5,9 @@ import { jsx } from '@emotion/core';
 import upperFirst from 'lodash/upperFirst';
 
 import EmptyState from '@atlaskit/empty-state';
-import SectionLink from '@atlaskit/gatsby-theme-brisk/src/components/section-link';
 
+// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
+import SectionLink from '../../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
 import type { TokenGroup } from '../grouped-tokens';
 import noResultsImg from '../images/no-results.png';
 

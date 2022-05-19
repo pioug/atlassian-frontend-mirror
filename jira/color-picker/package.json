@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/color-picker",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Jira Color Picker Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

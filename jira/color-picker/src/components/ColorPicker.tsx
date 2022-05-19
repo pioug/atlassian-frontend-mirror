@@ -3,6 +3,8 @@ import { PopupSelect, ValueType, PopupSelectProps } from '@atlaskit/select';
 import Trigger from './Trigger';
 import { Palette, Color } from '../types';
 import * as components from './components';
+import { KEY_ARROW_UP, KEY_ARROW_DOWN, KEY_TAB } from '../constants';
+
 import {
   withAnalyticsEvents,
   withAnalyticsContext,
@@ -42,6 +44,8 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 export class ColorPickerWithoutAnalytics extends React.Component<Props> {
   createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
+  state = { isTabbing: false };
+
   changeAnalyticsCaller = () => {
     const { createAnalyticsEvent } = this.props;
 
@@ -60,8 +64,21 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
     return undefined;
   };
 
-  onChange = (option: ValueType<Color>) => {
+  onChangeSelect = (option: ValueType<Color>) => {
     this.props.onChange((option as Color).value, this.changeAnalyticsCaller());
+  };
+
+  onOptionKeyDown = (value: string) => {
+    this.props.onChange(value, this.changeAnalyticsCaller());
+  };
+
+  onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    const key = e.key;
+    if (key === KEY_TAB) {
+      this.setState({ isTabbing: true });
+    } else if (key === KEY_ARROW_UP || key === KEY_ARROW_DOWN) {
+      this.setState({ isTabbing: false });
+    }
   };
 
   render() {
@@ -90,12 +107,15 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
         aria-label={fullLabel}
         value={value}
         components={components}
-        onChange={this.onChange}
+        onChange={this.onChangeSelect}
         // never show search input
         searchThreshold={Number.MAX_VALUE}
         // palette props
         cols={cols}
         checkMarkColor={checkMarkColor}
+        onKeyDown={this.onKeyDown}
+        isTabbing={this.state.isTabbing}
+        onOptionKeyDown={this.onOptionKeyDown}
       />
     );
   }

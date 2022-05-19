@@ -59,6 +59,7 @@ const getTitleBlockViewComponent = (status: SmartLinkStatus) => {
 const TitleBlock: React.FC<TitleBlockProps> = ({
   actions = [],
   anchorTarget,
+  hideTitleTooltip,
   maxLines,
   onClick,
   overrideCss,
@@ -85,6 +86,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
   const overrideText = !!text ? { text } : {};
   const title = (
     <Title
+      hideTooltip={hideTitleTooltip}
       maxLines={maxLines}
       onClick={onClick}
       target={anchorTarget}

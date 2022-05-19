@@ -20,6 +20,7 @@ export interface Props {
   selected?: boolean;
   focused?: boolean;
   isOption?: boolean;
+  isTabbing?: boolean;
 }
 
 export default class ColorCard extends PureComponent<Props> {
@@ -38,9 +39,17 @@ export default class ColorCard extends PureComponent<Props> {
 
   onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const { key } = event;
-    const { onKeyDown, value } = this.props;
-    if (onKeyDown && (key === KEY_ENTER || key === KEY_SPACE)) {
+    const { onKeyDown, value, isTabbing } = this.props;
+
+    if (
+      (isTabbing === undefined || isTabbing) &&
+      onKeyDown &&
+      (key === KEY_ENTER || key === KEY_SPACE)
+    ) {
       event.preventDefault();
+      if (isTabbing) {
+        event.stopPropagation();
+      }
       onKeyDown(value);
     }
   };
@@ -55,6 +64,7 @@ export default class ColorCard extends PureComponent<Props> {
       focused,
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       checkMarkColor = colors.N0,
+      isTabbing,
     } = this.props;
 
     return (
@@ -65,6 +75,7 @@ export default class ColorCard extends PureComponent<Props> {
         aria-label={`${label}${selected ? ' selected' : ''}`}
         tabIndex={0}
         onKeyDown={this.onKeyDown}
+        isTabbing={isTabbing}
       >
         <ColorCardContent color={value || 'transparent'}>
           {selected && (

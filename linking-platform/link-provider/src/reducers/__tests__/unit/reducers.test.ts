@@ -7,6 +7,8 @@ import {
   CardActionParams,
   CardStore,
   CardAction,
+  ACTION_ERROR_FALLBACK,
+  APIError,
 } from '@atlaskit/linking-common';
 import { Reducer } from 'react';
 import { JsonLd } from 'json-ld-types';
@@ -59,6 +61,58 @@ describe('Smart Card: Reducers', () => {
       store = reducer(store, cardAction(ACTION_ERROR, mockActionParams));
       expect(store).toHaveProperty('/some/url', {
         status: 'errored',
+      });
+    });
+  });
+
+  describe('ACTION_ERROR_FALLBACK', () => {
+    it('successfully updates URL state to fallback and passes response data', () => {
+      const mockError = new APIError(
+        'fallback',
+        'hostname',
+        'Provider.authFlow is not set to OAuth2.',
+      );
+      const mockPayload: JsonLd.Response = {
+        meta: {
+          auth: [],
+          definitionId: 'confluence-object-provider',
+          visibility: 'restricted',
+          access: 'forbidden',
+          resourceType: 'page',
+          key: 'confluence-object-provider',
+          requestAccess: {
+            accessType: 'ACCESS_EXISTS',
+            cloudId: 'DUMMY-CLOUD-ID',
+          },
+        },
+        data: {
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          generator: {
+            '@type': 'Application',
+            '@id': 'https://www.atlassian.com/#Confluence',
+            name: 'Confluence',
+          },
+          url: '/some/url',
+          '@type': ['Document', 'schema:TextDigitalDocument'],
+        },
+      };
+      store = reducer(
+        store,
+        cardAction(
+          ACTION_ERROR_FALLBACK,
+          mockActionParams,
+          mockPayload,
+          mockError,
+        ),
+      );
+      expect(store).toHaveProperty('/some/url', {
+        status: 'fallback',
+        details: mockPayload,
+        error: mockError,
       });
     });
   });

@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.0.1
+
+### Patch Changes
+
+- [`28410ec919d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28410ec919d) - Flexible UI: Passing JsonLD response on authFlow disabled
+
 ## 1.0.0
 
 ### Major Changes

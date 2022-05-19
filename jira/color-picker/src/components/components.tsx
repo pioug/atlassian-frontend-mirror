@@ -31,7 +31,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 export const Option = (props: OptionProps<Color>) => {
   const {
     data: { value, label },
-    selectProps: { checkMarkColor },
+    selectProps: { checkMarkColor, onOptionKeyDown, isTabbing },
     isFocused,
     isSelected,
   } = props;
@@ -45,6 +45,8 @@ export const Option = (props: OptionProps<Color>) => {
         isOption
         focused={isFocused}
         selected={isSelected}
+        onKeyDown={(value) => onOptionKeyDown(value)}
+        isTabbing={isTabbing}
       />
     </ColorCardWrapper>
   );

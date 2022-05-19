@@ -153,6 +153,7 @@ describe('Smart Card: Actions', () => {
           'https://some',
           'Provider.authFlow is not set to OAuth2.',
         ),
+        payload: mocks.unauthorized,
       });
     });
 
@@ -187,6 +188,7 @@ describe('Smart Card: Actions', () => {
           'https://some',
           'Provider.authFlow is not set to OAuth2.',
         ),
+        payload: mocks.forbidden,
       });
     });
 

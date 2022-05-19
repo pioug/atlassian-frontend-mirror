@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.0.0
+
+### Major Changes
+
+- [`b1f4bf97543`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1f4bf97543) - [ux] Fixes bug with tabbing
+
 ## 2.0.1
 
 ### Patch Changes

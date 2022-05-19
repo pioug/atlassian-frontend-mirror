@@ -42,7 +42,7 @@ export const useSmartCardActions = (
   const hasData = !!(details && details.data);
 
   const handleResolvedLinkError = useCallback(
-    (url: string, error: APIError) => {
+    (url: string, error: APIError, response?: JsonLd.Response) => {
       if (error.kind === 'fatal') {
         // If there's no previous data in the store for this URL, then bail
         // out and let the editor handle fallbacks (returns to a blue link).
@@ -62,9 +62,7 @@ export const useSmartCardActions = (
       } else {
         if (error.kind === 'fallback') {
           // Fallback to blue link with smart link formatting. Not part of reliability.
-          dispatch(
-            cardAction(ACTION_ERROR_FALLBACK, { url }, undefined, error),
-          );
+          dispatch(cardAction(ACTION_ERROR_FALLBACK, { url }, response, error));
         } else {
           // Fallback to blue link with smart link formatting. Part of reliability.
           dispatch(cardAction(ACTION_ERROR, { url }, undefined, error));
@@ -88,6 +86,7 @@ export const useSmartCardActions = (
         handleResolvedLinkError(
           resourceUrl,
           new APIError('fallback', hostname, ERROR_MESSAGE_OAUTH),
+          response,
         );
         return;
       }

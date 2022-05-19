@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "19.1.5",
+  "version": "19.1.7",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -59,7 +59,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.0.0",
+    "@atlaskit/link-provider": "^1.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"

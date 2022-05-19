@@ -86,6 +86,16 @@ const getMaxLines = (maxLines: number) => {
   return maxLines;
 };
 
+const withTooltip = (
+  trigger: React.ReactNode,
+  content: string,
+  testId: string,
+) => (
+  <Tooltip content={content} testId={`${testId}-tooltip`} tag="span">
+    {trigger}
+  </Tooltip>
+);
+
 /**
  * A base element that represent an anchor.
  * @internal
@@ -93,6 +103,7 @@ const getMaxLines = (maxLines: number) => {
  * @see LinkIcon
  */
 const Link: React.FC<LinkProps> = ({
+  hideTooltip,
   maxLines = DEFAULT_MAX_LINES,
   overrideCss,
   size = SmartLinkSize.Medium,
@@ -104,23 +115,27 @@ const Link: React.FC<LinkProps> = ({
   target,
 }) => {
   const hasSpace = useMemo(() => (text ? hasWhiteSpace(text) : false), [text]);
+  const anchor = (
+    <a
+      css={[
+        getAnchorStyles(size, theme, getMaxLines(maxLines), hasSpace),
+        overrideCss,
+      ]}
+      data-smart-element-link
+      data-testid={testId}
+      onClick={onClick}
+      href={url}
+      target={target || '_blank'}
+    >
+      {text}
+    </a>
+  );
+
   return (
     <span css={containerStyles}>
-      <Tooltip content={text} testId={`${testId}-tooltip`} tag="span">
-        <a
-          css={[
-            getAnchorStyles(size, theme, getMaxLines(maxLines), hasSpace),
-            overrideCss,
-          ]}
-          data-smart-element-link
-          data-testid={testId}
-          onClick={onClick}
-          href={url}
-          target={target || '_blank'}
-        >
-          {text}
-        </a>
-      </Tooltip>
+      {hideTooltip || text === undefined
+        ? anchor
+        : withTooltip(anchor, text, testId)}
     </span>
   );
 };

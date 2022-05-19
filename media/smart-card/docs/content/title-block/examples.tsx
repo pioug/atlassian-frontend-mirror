@@ -190,6 +190,20 @@ ${(
   />
 )}
 
+### Hide link title tooltip [Experiment]
+
+Use \`hideTitleTooltip\` to hide the tooltip on link tilte.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/title-block-hide-title-tooltip')
+        .default
+    }
+    source={require('!!raw-loader!../../../examples/content/title-block-hide-title-tooltip')}
+  />
+)}
+
 ### Override CSS
 
 Use \`overrideCss\` to override the styles of the block.

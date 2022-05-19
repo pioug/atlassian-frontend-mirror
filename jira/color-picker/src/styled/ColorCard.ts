@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 type ColorCardProps = {
   focused?: boolean;
+  isTabbing?: boolean;
 };
 
 const buttonFocusedBorder = `border-color: ${token(
@@ -28,10 +29,6 @@ const sharedColorContainerStyles = css`
   padding: 0;
   cursor: pointer;
   outline: none;
-  &:hover,
-  &:focus {
-    border-color: ${token('color.border.focused', colors.B75)};
-  }
 `;
 
 export const ColorCardOption = styled.div<
@@ -40,7 +37,16 @@ export const ColorCardOption = styled.div<
   ${sharedColorContainerStyles};
 
   ${(props) => {
-    if (props.focused) {
+    if (props.isTabbing === undefined || props.isTabbing) {
+      return `&:hover,
+      &:focus {
+        border-color: ${token('color.border.focused', colors.B75)};
+      }`;
+    }
+  }}
+
+  ${(props) => {
+    if (props.focused && !props.isTabbing) {
       return `border-color: ${token('color.border.focused', colors.B75)}`;
     }
   }};

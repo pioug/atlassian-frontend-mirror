@@ -139,15 +139,53 @@ describe('Element: Link', () => {
     });
   });
 
-  it('shows tooltip on hover', async () => {
-    const { findByTestId } = render(<Link text={text} url={url} />);
+  describe('renders with tooltip', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
 
-    const element = await findByTestId(testId);
-    fireEvent.mouseOver(element);
-    const tooltip = await findByTestId(`${testId}-tooltip`);
+    afterEach(() => {
+      jest.useRealTimers();
+    });
 
-    expect(tooltip).toBeTruthy();
-    expect(tooltip.textContent).toBe(text);
+    it('shows tooltip on hover by default', async () => {
+      const { findByTestId } = render(<Link text={text} url={url} />);
+
+      const element = await findByTestId(testId);
+      fireEvent.mouseOver(element);
+      jest.runAllTimers();
+      const tooltip = await findByTestId(`${testId}-tooltip`);
+
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip.textContent).toBe(text);
+    });
+
+    it('shows tooltip on hover when hideTooltip is false', async () => {
+      const { findByTestId } = render(
+        <Link hideTooltip={false} text={text} url={url} />,
+      );
+
+      const element = await findByTestId(testId);
+      fireEvent.mouseOver(element);
+      jest.runAllTimers();
+      const tooltip = await findByTestId(`${testId}-tooltip`);
+
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip.textContent).toBe(text);
+    });
+
+    it('does not show tooltip on hover when hideTooltip is true', async () => {
+      const { findByTestId, queryByTestId } = render(
+        <Link hideTooltip={true} text={text} url={url} />,
+      );
+
+      const element = await findByTestId(testId);
+      fireEvent.mouseOver(element);
+      jest.runAllTimers();
+      const tooltip = queryByTestId(`${testId}-tooltip`);
+
+      expect(tooltip).not.toBeInTheDocument();
+    });
   });
 
   it('renders with override css', async () => {

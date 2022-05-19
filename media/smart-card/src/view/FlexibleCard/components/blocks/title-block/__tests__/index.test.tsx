@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { css } from '@emotion/core';
 import TitleBlock from '../index';
@@ -235,6 +235,53 @@ describe('TitleBlock', () => {
       );
 
       expect(message.textContent).toEqual("Can't find link");
+    });
+  });
+
+  describe('renders with tooltip on title', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('shows tooltip on hover by default', async () => {
+      const { findByTestId } = renderTitleBlock();
+
+      const element = await findByTestId(titleTestId);
+      fireEvent.mouseOver(element);
+      jest.runAllTimers();
+      const tooltip = await findByTestId(`${titleTestId}-tooltip`);
+
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip.textContent).toBe(context.title);
+    });
+
+    it('shows tooltip on hover when hideTitleTooltip is false', async () => {
+      const { findByTestId } = renderTitleBlock({ hideTitleTooltip: false });
+
+      const element = await findByTestId(titleTestId);
+      fireEvent.mouseOver(element);
+      jest.runAllTimers();
+      const tooltip = await findByTestId(`${titleTestId}-tooltip`);
+
+      expect(tooltip).toBeInTheDocument();
+      expect(tooltip.textContent).toBe(context.title);
+    });
+
+    it('does not show tooltip on hover when hideTitleTooltip is true', async () => {
+      const { findByTestId, queryByTestId } = renderTitleBlock({
+        hideTitleTooltip: true,
+      });
+
+      const element = await findByTestId(titleTestId);
+      fireEvent.mouseOver(element);
+      jest.runAllTimers();
+      const tooltip = queryByTestId(`${titleTestId}-tooltip`);
+
+      expect(tooltip).not.toBeInTheDocument();
     });
   });
 

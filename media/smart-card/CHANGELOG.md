@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 19.1.7
+
+### Patch Changes
+
+- [`08bdfa654e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08bdfa654e2) - Flexible UI: Add option to hide link tooltip on TitleBlock.
+
+## 19.1.6
+
+### Patch Changes
+
+- [`28410ec919d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28410ec919d) - Flexible UI: Passing JsonLD response on authFlow disabled
+- Updated dependencies
+
 ## 19.1.5
 
 ### Patch Changes

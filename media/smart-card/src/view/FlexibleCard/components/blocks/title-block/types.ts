@@ -21,6 +21,11 @@ export type TitleBlockProps = {
   anchorTarget?: AnchorTarget;
 
   /**
+   * [Experiment] Determines whether the linked title should display tooltip on hover.
+   */
+  hideTitleTooltip?: boolean;
+
+  /**
    * Determines the maximum number of lines for the underlying link text to
    * spread over. Default is 2. Maximum is 2.
    */

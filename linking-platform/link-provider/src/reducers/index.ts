@@ -35,8 +35,8 @@ const cardReducerMap: CardReducerMap<CardState, JsonLd.Response> = {
   [ACTION_ERROR]: (state, { type, error }) => {
     return { ...state, status: type, error };
   },
-  [ACTION_ERROR_FALLBACK]: (state, { type, error }) => {
-    return { ...state, status: type, error };
+  [ACTION_ERROR_FALLBACK]: (state, { type, payload, error }) => {
+    return { ...state, status: type, error, details: payload };
   },
 };
 

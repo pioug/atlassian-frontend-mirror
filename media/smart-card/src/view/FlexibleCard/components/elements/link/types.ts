@@ -4,6 +4,11 @@ import { AnchorTarget } from '../../types';
 
 export type LinkProps = ElementProps & {
   /**
+   * Determines whether the link should display tooltip on hover.
+   */
+  hideTooltip?: boolean;
+
+  /**
    * Determines the behaviour when the Link is clicked. By default is used to
    * propagate analytics.
    */

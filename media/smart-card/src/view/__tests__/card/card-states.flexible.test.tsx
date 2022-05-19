@@ -263,4 +263,55 @@ describe('smart-card: card states, flexible', () => {
       expect(queryByTestId(testId)).toBeNull();
     });
   });
+
+  describe('with authFlow disabled', () => {
+    it('renders Flexible UI with available data', async () => {
+      const mockUrl = 'https://this.is.the.seventh.url';
+      mockFetch.mockResolvedValueOnce({
+        meta: {
+          auth: [],
+          definitionId: 'confluence-object-provider',
+          visibility: 'restricted',
+          access: 'forbidden',
+          resourceType: 'page',
+          key: 'confluence-object-provider',
+          requestAccess: {
+            accessType: 'ACCESS_EXISTS',
+            cloudId: 'DUMMY-CLOUD-ID',
+          },
+        },
+        data: {
+          '@context': {
+            '@vocab': 'https://www.w3.org/ns/activitystreams#',
+            atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+            schema: 'http://schema.org/',
+          },
+          generator: {
+            '@type': 'Application',
+            '@id': 'https://www.atlassian.com/#Confluence',
+            name: 'Confluence',
+          },
+          url: mockUrl,
+          '@type': ['Document', 'schema:TextDigitalDocument'],
+        },
+      });
+
+      const { findByTestId, queryByTestId } = render(
+        <Provider client={mockClient} authFlow="disabled">
+          <Card appearance="inline" url={mockUrl}>
+            <TitleBlock testId="auth-flow-disabled" />
+          </Card>
+        </Provider>,
+      );
+      const view = await findByTestId('auth-flow-disabled-errored-view');
+      const icon = await findByTestId('smart-element-icon-icon--wrapper');
+      const link = await findByTestId('smart-element-link');
+      const message = queryByTestId('auth-flow-disabled-errored-view-message');
+
+      expect(view).toBeTruthy();
+      expect(icon.getAttribute('aria-label')).toBe('Confluence');
+      expect(link.textContent).toBe(mockUrl);
+      expect(message).not.toBeInTheDocument();
+    });
+  });
 });

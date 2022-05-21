@@ -4,7 +4,7 @@
 
 ### `navigationPolicy` description
 
-Both `ViewPage` and `EditPage` components accept `navigationPolicy` prop. This is the prop parent product can provide their implementation of handling a navigation request based on URL.
+Both `ViewPage` and `EditPage` components accept `navigationPolicy` prop. This is the prop 3rd parties can provide their implementation of handling a navigation request based on URL.
 
 ### `navigationPolicy` definition
 
@@ -17,10 +17,10 @@ The navigation policy includes an optional `shimUrl` and a `navigate` function.
 }
 ```
 
-- `navigate`: (Optional) Function that parent product provides. This allow parent product to customize the navigation for URL. Through the `navigate`, parent product will have access:
+- `navigate`: (Optional) Function that 3rd parties provides. This allow 3rd parties to customize the navigation for URL. Through the `navigate`, 3rd parties will have access to:
 
   - `url`: The URL that navigation is targeting on.
-  - `modifiers`: An object contains modifiers that parent product may be interested.
+  - `modifiers`: An object contains modifiers that 3rd parties may be interested.
 
     - `target`: `'_self' | '_blank'` - specify if the navigation should stay within the same window: `_self`, or should open a new tab: `_blank`.
     - `contentId`: `string | undefined` - the id of content from Confluence perspective parsed from the `url`.
@@ -32,22 +32,22 @@ The navigation policy includes an optional `shimUrl` and a `navigate` function.
       | EDIT_PAGE_EMBED | This route name specifies that the URL is for Embedded Editor. This editor uses Native Collab Service (NCS). |
       | VIEW_PAGE       | This route name specifies that the URL is for the View Page.                                                 |
 
-  - `defaultNavigate`: A function that parent product can optionally choose to proceed with as default navigation behaviors. This gives parent product an option to opt in to handle the navigation of `url`, or choose to opt out and fallback to default navigation behaviors.
+  - `defaultNavigate`: A function that 3rd parties can optionally choose to proceed with as default navigation behaviors. This gives 3rd parties an option to opt in to handle the navigation of `url`, or choose to opt out and fallback to default navigation behaviors.
 
-- `shimUrl`: (Optional) If provided, any URL that navigates to Confluence app will be converted to the URL of the parent product. <br>
+- `shimUrl`: (Optional) If provided, any URL that navigates to Confluence app will be converted to the URL of the 3rd party. <br>
 
   - Example:
-    If parent product tenant is `https://domain1.com/` and it is linked to Confluence Cloud, here is a table explains how this link `https://domain1.com/wiki/a/b/c` would be converted based on different `shimUrl` values:
+    If 3rd party tenant is `https://domain1.com/` and it is linked to Confluence Cloud, here is a table explains how this link `https://domain1.com/wiki/a/b/c` would be converted based on different `shimUrl` values:
 
-    | Provided `shimUrl` by parent product | URL in Embedded Confluence                  |
-    | ------------------------------------ | ------------------------------------------- |
-    | `""` or `undefined`                  | `https://domain1.com/wiki/a/b/c`            |
-    | `/xyz`                               | `https://domain1.com/xyz/a/b/c`             |
-    | `xyz`                                | `https://domain1.com/xyz/a/b/c`             |
-    | `https://domain1.com/xyz`            | `https://domain1.com/xyz/a/b/c`             |
-    | `https://domain1.com`                | `https://domain1.com/a/b/c`                 |
-    | `domain1.com/xyz`                    | `https://domain1.com/domain1.com/xyz/a/b/c` |
-    | `domain1.com`                        | `https://domain1.com/domain1.com/a/b/c`     |
+    | Provided `shimUrl` by 3rd party | URL in Embedded Confluence                  |
+    | ------------------------------- | ------------------------------------------- |
+    | `""` or `undefined`             | `https://domain1.com/wiki/a/b/c`            |
+    | `/xyz`                          | `https://domain1.com/xyz/a/b/c`             |
+    | `xyz`                           | `https://domain1.com/xyz/a/b/c`             |
+    | `https://domain1.com/xyz`       | `https://domain1.com/xyz/a/b/c`             |
+    | `https://domain1.com`           | `https://domain1.com/a/b/c`                 |
+    | `domain1.com/xyz`               | `https://domain1.com/domain1.com/xyz/a/b/c` |
+    | `domain1.com`                   | `https://domain1.com/domain1.com/a/b/c`     |
 
 ### `navigationPolicy` examples
 
@@ -140,7 +140,7 @@ There are two different types of `allowedFeatures` depending on the components.
 
 ### `allowedFeatures` for `View`/`Edit` page
 
-`allowedFeatures` provides a list of names of all EP features for parent products. If provided, only features included in the list will be enabled, features not in the list will be disabled. `[]` will disable all features. `'all'` will enable all features. If not provided, default features will be enabled.
+`allowedFeatures` provides a list of names of all EP features for 3rd parties. If provided, only features included in the list will be enabled, features not in the list will be disabled. `[]` will disable all features. `'all'` will enable all features. If not provided, default features will be enabled.
 
 A list of features for `ViewPage`:
 
@@ -155,7 +155,7 @@ A list of features for `ViewPage`:
 
 A list of features for `EditPage`:
 
-- `'delete-draft'` - To show/hide the "Delete unpublished draft" or "Revert to last published version" menu item within the "Ellipsis" icon depending on if a document has already been published or not. To handle navigation after a user deletes/reverts a page, please listen for the experience tracker event: `"taskSuccess"`of `"edit-page/revert-draft"`. If no navigation is defined by parent product, by default no navigation will occur and will remain on the same page after a page has been deleted/reverted. Thus please make sure some navigation is defined.
+- `'delete-draft'` - To show/hide the "Delete unpublished draft" or "Revert to last published version" menu item within the "Ellipsis" icon depending on if a document has already been published or not. To handle navigation after a user deletes/reverts a page, please listen for the experience tracker event: `"taskSuccess"`of `"edit-page/revert-draft"`. If no navigation is defined by 3rd party, by default no navigation will occur and will remain on the same page after a page has been deleted/reverted. Thus please make sure some navigation is defined.
 
 ### `allowedFeatures` example
 

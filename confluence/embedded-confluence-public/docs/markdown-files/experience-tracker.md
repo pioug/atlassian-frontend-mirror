@@ -1,13 +1,13 @@
 # Experience Tracking
 
-This package provides parent products with the capability to forward the following experience events with the support of `ExperienceTrackerContext` and `ExperienceTracker` components.
+This package provides 3rd parties with the capability to forward the following experience events with the support of `ExperienceTrackerContext` and `ExperienceTracker` components.
 
 1. `taskStart`
 2. `taskSuccess`
 3. `taskFail`
 4. `taskAbort`
 
-To listen to these events, parent product can create its own instance of `ExperienceTracker` and then `subscribe` on those events. Without using React props to pass this experience tracker instance, parent product can wrap the view/edit page components with `ExperienceTrackerContext` and then pass the instance. See usage below for detailed example.
+To listen to these events, 3rd parties can create its own instance of `ExperienceTracker` and then `subscribe` on those events. Without using React props to pass this experience tracker instance, 3rd parties can wrap the view/edit page components with `ExperienceTrackerContext` and then pass the instance. See usage below for detailed example.
 
 ## Experience Event Properties
 

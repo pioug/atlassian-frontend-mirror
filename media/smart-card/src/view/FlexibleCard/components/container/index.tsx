@@ -135,11 +135,13 @@ const getLayeredLink = (
   testId: string,
   context?: FlexibleUiDataContext,
   children?: React.ReactNode,
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 ): React.ReactNode => {
   const { title, url = '' } = context || {};
   const { anchorTarget: target, text } = getTitleBlockProps(children) || {};
   return (
     <LayeredLink
+      onClick={onClick}
       target={target}
       testId={testId}
       text={text || title}
@@ -183,7 +185,9 @@ const Container: React.FC<ContainerProps> = ({
       data-smart-link-container
       data-testid={testId}
     >
-      {clickableContainer ? getLayeredLink(testId, context, children) : null}
+      {clickableContainer
+        ? getLayeredLink(testId, context, children, onClick)
+        : null}
       {renderChildren(children, size, theme, status, retry, onClick)}
     </div>
   );

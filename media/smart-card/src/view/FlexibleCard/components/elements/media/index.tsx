@@ -19,6 +19,7 @@ const styles = css`
   aspect-ratio: 16 / 9;
   display: flex;
   width: 100%;
+  height: fit-content; // Fix Safari height not respecting aspect-ratio
 
   // fallback
   @supports not (aspect-ratio: auto) {

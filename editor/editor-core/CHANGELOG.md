@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 166.0.2
+
+### Patch Changes
+
+- [`61b504d9af7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61b504d9af7) - [ED-15023] Fix editor crashing when first line contains only sub or super script
+
 ## 166.0.1
 
 ### Patch Changes

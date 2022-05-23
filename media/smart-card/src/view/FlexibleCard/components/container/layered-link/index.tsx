@@ -45,6 +45,7 @@ const styles = css`
  * @see `clickableContainer`
  */
 const LayeredLink: React.FC<LayeredLinkProps> = ({
+  onClick,
   target,
   testId,
   text,
@@ -55,6 +56,7 @@ const LayeredLink: React.FC<LayeredLinkProps> = ({
     css={styles}
     data-testid={`${testId}-layered-link`}
     href={url}
+    onClick={onClick}
     target={target}
     tabIndex={-1} // Hide tab index and let the title link be the link.
   >

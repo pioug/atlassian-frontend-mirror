@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 19.1.9
+
+### Patch Changes
+
+- [`003ac36263e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/003ac36263e) - Flexible UI: Fix preview block showing white space below image in Safari
+
+## 19.1.8
+
+### Patch Changes
+
+- [`81968c216ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81968c216ce) - Flexible UI: Fix clickableContainer not triggering analytics event
+
 ## 19.1.7
 
 ### Patch Changes

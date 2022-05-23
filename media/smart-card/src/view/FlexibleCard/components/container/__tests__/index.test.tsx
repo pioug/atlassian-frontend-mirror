@@ -3,6 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { fireEvent, render, waitForElement } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import userEvent from '@testing-library/user-event';
 import Container from '../index';
 import {
   SmartLinkSize,
@@ -111,6 +112,22 @@ describe('Container', () => {
       expect(link).toHaveAttribute('href', url);
       expect(link).toHaveAttribute('target', target);
       expect(link.textContent).toBe(text);
+    });
+
+    it('triggers onClick even when link is clicked', async () => {
+      const mockOnClick = jest.fn();
+      const { findByTestId } = render(
+        <Container
+          clickableContainer={true}
+          onClick={mockOnClick}
+          testId={testId}
+        />,
+      );
+
+      const link = await findByTestId(`${testId}-layered-link`);
+      userEvent.click(link);
+
+      expect(mockOnClick).toHaveBeenCalled();
     });
   });
 

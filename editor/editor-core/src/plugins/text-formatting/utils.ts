@@ -126,7 +126,7 @@ export const checkFormattingIsPresent = (state: EditorState) => {
 };
 
 export const usePreviousObjectState = (value: any): MenuIconItem[] => {
-  const ref = useRef();
+  const ref = useRef([]);
   useEffect(() => {
     ref.current = value;
   });

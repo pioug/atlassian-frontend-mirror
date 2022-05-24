@@ -13,11 +13,9 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../../version.json';
-import { ArticleItem, ARTICLE_ITEM_TYPES } from '../../../model/Article';
-// import { messages } from '../../../messages';
+import { ArticleItem } from '../../../model/Article';
 
 import {
-  ArticlesListItemTypeTitle,
   ArticlesListItemWrapper,
   ArticlesListItemContainer,
   ArticlesListItemTitleText,
@@ -40,28 +38,10 @@ interface Props {
   ) => void;
 }
 
-export const getTypeTitle = (itemType?: ARTICLE_ITEM_TYPES) => {
-  switch (itemType) {
-    // case ARTICLE_ITEM_TYPES.topicInProduct:
-    //   return messages.help_article_list_item_type_help_article;
-    default:
-      return null;
-  }
-};
-
 export const ArticlesListItem: React.FC<
   Props & Partial<ArticleItem> & WrappedComponentProps
-> = ({
-  intl: { formatMessage },
-  styles,
-  title,
-  description,
-  href = '',
-  type,
-  onClick,
-}) => {
+> = ({ styles, title, description, href = '', onClick }) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const typeTitle = getTypeTitle(type);
 
   const handleOnClick = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault();
@@ -83,11 +63,6 @@ export const ArticlesListItem: React.FC<
       onClick={handleOnClick}
     >
       <ArticlesListItemContainer>
-        {typeTitle && (
-          <ArticlesListItemTypeTitle>
-            {formatMessage(typeTitle)}
-          </ArticlesListItemTypeTitle>
-        )}
         <ArticlesListItemTitleText>{title}</ArticlesListItemTitleText>
         {href && (
           <ArticlesListItemLinkIcon>

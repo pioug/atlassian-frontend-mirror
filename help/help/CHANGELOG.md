@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.9
+
+### Patch Changes
+
+- [`4113699bb4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4113699bb4d) - [ux] Cleanup item usage and minor refactoring in `@atlaskit/help`
+
 ## 7.1.8
 
 ### Patch Changes

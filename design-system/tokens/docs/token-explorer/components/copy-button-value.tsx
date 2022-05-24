@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import { Fragment } from 'react';
-
 import { css, jsx } from '@emotion/core';
 import { TransformedToken } from 'style-dictionary';
 
@@ -16,15 +14,6 @@ import CopyValueButton from './copy-button';
 const baseStyles = css({
   fontSize: 14,
   outlineOffset: -1,
-
-  '&:hover, &:focus': {
-    '.copy-value__original': {
-      display: 'none',
-    },
-    '.copy-value__value': {
-      display: 'initial',
-    },
-  },
 });
 interface CopyButtonValueProps
   extends Pick<TransformedToken, 'value' | 'original' | 'attributes'> {
@@ -38,7 +27,7 @@ const CopyButtonValue = ({
   className,
 }: CopyButtonValueProps) => (
   <CopyValueButton
-    copyValue={attributes?.group === 'shadow' ? getBoxShadow(value) : value}
+    copyValue={attributes?.group === 'shadow' ? undefined : original.value}
     css={[
       baseStyles,
       attributes?.group === 'shadow' && {
@@ -67,14 +56,7 @@ const CopyButtonValue = ({
     ]}
     className={className}
   >
-    {typeof value === 'string' && (
-      <Fragment>
-        <span className="copy-value__original">{original.value}</span>
-        <span className="copy-value__value" css={{ display: 'none' }}>
-          {value}
-        </span>
-      </Fragment>
-    )}
+    {typeof value === 'string' && original.value}
   </CopyValueButton>
 );
 

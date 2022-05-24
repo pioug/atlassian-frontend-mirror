@@ -1,7 +1,7 @@
 import React from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { gridSize } from '@atlaskit/theme/constants';
-import * as colors from '@atlaskit/theme/colors';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import AnimateHeight from 'react-animate-height';
 
@@ -15,9 +15,25 @@ import {
 } from './constants';
 
 export interface Props {
-  /* Number of articles to diplay. This prop is optional (default value is 5) */
+  /* Number of articles to display. This prop is optional (default value is 5) */
   numberOfArticlesToDisplay?: number;
 }
+
+const getStyles = (style: string) => {
+  if (style === 'secondary') {
+    return {
+      border: `2px solid ${token('color.border', N30)}`,
+      padding: `${gridSize() * 2}px`,
+      marginBottom: `${gridSize() * 1.5}px`,
+    };
+  }
+  return {
+    border: 0,
+    padding: `${gridSize()}px`,
+    marginBottom: 0,
+  };
+};
+
 const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
   style = 'primary',
   articles = [],
@@ -28,39 +44,26 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
   articles && (
     <>
       <div>
-        {articles
-          .slice(0, minItemsToDisplay)
-          .map((article: ArticleItem, i: number) => {
-            return (
-              <ArticlesListItem
-                styles={{
-                  border:
-                    style === 'secondary'
-                      ? `2px solid ${token('color.border', colors.N30)}`
-                      : 0,
-                  padding:
-                    style === 'secondary'
-                      ? `${gridSize()}px ${gridSize() * 2}px`
-                      : `${gridSize()}px`,
-                  marginBottom:
-                    style === 'secondary' ? `${gridSize() * 1.5}px` : 0,
-                }}
-                id={article.id}
-                onClick={(
-                  event: React.MouseEvent<HTMLElement>,
-                  analyticsEvent: UIAnalyticsEvent,
-                ) => {
-                  if (onArticlesListItemClick) {
-                    onArticlesListItemClick(event, analyticsEvent, article);
-                  }
-                }}
-                title={article.title}
-                description={article.description}
-                key={article.id}
-                href={article.href}
-              />
-            );
-          })}
+        {articles.slice(0, minItemsToDisplay).map((article: ArticleItem) => {
+          return (
+            <ArticlesListItem
+              styles={getStyles(style)}
+              id={article.id}
+              onClick={(
+                event: React.MouseEvent<HTMLElement>,
+                analyticsEvent: UIAnalyticsEvent,
+              ) => {
+                if (onArticlesListItemClick) {
+                  onArticlesListItemClick(event, analyticsEvent, article);
+                }
+              }}
+              title={article.title}
+              description={article.description}
+              key={article.id}
+              href={article.href}
+            />
+          );
+        })}
       </div>
       <AnimateHeight
         duration={ANIMATE_HEIGHT_TRANSITION_DURATION_MS}
@@ -69,20 +72,9 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
       >
         {articles
           .slice(minItemsToDisplay, articles.length)
-          .map((article: ArticleItem, i: number) => (
+          .map((article: ArticleItem) => (
             <ArticlesListItem
-              styles={{
-                border:
-                  style === 'secondary'
-                    ? `2px solid ${token('color.border', colors.N30)}`
-                    : 0,
-                padding:
-                  style === 'secondary'
-                    ? `${gridSize()}px ${gridSize() * 2}px`
-                    : `${gridSize()}px`,
-                marginBottom:
-                  style === 'secondary' ? `${gridSize() * 1.5}px` : 0,
-              }}
+              styles={getStyles(style)}
               id={article.id}
               onClick={(
                 event: React.MouseEvent<HTMLElement>,

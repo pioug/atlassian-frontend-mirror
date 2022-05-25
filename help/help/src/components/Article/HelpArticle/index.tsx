@@ -135,6 +135,14 @@ export const HelpArticle: React.FC<Props> = ({ article, isLoading }) => {
   }
 
   if (article) {
+    const routeGroup =
+      article.routes && article.routes?.length > 0
+        ? article.routes[0].routeGroup
+        : '';
+    const routeName =
+      article.routes && article.routes?.length > 0
+        ? article.routes[0].routeGroup
+        : '';
     return (
       <>
         <HelpArticleContent
@@ -161,8 +169,8 @@ export const HelpArticle: React.FC<Props> = ({ article, isLoading }) => {
               handleOnRelatedArticlesListItemClick
             }
             onGetRelatedArticles={onGetRelatedArticles}
-            routeGroup={article.routeGroup}
-            routeName={article.routeName}
+            routeGroup={routeGroup}
+            routeName={routeName}
             onRelatedArticlesShowMoreClick={
               handleOnRelatedArticlesShowMoreClick
             }

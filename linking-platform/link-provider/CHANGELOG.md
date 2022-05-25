@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.0.2
+
+### Patch Changes
+
+- [`06df1d75255`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06df1d75255) - Use new defaultView property of /providers endpoint to decide what view link should be render as
+
 ## 1.0.1
 
 ### Patch Changes

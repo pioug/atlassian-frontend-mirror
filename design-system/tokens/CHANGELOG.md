@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.1
+
+### Patch Changes
+
+- [`7267d0aad7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7267d0aad7c) - Update group name metadata for light and dark neutral palette tokens
+
 ## 0.10.0
 
 ### Minor Changes

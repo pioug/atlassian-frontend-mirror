@@ -567,7 +567,7 @@ const palette: PaletteColorTokenSchema = {
         value: '#101214',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       'DN-100A': {
@@ -575,21 +575,21 @@ const palette: PaletteColorTokenSchema = {
         value: '#03040442',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN0: {
         value: '#161A1D',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN100: {
         value: '#1D2125',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN100A: {
@@ -597,14 +597,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#BCD6F00A',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN200: {
         value: '#22272B',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN200A: {
@@ -612,14 +612,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#A1BDD914',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN300: {
         value: '#2C333A',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN300A: {
@@ -627,14 +627,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#A6C5E229',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN400: {
         value: '#454F59',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN400A: {
@@ -642,14 +642,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#BFDBF847',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN500: {
         value: '#5C6C7A',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN500A: {
@@ -657,63 +657,63 @@ const palette: PaletteColorTokenSchema = {
         value: '#A9C5DF7A',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN600: {
         value: '#738496',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN700: {
         value: '#8696A7',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN800: {
         value: '#9FADBC',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN900: {
         value: '#B6C2CF',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN1000: {
         value: '#C7D1DB',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       DN1100: {
         value: '#DEE4EA',
         attributes: {
           group: 'palette',
-          category: 'dark neutral',
+          category: 'dark mode neutral',
         },
       },
       N0: {
         value: '#FFFFFF',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N100: {
         value: '#F7F8F9',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N100A: {
@@ -721,14 +721,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#091E4208',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N200: {
         value: '#F1F2F4',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N200A: {
@@ -736,14 +736,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#091E420F',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N300: {
         value: '#DCDFE4',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N300A: {
@@ -751,14 +751,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#091E4224',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N400: {
         value: '#B3B9C4',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N400A: {
@@ -766,14 +766,14 @@ const palette: PaletteColorTokenSchema = {
         value: '#091E424F',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N500: {
         value: '#8993A5',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N500A: {
@@ -781,49 +781,49 @@ const palette: PaletteColorTokenSchema = {
         value: '#091E427A',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N600: {
         value: '#758195',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N700: {
         value: '#626F86',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N800: {
         value: '#44546F',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N900: {
         value: '#2C3E5D',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N1000: {
         value: '#172B4D',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
       N1100: {
         value: '#091E42',
         attributes: {
           group: 'palette',
-          category: 'light neutral',
+          category: 'light mode neutral',
         },
       },
     },

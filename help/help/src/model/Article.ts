@@ -16,8 +16,10 @@ export interface ArticleItem {
   lastPublished: string;
   title: string;
   type: ARTICLE_ITEM_TYPES;
-  routeName: string;
-  routeGroup: string;
+  routes?: {
+    routeName: string;
+    routeGroup: string;
+  }[];
   topicId?: string;
   productName?: string;
   href?: string;

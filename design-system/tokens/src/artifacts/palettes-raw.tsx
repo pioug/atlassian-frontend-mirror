@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::abcdccc44ca6140b822aacad9e9070cc>>
+ * @codegen <<SignedSource::d96054f56fadd3c595206b9334ccc5e6>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -1768,7 +1768,7 @@ const tokens = [
     "value": "#101214",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1776,7 +1776,7 @@ const tokens = [
       "value": "#101214",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN-100",
@@ -1790,7 +1790,7 @@ const tokens = [
     "value": "#03040442",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1798,7 +1798,7 @@ const tokens = [
       "value": "#03040442",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN-100A",
@@ -1812,7 +1812,7 @@ const tokens = [
     "value": "#161A1D",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1820,7 +1820,7 @@ const tokens = [
       "value": "#161A1D",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN0",
@@ -1834,7 +1834,7 @@ const tokens = [
     "value": "#1D2125",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1842,7 +1842,7 @@ const tokens = [
       "value": "#1D2125",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN100",
@@ -1856,7 +1856,7 @@ const tokens = [
     "value": "#BCD6F00A",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1864,7 +1864,7 @@ const tokens = [
       "value": "#BCD6F00A",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN100A",
@@ -1878,7 +1878,7 @@ const tokens = [
     "value": "#22272B",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1886,7 +1886,7 @@ const tokens = [
       "value": "#22272B",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN200",
@@ -1900,7 +1900,7 @@ const tokens = [
     "value": "#A1BDD914",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1908,7 +1908,7 @@ const tokens = [
       "value": "#A1BDD914",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN200A",
@@ -1922,7 +1922,7 @@ const tokens = [
     "value": "#2C333A",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1930,7 +1930,7 @@ const tokens = [
       "value": "#2C333A",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN300",
@@ -1944,7 +1944,7 @@ const tokens = [
     "value": "#A6C5E229",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1952,7 +1952,7 @@ const tokens = [
       "value": "#A6C5E229",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN300A",
@@ -1966,7 +1966,7 @@ const tokens = [
     "value": "#454F59",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1974,7 +1974,7 @@ const tokens = [
       "value": "#454F59",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN400",
@@ -1988,7 +1988,7 @@ const tokens = [
     "value": "#BFDBF847",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -1996,7 +1996,7 @@ const tokens = [
       "value": "#BFDBF847",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN400A",
@@ -2010,7 +2010,7 @@ const tokens = [
     "value": "#5C6C7A",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2018,7 +2018,7 @@ const tokens = [
       "value": "#5C6C7A",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN500",
@@ -2032,7 +2032,7 @@ const tokens = [
     "value": "#A9C5DF7A",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2040,7 +2040,7 @@ const tokens = [
       "value": "#A9C5DF7A",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN500A",
@@ -2054,7 +2054,7 @@ const tokens = [
     "value": "#738496",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2062,7 +2062,7 @@ const tokens = [
       "value": "#738496",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN600",
@@ -2076,7 +2076,7 @@ const tokens = [
     "value": "#8696A7",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2084,7 +2084,7 @@ const tokens = [
       "value": "#8696A7",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN700",
@@ -2098,7 +2098,7 @@ const tokens = [
     "value": "#9FADBC",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2106,7 +2106,7 @@ const tokens = [
       "value": "#9FADBC",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN800",
@@ -2120,7 +2120,7 @@ const tokens = [
     "value": "#B6C2CF",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2128,7 +2128,7 @@ const tokens = [
       "value": "#B6C2CF",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN900",
@@ -2142,7 +2142,7 @@ const tokens = [
     "value": "#C7D1DB",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2150,7 +2150,7 @@ const tokens = [
       "value": "#C7D1DB",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN1000",
@@ -2164,7 +2164,7 @@ const tokens = [
     "value": "#DEE4EA",
     "attributes": {
       "group": "palette",
-      "category": "dark neutral"
+      "category": "dark mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2172,7 +2172,7 @@ const tokens = [
       "value": "#DEE4EA",
       "attributes": {
         "group": "palette",
-        "category": "dark neutral"
+        "category": "dark mode neutral"
       }
     },
     "name": "color.palette.DN1100",
@@ -2186,7 +2186,7 @@ const tokens = [
     "value": "#FFFFFF",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2194,7 +2194,7 @@ const tokens = [
       "value": "#FFFFFF",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N0",
@@ -2208,7 +2208,7 @@ const tokens = [
     "value": "#F7F8F9",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2216,7 +2216,7 @@ const tokens = [
       "value": "#F7F8F9",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N100",
@@ -2230,7 +2230,7 @@ const tokens = [
     "value": "#091E4208",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2238,7 +2238,7 @@ const tokens = [
       "value": "#091E4208",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N100A",
@@ -2252,7 +2252,7 @@ const tokens = [
     "value": "#F1F2F4",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2260,7 +2260,7 @@ const tokens = [
       "value": "#F1F2F4",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N200",
@@ -2274,7 +2274,7 @@ const tokens = [
     "value": "#091E420F",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2282,7 +2282,7 @@ const tokens = [
       "value": "#091E420F",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N200A",
@@ -2296,7 +2296,7 @@ const tokens = [
     "value": "#DCDFE4",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2304,7 +2304,7 @@ const tokens = [
       "value": "#DCDFE4",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N300",
@@ -2318,7 +2318,7 @@ const tokens = [
     "value": "#091E4224",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2326,7 +2326,7 @@ const tokens = [
       "value": "#091E4224",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N300A",
@@ -2340,7 +2340,7 @@ const tokens = [
     "value": "#B3B9C4",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2348,7 +2348,7 @@ const tokens = [
       "value": "#B3B9C4",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N400",
@@ -2362,7 +2362,7 @@ const tokens = [
     "value": "#091E424F",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2370,7 +2370,7 @@ const tokens = [
       "value": "#091E424F",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N400A",
@@ -2384,7 +2384,7 @@ const tokens = [
     "value": "#8993A5",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2392,7 +2392,7 @@ const tokens = [
       "value": "#8993A5",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N500",
@@ -2406,7 +2406,7 @@ const tokens = [
     "value": "#091E427A",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2414,7 +2414,7 @@ const tokens = [
       "value": "#091E427A",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N500A",
@@ -2428,7 +2428,7 @@ const tokens = [
     "value": "#758195",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2436,7 +2436,7 @@ const tokens = [
       "value": "#758195",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N600",
@@ -2450,7 +2450,7 @@ const tokens = [
     "value": "#626F86",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2458,7 +2458,7 @@ const tokens = [
       "value": "#626F86",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N700",
@@ -2472,7 +2472,7 @@ const tokens = [
     "value": "#44546F",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2480,7 +2480,7 @@ const tokens = [
       "value": "#44546F",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N800",
@@ -2494,7 +2494,7 @@ const tokens = [
     "value": "#2C3E5D",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2502,7 +2502,7 @@ const tokens = [
       "value": "#2C3E5D",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N900",
@@ -2516,7 +2516,7 @@ const tokens = [
     "value": "#172B4D",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2524,7 +2524,7 @@ const tokens = [
       "value": "#172B4D",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N1000",
@@ -2538,7 +2538,7 @@ const tokens = [
     "value": "#091E42",
     "attributes": {
       "group": "palette",
-      "category": "light neutral"
+      "category": "light mode neutral"
     },
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
@@ -2546,7 +2546,7 @@ const tokens = [
       "value": "#091E42",
       "attributes": {
         "group": "palette",
-        "category": "light neutral"
+        "category": "light mode neutral"
       }
     },
     "name": "color.palette.N1100",

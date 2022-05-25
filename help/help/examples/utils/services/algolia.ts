@@ -140,8 +140,7 @@ export const useAlgolia = ({
           lastPublished: '',
           title: '',
           type: ARTICLE_ITEM_TYPES.topicInProduct,
-          routeName: '',
-          routeGroup: '',
+          routes: [],
         });
         return;
       }
@@ -170,8 +169,8 @@ export const useAlgolia = ({
   };
 
   const getRelatedArticles = (
-    routeGroup?: string,
-    routeName?: string,
+    routeGroup?: string | string[],
+    routeName?: string | string[],
     articleId?: articleIdType,
   ): Promise<ArticleItem[]> =>
     new Promise((resolve, reject) => {

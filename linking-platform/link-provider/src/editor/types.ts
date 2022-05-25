@@ -7,9 +7,12 @@ export type ORSCheckResponse = {
   isSupported: boolean;
 };
 
-type ProviderPattern = {
+type DisplayViews = 'inline' | 'block' | 'embed';
+
+export type ProviderPattern = {
   source: string;
-  flags: string;
+  supportedViews?: DisplayViews[];
+  defaultView?: DisplayViews;
 };
 type Provider = {
   key: string;

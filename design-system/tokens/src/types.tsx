@@ -18,8 +18,8 @@ export type PaletteCategory =
   | 'yellow'
   | 'green'
   | 'teal'
-  | 'light neutral'
-  | 'dark neutral';
+  | 'light mode neutral'
+  | 'dark mode neutral';
 
 export interface Token<TValue, Group extends Groups> {
   value: TValue;

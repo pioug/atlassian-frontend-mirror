@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.10
+
+### Patch Changes
+
+- [`cf6b2085c95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf6b2085c95) - Use articles "routes" attribute instead of "routeName" and "routeGroup"
+
 ## 7.1.9
 
 ### Patch Changes

@@ -251,6 +251,108 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Text effects ESS-2439 should not let auto-links end with parenthesis 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/abc",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/abc",
+          "type": "text",
+        },
+        Object {
+          "text": ") text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects ESS-2439 should not let auto-links end with parenthesis in url hash segment 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/abc#abc",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/abc#abc",
+          "type": "text",
+        },
+        Object {
+          "text": ") text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Text effects ESS-2439 should remove the last closing parenthesis from the link 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "text prefix ",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://example.com/()",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://example.com/()",
+          "type": "text",
+        },
+        Object {
+          "text": ") text suffix",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Text effects should NOT auto-linkify monospace formatted text 1`] = `
 Object {
   "content": Array [
@@ -541,74 +643,6 @@ Object {
         },
         Object {
           "text": " text",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`JIRA wiki markup - Text effects should let auto-links end with parenthesis 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "text prefix ",
-          "type": "text",
-        },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "__confluenceMetadata": null,
-                "href": "https://example.com/abc)",
-              },
-              "type": "link",
-            },
-          ],
-          "text": "https://example.com/abc)",
-          "type": "text",
-        },
-        Object {
-          "text": " text suffix",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`JIRA wiki markup - Text effects should let auto-links end with parenthesis in url hash segment 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": "text prefix ",
-          "type": "text",
-        },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "__confluenceMetadata": null,
-                "href": "https://example.com/abc#abc)",
-              },
-              "type": "link",
-            },
-          ],
-          "text": "https://example.com/abc#abc)",
-          "type": "text",
-        },
-        Object {
-          "text": " text suffix",
           "type": "text",
         },
       ],

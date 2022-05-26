@@ -33,6 +33,7 @@ import {
   isText,
   isLinkMark,
   processRawValue,
+  insideTableCell,
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
@@ -767,6 +768,7 @@ export function handleRichText(slice: Slice): Command {
     const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
     const { selection } = state;
     const firstChildOfSlice = slice.content?.firstChild;
+    const lastChildOfSlice = slice.content?.lastChild;
 
     // In case user is pasting inline code,
     // any backtick ` immediately preceding it should be removed.
@@ -782,7 +784,7 @@ export function handleRichText(slice: Slice): Command {
     closeHistory(tr);
 
     const isFirstChildListNode = isListNode(firstChildOfSlice);
-    const isLastChildListNode = isListNode(firstChildOfSlice);
+    const isLastChildListNode = isListNode(lastChildOfSlice);
     const isSliceContentListNodes = isFirstChildListNode || isLastChildListNode;
 
     // We want to use safeInsert to insert invalid content, as it inserts at the closest non schema violating position
@@ -806,9 +808,27 @@ export function handleRichText(slice: Slice): Command {
     } else if (noNeedForSafeInsert) {
       tr.replaceSelection(slice);
     } else {
-      // need safeInsert rather than replaceSelection, so that nodes aren't split in half
-      // e.g. when pasting a layout into a table, replaceSelection splits the table in half and adds the layout in the middle
-      tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
+      // need to scan the slice if there's a block node inside it
+      let doesBlockNodeExist = false;
+      slice.content.nodesBetween(0, slice.content.size, (node, start) => {
+        if (
+          start >= slice.openStart &&
+          start <= slice.content.size - slice.openEnd &&
+          node.isBlock
+        ) {
+          doesBlockNodeExist = true;
+          return false;
+        }
+      });
+
+      if (insideTableCell(state) && !doesBlockNodeExist) {
+        // bring back the old code for inline nodes
+        insertIntoPanel(tr, slice, panel);
+      } else {
+        // need safeInsert rather than replaceSelection, so that nodes aren't split in half
+        // e.g. when pasting a layout into a table, replaceSelection splits the table in half and adds the layout in the middle
+        tr = safeInsert(slice.content, tr.selection.$to.pos)(tr);
+      }
     }
 
     tr.setStoredMarks([]);

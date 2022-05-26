@@ -96,6 +96,10 @@ describe('JIRA wiki markup - Links', () => {
       '[ADFS-80] should render color in links',
       'asdasd[{color:red}test{color}|test]asdasdasd',
     ],
+    [
+      '[ESS-2439] should ignore the ending brackets as part of the link',
+      'This is a (https://www.atlassian.com) link',
+    ],
   ];
 
   for (const [testCaseDescription, markup] of testCases) {

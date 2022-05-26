@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 166.0.3
+
+### Patch Changes
+
+- [`56238fdc70e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56238fdc70e) - ED-14998 Fix paste issue in a table inside a bodied extension. Copying and pasting inline nodes inside the table should not create a new table during paste
+
 ## 166.0.2
 
 ### Patch Changes

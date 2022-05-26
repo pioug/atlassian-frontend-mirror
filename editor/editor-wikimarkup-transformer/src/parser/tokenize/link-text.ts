@@ -6,11 +6,13 @@ import { Token, TokenParser } from './';
 export const LINK_TEXT_REGEXP = /^((?:(?:https?|ftps?):\/\/)|irc:\/\/|mailto:)([\w?!~^\/\\#$%&'()*+,\-.\/:;<=@]*[\w~^\/\\#$%&'()*+,\-\/:;<=@])/i;
 
 export const linkText: TokenParser = ({ input, position, schema }) => {
-  const match = input.substring(position).match(LINK_TEXT_REGEXP);
-
+  let match = input.substring(position).match(LINK_TEXT_REGEXP);
   if (!match) {
     return fallback(input, position);
   }
+
+  // remove the last character from match if it is a ")"
+  match = checkParenthesis(match);
 
   // Remove mailto:
   const textRepresentation = match[1] === 'mailto:' ? match[2] : match[0];
@@ -57,4 +59,10 @@ function fallback(input: string, position: number): Token {
     text: input.substr(position, 1),
     length: 1,
   };
+}
+
+function checkParenthesis(input: string[]): string[] {
+  return input[0].endsWith(')')
+    ? [input[0].slice(0, -1), input[1], input[2].slice(0, -1)]
+    : input;
 }

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.6
+
+### Patch Changes
+
+- [`c85e50ef2ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c85e50ef2ad) - ESS-2439: Ignore closing parenthesis as part of url
+
 ## 11.0.5
 
 ### Patch Changes

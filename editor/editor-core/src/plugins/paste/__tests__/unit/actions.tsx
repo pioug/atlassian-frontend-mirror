@@ -6,6 +6,7 @@ import {
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,
+  bodiedExtension,
   status,
   taskList,
   taskItem,
@@ -35,6 +36,7 @@ import expandPlugin from '../../../expand';
 import datePlugin from '../../../date';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
+import extensionPlugin from '../../../extension';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -68,12 +70,12 @@ describe('action paste handler', () => {
         .add(expandPlugin)
         .add(datePlugin)
         .add(layoutPlugin)
+        .add(extensionPlugin)
         .add(panelPlugin),
     });
 
   const listProps = { localId: 'local-uuid' };
   const itemProps = { localId: 'local-uuid', state: 'TODO' };
-
   const emptyActionDoc = doc(taskList(listProps)(taskItem(itemProps)('{<>}')));
 
   const createNestedExpandDoc = (nodes: Array<any>) => {
@@ -225,6 +227,37 @@ describe('action paste handler', () => {
         ),
       );
 
+      pasteAndCompare(editor(tableDoc), clipboard, expected, true);
+    });
+
+    it('should paste text to a table as expected', () => {
+      const tableDoc = doc(
+        bodiedExtension({
+          extensionType: 'atlassian.com.editor',
+          extensionKey: 'fake.extension',
+          localId: 'local-uuid',
+          parameters: {},
+        })(
+          table({ localId: 'local-uuid' })(
+            tr(td()(p('some text')), td()(p('{<>}')), td()(p(''))),
+          ),
+        ),
+      );
+
+      const clipboard =
+        '<meta charset=\'utf-8\'><p data-pm-slice="1 1 [&quot;table&quot;,{&quot;isNumberColumnEnabled&quot;:false,&quot;layout&quot;:&quot;default&quot;,&quot;__autoSize&quot;:false,&quot;localId&quot;:&quot;7b7a2461-e243-42c2-9099-b18db80cb95d&quot;},&quot;tableRow&quot;,null,&quot;tableHeader&quot;,{&quot;colspan&quot;:1,&quot;rowspan&quot;:1,&quot;colwidth&quot;:null,&quot;background&quot;:null}]">copiedText</p>';
+      const expected = doc(
+        bodiedExtension({
+          extensionType: 'atlassian.com.editor',
+          extensionKey: 'fake.extension',
+          localId: 'local-uuid',
+          parameters: {},
+        })(
+          table({ localId: 'local-uuid' })(
+            tr(td()(p('some text')), td()(p('copiedText')), td()(p(''))),
+          ),
+        ),
+      );
       pasteAndCompare(editor(tableDoc), clipboard, expected, true);
     });
   });

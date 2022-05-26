@@ -97,16 +97,20 @@ https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#
       'text prefix https://example.com! text suffix',
     ],
     [
-      'should let auto-links end with parenthesis',
+      'ESS-2439 should not let auto-links end with parenthesis',
       'text prefix https://example.com/abc) text suffix',
     ],
     [
-      'should let auto-links end with parenthesis in url hash segment',
+      'ESS-2439 should not let auto-links end with parenthesis in url hash segment',
       'text prefix https://example.com/abc#abc) text suffix',
     ],
     [
       'should auto-link ftp urls',
       'text prefix ftp://example.com/~abc/ text suffix',
+    ],
+    [
+      'ESS-2439 should remove the last closing parenthesis from the link',
+      'text prefix https://example.com/()) text suffix',
     ],
   ];
 

@@ -293,6 +293,40 @@ Object {
 }
 `;
 
+exports[`JIRA wiki markup - Links [ESS-2439] should ignore the ending brackets as part of the link 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is a (",
+          "type": "text",
+        },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "__confluenceMetadata": null,
+                "href": "https://www.atlassian.com/",
+              },
+              "type": "link",
+            },
+          ],
+          "text": "https://www.atlassian.com",
+          "type": "text",
+        },
+        Object {
+          "text": ") link",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is invalid 1`] = `
 Object {
   "content": Array [

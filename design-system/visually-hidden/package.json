@@ -35,7 +35,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "^0.7.0",
+    "@atlaskit/visual-regression": "^0.8.0",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",

@@ -1,13 +1,3 @@
-// force isIntersectionObserverSupported to be false until support for it is dropped.
-jest.mock('@atlaskit/media-ui', () => {
-  const actualModule = jest.requireActual('@atlaskit/media-ui');
-  return {
-    __esModule: true,
-    ...actualModule,
-    isIntersectionObserverSupported: () => false,
-  };
-});
-
 import { mount } from 'enzyme';
 import React from 'react';
 import { ResolveResponse } from '@atlaskit/smart-card';
@@ -24,6 +14,30 @@ import {
 import { FetchProxy } from '../../../utils/fetch-proxy';
 import { IntlShape } from 'react-intl-next';
 import RendererBridgeImplementation from '../../../renderer/native-to-web/implementation';
+
+const mockIntersectionObserver = () => {
+  class MockIntersectionObserver implements IntersectionObserver {
+    readonly root!: Element | null;
+    readonly rootMargin!: string;
+    readonly thresholds!: ReadonlyArray<number>;
+
+    constructor(public callback: IntersectionObserverCallback) {}
+
+    observe(_element: HTMLElement) {
+      const entries = [{ isIntersecting: true }] as IntersectionObserverEntry[];
+      this.callback(entries, this);
+    }
+    disconnect = jest.fn();
+    takeRecords = jest.fn();
+    unobserve = jest.fn();
+  }
+
+  Object.defineProperty(window, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: MockIntersectionObserver,
+  });
+};
 
 type MockedEvent = { preventDefault: () => void; defaultPrevented: boolean };
 
@@ -143,6 +157,11 @@ describe('renderer bridge: links', () => {
       messageDescriptor && messageDescriptor.defaultMessage,
   } as unknown) as IntlShape;
   const rendererBridge = new RendererBridgeImplementation();
+
+  beforeAll(() => {
+    mockIntersectionObserver();
+  });
+
   beforeEach(() => {
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
       cb(1);

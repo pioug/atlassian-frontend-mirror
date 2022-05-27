@@ -43,6 +43,10 @@ this is not a list`,
 ----`,
     ],
     ['It should be possible to have a ruler as the only thing', '----'],
+    [
+      'ESS-2440 should render consecutive emojis correctly',
+      'emoji prefix (/)(*)(i) emoji suffix',
+    ],
   ];
 
   for (const [testCaseDescription, markup] of testCases) {

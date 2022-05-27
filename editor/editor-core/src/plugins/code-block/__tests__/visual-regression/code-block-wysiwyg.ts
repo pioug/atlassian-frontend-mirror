@@ -7,6 +7,18 @@ import { tableHeaderOverflowCodeBlock } from '../__fixtures__/table-header-overf
 import { tabCodeBlock } from '../__fixtures__/tab-code-block';
 import { highlightingCodeBlock } from '../__fixtures__/highlighting-code-block';
 
+/**
+ * Note: these WYSIWYG tests don't have corresponding LFS image snapshots.
+ * Instead, they compare the state of editor & renderer components live.
+ * If your test case needs updating, you need to update the threshold value
+ * for the specific toMatchVisually call to accomodate your changes.
+ * The -u or --updateSnapshot flag won't do that for you.
+ *
+ * Obviously, we want to strive for as close to 0.0 as possible.
+ * Higher numbers mean more visual divergence between editor & renderer which
+ * is undesirable.
+ */
+
 describe('code-block: WYSIWYG', () => {
   let page: PuppeteerPage;
 
@@ -51,7 +63,7 @@ describe('code-block: WYSIWYG', () => {
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.02,
+      threshold: 0.45,
     });
   });
 

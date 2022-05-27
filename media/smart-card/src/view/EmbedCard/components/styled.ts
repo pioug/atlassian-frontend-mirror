@@ -1,11 +1,8 @@
 import styled from '@emotion/styled';
 import {
-  size as csssize,
-  borderRadius,
-  size,
-  ellipsis,
-} from '@atlaskit/media-ui';
-import { fontFamily } from '@atlaskit/theme/constants';
+  borderRadius as akBorderRadius,
+  fontFamily,
+} from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
@@ -22,6 +19,30 @@ export interface WrapperProps {
   isVisible?: boolean;
   inheritDimensions?: boolean;
 }
+
+export const borderRadius = `
+  border-radius: ${akBorderRadius()}px;
+`;
+
+export const ellipsis = (maxWidth: string | number = '100%') => {
+  const unit = typeof maxWidth === 'number' ? 'px' : '';
+
+  return `
+    max-width: ${maxWidth}${unit};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  `;
+};
+
+export const csssize = (value: string | number = '100%') => {
+  const unit = typeof value === 'number' ? 'px' : '';
+
+  return `
+    width: ${value}${unit};
+    height: ${value}${unit};
+  `;
+};
 
 function minWidth({ minWidth }: WrapperProps) {
   if (minWidth) {
@@ -151,7 +172,7 @@ export interface PlaceholderProps {
 
 export const IconWrapper = styled.div`
   ${borderRadius}
-  ${size(16)}
+  ${csssize(16)}
   ${({ isPlaceholder }: PlaceholderProps) => {
     if (isPlaceholder) {
       return `
@@ -286,7 +307,7 @@ export interface ThumbnailProps {
 
 export const Thumbnail = styled.div`
   ${borderRadius}
-  ${size(48)}
+  ${csssize(48)}
   float: right;
   margin: 4px 0 12px 12px;
   background-color: ${token('color.skeleton', colors.N30)};

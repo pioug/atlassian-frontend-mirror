@@ -333,16 +333,16 @@ Object {
             Object {
               "attrs": Object {
                 "__confluenceMetadata": null,
-                "href": "https://example.com/()",
+                "href": "https://example.com/(",
               },
               "type": "link",
             },
           ],
-          "text": "https://example.com/()",
+          "text": "https://example.com/(",
           "type": "text",
         },
         Object {
-          "text": ") text suffix",
+          "text": ")) text suffix",
           "type": "text",
         },
       ],

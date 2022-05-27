@@ -1,4 +1,5 @@
 import './error.mock';
+import '../../__mocks__/intersection-observer.mock';
 import { JsonLd } from 'json-ld-types';
 import React from 'react';
 import { TestErrorBoundary } from '../_boundary';

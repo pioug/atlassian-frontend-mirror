@@ -1,5 +1,17 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.8
+
+### Patch Changes
+
+- [`ca8996c6153`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ca8996c6153) - ESS-2439 Remove bad characters from end of regex match
+
+## 11.0.7
+
+### Patch Changes
+
+- [`21ae957a8fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21ae957a8fb) - ESS-2440 Render consecutive emojis correctly
+
 ## 11.0.6
 
 ### Patch Changes

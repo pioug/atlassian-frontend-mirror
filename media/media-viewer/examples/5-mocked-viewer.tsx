@@ -35,6 +35,15 @@ if (canUseDOM) {
     }
   };
 
+  (window as any).areControlsHidden = () => {
+    const controls = document.querySelector('div.mvng-hide-controls');
+    if (!controls) {
+      return false;
+    } else {
+      return window.getComputedStyle(controls).opacity === '0';
+    }
+  };
+
   files = generateFilesFromTestData([
     {
       name: 'media-test-file-1.png',

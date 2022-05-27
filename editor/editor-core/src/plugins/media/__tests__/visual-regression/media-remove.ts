@@ -1,4 +1,8 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+  waitForNoTooltip,
+} from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initFullPageEditorWithAdf,
@@ -44,6 +48,7 @@ describe('Snapshot Test: remove media', () => {
         2000,
       );
       await page.focus('button[aria-label="Remove"]');
+      await waitForTooltip(page);
     });
     it('lost focus highlight should disappear', async () => {
       await initEditor(page);
@@ -58,6 +63,7 @@ describe('Snapshot Test: remove media', () => {
         'button[aria-label="Remove"]',
         (element) => element instanceof HTMLElement && element.blur(),
       );
+      await waitForNoTooltip(page);
     });
   });
 });

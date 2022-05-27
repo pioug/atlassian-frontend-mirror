@@ -7,6 +7,7 @@ import {
   LozengeProps,
   GroupType,
   OptionData,
+  TeamMember,
 } from '@atlaskit/user-picker';
 import { messages } from '../i18n';
 import { IntlShape } from 'react-intl-next';
@@ -36,6 +37,7 @@ interface ServerTeam extends ServerItem {
   largeAvatarImageUrl?: string;
   smallAvatarImageUrl?: string;
   memberCount?: number;
+  members?: TeamMember[];
   includesYou?: boolean;
 }
 
@@ -107,6 +109,7 @@ const transformUser = (
       description: team.description || '',
       name: team.displayName || '',
       memberCount: team.memberCount,
+      members: team.members,
       includesYou: team.includesYou,
       avatarUrl: team.largeAvatarImageUrl || team.smallAvatarImageUrl,
     };

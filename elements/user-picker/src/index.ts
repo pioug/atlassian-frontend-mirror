@@ -42,6 +42,7 @@ export type {
   HighlightRange,
   LoadOptions,
   Team,
+  TeamMember,
   TeamHighlight,
   User,
   UserHighlight,

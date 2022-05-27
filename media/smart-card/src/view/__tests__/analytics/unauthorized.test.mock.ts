@@ -24,12 +24,3 @@ jest.mock('uuid', () => {
     default: jest.fn(),
   };
 });
-// force isIntersectionObserverSupported to be false until support for it is dropped.
-jest.mock('@atlaskit/media-ui', () => {
-  const actualModule = jest.requireActual('@atlaskit/media-ui');
-  return {
-    __esModule: true,
-    ...actualModule,
-    isIntersectionObserverSupported: () => false,
-  };
-});

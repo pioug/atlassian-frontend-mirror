@@ -1,5 +1,15 @@
 # @atlassian/smart-user-picker
 
+## 5.1.0
+
+### Minor Changes
+
+- [`cc40ab95bd4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc40ab95bd4) - Adds a list of team members under OptionData for Teams
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.5
 
 ### Patch Changes

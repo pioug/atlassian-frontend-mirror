@@ -1,8 +1,8 @@
 import React from 'react';
-import { isIntersectionObserverSupported } from '@atlaskit/media-ui';
 import { CardWithUrlContentProps } from '../types';
 import { LazyLazilyRenderCard } from './LazyLazilyRenderCard';
 import { LazyIntersectionObserverCard } from './LazyIntersectionObserverCard';
+import { isIntersectionObserverSupported } from '../../../utils';
 
 export default function LazyCardWithUrlContent(props: CardWithUrlContentProps) {
   if (isIntersectionObserverSupported()) {

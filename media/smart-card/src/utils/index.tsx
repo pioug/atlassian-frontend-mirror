@@ -267,3 +267,6 @@ export const handleOnClick = (handler: Function) => (
   e.stopPropagation();
   handler();
 };
+
+export const isIntersectionObserverSupported = () =>
+  typeof IntersectionObserver !== 'undefined';

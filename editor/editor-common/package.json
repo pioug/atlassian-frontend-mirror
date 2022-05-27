@@ -60,7 +60,7 @@
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/profilecard": "^16.4.0",
     "@atlaskit/smart-card": "^19.1.0",
-    "@atlaskit/smart-user-picker": "^5.0.2",
+    "@atlaskit/smart-user-picker": "^5.1.0",
     "@atlaskit/task-decision": "^17.4.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",

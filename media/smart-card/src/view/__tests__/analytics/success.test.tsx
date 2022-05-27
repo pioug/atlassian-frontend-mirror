@@ -4,6 +4,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 import './success.test.mock';
+import '../../__mocks__/intersection-observer.mock';
 import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import { Card } from '../../Card';

@@ -261,10 +261,16 @@ export interface LozengeProps {
 }
 export const TeamType = 'team';
 
+export interface TeamMember {
+  name: string;
+  id: string;
+}
+
 export interface Team extends OptionData {
   avatarUrl?: string;
   description?: string;
   memberCount?: number;
+  members?: TeamMember[];
   includesYou?: boolean;
   highlight?: TeamHighlight;
   type: 'team';

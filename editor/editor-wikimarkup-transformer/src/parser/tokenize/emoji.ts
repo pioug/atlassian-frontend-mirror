@@ -1,6 +1,6 @@
 import { TokenParser } from './';
 
-const emptyOrWhitespaceRegex = new RegExp(/^$|\s/);
+const emptyOrSpecialCharRegex = new RegExp(/^$|[^A-Za-z0-9]/);
 export const emoji: TokenParser = ({ input, position, schema }) => {
   const substring = input.substring(position);
 
@@ -11,8 +11,8 @@ export const emoji: TokenParser = ({ input, position, schema }) => {
     const candidateText = substring.substring(0, i);
     const emojiId = wikiToAdfEmojiMapping[candidateText];
 
-    // Is current candidate an emoji AND next character empty string or whitespace?
-    if (emojiId && emptyOrWhitespaceRegex.test(substring.charAt(i))) {
+    // Is current candidate an emoji AND next character empty string any special character?
+    if (emojiId && emptyOrSpecialCharRegex.test(substring.charAt(i))) {
       return {
         type: 'pmnode',
         nodes: [schema.nodes.emoji.createChecked(adfEmojiItems[emojiId])],

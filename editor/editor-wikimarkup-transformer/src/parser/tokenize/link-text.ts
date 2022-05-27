@@ -11,8 +11,7 @@ export const linkText: TokenParser = ({ input, position, schema }) => {
     return fallback(input, position);
   }
 
-  // remove the last character from match if it is a ")"
-  match = checkParenthesis(match);
+  match = trimBadEndChar(match);
 
   // Remove mailto:
   const textRepresentation = match[1] === 'mailto:' ? match[2] : match[0];
@@ -61,8 +60,11 @@ function fallback(input: string, position: number): Token {
   };
 }
 
-function checkParenthesis(input: string[]): string[] {
-  return input[0].endsWith(')')
-    ? [input[0].slice(0, -1), input[1], input[2].slice(0, -1)]
-    : input;
+// removes bad characters from the end of regex match
+function trimBadEndChar(input: string[]): string[] {
+  return [
+    input[0].replace(/[.,>)\];}"\'!]*$/, ''),
+    input[1],
+    input[2].replace(/[.,>)\];}"\'!]*$/, ''),
+  ];
 }

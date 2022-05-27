@@ -190,7 +190,8 @@ BrowserTestCase(
 
 BrowserTestCase(
   'paste.ts: decision item copied from renderer and pasted',
-  {},
+  // TODO: Unskip via https://product-fabric.atlassian.net/browse/ED-15079
+  { skip: ['firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(

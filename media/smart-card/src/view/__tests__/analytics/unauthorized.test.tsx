@@ -1,4 +1,5 @@
 import './unauthorized.test.mock';
+import '../../__mocks__/intersection-observer.mock';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import * as analytics from '../../../utils/analytics';

@@ -5,16 +5,6 @@ jest.mock('react-lazily-render', () => ({
   },
 }));
 
-// force isIntersectionObserverSupported to be false until support for it is dropped.
-jest.mock('@atlaskit/media-ui', () => {
-  const actualModule = jest.requireActual('@atlaskit/media-ui');
-  return {
-    __esModule: true,
-    ...actualModule,
-    isIntersectionObserverSupported: () => false,
-  };
-});
-
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import Renderer, { Props } from '../../../ui/Renderer';
@@ -45,6 +35,30 @@ const initialDoc = {
   ],
 };
 
+const mockIntersectionObserver = () => {
+  class MockIntersectionObserver implements IntersectionObserver {
+    readonly root!: Element | null;
+    readonly rootMargin!: string;
+    readonly thresholds!: ReadonlyArray<number>;
+
+    constructor(public callback: IntersectionObserverCallback) {}
+
+    observe(_element: HTMLElement) {
+      const entries = [{ isIntersecting: true }] as IntersectionObserverEntry[];
+      this.callback(entries, this);
+    }
+    disconnect = jest.fn();
+    takeRecords = jest.fn();
+    unobserve = jest.fn();
+  }
+
+  Object.defineProperty(window, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: MockIntersectionObserver,
+  });
+};
+
 describe('@atlaskit/renderer/event-handlers', () => {
   let renderer: ReactWrapper;
 
@@ -61,6 +75,10 @@ describe('@atlaskit/renderer/event-handlers', () => {
       </IntlProvider>,
     );
   };
+
+  beforeAll(() => {
+    mockIntersectionObserver();
+  });
 
   afterEach(() => {
     if (renderer && renderer.length) {

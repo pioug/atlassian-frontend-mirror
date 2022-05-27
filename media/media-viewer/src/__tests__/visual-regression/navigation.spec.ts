@@ -22,7 +22,8 @@ describe('Media Viewer Navigation', () => {
     await page.waitForFunction(
       `window.areControlsRendered() && window.areControlsVisible()`,
     );
-    await sleep(500);
+    // Move mouse over the image to ensure the controls stay visible and don't fade out
+    await page.mouse.move(100, 100);
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
@@ -33,10 +34,12 @@ describe('Media Viewer Navigation', () => {
 
     // This test relies on side effects (CSS transitons)
     await page.goto(url);
+    // Move mouse over off screen to ensure the controls stay hidden
+    await page.mouse.move(-30, -30);
     await page.waitForSelector(pageSelector);
     await page.waitForSelector('img');
     await page.waitForFunction(
-      `window.areControlsRendered() && !window.areControlsVisible()`,
+      `window.areControlsRendered() && window.areControlsHidden()`,
     );
     await sleep(500);
     const image = await page.screenshot();

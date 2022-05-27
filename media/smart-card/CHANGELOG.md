@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 19.1.10
+
+### Patch Changes
+
+- [`009e3475b29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/009e3475b29) - Duplicate isIntersectionObserverSupported from media-ui to smart-card
+
 ## 19.1.9
 
 ### Patch Changes

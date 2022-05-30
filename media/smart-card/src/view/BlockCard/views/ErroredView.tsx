@@ -9,7 +9,7 @@ import { Frame } from '../components/Frame';
 import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';

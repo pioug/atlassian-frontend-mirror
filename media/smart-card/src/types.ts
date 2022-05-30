@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { RequestAccessMessageKey } from '@atlaskit/media-ui/messages';
+import { RequestAccessMessageKey } from './messages';
 export type { CardContext } from '@atlaskit/link-provider';
 import { AccessContext } from './view/types';
 import { ActionProps } from './view/BlockCard/components/Action';

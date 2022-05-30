@@ -2,7 +2,7 @@ import type { DesignToken, Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@af/codegen';
 
-import { ALLOWED_THEMES, LONG_SHORT_MAPPING } from '../../../src/constants';
+import { LONG_SHORT_MAPPING, THEMES } from '../../../src/constants';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 
 export const cssVariableFormatter: Format['formatter'] = ({
@@ -16,10 +16,8 @@ export const cssVariableFormatter: Format['formatter'] = ({
   const themeMode = LONG_SHORT_MAPPING[options.themeName];
   const tokens: DesignToken[] = [];
 
-  if (!ALLOWED_THEMES.includes(themeMode)) {
-    throw new Error(
-      `Theme name should end in one of [${ALLOWED_THEMES.join(', ')}]`,
-    );
+  if (!THEMES.includes(themeMode)) {
+    throw new Error(`Theme name should end in one of [${THEMES.join(', ')}]`);
   }
 
   dictionary.allTokens

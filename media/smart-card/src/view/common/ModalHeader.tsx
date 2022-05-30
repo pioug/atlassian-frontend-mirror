@@ -15,7 +15,7 @@ import { gs } from './utils';
 import { Icon, IconProps } from './Icon';
 import { MetadataList, MetadataListProps } from './MetadataList';
 import { Byline } from './Byline';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../messages';
 
 export interface HeaderProps extends HeaderComponentProps {
   title?: string;

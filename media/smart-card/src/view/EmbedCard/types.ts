@@ -4,7 +4,7 @@ import { AnalyticsHandler } from '../../utils/types';
 import { CardPlatform, OnResolveCallback } from '../Card/types';
 import { ReactNode } from 'react';
 import { ActionProps } from '../BlockCard/components/Action';
-import { RequestAccessMessageKey } from '@atlaskit/media-ui/messages';
+import { RequestAccessMessageKey } from '../../messages';
 
 export type EmbedCardProps = {
   url: string;

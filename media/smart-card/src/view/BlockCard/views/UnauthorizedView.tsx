@@ -9,7 +9,7 @@ import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
 import { ActionProps } from '../components/Action';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps } from '../../common/Icon';

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { Appearance } from '@atlaskit/button/types';
 
 import { ActionProps } from '../components/Action';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 
 export const ForbiddenAction = (
   handler: () => void,

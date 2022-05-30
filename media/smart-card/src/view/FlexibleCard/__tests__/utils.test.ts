@@ -142,7 +142,7 @@ describe('getRetryOptions', () => {
       );
 
       expect(retry).toEqual({
-        descriptor: messages.click_to_join,
+        descriptor: messages.join_to_view,
         onClick: expect.any(Function),
       });
     });
@@ -155,7 +155,7 @@ describe('getRetryOptions', () => {
       );
 
       expect(retry).toEqual({
-        descriptor: messages.request_access,
+        descriptor: messages.request_access_to_view,
         onClick: expect.any(Function),
       });
     });

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { ActionProps } from './BlockCard/components/Action';
-import { RequestAccessMessageKey } from '@atlaskit/media-ui/messages';
+import { RequestAccessMessageKey } from '../messages';
 
 export interface WithShowControlMethodProp {
   showControls?: () => void;

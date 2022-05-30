@@ -8,14 +8,13 @@
 export default {
   'fabric.linking.cannot_connect': 'ไม่สามารถเชื่อมต่อได้ โปรดลองอีกครั้ง',
   'fabric.linking.cannot_find_link': 'ไม่พบลิงก์',
-  'fabric.linking.click_to_join': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
-  'fabric.linking.connect_link_account': 'เชื่อมต่อเพื่อดูตัวอย่าง',
+  'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
   'fabric.linking.create_on': 'สร้าง {context} แล้ว',
   'fabric.linking.created_by': 'สร้างโดย {context}',
   'fabric.linking.delete': 'ลบ',
   'fabric.linking.edit': 'แก้ไข',
   'fabric.linking.forbidden_access': 'คุณไม่มีสิทธิ์เข้าถึง',
-  'fabric.linking.invalid_permissions':
+  'fabric.linking.restricted_link':
     'ลิงก์ถูกจำกัดการเข้าถึง โปรดลองใช้บัญชีอื่น',
   'fabric.linking.modified_on': 'อัปเดต {context} แล้ว',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
@@ -30,8 +29,163 @@ export default {
   'fabric.linking.priority_minor': 'น้อย',
   'fabric.linking.priority_trivial': 'ไม่สำคัญ',
   'fabric.linking.priority_undefined': 'ไม่ได้ระบุ',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'ส่งคำขอการเข้าถึงที่ {context} เพื่อดูปัญหานี้',
   'fabric.linking.request_denied': 'คำขอการเข้าถึงของคุณถูกปฏิเสธ',
   'fabric.linking.updated_by': 'แก้ไขแล้วโดย {context}',
+  'fabric.linking.accounts': 'บัญชี',
+  'fabric.linking.actions': 'การดำเนินการ',
+  'fabric.linking.add_account': 'เพิ่มบัญชี',
+  'fabric.linking.annotate': 'บันทึกหมายเหตุ',
+  'fabric.linking.annotate.confirmation.close.anyway': 'ปิดเลย',
+  'fabric.linking.annotate.confirmation.content':
+    'คุณมีการเปลี่ยนแปลงบางรายการที่ยังไม่ได้บันทึก คุณแน่ใจหรือไม่ว่าต้องการออกจากหน้านี้',
+  'fabric.linking.annotate.confirmation.heading':
+    'การเปลี่ยนแปลงที่ยังไม่ได้บันทึก',
+  'fabric.linking.annotate.tool.arrow': 'ลูกศร',
+  'fabric.linking.annotate.tool.blur': 'ขุ่นมัว',
+  'fabric.linking.annotate.tool.brush': 'แปรง',
+  'fabric.linking.annotate.tool.color': 'สี',
+  'fabric.linking.annotate.tool.line.thickness': 'ความหนาของเส้น',
+  'fabric.linking.annotate.tool.shape': 'รูปร่าง',
+  'fabric.linking.annotate.tool.text': 'ข้อความ',
+  'fabric.linking.archive': 'เก็บ',
+  'fabric.linking.audio': 'เสียง',
+  'fabric.linking.cancel': 'ยกเลิก',
+  'fabric.linking.cant_preview_file_type':
+    'เราไม่สามารถแสดงตัวอย่างประเภทไฟล์นี้ได้',
+  'fabric.linking.cant_retrieve_files':
+    'โอ๊ะ! เราไม่สามารถกู้ไฟล์ใด ๆ คืนมาได้',
+  'fabric.linking.cant_retrieve_gifs':
+    'โอ๊ะ! เราไม่สามารถกู้ไฟล์ GIF ใด ๆ คืนมาได้',
+  'fabric.linking.change_view': 'เปลี่ยนมุมมอง',
+  'fabric.linking.check_your_network': 'ตรวจสอบการเชื่อมต่อเครือข่ายของคุณ',
+  'fabric.linking.click_to_join': 'เข้าร่วม {context}',
+  'fabric.linking.click_to_join_description':
+    'คุณได้รับการอนุมัติแล้ว คุณจึงสามารถเข้าร่วม {context} ได้เลยทันที',
+  'fabric.linking.close': 'ปิด',
+  'fabric.linking.close_and_reopen': 'ลองปิดไฟล์นี้แล้วเปิดใหม่',
+  'fabric.linking.connect_account_description':
+    'เราจะเปิดหน้าเพจใหม่เพื่อช่วยให้คุณสามารถเชื่อมต่อบัญชี {name} ของคุณได้',
+  'fabric.linking.connect_link_account': 'เชื่อมต่อเพื่อดูตัวอย่าง',
+  'fabric.linking.connect_link_account_card_view': 'เชื่อมต่อ',
+  'fabric.linking.connect_link_account_card_view_description':
+    'เพื่อแสดงตัวอย่างของลิงก์นี้ โปรดติดต่อบัญชี {context} ของคุณ',
+  'fabric.linking.connect_link_account_card_view_name':
+    'เชื่อมต่อบัญชี {context} ของคุณ',
+  'fabric.linking.connect_to': 'เชื่อมต่อกับ {name}',
+  'fabric.linking.could_not_load_editor':
+    'โอ๊ะ! เราไม่สามารถโหลดโปรแกรมแก้ไขได้',
+  'fabric.linking.could_not_save_image': 'โอ๊ะ! เราไม่สามารถบันทึกรูปภาพได้',
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    'เราไม่สามารถแสดงตัวอย่างไฟล์ที่เข้ารหัสหรือไฟล์ที่มีรหัสป้องกันไว้ได้',
+  'fabric.linking.couldnt_generate_preview':
+    'เราไม่สามารถสร้างการแสดงตัวอย่างสำหรับไฟล์นี้ได้',
+  'fabric.linking.couldnt_load_file': 'เราไม่สามารถโหลดไฟล์ได้',
+  'fabric.linking.couldnt_load_link':
+    'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
+  'fabric.linking.creating_preview': 'กำลังสร้างตัวอย่าง...',
+  'fabric.linking.default_avatars': 'รูปแทนตัวเริ่มต้น',
+  'fabric.linking.disable_fullscreen': 'ปิดใช้งานการแสดงเต็มหน้าจอ',
+  'fabric.linking.display_thumbnail': 'แสดงภาพขนาดย่อ',
+  'fabric.linking.document': 'เอกสาร',
+  'fabric.linking.download': 'ดาวน์โหลด',
+  'fabric.linking.drag_and_drop_images_here': 'ลากและวางรูปภาพของคุณที่นี่',
+  'fabric.linking.drag_and_drop_your_files':
+    'ลากและวางไฟล์ของคุณไว้ที่ใดก็ได้หรือ',
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    'ลากและวางไฟล์และโฟลเดอร์ของคุณที่ใดก็ได้หรือ',
+  'fabric.linking.drop_your_files': 'วางไฟล์ของคุณเพื่ออัปโหลด',
+  'fabric.linking.drop_your_files_here': 'วางไฟล์ของคุณที่นี่',
+  'fabric.linking.email': 'อีเมล',
+  'fabric.linking.enable_fullscreen': 'เปิดใช้งานการแสดงเต็มหน้าจอ',
+  'fabric.linking.error_429': 'ข้อผิดพลาด 429',
+  'fabric.linking.error_generating_preview':
+    'เกิดข้อผิดพลาดในการสร้างการแสดงตัวอย่าง',
+  'fabric.linking.error_hint_critical':
+    'หากยังคงมีปัญหาเกิดขึ้นเรื่อย ๆ โปรดติดต่อฝ่ายสนับสนุน',
+  'fabric.linking.error_hint_retry': 'ลองอีกครั้งและเราจะแสดงใหม่อีกครั้ง',
+  'fabric.linking.error_loading_file': 'เกิดข้อผิดพลาดในการโหลดไฟล์',
+  'fabric.linking.failed_to_load': 'ไม่สามารถโหลดได้สำเร็จ',
+  'fabric.linking.failed_to_upload': 'ไม่สามารถอัปโหลดได้',
+  'fabric.linking.forbidden_description':
+    'คุณไม่มีสิทธิ์เข้าถึงตัวอย่างนี้ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณต้องการสิทธิ์การเข้าถึง',
+  'fabric.linking.give_feedback': 'ให้ข้อคิดเห็น',
+  'fabric.linking.image': 'รูปภาพ',
+  'fabric.linking.image_format_invalid_error':
+    'ไม่สามารถโหลดรูปภาพได้ รูปแบบไฟล์ไม่ถูกต้อง',
+  'fabric.linking.image_size_too_large_error':
+    'รูปภาพมีขนาดใหญ่เกินไป โดยรูปภาพต้องมีขนาดไม่เกิน {MAX_SIZE_MB}Mb',
+  'fabric.linking.image_url_invalid_error':
+    'ไม่สามารถโหลดรูปภาพได้ URL ไม่ถูกต้อง',
+  'fabric.linking.insert_files': '{0, plural, other {แทรกไฟล์ {0} ไฟล์}}',
+  'fabric.linking.invalid_permissions': 'ลิงก์ที่จำกัด',
+  'fabric.linking.invalid_permissions_description':
+    'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
+  'fabric.linking.item_not_found_in_list': 'ไม่พบรายการที่เลือกในรายการ',
+  'fabric.linking.learn_more': 'เรียนรู้เพิ่มเติม',
+  'fabric.linking.load_more_gifs': 'โหลด GIF เพิ่มเติม',
+  'fabric.linking.loading': 'กำลังโหลด...',
+  'fabric.linking.loading_file': 'กำลังโหลดไฟล์...',
+  'fabric.linking.might_be_a_hiccup': 'อาจจะมีอุปสรรคบางอย่าง',
+  'fabric.linking.no_gifs_found': 'สวัสดี คุณกำลังมองหาฉันอยู่หรือเปล่า',
+  'fabric.linking.no_gifs_found_suggestion':
+    'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{query}"',
+  'fabric.linking.no_pdf_artifacts':
+    'ไม่พบสิ่งที่สร้างขึ้นจาก PDF สำหรับไฟล์นี้',
+  'fabric.linking.not_found_description':
+    'เราไม่พบลิงก์ ตรวจสอบ URL และลองแก้ไขหรือวางอีกครั้ง',
+  'fabric.linking.not_found_title': 'โอ๊ะ โอ เราไม่พบลิงก์นี้!',
+  'fabric.linking.or': 'หรือ',
+  'fabric.linking.pause': 'หยุดชั่วคราว',
+  'fabric.linking.play': 'เล่น',
+  'fabric.linking.playback_default_speed': 'ค่าเริ่มต้น',
+  'fabric.linking.playback_speed': 'ความเร็วในการเปิดเล่น',
+  'fabric.linking.preview': 'แสดงตัวอย่าง',
+  'fabric.linking.preview_currently_unavailable':
+    'ไม่สามารถดูตัวอย่างได้ในขณะนี้',
+  'fabric.linking.preview_unavailable': 'ไม่สามารถดูตัวอย่างได้',
+  'fabric.linking.recent_uploads': 'รายการอัปโหลดล่าสุด',
+  'fabric.linking.remove_image': 'ลบรูปภาพออก',
+  'fabric.linking.request_access': 'ส่งคำขอเพื่อเข้าถึง',
+  'fabric.linking.request_access_description':
+    'ส่งคำขอในการเข้าถึง {context} เพื่อดูตัวอย่างนี้',
+  'fabric.linking.request_access_pending': 'การเข้าถึงกำลังรอดำเนินการ',
+  'fabric.linking.request_access_pending_description':
+    'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
+  'fabric.linking.request_denied_description':
+    'คำขอการเข้าถึงของคุณถูกปฏิเสธ โปรดติดต่อผู้ดูแลระบบเว็บไซต์หากคุณยังต้องการสิทธิ์การเข้าถึง',
+  'fabric.linking.retry': 'ลองอีกครั้ง',
+  'fabric.linking.save': 'บันทึก',
+  'fabric.linking.search': 'ค้นหา',
+  'fabric.linking.search_all_gifs': 'ค้นหาไฟล์ GIF ทั้งหมด',
+  'fabric.linking.share_files_instantly': 'เราจะแชร์ไฟล์เหล่านั้นทันที',
+  'fabric.linking.skip_backward': 'ย้อนกลับ 10 วินาที',
+  'fabric.linking.skip_forward': 'ไปข้างหน้า 10 วินาที',
+  'fabric.linking.something_went_wrong': 'เกิดข้อผิดพลาดบางอย่าง',
+  'fabric.linking.srclink': 'ดูใน',
+  'fabric.linking.srclinkunknown': 'ดูต้นฉบับ',
+  'fabric.linking.text': 'ข้อความ',
+  'fabric.linking.try_again': 'ลองอีกครั้ง',
+  'fabric.linking.try_another_account': 'ลองบัญชีอื่น',
+  'fabric.linking.try_downloading_file': 'ลองดาวน์โหลดไฟล์เพื่อดู',
+  'fabric.linking.unable_to_annotate_image':
+    'คุณไม่สามารถทำหมายเหตุประกอบรูปภาพนี้ได้',
+  'fabric.linking.unknown': 'ไม่รู้จัก',
+  'fabric.linking.unlink_account': 'ยกเลิกการเชื่อมโยงบัญชี',
+  'fabric.linking.upload': 'อัปโหลด',
+  'fabric.linking.upload_an_avatar': 'อัปโหลดรูปแทนตัว',
+  'fabric.linking.upload_file': 'อัปโหลดไฟล์',
+  'fabric.linking.upload_file_from': 'อัปโหลดไฟล์จาก {name}',
+  'fabric.linking.upload_image': 'อัปโหลดรูปภาพ',
+  'fabric.linking.upload_photo': 'อัปโหลดภาพ',
+  'fabric.linking.video': 'วิดีโอ',
+  'fabric.linking.view': 'ดู',
+  'fabric.linking.viewer_rateLimited': 'เรากำลังประสบปัญหาในการโหลดไฟล์ของคุณ',
+  'fabric.linking.webgl_warning_description':
+    'เบราว์เซอร์ของคุณไม่รองรับ WebGL ใช้เบราว์เซอร์ที่เปิดใช้งาน WebGL ในการทำหมายเหตุประกอบรูปภาพ',
+  'fabric.linking.zip_entry_load_failed':
+    'เราไม่สามารถโหลดรายการไฟล์ซิปนั้นเพื่อดูตัวอย่างได้',
+  'fabric.linking.zoom_in': 'ซูมเข้า',
+  'fabric.linking.zoom_out': 'ซูมออก',
 };

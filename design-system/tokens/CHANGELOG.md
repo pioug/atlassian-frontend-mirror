@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 0.10.3
+
+### Patch Changes
+
+- [`acbd8d5576a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acbd8d5576a) - Added a color-contrast test for our color pairs in the Tokens package.
+
+## 0.10.2
+
+### Patch Changes
+
+- [`5b8212f08b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b8212f08b0) - The current theme can now be accessed and monitored for changes using new exports.
+
+  - `useThemeObserver` React hook
+  - `ThemeMutationObserver` Mutation Observer
+
 ## 0.10.1
 
 ### Patch Changes

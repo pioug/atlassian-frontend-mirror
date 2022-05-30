@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 166.0.4
+
+### Patch Changes
+
+- [`08b3ceadbe3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08b3ceadbe3) - [Hotfix] Revert of ED-14241
+
 ## 166.0.3
 
 ### Patch Changes

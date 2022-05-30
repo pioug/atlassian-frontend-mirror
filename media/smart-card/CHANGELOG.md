@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 19.1.11
+
+### Patch Changes
+
+- [`7833a526777`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7833a526777) - - Transfer i18n from @atlaskit/media-ui to @atlaskit/smart-card
+  - Remove @atlaskit/media-ui dependency
+
 ## 19.1.10
 
 ### Patch Changes

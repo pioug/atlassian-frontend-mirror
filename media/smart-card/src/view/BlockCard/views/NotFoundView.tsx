@@ -10,7 +10,7 @@ import { Frame } from '../components/Frame';
 import { Provider } from '../components/Provider';
 import { Byline } from '../../common/Byline';
 import { Content } from '../components/Content';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { ContentFooter } from '../components/ContentFooter';
 import { IconProps } from '../../common/Icon';
 import { ContentHeader } from '../components/ContentHeader';

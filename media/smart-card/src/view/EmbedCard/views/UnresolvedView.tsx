@@ -6,7 +6,7 @@ import { fontSize } from '@atlaskit/theme/constants';
 import { FormattedMessage } from 'react-intl-next';
 import { FC } from 'react';
 
-import { messages, MessageKey } from '@atlaskit/media-ui/messages';
+import { messages, MessageKey } from '../../../messages';
 import { gs as gridSize } from '../../common/utils';
 
 export interface ButtonProps {

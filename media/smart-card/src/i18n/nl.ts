@@ -8,15 +8,14 @@
 export default {
   'fabric.linking.cannot_connect': 'Geen verbinding, probeer het opnieuw',
   'fabric.linking.cannot_find_link': 'Kan link niet vinden',
-  'fabric.linking.click_to_join':
+  'fabric.linking.join_to_view':
     'Word lid van {context} om deze issue te bekijken',
-  'fabric.linking.connect_link_account': 'Maak verbinding voor voorbeeld',
   'fabric.linking.create_on': 'Aangemaakt op {context}',
   'fabric.linking.created_by': 'Aangemaakt door {context}',
   'fabric.linking.delete': 'Verwijderen',
   'fabric.linking.edit': 'Bewerken',
   'fabric.linking.forbidden_access': 'Je hebt geen toegang',
-  'fabric.linking.invalid_permissions':
+  'fabric.linking.restricted_link':
     'Afgeschermde link, probeer een ander account',
   'fabric.linking.modified_on': 'Bijgewerkt op {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
@@ -31,8 +30,169 @@ export default {
   'fabric.linking.priority_minor': 'Gering',
   'fabric.linking.priority_trivial': 'Triviaal',
   'fabric.linking.priority_undefined': 'Niet gedefinieerd',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'Vraag toegang aan tot {context} om deze issue te bekijken',
   'fabric.linking.request_denied': 'Je toegangsaanvraag is afgewezen',
   'fabric.linking.updated_by': 'Gewijzigd door {context}',
+  'fabric.linking.accounts': 'Accounts',
+  'fabric.linking.actions': 'Acties',
+  'fabric.linking.add_account': 'Account toevoegen',
+  'fabric.linking.annotate': 'Aantekeningen maken',
+  'fabric.linking.annotate.confirmation.close.anyway': 'Toch sluiten',
+  'fabric.linking.annotate.confirmation.content':
+    'Je hebt wijzigingen die niet zijn opgeslagen. Weet je zeker dat je dit venster wilt sluiten?',
+  'fabric.linking.annotate.confirmation.heading': 'Niet-opgeslagen wijzigingen',
+  'fabric.linking.annotate.tool.arrow': 'Pijl',
+  'fabric.linking.annotate.tool.blur': 'Vervagen',
+  'fabric.linking.annotate.tool.brush': 'Kwast',
+  'fabric.linking.annotate.tool.color': 'Kleur',
+  'fabric.linking.annotate.tool.line.thickness': 'Lijndikte',
+  'fabric.linking.annotate.tool.shape': 'Vorm',
+  'fabric.linking.annotate.tool.text': 'Tekst',
+  'fabric.linking.archive': 'archiveren',
+  'fabric.linking.audio': 'audio',
+  'fabric.linking.cancel': 'Annuleren',
+  'fabric.linking.cant_preview_file_type':
+    'Dit bestandstype kunnen we niet voorvertonen.',
+  'fabric.linking.cant_retrieve_files': 'Oei! We konden geen bestanden ophalen',
+  'fabric.linking.cant_retrieve_gifs': "Oei! We konden geen GIF's vinden",
+  'fabric.linking.change_view': 'Weergave wijzigen',
+  'fabric.linking.check_your_network': 'Controleer je netwerkverbinding',
+  'fabric.linking.click_to_join': 'Neem deel aan {context}',
+  'fabric.linking.click_to_join_description':
+    'Je bent goedgekeurd, dus je kunt onmiddellijk deelnemen aan {context}.',
+  'fabric.linking.close': 'Sluiten',
+  'fabric.linking.close_and_reopen':
+    'Probeer dit bestand te sluiten en opnieuw te openen.',
+  'fabric.linking.connect_account_description':
+    'We zullen een nieuwe pagina openen waarop je je {name}-account kunt verbinden',
+  'fabric.linking.connect_link_account': 'Maak verbinding voor voorbeeld',
+  'fabric.linking.connect_link_account_card_view': 'Koppelen',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Koppel je {context}-account om een voorbeeld van deze link weer te geven.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Koppel je {context}-account',
+  'fabric.linking.connect_to': 'Met {name} verbinden',
+  'fabric.linking.could_not_load_editor':
+    'Oei! De editor kon niet geladen worden',
+  'fabric.linking.could_not_save_image':
+    'Oei! De afbeelding kon niet opgeslagen worden',
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    'We kunnen geen voorbeeld weergeven van gecodeerde bestanden of bestanden die beveiligd zijn met een wachtwoord.',
+  'fabric.linking.couldnt_generate_preview':
+    'Dit bestandstype kunnen we niet voorvertonen.',
+  'fabric.linking.couldnt_load_file': 'We konden het bestand niet laden.',
+  'fabric.linking.couldnt_load_link':
+    'Om een onbekende reden konden we deze link niet laden.',
+  'fabric.linking.creating_preview': 'Voorbeeld aanmaken...',
+  'fabric.linking.default_avatars': "Standaardavatar's",
+  'fabric.linking.disable_fullscreen': 'volledig scherm uitschakelen',
+  'fabric.linking.display_thumbnail': 'Thumbnail weergeven',
+  'fabric.linking.document': 'document',
+  'fabric.linking.download': 'Downloaden',
+  'fabric.linking.drag_and_drop_images_here':
+    'Afbeelding hierheen slepen en neerzetten',
+  'fabric.linking.drag_and_drop_your_files':
+    'Bestanden ergens naartoe slepen en neerzetten of',
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    'Sleep de bestanden en mappen waar dan ook naartoe, of',
+  'fabric.linking.drop_your_files': 'Zet hier je te uploaden bestanden neer',
+  'fabric.linking.drop_your_files_here': 'Zet je bestanden hier neer.',
+  'fabric.linking.email': 'E-mail',
+  'fabric.linking.enable_fullscreen': 'volledig scherm inschakelen',
+  'fabric.linking.error_429': 'Fout 429',
+  'fabric.linking.error_generating_preview':
+    'Fout bij aanmaken van voorvertoning',
+  'fabric.linking.error_hint_critical':
+    'Neem contact op met support als dit probleem zich blijft voordoen.',
+  'fabric.linking.error_hint_retry':
+    'Probeer het opnieuw dan doen wij het ook.',
+  'fabric.linking.error_loading_file': 'Fout bij laden van bestand',
+  'fabric.linking.failed_to_load': 'Fout bij het laden',
+  'fabric.linking.failed_to_upload': 'Kan niet worden geüpload',
+  'fabric.linking.forbidden_description':
+    'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
+  'fabric.linking.give_feedback': 'Feedback geven',
+  'fabric.linking.image': 'afbeelding',
+  'fabric.linking.image_format_invalid_error':
+    'De afbeelding kon niet geladen worden omdat het bestandsformaat ongeldig is.',
+  'fabric.linking.image_size_too_large_error':
+    'Afbeelding is te groot, mag niet groter zijn dan {MAX_SIZE_MB} MB.',
+  'fabric.linking.image_url_invalid_error':
+    'De afbeelding kon niet geladen worden omdat de URL ongeldig is.',
+  'fabric.linking.insert_files':
+    '{0, plural, one {Voer {0} bestanden in} other {Voer {0} bestanden in}}',
+  'fabric.linking.invalid_permissions': 'Afgeschermde link',
+  'fabric.linking.invalid_permissions_description':
+    'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
+  'fabric.linking.item_not_found_in_list':
+    'Het geselecteerde item is niet op de lijst gevonden.',
+  'fabric.linking.learn_more': 'Meer informatie',
+  'fabric.linking.load_more_gifs': "Meer GIF's laden",
+  'fabric.linking.loading': 'Laden...',
+  'fabric.linking.loading_file': 'Bestand laden ...',
+  'fabric.linking.might_be_a_hiccup':
+    'Het kan even een tijdelijke kink in de kabel zijn.',
+  'fabric.linking.no_gifs_found': 'Hallo? Was je naar mij op zoek?',
+  'fabric.linking.no_gifs_found_suggestion':
+    'We konden niks vinden voor "{query}"',
+  'fabric.linking.no_pdf_artifacts':
+    'Geen PDF-artefacten gevonden voor dit bestand.',
+  'fabric.linking.not_found_description':
+    'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
+  'fabric.linking.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
+  'fabric.linking.or': 'of',
+  'fabric.linking.pause': 'Pauzeren',
+  'fabric.linking.play': 'Afspelen',
+  'fabric.linking.playback_default_speed': 'Standaard',
+  'fabric.linking.playback_speed': 'Afspeelsnelheid',
+  'fabric.linking.preview': 'Voorvertoning',
+  'fabric.linking.preview_currently_unavailable':
+    'Voorvertoning is momenteel niet beschikbaar',
+  'fabric.linking.preview_unavailable': 'Voorbeeld niet beschikbaar',
+  'fabric.linking.recent_uploads': 'Recente uploads',
+  'fabric.linking.remove_image': 'Afbeelding verwijderen',
+  'fabric.linking.request_access': 'Toegang aanvragen',
+  'fabric.linking.request_access_description':
+    'Vraag toegang aan tot {context} om deze voorvertoning te bekijken.',
+  'fabric.linking.request_access_pending': 'Toegang wordt behandeld',
+  'fabric.linking.request_access_pending_description':
+    'Je toegangsaanvraag wordt behandeld.',
+  'fabric.linking.request_denied_description':
+    'Je toegangsaanvraag is afgewezen. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
+  'fabric.linking.retry': 'Probeer opnieuw',
+  'fabric.linking.save': 'Opslaan',
+  'fabric.linking.search': 'Zoeken',
+  'fabric.linking.search_all_gifs': "Doorzoek alle GIF's!",
+  'fabric.linking.share_files_instantly': 'We delen ze direct',
+  'fabric.linking.skip_backward': '10 seconden terug',
+  'fabric.linking.skip_forward': '10 seconden vooruit',
+  'fabric.linking.something_went_wrong': 'Er is iets misgegaan.',
+  'fabric.linking.srclink': 'Bekijken in',
+  'fabric.linking.srclinkunknown': 'Bekijk Origineel',
+  'fabric.linking.text': 'Tekst',
+  'fabric.linking.try_again': 'Opnieuw proberen',
+  'fabric.linking.try_another_account': 'Gebruik een ander account',
+  'fabric.linking.try_downloading_file':
+    'Probeer het bestand te downloaden om het te bekijken.',
+  'fabric.linking.unable_to_annotate_image':
+    'Je kunt bij deze afbeelding geen aantekeningen maken',
+  'fabric.linking.unknown': 'onbekend',
+  'fabric.linking.unlink_account': 'Verbinding met account verwijderen',
+  'fabric.linking.upload': 'Uploaden',
+  'fabric.linking.upload_an_avatar': 'Een avatar uploaden',
+  'fabric.linking.upload_file': 'Bestand uploaden',
+  'fabric.linking.upload_file_from': 'Een bestand vanaf {name} uploaden',
+  'fabric.linking.upload_image': 'Afbeelding uploaden',
+  'fabric.linking.upload_photo': 'Een foto uploaden',
+  'fabric.linking.video': 'video',
+  'fabric.linking.view': 'Bekijken',
+  'fabric.linking.viewer_rateLimited':
+    'We hebben problemen met het laden van je bestand.',
+  'fabric.linking.webgl_warning_description':
+    'Je browser ondersteunt geen WebGL. Gebruik een browser met WebGL-functie om aantekeningen te maken bij afbeeldingen.',
+  'fabric.linking.zip_entry_load_failed':
+    'We konden dat zip-bestandsitem niet laden om voor te vertonen',
+  'fabric.linking.zoom_in': 'inzoomen',
+  'fabric.linking.zoom_out': 'uitzoomen',
 };

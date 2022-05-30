@@ -8,15 +8,13 @@
 export default {
   'fabric.linking.cannot_connect': 'Kan ikke koble til, prøv på nytt',
   'fabric.linking.cannot_find_link': 'Finner ikke koblingen',
-  'fabric.linking.click_to_join': 'Bli med {context} for å se denne saken',
-  'fabric.linking.connect_link_account': 'Koble til for forhåndsvisning',
+  'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
   'fabric.linking.create_on': 'Opprettet {context}',
   'fabric.linking.created_by': 'Opprettet av {context}',
   'fabric.linking.delete': 'Slett',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.forbidden_access': 'Du har ikke tilgang',
-  'fabric.linking.invalid_permissions':
-    'Begrenset kobling, prøv en annen konto',
+  'fabric.linking.restricted_link': 'Begrenset kobling, prøv en annen konto',
   'fabric.linking.modified_on': 'Oppdatert {context}',
   'fabric.linking.pending_request':
     'Avventer svar på forespørselen din om tilgang',
@@ -31,8 +29,167 @@ export default {
   'fabric.linking.priority_minor': 'Mindre',
   'fabric.linking.priority_trivial': 'Uviktig',
   'fabric.linking.priority_undefined': 'Udefinert',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'Be om tilgang til {context} for å vise denne saken',
   'fabric.linking.request_denied': 'Forespørselen din om tilgang ble avslått',
   'fabric.linking.updated_by': 'Endret av {context}',
+  'fabric.linking.accounts': 'Kontoer',
+  'fabric.linking.actions': 'Tiltak',
+  'fabric.linking.add_account': 'Legg til en konto',
+  'fabric.linking.annotate': 'Kommenter',
+  'fabric.linking.annotate.confirmation.close.anyway': 'Lukk likevel',
+  'fabric.linking.annotate.confirmation.content':
+    'Du har noen ulagrede endringer. Er du sikker på at du vil forlate siden?',
+  'fabric.linking.annotate.confirmation.heading': 'Ulagrede endringer',
+  'fabric.linking.annotate.tool.arrow': 'Pil',
+  'fabric.linking.annotate.tool.blur': 'Uskarphet',
+  'fabric.linking.annotate.tool.brush': 'Børste',
+  'fabric.linking.annotate.tool.color': 'Farge',
+  'fabric.linking.annotate.tool.line.thickness': 'Linjetykkelse',
+  'fabric.linking.annotate.tool.shape': 'Form',
+  'fabric.linking.annotate.tool.text': 'Tekst',
+  'fabric.linking.archive': 'arkiver',
+  'fabric.linking.audio': 'lyd',
+  'fabric.linking.cancel': 'Avbryt',
+  'fabric.linking.cant_preview_file_type':
+    'Vi kan ikke forhåndsvise denne filtypen.',
+  'fabric.linking.cant_retrieve_files':
+    'Uff da! Vi kunne ikke hente noen filer',
+  'fabric.linking.cant_retrieve_gifs':
+    'Beklager. Vi kunne ikke hente noen GIF-bilder',
+  'fabric.linking.change_view': 'Endre visning',
+  'fabric.linking.check_your_network': 'Kontroller nettverksforbindelsen',
+  'fabric.linking.click_to_join': 'Bli med i {context}',
+  'fabric.linking.click_to_join_description':
+    'Du er blitt godkjent, så du kan bli med i {context} med én gang.',
+  'fabric.linking.close': 'Lukk',
+  'fabric.linking.close_and_reopen':
+    'Prøv å lukke denne filen og åpne den på nytt.',
+  'fabric.linking.connect_account_description':
+    'Vi vil åpne en ny side for å hjelpe deg med å koble til {name}-kontoen din',
+  'fabric.linking.connect_link_account': 'Koble til for forhåndsvisning',
+  'fabric.linking.connect_link_account_card_view': 'Koble til',
+  'fabric.linking.connect_link_account_card_view_description':
+    'For en forhåndsvisning av denne koblingen kobler du til {context}-kontoen din.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Koble til {context}-kontoen din',
+  'fabric.linking.connect_to': 'Koble til {name}',
+  'fabric.linking.could_not_load_editor':
+    'Beklager. Vi kunne ikke laste opp redigeringsprogrammet',
+  'fabric.linking.could_not_save_image': 'Beklager. Vi kunne ikke lagre bildet',
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    'Vi kan ikke forhåndsvise krypterte eller passordbeskyttede filer.',
+  'fabric.linking.couldnt_generate_preview':
+    'Vi kan ikke forhåndsvise denne filen.',
+  'fabric.linking.couldnt_load_file': 'Vi kan ikke laste inn filen.',
+  'fabric.linking.couldnt_load_link':
+    'Vi kan ikke laste inn denne koblingen av ukjent grunn.',
+  'fabric.linking.creating_preview': 'Oppretter forhåndsvisning …',
+  'fabric.linking.default_avatars': 'Standardavatarer',
+  'fabric.linking.disable_fullscreen': 'deaktiver fullskjerm',
+  'fabric.linking.display_thumbnail': 'Vis miniatyrbilde',
+  'fabric.linking.document': 'dokument',
+  'fabric.linking.download': 'Last ned',
+  'fabric.linking.drag_and_drop_images_here': 'Dra og slipp bildene her',
+  'fabric.linking.drag_and_drop_your_files':
+    'Dra og slipp filene dine hvor som helst eller',
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    'Dra og slipp filer og mapper hvor som helst eller',
+  'fabric.linking.drop_your_files': 'Slipp filer for å laste dem opp',
+  'fabric.linking.drop_your_files_here': 'Slipp bildene her',
+  'fabric.linking.email': 'E-post',
+  'fabric.linking.enable_fullscreen': 'aktiver fullskjerm',
+  'fabric.linking.error_429': 'Feil 429',
+  'fabric.linking.error_generating_preview':
+    'Feil ved generering av forhåndsvisning',
+  'fabric.linking.error_hint_critical':
+    'Kontakt brukerstøtte hvis problemet ikke forsvinner.',
+  'fabric.linking.error_hint_retry': 'Vent litt, så prøver vi igjen.',
+  'fabric.linking.error_loading_file': 'Feil ved lasting av feil',
+  'fabric.linking.failed_to_load': 'Kunne ikke lastes inn',
+  'fabric.linking.failed_to_upload': 'Kan ikke laste opp',
+  'fabric.linking.forbidden_description':
+    'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
+  'fabric.linking.give_feedback': 'Gi en tilbakemelding',
+  'fabric.linking.image': 'bilde',
+  'fabric.linking.image_format_invalid_error':
+    'Bildet har feil format. Det kan derfor ikke lastes inn.',
+  'fabric.linking.image_size_too_large_error':
+    'Bildet er for stort. Det kan ikke være større enn {MAX_SIZE_MB}MB',
+  'fabric.linking.image_url_invalid_error':
+    'Nettadressen er feil. Bildet kan derfor ikke lastes inn.',
+  'fabric.linking.insert_files':
+    '{0, plural, one {Legg inn {0} fil} other {Legg inn {0} filer}}',
+  'fabric.linking.invalid_permissions': 'Begrenset kobling',
+  'fabric.linking.invalid_permissions_description':
+    'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
+  'fabric.linking.item_not_found_in_list':
+    'Det valgte elementet ble ikke funnet på listen.',
+  'fabric.linking.learn_more': 'Les mer',
+  'fabric.linking.load_more_gifs': 'Last opp flere GIF-bilder',
+  'fabric.linking.loading': 'Laster …',
+  'fabric.linking.loading_file': 'Laster inn filen …',
+  'fabric.linking.might_be_a_hiccup': 'Det kan være et midlertidig problem.',
+  'fabric.linking.no_gifs_found': 'Hei! Var det meg du lette etter?',
+  'fabric.linking.no_gifs_found_suggestion':
+    'Vi kunne ikke finne noe for «{query}»',
+  'fabric.linking.no_pdf_artifacts':
+    'Kunne ikke finne noen PDF-artefakter for denne filen.',
+  'fabric.linking.not_found_description':
+    'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
+  'fabric.linking.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
+  'fabric.linking.or': 'eller',
+  'fabric.linking.pause': 'Sett på pause',
+  'fabric.linking.play': 'Spill av',
+  'fabric.linking.playback_default_speed': 'Standard',
+  'fabric.linking.playback_speed': 'Avspillingshastighet',
+  'fabric.linking.preview': 'Forhåndsvisning',
+  'fabric.linking.preview_currently_unavailable':
+    'Forhåndsvisning er for øyeblikket ikke tilgjengelig',
+  'fabric.linking.preview_unavailable': 'Forhåndsvisning er ikke tilgjengelig',
+  'fabric.linking.recent_uploads': 'Nylige opplastinger',
+  'fabric.linking.remove_image': 'Fjern bilde',
+  'fabric.linking.request_access': 'Be om tilgang',
+  'fabric.linking.request_access_description':
+    'Be om tilgang til {context} for å se denne forhåndsvisningen.',
+  'fabric.linking.request_access_pending': 'Venter på tilgang',
+  'fabric.linking.request_access_pending_description':
+    'Avventer svar på forespørsel om tilgang',
+  'fabric.linking.request_denied_description':
+    'Forespørselen din om tilgang ble avslått. Kontakt administratoren for nettstedet for å be om tilgang.',
+  'fabric.linking.retry': 'Prøv igjen',
+  'fabric.linking.save': 'Lagre',
+  'fabric.linking.search': 'søk',
+  'fabric.linking.search_all_gifs': 'Søk i alle GIF-ene',
+  'fabric.linking.share_files_instantly': 'Vi deler dem med det samme',
+  'fabric.linking.skip_backward': '10 sekunder bakover',
+  'fabric.linking.skip_forward': '10 sekunder fremover',
+  'fabric.linking.something_went_wrong': 'Det oppsto en feil.',
+  'fabric.linking.srclink': 'Se i',
+  'fabric.linking.srclinkunknown': 'Vis original',
+  'fabric.linking.text': 'tekst',
+  'fabric.linking.try_again': 'Prøv på nytt',
+  'fabric.linking.try_another_account': 'Prøv en annen konto',
+  'fabric.linking.try_downloading_file':
+    'Prøv å laste ned filen for å vise den.',
+  'fabric.linking.unable_to_annotate_image':
+    'Du kan ikke kommentere dette bildet',
+  'fabric.linking.unknown': 'ukjent',
+  'fabric.linking.unlink_account': 'Fjern kobling fra konto',
+  'fabric.linking.upload': 'Last opp',
+  'fabric.linking.upload_an_avatar': 'Last opp en avatar',
+  'fabric.linking.upload_file': 'Last opp en fil',
+  'fabric.linking.upload_file_from': 'Last opp en fil fra {name}',
+  'fabric.linking.upload_image': 'Last opp et bilde',
+  'fabric.linking.upload_photo': 'Last opp et bilde',
+  'fabric.linking.video': 'video',
+  'fabric.linking.view': 'Vis',
+  'fabric.linking.viewer_rateLimited':
+    'Vi har problemer med å laste inn filen din.',
+  'fabric.linking.webgl_warning_description':
+    'Nettleserdin støtter ikke WebGL. Bruk en WebGL-aktivert nettleser til å kommentere bilder.',
+  'fabric.linking.zip_entry_load_failed':
+    'Vi kunne ikke laste zip-filelementet for å forhåndsvise',
+  'fabric.linking.zoom_in': 'Zoom inn',
+  'fabric.linking.zoom_out': 'Zoom ut',
 };

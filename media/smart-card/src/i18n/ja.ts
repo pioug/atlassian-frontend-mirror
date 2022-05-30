@@ -8,14 +8,13 @@
 export default {
   'fabric.linking.cannot_connect': '接続できません、もう一度お試しください。',
   'fabric.linking.cannot_find_link': 'リンクが見つかりません。',
-  'fabric.linking.click_to_join': '{context}に参加してこの課題を見る',
-  'fabric.linking.connect_link_account': '接続してプレビュー',
+  'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
   'fabric.linking.create_on': '作成日: {context}',
   'fabric.linking.created_by': '作成元: {context}',
   'fabric.linking.delete': '削除',
   'fabric.linking.edit': '編集',
   'fabric.linking.forbidden_access': 'アクセスは禁止されています。',
-  'fabric.linking.invalid_permissions':
+  'fabric.linking.restricted_link':
     '制限されているリンクです、別のアカウントをお試しください。',
   'fabric.linking.modified_on': '更新日: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
@@ -30,8 +29,165 @@ export default {
   'fabric.linking.priority_minor': '軽度',
   'fabric.linking.priority_trivial': '軽微',
   'fabric.linking.priority_undefined': '未定義',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'この課題を表示するには、{context}へのアクセスをリクエストします。',
   'fabric.linking.request_denied': 'アクセス リクエストが拒否されました。',
   'fabric.linking.updated_by': '変更元: {context}',
+  'fabric.linking.accounts': 'アカウント',
+  'fabric.linking.actions': 'アクション',
+  'fabric.linking.add_account': 'アカウントを追加',
+  'fabric.linking.annotate': '注釈',
+  'fabric.linking.annotate.confirmation.close.anyway': '閉じる',
+  'fabric.linking.annotate.confirmation.content':
+    '保存されていない変更があります。保存せずに終了しますか?',
+  'fabric.linking.annotate.confirmation.heading': '保存されていない変更',
+  'fabric.linking.annotate.tool.arrow': '矢印',
+  'fabric.linking.annotate.tool.blur': 'ぼかし',
+  'fabric.linking.annotate.tool.brush': 'ブラシ',
+  'fabric.linking.annotate.tool.color': '色',
+  'fabric.linking.annotate.tool.line.thickness': '線の太さ',
+  'fabric.linking.annotate.tool.shape': '図形',
+  'fabric.linking.annotate.tool.text': 'テキスト',
+  'fabric.linking.archive': 'アーカイブ',
+  'fabric.linking.audio': '音声',
+  'fabric.linking.cancel': 'キャンセル',
+  'fabric.linking.cant_preview_file_type':
+    'このファイル形式はプレビュー表示できません。',
+  'fabric.linking.cant_retrieve_files':
+    '申し訳ありません。ファイルを取得できませんでした。',
+  'fabric.linking.cant_retrieve_gifs': 'GIF を取得できませんでした',
+  'fabric.linking.change_view': 'ビューの変更',
+  'fabric.linking.check_your_network': 'ネットワーク接続を確認してください',
+  'fabric.linking.click_to_join': '{context} に参加する',
+  'fabric.linking.click_to_join_description':
+    '承認されているため、今すぐ {context} に参加できます。',
+  'fabric.linking.close': '閉じる',
+  'fabric.linking.close_and_reopen':
+    'このファイルを閉じてからもう一度開いてみてください。',
+  'fabric.linking.connect_account_description':
+    '{name} アカウントを接続するため、新しいページを開きます',
+  'fabric.linking.connect_link_account': '接続してプレビュー',
+  'fabric.linking.connect_link_account_card_view': '接続',
+  'fabric.linking.connect_link_account_card_view_description':
+    'このリンクのプレビューを表示するには {context} アカウントを接続してください。',
+  'fabric.linking.connect_link_account_card_view_name':
+    'ご使用の {context} アカウントを接続',
+  'fabric.linking.connect_to': '{name} に接続',
+  'fabric.linking.could_not_load_editor': 'エディターを読み込めませんでした',
+  'fabric.linking.could_not_save_image': '画像を保存できませんでした',
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    '暗号化されたファイルやパスワードで保護されたファイルはプレビューできません。',
+  'fabric.linking.couldnt_generate_preview':
+    'このファイル形式はプレビュー表示できません。',
+  'fabric.linking.couldnt_load_file': 'ファイルを読み込めませんでした。',
+  'fabric.linking.couldnt_load_link':
+    '不明な理由によって、このリンクを読み込めませんでした。',
+  'fabric.linking.creating_preview': 'プレビューを作成中...',
+  'fabric.linking.default_avatars': 'デフォルトのアバター',
+  'fabric.linking.disable_fullscreen': '全画面表示を無効化',
+  'fabric.linking.display_thumbnail': 'サムネイルを表示',
+  'fabric.linking.document': 'ドキュメント',
+  'fabric.linking.download': 'ダウンロード',
+  'fabric.linking.drag_and_drop_images_here': 'ここに画像をドラッグ & ドロップ',
+  'fabric.linking.drag_and_drop_your_files':
+    'ファイルを任意の場所にドラッグ & ドロップする、または',
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    'ファイルとフォルダーを任意の場所または次の場所にドラッグ & ドロップ: ',
+  'fabric.linking.drop_your_files': 'アップロードするファイルをドロップ',
+  'fabric.linking.drop_your_files_here': 'ファイルをここにドロップ',
+  'fabric.linking.email': 'メール',
+  'fabric.linking.enable_fullscreen': '全画面表示を有効化',
+  'fabric.linking.error_429': 'エラー 429',
+  'fabric.linking.error_generating_preview':
+    'プレビューの生成中にエラーが発生しました',
+  'fabric.linking.error_hint_critical':
+    '問題が継続して起こる場合はサポートにご連絡ください。',
+  'fabric.linking.error_hint_retry': '改めてお試しください。',
+  'fabric.linking.error_loading_file':
+    'ファイルの読み込み中にエラーが発生しました',
+  'fabric.linking.failed_to_load': '読み込めませんでした',
+  'fabric.linking.failed_to_upload': 'アップロードに失敗しました',
+  'fabric.linking.forbidden_description':
+    'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
+  'fabric.linking.give_feedback': 'フィードバックを送信',
+  'fabric.linking.image': '画像',
+  'fabric.linking.image_format_invalid_error':
+    '画像を読み込めませんでした。フォーマットが無効です。',
+  'fabric.linking.image_size_too_large_error':
+    '画像が大きすぎます。画像サイズは {MAX_SIZE_MB}Mb 以下である必要があります。',
+  'fabric.linking.image_url_invalid_error':
+    '画像を読み込めませんでした。URL が無効です。',
+  'fabric.linking.insert_files': '{0, plural, other {{0} 件のファイルを挿入}}',
+  'fabric.linking.invalid_permissions': '制限されたリンク',
+  'fabric.linking.invalid_permissions_description':
+    'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
+  'fabric.linking.item_not_found_in_list':
+    '選択されたアイテムがリストに見つかりませんでした。',
+  'fabric.linking.learn_more': '詳細',
+  'fabric.linking.load_more_gifs': 'さらに GIF を読み込む',
+  'fabric.linking.loading': '読み込み中…',
+  'fabric.linking.loading_file': 'ファイルを読み込んでいます...',
+  'fabric.linking.might_be_a_hiccup': '一時的な障害の可能性があります。',
+  'fabric.linking.no_gifs_found':
+    'もしもし? お探しの画像はこちらではありませんよね?',
+  'fabric.linking.no_gifs_found_suggestion':
+    '「{query}」に一致する結果が見つかりませんでした',
+  'fabric.linking.no_pdf_artifacts':
+    'このファイルの PDF アーティファクトが見つかりません。',
+  'fabric.linking.not_found_description':
+    'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
+  'fabric.linking.not_found_title':
+    '申し訳ありません。リンクが見つかりません。',
+  'fabric.linking.or': 'または',
+  'fabric.linking.pause': '一時停止',
+  'fabric.linking.play': '再生',
+  'fabric.linking.playback_default_speed': '既定',
+  'fabric.linking.playback_speed': '再生速度',
+  'fabric.linking.preview': 'プレビュー',
+  'fabric.linking.preview_currently_unavailable':
+    'プレビューは現在使用できません',
+  'fabric.linking.preview_unavailable': 'プレビューがありません',
+  'fabric.linking.recent_uploads': '最近アップロードしたファイル',
+  'fabric.linking.remove_image': '画像を削除',
+  'fabric.linking.request_access': 'アクセスをリクエスト',
+  'fabric.linking.request_access_description':
+    'このプレビューを表示するための{context}へのアクセスをリクエストします。',
+  'fabric.linking.request_access_pending': 'アクセス保留中',
+  'fabric.linking.request_access_pending_description':
+    'アクセス リクエストは保留中です。',
+  'fabric.linking.request_denied_description':
+    'アクセス リクエストが拒否されました。アクセスが必要な場合はサイト管理者にお問い合わせください。',
+  'fabric.linking.retry': '再試行',
+  'fabric.linking.save': '保存',
+  'fabric.linking.search': '検索',
+  'fabric.linking.search_all_gifs': 'あらゆる GIF を検索!',
+  'fabric.linking.share_files_instantly': 'すぐに共有されます',
+  'fabric.linking.skip_backward': '10 秒戻る',
+  'fabric.linking.skip_forward': '10 秒進む',
+  'fabric.linking.something_went_wrong': '問題が発生しました。',
+  'fabric.linking.srclink': '次で表示',
+  'fabric.linking.srclinkunknown': 'リンク元を表示',
+  'fabric.linking.text': 'テキスト',
+  'fabric.linking.try_again': '再試行',
+  'fabric.linking.try_another_account': '別のアカウントでお試しください',
+  'fabric.linking.try_downloading_file':
+    'ファイルを表示するにはダウンロードしてください。',
+  'fabric.linking.unable_to_annotate_image': 'この画像に注釈をつけられません',
+  'fabric.linking.unknown': '不明',
+  'fabric.linking.unlink_account': 'アカウントのリンクを解除',
+  'fabric.linking.upload': 'アップロード',
+  'fabric.linking.upload_an_avatar': 'アバターをアップロード',
+  'fabric.linking.upload_file': 'ファイルをアップロード',
+  'fabric.linking.upload_file_from': '{name} からファイルをアップロード',
+  'fabric.linking.upload_image': '画像をアップロード',
+  'fabric.linking.upload_photo': '写真をアップロード',
+  'fabric.linking.video': 'ビデオ',
+  'fabric.linking.view': '表示',
+  'fabric.linking.viewer_rateLimited': 'ファイルを読み込めません。',
+  'fabric.linking.webgl_warning_description':
+    'お使いのブラウザーは WebGL に対応していません。画像に注釈をつけるには WebGL 対応ブラウザーをご利用ください。',
+  'fabric.linking.zip_entry_load_failed':
+    'プレビューする zip ファイル アイテムを読み込めませんでした',
+  'fabric.linking.zoom_in': 'ズームイン',
+  'fabric.linking.zoom_out': 'ズームアウト',
 };

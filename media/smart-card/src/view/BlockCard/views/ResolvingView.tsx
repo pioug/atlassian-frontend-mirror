@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { Frame } from '../components/Frame';
 import { gs } from '../../common/utils';
 import { FormattedMessage } from 'react-intl-next';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 
 export interface ResolvingProps {
   isSelected?: boolean;

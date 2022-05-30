@@ -8,16 +8,13 @@
 export default {
   'fabric.linking.cannot_connect': 'Connexion impossible, réessayez',
   'fabric.linking.cannot_find_link': 'Le lien est introuvable',
-  'fabric.linking.click_to_join':
-    'Rejoignez {context} pour consulter ce ticket',
-  'fabric.linking.connect_link_account': "Connecter à l'aperçu",
+  'fabric.linking.join_to_view': 'Rejoignez {context} pour consulter ce ticket',
   'fabric.linking.create_on': 'Création : {context}',
   'fabric.linking.created_by': 'Création par : {context}',
   'fabric.linking.delete': 'Supprimer',
   'fabric.linking.edit': 'Modifier',
   'fabric.linking.forbidden_access': "Vous n'avez pas accès à cette ressource",
-  'fabric.linking.invalid_permissions':
-    'Lien restreint, essayez un autre compte',
+  'fabric.linking.restricted_link': 'Lien restreint, essayez un autre compte',
   'fabric.linking.modified_on': 'Mise à jour : {context}',
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
   'fabric.linking.priority_blocker': 'Bloqueur',
@@ -31,8 +28,167 @@ export default {
   'fabric.linking.priority_minor': 'Mineure',
   'fabric.linking.priority_trivial': 'Sans importance',
   'fabric.linking.priority_undefined': 'Non définie',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'Demandez un accès à {context} pour consulter ce ticket',
   'fabric.linking.request_denied': "Votre demande d'accès a été refusée",
   'fabric.linking.updated_by': 'Modification par {context}',
+  'fabric.linking.accounts': 'Comptes',
+  'fabric.linking.actions': 'Actions',
+  'fabric.linking.add_account': 'Ajouter un compte',
+  'fabric.linking.annotate': 'Annoter',
+  'fabric.linking.annotate.confirmation.close.anyway': 'Fermer quand même',
+  'fabric.linking.annotate.confirmation.content':
+    'Certains de vos changements ne sont pas enregistrés. Voulez-vous vraiment quitter ?',
+  'fabric.linking.annotate.confirmation.heading': 'Changements non enregistrés',
+  'fabric.linking.annotate.tool.arrow': 'Flèche',
+  'fabric.linking.annotate.tool.blur': 'Flou',
+  'fabric.linking.annotate.tool.brush': 'Pinceau',
+  'fabric.linking.annotate.tool.color': 'Couleur',
+  'fabric.linking.annotate.tool.line.thickness': 'Épaisseur de ligne',
+  'fabric.linking.annotate.tool.shape': 'Forme',
+  'fabric.linking.annotate.tool.text': 'Texte',
+  'fabric.linking.archive': 'archiver',
+  'fabric.linking.audio': 'audio',
+  'fabric.linking.cancel': 'Annuler',
+  'fabric.linking.cant_preview_file_type':
+    'Aucun aperçu disponible pour ce type de fichiers.',
+  'fabric.linking.cant_retrieve_files':
+    'Désolés, impossible de récupérer le moindre fichier',
+  'fabric.linking.cant_retrieve_gifs':
+    "Désolés, nous n'avons pu récupérer aucun GIF",
+  'fabric.linking.change_view': 'Changer de vue',
+  'fabric.linking.check_your_network': 'Vérifier votre connexion réseau',
+  'fabric.linking.click_to_join': 'Rejoindre {context}',
+  'fabric.linking.click_to_join_description':
+    "Vous avez reçu l'approbation, vous pouvez donc rejoindre {context} immédiatement.",
+  'fabric.linking.close': 'Fermer',
+  'fabric.linking.close_and_reopen':
+    'Essayez de fermer ce fichier, puis de le rouvrir.',
+  'fabric.linking.connect_account_description':
+    'Nous ouvrirons une nouvelle page pour vous aider à vous connecter à votre compte {name}',
+  'fabric.linking.connect_link_account': "Connecter à l'aperçu",
+  'fabric.linking.connect_link_account_card_view': 'Connecter',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Pour afficher un aperçu de ce lien, connectez votre compte {context}.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Connectez votre compte {context}',
+  'fabric.linking.connect_to': 'Se connecter à {name}',
+  'fabric.linking.could_not_load_editor':
+    "Désolés, nous n'avons pas pu charger l'éditeur",
+  'fabric.linking.could_not_save_image':
+    "Désolés, nous n'avons pas pu enregistrer l'image",
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    'Impossible de prévisualiser les fichiers chiffrés ou protégés par un mot de passe.',
+  'fabric.linking.couldnt_generate_preview':
+    "Impossible de générer l'aperçu de ce fichier.",
+  'fabric.linking.couldnt_load_file': 'Impossible de charger le fichier.',
+  'fabric.linking.couldnt_load_link':
+    'Impossible de charger ce lien pour une raison inconnue.',
+  'fabric.linking.creating_preview': "Création de l'aperçu…",
+  'fabric.linking.default_avatars': 'Avatars par défaut',
+  'fabric.linking.disable_fullscreen': 'désactiver le mode plein écran',
+  'fabric.linking.display_thumbnail': 'Afficher la miniature',
+  'fabric.linking.document': 'document',
+  'fabric.linking.download': 'Télécharger',
+  'fabric.linking.drag_and_drop_images_here': 'Glisser-déplacer vos images ici',
+  'fabric.linking.drag_and_drop_your_files':
+    "Glisser-déplacer des fichiers n'importe où ou",
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    "Glissez-déplacez vos fichiers et dossiers n'importe où ou",
+  'fabric.linking.drop_your_files': 'Déposer vos fichiers à importer',
+  'fabric.linking.drop_your_files_here': 'Déposer vos fichiers ici',
+  'fabric.linking.email': 'E-mail',
+  'fabric.linking.enable_fullscreen': 'activer le mode plein écran',
+  'fabric.linking.error_429': 'Erreur 429',
+  'fabric.linking.error_generating_preview': "Erreur de génération de l'aperçu",
+  'fabric.linking.error_hint_critical':
+    "Si le problème persiste, contactez le service d'assistance.",
+  'fabric.linking.error_hint_retry': 'Réessayez.',
+  'fabric.linking.error_loading_file': 'Erreur de chargement du fichier',
+  'fabric.linking.failed_to_load': 'Échec du chargement',
+  'fabric.linking.failed_to_upload': 'Échec du chargement',
+  'fabric.linking.forbidden_description':
+    "Vous n'avez pas accès à cet aperçu. Contactez l'administrateur de site si vous avez besoin d'y accéder.",
+  'fabric.linking.give_feedback': 'Envoyer un commentaire',
+  'fabric.linking.image': 'image',
+  'fabric.linking.image_format_invalid_error':
+    "Impossible de charger l'image, le format n'est pas valide.",
+  'fabric.linking.image_size_too_large_error':
+    "L'image est trop grande. Elle ne doit pas dépasser {MAX_SIZE_MB} Mo",
+  'fabric.linking.image_url_invalid_error':
+    "Impossible de charger l'image, l'URL n'est pas valide.",
+  'fabric.linking.insert_files':
+    '{0, plural, one {Insérer {0} fichier} other {Insérer {0} fichiers}}',
+  'fabric.linking.invalid_permissions': 'Lien restreint',
+  'fabric.linking.invalid_permissions_description':
+    "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
+  'fabric.linking.item_not_found_in_list':
+    "L'élément sélectionné ne fait pas partie de la liste.",
+  'fabric.linking.learn_more': 'En savoir plus',
+  'fabric.linking.load_more_gifs': 'Charger plus de GIF',
+  'fabric.linking.loading': 'Chargement…',
+  'fabric.linking.loading_file': 'Chargement du fichier…',
+  'fabric.linking.might_be_a_hiccup': "Ce n'est sûrement qu'un contretemps.",
+  'fabric.linking.no_gifs_found': "Hello? Is it me you're looking for?",
+  'fabric.linking.no_gifs_found_suggestion':
+    "Nous n'avons trouvé aucun résultat pour « {query} »",
+  'fabric.linking.no_pdf_artifacts':
+    'Aucun artefact PDF trouvé pour ce fichier.',
+  'fabric.linking.not_found_description':
+    "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
+  'fabric.linking.not_found_title': 'Oups, ce lien est introuvable !',
+  'fabric.linking.or': 'ou',
+  'fabric.linking.pause': 'Interrompre',
+  'fabric.linking.play': 'Lire',
+  'fabric.linking.playback_default_speed': 'Par défaut',
+  'fabric.linking.playback_speed': 'Vitesse de lecture',
+  'fabric.linking.preview': 'Afficher un aperçu',
+  'fabric.linking.preview_currently_unavailable':
+    'Aperçu actuellement non disponible',
+  'fabric.linking.preview_unavailable': 'Aperçu non disponible',
+  'fabric.linking.recent_uploads': 'Importations récentes',
+  'fabric.linking.remove_image': "Supprimer l'image",
+  'fabric.linking.request_access': "Demander l'accès",
+  'fabric.linking.request_access_description':
+    'Demandez un accès à {context} pour voir cet aperçu.',
+  'fabric.linking.request_access_pending': 'Accès en attente',
+  'fabric.linking.request_access_pending_description':
+    "Votre demande d'accès est en attente.",
+  'fabric.linking.request_denied_description':
+    "Votre demande d'accès a été refusée. Contactez l'administrateur de site pour demander l'accès.",
+  'fabric.linking.retry': 'Réessayer',
+  'fabric.linking.save': 'Enregistrer',
+  'fabric.linking.search': 'rechercher',
+  'fabric.linking.search_all_gifs': 'Rechercher parmi tous les GIF',
+  'fabric.linking.share_files_instantly': 'Nous les partagerons instantanément',
+  'fabric.linking.skip_backward': 'Reculer de 10 secondes',
+  'fabric.linking.skip_forward': 'Avancer de 10 secondes',
+  'fabric.linking.something_went_wrong': "Une erreur s'est produite.",
+  'fabric.linking.srclink': 'Afficher dans',
+  'fabric.linking.srclinkunknown': "Afficher l'original",
+  'fabric.linking.text': 'Texte',
+  'fabric.linking.try_again': 'Réessayez',
+  'fabric.linking.try_another_account': 'Essayez un autre compte',
+  'fabric.linking.try_downloading_file':
+    'Essayez de télécharger le fichier pour le consulter.',
+  'fabric.linking.unable_to_annotate_image':
+    'Vous ne pouvez pas annoter cette image',
+  'fabric.linking.unknown': 'inconnu',
+  'fabric.linking.unlink_account': 'Dissocier le compte',
+  'fabric.linking.upload': 'Importer',
+  'fabric.linking.upload_an_avatar': 'Importer un avatar',
+  'fabric.linking.upload_file': 'Importer un fichier',
+  'fabric.linking.upload_file_from': 'Importer un fichier depuis {name}',
+  'fabric.linking.upload_image': 'Importer une image',
+  'fabric.linking.upload_photo': 'Importer une photo',
+  'fabric.linking.video': 'vidéo',
+  'fabric.linking.view': 'Afficher',
+  'fabric.linking.viewer_rateLimited':
+    'Nous rencontrons des difficultés pour charger votre fichier.',
+  'fabric.linking.webgl_warning_description':
+    'Votre navigateur ne prend pas en charge WebGL. Utilisez un navigateur compatible WebGL pour annoter les images.',
+  'fabric.linking.zip_entry_load_failed':
+    'Impossible de charger cet élément du fichier ZIP pour le prévisualiser',
+  'fabric.linking.zoom_in': 'zoomer',
+  'fabric.linking.zoom_out': 'réduire',
 };

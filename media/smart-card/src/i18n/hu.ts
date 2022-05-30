@@ -8,15 +8,14 @@
 export default {
   'fabric.linking.cannot_connect': 'Nem sikerült kapcsolódni, próbálkozz újra',
   'fabric.linking.cannot_find_link': 'A link nem található',
-  'fabric.linking.click_to_join':
+  'fabric.linking.join_to_view':
     'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
-  'fabric.linking.connect_link_account': 'Csatlakozás az előnézethez',
   'fabric.linking.create_on': 'Létrehozva: {context}',
   'fabric.linking.created_by': 'Létrehozta: {context}',
   'fabric.linking.delete': 'Törlés',
   'fabric.linking.edit': 'Szerkesztés',
   'fabric.linking.forbidden_access': 'Hozzáférés megtagadva',
-  'fabric.linking.invalid_permissions':
+  'fabric.linking.restricted_link':
     'Korlátozott link, próbálkozz másik fiókkal',
   'fabric.linking.modified_on': 'Frissítve: {context}',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
@@ -31,8 +30,168 @@ export default {
   'fabric.linking.priority_minor': 'Kevésbé jelentős',
   'fabric.linking.priority_trivial': 'Triviális',
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'Az ügy megtekintése érdekében kérj hozzáférést ehhez: {context}',
   'fabric.linking.request_denied': 'A hozzáférési kérelmedet elutasították',
   'fabric.linking.updated_by': 'Módosította: {context}',
+  'fabric.linking.accounts': 'Fiókok',
+  'fabric.linking.actions': 'Műveletek',
+  'fabric.linking.add_account': 'Fiók hozzáadása',
+  'fabric.linking.annotate': 'Jegyzet készítése',
+  'fabric.linking.annotate.confirmation.close.anyway': 'Bezárás mindenképpen',
+  'fabric.linking.annotate.confirmation.content':
+    'Nem mentett módosításaid vannak. Biztosan elhagyod az oldalt?',
+  'fabric.linking.annotate.confirmation.heading': 'Nem mentett módosítások',
+  'fabric.linking.annotate.tool.arrow': 'Nyíl',
+  'fabric.linking.annotate.tool.blur': 'Homályosítás',
+  'fabric.linking.annotate.tool.brush': 'Ecset',
+  'fabric.linking.annotate.tool.color': 'Szín',
+  'fabric.linking.annotate.tool.line.thickness': 'Vonalvastagság',
+  'fabric.linking.annotate.tool.shape': 'Alakzat',
+  'fabric.linking.annotate.tool.text': 'Szöveg',
+  'fabric.linking.archive': 'archiválás',
+  'fabric.linking.audio': 'hang',
+  'fabric.linking.cancel': 'Mégse',
+  'fabric.linking.cant_preview_file_type':
+    'Ehhez a fájltípushoz nem tudunk előnézetet létrehozni.',
+  'fabric.linking.cant_retrieve_files':
+    'Jaj! Nem sikerült lekérni egyetlen fájlt sem.',
+  'fabric.linking.cant_retrieve_gifs':
+    'Jaj! Nem sikerült lekérni egyetlen GIF-et sem',
+  'fabric.linking.change_view': 'Nézet módosítása',
+  'fabric.linking.check_your_network': 'Ellenőrizze a hálózati kapcsolatot',
+  'fabric.linking.click_to_join': 'Csatlakozz a(z) {context} rendszerhez',
+  'fabric.linking.click_to_join_description':
+    'Megkaptad a jóváhagyást, ezért azonnal csatlakozhatsz a következő termékhez: {context}.',
+  'fabric.linking.close': 'Bezárás',
+  'fabric.linking.close_and_reopen': 'Zárd be, majd nyisd meg újra a fájlt.',
+  'fabric.linking.connect_account_description':
+    'Megnyitunk egy új lapot, hogy könnyebben csatlakozhasson {name}-fiókjához',
+  'fabric.linking.connect_link_account': 'Csatlakozás az előnézethez',
+  'fabric.linking.connect_link_account_card_view': 'Csatlakoztatás',
+  'fabric.linking.connect_link_account_card_view_description':
+    'A link előnézetének megtekintéséhez csatlakoztasd {context}-fiókodat.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Kapcsold össze a fiókodat: {context}',
+  'fabric.linking.connect_to': 'Csatlakozás ehhez: {name}',
+  'fabric.linking.could_not_load_editor':
+    'Nem sikerült betölteni a szerkesztőt.',
+  'fabric.linking.could_not_save_image': 'Nem sikerült betölteni a képet.',
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    'Nem lehet megtekinteni titkosított vagy jelszóval védett fájlok előnézetét.',
+  'fabric.linking.couldnt_generate_preview':
+    'Ehhez a fájlhoz nem tudtunk előnézetet létrehozni.',
+  'fabric.linking.couldnt_load_file': 'Nem tudtuk betölteni a fájlt.',
+  'fabric.linking.couldnt_load_link':
+    'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
+  'fabric.linking.creating_preview': 'Előnézet létrehozása…',
+  'fabric.linking.default_avatars': 'Alapértelmezett avatárok',
+  'fabric.linking.disable_fullscreen': 'teljes képernyős mód letiltása',
+  'fabric.linking.display_thumbnail': 'Előnézet megjelenítése',
+  'fabric.linking.document': 'dokumentum',
+  'fabric.linking.download': 'Letöltés',
+  'fabric.linking.drag_and_drop_images_here': 'Húzza ide a képeket.',
+  'fabric.linking.drag_and_drop_your_files':
+    'Húzza és ejtse ide egy fájlokat vagy',
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    'Húzd bárhova a fájlokat és a mappákat, vagy',
+  'fabric.linking.drop_your_files': 'Ejtse ide a fájlokat a feltöltéshez',
+  'fabric.linking.drop_your_files_here': 'Húzza ide a fájlokat.',
+  'fabric.linking.email': 'E-mail',
+  'fabric.linking.enable_fullscreen': 'teljes képernyős mód engedélyezése',
+  'fabric.linking.error_429': '429-es hiba',
+  'fabric.linking.error_generating_preview':
+    'Hiba történt az előnézet létrehozásakor.',
+  'fabric.linking.error_hint_critical':
+    'Ha a probléma nem szűnik meg, lépjen kapcsolatba az ügyfélszolgálattal.',
+  'fabric.linking.error_hint_retry':
+    'Próbálja meg újból, és teszünk még egy kísérletet.',
+  'fabric.linking.error_loading_file': 'Hiba történt a fájl betöltésekor.',
+  'fabric.linking.failed_to_load': 'A betöltés nem sikerült',
+  'fabric.linking.failed_to_upload': 'A feltöltés nem sikerült',
+  'fabric.linking.forbidden_description':
+    'Nincs hozzáférésed ehhez az előnézethez. Lépj kapcsolatba a webhely adminisztrátorával, ha szükséged van hozzáférésre.',
+  'fabric.linking.give_feedback': 'Visszajelzés küldése',
+  'fabric.linking.image': 'kép',
+  'fabric.linking.image_format_invalid_error':
+    'Nem sikerült feltölteni a képet, mert a formátum érvénytelen.',
+  'fabric.linking.image_size_too_large_error':
+    'A kép túl nagy. Nem lehet {MAX_SIZE_MB}MB-nál nagyobb.',
+  'fabric.linking.image_url_invalid_error':
+    'Nem sikerült feltölteni a képet, mert az URL-cím érvénytelen.',
+  'fabric.linking.insert_files':
+    '{0, plural, one {{0} fájl beillesztése} other {{0} fájl beillesztése}}',
+  'fabric.linking.invalid_permissions': 'Korlátozott link',
+  'fabric.linking.invalid_permissions_description':
+    'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
+  'fabric.linking.item_not_found_in_list':
+    'A kijelölt elem nem található a listán.',
+  'fabric.linking.learn_more': 'További információ',
+  'fabric.linking.load_more_gifs': 'További GIF-ek betöltése',
+  'fabric.linking.loading': 'Betöltés…',
+  'fabric.linking.loading_file': 'Fájl betöltése...',
+  'fabric.linking.might_be_a_hiccup':
+    'Valószínűleg csak átmeneti hibáról van szó.',
+  'fabric.linking.no_gifs_found': 'Hello? Engem keresett?',
+  'fabric.linking.no_gifs_found_suggestion':
+    'Nem találtunk semmit sem a következő kifejezésre: {query}',
+  'fabric.linking.no_pdf_artifacts':
+    'Nem található PDF-műtermék ehhez a fájlhoz.',
+  'fabric.linking.not_found_description':
+    'Nem találtuk meg a linket. Ellenőrizd az URL-címet, és próbáld meg módosítani, vagy másold be újra.',
+  'fabric.linking.not_found_title': 'Hoppá. Nem találjuk ezt a linket!',
+  'fabric.linking.or': 'vagy',
+  'fabric.linking.pause': 'Szünet',
+  'fabric.linking.play': 'Lejátszás',
+  'fabric.linking.playback_default_speed': 'Alapértelmezett',
+  'fabric.linking.playback_speed': 'Lejátszási sebesség',
+  'fabric.linking.preview': 'Előnézet',
+  'fabric.linking.preview_currently_unavailable':
+    'Az előnézet jelenleg nem elérhető',
+  'fabric.linking.preview_unavailable': 'Az előnézet nem áll rendelkezésre',
+  'fabric.linking.recent_uploads': 'Legutóbb feltöltések',
+  'fabric.linking.remove_image': 'Kép eltávolítása',
+  'fabric.linking.request_access': 'Hozzáférés kérése',
+  'fabric.linking.request_access_description':
+    'Kérj hozzáférést a következő termékhez az előnézet megtekintése érdekében: {context}.',
+  'fabric.linking.request_access_pending': 'Hozzáférés függőben',
+  'fabric.linking.request_access_pending_description':
+    'A hozzáférési kérelmed függőben van.',
+  'fabric.linking.request_denied_description':
+    'A hozzáférési kérelmedet elutasították. Lépj kapcsolatba a webhely adminisztrátorával, ha továbbra is szükséged van hozzáférésre.',
+  'fabric.linking.retry': 'Újra',
+  'fabric.linking.save': 'Mentés',
+  'fabric.linking.search': 'keresés',
+  'fabric.linking.search_all_gifs': 'Keresés az összes GIF között',
+  'fabric.linking.share_files_instantly': 'Azonnal megosztjuk őket.',
+  'fabric.linking.skip_backward': 'Vissza 10 másodpercet',
+  'fabric.linking.skip_forward': 'Előre 10 másodpercet',
+  'fabric.linking.something_went_wrong': 'Hiba történt.',
+  'fabric.linking.srclink': 'Megtekintés módja:',
+  'fabric.linking.srclinkunknown': 'Eredeti megtekintése',
+  'fabric.linking.text': 'Szöveg',
+  'fabric.linking.try_again': 'Próbálja újra',
+  'fabric.linking.try_another_account': 'Próbálkozz másik fiókkal',
+  'fabric.linking.try_downloading_file':
+    'A megtekintéshez próbálja meg letölteni a fájlt.',
+  'fabric.linking.unable_to_annotate_image':
+    'Nem sikerült jegyzetet fűznie a képhez.',
+  'fabric.linking.unknown': 'ismeretlen',
+  'fabric.linking.unlink_account': 'Fiók leválasztása',
+  'fabric.linking.upload': 'Feltöltés',
+  'fabric.linking.upload_an_avatar': 'Avatár feltöltése',
+  'fabric.linking.upload_file': 'Fájl feltöltése',
+  'fabric.linking.upload_file_from': 'Fájl feltöltése innen: {name}',
+  'fabric.linking.upload_image': 'Kép feltöltése',
+  'fabric.linking.upload_photo': 'Fénykép feltöltése',
+  'fabric.linking.video': 'videó',
+  'fabric.linking.view': 'Megtekintés',
+  'fabric.linking.viewer_rateLimited':
+    'Probléma merült fel a fájl betöltése során.',
+  'fabric.linking.webgl_warning_description':
+    'A böngészője nem támogatja a WebGL funkciót. A képek jegyzetekkel való ellátásához használjon a WebGL funkcióval kompatibilis böngészőt.',
+  'fabric.linking.zip_entry_load_failed':
+    'Nem tudtuk betölteni a ZIP-fájlt az előnézet megtekintése céljából',
+  'fabric.linking.zoom_in': 'nagyítás',
+  'fabric.linking.zoom_out': 'kicsinyítés',
 };

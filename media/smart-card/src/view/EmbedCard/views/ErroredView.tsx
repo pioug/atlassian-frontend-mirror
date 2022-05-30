@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Frame } from '../../BlockCard/components/Frame';
 import { FormattedMessage } from 'react-intl-next';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { gs } from '../../common/utils';
 
 export interface ErroredViewProps {

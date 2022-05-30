@@ -1,8 +1,12 @@
-const setGlobalTheme = (theme: 'dark' | 'light') => {
+import { THEMES } from './constants';
+import type { Themes } from './types';
+
+const setGlobalTheme = (theme: Themes) => {
   if (process.env.NODE_ENV !== 'production') {
-    // check some pre-condition and throw if incorrect?
-    if (theme !== 'dark' && theme !== 'light') {
-      throw new Error("setGlobalTheme only accepts 'light' or 'dark' themes");
+    if (!THEMES.includes(theme)) {
+      throw new Error(
+        `setGlobalTheme only accepts themes: ${THEMES.join(', ')}`,
+      );
     }
   }
 

@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { RequestAccessContextProps } from '../../../view/types';
 import { ForbiddenAction } from '../../../view/BlockCard/actions/ForbiddenAction';
 

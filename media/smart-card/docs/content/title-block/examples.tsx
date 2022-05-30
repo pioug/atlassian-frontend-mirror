@@ -6,7 +6,7 @@ export default customMd`
 
 ### Default
 
-A default title block displays the link icon and title.
+A default title block displays the link's icon and title.
 
 ${(
   <CustomExample
@@ -46,7 +46,7 @@ ${(
 
 ### Actions
 
-Use an \`actions\` to display action buttons on the right of the block.
+Use \`actions\` to display action buttons on the right of the block.
 See [ActionItem](./action-item) for actions configurations.
 
 ${(
@@ -86,8 +86,8 @@ Use \`size\` to override the size from block's parent (\`<Card />\`) ui options.
 
 By default, a block inherits the size from its parent and applies the size to
 the elements and actions inside.
-Override the size on block level will set the new default size for its children.
-See element item and action item for element sizing and action sizing respectively,
+Overriding the size on block level will set the new default size for its children.
+See [ElementItem](./element-item) and [ActionItem](./action-item) for element sizing and action sizing respectively,
 and how to override block sizing.
 
 #### Small
@@ -134,11 +134,11 @@ ${(
   />
 )}
 
-### Direction [Experiment]
+### Direction [In development]
 
-Use an \`direction\` to set the flow of the block.
-By default, all block is displayed in horizontal.
-An example below show the block in vertical.
+Use \`direction\` to set the flow of the block.
+By default, all title block content is displayed horizontally.
+The example below shows the block in vertical layout.
 
 ${(
   <CustomExample
@@ -151,7 +151,7 @@ ${(
 
 ### Position
 
-Use an \`position\` to set the position of the icon.
+Use \`position\` to set the position of the icon.
 It can either be \`center\` or placed on \`top\`.
 Default is \`top\`.
 

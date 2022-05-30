@@ -8,16 +8,14 @@
 export default {
   'fabric.linking.cannot_connect': 'Bağlanılamıyor, tekrar deneyin',
   'fabric.linking.cannot_find_link': 'Bağlantı bulunamıyor',
-  'fabric.linking.click_to_join':
+  'fabric.linking.join_to_view':
     'Bu konuyu görüntülemek için {context} ürününe katılın',
-  'fabric.linking.connect_link_account': 'Önizlemeye bağlanın',
   'fabric.linking.create_on': '{context} oluşturuldu',
   'fabric.linking.created_by': '{context} tarafından oluşturuldu',
   'fabric.linking.delete': 'Sil',
   'fabric.linking.edit': 'Düzenle',
   'fabric.linking.forbidden_access': 'Erişiminiz yasak',
-  'fabric.linking.invalid_permissions':
-    'Sınırlı bağlantı, başka bir hesap deneyin',
+  'fabric.linking.restricted_link': 'Sınırlı bağlantı, başka bir hesap deneyin',
   'fabric.linking.modified_on': 'Son güncelleme: {context}',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
   'fabric.linking.priority_blocker': 'Engelleyici',
@@ -31,8 +29,168 @@ export default {
   'fabric.linking.priority_minor': 'Küçük',
   'fabric.linking.priority_trivial': 'Önemsiz',
   'fabric.linking.priority_undefined': 'Tanımlanmamış',
-  'fabric.linking.request_access':
+  'fabric.linking.request_access_to_view':
     'Bu konuyu görüntülemek için {context} ürününe erişim talep edin',
   'fabric.linking.request_denied': 'Erişim talebiniz reddedildi',
   'fabric.linking.updated_by': '{context} tarafından değiştirildi',
+  'fabric.linking.accounts': 'Hesaplar',
+  'fabric.linking.actions': 'Eylemler',
+  'fabric.linking.add_account': 'Hesap ekle',
+  'fabric.linking.annotate': 'Not ekle',
+  'fabric.linking.annotate.confirmation.close.anyway': 'Yine de kapat',
+  'fabric.linking.annotate.confirmation.content':
+    'Bazı kaydedilmemiş değişiklikleriniz var. Çıkmak istediğinizden emin misiniz?',
+  'fabric.linking.annotate.confirmation.heading': 'Kaydedilmemiş değişiklikler',
+  'fabric.linking.annotate.tool.arrow': 'Ok',
+  'fabric.linking.annotate.tool.blur': 'Bulanıklaştırma',
+  'fabric.linking.annotate.tool.brush': 'Fırça',
+  'fabric.linking.annotate.tool.color': 'Renk',
+  'fabric.linking.annotate.tool.line.thickness': 'Çizgi kalınlığı',
+  'fabric.linking.annotate.tool.shape': 'Şekil',
+  'fabric.linking.annotate.tool.text': 'Metin',
+  'fabric.linking.archive': 'arşiv',
+  'fabric.linking.audio': 'ses',
+  'fabric.linking.cancel': 'İptal',
+  'fabric.linking.cant_preview_file_type':
+    'Bu dosya türünün önizlemesi yapılamıyor.',
+  'fabric.linking.cant_retrieve_files':
+    'Bir sorunla karşılaştık! Dosyalar alınamadı',
+  'fabric.linking.cant_retrieve_gifs':
+    'Bir sorunla karşılaştık! GIF dosyaları alınamadı',
+  'fabric.linking.change_view': 'Görünümü değiştir',
+  'fabric.linking.check_your_network': 'Ağ bağlantınızı kontrol edin',
+  'fabric.linking.click_to_join': '{context} ürününe katılın',
+  'fabric.linking.click_to_join_description':
+    'Onay aldınız, {context} ürününe hemen katılabilirsiniz.',
+  'fabric.linking.close': 'Kapat',
+  'fabric.linking.close_and_reopen':
+    'Bu dosyayı kapatıp yeniden açmayı deneyin.',
+  'fabric.linking.connect_account_description':
+    '{name} hesabınıza bağlanmanıza yardımcı olmak için yeni bir sayfa açacağız',
+  'fabric.linking.connect_link_account': 'Önizlemeye bağlanın',
+  'fabric.linking.connect_link_account_card_view': 'Bağla',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Bu bağlantının bir önizlemesini görmek için {context} hesabınızı bağlayın.',
+  'fabric.linking.connect_link_account_card_view_name':
+    '{context} hesabınızı bağlayın',
+  'fabric.linking.connect_to': '{name} hesabını bağlan',
+  'fabric.linking.could_not_load_editor':
+    'Bir sorunla karşılaştık! Düzenleyiciyi yükleyemedik',
+  'fabric.linking.could_not_save_image':
+    'Bir sorunla karşılaştık! Görseli kaydedemedik',
+  'fabric.linking.couldnt_generate_encrypted_entry_preview':
+    'Şifrelenmiş veya parola korumalı dosyaların önizlemesini gösteremiyoruz.',
+  'fabric.linking.couldnt_generate_preview':
+    'Bu dosya için önizleme oluşturamadık.',
+  'fabric.linking.couldnt_load_file': 'Dosya yüklenemedi.',
+  'fabric.linking.couldnt_load_link':
+    'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
+  'fabric.linking.creating_preview': 'Önizleme oluşturuluyor...',
+  'fabric.linking.default_avatars': 'Varsayılan profil resimleri',
+  'fabric.linking.disable_fullscreen': 'tam ekrandan çıkın',
+  'fabric.linking.display_thumbnail': 'Küçük resmi göster',
+  'fabric.linking.document': 'belge',
+  'fabric.linking.download': 'İndir',
+  'fabric.linking.drag_and_drop_images_here':
+    'Görsellerinizi buraya sürükleyip bırakın',
+  'fabric.linking.drag_and_drop_your_files':
+    'Dosyalarınızı herhangi bir yere sürükleyip bırakın veya',
+  'fabric.linking.drag_and_drop_your_files_and_folders':
+    'Dosya ve klasörlerinizi herhangi bir yere sürükleyip bırakın veya',
+  'fabric.linking.drop_your_files': 'Yüklemek için dosyalarınızı bırakın',
+  'fabric.linking.drop_your_files_here': 'Dosyalarınızı buraya bırakın',
+  'fabric.linking.email': 'E-posta',
+  'fabric.linking.enable_fullscreen': 'tam ekranı etkinleştirin',
+  'fabric.linking.error_429': 'Hata 429',
+  'fabric.linking.error_generating_preview':
+    'Önizleme oluşturulurken sorun yaşandı',
+  'fabric.linking.error_hint_critical':
+    'Bu sorun devam ederse destek ekibiyle iletişime geçin.',
+  'fabric.linking.error_hint_retry': 'Yeniden deneyin, işlemi tekrarlayalım.',
+  'fabric.linking.error_loading_file': 'Dosya yükleme hatası',
+  'fabric.linking.failed_to_load': 'Yüklenemedi',
+  'fabric.linking.failed_to_upload': 'Yüklenemedi',
+  'fabric.linking.forbidden_description':
+    'Bu önizlemeye erişiminiz yok. Erişim gerekliyse site yöneticisiyle iletişime geçin.',
+  'fabric.linking.give_feedback': 'Geri bildirim verin',
+  'fabric.linking.image': 'görsel',
+  'fabric.linking.image_format_invalid_error':
+    'Görsel yüklenemedi, görsel biçimi geçersiz.',
+  'fabric.linking.image_size_too_large_error':
+    "Görselin boyutu çok büyük, boyut {MAX_SIZE_MB} MB'den büyük olmamalı",
+  'fabric.linking.image_url_invalid_error': 'Görsel yüklenemedi, URL geçersiz.',
+  'fabric.linking.insert_files':
+    '{0, plural, one {{0} dosya girin} other {{0} dosya girin}}',
+  'fabric.linking.invalid_permissions': 'Kısıtlanmış bağlantı',
+  'fabric.linking.invalid_permissions_description':
+    'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
+  'fabric.linking.item_not_found_in_list': 'Seçilen öğe listede bulunamadı.',
+  'fabric.linking.learn_more': 'Daha fazla bilgi',
+  'fabric.linking.load_more_gifs': 'Daha fazla GIF yükle',
+  'fabric.linking.loading': 'Yükleniyor...',
+  'fabric.linking.loading_file': 'Dosya yükleniyor...',
+  'fabric.linking.might_be_a_hiccup':
+    'Kısa süreli bir sorun yaşanıyor olabilir.',
+  'fabric.linking.no_gifs_found': 'Aradığınız görseli bulamadınız mı?',
+  'fabric.linking.no_gifs_found_suggestion':
+    '"{query}" araması için sonuç bulamadık',
+  'fabric.linking.no_pdf_artifacts':
+    'Bu dosya için PDF grafik öğeleri bulunamadı.',
+  'fabric.linking.not_found_description':
+    "Bağlantıyı bulamadık. URL'yi kontrol edin ve düzenlemeyi veya yeniden yapıştırmayı deneyin.",
+  'fabric.linking.not_found_title': 'Hay aksi! Bu bağlantıyı bulamadık!',
+  'fabric.linking.or': 'veya',
+  'fabric.linking.pause': 'Durdur',
+  'fabric.linking.play': 'Oynat',
+  'fabric.linking.playback_default_speed': 'Varsayılan',
+  'fabric.linking.playback_speed': 'Kayıttan yürütme hızı',
+  'fabric.linking.preview': 'Önizleme',
+  'fabric.linking.preview_currently_unavailable':
+    'Önizleme şu anda kullanılamıyor',
+  'fabric.linking.preview_unavailable': 'Önizleme kullanılamıyor',
+  'fabric.linking.recent_uploads': 'En son yüklemeler',
+  'fabric.linking.remove_image': 'Görseli kaldır',
+  'fabric.linking.request_access': 'Erişim talep edin',
+  'fabric.linking.request_access_description':
+    'Bu önizlemeyi görüntülemek için {context} ürününe erişim talep edin.',
+  'fabric.linking.request_access_pending': 'Erişim bekleniyor',
+  'fabric.linking.request_access_pending_description':
+    'Erişim talebiniz beklemede.',
+  'fabric.linking.request_denied_description':
+    'Erişim talebiniz reddedildi. Hâlâ erişim gerekliyse site yöneticisiyle iletişime geçin.',
+  'fabric.linking.retry': 'Yeniden Dene',
+  'fabric.linking.save': 'Kaydet',
+  'fabric.linking.search': 'Arama',
+  'fabric.linking.search_all_gifs': "Tüm GIF'leri arayın!",
+  'fabric.linking.share_files_instantly': 'Bu dosyaları hemen paylaşacağız',
+  'fabric.linking.skip_backward': '10 saniye geri al',
+  'fabric.linking.skip_forward': '10 saniye ileri al',
+  'fabric.linking.something_went_wrong': 'Bir hata oluştu.',
+  'fabric.linking.srclink': 'Şurada görüntüleyin:',
+  'fabric.linking.srclinkunknown': 'Orijinalini Görüntüleyin',
+  'fabric.linking.text': 'Metin',
+  'fabric.linking.try_again': 'Yeniden deneyin',
+  'fabric.linking.try_another_account': 'Başka bir hesapla deneyin',
+  'fabric.linking.try_downloading_file':
+    'Görüntülemek için dosyayı indirmeyi deneyin.',
+  'fabric.linking.unable_to_annotate_image': 'Bu görsele not ekleyemiyorsunuz',
+  'fabric.linking.unknown': 'Bilinmiyor',
+  'fabric.linking.unlink_account': 'Hesabın Bağlantısını Kaldır',
+  'fabric.linking.upload': 'Yükle',
+  'fabric.linking.upload_an_avatar': 'Bir profil resmi yükleyin',
+  'fabric.linking.upload_file': 'Bir dosya yükleyin',
+  'fabric.linking.upload_file_from':
+    '{name} kaynağından alınan dosyayı yükleyin',
+  'fabric.linking.upload_image': 'Görsel yükle',
+  'fabric.linking.upload_photo': 'Bir fotoğraf yükleyin',
+  'fabric.linking.video': 'video',
+  'fabric.linking.view': 'Görüntüle',
+  'fabric.linking.viewer_rateLimited':
+    'Dosyanız yüklenirken bir sorun yaşandı.',
+  'fabric.linking.webgl_warning_description':
+    "Tarayıcınız WebGL'yi desteklemiyor. Görsellere not eklemek için WebGL etkinleştirilmiş bir tarayıcı kullanın.",
+  'fabric.linking.zip_entry_load_failed':
+    'Önizlenecek zip dosyası öğesi yüklenemedi',
+  'fabric.linking.zoom_in': 'yaklaştır',
+  'fabric.linking.zoom_out': 'uzaklaştır',
 };

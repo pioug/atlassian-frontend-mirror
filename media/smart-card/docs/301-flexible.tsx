@@ -10,13 +10,13 @@ ${(<FlexibleUiQuickLinks />)}
 ## Flexible Smart Links
 
 Flexible Smart Links is a composable system made up of data elements inside UI blocks,
-built by Linking Platform to aid 1P Makers in creating their own contextually appropriate Smart Link views,
+built by Linking Platform to aid Atlassian product teams in creating their own contextually appropriate Smart Link views,
 without being dependent on Linking Platform.
 This system does not affect inline, block or embed views of links.
 
 ### Prerequisites
 
-Following packages are  \`@atlaskit/smart-card\`'s peer dependencies
+The following packages are  \`@atlaskit/smart-card\`'s peer dependencies
 and required for Smart Links to function properly.
 Please check our [package.json](https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/media/smart-card/package.json) for versioning.
 
@@ -31,8 +31,7 @@ ${code`yarn add @atlaskit/smart-card`}
 
 ### Quick start
 
-Here's the bare minimum to get Flexible Smart Links running
-and most of it is setting up the Smart Links itself!
+Here's the bare minimum to get Flexible Smart Links running!
 
 * **Provider** or **SmartCardProvider** contains react context
 and HTTP client that powers Smart Links. It is recommended to have single

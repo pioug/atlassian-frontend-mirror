@@ -40,9 +40,9 @@ const getForbiddenMessageKey = (meta: JsonLd.Meta.BaseMeta): MessageKey => {
   const accessType = meta?.requestAccess?.accessType;
   switch (accessType) {
     case 'DIRECT_ACCESS':
-      return 'click_to_join';
+      return 'join_to_view';
     case 'REQUEST_ACCESS':
-      return 'request_access';
+      return 'request_access_to_view';
     case 'PENDING_REQUEST_EXISTS':
       return 'pending_request';
     case 'FORBIDDEN':

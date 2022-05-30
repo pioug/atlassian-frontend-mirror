@@ -6,7 +6,7 @@ import { ModalProps } from '../../common/Modal';
 import { ActionProps } from '../components/Action';
 import { IconProps } from '../../common/Icon';
 import { MetadataProps } from '../../common/Metadata';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 
 export interface PreviewFunctionArg extends ModalProps {
   /* The id of a HTML element that will be used OR created to mount the modal from */

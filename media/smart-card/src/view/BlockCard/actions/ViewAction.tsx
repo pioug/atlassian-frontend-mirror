@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { ActionProps } from '../components/Action';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 
 export interface ViewFunctionArg {
   url?: string;

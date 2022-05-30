@@ -19,7 +19,6 @@ import { createSelectionClickHandler } from '../../selection/utils';
 import ExtensionNodeView from '../nodeviews/extension';
 import { updateState, clearEditingContext } from '../commands';
 import { getSelectedExtension, getSelectedDomElement } from '../utils';
-import type { ExtensionState } from '../types';
 import {
   createPluginState,
   getPluginState,
@@ -160,7 +159,6 @@ const createPlugin = (
   } = {},
 ) => {
   const state = createPluginState(dispatch, {
-    shouldRefreshEditButton: false,
     showEditButton: false,
     showContextPanel: false,
   });
@@ -194,35 +192,19 @@ const createPlugin = (
             localId,
             extensionProvider,
             showContextPanel,
-            shouldRefreshEditButton,
           } = getPluginState(state);
-
-          if (!shouldRefreshEditButton) {
-            return false;
-          }
 
           // This fetches the selected extension node, either by keyboard selection or click for all types of extensions
           const selectedExtension = getSelectedExtension(state, true);
 
-          // If our selection isn't on an extension node, clear some state and hide the config panel
           if (!selectedExtension) {
             if (showContextPanel) {
               clearEditingContext(state, dispatch);
             }
 
-            updateState({
-              shouldRefreshEditButton: false,
-              localId: undefined,
-              element: undefined,
-              showEditButton: false,
-              updateExtension: undefined,
-            })(state, dispatch);
             return;
           }
 
-          // By this point we're certain we've selected an extension node.
-          // But we need to determine if the selection has changed to another
-          // extension node or remained on the same node.
           const { node } = selectedExtension;
           const newElement = getSelectedDomElement(
             state.schema,
@@ -231,17 +213,13 @@ const createPlugin = (
           );
 
           // New node is selection
-          const hasSelectedNodeChanged = node.attrs.localId
-            ? localId !== node.attrs.localId
-            : // This is the current assumption and it's wrong but we are keeping it
-              // as fallback in case we need to turn off `allowLocalIdGeneration`
-              element !== newElement;
-
-          const nextState: Partial<ExtensionState> = {
-            shouldRefreshEditButton: false,
-          };
-
-          if (hasSelectedNodeChanged) {
+          if (
+            node.attrs.localId
+              ? localId !== node.attrs.localId
+              : // This is the current assumption and it's wrong but we are keeping it
+                // as fallback in case we need to turn off `allowLocalIdGeneration`
+                element !== newElement
+          ) {
             if (showContextPanel) {
               clearEditingContext(state, dispatch);
             }
@@ -263,21 +241,19 @@ const createPlugin = (
               // do nothing;
             });
 
-            Object.assign(nextState, {
+            updateState({
               localId: node.attrs.localId,
+              showContextPanel: false,
               element: newElement,
               showEditButton,
               updateExtension,
-            });
+            })(state, dispatch);
           }
           // New DOM element doesn't necessarily mean it's a new Node
           else if (element !== newElement) {
-            Object.assign(nextState, {
-              element: newElement,
-            });
+            updateState({ element: newElement })(state, dispatch);
           }
 
-          updateState(nextState)(state, dispatch);
           return true;
         },
         destroy: () => {
@@ -319,14 +295,7 @@ const createPlugin = (
       },
       handleClickOn: createSelectionClickHandler(
         ['extension', 'bodiedExtension'],
-        (target) => {
-          // Clicked on anything around the extension content
-          // or specifically on the content border of a bodied extension
-          return (
-            !target.closest('.extension-content') ||
-            target.classList.contains('extension-content')
-          );
-        },
+        (target) => !target.closest('.extension-content'),
         { useLongPressSelection },
       ),
     },

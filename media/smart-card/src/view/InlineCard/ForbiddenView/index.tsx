@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import {
   IconStyledButton,

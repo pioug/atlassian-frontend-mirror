@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { downloadUrl } from '@atlaskit/media-common';
 
 import { ActionProps } from '../components/Action';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 
 export interface DownloadFunctionArg {
   url?: string;

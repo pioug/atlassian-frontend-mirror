@@ -4,7 +4,7 @@ import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { messages } from '@atlaskit/media-ui/messages';
+import { messages } from '../../../messages';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';

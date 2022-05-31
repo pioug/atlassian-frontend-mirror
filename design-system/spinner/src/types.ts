@@ -13,7 +13,7 @@ export type SpinnerProps = {
   /**
    * Delay the intro animation of `<Spinner/>`.
    * This is not to be used to avoid quick flickering of `<Spinner/>`.
-   * `<Spinner/>` will automatically fade in and takes ~200ms to become partially visible
+   * `<Spinner/>` will automatically fade in and takes ~200ms to become partially visible.
    * This prop can be helpful for **long delays** such as `500-1000ms` for when you want to not
    * show a `<Spinner/>` until some longer period of time has elapsed.
    */

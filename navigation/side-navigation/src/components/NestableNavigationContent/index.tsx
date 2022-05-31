@@ -56,10 +56,11 @@ export interface NestableNavigationContentProps {
    */
   onChange?: (stack: string[]) => void;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Custom overrides for the composed components.
-   *
-   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
+    Custom overrides for the composed components.
+
+    @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
    */
   overrides?: {
     /**

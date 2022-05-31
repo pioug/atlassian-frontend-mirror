@@ -5,10 +5,22 @@ import OverflowContainer from './internal/overflow-container';
 import withColumnWidth from './internal/with-column-width';
 
 export interface CellProps {
+  /**
+   * Whether the cell contents should wrap or display on a single line and be concatenated.
+   */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   singleLine?: boolean;
+  /**
+   * Indent level for the cell. Each indent level adds 25px to the left padding.
+   */
   indentLevel?: number;
+  /**
+   * Width of the header item. Takes a string or a number representing the width in pixels.
+   */
   width?: number | string;
+  /**
+   * Class name to apply to cell.
+   */
   className?: string;
 }
 

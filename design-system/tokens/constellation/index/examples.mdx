@@ -2,4 +2,65 @@
 order: 3
 ---
 
-Examples
+import SectionMessage from '@atlaskit/section-message';
+
+import TokensButtonExample from '../../examples/constellation/token-button';
+import TokensModalExample from '../../examples/constellation/token-modal';
+import TokensTagExample from '../../examples/constellation/token-tag';
+
+import TokenNeutralExample from '../../examples/constellation/token-card-neutral';
+import TokenBrandExample from '../../examples/constellation/token-card-brand';
+import TokenInformationExample from '../../examples/constellation/token-card-information';
+import TokenSuccessExample from '../../examples/constellation/token-card-success';
+import TokenWarningExample from '../../examples/constellation/token-card-warning';
+import TokenDangerExample from '../../examples/constellation/token-card-danger';
+import TokenDiscoveryExample from '../../examples/constellation/token-card-discovery';
+import TokenSelectedExample from '../../examples/constellation/token-card-selected';
+
+<SectionMessage
+  title={'Design tokens are in internal testing (beta)'}
+  appearance={'warning'}
+>
+  <p>
+    Expect frequent changes. For now, we recommend that only Atlassian employees use tokens and theming in production.
+  </p>
+</SectionMessage>
+
+## Component examples
+
+### Button
+<TokensButtonExample/>
+
+### Modal dialog
+<TokensModalExample/>
+
+### Tag
+<TokensTagExample/>
+
+## Pairing examples
+These pairing examples are some ways you can mix and match our tokens. If you decide to use a combination of tokens that’s not listed here, make sure to check the contrast to ensure it passes [WCAG AA guidelines](https://www.w3.org/WAI/WCAG2AA-Conformance).
+
+### Neutral
+<TokenNeutralExample />
+
+
+### Brand
+<TokenBrandExample/>
+
+### Information
+<TokenInformationExample/>
+
+### Success
+<TokenSuccessExample/>
+
+### Warning
+<TokenWarningExample/>
+
+### Danger
+<TokenDangerExample/>
+
+### Discovery
+<TokenDiscoveryExample/>
+
+### Selected
+<TokenSelectedExample/>

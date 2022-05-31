@@ -2,9 +2,8 @@ import { ElementType, ReactNode } from 'react';
 
 class Content extends Object {}
 
-type Item = {
+export type Item = {
   id: string;
-  content: Content;
   hasChildren: boolean;
   children?: Item[];
 };
@@ -37,10 +36,12 @@ type TableTreeProps = {
    * The header text of the respective columns of the table.
    */
   headers?: string[];
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * The data used to render the table.
-   * The type of `content` can be whatever you would like, and its value will be
-   * provided as props when rendering each cell.
+    The data used to render the table.
+
+    In addition to these props, any other data can be added, and it will
+    be provided as props when rendering each cell.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: Item[] | null;

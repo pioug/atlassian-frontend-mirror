@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.3.11
+
+### Patch Changes
+
+- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+
 ## 10.3.10
 
 ### Patch Changes

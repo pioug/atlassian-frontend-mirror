@@ -36,8 +36,8 @@ import { Section } from '@atlaskit/menu';
   -  If a \`title\` prop is not provided, the \`SectionHeading\` component will not be rendered.
   -   The header text for the \`HeadingItem\` can be set with the \`title\` prop, and styles for the
       \`HeadingItem\` can be set with the \`cssFn\` prop.
-  -   The \`testID\` will be applied to parent section component; the internal HeadingItem has'--heading'
-      appended to the value of the testID prop.
+  -   The \`testId\` will be applied to parent section component; the internal HeadingItem has'--heading'
+      appended to the value of the testId prop.
 
   ## Scrollable sections
 

@@ -66,6 +66,7 @@
     "@atlaskit/modal-dialog": "^12.2.4",
     "@atlaskit/section-message": "^6.1.7",
     "@atlaskit/tabs": "^13.2.4",
+    "@atlaskit/tag": "^11.3.1",
     "@atlaskit/textfield": "^5.1.5",
     "@atlaskit/theme": "^12.1.2",
     "@atlaskit/toggle": "^12.4.2",

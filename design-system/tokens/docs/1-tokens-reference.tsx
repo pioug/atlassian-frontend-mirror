@@ -373,7 +373,7 @@ export default md`
     )}
 
     ${(<hr css={dividerStyles} />)}
-    
+
     #### Note on color names and hex values
     Tokens use a new version of the Atlassian color palette
     that's currently a work in progress. As a result, color values will not match those imported from

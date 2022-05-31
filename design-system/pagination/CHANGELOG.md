@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.1.7
+
+### Patch Changes
+
+- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+
 ## 14.1.6
 
 ### Patch Changes

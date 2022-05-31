@@ -114,7 +114,7 @@ export interface SectionProps {
   overrides?: {
     HeadingItem?: {
       /**
-       * A function that can be used to override the styles of the component.
+       * A function that overrides the styles of the component.
        * It receives the current styles and state and expects a styles object.
        */
       // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
@@ -151,11 +151,12 @@ export interface MenuItemPrimitiveProps {
 }
 
 export interface MenuItemProps {
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A function that can be used to override the styles of the component.
-   * It receives the current styles and state and expects a styles object.
-   *
-   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+    A function that overrides the styles of the component.
+    It receives the current styles and state and expects a styles object.
+
+    @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: CSSFn;
@@ -210,10 +211,11 @@ export interface MenuItemProps {
    */
   testId?: string;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Custom overrides for the composed components.
-   *
-   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+    Custom overrides for the composed components.
+
+    @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: Overrides;
@@ -327,15 +329,18 @@ export interface CustomItemComponentProps {
 export interface CustomItemProps<
   TCustomComponentProps = CustomItemComponentProps
 > extends MenuItemProps {
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * Custom component to render as an item.
-   * This can be both a functional component or a class component.
-   * __Will return `null` if no component is defined.__
-   * If using TypeScript and this has typed props it will make its props available to the root custom item component for type safety,
-   * which allows you to pass the custom component's props via the root custom item component props.
-   * e.g. `<CustomItem to="/link" component={RouterLink} />`
-   *
-   * __NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.
+    Custom component to render as an item. This can be both a functional component or a class component.
+
+    __Will return `null` if no component is defined.__
+
+    Props passed to `CustomItem` will be passed down to this component. If the props for `component` have TypeScript types,
+    CustomItem will extend them, providing type safety for your custom item.
+
+    e.g. `<CustomItem to="/link" component={RouterLink} />`
+
+    __NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: React.ComponentType<TCustomComponentProps>;
@@ -374,7 +379,7 @@ export interface SkeletonItemProps {
   isShimmering?: boolean;
 
   /**
-   * A function that can be used to override the styles of this component.
+   * A function that overrides the styles of this component.
    * It receives the current styles and returns a customized styles object.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
@@ -382,11 +387,12 @@ export interface SkeletonItemProps {
 }
 
 export interface HeadingItemProps {
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A function that can be used to override the styles.
-   * It receives the current styles and returns a customised styles object.
-   *
-   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+   A function that overrides the styles.
+   It receives the current styles and returns a customized styles object.
+
+   @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: StatelessCSSFn;
@@ -431,11 +437,12 @@ export interface SkeletonHeadingItemProps {
    */
   isShimmering?: boolean;
 
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   * A function that can be used to override the styles of this component.
-   * It receives the current styles and returns a customized styles object.
-   *
-   * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+    A function that overrides the styles of this component.
+    It receives the current styles and returns a customized styles object.
+
+    @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: StatelessCSSFn;
@@ -443,13 +450,14 @@ export interface SkeletonHeadingItemProps {
 
 export type ItemState = { isSelected: boolean; isDisabled: boolean };
 
+// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
 /**
- * A function that can be used to override the styles of
- * menu components. It receives the current state
- * and should return a CSSObject.
- *
- * @see @atlaskit/menu/docs/85-overriding-item-styles
- * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
+  A function that overrides the styles of
+  menu components. It receives the current state
+  and should return a CSSObject.
+
+  @see @atlaskit/menu/docs/85-overriding-item-styles
+  @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
  */
 export interface CSSFn<TState = ItemState extends void ? void : ItemState> {
   (currentState: TState): CSSObject | CSSObject[];

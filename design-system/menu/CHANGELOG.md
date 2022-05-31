@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.3.5
+
+### Patch Changes
+
+- [`efa50ac72ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/efa50ac72ba) - Adjusts jsdoc strings to improve prop documentation
+
 ## 1.3.4
 
 ### Patch Changes

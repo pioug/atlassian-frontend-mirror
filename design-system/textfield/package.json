@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/textfield",
-  "version": "5.1.11",
+  "version": "5.1.12",
   "description": "A text field is an input that allows a user to write or edit text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -35,7 +35,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^20.5.0",
+    "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.5.0",

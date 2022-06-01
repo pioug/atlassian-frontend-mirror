@@ -1,8 +1,12 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForElementCount,
+} from '@atlaskit/visual-regression/helper';
 import { snapshot, initRendererWithADF } from './_utils';
 import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import * as stickyHeaderADF from '../__fixtures__/sticky-header.adf.json';
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
+import { shadowClassNames } from '@atlaskit/editor-common/ui';
 
 async function scrollToPos(page: PuppeteerPage, pos: number) {
   return page.evaluate((pos: number) => {
@@ -32,6 +36,10 @@ const initRenderer = async (page: PuppeteerPage, adf: any) => {
   });
   // Wait for loaded emoji image (contained within ADF)
   await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
+  // wait for all shadows to render (no need for them to be visible)
+  await waitForElementCount(page, `.${shadowClassNames.RIGHT_SHADOW}`, 6, {
+    timeout: 3000,
+  });
 };
 
 describe('Snapshot Test: sticky-headers', () => {

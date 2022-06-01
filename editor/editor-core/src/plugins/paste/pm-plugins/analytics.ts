@@ -28,6 +28,7 @@ import {
   handleExpandPasteInTable,
   handleSelectedTable,
   handlePasteLinkOnSelectedText,
+  handlePasteIntoCaption,
 } from '../handlers';
 import { Command } from '../../../types';
 import { pipe } from '../../../utils';
@@ -319,6 +320,19 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
 ): Command =>
   pipe(
     handlePasteIntoTaskAndDecision,
+    pasteCommandWithAnalytics(view, event, slice, {
+      type: type,
+    }),
+  )(slice);
+
+export const handlePasteIntoCaptionWithAnalytics = (
+  view: EditorView,
+  event: ClipboardEvent,
+  slice: Slice,
+  type: PasteType,
+): Command =>
+  pipe(
+    handlePasteIntoCaption,
     pasteCommandWithAnalytics(view, event, slice, {
       type: type,
     }),

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
 import { N60, N30A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
@@ -11,7 +12,7 @@ export const replaceSectionButtonStyles = css({
 export const ruleStyles = css({
   width: '100%',
   border: 'none',
-  backgroundColor: `${N30A}`,
+  backgroundColor: `${token('color.border', N30A)}`,
   margin: '4px 0px',
   height: '1px',
   borderRadius: '1px',
@@ -42,7 +43,7 @@ export const sectionWrapperStyles = css`
 `;
 
 export const countStyles = css({
-  color: `${N60}`,
+  color: `${token('color.text.subtlest', N60)}`,
   fontSize: `${relativeFontSizeToBase16(12)}`,
   flex: '0 0 auto',
   justifyContent: 'center',

@@ -34,10 +34,7 @@ const rankingStyles = css({
 
 const getHeadStyles = (theme: GlobalThemeTokens) =>
   css({
-    borderBottom: `2px solid ${token(
-      'color.border',
-      head.borderColor({ theme }),
-    )}`,
+    borderBottom: `2px solid ${head.borderColor({ theme })}`,
   });
 
 export const Head: FC<HeadProps> = ({ isRanking, ...props }) => {

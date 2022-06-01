@@ -218,6 +218,7 @@ describe('custom panels', () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.infoPanel}`);
+      await waitForNoTooltip(page);
     });
   });
 

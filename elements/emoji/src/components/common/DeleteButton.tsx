@@ -11,7 +11,11 @@ import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton, deleteButton } from './styles';
 
 const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
-  <span css={deleteButton} className={emojiDeleteButton}>
+  <span
+    css={deleteButton}
+    className={emojiDeleteButton}
+    data-testid="emoji-delete-button"
+  >
     <Button
       iconBefore={
         <CrossCircleIcon

@@ -5,5 +5,4 @@ export type SharedTableProps = {
   layout: TableLayout;
   isNumberColumnEnabled: boolean;
   renderWidth: number;
-  allowDynamicTextSizing?: boolean;
 };

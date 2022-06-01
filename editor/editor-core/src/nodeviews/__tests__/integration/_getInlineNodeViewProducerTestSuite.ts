@@ -20,22 +20,32 @@ import {
   buildAdfTrailingSpaces,
   buildAdfNoTrailingSpaces,
   buildAdfMultiline,
+  buildAdfMultipleNodesAcrossLines,
+  holdShiftInChrome,
 } from '../__helpers/_getInlineNodeViewProducer';
 
 const testNames = [
-  `Extend a selection to the start of the current line from the current position`,
-  `Extend a selection to the end of the current line from the current position`,
-  `Can click and drag to extend a selection to the start of the current line from the current position`,
-  `Can select [target] nodes with the left arrow key and move across them`,
-  `Can select [target] nodes with the right arrow key and move across them`,
-  `No trailing spaces: Extend a selection to the start of the current line from the current position`,
-  `No trailing spaces: Extend a selection to the end of the current line from the current position`,
-  `No trailing spaces: Can click and drag to extend a selection to the start of the current line from the current position`,
-  `No trailing spaces: Can select [target] nodes with the left arrow key and move across them`,
-  `No trailing spaces: Can select [target] nodes with the right arrow key and move across them`,
-  `No trailing spaces: Can insert text directly after the last node view in the same paragraph`,
-  `Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position`,
-  `Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph`,
+  'Extend a selection to the start of the current line from the current position',
+  'Extend a selection to the end of the current line from the current position',
+  'Can click and drag to extend a selection to the start of the current line from the current position',
+  'Can select [target] nodes with the left arrow key and move across them',
+  'Can select [target] nodes with the right arrow key and move across them',
+  'No trailing spaces: Extend a selection to the start of the current line from the current position',
+  'No trailing spaces: Extend a selection to the end of the current line from the current position',
+  'No trailing spaces: Can click and drag to extend a selection to the start of the current line from the current position',
+  'No trailing spaces: Can select [target] nodes with the left arrow key and move across them',
+  'No trailing spaces: Can select [target] nodes with the right arrow key and move across them',
+  'No trailing spaces: Can move the selection down one line using down arrow key when [target] is the first node of each line',
+  'No trailing spaces: Can move the selection up one line using up arrow key when [target] is the first node of each line',
+  'No trailing spaces: Can move the selection down one line using down arrow key when in between [target] nodes',
+  'No trailing spaces: Can move the selection up one line using up arrow key when in between [target] nodes',
+  'No trailing spaces: Can extend the selection right by one with shift + right arrow key to select [target] node',
+  'No trailing spaces: Can extend the selection left by one with shift + left arrow key to select [target] node',
+  'No trailing spaces: Can extend the selection one line up with shift + arrow up',
+  'No trailing spaces: Can extend the selection one line down with shift + arrow down',
+  'No trailing spaces: Can insert text directly after the last node view in the same paragraph',
+  'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position',
+  'Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph',
 ] as const;
 
 type TestName = typeof testNames[number];
@@ -82,6 +92,7 @@ export async function runInlineNodeViewTestSuite({
         allowTextAlignment: true,
         allowTables: {
           advanced: true,
+          allowColumnResizing: true,
         },
         ...editorOptions,
       };
@@ -104,7 +115,8 @@ export async function runInlineNodeViewTestSuite({
     };
 
     describe(`[${nodeName}] with trailing spaces`, () => {
-      testCaseName = `Extend a selection to the end of the current line from the current position`;
+      testCaseName =
+        'Extend a selection to the end of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
@@ -125,7 +137,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `Extend a selection to the end of the current line from the current position`;
+      testCaseName =
+        'Extend a selection to the end of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
@@ -146,7 +159,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `Can click and drag to extend a selection to the start of the current line from the current position`;
+      testCaseName =
+        'Can click and drag to extend a selection to the start of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
@@ -170,7 +184,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `Can select [target] nodes with the left arrow key and move across them`;
+      testCaseName =
+        'Can select [target] nodes with the left arrow key and move across them';
       BrowserTestCase(
         testCaseName,
         {
@@ -200,7 +215,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `Can select [target] nodes with the right arrow key and move across them`;
+      testCaseName =
+        'Can select [target] nodes with the right arrow key and move across them';
       BrowserTestCase(
         testCaseName,
         {
@@ -231,7 +247,8 @@ export async function runInlineNodeViewTestSuite({
     });
 
     describe(`[${nodeName}] with no trailing spaces`, () => {
-      testCaseName = `No trailing spaces: Extend a selection to the start of the current line from the current position`;
+      testCaseName =
+        'No trailing spaces: Extend a selection to the start of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
@@ -254,7 +271,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `No trailing spaces: Extend a selection to the end of the current line from the current position`;
+      testCaseName =
+        'No trailing spaces: Extend a selection to the end of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
@@ -279,17 +297,13 @@ export async function runInlineNodeViewTestSuite({
 
       //TODO Fix this test for Chrome
       // Click and drag via the test is currently not working as expected in
-      // Chrome for non-multiline nodes however click and drag works
-      // when manually testing in the browser
-      testCaseName = `No trailing spaces: Can click and drag to extend a selection to the start of the current line from the current position`;
+      // Chrome however works when manually testing in the browser
+      testCaseName =
+        'No trailing spaces: Can click and drag to extend a selection to the start of the current line from the current position';
       BrowserTestCase(
         testCaseName,
         {
-          skip: skipTests
-            ? skipTests[testCaseName]
-            : multiLineNode
-            ? []
-            : ['chrome'],
+          skip: ['chrome', ...(skipTests?.[testCaseName] || [])],
         },
         async (client: BrowserObject) => {
           const page = await initEditor({
@@ -311,7 +325,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `No trailing spaces: Can select [target] nodes with the left arrow key and move across them`;
+      testCaseName =
+        'No trailing spaces: Can select [target] nodes with the left arrow key and move across them';
       BrowserTestCase(
         testCaseName,
         {
@@ -340,7 +355,8 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `No trailing spaces: Can select [target] nodes with the right arrow key and move across them`;
+      testCaseName =
+        'No trailing spaces: Can select [target] nodes with the right arrow key and move across them';
       BrowserTestCase(
         testCaseName,
         {
@@ -369,7 +385,293 @@ export async function runInlineNodeViewTestSuite({
         },
       );
 
-      testCaseName = `No trailing spaces: Can insert text directly after the last node view in the same paragraph`;
+      testCaseName =
+        'No trailing spaces: Can move the selection down one line using down arrow key when [target] is the first node of each line';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: skipTests?.[testCaseName],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 1, head: 1 },
+            adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
+          });
+          // At the time of creating this test, Chrome and Safari move the selection to the same
+          // positions. This behaviour needs to be fixed so it is consistent across all browsers
+          // however for now we are just making sure that the selection moves and isn't blocked.
+          let expectedSelections: SelectionMatch[] = [
+            { type: 'text', from: 6 },
+            { type: 'text', from: 11 },
+            { type: 'text', from: 16 },
+            { type: 'text', from: 18 },
+          ];
+
+          if (page.isBrowser('firefox')) {
+            expectedSelections = [
+              { type: 'text', from: 3 },
+              { type: 'text', from: 8 },
+              { type: 'text', from: 13 },
+            ];
+          }
+
+          for (const selection of expectedSelections) {
+            await page.keys(['ArrowDown']);
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      testCaseName =
+        'No trailing spaces: Can move the selection up one line using up arrow key when [target] is the first node of each line';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: skipTests?.[testCaseName],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 18, head: 18 },
+            adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
+          });
+          // At the time of creating this test, Chrome and Safari move the selection to the same
+          // positions. This behaviour needs to be fixed so it is consistent across all browsers
+          // however for now we are just making sure that the selection moves and isn't blocked.
+          let expectedSelections: SelectionMatch[] = [
+            { type: 'text', from: 16 },
+            { type: 'text', from: 11 },
+            { type: 'text', from: 6 },
+            { type: 'text', from: 1 },
+          ];
+
+          if (page.isBrowser('firefox')) {
+            expectedSelections = [
+              { type: 'text', from: 13 },
+              { type: 'text', from: 8 },
+              { type: 'text', from: 3 },
+              { type: 'text', from: 1 },
+            ];
+          }
+
+          for (const selection of expectedSelections) {
+            await page.keys(['ArrowUp']);
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      testCaseName =
+        'No trailing spaces: Can move the selection down one line using down arrow key when in between [target] nodes';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: skipTests?.[testCaseName],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 4, head: 4 },
+            adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
+          });
+          // At the time of creating this test, Chrome and Safari move the selection to the same
+          // positions. This behaviour needs to be fixed so it is consistent across all browsers
+          // however for now we are just making sure that the selection moves and isn't blocked.
+          let expectedSelections: SelectionMatch[] = [
+            { type: 'text', from: 11 },
+            { type: 'text', from: 16 },
+            { type: 'text', from: 18 },
+          ];
+
+          if (page.isBrowser('firefox')) {
+            expectedSelections = [
+              { type: 'text', from: 9 },
+              { type: 'text', from: 14 },
+              { type: 'text', from: 18 },
+            ];
+          }
+
+          for (const selection of expectedSelections) {
+            await page.keys(['ArrowDown']);
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      testCaseName =
+        'No trailing spaces: Can move the selection up one line using up arrow key when in between [target] nodes';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: skipTests?.[testCaseName],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 14, head: 14 },
+            adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
+          });
+          // At the time of creating this test, Chrome and Safari move the selection to the same
+          // positions. This behaviour needs to be fixed so it is consistent across all browsers
+          // however for now we are just making sure that the selection moves and isn't blocked.
+          let expectedSelections: SelectionMatch[] = [
+            { type: 'text', from: 11 },
+            { type: 'text', from: 6 },
+            { type: 'text', from: 1 },
+          ];
+
+          if (page.isBrowser('firefox')) {
+            expectedSelections = [
+              { type: 'text', from: 9 },
+              { type: 'text', from: 4 },
+              { type: 'text', from: 1 },
+            ];
+          }
+
+          for (const selection of expectedSelections) {
+            await page.keys(['ArrowUp']);
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      // TODO To unskip this test we need to fix the behaviour in Firefox and Chrome to match Safari
+      // Firefox: Extends selection to the end of the line
+      // Chrome: Selects two nodes at a time
+      // Safari: Extends selection by one as expected
+      testCaseName = `No trailing spaces: Can extend the selection right by one with shift + right arrow key to select [target] node`;
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: ['firefox', 'chrome', ...(skipTests?.[testCaseName] || [])],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 1, head: 1 },
+            adf: JSON.stringify(buildAdfNoTrailingSpaces({ node })),
+          });
+          const expectedSelections: SelectionMatch[] = [
+            { type: 'text', anchor: 1, head: 2 },
+            { type: 'text', anchor: 1, head: 3 },
+            { type: 'text', anchor: 1, head: 4 },
+          ];
+
+          await holdShiftInChrome(page);
+          for (const selection of expectedSelections) {
+            page.isBrowser('chrome')
+              ? await page.keys(['ArrowRight'])
+              : await page.keys(['Shift', 'ArrowRight'], true);
+
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      // TODO: To unskip this test we need to fix the behaviour in Firefox to match Safari & Chrome
+      // Firefox: Extends selection to the start of the line
+      // Safari + Chrome: Extends selection by one as expected
+      testCaseName =
+        'No trailing spaces: Can extend the selection left by one with shift + left arrow key to select [target] node';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: ['firefox', ...(skipTests?.[testCaseName] || [])],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 4, head: 4 },
+            adf: JSON.stringify(buildAdfNoTrailingSpaces({ node })),
+          });
+          const expectedSelections: SelectionMatch[] = [
+            { type: 'text', anchor: 4, head: 3 },
+            { type: 'text', anchor: 4, head: 2 },
+            { type: 'text', anchor: 4, head: 1 },
+          ];
+
+          await holdShiftInChrome(page);
+          for (const selection of expectedSelections) {
+            page.isBrowser('chrome')
+              ? await page.keys(['ArrowLeft'])
+              : await page.keys(['Shift', 'ArrowLeft'], true);
+
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      // TODO To unskip this test we need to fix the behaviour in Chrome + Safari to match Firefox
+      // Firefox: Extends selection to same vertical position one line up
+      // Chrome + Safari: Extends selection to position after the last node on the line above
+      testCaseName =
+        'No trailing spaces: Can extend the selection one line up with shift + arrow up';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: ['safari', 'chrome', ...(skipTests?.[testCaseName] || [])],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 18, head: 18 },
+            adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
+          });
+          const expectedSelections: SelectionMatch[] = [
+            { type: 'text', anchor: 18, head: 13 },
+            { type: 'text', anchor: 18, head: 8 },
+            { type: 'text', anchor: 18, head: 3 },
+            { type: 'text', anchor: 18, head: 1 },
+          ];
+
+          await holdShiftInChrome(page);
+          for (const selection of expectedSelections) {
+            page.isBrowser('chrome')
+              ? await page.keys(['ArrowUp'])
+              : await page.keys(['Shift', 'ArrowUp'], true);
+
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      // TODO To unskip this test we need to fix the behaviour in Chrome + Safari to match Firefox
+      // Firefox: Extends selection to same vertical position one line down
+      // Chrome + Safari: Extends selection to position after the last node on the line below
+      testCaseName =
+        'No trailing spaces: Can extend the selection one line down with shift + arrow down';
+      BrowserTestCase(
+        testCaseName,
+        {
+          skip: ['safari', 'chrome', ...(skipTests?.[testCaseName] || [])],
+        },
+        async (client: BrowserObject) => {
+          const page = await initEditor({
+            client,
+            selection: { anchor: 1, head: 1 },
+            adf: JSON.stringify(buildAdfMultipleNodesAcrossLines({ node })),
+          });
+          const expectedSelections: SelectionMatch[] = [
+            { type: 'text', anchor: 1, head: 3 },
+            { type: 'text', anchor: 1, head: 8 },
+            { type: 'text', anchor: 1, head: 13 },
+            { type: 'text', anchor: 1, head: 18 },
+          ];
+
+          await holdShiftInChrome(page);
+          for (const selection of expectedSelections) {
+            page.isBrowser('chrome')
+              ? await page.keys(['ArrowDown'])
+              : await page.keys(['Shift', 'ArrowDown'], true);
+
+            await expectToMatchSelection(page, selection);
+          }
+        },
+      );
+
+      testCaseName =
+        'No trailing spaces: Can insert text directly after the last node view in the same paragraph';
       BrowserTestCase(
         testCaseName,
         {
@@ -396,7 +698,8 @@ export async function runInlineNodeViewTestSuite({
 
     if (multiLineNode) {
       describe(`Multiline [${nodeName}] with no trailing spaces`, () => {
-        testCaseName = `Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position`;
+        testCaseName =
+          'Multiline [target] no trailing spaces: Extend a selection to the start of the current line from the current position';
         BrowserTestCase(
           testCaseName,
           {
@@ -423,7 +726,8 @@ export async function runInlineNodeViewTestSuite({
           },
         );
 
-        testCaseName = `Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph`;
+        testCaseName =
+          'Multiline [target] no trailing spaces: Can insert text directly after the last node view in the same paragraph';
         BrowserTestCase(
           testCaseName,
           {

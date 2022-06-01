@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
@@ -67,26 +67,24 @@ export const SaveAndCancelButtons = (props: {
   </ButtonGroup>
 );
 
-export const Wrapper: any = styled.div`
+export const wrapper: any = css`
   box-sizing: border-box;
   padding: 2px;
   height: calc(100vh - 32px);
 `;
-Wrapper.displayName = 'Wrapper';
 
-export const Content: any = styled.div`
+export const content: any = css`
   padding: 0 20px;
   height: 100%;
   box-sizing: border-box;
 `;
-Content.displayName = 'Content';
 
 const providerFactory = initializeProviderFactory();
 
 export default function Example(props: EditorProps) {
   return (
-    <Wrapper>
-      <Content>
+    <div css={wrapper}>
+      <div css={content}>
         <ProviderFactoryProvider value={providerFactory}>
           <EditorPresetMobile placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule.">
             <MobileEditor
@@ -95,7 +93,7 @@ export default function Example(props: EditorProps) {
             />
           </EditorPresetMobile>
         </ProviderFactoryProvider>
-      </Content>
-    </Wrapper>
+      </div>
+    </div>
   );
 }

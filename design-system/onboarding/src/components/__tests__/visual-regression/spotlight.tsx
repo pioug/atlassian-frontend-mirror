@@ -91,8 +91,7 @@ describe('onboarding spotlight visual regression', () => {
     ).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 2/1/2022: https://product-fabric.atlassian.net/browse/SKIP-324
-  it.skip('should not display pulse animation when pulse prop is false', async () => {
+  it('should not display pulse animation when pulse prop is false', async () => {
     const { __BASEURL__, page } = global;
 
     const url = getExampleUrl(
@@ -107,6 +106,7 @@ describe('onboarding spotlight visual regression', () => {
     await page.click(openButtonSelector);
 
     await page.waitForSelector(spotlightTargetSelector);
+    await page.click(spotlightDialogSelector);
 
     const image = await takeElementScreenShot(page, 'body');
     expect(image).toMatchProdImageSnapshot();

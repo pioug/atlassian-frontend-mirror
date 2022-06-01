@@ -1,6 +1,6 @@
 import React from 'react';
 
-import browser from '../../utils/browser';
+import { ShadowObserver, shadowObserverClassNames } from './shadowObserver';
 
 export const shadowClassNames = {
   RIGHT_SHADOW: 'right-shadow',
@@ -8,8 +8,8 @@ export const shadowClassNames = {
 };
 
 export interface OverflowShadowProps {
-  handleRef: (ref: HTMLElement | null) => void;
-  shadowClassNames: string;
+  handleRef?: (ref: HTMLElement | null) => void;
+  shadowClassNames?: string;
 }
 
 export interface OverflowShadowState {
@@ -19,10 +19,9 @@ export interface OverflowShadowState {
 
 export interface OverflowShadowOptions {
   overflowSelector: string;
-  scrollableSelector?: string;
+  // this is optimisation that can be enabled for most common cases where scroll contents top element takes up the scroll width
+  useShadowObserver?: boolean;
 }
-
-const isIE11 = browser.ie_version === 11;
 
 export default function overflowShadow<P>(
   Component:
@@ -33,6 +32,8 @@ export default function overflowShadow<P>(
   return class OverflowShadow extends React.Component<P, OverflowShadowState> {
     overflowContainer?: HTMLElement | null;
     container?: HTMLElement;
+    shadowObserver?: ShadowObserver;
+    overflowContainerWidth: number = 0;
     scrollable?: NodeList;
     diff?: number;
 
@@ -42,31 +43,42 @@ export default function overflowShadow<P>(
     };
 
     componentWillUnmount() {
-      if (this.overflowContainer && !isIE11) {
-        this.overflowContainer.removeEventListener('scroll', this.handleScroll);
+      if (options.useShadowObserver) {
+        return this.shadowObserver && this.shadowObserver.dispose();
       }
 
+      if (this.overflowContainer) {
+        this.overflowContainer.removeEventListener('scroll', this.handleScroll);
+      }
       this.updateShadows();
     }
 
     componentDidUpdate() {
-      this.updateShadows();
+      if (!options.useShadowObserver) {
+        this.updateShadows();
+      }
     }
 
     handleScroll = (event: Event) => {
-      if (!this.overflowContainer || event.target !== this.overflowContainer) {
+      if (
+        !this.overflowContainer ||
+        event.target !== this.overflowContainer ||
+        options.useShadowObserver
+      ) {
         return;
       }
-
       this.updateShadows();
     };
 
     updateShadows = () => {
+      if (options.useShadowObserver) {
+        return;
+      }
+
       this.setState((prevState) => {
         if (!this.overflowContainer) {
           return;
         }
-
         const diff = this.calcOverflowDiff();
         const showRightShadow =
           diff > 0 && diff > this.overflowContainer.scrollLeft;
@@ -98,7 +110,6 @@ export default function overflowShadow<P>(
       }
 
       this.diff = this.calcScrollableWidth();
-
       return this.diff - this.overflowContainer.offsetWidth;
     };
 
@@ -116,6 +127,7 @@ export default function overflowShadow<P>(
         const scrollableElement = this.scrollable[i] as HTMLElement;
         width += scrollableElement.scrollWidth;
       }
+
       return width;
     };
 
@@ -124,6 +136,7 @@ export default function overflowShadow<P>(
         return;
       }
       this.container = container;
+
       this.overflowContainer = container.querySelector(
         options.overflowSelector,
       ) as HTMLElement;
@@ -132,25 +145,47 @@ export default function overflowShadow<P>(
         this.overflowContainer = container;
       }
 
-      if (options.scrollableSelector) {
-        this.scrollable = container.querySelectorAll(
-          options.scrollableSelector,
-        );
+      if (options.useShadowObserver) {
+        this.initShadowObserver();
+        return;
       }
 
       this.updateShadows();
-
-      if (!isIE11) {
-        this.overflowContainer.addEventListener('scroll', this.handleScroll);
-      }
+      this.overflowContainer.addEventListener('scroll', this.handleScroll);
     };
+
+    initShadowObserver() {
+      if (this.shadowObserver || !this.overflowContainer) {
+        return;
+      }
+
+      this.shadowObserver = new ShadowObserver({
+        scrollContainer: this.overflowContainer,
+        onUpdateShadows: (shadowStates) => {
+          this.setState((prevState) => {
+            const { showLeftShadow, showRightShadow } = shadowStates;
+            if (
+              showLeftShadow !== prevState.showLeftShadow ||
+              showRightShadow !== prevState.showRightShadow
+            ) {
+              return {
+                showLeftShadow,
+                showRightShadow,
+              };
+            }
+            return null;
+          });
+        },
+      });
+    }
 
     render() {
       const { showLeftShadow, showRightShadow } = this.state;
 
-      const classNames = [
+      let classNames = [
         showRightShadow && shadowClassNames.RIGHT_SHADOW,
         showLeftShadow && shadowClassNames.LEFT_SHADOW,
+        options.useShadowObserver && shadowObserverClassNames.SHADOW_CONTAINER,
       ]
         .filter(Boolean)
         .join(' ');

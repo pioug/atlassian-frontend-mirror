@@ -332,6 +332,15 @@ export type FeatureFlags = {
    * @default null
    */
   viewChangingExperimentToolbarStyle?: string;
+
+  /**
+   * @description
+   * Enable display of a prewiew modal on mouse over of inline smart card
+   *
+   * @see https://product-fabric.atlassian.net/browse/EDM-2860
+   * @default false
+   */
+  showHoverPreview?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

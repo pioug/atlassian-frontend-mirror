@@ -43,6 +43,7 @@ import ElementBrowser from './components/ElementBrowserLoader';
 import { MenuItem } from '../DropdownMenu/types';
 import { ELEMENT_ITEM_HEIGHT } from './constants';
 import { InsertMenuProps, SvgGetterParams } from './types';
+import { token } from '@atlaskit/tokens';
 
 const InsertMenu = ({
   editorView,
@@ -196,9 +197,17 @@ const insertMenuWrapper = (theme: ThemeProps, itemCount: number) => css`
   flex-direction: column;
   width: 320px;
   height: ${getInsertMenuHeight({ itemCount })}px;
-  background-color: ${themed({ light: N0, dark: DN50 })(theme)};
+  background-color: ${themed({
+    light: token('elevation.surface.overlay', N0),
+    dark: token('elevation.surface.overlay', DN50),
+  })(theme)};
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 0 0 1px ${N30A},
+    0 2px 1px ${N30A},
+    0 0 20px -6px ${N60A}`,
+  )};
 `;
 
 const itemBefore = css`

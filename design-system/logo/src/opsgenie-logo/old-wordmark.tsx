@@ -14,6 +14,9 @@ const svg = `<canvas height="32" width="148" aria-hidden="true"></canvas>
   </g>
 </svg>`;
 
+/**
+ * @deprecated OpsGenieWordmark is incorrectly cased and will be removed from atlaskit/logo in the next major release. Please use OpsgenieLogo (no capital 'g') instead.
+ */
 export const OpsGenieWordmark = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,
@@ -24,7 +27,7 @@ export const OpsGenieWordmark = ({
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
     warnOnce(
-      'OpsGenieWordmark will be renamed to OpsgenieWordmark after June 30 2021. Please use OpsgenieWordmark instead.',
+      'OpsGenieWordmark will be renamed to OpsgenieWordmark in the next major release. Please use OpsgenieWordmark instead.',
     );
   }
 

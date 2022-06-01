@@ -19,6 +19,7 @@ import { FeatureFlagKey } from '../../../types/feature-flags';
 import { AnnotationAEP } from './inline-comment-events';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SEVERITY } from '@atlaskit/editor-common/utils';
+import type { ADFEntityMark } from '@atlaskit/adf-utils/types';
 
 export enum PLATFORMS {
   NATIVE = 'mobileNative',
@@ -423,6 +424,32 @@ type TextLinkCodeMarkTransformedAEP = OperationalAEP<
   undefined
 >;
 
+type DedupeMarksTransformedAEP = OperationalAEP<
+  ACTION.DEDUPE_MARKS_TRANSFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  {
+    discardedMarks: ADFEntityMark[];
+  },
+  undefined
+>;
+
+type IndentationMarksTransformedAEP = OperationalAEP<
+  ACTION.INDENTATION_MARKS_TRANSFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  undefined,
+  undefined
+>;
+
+type NodesMissingContentTransformedAEP = OperationalAEP<
+  ACTION.NODES_MISSING_CONTENT_TRANSFORMED,
+  ACTION_SUBJECT.EDITOR,
+  undefined,
+  undefined,
+  undefined
+>;
+
 export type GeneralEventPayload<T = void> =
   | AnnotateButtonAEP
   | AnnotationAEP
@@ -456,5 +483,8 @@ export type GeneralEventPayload<T = void> =
   | UfoSessionCompletePayloadAEP
   | MediaLinkTransformedAEP
   | TextLinkCodeMarkTransformedAEP
+  | DedupeMarksTransformedAEP
+  | IndentationMarksTransformedAEP
+  | NodesMissingContentTransformedAEP
   | InvalidProsemirrorDocumentErrorAEP
   | DocumentProcessingErrorAEP;

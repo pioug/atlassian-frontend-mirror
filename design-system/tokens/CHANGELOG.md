@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.4
+
+### Patch Changes
+
+- [`7b9be57869b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b9be57869b) - ED-14905 made fallback token name work for production
+
 ## 0.10.3
 
 ### Patch Changes

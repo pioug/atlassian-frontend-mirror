@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';
 import MediaInlineCard from '../src/root/inline/loader';
+import { MainWrapper } from '../example-helpers';
 
 const mockImageFile: MockFileInputParams = {
   id: '0c3c64b9-65ad-4592-89d0-f838beebd81e',
@@ -75,98 +76,100 @@ const Table = styled.table`
 
 export default () => {
   return (
-    <IntlProvider locale={'en'}>
-      <Wrapper>
-        <Table>
-          <tbody>
-            <tr>
-              <th>Type</th>
-              <th>Link</th>
-            </tr>
-            <tr>
-              <td>Image</td>
-              <td>
-                <MediaInlineCard
-                  identifier={{
-                    mediaItemType: 'file',
-                    id: mockImageFile.id!,
-                    collectionName: defaultCollectionName,
-                  }}
-                  mediaClientConfig={mediaClientConfig}
-                  shouldOpenMediaViewer
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Doc</td>
-              <td>
-                <MediaInlineCard
-                  identifier={{
-                    mediaItemType: 'file',
-                    id: mockDocFile.id!,
-                    collectionName: defaultCollectionName,
-                  }}
-                  mediaClientConfig={mediaClientConfig}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Spreadsheet</td>
-              <td>
-                <MediaInlineCard
-                  identifier={{
-                    mediaItemType: 'file',
-                    id: mockSpreadsheetFile.id!,
-                    collectionName: defaultCollectionName,
-                  }}
-                  mediaClientConfig={mediaClientConfig}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Video</td>
-              <td>
-                <MediaInlineCard
-                  identifier={{
-                    mediaItemType: 'file',
-                    id: mockVideoFile.id!,
-                    collectionName: defaultCollectionName,
-                  }}
-                  mediaClientConfig={mediaClientConfig}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Error processing</td>
-              <td>
-                <MediaInlineCard
-                  identifier={{
-                    mediaItemType: 'file',
-                    id: mockErrorFile.id!,
-                    collectionName: defaultCollectionName,
-                  }}
-                  mediaClientConfig={mediaClientConfig}
-                  shouldOpenMediaViewer
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Loading View</td>
-              <td>
-                <MediaInlineCard
-                  identifier={{
-                    mediaItemType: 'file',
-                    id: mockLoadingFile.id!,
-                    collectionName: defaultCollectionName,
-                  }}
-                  mediaClientConfig={mediaClientConfig}
-                  shouldOpenMediaViewer
-                />
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      </Wrapper>
-    </IntlProvider>
+    <MainWrapper disableFeatureFlagWrapper={true}>
+      <IntlProvider locale={'en'}>
+        <Wrapper>
+          <Table>
+            <tbody>
+              <tr>
+                <th>Type</th>
+                <th>Link</th>
+              </tr>
+              <tr>
+                <td>Image</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={{
+                      mediaItemType: 'file',
+                      id: mockImageFile.id!,
+                      collectionName: defaultCollectionName,
+                    }}
+                    mediaClientConfig={mediaClientConfig}
+                    shouldOpenMediaViewer
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Doc</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={{
+                      mediaItemType: 'file',
+                      id: mockDocFile.id!,
+                      collectionName: defaultCollectionName,
+                    }}
+                    mediaClientConfig={mediaClientConfig}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Spreadsheet</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={{
+                      mediaItemType: 'file',
+                      id: mockSpreadsheetFile.id!,
+                      collectionName: defaultCollectionName,
+                    }}
+                    mediaClientConfig={mediaClientConfig}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Video</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={{
+                      mediaItemType: 'file',
+                      id: mockVideoFile.id!,
+                      collectionName: defaultCollectionName,
+                    }}
+                    mediaClientConfig={mediaClientConfig}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Error processing</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={{
+                      mediaItemType: 'file',
+                      id: mockErrorFile.id!,
+                      collectionName: defaultCollectionName,
+                    }}
+                    mediaClientConfig={mediaClientConfig}
+                    shouldOpenMediaViewer
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Loading View</td>
+                <td>
+                  <MediaInlineCard
+                    identifier={{
+                      mediaItemType: 'file',
+                      id: mockLoadingFile.id!,
+                      collectionName: defaultCollectionName,
+                    }}
+                    mediaClientConfig={mediaClientConfig}
+                    shouldOpenMediaViewer
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </Wrapper>
+      </IntlProvider>
+    </MainWrapper>
   );
 };

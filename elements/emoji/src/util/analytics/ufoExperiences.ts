@@ -1,4 +1,10 @@
-import { EmojiId, UfoComponentName, UfoExperienceName } from '../../types';
+import {
+  EmojiId,
+  UfoComponentName,
+  UfoEmojiTimings,
+  UfoEmojiTimingsKeys,
+  UfoExperienceName,
+} from '../../types';
 
 import {
   ExperiencePerformanceTypes,
@@ -24,11 +30,34 @@ const createInlineExperience = (componentName: string) => {
   };
 };
 
+const customEmojiTimings = [
+  { key: UfoEmojiTimingsKeys.MOUNTED, endMark: UfoEmojiTimings.MOUNTED_END },
+  {
+    key: UfoEmojiTimingsKeys.METADATA,
+    component: 'resourced-emoji',
+    startMark: UfoEmojiTimings.METADATA_START,
+    endMark: UfoEmojiTimings.METADATA_END,
+  },
+  {
+    key: UfoEmojiTimingsKeys.MEDIADATA,
+    component: 'caching-emoji',
+    startMark: UfoEmojiTimings.MEDIA_START,
+    endMark: UfoEmojiTimings.MEDIA_END,
+  },
+  {
+    key: UfoEmojiTimingsKeys.ONLOAD,
+    startMark: UfoEmojiTimings.ONLOAD_START,
+    endMark: UfoEmojiTimings.ONLOAD_END,
+  },
+];
+
 export const ufoExperiences = {
-  'emoji-rendered': new ConcurrentExperience(
-    UfoExperienceName.EMOJI_RENDERED,
-    createRenderExperience(UfoComponentName.EMOJI),
-  ),
+  'emoji-rendered': new ConcurrentExperience(UfoExperienceName.EMOJI_RENDERED, {
+    platform: { component: UfoComponentName.EMOJI },
+    type: ExperienceTypes.Operation,
+    performanceType: ExperiencePerformanceTypes.Custom,
+    timings: customEmojiTimings,
+  }),
   'emoji-resource-fetched': new ConcurrentExperience(
     UfoExperienceName.EMOJI_RESOURCE_FETCHED,
     createRenderExperience(UfoComponentName.EMOJI_PROVIDER),

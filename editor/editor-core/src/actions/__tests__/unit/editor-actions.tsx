@@ -1,9 +1,10 @@
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
+import { Node } from 'prosemirror-model';
 import { mount } from 'enzyme';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { EditorActions } from '../../../index';
+import { EditorActions, MacroAttributes, MacroProvider } from '../../../index';
 import Editor from '../../../editor';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { Transformer } from '@atlaskit/editor-common/types';
@@ -12,6 +13,9 @@ import {
   doc,
   taskList,
   taskItem,
+  p,
+  bodiedExtension,
+  expand,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('Editor Actions', () => {
@@ -120,6 +124,67 @@ Object {
     ])('%s', (_, id, expected) => {
       const result = editorAction.getNodeByLocalId(id);
       expect(result && result.toJSON()).toEqual(expected);
+    });
+  });
+
+  describe('getSelectedNode', () => {
+    const macroProvider: MacroProvider = {
+      config: {},
+      openMacroBrowser: () => {
+        const attrs: MacroAttributes = {
+          type: 'extension',
+          attrs: {
+            extensionKey: 'com.fake',
+            extensionType: 'com.fake',
+            layout: 'full-width',
+          },
+        };
+
+        return Promise.resolve(attrs);
+      },
+      autoConvert: () => null,
+    };
+    it('resolves a node selection', () => {
+      const { editorView, eventDispatcher } = createEditorFactory()({
+        doc: doc(expand()(p('Line {<>} one'))),
+        editorProps: {
+          allowExpand: true,
+        },
+      });
+      const editorAction = EditorActions.from(editorView, eventDispatcher);
+
+      const node = editorAction.getSelectedNode() as Node;
+      expect(node).toBeInstanceOf(Node);
+      expect(node?.type?.name).toEqual('expand');
+    });
+    it('resolves a text selection to the parent node', () => {
+      const { editorView, eventDispatcher } = createEditorFactory()({
+        doc: doc(
+          bodiedExtension({
+            extensionKey: 'com.fake',
+            extensionType: 'com.fake',
+            layout: 'full-width',
+          })(p('Line {<>} one')),
+        ),
+        editorProps: {
+          allowExtension: true,
+          macroProvider: Promise.resolve(macroProvider),
+        },
+      });
+      const editorAction = EditorActions.from(editorView, eventDispatcher);
+
+      const node = editorAction.getSelectedNode();
+      expect(node).toBeInstanceOf(Node);
+      expect(node?.type?.name).toEqual('bodiedExtension');
+    });
+    it('returns undefined for no selectable nodes', () => {
+      const { editorView, eventDispatcher } = createEditorFactory()({
+        doc: doc(p('123', '456')),
+      });
+      const editorAction = EditorActions.from(editorView, eventDispatcher);
+
+      const node = editorAction.getSelectedNode();
+      expect(node).toBeUndefined();
     });
   });
 });

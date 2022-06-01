@@ -105,6 +105,7 @@ export default class Editor extends React.Component<
               containerElement={this.containerElement}
               disabled={!!disabled}
               dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+              wrapperElement={this.containerElement}
             />
             {editorDOMElement}
           </ContentArea>

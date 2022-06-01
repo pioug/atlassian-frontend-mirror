@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 8.0.6
+
+### Patch Changes
+
+- [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
+- Updated dependencies
+
 ## 8.0.5
 
 ### Patch Changes

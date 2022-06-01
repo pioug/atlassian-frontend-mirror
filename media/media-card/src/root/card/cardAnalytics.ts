@@ -1,9 +1,4 @@
-import {
-  FileAttributes,
-  filterFeatureFlagNames,
-  filterFeatureFlagKeysAllProducts,
-  PerformanceAttributes,
-} from '@atlaskit/media-common';
+import { FileAttributes, PerformanceAttributes } from '@atlaskit/media-common';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   fireMediaCardEvent,
@@ -18,21 +13,6 @@ import {
 } from '../../utils/analytics';
 import { CardStatus } from '../..';
 import { MediaCardError } from './../../errors';
-
-export const REQUIRED_FEATURE_FLAGS = {
-  newCardExperience: true,
-  captions: true,
-  timestampOnVideo: true,
-  observedWidth: true,
-  mediaInline: false,
-  folderUploads: false,
-};
-
-export const getRelevantFeatureFlagNames = () =>
-  filterFeatureFlagNames(REQUIRED_FEATURE_FLAGS);
-
-export const getRelevantFeatureFlagKeysWithAllProducts = () =>
-  filterFeatureFlagKeysAllProducts(REQUIRED_FEATURE_FLAGS);
 
 export const fireOperationalEvent = (
   createAnalyticsEvent: CreateUIAnalyticsEvent,

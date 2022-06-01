@@ -346,6 +346,53 @@ export const exampleDocumentWithComments = {
             {
               type: 'annotation',
               attrs: {
+                id: null,
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'UNRESOLVED',
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: null,
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' comment with null annotation id',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: null,
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'This line is an ',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
                 id: '12e213d7-badd-4c2a-881e-f5d6b9af3752',
                 annotationType: 'inlineComment',
               },

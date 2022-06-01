@@ -9,7 +9,6 @@ import {
 
 import {
   WidthConsumer,
-  mapBreakpointToLayoutMaxWidth,
   UnsupportedBlock,
   MediaSingle as UIMediaSingle,
 } from '@atlaskit/editor-common/ui';
@@ -20,7 +19,6 @@ import {
   akEditorFullWidthLayoutWidth,
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
-  getAkEditorFullPageMaxWidth,
 } from '@atlaskit/editor-shared-styles';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 
@@ -62,7 +60,6 @@ export default function EmbedCard(props: {
   layout: RichMediaLayout;
   rendererAppearance?: RendererAppearance;
   isInsideOfBlockNode?: boolean;
-  allowDynamicTextSizing?: boolean;
 }) {
   const {
     url,
@@ -72,7 +69,6 @@ export default function EmbedCard(props: {
     layout,
     width,
     isInsideOfBlockNode,
-    allowDynamicTextSizing,
     rendererAppearance,
   } = props;
   const embedIframeRef = useRef(null);
@@ -150,15 +146,8 @@ export default function EmbedCard(props: {
           const isContainerSizeGreaterThanMaxFullPageWidth =
             containerWidth - padding >= akEditorDefaultLayoutWidth;
 
-          if (
-            isContainerSizeGreaterThanMaxFullPageWidth &&
-            allowDynamicTextSizing
-          ) {
-            nonFullWidthSize = mapBreakpointToLayoutMaxWidth(breakpoint);
-          } else if (isContainerSizeGreaterThanMaxFullPageWidth) {
-            nonFullWidthSize = getAkEditorFullPageMaxWidth(
-              allowDynamicTextSizing,
-            );
+          if (isContainerSizeGreaterThanMaxFullPageWidth) {
+            nonFullWidthSize = akEditorDefaultLayoutWidth;
           } else {
             nonFullWidthSize = containerWidth - padding;
           }

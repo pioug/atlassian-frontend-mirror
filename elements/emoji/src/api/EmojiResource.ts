@@ -245,6 +245,9 @@ export class EmojiResource
   }
 
   private loadStoredTone(): ToneSelection {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
     const storedToneString = window.localStorage.getItem(
       selectedToneStorageKey,
     );
@@ -483,6 +486,9 @@ export class EmojiResource
 
   setSelectedTone(tone: ToneSelection) {
     this.selectedTone = tone;
+    if (typeof window === 'undefined') {
+      return;
+    }
     if (storageAvailable('localStorage')) {
       try {
         window.localStorage.setItem(

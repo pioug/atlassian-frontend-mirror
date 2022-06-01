@@ -8,6 +8,7 @@ import {
 import { createMediaSubscribable } from '@atlaskit/media-client';
 
 import { IntlProvider } from 'react-intl-next';
+import { MainWrapper } from '../example-helpers';
 
 type WrapperDimensions = {
   width: string;
@@ -46,17 +47,19 @@ export default () => {
   };
 
   return (
-    <IntlProvider locale={'en'}>
-      <InlinePlayerWrapper {...wrapperDimensions}>
-        <InlinePlayer
-          identifier={videoSquareFileId}
-          mediaClient={mediaClient}
-          dimensions={dimensions}
-          // needed for reliable snapshots
-          selected={true}
-          autoplay={false}
-        />
-      </InlinePlayerWrapper>
-    </IntlProvider>
+    <MainWrapper disableFeatureFlagWrapper={true}>
+      <IntlProvider locale={'en'}>
+        <InlinePlayerWrapper {...wrapperDimensions}>
+          <InlinePlayer
+            identifier={videoSquareFileId}
+            mediaClient={mediaClient}
+            dimensions={dimensions}
+            // needed for reliable snapshots
+            selected={true}
+            autoplay={false}
+          />
+        </InlinePlayerWrapper>
+      </IntlProvider>
+    </MainWrapper>
   );
 };

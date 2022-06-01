@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 12.1.14
+
+### Patch Changes
+
+- [`c8c7eec9fb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8c7eec9fb8) - [ux] Updates tokens used for selected hovered state
+
 ## 12.1.13
 
 ### Patch Changes

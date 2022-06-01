@@ -185,11 +185,13 @@ const typeAheadPlugin = (options?: TypeAheadPluginOptions): EditorPlugin => {
       popupsMountPoint,
       popupsBoundariesElement,
       popupsScrollableElement,
+      wrapperElement,
     }) {
       popupMountRef.current = {
-        popupsMountPoint: popupsMountPoint || containerElement || undefined,
+        popupsMountPoint: popupsMountPoint || wrapperElement || undefined,
         popupsBoundariesElement,
-        popupsScrollableElement,
+        popupsScrollableElement:
+          popupsScrollableElement || containerElement || undefined,
       };
 
       return (

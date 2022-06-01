@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ButtonItem from '@atlaskit/menu/button-item';
+import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
 
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
@@ -17,20 +18,30 @@ import { DropdownItemProps } from './types';
  */
 const DropdownMenuItem = (props: DropdownItemProps) => {
   const {
+    component,
     elemBefore,
     elemAfter,
-    href,
     shouldTitleWrap = true,
     shouldDescriptionWrap = true,
     ...rest
   } = props;
 
   const itemRef = useRegisterItemWithFocusManager();
-
-  if (href) {
+  if (component) {
+    return (
+      <CustomItem
+        component={component}
+        iconBefore={elemBefore}
+        iconAfter={elemAfter}
+        shouldTitleWrap={shouldTitleWrap}
+        shouldDescriptionWrap={shouldDescriptionWrap}
+        {...rest}
+      />
+    );
+  } else if (props.href) {
     return (
       <LinkItem
-        href={href}
+        href={props.href}
         iconBefore={elemBefore}
         iconAfter={elemAfter}
         role="menuitem"

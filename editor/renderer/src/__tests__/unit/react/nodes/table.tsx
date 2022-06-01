@@ -1,35 +1,52 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import {
   akEditorTableNumberColumnWidth,
   akEditorDefaultLayoutWidth,
   akEditorTableLegacyCellMinWidth as tableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
+import { TableLayout } from '@atlaskit/adf-schema';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { table, tr, th, td, p, inlineCard } from '@atlaskit/adf-utils';
+import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
 import Table, { TableProcessor } from '../../../../react/nodes/table';
-import { calcScalePercent } from '../../../../react/nodes/table/colgroup';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
+
+const mountBasicTable = ({
+  columnWidths,
+  isNumberColumnEnabled = true,
+  renderWidth = akEditorDefaultLayoutWidth,
+  layout = 'default',
+}: {
+  columnWidths?: number[];
+  isNumberColumnEnabled?: boolean;
+  renderWidth?: number;
+  layout?: TableLayout;
+} = {}) => {
+  return mountWithIntl(
+    <Table
+      layout={layout}
+      isNumberColumnEnabled={isNumberColumnEnabled}
+      columnWidths={columnWidths}
+      renderWidth={renderWidth}
+    >
+      <TableRow>
+        <TableCell />
+        <TableCell />
+        <TableCell />
+      </TableRow>
+    </Table>,
+  );
+};
 
 describe('Renderer - React/Nodes/Table', () => {
   const renderWidth = akEditorDefaultLayoutWidth;
 
   it('should render table DOM with all attributes', () => {
-    const table = mountWithIntl(
-      <Table
-        layout="full-width"
-        isNumberColumnEnabled={true}
-        renderWidth={renderWidth}
-      >
-        <TableRow>
-          <TableCell />
-        </TableRow>
-      </Table>,
-    );
+    const table = mountBasicTable({ renderWidth, layout: 'full-width' });
     expect(table.find('table')).toHaveLength(1);
     expect(table.find('div[data-layout="full-width"]')).toHaveLength(1);
     expect(table.find('table').prop('data-number-column')).toEqual(true);
@@ -37,20 +54,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
   it('should render table props', () => {
     const columnWidths = [100, 110, 120];
-
-    const table = mountWithIntl(
-      <Table
-        layout="default"
-        isNumberColumnEnabled={true}
-        columnWidths={columnWidths}
-        renderWidth={renderWidth}
-      >
-        <TableRow>
-          <TableCell />
-        </TableRow>
-      </Table>,
-    );
-
+    const table = mountBasicTable({ columnWidths, renderWidth });
     expect(table.prop('layout')).toEqual('default');
     expect(table.prop('isNumberColumnEnabled')).toEqual(true);
     expect(table.prop('columnWidths')).toEqual(columnWidths);
@@ -59,64 +63,21 @@ describe('Renderer - React/Nodes/Table', () => {
 
   it('should NOT render a colgroup when columnWidths is an empty array', () => {
     const columnWidths: Array<number> = [];
-
-    const table = mountWithIntl(
-      <Table
-        layout="default"
-        isNumberColumnEnabled={true}
-        columnWidths={columnWidths}
-        renderWidth={renderWidth}
-      >
-        <TableRow>
-          <TableCell />
-          <TableCell />
-          <TableCell />
-        </TableRow>
-      </Table>,
-    );
-
+    const table = mountBasicTable({ columnWidths, renderWidth });
     expect(table.find('colgroup')).toHaveLength(0);
   });
 
   it('should NOT render a colgroup when columnWidths is an array of zeros', () => {
-    const columnWidths: Array<number> = [0, 0, 0];
-
-    const table = mount(
-      <Table
-        layout="default"
-        isNumberColumnEnabled={true}
-        columnWidths={columnWidths}
-        renderWidth={renderWidth}
-      >
-        <TableRow>
-          <TableCell />
-          <TableCell />
-          <TableCell />
-        </TableRow>
-      </Table>,
-    );
-
+    const table = mountBasicTable({ columnWidths: [0, 0, 0] });
     expect(table.find('colgroup')).toHaveLength(0);
   });
 
   it('should render children', () => {
-    const table = mountWithIntl(
-      <Table
-        layout="default"
-        isNumberColumnEnabled={true}
-        renderWidth={renderWidth}
-      >
-        <TableRow>
-          <TableCell />
-          <TableCell />
-        </TableRow>
-      </Table>,
-    );
-
+    const table = mountBasicTable({ renderWidth });
     expect(table.prop('layout')).toEqual('default');
     expect(table.prop('isNumberColumnEnabled')).toEqual(true);
     expect(table.find(TableRow)).toHaveLength(1);
-    expect(table.find(TableCell)).toHaveLength(2);
+    expect(table.find(TableCell)).toHaveLength(3);
   });
 
   describe('When number column is enabled', () => {
@@ -386,47 +347,6 @@ describe('Renderer - React/Nodes/Table', () => {
       expect(table.find('col')).toHaveLength(3);
       table.find('col').forEach((col, index) => {
         const width = columnWidths[index] - columnWidths[index] * 0.15;
-        expect(col.prop('style')!.width).toEqual(`${width}px`);
-      });
-    });
-  });
-
-  describe('tables created when dynamic text sizing is enabled', () => {
-    it('should scale down columns widths that were created at a large breakpoint.', () => {
-      const columnWidths = [81, 425, 253];
-
-      const table = mountWithIntl(
-        <Table
-          layout="default"
-          isNumberColumnEnabled={false}
-          columnWidths={columnWidths}
-          allowDynamicTextSizing={true}
-          renderWidth={847}
-        >
-          <TableRow>
-            <TableCell />
-            <TableCell />
-            <TableCell />
-          </TableRow>
-          <TableRow>
-            <TableCell />
-            <TableCell />
-            <TableCell />
-          </TableRow>
-        </Table>,
-      );
-
-      expect(table.find('col')).toHaveLength(3);
-      // Render width is 680 here since the layout is default, we use that over the actual render width for calculations.
-      const scale = calcScalePercent({
-        renderWidth: 680,
-        tableWidth: 759,
-        maxScale: 0.15,
-      });
-      table.find('col').forEach((col, index) => {
-        const width = Math.floor(
-          columnWidths[index] - columnWidths[index] * scale,
-        );
         expect(col.prop('style')!.width).toEqual(`${width}px`);
       });
     });
@@ -916,6 +836,28 @@ describe('Renderer - React/Nodes/Table', () => {
 
         expectTableOrder(tableState);
       });
+    });
+  });
+
+  describe('table with overflow shadows', () => {
+    it('when columnWidths are not set, should not render shadows', () => {
+      const table = mountBasicTable({ columnWidths: [0, 0, 0] });
+      expect(
+        table.html().includes(shadowObserverClassNames.SENTINEL_LEFT),
+      ).toBeFalsy();
+      expect(
+        table.html().includes(shadowObserverClassNames.SENTINEL_RIGHT),
+      ).toBeFalsy();
+    });
+
+    it('when columnWidths are set should render shadows', () => {
+      const table = mountBasicTable({ columnWidths: [100, 100, 100] });
+      expect(
+        table.html().includes(shadowObserverClassNames.SENTINEL_LEFT),
+      ).toBeTruthy();
+      expect(
+        table.html().includes(shadowObserverClassNames.SENTINEL_RIGHT),
+      ).toBeTruthy();
     });
   });
 });

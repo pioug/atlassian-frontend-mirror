@@ -1,5 +1,7 @@
 import { LogoProps } from './types';
 
+export type { LogoProps };
+
 /**
  * These are the default parameters for LogoProps if the user does not specify values.
  */
@@ -37,5 +39,12 @@ export const sizes = {
  * still work despite `LogoProps` being in a different types.tsx file.
  *
  */
+
+/**
+ * @deprecated This has been renamed, please import `LogoProps` instead.
+ */
 export type Props = LogoProps;
+/**
+ * @deprecated This has been renamed, please import `defaultLogoParams` instead.
+ */
 export const DefaultProps = defaultLogoParams;

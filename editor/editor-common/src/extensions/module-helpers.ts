@@ -1,4 +1,4 @@
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { buildAction } from './manifest-helpers';
 import {

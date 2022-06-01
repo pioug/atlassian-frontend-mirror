@@ -40,6 +40,7 @@ import {
   startMediaFileUfoExperience,
   succeedMediaFileUfoExperience,
 } from './analytics/ufoExperiences';
+import { FileStateFlags } from './components/types';
 
 const ImageViewer = Loadable({
   loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -99,6 +100,10 @@ export class ItemViewerBase extends React.Component<Props, State> {
   state: State = initialState;
 
   private subscription?: MediaSubscription;
+  private fileStateFlags: FileStateFlags = {
+    wasStatusUploading: false,
+    wasStatusProcessing: false,
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (this.needsReset(this.props, nextProps)) {
@@ -127,7 +132,10 @@ export class ItemViewerBase extends React.Component<Props, State> {
       if (isFileStateItem(fileItem)) {
         const fileAttributes = getFileAttributes(fileItem);
         fireAnalytics(createLoadSucceededEvent(fileAttributes), this.props);
-        succeedMediaFileUfoExperience(fileAttributes);
+        succeedMediaFileUfoExperience({
+          fileAttributes,
+          fileStateFlags: this.fileStateFlags,
+        });
       }
     });
   };
@@ -146,7 +154,10 @@ export class ItemViewerBase extends React.Component<Props, State> {
       this.props,
     );
     succeedMediaFileUfoExperience({
-      fileId: 'external-image',
+      fileAttributes: {
+        fileId: 'external-image',
+      },
+      fileStateFlags: this.fileStateFlags,
     });
   };
 
@@ -255,6 +266,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
           fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
           error={error}
           fileState={fileState}
+          fileStateFlags={this.fileStateFlags}
         >
           <p>
             <FormattedMessage {...messages.try_downloading_file} />
@@ -267,6 +279,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
         <ErrorMessage
           fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
           error={error}
+          fileStateFlags={this.fileStateFlags}
         />
       );
     }
@@ -331,6 +344,18 @@ export class ItemViewerBase extends React.Component<Props, State> {
     );
   }
 
+  updateFileStateFlag(fileState?: FileState) {
+    if (!fileState) {
+      return;
+    }
+    const { status } = fileState;
+    if (status === 'processing') {
+      this.fileStateFlags.wasStatusProcessing = true;
+    } else if (status === 'uploading') {
+      this.fileStateFlags.wasStatusUploading = true;
+    }
+  }
+
   private init(props: Props) {
     const { mediaClient, identifier } = props;
 
@@ -353,6 +378,7 @@ export class ItemViewerBase extends React.Component<Props, State> {
       })
       .subscribe({
         next: (file) => {
+          this.updateFileStateFlag(file);
           this.setState({
             item: Outcome.successful(file),
           });

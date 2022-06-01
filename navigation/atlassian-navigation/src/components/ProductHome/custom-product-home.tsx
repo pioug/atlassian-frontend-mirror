@@ -9,8 +9,6 @@ import { useTheme } from '../../theme';
 import { CustomProductHomeProps } from './types';
 import { getTag } from './utils';
 
-const VAR_LOGO_MAX_WIDTH = '--logo-max-width';
-
 const VAR_PRODUCT_HOME_COLOR_ACTIVE = '--product-home-color-active';
 const VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE =
   '--product-home-bg-color-active';
@@ -28,11 +26,6 @@ const productLogoStyles = css({
   // Ensure anything passed into
   // productHome is aligned correctly
   display: 'flex',
-  maxWidth: `var(${VAR_LOGO_MAX_WIDTH})`,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '& > *': {
-    maxHeight: 24,
-  },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
@@ -47,10 +40,6 @@ const productIconStyles = css({
   // Ensure anything passed into
   // productHome is aligned correctly
   display: 'flex',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '& > *': {
-    maxHeight: 24,
-  },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
     display: 'none',
@@ -162,9 +151,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
       >
         {logoUrl && (
           <img
-            style={
-              { [VAR_LOGO_MAX_WIDTH]: logoMaxWidth } as React.CSSProperties
-            }
+            style={{ maxWidth: logoMaxWidth }}
             css={[customMaxHeightStyles, productLogoStyles]}
             src={logoUrl}
             alt={logoAlt}
@@ -173,9 +160,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
         )}
         {iconUrl && (
           <img
-            style={
-              { [VAR_LOGO_MAX_WIDTH]: logoMaxWidth } as React.CSSProperties
-            }
+            style={{ maxWidth: logoMaxWidth }}
             css={[customMaxHeightStyles, productIconStyles]}
             src={iconUrl}
             alt={iconAlt}

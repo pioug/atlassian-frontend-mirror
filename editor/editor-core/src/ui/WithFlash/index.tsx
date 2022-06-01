@@ -2,22 +2,23 @@
 import React from 'react';
 import { css, jsx, keyframes } from '@emotion/react';
 import { R100 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const pulseBackground = keyframes`
   50% {
-    background-color: ${R100};
+    background-color: ${token('color.blanket.danger', R100)};
   }
 `;
 
 const pulseBackgroundReverse = keyframes`
   0% {
-    background-color: ${R100};
+    background-color: ${token('color.blanket.danger', R100)};
   }
   50% {
     background-color: auto;
   }
   100% {
-    background-color: ${R100};
+    background-color: ${token('color.blanket.danger', R100)};
   }
 `;
 

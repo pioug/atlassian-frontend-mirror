@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "10.3.11",
+  "version": "10.4.0",
   "description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -46,11 +46,11 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^20.5.0",
+    "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/progress-indicator": "^9.2.0",
-    "@atlaskit/select": "^15.2.2",
+    "@atlaskit/select": "^15.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

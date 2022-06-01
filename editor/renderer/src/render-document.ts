@@ -13,7 +13,7 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './analytics/enums';
 import { AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
 import { RendererAppearance } from './ui/Renderer/types';
-import { transformMediaLinkMarks } from '@atlaskit/adf-utils';
+import { transformMediaLinkMarks } from '@atlaskit/adf-utils/transforms';
 
 export interface RenderOutput<T> {
   result: T;

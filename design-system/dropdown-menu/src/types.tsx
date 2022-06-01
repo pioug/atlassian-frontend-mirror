@@ -1,6 +1,10 @@
 import { KeyboardEvent, MouseEvent, ReactElement, ReactNode, Ref } from 'react';
 
-import type { MenuGroupProps, SectionProps } from '@atlaskit/menu/types';
+import type {
+  CustomItemProps,
+  MenuGroupProps,
+  SectionProps,
+} from '@atlaskit/menu/types';
 import type { ContentProps, TriggerProps } from '@atlaskit/popup/types';
 
 export type FocusableElement = HTMLAnchorElement | HTMLButtonElement;
@@ -171,6 +175,12 @@ export interface DropdownItemProps {
   children: React.ReactNode;
 
   /**
+   * Custom component to render as an item.
+   */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  component?: CustomItemProps['component'];
+
+  /**
    * Description of the item.
    * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
    */
@@ -228,11 +238,13 @@ export interface DropdownItemProps {
    * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
    */
   elemAfter?: React.ReactNode;
+
   /**
    * The relationship of the linked URL as space-separated link types.
    * Generally you'll want to set this to "noopener noreferrer" when `target` is "_blank".
    */
   rel?: string;
+
   /**
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,

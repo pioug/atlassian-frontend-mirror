@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { B75 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const fakeCursorStyles = css`
   .ProseMirror {
@@ -14,14 +15,14 @@ export const fakeCursorStyles = css`
       display: inline;
       top: 0;
       position: absolute;
-      border-right: 1px solid rgba(0, 0, 0, 0.4);
+      border-right: 1px solid ${token('color.border', 'rgba(0, 0, 0, 0.4)')};
     }
 
     .ProseMirror-fake-text-selection {
       display: inline;
       pointer-events: none;
       position: relative;
-      background-color: ${B75};
+      background-color: ${token('color.background.selected', B75)};
     }
   }
 `;

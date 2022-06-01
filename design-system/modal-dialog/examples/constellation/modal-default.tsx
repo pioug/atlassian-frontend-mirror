@@ -40,7 +40,9 @@ export default function Example() {
               <span css={boldStyles}>Search & Smarts</span> space.
             </ModalBody>
             <ModalFooter>
-              <Button appearance="subtle">Cancel</Button>
+              <Button appearance="subtle" onClick={closeModal}>
+                Cancel
+              </Button>
               <Button appearance="primary" onClick={closeModal} autoFocus>
                 Duplicate
               </Button>

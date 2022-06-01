@@ -4,6 +4,7 @@ import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import Modal, { ModalBody } from '@atlaskit/modal-dialog';
 
 import { RANDOM_USERS } from '../examples-util/data';
+import ExampleImage from '../examples-util/nucleus.png';
 import AvatarGroup from '../src';
 
 export default () => {
@@ -15,6 +16,7 @@ export default () => {
     appearance: 'circle' as AppearanceType,
     size: 'medium' as SizeType,
     enableTooltip: true,
+    src: ExampleImage,
   }));
 
   return (

@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/codemod-utils": "^4.0.0",
+    "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/ds-lib": "^1.4.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0"
@@ -70,7 +70,6 @@
     "./types": "./src/types.tsx",
     "./typography": "./src/typography.tsx"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
@@ -89,5 +88,7 @@
       "deprecation": "no-deprecated-imports",
       "design-system": "v1"
     }
-  }
+  },
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

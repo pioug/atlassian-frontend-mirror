@@ -1,5 +1,92 @@
 # @atlaskit/editor-core
 
+## 167.0.0
+
+### Major Changes
+
+- [`0c808b11322`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c808b11322) - ED-14489 - Add implementation to allow parseDoc.check() to throw exception.
+  This change will crash any apps that use the editor without a React's Error Boundary <ErrorBoundary /> ancestor in certain cases.
+  This changed handling of how the Editor responds when;
+
+  1. Previously it would load an empty document, it will now throw an error. Documents which it will exhibit this new behaviour are;
+
+  - Passing a `defaultValue` which it is unable to understand (e.g. invalid document)
+  - Calling `editorActions.replaceSelection()`
+
+  2. Some actions occur that result in an invalid prosemirror document. These are not expected to be currently occurring, and would generally indicate a bug in the editor.
+
+- [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
+
+### Minor Changes
+
+- [`28ce65e89dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28ce65e89dd) - [ux] ED-14386: Remove special handling for partial table copy paste, so that we still keep the table on paste. Also fixing undo for copy-paste of partial tables.
+- [`39b7001ad4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39b7001ad4e) - [ux] Instrumented `@atlassian/editor-core/ (media plugin)` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`b8f1db6d6a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8f1db6d6a2) - [ux] Extended the use of @atlaskit/tokens theming package to ElementBrowser (inside editor-core package)
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`22425f2620a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22425f2620a) - fix panel icon rendering issue with lazy loaded emoji
+- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+- [`d2da7718823`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2da7718823) - [ux] Fix the experience of backspace on editor with placeholder (Android)
+- [`b0992c06706`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0992c06706) - [ux] ED-14471 backspacing inside an empty panel or blockquote, should not merge into a panel or a blockquote above it.
+- [`8ecd5222731`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ecd5222731) - [ux] Extended use of theming package, `@atlaskit/tokens` across `editor-core/plugins`: `mention`, `date`, `emoji`, `expand`, `layout`, `code-block`, `hyperlink`, `grid`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`6e240912dda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e240912dda) - [ux] Fix the Enter keydown behaviour on Android
+- [`637ed7b07b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/637ed7b07b1) - [ux] Instrumented the general ui packages of `@atlaskit/editor-core` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+- [`55d3e93b205`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d3e93b205) - [ED-13045] Add getSelectedNode API to EditorActions
+
+  This PR introduces a new `getSelectedNode` API to the `EditorActions` module in `editor-core`.
+
+  This method will return the currently selected `Node` if the selection is a `Node`.
+  Otherwise, if the selection is textual or a non-selectable `Node` within another selectable `Node`, the closest selectable parent `Node` will be returned.
+
+  ```
+    const editorActions = new EditorActions();
+    const node = editorActions.getSelectedNode();
+  ```
+
+- [`b8dee69a0d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8dee69a0d6) - [ONECLOUD-433] Notify of promise rejection when autosave in the ConfigPanel fails for any reason, so we can proceed with closing the ConfigPanel
+
+### Patch Changes
+
+- [`c5d17b278f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5d17b278f5) - ED-14998 Fix paste issue in a table inside a bodied extension. Copying and pasting inline nodes inside the table should not create a new table during paste
+- [`4a2048d8751`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a2048d8751) - [ux] extending use of token theming package on Plugin components - /table
+- [`b68e80d658f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b68e80d658f) - add hover previews feature flag
+- [`d5c8e9f1c9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5c8e9f1c9c) - [ux][ed-14949] TypeAhead max height is its default height to prevent horziontal overflow. Height is used to calculate grid size in react-window.
+- [`b73f20ed703`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b73f20ed703) - EDM-3073: Fix collab for media inline and copy-paste regression
+- [`9c170e41064`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c170e41064) - [ux] EDM-2314: Links that are part of a filepath should not resolve to hyperlinks/smart links.
+- [`17480b66f3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17480b66f3e) - [ux][ed-9943] Fix to have the TypeAhead component appear above the main editor toolbar.
+- [`d25c84739af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d25c84739af) - ED-14341 migrate tests and examples to emotion
+- [`b3d7fb93229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3d7fb93229) - [ux] ED-14656 Fix an issue that Typing multi-byte characters in a table duplicates the text in Safari
+- [`c3df9b4fe7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3df9b4fe7f) - [ux] ED-14911 Updated the inline cursor target plugin to add fixes for safari arrow key navigation across inline node views. Also added additional keyboard navigation and selection tests in getInlineNodeViewProducerTestSuite.
+- [`789b211a5e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/789b211a5e5) - Removed the use of :first-child and nth-child selectors in CSS
+- [`45c427e8ac9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45c427e8ac9) - [ux] extending use of token theming package on Plugin components - /alignment, /floating-toolbar, /find-replace, /extension, /help-dialog
+- [`420808687d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/420808687d2) - EDM-3072: fix copy-paste of media inline stuck on loading and renderer copy-paste copying only text
+- [`8300a668772`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8300a668772) - [ux] ED-14488: Extend ADF sanitising coverage to prevent Prosemirror failing validation checks on adf that can be repaired
+- [`e1f853c4415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1f853c4415) - [ux] Set fullpage toolbar to small width when two line editor toolbar is enabled
+- [`fe8f9fc51de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe8f9fc51de) - ED-14732 remove table column controls rendering delay to fix issue with composition events
+- [`2e611fd88b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e611fd88b2) - [ux][ux] extending use of token theming package on other plugin components
+- [`23b8d36fa72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23b8d36fa72) - Adds a token to the background color of the editor toolbar
+- [`be5938bff91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be5938bff91) - Fix block type format across multiple selected table cells
+- [`ed6cdd2d397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed6cdd2d397) - added onfullscreenchange property to media to avoid triggering table resizing when media is in full screen mode
+- [`b6834b8db25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6834b8db25) - ED-14903 Added block node selection test suite to table node, also modified test suite to allow multiple objects to be passed into content
+- [`10d3e380f95`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10d3e380f95) - fix copy-paste issue for media caption
+- [`e61e5524ebb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e61e5524ebb) - [ux] ED-14939 Fixed - Gap cursor blinking between end of panel and end of content
+- [`dd0a9232657`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0a9232657) - [ED-14954][ux] Removes token in the default color value in the custom panel color picker
+- Updated dependencies
+
 ## 166.0.4
 
 ### Patch Changes

@@ -273,6 +273,7 @@ class DynamicTable extends React.Component<Props, State> {
               onChange={this.onSetPage}
               total={totalPages}
               i18n={paginationi18n}
+              testId={testId}
             />
           </PaginationWrapper>
         )}

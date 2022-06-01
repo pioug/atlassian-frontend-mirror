@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
-  waitForLoadedBackgroundImages,
+  waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 
 describe('@atlaskit/comment', () => {
@@ -16,7 +16,7 @@ describe('@atlaskit/comment', () => {
     await loadPage(page, url);
 
     // Wait for avatar to download
-    await waitForLoadedBackgroundImages(page, 'span[role="img"]');
+    await waitForLoadedImageElements(page, 3000);
     // Wait for lock icon and action buttons
     await page.waitForSelector('span[role="presentation"] > svg');
     await page.waitForSelector('button[type="button"]');

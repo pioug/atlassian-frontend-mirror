@@ -1,9 +1,37 @@
 import { keymap } from 'prosemirror-keymap';
-import { ResolvedPos } from 'prosemirror-model';
+import {
+  ResolvedPos,
+  Node as PMNode,
+  Schema,
+  NodeType,
+} from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Transaction } from 'prosemirror-state';
-import { setTextSelection } from 'prosemirror-utils';
+import { Selection, Transaction } from 'prosemirror-state';
+import { setTextSelection, findParentNodeOfType } from 'prosemirror-utils';
 import { Command } from '../../../types';
+import { isEmptyNode } from '../../../utils';
+
+function findParentNode(
+  selection: Selection,
+  nodeType: NodeType,
+): PMNode | null {
+  const parentPosition = findParentNodeOfType(nodeType)(selection);
+
+  if (parentPosition) {
+    return parentPosition.node;
+  }
+
+  return null;
+}
+
+function isInsideAnEmptyNode(
+  selection: Selection,
+  nodeType: NodeType,
+  schema: Schema,
+) {
+  const parentNode = findParentNode(selection, nodeType);
+  return parentNode && isEmptyNode(schema)(parentNode);
+}
 
 // Somewhat broken and subverted: https://product-fabric.atlassian.net/browse/ED-6504
 export function keymapPlugin(): SafePlugin | undefined {
@@ -18,7 +46,7 @@ export function keymapPlugin(): SafePlugin | undefined {
         schema: { nodes },
         tr,
       } = state;
-      const { panel } = nodes;
+      const { panel, blockquote } = nodes;
 
       const { $from, $to } = selection;
       // Don't do anything if selection is a range
@@ -42,7 +70,11 @@ export function keymapPlugin(): SafePlugin | undefined {
       const isParentNodeAPanel = parentNodeType === panel;
 
       // Stops merging panels when deleting empty paragraph in between
-      if (isPreviousNodeAPanel && !isParentNodeAPanel) {
+      if (
+        (isPreviousNodeAPanel && !isParentNodeAPanel) ||
+        isInsideAnEmptyNode(selection, panel, state.schema) ||
+        isInsideAnEmptyNode(selection, blockquote, state.schema)
+      ) {
         const content = $from.node($from.depth).content;
         const insertPos = previousPos.pos - 1;
         deleteCurrentItem($from, tr).insert(insertPos, content);

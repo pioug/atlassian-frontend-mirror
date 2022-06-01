@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.3.9
+
+### Patch Changes
+
+- [`dcf8150c49c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcf8150c49c) - Allow `trigger` props to be applied to any HTML element tag without causing type errors for the `ref` type
+
 ## 1.3.8
 
 ### Patch Changes

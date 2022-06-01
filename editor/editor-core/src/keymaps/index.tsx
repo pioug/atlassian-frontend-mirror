@@ -121,6 +121,8 @@ const arrowKeysMap: Record<string, string> = {
   ARROWDOWN: '\u2193',
 };
 
+// TOOD: https://product-fabric.atlassian.net/browse/DSP-4460
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const tooltipShortcutStyle = css`
   border-radius: 2px;
   background-color: ${N400};
@@ -129,6 +131,7 @@ const tooltipShortcutStyle = css`
   /* stylelint-disable-next-line */
   label: tooltip-shortcut;
 `;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 function formatShortcut(keymap: Keymap): string | undefined {
   let shortcut: string;

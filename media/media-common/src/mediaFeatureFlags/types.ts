@@ -6,8 +6,9 @@ export interface MediaFeatureFlags {
   // We can't yet switch this feature on
   // https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads?: boolean;
-  timestampOnVideo?: boolean;
   observedWidth?: boolean;
+  timestampOnVideo?: boolean;
+  mediaUploadApiV2?: boolean;
 }
 
 export interface WithMediaFeatureFlags {
@@ -25,4 +26,7 @@ export type MediaFeatureFlagsMap = Record<
   string
 >;
 
-export type SupportedProduct = 'confluence' | 'jira';
+export const supportedProducts = ['confluence', 'jira'] as const;
+export type SupportedProduct = typeof supportedProducts[number];
+
+export type ProductKeys = Record<SupportedProduct, MediaFeatureFlagsMap>;

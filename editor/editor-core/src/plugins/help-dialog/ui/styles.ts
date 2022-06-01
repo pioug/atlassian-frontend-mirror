@@ -5,6 +5,7 @@ import {
   akEditorUnitZIndex,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const header = css`
   z-index: ${akEditorUnitZIndex};
@@ -15,8 +16,8 @@ export const header = css`
   justify-content: space-between;
   align-items: center;
   box-shadow: 'none';
-  color: ${colors.N400};
-  background-color: ${colors.N0};
+  color: ${token('color.text', colors.N400)};
+  background-color: ${token('color.background.neutral.subtle', colors.N0)};
   border-radius: ${borderRadius()}px;
 `;
 
@@ -24,7 +25,7 @@ export const footer = css`
   z-index: ${akEditorUnitZIndex};
   font-size: ${relativeFontSizeToBase16(14)};
   line-height: 20px;
-  color: ${colors.N300};
+  color: ${token('color.text.subtlest', colors.N300)};
   padding: 24px;
   text-align: right;
   box-shadow: 'none';
@@ -35,12 +36,12 @@ export const contentWrapper = css`
   border-bottom-right-radius: ${borderRadius()}px;
   overflow: auto;
   position: relative;
-  color: ${colors.N400};
-  background-color: ${colors.N0};
+  color: ${token('color.text.subtle', colors.N400)};
+  background-color: ${token('color.background.neutral.subtle', colors.N0)};
 `;
 
 export const line = css`
-  background: #fff;
+  background: ${token('color.background.neutral.subtle', '#fff')};
   content: '';
   display: block;
   height: 2px;
@@ -80,7 +81,7 @@ export const title = css`
 `;
 
 export const codeSm = css`
-  background-color: ${colors.N20};
+  background-color: ${token('color.background.neutral', colors.N20)};
   border-radius: ${borderRadius()}px;
   width: 24px;
   display: inline-block;
@@ -90,7 +91,7 @@ export const codeSm = css`
 `;
 
 export const codeMd = css`
-  background-color: ${colors.N20};
+  background-color: ${token('color.background.neutral', colors.N20)};
   border-radius: ${borderRadius()}px;
   display: inline-block;
   height: 24px;
@@ -100,7 +101,7 @@ export const codeMd = css`
 `;
 
 export const codeLg = css`
-  background-color: ${colors.N20};
+  background-color: ${token('color.background.neutral', colors.N20)};
   border-radius: ${borderRadius()}px;
   display: inline-block;
   height: 24px;

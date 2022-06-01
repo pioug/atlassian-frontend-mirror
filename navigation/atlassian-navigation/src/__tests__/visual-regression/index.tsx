@@ -12,6 +12,7 @@ const projectsPopup = "[data-testid='Projects-popup']";
 const itServicesButton = "[data-testid='it-services']";
 const createIconButton = "[data-testid='create-cta-icon-button']";
 const createButton = "[data-testid='create-cta-button']";
+const notificationsButton = "[data-testid='notifications-popup-trigger'";
 
 describe('<AtlassianNavigation />', () => {
   const url = getExampleUrl(
@@ -81,6 +82,14 @@ describe('<AtlassianNavigation />', () => {
     const { page } = global;
     await openExamplesAndWaitFor(menuTrigger);
     await page.click(menuTrigger);
+    const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should match iconButton overflow menu with production example', async () => {
+    const { page } = global;
+    await openExamplesAndWaitFor(notificationsButton);
+    await page.click(notificationsButton);
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });

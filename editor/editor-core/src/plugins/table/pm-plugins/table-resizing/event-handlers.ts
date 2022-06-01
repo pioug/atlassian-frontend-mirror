@@ -34,7 +34,6 @@ export const handleMouseDown = (
   view: EditorView,
   event: MouseEvent,
   localResizeHandlePos: number,
-  dynamicTextSizing: boolean,
 ): boolean => {
   const { state, dispatch } = view;
   const { editorDisabled } = editorDisabledPluginKey.getState(state);
@@ -68,9 +67,7 @@ export const handleMouseDown = (
     getLayoutSize(
       dom.getAttribute('data-layout') as TableLayout,
       containerWidth.width,
-      {
-        dynamicTextSizing,
-      },
+      {},
     );
 
   if (originalTable.attrs.isNumberColumnEnabled) {

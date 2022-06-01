@@ -63,6 +63,11 @@ export interface CardOnClickCallback {
 export interface CardEventProps {
   readonly onClick?: CardOnClickCallback;
   readonly onMouseEnter?: (result: CardEvent) => void;
+  /** Callback function to be called when video enters and exit fullscreen.
+   * `fullscreen = true` indicates video enters fullscreen
+   * `fullscreen = false` indicates video exits fullscreen
+   */
+  readonly onFullscreenChange?: (fullscreen: boolean) => void;
 }
 
 export interface CardProps extends SharedCardProps, CardEventProps {

@@ -77,6 +77,7 @@ export const EditorToolbar: React.FunctionComponent<
         dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
         containerElement={props.containerElement}
         hasMinWidth={props.hasMinWidth}
+        twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
       />
     </div>
   );

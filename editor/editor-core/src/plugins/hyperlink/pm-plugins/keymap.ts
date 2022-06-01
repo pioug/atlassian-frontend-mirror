@@ -8,6 +8,7 @@ import { showLinkToolbar, hideLinkToolbar } from '../commands';
 import { Command } from '../../../types';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';
+import { findFilepaths, isLinkInMatches } from '../utils';
 
 export function createKeymapPlugin(
   skipAnalytics: boolean = false,
@@ -56,7 +57,7 @@ const mayConvertLastWordToHyperlink: (skipAnalytics: boolean) => Command = (
 ) => {
   return function (state, dispatch) {
     const nodeBefore = state.selection.$from.nodeBefore;
-    if (!nodeBefore || !nodeBefore.isText) {
+    if (!nodeBefore || !nodeBefore.isText || !nodeBefore.text) {
       return false;
     }
 
@@ -68,13 +69,19 @@ const mayConvertLastWordToHyperlink: (skipAnalytics: boolean) => Command = (
       const hyperlinkedText = match.raw;
       const start = state.selection.$from.pos - hyperlinkedText.length;
       const end = state.selection.$from.pos;
-
       if (state.doc.rangeHasMark(start, end, state.schema.marks.link)) {
         return false;
       }
-
       const url = match.url;
       const markType = state.schema.mark('link', { href: url });
+
+      const filepaths = findFilepaths(
+        nodeBefore.text,
+        start - (nodeBefore.text.length - hyperlinkedText.length), // The position referenced by 'start' is relative to the start of the document, findFilepaths deals with index in a node only.
+      );
+      if (isLinkInMatches(start, filepaths)) {
+        return false;
+      }
 
       const tr = state.tr.addMark(start, end, markType);
       if (dispatch) {

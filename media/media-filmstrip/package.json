@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/media-card": "^73.6.0",
+    "@atlaskit/media-card": "^73.7.0",
     "@atlaskit/media-client": "^16.0.0",
-    "@atlaskit/media-common": "^2.13.0",
+    "@atlaskit/media-common": "^2.14.0",
     "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
     "debounce": "^1.0.0"

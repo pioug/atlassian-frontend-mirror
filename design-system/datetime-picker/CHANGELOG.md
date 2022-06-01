@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 11.1.11
+
+### Patch Changes
+
+- [`558cc136503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/558cc136503) - Bump moment dependency version
+- [`e7438659c2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7438659c2e) - Updated dependency '@types/react-select' to fix type error
+- Updated dependencies
+
 ## 11.1.10
 
 ### Patch Changes

@@ -1,5 +1,72 @@
 # @atlaskit/adf-utils
 
+## 17.0.0
+
+### Major Changes
+
+- [`844b8278b4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/844b8278b4d) - ED-14608: Migrate adf-utils to modern child entry points, remove default entry point, add codemods to enforce migration.
+
+  As we will no longer support the default entry point, imports such as the example below:
+
+  ```
+  import { breakout, scrubAdf, map } from '@atlaskit/adf-utils';
+  ```
+
+  would need to become:
+
+  ```
+  import { breakout } from '@atlaskit/adf-utils/builders';
+  import { scrubADF } from '@atlaskit/adf-utils/scrub';
+  import { map } from '@atlaskit/adf-utils/traverse';
+  ```
+
+  **The new (and only) @atlaskit/adf-utils entry points supported now are listed below:**
+
+  @atlaskit/adf-utils/builders for:
+
+  - breakout, code, em, link, link, strike, strong, strong, subsup, text-color, underline, underline, alignment, indentation, data-consumer fragment, blockquote, bodied-extension, block-card, bullet-list, bullet-list, code-block, date, decision-item, decision-list, doc, emoji, extension, expand, nested-expand, hard-break, hard-break, heading, inline-extension, inline-card, layout-column, layout-section, list-item, list-item, media-group, media-single, media, mention, ordered-list, ordered-list, panel, paragraph, paragraph, placeholder, rule, rule, status, table-cell, table-cell, table-header, table-header, table-row, table-row, table, task-item, task-list, text, embed-card,
+
+  @atlaskit/adf-utils/empty-adf for:
+
+  - getEmptyADF
+
+  @atlaskit/adf-utils/scrub for:
+
+  - scrubAdf
+
+  @atlaskit/adf-utils/transforms for:
+
+  - transformMediaLinkMarks, transformTextLinkCodeMarks, transformDedupeMarks, transformNodesMissingContent, transformIndentationMarks
+
+  @atlaskit/adf-utils/traverse for:
+
+  - traverse, map, reduce, filter
+
+  @atlaskit/adf-utils/validator for:
+
+  - validateAttrs, validator
+
+  @atlaskit/adf-utils/types for:
+
+  - ADFEntityMark, ADFEntity, Visitor, VisitorCollection, EntityParent
+
+  @atlaskit/adf-utils/validatorTypes for:
+
+  - MarkValidationResult, Output, NodeValidationResult, ValidatorContent, AttributesSpec, ValidatorSpec, ValidationErrorMap, RequiredContentLength, Content, ValidationErrorType, ValidationError, ErrorCallback, ValidationMode, ValidationOptions, SpecValidatorResult, Err, ErrorCallbackOptions, Validate
+
+  **Since there are significant changes (including the breaking change of dropping the default entry point to @atlaskit/adf-utils), we will be providing a codemod to help consumers upgrade their usage of adf-utils**
+
+  Once you've upgraded `@atlaskit/adf-utils`, use the Atlaskit codemod CLI.
+
+  `npx @atlaskit/codemod-cli /path/to/target/directory`
+
+  See [documentation on DAC](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for general codemod guidance.
+
+### Patch Changes
+
+- [`8300a668772`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8300a668772) - [ux] ED-14488: Extend ADF sanitising coverage to prevent Prosemirror failing validation checks on adf that can be repaired
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

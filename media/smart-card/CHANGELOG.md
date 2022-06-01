@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 19.1.12
+
+### Patch Changes
+
+- [`b68e80d658f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b68e80d658f) - add hover previews feature flag
+- Updated dependencies
+
 ## 19.1.11
 
 ### Patch Changes

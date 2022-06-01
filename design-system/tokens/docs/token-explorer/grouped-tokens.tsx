@@ -9,22 +9,15 @@ import { getTokenId } from '../../src/utils/token-ids';
  * added as subgroups to their parent tokens.
  */
 const subgroups = [
-  'color.text.accent',
-  'color.icon.accent',
-  'color.border.accent',
-  'color.background.accent',
-  'color.background.selected',
-  'color.background.neutral',
-  'color.background.input',
-  'color.background.brand',
-  'color.background.danger',
-  'color.background.warning',
-  'color.background.success',
-  'color.background.discovery',
-  'color.background.information',
+  'color.text',
+  'color.link',
+  'color.icon',
+  'color.border',
+  'color.background',
+  'color.blanket',
+  'color.skeleton',
   'elevation.surface',
   'elevation.shadow',
-  'color.interaction.inverse',
 ];
 
 /**
@@ -94,27 +87,67 @@ const addToGroup = ({
   return matchingGroup;
 };
 
-const sortByState = (
+const sortBySemantics = (
   a: TransformedTokenExtended,
   b: TransformedTokenExtended,
 ) => {
-  if (a.attributes.state === 'deleted' && b.attributes.state !== 'deleted') {
+  // Shortest paths ordered first
+  if (a.path.length > b.path.length) {
     return 1;
-  }
-  if (b.attributes.state === 'deleted' && a.attributes.state !== 'deleted') {
+  } else if (a.path.length < b.path.length) {
     return -1;
   }
 
+  return 0;
+};
+
+const sortCustomOrder = (
+  a: TransformedTokenExtended,
+  b: TransformedTokenExtended,
+) => {
+  /**
+   * Reorders Color > Link between Text and Border
+   * - Color
+   *   - Text
+   *   - Link
+   *   - Border
+   */
   if (
-    a.attributes.state === 'deprecated' &&
-    b.attributes.state !== 'deprecated'
+    a.path[0] === 'color' &&
+    b.path[0] === 'color' &&
+    a.path[1] !== b.path[1]
   ) {
-    return 1;
+    if (a.path[1] !== 'border' && b.path[1] === 'link') {
+      return 1;
+    } else if (a.path[1] === 'link' && b.path[1] !== 'text') {
+      return -1;
+    }
   }
+
+  /**
+   * Reorders Elevation > Surface before Shadow
+   * - Elevation
+   *   - Surface
+   *   - Shadow
+   */
   if (
-    b.attributes.state === 'deprecated' &&
-    a.attributes.state !== 'deprecated'
+    a.path[0] === 'elevation' &&
+    b.path[0] === 'elevation' &&
+    a.path[1] !== b.path[1]
   ) {
+    if (a.path[1] === 'shadow' && b.path[1] === 'surface') {
+      return 1;
+    } else if (a.path[1] === 'surface' && b.path[1] === 'shadow') {
+      return -1;
+    }
+  }
+
+  /**
+   * Deleted Shadow group always goes last
+   */
+  if (a.path[0] === 'shadow') {
+    return 1;
+  } else if (b.path[0] === 'shadow') {
     return -1;
   }
 
@@ -125,8 +158,8 @@ const groupTokens = (tokens: TransformedToken[]) => {
   const filteredTokens = (tokens.filter(
     (token) => token.attributes && token.attributes.group !== 'palette',
   ) as TransformedTokenExtended[])
-    // Sort by state
-    .sort(sortByState);
+    .sort(sortBySemantics)
+    .sort(sortCustomOrder);
 
   // Relocate extension tokens
   const extendedTokens = filteredTokens.filter((token) => {
@@ -158,9 +191,6 @@ const groupTokens = (tokens: TransformedToken[]) => {
   extendedTokens.forEach((token) => {
     const name = getTokenId(token.name);
 
-    // Drop generic 'color' group
-    const isColor = token.path.length > 0 && token.path[0] === 'color';
-
     const isSubgroup = subgroups.some((subgroup) => name.startsWith(subgroup));
 
     // Add to first level
@@ -168,7 +198,6 @@ const groupTokens = (tokens: TransformedToken[]) => {
       groups: groupedTokens,
       token,
       depth: 1,
-      offsetDepth: isColor,
       final: !isSubgroup,
     });
 
@@ -178,7 +207,6 @@ const groupTokens = (tokens: TransformedToken[]) => {
         groups: groupLevel1.subgroups!,
         token,
         depth: 2,
-        offsetDepth: isColor,
         final: true,
       });
     }

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { B500, B200 } from '@atlaskit/theme/colors';
 import { h700 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 import gridSizeTimes from '../../util/gridSizeTimes';
 
 export const Screen = styled.div`
@@ -40,10 +41,10 @@ export const MainInformationList = styled.ul`
 `;
 
 export const IconHoverWrapper = styled.span`
-  color: ${B500};
+  color: ${token('color.background.information.bold', B500)};
   padding-left: ${gridSizeTimes(0.5)}px;
   &:hover {
-    color: ${B200};
+    color: ${token('color.background.information.bold.hovered', B200)};
   }
 `;
 

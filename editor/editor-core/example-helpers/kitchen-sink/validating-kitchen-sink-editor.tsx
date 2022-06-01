@@ -6,12 +6,12 @@ import { EditorView } from 'prosemirror-view';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import {
-  ADFEntity,
+import type {
   ErrorCallback,
   ValidationError,
-  validator,
-} from '@atlaskit/adf-utils';
+} from '@atlaskit/adf-utils/validatorTypes';
+import { validator } from '@atlaskit/adf-utils/validator';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';

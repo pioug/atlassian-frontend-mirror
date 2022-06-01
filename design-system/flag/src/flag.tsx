@@ -139,16 +139,11 @@ const Flag = (props: FlagProps) => {
     onBlur: onBlurAnalytics,
   };
 
-  let boxShadow = token(
-    'elevation.shadow.overlay',
-    `0 20px 32px -8px ${flagShadowColor}`,
-  );
+  let boxShadowValue = `0 20px 32px -8px ${flagShadowColor}`;
   if (!isBold) {
-    boxShadow = token(
-      'elevation.shadow.overlay',
-      `0 0 1px ${flagBorderColor}, ${boxShadow}`,
-    );
+    boxShadowValue = `0 0 1px ${flagBorderColor}, ${boxShadowValue}`;
   }
+  const boxShadow = token('elevation.shadow.overlay', boxShadowValue);
 
   const { mode } = useGlobalTheme();
 

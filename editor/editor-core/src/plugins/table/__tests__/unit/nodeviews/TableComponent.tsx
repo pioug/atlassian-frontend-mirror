@@ -24,6 +24,13 @@ import {
   pluginKey as stickyHeadersPluginKey,
   StickyPluginState,
 } from '../../../pm-plugins/sticky-headers';
+import { tablesHaveDifferentColumnWidths } from '../../../utils/nodes';
+
+jest.mock('../../../utils/nodes', () =>
+  Object.assign({}, jest.requireActual('../../../utils/nodes'), {
+    tablesHaveDifferentColumnWidths: jest.fn(),
+  }),
+);
 
 // with this jest will load mocked class from the relative __mocks__ folder
 jest.mock('../../../nodeviews/OverflowShadowsObserver');
@@ -289,6 +296,72 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
         wrapper.setProps({});
         expect(overflowShadowsConstructorSpy).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when media fullscreen is changed', () => {
+    function setupTable(isMediaFullscreen: boolean) {
+      const editorData = editor(
+        doc(
+          table()(
+            tr(thEmpty, thEmpty, thEmpty),
+            tr(td()(p('{<>}text')), tdEmpty, tdEmpty),
+          ),
+        ),
+      );
+
+      const view = editorData.editorView;
+      const tableF = findTable(view.state.selection);
+      let triggerDispatcherEvent: { [key: string]: any } = {};
+      const getNode = () => view.state.doc.firstChild!;
+      const tablePos = 0;
+
+      const wrapper = mount(
+        <TableComponent
+          view={view}
+          eventDispatcher={
+            ({
+              on: (key: string, action: Function) => {
+                triggerDispatcherEvent[key] = action;
+              },
+              off: jest.fn(),
+            } as any) as EventDispatcher
+          }
+          // @ts-ignore
+          containerWidth={{}}
+          pluginState={{
+            pluginConfig: {
+              allowControls: false,
+            },
+          }}
+          getPos={() => tablePos}
+          getNode={getNode}
+          node={tableF!.node}
+          contentDOM={(wrapper: HTMLElement | null) => {
+            const node = view.dom.getElementsByTagName('table')[0];
+            if (!wrapper?.firstChild) {
+              wrapper?.appendChild(node);
+            }
+          }}
+          isMediaFullscreen={isMediaFullscreen}
+          allowColumnResizing={true}
+        />,
+      );
+      return { wrapper, view };
+    }
+
+    it('when media is not fullscreen', () => {
+      const wrapper = setupTable(false).wrapper;
+      wrapper.setProps({});
+
+      expect(tablesHaveDifferentColumnWidths).toHaveBeenCalled();
+    });
+
+    it('when media is fullscreen', () => {
+      const wrapper = setupTable(true).wrapper;
+      wrapper.setProps({});
+
+      expect(tablesHaveDifferentColumnWidths).not.toHaveBeenCalled();
     });
   });
 });

@@ -54,7 +54,7 @@ export const useAnnotationStateByTypeEvent = ({
         return;
       }
       const nextStates = Object.values(payload).reduce((acc, curr) => {
-        if (curr.annotationType === type) {
+        if (curr.id && curr.annotationType === type) {
           // Check for empty state to prevent additional renders
           const isEmpty = curr.state === null || curr.state === undefined;
 
@@ -141,10 +141,12 @@ export const useAnnotationClickEvent = (
     }
 
     const cb = ({ annotationIds, eventTarget }: OnAnnotationClickPayload) => {
-      const annotationsByType = annotationIds.map((id) => ({
-        id,
-        type: AnnotationTypes.INLINE_COMMENT,
-      }));
+      const annotationsByType = annotationIds
+        .filter((id) => !!id)
+        .map((id) => ({
+          id,
+          type: AnnotationTypes.INLINE_COMMENT,
+        }));
 
       if (createAnalyticsEvent) {
         createAnalyticsEvent({

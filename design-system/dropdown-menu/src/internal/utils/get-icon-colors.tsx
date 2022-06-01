@@ -5,11 +5,11 @@ const getIconColors = (isSelected: boolean | undefined) => {
   if (isSelected) {
     return {
       primary: token('color.background.brand.bold', B400),
-      secondary: token('elevation.surface', N40),
+      secondary: token('color.icon.inverse', N40),
     };
   }
   return {
-    primary: token('color.border', N40),
+    primary: token('color.background.neutral', N40),
     secondary: token('utility.UNSAFE_util.transparent', N40),
   };
 };

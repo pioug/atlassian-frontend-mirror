@@ -1,5 +1,46 @@
 # @atlaskit/logo
 
+## 13.7.0
+
+### Minor Changes
+
+- [`0793be315f4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0793be315f4) - [ux] This is an update to clearly mark all deprecated Logo exports as deprecated and slated for removal in the next major release. In the next verion we will be removing the following deprecated exports from the main entrypoint:
+
+  - `StrideIcon`, `StrideLogo`, `StrideWordmark`
+  - `HipchatIcon`, `HipchatLogo`, `HipchatWordmark`
+  - `JiraCoreIcon`, `JiraCoreLogo`, `JiraCoreWordmark` (use `JiraWorkManagement` + `Icon`|`Logo`|`Wordmark` instead)
+  - `JiraServiceDeskIcon`, `JiraServiceDeskLogo`, `JiraServiceDeskWordmark` (use `JiraServiceManagement` + `Icon`|`Logo`|`Wordmark` instead)
+  - `OpsGenieIcon`, `OpsGenieLogo`, `OpsGenieWordmark` (use `Opsgenie` with a lowercase 'g' + `Icon`|`Logo`|`Wordmark` instead)
+
+  We will also be removing the following deprecated exports from the `@atlaskit/logo/constants` entrypoint:
+
+  - `Props` (use `LogoProps` instead)
+  - `DefaultProps` (use `defaultLogoParams` instead)
+
+  ## Codemod
+
+  To help with this migration, we have provided a codemod that you can run to automatically update your imports (it will leave a comment if you are using a logo with no alternative). This codemod has been around for a while, but we've updated it in this release.
+
+  Once you've upgraded `@atlaskit/logo`, use the Atlaskit codemod CLI. See [documentation on DAC](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/01-atlassian-codemods/) for general codemod guidance.
+
+  Without setting options in your terminal command, you can run the following and type to search for `logo` and select `@atlaskit/logo: 13.6.0-rename-imports` from the interactive CLI.
+
+  ```
+  npx @atlaskit/codemod-cli [TARGET_PATH]`
+  ```
+
+  For a TypeScript codebase, a more detailed command might look something like this.
+
+  ```
+  npx @atlaskit/codemod-cli --ignore-pattern node_modules --parser tsx --extensions js,jsx,ts,tsx ./packages
+  ```
+
+  For a Flow codebase, you will want to use `--parser babylon` instead of `--parser flow`.
+
+  ## Design System ESLint Plugin
+
+  We've also updated `@atlaskit/eslint-plugin-design-system` to add new restrictions to these imports. If you haven't already, we recommend installing this plugin and enabling the rules in your ESLint config. For now, documentation for the plugin resides on [Bitbucket](https://bitbucket.org/atlassian/atlassian-frontend-mirror/src/master/design-system/eslint-plugin/).
+
 ## 13.6.0
 
 ### Minor Changes

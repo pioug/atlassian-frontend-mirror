@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 16.0.1
+
+### Patch Changes
+
+- [`12d0af77572`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d0af77572) - Store media environment in session storage
+- [`325e210e59f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/325e210e59f) - Revert changes made in MEX-1638-revert-update-media-store-class-with-new-endpoint-parameters
+- [`b73f20ed703`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b73f20ed703) - EDM-3073: Fix collab for media inline and copy-paste regression
+- [`c2ede50a80a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ede50a80a) - Add media region and environment returned from media API response into failed analytic events.
+- Updated dependencies
+
 ## 16.0.0
 
 ### Major Changes

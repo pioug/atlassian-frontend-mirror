@@ -23,6 +23,7 @@ import {
 } from '../../analytics';
 import { filterChildrenBetween } from '../../../utils';
 import { PanelType } from '@atlaskit/adf-schema';
+import { CellSelection } from '@atlaskit/editor-tables';
 
 export type InputMethod =
   | INPUT_METHOD.TOOLBAR
@@ -71,14 +72,17 @@ export function setBlockTypeWithAnalytics(
 
 export function setNormalText(): Command {
   return function (state, dispatch) {
-    const {
-      tr,
-      selection: { $from, $to },
-      schema,
-    } = state;
+    const { selection, schema, tr } = state;
+    const ranges =
+      selection instanceof CellSelection ? selection.ranges : [selection];
+    ranges.forEach(({ $from, $to }) => {
+      tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph);
+    });
+
     if (dispatch) {
-      dispatch(tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph));
+      dispatch(tr);
     }
+
     return true;
   };
 }
@@ -131,16 +135,19 @@ export function setNormalTextWithAnalytics(inputMethod: InputMethod): Command {
 }
 export function setHeading(level: HeadingLevelsAndNormalText): Command {
   return function (state, dispatch) {
-    const {
-      tr,
-      selection: { $from, $to },
-      schema,
-    } = state;
+    const { selection, schema, tr } = state;
+    const ranges =
+      selection instanceof CellSelection ? selection.ranges : [selection];
+    ranges.forEach(({ $from, $to }) => {
+      tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, {
+        level,
+      });
+    });
+
     if (dispatch) {
-      dispatch(
-        tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, { level }),
-      );
+      dispatch(tr);
     }
+
     return true;
   };
 }

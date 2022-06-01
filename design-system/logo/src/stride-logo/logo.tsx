@@ -29,6 +29,9 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
+/**
+ * @deprecated StrideLogo will be removed from atlaskit/logo in the next major release.
+ */
 export const StrideLogo = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,
@@ -39,7 +42,7 @@ export const StrideLogo = ({
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
     warnOnce(
-      'StrideLogo has been deprecated and will be removed from @atlaskit/logo after June 30 2021.',
+      'StrideLogo has been deprecated and will be removed from @atlaskit/logo in the next major release.',
     );
   }
 

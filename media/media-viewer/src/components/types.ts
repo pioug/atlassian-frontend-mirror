@@ -7,6 +7,11 @@ export interface MediaViewerDataSource {
   collectionName?: string;
 }
 
+export type FileStateFlags = {
+  wasStatusProcessing: boolean;
+  wasStatusUploading: boolean;
+};
+
 export interface MediaViewerExtensionsActions {
   close: () => void;
 }

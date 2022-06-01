@@ -1,5 +1,6 @@
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
+import { namedLogoConstantsExports, namedLogoExports } from '../logo-paths';
 import { namedThemeExports, restrictedPaths } from '../paths';
 
 tester.run('no-deprecated-imports', rule, {
@@ -26,6 +27,22 @@ tester.run('no-deprecated-imports', rule, {
     })),
     ...namedThemeExports.map(({ importName, message }) => ({
       code: `import { ${importName} as randomAlias } from '@atlaskit/theme';`,
+      errors: [
+        {
+          message,
+        },
+      ],
+    })),
+    ...namedLogoExports.map(({ importName, message }) => ({
+      code: `import { ${importName} } from '@atlaskit/logo';`,
+      errors: [
+        {
+          message,
+        },
+      ],
+    })),
+    ...namedLogoConstantsExports.map(({ importName, message }) => ({
+      code: `import { ${importName} } from '@atlaskit/logo/constants';`,
       errors: [
         {
           message,

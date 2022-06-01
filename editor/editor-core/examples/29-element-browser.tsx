@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { useCallback } from 'react';
+import { css, jsx } from '@emotion/react';
 import {
   IntlProvider,
   injectIntl,
@@ -36,7 +37,7 @@ const RenderElementBrowser = (
     getItems: (query?: string, category?: string) => QuickInsertItem[];
   } & WrappedComponentProps,
 ) => (
-  <Wrapper>
+  <div css={wrapper}>
     <ElementBrowser
       categories={getCategories(props.intl)}
       getItems={props.getItems}
@@ -46,10 +47,10 @@ const RenderElementBrowser = (
       defaultCategory="all"
       onInsertItem={onInsertItem}
     />
-  </Wrapper>
+  </div>
 );
 
-const Wrapper = styled.div`
+const wrapper = css`
   display: flex;
   height: 100%;
 `;

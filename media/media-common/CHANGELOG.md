@@ -1,5 +1,12 @@
 # @atlaskit/media-common
 
+## 2.14.0
+
+### Minor Changes
+
+- [`bfde909c9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfde909c9b4) - Add new feature flag mediaUploadApiV2
+- [`8d6064cece4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d6064cece4) - Add missing values for the launch darkly feature flags name
+
 ## 2.13.0
 
 ### Minor Changes

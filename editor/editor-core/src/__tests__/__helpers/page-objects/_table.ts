@@ -51,6 +51,7 @@ export const tableSelectors = {
   sortColumnDESC: `Sort column Z → A`,
   splitCellText: `Split cell`,
   tableWrapper: '.ProseMirror .pm-table-wrapper',
+  tableNodeViewWrapper: `${ClassName.NODEVIEW_WRAPPER}`,
   tableOptionsText: `Table options`,
   removeRowButton: `button[title="Delete row"]`,
   removeColumnButton: `button[title="Delete column"]`,

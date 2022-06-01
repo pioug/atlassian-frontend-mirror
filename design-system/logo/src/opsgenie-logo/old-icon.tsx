@@ -49,6 +49,9 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
  * This is the old OpsGenieIcon that was meant to be deprecated but was never removed.
  * This is because it casing it incorrect, it should be Opsgenie, not OpsGenie.
  */
+/**
+ * @deprecated OpsGenieIcon is incorrectly cased and will be removed from atlaskit/logo in the next major release. Please use OpsgenieIcon (no capital 'g') instead.
+ */
 export const OpsGenieIcon = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,
@@ -59,7 +62,7 @@ export const OpsGenieIcon = ({
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
     warnOnce(
-      'OpsGenieIcon will be renamed to OpsgenieIcon after June 30 2021. Please use OpsgenieIcon instead.',
+      'OpsGenieIcon will be renamed to OpsgenieIcon in the next major release. Please use OpsgenieIcon instead.',
     );
   }
 

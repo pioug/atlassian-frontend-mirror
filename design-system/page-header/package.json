@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -38,7 +38,7 @@
     "@atlaskit/inline-edit": "^12.1.0",
     "@atlaskit/page": "^12.1.0",
     "@atlaskit/section-message": "^6.1.0",
-    "@atlaskit/select": "^15.0.0",
+    "@atlaskit/select": "^15.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.1.0",
     "@atlaskit/visual-regression": "*",

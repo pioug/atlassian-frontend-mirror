@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
-import { N400, N800 } from '@atlaskit/theme/colors';
+import { N400, N100 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
 export const panelTextInput = css`
@@ -9,7 +10,7 @@ export const panelTextInput = css`
     border: 0;
     border-radius: 0;
     box-sizing: content-box;
-    color: ${N400};
+    color: ${token('color.text.subtle', N400)};
     flex-grow: 1;
     font-size: ${relativeFontSizeToBase16(13)};
     line-height: 20px;
@@ -26,8 +27,7 @@ export const panelTextInput = css`
     }
 
     &::placeholder {
-      color: ${N800};
-      opacity: 0.5;
+      color: ${token('color.text.subtlest', N100)};
     }
   }
 `;

@@ -1,6 +1,8 @@
 import { FileState, RequestMetadata } from '@atlaskit/media-client';
 import {
   FileAttributes,
+  filterFeatureFlagNames,
+  filterFeatureFlagKeysAllProducts,
   WithFileAttributes,
   FailureAttributes,
   ANALYTICS_MEDIA_CHANNEL,
@@ -23,6 +25,22 @@ export {
   componentName,
   componentName as component,
 };
+
+export const relevantFlags = {
+  newCardExperience: false,
+  captions: false,
+  timestampOnVideo: false,
+  observedWidth: false,
+  mediaInline: false,
+  folderUploads: false,
+  mediaUploadApiV2: false,
+};
+
+export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
+
+export const LOGGED_FEATURE_FLAG_KEYS = filterFeatureFlagKeysAllProducts(
+  relevantFlags,
+);
 
 export function getFileAttributes(fileState?: FileState): FileAttributes {
   if (!fileState) {

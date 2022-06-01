@@ -38,7 +38,10 @@ export default class Popup extends PureComponent<Props, {}> {
     this.popup = document.createElement('div');
     document.body.appendChild(this.popup);
     this.popup.style.position = 'absolute';
-    window.addEventListener('resize', this.handleResize);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.handleResize);
+    }
+
     this.applyAbsolutePosition();
     this.renderContent();
   }
@@ -49,6 +52,9 @@ export default class Popup extends PureComponent<Props, {}> {
   }
 
   componentWillUnmount() {
+    if (typeof window === 'undefined') {
+      return;
+    }
     window.removeEventListener('resize', this.handleResize);
     if (this.popup) {
       ReactDOM.unmountComponentAtNode(this.popup);
@@ -70,6 +76,9 @@ export default class Popup extends PureComponent<Props, {}> {
   }
 
   applyAbovePosition() {
+    if (typeof window === 'undefined') {
+      return;
+    }
     const targetNode = getTargetNode(this.props.target);
     if (targetNode && this.popup) {
       const box = targetNode.getBoundingClientRect();
@@ -82,6 +91,9 @@ export default class Popup extends PureComponent<Props, {}> {
   }
 
   applyAbsolutePosition() {
+    if (typeof window === 'undefined') {
+      return;
+    }
     if (this.props.relativePosition === 'above') {
       this.applyAbovePosition();
     } else if (this.props.relativePosition === 'below') {
@@ -107,6 +119,9 @@ export default class Popup extends PureComponent<Props, {}> {
     if (this.debounced) {
       clearTimeout(this.debounced);
       this.debounced = null;
+    }
+    if (typeof window === 'undefined') {
+      return;
     }
     // Timeout set to 30ms as to not throttle IE11
     this.debounced = window.setTimeout(() => {

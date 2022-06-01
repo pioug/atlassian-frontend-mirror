@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
+/** @jsx jsx */
 import URLSearchParams from 'url-search-params';
-import styled from 'styled-components';
-import React from 'react';
+import { css, jsx } from '@emotion/react';
+import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
@@ -28,13 +29,12 @@ export const getRandomUser = () => {
 const defaultCollabUrl =
   'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
-export const Content: any = styled.div`
+export const content: any = css`
   padding: 0 20px;
   height: 50%;
   background: #fff;
   box-sizing: border-box;
 `;
-Content.displayName = 'Content';
 
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
   const onClickPublish = () => {
@@ -65,18 +65,18 @@ class DropzoneEditorWrapper extends React.Component<
 > {
   dropzoneContainer: HTMLElement | null = null;
 
-  handleRef = (node: HTMLElement) => {
+  handleRef = (node: HTMLDivElement) => {
     this.dropzoneContainer = node;
     this.forceUpdate();
   };
 
   render() {
     return (
-      <Content innerRef={this.handleRef}>
+      <div css={content} ref={this.handleRef}>
         {this.dropzoneContainer
           ? this.props.children(this.dropzoneContainer)
           : null}
-      </Content>
+      </div>
     );
   }
 }
@@ -230,16 +230,16 @@ export default class Example extends React.Component<Props, State> {
                 contentComponents={
                   <WithEditorActions
                     render={(actions) => (
-                      <>
+                      <Fragment>
                         <TitleInput
                           value={this.state.title}
                           provider={collabProvider}
                           onChange={this.handleTitleChange}
-                          onKeyDown={(e: KeyboardEvent) => {
+                          onKeyDown={(e: React.KeyboardEvent) => {
                             this.onKeyPressed(e, actions);
                           }}
                         />
-                      </>
+                      </Fragment>
                     )}
                   />
                 }
@@ -316,7 +316,7 @@ export default class Example extends React.Component<Props, State> {
     });
     console.log('target', event.target);
   };
-  private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
+  private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {
     if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
       // Move to the editor view
       const target = e.currentTarget as HTMLInputElement;
@@ -328,7 +328,10 @@ export default class Example extends React.Component<Props, State> {
     return;
   };
 
-  private handleTitleChange = (e: KeyboardEvent, provider?: Provider) => {
+  private handleTitleChange = (
+    e: React.FormEvent<HTMLTextAreaElement>,
+    provider?: Provider,
+  ) => {
     const title = (e.target as HTMLInputElement).value;
     if (provider) {
       provider.setMetadata({ title });

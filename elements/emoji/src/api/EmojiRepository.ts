@@ -286,6 +286,9 @@ export default class EmojiRepository {
     // the frequent category will not appear until the usage has been tracked (avoiding the possibility of an empty
     // frequent category being shown in the picker).
     if (this.dynamicCategoryList.indexOf(frequentCategory) === -1) {
+      if (typeof window === 'undefined') {
+        return;
+      }
       window.setTimeout(() => {
         this.dynamicCategoryList.push(frequentCategory);
       });

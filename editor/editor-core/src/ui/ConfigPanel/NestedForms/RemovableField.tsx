@@ -7,7 +7,8 @@ import { gridSize } from '@atlaskit/theme/constants';
 
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import Tooltip from '@atlaskit/tooltip';
-import * as colors from '@atlaskit/theme/colors';
+import { N80, R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
 
@@ -26,10 +27,10 @@ const removeButtonWrapper = css`
   top: 0;
   cursor: pointer;
 
-  color: ${colors.N80};
+  color: ${token('color.icon.subtle', N80)};
 
   &:hover {
-    color: ${colors.R300};
+    color: ${token('color.icon.danger', R300)};
   }
 `;
 

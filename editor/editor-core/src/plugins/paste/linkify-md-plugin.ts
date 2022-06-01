@@ -1,5 +1,6 @@
 import { Match, linkifyMatch } from '@atlaskit/adf-schema';
 import LinkifyIt from 'linkify-it';
+import { findFilepaths, isLinkInMatches } from '../hyperlink/utils';
 
 // modified version of the original Linkify plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js
@@ -80,7 +81,12 @@ const linkify = (state: any) => {
         let level = currentToken.level;
         let lastPos = 0;
 
+        const filepaths = findFilepaths(text);
         for (let ln = 0; ln < links.length; ln++) {
+          if (isLinkInMatches(links[ln].index, filepaths)) {
+            continue;
+          }
+
           const { url } = links[ln];
           const fullUrl = state.md.normalizeLink(url);
           if (!state.md.validateLink(fullUrl)) {

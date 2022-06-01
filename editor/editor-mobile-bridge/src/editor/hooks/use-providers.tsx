@@ -9,7 +9,7 @@ import {
 } from '../../providers';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import WebBridgeImpl from '../native-to-web';
-import { useFetchProxy } from '../../utils/fetch-proxy';
+import { fetchProxy } from '../../utils/fetch-proxy';
 import { Client as CardClient, EditorCardProvider } from '@atlaskit/smart-card';
 import { EmojiResource } from '@atlaskit/emoji';
 import { MentionProvider } from '@atlaskit/mention';
@@ -25,14 +25,17 @@ interface Providers {
 }
 
 const useProviders = () => {
-  const fetchProxy = useFetchProxy();
-  const [providers, setProviders] = useState<Providers>({
-    mediaProvider: createMediaProvider(),
-    cardClient: createCardClient(),
-    cardProvider: createCardProvider(),
-    emojiProvider: createEmojiProvider(fetchProxy),
-    mentionProvider: createMentionProvider(),
-    createCollabProvider: createCollabProviderFactory(fetchProxy),
+  const [providers, setProviders] = useState<Providers>(() => {
+    const initialValue: Providers = {
+      mediaProvider: createMediaProvider(),
+      cardClient: createCardClient(),
+      cardProvider: createCardProvider(),
+      emojiProvider: createEmojiProvider(fetchProxy),
+      mentionProvider: createMentionProvider(),
+      createCollabProvider: createCollabProviderFactory(fetchProxy),
+    };
+
+    return initialValue;
   });
 
   const resetProviders = useCallback(() => {
@@ -40,11 +43,11 @@ const useProviders = () => {
       mediaProvider: createMediaProvider(),
       cardClient: createCardClient(),
       cardProvider: createCardProvider(),
-      emojiProvider: createEmojiProvider(fetchProxy),
+      emojiProvider: providers.emojiProvider ?? createEmojiProvider(fetchProxy),
       mentionProvider: createMentionProvider(),
       createCollabProvider: createCollabProviderFactory(fetchProxy),
     });
-  }, [setProviders, fetchProxy]);
+  }, [providers]);
 
   return { providers, resetProviders };
 };

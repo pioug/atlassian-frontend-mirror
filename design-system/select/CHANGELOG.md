@@ -1,5 +1,20 @@
 # @atlaskit/select
 
+## 15.3.0
+
+### Minor Changes
+
+- [`145c9cea461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/145c9cea461) - [ux] Added 2 new props for controlling the open state of PopupSelect:
+
+  - `isOpen` controls whether the popup is open (controlled)
+  - `defaultIsOpen` controls whether the popup is initially open on mount (uncontrolled)
+
+### Patch Changes
+
+- [`db58fa26cbf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db58fa26cbf) - [ux] Updated input tokens within `@atlaskit/select`.
+- [`4624991be21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4624991be21) - [ux] Fixes a regression affecting MacOS Safari. The cursor incorrectly displayed as 'text' rather than 'default' when the pointer was over a select option.
+- [`e7438659c2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7438659c2e) - Updated dependency '@types/react-select' to fix type error
+
 ## 15.2.13
 
 ### Patch Changes

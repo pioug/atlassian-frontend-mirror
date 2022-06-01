@@ -110,8 +110,9 @@ export class Gateway {
         this.completed();
       }
     };
-
-    window.setTimeout(wrappedFunc);
+    if (typeof window !== 'undefined') {
+      window.setTimeout(wrappedFunc);
+    }
 
     return true;
   }

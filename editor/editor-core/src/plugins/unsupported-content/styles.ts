@@ -15,7 +15,7 @@ export const UnsupportedSharedCssClassName = {
   INLINE_CONTAINER: 'unsupportedInlineView-content-wrap',
 };
 
-const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} > span:nth-child(2)`;
+const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} > span:nth-of-type(2)`;
 const blockUnsupportedSelector = `.${UnsupportedSharedCssClassName.BLOCK_CONTAINER} > div`;
 
 export const unsupportedStyles = css`

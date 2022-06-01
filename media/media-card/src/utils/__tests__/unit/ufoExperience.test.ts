@@ -32,6 +32,7 @@ jest.mock('../../../utils/analytics', () => {
         errorDetail: 'description of the error',
       };
     }),
+    LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
   };
 });
 jest.mock('../../../version.json', () => ({
@@ -97,19 +98,13 @@ describe('ufoExperience', () => {
     errorDetail: 'description of the error',
   };
 
-  const featureFlags = [
-    'confluence.media.cards.new.experience',
-    'issue.details.media-cards-new-experience',
-    'confluence.media.picker.folder.uploads',
-  ];
-
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   describe('startUfoExperience', () => {
     it('should start UFO experience with an id', () => {
-      startUfoExperience(id, featureFlags);
+      startUfoExperience(id);
 
       expect(mockGetInstance).toBeCalledTimes(1);
       expect(mockGetInstance).toBeCalledWith('some-id');
@@ -117,11 +112,7 @@ describe('ufoExperience', () => {
       expect(mockConcurrentExperienceConstructor).toBeCalledWith(
         'media-card-render',
         {
-          featureFlagsKeys: [
-            'confluence.media.cards.new.experience',
-            'issue.details.media-cards-new-experience',
-            'confluence.media.picker.folder.uploads',
-          ],
+          featureFlags: ['feature-flag-1', 'feature-flag-2'],
           platform: { component: 'media-card' },
           type: 'experience',
           performanceType: 'inline-result',
@@ -137,7 +128,6 @@ describe('ufoExperience', () => {
           fileAttributes,
           { wasStatusUploading: true, wasStatusProcessing: true },
           ssrReliability,
-          featureFlags,
           undefined,
         );
 
@@ -163,7 +153,6 @@ describe('ufoExperience', () => {
           fileAttributes,
           { wasStatusUploading: false, wasStatusProcessing: false },
           ssrReliability,
-          featureFlags,
           undefined,
         );
 
@@ -190,7 +179,6 @@ describe('ufoExperience', () => {
           fileAttributes,
           { wasStatusUploading: false, wasStatusProcessing: false },
           ssrReliability,
-          featureFlags,
           undefined,
         );
 
@@ -204,7 +192,6 @@ describe('ufoExperience', () => {
           fileAttributes,
           { wasStatusUploading: false, wasStatusProcessing: false },
           ssrReliability,
-          featureFlags,
           new MediaCardError('upload'),
         );
 

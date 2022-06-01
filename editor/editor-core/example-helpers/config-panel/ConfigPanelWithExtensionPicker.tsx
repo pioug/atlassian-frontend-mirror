@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+/** @jsx jsx */
+import { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
@@ -18,17 +19,17 @@ import ConfigPanelWithProviders from './ConfigPanelWithProviders';
 import ExtensionNodePicker, { CallbackParams } from './ExtensionNodePicker';
 import { useStateFromPromise } from '../../src/utils/react-hooks/use-state-from-promise';
 
-const Wrapper = styled.div`
+const wrapper = css`
   margin: 16px;
 `;
 
-const ExampleWrapper = styled.div`
+const exampleWrapper = css`
   display: flex;
   flex-direction: row;
 `;
 
-const Column = styled.div<{ width: number | string }>`
-  width: ${(props) => props.width}px;
+const column = (width: number | string) => css`
+  width: ${width}px;
   margin: ${gridSize() * 2}px;
 
   h3 {
@@ -37,7 +38,7 @@ const Column = styled.div<{ width: number | string }>`
   }
 `;
 
-const CodeWrapper = styled.div`
+const codeWrapper = css`
   margin-top: ${gridSize() * 2}px;
 `;
 
@@ -86,8 +87,8 @@ function ExtensionConfigPanel({
   }
 
   return (
-    <ExampleWrapper>
-      <Column width="400" key="config-panel">
+    <div css={exampleWrapper}>
+      <div css={column(400)} key="config-panel">
         <h3>Config panel:</h3>
         <ConfigPanelWithProviders
           extensionType={extension.type}
@@ -97,19 +98,19 @@ function ExtensionConfigPanel({
           parameters={parameters}
           onChange={setParameters}
         />
-      </Column>
-      <Column width="500" key="parameters">
+      </div>
+      <div css={column(500)} key="parameters">
         <h3>Initial Parameters:</h3>
-        <CodeWrapper>
+        <div css={codeWrapper}>
           {parameters && (
             <TextArea
               onChange={onChangeParametersJson}
               value={parametersJson}
             />
           )}
-        </CodeWrapper>
+        </div>
         <h3>State:</h3>
-        <CodeWrapper>
+        <div css={codeWrapper}>
           {parameters && (
             <CodeBlock
               language="json"
@@ -117,19 +118,19 @@ function ExtensionConfigPanel({
               showLineNumbers={false}
             />
           )}
-        </CodeWrapper>
-      </Column>
-      <Column width="500" key="fields-definition">
+        </div>
+      </div>
+      <div css={column(500)} key="fields-definition">
         <h3>Fields definition:</h3>
-        <CodeWrapper>
+        <div css={codeWrapper}>
           <CodeBlock
             language="json"
             text={JSON.stringify(fields, null, 4)}
             showLineNumbers={false}
           />
-        </CodeWrapper>
-      </Column>
-    </ExampleWrapper>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -167,7 +168,7 @@ export default function ConfigPanelWithExtensionPicker({
 
   return (
     <IntlProvider locale="en-AU">
-      <Wrapper>
+      <div css={wrapper}>
         <div style={{ float: 'left' }} key="panel">
           {extensionNode?.node && item && (
             <ExtensionConfigPanel
@@ -198,7 +199,7 @@ export default function ConfigPanelWithExtensionPicker({
             }}
           />
         </div>
-      </Wrapper>
+      </div>
     </IntlProvider>
   );
 }

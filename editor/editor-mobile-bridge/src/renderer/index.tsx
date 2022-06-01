@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import MobileRenderer from './mobile-renderer-element';
 import { IS_DEV } from '../utils';
@@ -9,8 +9,8 @@ import {
   createExtensionProvider,
 } from '../providers';
 import { createEmojiProvider } from '../providers/emojiProvider';
-import { useFetchProxy } from '../utils/fetch-proxy';
-import { getEmptyADF } from '@atlaskit/adf-utils';
+import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
+import { fetchProxy } from '../utils/fetch-proxy';
 import getBridge from './native-to-web/bridge-initialiser';
 import useRendererConfiguration from './hooks/use-renderer-configuration';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -27,7 +27,6 @@ const initialDocSerialized = JSON.stringify(getEmptyADF());
 
 export const App: React.FC<AppProps> = (props) => {
   const content = useRef<Serialized<JSONDocNode>>('');
-  const fetchProxy = useFetchProxy();
   const rendererBridge = getBridge();
   const rendererConfiguration = useRendererConfiguration(rendererBridge);
 
@@ -41,6 +40,8 @@ export const App: React.FC<AppProps> = (props) => {
 
   const enableConfluenceMobileMacros = getEnableLegacyMobileMacros(); // TODO: use renderer configuration instead of query params
 
+  const [emojiProvider] = useState(() => createEmojiProvider(fetchProxy));
+
   return (
     <MobileRenderer
       allowAnnotations={rendererConfiguration.isAnnotationsAllowed()}
@@ -49,7 +50,7 @@ export const App: React.FC<AppProps> = (props) => {
       disableActions={rendererConfiguration.isActionsDisabled()}
       disableMediaLinking={rendererConfiguration.isMedialinkingDisabled()}
       document={props.document}
-      emojiProvider={createEmojiProvider(fetchProxy)}
+      emojiProvider={emojiProvider}
       locale={rendererConfiguration.getLocale()}
       mediaProvider={createMediaProvider()}
       mentionProvider={createMentionProvider()}

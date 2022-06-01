@@ -29,6 +29,14 @@ import {
   failMediaUploadUfoExperience,
 } from '../ufoExperiences';
 
+jest.mock('../analytics.ts', () => {
+  const actual = jest.requireActual('@atlaskit/ufo');
+  return {
+    ...actual,
+    LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
+  };
+});
+
 describe('ufoExperience', () => {
   const fileAttributes = {
     fileId: 'some-id',
@@ -87,6 +95,7 @@ describe('ufoExperience', () => {
             // We expect the component name to be prefixed with media-picker
             component: 'media-picker-browser',
           }),
+          featureFlags: ['feature-flag-1', 'feature-flag-2'],
         }),
       );
     });

@@ -22,7 +22,6 @@ export interface ScaleOptions {
   previousContainerWidth?: number;
   parentWidth?: number;
   layoutChanged?: boolean;
-  dynamicTextSizing?: boolean;
   isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
 }
@@ -43,7 +42,6 @@ export const scale = (
     node,
     containerWidth,
     previousContainerWidth,
-    dynamicTextSizing,
     prevNode,
     start,
     isBreakoutEnabled,
@@ -51,7 +49,6 @@ export const scale = (
   } = options;
 
   const maxSize = getLayoutSize(node.attrs.layout, containerWidth, {
-    dynamicTextSizing,
     isBreakoutEnabled,
   });
   const prevTableWidth = getTableWidth(prevNode);
@@ -59,7 +56,6 @@ export const scale = (
     prevNode.attrs.layout,
     previousContainerWidth,
     {
-      dynamicTextSizing,
       isBreakoutEnabled,
     },
   );

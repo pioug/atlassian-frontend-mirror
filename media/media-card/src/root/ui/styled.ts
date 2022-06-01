@@ -72,7 +72,8 @@ const getWrapperShadow = (disableOverlay: boolean, selected: boolean) => {
   return shadow ? `box-shadow: ${shadow};` : '';
 };
 
-const getCursorStyle = (cursor: MediaCardCursor) => `cursor: ${cursor};`;
+const getCursorStyle = (cursor: MediaCardCursor | undefined) =>
+  !!cursor ? `cursor: ${cursor};` : '';
 
 const getClickablePlayButtonStyles = (isPlayButtonClickable: boolean) => {
   if (!isPlayButtonClickable) {
@@ -100,13 +101,13 @@ export interface NewFileExperienceWrapperProps {
   dimensions?: CardDimensions;
   appearance?: CardAppearance;
   mediaType?: string;
+  mediaCardCursor?: MediaCardCursor;
   disableOverlay: boolean;
   displayBackground: boolean;
   selected: boolean;
   isPlayButtonClickable: boolean;
   isTickBoxSelectable: boolean;
   shouldDisplayTooltip: boolean;
-  mediaCardCursor: MediaCardCursor;
 }
 
 export const NewFileExperienceWrapper = styled.div`

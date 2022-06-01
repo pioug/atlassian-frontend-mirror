@@ -8,7 +8,8 @@ import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { ButtonList, Container, Group } from '../example-helpers/styled';
+import { ButtonList, Group } from '../example-helpers/styled';
+import { MainWrapper } from '../example-helpers/MainWrapper';
 import {
   docIdentifier,
   largePdfIdentifier,
@@ -212,7 +213,7 @@ export default class Example extends React.Component<{}, State> {
     } = this.state;
     return (
       <I18NWrapper>
-        <Container>
+        <MainWrapper>
           <Group>
             <h2>File lists</h2>
             <ButtonList>
@@ -303,7 +304,7 @@ export default class Example extends React.Component<{}, State> {
               pageSize={5}
             />
           )}
-        </Container>
+        </MainWrapper>
       </I18NWrapper>
     );
   }

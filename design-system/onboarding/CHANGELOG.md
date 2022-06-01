@@ -1,5 +1,15 @@
 # @atlaskit/onboarding
 
+## 10.4.0
+
+### Minor Changes
+
+- [`3124aa6ae24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3124aa6ae24) - The onboarding package now exports a `ModalTransition` component for use with the benefits modal. This resolves an issue that can occur when using `ModalTransition` from a different version of `@atlaskit/modal-dialog` than the one that Onboarding is bringing in.
+
+### Patch Changes
+
+- [`e7ad64befa5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ad64befa5) - [ux] Updated input tokens within `@atlaskit/onboarding`.
+
 ## 10.3.11
 
 ### Patch Changes

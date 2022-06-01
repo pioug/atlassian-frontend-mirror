@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/react';
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox';
 import { Field, Fieldset as AKFieldset, FieldProps } from '@atlaskit/form';
 import { EnumCheckboxField, Option } from '@atlaskit/editor-common/extensions';
+import { token } from '@atlaskit/tokens';
 
 import { ValidationError, OnFieldChange } from '../types';
 import FieldMessages from '../FieldMessages';
@@ -15,7 +16,7 @@ function validate(value: string[] | undefined, isRequired: boolean) {
 }
 
 const requiredIndicator = css`
-  color: #bf2600;
+  color: ${token('color.text.danger', '#bf2600')};
 `;
 
 function CheckboxGroupInner({

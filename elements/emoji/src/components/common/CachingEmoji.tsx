@@ -1,7 +1,7 @@
-import React, { ContextType } from 'react';
+import React, { ContextType, useEffect } from 'react';
 import { PureComponent } from 'react';
 import { isMediaEmoji } from '../../util/type-helpers';
-import { EmojiDescription, EmojiId } from '../../types';
+import { EmojiDescription, EmojiId, UfoEmojiTimings } from '../../types';
 import debug from '../../util/logger';
 import Emoji, { Props as EmojiProps } from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
@@ -36,8 +36,13 @@ export const CachingEmoji = (props: CachingEmojiProps) => {
       emojiProps.emoji.id || emojiProps.emoji.shortName,
     ),
     SAMPLING_RATE_EMOJI_RENDERED_EXP,
-    { source: 'caching-emoji' },
+    { source: 'caching-emoji', emoji: emojiProps.emoji.shortName },
   );
+
+  useEffect(() => {
+    sampledUfoRenderedEmoji(emojiProps.emoji).mark(UfoEmojiTimings.MOUNTED_END);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const emojiNode = () => {
     if (isMediaEmoji(props.emoji)) {
@@ -75,10 +80,6 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
     this.loadEmoji(props.emoji, context);
   }
 
-  componentDidMount() {
-    sampledUfoRenderedEmoji(this.props.emoji).markFMP();
-  }
-
   componentDidUpdate() {
     if (this.props.emoji.shortName !== this.state.cachedEmoji?.shortName) {
       this.loadEmoji(this.props.emoji, this.context);
@@ -101,6 +102,7 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
     }
 
     debug('Loading image via media cache', emoji.shortName);
+    sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.MEDIA_START);
     emojiProvider
       .getMediaEmojiDescriptionURLWithInlineToken(emoji)
       .then((cachedEmoji) => {
@@ -108,6 +110,7 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
           cachedEmoji,
           invalidImage: false,
         });
+        sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.MEDIA_END);
       })
       .catch(() => {
         this.setState({
@@ -131,7 +134,7 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
 
   render() {
     const { cachedEmoji, invalidImage } = this.state;
-    const { children, placeholderSize, ...otherProps } = this.props;
+    const { children, ...otherProps } = this.props;
 
     let emojiComponent;
     if (cachedEmoji && !invalidImage) {

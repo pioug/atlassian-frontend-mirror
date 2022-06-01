@@ -28,6 +28,9 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
+/**
+ * @deprecated HipchatLogo will be removed from @atlaskit/logo in the next major release.
+ */
 export const HipchatLogo = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,

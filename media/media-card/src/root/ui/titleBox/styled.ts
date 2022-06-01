@@ -40,6 +40,8 @@ export const TitleBoxWrapper = styled.div`
       0.8,
     )};
     color: inherit;
+    cursor: inherit;
+    pointer-events: none;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -13,6 +13,7 @@ import {
   DocBuilder,
   mediaSingle,
   media,
+  panelNote,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -43,6 +44,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../../media';
 import selectionPlugin from '../../../selection';
+import { hideCaretModifier } from '../../gap-cursor/styles';
 
 describe('gap-cursor', () => {
   const createEditor = createEditorFactory();
@@ -553,6 +555,27 @@ describe('gap-cursor', () => {
       const { editorView } = editor(doc(p('Praesent ullamcorper natoque')));
       stub.step();
       expect(editorView.state.selection).toBeInstanceOf(TextSelection);
+    });
+  });
+
+  describe('when pressing right arrow from inside of a panel', () => {
+    it('should hide caret only with gap cursor', () => {
+      const { editorView } = editor(doc(panelNote(p('{<>}')), p('text')));
+
+      // Selecting <p />, no gap cursor
+      expect(editorView.dom.classList.contains(hideCaretModifier)).toBe(false);
+
+      // Selecting entire panel, no cap cursor
+      sendKeyToPm(editorView, 'ArrowRight');
+      expect(editorView.dom.classList.contains(hideCaretModifier)).toBe(false);
+
+      // Selecting after the panel, with gap cursor
+      sendKeyToPm(editorView, 'ArrowRight');
+      expect(editorView.dom.classList.contains(hideCaretModifier)).toBe(true);
+
+      // Selecting second <p />, no cap cursor
+      sendKeyToPm(editorView, 'ArrowDown');
+      expect(editorView.dom.classList.contains(hideCaretModifier)).toBe(false);
     });
   });
 });

@@ -1,5 +1,16 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.1.0
+
+### Minor Changes
+
+- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+
+### Patch Changes
+
+- [`dabaf745a2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dabaf745a2d) - Fixes an issue where an anchor macro with an empty anchor name would cause rendering to break on mobile
+- Updated dependencies
+
 ## 2.0.9
 
 ### Patch Changes

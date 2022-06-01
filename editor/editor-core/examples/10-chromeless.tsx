@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import Editor from '../src/editor';
@@ -39,46 +40,50 @@ const exampleDocument = {
 
 export default function Example() {
   return (
-    <EditorContext>
-      <div>
-        <WithEditorActions
-          render={(actions) => (
-            <ButtonGroup>
-              <Button onClick={() => actions.replaceDocument(exampleDocument)}>
-                Load Document
-              </Button>
-              <Button onClick={() => actions.clear()}>Clear</Button>
-            </ButtonGroup>
-          )}
-        />
-        <ToolsDrawer
-          renderEditor={({
-            disabled,
-            mentionProvider,
-            emojiProvider,
-            mediaProvider,
-            taskDecisionProvider,
-            contextIdentifierProvider,
-            onChange,
-          }: any) => (
-            <Editor
-              appearance="chromeless"
-              allowAnalyticsGASV3={true}
-              disabled={disabled}
-              shouldFocus={true}
-              saveOnEnter={true}
-              mentionProvider={mentionProvider}
-              emojiProvider={emojiProvider}
-              taskDecisionProvider={taskDecisionProvider}
-              contextIdentifierProvider={contextIdentifierProvider}
-              media={{ provider: mediaProvider }}
-              onChange={onChange}
-              onSave={SAVE_ACTION}
-              quickInsert={true}
-            />
-          )}
-        />
-      </div>
-    </EditorContext>
+    <IntlProvider locale="en">
+      <EditorContext>
+        <div>
+          <WithEditorActions
+            render={(actions) => (
+              <ButtonGroup>
+                <Button
+                  onClick={() => actions.replaceDocument(exampleDocument)}
+                >
+                  Load Document
+                </Button>
+                <Button onClick={() => actions.clear()}>Clear</Button>
+              </ButtonGroup>
+            )}
+          />
+          <ToolsDrawer
+            renderEditor={({
+              disabled,
+              mentionProvider,
+              emojiProvider,
+              mediaProvider,
+              taskDecisionProvider,
+              contextIdentifierProvider,
+              onChange,
+            }: any) => (
+              <Editor
+                appearance="chromeless"
+                allowAnalyticsGASV3={true}
+                disabled={disabled}
+                shouldFocus={true}
+                saveOnEnter={true}
+                mentionProvider={mentionProvider}
+                emojiProvider={emojiProvider}
+                taskDecisionProvider={taskDecisionProvider}
+                contextIdentifierProvider={contextIdentifierProvider}
+                media={{ provider: mediaProvider }}
+                onChange={onChange}
+                onSave={SAVE_ACTION}
+                quickInsert={true}
+              />
+            )}
+          />
+        </div>
+      </EditorContext>
+    </IntlProvider>
   );
 }

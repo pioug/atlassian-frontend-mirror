@@ -495,6 +495,91 @@ describe('<ItemViewer />', () => {
       expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
     });
 
+    it('should trigger success event when the file is in uploading state and the viewer loads sucessfully', () => {
+      const mediaClient = makeFakeMediaClient(
+        createMediaSubscribable({
+          status: 'uploading',
+          id: identifier.id,
+          name: 'file-name',
+          size: 10,
+          progress: 1,
+          mediaType: 'image',
+          mimeType: 'image/png',
+        }),
+      );
+      const { el } = mountComponent(mediaClient, identifier);
+      el.update();
+
+      expect(asMock(fireAnalytics).mock.calls[1][0]).toEqual({
+        action: 'loadSucceeded',
+        actionSubject: 'mediaFile',
+        attributes: {
+          fileAttributes: {
+            fileId: 'some-id',
+            fileMediatype: 'image',
+            fileMimetype: 'image/png',
+            fileSize: 10,
+          },
+          status: 'success',
+        },
+        eventType: 'operational',
+      });
+      expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: 'image',
+          fileMimetype: 'image/png',
+          fileSize: 10,
+        },
+        fileStateFlags: {
+          wasStatusUploading: true,
+          wasStatusProcessing: false,
+        },
+      });
+    });
+
+    it('should trigger success event when the file is in processing state and the viewer loads sucessfully', () => {
+      const mediaClient = makeFakeMediaClient(
+        createMediaSubscribable({
+          status: 'processing',
+          id: identifier.id,
+          name: 'file-name',
+          size: 10,
+          mediaType: 'image',
+          mimeType: 'image/png',
+        }),
+      );
+      const { el } = mountComponent(mediaClient, identifier);
+      el.update();
+
+      expect(asMock(fireAnalytics).mock.calls[1][0]).toEqual({
+        action: 'loadSucceeded',
+        actionSubject: 'mediaFile',
+        attributes: {
+          fileAttributes: {
+            fileId: 'some-id',
+            fileMediatype: 'image',
+            fileMimetype: 'image/png',
+            fileSize: 10,
+          },
+          status: 'success',
+        },
+        eventType: 'operational',
+      });
+      expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: 'image',
+          fileMimetype: 'image/png',
+          fileSize: 10,
+        },
+        fileStateFlags: {
+          wasStatusUploading: false,
+          wasStatusProcessing: true,
+        },
+      });
+    });
+
     it('should fire load success when external image loads', () => {
       const state: FileState = {
         id: identifier.id,
@@ -527,10 +612,16 @@ describe('<ItemViewer />', () => {
         eventType: 'operational',
       });
       expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
-        fileId: 'external-image',
-        fileMediatype: undefined,
-        fileMimetype: undefined,
-        fileSize: undefined,
+        fileAttributes: {
+          fileId: 'external-image',
+          fileMediatype: undefined,
+          fileMimetype: undefined,
+          fileSize: undefined,
+        },
+        fileStateFlags: {
+          wasStatusUploading: false,
+          wasStatusProcessing: false,
+        },
       });
     });
 
@@ -575,6 +666,10 @@ describe('<ItemViewer />', () => {
       expect(mockfailMediaFileUfoExperience).toBeCalledWith({
         ...errorInfo,
         fileAttributes: fileAttributes,
+        fileStateFlags: {
+          wasStatusProcessing: false,
+          wasStatusUploading: false,
+        },
       });
     });
 
@@ -609,10 +704,16 @@ describe('<ItemViewer />', () => {
         eventType: 'operational',
       });
       expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
-        fileId: 'some-id',
-        fileMediatype: 'image',
-        fileMimetype: 'image/png',
-        fileSize: 10,
+        fileAttributes: {
+          fileId: 'some-id',
+          fileMediatype: 'image',
+          fileMimetype: 'image/png',
+          fileSize: 10,
+        },
+        fileStateFlags: {
+          wasStatusUploading: false,
+          wasStatusProcessing: false,
+        },
       });
     });
 
@@ -662,11 +763,28 @@ describe('<ItemViewer />', () => {
           representations: { image: {} },
         }),
       );
+      const fileAttributes = {
+        fileId: identifier.id,
+        fileMediatype: 'image',
+        fileMimetype: '',
+        fileSize: 10,
+      };
       const { el } = mountBaseComponent(mediaClient, identifier);
       const errorMessage = el.find('ErrorMessage');
       expect(errorMessage).toHaveLength(1);
       const error = errorMessage.prop('error') as Error;
       expect(error.message).toEqual('itemviewer-file-failed-processing-status');
+      expect(mockfailMediaFileUfoExperience).toBeCalledWith({
+        error: undefined,
+        errorDetail: undefined,
+        failReason: error.message,
+        request: undefined,
+        fileAttributes: fileAttributes,
+        fileStateFlags: {
+          wasStatusUploading: false,
+          wasStatusProcessing: false,
+        },
+      });
     });
 
     it('should show error if DocumentViewer fails', async () => {

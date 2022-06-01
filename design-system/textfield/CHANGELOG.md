@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.1.12
+
+### Patch Changes
+
+- [`7c14ea36248`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c14ea36248) - [ux] Updated input tokens within `@atlaskit/textfield`.
+
 ## 5.1.11
 
 ### Patch Changes

@@ -12,7 +12,7 @@ import {
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import Toolbar, { areSameItems, isSameItem, Item } from '../../ui/Toolbar';
 
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import {
   createTestExtensionProvider,
   emptyExtensionProvider,

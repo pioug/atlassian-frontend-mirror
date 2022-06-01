@@ -5,7 +5,7 @@ import {
   FieldDefinition,
 } from '@atlaskit/editor-common/extensions';
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { uuid } from '@atlaskit/adf-schema';
 
 const manifest: ExtensionManifest = {

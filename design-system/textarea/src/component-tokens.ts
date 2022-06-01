@@ -24,9 +24,10 @@ export const disabledBackground = {
   light: token('color.background.disabled', N20),
   dark: token('color.background.disabled', DN20),
 };
+
 export const disabledBorder = {
-  light: token('color.background.disabled', N40),
-  dark: token('color.background.disabled', DN40),
+  light: token('color.border.disabled', N40),
+  dark: token('color.border.disabled', DN40),
 };
 
 export const invalidBorderColor = {
@@ -35,9 +36,10 @@ export const invalidBorderColor = {
 };
 
 export const defaultBorderColor = {
-  light: token('color.border', N40),
-  dark: token('color.border', DN40),
+  light: token('color.border.input', N40),
+  dark: token('color.border.input', DN40),
 };
+
 export const defaultBorderColorFocus = {
   light: token('color.border.focused', B100),
   dark: token('color.border.focused', B75),
@@ -47,13 +49,15 @@ export const defaultBackgroundColor = {
   light: token('color.background.neutral', N10),
   dark: token('color.background.neutral', DN10),
 };
+
 export const defaultBackgroundColorHover = {
-  light: token('elevation.surface', N30),
-  dark: token('elevation.surface', DN30),
+  light: token('color.background.input.hovered', N30),
+  dark: token('color.background.input.hovered', DN30),
 };
+
 export const defaultBackgroundColorFocus = {
-  light: token('elevation.surface', N0),
-  dark: token('elevation.surface', DN10),
+  light: token('color.background.input.pressed', N0),
+  dark: token('color.background.input.pressed', DN10),
 };
 
 // TODO Subtle hover styles not defined in Figma: https://product-fabric.atlassian.net/browse/DSP-1568

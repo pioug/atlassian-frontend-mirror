@@ -29,16 +29,17 @@ import { RECENT_SEARCH_WIDTH_IN_PX } from '../../../../../ui/LinkSearch/ToolbarC
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
+import { token } from '@atlaskit/tokens';
 
 export const CONTAINER_WIDTH_IN_PX = RECENT_SEARCH_WIDTH_IN_PX;
 export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 
 const supportText = css`
-  color: ${N100};
+  color: ${token('color.text.subtlest', N100)};
   font-size: ${relativeFontSizeToBase16(12)};
   padding: 12px 40px;
   line-height: 20px;
-  border-top: 1px solid ${N30};
+  border-top: 1px solid ${token('color.border', N30)};
   margin: 0;
 `;
 
@@ -62,7 +63,7 @@ const validationWrapper = css`
   line-height: 0;
   padding: 12px 24px 12px 0;
   margin: 0 12px 0 40px;
-  border-top: 1px solid ${R400};
+  border-top: 1px solid ${token('color.border.danger', R400)};
   align-items: start;
   flex-direction: column;
 `;
@@ -73,7 +74,7 @@ const buttonWrapper = css`
 `;
 
 const clearText = css`
-  color: ${N80};
+  color: ${token('color.icon.subtle', N80)};
 `;
 
 type Props = {

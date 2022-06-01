@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { N30, N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export interface MentionItemStyleProps {
   selected?: boolean;
@@ -40,7 +41,7 @@ export const nameSectionStyle = css`
   flex: 1;
   min-width: 0;
   margin-left: 14px;
-  color: ${N300};
+  color: ${token('color.text.subtle', N300)};
   opacity: inherit;
 `;
 
@@ -53,7 +54,7 @@ export const mentionItemStyle = css`
 `;
 
 export const mentionItemSelectedStyle = css`
-  background-color: ${N30};
+  background-color: ${token('color.background.neutral.subtle.hovered', N30)};
 `;
 
 export const capitalizedStyle = css`

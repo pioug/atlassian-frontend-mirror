@@ -1,6 +1,5 @@
 import React from 'react';
 import { PureComponent, ReactElement } from 'react';
-import serializeJavascript from 'serialize-javascript';
 import {
   EmojiResource,
   EmojiProvider,
@@ -88,9 +87,7 @@ export default class ResourcedEmojiControl extends PureComponent<Props, State> {
               rows={15}
               style={{ height: '280px', width: '500px' }}
               onChange={this.emojiConfigChange}
-              defaultValue={serializeJavascript(this.props.emojiConfig, {
-                space: 2,
-              }).replace(/\\u002F/g, '/')}
+              defaultValue={JSON.stringify(this.props.emojiConfig, null, 2)}
             />
           </p>
         </div>

@@ -11,6 +11,7 @@ import {
   R200,
 } from '@atlaskit/theme/colors';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 import { sharedExpandStyles } from '@atlaskit/editor-common/ui';
 import {
   SelectionStyle,
@@ -24,27 +25,34 @@ import { BreakoutCssClassName } from '../../breakout/constants';
 import { expandClassNames } from './class-names';
 
 const EXPAND_SELECTED_BACKGROUND = themed({
-  light: 'rgba(255, 255, 255, 0.6)',
-  dark: 'rgba(9, 10, 11, 0.29)',
+  light: token('color.background.neutral.subtle', 'rgba(255, 255, 255, 0.6)'),
+  dark: token('color.background.neutral.subtle', 'rgba(9, 10, 11, 0.29)'),
 });
 
 const EXPAND_ICON_COLOR = (props: ThemeProps) => css`
-  color: ${themed({ light: N80A, dark: '#d9dde3' })(props)};
+  color: ${themed({
+    light: token('color.icon.subtle', N80A),
+    dark: token('color.icon.subtle', '#d9dde3'),
+  })(props)};
 `;
 
-const ACTIVE_STATE_BACKGROUND_COLOR = themed({ dark: `#0C294F4B` });
-const ACTIVE_STATE_BORDER = themed({ dark: `1px solid #4794ff4B` });
+const ACTIVE_STATE_BACKGROUND_COLOR = themed({
+  dark: token('color.blanket.selected', `#0C294F4B`),
+});
+const ACTIVE_STATE_BORDER = themed({
+  dark: `1px solid ${token('color.border.selected', `#4794ff4B`)}`,
+});
 const ACTIVE_STATE_BORDER_RADIUS = themed({ dark: '3px' });
 
 const DANGER_STATE_BACKGROUND_COLOR = themed({
-  light: R50,
-  dark: '#441C13',
+  light: token('color.background.danger', R50),
+  dark: token('color.background.danger', '#441C13'),
 });
 const DANGER_STATE_BORDER = themed({
-  dark: `1px solid ${R200}`,
+  dark: `1px solid ${token('color.border.danger', R200)}`,
 });
 const DANGER_STATE_BORDER_COLOR = themed({
-  light: R300,
+  light: token('color.border.danger', R300),
 });
 const DANGER_STATE_BORDER_RADIUS = themed({
   dark: '3px',
@@ -118,7 +126,10 @@ export const expandStyles = (props: ThemeProps) => css`
 
   .${expandClassNames.expanded} {
     background: ${EXPAND_SELECTED_BACKGROUND(props)};
-    border-color: ${themed({ light: N40A, dark: DN50 })(props)};
+    border-color: ${themed({
+      light: token('color.border', N40A),
+      dark: token('color.border', DN50),
+    })(props)};
 
     .${expandClassNames.content} {
       padding-top: ${gridSize()}px;
@@ -157,7 +168,10 @@ export const expandStyles = (props: ThemeProps) => css`
       border-color: transparent;
 
       &:hover {
-        border-color: ${themed({ light: N50A, dark: DN50 })(props)};
+        border-color: ${themed({
+          light: token('color.border', N50A),
+          dark: token('color.border', DN50),
+        })(props)};
         background: ${EXPAND_SELECTED_BACKGROUND(props)};
       }
     }

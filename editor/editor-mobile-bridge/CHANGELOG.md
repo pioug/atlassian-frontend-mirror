@@ -1,5 +1,19 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.1.0
+
+### Minor Changes
+
+- [`f6a7c770330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6a7c770330) - Fix re-rendering issue when the content is not changed
+- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+- [`68c8e183ac4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68c8e183ac4) - Fix the excessive memory usage caused by redundant emoji requests
+- [`834e51ac432`](https://bitbucket.org/atlassian/atlassian-frontend/commits/834e51ac432) - ME-1873 Do not call updateListState if there is no change in ListState
+- [`0b300878406`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b300878406) - Fix redundant emoji fetching in hybrid renderer and hybrid editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.14
 
 ### Patch Changes

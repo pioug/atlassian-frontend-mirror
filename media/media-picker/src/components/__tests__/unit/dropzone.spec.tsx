@@ -104,6 +104,7 @@ const container = document.createElement('div');
     defaultFeatureFlags: {
       folderUploads: false,
       newCardExperience: false,
+      mediaUploadApiV2: false,
     },
   },
   {
@@ -112,6 +113,7 @@ const container = document.createElement('div');
     defaultFeatureFlags: {
       folderUploads: false,
       newCardExperience: false,
+      mediaUploadApiV2: false,
     },
   },
 ].forEach((data) => {
@@ -492,7 +494,11 @@ const container = document.createElement('div');
             <Dropzone
               mediaClient={mediaClient}
               config={config}
-              featureFlags={{ folderUploads: true, newCardExperience: true }}
+              featureFlags={{
+                folderUploads: true,
+                newCardExperience: true,
+                mediaUploadApiV2: false,
+              }}
             />
             ,
           </AnalyticsListener>,
@@ -508,6 +514,7 @@ const container = document.createElement('div');
             context: expectedContext({
               folderUploads: true,
               newCardExperience: true,
+              mediaUploadApiV2: false,
             }),
             payload: expectedPayload,
           }),

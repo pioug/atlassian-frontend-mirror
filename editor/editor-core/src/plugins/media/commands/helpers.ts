@@ -6,6 +6,7 @@ import type {
   MediaPluginState,
 } from '../pm-plugins/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { EditorState } from 'prosemirror-state';
 
 export const findMediaSingleNode = (
   mediaPluginState: MediaPluginState,
@@ -95,6 +96,11 @@ export const isMobileUploadCompleted = (
     ? mediaPluginState.mobileUploadComplete[mediaId]
     : undefined;
 
+export const isMediaNode = (pos: number, state: EditorState) => {
+  const node = state.doc.nodeAt(pos);
+  return node && ['media', 'mediaInline'].includes(node.type.name);
+};
+
 export const updateAllMediaNodesAttrs = (
   id: string,
   attrs: object,
@@ -110,15 +116,10 @@ export const updateAllMediaNodesAttrs = (
     mediaNodes = mediaGroupNode ? [mediaGroupNode] : [];
   }
 
-  const isMediaNode = (pos: number) => {
-    const node = state.doc.nodeAt(pos);
-    return node && node.type.name === 'media';
-  };
-
   const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
     (acc, { getPos }) => {
       const pos = getPos();
-      if (typeof pos === 'number' && !isMediaNode(pos)) {
+      if (typeof pos === 'number' && !isMediaNode(pos, state)) {
         return acc;
       }
 
@@ -159,8 +160,8 @@ export const updateMediaNodeAttrs = (
 
   const tr = state.tr;
   const pos = mediaNodeWithPos.getPos();
-  const node = tr.doc.nodeAt(pos);
-  if (!node || node.type.name !== 'media') {
+
+  if (!isMediaNode(pos, state)) {
     return false;
   }
 

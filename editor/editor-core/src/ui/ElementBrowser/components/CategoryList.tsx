@@ -23,6 +23,7 @@ import {
   ACTION_SUBJECT_ID,
   ACTION,
 } from '../../../plugins/analytics';
+import { token } from '@atlaskit/tokens';
 
 interface Props {
   categories?: Category[];
@@ -115,9 +116,12 @@ function CategoryListItem({
           marginLeft: '2px',
           height: '100%',
           width: '100%',
-          color: category.name !== selectedCategory ? N800 : B400,
+          color:
+            category.name !== selectedCategory
+              ? token('color.text', N800)
+              : token('color.text.selected', B400),
           ...(category.name === selectedCategory && {
-            background: B50,
+            background: token('color.background.selected', B50),
           }),
         },
         ...rest,

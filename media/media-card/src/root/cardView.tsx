@@ -56,7 +56,7 @@ import { MediaCardCursor } from '../types';
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
   readonly mediaItemType: MediaItemType;
-  readonly mediaCardCursor: MediaCardCursor;
+  readonly mediaCardCursor?: MediaCardCursor;
   readonly metadata?: FileDetails;
   readonly error?: MediaCardError;
   readonly onClick?: (
@@ -115,7 +115,6 @@ export class CardViewBase extends React.Component<
 
   static defaultProps: Partial<CardViewOwnProps> = {
     appearance: 'auto',
-    mediaCardCursor: MediaCardCursor.NoAction,
   };
 
   componentDidMount() {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.9
+
+### Patch Changes
+
+- [`daa1dac9961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daa1dac9961) - Update the @atlaskit/editor-wikimarkup-transformer to use emotion instead of styled and also updated the dependencies
+- Updated dependencies
+
 ## 11.0.8
 
 ### Patch Changes

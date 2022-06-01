@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -45,7 +45,7 @@ import { ResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 
-export const Content = styled.div`
+export const content = css`
   padding: 0 20px;
   height: 100vh;
   background: #fff;
@@ -60,14 +60,13 @@ export const Content = styled.div`
     }
   }
 `;
-Content.displayName = 'Content';
 
-export const Columns = styled.div`
+export const columns = css`
   display: flex;
   flex-direction: row;
 `;
 
-export const Column = styled.div`
+export const column = css`
   flex: 1 1 0;
 `;
 
@@ -178,18 +177,18 @@ class DropzoneEditorWrapper extends React.Component<
 > {
   dropzoneContainer: HTMLElement | null = null;
 
-  handleRef = (node: HTMLElement) => {
+  handleRef = (node: HTMLDivElement) => {
     this.dropzoneContainer = node;
     this.forceUpdate();
   };
 
   render() {
     return (
-      <Content innerRef={this.handleRef}>
+      <div css={content} ref={this.handleRef}>
         {this.dropzoneContainer
           ? this.props.children(this.dropzoneContainer)
           : null}
-      </Content>
+      </div>
     );
   }
 }
@@ -254,6 +253,9 @@ const editorProps = ({
     provider: mediaProvider,
     allowMediaSingle: true,
     customDropzoneContainer: parentContainer,
+    featureFlags: {
+      mediaInline: true,
+    },
   },
   emojiProvider: getEmojiProvider(),
   mentionProvider: Promise.resolve(
@@ -285,8 +287,8 @@ class Example extends React.Component<Props> {
   render() {
     return (
       <div>
-        <Columns>
-          <Column>
+        <div css={columns}>
+          <div css={column}>
             <DropzoneEditorWrapper>
               {(parentContainer) => (
                 <EditorContext>
@@ -301,8 +303,8 @@ class Example extends React.Component<Props> {
                 </EditorContext>
               )}
             </DropzoneEditorWrapper>
-          </Column>
-          <Column>
+          </div>
+          <div css={column}>
             <DropzoneEditorWrapper>
               {(parentContainer) => (
                 <EditorContext>
@@ -318,8 +320,8 @@ class Example extends React.Component<Props> {
                 </EditorContext>
               )}
             </DropzoneEditorWrapper>
-          </Column>
-        </Columns>
+          </div>
+        </div>
       </div>
     );
   }

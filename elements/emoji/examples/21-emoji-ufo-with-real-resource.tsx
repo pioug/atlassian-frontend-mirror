@@ -13,21 +13,24 @@ import {
 } from '../src/util/constants';
 import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
+import { RenderSpriteEmojis } from './23-sprite-emoji';
 /**
  * The publisher will be set up in product side in the real world
  * We add it in the example here so we can see events coming from UFO in the console
  */
-payloadPublisher.setup({
-  product: 'examples',
-  gasv3: {
-    sendOperationalEvent: (event) => {
-      console.log('sendOperationalEvent:', event);
+if (typeof window !== 'undefined') {
+  payloadPublisher.setup({
+    product: 'examples',
+    gasv3: {
+      sendOperationalEvent: (event) => {
+        console.log('sendOperationalEvent:', event);
+      },
     },
-  },
-  app: { version: { web: 'unknown' } },
-});
+    app: { version: { web: 'unknown' } },
+  });
 
-ufologger.enable();
+  ufologger.enable();
+}
 
 const provider = getRealEmojiResource();
 
@@ -53,6 +56,9 @@ export default () => (
             </p>
             <br />
             <RenderRealResourcedEmojis emailProvider={provider} />
+            <hr />
+            <h4>Sprite Emoji:</h4>
+            <RenderSpriteEmojis />
             <hr />
             <h4>Emoji Typeahead:</h4>
             <EmojiTypeAheadTextInput

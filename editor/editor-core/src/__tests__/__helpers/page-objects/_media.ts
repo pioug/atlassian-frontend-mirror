@@ -240,8 +240,6 @@ export type TestPageConfig = {
     width: number;
     height: number;
   };
-
-  dynamicTextSizing: boolean;
 };
 
 export class FullPageEditor extends Page {

@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
 import Select from '@atlaskit/select';
 
 import { EditorAppearance } from '../../src/types';
 import FullWidthToggle from '../full-width-toggle';
-import { Controls, Container, Column } from './kitchen-sink-styles';
+import { controls, container, column } from './kitchen-sink-styles';
 import { formatAppearanceOption } from './format-appearance-options';
 import { selectStyles } from './select-styles';
 
@@ -88,7 +90,7 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
     ]);
 
     return (
-      <Controls>
+      <div css={controls}>
         <Select
           formatOptionLabel={formatAppearanceOption}
           options={props.appearanceOptions}
@@ -98,8 +100,8 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
           onChange={({ value }: any) => props.onAppearanceChange(value)}
           styles={selectStyles}
         />
-        <Container>
-          <Column>
+        <div css={container({})}>
+          <div css={column}>
             <Select
               formatOptionLabel={formatAppearanceOption}
               options={props.docOptions}
@@ -107,8 +109,9 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
               placeholder="Load an example document..."
               styles={selectStyles}
             />
-          </Column>
-          <Column
+          </div>
+          <div
+            css={column}
             style={{
               flex: 0,
               alignItems: 'center',
@@ -163,9 +166,9 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
             >
               {!props.adfEnabled ? 'Show' : 'Hide'} current ADF
             </Button>
-          </Column>
-        </Container>
-      </Controls>
+          </div>
+        </div>
+      </div>
     );
   },
 );

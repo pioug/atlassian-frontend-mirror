@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -79,104 +80,105 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
     }
 
     return (
-      <EditorContext>
-        <div>
-          <WithEditorActions
-            render={(actions) => (
-              <ButtonGroup>
-                <Button
-                  onClick={() =>
-                    actions.replaceDocument(
-                      this.props.replacementDoc || exampleDocument,
-                    )
-                  }
-                >
-                  Load Document
-                </Button>
-                <Button onClick={() => actions.clear()}>Clear</Button>
-              </ButtonGroup>
-            )}
-          />
-          <ToolsDrawer
-            renderEditor={({
-              mentionProvider,
-              emojiProvider,
-              mediaProvider,
-              activityProvider,
-              taskDecisionProvider,
-              contextIdentifierProvider,
-              onChange,
-              disabled,
-              enabledFeatures,
-            }: any) => (
-              <div style={{ padding: '20px' }}>
-                <CollapsedEditor
-                  placeholder="What do you want to say?"
-                  isExpanded={this.state.isExpanded}
-                  onFocus={this.onFocus}
-                  onExpand={EXPAND_ACTION}
-                >
-                  <Editor
-                    appearance="comment"
-                    placeholder="What do you want to say?"
-                    allowAnalyticsGASV3={true}
-                    shouldFocus={true}
-                    quickInsert={true}
-                    allowTextColor={true}
-                    allowRule={true}
-                    allowTables={{
-                      allowControls: true,
-                    }}
-                    allowHelpDialog={true}
-                    disabled={disabled}
-                    activityProvider={activityProvider}
-                    mentionProvider={mentionProvider}
-                    emojiProvider={emojiProvider}
-                    media={{
-                      provider: mediaProvider,
-                      allowMediaSingle: true,
-                      allowResizing: true,
-                    }}
-                    allowDynamicTextSizing={enabledFeatures.dynamicTextSizing}
-                    taskDecisionProvider={taskDecisionProvider}
-                    contextIdentifierProvider={contextIdentifierProvider}
-                    onChange={onChange}
-                    onSave={SAVE_ACTION}
-                    onCancel={CANCEL_ACTION}
-                    feedbackInfo={{
-                      product: 'bitbucket',
-                      packageVersion: version,
-                      packageName: name,
-                      labels: ['atlaskit-comment'],
-                    }}
-                    primaryToolbarComponents={
-                      <>
-                        <ToolbarFeedback
-                          product="bitbucket"
-                          key="toolbar-feedback"
-                        />
-                        <ToolbarHelp key="toolbar-help" />
-                      </>
+      <IntlProvider locale="en">
+        <EditorContext>
+          <div>
+            <WithEditorActions
+              render={(actions) => (
+                <ButtonGroup>
+                  <Button
+                    onClick={() =>
+                      actions.replaceDocument(
+                        this.props.replacementDoc || exampleDocument,
+                      )
                     }
-                    allowExtension={true}
-                    insertMenuItems={customInsertMenuItems}
-                    extensionHandlers={extensionHandlers}
-                    secondaryToolbarComponents={[
-                      <LockCircleIcon
-                        key="permission"
-                        size="large"
-                        label="Permissions"
-                      />,
-                    ]}
-                    {...this.props.editorProps}
-                  />
-                </CollapsedEditor>
-              </div>
-            )}
-          />
-          <DevTools />
-        </div>
-      </EditorContext>
+                  >
+                    Load Document
+                  </Button>
+                  <Button onClick={() => actions.clear()}>Clear</Button>
+                </ButtonGroup>
+              )}
+            />
+            <ToolsDrawer
+              renderEditor={({
+                mentionProvider,
+                emojiProvider,
+                mediaProvider,
+                activityProvider,
+                taskDecisionProvider,
+                contextIdentifierProvider,
+                onChange,
+                disabled,
+                enabledFeatures,
+              }: any) => (
+                <div style={{ padding: '20px' }}>
+                  <CollapsedEditor
+                    placeholder="What do you want to say?"
+                    isExpanded={this.state.isExpanded}
+                    onFocus={this.onFocus}
+                    onExpand={EXPAND_ACTION}
+                  >
+                    <Editor
+                      appearance="comment"
+                      placeholder="What do you want to say?"
+                      allowAnalyticsGASV3={true}
+                      shouldFocus={true}
+                      quickInsert={true}
+                      allowTextColor={true}
+                      allowRule={true}
+                      allowTables={{
+                        allowControls: true,
+                      }}
+                      allowHelpDialog={true}
+                      disabled={disabled}
+                      activityProvider={activityProvider}
+                      mentionProvider={mentionProvider}
+                      emojiProvider={emojiProvider}
+                      media={{
+                        provider: mediaProvider,
+                        allowMediaSingle: true,
+                        allowResizing: true,
+                      }}
+                      taskDecisionProvider={taskDecisionProvider}
+                      contextIdentifierProvider={contextIdentifierProvider}
+                      onChange={onChange}
+                      onSave={SAVE_ACTION}
+                      onCancel={CANCEL_ACTION}
+                      feedbackInfo={{
+                        product: 'bitbucket',
+                        packageVersion: version,
+                        packageName: name,
+                        labels: ['atlaskit-comment'],
+                      }}
+                      primaryToolbarComponents={
+                        <>
+                          <ToolbarFeedback
+                            product="bitbucket"
+                            key="toolbar-feedback"
+                          />
+                          <ToolbarHelp key="toolbar-help" />
+                        </>
+                      }
+                      allowExtension={true}
+                      insertMenuItems={customInsertMenuItems}
+                      extensionHandlers={extensionHandlers}
+                      secondaryToolbarComponents={[
+                        <LockCircleIcon
+                          key="permission"
+                          size="large"
+                          label="Permissions"
+                        />,
+                      ]}
+                      {...this.props.editorProps}
+                    />
+                  </CollapsedEditor>
+                </div>
+              )}
+            />
+            <DevTools />
+          </div>
+        </EditorContext>
+      </IntlProvider>
     );
   }
 

@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 import {
   blockNodesVerticalMargin,
   akEditorTableCellMinWidth,
@@ -18,6 +17,7 @@ import {
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { codeBlockClassNames } from './ui/class-names';
 
@@ -25,13 +25,16 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .code-block {
     position: relative;
     background-image: ${overflowShadow({
+      // TODO: https://product-fabric.atlassian.net/browse/DSP-4118
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       background: themed({ light: colors.N20, dark: colors.DN50 })(props),
       width: '8px',
     })};
     background-repeat: no-repeat;
-    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })(
-      props,
-    )};
+    background-color: ${themed({
+      light: token('color.background.neutral', colors.N20),
+      dark: token('color.background.neutral', colors.DN50),
+    })(props)};
 
     --ds--code--bg-color: transparent;
 
@@ -51,11 +54,15 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
       /* https://bitbucket.org/atlassian/atlassian-frontend/src/develop/packages/design-system/code/src/themes/themeBuilder.ts#packages/design-system/code/src/themes/themeBuilder.ts-19:28 */
       flex-shrink: 0;
       text-align: right;
-      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })(
-        props,
-      )};
+      background-color: ${themed({
+        light: token('color.background.neutral', colors.N30),
+        dark: token('color.background.neutral', colors.DN20),
+      })(props)};
       padding: ${gridSize()}px;
-      color: ${themed({ light: colors.N90, dark: colors.DN90 })(props)};
+      color: ${themed({
+        light: token('color.text.subtlest', colors.N90),
+        dark: token('color.text.subtlest', colors.DN90),
+      })(props)};
 
       span {
         display: block;
@@ -68,7 +75,10 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
           counter-increment: line;
           font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 1.5rem;
-          color: ${themed({ light: colors.N400, dark: colors.DN400 })(props)};
+          color: ${themed({
+            light: token('color.text.subtle', colors.N400),
+            dark: token('color.text.subtle', colors.DN400),
+          })(props)};
         }
       }
     }
@@ -119,9 +129,10 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
       &:not([data-debounce='true']) {
         > code:not([data-language='plaintext']):not([data-language='none']):not([data-language='']) {
           color: transparent;
-          caret-color: ${themed({ light: colors.N800, dark: colors.DN500 })(
-            props,
-          )};
+          caret-color: ${themed({
+            light: token('color.text', colors.N800),
+            dark: token('color.text', colors.DN500),
+          })(props)};
         }
       }
     }
@@ -141,7 +152,7 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
       ${token('color.border.danger', akEditorDeleteBorder)};
 
     .${codeBlockClassNames.gutter} {
-      background-color: ${colors.R75};
+      background-color: ${token('color.blanket.danger', colors.R75)};
       color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
@@ -156,12 +167,18 @@ export const highlightingCodeBlockStyles = (props: ThemeProps) => css`
   /* Danger when nested node */
   .ProseMirror .danger .code-block {
     .${codeBlockClassNames.gutter} {
-      background-color: rgba(255, 143, 115, 0.5);
+      background-color: ${token(
+        'color.blanket.danger',
+        'rgba(255, 143, 115, 0.5)',
+      )};
       color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
     .${codeBlockClassNames.content} {
-      background-color: rgba(255, 189, 173, 0.5);
+      background-color: ${token(
+        'color.background.danger',
+        'rgba(255, 189, 173, 0.5)',
+      )};
     }
   }
 `;
@@ -170,6 +187,8 @@ export const codeBlockStyles = (props: ThemeProps) => css`
   .ProseMirror .code-block {
     position: relative;
     background-image: ${overflowShadow({
+      // TODO: https://product-fabric.atlassian.net/browse/DSP-4118
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       background: themed({ light: colors.N20, dark: colors.DN50 })(props),
       width: '8px',
     })};
@@ -177,9 +196,10 @@ export const codeBlockStyles = (props: ThemeProps) => css`
     --ds--code--bg-color: transparent;
 
     background-repeat: no-repeat;
-    background-color: ${themed({ light: colors.N20, dark: colors.DN50 })(
-      props,
-    )};
+    background-color: ${themed({
+      light: token('color.background.neutral', colors.N20),
+      dark: token('color.background.neutral', colors.DN50),
+    })(props)};
     background-attachment: local, scroll, scroll;
     background-size: 8px 100%, 8px 100%, 8px 100%;
     background-position: 100% 0, 100% 0, 0 0;
@@ -196,9 +216,10 @@ export const codeBlockStyles = (props: ThemeProps) => css`
       /* https://bitbucket.org/atlassian/atlassian-frontend/src/develop/packages/design-system/code/src/themes/themeBuilder.ts#packages/design-system/code/src/themes/themeBuilder.ts-19:28 */
       flex-shrink: 0;
       text-align: right;
-      background-color: ${themed({ light: colors.N30, dark: colors.DN20 })(
-        props,
-      )};
+      background-color: ${themed({
+        light: token('color.background.neutral', colors.N30),
+        dark: token('color.background.neutral', colors.DN20),
+      })(props)};
       padding: ${gridSize()}px;
 
       span {
@@ -212,7 +233,10 @@ export const codeBlockStyles = (props: ThemeProps) => css`
           counter-increment: line;
           font-size: ${relativeFontSizeToBase16(fontSize())};
           line-height: 1.5rem;
-          color: ${themed({ light: colors.N400, dark: colors.DN400 })(props)};
+          color: ${themed({
+            light: token('color.text', colors.N400),
+            dark: token('color.text', colors.DN400),
+          })(props)};
         }
       }
     }
@@ -228,7 +252,10 @@ export const codeBlockStyles = (props: ThemeProps) => css`
         /* https://bitbucket.org/atlassian/atlassian-frontend/src/218202daeaf527262c21841e6f88fa058d349ad4/packages/design-system/code/src/themes/themeBuilder.ts#lines-12:17 */
         font-size: ${relativeFontSizeToBase16(fontSize())};
         line-height: 1.5rem;
-        color: ${themed({ light: colors.N800, dark: colors.DN800 })(props)};
+        color: ${themed({
+          light: token('color.text', colors.N800),
+          dark: token('color.text', colors.DN800),
+        })(props)};
         border-radius: ${borderRadius()}px;
         margin: ${gridSize()}px;
         white-space: pre;
@@ -246,11 +273,10 @@ export const codeBlockStyles = (props: ThemeProps) => css`
 
   /* Danger when top level node */
   .ProseMirror .danger.code-block {
-    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
-      ${token('color.border.danger', akEditorDeleteBorder)};
+    box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
 
     .${codeBlockClassNames.gutter} {
-      background-color: ${colors.R75};
+      background-color: ${token('color.blanket.danger', colors.R75)};
       color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
@@ -265,12 +291,18 @@ export const codeBlockStyles = (props: ThemeProps) => css`
   /* Danger when nested node */
   .ProseMirror .danger .code-block {
     .${codeBlockClassNames.gutter} {
-      background-color: rgba(255, 143, 115, 0.5);
+      background-color: ${token(
+        'color.blanket.danger',
+        'rgba(255, 143, 115, 0.5)',
+      )};
       color: ${token('color.text.danger', akEditorDeleteIconColor)};
     }
 
     .${codeBlockClassNames.content} {
-      background-color: rgba(255, 189, 173, 0.5);
+      background-color: ${token(
+        'color.background.danger',
+        'rgba(255, 189, 173, 0.5)',
+      )};
     }
   }
 `;

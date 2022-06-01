@@ -15,6 +15,7 @@ import {
   textColorStyles,
 } from '@atlaskit/editor-common/styles';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import { unsupportedStyles } from '../../plugins/unsupported-content/styles';
 import { telepointerStyle } from '../../plugins/collab-edit/styles';
@@ -86,7 +87,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   }
 
   .ProseMirror-selectednode:empty {
-    outline: 2px solid #8cf;
+    outline: 2px solid ${token('color.border.focused', '#8cf')};
   }
 
   ${placeholderTextStyles}
@@ -166,7 +167,7 @@ const contentStyles = (props: ContentStylesProps) => css`
 
   .pm-table-header-content-wrap,
   .pm-table-cell-content-wrap div.fabric-editor-block-mark {
-    p:first-child {
+    p:first-of-type {
       margin-top: 0;
     }
   }

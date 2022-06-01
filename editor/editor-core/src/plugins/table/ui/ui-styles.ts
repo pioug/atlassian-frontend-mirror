@@ -45,6 +45,7 @@ import {
 import { TableCssClassName as ClassName } from '../types';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 const InsertLine = (cssString?: string) => css`
   .${ClassName.CONTROLS_INSERT_LINE} {
@@ -120,7 +121,7 @@ export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
   }
 
   .active .${ClassName.CONTROLS_BUTTON} {
-    color: ${N0};
+    color: ${token('color.icon.inverse', N0)};
     background-color: ${tableToolbarSelectedColor};
     border-color: ${tableBorderSelectedColor};
   }
@@ -128,7 +129,7 @@ export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
 
 export const HeaderButtonHover = () => css`
   .${ClassName.CONTROLS_BUTTON}:hover {
-    color: ${N0};
+    color: ${token('color.icon.inverse', N0)};
     background-color: ${tableToolbarSelectedColor};
     border-color: ${tableBorderSelectedColor};
     cursor: pointer;
@@ -157,9 +158,12 @@ const InsertButton = () => css`
   }
   .${ClassName.CONTROLS_INSERT_BUTTON} {
     ${Button(`
-      background: white;
-      box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
-      color: ${N300};
+      background: ${token('elevation.surface.overlay', 'white')};
+      box-shadow: ${token(
+        'elevation.shadow.overlay',
+        `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
+      )};
+      color: ${token('color.icon', N300)};
     `)}
   }
   .${ClassName.CONTROLS_INSERT_LINE} {
@@ -172,8 +176,8 @@ const InsertButton = () => css`
 
 const InsertButtonHover = () => css`
   .${ClassName.CONTROLS_INSERT_BUTTON}:hover {
-    background: ${B300};
-    color: white;
+    background: ${token('color.background.brand.bold', B300)};
+    color: ${token('color.icon.inverse', 'white')};
     cursor: pointer;
   }
 `;
@@ -200,11 +204,11 @@ export const insertRowButtonWrapper = css`
 export const columnControlsLineMarker = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}
     table
-    tr:first-child
+    tr:first-of-type
     td,
   .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}
     table
-    tr:first-child
+    tr:first-of-type
     th {
     position: relative;
 
@@ -226,19 +230,21 @@ export const DeleteButton = css`
   .${ClassName.CONTROLS_DELETE_BUTTON_WRAP} {
     .${ClassName.CONTROLS_DELETE_BUTTON} {
       ${Button(`
-        background: ${N20A};
-        color: ${N300};
+        background: ${token('color.background.neutral', N20A)};
+        color: ${token('color.icon', N300)};
       `)}
     }
   }
 
   .${ClassName.CONTROLS_DELETE_BUTTON}:hover {
-    background: ${R300};
-    color: white;
+    background: ${token('color.background.danger.bold', R300)};
+    color: ${token('color.icon.inverse', 'white')};
     cursor: pointer;
   }
 `;
 
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4451
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const OverflowShadow = (props: ThemeProps) => css`
   .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
     display: block;
@@ -281,6 +287,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
     }
   }
 `;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
   background: ${tableToolbarColor(props)};
@@ -297,7 +304,7 @@ const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
 `;
 
 const columnHeaderButtonSelected = css`
-  color: ${N0};
+  color: ${token('color.text.inverse', N0)};
   background-color: ${tableToolbarSelectedColor};
   border-color: ${tableBorderSelectedColor};
   z-index: ${columnControlsSelectedZIndex};
@@ -339,10 +346,10 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
   }
 
   table
-    tr:first-child
+    tr:first-of-type
     td.${ClassName.TABLE_CELL},
     table
-    tr:first-child
+    tr:first-of-type
     th.${ClassName.TABLE_HEADER_CELL} {
     &.${ClassName.COLUMN_SELECTED},
       &.${ClassName.HOVERED_COLUMN},
@@ -363,11 +370,11 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
 
   .${ClassName.TABLE_SELECTED}
     table
-    tr:first-child
+    tr:first-of-type
     td.${ClassName.TABLE_CELL},
     .${ClassName.TABLE_SELECTED}
     table
-    tr:first-child
+    tr:first-of-type
     th.${ClassName.TABLE_HEADER_CELL} {
     .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
       ${columnHeaderButtonSelected};
@@ -402,8 +409,11 @@ export const hoveredWarningCell = css`
   :not(.${ClassName.IS_RESIZING})
     .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
     td.${ClassName.HOVERED_CELL_WARNING} {
-      background-color: ${Y50} !important; // We need to override the background-color added to the cell
-      border: 1px solid ${Y200};
+      background-color: ${token(
+        'color.background.warning',
+        Y50,
+      )} !important; // We need to override the background-color added to the cell
+      border: 1px solid ${token('color.border.warning', Y200)};
     }
   }
 `;
@@ -435,11 +445,11 @@ export const resizeHandle = css`
     }
 
     table
-      tr:first-child
+      tr:first-of-type
       th.${ClassName.WITH_RESIZE_LINE}
       .${ClassName.RESIZE_HANDLE_DECORATION}::after,
       table
-      tr:first-child
+      tr:first-of-type
       td.${ClassName.WITH_RESIZE_LINE}
       .${ClassName.RESIZE_HANDLE_DECORATION}::after {
       top: -${tableToolbarSize + tableCellBorderWidth}px;

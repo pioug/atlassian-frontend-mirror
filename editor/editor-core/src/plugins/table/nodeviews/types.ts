@@ -5,7 +5,6 @@ import { EventDispatcher } from '../../../event-dispatcher';
 import { PortalProviderAPI } from '../../../ui/PortalProvider';
 
 export type TableOptions = {
-  dynamicTextSizing?: boolean;
   isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;

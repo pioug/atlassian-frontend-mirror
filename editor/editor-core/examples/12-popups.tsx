@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
-
-import React from 'react';
+/** @jsx jsx */
 import { PureComponent } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { Editor } from '../src';
-import { Content } from '../example-helpers/styles';
+import { content } from '../example-helpers/styles';
 import imageUploadHandler from '../example-helpers/imageUpload';
 import { N40 } from '@atlaskit/theme/colors';
 
-const Boundary = styled.div`
+const boundary = css`
   border: 2px solid ${N40};
   padding: 130px 60px 10px 40px;
 `;
@@ -18,7 +17,7 @@ const Boundary = styled.div`
 class CustomBoundryExample extends PureComponent<any, any> {
   state = { boundary: undefined };
 
-  handleBoundryRef = (boundary: HTMLElement) => {
+  handleBoundryRef = (boundary: HTMLDivElement) => {
     this.setState({ boundary });
   };
 
@@ -26,7 +25,7 @@ class CustomBoundryExample extends PureComponent<any, any> {
     const props = this.props;
 
     return (
-      <Boundary innerRef={this.handleBoundryRef}>
+      <div css={boundary} ref={this.handleBoundryRef}>
         <Editor
           appearance="comment"
           onCancel={props.onCancel}
@@ -36,7 +35,7 @@ class CustomBoundryExample extends PureComponent<any, any> {
           popupsBoundariesElement={this.state.boundary}
           quickInsert={true}
         />
-      </Boundary>
+      </div>
     );
   }
 }
@@ -88,7 +87,7 @@ class PortalWithCustomBoundaryExample extends PureComponent<any, any> {
 
     return (
       <div>
-        <Boundary innerRef={this.handleBoundryRef}>
+        <div css={boundary} ref={this.handleBoundryRef}>
           <div style={{ overflow: 'hidden' }}>
             <Editor
               appearance="comment"
@@ -101,7 +100,7 @@ class PortalWithCustomBoundaryExample extends PureComponent<any, any> {
               quickInsert={true}
             />
           </div>
-        </Boundary>
+        </div>
         <div ref={this.handlePortalRef} />
       </div>
     );
@@ -219,7 +218,7 @@ const emojiProvider = getEmojiProvider();
 export default function Example() {
   return (
     <div>
-      <Content>
+      <div css={content}>
         <h2>Intentionally Broken Example</h2>
         <p style={{ marginBottom: 14 }}>
           Boundries: document.body | Container: 300px, overflow: hidden.
@@ -234,11 +233,11 @@ export default function Example() {
             quickInsert={true}
           />
         </div>
-      </Content>
+      </div>
 
       <hr />
 
-      <Content>
+      <div css={content}>
         <h2>Basic</h2>
         <p style={{ marginBottom: 14 }}>
           Boundries: document.body | Container: 300px, no overflow.
@@ -253,9 +252,9 @@ export default function Example() {
             quickInsert={true}
           />
         </div>
-      </Content>
+      </div>
 
-      <Content>
+      <div css={content}>
         <h2>Basic with Custom Boundry</h2>
         <p style={{ marginBottom: 14 }}>
           Boundries: custom | Container: 500px, no overflow.
@@ -270,11 +269,11 @@ export default function Example() {
             emojiProvider={emojiProvider}
           />
         </div>
-      </Content>
+      </div>
 
       <hr />
 
-      <Content>
+      <div css={content}>
         <h2>Basic Portal</h2>
         <p style={{ marginBottom: 14 }}>
           Boundries: document.body | Container: 300px, overflow: hidden.
@@ -289,9 +288,9 @@ export default function Example() {
             devTools={true}
           />
         </div>
-      </Content>
+      </div>
 
-      <Content>
+      <div css={content}>
         <h2>Portal with Custom Boundry</h2>
         <p style={{ marginBottom: 14 }}>
           Boundries: custom | Container: 500px, overflow: hidden.
@@ -305,9 +304,9 @@ export default function Example() {
             emojiProvider={emojiProvider}
           />
         </div>
-      </Content>
+      </div>
 
-      <Content>
+      <div css={content}>
         <h2>Portal in Scroll Container</h2>
         <p style={{ marginBottom: 14 }}>
           Boundries: custom | Container: 700px, overflow: hidden.
@@ -321,14 +320,14 @@ export default function Example() {
             emojiProvider={emojiProvider}
           />
         </div>
-      </Content>
+      </div>
 
       <hr />
 
-      <Content>
+      <div css={content}>
         <h2>Portal with custom scroll container</h2>
         <JiraSidebarEditor />
-      </Content>
+      </div>
     </div>
   );
 }

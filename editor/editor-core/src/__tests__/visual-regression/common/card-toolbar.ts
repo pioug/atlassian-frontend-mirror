@@ -1,4 +1,8 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForNoTooltip,
+} from '@atlaskit/visual-regression/helper';
+
 import { initFullPageEditorWithAdf, snapshot } from '../_utils';
 import cardAppearanceAdf from './__fixtures__/card-appearance-adf.json';
 import {
@@ -46,6 +50,7 @@ describe('Card toolbar:', () => {
     await page.waitForSelector(
       'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-edit-link-button"]',
     );
+    await waitForNoTooltip(page);
     await snapshot(page);
   });
 

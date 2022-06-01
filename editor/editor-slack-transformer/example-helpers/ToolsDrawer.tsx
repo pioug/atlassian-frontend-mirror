@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { useState } from 'react';
+import { jsx } from '@emotion/react';
 
 import { EditorView } from 'prosemirror-view';
 
@@ -11,7 +13,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 
 import { SlackTransformer } from '../src';
 
-import { Content } from './styles';
+import { content } from './styles';
 
 const rejectedPromise = Promise.reject(
   new Error('Simulated provider rejection'),
@@ -98,7 +100,7 @@ export default function ToolsDrawer({ renderEditor }: Props) {
   };
 
   return (
-    <Content>
+    <div css={content}>
       <div style={{ padding: '5px 0' }}>️️️Slack Editor</div>
       {reloadEditor
         ? ''
@@ -111,6 +113,6 @@ export default function ToolsDrawer({ renderEditor }: Props) {
           })}
       <legend>Markdown output:</legend>
       <pre>{document}</pre>
-    </Content>
+    </div>
   );
 }

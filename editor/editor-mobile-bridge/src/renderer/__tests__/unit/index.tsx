@@ -244,12 +244,6 @@ describe('renderer bridge', () => {
 });
 
 describe('Mobile Renderer', () => {
-  beforeEach(() => {
-    jest
-      .spyOn(FetchProxyUtils, 'useFetchProxy')
-      .mockReturnValue(new FetchProxyUtils.FetchProxy());
-  });
-
   it('should pass locale to Mobile Renderer', () => {
     const result = mount(<App document={initialDocument} />);
 

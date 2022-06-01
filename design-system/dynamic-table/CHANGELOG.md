@@ -1,5 +1,15 @@
 # @atlaskit/dynamic-table
 
+## 14.6.0
+
+### Minor Changes
+
+- [`1cc3c9f1c8f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cc3c9f1c8f) - Add test ID to table pagination so it can be queried in tests. It will be prefixed with the `testId` prop: `{testId}--pagination`.
+
+### Patch Changes
+
+- [`0b545855a57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b545855a57) - [ux] Updated tokens in `@atlaskit/dynamic-table`
+
 ## 14.5.5
 
 ### Patch Changes

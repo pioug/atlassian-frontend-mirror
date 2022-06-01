@@ -23,6 +23,7 @@ export const tasksAndDecisionsStyles = css`
     margin: 12px 0 0 0;
   }
 
+  // If task list is first in the document then set margin top to zero.
   div[data-task-list-local-id]:first-child {
     margin-top: 0;
   }

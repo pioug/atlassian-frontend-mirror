@@ -23,6 +23,7 @@ export interface MediaPluginState {
   waitForMediaUpload: boolean;
   allUploadsFinished: boolean;
   showDropzone: boolean;
+  isFullscreen: boolean;
   element?: HTMLElement;
   layout: MediaSingleLayout;
   mediaNodes: MediaNodeWithPosHandler[];
@@ -85,6 +86,8 @@ export interface MediaPluginState {
   destroy(): void;
 
   updateAndDispatch(
-    props: Partial<Pick<this, 'allowsUploads' | 'allUploadsFinished'>>,
+    props: Partial<
+      Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>
+    >,
   ): void;
 }

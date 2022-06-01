@@ -17,21 +17,24 @@ const leftSidebar = "[data-testid='left-sidebar']";
 const collapsedSidebar = '[aria-expanded="false"]';
 
 /**
- * TODO: https://product-fabric.atlassian.net/browse/DSP-3548
- * This test was disabled for being flaky. We should investigate and try to
- * re-enable it.
+ * This test was originally marked as flakey. The problem has been found with
+ * safari as previous keys not working with safari any more, change the code,
+ * fixed the issue. See https://product-fabric.atlassian.net/browse/DSP-3548
  */
 BrowserTestCase(
   'Left sidebar should be collapsed on click of grab area via keyboard',
-  { skip: ['*'] },
+  {},
   async (client: any) => {
     const testPage = new Page(client);
     await testPage.goto(exampleUrl);
     await testPage.waitForSelector(content);
-    await testPage.click(leftSidebar);
 
-    await testPage.safariCompatibleTab();
-    await testPage.safariCompatibleTab();
+    await testPage.click(leftSidebar);
+    expect(await testPage.getAttribute(resizeControl, 'aria-expanded')).toBe(
+      'true',
+    );
+    await testPage.keys('Tab');
+    await testPage.keys('Tab');
     expect(await testPage.getAttribute(resizeControl, 'aria-expanded')).toBe(
       'true',
     );

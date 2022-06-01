@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -82,5 +82,6 @@
       ]
     }
   },
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

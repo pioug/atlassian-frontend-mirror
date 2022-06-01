@@ -27,13 +27,16 @@ const iconBoxStyles = css({
   width: ICON_HEIGHT,
   height: ICON_WIDTH,
   overflow: 'hidden',
-  border: '1px solid rgba(223, 225, 229, 0.5)' /* N60 at 50% */,
+  border: `1px solid ${token(
+    'color.border',
+    'rgba(223, 225, 229, 0.5)',
+  )}` /* N60 at 50% */,
   borderRadius: borderRadius(),
   boxSizing: 'border-box',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: token('color.background.default', 'white'),
+  backgroundColor: token('elevation.surface', 'white'),
 });
 
 const primitiveStyles = css({

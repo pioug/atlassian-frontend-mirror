@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { Schema, Node as PMNode } from 'prosemirror-model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
-import { reduce } from '@atlaskit/adf-utils';
+import { reduce } from '@atlaskit/adf-utils/traverse';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   UnsupportedBlock,
@@ -229,7 +229,6 @@ export class Renderer extends PureComponent<RendererProps> {
       appearance: props.appearance,
       disableHeadingIDs: props.disableHeadingIDs,
       disableActions: props.disableActions,
-      allowDynamicTextSizing: props.allowDynamicTextSizing,
       allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,
       allowColumnSorting: props.allowColumnSorting,
       fireAnalyticsEvent: this.fireAnalyticsEvent,
@@ -297,7 +296,6 @@ export class Renderer extends PureComponent<RendererProps> {
       onError,
       appearance,
       adfStage,
-      allowDynamicTextSizing,
       truncated,
       maxHeight,
       fadeOutHeight,
@@ -396,7 +394,6 @@ export class Renderer extends PureComponent<RendererProps> {
                 <SmartCardStorageProvider>
                   <RendererWrapper
                     appearance={appearance}
-                    dynamicTextSizing={!!allowDynamicTextSizing}
                     allowNestedHeaderLinks={allowNestedHeaderLinks}
                     allowColumnSorting={allowColumnSorting}
                     allowCopyToClipboard={allowCopyToClipboard}
@@ -407,9 +404,7 @@ export class Renderer extends PureComponent<RendererProps> {
                     onMouseDown={this.onMouseDownEditView}
                   >
                     {enableSsrInlineScripts ? (
-                      <BreakoutSSRInlineScript
-                        allowDynamicTextSizing={!!allowDynamicTextSizing}
-                      />
+                      <BreakoutSSRInlineScript />
                     ) : null}
                     <RendererActionsInternalUpdater
                       doc={pmDoc}
@@ -460,7 +455,6 @@ export class Renderer extends PureComponent<RendererProps> {
       return (
         <RendererWrapper
           appearance={appearance}
-          dynamicTextSizing={!!allowDynamicTextSizing}
           allowCopyToClipboard={allowCopyToClipboard}
           allowPlaceholderText={allowPlaceholderText}
           allowColumnSorting={allowColumnSorting}
@@ -523,7 +517,6 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
 
 type RendererWrapperProps = {
   appearance: RendererAppearance;
-  dynamicTextSizing: boolean;
   innerRef?: React.RefObject<HTMLDivElement>;
   allowColumnSorting?: boolean;
   allowCopyToClipboard?: boolean;
@@ -537,7 +530,6 @@ type RendererWrapperProps = {
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
   const {
     allowColumnSorting,
-    dynamicTextSizing,
     allowNestedHeaderLinks,
     innerRef,
     appearance,
@@ -549,9 +541,8 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
   return (
     <WidthProvider className="ak-renderer-wrapper">
       <BaseTheme
-        dynamicTextSizing={dynamicTextSizing}
         baseFontSize={
-          !dynamicTextSizing && appearance && appearance !== 'comment'
+          appearance && appearance !== 'comment'
             ? akEditorFullPageDefaultFontSize
             : undefined
         }

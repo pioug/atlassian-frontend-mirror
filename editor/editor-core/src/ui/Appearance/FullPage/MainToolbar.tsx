@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { gridSize } from '@atlaskit/theme/constants';
 import {
   akEditorMenuZIndex,
@@ -17,8 +18,10 @@ export interface MainToolbarProps {
 
 const toolbarLineHeight = 56;
 
+// box-shadow is overriden by the mainToolbar
 const mainToolbarWithKeyline = css`
-  box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30};
+  box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0
+    ${token('color.border', N30)};
 `;
 
 const mainToolbarTwoLineStyle = css`
@@ -37,7 +40,8 @@ const mainToolbar = css`
   display: flex;
   height: ${toolbarLineHeight}px;
   flex-shrink: 0;
-  background-color: white;
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-4456
+  background-color: ${token('elevation.surface', 'white')};
 
   & object {
     height: 0 !important;

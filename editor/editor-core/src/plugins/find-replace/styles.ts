@@ -1,19 +1,19 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4290
 import { css } from '@emotion/react';
 import { B75, B200 } from '@atlaskit/theme/colors';
-
-export const searchMatchBgColour = B75;
-export const selectedSearchMatchBgColour = B200;
 
 export const searchMatchClass = 'search-match';
 export const selectedSearchMatchClass = 'selected-search-match';
 
 export const findReplaceStyles = css`
   .${searchMatchClass} {
-    background-color: ${searchMatchBgColour};
+    background-color: ${B75};
   }
 
   .${selectedSearchMatchClass} {
-    background-color: ${selectedSearchMatchBgColour};
+    background-color: ${B200};
     color: white;
   }
 `;

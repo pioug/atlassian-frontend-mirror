@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { fontSize } from '@atlaskit/theme/constants';
 import { h500 } from '@atlaskit/theme/typography';
-import { subtleHeading } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import gridSizeTimes from '../../util/gridSizeTimes';
 
@@ -37,7 +38,7 @@ export const UserName = styled.span`
 `;
 
 export const UserEmail = styled.span`
-  ${baseHeading(11, 16)} color: ${subtleHeading};
+  ${baseHeading(11, 16)} color: ${token('color.text.subtlest', N200)};
   font-weight: 300;
   margin-top: ${gridSizeTimes(0.5)}px;
 `;

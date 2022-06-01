@@ -1,12 +1,13 @@
+/** @jsx jsx */
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import TextArea from '@atlaskit/textarea';
 import { codeFontFamily } from '@atlaskit/theme/constants';
 import { N900, N10, N40, G75, R75 } from '@atlaskit/theme/colors';
 import { diffLines } from 'diff';
 
-const Container = styled.div`
+const container = css`
   display: flex;
   flex-direction: column;
   margin: 0.5em;
@@ -17,12 +18,12 @@ const Container = styled.div`
   }
 `;
 
-const TextContainer = styled.div`
+const textContainer = css`
   flex: 1 1 auto;
   display: flex;
 `;
 
-const DiffContainer = styled.div`
+const diffContainer = css`
   flex: 1 1 auto;
   height: 100%;
   white-space: pre;
@@ -39,25 +40,37 @@ const DiffContainer = styled.div`
   padding: 6px 6px;
 `;
 
-const ButtonContainer = styled.div`
+const buttonContainer = css`
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
 `;
 
-const Line = styled.p`
+const lineStyle = css`
   margin: 0;
 `;
 
-const AddedLine = styled(Line)`
+const addedLineStyle = css`
   background-color: ${G75};
 `;
 
-const RemovedLine = styled(Line)`
+const removedLineStyle = css`
   background-color: ${R75};
 `;
 
-const Label = styled.p`
+type LineProps = {
+  children: React.ReactNode;
+};
+
+const Line = ({ children }: LineProps) => <p css={lineStyle}>{children}</p>;
+const AddedLine = ({ children }: LineProps) => (
+  <p css={[lineStyle, addedLineStyle]}>{children}</p>
+);
+const RemovedLine = ({ children }: LineProps) => (
+  <p css={[lineStyle, removedLineStyle]}>{children}</p>
+);
+
+const label = css`
   width: 100%;
   text-align: center;
   border-top: 1px solid ${N40};
@@ -121,13 +134,13 @@ export default class DiffingExample extends React.Component<null, State> {
   render() {
     const { editMode, diffs, documentOne, documentTwo } = this.state;
     return (
-      <Container>
+      <div css={container}>
         <p>Use this example to help diff document structures</p>
         <p>
           Paste any text into the fields and click Compare to see the difference
         </p>
         {editMode ? (
-          <TextContainer>
+          <div css={textContainer}>
             <TextArea
               value={documentOne}
               isMonospaced
@@ -140,20 +153,20 @@ export default class DiffingExample extends React.Component<null, State> {
               maxHeight="inherit"
               onChange={this.onDocumentTwoChange}
             />
-          </TextContainer>
+          </div>
         ) : diffs.length === 1 ? (
-          <TextContainer>
-            <Label>No differences found</Label>
-          </TextContainer>
+          <div css={textContainer}>
+            <p css={label}>No differences found</p>
+          </div>
         ) : (
-          <DiffContainer>{this.renderDiff(diffs)}</DiffContainer>
+          <div css={diffContainer}>{this.renderDiff(diffs)}</div>
         )}
-        <ButtonContainer>
+        <div css={buttonContainer}>
           <Button appearance="primary" onClick={this.onBtnClick}>
             {editMode ? 'Compare' : 'Edit'}
           </Button>
-        </ButtonContainer>
-      </Container>
+        </div>
+      </div>
     );
   }
 }

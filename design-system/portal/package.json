@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -40,7 +40,7 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/inline-dialog": "^13.3.0",
     "@atlaskit/modal-dialog": "^12.2.0",
-    "@atlaskit/onboarding": "^10.3.0",
+    "@atlaskit/onboarding": "^10.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/visual-regression": "*",
@@ -72,5 +72,6 @@
       ]
     }
   },
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/portal",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -8,6 +8,26 @@ import { processRawValue } from '../../document';
 
 describe('document: processRawValue', () => {
   describe('invalid prosemirror model', () => {
+    // Doc version should be filled automatically from processRawValue()
+    describe('doc without a version', () => {
+      const initialDoc = {
+        type: 'doc',
+        content: [],
+      };
+
+      it('should not throw an exception', () => {
+        expect(() => {
+          processRawValue(
+            defaultSchema,
+            initialDoc,
+            undefined,
+            undefined,
+            undefined,
+          );
+        }).not.toThrow();
+      });
+    });
+
     describe('when marks: [link,link] exist on a text node', () => {
       const initialDoc = {
         version: 1,
@@ -51,43 +71,155 @@ describe('document: processRawValue', () => {
         }).not.toThrow();
       });
 
-      it('should return undefined', () => {
-        let result = processRawValue(
+      it('should return a repaired document, keeping the first link and removing the second one', () => {
+        const result = processRawValue(
           defaultSchema,
           initialDoc,
           undefined,
           undefined,
           undefined,
         );
-        expect(result?.toJSON()).toEqual(undefined);
+        expect(result?.toJSON()).toEqual({
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'lol',
+                  marks: [
+                    {
+                      type: 'link',
+                      attrs: {
+                        href: 'http://gnu.org',
+                        __confluenceMetadata: null,
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
       });
 
       it('should call the dispatchAnalyticsEvent', () => {
         const dispatchAnalyticsEvent = jest.fn();
-        try {
+        processRawValue(
+          defaultSchema,
+          initialDoc,
+          undefined,
+          undefined,
+          undefined,
+          dispatchAnalyticsEvent,
+        );
+
+        expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            action: ACTION.DEDUPE_MARKS_TRANSFORMED,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            eventType: EVENT_TYPE.OPERATIONAL,
+            attributes: {
+              discardedMarks: [
+                { attrs: { href: 'http://atlassian.com' }, type: 'link' },
+              ],
+            },
+          }),
+        );
+      });
+    });
+
+    describe('when marks: [strong,strong] exist on a text node', () => {
+      const initialDoc = {
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'lol',
+                marks: [
+                  {
+                    type: 'strong',
+                  },
+                  {
+                    type: 'strong',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+
+      it('should not throw an exception', () => {
+        expect(() => {
           processRawValue(
             defaultSchema,
             initialDoc,
             undefined,
             undefined,
             undefined,
-            dispatchAnalyticsEvent,
           );
-        } catch (e) {}
+        }).not.toThrow();
+      });
+
+      it('should return a repaired document, keeping the first strong mark and removing the second one', () => {
+        const result = processRawValue(
+          defaultSchema,
+          initialDoc,
+          undefined,
+          undefined,
+          undefined,
+        );
+        expect(result?.toJSON()).toEqual({
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'lol',
+                  marks: [
+                    {
+                      type: 'strong',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+      });
+
+      it('should call the dispatchAnalyticsEvent', () => {
+        const dispatchAnalyticsEvent = jest.fn();
+        processRawValue(
+          defaultSchema,
+          initialDoc,
+          undefined,
+          undefined,
+          undefined,
+          dispatchAnalyticsEvent,
+        );
 
         expect(dispatchAnalyticsEvent).toHaveBeenCalledWith(
           expect.objectContaining({
-            action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+            action: ACTION.DEDUPE_MARKS_TRANSFORMED,
             actionSubject: ACTION_SUBJECT.EDITOR,
             eventType: EVENT_TYPE.OPERATIONAL,
             attributes: {
-              error:
-                'RangeError: Invalid collection of marks for node text: link,link',
+              discardedMarks: [{ type: 'strong' }],
             },
           }),
         );
       });
     });
+
     describe('when marks: [link,code] exist on a text node', () => {
       const initialDoc = {
         version: 1,

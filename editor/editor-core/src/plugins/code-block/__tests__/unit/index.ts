@@ -257,6 +257,7 @@ describe('code-block', () => {
             pos: null,
             contentCopied: false,
             isNodeSelected: false,
+            shouldIgnoreFollowingMutations: false,
           });
         });
       });
@@ -286,6 +287,7 @@ describe('code-block', () => {
             pos: 0,
             contentCopied: false,
             isNodeSelected: false,
+            shouldIgnoreFollowingMutations: false,
           });
 
           editorView.dispatch(
@@ -298,6 +300,7 @@ describe('code-block', () => {
             pos: 0,
             contentCopied: false,
             isNodeSelected: true,
+            shouldIgnoreFollowingMutations: false,
           });
         });
       });

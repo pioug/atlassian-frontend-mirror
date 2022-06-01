@@ -8,6 +8,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { Icon } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
@@ -27,7 +28,7 @@ const itemIcon = css`
   width: ${iconWidth}px;
   height: ${iconWidth}px;
   overflow: hidden;
-  border: 1px solid rgba(223, 225, 229, 0.5); /* N60 at 50% */
+  border: 1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}; /* N60 at 50% */
   border-radius: ${borderRadius()}px;
   box-sizing: border-box;
 
@@ -63,7 +64,7 @@ const itemText = css`
   white-space: initial;
   .item-summary {
     font-size: ${relativeFontSizeToBase16(11.67)};
-    color: ${N200};
+    color: ${token('color.text.subtlest', N200)};
     margin-top: 4px;
 
     white-space: nowrap;

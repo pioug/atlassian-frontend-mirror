@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import FocusRing from '@atlaskit/focus-ring';
-import { borderRadius } from '@atlaskit/theme/constants';
+import { borderRadius, codeFontFamily } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
 
@@ -15,12 +15,14 @@ const copyValueBaseStyles = css({
   background: token('color.background.neutral', '#091E420F'),
   color: token('color.text', '#172B4D'),
   borderRadius: borderRadius(),
-  padding: '3px 13px',
+  padding: '2px 12px',
   minHeight: 24,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   lineHeight: 1,
+  fontFamily: codeFontFamily(),
+  fontSize: 12,
 });
 
 const copyValueButtonStyles = css({

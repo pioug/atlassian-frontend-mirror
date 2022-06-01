@@ -1,5 +1,5 @@
 import { NodeType, Slice } from 'prosemirror-model';
-import { Step } from 'prosemirror-transform';
+import { ReplaceAroundStep, ReplaceStep, Step } from 'prosemirror-transform';
 
 export const stepHasSlice = (
   step: Step,
@@ -28,3 +28,15 @@ export function stepAddsOneOf(step: Step, nodeTypes: Set<NodeType>): boolean {
 
   return adds;
 }
+
+export const extractSliceFromStep = (step: Step): Slice | null => {
+  if (!(step instanceof ReplaceStep) && !(step instanceof ReplaceAroundStep)) {
+    return null;
+  }
+
+  // @ts-ignore This is by design. Slice is a private property, but accesible, from ReplaceStep.
+  // However, we need to read it to found if the step was adding a newline
+  const slice = step.slice;
+
+  return slice as Slice;
+};

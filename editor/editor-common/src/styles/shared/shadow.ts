@@ -8,6 +8,7 @@ import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';
 import { N40A } from '@atlaskit/theme/colors';
 
 import { shadowClassNames } from '../../ui/OverflowShadow';
+import { shadowObserverClassNames } from '../../ui/OverflowShadow/shadowObserver';
 
 const shadowWidth = 8;
 
@@ -61,6 +62,17 @@ const shadowSharedStyle = css`
     left: calc(100% - ${shadowWidth}px);
     top: 0px;
     display: block;
+  }
+  & .${shadowObserverClassNames.SENTINEL_LEFT} {
+    height: 100%;
+    width: 0px;
+    min-width: 0px;
+  }
+
+  & .${shadowObserverClassNames.SENTINEL_RIGHT} {
+    height: 100%;
+    width: 0px;
+    min-width: 0px;
   }
 `;
 

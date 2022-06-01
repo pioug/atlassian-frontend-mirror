@@ -1014,7 +1014,8 @@ function getUAPrefix() {
     return 'ua-ie';
   } else if (browser.gecko) {
     return 'ua-firefox';
+  } else if (browser.safari) {
+    return 'ua-safari';
   }
-
   return '';
 }

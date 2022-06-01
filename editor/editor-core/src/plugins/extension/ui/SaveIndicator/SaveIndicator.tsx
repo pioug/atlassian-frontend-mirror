@@ -13,6 +13,7 @@ import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import { FormattedMessage } from 'react-intl-next';
 import { SaveIndicatorProps } from './types';
 import { messages } from './messages';
+import { token } from '@atlaskit/tokens';
 
 const noop = () => {};
 
@@ -30,11 +31,13 @@ const saveIndicatorContent = css`
   align-items: center;
   padding: 6px 12px;
 
-  background: ${N0};
+  background: ${token('elevation.surface.overlay', N0)};
 
   /* E300 */
-  box-shadow: 0px 8px 12px rgba(9, 30, 66, 0.15),
-    0px 0px 1px rgba(9, 30, 66, 0.31);
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0px 8px 12px rgba(9, 30, 66, 0.15), 0px 0px 1px rgba(9, 30, 66, 0.31)`,
+  )};
   border-radius: 16px;
 `;
 
@@ -73,7 +76,11 @@ export const SaveIndicator: FunctionComponent<SaveIndicatorProps> = ({
       {visible && saving && (
         <div css={saveIndicatorWrapper}>
           <div css={saveIndicatorContent} data-testid="save-indicator-content">
-            <CheckCircleIcon label="Saving" primaryColor={G300} size="small" />
+            <CheckCircleIcon
+              label="Saving"
+              primaryColor={token('color.icon.success', G300)}
+              size="small"
+            />
             <span css={saveIndicatorText}>
               <FormattedMessage {...messages.saveIndicator} />
             </span>

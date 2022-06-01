@@ -27,6 +27,7 @@ import type {
 import { StatsModifier } from '../stats-modifier';
 import { getTypeAheadQuery } from '../utils';
 import { closeTypeAhead } from '../transforms/close-type-ahead';
+import { token } from '@atlaskit/tokens';
 
 type FactoryProps = {
   intl: IntlShape;
@@ -86,7 +87,7 @@ export const factoryDecorations = ({
         typeaheadComponent.dataset.editorPopup = 'true';
         typeaheadComponent.dataset.typeAhead = TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE;
 
-        typeaheadComponent.style.color = B400;
+        typeaheadComponent.style.color = token('color.text.accent.blue', B400);
         typeaheadComponent.style.backgroundColor = 'transparent';
 
         const onUndoRedo = (

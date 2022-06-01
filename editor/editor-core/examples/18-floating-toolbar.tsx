@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
+/** @jsx jsx */
 
-import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { Component } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import { R500, Y500, G500 } from '@atlaskit/theme/colors';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -12,13 +13,13 @@ import { Skeleton } from '@atlaskit/icon';
 import Toolbar from '../src/plugins/floating-toolbar/ui/Toolbar';
 import { FloatingToolbarItem } from '../src/plugins/floating-toolbar/types';
 import ColorPalette from '../src/ui/ColorPalette';
-import { Content } from '../example-helpers/styles';
+import { content } from '../example-helpers/styles';
 import cellBackgroundColorPalette from '../src/ui/ColorPalette/Palettes/cellBackgroundColorPalette';
 
 const SAVE_ACTION = () => console.log('Save');
 // const analyticsHandler = (actionName, props) => console.log(actionName, props);
 
-const Container = styled.div`
+const container = css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,28 +133,30 @@ export default class Example extends Component {
 
   render() {
     return (
-      <Content>
-        <Container>
-          <Toolbar
-            items={this.getActiveItems()}
-            // these examples aren't prosemirror specific
-            node={undefined as any}
-            dispatchCommand={() => SAVE_ACTION}
-          />
-        </Container>
-        <div className="toolsDrawer">
-          <div>
-            <ButtonGroup>
-              {this.renderButton('buttons', 'Buttons')}
-              {this.renderButton(
-                'buttons-with-separators',
-                'Buttons with separator',
-              )}
-              {this.renderButton('dropdowns', 'Dropdowns')}
-            </ButtonGroup>
+      <IntlProvider locale="en">
+        <div css={content}>
+          <div css={container}>
+            <Toolbar
+              items={this.getActiveItems()}
+              // these examples aren't prosemirror specific
+              node={undefined as any}
+              dispatchCommand={() => SAVE_ACTION}
+            />
+          </div>
+          <div className="toolsDrawer">
+            <div>
+              <ButtonGroup>
+                {this.renderButton('buttons', 'Buttons')}
+                {this.renderButton(
+                  'buttons-with-separators',
+                  'Buttons with separator',
+                )}
+                {this.renderButton('dropdowns', 'Dropdowns')}
+              </ButtonGroup>
+            </div>
           </div>
         </div>
-      </Content>
+      </IntlProvider>
     );
   }
 

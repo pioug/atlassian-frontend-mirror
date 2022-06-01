@@ -318,20 +318,6 @@ describe('card', () => {
         view = editorView;
       });
 
-      afterEach(() => {
-        // queue should now be empty, and document should remain the same
-        expect(pluginKey.getState(view.state)).toEqual({
-          cards: [],
-          requests: [],
-          provider: provider,
-          showLinkingToolbar: false,
-          smartLinkEvents: undefined,
-          createAnalyticsEvent,
-        } as CardPluginState);
-        expect(view.state.doc).toEqualDocument(initialDoc);
-        expect(rafSchd).toBeCalled();
-      });
-
       test('returns invalid ADF', async () => {
         const { dispatch } = view;
         const invalidADF = {
@@ -358,6 +344,26 @@ describe('card', () => {
             createCardRequest(atlassianUrl, view.state.selection.from),
           ])(view.state.tr),
         );
+
+        // queue should now be empty, and document should remain the same
+        expect(pluginKey.getState(view.state)).toEqual({
+          cards: [],
+          requests: [
+            {
+              url: 'http://www.atlassian.com/',
+              pos: view.state.selection.from,
+              appearance: 'inline',
+              compareLinkText: true,
+              source: 'clipboard',
+            },
+          ],
+          provider: provider,
+          showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
+        } as CardPluginState);
+        expect(view.state.doc).toEqualDocument(initialDoc);
+        expect(rafSchd).toBeCalled();
       });
 
       test('rejects', async () => {
@@ -379,6 +385,26 @@ describe('card', () => {
             createCardRequest(atlassianUrl, view.state.selection.from),
           ])(view.state.tr),
         );
+
+        // queue should now be empty, and document should remain the same
+        expect(pluginKey.getState(view.state)).toEqual({
+          cards: [],
+          requests: [
+            {
+              url: 'http://www.atlassian.com/',
+              pos: view.state.selection.from,
+              appearance: 'inline',
+              compareLinkText: true,
+              source: 'clipboard',
+            },
+          ],
+          provider: provider,
+          showLinkingToolbar: false,
+          smartLinkEvents: undefined,
+          createAnalyticsEvent,
+        } as CardPluginState);
+        expect(view.state.doc).toEqualDocument(initialDoc);
+        expect(rafSchd).toBeCalled();
       });
     });
 

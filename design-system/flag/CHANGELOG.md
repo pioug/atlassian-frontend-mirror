@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.5.9
+
+### Patch Changes
+
+- [`2329b0e8cc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2329b0e8cc0) - [ux] DSP-4541 Update wrongly used tokens
+
 ## 14.5.8
 
 ### Patch Changes

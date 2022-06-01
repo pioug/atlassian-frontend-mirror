@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { N30A, B200 } from '@atlaskit/theme/colors';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const GRID_GUTTER = 12;
 
@@ -20,8 +21,9 @@ export const gridStyles = css`
     pointer-events: none;
   }
 
+  // TODO: https://product-fabric.atlassian.net/browse/DSP-4352
   .gridLine {
-    border-left: 1px solid ${N30A};
+    border-left: 1px solid ${token('color.border', N30A)};
     display: inline-block;
     box-sizing: border-box;
     height: 100%;
@@ -32,6 +34,6 @@ export const gridStyles = css`
   }
 
   .highlight {
-    border-left: 1px solid ${B200};
+    border-left: 1px solid ${token('color.border.focused', B200)};
   }
 `;

@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "6.1.12",
+  "version": "6.1.13",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/codemod-utils": "^4.0.0",
+    "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",

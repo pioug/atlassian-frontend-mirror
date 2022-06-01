@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { themed } from '@atlaskit/theme/components';
 import { DN900, N90 } from '@atlaskit/theme/colors';
 import { Provider } from '@atlaskit/collab-provider';
+import { ThemeProps } from '@atlaskit/theme/types';
 
-export const TitleArea: any = styled.textarea`
+export const titleArea: any = (props: ThemeProps) => css`
   border: none;
   outline: none;
   font-size: 2.07142857em;
@@ -13,7 +15,7 @@ export const TitleArea: any = styled.textarea`
   width: 100%;
   resize: none;
   vertical-align: bottom;
-  color: ${themed({ light: 'black', dark: DN900 })};
+  color: ${themed({ light: 'black', dark: DN900 })(props)};
 
   /* Blend into the page bg colour. This way it's theme agnostic. */
   background: transparent;
@@ -22,20 +24,22 @@ export const TitleArea: any = styled.textarea`
     color: ${N90};
   }
 `;
-TitleArea.displayName = 'TitleArea';
 interface TitleInputProps {
   value?: string;
   placeholder?: string;
-  onChange?: (e: KeyboardEvent, provider?: Provider) => void;
-  innerRef?: (ref?: HTMLElement) => void;
+  onChange?: (
+    e: React.FormEvent<HTMLTextAreaElement>,
+    provider?: Provider,
+  ) => void;
+  innerRef?: (ref: HTMLTextAreaElement) => void;
   onFocus?: () => void;
   onBlur?: () => void;
-  onKeyDown?: (e: KeyboardEvent) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   provider?: Provider;
 }
 
 interface TitleInputState {
-  handleUpdate: (e: KeyboardEvent) => void;
+  handleUpdate: (e: React.FormEvent<HTMLTextAreaElement>) => void;
   placeholder: string;
 }
 
@@ -46,7 +50,7 @@ export class TitleInput extends React.Component<
   constructor(props: TitleInputProps) {
     super(props);
     this.state = {
-      handleUpdate: (e: KeyboardEvent) => {
+      handleUpdate: (e: React.FormEvent<HTMLTextAreaElement>) => {
         this.handleTitleResize(e);
         if (props.onChange) {
           props.onChange!(e, props.provider!);
@@ -58,14 +62,15 @@ export class TitleInput extends React.Component<
 
   render() {
     return (
-      <TitleArea
+      <textarea
+        css={titleArea}
         id="editor-title"
         data-test-id="editor-title"
         placeholder={this.state.placeholder}
         rows={1}
         value={this.props.value}
         onChange={this.state.handleUpdate}
-        innerRef={this.props.innerRef}
+        ref={this.props.innerRef}
         onFocus={this.props.onFocus}
         onBlur={this.props.onBlur}
         onKeyDown={this.props.onKeyDown}
@@ -73,7 +78,7 @@ export class TitleInput extends React.Component<
     );
   }
 
-  private handleTitleResize = (e: KeyboardEvent) => {
+  private handleTitleResize = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const elem = e.target as HTMLInputElement;
     elem.style.height = 'inherit';
     elem.style.height = `${elem.scrollHeight}px`;

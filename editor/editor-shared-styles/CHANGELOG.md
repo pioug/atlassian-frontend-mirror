@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 2.1.2
+
+### Patch Changes
+
+- [`17480b66f3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17480b66f3e) - [ux][ed-9943] Fix to have the TypeAhead component appear above the main editor toolbar.
+- [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
+
 ## 2.1.1
 
 ### Patch Changes

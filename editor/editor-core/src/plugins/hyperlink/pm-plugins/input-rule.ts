@@ -4,7 +4,12 @@ import { Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState } from 'prosemirror-state';
 import { createRule, createPlugin } from '../../../utils/input-rules';
-import { LinkMatcher, normalizeUrl } from '../utils';
+import {
+  findFilepaths,
+  isLinkInMatches,
+  LinkMatcher,
+  normalizeUrl,
+} from '../utils';
 import { INPUT_METHOD, addAnalytics } from '../../analytics';
 import { getLinkCreationAnalyticsEvent } from '../analytics';
 import { FeatureFlags } from '../../../types/feature-flags';
@@ -23,9 +28,26 @@ export function createLinkInputRule(
         return null;
       }
       const link = (match as unknown) as Match;
-
       const url = normalizeUrl(link.url);
       const markType = schema.mark('link', { href: url });
+
+      // Need access to complete text to check if last URL is part of a filepath before linkifying
+      const nodeBefore = state.selection.$from.nodeBefore;
+      if (!nodeBefore || !nodeBefore.isText || !nodeBefore.text) {
+        return null;
+      }
+      const filepaths = findFilepaths(
+        nodeBefore.text,
+        // The position referenced by 'start' is relative to the start of the document, findFilepaths deals with index in a node only.
+        start - (nodeBefore.text.length - link.text.length), // (start of link match) - (whole node text length - link length) gets start of text node, which is used as offset
+      );
+      if (isLinkInMatches(start, filepaths)) {
+        const tr = state.tr;
+        if (useUnpredictableInputRule) {
+          tr.insertText(' ');
+        } // To keep consistent with original behaviour.
+        return tr;
+      }
 
       const from = start;
       const to = Math.min(start + link.text.length, state.doc.content.size);

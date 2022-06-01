@@ -47,6 +47,11 @@ export type {
   OverflowShadowState,
 } from './OverflowShadow';
 
+export {
+  shadowObserverClassNames,
+  ShadowObserver,
+} from './OverflowShadow/shadowObserver';
+
 export { WithCreateAnalyticsEvent } from './WithCreateAnalyticsEvent';
 
 export {

@@ -48,6 +48,7 @@ const EmojiPlaceholder = (props: Props) => {
 
   return (
     <span
+      data-testid={`emoji-placeholder-${shortName}`}
       aria-label={shortName}
       className={placeholder}
       css={placeholderContainer}

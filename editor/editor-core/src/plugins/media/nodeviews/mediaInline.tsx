@@ -24,6 +24,7 @@ import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { DispatchAnalyticsEvent } from '../../analytics';
+import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 
 export interface MediaInlineProps {
   mediaProvider: Promise<MediaProvider>;
@@ -40,12 +41,13 @@ export interface MediaInlineProps {
 export const createMediaNodeUpdater = (
   props: MediaInlineProps,
 ): MediaNodeUpdater => {
-  const node = props.node.firstChild;
+  const node = props.node;
   return new MediaNodeUpdater({
     ...props,
     isMediaSingle: true,
     node: node ? (node as PMNode) : props.node,
     dispatchAnalyticsEvent: props.dispatchAnalyticsEvent,
+    contextIdentifierProvider: props.contextIdentifierProvider,
   });
 };
 
@@ -76,10 +78,11 @@ export const updateMediaNodeAttributes = async (props: MediaInlineProps) => {
       const copyNode = mediaNodeUpdater.copyNode();
       addPendingTask(copyNode);
       await copyNode;
-    } catch {
+    } catch (e) {
       return;
     }
   }
+  await mediaNodeUpdater.updateFileAttrs();
 };
 
 export const handleNewNode = (props: MediaInlineProps) => {
@@ -88,9 +91,9 @@ export const handleNewNode = (props: MediaInlineProps) => {
 };
 
 export const MediaInline: React.FC<MediaInlineProps> = (props) => {
-  const [viewMediaClientConfig, setViewMediaClientConfig] = useState(
-    {} as MediaClientConfig,
-  );
+  const [viewMediaClientConfig, setViewMediaClientConfig] = useState<
+    MediaClientConfig | undefined
+  >();
 
   useEffect(() => {
     handleNewNode(props);
@@ -107,7 +110,6 @@ export const MediaInline: React.FC<MediaInlineProps> = (props) => {
     const mediaProvider = await props.mediaProvider;
     if (mediaProvider) {
       const viewMediaClientConfig = mediaProvider.viewMediaClientConfig;
-
       setViewMediaClientConfig(viewMediaClientConfig);
     }
   };
@@ -118,6 +120,14 @@ export const MediaInline: React.FC<MediaInlineProps> = (props) => {
     mediaItemType: 'file',
     collectionName: collection!,
   };
+
+  /*
+   * Only show the loading view if the media provider is not ready
+   * prevents calling the media API before the provider is ready
+   */
+  if (!viewMediaClientConfig) {
+    return <MediaInlineCardLoadingView message="" isSelected={false} />;
+  }
 
   return (
     <MediaInlineCard
@@ -138,12 +148,12 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<
   createDomRef() {
     const domRef = document.createElement('span');
     domRef.contentEditable = 'false';
-    domRef.classList.add(MediaInlineNodeSelector);
     return domRef;
   }
 
   getContentDOM() {
     const dom = document.createElement('span');
+    dom.classList.add(MediaInlineNodeSelector);
     return { dom };
   }
 

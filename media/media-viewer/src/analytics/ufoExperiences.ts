@@ -17,6 +17,8 @@ import {
 } from '../version.json';
 
 import { PrimaryErrorReason } from '../errors';
+import { FileStateFlags } from '../components/types';
+import { LOGGED_FEATURE_FLAG_KEYS } from '.';
 
 export type UFOFailedEventPayload = {
   failReason?: PrimaryErrorReason;
@@ -24,6 +26,12 @@ export type UFOFailedEventPayload = {
   errorDetail?: string;
   request?: RequestMetadata;
   fileAttributes: FileAttributes;
+  fileStateFlags?: FileStateFlags;
+};
+
+export type UFOSucceedEventPayload = {
+  fileAttributes: FileAttributes;
+  fileStateFlags?: FileStateFlags;
 };
 
 let ufoExperience: UFOExperience | undefined;
@@ -34,6 +42,7 @@ const getExperience = () => {
       platform: { component: 'media-viewer' },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
+      featureFlags: LOGGED_FEATURE_FLAG_KEYS,
     };
     ufoExperience = new UFOExperience('media-file', inlineExperience);
   }
@@ -44,10 +53,12 @@ export const startMediaFileUfoExperience = () => {
   getExperience().start();
 };
 
-export const succeedMediaFileUfoExperience = (properties?: FileAttributes) => {
+export const succeedMediaFileUfoExperience = (
+  properties?: UFOSucceedEventPayload,
+) => {
   getExperience().success({
     metadata: {
-      fileAttributes: properties,
+      ...properties,
       packageName,
       packageVersion,
       mediaEnvironment: getMediaEnvironment(),

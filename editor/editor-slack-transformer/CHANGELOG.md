@@ -1,5 +1,11 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.1.3
+
+### Patch Changes
+
+- [`4db684dafa6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4db684dafa6) - ED-13895 update editor slack transformer to emotion
+
 ## 3.1.2
 
 ### Patch Changes

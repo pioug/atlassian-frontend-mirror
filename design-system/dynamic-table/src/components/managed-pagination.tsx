@@ -10,6 +10,7 @@ interface ManagedPaginationProps {
   onChange: (newValue: any, analyticsEvent?: UIAnalyticsEvent) => void;
   total: number;
   i18n?: I18nShape;
+  testId?: string;
 }
 
 export default class ManagedPagination extends React.Component<
@@ -24,7 +25,7 @@ export default class ManagedPagination extends React.Component<
   };
 
   render() {
-    const { total, value = 1, i18n } = this.props;
+    const { total, value = 1, i18n, testId } = this.props;
     const pages = [...Array(total)].map((_, index) => index + 1);
     // Pagination accepts array now thus selectedIndex starts with 0
     // So, we are substracting value by one thus not breaking dynamic table
@@ -37,6 +38,7 @@ export default class ManagedPagination extends React.Component<
         previousLabel={i18n?.prev}
         onChange={this.onChange}
         pages={pages}
+        testId={testId && `${testId}--pagination`}
       />
     );
   }

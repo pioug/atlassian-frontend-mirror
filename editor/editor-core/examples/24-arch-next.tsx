@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 
@@ -9,7 +10,7 @@ import {
   EditorContext,
   ContextPanel,
 } from '../src';
-import { TitleArea } from '../example-helpers/PageElements';
+import { titleArea } from '../example-helpers/PageElements';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 export const mediaProvider = storyMediaProviderFactory();
@@ -54,19 +55,17 @@ export const SaveAndCancelButtons = (props: {
   </ButtonGroup>
 );
 
-export const Wrapper: any = styled.div`
+export const wrapper: any = css`
   box-sizing: border-box;
   padding: 2px;
   height: calc(100vh - 32px);
 `;
-Wrapper.displayName = 'Wrapper';
 
-export const Content: any = styled.div`
+export const content: any = css`
   padding: 0 20px;
   height: 100%;
   box-sizing: border-box;
 `;
-Content.displayName = 'Content';
 
 export default function Example() {
   const [disabled, setDisabledState] = React.useState(false);
@@ -84,8 +83,8 @@ export default function Example() {
   return (
     <AnalyticsListener channel="editor" onEvent={handleEvent}>
       <EditorContext>
-        <Wrapper>
-          <Content>
+        <div css={wrapper}>
+          <div css={content}>
             <button onClick={() => setDisabledState(!disabled)}>
               Toggle Disabled
             </button>
@@ -109,7 +108,8 @@ export default function Example() {
                   onMount={onMount}
                   disabled={disabled}
                   contentComponents={[
-                    <TitleArea
+                    <div
+                      css={titleArea}
                       key="title=placeholder"
                       placeholder="Some text..."
                     />,
@@ -123,7 +123,6 @@ export default function Example() {
                       )}
                     />,
                   ]}
-                  allowDynamicTextSizing={true}
                   contextPanel={
                     <ContextPanel visible={panel}>
                       <div>Good morning sunshine!</div>
@@ -132,8 +131,8 @@ export default function Example() {
                 />
               </EditorPresetCXHTML>
             ) : null}
-          </Content>
-        </Wrapper>
+          </div>
+        </div>
       </EditorContext>
     </AnalyticsListener>
   );

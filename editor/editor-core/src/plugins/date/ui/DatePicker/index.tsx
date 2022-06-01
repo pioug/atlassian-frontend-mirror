@@ -11,6 +11,7 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import Calendar from '@atlaskit/calendar';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import withOuterListeners from '../../../../ui/with-outer-listeners';
 import { DateType } from '../../types';
 
@@ -23,8 +24,11 @@ import DatePickerInput from './date-picker-input';
 const popupContentWrapper = css`
   padding: 2px;
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
-  background-color: ${N0};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
+  )};
+  background-color: ${token('elevation.surface.overlay', N0)};
 `;
 
 export interface Props {

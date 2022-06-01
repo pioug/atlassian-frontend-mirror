@@ -68,6 +68,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
             containerElement,
             isLastItem: key === items.length - 1,
             dispatchAnalyticsEvent,
+            wrapperElement: null,
           });
           return element && React.cloneElement(element, props);
         })}

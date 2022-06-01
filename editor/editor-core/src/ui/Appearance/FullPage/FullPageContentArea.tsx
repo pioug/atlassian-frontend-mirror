@@ -49,6 +49,7 @@ interface FullPageEditorContentAreaProps {
   scrollContainer: HTMLElement | null;
   contentAreaRef(ref: HTMLElement | null): void;
   scrollContainerRef(ref: HTMLElement | null): void;
+  wrapperElement: HTMLElement | null;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
@@ -109,6 +110,7 @@ const Content: React.FunctionComponent<
                         disabled={!!props.disabled}
                         containerElement={props.scrollContainer}
                         dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+                        wrapperElement={props.wrapperElement}
                       />
                       {props.editorDOMElement}
                     </div>

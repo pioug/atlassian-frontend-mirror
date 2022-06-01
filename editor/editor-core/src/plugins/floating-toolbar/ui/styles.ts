@@ -1,5 +1,6 @@
 import * as colors from '@atlaskit/theme/colors';
 import { hexToRgba } from '@atlaskit/adf-schema';
+import { token } from '@atlaskit/tokens';
 
 interface Property {
   [key: string]: {
@@ -10,19 +11,37 @@ interface Property {
 const background: Property = {
   danger: {
     default: { light: 'inherit', dark: 'inherit' },
-    hover: { light: colors.N30A, dark: colors.N30A },
+    hover: {
+      light: token('color.background.neutral.subtle.hovered', colors.N30A),
+      dark: token('color.background.neutral.subtle.hovered', colors.N30A),
+    },
     active: {
-      light: hexToRgba(colors.B75, 0.6),
-      dark: hexToRgba(colors.B75, 0.6),
+      light: token(
+        'color.background.neutral.pressed',
+        `${hexToRgba(colors.B75, 0.6)}`,
+      ),
+      dark: token(
+        'color.background.neutral.pressed',
+        `${hexToRgba(colors.B75, 0.6)}`,
+      ),
     },
   },
 };
 
 const color = {
   danger: {
-    default: { light: colors.N400, dark: colors.DN400 },
-    hover: { light: colors.R400, dark: colors.R400 },
-    active: { light: colors.R400, dark: colors.R400 },
+    default: {
+      light: token('color.icon', colors.N400),
+      dark: token('color.icon', colors.DN400),
+    },
+    hover: {
+      light: token('color.icon.danger', colors.R400),
+      dark: token('color.icon.danger', colors.R400),
+    },
+    active: {
+      light: token('color.icon.danger', colors.R400),
+      dark: token('color.icon.danger', colors.R400),
+    },
   },
 };
 

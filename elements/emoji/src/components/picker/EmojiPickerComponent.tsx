@@ -154,7 +154,6 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
 
     ufoExperiences['emoji-picker-opened'].abort();
     ufoExperiences['emoji-searched'].abort();
-    ufoExperiences['emoji-selection-recorded'].abort();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -507,6 +506,9 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
 
   private scrollToEndOfList = () => {
     const emojiPickerList = this.refs.emojiPickerList as EmojiPickerList;
+    if (typeof window === 'undefined') {
+      return;
+    }
     if (emojiPickerList) {
       // Wait a tick to ensure repaint and updated height for picker list
       window.setTimeout(() => {

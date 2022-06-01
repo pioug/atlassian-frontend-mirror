@@ -30,6 +30,7 @@ import Announcer from '../../../utils/announcer/announcer';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import messages from './messages';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 const akGridSize = gridSize();
 
@@ -52,10 +53,15 @@ export interface Props {
 }
 
 const toolbarContainer = (theme: ThemeProps) => css`
-  background-color: ${themed({ light: 'white', dark: DN70 })(theme)};
+  background-color: ${themed({
+    light: token('elevation.surface.overlay', 'white'),
+    dark: token('elevation.surface.overlay', DN70),
+  })(theme)};
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 0 1px rgba(9, 30, 66, 0.31),
-    0 4px 8px -2px rgba(9, 30, 66, 0.25);
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)`,
+  )};
   padding: ${akGridSize / 2}px ${akGridSize}px;
   display: flex;
   line-height: 1;

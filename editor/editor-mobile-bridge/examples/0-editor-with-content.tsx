@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 import Editor from './../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
-import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { fetchProxy } from '../src/utils/fetch-proxy';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
@@ -20,7 +20,6 @@ export const wrapper: any = css`
 
 export default function Example() {
   const defaultValue = useExampleDocument();
-  const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
 

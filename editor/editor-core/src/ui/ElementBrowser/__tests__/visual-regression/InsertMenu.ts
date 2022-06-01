@@ -46,6 +46,7 @@ describe('InsertMenu Button', () => {
     await animationFrame(page);
     await waitForInsertMenuIcons(page);
     await animationFrame(page);
+    await waitForNoTooltip(page);
     await snapshot(
       page,
       { tolerance: 0.0005 },

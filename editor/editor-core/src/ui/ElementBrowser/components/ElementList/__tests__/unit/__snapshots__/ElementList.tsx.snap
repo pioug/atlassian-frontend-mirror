@@ -45,7 +45,7 @@ exports[`ElementList should match snapshot 1`] = `
 }
 
 .emotion-1 .ReactVirtualized__Collection:focus {
-  box-shadow: 0 0 0 2px #4C9AFF;
+  box-shadow: 0 0 0 2px var(--ds-border-focused, #4C9AFF);
 }
 
 

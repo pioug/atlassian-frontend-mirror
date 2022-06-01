@@ -35,6 +35,7 @@ export type { MediaStoreErrorReason, MediaStoreErrorAttributes } from './error';
 export { MediaStoreError, isMediaStoreError } from './error';
 
 const MEDIA_API_REGION = 'media-api-region';
+const MEDIA_API_ENVIRONMENT = 'media-api-environment';
 
 const defaultImageOptions: MediaStoreGetFileImageParams = {
   'max-age': FILE_CACHE_MAX_AGE,
@@ -62,7 +63,7 @@ const jsonHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
-let mediaEnvironment: string;
+
 export class MediaStore {
   constructor(
     private readonly config: MediaApiConfig,
@@ -499,8 +500,14 @@ export class MediaStore {
       controller,
     );
 
-    updateMediaRegion(response.headers.get('x-media-region'));
-    updateMediaEnvironment(response.headers.get('x-media-env'));
+    setKeyValueInSessionStorage(
+      MEDIA_API_REGION,
+      response.headers.get('x-media-region'),
+    );
+    setKeyValueInSessionStorage(
+      MEDIA_API_ENVIRONMENT,
+      response.headers.get('x-media-env'),
+    );
     return response;
   }
 
@@ -510,35 +517,31 @@ export class MediaStore {
   resolveInitialAuth = () => resolveInitialAuth(this.config.initialAuth);
 }
 
-function updateMediaRegion(region: string | null) {
-  if (!region || !(window && window.sessionStorage)) {
+const getValueFromSessionStorage = (key: string): string | undefined => {
+  return (
+    (window && window.sessionStorage && window.sessionStorage.getItem(key)) ||
+    undefined
+  );
+};
+
+const setKeyValueInSessionStorage = (key: string, value: string | null) => {
+  if (!value || !(window && window.sessionStorage)) {
     return;
   }
 
-  const currentRegion = window.sessionStorage.getItem(MEDIA_API_REGION);
+  const currentValue = window.sessionStorage.getItem(key);
 
-  if (currentRegion !== region) {
-    window.sessionStorage.setItem(MEDIA_API_REGION, region);
-  }
-}
-
-const updateMediaEnvironment = (mediaEnv: string | null) => {
-  if (mediaEnv) {
-    mediaEnvironment = mediaEnv;
+  if (currentValue !== value) {
+    window.sessionStorage.setItem(key, value);
   }
 };
 
 export const getMediaEnvironment = (): string | undefined => {
-  return mediaEnvironment;
+  return getValueFromSessionStorage(MEDIA_API_ENVIRONMENT);
 };
 
 export const getMediaRegion = (): string | undefined => {
-  return (
-    (window &&
-      window.sessionStorage &&
-      window.sessionStorage.getItem(MEDIA_API_REGION)) ||
-    undefined
-  );
+  return getValueFromSessionStorage(MEDIA_API_REGION);
 };
 
 export interface ResponseFileItem {

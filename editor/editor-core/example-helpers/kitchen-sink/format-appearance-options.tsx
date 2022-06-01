@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
-const Option = styled.div`
+const optionStyle = css`
   display: flex;
   flex-direction: column;
 `;
 
-const Description = styled.div`
+const description = css`
   font-size: ${relativeFontSizeToBase16(12)};
   font-style: italic;
 `;
@@ -18,10 +18,12 @@ export const formatAppearanceOption = (
 ) => {
   if (context === 'menu') {
     return (
-      <Option>
+      <div css={optionStyle}>
         <div>{option.label}</div>
-        {option.description && <Description>{option.description}</Description>}
-      </Option>
+        {option.description && (
+          <div css={description}>{option.description}</div>
+        )}
+      </div>
     );
   }
 

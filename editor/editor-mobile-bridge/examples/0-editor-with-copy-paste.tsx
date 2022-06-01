@@ -17,7 +17,7 @@ import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 
 import Editor from './../src/editor/mobile-editor-element';
-import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { fetchProxy } from '../src/utils/fetch-proxy';
 import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
@@ -53,7 +53,6 @@ export const copyWrapper: any = css`
 window.logBridge = window.logBridge || [];
 
 function EditorWithFetchProxy() {
-  const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
 

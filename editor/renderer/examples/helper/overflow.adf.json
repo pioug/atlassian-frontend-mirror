@@ -658,5 +658,101 @@
         "text": "class Table extends React.Component<TableProps, TableState> {\n  wrapper: HTMLElement;\n  table: HTMLElement;\n\n  state = {\n    showLeftShadow: false,\n    showRightShadow: false,\n  };\n\n  componentWillUnmount() {\n    if (this.wrapper && !isIE11) {\n      this.wrapper.removeEventListener('scroll', this.handleScrollDebounced) && let i = 0;\n    }\n\n    this.handleScrollDebounced.cancel();\n  }\n}"
       }
     ]
-  }]
+  },
+  {
+    "type": "layoutSection",
+    "content": [
+      {
+        "type": "layoutColumn",
+        "attrs": {
+          "width": 50
+        },
+        "content": [
+          {
+            "type": "extension",
+            "attrs": {
+              "extensionType": "com.atlassian.confluence.macro.core",
+              "extensionKey": "extension-with-overflow",
+              "parameters": {
+                "macroParams": {},
+                "macroMetadata": {
+                  "placeholder": [
+                    {
+                      "data": {
+                        "url": ""
+                      },
+                      "type": "icon"
+                    }
+                  ]
+                }
+              },
+              "text": "Full width block extension demo",
+              "layout": "default"
+            }
+          }
+        ]
+      },
+      {
+        "type": "layoutColumn",
+        "attrs": {
+          "width": 50
+        },
+        "content": [
+          {
+            "type": "table",
+            "attrs": {
+              "isNumberColumnEnabled": false,
+              "layout": "default"
+            },
+            "content": [
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {},
+                    "content": [
+                      {
+                        "type": "extension",
+                        "attrs": {
+                          "extensionType": "com.atlassian.confluence.macro.core",
+                          "extensionKey": "extension-with-overflow",
+                          "parameters": {
+                            "macroParams": {},
+                            "macroMetadata": {
+                              "placeholder": [
+                                {
+                                  "data": {
+                                    "url": ""
+                                  },
+                                  "type": "icon"
+                                }
+                              ]
+                            }
+                          },
+                          "text": "Full width block extension demo",
+                          "layout": "default"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableCell",
+                    "attrs": {},
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
 }

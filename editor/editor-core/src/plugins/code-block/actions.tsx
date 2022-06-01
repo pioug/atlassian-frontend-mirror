@@ -110,3 +110,40 @@ export const resetCopiedState: Command = (state, dispatch) => {
 
   return true;
 };
+
+export const ignoreFollowingMutations: Command = (state, dispatch) => {
+  const { tr } = state;
+
+  const ignoreFollowingMutationsTr = tr;
+
+  ignoreFollowingMutationsTr.setMeta(pluginKey, {
+    type: ACTIONS.SET_SHOULD_IGNORE_FOLLOWING_MUTATIONS,
+    data: true,
+  });
+
+  if (dispatch) {
+    dispatch(ignoreFollowingMutationsTr);
+  }
+
+  return true;
+};
+
+export const resetShouldIgnoreFollowingMutations: Command = (
+  state,
+  dispatch,
+) => {
+  const { tr } = state;
+
+  const ignoreFollowingMutationsTr = tr;
+
+  ignoreFollowingMutationsTr.setMeta(pluginKey, {
+    type: ACTIONS.SET_SHOULD_IGNORE_FOLLOWING_MUTATIONS,
+    data: false,
+  });
+
+  if (dispatch) {
+    dispatch(ignoreFollowingMutationsTr);
+  }
+
+  return true;
+};

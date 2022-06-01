@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import { EditorProps, EditorAppearance } from './../src/editor';
 import FullPageExample, {
@@ -11,7 +12,7 @@ import { InviteToEditButton } from './3-collab';
 import SidebarContainer from '../example-helpers/SidebarContainer';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
-const DisabledBlanket = styled.div`
+const disabledBlanket = css`
   position: absolute;
   top: 0px;
   left: 0px;
@@ -68,9 +69,9 @@ export default class ExampleEditorComponent extends React.Component<
     return (
       <SidebarContainer>
         {this.state.disabled && (
-          <DisabledBlanket>
+          <div css={disabledBlanket}>
             <Spinner size="large" />
-          </DisabledBlanket>
+          </div>
         )}
         <FullPageExample
           {...this.props}

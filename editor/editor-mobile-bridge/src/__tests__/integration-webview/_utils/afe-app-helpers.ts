@@ -1,5 +1,5 @@
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { testMediaFileId, defaultCollectionName } from '../_mocks/utils';
 import { mockFiles } from '../_mocks/editorTestSetup';

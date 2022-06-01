@@ -12,6 +12,7 @@ import { FileAttributes } from '@atlaskit/media-common';
 import {
   extractErrorInfo,
   getRenderErrorRequestMetadata,
+  LOGGED_FEATURE_FLAG_KEYS,
   MediaCardErrorInfo,
   SSRStatus,
 } from './analytics';
@@ -47,13 +48,13 @@ type ErrorUfoPayload = {
 
 let concurrentExperience: ConcurrentExperience | undefined;
 
-const getExperience = (id: string, featureFlagsKeys: string[]) => {
+const getExperience = (id: string) => {
   if (!concurrentExperience) {
     const inlineExperience = {
       platform: { component: 'media-card' },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
-      featureFlagsKeys,
+      featureFlags: LOGGED_FEATURE_FLAG_KEYS,
     };
     concurrentExperience = new ConcurrentExperience(
       'media-card-render',
@@ -63,8 +64,8 @@ const getExperience = (id: string, featureFlagsKeys: string[]) => {
   return concurrentExperience.getInstance(id);
 };
 
-export const startUfoExperience = (id: string, featureFlagsKeys: string[]) => {
-  getExperience(id, featureFlagsKeys).start();
+export const startUfoExperience = (id: string) => {
+  getExperience(id).start();
 };
 
 export const completeUfoExperience = (
@@ -73,19 +74,18 @@ export const completeUfoExperience = (
   fileAttributes: FileAttributes,
   fileStateFlags: FileStateFlags,
   ssrReliability: SSRStatus,
-  featureFlagsKeys: string[], // FeatureFlags are required when completing the experience to help assessing possible bugs if the experience was not started
   error?: MediaCardError,
 ) => {
   switch (status) {
     case 'complete':
-      succeedUfoExperience(id, featureFlagsKeys, {
+      succeedUfoExperience(id, {
         fileAttributes,
         ssrReliability,
         fileStateFlags,
       });
       break;
     case 'failed-processing':
-      failUfoExperience(id, featureFlagsKeys, {
+      failUfoExperience(id, {
         fileAttributes,
         failReason: 'failed-processing',
         ssrReliability,
@@ -94,7 +94,7 @@ export const completeUfoExperience = (
       break;
     case 'error':
       error &&
-        failUfoExperience(id, featureFlagsKeys, {
+        failUfoExperience(id, {
           fileAttributes,
           ...extractErrorInfo(error),
           request: getRenderErrorRequestMetadata(error),
@@ -105,12 +105,8 @@ export const completeUfoExperience = (
   }
 };
 
-const succeedUfoExperience = (
-  id: string,
-  featureFlagsKeys: string[],
-  properties?: SucceedUfoPayload,
-) => {
-  getExperience(id, featureFlagsKeys).success({
+const succeedUfoExperience = (id: string, properties?: SucceedUfoPayload) => {
+  getExperience(id).success({
     metadata: {
       ...properties,
       packageName,
@@ -121,12 +117,8 @@ const succeedUfoExperience = (
   });
 };
 
-const failUfoExperience = (
-  id: string,
-  featureFlagsKeys: string[],
-  properties?: FailedUfoPayload,
-) => {
-  getExperience(id, featureFlagsKeys).failure({
+const failUfoExperience = (id: string, properties?: FailedUfoPayload) => {
+  getExperience(id).failure({
     metadata: {
       ...properties,
       packageName,

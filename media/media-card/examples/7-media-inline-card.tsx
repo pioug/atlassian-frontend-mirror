@@ -19,6 +19,7 @@ import {
 } from '@atlaskit/media-client';
 import Toggle from '@atlaskit/toggle';
 import MediaInlineCard from '../src/root/inline/loader';
+import { MainWrapper } from '../example-helpers';
 import { IntlProvider } from 'react-intl-next';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -78,107 +79,109 @@ export default () => {
     </>
   );
   return (
-    <AtlaskitThemeProvider mode={themeMode}>
-      {toggleDarkMode}
-      <IntlProvider locale={'en'}>
-        <Wrapper>
-          <Table>
-            <tbody>
-              <tr>
-                <th>Type</th>
-                <th>Link</th>
-              </tr>
-              <tr>
-                <td>Image</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={imageFileId}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Doc</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={docFileId}
-                    mediaClientConfig={mediaClientConfig}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Pdf</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={largePdfFileId}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Video</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={videoFileId}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Code</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={codeFileId}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Error processing</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={videoProcessingFailedId}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Loading View</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={{
-                      id: 'loading-file',
-                      mediaItemType: 'file',
-                      collectionName: 'no-collection',
-                    }}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Uploading View</td>
-                <td>
-                  <MediaInlineCard
-                    identifier={{
-                      id: uploadingFileId,
-                      collectionName: defaultCollectionName,
-                      mediaItemType: 'file',
-                    }}
-                    mediaClientConfig={mediaClientConfig}
-                    shouldOpenMediaViewer
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Wrapper>
-      </IntlProvider>
-    </AtlaskitThemeProvider>
+    <MainWrapper disableFeatureFlagWrapper={true}>
+      <AtlaskitThemeProvider mode={themeMode}>
+        {toggleDarkMode}
+        <IntlProvider locale={'en'}>
+          <Wrapper>
+            <Table>
+              <tbody>
+                <tr>
+                  <th>Type</th>
+                  <th>Link</th>
+                </tr>
+                <tr>
+                  <td>Image</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={imageFileId}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Doc</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={docFileId}
+                      mediaClientConfig={mediaClientConfig}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Pdf</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={largePdfFileId}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Video</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={videoFileId}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Code</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={codeFileId}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Error processing</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={videoProcessingFailedId}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Loading View</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={{
+                        id: 'loading-file',
+                        mediaItemType: 'file',
+                        collectionName: 'no-collection',
+                      }}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Uploading View</td>
+                  <td>
+                    <MediaInlineCard
+                      identifier={{
+                        id: uploadingFileId,
+                        collectionName: defaultCollectionName,
+                        mediaItemType: 'file',
+                      }}
+                      mediaClientConfig={mediaClientConfig}
+                      shouldOpenMediaViewer
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Wrapper>
+        </IntlProvider>
+      </AtlaskitThemeProvider>
+    </MainWrapper>
   );
 };

@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -47,11 +47,11 @@
     "@af/icon-build-process": "^0.3.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dynamic-table": "^14.5.0",
+    "@atlaskit/dynamic-table": "^14.6.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/icon-priority": "^6.3.0",
-    "@atlaskit/logo": "^13.6.0",
+    "@atlaskit/logo": "^13.7.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",

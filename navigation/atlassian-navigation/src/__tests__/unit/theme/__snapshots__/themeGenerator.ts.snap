@@ -53,9 +53,9 @@ Object {
     "color": "var(--ds-text-subtle, #0052CC)",
   },
   "selected": Object {
-    "backgroundColor": "var(--ds-background-selected)",
+    "backgroundColor": "var(--ds-background-selected, rgba(222, 235, 255, 0.6))",
     "boxShadow": "",
-    "color": "var(--ds-text-selected)",
+    "color": "var(--ds-text-selected, #0052CC)",
   },
 }
 `;
@@ -90,7 +90,7 @@ Object {
     "color": "var(--ds-text-subtle, #0052CC)",
   },
   "selected": Object {
-    "backgroundColor": "var(--ds-background-selected)",
+    "backgroundColor": "var(--ds-background-selected, rgba(222, 235, 255, 0.7))",
     "borderColor": "var(--ds-border-selected, #0052CC)",
     "bordorBottom": "4px solid var(--ds-border-selected, #0052CC)",
     "boxShadow": "",

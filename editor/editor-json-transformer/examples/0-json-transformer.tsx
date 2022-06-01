@@ -1,14 +1,15 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx } from '@emotion/react';
 import { EditorView } from 'prosemirror-view';
-import styled from 'styled-components';
 
 import { Editor } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { JSONTransformer } from '../src';
 
-const Container = styled.div`
+const container = css`
   display: grid;
   grid-template-columns: 50% 50%;
 
@@ -46,7 +47,7 @@ export default class Example extends React.PureComponent<
 
   render() {
     return (
-      <Container>
+      <div css={container}>
         <Editor
           appearance="comment"
           allowRule={true}
@@ -60,7 +61,7 @@ export default class Example extends React.PureComponent<
         >
           {this.state.output}
         </div>
-      </Container>
+      </div>
     );
   }
 }

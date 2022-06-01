@@ -75,7 +75,6 @@ export {
   breakoutWideScaleRatio,
   editorFontSize,
   gridMediumMaxWidth,
-  getAkEditorFullPageMaxWidth,
   relativeSize,
   relativeFontSizeToBase16,
   DEFAULT_EMBED_CARD_HEIGHT,

@@ -11,6 +11,9 @@ import {
   h6,
   p,
   DocBuilder,
+  table,
+  tr,
+  td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   createProsemirrorEditorFactory,
@@ -48,6 +51,8 @@ import { PluginKey } from 'prosemirror-state';
 import blockTypePlugin from '../../';
 import panelPlugin from '../../../panel';
 import codeBlockPlugin from '../../../code-block';
+import tablePlugin from '../../../table';
+import { CellSelection } from '@atlaskit/editor-tables';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -66,7 +71,8 @@ describe('block-type', () => {
         .add(blockTypePlugin)
         .add(panelPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }]),
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(tablePlugin),
       pluginKey: blockTypePluginKey,
     });
   };
@@ -88,6 +94,72 @@ describe('block-type', () => {
 
       setBlockType(`heading${level}`)(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(builder('text')));
+    });
+  });
+
+  it('should be able to change to normal text within multiple table cells', () => {
+    const { editorView, refs } = editor(
+      doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'test-table-local-id',
+        })(tr(td()(h1('{from}a1')), td()(h1('{to}a2')), td()(h1('a3')))),
+      ),
+    );
+    const { dispatch } = editorView;
+
+    const sel = new CellSelection(
+      editorView.state.doc.resolve(refs.from - 2),
+      editorView.state.doc.resolve(refs.to - 2),
+    );
+    dispatch(editorView.state.tr.setSelection(sel as any));
+
+    setBlockType('normal')(editorView.state, dispatch);
+
+    expect(editorView.state.doc).toEqualDocument(
+      doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'test-table-local-id',
+        })(tr(td()(p('a1')), td()(p('a2')), td()(h1('a3')))),
+      ),
+    );
+  });
+
+  [h1, h2, h3, h4, h5, h6].forEach((builder, idx) => {
+    const level = idx + 1;
+
+    it(`should be able to change to heading${level} within multiple table cells`, () => {
+      const { editorView, refs } = editor(
+        doc(
+          table({
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'test-table-local-id',
+          })(tr(td()(p('{from}a1')), td()(p('{to}a2')), td()(p('a3')))),
+        ),
+      );
+      const { dispatch } = editorView;
+
+      const sel = new CellSelection(
+        editorView.state.doc.resolve(refs.from - 2),
+        editorView.state.doc.resolve(refs.to - 2),
+      );
+      dispatch(editorView.state.tr.setSelection(sel as any));
+
+      setBlockType(`heading${level}`)(editorView.state, dispatch);
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(
+          table({
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'test-table-local-id',
+          })(tr(td()(builder('a1')), td()(builder('a2')), td()(p('a3')))),
+        ),
+      );
     });
   });
 

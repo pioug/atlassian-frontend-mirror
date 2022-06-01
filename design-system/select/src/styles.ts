@@ -35,7 +35,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       // react-select disables pointer events when isDisabled is true.
       // We override this and make the inner container turn it off instead.
       pointerEvents: 'all',
-      cursor: isDisabled ? 'not-allowed' : undefined,
+      cursor: isDisabled ? 'not-allowed' : css.cursor,
     }),
     input: (css) => ({
       ...css,
@@ -180,13 +180,13 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       } else if (isSelected) {
         backgroundColor = token('color.background.selected', B50);
       } else if (isFocused) {
-        backgroundColor = token('color.background.neutral.subtle.hovered', N20);
+        backgroundColor = token('color.background.input.pressed', N20);
       }
       if (!isDisabled && (isFocused || isSelected)) {
         boxShadow = `inset 2px 0px 0px ${token('color.border.selected', B400)}`;
       }
 
-      const cursor = isDisabled ? 'not-allowed' : undefined;
+      const cursor = isDisabled ? 'not-allowed' : css.cursor;
 
       return {
         ...css,

@@ -24,7 +24,6 @@ export type MediaProps = MediaCardProps & {
   providers?: ProviderFactory;
   allowAltTextOnImages?: boolean;
   children?: React.ReactNode;
-  allowDynamicTextSizing?: boolean;
   isInsideOfBlockNode?: boolean;
   marks: Array<LinkDefinition>;
   isLinkMark: () => boolean;

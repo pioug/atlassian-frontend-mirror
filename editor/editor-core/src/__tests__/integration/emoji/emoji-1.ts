@@ -72,8 +72,13 @@ BrowserTestCase(
     await emojiSearch(page, 'smile');
 
     await page.keys('Escape');
-    const result = await page.isExisting(typeahead);
-    expect(result).toBeFalsy();
+    const reverseSelection = true;
+    const typeAheadNotPresent = await page.waitForSelector(
+      typeahead,
+      undefined,
+      reverseSelection,
+    );
+    expect(typeAheadNotPresent).toBeTruthy();
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

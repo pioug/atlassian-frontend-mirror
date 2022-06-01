@@ -26,6 +26,7 @@ import { normalizeUrl } from '../../hyperlink/utils';
 import { R400 } from '@atlaskit/theme/colors';
 import { INPUT_METHOD } from '../../analytics/types/enums';
 import { mediaLinkToolbarMessages } from './media-linking-toolbar-messages';
+import { token } from '@atlaskit/tokens';
 
 export type Props = {
   intl: IntlShape;
@@ -46,7 +47,7 @@ const validationWrapper = css`
   line-height: 0;
   padding: 12px 24px 12px 0;
   margin: 0 4px 0 32px;
-  border-top: 1px solid ${R400};
+  border-top: 1px solid ${token('color.border.danger', R400)};
   align-items: start;
   display: flex;
   flex-direction: column;

@@ -6,25 +6,25 @@ import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
   defaultMediaPickerAuthProvider,
+  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import { ufologger } from '@atlaskit/ufo/logger';
-import { PopupHeader, PopupContainer } from '../example-helpers/styled';
+import { PopupHeader, PopupContainer } from '../example-helpers/stylesWrapper';
 import { UploadPreviews } from '../example-helpers/upload-previews';
 import { AuthEnvironment } from '../example-helpers/types';
+import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
 import { UploadParams, BrowserConfig } from '../src/types';
 import { Browser } from '../src/';
 import { FileState, MediaClient } from '@atlaskit/media-client';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 export interface BrowserWrapperState {
   collectionName: string;
   authEnvironment: AuthEnvironment;
   mediaClient?: MediaClient;
   browseConfig?: BrowserConfig;
 }
-
-ufologger.enable();
 
 class BrowserWrapper extends Component<{}, BrowserWrapperState> {
   dropzoneContainer?: HTMLDivElement;
@@ -119,41 +119,47 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     }
 
     return (
-      <IntlProvider locale="en">
-        <PopupContainer>
-          <PopupHeader>
-            <Button appearance="primary" onClick={this.onOpen}>
-              Open
-            </Button>
-            <DropdownMenu trigger={collectionName}>
-              <DropdownItem onClick={this.onCollectionChange}>
-                {defaultMediaPickerCollectionName}
-              </DropdownItem>
-              <DropdownItem onClick={this.onCollectionChange}>
-                {defaultCollectionName}
-              </DropdownItem>
-            </DropdownMenu>
-            <DropdownMenu trigger={authEnvironment}>
-              <DropdownItem onClick={this.onAuthTypeChange}>
-                client
-              </DropdownItem>
-              <DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
-            </DropdownMenu>
-          </PopupHeader>
-          <UploadPreviews>
-            {({ onUploadsStart, onError, onPreviewUpdate }) => (
-              <Browser
-                onBrowseFn={this.onBrowseFn}
-                mediaClientConfig={mediaClient.config}
-                config={browseConfig}
-                onUploadsStart={onUploadsStart}
-                onError={onError}
-                onPreviewUpdate={onPreviewUpdate}
-              />
-            )}
-          </UploadPreviews>
-        </PopupContainer>
-      </IntlProvider>
+      <UfoLoggerWrapper>
+        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
+          <IntlProvider locale="en">
+            <PopupContainer>
+              <PopupHeader>
+                <Button appearance="primary" onClick={this.onOpen}>
+                  Open
+                </Button>
+                <DropdownMenu trigger={collectionName}>
+                  <DropdownItem onClick={this.onCollectionChange}>
+                    {defaultMediaPickerCollectionName}
+                  </DropdownItem>
+                  <DropdownItem onClick={this.onCollectionChange}>
+                    {defaultCollectionName}
+                  </DropdownItem>
+                </DropdownMenu>
+                <DropdownMenu trigger={authEnvironment}>
+                  <DropdownItem onClick={this.onAuthTypeChange}>
+                    client
+                  </DropdownItem>
+                  <DropdownItem onClick={this.onAuthTypeChange}>
+                    asap
+                  </DropdownItem>
+                </DropdownMenu>
+              </PopupHeader>
+              <UploadPreviews>
+                {({ onUploadsStart, onError, onPreviewUpdate }) => (
+                  <Browser
+                    onBrowseFn={this.onBrowseFn}
+                    mediaClientConfig={mediaClient.config}
+                    config={browseConfig}
+                    onUploadsStart={onUploadsStart}
+                    onError={onError}
+                    onPreviewUpdate={onPreviewUpdate}
+                  />
+                )}
+              </UploadPreviews>
+            </PopupContainer>
+          </IntlProvider>
+        </FeatureFlagsWrapper>
+      </UfoLoggerWrapper>
     );
   }
 }

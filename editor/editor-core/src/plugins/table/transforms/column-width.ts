@@ -162,7 +162,6 @@ export const rescaleColumns = (
     tableStart: table.start,
     state,
     layout,
-    dynamicTextSizing: true,
   });
   let resizeState = getResizeState({
     minWidth: tableCellMinWidth,

@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.3
+
+### Patch Changes
+
+- [`5b7962fbceb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b7962fbceb) - Fix visual bug with selected state of navigation iconButtons
+- [`dd991482e67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd991482e67) - [ux] Fixed a regression causing the `logoMaxWidth` prop to have no effect. VR tests may need regenerating, but in most cases will not.
+- Updated dependencies
+
 ## 2.2.2
 
 ### Patch Changes

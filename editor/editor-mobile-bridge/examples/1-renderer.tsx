@@ -10,7 +10,7 @@ import {
   createEmojiProvider,
   createMentionProvider,
 } from '../src/providers';
-import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { fetchProxy } from '../src/utils/fetch-proxy';
 import getBridge from '../src/renderer/native-to-web/bridge-initialiser';
 import useRendererConfiguration from '../src/renderer/hooks/use-renderer-configuration';
 
@@ -48,7 +48,6 @@ const providerFactory = ProviderFactory.create({
 });
 
 export default function Example() {
-  const fetchProxy = useFetchProxy();
   const rendererBridge = getBridge();
   const rendererConfiguration = useRendererConfiguration(rendererBridge);
 

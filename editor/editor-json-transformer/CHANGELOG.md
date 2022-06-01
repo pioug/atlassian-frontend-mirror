@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 8.7.6
+
+### Patch Changes
+
+- [`01c4d8fb95a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01c4d8fb95a) - ED-13895 update editor json transformer to emotion
+- Updated dependencies
+
 ## 8.7.5
 
 ### Patch Changes

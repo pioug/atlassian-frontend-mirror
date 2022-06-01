@@ -35,8 +35,8 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     });
   }
-  // FIXME: This test was automatically skipped due to failure on 1/30/2022: https://product-fabric.atlassian.net/browse/SKIP-302
-  it.skip('should match menu usage screenshot', async () => {
+
+  it('should match menu usage screenshot', async () => {
     const url = getExampleUrl(
       'design-system',
       'drawer',

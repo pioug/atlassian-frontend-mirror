@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { act, create, ReactTestRenderer } from 'react-test-renderer';
-import { FetchProxy, useFetchProxy } from '../../fetch-proxy';
+import { FetchProxy, fetchProxy } from '../../fetch-proxy';
 import { isApple } from '../../is-apple';
 jest.mock('../../is-apple');
 
@@ -8,22 +8,22 @@ const atlassianDomain = 'http://atlassian.com';
 const trelloDomain = 'http://trello.com';
 
 describe('FetchProxy', () => {
-  let fetchProxy: FetchProxy;
   let fetchSpy: jest.SpyInstance;
-  let consoleSpy: jest.SpyInstance;
+  let localFetchProxy: FetchProxy;
+
+  beforeAll(() => {
+    fetchProxy.disable();
+  });
+
   beforeEach(() => {
-    consoleSpy = jest
-      .spyOn(window.console, 'debug')
-      .mockImplementation(() => {});
     fetchSpy = jest
       .spyOn(window, 'fetch')
       .mockImplementation(() => Promise.resolve(new Response()));
   });
+
   afterEach(() => {
     fetchSpy.mockRestore();
-    consoleSpy.mockRestore();
     (isApple as jest.Mock).mockClear();
-    fetchProxy.disable();
   });
 
   describe('setup', () => {
@@ -37,18 +37,54 @@ describe('FetchProxy', () => {
     });
 
     it('should set global fetch context to window', function () {
-      fetchProxy = new FetchProxy();
+      localFetchProxy = new FetchProxy();
 
       expect(bindSpy).toHaveBeenCalledWith(window);
     });
   });
 
-  describe('Apple', () => {
-    beforeEach(() => {
-      (isApple as jest.Mock).mockImplementation(() => true);
+  describe('url list', () => {
+    it('adding urls with the same domain', function () {
+      localFetchProxy.add(atlassianDomain);
+      localFetchProxy.add(atlassianDomain + '/aaa');
+      localFetchProxy.add(atlassianDomain + '/aaa' + '/bbb');
 
-      fetchProxy = new FetchProxy();
-      fetchProxy.enable();
+      expect(localFetchProxy.getUrlListLength()).toEqual(1);
+    });
+
+    it('remove urls with the same domain', function () {
+      localFetchProxy.add(atlassianDomain);
+      localFetchProxy.add(atlassianDomain + '/aaa');
+      localFetchProxy.add(atlassianDomain + '/aaa' + '/bbb');
+
+      localFetchProxy.remove(atlassianDomain);
+
+      expect(localFetchProxy.getUrlListLength()).toEqual(0);
+    });
+
+    it('remove urls with different domains', function () {
+      localFetchProxy.add(atlassianDomain);
+      localFetchProxy.add(trelloDomain + '/aaa');
+      localFetchProxy.add(atlassianDomain + '/aaa' + '/bbb');
+
+      localFetchProxy.remove(trelloDomain + '/aaa');
+
+      expect(localFetchProxy.getUrlListLength()).toEqual(1);
+    });
+  });
+
+  describe('Apple', () => {
+    beforeAll(() => {
+      (isApple as jest.Mock).mockImplementation(() => true);
+    });
+
+    beforeEach(() => {
+      localFetchProxy = new FetchProxy();
+      localFetchProxy.enable();
+    });
+
+    afterEach(() => {
+      localFetchProxy.disable();
     });
 
     it('should not intercept urls that are not registered', function () {
@@ -58,38 +94,46 @@ describe('FetchProxy', () => {
     });
 
     it('should intercept urls that are registered', function () {
-      fetchProxy.add(atlassianDomain);
+      localFetchProxy.add(atlassianDomain);
       window.fetch(atlassianDomain);
 
       expect(fetchSpy).not.toHaveBeenCalled();
+      localFetchProxy.remove(atlassianDomain);
     });
 
     it('should intercept urls that the initial part is registered', function () {
-      fetchProxy.add(atlassianDomain);
+      localFetchProxy.add(atlassianDomain);
       window.fetch(`${atlassianDomain}/some/path/inside/the/url`);
 
       expect(fetchSpy).not.toHaveBeenCalled();
+      localFetchProxy.remove(atlassianDomain);
     });
 
     it('should not intercept the url after you remove the domain', function () {
-      fetchProxy.add(atlassianDomain);
-      fetchProxy.remove(atlassianDomain);
+      localFetchProxy.add(atlassianDomain);
+      localFetchProxy.remove(atlassianDomain);
       window.fetch(`${atlassianDomain}/some/path/inside/the/url`);
 
-      expect(fetchSpy).not.toHaveBeenCalled();
+      expect(fetchSpy).toHaveBeenCalled();
     });
   });
 
   describe('Android', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       (isApple as jest.Mock).mockImplementation(() => false);
+    });
 
-      fetchProxy = new FetchProxy();
-      fetchProxy.enable();
+    beforeEach(() => {
+      localFetchProxy = new FetchProxy();
+      localFetchProxy.enable();
+    });
+
+    afterEach(() => {
+      localFetchProxy.disable();
     });
 
     it('should not intercept urls', function () {
-      fetchProxy.add(atlassianDomain);
+      localFetchProxy.add(atlassianDomain);
       window.fetch(atlassianDomain);
 
       expect(fetchSpy).toHaveBeenCalled();
@@ -97,25 +141,29 @@ describe('FetchProxy', () => {
   });
 });
 
-function TestComponent() {
-  let fetchProxy = useFetchProxy();
-
-  useMemo(() => {
-    fetchProxy.add(atlassianDomain);
-  }, [fetchProxy]);
-
-  return null;
-}
-
-describe('useFetchProxy', () => {
+describe('use FetchProxy in component', () => {
   let fetchSpy: jest.SpyInstance;
-  let consoleSpy: jest.SpyInstance;
   let renderResult: ReactTestRenderer;
 
+  beforeAll(() => {
+    fetchProxy.disable();
+  });
+
+  const TestComponent = (): JSX.Element | null => {
+    useEffect(() => {
+      const localFetchProxy = new FetchProxy();
+      localFetchProxy.enable();
+      localFetchProxy.add(atlassianDomain);
+
+      return () => {
+        localFetchProxy.disable();
+      };
+    }, []);
+
+    return null;
+  };
+
   beforeEach(() => {
-    consoleSpy = jest
-      .spyOn(window.console, 'debug')
-      .mockImplementation(() => {});
     fetchSpy = jest
       .spyOn(window, 'fetch')
       .mockImplementation(() => Promise.resolve(new Response()));
@@ -128,8 +176,8 @@ describe('useFetchProxy', () => {
 
   afterEach(() => {
     fetchSpy.mockRestore();
-    consoleSpy.mockRestore();
     (isApple as jest.Mock).mockClear();
+
     renderResult.unmount();
   });
 
@@ -139,19 +187,29 @@ describe('useFetchProxy', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('should not intercept url on atlassian domain after unmounted', function () {
+    act(() => {
+      renderResult.unmount();
+    });
+
+    window.fetch(`${atlassianDomain}/some/path/inside/the/url`);
+
+    expect(fetchSpy).toHaveBeenCalled();
+  });
+
   it('should not intercept url on trello domain', function () {
     window.fetch(`${trelloDomain}/some/path/inside/the/url`);
 
-    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalled();
   });
 
-  it('should not intercept url on atlassian domain after unmounted', function () {
+  it('should not intercept url on trello domain after unmounted', function () {
     act(() => {
       renderResult.unmount();
     });
 
     window.fetch(`${trelloDomain}/some/path/inside/the/url`);
 
-    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalled();
   });
 });

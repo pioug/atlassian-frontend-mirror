@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
   "description": "The essential plugin for use with the Atlassian Design System.",
-  "version": "4.4.6",
+  "version": "4.5.0",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,7 +15,7 @@
       "draft": true
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",

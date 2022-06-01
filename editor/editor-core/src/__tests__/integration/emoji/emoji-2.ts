@@ -97,7 +97,6 @@ BrowserTestCase(
     await insertEmoji(page, 'smile');
     await page.click('[aria-label="Decision"]');
     await page.waitForSelector(decisions, { timeout: 1000 });
-    await page.isExisting(decisions);
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);
   },

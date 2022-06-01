@@ -11,6 +11,7 @@ import {
 } from '../../ui/SmartCardStorage';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { SmartLinksOptions } from '../../types/smartLinksOptions';
+import { useFeatureFlags } from '../../use-feature-flags';
 
 export interface InlineCardProps {
   url?: string;
@@ -26,6 +27,7 @@ const InlineCard: React.FunctionComponent<
   const { url, data, eventHandlers, portal, smartLinks } = props;
   const onClick = getCardClickHandler(eventHandlers, url);
   const cardProps = { url, data, onClick, container: portal };
+  const featureFlags = useFeatureFlags();
 
   if (smartLinks?.ssr && url) {
     return <CardSSR appearance="inline" url={url} />;
@@ -43,6 +45,7 @@ const InlineCard: React.FunctionComponent<
       >
         <Card
           appearance="inline"
+          showHoverPreview={featureFlags?.showHoverPreview}
           {...cardProps}
           onResolve={(data) => {
             if (!data.url || !data.title) {

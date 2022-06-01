@@ -157,6 +157,7 @@ export function createMapResponseToJson(
         'serverInvalidBody',
         {
           ...metadata,
+          ...extractMediaHeaders(response),
           statusCode: response.status,
         },
         err,
@@ -176,6 +177,7 @@ export function createMapResponseToBlob(
         'serverInvalidBody',
         {
           ...metadata,
+          ...extractMediaHeaders(response),
           statusCode: response.status,
         },
         err,
@@ -301,6 +303,7 @@ export function createRequestErrorFromResponse(
   const reason = createRequestErrorReason(statusCode);
   return new RequestError(reason, {
     ...metadata,
+    ...extractMediaHeaders(response),
     statusCode,
   });
 }
@@ -316,4 +319,12 @@ export function createProcessFetchResponse(
     const requestError = createRequestErrorFromResponse(metadata, response);
     throw requestError;
   };
+}
+
+export function extractMediaHeaders(response: Response) {
+  const { headers } = response;
+  const mediaRegion = headers.get('x-media-region') || 'unknown';
+  const mediaEnv = headers.get('x-media-env') || 'unknown';
+
+  return { mediaRegion, mediaEnv };
 }

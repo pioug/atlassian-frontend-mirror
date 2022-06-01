@@ -1,8 +1,17 @@
 import React from 'react';
 
 import CheckIcon from '@atlaskit/icon/glyph/check';
+import { CustomItemComponentProps } from '@atlaskit/menu';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
+
+const CustomComponent: React.FC<CustomItemComponentProps> = ({
+  children,
+  ...props
+}) => {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+  return <a {...props}>{children}</a>;
+};
 
 export default () => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -13,6 +22,9 @@ export default () => (
         <DropdownItem>Adelaide</DropdownItem>
         <DropdownItem href="/hello-there" title="A place west of Sydney">
           Perth
+        </DropdownItem>
+        <DropdownItem href="#test" component={CustomComponent}>
+          Custom link component
         </DropdownItem>
         <DropdownItem description="It's a popular destination in Australia">
           Melbourne

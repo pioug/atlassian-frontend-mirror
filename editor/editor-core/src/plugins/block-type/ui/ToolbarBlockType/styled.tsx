@@ -5,11 +5,15 @@ import { N400 } from '@atlaskit/theme/colors';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { headingsSharedStyles } from '@atlaskit/editor-common/styles';
 import { shortcutStyle } from '../../../../ui/styles';
+import { token } from '@atlaskit/tokens';
 
 export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
   // TEMP FIX: See https://product-fabric.atlassian.net/browse/ED-13878
   const selectedStyle = selected
-    ? `${tagName} { color: white !important; }`
+    ? `${tagName} { color: ${token(
+        'color.text.inverse',
+        'white',
+      )} !important; }`
     : '';
 
   return (themeProps: ThemeProps) => css`
@@ -34,5 +38,5 @@ export const keyboardShortcut = css`
 `;
 
 export const keyboardShortcutSelect = css`
-  color: ${N400};
+  color: ${token('color.icon', N400)};
 `;

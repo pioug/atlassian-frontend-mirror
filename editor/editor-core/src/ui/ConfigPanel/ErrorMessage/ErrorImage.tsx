@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// Quality Ticket: https://product-fabric.atlassian.net/browse/DSP-4249
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';

@@ -5,11 +5,11 @@ import { IntlProvider } from 'react-intl-next';
 import {
   defaultMediaPickerAuthProvider,
   defaultMediaPickerCollectionName,
+  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
-import { ufologger } from '@atlaskit/ufo/logger';
 import { Clipboard } from '../src';
 import {
   ImagePreview,
@@ -26,8 +26,10 @@ import {
   ClipboardContainer,
   InfoContainer,
   PastedImage,
-} from '../example-helpers/styled';
+} from '../example-helpers/stylesWrapper';
+import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
 import { fileToDataURI } from '@atlaskit/media-ui';
+import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 
 export interface ClipboardWrapperState {
   isConnectedToUsersCollection: boolean;
@@ -41,8 +43,6 @@ export interface ClipboardWrapperState {
   pastedImgHeight: number;
   isLoading: boolean;
 }
-
-ufologger.enable();
 
 class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
   dropzoneContainer?: HTMLDivElement;
@@ -127,37 +127,44 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
     } = this.state;
 
     return (
-      <PopupContainer>
-        <PopupHeader>
-          Connected to users collection
-          <Toggle
-            defaultChecked={isConnectedToUsersCollection}
-            onChange={this.onConnectionChange}
-          />
-          Active
-          <Toggle defaultChecked={isActive} onChange={this.onActiveChange} />
-        </PopupHeader>
-        <DropzoneContentWrapper>
-          <ClipboardContainer isWindowFocused={isWindowFocused}>
-            <h2>Clipboard example</h2>
-            <p>
-              Use CMD+C to copy an image from finder, followed by CMD+V to paste
-              the image when this window is focused.
-            </p>
-            <p>
-              You can also take a screenshot with SHIFT+CTRL+COMMAND+4 (Mac) and
-              paste with CMD+V.
-            </p>
-            <p>If you paste an image you will see a preview.</p>
-          </ClipboardContainer>
-          <DropzoneItemsInfo>
-            <h1>User collection items</h1>
-            {this.renderLastItems()}
-          </DropzoneItemsInfo>
-        </DropzoneContentWrapper>
-        {this.renderPastedImage()}
-        {this.renderClipboard()}
-      </PopupContainer>
+      <UfoLoggerWrapper>
+        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
+          <PopupContainer>
+            <PopupHeader>
+              Connected to users collection
+              <Toggle
+                defaultChecked={isConnectedToUsersCollection}
+                onChange={this.onConnectionChange}
+              />
+              Active
+              <Toggle
+                defaultChecked={isActive}
+                onChange={this.onActiveChange}
+              />
+            </PopupHeader>
+            <DropzoneContentWrapper>
+              <ClipboardContainer isWindowFocused={isWindowFocused}>
+                <h2>Clipboard example</h2>
+                <p>
+                  Use CMD+C to copy an image from finder, followed by CMD+V to
+                  paste the image when this window is focused.
+                </p>
+                <p>
+                  You can also take a screenshot with SHIFT+CTRL+COMMAND+4 (Mac)
+                  and paste with CMD+V.
+                </p>
+                <p>If you paste an image you will see a preview.</p>
+              </ClipboardContainer>
+              <DropzoneItemsInfo>
+                <h1>User collection items</h1>
+                {this.renderLastItems()}
+              </DropzoneItemsInfo>
+            </DropzoneContentWrapper>
+            {this.renderPastedImage()}
+            {this.renderClipboard()}
+          </PopupContainer>
+        </FeatureFlagsWrapper>
+      </UfoLoggerWrapper>
     );
   }
 

@@ -53,6 +53,7 @@ import {
 import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
+import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 
 export const FullPagePadding = 32;
 
@@ -252,11 +253,11 @@ const tableSortableColumnStyle = ({
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor.-right:first-child + * {
+        > .ProseMirror-gapcursor.-right:first-of-type + * {
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor:first-child + span + * {
+        > .ProseMirror-gapcursor:first-of-type + span + * {
           margin-top: 0;
         }
 
@@ -520,6 +521,11 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
       .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
         overflow-x: auto;
       }
+
+      .${shadowObserverClassNames.SHADOW_CONTAINER}
+        .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
+        display: flex;
+      }
     }
 
     ${tableSharedStyle(themeProps)}
@@ -537,6 +543,13 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
         z-index: ${akEditorStickyHeaderZIndex};
       }
 
+      &
+        .${shadowObserverClassNames.SENTINEL_LEFT},
+        &
+        .${shadowObserverClassNames.SENTINEL_RIGHT} {
+        height: calc(100% - ${tableMarginTop}px);
+      }
+
       /**
      * A hack for making all the <th /> heights equal in case some have shorter
      * content than others.
@@ -550,7 +563,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
         margin-right: 0;
       }
 
-      table tr:first-child {
+      table tr:first-of-type {
         height: 100%;
 
         td,

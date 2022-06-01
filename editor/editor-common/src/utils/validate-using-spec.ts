@@ -1,13 +1,13 @@
 import { Schema } from 'prosemirror-model';
 
-import {
-  ADFEntity,
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { validator } from '@atlaskit/adf-utils/validator';
+import type {
   ErrorCallbackOptions,
   Validate,
   ValidationError,
   ValidationErrorMap,
-  validator,
-} from '@atlaskit/adf-utils';
+} from '@atlaskit/adf-utils/validatorTypes';
 
 export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 

@@ -8,7 +8,7 @@
     "team": "Design System Team",
     "releaseModel": "scheduled"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "../dist/tokens-browser-extension/index.js",
   "atlaskit:src": "src/index.tsx",
   "scripts": {

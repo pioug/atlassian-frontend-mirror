@@ -174,6 +174,7 @@ describe('MediaStore', () => {
         fetchMock.once('Invalid Body', {
           status: 201,
           statusText: 'Created',
+          headers: { 'x-media-region': 'ap-southeast-2' },
         });
 
         try {
@@ -187,6 +188,8 @@ describe('MediaStore', () => {
             reason: 'serverInvalidBody',
             method: 'POST',
             endpoint: '/upload',
+            mediaRegion: 'ap-southeast-2',
+            mediaEnv: 'unknown',
             statusCode: 201,
             innerError: expect.any(Error),
           });

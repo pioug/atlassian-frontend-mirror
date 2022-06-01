@@ -53,7 +53,10 @@ export const smartCardStyles = css`
     .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
       cursor: pointer;
       &:hover {
-        background-color: ${N20};
+        background-color: ${token(
+          'color.background.neutral.subtle.hovered',
+          N20,
+        )};
       }
     }
 

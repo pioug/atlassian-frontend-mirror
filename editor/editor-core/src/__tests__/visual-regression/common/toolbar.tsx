@@ -258,9 +258,13 @@ describe('Toolbar: Responsive toolbar', () => {
       appearance: Appearance.fullPage,
       viewport,
       editorProps: {
+        UNSAFE_allowUndoRedoButtons: true,
         primaryToolbarIconBefore: <div></div>,
         featureFlags: { twoLineEditorToolbar: twoLineEditorToolbar },
+        allowFindReplace: true,
+        primaryToolbarComponents: { before: <div></div>, after: <div></div> },
       },
+      withCollab: true,
     });
   };
 
@@ -278,6 +282,11 @@ describe('Toolbar: Responsive toolbar', () => {
     await page.waitForSelector(mainToolbarSelector);
   });
 
+  it('should show one line toolbar with squashed non-custom toolbar when viewport is around 870px if feature flag is off', async () => {
+    await initEditor({ width: 870, height: 300 }, false);
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
   it('should show one line toolbar when viewport is big if feature flag is on', async () => {
     await initEditor({ width: 1280, height: 300 }, true);
     await page.waitForSelector(mainToolbarSelector);
@@ -285,6 +294,11 @@ describe('Toolbar: Responsive toolbar', () => {
 
   it('should show two line toolbar when viewport is small if feature flag is on', async () => {
     await initEditor({ width: 400, height: 300 }, true);
+    await page.waitForSelector(mainToolbarSelector);
+  });
+
+  it('should show one line toolbar with squashed non-custom toolbar when viewport is around 870px if feature flag is on', async () => {
+    await initEditor({ width: 870, height: 300 }, true);
     await page.waitForSelector(mainToolbarSelector);
   });
 });

@@ -6,7 +6,6 @@ import {
 import {
   ANALYTICS_MEDIA_CHANNEL,
   withMediaAnalyticsContext,
-  filterFeatureFlagNames,
 } from '@atlaskit/media-common';
 
 import {
@@ -21,7 +20,10 @@ import {
 } from '../../service/types';
 
 import { ClipboardPastePayload, ClipboardConfig } from '../../types';
-import { getPackageAttributes } from '../../util/analytics';
+import {
+  getPackageAttributes,
+  LOGGED_FEATURE_FLAGS,
+} from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
 
 export const getFilesFromClipboard = (files: FileList) => {
@@ -172,13 +174,6 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 export const Clipboard = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {
-    filterFeatureFlags: filterFeatureFlagNames({
-      newCardExperience: true,
-      captions: false,
-      timestampOnVideo: false,
-      observedWidth: false,
-      mediaInline: false,
-      folderUploads: true,
-    }),
+    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
   },
 )(withAnalyticsEvents()(ClipboardBase));

@@ -162,13 +162,14 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
     `data-testid` in the rendered code, serving as a hook for automated tests.
 
     The value of `testId` is used to prefix `testId` props in given elements.
-    + `${testId}--table` - Table.
-    + `${testId}--head` - Table header.
-    + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-    + `${testId}--row--{index - content of the first cell}` - Table row.
-    + `${testId}--body` - Table body.
-    + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-    + `${testId}--loadingSpinner` - The spinner overlaid when loading.
+    - `{testId}--table` - Table.
+    - `{testId}--head` - Table header.
+    - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+    - `{testId}--row--{index - content of the first cell}` - Table row.
+    - `{testId}--body` - Table body.
+    - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+    - `{testId}--loadingSpinner` - The spinner overlaid when loading.
+    - `{testId}--pagination` - The table pagination.
    */
   testId?: string;
 
@@ -318,13 +319,14 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
     `data-testid` in the rendered code, serving as a hook for automated tests.
 
     The value of `testId` is used to prefix `testId` props in given elements.
-    + `${testId}--table` - Table.
-    + `${testId}--head` - Table header.
-    + `${testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-    + `${testId}--row--{index - content of the first cell}` - Table row.
-    + `${testId}--body` - Table body.
-    + `${testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-    + `${testId}--loadingSpinner` - The spinner overlaid when loading.
+    - `{testId}--table` - Table.
+    - `{testId}--head` - Table header.
+    - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+    - `{testId}--row--{index - content of the first cell}` - Table row.
+    - `{testId}--body` - Table body.
+    - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+    - `{testId}--loadingSpinner` - The spinner overlaid when loading.
+    - `{testId}--pagination` - The table pagination.
    */
   testId?: string;
 

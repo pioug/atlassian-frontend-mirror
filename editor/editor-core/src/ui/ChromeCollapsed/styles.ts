@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 export const inputStyle = css`
   /* Normal .className gets overridden by input[type=text] hence this hack to produce input.className */
   input& {
-    background-color: white;
+    background-color: ${token('color.background.input', 'white')};
     border: 1px solid ${token('color.border.input', akEditorSubtleAccent)};
     border-radius: ${borderRadius()}px;
     box-sizing: border-box;
@@ -23,10 +23,11 @@ export const inputStyle = css`
     font-weight: 400;
     line-height: 1.42857142857143;
     letter-spacing: -0.005em;
-    color: ${N300};
+    color: ${token('color.text.subtlest', N300)};
 
     &:hover {
-      border-color: ${N50};
+      background-color: ${token('color.background.input.hovered', 'white')};
+      border-color: ${token('color.border.input', N50)};
       cursor: text;
     }
   }

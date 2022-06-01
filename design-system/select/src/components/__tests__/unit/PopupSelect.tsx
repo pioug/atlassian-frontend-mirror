@@ -156,6 +156,160 @@ describe('Popup Select', () => {
     expect(getByText('Select...')).toBeTruthy();
   });
 
+  const PopupSelectOpenTest = ({
+    isOpen,
+    defaultIsOpen,
+  }: {
+    isOpen?: boolean;
+    defaultIsOpen?: boolean;
+  }) => (
+    <PopupSelect
+      options={OPTIONS}
+      value={OPTIONS[0]}
+      isOpen={isOpen}
+      defaultIsOpen={defaultIsOpen}
+      classNamePrefix="popup-select"
+      target={({ ref }) => (
+        <button ref={ref} data-testid="target">
+          Target
+        </button>
+      )}
+    />
+  );
+
+  describe('isOpen prop', () => {
+    it('should open and close the menu', () => {
+      const { container, rerender } = render(<PopupSelectOpenTest />, {
+        container: document.body,
+      });
+
+      // No prop is set, so initially the popup should be closed
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(0);
+
+      // Change `isOpen` to `true`
+      rerender(<PopupSelectOpenTest isOpen />);
+
+      // Menu should be open
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(1);
+
+      // Change `isOpen` to `false`
+      rerender(<PopupSelectOpenTest isOpen={false} />);
+
+      // Menu should be closed
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(0);
+    });
+
+    it('should not allow the popup to close when set to true', () => {
+      const { container, getByTestId } = render(
+        <>
+          <PopupSelectOpenTest isOpen />
+          <button data-testid="close-decoy">Close decoy</button>
+        </>,
+        { container: document.body },
+      );
+
+      // Click elsewhere to trigger close
+      const closeDecoy = getByTestId('close-decoy');
+      closeDecoy.click();
+
+      // Popup should remain open
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(1);
+    });
+
+    it('should not allow the popup to open when set to false', () => {
+      const { container, getByTestId } = render(
+        <PopupSelectOpenTest isOpen={false} />,
+        { container: document.body },
+      );
+
+      // Click target to trigger open
+      const target = getByTestId('target');
+      target.click();
+
+      // Popup should remain closed
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(0);
+    });
+
+    it('should have preference over the `defaultIsOpen` prop', () => {
+      const { container: closedContainer } = render(
+        <PopupSelectOpenTest isOpen={false} defaultIsOpen />,
+        { container: document.body },
+      );
+
+      // Popup should be closed
+      expect(
+        closedContainer.getElementsByClassName('popup-select__menu-list')
+          .length,
+      ).toBe(0);
+
+      const { container: openContainer } = render(
+        <PopupSelectOpenTest isOpen defaultIsOpen={false} />,
+        { container: document.body },
+      );
+
+      // Popup should be open
+      expect(
+        openContainer.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(1);
+    });
+  });
+
+  describe('defaultIsOpen prop', () => {
+    it('should open the popup on mount when set to true', () => {
+      const { container } = render(<PopupSelectOpenTest defaultIsOpen />, {
+        container: document.body,
+      });
+
+      // Popup should be open
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(1);
+    });
+
+    it('should not open the popup on mount when set to false', () => {
+      const { container } = render(
+        <PopupSelectOpenTest defaultIsOpen={false} />,
+        { container: document.body },
+      );
+
+      // Popup should be closed
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(0);
+    });
+
+    it('should not open the popup if set to true after mount', () => {
+      const { container, rerender } = render(
+        <PopupSelectOpenTest defaultIsOpen={false} />,
+        {
+          container: document.body,
+        },
+      );
+
+      // Popup should be closed
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(0);
+
+      rerender(<PopupSelectOpenTest defaultIsOpen />);
+
+      // Popup should remain closed
+      expect(
+        container.getElementsByClassName('popup-select__menu-list').length,
+      ).toBe(0);
+    });
+  });
+
   describe('trigger button', () => {
     const renderPopupSelect = () => {
       const renderResult = render(

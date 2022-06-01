@@ -9,10 +9,21 @@ describe('Using testId', () => {
   test('Particular elements are accessible via data-testid', () => {
     const testId = 'the-table';
 
-    const testIds = [`${testId}--table`, `${testId}--head`, `${testId}--body`];
+    const testIds = [
+      `${testId}--table`,
+      `${testId}--head`,
+      `${testId}--body`,
+      `${testId}--pagination`,
+    ];
 
     const { getByTestId, getAllByTestId } = render(
-      <DynamicTableStateless head={head} rows={rows} testId={testId} />,
+      <DynamicTableStateless
+        head={head}
+        rows={rows}
+        testId={testId}
+        rowsPerPage={3}
+        page={1}
+      />,
     );
 
     testIds.forEach((testId) => {

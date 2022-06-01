@@ -4,6 +4,7 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 import { waitForBrowseMenuIcons } from '../../../../__tests__/__helpers/page-objects/_element-browser';
+import { retryUntilStablePosition } from '../../../../__tests__/__helpers/page-objects/_toolbar';
 
 describe('ElementBrowser', () => {
   it('should match ElementBrowser snapshot', async () => {
@@ -18,6 +19,12 @@ describe('ElementBrowser', () => {
 
     await loadPage(page, url);
     await waitForBrowseMenuIcons(page);
+    await retryUntilStablePosition(
+      page,
+      () => Promise.resolve(),
+      `.ReactVirtualized__Collection`,
+      1000,
+    );
 
     const image = await takeElementScreenShot(page, selector);
     expect(image).toMatchProdImageSnapshot();

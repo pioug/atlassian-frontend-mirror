@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 
 import { borderRadius } from '@atlaskit/theme/constants';
 import {
@@ -7,18 +7,18 @@ import {
   akEditorCodeBlockPadding,
   akEditorCodeFontFamily,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import Editor from './../src/editor';
 
-export const Wrapper: any = styled.div`
+export const wrapper: any = css`
   height: 500px;
 `;
-Wrapper.displayName = 'Wrapper';
 
-export const Content: any = styled.div`
+export const content: any = css`
   padding: 0 20px;
   height: 100%;
-  background: #fff;
+  background: ${token('color.background.neutral.subtle', '#fff')};
   box-sizing: border-box;
 
   & .ProseMirror {
@@ -30,17 +30,16 @@ export const Content: any = styled.div`
     }
   }
 `;
-Content.displayName = 'Content';
 
 export type Props = {};
 export type State = { disabled: boolean };
 
 export default function Example() {
   return (
-    <Wrapper>
-      <Content>
+    <div css={wrapper}>
+      <div css={content}>
         <Editor appearance="full-page" />
-      </Content>
-    </Wrapper>
+      </div>
+    </div>
   );
 }

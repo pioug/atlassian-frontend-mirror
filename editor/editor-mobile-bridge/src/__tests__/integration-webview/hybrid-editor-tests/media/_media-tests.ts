@@ -19,7 +19,7 @@ import {
   resizeMediaSingle,
   mediaCardSelector,
 } from '../../_utils/media';
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 export default async () => {
   const setup = async (

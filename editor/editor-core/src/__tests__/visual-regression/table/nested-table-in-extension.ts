@@ -18,7 +18,6 @@ describe('Snapshot Test: Nested table inside bodied extension', () => {
       appearance: Appearance.fullPage,
       adf: tableInExtAdf,
       viewport: { width: 1280, height: 500 },
-      editorProps: { allowDynamicTextSizing: true },
     });
   };
 

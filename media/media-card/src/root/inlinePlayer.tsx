@@ -36,6 +36,7 @@ export interface InlinePlayerOwnProps {
   originalDimensions?: NumericalCardDimensions;
   autoplay: boolean;
   selected?: boolean;
+  onFullscreenChange?: (fullscreen: boolean) => void;
   onError?: (error: Error) => void;
   readonly onClick?: (
     event: React.MouseEvent<HTMLDivElement>,
@@ -241,6 +242,7 @@ export class InlinePlayerBase extends Component<
       forwardRef,
       autoplay,
       cardPreview,
+      onFullscreenChange,
     } = this.props;
     const { fileSrc, isUploading, progress } = this.state;
 
@@ -262,6 +264,7 @@ export class InlinePlayerBase extends Component<
             <CustomMediaPlayer
               type="video"
               src={fileSrc}
+              onFullscreenChange={onFullscreenChange}
               fileId={identifier.id}
               isAutoPlay={autoplay}
               isHDAvailable={false}

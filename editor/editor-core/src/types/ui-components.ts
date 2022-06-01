@@ -18,6 +18,7 @@ export type UiComponentFactoryParams = {
   popupsScrollableElement?: HTMLElement;
   containerElement: HTMLElement | null;
   disabled: boolean;
+  wrapperElement: HTMLElement | null;
 };
 export type UIComponentFactory = (
   params: UiComponentFactoryParams,

@@ -42,21 +42,38 @@ const createSafeRejectedPromise = (error: any) => {
   };
 };
 
+/**
+ * Custom type for simulate the UFOExperience main methods
+ */
+interface FakeUFOInstance {
+  start: jest.Mock;
+  success: jest.Mock;
+  failure: jest.Mock;
+  abort: jest.Mock;
+}
+
 describe('ReactionStore', () => {
   const fakeCreateAnalyticsEvent = jest.fn();
-  const fakeAddUFOInstance = {
+  const fakeAddUFOInstance: FakeUFOInstance = {
     start: jest.fn(),
     success: jest.fn(),
     failure: jest.fn(),
     abort: jest.fn(),
   };
-  const fakeRemoveUFOInstance = {
+  const fakeRemoveUFOInstance: FakeUFOInstance = {
     start: jest.fn(),
     success: jest.fn(),
     failure: jest.fn(),
     abort: jest.fn(),
   };
-  const fakeRenderUFOInstance = {
+  const fakeRenderUFOInstance: FakeUFOInstance = {
+    start: jest.fn(),
+    success: jest.fn(),
+    failure: jest.fn(),
+    abort: jest.fn(),
+  };
+
+  const fakeFetchDetailsUFOInstance: FakeUFOInstance = {
     start: jest.fn(),
     success: jest.fn(),
     failure: jest.fn(),
@@ -78,10 +95,10 @@ describe('ReactionStore', () => {
     ],
   });
 
-  let store: ReactionStore.MemoryReactionsStore;
-  beforeAll(() => {
-    jest.useFakeTimers();
-    spyCreateAndFireSafe.mockImplementation(fakeCreateAndFireSafe);
+  /**
+   * Mock the getInstance method for all different UfoExperience object
+   */
+  const loadFakeUFOInstances = () => {
     ReactionStore.ufoExperiences.add.getInstance = jest.fn(
       () => fakeAddUFOInstance as any,
     );
@@ -91,6 +108,27 @@ describe('ReactionStore', () => {
     ReactionStore.ufoExperiences.render.getInstance = jest.fn(
       () => fakeRenderUFOInstance as any,
     );
+    ReactionStore.ufoExperiences.fetchDetails.getInstance = jest.fn(
+      () => fakeFetchDetailsUFOInstance as any,
+    );
+  };
+
+  /**
+   * Jest mock reset for all different methods of a UfoExperience object
+   * @param instance given instance to reset
+   */
+  const mockResetUFOInstance = (instance: FakeUFOInstance) => {
+    instance.start.mockReset();
+    instance.abort.mockReset();
+    instance.failure.mockReset();
+    instance.success.mockReset();
+  };
+
+  let store: ReactionStore.MemoryReactionsStore;
+  beforeAll(() => {
+    jest.useFakeTimers();
+    spyCreateAndFireSafe.mockImplementation(fakeCreateAndFireSafe);
+    loadFakeUFOInstances();
   });
   afterAll(() => {
     jest.useRealTimers();
@@ -106,22 +144,16 @@ describe('ReactionStore', () => {
     fakeCreateAndFireSafe.mockReset();
 
     // Add UFO experience reset mocks
-    fakeAddUFOInstance.start.mockReset();
-    fakeAddUFOInstance.abort.mockReset();
-    fakeAddUFOInstance.failure.mockReset();
-    fakeAddUFOInstance.success.mockReset();
+    mockResetUFOInstance(fakeAddUFOInstance);
 
     // Remove UFO experience reset mocks
-    fakeRemoveUFOInstance.start.mockReset();
-    fakeRemoveUFOInstance.abort.mockReset();
-    fakeRemoveUFOInstance.failure.mockReset();
-    fakeRemoveUFOInstance.success.mockReset();
+    mockResetUFOInstance(fakeRemoveUFOInstance);
 
     // Render UFO experience reset mocks
-    fakeRenderUFOInstance.start.mockReset();
-    fakeRenderUFOInstance.abort.mockReset();
-    fakeRenderUFOInstance.failure.mockReset();
-    fakeRenderUFOInstance.success.mockReset();
+    mockResetUFOInstance(fakeRemoveUFOInstance);
+
+    // Fetch details UFO experience reset mocks
+    mockResetUFOInstance(fakeFetchDetailsUFOInstance);
 
     store = new ReactionStore.MemoryReactionsStore(fakeClient);
   });
@@ -274,38 +306,6 @@ describe('ReactionStore', () => {
       });
     });
 
-    it('should call adaptor to get detailed reaction', () => {
-      const response = Promise.resolve({
-        ...reaction(':thumbsup:', 1, true),
-        users: [user('id', 'Some real user')],
-      });
-
-      (fakeClient.getDetailedReaction as jest.Mock<any>).mockReturnValueOnce(
-        response,
-      );
-
-      store.getDetailedReaction(containerAri, ari, '1f44d');
-
-      expect(fakeClient.getDetailedReaction).toHaveBeenCalledTimes(1);
-
-      return response.then(() => {
-        expect(store.getState()).toMatchObject({
-          reactions: {
-            [`${containerAri}|${ari}`]: {
-              status: ReactionStatus.ready,
-              reactions: [
-                {
-                  ...reaction(':thumbsup:', 3, false),
-                  users: [user('id', 'Some real user')],
-                },
-                reaction(':clap:', 3, true),
-              ],
-            },
-          },
-        });
-      });
-    });
-
     it('should call adaptor to add reaction', () => {
       const response = Promise.resolve(reaction(':thumbsup:', 4, true));
 
@@ -410,6 +410,63 @@ describe('ReactionStore', () => {
           },
         },
         flash: {},
+      });
+    });
+
+    describe('getDetailedReaction analytics', () => {
+      it('should call adaptor to get detailed reaction', async () => {
+        const response = Promise.resolve({
+          ...reaction(':thumbsup:', 1, true),
+          users: [user('id', 'Some real user')],
+        });
+        (fakeClient.getDetailedReaction as jest.Mock<any>).mockReturnValueOnce(
+          response,
+        );
+
+        store.getDetailedReaction(containerAri, ari, '1f44d');
+
+        // Validate the start method been called
+        expect(fakeFetchDetailsUFOInstance.start).toBeCalled();
+        expect(fakeClient.getDetailedReaction).toHaveBeenCalledTimes(1);
+
+        await response;
+
+        // Check success response
+        expect(fakeFetchDetailsUFOInstance.success).toBeCalled();
+        expect(fakeFetchDetailsUFOInstance.failure).not.toBeCalled();
+        expect(store.getState()).toMatchObject({
+          reactions: {
+            [`${containerAri}|${ari}`]: {
+              status: ReactionStatus.ready,
+              reactions: [
+                {
+                  ...reaction(':thumbsup:', 3, false),
+                  users: [user('id', 'Some real user')],
+                },
+                reaction(':clap:', 3, true),
+              ],
+            },
+          },
+        });
+      });
+
+      it('should not call adaptor when detailed reaction data failed to be fetched', async () => {
+        const response = Promise.resolve(new Error('delete error'));
+        (fakeClient.getDetailedReaction as jest.Mock<
+          any
+        >).mockRejectedValueOnce(response);
+
+        store.getDetailedReaction(containerAri, ari, '1f44d');
+
+        // Validate the start method been called
+        expect(fakeFetchDetailsUFOInstance.start).toBeCalled();
+
+        await response;
+
+        await waitForExpect(() => {
+          expect(fakeFetchDetailsUFOInstance.success).not.toBeCalled();
+          expect(fakeFetchDetailsUFOInstance.failure).toBeCalled();
+        });
       });
     });
 

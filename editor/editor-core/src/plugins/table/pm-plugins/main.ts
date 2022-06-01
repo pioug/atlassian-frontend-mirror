@@ -71,7 +71,6 @@ import { insideTable } from '../../../utils';
 import { isHeaderRowRequired } from '../utils/paste';
 
 let isBreakoutEnabled: boolean | undefined;
-let isDynamicTextSizingEnabled: boolean | undefined;
 let isFullWidthModeEnabled: boolean | undefined;
 let wasFullWidthModeEnabled: boolean | undefined;
 
@@ -81,13 +80,11 @@ export const createPlugin = (
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   pluginConfig: PluginConfig,
-  dynamicTextSizing?: boolean,
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
 ) => {
   isBreakoutEnabled = breakoutEnabled;
-  isDynamicTextSizingEnabled = dynamicTextSizing;
   isFullWidthModeEnabled = fullWidthModeEnabled;
   wasFullWidthModeEnabled = previousFullWidthModeEnabled;
 
@@ -341,7 +338,6 @@ export const createPlugin = (
             eventDispatcher,
             {
               isBreakoutEnabled,
-              dynamicTextSizing: isDynamicTextSizingEnabled,
               isFullWidthModeEnabled,
               wasFullWidthModeEnabled,
             },

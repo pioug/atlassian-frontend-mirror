@@ -159,7 +159,6 @@ const App = () => {
       inlineComment: annotationInlineCommentProvider,
     };
   }, [annotationInlineCommentProvider]);
-  const [enableAutoHighlight, setEnableAutoHighlight] = React.useState(false);
 
   return (
     <section css={containerStyle}>
@@ -167,19 +166,6 @@ const App = () => {
         <h2>Annotations</h2>
         <section css={flagsStyle}>
           <h3>Options</h3>
-
-          <label htmlFor="enableAutoHighlight">
-            <input
-              type="checkbox"
-              id="enableAutoHighlight"
-              name="enableAutoHighlight"
-              checked={enableAutoHighlight}
-              onChange={() => {
-                setEnableAutoHighlight(!enableAutoHighlight);
-              }}
-            />
-            Enable Auto Highlight
-          </label>
         </section>
         <Annotations />
       </section>

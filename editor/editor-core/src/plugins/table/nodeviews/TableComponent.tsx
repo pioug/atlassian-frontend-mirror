@@ -71,6 +71,7 @@ export interface ComponentProps {
   allowControls: boolean;
   isHeaderRowEnabled: boolean;
   isHeaderColumnEnabled: boolean;
+  isMediaFullscreen?: boolean;
   tableActive: boolean;
   ordering: TableColumnOrdering;
   tableResizingPluginState?: ColumnResizingPluginState;
@@ -111,7 +112,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     this.containerWidth = containerWidth;
 
     // store table size using previous full-width mode so can detect if it has changed
-    const dynamicTextSizing = options ? options.dynamicTextSizing : false;
     const isFullWidthModeEnabled = options
       ? options.wasFullWidthModeEnabled
       : false;
@@ -119,7 +119,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       this.node,
       containerWidth.width,
       {
-        dynamicTextSizing,
         isFullWidthModeEnabled,
       },
     );
@@ -197,7 +196,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidUpdate(prevProps: ComponentProps) {
-    const { view, getNode } = this.props;
+    const {
+      view,
+      getNode,
+      isMediaFullscreen,
+      allowColumnResizing,
+    } = this.props;
+
     const { tableOverflowShadowsOptimization } =
       getFeatureFlags(view.state) || {};
 
@@ -228,7 +233,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     if (currentTable.attrs.__autoSize) {
       // Wait for next tick to handle auto sizing, gives the browser time to do layout calc etc.
       this.handleAutoSizeDebounced();
-    } else if (this.props.allowColumnResizing && this.table) {
+    }
+    // re-drawing will cause media component get unmounted that will exit fullscreen mode if media is in fullscreen mode
+    // see https://product-fabric.atlassian.net/browse/MEX-1290
+    else if (allowColumnResizing && this.table && !isMediaFullscreen) {
       // If col widths (e.g. via collab) or number of columns (e.g. delete a column) have changed,
       // re-draw colgroup.
       const previousTable = this.node;
@@ -588,14 +596,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
   private handleAutoSize = () => {
     if (this.table) {
-      const { view, getNode, getPos, options, containerWidth } = this.props;
+      const { view, getNode, getPos, containerWidth } = this.props;
       const node = getNode();
       const pos = getPos();
       if (!isValidPosition(pos, view.state)) {
         return;
       }
       autoSizeTable(view, node, this.table, pos, {
-        dynamicTextSizing: (options && options.dynamicTextSizing) || false,
         containerWidth: containerWidth.width,
       });
     }

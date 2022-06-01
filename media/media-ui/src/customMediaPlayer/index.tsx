@@ -86,6 +86,7 @@ export interface CustomMediaPlayerProps
   readonly onError?: () => void;
   readonly onDownloadClick?: () => void;
   readonly onFirstPlay?: () => void;
+  readonly onFullscreenChange?: (fullscreen: boolean) => void;
   readonly originalDimensions?: NumericalCardDimensions;
   readonly featureFlags?: MediaFeatureFlags;
   readonly poster?: string;
@@ -195,6 +196,9 @@ export class CustomMediaPlayerBase extends Component<
         this.onFullScreenChange,
       );
     }
+    if (this.state.isFullScreenEnabled) {
+      this.props.onFullscreenChange?.(false);
+    }
     simultaneousPlayManager.unsubscribe(this);
   }
 
@@ -206,6 +210,7 @@ export class CustomMediaPlayerBase extends Component<
     const isFullScreenEnabled = !!getFullscreenElement();
 
     if (currentFullScreenMode !== isFullScreenEnabled) {
+      this.props.onFullscreenChange?.(isFullScreenEnabled);
       this.setState({
         isFullScreenEnabled,
       });

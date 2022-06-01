@@ -47,7 +47,6 @@ export interface ReactSerializerInit {
   appearance?: RendererAppearance;
   disableHeadingIDs?: boolean;
   disableActions?: boolean;
-  allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowColumnSorting?: boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
@@ -136,7 +135,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
    * for headers under this ticket -> https://product-fabric.atlassian.net/browse/ED-9668
    */
   private expandHeadingIds: string[] = [];
-  private allowDynamicTextSizing?: boolean;
   private allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   private allowColumnSorting?: boolean;
   private allowCopyToClipboard?: boolean = false;
@@ -163,7 +161,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.appearance = init.appearance;
     this.disableHeadingIDs = init.disableHeadingIDs;
     this.disableActions = init.disableActions;
-    this.allowDynamicTextSizing = init.allowDynamicTextSizing;
     this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
     this.allowCopyToClipboard = init.allowCopyToClipboard;
     this.allowPlaceholderText = init.allowPlaceholderText;
@@ -584,7 +581,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       rendererContext: this.rendererContext,
       serializer: this,
       content: node.content ? node.content.toJSON() : undefined,
-      allowDynamicTextSizing: this.allowDynamicTextSizing,
       allowHeadingAnchorLinks: this.allowHeadingAnchorLinks,
       allowCopyToClipboard: this.allowCopyToClipboard,
       allowPlaceholderText: this.allowPlaceholderText,

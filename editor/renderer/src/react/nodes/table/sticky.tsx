@@ -102,7 +102,6 @@ export type StickyTableProps = {
   layout: TableLayout;
   columnWidths?: number[];
   renderWidth: number;
-  allowDynamicTextSizing?: boolean;
 } & OverflowShadowProps;
 
 export const StickyTable = ({
@@ -118,7 +117,6 @@ export const StickyTable = ({
   children,
   columnWidths,
   renderWidth,
-  allowDynamicTextSizing,
   rowHeight,
 }: StickyTableProps) => {
   return (
@@ -135,7 +133,9 @@ export const StickyTable = ({
         wrapperWidth={wrapperWidth}
       >
         <div
-          className={`${TableSharedCssClassName.TABLE_CONTAINER} ${shadowClassNames}`}
+          className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
+            shadowClassNames || ''
+          }`}
           data-layout={layout}
           style={{
             width: tableWidth,
@@ -153,7 +153,6 @@ export const StickyTable = ({
               layout={layout}
               isNumberColumnEnabled={isNumberColumnEnabled}
               renderWidth={renderWidth}
-              allowDynamicTextSizing={allowDynamicTextSizing}
             >
               {
                 /**

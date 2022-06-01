@@ -62,7 +62,7 @@ export interface AvatarPropTypes {
   appearance?: AppearanceType;
   /**
    * Used to provide better content to screen readers when using presence/status. Rather
-   * than a screen reader speaking "online, approved, John Smith", passing in an label
+   * than a screen reader speaking "online, approved, John Smith", passing in a label
    * allows a custom message like "John Smith (approved and online)".
    */
   label?: string;
@@ -84,8 +84,7 @@ export interface AvatarPropTypes {
    */
   isDisabled?: boolean;
   /**
-   * Name will be displayed in a tooltip, also used by screen readers as fallback
-   * content if the image fails to load.
+   * Provides alt text for the avatar image.
    */
   name?: string;
   /**

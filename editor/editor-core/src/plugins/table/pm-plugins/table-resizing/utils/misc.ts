@@ -34,7 +34,7 @@ export function getLayoutSize(
   containerWidth: number = 0,
   options: TableOptions,
 ): number {
-  const { dynamicTextSizing, isFullWidthModeEnabled } = options;
+  const { isFullWidthModeEnabled } = options;
 
   if (isFullWidthModeEnabled) {
     return containerWidth
@@ -54,7 +54,7 @@ export function getLayoutSize(
     return parseInt(calculatedTableWidth, 10);
   }
 
-  if (dynamicTextSizing && tableLayout === 'default') {
+  if (tableLayout === 'default') {
     return getDefaultLayoutMaxWidth(containerWidth);
   }
 
@@ -113,7 +113,6 @@ interface getTableMaxWidthProps {
   tableStart: number;
   state: EditorState;
   layout: TableLayout;
-  dynamicTextSizing?: boolean;
 }
 
 export const getTableMaxWidth = ({
@@ -121,16 +120,11 @@ export const getTableMaxWidth = ({
   tableStart,
   state,
   layout,
-  dynamicTextSizing,
 }: getTableMaxWidthProps) => {
   const containerWidth = widthPluginKey.getState(state);
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 
-  let maxWidth =
-    parentWidth ||
-    getLayoutSize(layout, containerWidth.width, {
-      dynamicTextSizing,
-    });
+  let maxWidth = parentWidth || getLayoutSize(layout, containerWidth.width, {});
 
   if (table.attrs.isNumberColumnEnabled) {
     maxWidth -= akEditorTableNumberColumnWidth;

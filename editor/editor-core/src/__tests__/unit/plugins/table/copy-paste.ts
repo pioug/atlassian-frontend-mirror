@@ -7,9 +7,10 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { Node as ProsemirrorNode, Fragment, Slice } from 'prosemirror-model';
 import { TextSelection, Transaction } from 'prosemirror-state';
 // @ts-ignore
-import { __serializeForClipboard } from 'prosemirror-view';
+import { EditorView, __serializeForClipboard } from 'prosemirror-view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
   doc,
   p,
@@ -51,6 +52,32 @@ const selectCell = (cell: {
 }) => (tr: Transaction) => {
   const $anchor = tr.doc.resolve(cell.pos);
   return tr.setSelection(new CellSelection($anchor, $anchor) as any);
+};
+
+const copySelectionAndPasteAtPos = ({
+  editorView,
+  pasteStartPos,
+  pasteEndPos,
+}: {
+  editorView: EditorView;
+  pasteStartPos: number;
+  pasteEndPos: number;
+}) => {
+  // collect the content that would have been serialized to clipboard on copy
+  const { dom, text } = __serializeForClipboard(
+    editorView,
+    editorView.state.selection.content(),
+  );
+
+  // move selection to intended paste location
+  const $startPos = editorView.state.doc.resolve(pasteStartPos);
+  const $endPos = editorView.state.doc.resolve(pasteEndPos);
+  editorView.dispatch(
+    editorView.state.tr.setSelection(new TextSelection($startPos, $endPos)),
+  );
+
+  // paste the clipboard-serialized content
+  dispatchPasteEvent(editorView, { html: dom.innerHTML, plain: text });
 };
 
 describe('table plugin', () => {
@@ -243,6 +270,126 @@ describe('table plugin', () => {
     });
   });
 
+  describe('copying-pasting a partial table', () => {
+    describe('when copying from text outside table to text inside a table cell and then pasting', () => {
+      let editorView: EditorView;
+      beforeEach(() => {
+        const editorInstance = editor(
+          doc(
+            p('{<}hello'),
+            table()(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('world{>}')), td()(p())),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('{pasteStartPos}'),
+          ),
+        );
+
+        copySelectionAndPasteAtPos({
+          editorView: editorInstance.editorView,
+          pasteStartPos: editorInstance.refs.pasteStartPos,
+          pasteEndPos: editorInstance.refs.pasteStartPos,
+        });
+
+        editorView = editorInstance.editorView;
+      });
+
+      it('should copy-paste a complete table', () => {
+        expect(editorView.state).toEqualDocumentAndSelection(
+          doc(
+            p('hello'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('world')), td()(p())),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('hello'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('world{<>}')), td()(p())),
+            ),
+          ),
+        );
+      });
+
+      it('should undo copy-paste with 1 undo operation', () => {
+        sendKeyToPm(editorView, 'Mod-z');
+
+        expect(editorView.state).toEqualDocumentAndSelection(
+          doc(
+            p('hello'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('world')), td()(p())),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('{<>}'),
+          ),
+        );
+      });
+    });
+
+    describe('when copying from text inside a table cell to text outside table and then pasting', () => {
+      let editorView: EditorView;
+      beforeEach(() => {
+        const editorInstance = editor(
+          doc(
+            table()(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('{<}hello')), td()(p('more'))),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('world{>}'),
+            p('{pasteStartPos}'),
+          ),
+        );
+
+        copySelectionAndPasteAtPos({
+          editorView: editorInstance.editorView,
+          pasteStartPos: editorInstance.refs.pasteStartPos,
+          pasteEndPos: editorInstance.refs.pasteStartPos,
+        });
+
+        editorView = editorInstance.editorView;
+      });
+
+      it('should copy-paste a complete table and the text outside', () => {
+        expect(editorView.state).toEqualDocumentAndSelection(
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('hello')), td()(p('more'))),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('world'),
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(td()(p()), td()(p('hello')), td()(p('more'))),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('world{<>}'),
+          ),
+        );
+      });
+
+      it('should undo copy-paste with 1 undo operation', () => {
+        sendKeyToPm(editorView, 'Mod-z');
+
+        expect(editorView.state).toEqualDocumentAndSelection(
+          doc(
+            table({ localId: TABLE_LOCAL_ID })(
+              tr(th()(p()), th()(p()), th()(p())),
+              tr(td()(p()), td()(p('hello')), td()(p('more'))),
+              tr(td()(p()), td()(p()), td()(p())),
+            ),
+            p('world'),
+            p('{<>}'),
+          ),
+        );
+      });
+    });
+  });
+
   describe('copy-pasting content inside expand', () => {
     describe('transformSliceToRemoveOpenExpand()', () => {
       it('should unwrap expand if it is the only top level node and not a part of copied content', () => {
@@ -425,7 +572,7 @@ describe('table plugin', () => {
           );
         });
 
-        it('should unwrap the table if the node is open', () => {
+        it('should repointer the openStart depth of the table if the node is open', () => {
           const slice = new Slice(
             fragment(
               table()(
@@ -439,7 +586,13 @@ describe('table plugin', () => {
           );
           expect(transformSliceToRemoveOpenTable(slice, defaultSchema)).toEqual(
             new Slice(
-              fragment(p('1'), p('2'), code_block()('3'), p('4'), p('End')),
+              fragment(
+                table()(
+                  tr(th()(p('1')), th()(p('2'))),
+                  tr(td()(code_block()('3')), td()(p('4'))),
+                ),
+                p('End'),
+              ),
               1,
               0,
             ),
@@ -465,7 +618,7 @@ describe('table plugin', () => {
           );
         });
 
-        it('should unwrap the table if the node is open', () => {
+        it('should ignore the table if the node is open', () => {
           const slice = new Slice(
             fragment(
               p('Start'),
@@ -478,11 +631,7 @@ describe('table plugin', () => {
             4,
           );
           expect(transformSliceToRemoveOpenTable(slice, defaultSchema)).toEqual(
-            new Slice(
-              fragment(p('Start'), p('1'), p('2'), code_block()('3'), p('4')),
-              0,
-              1,
-            ),
+            slice,
           );
         });
       });

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import { filter, ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import { filter } from '@atlaskit/adf-utils/traverse';
 import {
   CardAppearance,
   CardDimensions,

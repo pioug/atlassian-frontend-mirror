@@ -2,7 +2,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
-import * as colors from '@atlaskit/theme/colors';
+import { B300, N300, N20A } from '@atlaskit/theme/colors';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import { Node as PMNode } from 'prosemirror-model';
@@ -21,16 +21,14 @@ import { getPluginState } from '../plugin-key';
 import { NodeSelection, Selection } from 'prosemirror-state';
 import { BreakoutPluginState } from '../types';
 import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
-
-const { B300, N300, N20A } = colors;
-
+import { token } from '@atlaskit/tokens';
 const toolbarButtonWrapper = css`
   && button {
-    background: ${N20A};
-    color: ${N300};
+    background: ${token('color.background.neutral', N20A)};
+    color: ${token('color.icon', N300)};
     :hover {
-      background: ${B300};
-      color: white !important;
+      background: ${token('color.background.neutral.hovered', B300)};
+      color: ${token('color.icon', 'white')} !important;
     }
   }
 `;

@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import React, { Fragment } from 'react';
+import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import {
   ExampleEditor as FullPageEditor,
@@ -11,7 +12,7 @@ import WithEditorActions from '../src/ui/WithEditorActions';
 import { ContextPanel } from '../src';
 import { fromLocation } from '../example-helpers/adf-url';
 
-export const Textarea = styled.textarea`
+export const textareaStyle = css`
   box-sizing: border-box;
   border: 1px solid lightgray;
   font-family: monospace;
@@ -48,7 +49,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
               key={1}
               render={(actions) => {
                 return (
-                  <>
+                  <Fragment>
                     <Button
                       isDisabled={!actions}
                       onClick={async () => {
@@ -59,7 +60,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
                     >
                       Export ADF
                     </Button>
-                  </>
+                  </Fragment>
                 );
               }}
             />

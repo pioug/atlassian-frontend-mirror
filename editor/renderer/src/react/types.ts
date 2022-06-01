@@ -29,7 +29,6 @@ export interface NodeMeta {
   content?: {
     [key: string]: any;
   } | null;
-  allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowCopyToClipboard?: boolean;
   allowPlaceholderText?: boolean;

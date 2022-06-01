@@ -5,6 +5,8 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+
 import Toolbar from '../../Toolbar';
 import PluginSlot from '../../PluginSlot';
 import WithPluginState from '../../WithPluginState';
@@ -58,8 +60,8 @@ const commentEditorStyle = css`
   /* calc(2px + 40px + 24px + ( 20px + (32px * 2))) */
 
   height: auto;
-  background-color: white;
-  border: 1px solid ${N40};
+  background-color: ${token('color.background.input', 'white')};
+  border: 1px solid ${token('color.border', N40)};
   box-sizing: border-box;
   border-radius: ${borderRadius()}px;
 
@@ -109,6 +111,7 @@ class Editor extends React.Component<
 
   private appearance: EditorAppearance = 'comment';
   private containerElement: HTMLElement | null = null;
+  private wrapperElement: HTMLElement | null = null;
 
   private handleSave = () => {
     if (this.props.editorView && this.props.onSave) {
@@ -167,6 +170,7 @@ class Editor extends React.Component<
             `,
           ]}
           className="akEditor"
+          ref={(ref) => (this.wrapperElement = ref)}
         >
           <MainToolbar useStickyToolbar={useStickyToolbar}>
             <Toolbar
@@ -218,6 +222,7 @@ class Editor extends React.Component<
                       popupsScrollableElement={popupsScrollableElement}
                       containerElement={this.containerElement}
                       disabled={!!disabled}
+                      wrapperElement={this.wrapperElement}
                     />
                     {editorDOMElement}
                   </ContentArea>

@@ -12,6 +12,7 @@ import { getTokenId } from '../../../src/utils/token-ids';
 import type { TransformedTokenExtended } from '../grouped-tokens';
 
 import CopyButtonValue from './copy-button-value';
+import Highlight from './highlight';
 import TokenItemName from './token-item-name';
 
 const cellStyles = css({
@@ -98,7 +99,11 @@ const TokenItem = ({
             searchQuery={searchQuery}
           />
         ))}
-        <p css={{ margin: 0 }}>{attributes.description}</p>
+        <p css={{ margin: 0 }}>
+          <Highlight highlight={searchQuery}>
+            {attributes.description}
+          </Highlight>
+        </p>
         <p
           css={{
             color: token('color.text.subtlest', N200),
@@ -126,6 +131,7 @@ const TokenItem = ({
           attributes={attributes}
           original={original}
           css={valueButtonStyles}
+          searchQuery={searchQuery}
         />
         {extensions?.map((extension) => (
           <CopyButtonValue
@@ -134,6 +140,7 @@ const TokenItem = ({
             original={extension.original}
             attributes={extension.attributes}
             css={valueButtonStyles}
+            searchQuery={searchQuery}
           />
         ))}
       </td>
@@ -144,6 +151,7 @@ const TokenItem = ({
             original={darkToken.original}
             attributes={darkToken.attributes}
             css={valueButtonStyles}
+            searchQuery={searchQuery}
           />
         )}
         {extensions?.map((extension) => {
@@ -156,6 +164,7 @@ const TokenItem = ({
               original={dark.original}
               attributes={dark.attributes}
               css={valueButtonStyles}
+              searchQuery={searchQuery}
             />
           ) : undefined;
         })}

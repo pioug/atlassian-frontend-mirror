@@ -124,6 +124,66 @@ Object {
 }
 `;
 
+exports[`paste.ts: media inline card copied from renderer and pasted 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "This is an media inline card",
+          "type": "text",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "image/jpeg",
+            "__fileName": "tall_image.jpeg",
+            "__fileSize": 58705,
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "a559980d-cd47-43e2-8377-27359fcb905f",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "mediaInline",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "tall_image.jpeg",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "type": "paragraph",
+    },
+    Object {
+      "attrs": Object {
+        "level": 3,
+      },
+      "content": Array [
+        Object {
+          "text": "h3",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`paste.ts: paste tests on fullpage editor: block node containing paragraph containing hardbreak and list 1`] = `
 Object {
   "content": Array [

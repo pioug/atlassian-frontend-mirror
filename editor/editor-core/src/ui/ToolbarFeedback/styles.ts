@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N400, P400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 export const buttonContent = css`
@@ -16,9 +17,12 @@ export const wrapper = css`
 `;
 
 export const confirmationPopup = css`
-  background: #fff;
+  background: ${token('elevation.surface.overlay', '#fff')};
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
+  )};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -32,7 +36,7 @@ export const confirmationText = css`
   font-size: ${relativeFontSizeToBase16(14)};
   word-spacing: 4px;
   line-height: 22px;
-  color: ${N400};
+  color: ${token('color.text.subtle', N400)};
   margin-top: 30px;
   padding: 20px;
   & > div {
@@ -47,7 +51,7 @@ export const confirmationText = css`
 `;
 
 export const confirmationHeader = css`
-  background-color: ${P400};
+  background-color: ${token('color.background.discovery.bold', P400)};
   height: 100px;
   width: 100%;
   display: inline-block;

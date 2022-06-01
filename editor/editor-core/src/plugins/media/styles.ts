@@ -112,7 +112,7 @@ export const mediaStyles = css`
 
   .${richMediaClassName}:hover .richMedia-resize-handle-left::after,
   .${richMediaClassName}:hover .richMedia-resize-handle-right::after {
-    background: ${N60};
+    background: ${token('color.border', N60)};
   }
 
   .${akEditorSelectedNodeClassName} .richMedia-resize-handle-right::after,
@@ -121,7 +121,7 @@ export const mediaStyles = css`
   .${richMediaClassName} .richMedia-resize-handle-left:hover::after,
   .${richMediaClassName}.is-resizing .richMedia-resize-handle-right::after,
   .${richMediaClassName}.is-resizing .richMedia-resize-handle-left::after {
-    background: ${B200};
+    background: ${token('color.border.focused', B200)};
   }
 
   .__resizable_base__ {
@@ -171,7 +171,10 @@ export const mediaStyles = css`
     /* Smart cards */
     div div .media-card-frame,
     .inlineCardView-content-wrap > span > a {
-      background-color: rgb(255, 189, 173, 0.5); /* R75 with 50% opactiy */
+      background-color: ${token(
+        'color.blanket.danger',
+        'rgb(255, 189, 173, 0.5)',
+      )}; /* R75 with 50% opactiy */
       transition: background-color 0s;
     }
 

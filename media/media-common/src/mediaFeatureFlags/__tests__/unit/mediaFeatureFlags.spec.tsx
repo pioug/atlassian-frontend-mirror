@@ -1,10 +1,29 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-
+import { ProductKeys } from '../../types';
+import * as productKeys from '../../productKeys';
 jest.mock('../../../mediaFeatureFlag-local', () => ({
   getLocalMediaFeatureFlag: jest.fn().mockReturnValue(null),
 }));
+
+jest.spyOn(productKeys, 'getProductKeys').mockImplementation(
+  () =>
+    (({
+      confluence: {
+        'my-first-flag': 'conflu-my-first-flag',
+        'my-second-flag': 'conflu-my-second-flag',
+        'my-third-flag': 'conflu-my-third-flag',
+        'my-fourth-flag': 'conflu-my-fourth-flag',
+      },
+      jira: {
+        'my-first-flag': 'jira-my-first-flag',
+        'my-second-flag': 'jira-my-second-flag',
+        'my-third-flag': 'jira-my-third-flag',
+        'my-fourth-flag': 'jira-my-fourth-flag',
+      },
+    } as unknown) as ProductKeys),
+);
 
 import {
   areEqualFeatureFlags,
@@ -196,44 +215,44 @@ describe('Media Feature Flags', () => {
       expect(
         mapAndFilterFeatureFlagNames(
           ({
-            newCardExperience: true,
-            captions: false,
-            timestampOnVideo: true,
-            mediaInline: false,
+            'my-first-flag': true,
+            'my-second-flag': false,
+            'my-third-flag': true,
+            'my-fourth-flag': false,
           } as unknown) as RequiredMediaFeatureFlags,
           'confluence',
         ),
-      ).toEqual(['confluence.media.cards.new.experience', '']);
+      ).toEqual(['conflu-my-first-flag', 'conflu-my-third-flag']);
     });
 
     it('returns the Jira launch darkly flag names switched on', () => {
       expect(
         mapAndFilterFeatureFlagNames(
           ({
-            newCardExperience: true,
-            captions: false,
-            timestampOnVideo: true,
-            mediaInline: false,
+            'my-first-flag': true,
+            'my-second-flag': false,
+            'my-third-flag': true,
+            'my-fourth-flag': false,
           } as unknown) as RequiredMediaFeatureFlags,
           'jira',
         ),
-      ).toEqual(['issue.details.media-cards-new-experience', '']);
+      ).toEqual(['jira-my-first-flag', 'jira-my-third-flag']);
     });
   });
   describe('filterFeatureFlagNamesWithAllProducts', () => {
     it('returns all the launch darkly flag names switched on', () => {
       expect(
         filterFeatureFlagKeysAllProducts(({
-          newCardExperience: true,
-          captions: false,
-          timestampOnVideo: true,
-          mediaInline: false,
-          folderUploads: true,
+          'my-first-flag': true,
+          'my-second-flag': false,
+          'my-third-flag': true,
+          'my-fourth-flag': false,
         } as unknown) as RequiredMediaFeatureFlags),
       ).toEqual([
-        'confluence.media.cards.new.experience',
-        'issue.details.media-cards-new-experience',
-        'confluence.media.picker.folder.uploads',
+        'conflu-my-first-flag',
+        'jira-my-first-flag',
+        'conflu-my-third-flag',
+        'jira-my-third-flag',
       ]);
     });
   });

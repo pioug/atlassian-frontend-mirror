@@ -11,6 +11,7 @@ import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorAlignLeftIcon from '@atlaskit/icon/glyph/editor/align-left';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import { N90, N80, N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import Tooltip from '@atlaskit/tooltip';
 import { KeyboardEvent, PureComponent } from 'react';
@@ -63,19 +64,19 @@ const clearText = css`
   cursor: pointer;
   padding: 0;
   margin-right: 8px;
-  color: ${N90};
+  color: ${token('color.icon.subtle', N90)};
   background: transparent;
   border: none;
 `;
 
 const textInputWrapper = css`
   ${inputWrapper};
-  border-top: 1px solid ${N30};
-  border-bottom: 1px solid ${N30};
+  border-top: 1px solid ${token('color.border', N30)};
+  border-bottom: 1px solid ${token('color.border', N30)};
 `;
 
 const iconWrapper = css`
-  color: ${N80};
+  color: ${token('color.icon.subtle', N80)};
   padding: 4px 8px;
   width: 18px;
 `;

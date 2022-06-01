@@ -1,6 +1,6 @@
+/** @jsx jsx */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import styled from 'styled-components';
-import React from 'react';
+import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -35,13 +35,12 @@ import {
 import { ConfluenceTransformer } from '../src';
 import { Node } from 'prosemirror-model';
 
-export const Content = styled.div`
+export const content = css`
   padding: 0 20px;
   height: 100%;
   background: #fff;
   box-sizing: border-box;
 `;
-Content.displayName = 'Content';
 
 const SaveAndCancelButtons = (props: any) => (
   <ButtonGroup>
@@ -135,7 +134,7 @@ class Example extends Component<ExampleProps, ExampleState> {
           </button>
           <button onClick={this.handleInsertDateClick}>Date</button>
         </fieldset>
-        <Content>
+        <div css={content}>
           <EditorContext>
             <WithEditorActions
               render={(actions) => (
@@ -179,7 +178,7 @@ class Example extends Component<ExampleProps, ExampleState> {
               )}
             />
           </EditorContext>
-        </Content>
+        </div>
       </div>
     );
   }

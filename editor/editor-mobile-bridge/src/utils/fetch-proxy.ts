@@ -1,4 +1,3 @@
-import { useLayoutEffect, useRef } from 'react';
 import { createPromise } from '../cross-platform-promise';
 import { isApple } from './is-apple';
 
@@ -7,15 +6,24 @@ export class FetchProxy {
   // Fetch requires to be binded to the window.
   private globalFetch = window.fetch.bind(window);
 
+  constructor() {
+    this.enable();
+  }
+
   add(url: string): void {
+    if (this.urls.some((u) => url.startsWith(u))) {
+      return;
+    }
+
     this.urls.push(url);
   }
 
   remove(url: string): void {
-    const index = this.urls.indexOf(url);
-    if (index) {
-      this.urls = this.urls.splice(index, 1);
-    }
+    this.urls = this.urls.filter((u) => u !== url);
+  }
+
+  getUrlListLength(): number {
+    return this.urls.length;
   }
 
   enable(): void {
@@ -24,21 +32,23 @@ export class FetchProxy {
       return;
     }
 
-    window.fetch = (request, options) => {
-      let url = typeof request === 'string' ? request : request.url;
-      // Determine whether its a URL we want native to handle, otherwise continue as normal.
-      const shouldMock = this.urls.some((u) => url.startsWith(u));
-      if (!shouldMock) {
-        return this.globalFetch(request, options);
-      }
-
-      return createPromise('nativeFetch', { url, options })
-        .submit()
-        .then(({ response, status, statusText }) =>
-          Promise.resolve(new Response(response, { status, statusText })),
-        );
-    };
+    window.fetch = this.nativeFetch;
   }
+
+  nativeFetch = (request: any, options: any) => {
+    let url = typeof request === 'string' ? request : request.url;
+    // Determine whether its a URL we want native to handle, otherwise continue as normal.
+    const shouldMock = this.urls.some((u) => url.startsWith(u));
+    if (!shouldMock) {
+      return this.globalFetch(request, options);
+    }
+
+    return createPromise('nativeFetch', { url, options })
+      .submit()
+      .then(({ response, status, statusText }) =>
+        Promise.resolve(new Response(response, { status, statusText })),
+      );
+  };
 
   disable(): void {
     // We never mock when is Android, so we do nothing.
@@ -49,15 +59,4 @@ export class FetchProxy {
   }
 }
 
-export function useFetchProxy() {
-  const fetchProxy = useRef(new FetchProxy());
-
-  useLayoutEffect(() => {
-    const currentFetchProxy = fetchProxy.current;
-    currentFetchProxy.enable();
-    return () => {
-      currentFetchProxy.disable();
-    };
-  });
-  return fetchProxy.current;
-}
+export const fetchProxy = new FetchProxy();

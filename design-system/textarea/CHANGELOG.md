@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.3.6
+
+### Patch Changes
+
+- [`f63824e8227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f63824e8227) - [ux] Updated input tokens within `@atlaskit/textarea`.
+
 ## 4.3.5
 
 ### Patch Changes

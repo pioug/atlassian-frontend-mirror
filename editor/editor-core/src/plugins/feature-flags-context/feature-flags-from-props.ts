@@ -197,5 +197,11 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? props.featureFlags['view-changing-experiment-toolbar-style'] ||
           undefined
         : undefined,
+
+    showHoverPreview: Boolean(
+      typeof props.featureFlags?.showHoverPreview === 'boolean'
+        ? !!props.featureFlags?.showHoverPreview
+        : false,
+    ),
   };
 }

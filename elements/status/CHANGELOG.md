@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.1.3
+
+### Patch Changes
+
+- [`a4b4e5965d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4b4e5965d9) - [ux] Fixes bug when page scrolls after inserting status in the bottom of the page
+
 ## 1.1.2
 
 ### Patch Changes

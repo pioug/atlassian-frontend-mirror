@@ -26,6 +26,7 @@ export interface ToolbarProps {
   toolbarSize: ToolbarSize;
   containerElement: HTMLElement | null;
   hasMinWidth?: boolean;
+  twoLineEditorToolbar?: boolean;
 }
 
 export type ToolbarWithSizeDetectorProps = Omit<ToolbarProps, 'toolbarSize'>;

@@ -74,6 +74,7 @@ import {
   extractErrorInfo,
   SSRStatus,
   SSRStatusFail,
+  LOGGED_FEATURE_FLAGS,
 } from '../../utils/analytics';
 import {
   isLocalPreviewError,
@@ -84,8 +85,6 @@ import {
 import {
   fireOperationalEvent,
   fireCommencedEvent,
-  getRelevantFeatureFlagNames,
-  getRelevantFeatureFlagKeysWithAllProducts,
   fireCopiedEvent,
   fireScreenEvent,
 } from './cardAnalytics';
@@ -641,7 +640,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       this.fileAttributes,
       this.fileStateFlags,
       this.ssrReliability,
-      getRelevantFeatureFlagKeysWithAllProducts(),
       error,
     );
   }
@@ -653,10 +651,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       fireCommencedEvent(createAnalyticsEvent, this.fileAttributes, {
         overall: { durationSincePageStart: this.timeElapsedTillCommenced },
       });
-    startUfoExperience(
-      this.internalOccurrenceKey,
-      getRelevantFeatureFlagKeysWithAllProducts(),
-    );
+    startUfoExperience(this.internalOccurrenceKey);
   }
 
   private fireCopiedEvent = () => {
@@ -789,6 +784,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       selected,
       testId,
       originalDimensions,
+      onFullscreenChange,
     } = this.props;
     const { shouldAutoplay, cardPreview } = this.state;
 
@@ -799,6 +795,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         originalDimensions={originalDimensions}
         identifier={identifier as FileIdentifier}
         autoplay={!!shouldAutoplay}
+        onFullscreenChange={onFullscreenChange}
         onError={this.onInlinePlayerError}
         onClick={this.onClick}
         selected={selected}
@@ -1050,7 +1047,7 @@ export const Card: React.ComponentType<CardBaseProps> = withMediaAnalyticsContex
     component: 'mediaCard',
   },
   {
-    filterFeatureFlags: getRelevantFeatureFlagNames(),
+    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
   },
 )(
   withAnalyticsEvents()(

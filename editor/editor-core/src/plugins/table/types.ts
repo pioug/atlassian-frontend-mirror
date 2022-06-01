@@ -65,7 +65,6 @@ export interface ColumnResizingPluginState {
   dragging: { startX: number; startWidth: number } | null;
   lastClick: { x: number; y: number; time: number } | null;
   lastColumnResizable?: boolean;
-  dynamicTextSizing?: boolean;
 }
 
 /*

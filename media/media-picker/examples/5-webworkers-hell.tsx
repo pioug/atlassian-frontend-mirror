@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import {
   defaultMediaPickerCollectionName,
   defaultMediaPickerAuthProvider,
+  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import { Browser } from '../src';
@@ -15,9 +16,11 @@ import {
   PopupHeader,
   PopupContainer,
   PreviewsTitle,
-} from '../example-helpers/styled';
+} from '../example-helpers/stylesWrapper';
 import { UploadPreview } from '../example-helpers/upload-preview';
+import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
 import { MediaClientConfig } from '@atlaskit/media-core';
+import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 
 export interface BrowserWrapperState {
   previewsData: any[];
@@ -95,16 +98,20 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
     );
 
     return (
-      <IntlProvider locale="en">
-        <PopupContainer>
-          <PopupHeader>{buttons}</PopupHeader>
-          <PreviewsWrapper>
-            <PreviewsTitle>Upload previews</PreviewsTitle>
-            {this.renderPreviews()}
-            {browsers}
-          </PreviewsWrapper>
-        </PopupContainer>
-      </IntlProvider>
+      <UfoLoggerWrapper>
+        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
+          <IntlProvider locale="en">
+            <PopupContainer>
+              <PopupHeader>{buttons}</PopupHeader>
+              <PreviewsWrapper>
+                <PreviewsTitle>Upload previews</PreviewsTitle>
+                {this.renderPreviews()}
+                {browsers}
+              </PreviewsWrapper>
+            </PopupContainer>
+          </IntlProvider>
+        </FeatureFlagsWrapper>
+      </UfoLoggerWrapper>
     );
   }
 }

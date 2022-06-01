@@ -174,3 +174,87 @@ export const waitForText = async (
     selector,
     text,
   );
+
+export async function setScrollPosition(
+  page: PuppeteerPage,
+  scrollContainerSelector: string,
+  posX: number,
+  posY: number,
+  retryCount = 2,
+): Promise<void> {
+  // limit to 5 retries to avoid get stuck in recursion
+  retryCount = retryCount < 1 || retryCount > 5 ? 1 : retryCount;
+  await page.evaluate(
+    (scrollContainerSelector: string, posX: number, posY: number) => {
+      const scrollContainer = document.querySelector(
+        scrollContainerSelector,
+      ) as HTMLElement;
+      if (!scrollContainer) {
+        return;
+      }
+      scrollContainer.scrollTo(posX, posY);
+      // wait for the scroll animation
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(null);
+        }, 50);
+      });
+    },
+    scrollContainerSelector,
+    posX,
+    posY,
+  );
+
+  //validate is scrolled is set as expected
+  const { left, top } = await page.evaluate(
+    (scrollContainerSelector: string) => {
+      const scrollContainer = document.querySelector(
+        scrollContainerSelector,
+      ) as HTMLElement;
+      if (!scrollContainer) {
+        if (!scrollContainer) {
+          return {};
+        }
+      }
+
+      return {
+        left: scrollContainer.scrollLeft,
+        top: scrollContainer.scrollTop,
+      };
+    },
+    scrollContainerSelector,
+  );
+
+  if (left !== posX || top !== posY) {
+    if (retryCount > 1) {
+      return await setScrollPosition(
+        page,
+        scrollContainerSelector,
+        posX,
+        posY,
+        --retryCount,
+      );
+    }
+    throw new Error(
+      `failed to scroll element ${scrollContainerSelector},
+      expected positions: x: ${posX}, y: ${posY},
+      actual: positions: x: ${left}, y: ${top} `,
+    );
+  }
+}
+
+// gets max allowed width to that scroll contsnts can be scrolled (scrollWidth - offsetWidth)
+export async function getMaxScrollWidth(
+  page: PuppeteerPage,
+  scrollContainerSelector: string,
+) {
+  return page.evaluate((scrollContainerSelector: string) => {
+    const scrollContainer = document.querySelector(
+      scrollContainerSelector,
+    ) as HTMLElement;
+    if (!scrollContainer) {
+      return 0;
+    }
+    return scrollContainer.scrollWidth - scrollContainer.offsetWidth;
+  }, scrollContainerSelector);
+}

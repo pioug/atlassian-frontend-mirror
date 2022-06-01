@@ -1,0 +1,720 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bullet 1 level"
+                }
+              ]
+            },
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "bullet 2 levels"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "mediaSingle",
+                      "attrs": {
+                        "width": 35.54421768707483,
+                        "layout": "center"
+                      },
+                      "content": [
+                        {
+                          "type": "media",
+                          "attrs": {
+                            "id": "0a6d78b1-3c8d-4828-a5a3-63355c905f6a",
+                            "type": "file",
+                            "collection": "MediaServicesSample",
+                            "width": 603,
+                            "height": 252
+                          }
+                        },
+                        {
+                          "type": "caption",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "media with "
+                            },
+                            {
+                              "type": "text",
+                              "text": "caption with bold text",
+                              "marks": [
+                                {
+                                  "type": "strong"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "bulletList",
+                      "content": [
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "bullet 3 levels with "
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "bold italic and underline ",
+                                  "marks": [
+                                    {
+                                      "type": "em"
+                                    },
+                                    {
+                                      "type": "strong"
+                                    },
+                                    {
+                                      "type": "underline"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "and strikethrough",
+                                  "marks": [
+                                    {
+                                      "type": "em"
+                                    },
+                                    {
+                                      "type": "strong"
+                                    },
+                                    {
+                                      "type": "strike"
+                                    },
+                                    {
+                                      "type": "underline"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "bullet 2 levels with "
+                        },
+                        {
+                          "type": "text",
+                          "text": "inline code",
+                          "marks": [
+                            {
+                              "type": "code"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "text": " and "
+                        },
+                        {
+                          "type": "text",
+                          "text": "linked text",
+                          "marks": [
+                            {
+                              "type": "link",
+                              "attrs": {
+                                "href": "https://product-fabric.atlassian.net/browse/FAB-1520"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "codeBlock",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "code block inside list"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "https://product-fabric.atlassian.net/browse/ED-14488",
+                          "marks": [
+                            {
+                              "type": "link",
+                              "attrs": {
+                                "href": "https://product-fabric.atlassian.net/browse/ED-14488"
+                              }
+                            },
+                            {
+                              "type": "strike"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "orderedList",
+                      "content": [
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "numbered inside bullet "
+                                },
+                                {
+                                  "type": "placeholder",
+                                  "attrs": {
+                                    "text": "some placeholder text"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "numbered more"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "orderedList",
+                              "content": [
+                                {
+                                  "type": "listItem",
+                                  "content": [
+                                    {
+                                      "type": "paragraph",
+                                      "content": [
+                                        {
+                                          "type": "text",
+                                          "text": "indented numbered"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "outdented numbered "
+                                },
+                                {
+                                  "type": "status",
+                                  "attrs": {
+                                    "text": "red status thing",
+                                    "color": "red",
+                                    "localId": "31e9168f-b1ff-4d74-9e9e-b929b11c9c5a",
+                                    "style": ""
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " "
+                                },
+                                {
+                                  "type": "date",
+                                  "attrs": {
+                                    "timestamp": "1651363200000"
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " past date "
+                                },
+                                {
+                                  "type": "mention",
+                                  "attrs": {
+                                    "id": "0",
+                                    "text": "@Carolyn",
+                                    "accessLevel": ""
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " "
+                                },
+                                {
+                                  "type": "mention",
+                                  "attrs": {
+                                    "id": "1",
+                                    "text": "@Kaitlyn Prouty",
+                                    "accessLevel": ""
+                                  }
+                                },
+                                {
+                                  "type": "text",
+                                  "text": " "
+                                }
+                              ]
+                            },
+                            {
+                              "type": "orderedList",
+                              "content": [
+                                {
+                                  "type": "listItem",
+                                  "content": [
+                                    {
+                                      "type": "paragraph",
+                                      "content": [
+                                        {
+                                          "type": "emoji",
+                                          "attrs": {
+                                            "shortName": ":slight_smile:",
+                                            "id": "1f642",
+                                            "text": "🙂"
+                                          }
+                                        },
+                                        {
+                                          "type": "text",
+                                          "text": " "
+                                        },
+                                        {
+                                          "type": "inlineExtension",
+                                          "attrs": {
+                                            "extensionType": "com.atlassian.confluence.macro.core",
+                                            "extensionKey": "inline-eh",
+                                            "parameters": {
+                                              "macroParams": {},
+                                              "macroMetadata": {
+                                                "placeholder": [
+                                                  {
+                                                    "data": {
+                                                      "url": ""
+                                                    },
+                                                    "type": "icon"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "text": "Inline extension demo",
+                                            "localId": "320a4081-d1c8-4067-a69d-4ccede53a779"
+                                          }
+                                        },
+                                        {
+                                          "type": "text",
+                                          "text": " "
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "bullet 1 level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "normal text"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "f1c3b6f0-20df-4b3d-a167-1855bcb6462a"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "orderedList",
+                  "content": [
+                    {
+                      "type": "listItem",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "numbered list "
+                            },
+                            {
+                              "type": "placeholder",
+                              "attrs": {
+                                "text": "some placeholder text"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "orderedList",
+                          "content": [
+                            {
+                              "type": "listItem",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "more indented numbered"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "other numbered "
+                                    },
+                                    {
+                                      "type": "mention",
+                                      "attrs": {
+                                        "id": "5",
+                                        "text": "@Lorri Tremble",
+                                        "accessLevel": ""
+                                      }
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": " "
+                                    },
+                                    {
+                                      "type": "hardBreak"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "hard break text"
+                                    },
+                                    {
+                                      "type": "hardBreak"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "more hard break text"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "listItem",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "additional ",
+                                      "marks": [
+                                        {
+                                          "type": "strong"
+                                        },
+                                        {
+                                          "type": "underline"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "numbered",
+                                      "marks": [
+                                        {
+                                          "type": "strong"
+                                        },
+                                        {
+                                          "type": "textColor",
+                                          "attrs": {
+                                            "color": "#bf2600"
+                                          }
+                                        },
+                                        {
+                                          "type": "underline"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "listItem",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "outdented numbered"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                },
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "bulletList",
+                  "content": [
+                    {
+                      "type": "listItem",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "some bullet list"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "bulletList",
+                          "content": [
+                            {
+                              "type": "listItem",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "more content "
+                                    },
+                                    {
+                                      "type": "status",
+                                      "attrs": {
+                                        "text": "status green",
+                                        "color": "green",
+                                        "localId": "2062ba9c-a995-482d-ba88-78a33af53c15",
+                                        "style": ""
+                                      }
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": " "
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

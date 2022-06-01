@@ -1,5 +1,16 @@
 # @atlaskit/adf-schema
 
+## 23.1.0
+
+### Minor Changes
+
+- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+
+### Patch Changes
+
+- [`f0d6141f46c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0d6141f46c) - ED-14114: added tests to ensure consistency between ADF/ProseMirror schemas for default Mark attributes
+- Updated dependencies
+
 ## 23.0.2
 
 ### Patch Changes

@@ -7,7 +7,7 @@ export const blockMarksSharedStyles = css`
    */
   *:not(.fabric-editor-block-mark) >,
   /* For nested block marks */
-  *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-child {
+  *:not(.fabric-editor-block-mark) > div.fabric-editor-block-mark:first-of-type {
     p,
     h1,
     h2,

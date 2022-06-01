@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/select": "^15.0.0",
+    "@atlaskit/select": "^15.3.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -37,5 +37,6 @@
     "styled-components": "^3.2.6",
     "typescript": "4.2.4"
   },
+  "homepage": "https://atlaskit.atlassian.com/packages/helpers/locale",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

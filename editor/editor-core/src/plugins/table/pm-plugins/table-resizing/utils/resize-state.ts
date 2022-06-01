@@ -286,7 +286,6 @@ export const getNewResizeStateFromSelectedColumns = (
   rect: Rect,
   state: EditorState,
   domAtPos: (pos: number) => { node: Node; offset: number },
-  dynamicTextSizing?: boolean,
 ): ResizeStateWithAnalytics | undefined => {
   const { totalRowCount, totalColumnCount, table } = getSelectedTableInfo(
     state.selection,
@@ -310,7 +309,6 @@ export const getNewResizeStateFromSelectedColumns = (
     tableStart: table.start,
     state,
     layout,
-    dynamicTextSizing,
   });
 
   const resizeState = getResizeState({

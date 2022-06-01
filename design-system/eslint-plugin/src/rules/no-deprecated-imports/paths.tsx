@@ -1,3 +1,5 @@
+import { namedLogoConstantsExports, namedLogoExports } from './logo-paths';
+
 export const namedThemeExports = [
   {
     importName: 'assistive',
@@ -94,5 +96,13 @@ export const restrictedPaths = [
   {
     path: '@atlaskit/icon-priority',
     message: `icon-priority is deprecated due to limited usage in Cloud products. It will be deleted after 21 April 2022.`,
+  },
+  {
+    path: '@atlaskit/logo/constants',
+    imports: namedLogoConstantsExports,
+  },
+  {
+    path: '@atlaskit/logo',
+    imports: namedLogoExports,
   },
 ] as const;

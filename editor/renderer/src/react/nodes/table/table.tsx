@@ -15,7 +15,6 @@ export const Table = React.memo(
     columnWidths,
     layout,
     renderWidth,
-    allowDynamicTextSizing,
     children,
   }: TableProps) => {
     return (
@@ -25,7 +24,6 @@ export const Table = React.memo(
           layout={layout}
           isNumberColumnEnabled={isNumberColumnEnabled}
           renderWidth={renderWidth}
-          allowDynamicTextSizing={allowDynamicTextSizing}
         />
         <tbody>{children}</tbody>
       </table>

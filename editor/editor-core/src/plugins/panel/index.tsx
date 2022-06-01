@@ -172,6 +172,7 @@ const panelPlugin = (options: PanelPluginOptions = {}): EditorPlugin => ({
                 panelIcon: ':rainbow:',
                 panelIconId: '1f308',
                 panelIconText: '🌈',
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 panelColor: T50,
               },
               state,

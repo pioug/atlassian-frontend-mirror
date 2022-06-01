@@ -64,7 +64,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
     /**
      * Fix block top alignment inside table cells.
      */
-    .decisionItemView-content-wrap:first-child > div {
+    .decisionItemView-content-wrap:first-of-type > div {
       margin-top: 0;
     }
   }
@@ -137,11 +137,11 @@ const tableSharedStyle = (props: ThemeProps) => css`
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor.-right:first-child + * {
+        > .ProseMirror-gapcursor.-right:first-of-type + * {
           margin-top: 0;
         }
 
-        > .ProseMirror-gapcursor:first-child + span + * {
+        > .ProseMirror-gapcursor:first-of-type + span + * {
           margin-top: 0;
         }
 

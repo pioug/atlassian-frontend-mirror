@@ -1,9 +1,11 @@
+/** @jsx jsx */
 import React from 'react';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { WikiMarkupTransformer } from '../src';
 
-import { Content } from './styles';
+import { content } from './styles';
+import { jsx } from '@emotion/react';
 
 import { MentionResource } from '@atlaskit/editor-core';
 
@@ -86,7 +88,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
       editorEnabled,
     } = this.state;
     return (
-      <Content>
+      <div css={content}>
         <div style={{ padding: '5px 0' }}>Editor</div>
         {reloadEditor
           ? ''
@@ -98,7 +100,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
             })}
         <legend>Output:</legend>
         <pre>{document}</pre>
-      </Content>
+      </div>
     );
   }
 }

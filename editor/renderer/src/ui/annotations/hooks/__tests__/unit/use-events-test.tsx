@@ -300,6 +300,30 @@ describe('Annotations: Hooks/useEvents', () => {
           [fakeId]: AnnotationMarkStates.ACTIVE,
         });
       });
+
+      it('should handle null annotation id', () => {
+        const nullid = null;
+        expect(fakeFunction).toHaveBeenCalledTimes(0);
+
+        render(<CustomComp />, container);
+
+        expect(fakeFunction).toHaveBeenCalledWith({});
+
+        const payload = {
+          [nullid as any]: createFakeAnnotationState(nullid as any),
+          [fakeId]: createFakeAnnotationState(fakeId),
+        };
+        act(() => {
+          updateSubscriberFake.emit(
+            AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+            payload,
+          );
+        });
+
+        expect(fakeFunction).toHaveBeenLastCalledWith({
+          [fakeId]: AnnotationMarkStates.ACTIVE,
+        });
+      });
     });
   });
 

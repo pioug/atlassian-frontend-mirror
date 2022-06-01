@@ -5,9 +5,19 @@ import {
   p,
   RefsNode,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+  LightEditorPlugin,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import codeBlockPlugin from '../../../';
+import { pluginKey as codeBlockPluginKey } from '../../../plugin-key';
 import { codeBlockNodeView } from '../../../nodeviews/code-block';
-import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  ignoreFollowingMutations,
+  resetShouldIgnoreFollowingMutations,
+} from '../../../actions';
 
 const codeBlock = (attrs?: {}) => (...args: any) =>
   code_block(attrs)(...args)(defaultSchema);
@@ -135,6 +145,52 @@ describe('Code Block - NodeView', () => {
       const node = codeBlock()('this is code');
       const nodeView = createCodeBlockNodeview(node);
       waitForAnimationFrame();
+
+      const mutation: MutationRecord = {
+        target: nodeView.contentDOM,
+      } as any;
+      expect(nodeView.ignoreMutation(mutation)).toBe(false);
+    });
+    it('should ignore mutation when shouldIgnoreFollowingMutations is set', () => {
+      const node = codeBlock()('this is code');
+      const { editorView } = createProsemirrorEditorFactory()({
+        doc: doc(p('paragraph{pPos}'), code_block()('codeBlock{<>}')),
+        preset: new Preset<LightEditorPlugin>().add([
+          codeBlockPlugin,
+          { appearance: 'full-page' },
+        ]),
+        pluginKey: codeBlockPluginKey,
+      });
+      const nodeView = codeBlockNodeView()(node, editorView, () => -1);
+
+      waitForAnimationFrame();
+
+      ignoreFollowingMutations(editorView.state, editorView.dispatch);
+
+      const mutation: MutationRecord = {
+        target: nodeView.contentDOM,
+      } as any;
+      expect(nodeView.ignoreMutation(mutation)).toBe(true);
+    });
+    it('should not ignore mutation when shouldIgnoreFollowingMutations is reset', () => {
+      const node = codeBlock()('this is code');
+      const { editorView } = createProsemirrorEditorFactory()({
+        doc: doc(p('paragraph{pPos}'), code_block()('codeBlock{<>}')),
+        preset: new Preset<LightEditorPlugin>().add([
+          codeBlockPlugin,
+          { appearance: 'full-page' },
+        ]),
+        pluginKey: codeBlockPluginKey,
+      });
+      const nodeView = codeBlockNodeView()(node, editorView, () => -1);
+
+      waitForAnimationFrame();
+
+      ignoreFollowingMutations(editorView.state, editorView.dispatch);
+      resetShouldIgnoreFollowingMutations(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       const mutation: MutationRecord = {
         target: nodeView.contentDOM,

@@ -14,6 +14,9 @@ const svg = `<canvas height="32" width="185" aria-hidden="true"></canvas>
   </g>
 </svg>`;
 
+/**
+ * @deprecated JiraServiceDeskWordmark will be removed from atlaskit/logo in the next major release. Please use JiraServiceManagementWordmark instead.
+ */
 export const JiraServiceDeskWordmark = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,
@@ -25,7 +28,7 @@ export const JiraServiceDeskWordmark = ({
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
     warnOnce(
-      'JiraServiceDeskWordmark has been deprecated and will be removed from @atlaskit/logo after June 30 2021, Please use JiraServiceManagementWordmark instead.',
+      'JiraServiceDeskWordmark has been deprecated and will be removed from @atlaskit/logo in the next major release. Please use JiraServiceManagementWordmark instead.',
     );
   }
 

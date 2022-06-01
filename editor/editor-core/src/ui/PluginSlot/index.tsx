@@ -31,6 +31,7 @@ export interface Props {
   disabled: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   contentArea?: HTMLElement;
+  wrapperElement: HTMLElement | null;
 }
 
 export default class PluginSlot extends React.Component<Props, any> {
@@ -50,6 +51,7 @@ export default class PluginSlot extends React.Component<Props, any> {
       popupsScrollableElement,
       containerElement,
       disabled,
+      wrapperElement,
     } = this.props;
 
     return !(
@@ -62,7 +64,8 @@ export default class PluginSlot extends React.Component<Props, any> {
       nextProps.popupsBoundariesElement === popupsBoundariesElement &&
       nextProps.popupsScrollableElement === popupsScrollableElement &&
       nextProps.containerElement === containerElement &&
-      nextProps.disabled === disabled
+      nextProps.disabled === disabled &&
+      nextProps.wrapperElement === wrapperElement
     );
   }
 
@@ -125,6 +128,7 @@ export default class PluginSlot extends React.Component<Props, any> {
       containerElement,
       disabled,
       dispatchAnalyticsEvent,
+      wrapperElement,
     } = this.props;
 
     if (!items || !editorView) {
@@ -151,6 +155,7 @@ export default class PluginSlot extends React.Component<Props, any> {
               popupsScrollableElement,
               containerElement,
               disabled,
+              wrapperElement,
             });
             return element && React.cloneElement(element, props);
           })}

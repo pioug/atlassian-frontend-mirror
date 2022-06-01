@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/codemod-utils": "^4.0.0",
+    "@atlaskit/codemod-utils": "^4.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
     "@atlaskit/tooltip": "^17.5.0",

@@ -516,5 +516,76 @@ describe('request', () => {
       expect(error.attributes.reason).toEqual('clientAbortedRequest');
       expect(fetchMock.mock.calls.length).toEqual(1); // should not have retried on aborted requests
     });
+
+    it('should have media region and environment in error metadata returned from response header', async () => {
+      fetchMock.mockResponses([
+        'ServerBadRequest',
+        {
+          status: 400,
+          statusText: 'ServerBadRequest',
+          headers: {
+            'x-media-region': 'ap-southeast-2',
+            'x-media-env': 'adev',
+          },
+        },
+      ]);
+
+      let error;
+      try {
+        await request(url, {
+          method: 'GET',
+          endpoint: '/uri',
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
+
+      expect(error.attributes).toMatchObject({
+        reason: 'serverBadRequest',
+        method: 'GET',
+        endpoint: '/uri',
+        mediaRegion: 'ap-southeast-2',
+        mediaEnv: 'adev',
+        statusCode: 400,
+      });
+    });
+
+    it('should have unknown media region and environment in error metadata if response header returns nothing', async () => {
+      fetchMock.mockResponses([
+        'ServerBadRequest',
+        {
+          status: 400,
+          statusText: 'ServerBadRequest',
+          headers: {},
+        },
+      ]);
+
+      let error;
+      try {
+        await request(url, {
+          method: 'GET',
+          endpoint: '/uri',
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      if (!isRequestError(error)) {
+        return expect(isRequestError(error)).toBeTruthy();
+      }
+
+      expect(error.attributes).toMatchObject({
+        reason: 'serverBadRequest',
+        method: 'GET',
+        endpoint: '/uri',
+        mediaRegion: 'unknown',
+        mediaEnv: 'unknown',
+        statusCode: 400,
+      });
+    });
   });
 });

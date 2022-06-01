@@ -10,6 +10,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { DropdownOptionT } from './types';
 import { injectIntl, WrappedComponentProps, IntlShape } from 'react-intl-next';
 import messages from './messages';
+import { token } from '@atlaskit/tokens';
 
 export const menuItemDimensions = {
   width: 175,
@@ -108,7 +109,7 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
     if (selected !== undefined) {
       return selected ? (
         <EditorDoneIcon
-          primaryColor={B400}
+          primaryColor={token('color.icon.selected', B400)}
           size="small"
           label={intl.formatMessage(messages.confirmModalOK)}
         />

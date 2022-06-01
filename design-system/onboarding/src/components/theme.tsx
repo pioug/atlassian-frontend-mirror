@@ -4,12 +4,12 @@ import { token } from '@atlaskit/tokens';
 const spotlightTheme = {
   default: {
     background: {
-      default: token('color.background.neutral', colors.P400),
-      hover: token('color.background.neutral.hovered', colors.P200),
-      active: token('color.background.neutral.pressed', colors.P500),
+      default: token('color.background.inverse.subtle', colors.P400),
+      hover: token('color.background.inverse.subtle.hovered', colors.P200),
+      active: token('color.background.inverse.subtle.pressed', colors.P500),
       disabled: token('color.background.disabled', colors.P400),
-      selected: token('color.background.neutral.pressed', colors.R500),
-      focus: token('color.background.neutral', colors.P400),
+      selected: token('color.background.inverse.subtle.pressed', colors.R500),
+      focus: token('color.background.inverse.subtle', colors.P400),
     },
     boxShadow: {
       focus: `0 0 0 2px ${token('color.border.discovery', colors.P100)}`,

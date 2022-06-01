@@ -51,20 +51,16 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
 
       // run the suite of tests for each viewport/prop combination
       const {
-        dynamicTextSizing,
         viewport: { width, height },
       } = config;
 
-      describe(`at ${width}x${height}, without allow resizing, ${
-        dynamicTextSizing ? 'with' : 'without'
-      } dynamic text sizing`, () => {
+      describe(`at ${width}x${height}, without allow resizing`, () => {
         beforeEach(async () => {
           // setup the editor
           await initEditor(
             page,
             {
               media: { allowResizing: false },
-              allowDynamicTextSizing: dynamicTextSizing,
             },
             { width, height },
             mediaSelectionAdf,
@@ -100,19 +96,12 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
         }
       });
 
-      describe(`at ${width}x${height} ${
-        dynamicTextSizing ? 'with' : 'without'
-      } dynamic text sizing`, () => {
+      describe(`at ${width}x${height}`, () => {
         let editorWidth: number;
 
         beforeEach(async () => {
           // setup the editor
-          await initEditor(
-            page,
-            { allowDynamicTextSizing: dynamicTextSizing },
-            { width, height },
-            mediaSelectionAdf,
-          );
+          await initEditor(page, {}, { width, height }, mediaSelectionAdf);
           editorWidth = await getEditorWidth(page);
         });
 

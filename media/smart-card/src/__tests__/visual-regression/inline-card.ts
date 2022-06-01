@@ -5,10 +5,11 @@ describe('Inline Card', () => {
   it.each([
     ['shows default icon on inline cards', 'vr-inline-card-default-icon'],
     ['renders lozenge correctly on inline card', 'vr-inline-card-lozenge'],
-    [
-      'shows shimmer preloader when icon takes awhile to load',
-      'vr-inline-card-loading-icon',
-    ],
+    // Flaky test skipped, see https://product-fabric.atlassian.net/browse/EDM-3139
+    // [
+    //   'shows shimmer preloader when icon takes awhile to load',
+    //   'vr-inline-card-loading-icon',
+    // ],
     ['renders text wrap correctly', 'vr-inline-card-text-wrap'],
   ])('%s', async (_: string, testName: string) => {
     const url = getURL(testName);

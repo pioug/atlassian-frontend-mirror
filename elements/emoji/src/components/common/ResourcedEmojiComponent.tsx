@@ -3,7 +3,11 @@ import { Component } from 'react';
 import EmojiProvider from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
 import { isPromise } from '../../util/type-helpers';
-import { EmojiId, OptionalEmojiDescription } from '../../types';
+import {
+  EmojiId,
+  OptionalEmojiDescription,
+  UfoEmojiTimings,
+} from '../../types';
 import CachingEmoji from './CachingEmoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import { State as LoadingState } from './LoadingEmojiComponent';
@@ -39,6 +43,7 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
 
   private refreshEmoji(emojiProvider: EmojiProvider, emojiId: EmojiId) {
     const foundEmoji = emojiProvider.findByEmojiId(emojiId);
+    sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);
     if (isPromise<OptionalEmojiDescription>(foundEmoji)) {
       this.setState({
         loaded: false,
@@ -51,6 +56,7 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
               emoji,
               loaded: true,
             });
+            sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
             if (!emoji) {
               // emoji is undefined
               sampledUfoRenderedEmoji(emojiId).failure({
@@ -65,6 +71,7 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
           });
         });
     } else {
+      sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
       // loaded
       this.setState({
         emoji: foundEmoji,
@@ -84,6 +91,12 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
 
   componentWillUnmount() {
     this.ready = false;
+  }
+
+  componentDidMount() {
+    sampledUfoRenderedEmoji(this.props.emojiId).mark(
+      UfoEmojiTimings.MOUNTED_END,
+    );
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {

@@ -1,24 +1,29 @@
 import {
   getExampleUrl,
   pageSelector,
+  PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 import { sleep } from '@atlaskit/media-test-helpers';
 
 describe('Media Viewer Navigation', () => {
+  let page: PuppeteerPage;
   const url = getExampleUrl(
     'media',
     'media-viewer',
-    'mocked-viewer',
+    'vr-mocked-viewer',
     global.__BASEURL__,
   );
 
-  it('renders a file and nav button given multiple files', async () => {
-    const { page } = global;
+  beforeEach(async () => {
+    ({ page } = global);
 
-    // This test relies on side effects (CSS transitons)
     await page.goto(url);
     await page.waitForSelector(pageSelector);
     await page.waitForSelector('img');
+  });
+
+  it('renders a file and nav button given multiple files', async () => {
+    // This test relies on side effects (CSS transitons)
     await page.waitForFunction(
       `window.areControlsRendered() && window.areControlsVisible()`,
     );
@@ -30,8 +35,6 @@ describe('Media Viewer Navigation', () => {
   });
 
   it('hides nav for multiple files after a timeout', async () => {
-    const { page } = global;
-
     // This test relies on side effects (CSS transitons)
     await page.goto(url);
     // Move mouse over off screen to ensure the controls stay hidden
@@ -42,6 +45,16 @@ describe('Media Viewer Navigation', () => {
       `window.areControlsRendered() && window.areControlsHidden()`,
     );
     await sleep(500);
+
+    const image = await page.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should show sidebar with attachment details', async () => {
+    await page.click('span[aria-label="sidebar"]');
+    await sleep(100);
+
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();

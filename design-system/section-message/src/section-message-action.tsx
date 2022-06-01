@@ -17,7 +17,7 @@ const actionStyles = css({
   margin: 0,
   alignItems: 'center',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '& + &::before': {
+  '&:not(:last-child)::after': {
     display: 'inline-block',
     width: `${actionsSeparatorWidth}px`,
     color: `${token('color.text.subtle', N500)}`,

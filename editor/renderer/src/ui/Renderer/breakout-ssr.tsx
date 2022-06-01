@@ -7,11 +7,7 @@ import { breakoutConsts } from '@atlaskit/editor-common/utils';
  *
  * More info: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1216218119/Renderer+SSR+for+Breakout+Nodes
  */
-export function BreakoutSSRInlineScript({
-  allowDynamicTextSizing,
-}: {
-  allowDynamicTextSizing: boolean;
-}) {
+export function BreakoutSSRInlineScript() {
   /**
    * Should only inline this script while SSR,
    * not needed on the client side.
@@ -24,7 +20,7 @@ export function BreakoutSSRInlineScript({
   }
 
   const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
-  const context = createBreakoutInlineScript(id, allowDynamicTextSizing);
+  const context = createBreakoutInlineScript(id);
 
   return (
     <script
@@ -34,14 +30,11 @@ export function BreakoutSSRInlineScript({
   );
 }
 
-export function createBreakoutInlineScript(
-  id: number,
-  allowDynamicTextSizing: boolean,
-) {
+export function createBreakoutInlineScript(id: number) {
   return `
   (function(window){
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", ${allowDynamicTextSizing}, breakoutConsts);
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts);
   })(window);
 `;
 }
@@ -55,11 +48,7 @@ export const breakoutInlineScriptContext = `
   breakoutConsts.calcWideWidth = ${breakoutConsts.calcWideWidth.toString()};
 `;
 
-function applyBreakoutAfterSSR(
-  id: string,
-  allowDynamicTextSizing: boolean,
-  breakoutConsts: any,
-) {
+function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
   const MEDIA_NODE_TYPE = 'mediaSingle';
   const WIDE_LAYOUT_MODES = ['full-width', 'wide'];
 
@@ -118,10 +107,7 @@ function applyBreakoutAfterSSR(
           // because it breaks with sticky headers. This logic is copied from a table node:
           // https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
           if (node.classList.contains('pm-table-container')) {
-            const lineLength = breakoutConsts.calcLineLength(
-              renderer!.offsetWidth,
-              allowDynamicTextSizing,
-            );
+            const lineLength = breakoutConsts.calcLineLength();
             const left = lineLength / 2 - parseInt(width) / 2;
             if (left < 0) {
               node.style.left = left + 'px';

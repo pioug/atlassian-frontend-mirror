@@ -114,6 +114,17 @@ describe('<CustomMediaPlayer />', () => {
       component.update();
     };
 
+    const triggerExitFullscreen = () => {
+      const videoWrapperRef = component.instance().videoWrapperRef;
+      if (!videoWrapperRef) {
+        return expect(videoWrapperRef).toBeDefined();
+      }
+      asMockFunction(getFullscreenElement).mockReturnValue(undefined);
+      const event = new Event('fullscreenchange');
+      videoWrapperRef.current?.dispatchEvent(event);
+      component.update();
+    };
+
     const triggerPlay = () => {
       getPlayPauseButton().simulate('click');
       getVideoElement().simulate('play');
@@ -182,6 +193,7 @@ describe('<CustomMediaPlayer />', () => {
       onChange,
       createAnalyticsEventHandler,
       triggerFullscreen,
+      triggerExitFullscreen,
       triggerPlay,
       downloadButton,
       hdButton,
@@ -1402,6 +1414,42 @@ describe('<CustomMediaPlayer />', () => {
           },
         },
       );
+    });
+  });
+
+  describe('on toggle fullscreen', () => {
+    it('should fire callback when fullscreen change', () => {
+      const onFullscreenChange = jest.fn();
+      const res = setup({
+        onFullscreenChange,
+      });
+      const triggerFullScreen = res.triggerFullscreen;
+      triggerFullScreen();
+      expect(onFullscreenChange).toHaveBeenCalledWith(true);
+      const triggerExitFullscreen = res.triggerExitFullscreen;
+      triggerExitFullscreen();
+      expect(onFullscreenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('should fire callback when in full screen and component unmounted', () => {
+      const onFullscreenChange = jest.fn();
+      const res = setup({
+        onFullscreenChange,
+      });
+      const triggerFullScreen = res.triggerFullscreen;
+      triggerFullScreen();
+      if (componentToBeUnmounted && componentToBeUnmounted.length) {
+        componentToBeUnmounted.unmount();
+      }
+      expect(onFullscreenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('should not fire callback when not in full screen and component unmounted', () => {
+      const onFullscreenChange = jest.fn();
+      if (componentToBeUnmounted && componentToBeUnmounted.length) {
+        componentToBeUnmounted.unmount();
+      }
+      expect(onFullscreenChange).toHaveBeenCalledTimes(0);
     });
   });
 

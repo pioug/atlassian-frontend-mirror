@@ -21,6 +21,8 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
       metadata: {
         method,
         endpoint,
+        mediaRegion,
+        mediaEnv,
         attempts,
         clientExhaustedRetries,
         statusCode,
@@ -32,6 +34,8 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
       reason,
       method,
       endpoint,
+      mediaRegion,
+      mediaEnv,
       attempts,
       clientExhaustedRetries,
       statusCode,

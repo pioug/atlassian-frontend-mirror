@@ -23,7 +23,7 @@ describe('Block Card', () => {
 
     await waitForResolvedBlockCard(page);
 
-    await page.click('button[data-testid="dropdown-trigger');
+    await page.click('button[data-testid="dropdown-trigger"]');
 
     const image = await takeSnapshot(page, 280, 0);
     expect(image).toMatchProdImageSnapshot();

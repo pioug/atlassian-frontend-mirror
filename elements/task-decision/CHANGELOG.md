@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.4.4
+
+### Patch Changes
+
+- [`bffe28af76b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bffe28af76b) - ED-14764: Modified CSS display attribute for checkboxes in action items slightly to address the problem seen in firefox where the cursor does not move to the previous item using the up arrow key. No appearance changes to the component as a result of this modification.
+
 ## 17.4.3
 
 ### Patch Changes

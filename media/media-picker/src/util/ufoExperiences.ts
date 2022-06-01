@@ -9,7 +9,7 @@ import {
   getMediaEnvironment,
   getMediaRegion,
 } from '@atlaskit/media-client';
-import { ComponentName } from './analytics';
+import { ComponentName, LOGGED_FEATURE_FLAG_KEYS } from './analytics';
 import {
   name as packageName,
   version as packageVersion,
@@ -31,6 +31,7 @@ const initExperience = (id: string, componentName: ComponentName) => {
       platform: { component: `media-picker-${componentName}` },
       type: ExperienceTypes.Experience,
       performanceType: ExperiencePerformanceTypes.InlineResult,
+      featureFlags: LOGGED_FEATURE_FLAG_KEYS,
     };
     ufoExperience = new ConcurrentExperience('media-upload', inlineExperience);
   }

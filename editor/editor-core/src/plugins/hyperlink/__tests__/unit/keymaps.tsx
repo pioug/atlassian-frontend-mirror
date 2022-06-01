@@ -138,6 +138,90 @@ describe('hyperlink - keymap with no card provider', () => {
             },
           });
         });
+
+        it('does not convert a possible link part of a windows filepath to a hyperlink', () => {
+          const { editorView } = editor(
+            doc(p('C:\\coolbeans\\www.atlassian.com')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p('C:\\coolbeans\\www.atlassian.com'), p()),
+          );
+        });
+
+        it('does not convert a possible link part of a windows network filepath to a hyperlink', () => {
+          const { editorView } = editor(
+            doc(p('\\\\coolbeans\\www.atlassian.com')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p('\\\\coolbeans\\www.atlassian.com'), p()),
+          );
+        });
+
+        it('does not convert a possible link part of a windows filepath to a hyperlink when the node isnt the first on page', () => {
+          const { editorView } = editor(
+            doc(p(), p(), p('C:\\coolbeans\\bazinga www.atlassian.com\\')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p(), p(), p('C:\\coolbeans\\bazinga www.atlassian.com\\'), p()),
+          );
+        });
+
+        it('does not convert a possible link part of a windows network filepath to a hyperlink when the node isnt the first on page', () => {
+          const { editorView } = editor(
+            doc(p(), p(), p('\\\\coolbeans\\bazinga www.atlassian.com\\')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p(), p(), p('\\\\coolbeans\\bazinga www.atlassian.com\\'), p()),
+          );
+        });
+
+        it('should not create a hyperlink if link is in a long windows filepath trailed by a backslash', () => {
+          const { editorView } = editor(
+            doc(p('C:\\coolbeans\\bazinga www.atlassian.com\\')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p('C:\\coolbeans\\bazinga www.atlassian.com\\'), p()),
+          );
+        });
+
+        it('should not create a hyperlink if link is in a long windows network filepath trailed by a backslash', () => {
+          const { editorView } = editor(
+            doc(p('\\\\coolbeans\\bazinga www.atlassian.com\\')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p('\\\\coolbeans\\bazinga www.atlassian.com\\'), p()),
+          );
+        });
+
+        it('does not convert a possible link part of a unix filepath or network filepath to a hyperlink', () => {
+          const { editorView } = editor(
+            doc(p('/coolbeans/meow/www.atlassian.com')),
+          );
+
+          sendKeyToPm(editorView, 'Enter');
+
+          expect(editorView.state.doc).toEqualDocument(
+            doc(p('/coolbeans/meow/www.atlassian.com'), p()),
+          );
+        });
       });
 
       describe('when it already contains a link', () => {

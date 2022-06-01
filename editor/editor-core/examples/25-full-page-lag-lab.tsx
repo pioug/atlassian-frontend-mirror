@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import { format } from 'url';
@@ -78,12 +79,12 @@ const lag = (delay: number) => {
   }
 };
 
-const ExampleWrapper = styled.div`
+const exampleWrapper = css`
   display: flex;
   height: 100%;
 `;
 
-const LatencyPanelContainer = styled.div`
+const latencyPanelContainer = css`
   max-width: 250px;
   padding: 1em;
 
@@ -127,7 +128,7 @@ const LatencyPanelContainer = styled.div`
   }
 `;
 
-const FullPageExampleWrapper = styled.div`
+const fullPageExampleWrapper = css`
   flex-grow: 1;
 `;
 
@@ -199,7 +200,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
   };
 
   return (
-    <LatencyPanelContainer>
+    <div id="latencyPanelContainer" css={latencyPanelContainer}>
       <h2>Adjust latency</h2>
 
       <div>
@@ -304,7 +305,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
           Copy link for sharing
         </Button>
       </div>
-    </LatencyPanelContainer>
+    </div>
   );
 };
 
@@ -328,8 +329,7 @@ export default function Example() {
   React.useEffect(() => {
     const keypressHandler = (event: KeyboardEvent) => {
       // ignore keypresses in LatencyPanel
-      const { styledComponentId } = LatencyPanelContainer as any;
-      if ((event.target as Element).closest(`.${styledComponentId}`)) {
+      if ((event.target as Element).closest(`#latencyPanelContainer`)) {
         return;
       }
 
@@ -389,10 +389,10 @@ export default function Example() {
   const editorKey = `editor-${latencyMode}-${initLatency}-${focusLatency}`;
 
   return (
-    <ExampleWrapper>
-      <FullPageExampleWrapper>
+    <div css={exampleWrapper}>
+      <div css={fullPageExampleWrapper}>
         <FullPageExample key={editorKey} onExampleEditorReady={onEditorReady} />
-      </FullPageExampleWrapper>
+      </div>
 
       <Drawer isOpen={showPanel} onClose={onClosePanel}>
         <LatencyPanel
@@ -408,6 +408,6 @@ export default function Example() {
           onFocusLatencyChange={setFocusLatency}
         />
       </Drawer>
-    </ExampleWrapper>
+    </div>
   );
 }

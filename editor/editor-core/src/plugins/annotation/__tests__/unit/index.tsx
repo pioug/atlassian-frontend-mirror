@@ -79,6 +79,7 @@ describe('annotation', () => {
         disabled: false,
         containerElement: null,
         dispatchAnalyticsEvent: createAnalyticsEvent,
+        wrapperElement: null,
       })!,
     );
   }

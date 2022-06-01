@@ -136,6 +136,128 @@ describe('#createPasteAnalyticsPayload()', () => {
           }),
         );
       });
+      it('should count no links if links are part of a windows filepath', () => {
+        const { editorView } = editor(doc(p('{<>}')), {
+          plainTextPasteLinkification,
+        });
+        dispatchPasteEvent(
+          editorView,
+          {
+            plain: 'C:\\coolbeans\\www.atlassian.com',
+          },
+          { shift: true },
+        );
+
+        expect(createAnalyticsEvent).toBeCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              linksInPasteCount: 0,
+            }),
+          }),
+        );
+      });
+      it('should count no links if links are part of a windows network filepath', () => {
+        const { editorView } = editor(doc(p('{<>}')), {
+          plainTextPasteLinkification,
+        });
+        dispatchPasteEvent(
+          editorView,
+          {
+            plain: '\\\\coolbeans\\www.atlassian.com',
+          },
+          { shift: true },
+        );
+
+        expect(createAnalyticsEvent).toBeCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              linksInPasteCount: 0,
+            }),
+          }),
+        );
+      });
+      it('should count one link when all others are part of a windows filepath amongst other text', () => {
+        const { editorView } = editor(doc(p('{<>}')), {
+          plainTextPasteLinkification,
+        });
+        dispatchPasteEvent(
+          editorView,
+          {
+            plain:
+              'youtube.com PINEAPPLE C:\\coolbeans\\meow\\www.atlassian.com',
+          },
+          { shift: true },
+        );
+
+        expect(createAnalyticsEvent).toBeCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              linksInPasteCount: 1,
+            }),
+          }),
+        );
+      });
+      it('should count one link when all others are part of a windows network filepath amongst other text', () => {
+        const { editorView } = editor(doc(p('{<>}')), {
+          plainTextPasteLinkification,
+        });
+        dispatchPasteEvent(
+          editorView,
+          {
+            plain:
+              'youtube.com PINEAPPLE \\\\coolbeans\\meow\\www.atlassian.com',
+          },
+          { shift: true },
+        );
+
+        expect(createAnalyticsEvent).toBeCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              linksInPasteCount: 1,
+            }),
+          }),
+        );
+      });
+      it('should count no links if links are part of a unix filepath or network filepath', () => {
+        const { editorView } = editor(doc(p('{<>}')), {
+          plainTextPasteLinkification,
+        });
+        dispatchPasteEvent(
+          editorView,
+          {
+            plain: '/coolbeans/meow/www.atlassian.com',
+          },
+          { shift: true },
+        );
+
+        expect(createAnalyticsEvent).toBeCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              linksInPasteCount: 0,
+            }),
+          }),
+        );
+      });
+      it('should count one link when all others are part of a unix filepath amongst other text', () => {
+        const { editorView } = editor(doc(p('{<>}')), {
+          plainTextPasteLinkification,
+        });
+        dispatchPasteEvent(
+          editorView,
+          {
+            plain: 'youtube.com PINEAPPLE /coolbeans/meow/www.atlassian.com',
+          },
+          { shift: true },
+        );
+
+        expect(createAnalyticsEvent).toBeCalledWith(
+          expect.objectContaining({
+            attributes: expect.objectContaining({
+              linksInPasteCount: 1,
+            }),
+          }),
+        );
+      });
     });
   });
 

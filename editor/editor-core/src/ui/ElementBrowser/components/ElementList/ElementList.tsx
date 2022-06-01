@@ -10,6 +10,7 @@ import Item from '@atlaskit/item';
 import { B100, N20, N200 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import {
   withAnalyticsContext,
@@ -188,11 +189,22 @@ const getStyles = memoizeOne((mode) => {
       },
     },
     borderRadius: GRID_SIZE / 2,
+    // TODO: apply a different background for when a selected item is hovered.
+    // Not possible due to current implementation of @atlaskit/item component.
     selected: {
-      background: N20,
+      background: token('color.background.selected', N20),
     },
     hover: {
-      background: 'rgb(244, 245, 247)',
+      background: token(
+        'color.background.neutral.subtle.hovered',
+        'rgb(244, 245, 247)',
+      ),
+    },
+    active: {
+      background: token(
+        'color.background.neutral.subtle.pressed',
+        'rgb(244, 245, 247)',
+      ),
     },
     beforeItemSpacing: {
       default: GRID_SIZE * 1.5,
@@ -365,7 +377,8 @@ const elementItemsWrapper = css`
     outline: none;
 
     :focus {
-      box-shadow: 0 0 0 ${ELEMENT_LIST_PADDING}px ${B100};
+      box-shadow: 0 0 0 ${ELEMENT_LIST_PADDING}px
+        ${token('color.border.focused', B100)};
     }
   }
   .ReactVirtualized__Collection__innerScrollContainer {
@@ -387,7 +400,7 @@ const elementItemWrapper = css`
      * manually setting it to take 100% of parent.
      */
   span {
-    span:nth-child(2) {
+    span:nth-of-type(2) {
       max-height: 100%;
     }
   }
@@ -419,7 +432,7 @@ const itemDescription = css`
 
   overflow: hidden;
   font-size: ${relativeFontSizeToBase16(11.67)};
-  color: ${N200};
+  color: ${token('color.text.subtle', N200)};
   margin-top: 2px;
 `;
 

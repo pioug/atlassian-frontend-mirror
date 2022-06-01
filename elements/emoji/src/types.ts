@@ -408,3 +408,20 @@ export enum UfoComponentName {
   EMOJI_PICKER = 'emoji-picker',
   EMOJI_PROVIDER = 'emoji-provider',
 }
+
+export enum UfoEmojiTimingsKeys {
+  MOUNTED = 'emoji-mount',
+  METADATA = 'emoji-metadata',
+  MEDIADATA = 'emoji-media',
+  ONLOAD = 'emoji-onload',
+}
+
+export enum UfoEmojiTimings {
+  MOUNTED_END = 'emoji-mount_end',
+  METADATA_START = 'emoji-metadata_start',
+  METADATA_END = 'emoji-metadata_end',
+  MEDIA_START = 'emoji-media_start',
+  MEDIA_END = 'emoji-media_end',
+  ONLOAD_START = 'emoji-onload_start',
+  ONLOAD_END = 'emoji-onload_end',
+}

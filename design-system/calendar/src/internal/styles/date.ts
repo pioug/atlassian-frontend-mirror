@@ -98,10 +98,10 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
     color: textColor[mode],
   },
   '&[data-selected]:hover': {
-    color: textColorMedium,
+    backgroundColor: token('color.background.selected.hovered', B50),
+    color: token('color.text.selected', N600),
   },
   '&[data-prev-selected]:hover': {
-    backgroundColor: token('color.background.selected', B50),
     color: textColorMedium,
   },
   '&[data-sibling]:hover': {

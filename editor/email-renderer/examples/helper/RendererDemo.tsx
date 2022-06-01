@@ -11,7 +11,6 @@ export interface DemoRendererProps {
   document?: object;
   maxHeight?: number;
   truncationEnabled?: boolean;
-  allowDynamicTextSizing?: boolean;
 }
 
 export interface DemoRendererState {

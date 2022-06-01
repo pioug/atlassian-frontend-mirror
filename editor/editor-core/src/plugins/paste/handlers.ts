@@ -224,6 +224,7 @@ export function handlePasteAsPlainText(
     // @see prosemirror-view/src/input.js:doPaste().
     if (view && (view as any).shiftKey) {
       let tr = closeHistory(state.tr);
+
       const { selection } = tr;
 
       // <- using the same internal flag that prosemirror-view is using
@@ -457,6 +458,7 @@ export function handleCodeBlock(text: string): Command {
     const { codeBlock } = state.schema.nodes;
     if (text && hasParentNodeOfType(codeBlock)(state.selection)) {
       const tr = closeHistory(state.tr);
+
       tr.scrollIntoView();
       if (dispatch) {
         dispatch(tr.insertText(text));
@@ -565,6 +567,7 @@ export function handleExpandPasteInTable(slice: Slice): Command {
 export function handleMarkdown(markdownSlice: Slice): Command {
   return (state, dispatch) => {
     const tr = closeHistory(state.tr);
+
     tr.replaceSelection(markdownSlice);
 
     queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
@@ -842,6 +845,24 @@ export function handleRichText(slice: Slice): Command {
       dispatch(queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD));
     }
     return true;
+  };
+}
+
+export function handlePasteIntoCaption(slice: Slice): Command {
+  return (state, dispatch) => {
+    const { caption } = state.schema.nodes;
+    const tr = state.tr;
+    if (hasParentNodeOfType(caption)(state.selection)) {
+      // We let PM replace the selection and it will insert as text where it can't place the node
+      // This is totally fine as caption is just a simple block that only contains inline contents
+      // And it is more in line with WYSIWYG expectations
+      tr.replaceSelection(slice).scrollIntoView();
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+    return false;
   };
 }
 

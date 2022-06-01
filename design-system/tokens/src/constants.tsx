@@ -8,3 +8,5 @@ export const LONG_SHORT_MAPPING: Record<string, typeof THEMES[number]> = {
   'atlassian-light': 'light',
   'atlassian-dark': 'dark',
 };
+
+export const TOKEN_NOT_FOUND_CSS_VAR = `--${CSS_PREFIX}-token-not-found`;

@@ -5,11 +5,16 @@ import {
   EditorState,
   TextSelection,
 } from 'prosemirror-state';
+
 import {
-  ADFEntity,
   transformMediaLinkMarks,
   transformTextLinkCodeMarks,
-} from '@atlaskit/adf-utils';
+  transformDedupeMarks,
+  transformNodesMissingContent,
+  transformIndentationMarks,
+} from '@atlaskit/adf-utils/transforms';
+
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 import { sanitizeNodeForPrivacy } from '../utils/filter/privacy-filter';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -114,6 +119,14 @@ export function isEmptyDocument(node: Node): boolean {
 // Checks to see if the parent node is the document, ie not contained within another entity
 export function hasDocAsParent($anchor: ResolvedPos): boolean {
   return $anchor.depth === 1;
+}
+
+export function isProseMirrorSchemaCheckError(error: unknown): boolean {
+  return (
+    error instanceof RangeError &&
+    (!!error.message.match(/^Invalid collection of marks for node/) ||
+      !!error.message.match(/^Invalid content for node/))
+  );
 }
 
 export function isInEmptyLine(state: EditorState) {
@@ -233,14 +246,53 @@ export function processRawValue(
     // text nodes. This util strips code marks from bad text nodes and preserves links.
     // Otherwise, prosemirror will try to repair the invalid document by stripping links
     // and preserving code marks during content changes.
-    const transformResult = transformTextLinkCodeMarks(node as ADFEntity);
-
-    transformedAdf = transformResult.transformedAdf;
-    isTransformed = transformResult.isTransformed;
+    ({ transformedAdf, isTransformed } = transformTextLinkCodeMarks(
+      transformedAdf as ADFEntity,
+    ));
 
     if (isTransformed && dispatchAnalyticsEvent) {
       dispatchAnalyticsEvent({
         action: ACTION.TEXT_LINK_MARK_TRANSFORMED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+    }
+
+    let discardedMarks = [];
+    ({ transformedAdf, isTransformed, discardedMarks } = transformDedupeMarks(
+      transformedAdf as ADFEntity,
+    ));
+
+    if (isTransformed && dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.DEDUPE_MARKS_TRANSFORMED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+        attributes: {
+          discardedMarks,
+        },
+      });
+    }
+
+    ({ transformedAdf, isTransformed } = transformNodesMissingContent(
+      transformedAdf as ADFEntity,
+    ));
+
+    if (isTransformed && dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.NODES_MISSING_CONTENT_TRANSFORMED,
+        actionSubject: ACTION_SUBJECT.EDITOR,
+        eventType: EVENT_TYPE.OPERATIONAL,
+      });
+    }
+
+    ({ transformedAdf, isTransformed } = transformIndentationMarks(
+      transformedAdf as ADFEntity,
+    ));
+
+    if (isTransformed && dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent({
+        action: ACTION.INDENTATION_MARKS_TRANSFORMED,
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
       });
@@ -274,8 +326,7 @@ export function processRawValue(
           },
         });
       }
-
-      return;
+      throw err;
     }
 
     if (dispatchAnalyticsEvent) {
@@ -304,6 +355,11 @@ export function processRawValue(
       `Error processing document:\n${e.message}\n\n`,
       JSON.stringify(node),
     );
+
+    if (isProseMirrorSchemaCheckError(e)) {
+      throw e;
+    }
+
     return;
   }
 }

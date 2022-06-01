@@ -159,7 +159,6 @@ export default class Sidebar extends React.Component<
 
     const additionalRendererProps = {
       appearance: 'full-page',
-      allowDynamicTextSizing: true,
     };
 
     return (

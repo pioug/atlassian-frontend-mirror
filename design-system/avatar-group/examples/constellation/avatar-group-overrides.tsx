@@ -5,7 +5,10 @@ import styled from '@emotion/styled';
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 
-import { RANDOM_USERS } from '../../examples-util/data';
+import {
+  getFreeToUseAvatarImage,
+  RANDOM_USERS,
+} from '../../examples-util/data';
 import AvatarGroup from '../../src';
 
 const ButtonGroup = styled.div`
@@ -14,7 +17,7 @@ const ButtonGroup = styled.div`
 `;
 
 const AvatarGroupOverridesExample = () => {
-  const data = RANDOM_USERS.slice(0, 8).map((d) => ({
+  const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
     email: d.email,
     key: d.email,
     name: d.name,
@@ -22,6 +25,7 @@ const AvatarGroupOverridesExample = () => {
     appearance: 'circle' as AppearanceType,
     size: 'medium' as SizeType,
     enableTooltip: true,
+    src: getFreeToUseAvatarImage(i),
   }));
 
   return (

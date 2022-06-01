@@ -1,5 +1,21 @@
 # @atlaskit/section-message
 
+## 6.1.13
+
+### Patch Changes
+
+- [`89a1b9b02d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89a1b9b02d9) - [ux] - Actions will now wrap onto new lines rather than overflowing the edges, in cases where the actions are wider than the available width of the Section Message.
+
+  - Added test ID data attribute to actions list for testing purposes, using the existing `testId` prop.
+
+- [`edafa2f6366`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edafa2f6366) - [ux]
+
+  - Prevent long text overflowing the Section Message content box by utilising CSS property `word-break: break-word` to add line breaks. This applies to both the `title` and `children` props.
+  - Allow text truncation to work inside Section Message content area by adding `overflow: hidden` to the flex container. This is due to a quirk with how this property works within CSS flexbox.
+  - Added test ID data attribute to content container for testing purposes, using the existing `testId` prop.
+
+- Updated dependencies
+
 ## 6.1.12
 
 ### Patch Changes

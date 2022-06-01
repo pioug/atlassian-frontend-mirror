@@ -28,6 +28,7 @@ import {
   failMediaFileUfoExperience,
   UFOFailedEventPayload,
 } from './analytics/ufoExperiences';
+import { FileStateFlags } from './components/types';
 
 export type Props = Readonly<{
   error: MediaViewerError;
@@ -35,6 +36,7 @@ export type Props = Readonly<{
   fileId: string;
   fileState?: FileState;
   children?: ReactNode;
+  fileStateFlags?: FileStateFlags;
 }>;
 
 export type FormatMessageFn = (messageDescriptor: MessageDescriptor) => string;
@@ -112,6 +114,7 @@ export class ErrorMessage extends React.Component<
       fireAnalytics(payload, props);
       const rawPayload: UFOFailedEventPayload & { status?: string } = {
         ...payload?.attributes,
+        fileStateFlags: props.fileStateFlags,
       };
       if (Object.keys(rawPayload).includes('status')) {
         delete rawPayload['status'];

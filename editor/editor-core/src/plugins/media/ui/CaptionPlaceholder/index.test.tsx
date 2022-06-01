@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
 
@@ -29,7 +30,9 @@ describe('CaptionComponent', () => {
       <CaptionPlaceholder onClick={onClick} />,
     );
 
-    expect(container.firstChild).toHaveStyle(`color: ${N200}`);
+    expect(container.firstChild).toHaveStyle(
+      `color: ${token('color.text.subtlest', N200)}`,
+    );
   });
 
   it('placeholder should be centered', () => {

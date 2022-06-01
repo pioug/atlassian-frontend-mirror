@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-utils",
-  "version": "16.0.2",
+  "version": "17.0.0",
   "description": "Set of utilities to traverse, modify and create ADF documents.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,21 +16,32 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "scheduled"
+  },
+  "af:exports": {
+    "./builders": "./src/builders.ts",
+    "./empty-adf": "./src/empty-adf.ts",
+    "./scrub": "./src/scrub.ts",
+    "./transforms": "./src/transforms.ts",
+    "./traverse": "./src/traverse.ts",
+    "./validator": "./src/validator.ts",
+    "./types": "./src/types/index.ts",
+    "./validatorTypes": "./src/types/validatorTypes.ts"
   },
   "scripts": {
     "generate:spec": "rm -rf ./src/validator/specs/ && ../json-schema-generator/bin.js --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^23.0.0",
+    "@atlaskit/adf-schema": "^23.1.0",
+    "@atlaskit/codemod-utils": "^4.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/json-schema-generator": "^3.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "jscodeshift": "^0.13.0",
     "react": "^16.8.0",
     "typescript": "4.2.4",
     "wait-for-expect": "^1.2.0"

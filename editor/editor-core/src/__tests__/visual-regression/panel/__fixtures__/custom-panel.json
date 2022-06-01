@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "panel",
+      "attrs": {
+        "panelType": "custom",
+        "panelIcon": ":rainbow:",
+        "panelIconId": "1f308",
+        "panelIconText": "🌈",
+        "panelColor": "#E6FCFF"
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": []
+        }
+      ]
+    }
+  ]
+}

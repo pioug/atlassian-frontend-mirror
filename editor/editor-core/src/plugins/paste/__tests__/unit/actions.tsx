@@ -3,6 +3,7 @@ import {
   LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,
@@ -23,6 +24,11 @@ import {
   layoutSection,
   layoutColumn,
   panel,
+  mediaSingle,
+  media,
+  caption,
+  ul,
+  li,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { uuid } from '@atlaskit/adf-schema';
 import { EditorView } from 'prosemirror-view';
@@ -36,6 +42,9 @@ import expandPlugin from '../../../expand';
 import datePlugin from '../../../date';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
+import mediaPlugin from '../../../media';
+import captionPlugin from '../../../caption';
+import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 
 const pasteAndCompare = (
@@ -64,6 +73,12 @@ describe('action paste handler', () => {
         .add([pastePlugin, { plainTextPasteLinkification: false }])
         .add([tasksAndDecisionsPlugin])
         .add(blockTypePlugin)
+        .add(captionPlugin)
+        .add([
+          mediaPlugin,
+          { allowMediaSingle: true, featureFlags: { captions: true } },
+        ])
+        .add(listPlugin)
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])
         .add(tablesPlugin)
@@ -335,6 +350,84 @@ describe('action paste handler', () => {
         ),
       );
       pasteAndCompare(editor(actionDocEndSelection), clipboard, expected);
+    });
+  });
+
+  describe('pasting into caption', () => {
+    const mediaNodeAttrs = {
+      id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+      type: 'file',
+      collection: 'MediaServicesSample',
+      width: 250,
+      height: 250,
+    } as MediaADFAttrs;
+
+    const emptyCaptionDoc = doc(
+      mediaSingle()(media(mediaNodeAttrs)(), caption('{<>}')),
+    );
+
+    const middleCaptionDoc = doc(
+      mediaSingle()(media(mediaNodeAttrs)(), caption('ZZ{<>}ZZ')),
+    );
+
+    it('paste valid content inside an empty caption', () => {
+      const clipboard = 'plain text';
+      const expected = doc(
+        mediaSingle()(media(mediaNodeAttrs)(), caption('plain text')),
+      );
+
+      pasteAndCompare(editor(emptyCaptionDoc), clipboard, expected, true);
+    });
+
+    it('paste valid content in the middle of a caption', () => {
+      const clipboard = 'plain text';
+      const expected = doc(
+        mediaSingle()(media(mediaNodeAttrs)(), caption('ZZplain textZZ')),
+      );
+
+      pasteAndCompare(editor(middleCaptionDoc), clipboard, expected, true);
+    });
+
+    it('paste invalid content paragraph inside an empty caption', () => {
+      const clipboard =
+        '<meta charset="utf-8"><p data-pm-slice="1 1 []">paragraph</p>';
+      const expected = doc(
+        mediaSingle()(media(mediaNodeAttrs)(), caption('paragraph')),
+      );
+
+      pasteAndCompare(editor(emptyCaptionDoc), clipboard, expected, true);
+    });
+
+    it('paste invalid content bullet-list inside an empty caption', () => {
+      const clipboard =
+        '<meta charset="utf-8"><ul class="ak-ul" data-pm-slice="3 3 []"><li><p>fist item</p></li><li><p>second item</p></li></ul>';
+      const expected = doc(
+        mediaSingle()(media(mediaNodeAttrs)(), caption('fist item')),
+        ul(li(p('second item'))),
+      );
+
+      pasteAndCompare(editor(emptyCaptionDoc), clipboard, expected, true);
+    });
+
+    it('paste invalid content paragraph in the middle of a caption', () => {
+      const clipboard =
+        '<meta charset="utf-8"><p data-pm-slice="1 1 []">paragraph</p>';
+      const expected = doc(
+        mediaSingle()(media(mediaNodeAttrs)(), caption('ZZparagraphZZ')),
+      );
+
+      pasteAndCompare(editor(middleCaptionDoc), clipboard, expected, true);
+    });
+
+    it('paste invalid content bullet-list in the middle of a caption', () => {
+      const clipboard =
+        '<meta charset="utf-8"><ul class="ak-ul" data-pm-slice="3 3 []"><li><p>fist item</p></li><li><p>second item</p></li></ul>';
+      const expected = doc(
+        mediaSingle()(media(mediaNodeAttrs)(), caption('ZZfist item')),
+        ul(li(p('second itemZZ'))),
+      );
+
+      pasteAndCompare(editor(middleCaptionDoc), clipboard, expected, true);
     });
   });
 });

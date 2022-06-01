@@ -7,24 +7,24 @@ import {
   createUploadMediaClientConfig,
   createStorybookMediaClientConfig,
   fakeMediaClient,
-  enableMediaUfoLogger,
+  FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { FileState } from '@atlaskit/media-client';
-import { payloadPublisher } from '@atlassian/ufo';
 import {
   DropzoneContainer,
   PopupHeader,
   PopupContainer,
   DropzoneContentWrapper,
   DropzoneItemsInfo,
-} from '../example-helpers/styled';
+} from '../example-helpers/stylesWrapper';
 import { UploadPreviews } from '../example-helpers/upload-previews';
-
+import { UfoLoggerWrapper } from '../example-helpers/UfoWrapper';
 import { Dropzone } from '../src';
 import { DropzoneConfig, UploadsStartEventPayload } from '../src/types';
+import { LOGGED_FEATURE_FLAGS } from '../src/util/analytics';
 
 export interface DropzoneWrapperState {
   isConnectedToUsersCollection: boolean;
@@ -39,7 +39,6 @@ const nonUserMediaClientConfig = createStorybookMediaClientConfig({
   authType: 'asap',
 });
 
-enableMediaUfoLogger(payloadPublisher);
 class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
   dropzoneContainer?: HTMLDivElement;
 
@@ -143,31 +142,38 @@ class DropzoneWrapper extends Component<{}, DropzoneWrapperState> {
     const { isConnectedToUsersCollection, isActive } = this.state;
 
     return (
-      <IntlProvider locale={'en'}>
-        <PopupContainer>
-          <PopupHeader>
-            <Button appearance="danger">Cancel uploads</Button>
-            Connected to users collection
-            <Toggle
-              defaultChecked={isConnectedToUsersCollection}
-              onChange={this.onConnectionChange}
-            />
-            Active
-            <Toggle defaultChecked={isActive} onChange={this.onActiveChange} />
-          </PopupHeader>
-          <DropzoneContentWrapper>
-            <DropzoneContainer
-              isActive={isActive}
-              innerRef={this.saveDropzoneContainer}
-            />
-            <DropzoneItemsInfo>
-              {this.renderDragZone()}
-              <h1>User collection items</h1>
-              {this.renderLastItems()}
-            </DropzoneItemsInfo>
-          </DropzoneContentWrapper>
-        </PopupContainer>
-      </IntlProvider>
+      <UfoLoggerWrapper>
+        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
+          <IntlProvider locale={'en'}>
+            <PopupContainer>
+              <PopupHeader>
+                <Button appearance="danger">Cancel uploads</Button>
+                Connected to users collection
+                <Toggle
+                  defaultChecked={isConnectedToUsersCollection}
+                  onChange={this.onConnectionChange}
+                />
+                Active
+                <Toggle
+                  defaultChecked={isActive}
+                  onChange={this.onActiveChange}
+                />
+              </PopupHeader>
+              <DropzoneContentWrapper>
+                <DropzoneContainer
+                  isActive={isActive}
+                  ref={this.saveDropzoneContainer}
+                />
+                <DropzoneItemsInfo>
+                  {this.renderDragZone()}
+                  <h1>User collection items</h1>
+                  {this.renderLastItems()}
+                </DropzoneItemsInfo>
+              </DropzoneContentWrapper>
+            </PopupContainer>
+          </IntlProvider>
+        </FeatureFlagsWrapper>
+      </UfoLoggerWrapper>
     );
   }
 }

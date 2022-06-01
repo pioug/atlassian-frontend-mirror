@@ -210,6 +210,8 @@ describe('Media Analytics', () => {
       const someMediaClientError = createRateLimitedError({
         method: 'POST',
         endpoint: '/some-endpoint',
+        mediaRegion: 'some-region',
+        mediaEnv: 'some-env',
       });
 
       expect(
@@ -219,6 +221,8 @@ describe('Media Analytics', () => {
       ).toStrictEqual({
         method: 'POST',
         endpoint: '/some-endpoint',
+        mediaRegion: 'some-region',
+        mediaEnv: 'some-env',
         statusCode: 429,
       });
     });

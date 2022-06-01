@@ -55,6 +55,21 @@ export async function goToEditorTestingWDExample(
 
   return page;
 }
+export async function goToEditorCopyPasteWDExample(
+  client: ConstructorParameters<typeof WebdriverPage>[0],
+) {
+  const page = new WebdriverPage(client);
+  const currentUrl = await page.url();
+  const url = getWDExampleUrl('editor', 'editor-core', 'copy-paste-testing');
+
+  if (currentUrl !== url) {
+    await page.goto(url);
+  }
+
+  await page.maximizeWindow();
+
+  return page;
+}
 
 export async function goToEditorLabsTestingExample(
   client: ConstructorParameters<typeof WebdriverPage>[0],

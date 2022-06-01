@@ -1,16 +1,16 @@
 import React from 'react';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import {
-  withMediaAnalyticsContext,
-  filterFeatureFlagNames,
-} from '@atlaskit/media-common';
+import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import isValidId from 'uuid-validate';
 import { BrowserConfig } from '../../types';
 import {
   LocalUploadComponentReact,
   LocalUploadComponentBaseProps,
 } from '../localUploadReact';
-import { getPackageAttributes } from '../../util/analytics';
+import {
+  getPackageAttributes,
+  LOGGED_FEATURE_FLAGS,
+} from '../../util/analytics';
 
 export interface BrowserOwnProps {
   config: BrowserConfig;
@@ -161,13 +161,6 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
 export const Browser = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {
-    filterFeatureFlags: filterFeatureFlagNames({
-      newCardExperience: true,
-      captions: false,
-      timestampOnVideo: false,
-      observedWidth: false,
-      mediaInline: false,
-      folderUploads: true,
-    }),
+    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
   },
 )(withAnalyticsEvents()(BrowserBase));

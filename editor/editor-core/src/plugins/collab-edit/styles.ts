@@ -2,13 +2,14 @@ import { css } from '@emotion/react';
 import { TELEPOINTER_DIM_CLASS } from './plugin-state';
 import { colors, Color } from './utils';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 const telepointerColorStyle = (color: Color, index: number) => `
   &.color-${index} {
     background-color: ${color.selection};
     &::after {
       background-color: ${color.solid};
-      color: #fff;
+      color: ${token('color.text.inverse', '#fff')};
       border-color: ${color.solid};
     }
   }
@@ -32,7 +33,7 @@ export const telepointerStyle = css`
       top: -14px;
       font-size: ${relativeFontSizeToBase16(9)};
       padding: 2px;
-      color: white;
+      color: ${token('color.text.inverse', 'white')};
       left: -1px;
       border-radius: 2px 2px 2px 0;
       line-height: initial;

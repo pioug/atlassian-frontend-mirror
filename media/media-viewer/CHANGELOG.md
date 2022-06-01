@@ -1,5 +1,19 @@
 # @atlaskit/media-viewer
 
+## 46.4.0
+
+### Minor Changes
+
+- [`bfde909c9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfde909c9b4) - Add new feature flag mediaUploadApiV2
+- [`35e43fcc798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35e43fcc798) - Add ufo feature flag logging
+- [`31cf1fff440`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31cf1fff440) - Flagged events with file states processing and uploading for UFO payload
+
+### Patch Changes
+
+- [`0ea419d2739`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea419d2739) - Enabled UFO logger for all the examples in Media-viewer
+- [`c2ede50a80a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ede50a80a) - Add media region and environment returned from media API response into failed analytic events.
+- Updated dependencies
+
 ## 46.3.0
 
 ### Minor Changes

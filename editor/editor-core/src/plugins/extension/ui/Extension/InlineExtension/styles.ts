@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { wrapperDefault } from '../styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export const wrapperStyle = (theme: ThemeProps) => css`
   ${wrapperDefault(theme)}
@@ -24,6 +25,6 @@ export const wrapperStyle = (theme: ThemeProps) => css`
 
   &.with-children {
     padding: 0;
-    background: white;
+    background: ${token('color.background.neutral.subtle', 'white')};
   }
 `;

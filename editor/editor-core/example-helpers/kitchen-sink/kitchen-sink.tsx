@@ -1,7 +1,10 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 
 import { ThemeProvider } from 'styled-components';
-import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
+import { scrubAdf } from '@atlaskit/adf-utils/scrub';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { Checkbox } from '@atlaskit/checkbox';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import Flag from '@atlaskit/flag';
@@ -25,7 +28,7 @@ import { copy } from '../copy';
 import { Error, ErrorReport } from '../ErrorReport';
 import { KitchenSinkControls } from './kitchen-sink-controls';
 import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
-import { Container, EditorColumn, Column, Rail } from './kitchen-sink-styles';
+import { container, editorColumn, column, rail } from './kitchen-sink-styles';
 import { KitchenSinkRenderer } from './kitchen-sink-renderer';
 import { KitchenSinkEditor } from './kitchen-sink-editor';
 import { isEmptyDocument } from '../../src/utils/document';
@@ -465,10 +468,12 @@ export class KitchenSink extends React.Component<
             onCopyLink={this.onCopyLink}
             onScrubToggle={this.onScrubToggle}
           />
-          <Container vertical={this.state.vertical} root>
-            <EditorColumn
-              vertical={this.state.vertical}
-              narrow={this.state.vertical && this.state.showADF}
+          <div css={container({ vertical: this.state.vertical, root: true })}>
+            <div
+              css={editorColumn({
+                vertical: this.state.vertical,
+                narrow: this.state.vertical && this.state.showADF,
+              })}
             >
               <KitchenSinkEditor
                 actions={this.props.actions}
@@ -488,8 +493,12 @@ export class KitchenSink extends React.Component<
                   getExampleExtensionProviders(editorActions),
                 ]}
               />
-            </EditorColumn>
-            <Column narrow={this.state.vertical && this.state.showADF}>
+            </div>
+            <div
+              css={column({
+                narrow: this.state.vertical && this.state.showADF,
+              })}
+            >
               <KitchenSinkRenderer
                 document={
                   this.state.scrubContent
@@ -502,16 +511,16 @@ export class KitchenSink extends React.Component<
                 locale={this.props.locale}
                 featureFlags={parseSafely(this.state.featureFlagInput)}
               />
-            </Column>
+            </div>
             {this.state.showADF ? (
-              <Rail>
+              <div css={rail}>
                 <ContextPanel visible={this.state.showADF}>
                   <div>
-                    <Container>
+                    <div css={container({})}>
                       {this.state.errors.length > 0 && (
                         <ErrorReport errors={this.state.errors} />
                       )}
-                    </Container>
+                    </div>
                     <label>
                       Feature flags
                       <KitchenSinkAdfInput
@@ -550,9 +559,9 @@ export class KitchenSink extends React.Component<
                     </div>
                   </div>
                 </ContextPanel>
-              </Rail>
+              </div>
             ) : null}
-          </Container>
+          </div>
         </div>
         {this.state.warning && (
           <div style={{ position: 'fixed', top: 125, right: 15, width: 400 }}>

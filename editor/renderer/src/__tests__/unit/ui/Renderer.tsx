@@ -21,7 +21,7 @@ import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
-import { doc, p, a, b, heading, text } from '@atlaskit/adf-utils';
+import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import Renderer, {
   Renderer as BaseRenderer,

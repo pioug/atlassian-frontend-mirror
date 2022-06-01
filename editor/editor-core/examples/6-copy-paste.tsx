@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { ReactRenderer } from '@atlaskit/renderer';
@@ -32,19 +33,19 @@ import {
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-const Wrapper = styled.div`
+const wrapper = css`
   box-sizing: border-box;
   height: calc(100vh - 32px);
   display: flex;
 `;
-const Content = styled.div`
+const content = css`
   padding: 0;
   height: 100%;
   width: 50%;
   border: 2px solid #ccc;
   box-sizing: border-box;
 `;
-const RendererWrapper = styled.div`
+const rendererWrapper = css`
   width: 500px;
 `;
 
@@ -328,7 +329,7 @@ class ExampleEditorComponent extends React.Component<
     this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
   };
 
-  private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
+  private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {
     if (e.key === 'Tab' && !e.shiftKey) {
       this.setState({
         disabled: false,
@@ -339,7 +340,7 @@ class ExampleEditorComponent extends React.Component<
     return;
   };
 
-  private handleTitleChange = (e: KeyboardEvent) => {
+  private handleTitleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const title = (e.target as HTMLInputElement).value;
     this.setState({
       title,
@@ -375,11 +376,14 @@ class ExampleEditorComponent extends React.Component<
       allowMediaSingle: true,
       allowResizing: true,
       allowAltTextOnImages: true,
+      featureFlags: {
+        mediaInline: true,
+      },
     };
 
     return (
       <EditorContext key={collectionName}>
-        <Content>
+        <div css={content}>
           <h2>Editor ({collectionName})</h2>
           <SmartCardProvider>
             <WithEditorActions
@@ -408,7 +412,6 @@ class ExampleEditorComponent extends React.Component<
                   }}
                   allowTextAlignment={true}
                   allowIndentation={true}
-                  allowDynamicTextSizing={true}
                   allowTemplatePlaceholders={{ allowInserting: true }}
                   smartLinks={{
                     provider: Promise.resolve(cardProvider),
@@ -422,7 +425,7 @@ class ExampleEditorComponent extends React.Component<
                   disabled={this.state.disabled}
                   defaultValue={defaultValue}
                   contentComponents={
-                    <>
+                    <Fragment>
                       <BreadcrumbsMiscActions
                         appearance={this.state.appearance}
                         onFullWidthChange={this.setFullWidthMode}
@@ -433,11 +436,11 @@ class ExampleEditorComponent extends React.Component<
                         innerRef={this.handleTitleRef}
                         onFocus={this.handleTitleOnFocus}
                         onBlur={this.handleTitleOnBlur}
-                        onKeyDown={(e: KeyboardEvent) => {
+                        onKeyDown={(e: React.KeyboardEvent) => {
                           this.onKeyPressed(e, actions);
                         }}
                       />
-                    </>
+                    </Fragment>
                   }
                   primaryToolbarComponents={[
                     <SaveAndCancelButtons
@@ -453,32 +456,32 @@ class ExampleEditorComponent extends React.Component<
               )}
             />
           </SmartCardProvider>
-        </Content>
+        </div>
       </EditorContext>
     );
   };
 
   renderRenderer = () => {
     return (
-      <RendererWrapper>
+      <div css={rendererWrapper}>
         <h2>Renderer ({defaultCollectionName})</h2>
         <ReactRenderer
           document={rendererDoc}
           adfStage="stage0"
           dataProviders={dataProviders}
         />
-      </RendererWrapper>
+      </div>
     );
   };
 
   render() {
     return (
       <div>
-        <Wrapper>
+        <div css={wrapper}>
           {this.renderEditor(defaultCollectionName)}
           {this.renderEditor(defaultMediaPickerCollectionName)}
           {this.renderRenderer()}
-        </Wrapper>
+        </div>
       </div>
     );
   }

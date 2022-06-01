@@ -28,6 +28,7 @@ import { hasValue } from '../../utils';
 import { createPromise } from '../../cross-platform-promise';
 import EditorConfiguration from '../editor-configuration';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
+import isEqual from 'lodash/isEqual';
 
 interface BridgePluginListener<T> {
   bridge: string;
@@ -195,10 +196,19 @@ export const configFactory = (
     );
   }
 
+  let oldListState: any;
+
   const listConfiguration = createListenerConfig<ListState>({
     bridge: 'listBridge',
     pluginKey: listStateKey,
     updater: (pluginState) => {
+      const { decorationSet, ...newListState } = pluginState;
+
+      if (isEqual(oldListState, newListState)) {
+        return;
+      }
+      oldListState = newListState;
+
       toNativeBridge.call('listBridge', 'updateListState', {
         states: JSON.stringify(valueOfListState(pluginState)),
       });

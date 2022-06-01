@@ -9,6 +9,7 @@ import {
   defaultCollectionName,
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
+import { MainWrapper } from '../example-helpers/MainWrapper';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 const defaultList = [
@@ -21,7 +22,7 @@ const listWithCurrentIdentifier = [externalImageIdentifier, ...defaultList];
 const listWithoutCurrentIdentifier = [...defaultList];
 
 export default () => (
-  <div>
+  <MainWrapper>
     <h1>Datasource with current identifier</h1>
     <Card
       shouldOpenMediaViewer
@@ -43,5 +44,5 @@ export default () => (
       identifier={externalImageIdentifier}
       mediaViewerDataSource={{ collectionName: defaultCollectionName }}
     />
-  </div>
+  </MainWrapper>
 );

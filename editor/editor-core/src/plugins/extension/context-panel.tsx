@@ -47,6 +47,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
   const extensionState = getPluginState(state);
   const {
     autoSaveResolve,
+    autoSaveReject,
     showContextPanel,
     extensionProvider,
     processParametersBefore,
@@ -93,6 +94,7 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                     extensionProvider={extensionProvider}
                     autoSave={allowAutoSave}
                     autoSaveTrigger={autoSaveResolve}
+                    autoSaveReject={autoSaveReject}
                     onChange={async (updatedParameters) => {
                       await onChangeAction(
                         editorView,
@@ -115,12 +117,18 @@ export const getContextPanel = (allowAutoSave?: boolean) => (
                     }}
                     onCancel={async () => {
                       if (allowAutoSave) {
-                        await new Promise<void>((resolve) => {
-                          forceAutoSave(resolve)(
-                            editorView.state,
-                            editorView.dispatch,
-                          );
-                        });
+                        try {
+                          await new Promise<void>((resolve, reject) => {
+                            forceAutoSave(resolve, reject)(
+                              editorView.state,
+                              editorView.dispatch,
+                            );
+                          });
+                        } catch (e) {
+                          // Even if the save failed, we should proceed with closing the panel
+                          // eslint-disable-next-line no-console
+                          console.error(`Autosave failed with error`, e);
+                        }
                       }
 
                       clearEditingContext(

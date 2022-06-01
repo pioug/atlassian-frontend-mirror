@@ -330,7 +330,6 @@ export class TableContainer extends React.Component<
       isNumberColumnEnabled,
       layout,
       renderWidth,
-      allowDynamicTextSizing,
       columnWidths,
       stickyHeaders,
       tableNode,
@@ -339,7 +338,7 @@ export class TableContainer extends React.Component<
     const { stickyMode } = this.state;
 
     let tableWidth = calcTableWidth(layout, renderWidth, false);
-    const lineLength = calcLineLength(renderWidth, allowDynamicTextSizing);
+    const lineLength = calcLineLength();
 
     let left;
     if (
@@ -378,13 +377,14 @@ export class TableContainer extends React.Component<
             wrapperWidth={wrapperWidth}
             columnWidths={columnWidths}
             rowHeight={this.headerRowHeight}
-            allowDynamicTextSizing={allowDynamicTextSizing}
           >
             {[children && children[0]]}
           </StickyTable>
         )}
         <div
-          className={`${TableSharedCssClassName.TABLE_CONTAINER} ${this.props.shadowClassNames}`}
+          className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
+            this.props.shadowClassNames || ''
+          }`}
           data-layout={layout}
           ref={this.props.handleRef}
           style={{
@@ -403,7 +403,6 @@ export class TableContainer extends React.Component<
               layout={layout}
               isNumberColumnEnabled={isNumberColumnEnabled}
               renderWidth={renderWidth}
-              allowDynamicTextSizing={allowDynamicTextSizing}
             >
               {this.grabFirstRowRef(children)}
             </Table>
@@ -503,6 +502,7 @@ export class TableProcessor extends React.Component<
 
 const TableWithShadows = overflowShadow(TableProcessor, {
   overflowSelector: `.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
+  useShadowObserver: true,
 });
 
 const TableWithWidth: React.FunctionComponent<
@@ -516,7 +516,13 @@ const TableWithWidth: React.FunctionComponent<
         props.rendererAppearance === 'full-page'
           ? width - FullPagePadding * 2
           : width;
-      return <TableWithShadows renderWidth={renderWidth} {...props} />;
+      const colWidthsSum =
+        props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
+      if (colWidthsSum) {
+        return <TableWithShadows renderWidth={renderWidth} {...props} />;
+      }
+      // there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
+      return <TableProcessor renderWidth={renderWidth} {...props} />;
     }}
   </WidthConsumer>
 );

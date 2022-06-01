@@ -1,10 +1,8 @@
-import { ComponentClass, HTMLAttributes } from 'react';
-
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 
 import { N800 } from '@atlaskit/theme/colors';
 
-export const Content: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const content = css`
   & div.toolsDrawer {
     padding: 8px 16px;
     background: ${N800};

@@ -4,7 +4,6 @@ import { MediaClient, Identifier } from '@atlaskit/media-client';
 import {
   MediaFeatureFlags,
   withMediaAnalyticsContext,
-  filterFeatureFlagNames,
 } from '@atlaskit/media-common';
 import {
   IntlProvider,
@@ -23,6 +22,7 @@ import {
   component,
   componentName,
   fireAnalytics,
+  LOGGED_FEATURE_FLAGS,
 } from './analytics';
 import { createModalEvent } from './analytics/events/screen/modal';
 import { createClosedEvent } from './analytics/events/ui/closed';
@@ -211,14 +211,7 @@ export const MediaViewer: React.ComponentType<Props> = withMediaAnalyticsContext
     componentName,
   },
   {
-    filterFeatureFlags: filterFeatureFlagNames({
-      newCardExperience: false,
-      captions: false,
-      timestampOnVideo: false,
-      observedWidth: false,
-      mediaInline: false,
-      folderUploads: false,
-    }),
+    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
   },
 )(
   withAnalyticsEvents()(

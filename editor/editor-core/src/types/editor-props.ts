@@ -155,6 +155,10 @@ export interface EditorProps {
         menuDisabled: boolean;
       };
 
+  /**
+   * @deprecated [ED-14507] This feature has been turned off since 2020
+   * and is no longer affecting any behaviour
+   */
   allowDynamicTextSizing?: boolean;
 
   // Enable text alignment support inside `heading` and `paragraph`

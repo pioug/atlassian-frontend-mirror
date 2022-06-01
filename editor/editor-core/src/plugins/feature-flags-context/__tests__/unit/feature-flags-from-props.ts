@@ -349,4 +349,31 @@ describe('Feature Flags from Props', () => {
       );
     });
   });
+
+  describe('hover previews', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            showHoverPreview: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          showHoverPreview: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          showHoverPreview: false,
+        }),
+      );
+    });
+  });
 });

@@ -1,0 +1,549 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "table",
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "33d43362-7c2b-441b-97c4-33a93a070ba1"
+      },
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "heading",
+                  "attrs": {
+                    "level": 3
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "heading with center alignment"
+                    }
+                  ],
+                  "marks": [
+                    {
+                      "type": "alignment",
+                      "attrs": {
+                        "align": "center"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableHeader",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "heading",
+                  "attrs": {
+                    "level": 4
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "heading 4 with right alignment"
+                    }
+                  ],
+                  "marks": [
+                    {
+                      "type": "alignment",
+                      "attrs": {
+                        "align": "end"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "bulletList",
+                  "content": [
+                    {
+                      "type": "listItem",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "some list"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "bulletList",
+                          "content": [
+                            {
+                              "type": "listItem",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "more list"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "bulletList",
+                                  "content": [
+                                    {
+                                      "type": "listItem",
+                                      "content": [
+                                        {
+                                          "type": "paragraph",
+                                          "content": [
+                                            {
+                                              "type": "text",
+                                              "text": "other list"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "text with right alignment"
+                    }
+                  ],
+                  "marks": [
+                    {
+                      "type": "alignment",
+                      "attrs": {
+                        "align": "end"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "bulletList",
+                  "content": [
+                    {
+                      "type": "listItem",
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "list item"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "bulletList",
+                          "content": [
+                            {
+                              "type": "listItem",
+                              "content": [
+                                {
+                                  "type": "paragraph",
+                                  "content": [
+                                    {
+                                      "type": "text",
+                                      "text": "more list item"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            },
+            {
+              "type": "tableCell",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "some para "
+        },
+        {
+          "type": "inlineExtension",
+          "attrs": {
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "extensionKey": "inline-eh",
+            "parameters": {
+              "macroParams": {},
+              "macroMetadata": {
+                "placeholder": [
+                  {
+                    "data": {
+                      "url": ""
+                    },
+                    "type": "icon"
+                  }
+                ]
+              }
+            },
+            "text": "Inline extension demo",
+            "localId": "b89bcfe2-d516-41d2-b86c-a8ad13acba9f"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "indented "
+        },
+        {
+          "type": "text",
+          "text": "inline code",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " marked "
+        },
+        {
+          "type": "text",
+          "text": "text",
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "strong"
+            },
+            {
+              "type": "underline"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "status",
+          "attrs": {
+            "text": "status red",
+            "color": "red",
+            "localId": "3b9c9b30-fb92-4ef5-ba91-522244476119",
+            "style": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ],
+      "marks": [
+        {
+          "type": "indentation",
+          "attrs": {
+            "level": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "more indented ",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#403294"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "linked",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "http://google.com.au"
+              }
+            },
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#403294"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " ",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#403294"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "text "
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":slight_smile:",
+            "id": "1f642",
+            "text": "🙂"
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "0",
+            "text": "@Carolyn",
+            "accessLevel": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "mention",
+          "attrs": {
+            "id": "1",
+            "text": "@Kaitlyn Prouty",
+            "accessLevel": ""
+          }
+        },
+        {
+          "type": "text",
+          "text": " "
+        }
+      ],
+      "marks": [
+        {
+          "type": "indentation",
+          "attrs": {
+            "level": 2
+          }
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": 3
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "indented heading and "
+        },
+        {
+          "type": "date",
+          "attrs": {
+            "timestamp": "1651536000000"
+          }
+        },
+        {
+          "type": "text",
+          "text": " and "
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":slight_smile:",
+            "id": "1f642",
+            "text": "🙂"
+          }
+        },
+        {
+          "type": "text",
+          "text": " emoji"
+        }
+      ],
+      "marks": [
+        {
+          "type": "indentation",
+          "attrs": {
+            "level": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    },
+    {
+      "type": "expand",
+      "attrs": {
+        "title": ""
+      },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "some content"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "some text"
+        },
+        {
+          "type": "hardBreak"
+        },
+        {
+          "type": "text",
+          "text": "hard break on indented paragraph"
+        }
+      ],
+      "marks": [
+        {
+          "type": "indentation",
+          "attrs": {
+            "level": 1
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "normal text"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ]
+}

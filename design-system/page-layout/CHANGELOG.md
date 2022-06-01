@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.2.4
+
+### Patch Changes
+
+- [`ef9ecf15b36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef9ecf15b36) - Calling `collapseLeftSidebar` while the sidebar is already collapsed no longer modifies the sidebar state. This prevents an invalid state that could occur if `collapseLeftSidebar` was called while the sidebar was in flyout.
+
 ## 1.2.3
 
 ### Patch Changes

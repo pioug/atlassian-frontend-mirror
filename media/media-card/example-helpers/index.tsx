@@ -6,19 +6,21 @@ import {
   createPollingMaxAttemptsError,
   createRateLimitedError,
   createStorybookMediaClientConfig,
+  enableMediaUfoLogger,
   FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
+import { payloadPublisher } from '@atlassian/ufo';
 
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { SelectableCard } from './selectableCard';
 import { Card, CardAppearance, CardEvent, CardAction } from '../src';
-import { getRelevantFeatureFlagNames } from '../src/root/card/cardAnalytics';
 import { MediaCardError } from '../src/errors';
 import DevelopmentUseMessage from './developmentUseMessage';
+import { LOGGED_FEATURE_FLAGS } from '../src/utils/analytics';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -126,19 +128,28 @@ export const wrongCollection = 'adfasdf';
 
 export type MainWrapperProps = {
   developmentOnly?: boolean;
+  disableFeatureFlagWrapper?: boolean;
 };
 
 export const MainWrapper: React.FC<MainWrapperProps> = ({
   children,
   developmentOnly,
-}) => (
-  <>
-    {developmentOnly && <DevelopmentUseMessage />}
-    <FeatureFlagsWrapper filterFlags={getRelevantFeatureFlagNames()}>
-      {children}
-    </FeatureFlagsWrapper>
-  </>
-);
+  disableFeatureFlagWrapper = false,
+}) => {
+  enableMediaUfoLogger(payloadPublisher);
+  return (
+    <>
+      {developmentOnly && <DevelopmentUseMessage />}
+      {!disableFeatureFlagWrapper ? (
+        <FeatureFlagsWrapper filterFlags={LOGGED_FEATURE_FLAGS}>
+          {children}
+        </FeatureFlagsWrapper>
+      ) : (
+        <>{children}</>
+      )}
+    </>
+  );
+};
 
 export const mediaCardErrorState = (
   error?: string,

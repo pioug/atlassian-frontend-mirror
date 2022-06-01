@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 68.0.0
+
+### Major Changes
+
+- [`b7b72b61dca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7b72b61dca) - ED-10337 Refactor overflow shadows using intersection observer to improve renderer performance on initial load and when scrolling contents of the tables and extensions horizontally.
+  This is affecting vertical shadows inside tables and extensions in renderer.
+  On the OverflowShadowOptions interface of the shadows component exported from editor-common we are also removing scrollableSelector option which is no longer used.
+
+### Minor Changes
+
+- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+
+### Patch Changes
+
+- [`789b211a5e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/789b211a5e5) - Removed the use of :first-child and nth-child selectors in CSS
+- [`1e5c33f7598`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e5c33f7598) - [ux] ED-14198 fix safari selection for layout
+- [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
+- Updated dependencies
+
 ## 67.0.1
 
 ### Patch Changes

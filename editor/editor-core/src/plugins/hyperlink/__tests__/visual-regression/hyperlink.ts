@@ -1,6 +1,7 @@
 import {
   PuppeteerPage,
   waitForLoadedImageElements,
+  waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';
 
 import {
@@ -49,6 +50,7 @@ describe('Hyperlink', () => {
 
   afterEach(async () => {
     await waitForFloatingControl(page, 'Hyperlink floating controls');
+    await waitForNoTooltip(page);
     await snapshot(page);
   });
 
@@ -154,11 +156,13 @@ describe('Hyperlink', () => {
 
       await page.click(selectors.lastEditorElement);
       await page.waitForSelector(hyperlinkSelectors.hyperlink);
+
       await pressKeyDown(page, 'Shift');
       await page.click(hyperlinkSelectors.hyperlink);
       // Move mouse away after clicking to avoid an Edit Link tooltip appearing
       await page.mouse.move(0, 0);
       await pressKeyUp(page, 'Shift');
+
       await animationFrame(page);
     });
   });

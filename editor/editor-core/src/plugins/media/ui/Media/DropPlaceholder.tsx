@@ -6,12 +6,16 @@ import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { dropPlaceholderMessages } from './drop-placeholder-messages';
+import { token } from '@atlaskit/tokens';
 
 import { MEDIA_HEIGHT, FILE_WIDTH } from '../../nodeviews/mediaNodeView/media';
 
 const iconWrapper = css`
-  color: ${hexToRgba(B400, 0.4) || B400};
-  background: ${hexToRgba(B300, 0.6) || B300};
+  color: ${token('color.icon.accent.blue', hexToRgba(B400, 0.4) || B400)};
+  background: ${token(
+    'color.background.accent.blue.subtle',
+    hexToRgba(B300, 0.6) || B300,
+  )};
   border-radius: ${borderRadius()}px;
   margin: 5px 3px 25px;
   width: ${FILE_WIDTH}px;
@@ -22,7 +26,7 @@ const iconWrapper = css`
 `;
 
 const dropLine = css`
-  background: ${B200};
+  background: ${token('color.border.focused', B200)};
   border-radius: ${borderRadius()}px;
   margin: 2px 0;
   width: 100%;

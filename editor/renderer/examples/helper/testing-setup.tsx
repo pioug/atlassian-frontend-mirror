@@ -43,7 +43,7 @@ const mentionProvider = Promise.resolve({
 } as MentionProvider);
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
-type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
+export type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
   mockInlineComments?: boolean;

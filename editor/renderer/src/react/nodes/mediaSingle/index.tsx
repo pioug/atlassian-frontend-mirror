@@ -8,8 +8,6 @@ import {
 } from '@atlaskit/adf-schema';
 import { MediaFeatureFlags, getMediaFeatureFlag } from '@atlaskit/media-common';
 import {
-  mapBreakpointToLayoutMaxWidth,
-  getBreakpoint,
   MediaSingle as UIMediaSingle,
   WidthConsumer,
 } from '@atlaskit/editor-common/ui';
@@ -17,7 +15,6 @@ import type { EventHandlers, Breakpoints } from '@atlaskit/editor-common/ui';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
   akEditorFullWidthLayoutWidth,
-  getAkEditorFullPageMaxWidth,
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { AnalyticsEventPayload } from '../../../analytics/events';
@@ -32,7 +29,6 @@ export interface Props {
   layout: MediaSingleLayout;
   eventHandlers?: EventHandlers;
   width?: number;
-  allowDynamicTextSizing?: boolean;
   isInsideOfBlockNode?: boolean;
   rendererAppearance: RendererAppearance;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
@@ -84,7 +80,6 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     rendererAppearance,
     featureFlags,
     isInsideOfBlockNode,
-    allowDynamicTextSizing,
     layout,
     children,
     width: pctWidth,
@@ -152,7 +147,6 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     mediaBreakpoint?: Breakpoints,
   ) => {
     const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
-    const breakpoint = mediaBreakpoint || getBreakpoint(containerWidth);
     const maxWidth = containerWidth;
     const maxHeight = (height / width) * maxWidth;
     const cardDimensions = {
@@ -162,16 +156,10 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     let nonFullWidthSize = containerWidth;
     if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
       const isContainerSizeGreaterThanMaxFullPageWidth =
-        containerWidth - padding >=
-        getAkEditorFullPageMaxWidth(allowDynamicTextSizing);
+        containerWidth - padding >= akEditorDefaultLayoutWidth;
 
-      if (
-        isContainerSizeGreaterThanMaxFullPageWidth &&
-        allowDynamicTextSizing
-      ) {
-        nonFullWidthSize = mapBreakpointToLayoutMaxWidth(breakpoint);
-      } else if (isContainerSizeGreaterThanMaxFullPageWidth) {
-        nonFullWidthSize = getAkEditorFullPageMaxWidth(allowDynamicTextSizing);
+      if (isContainerSizeGreaterThanMaxFullPageWidth) {
+        nonFullWidthSize = akEditorDefaultLayoutWidth;
       } else {
         nonFullWidthSize = containerWidth - padding;
       }

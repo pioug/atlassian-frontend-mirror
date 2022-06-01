@@ -29,6 +29,9 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
   </svg>`;
 };
 
+/**
+ * @deprecated JiraCoreLogo will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementLogo instead.
+ */
 export const JiraCoreLogo = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,
@@ -40,7 +43,7 @@ export const JiraCoreLogo = ({
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
     warnOnce(
-      'JiraCoreLogo has been deprecated and will be removed from @atlaskit/logo after June 30 2021. Please use JiraWorkManagementLogo instead.',
+      'JiraCoreLogo has been deprecated and will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementLogo instead.',
     );
   }
 

@@ -3,12 +3,11 @@ import {
   externalImageIdentifier,
   defaultCollectionName,
   createStorybookMediaClientConfig,
-  enableMediaUfoLogger,
 } from '@atlaskit/media-test-helpers';
 import { Card } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
-import { payloadPublisher } from '@atlassian/ufo';
-import { ButtonList, Container, Group } from '../example-helpers/styled';
+import { ButtonList, Group } from '../example-helpers/styled';
+import { MainWrapper } from '../example-helpers/MainWrapper';
 import {
   archiveItem,
   audioItem,
@@ -48,8 +47,6 @@ export type State = {
   selectedIdentifier?: Identifier;
 };
 
-enableMediaUfoLogger(payloadPublisher);
-
 export default class Example extends React.Component<{}, State> {
   state: State = { selectedIdentifier: undefined };
 
@@ -77,7 +74,7 @@ export default class Example extends React.Component<{}, State> {
 
     return (
       <I18NWrapper>
-        <Container>
+        <MainWrapper>
           <Group>
             <h2>Image</h2>
             <ButtonList>
@@ -183,7 +180,7 @@ export default class Example extends React.Component<{}, State> {
               onClose={() => this.setState({ selectedIdentifier: undefined })}
             />
           )}
-        </Container>
+        </MainWrapper>
       </I18NWrapper>
     );
   }

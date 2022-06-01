@@ -18,7 +18,7 @@ const openMediaViewer = async (client: WebDriverIOBrowser) => {
   const url = getExampleUrl(
     'media',
     'media-viewer',
-    'mocked-viewer',
+    'vr-mocked-viewer',
     // @ts-ignore
     global.__BASEURL__,
   );

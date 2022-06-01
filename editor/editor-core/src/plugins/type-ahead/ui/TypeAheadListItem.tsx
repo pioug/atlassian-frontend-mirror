@@ -20,6 +20,7 @@ import IconFallback from '../../quick-insert/assets/fallback';
 import { shortcutStyle } from '../../../ui/styles';
 import type { TypeAheadItem, OnSelectItem } from '../types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { token } from '@atlaskit/tokens';
 
 export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
@@ -42,12 +43,21 @@ export const itemTheme = {
     hover: {
       // background: colors.transparent, transparent is not a thing
       text: colorsText,
-      secondaryText: N200,
+      secondaryText: token('color.text.subtlest', N200),
     },
     selected: {
-      background: themed({ light: N20, dark: DN70 }),
-      text: themed({ light: N800, dark: DN600 }),
-      secondaryText: themed({ light: N200, dark: DN300 }),
+      background: themed({
+        light: token('color.background.neutral.subtle.hovered', N20),
+        dark: token('color.background.neutral.subtle.hovered', DN70),
+      }),
+      text: themed({
+        light: token('color.text', N800),
+        dark: token('color.text', DN600),
+      }),
+      secondaryText: themed({
+        light: token('color.text.subtlest', N200),
+        dark: token('color.text.subtlest', DN300),
+      }),
     },
   },
 };
@@ -56,7 +66,7 @@ export const itemIcon = css`
   width: ${ICON_WIDTH}px;
   height: ${ICON_HEIGHT}px;
   overflow: hidden;
-  border: 1px solid rgba(223, 225, 229, 0.5); /* N60 at 50% */
+  border: 1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}; /* N60 at 50% */
   border-radius: ${borderRadius()}px;
   box-sizing: border-box;
 
@@ -82,7 +92,7 @@ const itemText = css`
   white-space: initial;
   .item-description {
     font-size: ${relativeFontSizeToBase16(11.67)};
-    color: ${N200};
+    color: ${token('color.text.subtlest', N200)};
     margin-top: 4px;
   }
 `;

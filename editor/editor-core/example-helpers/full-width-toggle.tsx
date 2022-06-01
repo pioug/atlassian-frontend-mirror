@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import EditorCollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import EditorExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import {
@@ -9,7 +10,7 @@ import {
 } from './example-constants';
 import { EditorAppearance } from '../src/types';
 
-const ToggleWrapper = styled.button`
+const toggleWrapper = css`
   cursor: pointer;
   background: none;
   border: none;
@@ -59,13 +60,13 @@ export default class FullWidthToggle extends React.Component<Props, State> {
 
   render() {
     return (
-      <ToggleWrapper onClick={this.toggleFullWidthMode}>
+      <button css={toggleWrapper} onClick={this.toggleFullWidthMode}>
         {this.state.fullWidthMode ? (
           <EditorCollapseIcon label="Make page fixed-width" />
         ) : (
           <EditorExpandIcon label="Make page full-width" />
         )}
-      </ToggleWrapper>
+      </button>
     );
   }
 }

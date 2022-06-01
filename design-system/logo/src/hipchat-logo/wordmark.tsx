@@ -14,6 +14,9 @@ const svg = `<canvas height="32" width="86" aria-hidden="true"></canvas>
   </g>
 </svg>`;
 
+/**
+ * @deprecated HipchatWordmark will be removed from @atlaskit/logo in the next major release.
+ */
 export const HipchatWordmark = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,

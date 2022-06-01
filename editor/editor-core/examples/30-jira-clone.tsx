@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
+/** @jsx jsx */
+import { useRef } from 'react';
+import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
@@ -8,7 +9,7 @@ import { LeftSidebar, TopNavigation } from '@atlaskit/page-layout';
 import Editor from '../src/editor';
 import EditorContext from '../src/ui/EditorContext';
 
-const StickyHeader = styled.section`
+const stickyHeader = css`
   position: sticky;
   background: white none repeat scroll 0% 0%;
   z-index: 99;
@@ -19,7 +20,7 @@ const StickyHeader = styled.section`
   box-shadow: rgb(235, 236, 240) 0px 2px;
 `;
 
-const EditorSide = styled.div`
+const editorSide = css`
   flex-grow: 1;
   overflow: hidden auto;
   padding: 0px 32px 32px;
@@ -28,7 +29,7 @@ const EditorSide = styled.div`
   height: calc(100vh - 100px);
 `;
 
-const ContentSection = styled.section`
+const contentSection = css`
   padding-top: 10px;
   grid-area: content;
   display: flex;
@@ -36,7 +37,7 @@ const ContentSection = styled.section`
   position: relative;
 `;
 
-const Main = styled.main`
+const main = css`
   outline: currentColor none medium;
   display: grid;
   height: 100%;
@@ -53,11 +54,11 @@ export default function CommentWithJiraCardsExample() {
   const jiraToolbarRef = useRef(null);
 
   return (
-    <Main>
+    <main css={main}>
       <TopNavigation isFixed height={50} id="ak-jira-navigation">
         <TopNavigationSkeleton />
       </TopNavigation>
-      <ContentSection>
+      <section css={contentSection}>
         <LeftSidebar
           isFixed
           width={100}
@@ -71,19 +72,20 @@ export default function CommentWithJiraCardsExample() {
             <li>Menu item</li>
           </ul>
         </LeftSidebar>
-        <EditorSide className="the-editor-side">
+        <div css={editorSide} className="the-editor-side">
           <h2>Some content</h2>
           <p>Toast is fun</p>
-          <StickyHeader
+          <section
+            css={stickyHeader}
             className="external-sticky-toolbar"
-            innerRef={jiraToolbarRef}
+            ref={jiraToolbarRef}
           >
             <Breadcrumbs maxItems={5}>
               <BreadcrumbsItem text={'Projects'} />
               <BreadcrumbsItem text={'ED-11516'} />
               <BreadcrumbsItem text={'ED-2942'} />
             </Breadcrumbs>
-          </StickyHeader>
+          </section>
           <h1>ED-1234 Add a sticky toolbar to the comment editor</h1>
 
           <EditorContext>
@@ -101,9 +103,9 @@ export default function CommentWithJiraCardsExample() {
               defaultValue={exampleDocument}
             />
           </EditorContext>
-        </EditorSide>
-      </ContentSection>
-    </Main>
+        </div>
+      </section>
+    </main>
   );
 }
 

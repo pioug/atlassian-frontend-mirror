@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 64.7.0
+
+### Minor Changes
+
+- [`2b241314079`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b241314079) - improve lazy load emoji with placeholder and improved analtyics tracking
+
 ## 64.6.1
 
 ### Patch Changes

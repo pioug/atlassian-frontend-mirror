@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { ADFEntity, scrubAdf } from '@atlaskit/adf-utils';
+import { scrubAdf } from '@atlaskit/adf-utils/scrub';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -137,7 +138,6 @@ export interface DemoRendererProps {
   maxHeight?: number;
   fadeOutHeight?: number;
   truncationEnabled?: boolean;
-  allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowColumnSorting?: boolean;
   allowAnnotations?: boolean;
@@ -158,6 +158,7 @@ export interface DemoRendererProps {
     severityNormalThreshold: number;
     severityDegradedThreshold: number;
   };
+  extensionHandlers?: ExtensionHandlers;
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
   mediaOptions?: MediaOptions;
 }
@@ -329,7 +330,10 @@ export default class RendererDemo extends React.Component<
       }
 
       if (this.props.withExtension) {
-        props.extensionHandlers = extensionHandlers;
+        props.extensionHandlers = {
+          ...extensionHandlers,
+          ...(this.props.extensionHandlers || {}),
+        };
       }
 
       if (this.props.withPortal) {
@@ -339,7 +343,6 @@ export default class RendererDemo extends React.Component<
       props.maxHeight = this.props.maxHeight;
       props.fadeOutHeight = this.props.fadeOutHeight;
       props.truncated = this.props.truncationEnabled && this.state.truncated;
-      props.allowDynamicTextSizing = this.props.allowDynamicTextSizing;
       props.allowColumnSorting = this.props.allowColumnSorting;
       props.allowAnnotations = this.props.allowAnnotations;
       props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;

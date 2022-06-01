@@ -10,6 +10,7 @@ import {
 export type ExtensionState<T extends Parameters = Parameters> = {
   localId?: string;
   autoSaveResolve?: () => void;
+  autoSaveReject?: (reason?: any) => void;
   showEditButton: boolean;
   showContextPanel: boolean;
   updateExtension?: Promise<UpdateExtension<T> | void>;

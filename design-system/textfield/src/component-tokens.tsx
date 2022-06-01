@@ -27,8 +27,8 @@ export const defaultBackgroundColor = {
 };
 
 export const defaultBackgroundColorFocus = {
-  light: token('elevation.surface', N0),
-  dark: token('elevation.surface', DN10),
+  light: token('color.background.input.pressed', N0),
+  dark: token('color.background.input.pressed', DN10),
 };
 
 export const defaultBackgroundColorHover = {

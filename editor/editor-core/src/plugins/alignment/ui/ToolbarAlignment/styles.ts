@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const triggerWrapper = css`
   display: flex;
 `;
 
 export const separator = css`
-  background: ${N30};
+  background: ${token('color.border', N30)};
   width: 1px;
   height: 24px;
   display: inline-block;

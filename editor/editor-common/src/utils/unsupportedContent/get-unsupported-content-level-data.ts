@@ -1,4 +1,5 @@
-import { ADFEntity, traverse } from '@atlaskit/adf-utils';
+import { traverse } from '@atlaskit/adf-utils/traverse';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 export enum UNSUPPORTED_CONTENT_LEVEL_SEVERITY {
   NORMAL = 'normal',

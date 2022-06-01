@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 4.2.10
+
+### Patch Changes
+
+- [`61168f3e928`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61168f3e928) - ED-14275 update markdown transformer to emotion
+- Updated dependencies
+
 ## 4.2.9
 
 ### Patch Changes

@@ -3,9 +3,11 @@ import { getLocalMediaFeatureFlag } from '../mediaFeatureFlag-local';
 import {
   RequiredMediaFeatureFlags,
   MediaFeatureFlags,
-  MediaFeatureFlagsMap,
   SupportedProduct,
+  supportedProducts,
 } from './types';
+
+import { getProductKeys } from './productKeys';
 
 export const areEqualFeatureFlags = (
   ffA?: MediaFeatureFlags,
@@ -23,8 +25,9 @@ export const areEqualFeatureFlags = (
     captions: ffA.captions === ffB.captions,
     mediaInline: ffA.mediaInline === ffB.mediaInline,
     folderUploads: ffA.folderUploads === ffB.folderUploads,
-    timestampOnVideo: ffA.timestampOnVideo === ffB.timestampOnVideo,
     observedWidth: ffA.observedWidth === ffB.observedWidth,
+    timestampOnVideo: ffA.timestampOnVideo === ffB.timestampOnVideo,
+    mediaUploadApiV2: ffA.mediaUploadApiV2 === ffB.mediaUploadApiV2,
   };
   return Object.values(results).every((result) => result);
 };
@@ -47,9 +50,7 @@ export const mapAndFilterFeatureFlagNames = (
   product: SupportedProduct,
 ): Array<string> => {
   const mediaFeatureFlags = filterFeatureFlagNames(flags);
-  return mediaFeatureFlags.map(
-    (key) => mediaFeatureFlagsProductToLaunchDarklyMap[product][key],
-  );
+  return mediaFeatureFlags.map((key) => getProductKeys()[product][key]);
 };
 
 // TODO(MEX-1547): This is temporary solution to just return the launch darkly feature flags for all products.
@@ -61,40 +62,13 @@ export const filterFeatureFlagKeysAllProducts = (
   flags: RequiredMediaFeatureFlags,
 ): Array<string> => {
   const filteredFlags = filterFeatureFlagNames(flags);
-  const supportedProducts = Object.keys(
-    mediaFeatureFlagsProductToLaunchDarklyMap,
-  ) as Array<SupportedProduct>;
   const ldFeatureFlags: Array<string> = [];
   filteredFlags.forEach((flag) =>
     supportedProducts.forEach((product) =>
-      ldFeatureFlags.push(
-        mediaFeatureFlagsProductToLaunchDarklyMap[product][flag],
-      ),
+      ldFeatureFlags.push(getProductKeys()[product][flag]),
     ),
   );
   return ldFeatureFlags.filter((flag) => flag !== '');
-};
-
-export const mediaFeatureFlagsProductToLaunchDarklyMap: Record<
-  SupportedProduct,
-  MediaFeatureFlagsMap
-> = {
-  confluence: {
-    newCardExperience: 'confluence.media.cards.new.experience',
-    captions: 'confluence.frontend.fabric.editor.media.captions',
-    mediaInline: 'confluence.frontend.fabric.editor.media.inline',
-    folderUploads: 'confluence.media.picker.folder.uploads',
-    timestampOnVideo: '',
-    observedWidth: '',
-  },
-  jira: {
-    newCardExperience: 'issue.details.media-cards-new-experience',
-    captions: 'issue.details.editor.media.captions',
-    mediaInline: '',
-    folderUploads: '',
-    timestampOnVideo: '',
-    observedWidth: '',
-  },
 };
 
 // default values defined here, not necessary for components to know directly as they should use the function below
@@ -105,8 +79,9 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   // We can't yet switch this feature on
   // TODO https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads: false,
-  timestampOnVideo: false,
   observedWidth: false,
+  timestampOnVideo: false,
+  mediaUploadApiV2: false,
 };
 
 /**

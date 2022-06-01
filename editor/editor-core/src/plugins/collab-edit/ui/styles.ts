@@ -5,9 +5,10 @@ import {
   akEditorSmallZIndex,
   relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const inviteTeamWrapper = css`
-  background: ${N20};
+  background: ${token('color.background.neutral', N20)};
   border-radius: 50%;
   min-width: ${gridSize() * 4}px;
   margin-left: -${gridSize() / 2}px;
@@ -43,11 +44,11 @@ export const badge = (color: string) => css`
   z-index: ${akEditorSmallZIndex};
   border-radius: 3px;
   background: ${color};
-  color: #fff;
+  color: ${token('color.text.inverse', '#fff')};
   font-size: ${relativeFontSizeToBase16(9)};
   line-height: 0;
   padding-top: 7px;
   text-align: center;
-  box-shadow: 0 0 1px #fff;
+  box-shadow: 0 0 1px ${token('color.border.inverse', '#fff')};
   box-sizing: border-box;
 `;

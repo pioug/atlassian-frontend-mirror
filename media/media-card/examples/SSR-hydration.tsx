@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { SSR } from '@atlaskit/media-common';
-import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import {
+  createStorybookMediaClientConfig,
+  imageFileId,
+  videoFileId,
+} from '@atlaskit/media-test-helpers';
 import CardLoader from '../src/root/card/cardLoader';
 import ReactDOMServer from 'react-dom/server';
-import { imageFileId, videoFileId } from '@atlaskit/media-test-helpers';
+
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
 
 const dimensions = { width: 300, height: 200 };

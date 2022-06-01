@@ -35,7 +35,6 @@ describe('Snapshot Test: Toggle between full-width and default mode', () => {
   let fullWidthMode: boolean;
 
   const editorProps = {
-    allowDynamicTextSizing: true,
     allowLayouts: { allowBreakout: true, UNSAFE_addSidebarLayouts: true },
   };
 

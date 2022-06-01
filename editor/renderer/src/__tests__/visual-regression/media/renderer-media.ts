@@ -41,7 +41,6 @@ const initRenderer = async (
   adf: any,
   device: Device = Device.Default,
   appearance: RendererAppearance = 'full-page',
-  allowDynamicTextSizing: boolean = true,
   media: MediaOptions = {},
 ) => {
   const viewport = {
@@ -55,7 +54,6 @@ const initRenderer = async (
   await initRendererWithADF(page, {
     appearance,
     rendererProps: {
-      allowDynamicTextSizing,
       disableHeadingIDs: true,
       media: media,
     },
@@ -193,7 +191,6 @@ describe('Snapshot Test: Media', () => {
         wrappedMediaSmallAdf,
         Device.LaptopHiDPI,
         'full-page',
-        false,
       );
       await waitForAllMedia(page, 2);
       await snapshotRenderer();
@@ -240,19 +237,12 @@ describe('Snapshot Test: Media', () => {
 
   describe('Download button', () => {
     it('should render Download button for mediaGroup if enableDownloadButton is true', async () => {
-      await initRenderer(
-        page,
-        mediaGroupAdf,
-        Device.Default,
-        'full-page',
-        true,
-        {
-          enableDownloadButton: true,
-          featureFlags: {
-            newCardExperience: true,
-          },
+      await initRenderer(page, mediaGroupAdf, Device.Default, 'full-page', {
+        enableDownloadButton: true,
+        featureFlags: {
+          newCardExperience: true,
         },
-      );
+      });
       const mediaCardSelector = `[data-testid="media-file-card-view"][data-test-status="complete"]`;
       await page.waitForSelector(mediaCardSelector);
       await page.hover(mediaCardSelector);

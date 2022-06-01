@@ -10,7 +10,7 @@ import type {
 import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
 import ButtonGroup from '@atlaskit/button/button-group';
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { nodeToJSON } from '../../../utils';
 import { createExtensionAPI } from '../../extension/extension-api';
 import Button from './Button';

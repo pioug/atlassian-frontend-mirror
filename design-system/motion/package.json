@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -45,7 +45,7 @@
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/focus-ring": "^1.0.0",
-    "@atlaskit/logo": "^13.6.0",
+    "@atlaskit/logo": "^13.7.0",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
@@ -80,5 +80,6 @@
       ]
     }
   },
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/motion",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

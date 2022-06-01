@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "other "
+        },
+        {
+          "type": "text",
+          "text": "more",
+          "marks": [
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sub"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "text": "things",
+          "marks": [
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sup"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "annotation",
+              "attrs": {
+                "id": "123",
+                "annotationType": "inlineComment"
+              }
+            },
+            {
+              "type": "annotation",
+              "attrs": {
+                "id": "456",
+                "annotationType": "inlineComment"
+              }
+            }
+          ],
+          "text": "annotated-text"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "emoji",
+          "attrs": {
+            "shortName": ":slight_smile:",
+            "id": "1f642",
+            "text": "🙂"
+          }
+        },
+        {
+          "type": "text",
+          "text": "more-annotated-text",
+          "marks": [
+            {
+              "type": "annotation",
+              "attrs": {
+                "id": "789",
+                "annotationType": "inlineComment"
+              }
+            },
+            {
+              "type": "annotation",
+              "attrs": {
+                "id": "789",
+                "annotationType": "inlineComment"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "between",
+          "marks": [
+            {
+              "type": "strong"
+            },
+            {
+              "type": "underline"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "text": "more",
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "underline"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "text": "some",
+          "marks": [
+            {
+              "type": "em"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " text "
+        },
+        {
+          "type": "text",
+          "text": "other",
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "strike"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": " text "
+        },
+        {
+          "type": "text",
+          "text": "inline code marks",
+          "marks": [
+            {
+              "type": "code"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

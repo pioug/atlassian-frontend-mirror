@@ -479,6 +479,12 @@ export default class Editor extends React.Component<EditorProps, State> {
           'To integrate inline comments use experimental annotationProvider – <Editor annotationProviders={{ provider }} />',
         type: 'removed',
       },
+
+      allowDynamicTextSizing: {
+        message:
+          'Dynamic text sizing has been unshipped since 2020. The prop is no longer needed.',
+        type: 'removed',
+      },
     };
 
     (Object.keys(deprecatedProperties) as Array<
@@ -615,8 +621,7 @@ export default class Editor extends React.Component<EditorProps, State> {
   }
 
   private getBaseFontSize() {
-    return !this.props.allowDynamicTextSizing &&
-      !['comment', 'chromeless', 'mobile'].includes(this.props.appearance!)
+    return !['comment', 'chromeless', 'mobile'].includes(this.props.appearance!)
       ? akEditorFullPageDefaultFontSize
       : undefined;
   }
@@ -725,10 +730,6 @@ export default class Editor extends React.Component<EditorProps, State> {
                                   dispatchAnalyticsEvent,
                                 }) => (
                                   <BaseTheme
-                                    dynamicTextSizing={
-                                      this.props.allowDynamicTextSizing &&
-                                      this.props.appearance !== 'full-width'
-                                    }
                                     baseFontSize={this.getBaseFontSize()}
                                   >
                                     <Component

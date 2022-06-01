@@ -165,6 +165,8 @@ export default class WebBridgeImpl
   private editorConfiguration: MobileEditorConfiguration;
   private resetProviders: () => void = () => {};
 
+  private lastSetContent: string | undefined;
+
   constructor(config?: MobileEditorConfiguration) {
     super();
     this.editorConfiguration = config || new MobileEditorConfiguration();
@@ -340,36 +342,44 @@ export default class WebBridgeImpl
   }
 
   replaceContent(content: any) {
-    const performanceMatrices = new PerformanceMatrices();
+    if (!this.editorActions) {
+      return;
+    }
 
-    if (this.editorActions) {
-      this.resetProviders();
-      const isReplaced = this.editorActions.replaceDocument(content, false);
+    if (this.lastSetContent !== undefined && this.lastSetContent === content) {
+      return;
+    }
 
-      const padding = this.getPadding();
-      this.setPadding(padding.top, padding.right, padding.bottom, padding.left);
-      toNativeBridge.stateChanged(false, false);
+    this.resetProviders();
+    const isReplaced = this.editorActions.replaceDocument(content, false);
+    const padding = this.getPadding();
+    this.setPadding(padding.top, padding.right, padding.bottom, padding.left);
+    this.lastSetContent = content;
 
-      if (isReplaced) {
-        let adfContent: JSONDocNode;
-        try {
-          adfContent = JSON.parse(content);
-        } catch (e) {
-          return;
-        }
-        if (!isContentEmpty(adfContent)) {
-          measureContentRenderedPerformance(
-            adfContent,
-            (totalNodeSize, nodes, actualRenderingDuration) => {
-              toNativeBridge.onContentRendered(
-                totalNodeSize,
-                nodes,
-                actualRenderingDuration,
-                performanceMatrices.duration,
-              );
-            },
-          );
-        }
+    toNativeBridge.stateChanged(false, false);
+
+    if (isReplaced) {
+      let adfContent: JSONDocNode;
+      try {
+        adfContent = JSON.parse(content);
+      } catch (e) {
+        return;
+      }
+
+      if (!isContentEmpty(adfContent)) {
+        const performanceMatrices = new PerformanceMatrices();
+
+        measureContentRenderedPerformance(
+          adfContent,
+          (totalNodeSize, nodes, actualRenderingDuration) => {
+            toNativeBridge.onContentRendered(
+              totalNodeSize,
+              nodes,
+              actualRenderingDuration,
+              performanceMatrices.duration,
+            );
+          },
+        );
       }
     }
   }

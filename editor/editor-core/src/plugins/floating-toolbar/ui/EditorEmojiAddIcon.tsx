@@ -1,4 +1,5 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 
 export default function EditorEmojiAddIcon() {
   return (
@@ -9,7 +10,12 @@ export default function EditorEmojiAddIcon() {
       fill="none"
       aria-label="editor-add-emoji"
     >
-      <rect width={24} height={24} fill="white" fillOpacity="0.01" />
+      <rect
+        width={24}
+        height={24}
+        fill={token('color.background.neutral.subtle', 'white')}
+        fillOpacity="0.01"
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"

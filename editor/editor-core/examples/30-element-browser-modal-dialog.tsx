@@ -1,6 +1,7 @@
-import React, { useState, useCallback } from 'react';
+/** @jsx jsx */
+import React, { useState, useCallback, Fragment } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import {
   AnalyticsEventPayload,
   AnalyticsListener,
@@ -38,7 +39,7 @@ export default () => {
   );
 
   return (
-    <ModalExampleWrapper>
+    <div css={modalExampleWrapper}>
       <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
         <Button
           onClick={() => setModalVisibility(true)}
@@ -47,7 +48,7 @@ export default () => {
           Open Modal Dialog
         </Button>
         <IntlProvider locale="en">
-          <>
+          <Fragment>
             <ModalElementBrowser
               getItems={getItems}
               onInsertItem={onInsertItem}
@@ -59,7 +60,7 @@ export default () => {
               <InlineDialog
                 onClose={() => setInlineModalVisibility(false)}
                 content={
-                  <InlineBrowserWrapper>
+                  <div css={inlineBrowserWrapper}>
                     <ElementBrowser
                       getItems={getItems}
                       showSearch={true}
@@ -67,7 +68,7 @@ export default () => {
                       mode="inline"
                       onInsertItem={onInsertItem}
                     />
-                  </InlineBrowserWrapper>
+                  </div>
                 }
                 isOpen={showInlineModal}
               >
@@ -80,10 +81,10 @@ export default () => {
                 </Button>
               </InlineDialog>
             </div>
-          </>
+          </Fragment>
         </IntlProvider>
       </AnalyticsListener>
-    </ModalExampleWrapper>
+    </div>
   );
 };
 
@@ -91,14 +92,14 @@ const onInsertItem = (item: QuickInsertItem) => {
   console.log('Inserting item ', item);
 };
 
-const ModalExampleWrapper = styled.div`
+const modalExampleWrapper = css`
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 50%;
 `;
 
-const InlineBrowserWrapper = styled.div`
+const inlineBrowserWrapper = css`
   display: flex;
   min-height: inherit;
   max-height: inherit;

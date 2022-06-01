@@ -1,5 +1,9 @@
 import { createSchema } from '@atlaskit/adf-schema';
-import { ADFEntity, Validate, ValidationError } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type {
+  Validate,
+  ValidationError,
+} from '@atlaskit/adf-utils/validatorTypes';
 
 import {
   DispatchAnalyticsEvent,

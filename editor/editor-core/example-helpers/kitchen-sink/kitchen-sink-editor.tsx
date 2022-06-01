@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React from 'react';
-import { PopupWrapper, PopUps } from './kitchen-sink-styles';
+import { popupWrapper, PopUps } from './kitchen-sink-styles';
 import { EditorAppearance, EditorPlugin, EditorProps } from '../../src/types';
 import EditorActions from '../../src/actions';
 import { ValidatingKitchenSinkEditor } from './validating-kitchen-sink-editor';
@@ -16,7 +19,7 @@ export interface KitchenSinkEditorProps {
   appearance: EditorAppearance;
   extensionProviders: EditorProps['extensionProviders'];
   popupMountPoint: HTMLElement | null | undefined;
-  setPopupRef(ref: HTMLElement): void;
+  setPopupRef(ref: HTMLDivElement): void;
   onDocumentChanged(adf: any): void;
   onDocumentValidated(): void;
   loadLocale(locale: string): void;
@@ -40,8 +43,8 @@ export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps>
     );
 
     return (
-      <PopupWrapper>
-        <PopUps innerRef={props.setPopupRef} />
+      <div css={popupWrapper} className="popups-wrapper">
+        <PopUps ref={props.setPopupRef} className="popups" />
         <ValidatingKitchenSinkEditor
           actions={props.actions}
           adf={props.adf}
@@ -55,7 +58,7 @@ export const KitchenSinkEditor: React.StatelessComponent<KitchenSinkEditorProps>
           featureFlags={props.featureFlags}
           editorPlugins={props.editorPlugins}
         />
-      </PopupWrapper>
+      </div>
     );
   },
 );

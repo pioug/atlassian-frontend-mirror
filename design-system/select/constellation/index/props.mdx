@@ -25,7 +25,7 @@ and want the package to internally manage the rest?
 This was not possible in `@atlaskit/single-select` or `@atlaskit/multi-select`, if you opt into using the stateless component, you opt into being responsible for all of the prop values specified.
 
 We've taken this concept and refined it in `@atlaskit/select`.
-In `@atlaskit/select`, there are three optional props you can use to control the state of the component:
+In `@atlaskit/select`, there are optional props you can use to control the state of the component:
 
 - `value` controls the select value
 - `inputValue` controls the search input value
@@ -55,6 +55,13 @@ If you don't use the controlled props, `@atlaskit/select` has props that let you
   defaultMenuIsOpen={true}
 />
 ```
+
+##### PopupSelect
+
+The `PopupSelect` named export also provides additional props to control the state of the popup.
+
+- `isOpen` controls whether the popup is open (controlled)
+- `defaultIsOpen` controls whether the popup is initially open on mount (uncontrolled)
 
 #### Components API
 

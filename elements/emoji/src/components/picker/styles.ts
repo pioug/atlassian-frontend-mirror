@@ -198,6 +198,9 @@ export const emojiItem = css({
     minWidth: '24px',
     maxWidth: '24px',
   },
+  [`& .${emojiNodeStyles} .${placeholder}`]: {
+    margin: '0',
+  },
   // Fit non-square emoji to square
   [`& .${emojiNodeStyles} > img`]: {
     position: 'relative',

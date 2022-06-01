@@ -4,6 +4,7 @@ import { gridMediumMaxWidth } from '@atlaskit/editor-shared-styles';
 
 const columnLayoutSharedStyle = css`
   [data-layout-section] {
+    position: relative;
     display: flex;
     flex-direction: row;
     & > * {

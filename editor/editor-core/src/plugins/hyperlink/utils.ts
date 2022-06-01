@@ -7,6 +7,9 @@ import {
   normalizeUrl as normaliseLinkHref,
 } from '@atlaskit/adf-schema';
 
+// Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
+export const FILEPATH_REGEXP = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
+
 /**
  * Instance of class LinkMatcher are used in autoformatting in place of Regex.
  * Hence it has been made similar to regex with an exec method.
@@ -80,7 +83,12 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
         const text = node.text!;
         const matches: any[] = findLinkMatches(text);
         let pos = 0;
+        const filepaths = findFilepaths(text);
         matches.forEach((match) => {
+          if (isLinkInMatches(match.start, filepaths)) {
+            return;
+          }
+
           if (match.start > 0) {
             linkified.push(node.cut(pos, match.start));
           }
@@ -144,3 +152,45 @@ function findLinkMatches(text: string): LinkMatch[] {
   }
   return matches;
 }
+interface filepathMatch {
+  startIndex: number;
+  endIndex: number;
+}
+
+export const findFilepaths = (
+  text: string,
+  offset: number = 0,
+): Array<filepathMatch> => {
+  // Creation of a copy of the RegExp is necessary as lastIndex is stored on it when we run .exec()
+  const localRegExp = new RegExp(FILEPATH_REGEXP);
+  let match;
+  const matchesList = [];
+  const maxFilepathSize = 260;
+  while ((match = localRegExp.exec(text)) !== null) {
+    const start = match.index + offset;
+    let end = localRegExp.lastIndex + offset;
+    if (end - start > maxFilepathSize) {
+      end = start + maxFilepathSize;
+    } // We don't care about big strings of text that are pretending to be filepaths!!
+    matchesList.push({
+      startIndex: start,
+      endIndex: end,
+    });
+  }
+  return matchesList;
+};
+
+export const isLinkInMatches = (
+  linkStart: number,
+  matchesList: Array<filepathMatch>,
+): boolean => {
+  for (let i = 0; i < matchesList.length; i++) {
+    if (
+      linkStart >= matchesList[i].startIndex &&
+      linkStart < matchesList[i].endIndex
+    ) {
+      return true;
+    }
+  }
+  return false;
+};

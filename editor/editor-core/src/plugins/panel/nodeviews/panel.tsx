@@ -119,9 +119,11 @@ class PanelNodeView {
     mutation: MutationRecord | { type: 'selection'; target: Element },
   ) {
     // ignore mutation if it caused by the icon.
-    return (
-      mutation.target === this.icon || mutation.target.parentNode === this.icon
-    );
+    const isIcon =
+      mutation.target === this.icon || mutation.target.parentNode === this.icon;
+    // ignore mutation if it caused by the lazy load emoji inside icon.
+    const isInsideIcon = this.icon.contains(mutation.target);
+    return isIcon || isInsideIcon;
   }
 }
 

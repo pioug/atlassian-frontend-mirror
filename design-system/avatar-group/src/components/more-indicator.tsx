@@ -15,7 +15,7 @@ import {
   B300,
   B400,
   B50,
-  background,
+  N0,
   N20,
   N30,
   N30A,
@@ -36,7 +36,10 @@ const buttonActiveStyles = css({
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '&&': {
     backgroundColor: token('color.background.selected', B50),
-    boxShadow: `0 0 0 ${BORDER_WIDTH}px ${token('color.text.selected', B300)}`,
+    boxShadow: `0 0 0 ${BORDER_WIDTH}px ${token(
+      'color.border.selected',
+      B300,
+    )}`,
     color: token('color.text.selected', B400),
     transform: `scale(${ACTIVE_SCALE_FACTOR})`,
   },
@@ -84,7 +87,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
   (
     {
       appearance = 'circle' as AppearanceType,
-      borderColor = token('elevation.surface.overlay', background()),
+      borderColor = token('color.border.inverse', N0),
       size = 'medium' as SizeType,
       count = 0,
       testId,

@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import {
   Editor,
   EditorContext,
@@ -9,7 +10,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { MarkdownTransformer } from '../src';
 import exampleMarkdown from '../example-helpers/exampleMarkdown';
 
-const Container = styled.div`
+const container = css`
   display: grid;
   grid-template-columns: 50% 50%;
 
@@ -50,7 +51,7 @@ class Example extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <Container>
+      <div css={container}>
         <div
           id="source"
           contentEditable={true}
@@ -71,7 +72,7 @@ class Example extends React.PureComponent<Props, State> {
           }
           taskDecisionProvider={Promise.resolve(getMockTaskDecisionResource())}
         />
-      </Container>
+      </div>
     );
   }
 }

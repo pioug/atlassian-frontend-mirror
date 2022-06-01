@@ -22,6 +22,7 @@ import WithEditorActions from '../WithEditorActions';
 import { EditorView } from 'prosemirror-view';
 import { getChildBreakoutModes } from '../../utils/document';
 import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import { token } from '@atlaskit/tokens';
 
 export type Props = {
   visible: boolean;
@@ -74,7 +75,7 @@ export const panel = css`
   height: 100%;
   transition: width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier};
   overflow: hidden;
-  box-shadow: inset 2px 0 0 0 ${N30};
+  box-shadow: inset 2px 0 0 0 ${token('color.border', N30)};
 `;
 
 export const content = css`

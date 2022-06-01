@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 21.3.2
+
+### Patch Changes
+
+- [`1940b04de7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1940b04de7d) - Adding new UFO experience for contents list of reacted users should be able to be fetched reliably
+- Updated dependencies
+
 ## 21.3.1
 
 ### Patch Changes

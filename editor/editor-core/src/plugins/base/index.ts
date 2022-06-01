@@ -53,24 +53,16 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
     // In Firefox, when the selection is placed between adjacent nodes which are not contenteditatble
     // no cursor is presented to users.
     // In Safari, when the selection is placed between adjacent nodes which are not contenteditatble
-    // the cursor appears inside the adjacent nodes.
-    // This plugin workarounds the issues with chrome and firefox by inserting decorations between
+    // it is not possible to navigate with arrow keys.
+    // This plugin works around the issues by inserting decorations between
     // inline nodes which are set as contenteditable, and have a zero width space.
-    // At time of development, using this workaround in Safari caused additional issues;
-    // - visual artifacts when moving across inline nodes (ie. using the arrow key to traverse a
-    //   series of inline nodes)
-    // - blocking the right arrow key when at the start of a line from moving to the end of the
-    //   previous line.
-    // As such we only apply the workaround for firefox and chrome.
-    if (browser.chrome || browser.gecko) {
-      plugins.push({
-        name: 'inlineCursorTargetPlugin',
-        plugin: () =>
-          options && options.allowInlineCursorTarget
-            ? inlineCursorTargetPlugin()
-            : undefined,
-      });
-    }
+    plugins.push({
+      name: 'inlineCursorTargetPlugin',
+      plugin: () =>
+        options && options.allowInlineCursorTarget
+          ? inlineCursorTargetPlugin()
+          : undefined,
+    });
 
     plugins.push(
       {

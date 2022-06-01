@@ -5,6 +5,8 @@ import { closeHistory } from 'prosemirror-history';
 import { ReplaceStep, Step, ReplaceAroundStep } from 'prosemirror-transform';
 import { PluginKey } from 'prosemirror-state';
 
+import { extractSliceFromStep } from '../../../utils/step';
+
 const getEnterKeyboardActionStep = (trs: Transaction[]): Step | null => {
   const firstTr = trs.length === 1 && trs[0];
 
@@ -26,18 +28,6 @@ const getEnterKeyboardActionStep = (trs: Transaction[]): Step | null => {
   }
 
   return replaceSteps[0];
-};
-
-const extractSliceFromStep = (step: Step): Slice | null => {
-  if (!(step instanceof ReplaceStep) && !(step instanceof ReplaceAroundStep)) {
-    return null;
-  }
-
-  // @ts-ignore This is by design. Slice is a private property, but accesible, from ReplaceStep.
-  // However, we need to read it to found if the step was adding a newline
-  const slice = step.slice;
-
-  return slice as Slice;
 };
 
 const isSliceSplittingBlockNode = (slice: Slice): boolean => {

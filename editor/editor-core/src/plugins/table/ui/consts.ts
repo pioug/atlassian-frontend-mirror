@@ -1,10 +1,8 @@
 import {
   B200,
   B300,
-  B75,
   N0,
   N20,
-  R50,
   R400,
   R75,
   DN400,
@@ -33,24 +31,46 @@ import { themed } from '@atlaskit/theme/components';
 /**
  * Basic colors added to prevent content overflow in table cells.
  */
+
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4135
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const tableCellBackgroundColor = themed({ light: N0, dark: DN30 });
 
 export const tableToolbarColor = themed({
-  light: token('color.background.neutral', akEditorTableToolbar),
-  dark: token('color.background.neutral', akEditorTableToolbarDark),
+  light: akEditorTableToolbar,
+  dark: akEditorTableToolbarDark,
 });
-export const tableTextColor = themed({ light: N200, dark: DN400 });
+export const tableTextColor = themed({
+  light: token('color.text.subtlest', N200),
+  dark: token('color.text.subtlest', DN400),
+});
 export const tableBorderColor = themed({
   light: token('color.border', akEditorTableBorder),
   dark: token('color.border', akEditorTableBorderDark),
 });
-export const tableFloatingControlsColor = N20;
-export const tableCellSelectedColor = B75;
-export const tableToolbarSelectedColor = B200;
-export const tableBorderSelectedColor = B300;
-export const tableCellDeleteColor = R50;
-export const tableBorderDeleteColor = R400;
-export const tableToolbarDeleteColor = R75;
+export const tableFloatingControlsColor = token(
+  'color.background.neutral',
+  N20,
+);
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4461
+export const tableCellSelectedColor = token(
+  'color.blanket.selected',
+  'rgba(179, 212, 255, 0.3)',
+);
+export const tableToolbarSelectedColor = token(
+  'color.background.selected.bold',
+  B200,
+);
+export const tableBorderSelectedColor = token('color.border.selected', B300);
+export const tableCellDeleteColor = token(
+  'color.blanket.danger',
+  'rgba(255, 235, 230, 0.3)',
+);
+export const tableBorderDeleteColor = token('color.border.danger', R400);
+export const tableToolbarDeleteColor = token(
+  'color.background.danger.bold',
+  R75,
+);
 export const tableBorderRadiusSize = 3;
 export const tablePadding = 8;
 export const tableScrollbarOffset = 15;

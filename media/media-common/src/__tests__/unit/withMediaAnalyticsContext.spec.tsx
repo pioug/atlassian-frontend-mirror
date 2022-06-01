@@ -58,9 +58,9 @@ describe('withMediaAnalyticsContext()', () => {
   it('should create MediaAnalyticsContext containing package infos and feature flags', () => {
     const analyticsEventPayload = { test: 'ok' };
     const someFeatureFlags: MediaFeatureFlags = {
-      captions: true,
-      timestampOnVideo: true,
-    };
+      someFlag: true,
+      someOtherFlag: true,
+    } as MediaFeatureFlags;
     const onEvent = jest.fn();
 
     const { MediaComponentFiringAnalyticsEvent, someContextData } = setup(
@@ -99,13 +99,13 @@ describe('withMediaAnalyticsContext()', () => {
   it('should filter feature flags if filter is provided', () => {
     const analyticsEventPayload = { test: 'ok' };
     const filteredFlags: MediaFeatureFlags = {
-      newCardExperience: false,
-    };
+      someFilteredFlag: false,
+    } as MediaFeatureFlags;
     const someFeatureFlags: MediaFeatureFlags = {
-      captions: true,
-      timestampOnVideo: true,
+      someFlag: true,
+      someOtherFlag: true,
       ...filteredFlags,
-    };
+    } as MediaFeatureFlags;
     const onEvent = jest.fn();
 
     const { MediaComponentFiringAnalyticsEvent, someContextData } = setup(
@@ -115,7 +115,7 @@ describe('withMediaAnalyticsContext()', () => {
     const MediaComponentFiringAnalyticsEventWithContext = withMediaAnalyticsContext(
       someContextData,
       {
-        filterFeatureFlags: ['newCardExperience'],
+        filterFeatureFlags: Object.keys(filteredFlags) as any,
       },
     )(MediaComponentFiringAnalyticsEvent);
 

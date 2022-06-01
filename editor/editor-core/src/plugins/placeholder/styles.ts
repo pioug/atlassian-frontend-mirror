@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
 import { N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const placeHolderClassName = 'placeholder-decoration';
 
 export const placeholderStyles = css`
   .ProseMirror .${placeHolderClassName} {
     position: relative;
-    color: ${N200};
+    color: ${token('color.text.subtlest', N200)};
     width: 100%;
 
     pointer-events: none;
@@ -16,6 +17,7 @@ export const placeholderStyles = css`
     > span {
       position: absolute;
       pointer-events: none;
+      outline: none;
     }
 
     &.align-end > span {

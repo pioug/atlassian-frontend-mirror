@@ -133,6 +133,9 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
   }
 
   onSelection = (): void => {
+    if (typeof window === 'undefined') {
+      return;
+    }
     // give the tracker a chance to write to the queue and local storage before updating state
     window.setTimeout(() => {
       this.refreshFrequentlyUsedList();
@@ -163,6 +166,9 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
   protected abstract getWrappedComponent(): JSX.Element;
 
   getEmojiQueue(): Array<string> {
+    if (typeof window === 'undefined') {
+      return [];
+    }
     const json = window.localStorage.getItem(`${localStoragePrefix}.lastUsed`);
     if (json) {
       try {

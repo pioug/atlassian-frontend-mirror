@@ -89,6 +89,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   waitForMediaUpload: boolean = true;
   allUploadsFinished: boolean = true;
   showDropzone: boolean = false;
+  isFullscreen: boolean = false;
   element?: HTMLElement;
   layout: MediaSingleLayout = 'center';
   mediaNodes: MediaNodeWithPosHandler[] = [];
@@ -691,7 +692,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   };
 
   updateAndDispatch(
-    props: Partial<Pick<this, 'allowsUploads' | 'allUploadsFinished'>>,
+    props: Partial<
+      Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>
+    >,
   ) {
     // update plugin state
     Object.keys(props).forEach((_key) => {

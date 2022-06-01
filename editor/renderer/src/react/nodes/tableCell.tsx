@@ -196,7 +196,9 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
 
     onKeyPress = (event: React.KeyboardEvent<HTMLElement>) => {
       const keys = [' ', 'Enter', 'Spacebar'];
-      if (keys.includes(event.key)) {
+      const { tagName } = event.target as HTMLElement;
+      // trigger sorting if space or enter are clicked but not when in an input field (template variables)
+      if (keys.includes(event.key) && !IgnoreSorting.includes(tagName)) {
         event.preventDefault();
         this.onClick(event);
       }

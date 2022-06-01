@@ -15,11 +15,11 @@ import {
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0 } from '@atlaskit/theme/colors';
 
-import { dropShadow } from '../../../ui/styles';
 import withOuterListeners from '../../../ui/with-outer-listeners';
 import { DEFAULT_STATUS } from '../actions';
 import { analyticsState, createStatusAnalyticsAndFire } from '../analytics';
 import { StatusType } from '../plugin';
+import { token } from '@atlaskit/tokens';
 
 const PopupWithListeners = withOuterListeners(Popup);
 
@@ -50,10 +50,13 @@ export interface State {
 }
 
 const pickerContainer = css`
-  background: ${N0};
+  background: ${token('elevation.surface.overlay', N0)};
   padding: ${gridSize()}px 0;
   border-radius: ${borderRadius()}px;
-  ${dropShadow};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    '0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)',
+  )};
   input {
     text-transform: uppercase;
   }

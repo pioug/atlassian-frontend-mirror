@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { N30, N10 } from '@atlaskit/theme/colors';
 
 import EditorContext from './../src/ui/EditorContext';
@@ -49,7 +50,7 @@ templates[1] = {
   adf: breakoutAdf,
 };
 
-const TemplateCard = styled.div`
+const templateCard = css`
   border: 1px solid ${N30};
   padding: 8px;
   margin-bottom: 8px;
@@ -176,10 +177,14 @@ class TemplatePanel extends React.Component<
       <ContextPanel visible={this.state.panelVisible}>
         <div>
           {templates.map((tmpl, idx) => (
-            <TemplateCard key={idx} onClick={() => this.selectTemplate(tmpl)}>
+            <div
+              css={templateCard}
+              key={idx}
+              onClick={() => this.selectTemplate(tmpl)}
+            >
               <h4>{tmpl.title}</h4>
               <p>{tmpl.desc}</p>
-            </TemplateCard>
+            </div>
           ))}
         </div>
       </ContextPanel>

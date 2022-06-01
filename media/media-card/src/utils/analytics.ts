@@ -18,6 +18,8 @@ import {
   FailureAttributes,
   ScreenEventPayload,
   ScreenAttributes,
+  filterFeatureFlagNames,
+  filterFeatureFlagKeysAllProducts,
 } from '@atlaskit/media-common';
 import {
   CreateUIAnalyticsEvent,
@@ -28,6 +30,22 @@ import {
   MediaCardError,
   MediaCardErrorPrimaryReason,
 } from '../errors';
+
+const relevantFlags = {
+  newCardExperience: true,
+  captions: true,
+  timestampOnVideo: true,
+  observedWidth: true,
+  mediaInline: false,
+  folderUploads: false,
+  mediaUploadApiV2: false,
+};
+
+export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
+
+export const LOGGED_FEATURE_FLAG_KEYS = filterFeatureFlagKeysAllProducts(
+  relevantFlags,
+);
 
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
 export type FailedErrorFailReason = MediaCardErrorPrimaryReason | 'nativeError';

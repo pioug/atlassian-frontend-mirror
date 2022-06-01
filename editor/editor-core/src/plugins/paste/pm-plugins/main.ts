@@ -48,6 +48,7 @@ import {
   handleSelectedTableWithAnalytics,
   handlePasteLinkOnSelectedTextWithAnalytics,
   sendPasteAnalyticsEvent,
+  handlePasteIntoCaptionWithAnalytics,
 } from './analytics';
 import {
   analyticsPluginKey,
@@ -76,6 +77,7 @@ import {
   isPastedFromTinyMCEConfluence,
 } from '../util/tinyMCE';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
+import { extractSliceFromStep } from '../../../utils/step';
 
 export const stateKey = new PluginKey('pastePlugin');
 export { md } from '../md';
@@ -213,12 +215,31 @@ export function createPlugin(
           // don't add closeHistory call if we're pasting a text inside placeholder text as we want the whole action
           // to be atomic
           const { placeholder } = state.schema.nodes;
-          if (
-            state.doc.resolve(state.selection.$anchor.pos).nodeAfter?.type !==
-            placeholder
-          ) {
+          const isPastingTextInsidePlaceholderText =
+            state.doc.resolve(state.selection.$anchor.pos).nodeAfter?.type ===
+            placeholder;
+
+          // don't add closeHistory call if we're pasting a table, as some tables may involve additional
+          // appendedTransactions to repair them (if they're partial or incomplete) and we don't want
+          // to split those repairing transactions in prosemirror-history when they're being added to the
+          // "done" stack
+          const isPastingTable = tr.steps.some((step) => {
+            const slice = extractSliceFromStep(step);
+            let tableExists = false;
+
+            slice?.content?.forEach((node) => {
+              if (node.type === state.schema.nodes.table) {
+                tableExists = true;
+              }
+            });
+
+            return tableExists;
+          });
+
+          if (!isPastingTextInsidePlaceholderText && !isPastingTable) {
             tr.setMeta(betterTypePluginKey, true);
           }
+
           view.dispatch(tr);
         };
 
@@ -431,6 +452,20 @@ export function createPlugin(
 
           if (!insideTable(state)) {
             slice = transformSliceNestedExpandToExpand(slice, state.schema);
+          }
+
+          // Create a custom handler to avoid handling with handleRichText method
+          // As SafeInsert is used inside handleRichText which caused some bad UX like this:
+          // https://product-fabric.atlassian.net/browse/MEX-1520
+          if (
+            handlePasteIntoCaptionWithAnalytics(
+              view,
+              event,
+              slice,
+              PasteTypes.richText,
+            )(state, dispatch)
+          ) {
+            return true;
           }
 
           return handleRichTextWithAnalytics(

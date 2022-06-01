@@ -11,7 +11,7 @@ import AkSelect from '@atlaskit/select';
 import MobileEditor from '../src/editor/mobile-editor-element';
 import WebToNativeReporter from '../example-helpers/WebToNativeReporter';
 import { createEditorProviders } from '../src/providers';
-import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { fetchProxy } from '../src/utils/fetch-proxy';
 import WebBridgeImpl from '../src/editor/native-to-web';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
@@ -40,7 +40,6 @@ const colorOptions = [
 ];
 
 function MobileEditorWithFetchProxy() {
-  const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
 

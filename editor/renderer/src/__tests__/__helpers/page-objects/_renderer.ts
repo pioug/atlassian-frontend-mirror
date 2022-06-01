@@ -1,13 +1,17 @@
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { RendererCssClassName } from '../../../consts';
 
 export const selectors = {
-  document: '.ak-renderer-document',
+  document: `.${RendererCssClassName.DOCUMENT}`,
   container: '.ak-renderer-wrapper',
+  extension: `.${RendererCssClassName.EXTENSION}`,
+  extensionScrollContainer: `.${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`,
   sentinelBefore: '[data-sentinel="before"]',
   sentinelAfter: '[data-sentinel="after"]',
   editor: '.ProseMirror[contenteditable=true]',
   testContainer: '#renderer-container',
+  code: '.code-block code',
 };
 
 export const setSelection = async (

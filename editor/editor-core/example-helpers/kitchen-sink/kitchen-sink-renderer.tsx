@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React from 'react';
 import {
   Provider as SmartCardProvider,
@@ -5,7 +8,7 @@ import {
 } from '@atlaskit/smart-card';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import { RendererPadding } from './kitchen-sink-styles';
+import { rendererPadding } from './kitchen-sink-styles';
 import { EditorAppearance } from '../../src/types';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 
@@ -23,7 +26,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
     const smartCardClient = React.useMemo(() => new SmartCardClient('stg'), []);
 
     return (
-      <RendererPadding hasPadding={props.isFullPage}>
+      <div css={rendererPadding(props.isFullPage)}>
         <SmartCardProvider client={smartCardClient}>
           <ReactRenderer
             allowHeadingAnchorLinks={{
@@ -48,7 +51,7 @@ export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererPr
             featureFlags={props.featureFlags}
           />
         </SmartCardProvider>
-      </RendererPadding>
+      </div>
     );
   },
 );

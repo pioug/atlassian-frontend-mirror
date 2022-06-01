@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fontSizeSmall } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
 import { N20, N300, N800 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { LinkSearchListItemData } from './types';
@@ -21,7 +22,7 @@ export const container = css`
 `;
 
 export const containerSelected = css`
-  background-color: ${N20};
+  background-color: ${token('color.background.neutral.subtle.hovered', N20)};
 `;
 
 const nameWrapper = css`
@@ -29,7 +30,7 @@ const nameWrapper = css`
 `;
 
 export const nameStyle = css`
-  color: ${N800};
+  color: ${token('color.text', N800)};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -37,7 +38,7 @@ export const nameStyle = css`
 `;
 
 export const containerName = css`
-  color: ${N300};
+  color: ${token('color.text.subtlest', N300)};
   line-height: 14px;
   font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
 `;

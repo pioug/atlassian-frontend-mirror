@@ -27,6 +27,7 @@ describe('Browser analytics instrumentation', () => {
   const someFeatureFlags: MediaFeatureFlags = {
     folderUploads: true,
     newCardExperience: false,
+    mediaUploadApiV2: false,
   };
   const uploadId = 'upload id';
   let oldDateNow: () => number;
@@ -208,6 +209,8 @@ describe('Browser analytics instrumentation', () => {
       new RequestError('serverBadGateway', {
         method: 'GET',
         endpoint: '/some-endpoint',
+        mediaRegion: 'some-region',
+        mediaEnv: 'some-env',
       }),
     );
     mediaClient.file.upload = jest.fn().mockReturnValue(fileStateObservable);
@@ -258,7 +261,12 @@ describe('Browser analytics instrumentation', () => {
             status: 'fail',
             failReason: 'upload_fail',
             error: 'serverBadGateway',
-            request: { method: 'GET', endpoint: '/some-endpoint' },
+            request: {
+              method: 'GET',
+              endpoint: '/some-endpoint',
+              mediaRegion: 'some-region',
+              mediaEnv: 'some-env',
+            },
             sourceType: 'local',
             serviceName: 'upload',
             fileAttributes: {
@@ -275,7 +283,12 @@ describe('Browser analytics instrumentation', () => {
       {
         failReason: 'upload_fail',
         error: 'serverBadGateway',
-        request: { method: 'GET', endpoint: '/some-endpoint' },
+        request: {
+          method: 'GET',
+          endpoint: '/some-endpoint',
+          mediaRegion: 'some-region',
+          mediaEnv: 'some-env',
+        },
         fileAttributes: {
           fileId: expect.any(String),
         },

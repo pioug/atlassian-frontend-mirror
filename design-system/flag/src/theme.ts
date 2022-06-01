@@ -52,7 +52,11 @@ export const getFlagBackgroundColor = (
   mode: ThemeModes,
 ): string => flagBackgroundColor[appearance][mode];
 
-export const flagBorderColor = token('elevation.surface.overlay', N60A);
+// token set in flag.tsx instead
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+export const flagBorderColor = N60A;
+export const flagShadowColor = N50A;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const flagIconColor = {
   error: {
@@ -109,10 +113,6 @@ export const getFlagIconColor = (
   appearance: AppearanceTypes,
   mode: ThemeModes,
 ): string => flagIconColor[appearance][mode];
-
-// token set in flag.tsx instead
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const flagShadowColor = N50A;
 
 const flagFocusRingColor = {
   error: {

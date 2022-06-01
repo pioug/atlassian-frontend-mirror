@@ -11,11 +11,13 @@ const generateData = ({
   href,
   onClick,
   disabledIndexes,
+  label,
 }: {
   avatarCount: number;
   href?: string;
   onClick?: () => void;
   disabledIndexes?: number[];
+  label?: string;
 }) => {
   const data = [];
   // eslint-disable-next-line no-plusplus
@@ -26,6 +28,7 @@ const generateData = ({
       size: 'medium' as SizeType,
       appearance: 'circle' as AppearanceType,
       isDisabled: disabledIndexes ? disabledIndexes.includes(i) : undefined,
+      label: label ? `${label} ${i}` : undefined,
       href,
       onClick,
     });
@@ -165,7 +168,7 @@ describe('<AvatarGroup />', () => {
     ).toEqual('#');
   });
 
-  it('should set labels to avatar items', async () => {
+  it('should set alt text on avatar images when name prop is provided', async () => {
     const { getByTestId } = render(
       <AvatarGroup
         testId="test"
@@ -178,12 +181,85 @@ describe('<AvatarGroup />', () => {
 
     const avatarGroup = getByTestId('test--avatar-group');
 
-    const avatarLabelList = avatarGroup.querySelectorAll('span[aria-label]');
+    const avatarLabelList = avatarGroup.querySelectorAll('img[alt]');
     // there are should be 3 avatar and 1 dropdown trigger button
     expect(avatarLabelList).toHaveLength(3);
 
     avatarLabelList.forEach((element, i) => {
-      expect(element.getAttribute('aria-label')).toBe(`Name ${i}`);
+      expect(element.getAttribute('alt')).toBe(`Name ${i}`);
+    });
+  });
+
+  it('should set aria-label on _buttons_ when label prop AND onClick are provided', async () => {
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({
+          avatarCount: 5,
+          onClick: () => {},
+          label: 'Label',
+        })}
+        // While max count is 4 - 2 items will be moved into the overflow menu
+        // because the fourth item will now be the trigger itself!
+        maxCount={4}
+      />,
+    );
+
+    const avatarGroup = getByTestId('test--avatar-group');
+
+    const avatarLabelList = avatarGroup.querySelectorAll('button[aria-label]');
+    // there are should be 3 avatar and 1 dropdown trigger button
+    expect(avatarLabelList).toHaveLength(3);
+
+    avatarLabelList.forEach((element, i) => {
+      expect(element.getAttribute('aria-label')).toBe(`Label ${i}`);
+    });
+  });
+
+  it('should set aria-label on _anchors_ when label prop AND href are provided', async () => {
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 5, href: '#', label: 'Label' })}
+        // While max count is 4 - 2 items will be moved into the overflow menu
+        // because the fourth item will now be the trigger itself!
+        maxCount={4}
+      />,
+    );
+
+    const avatarGroup = getByTestId('test--avatar-group');
+
+    const avatarLabelList = avatarGroup.querySelectorAll('a[aria-label]');
+    // there are should be 3 avatar and 1 dropdown trigger button
+    expect(avatarLabelList).toHaveLength(3);
+
+    avatarLabelList.forEach((element, i) => {
+      expect(element.getAttribute('aria-label')).toBe(`Label ${i}`);
+    });
+  });
+
+  it('should not set aria-label on _spans_ if neither href or onClick are provided', async () => {
+    const { getByTestId } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 5, label: 'Label' })}
+        // While max count is 4 - 2 items will be moved into the overflow menu
+        // because the fourth item will now be the trigger itself!
+        maxCount={4}
+      />,
+    );
+
+    const avatarGroup = getByTestId('test--avatar-group');
+
+    // there are should be no aria-labels applied on Avatars if they render a span as the parent
+    const avatarLabelList = avatarGroup.querySelectorAll('span[aria-label]');
+    expect(avatarLabelList).toHaveLength(0);
+
+    // However there will still be alt text on img elements if the `name` prop was used
+    const avatarImgList = avatarGroup.querySelectorAll('img[alt]');
+    expect(avatarImgList).toHaveLength(3);
+    avatarImgList.forEach((element, i) => {
+      expect(element.getAttribute('alt')).toBe(`Name ${i}`);
     });
   });
 

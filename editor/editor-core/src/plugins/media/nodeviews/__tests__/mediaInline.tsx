@@ -1,8 +1,8 @@
-import * as mocks from './mediaSingle.mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { createSchema, MediaAttributes } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaProvider } from '../../pm-plugins/main';
 import {
   MediaInline,
@@ -19,11 +19,14 @@ import { FileIdentifier } from '@atlaskit/media-client';
 import React from 'react';
 import { flushPromises } from '../../../../__tests__/__helpers/utils';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { MediaNodeUpdater } from '../mediaNodeUpdater';
 
 const mockSchema = getSchemaBasedOnStage('stage0');
+jest.mock('../mediaNodeUpdater.ts');
+const MockMediaNodeUpdater = MediaNodeUpdater as jest.Mock<MediaNodeUpdater>;
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
-  ({} as MediaProvider);
+  ({ viewMediaClientConfig: getDefaultMediaClientConfig() } as MediaProvider);
 
 export const mediaInlineProps: MediaInlineProps = {
   identifier: {
@@ -38,14 +41,17 @@ export const mediaInlineProps: MediaInlineProps = {
   mediaPluginState: ({
     handleMediaNodeMount: jest.fn(),
     handleMediaNodeUnmount: jest.fn(),
+    addPendingTask: jest.fn(),
   } as unknown) as MediaPluginState,
-  isSelected: false,
+  isSelected: true,
   getPos: jest.fn(() => 0),
   dispatchAnalyticsEvent: jest.fn(),
   contextIdentifierProvider: Promise.resolve({} as any),
 };
 
 describe('MediaInline ReactNodeView', () => {
+  const instances: MediaNodeUpdater[] = (MediaNodeUpdater as any).instances;
+
   const getPos = jest.fn();
   let mediaProvider;
   let providerFactory: ProviderFactory;
@@ -64,6 +70,7 @@ describe('MediaInline ReactNodeView', () => {
       'mediaProvider',
       Promise.resolve(mediaProvider),
     );
+    MockMediaNodeUpdater.mockReset(); // part of mocked class API, not original
   });
 
   afterEach(() => {
@@ -110,17 +117,52 @@ describe('MediaInline ReactNodeView', () => {
   });
 
   test('updates file attrs on mount', async () => {
-    const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
     mountWithIntl(<MediaInline {...mediaInlineProps} />);
-    expect(MediaNodeUpdater).toHaveBeenCalledTimes(1);
+    await flushPromises();
+    expect(instances).toHaveLength(1);
+    expect(instances[0].updateFileAttrs).toHaveBeenCalledTimes(1);
   });
 
-  test('updates file attrs on props change', async () => {
-    const { MediaNodeUpdater } = await import('../mediaNodeUpdater');
-    mountWithIntl(<MediaInline {...mediaInlineProps} />).setProps({
+  test('calls updates file attrs on props change', async () => {
+    const wrapper = mountWithIntl(<MediaInline {...mediaInlineProps} />);
+    wrapper.setProps({
       mediaProvider: createMediaProvider(),
     });
-    expect(MediaNodeUpdater).toHaveBeenCalledTimes(2);
+    await flushPromises();
+    expect(instances).toHaveLength(2);
+    expect(instances[1].updateFileAttrs).toHaveBeenCalledTimes(1);
+  });
+
+  test('returns loading view without message when no mediaClientConfig is present', async () => {
+    const noMediaClientConfigProps = {
+      ...mediaInlineProps,
+      mediaProvider: Promise.resolve({} as MediaProvider),
+    };
+    const wrapper = mountWithIntl(
+      <MediaInline {...noMediaClientConfigProps} />,
+    );
+    await flushPromises();
+    wrapper.update();
+    const mediaInlineLoadingView = wrapper
+      .findWhere((el) => el.name() === 'MediaInlineCardLoadingView')
+      .instance();
+    expect(mediaInlineLoadingView.props).toEqual({
+      message: '',
+      isSelected: false,
+    });
+  });
+
+  test('returns loading view with message when mediaClientConfig is present', async () => {
+    const wrapper = mountWithIntl(<MediaInline {...mediaInlineProps} />);
+    await flushPromises();
+    wrapper.update();
+    const mediaInlineLoadingView = wrapper
+      .findWhere((el) => el.name() === 'MediaInlineCardLoadingView')
+      .instance();
+    expect(mediaInlineLoadingView.props).toEqual({
+      message: 'Loading file...',
+      isSelected: true,
+    });
   });
 
   it('copied node adds a promise to pending tasks', async () => {
@@ -132,8 +174,14 @@ describe('MediaInline ReactNodeView', () => {
 
     const mediaInlineNode = mediaInline(attrs)();
     const myPromise = Promise.resolve();
-    mocks.mockHasDifferentContextId.mockReturnValue(true);
-    mocks.mockCopyNode.mockReturnValue(myPromise);
+    (MediaNodeUpdater as any).setMock(
+      'hasDifferentContextId',
+      jest.fn().mockReturnValue(Promise.resolve(true)),
+    );
+    (MediaNodeUpdater as any).setMock(
+      'copyNode',
+      jest.fn().mockReturnValue(myPromise),
+    );
 
     const addPendingTaskMock = jest.fn();
 

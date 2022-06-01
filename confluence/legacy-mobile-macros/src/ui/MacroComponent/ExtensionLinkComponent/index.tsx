@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { doc, link, paragraph, text } from '@atlaskit/adf-utils';
+import { doc, link, paragraph, text } from '@atlaskit/adf-utils/builders';
 
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 

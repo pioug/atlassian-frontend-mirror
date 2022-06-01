@@ -12,7 +12,6 @@ describe('Table headers with headings', () => {
       appearance: Appearance.fullPage,
       adf: tableAdf,
       viewport: { width: 1280, height: 920 },
-      editorProps: { allowDynamicTextSizing: true },
     });
   };
 

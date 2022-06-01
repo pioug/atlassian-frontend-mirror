@@ -1,6 +1,8 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { render } from '@testing-library/react';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
 import { EmojiDescription } from '../../../../types';
 import Emoji from '../../../../components/common/Emoji';
@@ -93,33 +95,35 @@ describe('<ResourcedEmoji />', () => {
     });
   });
 
-  it('should not wrap with a tooltip if there is no showTooltip prop', () => {
-    const component = mount(
+  it('should not wrap with a tooltip if there is no showTooltip prop', async () => {
+    const result = await render(
       <ResourcedEmoji
         emojiProvider={getEmojiResourcePromise()}
-        emojiId={{ shortName: 'shouldnotbeused', id: grinEmoji.id }}
+        emojiId={grinEmoji}
       />,
     );
 
-    return waitUntil(() => emojiVisible(component)).then(() => {
-      const emoji = component.find(Emoji);
-      expect(emoji.childAt(0).prop('title')).toBe('');
-    });
+    mockAllIsIntersecting(true);
+
+    const component = await result.findByTestId(
+      `sprite-emoji-${grinEmoji.shortName}`,
+    );
+    expect(component).toHaveAttribute('title', '');
   });
 
-  it('should wrap with tooltip if showTooltip is set to true', () => {
-    const component = mount(
+  it('should wrap with tooltip if showTooltip is set to true', async () => {
+    const result = await render(
       <ResourcedEmoji
         emojiProvider={getEmojiResourcePromise()}
-        emojiId={{ shortName: 'shouldnotbeused', id: grinEmoji.id }}
+        emojiId={grinEmoji}
         showTooltip={true}
       />,
     );
-
-    return waitUntil(() => emojiVisible(component)).then(() => {
-      const emoji = component.find(Emoji);
-      expect(emoji.childAt(0).prop('title')).toBe(':grin:');
-    });
+    mockAllIsIntersecting(true);
+    const component = await result.findByTestId(
+      `sprite-emoji-${grinEmoji.shortName}`,
+    );
+    expect(component).toHaveAttribute('title', ':grin:');
   });
 
   it('should fallback to shortName if no id', () => {
@@ -252,7 +256,6 @@ describe('<ResourcedEmoji />', () => {
       mediaEmoji.id || mediaEmoji.shortName,
     );
     const startSpy = jest.spyOn(experience, 'start');
-    const markFMPSpy = jest.spyOn(experience, 'markFMP');
     const successSpy = jest.spyOn(experience, 'success');
     const component = mount(
       <ResourcedEmoji
@@ -262,9 +265,9 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiVisible(component)).then(() => {
+      mockAllIsIntersecting(true);
       findEmoji(component).find('img').simulate('load');
       expect(startSpy).toHaveBeenCalledTimes(1);
-      expect(markFMPSpy).toHaveBeenCalledTimes(1);
       expect(successSpy).toHaveBeenCalledTimes(1);
     });
   });
@@ -283,6 +286,7 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiVisible(component)).then(() => {
+      mockAllIsIntersecting(true);
       findEmoji(component).find('img').simulate('error');
       expect(startSpy).toHaveBeenCalledTimes(1);
       expect(failSpy).toHaveBeenCalledTimes(1);

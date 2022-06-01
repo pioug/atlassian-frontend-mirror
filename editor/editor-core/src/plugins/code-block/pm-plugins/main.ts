@@ -1,4 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { browser } from '@atlaskit/editor-common/utils';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView, EditorProps as PMEditorProps } from 'prosemirror-view';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
@@ -10,6 +11,10 @@ import { highlightingCodeBlockNodeView } from '../nodeviews/highlighting-code-bl
 import { createSelectionClickHandler } from '../../selection/utils';
 import { pluginKey } from '../plugin-key';
 import { ACTIONS } from './actions';
+import {
+  ignoreFollowingMutations,
+  resetShouldIgnoreFollowingMutations,
+} from '../actions';
 import { findCodeBlock } from '../utils';
 import { codeBlockClassNames } from '../ui/class-names';
 import { CodeBlockState } from './main-state';
@@ -40,14 +45,53 @@ export const createPlugin = ({
   // incorrecly and lose content when pressing enter in the middle of a code block line.
   if (allowCompositionInputOverride) {
     handleDOMEvents.beforeinput = (view: EditorView, event: Event) => {
+      const keyEvent = event as InputEvent;
+      const eventInputType = keyEvent.inputType;
+      const eventText = keyEvent.data as string;
+
       if (
+        browser.ios &&
         event.composed &&
         // insertParagraph will be the input type when the enter key is pressed.
-        (event as any).inputType === 'insertParagraph' &&
+        eventInputType === 'insertParagraph' &&
         findCodeBlock(view.state, view.state.selection)
       ) {
         event.preventDefault();
         return true;
+      } else if (
+        browser.android &&
+        event.composed &&
+        eventInputType === 'insertCompositionText' &&
+        eventText[eventText?.length - 1] === '\n' &&
+        findCodeBlock(view.state, view.state.selection)
+      ) {
+        const resultingText = (event.target as any).outerText + '\n';
+
+        if (resultingText.endsWith(eventText)) {
+          // End of paragraph
+          setTimeout(() => {
+            view.someProp('handleKeyDown', (f) =>
+              f(
+                view,
+                new KeyboardEvent('keydown', {
+                  bubbles: true,
+                  cancelable: true,
+                  key: 'Enter',
+                  code: 'Enter',
+                }),
+              ),
+            );
+          }, 0);
+        } else {
+          // Middle of paragraph, end of line
+          ignoreFollowingMutations(view.state, view.dispatch);
+        }
+
+        return true;
+      }
+
+      if (browser.android) {
+        resetShouldIgnoreFollowingMutations(view.state, view.dispatch);
       }
 
       return false;
@@ -62,6 +106,7 @@ export const createPlugin = ({
           pos: node ? node.pos : null,
           contentCopied: false,
           isNodeSelected: false,
+          shouldIgnoreFollowingMutations: false,
         };
       },
       apply(
@@ -86,6 +131,13 @@ export const createPlugin = ({
           return {
             ...pluginState,
             contentCopied: meta.data,
+          };
+        } else if (
+          meta?.type === ACTIONS.SET_SHOULD_IGNORE_FOLLOWING_MUTATIONS
+        ) {
+          return {
+            ...pluginState,
+            shouldIgnoreFollowingMutations: meta.data,
           };
         }
 

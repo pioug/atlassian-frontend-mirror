@@ -11,6 +11,7 @@ import { GRID_SIZE, SEARCH_ITEM_HEIGHT_WIDTH } from '../constants';
 import useFocus from '../hooks/use-focus';
 import { Modes } from '../types';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 interface Props {
   onSearch: (value: string) => void;
@@ -117,7 +118,7 @@ const wrapperInline = css`
 
 const elementBeforeInput = css`
   margin: 1px 6px 0 8px;
-  color: ${N200};
+  color: ${token('color.icon', N200)};
 
   // Custom SearchIcon style
   span,

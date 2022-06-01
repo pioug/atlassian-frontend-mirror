@@ -27,9 +27,22 @@ export interface StoreMetadata {
  * Set of all available UFO experiences relating to reaction element
  */
 export const ufoExperiences = {
+  /**
+   * Experience when a reaction emoji gets added
+   */
   add: Analytics.UFO.ReactionsAdd,
+  /**
+   * Experience when a reaction emoji gets removed/decrement
+   */
   remove: Analytics.UFO.ReactionsRemove,
+  /**
+   * Experience when the list of reactions gets rendered
+   */
   render: Analytics.UFO.ReactionsRendered,
+  /**
+   * Experience when a reaction details gets fetched
+   */
+  fetchDetails: Analytics.UFO.ReactionDetailsFetch,
 };
 
 export interface ReactionsStore extends Types.Actions {
@@ -379,9 +392,22 @@ export class MemoryReactionsStore implements ReactionsStore {
     ari: string,
     emojiId: string,
   ): void => {
+    const exp = ufoExperiences.fetchDetails.getInstance(`${ari}|${emojiId}`);
+
+    exp.start();
     this.client
       .getDetailedReaction(containerAri, ari, emojiId)
-      .then(this.handleDetailedReactionResponse);
+      .then((summary) => {
+        // ufo get reaction details success
+        exp.success();
+        this.handleDetailedReactionResponse(summary);
+      })
+      .catch((error) => {
+        // ufo get reaction details failure
+        exp.failure({
+          metadata: { error },
+        });
+      });
   };
 
   getState = () => this.state;

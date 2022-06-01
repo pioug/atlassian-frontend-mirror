@@ -29,9 +29,10 @@ type OptionType = {
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 const actionsWrapper = css`
-  border-top: 1px solid ${N40A};
+  border-top: 1px solid ${token('color.border', N40A)};
   margin-top: ${gridSize() * 2}px;
   padding-top: ${gridSize() * 2}px;
 `;

@@ -136,10 +136,13 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         isResizing,
         flyoutLockCount,
         isFixed,
+        isLeftSidebarCollapsed,
       } = leftSidebarState;
-      if (isResizing) {
+
+      if (isResizing || isLeftSidebarCollapsed) {
         return;
       }
+
       // data-attribute is used as a CSS selector to sync the hiding/showing
       // of the nav contents with expand/collapse animation
       document.documentElement.setAttribute(IS_SIDEBAR_COLLAPSING, 'true');

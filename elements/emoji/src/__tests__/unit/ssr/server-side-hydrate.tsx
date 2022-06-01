@@ -1,27 +1,44 @@
-import { ssr_hydrate } from '@atlaskit/elements-test-helpers';
+import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
-const ExamplesPath = '../../../../examples';
+// @ts-ignore - global usage
+jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
-describe.skip('server side rendering and hydration', () => {
-  beforeEach(() => {
-    jest.spyOn(global.console, 'error');
+afterEach(() => {
+  jest.resetAllMocks();
+});
+
+describe('ssr for emoji', () => {
+  it('should not throw when rendering any example on the server', async () => {
+    const examples = await getExamplesFor('emoji');
+
+    const result: string[] = await Promise.all(
+      examples.map((example: any) =>
+        ssr(example.filePath)
+          .then(() => undefined)
+          .catch((err: string) => `${example.filePath} ${err}`),
+      ),
+    );
+
+    expect(result.filter(Boolean).join('\n')).toEqual('');
   });
 
-  afterEach(() => {
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
-  });
+  it('should not log errors when rendering emoji on the server', async () => {
+    const examples = await getExamplesFor('emoji');
 
-  test.each([
-    ['00-simple-emoji.tsx'],
-    ['01-skin-tone-emoji-by-shortcut.tsx'],
-    ['02-content-resourced-emoji.tsx'],
-    ['11-emoji-preview-with-description.tsx'],
-    ['12-emoji-preview-with-long-name-description.tsx'],
-  ])('ssr("%s")', async (fileName: string) => {
-    await ssr_hydrate(__dirname, `${ExamplesPath}/${fileName}`);
+    await Promise.all(
+      examples.map((example: any) =>
+        ssr(example.filePath).catch(() => undefined),
+      ),
+    );
 
     // eslint-disable-next-line no-console
-    expect(console.error).not.toBeCalled();
+    expect(console.error).toHaveBeenCalledTimes(0);
+
+    expect(
+      // eslint-disable-next-line no-console
+      (console.error as jest.Mock).mock.calls
+        .map((call) => call.join(''))
+        .join(''),
+    ).toEqual('');
   });
 });

@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/react';
 import Editor from './../src/editor/mobile-editor-element';
 import { createEditorProviders } from '../src/providers';
-import { useFetchProxy } from '../src/utils/fetch-proxy';
+import { fetchProxy } from '../src/utils/fetch-proxy';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import MobileEditorConfiguration from '../src/editor/editor-configuration';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
@@ -89,7 +89,6 @@ const wrapper: any = css`
 `;
 
 export default function Example() {
-  const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(
     bridge,

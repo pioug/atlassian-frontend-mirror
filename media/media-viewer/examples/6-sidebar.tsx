@@ -17,11 +17,11 @@ import {
 } from '@atlaskit/media-test-helpers';
 import {
   ButtonList,
-  Container,
   Group,
   MVSidebar,
   MVSidebarHeader,
 } from '../example-helpers/styled';
+import { MainWrapper } from '../example-helpers/MainWrapper';
 import {
   docIdentifier,
   largePdfIdentifier,
@@ -93,7 +93,7 @@ export default class Example extends React.Component<{}, State> {
   render() {
     const { selected } = this.state;
     return (
-      <Container>
+      <MainWrapper>
         <Group>
           <h2>Sidebar integration</h2>
           <ButtonList>
@@ -118,7 +118,7 @@ export default class Example extends React.Component<{}, State> {
             }}
           />
         )}
-      </Container>
+      </MainWrapper>
     );
   }
 }

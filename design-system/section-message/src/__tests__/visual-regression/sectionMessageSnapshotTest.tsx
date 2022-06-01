@@ -111,4 +111,27 @@ describe('Snapshot Test', () => {
 
     await expect($ssrElement).toMatchVisually($hydratedElement);
   });
+
+  it('should match word wrapping behavior in examples', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'section-message',
+      'testing',
+
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    const contentSelector = '[data-testid="overflow-section-message"]';
+    const actionsSelector = '[data-testid="overflow-actions-section-message"]';
+
+    await loadPage(page, url);
+    await page.waitForSelector(contentSelector);
+    await page.waitForSelector(actionsSelector);
+
+    const content = await takeElementScreenShot(page, contentSelector);
+    expect(content).toMatchProdImageSnapshot();
+
+    const actions = await takeElementScreenShot(page, actionsSelector);
+    expect(actions).toMatchProdImageSnapshot();
+  });
 });

@@ -1,5 +1,9 @@
 import { isRequestError, RequestMetadata } from '@atlaskit/media-client';
-import { PackageAttributes } from '@atlaskit/media-common';
+import {
+  filterFeatureFlagKeysAllProducts,
+  filterFeatureFlagNames,
+  PackageAttributes,
+} from '@atlaskit/media-common';
 
 import {
   name as packageName,
@@ -8,6 +12,22 @@ import {
 
 // Component name will be prefixed with "media-picker-" in logs. Check ufoExperiences in utils files
 export type ComponentName = 'browser' | 'clipboard' | 'dropzone';
+
+const relevantFlags = {
+  newCardExperience: true,
+  captions: false,
+  timestampOnVideo: false,
+  observedWidth: false,
+  mediaInline: false,
+  folderUploads: true,
+  mediaUploadApiV2: true,
+};
+
+export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
+
+export const LOGGED_FEATURE_FLAG_KEYS = filterFeatureFlagKeysAllProducts(
+  relevantFlags,
+);
 
 export function getPackageAttributes(
   componentName: ComponentName,

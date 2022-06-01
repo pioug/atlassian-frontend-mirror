@@ -43,6 +43,5 @@ export interface CardPreview {
 
 export enum MediaCardCursor {
   Action = 'pointer',
-  NoAction = 'default',
   NotReady = 'wait',
 }

@@ -1,5 +1,16 @@
 # @atlaskit/dropdown-menu
 
+## 11.2.0
+
+### Minor Changes
+
+- [`9a186cda60b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a186cda60b) - Adds `component` prop to DropdownItem which allows overriding the item with a custom component.
+
+### Patch Changes
+
+- [`484bf3e9b12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/484bf3e9b12) - [ux] DSP-4539 Update wrongly used tokens for radio/checkbox icons
+- Updated dependencies
+
 ## 11.1.5
 
 ### Patch Changes

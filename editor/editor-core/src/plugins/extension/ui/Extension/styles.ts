@@ -5,31 +5,32 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { N20, DN50, DN700, B200, N20A, N70 } from '@atlaskit/theme/colors';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 export const padding = gridSize();
 export const BODIED_EXT_PADDING = padding * 2;
 
 export const wrapperDefault = (theme: ThemeProps) => css`
   background: ${themed({
-    light: N20,
-    dark: DN50,
+    light: token('color.background.neutral', N20),
+    dark: token('color.background.neutral', DN50),
   })(theme)};
   border-radius: ${borderRadius()}px;
   color: ${themed({
-    dark: DN700,
+    dark: token('color.text', DN700),
   })(theme)};
   position: relative;
   vertical-align: middle;
   font-size: ${relativeFontSizeToBase16(fontSize())};
 
   .ProseMirror-selectednode > span > & > .extension-overlay {
-    box-shadow: inset 0px 0px 0px 2px ${B200};
+    box-shadow: inset 0px 0px 0px 2px ${token('color.border.selected', B200)};
     opacity: 1;
   }
 
   &.with-overlay {
     .extension-overlay {
-      background: ${N20A};
+      background: ${token('color.background.neutral.hovered', N20A)};
       color: transparent;
     }
 
@@ -65,7 +66,7 @@ export const placeholderFallbackParams = css`
   display: inline-block;
   max-width: 200px;
   margin-left: 5px;
-  color: ${N70};
+  color: ${token('color.text.subtlest', N70)};
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

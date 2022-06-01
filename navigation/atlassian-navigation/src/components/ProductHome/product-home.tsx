@@ -77,6 +77,7 @@ const productLogoStyles = css({
   maxWidth: `var(${VAR_LOGO_MAX_WIDTH})`,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > *': {
+    maxWidth: `var(${VAR_LOGO_MAX_WIDTH})`,
     maxHeight: 24,
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
@@ -151,6 +152,7 @@ const ProductHome = ({
     [VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER]:
       primaryButton.hover.backgroundColor,
     [VAR_PRODUCT_HOME_BOX_SHADOW_HOVER]: primaryButton.hover.boxShadow,
+    [VAR_LOGO_MAX_WIDTH]: `${logoMaxWidth}px`,
   };
 
   return (
@@ -165,7 +167,6 @@ const ProductHome = ({
         {...rest}
       >
         <div
-          style={{ [VAR_LOGO_MAX_WIDTH]: logoMaxWidth } as React.CSSProperties}
           css={[customMaxHeightStyles, productLogoStyles]}
           data-testid={testId && `${testId}-logo`}
         >
@@ -177,7 +178,6 @@ const ProductHome = ({
           />
         </div>
         <div
-          style={{ [VAR_LOGO_MAX_WIDTH]: logoMaxWidth } as React.CSSProperties}
           css={[customMaxHeightStyles, productIconStyles]}
           data-testid={testId && `${testId}-icon`}
         >

@@ -63,6 +63,7 @@ import {
   InsertMarker,
 } from './ui-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 const cornerControlHeight = tableToolbarSize + 1;
 
@@ -104,16 +105,17 @@ const sentinelStyles = `.${ClassName.TABLE_CONTAINER} {
   }
 }`;
 
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4139
 export const tableStyles = (props: ThemeProps) => css`
   .${ClassName.LAYOUT_BUTTON} button {
-    background: ${N20A};
-    color: ${N300};
+    background: ${token('color.background.neutral', N20A)};
+    color: ${token('color.icon', N300)};
     cursor: none;
   }
 
   .${ClassName.LAYOUT_BUTTON}:not(.${ClassName.IS_RESIZING}) button:hover {
-    background: ${B300};
-    color: white !important;
+    background: ${token('color.background.neutral.hovered', B300)};
+    color: ${token('color.icon', 'white')} !important;
     cursor: pointer;
   }
 
@@ -154,14 +156,13 @@ export const tableStyles = (props: ThemeProps) => css`
     /* Ends Delete button */
 
     /* sticky styles */
-    .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
+    .${ClassName.TABLE_STICKY} .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
       margin-top: ${stickyRowOffsetTop + 2}px;
       width: ${akEditorTableNumberColumnWidth}px;
 
       position: fixed !important;
       z-index: ${akEditorStickyHeaderZIndex} !important;
-
-      box-shadow: 0px -${stickyRowOffsetTop}px white;
+      box-shadow: 0px -${stickyRowOffsetTop}px ${token('elevation.surface', 'white')};
       border-right: 0 none;
       /* top set by NumberColumn component */
     }
@@ -170,7 +171,7 @@ export const tableStyles = (props: ThemeProps) => css`
       position: fixed !important;
       /* needs to be above row controls */
       z-index: ${akEditorSmallZIndex} !important;
-      background: white;
+      background: ${token('elevation.surface', 'white')};
 
       width: ${tableToolbarSize}px;
       height: ${tableToolbarSize}px;
@@ -194,13 +195,14 @@ export const tableStyles = (props: ThemeProps) => css`
       position: fixed !important;
       z-index: ${akEditorStickyHeaderZIndex} !important;
       display: flex;
-      border-left: ${tableToolbarSize}px solid white;
+      border-left: ${tableToolbarSize}px solid
+        ${token('elevation.surface', 'white')};
       margin-left: -${tableToolbarSize}px;
     }
 
     .${ClassName.TABLE_STICKY} col:first-of-type {
       /* moving rows out of a table layout does weird things in Chrome */
-      border-right: 1px solid green;
+      border-right: 1px solid ${token('elevation.surface', 'green')};
     }
 
     tr.sticky {
@@ -217,12 +219,15 @@ export const tableStyles = (props: ThemeProps) => css`
       grid-auto-flow: column;
 
       /* background for where controls apply */
-      background: white;
+      background: ${token('elevation.surface', 'white')};
       box-sizing: content-box;
 
       margin-top: 2px;
 
-      box-shadow: 0 6px 4px -4px ${N40A};
+      box-shadow: ${token(
+        'elevation.shadow.overflow',
+        `0 6px 4px -4px ${N40A}`,
+      )};
       margin-left: -1px;
 
       &.no-pointer-events {
@@ -252,7 +257,7 @@ export const tableStyles = (props: ThemeProps) => css`
     }
 
     /* add left edge for first cell */
-    .${ClassName.TABLE_STICKY} tr.sticky > th:first-child {
+    .${ClassName.TABLE_STICKY} tr.sticky > th:first-of-type {
       margin-left: 0px;
     }
 
@@ -302,12 +307,13 @@ export const tableStyles = (props: ThemeProps) => css`
 
     .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}
       .${ClassName.NUMBERED_COLUMN}
-      .${ClassName.NUMBERED_COLUMN_BUTTON}:first-child {
+      .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
       margin-top: ${tableControlsSpacing + 2}px;
     }
 
     .${ClassName.CORNER_CONTROLS}.sticky {
-      border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid white;
+      border-top: ${tableControlsSpacing - tableToolbarSize + 2}px solid
+        ${token('elevation.surface', 'white')};
     }
 
     ${props.featureFlags?.stickyHeadersOptimization ? sentinelStyles : ''}
@@ -484,7 +490,7 @@ export const tableStyles = (props: ThemeProps) => css`
           right: 0;
           bottom: 0;
         }
-        .${ClassName.CONTROLS_BUTTON_OVERLAY}:first-child {
+        .${ClassName.CONTROLS_BUTTON_OVERLAY}:first-of-type {
           top: 0;
         }
       `,
@@ -542,7 +548,7 @@ export const tableStyles = (props: ThemeProps) => css`
           background-color: ${tableToolbarSelectedColor};
           position: relative;
           z-index: ${akEditorUnitZIndex};
-          color: ${N0};
+          color: ${token('color.text.inverse', N0)};
         }
       }
     }
@@ -556,13 +562,13 @@ export const tableStyles = (props: ThemeProps) => css`
         background-color: ${tableToolbarSelectedColor};
         position: relative;
         z-index: ${akEditorUnitZIndex};
-        color: ${N0};
+        color: ${token('color.text.inverse', N0)};
       }
       .${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
         background-color: ${tableToolbarDeleteColor};
         border: 1px solid ${tableBorderDeleteColor};
         border-left: 0;
-        color: ${R500};
+        color: ${token('color.text.inverse', R500)};
         position: relative;
         z-index: ${akEditorUnitZIndex};
       }
@@ -584,12 +590,12 @@ export const tableStyles = (props: ThemeProps) => css`
        * cell when center/right aligned.
        */
       th.${ClassName.TABLE_HEADER_CELL} > .fabric-editor-block-mark {
-        > h1:first-child,
-        > h2:first-child,
-        > h3:first-child,
-        > h4:first-child,
-        > h5:first-child,
-        > h6:first-child {
+        > h1:first-of-type,
+        > h2:first-of-type,
+        > h3:first-of-type,
+        > h4:first-of-type,
+        > h5:first-of-type,
+        > h6:first-of-type {
           margin-top: 0;
         }
       }
@@ -607,7 +613,6 @@ export const tableStyles = (props: ThemeProps) => css`
         right: 0;
         top: 0;
         bottom: 0;
-        opacity: 0.3;
         pointer-events: none;
       }
       .${ClassName.SELECTED_CELL} {

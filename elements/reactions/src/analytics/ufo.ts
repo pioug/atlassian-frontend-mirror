@@ -39,6 +39,7 @@ export enum ExperienceName {
   PICKER_OPENED = 'reactions-picker-opened',
   REACTION_ADDED = 'reaction-added',
   REACTION_REMOVED = 'reaction-removed',
+  REACTION_DETAILS_FETCHED = 'reaction-details-fetched',
 }
 
 /**
@@ -47,6 +48,7 @@ export enum ExperienceName {
 export enum ComponentName {
   PICKER_RENDERED = 'reactions-picker',
   REACTIONS = 'reactions-list',
+  REACTION_ITEM = 'reaction-item',
 }
 
 /**
@@ -80,6 +82,18 @@ export const ReactionsAdd = new ConcurrentExperience(
   ExperienceName.REACTION_ADDED,
   createExperienceConfig(
     ComponentName.REACTIONS,
+    ExperienceTypes.Experience,
+    ExperiencePerformanceTypes.InlineResult,
+  ),
+);
+
+/**
+ * Experience when a reaction details gets fetched
+ */
+export const ReactionDetailsFetch = new ConcurrentExperience(
+  ExperienceName.REACTION_DETAILS_FETCHED,
+  createExperienceConfig(
+    ComponentName.REACTION_ITEM,
     ExperienceTypes.Experience,
     ExperiencePerformanceTypes.InlineResult,
   ),

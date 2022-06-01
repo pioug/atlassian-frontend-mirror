@@ -1,9 +1,11 @@
 import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 import { documentWithDecision } from './__fixtures__/document-with-decision';
 import { documentWithInlineCard } from './__fixtures__/document-with-inline-card';
+import { documentWithMediaInlineCard } from './__fixtures__/document-with-media-inline-card';
 import { documentWithText } from './__fixtures__/document-with-text';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/visual-regression/helper';
+import { MountProps } from '@atlaskit/renderer/examples/helper/testing-setup';
 import {
   getDocFromElement,
   fullpage,
@@ -28,10 +30,7 @@ const editorSelector = selectors.editor;
 */
 async function mountRenderer(
   page: WebdriverPage,
-  props?: {
-    withRendererActions?: boolean;
-    smartLinks?: any;
-  },
+  props?: MountProps & { smartLinks?: any },
   adf?: Object,
 ): Promise<boolean> {
   const rendererAvailable = await page.executeAsync(
@@ -264,7 +263,8 @@ BrowserTestCase(
 BrowserTestCase(
   'paste.ts: inline card copied from renderer and pasted',
   /* NOTE: https://product-fabric.atlassian.net/browse/EDM-1249
-     we've got this bug in Firefox where it doubles up the items when pasting
+    This test is to ensure that that we test this scenario,
+    previously we had this bug in Firefox where it doubles up the items when pasting
   */
   /**
    * Notes that Chrome on MacOS will fail this test because we are using ['Shift', 'Insert'] in page.paste()
@@ -326,6 +326,76 @@ BrowserTestCase(
       await page.waitForSelector(inlineCardSelector);
 
       const doc = await page.$eval(editorSelector, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    }
+  },
+);
+
+BrowserTestCase(
+  'paste.ts: media inline card copied from renderer and pasted',
+  {},
+  async (client: WebdriverIO.BrowserObject, testName: string) => {
+    let page = new WebdriverPage(client);
+    let url = getExampleUrl(
+      'editor',
+      'renderer',
+      'testing',
+      // @ts-ignore
+      global.__BASEURL__,
+    );
+
+    await page.goto(url);
+    await page.maximizeWindow();
+
+    const rendererMounted = await mountRenderer(
+      page,
+      {
+        withRendererActions: true,
+      },
+      documentWithMediaInlineCard,
+    );
+
+    if (rendererMounted) {
+      const selectorStart = 'p[data-renderer-start-pos]';
+      const selectorEnd = 'h3';
+      const mediaInlineCardSelector =
+        '[data-testid="media-inline-card-loaded-view"]';
+
+      await page.waitForSelector(selectorStart);
+      await page.waitForSelector(selectorEnd);
+      await page.waitForSelector(mediaInlineCardSelector, { timeout: 10000 });
+      await page.simulateUserSelection(selectorStart, selectorEnd);
+      await page.copy();
+
+      page = await goToEditorTestingWDExample(client);
+      await mountEditor(page, {
+        appearance: fullpage.appearance,
+        media: {
+          featureFlags: {
+            mediaInline: true,
+          },
+        },
+      });
+
+      await page.paste();
+      await page.waitForSelector(mediaInlineCardSelector);
+
+      const collectionMatcher = expect.objectContaining({
+        content: expect.arrayContaining([
+          expect.objectContaining({
+            content: expect.arrayContaining([
+              expect.objectContaining({
+                attrs: expect.objectContaining({
+                  collection: 'MediaServicesSample',
+                }),
+              }),
+            ]),
+          }),
+        ]),
+      });
+
+      const doc = await page.$eval(editorSelector, getDocFromElement);
+      expect(doc).toEqual(collectionMatcher);
       expect(doc).toMatchCustomDocSnapshot(testName);
     }
   },

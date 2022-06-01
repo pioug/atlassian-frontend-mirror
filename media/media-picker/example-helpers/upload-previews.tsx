@@ -9,7 +9,7 @@ import {
   PreviewsTitle,
   PreviewsWrapper,
   UploadPreviewsFlexRow,
-} from './styled';
+} from './stylesWrapper';
 import { PreviewData } from './types';
 
 export interface PreviewsDataState {

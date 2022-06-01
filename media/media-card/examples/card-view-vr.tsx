@@ -6,7 +6,7 @@ import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';
-import { mediaCardErrorState } from '../example-helpers';
+import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 
 type WrapperDimensions = {
   width: string;
@@ -43,25 +43,27 @@ const mimeTypes: { media: MediaType; mime: string; name: string }[] = [
 
 const IconsTable = () => {
   return (
-    <StyledContainer>
-      {/* Reference page:
+    <MainWrapper disableFeatureFlagWrapper={true}>
+      <StyledContainer>
+        {/* Reference page:
         https://hello.atlassian.net/wiki/spaces/~231281387/pages/910276304/Visual+Regression+Tests+MediaCard
         for what we test for, in terms of Visual regressions in MediaCard */}
-      {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
-      <IntlProvider locale={'en'}>
-        <>
-          {mimeTypes.map((item, i) =>
-            renderCardImageView(
-              'complete',
-              item.media,
-              item.mime,
-              item.name,
-              i,
-            ),
-          )}
-        </>
-      </IntlProvider>
-    </StyledContainer>
+        {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
+        <IntlProvider locale={'en'}>
+          <>
+            {mimeTypes.map((item, i) =>
+              renderCardImageView(
+                'complete',
+                item.media,
+                item.mime,
+                item.name,
+                i,
+              ),
+            )}
+          </>
+        </IntlProvider>
+      </StyledContainer>
+    </MainWrapper>
   );
 };
 

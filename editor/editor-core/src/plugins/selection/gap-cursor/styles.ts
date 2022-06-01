@@ -59,15 +59,15 @@ export const gapCursorStyles = css`
         float: right;
       }
 
-      /* fix vertical alighment of gap cursor */
-      &:first-child + ul,
-      &:first-child + span + ul,
-      &:first-child + ol,
-      &:first-child + span + ol,
-      &:first-child + pre,
-      &:first-child + span + pre,
-      &:first-child + blockquote,
-      &:first-child + span + blockquote {
+      /* fix vertical alignment of gap cursor */
+      &:first-of-type + ul,
+      &:first-of-type + span + ul,
+      &:first-of-type + ol,
+      &:first-of-type + span + ol,
+      &:first-of-type + pre,
+      &:first-of-type + span + pre,
+      &:first-of-type + blockquote,
+      &:first-of-type + span + blockquote {
         margin-top: 0;
       }
     }

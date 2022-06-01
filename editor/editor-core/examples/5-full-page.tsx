@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { MockActivityResource } from '../example-helpers/activity-provider';
@@ -96,18 +97,16 @@ if (isMediaMockOptedIn()) {
  *                                    80px - 48px (Outside of iframe)
  *
  */
-export const Wrapper: any = styled.div`
+export const wrapper: any = css`
   box-sizing: border-box;
   height: 100%;
 `;
-Wrapper.displayName = 'Wrapper';
 
-export const Content: any = styled.div`
+export const content: any = css`
   padding: 0;
   height: 100%;
   box-sizing: border-box;
 `;
-Content.displayName = 'Content';
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
@@ -306,8 +305,8 @@ export class ExampleEditorComponent extends React.Component<
       : defaultMediaFeatureFlags;
     return (
       <ExamplesErrorBoundary>
-        <Wrapper>
-          <Content>
+        <div css={wrapper}>
+          <div css={content}>
             <SmartCardProvider client={smartCardClient}>
               <Editor
                 UNSAFE_allowUndoRedoButtons={true}
@@ -339,7 +338,6 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 allowTextAlignment={true}
                 allowIndentation={true}
-                allowDynamicTextSizing={true}
                 allowTemplatePlaceholders={{ allowInserting: true }}
                 smartLinks={{
                   provider: Promise.resolve(cardProviderStaging),
@@ -405,7 +403,7 @@ export class ExampleEditorComponent extends React.Component<
                 contentComponents={
                   <WithEditorActions
                     render={(actions) => (
-                      <>
+                      <Fragment>
                         <BreadcrumbsMiscActions
                           appearance={this.state.appearance}
                           onFullWidthChange={this.setFullWidthMode}
@@ -416,11 +414,11 @@ export class ExampleEditorComponent extends React.Component<
                           innerRef={this.handleTitleRef}
                           onFocus={this.handleTitleOnFocus}
                           onBlur={this.handleTitleOnBlur}
-                          onKeyDown={(e: KeyboardEvent) => {
+                          onKeyDown={(e: React.KeyboardEvent) => {
                             this.onKeyPressed(e, actions);
                           }}
                         />
-                      </>
+                      </Fragment>
                     )}
                   />
                 }
@@ -431,7 +429,7 @@ export class ExampleEditorComponent extends React.Component<
                       this.editorActions = actions;
 
                       return (
-                        <>
+                        <Fragment>
                           {this.props.customPrimaryToolbarComponents}
                           <Button
                             isDisabled={!actions}
@@ -444,7 +442,7 @@ export class ExampleEditorComponent extends React.Component<
                             editorActions={actions}
                             setMode={this.props.setMode}
                           />
-                        </>
+                        </Fragment>
                       );
                     }}
                   />,
@@ -517,7 +515,7 @@ export class ExampleEditorComponent extends React.Component<
                 trackValidTransactions={{ samplingRate: 100 }}
               />
             </SmartCardProvider>
-          </Content>
+          </div>
           {this.state.warning && (
             <div
               style={{
@@ -543,11 +541,11 @@ export class ExampleEditorComponent extends React.Component<
               />
             </div>
           )}
-        </Wrapper>
+        </div>
       </ExamplesErrorBoundary>
     );
   }
-  private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
+  private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {
     if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
       // Move to the editor view
       const target = e.currentTarget as HTMLInputElement;
@@ -559,7 +557,7 @@ export class ExampleEditorComponent extends React.Component<
     return;
   };
 
-  private handleTitleChange = (e: KeyboardEvent) => {
+  private handleTitleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
     const title = (e.target as HTMLInputElement).value;
     this.setState({
       title,

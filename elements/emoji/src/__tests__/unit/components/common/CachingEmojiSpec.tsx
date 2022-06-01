@@ -12,6 +12,7 @@ import { EmojiDescription } from '../../../../types';
 import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
 jest.mock('../../../../util/constants', () => {
   const originalModule = jest.requireActual('../../../../util/constants');
@@ -29,6 +30,7 @@ describe('<CachingEmoji />', () => {
   describe('Non-media emoji', () => {
     it('CachingMediaEmoji not used, just an Emoji rendered', async () => {
       const result = await render(<CachingEmoji emoji={imageEmoji} />);
+      mockAllIsIntersecting(true);
       expect(result).not.toBeNull();
       const image = result.getByAltText(':grimacing:');
       expect(image).not.toBeNull();
@@ -53,11 +55,13 @@ describe('<CachingEmoji />', () => {
         emojiContextValue: EmojiContextType,
         emojiDescription: EmojiDescription,
       ) => {
-        return render(
+        const component = await render(
           <EmojiContextProvider emojiContextValue={emojiContextValue}>
             <CachingEmoji emoji={emojiDescription} />
           </EmojiContextProvider>,
         );
+        mockAllIsIntersecting(true);
+        return component;
       };
 
       let emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource>;
@@ -138,6 +142,7 @@ describe('<CachingEmoji />', () => {
           emojiContextValue,
           mediaEmoji,
         );
+
         const image = result.container.firstChild?.firstChild;
         expect(image).not.toBeNull();
         if (image) {

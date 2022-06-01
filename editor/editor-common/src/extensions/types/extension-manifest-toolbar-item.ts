@@ -1,4 +1,4 @@
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { ExtensionAPI } from './extension-handler';
 import { ExtensionIconModule } from './extension-manifest-common';

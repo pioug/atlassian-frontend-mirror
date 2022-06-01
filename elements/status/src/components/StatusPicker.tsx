@@ -83,7 +83,7 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
       // Defer to prevent editor scrolling to top (See FS-3227, also ED-2992)
       setTimeout(() => {
         ref.focus();
-      });
+      }, 50);
     }
   };
 }

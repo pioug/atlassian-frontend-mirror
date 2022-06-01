@@ -2,6 +2,7 @@ import React from 'react';
 
 export type FeatureFlags = {
   codeBidiWarnings?: boolean;
+  showHoverPreview?: boolean;
 };
 
 export type RendererContextProps = {

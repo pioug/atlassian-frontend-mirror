@@ -32,8 +32,7 @@ export const CheckBoxWrapper = styled.span<{
 
     + div {
       box-sizing: border-box;
-      display: block;
-      position: relative;
+      display: inline;
       width: 100%;
       cursor: pointer;
 

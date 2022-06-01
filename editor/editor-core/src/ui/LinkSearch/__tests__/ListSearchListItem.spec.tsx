@@ -47,8 +47,10 @@ describe('ListSearchListItem', () => {
     jest.resetAllMocks();
   });
 
-  it('should render the item', () => {
+  //TODO: https://product-fabric.atlassian.net/browse/DSP-4336
+  it.skip('should render the item', () => {
     const { component, item } = setup();
+
     expect(getComputedStyle(component.getDOMNode()).backgroundColor).toEqual(
       'rgb(244, 245, 247)', // N20
     );

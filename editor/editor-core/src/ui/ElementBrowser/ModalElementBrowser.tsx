@@ -17,7 +17,7 @@ import { getCategories } from './categories';
 import { MODAL_WRAPPER_PADDING } from './constants';
 import { messages } from './messages';
 import { EmptyStateHandler } from '../../types/empty-state-handler';
-
+import { token } from '@atlaskit/tokens';
 export interface State {
   isOpen: boolean;
 }
@@ -47,7 +47,10 @@ const wrapper = css`
   box-sizing: border-box;
   padding: ${MODAL_WRAPPER_PADDING}px ${MODAL_WRAPPER_PADDING}px 0 10px;
   overflow: hidden;
-  background-color: ${themed({ light: N0, dark: DN50 })()};
+  background-color: ${themed({
+    light: token('elevation.surface.overlay', N0),
+    dark: token('elevation.surface.overlay', DN50),
+  })()};
   border-radius: ${borderRadius()}px;
 `;
 

@@ -15,7 +15,6 @@ import {
   insertTable,
   grabResizeHandle,
   clickFirstCell,
-  toggleBreakout,
   scrollTable,
   unselectTable,
   tableSelectors,
@@ -88,7 +87,7 @@ describe('Snapshot Test: table resizing', () => {
     it(`snaps back to layout width after column removal`, async () => {
       await initEditorWithTable();
       await deleteColumn(page, 1);
-
+      await clickFirstCell(page);
       await waitToolbarThenSnapshot(page);
     });
 
@@ -269,17 +268,9 @@ describe('Snapshot Test: table scale', () => {
       appearance: Appearance.fullPage,
       adf,
       viewport: { width: 1280, height: 500 },
-      editorProps: {
-        allowDynamicTextSizing: true,
-      },
     });
     await insertTable(page);
     await clickFirstCell(page);
-  });
-
-  it(`should not overflow the table with dynamic text sizing enabled`, async () => {
-    await toggleBreakout(page, 1);
-    await waitToolbarThenSnapshot(page);
   });
 });
 

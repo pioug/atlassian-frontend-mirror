@@ -20,7 +20,7 @@ BrowserTestCase(
     });
     await page.waitForSelector(emojiSelectors.standard);
     const positionAfterEmoji = 2;
-    const slightOffset = 10;
+    const slightOffset = 15;
 
     // Click after the emoji
     const bounds = await getBoundingRect(page, emojiSelectors.standard);

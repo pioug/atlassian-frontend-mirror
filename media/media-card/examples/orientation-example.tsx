@@ -7,6 +7,7 @@ import {
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
+import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = {
   authProvider: mediaPickerAuthProvider('asap'),
@@ -134,14 +135,16 @@ class Example extends React.Component<{}, State> {
     const { identifier } = this.state;
 
     return (
-      <div>
-        <h2>Choose a file</h2>
-        In this example you can test how media-card handles images with
-        orientation info saved in EXIF.
-        <br />
-        <input type="file" onChange={this.onChange} />
-        {identifier ? this.renderCards(identifier) : null}
-      </div>
+      <MainWrapper disableFeatureFlagWrapper={true}>
+        <div>
+          <h2>Choose a file</h2>
+          In this example you can test how media-card handles images with
+          orientation info saved in EXIF.
+          <br />
+          <input type="file" onChange={this.onChange} />
+          {identifier ? this.renderCards(identifier) : null}
+        </div>
+      </MainWrapper>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PreviewImageWrapper, InfoWrapper } from './styled';
+import { PreviewImageWrapper, InfoWrapper } from './stylesWrapper';
 import { PreviewData } from './types';
 import { Card } from '@atlaskit/media-card';
 import { FileIdentifier } from '@atlaskit/media-client';

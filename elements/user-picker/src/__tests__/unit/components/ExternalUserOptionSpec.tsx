@@ -50,14 +50,14 @@ describe('ExternalUserOption', () => {
   };
 
   it('should name, email and avatar', () => {
-    const { getByText, getByRole } = render(
+    const { getByText, getByAltText } = render(
       <IntlProvider messages={{}} locale="en">
         <ExternalUserOption user={user} status="approved" isSelected={false} />
       </IntlProvider>,
     );
     expect(getByText(hasTextIgnoringHtml(user.email!))).toBeTruthy();
     expect(getByText(user.name)).toBeTruthy();
-    expect(getByRole('img')).toHaveAttribute('aria-label', user.name);
+    expect(getByAltText(user.name)).toBeTruthy();
   });
 
   it('should render a tooltip containing the user sources', async () => {

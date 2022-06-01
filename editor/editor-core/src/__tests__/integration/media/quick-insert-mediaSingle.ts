@@ -11,7 +11,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '../../__helpers/testing-example-helpers';
-import { selectors } from '../panel/_utils';
+import { selectors } from '../../../plugins/panel/__tests__/integration/_utils';
 
 [
   {

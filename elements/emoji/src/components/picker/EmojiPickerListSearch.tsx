@@ -99,6 +99,9 @@ class EmojiPickerListSearch extends PureComponent<
       // setting the focus to search input.
       // see FS-2056
       this.inputRef = input;
+      if (typeof window === 'undefined') {
+        return;
+      }
       window.setTimeout(this.focusInput);
     }
   };

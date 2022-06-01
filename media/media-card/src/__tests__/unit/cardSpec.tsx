@@ -47,25 +47,11 @@ jest.mock('../../utils/ufoExperiences', () => {
 jest.mock('../../utils/generateUniqueId', () => ({
   generateUniqueId: () => 'some-id',
 }));
-jest.mock('@atlaskit/media-common', () => {
-  const actualModule = jest.requireActual('@atlaskit/media-common');
-  return {
-    __esModule: true,
-    ...actualModule,
-    filterFeatureFlagKeysAllProducts: jest.fn(
-      actualModule.filterFeatureFlagKeysAllProducts,
-    ),
-  };
-});
 
 import React from 'react';
 import uuid from 'uuid/v4';
 import { shallow, mount } from 'enzyme';
-import {
-  MediaFeatureFlags,
-  MediaType,
-  filterFeatureFlagKeysAllProducts,
-} from '@atlaskit/media-common';
+import { MediaFeatureFlags, MediaType } from '@atlaskit/media-common';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
   AnalyticsContext,
@@ -114,7 +100,6 @@ import {
   fireCopiedEvent,
   fireCommencedEvent,
   fireScreenEvent,
-  REQUIRED_FEATURE_FLAGS,
 } from '../../root/card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
 import { CardStatus } from '../../types';
@@ -125,17 +110,6 @@ import {
 } from '../../utils/ufoExperiences';
 
 asMock(getDocument).mockImplementation(() => document);
-
-const mockFeatureFlagsKeysAllProducts = [
-  'confluence.media.cards.new.experience',
-  'issue.details.media-cards-new-experience',
-  'confluence.frontend.fabric.editor.media.captions',
-  'issue.details.editor.media.captions',
-];
-
-asMockFunction(filterFeatureFlagKeysAllProducts).mockReturnValue(
-  mockFeatureFlagsKeysAllProducts,
-);
 
 const mockViewportDetectorOnce = () => {
   const onVisibleMock = { onVisible: () => {} };
@@ -1407,9 +1381,6 @@ describe('Card', () => {
           ...defaultStateAttributes,
         };
         asMock(fireOperationalEvent).mockClear();
-        asMock(filterFeatureFlagKeysAllProducts).mockReturnValue(
-          mockFeatureFlagsKeysAllProducts,
-        );
       });
 
       it('should attach an uploading file status flag with value as true when completing the UFO experience', () => {
@@ -1422,9 +1393,6 @@ describe('Card', () => {
         });
 
         component.setState({ status: 'some-state' as CardStatus });
-        expect(filterFeatureFlagKeysAllProducts).toHaveBeenCalledWith(
-          REQUIRED_FEATURE_FLAGS,
-        );
         expect(completeUfoExperience).toHaveBeenCalledTimes(1);
         expect(completeUfoExperience).toHaveBeenLastCalledWith(
           expect.any(String),
@@ -1432,7 +1400,6 @@ describe('Card', () => {
           expect.any(Object),
           { wasStatusUploading: true, wasStatusProcessing: false },
           expect.any(Object),
-          mockFeatureFlagsKeysAllProducts,
           undefined,
         );
       });
@@ -1447,9 +1414,6 @@ describe('Card', () => {
         });
 
         component.setState({ status: 'some-state' as CardStatus });
-        expect(filterFeatureFlagKeysAllProducts).toHaveBeenCalledWith(
-          REQUIRED_FEATURE_FLAGS,
-        );
         expect(completeUfoExperience).toHaveBeenCalledTimes(1);
         expect(completeUfoExperience).toHaveBeenLastCalledWith(
           expect.any(String),
@@ -1457,7 +1421,6 @@ describe('Card', () => {
           expect.any(Object),
           { wasStatusUploading: false, wasStatusProcessing: true },
           expect.any(Object),
-          mockFeatureFlagsKeysAllProducts,
           undefined,
         );
       });
@@ -1472,9 +1435,6 @@ describe('Card', () => {
         });
 
         component.setState({ status: 'some-state' as CardStatus });
-        expect(filterFeatureFlagKeysAllProducts).toHaveBeenCalledWith(
-          REQUIRED_FEATURE_FLAGS,
-        );
         expect(completeUfoExperience).toHaveBeenCalledTimes(1);
         expect(completeUfoExperience).toHaveBeenLastCalledWith(
           expect.any(String),
@@ -1482,7 +1442,6 @@ describe('Card', () => {
           expect.any(Object),
           { wasStatusUploading: false, wasStatusProcessing: false },
           expect.any(Object),
-          mockFeatureFlagsKeysAllProducts,
           undefined,
         );
       });
@@ -1605,12 +1564,7 @@ describe('Card', () => {
           { overall: { durationSincePageStart: 1000 } },
         );
         expect(startUfoExperience).toBeCalledTimes(1);
-        expect(startUfoExperience).toBeCalledWith('some-id', [
-          'confluence.media.cards.new.experience',
-          'issue.details.media-cards-new-experience',
-          'confluence.frontend.fabric.editor.media.captions',
-          'issue.details.editor.media.captions',
-        ]);
+        expect(startUfoExperience).toBeCalledWith('some-id');
       });
 
       it('should fire commenced analytics event on file load start with external file Id', async () => {
@@ -1634,12 +1588,7 @@ describe('Card', () => {
           { overall: { durationSincePageStart: 1000 } },
         );
         expect(startUfoExperience).toBeCalledTimes(1);
-        expect(startUfoExperience).toBeCalledWith('some-id', [
-          'confluence.media.cards.new.experience',
-          'issue.details.media-cards-new-experience',
-          'confluence.frontend.fabric.editor.media.captions',
-          'issue.details.editor.media.captions',
-        ]);
+        expect(startUfoExperience).toBeCalledWith('some-id');
       });
     });
 

@@ -37,7 +37,6 @@ import {
 } from '../../root/ui/iconMessage';
 import { createPollingMaxAttemptsError } from '@atlaskit/media-test-helpers';
 import { MediaCardError } from '../../errors';
-import { MediaCardCursor } from '../../types';
 
 const cardPreview = {
   dataURI: 'some-data',
@@ -105,7 +104,6 @@ describe('CardView New Experience', () => {
       onMouseEnter: () => {},
       onImageLoad: () => {},
       onImageError: () => {},
-      mediaCardCursor: MediaCardCursor.NoAction,
     };
 
     const component = shallowCardViewBase(cardProps);
@@ -124,7 +122,6 @@ describe('CardView New Experience', () => {
         isPlayButtonClickable: expect.any(Boolean),
         isTickBoxSelectable: expect.any(Boolean),
         breakpoint: calcBreakpointSize(width),
-        mediaCardCursor: MediaCardCursor.NoAction,
       }),
     );
     const subWrapper = wrapper.find('.media-file-card-view');
@@ -579,7 +576,6 @@ describe('CardView New Experience', () => {
         onImageLoad: jest.fn(),
         nativeLazyLoad: true,
         forceSyncDisplay: true,
-        mediaCardCursor: MediaCardCursor.NoAction,
       };
       const component = shallowCardViewBase(cardProps);
       const imageRenderer = component.find(ImageRenderer);

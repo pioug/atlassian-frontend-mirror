@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 22.1.0
+
+### Minor Changes
+
+- [`ed6cdd2d397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed6cdd2d397) - added onfullscreenchange property to media to avoid triggering table resizing when media is in full screen mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.0
 
 ### Major Changes

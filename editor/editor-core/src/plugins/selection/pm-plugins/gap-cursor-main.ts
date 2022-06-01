@@ -51,8 +51,8 @@ const plugin = new SafePlugin({
       });
     }
     return {
-      update(view, state) {
-        const pluginState = gapCursorPluginKey.getState(state);
+      update(view) {
+        const pluginState = gapCursorPluginKey.getState(view.state);
         /**
          * Starting with prosemirror-view 1.19.4, cursor wrapper that previousely was hiding cursor doesn't exist:
          * https://github.com/ProseMirror/prosemirror-view/commit/4a56bc7b7e61e96ef879d1dae1014ede0fc09e43

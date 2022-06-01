@@ -62,6 +62,8 @@ export interface PopupSelectProps<
   target?: (
     options: PopupSelectTriggerProps & { isOpen: boolean },
   ) => ReactNode;
+  isOpen?: boolean;
+  defaultIsOpen?: boolean;
 }
 
 interface State<Modifiers = string> {
@@ -114,8 +116,13 @@ export default class PopupSelect<
     },
   );
 
+  isOpenControlled = this.props.isOpen !== undefined;
+  defaultOpenState = this.isOpenControlled
+    ? this.props.isOpen
+    : this.props.defaultIsOpen;
+
   state = {
-    isOpen: false,
+    isOpen: this.defaultOpenState ?? false,
     mergedComponents: defaultComponents,
     mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
       defaultModifiers | string
@@ -176,6 +183,18 @@ export default class PopupSelect<
     window.removeEventListener('keydown', this.handleKeyDown, true);
   }
 
+  componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti>) {
+    const { isOpen } = this.props;
+
+    if (prevProps.isOpen !== isOpen) {
+      if (isOpen === true) {
+        this.open({ controlOverride: true });
+      } else if (isOpen === false) {
+        this.close({ controlOverride: true });
+      }
+    }
+  }
+
   // Event Handlers
   // ==============================
 
@@ -229,8 +248,19 @@ export default class PopupSelect<
   // Internal Lifecycle
   // ==============================
 
-  open = () => {
+  /**
+   * Opens the popup
+   *
+   * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
+   */
+  open = (options?: { controlOverride?: boolean }) => {
     const { onOpen } = this.props;
+
+    if (!options?.controlOverride && this.isOpenControlled) {
+      // Prevent popup opening if it's open state is already being controlled
+      return;
+    }
+
     if (onOpen) {
       onOpen();
     }
@@ -265,8 +295,19 @@ export default class PopupSelect<
     setTimeout(() => this.focusTrap!.activate(), 1);
   };
 
-  close = () => {
+  /**
+   * Closes the popup
+   *
+   * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
+   */
+  close = (options?: { controlOverride?: boolean }) => {
     const { onClose } = this.props;
+
+    if (!options?.controlOverride && this.isOpenControlled) {
+      // Prevent popup closing if it's open state is already being controlled
+      return;
+    }
+
     if (onClose) {
       onClose();
     }

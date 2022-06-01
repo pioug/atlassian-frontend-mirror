@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 
-import { ADFEntity } from '@atlaskit/adf-utils';
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { ExtensionParams, UpdateExtension } from './extension-handler';
 import {

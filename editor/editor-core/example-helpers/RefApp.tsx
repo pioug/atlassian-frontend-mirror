@@ -5,7 +5,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ReactRenderer } from '@atlaskit/renderer';
 
-import { Content } from './styles';
+import { content } from './styles';
 import { toJSON } from '../src/utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -78,7 +78,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
   render() {
     const { reloadEditor, jsonDocument } = this.state;
     return (
-      <Content>
+      <div css={content}>
         {reloadEditor
           ? ''
           : this.props.renderEditor({
@@ -90,7 +90,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
             })}
         <legend>Renderer:</legend>
         {this.renderRenderer(jsonDocument)}
-      </Content>
+      </div>
     );
   }
 }

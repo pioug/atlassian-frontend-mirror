@@ -1,7 +1,8 @@
 import { Node } from 'prosemirror-model';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+import { findParentNode } from 'prosemirror-utils';
 import { toJSON } from '../utils';
 import { processRawValue, isEmptyDocument } from '../utils/document';
 import {
@@ -30,6 +31,7 @@ export interface EditorActionsOptions<T> {
   clear(): boolean;
   getValue(): Promise<T | JSONDocNode | undefined>;
   getNodeByLocalId(id: string): Node | undefined;
+  getSelectedNode(): Node | undefined;
   replaceDocument(rawValue: any): boolean;
   replaceSelection(rawValue: Node | Object | string): boolean;
   appendText(text: string): boolean;
@@ -177,6 +179,23 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
   getNodeByLocalId(id: string): Node | undefined {
     if (this.editorView?.state) {
       return findNodePosWithLocalId(this.editorView?.state, id)?.node;
+    }
+  }
+
+  /**
+   * This method will return the currently selected `Node` if the selection is a `Node`.
+   * Otherwise, if the selection is textual or a non-selectable `Node` within another selectable `Node`, the closest selectable parent `Node` will be returned.
+   */
+  getSelectedNode(): Node | undefined {
+    if (this.editorView?.state?.selection) {
+      const { selection } = this.editorView.state;
+
+      if (selection instanceof NodeSelection) {
+        return selection.node;
+      }
+      return findParentNode((node) => Boolean(node.type.spec.selectable))(
+        selection,
+      )?.node;
     }
   }
 

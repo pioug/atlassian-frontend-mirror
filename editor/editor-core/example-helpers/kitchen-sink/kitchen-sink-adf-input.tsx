@@ -1,6 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { InputPadding, InputForm, Textarea } from './kitchen-sink-styles';
+import { inputPadding, inputForm, textareaStyle } from './kitchen-sink-styles';
 
 export interface KitchenSinkAdfInputProps {
   value: string;
@@ -12,9 +14,10 @@ export const KitchenSinkAdfInput: React.StatelessComponent<KitchenSinkAdfInputPr
   props,
 ) => {
   return (
-    <InputForm>
-      <InputPadding>
-        <Textarea
+    <div css={inputForm}>
+      <div css={inputPadding}>
+        <textarea
+          css={textareaStyle}
           value={props.value}
           onChange={props.onChange}
           rows={Math.min(props.value.split('\n').length, 10)}
@@ -24,7 +27,7 @@ export const KitchenSinkAdfInput: React.StatelessComponent<KitchenSinkAdfInputPr
             Import ADF
           </Button>
         )}
-      </InputPadding>
-    </InputForm>
+      </div>
+    </div>
   );
 };

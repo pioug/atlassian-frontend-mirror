@@ -33,7 +33,9 @@ export const layoutStyles = css`
       [data-layout-column] {
         flex: 1;
         min-width: 0;
-        border: ${akEditorSelectedBorderSize}px solid ${N40A};
+        // TODO: https://product-fabric.atlassian.net/browse/DSP-4353
+        border: ${akEditorSelectedBorderSize}px solid
+          ${token('color.border', N40A)};
         border-radius: 4px;
         padding: ${LAYOUT_COLUMN_PADDING}px;
         box-sizing: border-box;
@@ -43,11 +45,11 @@ export const layoutStyles = css`
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor.-right:first-child + * {
+          > .ProseMirror-gapcursor.-right:first-of-type + * {
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor:first-child + span + * {
+          > .ProseMirror-gapcursord:first-of-type + span + * {
             margin-top: 0;
           }
 
@@ -55,17 +57,17 @@ export const layoutStyles = css`
             margin-top: 0;
           }
 
-          > .mediaSingleView-content-wrap:first-child .rich-media-item {
+          > .mediaSingleView-content-wrap:first-of-type .rich-media-item {
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor.-right:first-child
+          > .ProseMirror-gapcursor.-right:first-of-type
             + .mediaSingleView-content-wrap
             .rich-media-item {
             margin-top: 0;
           }
 
-          > .ProseMirror-gapcursor:first-child
+          > .ProseMirror-gapcursor:first-of-type
             + span
             + .mediaSingleView-content-wrap
             .rich-media-item {
@@ -99,10 +101,11 @@ export const layoutStyles = css`
         }
       }
 
+      // TODO: https://product-fabric.atlassian.net/browse/DSP-4441
       /* Shows the border when cursor is inside a layout */
       &.selected [data-layout-column],
       &:hover [data-layout-column] {
-        border-color: ${N50A};
+        border-color: ${token('color.border', N50A)};
       }
 
       &.selected.danger > [data-layout-column] {

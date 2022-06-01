@@ -29,6 +29,13 @@ export const keyboardSelectLineFromLineStart = async (page: WebDriverPage) => {
   await page.keys(keys, true);
 };
 
+/** The shift key is held down in Chrome the first time it is passed to page.keys */
+export const holdShiftInChrome = async (page: WebDriverPage) => {
+  if (page.isBrowser('chrome')) {
+    await page.keys(['Shift']);
+  }
+};
+
 export const clickAndDragSelectLineFromLineEnd = async ({
   page,
   selector,
@@ -90,6 +97,39 @@ export const buildAdfNoTrailingSpaces = ({
       {
         type: 'paragraph',
         content: [node, node, node],
+      },
+    ],
+  };
+};
+
+export const buildAdfMultipleNodesAcrossLines = ({
+  node,
+}: {
+  node: { type: string; attrs: { [key: string]: any } };
+}) => {
+  return {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [],
+      },
+      {
+        type: 'paragraph',
+        content: [node, node, node],
+      },
+      {
+        type: 'paragraph',
+        content: [node, node, node],
+      },
+      {
+        type: 'paragraph',
+        content: [node, node, node],
+      },
+      {
+        type: 'paragraph',
+        content: [],
       },
     ],
   };

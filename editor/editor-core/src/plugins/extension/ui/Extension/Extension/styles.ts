@@ -4,6 +4,7 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { DN30, DN900, N30 } from '@atlaskit/theme/colors';
 import { wrapperDefault, padding } from '../styles';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 const dataConsumerSelector = '[data-mark-type="dataConsumer"]';
 export const widerLayoutClassName = 'wider-layout';
@@ -50,13 +51,13 @@ export const header = css`
 export const content = (theme: ThemeProps) => css`
   padding: ${padding}px;
   background: ${themed({
-    light: 'white',
-    dark: DN30,
+    light: token('elevation.surface', 'white'),
+    dark: token('elevation.surface', DN30),
   })(theme)};
   color: ${themed({
-    dark: DN900,
+    dark: token('color.text', DN900),
   })(theme)};
-  border: 1px solid ${N30};
+  border: 1px solid ${token('color.border', N30)};
   border-radius: ${borderRadius()}px;
   cursor: initial;
 `;

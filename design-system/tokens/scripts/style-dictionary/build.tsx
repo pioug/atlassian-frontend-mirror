@@ -10,6 +10,7 @@ import formatterCSSVariables from './formatters/format-css-variables';
 import formatterFigma from './formatters/format-figma';
 import formatterRaw from './formatters/format-raw';
 import formatterRenameMapper from './formatters/format-rename-mapper';
+import formatterTokenDescriptionCSV from './formatters/format-token-description-csv';
 import formatterTSTokenDefaults from './formatters/format-typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/format-typescript-token-generated-types';
 import formatterTSGeneratedTypesInternal from './formatters/format-typescript-token-generated-types-internal';
@@ -56,6 +57,7 @@ const createConfig = (themeName: string): Config => {
     ],
     format: {
       'css/custom-themed-variables': formatterCSSVariables as any,
+      'csv/token-descriptions': formatterTokenDescriptionCSV as any,
       'typescript/custom-token-names': formatterTSTokenNames as any,
       'typescript/custom-token-default-values': formatterTSTokenDefaults as any,
       'typescript/custom-token-types': formatterTSGeneratedTypes as any,
@@ -153,6 +155,19 @@ const createConfig = (themeName: string): Config => {
           {
             format: 'css/custom-themed-variables',
             destination: `${themeName}.css`,
+          },
+        ],
+      },
+      csv: {
+        transforms: ['name/custom-dot', 'color/custom-palette'],
+        buildPath: TOKENS_OUTPUT_DIR,
+        options: {
+          groups: ['paint', 'shadow', 'raw'],
+        },
+        files: [
+          {
+            format: 'csv/token-descriptions',
+            destination: 'token-descriptions.csv',
           },
         ],
       },

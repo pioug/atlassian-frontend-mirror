@@ -10,7 +10,7 @@ import {
 import { Placement, PopperChildrenProps } from '@atlaskit/popper';
 
 export interface TriggerProps {
-  ref: Ref<HTMLElement>;
+  ref: Ref<any>;
   'aria-controls'?: string;
   'aria-expanded': boolean;
   'aria-haspopup': boolean;

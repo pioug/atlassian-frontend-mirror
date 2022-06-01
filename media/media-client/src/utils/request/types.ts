@@ -20,6 +20,8 @@ export type ClientOptions = {
 export type RequestMetadata = {
   readonly method?: RequestMethod;
   readonly endpoint?: string;
+  readonly mediaRegion?: string;
+  readonly mediaEnv?: string;
 };
 
 export type RequestOptions = RequestMetadata & {

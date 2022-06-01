@@ -3,7 +3,7 @@ import {
   TransformBefore,
   TransformAfter,
 } from '@atlaskit/editor-common/extensions';
-import { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils';
+import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import {
   Node as PMNode,
   NodeType,

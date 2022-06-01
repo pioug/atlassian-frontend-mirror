@@ -20,7 +20,6 @@ import {
   tableWithRowSpan,
   tableWithRowSpanAndColSpan,
   twoColFullWidthTableWithContent,
-  tableWithDynamicLayoutSizing,
   tableInsideColumns,
   resizedTableWithStackedColumns,
   tableForBulkResize,
@@ -113,28 +112,6 @@ BrowserTestCase(
     });
 
     await insertColumn(page, 0, 'right');
-
-    const doc = await page.$eval(editable, getDocFromElement);
-    expect(doc).toMatchCustomDocSnapshot(testName);
-  },
-);
-
-BrowserTestCase(
-  "Can't resize the last column of a table with dynamic sizing enabled.",
-  {},
-  async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
-
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: JSON.stringify(tableWithDynamicLayoutSizing),
-      allowTables: {
-        advanced: true,
-      },
-      allowDynamicTextSizing: true,
-    });
-
-    await resizeColumn(page, { cellHandlePos: 10, resizeWidth: -100 });
 
     const doc = await page.$eval(editable, getDocFromElement);
     expect(doc).toMatchCustomDocSnapshot(testName);

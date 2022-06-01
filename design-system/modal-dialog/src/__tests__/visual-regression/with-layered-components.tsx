@@ -98,8 +98,7 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 1/29/2022: https://product-fabric.atlassian.net/browse/SKIP-291
-  it.skip('with FlagGroup', async () => {
+  it('with FlagGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToMiddle);
@@ -113,14 +112,6 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  /**
-   * This test was originally identified as flakey and skipped.
-   *
-   * Investigation from DSP-1663 found it was just outdated,
-   * so it was regenerated and un-skipped.
-   *
-   * If it is later re-identified as flakey, it will need further investigation.
-   */
   it('with DropdownMenu', async () => {
     const page = await openModal(url, options);
 
@@ -143,28 +134,21 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  /**
-   * This test is flakey and was investigated in DSP-1663.
-   *
-   * Sometimes the scroll indicator keyline appears and sometimes it does not.
-   *
-   * It seems that occasionally either the scroll height or position changes
-   * after scrolling to the bottom, causing the container to no longer be
-   * scrolled to the bottom.
-   *
-   * Some attempts at adding delays reduced the frequency of this occurring,
-   * but did not completely eliminate it. It was not clear why this happens.
-   */
-  it.skip('with DatePicker', async () => {
+  it('with DatePicker', async () => {
     const page = await openModal(url, options);
 
+    // wait date picket element before scroll to bottom.
+    await page.waitForSelector("[data-testid='date-picker--container']");
     await page.click(scrollToBottom);
     await page.click("[data-testid='date-picker--container']");
     await page.waitForSelector(
       "[data-testid='date-picker--calendar--container']",
     );
 
-    const image = await takeElementScreenShot(page, 'body');
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="modal--body"]',
+    );
     expect(image).toMatchProdImageSnapshot();
   });
 });

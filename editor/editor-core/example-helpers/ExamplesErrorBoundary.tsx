@@ -1,12 +1,13 @@
-import styled from 'styled-components';
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import React, { Fragment } from 'react';
 
-const Container: any = styled.div`
+const container: any = css`
   width: 100%;
   border-bottom: 1px solid #333;
 `;
 
-const Heading: any = styled.div`
+const heading: any = css`
   line-height: 1.7em;
   text-align: center;
   color: black;
@@ -19,7 +20,7 @@ const Heading: any = styled.div`
   border-bottom: 1px solid #333;
 `;
 
-const Error: any = styled.div`
+const errorStyle: any = css`
   padding: 30px;
   font-family: monospace;
   white-space: pre-wrap;
@@ -47,12 +48,12 @@ export default class ExamplesErrorBoundary extends React.Component<
     if (error) {
       const { error: errorMessage, stack } = error;
       return (
-        <>
-          <Container>
-            <Heading>💣💥</Heading>
-            <Error>{`${errorMessage.toString()}\n${stack}`}</Error>
-          </Container>
-        </>
+        <Fragment>
+          <div css={container}>
+            <div css={heading}>💣💥</div>
+            <div css={errorStyle}>{`${errorMessage.toString()}\n${stack}`}</div>
+          </div>
+        </Fragment>
       );
     }
     return this.props.children;

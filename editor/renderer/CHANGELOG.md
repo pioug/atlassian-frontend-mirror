@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 96.0.0
+
+### Major Changes
+
+- [`d8b3bc73330`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8b3bc73330) - [ED-14507] Deprecate the allowDynamicTextSizing editor prop and remove all code related to it. This feature has been unused since 2020.
+
+### Minor Changes
+
+- [`8949731bc6a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8949731bc6a) - ED-14608: Migrate adf-utils imports in atlassian-frontend to new child entry points to improve treeshaking
+- [`b7b72b61dca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7b72b61dca) - ED-10337 Refactor overflow shadows using intersection observer to improve renderer performance on initial load and when scrolling contents of the tables and extensions horizontally.
+  This is affecting vertical shadows inside tables and extensions in renderer.
+  On the OverflowShadowOptions interface of the shadows component exported from editor-common we are also removing scrollableSelector option which is no longer used.
+
+### Patch Changes
+
+- [`edc63f42fbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edc63f42fbb) - Fix: Media inline renderer sometimes stuck in loading view state
+- [`b68e80d658f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b68e80d658f) - add hover previews feature flag
+- [`d15a5a556af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d15a5a556af) - ED-15037 fixed issue with extensions not showing correctly inside tables nested in expands
+- [`27b079fa0a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27b079fa0a5) - [ED-14111] Allow spaces in input field in renderer table cell header
+- [`789b211a5e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/789b211a5e5) - Removed the use of :first-child and nth-child selectors in CSS
+- [`420808687d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/420808687d2) - EDM-3072: fix copy-paste of media inline stuck on loading and renderer copy-paste copying only text
+- [`c5ef8dd9621`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5ef8dd9621) - [ux] ED-14913 Fix expand text in renderer dark mode
+- [`c4829f17445`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c4829f17445) - [ux] ED-10642 Fix null annotation ids in renderer
+- Updated dependencies
+
 ## 95.0.1
 
 ### Patch Changes

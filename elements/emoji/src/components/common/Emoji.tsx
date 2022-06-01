@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { MouseEvent, SyntheticEvent } from 'react';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import { deleteEmojiLabel } from '../../util/constants';
@@ -14,6 +14,7 @@ import {
   EmojiDescription,
   OnEmojiEvent,
   SpriteRepresentation,
+  UfoEmojiTimings,
 } from '../../types';
 import { leftClick } from '../../util/mouse';
 import DeleteButton from './DeleteButton';
@@ -28,6 +29,10 @@ import {
   emojiImage,
 } from './styles';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
+import { EmojiPlaceholder } from '../..';
+import { useInView } from 'react-intersection-observer';
+import { isIntersectionObserverSupported } from '../../util/browser-support';
+// import { isIntersectionObserverSupported } from '../../util/browser-support';
 
 export interface Props {
   /**
@@ -157,7 +162,7 @@ const handleImageError = (
 
 // Pure functional components are used in favour of class based components, due to the performance!
 // When rendering 1500+ emoji using class based components had a significant impact.
-const renderAsSprite = (props: Props) => {
+export const SpriteEmoji = (props: Props) => {
   const {
     emoji,
     fitToHeight,
@@ -194,14 +199,11 @@ const renderAsSprite = (props: Props) => {
     backgroundSize: `${sprite.column * 100}% ${sprite.row * 100}%`,
     ...sizing,
   };
-  const emojiNode = (
-    <span className={emojiSprite} style={style}>
-      &nbsp;
-    </span>
-  );
 
   return (
     <span
+      data-testid={`sprite-emoji-${emoji.shortName}`}
+      data-emoji-type="sprite"
       tabIndex={shouldBeInteractive ? 0 : undefined}
       role={shouldBeInteractive ? 'button' : undefined}
       css={emojiContainer}
@@ -216,13 +218,15 @@ const renderAsSprite = (props: Props) => {
       aria-label={emoji.shortName}
       title={showTooltip ? emoji.shortName : ''}
     >
-      {emojiNode}
+      <span className={emojiSprite} style={style}>
+        &nbsp;
+      </span>
     </span>
   );
 };
 
 // Keep as pure functional component, see renderAsSprite.
-const renderAsImage = (props: Props) => {
+export const ImageEmoji = (props: Props) => {
   const {
     emoji,
     fitToHeight,
@@ -280,18 +284,27 @@ const renderAsImage = (props: Props) => {
   };
 
   const onLoad = () => {
+    sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.ONLOAD_END);
     sampledUfoRenderedEmoji(emoji).success();
   };
 
-  // Pass src attribute as key to force React to rerender img node since browser does not
-  // change preview image until loaded
+  const onBeforeLoad = useCallback(() => {
+    sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.ONLOAD_START);
+  }, [emoji]);
 
-  // We currently have the following error: property 'loading' does not exist on type 'DetailedHTMLProps<ImgHTMLAttributes, HTMLImageElement>'
-  // The fix for this was added as a part of @types/react@16.9.20 - https://github.com/facebook/react/issues/16942
-  // TODO: remove @ts-ignore for the <img> below when the @types/react will be bumped from v16.8.0 to v16.9.20 or higher.
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      onBeforeLoad();
+    }
+  }, [inView, onBeforeLoad]);
+
   const emojiNode = (
     <img
-      // @ts-ignore
+      //@ts-ignore
       loading="lazy"
       src={src}
       key={src}
@@ -307,8 +320,30 @@ const renderAsImage = (props: Props) => {
     />
   );
 
+  const placeholder = (
+    <EmojiPlaceholder
+      shortName={emoji.shortName}
+      size={fitToHeight}
+      showTooltip={showTooltip}
+      representation={emoji.representation}
+    />
+  );
+
+  const renderLazyLoadedEmoji = () => {
+    // if browser not supported, render emoji node directly
+    if (!isIntersectionObserverSupported) {
+      return emojiNode;
+    }
+    if (inView) {
+      return emojiNode;
+    }
+    return placeholder;
+  };
+
   return (
     <span
+      data-testid={`image-emoji-${emoji.shortName}`}
+      data-emoji-type="image"
       css={emojiStyles}
       tabIndex={shouldBeInteractive ? 0 : undefined}
       role={shouldBeInteractive ? 'button' : undefined}
@@ -322,9 +357,10 @@ const renderAsImage = (props: Props) => {
       }}
       aria-label={emoji.shortName}
       title={showTooltip ? emoji.shortName : ''}
+      ref={ref}
     >
       {deleteButton}
-      {emojiNode}
+      {renderLazyLoadedEmoji()}
     </span>
   );
 };
@@ -333,9 +369,9 @@ export const Emoji = (props: Props) => {
   const { emoji } = props;
   // TODO: We always prefer render as image as having accessibility issues with sprite representation
   if (isSpriteRepresentation(emoji.representation)) {
-    return renderAsSprite(props);
+    return <SpriteEmoji {...props} />;
   }
-  return renderAsImage(props);
+  return <ImageEmoji {...props} />;
 };
 
 export default Emoji;

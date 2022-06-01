@@ -79,8 +79,11 @@ const defaultTheme: { mode: Mode } = {
         boxShadow: '',
       },
       selected: {
-        color: token('color.text.selected', ''),
-        backgroundColor: token('color.background.selected', ''),
+        color: token('color.text.selected', B400),
+        backgroundColor: token(
+          'color.background.selected',
+          hexToRGBA(B50, 0.6),
+        ),
         boxShadow: '',
       },
     },
@@ -129,7 +132,10 @@ const defaultTheme: { mode: Mode } = {
       },
       selected: {
         color: token('color.text.selected', B400),
-        backgroundColor: token('color.background.selected', ''),
+        backgroundColor: token(
+          'color.background.selected',
+          hexToRGBA(B50, 0.7),
+        ),
         boxShadow: '',
         borderColor: token('color.border.selected', B400),
         bordorBottom: `4px solid ${token('color.border.selected', B400)}`,

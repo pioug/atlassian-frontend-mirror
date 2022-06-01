@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/datetime-picker",
-  "version": "11.1.10",
+  "version": "11.1.11",
   "description": "A date time picker allows the user to select an associated date and time.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -28,7 +28,7 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/locale": "^2.1.0",
     "@atlaskit/popper": "^5.2.0",
-    "@atlaskit/select": "^15.2.0",
+    "@atlaskit/select": "^15.3.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
@@ -58,7 +58,7 @@
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",
     "enzyme-to-json": "^3.3.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
     "react-test-renderer": "^16.8.0",

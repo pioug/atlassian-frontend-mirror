@@ -225,7 +225,6 @@ describe('paste plugins', () => {
             tableOptions: tableOptions ? tableOptions : {},
             breakoutEnabled: false,
             allowContextualMenu: true,
-            dynamicSizingEnabled: true,
             fullWidthEnabled: false,
             wasFullWidthEnabled: false,
           },

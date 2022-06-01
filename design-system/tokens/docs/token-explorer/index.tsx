@@ -1,7 +1,15 @@
 /** @jsx jsx */
-import { Fragment, useReducer, useRef, useState } from 'react';
+import {
+  Fragment,
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/core';
+import upperFirst from 'lodash/upperFirst';
 
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button';
@@ -18,8 +26,13 @@ import { gridSize } from '@atlaskit/theme/constants';
 import ToolTip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
+import HeadingContext, {
+  Heading,
+} from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
+// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import SectionLink from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
 import { token } from '../../src';
+import darkTheme from '../../src/artifacts/tokens-raw/atlassian-dark';
 import TokenWizardModal from '../token-wizard';
 
 import TokenGroups, { TokenGroupsProps } from './components/token-groups';
@@ -28,6 +41,23 @@ import groupedTokens, {
   TransformedTokenExtended,
 } from './grouped-tokens';
 
+const searchValue = ({
+  value,
+  extensions,
+  searchQuery,
+}: {
+  value: TransformedTokenExtended['original']['value'];
+  extensions?: TransformedTokenExtended['extensions'];
+  searchQuery: string;
+}) =>
+  (typeof value === 'string' &&
+    value.toLowerCase().search(searchQuery) !== -1) ||
+  extensions?.some(
+    (extension) =>
+      typeof extension.original.value === 'string' &&
+      extension.original.value.toLowerCase().search(searchQuery) !== -1,
+  );
+
 export const filterTokens = (
   list: TransformedTokenExtended[],
   filters: {
@@ -35,7 +65,9 @@ export const filterTokens = (
     showStates?: string[];
   },
 ): TransformedTokenExtended[] =>
-  list.filter(({ name, attributes, extensions }) => {
+  list.filter(({ name, attributes, extensions, original }) => {
+    const darkToken = darkTheme.find((token) => token.name === name);
+
     const matchesState = filters?.showStates?.some(
       (state) => state === attributes?.state,
     );
@@ -45,14 +77,42 @@ export const filterTokens = (
       '\\$&',
     );
 
+    const noSearchQuery = filters?.searchQuery === '';
+
+    const matchesName =
+      filteredSearchQuery &&
+      (name.toLowerCase().search(filteredSearchQuery) !== -1 ||
+        extensions?.some(
+          (extension) =>
+            extension.name.toLowerCase().search(filteredSearchQuery) !== -1,
+        ));
+
+    const matchesDescription =
+      filteredSearchQuery &&
+      (attributes?.description.toLowerCase().search(filteredSearchQuery) !==
+        -1 ||
+        extensions?.some(
+          (extension) =>
+            extension.attributes?.description
+              .toLowerCase()
+              .search(filteredSearchQuery) !== -1,
+        ));
+
+    const matchesValue =
+      filteredSearchQuery &&
+      // Search both light and dark token values
+      (searchValue({
+        value: original.value,
+        extensions,
+        searchQuery: filteredSearchQuery,
+      }) ||
+        searchValue({
+          value: darkToken?.original.value,
+          searchQuery: filteredSearchQuery,
+        }));
+
     const matchesSearch =
-      filters?.searchQuery === '' ||
-      (filters?.searchQuery &&
-        filteredSearchQuery &&
-        (name.search(filteredSearchQuery) !== -1 ||
-          extensions?.some(
-            (extension) => extension.name.search(filteredSearchQuery) !== -1,
-          )));
+      noSearchQuery || matchesName || matchesDescription || matchesValue;
 
     return matchesState && matchesSearch;
   });
@@ -128,6 +188,30 @@ export const getNumberOfTokensInGroups = (groups: TokenGroup[]) =>
     return count + topLevel + topLevelExtensions + inSubgroups;
   }, 0);
 
+/**
+ * Generates side navigation headings from token groups
+ */
+const getTokenGroupHeading = (
+  group: TokenGroup,
+  depth: number,
+  parentGroup?: TokenGroup,
+): Heading => ({
+  depth,
+  id: `${parentGroup ? `${parentGroup.name}-` : ''}${group.name}`,
+  value: `${upperFirst(group.name)}${
+    group.tokens.length > 0 ? ` (${group.tokens.length})` : ''
+  }`,
+});
+const getTokenGroupHeadings = (groups: TokenGroup[]): Heading[] =>
+  groups.flatMap((group) => [
+    getTokenGroupHeading(group, 2),
+    ...(group.subgroups
+      ? group.subgroups.map((subgroup) =>
+          getTokenGroupHeading(subgroup, 3, group),
+        )
+      : []),
+  ]);
+
 const clearButtonStyles = css({
   marginRight: gridSize(),
   cursor: 'pointer',
@@ -200,17 +284,48 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
     filtersInitialState,
   );
   const [searchQuery, setSearchQuery] = useState('');
-
   const searchField = useRef<HTMLInputElement>();
 
-  const filteredTokenGroups = filterGroups(groupedTokens, {
-    searchQuery,
-    showStates: Object.entries(filterState.state)
-      .filter(([_, isSelected]) => isSelected)
-      .map(([tokenState]) => tokenState),
-  });
+  const [filteredTokenGroups, setFilteredTokenGroups] = useState<TokenGroup[]>(
+    filterGroups(groupedTokens, {
+      searchQuery,
+      showStates: Object.entries(filterState.state)
+        .filter(([_, isSelected]) => isSelected)
+        .map(([tokenState]) => tokenState),
+    }),
+  );
+
+  useEffect(() => {
+    setFilteredTokenGroups(
+      filterGroups(groupedTokens, {
+        searchQuery,
+        showStates: Object.entries(filterState.state)
+          .filter(([_, isSelected]) => isSelected)
+          .map(([tokenState]) => tokenState),
+      }),
+    );
+  }, [searchQuery, filterState]);
 
   const numberOfTokens = getNumberOfTokensInGroups(filteredTokenGroups);
+
+  // Use the headings context to add token groups to C11n side navigation.
+  // This doesn't assume the component is wrapped in a context provider,
+  // so the component could still be used elsewhere if needed.
+  const headingsContext = useContext(HeadingContext);
+  const setHeadings = headingsContext?.setHeadings;
+
+  useEffect(() => {
+    // Add token groups to side navigation headings context
+    setHeadings &&
+      setHeadings([
+        {
+          depth: 1,
+          id: 'all-design-tokens-list',
+          value: 'All design tokens list',
+        },
+        ...getTokenGroupHeadings(filteredTokenGroups),
+      ]);
+  }, [setHeadings, filteredTokenGroups]);
 
   return (
     <Fragment>
@@ -274,7 +389,9 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
                 )
               }
               onChange={(e) =>
-                setSearchQuery((e.target as HTMLInputElement).value)
+                setSearchQuery(
+                  (e.target as HTMLInputElement).value.toLowerCase(),
+                )
               }
             />
           </FilterItem>

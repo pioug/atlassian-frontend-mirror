@@ -1,6 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
 import { Component } from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { gridSize } from '@atlaskit/theme/constants';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, {
@@ -10,7 +10,7 @@ import DropdownMenu, {
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 
-const DropdownContainer = styled.div`
+const dropdownContainer = css`
   margin-right: ${gridSize()}px;
   min-width: 200px;
 `;
@@ -25,7 +25,7 @@ export default class LanguagePicker extends Component<Props> {
   render() {
     const { languages, locale } = this.props;
     return (
-      <DropdownContainer>
+      <div css={dropdownContainer}>
         <DropdownMenu
           trigger={({ triggerRef, ...providedProps }) => (
             <Button
@@ -47,7 +47,7 @@ export default class LanguagePicker extends Component<Props> {
             ))}
           </DropdownItemGroup>
         </DropdownMenu>
-      </DropdownContainer>
+      </div>
     );
   }
 

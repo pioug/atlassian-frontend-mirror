@@ -3,6 +3,7 @@ import React, { RefObject, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { gridSize } from '@atlaskit/theme/constants';
 import { N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import {
   akEditorToolbarKeylineHeight,
   akEditorGridLineZIndex,
@@ -17,7 +18,7 @@ const mainToolbarWrapperStyle = css`
   padding: ${gridSize()}px ${gridSize()}px 0;
   display: flex;
   height: auto;
-  background-color: white;
+  background-color: ${token('elevation.surface', 'white')};
   box-shadow: none;
   padding-left: ${TableControlsPadding}px;
 
@@ -39,7 +40,8 @@ const stickyToolbarWrapperStyle = css`
   z-index: ${akEditorGridLineZIndex + akEditorMenuZIndex};
   transition: box-shadow ease-in-out 0.2s;
   &.show-keyline {
-    box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30};
+    box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0
+      ${token('color.border', N30)};
   }
 `;
 

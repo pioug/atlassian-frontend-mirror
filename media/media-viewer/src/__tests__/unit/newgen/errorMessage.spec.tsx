@@ -175,7 +175,7 @@ describe('Error Message', () => {
       expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
     });
 
-    it('should trigger fail ufo event for error', () => {
+    it('should trigger fail ufo event for error with fileStateFlags', () => {
       const error = new MediaViewerError('imageviewer-fetch-url');
       mount(
         <IntlProvider locale="en">
@@ -184,12 +184,21 @@ describe('Error Message', () => {
             fileId={smallImageFileId.id}
             error={error}
             fileState={fileState}
+            fileStateFlags={{
+              wasStatusProcessing: false,
+              wasStatusUploading: false,
+            }}
           >
             <Button />
           </ErrorMessage>
         </IntlProvider>,
       );
-      expect(mockfailMediaFileUfoExperience).toBeCalledTimes(1);
+      expect(mockfailMediaFileUfoExperience).toBeCalledWith({
+        fileStateFlags: {
+          wasStatusProcessing: false,
+          wasStatusUploading: false,
+        },
+      });
     });
   });
 });

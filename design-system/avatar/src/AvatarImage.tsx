@@ -1,6 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
@@ -20,27 +20,22 @@ interface AvatarImageProps {
   testId?: string;
 }
 
-export const ICON_BACKGROUND = token('color.text.inverse', background());
-export const ICON_COLOR = token('color.text.subtlest', N90);
+export const ICON_BACKGROUND = token('color.icon.inverse', background());
+export const ICON_COLOR = token('color.icon.subtle', N90);
 
-const avatarImageStyles = css({
+const avatarDefaultIconStyles = css({
   display: 'block',
   width: '100%',
   height: '100%',
   backgroundColor: ICON_COLOR,
 });
 
-const loadingImageStyles = css({
+const avatarImageStyles = css({
   display: 'flex',
   width: '100%',
   height: '100%',
   flex: '1 1 100%',
-  backgroundColor: 'transparent',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
 });
-
 /**
  * __Avatar image__
  *
@@ -53,41 +48,20 @@ const AvatarImage: FC<AvatarImageProps> = ({
   size,
   testId,
 }) => {
-  const [phase, setPhase] = useState<
-    'initial' | 'loading' | 'error' | 'loaded'
-  >('initial');
+  const [hasImageErrored, setHasImageErrored] = useState(false);
   const borderRadius =
     appearance === 'circle' ? '50%' : `${AVATAR_RADIUS[size]}px`;
-  const image: HTMLImageElement | null = useMemo(() => {
-    if (src) {
-      setPhase('loading');
-      const img = new Image();
-      img.onload = () => setPhase('loaded');
-      img.onerror = () => setPhase('error');
-      img.src = src;
-      return img;
-    }
-    return null;
+
+  // If src changes, reset state
+  useEffect(() => {
+    setHasImageErrored(false);
   }, [src]);
 
-  useEffect(() => {
-    return () => {
-      if (image) {
-        image.onload = () => {};
-        image.onerror = () => {};
-      }
-    };
-  }, [image]);
-
-  const imageHasLoadedAsync = src && phase !== 'loading' && phase !== 'error';
-  const imageHasLoadedSync = src && phase === 'loading' && image?.complete;
-  const imageHasLoaded = imageHasLoadedAsync || imageHasLoadedSync;
-
-  if (!imageHasLoaded) {
+  if (!src || hasImageErrored) {
     return (
       <span
         css={[
-          avatarImageStyles,
+          avatarDefaultIconStyles,
           // TODO: These dynamic SVG styles can't be set in 'style'. On a refactor, use a css custom property to pass down the size
           // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
           {
@@ -118,15 +92,15 @@ const AvatarImage: FC<AvatarImageProps> = ({
   }
 
   return (
-    <span
-      css={loadingImageStyles}
+    <img
+      src={src}
+      alt={alt}
+      data-testid={testId && `${testId}--image`}
+      css={avatarImageStyles}
       style={{
-        backgroundImage: `url("${src}")`,
         borderRadius: borderRadius,
       }}
-      role={alt ? 'img' : undefined}
-      aria-label={alt || undefined}
-      data-testid={testId && `${testId}--image`}
+      onError={() => setHasImageErrored(true)}
     />
   );
 };

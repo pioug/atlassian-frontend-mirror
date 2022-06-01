@@ -2,12 +2,12 @@
 import { css, jsx } from '@emotion/core';
 
 import Lozenge from '@atlaskit/lozenge';
-import { codeFontFamily } from '@atlaskit/theme/constants';
 
 import { getTokenId } from '../../../src/utils/token-ids';
 import type { TransformedTokenExtended } from '../grouped-tokens';
 
 import CopyButton from './copy-button';
+import Highlight from './highlight';
 
 const tokenItemNameStyles = css({
   display: 'flex',
@@ -15,8 +15,6 @@ const tokenItemNameStyles = css({
 });
 
 const tokenItemNameButtonStyles = css({
-  fontFamily: codeFontFamily(),
-  fontSize: 12,
   marginRight: 10,
 });
 
@@ -38,29 +36,10 @@ const TokenItemName = ({
 }: TokenItemNameProps) => {
   const cleanName = getTokenId(name);
 
-  const parts = searchQuery
-    ? cleanName.split(
-        new RegExp(
-          `(${searchQuery.replace(/[-[\]{}()*+?.,\\^$|]/g, '\\$&')})`,
-          'gi',
-        ),
-      )
-    : undefined;
-
-  const highlightedName = parts
-    ? parts.map((part, i) =>
-        part.toLowerCase() === searchQuery ? (
-          <mark key={`${part}${i}`}>{part}</mark>
-        ) : (
-          part
-        ),
-      )
-    : cleanName;
-
   return (
     <div css={tokenItemNameStyles} className={className}>
       <CopyButton copyValue={cleanName} css={tokenItemNameButtonStyles}>
-        {highlightedName}
+        <Highlight highlight={searchQuery}>{cleanName}</Highlight>
       </CopyButton>
       {attributes.state !== 'active' && (
         <Lozenge appearance={LozengeAppearance[attributes.state]}>

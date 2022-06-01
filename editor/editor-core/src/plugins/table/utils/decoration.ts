@@ -144,18 +144,11 @@ export const createColumnControlsDecoration = (
     index += colspan;
     element.dataset.endIndex = `${index}`;
 
-    return Decoration.widget(
-      cell.pos + 1,
-      // Do not delay the rendering for this Decoration
-      // because we need to always render all controls
-      // to keep the order safe
-      element,
-      {
-        key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${index}`,
-        // this decoration should be the first one, even before gap cursor.
-        side: -100,
-      },
-    );
+    return Decoration.widget(cell.pos + 1, () => element, {
+      key: `${TableDecorations.COLUMN_CONTROLS_DECORATIONS}_${index}`,
+      // this decoration should be the first one, even before gap cursor.
+      side: -100,
+    });
   });
 };
 

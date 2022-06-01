@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.5.0
+
+### Minor Changes
+
+- [`b7235858f48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7235858f48) - Add new paths to the no-deprecated-imports rule for deprecated @atlaskit/logo exports.
+
 ## 4.4.6
 
 ### Patch Changes

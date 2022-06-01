@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 
 import NotFoundIllustration from './NotFoundIllustration';
+import { token } from '@atlaskit/tokens';
 
 type Props = {
   onExternalLinkClick: () => void;
@@ -52,7 +53,7 @@ export default function EmptyState({
 const emptyStateHeading = css`
   font-size: 1.42857em;
   line-height: 1.2;
-  color: rgb(23, 43, 77);
+  color: ${token('color.text', 'rgb(23, 43, 77)')};
   font-weight: 500;
   letter-spacing: -0.008em;
   margin-top: 28px;

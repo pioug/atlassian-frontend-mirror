@@ -24,6 +24,7 @@ import { IconTable } from '../quick-insert/assets';
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import { createPlugin as createTableSafariDelayedDomSelectionSyncingWorkaroundPlugin } from './pm-plugins/safari-delayed-dom-selection-syncing-workaround';
+import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
@@ -50,7 +51,6 @@ import { ErrorBoundary } from '../../ui/ErrorBoundary';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
-  dynamicSizingEnabled?: boolean;
   breakoutEnabled?: boolean;
   allowContextualMenu?: boolean;
   // TODO these two need to be rethought
@@ -81,7 +81,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
           eventDispatcher,
         }) => {
           const {
-            dynamicSizingEnabled,
             fullWidthEnabled,
             wasFullWidthEnabled,
             breakoutEnabled,
@@ -93,7 +92,6 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
             portalProviderAPI,
             eventDispatcher,
             pluginConfig(tableOptions),
-            breakoutEnabled && dynamicSizingEnabled,
             breakoutEnabled,
             fullWidthEnabled,
             wasFullWidthEnabled,
@@ -103,12 +101,11 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
       {
         name: 'tablePMColResizing',
         plugin: ({ dispatch }) => {
-          const { dynamicSizingEnabled, fullWidthEnabled, tableOptions } =
+          const { fullWidthEnabled, tableOptions } =
             options || ({} as TablePluginOptions);
           const { allowColumnResizing } = pluginConfig(tableOptions);
           return allowColumnResizing
             ? createFlexiResizingPlugin(dispatch, {
-                dynamicTextSizing: dynamicSizingEnabled && !fullWidthEnabled,
                 lastColumnResizable: !fullWidthEnabled,
               } as ColumnResizingPluginState)
             : undefined;
@@ -155,6 +152,18 @@ const tablesPlugin = (options?: TablePluginOptions): EditorPlugin => ({
         },
       });
     }
+
+    // Workaround for table element breaking issue caused by composition event with an inputType of deleteCompositionText.
+    // https://github.com/ProseMirror/prosemirror/issues/934
+    if (browser.safari) {
+      plugins.push({
+        name: 'tableSafariDeleteCompositionTextIssueWorkaround',
+        plugin: () => {
+          return createTableSafariDeleteCompositionTextIssueWorkaroundPlugin();
+        },
+      });
+    }
+
     return plugins;
   },
 

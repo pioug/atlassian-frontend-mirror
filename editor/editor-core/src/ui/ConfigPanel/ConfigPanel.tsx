@@ -177,7 +177,8 @@ type Props = {
   fields?: FieldDefinition[];
   parameters?: Parameters;
   autoSave?: boolean;
-  autoSaveTrigger?: unknown;
+  autoSaveTrigger?: () => void;
+  autoSaveReject?: (reason?: any) => void;
   showHeader?: boolean;
   closeOnEsc?: boolean;
   onChange: OnSaveCallback;
@@ -361,9 +362,14 @@ class ConfigPanel extends React.Component<Props, State> {
   };
 
   handleSubmit = async (formData: Parameters) => {
-    const { fields, extensionManifest, onChange } = this.props;
+    const { fields, extensionManifest, onChange, autoSaveReject } = this.props;
 
     if (!extensionManifest || !fields) {
+      if (!extensionManifest) {
+        autoSaveReject?.(new Error('Extension manifest not loaded'));
+      } else if (!fields) {
+        autoSaveReject?.(new Error('Config fields not loaded'));
+      }
       return;
     }
 
@@ -380,6 +386,7 @@ class ConfigPanel extends React.Component<Props, State> {
 
       onChange(serializedData);
     } catch (error) {
+      autoSaveReject?.(error);
       // eslint-disable-next-line no-console
       console.error(`Error serializing parameters`, error);
     }

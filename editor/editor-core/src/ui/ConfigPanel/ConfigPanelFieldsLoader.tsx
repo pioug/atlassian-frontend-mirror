@@ -20,7 +20,8 @@ export type PublicProps = {
   extensionParameters?: Parameters;
   parameters?: Parameters;
   autoSave?: boolean;
-  autoSaveTrigger?: unknown;
+  autoSaveTrigger?: () => void;
+  autoSaveReject?: (reason?: any) => void;
   closeOnEsc?: boolean;
   showHeader?: boolean;
   onChange: (data: Parameters) => void;
@@ -122,6 +123,7 @@ export default function FieldsLoader({
   parameters = defaultEmptyObject,
   autoSave,
   autoSaveTrigger,
+  autoSaveReject,
   closeOnEsc,
   showHeader,
   onChange,
@@ -152,6 +154,7 @@ export default function FieldsLoader({
           parameters={parameters}
           autoSave={autoSave}
           autoSaveTrigger={autoSaveTrigger}
+          autoSaveReject={autoSaveReject}
           closeOnEsc={closeOnEsc}
           showHeader={showHeader}
           onChange={onChange}

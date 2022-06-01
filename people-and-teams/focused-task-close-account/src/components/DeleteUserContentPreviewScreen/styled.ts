@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { B50, B400 } from '@atlaskit/theme/colors';
-import { e200 } from '@atlaskit/theme/elevation';
+import { B50, B400, N50A, N60A } from '@atlaskit/theme/colors';
 import { h700 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
 import gridSizeTimes from '../../util/gridSizeTimes';
 
 interface SectionCardProps {
@@ -10,7 +10,7 @@ interface SectionCardProps {
 }
 
 const getSelectedCardColor = (props: SectionCardProps) => {
-  return props.isSelected && `${B50}`;
+  return props.isSelected && `${token('color.background.selected', B50)}`;
 };
 
 export const Screen = styled.div`
@@ -32,7 +32,10 @@ export const SectionCard = styled.div`
   width: 100%;
   background-color: ${(props: SectionCardProps) => getSelectedCardColor(props)};
   border-radius: ${borderRadius()}px;
-  ${e200};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  )};
   margin-top: ${gridSizeTimes(2)}px;
 `;
 
@@ -48,5 +51,5 @@ export const UserDetails = styled.div`
   flex-direction: column;
   margin-top: ${gridSizeTimes(1.5)}px;
   font-weight: 600;
-  color: ${B400};
+  color: ${token('color.text.accent.blue', B400)};
 `;

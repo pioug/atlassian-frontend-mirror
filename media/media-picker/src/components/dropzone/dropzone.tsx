@@ -3,7 +3,6 @@ import {
   ANALYTICS_MEDIA_CHANNEL,
   getMediaFeatureFlag,
   withMediaAnalyticsContext,
-  filterFeatureFlagNames,
 } from '@atlaskit/media-common';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';
 import { getFilesFromItems, getFilesFromFileSystemEntries } from 'flat-files';
@@ -13,7 +12,10 @@ import {
   LocalUploadComponentBaseProps,
 } from '../localUploadReact';
 
-import { getPackageAttributes } from '../../util/analytics';
+import {
+  getPackageAttributes,
+  LOGGED_FEATURE_FLAGS,
+} from '../../util/analytics';
 
 import {
   DropzoneConfig,
@@ -317,13 +319,6 @@ export class DropzoneBase extends LocalUploadComponentReact<
 export const Dropzone = withMediaAnalyticsContext(
   getPackageAttributes(COMPONENT_NAME),
   {
-    filterFeatureFlags: filterFeatureFlagNames({
-      newCardExperience: true,
-      captions: false,
-      timestampOnVideo: false,
-      observedWidth: false,
-      mediaInline: false,
-      folderUploads: true,
-    }),
+    filterFeatureFlags: LOGGED_FEATURE_FLAGS,
   },
 )(withAnalyticsEvents()(DropzoneBase));

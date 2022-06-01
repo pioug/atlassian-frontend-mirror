@@ -14,6 +14,9 @@ const svg = `<canvas height="32" width="65" aria-hidden="true"></canvas>
   </g>
 </svg>`;
 
+/**
+ * @deprecated StrideWordmark will be removed from atlaskit/logo in the next major release.
+ */
 export const StrideWordmark = ({
   iconColor = defaultLogoParams.iconColor,
   iconGradientStart = defaultLogoParams.iconGradientStart,
@@ -24,7 +27,7 @@ export const StrideWordmark = ({
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
     warnOnce(
-      'StrideWordmark has been deprecated and will be removed from @atlaskit/logo after June 30 2021.',
+      'StrideWordmark has been deprecated and will be removed from @atlaskit/logo in the next major release.',
     );
   }
 

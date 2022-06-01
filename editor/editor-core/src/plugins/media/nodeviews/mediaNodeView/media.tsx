@@ -215,6 +215,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
           selectable={true}
           selected={selected}
           disableOverlay={true}
+          onFullscreenChange={this.onFullscreenChange}
           onClick={this.selectMediaSingleFromCard}
           useInlinePlayer={mediaOptions && mediaOptions.allowLazyLoading}
           isLazy={mediaOptions && mediaOptions.allowLazyLoading}
@@ -225,6 +226,12 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
       </MediaCardWrapper>
     );
   }
+
+  private onFullscreenChange = (fullscreen: boolean) => {
+    this.mediaPluginState.updateAndDispatch({
+      isFullscreen: fullscreen,
+    });
+  };
 
   private handleNewNode = (props: MediaNodeProps) => {
     const { node } = props;

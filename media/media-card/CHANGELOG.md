@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 73.7.0
+
+### Minor Changes
+
+- [`bfde909c9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfde909c9b4) - Add new feature flag mediaUploadApiV2
+- [`ed6cdd2d397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed6cdd2d397) - added onfullscreenchange property to media to avoid triggering table resizing when media is in full screen mode
+
+### Patch Changes
+
+- [`35e43fcc798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35e43fcc798) - Minor bug fix for feature flag names in experience parameters
+- [`83036ef87f1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83036ef87f1) - fix mouse cursor style when hovered over linked image
+- [`c3d85388bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3d85388bc6) - fix media card titlebox cursor
+- [`c2ede50a80a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ede50a80a) - Add media region and environment returned from media API response into failed analytic events.
+- [`e21e5c271b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e21e5c271b7) - Enabled UFO logger for all examples of Media-Card
+- Updated dependencies
+
 ## 73.6.0
 
 ### Minor Changes

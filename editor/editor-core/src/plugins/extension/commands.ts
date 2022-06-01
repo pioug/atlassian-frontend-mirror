@@ -51,11 +51,14 @@ export const clearEditingContext = createCommand(
   applyChange,
 );
 
-export const forceAutoSave = (value: () => void) =>
+export const forceAutoSave = (
+  resolve: () => void,
+  reject?: (reason?: any) => void,
+) =>
   createCommand(
     {
       type: 'UPDATE_STATE',
-      data: { autoSaveResolve: value },
+      data: { autoSaveResolve: resolve, autoSaveReject: reject },
     },
     applyChange,
   );

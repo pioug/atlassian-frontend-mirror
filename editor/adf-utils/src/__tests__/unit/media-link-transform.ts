@@ -1,4 +1,4 @@
-import { transformMediaLinkMarks } from '../../media-link-transform';
+import { transformMediaLinkMarks } from '../../transforms/media-link-transform';
 import mediaAdf from './__fixtures__/mediaSingle-adf.json';
 
 describe('Media-link-transofmrm', () => {

@@ -4,12 +4,16 @@ import { N60A, N90 } from '@atlaskit/theme/colors';
 import { contextualMenuDropdownWidth } from '../consts';
 import { TableCssClassName as ClassName } from '../../types';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export const tablePopupStyles = css`
   .${ClassName.CONTEXTUAL_SUBMENU} {
     border-radius: ${borderRadius()}px;
-    background: white;
-    box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
+    background: ${token('elevation.surface.overlay', 'white')};
+    box-shadow: ${token(
+      'elevation.shadow.overlay',
+      `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
+    )};
     display: block;
     position: absolute;
     top: 0;
@@ -37,7 +41,7 @@ export const tablePopupStyles = css`
       content: '›';
       margin-left: 4px;
       line-height: 20px;
-      color: ${N90};
+      color: ${token('color.icon', N90)};
     }
   }
 `;

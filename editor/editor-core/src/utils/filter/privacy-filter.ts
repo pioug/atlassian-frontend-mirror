@@ -1,4 +1,4 @@
-import { traverse } from '@atlaskit/adf-utils';
+import { traverse } from '@atlaskit/adf-utils/traverse';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   isResolvingMentionProvider,

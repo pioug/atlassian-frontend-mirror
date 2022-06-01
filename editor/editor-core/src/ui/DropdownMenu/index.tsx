@@ -23,6 +23,8 @@ const DropListWithOutsideListeners: any = withOuterListeners(DropList);
 /**
  * Hack for item to imitate old dropdown-menu selected styles
  */
+// TODO: https://product-fabric.atlassian.net/browse/DSP-4500
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const itemWrapper = css`
   && > span,
   && > span:hover {
@@ -30,6 +32,7 @@ const itemWrapper = css`
     color: #fff;
   }
 `;
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const itemContentWrapper = css`
   margin-left: 8px;

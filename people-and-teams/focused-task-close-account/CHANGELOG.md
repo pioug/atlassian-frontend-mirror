@@ -1,5 +1,18 @@
 # @atlaskit/focused-task-close-account
 
+## 1.1.0
+
+### Minor Changes
+
+- [`bc5e7240a08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc5e7240a08) - [ux] Instrumented `@atlaskit/focused-task-close-account` with the new theming package, `@atlaskit/tokens`.
+
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
+  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

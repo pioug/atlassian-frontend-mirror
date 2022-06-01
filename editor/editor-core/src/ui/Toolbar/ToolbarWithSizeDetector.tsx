@@ -8,6 +8,7 @@ import { ToolbarWithSizeDetectorProps } from './toolbar-types';
 import { widthToToolbarSize, toolbarSizeToWidth } from './toolbar-size';
 import { Toolbar } from './Toolbar';
 import { ToolbarSize } from './types';
+import { isFullPage } from '../../utils/is-full-page';
 
 const toolbar = css`
   width: 100%;
@@ -35,12 +36,16 @@ export const ToolbarWithSizeDetector: React.FunctionComponent<ToolbarWithSizeDet
       : widthToToolbarSize((width || elementWidth)!, props.appearance);
 
   const toolbarStyle = useMemo(() => {
-    const toolbarMinWidth = toolbarSizeToWidth(ToolbarSize.M, props.appearance);
+    const toolbarWidth =
+      isFullPage(props.appearance) && props.twoLineEditorToolbar
+        ? ToolbarSize.S
+        : ToolbarSize.M;
+    const toolbarMinWidth = toolbarSizeToWidth(toolbarWidth, props.appearance);
     const minWidth = `min-width: ${
       props.hasMinWidth ? toolbarMinWidth : '254'
     }px`;
     return [toolbar, minWidth];
-  }, [props.appearance, props.hasMinWidth]);
+  }, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
   return (
     <div css={toolbarStyle}>

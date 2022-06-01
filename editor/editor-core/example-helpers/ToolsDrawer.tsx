@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { EditorView } from 'prosemirror-view';
 import {
@@ -10,7 +12,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
 
 import { MockActivityResource } from './activity-provider';
-import { Content, ButtonGroup } from './styles';
+import { content, buttonGroup } from './styles';
 import imageUploadHandler from './imageUpload';
 
 import { TeamMentionResource, MentionResource, EmojiResource } from '../src';
@@ -115,12 +117,10 @@ const providers = {
 rejectedPromise.catch(() => {});
 
 export type ToolbarFeatures = {
-  dynamicTextSizing: boolean;
   imageResizing: boolean;
 };
 
 const enabledFeatureNames: { [P in keyof ToolbarFeatures]: string } = {
-  dynamicTextSizing: 'dynamic text sizing',
   imageResizing: 'image resizing',
 };
 
@@ -162,7 +162,6 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
       jsonDocument: '{}',
       mediaMockEnabled: false,
       enabledFeatures: {
-        dynamicTextSizing: false,
         imageResizing: false,
       },
     };
@@ -235,7 +234,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
             channel="fabric-elements"
             onEvent={(e: any) => console.log(e)}
           >
-            <Content>
+            <div css={content}>
               <div style={{ padding: '5px 0' }}>
                 ️️️⚠️ Atlassians, for Media integration to work in non-mocked
                 state, make sure you're logged into{' '}
@@ -267,7 +266,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                 {(Object.keys(providers) as Array<keyof typeof providers>).map(
                   (providerKey) => (
                     <div key={providerKey}>
-                      <ButtonGroup>
+                      <span css={buttonGroup}>
                         <label>{providerKey}: </label>
                         {Object.keys(providers[providerKey]).map(
                           (providerStateName) => (
@@ -292,12 +291,12 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                             </Button>
                           ),
                         )}
-                      </ButtonGroup>
+                      </span>
                     </div>
                   ),
                 )}
                 <div>
-                  <ButtonGroup>
+                  <span css={buttonGroup}>
                     <Button onClick={this.toggleDisabled} spacing="compact">
                       {this.state.editorEnabled
                         ? 'Disable editor'
@@ -339,14 +338,14 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                         Mock
                       </Button>
                     </Tooltip>
-                  </ButtonGroup>
+                  </span>
                 </div>
               </div>
               <div className="json-output">
                 <legend>JSON output:</legend>
                 <pre>{jsonDocument}</pre>
               </div>
-            </Content>
+            </div>
           </AnalyticsListener>
         </AnalyticsListener>
       </AnalyticsListener>

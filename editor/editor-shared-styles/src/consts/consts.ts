@@ -78,7 +78,7 @@ export const akEditorMenuZIndex = layers.blanket();
 // z-index used for floating toolbars like code block, table etc
 export const akEditorFloatingPanelZIndex = layers.layer();
 // z-index used for pickers (date, emoji, mentions) and type-aheads, hyperlinks
-export const akEditorFloatingDialogZIndex = akEditorFloatingPanelZIndex + 10;
+export const akEditorFloatingDialogZIndex = akEditorMenuZIndex + 10;
 // z-index used for floating toolbars table cell menu which are above block toolbars
 export const akEditorFloatingOverlapPanelZIndex =
   akEditorFloatingPanelZIndex + 5;
@@ -149,13 +149,6 @@ export const relativeFontSizeToBase16 = (px: number | string) => {
   }
   return `${px / 16}rem`;
 };
-
-export const getAkEditorFullPageMaxWidth = (
-  allowDynamicTextSizing: boolean = false,
-) =>
-  allowDynamicTextSizing
-    ? akEditorFullPageMaxWidth
-    : akEditorDefaultLayoutWidth;
 
 export const VIEWPORT_SIZES = {
   laptopHiDPI: { width: 1440, height: 900 },

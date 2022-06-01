@@ -16,7 +16,6 @@ import { calcLineLength } from '../../../ui/Renderer/breakout-ssr';
 import { SharedTableProps } from './types';
 
 interface TableWidthOptions {
-  isDynamicTextSizingEnabled?: boolean;
   containerWidth?: number;
 }
 
@@ -30,8 +29,7 @@ const getTableLayoutWidth = (layout: TableLayout, opts?: TableWidthOptions) => {
     case 'wide':
       return akEditorWideLayoutWidth;
     default:
-      const { containerWidth, isDynamicTextSizingEnabled } = opts || {};
-      return calcLineLength(containerWidth, isDynamicTextSizingEnabled);
+      return calcLineLength();
   }
 };
 
@@ -81,20 +79,13 @@ export const calcScalePercent = ({
 };
 
 export const Colgroup = (props: SharedTableProps) => {
-  let {
-    columnWidths,
-    layout,
-    isNumberColumnEnabled,
-    renderWidth,
-    allowDynamicTextSizing,
-  } = props;
+  let { columnWidths, layout, isNumberColumnEnabled, renderWidth } = props;
   if (!columnWidths || !isTableResized(columnWidths)) {
     return null;
   }
 
   // @see ED-6056
   const layoutWidth = getTableLayoutWidth(layout, {
-    isDynamicTextSizingEnabled: allowDynamicTextSizing,
     containerWidth: renderWidth,
   });
   const maxTableWidth = renderWidth < layoutWidth ? renderWidth : layoutWidth;

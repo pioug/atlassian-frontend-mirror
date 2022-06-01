@@ -12,6 +12,8 @@ import * as raf from '../../components/__tests__/unit/__utils__/raf';
 import { triggerTransitionEnd } from '../../components/__tests__/unit/__utils__/transition-end';
 import { SidebarResizeContext } from '../sidebar-resize-context';
 
+import { expectThatFlyoutIsOpenAndValid } from './__utils__/flyout';
+
 const completeAnimations = () => {
   act(() => raf.flush());
   act(() => jest.runAllTimers());
@@ -522,5 +524,55 @@ describe('SidebarResizeController', () => {
         isFixed: true,
       });
     });
+  });
+
+  it('should not affect the flyout if collapseLeftSidebar is called while the sidebar is in flyout', () => {
+    /**
+     * See https://product-fabric.atlassian.net/browse/DSP-876.
+     *
+     * The sidebar must already be collapsed if it is in flyout.
+     * Trying to collapse it again should be a no-op.
+     */
+
+    const { getByTestId } = render(
+      <PageLayout testId="grid">
+        <Content>
+          <LeftSidebar
+            testId="left-sidebar"
+            width={200}
+            collapsedState="collapsed"
+          >
+            LeftSidebar
+            <ResizeControlledConsumer />
+          </LeftSidebar>
+          <Main testId="content">Main</Main>
+        </Content>
+      </PageLayout>,
+    );
+
+    const leftSidebar = getByTestId('left-sidebar');
+
+    /**
+     * Trigger the flyout.
+     */
+    act(() => {
+      fireEvent.mouseOver(getByTestId('left-sidebar'));
+    });
+    completeAnimations();
+
+    expectThatFlyoutIsOpenAndValid(leftSidebar);
+
+    /**
+     * Calls `onCollapse`.
+     */
+    act(() => {
+      fireEvent.click(getByTestId('collapse'));
+    });
+    completeAnimations();
+
+    /**
+     * The flyout should still be open and valid.
+     */
+    expectThatFlyoutIsOpenAndValid(leftSidebar);
   });
 });

@@ -1,5 +1,19 @@
 # @atlaskit/avatar
 
+## 21.0.0
+
+### Major Changes
+
+- [`92bb02bc46b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92bb02bc46b) - [ux] There are **no code changes required** to consume this major, but you should be aware that internal changes have been made to how `@atlaskit/avatar` loads images.
+
+  Before, the image loading behaviour was written in JS. Now, it leans on a standard HTML `img` tag if you provide a `src` prop, allowing it to rely on the browser to optimise the loading. These changes should result in faster image loading and an improved server-side rendering story.
+
+  In this version, the **breaking change is that you will no longer see a fallback icon while the image is loading**. We have intentionally removed this loading behaviour as it is no longer consistent with our native `img` behaviour-first approach, and was a source of SSR bugs. Avatar images will load either instantly from the cache, or very fast from a CDN. In the edge cases where there is an error with the image src provided, we will still fall back to a default icon.
+
+### Patch Changes
+
+- [`be23a6d8ee1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be23a6d8ee1) - [ux] Updates color tokens used to be more semantically accurate
+
 ## 20.5.10
 
 ### Patch Changes

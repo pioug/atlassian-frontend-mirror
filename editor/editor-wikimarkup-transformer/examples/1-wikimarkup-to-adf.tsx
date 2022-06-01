@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
@@ -13,7 +14,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { MentionProvider } from '@atlaskit/mention/types';
 import { Context } from '../src/interfaces';
 
-const Container = styled.div`
+const container = css`
   display: grid;
   grid-template-columns: 33% 34% 33%;
 
@@ -119,7 +120,7 @@ class Example extends React.PureComponent<{}, State> {
   render() {
     const doc = this.state.source ? getADF(this.state.source) : '';
     return (
-      <Container>
+      <div css={container}>
         <textarea id="source" onChange={this.handleChange} />
         <div id="output">
           <ReactRenderer
@@ -132,7 +133,7 @@ class Example extends React.PureComponent<{}, State> {
           />
         </div>
         <pre id="output">{JSON.stringify(doc, null, 2)}</pre>
-      </Container>
+      </div>
     );
   }
 }

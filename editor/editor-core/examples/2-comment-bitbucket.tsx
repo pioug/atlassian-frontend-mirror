@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -70,78 +71,80 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
     }
 
     return (
-      <EditorContext>
-        <div>
-          <WithEditorActions
-            render={(actions) => (
-              <ButtonGroup>
-                <Button
-                  onClick={() => actions.replaceDocument(exampleDocument)}
-                >
-                  Load Document
-                </Button>
-                <Button onClick={() => actions.clear()}>Clear</Button>
-              </ButtonGroup>
-            )}
-          />
-          <ToolsDrawer
-            imageUploadProvider="resolved"
-            renderEditor={({
-              mentionProvider,
-              emojiProvider,
-              imageUploadProvider,
-              onChange,
-              disabled,
-              contextIdentifierProvider,
-            }: any) => (
-              <div style={{ padding: '20px' }}>
-                <CollapsedEditor
-                  placeholder="What do you want to say?"
-                  isExpanded={this.state.isExpanded}
-                  onFocus={this.onFocus}
-                  onExpand={EXPAND_ACTION}
-                >
-                  <Editor
-                    appearance="comment"
-                    allowAnalyticsGASV3={true}
-                    allowTables={{
-                      isHeaderRowRequired: true,
-                    }}
-                    textFormatting={{
-                      disableSuperscriptAndSubscript: true,
-                      disableUnderline: true,
-                    }}
-                    allowHelpDialog={true}
-                    disabled={disabled}
-                    mentionProvider={mentionProvider}
-                    emojiProvider={emojiProvider}
-                    legacyImageUploadProvider={imageUploadProvider}
-                    contextIdentifierProvider={contextIdentifierProvider}
-                    shouldFocus={true}
-                    onChange={onChange}
-                    onSave={SAVE_ACTION}
-                    onCancel={CANCEL_ACTION}
-                    quickInsert={true}
-                    feedbackInfo={{
-                      product: 'bitbucket',
-                      packageVersion: version,
-                      packageName: name,
-                      labels: ['atlaskit-comment-bitbucket'],
-                    }}
-                    primaryToolbarComponents={[
-                      <ToolbarFeedback
-                        product="bitbucket"
-                        key="toolbar-feedback"
-                      />,
-                      <ToolbarHelp key="toolbar-help" />,
-                    ]}
-                  />
-                </CollapsedEditor>
-              </div>
-            )}
-          />
-        </div>
-      </EditorContext>
+      <IntlProvider locale="en">
+        <EditorContext>
+          <div>
+            <WithEditorActions
+              render={(actions) => (
+                <ButtonGroup>
+                  <Button
+                    onClick={() => actions.replaceDocument(exampleDocument)}
+                  >
+                    Load Document
+                  </Button>
+                  <Button onClick={() => actions.clear()}>Clear</Button>
+                </ButtonGroup>
+              )}
+            />
+            <ToolsDrawer
+              imageUploadProvider="resolved"
+              renderEditor={({
+                mentionProvider,
+                emojiProvider,
+                imageUploadProvider,
+                onChange,
+                disabled,
+                contextIdentifierProvider,
+              }: any) => (
+                <div style={{ padding: '20px' }}>
+                  <CollapsedEditor
+                    placeholder="What do you want to say?"
+                    isExpanded={this.state.isExpanded}
+                    onFocus={this.onFocus}
+                    onExpand={EXPAND_ACTION}
+                  >
+                    <Editor
+                      appearance="comment"
+                      allowAnalyticsGASV3={true}
+                      allowTables={{
+                        isHeaderRowRequired: true,
+                      }}
+                      textFormatting={{
+                        disableSuperscriptAndSubscript: true,
+                        disableUnderline: true,
+                      }}
+                      allowHelpDialog={true}
+                      disabled={disabled}
+                      mentionProvider={mentionProvider}
+                      emojiProvider={emojiProvider}
+                      legacyImageUploadProvider={imageUploadProvider}
+                      contextIdentifierProvider={contextIdentifierProvider}
+                      shouldFocus={true}
+                      onChange={onChange}
+                      onSave={SAVE_ACTION}
+                      onCancel={CANCEL_ACTION}
+                      quickInsert={true}
+                      feedbackInfo={{
+                        product: 'bitbucket',
+                        packageVersion: version,
+                        packageName: name,
+                        labels: ['atlaskit-comment-bitbucket'],
+                      }}
+                      primaryToolbarComponents={[
+                        <ToolbarFeedback
+                          product="bitbucket"
+                          key="toolbar-feedback"
+                        />,
+                        <ToolbarHelp key="toolbar-help" />,
+                      ]}
+                    />
+                  </CollapsedEditor>
+                </div>
+              )}
+            />
+          </div>
+        </EditorContext>
+      </IntlProvider>
     );
   }
 

@@ -11,16 +11,16 @@ export const MSThemeColors = {
 
 export const arrow = {
   defaultColor: themed({
-    light: token('color.background.neutral', colors.N40),
-    dark: token('color.background.neutral', colors.DN40),
+    light: token('color.icon.disabled', colors.N40),
+    dark: token('color.icon.disabled', colors.DN40),
   }),
   selectedColor: themed({
-    light: token('color.text.subtlest', colors.N300),
-    dark: token('color.text.subtlest', colors.DN300),
+    light: token('color.icon.subtle', colors.N300),
+    dark: token('color.icon.subtle', colors.DN300),
   }),
   hoverColor: themed({
-    light: token('color.background.neutral.pressed', colors.N60),
-    dark: token('color.background.neutral.pressed', colors.DN60),
+    light: token('color.icon.disabled', colors.N60),
+    dark: token('color.icon.disabled', colors.DN60),
   }),
 };
 
@@ -34,8 +34,8 @@ export const row = {
     dark: token('color.background.selected', colors.DN50),
   }),
   hoverBackground: themed({
-    light: token('color.background.input', colors.N10),
-    dark: token('color.background.input', colors.DN40),
+    light: token('color.background.neutral.subtle.hovered', colors.N10),
+    dark: token('color.background.neutral.subtle.hovered', colors.DN40),
   }),
   hoverHighlightedBackground: themed({
     light: token('color.background.selected.hovered', colors.B75),

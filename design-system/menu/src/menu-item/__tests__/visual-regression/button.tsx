@@ -52,6 +52,9 @@ describe('<ButtonItem />', () => {
     await verifyElementMatchProductionImage(buttonLinkBefore);
   });
 
+  // This test was originally marked as flakey. It could not be reproduced so it
+  // has been restored. See https://product-fabric.atlassian.net/browse/DSP-3309
+  // and https://product-fabric.atlassian.net/browse/SKIP-217.
   it('should match item with after element', async () => {
     await verifyElementMatchProductionImage(buttonLinkAfter);
   });

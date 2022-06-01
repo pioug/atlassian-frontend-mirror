@@ -4,7 +4,17 @@ import WithPluginState from '../../ui/WithPluginState';
 import PluginSlot from '../../ui/PluginSlot';
 import { useEditorSharedConfig } from './Editor';
 
-export function ContentComponents(disabled?: any) {
+type ContentComponentsProps = {
+  disabled?: any;
+  wrapperElement: HTMLElement | null;
+  containerElement: HTMLElement | null;
+};
+
+export function ContentComponents({
+  disabled,
+  wrapperElement,
+  containerElement,
+}: ContentComponentsProps) {
   const config = useEditorSharedConfig();
 
   if (!config) {
@@ -23,7 +33,8 @@ export function ContentComponents(disabled?: any) {
           popupsMountPoint={config.popupsMountPoint}
           popupsBoundariesElement={config.popupsBoundariesElement}
           popupsScrollableElement={config.popupsScrollableElement}
-          containerElement={null} // TODO: Figure out how to pass containerElement here ED-8448
+          containerElement={containerElement} // TODO: Figure out how to pass containerElement here ED-8448
+          wrapperElement={wrapperElement}
           disabled={disabled?.editorDisabled ?? false}
         />
       )}

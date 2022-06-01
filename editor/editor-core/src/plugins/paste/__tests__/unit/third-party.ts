@@ -50,7 +50,6 @@ describe('paste plugin: third-party', () => {
             tableOptions: { advanced: true },
             breakoutEnabled: false,
             allowContextualMenu: true,
-            dynamicSizingEnabled: true,
             fullWidthEnabled: false,
             wasFullWidthEnabled: false,
           },

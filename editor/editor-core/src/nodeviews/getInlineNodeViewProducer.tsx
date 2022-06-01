@@ -34,6 +34,8 @@ type CreateNodeViewOptions<ExtraComponentProps> = {
   extraComponentProps: ExtraComponentProps;
 };
 
+export const inlineNodeViewClassname = 'inlineNodeView';
+
 function createNodeView<ExtraComponentProps>({
   nodeViewParams,
   pmPluginFactoryParams,
@@ -59,7 +61,7 @@ function createNodeView<ExtraComponentProps>({
   // difference between them and it kills the nodeView
   domRef.classList.add(
     `${nodeViewParams.node.type.name}View-content-wrap`,
-    `inlineNodeView`,
+    `${inlineNodeViewClassname}`,
   );
 
   // This util is shared for tracking rendering, and the ErrorBoundary that
@@ -217,7 +219,7 @@ function getPortalChildren<ExtraComponentProps>({
         }
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       >
-        <span className="inlineNodeViewAddZeroWidthSpace" />
+        <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
         {ZERO_WIDTH_SPACE}
         <Component
           view={nodeViewParams.view}
@@ -225,7 +227,7 @@ function getPortalChildren<ExtraComponentProps>({
           node={currentNode}
           {...extraComponentProps}
         />
-        <span className="inlineNodeViewAddZeroWidthSpace" />
+        <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
       </ErrorBoundary>
     );
   };

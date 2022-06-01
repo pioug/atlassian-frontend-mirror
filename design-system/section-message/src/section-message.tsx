@@ -33,6 +33,7 @@ const containerStyles = css({
 
 const contentContainerStyles = css({
   flexGrow: 1,
+  wordBreak: 'break-word',
 });
 
 const titleStyles = css({
@@ -48,6 +49,7 @@ const actionsStyles = css({
   display: 'flex',
   marginTop: `${actionMarginTop}px`,
   paddingLeft: 0,
+  flexWrap: 'wrap',
   listStyle: 'none',
 });
 
@@ -57,9 +59,8 @@ const actionsStyles = css({
 // space.
 const iconWrapperStyles = css({
   display: 'flex',
-  width: `${iconWrapperWidth}px`,
   margin: '-2px 0',
-  flex: '0 0 auto',
+  flex: `0 0 ${iconWrapperWidth}px`,
 });
 
 interface InternalProps extends SectionMessageProps {
@@ -106,7 +107,10 @@ const SectionMessageWithMode = forwardRef(function SectionMessage(
           secondaryColor={backgroundColor}
         />
       </div>
-      <div css={contentContainerStyles}>
+      <div
+        css={contentContainerStyles}
+        data-testid={testId && `${testId}--content`}
+      >
         {title ? (
           <h1 css={titleStyles} style={memoizedTitleColor}>
             {title}
@@ -114,7 +118,9 @@ const SectionMessageWithMode = forwardRef(function SectionMessage(
         ) : null}
         <div>{children}</div>
         {actionsArray.length > 0 ? (
-          <ul css={actionsStyles}>{actionsArray}</ul>
+          <ul css={actionsStyles} data-testid={testId && `${testId}--actions`}>
+            {actionsArray}
+          </ul>
         ) : null}
       </div>
     </section>

@@ -1,5 +1,6 @@
 import { Slice } from 'prosemirror-model';
 import { TextSelection, EditorState } from 'prosemirror-state';
+import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import {
   doc,
   p,
@@ -9,6 +10,7 @@ import {
   li,
   alignment,
   panel,
+  caption,
   table,
   th,
   tr,
@@ -20,6 +22,8 @@ import {
   expand,
   emoji,
   DocBuilder,
+  mediaSingle,
+  media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -37,6 +41,7 @@ import {
   handlePasteIntoTaskAndDecision,
   handleExpandPasteInTable,
   handleRichText,
+  handlePasteIntoCaption,
 } from '../../handlers';
 import pastePlugin from '../../index';
 import hyperlinkPlugin from '../../../hyperlink';
@@ -48,6 +53,8 @@ import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
 import emojiPlugin from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
+import captionPlugin from '../../../caption';
+import mediaPlugin from '../../../media';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -836,4 +843,54 @@ describe('handleExpand', () => {
       });
     },
   );
+});
+
+describe('handlePasteIntoCaption', () => {
+  const mediaNodeAttrs = {
+    id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+    type: 'file',
+    collection: 'MediaServicesSample',
+    width: 250,
+    height: 250,
+  } as MediaADFAttrs;
+
+  it('should paste inside the caption when paste content is a paragraph', () => {
+    const destinationDocument = doc(
+      mediaSingle()(media(mediaNodeAttrs)(), caption('{<>}')),
+    );
+    const pasteContent = doc('{<}', p('paragraph{>}'));
+    const expectedDocument = doc(
+      mediaSingle()(media(mediaNodeAttrs)(), caption('paragraph')),
+    );
+
+    const createEditor = createProsemirrorEditorFactory();
+    const editor = (doc: any) => {
+      const preset = new Preset<LightEditorPlugin>()
+        .add([pastePlugin, {}])
+        .add(panelPlugin)
+        .add(blockTypePlugin)
+        .add(captionPlugin)
+        .add([
+          mediaPlugin,
+          { allowMediaSingle: true, featureFlags: { captions: true } },
+        ]);
+
+      return createEditor({
+        doc,
+        preset,
+      });
+    };
+
+    const { editorView } = editor(destinationDocument);
+    const pasteSlice = new Slice(
+      pasteContent(editorView.state.schema).content,
+      1,
+      1,
+    );
+    handlePasteIntoCaption(pasteSlice)(editorView.state, editorView.dispatch);
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
 });

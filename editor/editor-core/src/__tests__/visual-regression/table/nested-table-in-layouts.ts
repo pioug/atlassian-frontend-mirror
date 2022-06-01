@@ -36,7 +36,6 @@ describe('Snapshot Test: Nested table inside layouts', () => {
   ) => {
     await initFullPageEditorWithAdf(page, tableIn2ColAdf, undefined, viewport, {
       allowLayouts: { allowBreakout: true, UNSAFE_addSidebarLayouts: true },
-      allowDynamicTextSizing: true,
     });
   };
 

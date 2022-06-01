@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from '../../../editor/mobile-editor-element';
 import { createMentionProvider, createCardProvider } from '../../../providers';
-import { useFetchProxy } from '../../../utils/fetch-proxy';
+import { fetchProxy } from '../../../utils/fetch-proxy';
 import { createCollabProviderFactory } from '../../../providers/collab-provider';
 import { getBridge } from '../../../editor/native-to-web/bridge-initialiser';
 import { createMediaProvider } from './media-provider';
@@ -17,7 +17,6 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 
 const App = () => {
-  const fetchProxy = useFetchProxy();
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
   const emojiProvider = getEmojiResource();

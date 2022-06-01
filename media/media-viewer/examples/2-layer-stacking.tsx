@@ -6,6 +6,7 @@ import {
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import { imageItem } from '../example-helpers';
+import { MainWrapper } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src';
 import { Identifier } from '@atlaskit/media-client';
 
@@ -23,7 +24,7 @@ export default class Example extends React.Component<{}, State> {
 
   render() {
     return (
-      <div>
+      <MainWrapper>
         <ModalDialog>
           <ModalBody>
             <h1>This is a modal dialog</h1>
@@ -41,7 +42,7 @@ export default class Example extends React.Component<{}, State> {
             onClose={() => this.setState({ selectedItem: undefined })}
           />
         )}
-      </div>
+      </MainWrapper>
     );
   }
 }

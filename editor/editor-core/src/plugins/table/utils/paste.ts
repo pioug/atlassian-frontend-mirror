@@ -105,29 +105,17 @@ export const transformSliceToRemoveOpenTable = (
     );
   }
 
-  // Case 2: A slice starting inside a table and finishing outside
-  // slice.openStart can only be >= 4 if its a TextSelection. CellSelection would give openStart = 1
+  // Case 2: A slice starting within a CELL and ending outside the table
   if (
+    // starts inside of a cell but ends outside of the starting table
     slice.openStart >= 4 &&
-    slice.content.firstChild!.type === schema.nodes.table
+    // slice starts from a table node (and spans across more than one node)
+    slice.content.childCount > 1 &&
+    slice.content.firstChild?.type === schema.nodes.table
   ) {
-    return new Slice(
-      flatmap(slice.content, removeTableFromFirstChild),
-      slice.openStart - depthDecrement,
-      slice.openEnd,
-    );
-  }
-
-  // Case 3: A slice starting outside a table and finishing inside
-  if (
-    slice.openEnd >= 4 &&
-    slice.content.lastChild!.type === schema.nodes.table
-  ) {
-    return new Slice(
-      flatmap(slice.content, removeTableFromLastChild),
-      slice.openStart,
-      slice.openEnd - depthDecrement,
-    );
+    // repoint the slice's cutting depth so that cell content where the slice starts
+    // does not get lifted out of the cell on paste
+    return new Slice(slice.content, 1, slice.openEnd);
   }
 
   return slice;

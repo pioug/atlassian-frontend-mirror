@@ -27,6 +27,14 @@ jest.mock('@atlaskit/media-client', () => {
   };
 });
 
+jest.mock('../../../../analytics/index.ts', () => {
+  const actual = jest.requireActual('@atlaskit/ufo');
+  return {
+    ...actual,
+    LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
+  };
+});
+
 import {
   UFOExperience,
   ExperiencePerformanceTypes,
@@ -64,6 +72,7 @@ describe('ufoExperience', () => {
         platform: { component: 'media-viewer' },
         type: ExperienceTypes.Experience,
         performanceType: ExperiencePerformanceTypes.InlineResult,
+        featureFlags: ['feature-flag-1', 'feature-flag-2'],
       };
       expect(UFOExperience).toHaveBeenCalledTimes(1);
       expect(UFOExperience).toHaveBeenCalledWith(
@@ -75,7 +84,13 @@ describe('ufoExperience', () => {
 
     describe('succeedMediaFileUfoExperience', () => {
       it('should be able to succeed an experience with provided metadata', () => {
-        succeedMediaFileUfoExperience(fileAttributes);
+        succeedMediaFileUfoExperience({
+          fileAttributes,
+          fileStateFlags: {
+            wasStatusUploading: false,
+            wasStatusProcessing: false,
+          },
+        });
 
         expect(mocks.success).toBeCalledWith({
           metadata: {
@@ -83,6 +98,10 @@ describe('ufoExperience', () => {
             ...packageInfo,
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
+            fileStateFlags: {
+              wasStatusUploading: false,
+              wasStatusProcessing: false,
+            },
           },
         });
       });
@@ -106,6 +125,10 @@ describe('ufoExperience', () => {
           failReason: 'imageviewer-external-onerror',
           errorDetail: undefined,
           fileAttributes: fileAttributes,
+          fileStateFlags: {
+            wasStatusUploading: false,
+            wasStatusProcessing: false,
+          },
         });
 
         expect(mocks.failure).toBeCalledWith({
@@ -116,6 +139,10 @@ describe('ufoExperience', () => {
             ...packageInfo,
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
+            fileStateFlags: {
+              wasStatusUploading: false,
+              wasStatusProcessing: false,
+            },
           },
         });
       });

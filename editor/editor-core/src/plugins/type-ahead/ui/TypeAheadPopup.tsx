@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { EditorView, DecorationSet } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
+import rafSchedule from 'raf-schd';
 
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { Popup } from '@atlaskit/editor-common/ui';
+import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
@@ -15,11 +16,18 @@ import { TYPE_AHEAD_POPUP_CONTENT_CLASS } from '../constants';
 import { TypeAheadList } from './TypeAheadList';
 import type { TypeAheadHandler, TypeAheadItem, OnSelectItem } from '../types';
 import type { FireAnalyticsCallback } from '../../analytics/fire-analytics-event';
+import { ITEM_PADDING } from './TypeAheadListItem';
+import { token } from '@atlaskit/tokens';
+
+const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 380;
 
 const typeAheadContent = css`
-  background: ${N0};
+  background: ${token('elevation.surface.overlay', N0)};
   border-radius: ${borderRadius()}px;
-  box-shadow: 0 0 1px ${N60A}, 0 4px 8px -2px ${N50A};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 0 1px ${N60A}, 0 4px 8px -2px ${N50A}`,
+  )};
   padding: ${gridSize() / 2}px 0;
   width: 320px;
   max-height: 380px; /* ~5.5 visibile items */
@@ -140,6 +148,80 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
       triggerHandler,
     ]);
 
+    const [fitHeight, setFitHeight] = useState(DEFAULT_TYPEAHEAD_MENU_HEIGHT);
+
+    const getFitHeight = useCallback(() => {
+      if (!anchorElement || !popupsMountPoint) {
+        return;
+      }
+      const target: HTMLElement = anchorElement;
+      const {
+        top: targetTop,
+        height: targetHeight,
+      } = target.getBoundingClientRect();
+
+      const boundariesElement: HTMLElement = document.body;
+      const {
+        height: boundariesHeight,
+        top: boundariesTop,
+      } = boundariesElement.getBoundingClientRect();
+
+      // Calculating the space above and space below our decoration
+      const spaceAbove =
+        targetTop - (boundariesTop - boundariesElement.scrollTop);
+      const spaceBelow =
+        boundariesTop + boundariesHeight - (targetTop + targetHeight);
+
+      // Keep default height if more than enough space
+      if (spaceBelow >= DEFAULT_TYPEAHEAD_MENU_HEIGHT) {
+        return setFitHeight(DEFAULT_TYPEAHEAD_MENU_HEIGHT);
+      }
+
+      // Determines whether typeahead will fit above or below decoration
+      // and return the space available.
+      const newFitHeight = spaceBelow >= spaceAbove ? spaceBelow : spaceAbove;
+
+      // Each typeahead item has some padding
+      // We want to leave some space at the top so first item
+      // is not partially cropped
+      const fitHeightWithSpace = newFitHeight - ITEM_PADDING * 2;
+
+      // Ensure typeahead height is max its default height
+      const minFitHeight = Math.min(
+        DEFAULT_TYPEAHEAD_MENU_HEIGHT,
+        fitHeightWithSpace,
+      );
+
+      return setFitHeight(minFitHeight);
+    }, [anchorElement, popupsMountPoint]);
+
+    const getFitHeightDebounced = rafSchedule(getFitHeight);
+
+    useEffect(() => {
+      const scrollableElement =
+        popupsScrollableElement || findOverflowScrollParent(anchorElement!);
+      getFitHeight();
+      window.addEventListener('resize', getFitHeightDebounced);
+      if (scrollableElement) {
+        scrollableElement.addEventListener('scroll', getFitHeightDebounced);
+      }
+
+      return () => {
+        window.removeEventListener('resize', getFitHeightDebounced);
+        if (scrollableElement) {
+          scrollableElement.removeEventListener(
+            'scroll',
+            getFitHeightDebounced,
+          );
+        }
+      };
+    }, [
+      anchorElement,
+      popupsScrollableElement,
+      getFitHeightDebounced,
+      getFitHeight,
+    ]);
+
     return (
       <Popup
         zIndex={akEditorFloatingDialogZIndex}
@@ -147,7 +229,7 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
         mountTo={popupsMountPoint}
         boundariesElement={popupsBoundariesElement}
         scrollableElement={popupsScrollableElement}
-        fitHeight={300}
+        fitHeight={fitHeight}
         fitWidth={340}
         offset={OFFSET}
       >
@@ -162,6 +244,7 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
             selectedIndex={selectedIndex}
             onItemHover={setSelectedItem}
             onItemClick={onItemInsert}
+            fitHeight={fitHeight}
           />
         </div>
       </Popup>

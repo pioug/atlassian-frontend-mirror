@@ -5,7 +5,7 @@ import {
   Node as PmNode,
 } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-
+import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { EventDispatcher } from '../../../event-dispatcher';
 import {
   ForwardRef,
@@ -110,6 +110,7 @@ export default class TableView extends ReactNodeView<Props> {
           containerWidth: widthPluginKey,
           pluginState: pluginKey,
           tableResizingPluginState: tableResizingPluginKey,
+          mediaState: mediaPluginKey,
         }}
         editorView={props.view}
         render={(pluginStates) => {
@@ -117,6 +118,7 @@ export default class TableView extends ReactNodeView<Props> {
             tableResizingPluginState,
             pluginState,
             containerWidth,
+            mediaState,
           } = pluginStates;
           const tableActive = props.getPos() === pluginState!.tablePos;
           return (
@@ -125,6 +127,7 @@ export default class TableView extends ReactNodeView<Props> {
               allowColumnResizing={props.allowColumnResizing}
               eventDispatcher={props.eventDispatcher}
               getPos={props.getPos}
+              isMediaFullscreen={mediaState?.isFullscreen}
               options={props.options}
               allowControls={pluginState!.pluginConfig.allowControls!}
               isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}

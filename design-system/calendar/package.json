@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "12.1.13",
+  "version": "12.1.14",
   "description": "An interactive calendar for date selection experiences.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/select": "^15.0.0",
+    "@atlaskit/select": "^15.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -3,6 +3,7 @@ import rafSchedule from 'raf-schd';
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -102,7 +103,7 @@ const mainToolbar = css`
   display: flex;
   height: 80px;
   flex-shrink: 0;
-  background-color: white;
+  background-color: ${token('elevation.surface', 'white')};
 
   & object {
     height: 0 !important;
@@ -111,7 +112,10 @@ const mainToolbar = css`
 
 const mainToolbarWithKeyline = css`
   ${mainToolbar}
-  box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0 ${N30}
+  box-shadow: 0 ${akEditorToolbarKeylineHeight}px 0 0 ${token(
+    'color.border',
+    N30,
+  )}
 `;
 
 const mainToolbarCustomComponentsSlot = css`
@@ -168,7 +172,6 @@ function FullPage(props: FullPageProps) {
   const {
     primaryToolbarComponents,
     contentComponents,
-    allowDynamicTextSizing,
     collabEdit,
     createAnalyticsEvent,
     contextPanel,
@@ -176,12 +179,17 @@ function FullPage(props: FullPageProps) {
   const handleAnalyticsEvent = useCreateAnalyticsHandler(createAnalyticsEvent);
   const [showKeyline, scrollContainerRef] = useKeyline();
   const config = useEditorSharedConfig();
+  const wrapperElementRef = React.createRef<HTMLDivElement>();
 
   return (
     <ContextPanelWidthProvider>
       <Editor {...props} onAnalyticsEvent={handleAnalyticsEvent}>
-        <BaseTheme dynamicTextSizing={allowDynamicTextSizing}>
-          <div css={fullPageEditorWrapper} className="akEditor">
+        <BaseTheme>
+          <div
+            css={fullPageEditorWrapper}
+            className="akEditor"
+            ref={wrapperElementRef}
+          >
             <div
               data-testid="ak-editor-main-toolbar"
               css={showKeyline ? mainToolbarWithKeyline : mainToolbar}
@@ -216,7 +224,10 @@ function FullPage(props: FullPageProps) {
                     >
                       {contentComponents}
                       <EditorContent />
-                      <ContentComponents />
+                      <ContentComponents
+                        wrapperElement={wrapperElementRef.current}
+                        containerElement={scrollContainerRef.current}
+                      />
                     </div>
                   </div>
                 </ClickAreaBlock>

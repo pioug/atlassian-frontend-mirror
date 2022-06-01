@@ -1,4 +1,8 @@
-import { replaceExternalMedia, updateMediaNodeAttrs } from '../../../helpers';
+import {
+  isMediaNode,
+  replaceExternalMedia,
+  updateMediaNodeAttrs,
+} from '../../../helpers';
 import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
 import { MediaPluginState } from '../../../../pm-plugins/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -7,6 +11,7 @@ import {
   doc,
   p,
   media,
+  mediaInline,
   mediaSingle,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -16,6 +21,8 @@ import {
   temporaryFileId,
   testCollectionName,
 } from '../../../../../../__tests__/unit/plugins/media/_utils';
+import { EditorState, NodeSelection } from 'prosemirror-state';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 describe('media -> commands -> helpers.ts', () => {
   const mediaProvider = getFreshMediaProvider();
@@ -197,6 +204,64 @@ describe('media -> commands -> helpers.ts', () => {
         );
 
         const result = update(editorView.state, editorView.dispatch);
+        expect(result).toBeFalsy();
+      });
+    });
+  });
+
+  describe('#isMediaNode', () => {
+    describe('should return true', () => {
+      it('when the node is a media node', () => {
+        const mediaNode = mediaSingle({ layout: 'center' })(
+          media({
+            id: 'test-id',
+            type: 'file',
+            collection: 'test-collection',
+          })(),
+        );
+
+        const defaultMediaDoc = doc(mediaNode)(defaultSchema);
+        const editorState = EditorState.create({
+          doc: defaultMediaDoc,
+          selection: NodeSelection.create(defaultMediaDoc, 0),
+        });
+        const result = isMediaNode(
+          editorState.selection.$anchor.pos + 1,
+          editorState,
+        );
+        expect(result).toBeTruthy();
+      });
+
+      it('when the node is a media inline node', () => {
+        const mediaInlineNode = mediaInline({
+          id: 'test-id',
+          collection: 'test-collection',
+        })();
+
+        const defaultMediaDoc = doc(p(mediaInlineNode))(defaultSchema);
+        const editorState = EditorState.create({
+          doc: defaultMediaDoc,
+          selection: NodeSelection.create(defaultMediaDoc, 0),
+        });
+        const result = isMediaNode(
+          editorState.selection.$anchor.pos + 1,
+          editorState,
+        );
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('should return false', () => {
+      it('when the node is not a media node', () => {
+        const defaultMediaDoc = doc(p('{<>}text'))(defaultSchema);
+        const editorState = EditorState.create({
+          doc: defaultMediaDoc,
+          selection: NodeSelection.create(defaultMediaDoc, 0),
+        });
+        const result = isMediaNode(
+          editorState.selection.$anchor.pos + 1,
+          editorState,
+        );
         expect(result).toBeFalsy();
       });
     });

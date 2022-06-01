@@ -1,5 +1,23 @@
 # @atlaskit/media-picker
 
+## 63.0.0
+
+### Major Changes
+
+- [`e9de546cfc7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e9de546cfc7) - Migrate to emotion from styled-components
+
+### Minor Changes
+
+- [`bfde909c9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfde909c9b4) - Add new feature flag mediaUploadApiV2
+- [`35e43fcc798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35e43fcc798) - Add ufo feature flag logging
+
+### Patch Changes
+
+- [`c0f85687ea0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0f85687ea0) - Enabled UFO logger for all examples for Media-Picker
+- [`c2ede50a80a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2ede50a80a) - Add media region and environment returned from media API response into failed analytic events.
+- [`19899f3e100`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19899f3e100) - Make emotion as dev dependency instead peer dependency
+- Updated dependencies
+
 ## 62.0.0
 
 ### Major Changes

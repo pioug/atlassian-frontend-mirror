@@ -5,7 +5,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/bundle.css",
@@ -35,7 +35,7 @@
     "fbjs": "^3.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/css-reset": "^6.3.1"
+    "@atlaskit/css-reset": "^6.3.13"
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
@@ -53,5 +53,6 @@
   "af:exports": {
     ".": "./src/bundle.css"
   },
+  "homepage": "https://atlaskit.atlassian.com/packages/css-packs/reduced-ui-pack",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

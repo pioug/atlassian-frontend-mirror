@@ -28,6 +28,9 @@ export class FullPageEditor extends React.Component<
   private scrollContainer: HTMLElement | null = null;
   private contentArea: HTMLElement | undefined;
 
+  // Wrapper container for toolbar and content area
+  private wrapperElementRef = React.createRef<HTMLDivElement>();
+
   private contentAreaRef = (contentArea: HTMLElement) => {
     this.contentArea = contentArea;
   };
@@ -91,7 +94,11 @@ export class FullPageEditor extends React.Component<
 
     return (
       <ContextPanelWidthProvider>
-        <div css={fullPageEditorWrapper} className="akEditor">
+        <div
+          css={fullPageEditorWrapper}
+          className="akEditor"
+          ref={this.wrapperElementRef}
+        >
           <FullPageToolbar
             appearance={props.appearance}
             beforeIcon={props.primaryToolbarIconBefore}
@@ -134,6 +141,7 @@ export class FullPageEditor extends React.Component<
             providerFactory={props.providerFactory}
             scrollContainer={this.scrollContainer}
             scrollContainerRef={this.scrollContainerRef}
+            wrapperElement={this.wrapperElementRef.current}
           />
         </div>
       </ContextPanelWidthProvider>

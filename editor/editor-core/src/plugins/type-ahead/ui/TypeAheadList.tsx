@@ -27,7 +27,6 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { typeAheadListMessages } from '../messages';
 
 const LIST_ITEM_ESTIMATED_HEIGHT = ICON_HEIGHT + ITEM_PADDING * 2;
-const LIST_MAX_HEIGHT = 380;
 const LIST_WIDTH = 320;
 
 type TypeAheadListProps = {
@@ -35,6 +34,7 @@ type TypeAheadListProps = {
   selectedIndex: number;
   onItemHover: OnSelectItem;
   onItemClick: (mode: SelectItemMode, index: number) => void;
+  fitHeight: number;
 } & WrappedComponentProps;
 
 const TypeAheadListComponent = React.memo(
@@ -44,6 +44,7 @@ const TypeAheadListComponent = React.memo(
     onItemHover,
     onItemClick,
     intl,
+    fitHeight,
   }: TypeAheadListProps) => {
     const listRef = useRef<List<TypeAheadItem[]>>() as React.MutableRefObject<
       List<TypeAheadItem[]>
@@ -68,7 +69,7 @@ const TypeAheadListComponent = React.memo(
       redrawListAtIndex,
       getFirstVisibleIndex,
       listLength: items.length,
-      listMaxHeight: LIST_MAX_HEIGHT,
+      listMaxHeight: fitHeight,
       listItemEstimatedHeight: LIST_ITEM_ESTIMATED_HEIGHT,
     });
 
@@ -138,7 +139,7 @@ const TypeAheadListComponent = React.memo(
       typeof renderedListHeight === 'number'
         ? renderedListHeight
         : estimatedHeight,
-      LIST_MAX_HEIGHT,
+      fitHeight,
     );
     return (
       <ItemGroup

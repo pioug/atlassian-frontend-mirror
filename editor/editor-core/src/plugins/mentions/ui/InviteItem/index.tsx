@@ -4,6 +4,7 @@ import AddIcon from '@atlaskit/icon/glyph/add';
 import { MentionDescription } from '@atlaskit/mention/resource';
 import { UserRole } from '@atlaskit/mention';
 import { N300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import React, {
   useCallback,
   useEffect,
@@ -98,7 +99,7 @@ const InviteItem = ({
         <span css={avatarStyle}>
           <AddIcon
             label={intl.formatMessage(messages.mentionsAddLabel)}
-            primaryColor={N300}
+            primaryColor={token('color.icon.subtle', N300)}
           />
         </span>
         <div css={nameSectionStyle} data-testid="name-section">

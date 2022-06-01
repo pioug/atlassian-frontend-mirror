@@ -126,6 +126,8 @@ describe('getFileAttributes()', () => {
           new RequestError('serverInvalidBody', {
             method: 'GET',
             endpoint: '/some-endpoint',
+            mediaRegion: 'some-region',
+            mediaEnv: 'some-env',
           }),
         ),
       ),
@@ -138,6 +140,8 @@ describe('getFileAttributes()', () => {
         request: {
           method: 'GET',
           endpoint: '/some-endpoint',
+          mediaRegion: 'some-region',
+          mediaEnv: 'some-env',
         },
         fileAttributes: {
           fileId: 'some-id',

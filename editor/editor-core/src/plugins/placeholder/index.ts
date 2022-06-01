@@ -1,4 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { browser } from '@atlaskit/editor-common/utils';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { EditorPlugin } from '../../types';
@@ -42,6 +43,17 @@ export function createPlaceholderDecoration(
   const placeholderNode = document.createElement('span');
   placeholderNode.textContent = placeholderText;
   placeholderDecoration.appendChild(placeholderNode);
+
+  // ME-2289 Tapping on backspace in empty editor hides and displays the keyboard
+  // Add a editable buff node as the cursor moving forward is inevitable
+  // when backspace in GBoard composition
+  if (browser.android && browser.chrome) {
+    const buffNode = document.createElement('span');
+    buffNode.setAttribute('contenteditable', 'true');
+    buffNode.textContent = ' ';
+    placeholderDecoration.appendChild(buffNode);
+  }
+
   return DecorationSet.create(editorState.doc, [
     Decoration.widget(pos, placeholderDecoration, {
       side: -1,

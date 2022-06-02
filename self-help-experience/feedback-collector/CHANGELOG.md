@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.5.2
+
+### Patch Changes
+
+- [`8e34fbcfb52`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e34fbcfb52) - Prevent unnecessary duplicate http call in feedback collector
+
 ## 10.5.1
 
 ### Patch Changes

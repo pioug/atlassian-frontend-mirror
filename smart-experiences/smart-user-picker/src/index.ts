@@ -45,6 +45,7 @@ export type {
   LoadOptions,
   Team,
   TeamHighlight,
+  TeamMember,
   User,
   UserHighlight,
   ExternalUser,

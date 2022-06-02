@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 5.1.1
+
+### Patch Changes
+
+- [`ff97c74b6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff97c74b6f0) - Add TeamMember as export from user-picker
+
 ## 5.1.0
 
 ### Minor Changes

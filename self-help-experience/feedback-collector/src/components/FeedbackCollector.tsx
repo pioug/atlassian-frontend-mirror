@@ -292,6 +292,7 @@ export default class FeedbackCollector extends Component<Props> {
 
   async mapFormToJSD(formValues: FormFields) {
     const entitlementInformation = await this.getEntitlementInformation();
+    const userDetails = await this.getEmailAndAtlassianID(formValues);
 
     return {
       fields: [
@@ -312,11 +313,11 @@ export default class FeedbackCollector extends Component<Props> {
         },
         {
           id: this.props.emailFieldId,
-          value: (await this.getEmailAndAtlassianID(formValues)).email,
+          value: userDetails.email,
         },
         {
           id: 'aaidOrHash',
-          value: (await this.getEmailAndAtlassianID(formValues)).aaidOrHash,
+          value: userDetails.aaidOrHash,
         },
         {
           id: this.props.customerNameFieldId,

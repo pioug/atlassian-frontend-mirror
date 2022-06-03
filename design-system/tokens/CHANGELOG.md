@@ -1,5 +1,23 @@
 # @atlaskit/tokens
 
+## 0.10.5
+
+### Patch Changes
+
+- [`1124fa435ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1124fa435ed) - Moves the following `deprecated` tokens to the `sunset` phase. Please ensure that all `sunset` tokens are removed from your application, they will be completely removed in the next major version:
+
+  - `color.background.brand.hovered` => `color.background.selected.hovered`
+  - `color.background.brand.pressed` => `color.background.selected.pressed`
+  - `color.background.brand` => `color.background.selected`
+  - `color.background.inverse` => `color.background.inverse.subtle`
+  - `color.background.selected.hover` => `color.background.selected.hovered`
+  - `color.background.selected.resting` => `color.background.selected`
+  - `color.background.subtleBrand.hover` => `color.background.selected.hovered`
+  - `color.background.subtleBrand.pressed` => `color.background.selected.pressed`
+  - `color.background.subtleBrand.resting` => `color.background.selected`
+
+  If you have configured the design token eslint rules, running `eslint --fix` will resolve these changes automatically.
+
 ## 0.10.4
 
 ### Patch Changes

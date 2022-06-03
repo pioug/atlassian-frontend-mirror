@@ -1,0 +1,9 @@
+import BannerProps from '!!extract-react-types-loader!../../src/index.tsx';
+import SectionMessage from '@atlaskit/section-message';
+import { Code } from '@atlaskit/code';
+
+<SectionMessage appearance="warning" title="Intent to deprecate">
+  We are deprecating props <Code>innerRef</Code> and <Code>isOpen</Code>, these will be removed after August 24, 2022.  For new usages of banner, do not use <Code>innerRef</Code>, and conditionally render banners instead of using <Code>isOpen</Code>.
+</SectionMessage>
+
+<PropsTable heading="" props={BannerProps}/>

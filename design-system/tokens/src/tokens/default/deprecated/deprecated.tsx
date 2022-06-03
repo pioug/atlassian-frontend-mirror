@@ -388,9 +388,10 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
           '[default]': {
             attributes: {
               group: 'paint',
-              state: 'deprecated',
+              state: 'deleted',
               introduced: '0.6.0',
               deprecated: '0.6.2',
+              deleted: '0.10.5',
               replacement: 'color.background.selected.[default].[default]',
               description:
                 'Use for the background of elements used to reinforce our brand.',
@@ -399,9 +400,10 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
           hovered: {
             attributes: {
               group: 'paint',
-              state: 'deprecated',
+              state: 'deleted',
               introduced: '0.6.0',
               deprecated: '0.6.2',
+              deleted: '0.10.5',
               replacement: 'color.background.selected.[default].hovered',
               description: 'Hovered state for color.background.brand',
             },
@@ -409,9 +411,10 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
           pressed: {
             attributes: {
               group: 'paint',
-              state: 'deprecated',
+              state: 'deleted',
               introduced: '0.6.0',
               deprecated: '0.6.2',
+              deleted: '0.10.5',
               replacement: 'color.background.selected.[default].pressed',
               description: 'Pressed state for color.background.brand',
             },
@@ -661,9 +664,10 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
         '[default]': {
           attributes: {
             group: 'paint',
-            state: 'deprecated',
+            state: 'deleted',
             introduced: '0.1.0',
             deprecated: '0.8.3',
+            deleted: '0.10.5',
             replacement: 'color.background.inverse.subtle.[default]',
             description:
               'Use for backgrounds of elements on a bold background, such as in the buttons on spotlight cards.',
@@ -690,9 +694,10 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
-            state: 'deprecated',
+            state: 'deleted',
             introduced: '0.1.0',
             deprecated: '0.6.0',
+            deleted: '0.10.5',
             replacement: 'color.background.selected.[default].[default]',
             description: 'Use for backgrounds of elements in a selected state',
           },
@@ -700,9 +705,10 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
-            state: 'deprecated',
+            state: 'deleted',
             introduced: '0.1.0',
             deprecated: '0.6.0',
+            deleted: '0.10.5',
             replacement: 'color.background.selected.[default].hovered',
             description: 'Hover state for color.background.selected',
           },
@@ -736,9 +742,10 @@ Combine with shadow.overlay.`,
         hover: {
           attributes: {
             group: 'paint',
-            state: 'deprecated',
+            state: 'deleted',
             introduced: '0.0.15',
             deprecated: '0.6.0',
+            deleted: '0.10.5',
             replacement: 'color.background.selected.[default].hovered',
             description: 'Hover state for background.subtleBrand',
           },
@@ -746,9 +753,10 @@ Combine with shadow.overlay.`,
         pressed: {
           attributes: {
             group: 'paint',
-            state: 'deprecated',
+            state: 'deleted',
             introduced: '0.0.15',
             deprecated: '0.6.0',
+            deleted: '0.10.5',
             replacement: 'color.background.selected.[default].pressed',
             description: 'Pressed state for background.subtleBrand',
           },
@@ -756,9 +764,10 @@ Combine with shadow.overlay.`,
         resting: {
           attributes: {
             group: 'paint',
-            state: 'deprecated',
+            state: 'deleted',
             introduced: '0.0.15',
             deprecated: '0.6.0',
+            deleted: '0.10.5',
             replacement: 'color.background.selected.[default].[default]',
             description:
               'Use for subdued backgrounds of UI elements like information section messages and in progress lozenges.',

@@ -1,5 +1,11 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.2.0
+
+### Minor Changes
+
+- [`afccf139dce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afccf139dce) - ME-2258 On mobile, picking a date in negative timezone return an incorrect day
+
 ## 34.1.0
 
 ### Minor Changes

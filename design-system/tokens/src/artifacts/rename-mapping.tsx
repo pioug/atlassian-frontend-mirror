@@ -12,7 +12,7 @@
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::dd934162c3393bce214d694d47bbcf2a>>
+ * @codegen <<SignedSource::51fbaf5510a3fead6a2844d4df866a77>>
  * @codegenCommand yarn build tokens
  */
 import tokens from './token-names';
@@ -152,32 +152,32 @@ const renameMapper: RenameMap[] = [
   },
   {
     "path": "color.background.inverse.[default]",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.inverse.subtle.[default]"
   },
   {
     "path": "color.background.brand.[default].[default]",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].[default]"
   },
   {
     "path": "color.background.brand.[default].hovered",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].hovered"
   },
   {
     "path": "color.background.brand.[default].pressed",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].pressed"
   },
   {
     "path": "color.background.selected.resting",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].[default]"
   },
   {
     "path": "color.background.selected.hover",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].hovered"
   },
   {
@@ -302,17 +302,17 @@ const renameMapper: RenameMap[] = [
   },
   {
     "path": "color.background.subtleBrand.hover",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].hovered"
   },
   {
     "path": "color.background.subtleBrand.pressed",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].pressed"
   },
   {
     "path": "color.background.subtleBrand.resting",
-    "state": "deprecated",
+    "state": "deleted",
     "replacement": "color.background.selected.[default].[default]"
   },
   {

@@ -248,7 +248,7 @@ export const useSmartCardActions = (
           key,
           action.type,
           source,
-          err.message,
+          (err as any).message,
         );
         throw err;
       }

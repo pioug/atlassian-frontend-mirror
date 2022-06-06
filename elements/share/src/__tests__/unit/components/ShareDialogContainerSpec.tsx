@@ -40,6 +40,7 @@ describe('ShareDialogContainer', () => {
   let mockCreateAnalyticsEvent: jest.Mock;
   let mockFormatCopyLink: jest.Mock;
   const mockCloudId = 'cloudId';
+  const mockOrgId = 'orgId';
   const mockDialogPlacement = 'bottom-start';
   const mockProductId = 'confluence';
   const mockShareAri = 'ari';
@@ -129,6 +130,7 @@ describe('ShareDialogContainer', () => {
       shareClient: mockShareClient,
       urlShortenerClient: mockShortenerClient,
       cloudId: mockCloudId,
+      orgId: mockOrgId,
       dialogPlacement: mockDialogPlacement,
       loadUserOptions: mockLoadUserOptions,
       originTracingFactory: mockOriginTracingFactory,
@@ -189,6 +191,7 @@ describe('ShareDialogContainer', () => {
       mockShouldCloseOnEscapePress,
     );
     expect(mockOriginTracingFactory).toHaveBeenCalledTimes(2);
+    expect(shareDialogWithTrigger.prop('orgId')).toEqual(mockOrgId);
   });
 
   describe('internal methods', () => {

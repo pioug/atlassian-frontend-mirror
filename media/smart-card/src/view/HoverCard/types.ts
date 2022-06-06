@@ -1,6 +1,7 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ElementItem } from '../FlexibleCard/components/blocks/types';
 export interface HoverCardProps extends WithAnalyticsEventsProps {
+  id?: string;
   url: string;
 }
 

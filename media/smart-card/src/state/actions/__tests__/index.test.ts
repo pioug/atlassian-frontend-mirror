@@ -5,8 +5,8 @@ import { mocks } from '../../../utils/mocks';
 import { APIError } from '@atlaskit/linking-common';
 import { useSmartLinkContext, CardContext } from '@atlaskit/link-provider';
 import { CardState } from '../../types';
-import { useSmartLinkAnalytics } from '../../analytics';
 import { JsonLd } from 'json-ld-types';
+import { useSmartLinkAnalytics } from '../../../state';
 
 describe('Smart Card: Actions', () => {
   let url: string;
@@ -38,7 +38,7 @@ describe('Smart Card: Actions', () => {
   describe('register()', () => {
     it('dispatches pending action if card not in store', async () => {
       mockFetchData(Promise.resolve(mocks.success));
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
       const actions = useSmartCardActions(id, url, analytics);
       await actions.register();
 
@@ -55,7 +55,7 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
       const actions = useSmartCardActions(id, url, analytics);
       const promise = actions.register();
       await expect(promise).rejects.toThrow(Error);
@@ -91,7 +91,7 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
       const actions = useSmartCardActions(id, url, analytics);
       const promise = actions.register();
       await expect(promise).resolves.toBeUndefined();
@@ -136,7 +136,7 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
       const actions = useSmartCardActions(id, url, analytics);
       const promise = actions.register();
       await expect(promise).resolves.toBeUndefined();
@@ -171,7 +171,7 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
       const actions = useSmartCardActions(id, url, analytics);
       const promise = actions.register();
       await expect(promise).resolves.toBeUndefined();
@@ -199,7 +199,7 @@ describe('Smart Card: Actions', () => {
         details: undefined,
       });
 
-      const analytics = useSmartLinkAnalytics(dispatchAnalytics);
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
       const actions = useSmartCardActions(id, url, analytics);
       const promise = actions.register();
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(

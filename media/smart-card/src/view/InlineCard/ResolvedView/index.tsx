@@ -7,6 +7,8 @@ import { LozengeProps } from '../../../types';
 import { HoverCard } from '../../../view/HoverCard/index';
 
 export interface InlineCardResolvedViewProps {
+  /** A unique ID for a Smart Link. */
+  id?: string;
   /** The optional con of the service (e.g. Dropbox/Asana/Google/etc) to display */
   icon?: React.ReactNode;
   /** The name of the resource */
@@ -51,6 +53,7 @@ export class InlineCardResolvedView extends React.Component<
 
   render() {
     const {
+      id,
       title = '',
       isSelected,
       onClick,
@@ -80,7 +83,11 @@ export class InlineCardResolvedView extends React.Component<
     );
 
     if (showHoverPreview && link) {
-      return <HoverCard url={link}>{inlineCardResolvedView}</HoverCard>;
+      return (
+        <HoverCard id={id} url={link}>
+          {inlineCardResolvedView}
+        </HoverCard>
+      );
     }
 
     return inlineCardResolvedView;

@@ -37,6 +37,7 @@ export type LazyShareFormProps = Pick<
   | 'shareIntegrations'
   | 'integrationMode'
   | 'onDialogClose'
+  | 'orgId'
 > &
   Pick<
     ShareDialogWithTriggerStates,
@@ -101,6 +102,7 @@ function LazyShareForm(props: LazyShareFormProps) {
     shareError,
     defaultValue,
     showTitle,
+    orgId,
   } = props;
 
   const footer = (
@@ -151,6 +153,7 @@ function LazyShareForm(props: LazyShareFormProps) {
           isSharing={isSharing}
           isFetchingConfig={isFetchingConfig}
           isPublicLink={isPublicLink}
+          orgId={orgId}
           onSubmit={onSubmit}
           onDismiss={onDismiss}
           onLinkCopy={onLinkCopy}

@@ -22,7 +22,6 @@ css({
 })
 ```
 
-
 👍 Example of **correct** code for this rule:
 
 ```js
@@ -37,6 +36,6 @@ css({
 import { token } from '@atlaskit/tokens';
 
 css`
-  color: ${token('color.text.highemphasis'), N20};
+  color: ${(token('color.text.highemphasis'), N20)};
 `;
 ```

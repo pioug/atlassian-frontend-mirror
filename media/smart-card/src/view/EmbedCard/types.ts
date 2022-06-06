@@ -14,6 +14,7 @@ export type EmbedCardProps = {
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   handleAnalytics: AnalyticsHandler;
   handleInvoke: InvokeHandler;
+  id?: string;
   isSelected?: boolean;
   isFrameVisible?: boolean;
   platform?: CardPlatform;

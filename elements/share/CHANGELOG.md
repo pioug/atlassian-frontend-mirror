@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.2.3
+
+### Patch Changes
+
+- [`bde6e3d6be0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bde6e3d6be0) - Added orgId as an optional prop to Share
+
 ## 3.2.2
 
 ### Patch Changes

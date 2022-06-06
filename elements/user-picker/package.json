@@ -59,7 +59,7 @@
     "@atlaskit/range": "^6.0.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/textfield": "^5.0.0",
-    "@atlaskit/util-data-test": "^17.2.0",
+    "@atlaskit/util-data-test": "^17.3.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^10.0.7",
     "@testing-library/dom": "^7.7.3",

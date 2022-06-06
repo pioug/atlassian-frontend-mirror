@@ -1,6 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Token, TokenType, TokenParser } from './';
-import { hasAnyOfMarks } from '../utils/text';
+import { hasAnyOfMarks, getSurroundingSymbols } from '../utils/text';
 import { commonFormatter } from './common-formatter';
 import { parseString } from '../text';
 
@@ -47,9 +47,15 @@ export const superscript: TokenParser = ({
     };
   };
 
+  const { openingSymbol, closingSymbol } = getSurroundingSymbols(
+    input.substring(position),
+    '^',
+    '^',
+  );
+
   return commonFormatter(input, position, schema, {
-    opening: '^',
-    closing: '^',
+    opening: openingSymbol,
+    closing: closingSymbol,
     context,
     rawContentProcessor,
   });

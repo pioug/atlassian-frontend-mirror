@@ -16,6 +16,7 @@ export type ShareFormProps = Pick<
   | 'cloudId'
   | 'loggedInAccountId'
   | 'enableSmartUserPicker'
+  | 'orgId'
 > & {
   config?: ConfigResponse;
   isFetchingConfig?: boolean;

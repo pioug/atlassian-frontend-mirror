@@ -16,7 +16,8 @@ export type AnalyticsAction =
   | 'renderSuccess'
   | 'inserted'
   | 'viewed'
-  | 'dismissed';
+  | 'dismissed'
+  | 'created';
 
 export type AnalyticsActionSubject =
   | 'smartLink'

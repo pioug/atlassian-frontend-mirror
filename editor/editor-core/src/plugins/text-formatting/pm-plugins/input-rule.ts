@@ -197,8 +197,8 @@ const buildRegex = (char: ValidAutoformatChars) => {
     .replace('OBJECT_REPLACEMENT_CHARACTER', leafNodeReplacementCharacter)
     .replace('COMBINATIONS', combinations ? `|${combinations}` : '');
 
-  const replacedRegex = baseRegex.replaceAll
-    ? baseRegex.replaceAll('X', escapedChar)
+  const replacedRegex = String.prototype.hasOwnProperty('replaceAll')
+    ? (baseRegex as any).replaceAll('X', escapedChar)
     : baseRegex.replace(/X/g, escapedChar);
 
   return new ReverseRegexExp(replacedRegex);

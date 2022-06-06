@@ -28,7 +28,7 @@ const LazyCardWithUrlContent = lazy(
 );
 
 export function CardWithURLRenderer(props: CardProps) {
-  const [id] = useState(() => uuid());
+  const [id] = useState(() => (props.id ? props.id : uuid()));
 
   useEffect(() => {
     // ComponentWillUnmount
@@ -56,6 +56,7 @@ export function CardWithURLRenderer(props: CardProps) {
     children,
     ui,
     showHoverPreview,
+    analyticsEvents,
   } = props;
 
   // Wrapper around analytics.
@@ -127,6 +128,7 @@ export function CardWithURLRenderer(props: CardProps) {
     inlinePreloaderStyle,
     ui,
     showHoverPreview,
+    analyticsEvents,
   };
 
   return (

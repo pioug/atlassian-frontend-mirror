@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.6.0
+
+### Minor Changes
+
+- [`f561f58bc7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f561f58bc7a) - Introduces a new rule `icon-label` to validate accessible usage of the icon components label prop when used with other design system components.
+
 ## 4.5.0
 
 ### Minor Changes

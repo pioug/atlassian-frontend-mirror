@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.10
+
+### Patch Changes
+
+- [`c0315117480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0315117480) - ESS-2375 Text effects should support surrounding curly braces
+
 ## 11.0.9
 
 ### Patch Changes

@@ -7,6 +7,10 @@ import { OnResolveCallback } from '../Card/types';
 
 export type FlexibleCardProps = {
   /**
+   * @internal A unique ID for a Smart Link.
+   */
+  id?: string;
+  /**
    * Determines the appearance of the Smart Link.
    * @internal
    */

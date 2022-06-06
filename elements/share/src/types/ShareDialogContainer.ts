@@ -40,6 +40,8 @@ export type ShareDialogContainerProps = {
   /** Cloud ID of the instance.
    * Note: we assume this props is stable. */
   cloudId: string;
+  /** Organisation ID of the instance. */
+  orgId?: string;
   /** Placement of the modal to the trigger button. */
   dialogPlacement?: DialogPlacement;
   /**

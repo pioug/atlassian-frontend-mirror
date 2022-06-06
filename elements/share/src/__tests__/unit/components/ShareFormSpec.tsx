@@ -492,7 +492,7 @@ describe('helperMessage prop', () => {
         onSubmit={onSubmit}
         title="some title"
         product="confluence"
-        helperMessage="this is the helper message to be displayed"
+        helperMessage={helperMessage}
       />,
     );
     const akForm = shareForm.find<FormProps<{}>>(Form);
@@ -503,5 +503,36 @@ describe('helperMessage prop', () => {
     const userPickerField = form.find(UserPickerField);
 
     expect(userPickerField.props().helperMessage).toEqual(helperMessage);
+  });
+});
+
+describe('orgId prop', () => {
+  it('should pass org id to userPickerField', () => {
+    const mockLink = 'link';
+    const mockOrgId = 'org-id';
+    const loadOptions = jest.fn();
+    const onSubmit = jest.fn();
+    const helperMessage = 'this is the helper message to be displayed';
+    const shareForm = (shallowWithIntl as typeof shallow)(
+      <ShareForm
+        {...defaultProps}
+        copyLink={mockLink}
+        loadOptions={loadOptions}
+        onSubmit={onSubmit}
+        title="some title"
+        product="confluence"
+        helperMessage={helperMessage}
+        orgId={mockOrgId}
+        enableSmartUserPicker
+      />,
+    );
+    const akForm = shareForm.find<FormProps<{}>>(Form);
+    const form = renderProp(akForm, 'children', { formProps: {} })
+      .dive()
+      .dive()
+      .find('form');
+    const userPickerField = form.find(UserPickerField);
+
+    expect(userPickerField.props().orgId).toEqual(mockOrgId);
   });
 });

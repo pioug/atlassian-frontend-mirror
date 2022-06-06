@@ -63,7 +63,7 @@ export function useSmartLinkActions({
   const [actions, setActions] = useState<LinkAction[]>([]);
 
   const linkState = useLinkState(url);
-  const linkAnalytics = useLinkAnalytics(analyticsHandler);
+  const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
   const linkActions = useLinkActions(id, url, linkAnalytics);
 
   useEffect(() => {

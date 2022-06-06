@@ -30,7 +30,6 @@ const createBaseEditorMobileBridgeWebpackConfig = async (args, config) => {
         'react-virtualized/dist/commonjs/Collection': emptyExportPath, // from react-virtualized to avoid treeshaking issues
         'react-virtualized/dist/commonjs/List': emptyExportPath, // ~10kb gzip
         'react-virtualized': emptyExportPath, // ~10kb gzip
-        'bottleneck/light': require.resolve('bottleneck'), // editor doesn't load https://product-fabric.atlassian.net/browse/ME-1061
       },
     },
     module: {

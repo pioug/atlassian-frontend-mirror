@@ -1,5 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Token, TokenType, TokenParser } from './';
+import { getSurroundingSymbols } from '../utils/text';
 import { commonFormatter } from './common-formatter';
 import { parseString } from '../text';
 
@@ -73,9 +74,15 @@ export const monospace: TokenParser = ({
     };
   };
 
+  const { openingSymbol, closingSymbol } = getSurroundingSymbols(
+    input.substring(position),
+    '{{',
+    '}}',
+  );
+
   return commonFormatter(input, position, schema, {
-    opening: '{{',
-    closing: '}}',
+    opening: openingSymbol,
+    closing: closingSymbol,
     context,
     rawContentProcessor,
   });

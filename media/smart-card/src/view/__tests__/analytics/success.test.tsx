@@ -37,6 +37,7 @@ describe('smart-card: success analytics', () => {
     ufoWrapper,
     'succeedUfoExperience',
   );
+
   const mockFailUfoExperience = jest.spyOn(ufoWrapper, 'failUfoExperience');
   const mockAddMetadataToExperience = jest.spyOn(
     ufoWrapper,
@@ -64,19 +65,14 @@ describe('smart-card: success analytics', () => {
   describe('resolved', () => {
     it('should fire the resolved analytics event when the url was resolved', async () => {
       const mockUrl = 'https://this.is.the.sixth.url';
-      const { getByTestId, getByRole } = render(
+      const { findByTestId, getByRole } = render(
         <IntlProvider locale="en">
           <Provider client={mockClient}>
             <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
           </Provider>
         </IntlProvider>,
       );
-      const resolvedView = await waitForElement(
-        () => getByTestId('resolvedCard1-resolved-view'),
-        {
-          timeout: 10000,
-        },
-      );
+      const resolvedView = await findByTestId('resolvedCard1-resolved-view');
       const resolvedCard = getByRole('button');
       expect(resolvedView).toBeTruthy();
       expect(resolvedCard).toBeTruthy();
@@ -94,6 +90,7 @@ describe('smart-card: success analytics', () => {
       expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
         'inline',
+        'resolved',
         'd1',
         'object-provider',
       );
@@ -208,7 +205,7 @@ describe('smart-card: success analytics', () => {
 
     it('should fire clicked analytics event when flexible ui link with resolved URL is clicked', async () => {
       const mockUrl = 'https://this.is.the.seventh.url';
-      const { getByTestId } = render(
+      const { findByTestId, getByTestId } = render(
         <IntlProvider locale="en">
           <Provider client={mockClient}>
             <Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
@@ -217,11 +214,8 @@ describe('smart-card: success analytics', () => {
           </Provider>
         </IntlProvider>,
       );
-      const resolvedView = await waitForElement(
-        () => getByTestId('smart-block-title-resolved-view'),
-        {
-          timeout: 5000,
-        },
+      const resolvedView = await findByTestId(
+        'smart-block-title-resolved-view',
       );
       expect(resolvedView).toBeTruthy();
 
@@ -237,10 +231,14 @@ describe('smart-card: success analytics', () => {
       expect(mockWindowOpen).toHaveBeenCalledTimes(0);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
+        'some-uuid-1',
         'flexible',
+        'resolved',
         'd1',
         'object-provider',
         false,
+        undefined,
+        undefined,
       );
 
       // With special key pressed
@@ -255,28 +253,27 @@ describe('smart-card: success analytics', () => {
       expect(mockWindowOpen).toHaveBeenCalledTimes(0);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
+        'some-uuid-1',
         'flexible',
+        'resolved',
         'd1',
         'object-provider',
         true,
+        undefined,
+        undefined,
       );
     });
 
     it('should fire clicked analytics event when a resolved URL is clicked on a inline link', async () => {
       const mockUrl = 'https://this.is.the.seventh.url';
-      const { getByTestId, getByRole } = render(
+      const { findByTestId, getByRole } = render(
         <IntlProvider locale="en">
           <Provider client={mockClient}>
             <Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
           </Provider>
         </IntlProvider>,
       );
-      const resolvedView = await waitForElement(
-        () => getByTestId('resolvedCard2-resolved-view'),
-        {
-          timeout: 5000,
-        },
-      );
+      const resolvedView = await findByTestId('resolvedCard2-resolved-view');
       expect(resolvedView).toBeTruthy();
 
       const resolvedCard = getByRole('button');
@@ -288,10 +285,14 @@ describe('smart-card: success analytics', () => {
       fireEvent.click(resolvedCard);
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
+        'some-uuid-1',
         'inline',
+        'resolved',
         'd1',
         'object-provider',
         false,
+        undefined,
+        undefined,
       );
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
 
@@ -305,10 +306,14 @@ describe('smart-card: success analytics', () => {
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
+        'some-uuid-1',
         'inline',
+        'resolved',
         'd1',
         'object-provider',
         true,
+        undefined,
+        undefined,
       );
     });
 
@@ -375,24 +380,19 @@ describe('smart-card: success analytics', () => {
 
   it('block: should fire invokeSucceeded event when an action is clicked & processed', async () => {
     const mockUrl = 'https://this.is.the.eigth.url';
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <Provider client={mockClient}>
           <Card
-            testId="resolvedCardWithActions"
+            testId="resolvedCardWithActionsProcessed"
             appearance="block"
             url={mockUrl}
           />
         </Provider>
       </IntlProvider>,
     );
-    const downloadActionButton = await waitForElement(
-      () => getByTestId('button-comment'),
-      {
-        timeout: 5000,
-      },
-    );
-    const resolvedView = getByTestId('resolvedCardWithActions');
+    const downloadActionButton = await findByTestId('button-comment');
+    const resolvedView = await findByTestId('resolvedCardWithActionsProcessed');
     expect(resolvedView).toBeTruthy();
     expect(downloadActionButton).toBeTruthy();
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
@@ -430,30 +430,32 @@ describe('smart-card: success analytics', () => {
   });
 
   it('block: should fire invokeFailed event when an action is clicked & fails', async () => {
-    mockPostData.mockImplementationOnce(async () =>
-      Promise.reject(new Error('something happened')),
-    );
+    let mockFailPostData = jest
+      .fn()
+      .mockImplementationOnce(async () =>
+        Promise.reject(new Error('something happened')),
+      );
+
+    let mockFailClient: CardClient = new (fakeFactory(
+      mockFetch,
+      mockFailPostData,
+    ))();
     const mockUrl = 'https://this.is.the.eigth.url';
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
-        <Provider client={mockClient}>
+        <Provider client={mockFailClient}>
           <Card
-            testId="resolvedCardWithActions"
+            testId="resolvedCardWithActionsFailure"
             appearance="block"
             url={mockUrl}
           />
         </Provider>
       </IntlProvider>,
     );
-    const downloadActionButton = await waitForElement(
-      () => getByTestId('button-comment'),
-      {
-        timeout: 5000,
-      },
-    );
-    const resolvedView = getByTestId('resolvedCardWithActions');
+    const commentActionButton = await findByTestId('button-comment');
+    const resolvedView = await findByTestId('resolvedCardWithActionsFailure');
     expect(resolvedView).toBeTruthy();
-    expect(downloadActionButton).toBeTruthy();
+    expect(commentActionButton).toBeTruthy();
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 
     // Clearing the render experience mocks to ensure we check correct invocation
@@ -461,18 +463,17 @@ describe('smart-card: success analytics', () => {
     mockStartUfoExperience.mockClear();
     mockSucceedUfoExperience.mockClear();
 
-    fireEvent.click(downloadActionButton);
+    fireEvent.click(commentActionButton);
+    expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
     await wait(() => {
-      expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeFailedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeFailedEvent).toHaveBeenCalledWith(
         expect.any(String),
-        'object-provider',
         'CommentAction',
         'block',
         'something happened',
+        'object-provider',
       );
-
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-action-invocation',
         'some-uuid-1',
@@ -483,7 +484,6 @@ describe('smart-card: success analytics', () => {
           invokeType: 'server',
         },
       );
-
       expect(mockFailUfoExperience).toBeCalledWith(
         'smart-link-action-invocation',
         'some-uuid-1',
@@ -497,7 +497,7 @@ describe('smart-card: success analytics', () => {
 
   it('preview: should fire analytics on invocation, and render preview', async () => {
     const mockUrl = 'https://this.is.the.eigth.url';
-    const { getByTestId } = render(
+    const { findByTestId } = render(
       <IntlProvider locale="en">
         <Provider client={mockClient}>
           <Card
@@ -508,13 +508,8 @@ describe('smart-card: success analytics', () => {
         </Provider>
       </IntlProvider>,
     );
-    const previewActionButton = await waitForElement(
-      () => getByTestId('button-preview-content'),
-      {
-        timeout: 5000,
-      },
-    );
-    const resolvedView = getByTestId('resolvedCardWithActions');
+    const previewActionButton = await findByTestId('button-preview-content');
+    const resolvedView = findByTestId('resolvedCardWithActions');
     expect(resolvedView).toBeTruthy();
     expect(previewActionButton).toBeTruthy();
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
@@ -531,9 +526,9 @@ describe('smart-card: success analytics', () => {
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledWith(
         expect.any(String),
-        'object-provider',
         'PreviewAction',
         'block',
+        'object-provider',
       );
     });
 
@@ -558,7 +553,7 @@ describe('smart-card: success analytics', () => {
     );
 
     // Next, check the preview modal has rendered.
-    const previewModal = getByTestId('preview-modal');
+    const previewModal = findByTestId('preview-modal');
     expect(previewModal).toBeTruthy();
   });
 });

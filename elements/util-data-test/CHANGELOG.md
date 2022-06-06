@@ -1,5 +1,15 @@
 # @atlaskit/util-data-test
 
+## 17.3.0
+
+### Minor Changes
+
+- [`31ca93c69a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ca93c69a3) - [ux] Adding give kudos button to the profile card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.4
 
 ### Patch Changes

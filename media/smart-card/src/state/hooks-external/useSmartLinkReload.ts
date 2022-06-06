@@ -30,7 +30,7 @@ export function useSmartLinkReload({
 }: UseSmartLinkReloadOpts) {
   const id = useMemo(() => uuid(), []);
 
-  const linkAnalytics = useLinkAnalytics(analyticsHandler);
+  const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
   const linkActions = useLinkActions(id, url, linkAnalytics);
 
   return linkActions.reload;

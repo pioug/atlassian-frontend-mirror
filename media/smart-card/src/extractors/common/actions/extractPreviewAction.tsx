@@ -85,7 +85,7 @@ export const extractPreviewAction = (
       ...metadata,
       testId,
       onOpen: () => {
-        handleAnalytics(uiRenderSuccessEvent('preview', key));
+        handleAnalytics(uiRenderSuccessEvent('preview', 'resolved', key));
       },
       onOpenFailed: (error, errorInfo) => {
         handleAnalytics(uiRenderFailedEvent('preview', error, errorInfo));

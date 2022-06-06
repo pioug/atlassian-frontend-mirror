@@ -2,7 +2,11 @@ import { JsonLd } from 'json-ld-types';
 
 export type ResolveResponse = JsonLd.Response;
 
-export { SmartCardProvider as Provider, SmartCardContext } from './state';
+export {
+  SmartCardProvider as Provider,
+  SmartCardContext,
+  useSmartLinkAnalytics,
+} from './state';
 export type { ProviderProps, CardType } from './state';
 export {
   EditorCardProvider,

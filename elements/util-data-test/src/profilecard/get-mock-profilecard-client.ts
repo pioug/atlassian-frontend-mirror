@@ -117,5 +117,9 @@ export function simpleMockProfilecardClient(): ProfileClient {
         reports: reportingLinesUsers.slice(-halfCount),
       });
     },
+
+    getTeamCentralBaseUrl: () => 'teamCentralUrl',
+
+    shouldShowGiveKudos: () => Promise.resolve(true),
   };
 }

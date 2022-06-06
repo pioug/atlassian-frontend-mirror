@@ -1,5 +1,11 @@
 # @atlaskit/analytics-gas-types
 
+## 5.0.7
+
+### Patch Changes
+
+- [`fb671c594d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb671c594d3) - Fixing typo in docs
+
 ## 5.0.6
 
 ### Patch Changes

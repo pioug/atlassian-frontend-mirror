@@ -8,6 +8,7 @@ import { AnalyticsHandler } from '../../utils/types';
 import { OnResolveCallback, CardPlatform } from '../Card/types';
 
 export type BlockCardProps = {
+  id: string;
   url: string;
   cardState: CardState;
   authFlow?: CardAuthFlowOpts['authFlow'];

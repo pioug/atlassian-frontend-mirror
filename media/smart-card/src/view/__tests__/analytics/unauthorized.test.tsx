@@ -47,6 +47,69 @@ describe('smart-card: unauthorized analytics', () => {
   });
 
   describe('unauthorized', () => {
+    it('should fire clicked event when the link is clicked', async () => {
+      const mockUrl = 'https://https://this.is.a.url';
+      mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+      const { getByTestId } = render(
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card
+              testId="unauthorizedCard1"
+              appearance="inline"
+              url={mockUrl}
+            />
+          </Provider>
+        </IntlProvider>,
+      );
+
+      const unauthorizedLink = await waitForElement(
+        () => getByTestId('unauthorizedCard1-unauthorized-view'),
+
+        { timeout: 10000 },
+      );
+      expect(unauthorizedLink).toBeTruthy();
+      fireEvent.click(unauthorizedLink);
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
+        'some-uuid-1',
+        'inline',
+        'unauthorized',
+        'd1',
+        'object-provider',
+        false,
+        undefined,
+        undefined,
+      );
+    });
+
+    it('should fire success event when the link is rendered', async () => {
+      const mockUrl = 'https://https://this.is.a.url';
+      mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+      const { getByTestId } = render(
+        <IntlProvider locale="en">
+          <Provider client={mockClient}>
+            <Card
+              testId="unauthorizedCard1"
+              appearance="inline"
+              url={mockUrl}
+            />
+          </Provider>
+        </IntlProvider>,
+      );
+
+      const unauthorizedLink = await waitForElement(
+        () => getByTestId('unauthorizedCard1-unauthorized-view'),
+        { timeout: 10000 },
+      );
+      expect(unauthorizedLink).toBeTruthy();
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
+        'inline',
+        'unauthorized',
+        'd1',
+        'object-provider',
+      );
+    });
     it('should fire connectSucceeded event when auth succeeds', async () => {
       const mockUrl = 'https://https://this.is.a.url';
       mockFetch.mockImplementationOnce(async () => mocks.unauthorized);

@@ -3,7 +3,7 @@ import {
   version as packageVersion,
 } from '../../version.json';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError, CardType } from '@atlaskit/linking-common';
 
 import { AnalyticsPayload } from '../types';
 import { ErrorInfo } from 'react';
@@ -13,6 +13,7 @@ import {
   PreviewInvokeMethod,
 } from '../../view/HoverCard/types';
 import { getMeasure } from '../performance';
+import { DestinationProduct } from './types';
 
 export const ANALYTICS_CHANNEL = 'media';
 
@@ -102,9 +103,9 @@ export const unresolvedEvent = (
 
 export const invokeSucceededEvent = (
   id: string,
-  extensionKey: string,
   actionType: string,
   display: CardInnerAppearance,
+  extensionKey?: string,
 ): AnalyticsPayload => {
   const measure = getMeasure(id, 'resolved') || { duration: undefined };
   return {
@@ -116,7 +117,7 @@ export const invokeSucceededEvent = (
       id,
       actionType,
       display,
-      extensionKey,
+      extensionKey: extensionKey || '',
       duration: measure.duration,
     },
   };
@@ -124,10 +125,10 @@ export const invokeSucceededEvent = (
 
 export const invokeFailedEvent = (
   id: string,
-  extensionKey: string,
   actionType: string,
   display: CardInnerAppearance,
   reason: string,
+  extensionKey?: string,
 ): AnalyticsPayload => {
   const measure = getMeasure(id, 'errored') || { duration: undefined };
   return {
@@ -139,7 +140,7 @@ export const invokeFailedEvent = (
       id,
       actionType,
       display,
-      extensionKey,
+      extensionKey: extensionKey || '',
       duration: measure.duration,
       reason,
     },
@@ -226,26 +227,34 @@ export const uiAuthAlternateAccountEvent = (
 });
 
 export const uiCardClickedEvent = (
+  id: string,
   display: CardInnerAppearance,
+  status: CardType,
   definitionId?: string,
   extensionKey?: string,
   isModifierKeyPressed?: boolean,
+  location?: string,
+  destinationProduct?: DestinationProduct | string,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
   eventType: 'ui',
   attributes: {
     ...context,
+    id,
+    status,
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     display,
     isModifierKeyPressed,
+    location,
+    destinationProduct,
   },
 });
 
 export const uiActionClickedEvent = (
-  extensionKey: string,
   actionType: string,
+  extensionKey?: string,
   display?: CardInnerAppearance,
 ): AnalyticsPayload => ({
   action: 'clicked',
@@ -254,7 +263,7 @@ export const uiActionClickedEvent = (
   attributes: {
     ...context,
     display,
-    extensionKey,
+    extensionKey: extensionKey || '',
     actionType: actionType,
   },
 });
@@ -290,6 +299,7 @@ export const screenAuthPopupEvent = (
 
 export const uiRenderSuccessEvent = (
   display: CardInnerAppearance,
+  status: CardType,
   definitionId?: string,
   extensionKey?: string,
 ): AnalyticsPayload => ({
@@ -298,6 +308,7 @@ export const uiRenderSuccessEvent = (
   eventType: 'ui',
   attributes: {
     ...context,
+    status,
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     display,

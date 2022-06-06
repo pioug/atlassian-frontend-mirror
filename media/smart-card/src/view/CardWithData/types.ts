@@ -4,6 +4,7 @@ import { JsonLd } from 'json-ld-types';
 import { InlinePreloaderStyle } from '../types';
 
 export interface CardWithDataContentProps {
+  id?: string;
   appearance: CardAppearance;
   data: JsonLd.Data.BaseData;
   onClick?: EventHandler<MouseEvent | KeyboardEvent>;

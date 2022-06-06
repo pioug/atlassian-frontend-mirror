@@ -23,6 +23,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
 
   render() {
     const {
+      id,
       appearance,
       data,
       isSelected,
@@ -40,6 +41,7 @@ export class CardWithDataRenderer extends React.PureComponent<CardProps> {
     if (CardWithDataRenderer.CardContent) {
       return (
         <CardWithDataRenderer.CardContent
+          id={id}
           inlinePreloaderStyle={inlinePreloaderStyle}
           appearance={appearance}
           data={data}

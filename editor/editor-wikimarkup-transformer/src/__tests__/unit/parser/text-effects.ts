@@ -121,11 +121,44 @@ https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#
     });
   }
 
-  const symbols = ['*', '_', '+', '-', '^', '~', '??'];
+  const symbols = [
+    { opening: '*', closing: '*' },
+    { opening: '_', closing: '_' },
+    { opening: '+', closing: '+' },
+    { opening: '-', closing: '-' },
+    { opening: '^', closing: '^' },
+    { opening: '~', closing: '~' },
+    { opening: '??', closing: '??' },
+    { opening: '{{', closing: '}}' },
+  ];
 
   for (const symbol of symbols) {
-    it(`ESS-1402 tests non-breaking space before and after every ${symbol}`, () => {
-      const markup = `This string tests the ${symbol}symbol${symbol} .`;
+    it(`ESS-1402 tests text between every ${symbol.opening} and after every ${symbol.closing} surrounded by non-breaking space`, () => {
+      const markup = `This string tests the ${symbol.opening}symbol${symbol.closing} .`;
+      const transformer = new WikiMarkupTransformer();
+      expect(transformer.parse(markup)).toMatchSnapshot();
+    });
+  }
+
+  for (const symbol of symbols) {
+    it(`ESS-2375 tests text between ${symbol.opening} and ${symbol.closing} surrounded by curly braces`, () => {
+      const markup = `This string tests the {${symbol.opening}}symbol{${symbol.closing}} surrounded by curly braces.`;
+      const transformer = new WikiMarkupTransformer();
+      expect(transformer.parse(markup)).toMatchSnapshot();
+    });
+  }
+
+  for (const symbol of symbols) {
+    it(`ESS-2375 tests text between ${symbol.opening} and ${symbol.closing} where curly braces is only at end`, () => {
+      const markup = `This string tests the ${symbol.opening}symbol{${symbol.closing}} where only the closing symbol is surrounded by the curly braces`;
+      const transformer = new WikiMarkupTransformer();
+      expect(transformer.parse(markup)).toMatchSnapshot();
+    });
+  }
+
+  for (const symbol of symbols) {
+    it(`ESS-2375 tests text between ${symbol.opening} and ${symbol.closing} where curly braces is only at starting`, () => {
+      const markup = `This string tests the {${symbol.opening}}symbol${symbol.closing} where only the starting symbol is surrounded by the curly braces`;
       const transformer = new WikiMarkupTransformer();
       expect(transformer.parse(markup)).toMatchSnapshot();
     });

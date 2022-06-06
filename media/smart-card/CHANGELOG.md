@@ -1,5 +1,66 @@
 # @atlaskit/smart-card
 
+## 19.1.14
+
+### Patch Changes
+
+- [`9d57264a033`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d57264a033) - This update adds an exposed analytics hook, which will pave the way for future usage of Smart Link analytics outside of the smart-card component.
+
+  # Usage of `useSmartLinkAnalytics`
+
+  You can now use `useSmartLinkAnalytics` to create and modify a set of analytics events for the `Card` component to consume.
+
+  ```Typescript
+
+  const CardComponentWithDifferentAnalytics = () => {
+
+    // You can now supply a location, and this will be used in all events.
+    const location = 'this-is-a-test-product';
+
+    // id is optional, but with CRUD operations, you can persist this to keep analytics events related to one link.
+    const id = 'test-id';
+
+    // By default, all events will be supplied with location and id as a fallback.
+    // Calling an event will send it with the default Smart Links analytics channel
+    const analytics = useSmartLinkAnalytics(
+      url,
+      analyticsHandler,
+      id,
+      location,
+    );
+
+    // You can now use all the analytics that Smart Links uses like so:
+    analytics.ui.cardClickedEvent(id, "block", "resolved");
+
+    // You can also override an existing event:
+    // WARNING: Please reach out to #help-linking-platform before modifying events!
+    analytics.ui.renderSuccessEvent = () => {console.log("spaghetti rendered!")};
+
+    // Finally, pass your props in as below!
+    return (
+      <Card id={id} url={url} appearance="block" analyticsEvents={analytics} />
+    );
+  }
+
+  ```
+
+  This update also contains a minor update regarding `location` and `status` for two events. They are now as follows:
+
+  #### `ui.cardClickedEvent`
+
+  - Now contains `location` as described by the `useSmartLinkAnalytics` hook.
+  - Now is fired in `unauthorized`, `errored` and `forbidden` states, with the `status` attribute representing the state of the event.
+
+  #### `ui.renderSuccessEvent`
+
+  - Now contains the `status` attribute, representing the state of the event (`unauthorized`, `errored`, `resolved`, etc.)
+
+## 19.1.13
+
+### Patch Changes
+
+- [`a575379772a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a575379772a) - Hover Preview: Update z-index
+
 ## 19.1.12
 
 ### Patch Changes

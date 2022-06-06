@@ -46,6 +46,20 @@ class ProfileCardClient {
       })
     );
   }
+
+  getTeamCentralBaseUrl() {
+    return this.tcClient?.options.teamCentralBaseUrl;
+  }
+
+  shouldShowGiveKudos(): Promise<boolean> {
+    // Check if the kudos feature enabled and if the user has TC
+    // if the user does not have TC the tc client will be undefined.
+    return (
+      (this.tcClient?.options.teamCentralBaseUrl &&
+        this.tcClient?.getFlagEnabled('team-central-kudos-enabled-m2')) ||
+      Promise.resolve(false)
+    );
+  }
 }
 
 function maybeCreateTeamCentralClient(

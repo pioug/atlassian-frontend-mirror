@@ -62,6 +62,7 @@ export type ShareDialogWithTriggerProps = Pick<
   | 'tabIndex'
   | 'copyTooltipText'
   | 'dialogZIndex'
+  | 'orgId'
 > & {
   config?: ConfigResponse;
   isFetchingConfig?: boolean;

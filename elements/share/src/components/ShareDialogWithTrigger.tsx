@@ -490,6 +490,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       enableSmartUserPicker,
       loggedInAccountId,
       cloudId,
+      orgId,
       shareFieldsFooter,
       onUserSelectionChange,
       dialogZIndex,
@@ -546,6 +547,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 enableSmartUserPicker={enableSmartUserPicker}
                 loggedInAccountId={loggedInAccountId}
                 cloudId={cloudId}
+                orgId={orgId}
                 onUserSelectionChange={onUserSelectionChange}
                 shareFieldsFooter={shareFieldsFooter}
                 isPublicLink={isPublicLink}

@@ -1,5 +1,6 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { CardAppearance, CardPlatform } from '@atlaskit/linking-common';
+import { AnalyticsFacade } from '../../state/analytics';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle } from '../types';
 
@@ -14,6 +15,7 @@ export type OnResolveCallback = (data: {
 
 export interface CardProps extends WithAnalyticsEventsProps {
   appearance: CardAppearance;
+  id?: string;
   platform?: CardPlatform;
   isSelected?: boolean;
   isFrameVisible?: boolean;
@@ -31,4 +33,5 @@ export interface CardProps extends WithAnalyticsEventsProps {
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;
   showHoverPreview?: boolean;
+  analyticsEvents?: AnalyticsFacade;
 }

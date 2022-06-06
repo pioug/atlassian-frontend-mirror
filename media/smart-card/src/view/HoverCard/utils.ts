@@ -1,7 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 
 export const getSimulatedMetadata = (
-  extensionKey: string,
+  extensionKey: string = '',
 ): JsonLd.Primitives.Property<any> => {
   switch (extensionKey) {
     case 'confluence-object-provider':

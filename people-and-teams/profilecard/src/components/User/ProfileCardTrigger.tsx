@@ -86,6 +86,8 @@ class ProfilecardTrigger extends React.PureComponent<
     error: null,
     data: null,
     reportingLinesData: undefined,
+    shouldShowGiveKudos: false,
+    teamCentralBaseUrl: undefined,
   };
 
   componentDidMount() {
@@ -127,6 +129,10 @@ class ProfilecardTrigger extends React.PureComponent<
       return;
     }
 
+    this.setState({
+      teamCentralBaseUrl: this.props.resourceClient.getTeamCentralBaseUrl(),
+    });
+
     this.setState(
       {
         isLoading: true,
@@ -137,11 +143,12 @@ class ProfilecardTrigger extends React.PureComponent<
         const requests = Promise.all([
           this.props.resourceClient.getProfile(cloudId || '', userId),
           this.props.resourceClient.getReportingLines(userId),
+          this.props.resourceClient.shouldShowGiveKudos(),
         ]);
 
         requests
           .then(
-            (res) => this.handleClientSuccess(res[0], res[1]),
+            (res) => this.handleClientSuccess(...res),
             (err) => this.handleClientError(err),
           )
           .catch((err) => this.handleClientError(err));
@@ -152,6 +159,7 @@ class ProfilecardTrigger extends React.PureComponent<
   handleClientSuccess(
     profileData: ProfileCardClientData,
     reportingLinesData: TeamCentralReportingLinesData,
+    shouldShowGiveKudos: boolean,
   ) {
     if (!this._isMounted) {
       return;
@@ -162,6 +170,7 @@ class ProfilecardTrigger extends React.PureComponent<
       hasError: false,
       data: profileData,
       reportingLinesData,
+      shouldShowGiveKudos,
     });
   }
 
@@ -183,11 +192,15 @@ class ProfilecardTrigger extends React.PureComponent<
 
   renderProfileCard() {
     const newProps: ProfilecardProps = {
+      userId: this.props.userId,
+      isCurrentUser: this.state.data?.isCurrentUser,
       clientFetchProfile: this.clientFetchProfile,
       analytics: this.props.analytics,
       ...this.state.data,
       reportingLines: this.state.reportingLinesData,
       onReportingLinesClick: this.props.onReportingLinesClick,
+      isKudosEnabled: this.state.shouldShowGiveKudos,
+      teamCentralBaseUrl: this.state.teamCentralBaseUrl,
     };
 
     const wrapperProps =

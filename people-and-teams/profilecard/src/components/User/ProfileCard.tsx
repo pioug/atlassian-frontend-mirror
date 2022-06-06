@@ -95,33 +95,63 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     );
   }
 
+  giveKudosCallback = (clickedUserId?: string) => {
+    if (clickedUserId) {
+      window.open(
+        `${this.props.teamCentralBaseUrl}/give-kudos?type=individual&recipientId=${clickedUserId}`,
+      );
+    } else {
+      window.open(
+        `${this.props.teamCentralBaseUrl}/give-kudos?type=individual`,
+      );
+    }
+  };
+
+  getActions() {
+    const actions = this.props.actions || [];
+    if (!this.props.isCurrentUser && this.props.isKudosEnabled) {
+      const kudosAction = {
+        label: <FormattedMessage {...messages.giveKudosButton} />,
+        id: 'give-kudos',
+        callback: () => {
+          this.giveKudosCallback(this.props.userId);
+        },
+        link: this.props.userId
+          ? `${this.props.teamCentralBaseUrl}/give-kudos?type=individual&recipientId=${this.props.userId}`
+          : `${this.props.teamCentralBaseUrl}/give-kudos?type=individual`,
+      };
+      return actions.concat([kudosAction]);
+    }
+    return actions;
+  }
+
   renderActionsButtons() {
     if (this.props.actions && this.props.actions.length === 0) {
       return null;
     }
+    const actions = this.getActions();
 
     return (
       <ActionButtonGroup>
-        {this.props.actions &&
-          this.props.actions.map((action, idx: number) => (
-            <Button
-              appearance={idx === 0 ? 'default' : 'subtle'}
-              key={action.id || idx}
-              onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) => {
-                this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
-                  id: action.id || null,
-                  duration: this.durationSince(this.timeOpen),
-                });
-                if (action.callback && isBasicClick(event)) {
-                  event.preventDefault();
-                  action.callback(event, ...args);
-                }
-              }}
-              href={action.link}
-            >
-              {action.label}
-            </Button>
-          ))}
+        {actions.map((action, idx: number) => (
+          <Button
+            appearance={idx === 0 ? 'default' : 'subtle'}
+            key={action.id || idx}
+            onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) => {
+              this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
+                id: action.id || null,
+                duration: this.durationSince(this.timeOpen),
+              });
+              if (action.callback && isBasicClick(event)) {
+                event.preventDefault();
+                action.callback(event, ...args);
+              }
+            }}
+            href={action.link}
+          >
+            {action.label}
+          </Button>
+        ))}
       </ActionButtonGroup>
     );
   }

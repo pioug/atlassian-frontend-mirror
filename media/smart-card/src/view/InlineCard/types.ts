@@ -4,6 +4,7 @@ import { CardState } from '../../state/types';
 import { InlinePreloaderStyle } from '../types';
 
 export type InlineCardProps = {
+  id: string;
   url: string;
   cardState: CardState;
   handleAuthorize: (() => void) | undefined;

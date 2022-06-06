@@ -23,18 +23,21 @@ Please follow the instructions there.
 The result should look something like this, with the rename map output as the second argument of `synchronizeFigmaTokens`.
 
 ```js
-synchronizeFigmaTokens('AtlassianDark', {
-  "Color/Blanket": {
-    "value": "#03040421",
-    "attributes": {
-      "group": "paint"
-    }
+synchronizeFigmaTokens(
+  'AtlassianDark',
+  {
+    'Color/Blanket': {
+      value: '#03040421',
+      attributes: {
+        group: 'paint',
+      },
+    },
   },
-},
-// Rename map
-{
-  "Color/BackgroundBlanket": "Color/Blanket",
-});
+  // Rename map
+  {
+    'Color/BackgroundBlanket': 'Color/Blanket',
+  },
+);
 ```
 
 ### Gotchas

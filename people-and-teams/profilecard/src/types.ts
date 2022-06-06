@@ -132,6 +132,8 @@ export interface ProfileCardTriggerState {
   error?: ProfileCardErrorType;
   data: ProfileCardClientData | null;
   reportingLinesData?: TeamCentralReportingLinesData;
+  shouldShowGiveKudos?: boolean;
+  teamCentralBaseUrl?: string;
 }
 
 export interface TeamProfileCardTriggerState {
@@ -294,6 +296,8 @@ export interface ProfilecardProps {
   avatarUrl?: string;
   fullName?: string;
   meta?: string;
+  userId?: string;
+  isCurrentUser?: boolean;
   // Nick name is also known as public name
   nickname?: string;
   email?: string;
@@ -311,6 +315,8 @@ export interface ProfilecardProps {
   reportingLinesProfileUrl?: string;
   /** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise */
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
+  isKudosEnabled?: boolean;
+  teamCentralBaseUrl?: string;
 
   // Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
   // `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,
@@ -368,6 +374,8 @@ export interface ProfileClient {
     fireAnalytics?: (event: Record<string, any>) => void,
   ) => Promise<Team>;
   getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
+  shouldShowGiveKudos: () => Promise<boolean>;
+  getTeamCentralBaseUrl: () => string | undefined;
 }
 
 export type ProfilecardTriggerPosition =
@@ -393,8 +401,10 @@ export interface ProfileClientOptions {
   gatewayGraphqlUrl?: string;
   cacheSize?: number;
   cacheMaxAge?: number;
-  /** Enables Team Central functionality if enabled */
+  /** Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql*/
   teamCentralUrl?: string;
+  /** URL to the Team Central app e.g. team.atlassian.com */
+  teamCentralBaseUrl?: string;
 }
 
 export interface ClientOverrides {

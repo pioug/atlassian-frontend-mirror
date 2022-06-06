@@ -35,14 +35,14 @@ const VisuallyHidden = styled.span`
   overflow: hidden;
   whiteSpace: nowrap;
 `;
-  ^^^^              
+  ^^^^
 ```
 
 ```js
 import { visuallyHidden } from '@atlaskit/theme/constants';
 
 const VisuallyHidden = styled.span`${visuallyHidden()}`;
-                                     ^^^^^^^^^^^^^^              
+                                     ^^^^^^^^^^^^^^
 ```
 
 👍 Example of **correct** code for this rule:

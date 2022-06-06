@@ -323,6 +323,7 @@ describe('smart-card: error analytics', () => {
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
     expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
       'inline',
+      'resolved',
       'd1',
       'object-provider',
     );

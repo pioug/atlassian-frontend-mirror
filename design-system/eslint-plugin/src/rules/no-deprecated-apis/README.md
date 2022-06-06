@@ -12,7 +12,7 @@ import { ButtonItem } from '@atlaskit/menu';
 const Element = () => (
   <ButtonItem cssFn={cssFn()} />
               ^^^^
-);                        
+);
 ```
 
 ```js
@@ -21,7 +21,7 @@ import Drawer from '@atlaskit/drawer';
 const Element = () => (
   <Drawer overrides={overrides} />
               ^^^^
-);                        
+);
 ```
 
 👍 Example of **correct** code for this rule:
@@ -29,23 +29,17 @@ const Element = () => (
 ```js
 import { SomeElement } from 'some-other-library';
 
-const Element = () => (
-  <SomeElement cssFn={cssFn()} />
-);                        
+const Element = () => <SomeElement cssFn={cssFn()} />;
 ```
 
 ```js
 import { ButtonItem } from '@atlaskit/menu';
 
-const Element = () => (
-  <ButtonItem />
-);                        
+const Element = () => <ButtonItem />;
 ```
 
 ```js
 import Drawer from '@atlaskit/drawer';
 
-const Element = () => (
-  <Drawer />
-);  
+const Element = () => <Drawer />;
 ```

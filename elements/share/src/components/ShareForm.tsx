@@ -130,6 +130,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       isPublicLink,
       copyTooltipText,
       helperMessage,
+      orgId,
     } = this.props;
 
     return (
@@ -151,6 +152,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               selectPortalRef={selectPortalRef}
               isPublicLink={isPublicLink}
               helperMessage={helperMessage}
+              orgId={orgId}
             />
           </FormField>
           <FormField>

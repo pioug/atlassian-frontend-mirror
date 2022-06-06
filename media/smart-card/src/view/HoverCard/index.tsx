@@ -35,6 +35,7 @@ import { JsonLd } from 'json-ld-types';
 
 export const HoverCardComponent: FC<HoverCardProps> = ({
   children,
+  id,
   url,
   createAnalyticsEvent,
 }) => {
@@ -52,7 +53,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
   const cardOpenTime = useRef<number>();
 
   const linkState = useLinkState(url);
-  const analytics = useSmartLinkAnalytics(analyticsHandler);
+  const analytics = useSmartLinkAnalytics(url, analyticsHandler, id);
   const extensionKey = useMemo(() => getExtensionKey(linkState.details), [
     linkState,
   ]);
@@ -150,6 +151,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
         css={HoverCardContainer}
       >
         <Card
+          id={id}
           appearance="block"
           url={url}
           ui={{
@@ -192,6 +194,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
           {children}
         </span>
       )}
+      zIndex={501} // Temporary fix for Confluence inline comment on editor mod has z-index of 500
     />
   );
 };

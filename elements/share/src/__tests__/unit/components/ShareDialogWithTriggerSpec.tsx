@@ -174,6 +174,21 @@ describe('ShareDialogWithTrigger', () => {
     });
   });
 
+  describe('orgId prop', () => {
+    it('should be passed to the ShareForm', () => {
+      const mockOrgId = 'test-org-id';
+      const wrapper = getMountWrapper({
+        orgId: mockOrgId,
+      });
+      wrapper.setState({ isDialogOpen: true });
+
+      const popupContent = renderDialogContent(wrapper);
+
+      const ShareFormProps = popupContent.find(ShareForm).props();
+      expect(ShareFormProps.orgId).toBe(mockOrgId);
+    });
+  });
+
   describe('onTriggerButtonClick prop', () => {
     it('passed function should be called when share button is clicked', () => {
       const wrapper = getMountWrapper();

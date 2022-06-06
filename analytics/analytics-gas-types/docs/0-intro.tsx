@@ -8,9 +8,9 @@ export default md`
   ## Installation
 
   ~~~js
-  npm install @atlaskit/analitics-gas-types
+  npm install @atlaskit/analytics-gas-types
   # or
-  yarn add  @atlaskit/analitics-gas-types
+  yarn add @atlaskit/analytics-gas-types
   ~~~
 
   ## Using the component

@@ -39,13 +39,18 @@ export function CardWithUrlContent({
   ui,
   children,
   showHoverPreview,
+  analyticsEvents,
 }: CardWithUrlContentProps) {
   // Get state, actions for this card.
-  const { state, actions, config, analytics, renderers, error } = useSmartLink(
-    id,
-    url,
-    dispatchAnalytics,
-  );
+  const {
+    state,
+    actions,
+    analytics: defaultAnalytics,
+    config,
+    renderers,
+    error,
+  } = useSmartLink(id, url, dispatchAnalytics);
+  const analytics = analyticsEvents || defaultAnalytics;
   const definitionId = getDefinitionId(state.details);
   const extensionKey = getExtensionKey(state.details);
   const resourceType = getResourceType(state.details);
@@ -65,15 +70,15 @@ export function CardWithUrlContent({
   );
   const handleClickWrapper = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
-      if (state.status === 'resolved') {
-        const isModifierKeyPressed = isSpecialEvent(event);
-        analytics.ui.cardClickedEvent(
-          isFlexibleUi ? 'flexible' : appearance,
-          definitionId,
-          extensionKey,
-          isModifierKeyPressed,
-        );
-      }
+      const isModifierKeyPressed = isSpecialEvent(event);
+      analytics.ui.cardClickedEvent(
+        id,
+        isFlexibleUi ? 'flexible' : appearance,
+        state.status,
+        definitionId,
+        extensionKey,
+        isModifierKeyPressed,
+      );
       if (onClick) {
         onClick(event);
       } else if (!isFlexibleUi) {
@@ -81,6 +86,7 @@ export function CardWithUrlContent({
       }
     },
     [
+      id,
       state.status,
       analytics.ui,
       appearance,
@@ -138,6 +144,7 @@ export function CardWithUrlContent({
     if (isFinalState(state.status)) {
       analytics.ui.renderSuccessEvent(
         appearance,
+        state.status,
         id,
         definitionId,
         extensionKey,
@@ -166,6 +173,7 @@ export function CardWithUrlContent({
 
     return (
       <FlexibleCard
+        id={id}
         cardState={cardState}
         onAuthorize={(services.length && handleAuthorize) || undefined}
         onClick={handleClickWrapper}
@@ -189,6 +197,7 @@ export function CardWithUrlContent({
     case 'inline':
       return (
         <InlineCard
+          id={id}
           url={url}
           renderers={renderers}
           cardState={state}
@@ -204,6 +213,7 @@ export function CardWithUrlContent({
     case 'block':
       return (
         <BlockCard
+          id={id}
           url={url}
           renderers={renderers}
           authFlow={config && config.authFlow}
@@ -223,6 +233,7 @@ export function CardWithUrlContent({
     case 'embed':
       return (
         <EmbedCard
+          id={id}
           url={url}
           cardState={state}
           handleAuthorize={(services.length && handleAuthorize) || undefined}

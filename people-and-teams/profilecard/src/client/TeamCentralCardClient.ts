@@ -38,6 +38,19 @@ const buildReportingLinesQuery = (aaid: string) => ({
   },
 });
 
+const buildCheckFeatureFlagQuery = (featureKey: string) => ({
+  query: `
+    query isFeatureKeyEnabled($featureKey: String!) {
+      isFeatureEnabled(featureKey: $featureKey) {
+        enabled
+      }
+    }
+  `,
+  variables: {
+    featureKey,
+  },
+});
+
 type TeamCentralCardClientOptions = ProfileClientOptions & {
   teamCentralUrl: string;
 };
@@ -55,11 +68,28 @@ class TeamCentralCardClient extends CachingClient<
    * catch a pretty specific edge case.
    */
   bypassOnFailure: boolean;
+  featureFlagKeys: Map<string, boolean>;
 
   constructor(options: TeamCentralCardClientOptions) {
     super(options);
     this.options = options;
     this.bypassOnFailure = false;
+    this.featureFlagKeys = new Map();
+  }
+
+  async makeFeatureFlagCheckRequest(featureKey: string) {
+    if (!this.options.teamCentralUrl) {
+      throw new Error(
+        'options.teamCentralUrl is a required parameter for retrieving Team Central data',
+      );
+    }
+    const query = buildCheckFeatureFlagQuery(featureKey);
+
+    const response = await graphqlQuery<{
+      isFeatureEnabled: { enabled: boolean };
+    }>(this.options.teamCentralUrl, query);
+
+    return response.isFeatureEnabled.enabled;
   }
 
   async makeRequest(userId: string) {
@@ -116,6 +146,35 @@ class TeamCentralCardClient extends CachingClient<
            * Just resolve with empty values instead of bubbling up the error.
            */
           resolve({});
+        });
+    });
+  }
+
+  getFlagEnabled(featureKey: string): Promise<boolean> {
+    if (!featureKey) {
+      return Promise.reject(new Error('featureKey missing'));
+    }
+
+    if (this.featureFlagKeys.has(featureKey)) {
+      return Promise.resolve(this.featureFlagKeys.get(featureKey)!);
+    }
+
+    if (this.bypassOnFailure) {
+      return Promise.resolve(false);
+    }
+
+    return new Promise((resolve) => {
+      this.makeFeatureFlagCheckRequest(featureKey)
+        .then((enabled: boolean) => {
+          this.featureFlagKeys.set(featureKey, enabled);
+          resolve(enabled);
+        })
+        .catch((error: any) => {
+          if (error?.status === 401 || error?.status === 403) {
+            // Trigger circuit breaker
+            this.bypassOnFailure = true;
+          }
+          resolve(false);
         });
     });
   }

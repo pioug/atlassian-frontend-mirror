@@ -183,6 +183,12 @@ const messages = defineMessages({
     description:
       "Title for a section on the profile card that show the user's direct reports",
   },
+  giveKudosButton: {
+    id: 'pt.profile-card.give-kudos',
+    defaultMessage: 'Give kudos',
+    description:
+      'Title for the button on the profile card for a user to give a kudos',
+  },
 });
 
 export default messages;

@@ -23,6 +23,32 @@ export function isNotBlank(value: string | null) {
   return !isBlank(value);
 }
 
+/**
+ * ESS-2375 Returns the beginning and closing symbol to parse a token
+ */
+export const getSurroundingSymbols = (
+  trimmedInput: string,
+  openingText: string,
+  closingText: string,
+): Record<string, string> => {
+  const openingSymbol = trimmedInput.startsWith(`{${openingText}}`)
+    ? `{${openingText}}`
+    : openingText;
+  const endIndex = trimmedInput.indexOf(
+    closingText,
+    openingSymbol === `{${openingText}}`
+      ? openingText.length + 2
+      : openingText.length,
+  );
+  const closingSymbol =
+    endIndex > -1 &&
+    trimmedInput.charAt(endIndex - 1) === '{' &&
+    trimmedInput.charAt(endIndex + closingText.length) === '}'
+      ? `{${closingText}}`
+      : closingText;
+  return { openingSymbol, closingSymbol };
+};
+
 // TODO This is using strings which makes it potentially a performance bottleneck
 export class StringBuffer {
   constructor(private buffer: string = '') {}

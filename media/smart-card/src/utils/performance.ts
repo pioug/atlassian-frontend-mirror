@@ -54,7 +54,7 @@ const getMark = (
 export const getMeasure = (
   id: string,
   status: CardType,
-): PerformanceMeasure | undefined => {
+): PerformanceEntry | undefined => {
   if (hasPerformanceAPIAvailable) {
     const name = getMeasureName(id, status);
     const measures = performance.getEntriesByName(name);

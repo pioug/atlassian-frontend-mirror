@@ -3,6 +3,7 @@ import { CardAppearance, CardPlatform, OnResolveCallback } from '../Card/types';
 import { AnalyticsHandler } from '../../utils/types';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { InlinePreloaderStyle } from '../types';
+import { AnalyticsFacade } from '../../state/analytics';
 
 export type CardWithUrlContentProps = {
   id: string;
@@ -23,4 +24,5 @@ export type CardWithUrlContentProps = {
   ui?: FlexibleUiOptions;
   children?: React.ReactNode;
   showHoverPreview?: boolean;
+  analyticsEvents?: AnalyticsFacade;
 };

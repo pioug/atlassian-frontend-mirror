@@ -412,6 +412,7 @@ export class ShareDialogContainerInternal extends React.Component<
   render() {
     const {
       cloudId,
+      orgId,
       isAutoOpenDialog,
       dialogPlacement,
       loadUserOptions,
@@ -471,6 +472,7 @@ export class ShareDialogContainerInternal extends React.Component<
             enableSmartUserPicker={enableSmartUserPicker}
             loggedInAccountId={loggedInAccountId}
             cloudId={cloudId}
+            orgId={orgId}
             triggerButtonAppearance={triggerButtonAppearance}
             triggerButtonIcon={triggerButtonIcon}
             triggerButtonStyle={triggerButtonStyle}

@@ -52,7 +52,8 @@ export const ActionButtonGroup = styled.div`
   margin: ${2 * gridSize()}px 0 0 0;
   text-align: right;
 
-  button {
+  button,
+  a {
     margin-left: ${gridSize}px;
 
     &:first-child {

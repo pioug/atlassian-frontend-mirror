@@ -46,6 +46,7 @@ export type Props = {
   selectPortalRef?: React.Ref<HTMLDivElement>;
   isPublicLink?: boolean;
   helperMessage?: string;
+  orgId?: string;
 };
 
 type GetPlaceHolderMessageDescriptor = (
@@ -194,6 +195,7 @@ export class UserPickerFieldComponent extends React.Component<
       cloudId,
       selectPortalRef,
       isPublicLink,
+      orgId,
     } = this.props;
 
     const smartUserPickerProps: Partial<SmartUserPickerProps> = enableSmartUserPicker
@@ -204,6 +206,7 @@ export class UserPickerFieldComponent extends React.Component<
           includeTeams: true,
           includeGroups: true,
           debounceTime: DEBOUNCE_MS,
+          orgId,
         }
       : {};
 

@@ -23,5 +23,5 @@ css({
 ```js
 css({
   color: token('i.am.a.token'), // 👍
-})
+});
 ```

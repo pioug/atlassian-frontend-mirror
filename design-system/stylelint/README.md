@@ -7,6 +7,7 @@ This plugin contains rules that should be used when working with the [Atlassian 
 ```sh
 yarn add @atlaskit/stylelint-design-system -D
 ```
+
 ## Usage
 
 Add the plugin to your Stylelint configuration file.

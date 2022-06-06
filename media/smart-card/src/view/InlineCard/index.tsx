@@ -24,6 +24,7 @@ export {
 };
 
 export const InlineCard: FC<InlineCardProps> = ({
+  id,
   url,
   cardState,
   handleAuthorize,
@@ -66,6 +67,7 @@ export const InlineCard: FC<InlineCardProps> = ({
       return (
         <InlineCardResolvedView
           {...resolvedProps}
+          id={id}
           showHoverPreview={showHoverPreview}
           link={url}
           isSelected={isSelected}

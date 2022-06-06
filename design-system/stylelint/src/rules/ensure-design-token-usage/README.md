@@ -16,19 +16,27 @@ a {
 The following patterns are considered problems:
 
 ```css
-a { color: #FFF; }
+a {
+  color: #fff;
+}
 ```
 
 ```css
-div { background-color: #FF0000; }
+div {
+  background-color: #ff0000;
+}
 ```
 
-The following patterns are *not* considered problems:
+The following patterns are _not_ considered problems:
 
 ```css
-a { color: var(--ds-text-inverse, #FFFF); }
+a {
+  color: var(--ds-text-inverse, #ffff);
+}
 ```
 
 ```css
-div { background-color: var(--ds-text-accent-red, #FF0000); }
+div {
+  background-color: var(--ds-text-accent-red, #ff0000);
+}
 ```

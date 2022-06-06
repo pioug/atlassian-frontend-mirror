@@ -225,6 +225,7 @@ describe('UserPickerField', () => {
   describe('smart user picker enabled', () => {
     it('should render smart user picker', () => {
       const cloudId = 'cloud-id';
+      const orgId = 'org-id';
 
       const fieldProps = {
         onChange: jest.fn(),
@@ -237,6 +238,7 @@ describe('UserPickerField', () => {
           product: 'jira',
           enableSmartUserPicker: true,
           cloudId,
+          orgId,
         },
         { fieldProps, meta: { valid: true } },
       );
@@ -244,6 +246,7 @@ describe('UserPickerField', () => {
       const smartUserPicker = field.find(SmartUserPicker);
       expect(smartUserPicker).toHaveLength(1);
       expect(smartUserPicker.prop('siteId')).toBe(cloudId);
+      expect(smartUserPicker.prop('orgId')).toBe(orgId);
       expect(smartUserPicker.prop('includeTeams')).toBe(true);
       expect(smartUserPicker.prop('includeGroups')).toBe(true);
     });

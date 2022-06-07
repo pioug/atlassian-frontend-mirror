@@ -38,6 +38,7 @@ import {
   shortUrlGenerated,
   shortUrlRequested,
 } from './analytics/analytics';
+import { isValidFailedExperience } from './analytics/ufoExperienceHelper';
 import { renderShareDialogExp } from './analytics/ufoExperiences';
 import ErrorBoundary from './ErrorBoundary';
 import MessagesIntlProvider from './MessagesIntlProvider';
@@ -171,7 +172,7 @@ export class ShareDialogContainerInternal extends React.Component<
             errObj = { ...errObj, className: error.constructor.name };
           }
 
-          renderShareDialogExp.failure({ metadata: { error: errObj } });
+          isValidFailedExperience(renderShareDialogExp, errObj);
         }
       },
     );

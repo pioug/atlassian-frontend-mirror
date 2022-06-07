@@ -2,4 +2,208 @@
 order: 4
 ---
 
-Migration guide
+import SectionMessage, {
+  SectionMessageAction,
+} from '@atlaskit/section-message';
+
+We are moving towards a new way of accessing color and elevations: through design tokens.
+ This guide is for those just starting to migrate to the new design tokens solution. It will highlight what’s changing and what to watch out for.
+
+<SectionMessage
+  title="Design tokens are currently in internal testing (beta)."
+  appearance="warning"
+  actions={[
+    <SectionMessageAction href="/">
+     See our rollout plan
+    </SectionMessageAction>,
+  ]}
+>
+  <p>
+    Expect frequent changes. For now, we recommend that only Atlassian employees use tokens and theming in production. 
+  </p>
+</SectionMessage>
+
+## Before you begin
+
+Make sure you understand the basics of design tokens. Learn about this in [design tokens](/foundations/design-tokens/).
+
+What is changing?
+
+## Colors are changing
+
+Tokens and theming are being launched alongside our new color system. Our new color system brings usability, accessibility, consistency, and visual improvements.
+
+The new color palette has similar names to the old palette, but their values are different. In other words, the old `N100` is not the same value as the new `N100`. This means you may notice colors changing in light mode as you adopt design tokens.
+
+[Learn more about our new colors](/foundations/color).
+
+![New colors](images/new-colors.png)
+
+### Accessible yellows
+
+For example, yellows are darker to provide options that follow WCAG AA guidelines for text, icons, borders, and backgrounds ([WCAG 1.4.11](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html),
+ [WCAG 1.4.3](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)).
+
+![accessible yellows](images/accessible-yellows.png)
+
+### Selected states reinforce our brand colors
+
+Selected state colors in light mode use a blue color scheme instead of the dark gray from before so that it's less visually dominating.
+
+![selected states](images/selected-states.png)
+
+## More consistent text colors
+
+There are now three options for neutral text:
+
+- `color.text`: Use for primary text, such as headings, subheadings, body text, and on colored backgrounds.
+- `color.text.subtle`: Use for secondary text, such as navigation, input field labels, and all caps subheadings.
+- `color.text.subtlest`: Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder, and helper text.
+
+![text colors](images/text-colors.png)
+
+## More consistent form fields
+
+Form input elements such as text field, text area, radio, checkbox, select, dropdown menu etc. are now visually aligned. 
+We have dedicated tokens to use on form inputs: `color.border.input` and `color.background.input`.
+
+![form fields](images/form-fields.png)
+
+## Elevations are changing
+
+Our elevation system has also been updated to be more consistent when using tokens. There are now five elevation levels which differ slightly across light and dark mode.
+
+[Learn more about our new elevations](/foundations/elevation/).
+
+![elevation light](images/elevation-light.png)
+
+![elevation dark](images/elevation-dark.png)
+
+Even though the surface colors looks the same for some elevations in light mode, they will look different in dark mode. It's important to pair raised, overlay, and overflow surface colors with shadows for this reason.
+Refer to our [elevation guidelines](/foundations/elevation/) for token pairing guidance.
+
+![elevation pairing](images/elevation-pairing.png)
+
+### Less unneccessary elevations
+
+Not everything that uses an elevation with a shadow today should continue doing so. 
+Rather than adding more visual complexity with elevations, consider using a simple border or background to group content. Elevations should be reserved for things that are draggable or lay on top of other surfaces.
+
+![elevation card](images/elevation-card.png)
+
+Navigation components will no longer use an elevation with a shadow. Instead, use the flat, default elevation with a default border to separate it.
+
+![elevation sidenav](images/elevation-sidenav.png)
+![elevation topnav](images/elevation-topnav.png)
+
+## Changes for designers
+
+The current ADS Figma libraries will eventually be deprecated. 
+Use the new ADS Figma libraries once you start adopting tokens and theming. These libraries are currently only available for Atlassian employees. 
+
+To learn more about where to find the new libraries, where to find tokens, and how to swap between light and dark theme, 
+read [getting started in Figma](/components/tokens/getting-started-in-Figma).
+
+## Changes for engineers
+
+Token migration involves replacing all existing colour uses in your code, conversion in code looks like this:
+
+```diff
++import { token } from '@atlaskit/tokens';
+import { B400 } from ‘@atlaskit/theme/colors;
+
+-color: B400
++color: token('color.background.selected.bold, B400)
+```
+
+Example of converting an elevation to use tokens:
+```diff
+import { elevation } from '@atlaskit/theme';
++import { N40A, N50A } from '@atlaskit/theme/colors';
++import { token } from '@atlaskit/tokens';
+
+-${elevation.e100}
++box-shadow: ${token(
++  'elevation.shadow.raised',
++  `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
++)};
+```
+
+Using tokens will be supported by [linting rules](https://www.npmjs.com/package/eslint-plugin-design-system), this is what allows us to have a global theme switch between dark and light modes.
+
+If you’re interested in what we will and won’t be shipping in this project, 
+please read the [technical considerations](http://go/theming-technical-considerations).
+
+**The reason we provide fallbacks**
+
+We are rolling out tokens behind-the-scenes, which means tokens will not be active on the page and visible to the end user unless tokens are enabled for the whole product via feature flag. 
+For development purposes we provide a [Chrome browser extension](http://go/dst-theming-extension/) and a [storybook addon](https://www.npmjs.com/package/@atlaskit/storybook-addon-design-system) that injects these tokens for you ahead of time.
+Under the hood, tokens use CSS custom properties. If tokens aren’t available, the browser will use the provided fallback instead. This is what your end-user will see until we officially launch.
+The value of the fallback should be the original color used before converting your experience to tokens. Typically this would be a color from the @atlaskit/theme package, or sometimes raw hex or rgba values.
+
+### Codemod (CSS-in-JS)
+
+We've also provided a [codemod](https://developer.atlassian.com/cloud/framework/atlassian-frontend/codemods/00-intro-to-codemods/) to help the migration by converting the color to a suggested token. 
+When you run the codemod, it goes into every single color in the target files and suggests tokens based on context of the surrounding code.
+
+This is what it looks like after running the codemod.
+
+```diff
+export const DangerMessage = style.div`
+-  background-color: ${colors.R50};
++  background-color: ${token('color.background.danger', colors.R50)};
+
+  :hover {
+-    background-color: ${colors.R60};
++    background-color: ${token('color.background.danger.hovered', colors.R60)};
+  }
+  
+  :active {
+-    background-color: ${colors.R80};
++    background-color: ${token('color.background.danger.pressed', colors.R80)};
+  }
+`
+```
+
+Use `@atlaskit/codemod-cli` to run the codemod cli
+
+```
+npx @atlaskit/codemod-cli --parser tsx --extensions ts,tsx,js <relative-path>
+```
+
+The CLI will show a list of components and versions, select `@atlaskit/codemod-cli: theme-to-design-tokens` and your code will be automatically be migrated. However, the codemod only provides token suggestions which means manually review is still required after running the codemod.
+
+### Codemod (CSS, SASS, Less)
+
+We have also provided a “vanilla” css codemod for users of css,sass and less. 
+
+Use `@atlaskit/codemod-cli` to run the codemod cli
+
+```
+npx @atlaskit/codemod-cli --extensions css,scss,less <relative-path>
+```
+
+The CLI will show a list of components and versions, select `@atlaskit/codemod-cli: css-to-design-tokens` and your code will be automatically be migrated. 
+However, the codemod only provides token suggestions which means manually review is still required after running the codemod.
+
+### Chrome browser extension
+To install the Chrome browser extension:
+1. Visit [go/dst-theming-extension](http://go/dst-theming-extension/) and install the Chrome extension
+2. Open a new tab and navigate to an Atlassian product
+3. Open Developer Tools
+4. Navigate to the Theming extension
+5. Voila! You’re ready to toggle between Light and Dark themes check the amazing progress and work the teams have done
+
+You can also pin it to your main toolbar for easy access, from the Extension popup.
+
+## Get help
+
+Design tokens and theming are currently only recommended for use by Atlassian employees. If you’re an Atlassian employee, 
+go to [go/tokens-early-adopters](https://atlassian.slack.com/archives/C0256AVSPHN) for questions or issues about design tokens and relevant tooling. 
+Go to [go/help-design-system](https://atlassian.slack.com/archives/CFJ9DU39U) for all other questions related to the Atlassian Design System.
+
+## Related
+
+- Learn how to set up and use design tokens by going to [getting started with code](/components/tokens/getting-started-in-code) or [getting started with Figma](/components/tokens/getting-started-in-Figma).
+- Get design token usage guidelines for [color](/foundations/color) and [elevations](/foundations/elevation).
+- See the list of [all design tokens](/components/tokens/all-tokens) for full descriptions and values for all tokens.

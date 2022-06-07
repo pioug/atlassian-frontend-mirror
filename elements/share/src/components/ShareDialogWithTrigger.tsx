@@ -42,6 +42,7 @@ import {
 } from './analytics/analytics';
 // eslint-disable-next-line no-duplicate-imports
 import type { TabSubjectIdType } from './analytics/analytics';
+import { isValidFailedExperience } from './analytics/ufoExperienceHelper';
 import {
   renderShareDialogExp,
   shareSubmitExp,
@@ -315,9 +316,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           },
         });
 
-        shareSubmitExp.failure({
-          metadata: { error: { message: err.message, name: err.name } },
-        });
+        isValidFailedExperience(shareSubmitExp, err);
       });
   };
 

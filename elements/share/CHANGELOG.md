@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.2.4
+
+### Patch Changes
+
+- [`facf0749321`](https://bitbucket.org/atlassian/atlassian-frontend/commits/facf0749321) - improve FE analytics by ignoring 401, 403 and 429 status code
+
 ## 3.2.3
 
 ### Patch Changes

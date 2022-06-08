@@ -124,7 +124,9 @@ const TokenItem = ({
 
   const getShadowBlockStyles = (value: any) => ({
     height: gridSize() * 3,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     backgroundColor: 'white',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     color: 'black',
     boxShadow: getBoxShadow(value as any),
   });

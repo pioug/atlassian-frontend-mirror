@@ -74,6 +74,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
           hoverTime,
           definitionId,
           extensionKey,
+          'mouse_hover',
         );
       }
       setIsOpen(false);
@@ -88,7 +89,12 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
       //Check if its previously closed to avoid firing events when moving between the child and hover card components
       if (isOpen === false) {
         cardOpenTime.current = Date.now();
-        analytics.ui.hoverCardViewedEvent('card', definitionId, extensionKey);
+        analytics.ui.hoverCardViewedEvent(
+          'card',
+          definitionId,
+          extensionKey,
+          'mouse_hover',
+        );
       }
       setIsOpen(true);
     }, delay);

@@ -23,6 +23,12 @@ export const context = {
   packageVersion,
 };
 
+const uiActionSubjectIds: Record<string, string> = {
+  DownloadAction: 'downloadDocument',
+  PreviewAction: 'invokePreviewScreen',
+  ViewAction: 'shortcutGoToLink',
+};
+
 export class SmartLinkEvents {
   public insertSmartLink(
     url: string,
@@ -238,6 +244,7 @@ export const uiCardClickedEvent = (
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
+  actionSubjectId: 'titleGoToLink',
   eventType: 'ui',
   attributes: {
     ...context,
@@ -258,7 +265,8 @@ export const uiActionClickedEvent = (
   display?: CardInnerAppearance,
 ): AnalyticsPayload => ({
   action: 'clicked',
-  actionSubject: 'smartLinkAction',
+  actionSubject: 'button',
+  actionSubjectId: uiActionSubjectIds[actionType],
   eventType: 'ui',
   attributes: {
     ...context,
@@ -331,7 +339,7 @@ export const uiRenderFailedEvent = (
 });
 
 export const uiHoverCardViewedEvent = (
-  hoverDisplay: PreviewDisplay,
+  previewDisplay: PreviewDisplay,
   definitionId?: string,
   extensionKey?: string,
   previewInvokeMethod?: PreviewInvokeMethod,
@@ -343,13 +351,13 @@ export const uiHoverCardViewedEvent = (
     ...context,
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
-    hoverDisplay,
+    previewDisplay,
     previewInvokeMethod,
   },
 });
 
 export const uiHoverCardDismissedEvent = (
-  hoverDisplay: PreviewDisplay,
+  previewDisplay: PreviewDisplay,
   hoverTime: number,
   definitionId?: string,
   extensionKey?: string,
@@ -363,7 +371,7 @@ export const uiHoverCardDismissedEvent = (
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     hoverTime,
-    hoverDisplay,
+    previewDisplay,
     previewInvokeMethod,
   },
 });

@@ -193,7 +193,9 @@ const Token = ({ name, value, attributes, original }: Token) => (
           attributes.group !== 'shadow'
             ? { backgroundColor: value, color: getTextContrast(value) }
             : {
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 backgroundColor: 'white',
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 color: 'black',
                 boxShadow: getBoxShadow(value as any),
               }
@@ -381,7 +383,7 @@ export default md`
     right **purpose** rather than an exact color match.
 
     ####
-    
+
     ${(<TokenWizardModal />)}
 
     ## Atlassian Design Tokens</h2>

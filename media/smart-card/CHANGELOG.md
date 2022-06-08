@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 19.1.16
+
+### Patch Changes
+
+- [`47058879f49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47058879f49) - [ux] Text customisation made possible for Flexible UI fields “ModifiedOn“ & “CreatedOn" (example: <TitleBlock metadata={[ { name: ElementName.CreatedOn, text: 'Last commit on' }]} />)
+
+## 19.1.15
+
+### Patch Changes
+
+- [`23445a4d2ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23445a4d2ca) - Hover Preview: Update analytics details
+
 ## 19.1.14
 
 ### Patch Changes

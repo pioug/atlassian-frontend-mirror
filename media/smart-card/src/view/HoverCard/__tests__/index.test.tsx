@@ -286,7 +286,7 @@ describe('HoverCard', () => {
         'card',
         'd1',
         'confluence-object-provider',
-        undefined,
+        'mouse_hover',
       );
       mock.mockRestore();
     });
@@ -308,7 +308,7 @@ describe('HoverCard', () => {
         0,
         'd1',
         'confluence-object-provider',
-        undefined,
+        'mouse_hover',
       );
       mock.mockRestore();
     });

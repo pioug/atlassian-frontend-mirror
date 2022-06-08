@@ -88,4 +88,36 @@ describe('Element: Text', () => {
 
     expect(element).toHaveStyleDeclaration('font-weight', 'bold');
   });
+
+  it('should render overridden text for created on element', async () => {
+    const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+    const { findByTestId } = render(
+      <IntlProvider locale="en">
+        <DateTime
+          date={new Date(eightDaysBack)}
+          type="created"
+          text="First commit on"
+        />
+      </IntlProvider>,
+    );
+    const element = await findByTestId(testId);
+    expect(element).toBeTruthy();
+    expect(element.textContent).toBe('First commit on January 17, 2022');
+  });
+
+  it('should render overridden text for modified on element', async () => {
+    const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+    const { findByTestId } = render(
+      <IntlProvider locale="en">
+        <DateTime
+          date={new Date(eightDaysBack)}
+          type="modified"
+          text="Last commit on"
+        />
+      </IntlProvider>,
+    );
+    const element = await findByTestId(testId);
+    expect(element).toBeTruthy();
+    expect(element.textContent).toBe('Last commit on January 17, 2022');
+  });
 });

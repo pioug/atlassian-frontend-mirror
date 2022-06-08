@@ -12,4 +12,9 @@ export type DateTimeProps = ElementProps & {
    * The date to display in the element.
    */
   date?: Date;
+
+  /**
+   * The override text which will show next to the date
+   */
+  text?: string;
 };

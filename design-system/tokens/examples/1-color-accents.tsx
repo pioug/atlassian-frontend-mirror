@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { useEffect } from 'react';
 
@@ -11,13 +12,13 @@ const variantStyles = {
   blue: {
     default: {
       color: token('color.text.accent.blue'),
-      backgroundColor: token('color.background.accent.blue'),
+      backgroundColor: token('color.background.accent.blue.subtler'),
       border: `1px solid ${token('color.border.accent.blue')}`,
       iconColor: token('color.icon.accent.blue'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.blue.bold'),
+      backgroundColor: token('color.background.accent.blue.subtle'),
       border: `1px solid ${token('color.border.accent.blue')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -25,13 +26,13 @@ const variantStyles = {
   red: {
     default: {
       color: token('color.text.accent.red'),
-      backgroundColor: token('color.background.accent.red'),
+      backgroundColor: token('color.background.accent.red.subtler'),
       border: `1px solid ${token('color.border.accent.red')}`,
       iconColor: token('color.icon.accent.red'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.red.bold'),
+      backgroundColor: token('color.background.accent.red.subtle'),
       border: `1px solid ${token('color.border.accent.red')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -39,13 +40,13 @@ const variantStyles = {
   orange: {
     default: {
       color: token('color.text.accent.orange'),
-      backgroundColor: token('color.background.accent.orange'),
+      backgroundColor: token('color.background.accent.orange.subtler'),
       border: `1px solid ${token('color.border.accent.orange')}`,
       iconColor: token('color.icon.accent.orange'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.orange.bold'),
+      backgroundColor: token('color.background.accent.orange.subtle'),
       border: `1px solid ${token('color.border.accent.orange')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -53,13 +54,13 @@ const variantStyles = {
   yellow: {
     default: {
       color: token('color.text.accent.yellow'),
-      backgroundColor: token('color.background.accent.yellow'),
+      backgroundColor: token('color.background.accent.yellow.subtler'),
       border: `1px solid ${token('color.border.accent.yellow')}`,
       iconColor: token('color.icon.accent.yellow'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.yellow.bold'),
+      backgroundColor: token('color.background.accent.yellow.subtle'),
       border: `1px solid ${token('color.border.accent.yellow')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -67,13 +68,13 @@ const variantStyles = {
   green: {
     default: {
       color: token('color.text.accent.green'),
-      backgroundColor: token('color.background.accent.green'),
+      backgroundColor: token('color.background.accent.green.subtler'),
       border: `1px solid ${token('color.border.accent.green')}`,
       iconColor: token('color.icon.accent.green'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.green.bold'),
+      backgroundColor: token('color.background.accent.green.subtle'),
       border: `1px solid ${token('color.border.accent.green')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -81,13 +82,13 @@ const variantStyles = {
   teal: {
     default: {
       color: token('color.text.accent.teal'),
-      backgroundColor: token('color.background.accent.teal'),
+      backgroundColor: token('color.background.accent.teal.subtler'),
       border: `1px solid ${token('color.border.accent.teal')}`,
       iconColor: token('color.icon.accent.teal'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.teal.bold'),
+      backgroundColor: token('color.background.accent.teal.subtle'),
       border: `1px solid ${token('color.border.accent.teal')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -95,13 +96,13 @@ const variantStyles = {
   purple: {
     default: {
       color: token('color.text.accent.purple'),
-      backgroundColor: token('color.background.accent.purple'),
+      backgroundColor: token('color.background.accent.purple.subtler'),
       border: `1px solid ${token('color.border.accent.purple')}`,
       iconColor: token('color.icon.accent.purple'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.purple.bold'),
+      backgroundColor: token('color.background.accent.purple.subtle'),
       border: `1px solid ${token('color.border.accent.purple')}`,
       iconColor: token('color.icon.inverse'),
     },
@@ -109,13 +110,13 @@ const variantStyles = {
   magenta: {
     default: {
       color: token('color.text.accent.magenta'),
-      backgroundColor: token('color.background.accent.magenta'),
+      backgroundColor: token('color.background.accent.magenta.subtler'),
       border: `1px solid ${token('color.border.accent.magenta')}`,
       iconColor: token('color.icon.accent.magenta'),
     },
     bold: {
       color: token('color.text.inverse'),
-      backgroundColor: token('color.background.accent.magenta.bold'),
+      backgroundColor: token('color.background.accent.magenta.subtle'),
       border: `1px solid ${token('color.border.accent.magenta')}`,
       iconColor: token('color.icon.inverse'),
     },

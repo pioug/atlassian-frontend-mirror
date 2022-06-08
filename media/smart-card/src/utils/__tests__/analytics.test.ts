@@ -5,6 +5,7 @@ import {
   resolvedEvent,
   unresolvedEvent,
   instrumentEvent,
+  uiActionClickedEvent,
 } from '../analytics';
 import { AnalyticsPayload } from '../types';
 
@@ -159,4 +160,33 @@ describe('instrumentEvent', () => {
       }
     `);
   });
+});
+
+describe('uiActionClickedEvent', () => {
+  it.each([
+    ['DownloadAction', 'downloadDocument'],
+    ['PreviewAction', 'invokePreviewScreen'],
+    ['ViewAction', 'shortcutGoToLink'],
+    ['ServerAction', undefined],
+  ])(
+    'returns action button click event for action type %s',
+    (actionType: string, actionSubjectId: string | undefined) => {
+      const event = uiActionClickedEvent(actionType, 'extension-key', 'block');
+
+      expect(event).toEqual({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: actionSubjectId,
+        attributes: {
+          actionType: actionType,
+          componentName: 'smart-cards',
+          display: 'block',
+          extensionKey: 'extension-key',
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+        },
+        eventType: 'ui',
+      });
+    },
+  );
 });

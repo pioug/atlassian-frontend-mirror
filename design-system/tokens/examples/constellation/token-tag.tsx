@@ -18,6 +18,7 @@ color: token('color.text.accent.purple', P500),
 background: token('color.background.accent.purple.subtler', P75),
 `;
 
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const TokensTag = () => {
   return (
     <>
@@ -26,6 +27,7 @@ const TokensTag = () => {
     </>
   );
 };
+/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 const TokensTagExample = () => {
   return (

@@ -37,6 +37,9 @@ export default () => (
       <h5>Override CSS</h5>
       <CreatedBy overrideCss={overrideCss} />
       <CreatedOn overrideCss={overrideCss} />
+      <h5>Override 'Created On/Modified On' text</h5>
+      <CreatedOn text="First commit on" />
+      <ModifiedOn text="Last commit on" />
     </FlexibleUiContext.Provider>
   </VRTestWrapper>
 );

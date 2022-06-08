@@ -227,14 +227,14 @@ export const useSmartLinkAnalytics = (
        * @returns
        */
       hoverCardViewedEvent: (
-        hoverDisplay: PreviewDisplay,
+        previewDisplay: PreviewDisplay,
         definitionId: string | undefined = extractedDefinitionId,
         extensionKey: string | undefined = extractedExtensionKey,
         previewInvokeMethod?: PreviewInvokeMethod,
       ) =>
         dispatchAnalytics(
           uiHoverCardViewedEvent(
-            hoverDisplay,
+            previewDisplay,
             definitionId,
             extensionKey,
             previewInvokeMethod,
@@ -250,7 +250,7 @@ export const useSmartLinkAnalytics = (
        * @returns
        */
       hoverCardDismissedEvent: (
-        hoverDisplay: PreviewDisplay,
+        previewDisplay: PreviewDisplay,
         hoverTime: number,
         definitionId: string | undefined = extractedDefinitionId,
         extensionKey: string | undefined = extractedExtensionKey,
@@ -258,7 +258,7 @@ export const useSmartLinkAnalytics = (
       ) =>
         dispatchAnalytics(
           uiHoverCardDismissedEvent(
-            hoverDisplay,
+            previewDisplay,
             hoverTime,
             definitionId,
             extensionKey,

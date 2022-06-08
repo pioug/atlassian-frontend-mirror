@@ -9,7 +9,7 @@ import Card from './token-card-base';
 const neutralStylesCode = `// bold styles
 color: token('color.text.inverse'),
 backgroundColor: token('color.background.neutral.bold'),
-border: \`1px solid \${token('color.border.neutral')}\`,
+border: \`1px solid \${token('color.border')}\`,
 hoverBackgroundColor: token('color.background.neutral.bold.hovered'),
 activeBackgroundColor: token('color.background.neutral.bold.pressed'),
 iconColor: token('color.icon.inverse'),
@@ -17,7 +17,7 @@ iconColor: token('color.icon.inverse'),
 // default styles
 color: token('color.text'),
 backgroundColor: token('color.background.neutral'),
-border: \`1px solid \${token('color.border.neutral')}\`,
+border: \`1px solid \${token('color.border')}\`,
 hoverBackgroundColor: token('color.background.neutral.hovered'),
 activeBackgroundColor: token('color.background.neutral.pressed'),
 iconColor: token('color.icon'),
@@ -35,7 +35,7 @@ const neutralStyles = {
   bold: {
     color: token('color.text.inverse', '#FFFFFF'),
     backgroundColor: token('color.background.neutral.bold', '#44546F'),
-    border: `1px solid ${token('color.border.neutral', '#091E4224')}`,
+    border: `1px solid ${token('color.border', '#091E4224')}`,
     hoverBackgroundColor: token(
       'color.background.neutral.bold.hovered',
       '#2C3E5D',
@@ -49,7 +49,7 @@ const neutralStyles = {
   default: {
     color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.neutral', '#091E420F'),
-    border: `1px solid ${token('color.border.neutral', '#091E4224')}`,
+    border: `1px solid ${token('color.border', '#091E4224')}`,
     hoverBackgroundColor: token(
       'color.background.neutral.hovered',
       '#091E4224',

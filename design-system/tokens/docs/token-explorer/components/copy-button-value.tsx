@@ -32,12 +32,15 @@ const CopyButtonValue = ({
         outlineOffset: -1,
       },
       attributes?.group === 'shadow' && {
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         backgroundColor: 'white',
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         color: 'black',
         boxShadow: getBoxShadow(value),
         outline: `1px solid ${token('color.border', '#091E4224')}`,
 
         '&:hover, &:focus, &:active': {
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           backgroundColor: 'white',
         },
       },

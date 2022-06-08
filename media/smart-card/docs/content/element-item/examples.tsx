@@ -68,7 +68,7 @@ ${(
 ### Created on
 
 A \`CreatedOn\` element shows the relative creation time of the link resource.
-Its data is mapped to \`schema:dateCreated\` from a link resolver.
+Its data is mapped to \`schema:dateCreated\` from a link resolver. The text 'Created on' can be customized by adding a \`text\` field.
 
 ${(
   <CustomExample
@@ -92,7 +92,7 @@ ${(
 ### Modified on
 
 A \`ModifiedOn\` element shows the last relative modification time of the link resource.
-Its data is mapped to \`updated\` from a link resolver.
+Its data is mapped to \`updated\` from a link resolver. The text 'Modified on' can be customized by adding a \`text\` field.
 
 ${(
   <CustomExample

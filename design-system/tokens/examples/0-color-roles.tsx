@@ -17,14 +17,6 @@ const variantStyles = {
       activeBackgroundColor: token('color.background.brand.bold.pressed'),
       iconColor: token('color.icon.inverse'),
     },
-    default: {
-      color: token('color.text.brand'),
-      backgroundColor: token('color.background.brand'),
-      border: `1px solid ${token('color.border.brand')}`,
-      hoverBackgroundColor: token('color.background.brand.hovered'),
-      activeBackgroundColor: token('color.background.brand.pressed'),
-      iconColor: token('color.icon.brand'),
-    },
   },
   information: {
     bold: {
@@ -48,7 +40,7 @@ const variantStyles = {
     bold: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.neutral.bold'),
-      border: `1px solid ${token('color.border.neutral')}`,
+      border: `1px solid ${token('color.border')}`,
       hoverBackgroundColor: token('color.background.neutral.bold.hovered'),
       activeBackgroundColor: token('color.background.neutral.bold.pressed'),
       iconColor: token('color.icon.inverse'),
@@ -56,7 +48,7 @@ const variantStyles = {
     default: {
       color: token('color.text'),
       backgroundColor: token('color.background.neutral'),
-      border: `1px solid ${token('color.border.neutral')}`,
+      border: `1px solid ${token('color.border')}`,
       hoverBackgroundColor: token('color.background.neutral.hovered'),
       activeBackgroundColor: token('color.background.neutral.pressed'),
       iconColor: token('color.icon'),

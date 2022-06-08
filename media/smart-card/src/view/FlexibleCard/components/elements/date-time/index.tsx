@@ -44,6 +44,7 @@ const DateTime: React.FC<DateTimeProps> = ({
   overrideCss,
   type,
   testId = 'smart-element-date-time',
+  text,
 }) => {
   const { formatRelativeTime, formatDate } = useIntl();
   if (!type || !date) {
@@ -75,10 +76,14 @@ const DateTime: React.FC<DateTimeProps> = ({
       data-smart-element-date-time
       data-testid={testId}
     >
-      <FormattedMessage
-        {...typeToDescriptorMap[type][typeVariant]}
-        values={{ context }}
-      />
+      {text ? (
+        `${text} ${context}`
+      ) : (
+        <FormattedMessage
+          {...typeToDescriptorMap[type][typeVariant]}
+          values={{ context }}
+        />
+      )}
     </span>
   );
 };

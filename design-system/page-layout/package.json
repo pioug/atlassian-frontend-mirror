@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Page layout"
+      "name": "Page layout",
+      "category": "Components"
     }
   },
   "homepage": "https://atlassian.design/components/page-layout/",

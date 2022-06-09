@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Select"
+      "name": "Select",
+      "category": "Components"
     }
   },
   "dependencies": {

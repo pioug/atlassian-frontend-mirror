@@ -260,6 +260,7 @@ export const uiCardClickedEvent = (
 });
 
 export const uiActionClickedEvent = (
+  id: string,
   actionType: string,
   extensionKey?: string,
   display?: CardInnerAppearance,
@@ -270,6 +271,7 @@ export const uiActionClickedEvent = (
   eventType: 'ui',
   attributes: {
     ...context,
+    id,
     display,
     extensionKey: extensionKey || '',
     actionType: actionType,
@@ -339,6 +341,7 @@ export const uiRenderFailedEvent = (
 });
 
 export const uiHoverCardViewedEvent = (
+  id: string,
   previewDisplay: PreviewDisplay,
   definitionId?: string,
   extensionKey?: string,
@@ -349,6 +352,7 @@ export const uiHoverCardViewedEvent = (
   eventType: 'ui',
   attributes: {
     ...context,
+    id,
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     previewDisplay,
@@ -357,6 +361,7 @@ export const uiHoverCardViewedEvent = (
 });
 
 export const uiHoverCardDismissedEvent = (
+  id: string,
   previewDisplay: PreviewDisplay,
   hoverTime: number,
   definitionId?: string,
@@ -368,6 +373,7 @@ export const uiHoverCardDismissedEvent = (
   eventType: 'ui',
   attributes: {
     ...context,
+    id,
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     hoverTime,
@@ -377,6 +383,7 @@ export const uiHoverCardDismissedEvent = (
 });
 
 export const uiHoverCardOpenLinkClickedEvent = (
+  id: string,
   previewDisplay: string,
   definitionId?: string,
   extensionKey?: string,
@@ -388,6 +395,7 @@ export const uiHoverCardOpenLinkClickedEvent = (
   eventType: 'ui',
   attributes: {
     ...context,
+    id,
     definitionId: definitionId || '',
     extensionKey: extensionKey || '',
     previewDisplay,

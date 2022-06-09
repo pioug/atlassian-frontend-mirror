@@ -19,7 +19,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Icon object"
+      "name": "Icon object",
+      "category": "Components"
     }
   },
   "af:exports": {

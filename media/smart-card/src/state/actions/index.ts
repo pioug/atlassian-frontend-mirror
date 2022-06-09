@@ -25,6 +25,7 @@ import * as measure from '../../utils/performance';
 import { AnalyticsFacade } from '../analytics';
 import { getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { addMetadataToExperience } from '../analytics';
+import { CardInnerAppearance } from '../../view/Card/types';
 
 export const useSmartCardActions = (
   id: string,
@@ -210,7 +211,7 @@ export const useSmartCardActions = (
   const invoke = useCallback(
     async (
       opts: InvokeClientOpts | InvokeServerOpts,
-      appearance: CardAppearance,
+      appearance: CardInnerAppearance,
     ): Promise<JsonLd.Response | void> => {
       const { key, action } = opts;
       const source = opts.source || appearance;

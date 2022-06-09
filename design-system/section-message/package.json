@@ -18,7 +18,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Section message"
+      "name": "Section message",
+      "category": "Components"
     }
   },
   "af:exports": {

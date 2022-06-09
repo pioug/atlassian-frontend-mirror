@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Spinner"
+      "name": "Spinner",
+      "category": "Components"
     }
   },
   "dependencies": {

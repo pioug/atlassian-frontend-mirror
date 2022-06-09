@@ -6,18 +6,49 @@
  */
 //Finnish
 export default {
+  'fabric.linking.actions': 'Toiminnot',
+  'fabric.linking.add_account': 'Lisää tili',
+  'fabric.linking.cancel': 'Peruuta',
   'fabric.linking.cannot_connect': 'Ei voi muodostaa yhteyttä, yritä uudelleen',
   'fabric.linking.cannot_find_link': 'Linkkiä ei löydy',
-  'fabric.linking.join_to_view':
-    'Liity palveluun {context} niin voit tarkastella asiaa',
-  'fabric.linking.create_on': 'Luotu {context}',
+  'fabric.linking.click_to_join': 'Liity käyttämään tuotetta {context}',
+  'fabric.linking.click_to_join_description':
+    'Sinut on hyväksytty, joten voit liittyä heti tuotteen {context} käyttäjäksi.',
+  'fabric.linking.close': 'Sulje',
+  'fabric.linking.connect_account_description':
+    'Avaamme uuden sivun, jotta voimme auttaa sinua yhdistämään {name} -tilisi',
+  'fabric.linking.connect_link_account': 'Yhdistä esikatseluun',
+  'fabric.linking.connect_link_account_card_view': 'Yhdistä',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Jotta voit esikatsella tätä linkkiä, yhdistä {context}-tilisi.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Yhdistä {context}-tilisi',
+  'fabric.linking.connect_to': 'Yhdistä kohteeseen {name}',
+  'fabric.linking.couldnt_load_link':
+    'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
+  'fabric.linking.create_on_absolute': 'Luotiin {context}',
+  'fabric.linking.create_on_relative': 'Luotu {context}',
   'fabric.linking.created_by': 'Tekijä: {context}',
   'fabric.linking.delete': 'Poista',
+  'fabric.linking.download': 'Lataa',
   'fabric.linking.edit': 'Muokkaa',
   'fabric.linking.forbidden_access': 'Pääsy on kielletty',
-  'fabric.linking.restricted_link': 'Rajoitettu linkki, kokeile toista tiliä',
-  'fabric.linking.modified_on': 'Päivitetty {context}',
+  'fabric.linking.forbidden_description':
+    'Sinulla ei ole tämän esikatselun käyttöoikeutta. Jos tarvitset käyttöoikeuden, ota yhteyttä sivuston ylläpitäjään.',
+  'fabric.linking.invalid_permissions': 'Rajoitettu linkki',
+  'fabric.linking.invalid_permissions_description':
+    'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
+  'fabric.linking.join_to_view':
+    'Liity palveluun {context} niin voit tarkastella asiaa',
+  'fabric.linking.loading': 'Ladataan...',
+  'fabric.linking.modified_on_absolute': 'Päivitetty {context}',
+  'fabric.linking.modified_on_relative': 'Päivitetty {context}',
+  'fabric.linking.more_actions': 'Lisää toimintoja',
+  'fabric.linking.not_found_description':
+    'Linkkiä ei löytynyt. Tarkista URL-osoite ja muokkaa tai liitä uudelleen.',
+  'fabric.linking.not_found_title': 'Oho. Emme löydä tätä linkkiä!',
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
+  'fabric.linking.preview': 'Esikatselu',
   'fabric.linking.priority_blocker': 'Esto',
   'fabric.linking.priority_critical': 'Kriittinen',
   'fabric.linking.priority_high': 'Korkea',
@@ -29,166 +60,25 @@ export default {
   'fabric.linking.priority_minor': 'Vähäinen',
   'fabric.linking.priority_trivial': 'Mitätön',
   'fabric.linking.priority_undefined': 'Määrittelemätön',
-  'fabric.linking.request_access_to_view':
-    'Pyydä palvelun {context} käyttöoikeutta tämän asian tarkastelua varten',
-  'fabric.linking.request_denied': 'Käyttöoikeuspyyntösi evättiin',
-  'fabric.linking.updated_by': 'Muokannut: {context}',
-  'fabric.linking.accounts': 'Tilit',
-  'fabric.linking.actions': 'Toiminnot',
-  'fabric.linking.add_account': 'Lisää tili',
-  'fabric.linking.annotate': 'Tee merkintöjä',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Sulje joka tapauksessa',
-  'fabric.linking.annotate.confirmation.content':
-    'Sinulla on tallentamattomia muutoksia. Haluatko varmasti poistua?',
-  'fabric.linking.annotate.confirmation.heading': 'Tallentamattomat muutokset',
-  'fabric.linking.annotate.tool.arrow': 'Nuoli',
-  'fabric.linking.annotate.tool.blur': 'Sumennus',
-  'fabric.linking.annotate.tool.brush': 'Sivellin',
-  'fabric.linking.annotate.tool.color': 'Väri',
-  'fabric.linking.annotate.tool.line.thickness': 'Viivan paksuus',
-  'fabric.linking.annotate.tool.shape': 'Muoto',
-  'fabric.linking.annotate.tool.text': 'Teksti',
-  'fabric.linking.archive': 'arkistoi',
-  'fabric.linking.audio': 'ääni',
-  'fabric.linking.cancel': 'Peruuta',
-  'fabric.linking.cant_preview_file_type':
-    'Tätä tiedostotyyppiä ei voi esikatsella.',
-  'fabric.linking.cant_retrieve_files':
-    'Voi ei! Emme voineet noutaa yhtään tiedostoa',
-  'fabric.linking.cant_retrieve_gifs':
-    'Voi ei! Emme voineet noutaa yhtään GIFiä',
-  'fabric.linking.change_view': 'Vaihda näkymä',
-  'fabric.linking.check_your_network': 'Tarkista verkkoyhteytesi',
-  'fabric.linking.click_to_join': 'Liity käyttämään tuotetta {context}',
-  'fabric.linking.click_to_join_description':
-    'Sinut on hyväksytty, joten voit liittyä heti tuotteen {context} käyttäjäksi.',
-  'fabric.linking.close': 'Sulje',
-  'fabric.linking.close_and_reopen':
-    'Kokeile sulkea tämä tiedosto ja avata se uudelleen.',
-  'fabric.linking.connect_account_description':
-    'Avaamme uuden sivun, jotta voimme auttaa sinua yhdistämään {name} -tilisi',
-  'fabric.linking.connect_link_account': 'Yhdistä esikatseluun',
-  'fabric.linking.connect_link_account_card_view': 'Yhdistä',
-  'fabric.linking.connect_link_account_card_view_description':
-    'Jotta voit esikatsella tätä linkkiä, yhdistä {context}-tilisi.',
-  'fabric.linking.connect_link_account_card_view_name':
-    'Yhdistä {context}-tilisi',
-  'fabric.linking.connect_to': 'Yhdistä kohteeseen {name}',
-  'fabric.linking.could_not_load_editor': 'Voi ei! Muokkainta ei voitu ladata',
-  'fabric.linking.could_not_save_image': 'Voi ei! Kuvaa ei voitu tallentaa',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    'Salattuja tai salasanalla suojattuja tiedostoja ei voi esikatsella.',
-  'fabric.linking.couldnt_generate_preview':
-    'Tälle tiedostolle ei voitu luoda esikatselua.',
-  'fabric.linking.couldnt_load_file': 'Tiedostoa ei voitu ladata.',
-  'fabric.linking.couldnt_load_link':
-    'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
-  'fabric.linking.creating_preview': 'Luodaan esikatselua...',
-  'fabric.linking.default_avatars': 'Oletusavatarit',
-  'fabric.linking.disable_fullscreen': 'poista kokoruututila käytöstä',
-  'fabric.linking.display_thumbnail': 'Näytä pienoiskuva',
-  'fabric.linking.document': 'asiakirja',
-  'fabric.linking.download': 'Lataa',
-  'fabric.linking.drag_and_drop_images_here': 'Vedä ja pudota kuvasi tänne',
-  'fabric.linking.drag_and_drop_your_files':
-    'Vedä ja pudota tiedostosi minne tahansa tai',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Vedä ja pudota tiedostosi ja kansiosi minne tahansa tai',
-  'fabric.linking.drop_your_files': 'Pudota tiedostosi ladattavaksi',
-  'fabric.linking.drop_your_files_here': 'Pudota tiedostosi tänne',
-  'fabric.linking.email': 'Sähköposti',
-  'fabric.linking.enable_fullscreen': 'ota kokoruututila käyttöön',
-  'fabric.linking.error_429': 'Virhe 429',
-  'fabric.linking.error_generating_preview': 'Virhe esikatselun luomisessa',
-  'fabric.linking.error_hint_critical':
-    'Jos ongelma toistuu jatkuvasti, ota yhteyttä tukeen.',
-  'fabric.linking.error_hint_retry':
-    'Yritä uudelleen, ja mekin kokeilemme vielä kerran.',
-  'fabric.linking.error_loading_file': 'Virhe ladattaessa tiedostoa',
-  'fabric.linking.failed_to_load': 'Ei voitu ladata',
-  'fabric.linking.failed_to_upload': 'Lataaminen epäonnistui',
-  'fabric.linking.forbidden_description':
-    'Sinulla ei ole tämän esikatselun käyttöoikeutta. Jos tarvitset käyttöoikeuden, ota yhteyttä sivuston ylläpitäjään.',
-  'fabric.linking.give_feedback': 'Anna palautetta',
-  'fabric.linking.image': 'kuva',
-  'fabric.linking.image_format_invalid_error':
-    'Kuvaa ei voitu ladata, muoto on virheellinen.',
-  'fabric.linking.image_size_too_large_error':
-    'Kuva on liian suuri, se ei voi olla suurempi kuin {MAX_SIZE_MB}Mt',
-  'fabric.linking.image_url_invalid_error':
-    'Kuvaa ei voitu ladata, url-osoite on virheellinen.',
-  'fabric.linking.insert_files':
-    '{0, plural, one {Lisää {0} tiedosto} other {Lisää {0} tiedostoa}}',
-  'fabric.linking.invalid_permissions': 'Rajoitettu linkki',
-  'fabric.linking.invalid_permissions_description':
-    'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
-  'fabric.linking.item_not_found_in_list':
-    'Valittua kohdetta ei löytynyt luettelosta.',
-  'fabric.linking.learn_more': 'Lue lisää',
-  'fabric.linking.load_more_gifs': 'Lataa lisää GIFejä',
-  'fabric.linking.loading': 'Ladataan...',
-  'fabric.linking.loading_file': 'Ladataan tiedostoa...',
-  'fabric.linking.might_be_a_hiccup':
-    'Se saattaa olla vain tilapäinen ongelma.',
-  'fabric.linking.no_gifs_found': 'Hei? Minuako etsit?',
-  'fabric.linking.no_gifs_found_suggestion':
-    'Emme löytäneet tuloksia kyselylle "{query}"',
-  'fabric.linking.no_pdf_artifacts':
-    'PDF-artefaktoja ei löytynyt tälle tiedostolle.',
-  'fabric.linking.not_found_description':
-    'Linkkiä ei löytynyt. Tarkista URL-osoite ja muokkaa tai liitä uudelleen.',
-  'fabric.linking.not_found_title': 'Oho. Emme löydä tätä linkkiä!',
-  'fabric.linking.or': 'tai',
-  'fabric.linking.pause': 'Keskeytä',
-  'fabric.linking.play': 'Toista',
-  'fabric.linking.playback_default_speed': 'Oletus',
-  'fabric.linking.playback_speed': 'Toistonopeus',
-  'fabric.linking.preview': 'Esikatselu',
-  'fabric.linking.preview_currently_unavailable':
-    'Esikatselua ei tällä hetkellä saatavilla',
-  'fabric.linking.preview_unavailable': 'Esikatselua ei saatavilla',
-  'fabric.linking.recent_uploads': 'Viimeaikaiset lataukset',
-  'fabric.linking.remove_image': 'Poista kuva',
   'fabric.linking.request_access': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':
     'Pyydä sovelluksen {context} käyttöoikeutta tämän esikatselun katsomista varten.',
   'fabric.linking.request_access_pending': 'Käyttöoikeuksia odotetaan',
   'fabric.linking.request_access_pending_description':
     'Käyttöoikeuspyyntösi on vireillä.',
+  'fabric.linking.request_access_to_view':
+    'Pyydä palvelun {context} käyttöoikeutta tämän asian tarkastelua varten',
+  'fabric.linking.request_denied': 'Käyttöoikeuspyyntösi evättiin',
   'fabric.linking.request_denied_description':
     'Käyttöoikeuspyyntösi evättiin. Ota yhteyttä sivustosi ylläpitäjään, jos silti tarvitset käyttöoikeuden.',
+  'fabric.linking.restricted_link': 'Rajoitettu linkki, kokeile toista tiliä',
   'fabric.linking.retry': 'Yritä uudelleen',
   'fabric.linking.save': 'Tallenna',
-  'fabric.linking.search': 'Hae',
-  'fabric.linking.search_all_gifs': 'Hae kaikista GIFeistä!',
-  'fabric.linking.share_files_instantly': 'Jaamme ne heti',
-  'fabric.linking.skip_backward': '10 sekuntia taaksepäin',
-  'fabric.linking.skip_forward': '10 sekuntia eteenpäin',
-  'fabric.linking.something_went_wrong': 'Jotain meni pieleen.',
   'fabric.linking.srclink': 'Näytä kohteessa',
   'fabric.linking.srclinkunknown': 'Näytä alkuperäinen',
-  'fabric.linking.text': 'Teksti',
   'fabric.linking.try_again': 'Yritä uudelleen',
   'fabric.linking.try_another_account': 'Kokeile toista tiliä',
-  'fabric.linking.try_downloading_file':
-    'Kokeile ladata tiedosto, jotta voit tarkastella sitä.',
-  'fabric.linking.unable_to_annotate_image':
-    'Et voi tehdä merkintöjä tähän kuvaan',
-  'fabric.linking.unknown': 'tuntematon',
   'fabric.linking.unlink_account': 'Poista tilin linkitys',
-  'fabric.linking.upload': 'Lataa',
-  'fabric.linking.upload_an_avatar': 'Lataa avatar',
-  'fabric.linking.upload_file': 'Lataa tiedosto',
-  'fabric.linking.upload_file_from': 'Lataa tiedosto kohteesta {name}',
-  'fabric.linking.upload_image': 'Lataa kuva',
-  'fabric.linking.upload_photo': 'Lataa kuva',
-  'fabric.linking.video': 'video',
+  'fabric.linking.updated_by': 'Muokannut: {context}',
   'fabric.linking.view': 'Näytä',
-  'fabric.linking.viewer_rateLimited': 'Tiedostosi lataamisessa on ongelma.',
-  'fabric.linking.webgl_warning_description':
-    'Selaimesi ei tue WebGL:ää. Käytä WebGL:ää tukevaa selainta, jos haluat tehdä merkintöjä kuviin.',
-  'fabric.linking.zip_entry_load_failed':
-    'Emme voineet ladata kyseistä zip-tiedoston kohdetta esikatselua varten',
-  'fabric.linking.zoom_in': 'lähennä',
-  'fabric.linking.zoom_out': 'loitonna',
 };

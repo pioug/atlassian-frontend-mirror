@@ -18,7 +18,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Avatar"
+      "name": "Avatar",
+      "category": "Components"
     }
   },
   "af:exports": {

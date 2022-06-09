@@ -18,7 +18,8 @@
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "This is an internal component and should not be used directly.",
-      "name": "Layer"
+      "name": "Layer",
+      "category": "Components"
     }
   },
   "dependencies": {

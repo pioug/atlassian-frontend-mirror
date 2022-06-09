@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Lozenge"
+      "name": "Lozenge",
+      "category": "Components"
     }
   },
   "dependencies": {

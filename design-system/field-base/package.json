@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Please use the Form/Textfield/Textarea/etc packages instead.",
-      "name": "Field Base"
+      "name": "Field Base",
+      "category": "Components"
     }
   },
   "dependencies": {

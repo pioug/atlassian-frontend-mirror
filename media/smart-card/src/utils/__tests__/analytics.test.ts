@@ -171,7 +171,12 @@ describe('uiActionClickedEvent', () => {
   ])(
     'returns action button click event for action type %s',
     (actionType: string, actionSubjectId: string | undefined) => {
-      const event = uiActionClickedEvent(actionType, 'extension-key', 'block');
+      const event = uiActionClickedEvent(
+        'id',
+        actionType,
+        'extension-key',
+        'block',
+      );
 
       expect(event).toEqual({
         action: 'clicked',
@@ -181,6 +186,7 @@ describe('uiActionClickedEvent', () => {
           actionType: actionType,
           componentName: 'smart-cards',
           display: 'block',
+          id: 'id',
           extensionKey: 'extension-key',
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',

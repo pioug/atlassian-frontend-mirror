@@ -148,7 +148,7 @@ export const useSmartLinkAnalytics = (
           invokeType,
         });
         dispatchAnalytics(
-          uiActionClickedEvent(actionType, extensionKey, display),
+          uiActionClickedEvent(id, actionType, extensionKey, display),
         );
       },
       /**
@@ -167,6 +167,7 @@ export const useSmartLinkAnalytics = (
       ) => {
         dispatchAnalytics(
           uiHoverCardOpenLinkClickedEvent(
+            defaultId,
             previewDisplay,
             definitionId,
             extensionKey,
@@ -228,12 +229,14 @@ export const useSmartLinkAnalytics = (
        */
       hoverCardViewedEvent: (
         previewDisplay: PreviewDisplay,
+        previewInvokeMethod?: PreviewInvokeMethod,
+        id: string = defaultId,
         definitionId: string | undefined = extractedDefinitionId,
         extensionKey: string | undefined = extractedExtensionKey,
-        previewInvokeMethod?: PreviewInvokeMethod,
       ) =>
         dispatchAnalytics(
           uiHoverCardViewedEvent(
+            id,
             previewDisplay,
             definitionId,
             extensionKey,
@@ -252,12 +255,14 @@ export const useSmartLinkAnalytics = (
       hoverCardDismissedEvent: (
         previewDisplay: PreviewDisplay,
         hoverTime: number,
+        previewInvokeMethod?: PreviewInvokeMethod,
+        id: string = defaultId,
         definitionId: string | undefined = extractedDefinitionId,
         extensionKey: string | undefined = extractedExtensionKey,
-        previewInvokeMethod?: PreviewInvokeMethod,
       ) =>
         dispatchAnalytics(
           uiHoverCardDismissedEvent(
+            id,
             previewDisplay,
             hoverTime,
             definitionId,

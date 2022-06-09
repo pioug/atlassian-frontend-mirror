@@ -18,7 +18,8 @@
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "Item is deprecated. Please use @atlaskit/menu instead.",
-      "name": "Item"
+      "name": "Item",
+      "category": "Components"
     }
   },
   "dependencies": {

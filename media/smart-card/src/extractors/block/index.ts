@@ -63,7 +63,13 @@ export const extractBlockActions = (
   platform?: CardPlatform,
 ): ActionProps[] => {
   if (opts) {
-    const { handleInvoke, handleAnalytics, extensionKey, testId } = opts;
+    const {
+      handleInvoke,
+      handleAnalytics,
+      extensionKey,
+      source,
+      testId,
+    } = opts;
     const actions = extractActions(jsonLd, handleInvoke);
     const previewAction = extractPreviewAction(
       extensionKey,
@@ -73,6 +79,7 @@ export const extractBlockActions = (
       handleAnalytics,
       testId,
       platform,
+      source,
     );
 
     // The previewAction should always be the last action

@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 19.1.17
+
+### Patch Changes
+
+- [`46f6c1a70e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46f6c1a70e3) - Hover Preview: Improve analytics and update Flexible UI usage within Hover Preview
+
 ## 19.1.16
 
 ### Patch Changes

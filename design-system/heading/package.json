@@ -11,7 +11,8 @@
     "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
-      "name": "Heading"
+      "name": "Heading",
+      "category": "Components"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

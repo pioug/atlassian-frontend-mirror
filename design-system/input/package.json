@@ -18,7 +18,8 @@
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "This is an internal component and should not be used directly.",
-      "name": "Input"
+      "name": "Input",
+      "category": "Components"
     }
   },
   "dependencies": {

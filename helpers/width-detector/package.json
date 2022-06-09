@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Width Detector"
+      "name": "Width Detector",
+      "category": "Libraries"
     }
   },
   "dependencies": {

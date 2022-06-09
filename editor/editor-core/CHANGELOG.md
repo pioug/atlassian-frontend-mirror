@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 167.0.1
+
+### Patch Changes
+
+- [`39937036dc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39937036dc5) - [RM-77] Change the tableSupported check for ToolbarInsertBlock to account for forks of the table plugin.
+
 ## 167.0.0
 
 ### Major Changes

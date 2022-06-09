@@ -6,17 +6,48 @@
  */
 //Swedish
 export default {
+  'fabric.linking.actions': 'Åtgärder',
+  'fabric.linking.add_account': 'Lägg till konto',
+  'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Det går inte att ansluta, försök igen',
   'fabric.linking.cannot_find_link': 'Kan inte hitta länk',
-  'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
-  'fabric.linking.create_on': 'Skapades {context}',
+  'fabric.linking.click_to_join': 'Gå med i {context}',
+  'fabric.linking.click_to_join_description':
+    'Du har godkänts, så du kan ansluta till {context} direkt.',
+  'fabric.linking.close': 'Stäng',
+  'fabric.linking.connect_account_description':
+    'Vi kommer att öppna en ny sida som hjälper dig att ansluta till ditt {name}-konto',
+  'fabric.linking.connect_link_account': 'Anslut till förhandsgranskning',
+  'fabric.linking.connect_link_account_card_view': 'Anslut',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Anslut ditt {context}-konto om du vill visa en förhandsgranskning av den här länken.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Anslut ditt {context}-konto',
+  'fabric.linking.connect_to': 'Anslut till {name}',
+  'fabric.linking.couldnt_load_link':
+    'Vi kunde inte läsa in den här länken av okänd anledning.',
+  'fabric.linking.create_on_absolute': 'Skapades {context}',
+  'fabric.linking.create_on_relative': 'Skapades {context}',
   'fabric.linking.created_by': 'Skapades av {context}',
   'fabric.linking.delete': 'Radera',
+  'fabric.linking.download': 'Ladda ner',
   'fabric.linking.edit': 'Redigera',
   'fabric.linking.forbidden_access': 'Din åtkomst är förbjuden',
-  'fabric.linking.restricted_link': 'Begränsad länk, prova ett annat konto',
-  'fabric.linking.modified_on': 'Uppdaterades {context}',
+  'fabric.linking.forbidden_description':
+    'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
+  'fabric.linking.invalid_permissions': 'Begränsad länk',
+  'fabric.linking.invalid_permissions_description':
+    'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
+  'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
+  'fabric.linking.loading': 'Läser in ...',
+  'fabric.linking.modified_on_absolute': 'Uppdaterades {context}',
+  'fabric.linking.modified_on_relative': 'Uppdaterades {context}',
+  'fabric.linking.more_actions': 'Fler åtgärder',
+  'fabric.linking.not_found_description':
+    'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
+  'fabric.linking.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
+  'fabric.linking.preview': 'Förhandsgranska',
   'fabric.linking.priority_blocker': 'Blockerare',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Hög',
@@ -28,166 +59,25 @@ export default {
   'fabric.linking.priority_minor': 'Smärre',
   'fabric.linking.priority_trivial': 'Obetydlig',
   'fabric.linking.priority_undefined': 'Ej definierad',
-  'fabric.linking.request_access_to_view':
-    'Be om åtkomst till {context} för att visa ärendet',
-  'fabric.linking.request_denied': 'Din åtkomstförfrågan har nekats',
-  'fabric.linking.updated_by': 'Ändrad av {context}',
-  'fabric.linking.accounts': 'Konton',
-  'fabric.linking.actions': 'Åtgärder',
-  'fabric.linking.add_account': 'Lägg till konto',
-  'fabric.linking.annotate': 'Kommentera',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Stäng ändå',
-  'fabric.linking.annotate.confirmation.content':
-    'Du har ändringar som inte sparats. Är du säker på att du vill avsluta?',
-  'fabric.linking.annotate.confirmation.heading': 'Ändringar som inte sparats',
-  'fabric.linking.annotate.tool.arrow': 'Pil',
-  'fabric.linking.annotate.tool.blur': 'Oskärpa',
-  'fabric.linking.annotate.tool.brush': 'Pensel',
-  'fabric.linking.annotate.tool.color': 'Färg',
-  'fabric.linking.annotate.tool.line.thickness': 'Linjetjocklek',
-  'fabric.linking.annotate.tool.shape': 'Form',
-  'fabric.linking.annotate.tool.text': 'Text',
-  'fabric.linking.archive': 'arkiv',
-  'fabric.linking.audio': 'ljud',
-  'fabric.linking.cancel': 'Avbryt',
-  'fabric.linking.cant_preview_file_type':
-    'Vi kan inte förhandsgranska den här filtypen.',
-  'fabric.linking.cant_retrieve_files':
-    'Oj då! Vi kunde inte hämta några filer',
-  'fabric.linking.cant_retrieve_gifs':
-    'Oj då! Vi kunde inte hämta några GIF:ar',
-  'fabric.linking.change_view': 'Ändra vy',
-  'fabric.linking.check_your_network': 'Kontrollera din nätverksanslutning',
-  'fabric.linking.click_to_join': 'Gå med i {context}',
-  'fabric.linking.click_to_join_description':
-    'Du har godkänts, så du kan ansluta till {context} direkt.',
-  'fabric.linking.close': 'Stäng',
-  'fabric.linking.close_and_reopen':
-    'Testa att stänga filen och öppna den igen.',
-  'fabric.linking.connect_account_description':
-    'Vi kommer att öppna en ny sida som hjälper dig att ansluta till ditt {name}-konto',
-  'fabric.linking.connect_link_account': 'Anslut till förhandsgranskning',
-  'fabric.linking.connect_link_account_card_view': 'Anslut',
-  'fabric.linking.connect_link_account_card_view_description':
-    'Anslut ditt {context}-konto om du vill visa en förhandsgranskning av den här länken.',
-  'fabric.linking.connect_link_account_card_view_name':
-    'Anslut ditt {context}-konto',
-  'fabric.linking.connect_to': 'Anslut till {name}',
-  'fabric.linking.could_not_load_editor':
-    'Oj då! Vi kunde inte läsa in redigeringsprogrammet.',
-  'fabric.linking.could_not_save_image': 'Oj då! Vi kunde inte spara bilden',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    'Du kan inte förhandsgranska krypterade eller lösenordsskyddade filer.',
-  'fabric.linking.couldnt_generate_preview':
-    'Vi kunde inte generera en förhandsgranskning av den här filen.',
-  'fabric.linking.couldnt_load_file': 'Vi kunde inte läsa in filen.',
-  'fabric.linking.couldnt_load_link':
-    'Vi kunde inte läsa in den här länken av okänd anledning.',
-  'fabric.linking.creating_preview': 'Skapar förhandsgranskning …',
-  'fabric.linking.default_avatars': 'Standardavatarer',
-  'fabric.linking.disable_fullscreen': 'inaktivera helskärm',
-  'fabric.linking.display_thumbnail': 'Visa miniatyrbild',
-  'fabric.linking.document': 'dokument',
-  'fabric.linking.download': 'Ladda ner',
-  'fabric.linking.drag_and_drop_images_here': 'Dra och släpp dina bilder här',
-  'fabric.linking.drag_and_drop_your_files':
-    'Dra och släpp dina filer var som helst eller',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Dra och släpp dina filer och mappar var som helst eller',
-  'fabric.linking.drop_your_files': 'Släpp dina filer för att ladda upp',
-  'fabric.linking.drop_your_files_here': 'Släpp dina filer här',
-  'fabric.linking.email': 'E-post',
-  'fabric.linking.enable_fullscreen': 'aktivera helskärm',
-  'fabric.linking.error_429': 'Fel 429',
-  'fabric.linking.error_generating_preview':
-    'Fel vid generering av förhandsvisning',
-  'fabric.linking.error_hint_critical':
-    'Kontakta kundsupport om problemet kvarstår.',
-  'fabric.linking.error_hint_retry': 'Försök igen.',
-  'fabric.linking.error_loading_file': 'Fel vid inläsning av fil',
-  'fabric.linking.failed_to_load': 'Fel vid inläsning',
-  'fabric.linking.failed_to_upload': 'Uppladdning misslyckades',
-  'fabric.linking.forbidden_description':
-    'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
-  'fabric.linking.give_feedback': 'Ge feedback',
-  'fabric.linking.image': 'bild',
-  'fabric.linking.image_format_invalid_error':
-    'Kunde inte läsa in bild på grund av ogiltigt format.',
-  'fabric.linking.image_size_too_large_error':
-    'Bilden är för stor. Storleken får inte överstiga {MAX_SIZE_MB} MB.',
-  'fabric.linking.image_url_invalid_error':
-    'Kunde inte läsa in bild på grund av felaktig URL.',
-  'fabric.linking.insert_files':
-    '{0, plural, one {Infoga {0} fil} other {Infoga {0} filer}}',
-  'fabric.linking.invalid_permissions': 'Begränsad länk',
-  'fabric.linking.invalid_permissions_description':
-    'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
-  'fabric.linking.item_not_found_in_list':
-    'Det valda objektet hittades inte i listan.',
-  'fabric.linking.learn_more': 'Mer information',
-  'fabric.linking.load_more_gifs': 'Läs in fler GIF:ar',
-  'fabric.linking.loading': 'Läser in ...',
-  'fabric.linking.loading_file': 'Läser in filen …',
-  'fabric.linking.might_be_a_hiccup': 'Det är nog bara lite krångel.',
-  'fabric.linking.no_gifs_found': 'Hello? Var det mig du letade efter?',
-  'fabric.linking.no_gifs_found_suggestion':
-    'Vi kunde inte hitta några resultat för "{query}"',
-  'fabric.linking.no_pdf_artifacts':
-    'Inga PDF-artefakter hittades för den här filen.',
-  'fabric.linking.not_found_description':
-    'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
-  'fabric.linking.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
-  'fabric.linking.or': 'eller',
-  'fabric.linking.pause': 'Pausa',
-  'fabric.linking.play': 'Spela',
-  'fabric.linking.playback_default_speed': 'Standard',
-  'fabric.linking.playback_speed': 'Uppspelningshastighet',
-  'fabric.linking.preview': 'Förhandsgranska',
-  'fabric.linking.preview_currently_unavailable':
-    'Förhandsgranskning är otillgänglig just nu',
-  'fabric.linking.preview_unavailable': 'Förhandsgranskning är otillgänglig',
-  'fabric.linking.recent_uploads': 'Senaste uppladdningar',
-  'fabric.linking.remove_image': 'Ta bort bild',
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_description':
     'Be om åtkomst till {context} för att visa förhandsgranskningen.',
   'fabric.linking.request_access_pending': 'Väntar på åtkomst',
   'fabric.linking.request_access_pending_description':
     'Din åtkomstförfrågan väntar på svar.',
+  'fabric.linking.request_access_to_view':
+    'Be om åtkomst till {context} för att visa ärendet',
+  'fabric.linking.request_denied': 'Din åtkomstförfrågan har nekats',
   'fabric.linking.request_denied_description':
     'Din åtkomstförfrågan har nekats. Kontakta webbplatsadministratören om du fortfarande behöver åtkomst.',
+  'fabric.linking.restricted_link': 'Begränsad länk, prova ett annat konto',
   'fabric.linking.retry': 'Försök igen',
   'fabric.linking.save': 'Spara',
-  'fabric.linking.search': 'Sök',
-  'fabric.linking.search_all_gifs': 'Sök alla GIF:ar!',
-  'fabric.linking.share_files_instantly': 'Vi delar dem direkt',
-  'fabric.linking.skip_backward': 'Gå tillbaka 10 sekunder',
-  'fabric.linking.skip_forward': 'Gå framåt 10 sekunder',
-  'fabric.linking.something_went_wrong': 'Något gick fel.',
   'fabric.linking.srclink': 'Visa i',
   'fabric.linking.srclinkunknown': 'Visa original',
-  'fabric.linking.text': 'Text',
   'fabric.linking.try_again': 'Försök igen',
   'fabric.linking.try_another_account': 'Försök med ett annat konto',
-  'fabric.linking.try_downloading_file':
-    'Försök ladda ner filen för att visa den.',
-  'fabric.linking.unable_to_annotate_image':
-    'Du kan inte kommentera den här bilden.',
-  'fabric.linking.unknown': 'okänt',
   'fabric.linking.unlink_account': 'Ta bort kontolänk',
-  'fabric.linking.upload': 'Ladda upp',
-  'fabric.linking.upload_an_avatar': 'Ladda upp en avatar',
-  'fabric.linking.upload_file': 'Ladda upp en fil',
-  'fabric.linking.upload_file_from': 'Ladda upp en fil från {name}',
-  'fabric.linking.upload_image': 'Ladda upp bild',
-  'fabric.linking.upload_photo': 'Ladda upp en bild',
-  'fabric.linking.video': 'video',
+  'fabric.linking.updated_by': 'Ändrad av {context}',
   'fabric.linking.view': 'Visa',
-  'fabric.linking.viewer_rateLimited': 'Vi kan inte läsa in filen.',
-  'fabric.linking.webgl_warning_description':
-    'Din webbläsare stöder inte WebGL. Använd en webbläsare som har stöd för WebGL för att kommentera bilder.',
-  'fabric.linking.zip_entry_load_failed':
-    'Vi kunde inte läsa in zip-filobjektet för förhandsgranskning',
-  'fabric.linking.zoom_in': 'zooma in',
-  'fabric.linking.zoom_out': 'zooma ut',
 };

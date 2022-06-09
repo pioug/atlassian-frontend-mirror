@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import uuid from 'uuid';
 
 import type { AnalyticsHandler } from '../../utils/types';
-import type { CardAppearance } from '../../view/Card/types';
+import type { CardInnerAppearance } from '../../view/Card/types';
 import { extractBlockProps as extractCardProps } from '../../extractors/block';
 
 import { useSmartCardActions as useLinkActions } from '../actions';
@@ -40,7 +40,7 @@ export interface UseSmartLinkActionsOpts {
    * Appearance under which these actions will be invoked.
    * @example `block` for card views.
    */
-  appearance: CardAppearance;
+  appearance: CardInnerAppearance;
   /**
    * Callback for sending analytics events.
    * @description Accepts an analytics payload and fires it to a system.
@@ -77,6 +77,7 @@ export function useSmartLinkActions({
         handleInvoke: (opts) => linkActions.invoke(opts, appearance),
         handleAnalytics: analyticsHandler,
         extensionKey: getExtensionKey(linkState.details),
+        source: appearance,
       },
       undefined,
       platform,

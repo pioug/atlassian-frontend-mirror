@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "deprecated": "This is an internal package and should not be used directly.",
-      "name": "DSLib"
+      "name": "DSLib",
+      "category": "Libraries"
     }
   },
   "af:exports": {

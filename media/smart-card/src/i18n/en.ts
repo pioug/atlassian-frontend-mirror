@@ -6,17 +6,48 @@
  */
 //
 export default {
+  'fabric.linking.actions': 'Actions',
+  'fabric.linking.add_account': 'Add account',
+  'fabric.linking.cancel': 'Cancel',
   'fabric.linking.cannot_connect': "Can't connect, try again",
   'fabric.linking.cannot_find_link': "Can't find link",
-  'fabric.linking.join_to_view': 'Join {context} to view this issue',
-  'fabric.linking.create_on': 'Created {context}',
+  'fabric.linking.click_to_join': 'Join {context}',
+  'fabric.linking.click_to_join_description':
+    "You've been approved, so you can join {context} right away.",
+  'fabric.linking.close': 'Close',
+  'fabric.linking.connect_account_description':
+    "We'll open a new page to help you connect your {name} account",
+  'fabric.linking.connect_link_account': 'Connect to preview',
+  'fabric.linking.connect_link_account_card_view': 'Connect',
+  'fabric.linking.connect_link_account_card_view_description':
+    'To show a preview of this link, connect your {context} account.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Connect your {context} account',
+  'fabric.linking.connect_to': 'Connect to {name}',
+  'fabric.linking.couldnt_load_link':
+    "We couldn't load this link for an unknown reason.",
+  'fabric.linking.create_on_absolute': 'Created on {context}',
+  'fabric.linking.create_on_relative': 'Created {context}',
   'fabric.linking.created_by': 'Created by {context}',
   'fabric.linking.delete': 'Delete',
+  'fabric.linking.download': 'Download',
   'fabric.linking.edit': 'Edit',
   'fabric.linking.forbidden_access': 'Your access is forbidden',
-  'fabric.linking.restricted_link': 'Restricted link, try another account',
-  'fabric.linking.modified_on': 'Updated {context}',
+  'fabric.linking.forbidden_description':
+    'You don’t have access to this preview. Contact the site admin if you need access.',
+  'fabric.linking.invalid_permissions': 'Restricted link',
+  'fabric.linking.invalid_permissions_description':
+    "You'll need to request access or try a different account to view this preview.",
+  'fabric.linking.join_to_view': 'Join {context} to view this issue',
+  'fabric.linking.loading': 'Loading...',
+  'fabric.linking.modified_on_absolute': 'Updated on {context}',
+  'fabric.linking.modified_on_relative': 'Updated {context}',
+  'fabric.linking.more_actions': 'More actions',
+  'fabric.linking.not_found_description':
+    "We couldn't find the link. Check the url and try editing or paste again.",
+  'fabric.linking.not_found_title': "Uh oh. We can't find this link!",
   'fabric.linking.pending_request': 'Your access request is pending',
+  'fabric.linking.preview': 'Preview',
   'fabric.linking.priority_blocker': 'Blocker',
   'fabric.linking.priority_critical': 'Critical',
   'fabric.linking.priority_high': 'High',
@@ -28,160 +59,25 @@ export default {
   'fabric.linking.priority_minor': 'Minor',
   'fabric.linking.priority_trivial': 'Trivial',
   'fabric.linking.priority_undefined': 'Undefined',
-  'fabric.linking.request_access_to_view':
-    'Request access to {context} to view this issue',
-  'fabric.linking.request_denied': 'Your access request was denied',
-  'fabric.linking.updated_by': 'Modified by {context}',
-  'fabric.linking.accounts': 'Accounts',
-  'fabric.linking.actions': 'Actions',
-  'fabric.linking.add_account': 'Add account',
-  'fabric.linking.annotate': 'Annotate',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Close anyway',
-  'fabric.linking.annotate.confirmation.content':
-    'You have some unsaved changes. Are you sure you want to leave?',
-  'fabric.linking.annotate.confirmation.heading': 'Unsaved changes',
-  'fabric.linking.annotate.tool.arrow': 'Arrow',
-  'fabric.linking.annotate.tool.blur': 'Blur',
-  'fabric.linking.annotate.tool.brush': 'Brush',
-  'fabric.linking.annotate.tool.color': 'Color',
-  'fabric.linking.annotate.tool.line.thickness': 'Line thickness',
-  'fabric.linking.annotate.tool.shape': 'Shape',
-  'fabric.linking.annotate.tool.text': 'Text',
-  'fabric.linking.archive': 'archive',
-  'fabric.linking.audio': 'audio',
-  'fabric.linking.cancel': 'Cancel',
-  'fabric.linking.cant_preview_file_type': "We can't preview this file type.",
-  'fabric.linking.cant_retrieve_files': 'Ouch! We could not retrieve any files',
-  'fabric.linking.cant_retrieve_gifs': 'Ouch! We could not retrieve any GIFs',
-  'fabric.linking.change_view': 'Change view',
-  'fabric.linking.check_your_network': 'Check your network connection',
-  'fabric.linking.click_to_join': 'Join {context}',
-  'fabric.linking.click_to_join_description':
-    "You've been approved, so you can join {context} right away.",
-  'fabric.linking.close': 'Close',
-  'fabric.linking.close_and_reopen': 'Try closing this file and reopening.',
-  'fabric.linking.connect_account_description':
-    "We'll open a new page to help you connect your {name} account",
-  'fabric.linking.connect_link_account': 'Connect to preview',
-  'fabric.linking.connect_link_account_card_view': 'Connect',
-  'fabric.linking.connect_link_account_card_view_description':
-    'To show a preview of this link, connect your {context} account.',
-  'fabric.linking.connect_link_account_card_view_name':
-    'Connect your {context} account',
-  'fabric.linking.connect_to': 'Connect to {name}',
-  'fabric.linking.could_not_load_editor': 'Ouch! We could not load the editor',
-  'fabric.linking.could_not_save_image': 'Ouch! We could not save the image',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    "We can't preview encrypted or password protected files.",
-  'fabric.linking.couldnt_generate_preview':
-    "We couldn't generate a preview for this file.",
-  'fabric.linking.couldnt_load_file': "We couldn't load the file.",
-  'fabric.linking.couldnt_load_link':
-    "We couldn't load this link for an unknown reason.",
-  'fabric.linking.creating_preview': 'Creating preview...',
-  'fabric.linking.default_avatars': 'Default avatars',
-  'fabric.linking.disable_fullscreen': 'disable fullscreen',
-  'fabric.linking.display_thumbnail': 'Display thumbnail',
-  'fabric.linking.document': 'document',
-  'fabric.linking.download': 'Download',
-  'fabric.linking.drag_and_drop_images_here': 'Drag and drop your images here',
-  'fabric.linking.drag_and_drop_your_files':
-    'Drag and drop your files anywhere or',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Drag and drop your files and folders anywhere or',
-  'fabric.linking.drop_your_files': 'Drop your files to upload',
-  'fabric.linking.drop_your_files_here': 'Drop your files here',
-  'fabric.linking.email': 'email',
-  'fabric.linking.enable_fullscreen': 'enable fullscreen',
-  'fabric.linking.error_429': 'Error 429',
-  'fabric.linking.error_generating_preview': 'Error generating preview',
-  'fabric.linking.error_hint_critical':
-    'If the problem keeps happening contact support.',
-  'fabric.linking.error_hint_retry':
-    "Try again and we'll give it another shot.",
-  'fabric.linking.error_loading_file': 'Error loading file',
-  'fabric.linking.failed_to_load': 'Failed to load',
-  'fabric.linking.failed_to_upload': 'Failed to upload',
-  'fabric.linking.forbidden_description':
-    'You don’t have access to this preview. Contact the site admin if you need access.',
-  'fabric.linking.give_feedback': 'Give feedback',
-  'fabric.linking.image': 'image',
-  'fabric.linking.image_format_invalid_error':
-    'Could not load image, the format is invalid.',
-  'fabric.linking.image_size_too_large_error':
-    'Image is too large, must be no larger than {MAX_SIZE_MB}Mb',
-  'fabric.linking.image_url_invalid_error':
-    'Could not load image, the url is invalid.',
-  'fabric.linking.insert_files':
-    'Insert {0, plural, one {a file} other {{0} files}}',
-  'fabric.linking.invalid_permissions': 'Restricted link',
-  'fabric.linking.invalid_permissions_description':
-    "You'll need to request access or try a different account to view this preview.",
-  'fabric.linking.item_not_found_in_list':
-    'The selected item was not found on the list.',
-  'fabric.linking.learn_more': 'Learn More',
-  'fabric.linking.load_more_gifs': 'Load more GIFs',
-  'fabric.linking.loading': 'Loading...',
-  'fabric.linking.loading_file': 'Loading file...',
-  'fabric.linking.might_be_a_hiccup': 'It might just be a hiccup.',
-  'fabric.linking.no_gifs_found': "Hello? Was it me you're looking for?",
-  'fabric.linking.no_gifs_found_suggestion':
-    'We couldn\'t find anything for "{query}"',
-  'fabric.linking.no_pdf_artifacts': 'No PDF artifacts found for this file.',
-  'fabric.linking.not_found_description':
-    "We couldn't find the link. Check the url and try editing or paste again.",
-  'fabric.linking.not_found_title': "Uh oh. We can't find this link!",
-  'fabric.linking.or': 'or',
-  'fabric.linking.pause': 'Pause',
-  'fabric.linking.play': 'Play',
-  'fabric.linking.playback_default_speed': 'Default',
-  'fabric.linking.playback_speed': 'Playback speed',
-  'fabric.linking.preview': 'Preview',
-  'fabric.linking.preview_currently_unavailable':
-    'Preview currently unavailable',
-  'fabric.linking.preview_unavailable': 'Preview unavailable',
-  'fabric.linking.recent_uploads': 'Recent uploads',
-  'fabric.linking.remove_image': 'Remove image',
   'fabric.linking.request_access': 'Request access',
   'fabric.linking.request_access_description':
     'Request access to {context} view this preview.',
   'fabric.linking.request_access_pending': 'Access pending',
   'fabric.linking.request_access_pending_description':
     'Your access request is pending.',
+  'fabric.linking.request_access_to_view':
+    'Request access to {context} to view this issue',
+  'fabric.linking.request_denied': 'Your access request was denied',
   'fabric.linking.request_denied_description':
     'Your access request was denied. Contact the site admin if you still need access.',
+  'fabric.linking.restricted_link': 'Restricted link, try another account',
   'fabric.linking.retry': 'Retry',
   'fabric.linking.save': 'Save',
-  'fabric.linking.search': 'search',
-  'fabric.linking.search_all_gifs': 'Search all the GIFs!',
-  'fabric.linking.share_files_instantly': "We'll share them instantly",
-  'fabric.linking.skip_backward': 'Back 10 seconds',
-  'fabric.linking.skip_forward': 'Forward 10 seconds',
-  'fabric.linking.something_went_wrong': 'Something went wrong.',
   'fabric.linking.srclink': 'View in',
   'fabric.linking.srclinkunknown': 'View Original',
-  'fabric.linking.text': 'text',
   'fabric.linking.try_again': 'Try again',
   'fabric.linking.try_another_account': 'Try another account',
-  'fabric.linking.try_downloading_file': 'Try downloading the file to view it.',
-  'fabric.linking.unable_to_annotate_image':
-    "You're unable to annotate this image",
-  'fabric.linking.unknown': 'unknown',
   'fabric.linking.unlink_account': 'Unlink Account',
-  'fabric.linking.upload': 'Upload',
-  'fabric.linking.upload_an_avatar': 'Upload an avatar',
-  'fabric.linking.upload_file': 'Upload a file',
-  'fabric.linking.upload_file_from': 'Upload a file from {name}',
-  'fabric.linking.upload_image': 'Upload image',
-  'fabric.linking.upload_photo': 'Upload a photo',
-  'fabric.linking.video': 'video',
+  'fabric.linking.updated_by': 'Modified by {context}',
   'fabric.linking.view': 'View',
-  'fabric.linking.viewer_rateLimited':
-    "We're having difficulties loading your file.",
-  'fabric.linking.webgl_warning_description':
-    'Your browser does not support WebGL. Use a WebGL enabled browser to annotate images.',
-  'fabric.linking.zip_entry_load_failed':
-    "We couldn't load that zip file item to preview",
-  'fabric.linking.zoom_in': 'zoom in',
-  'fabric.linking.zoom_out': 'zoom out',
 };

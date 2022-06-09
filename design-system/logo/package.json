@@ -18,7 +18,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Logo"
+      "name": "Logo",
+      "category": "Components"
     }
   },
   "af:exports": {

@@ -31,7 +31,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Motion"
+      "name": "Motion",
+      "category": "Components"
     }
   },
   "dependencies": {

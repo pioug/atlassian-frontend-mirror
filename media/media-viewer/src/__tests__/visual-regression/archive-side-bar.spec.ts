@@ -32,7 +32,7 @@ describe('Archive sidebar', () => {
 
   it('should show navigation back button on opening the folder', async () => {
     await page.click('span[aria-label="Folder"]');
-    await sleep(1000);
+    await sleep(2000);
 
     const image = await page.screenshot();
 

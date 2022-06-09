@@ -6,19 +6,49 @@
  */
 //Russian
 export default {
+  'fabric.linking.actions': 'Действия',
+  'fabric.linking.add_account': 'Добавить аккаунт',
+  'fabric.linking.cancel': 'Отмена',
   'fabric.linking.cannot_connect': 'Не удается подключиться, повторите попытку',
   'fabric.linking.cannot_find_link': 'Не удается найти ссылку',
-  'fabric.linking.join_to_view':
-    'Для просмотра этой задачи выполните подключение к {context}',
-  'fabric.linking.create_on': 'Создано: {context}',
+  'fabric.linking.click_to_join': 'Подключить {context}',
+  'fabric.linking.click_to_join_description':
+    'Вы получили одобрение и можете присоединиться к продукту {context} прямо сейчас.',
+  'fabric.linking.close': 'Закрыть',
+  'fabric.linking.connect_account_description':
+    'Откроется новая страница, где вы сможете подключить свой аккаунт {name}',
+  'fabric.linking.connect_link_account': 'Подключить для просмотра',
+  'fabric.linking.connect_link_account_card_view': 'Подключить',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Для предварительного просмотра этой ссылки подключите аккаунт {context}.',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Подключите свой аккаунт {context}',
+  'fabric.linking.connect_to': 'Подключить к {name}',
+  'fabric.linking.couldnt_load_link':
+    'По неизвестной причине не удалось загрузить ссылку.',
+  'fabric.linking.create_on_absolute': 'Создано: {context}',
+  'fabric.linking.create_on_relative': 'Создано: {context}',
   'fabric.linking.created_by': 'Создано: {context}',
   'fabric.linking.delete': 'Удалить',
+  'fabric.linking.download': 'Скачать',
   'fabric.linking.edit': 'Изменить',
   'fabric.linking.forbidden_access': 'Доступ запрещен',
-  'fabric.linking.restricted_link':
-    'Доступ к ссылке ограничен, попробуйте войти в другой аккаунт',
-  'fabric.linking.modified_on': 'Обновлено: {context}',
+  'fabric.linking.forbidden_description':
+    'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
+  'fabric.linking.invalid_permissions': 'Ссылка с ограниченным доступом',
+  'fabric.linking.invalid_permissions_description':
+    'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
+  'fabric.linking.join_to_view':
+    'Для просмотра этой задачи выполните подключение к {context}',
+  'fabric.linking.loading': 'Загрузка…',
+  'fabric.linking.modified_on_absolute': 'Обновлено {context}',
+  'fabric.linking.modified_on_relative': 'Обновлено: {context}',
+  'fabric.linking.more_actions': 'Другие действия',
+  'fabric.linking.not_found_description':
+    'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
+  'fabric.linking.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
+  'fabric.linking.preview': 'Предпросмотр',
   'fabric.linking.priority_blocker': 'Блокер',
   'fabric.linking.priority_critical': 'Критический',
   'fabric.linking.priority_high': 'Высокий',
@@ -30,163 +60,27 @@ export default {
   'fabric.linking.priority_minor': 'Незначительный',
   'fabric.linking.priority_trivial': 'Тривиальный',
   'fabric.linking.priority_undefined': 'Не определен',
-  'fabric.linking.request_access_to_view':
-    'Для просмотра этой задачи запросите доступ к {context}',
-  'fabric.linking.request_denied': 'Ваш запрос на доступ отклонен',
-  'fabric.linking.updated_by': 'Изменено: {context}',
-  'fabric.linking.accounts': 'Аккаунты',
-  'fabric.linking.actions': 'Действия',
-  'fabric.linking.add_account': 'Добавить аккаунт',
-  'fabric.linking.annotate': 'Добавить примечание',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Все равно закрыть',
-  'fabric.linking.annotate.confirmation.content':
-    'Некоторые изменения не сохранены. Вы действительно хотите выйти?',
-  'fabric.linking.annotate.confirmation.heading': 'Несохраненные изменения',
-  'fabric.linking.annotate.tool.arrow': 'Стрелка',
-  'fabric.linking.annotate.tool.blur': 'Размытие',
-  'fabric.linking.annotate.tool.brush': 'Кисть',
-  'fabric.linking.annotate.tool.color': 'Цвет',
-  'fabric.linking.annotate.tool.line.thickness': 'Толщина линии',
-  'fabric.linking.annotate.tool.shape': 'Форма',
-  'fabric.linking.annotate.tool.text': 'Текст',
-  'fabric.linking.archive': 'архивировать',
-  'fabric.linking.audio': 'аудио',
-  'fabric.linking.cancel': 'Отменить',
-  'fabric.linking.cant_preview_file_type':
-    'Предварительный просмотр файлов такого типа невозможен.',
-  'fabric.linking.cant_retrieve_files':
-    'К сожалению, не удалось получить файлы',
-  'fabric.linking.cant_retrieve_gifs': 'Не найдено ни одного файла GIF',
-  'fabric.linking.change_view': 'Изменить представление',
-  'fabric.linking.check_your_network': 'Проверьте подключение к сети',
-  'fabric.linking.click_to_join': 'Подключить {context}',
-  'fabric.linking.click_to_join_description':
-    'Вы получили одобрение и можете присоединиться к продукту {context} прямо сейчас.',
-  'fabric.linking.close': 'Закрыть',
-  'fabric.linking.close_and_reopen':
-    'Попробуйте закрыть этот файл и открыть его повторно.',
-  'fabric.linking.connect_account_description':
-    'Откроется новая страница, где вы сможете подключить свой аккаунт {name}',
-  'fabric.linking.connect_link_account': 'Подключить для просмотра',
-  'fabric.linking.connect_link_account_card_view': 'Подключить',
-  'fabric.linking.connect_link_account_card_view_description':
-    'Для предварительного просмотра этой ссылки подключите аккаунт {context}.',
-  'fabric.linking.connect_link_account_card_view_name':
-    'Подключите свой аккаунт {context}',
-  'fabric.linking.connect_to': 'Подключить к {name}',
-  'fabric.linking.could_not_load_editor': 'Не удалось загрузить редактор',
-  'fabric.linking.could_not_save_image': 'Не удалось сохранить изображение',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    'Предварительный просмотр файлов, которые зашифрованы или защищены паролем, невозможен.',
-  'fabric.linking.couldnt_generate_preview':
-    'Не удалось выполнить предварительный просмотр файла.',
-  'fabric.linking.couldnt_load_file': 'Не удалось загрузить файл.',
-  'fabric.linking.couldnt_load_link':
-    'По неизвестной причине не удалось загрузить ссылку.',
-  'fabric.linking.creating_preview': 'Создание предварительного просмотра…',
-  'fabric.linking.default_avatars': 'Аватары по умолчанию',
-  'fabric.linking.disable_fullscreen': 'отключить полноэкранный режим',
-  'fabric.linking.display_thumbnail': 'Показать миниатюру',
-  'fabric.linking.document': 'документ',
-  'fabric.linking.download': 'Скачать',
-  'fabric.linking.drag_and_drop_images_here': 'Перетащите изображения сюда',
-  'fabric.linking.drag_and_drop_your_files':
-    'Перетащите файлы в любое место или',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Перетащите файлы и папки в любое место или',
-  'fabric.linking.drop_your_files': 'Перетащите файлы для загрузки',
-  'fabric.linking.drop_your_files_here': 'Перетащите файлы сюда',
-  'fabric.linking.email': 'Электронная почта',
-  'fabric.linking.enable_fullscreen': 'включить полноэкранный режим',
-  'fabric.linking.error_429': 'Ошибка 429',
-  'fabric.linking.error_generating_preview':
-    'Не удалось создать предварительный просмотр для файла',
-  'fabric.linking.error_hint_critical':
-    'Если проблема не исчезнет, обратитесь в службу поддержки.',
-  'fabric.linking.error_hint_retry': 'Повторите попытку.',
-  'fabric.linking.error_loading_file': 'При загрузке файла произошла ошибка',
-  'fabric.linking.failed_to_load': 'Не удалось загрузить файл.',
-  'fabric.linking.failed_to_upload': 'Ошибка загрузки',
-  'fabric.linking.forbidden_description':
-    'У вас нет доступа к предварительному просмотру. Если вам требуется доступ, обратитесь к администратору сайта.',
-  'fabric.linking.give_feedback': 'Оставить отзыв',
-  'fabric.linking.image': 'изображение',
-  'fabric.linking.image_format_invalid_error':
-    'Не удалось загрузить изображение (недействительный формат).',
-  'fabric.linking.image_size_too_large_error':
-    'Изображение превышает максимально допустимый размер ({MAX_SIZE_MB} МБ).',
-  'fabric.linking.image_url_invalid_error':
-    'Не удалось загрузить изображение (недействительный URL).',
-  'fabric.linking.insert_files':
-    '{0, plural, one {Вставить {0} файл} few {Вставить {0} файла} many {Вставить {0} файлов} other {Вставить {0} файла}}',
-  'fabric.linking.invalid_permissions': 'Ссылка с ограниченным доступом',
-  'fabric.linking.invalid_permissions_description':
-    'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
-  'fabric.linking.item_not_found_in_list': 'Выбранного объекта нет в списке.',
-  'fabric.linking.learn_more': 'Подробнее…',
-  'fabric.linking.load_more_gifs': 'Другие файлы GIF',
-  'fabric.linking.loading': 'Загрузка…',
-  'fabric.linking.loading_file': 'Загрузка файла…',
-  'fabric.linking.might_be_a_hiccup':
-    'Скорее всего, это была небольшая техническая неполадка.',
-  'fabric.linking.no_gifs_found': 'Здравствуйте. Вы искали меня?',
-  'fabric.linking.no_gifs_found_suggestion':
-    'По запросу «{query}» ничего не найдено',
-  'fabric.linking.no_pdf_artifacts': 'Нет PDF-артефактов для этого файла.',
-  'fabric.linking.not_found_description':
-    'Не удалось найти ссылку. Проверьте URL-адрес и попробуйте изменить или вставить еще раз.',
-  'fabric.linking.not_found_title': 'К сожалению, не удалось найти эту ссылку.',
-  'fabric.linking.or': 'или',
-  'fabric.linking.pause': 'Пауза',
-  'fabric.linking.play': 'Воспроизведение',
-  'fabric.linking.playback_default_speed': 'По умолчанию',
-  'fabric.linking.playback_speed': 'Скорость воспроизведения',
-  'fabric.linking.preview': 'Предпросмотр',
-  'fabric.linking.preview_currently_unavailable':
-    'Предварительный просмотр сейчас недоступен',
-  'fabric.linking.preview_unavailable': 'Предварительный просмотр недоступен',
-  'fabric.linking.recent_uploads': 'Недавно загруженные файлы',
-  'fabric.linking.remove_image': 'Удалить изображение',
   'fabric.linking.request_access': 'Запросить доступ',
   'fabric.linking.request_access_description':
     'Запросите доступ к продукту {context} для предварительного просмотра.',
   'fabric.linking.request_access_pending': 'Ожидается предоставление доступа',
   'fabric.linking.request_access_pending_description':
     'Ваш запрос на доступ ожидает рассмотрения.',
+  'fabric.linking.request_access_to_view':
+    'Для просмотра этой задачи запросите доступ к {context}',
+  'fabric.linking.request_denied': 'Ваш запрос на доступ отклонен',
   'fabric.linking.request_denied_description':
     'Ваш запрос на доступ отклонен. Если вам требуется доступ, обратитесь к администратору сайта.',
+  'fabric.linking.restricted_link':
+    'Доступ к ссылке ограничен, попробуйте войти в другой аккаунт',
   'fabric.linking.retry': 'Повторить',
   'fabric.linking.save': 'Сохранить',
-  'fabric.linking.search': 'Поиск',
-  'fabric.linking.search_all_gifs': 'Поиск по всем файлам GIF',
-  'fabric.linking.share_files_instantly': 'Мы загрузим их автоматически',
-  'fabric.linking.skip_backward': 'Назад на 10 секунд',
-  'fabric.linking.skip_forward': 'Вперед на 10 секунд',
-  'fabric.linking.something_went_wrong': 'Произошла ошибка.',
   'fabric.linking.srclink': 'Просмотреть в',
   'fabric.linking.srclinkunknown': 'Просмотреть оригинал',
-  'fabric.linking.text': 'Текст',
   'fabric.linking.try_again': 'Повторить попытку',
   'fabric.linking.try_another_account':
     'Попробуйте использовать другой аккаунт',
-  'fabric.linking.try_downloading_file':
-    'Чтобы просмотреть файл, скачайте его.',
-  'fabric.linking.unable_to_annotate_image': 'Невозможно добавить примечание',
-  'fabric.linking.unknown': 'неизвестно',
   'fabric.linking.unlink_account': 'Отменить связь с аккаунтом',
-  'fabric.linking.upload': 'Загрузить',
-  'fabric.linking.upload_an_avatar': 'Загрузите аватар',
-  'fabric.linking.upload_file': 'Загрузите файл',
-  'fabric.linking.upload_file_from': 'Загрузить файл из {name}',
-  'fabric.linking.upload_image': 'Загрузите изображение',
-  'fabric.linking.upload_photo': 'Загрузите фото',
-  'fabric.linking.video': 'видео',
+  'fabric.linking.updated_by': 'Изменено: {context}',
   'fabric.linking.view': 'Просмотреть',
-  'fabric.linking.viewer_rateLimited': 'Не удается загрузить файл.',
-  'fabric.linking.webgl_warning_description':
-    'Эта функция недоступна. Чтобы добавлять примечания к изображениям, используйте браузер с поддержкой WebGL.',
-  'fabric.linking.zip_entry_load_failed':
-    'Не удалось загрузить ZIP-файл для предварительного просмотра',
-  'fabric.linking.zoom_in': 'увеличить',
-  'fabric.linking.zoom_out': 'уменьшить',
 };

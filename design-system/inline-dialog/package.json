@@ -27,7 +27,8 @@
           "text": "View Popup documentation",
           "link": "https://atlassian.design/components/popup/examples"
         }
-      }
+      },
+      "category": "Components"
     }
   },
   "dependencies": {

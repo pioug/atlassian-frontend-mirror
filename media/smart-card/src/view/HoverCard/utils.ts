@@ -1,5 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 
+export const HOVER_CARD_ANALYTICS_DISPLAY = 'flexible';
+
 export const getSimulatedMetadata = (
   extensionKey: string = '',
 ): JsonLd.Primitives.Property<any> => {

@@ -6,65 +6,15 @@
  */
 //Italian (Italy)
 export default {
-  'fabric.linking.cannot_connect': 'Impossibile connettersi, riprova',
-  'fabric.linking.cannot_find_link': 'Impossibile trovare il link',
-  'fabric.linking.join_to_view':
-    'Unisciti a {context} per visualizzare questo ticket',
-  'fabric.linking.create_on': 'Creazione: {context}',
-  'fabric.linking.created_by': 'Creato da {context}',
-  'fabric.linking.delete': 'Elimina',
-  'fabric.linking.edit': 'Modifica',
-  'fabric.linking.forbidden_access': 'Accesso vietato',
-  'fabric.linking.restricted_link':
-    'Link con restrizioni, prova con un altro account',
-  'fabric.linking.modified_on': 'Aggiornamento: {context}',
-  'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
-  'fabric.linking.priority_blocker': 'Bloccante',
-  'fabric.linking.priority_critical': 'Critica',
-  'fabric.linking.priority_high': 'Alta',
-  'fabric.linking.priority_highest': 'Più alta',
-  'fabric.linking.priority_low': 'Bassa',
-  'fabric.linking.priority_lowest': 'Più bassa',
-  'fabric.linking.priority_major': 'Grave',
-  'fabric.linking.priority_medium': 'Media',
-  'fabric.linking.priority_minor': 'Minore',
-  'fabric.linking.priority_trivial': 'Minima',
-  'fabric.linking.priority_undefined': 'Non definita',
-  'fabric.linking.request_access_to_view':
-    "Richiedi l'accesso a {context} per visualizzare questo ticket",
-  'fabric.linking.request_denied': 'La richiesta di accesso è stata rifiutata',
-  'fabric.linking.updated_by': 'Modificato da {context}',
-  'fabric.linking.accounts': 'Account',
   'fabric.linking.actions': 'Azioni',
   'fabric.linking.add_account': 'Aggiungi account',
-  'fabric.linking.annotate': 'Annota',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Chiudi comunque',
-  'fabric.linking.annotate.confirmation.content':
-    'Sono presenti modifiche non salvate. Vuoi davvero uscire?',
-  'fabric.linking.annotate.confirmation.heading': 'Modifiche non salvate',
-  'fabric.linking.annotate.tool.arrow': 'Freccia',
-  'fabric.linking.annotate.tool.blur': 'Sfocatura',
-  'fabric.linking.annotate.tool.brush': 'Pennello',
-  'fabric.linking.annotate.tool.color': 'Colore',
-  'fabric.linking.annotate.tool.line.thickness': 'Spessore linea',
-  'fabric.linking.annotate.tool.shape': 'Forma',
-  'fabric.linking.annotate.tool.text': 'Testo',
-  'fabric.linking.archive': 'archivia',
-  'fabric.linking.audio': 'audio',
   'fabric.linking.cancel': 'Annulla',
-  'fabric.linking.cant_preview_file_type':
-    'Impossibile effettuare l’anteprima di questo tipo di file.',
-  'fabric.linking.cant_retrieve_files':
-    'Errore. Non è stato possibile recuperare alcun file',
-  'fabric.linking.cant_retrieve_gifs':
-    'Ahi, non siamo riusciti a trovare nessuna GIF',
-  'fabric.linking.change_view': 'Cambia visualizzazione',
-  'fabric.linking.check_your_network': 'Controlla la connessione di rete',
+  'fabric.linking.cannot_connect': 'Impossibile connettersi, riprova',
+  'fabric.linking.cannot_find_link': 'Impossibile trovare il link',
   'fabric.linking.click_to_join': 'Unisciti a {context}',
   'fabric.linking.click_to_join_description':
     'Sei stato approvato; puoi unirti da subito a {context}.',
   'fabric.linking.close': 'Chiudi',
-  'fabric.linking.close_and_reopen': 'Prova a chiudere e riaprire il file.',
   'fabric.linking.connect_account_description':
     'Apriremo una nuova pagina per aiutarti a collegare il tuo account {name}',
   'fabric.linking.connect_link_account': 'Connetti ad anteprima',
@@ -74,122 +24,62 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Connetti il tuo account {context}',
   'fabric.linking.connect_to': 'Collegati a {name}',
-  'fabric.linking.could_not_load_editor':
-    'Ahi, non siamo riusciti a caricare l’editor',
-  'fabric.linking.could_not_save_image':
-    'Ahi, non siamo riusciti a salvare l’immagine',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    'Non possiamo visualizzare in anteprima file crittografati o protetti da password.',
-  'fabric.linking.couldnt_generate_preview':
-    'Non siamo riusciti a generare un’anteprima per questo file.',
-  'fabric.linking.couldnt_load_file': 'Impossibile caricare il file.',
   'fabric.linking.couldnt_load_link':
     'Non è stato possibile caricare questo link per un motivo sconosciuto.',
-  'fabric.linking.creating_preview': "Creazione dell'anteprima in corso...",
-  'fabric.linking.default_avatars': 'Avatar predefiniti',
-  'fabric.linking.disable_fullscreen': 'disattiva schermo intero',
-  'fabric.linking.display_thumbnail': 'Visualizza la miniatura',
-  'fabric.linking.document': 'documento',
+  'fabric.linking.create_on_absolute': 'Creazione: {context}',
+  'fabric.linking.create_on_relative': 'Creazione: {context}',
+  'fabric.linking.created_by': 'Creato da {context}',
+  'fabric.linking.delete': 'Elimina',
   'fabric.linking.download': 'Scarica',
-  'fabric.linking.drag_and_drop_images_here': 'Trascina le tue immagini qui',
-  'fabric.linking.drag_and_drop_your_files': 'Trascina i file dove vuoi oppure',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Trascina i file e le cartelle ovunque o',
-  'fabric.linking.drop_your_files': 'Trascina i file per caricarli',
-  'fabric.linking.drop_your_files_here': 'Rilascia qui i file',
-  'fabric.linking.email': 'E-mail',
-  'fabric.linking.enable_fullscreen': 'abilita schermo intero',
-  'fabric.linking.error_429': 'Errore 429',
-  'fabric.linking.error_generating_preview':
-    'Errore nella creazione dell’anteprima',
-  'fabric.linking.error_hint_critical':
-    'Se il problema persiste contatta l’assistenza',
-  'fabric.linking.error_hint_retry': 'Riprova e faremo un altro tentativo.',
-  'fabric.linking.error_loading_file': 'Errore nel caricamento del file',
-  'fabric.linking.failed_to_load': 'Caricamento non riuscito',
-  'fabric.linking.failed_to_upload': 'Impossibile caricare',
+  'fabric.linking.edit': 'Modifica',
+  'fabric.linking.forbidden_access': 'Accesso vietato',
   'fabric.linking.forbidden_description':
     "Non hai accesso a questa anteprima. Contatta l'amministratore del sito se devi accedere.",
-  'fabric.linking.give_feedback': 'Lascia un feedback',
-  'fabric.linking.image': 'immagine',
-  'fabric.linking.image_format_invalid_error':
-    "Non è stato possibile caricare l'immagine, il formato non è valido.",
-  'fabric.linking.image_size_too_large_error':
-    "L'immagine è troppo grande, non può essere maggiore di {MAX_SIZE_MB} Mb",
-  'fabric.linking.image_url_invalid_error':
-    "Non è stato possibile caricare l'immagine, l'url non è valido.",
-  'fabric.linking.insert_files':
-    '{0, plural, one {Inserisci {0} file} other {Inserisci {0} file}}',
   'fabric.linking.invalid_permissions': 'Link con restrizioni',
   'fabric.linking.invalid_permissions_description':
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
-  'fabric.linking.item_not_found_in_list':
-    'L’elemento selezionato non è stato trovato nell’elenco.',
-  'fabric.linking.learn_more': 'Scopri di più',
-  'fabric.linking.load_more_gifs': 'Carica altre GIF',
+  'fabric.linking.join_to_view':
+    'Unisciti a {context} per visualizzare questo ticket',
   'fabric.linking.loading': 'Caricamento in corso...',
-  'fabric.linking.loading_file': 'Caricamento del file in corso...',
-  'fabric.linking.might_be_a_hiccup':
-    'Potrebbe essere un semplice contrattempo.',
-  'fabric.linking.no_gifs_found': 'Pronto? Stai davvero cercando me?',
-  'fabric.linking.no_gifs_found_suggestion':
-    'Non sono stati trovati risultati per “{query}”',
-  'fabric.linking.no_pdf_artifacts': 'Nessun PDF trovato per questo file.',
+  'fabric.linking.modified_on_absolute': 'Aggiornato il {context}',
+  'fabric.linking.modified_on_relative': 'Aggiornamento: {context}',
+  'fabric.linking.more_actions': 'Altre azioni',
   'fabric.linking.not_found_description':
     "Non è stato possibile trovare il link. Controlla l'URL e prova a modificarlo o a incollarlo di nuovo.",
   'fabric.linking.not_found_title': 'Errore. Impossibile trovare questo link.',
-  'fabric.linking.or': 'o',
-  'fabric.linking.pause': 'Metti in pausa',
-  'fabric.linking.play': 'Riproduci',
-  'fabric.linking.playback_default_speed': 'Predefiniti',
-  'fabric.linking.playback_speed': 'Velocità di riproduzione',
+  'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
   'fabric.linking.preview': 'Anteprima',
-  'fabric.linking.preview_currently_unavailable':
-    'Anteprima attualmente non disponibile',
-  'fabric.linking.preview_unavailable': 'Anteprima non disponibile',
-  'fabric.linking.recent_uploads': 'Caricamenti recenti',
-  'fabric.linking.remove_image': 'Rimuovi immagine',
+  'fabric.linking.priority_blocker': 'Bloccante',
+  'fabric.linking.priority_critical': 'Critico',
+  'fabric.linking.priority_high': 'Alta',
+  'fabric.linking.priority_highest': 'Più alta',
+  'fabric.linking.priority_low': 'Bassa',
+  'fabric.linking.priority_lowest': 'Più bassa',
+  'fabric.linking.priority_major': 'Grave',
+  'fabric.linking.priority_medium': 'Media',
+  'fabric.linking.priority_minor': 'Minore',
+  'fabric.linking.priority_trivial': 'Banale',
+  'fabric.linking.priority_undefined': 'Non definita',
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_description':
     "Richiedi l'accesso a {context} per visualizzare questa anteprima.",
   'fabric.linking.request_access_pending': 'Accesso in sospeso',
   'fabric.linking.request_access_pending_description':
     'La tua richiesta di accesso è in sospeso.',
+  'fabric.linking.request_access_to_view':
+    "Richiedi l'accesso a {context} per visualizzare questo ticket",
+  'fabric.linking.request_denied': 'La richiesta di accesso è stata rifiutata',
   'fabric.linking.request_denied_description':
     "La tua richiesta di accesso è stata rifiutata. Contatta l'amministratore del sito se devi accedere.",
+  'fabric.linking.restricted_link':
+    'Link con restrizioni, prova con un altro account',
   'fabric.linking.retry': 'Riprova',
   'fabric.linking.save': 'Salva',
-  'fabric.linking.search': 'ricerca',
-  'fabric.linking.search_all_gifs': 'Ricerca tutte le GIF!',
-  'fabric.linking.share_files_instantly': 'Li condivideremo subito',
-  'fabric.linking.skip_backward': 'Ignora 10 secondi precedenti',
-  'fabric.linking.skip_forward': 'Ignora 10 secondi successivi',
-  'fabric.linking.something_went_wrong': 'Si è verificato un errore.',
   'fabric.linking.srclink': 'Visualizza in',
   'fabric.linking.srclinkunknown': 'Mostra originale',
-  'fabric.linking.text': 'testo',
   'fabric.linking.try_again': 'Riprova',
   'fabric.linking.try_another_account': 'Prova con un altro account',
-  'fabric.linking.try_downloading_file':
-    'Prova a scaricare il file per visualizzarlo.',
-  'fabric.linking.unable_to_annotate_image':
-    'Impossibile annotare questa immagine.',
-  'fabric.linking.unknown': 'sconosciuto',
   'fabric.linking.unlink_account': 'Scollega account',
-  'fabric.linking.upload': 'Carica',
-  'fabric.linking.upload_an_avatar': 'Carica un avatar',
-  'fabric.linking.upload_file': 'Carica un file',
-  'fabric.linking.upload_file_from': 'Carica un file da {name}',
-  'fabric.linking.upload_image': 'Carica immagine',
-  'fabric.linking.upload_photo': 'Carica una foto',
-  'fabric.linking.video': 'video',
+  'fabric.linking.updated_by': 'Modificato da {context}',
   'fabric.linking.view': 'Visualizza',
-  'fabric.linking.viewer_rateLimited':
-    'Si stanno verificando problemi nel caricamento del tuo file.',
-  'fabric.linking.webgl_warning_description':
-    'Il tuo browser non supporta WebGL. Per annotare le immagini usa un browser compatibile con WebGL.',
-  'fabric.linking.zip_entry_load_failed':
-    'Impossibile caricare il file zip da visualizzare in anteprima',
-  'fabric.linking.zoom_in': 'ingrandisci',
-  'fabric.linking.zoom_out': 'riduci',
 };

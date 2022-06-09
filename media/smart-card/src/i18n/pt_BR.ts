@@ -6,64 +6,15 @@
  */
 //Portuguese (Brazil)
 export default {
-  'fabric.linking.cannot_connect': 'Não é possível conectar; tente de novo',
-  'fabric.linking.cannot_find_link': 'Não é possível encontrar o link',
-  'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
-  'fabric.linking.create_on': 'Criação: {context}',
-  'fabric.linking.created_by': 'Criado por {context}',
-  'fabric.linking.delete': 'Excluir',
-  'fabric.linking.edit': 'Editar',
-  'fabric.linking.forbidden_access': 'O acesso é proibido',
-  'fabric.linking.restricted_link': 'Link restrito; tente outra conta',
-  'fabric.linking.modified_on': 'Atualizado em {context}',
-  'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
-  'fabric.linking.priority_blocker': 'Bloqueador',
-  'fabric.linking.priority_critical': 'Crítica',
-  'fabric.linking.priority_high': 'Alta',
-  'fabric.linking.priority_highest': 'Mais alta',
-  'fabric.linking.priority_low': 'Baixa',
-  'fabric.linking.priority_lowest': 'Mais baixa',
-  'fabric.linking.priority_major': 'Importante',
-  'fabric.linking.priority_medium': 'Média',
-  'fabric.linking.priority_minor': 'Leve',
-  'fabric.linking.priority_trivial': 'Trivial',
-  'fabric.linking.priority_undefined': 'Indefinida',
-  'fabric.linking.request_access_to_view':
-    'Solicite acesso a {context} para ver esse item',
-  'fabric.linking.request_denied': 'A solicitação de acesso foi negada',
-  'fabric.linking.updated_by': 'Modificado por {context}',
-  'fabric.linking.accounts': 'Contas',
   'fabric.linking.actions': 'Ações',
   'fabric.linking.add_account': 'Adicionar conta',
-  'fabric.linking.annotate': 'Anotar',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Fechar mesmo assim',
-  'fabric.linking.annotate.confirmation.content':
-    'Você tem algumas alterações não salvas. Você quer mesmo sair?',
-  'fabric.linking.annotate.confirmation.heading': 'Alterações não salvas',
-  'fabric.linking.annotate.tool.arrow': 'Seta',
-  'fabric.linking.annotate.tool.blur': 'Desfoque',
-  'fabric.linking.annotate.tool.brush': 'Pincel',
-  'fabric.linking.annotate.tool.color': 'Cor',
-  'fabric.linking.annotate.tool.line.thickness': 'Espessura de borda',
-  'fabric.linking.annotate.tool.shape': 'Formato',
-  'fabric.linking.annotate.tool.text': 'Texto',
-  'fabric.linking.archive': 'arquivar',
-  'fabric.linking.audio': 'áudio',
   'fabric.linking.cancel': 'Cancelar',
-  'fabric.linking.cant_preview_file_type':
-    'Não é possível visualizar este tipo de arquivo.',
-  'fabric.linking.cant_retrieve_files':
-    'Ops! Não foi possível encontrar nenhum arquivo',
-  'fabric.linking.cant_retrieve_gifs':
-    'Ops! Não foi possível encontrar nenhum GIF',
-  'fabric.linking.change_view': 'Alterar visualização',
-  'fabric.linking.check_your_network': 'Verifique sua conexão de rede',
+  'fabric.linking.cannot_connect': 'Não é possível conectar; tente de novo',
+  'fabric.linking.cannot_find_link': 'Não é possível encontrar o link',
   'fabric.linking.click_to_join': 'Entrar no {context}',
   'fabric.linking.click_to_join_description':
     'Você foi aprovado, então já pode entrar no {context}.',
   'fabric.linking.close': 'Fechar',
-  'fabric.linking.close_and_reopen':
-    'Tente fechar o arquivo e abri-lo novamente',
   'fabric.linking.connect_account_description':
     'Abriremos uma nova página para ajudar você a conectar sua conta do {name}',
   'fabric.linking.connect_link_account': 'Conectar para visualizar',
@@ -73,125 +24,61 @@ export default {
   'fabric.linking.connect_link_account_card_view_name':
     'Conectar a conta do {context}',
   'fabric.linking.connect_to': 'Conectar-se ao {name}',
-  'fabric.linking.could_not_load_editor':
-    'Ops! Não foi possível carregar o editor',
-  'fabric.linking.could_not_save_image':
-    'Ops! Não foi possível salvar a imagem',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    'Não é possível exibir arquivos criptografados ou protegidos por senha.',
-  'fabric.linking.couldnt_generate_preview':
-    'Não foi possível gerar uma visualização para este arquivo.',
-  'fabric.linking.couldnt_load_file': 'Não foi possível carregar o arquivo.',
   'fabric.linking.couldnt_load_link':
     'Não foi possível carregar esse link por um motivo desconhecido.',
-  'fabric.linking.creating_preview': 'Criando visualização...',
-  'fabric.linking.default_avatars': 'Avatares padrão',
-  'fabric.linking.disable_fullscreen': 'desativar tela cheia',
-  'fabric.linking.display_thumbnail': 'Exibir miniatura',
-  'fabric.linking.document': 'documento',
+  'fabric.linking.create_on_absolute': 'Data de criação em {context}',
+  'fabric.linking.create_on_relative': 'Criação: {context}',
+  'fabric.linking.created_by': 'Criado por {context}',
+  'fabric.linking.delete': 'Excluir',
   'fabric.linking.download': 'Baixar',
-  'fabric.linking.drag_and_drop_images_here':
-    'Arraste e solte suas imagens aqui',
-  'fabric.linking.drag_and_drop_your_files':
-    'Arraste e solte seus arquivos em qualquer lugar ou',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Arraste e solte arquivos e pastas em qualquer lugar ou',
-  'fabric.linking.drop_your_files': 'Solte seus arquivos para carregá-los',
-  'fabric.linking.drop_your_files_here': 'Solte seus arquivos aqui',
-  'fabric.linking.email': 'e-mail',
-  'fabric.linking.enable_fullscreen': 'ativar tela cheia',
-  'fabric.linking.error_429': 'Erro 429',
-  'fabric.linking.error_generating_preview': 'Erro ao gerar pré-visualização',
-  'fabric.linking.error_hint_critical':
-    'Se o problema persistir, entre em contato com o suporte.',
-  'fabric.linking.error_hint_retry': 'Tente outra vez.',
-  'fabric.linking.error_loading_file': 'Erro ao carregar arquivo',
-  'fabric.linking.failed_to_load': 'Falha ao carregar',
-  'fabric.linking.failed_to_upload': 'Falha ao carregar',
+  'fabric.linking.edit': 'Editar',
+  'fabric.linking.forbidden_access': 'O acesso é proibido',
   'fabric.linking.forbidden_description':
     'Você não tem acesso a essa visualização. Entre em contato com o administrador do site se precisar de acesso.',
-  'fabric.linking.give_feedback': 'Enviar feedback',
-  'fabric.linking.image': 'imagem',
-  'fabric.linking.image_format_invalid_error':
-    'Não foi possível carregar a imagem. O formato é inválido.',
-  'fabric.linking.image_size_too_large_error':
-    'A imagem é muito grande. Ela não pode ter mais de {MAX_SIZE_MB} MB',
-  'fabric.linking.image_url_invalid_error':
-    'Não foi possível carregar a imagem. O URL é inválido.',
-  'fabric.linking.insert_files':
-    '{0, plural, one {Inserir {0} arquivo} other {Inserir {0} arquivos}}',
   'fabric.linking.invalid_permissions': 'Link restrito',
   'fabric.linking.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
-  'fabric.linking.item_not_found_in_list':
-    'O item selecionado não foi encontrado na lista.',
-  'fabric.linking.learn_more': 'Saiba mais',
-  'fabric.linking.load_more_gifs': 'Carregar mais GIFs',
+  'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
   'fabric.linking.loading': 'Carregando...',
-  'fabric.linking.loading_file': 'Carregando arquivo...',
-  'fabric.linking.might_be_a_hiccup': 'Deve ser algo temporário.',
-  'fabric.linking.no_gifs_found': 'Alô? Era isso que você estava procurando?',
-  'fabric.linking.no_gifs_found_suggestion':
-    'Não encontramos nenhum resultado para "{query}"',
-  'fabric.linking.no_pdf_artifacts':
-    'Nenhum artefato de PDF foi encontrado para este arquivo.',
+  'fabric.linking.modified_on_absolute': 'Atualizado em {context}',
+  'fabric.linking.modified_on_relative': 'Atualizado em {context}',
+  'fabric.linking.more_actions': 'Mais ações',
   'fabric.linking.not_found_description':
     'Não foi possível encontrar o link. Verifique a URL e tente editar ou colar de novo.',
   'fabric.linking.not_found_title':
     'Ah, não! Não foi possível encontrar o link.',
-  'fabric.linking.or': 'ou',
-  'fabric.linking.pause': 'Pausar',
-  'fabric.linking.play': 'Reproduzir',
-  'fabric.linking.playback_default_speed': 'Padrão',
-  'fabric.linking.playback_speed': 'Velocidade de reprodução',
+  'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
   'fabric.linking.preview': 'Pré-visualizar',
-  'fabric.linking.preview_currently_unavailable':
-    'Pré-visualização indisponível no momento',
-  'fabric.linking.preview_unavailable': 'Visualização indisponível',
-  'fabric.linking.recent_uploads': 'Arquivos carregados recentemente',
-  'fabric.linking.remove_image': 'Remover imagem',
+  'fabric.linking.priority_blocker': 'Gravíssima',
+  'fabric.linking.priority_critical': 'Crítica',
+  'fabric.linking.priority_high': 'Alta',
+  'fabric.linking.priority_highest': 'Mais alta',
+  'fabric.linking.priority_low': 'Baixa',
+  'fabric.linking.priority_lowest': 'Mais baixa',
+  'fabric.linking.priority_major': 'Alta',
+  'fabric.linking.priority_medium': 'Média',
+  'fabric.linking.priority_minor': 'Média',
+  'fabric.linking.priority_trivial': 'Trivial',
+  'fabric.linking.priority_undefined': 'Indefinida',
   'fabric.linking.request_access': 'Solicitar acesso',
   'fabric.linking.request_access_description':
     'Solicitar acesso a {context} para ver esta visualização.',
   'fabric.linking.request_access_pending': 'Acesso pendente',
   'fabric.linking.request_access_pending_description':
     'Sua solicitação de acesso está pendente.',
+  'fabric.linking.request_access_to_view':
+    'Solicite acesso a {context} para ver esse item',
+  'fabric.linking.request_denied': 'A solicitação de acesso foi negada',
   'fabric.linking.request_denied_description':
     'Sua solicitação de acesso foi negada. Se ainda precisar de acesso, entre em contato com o administrador do site.',
+  'fabric.linking.restricted_link': 'Link restrito; tente outra conta',
   'fabric.linking.retry': 'Tentar novamente',
   'fabric.linking.save': 'Salvar',
-  'fabric.linking.search': 'pesquisar',
-  'fabric.linking.search_all_gifs': 'Pesquise todos os GIFs!',
-  'fabric.linking.share_files_instantly':
-    'Compartilharemos os arquivos instantaneamente',
-  'fabric.linking.skip_backward': 'Voltar 10 segundos',
-  'fabric.linking.skip_forward': 'Avançar 10 segundos',
-  'fabric.linking.something_went_wrong': 'Algo deu errado.',
   'fabric.linking.srclink': 'Visualizar em',
   'fabric.linking.srclinkunknown': 'Ver o original',
-  'fabric.linking.text': 'texto',
   'fabric.linking.try_again': 'Tentar novamente',
   'fabric.linking.try_another_account': 'Experimente uma outra conta',
-  'fabric.linking.try_downloading_file':
-    'Tente baixar o arquivo para visualizá-lo.',
-  'fabric.linking.unable_to_annotate_image':
-    'Você não pode fazer anotações nesta imagem',
-  'fabric.linking.unknown': 'desconhecido',
   'fabric.linking.unlink_account': 'Desvincular conta',
-  'fabric.linking.upload': 'Carregar',
-  'fabric.linking.upload_an_avatar': 'Carregar um avatar',
-  'fabric.linking.upload_file': 'Carregar um arquivo',
-  'fabric.linking.upload_file_from': 'Carregar um arquivo do {name}',
-  'fabric.linking.upload_image': 'Carregar imagem',
-  'fabric.linking.upload_photo': 'Carregar uma foto',
-  'fabric.linking.video': 'vídeo',
+  'fabric.linking.updated_by': 'Modificado por {context}',
   'fabric.linking.view': 'Visualizar',
-  'fabric.linking.viewer_rateLimited':
-    'Estamos com dificuldade para carregar este arquivo',
-  'fabric.linking.webgl_warning_description':
-    'Seu navegador não é compatível com WebGL. Use um navegador compatível com WebGL para fazer anotações em imagens.',
-  'fabric.linking.zip_entry_load_failed':
-    'Não foi possível carregar esse item de arquivo ZIP para visualizar',
-  'fabric.linking.zoom_in': 'mais zoom',
-  'fabric.linking.zoom_out': 'menos zoom',
 };

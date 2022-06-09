@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Inline message"
+      "name": "Inline message",
+      "category": "Components"
     }
   },
   "dependencies": {

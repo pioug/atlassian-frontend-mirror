@@ -18,6 +18,7 @@ import {
   mockJiraResponse,
   mockIframelyResponse,
   mockBaseResponseWithPreview,
+  mockBaseResponseWithDownload,
 } from './__mocks__/mocks';
 
 describe('HoverCard', () => {
@@ -282,13 +283,21 @@ describe('HoverCard', () => {
       //wait for card to be resolved
       await findByTestId('smart-block-title-resolved-view');
       expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledWith(
-        'card',
-        'd1',
-        'confluence-object-provider',
-        'mouse_hover',
-      );
-      mock.mockRestore();
+      expect(mock.mock.results[0].value).toEqual({
+        action: 'viewed',
+        actionSubject: 'hoverCard',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: 'd1',
+          id: expect.any(String),
+          extensionKey: 'confluence-object-provider',
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          previewDisplay: 'card',
+          previewInvokeMethod: 'mouse_hover',
+        },
+        eventType: 'ui',
+      });
     });
 
     it('should fire closed event when hover card is opened then closed', async () => {
@@ -303,18 +312,81 @@ describe('HoverCard', () => {
       expect(queryByTestId('hover-card')).toBeNull();
 
       expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledWith(
-        'card',
-        0,
-        'd1',
-        'confluence-object-provider',
-        'mouse_hover',
-      );
-      mock.mockRestore();
+      expect(mock.mock.results[0].value).toEqual({
+        action: 'dismissed',
+        actionSubject: 'hoverCard',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: 'd1',
+          id: expect.any(String),
+          extensionKey: 'confluence-object-provider',
+          hoverTime: 0,
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          previewDisplay: 'card',
+          previewInvokeMethod: 'mouse_hover',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should fire render success event when hover card is rendered', async () => {
+      const spy = jest.spyOn(analytics, 'uiRenderSuccessEvent');
+      const { findByTestId } = await setup();
+      jest.runAllTimers();
+      await findByTestId('smart-block-title-resolved-view');
+
+      // First render event is from the inline card
+      // Second render event is flexible ui inside the hover card
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(2);
+      expect(spy.mock.results[1].value).toEqual({
+        action: 'renderSuccess',
+        actionSubject: 'smartLink',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: 'd1',
+          display: 'flexible',
+          extensionKey: 'confluence-object-provider',
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          status: 'resolved',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should fire clicked event when title is clicked', async () => {
+      const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
+      const { findByTestId } = await setup();
+      jest.runAllTimers();
+
+      await findByTestId('smart-block-title-resolved-view');
+      const link = await findByTestId('smart-element-link');
+
+      fireEvent.click(link);
+
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+      expect(spy.mock.results[0].value).toEqual({
+        action: 'clicked',
+        actionSubject: 'smartLink',
+        actionSubjectId: 'titleGoToLink',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: 'd1',
+          display: 'flexible',
+          extensionKey: 'confluence-object-provider',
+          id: expect.any(String),
+          isModifierKeyPressed: false,
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          status: 'resolved',
+        },
+        eventType: 'ui',
+      });
     });
 
     it('should fire clicked event when open button is clicked', async () => {
-      jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
+      const spy = jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
 
       const { findByTestId } = await setup();
       jest.runAllTimers();
@@ -326,12 +398,77 @@ describe('HoverCard', () => {
       expect(analytics.uiHoverCardOpenLinkClickedEvent).toHaveBeenCalledTimes(
         1,
       );
-      expect(analytics.uiHoverCardOpenLinkClickedEvent).toHaveBeenCalledWith(
-        'card',
-        'd1',
-        'confluence-object-provider',
-        undefined,
-      );
+      expect(spy.mock.results[0].value).toEqual({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'shortcutGoToLink',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: 'd1',
+          id: expect.any(String),
+          extensionKey: 'confluence-object-provider',
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          previewDisplay: 'card',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should fire clicked event when preview button is clicked', async () => {
+      const spy = jest.spyOn(analytics, 'uiActionClickedEvent');
+      const { findByTestId } = await setup(mockBaseResponseWithPreview);
+      jest.runAllTimers();
+
+      await findByTestId('smart-block-title-resolved-view');
+      const button = await findByTestId('preview-content');
+
+      fireEvent.click(button);
+
+      expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(spy.mock.results[0].value).toEqual({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'invokePreviewScreen',
+        attributes: {
+          actionType: 'PreviewAction',
+          componentName: 'smart-cards',
+          display: 'flexible',
+          id: expect.any(String),
+          extensionKey: 'test-object-provider',
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should fire clicked event when download button is clicked', async () => {
+      const spy = jest.spyOn(analytics, 'uiActionClickedEvent');
+      const { findByTestId } = await setup(mockBaseResponseWithDownload);
+      jest.runAllTimers();
+
+      await findByTestId('smart-block-title-resolved-view');
+      const button = await findByTestId('download-content');
+
+      fireEvent.click(button);
+
+      expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
+      expect(spy.mock.results[0].value).toEqual({
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'downloadDocument',
+        attributes: {
+          actionType: 'DownloadAction',
+          componentName: 'smart-cards',
+          display: 'flexible',
+          id: expect.any(String),
+          extensionKey: 'test-object-provider',
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+        },
+        eventType: 'ui',
+      });
     });
   });
 });

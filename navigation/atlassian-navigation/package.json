@@ -19,7 +19,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Atlassian navigation"
+      "name": "Atlassian navigation",
+      "category": "Components"
     }
   },
   "dependencies": {

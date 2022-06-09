@@ -108,7 +108,7 @@ const insertBlockPlugin = (options: InsertBlockOptions = {}): EditorPlugin => ({
               isDisabled={disabled}
               isTypeAheadAllowed={isTypeAheadAllowed(editorView.state)}
               editorView={editorView}
-              tableSupported={options.allowTables}
+              tableSupported={!!editorView.state.schema.nodes.table}
               actionSupported={!!editorView.state.schema.nodes.taskItem}
               mentionsSupported={
                 !!(mentionState && mentionState.mentionProvider)

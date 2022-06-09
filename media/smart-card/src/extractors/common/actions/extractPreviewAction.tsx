@@ -69,6 +69,7 @@ export const extractPreviewAction = (
   handleAnalytics: AnalyticsHandler,
   testId?: string,
   platform?: CardPlatform,
+  source?: CardInnerAppearance,
 ) => {
   // Extract metadata from view props & raw JSON-LD.
   const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd, platform);
@@ -99,7 +100,11 @@ export const extractPreviewAction = (
     });
     // Setup props to go through proper Redux 'invocation' flow
     // for analytics, further state management if required in future.
-    const previewActionProps = getInvokeOpts(key, 'PreviewAction', 'block');
+    const previewActionProps = getInvokeOpts(
+      key,
+      'PreviewAction',
+      source ?? 'block',
+    );
     // - Promise invoked by the action invocation handler; open preview.
     previewActionProps.action.promise = previewAction.promise;
     // - Promise invoked on click of `Preview` on block card; trigger above promise.

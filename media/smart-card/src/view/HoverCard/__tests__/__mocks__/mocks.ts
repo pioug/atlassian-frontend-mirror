@@ -114,3 +114,20 @@ export const mockBaseResponseWithPreview = {
     },
   },
 };
+
+export const mockBaseResponseWithDownload = {
+  meta: {
+    ...mockBaseResponse.meta,
+  },
+  data: {
+    ...mockBaseResponse.data,
+    'schema:potentialAction': [
+      {
+        '@id': 'download',
+        '@type': 'DownloadAction',
+        name: 'Download',
+      },
+    ],
+    'atlassian:downloadUrl': 'mock-download-url',
+  },
+};

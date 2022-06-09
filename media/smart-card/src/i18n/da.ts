@@ -6,17 +6,49 @@
  */
 //Danish (Denmark)
 export default {
+  'fabric.linking.actions': 'Handlinger',
+  'fabric.linking.add_account': 'Tilføj konto',
+  'fabric.linking.cancel': 'Annuller',
   'fabric.linking.cannot_connect': 'Kan ikke oprette forbindelse. Prøv igen.',
   'fabric.linking.cannot_find_link': 'Kan ikke finde linket',
-  'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
-  'fabric.linking.create_on': 'Oprettet {context}',
+  'fabric.linking.click_to_join': 'Tilmeld dig {context}',
+  'fabric.linking.click_to_join_description':
+    'Du er blevet godkendt, så du kan deltage i {context} med det samme.',
+  'fabric.linking.close': 'Luk',
+  'fabric.linking.connect_account_description':
+    'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
+  'fabric.linking.connect_link_account': 'Forbind til forhåndsvisning',
+  'fabric.linking.connect_link_account_card_view': 'Forbind',
+  'fabric.linking.connect_link_account_card_view_description':
+    'Tilknyt din {context}-konto, hvis du vil se en forhåndsvisning af dette link',
+  'fabric.linking.connect_link_account_card_view_name':
+    'Forbind din {context}-konto',
+  'fabric.linking.connect_to': 'Forbind til {name}',
+  'fabric.linking.couldnt_load_link':
+    'Af en ukendt årsag kunne vi ikke indlæse dette link.',
+  'fabric.linking.create_on_absolute': 'Oprettet {context}',
+  'fabric.linking.create_on_relative': 'Oprettet: {context}',
   'fabric.linking.created_by': 'Oprettet af {context}',
   'fabric.linking.delete': 'Slet',
+  'fabric.linking.download': 'Hent',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.forbidden_access': 'Du har ikke adgang',
-  'fabric.linking.modified_on': 'Opdateret {context}',
+  'fabric.linking.forbidden_description':
+    'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
+  'fabric.linking.invalid_permissions': 'Begrænset link',
+  'fabric.linking.invalid_permissions_description':
+    'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
+  'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
+  'fabric.linking.loading': 'Indlæser ...',
+  'fabric.linking.modified_on_absolute': 'Opdateret {context}',
+  'fabric.linking.modified_on_relative': 'Opdateret: {context}',
+  'fabric.linking.more_actions': 'Flere handlinger',
+  'fabric.linking.not_found_description':
+    'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
+  'fabric.linking.not_found_title': 'Ups. Vi kan ikke finde dette link!',
   'fabric.linking.pending_request':
     'Din anmodning om adgang afventer behandling',
+  'fabric.linking.preview': 'Vis',
   'fabric.linking.priority_blocker': 'Blokering',
   'fabric.linking.priority_critical': 'Kritisk',
   'fabric.linking.priority_high': 'Høj',
@@ -28,162 +60,25 @@ export default {
   'fabric.linking.priority_minor': 'Mindre',
   'fabric.linking.priority_trivial': 'Triviel',
   'fabric.linking.priority_undefined': 'Ikke defineret',
-  'fabric.linking.request_access_to_view':
-    'Anmod om adgang til {context} for at se denne sag',
-  'fabric.linking.request_denied': 'Din anmodning om adgang blev afvist',
-  'fabric.linking.updated_by': 'Ændret af {context}',
-  'fabric.linking.accounts': 'Konti',
-  'fabric.linking.actions': 'Handlinger',
-  'fabric.linking.add_account': 'Tilføj konto',
-  'fabric.linking.annotate': 'Annotér',
-  'fabric.linking.annotate.confirmation.close.anyway': 'Luk alligevel',
-  'fabric.linking.annotate.confirmation.content':
-    'Du har nogle ændringer, der ikke er gemt. Er du sikker på, at du vil forlade siden?',
-  'fabric.linking.annotate.confirmation.heading': 'Ændringer, der ikke er gemt',
-  'fabric.linking.annotate.tool.arrow': 'Pil',
-  'fabric.linking.annotate.tool.blur': 'Slør',
-  'fabric.linking.annotate.tool.brush': 'Pensel',
-  'fabric.linking.annotate.tool.color': 'Farve',
-  'fabric.linking.annotate.tool.line.thickness': 'Stregtykkelse',
-  'fabric.linking.annotate.tool.shape': 'Form',
-  'fabric.linking.annotate.tool.text': 'Tekst',
-  'fabric.linking.archive': 'arkivér',
-  'fabric.linking.audio': 'lyd',
-  'fabric.linking.cancel': 'Annullér',
-  'fabric.linking.cant_preview_file_type': 'Vi kan ikke vise denne filtype.',
-  'fabric.linking.cant_retrieve_files': 'Ups! Vi kunne ikke finde nogen filer',
-  'fabric.linking.cant_retrieve_gifs': "Ups! Vi kunne ikke hente GIF'er",
-  'fabric.linking.change_view': 'Skift visning',
-  'fabric.linking.check_your_network': 'Tjek din netværksforbindelse',
-  'fabric.linking.click_to_join': 'Tilmeld dig {context}',
-  'fabric.linking.click_to_join_description':
-    'Du er blevet godkendt, så du kan deltage i {context} med det samme.',
-  'fabric.linking.close': 'Luk',
-  'fabric.linking.close_and_reopen': 'Prøv at lukke filen og åbne den igen.',
-  'fabric.linking.connect_account_description':
-    'Vi åbner en ny side for at hjælpe dig til at forbinde din {name}-konto',
-  'fabric.linking.connect_link_account': 'Forbind til forhåndsvisning',
-  'fabric.linking.connect_link_account_card_view': 'Forbind',
-  'fabric.linking.connect_link_account_card_view_description':
-    'Tilknyt din {context}-konto, hvis du vil se en forhåndsvisning af dette link',
-  'fabric.linking.connect_link_account_card_view_name':
-    'Forbind din {context}-konto',
-  'fabric.linking.connect_to': 'Forbind til {name}',
-  'fabric.linking.could_not_load_editor': 'Ups! Vi kunne ikke indlæse editoren',
-  'fabric.linking.could_not_save_image': 'Ups! Vi kunne ikke gemme billedet',
-  'fabric.linking.couldnt_generate_encrypted_entry_preview':
-    'Vi kan ikke vise en forhåndsvisning af krypterede filer eller filer, der er beskyttet af en adgangskode.',
-  'fabric.linking.couldnt_generate_preview': 'Vi kunne ikke vise denne fil.',
-  'fabric.linking.couldnt_load_file': 'Vi kunne ikke indlæse filen.',
-  'fabric.linking.couldnt_load_link':
-    'Af en ukendt årsag kunne vi ikke indlæse dette link.',
-  'fabric.linking.creating_preview': 'Opretter forhåndsvisning...',
-  'fabric.linking.default_avatars': 'Standard-avatarer',
-  'fabric.linking.disable_fullscreen': 'slå fuldskærmsvisning fra',
-  'fabric.linking.display_thumbnail': 'Vis miniaturebillede',
-  'fabric.linking.document': 'dokument',
-  'fabric.linking.download': 'Hent',
-  'fabric.linking.drag_and_drop_images_here':
-    'Træk dine billeder herover, og slip dem',
-  'fabric.linking.drag_and_drop_your_files':
-    'Træk, og slip dine filer hertil, eller',
-  'fabric.linking.drag_and_drop_your_files_and_folders':
-    'Træk og slip dine filer og mapper hvor som helst eller',
-  'fabric.linking.drop_your_files': 'Træk filer hertil for at uploade',
-  'fabric.linking.drop_your_files_here': 'Træk dine filer hertil',
-  'fabric.linking.email': 'E-mail',
-  'fabric.linking.enable_fullscreen': 'slå fuldskærmsvisning til',
-  'fabric.linking.error_429': 'Fejl 429',
-  'fabric.linking.error_generating_preview': 'Fejl ved forhåndsvisning',
-  'fabric.linking.error_hint_critical':
-    'Hvis problemet fortsat opstår, skal du kontakte support.',
-  'fabric.linking.error_hint_retry':
-    'Prøv igen, så giver vi det endnu et forsøg.',
-  'fabric.linking.error_loading_file': 'Fejl ved indlæsning af fil',
-  'fabric.linking.failed_to_load': 'Kunne ikke indlæses',
-  'fabric.linking.failed_to_upload': 'Upload mislykkedes',
-  'fabric.linking.forbidden_description':
-    'Du har ikke adgang til denne forhåndsvisning. Kontakt webstedets administrator, hvis du har brug for adgang.',
-  'fabric.linking.give_feedback': 'Giv feedback',
-  'fabric.linking.image': 'billede',
-  'fabric.linking.image_format_invalid_error':
-    'Billedet kunne ikke indlæses; ugyldigt format.',
-  'fabric.linking.image_size_too_large_error':
-    'Billedet er for stort. Det må ikke være større end  {MAX_SIZE_MB}MB',
-  'fabric.linking.image_url_invalid_error':
-    'Billedet kunne ikke indlæses; ugyldig URL.',
-  'fabric.linking.insert_files':
-    '{0, plural, one {Indsæt {0} fil} other {Indsæt {0} filer}}',
-  'fabric.linking.invalid_permissions': 'Begrænset link',
-  'fabric.linking.invalid_permissions_description':
-    'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
-  'fabric.linking.item_not_found_in_list':
-    'Det valgte element blev ikke fundet på listen.',
-  'fabric.linking.learn_more': 'Få mere at vide',
-  'fabric.linking.load_more_gifs': "Indlæs flere GIF'er",
-  'fabric.linking.loading': 'Indlæser...',
-  'fabric.linking.loading_file': 'Indlæser fil …',
-  'fabric.linking.might_be_a_hiccup': 'Det må være et midlertidigt problem.',
-  'fabric.linking.no_gifs_found': 'Hallo? Var det mig, du ledte efter?',
-  'fabric.linking.no_gifs_found_suggestion':
-    'Vi kunne ikke finde noget for "{query}"',
-  'fabric.linking.no_pdf_artifacts':
-    'Ingen PDF-artefakter for denne fil fundet.',
-  'fabric.linking.not_found_description':
-    'Vi kunne ikke finde linket. Kontrollér og rediger URL-adressen, eller indsæt den igen.',
-  'fabric.linking.not_found_title': 'Ups. Vi kan ikke finde dette link!',
-  'fabric.linking.or': 'eller',
-  'fabric.linking.pause': 'Sæt på pause',
-  'fabric.linking.play': 'Afspil',
-  'fabric.linking.playback_default_speed': 'Standard',
-  'fabric.linking.playback_speed': 'Afspilningshastighed',
-  'fabric.linking.preview': 'Vis',
-  'fabric.linking.preview_currently_unavailable':
-    'Forhåndsvisning er ikke tilgængelig i øjeblikket',
-  'fabric.linking.preview_unavailable': 'Forhåndsvisning er ikke tilgængelig',
-  'fabric.linking.recent_uploads': 'Senest uploadet',
-  'fabric.linking.remove_image': 'Fjern billede',
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_description':
     'Anmod om adgang til {context} for at se denne forhåndsvisning.',
   'fabric.linking.request_access_pending': 'Afventer adgang',
   'fabric.linking.request_access_pending_description':
     'Din anmodning om adgang afventer behandling.',
+  'fabric.linking.request_access_to_view':
+    'Anmod om adgang til {context} for at se denne sag',
+  'fabric.linking.request_denied': 'Din anmodning om adgang blev afvist',
   'fabric.linking.request_denied_description':
     'Din anmodning om adgang blev afvist. Kontakt webstedets administrator, hvis du stadig har brug for adgang.',
+  'fabric.linking.restricted_link': 'Begrænset link. Prøv en anden konto',
   'fabric.linking.retry': 'Prøv igen',
   'fabric.linking.save': 'Gem',
-  'fabric.linking.search': 'Søg',
-  'fabric.linking.search_all_gifs': "Søg i alle GIF'er!",
-  'fabric.linking.share_files_instantly': 'Vi deler dem med det samme',
-  'fabric.linking.skip_backward': '10 sekunder tilbage',
-  'fabric.linking.skip_forward': '10 sekunder frem',
-  'fabric.linking.something_went_wrong': 'Noget gik galt.',
   'fabric.linking.srclink': 'Vis i',
   'fabric.linking.srclinkunknown': 'Vis original',
-  'fabric.linking.text': 'Tekst',
   'fabric.linking.try_again': 'Prøv igen',
   'fabric.linking.try_another_account': 'Prøv en anden konto',
-  'fabric.linking.try_downloading_file':
-    'Prøv at downloade filen for at vise den.',
-  'fabric.linking.unable_to_annotate_image':
-    'Du kan ikke annotere dette billede',
-  'fabric.linking.unknown': 'ukendt',
   'fabric.linking.unlink_account': 'Fjern link til konto',
-  'fabric.linking.upload': 'Upload',
-  'fabric.linking.upload_an_avatar': 'Upload en avatar',
-  'fabric.linking.upload_file': 'Upload en fil',
-  'fabric.linking.upload_file_from': 'Upload en fil fra {name}',
-  'fabric.linking.upload_image': 'Upload billede',
-  'fabric.linking.upload_photo': 'Upload et foto',
-  'fabric.linking.video': 'video',
+  'fabric.linking.updated_by': 'Ændret af {context}',
   'fabric.linking.view': 'Vis',
-  'fabric.linking.viewer_rateLimited':
-    'Vi har problemer med at indlæse din fil.',
-  'fabric.linking.webgl_warning_description':
-    'Din browser understøtter ikke WebGL. Brug en WebGL-kompatibel browser for at annotere billeder.',
-  'fabric.linking.zip_entry_load_failed':
-    'Vi kunne ikke indlæse zip-filelementet til forhåndsvisning',
-  'fabric.linking.zoom_in': 'zoom ind',
-  'fabric.linking.zoom_out': 'zoom ud',
 };

@@ -20,7 +20,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Progress bar"
+      "name": "Progress bar",
+      "category": "Components"
     }
   },
   "dependencies": {

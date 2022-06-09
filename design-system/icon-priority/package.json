@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Icon Priority",
-      "deprecated": "@atlaskit/icon-priority has been deprecated due to limited usage across Cloud products. It will be deleted after 21 April 2022. If you depend on @atlaskit/icon-priority we recommend self-managing the assets."
+      "deprecated": "@atlaskit/icon-priority has been deprecated due to limited usage across Cloud products. It will be deleted after 21 April 2022. If you depend on @atlaskit/icon-priority we recommend self-managing the assets.",
+      "category": "Components"
     }
   },
   "af:exports": {

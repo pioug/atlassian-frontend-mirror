@@ -19,7 +19,8 @@
     "releaseModel": "scheduled",
     "website": {
       "name": "Droplist",
-      "deprecated": "Droplist is deprecated. For the pop up behaviour please use @atlaskit/popup and for common menu components please use @atlaskit/menu."
+      "deprecated": "Droplist is deprecated. For the pop up behaviour please use @atlaskit/popup and for common menu components please use @atlaskit/menu.",
+      "category": "Components"
     }
   },
   "dependencies": {

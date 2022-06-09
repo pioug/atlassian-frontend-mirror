@@ -19,7 +19,8 @@
     "team": "Design System Team",
     "releaseModel": "scheduled",
     "website": {
-      "name": "Comment"
+      "name": "Comment",
+      "category": "Components"
     }
   },
   "dependencies": {

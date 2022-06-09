@@ -1,0 +1,133 @@
+{
+    "hydrators": {
+        "TownsquareGoal": {
+            "hydratorPaths": {
+                "id": [
+                    "id"
+                ],
+                "key": [
+                    "key"
+                ],
+                "name": [
+                    "name"
+                ],
+                "url": [
+                    "url"
+                ],
+                "icon": [
+                    "iconData"
+                ]
+            }
+        },
+        "TownsquareProject": {
+            "hydratorPaths": {
+                "id": [
+                    "id"
+                ],
+                "key": [
+                    "key"
+                ],
+                "name": [
+                    "name"
+                ],
+                "url": [
+                    "url"
+                ],
+                "icon": [
+                    "iconData"
+                ]
+            }
+        },
+        "TownsquareComment": {
+            "hydratorPaths": {
+                "id": [
+                    "id"
+                ],
+                "name": [
+                    "object.name"
+                ],
+                "url": [
+                    "object.url"
+                ],
+                "icon": [
+                    "object.iconData"
+                ]
+            }
+        },
+        "ConfluencePage": {
+            "hydratorPaths": {
+                "id": [
+                    "id"
+                ],
+                "name": [
+                    "title"
+                ],
+                "localResourceId": [
+                    "pageId"
+                ],
+                "url": [
+                    "links.base",
+                    "links.webUi"
+                ],
+                "containers": [
+                    "space.name"
+                ],
+                "icon": [
+                  "metadata.titleEmojiDraft",
+                  "metadata.titleEmojiPublished"
+                ]
+            },
+            "staticFallbacks": {
+                "icon": "https://home-static.us-east-1.staging.public.atl-paas.net/confluence-page-icon.svg"
+            }
+        },
+        "ConfluenceBlogPost": {
+            "hydratorPaths": {
+                "id": [
+                    "id"
+                ],
+                "name": [
+                    "title"
+                ],
+                "localResourceId": [
+                    "blogPostId"
+                ],
+                "url": [
+                    "links.base",
+                    "links.webUi"
+                ],
+                "containers": [
+                    "space.name"
+                ],
+                "icon": [
+                  "metadata.titleEmojiDraft",
+                  "metadata.titleEmojiPublished"
+                ]
+            },
+            "staticFallbacks": {
+                "icon": "https://home-static.us-east-1.prod.public.atl-paas.net/confluence-blogpost-icon.svg"
+            }
+        },
+        "ConfluenceComment": {
+            "hydratorPaths": {
+                "id": [
+                    "id"
+                ],
+                "name": [
+                    "container.title"
+                ],
+                "url": [
+                    "links.base",
+                    "links.webUi"
+                ],
+                "containers": [
+                    "container.space.name"
+                ]
+            },
+            "staticFallbacks": {
+                "icon": "https://home-static.us-east-1.staging.public.atl-paas.net/confluence-page-icon.svg"
+            }
+        }
+    },
+    "queryFragments": "\n\n  fragment townsquareGoal on TownsquareGoal {\n    id\n    key\n    name\n    url\n    iconData\n  }\n\n\n  fragment townsquareProject on TownsquareProject {\n    id\n    key\n    name\n    url\n    iconData\n  }\n\n\n  fragment townsquareComment on TownsquareComment {\n    id\n    url\n    object {\n      name\n      iconData\n      url\n    }\n  }\n\n\n  fragment confluencePage on ConfluencePage {\n    id\n    title\n    pageId\n    links {\n      base\n      webUi\n    }\n    space {\n      name\n    }\n  }\n\n\n  fragment confluenceBlogPost on ConfluenceBlogPost {\n    id\n    title\n    blogPostId\n    links {\n      base\n      webUi\n    }\n    space {\n      name\n    }\n  }\n\n\n  fragment confluenceComment on ConfluenceComment {\n    id\n    links {\n      base\n      webUi\n    }\n    container {\n      __typename\n      ...confluenceBlogPost\n      ...confluencePage\n    }\n  }\n\nfragment activityItemEdge on ActivityItemEdge {\n  cursor\n  node {\n    id\n    object {\n      id\n      type\n      product\n      rootContainerId\n      contributors {\n        profile {\n          name\n          picture\n          accountId\n        }\n      }\n      data {\n        __typename\n\t...townsquareGoal\n\t...townsquareProject\n\t...townsquareComment\n\t...confluencePage\n\t...confluenceBlogPost\n\t...confluenceComment\n      }\n    }\n    event {\n      id\n      timestamp\n      eventType\n    }\n  }\n}\nfragment activityItemConnection on ActivityConnection {\n  edges {\n    ...activityItemEdge\n  }\n}\n\n"
+}

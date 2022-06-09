@@ -20,7 +20,8 @@
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Tag group"
+      "name": "Tag group",
+      "category": "Components"
     }
   },
   "dependencies": {

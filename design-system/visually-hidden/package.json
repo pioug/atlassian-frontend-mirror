@@ -12,7 +12,8 @@
     "inPublicMirror": true,
     "releaseModel": "scheduled",
     "website": {
-      "name": "Visually hidden"
+      "name": "Visually hidden",
+      "category": "Components"
     }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

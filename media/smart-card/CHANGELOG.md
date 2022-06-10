@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 19.1.18
+
+### Patch Changes
+
+- [`b26dd70a1e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b26dd70a1e6) - This PR adds the ability for an integrator to provide a string via `placeholder` which will be displayed instead of the url while the CardWithURLContent component is not mounted (i.e. not currently being observed). This should help with performance use cases where some text is required to be displayed before the full Smart Link component is rendered.
+
+  Usage:
+
+  ```Typescript
+  // This will render the string "spaghetti" before the Smart Link is loaded.
+  <Card url={url} appearance='inline' placeholder='spaghetti'/>
+  ```
+
 ## 19.1.17
 
 ### Patch Changes

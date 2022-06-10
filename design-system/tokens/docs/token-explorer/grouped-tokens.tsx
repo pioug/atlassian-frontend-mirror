@@ -1,8 +1,12 @@
-import type { TransformedToken } from 'style-dictionary';
-
-import atlassianLight from '../../src/artifacts/tokens-raw/atlassian-light';
-import type { PaintToken, RawToken, ShadowToken } from '../../src/types';
+import lightTheme from '../../src/artifacts/tokens-raw/atlassian-light';
 import { getTokenId } from '../../src/utils/token-ids';
+
+import { mergeTokens } from './merged-tokens';
+import type {
+  TransformedTokenGrouped,
+  TransformedTokenMerged,
+  TransformedTokenWithAttributes,
+} from './types';
 
 /**
  * Any tokens with paths beginning with these strings will be
@@ -28,16 +32,9 @@ const subgroups = [
  */
 const extensions = ['pressed', 'hovered'];
 
-export interface TransformedTokenExtended extends TransformedToken {
-  attributes:
-    | (TransformedToken['attributes'] & PaintToken['attributes'])
-    | ShadowToken['attributes']
-    | RawToken['attributes'];
-  extensions?: TransformedTokenExtended[];
-}
 export interface TokenGroup {
   name: string;
-  tokens: TransformedTokenExtended[];
+  tokens: TransformedTokenGrouped[];
   subgroups?: TokenGroup[];
 }
 
@@ -46,7 +43,7 @@ export interface TokenGroup {
  */
 const findGroup = (
   groups: TokenGroup[],
-  token: TransformedTokenExtended,
+  token: TransformedTokenMerged,
   depth: number,
 ) => groups.find(({ name }) => name === token.path[depth - 1]);
 
@@ -61,7 +58,7 @@ const addToGroup = ({
   final,
 }: {
   groups: TokenGroup[];
-  token: TransformedTokenExtended;
+  token: TransformedTokenGrouped;
   depth: number;
   offsetDepth?: boolean;
   final?: boolean;
@@ -88,8 +85,8 @@ const addToGroup = ({
 };
 
 const sortBySemantics = (
-  a: TransformedTokenExtended,
-  b: TransformedTokenExtended,
+  a: TransformedTokenGrouped,
+  b: TransformedTokenGrouped,
 ) => {
   // Shortest paths ordered first
   if (a.path.length > b.path.length) {
@@ -102,8 +99,8 @@ const sortBySemantics = (
 };
 
 const sortCustomOrder = (
-  a: TransformedTokenExtended,
-  b: TransformedTokenExtended,
+  a: TransformedTokenGrouped,
+  b: TransformedTokenGrouped,
 ) => {
   /**
    * Reorders Color > Link between Text and Border
@@ -154,15 +151,11 @@ const sortCustomOrder = (
   return 0;
 };
 
-const groupTokens = (tokens: TransformedToken[]) => {
-  const filteredTokens = (tokens.filter(
-    (token) => token.attributes && token.attributes.group !== 'palette',
-  ) as TransformedTokenExtended[])
-    .sort(sortBySemantics)
-    .sort(sortCustomOrder);
+const groupTokens = (tokens: TransformedTokenMerged[]): TokenGroup[] => {
+  const sortedTokens = tokens.sort(sortBySemantics).sort(sortCustomOrder);
 
   // Relocate extension tokens
-  const extendedTokens = filteredTokens.filter((token) => {
+  const extendedTokens = sortedTokens.filter((token) => {
     // Determine if this token is an extension
     const isExtension = extensions?.includes(token.path[token.path.length - 1]);
 
@@ -172,7 +165,7 @@ const groupTokens = (tokens: TransformedToken[]) => {
       );
 
       const baseToken = tokens.find(
-        ({ name }) => aggregateBase === getTokenId(name),
+        ({ nameClean }) => aggregateBase === nameClean,
       );
 
       if (baseToken && !baseToken?.extensions) {
@@ -215,6 +208,8 @@ const groupTokens = (tokens: TransformedToken[]) => {
   return groupedTokens;
 };
 
-const groupedTokens = groupTokens(atlassianLight);
+const groupedTokens = groupTokens(
+  mergeTokens(lightTheme as TransformedTokenWithAttributes[]),
+);
 
 export default groupedTokens;

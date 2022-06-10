@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "167.0.1",
+  "version": "167.0.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -99,7 +99,7 @@
     "classnames": "^2.2.5",
     "date-fns": "^2.17.0",
     "eventemitter2": "^4.1.0",
-    "fuse.js": "^3.4.6",
+    "fuse.js": "^6.6.2",
     "is-number": "^7.0.0",
     "linkify-it": "^2.0.3",
     "lodash": "^4.17.21",

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useMemo } from 'react';
+import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
@@ -7,12 +7,11 @@ import { N200 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
-import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import { getTokenId } from '../../../src/utils/token-ids';
-import type { TransformedTokenExtended } from '../grouped-tokens';
+import type { TransformedTokenGrouped } from '../types';
 
 import CopyButtonValue from './copy-button-value';
-import Highlight from './highlight';
+import LoadingSkeleton from './loading-skeleton';
 import TokenItemName from './token-item-name';
 
 const cellStyles = css({
@@ -60,116 +59,146 @@ const valueButtonStyles = css([
   },
 ]);
 
-interface TokenItemProps extends TransformedTokenExtended {
-  searchQuery?: string;
+interface TokenItemProps {
+  token?: TransformedTokenGrouped;
+  isLoading?: boolean;
+  testId?: string;
 }
 
 const TokenItem = ({
-  name,
-  value,
-  attributes,
-  original,
-  extensions,
-  searchQuery,
-}: TokenItemProps) => {
-  const darkToken = useMemo(
-    () => darkTheme.find((token) => token.name === name),
-    [name],
-  );
-
-  return (
+  token: transformedToken,
+  isLoading,
+  testId,
+}: TokenItemProps) =>
+  isLoading || transformedToken !== undefined ? (
     <tr
       css={{
         borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
       }}
+      data-testid={testId && `${testId}-token-item`}
     >
-      <td css={cellStyles}>
-        <TokenItemName
-          name={name}
-          attributes={attributes}
-          css={buttonStyles}
-          searchQuery={searchQuery}
-        />
-        {extensions?.map((extension) => (
-          <TokenItemName
-            key={extension.name}
-            name={extension.name}
-            attributes={extension.attributes}
-            css={buttonStyles}
-            searchQuery={searchQuery}
-          />
-        ))}
-        <p css={{ margin: 0 }}>
-          <Highlight highlight={searchQuery}>
-            {attributes.description}
-          </Highlight>
-        </p>
-        <p
-          css={{
-            color: token('color.text.subtlest', N200),
-            fontSize: 12,
-          }}
-        >
-          Introduced v{attributes.introduced}
-          {'deprecated' in attributes &&
-            ` → Deprecated v${attributes.deprecated}`}
-          {'deleted' in attributes && ` → Deleted v${attributes.deleted}`}
-          {'replacement' in attributes &&
-            `. Replace with ${
-              Array.isArray(attributes.replacement)
-                ? attributes.replacement.map(
-                    (replacement, i) =>
-                      `${getTokenId(replacement)}${i > 0 ? ' / ' : ' '}`,
-                  )
-                : getTokenId(attributes.replacement)
-            }`}
-        </p>
+      <td
+        css={cellStyles}
+        data-testid={
+          testId &&
+          `${testId}-token-item-name-${
+            isLoading || transformedToken === undefined
+              ? 'loading'
+              : transformedToken.name
+          }`
+        }
+      >
+        {isLoading || transformedToken === undefined ? (
+          <Fragment>
+            <LoadingSkeleton
+              width="30%"
+              height={24}
+              css={{ marginBottom: 10 }}
+            />
+            <LoadingSkeleton height={20} css={{ marginBottom: 10 }} />
+            <LoadingSkeleton
+              height={20}
+              css={{ marginBottom: 10 }}
+              width="20%"
+            />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <TokenItemName
+              name={transformedToken.name}
+              attributes={transformedToken.attributes}
+              css={buttonStyles}
+            />
+            {transformedToken.extensions?.map((extension) => (
+              <TokenItemName
+                key={extension.name}
+                name={extension.name}
+                attributes={extension.attributes}
+                css={buttonStyles}
+              />
+            ))}
+            <p css={{ margin: 0 }}>{transformedToken.attributes.description}</p>
+            <p
+              css={{
+                color: token('color.text.subtlest', N200),
+                fontSize: 12,
+              }}
+            >
+              Introduced v{transformedToken.attributes.introduced}
+              {'deprecated' in transformedToken.attributes &&
+                ` → Deprecated v${transformedToken.attributes.deprecated}`}
+              {'deleted' in transformedToken.attributes &&
+                ` → Deleted v${transformedToken.attributes.deleted}`}
+              {'replacement' in transformedToken.attributes &&
+                `. Replace with ${
+                  Array.isArray(transformedToken.attributes.replacement)
+                    ? transformedToken.attributes.replacement.map(
+                        (replacement, i) =>
+                          `${getTokenId(replacement)}${i > 0 ? ' / ' : ' '}`,
+                      )
+                    : getTokenId(transformedToken.attributes.replacement)
+                }`}
+            </p>
+          </Fragment>
+        )}
       </td>
-      <td css={[cellStyles, tokenValueCellStyles]} data-title="Light value">
-        <CopyButtonValue
-          value={value}
-          attributes={attributes}
-          original={original}
-          css={valueButtonStyles}
-          searchQuery={searchQuery}
-        />
-        {extensions?.map((extension) => (
-          <CopyButtonValue
-            key={extension.name}
-            value={extension.value}
-            original={extension.original}
-            attributes={extension.attributes}
-            css={valueButtonStyles}
-            searchQuery={searchQuery}
-          />
-        ))}
+      <td
+        css={[cellStyles, tokenValueCellStyles]}
+        data-title="Light value"
+        data-testid={`${testId}-token-item-value-${
+          isLoading || transformedToken === undefined
+            ? 'loading'
+            : transformedToken.original.value
+        }`}
+      >
+        {isLoading || transformedToken === undefined ? (
+          <LoadingSkeleton height={24} />
+        ) : (
+          <Fragment>
+            <CopyButtonValue
+              value={transformedToken.value}
+              attributes={transformedToken.attributes}
+              original={transformedToken.original}
+              css={valueButtonStyles}
+            />
+            {transformedToken.extensions?.map((extension) => (
+              <CopyButtonValue
+                key={extension.name}
+                value={extension.value}
+                original={extension.original}
+                attributes={extension.attributes}
+                css={valueButtonStyles}
+              />
+            ))}
+          </Fragment>
+        )}
       </td>
       <td css={[cellStyles, tokenValueCellStyles]} data-title="Dark value">
-        {darkToken && (
-          <CopyButtonValue
-            value={darkToken.value}
-            original={darkToken.original}
-            attributes={darkToken.attributes}
-            css={valueButtonStyles}
-            searchQuery={searchQuery}
-          />
+        {isLoading || transformedToken === undefined ? (
+          <LoadingSkeleton height={24} />
+        ) : (
+          <Fragment>
+            {transformedToken.darkToken && (
+              <CopyButtonValue
+                value={transformedToken.darkToken.value}
+                original={transformedToken.darkToken.original}
+                attributes={transformedToken.darkToken.attributes}
+                css={valueButtonStyles}
+              />
+            )}
+            {transformedToken.extensions?.map((extension) => (
+              <CopyButtonValue
+                key={extension.darkToken.name}
+                value={extension.darkToken.value}
+                original={extension.darkToken.original}
+                attributes={extension.darkToken.attributes}
+                css={valueButtonStyles}
+              />
+            ))}
+          </Fragment>
         )}
-        {extensions?.map((extension) => {
-          const dark = darkTheme.find((token) => token.name === extension.name);
-
-          return dark ? (
-            <CopyButtonValue
-              key={dark.name}
-              value={dark.value}
-              original={dark.original}
-              attributes={dark.attributes}
-              css={valueButtonStyles}
-              searchQuery={searchQuery}
-            />
-          ) : undefined;
-        })}
       </td>
     </tr>
-  );
-};
+  ) : null;
+
 export default TokenItem;

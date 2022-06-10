@@ -65,6 +65,9 @@ function init() {
   });
   // tell extension what the theme value was from local storage
   port.postMessage({ theme });
+
+  // tell background script what the theme was from local storage
+  chrome.runtime.sendMessage({ text: 'update-icon' });
 }
 
 function main() {

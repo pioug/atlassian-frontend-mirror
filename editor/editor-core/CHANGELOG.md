@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 167.0.2
+
+### Patch Changes
+
+- [`9fcb08f3070`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fcb08f3070) - Upgrade "fuse.js" fuzzy search plugin to version `^6.6.2`
+
 ## 167.0.1
 
 ### Patch Changes

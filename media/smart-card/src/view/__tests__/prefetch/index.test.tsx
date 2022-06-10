@@ -139,6 +139,33 @@ describe('smart-card: prefetching of content', () => {
     expect(mockSucceedUfoExperience).not.toHaveBeenCalled();
   });
 
+  it('loads a lazy rendering placeholder with the title text override if it is provided', async () => {
+    mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
+    const { getByTestId } = render(
+      <Provider client={mockClient}>
+        <Card appearance="inline" url={mockUrl} placeholder="spaghetti" />
+      </Provider>,
+    );
+    const lazyPlaceholderView = await waitForElement(() =>
+      getByTestId('lazy-render-placeholder'),
+    );
+    // In this test, the prefetch path is privileged, since the URL is not
+    // in the viewport. The result in the DOM should be a placeholder for the link.
+    // - Assertions that we rendered the correct Smart Link ⬇️.
+    expect(lazyPlaceholderView).toBeTruthy();
+    expect(lazyPlaceholderView.textContent).toBe('spaghetti');
+    // - Assertions that fetch was not called ⬇️
+    expect(mockFetch).not.toBeCalled();
+    // - Assertions that prefetch was called ⬇️
+    expect(mockPrefetch).toBeCalled();
+    expect(mockPrefetch).toBeCalledTimes(1);
+
+    // - Assertions that UFO experience has not been started or succeeded since
+    // it is not in the viewport
+    expect(mockStartUfoExperience).not.toHaveBeenCalled();
+    expect(mockSucceedUfoExperience).not.toHaveBeenCalled();
+  });
+
   it('converts a lazy render placeholder into a Smart Link when it enters the viewPort', async () => {
     mockGetEntries.mockImplementation(() => [{ isIntersecting: false }]);
     const { getByTestId } = render(

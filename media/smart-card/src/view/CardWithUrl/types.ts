@@ -25,4 +25,5 @@ export type CardWithUrlContentProps = {
   children?: React.ReactNode;
   showHoverPreview?: boolean;
   analyticsEvents?: AnalyticsFacade;
+  placeholder?: string;
 };

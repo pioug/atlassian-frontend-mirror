@@ -15,7 +15,10 @@ const options = {
   ],
 };
 
-export function find(query: string, items: QuickInsertItem[]) {
+export function find(
+  query: string,
+  items: QuickInsertItem[],
+): QuickInsertItem[] {
   const fuse = new Fuse(items, options);
   if (query === '') {
     // Copy and sort list by priority
@@ -28,7 +31,7 @@ export function find(query: string, items: QuickInsertItem[]) {
       );
   }
 
-  return fuse.search(query);
+  return fuse.search(query).map((result) => result.item);
 }
 
 export const searchQuickInsertItems = (

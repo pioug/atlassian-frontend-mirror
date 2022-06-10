@@ -49,8 +49,8 @@ interface CopyButtonProps {
   className?: string;
 }
 
-const CopyButton = ({ copyValue, children, className }: CopyButtonProps) => {
-  return copyValue ? (
+const CopyButton = ({ copyValue, children, className }: CopyButtonProps) =>
+  copyValue ? (
     <CopyToClipboard value={copyValue}>
       {({ copy }) => (
         <FocusRing>
@@ -73,6 +73,5 @@ const CopyButton = ({ copyValue, children, className }: CopyButtonProps) => {
       {children}
     </div>
   );
-};
 
 export default CopyButton;

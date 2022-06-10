@@ -1,18 +1,21 @@
 /** @jsx jsx */
 import {
-  Fragment,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
   useRef,
   useState,
 } from 'react';
 
 import { css, jsx } from '@emotion/core';
-import upperFirst from 'lodash/upperFirst';
+import Fuse from 'fuse.js';
+import debounce from 'lodash/debounce';
 
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button';
+import { Checkbox } from '@atlaskit/checkbox';
 import DropdownMenu, {
   DropdownItemCheckbox,
   DropdownItemCheckboxGroup,
@@ -26,191 +29,29 @@ import { gridSize } from '@atlaskit/theme/constants';
 import ToolTip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import HeadingContext, {
-  Heading,
-} from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
+import HeadingContext from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import SectionLink from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
 import { token } from '../../src';
-import darkTheme from '../../src/artifacts/tokens-raw/atlassian-dark';
 import TokenWizardModal from '../token-wizard';
 
 import TokenGroups, { TokenGroupsProps } from './components/token-groups';
-import groupedTokens, {
-  TokenGroup,
-  TransformedTokenExtended,
-} from './grouped-tokens';
+import TokenList from './components/token-list';
+import groupedTokens, { TokenGroup } from './grouped-tokens';
+import mergedTokens from './merged-tokens';
+import type { TransformedTokenMerged } from './types';
+import {
+  filterGroups,
+  filterTokens,
+  getNumberOfTokensInGroups,
+  getTokenGroupHeadings,
+} from './utils';
 
-const searchValue = ({
-  value,
-  extensions,
-  searchQuery,
-}: {
-  value: TransformedTokenExtended['original']['value'];
-  extensions?: TransformedTokenExtended['extensions'];
-  searchQuery: string;
-}) =>
-  (typeof value === 'string' &&
-    value.toLowerCase().search(searchQuery) !== -1) ||
-  extensions?.some(
-    (extension) =>
-      typeof extension.original.value === 'string' &&
-      extension.original.value.toLowerCase().search(searchQuery) !== -1,
-  );
-
-export const filterTokens = (
-  list: TransformedTokenExtended[],
-  filters: {
-    searchQuery?: string;
-    showStates?: string[];
-  },
-): TransformedTokenExtended[] =>
-  list.filter(({ name, attributes, extensions, original }) => {
-    const darkToken = darkTheme.find((token) => token.name === name);
-
-    const matchesState = filters?.showStates?.some(
-      (state) => state === attributes?.state,
-    );
-
-    const filteredSearchQuery = filters?.searchQuery?.replace(
-      /[-[\]{}()*+?.,\\^$|]/g,
-      '\\$&',
-    );
-
-    const noSearchQuery = filters?.searchQuery === '';
-
-    const matchesName =
-      filteredSearchQuery &&
-      (name.toLowerCase().search(filteredSearchQuery) !== -1 ||
-        extensions?.some(
-          (extension) =>
-            extension.name.toLowerCase().search(filteredSearchQuery) !== -1,
-        ));
-
-    const matchesDescription =
-      filteredSearchQuery &&
-      (attributes?.description.toLowerCase().search(filteredSearchQuery) !==
-        -1 ||
-        extensions?.some(
-          (extension) =>
-            extension.attributes?.description
-              .toLowerCase()
-              .search(filteredSearchQuery) !== -1,
-        ));
-
-    const matchesValue =
-      filteredSearchQuery &&
-      // Search both light and dark token values
-      (searchValue({
-        value: original.value,
-        extensions,
-        searchQuery: filteredSearchQuery,
-      }) ||
-        searchValue({
-          value: darkToken?.original.value,
-          searchQuery: filteredSearchQuery,
-        }));
-
-    const matchesSearch =
-      noSearchQuery || matchesName || matchesDescription || matchesValue;
-
-    return matchesState && matchesSearch;
-  });
-
-export const filterGroups = (
-  groups: TokenGroup[],
-  filters: {
-    searchQuery?: string;
-    showStates?: string[];
-  },
-): TokenGroup[] =>
-  groups.reduce((newGroups: TokenGroup[], currentGroup) => {
-    const newGroup = {
-      ...currentGroup,
-      tokens: filterTokens(currentGroup.tokens, filters),
-      subgroups: currentGroup.subgroups?.reduce(
-        (newSubgroups: TokenGroup[], currentSubgroup) => {
-          const newSubgroup = {
-            ...currentSubgroup,
-            tokens: filterTokens(currentSubgroup.tokens, filters),
-          };
-
-          if (newSubgroup.tokens.length > 0) {
-            newSubgroups.push(newSubgroup);
-          }
-
-          return newSubgroups;
-        },
-        [],
-      ),
-    };
-
-    if (
-      newGroup.tokens.length > 0 ||
-      (newGroup?.subgroups && newGroup.subgroups.length > 0)
-    ) {
-      newGroups.push(newGroup);
-    }
-
-    return newGroups;
-  }, []);
-
-/**
- * A reducer that finds how many tokens are in a collection of groups 🥲 very silly
- */
-export const getNumberOfTokensInGroups = (groups: TokenGroup[]) =>
-  groups.reduce((count, group) => {
-    const topLevel = group.tokens.length;
-
-    const topLevelExtensions = group.tokens.reduce((extensionCount, token) => {
-      const inExtensions = token.extensions ? token.extensions.length : 0;
-
-      return extensionCount + inExtensions;
-    }, 0);
-
-    const inSubgroups = group.subgroups
-      ? group.subgroups.reduce((subgroupCount, subgroup) => {
-          const subgroupExtensions = subgroup.tokens.reduce(
-            (extensionCount, token) => {
-              const inExtensions = token.extensions
-                ? token.extensions.length
-                : 0;
-
-              return extensionCount + inExtensions;
-            },
-            0,
-          );
-
-          return subgroupCount + subgroup.tokens.length + subgroupExtensions;
-        }, 0)
-      : 0;
-
-    return count + topLevel + topLevelExtensions + inSubgroups;
-  }, 0);
-
-/**
- * Generates side navigation headings from token groups
- */
-const getTokenGroupHeading = (
-  group: TokenGroup,
-  depth: number,
-  parentGroup?: TokenGroup,
-): Heading => ({
-  depth,
-  id: `${parentGroup ? `${parentGroup.name}-` : ''}${group.name}`,
-  value: `${upperFirst(group.name)}${
-    group.tokens.length > 0 ? ` (${group.tokens.length})` : ''
-  }`,
-});
-const getTokenGroupHeadings = (groups: TokenGroup[]): Heading[] =>
-  groups.flatMap((group) => [
-    getTokenGroupHeading(group, 2),
-    ...(group.subgroups
-      ? group.subgroups.map((subgroup) =>
-          getTokenGroupHeading(subgroup, 3, group),
-        )
-      : []),
-  ]);
+const ALL_DESIGN_TOKENS_LIST_HEADING = {
+  depth: 1,
+  id: 'all-design-tokens-list',
+  value: 'All design tokens list',
+} as const;
 
 const clearButtonStyles = css({
   marginRight: gridSize(),
@@ -219,6 +60,8 @@ const clearButtonStyles = css({
   border: 'none',
   background: 'none',
   padding: 0,
+  display: 'flex',
+  alignItems: 'center',
 
   '&:hover, &:focus': {
     color: token('color.link', '#0C66E4'),
@@ -230,7 +73,8 @@ const clearButtonStyles = css({
 });
 
 interface TokenExplorerProps {
-  scrollOffset: TokenGroupsProps['scrollOffset'];
+  scrollOffset?: TokenGroupsProps['scrollOffset'];
+  testId?: string;
 }
 
 // Filters state
@@ -242,6 +86,8 @@ const filtersInitialState = {
   },
 };
 
+type FilterState = typeof filtersInitialState;
+
 type FilterAction = {
   type: 'state';
   payload: {
@@ -249,10 +95,7 @@ type FilterAction = {
   };
 };
 
-const filterReducer = (
-  state: typeof filtersInitialState,
-  action: FilterAction,
-) => ({
+const filterReducer = (state: FilterState, action: FilterAction) => ({
   ...state,
   [action.type]: {
     ...state[action.type],
@@ -278,64 +121,221 @@ const FilterItem = ({
   </div>
 );
 
-const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
+const fuseOptions: Fuse.IFuseOptions<TransformedTokenMerged> = {
+  keys: [
+    {
+      name: 'name',
+      weight: 1,
+    },
+    {
+      name: 'nameClean',
+      weight: 1,
+    },
+    {
+      name: 'original.value',
+      weight: 1,
+    },
+    {
+      name: 'darkToken.original.value',
+      weight: 1,
+    },
+    {
+      name: 'path',
+      weight: 1,
+    },
+    {
+      name: 'attributes.description',
+      weight: 2,
+    },
+  ],
+  useExtendedSearch: true,
+  threshold: 0.05,
+  ignoreLocation: true,
+};
+
+const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
+  /**
+   * Headings / side navigation
+   *
+   * Uses the headings context to add token groups to C11n side navigation.
+   * This doesn't assume the component is wrapped in a context provider,
+   * so the component could still be used elsewhere if needed.
+   */
+  const headingsContext = useContext(HeadingContext);
+  const setHeadings = headingsContext?.setHeadings;
+  const headings = headingsContext?.headings;
+
+  /**
+   * Filters
+   */
   const [filterState, dispatchFilter] = useReducer(
     filterReducer,
     filtersInitialState,
   );
-  const [searchQuery, setSearchQuery] = useState('');
-  const searchField = useRef<HTMLInputElement>();
 
-  const [filteredTokenGroups, setFilteredTokenGroups] = useState<TokenGroup[]>(
-    filterGroups(groupedTokens, {
-      searchQuery,
-      showStates: Object.entries(filterState.state)
+  const handleFilterChange = (action: FilterAction) => {
+    dispatchFilter(action);
+
+    const newFilterState = {
+      ...filterState.state,
+      ...action.payload,
+    };
+
+    setFuseIndex(newFilterState);
+    setFilteredTokenGroups(getFilteredTokenGroups(newFilterState));
+  };
+
+  /**
+   * Search
+   */
+  // Re-indexes search
+  const setFuseIndex = (state: FilterState['state']) => {
+    const index = getFilteredTokenIndex(state);
+    fuseIndex.current.setCollection(index);
+
+    // Update search if active
+    if (searchQuery !== '') {
+      handleSearch(searchQuery);
+    }
+  };
+
+  const getFilteredTokenIndex = (
+    state: FilterState['state'],
+  ): TransformedTokenMerged[] => {
+    return filterTokens(mergedTokens, {
+      showStates: Object.entries(state)
         .filter(([_, isSelected]) => isSelected)
         .map(([tokenState]) => tokenState),
-    }),
+    });
+  };
+
+  const fuseIndex = useRef<Fuse<TransformedTokenMerged>>(
+    new Fuse(getFilteredTokenIndex(filterState.state), fuseOptions),
+  );
+  const searchField = useRef<HTMLInputElement>();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchedTokens, setSearchedTokens] = useState<
+    Fuse.FuseResult<TransformedTokenMerged>[] | undefined
+  >();
+
+  const search = (query: string) =>
+    setSearchedTokens(fuseIndex.current.search<TransformedTokenMerged>(query));
+  const debouncedSearch = useMemo(() => debounce(search, 300), []);
+
+  const handleSearch = useCallback(
+    (
+      query: string,
+      opts: { isDebounced?: boolean } = { isDebounced: false },
+    ) => {
+      setSearchQuery(query);
+
+      // Clear searched tokens to enter loading state
+      setSearchedTokens(undefined);
+
+      if (query !== '') {
+        // Remove token groups from side navigation headings context
+        if (setHeadings && headings && headings?.length > 1) {
+          setHeadings([ALL_DESIGN_TOKENS_LIST_HEADING]);
+        }
+
+        opts.isDebounced ? debouncedSearch(query) : search(query);
+      }
+    },
+    [setHeadings, headings, debouncedSearch],
   );
 
+  /**
+   * Token groups
+   */
+
+  const getFilteredTokenGroups = (
+    state: FilterState['state'],
+  ): TokenGroup[] => {
+    return filterGroups(groupedTokens, {
+      showStates: Object.entries(state)
+        .filter(([_, isSelected]) => isSelected)
+        .map(([tokenState]) => tokenState),
+    });
+  };
+
+  const [filteredTokenGroups, setFilteredTokenGroups] = useState<TokenGroup[]>(
+    getFilteredTokenGroups(filterState.state),
+  );
+
+  // Update token groups in side navigation headings context when groups change
   useEffect(() => {
-    setFilteredTokenGroups(
-      filterGroups(groupedTokens, {
-        searchQuery,
-        showStates: Object.entries(filterState.state)
-          .filter(([_, isSelected]) => isSelected)
-          .map(([tokenState]) => tokenState),
-      }),
-    );
-  }, [searchQuery, filterState]);
-
-  const numberOfTokens = getNumberOfTokensInGroups(filteredTokenGroups);
-
-  // Use the headings context to add token groups to C11n side navigation.
-  // This doesn't assume the component is wrapped in a context provider,
-  // so the component could still be used elsewhere if needed.
-  const headingsContext = useContext(HeadingContext);
-  const setHeadings = headingsContext?.setHeadings;
-
-  useEffect(() => {
-    // Add token groups to side navigation headings context
-    setHeadings &&
+    if (setHeadings && searchQuery === '') {
       setHeadings([
-        {
-          depth: 1,
-          id: 'all-design-tokens-list',
-          value: 'All design tokens list',
-        },
+        ALL_DESIGN_TOKENS_LIST_HEADING,
         ...getTokenGroupHeadings(filteredTokenGroups),
       ]);
-  }, [setHeadings, filteredTokenGroups]);
+    }
+  }, [setHeadings, searchQuery, filteredTokenGroups]);
+
+  /**
+   * Exact search
+   */
+  const onExactSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const filteredTokens = getFilteredTokenIndex(filterState.state);
+
+      if (e.target.checked) {
+        fuseIndex.current = new Fuse(filteredTokens, {
+          ...fuseOptions,
+          // Don't exact-match paths e.g. 'red', 'background'
+          keys: fuseOptions.keys?.filter(
+            (key) =>
+              typeof key === 'object' &&
+              !Array.isArray(key) &&
+              key.name !== 'path',
+          ),
+          threshold: -1,
+        });
+        handleSearch(searchQuery);
+      } else {
+        fuseIndex.current = new Fuse(filteredTokens, fuseOptions);
+        handleSearch(searchQuery);
+      }
+    },
+    [filterState, handleSearch, searchQuery],
+  );
+
+  // Prevents re-renders in TokenList due to new array being created from map
+  const searchedTokensMemo = useMemo(
+    () => searchedTokens?.map((result) => result.item),
+    [searchedTokens],
+  );
+
+  const numberOfTokens = useMemo(
+    () =>
+      searchQuery === ''
+        ? getNumberOfTokensInGroups(filteredTokenGroups)
+        : searchedTokensMemo?.length,
+    [searchQuery, searchedTokensMemo, filteredTokenGroups],
+  );
 
   return (
-    <Fragment>
-      <SectionLink level={2} id="all-design-tokens-list">
-        All design tokens list
+    <div
+      data-testid={testId}
+      css={{
+        'h2, h2:first-of-type': {
+          marginTop: gridSize() * 3,
+          marginBottom: gridSize() * 2,
+        },
+        'h3, h3:first-of-type': {
+          marginTop: gridSize() * 2,
+          marginBottom: gridSize() * 2,
+        },
+      }}
+    >
+      <SectionLink level={2} id={ALL_DESIGN_TOKENS_LIST_HEADING.id}>
+        {ALL_DESIGN_TOKENS_LIST_HEADING.value}
       </SectionLink>
       <div
         css={{
           display: 'flex',
           justifyContent: 'space-between',
+          marginTop: gridSize() * 4,
         }}
       >
         <div
@@ -350,13 +350,21 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
           <FilterItem css={{ maxWidth: 360, flexGrow: 1 }}>
             <TextField
               ref={searchField}
+              value={searchQuery}
               name="token-search"
               aria-label="tokens search"
               placeholder="Search for tokens"
               autoComplete="off"
+              testId={testId && `${testId}-search`}
               isCompact
               elemBeforeInput={
-                <div css={{ marginLeft: gridSize() }}>
+                <div
+                  css={{
+                    marginLeft: gridSize(),
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
                   <SearchIcon
                     css={{ display: 'block' }}
                     size="small"
@@ -375,7 +383,7 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
                           if (searchField?.current?.value) {
                             searchField.current.value = '';
                           }
-                          setSearchQuery('');
+                          handleSearch('');
                         }}
                       >
                         <CrossIcon
@@ -389,15 +397,30 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
                 )
               }
               onChange={(e) =>
-                setSearchQuery(
-                  (e.target as HTMLInputElement).value.toLowerCase(),
-                )
+                handleSearch((e.target as HTMLInputElement).value, {
+                  isDebounced: true,
+                })
               }
             />
+            <div
+              css={{
+                marginLeft: -4,
+                marginTop: 5,
+                display: 'inline-block',
+              }}
+            >
+              <Checkbox
+                onChange={onExactSearchChange}
+                label="Exact search"
+                name="exact-search"
+                testId={testId && `${testId}-exact-search`}
+              />
+            </div>
           </FilterItem>
 
           <FilterItem>
             <DropdownMenu
+              testId={testId && `${testId}-filters`}
               trigger={({ triggerRef, ...props }) => (
                 <Button
                   {...props}
@@ -413,10 +436,11 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
             >
               <DropdownItemCheckboxGroup id="state" title="State">
                 <DropdownItemCheckbox
+                  testId={testId && `${testId}-filters-active`}
                   id="active"
                   isSelected={filterState.state.active}
                   onClick={() =>
-                    dispatchFilter({
+                    handleFilterChange({
                       type: 'state',
                       payload: {
                         active: !filterState.state.active,
@@ -427,10 +451,11 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
                   Active
                 </DropdownItemCheckbox>
                 <DropdownItemCheckbox
+                  testId={testId && `${testId}-filters-deprecated`}
                   id="deprecated"
                   isSelected={filterState.state.deprecated}
                   onClick={() =>
-                    dispatchFilter({
+                    handleFilterChange({
                       type: 'state',
                       payload: {
                         deprecated: !filterState.state.deprecated,
@@ -441,10 +466,11 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
                   Deprecated
                 </DropdownItemCheckbox>
                 <DropdownItemCheckbox
+                  testId={testId && `${testId}-filters-deleted`}
                   id="deleted"
                   isSelected={filterState.state.deleted}
                   onClick={() =>
-                    dispatchFilter({
+                    handleFilterChange({
                       type: 'state',
                       payload: {
                         deleted: !filterState.state.deleted,
@@ -463,16 +489,32 @@ const TokenExplorer = ({ scrollOffset }: TokenExplorerProps) => {
         </div>
       </div>
 
-      <p>
-        <small>{numberOfTokens} results below</small>
+      <p css={{ marginBottom: gridSize() * 3 }}>
+        <small>
+          {(searchQuery !== '' && searchedTokensMemo === undefined) ||
+          numberOfTokens === undefined
+            ? 'Loading results...'
+            : `${numberOfTokens} result${
+                numberOfTokens === 1 ? '' : 's'
+              } below`}
+        </small>
       </p>
 
-      <TokenGroups
-        scrollOffset={scrollOffset}
-        groups={filteredTokenGroups}
-        searchQuery={searchQuery}
-      />
-    </Fragment>
+      {searchQuery === '' ? (
+        <TokenGroups
+          testId={testId}
+          scrollOffset={scrollOffset}
+          groups={filteredTokenGroups}
+        />
+      ) : (
+        <TokenList
+          testId={testId}
+          isLoading={searchedTokensMemo === undefined}
+          list={searchedTokensMemo}
+          scrollOffset={scrollOffset}
+        />
+      )}
+    </div>
   );
 };
 

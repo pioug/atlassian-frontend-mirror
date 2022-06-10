@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { TransformedToken } from 'style-dictionary';
 
 import { token } from '../../../src';
 import {
@@ -8,14 +7,13 @@ import {
   getBoxShadow,
   getTextColorForBackground,
 } from '../../../src/utils/color-detection';
+import type { TransformedTokenMerged } from '../types';
 
 import CopyButton from './copy-button';
-import Highlight from './highlight';
 
 interface CopyButtonValueProps
-  extends Pick<TransformedToken, 'value' | 'original' | 'attributes'> {
+  extends Pick<TransformedTokenMerged, 'value' | 'original' | 'attributes'> {
   className?: string;
-  searchQuery?: string;
 }
 
 const CopyButtonValue = ({
@@ -23,7 +21,6 @@ const CopyButtonValue = ({
   original,
   attributes,
   className,
-  searchQuery,
 }: CopyButtonValueProps) => (
   <CopyButton
     copyValue={attributes?.group === 'shadow' ? undefined : original.value}
@@ -60,9 +57,7 @@ const CopyButtonValue = ({
     ]}
     className={className}
   >
-    {typeof value === 'string' && (
-      <Highlight highlight={searchQuery}>{original.value}</Highlight>
-    )}
+    {typeof value === 'string' && original.value}
   </CopyButton>
 );
 

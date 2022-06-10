@@ -23,9 +23,8 @@ export default md`
 
     - _Certain cookie restrictions may need to be disabled. \*_
 
-  - The 3rd party will need to reach out to Atlassian/an Atlassian representative and provide the following information to whitelist:
-    - _The domain that the 3rd Party application uses_
-    - _The name of the confluence tenant(s) that they want displayed through EP_
+  - The 3rd party will need to reach out to Atlassian/an Atlassian representative and provide the domain used by the 3rd party application for Atlassian to allowlist. For example, _**“teams.microsoft.com”**_
+    - _If applicable, please also provide the Confluence tenant resource(s) for the Confluence content that the 3rd party application is trying to load via Embedded Pages. For example, **\*.atlassian.net** or **\*.services.atlassian.com**_
 
   ## Temporary Prerequisite \*
 

@@ -34,4 +34,5 @@ export interface CardProps extends WithAnalyticsEventsProps {
   children?: React.ReactNode;
   showHoverPreview?: boolean;
   analyticsEvents?: AnalyticsFacade;
+  placeholder?: string;
 }

@@ -4,13 +4,11 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/core';
 import upperFirst from 'lodash/upperFirst';
 
-import EmptyState from '@atlaskit/empty-state';
-
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import SectionLink from '../../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
 import type { TokenGroup } from '../grouped-tokens';
-import noResultsImg from '../images/no-results.png';
 
+import NoResults from './no-results';
 import TokenList from './token-list';
 
 export interface TokenGroupsProps {
@@ -19,17 +17,17 @@ export interface TokenGroupsProps {
    */
   scrollOffset?: number;
   groups: TokenGroup[];
-  searchQuery?: string;
   hasDescription?: boolean;
   hasLifecycle?: boolean;
+  testId?: string;
 }
 
 const TokenGroups = ({
   groups,
   scrollOffset = 0,
-  searchQuery,
+  testId,
 }: TokenGroupsProps) => (
-  <Fragment>
+  <div data-testid={testId && `${testId}-token-groups`}>
     {groups.length > 0 ? (
       groups.map((group) => {
         const hasTokens = group.tokens.length > 0;
@@ -39,7 +37,7 @@ const TokenGroups = ({
         );
 
         return hasTokens || hasSubgroupTokens ? (
-          <Fragment key={group.name}>
+          <div key={group.name} data-testid={testId && `${testId}-token-group`}>
             <SectionLink level={2} id={group.name}>
               {upperFirst(group.name)}
             </SectionLink>
@@ -47,7 +45,7 @@ const TokenGroups = ({
               <TokenList
                 list={group.tokens}
                 scrollOffset={scrollOffset}
-                searchQuery={searchQuery}
+                testId={testId}
               />
             )}
 
@@ -60,34 +58,17 @@ const TokenGroups = ({
                   <TokenList
                     list={subgroup.tokens}
                     scrollOffset={scrollOffset}
-                    searchQuery={searchQuery}
                   />
                 </Fragment>
               ) : null,
             )}
-          </Fragment>
+          </div>
         ) : null;
       })
     ) : (
-      <EmptyState
-        header="No results found"
-        description={
-          <Fragment>
-            If you can't find what you're looking for, try using the token
-            wizard, visiting the{' '}
-            <a href="https://atlassian.design/components/tokens/usage">
-              usage guidelines
-            </a>
-            , or{' '}
-            <a href="https://atlassian.design/components/tokens/examples">
-              example guidelines
-            </a>
-          </Fragment>
-        }
-        imageUrl={noResultsImg}
-      />
+      <NoResults />
     )}
-  </Fragment>
+  </div>
 );
 
 export default TokenGroups;

@@ -57,6 +57,7 @@ export function CardWithURLRenderer(props: CardProps) {
     ui,
     showHoverPreview,
     analyticsEvents,
+    placeholder,
   } = props;
 
   // Wrapper around analytics.
@@ -129,6 +130,7 @@ export function CardWithURLRenderer(props: CardProps) {
     ui,
     showHoverPreview,
     analyticsEvents,
+    placeholder,
   };
 
   return (

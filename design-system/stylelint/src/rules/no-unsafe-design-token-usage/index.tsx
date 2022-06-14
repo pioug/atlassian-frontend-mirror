@@ -5,9 +5,10 @@ import type { RuleMessageFunc } from 'stylelint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
-import tokenNames from '@atlaskit/tokens/token-names';
+// import tokenNames from '@atlaskit/tokens/token-names';
 
-import { isFunction, isWord } from '../../utils/rules';
+import { isFunction, isVar, isWord } from '../../utils/rules';
+import { isToken } from '../../utils/tokens';
 
 type PluginFlags = {
   shouldEnsureFallbackUsage: boolean;
@@ -29,10 +30,6 @@ export const messages = stylelint.utils.ruleMessages(ruleName, {
   missingFallback: 'Token usage is missing a fallback.',
   hasFallback: 'Token usage has a fallback.',
 } as RuleMessage);
-
-const tokenSet = new Set<string>(Object.values(tokenNames));
-const isToken = (node: valueParser.Node): boolean =>
-  isWord(node) && tokenSet.has(node.value);
 
 const isInvalidToken = (node: valueParser.Node): boolean =>
   isWord(node) && node.value.startsWith('--ds-') && !isToken(node);
@@ -74,7 +71,7 @@ export default stylelint.createPlugin(
         const parsedValue = valueParser(decl.value);
 
         parsedValue.walk(node => {
-          if (!isFunction(node) || node.value !== 'var') {
+          if (!isFunction(node) || !isVar(node)) {
             return;
           }
 

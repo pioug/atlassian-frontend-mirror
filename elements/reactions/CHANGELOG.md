@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 21.3.3
+
+### Patch Changes
+
+- [`7f1dd280229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7f1dd280229) - Fix styling issue in the reaction emoji while hovering on it for the first time
+
 ## 21.3.2
 
 ### Patch Changes

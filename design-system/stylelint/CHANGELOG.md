@@ -1,5 +1,25 @@
 # @atlaskit/stylelint-design-system
 
+## 0.3.5
+
+### Patch Changes
+
+- [`ec850b9fc2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec850b9fc2d) - Improves lint coverage by ensuring all css variables are wrapped in a design token at the callsite.
+
+  For example, the following will now error:
+
+  ```
+  color: var(--adg3-color-R75);
+  ```
+
+  and request that you wrap it in a token:
+
+  ```
+  color: var(--ds-text-danger, var(--adg3-color-R75));
+  ```
+
+  In addition, named colors such as `red, white, violet` will now error.
+
 ## 0.3.4
 
 ### Patch Changes

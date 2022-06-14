@@ -1,7 +1,7 @@
 /** @jsx jsx */
+import React from 'react';
 import { jsx, css } from '@emotion/core';
 import Tooltip from '@atlaskit/tooltip';
-import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { token } from '@atlaskit/tokens';
@@ -56,30 +56,27 @@ export const ReactionTooltip = ({
   children,
   reaction: { users },
 }: Props) => {
-  if (!users || users.length === 0) {
-    return <Fragment>{React.Children.only(children)}</Fragment>;
-  }
-
-  const content = (
-    <div css={tooltipStyle}>
-      <ul>
-        {emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
-        {users.slice(0, TOOLTIP_USERS_LIMIT).map((user, index) => {
-          return <li key={index}>{user.displayName}</li>;
-        })}
-        {users.length > TOOLTIP_USERS_LIMIT ? (
-          <li css={footerStyle}>
-            <FormattedMessage
-              {...messages.otherUsers}
-              values={{
-                count: users.length - TOOLTIP_USERS_LIMIT,
-              }}
-            />
-          </li>
-        ) : null}
-      </ul>
-    </div>
-  );
+  const content =
+    !users || users.length === 0 ? null : (
+      <div css={tooltipStyle}>
+        <ul>
+          {emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
+          {users.slice(0, TOOLTIP_USERS_LIMIT).map((user, index) => {
+            return <li key={index}>{user.displayName}</li>;
+          })}
+          {users.length > TOOLTIP_USERS_LIMIT ? (
+            <li css={footerStyle}>
+              <FormattedMessage
+                {...messages.otherUsers}
+                values={{
+                  count: users.length - TOOLTIP_USERS_LIMIT,
+                }}
+              />
+            </li>
+          ) : null}
+        </ul>
+      </div>
+    );
 
   return (
     <Tooltip content={content} position="bottom">

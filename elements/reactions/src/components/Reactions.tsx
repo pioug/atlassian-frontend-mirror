@@ -29,7 +29,7 @@ const reactionStyle = css({
   margin: '2px 4px 0 4px',
 });
 
-const reactionsStyle = css({
+const wrapperStyle = css({
   display: 'flex',
   flexWrap: 'wrap',
   position: 'relative',
@@ -37,7 +37,7 @@ const reactionsStyle = css({
   borderRadius: '15px',
   // To allow to row spacing of 2px on wrap, and 0px on first row
   marginTop: '-2px',
-  '& > :first-of-type': { marginLeft: 0 },
+  '> :first-of-type > :first-child': { marginLeft: 0 },
 });
 
 export interface StateMapperProps {
@@ -200,7 +200,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
 
   render() {
     return (
-      <div css={reactionsStyle}>
+      <div css={wrapperStyle}>
         {this.props.reactions.map(this.renderReaction)}
         {this.renderPicker()}
       </div>

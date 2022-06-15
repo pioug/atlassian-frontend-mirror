@@ -6,6 +6,10 @@ import Tooltip from '../../src';
 
 export default () => (
   <Tooltip content="Hello World">
-    <Button appearance="primary">Hover over me</Button>
+    {(tooltipProps) => (
+      <Button appearance="primary" {...tooltipProps}>
+        Hover over me
+      </Button>
+    )}
   </Tooltip>
 );

@@ -5,17 +5,17 @@ import DropdownMenu, {
   DropdownItemRadioGroup,
 } from '../../src';
 
-const DropDownItemRadioDefaultSelectedExample = () => {
+const DropdownItemRadioExample = () => {
   return (
-    <DropdownMenu trigger="Page actions">
-      <DropdownItemRadioGroup id="actions">
-        <DropdownItemRadio id="edit" defaultSelected>
-          Edit
+    <DropdownMenu trigger="Views">
+      <DropdownItemRadioGroup title="Views" id="actions">
+        <DropdownItemRadio id="detail" defaultSelected>
+          Detail view
         </DropdownItemRadio>
-        <DropdownItemRadio id="move">Move</DropdownItemRadio>
+        <DropdownItemRadio id="list">List view</DropdownItemRadio>
       </DropdownItemRadioGroup>
     </DropdownMenu>
   );
 };
 
-export default DropDownItemRadioDefaultSelectedExample;
+export default DropdownItemRadioExample;

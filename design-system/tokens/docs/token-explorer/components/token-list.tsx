@@ -52,7 +52,7 @@ const TokenList = ({
           <th>Dark value</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody css={{ borderBottom: 0 }}>
         {isLoading ? (
           <Fragment>
             <TokenItem key={1} isLoading />

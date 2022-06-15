@@ -7,82 +7,91 @@ import tokenNames from '../artifacts/token-names';
 export default function plugin() {
   return {
     visitor: {
-      CallExpression(
-        path: NodePath<t.CallExpression>,
-        state: { opts: { shouldUseAutoFallback?: boolean } },
-      ) {
-        const tokenImportScope = getTokenImportScope(path);
-        if (!tokenImportScope) {
-          return;
-        }
-
-        // Check arguments have correct format
-        if (!path.node.arguments[0]) {
-          throw new Error(`token() requires at least one argument`);
-        } else if (!t.isStringLiteral(path.node.arguments[0])) {
-          throw new Error(`token() must have a string as the first argument`);
-        } else if (path.node.arguments.length > 2) {
-          throw new Error(
-            `token() does not accept ${path.node.arguments.length} arguments`,
-          );
-        }
-
-        // Check the token exists
-        const tokenName = path.node.arguments[0]
-          .value as keyof typeof tokenNames;
-        const cssTokenValue = tokenNames[tokenName];
-        if (!cssTokenValue) {
-          throw new Error(`token '${tokenName}' does not exist`);
-        }
-
-        var replacementNode: t.Node | undefined;
-
-        // if no fallback is set, optionally find one from the default theme
-        if (path.node.arguments.length < 2) {
-          if (state.opts.shouldUseAutoFallback) {
-            replacementNode = t.stringLiteral(
-              `var(${cssTokenValue}, ${getDefaultFallback(tokenName)})`,
-            );
-          } else {
-            replacementNode = t.stringLiteral(`var(${cssTokenValue})`);
-          }
-        }
-
-        // Handle fallbacks
-        const fallback = path.node.arguments[1];
-
-        if (t.isStringLiteral(fallback)) {
-          // String literals can be concatenated into css variable call
-          // Empty string fallbacks are ignored. For now, as the user did specify a fallback, no default is inserted
-          replacementNode = t.stringLiteral(
-            fallback.value
-              ? `var(${cssTokenValue}, ${fallback.value})`
-              : `var(${cssTokenValue})`,
-          );
-        } else if (t.isExpression(fallback)) {
-          // Expressions should be placed in a template string/literal
-          replacementNode = t.templateLiteral(
-            [
-              t.templateElement(
-                {
-                  cooked: `var(${cssTokenValue}, `,
-                  // Currently we create a "raw" value by inserting escape characters via regex (https://github.com/babel/babel/issues/9242)
-                  raw: `var(${cssTokenValue.replace(/\\|`|\${/g, '\\$&')}, `,
-                },
-                false,
-              ),
-              t.templateElement({ raw: ')', cooked: ')' }, true),
-            ],
-            [fallback],
-          );
-        }
-
-        // Replace path and call scope.crawl() to refresh the scope bindings + references
-        replacementNode && path.replaceWith(replacementNode);
-        // @ts-ignore crawl is a valid property
-        tokenImportScope.crawl();
-      },
       Program: {
+        enter(
+          path: NodePath<t.Program>,
+          state: { opts: { shouldUseAutoFallback?: boolean } },
+        ) {
+          path.traverse({
+            CallExpression(path: NodePath<t.CallExpression>) {
+              const tokenImportScope = getTokenImportScope(path);
+              if (!tokenImportScope) {
+                return;
+              }
+
+              // Check arguments have correct format
+              if (!path.node.arguments[0]) {
+                throw new Error(`token() requires at least one argument`);
+              } else if (!t.isStringLiteral(path.node.arguments[0])) {
+                throw new Error(
+                  `token() must have a string as the first argument`,
+                );
+              } else if (path.node.arguments.length > 2) {
+                throw new Error(
+                  `token() does not accept ${path.node.arguments.length} arguments`,
+                );
+              }
+
+              // Check the token exists
+              const tokenName = path.node.arguments[0]
+                .value as keyof typeof tokenNames;
+              const cssTokenValue = tokenNames[tokenName];
+              if (!cssTokenValue) {
+                throw new Error(`token '${tokenName}' does not exist`);
+              }
+
+              var replacementNode: t.Node | undefined;
+
+              // if no fallback is set, optionally find one from the default theme
+              if (path.node.arguments.length < 2) {
+                if (state.opts.shouldUseAutoFallback) {
+                  replacementNode = t.stringLiteral(
+                    `var(${cssTokenValue}, ${getDefaultFallback(tokenName)})`,
+                  );
+                } else {
+                  replacementNode = t.stringLiteral(`var(${cssTokenValue})`);
+                }
+              }
+
+              // Handle fallbacks
+              const fallback = path.node.arguments[1];
+
+              if (t.isStringLiteral(fallback)) {
+                // String literals can be concatenated into css variable call
+                // Empty string fallbacks are ignored. For now, as the user did specify a fallback, no default is inserted
+                replacementNode = t.stringLiteral(
+                  fallback.value
+                    ? `var(${cssTokenValue}, ${fallback.value})`
+                    : `var(${cssTokenValue})`,
+                );
+              } else if (t.isExpression(fallback)) {
+                // Expressions should be placed in a template string/literal
+                replacementNode = t.templateLiteral(
+                  [
+                    t.templateElement(
+                      {
+                        cooked: `var(${cssTokenValue}, `,
+                        // Currently we create a "raw" value by inserting escape characters via regex (https://github.com/babel/babel/issues/9242)
+                        raw: `var(${cssTokenValue.replace(
+                          /\\|`|\${/g,
+                          '\\$&',
+                        )}, `,
+                      },
+                      false,
+                    ),
+                    t.templateElement({ raw: ')', cooked: ')' }, true),
+                  ],
+                  [fallback],
+                );
+              }
+
+              // Replace path and call scope.crawl() to refresh the scope bindings + references
+              replacementNode && path.replaceWith(replacementNode);
+              // @ts-ignore crawl is a valid property
+              tokenImportScope.crawl();
+            },
+          });
+        },
         exit(path: NodePath<t.Program>) {
           path.traverse({
             ImportDeclaration(path) {

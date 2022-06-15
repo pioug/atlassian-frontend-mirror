@@ -159,15 +159,21 @@ const PositionExample = () => {
           position={tooltipPosition}
           mousePosition={mousePosition}
         >
-          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
-          <BigTarget color="blue">
-            <span>Target</span>
-            <span>Position: {tooltipPosition}</span>
-            <span>
-              {state.positionType === 'mouse' &&
-                `mousePosition: ${String(mousePosition)}`}
-            </span>
-          </BigTarget>
+          {(tooltipProps) => (
+            <BigTarget
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+              color="blue"
+              tabIndex={0}
+              {...tooltipProps}
+            >
+              <span>Target</span>
+              <span>Position: {tooltipPosition}</span>
+              <span>
+                {state.positionType === 'mouse' &&
+                  `mousePosition: ${String(mousePosition)}`}
+              </span>
+            </BigTarget>
+          )}
         </Tooltip>
       </div>
     </ContainerDiv>

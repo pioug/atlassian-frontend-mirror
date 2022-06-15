@@ -18,16 +18,19 @@ const HoverIntent = () => {
       <div style={{ display: 'flex', marginTop: 10 }}>
         {colors.map((c, i) => (
           <Tooltip key={c} content={`Content ${i + 1}`} position={position}>
-            <Target
-              onClick={() =>
-                setPosition(position === 'bottom' ? 'mouse' : 'bottom')
-              }
-              color={c}
-              style={{ marginRight: 8 }}
-              tabIndex={0}
-            >
-              Target {i + 1}
-            </Target>
+            {({ onClick, ...tooltipProps }) => (
+              <Target
+                onClick={() =>
+                  setPosition(position === 'bottom' ? 'mouse' : 'bottom')
+                }
+                color={c}
+                style={{ marginRight: 8 }}
+                tabIndex={0}
+                {...tooltipProps}
+              >
+                Target {i + 1}
+              </Target>
+            )}
           </Tooltip>
         ))}
       </div>

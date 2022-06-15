@@ -52,7 +52,11 @@ const Position = forwardRef<HTMLDivElement, PosTypes>(
     return (
       <div css={positionStyles} ref={ref} style={dynamicStyles}>
         <Tooltip content={`Position "${pos}"`}>
-          <Target color={color[pos]}>{capitalize(pos)}</Target>
+          {(tooltipProps) => (
+            <Target color={color[pos]} tabIndex={0} {...tooltipProps}>
+              {capitalize(pos)}
+            </Target>
+          )}
         </Tooltip>
         <p>
           Tooltip container position is <code>{pos}</code>.

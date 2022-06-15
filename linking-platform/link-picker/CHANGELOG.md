@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 0.8.0
+
+### Minor Changes
+
+- [`1e371fd8d23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e371fd8d23) - Updates link picker to support array of plugins. Removes intl prop from LinkPickerProps type.
+
 ## 0.7.0
 
 ### Minor Changes

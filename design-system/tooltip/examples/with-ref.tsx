@@ -33,7 +33,7 @@ export default () => {
 
   return (
     <Tooltip content="Hello World" tag={CustomisedTagWithRef}>
-      <Button>Hover Over Me</Button>
+      {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
     </Tooltip>
   );
 };

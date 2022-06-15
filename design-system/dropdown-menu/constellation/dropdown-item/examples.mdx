@@ -1,21 +1,18 @@
 ---
 title: Dropdown item
-description: A dropdown item populates the dropdown menu with items. Every item should be inside a dropdown item group.
+description: A dropdown item is an action a user can perform displayed in a group.
 order: 0
 ---
 import DropdownItemDescription from '../../examples/constellation/dropdown-item-description';
 import DropdownItemMultiline from '../../examples/constellation/dropdown-item-multiline';
 import DropdownItemDescriptionMultiline from '../../examples/constellation/dropdown-item-description-multiline';
-
 import DropdownItemDisabled from '../../examples/constellation/dropdown-item-disabled';
-
 import DropdownItemElementBefore from '../../examples/constellation/dropdown-item-elem-before';
 import DropdownItemElementAfter from '../../examples/constellation/dropdown-item-elem-after';
 
-
 ## Description
 
-Description of the item. This renders smaller text below the item’s primary text, while also slightly increasing the height of the item.
+Use `description` to add supplementary text under the main action.
 
 <Example
   Component={DropdownItemDescription}
@@ -24,14 +21,17 @@ Description of the item. This renders smaller text below the item’s primary te
 
 ## Multiline
 
-Use `shouldTitleWrap` to allow the primary content to wrap over multiple lines. Defaults to `true`.
+Use `shouldTitleWrap` to allow the primary content to wrap over multiple lines.
+Defaults to `true`.
 
 <Example
   Component={DropdownItemMultiline}
   packageName="@atlaskit/dropdown-menu"
 />
 
-Use `shouldDescriptionWrap` to allow the description to wrap over multiple lines. Defaults to `true`.
+Use `shouldDescriptionWrap` to allow the description to wrap over multiple lines.
+Defaults to `true`.
+
 <Example
   Component={DropdownItemDescriptionMultiline}
   packageName="@atlaskit/dropdown-menu"
@@ -41,7 +41,8 @@ Use `shouldDescriptionWrap` to allow the description to wrap over multiple lines
 
 ### Disabled
 
-Use `isDisabled` to make the element appear disabled and remove interactivity.
+Use `isDisabled` to make the element appear disabled.
+This will remove interactivity and hide it from screen readers.
 
 <Example
   Component={DropdownItemDisabled}
@@ -50,18 +51,20 @@ Use `isDisabled` to make the element appear disabled and remove interactivity.
 
 ## With elements
 
-### Element before
+### Elem before
 
-Use `elemBefore` to render the element before the item text. Generally, this should be an `icon` component.
+Use `elemBefore` to show an element before the dropdown item text.
+Generally this should be an [icon](/components/icon).
 
 <Example
   Component={DropdownItemElementBefore}
   packageName="@atlaskit/dropdown-menu"
 />
 
-### Element after
+### Elem after
 
-Use `elemAfter` to render the element after the item text. Generally, this should be an `icon` component.
+Use `elemAfter` to show an element after the dropdown item text.
+Generally this should be an [icon](/components/icon).
 
 <Example
   Component={DropdownItemElementAfter}

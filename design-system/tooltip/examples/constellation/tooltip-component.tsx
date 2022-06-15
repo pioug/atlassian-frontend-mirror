@@ -19,6 +19,10 @@ const InlineDialog = styled(TooltipPrimitive)`
 
 export default () => (
   <Tooltip component={InlineDialog} content="Hello World">
-    <Button appearance="primary">Hover Over Me</Button>
+    {(tooltipProps) => (
+      <Button appearance="primary" {...tooltipProps}>
+        Hover Over Me
+      </Button>
+    )}
   </Tooltip>
 );

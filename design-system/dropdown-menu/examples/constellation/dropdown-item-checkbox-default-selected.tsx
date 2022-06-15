@@ -5,17 +5,18 @@ import DropdownMenu, {
   DropdownItemCheckboxGroup,
 } from '../../src';
 
-const DropdownItemCheckboxDefaultSelectedExample = () => {
+const DropdownItemCheckboxExample = () => {
   return (
-    <DropdownMenu trigger="Page actions">
-      <DropdownItemCheckboxGroup id="actions">
-        <DropdownItemCheckbox id="delete" defaultSelected>
-          Delete
+    <DropdownMenu trigger="Status">
+      <DropdownItemCheckboxGroup title="Categories" id="actions">
+        <DropdownItemCheckbox id="todo" defaultSelected>
+          To do
         </DropdownItemCheckbox>
-        <DropdownItemCheckbox id="copy">Copy</DropdownItemCheckbox>
+        <DropdownItemCheckbox id="inprogress">In progress</DropdownItemCheckbox>
+        <DropdownItemCheckbox id="done">Done</DropdownItemCheckbox>
       </DropdownItemCheckboxGroup>
     </DropdownMenu>
   );
 };
 
-export default DropdownItemCheckboxDefaultSelectedExample;
+export default DropdownItemCheckboxExample;

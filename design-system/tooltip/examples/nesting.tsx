@@ -9,15 +9,18 @@ import Tooltip from '../src';
 function Example() {
   return (
     <Tooltip content="Outer tooltip">
-      <Button
-        iconAfter={
-          <Tooltip content="Inner tooltip" position="right">
-            <AddIcon label="inner" size="small" />
-          </Tooltip>
-        }
-      >
-        Hover Over Me Or My Icon
-      </Button>
+      {(tooltipProps) => (
+        <Button
+          iconAfter={
+            <Tooltip content="Inner tooltip" position="right">
+              <AddIcon label="inner" size="small" />
+            </Tooltip>
+          }
+          {...tooltipProps}
+        >
+          Hover Over Me Or My Icon
+        </Button>
+      )}
     </Tooltip>
   );
 }

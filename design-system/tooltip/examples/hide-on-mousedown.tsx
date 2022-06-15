@@ -7,7 +7,9 @@ import Tooltip from '../src';
 export default () => (
   <React.Fragment>
     <Tooltip content="Hello World" hideTooltipOnMouseDown>
-      <Button>Mousedown event hides the tooltip</Button>
+      {(tooltipProps) => (
+        <Button {...tooltipProps}>Mousedown event hides the tooltip</Button>
+      )}
     </Tooltip>
     <p>
       Tooltip will hides when mouse down event is triggered (when you start

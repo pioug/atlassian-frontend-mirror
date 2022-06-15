@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.1.0
+
+### Minor Changes
+
+- [`163e573186e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/163e573186e) - Support localization based on locale info provided by parent product
+
 ## 1.0.1
 
 ### Patch Changes

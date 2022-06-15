@@ -21,14 +21,17 @@ const PositionExample = () => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div style={{ padding: '40px 40px' }}>
       <Tooltip content={positionText} position={positionText}>
-        <Button
-          appearance="primary"
-          onClick={() => {
-            setPosition((position + 1) % VALID_POSITIONS.length);
-          }}
-        >
-          Target
-        </Button>
+        {({ onClick, ...tooltipProps }) => (
+          <Button
+            appearance="primary"
+            onClick={() => {
+              setPosition((position + 1) % VALID_POSITIONS.length);
+            }}
+            {...tooltipProps}
+          >
+            Target
+          </Button>
+        )}
       </Tooltip>
     </div>
   );

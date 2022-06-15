@@ -1,6 +1,6 @@
 ---
 title: Dropdown item checkbox
-description: A dropdown item checkbox creates groups that have multiple selections.
+description: A dropdown item checkbox lets users select items from a list of options.
 order: 0
 ---
 import DropdownItemCheckboxDefaultSelected from '../../examples/constellation/dropdown-item-checkbox-default-selected';
@@ -8,7 +8,9 @@ import DropdownItemCheckboxSelected from '../../examples/constellation/dropdown-
 
 ## Default selected
 
-Use `defaultSelected` to make the item appear checked. The user may interact with the item after mount. 
+This makes the checkbox item selected when initially opened.
+Use `defaultSelected` when not controlling the checkbox item state.
+
 
 <Example
   Component={DropdownItemCheckboxDefaultSelected}
@@ -17,7 +19,8 @@ Use `defaultSelected` to make the item appear checked. The user may interact wit
 
 ## Selected
 
-Use `isSelected` to make the item appear checked. It can be set at mount time and updated after mount.
+This makes the checkbox item selected when `true`.
+Use `isSelected` when controlling the checkbox item state.
 
 <Example
   Component={DropdownItemCheckboxSelected}

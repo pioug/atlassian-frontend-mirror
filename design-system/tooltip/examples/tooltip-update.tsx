@@ -23,13 +23,16 @@ export default () => {
         return message;
       }}
     >
-      <Button
-        onClick={() =>
-          setMessage(message === shortMessage ? longMessage : shortMessage)
-        }
-      >
-        Click to toggle tooltip
-      </Button>
+      {({ onClick, ...tooltipProps }) => (
+        <Button
+          onClick={() =>
+            setMessage(message === shortMessage ? longMessage : shortMessage)
+          }
+          {...tooltipProps}
+        >
+          Click to toggle tooltip
+        </Button>
+      )}
     </Tooltip>
   );
 };

@@ -80,6 +80,7 @@ const CopyToClipboard = ({
         return copyMessage;
       }}
       onHide={resetPrompt}
+      position="top"
     >
       {children({ copy: onCopy })}
     </ToolTip>

@@ -6,8 +6,10 @@ import Tooltip from '../src';
 
 export default () => (
   <Tooltip content="Design System Tooltip" position="right">
-    <Button title="Native tooltip">
-      Hover Over Me - I have a title attribute
-    </Button>
+    {(tooltipProps) => (
+      <Button title="Native tooltip" {...tooltipProps}>
+        Hover Over Me - I have a title attribute
+      </Button>
+    )}
   </Tooltip>
 );

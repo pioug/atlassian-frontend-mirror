@@ -73,7 +73,7 @@ const TokenItem = ({
   isLoading || transformedToken !== undefined ? (
     <tr
       css={{
-        borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
+        borderTop: `1px solid ${token('color.border', '#091E4224')}`,
       }}
       data-testid={testId && `${testId}-token-item`}
     >

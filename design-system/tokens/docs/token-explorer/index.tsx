@@ -374,7 +374,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
               }
               elemAfterInput={
                 searchQuery && (
-                  <ToolTip content="Clear search">
+                  <ToolTip content="Clear search" position="top">
                     <FocusRing>
                       <button
                         type="button"

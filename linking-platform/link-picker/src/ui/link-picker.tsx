@@ -52,7 +52,7 @@ interface OnSubmitParameter {
   rawUrl?: string;
 }
 
-interface BaseProps {
+export interface LinkPickerProps {
   /** Callback to fire on form submission. */
   onSubmit: (arg: OnSubmitParameter) => void;
   /** Callback to fire when the cancel button is clicked. */
@@ -62,10 +62,8 @@ interface BaseProps {
   /** The desired text to be displayed alternatively to the title of the linked resource for editing. */
   displayText?: string | null;
   /** Plugins that provide link suggestions / search capabilities. */
-  plugins?: [LinkPickerPlugin];
+  plugins?: LinkPickerPlugin[];
 }
-
-export type LinkPickerProps = WrappedComponentProps & BaseProps;
 
 export interface State {
   items: LinkSearchListItemData[];
@@ -77,13 +75,16 @@ export interface State {
   invalidUrl: string | null;
 }
 
-export class LinkPicker extends PureComponent<LinkPickerProps, State> {
+class LinkPicker extends PureComponent<
+  WrappedComponentProps & LinkPickerProps,
+  State
+> {
   private wrapperRef: RefObject<HTMLDivElement> = React.createRef();
   private handleClearUrl: () => void;
   private handleClearDisplayText: () => void;
   private queryVersion: number = 0;
 
-  constructor(props: LinkPickerProps) {
+  constructor(props: WrappedComponentProps & LinkPickerProps) {
     super(props);
 
     this.state = {
@@ -114,7 +115,7 @@ export class LinkPicker extends PureComponent<LinkPickerProps, State> {
   }
 
   private getActivePlugin() {
-    if (!this.props.plugins) {
+    if (!this.props.plugins || this.props.plugins.length === 0) {
       return null;
     }
 
@@ -538,6 +539,4 @@ function limit<T>(items: Array<T>) {
   return items.slice(0, RECENT_SEARCH_LIST_SIZE);
 }
 
-export const LinkPickerWithIntl = injectIntl(
-  LinkPicker as React.ComponentClass<LinkPickerProps>,
-);
+export const LinkPickerWithIntl = injectIntl(LinkPicker);

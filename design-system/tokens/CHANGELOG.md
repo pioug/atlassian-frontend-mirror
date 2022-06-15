@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.6
+
+### Patch Changes
+
+- [`04fc3d5c658`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04fc3d5c658) - Run token transform earlier by hooking into Program visitor
+
 ## 0.10.5
 
 ### Patch Changes

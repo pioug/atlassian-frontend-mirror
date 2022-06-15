@@ -25,6 +25,7 @@ export default md`
 
   - The 3rd party will need to reach out to Atlassian/an Atlassian representative and provide the domain used by the 3rd party application for Atlassian to allowlist. For example, _**“teams.microsoft.com”**_
     - _If applicable, please also provide the Confluence tenant resource(s) for the Confluence content that the 3rd party application is trying to load via Embedded Pages. For example, **\*.atlassian.net** or **\*.services.atlassian.com**_
+    - _The embedding product should use an agreed upon key to set the required property,_ \`parentProduct\` _for EP components. This key is used to check for the whitelisted domains and tenants for the parent product. For example: **JSM** has to set_ \`parentProduct={'JSM'}\` _as a property for_ \`ViewPage\` _and_ \`EditPage\` _components._
 
   ## Temporary Prerequisite \*
 

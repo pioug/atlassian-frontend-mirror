@@ -29,9 +29,16 @@ const PositionExample: FC<Props> = ({ color = 'blue' }) => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div style={{ padding: '40px 40px' }}>
       <Tooltip content={positionText} position={positionText}>
-        <Target color={color} onClick={changeDirection}>
-          Target
-        </Target>
+        {({ onClick, ...tooltipProps }) => (
+          <Target
+            color={color}
+            tabIndex={0}
+            onClick={changeDirection}
+            {...tooltipProps}
+          >
+            Target
+          </Target>
+        )}
       </Tooltip>
     </div>
   );

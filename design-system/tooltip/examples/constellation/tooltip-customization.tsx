@@ -19,7 +19,7 @@ const TooltipCustomizationExample = () => (
     component={InlineDialog}
     content="This tooltip is styled like an inline dialog"
   >
-    <Button>Hover Over Me</Button>
+    {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
   </Tooltip>
 );
 

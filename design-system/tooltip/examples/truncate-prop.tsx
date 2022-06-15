@@ -45,20 +45,26 @@ const Image = () => {
       <Checkbox onChange={toggle}>Truncate text</Checkbox>
       <div style={{ display: 'flex' }}>
         <Tooltip content={content} truncate={truncate}>
-          <img
-            alt="Red panda - smiling"
-            src={srcSmiling}
-            style={{ borderRadius: 4, marginTop: 4, marginRight: 4 }}
-            width="220"
-          />
+          {(tooltipProps) => (
+            <img
+              alt="Red panda - smiling"
+              src={srcSmiling}
+              style={{ borderRadius: 4, marginTop: 4, marginRight: 4 }}
+              width="220"
+              {...tooltipProps}
+            />
+          )}
         </Tooltip>
         <Tooltip content="At the Cincinati Zoo" truncate={truncate}>
-          <img
-            alt="Red panda - walking"
-            src={srcWalking}
-            style={{ borderRadius: 4, marginTop: 4 }}
-            width="220"
-          />
+          {(tooltipProps) => (
+            <img
+              alt="Red panda - walking"
+              src={srcWalking}
+              style={{ borderRadius: 4, marginTop: 4 }}
+              width="220"
+              {...tooltipProps}
+            />
+          )}
         </Tooltip>
       </div>
     </div>

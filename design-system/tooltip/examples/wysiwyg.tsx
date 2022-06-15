@@ -21,7 +21,7 @@ const Toolbar = styled.div`
   display: flex;
   padding: 5px;
 `;
-const Action = styled.div`
+const Action = styled.button`
   align-items: center;
   border-radius: 3px;
   display: flex;
@@ -50,7 +50,7 @@ export default function WysiwygExample() {
     <Toolbar>
       {Object.keys(ACTIONS).map((a) => (
         <Tooltip key={a} content={a} position="top">
-          <Action>{ACTIONS[a]}</Action>
+          {(tooltipProps) => <Action {...tooltipProps}>{ACTIONS[a]}</Action>}
         </Tooltip>
       ))}
     </Toolbar>

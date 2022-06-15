@@ -33,7 +33,7 @@ const CustomizedTagExample = () => {
 
   return (
     <Tooltip content="Hello world" tag={CustomizedTagWithRef}>
-      <Button>Hover over me</Button>
+      {(tooltipProps) => <Button {...tooltipProps}>Hover over me</Button>}
     </Tooltip>
   );
 };

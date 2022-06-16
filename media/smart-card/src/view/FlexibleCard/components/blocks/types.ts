@@ -65,7 +65,8 @@ export type ElementItem = {
     | ElementName.State
     | ElementName.SubscriberCount
     | ElementName.ViewCount
-    | ElementName.VoteCount;
+    | ElementName.VoteCount
+    | ElementName.LatestCommit;
 
   /**
    * The size of the element to render.

@@ -14,6 +14,7 @@ import {
   ReactCount,
   VoteCount,
   Provider,
+  LatestCommit,
 } from '../src/view/FlexibleCard/components/elements';
 import { IconType, SmartLinkSize } from '../src/constants';
 
@@ -33,6 +34,7 @@ const context = getContext({
   priority: { icon: IconType.PriorityLow },
   programmingLanguage: 'JS',
   subscriberCount: 999,
+  latestCommit: '1d2adc2',
 });
 
 export default () => (
@@ -67,6 +69,7 @@ export default () => (
             <Priority icon={IconType.PriorityUndefined} />
             <Provider />
             <Provider label="Provider" />
+            <LatestCommit size={size} testId="vr-test-badge-latest-commit" />
           </HorizontalWrapper>
         </React.Fragment>
       ))}

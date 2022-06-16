@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 19.1.20
+
+### Patch Changes
+
+- [`0b7abdcf058`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b7abdcf058) - Flexible UI: Fix PreviewBlock not showing image loading skeleton
+
+## 19.1.19
+
+### Patch Changes
+
+- [`f7aedc6cf7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f7aedc6cf7d) - [ux] A new element 'LatestCommit' was added in FlexibleUI for Smart Links. It displays the latest commit of a repository. Version of package 'json-ld-types' was upgraded to 2.4.2
+- Updated dependencies
+
 ## 19.1.18
 
 ### Patch Changes

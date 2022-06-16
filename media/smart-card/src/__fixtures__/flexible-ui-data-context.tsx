@@ -37,6 +37,7 @@ const context: FlexibleUiDataContext = {
     icon: 'Provider:Confluence' as IconType,
     label: 'Confluence',
   },
+  latestCommit: '03e6a82',
 };
 
 export default context;

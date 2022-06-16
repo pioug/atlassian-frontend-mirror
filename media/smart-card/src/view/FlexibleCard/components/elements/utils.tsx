@@ -72,6 +72,10 @@ const elementMappings: Record<
   [ElementName.CreatedOn]: { component: DateTime },
   [ElementName.ModifiedOn]: { component: DateTime },
   [ElementName.Provider]: { component: Badge },
+  [ElementName.LatestCommit]: {
+    component: Badge,
+    props: { icon: IconType.Commit },
+  },
 };
 
 const getContextKey = (name: ElementName) => {
@@ -102,6 +106,7 @@ const getData = (
     case ElementName.VoteCount:
     case ElementName.ProgrammingLanguage:
     case ElementName.SubscriberCount:
+    case ElementName.LatestCommit:
       return toBadgeProps(data as string);
     case ElementName.CreatedBy:
       return toFormattedTextProps(messages.created_by, context.createdBy);

@@ -28,6 +28,7 @@ import {
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
+import { extractLatestCommit } from './latest-commit';
 
 const extractFlexibleUiContext = (
   response?: JsonLd.Response,
@@ -58,6 +59,7 @@ const extractFlexibleUiContext = (
     subscriberCount: extractSubscriberCount(data),
     title: extractTitle(data) || url,
     provider: extractProviderIcon(data),
+    latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
     url,
   };
 };

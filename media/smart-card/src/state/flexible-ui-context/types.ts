@@ -125,6 +125,11 @@ export type FlexibleUiDataContext = {
    * @see Provider
    */
   provider?: Icon;
+
+  /**
+   * Contains the information about the latest commit in the repository
+   */
+  latestCommit?: string;
 };
 
 export type Icon = {

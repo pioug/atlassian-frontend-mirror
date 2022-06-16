@@ -29,7 +29,8 @@ const styles = css`
     overflow: hidden;
   }
 
-  > img {
+  > img,
+  > span {
     min-height: 100%;
     min-width: 100%;
     max-height: 100%;

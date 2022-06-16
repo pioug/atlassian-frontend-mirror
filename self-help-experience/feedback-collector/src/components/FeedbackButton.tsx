@@ -24,11 +24,11 @@ interface Props {
 const FeedbackButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);
-  const { locale, formatMessage } = useIntl();
+  const { formatMessage } = useIntl();
   const { embeddableKey, requestTypeId, email } = props;
 
   return (
-    <IntlProviderWithResolvedMessages locale={locale}>
+    <>
       <Button
         onClick={() => setIsOpen(true)}
         iconBefore={
@@ -54,8 +54,17 @@ const FeedbackButton = (props: Props) => {
       <FlagGroup onDismissed={() => setDisplayFlag(false)}>
         {displayFlag && <FeedbackFlag />}
       </FlagGroup>
+    </>
+  );
+};
+
+const FeedbackButtonWithIntl: React.FunctionComponent<Props> = (props) => {
+  const { locale } = useIntl();
+  return (
+    <IntlProviderWithResolvedMessages locale={locale}>
+      <FeedbackButton {...props} />
     </IntlProviderWithResolvedMessages>
   );
 };
 
-export default FeedbackButton;
+export default FeedbackButtonWithIntl;

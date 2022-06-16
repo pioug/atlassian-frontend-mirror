@@ -202,6 +202,7 @@ describe('createElement', () => {
       [ElementName.State, 'state'],
       [ElementName.SubscriberCount, 'subscriberCount'],
       [ElementName.Title, 'title'],
+      [ElementName.LatestCommit, 'latestCommit'],
     ])('returns null on render %s', async (name: ElementName, key: string) => {
       const Component = createElement(name);
       const { queryByTestId } = renderComponent(

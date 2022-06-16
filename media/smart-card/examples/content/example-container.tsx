@@ -36,6 +36,7 @@ const context = getContext({
   voteCount: 4,
   url:
     'https://atlaskit.atlassian.com/packages/media/smart-card/docs/flexible-ui',
+  latestCommit: '64862f5',
 });
 
 const renderChildren = (children: React.ReactNode): React.ReactNode =>

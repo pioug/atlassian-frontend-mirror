@@ -130,3 +130,16 @@ export const TEST_DOCUMENT_WITH_PREVIEW = {
   ...TEST_DOCUMENT,
   preview: PREVIEW,
 };
+
+export const TEST_DATA_WITH_LATEST_COMMIT_OBJ = {
+  ...TEST_BASE_DATA,
+  'atlassian:latestCommit': {
+    '@type': 'atlassian:SourceCodeCommit',
+    name: '83f45c9',
+  },
+};
+
+export const TEST_DATA_WITH_LATEST_COMMIT_TEXT = {
+  ...TEST_BASE_DATA,
+  'atlassian:latestCommit': '83f45c9',
+};

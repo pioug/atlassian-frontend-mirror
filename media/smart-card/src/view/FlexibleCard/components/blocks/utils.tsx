@@ -40,6 +40,7 @@ export const ElementDisplaySchema: Record<
   [ElementName.SubscriberCount]: ['inline'],
   [ElementName.Title]: ['inline'],
   [ElementName.Provider]: ['inline'],
+  [ElementName.LatestCommit]: ['inline'],
 };
 
 const getDirectionStyles = (

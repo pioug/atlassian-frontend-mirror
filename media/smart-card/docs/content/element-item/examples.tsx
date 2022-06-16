@@ -77,6 +77,18 @@ ${(
   />
 )}
 
+### Latest Commit
+A \`LatestCommit\` element shows the latest commit to a given repository.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/element-latest-commit').default
+    }
+    source={require('!!raw-loader!../../../examples/content/element-latest-commit')}
+  />
+)}
+
 ### Modified by
 
 A \`ModifiedBy\` element shows the name of the last person who has updated the link resource.

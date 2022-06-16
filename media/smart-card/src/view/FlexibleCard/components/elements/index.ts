@@ -57,6 +57,10 @@ export const CreatedBy = createElement<TextProps>(ElementName.CreatedBy);
  */
 export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
 /**
+ * Creates an element that contains Last Commit hash
+ */
+export const LatestCommit = createElement<BadgeProps>(ElementName.LatestCommit);
+/**
  * Creates a LinkIcon Icon element using the data from LinkIcon in the Flexible UI Context.
  * @see Icon
  */

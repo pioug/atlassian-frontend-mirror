@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.5.3
+
+### Patch Changes
+
+- [`92ec4fcb6f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92ec4fcb6f9) - [ux] Fix message translations not being displayed for the user's language.
+
 ## 10.5.2
 
 ### Patch Changes

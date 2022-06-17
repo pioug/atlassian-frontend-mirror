@@ -1,4 +1,5 @@
 import { JsonLd } from 'json-ld-types';
+import { ElementName } from '../../constants';
 
 export const HOVER_CARD_ANALYTICS_DISPLAY = 'flexible';
 
@@ -9,21 +10,30 @@ export const getSimulatedMetadata = (
     case 'confluence-object-provider':
       return {
         metadata: {
-          primary: ['AuthorGroup', 'CreatedBy', 'CommentCount', 'ReactCount'],
+          primary: [
+            ElementName.AuthorGroup,
+            ElementName.CreatedBy,
+            ElementName.CommentCount,
+            ElementName.ReactCount,
+          ],
           secondary: [],
         },
       };
     case 'jira-object-provider':
       return {
         metadata: {
-          primary: ['AuthorGroup', 'State', 'Priority'],
+          primary: [
+            ElementName.AuthorGroup,
+            ElementName.State,
+            ElementName.Priority,
+          ],
           secondary: [],
         },
       };
     default:
       return {
         metadata: {
-          primary: ['ModifiedOn'],
+          primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
           secondary: [],
         },
       };

@@ -91,6 +91,20 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
   }
 };
 
+export const getMaxLineHeight = (size: SmartLinkSize) => {
+  // The maximum line height based on all elements in specific size.
+  // These heights belongs to AvatarGroup.
+  switch (size) {
+    case SmartLinkSize.XLarge:
+    case SmartLinkSize.Large:
+      return 1.75;
+    case SmartLinkSize.Medium:
+    case SmartLinkSize.Small:
+    default:
+      return 1.5;
+  }
+};
+
 export const getMaxLines = (
   value: number,
   defaultValue: number,
@@ -121,7 +135,9 @@ export const getTruncateStyles = (
     -webkit-line-clamp: ${maxLines};
     -webkit-box-orient: vertical;
     // Fallback options
-    max-height: calc(${maxLines} * ${lineHeight});
+    @supports not (-webkit-line-clamp: 1) {
+      max-height: calc(${maxLines} * ${lineHeight});
+    }
   `;
 
 export const hasWhiteSpace = (str: string): boolean => {

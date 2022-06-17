@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::72839d415565553fa9a4a239d93dc7e1>>
+ * @codegen <<SignedSource::72c4c7f8d16e9e200a1e7d4b601e83f8>>
  * @codegenCommand yarn build tokens
  */
 html[data-theme="dark"] {
@@ -20,6 +20,8 @@ html[data-theme="dark"] {
   --ds-text-accent-teal-bolder: #C1F0F5;
   --ds-text-accent-magenta: #F797D2;
   --ds-text-accent-magenta-bolder: #FDD0EC;
+  --ds-text-accent-gray: #9FADBC;
+  --ds-text-accent-gray-bolder: #C7D1DB;
   --ds-text: #C7D1DB;
   --ds-text-subtle: #9FADBC;
   --ds-text-subtlest: #8696A7;
@@ -48,6 +50,7 @@ html[data-theme="dark"] {
   --ds-icon-accent-purple: #8F7EE7;
   --ds-icon-accent-teal: #37B4C3;
   --ds-icon-accent-magenta: #DA62AC;
+  --ds-icon-accent-gray: #738496;
   --ds-icon: #9FADBC;
   --ds-icon-subtle: #8696A7;
   --ds-icon-inverse: #161A1D;
@@ -68,6 +71,7 @@ html[data-theme="dark"] {
   --ds-border-accent-purple: #8F7EE7;
   --ds-border-accent-teal: #37B4C3;
   --ds-border-accent-magenta: #DA62AC;
+  --ds-border-accent-gray: #738496;
   --ds-border: #A6C5E229;
   --ds-border-inverse: #161A1D;
   --ds-border-focused: #85B8FF;
@@ -130,6 +134,10 @@ html[data-theme="dark"] {
   --ds-background-accent-magenta-bolder: #E774BB;
   --ds-background-accent-magenta: #50253F;
   --ds-background-accent-magenta-bold: #AE4787;
+  --ds-background-accent-gray-subtlest: #2C333A;
+  --ds-background-accent-gray-subtler: #454F59;
+  --ds-background-accent-gray-subtle: #5C6C7A;
+  --ds-background-accent-gray-bolder: #8696A7;
   --ds-background-disabled: #A1BDD914;
   --ds-background-inverse-subtle: #FFFFFF29;
   --ds-background-inverse-subtle-hovered: #FFFFFF3D;

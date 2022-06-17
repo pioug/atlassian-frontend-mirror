@@ -36,6 +36,10 @@ const color: ValueSchema<AccentColorTokenSchema> = {
           '[default]': { value: 'M800' },
           bolder: { value: 'M900' },
         },
+        gray: {
+          '[default]': { value: 'N800' },
+          bolder: { value: 'N1000' },
+        },
       },
     },
     icon: {
@@ -48,6 +52,7 @@ const color: ValueSchema<AccentColorTokenSchema> = {
         purple: { value: 'P600' },
         teal: { value: 'T600' },
         magenta: { value: 'M600' },
+        gray: { value: 'N600' },
       },
     },
     border: {
@@ -60,6 +65,7 @@ const color: ValueSchema<AccentColorTokenSchema> = {
         purple: { value: 'P600' },
         teal: { value: 'T600' },
         magenta: { value: 'M600' },
+        gray: { value: 'N600' },
       },
     },
     background: {
@@ -111,6 +117,12 @@ const color: ValueSchema<AccentColorTokenSchema> = {
           subtler: { value: 'M200' },
           subtle: { value: 'M400' },
           bolder: { value: 'M700' },
+        },
+        gray: {
+          subtlest: { value: 'N200' },
+          subtler: { value: 'N300' },
+          subtle: { value: 'N500' },
+          bolder: { value: 'N700' },
         },
       },
     },

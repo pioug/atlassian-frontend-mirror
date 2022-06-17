@@ -118,7 +118,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       url={url}
     >
       <TitleBlock actions={titleActions} />
-      <MetadataBlock primary={primary} secondary={secondary} />
+      <MetadataBlock
+        primary={primary}
+        secondary={secondary}
+        size={SmartLinkSize.Small}
+      />
       {body}
       <FooterBlock actions={footerActions} />
     </FlexibleCard>

@@ -11,6 +11,8 @@ import {
   getClickUrl,
   getResourceType,
   getExtensionKey,
+  getSubproduct,
+  getProduct,
 } from '../../state/helpers';
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
@@ -54,6 +56,8 @@ export function CardWithUrlContent({
   const definitionId = getDefinitionId(state.details);
   const extensionKey = getExtensionKey(state.details);
   const resourceType = getResourceType(state.details);
+  const product = getProduct(state.details);
+  const subproduct = getSubproduct(state.details);
   const services = getServices(state.details);
 
   let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
@@ -78,6 +82,9 @@ export function CardWithUrlContent({
         definitionId,
         extensionKey,
         isModifierKeyPressed,
+        undefined,
+        product,
+        subproduct,
       );
       if (onClick) {
         onClick(event);
@@ -95,6 +102,8 @@ export function CardWithUrlContent({
       onClick,
       handleClick,
       isFlexibleUi,
+      product,
+      subproduct,
     ],
   );
   const handleAuthorize = useCallback(() => actions.authorize(appearance), [

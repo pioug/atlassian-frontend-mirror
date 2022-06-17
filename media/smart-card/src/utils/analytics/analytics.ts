@@ -13,7 +13,7 @@ import {
   PreviewInvokeMethod,
 } from '../../view/HoverCard/types';
 import { getMeasure } from '../performance';
-import { DestinationProduct } from './types';
+import { DestinationProduct, DestinationSubproduct } from './types';
 
 export const ANALYTICS_CHANNEL = 'media';
 
@@ -241,6 +241,7 @@ export const uiCardClickedEvent = (
   isModifierKeyPressed?: boolean,
   location?: string,
   destinationProduct?: DestinationProduct | string,
+  destinationSubproduct?: DestinationSubproduct | string,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
@@ -256,6 +257,7 @@ export const uiCardClickedEvent = (
     isModifierKeyPressed,
     location,
     destinationProduct,
+    destinationSubproduct,
   },
 });
 

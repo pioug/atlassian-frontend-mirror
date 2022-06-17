@@ -156,6 +156,26 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
             },
           },
         },
+        gray: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.10.5',
+              description:
+                'Use for text on non-bold gray accent backgrounds, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.10.5',
+              description:
+                'Use for text and icons on gray subtle accent backgrounds.',
+            },
+          },
+        },
       },
     },
     icon: {
@@ -230,6 +250,15 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
             introduced: '0.6.0',
             description:
               'Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+          },
+        },
+        gray: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '0.10.5',
+            description:
+              'Use for icons on non-bold gray accent backgrounds, such as file type icons.',
           },
         },
       },
@@ -308,6 +337,14 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
               'Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color.',
           },
         },
+        gray: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '0.10.5',
+            description: 'Use for borders on non-bold gray accent backgrounds.',
+          },
+        },
       },
     },
     background: {
@@ -328,7 +365,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
               state: 'active',
               introduced: '0.7.0',
               description:
-                'Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags.',
+                'Use for blue backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
           subtle: {
@@ -337,7 +374,7 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
               state: 'active',
               introduced: '0.7.0',
               description:
-                'Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags.',
+                'Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
           bolder: {
@@ -613,6 +650,44 @@ const color: AttributeSchema<AccentColorTokenSchema> = {
               introduced: '0.7.0',
               description:
                 'Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        gray: {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.7.0',
+              description:
+                'Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.7.0',
+              description:
+                'Use for gray backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          subtle: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.7.0',
+              description:
+                'Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.7.0',
+              description:
+                'Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
             },
           },
         },

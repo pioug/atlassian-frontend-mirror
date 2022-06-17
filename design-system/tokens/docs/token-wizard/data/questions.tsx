@@ -136,6 +136,12 @@ const questions: Questions = {
         summary: 'On bold',
         description: 'Text sitting on a bold background',
       },
+      {
+        result: 'text/colored/accent/gray',
+        summary: 'Accent',
+        description:
+          'Users can choose a text color from a set of accents, and one option is unsaturated/gray',
+      },
     ],
   },
   'text/link': {
@@ -153,7 +159,7 @@ const questions: Questions = {
     ],
   },
   'text/colored': {
-    title: 'How would you describe the meaning of the colour?',
+    title: 'How would you describe the meaning of the color?',
     summary: 'Semantic meaning',
     answers: [
       {
@@ -202,7 +208,7 @@ const questions: Questions = {
     ],
     metadata: {
       description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the colour is an accent.',
+        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
     },
   },
   'text/colored/accent': {
@@ -240,6 +246,10 @@ const questions: Questions = {
       {
         result: 'text/colored/accent/purple',
         summary: 'Purple',
+      },
+      {
+        result: 'text/colored/accent/gray',
+        summary: 'Gray',
       },
     ],
   },
@@ -345,7 +355,7 @@ const questions: Questions = {
     ],
     metadata: {
       description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the colour is an accent.',
+        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
     },
   },
 
@@ -382,8 +392,12 @@ const questions: Questions = {
         summary: 'Magenta',
       },
       {
-        result: 'background-surface/background/colored/accent/purple/',
+        result: 'background-surface/background/colored/accent/purple',
         summary: 'Purple',
+      },
+      {
+        result: 'background-surface/background/colored/accent/gray',
+        summary: 'Gray',
       },
     ],
   },
@@ -418,6 +432,12 @@ const questions: Questions = {
         summary: 'On bold',
         description:
           "Background of an element that's placed on a bold background",
+      },
+      {
+        result: 'background-surface/background/colored/accent/gray',
+        summary: 'Accent',
+        description:
+          'Users can choose a background color from a set of accents, and one option is unsaturated/gray',
       },
     ],
   },
@@ -509,7 +529,7 @@ const questions: Questions = {
     ],
     metadata: {
       description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the colour is an accent.',
+        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
     },
   },
   'border/colored/accent': {
@@ -548,6 +568,10 @@ const questions: Questions = {
         result: 'border/colored/purple',
         summary: 'Purple',
       },
+      {
+        result: 'border/colored/gray',
+        summary: 'Gray',
+      },
     ],
   },
 
@@ -562,6 +586,12 @@ const questions: Questions = {
       {
         result: 'border/neutral/disabled',
         summary: 'Disabled controls',
+      },
+      {
+        result: 'border/colored/gray',
+        summary: 'Accent',
+        description:
+          'Users can choose a border color from a set of accents, and one option is unsaturated/gray',
       },
     ],
   },
@@ -627,7 +657,7 @@ const questions: Questions = {
     ],
     metadata: {
       description:
-        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the colour is an accent.',
+        'If you are using color to communicate a specific state or meaning to the user, it has a *semantic meaning*. Otherwise the color is an accent.',
     },
   },
   'icon/colored/accent': {
@@ -666,6 +696,10 @@ const questions: Questions = {
         result: 'icon/colored/purple',
         summary: 'Purple',
       },
+      {
+        result: 'icon/colored/gray',
+        summary: 'Gray',
+      },
     ],
   },
 
@@ -688,6 +722,12 @@ const questions: Questions = {
       {
         result: 'icon/neutral/disabled',
         summary: 'Something disabled',
+      },
+      {
+        result: 'icon/colored/gray',
+        summary: 'Accent',
+        description:
+          'Users can choose an icon color from a set of accents, and one option is unsaturated/gray',
       },
     ],
   },

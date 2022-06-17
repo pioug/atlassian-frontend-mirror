@@ -79,6 +79,7 @@ export const getBaseStyles = (
   direction: SmartLinkDirection,
   size: SmartLinkSize,
 ): SerializedStyles => css`
+  align-items: center;
   display: flex;
   gap: ${getGapSize(size)}rem;
   line-height: 1rem;

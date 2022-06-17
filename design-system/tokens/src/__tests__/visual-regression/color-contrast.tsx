@@ -72,6 +72,7 @@ describe('Tokens should pass color contrast checks', () => {
       'color.text on color.background.success.pressed',
       'color.text on color.background.discovery.pressed',
       'color.text on color.background.information.pressed',
+      'color.text.accent.gray.bolder on color.background.accent.gray.subtle',
     ];
 
     const adjustedResults = results.violations[0].nodes.filter((node) => {

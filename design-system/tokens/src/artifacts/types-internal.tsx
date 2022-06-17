@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b41790657bd6ccb424e840279549eee6>>
+ * @codegen <<SignedSource::1e50fa12ffb87ed9192ae36dd8a7e6e7>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -20,6 +20,8 @@ export type InternalTokenIds =
   | 'color.text.accent.teal.bolder'
   | 'color.text.accent.magenta.[default]'
   | 'color.text.accent.magenta.bolder'
+  | 'color.text.accent.gray.[default]'
+  | 'color.text.accent.gray.bolder'
   | 'color.text.[default]'
   | 'color.text.subtle'
   | 'color.text.subtlest'
@@ -41,6 +43,7 @@ export type InternalTokenIds =
   | 'color.icon.accent.purple'
   | 'color.icon.accent.teal'
   | 'color.icon.accent.magenta'
+  | 'color.icon.accent.gray'
   | 'color.icon.[default]'
   | 'color.icon.subtle'
   | 'color.icon.inverse'
@@ -61,6 +64,7 @@ export type InternalTokenIds =
   | 'color.border.accent.purple'
   | 'color.border.accent.teal'
   | 'color.border.accent.magenta'
+  | 'color.border.accent.gray'
   | 'color.border.[default]'
   | 'color.border.inverse'
   | 'color.border.focused'
@@ -105,6 +109,10 @@ export type InternalTokenIds =
   | 'color.background.accent.magenta.subtler'
   | 'color.background.accent.magenta.subtle'
   | 'color.background.accent.magenta.bolder'
+  | 'color.background.accent.gray.subtlest'
+  | 'color.background.accent.gray.subtler'
+  | 'color.background.accent.gray.subtle'
+  | 'color.background.accent.gray.bolder'
   | 'color.background.disabled'
   | 'color.background.inverse.subtle.[default]'
   | 'color.background.inverse.subtle.hovered'

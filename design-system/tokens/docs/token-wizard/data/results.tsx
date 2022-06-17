@@ -36,6 +36,7 @@ interface resultId {
   'text/colored/accent/red': any;
   'text/colored/accent/magenta': any;
   'text/colored/accent/purple': any;
+  'text/colored/accent/gray': any;
   'background-surface/surface/main-background': any;
   'background-surface/surface/modal-dropdown': any;
   'background-surface/surface/card': any;
@@ -54,7 +55,8 @@ interface resultId {
   'background-surface/background/colored/accent/orange': any;
   'background-surface/background/colored/accent/yellow': any;
   'background-surface/background/colored/accent/magenta': any;
-  'background-surface/background/colored/accent/purple/': any;
+  'background-surface/background/colored/accent/purple': any;
+  'background-surface/background/colored/accent/gray': any;
   'background-surface/background/neutral/input': any;
   'background-surface/background/neutral/disabled': any;
   'background-surface/background/neutral/neutral': any;
@@ -80,6 +82,7 @@ interface resultId {
   'border/colored/red': any;
   'border/colored/magenta': any;
   'border/colored/purple': any;
+  'border/colored/gray': any;
   'border/neutral/neutral': any;
   'border/neutral/disabled': any;
   'icon/colored/brand': any;
@@ -97,6 +100,7 @@ interface resultId {
   'icon/colored/red': any;
   'icon/colored/magenta': any;
   'icon/colored/purple': any;
+  'icon/colored/gray': any;
   'icon/neutral/default': any;
   'icon/neutral/subtle': any;
   'icon/neutral/on-bold': any;
@@ -177,6 +181,9 @@ const results: Results = {
   },
   'text/colored/accent/purple': {
     suggestion: ['color.text.accent.purple', 'color.text.accent.purple.bolder'],
+  },
+  'text/colored/accent/gray': {
+    suggestion: ['color.text.accent.gray', 'color.text.accent.gray.bolder'],
   },
 
   'background-surface/surface/main-background': {
@@ -289,12 +296,20 @@ const results: Results = {
       'color.background.accent.magenta.bolder',
     ],
   },
-  'background-surface/background/colored/accent/purple/': {
+  'background-surface/background/colored/accent/purple': {
     suggestion: [
       'color.background.accent.purple.subtlest',
       'color.background.accent.purple.subtler',
       'color.background.accent.purple.subtle',
       'color.background.accent.purple.bolder',
+    ],
+  },
+  'background-surface/background/colored/accent/gray': {
+    suggestion: [
+      'color.background.accent.gray.subtlest',
+      'color.background.accent.gray.subtler',
+      'color.background.accent.gray.subtle',
+      'color.background.accent.gray.bolder',
     ],
   },
   'background-surface/background/neutral/input': {
@@ -385,6 +400,9 @@ const results: Results = {
   'border/colored/purple': {
     suggestion: ['color.border.accent.purple'],
   },
+  'border/colored/gray': {
+    suggestion: ['color.border.accent.gray'],
+  },
   'border/neutral/neutral': {
     suggestion: ['color.border', 'color.border.input', 'color.border.inverse'],
   },
@@ -436,6 +454,9 @@ const results: Results = {
   },
   'icon/colored/purple': {
     suggestion: ['color.icon.accent.purple'],
+  },
+  'icon/colored/gray': {
+    suggestion: ['color.icon.accent.gray'],
   },
   'icon/neutral/default': {
     suggestion: ['color.icon'],

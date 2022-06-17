@@ -467,6 +467,10 @@ export interface AccentColorTokenSchema {
           '[default]': PaintToken;
           bolder: PaintToken;
         };
+        gray: {
+          '[default]': PaintToken;
+          bolder: PaintToken;
+        };
       };
     };
     icon: {
@@ -479,6 +483,7 @@ export interface AccentColorTokenSchema {
         purple: PaintToken;
         teal: PaintToken;
         magenta: PaintToken;
+        gray: PaintToken;
       };
     };
     border: {
@@ -491,6 +496,7 @@ export interface AccentColorTokenSchema {
         purple: PaintToken;
         teal: PaintToken;
         magenta: PaintToken;
+        gray: PaintToken;
       };
     };
     background: {
@@ -538,6 +544,12 @@ export interface AccentColorTokenSchema {
           bolder: PaintToken;
         };
         magenta: {
+          subtlest: PaintToken;
+          subtler: PaintToken;
+          subtle: PaintToken;
+          bolder: PaintToken;
+        };
+        gray: {
           subtlest: PaintToken;
           subtler: PaintToken;
           subtle: PaintToken;

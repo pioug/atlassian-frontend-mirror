@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2790b3e5387d05c20675eb77bb4ec986>>
+ * @codegen <<SignedSource::3354689a803bcf6799054d3faa65df85>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -449,6 +449,62 @@ const tokens = [
       "text",
       "accent",
       "magenta",
+      "bolder"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
+    },
+    "value": "#9FADBC",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
+      },
+      "value": "DN800"
+    },
+    "name": "color.text.accent.gray.[default]",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "gray",
+      "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for text and icons on gray subtle accent backgrounds."
+    },
+    "value": "#C7D1DB",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for text and icons on gray subtle accent backgrounds."
+      },
+      "value": "DN1000"
+    },
+    "name": "color.text.accent.gray.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "gray",
       "bolder"
     ]
   },
@@ -1238,6 +1294,33 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
+    },
+    "value": "#738496",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
+      },
+      "value": "DN600"
+    },
+    "name": "color.icon.accent.gray",
+    "path": [
+      "color",
+      "icon",
+      "accent",
+      "gray"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for icon-only buttons, or icons paired with color.text"
     },
@@ -1768,6 +1851,33 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for borders on non-bold gray accent backgrounds."
+    },
+    "value": "#738496",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.5",
+        "description": "Use for borders on non-bold gray accent backgrounds."
+      },
+      "value": "DN600"
+    },
+    "name": "color.border.accent.gray",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "gray"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
     },
@@ -2173,7 +2283,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#09326C",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
@@ -2183,7 +2293,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "B900"
     },
@@ -2201,7 +2311,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+      "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#0055CC",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
@@ -2211,7 +2321,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+        "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "B800"
     },
@@ -2260,7 +2370,7 @@ const tokens = [
       "deprecated": "0.7.0",
       "deleted": "0.8.0",
       "replacement": "color.background.accent.blue.subtler",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#09326C",
     "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
@@ -2273,7 +2383,7 @@ const tokens = [
         "deprecated": "0.7.0",
         "deleted": "0.8.0",
         "replacement": "color.background.accent.blue.subtler",
-        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+        "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
       },
       "value": "B900"
     },
@@ -3578,6 +3688,118 @@ const tokens = [
       "accent",
       "magenta",
       "bold"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#2C333A",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "DN300"
+    },
+    "name": "color.background.accent.gray.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtlest"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#454F59",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "DN400"
+    },
+    "name": "color.background.accent.gray.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtler"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#5C6C7A",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "DN500"
+    },
+    "name": "color.background.accent.gray.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "subtle"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#8696A7",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "DN700"
+    },
+    "name": "color.background.accent.gray.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "gray",
+      "bolder"
     ]
   },
   {

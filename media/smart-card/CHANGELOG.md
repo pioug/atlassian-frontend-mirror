@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 19.1.22
+
+### Patch Changes
+
+- [`c6978e3a40c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6978e3a40c) - This update adds Destination product and subproduct (core, servicedesk, software, etc.) analytics now available in the Smart Link ui card clicked event. At the time of writing, only Jira links have this functionality.
+
+## 19.1.21
+
+### Patch Changes
+
+- [`b39f43e68c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b39f43e68c3) - [ux] Hover Preview: Add CreatedBy to 3P link metadata
+
+  [ux] Flexible UI: Text based elements now wrap and truncate within metadata group.
+
 ## 19.1.20
 
 ### Patch Changes

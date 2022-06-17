@@ -172,7 +172,7 @@ const color: AttributeSchema<DeprecatedTokenSchema> = {
               deleted: '0.8.0',
               replacement: 'color.background.accent.blue.subtler',
               description:
-                'Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags.',
+                'Use for blue backgrounds when there is no meaning tied to the color, such as colored tags.',
             },
           },
           bold: {

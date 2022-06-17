@@ -135,6 +135,22 @@ const colorPairs = [
     text: token('color.text.inverse'),
   },
   {
+    background: token('color.background.accent.gray.subtlest'),
+    text: token('color.text'),
+  },
+  {
+    background: token('color.background.accent.gray.subtler'),
+    text: token('color.text'),
+  },
+  {
+    background: token('color.background.accent.gray.subtle'),
+    text: token('color.text.accent.gray.bolder'),
+  },
+  {
+    background: token('color.background.accent.gray.bolder'),
+    text: token('color.text.inverse'),
+  },
+  {
     background: token('color.background.disabled'),
     text: token('color.text'),
   },

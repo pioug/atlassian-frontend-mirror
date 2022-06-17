@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 0.10.7
+
+### Patch Changes
+
+- [`cb8723a7974`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb8723a7974) - Introduces a new set of neutral accent tokens:
+
+  - `color.background.accent.gray.bolder`
+  - `color.background.accent.gray.subtle`
+  - `color.background.accent.gray.subtler`
+  - `color.background.accent.gray.subtlest`
+  - `color.border.accent.gray`
+  - `color.icon.accent.gray`
+  - `color.text.accent.gray`
+  - `color.text.accent.gray.bolder`
+
 ## 0.10.6
 
 ### Patch Changes

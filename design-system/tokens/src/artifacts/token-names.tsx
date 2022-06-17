@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ab44c57c547c6cb7bb389b286bdd50f>>
+ * @codegen <<SignedSource::b251fc1793ba7f689b4c3707310c1556>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -20,6 +20,8 @@ const tokens = {
   'color.text.accent.teal.bolder': '--ds-text-accent-teal-bolder',
   'color.text.accent.magenta': '--ds-text-accent-magenta',
   'color.text.accent.magenta.bolder': '--ds-text-accent-magenta-bolder',
+  'color.text.accent.gray': '--ds-text-accent-gray',
+  'color.text.accent.gray.bolder': '--ds-text-accent-gray-bolder',
   'color.text': '--ds-text',
   'color.text.subtle': '--ds-text-subtle',
   'color.text.subtlest': '--ds-text-subtlest',
@@ -48,6 +50,7 @@ const tokens = {
   'color.icon.accent.purple': '--ds-icon-accent-purple',
   'color.icon.accent.teal': '--ds-icon-accent-teal',
   'color.icon.accent.magenta': '--ds-icon-accent-magenta',
+  'color.icon.accent.gray': '--ds-icon-accent-gray',
   'color.icon': '--ds-icon',
   'color.icon.subtle': '--ds-icon-subtle',
   'color.icon.inverse': '--ds-icon-inverse',
@@ -68,6 +71,7 @@ const tokens = {
   'color.border.accent.purple': '--ds-border-accent-purple',
   'color.border.accent.teal': '--ds-border-accent-teal',
   'color.border.accent.magenta': '--ds-border-accent-magenta',
+  'color.border.accent.gray': '--ds-border-accent-gray',
   'color.border': '--ds-border',
   'color.border.inverse': '--ds-border-inverse',
   'color.border.focused': '--ds-border-focused',
@@ -150,6 +154,11 @@ const tokens = {
     '--ds-background-accent-magenta-bolder',
   'color.background.accent.magenta': '--ds-background-accent-magenta',
   'color.background.accent.magenta.bold': '--ds-background-accent-magenta-bold',
+  'color.background.accent.gray.subtlest':
+    '--ds-background-accent-gray-subtlest',
+  'color.background.accent.gray.subtler': '--ds-background-accent-gray-subtler',
+  'color.background.accent.gray.subtle': '--ds-background-accent-gray-subtle',
+  'color.background.accent.gray.bolder': '--ds-background-accent-gray-bolder',
   'color.background.disabled': '--ds-background-disabled',
   'color.background.inverse.subtle': '--ds-background-inverse-subtle',
   'color.background.inverse.subtle.hovered':
@@ -350,6 +359,8 @@ export type CSSTokenMap = {
   'color.text.accent.teal.bolder': 'var(--ds-text-accent-teal-bolder)';
   'color.text.accent.magenta': 'var(--ds-text-accent-magenta)';
   'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
+  'color.text.accent.gray': 'var(--ds-text-accent-gray)';
+  'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
   'color.text': 'var(--ds-text)';
   'color.text.subtle': 'var(--ds-text-subtle)';
   'color.text.subtlest': 'var(--ds-text-subtlest)';
@@ -378,6 +389,7 @@ export type CSSTokenMap = {
   'color.icon.accent.purple': 'var(--ds-icon-accent-purple)';
   'color.icon.accent.teal': 'var(--ds-icon-accent-teal)';
   'color.icon.accent.magenta': 'var(--ds-icon-accent-magenta)';
+  'color.icon.accent.gray': 'var(--ds-icon-accent-gray)';
   'color.icon': 'var(--ds-icon)';
   'color.icon.subtle': 'var(--ds-icon-subtle)';
   'color.icon.inverse': 'var(--ds-icon-inverse)';
@@ -398,6 +410,7 @@ export type CSSTokenMap = {
   'color.border.accent.purple': 'var(--ds-border-accent-purple)';
   'color.border.accent.teal': 'var(--ds-border-accent-teal)';
   'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
+  'color.border.accent.gray': 'var(--ds-border-accent-gray)';
   'color.border': 'var(--ds-border)';
   'color.border.inverse': 'var(--ds-border-inverse)';
   'color.border.focused': 'var(--ds-border-focused)';
@@ -460,6 +473,10 @@ export type CSSTokenMap = {
   'color.background.accent.magenta.bolder': 'var(--ds-background-accent-magenta-bolder)';
   'color.background.accent.magenta': 'var(--ds-background-accent-magenta)';
   'color.background.accent.magenta.bold': 'var(--ds-background-accent-magenta-bold)';
+  'color.background.accent.gray.subtlest': 'var(--ds-background-accent-gray-subtlest)';
+  'color.background.accent.gray.subtler': 'var(--ds-background-accent-gray-subtler)';
+  'color.background.accent.gray.subtle': 'var(--ds-background-accent-gray-subtle)';
+  'color.background.accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
   'color.background.disabled': 'var(--ds-background-disabled)';
   'color.background.inverse.subtle': 'var(--ds-background-inverse-subtle)';
   'color.background.inverse.subtle.hovered': 'var(--ds-background-inverse-subtle-hovered)';

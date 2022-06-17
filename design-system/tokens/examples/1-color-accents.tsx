@@ -10,13 +10,13 @@ import { setGlobalTheme, token } from '../src';
 
 const variantStyles = {
   blue: {
-    default: {
+    subtler: {
       color: token('color.text.accent.blue'),
       backgroundColor: token('color.background.accent.blue.subtler'),
       border: `1px solid ${token('color.border.accent.blue')}`,
       iconColor: token('color.icon.accent.blue'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.blue.subtle'),
       border: `1px solid ${token('color.border.accent.blue')}`,
@@ -24,13 +24,13 @@ const variantStyles = {
     },
   },
   red: {
-    default: {
+    subtler: {
       color: token('color.text.accent.red'),
       backgroundColor: token('color.background.accent.red.subtler'),
       border: `1px solid ${token('color.border.accent.red')}`,
       iconColor: token('color.icon.accent.red'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.red.subtle'),
       border: `1px solid ${token('color.border.accent.red')}`,
@@ -38,13 +38,13 @@ const variantStyles = {
     },
   },
   orange: {
-    default: {
+    subtler: {
       color: token('color.text.accent.orange'),
       backgroundColor: token('color.background.accent.orange.subtler'),
       border: `1px solid ${token('color.border.accent.orange')}`,
       iconColor: token('color.icon.accent.orange'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.orange.subtle'),
       border: `1px solid ${token('color.border.accent.orange')}`,
@@ -52,13 +52,13 @@ const variantStyles = {
     },
   },
   yellow: {
-    default: {
+    subtler: {
       color: token('color.text.accent.yellow'),
       backgroundColor: token('color.background.accent.yellow.subtler'),
       border: `1px solid ${token('color.border.accent.yellow')}`,
       iconColor: token('color.icon.accent.yellow'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.yellow.subtle'),
       border: `1px solid ${token('color.border.accent.yellow')}`,
@@ -66,13 +66,13 @@ const variantStyles = {
     },
   },
   green: {
-    default: {
+    subtler: {
       color: token('color.text.accent.green'),
       backgroundColor: token('color.background.accent.green.subtler'),
       border: `1px solid ${token('color.border.accent.green')}`,
       iconColor: token('color.icon.accent.green'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.green.subtle'),
       border: `1px solid ${token('color.border.accent.green')}`,
@@ -80,13 +80,13 @@ const variantStyles = {
     },
   },
   teal: {
-    default: {
+    subtler: {
       color: token('color.text.accent.teal'),
       backgroundColor: token('color.background.accent.teal.subtler'),
       border: `1px solid ${token('color.border.accent.teal')}`,
       iconColor: token('color.icon.accent.teal'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.teal.subtle'),
       border: `1px solid ${token('color.border.accent.teal')}`,
@@ -94,13 +94,13 @@ const variantStyles = {
     },
   },
   purple: {
-    default: {
+    subtler: {
       color: token('color.text.accent.purple'),
       backgroundColor: token('color.background.accent.purple.subtler'),
       border: `1px solid ${token('color.border.accent.purple')}`,
       iconColor: token('color.icon.accent.purple'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.purple.subtle'),
       border: `1px solid ${token('color.border.accent.purple')}`,
@@ -108,16 +108,30 @@ const variantStyles = {
     },
   },
   magenta: {
-    default: {
+    subtler: {
       color: token('color.text.accent.magenta'),
       backgroundColor: token('color.background.accent.magenta.subtler'),
       border: `1px solid ${token('color.border.accent.magenta')}`,
       iconColor: token('color.icon.accent.magenta'),
     },
-    bold: {
+    subtle: {
       color: token('color.text.inverse'),
       backgroundColor: token('color.background.accent.magenta.subtle'),
       border: `1px solid ${token('color.border.accent.magenta')}`,
+      iconColor: token('color.icon.inverse'),
+    },
+  },
+  gray: {
+    subtler: {
+      color: token('color.text.accent.gray'),
+      backgroundColor: token('color.background.accent.gray.subtler'),
+      border: `1px solid ${token('color.border.accent.gray')}`,
+      iconColor: token('color.icon.accent.gray'),
+    },
+    subtle: {
+      color: token('color.text.inverse'),
+      backgroundColor: token('color.background.accent.gray.subtle'),
+      border: `1px solid ${token('color.border.accent.gray')}`,
       iconColor: token('color.icon.inverse'),
     },
   },

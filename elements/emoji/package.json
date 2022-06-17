@@ -67,6 +67,7 @@
     "@testing-library/user-event": "10.4.0",
     "@types/js-search": "^1.4.0",
     "@types/react-virtualized": "^9.18.12",
+    "@types/webpack-dev-server": "^3.11.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "es6-promise": "^4.0.5",
@@ -79,7 +80,7 @@
     "sinon": "^2.2.0",
     "typescript": "4.2.4",
     "wait-for-expect": "^1.2.0",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-dev-server": "^3.11.2"
   },
   "keywords": [
     "fabric",

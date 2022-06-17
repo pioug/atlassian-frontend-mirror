@@ -9,15 +9,19 @@ import { AvatarGroupProps } from './types';
 const MAX_COUNT = 4;
 
 const getStyles = (size: SmartLinkSize) => {
+  const styles = css`
+    display: inline-flex;
+  `;
   switch (size) {
     case SmartLinkSize.XLarge:
     case SmartLinkSize.Large:
       // Default AK small size
-      return;
+      return styles;
     case SmartLinkSize.Medium:
     case SmartLinkSize.Small:
     default:
       return css`
+        ${styles}
         li {
           span,
           svg {

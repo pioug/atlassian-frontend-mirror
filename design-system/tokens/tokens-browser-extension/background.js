@@ -65,7 +65,7 @@ chrome.runtime.onConnect.addListener(function (port) {
       // This accepts messages from the inspected page and
       // sends them to the panel
       chrome.browserAction.setIcon({
-        path: `./icon128${message.action === 'removeTheme' ? '-mono' : ''}.png`,
+        path: `./icon32${message.action === 'removeTheme' ? '-mono' : ''}.png`,
       });
       chrome.browserAction.setBadgeText({
         text: message.action === 'removeTheme' ? '' : 'ON',
@@ -87,7 +87,7 @@ chrome.runtime.onConnect.addListener(function (port) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (sender.tab && request.theme) {
     chrome.browserAction.setIcon({
-      path: `./icon128${request.theme === 'none' ? '-mono' : ''}.png`,
+      path: `./icon32${request.theme === 'none' ? '-mono' : ''}.png`,
     });
     chrome.browserAction.setBadgeText({
       text: request.theme === 'none' ? '' : 'ON',

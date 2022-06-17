@@ -5,6 +5,7 @@ import AtlaskitLozenge from '@atlaskit/lozenge';
 import { LozengeProps } from './types';
 
 const styles = css`
+  display: inline-flex;
   line-height: inherit;
 `;
 

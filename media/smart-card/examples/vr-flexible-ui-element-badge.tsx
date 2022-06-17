@@ -22,6 +22,7 @@ const overrideCss = css`
   background-color: ${exampleTokens.overrideColor};
   border-radius: 1rem;
   padding: 0.2rem;
+
   > span {
     color: ${exampleTokens.iconColor};
   }

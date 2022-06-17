@@ -3,7 +3,7 @@
  *
  * Token names mapped to their value in the default Atlassian theme ('light')
  *
- * @codegen <<SignedSource::3dd78c77e87d6557a4bade2368be7eb8>>
+ * @codegen <<SignedSource::a819b31f00d394be417445acd67bd024>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -23,6 +23,8 @@ const defaultTokenValues = {
   'color.text.accent.teal.bolder': '#1D474C',
   'color.text.accent.magenta': '#943D73',
   'color.text.accent.magenta.bolder': '#50253F',
+  'color.text.accent.gray': '#44546F',
+  'color.text.accent.gray.bolder': '#172B4D',
   'color.text': '#172B4D',
   'color.text.subtle': '#44546F',
   'color.text.subtlest': '#626F86',
@@ -51,6 +53,7 @@ const defaultTokenValues = {
   'color.icon.accent.purple': '#8270DB',
   'color.icon.accent.teal': '#1D9AAA',
   'color.icon.accent.magenta': '#CD519D',
+  'color.icon.accent.gray': '#758195',
   'color.icon': '#44546F',
   'color.icon.subtle': '#626F86',
   'color.icon.inverse': '#FFFFFF',
@@ -71,6 +74,7 @@ const defaultTokenValues = {
   'color.border.accent.purple': '#8270DB',
   'color.border.accent.teal': '#1D9AAA',
   'color.border.accent.magenta': '#CD519D',
+  'color.border.accent.gray': '#758195',
   'color.border': '#091E4224',
   'color.border.inverse': '#FFFFFF',
   'color.border.focused': '#388BFF',
@@ -133,6 +137,10 @@ const defaultTokenValues = {
   'color.background.accent.magenta.bolder': '#AE4787',
   'color.background.accent.magenta': '#FDD0EC',
   'color.background.accent.magenta.bold': '#E774BB',
+  'color.background.accent.gray.subtlest': '#F1F2F4',
+  'color.background.accent.gray.subtler': '#DCDFE4',
+  'color.background.accent.gray.subtle': '#8993A5',
+  'color.background.accent.gray.bolder': '#626F86',
   'color.background.disabled': '#091E420F',
   'color.background.inverse.subtle': '#00000029',
   'color.background.inverse.subtle.hovered': '#0000003D',

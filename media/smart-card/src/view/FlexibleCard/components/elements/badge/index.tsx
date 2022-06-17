@@ -13,16 +13,20 @@ import AtlaskitIcon from '../../common/atlaskit-icon';
 
 const badgeStyles = css`
   align-items: center;
-  display: flex;
+  display: inline-flex;
   min-width: fit-content;
 `;
 
 const iconStyles = css`
   color: ${tokens.badgeIcon};
+  line-height: 0;
+  vertical-align: middle;
   ${getIconSizeStyles('1rem')}
+  img,
   span,
   svg {
     line-height: 0;
+    vertical-align: middle;
   }
 `;
 
@@ -31,6 +35,7 @@ const labelStyles = css`
   font-size: 0.75rem;
   line-height: 1rem;
   padding-left: 0.125rem;
+  vertical-align: middle;
 `;
 
 const messageMapper: {
@@ -115,7 +120,7 @@ const Badge: React.FC<BadgeProps> = ({
   }
 
   return (
-    <div
+    <span
       css={[badgeStyles, overrideCss]}
       data-fit-to-content
       data-smart-element-badge
@@ -125,7 +130,7 @@ const Badge: React.FC<BadgeProps> = ({
       <span css={labelStyles} data-testid={`${testId}-label`}>
         {formattedMessageOrLabel}
       </span>
-    </div>
+    </span>
   );
 };
 

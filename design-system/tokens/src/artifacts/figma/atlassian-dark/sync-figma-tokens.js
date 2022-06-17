@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::3b607c13264108cd25ae473c22805115>>
+ * @codegen <<SignedSource::953f3b1b30d50ddd539787455d1004c1>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -151,6 +151,24 @@ synchronizeFigmaTokens('AtlassianDark', {
       "description": "Use on bold magenta accent backgrounds."
     },
     "value": "#FDD0EC"
+  },
+  "Color/Text/Accent/Gray/Default": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for text on non-bold gray accent backgrounds, such as colored tags."
+    },
+    "value": "#9FADBC"
+  },
+  "Color/Text/Accent/Gray/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for text and icons on gray subtle accent backgrounds."
+    },
+    "value": "#C7D1DB"
   },
   "Color/Text/Default": {
     "attributes": {
@@ -341,6 +359,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#DA62AC"
   },
+  "Color/Icon/Accent/Gray": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for icons on non-bold gray accent backgrounds, such as file type icons."
+    },
+    "value": "#738496"
+  },
   "Color/Icon/Default": {
     "attributes": {
       "group": "paint",
@@ -521,6 +548,15 @@ synchronizeFigmaTokens('AtlassianDark', {
     },
     "value": "#DA62AC"
   },
+  "Color/Border/Accent/Gray": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.5",
+      "description": "Use for borders on non-bold gray accent backgrounds."
+    },
+    "value": "#738496"
+  },
   "Color/Border/Default": {
     "attributes": {
       "group": "paint",
@@ -643,7 +679,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+      "description": "Use for blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#09326C"
   },
@@ -652,7 +688,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as coloured tags."
+      "description": "Use for vibrant blue backgrounds when there is no meaning tied to the color, such as colored tags."
     },
     "value": "#0055CC"
   },
@@ -916,6 +952,42 @@ synchronizeFigmaTokens('AtlassianDark', {
       "description": "Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
     "value": "#E774BB"
+  },
+  "Color/Background/Accent/Gray/Subtlest": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#2C333A"
+  },
+  "Color/Background/Accent/Gray/Subtler": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#454F59"
+  },
+  "Color/Background/Accent/Gray/Subtle": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#5C6C7A"
+  },
+  "Color/Background/Accent/Gray/Bolder": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#8696A7"
   },
   "Color/Background/Disabled": {
     "attributes": {

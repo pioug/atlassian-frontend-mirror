@@ -8,18 +8,9 @@ import { Provider, Client, Card, useSmartLinkAnalytics } from '../src';
 import { AnalyticsPayload } from '../src/utils/types';
 
 const url =
-  'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0';
+  'https://sdog.jira-dev.com/jira/software/projects/SLT/boards/574?selectedIssue=SLT-1';
 const analyticsHandler = (event: AnalyticsPayload) => {
   console.log(event);
-  console.log(event.attributes);
-  console.log(
-    'This event is being fired from',
-    event.attributes.location,
-    'with status',
-    event.attributes.status,
-    'and id',
-    event.attributes.id,
-  );
 };
 
 const ExampleWrapper = styled.div`
@@ -45,21 +36,27 @@ const CardWithLocationAnalytics = () => {
     location,
   );
 
-  // Sending clicked event!
-  analytics.ui.cardClickedEvent(
-    id,
-    'block',
-    'resolved',
-    'This was a custom resolve!',
-  );
-
   // Changing the rendered event!
   analytics.ui.renderSuccessEvent = () => {
     console.log('spaghetti rendered!');
   };
 
   return (
-    <Card id={id} url={url} appearance="block" analyticsEvents={analytics} />
+    <Card
+      onClick={() => {
+        analytics.ui.cardClickedEvent(
+          id,
+          'block',
+          'resolved',
+          'this-is-a-test-definition-id',
+          'this-is-a-test-extension-key',
+        );
+      }}
+      id={id}
+      url={url}
+      appearance="block"
+      analyticsEvents={analytics}
+    />
   );
 };
 

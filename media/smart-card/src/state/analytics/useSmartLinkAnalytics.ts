@@ -31,8 +31,17 @@ import {
   succeedUfoExperience,
 } from './ufoExperiences';
 import { InvokeType } from '../../model/invoke-opts';
-import { getDefinitionId, getExtensionKey, getResourceType } from '../helpers';
-import { DestinationProduct } from '../../utils/analytics/types';
+import {
+  getDefinitionId,
+  getExtensionKey,
+  getResourceType,
+  getSubproduct,
+  getProduct,
+} from '../helpers';
+import {
+  DestinationProduct,
+  DestinationSubproduct,
+} from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 /**
@@ -58,6 +67,8 @@ export const useSmartLinkAnalytics = (
   const extractedDefinitionId = getDefinitionId(state.details);
   const extractedExtensionKey = getExtensionKey(state.details);
   const extractedResourceType = getResourceType(state.details);
+  const extractedSubproduct = getSubproduct(state.details);
+  const extractedProduct = getProduct(state.details);
 
   /** Contains all ui analytics events */
   const ui = useMemo(
@@ -95,6 +106,7 @@ export const useSmartLinkAnalytics = (
        * This fires an event that represents when a user clicks on a Smart Link.
        * @param id The unique ID for this Smart Link.
        * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+       * @param status What status the Smart Link is currently in (e.g. resolved, unresolved)
        * @param definitionId The definitionId of the Smart Link resolver invoked.
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @param isModifierKeyPressed Whether a modifier key was pressed when clicking the Smart Link.
@@ -110,7 +122,14 @@ export const useSmartLinkAnalytics = (
         extensionKey: string | undefined = extractedExtensionKey,
         isModifierKeyPressed?: boolean,
         location: string | undefined = defaultLocation,
-        destinationProduct?: DestinationProduct | string,
+        destinationProduct:
+          | DestinationProduct
+          | string
+          | undefined = extractedProduct,
+        destinationSubproduct:
+          | DestinationSubproduct
+          | string
+          | undefined = extractedSubproduct,
       ) =>
         dispatchAnalytics(
           uiCardClickedEvent(
@@ -122,6 +141,7 @@ export const useSmartLinkAnalytics = (
             isModifierKeyPressed,
             location,
             destinationProduct,
+            destinationSubproduct,
           ),
         ),
       /**
@@ -272,11 +292,13 @@ export const useSmartLinkAnalytics = (
         ),
     }),
     [
-      defaultId,
-      defaultLocation,
       extractedDefinitionId,
       extractedExtensionKey,
       dispatchAnalytics,
+      defaultId,
+      defaultLocation,
+      extractedProduct,
+      extractedSubproduct,
     ],
   );
 

@@ -79,6 +79,7 @@ describe('smart-card: unauthorized analytics', () => {
         false,
         undefined,
         undefined,
+        undefined,
       );
     });
 

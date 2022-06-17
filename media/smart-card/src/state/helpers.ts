@@ -1,6 +1,10 @@
 import { JsonLd } from 'json-ld-types';
 import { CardType, CardStore } from '@atlaskit/linking-common';
 import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
+import {
+  DestinationProduct,
+  DestinationSubproduct,
+} from '../utils/analytics/types';
 
 export const getByDefinitionId = (
   definitionId: string | undefined,
@@ -25,15 +29,23 @@ export const getClickUrl = (url: string, jsonLd?: JsonLd.Response): string => {
 
 export const getDefinitionId = (
   details?: JsonLd.Response,
-): string | undefined => details && details.meta && details.meta.definitionId;
+): string | undefined => details?.meta?.definitionId;
 
 export const getExtensionKey = (
   details?: JsonLd.Response,
-): string | undefined => details && details.meta && details.meta.key;
+): string | undefined => details?.meta?.key;
 
 export const getResourceType = (
   details?: JsonLd.Response,
-): string | undefined => details && details.meta && details.meta.resourceType;
+): string | undefined => details?.meta?.resourceType;
+
+export const getProduct = (
+  details?: JsonLd.Response,
+): DestinationProduct | string | undefined => details?.meta?.product;
+
+export const getSubproduct = (
+  details?: JsonLd.Response,
+): DestinationSubproduct | string | undefined => details?.meta?.subproduct;
 
 export const getServices = (details?: JsonLd.Response) =>
   (details && details.meta.auth) || [];

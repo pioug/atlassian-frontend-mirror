@@ -1,23 +1,26 @@
 import React from 'react';
 
-import { IntlProvider as IntlNextProvider } from 'react-intl-next';
+import { IntlProvider as IntlNextProvider, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
 
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 import {
-  IntlNextErrorBoundary,
+  DEFAULT_LOCALE,
   useLocale,
 } from '@atlassian/embedded-confluence-common';
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 import * as untypedI18n from '@atlassian/embedded-confluence-common/i18n';
 
-const DEFAULT_LOCALE = 'en-US';
-
 const i18n: {
   [index: string]: Record<string, string> | undefined;
 } = untypedI18n;
 
-const I18nProviderInner: React.FC = ({ children }) => {
-  const { language, locale, region } = useLocale();
+const I18nProviderInner: React.FC<
+  {
+    locale?: string;
+  } & WrappedComponentProps
+> = props => {
+  const { language, locale, region } = useLocale(props);
 
   const messages = i18n[`${language}_${region}`] || i18n[language];
 
@@ -27,15 +30,11 @@ const I18nProviderInner: React.FC = ({ children }) => {
       messages={messages}
       defaultLocale={DEFAULT_LOCALE}
     >
-      {children}
+      {props.children}
     </IntlNextProvider>
   );
 };
 
-export const I18nProvider: React.FC = ({ children }) => {
-  return (
-    <IntlNextErrorBoundary>
-      <I18nProviderInner>{children}</I18nProviderInner>
-    </IntlNextErrorBoundary>
-  );
-};
+export const I18nProvider = injectIntl(I18nProviderInner, {
+  enforceContext: false,
+});

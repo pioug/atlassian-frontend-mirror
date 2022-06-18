@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.2.0
+
+### Minor Changes
+
+- [`bfe9ff99aea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfe9ff99aea) - Accept `locale` as an optional React prop for React components
+
 ## 1.1.0
 
 ### Minor Changes

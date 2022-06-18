@@ -48,3 +48,13 @@ it('should fallback to default locale if provided locale is not supported', asyn
 
   expect(await waitForElement(() => getByText('My Test'))).toBeInTheDocument();
 });
+
+it('should localized text properly if locale is provided as prop', async () => {
+  const { getByText } = render(
+    <I18nProvider locale="zh-CN">
+      <FormattedMessage id="my.test" defaultMessage={'My Test'} />
+    </I18nProvider>,
+  );
+
+  expect(await waitForElement(() => getByText('我的测试'))).toBeInTheDocument();
+});

@@ -8,7 +8,7 @@ import { I18nProvider } from '../page-common/I18nProvider';
 
 export const ViewPage: React.FC<ViewPageProps> = props => {
   return (
-    <I18nProvider>
+    <I18nProvider locale={props.locale}>
       <ViewPageCommon {...props} />
     </I18nProvider>
   );

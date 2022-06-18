@@ -170,7 +170,7 @@ const MyComponent = props => {
       <ViewPage
         contentId={props.contentId}
         parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={'JSM'}
+        parentProduct={props.parentProduct}
         spaceKey={props.spaceKey}
         allowedFeatures={'all'}
       />
@@ -190,7 +190,7 @@ const MyComponent = props => {
       <ViewPage
         contentId={props.contentId}
         parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={'JSM'}
+        parentProduct={props.parentProduct}
         spaceKey={props.spaceKey}
         allowedFeatures={[]}
       />
@@ -210,7 +210,7 @@ const MyComponent = props => {
       <ViewPage
         contentId={props.contentId}
         parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={'JSM'}
+        parentProduct={props.parentProduct}
         spaceKey={props.spaceKey}
         allowedFeatures={['edit', 'delete']}
       />
@@ -218,3 +218,79 @@ const MyComponent = props => {
   );
 };
 ```
+
+## `locale`
+
+`@atlaskit/embedded-confluence` package currently can accept `locale` from parent products in two options:
+
+1. Pass `locale` using `<IntlProvider>` by [`react-intl`](https://www.npmjs.com/package/react-intl).
+
+   Please make sure `<IntlProvider>` exists in the React DOM and wraps `@atlaskit/embedded-confluence` components.
+
+   `@atlaskit/embedded-confluence` use `react-intl@5.21.2`.
+
+```jsx
+import { IntlProvider } from 'react-intl';
+
+import { ViewPage } from '@atlassian/embedded-confluence';
+
+const App = props => {
+  return (
+    <IntlProvider locale="en-US">
+      <ViewPage
+        contentId={props.contentId}
+        parentProductContentContainerId={props.parentProductContentContainerId}
+        parentProduct={props.parentProduct}
+        spaceKey={props.spaceKey}
+      />
+    </IntlProvider>
+  );
+};
+```
+
+2. Pass `locale` as React prop
+
+```jsx
+import { ViewPage } from '@atlassian/embedded-confluence';
+
+const App = props => {
+  return (
+    <ViewPage
+      contentId={props.contentId}
+      locale={'en-US'}
+      parentProductContentContainerId={props.parentProductContentContainerId}
+      parentProduct={props.parentProduct}
+      spaceKey={props.spaceKey}
+    />
+  );
+};
+```
+
+Here are the supported locales for `@atlaskit/embedded-confluence`
+
+| Language                 | Code                                                      |
+| ------------------------ | --------------------------------------------------------- |
+| Chinese (Simplified)     | "zh" or "zh-CN"                                           |
+| Chinese (Traditional)    | "zh-TW"                                                   |
+| Czech                    | "cs" or "cs-CZ"                                           |
+| Danish                   | "da" or "da-DK"                                           |
+| Dutch                    | "nl" or "nl-NL"                                           |
+| English (United Kingdom) | "en-GB"                                                   |
+| English (US)             | "en" or "en-US"                                           |
+| Finnish                  | "fi" or "fi-FI"                                           |
+| French                   | "fr" or "fr-FR"                                           |
+| German                   | "de" or "de-DE"                                           |
+| Hungarian                | "hu" or "hu-HU"                                           |
+| Italian                  | "it" or "it-IT"                                           |
+| Japanese                 | "ja" or "ja-JP"                                           |
+| Korean                   | "ko" or "ko-KR"                                           |
+| Norwegian                | "no" or "no-NO" (Norwegian) or "nb-NO" (Norwegian Bokmål) |
+| Polish                   | "pl" or "pl-PL"                                           |
+| Portuguese (Brazilian)   | "pt-BR"                                                   |
+| Russian                  | "ru" or "ru-RU"                                           |
+| Spanish                  | "es" or "es-ES"                                           |
+| Swedish                  | "sv" or "sv-SE"                                           |
+| Turkish                  | "tr" or "tr-TR"                                           |
+| Thai                     | "th" or "th-TH"                                           |
+| Ukrainian                | "uk" or "uk-UA"                                           |
+| Vietnamese               | "vi" or "vi-VN"                                           |

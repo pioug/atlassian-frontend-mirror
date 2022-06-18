@@ -8,7 +8,7 @@ import { I18nProvider } from '../page-common/I18nProvider';
 
 export const EditPage: React.FC<EditPageProps> = props => {
   return (
-    <I18nProvider>
+    <I18nProvider locale={props.locale}>
       <EditPageCommon {...props} />;
     </I18nProvider>
   );

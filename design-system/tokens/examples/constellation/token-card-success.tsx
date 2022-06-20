@@ -15,7 +15,7 @@ activeBackgroundColor: token('color.background.success.bold.pressed'),
 iconColor: token('color.icon.inverse'),
 
 // default styles
-color: token('color.text.success'),
+color: token('color.text'),
 backgroundColor: token('color.background.success'),
 border: \`1px solid \${token('color.border.success')}\`,
 hoverBackgroundColor: token('color.background.success.hovered'),
@@ -39,7 +39,7 @@ const successStyles = {
     iconColor: token('color.icon.inverse', '#FFFFFF'),
   },
   default: {
-    color: token('color.text.success', '#216E4E'),
+    color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.success', '#DFFCF0'),
     border: `1px solid ${token('color.border.success', '#22A06B')}`,
     hoverBackgroundColor: token('color.background.success.hovered', '#BAF3DB'),

@@ -15,7 +15,7 @@ activeBackgroundColor: token('color.background.discovery.bold.pressed'),
 iconColor: token('color.icon.inverse'),
 
 // default styles
-color: token('color.text.discovery'),
+color: token('color.text'),
 backgroundColor: token('color.background.discovery'),
 border: \`1px solid \${token('color.border.discovery')}\`,
 hoverBackgroundColor: token('color.background.discovery.hovered'),
@@ -39,7 +39,7 @@ const discoveryStyles = {
     iconColor: token('color.icon.inverse', '#FFFFFF'),
   },
   default: {
-    color: token('color.text.discovery', '#5E4DB2'),
+    color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.discovery', '#F3F0FF'),
     border: `1px solid ${token('color.border.discovery', '#8270DB')}`,
     hoverBackgroundColor: token(

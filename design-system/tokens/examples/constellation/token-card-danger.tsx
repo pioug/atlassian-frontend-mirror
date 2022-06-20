@@ -15,7 +15,7 @@ activeBackgroundColor: token('color.background.danger.bold.pressed'),
 iconColor: token('color.icon.inverse'),
 
 // default styles
-color: token('color.text.danger'),
+color: token('color.text'),
 backgroundColor: token('color.background.danger'),
 border: \`1px solid \${token('color.border.danger')}\`,
 hoverBackgroundColor: token('color.background.danger.hovered'),
@@ -39,7 +39,7 @@ const dangerStyles = {
     iconColor: token('color.icon.inverse', '#FFFFFF'),
   },
   default: {
-    color: token('color.text.danger', '#AE2A19'),
+    color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.danger', '#FFEDEB'),
     border: `1px solid ${token('color.border.danger', '#E34935')}`,
     hoverBackgroundColor: token('color.background.danger.hovered', '#FFD2CC'),

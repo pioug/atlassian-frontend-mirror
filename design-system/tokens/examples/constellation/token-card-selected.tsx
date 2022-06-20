@@ -15,7 +15,7 @@ activeBackgroundColor: token('color.background.selected.bold.pressed'),
 iconColor: token('color.icon.inverse'),
 
 // default styles
-color: token('color.text.selected'),
+color: token('color.text'),
 backgroundColor: token('color.background.selected'),
 border: \`1px solid \${token('color.border.selected')}\`,
 hoverBackgroundColor: token('color.background.selected.hovered'),
@@ -39,7 +39,7 @@ const selectedStyles = {
     iconColor: token('color.icon.inverse', '#FFFFFF'),
   },
   default: {
-    color: token('color.text.selected', '#0C66E4'),
+    color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.selected', '#E9F2FF'),
     border: `1px solid ${token('color.border.selected', '#0C66E4')}`,
     hoverBackgroundColor: token('color.background.selected.hovered', '#CCE0FF'),

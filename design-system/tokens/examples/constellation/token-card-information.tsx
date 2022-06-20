@@ -15,7 +15,7 @@ activeBackgroundColor: token('color.background.information.bold.pressed'),
 iconColor: token('color.icon.inverse'),
 
 // default styles
-color: token('color.text.information'),
+color: token('color.text'),
 backgroundColor: token('color.background.information'),
 border: \`1px solid \${token('color.border.information')}\`,
 hoverBackgroundColor: token('color.background.information.hovered'),
@@ -39,7 +39,7 @@ const informationStyles = {
     iconColor: token('color.icon.inverse', '#FFFFFF'),
   },
   default: {
-    color: token('color.text.information', '#0055CC'),
+    color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.information', '#E9F2FF'),
     border: `1px solid ${token('color.border.information', '#1D7AFC')}`,
     hoverBackgroundColor: token(

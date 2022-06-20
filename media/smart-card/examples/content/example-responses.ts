@@ -4,9 +4,6 @@ import avatar2 from '../images/avatar-2.svg';
 import avatar3 from '../images/avatar-3.svg';
 import preview from '../images/rectangle.svg';
 
-const today = new Date();
-const yesterday = new Date().setDate(today.getDate() - 1);
-const lastMonth = new Date().setDate(today.getMonth() - 1);
 export const url = 'https://product-fabric.atlassian.net/wiki/spaces/EM';
 
 export const response1 = {
@@ -39,15 +36,15 @@ export const response1 = {
       '@id': 'https://www.atlassian.com/#Confluence',
       name: 'Confluence',
     },
-    endTime: '2018-07-31T00:00:00.000Z',
+    endTime: '2022-07-31T00:00:00.000Z',
     image: preview,
     mediaType: 'text/plain',
     name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     'schema:commentCount': 22,
-    'schema:dateCreated': new Date(lastMonth).toISOString(),
+    'schema:dateCreated': '2022-01-21T10:25:11.676+1100',
     summary:
       'Nunc justo lectus, blandit ut ultrices a, elementum quis quam. In ut dolor ac nulla gravida scelerisque vitae sit amet ipsum. Pellentesque vitae luctus lorem. Etiam enim ligula, lobortis vel convallis ut, elementum ut nibh. Mauris ultricies mi risus, vel condimentum lorem convallis eu. Cras pharetra, dui nec gravida rutrum, mauris odio commodo mauris, eu lacinia dui mi nec tortor. Curabitur eleifend tortor eros, id venenatis est posuere sit amet. ',
-    updated: new Date(yesterday).toISOString(),
+    updated: '2022-02-05T16:44:00.000+1000',
     url,
   },
 };
@@ -74,8 +71,8 @@ export const response2 = {
     },
     '@type': ['atlassian:Task', 'Object'],
     name: 'Maecenas sagittis mauris ut lacinia molestie.',
-    'schema:dateCreated': '2021-10-19T11:35:10.027+1100',
-    updated: '2022-02-22T10:25:11.676+1100',
+    'schema:dateCreated': '2022-03-01T11:35:10.027+1100',
+    updated: '2022-03-09T10:25:11.676+1100',
     'schema:commentCount': 1,
     'atlassian:priority': 'Major',
     'atlassian:subscriberCount': 2,
@@ -122,7 +119,7 @@ export const response3 = {
     summary:
       'Aenean nec urna et ex commodo mattis. Pellentesque feugiat fermentum venenatis. Curabitur eleifend, ipsum sit amet tincidunt tempor, quam elit interdum lorem, non porta erat nibh eu enim.',
     'schema:commentCount': 55,
-    'schema:dateCreated': new Date(yesterday).toISOString(),
+    'schema:dateCreated': '2022-03-10T10:25:11.676+1100',
     'atlassian:subscriberCount': 5,
     preview: { '@type': 'Link', href: preview },
     attributedTo: [

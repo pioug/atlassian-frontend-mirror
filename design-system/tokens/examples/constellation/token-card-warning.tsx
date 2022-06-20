@@ -15,7 +15,7 @@ activeBackgroundColor: token('color.background.warning.bold.pressed'),
 iconColor: token('color.icon.warning.inverse'),
 
 // default styles
-color: token('color.text.warning'),
+color: token('color.text'),
 backgroundColor: token('color.background.warning'),
 border: \`1px solid \${token('color.border.warning')}\`,
 hoverBackgroundColor: token('color.background.warning.hovered'),
@@ -39,7 +39,7 @@ const warningStyles = {
     iconColor: token('color.icon.warning.inverse', '#FFFFFF'),
   },
   default: {
-    color: token('color.text.warning', '#974F0C'),
+    color: token('color.text', '#172B4D'),
     backgroundColor: token('color.background.warning', '#FFF7D6'),
     border: `1px solid ${token('color.border.warning', '#D97008')}`,
     hoverBackgroundColor: token('color.background.warning.hovered', '#F8E6A0'),

@@ -11,11 +11,14 @@ import { fontFamily } from './constants';
 import theme from './theme';
 
 const labelStyles = css({
-  display: 'flex',
-  alignItems: 'center',
+  display: 'grid',
+  gap: '0 4px',
+  gridAutoColumns: '1fr',
+  gridAutoRows: 'min-content',
+  gridTemplateColumns: 'min-content auto',
   color: token('color.text', N900),
   cursor: 'default',
-  fontFamily,
+  fontFamily: fontFamily,
 });
 
 const disabledStyles = css({

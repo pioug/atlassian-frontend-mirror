@@ -30,7 +30,8 @@ BrowserTestCase(
     const testPage = new Page(client);
     await testPage.goto(exampleUrl);
     await testPage.waitFor(checkboxLabelQuery, 5000);
-    await testPage.modifierClick('Shift'); // shift is chosen here as it is OS-agnostic unlike cmd+click, and should behave in the same way
+    // Using Shift is chosen here as it is OS-agnostic unlike cmd+click (metaKey)
+    await testPage.modifierClick('Shift');
     const checkbox = await testPage.$(hiddenCheckboxQuery);
     const isChecked = await checkbox.getProperty('checked');
     expect(isChecked).toBe(true);

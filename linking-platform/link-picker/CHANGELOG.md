@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 0.8.1
+
+### Patch Changes
+
+- [`eef8c2da75b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eef8c2da75b) - [ux] Remove link-picker background color as it conflicts with floatingToobar borders
+
 ## 0.8.0
 
 ### Minor Changes

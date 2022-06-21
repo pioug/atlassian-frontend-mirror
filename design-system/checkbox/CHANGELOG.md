@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.3.14
+
+### Patch Changes
+
+- [`ff75f6c3189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff75f6c3189) - [ux] Checkbox now uses grid layout in order to position the hidden checkbox over the area where the icon is. This improves the virtual cursor for screen readers while also meaning that modifier keys used when clicking the checkbox work."
+
 ## 12.3.13
 
 ### Patch Changes

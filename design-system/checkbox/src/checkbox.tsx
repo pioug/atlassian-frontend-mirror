@@ -3,7 +3,6 @@ import {
   ChangeEvent,
   forwardRef,
   memo,
-  MouseEvent,
   Ref,
   useCallback,
   useRef,
@@ -19,22 +18,17 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
 import type { CheckboxProps } from './types';
 
-// firefox doesn't handle cmd+click/ctrl+click properly
-const isFirefox: boolean =
-  typeof navigator !== 'undefined' &&
-  navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-
 /* eslint-disable @repo/internal/styles/no-nested-styles */
 const checkboxStyles = css({
-  width: 0, // Necessary to hide correctly on mobile Safari
-  height: 0, // Necessary to hide correctly on mobile Safari
+  width: '100%',
+  height: '100%',
   margin: 0,
   appearance: 'none',
-  border: 'none', // Necessary to hide correctly on mobile Safari
-  outline: 'none', // Necessary to hide focus ring on Firefox
+  border: 'none',
+  gridArea: '1 / 1 / 2 / 2',
+  opacity: 0,
+  outline: 'none',
   '& + svg': {
-    flexShrink: 0,
-    alignSelf: 'flex-start',
     /**
      *  Change the variables --checkbox-background-color, --checkbox-border-color
      *  and --checkbox-tick-color according to user interactions.
@@ -46,6 +40,8 @@ const checkboxStyles = css({
     '--checkbox-tick-color': 'var(--local-tick-rest)',
     color: 'var(--checkbox-background-color)',
     fill: 'var(--checkbox-tick-color)',
+    gridArea: '1 / 1 / 2 / 2',
+    pointerEvents: 'none',
     transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
     'rect:first-of-type': {
       stroke: 'var(--checkbox-border-color)',
@@ -183,13 +179,6 @@ const Checkbox = memo(
     const internalRef = useRef<HTMLInputElement>(null);
     const mergedRefs = mergeRefs([internalRef, ref]);
 
-    // firefox doesn't properly dispatch events from label to its child input elements
-    const onClickLabel = (event: MouseEvent<HTMLElement>) => {
-      if (event.ctrlKey || event.metaKey || event.shiftKey) {
-        internalRef.current?.click();
-      }
-    };
-
     // Use isChecked from the state if it is controlled
     const isChecked =
       isCheckedProp === undefined ? isCheckedState : isCheckedProp;
@@ -198,7 +187,6 @@ const Checkbox = memo(
       <Label
         isDisabled={isDisabled}
         testId={testId && `${testId}--checkbox-label`}
-        onClick={isFirefox ? onClickLabel : undefined}
       >
         <input
           {...rest}

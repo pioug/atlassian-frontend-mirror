@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/core';
-import { N500, N0, B50, N300, N800, N20, B400 } from '@atlaskit/theme/colors';
+import { N500, B50, N300, N800, N20, B400 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { relativeFontSizeToBase16 } from './utils';
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -12,7 +12,6 @@ const LINK_PICKER_WIDTH_IN_PX = 342;
 
 export const recentListStyles = css`
   width: ${LINK_PICKER_WIDTH_IN_PX}px;
-  background: ${token('elevation.surface.overlay', N0)};
 `;
 
 export const Container = styled.div`

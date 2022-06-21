@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {

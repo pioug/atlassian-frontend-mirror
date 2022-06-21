@@ -1,0 +1,88 @@
+{
+  "name": "@atlaskit/give-kudos",
+  "version": "0.2.0",
+  "description": "Give Kudos experience ",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Team Central",
+    "inPublicMirror": false,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "GiveKudos"
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "(cd ../../.. && yarn eslint 'packages/team-central/give-kudos/**/*.{ts,tsx}')",
+    "test": "(cd ../../.. && yarn test 'packages/team-central/give-kudos')",
+    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "@atlaskit/button": "^16.3.1",
+    "@atlaskit/drawer": "^7.1.10",
+    "@atlaskit/icon": "^21.10.7",
+    "@atlaskit/modal-dialog": "^12.2.9",
+    "@babel/runtime": "^7.0.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^3.4.10"
+  },
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/flag": "^14.5.9",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/tokens": "^0.10.0",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@emotion/core": "^10.0.9",
+    "@testing-library/react": "^8.0.1",
+    "react-dom": "^16.8.0",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "code-structure": [
+        "tangerine-next"
+      ],
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "react-context",
+        "tokens"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

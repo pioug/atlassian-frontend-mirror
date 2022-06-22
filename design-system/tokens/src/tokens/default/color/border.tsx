@@ -12,6 +12,15 @@ const color: AttributeSchema<BorderColorTokenSchema> = {
             'Use to visually group or separate UI elements, such as flat cards or side panel dividers.',
         },
       },
+      bold: {
+        attributes: {
+          group: 'paint',
+          state: 'active',
+          introduced: '0.10.8',
+          description:
+            'A neutral border option that passes min 3:1 contrast ratios.',
+        },
+      },
       inverse: {
         attributes: {
           group: 'paint',

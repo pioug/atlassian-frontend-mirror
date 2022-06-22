@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.8
+
+### Patch Changes
+
+- [`3c1eda5c3d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c1eda5c3d0) - [Tokens] added new color.border.bold token
+
 ## 0.10.7
 
 ### Patch Changes

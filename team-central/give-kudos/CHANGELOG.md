@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 0.3.0
+
+### Minor Changes
+
+- [`e2eac5d9f0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2eac5d9f0c) - [ux] Add lazy loading support
+
 ## 0.2.0
 
 ### Minor Changes

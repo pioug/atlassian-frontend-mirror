@@ -3,7 +3,7 @@
  *
  * Token names mapped to their value in the default Atlassian theme ('light')
  *
- * @codegen <<SignedSource::a819b31f00d394be417445acd67bd024>>
+ * @codegen <<SignedSource::65fed9d3a0df2e2c1ccee929e1349bb4>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -76,6 +76,7 @@ const defaultTokenValues = {
   'color.border.accent.magenta': '#CD519D',
   'color.border.accent.gray': '#758195',
   'color.border': '#091E4224',
+  'color.border.bold': '#758195',
   'color.border.inverse': '#FFFFFF',
   'color.border.focused': '#388BFF',
   'color.border.input': '#091E4224',

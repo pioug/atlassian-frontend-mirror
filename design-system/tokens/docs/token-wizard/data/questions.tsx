@@ -580,8 +580,8 @@ const questions: Questions = {
     summary: 'Purpose',
     answers: [
       {
-        result: 'border/neutral/neutral',
-        summary: 'Default',
+        result: 'border/neutral/input',
+        summary: 'Input fields',
       },
       {
         result: 'border/neutral/disabled',
@@ -592,6 +592,10 @@ const questions: Questions = {
         summary: 'Accent',
         description:
           'Users can choose a border color from a set of accents, and one option is unsaturated/gray',
+      },
+      {
+        result: 'border/neutral/neutral',
+        summary: 'Other',
       },
     ],
   },

@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.0.4
+
+### Patch Changes
+
+- [`f538640e3a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f538640e3a5) - fix: Previously the .reload() action would not propagate changes through to the smart-card state in some scenarios. This has been amended by making it an explicit Redux action.
+
 ## 1.0.3
 
 ### Patch Changes

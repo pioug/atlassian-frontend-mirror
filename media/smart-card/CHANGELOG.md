@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 19.1.23
+
+### Patch Changes
+
+- [`f538640e3a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f538640e3a5) - fix: Previously the .reload() action would not propagate changes through to the smart-card state in some scenarios. This has been amended by making it an explicit Redux action.
+- Updated dependencies
+
 ## 19.1.22
 
 ### Patch Changes

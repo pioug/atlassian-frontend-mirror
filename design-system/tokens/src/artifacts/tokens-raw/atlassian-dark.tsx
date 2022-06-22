@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3354689a803bcf6799054d3faa65df85>>
+ * @codegen <<SignedSource::f6554dd5fa7c18bf2250697f2e567297>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -1898,6 +1898,32 @@ const tokens = [
       "color",
       "border",
       "[default]"
+    ]
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.8",
+      "description": "A neutral border option that passes min 3:1 contrast ratios."
+    },
+    "value": "#738496",
+    "filePath": "src/tokens/atlassian-dark/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.10.8",
+        "description": "A neutral border option that passes min 3:1 contrast ratios."
+      },
+      "value": "DN600"
+    },
+    "name": "color.border.bold",
+    "path": [
+      "color",
+      "border",
+      "bold"
     ]
   },
   {

@@ -60,6 +60,7 @@ color.border.accent.teal, "Use for teal borders on non-bold backgrounds when the
 color.border.accent.magenta, "Use for magenta borders on non-bold backgrounds when there is no meaning tied to the color."
 color.border.accent.gray, "Use for borders on non-bold gray accent backgrounds."
 color.border, "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
+color.border.bold, "A neutral border option that passes min 3:1 contrast ratios."
 color.border.inverse, "Use for borders on bold backgrounds."
 color.border.focused, "Use for focus rings of elements in a focus state."
 color.border.input, "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."

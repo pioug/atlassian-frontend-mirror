@@ -319,11 +319,11 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
       data-testid={testId}
       css={{
         'h2, h2:first-of-type': {
-          marginTop: gridSize() * 3,
+          marginTop: gridSize() * 4,
           marginBottom: gridSize() * 2,
         },
         'h3, h3:first-of-type': {
-          marginTop: gridSize() * 2,
+          marginTop: gridSize() * 4,
           marginBottom: gridSize() * 2,
         },
       }}

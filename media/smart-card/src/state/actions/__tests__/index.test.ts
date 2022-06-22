@@ -14,8 +14,22 @@ describe('Smart Card: Actions', () => {
   let dispatchAnalytics: jest.Mock;
   let mockContext: CardContext;
   const mockFetchData = (response: Promise<JsonLd.Response | undefined>) => {
+    let deferrable: Promise<JsonLd.Response | undefined> = Promise.resolve(
+      undefined,
+    );
+
+    const fn = async () => {
+      deferrable = Promise.resolve(response);
+      return response;
+    };
+
     (mockContext.connections.client
-      .fetchData as jest.Mock).mockImplementationOnce(() => response);
+      .fetchData as jest.Mock).mockImplementationOnce(fn);
+
+    return {
+      promise: deferrable,
+      flush: () => new Promise((resolve) => process.nextTick(resolve)),
+    };
   };
   const mockState = (state: CardState) => {
     (mockContext.store.getState as jest.Mock).mockImplementationOnce(() => ({
@@ -77,6 +91,51 @@ describe('Smart Card: Actions', () => {
         url: 'https://some/url',
         error: new APIError('fatal', 'https://some/url', '0xBAADF00D'),
       });
+    });
+
+    it('dispatches resolved action when data successfully fetched', async () => {
+      mockFetchData(Promise.resolve(mocks.success));
+      mockState({
+        status: 'pending',
+        details: undefined,
+      });
+
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+      const actions = useSmartCardActions(id, url, analytics);
+      await actions.register();
+
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+      expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'resolved',
+          url: 'https://some/url',
+          payload: mocks.success,
+        }),
+      );
+    });
+
+    it('dispatches reloading action when reload API invoked', async () => {
+      const deferrable = mockFetchData(Promise.resolve(mocks.success));
+      mockState({
+        status: 'resolved',
+        details: mocks.success,
+      });
+
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+      const actions = useSmartCardActions(id, url, analytics);
+
+      actions.reload();
+      await deferrable.promise;
+      await deferrable.flush();
+
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
+      expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'reloading',
+          url: 'https://some/url',
+          payload: mocks.success,
+        }),
+      );
     });
 
     it('resolves to authentication error data if resolving failed for auth reasons', async () => {

@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::46f8db5199721c535fbdb567090dd31d>>
+ * @codegen <<SignedSource::ea16fe34d028f699adfcf9883b1b1b4e>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -565,6 +565,15 @@ synchronizeFigmaTokens('AtlassianLight', {
       "description": "Use to visually group or separate UI elements, such as flat cards or side panel dividers."
     },
     "value": "#091E4224"
+  },
+  "Color/Border/Bold": {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.10.8",
+      "description": "A neutral border option that passes min 3:1 contrast ratios."
+    },
+    "value": "#758195"
   },
   "Color/Border/Inverse": {
     "attributes": {

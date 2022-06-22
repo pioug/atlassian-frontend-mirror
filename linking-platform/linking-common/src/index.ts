@@ -25,6 +25,7 @@ export {
   ACTION_PRELOAD,
   ACTION_RESOLVED,
   ACTION_RESOLVING,
+  ACTION_RELOADING,
   cardAction,
 } from './actions';
 export type { CardActionParams, CardBaseActionCreator } from './actions';

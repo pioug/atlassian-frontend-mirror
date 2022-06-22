@@ -6,6 +6,9 @@ const color: ValueSchema<BorderColorTokenSchema> = {
       '[default]': {
         value: 'DN300A',
       },
+      bold: {
+        value: 'DN600',
+      },
       inverse: {
         value: 'DN0',
       },

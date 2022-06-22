@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b251fc1793ba7f689b4c3707310c1556>>
+ * @codegen <<SignedSource::3acc6507214a2d925fd75bce0549f0ab>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -73,6 +73,7 @@ const tokens = {
   'color.border.accent.magenta': '--ds-border-accent-magenta',
   'color.border.accent.gray': '--ds-border-accent-gray',
   'color.border': '--ds-border',
+  'color.border.bold': '--ds-border-bold',
   'color.border.inverse': '--ds-border-inverse',
   'color.border.focused': '--ds-border-focused',
   'color.border.input': '--ds-border-input',
@@ -412,6 +413,7 @@ export type CSSTokenMap = {
   'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
   'color.border.accent.gray': 'var(--ds-border-accent-gray)';
   'color.border': 'var(--ds-border)';
+  'color.border.bold': 'var(--ds-border-bold)';
   'color.border.inverse': 'var(--ds-border-inverse)';
   'color.border.focused': 'var(--ds-border-focused)';
   'color.border.input': 'var(--ds-border-input)';

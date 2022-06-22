@@ -369,6 +369,7 @@ export interface BorderColorTokenSchema {
   color: {
     border: {
       '[default]': PaintToken;
+      bold: PaintToken;
       inverse: PaintToken;
       focused: PaintToken;
       input: PaintToken;

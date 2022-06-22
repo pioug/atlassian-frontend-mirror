@@ -9,6 +9,7 @@ import {
   CardAction,
   ACTION_ERROR_FALLBACK,
   APIError,
+  ACTION_RELOADING,
 } from '@atlaskit/linking-common';
 import { Reducer } from 'react';
 import { JsonLd } from 'json-ld-types';
@@ -184,6 +185,23 @@ describe('Smart Card: Reducers', () => {
       expect(store).toHaveProperty('/some/url', {
         status: 'resolved',
         details: mockPayload,
+      });
+    });
+
+    it('successfully persists new state when reload action is invoked', () => {
+      mockDateNow.mockImplementationOnce(() => 456);
+      store[url] = {
+        status: 'resolved',
+        details: mockPayload,
+      };
+      store = reducer(
+        store,
+        cardAction(ACTION_RELOADING, mockActionParams, mockOtherPayload),
+      );
+
+      expect(store).toHaveProperty('/some/url', {
+        status: 'resolved',
+        details: mockOtherPayload,
       });
     });
 

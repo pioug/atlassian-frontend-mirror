@@ -83,6 +83,7 @@ interface resultId {
   'border/colored/magenta': any;
   'border/colored/purple': any;
   'border/colored/gray': any;
+  'border/neutral/input': any;
   'border/neutral/neutral': any;
   'border/neutral/disabled': any;
   'icon/colored/brand': any;
@@ -403,8 +404,11 @@ const results: Results = {
   'border/colored/gray': {
     suggestion: ['color.border.accent.gray'],
   },
+  'border/neutral/input': {
+    suggestion: ['color.border.input'],
+  },
   'border/neutral/neutral': {
-    suggestion: ['color.border', 'color.border.input', 'color.border.inverse'],
+    suggestion: ['color.border', 'color.border.bold', 'color.border.inverse'],
   },
   'border/neutral/disabled': {
     suggestion: ['color.border.disabled'],

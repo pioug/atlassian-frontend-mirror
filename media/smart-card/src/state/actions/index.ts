@@ -8,6 +8,7 @@ import {
   ACTION_RESOLVED,
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,
+  ACTION_RELOADING,
   cardAction,
 } from '@atlaskit/linking-common';
 import {
@@ -74,7 +75,7 @@ export const useSmartCardActions = (
   );
 
   const handleResolvedLinkResponse = useCallback(
-    (resourceUrl: string, response: JsonLd.Response) => {
+    (resourceUrl: string, response: JsonLd.Response, isReloading = false) => {
       const hostname = new URL(resourceUrl).hostname;
       const nextStatus = response ? getStatus(response) : 'fatal';
 
@@ -102,7 +103,11 @@ export const useSmartCardActions = (
       }
 
       // Dispatch Analytics and resolved card action - including unauthorized states.
-      dispatch(cardAction(ACTION_RESOLVED, { url: resourceUrl }, response));
+      if (isReloading) {
+        dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
+      } else {
+        dispatch(cardAction(ACTION_RESOLVED, { url: resourceUrl }, response));
+      }
     },
     [dispatch, handleResolvedLinkError, hasAuthFlowSupported],
   );
@@ -112,10 +117,13 @@ export const useSmartCardActions = (
       // Request JSON-LD data for the card from ORS, iff it has extended
       // its cache lifespan OR there is no data for it currently. Once the data
       // has come back asynchronously, dispatch the resolved action for the card.
+
       if (isReloading || !hasData) {
         return connections.client
           .fetchData(resourceUrl)
-          .then((response) => handleResolvedLinkResponse(resourceUrl, response))
+          .then((response) =>
+            handleResolvedLinkResponse(resourceUrl, response, isReloading),
+          )
           .catch((error) => handleResolvedLinkError(resourceUrl, error));
       } else {
         addMetadataToExperience('smart-link-rendered', id, { cached: true });

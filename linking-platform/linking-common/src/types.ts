@@ -14,10 +14,15 @@ export type CardActionType =
   | 'resolving'
   | 'resolved'
   | 'errored'
-  | 'fallback';
+  | 'fallback'
+  | 'reloading';
 
 export type CardType =
-  | CardActionType
+  | 'pending'
+  | 'resolving'
+  | 'resolved'
+  | 'errored'
+  | 'fallback'
   | 'unauthorized'
   | 'forbidden'
   | 'errored'

@@ -1,5 +1,7 @@
-import GiveKudosLauncher from './ui/GiveKudosLauncher';
+export type { KudosRecipient, GiveKudosDrawerProps } from './types';
+export { KudosType } from './types';
 
-export type { KudosType, KudosRecipient, GiveKudosDrawerProps } from './types';
-
+import GiveKudosLauncher from './ui/GiveKudosLauncher/main';
 export { GiveKudosLauncher };
+
+export { GiveKudosLauncherLazy } from './ui/GiveKudosLauncher';

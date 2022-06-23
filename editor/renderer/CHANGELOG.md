@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 96.0.1
+
+### Patch Changes
+
+- [`9dc961ea69e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9dc961ea69e) - ED-14610: reduce code bundled with table sticky headers
+- [`d6b54a2fd48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6b54a2fd48) - [ux] Fix custom panel dark mode colour regression
+- Updated dependencies
+
 ## 96.0.0
 
 ### Major Changes

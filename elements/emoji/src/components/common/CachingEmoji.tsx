@@ -13,6 +13,7 @@ import {
 } from '../../util/analytics';
 import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 import { EmojiContext, EmojiContextType } from '../../context/EmojiContext';
+import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
 export interface State {
   cachedEmoji?: EmojiDescription;
@@ -40,7 +41,9 @@ export const CachingEmoji = (props: CachingEmojiProps) => {
   );
 
   useEffect(() => {
-    sampledUfoRenderedEmoji(emojiProps.emoji).mark(UfoEmojiTimings.MOUNTED_END);
+    if (!hasUfoMarked(sampledUfoRenderedEmoji(emojiProps.emoji), 'fmp')) {
+      sampledUfoRenderedEmoji(emojiProps.emoji).markFMP();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -118,14 +121,28 @@ export class CachingMediaEmoji extends PureComponent<CachingEmojiProps, State> {
           invalidImage: true,
         });
         sampledUfoRenderedEmoji(emoji).failure({
-          metadata: { reason: 'failed to load media emoji' },
+          metadata: {
+            reason: 'failed to load media emoji',
+            source: 'CachingMediaEmoji',
+            data: {
+              emoji: {
+                id: emoji.id,
+                shortName: emoji.shortName,
+                name: emoji.name,
+              },
+            },
+          },
         });
       });
   }
 
   private handleLoadError = (_emojiId: EmojiId) => {
     sampledUfoRenderedEmoji(_emojiId).failure({
-      metadata: { reason: 'load error' },
+      metadata: {
+        reason: 'load error',
+        source: 'CachingMediaEmoji',
+        emoji: { id: _emojiId.id, shortName: _emojiId.shortName },
+      },
     });
     this.setState({
       invalidImage: true,

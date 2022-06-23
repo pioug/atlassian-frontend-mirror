@@ -41,7 +41,15 @@ export const uploadEmoji = (
             reason: messages.emojiUploadFailed.defaultMessage,
           }),
         );
-        ufoExperiences['emoji-uploaded'].failure();
+        ufoExperiences['emoji-uploaded'].failure({
+          metadata: {
+            source: 'UploadEmoji',
+            error: err,
+            data: {
+              upload: { ...upload },
+            },
+          },
+        });
       });
   }
 };

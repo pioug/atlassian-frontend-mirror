@@ -13,7 +13,7 @@ const dateView = `span.dateView-content-wrap`;
 // https://product-fabric.atlassian.net/browse/ED-4531
 BrowserTestCase(
   'calendar.ts: user should be able to open calendar',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     page.teardownMockDate();

@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.2.10
+
+### Patch Changes
+
+- [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
+- [`347fd703ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/347fd703ce0) - Internally shifting to using bind-event-listener for events added in effects
+- [`07ab2748b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07ab2748b62) - [ux] - Changes the position of icon in ModalTitle having an appearance prop to be top aligned instead of center. This only affects titles that where the title wraps into multiple lines.
+- Updated dependencies
+
 ## 12.2.9
 
 ### Patch Changes

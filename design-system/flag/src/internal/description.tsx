@@ -5,17 +5,22 @@ import { FC } from 'react';
 interface DescriptionProps {
   testId?: string;
   color: string;
+  isBold: boolean;
 }
 
 const descriptionStyles = css({
-  /* height is defined as 5 lines maximum by design */
-  maxHeight: 100,
+  maxHeight: 100, // height is defined as 5 lines maximum by design
   overflow: 'auto',
   wordWrap: 'break-word',
 });
 
-const Description: FC<DescriptionProps> = ({ color, testId, children }) => (
-  <div style={{ color }} css={descriptionStyles} data-testid={testId}>
+const Description: FC<DescriptionProps> = ({
+  color,
+  testId,
+  children,
+  isBold,
+}) => (
+  <div style={{ color }} css={[descriptionStyles]} data-testid={testId}>
     {children}
   </div>
 );

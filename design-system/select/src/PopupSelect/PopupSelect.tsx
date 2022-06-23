@@ -21,6 +21,7 @@ import {
   StylesConfig,
   ValueType,
 } from '../types';
+import { bind, UnbindFn } from 'bind-event-listener';
 
 type SelectComponents = typeof RSComponents;
 
@@ -55,10 +56,50 @@ export interface PopupSelectProps<
   IsMulti extends boolean = false,
   Modifiers = string
 > extends ReactSelectProps<Option, IsMulti> {
+  /**
+   * Defines whether the menu should close when selected. Defaults to "true"
+   */
   closeMenuOnSelect?: boolean;
+  /**
+   * The footer content shown at the bottom of the Popup, underneath the Select options
+   */
   footer?: ReactNode;
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /**
+    The props passed down to React Popper.
+
+    Use these to override the default positioning strategy, behaviour and placement used by this library.
+    For more information, see the [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
+
+   */
   popperProps?: PopperPropsNoChildren<Modifiers>;
+  /**
+   * The maximum number of options the Select can contain without rendering the search field.
+   */
   searchThreshold?: number;
+  /**
+   * The maximum width for the popup menu. Can be a number, representing width in pixels,
+   * or a string containing a CSS length datatype.
+   */
+  maxMenuWidth?: number | string;
+  /**
+   * The maximum width for the popup menu. Can be a number, representing width in pixels,
+   * or a string containing a CSS length datatype.
+   */
+  minMenuWidth?: number | string;
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /**
+    Render props used to anchor the popup to your content.
+
+    Make this an interactive element, such as an @atlaskit/button component.
+
+    The provided render props in `options` are detailed below:
+    - `isOpen`: The current state of the popup.
+        Use this to change the appearance of your target based on the state of your component
+    - `ref`: Pass this ref to the element the Popup should be attached to
+    - `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to
+        ensure your experience is accessible
+   */
   target?: (
     options: PopupSelectTriggerProps & { isOpen: boolean },
   ) => ReactNode;
@@ -105,6 +146,8 @@ export default class PopupSelect<
   menuRef: HTMLElement | null = null;
   selectRef: Select<Option, IsMulti> | null = null;
   targetRef: HTMLElement | null = null;
+  unbindWindowClick: UnbindFn | null = null;
+  unbindWindowKeydown: UnbindFn | null = null;
 
   defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
     baseStyles(this.props.validationState, this.props.spacing === 'compact'),
@@ -172,15 +215,21 @@ export default class PopupSelect<
     if (typeof window === 'undefined') {
       return;
     }
-    window.addEventListener('click', this.handleClick, true);
+    this.unbindWindowClick = bind(window, {
+      type: 'click',
+      listener: this.handleClick,
+      options: { capture: true },
+    });
   }
 
   componentWillUnmount() {
     if (typeof window === 'undefined') {
       return;
     }
-    window.removeEventListener('click', this.handleClick, true);
-    window.removeEventListener('keydown', this.handleKeyDown, true);
+    this.unbindWindowClick?.();
+    this.unbindWindowClick = null;
+    this.unbindWindowKeydown?.();
+    this.unbindWindowKeydown = null;
   }
 
   componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti>) {
@@ -274,7 +323,11 @@ export default class PopupSelect<
     if (typeof window === 'undefined') {
       return;
     }
-    window.addEventListener('keydown', this.handleKeyDown, true);
+    this.unbindWindowKeydown = bind(window, {
+      type: 'keydown',
+      listener: this.handleKeyDown,
+      options: { capture: true },
+    });
   };
 
   initialiseFocusTrap = () => {
@@ -326,7 +379,8 @@ export default class PopupSelect<
       return;
     }
 
-    window.removeEventListener('keydown', this.handleKeyDown, true);
+    this.unbindWindowKeydown?.();
+    this.unbindWindowKeydown = null;
   };
 
   // Refs

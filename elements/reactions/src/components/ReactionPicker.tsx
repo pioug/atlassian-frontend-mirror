@@ -81,7 +81,12 @@ export class ReactionPicker extends PureComponent<Props, State> {
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
-    UFO.PickerRender.abort();
+    UFO.PickerRender.abort({
+      metadata: {
+        source: 'Reaction-Picker',
+        reason: 'unmount',
+      },
+    });
   }
 
   private handleClickOutside = (e: MouseEvent) => {
@@ -107,7 +112,13 @@ export class ReactionPicker extends PureComponent<Props, State> {
       },
       () => {
         // ufo abort reaction experience
-        UFO.PickerRender.abort();
+        UFO.PickerRender.abort({
+          metadata: {
+            emojiId: _emojiId,
+            source: 'Reaction-Picker',
+            reason: 'close dialog',
+          },
+        });
       },
     );
   }

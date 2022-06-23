@@ -76,4 +76,52 @@ describe('Snapshot Test', () => {
 
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Flag with long title should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'flag',
+      'flag-long-title',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[aria-label="Success"]');
+    const image = await page.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Flag with long content should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'flag',
+      'flag-long-content',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[aria-label="Success"]');
+    const image = await page.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Flag with description and link should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'flag',
+      'Flag-with-a-description-containing-a-link',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[aria-label="Success"]');
+    const image = await page.screenshot();
+
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

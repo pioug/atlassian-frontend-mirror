@@ -169,7 +169,6 @@ export const insertDate = (
       })
       .scrollIntoView();
 
-    // Used to keep the date node selected on mobile after changing it
     if (!enterPressed) {
       tr = tr.setSelection(NodeSelection.create(tr.doc, showDatePickerAt));
     }

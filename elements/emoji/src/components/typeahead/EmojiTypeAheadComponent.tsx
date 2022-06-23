@@ -136,8 +136,20 @@ export default class EmojiTypeAheadComponent extends PureComponent<
         typeaheadCancelledEvent(Date.now() - this.openTime, query, emojis),
       );
     }
-    ufoExperiences['emoji-searched'].abort();
-    ufoExperiences['emoji-selection-recorded'].abort();
+    ufoExperiences['emoji-searched'].abort({
+      metadata: {
+        source: 'EmojiTypeAheadComponent',
+        reason: 'unmount',
+        data: { query },
+      },
+    });
+    ufoExperiences['emoji-selection-recorded'].abort({
+      metadata: {
+        source: 'EmojiTypeAheadComponent',
+        reason: 'unmount',
+        data: { query },
+      },
+    });
     this.sessionId = uuid();
     this.selected = false;
   }

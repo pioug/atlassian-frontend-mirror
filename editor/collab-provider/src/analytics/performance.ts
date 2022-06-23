@@ -1,4 +1,4 @@
-type MeasureName = 'callingCatchupApi';
+type MeasureName = 'callingCatchupApi' | 'socketConnect' | 'documentInit';
 
 const isPerformanceAPIAvailable = (): boolean => {
   return (
@@ -29,7 +29,7 @@ export function startMeasure(measureName: MeasureName) {
 export function stopMeasure(
   measureName: MeasureName,
   onMeasureComplete?: (duration: number, startTime: number) => void,
-) {
+): { duration: number; startTime: number } | undefined {
   if (!hasPerformanceAPIAvailable) {
     return;
   }
@@ -47,18 +47,20 @@ export function stopMeasure(
       `${measureName}::start`,
       `${measureName}::end`,
     );
-  } catch (error) {
-  } finally {
-    if (onMeasureComplete) {
-      const entry = performance.getEntriesByName(measureName).pop();
-      if (entry) {
-        onMeasureComplete(entry.duration, entry.startTime);
-      } else if (start) {
-        onMeasureComplete(performance.now() - start, start);
-      }
-    }
-    clearMeasure(measureName);
+  } catch (e) {}
+
+  const entry = performance.getEntriesByName(measureName).pop();
+  clearMeasure(measureName);
+  let measure;
+  if (entry) {
+    measure = { duration: entry.duration, startTime: entry.startTime };
+  } else if (start) {
+    measure = { duration: performance.now() - start, startTime: start };
   }
+  if (measure && onMeasureComplete) {
+    onMeasureComplete(measure.duration, measure.startTime);
+  }
+  return measure;
 }
 
 export function clearMeasure(measureName: string) {

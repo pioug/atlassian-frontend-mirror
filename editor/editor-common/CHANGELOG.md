@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 68.0.1
+
+### Patch Changes
+
+- [`559b6610a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b6610a0e) - Modified some CSS rules to ensure Emotion is compatible with server side rendering.
+- Updated dependencies
+
 ## 68.0.0
 
 ### Major Changes

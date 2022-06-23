@@ -21,7 +21,7 @@ import {
 
 import { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 
-// TODO - update these using the testId prefix being add in ED-11415
+// TODO - update these using the testId prefix being added in ED-11415
 const undoSelector = 'ak-editor-toolbar-button-undo';
 const redoSelector = 'ak-editor-toolbar-button-redo';
 

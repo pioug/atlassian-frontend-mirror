@@ -36,19 +36,24 @@ const PanelStyled: React.FC<
       ${panelSharedStylesWithoutPrefix({ theme })}
     }
   `;
-  if (props['data-panel-type'] === PanelType.CUSTOM && props.backgroundColor) {
-    styles = (theme: ThemeProps['theme']) => css`
-      &.${PanelSharedCssClassName.prefix} {
-        ${panelSharedStylesWithoutPrefix({ theme })}
-      }
 
-      &[data-panel-type=${PanelType.CUSTOM}] {
-        background-color: ${props.backgroundColor};
-        ${themed({
-          dark: getPanelBackgroundDarkModeColors,
-        })({ theme })};
-      }
-    `;
+  if (props['data-panel-type'] === PanelType.CUSTOM && props.backgroundColor) {
+    styles = (theme: ThemeProps['theme']) => {
+      const customStyle = themed({
+        dark: getPanelBackgroundDarkModeColors,
+        light: `background-color: ${props.backgroundColor};`,
+      })({ theme });
+
+      return css`
+        &.${PanelSharedCssClassName.prefix} {
+          ${panelSharedStylesWithoutPrefix({ theme })}
+        }
+
+        &[data-panel-type=${PanelType.CUSTOM}] {
+          ${customStyle};
+        }
+      `;
+    };
   }
 
   return (

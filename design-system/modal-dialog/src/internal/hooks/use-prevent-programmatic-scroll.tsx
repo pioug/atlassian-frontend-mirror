@@ -1,6 +1,6 @@
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
-import useWindowEvent from '@atlaskit/ds-lib/use-window-event';
+import { bind } from 'bind-event-listener';
 
 /**
  * Returns how far the body is scrolled from the top of the viewport.
@@ -40,7 +40,12 @@ export default function usePreventProgrammaticScroll(): number {
     }
   }, [scrollTopOffset]);
 
-  useWindowEvent('scroll', onWindowScroll);
+  useEffect(() => {
+    return bind(window, {
+      type: 'scroll',
+      listener: onWindowScroll,
+    });
+  }, [onWindowScroll]);
 
   return scrollTopOffset;
 }

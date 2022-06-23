@@ -45,7 +45,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'replaces table with content when user pastes plain text with a full-table cell selection',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await page.waitFor(clipboardInput);
@@ -72,7 +72,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'replaces table with content when user pastes rich text with a full-table cell selection',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await page.waitFor(clipboardInput);

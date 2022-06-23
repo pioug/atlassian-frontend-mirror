@@ -32,7 +32,8 @@ export const useSampledUFOComponentExperience = (
 
   useConstructor(() => {
     withSampling(experience).start({ samplingRate });
-    if (metadata) {
+    const isMetadataEmpty = Object.keys(experience.metadata).length === 0;
+    if (metadata && isMetadataEmpty) {
       experience.addMetadata(metadata);
     }
   });

@@ -98,10 +98,27 @@ export const transformSliceToRemoveOpenTable = (
     slice.content.childCount === 1 &&
     slice.content.firstChild!.type === schema.nodes.table
   ) {
+    // prosemirror-view has a bug that it duplicates table entry when selecting multiple paragraphs in a table cell.
+    // https://github.com/ProseMirror/prosemirror/issues/1270
+    // The structure becomes
+    // table(genuine) > tableRow(genuine) > table(duplicated) > tableRow(duplicated) > tableCell/tableHeader(genuine) > contents(genuine)
+    // As we are removing wrapping table anyway, we keep duplicated table and tableRow for simplicity
+    let cleaned = slice;
+    if (
+      slice.content.firstChild?.content?.firstChild?.content?.firstChild
+        ?.type === schema.nodes.table
+    ) {
+      cleaned = new Slice(
+        slice.content.firstChild.content.firstChild.content,
+        slice.openStart - 2,
+        slice.openEnd - 2,
+      );
+    }
+
     return new Slice(
-      flatmap(slice.content, unwrapContentFromTable),
-      slice.openStart - depthDecrement,
-      slice.openEnd - depthDecrement,
+      flatmap(cleaned.content, unwrapContentFromTable),
+      cleaned.openStart - depthDecrement,
+      cleaned.openEnd - depthDecrement,
     );
   }
 

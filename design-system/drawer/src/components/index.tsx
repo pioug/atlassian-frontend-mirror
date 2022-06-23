@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 import React, { Component, SyntheticEvent } from 'react';
 
 import { canUseDOM } from 'exenv';

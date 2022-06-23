@@ -37,7 +37,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'Should scale remaining columns when deleting a column recovering table from overflow',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

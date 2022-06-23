@@ -81,7 +81,7 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   folderUploads: false,
   observedWidth: false,
   timestampOnVideo: false,
-  mediaUploadApiV2: false,
+  mediaUploadApiV2: true,
 };
 
 /**

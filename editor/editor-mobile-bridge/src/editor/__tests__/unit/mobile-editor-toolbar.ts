@@ -6,6 +6,7 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 jest.mock('../../web-to-native/index');
 jest.mock('@atlaskit/editor-core');
+jest.mock('prosemirror-state');
 
 describe('Notify editing capabilities to the native bridge', () => {
   let toolbarActions: MobileEditorToolbarActions;
@@ -661,6 +662,7 @@ describe('perform edit action', () => {
   it('should perform change action for date select options', () => {
     const mockCommand = jest.fn();
     const mockOnChange = jest.fn(() => mockCommand);
+
     const toolbarConfig: FloatingToolbarConfig = {
       title: 'floating',
       nodeType: defaultSchema.nodes['date'],
@@ -677,7 +679,20 @@ describe('perform edit action', () => {
 
     toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(toolbarConfig);
 
-    const editorView = {} as EditorViewWithComposition;
+    const editorView = {
+      state: {
+        tr: {
+          selection: {
+            to: 1,
+          },
+          doc: {
+            resolve: jest.fn(),
+          },
+          setSelection: jest.fn(),
+        },
+      },
+      dispatch: jest.fn(),
+    } as any;
 
     toolbarActions.performEditAction('0', editorView, '0');
 

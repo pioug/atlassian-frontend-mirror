@@ -31,7 +31,7 @@
     "eslint-codemod-utils": "^1.3.2"
   },
   "devDependencies": {
-    "@atlaskit/ds-lib": "^1.4.1",
+    "@atlaskit/ds-lib": "^2.0.0",
     "@atlaskit/theme": "^12.0.2",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/core": "^10.0.9",
@@ -48,6 +48,7 @@
       "circular-dependencies": "file-and-folder-level"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "deprecation": "no-deprecated-imports",
       "styling": [

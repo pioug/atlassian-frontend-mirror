@@ -13,7 +13,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: should open a new window to authenticate with a provider when connecting a different account',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: ClientType) => {
     const page = await goToEditorTestingWDExample(client);
     const authorizationWindow = new AuthorizationWindow(client, page);

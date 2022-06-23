@@ -14,7 +14,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'embed: React shall not apply the same state to two different cards',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: ClientType) => {
     const page = await goToEditorTestingWDExample(client);
     const cardProviderPromise = Promise.resolve(

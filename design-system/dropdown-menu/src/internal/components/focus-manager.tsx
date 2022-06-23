@@ -1,6 +1,14 @@
-import React, { createContext, FC, useCallback, useRef } from 'react';
+import React, {
+  createContext,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 
-import useKeydownEvent from '@atlaskit/ds-lib/use-keydown-event';
+import { bind } from 'bind-event-listener';
+
+import __noop from '@atlaskit/ds-lib/noop';
 
 import { FocusableElement } from '../../types';
 import handleFocus from '../utils/handle-focus';
@@ -13,9 +21,12 @@ import handleFocus from '../utils/handle-focus';
  * This list drives the keyboard navgation of the menu.
  *
  */
-export const FocusManagerContext = createContext({
-  menuItemRefs: [] as FocusableElement[],
-  registerRef: (ref: FocusableElement) => {},
+export const FocusManagerContext = createContext<{
+  menuItemRefs: FocusableElement[];
+  registerRef: (ref: FocusableElement) => void;
+}>({
+  menuItemRefs: [],
+  registerRef: __noop,
 });
 
 /**
@@ -29,7 +40,13 @@ const FocusManager: FC = ({ children }) => {
     }
   }, []);
 
-  useKeydownEvent(handleFocus(menuItemRefs.current));
+  // Intentionally rebinding on each render
+  useEffect(() => {
+    return bind(window, {
+      type: 'keydown',
+      listener: handleFocus(menuItemRefs.current),
+    });
+  });
 
   const contextValue = {
     menuItemRefs: menuItemRefs.current,

@@ -28,6 +28,7 @@ import {
   clickAndDragSelect,
 } from './__helpers/_blockNodeSelectionTestSuite';
 import { Selection } from 'prosemirror-state';
+import { ADFEntity } from '@atlaskit/adf-utils/types';
 
 type TestName =
   | '[block-node] Should not prevent extending a selection to the end of the document from the start of the document'
@@ -74,11 +75,7 @@ export async function runBlockNodeSelectionTestSuite({
   nodeName: string;
   selector?: string;
   editorOptions?: { [key: string]: any };
-  adfNode: {
-    type: string;
-    attrs: { [key: string]: any };
-    content?: { [key: string]: any }[];
-  };
+  adfNode: ADFEntity;
   customBeforeEach?: (page: WebDriverPage) => Promise<void>;
   skipTests?: { [key in TestName]?: Browser[] };
 }) {
@@ -90,6 +87,15 @@ export async function runBlockNodeSelectionTestSuite({
     };
 
     let lastPosInDoc = 0;
+
+    // These block nodes cannot be selected as a node selection which
+    // affects expected selection positions in below tests.
+    const nodeAllowsNodeSelection = ![
+      'taskList',
+      'bulletList',
+      'orderedList',
+      'blockquote',
+    ].includes(nodeName);
 
     const initEditor = async ({
       client,
@@ -220,13 +226,25 @@ export async function runBlockNodeSelectionTestSuite({
             numberOfTimes: 1,
           });
 
+          // If the node can't be selected as a node selection, move into the
+          // first editable position inside the node.
+          let head = nodeAllowsNodeSelection ? lastPosInDoc : 5;
+          // TaskLists and blockquotes have one less child node compared to other
+          // nodes that don't allow node selection.
+          if (['taskList', 'blockquote'].includes(nodeName)) {
+            head = 4;
+          }
+
           await expectToMatchSelection(page, {
             type: 'text',
             anchor: 1,
-            head: lastPosInDoc,
+            head,
           });
 
-          await page.waitForSelector(`.ak-editor-selected-node`);
+          // This class is only applied when the entire node is within a selection.
+          if (nodeAllowsNodeSelection) {
+            await page.waitForSelector(`.ak-editor-selected-node`);
+          }
         },
       );
 
@@ -248,13 +266,25 @@ export async function runBlockNodeSelectionTestSuite({
             numberOfTimes: 1,
           });
 
+          // If the node can't be selected as a node selection, move into the
+          // first editable position inside the node.
+          let head = nodeAllowsNodeSelection ? 1 : 5;
+          // TaskLists and blockquotes have one less child node compared to other
+          // nodes that don't allow node selection.
+          if (['taskList', 'blockquote'].includes(nodeName)) {
+            head = 4;
+          }
+
           await expectToMatchSelection(page, {
             type: 'text',
             anchor: lastPosInDoc,
-            head: 1,
+            head,
           });
 
-          await page.waitForSelector(`.ak-editor-selected-node`);
+          // This class is only applied when the entire node is within a selection.
+          if (nodeAllowsNodeSelection) {
+            await page.waitForSelector(`.ak-editor-selected-node`);
+          }
         },
       );
 
@@ -329,10 +359,18 @@ export async function runBlockNodeSelectionTestSuite({
           });
 
           await keyboardSelectDocFromEnd(page);
+          // If the node can't be selected as a node selection, move into the
+          // first editable position inside the node.
+          let head = nodeAllowsNodeSelection ? 1 : 3;
+          // TaskLists and blockquotes have one less child node compared to other
+          // nodes that don't allow node selection.
+          if (['taskList', 'blockquote'].includes(nodeName)) {
+            head = 2;
+          }
           await expectToMatchSelection(page, {
             type: 'text',
             anchor: lastPosInDoc,
-            head: 1,
+            head,
           });
         },
       );
@@ -355,13 +393,19 @@ export async function runBlockNodeSelectionTestSuite({
             targetSelector: selector,
             dragDirection: 'Up',
           });
-
+          // If the node can't be selected as a node selection, move into the
+          // first editable position inside the node.
+          let head = nodeAllowsNodeSelection ? 1 : 3;
+          // TaskLists and blockquotes have one less child node compared to other
+          // nodes that don't allow node selection.
+          if (['taskList', 'blockquote'].includes(nodeName)) {
+            head = 2;
+          }
           await expectToMatchSelection(page, {
             type: 'text',
             anchor: lastPosInDoc,
-            head: 1,
+            head,
           });
-          await page.waitForSelector(`.ak-editor-selected-node`);
         },
       );
     });
@@ -407,61 +451,66 @@ export async function runBlockNodeSelectionTestSuite({
             dragDirection: 'Down',
           });
 
-          await page.waitForSelector(`.ak-editor-selected-node`);
-        },
-      );
-    });
-
-    describe(`Multiple [${nodeName}'s]`, () => {
-      SuiteBrowserTestCase(
-        "Extend selection down by one line multiple times to select [block-node]'s in sequence with shift + arrow down",
-        async (client: BrowserObject) => {
-          const page = await initEditor({
-            client,
-            adf: JSON.stringify(
-              buildAdfMultipleNodesWithParagraphs({ adfNode }),
-            ),
-          });
-          await setProseMirrorSelection({
-            page,
-            selection: { anchor: 1, head: 1 },
-          });
-
-          const nodeSize = await page.execute(() => {
-            const view = (window as any).__editorView;
-            return view.state.doc.nodeAt(2).nodeSize;
-          });
-
-          const expectedSelections: SelectionMatch[] = [
-            // The doc for this test looks like the following:
-            // doc(
-            //  paragraph('{<>}')
-            //  node()
-            //  node()
-            //  node()
-            // paragraph('')
-            // )
-            { type: 'text', anchor: 1, head: 2 },
-            { type: 'text', anchor: 1, head: 2 + nodeSize },
-            { type: 'text', anchor: 1, head: 2 + nodeSize + nodeSize },
-            {
-              type: 'text',
-              anchor: 1,
-              head: lastPosInDoc,
-            },
-          ];
-
-          for (const selection of expectedSelections) {
-            await keyboardShiftSelect({
-              page,
-              direction: 'Down',
-              numberOfTimes: 1,
-            });
-
-            await expectToMatchSelection(page, selection);
+          // This class is only applied when the entire node is within a selection.
+          if (nodeAllowsNodeSelection) {
+            await page.waitForSelector(`.ak-editor-selected-node`);
           }
         },
       );
     });
+
+    if (nodeAllowsNodeSelection) {
+      describe(`Multiple [${nodeName}'s]`, () => {
+        SuiteBrowserTestCase(
+          "Extend selection down by one line multiple times to select [block-node]'s in sequence with shift + arrow down",
+          async (client: BrowserObject) => {
+            const page = await initEditor({
+              client,
+              adf: JSON.stringify(
+                buildAdfMultipleNodesWithParagraphs({ adfNode }),
+              ),
+            });
+            await setProseMirrorSelection({
+              page,
+              selection: { anchor: 1, head: 1 },
+            });
+
+            const nodeSize = await page.execute(() => {
+              const view = (window as any).__editorView;
+              return view.state.doc.nodeAt(2).nodeSize;
+            });
+
+            const expectedSelections: SelectionMatch[] = [
+              // The doc for this test looks like the following:
+              // doc(
+              //  paragraph('{<>}')
+              //  node()
+              //  node()
+              //  node()
+              // paragraph('')
+              // )
+              { type: 'text', anchor: 1, head: 2 },
+              { type: 'text', anchor: 1, head: 2 + nodeSize },
+              { type: 'text', anchor: 1, head: 2 + nodeSize + nodeSize },
+              {
+                type: 'text',
+                anchor: 1,
+                head: lastPosInDoc,
+              },
+            ];
+
+            for (const selection of expectedSelections) {
+              await keyboardShiftSelect({
+                page,
+                direction: 'Down',
+                numberOfTimes: 1,
+              });
+
+              await expectToMatchSelection(page, selection);
+            }
+          },
+        );
+      });
+    }
   });
 }

@@ -395,12 +395,8 @@ export default async () => {
       });
 
       date = await getDate(page, false);
-      calls = await getDummyBridgeCalls(page, 'onNodeSelected');
-      expect(calls.length).toBe(2);
-      expect(calls[1][0]).toBe('date');
-      expect(JSON.parse(calls[1][1])).toMatchObject(
-        buildInitialDateToolbarItems(date),
-      );
+      calls = await getDummyBridgeCalls(page, 'onNodeDeselected');
+      expect(calls.length).toBe(1);
     },
   );
 

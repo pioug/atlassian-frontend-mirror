@@ -446,6 +446,27 @@ export function createPlugin(
             return true;
           }
 
+          // Check that we are pasting in a location that does not accept
+          // breakout marks, if so we strip the mark and paste. Note that
+          // breakout marks are only valid in the root document.
+          if (selectionParentType !== state.schema.nodes.doc) {
+            const sliceCopy = Slice.fromJSON(
+              state.schema,
+              slice.toJSON() || {},
+            );
+
+            sliceCopy.content.descendants((node) => {
+              node.marks = node.marks.filter(
+                (mark) => mark.type.name !== 'breakout',
+              );
+              // as breakout marks should only be on top level nodes,
+              // we don't traverse the entire document
+              return false;
+            });
+
+            slice = sliceCopy;
+          }
+
           if (handleExpandWithAnalytics(view, event, slice)(state, dispatch)) {
             return true;
           }

@@ -74,6 +74,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       );
 
       // Make sure multiple event handlers do not get attached
+      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       document
         .querySelector(leftSidebarSelector)!
         .removeEventListener('transitionend', transitionEventHandler);
@@ -84,6 +85,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   useEffect(() => {
     const $leftSidebar = document.querySelector(leftSidebarSelector);
     if ($leftSidebar && !isReducedMotion()) {
+      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       $leftSidebar.addEventListener('transitionend', transitionEventHandler);
     }
   }, [

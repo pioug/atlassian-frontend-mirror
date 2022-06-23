@@ -7,12 +7,9 @@ interface TitleProps {
 }
 
 const titleStyles = css({
-  padding: `0 0 0 16px`,
+  padding: `2px 0 6px 16px`,
   flex: 1,
   fontWeight: 600,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
 });
 
 const Title: FC<TitleProps> = ({ color, children }) => (

@@ -917,7 +917,7 @@ describe('paste plugins', () => {
     });
 
     describe('paste in panel', () => {
-      it('should paste list inside empty panel', () => {
+      it('should paste bullet list inside empty panel', () => {
         const listHtml = `<meta charset='utf-8'><p data-pm-slice="1 1 [&quot;bulletList&quot;,null,&quot;listItem&quot;,null]">hello</p>`;
 
         const { editorView } = editor(
@@ -2724,7 +2724,9 @@ describe('paste plugins', () => {
         attachTo,
       );
       const uriList = 'https://google.com.au';
-      dispatchPasteEvent(editorView, { 'uri-list': uriList });
+      dispatchPasteEvent(editorView, {
+        html: `<meta charset="utf-8"><p data-pm-slice="1 1 []"><a href="${uriList}">${uriList}</a></p>`,
+      });
 
       jest.runAllTimers();
 

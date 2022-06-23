@@ -67,7 +67,7 @@ export function handleMention(slice: Slice, schema: Schema): Slice {
   });
 }
 
-export function handlePasteIntoTaskAndDecision(slice: Slice): Command {
+export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
   return (state: EditorState, dispatch?: CommandDispatch): boolean => {
     const {
       schema,
@@ -78,33 +78,52 @@ export function handlePasteIntoTaskAndDecision(slice: Slice): Command {
       marks: { code: codeMark },
       nodes: {
         decisionItem,
-        decisionList,
         emoji,
         hardBreak,
         mention,
         paragraph,
-        taskList,
         taskItem,
         text,
+        panel,
+        bulletList,
+        orderedList,
+        expand,
+        heading,
       },
     } = schema;
 
-    const isDecisionOrTaskNodeSelection =
+    const selectionIsValidNode =
       state.selection instanceof NodeSelection &&
       ['decisionList', 'decisionItem', 'taskList', 'taskItem'].includes(
         state.selection.node.type.name,
       );
-    const hasParentDecisionOrTaskItem = hasParentNodeOfType([
+    const selectionHasValidParentNode = hasParentNodeOfType([
       decisionItem,
       taskItem,
+      panel,
     ])(state.selection);
+    const selectionIsPanel = hasParentNodeOfType([panel])(state.selection);
+
+    // Some types of content should be handled by the default handler, not this function.
+    const sliceFirstNodeType = slice.content.firstChild?.type;
+    const sliceIsInvalid =
+      sliceFirstNodeType === bulletList ||
+      sliceFirstNodeType === orderedList ||
+      sliceFirstNodeType === expand ||
+      sliceFirstNodeType === heading;
+    // If the selection is a panel,
+    // and the slice's first node is a paragraph
+    // and it is not from a depth that would indicate it being from inside from another node (e.g. text from a decision)
+    // then we can rely on the default behaviour.
+    const sliceIsAPanelReceivingLowDepthText =
+      selectionIsPanel &&
+      slice.content.firstChild?.type === paragraph &&
+      slice.openEnd < 2;
 
     if (
-      !decisionItem ||
-      !decisionList ||
-      !taskList ||
-      !taskItem ||
-      (!hasParentDecisionOrTaskItem && !isDecisionOrTaskNodeSelection)
+      sliceIsInvalid ||
+      sliceIsAPanelReceivingLowDepthText ||
+      (!selectionIsValidNode && !selectionHasValidParentNode)
     ) {
       return false;
     }
@@ -134,13 +153,27 @@ export function handlePasteIntoTaskAndDecision(slice: Slice): Command {
 
     const transformedSliceIsValidNode =
       transformedSlice.content.firstChild.type.inlineContent ||
-      ['decisionList', 'decisionItem', 'taskList', 'taskItem'].includes(
-        transformedSlice.content.firstChild.type.name,
-      );
-
-    if (transformedSliceIsValidNode || isDecisionOrTaskNodeSelection) {
+      [
+        'decisionList',
+        'decisionItem',
+        'taskList',
+        'taskItem',
+        'panel',
+      ].includes(transformedSlice.content.firstChild.type.name);
+    // If the slice or the selection are valid nodes to handle,
+    // and the slice is not a whole node (i.e. openStart is 1 and openEnd is 0)
+    // or the slice's first node is a paragraph,
+    // then we can replace the selection with our slice.
+    if (
+      ((transformedSliceIsValidNode || selectionIsValidNode) &&
+        !(
+          transformedSlice.openStart === 1 && transformedSlice.openEnd === 0
+        )) ||
+      transformedSlice.content.firstChild?.type === paragraph
+    ) {
       tr.replaceSelection(transformedSlice).scrollIntoView();
     } else {
+      // This maintains both the selection (destination) and the slice (paste content).
       safeInsert(transformedSlice.content)(tr).scrollIntoView();
     }
 
@@ -515,14 +548,21 @@ export function handleMediaSingle(inputMethod: InputMethodInsertMedia) {
   };
 }
 
+const checkExpand = (slice: Slice): boolean => {
+  let hasExpand = false;
+  slice.content.forEach((node: PMNode) => {
+    if (node.type.name === 'expand') {
+      hasExpand = true;
+    }
+  });
+  return hasExpand;
+};
+
 export function handleExpandPasteInTable(slice: Slice): Command {
   return (state, dispatch) => {
     // Do not handle expand if it's not being pasted into a table
     // OR if it's nested within another node when being pasted into a table
-    if (
-      !insideTable(state) ||
-      slice.content.firstChild?.type.name !== 'expand'
-    ) {
+    if (!insideTable(state) || !checkExpand(slice)) {
       return false;
     }
 

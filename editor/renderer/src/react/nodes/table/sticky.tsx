@@ -6,12 +6,9 @@ import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
-import * as colors from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const { N40A } = colors;
+import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { findHorizontalOverflowScrollParent } from '../../../utils';
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
 
@@ -170,6 +167,28 @@ export const StickyTable = ({
     </div>
   );
 };
+
+/**
+ * Traverse DOM Tree upwards looking for table parents with "overflow: scroll".
+ */
+function findHorizontalOverflowScrollParent(
+  table: HTMLElement | null,
+): HTMLElement | null {
+  let parent: HTMLElement | null = table;
+  if (!parent) {
+    return null;
+  }
+
+  while ((parent = parent.parentElement)) {
+    // IE11 on Window 8 doesn't show styles from CSS when accessing through element.style property.
+    const style = window.getComputedStyle(parent);
+    if (style.overflow === 'scroll' || style.overflowY === 'scroll') {
+      return parent;
+    }
+  }
+
+  return null;
+}
 
 export class OverflowParent {
   private constructor(private ref: HTMLElement | Window) {

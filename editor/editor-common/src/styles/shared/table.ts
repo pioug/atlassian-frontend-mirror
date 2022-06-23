@@ -133,7 +133,8 @@ const tableSharedStyle = (props: ThemeProps) => css`
 
         ${themed({ dark: getTableCellBackgroundDarkModeColors })(props)};
 
-        > *:first-child {
+        > :first-child:not(style),
+        > style:first-child + * {
           margin-top: 0;
         }
 

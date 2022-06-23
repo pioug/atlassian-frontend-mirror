@@ -141,6 +141,18 @@ describe('Calendar', () => {
         '-1',
       );
     });
+
+    it('month arrow buttons should have default aria labels', () => {
+      const { renderResult } = setup();
+
+      expect(
+        renderResult.getByTestId('calendar--previous-month-icon'),
+      ).toHaveAttribute('aria-label', 'Last month');
+
+      expect(
+        renderResult.getByTestId('calendar--next-month-icon'),
+      ).toHaveAttribute('aria-label', 'Next month');
+    });
   });
 
   describe('Date', () => {

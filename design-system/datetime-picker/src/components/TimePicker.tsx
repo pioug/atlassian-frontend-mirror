@@ -54,9 +54,9 @@ interface Option {
 export interface Props extends WithAnalyticsEventsProps {
   /**
     Set the appearance of the picker.
-   
+
     `subtle` will remove the borders, background, and icon.
-   
+
     **NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
    */
   appearance?: Appearance;
@@ -89,7 +89,7 @@ export interface Props extends WithAnalyticsEventsProps {
   selectProps?: SelectProps<any>;
   /**
     The spacing for the select control.
-   
+
     Compact is `gridSize() * 4`, default is `gridSize * 5`.
    */
   spacing?: Spacing;

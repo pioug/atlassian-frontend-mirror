@@ -1,17 +1,11 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { ErrorPayload } from '../../types';
+import { fireAnalyticsEvent, triggerCollabAnalyticsEvent } from '../index';
 import {
-  triggerAnalyticsForStepsAddedSuccessfully,
-  triggerAnalyticsForStepsRejected,
-  triggerAnalyticsForCatchupFailed,
-  triggerAnalyticsForCatchupSuccessfulWithLatency,
-  fireAnalyticsEvent,
-} from '../index';
-import {
-  CATCHUP_FAILURE,
-  CATCHUP_SUCCESS,
-  STEPS_REJECTED,
-  STEPS_ADDED,
+  ATTRIBUTES_PACKAGE,
+  EVENT_ACTION,
+  EVENT_STATUS,
+  EVENT_SUBJECT,
 } from '../../helpers/const';
 
 describe('Sending analytics', () => {
@@ -57,6 +51,7 @@ describe('Sending analytics', () => {
           action: 'collab',
           actionSubject: 'testSubject',
           source: 'neverland',
+          tags: ['editor'],
         }),
       );
     });
@@ -87,71 +82,59 @@ describe('Sending analytics', () => {
       (window.requestAnimationFrame as jest.Mock).mockRestore();
       (window as any).requestIdleCallback = originalRequestIdleCallback;
     });
-    it('call triggerAnalyticsForStepsAddedSuccessfully should trigger fireAnalyticsEvent and add relevant data', async () => {
-      triggerAnalyticsForStepsAddedSuccessfully(fakeAnalyticsWebClient);
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-        action: 'collab',
-        actionSubject: STEPS_ADDED,
-        attributes: {
-          packageName: 'collabProvider',
-          payload: undefined,
-        },
-        source: 'unknown',
-      });
-    });
 
-    it('call triggerAnalyticsForStepsRejected should trigger fireAnalyticsEvent and add relevant data', async () => {
-      triggerAnalyticsForStepsRejected(
+    it('call triggerCollabAnalyticsEvent should trigger fireAnalyticsEvent and add relevant data', async () => {
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.ADD_STEPS,
+          attributes: {
+            eventStatus: EVENT_STATUS.SUCCESS,
+            latency: 200.13,
+            meetsSLO: true,
+          },
+        },
         fakeAnalyticsWebClient,
-        stepRejectedError,
       );
       expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
       expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-        action: 'collab',
-        actionSubject: STEPS_REJECTED,
+        action: EVENT_ACTION.ADD_STEPS,
+        actionSubject: EVENT_SUBJECT,
         attributes: {
-          packageName: 'collabProvider',
-          payload: stepRejectedError,
+          packageName: ATTRIBUTES_PACKAGE,
+          eventStatus: EVENT_STATUS.SUCCESS,
+          latency: 200.13,
+          meetsSLO: true,
         },
         source: 'unknown',
+        tags: ['editor'],
       });
     });
 
-    it('call triggerAnalyticsForCatchupSuccessfully should trigger fireAnalyticsEvent and add relevant data', async () => {
-      triggerAnalyticsForCatchupSuccessfulWithLatency(
+    it('call triggerCollabAnalyticsEvent with an error should trigger fireAnalyticsEvent and add relevant data', async () => {
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.ADD_STEPS,
+          attributes: {
+            eventStatus: EVENT_STATUS.FAILURE,
+            latency: 200.13,
+            meetsSLO: true,
+            error: stepRejectedError,
+          },
+        },
         fakeAnalyticsWebClient,
-        200,
       );
       expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
       expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-        action: 'collab',
-        actionSubject: CATCHUP_SUCCESS,
+        action: EVENT_ACTION.ADD_STEPS,
+        actionSubject: EVENT_SUBJECT,
         attributes: {
-          packageName: 'collabProvider',
-          payload: 200,
+          packageName: ATTRIBUTES_PACKAGE,
+          eventStatus: EVENT_STATUS.FAILURE,
+          latency: 200.13,
+          meetsSLO: true,
+          error: stepRejectedError,
         },
-        source: 'unknown',
-      });
-    });
-
-    it('call triggerAnalyticsForCatchupFailed should trigger fireAnalyticsEvent and add relevant data', async () => {
-      const catchupError: ErrorPayload = {
-        data: {
-          status: 500,
-          code: 'CATCHUP_FAILED',
-        },
-        message: 'Cannot fetch catchup from collab service',
-      };
-      triggerAnalyticsForCatchupFailed(fakeAnalyticsWebClient, catchupError);
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledTimes(1);
-      expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
-        action: 'collab',
-        actionSubject: CATCHUP_FAILURE,
-        attributes: {
-          packageName: 'collabProvider',
-          payload: catchupError,
-        },
+        tags: ['editor'],
         source: 'unknown',
       });
     });

@@ -18,14 +18,15 @@ Bold flags are not dismissible and use [color](/foundations/color) to reinforce 
 
 ![Flag anatomy](../images/flag-anatomy.png)
 
-1. **Icon (or avatar) and title:** Flags should always contain a concise title and an appropriate [icon](/foundations/iconography), [color](/foundations/color) (or user avatar).
-2. **Message (optional):** Flag descriptions are restricted to five lines in length. If the text overflows, it truncates using an ellipsis.
+1. **Icon (or avatar) and title:** The title should always summarize the reason for the flag. Titles longer than the width of the flag will wrap. An appropriate icon color or user avatar should be included.
+2. **Message (optional):** Provide additional information that will help users understand the flag, such as what went wrong or why this is important. Text longer than 5 lines will scroll. Try to make text as short as possible in general.
 3. **Actions (optional):** A maximum of two links that enable users to act on the flag's content.
 4. **Dismiss:** Use to close the flag. This is for default flags only.
 
 ## Best Practices
 
 - Use the [color system](/foundations/color) for the usage of flags, and keep a consistent visual language.
+- Keep flag titles and messages concise so users who increase zoom or those reading in languages with longer words are still able to easily read the flag. If a long message is needed, consider linking to an additional page for more information or using an alternative component such as [banner](/components/banner), [inline mesage](/components/inline-message), or [modal](/components/modal-dialog).
 - When there are multiple flags, they will stack on top of one another with the most recent flag on top. When a user dismisses a flag, any older flags below will come to the top. Careful consideration should be taken to take into account the ordering and priority of flags in the stack.
 - Never use dismissible and non-dismissible flags in a stack. Flags that automatically dismiss will no longer be visible to users.
 - When a modal is active, flags should always be visible above the modal.
@@ -70,3 +71,4 @@ Bold flags are not dismissible and use [color](/foundations/color) to reinforce 
 
 - For critical messaging about loss of data or functionality use [banners](/components/banner).
 - To alert users that important information is available or an action is required use an [inline message](/components/inline-message).
+- For critical messaging that requires immediate action, use a [modal dialog](/components/modal-dialog).

@@ -38,7 +38,7 @@ const relevantFlags = {
   observedWidth: true,
   mediaInline: false,
   folderUploads: false,
-  mediaUploadApiV2: false,
+  mediaUploadApiV2: true,
 };
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);

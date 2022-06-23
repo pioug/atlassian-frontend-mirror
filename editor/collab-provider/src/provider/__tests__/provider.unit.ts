@@ -49,23 +49,15 @@ jest.mock('../catchup', () => {
   };
 });
 
-jest.mock('../../analytics', () => {
-  const originalModule = jest.requireActual('../../analytics');
-
-  return {
-    ...originalModule,
-    triggerAnalyticsForCatchupFailed: jest.fn(() => {}),
-  };
-});
-
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
+import * as analytics from '../../analytics';
 import { catchup } from '../catchup';
-import { triggerAnalyticsForCatchupFailed } from '../../analytics';
+import { triggerCollabAnalyticsEvent } from '../../analytics';
 import { Channel } from '../../channel';
 import { ErrorPayload } from '../../types';
-import { MAX_STEP_REJECTED_ERROR } from '../../provider';
-import { ACK_MAX_TRY } from '../../helpers/const';
+import { MAX_STEP_REJECTED_ERROR } from '../';
+import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 const testProviderConfig = {
@@ -657,6 +649,9 @@ describe('provider unit tests', () => {
   });
 
   describe('catchup should reset the flags (pauseQueue and stepRejectCounter) when called', () => {
+    beforeEach(() => {
+      jest.spyOn(analytics, 'triggerCollabAnalyticsEvent');
+    });
     it('should reset pauseQueue and stepRejectCounter flags', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
@@ -720,10 +715,18 @@ describe('provider unit tests', () => {
       }
 
       await sleep(0);
-
-      expect(triggerAnalyticsForCatchupFailed).toBeCalledTimes(1);
       expect(throttledCatchupSpy).toBeCalledTimes(1);
       expect(catchup).toBeCalledTimes(1);
+      expect(triggerCollabAnalyticsEvent).nthCalledWith(
+        MAX_STEP_REJECTED_ERROR + 1,
+        {
+          eventAction: EVENT_ACTION.CATCHUP,
+          attributes: expect.objectContaining({
+            eventStatus: EVENT_STATUS.FAILURE,
+          }),
+        },
+        undefined,
+      );
 
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
         socket.emit('error', stepRejectedError);
@@ -731,7 +734,9 @@ describe('provider unit tests', () => {
 
       await sleep(0);
 
-      expect(triggerAnalyticsForCatchupFailed).toBeCalledTimes(2);
+      expect(triggerCollabAnalyticsEvent).toBeCalledTimes(
+        MAX_STEP_REJECTED_ERROR * 2 + 2,
+      );
       expect(throttledCatchupSpy).toBeCalledTimes(2);
       expect(catchupMock).toBeCalledTimes(2);
     });

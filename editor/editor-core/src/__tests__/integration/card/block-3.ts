@@ -12,7 +12,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'card: copy paste of link should work as expected in editor',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

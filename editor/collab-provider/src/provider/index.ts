@@ -25,12 +25,8 @@ import type {
 } from '../types';
 
 import { createLogger, getParticipant, sleep } from '../helpers/utils';
-import { ACK_MAX_TRY } from '../helpers/const';
-import {
-  triggerAnalyticsForCatchupFailed,
-  triggerAnalyticsForStepsRejected,
-  triggerAnalyticsForStepsAddedSuccessfully,
-} from '../analytics';
+import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
+import { triggerCollabAnalyticsEvent } from '../analytics';
 import { catchup } from './catchup';
 import { errorCodeMapper } from '../error-code-mapper';
 import {
@@ -41,6 +37,7 @@ import {
 import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { startMeasure, stopMeasure } from '../analytics/performance';
 
 const logger = createLogger('Provider', 'black');
 
@@ -324,6 +321,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    *   * try to accept steps but version is behind.
    */
   private catchup = async () => {
+    startMeasure('callingCatchupApi');
     // if the queue is already paused, we are busy with something else, so don't proceed.
     if (this.pauseQueue) {
       logger(`Queue is paused. Aborting.`);
@@ -339,12 +337,31 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         updateDocumentWithMetadata: this.updateDocumentWithMetadata,
         applyLocalsteps: this.applyLocalsteps,
       });
-    } catch (err) {
-      triggerAnalyticsForCatchupFailed(
+      const measure = stopMeasure('callingCatchupApi');
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.CATCHUP,
+          attributes: {
+            eventStatus: EVENT_STATUS.SUCCESS,
+            latency: measure?.duration,
+          },
+        },
         this.analyticsClient,
-        err as ErrorPayload,
       );
-      logger(`Catch-Up Failed:`, (err as ErrorPayload).message);
+    } catch (error) {
+      const measure = stopMeasure('callingCatchupApi');
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.CATCHUP,
+          attributes: {
+            eventStatus: EVENT_STATUS.FAILURE,
+            error: error as ErrorPayload,
+            latency: measure?.duration,
+          },
+        },
+        this.analyticsClient,
+      );
+      logger(`Catch-Up Failed:`, (error as ErrorPayload).message);
     } finally {
       this.pauseQueue = false;
       this.processQueue();
@@ -359,9 +376,15 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         error.data.code === 'HEAD_VERSION_UPDATE_FAILED' ||
         error.data.code === 'VERSION_NUMBER_ALREADY_EXISTS'
       ) {
-        triggerAnalyticsForStepsRejected(
+        triggerCollabAnalyticsEvent(
+          {
+            eventAction: EVENT_ACTION.ADD_STEPS,
+            attributes: {
+              eventStatus: EVENT_STATUS.FAILURE,
+              error,
+            },
+          },
           this.analyticsClient,
-          error as ErrorPayload,
         );
         this.stepRejectCounter++;
       }
@@ -424,7 +447,15 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.emit('data', { json: steps, version, userIds: clientIds });
       // If steps can apply to local editor sucessfully, no need to accumulate the error counter.
       this.stepRejectCounter = 0;
-      triggerAnalyticsForStepsAddedSuccessfully(this.analyticsClient);
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.ADD_STEPS,
+          attributes: {
+            eventStatus: EVENT_STATUS.SUCCESS,
+          },
+        },
+        this.analyticsClient,
+      );
       this.emitTelepointersFromSteps(steps);
 
       // Resend local steps if none of the received steps originated with us!

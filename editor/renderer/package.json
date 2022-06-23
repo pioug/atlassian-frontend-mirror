@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "96.0.0",
+  "version": "96.0.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,12 +35,12 @@
     "@atlaskit/editor-json-transformer": "^8.7.0",
     "@atlaskit/editor-shared-styles": "^2.1.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/media-card": "^73.7.0",
-    "@atlaskit/media-client": "^16.0.0",
-    "@atlaskit/media-common": "^2.14.0",
+    "@atlaskit/media-card": "^73.8.0",
+    "@atlaskit/media-client": "^17.0.0",
+    "@atlaskit/media-common": "^2.15.0",
     "@atlaskit/media-filmstrip": "^44.0.0",
     "@atlaskit/media-ui": "^22.1.0",
-    "@atlaskit/media-viewer": "^46.4.0",
+    "@atlaskit/media-viewer": "^46.5.0",
     "@atlaskit/status": "^1.1.0",
     "@atlaskit/task-decision": "^17.4.0",
     "@atlaskit/theme": "^12.1.0",
@@ -76,7 +76,7 @@
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/navigation-next": "^9.0.0",
-    "@atlaskit/profilecard": "^16.5.0",
+    "@atlaskit/profilecard": "^16.6.0",
     "@atlaskit/radio": "^5.3.0",
     "@atlaskit/range": "^6.0.0",
     "@atlaskit/smart-card": "^19.1.0",

@@ -1,34 +1,16 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import {
+  AnalyticsEvent,
   ATTRIBUTES_PACKAGE,
-  CATCHUP_FAILURE,
-  CATCHUP_SUCCESS,
-  STEPS_ADDED,
-  STEPS_REJECTED,
+  EVENT_SUBJECT,
 } from '../helpers/const';
-import { ErrorPayload } from '../types';
-
-export const buildAnalyticsPayload = (
-  subject: string,
-  payload?: any,
-): GasPurePayload => {
-  return {
-    action: 'collab',
-    actionSubject: subject,
-    source: 'unknown',
-    attributes: {
-      packageName: ATTRIBUTES_PACKAGE,
-      payload,
-    },
-  };
-};
 
 export const fireAnalyticsEvent = (
   analyticsClient?: AnalyticsWebClient,
-  analyticsEvent?: GasPurePayload,
+  payload?: GasPurePayload,
 ) => {
-  if (!analyticsClient || !analyticsEvent) {
+  if (!analyticsClient || !payload) {
     return;
   }
 
@@ -44,48 +26,25 @@ export const fireAnalyticsEvent = (
   runItLater(() => {
     client.sendOperationalEvent({
       action: 'collab',
-      ...analyticsEvent,
-      source: analyticsEvent.source || 'unknown',
+      ...payload,
+      source: payload.source || 'unknown',
+      tags: ['editor'],
     });
   });
 };
 
-export const triggerAnalyticsForStepsAddedSuccessfully = (
+export const triggerCollabAnalyticsEvent = (
+  analyticsEvent: AnalyticsEvent,
   analyticsClient?: AnalyticsWebClient,
 ) => {
-  const stepAddedEvent: GasPurePayload = buildAnalyticsPayload(STEPS_ADDED);
-  fireAnalyticsEvent(analyticsClient, stepAddedEvent);
-};
-
-export const triggerAnalyticsForStepsRejected = (
-  analyticsClient?: AnalyticsWebClient,
-  error?: ErrorPayload,
-) => {
-  const stepRejectedEvent: GasPurePayload = buildAnalyticsPayload(
-    STEPS_REJECTED,
-    error,
-  );
-  fireAnalyticsEvent(analyticsClient, stepRejectedEvent);
-};
-
-export const triggerAnalyticsForCatchupFailed = (
-  analyticsClient?: AnalyticsWebClient,
-  error?: ErrorPayload,
-) => {
-  const catchupFailedEvent: GasPurePayload = buildAnalyticsPayload(
-    CATCHUP_FAILURE,
-    error,
-  );
-  fireAnalyticsEvent(analyticsClient, catchupFailedEvent);
-};
-
-export const triggerAnalyticsForCatchupSuccessfulWithLatency = (
-  analyticsClient?: AnalyticsWebClient,
-  latency?: number,
-) => {
-  const callCatchupLatency: GasPurePayload = buildAnalyticsPayload(
-    CATCHUP_SUCCESS,
-    latency,
-  );
-  fireAnalyticsEvent(analyticsClient, callCatchupLatency);
+  const payload: GasPurePayload = {
+    action: analyticsEvent.eventAction,
+    actionSubject: EVENT_SUBJECT,
+    source: 'unknown',
+    attributes: {
+      packageName: ATTRIBUTES_PACKAGE,
+      ...analyticsEvent.attributes,
+    },
+  };
+  fireAnalyticsEvent(analyticsClient, payload);
 };

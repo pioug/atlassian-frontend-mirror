@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 
 import { act, cleanup, render } from '@testing-library/react';
+import { bindAll, UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
@@ -36,16 +37,26 @@ const getMountEventObject = (
   },
 });
 
+let unbind: UnbindFn | null = null;
+
 beforeEach(() => {
   jest.clearAllMocks();
-  window.addEventListener(PORTAL_MOUNT_EVENT, onMountListener);
-  window.addEventListener(PORTAL_UNMOUNT_EVENT, onUnmountListener);
+  unbind = bindAll(window, [
+    {
+      type: PORTAL_MOUNT_EVENT,
+      listener: onMountListener,
+    },
+    {
+      type: PORTAL_UNMOUNT_EVENT,
+      listener: onUnmountListener,
+    },
+  ]);
 });
 
 afterEach(() => {
   cleanup();
-  window.removeEventListener(PORTAL_MOUNT_EVENT, onMountListener);
-  window.removeEventListener(PORTAL_UNMOUNT_EVENT, onUnmountListener);
+  unbind?.();
+  unbind = null;
 });
 
 describe('Portal container', () => {

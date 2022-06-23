@@ -12,7 +12,7 @@ import * as adf from './__fixtures__/image-with-caption.adf.json';
 
 BrowserTestCase(
   'selection.ts: Press up below a caption will place cursor inside caption',
-  { skip: ['safari'] },
+  { skip: [] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     _testName: string,

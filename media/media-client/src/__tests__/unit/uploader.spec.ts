@@ -7,18 +7,50 @@ import { chunkinator, ProbedBlob } from '@atlaskit/chunkinator';
 import { AuthProvider, MediaApiConfig } from '@atlaskit/media-core';
 import { uploadFile, UploadableFileUpfrontIds, MediaStore } from '../..';
 import { asMockFunction, nextTick } from '@atlaskit/media-test-helpers';
+import * as calculateChunkSize from '../../uploader/calculateChunkSize';
+import * as getMediaFeatureFlag from '@atlaskit/media-common';
+import { UploaderError } from '../../uploader/error';
+
+jest.mock('@atlaskit/media-common');
 
 describe('Uploader', () => {
+  const calculateChunkSizeSpy = jest.spyOn(
+    calculateChunkSize,
+    'calculateChunkSize',
+  );
+
+  const getMediaFeatureFlagSpy = jest.spyOn(
+    getMediaFeatureFlag,
+    'getMediaFeatureFlag',
+  );
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
+  const file = {
+    content: 'file-content',
+    name: 'file-name',
+    collection: 'file-collection',
+    mimeType: 'file-mime-type',
+  };
+
   const probedBlob: ProbedBlob = {
     blob: new Blob(),
     hash: 'some-hash',
     exists: true,
   };
+
   const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
     id: 'some-file-id',
     occurrenceKey: 'some-occurrence-key',
     deferredUploadId: Promise.resolve('some-upload-id'),
   };
+
   const setup = () => {
     const ChunkinatorMock = asMockFunction(chunkinator);
     const config: MediaApiConfig = {
@@ -72,11 +104,7 @@ describe('Uploader', () => {
   it('should pass down the file content to Chunkinator', async () => {
     const { mediaStore, ChunkinatorMock } = setup();
 
-    uploadFile(
-      { content: 'file-content' },
-      mediaStore as MediaStore,
-      uploadableFileUpfrontIds,
-    );
+    uploadFile(file, mediaStore as MediaStore, uploadableFileUpfrontIds);
 
     expect(ChunkinatorMock.mock.calls[0][0]).toEqual('file-content');
   });
@@ -88,35 +116,25 @@ describe('Uploader', () => {
       from(Promise.resolve([probedBlob])),
     );
 
-    uploadFile(
-      {
-        content: '',
-        name: 'file-name',
-        collection: 'some-collection',
-        mimeType: 'some-mime-type',
+    uploadFile(file, mediaStore as MediaStore, uploadableFileUpfrontIds, {
+      onProgress: jest.fn(),
+      onUploadFinish: () => {
+        expect(createFileFromUpload).toHaveBeenCalledTimes(1);
+        expect(createFileFromUpload).toBeCalledWith(
+          {
+            uploadId: 'some-upload-id',
+            name: 'file-name',
+            mimeType: 'file-mime-type',
+          },
+          {
+            occurrenceKey: 'some-occurrence-key',
+            collection: 'file-collection',
+            replaceFileId: 'some-file-id',
+          },
+        );
+        done();
       },
-      mediaStore as MediaStore,
-      uploadableFileUpfrontIds,
-      {
-        onProgress: jest.fn(),
-        onUploadFinish: () => {
-          expect(createFileFromUpload).toHaveBeenCalledTimes(1);
-          expect(createFileFromUpload).toBeCalledWith(
-            {
-              uploadId: 'some-upload-id',
-              name: 'file-name',
-              mimeType: 'some-mime-type',
-            },
-            {
-              occurrenceKey: 'some-occurrence-key',
-              collection: 'some-collection',
-              replaceFileId: 'some-file-id',
-            },
-          );
-          done();
-        },
-      },
-    );
+    });
 
     expect.assertions(2);
   });
@@ -266,12 +284,7 @@ describe('Uploader', () => {
     );
 
     const { cancel } = uploadFile(
-      {
-        content: '',
-        name: 'file-name',
-        collection: 'some-collection',
-        mimeType: 'some-mime-type',
-      },
+      file,
       mediaStore as MediaStore,
       uploadableFileUpfrontIds,
       {
@@ -294,12 +307,7 @@ describe('Uploader', () => {
     const { mediaStore, appendChunksToUpload, createFileFromUpload } = setup();
 
     const { cancel } = uploadFile(
-      {
-        content: '',
-        name: 'file-name',
-        collection: 'some-collection',
-        mimeType: 'some-mime-type',
-      },
+      file,
       mediaStore as MediaStore,
       uploadableFileUpfrontIds,
       {
@@ -316,5 +324,102 @@ describe('Uploader', () => {
     cancel();
 
     expect.assertions(3);
+  });
+
+  it('should call `calculateChunkSize` when file.content is a Blob and `mediaUploadApiV2` feature flag is true', () => {
+    const { mediaStore } = setup();
+    getMediaFeatureFlagSpy.mockReturnValue(true);
+
+    uploadFile(
+      {
+        ...file,
+        content: new Blob([]),
+      },
+      mediaStore as MediaStore,
+      uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: jest.fn(),
+      },
+    );
+
+    expect(calculateChunkSizeSpy).toHaveBeenCalled();
+  });
+
+  it('should NOT call `calculateChunkSize` when file.content is a string and `mediaUploadApiV2` feature flag is true', async () => {
+    const { mediaStore } = setup();
+    getMediaFeatureFlagSpy.mockReturnValue(true);
+
+    uploadFile(
+      {
+        ...file,
+        content: '',
+      },
+      mediaStore as MediaStore,
+      uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: jest.fn(),
+      },
+    );
+
+    expect(calculateChunkSizeSpy).not.toHaveBeenCalled();
+  });
+
+  it('should NOT call `calculateChunkSize` when file.content is a blob and `mediaUploadApiV2` feature flag is false', async () => {
+    const { mediaStore } = setup();
+    getMediaFeatureFlagSpy.mockReturnValue(false);
+
+    uploadFile(
+      {
+        ...file,
+        content: new Blob([]),
+      },
+      mediaStore as MediaStore,
+      uploadableFileUpfrontIds,
+      {
+        onProgress: jest.fn(),
+        onUploadFinish: jest.fn(),
+      },
+    );
+
+    expect(calculateChunkSizeSpy).not.toHaveBeenCalled();
+    calculateChunkSizeSpy.mockRestore();
+  });
+
+  it('should call handle errors from `calculateChunkSize`', async () => {
+    const { mediaStore } = setup();
+    getMediaFeatureFlagSpy.mockReturnValue(true);
+
+    calculateChunkSizeSpy.mockImplementation(() => {
+      throw new Error(calculateChunkSize.fileSizeError);
+    });
+
+    expect(
+      uploadFile(
+        {
+          ...file,
+          content: new Blob([]),
+        },
+        mediaStore as MediaStore,
+        uploadableFileUpfrontIds,
+        {
+          onProgress: jest.fn(),
+          onUploadFinish: (error) => {
+            expect(error).toBeInstanceOf(UploaderError);
+            expect(error.id).toStrictEqual('some-file-id');
+            expect(error.reason).toStrictEqual('fileSizeExceedsLimit');
+            expect(error.metadata).toStrictEqual({
+              collectionName: 'file-collection',
+              occurrenceKey: 'some-occurrence-key',
+            });
+          },
+        },
+      ),
+    ).toEqual(
+      expect.objectContaining({
+        cancel: expect.any(Function),
+      }),
+    );
   });
 });

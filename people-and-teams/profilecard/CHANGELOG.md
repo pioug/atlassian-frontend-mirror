@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.6.0
+
+### Minor Changes
+
+- [`7c691c8e8a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c691c8e8a9) - [ux] Launch the give kudos flow via a drawer from the profile-card.
+
 ## 16.5.0
 
 ### Minor Changes

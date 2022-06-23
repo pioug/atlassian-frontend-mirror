@@ -180,7 +180,15 @@ export class MediaStore {
   async uploadChunk(
     etag: string,
     blob: Blob,
-    collectionName?: string,
+    {
+      collectionName,
+      uploadId,
+      partNumber,
+    }: {
+      collectionName?: string;
+      uploadId?: string;
+      partNumber?: number;
+    } = {},
   ): Promise<void> {
     const metadata: RequestMetadata = {
       method: 'PUT',
@@ -189,6 +197,7 @@ export class MediaStore {
 
     const options: MediaStoreRequestOptions = {
       ...metadata,
+      params: { uploadId, partNumber },
       authContext: { collectionName },
       body: blob,
     };
@@ -198,7 +207,13 @@ export class MediaStore {
 
   probeChunks(
     chunks: string[],
-    collectionName?: string,
+    {
+      collectionName,
+      uploadId,
+    }: {
+      collectionName?: string;
+      uploadId?: string;
+    } = {},
   ): Promise<MediaStoreResponse<MediaChunksProbe>> {
     const metadata: RequestMetadata = {
       method: 'POST',
@@ -207,6 +222,7 @@ export class MediaStore {
 
     const options: MediaStoreRequestOptions = {
       ...metadata,
+      params: { uploadId },
       authContext: { collectionName },
       headers: jsonHeaders,
       body: JSON.stringify({

@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 46.5.0
+
+### Minor Changes
+
+- [`1a76e2839e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a76e2839e6) - Default value for mediaUploadApiV2 Media feature flag set to true.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.4.0
 
 ### Minor Changes

@@ -1,7 +1,11 @@
 import { CardAppearance } from '@atlaskit/linking-common';
 
 export interface CardProvider {
-  resolve(url: string, appearance: CardAppearance): Promise<any>;
+  resolve(
+    url: string,
+    appearance: CardAppearance,
+    shouldForceAppearance?: boolean,
+  ): Promise<any>;
 }
 export type ORSCheckResponse = {
   isSupported: boolean;
@@ -18,6 +22,20 @@ type Provider = {
   key: string;
   patterns: ProviderPattern[];
 };
+
+export type LinkAppearance = CardAppearance | 'url';
+
+export interface UserPreferences {
+  defaultAppearance: LinkAppearance;
+  appearanceMap: Record<string, LinkAppearance>;
+}
+
 export type ORSProvidersResponse = {
   providers: Provider[];
+  userPreferences?: UserPreferences;
 };
+
+export interface ProvidersData {
+  patterns: ProviderPattern[];
+  userPreferences?: UserPreferences;
+}

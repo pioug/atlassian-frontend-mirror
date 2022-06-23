@@ -4,13 +4,13 @@ import {
   editable,
   insertBlockMenuItem,
   changeSelectedNodeLayout,
-} from '../_helpers';
+} from '../../../../__tests__/integration/_helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
+} from '../../../../__tests__/__helpers/testing-example-helpers';
 
-import commonMessages from '../../../messages';
+import commonMessages from '../../../../messages';
 
 [
   commonMessages.layoutFixedWidth,

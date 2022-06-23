@@ -13,6 +13,7 @@ import EmojiPlaceholder from './EmojiPlaceholder';
 import { State as LoadingState } from './LoadingEmojiComponent';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
 import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
+import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
 export interface BaseResourcedEmojiProps {
   emojiId: EmojiId;
@@ -60,14 +61,26 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
             if (!emoji) {
               // emoji is undefined
               sampledUfoRenderedEmoji(emojiId).failure({
-                metadata: { reason: 'failed to find' },
+                metadata: {
+                  reason: 'failed to find',
+                  source: 'ResourcedEmojiComponent',
+                  data: {
+                    emoji: { id: emojiId.id, shortName: emojiId.shortName },
+                  },
+                },
               });
             }
           }
         })
         .catch(() => {
           sampledUfoRenderedEmoji(emojiId).failure({
-            metadata: { reason: 'failed to load' },
+            metadata: {
+              reason: 'failed to load',
+              source: 'ResourcedEmojiComponent',
+              data: {
+                emoji: { id: emojiId.id, shortName: emojiId.shortName },
+              },
+            },
           });
         });
     } else {
@@ -94,9 +107,14 @@ export default class ResourcedEmojiComponent extends Component<Props, State> {
   }
 
   componentDidMount() {
-    sampledUfoRenderedEmoji(this.props.emojiId).mark(
-      UfoEmojiTimings.MOUNTED_END,
-    );
+    if (
+      !hasUfoMarked(
+        sampledUfoRenderedEmoji(this.props.emojiId),
+        UfoEmojiTimings.FMP_END,
+      )
+    ) {
+      sampledUfoRenderedEmoji(this.props.emojiId).markFMP();
+    }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {

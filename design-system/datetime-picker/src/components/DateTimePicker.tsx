@@ -131,14 +131,14 @@ const subtleBgStyles = css({
 
 const hoverStyles = css({
   '&:hover': {
-    backgroundColor: token('elevation.surface', N30),
+    backgroundColor: token('color.background.input.hovered', N30),
     borderColor: token('color.border', N30),
   },
 });
 
 const isInvalidHoverStyles = css({
   '&:hover': {
-    backgroundColor: token('elevation.surface', N0),
+    backgroundColor: token('color.background.input.hovered', N0),
     borderColor: token('color.border.danger', R400),
   },
 });

@@ -1,5 +1,26 @@
 # @atlaskit/media-client
 
+## 17.0.0
+
+### Major Changes
+
+- [`a718050239e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a718050239e) - Media Client Uploader enforces a hard limit of 2Tb files.
+
+  To mitigate these changes:
+
+  - Set the feature flag mediaUploadApiV2 as false or Revert to a previous version for affected consumers and methods;
+    Media Client uploadFile method.
+    Media Client File Fetcher upload method.
+    Media Picker.
+
+- [`e4d0b89cd8b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4d0b89cd8b) - Additional parameters and changes to the way parameters are passed to MediaStore.uploadChunk and MediaStore.probeChunks.
+- [`d07442a7ff7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d07442a7ff7) - Breaking change to media-client uploadFile method, chunkSize and processingBatchSize as parameters removed from uploadFile.
+
+### Patch Changes
+
+- [`61cf857a95a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cf857a95a) - A util function for dynamically calculating chunkSizes.
+- Updated dependencies
+
 ## 16.0.1
 
 ### Patch Changes

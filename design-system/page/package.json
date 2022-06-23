@@ -64,6 +64,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "theming": "tokens",
       "analytics": "analytics-next",
       "styling": [

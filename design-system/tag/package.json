@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tag",
-  "version": "11.3.3",
+  "version": "11.3.4",
   "description": "A tag labels UI objects for quick recognition and navigation.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/ds-lib": "^1.4.0",
+    "@atlaskit/ds-lib": "^2.0.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/motion": "^1.1.0",
     "@atlaskit/theme": "^12.1.0",
@@ -67,6 +67,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",

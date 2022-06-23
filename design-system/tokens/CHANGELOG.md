@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.8
 
 ### Patch Changes

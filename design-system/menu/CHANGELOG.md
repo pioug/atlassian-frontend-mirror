@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 1.3.6
+
+### Patch Changes
+
+- [`c8145459eb5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8145459eb5) - [ux] Updating skeleton token in @atlakist/menu, @atlaskit/theme
+- Updated dependencies
+
 ## 1.3.5
 
 ### Patch Changes

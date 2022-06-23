@@ -252,7 +252,7 @@ export class CardViewBase extends React.Component<
   private renderPlayButton(hasTitleBox: boolean) {
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-        <PlayButton />;
+        <PlayButton />
       </IconWrapper>
     );
   }

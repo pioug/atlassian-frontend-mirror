@@ -6,9 +6,9 @@ import { IntlProvider } from 'react-intl-next';
 const emojiService = getEmojiRepository();
 
 export const RenderSpriteEmojis = () => {
-  const grimacing = emojiService.findByShortName(':grimacing:');
+  const handshakeEmoji = emojiService.findByShortName(':handshake:');
 
-  return <Emoji emoji={grimacing} showTooltip fitToHeight={24} />;
+  return <Emoji emoji={handshakeEmoji} showTooltip fitToHeight={24} />;
 };
 
 export default function Example() {

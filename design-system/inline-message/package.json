@@ -57,6 +57,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "styling": [
         "static",

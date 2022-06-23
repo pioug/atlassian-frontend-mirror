@@ -16,7 +16,7 @@ import { selectors } from './_utils';
 
 BrowserTestCase(
   'paste-plain-text.ts: Paste plain text into panel',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

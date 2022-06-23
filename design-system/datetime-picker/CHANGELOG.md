@@ -1,5 +1,22 @@
 # @atlaskit/datetime-picker
 
+## 12.0.0
+
+### Major Changes
+
+- [`27d4f1e7121`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27d4f1e7121) - [ux] Updating tokens
+- [`d7542d1a7c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7542d1a7c2) - [ux] Update Tokens in the code with those that are a better fit. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+- [`c19fb116172`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c19fb116172) - [ux] Update Tokens in the code with those that are a better fit. New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+
+### Minor Changes
+
+- [`6f7a4353204`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f7a4353204) - Added ability to provide custom aria-labels for next- and previous-month buttons using `nextMonthLabel` and `previousMonthLabel`
+
+### Patch Changes
+
+- [`3ec9ed2c4d0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ec9ed2c4d0) - Fixed handling of custom times that included whitespace characters
+- Updated dependencies
+
 ## 11.1.11
 
 ### Patch Changes

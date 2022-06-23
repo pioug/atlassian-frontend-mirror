@@ -1,5 +1,15 @@
 # @atlaskit/calendar
 
+## 12.2.0
+
+### Minor Changes
+
+- [`6f7a4353204`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f7a4353204) - Added ability to provide custom aria-labels for next- and previous-month buttons using `nextMonthLabel` and `previousMonthLabel`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.14
 
 ### Patch Changes

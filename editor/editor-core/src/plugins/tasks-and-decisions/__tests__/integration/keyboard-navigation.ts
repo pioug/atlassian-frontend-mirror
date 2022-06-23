@@ -11,10 +11,9 @@ import {
 } from '../../../../__tests__/integration/_helpers';
 import { clickTaskNth } from '../../../../__tests__/__helpers/page-objects/_task';
 
-// Safari hangs when default ADF contains tasks and decisions  https://product-fabric.atlassian.net/browse/ED-9974
 BrowserTestCase(
   'Pressing up arrow key moves cursor to previous taskItem',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

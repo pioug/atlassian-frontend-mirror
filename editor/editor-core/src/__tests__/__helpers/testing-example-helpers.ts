@@ -29,7 +29,7 @@ export async function mountEditor<T = EditorProps>(
         }
       }
 
-      waitAndCall();
+      setTimeout(waitAndCall, 0);
     },
     props,
     options || {},

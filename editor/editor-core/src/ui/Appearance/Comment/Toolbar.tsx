@@ -22,8 +22,11 @@ const mainToolbarWrapperStyle = css`
   box-shadow: none;
   padding-left: ${TableControlsPadding}px;
 
-  & > div > *:first-child {
-    margin-left: 0;
+  & > div {
+    > :first-child:not(style),
+    > style:first-child + * {
+      margin-left: 0;
+    }
   }
 
   .block-type-btn {

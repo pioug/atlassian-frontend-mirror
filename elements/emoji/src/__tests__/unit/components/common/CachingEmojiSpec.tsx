@@ -13,6 +13,11 @@ import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+import * as browserSupport from '../../../../util/browser-support';
+
+const mockedBrowserSupport = browserSupport as {
+  isIntersectionObserverSupported: boolean;
+};
 
 jest.mock('../../../../util/constants', () => {
   const originalModule = jest.requireActual('../../../../util/constants');
@@ -27,6 +32,10 @@ const mockConstants = constants as {
 };
 
 describe('<CachingEmoji />', () => {
+  beforeAll(() => {
+    mockedBrowserSupport.isIntersectionObserverSupported = true;
+  });
+
   describe('Non-media emoji', () => {
     it('CachingMediaEmoji not used, just an Emoji rendered', async () => {
       const result = await render(<CachingEmoji emoji={imageEmoji} />);

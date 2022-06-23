@@ -43,6 +43,8 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   minDate?: string;
   /** The number of the month (from 1 to 12) which the calendar should be on. */
   month?: number;
+  /** The aria-label attribute associated with the next-month arrow. */
+  nextMonthLabel?: string;
   /** Function which is called when the calendar is no longer focused. */
   onBlur?: React.FocusEventHandler;
   /** Called when the calendar is navigated. This can be triggered by the keyboard, or by clicking the navigational buttons.
@@ -58,6 +60,8 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   /** Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates
    provided are given a background color. */
   previouslySelected?: Array<string>;
+  /** The aria-label attribute associated with the previous-month arrow. */
+  previousMonthLabel?: string;
   /** Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates
    provided are given a background color. */
   selected?: Array<string>;

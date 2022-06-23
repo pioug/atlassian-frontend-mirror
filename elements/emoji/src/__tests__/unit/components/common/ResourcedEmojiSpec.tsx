@@ -4,7 +4,7 @@ import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { render } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
-import { EmojiDescription } from '../../../../types';
+import { EmojiDescription, UfoEmojiTimings } from '../../../../types';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
@@ -20,7 +20,11 @@ import {
 import { ufoExperiences } from '../../../../util/analytics';
 import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
-import CachingEmoji from '../../../../components/common/CachingEmoji';
+import * as browserSupport from '../../../../util/browser-support';
+
+const mockedBrowserSupport = browserSupport as {
+  isIntersectionObserverSupported: boolean;
+};
 
 const findEmoji = (component: ReactWrapper) =>
   component.update() && component.find(Emoji);
@@ -35,18 +39,20 @@ jest.mock('../../../../util/constants', () => {
   const originalModule = jest.requireActual('../../../../util/constants');
   return {
     ...originalModule,
-    SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI: 1,
+    SAMPLING_RATE_EMOJI_RENDERED_EXP: 1,
   };
 });
 
 const mockConstants = constants as {
-  SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI: number;
   SAMPLING_RATE_EMOJI_RENDERED_EXP: number;
 };
 
 describe('<ResourcedEmoji />', () => {
+  beforeAll(() => {
+    mockedBrowserSupport.isIntersectionObserverSupported = true;
+  });
+
   beforeEach(() => {
-    mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI = 1;
     mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP = 1;
     samplingUfo.clearSampled();
     jest.clearAllMocks();
@@ -251,7 +257,7 @@ describe('<ResourcedEmoji />', () => {
     });
   });
 
-  it('should mark success for UFO experience of rendered emoji event when emoji is loaded', () => {
+  it('should mark success for UFO experience of rendered emoji event when emoji is loaded when in view at start', () => {
     const experience = ufoExperiences['emoji-rendered'].getInstance(
       mediaEmoji.id || mediaEmoji.shortName,
     );
@@ -265,11 +271,60 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiVisible(component)).then(() => {
-      mockAllIsIntersecting(true);
+      // mimic image loaded first when it's in viewport at start
+      mockAllIsIntersecting(false);
       findEmoji(component).find('img').simulate('load');
+      // detected emoji is in viewport
+      mockAllIsIntersecting(true);
       expect(startSpy).toHaveBeenCalledTimes(1);
       expect(successSpy).toHaveBeenCalledTimes(1);
+      expect(
+        experience.metrics.marks.some(
+          (mark) => mark.name === UfoEmojiTimings.ONLOAD_END,
+        ),
+      ).toBeTruthy();
     });
+  });
+
+  it('should mark success for UFO experience of rendered emoji event when emoji is loaded after in viewport', async () => {
+    const timeBeforeInView = 500;
+    mockAllIsIntersecting(false);
+    const experience = ufoExperiences['emoji-rendered'].getInstance(
+      mediaEmoji.id || mediaEmoji.shortName,
+    );
+    const startSpy = jest.spyOn(experience, 'start');
+    const successSpy = jest.spyOn(experience, 'success');
+    const component = mount(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+        emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+      />,
+    );
+
+    await waitUntil(() => emojiVisible(component));
+    // mimic user waited some time and then scroll to get emoji in viewport
+    await new Promise((r) => setTimeout(r, timeBeforeInView));
+    mockAllIsIntersecting(true);
+    // emoji in view port and load image
+    findEmoji(component).find('img').simulate('load');
+    const onLoadEndTime = experience.metrics.marks.find(
+      (mark) => mark.name === UfoEmojiTimings.ONLOAD_END,
+    );
+    const onLoadStartTime = experience.metrics.marks.find(
+      (mark) => mark.name === UfoEmojiTimings.ONLOAD_START,
+    );
+    expect(startSpy).toHaveBeenCalledTimes(1);
+    expect(successSpy).toHaveBeenCalledTimes(1);
+    expect(onLoadEndTime).toBeDefined();
+    expect(onLoadStartTime).toBeDefined();
+    expect(onLoadEndTime!.time - onLoadStartTime!.time).toBeLessThan(
+      timeBeforeInView,
+    );
+    expect(
+      experience.metrics.marks.find(
+        (mark) => mark.name === UfoEmojiTimings.ONLOAD_END,
+      ),
+    ).toBeTruthy();
   });
 
   it('should mark failure for UFO experience of rendered emoji event when emoji is on error', () => {
@@ -308,7 +363,7 @@ describe('<ResourcedEmoji />', () => {
     );
 
     return waitUntil(() => emojiVisible(component)).then(() => {
-      component.find(CachingEmoji).simulateError(new Error('test error'));
+      component.find(Emoji).simulateError(new Error('test error'));
       expect(startSpy).toHaveBeenCalledTimes(1);
       expect(failureSpy).toHaveBeenCalledTimes(1);
     });

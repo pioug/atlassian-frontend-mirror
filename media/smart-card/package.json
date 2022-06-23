@@ -36,7 +36,7 @@
     "@atlaskit/linking-common": "^1.1.0",
     "@atlaskit/logo": "^13.7.0",
     "@atlaskit/lozenge": "^11.1.0",
-    "@atlaskit/media-common": "^2.14.0",
+    "@atlaskit/media-common": "^2.15.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/outbound-auth-flow-client": "^3.3.0",
     "@atlaskit/popup": "^1.3.0",

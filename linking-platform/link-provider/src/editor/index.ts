@@ -5,9 +5,11 @@ import DataLoader from 'dataloader';
 import { CardAdf, CardAppearance } from '@atlaskit/linking-common';
 import {
   CardProvider,
+  LinkAppearance,
   ORSCheckResponse,
   ORSProvidersResponse,
   ProviderPattern,
+  ProvidersData,
 } from './types';
 import { Transformer } from './transformer';
 
@@ -17,13 +19,28 @@ import * as api from '../client/api';
 
 const BATCH_WAIT_TIME = 50;
 
+const isJiraRoadMap = (url: string) =>
+  url.match(
+    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?/,
+  );
+
+const isPolarisView = (url: string) =>
+  url.match(
+    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+/,
+  );
+
+const isJwmView = (url: string) =>
+  url.match(
+    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board)\/?/,
+  );
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
-  private patterns?: ProviderPattern[];
+  private providersData?: ProvidersData;
   private requestHeaders: HeadersInit;
   private transformer: Transformer;
-  private patternLoader: DataLoader<string, ProviderPattern[] | undefined>;
+  private providersLoader: DataLoader<string, ProvidersData | undefined>;
 
   constructor(envKey?: EnvironmentsKeys) {
     this.baseUrl = getBaseUrl(envKey);
@@ -32,18 +49,18 @@ export class EditorCardProvider implements CardProvider {
     this.requestHeaders = {
       Origin: this.baseUrl,
     };
-    this.patternLoader = new DataLoader(keys => this.batchPatterns(keys), {
+    this.providersLoader = new DataLoader(keys => this.batchProviders(keys), {
       batchScheduleFn: callback => setTimeout(callback, BATCH_WAIT_TIME),
     });
   }
 
-  private async batchPatterns(
+  private async batchProviders(
     keys: ReadonlyArray<string>,
-  ): Promise<Array<ProviderPattern[] | undefined>> {
+  ): Promise<Array<ProvidersData | undefined>> {
     // EDM-2205: Batch requests in the case that user paste multiple links at
-    // once. This is so that only one /providers is being called.
-    const patterns = await this.fetchPatterns();
-    return keys.map(() => patterns);
+    // once. This is so that only one /providersData is being called.
+    const providersData = await this.fetchProvidersData();
+    return keys.map(() => providersData);
   }
 
   private async check(resourceUrl: string): Promise<boolean | undefined> {
@@ -65,7 +82,7 @@ export class EditorCardProvider implements CardProvider {
     }
   }
 
-  private async fetchPatterns(): Promise<ProviderPattern[] | undefined> {
+  private async fetchProvidersData(): Promise<ProvidersData | undefined> {
     try {
       const endpoint = `${this.resolverUrl}/providers`;
       const response = await api.request<ORSProvidersResponse>(
@@ -75,12 +92,15 @@ export class EditorCardProvider implements CardProvider {
         this.requestHeaders,
       );
 
-      return response.providers.reduce(
-        (allSources: ProviderPattern[], provider) => {
-          return allSources.concat(provider.patterns);
-        },
-        [],
-      );
+      return {
+        patterns: response.providers.reduce(
+          (allSources: ProviderPattern[], provider) => {
+            return allSources.concat(provider.patterns);
+          },
+          [],
+        ),
+        userPreferences: response.userPreferences,
+      };
     } catch (err) {
       // eslint-disable-next-line
       console.error('failed to fetch /providers', err);
@@ -92,23 +112,88 @@ export class EditorCardProvider implements CardProvider {
     return !!(await this.findPatternData(url));
   }
 
+  private doesUrlMatchPath(path: string, url: string) {
+    return url.includes(path);
+  }
+
+  private async findUserPreference(
+    url: string,
+  ): Promise<LinkAppearance | undefined> {
+    if (!this.providersData) {
+      this.providersData = await this.providersLoader.load('providersData');
+    }
+
+    const userPreferences = this.providersData?.userPreferences;
+    if (userPreferences) {
+      const { defaultAppearance, appearanceMap } = userPreferences;
+      const matchedPath = Object.keys(appearanceMap).find(path =>
+        this.doesUrlMatchPath(path, url),
+      );
+      if (matchedPath) {
+        return appearanceMap[matchedPath];
+      }
+      if (defaultAppearance !== 'inline') {
+        return defaultAppearance;
+      }
+    }
+  }
+
   private async findPatternData(
     url: string,
   ): Promise<ProviderPattern | undefined> {
-    if (!this.patterns) {
-      this.patterns = await this.patternLoader.load('providers');
+    if (!this.providersData) {
+      this.providersData = await this.providersLoader.load('providersData');
     }
-    return this.patterns?.find(pattern => url.match(pattern.source));
+    return this.providersData?.patterns.find(pattern =>
+      url.match(pattern.source),
+    );
   }
 
-  async resolve(url: string, appearance: CardAppearance): Promise<CardAdf> {
+  private getHardCodedAppearance(url: string): CardAppearance | undefined {
+    if (isJiraRoadMap(url) || isPolarisView(url) || isJwmView(url)) {
+      return 'embed';
+    }
+  }
+
+  async resolve(
+    url: string,
+    appearance: CardAppearance,
+    shouldForceAppearance?: boolean,
+  ): Promise<CardAdf> {
     try {
-      const matchedProviderPattern = await this.findPatternData(url);
+      if (shouldForceAppearance) {
+        // At this point we don't need to check pattern nor call `check` because manual change means
+        // this url is already supported and can be resolved. We want to ignore all other options and
+        // respect user's choice.
+        return this.transformer.toAdf(url, appearance);
+      }
+
+      const hardCodedAppearance = this.getHardCodedAppearance(url);
+      const [matchedProviderPattern, userPreference] = await Promise.all([
+        this.findPatternData(url),
+        this.findUserPreference(url),
+      ]);
+
+      if (userPreference === 'url') {
+        return Promise.reject(undefined);
+      }
+
       let isSupported = !!matchedProviderPattern || (await this.check(url));
       if (isSupported) {
+        const providerDefaultAppearance = matchedProviderPattern?.defaultView;
+
         return this.transformer.toAdf(
           url,
-          matchedProviderPattern?.defaultView || appearance,
+          // User preferred appearance. It would be either one that has matching domain/path pattern OR
+          // if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
+          userPreference ||
+            // If user's default choice is "inline" or user hasn't specified preferences at all,
+            // we check whatever one of the hardcoded providers match url (jira roadmap, polaris, etc)
+            hardCodedAppearance ||
+            // If non match, we see if this provider has default appearance for this particular regexp
+            providerDefaultAppearance ||
+            // If not, we pick what editor (or any other client) requested
+            appearance,
         );
       }
     } catch (e) {

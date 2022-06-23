@@ -6,7 +6,17 @@ import {
   MediaChunksProbe,
 } from '../..';
 
+jest.mock('../../constants', () => ({
+  __esModule: true,
+  CHUNK_SIZE: 4,
+  PROCESSING_BATCH_SIZE: 1,
+}));
+
 describe('Uploader', () => {
+  afterEach(() => {
+    jest.resetModules();
+  });
+
   const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
     id: 'some-file-id',
     occurrenceKey: 'some-occurrence-key',
@@ -59,7 +69,7 @@ describe('Uploader', () => {
     };
   };
 
-  it('should upload file only once when processing batchis 1', (done) => {
+  it('should upload file only once when processing batch is 1', (done) => {
     const { mediaStore, createFileFromUpload } = setup();
 
     uploadFile(
@@ -69,7 +79,6 @@ describe('Uploader', () => {
         collection: 'some-collection',
         mimeType: 'some-mime-type',
       },
-
       mediaStore as MediaStore,
       uploadableFileUpfrontIds,
       {
@@ -91,8 +100,6 @@ describe('Uploader', () => {
           done();
         },
       },
-      4,
-      1,
     );
 
     expect.assertions(2);
@@ -100,7 +107,6 @@ describe('Uploader', () => {
 
   it('should upload file only once when processing batches are 2', (done) => {
     const { mediaStore, createFileFromUpload } = setup();
-
     uploadFile(
       {
         content: new Blob(['12345']),
@@ -108,7 +114,6 @@ describe('Uploader', () => {
         collection: 'some-collection',
         mimeType: 'some-mime-type',
       },
-
       mediaStore as MediaStore,
       uploadableFileUpfrontIds,
       {
@@ -130,8 +135,6 @@ describe('Uploader', () => {
           done();
         },
       },
-      4,
-      1,
     );
 
     expect.assertions(2);

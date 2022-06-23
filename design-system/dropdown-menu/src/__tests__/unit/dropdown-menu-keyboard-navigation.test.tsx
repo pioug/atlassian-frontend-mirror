@@ -34,7 +34,7 @@ describe('dropdown menu keyboard navigation', () => {
 
   function openDropdownWithKeydown(element: HTMLElement) {
     act(() => {
-      element.focus();
+      fireEvent.focus(element);
     });
     requestAnimationFrame.step();
 
@@ -44,7 +44,6 @@ describe('dropdown menu keyboard navigation', () => {
         code: KEY_DOWN,
       });
     });
-
     requestAnimationFrame.flush();
   }
 
@@ -86,41 +85,6 @@ describe('dropdown menu keyboard navigation', () => {
     openDropdownWithKeydown(getByTestId('dropdown--trigger'));
 
     expect(queryByTestId('dropdown--content')).toBeInTheDocument();
-  });
-
-  it('should NOT open the menu when DOWN arrow is pressed after the trigger has lost focus', () => {
-    const triggerText = 'click me to open';
-
-    const { getByTestId, queryByTestId } = render(
-      <>
-        <button data-testId="outside" type="button" />
-        <DropdownMenu trigger={triggerText} testId="dropdown">
-          <DropdownItemGroup>
-            <DropdownItem>Move</DropdownItem>
-            <DropdownItem>Clone</DropdownItem>
-            <DropdownItem>Delete</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>
-      </>,
-    );
-
-    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
-
-    expect(queryByTestId('dropdown--content')).toBeInTheDocument();
-
-    act(() => {
-      getByTestId('outside').click();
-      getByTestId('dropdown--trigger').blur();
-    });
-
-    act(() => {
-      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
-        key: KEY_DOWN,
-        code: KEY_DOWN,
-      });
-    });
-
-    expect(queryByTestId('dropdown--content')).not.toBeInTheDocument();
   });
 
   describe('with open menu', () => {
@@ -390,5 +354,34 @@ describe('dropdown menu keyboard navigation', () => {
 
     // Assert that the focus hasn't looped over to the first element
     expect(getByText('Delete').closest('button')).toHaveFocus();
+  });
+
+  it('should not allow the dropdown to reopen if the trigger is activated again', () => {
+    const onOpenChange = jest.fn();
+    const { getByTestId, queryByTestId } = render(
+      <DropdownMenu testId="dropdown" onOpenChange={onOpenChange}>
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(queryByTestId('dropdown--content')).toBeInTheDocument();
+    expect(onOpenChange).toHaveBeenCalledWith({
+      isOpen: true,
+      event: expect.any(KeyboardEvent),
+    });
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
+
+    onOpenChange.mockClear();
+
+    // this should not be possible to do as focus should not be able
+    // to go back to the trigger when the menu is open, but checking here to be safe
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(queryByTestId('dropdown--content')).toBeInTheDocument();
+    expect(onOpenChange).not.toHaveBeenCalled();
   });
 });

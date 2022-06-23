@@ -14,7 +14,7 @@ import { calcUserDragAndDropFromMidPoint } from '../../../../__tests__/__helpers
 
 BrowserTestCase(
   "doesn't select decision item node if click and drag before releasing mouse",
-  { skip: ['safari'] }, // impacted by https://product-fabric.atlassian.net/browse/ED-9974
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

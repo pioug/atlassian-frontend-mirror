@@ -1,4 +1,5 @@
 import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
+import { ADFEntity } from '@atlaskit/adf-utils/types';
 
 export const keyboardSelectDocFromStart = async (page: WebDriverPage) => {
   // The keyboard shortcuts to extend a selection to the end of
@@ -40,8 +41,19 @@ export const keyboardShiftSelect = async ({
   // shift + up/down: extend selection to same position on line above/below (mac + windows)
   // note: at time of util creation, tests only run on windows and mac
   const keys = ['Shift', `Arrow${direction}`];
-  for (let i = 0; i < numberOfTimes; i++) {
-    await page.keys(keys, true);
+
+  // Browserstack holds the shift key from the first time it is pressed in Chrome
+  // so we only loop to press the given arrow key
+  if (page.isBrowser('chrome')) {
+    await page.keys('Shift');
+    for (let i = 0; i < numberOfTimes; i++) {
+      await page.keys(`Arrow${direction}`);
+    }
+    // Browserstack doesn't hold down the shift key in other browsers
+  } else {
+    for (let i = 0; i < numberOfTimes; i++) {
+      await page.keys(keys, true);
+    }
   }
 };
 
@@ -75,7 +87,7 @@ export const clickAndDragSelect = async ({
 export const buildAdfSingleNodeWithParagraphs = ({
   adfNode,
 }: {
-  adfNode: { type: string; attrs: { [key: string]: any } };
+  adfNode: ADFEntity;
 }) => {
   return {
     version: 1,
@@ -97,7 +109,7 @@ export const buildAdfSingleNodeWithParagraphs = ({
 export const buildAdfBlockIsFirstNode = ({
   adfNode,
 }: {
-  adfNode: { type: string; attrs: { [key: string]: any } };
+  adfNode: ADFEntity;
 }) => {
   return {
     version: 1,
@@ -115,7 +127,7 @@ export const buildAdfBlockIsFirstNode = ({
 export const buildAdfBlockIsLastNode = ({
   adfNode,
 }: {
-  adfNode: { type: string; attrs: { [key: string]: any } };
+  adfNode: ADFEntity;
 }) => {
   return {
     version: 1,
@@ -133,7 +145,7 @@ export const buildAdfBlockIsLastNode = ({
 export const buildAdfMultipleNodesWithParagraphs = ({
   adfNode,
 }: {
-  adfNode: { type: string; attrs: { [key: string]: any } };
+  adfNode: ADFEntity;
 }) => {
   return {
     version: 1,

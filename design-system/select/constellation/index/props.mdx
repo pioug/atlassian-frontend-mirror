@@ -1,15 +1,29 @@
 import SelectProps from '!!extract-react-types-loader!../../src/ert';
+import PopupSelectProps from '!!extract-react-types-loader!../../src/PopupSelect/PopupSelect';
 import SingleSelect from '../../examples/constellation/select-single';
+
+import SectionMessage from '@atlaskit/section-message';
 
 ## Props
 
+<SectionMessage>
+  <p>
+    <Snippet>@atlaskit/select</Snippet> extends the functionality of React Select.
+    To view the full set of available props for Select, please refer to the <a rel="noopener noreferrer" href="https://react-select.com/props" target="_blank">react-select documentation</a>.
+  </p>
+</SectionMessage>
+
 <PropsTable heading="" props={SelectProps} />
 
-For further documentation regarding props, please refer to the <a rel="noopener noreferrer" href="https://react-select.com/props" target="_blank">react-select documentation</a>.
+### Popup Select Props
 
-### Prop usage
+PopupSelect accepts all of Select's props, in addition to the props shown below:
 
-#### Controllable Props
+<PropsTable heading="" props={PopupSelectProps} />
+
+## Prop usage
+
+### Controllable Props
 
 `@atlaskit/single-select` and `@atlaskit/multi-select` had the concept of `stateful` and `stateless` components.
 Where the exported `stateful` component, internally managed specific (in state) props available in the `stateless` component.
@@ -56,14 +70,14 @@ If you don't use the controlled props, `@atlaskit/select` has props that let you
 />
 ```
 
-##### PopupSelect
+#### PopupSelect
 
 The `PopupSelect` named export also provides additional props to control the state of the popup.
 
 - `isOpen` controls whether the popup is open (controlled)
 - `defaultIsOpen` controls whether the popup is initially open on mount (uncontrolled)
 
-#### Components API
+### Components API
 
 In `single-select` and `multi-select`, we've had several issues opened as a result of users wanting to customize
 the appearance or functionality of the exported `select` in various ways. `@atlaskit/select` opens up the API
@@ -93,7 +107,7 @@ You don't have to use these props, and are free to implement or reimplement as y
 
 See the [Components Documentation](https://react-select.com/components) for more details and examples.
 
-#### Styles API
+### Styles API
 
 Each component that `@atlaskit/select` exposes also has a corresponding key that you can specify in the styles prop.
 Each value you provide should be a function that takes the default styles, and returns your customized style object.
@@ -108,13 +122,13 @@ styles={{
 
 See the [Styles Documentation](https://react-select.com/styles) for more details and examples.
 
-#### Custom data structure
+### Custom data structure
 
 `@atlaskit/select` enforces as little opinion about the shape of your options as possible. With the combination of custom components API, and the styling API,
 your options can really take whatever shape you like. Of course by default, **assumptions** are made about how to render and filter options and values, however `@atlaskit/select` exposes
 the following methods to allow you to configure this as you choose.
 
-##### getOptionValue
+#### getOptionValue
 
 The `getOptionValue` prop takes the following shape:
 
@@ -129,7 +143,7 @@ The returned string value is what is internally used within `react-select` to va
 - Which options are removed
 - Which options are rendered in the hidden input field (if it's rendered)
 
-##### getOptionLabel
+#### getOptionLabel
 
 The `getOptionLabel` prop takes the following shape:
 
@@ -144,7 +158,7 @@ The returned string value is the string that's rendered:
 
 Please use this if you only want to customize the label text that gets rendered for an option.
 
-##### formatOptionLabel
+#### formatOptionLabel
 
 The `formatOptionLabel` prop takes the following shape:
 
@@ -154,7 +168,7 @@ The `formatOptionLabel` prop takes the following shape:
 
 The returned Node is rendered as the label of the value/s rendered in the control.
 
-##### isOptionDisabled
+#### isOptionDisabled
 
 By default `@atlaskit/select` looks for a `isDisabled` property your passed in options. However as is the case with all the methods mentioned above, `@atlaskit/select` exposes a `isOptionDisabled` prop that allows you to override this inbuilt logic. This takes the following shape:
 
@@ -162,7 +176,7 @@ By default `@atlaskit/select` looks for a `isDisabled` property your passed in o
 (option: OptionType) => boolean
 ```
 
-##### isOptionSelected
+#### isOptionSelected
 
 Similar to `isOptionDisabled`, for a `select` instance with `isMulti` active, `@atlaskit/select` provides an `isOptionSelected` prop to validate whether or not an option is already a selected value, before it decide whether to select or deselect an option.
 
@@ -176,7 +190,7 @@ However if you pass in a function of the following shape:
 
 it will override the default logic specified.
 
-##### Action Meta
+#### Action Meta
 
 The `onChange` and `onInputChange` props are now passed a second argument, which contains meta about why the event was called. For example:
 
@@ -207,7 +221,7 @@ onInputChange = (newValue, actionMeta) => console.log(actionMeta);
 }
 ```
 
-#### Custom filter
+### Custom filter
 
 `@atlaskit/select` exposes a `filterOption` prop that allows you to configure how options in your select get filtered down by a search value.
 This takes the following shape:

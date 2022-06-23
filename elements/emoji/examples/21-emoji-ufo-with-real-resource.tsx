@@ -7,10 +7,7 @@ import ResourcedEmojiControl, {
 } from '../example-helpers/demo-resource-control';
 import EmojiPicker, { EmojiUploader } from '../src';
 import { onSelection } from '../example-helpers';
-import {
-  SAMPLING_RATE_EMOJI_RENDERED_EXP,
-  SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI,
-} from '../src/util/constants';
+import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../src/util/constants';
 import { RenderRealResourcedEmojis } from './22-resourced-emoji-real-resource-backend';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 import { RenderSpriteEmojis } from './23-sprite-emoji';
@@ -50,10 +47,6 @@ export default () => (
             <br />
             <EmojiPicker emojiProvider={provider} onSelection={onSelection} />
             <hr />
-            <p>
-              ResourcedEmoji's sampling rate is:{' '}
-              {SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI}
-            </p>
             <br />
             <RenderRealResourcedEmojis emailProvider={provider} />
             <hr />

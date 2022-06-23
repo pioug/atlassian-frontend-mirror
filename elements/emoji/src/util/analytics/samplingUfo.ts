@@ -11,6 +11,14 @@ interface UFOExperienceSampledRecord {
   sampledInstance: SamplingInstancesRecord;
   sampled: boolean;
 }
+export interface WithSamplingUFOExperience
+  extends Omit<UFOExperience, 'start'> {
+  start: (options: {
+    samplingRate: number;
+    samplingFunc?: SamplingFunc;
+    startTime?: number;
+  }) => Promise<void>;
+}
 
 export const ufoExperiencesSampled: UFOExperienceSampledRecords = {};
 

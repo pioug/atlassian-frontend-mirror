@@ -3,7 +3,7 @@ import { ComponentClass } from 'react';
 
 import {
   defaultEmojiHeight,
-  SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI,
+  SAMPLING_RATE_EMOJI_RENDERED_EXP,
 } from '../../util/constants';
 import EmojiPlaceholder from './EmojiPlaceholder';
 import LoadingEmojiComponent, {
@@ -43,18 +43,28 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
   constructor(props: Props) {
     super(props, {});
     sampledUfoRenderedEmoji(props.emojiId).start({
-      samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI,
+      samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP,
     });
 
     ufoExperiences['emoji-rendered']
       .getInstance(props.emojiId.id || props.emojiId.shortName)
       .addMetadata({
         source: 'resourced-emoji',
+        emoji: props.emojiId.shortName,
       });
   }
 
   componentWillUnmount() {
-    sampledUfoRenderedEmoji(this.props.emojiId).abort();
+    sampledUfoRenderedEmoji(this.props.emojiId).abort({
+      metadata: {
+        source: 'ResourcedEmoji',
+        reason: 'unmount',
+        data: {
+          emojiId: this.props.emojiId.id,
+          shortName: this.props.emojiId.shortName,
+        },
+      },
+    });
   }
 
   asyncLoadComponent() {

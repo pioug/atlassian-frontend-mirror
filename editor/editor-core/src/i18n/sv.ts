@@ -361,7 +361,6 @@ export default {
   'fabric.theme.light-red': 'Ljusröd',
   'fabric.theme.light-teal': 'Ljust blågrön',
   'fabric.theme.light-yellow': 'Ljusgul',
-  'fabric.theme.orange': 'Orange',
   'fabric.theme.purple': 'Lila',
   'fabric.theme.red': 'Röd',
   'fabric.theme.teal': 'Blågrön',

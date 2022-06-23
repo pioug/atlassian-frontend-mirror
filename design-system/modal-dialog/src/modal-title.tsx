@@ -41,9 +41,8 @@ const textStyles = css({
 
 const iconStyles = css({
   marginRight: `${titleIconMargin}px`,
-
-  /* Keeps the size of the icon the same, in case the text element grows in width. */
   flex: '0 0 auto',
+  alignSelf: 'start',
 });
 
 /**

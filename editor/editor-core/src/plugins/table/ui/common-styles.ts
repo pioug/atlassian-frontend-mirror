@@ -524,7 +524,8 @@ export const tableStyles = (props: ThemeProps) => css`
       color: ${tableTextColor(props)};
       border-color: ${tableBorderColor(props)};
 
-      :first-child {
+      :first-child:not(style),
+      style:first-child + * {
         margin-top: 0;
       }
       :last-child {

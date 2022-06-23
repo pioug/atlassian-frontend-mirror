@@ -152,8 +152,18 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       closedPickerEvent({ duration: this.calculateElapsedTime() }),
     );
 
-    ufoExperiences['emoji-picker-opened'].abort();
-    ufoExperiences['emoji-searched'].abort();
+    ufoExperiences['emoji-picker-opened'].abort({
+      metadata: {
+        source: 'EmojiPickerComponent',
+        reason: 'unmount',
+      },
+    });
+    ufoExperiences['emoji-searched'].abort({
+      metadata: {
+        source: 'EmojiPickerComponent',
+        reason: 'unmount',
+      },
+    });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {

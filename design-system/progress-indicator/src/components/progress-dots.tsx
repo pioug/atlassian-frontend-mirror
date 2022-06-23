@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 
 import { css, jsx } from '@emotion/core';
+import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -107,15 +108,14 @@ const ProgressDots: FC<ProgressDotsProps> = ({
   );
 
   useEffect(() => {
-    if (onSelect) {
-      document.addEventListener('keydown', handleKeyDown, false);
+    if (!onSelect) {
+      return noop;
     }
-
-    return () => {
-      if (onSelect) {
-        document.removeEventListener('keydown', handleKeyDown);
-      }
-    };
+    return bind(document, {
+      type: 'keydown',
+      listener: handleKeyDown,
+      options: { capture: false },
+    });
   }, [onSelect, handleKeyDown]);
 
   const theme = useGlobalTheme();

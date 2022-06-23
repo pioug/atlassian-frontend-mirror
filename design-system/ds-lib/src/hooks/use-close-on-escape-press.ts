@@ -1,10 +1,8 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+
+import { bindAll } from 'bind-event-listener';
 
 import { ESCAPE } from '../utils/keycodes';
-
-import useDocumentEvent from './use-document-event';
-
-export type NativeKeyboardEventHandler = (e: KeyboardEvent) => void;
 
 interface UseCloseOnEscapePressOpts {
   onClose: (e: KeyboardEvent) => void;
@@ -29,8 +27,8 @@ export default function useCloseOnEscapePress({
 }: UseCloseOnEscapePressOpts): void {
   const escapePressed = useRef(false);
 
-  const onKeyDown: NativeKeyboardEventHandler = useCallback(
-    (e) => {
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
       if (isDisabled || escapePressed.current || e.key !== ESCAPE) {
         // We're either already handling the key down event or it's not escape.
         // Bail early!
@@ -43,10 +41,24 @@ export default function useCloseOnEscapePress({
     [onClose, isDisabled],
   );
 
-  const onKeyUp: NativeKeyboardEventHandler = useCallback(() => {
+  const onKeyUp = useCallback(() => {
     escapePressed.current = false;
   }, []);
 
-  useDocumentEvent('keydown', onKeyDown, false);
-  useDocumentEvent('keyup', onKeyUp, false);
+  useEffect(() => {
+    return bindAll(
+      document,
+      [
+        {
+          type: 'keydown',
+          listener: onKeyDown,
+        },
+        {
+          type: 'keyup',
+          listener: onKeyUp,
+        },
+      ],
+      { capture: false },
+    );
+  }, [onKeyDown, onKeyUp]);
 }

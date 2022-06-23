@@ -19,10 +19,6 @@ const nestedExpandSelector = '[data-node-type="nestedExpand"]';
 const controlSelector = 'tbody tr:first-child th:nth-child(1)';
 const panelSelector = panelSelectors.panelContent;
 
-// TODO: https://product-fabric.atlassian.net/browse/ED-9831
-// Selection in Catalina Safari isn't working properly.
-
-// TODO: https://product-fabric.atlassian.net/browse/ED-9831
 // Note: most of these tests will not work as expected on mac+chrome
 // the paste here happens with Shift+Instert for mac due to chromedriver issue with sending keys with Command
 // when pasting expand into table like this this breaks table in two, and leads to some other issues that are not reproducible manually
@@ -30,7 +26,7 @@ const panelSelector = panelSelectors.panelContent;
 
 BrowserTestCase(
   'expand.ts: expand copied from renderer and pasted on full-page',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -54,7 +50,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with legal content pasted in table',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -83,7 +79,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with illegal content pasted in table',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -113,7 +109,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: nestedExpand pasted in table',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -142,7 +138,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: nestedExpand pasted on top level',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -167,7 +163,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted on top level',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -192,7 +188,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand with table with nestedExpand pasted on top level',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -217,7 +213,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: table with nestedExpand pasted inside an expand',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -244,7 +240,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand pasted inside a table inside an expand',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -271,7 +267,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand pasted inside a panel inside a table should paste below',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -299,7 +295,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'expand.ts: expand content pasted inside a panel inside a table should paste text inside',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 
+import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -88,6 +89,7 @@ class ProfilecardTrigger extends React.PureComponent<
     reportingLinesData: undefined,
     shouldShowGiveKudos: false,
     teamCentralBaseUrl: undefined,
+    kudosDrawerOpen: false,
   };
 
   componentDidMount() {
@@ -201,6 +203,8 @@ class ProfilecardTrigger extends React.PureComponent<
       onReportingLinesClick: this.props.onReportingLinesClick,
       isKudosEnabled: this.state.shouldShowGiveKudos,
       teamCentralBaseUrl: this.state.teamCentralBaseUrl,
+      cloudId: this.props.cloudId,
+      openKudosDrawer: this.openKudosDrawer,
     };
 
     const wrapperProps =
@@ -228,6 +232,15 @@ class ProfilecardTrigger extends React.PureComponent<
     );
   }
 
+  openKudosDrawer = () => {
+    this.hideProfilecard();
+    this.setState({ kudosDrawerOpen: true });
+  };
+
+  closeKudosDrawer = () => {
+    this.setState({ kudosDrawerOpen: false });
+  };
+
   renderCard = () => {
     const { isLoading } = this.state;
 
@@ -244,27 +257,46 @@ class ProfilecardTrigger extends React.PureComponent<
 
   renderWithTrigger() {
     return (
-      <Popup
-        isOpen={!!this.state.visible}
-        onClose={this.hideProfilecard}
-        placement={this.props.position}
-        content={this.renderCard}
-        trigger={(triggerProps) => {
-          const { ref, ...innerProps } = triggerProps;
-          return (
-            <span
-              {...innerProps}
-              {...this.containerListeners}
-              ref={ref}
-              data-testid={this.props.testId}
-            >
-              {this.props.children}
-            </span>
-          );
-        }}
-        zIndex={layers.modal()}
-        shouldUseCaptureOnOutsideClick
-      />
+      <>
+        <Popup
+          isOpen={!!this.state.visible}
+          onClose={this.hideProfilecard}
+          placement={this.props.position}
+          content={this.renderCard}
+          trigger={(triggerProps) => {
+            const { ref, ...innerProps } = triggerProps;
+            return (
+              <span
+                {...innerProps}
+                {...this.containerListeners}
+                ref={ref}
+                data-testid={this.props.testId}
+              >
+                {this.props.children}
+              </span>
+            );
+          }}
+          zIndex={layers.modal()}
+          shouldUseCaptureOnOutsideClick
+        />
+        {this.state.shouldShowGiveKudos && (
+          <Suspense fallback={null}>
+            <GiveKudosLauncherLazy
+              isOpen={this.state.kudosDrawerOpen}
+              recipient={{
+                type: KudosType.INDIVIDUAL,
+                recipientId: this.props.userId!,
+              }}
+              analytics={this.props.analytics}
+              analyticsSource="profile-card"
+              teamCentralBaseUrl={this.state.teamCentralBaseUrl!}
+              cloudId={this.props.cloudId!}
+              addFlag={this.props.addFlag}
+              onClose={this.closeKudosDrawer}
+            />
+          </Suspense>
+        )}
+      </>
     );
   }
 

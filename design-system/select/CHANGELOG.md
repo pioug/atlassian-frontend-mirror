@@ -1,5 +1,12 @@
 # @atlaskit/select
 
+## 15.3.1
+
+### Patch Changes
+
+- [`8f6f225ac11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f6f225ac11) - Updated prop types for Popup Select
+- [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
+
 ## 15.3.0
 
 ### Minor Changes

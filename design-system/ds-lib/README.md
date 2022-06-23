@@ -149,33 +149,6 @@ function Component() {
 }
 ```
 
-### `useDocumentEvent()`
-
-```tsx
-import useDocumentEvent from '@atlaskit/ds-lib/use-document-event';
-
-// Ensure callback has a stable reference
-useDocumentEvent('click', callback);
-```
-
-### `useWindowEvent()`
-
-```tsx
-import useWindowEvent from '@atlaskit/ds-lib/use-window-event';
-
-// Ensure callback has a stable reference
-useWindowEvent('click', callback);
-```
-
-### `useElementEvent()`
-
-```tsx
-import useElementEvent from '@atlaskit/ds-lib/use-element-event';
-
-// Ensure callback has a stable reference
-useElementEvent(element, 'click', callback);
-```
-
 ### `useCloseOnEscapePress()`
 
 ```tsx

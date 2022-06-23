@@ -31,6 +31,10 @@ const dismissButtonStyles = css({
   whiteSpace: 'nowrap',
 });
 
+const crossIconStyles = css({
+  paddingTop: `${gridSize}px`,
+});
+
 interface DismissButtonProps {
   appearance: AppearanceTypes;
   onClick: (...args: any) => void;
@@ -67,7 +71,7 @@ const DismissButton = ({
         style={{
           color: getFlagTextColor(appearance, mode),
         }}
-        css={dismissButtonStyles}
+        css={[dismissButtonStyles, !isBold && crossIconStyles]}
         onClick={onClick}
         data-testid={buttonTestId}
         type="button"

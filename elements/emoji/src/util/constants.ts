@@ -42,6 +42,5 @@ export const analyticsEmojiPrefix = 'atlassian.fabric.emoji.picker';
 
 // This is the base sampling rate in Emoji
 export const SAMPLING_RATE_EMOJI_RENDERED_EXP = 0.05;
-// This rate is used in ResourceEmoji which will be used in stead of base sampling rate above
-export const SAMPLING_RATE_EMOJI_RENDERED_EXP_RESOURCEEMOJI = 0.1;
-// add more sampling rate in parent components like EmojiTypeAheadItem.
+// This rate is used in fetching emoji resource
+export const SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP = 0.01;

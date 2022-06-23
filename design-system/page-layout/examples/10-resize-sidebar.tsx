@@ -2,6 +2,7 @@
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/core';
+import { bind } from 'bind-event-listener';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -60,11 +61,10 @@ const ExpandKeyboardShortcut: FC = () => {
       }
     };
 
-    document.addEventListener('keydown', toggle);
-
-    return () => {
-      document.removeEventListener('keydown', toggle);
-    };
+    return bind(document, {
+      type: 'keydown',
+      listener: toggle,
+    });
   }, [toggleSidebarCollapse]);
 
   return null;

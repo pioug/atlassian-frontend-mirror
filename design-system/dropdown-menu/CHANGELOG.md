@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 11.2.1
+
+### Patch Changes
+
+- [`347fd703ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/347fd703ce0) - Internally shifting to using bind-event-listener for events added in effects
+- [`ce9438bddd0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce9438bddd0) - Internal TypeScript authoring improvement
+- Updated dependencies
+
 ## 11.2.0
 
 ### Minor Changes

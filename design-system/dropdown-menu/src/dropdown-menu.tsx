@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
+import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/standard-button';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
-import useKeydownEvent from '@atlaskit/ds-lib/use-keydown-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import Popup, { PopupProps, TriggerProps } from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
@@ -69,6 +69,11 @@ const DropdownMenu = (props: DropdownMenuProps) => {
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
 
   const handleTriggerClicked = useCallback(
+    // TODO: event is an `any` and is being cast incorrectly
+    // This means that the public type for `onOpenChange` is incorrect
+    // current: (event: React.MouseEvent | React.KeyboardEvent) => void;
+    // correct: (event: React.MouseEvent | KeyboardEvent) => void;
+    // https://product-fabric.atlassian.net/browse/DSP-4692
     (event) => {
       const newValue = !isLocalOpen;
 
@@ -94,14 +99,32 @@ const DropdownMenu = (props: DropdownMenuProps) => {
   }, [onOpenChange, setLocalIsOpen]);
 
   const { isFocused, bindFocus } = useFocus();
-  const handleDownArrow = (e: KeyboardEvent) => {
-    if (e.key === KEY_DOWN) {
-      // prevent page scroll
-      e.preventDefault();
-      handleTriggerClicked(e);
+
+  // When a trigger is focused, we want to open the dropdown if
+  // the user presses the DownArrow
+  useEffect(() => {
+    // Only need to listen for keydown when focused
+    if (!isFocused) {
+      return noop;
     }
-  };
-  useKeydownEvent(handleDownArrow, isFocused);
+
+    // Being safe: we don't want to open the dropdown if it is already open
+    // Note: This shouldn't happen as the trigger should not be able to get focus
+    if (isLocalOpen) {
+      return noop;
+    }
+
+    return bind(window, {
+      type: 'keydown',
+      listener: function openOnKeyDown(e: KeyboardEvent) {
+        if (e.key === KEY_DOWN) {
+          // prevent page scroll
+          e.preventDefault();
+          handleTriggerClicked(e);
+        }
+      },
+    });
+  }, [isFocused, isLocalOpen, handleTriggerClicked]);
 
   const id = useGeneratedId();
 

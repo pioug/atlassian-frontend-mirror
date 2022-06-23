@@ -7,7 +7,7 @@ import {
   insertBlockMenuItem,
   insertMedia,
   setupMediaMocksProviders,
-} from '../_helpers';
+} from '../../../../__tests__/integration/_helpers';
 
 BrowserTestCase(
   `bodied-insert-media.ts: Bodied Extension: Insert Media`,

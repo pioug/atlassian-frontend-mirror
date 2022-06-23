@@ -180,7 +180,7 @@ describe('action paste handler', () => {
     });
 
     it('should paste multiple nodes copied from a table cell correctly', () => {
-      const clipboard = `<meta charset='utf-8'><table data-pm-slice="2 2 [&quot;expand&quot;,null,&quot;table&quot;,null,&quot;tableRow&quot;,null]"><tbody><tr><td class="pm-table-cell-content-wrap"><p>first line</p><p><span data-node-type="date" data-timestamp="1586822400000"></span> some text</p><p>last line</p></td></tr></tbody></table>`;
+      const clipboard = `<meta charset='utf-8'><table data-pm-slice="4 4 [&quot;expand&quot;,null,&quot;table&quot;,null,&quot;tableRow&quot;,null]"><tbody><tr><td class="pm-table-cell-content-wrap"><p>first line</p><p><span data-node-type="date" data-timestamp="1586822400000"></span> some text</p><p>last line</p></td></tr></tbody></table>`;
       const expected = createNestedExpandDoc([
         p('first line'),
         p(date({ timestamp: '1586822400000' }), ' some text'),

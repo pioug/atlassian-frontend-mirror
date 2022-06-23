@@ -160,7 +160,15 @@ export class EmojiResource
           this.notifyError(reason);
           ufoExperiences['emoji-resource-fetched']
             .getInstance(providerType)
-            .failure({ metadata: { reason } });
+            .failure({
+              metadata: {
+                reason,
+                source: 'EmojiProvider',
+                data: {
+                  providerUrl: provider.url,
+                },
+              },
+            });
         });
     });
 

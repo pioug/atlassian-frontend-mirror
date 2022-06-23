@@ -41,7 +41,8 @@ export const layoutStyles = css`
         box-sizing: border-box;
 
         > div {
-          > *:first-child {
+          > :not(style):first-child,
+          > style:first-child + * {
             margin-top: 0;
           }
 

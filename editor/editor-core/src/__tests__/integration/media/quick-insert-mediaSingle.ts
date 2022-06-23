@@ -15,7 +15,7 @@ import { selectors } from '../../../plugins/panel/__tests__/integration/_utils';
 
 [
   {
-    skipBrowsers: ['safari'],
+    skipBrowsers: [],
     message: 'Inserts media single before paragraph',
     setup: async (page: Page) => {
       await page.type(editable, 'some text');

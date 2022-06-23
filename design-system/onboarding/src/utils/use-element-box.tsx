@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 export interface ElementBoundingBox {
   height: number;
   left: number;
@@ -41,11 +43,10 @@ export const useElementBox = (element: HTMLElement) => {
       });
     };
 
-    window.addEventListener('resize', onResize);
-
-    return () => {
-      window.removeEventListener('resize', onResize);
-    };
+    return bind(window, {
+      type: 'resize',
+      listener: onResize,
+    });
   }, [element]);
 
   return box;

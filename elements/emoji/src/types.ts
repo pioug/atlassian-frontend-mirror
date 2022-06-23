@@ -410,6 +410,7 @@ export enum UfoComponentName {
 }
 
 export enum UfoEmojiTimingsKeys {
+  FMP = 'fmp',
   MOUNTED = 'emoji-mount',
   METADATA = 'emoji-metadata',
   MEDIADATA = 'emoji-media',
@@ -417,6 +418,7 @@ export enum UfoEmojiTimingsKeys {
 }
 
 export enum UfoEmojiTimings {
+  FMP_END = 'fmp',
   MOUNTED_END = 'emoji-mount_end',
   METADATA_START = 'emoji-metadata_start',
   METADATA_END = 'emoji-metadata_end',

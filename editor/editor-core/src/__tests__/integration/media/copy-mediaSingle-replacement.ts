@@ -9,7 +9,7 @@ import adf from './_fixtures_/three-images.adf';
 
 BrowserTestCase(
   'copy-mediaSingle-replacement.ts: Copies and pastes mediaSingle on fullpage',
-  { skip: ['safari'] },
+  { skip: [] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testCase: string,

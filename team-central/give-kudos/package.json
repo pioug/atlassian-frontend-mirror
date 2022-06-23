@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/flag": "^14.5.9",
+    "@atlaskit/flag": "^14.6.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",

@@ -359,7 +359,6 @@ export default {
   'fabric.theme.orange': 'Pomarańczowy',
   'fabric.theme.purple': 'Fioletowy',
   'fabric.theme.red': 'Czerwony',
-  'fabric.theme.teal': 'Teal',
   'fabric.theme.white': 'Biały',
   'fabric.theme.yellow': 'Żółty',
 };

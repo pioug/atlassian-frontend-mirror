@@ -167,7 +167,8 @@ const containerStyles = (styleProps: StyleProps) => {
       background: ${EXPAND_SELECTED_BACKGROUND(themeProps)};
     }
 
-    td > &:first-child {
+    td > :not(style):first-child,
+    td > style:first-child + * {
       margin-top: 0;
     }
   `;

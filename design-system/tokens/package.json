@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -42,7 +42,7 @@
     "build-chrome-extension": "yarn --cwd tokens-browser-extension build-chrome-extension"
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^1.4.0",
+    "@atlaskit/ds-lib": "^2.0.0",
     "@babel/runtime": "^7.0.0",
     "@babel/traverse": "^7.15.0",
     "@babel/types": "^7.15.0"
@@ -95,6 +95,7 @@
       "circular-dependencies": "file-and-folder-level"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "ui-components": "lite-mode",
       "deprecation": "no-deprecated-imports",

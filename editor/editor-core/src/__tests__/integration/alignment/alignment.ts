@@ -61,11 +61,10 @@ BrowserTestCase(
     ).toMatchCustomDocSnapshot(testName);
   },
 );
-// https://product-fabric.atlassian.net/browse/ED-6802
-// TODO: test failing on safari and edge
+
 BrowserTestCase(
   'alignment: disabled when inside special nodes',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -80,11 +79,9 @@ BrowserTestCase(
   },
 );
 
-//  https://product-fabric.atlassian.net/browse/ED-6802
-// TODO: test failing on safari and edge
 BrowserTestCase(
   'alignment: disabled when editor is disabled',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -125,8 +122,7 @@ BrowserTestCase(
 
 BrowserTestCase(
   'alignment: should be able to add alignment to selected cells',
-  // @see ED-10292
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     const CELL = 'tbody td:first-child';

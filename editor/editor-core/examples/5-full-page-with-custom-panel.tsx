@@ -2,18 +2,12 @@ import React, { ChangeEvent } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
-import WithEditorActions from './../src/ui/WithEditorActions';
-import {
-  default as FullPageExample,
-  SaveAndCancelButtons,
-} from './5-full-page';
+import { default as FullPageExample } from './5-full-page';
 import LanguagePicker from '../example-helpers/LanguagePicker';
 import { exampleDocument } from '../example-helpers/example-doc-with-custom-panels';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { ThemeModes } from '@atlaskit/theme';
+import type { ThemeModes } from '@atlaskit/theme/types';
 
 export type Props = {};
 export type State = {
@@ -59,18 +53,11 @@ export default class ExampleEditor extends React.Component<Props, State> {
             defaultValue={exampleDocument}
             allowHelpDialog
             allowPanel={{ allowCustomPanel: true, allowCustomPanelEdit: true }}
-            primaryToolbarComponents={
-              <WithEditorActions
-                render={(actions) => (
-                  <React.Fragment>
-                    <LanguagePicker
-                      languages={languages}
-                      locale={locale}
-                      onChange={this.loadLocale}
-                    />
-                    <SaveAndCancelButtons editorActions={actions} />
-                  </React.Fragment>
-                )}
+            customPrimaryToolbarComponents={
+              <LanguagePicker
+                languages={languages}
+                locale={locale}
+                onChange={this.loadLocale}
               />
             }
           />

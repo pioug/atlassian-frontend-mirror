@@ -1,4 +1,4 @@
-import { modifyResponse, ProfileClient } from '../../src';
+import { modifyResponse, ProfileClient, ProfileClientOptions } from '../../src';
 import {
   getMockProfileClient as getMockProfileClientUtil,
   getMockTeamClient,
@@ -9,6 +9,7 @@ export const getMockProfileClient = (
   cacheSize: number,
   cacheMaxAge: number,
   extraProps: ProfilecardProps = {},
+  extraOptions?: ProfileClientOptions,
 ) => {
   const MockProfileClient = getMockProfileClientUtil(
     ProfileClient,
@@ -24,6 +25,7 @@ export const getMockProfileClient = (
   return new MockProfileClient({
     cacheSize,
     cacheMaxAge,
+    ...extraOptions,
   });
 };
 

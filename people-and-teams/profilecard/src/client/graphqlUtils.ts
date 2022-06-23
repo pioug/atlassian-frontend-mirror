@@ -7,7 +7,7 @@ const buildHeaders = () => {
 
 interface Query {
   query: string;
-  variables: Record<string, string>;
+  variables: Record<string, any>;
 }
 
 export interface GraphQLError {

@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { skeleton as skeletonColorFn } from '@atlaskit/theme/colors';
+import { N20A } from '@atlaskit/theme/colors';
 import {
   borderRadius as borderRadiusFn,
   gridSize as gridSizeFn,
@@ -25,7 +25,7 @@ const itemElemSkeletonOffset =
   (itemExpectedElemSize - skeletonItemElemSize) / 2;
 const skeletonTextBorderRadius = 100;
 const skeletonContentHeight = 9;
-const skeletonColor = token('color.background.neutral', skeletonColorFn());
+const skeletonColor = token('color.skeleton', N20A);
 
 const skeletonStyles = css({
   display: 'flex',

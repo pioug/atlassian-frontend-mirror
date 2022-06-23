@@ -97,7 +97,7 @@ export const assistive = visuallyHidden;
 export const skeletonShimmer = () =>
   ({
     css: {
-      backgroundColor: token('color.background.neutral', skeletonColor()),
+      backgroundColor: token('color.skeleton', skeletonColor()),
       animationDuration: '1.5s',
       animationIterationCount: 'infinite',
       animationTimingFunction: 'linear',
@@ -105,10 +105,10 @@ export const skeletonShimmer = () =>
     },
     keyframes: {
       from: {
-        backgroundColor: token('color.background.neutral', skeletonColor()),
+        backgroundColor: token('color.skeleton', skeletonColor()),
       },
       to: {
-        backgroundColor: token('color.background.neutral.hovered', N30A),
+        backgroundColor: token('color.skeleton.subtle', N30A),
       },
     },
   } as const);

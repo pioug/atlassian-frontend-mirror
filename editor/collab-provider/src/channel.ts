@@ -16,7 +16,8 @@ import type {
 } from './types';
 import { createLogger } from './helpers/utils';
 import { startMeasure, stopMeasure } from './analytics/performance';
-import { triggerAnalyticsForCatchupSuccessfulWithLatency } from './analytics';
+import { triggerCollabAnalyticsEvent } from './analytics';
+import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
 
 const logger = createLogger('Channel', 'green');
 
@@ -45,6 +46,10 @@ export class Channel extends Emitter<ChannelEvent> {
    * Connect to collab service using websockets
    */
   connect() {
+    startMeasure('socketConnect');
+    if (!this.initialized) {
+      startMeasure('documentInit');
+    }
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
     const { permissionTokenRefresh } = this.config;
@@ -138,6 +143,18 @@ export class Channel extends Emitter<ChannelEvent> {
     // `connect_error`'s paramter type is `Error`.
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
     this.socket.on('connect_error', (error: Error) => {
+      const measure = stopMeasure('socketConnect');
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.CONNECTION,
+          attributes: {
+            eventStatus: EVENT_STATUS.FAILURE,
+            error: error as ErrorPayload,
+            latency: measure?.duration,
+          },
+        },
+        this.analyticsClient,
+      );
       // If error received with `data`, it means the connection is rejected
       // by the server on purpose for example no permission, so no need to
       // keep the underneath connection, need to close. But some error like
@@ -155,6 +172,17 @@ export class Channel extends Emitter<ChannelEvent> {
   private onConnect = () => {
     this.connected = true;
     logger('Connected.', this.socket!.id);
+    const measure = stopMeasure('socketConnect');
+    triggerCollabAnalyticsEvent(
+      {
+        eventAction: EVENT_ACTION.CONNECTION,
+        attributes: {
+          eventStatus: EVENT_STATUS.SUCCESS,
+          latency: measure?.duration,
+        },
+      },
+      this.analyticsClient,
+    );
 
     this.emit('connected', {
       sid: this.socket!.id,
@@ -169,6 +197,18 @@ export class Channel extends Emitter<ChannelEvent> {
 
     if (data.type === 'initial') {
       if (!this.initialized) {
+        const measure = stopMeasure('documentInit');
+        triggerCollabAnalyticsEvent(
+          {
+            eventAction: EVENT_ACTION.DOCUMENT_INIT,
+            attributes: {
+              eventStatus: EVENT_STATUS.SUCCESS, // TODO: detect when document init fails and fire corresponding event for it
+              latency: measure?.duration,
+            },
+          },
+          this.analyticsClient,
+        );
+
         const { doc, version, userId, metadata }: InitPayload = data;
         this.initialized = true;
         this.emit('init', {
@@ -185,7 +225,6 @@ export class Channel extends Emitter<ChannelEvent> {
 
   async fetchCatchup(fromVersion: number): Promise<CatchupResponse> {
     try {
-      startMeasure('callingCatchupApi');
       const { doc, version, stepMaps, metadata } = await utils.requestService<
         any
       >(this.config, {
@@ -209,24 +248,17 @@ export class Channel extends Emitter<ChannelEvent> {
         stepMaps,
         metadata,
       };
-    } catch (err) {
-      logger("Can't fetch the catchup", err.message);
+    } catch (error) {
+      logger("Can't fetch the catchup", error.message);
       const errorCatchup: ErrorPayload = {
         message: ErrorCodeMapper.catchupFail.message,
         data: {
-          status: err.status,
+          status: error.status,
           code: ErrorCodeMapper.catchupFail.code,
         },
       };
       this.emit('error', errorCatchup);
       return {};
-    } finally {
-      stopMeasure('callingCatchupApi', (duration, _) => {
-        triggerAnalyticsForCatchupSuccessfulWithLatency(
-          this.analyticsClient,
-          duration,
-        );
-      });
     }
   }
 

@@ -1,5 +1,16 @@
 # @atlaskit/flag
 
+## 14.6.0
+
+### Minor Changes
+
+- [`379b0a864df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/379b0a864df) - [ux] Remove truncation of titles and wrap text instead. Very slightly changed title text positioning.
+
+### Patch Changes
+
+- [`f16146d83ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f16146d83ff) - [ux] Fix cross icon positioning
+- Updated dependencies
+
 ## 14.5.9
 
 ### Patch Changes

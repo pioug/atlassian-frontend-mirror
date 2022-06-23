@@ -14,15 +14,9 @@ import {
 
 import { clickFirstCell } from '../../__helpers/page-objects/_table';
 
-// There was a ProseMirror bug in Safari that prevents clicks inside a selected block node,
-// which caused the following integration test to fail. This was blocking the layout
-// selection feature, so we skipped the test for Safari. Once that bug is fixed, we can
-// re-enable the test for Safari.
-// - ED-9219 https://product-fabric.atlassian.net/browse/ED-9219
-// - GitHub issue https://github.com/ProseMirror/prosemirror/issues/1052
 BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

@@ -11,9 +11,9 @@ import {
   fullpage,
   editable,
   insertBlockMenuItem,
-} from '../_helpers';
+} from '../../../../__tests__/integration/_helpers';
 
-import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { messages } from '../../../insert-block/ui/ToolbarInsertBlock/messages';
 
 BrowserTestCase(
   `insert-extension.ts: Extension: Insert Inline extension`,

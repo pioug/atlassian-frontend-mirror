@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.0.5
+
+### Patch Changes
+
+- [`e09ea69c384`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e09ea69c384) - Introduce argument shouldForceAppearance to EditorCardProvider.resolve signature
+
 ## 1.0.4
 
 ### Patch Changes

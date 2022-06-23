@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { skeleton as skeletonColorFn } from '@atlaskit/theme/colors';
+import { N20A } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -17,7 +17,7 @@ const skeletonStyles = css({
     display: 'block',
     width: '30%',
     height: gridSize(),
-    backgroundColor: token('color.background.neutral', skeletonColorFn()),
+    backgroundColor: token('color.skeleton', N20A),
     borderRadius: 100,
     content: '""',
   },

@@ -11,6 +11,7 @@ import {
 } from 'react';
 
 import { css, jsx } from '@emotion/core';
+import { bindAll, UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 
 import {
@@ -71,6 +72,7 @@ const ResizeControl = ({
   const offset = useRef(0);
   const keyboardEventTimeout = useRef<number>();
   const [isGrabAreaFocused, setIsGrabAreaFocused] = useState(false);
+  const unbindEvents = useRef<UnbindFn | null>(null);
 
   const toggleSideBar = (
     e?: ReactMouseEvent | ReactKeyboardEvent<HTMLButtonElement>,
@@ -105,8 +107,10 @@ const ResizeControl = ({
       leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH] -
       getLeftPanelWidth();
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    unbindEvents.current = bindAll(document, [
+      { type: 'mousemove', listener: onMouseMove },
+      { type: 'mouseup', listener: onMouseUp },
+    ]);
     document.documentElement.setAttribute(IS_SIDEBAR_DRAGGING, 'true');
 
     const newLeftbarState = {
@@ -120,8 +124,8 @@ const ResizeControl = ({
 
   const cancelDrag = (shouldCollapse?: boolean) => {
     onMouseMove.cancel();
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
+    unbindEvents.current?.();
+    unbindEvents.current = null;
     document.documentElement.removeAttribute(IS_SIDEBAR_DRAGGING);
     offset.current = 0;
 
@@ -161,8 +165,8 @@ const ResizeControl = ({
   const cleanupAfterResize = () => {
     x.current = 0;
     offset.current = 0;
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
+    unbindEvents.current?.();
+    unbindEvents.current = null;
   };
   let updatedLeftSidebarState = {} as LeftSidebarState;
 

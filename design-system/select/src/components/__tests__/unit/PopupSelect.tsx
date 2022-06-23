@@ -106,7 +106,7 @@ describe('Popup Select', () => {
 
     expect(addedListeners().length).toBe(1);
     atlaskitSelectWrapper.unmount();
-    expect(removedListeners().length).toBe(2);
+    expect(removedListeners().length).toBe(1);
   });
 
   it('cleans up event listeners added after being opened', () => {
@@ -122,7 +122,7 @@ describe('Popup Select', () => {
     atlaskitSelectWrapper.setState({ isOpen: true });
     expect(addedListeners().length).toBe(4);
     atlaskitSelectWrapper.unmount();
-    expect(removedListeners().length).toBe(5);
+    expect(removedListeners().length).toBe(4);
   });
 
   test('renders a read only input when isSearchable is false', async () => {

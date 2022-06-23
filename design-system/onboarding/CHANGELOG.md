@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.4.1
+
+### Patch Changes
+
+- [`e4b612d1c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4b612d1c48) - Internal migration to bind-event-listener for safer DOM Event cleanup
+
 ## 10.4.0
 
 ### Minor Changes

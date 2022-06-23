@@ -35,6 +35,8 @@ const arrowRightStyles = css({ marginRight: 8 });
 interface Props {
   monthLongTitle: string;
   year: number;
+  previousMonthLabel?: string;
+  nextMonthLabel?: string;
   handleClickNext?: () => void;
   handleClickPrev?: () => void;
   mode?: ThemeModes;
@@ -44,6 +46,8 @@ interface Props {
 const Heading = memo<Props>(function Heading({
   monthLongTitle,
   year,
+  previousMonthLabel = 'Last month',
+  nextMonthLabel = 'Next month',
   handleClickPrev,
   handleClickNext,
   mode,
@@ -61,9 +65,10 @@ const Heading = memo<Props>(function Heading({
         testId={testId && `${testId}--previous-month`}
         iconBefore={
           <ArrowleftIcon
-            label="Last month"
+            label={previousMonthLabel}
             size="medium"
             primaryColor={token('color.text.subtlest', N70)}
+            testId={testId && `${testId}--previous-month-icon`}
           />
         }
       />
@@ -83,9 +88,10 @@ const Heading = memo<Props>(function Heading({
         testId={testId && `${testId}--next-month`}
         iconBefore={
           <ArrowrightIcon
-            label="Next month"
+            label={nextMonthLabel}
             size="medium"
             primaryColor={token('color.text.subtlest', N70)}
+            testId={testId && `${testId}--next-month-icon`}
           />
         }
       />

@@ -3,7 +3,10 @@ import { jsx } from '@emotion/core';
 import React, { useEffect, useCallback } from 'react';
 import { MouseEvent, SyntheticEvent } from 'react';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
-import { deleteEmojiLabel } from '../../util/constants';
+import {
+  deleteEmojiLabel,
+  SAMPLING_RATE_EMOJI_RENDERED_EXP,
+} from '../../util/constants';
 import {
   isImageRepresentation,
   isMediaRepresentation,
@@ -28,11 +31,14 @@ import {
   emojiStyles,
   emojiImage,
 } from './styles';
-import { sampledUfoRenderedEmoji } from '../../util/analytics';
-import { EmojiPlaceholder } from '../..';
-import { useInView } from 'react-intersection-observer';
+import {
+  sampledUfoRenderedEmoji,
+  ufoExperiences,
+  useSampledUFOComponentExperience,
+} from '../../util/analytics';
 import { isIntersectionObserverSupported } from '../../util/browser-support';
-// import { isIntersectionObserverSupported } from '../../util/browser-support';
+import { useInView } from '../../util/useInView';
+import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
 export interface Props {
   /**
@@ -162,6 +168,7 @@ const handleImageError = (
 
 // Pure functional components are used in favour of class based components, due to the performance!
 // When rendering 1500+ emoji using class based components had a significant impact.
+// TODO: add UFO tracking for sprite emoji
 export const SpriteEmoji = (props: Props) => {
   const {
     emoji,
@@ -238,6 +245,12 @@ export const ImageEmoji = (props: Props) => {
     shouldBeInteractive,
   } = props;
 
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+  });
+
+  const ufoExp = sampledUfoRenderedEmoji(emoji);
+
   const classes = `${emojiMainStyle} ${emojiNodeStyles} ${
     selected ? commonSelectedStyles : ''
   } ${selectOnHover ? selectOnHoverStyles : ''} ${emojiImage} ${
@@ -283,19 +296,35 @@ export const ImageEmoji = (props: Props) => {
     handleImageError(props, event);
   };
 
+  const markStartLoadFromMountedTime = useCallback(() => {
+    const mountedMark = ufoExp.metrics.marks.find(
+      (mark) => mark.name === UfoEmojiTimings.MOUNTED_END,
+    );
+    ufoExp.mark(UfoEmojiTimings.ONLOAD_START, mountedMark?.time);
+  }, [ufoExp]);
+
   const onLoad = () => {
-    sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.ONLOAD_END);
-    sampledUfoRenderedEmoji(emoji).success();
+    // onload could trigger before onBeforeLoad when emojis in viewport at start, so we need to mark onload start manually.
+    if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_START)) {
+      markStartLoadFromMountedTime();
+    }
+    if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_END)) {
+      ufoExp.mark(UfoEmojiTimings.ONLOAD_END);
+    }
+    ufoExp.success({
+      metadata: {
+        IBSupported: isIntersectionObserverSupported,
+      },
+    });
   };
 
   const onBeforeLoad = useCallback(() => {
-    sampledUfoRenderedEmoji(emoji).mark(UfoEmojiTimings.ONLOAD_START);
-  }, [emoji]);
+    if (!hasUfoMarked(ufoExp, UfoEmojiTimings.ONLOAD_START)) {
+      ufoExp.mark(UfoEmojiTimings.ONLOAD_START);
+    }
+  }, [ufoExp]);
 
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-  });
-
+  // because of the lack of browser support of on before load natively, used IntersectionObserver helper hook to mimic the before load time mark for UFO.
   useEffect(() => {
     if (inView) {
       onBeforeLoad();
@@ -320,26 +349,6 @@ export const ImageEmoji = (props: Props) => {
     />
   );
 
-  const placeholder = (
-    <EmojiPlaceholder
-      shortName={emoji.shortName}
-      size={fitToHeight}
-      showTooltip={showTooltip}
-      representation={emoji.representation}
-    />
-  );
-
-  const renderLazyLoadedEmoji = () => {
-    // if browser not supported, render emoji node directly
-    if (!isIntersectionObserverSupported) {
-      return emojiNode;
-    }
-    if (inView) {
-      return emojiNode;
-    }
-    return placeholder;
-  };
-
   return (
     <span
       data-testid={`image-emoji-${emoji.shortName}`}
@@ -360,13 +369,33 @@ export const ImageEmoji = (props: Props) => {
       ref={ref}
     >
       {deleteButton}
-      {renderLazyLoadedEmoji()}
+      {emojiNode}
     </span>
   );
 };
 
 export const Emoji = (props: Props) => {
   const { emoji } = props;
+  // start emoji rendered experience, it may have already started earlier in ResourcedEmoji or CachingEmoji
+  useSampledUFOComponentExperience(
+    ufoExperiences['emoji-rendered'].getInstance(emoji.id || emoji.shortName),
+    SAMPLING_RATE_EMOJI_RENDERED_EXP,
+    {
+      source: 'emoji',
+      emoji: emoji.shortName,
+    },
+  );
+
+  useEffect(() => {
+    const ufoExp = sampledUfoRenderedEmoji(emoji);
+    if (!hasUfoMarked(ufoExp, 'fmp')) {
+      ufoExp.markFMP();
+    }
+    if (!hasUfoMarked(ufoExp, UfoEmojiTimings.MOUNTED_END)) {
+      ufoExp.mark(UfoEmojiTimings.MOUNTED_END);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // TODO: We always prefer render as image as having accessibility issues with sprite representation
   if (isSpriteRepresentation(emoji.representation)) {
     return <SpriteEmoji {...props} />;

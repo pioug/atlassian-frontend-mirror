@@ -1,11 +1,11 @@
-import { Schema } from 'prosemirror-model';
+import type { Schema } from 'prosemirror-model';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ADNode } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { Node as PMNode } from 'prosemirror-model';
-import { RendererAppearance } from './ui/Renderer/types';
+import type { Node as PMNode } from 'prosemirror-model';
+import type { RendererAppearance } from './ui/Renderer/types';
 
 function createEncoder<T>(parser: Transformer<T>, encoder: Transformer<any>) {
   return (value: T) => encoder.encode(parser.parse(value));
@@ -40,28 +40,6 @@ export const getEventHandler = (
     (eventHandlers as any)[type][eventName]
   );
 };
-
-/**
- * Traverse DOM Tree upwards looking for table parents with "overflow: scroll".
- */
-export function findHorizontalOverflowScrollParent(
-  table: HTMLElement | null,
-): HTMLElement | null {
-  let parent: HTMLElement | null = table;
-  if (!parent) {
-    return null;
-  }
-
-  while ((parent = parent.parentElement)) {
-    // IE11 on Window 8 doesn't show styles from CSS when accessing through element.style property.
-    const style = window.getComputedStyle(parent);
-    if (style.overflow === 'scroll' || style.overflowY === 'scroll') {
-      return parent;
-    }
-  }
-
-  return null;
-}
 
 export const getPlatform = (rendererAppearance: RendererAppearance) => {
   if (rendererAppearance === 'mobile') {

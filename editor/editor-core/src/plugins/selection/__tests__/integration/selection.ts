@@ -12,7 +12,6 @@ import {
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { WebDriverPage } from '../../../../__tests__/__helpers/page-objects/_types';
 import selectionAdf from './__fixtures__/selectable-nodes-adf.json';
-import selectionAdfNoDecisions from './__fixtures__/selectable-nodes-no-decisions-adf.json';
 import blockNodesAdf from './__fixtures__/block-react-node-views.adf.json';
 
 const rightArrowExpectedSelections: SelectionMatch[] = [
@@ -114,7 +113,7 @@ const initEditor = async (
 
 BrowserTestCase(
   'selection: right arrow sets correct selections',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdf, { anchor: 2 });
@@ -141,25 +140,9 @@ BrowserTestCase(
   },
 );
 
-// For unknown reasons safari cannot load adf containing tasks or decisions and hangs when we call window.__mountEditor,
-// so we give it its own test with the decisions removed
-BrowserTestCase(
-  'selection: right arrow sets correct selections',
-  { skip: ['chrome', 'firefox'] },
-  async (client: any) => {
-    const page = await goToEditorTestingWDExample(client);
-    await initEditor(page, selectionAdfNoDecisions, { anchor: 2 });
-
-    for (const selection of rightArrowExpectedSelections) {
-      await page.keys(['ArrowRight']);
-      await expectToMatchSelection(page, selection);
-    }
-  },
-);
-
 BrowserTestCase(
   'selection: left arrow sets correct selections',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
     await initEditor(page, selectionAdf, { anchor: 32 });
@@ -180,22 +163,6 @@ BrowserTestCase(
     ];
 
     for (const selection of expectedSelections) {
-      await page.keys(['ArrowLeft']);
-      await expectToMatchSelection(page, selection);
-    }
-  },
-);
-
-// For unknown reasons safari cannot load adf containing tasks or decisions and hangs when we call window.__mountEditor,
-// so we give it its own test with the decisions removed
-BrowserTestCase(
-  'selection: left arrow sets correct selections',
-  { skip: ['chrome', 'firefox'] },
-  async (client: any) => {
-    const page = await goToEditorTestingWDExample(client);
-    await initEditor(page, selectionAdfNoDecisions, { anchor: 25 });
-
-    for (const selection of leftArrowExpectedSelections) {
       await page.keys(['ArrowLeft']);
       await expectToMatchSelection(page, selection);
     }

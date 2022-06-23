@@ -89,6 +89,8 @@ export interface Props extends WithAnalyticsEventsProps {
   isOpen?: boolean;
   /** The name of the field. */
   name?: string;
+  /** The aria-label attribute associated with the next-month arrow. */
+  nextMonthLabel?: string;
   /** Called when the field is blurred. */
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   /** Called when the value changes. The only argument is an ISO time or empty string. */
@@ -99,6 +101,8 @@ export interface Props extends WithAnalyticsEventsProps {
   parseInputValue?: (date: string, dateFormat: string) => Date;
   /** A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string. */
   formatDisplayLabel?: (value: string, dateFormat: string) => string;
+  /** The aria-label attribute associated with the previous-month arrow. */
+  previousMonthLabel?: string;
   /** Props to apply to the select. This can be used to set options such as placeholder text.
    *  See [the `Select` documentation for further information](/components/select). */
   selectProps?: SelectProps;
@@ -205,8 +209,10 @@ const Menu = ({
           disabledDateFilter={selectProps.calendarDisabledDateFilter}
           minDate={selectProps.calendarMinDate}
           maxDate={selectProps.calendarMaxDate}
+          nextMonthLabel={selectProps.nextMonthLabel}
           onChange={selectProps.onCalendarChange}
           onSelect={selectProps.onCalendarSelect}
+          previousMonthLabel={selectProps.previousMonthLabel}
           calendarRef={selectProps.calendarRef}
           selected={[selectProps.calendarValue]}
           locale={selectProps.calendarLocale}
@@ -558,6 +564,8 @@ class DatePicker extends Component<DatePickerProps, State> {
       minDate,
       isInvalid,
       name,
+      nextMonthLabel,
+      previousMonthLabel,
       selectProps,
       spacing,
       locale,
@@ -605,6 +613,8 @@ class DatePicker extends Component<DatePickerProps, State> {
       onCalendarSelect: this.onCalendarSelect,
       calendarLocale: locale,
       calendarWeekStartDay: weekStartDay,
+      nextMonthLabel,
+      previousMonthLabel,
     };
 
     return (

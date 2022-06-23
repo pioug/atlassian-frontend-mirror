@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "21.3.3",
+  "version": "21.3.4",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.4.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/ds-lib": "^1.4.0",
+    "@atlaskit/ds-lib": "^2.0.0",
     "@atlaskit/emoji": "^64.7.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/motion": "^1.1.0",

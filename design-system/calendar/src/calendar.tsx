@@ -72,11 +72,13 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       minDate,
       maxDate,
       month,
+      nextMonthLabel,
       onBlur = noop,
       onChange = noop,
       onFocus = noop,
       onSelect = noop,
       previouslySelected,
+      previousMonthLabel,
       selected,
       today,
       locale = 'en-US',
@@ -203,6 +205,8 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
             // name array e.g. 1 (January) -> 0
             monthLongTitle={monthsLong[monthValue - 1]}
             year={yearValue}
+            nextMonthLabel={nextMonthLabel}
+            previousMonthLabel={previousMonthLabel}
             handleClickNext={handleClickNext}
             handleClickPrev={handleClickPrev}
             mode={mode}

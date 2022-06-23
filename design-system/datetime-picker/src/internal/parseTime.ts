@@ -73,10 +73,9 @@ export function checkMinute(minute: string): string | null {
 export function convertTo24hrTime(
   time: string,
 ): { hour: number; minute: number } | null {
-  const timeArray = time.split(/(p|a)/);
+  const timeArray = time.toLowerCase().split(/(p|a)/i);
   const meridiem = timeArray[1];
-
-  const semi24 = formatSemi24(timeArray[0]);
+  const semi24 = formatSemi24(timeArray[0].trim());
   const hour = checkHour(semi24.substring(0, 2), meridiem);
   const minute = checkMinute(semi24.substring(2, 4));
 
@@ -98,10 +97,11 @@ export function assignToDate(time: { hour: number; minute: number }): Date {
 }
 
 export default function (time: string): string | Date {
-  if (!isValid(time.toString())) {
+  const trimmedTime = time.toString().trim();
+  if (!isValid(trimmedTime)) {
     return 'invalid time format';
   }
-  const time1 = removeSpacer(time.toString());
+  const time1 = removeSpacer(trimmedTime);
   const time2 = convertTo24hrTime(time1);
   if (!time2) {
     return 'invalid time format';

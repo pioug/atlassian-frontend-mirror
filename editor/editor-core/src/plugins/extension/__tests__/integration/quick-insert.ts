@@ -5,16 +5,16 @@ import {
   fullpage,
   editable,
   quickInsert,
-} from '../_helpers';
+} from '../../../../__tests__/integration/_helpers';
 import {
   mountEditor,
   goToEditorTestingWDExample,
-} from '../../__helpers/testing-example-helpers';
-import { messages } from '../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+} from '../../../../__tests__/__helpers/testing-example-helpers';
+import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 
 BrowserTestCase(
   `quick-insert.ts: Extension: Quick Insert`,
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

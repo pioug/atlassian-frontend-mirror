@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 167.0.3
+
+### Patch Changes
+
+- [`49eced64ce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49eced64ce2) - [ux] ED-14758: Fixed bug where query text would remain after pressing Enter on typeahead menu if user is in composition input
+- [`2a788e7026e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a788e7026e) - ED-14812: Allows breakout nodes to be pasted inside tables
+- [`559b6610a0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559b6610a0e) - Modified some CSS rules to ensure Emotion is compatible with server side rendering.
+- [`daab566aecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab566aecb) - [ux] ME-2402 cursor moves to after date node after inserting a date on mobile
+- [`dbbd9e189aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbbd9e189aa) - ED-14384 - Fixed flickering floating toolbar when clicking on the edge of a link.
+- [`cf3d8e740f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf3d8e740f9) - [ux] ED-14968 ED-14856 Fixed - Copying multiple paragraphs from a table and pasting them into an empty paragraph pastes within a new table cell
+- [`7c7dcb3c41a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c7dcb3c41a) - [ux] Solve a bug where copying text from a panel maintains the panel. Now it does not.
+- [`bd55ec19911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd55ec19911) - Deleted untranslated string from our i18n files to trigger our translation pipeline in order to get them retranslated correctly
+- Updated dependencies
+
 ## 167.0.2
 
 ### Patch Changes

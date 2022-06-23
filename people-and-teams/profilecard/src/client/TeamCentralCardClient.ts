@@ -38,21 +38,30 @@ const buildReportingLinesQuery = (aaid: string) => ({
   },
 });
 
-const buildCheckFeatureFlagQuery = (featureKey: string) => ({
+const buildCheckFeatureFlagQuery = (
+  featureKey: string,
+  context: FeatureFlagExtraContext[],
+) => ({
   query: `
-    query isFeatureKeyEnabled($featureKey: String!) {
-      isFeatureEnabled(featureKey: $featureKey) {
+    query isFeatureKeyEnabled($featureKey: String!, $context: [IsFeatureEnabledContextInput]) {
+      isFeatureEnabled(featureKey: $featureKey, context: $context) {
         enabled
       }
     }
   `,
   variables: {
     featureKey,
+    context,
   },
 });
 
 type TeamCentralCardClientOptions = ProfileClientOptions & {
   teamCentralUrl: string;
+};
+
+type FeatureFlagExtraContext = {
+  key: string;
+  value: string;
 };
 
 class TeamCentralCardClient extends CachingClient<
@@ -77,13 +86,16 @@ class TeamCentralCardClient extends CachingClient<
     this.featureFlagKeys = new Map();
   }
 
-  async makeFeatureFlagCheckRequest(featureKey: string) {
+  async makeFeatureFlagCheckRequest(
+    featureKey: string,
+    context: FeatureFlagExtraContext[],
+  ) {
     if (!this.options.teamCentralUrl) {
       throw new Error(
         'options.teamCentralUrl is a required parameter for retrieving Team Central data',
       );
     }
-    const query = buildCheckFeatureFlagQuery(featureKey);
+    const query = buildCheckFeatureFlagQuery(featureKey, context);
 
     const response = await graphqlQuery<{
       isFeatureEnabled: { enabled: boolean };
@@ -150,7 +162,10 @@ class TeamCentralCardClient extends CachingClient<
     });
   }
 
-  getFlagEnabled(featureKey: string): Promise<boolean> {
+  getFlagEnabled(
+    featureKey: string,
+    productIdentifier?: string,
+  ): Promise<boolean> {
     if (!featureKey) {
       return Promise.reject(new Error('featureKey missing'));
     }
@@ -163,8 +178,12 @@ class TeamCentralCardClient extends CachingClient<
       return Promise.resolve(false);
     }
 
+    const context = [
+      { key: 'productIdentifier', value: productIdentifier || 'unset' },
+    ];
+
     return new Promise((resolve) => {
-      this.makeFeatureFlagCheckRequest(featureKey)
+      this.makeFeatureFlagCheckRequest(featureKey, context)
         .then((enabled: boolean) => {
           this.featureFlagKeys.set(featureKey, enabled);
           resolve(enabled);

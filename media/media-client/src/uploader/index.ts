@@ -1,9 +1,12 @@
 import { chunkinator, Chunk, ChunkinatorFile } from '@atlaskit/chunkinator';
 import { from } from 'rxjs/observable/from';
 import { concatMap } from 'rxjs/operators/concatMap';
-
-import { MediaStore } from './client/media-store';
-import { createHasher } from './utils/hashing/hasherCreator';
+import { MediaStore } from '../client/media-store';
+import { createHasher } from '../utils/hashing/hasherCreator';
+import { UploaderError } from './error';
+import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
+import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 // TODO: Allow to pass multiple files
 export type UploadableFile = {
@@ -36,17 +39,24 @@ const hashingFunction = async (blob: Blob): Promise<string> => {
 
 const createProbingFunction = (
   store: MediaStore,
-  collection?: string,
+  collectionName?: string,
 ) => async (chunks: Chunk[]): Promise<boolean[]> => {
-  const response = await store.probeChunks(hashedChunks(chunks), collection);
+  const response = await store.probeChunks(hashedChunks(chunks), {
+    collectionName,
+  });
   const results = response.data.results;
 
   return (Object as any).values(results).map((result: any) => result.exists);
 };
 
-const createUploadingFunction = (store: MediaStore, collection?: string) => {
+const createUploadingFunction = (
+  store: MediaStore,
+  collectionName?: string,
+) => {
   return (chunk: Chunk) =>
-    store.uploadChunk(chunk.hash, chunk.blob, collection);
+    store.uploadChunk(chunk.hash, chunk.blob, {
+      collectionName,
+    });
 };
 
 const createProcessingFunction = (
@@ -92,11 +102,33 @@ export const uploadFile = (
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
   callbacks?: UploadFileCallbacks,
-  chunkSize: number = 4 * 1024 * 1024,
-  processingBatchSize: number = 1000,
 ): UploadFileResult => {
   const { content, collection } = file;
-  const { deferredUploadId } = uploadableFileUpfrontIds;
+  const { deferredUploadId, id, occurrenceKey } = uploadableFileUpfrontIds;
+  let chunkSize = CHUNK_SIZE;
+  try {
+    if (
+      content instanceof Blob &&
+      getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
+    ) {
+      chunkSize = calculateChunkSize(content.size);
+    }
+  } catch (err) {
+    if (err instanceof Error && err.message === fileSizeError) {
+      callbacks?.onUploadFinish(
+        new UploaderError(err.message, id, {
+          collectionName: collection,
+          occurrenceKey: occurrenceKey,
+        }),
+      );
+    }
+
+    return {
+      cancel: () => {
+        callbacks?.onUploadFinish('canceled');
+      },
+    };
+  }
 
   const chunkinatorObservable = chunkinator(
     content,
@@ -108,7 +140,7 @@ export const uploadFile = (
       uploadingConcurrency: 3,
       uploadingFunction: createUploadingFunction(store, collection),
       probingFunction: createProbingFunction(store, collection),
-      processingBatchSize,
+      processingBatchSize: PROCESSING_BATCH_SIZE,
       processingFunction: createProcessingFunction(
         store,
         deferredUploadId,

@@ -39,6 +39,7 @@ import {
 } from '../../../../plugins/table/utils/paste';
 import { pluginKey as tablePluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { transformSliceToRemoveOpenExpand } from '../../../../plugins/expand/utils';
+import { Schema } from 'prosemirror-model';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));
@@ -650,6 +651,28 @@ describe('table plugin', () => {
           expect(transformSliceToRemoveOpenTable(slice, defaultSchema)).toBe(
             slice,
           );
+        });
+      });
+
+      describe('when a slice has nested tables by coping multiple paragraphs in a table cell', () => {
+        it('should unwrap with correct openStart and openEnd', () => {
+          const slice = new Slice(
+            // Creating invalid fragment which is same as clipboard content
+            fragment(
+              table()((schema: Schema) =>
+                schema.nodes.tableRow.create(
+                  null,
+                  fragment(table()(tr(th()(p('1'), p('2'))))),
+                ),
+              ),
+            ),
+            6,
+            6,
+          );
+          const expected = new Slice(fragment(p('1'), p('2')), 1, 1);
+          expect(
+            transformSliceToRemoveOpenTable(slice, defaultSchema),
+          ).toStrictEqual(expected);
         });
       });
     });

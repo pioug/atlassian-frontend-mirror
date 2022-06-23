@@ -15,8 +15,8 @@ import { ControlProps, MenuProps, OptionType } from '../types';
 // Styled Components
 // ==============================
 interface MenuDialogProps {
-  maxWidth: number;
-  minWidth: number;
+  maxWidth?: number | string;
+  minWidth?: number | string;
   style: CSSProperties;
   children: ReactNode;
   id: string;

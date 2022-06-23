@@ -38,7 +38,19 @@ export const createRecordSelectionDefault = <T>(
           })
           .catch(() => {
             fireAnalytics && fireAnalytics(recordFailed);
-            ufoExperiences['emoji-selection-recorded'].failure();
+            ufoExperiences['emoji-selection-recorded'].failure({
+              metadata: {
+                reason: 'recordSelection error',
+                source: 'RecordSelectionDefault',
+                data: {
+                  emoji: {
+                    id: emoji.id,
+                    name: emoji.name,
+                    shortName: emoji.shortName,
+                  },
+                },
+              },
+            });
           });
       }
     } finally {

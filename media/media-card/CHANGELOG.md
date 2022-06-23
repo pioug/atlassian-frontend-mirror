@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 73.8.0
+
+### Minor Changes
+
+- [`01203d58916`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01203d58916) - Removed Unnecessary semicolon found in media-card
+- [`1a76e2839e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a76e2839e6) - Default value for mediaUploadApiV2 Media feature flag set to true.
+
+### Patch Changes
+
+- [`cccc7370667`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cccc7370667) - [MEX-1633] Removed unused Loading Rate Limited Component
+- Updated dependencies
+
 ## 73.7.0
 
 ### Minor Changes

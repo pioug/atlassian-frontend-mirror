@@ -3,9 +3,11 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
+import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import useStateRef from '@atlaskit/ds-lib/use-state-ref';
 import FocusRing from '@atlaskit/focus-ring';
@@ -103,8 +105,13 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
 
     useEffect(() => {
       const target = scrollableRef.current;
-      window.addEventListener('resize', setLazyKeylines, false);
-      target?.addEventListener('scroll', setLazyKeylines, false);
+      const unbindWindowEvent = bind(window, {
+        type: 'resize',
+        listener: setLazyKeylines,
+      });
+      const unbindTargetEvent = target
+        ? bind(target, { type: 'scroll', listener: setLazyKeylines })
+        : noop;
 
       setLazyContentFocus();
       setLazyKeylines();
@@ -114,8 +121,8 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
       });
 
       return () => {
-        window.removeEventListener('resize', setLazyKeylines, false);
-        target?.removeEventListener('scroll', setLazyKeylines, false);
+        unbindWindowEvent();
+        unbindTargetEvent();
       };
     }, [setLazyContentFocus, setLazyKeylines, setLazySiblings]);
 

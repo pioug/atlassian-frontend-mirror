@@ -296,7 +296,12 @@ export class MemoryReactionsStore implements ReactionsStore {
             );
           // ufo add reaction failure
           exp.failure({
-            metadata: { error },
+            metadata: {
+              error,
+              source: 'Reaction-Store',
+              data: { containerAri, ari, emojiId, metadata: this.metadata },
+              reason: 'addReaction fetch failed',
+            },
           });
         }
         return Promise.reject(error);
@@ -320,7 +325,12 @@ export class MemoryReactionsStore implements ReactionsStore {
       .catch((error) => {
         // ufo add reaction failure
         exp.failure({
-          metadata: { error },
+          metadata: {
+            error,
+            source: 'Reaction-Store',
+            data: { containerAri, ari, emojiId, metadata: this.metadata },
+            reason: 'deleteReaction fetch failed',
+          },
         });
       });
   };
@@ -337,10 +347,11 @@ export class MemoryReactionsStore implements ReactionsStore {
      * All reactions are usually fetched in a single call to reactions-service. Need to check why "getReactions" gets called randomly 1-2 times everytime on each fetch request despite using same containerAri.
      */
     const exp = ufoExperiences.render.getInstance(containerAri);
+    const arisArr = aris.reduce(utils.flattenAris);
     // ufo start reaction experience
     exp.start();
     this.client
-      .getReactions(containerAri, aris.reduce(utils.flattenAris))
+      .getReactions(containerAri, arisArr)
       .then((value: Types.Reactions) => {
         Object.keys(value).map((ari) => {
           const reactionsState = this.getReactionsState(containerAri, ari);
@@ -378,7 +389,14 @@ export class MemoryReactionsStore implements ReactionsStore {
               error.code,
             );
           }
-          exp.failure();
+          exp.failure({
+            metadata: {
+              error,
+              source: 'Reaction-Store',
+              data: { containerAri, aris: arisArr.join(',') },
+              reason: 'getReactions fetch failed',
+            },
+          });
           return Promise.reject(error);
         }
       });
@@ -405,7 +423,12 @@ export class MemoryReactionsStore implements ReactionsStore {
       .catch((error) => {
         // ufo get reaction details failure
         exp.failure({
-          metadata: { error },
+          metadata: {
+            error,
+            source: 'Reaction-Store',
+            data: { containerAri, ari, emojiId },
+            reason: 'getDetailedReaction fetch failed',
+          },
         });
       });
   };

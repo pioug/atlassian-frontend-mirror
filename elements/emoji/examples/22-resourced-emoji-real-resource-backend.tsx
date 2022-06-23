@@ -19,11 +19,6 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
     fallback: ':emoji-test:',
     shortName: ':emoji-test:',
   };
-  const emojiTest2 = {
-    id: '8b768280-e2e0-433f-be7d-6acf687f9fc3',
-    fallback: ':emoji:',
-    shortName: ':emoji:',
-  };
   const grinEmoji = {
     id: '1f600',
     fallback: ':grinning:',
@@ -57,16 +52,7 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
         emojiProvider={props.emailProvider}
         fitToHeight={24}
       />
-      <ResourcedEmoji
-        emojiId={{
-          id: emojiTest2.id,
-          fallback: emojiTest2.fallback,
-          shortName: emojiTest2.shortName,
-        }}
-        showTooltip={true}
-        emojiProvider={props.emailProvider}
-        fitToHeight={24}
-      />
+      <p>A resource emoji with a default fallback</p>
       <ResourcedEmoji
         emojiId={{
           id: wrongEmoji.id,

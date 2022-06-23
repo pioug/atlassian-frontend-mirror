@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 const isMatchMediaAvailable = (): boolean =>
   typeof window !== 'undefined' && 'matchMedia' in window;
 
@@ -39,11 +41,10 @@ export const useIsReducedMotion = (): boolean => {
     const onChange = (event: MediaQueryListEvent) =>
       setPrefersReducedMotion(event.matches);
 
-    mediaQueryList.addEventListener('change', onChange);
-
-    return () => {
-      mediaQueryList.removeEventListener('change', onChange);
-    };
+    return bind(mediaQueryList, {
+      type: 'change',
+      listener: onChange,
+    });
   }, []);
 
   return prefersReducedMotion;

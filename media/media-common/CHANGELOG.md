@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.15.0
+
+### Minor Changes
+
+- [`1a76e2839e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a76e2839e6) - Default value for mediaUploadApiV2 Media feature flag set to true.
+
 ## 2.14.0
 
 ### Minor Changes

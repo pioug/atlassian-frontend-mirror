@@ -19,7 +19,7 @@ import { Slice, Node, Fragment } from 'prosemirror-model';
 import { getPasteSource } from '../util';
 import {
   handlePasteAsPlainText,
-  handlePasteIntoTaskAndDecision,
+  handlePasteIntoTaskOrDecisionOrPanel,
   handleCodeBlock,
   handleMediaSingle,
   handlePastePreservingMarks,
@@ -319,7 +319,7 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
   type: PasteType,
 ): Command =>
   pipe(
-    handlePasteIntoTaskAndDecision,
+    handlePasteIntoTaskOrDecisionOrPanel,
     pasteCommandWithAnalytics(view, event, slice, {
       type: type,
     }),

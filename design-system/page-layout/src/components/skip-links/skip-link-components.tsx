@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /** @jsx jsx */
 import {
   KeyboardEvent as ReactKeyboardEvent,

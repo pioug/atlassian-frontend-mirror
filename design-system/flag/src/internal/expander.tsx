@@ -4,14 +4,15 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
-import { gridSize } from '@atlaskit/theme/constants';
+import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 
 type ExpanderProps = {
   isExpanded: boolean;
   testId?: string;
 };
 
-const paddingLeft = gridSize() * 5;
+const gridSize = getGridSize();
+const paddingLeft = gridSize * 5;
 
 const expanderStyles = css({
   display: 'flex',

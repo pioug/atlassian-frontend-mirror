@@ -5,8 +5,17 @@ import { commonSelectedStyles } from '../../../../components/common/styles';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
+import * as browserSupport from '../../../../util/browser-support';
+
+const mockedBrowserSupport = browserSupport as {
+  isIntersectionObserverSupported: boolean;
+};
 
 describe('<Emoji />', () => {
+  beforeAll(() => {
+    mockedBrowserSupport.isIntersectionObserverSupported = true;
+  });
+
   describe('as sprite', () => {
     it('should use spritesheet if present', async () => {
       const result = await render(<Emoji emoji={spriteEmoji} />);
@@ -61,16 +70,6 @@ describe('<Emoji />', () => {
   });
 
   describe('as image', () => {
-    it('should show lazy load placeholder when not loaded', async () => {
-      const result = await render(<Emoji emoji={imageEmoji} />);
-      mockAllIsIntersecting(false);
-      const image = result.queryByAltText(imageEmoji.shortName);
-      expect(image).toBeNull();
-      const placeholder = result.getByTestId(
-        `emoji-placeholder-${spriteEmoji.shortName}`,
-      );
-      expect(placeholder).toBeDefined();
-    });
     it('should use image by default', async () => {
       const result = await render(<Emoji emoji={imageEmoji} />);
       mockAllIsIntersecting(true);

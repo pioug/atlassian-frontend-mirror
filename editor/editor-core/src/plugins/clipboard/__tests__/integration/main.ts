@@ -20,7 +20,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
 BrowserTestCase(
   'copying table row preserves original table attributes',
-  { skip: ['safari'] },
+  { skip: [] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

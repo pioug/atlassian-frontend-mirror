@@ -70,6 +70,7 @@ describe('MediaStore', () => {
         sortDirection: 'desc',
       });
     };
+
     const data: MediaFile = {
       id: 'faee2a3a-f37d-11e4-aae2-3c15c2c70ce6',
       mediaType: 'doc',
@@ -200,59 +201,93 @@ describe('MediaStore', () => {
     });
 
     describe('uploadChunk', () => {
-      it('should PUT to /chunk/:etag endpoint with correct options', async () => {
-        const etag = 'some-etag';
-        const blob = new Blob(['some-blob']);
+      const testUploadId = 'test-upload-id';
+      const testPartNumber = 191;
 
-        fetchMock.once('', {
-          status: 201,
-          statusText: 'Created',
-        });
+      it.each([
+        ['', undefined, undefined],
+        [
+          `?partNumber=${testPartNumber}&uploadId=${testUploadId}`,
+          testUploadId,
+          testPartNumber,
+        ],
+        [`?partNumber=${testPartNumber}`, undefined, testPartNumber],
+        [`?uploadId=${testUploadId}`, testUploadId, undefined],
+      ])(
+        'should PUT to /chunk/:etag endpoint with correct query %s',
 
-        await mediaStore.uploadChunk(etag, blob);
+        async (query, uploadId, partNumber) => {
+          const etag = 'some-etag';
+          const blob = new Blob(['some-blob']);
 
-        expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/chunk/${etag}`, {
-          method: 'PUT',
-          headers: {
-            'X-Client-Id': clientId,
-            Authorization: `Bearer ${token}`,
-          },
-          body: blob,
-        });
-      });
+          fetchMock.once('', {
+            status: 201,
+            statusText: 'Created',
+          });
+
+          await mediaStore.uploadChunk(etag, blob, {
+            uploadId,
+            partNumber,
+          });
+
+          expect(fetchMock).toHaveBeenCalledWith(
+            `${baseUrl}/chunk/${etag}${query}`,
+            {
+              method: 'PUT',
+              headers: {
+                'X-Client-Id': clientId,
+                Authorization: `Bearer ${token}`,
+              },
+              body: blob,
+            },
+          );
+        },
+      );
     });
 
     describe('probeChunks', () => {
-      it('should POST to /chunk/probe endpoint with correct options', async () => {
-        const etag = 'some-etag';
-        const chunks = [etag];
-        const data: MediaChunksProbe = {
-          results: {
-            [etag]: {
-              exists: true,
+      const testUploadId = 'test-upload-id';
+
+      it.each([
+        ['', undefined],
+        [`?uploadId=${testUploadId}`, testUploadId],
+      ])(
+        'should POST to /chunk/probe endpoint with correct query %s',
+        async (query, uploadId) => {
+          const etag = 'some-etag';
+          const chunks = [etag];
+          const data: MediaChunksProbe = {
+            results: {
+              [etag]: {
+                exists: true,
+              },
             },
-          },
-        };
+          };
 
-        fetchMock.once(JSON.stringify({ data }), {
-          status: 200,
-          statusText: 'Ok',
-        });
+          fetchMock.once(JSON.stringify({ data }), {
+            status: 200,
+            statusText: 'Ok',
+          });
 
-        const response = await mediaStore.probeChunks(chunks);
+          const response = await mediaStore.probeChunks(chunks, { uploadId });
 
-        expect(response).toEqual({ data });
-        expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/chunk/probe`, {
-          method: 'POST',
-          headers: {
-            'X-Client-Id': clientId,
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ chunks }),
-        });
-      });
+          expect(response).toEqual({ data });
+
+          expect(fetchMock).toHaveBeenCalledWith(
+            `${baseUrl}/chunk/probe${query}`,
+            {
+              method: 'POST',
+              headers: {
+                'X-Client-Id': clientId,
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ chunks }),
+            },
+          );
+        },
+      );
 
       it('should fail if response is malformed JSON', async () => {
         const etag = 'some-etag';

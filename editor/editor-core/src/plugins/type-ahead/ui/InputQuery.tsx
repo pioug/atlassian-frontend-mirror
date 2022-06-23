@@ -129,6 +129,15 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
             }
             break;
           case 'Enter':
+            // ED-14758 - Under the W3C specification, any keycode sent under IME would return a keycode 229
+            // event.isComposing can't be used alone as this also included a virtual keyboard under a keyboardless device, therefore, it seems the best practice would be intercepting the event as below.
+            // Some suggested the other workaround maybe listen on`keypress` instead of `keydown`
+            if (
+              event.isComposing &&
+              (event.which === 229 || event.keyCode === 229)
+            ) {
+              break;
+            }
             onItemSelect(
               event.shiftKey
                 ? SelectItemMode.SHIFT_ENTER

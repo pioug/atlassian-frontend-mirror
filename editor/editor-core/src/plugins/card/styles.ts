@@ -20,6 +20,9 @@ export const smartCardStyles = css`
     .card {
       padding-left: 2px;
       padding-right: 2px;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      margin-bottom: -0.5em;
 
       .${SmartCardSharedCssClassName.LOADER_WRAPPER} > a:focus {
         ${getSelectionStyles([SelectionStyle.BoxShadow])}

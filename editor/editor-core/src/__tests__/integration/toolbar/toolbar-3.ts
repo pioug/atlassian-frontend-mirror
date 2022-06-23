@@ -22,7 +22,7 @@ const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
 [comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor for mark-based formatting`,
-    { skip: ['safari'] },
+    { skip: [] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
@@ -58,7 +58,7 @@ const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
 [comment, fullpage].forEach((editor) => {
   BrowserTestCase(
     `toolbar-3.ts: should be able to select Clear Formatting on toolbar for ${editor.name} editor for node-based formatting`,
-    { skip: ['safari'] },
+    { skip: [] },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {

@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-core';
 import { Node, NodeType } from 'prosemirror-model';
 import { EmojiId } from '@atlaskit/emoji';
+import { Selection } from 'prosemirror-state';
 
 export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
   key?: string;
@@ -453,12 +454,16 @@ export default class MobileEditorToolbarActions {
     value: string | null | undefined,
     editorView: EditorView,
   ) {
-    if (!value) {
+    if (!value || !editorView) {
       return;
     }
 
     const timestamp = parseInt(value);
     datePicker.onChange(timestamp)(editorView.state, editorView.dispatch);
+
+    let tr = editorView.state.tr;
+    tr = tr.setSelection(Selection.near(tr.doc.resolve(tr.selection.to + 1)));
+    editorView.dispatch(tr);
   }
 
   private performInputSubmit(

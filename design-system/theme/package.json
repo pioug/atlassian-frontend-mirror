@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "12.1.8",
+  "version": "12.1.9",
   "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/ds-lib": "^1.4.0",
+    "@atlaskit/ds-lib": "^2.0.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0"
   },
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/datetime-picker": "^11.1.0",
+    "@atlaskit/datetime-picker": "^12.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/section-message": "^6.1.0",
@@ -76,6 +76,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "styling": [
         "static",
         "emotion"

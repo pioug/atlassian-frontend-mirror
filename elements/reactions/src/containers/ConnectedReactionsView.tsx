@@ -34,7 +34,7 @@ export type Props = {
 const ReactionsView: React.FC<Props & WithAnalyticsEventsProps> = (props) => {
   // // compose a UFO experience object
   let experienceInstance = useRef<UFOExperience>();
-  const { ari, createAnalyticsEvent, store } = props;
+  const { ari, createAnalyticsEvent, store, containerAri } = props;
   useEffect(() => {
     experienceInstance.current = ufoExperiences.render.getInstance(ari);
   }, [ari]);
@@ -49,13 +49,18 @@ const ReactionsView: React.FC<Props & WithAnalyticsEventsProps> = (props) => {
 
   // abort when component gets unmounted
   useEffect(() => {
-    return () => {
-      experienceInstance.current?.abort();
+    return function cleanup() {
+      experienceInstance.current?.abort({
+        metadata: {
+          source: 'Connected-Reactions-View',
+          data: { ari, containerAri },
+          reason: 'unmount',
+        },
+      });
     };
-  }, [experienceInstance]);
+  }, [experienceInstance, containerAri, ari]);
 
   const renderChildren = (innerProps: any) => {
-    const { containerAri, ari } = props;
     return (
       <FabricElementsAnalyticsContext data={{ containerAri, ari }}>
         <Reactions

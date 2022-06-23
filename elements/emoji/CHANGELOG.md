@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 64.7.1
+
+### Patch Changes
+
+- [`6e01776f0b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e01776f0b7) - remove placeholder when lazy load emoji
+- [`6e01776f0b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e01776f0b7) - fix placeholder issue in lazy loaded emoji by removing it and re-write the anlytics tracking around it
+- [`c3f9e9bce1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f9e9bce1c) - Add custom information to failure and abort events for UFO experiences
+- Updated dependencies
+
 ## 64.7.0
 
 ### Minor Changes

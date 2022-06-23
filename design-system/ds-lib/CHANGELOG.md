@@ -1,5 +1,11 @@
 # @atlaskit/ds-lib
 
+## 2.0.0
+
+### Major Changes
+
+- [`347fd703ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/347fd703ce0) - Removing useDocumentEvent, useWindowEvent, useElementEvent and useKeydownEvent and replacing usages with bind-event-listener
+
 ## 1.4.2
 
 ### Patch Changes

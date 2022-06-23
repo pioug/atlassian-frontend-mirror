@@ -56,7 +56,10 @@ class ProfileCardClient {
     // if the user does not have TC the tc client will be undefined.
     return (
       (this.tcClient?.options.teamCentralBaseUrl &&
-        this.tcClient?.getFlagEnabled('team-central-kudos-enabled-m2')) ||
+        this.tcClient?.getFlagEnabled(
+          'team-central-kudos-enabled-m2',
+          this.tcClient?.options.productIdentifier,
+        )) ||
       Promise.resolve(false)
     );
   }

@@ -1,7 +1,27 @@
-export const STEPS_ADDED = 'collabStepsAddedSuccess';
-export const STEPS_REJECTED = 'collabStepsAddedRejected';
+import { ErrorPayload } from '../types';
+
 export const ATTRIBUTES_PACKAGE = 'collabProvider';
-export const CATCHUP_SUCCESS = 'collabCatchupSuccess';
-export const CATCHUP_FAILURE = 'collabCatchupFailure';
+
+export const EVENT_SUBJECT = 'collab';
+export enum EVENT_ACTION {
+  CONNECTION = 'connection',
+  CATCHUP = 'catchup',
+  DOCUMENT_INIT = 'documentInit',
+  ADD_STEPS = 'addSteps',
+}
+export enum EVENT_STATUS {
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+}
+
+export type AnalyticsEvent = {
+  eventAction: EVENT_ACTION;
+  attributes: {
+    eventStatus: EVENT_STATUS;
+    meetsSLO?: boolean;
+    latency?: number;
+    error?: ErrorPayload;
+  };
+};
 
 export const ACK_MAX_TRY = 10;

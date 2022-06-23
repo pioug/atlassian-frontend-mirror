@@ -16,7 +16,8 @@ export const blockMarksSharedStyles = css`
     h5,
     h6,
     .heading-wrapper {
-      &:first-child {
+      :first-child:not(style),
+      style:first-child + * {
         margin-top: 0;
       }
     }

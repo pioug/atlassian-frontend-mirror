@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
+import { bindAll } from 'bind-event-listener';
+
 type ItemComponentProps =
   | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>
   | React.ElementType;
@@ -28,13 +30,16 @@ export default function Example({
       throw new Error('Could not find button ref');
     }
 
-    el.addEventListener('toggle-select', toggleSelect);
-    el.addEventListener('toggle-disabled', toggleDisabled);
-
-    return () => {
-      el.removeEventListener('toggle-select', toggleSelect);
-      el.removeEventListener('toggle-disabled', toggleDisabled);
-    };
+    return bindAll(el, [
+      {
+        type: 'toggle-select',
+        listener: toggleSelect,
+      },
+      {
+        type: 'toggle-disabled',
+        listener: toggleDisabled,
+      },
+    ]);
   }, []);
 
   return (

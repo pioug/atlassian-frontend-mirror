@@ -1,5 +1,6 @@
 import {
   EmojiId,
+  ProviderTypes,
   UfoComponentName,
   UfoEmojiTimings,
   UfoEmojiTimingsKeys,
@@ -12,7 +13,7 @@ import {
   ConcurrentExperience,
   UFOExperience,
 } from '@atlaskit/ufo';
-import { withSampling } from './samplingUfo';
+import { withSampling, WithSamplingUFOExperience } from './samplingUfo';
 
 const createRenderExperience = (componentName: string) => {
   return {
@@ -31,7 +32,10 @@ const createInlineExperience = (componentName: string) => {
 };
 
 const customEmojiTimings = [
-  { key: UfoEmojiTimingsKeys.MOUNTED, endMark: UfoEmojiTimings.MOUNTED_END },
+  {
+    key: UfoEmojiTimingsKeys.FMP,
+    endMark: UfoEmojiTimings.FMP_END,
+  },
   {
     key: UfoEmojiTimingsKeys.METADATA,
     component: 'resourced-emoji',
@@ -43,6 +47,11 @@ const customEmojiTimings = [
     component: 'caching-emoji',
     startMark: UfoEmojiTimings.MEDIA_START,
     endMark: UfoEmojiTimings.MEDIA_END,
+  },
+  {
+    key: UfoEmojiTimingsKeys.MOUNTED,
+    component: 'emoji',
+    endMark: UfoEmojiTimings.MOUNTED_END,
   },
   {
     key: UfoEmojiTimingsKeys.ONLOAD,
@@ -85,5 +94,18 @@ export const sampledUfoRenderedEmoji = (emojiId: EmojiId) => {
     ufoExperiences['emoji-rendered'].getInstance(
       emojiId.id || emojiId.shortName,
     ),
+  );
+};
+
+export const hasUfoMarked = (
+  ufoExperience: UFOExperience | WithSamplingUFOExperience,
+  name: string,
+) => {
+  return ufoExperience.metrics.marks.some((mask) => mask.name === name);
+};
+
+export const sampledUfoEmojiResourceFetched = (providerType: ProviderTypes) => {
+  return withSampling(
+    ufoExperiences['emoji-resource-fetched'].getInstance(providerType),
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
@@ -28,7 +28,7 @@ import {
   ProfileImage,
   SpinnerContainer,
 } from '../../styled/Card';
-import { LozengeProps, ProfilecardProps } from '../../types';
+import { LozengeProps, ProfileCardAction, ProfilecardProps } from '../../types';
 import { isBasicClick } from '../../util/click';
 import { ErrorMessage } from '../Error';
 import { IconLabel } from '../Icon';
@@ -95,15 +95,20 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     );
   }
 
-  giveKudosCallback = (clickedUserId?: string) => {
-    if (clickedUserId) {
-      window.open(
-        `${this.props.teamCentralBaseUrl}/give-kudos?type=individual&recipientId=${clickedUserId}`,
-      );
+  kudosUrl = (): string => {
+    const recipientId =
+      (this.props.userId && `&recipientId=${this.props.userId}`) || '';
+    const cloudId =
+      (this.props.cloudId && `&cloudId=${this.props.cloudId}`) || '';
+
+    return `${this.props.teamCentralBaseUrl}/kudos/give?type=individual${recipientId}${cloudId}`;
+  };
+
+  kudosButtonCallback = () => {
+    if (this.props.openKudosDrawer) {
+      this.props.openKudosDrawer();
     } else {
-      window.open(
-        `${this.props.teamCentralBaseUrl}/give-kudos?type=individual`,
-      );
+      window.open(this.kudosUrl());
     }
   };
 
@@ -114,16 +119,36 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
         label: <FormattedMessage {...messages.giveKudosButton} />,
         id: 'give-kudos',
         callback: () => {
-          this.giveKudosCallback(this.props.userId);
+          this.kudosButtonCallback();
         },
-        link: this.props.userId
-          ? `${this.props.teamCentralBaseUrl}/give-kudos?type=individual&recipientId=${this.props.userId}`
-          : `${this.props.teamCentralBaseUrl}/give-kudos?type=individual`,
+        link: this.kudosUrl(),
       };
       return actions.concat([kudosAction]);
     }
     return actions;
   }
+
+  renderButton = (action: ProfileCardAction, idx: number): ReactElement => {
+    return (
+      <Button
+        appearance={idx === 0 ? 'default' : 'subtle'}
+        key={action.id || idx}
+        onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) => {
+          this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
+            id: action.id || null,
+            duration: this.durationSince(this.timeOpen),
+          });
+          if (action.callback && isBasicClick(event)) {
+            event.preventDefault();
+            action.callback(event, ...args);
+          }
+        }}
+        href={action.link}
+      >
+        {action.label}
+      </Button>
+    );
+  };
 
   renderActionsButtons() {
     if (this.props.actions && this.props.actions.length === 0) {
@@ -133,25 +158,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
 
     return (
       <ActionButtonGroup>
-        {actions.map((action, idx: number) => (
-          <Button
-            appearance={idx === 0 ? 'default' : 'subtle'}
-            key={action.id || idx}
-            onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) => {
-              this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
-                id: action.id || null,
-                duration: this.durationSince(this.timeOpen),
-              });
-              if (action.callback && isBasicClick(event)) {
-                event.preventDefault();
-                action.callback(event, ...args);
-              }
-            }}
-            href={action.link}
-          >
-            {action.label}
-          </Button>
-        ))}
+        {actions.map((action, idx: number) => this.renderButton(action, idx))}
       </ActionButtonGroup>
     );
   }

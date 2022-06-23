@@ -48,6 +48,7 @@
       "circular-dependencies": "file-and-folder-level"
     },
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "design-system": "v1",
       "ui-components": "lite-mode",
       "deprecation": "no-deprecated-imports",

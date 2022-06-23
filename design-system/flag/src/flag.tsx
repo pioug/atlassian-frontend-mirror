@@ -37,12 +37,17 @@ const analyticsAttributes = {
 
 const gridSize = getGridSize();
 const doubleGridSize = gridSize * 2;
-const headerHeight = gridSize * 4;
 
-const iconStyles = css({
+const titleGroupStyles = css({
   display: 'flex',
-  height: headerHeight,
-  alignItems: 'center',
+  alignItems: 'start',
+});
+
+const iconTitleStyles = css({
+  display: 'flex',
+  paddingTop: `${gridSize / 2}px`,
+  alignItems: 'start',
+  flex: 1,
 });
 
 const flagHeaderStyles = css({
@@ -169,9 +174,11 @@ const Flag = (props: FlagProps) => {
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           tabIndex={0}
         >
-          <div style={{ color: iconColor }} css={iconStyles}>
-            {icon}
-            <Title color={textColor}>{title}</Title>
+          <div style={{ color: iconColor }} css={titleGroupStyles}>
+            <div css={iconTitleStyles}>
+              {icon}
+              <Title color={textColor}>{title}</Title>
+            </div>
             {isDismissable
               ? !(isBold && !description && !actions.length) && (
                   <DismissButton
@@ -190,6 +197,7 @@ const Flag = (props: FlagProps) => {
               <Description
                 testId={testId && `${testId}-description`}
                 color={textColor}
+                isBold={isBold}
               >
                 {description}
               </Description>

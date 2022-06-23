@@ -1,9 +1,9 @@
 import { EditorCardProvider } from '..';
-import { ORSProvidersResponse } from '../types';
+import { ORSProvidersResponse, UserPreferences } from '../types';
 
-const getMockProvidersResponse = (
-  overridePolarisDefaultView: boolean = false,
-): ORSProvidersResponse => ({
+const getMockProvidersResponse = ({
+  userPreferences,
+}: { userPreferences?: UserPreferences } = {}): ORSProvidersResponse => ({
   providers: [
     {
       key: 'google-object-provider',
@@ -55,11 +55,15 @@ const getMockProvidersResponse = (
         {
           source:
             '^https:\\/\\/.*?\\/jira\\/polaris\\/projects\\/[^\\/]+?\\/ideas\\/view\\/\\d+$|^https:\\/\\/.*?\\/secure\\/JiraProductDiscoveryAnonymous\\.jspa\\?hash=\\w+|^https:\\/\\/.*?\\/jira\\/polaris\\/share\\/\\w+',
-          ...(overridePolarisDefaultView ? { defaultView: 'block' } : {}),
         },
       ],
     },
   ],
+  ...(userPreferences
+    ? {
+        userPreferences,
+      }
+    : {}),
 });
 
 const expectedInlineAdf = (url: string) => ({
@@ -290,5 +294,251 @@ describe('providers > editor', () => {
     });
     const url = 'https://site-without-pattern.com';
     expect(await provider.findPattern(url)).toBe(false);
+  });
+
+  describe('with user preferences', () => {
+    it('should use throw when default user preferences is url', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'url',
+              appearanceMap: {},
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const promise = provider.resolve(url, 'inline');
+      await expect(promise).rejects.toEqual(undefined);
+    });
+
+    it('should return default user preference appearance adf', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {},
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedBlockAdf(url));
+    });
+
+    it('should return specific url user preference appearance adf', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {
+                'site-with-default-view.com/testing': 'inline',
+              },
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should throw when specific url user preference appearance is url', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {
+                'some-other-path.com': 'embed',
+                'site-with-default-view.com/testing': 'url',
+              },
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const promise = provider.resolve(url, 'inline');
+      await expect(promise).rejects.toEqual(undefined);
+    });
+
+    it('should return specific url user preference appearance adf when its not first in the map', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {
+                'some-other-path.com': 'embed',
+                'site-with-default-view.com/testing': 'inline',
+              },
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should use user default appearance even for urls we have harcoded appearance for', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {},
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedBlockAdf(url));
+    });
+
+    it('should use harcoded appearance when user has "inline" default appearance (and no pattern matches url)', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearanceMap: {},
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedEmbedAdf(url));
+    });
+
+    it('should use user appearance over hardcoded one when url matches users pattern', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {
+                'jdog.jira-dev.com/jira/core': 'inline',
+              },
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should use providers default appearance if user default appearance is inline (and no pattern matches url)', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearanceMap: {},
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedEmbedAdf(url));
+    });
+  });
+
+  describe('when appearance is manually changed on the frontend', () => {
+    it('should take manually specified appearance over provider default appearance', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () => getMockProvidersResponse(),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline', true);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should take manually specified appearance over user default appearance', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {},
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline', true);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should take manually specified appearance over user path based appearance', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearanceMap: {
+                'site-with-default-view.com/testing': 'url',
+              },
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline', true);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should take manually specified appearance over hardcoded appearance', async () => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () => getMockProvidersResponse(),
+        ok: true,
+      });
+
+      const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
+      const adf = await provider.resolve(url, 'inline', true);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should not call /providers when shouldForceAppearance is true', async () => {
+      const provider = new EditorCardProvider();
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      await provider.resolve(url, 'inline', true);
+      expect(mockFetch).not.toHaveBeenCalled();
+    });
   });
 });

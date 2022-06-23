@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "15.3.0",
+  "version": "15.3.1",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,6 +34,7 @@
     "@emotion/core": "^10.0.9",
     "@popperjs/core": "^2.9.1",
     "@types/react-select": "^4.0.18",
+    "bind-event-listener": "^2.1.0",
     "focus-trap": "^2.4.5",
     "memoize-one": "^6.0.0",
     "react-fast-compare": "^3.2.0",
@@ -73,6 +74,7 @@
   },
   "techstack": {
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [

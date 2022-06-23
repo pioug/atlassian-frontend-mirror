@@ -89,6 +89,7 @@ export interface ProfileCardResourcedProps {
   position?: ProfilecardTriggerPosition;
   trigger?: TriggerType;
   children?: React.ReactNode;
+  addFlag?: (flag: any) => void;
 }
 
 export interface ProfileCardResourcedState {
@@ -98,6 +99,8 @@ export interface ProfileCardResourcedState {
   error?: ProfileCardErrorType;
   data: ProfileCardClientData | null;
   reportingLinesData?: TeamCentralReportingLinesData;
+  isKudosEnabled?: boolean;
+  kudosDrawerOpen: boolean;
 }
 
 export interface ProfileCardTriggerProps {
@@ -123,6 +126,7 @@ export interface ProfileCardTriggerProps {
   trigger?: TriggerType;
   children?: React.ReactNode;
   testId?: string;
+  addFlag?: (flag: any) => void;
 }
 
 export interface ProfileCardTriggerState {
@@ -134,6 +138,7 @@ export interface ProfileCardTriggerState {
   reportingLinesData?: TeamCentralReportingLinesData;
   shouldShowGiveKudos?: boolean;
   teamCentralBaseUrl?: string;
+  kudosDrawerOpen: boolean;
 }
 
 export interface TeamProfileCardTriggerState {
@@ -317,6 +322,8 @@ export interface ProfilecardProps {
   onReportingLinesClick?: (user: ReportingLinesUser) => void;
   isKudosEnabled?: boolean;
   teamCentralBaseUrl?: string;
+  addFlag?: (flag: any) => void;
+  cloudId?: string;
 
   // Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
   // `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,
@@ -327,6 +334,7 @@ export interface ProfilecardProps {
   hasDisabledAccountLozenge?: boolean;
   // Allow consumers to pass in custom lozenges that will be displayed under the heading
   customLozenges?: LozengeProps[];
+  openKudosDrawer?: () => void;
 }
 
 export type AnalyticsFromDuration = (duration: number) => Record<string, any>;
@@ -405,6 +413,8 @@ export interface ProfileClientOptions {
   teamCentralUrl?: string;
   /** URL to the Team Central app e.g. team.atlassian.com */
   teamCentralBaseUrl?: string;
+  /** Name of integrating product e.g. jira, atlas, confluence **/
+  productIdentifier?: string;
 }
 
 export interface ClientOverrides {

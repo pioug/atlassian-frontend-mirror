@@ -1,5 +1,12 @@
 # @atlaskit/reactions
 
+## 21.3.4
+
+### Patch Changes
+
+- [`c3f9e9bce1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3f9e9bce1c) - Add custom information to failure and abort events for UFO experiences
+- Updated dependencies
+
 ## 21.3.3
 
 ### Patch Changes

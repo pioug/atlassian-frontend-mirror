@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 7.4.3
+
+### Patch Changes
+
+- [`ec2f2d0b804`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec2f2d0b804) - ED-14734: Add analytics to track time to connect to collab service, as well as tracking document initial load time.
+
 ## 7.4.2
 
 ### Patch Changes

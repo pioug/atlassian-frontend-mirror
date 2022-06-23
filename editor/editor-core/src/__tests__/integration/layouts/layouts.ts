@@ -10,7 +10,7 @@ import { messages as insertBlockMessages } from '../../../plugins/insert-block/u
 
 BrowserTestCase(
   `layouts: Backspacing within a layout shouldnt remove all contents`,
-  { skip: ['firefox'] },
+  {},
   async (client: any, testName: string) => {
     const page = new Page(client);
     await page.goto(fullpage.path);
@@ -18,7 +18,9 @@ BrowserTestCase(
     await page.click(fullpage.placeholder);
 
     await insertMenuItem(page, insertBlockMessages.columns.defaultMessage);
-    await page.type(editable, '* abc');
+    await page.type(editable, '*');
+    await page.keys('Space');
+    await page.type(editable, 'abc');
     await page.keys('Return');
     await page.type(editable, '123');
     await page.keys(Array.from({ length: 3 }, (_) => 'Backspace'));

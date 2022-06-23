@@ -23,7 +23,9 @@ export type MediaClientErrorReason =
   | 'emptyItems'
   | 'zeroVersionFile'
   // PollingErrorReason ----------------------------
-  | 'pollingMaxAttemptsExceeded';
+  | 'pollingMaxAttemptsExceeded'
+  //UploaderErrorReason ----------------------------
+  | 'fileSizeExceedsLimit';
 
 export interface MediaClientErrorAttributes {
   reason: MediaClientErrorReason;

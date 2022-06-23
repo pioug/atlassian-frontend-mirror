@@ -6,21 +6,6 @@ import {
   InlineCardAdf,
 } from '@atlaskit/linking-common';
 
-const isJiraRoadMap = (url: string) =>
-  url.match(
-    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/roadmap\/?/,
-  );
-
-const isPolarisView = (url: string) =>
-  url.match(
-    /^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+/,
-  );
-
-const isJwmView = (url: string) =>
-  url.match(
-    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board)\/?/,
-  );
-
 export class Transformer {
   private buildInlineAdf(url: string): InlineCardAdf {
     return {
@@ -51,17 +36,13 @@ export class Transformer {
   }
 
   toAdf(url: string, appearance: CardAppearance): CardAdf {
-    if (isJiraRoadMap(url) || isPolarisView(url) || isJwmView(url)) {
-      return this.buildEmbedAdf(url);
-    } else {
-      switch (appearance) {
-        case 'inline':
-          return this.buildInlineAdf(url);
-        case 'block':
-          return this.buildBlockAdf(url);
-        case 'embed':
-          return this.buildEmbedAdf(url);
-      }
+    switch (appearance) {
+      case 'inline':
+        return this.buildInlineAdf(url);
+      case 'block':
+        return this.buildBlockAdf(url);
+      case 'embed':
+        return this.buildEmbedAdf(url);
     }
   }
 }

@@ -48,7 +48,12 @@ export default class EmojiUploadComponent extends PureComponent<Props, State> {
   }
 
   componentWillUnmount() {
-    ufoExperiences['emoji-uploaded'].abort();
+    ufoExperiences['emoji-uploaded'].abort({
+      metadata: {
+        source: 'EmojiUploadComponent',
+        reason: 'unmount',
+      },
+    });
   }
 
   private onUploadEmoji = (upload: EmojiUpload, retry: boolean) => {

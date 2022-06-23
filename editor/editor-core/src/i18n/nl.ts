@@ -364,8 +364,5 @@ export default {
   'fabric.theme.light-yellow': 'Lichtgeel',
   'fabric.theme.orange': 'Oranje',
   'fabric.theme.purple': 'Paars',
-  'fabric.theme.red': 'Red',
-  'fabric.theme.teal': 'Teal',
-  'fabric.theme.white': 'White',
   'fabric.theme.yellow': 'Geel',
 };

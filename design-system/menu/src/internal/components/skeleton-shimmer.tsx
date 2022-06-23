@@ -12,14 +12,6 @@ type SkeletonShimmerProps = {
 };
 
 /**
- * This color is mirrored in:
- * packages/design-system/theme/src/colors.tsx
- *
- * Please update both.
- */
-const skeletonColor = token('color.background.neutral', N20A);
-
-/**
  * These keyframes are mirrored in:
  * packages/design-system/theme/src/constants.tsx
  *
@@ -27,10 +19,10 @@ const skeletonColor = token('color.background.neutral', N20A);
  */
 const shimmerKeyframes = keyframes({
   from: {
-    backgroundColor: token('color.background.neutral', skeletonColor),
+    backgroundColor: token('color.skeleton', N20A),
   },
   to: {
-    backgroundColor: token('color.background.neutral.hovered', N30A),
+    backgroundColor: token('color.skeleton.subtle', N30A),
   },
 });
 
@@ -47,7 +39,7 @@ const shimmerStyles = css({
     animationIterationCount: 'infinite',
     animationName: `${shimmerKeyframes}`,
     animationTimingFunction: 'linear',
-    backgroundColor: token('color.background.neutral', skeletonColor),
+    backgroundColor: token('color.skeleton', N20A),
   },
 });
 

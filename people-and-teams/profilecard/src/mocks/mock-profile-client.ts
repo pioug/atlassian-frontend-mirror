@@ -57,6 +57,9 @@ export default function getMockProfileClient(
         }, timeout);
       });
     }
+    getFlagEnabled(featureKey: string): Promise<boolean> {
+      return Promise.resolve(true);
+    }
   }
 
   return class MockProfileClient extends BaseProfileClient {

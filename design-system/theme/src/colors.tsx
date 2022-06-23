@@ -232,10 +232,4 @@ export const green = themed({
   dark: G300,
 });
 
-/**
- * This color is mirrored in:
- * packages/design-system/menu/src/internal/components/skeleton-shimmer.tsx
- *
- * Please update both.
- */
-export const skeleton = () => token('color.background.neutral', N20A);
+export const skeleton = () => token('color.skeleton', N20A);

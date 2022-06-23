@@ -65,6 +65,7 @@
   ],
   "techstack": {
     "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
       "theming": "tokens",
       "styling": [
         "static"

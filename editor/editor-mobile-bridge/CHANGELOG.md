@@ -1,5 +1,15 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.3.0
+
+### Minor Changes
+
+- [`daab566aecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daab566aecb) - [ux] ME-2402 cursor moves to after date node after inserting a date on mobile
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.2.14
 
 ### Patch Changes

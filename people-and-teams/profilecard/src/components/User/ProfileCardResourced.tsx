@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+
+import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 
 import { AnalyticsName } from '../../internal/analytics';
 import filterActions from '../../internal/filterActions';
@@ -32,6 +34,8 @@ export default class ProfileCardResourced extends React.PureComponent<
     error: null,
     data: null,
     reportingLinesData: undefined,
+    isKudosEnabled: false,
+    kudosDrawerOpen: false,
   };
 
   componentDidMount() {
@@ -94,11 +98,12 @@ export default class ProfileCardResourced extends React.PureComponent<
         const requests = Promise.all([
           this.props.resourceClient.getProfile(cloudId, userId),
           this.props.resourceClient.getReportingLines(userId),
+          this.props.resourceClient.shouldShowGiveKudos(),
         ]);
 
         requests
           .then(
-            (res) => this.handleClientSuccess(res[0], res[1]),
+            (res) => this.handleClientSuccess(...res),
             (err) => this.handleClientError(err),
           )
           .catch((err) => this.handleClientError(err));
@@ -109,6 +114,7 @@ export default class ProfileCardResourced extends React.PureComponent<
   handleClientSuccess(
     profileData: ProfileCardClientData,
     reportingLinesData: TeamCentralReportingLinesData,
+    shouldShowGiveKudos: boolean,
   ) {
     if (!this._isMounted) {
       return;
@@ -119,6 +125,7 @@ export default class ProfileCardResourced extends React.PureComponent<
       hasError: false,
       data: profileData,
       reportingLinesData,
+      isKudosEnabled: shouldShowGiveKudos,
     });
   }
 
@@ -137,9 +144,30 @@ export default class ProfileCardResourced extends React.PureComponent<
   filterActions = (): ProfileCardAction[] =>
     filterActions(this.props.actions, this.state.data);
 
+  openKudosDrawer = () => {
+    this.setState({ kudosDrawerOpen: true });
+  };
+
+  closeKudosDrawer = () => {
+    this.setState({ kudosDrawerOpen: false });
+  };
+
   render(): React.ReactNode {
-    const { isLoading, hasError, error, data, reportingLinesData } = this.state;
-    const { analytics, onReportingLinesClick } = this.props;
+    const {
+      isLoading,
+      hasError,
+      error,
+      data,
+      reportingLinesData,
+      isKudosEnabled,
+    } = this.state;
+    const {
+      analytics,
+      onReportingLinesClick,
+      cloudId,
+      userId,
+      addFlag,
+    } = this.props;
 
     const isFetchingOrNotStartToFetchYet =
       isLoading === true || isLoading === undefined;
@@ -165,12 +193,37 @@ export default class ProfileCardResourced extends React.PureComponent<
       analytics,
       reportingLines: reportingLinesData,
       onReportingLinesClick: onReportingLinesClick,
+      cloudId,
+      userId,
+      addFlag,
       ...data,
+      isKudosEnabled,
+      teamCentralBaseUrl: this.props.resourceClient.getTeamCentralBaseUrl(),
+      openKudosDrawer: this.openKudosDrawer,
     };
 
     return (
       <CardWrapper>
-        <ProfileCard {...newProps} actions={this.filterActions()} />
+        <>
+          {isKudosEnabled && (
+            <Suspense fallback={null}>
+              <GiveKudosLauncherLazy
+                isOpen={this.state.kudosDrawerOpen}
+                recipient={{
+                  type: KudosType.INDIVIDUAL,
+                  recipientId: this.props.userId!,
+                }}
+                analytics={this.props.analytics}
+                analyticsSource="profile-card"
+                teamCentralBaseUrl={newProps.teamCentralBaseUrl!}
+                cloudId={this.props.cloudId!}
+                addFlag={this.props.addFlag}
+                onClose={this.closeKudosDrawer}
+              />
+            </Suspense>
+          )}
+          <ProfileCard {...newProps} actions={this.filterActions()} />
+        </>
       </CardWrapper>
     );
   }

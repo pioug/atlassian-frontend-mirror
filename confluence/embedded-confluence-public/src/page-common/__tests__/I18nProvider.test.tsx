@@ -6,10 +6,10 @@ import { I18nProvider } from '../I18nProvider';
 
 jest.mock('@atlassian/embedded-confluence-common/i18n', () => ({
   zh: {
-    'my.test': '我的测试',
+    'my.test.no-translate': '我的测试',
   },
   en: {
-    'my.test': 'My Test',
+    'my.test.no-translate': 'My Test',
   },
 }));
 
@@ -17,7 +17,10 @@ it('should localized text based on provided locale', async () => {
   const { getByText } = render(
     <IntlProvider locale="zh">
       <I18nProvider>
-        <FormattedMessage id="my.test" defaultMessage={'My Test'} />
+        <FormattedMessage
+          id="my.test.no-translate"
+          defaultMessage={'My Test'}
+        />
       </I18nProvider>
     </IntlProvider>,
   );
@@ -29,7 +32,10 @@ it('should localized text properly if long locale code with dash (-) is provided
   const { getByText } = render(
     <IntlProvider locale="zh-CN">
       <I18nProvider>
-        <FormattedMessage id="my.test" defaultMessage={'My Test'} />
+        <FormattedMessage
+          id="my.test.no-translate"
+          defaultMessage={'My Test'}
+        />
       </I18nProvider>
     </IntlProvider>,
   );
@@ -41,7 +47,10 @@ it('should fallback to default locale if provided locale is not supported', asyn
   const { getByText } = render(
     <IntlProvider locale="is-IS">
       <I18nProvider>
-        <FormattedMessage id="my.test" defaultMessage={'My Test'} />
+        <FormattedMessage
+          id="my.test.no-translate"
+          defaultMessage={'My Test'}
+        />
       </I18nProvider>
     </IntlProvider>,
   );
@@ -52,7 +61,7 @@ it('should fallback to default locale if provided locale is not supported', asyn
 it('should localized text properly if locale is provided as prop', async () => {
   const { getByText } = render(
     <I18nProvider locale="zh-CN">
-      <FormattedMessage id="my.test" defaultMessage={'My Test'} />
+      <FormattedMessage id="my.test.no-translate" defaultMessage={'My Test'} />
     </I18nProvider>,
   );
 

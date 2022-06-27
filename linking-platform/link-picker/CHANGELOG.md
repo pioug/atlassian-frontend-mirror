@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 0.9.0
+
+### Minor Changes
+
+- [`c1c010c8ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1c010c8ada) - Remove required container param
+
 ## 0.8.1
 
 ### Patch Changes

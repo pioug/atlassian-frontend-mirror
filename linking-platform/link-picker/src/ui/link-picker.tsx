@@ -215,9 +215,14 @@ class LinkPicker extends PureComponent<
       ];
 
       const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
-      return `${name}, ${container}, ${date?.pageAction} ${date?.dateString} ${
-        date?.timeSince || ''
-      }`;
+      const formattedDate = [
+        date?.pageAction,
+        date?.dateString,
+        date?.timeSince,
+      ]
+        .filter(Boolean)
+        .join(' ');
+      return [name, container, formattedDate].filter(Boolean).join(', ');
     }
   };
 

@@ -9,15 +9,9 @@ const NoResults = () => (
     header="No results found"
     description={
       <Fragment>
-        If you can't find what you're looking for, try using the token wizard,
-        visiting the{' '}
-        <a href="https://atlassian.design/components/tokens/usage">
-          usage guidelines
-        </a>
-        , or{' '}
-        <a href="https://atlassian.design/components/tokens/examples">
-          example guidelines
-        </a>
+        If you can't find what you're looking for, try using the token picker,
+        or visiting the{' '}
+        <a href="/components/tokens/examples">example guidelines</a>.
       </Fragment>
     }
     imageUrl={noResultsImg}

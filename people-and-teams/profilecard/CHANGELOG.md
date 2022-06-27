@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.6.1
+
+### Patch Changes
+
+- [`cf03bdf6b7e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf03bdf6b7e) - Made feature flag check extra context optional.
+
 ## 16.6.0
 
 ### Minor Changes

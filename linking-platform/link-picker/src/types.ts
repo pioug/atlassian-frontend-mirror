@@ -9,12 +9,12 @@ export interface LinkSearchListItemData {
   name: string;
   /** URL of the resource being linked to */
   url: string;
-  /** Context to display in link result */
-  container: string;
   /** Icon to display in link result */
   icon: string | React.ComponentType<{ alt: string }>;
   /** Alt text describing the icon */
   iconAlt: string | MessageDescriptor;
+  /** Context to display in link result */
+  container?: string;
   /** Optional last view date to display in link result */
   lastViewedDate?: Date;
   /** Optional last updated date to display in link result */

@@ -46,7 +46,7 @@ const TokenWizardModal = () => {
             height={640}
           >
             <ModalHeader css={ModalHeaderStyles}>
-              <ModalTitle>Token wizard</ModalTitle>
+              <ModalTitle>Token picker</ModalTitle>
               <Button
                 appearance="subtle"
                 iconBefore={<CrossIcon label="Close modal" size="medium" />}

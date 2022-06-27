@@ -58,7 +58,12 @@ const LinkSearchListItem = ({
       <ItemNameWrapper>
         <ListItemName>{item.name}</ListItemName>
         <ListItemContext>
-          {item.container}
+          {item.container && (
+            <Fragment>
+              {item.container}
+              &nbsp; •
+            </Fragment>
+          )}
           <ItemTimeStamp
             date={transformTimeStamp(
               intl,
@@ -83,7 +88,6 @@ const ItemTimeStamp = (props: { date: ListItemTimeStamp | undefined }) => {
 
   return (
     <Fragment>
-      &nbsp; •
       <span
         className="link-search-timestamp"
         data-test-id="link-search-timestamp"

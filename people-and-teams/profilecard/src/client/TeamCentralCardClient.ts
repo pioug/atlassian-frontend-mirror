@@ -40,7 +40,7 @@ const buildReportingLinesQuery = (aaid: string) => ({
 
 const buildCheckFeatureFlagQuery = (
   featureKey: string,
-  context: FeatureFlagExtraContext[],
+  context?: FeatureFlagExtraContext[],
 ) => ({
   query: `
     query isFeatureKeyEnabled($featureKey: String!, $context: [IsFeatureEnabledContextInput]) {
@@ -51,7 +51,7 @@ const buildCheckFeatureFlagQuery = (
   `,
   variables: {
     featureKey,
-    context,
+    context: context || [],
   },
 });
 
@@ -88,7 +88,7 @@ class TeamCentralCardClient extends CachingClient<
 
   async makeFeatureFlagCheckRequest(
     featureKey: string,
-    context: FeatureFlagExtraContext[],
+    context?: FeatureFlagExtraContext[],
   ) {
     if (!this.options.teamCentralUrl) {
       throw new Error(

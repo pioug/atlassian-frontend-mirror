@@ -58,7 +58,7 @@
     "@atlaskit/media-client": "^17.0.0",
     "@atlaskit/media-picker": "^63.0.0",
     "@atlaskit/mention": "^21.0.0",
-    "@atlaskit/profilecard": "^16.6.0",
+    "@atlaskit/profilecard": "^16.7.0",
     "@atlaskit/smart-card": "^19.1.0",
     "@atlaskit/smart-user-picker": "^5.1.0",
     "@atlaskit/task-decision": "^17.4.0",

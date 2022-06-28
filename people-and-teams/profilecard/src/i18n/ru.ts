@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Бывший пользователь',
   'pt.profile-card.general.msg.disabled.user':
     'Вы больше не можете работать с этим пользователем.',
+  'pt.profile-card.give-kudos': 'Похвалить',
   'pt.profile-card.inactive.account': 'Аккаунт отключен',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Его аккаунт был отключен несколько месяцев назад.',

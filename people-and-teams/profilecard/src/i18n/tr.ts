@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Eski kullanıcı',
   'pt.profile-card.general.msg.disabled.user':
     'Artık bu kişiyle iş birliği yapamazsınız.',
+  'pt.profile-card.give-kudos': 'Tebrik edin',
   'pt.profile-card.inactive.account': 'Hesap devre dışı bırakıldı',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Bu kullanıcının hesabı birkaç ay önce devre dışı bırakıldı.',

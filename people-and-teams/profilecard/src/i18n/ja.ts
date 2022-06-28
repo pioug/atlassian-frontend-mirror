@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': '元ユーザー',
   'pt.profile-card.general.msg.disabled.user':
     'もうこの人とコラボレーションすることはできません。',
+  'pt.profile-card.give-kudos': '賞賛を送る',
   'pt.profile-card.inactive.account': '無効なアカウント',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'アカウントは 2〜3 か月前に無効になりました。',

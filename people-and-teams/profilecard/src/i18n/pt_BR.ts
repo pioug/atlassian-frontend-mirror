@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Ex-usuário',
   'pt.profile-card.general.msg.disabled.user':
     'Você não pode mais colaborar com essa pessoa.',
+  'pt.profile-card.give-kudos': 'Envie elogios',
   'pt.profile-card.inactive.account': 'Conta desativada',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'A conta do usuário foi desativada há alguns meses.',

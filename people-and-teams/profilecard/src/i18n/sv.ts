@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Före detta användare',
   'pt.profile-card.general.msg.disabled.user':
     'Du kan inte längre samarbeta med den här personen.',
+  'pt.profile-card.give-kudos': 'Ge beröm',
   'pt.profile-card.inactive.account': 'Kontot är inaktiverat',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Personens konto har varit inaktiverat i några få månader.',

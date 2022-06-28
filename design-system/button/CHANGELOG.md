@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.3.3
+
+### Patch Changes
+
+- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+
 ## 16.3.2
 
 ### Patch Changes

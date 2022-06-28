@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Ancien utilisateur',
   'pt.profile-card.general.msg.disabled.user':
     'Vous ne pouvez plus collaborer avec cette personne.',
+  'pt.profile-card.give-kudos': 'Féliciter',
   'pt.profile-card.inactive.account': 'Compte désactivé',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Son compte a été désactivé il y a quelques mois.',

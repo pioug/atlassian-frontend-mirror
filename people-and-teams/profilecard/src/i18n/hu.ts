@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Korábbi felhasználó',
   'pt.profile-card.general.msg.disabled.user':
     'A továbbiakban nem működhet együtt ezzel a személlyel.',
+  'pt.profile-card.give-kudos': 'Dicséret',
   'pt.profile-card.inactive.account': 'A fiók inaktiválva.',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'A fiókját néhány hónapja inaktiváltuk.',

@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Entinen käyttäjä',
   'pt.profile-card.general.msg.disabled.user':
     'Et voi enää tehdä yhteistyötä tämän henkilön kanssa.',
+  'pt.profile-card.give-kudos': 'Anna kehuja',
   'pt.profile-card.inactive.account': 'Tili poistettu käytöstä',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Hänen tilinsä on ollut poissa käytöstä muutaman kuukauden ajan.',

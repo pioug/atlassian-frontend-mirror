@@ -33,6 +33,7 @@ import { isBasicClick } from '../../util/click';
 import { ErrorMessage } from '../Error';
 import { IconLabel } from '../Icon';
 
+import { OverflowProfileCardButtons } from './OverflowProfileCardButtons';
 import ReportingLinesDetails from './ReportingLinesDetails';
 
 export default class Profilecard extends React.PureComponent<ProfilecardProps> {
@@ -133,16 +134,9 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
       <Button
         appearance={idx === 0 ? 'default' : 'subtle'}
         key={action.id || idx}
-        onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) => {
-          this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
-            id: action.id || null,
-            duration: this.durationSince(this.timeOpen),
-          });
-          if (action.callback && isBasicClick(event)) {
-            event.preventDefault();
-            action.callback(event, ...args);
-          }
-        }}
+        onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+          this.onActionClick(action, args, event)
+        }
         href={action.link}
       >
         {action.label}
@@ -155,12 +149,41 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
       return null;
     }
     const actions = this.getActions();
+    const firstTwoActions = actions.slice(0, 2);
+    const restOfActions =
+      actions && actions.length > 2 ? actions.slice(2) : undefined;
 
     return (
       <ActionButtonGroup>
-        {actions.map((action, idx: number) => this.renderButton(action, idx))}
+        {firstTwoActions.map((action, idx: number) =>
+          this.renderButton(action, idx),
+        )}
+        {restOfActions && (
+          <OverflowProfileCardButtons
+            actions={restOfActions}
+            onItemClick={(action, args, event) =>
+              this.onActionClick(action, args, event)
+            }
+          />
+        )}
       </ActionButtonGroup>
     );
+  }
+
+  private onActionClick(
+    action: ProfileCardAction,
+    args: any,
+    event: React.MouseEvent | React.KeyboardEvent,
+  ) {
+    this.callAnalytics(AnalyticsName.PROFILE_CARD_CLICK, {
+      id: action.id || null,
+      duration: this.durationSince(this.timeOpen),
+    });
+
+    if (action.callback && isBasicClick(event)) {
+      event.preventDefault();
+      action.callback(event, ...args);
+    }
   }
 
   renderCardDetailsDefault() {

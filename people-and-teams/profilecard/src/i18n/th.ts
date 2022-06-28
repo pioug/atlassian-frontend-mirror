@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'ผู้ใช้เดิม',
   'pt.profile-card.general.msg.disabled.user':
     'คุณไม่สามารถทำงานร่วมกับบุคคลนี้ได้อีก',
+  'pt.profile-card.give-kudos': 'แสดงความชื่นชม',
   'pt.profile-card.inactive.account': 'ปิดใช้งานบัญชีแล้ว',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'บัญชีของผู้ใช้ถูกปิดใช้งานไปแล้วไม่กี่เดือน',

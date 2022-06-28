@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
-    "bind-event-listener": "^2.1.0"
+    "bind-event-listener": "^2.1.1"
   },
   "peerDependencies": {
     "react": "^16.8.0"

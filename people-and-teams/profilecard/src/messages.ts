@@ -189,6 +189,12 @@ const messages = defineMessages({
     description:
       'Title for the button on the profile card for a user to give a kudos',
   },
+  profileCardMoreIconLabel: {
+    id: 'pt.profile-card.more-icon-label',
+    defaultMessage: 'More',
+    description:
+      'Label for the meatballs icon on the profile card, which when clicked will provide more options',
+  },
 });
 
 export default messages;

@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Voormalige gebruiker',
   'pt.profile-card.general.msg.disabled.user':
     'Je kunt niet meer samenwerken met deze persoon.',
+  'pt.profile-card.give-kudos': 'Geef kudos',
   'pt.profile-card.inactive.account': 'Account gedeactiveerd',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Zijn/haar account is al een paar maanden gedeactiveerd.',

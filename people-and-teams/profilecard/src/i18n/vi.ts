@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Người dùng cũ',
   'pt.profile-card.general.msg.disabled.user':
     'Bạn không thể hợp tác với người này được nữa.',
+  'pt.profile-card.give-kudos': 'Khen ngợi',
   'pt.profile-card.inactive.account': 'Tài khoản đã bị hủy kích hoạt',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Tài khoản của họ đã bị hủy kích hoạt một vài tháng.',

@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.7.0
+
+### Minor Changes
+
+- [`4e9fbfb9e85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e9fbfb9e85) - [ux] Adding meatballs overflow menu when the profile card has more than two action buttons
+
 ## 16.6.1
 
 ### Patch Changes

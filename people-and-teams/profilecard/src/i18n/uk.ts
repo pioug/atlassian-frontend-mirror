@@ -24,6 +24,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Колишній користувач',
   'pt.profile-card.general.msg.disabled.user':
     'Ви більше не можете співпрацювати з цим користувачем.',
+  'pt.profile-card.give-kudos': 'Похвалити',
   'pt.profile-card.inactive.account': 'Обліковий запис деактивовано',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Обліковий запис користувача деактивовано кілька місяців тому.',

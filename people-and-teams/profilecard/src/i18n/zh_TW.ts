@@ -20,6 +20,7 @@ export default {
   'pt.profile-card.closed.account.no.date': '其帳戶已刪除。',
   'pt.profile-card.disabled.account.default.name': '舊使用者',
   'pt.profile-card.general.msg.disabled.user': '您無法再與此人員合作。',
+  'pt.profile-card.give-kudos': '給予讚美',
   'pt.profile-card.inactive.account': '帳戶已停用',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     '其帳戶已停用幾個月了。',

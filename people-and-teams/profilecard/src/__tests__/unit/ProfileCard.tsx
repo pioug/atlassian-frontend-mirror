@@ -19,6 +19,16 @@ import {
 
 import mockGlobalDate from './helper/_mock-global-date';
 
+jest.mock('react-intl-next', () => {
+  return {
+    ...(jest.requireActual('react-intl-next') as any),
+    useIntl: jest.fn().mockReturnValue({
+      locale: 'en',
+      formatMessage: (descriptor: any) => descriptor.defaultMessage,
+    }),
+  };
+});
+
 describe('Profilecard', () => {
   const defaultProps: ProfilecardProps = {
     fullName: 'full name test',
@@ -128,17 +138,18 @@ describe('Profilecard', () => {
       ];
       const card = mount(<ProfileCard fullName="name" actions={actions} />);
 
-      it('should render an action button for every item in actions property', () => {
+      it('should render two action button for actions with the rest added to meatballs overflow menu', () => {
         const actionsWrapper = card.find(ActionButtonGroup);
         const buttonTexts = card
           .find(Button)
           .children()
           .map((node) => node.text());
 
-        expect(actionsWrapper.children().first().children()).toHaveLength(
-          actions.length,
-        );
-        expect(buttonTexts).toEqual(actions.map((action) => action.label));
+        expect(actionsWrapper.children().first().children()).toHaveLength(3);
+
+        expect(buttonTexts[0]).toEqual(actions[0].label);
+        expect(buttonTexts[1]).toEqual(actions[1].label);
+        expect(buttonTexts[2]).toEqual(''); // overflow meatballs button
       });
 
       describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {

@@ -63,6 +63,13 @@ export const ActionButtonGroup = styled.div`
   }
 `;
 
+export const OverflowActionButtonsWrapper = styled.div`
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-left: ${gridSize}px;
+`;
+
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;

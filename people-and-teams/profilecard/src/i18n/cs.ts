@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': 'Bývalý uživatel',
   'pt.profile-card.general.msg.disabled.user':
     'S touto osobou již nemůžete spolupracovat.',
+  'pt.profile-card.give-kudos': 'Pogratulovat',
   'pt.profile-card.inactive.account': 'Deaktivovaný účet',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Účet uživatele je deaktivovaný již několik měsíců.',

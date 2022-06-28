@@ -23,6 +23,7 @@ export default {
   'pt.profile-card.disabled.account.default.name': '이전 사용자',
   'pt.profile-card.general.msg.disabled.user':
     '더 이상 이 사람과 협업할 수 없습니다.',
+  'pt.profile-card.give-kudos': '칭찬하기',
   'pt.profile-card.inactive.account': '계정이 비활성화됨',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     '계정이 몇 달 전에 비활성화되었습니다.',

@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.2.7
+
+### Patch Changes
+
+- [`8a5bdb3c844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5bdb3c844) - Upgrading internal dependency (bind-event-listener) for improved internal types
+
 ## 9.2.6
 
 ### Patch Changes

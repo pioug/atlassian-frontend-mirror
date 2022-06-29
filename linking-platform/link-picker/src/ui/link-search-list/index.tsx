@@ -1,24 +1,15 @@
-import React from 'react';
+/** @jsx jsx */
 import { PureComponent } from 'react';
+import { jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
-import styled from 'styled-components';
-import LinkSearchListItem from './LinkSearchListItem';
-import { LinkSearchListItemData } from '../types';
 
-const ListContainer = styled.div`
-  padding-top: 0;
-`;
-
-const SpinnerContainer = styled.div`
-  text-align: center;
-  min-height: 80px;
-  margin-top: 30px;
-`;
-
-export const List = styled.ul`
-  padding: 0;
-  list-style: none;
-`;
+import { LinkSearchListItemData } from '../../types';
+import LinkSearchListItem from '../list-item';
+import {
+  listContainerStyles,
+  spinnerContainerStyles,
+  listStyles,
+} from './styled';
 
 export interface Props {
   items?: LinkSearchListItemData[];
@@ -55,7 +46,9 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
 
     if (items && items.length > 0) {
       itemsContent = (
-        <List
+        <ul
+          data-testid="link-search-list"
+          css={listStyles}
           id={id}
           role={role}
           aria-controls={ariaControls}
@@ -74,26 +67,26 @@ export default class LinkSearchList extends PureComponent<Props, {}> {
               key={item.objectId}
             />
           ))}
-        </List>
+        </ul>
       );
     }
 
     if (isLoading) {
       loadingContent = (
-        <SpinnerContainer>
+        <div css={spinnerContainerStyles}>
           <Spinner
             testId="link-picker.results-loading-indicator"
             size="medium"
           />
-        </SpinnerContainer>
+        </div>
       );
     }
 
     return (
-      <ListContainer>
+      <div css={listContainerStyles}>
         {itemsContent}
         {loadingContent}
-      </ListContainer>
+      </div>
     );
   }
 }

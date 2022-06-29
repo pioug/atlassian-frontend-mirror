@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import React from 'react';
 
 import { browser } from '../../../browser';
-import PanelTextInput from '../../../ui/PanelTextInput';
+import PanelTextInput from '../../text-input';
 
 const noop = () => {};
 

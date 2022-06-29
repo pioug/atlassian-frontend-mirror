@@ -2,16 +2,6 @@ import { KeyboardEvent } from 'react';
 
 import { browser } from './browser';
 
-export const relativeFontSizeToBase16 = (px: number | string) => {
-  if (typeof px === 'string') {
-    px = parseInt(px);
-  }
-  if (isNaN(px)) {
-    throw new Error(`Invalid font size: '${px}'`);
-  }
-  return `${px / 16}rem`;
-};
-
 const KeyZCode = 90;
 const KeyYCode = 89;
 

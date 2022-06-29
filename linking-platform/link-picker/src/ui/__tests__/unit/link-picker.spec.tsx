@@ -4,10 +4,9 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 
 import { LinkPickerPlugin, LinkSearchListItemData } from '../../../types';
-import LinkSearchListItem from '../../../ui/LinkSearchListItem';
 import { LinkPickerWithIntl, LinkPickerProps } from '../../link-picker';
-import LinkSearchList from '../../LinkSearchList';
-import PanelTextInput from '../../PanelTextInput';
+import LinkSearchList from '../../link-search-list';
+import PanelTextInput from '../../text-input';
 import {
   getDefaultItems,
   MockLinkPickerPlugin,
@@ -727,9 +726,15 @@ describe('<LinkPicker />', () => {
       });
 
       // Hover second item
-      component.find(LinkSearchListItem).at(1).simulate('mouseenter');
+      component
+        .find('div[data-testid="link-search-list-item"]')
+        .at(1)
+        .simulate('mouseenter');
       // Click second item
-      component.find(LinkSearchListItem).at(1).simulate('click');
+      component
+        .find('div[data-testid="link-search-list-item"]')
+        .at(1)
+        .simulate('click');
 
       const [, secondItem] = results;
       expect(onSubmit).toHaveBeenCalledTimes(1);
@@ -845,7 +850,9 @@ describe('<LinkPicker />', () => {
       });
 
       // Hover over the first item on the list
-      const firstSearchItem = component.find('LinkSearchListItem').first();
+      const firstSearchItem = component
+        .find('div[data-testid="link-search-list-item"]')
+        .first();
       firstSearchItem.simulate('mouseenter');
 
       // This should move to the second item in the list
@@ -929,7 +936,7 @@ describe('<LinkPicker />', () => {
 
       const subtitle = component.find('[data-testid="link-picker-list-title"]');
       expect(subtitle.at(0)).toHaveLength(1);
-      expect(subtitle.at(0).getDOMNode().innerHTML).toMatch(
+      expect(subtitle.at(0).render().text()).toMatch(
         messages.titleRecentlyViewed.defaultMessage,
       );
     });
@@ -950,7 +957,7 @@ describe('<LinkPicker />', () => {
       await updateInputFieldWithStateUpdated('link-url', 'dogs');
       component.update();
       const subtitle = component.find('[data-testid="link-picker-list-title"]');
-      expect(subtitle.at(0).getDOMNode().innerHTML).toMatch(
+      expect(subtitle.at(0).render().text()).toMatch(
         messages.titleResults.defaultMessage,
       );
     });

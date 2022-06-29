@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import React, { RefObject, KeyboardEvent, PureComponent } from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import { messages } from '../messages';
-import PanelTextInput from './PanelTextInput';
-import LinkSearchList from './LinkSearchList';
+import PanelTextInput from './text-input';
+import LinkSearchList from './link-search-list';
 import { normalizeUrl, isSafeUrl } from '../url';
 import {
   LinkSearchListItemData,
@@ -14,10 +14,10 @@ import {
 } from '../types';
 import {
   recentListStyles,
-  Container,
-  SearchIconWrapper,
-  ListTitleStyles,
-} from '../styles';
+  containerStyles,
+  searchIconStyles,
+  listTitleStyles,
+} from './styled';
 import { browser } from '../browser';
 import { transformTimeStamp } from '../transformTimeStamp';
 import Announcer from './announcer';
@@ -259,9 +259,9 @@ class LinkPicker extends PureComponent<
     const screenReaderText = browser.safari && this.getScreenReaderText();
 
     const searchIcon = activePlugin && (
-      <SearchIconWrapper data-testid="link-picker-search-icon">
+      <span css={searchIconStyles} data-testid="link-picker-search-icon">
         <EditorSearchIcon size="medium" label={''} />
-      </SearchIconWrapper>
+      </span>
     );
 
     return (
@@ -270,7 +270,7 @@ class LinkPicker extends PureComponent<
         className="recent-list"
         css={recentListStyles}
       >
-        <Container innerRef={this.wrapperRef}>
+        <div css={containerStyles} ref={this.wrapperRef}>
           {screenReaderText && (
             <Announcer
               ariaLive="assertive"
@@ -322,7 +322,7 @@ class LinkPicker extends PureComponent<
           />
           {!!items.length && (
             <div
-              css={ListTitleStyles}
+              css={listTitleStyles}
               id="link-picker-list-title"
               data-testid="link-picker-list-title"
             >
@@ -377,7 +377,7 @@ class LinkPicker extends PureComponent<
               </Button>
             </ButtonGroup>
           </FormFooter>
-        </Container>
+        </div>
       </div>
     );
   }

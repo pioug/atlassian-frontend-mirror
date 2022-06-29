@@ -1,18 +1,22 @@
-import React, {
+/** @jsx jsx */
+import {
   ChangeEvent,
   KeyboardEvent,
   MutableRefObject,
   useCallback,
   useRef,
+  Fragment,
 } from 'react';
 
+import { jsx } from '@emotion/react';
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Tooltip from '@atlaskit/tooltip';
 import Textfield, { TextFieldProps } from '@atlaskit/textfield';
 
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
-import { ClearText, FieldWrapper } from '../styles';
-import { isRedoEvent, isUndoEvent } from '../utils';
+import { isRedoEvent, isUndoEvent } from '../../utils';
+import { clearTextButtonStyles, fieldStyles } from './styled';
+
 export interface Props
   extends Omit<
     TextFieldProps,
@@ -103,18 +107,22 @@ const PanelTextInput = (props: Props) => {
 
   const clearText = restProps.value !== '' && (
     <Tooltip content={clearLabel}>
-      <ClearText onClick={handleClear} data-testid="clear-text">
+      <button
+        css={clearTextButtonStyles}
+        onClick={handleClear}
+        data-testid="clear-text"
+      >
         <Selectclear size="medium" label={clearLabel || ''} />
-      </ClearText>
+      </button>
     </Tooltip>
   );
 
   return (
-    <FieldWrapper>
+    <div css={fieldStyles}>
       <Field label={label} name={name}>
         {({ fieldProps }) => {
           return (
-            <>
+            <Fragment>
               <Textfield
                 {...fieldProps}
                 {...restProps}
@@ -127,11 +135,11 @@ const PanelTextInput = (props: Props) => {
               {error && (
                 <ErrorMessage testId="link-error">{error}</ErrorMessage>
               )}
-            </>
+            </Fragment>
           );
         }}
       </Field>
-    </FieldWrapper>
+    </div>
   );
 };
 

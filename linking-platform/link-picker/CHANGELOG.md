@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 0.10.0
+
+### Minor Changes
+
+- [`dbc82a03866`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbc82a03866) - Removed styled-components as a peer dependency in favor of @emotion/react
+
 ## 0.9.0
 
 ### Minor Changes

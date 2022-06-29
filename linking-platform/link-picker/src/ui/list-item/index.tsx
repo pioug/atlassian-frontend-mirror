@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import { Fragment } from 'react';
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { injectIntl, IntlShape, WrappedComponentProps } from 'react-intl-next';
 
-import { LinkSearchListItemData, ListItemTimeStamp } from '../types';
-import { transformTimeStamp } from '../transformTimeStamp';
+import { LinkSearchListItemData, ListItemTimeStamp } from '../../types';
+import { transformTimeStamp } from '../../transformTimeStamp';
 import {
-  ItemNameWrapper,
-  ItemIconWrapper,
-  ListItemContext,
-  ListItemName,
-  ListItemWrapper,
-  ImgStyles,
-} from '../styles';
+  itemNameStyles,
+  itemIconStyles,
+  listItemContextStyles,
+  listItemNameStyles,
+  composeListItemStyles,
+  imgStyles,
+} from './styled';
 
 export interface Props {
   item: LinkSearchListItemData;
@@ -41,61 +41,48 @@ const LinkSearchListItem = ({
   const handleSelect = () => onSelect(item.objectId);
   const handleMouseEnter = () => onMouseEnter(item.objectId);
   const handleMouseLeave = () => onMouseLeave(item.objectId);
+  const container = item.container || null;
+  const date = transformTimeStamp(
+    intl,
+    item.lastViewedDate,
+    item.lastUpdatedDate,
+  );
 
   return (
-    <ListItemWrapper
+    <div
+      css={composeListItemStyles(active, selected)}
       role={role}
       id={id}
       aria-selected={selected}
       data-testid="link-search-list-item"
-      selected={selected}
-      active={active}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleSelect}
     >
       <ListItemIcon item={item} intl={intl} />
-      <ItemNameWrapper>
-        <ListItemName>{item.name}</ListItemName>
-        <ListItemContext>
-          {item.container && (
-            <Fragment>
-              {item.container}
-              &nbsp; •
-            </Fragment>
-          )}
-          <ItemTimeStamp
-            date={transformTimeStamp(
-              intl,
-              item.lastViewedDate,
-              item.lastUpdatedDate,
-            )}
-          />
-        </ListItemContext>
-      </ItemNameWrapper>
-    </ListItemWrapper>
+      <div css={itemNameStyles}>
+        <div data-testid="link-search-list-item-title" css={listItemNameStyles}>
+          {item.name}
+        </div>
+        <div
+          data-testid="link-search-list-item-subtitle"
+          css={listItemContextStyles}
+        >
+          {container}
+          {container && date && <Fragment>&nbsp; •&nbsp; </Fragment>}
+          {date && <Fragment>{formatDate(date)}</Fragment>}
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default injectIntl(LinkSearchListItem);
 
-const ItemTimeStamp = (props: { date: ListItemTimeStamp | undefined }) => {
-  const { date } = props;
-
-  if (!date) {
-    return null;
-  }
-
-  return (
-    <Fragment>
-      <span
-        className="link-search-timestamp"
-        data-test-id="link-search-timestamp"
-      >
-        &nbsp; {date.pageAction} {date.dateString} {date.timeSince || ''}
-      </span>
-    </Fragment>
-  );
+const formatDate = (date: ListItemTimeStamp) => {
+  return [date.pageAction, date.dateString, date.timeSince]
+    .filter(Boolean)
+    .join(' ');
 };
 
 const ListItemIcon = (props: {
@@ -115,15 +102,15 @@ const ListItemIcon = (props: {
     const Glyph = icon;
 
     return (
-      <ItemIconWrapper>
+      <span css={itemIconStyles}>
         <Glyph alt={alt} />
-      </ItemIconWrapper>
+      </span>
     );
   }
 
   return (
-    <ItemIconWrapper>
-      <img src={icon} alt={alt} css={ImgStyles} />
-    </ItemIconWrapper>
+    <span css={itemIconStyles}>
+      <img src={icon} alt={alt} css={imgStyles} />
+    </span>
   );
 };

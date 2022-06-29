@@ -19,7 +19,6 @@ const renderAbsoluteOrRelativeDate = (
       pageActionText = intl.formatMessage(messages.timeViewed);
       break;
   }
-
   if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
     return {
       pageAction: pageActionText,

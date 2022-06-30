@@ -1,6 +1,8 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import Page, { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+
+import { gutter } from '../../internal/constants';
 
 /* Css selectors used for the test */
 const openModalBtn = "[data-testid='modal-trigger']";
@@ -133,5 +135,68 @@ BrowserTestCase(
       'Focus is not returned to previous element on close.',
     );
     expect(await modalTest.hasFocus(openModalBtn)).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  'Modal with shouldScrollInViewport can be closed by clicking on positioner',
+  {},
+  async (client: BrowserObject) => {
+    const url = getExampleUrl('design-system', 'modal-dialog', 'scroll');
+
+    const modalTest = new Page(client);
+    await modalTest.goto(url);
+
+    /**
+     * Ensure shouldScrollInViewport is enabled.
+     */
+    const scrollCheckbox = '[data-testid="scroll--checkbox-label"]';
+    await modalTest.waitFor(scrollCheckbox, 5000);
+    await modalTest.click(scrollCheckbox);
+
+    /**
+     * Open the modal.
+     */
+    await modalTest.click(openModalBtn);
+    await modalTest.waitFor(modalDialog, 5000);
+
+    /**
+     * Click to the side of the modal.
+     */
+    const x = 0;
+    const y = gutter * 2;
+
+    if (modalTest.isBrowser('chrome')) {
+      /**
+       * Using the legacy JSON Wire Protocol for Chrome.
+       */
+      await modalTest.moveTo('body', x, y);
+      await modalTest.click();
+    } else {
+      /**
+       * Using the WebDriver protocol for Safari + FireFox.
+       */
+      await client.performActions([
+        {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'mouse' },
+          actions: [{ type: 'pointerMove', duration: 0, x, y }],
+        },
+        {
+          type: 'pointer',
+          id: 'finger1',
+          parameters: { pointerType: 'mouse' },
+          actions: [{ type: 'pointerDown', button: 0 }],
+        },
+      ]);
+      await client.releaseActions();
+    }
+
+    /**
+     * Ensure it's been closed.
+     */
+    await modalTest.waitFor(modalDialog, 5000, true);
+    expect(await modalTest.isExisting(modalDialog)).toBe(false);
   },
 );

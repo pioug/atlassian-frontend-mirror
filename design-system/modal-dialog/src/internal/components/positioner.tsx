@@ -27,6 +27,7 @@ const viewportScrollStyles = css({
   position: 'relative',
   '@media (min-width: 480px)': {
     margin: `${gutter}px auto`,
+    pointerEvents: 'none',
   },
 });
 

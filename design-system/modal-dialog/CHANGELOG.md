@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.2.12
+
+### Patch Changes
+
+- [`b72e12b97ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b72e12b97ac) - [ux] Fixed a regression which prevented clicks on the blanket from closing modal dialogs with `shouldScrollInViewport`.
+
 ## 12.2.11
 
 ### Patch Changes

@@ -1,10 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import {
   borderRadius,
   fontSizeSmall,
   gridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import {
   appLabelBgColor,
@@ -47,10 +48,47 @@ export const ActionsFlexSpacer = styled.div`
   flex: 1 0 auto;
 `;
 
+const kudosButtonAnimationTransformation = keyframes`{
+  0%   { transform: translate(-80px, -50px); }
+  100% { transform: translate(90px, -70px); }
+}`;
+
+export const KudosBlobAnimation = styled.div`
+  display: none;
+  height: 150px;
+  width: 150px;
+  z-index: -1;
+  position: absolute;
+  animation-name: ${kudosButtonAnimationTransformation};
+  animation-iteration-count: 1;
+  animation-duration: 3s;
+  background-image: radial-gradient(
+    circle,
+    ${token('color.background.information.pressed', '#85B8FF')} 0%,
+    ${token('color.background.discovery.pressed', '#B8ACF6')} 25%,
+    transparent 50%
+  );
+  overflow: hidden;
+`;
+
+export const AnimatedKudosButton = styled.div`
+  margin-left: ${gridSize}px;
+  &:hover ${KudosBlobAnimation} {
+    display: block;
+  }
+
+  button,
+  a {
+    clip-path: inset(0px 0px 0px 0px round ${borderRadius}px);
+  }
+`;
+
 export const ActionButtonGroup = styled.div`
   user-select: none;
   margin: ${2 * gridSize()}px 0 0 0;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
 
   button,
   a,
@@ -187,6 +225,7 @@ export const CardContainer = styled.div`
       border-radius: ${borderRadius}px;
     `;
   }}
+  overflow: hidden;
 `;
 
 export const DetailsLabel = styled.div`

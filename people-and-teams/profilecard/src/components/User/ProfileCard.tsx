@@ -15,6 +15,7 @@ import messages from '../../messages';
 import {
   ActionButtonGroup,
   ActionsFlexSpacer,
+  AnimatedKudosButton,
   AppTitleLabel,
   CardContainer,
   CardContent,
@@ -24,6 +25,7 @@ import {
   DisabledInfo,
   FullNameLabel,
   JobTitleLabel,
+  KudosBlobAnimation,
   LozengeWrapper,
   ProfileImage,
   SpinnerContainer,
@@ -51,6 +53,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     clientFetchProfile: () => null,
   };
 
+  GIVE_KUDOS_ACTION_ID = 'give-kudos';
   private timeOpen: number | null;
   clientFetchProfile: () => void;
 
@@ -118,7 +121,7 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
     if (!this.props.isCurrentUser && this.props.isKudosEnabled) {
       const kudosAction = {
         label: <FormattedMessage {...messages.giveKudosButton} />,
-        id: 'give-kudos',
+        id: this.GIVE_KUDOS_ACTION_ID,
         callback: () => {
           this.kudosButtonCallback();
         },
@@ -130,9 +133,11 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
   }
 
   renderButton = (action: ProfileCardAction, idx: number): ReactElement => {
-    return (
+    const isGiveKudosActionButton = action.id === this.GIVE_KUDOS_ACTION_ID;
+
+    const actionButton = (
       <Button
-        appearance={idx === 0 ? 'default' : 'subtle'}
+        appearance="default"
         key={action.id || idx}
         onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
           this.onActionClick(action, args, event)
@@ -140,8 +145,14 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
         href={action.link}
       >
         {action.label}
+        {isGiveKudosActionButton && <KudosBlobAnimation />}
       </Button>
     );
+
+    if (isGiveKudosActionButton) {
+      return <AnimatedKudosButton>{actionButton}</AnimatedKudosButton>;
+    }
+    return actionButton;
   };
 
   renderActionsButtons() {

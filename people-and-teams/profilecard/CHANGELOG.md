@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.8.0
+
+### Minor Changes
+
+- [`319c46e77de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/319c46e77de) - [ux] Adding a button background animation when the give kudos button on the profile card is hovered over
+
 ## 16.7.0
 
 ### Minor Changes

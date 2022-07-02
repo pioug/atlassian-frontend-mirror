@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.2.1
+
+### Patch Changes
+
+- [`4a4c40be7b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a4c40be7b4) - Fix SSR (server-side rendering) stopped working with the dash in locale query param
+
 ## 1.2.0
 
 ### Minor Changes

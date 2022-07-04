@@ -1,0 +1,66 @@
+{
+  "name": "@atlaskit/link-test-helpers",
+  "version": "1.0.0",
+  "description": "Collection of test helpers used in linking platform examples and specs",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Linking Platform",
+    "inPublicMirror": false,
+    "releaseModel": "continuous"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "@testing-library/react": "^8.0.1",
+    "enzyme": "^3.10.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "react-dom": "^16.8.0",
+    "typescript": "4.2.4"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "theming": [
+        "react-context",
+        "tokens"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

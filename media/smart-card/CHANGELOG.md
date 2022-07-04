@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 19.1.24
+
+### Patch Changes
+
+- [`cd729a0a41b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd729a0a41b) - [ux][ed-15030] Set the background color of smart cards properly in dark mode
+
 ## 19.1.23
 
 ### Patch Changes

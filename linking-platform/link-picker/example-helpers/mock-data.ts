@@ -33,6 +33,8 @@ const MOCK_DATA_V3: MockDataV3 = {
                       'ari:cloud:townsquare:a5a01d21-1cc3-4f29-9565-f2bb8cd969f5:project/cae6f0ae-bd95-439a-835f-d93907a63f23',
                     type: 'project',
                     product: 'townsquare',
+                    rootContainerId:
+                      'ari:cloud:platform::site/9a257bbc-b7c6-47c8-b1dc-c3db3dc8914b',
                     contributors: [
                       {
                         profile: {
@@ -178,6 +180,8 @@ const MOCK_DATA_V3: MockDataV3 = {
                       'ari:cloud:townsquare:a3a01d21-1cc3-4f29-9565-f2bb8cd969f5:project/cae6f0ae-bd95-439a-835f-d93907a63f53',
                     type: 'project',
                     product: 'townsquare',
+                    rootContainerId:
+                      'ari:cloud:platform::site/9a257bbc-b7c6-47c8-b1dc-c3db3dc8914b',
                     contributors: [
                       {
                         profile: {

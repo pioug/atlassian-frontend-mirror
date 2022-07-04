@@ -111,7 +111,7 @@ export const Wrapper = styled.a<WrapperProps>`
       ? ''
       : themed({
           light: token('elevation.surface.raised', 'white'),
-          dark: token('elevation.surface.raised', 'BACKGROUND_COLOR_DARK'),
+          dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
         })};
   ${(props) =>
     props.withoutBackground

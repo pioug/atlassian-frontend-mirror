@@ -1,14 +1,18 @@
 import React, { Suspense } from 'react';
 
+import { FormattedMessage } from 'react-intl-next';
+
 import {
   CreateUIAnalyticsEvent,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../../internal/filterActions';
+import messages from '../../messages';
 import type {
   AnalyticsFromDuration,
   ProfileCardAction,
@@ -138,6 +142,24 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     }
   };
 
+  openKudosDrawer = () => {
+    this.hideProfilecard(DELAY_MS_HIDE);
+    this.setState({ kudosDrawerOpen: true });
+  };
+
+  closeKudosDrawer = () => {
+    this.setState({ kudosDrawerOpen: false });
+  };
+
+  kudosUrl = (): string => {
+    const recipientId =
+      (this.props.teamId && `&recipientId=${this.props.teamId}`) || '';
+    const cloudId =
+      (this.props.cloudId && `&cloudId=${this.props.cloudId}`) || '';
+
+    return `${this.state.teamCentralBaseUrl}/kudos/give?type=team${recipientId}${cloudId}`;
+  };
+
   stopPropagation = (event: React.MouseEvent<HTMLElement>) => {
     // We need to stop propagation when users click on the card, so that it
     // doesn't trigger any special effects that occur when clicking the trigger.
@@ -162,6 +184,9 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     hasError: false,
     error: null,
     data: null,
+    shouldShowGiveKudos: false,
+    teamCentralBaseUrl: undefined,
+    kudosDrawerOpen: false,
   };
 
   componentDidMount() {
@@ -213,10 +238,14 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
           this.fireAnalytics(event);
         };
 
-        this.props.resourceClient
-          .getTeamProfile(teamId, orgId, fireEvent)
+        const requests = Promise.all([
+          this.props.resourceClient.getTeamProfile(teamId, orgId, fireEvent),
+          this.props.resourceClient.shouldShowGiveKudos(),
+        ]);
+
+        requests
           .then(
-            (res) => this.handleClientSuccess(res),
+            (res) => this.handleClientSuccess(...res),
             (err) => this.handleClientError(err),
           )
           .catch((err) => this.handleClientError(err));
@@ -236,7 +265,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     });
   };
 
-  handleClientSuccess(res: Team) {
+  handleClientSuccess(team: Team, shouldShowGiveKudos: boolean) {
     if (!this._isMounted) {
       return;
     }
@@ -244,7 +273,9 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     this.setState({
       isLoading: false,
       hasError: false,
-      data: res,
+      data: team,
+      shouldShowGiveKudos,
+      teamCentralBaseUrl: this.props.resourceClient.getTeamCentralBaseUrl(),
     });
   }
 
@@ -261,7 +292,19 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
   }
 
   filterActions(): ProfileCardAction[] {
-    return filterActions(this.props.actions, this.state.data);
+    const actions = filterActions(this.props.actions, this.state.data);
+    if (this.state.shouldShowGiveKudos) {
+      const kudosAction = {
+        label: <FormattedMessage {...messages.giveKudosButton} />,
+        id: 'give-kudos',
+        callback: () => {
+          this.openKudosDrawer();
+        },
+        link: this.kudosUrl(),
+      };
+      return actions.concat([kudosAction]);
+    }
+    return actions;
   }
 
   renderProfileCard = () => {
@@ -306,32 +349,60 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     );
   };
 
+  renderKudosLauncher = () => {
+    return (
+      this.state.shouldShowGiveKudos && (
+        <Suspense fallback={null}>
+          <GiveKudosLauncherLazy
+            isOpen={this.state.kudosDrawerOpen}
+            recipient={{
+              type: KudosType.TEAM,
+              recipientId: this.props.teamId!,
+            }}
+            analytics={this.fireAnalytics}
+            analyticsSource="team-profile-card"
+            teamCentralBaseUrl={this.state.teamCentralBaseUrl!}
+            cloudId={this.props.cloudId || ''}
+            addFlag={this.props.addFlag}
+            onClose={this.closeKudosDrawer}
+          />
+        </Suspense>
+      )
+    );
+  };
+
   renderTrigger = (triggerProps: TriggerProps) => {
     const { children, triggerLinkType, viewProfileLink } = this.props;
 
     if (triggerLinkType === 'none') {
       return (
-        <span
-          data-testid="team-profilecard-trigger-wrapper"
-          {...triggerProps}
-          {...this.triggerListeners}
-        >
-          {children}
-        </span>
+        <>
+          {this.renderKudosLauncher()}
+          <span
+            data-testid="team-profilecard-trigger-wrapper"
+            {...triggerProps}
+            {...this.triggerListeners}
+          >
+            {children}
+          </span>
+        </>
       );
     }
 
     return (
-      <a
-        data-testid="team-profilecard-trigger-wrapper"
-        style={{ color: 'initial', textDecoration: 'none' }}
-        href={viewProfileLink}
-        {...triggerProps}
-        ref={triggerProps.ref as React.RefObject<HTMLAnchorElement>}
-        {...this.triggerListeners}
-      >
-        {children}
-      </a>
+      <>
+        {this.renderKudosLauncher()}
+        <a
+          data-testid="team-profilecard-trigger-wrapper"
+          style={{ color: 'initial', textDecoration: 'none' }}
+          href={viewProfileLink}
+          {...triggerProps}
+          ref={triggerProps.ref as React.RefObject<HTMLAnchorElement>}
+          {...this.triggerListeners}
+        >
+          {children}
+        </a>
+      </>
     );
   };
 

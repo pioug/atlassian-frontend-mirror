@@ -240,6 +240,7 @@ describe('smart-card: success analytics', () => {
         undefined,
         undefined,
         undefined,
+        undefined,
       );
 
       // With special key pressed
@@ -260,6 +261,7 @@ describe('smart-card: success analytics', () => {
         'd1',
         'object-provider',
         true,
+        undefined,
         undefined,
         undefined,
         undefined,
@@ -296,6 +298,7 @@ describe('smart-card: success analytics', () => {
         undefined,
         undefined,
         undefined,
+        undefined,
       );
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
 
@@ -315,6 +318,7 @@ describe('smart-card: success analytics', () => {
         'd1',
         'object-provider',
         true,
+        undefined,
         undefined,
         undefined,
         undefined,

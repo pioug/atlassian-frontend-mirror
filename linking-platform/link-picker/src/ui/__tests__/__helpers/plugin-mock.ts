@@ -10,8 +10,8 @@ class MockLinkPickerPlugin implements LinkPickerPlugin {
   }
 
   async *resolve() {
-    yield this.getInitialResults();
-    return this.fetchUpdatedResults();
+    yield { data: await this.getInitialResults() };
+    return { data: await this.fetchUpdatedResults() };
   }
 }
 

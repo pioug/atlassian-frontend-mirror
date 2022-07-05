@@ -11,6 +11,7 @@ import {
   LinkSearchListItemData,
   LinkInputType,
   LinkPickerPlugin,
+  ResolveResult,
 } from '../types';
 import {
   recentListStyles,
@@ -143,13 +144,24 @@ class LinkPicker extends PureComponent<
 
     try {
       while (queryVersion === this.queryVersion) {
-        const { done, value } = await updates.next();
+        let done: boolean = false;
+        let value: ResolveResult;
+
+        if (updates instanceof Promise) {
+          done = true;
+          value = await updates;
+        } else {
+          const result = await updates.next();
+          done = result.done ?? false;
+          value = result.value;
+        }
+
         if (queryVersion !== this.queryVersion) {
           return;
         }
 
         this.setState({
-          items: limit(value),
+          items: limit(value.data),
           isLoading: !done,
         });
 

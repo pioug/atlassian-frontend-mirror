@@ -65,3 +65,9 @@ export type {
   ActionItem,
   ElementItem,
 } from './view/FlexibleCard/components/blocks/types';
+export type {
+  AnalyticsAction,
+  AnalyticsActionSubject,
+  AnalyticsPayload,
+  AnalyticsHandler,
+} from './utils/types';

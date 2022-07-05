@@ -12,7 +12,9 @@ import { gutter, verticalOffset } from '../constants';
 const maxWidthDimensions = `calc(100vw - ${gutter * 2}px)`;
 const maxHeightDimensions = `calc(100vh - ${gutter * 2 - 1}px)`;
 
+// Flex and min-content are set to constrain the height of the body and support multi-column scrolling experiences
 const positionerStyles = css({
+  display: 'flex',
   width: '100%',
   maxWidth: '100%',
   height: '100%',
@@ -20,6 +22,7 @@ const positionerStyles = css({
   zIndex: layers.modal(),
   top: 0,
   left: 0,
+  flexDirection: 'column',
 });
 
 const viewportScrollStyles = css({

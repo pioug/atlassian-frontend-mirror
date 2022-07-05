@@ -12,6 +12,7 @@ import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
 import messages from '../../messages';
+import { AnimatedKudosButton, KudosBlobAnimation } from '../../styled/Card';
 import {
   ErrorWrapper,
   TeamErrorText,
@@ -59,6 +60,7 @@ type TeamMembersProps = TeamMembers &
   Pick<TeamProfilecardProps, 'generateUserLink' | 'onUserClick'>;
 
 const LARGE_MEMBER_COUNT = 50;
+const GIVE_KUDOS_ACTION_ID = 'give-kudos';
 
 function onMemberClick(
   callback: TeamMembersProps['onUserClick'],
@@ -189,17 +191,25 @@ const ActionButton = ({
   analytics: AnalyticsFunction;
   index: number;
 }) => {
-  return (
-    <WrappedButton>
-      <Button
-        href={action.link}
-        onClick={onActionClick(action, analytics, index)}
-        shouldFitContainer
-      >
-        {action.label}
-      </Button>
-    </WrappedButton>
+  const isGiveKudosActionButton = action.id === GIVE_KUDOS_ACTION_ID;
+
+  const actionButton = (
+    <Button
+      key={action.id || index}
+      onClick={onActionClick(action, analytics, index)}
+      href={action.link}
+      shouldFitContainer
+    >
+      {action.label}
+      {isGiveKudosActionButton && <KudosBlobAnimation />}
+    </Button>
   );
+
+  if (isGiveKudosActionButton) {
+    return <AnimatedKudosButton>{actionButton}</AnimatedKudosButton>;
+  }
+
+  return <WrappedButton>{actionButton}</WrappedButton>;
 };
 
 interface ActionProps {

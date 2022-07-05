@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.9.0
+
+### Minor Changes
+
+- [`1f16cd80413`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f16cd80413) - [ux] Add give kudos to Team profile card.
+
 ## 16.8.0
 
 ### Minor Changes

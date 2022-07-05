@@ -29,7 +29,8 @@ const dialogStyles = css({
   minHeight: 0,
   maxHeight: '100vh',
 
-  flex: '1 1 auto',
+  // Flex-grow set to 0 to prevent this element from filling its parent flexbox container
+  flex: '0 1 auto',
   flexDirection: 'column',
 
   backgroundColor: token('elevation.surface.overlay', N0),

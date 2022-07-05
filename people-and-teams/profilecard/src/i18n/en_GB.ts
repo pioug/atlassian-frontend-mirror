@@ -39,6 +39,7 @@ export default {
     'Their account was deactivated this week.',
   'pt.profile-card.inactive.account.no.date':
     'Their account has been deactivated.',
+  'pt.profile-card.more-icon-label': 'More',
   'pt.team-profile-card.directReports.heading': 'Direct reports',
   'pt.team-profile-card.error.refresh-button': 'Try again',
   'pt.team-profile-card.error.suggestion':

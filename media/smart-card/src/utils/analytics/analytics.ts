@@ -242,10 +242,11 @@ export const uiCardClickedEvent = (
   location?: string,
   destinationProduct?: DestinationProduct | string,
   destinationSubproduct?: DestinationSubproduct | string,
+  actionSubjectId?: string,
 ): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
-  actionSubjectId: 'titleGoToLink',
+  actionSubjectId,
   eventType: 'ui',
   attributes: {
     ...context,

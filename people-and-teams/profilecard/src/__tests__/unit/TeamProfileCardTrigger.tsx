@@ -53,6 +53,12 @@ const mockResourceClient: unknown = {
   getTeamProfile: () => {
     return Promise.resolve(sampleProfile);
   },
+  shouldShowGiveKudos: () => {
+    return Promise.resolve(true);
+  },
+  getTeamCentralBaseUrl: () => {
+    return 'http://dummy-url';
+  },
 };
 
 function flexiTime(event: Record<string, any>) {
@@ -382,6 +388,12 @@ describe('TeamProfileCardTrigger', () => {
       const getTeamProfile = jest.fn();
       const resourceClient: unknown = {
         getTeamProfile,
+        shouldShowGiveKudos: () => {
+          return Promise.resolve(true);
+        },
+        getTeamCentralBaseUrl: () => {
+          return 'http://dummy-url';
+        },
       };
 
       jest.useFakeTimers();
@@ -414,6 +426,12 @@ describe('TeamProfileCardTrigger', () => {
       const getTeamProfile = jest.fn();
       const resourceClient: unknown = {
         getTeamProfile,
+        shouldShowGiveKudos: () => {
+          return Promise.resolve(true);
+        },
+        getTeamCentralBaseUrl: () => {
+          return 'http://dummy-url';
+        },
       };
 
       jest.useFakeTimers();

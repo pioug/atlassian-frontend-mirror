@@ -130,6 +130,7 @@ export const useSmartLinkAnalytics = (
           | DestinationSubproduct
           | string
           | undefined = extractedSubproduct,
+        actionSubjectId?: string,
       ) =>
         dispatchAnalytics(
           uiCardClickedEvent(
@@ -142,6 +143,7 @@ export const useSmartLinkAnalytics = (
             location,
             destinationProduct,
             destinationSubproduct,
+            actionSubjectId,
           ),
         ),
       /**

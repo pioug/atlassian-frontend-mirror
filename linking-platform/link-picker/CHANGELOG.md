@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.0.0
+
+### Major Changes
+
+- [`2e20b02bb2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e20b02bb2c) - Initial major version release
+
+## 0.11.0
+
+### Minor Changes
+
+- [`a2286b0746a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2286b0746a) - Added support for link picker plugins to resolve using a promise
+
 ## 0.10.0
 
 ### Minor Changes

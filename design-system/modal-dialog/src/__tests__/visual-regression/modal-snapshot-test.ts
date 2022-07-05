@@ -192,6 +192,27 @@ describe('Snapshot test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('Two-column scroll should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'modal-dialog',
+      'multi-column',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+    await loadPage(page, url);
+
+    await page.click(openModalBtn);
+    await page.waitForSelector(modalDialog);
+
+    await page.click(scrollToBottomBtn);
+    await page.waitForTimeout(1000);
+
+    const image = await takeElementScreenShot(page, 'body');
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Footer should not come over select dropdown', async () => {
     const url = getExampleUrl(
       'design-system',

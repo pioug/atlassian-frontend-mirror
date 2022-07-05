@@ -81,6 +81,7 @@ export const AnimatedKudosButton = styled.div`
   a {
     clip-path: inset(0px 0px 0px 0px round ${borderRadius}px);
   }
+  overflow: hidden;
 `;
 
 export const ActionButtonGroup = styled.div`

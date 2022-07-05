@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.2.13
+
+### Patch Changes
+
+- [`1c3948738f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c3948738f9) - Adjust the styles for an internal positioning element to constrain the height for ModalBody and restore support for custom scrolling regions"
+
 ## 12.2.12
 
 ### Patch Changes

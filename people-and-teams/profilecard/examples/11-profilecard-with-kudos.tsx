@@ -4,11 +4,13 @@ import styled from 'styled-components';
 
 import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
 
-import ProfileCardResourced from '../src';
+import ProfileCardResourced, { Team } from '../src';
+import TeamProfilecardTrigger from '../src/components/Team';
 import ProfileCardTrigger from '../src/components/User';
+import teamData from '../src/mocks/team-data';
 
 import LocaleIntlProvider from './helper/locale-intl-provider';
-import { getMockProfileClient } from './helper/util';
+import { getMockProfileClient, getMockTeamClient } from './helper/util';
 
 export const Wrap = styled.div`
   margin-bottom: 20px;
@@ -32,6 +34,39 @@ export default function Example() {
     [setFlags],
   );
 
+  const defaultTeamData = teamData({
+    headerImage: 'Picture',
+    members: 15,
+  });
+
+  const myTeamData = {
+    ...defaultTeamData,
+    id: '1a4768c5-e3cf-4e1c-907c-e9b2322ed8b7',
+  };
+
+  const teamClientData: {
+    team: Team;
+    timeout: number;
+    error: any;
+    errorRate: number;
+  } = {
+    team: myTeamData,
+    timeout: 500,
+    error: {},
+    errorRate: 0,
+  };
+
+  const MockTeamClient = getMockTeamClient(teamClientData);
+
+  const clientArgs = {
+    cacheSize: 10,
+    cacheMaxAge: 0,
+    url: 'DUMMY',
+    gatewayGraphqlUrl: 'https://api-private.stg.atlassian.com/graphql',
+  };
+
+  const mockTeamClient = new MockTeamClient(clientArgs);
+
   const mockClient = getMockProfileClient(
     10,
     0,
@@ -43,6 +78,8 @@ export default function Example() {
       productIdentifier: 'test',
     },
   );
+
+  mockClient.teamClient = mockTeamClient;
 
   const defaultProps = {
     cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
@@ -56,6 +93,19 @@ export default function Example() {
     ],
   };
 
+  const teamActions = [
+    {
+      label: 'Team Thing',
+      id: 'team-thing',
+      callback: () => {},
+    },
+    {
+      label: 'Wat!',
+      id: 'team-thing-1',
+      callback: () => {},
+    },
+  ];
+
   return (
     <LocaleIntlProvider>
       <MainStage>
@@ -66,13 +116,64 @@ export default function Example() {
             addFlag={addFlag}
           />
         </Wrap>
-        <ProfileCardTrigger
-          {...defaultProps}
-          userId="655363:3ddf0886-bc87-42aa-b1ba-32e4991e99d8"
-          addFlag={addFlag}
-        >
-          <strong>hover over me</strong>
-        </ProfileCardTrigger>
+        <Wrap>
+          <ProfileCardTrigger
+            {...defaultProps}
+            userId="655363:3ddf0886-bc87-42aa-b1ba-32e4991e99d8"
+            addFlag={addFlag}
+          >
+            <strong>hover over me</strong>
+          </ProfileCardTrigger>
+        </Wrap>
+        <Wrap>
+          <TeamProfilecardTrigger
+            {...defaultProps}
+            teamId={teamClientData.team.id}
+            actions={[]}
+            trigger="click"
+            viewingUserId={'viewerId'}
+            addFlag={addFlag}
+          >
+            <strong>The Kudos Team (clickable)</strong>
+          </TeamProfilecardTrigger>
+        </Wrap>
+        <Wrap>
+          <TeamProfilecardTrigger
+            {...defaultProps}
+            teamId={teamClientData.team.id}
+            actions={[]}
+            trigger="hover"
+            viewingUserId={'viewerId'}
+            addFlag={addFlag}
+          >
+            <strong>The Kudos Team</strong>
+          </TeamProfilecardTrigger>
+        </Wrap>
+        <Wrap>
+          <TeamProfilecardTrigger
+            {...defaultProps}
+            teamId={teamClientData.team.id}
+            actions={teamActions}
+            trigger="hover"
+            viewingUserId={'viewerId'}
+            addFlag={addFlag}
+          >
+            <strong>The Kudos Team with meatballs</strong>
+          </TeamProfilecardTrigger>
+        </Wrap>
+        <Wrap>
+          <TeamProfilecardTrigger
+            {...defaultProps}
+            cloudId={undefined}
+            teamId={teamClientData.team.id}
+            actions={[]}
+            trigger="hover"
+            viewingUserId={'viewerId'}
+            addFlag={addFlag}
+          >
+            <strong>The Kudos Team without site</strong>
+          </TeamProfilecardTrigger>
+        </Wrap>
         <FlagGroup onDismissed={dismissFlag}>
           {flags.map((flag) => (
             <Flag {...flag} />

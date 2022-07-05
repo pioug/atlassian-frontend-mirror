@@ -34,8 +34,12 @@ export interface LinkPickerState {
   query: string;
 }
 
+export interface ResolveResult {
+  data: LinkSearchListItemData[];
+}
+
 export interface LinkPickerPlugin {
   resolve: (
     state: LinkPickerState,
-  ) => AsyncGenerator<LinkSearchListItemData[], LinkSearchListItemData[]>;
+  ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;
 }

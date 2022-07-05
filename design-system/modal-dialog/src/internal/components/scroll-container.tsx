@@ -15,20 +15,13 @@ import FocusRing from '@atlaskit/focus-ring';
 import { keylineColor, keylineHeight } from '../constants';
 
 const baseStyles = css({
-  /**
-   * We need to inherit flex styles from its parent here
-   * in case they're set because we're essentially being a proxy container
-   * between the original flex parent and its children (the modal body).
-   */
   display: 'inherit',
   margin: 0,
-
   flex: 'inherit',
   flexDirection: 'inherit',
-
+  flexGrow: 1,
   overflowX: 'hidden',
   overflowY: 'auto',
-
   '@media (min-width: 480px)': {
     height: 'unset',
     overflowY: 'auto',

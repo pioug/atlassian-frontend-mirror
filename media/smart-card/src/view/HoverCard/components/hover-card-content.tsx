@@ -85,6 +85,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
         undefined,
         undefined,
         isModifierKeyPressed,
+        undefined,
+        undefined,
+        undefined,
+        'titleGoToLink',
       );
     },
     [cardState.status, analytics.ui],

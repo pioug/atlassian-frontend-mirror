@@ -148,6 +148,9 @@ export interface TeamProfileCardTriggerState {
   error?: any;
   data: Team | null;
   renderError?: boolean;
+  shouldShowGiveKudos?: boolean;
+  teamCentralBaseUrl?: string;
+  kudosDrawerOpen: boolean;
 }
 
 export interface TeamProfilecardCoreProps {
@@ -253,6 +256,14 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
     interacted with according to the method specified by the trigger prop.
    */
   children?: React.ReactNode;
+  /**
+   * Used by the card to show Flags.
+   */
+  addFlag?: (flag: any) => void;
+  /**
+   * Optional cloudId. Pass this if rendering card within a sited context.
+   */
+  cloudId?: string;
 }
 
 export type StatusType = 'active' | 'inactive' | 'closed';

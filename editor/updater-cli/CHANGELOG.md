@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.0.18
+
+### Patch Changes
+
+- [`8f0eed03d11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f0eed03d11) - Upgrade yarn-deduplicate to 5.0.0 (latest)
+
 ## 2.0.17
 
 ### Patch Changes

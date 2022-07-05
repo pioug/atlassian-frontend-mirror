@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 19.1.25
+
+### Patch Changes
+
+- [`de8de71a806`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de8de71a806) - Hover Preview: Fix Hover Preview analytics event details get applied to other Smart Links analytics
+- [`ae023956743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae023956743) - Smart Links Analytics types are exported to allow their usage from outside of the package
+
 ## 19.1.24
 
 ### Patch Changes

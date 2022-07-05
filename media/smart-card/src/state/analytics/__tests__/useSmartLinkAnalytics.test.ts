@@ -36,7 +36,6 @@ describe('useSmartLinkAnalytics', () => {
     expect(mockedAnalyticsHandler).toBeCalledWith({
       action: 'clicked',
       actionSubject: 'smartLink',
-      actionSubjectId: 'titleGoToLink',
       attributes: {
         id: 'test-id',
         componentName: 'smart-cards',

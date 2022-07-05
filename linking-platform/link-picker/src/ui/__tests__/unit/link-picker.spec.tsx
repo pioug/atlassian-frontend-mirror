@@ -3,7 +3,7 @@ import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 
-import { LinkPickerPlugin, LinkSearchListItemData } from '../../../types';
+import { LinkPickerPlugin, ResolveResult } from '../../../types';
 import { LinkPickerWithIntl, LinkPickerProps } from '../../link-picker';
 import LinkSearchList from '../../link-search-list';
 import PanelTextInput from '../../text-input';
@@ -272,7 +272,9 @@ describe('<LinkPicker />', () => {
       plugins,
       ...rest
     }: SetupArgumentObject = {}) => {
-      const plugin = plugins ? plugins[0] : new MockLinkPickerPlugin();
+      const plugin: LinkPickerPlugin = plugins
+        ? plugins[0]
+        : new MockLinkPickerPlugin();
       const resolve = jest.spyOn(plugin, 'resolve');
 
       return {
@@ -333,16 +335,7 @@ describe('<LinkPicker />', () => {
       });
     });
 
-    it('should begin yielding plugin link results on mount if `url` is not a valid URL', async () => {
-      const { resolve } = await setupWithGenericPlugin({
-        url: 'xyz',
-      });
-
-      expect(resolve).toHaveBeenCalledTimes(1);
-      expect(resolve).toHaveBeenCalledWith({ query: '' });
-    });
-
-    it('should not trigger plugin to yield results and should not be in loading state if provided a `url`', async () => {
+    it('should not trigger plugin to resolve results and should not be in loading state if provided a `url`', async () => {
       const plugin = new MockLinkPickerPlugin();
       const resolve = jest.spyOn(plugin, 'resolve');
 
@@ -361,7 +354,41 @@ describe('<LinkPicker />', () => {
       expect(items).toHaveLength(0);
     });
 
-    it('should have `isLoading` before plugin yields first results', async () => {
+    it('should begin yielding plugin link results on mount if `url` is not a valid URL', async () => {
+      const { resolve } = await setupWithGenericPlugin({
+        url: 'xyz',
+      });
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith({ query: '' });
+    });
+
+    it('should support resolve via promise', async () => {
+      const promise = new ManualPromise();
+      const results: ResolveResult = { data: [] };
+      const resolve = jest.fn();
+      resolve.mockImplementationOnce(() => promise);
+
+      const {
+        component,
+        updateInputFieldWithStateUpdated,
+        waitFor,
+      } = await setup({
+        plugins: [{ resolve }],
+      });
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
+      await updateInputFieldWithStateUpdated('link-url', 'atlas');
+      expect(resolve).toHaveBeenCalledTimes(2);
+
+      await waitFor(promise.resolve(results));
+      const list = () => component.find(LinkSearchList);
+      expect(list().prop('isLoading')).toBe(false);
+      expect(list().prop('items')).toEqual(results.data);
+    });
+
+    it('should have `isLoading` before plugin resolves first results', async () => {
       const { component } = await setupWithGenericPlugin({
         waitForResolves: false,
       });
@@ -370,11 +397,11 @@ describe('<LinkPicker />', () => {
     });
 
     it('should render plugin results in `LinkSearchList` and then put `isLoading` to false if plugin is done', async () => {
-      const resultsPromise = new ManualPromise<LinkSearchListItemData[]>();
+      const itemsPromise = new ManualPromise<ResolveResult['data']>();
       const plugin = new MockLinkPickerPlugin();
       const getResults = jest
         .spyOn(plugin, 'fetchUpdatedResults')
-        .mockReturnValue(resultsPromise);
+        .mockReturnValue(itemsPromise);
 
       const { component, waitFor } = await setup({
         waitForResolves: false,
@@ -386,7 +413,7 @@ describe('<LinkPicker />', () => {
       expect(component.find(LinkSearchList).props().isLoading).toBe(true);
 
       const results = getDefaultItems(5);
-      await waitFor(resultsPromise.resolve(results));
+      await waitFor(itemsPromise.resolve(results));
 
       expect(getResults).toHaveBeenCalledTimes(1);
       expect(component.find(LinkSearchList).props().isLoading).toBe(false);
@@ -474,8 +501,8 @@ describe('<LinkPicker />', () => {
       const resolve = jest
         .spyOn(plugin, 'resolve')
         .mockImplementation(async function* () {
-          yield [];
-          return [];
+          yield { data: [] };
+          return { data: [] };
         });
 
       const { component, updateInputFieldWithStateUpdated } = await setup({
@@ -498,8 +525,8 @@ describe('<LinkPicker />', () => {
       const resolve = jest
         .spyOn(plugin, 'resolve')
         .mockImplementation(async function* () {
-          yield [];
-          return [];
+          yield { data: [] };
+          return { data: [] };
         });
 
       const { component } = await setup({
@@ -524,8 +551,8 @@ describe('<LinkPicker />', () => {
       const resolve = jest
         .spyOn(plugin, 'resolve')
         .mockImplementation(async function* () {
-          yield [];
-          return [];
+          yield { data: [] };
+          return { data: [] };
         });
 
       const { component, updateInputFieldWithStateUpdated } = await setup({
@@ -555,8 +582,8 @@ describe('<LinkPicker />', () => {
       const resolve = jest
         .spyOn(plugin, 'resolve')
         .mockImplementation(async function* () {
-          yield [];
-          return [];
+          yield { data: [] };
+          return { data: [] };
         });
 
       const { component, updateInputFieldWithStateUpdated } = await setup({

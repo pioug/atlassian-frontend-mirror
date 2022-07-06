@@ -135,6 +135,10 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   closeMenuOnScroll?: boolean | EventListener;
   /** Whether to block scrolling actions */
   menuShouldBlockScroll?: boolean;
+  /** Accessibility: Identifies the element (or elements) that labels the current element.*/
+  ariaLabelledBy?: string;
+  /** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/
+  ariaLive?: 'polite' | 'off' | 'assertive';
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

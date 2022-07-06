@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer';
+
 import React, { Component } from 'react';
 
 import { FormFields, SelectOptionDetails, SelectValue } from '../types';

@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 10.6.0
+
+### Minor Changes
+
+- [`346e6dfc562`](https://bitbucket.org/atlassian/atlassian-frontend/commits/346e6dfc562) - Add imported Buffer as webpack workaround
+
 ## 10.5.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.2.0
+
+### Minor Changes
+
+- [`64dc40c32bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64dc40c32bc) - Add support for aria-labelledby and aria-live
+
 ## 9.1.1
 
 ### Patch Changes

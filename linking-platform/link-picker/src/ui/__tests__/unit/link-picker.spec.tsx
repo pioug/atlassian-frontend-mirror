@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { flushPromises } from '@atlaskit/media-test-helpers';
+import { flushPromises, mountWithIntl } from '@atlaskit/link-test-helpers';
 
 import { LinkPickerPlugin, ResolveResult } from '../../../types';
 import { LinkPickerWithIntl, LinkPickerProps } from '../../link-picker';

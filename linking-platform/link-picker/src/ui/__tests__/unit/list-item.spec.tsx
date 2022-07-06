@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderWithIntl as render } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { screen } from '@testing-library/dom';
 import MockDate from 'mockdate';
 

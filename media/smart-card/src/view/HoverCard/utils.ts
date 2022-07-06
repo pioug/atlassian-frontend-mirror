@@ -10,13 +10,8 @@ export const getSimulatedMetadata = (
     case 'confluence-object-provider':
       return {
         metadata: {
-          primary: [
-            ElementName.AuthorGroup,
-            ElementName.CreatedBy,
-            ElementName.CommentCount,
-            ElementName.ReactCount,
-          ],
-          secondary: [],
+          primary: [ElementName.AuthorGroup, ElementName.CreatedBy],
+          secondary: [ElementName.CommentCount, ElementName.ReactCount],
         },
       };
     case 'jira-object-provider':

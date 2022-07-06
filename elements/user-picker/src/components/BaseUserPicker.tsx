@@ -516,6 +516,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       inputId,
       maxPickerHeight,
       textFieldBackgroundColor,
+      ariaLabelledBy,
+      ariaLive,
     } = this.props;
 
     const {
@@ -532,6 +534,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       <SelectComponent
         value={value}
         autoFocus={autoFocus !== undefined ? autoFocus : menuIsOpen}
+        aria-labelledby={ariaLabelledBy}
+        aria-live={ariaLive}
         ref={this.handleSelectRef}
         isMulti={isMulti}
         options={this.getOptions()}

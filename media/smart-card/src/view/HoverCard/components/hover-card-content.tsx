@@ -4,7 +4,12 @@ import { JsonLd } from 'json-ld-types';
 import { extractMetadata } from '../../../extractors/hover/extractMetadata';
 import { getSimulatedMetadata, HOVER_CARD_ANALYTICS_DISPLAY } from '../utils';
 import extractPreview from '../../../extractors/flexible/extract-preview';
-import { ActionName, SmartLinkSize, SmartLinkTheme } from '../../../constants';
+import {
+  ActionName,
+  SmartLinkPosition,
+  SmartLinkSize,
+  SmartLinkTheme,
+} from '../../../constants';
 import FlexibleCard from '../../FlexibleCard';
 import {
   FooterBlock,
@@ -23,12 +28,14 @@ import {
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { AnalyticsFacade } from '../../../state/analytics';
 import { getExtensionKey } from '../../../state/helpers';
+import { titleBlockCss, metadataBlockCss, footerBlockCss } from '../styled';
 
 const flexibleUiOptions = {
   hideElevation: true,
-  size: SmartLinkSize.Large,
+  size: SmartLinkSize.Medium,
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   theme: SmartLinkTheme.Black,
+  hidePadding: true,
 };
 
 const getOpenAction = (url: string, analytics: AnalyticsFacade): ActionItem =>
@@ -121,14 +128,25 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       ui={flexibleUiOptions}
       url={url}
     >
-      <TitleBlock actions={titleActions} />
+      <TitleBlock
+        actions={titleActions}
+        overrideCss={titleBlockCss}
+        size={SmartLinkSize.Large}
+        position={SmartLinkPosition.Center}
+      />
       <MetadataBlock
         primary={primary}
         secondary={secondary}
-        size={SmartLinkSize.Small}
+        size={SmartLinkSize.Large}
+        overrideCss={metadataBlockCss}
+        maxLines={1}
       />
       {body}
-      <FooterBlock actions={footerActions} />
+      <FooterBlock
+        actions={footerActions}
+        size={SmartLinkSize.Large}
+        overrideCss={footerBlockCss}
+      />
     </FlexibleCard>
   );
 };

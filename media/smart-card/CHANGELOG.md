@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 19.1.26
+
+### Patch Changes
+
+- [`00c79cca5b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00c79cca5b0) - hover card white space changes
+
 ## 19.1.25
 
 ### Patch Changes

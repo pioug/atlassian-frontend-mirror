@@ -1,5 +1,3 @@
-// import sub from 'date-fns/sub';
-
 export interface MockDataV3 {
   ACTIVITIES_DATA: {
     data: {

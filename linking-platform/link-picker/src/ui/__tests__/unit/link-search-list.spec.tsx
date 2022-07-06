@@ -5,7 +5,7 @@ import LinkSearchList, {
 } from '../../link-search-list';
 import LinkSearchListItem from '../../list-item';
 import { getDefaultItems } from '../__helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '@atlaskit/link-test-helpers';
 
 interface SetupOptions extends LinkSearchListProps {}
 

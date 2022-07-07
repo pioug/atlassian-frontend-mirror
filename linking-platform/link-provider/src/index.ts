@@ -11,3 +11,4 @@ export type {
   CardProviderCacheOpts,
 } from './state/context/types';
 export { editorCardProvider, EditorCardProvider } from './editor';
+export { useFeatureFlag } from './ff';

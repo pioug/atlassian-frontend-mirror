@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 0.4.0
+
+### Minor Changes
+
+- [`f0564695480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0564695480) - Move GiveKudosLauncher into a Portal
+
 ## 0.3.0
 
 ### Minor Changes

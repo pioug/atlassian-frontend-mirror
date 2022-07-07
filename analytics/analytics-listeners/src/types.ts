@@ -26,4 +26,5 @@ export enum FabricChannel {
   peopleTeams = 'peopleTeams',
   notifications = 'notifications',
   recentWork = 'recentWork',
+  atlas = 'atlas',
 }

@@ -33,7 +33,7 @@
   "scripts": {},
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.0.5",
-    "@atlaskit/analytics-namespaced-context": "^6.4.0",
+    "@atlaskit/analytics-namespaced-context": "^6.5.0",
     "@atlaskit/analytics-next": "^8.1.1",
     "@atlaskit/section-message": "^6.0.0",
     "@babel/runtime": "^7.0.0"

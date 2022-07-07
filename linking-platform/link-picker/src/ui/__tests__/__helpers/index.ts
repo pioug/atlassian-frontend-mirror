@@ -1,6 +1,5 @@
 import { LinkSearchListItemData } from '../../../../src/types';
 
-export { default as MockLinkPickerPlugin } from './plugin-mock';
 export { default as ManualPromise } from './manual-promise';
 
 export const getDefaultItems = (

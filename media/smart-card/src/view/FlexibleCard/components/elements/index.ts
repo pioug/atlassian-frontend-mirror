@@ -32,30 +32,15 @@ export const CollaboratorGroup = createElement<AvatarGroupProps>(
  */
 export const CommentCount = createElement<BadgeProps>(ElementName.CommentCount);
 /**
- * Creates a ViewCount Badge element using the data from ViewCount in the Flexible UI Context.
- * @see Badge
+ * Creates a CreatedOn DateTime element using the data from CreatedOn in the Flexible UI Context.
+ * @see DateTime
  */
-export const ViewCount = createElement<BadgeProps>(ElementName.ViewCount);
-/**
- * Creates a ReactCount Badge element using the data from ReactCount in the Flexible UI Context.
- * @see Badge
- */
-export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
-/**
- * Creates a VoteCount Badge element using the data from VoteCount in the Flexible UI Context.
- * @see Badge
- */
-export const VoteCount = createElement<BadgeProps>(ElementName.VoteCount);
+export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
 /**
  * Creates a CreatedBy text element using the data from CreatedBy in the Flexible UI Context.
  * @see Text
  */
 export const CreatedBy = createElement<TextProps>(ElementName.CreatedBy);
-/**
- * Creates a CreatedOn DateTime element using the data from CreatedOn in the Flexible UI Context.
- * @see DateTime
- */
-export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
 /**
  * Creates an element that contains Last Commit hash
  */
@@ -93,6 +78,16 @@ export const ProgrammingLanguage = createElement<BadgeProps>(
   ElementName.ProgrammingLanguage,
 );
 /**
+ * Creates a Provider Badge element using the data from Provider in the Flexible UI Context.
+ * @see Badge
+ */
+export const Provider = createElement<BadgeProps>(ElementName.Provider);
+/**
+ * Creates a ReactCount Badge element using the data from ReactCount in the Flexible UI Context.
+ * @see Badge
+ */
+export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
+/**
  * Creates a Snippet element using the data from Snippet in the Flexible UI Context.
  * @see Text
  */
@@ -116,7 +111,12 @@ export const SubscriberCount = createElement<BadgeProps>(
  */
 export const Title = createElement<LinkProps>(ElementName.Title);
 /**
- * Creates a Provider Badge element using the data from Provider in the Flexible UI Context.
+ * Creates a ViewCount Badge element using the data from ViewCount in the Flexible UI Context.
  * @see Badge
  */
-export const Provider = createElement<BadgeProps>(ElementName.Provider);
+export const ViewCount = createElement<BadgeProps>(ElementName.ViewCount);
+/**
+ * Creates a VoteCount Badge element using the data from VoteCount in the Flexible UI Context.
+ * @see Badge
+ */
+export const VoteCount = createElement<BadgeProps>(ElementName.VoteCount);

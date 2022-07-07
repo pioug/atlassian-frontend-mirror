@@ -4,6 +4,7 @@ import {
   CardAppearance,
   LinkPreview,
   CardStore,
+  LinkingPlatformFeatureFlags,
 } from '@atlaskit/linking-common';
 import CardClient from '../../client';
 import { CardConnections } from '../store/types';
@@ -26,6 +27,7 @@ export interface CardContext {
     ) => LinkPreview | undefined;
   };
   renderers?: CardProviderRenderers;
+  featureFlags?: LinkingPlatformFeatureFlags;
 }
 
 /** @deprecated Feature removed (EDM-2205) */
@@ -50,4 +52,6 @@ export type CardProviderProps = {
   storeOptions?: CardProviderStoreOpts;
   children: React.ReactNode;
   renderers?: CardProviderRenderers;
+  // Needed to support passing flags from the product without having to bump this interface
+  featureFlags?: LinkingPlatformFeatureFlags & { [flag: string]: unknown };
 } & CardAuthFlowOpts;

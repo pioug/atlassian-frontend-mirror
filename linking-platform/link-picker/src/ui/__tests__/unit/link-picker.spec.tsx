@@ -1,16 +1,13 @@
 import React from 'react';
 
 import { flushPromises, mountWithIntl } from '@atlaskit/link-test-helpers';
+import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
 import { LinkPickerPlugin, ResolveResult } from '../../../types';
 import { LinkPickerWithIntl, LinkPickerProps } from '../../link-picker';
 import LinkSearchList from '../../link-search-list';
 import PanelTextInput from '../../text-input';
-import {
-  getDefaultItems,
-  MockLinkPickerPlugin,
-  ManualPromise,
-} from '../__helpers';
+import { getDefaultItems, ManualPromise } from '../__helpers';
 import { messages } from '../../../messages';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {

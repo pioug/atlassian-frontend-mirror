@@ -46,7 +46,7 @@
     "@atlaskit/activity-provider": "^2.3.0",
     "@atlaskit/adf-schema": "^23.1.0",
     "@atlaskit/adf-utils": "^17.0.0",
-    "@atlaskit/analytics-namespaced-context": "^6.4.0",
+    "@atlaskit/analytics-namespaced-context": "^6.5.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",

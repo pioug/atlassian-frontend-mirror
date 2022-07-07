@@ -20,6 +20,7 @@ export function SmartCardProvider({
   authFlow: customAuthFlow,
   children,
   renderers,
+  featureFlags,
 }: CardProviderProps) {
   const parentContext = useContext(SmartCardContext);
   const providerValue = useMemo(() => {
@@ -52,8 +53,9 @@ export function SmartCardProvider({
       extractors: {
         getPreview,
       },
+      featureFlags,
     };
-  }, [customClient, customAuthFlow, storeOptions, renderers]);
+  }, [storeOptions, customClient, customAuthFlow, renderers, featureFlags]);
 
   return (
     <SmartCardContext.Provider value={parentContext || providerValue}>

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all listeners 1`] = `
-<RecentWorkAnalyticsListener
+<AtlasAnalyticsListener
   client={
     Object {
       "sendOperationalEvent": [MockFunction],
@@ -16,7 +16,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
     }
   }
 >
-  <NotificationsAnalyticsListener
+  <RecentWorkAnalyticsListener
     client={
       Object {
         "sendOperationalEvent": [MockFunction],
@@ -31,7 +31,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
       }
     }
   >
-    <PeopleTeamsAnalyticsListener
+    <NotificationsAnalyticsListener
       client={
         Object {
           "sendOperationalEvent": [MockFunction],
@@ -46,7 +46,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
         }
       }
     >
-      <MediaAnalyticsListener
+      <PeopleTeamsAnalyticsListener
         client={
           Object {
             "sendOperationalEvent": [MockFunction],
@@ -61,7 +61,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
           }
         }
       >
-        <NavigationListener
+        <MediaAnalyticsListener
           client={
             Object {
               "sendOperationalEvent": [MockFunction],
@@ -76,7 +76,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
             }
           }
         >
-          <AtlaskitListener
+          <NavigationListener
             client={
               Object {
                 "sendOperationalEvent": [MockFunction],
@@ -91,7 +91,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
               }
             }
           >
-            <FabricEditorListener
+            <AtlaskitListener
               client={
                 Object {
                   "sendOperationalEvent": [MockFunction],
@@ -106,7 +106,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                 }
               }
             >
-              <FabricElementsListener
+              <FabricEditorListener
                 client={
                   Object {
                     "sendOperationalEvent": [MockFunction],
@@ -121,15 +121,31 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                   }
                 }
               >
-                <div>
-                  Child
-                </div>
-              </FabricElementsListener>
-            </FabricEditorListener>
-          </AtlaskitListener>
-        </NavigationListener>
-      </MediaAnalyticsListener>
-    </PeopleTeamsAnalyticsListener>
-  </NotificationsAnalyticsListener>
-</RecentWorkAnalyticsListener>
+                <FabricElementsListener
+                  client={
+                    Object {
+                      "sendOperationalEvent": [MockFunction],
+                      "sendScreenEvent": [MockFunction],
+                      "sendTrackEvent": [MockFunction],
+                      "sendUIEvent": [MockFunction],
+                    }
+                  }
+                  logger={
+                    Logger {
+                      "logLevel": 4,
+                    }
+                  }
+                >
+                  <div>
+                    Child
+                  </div>
+                </FabricElementsListener>
+              </FabricEditorListener>
+            </AtlaskitListener>
+          </NavigationListener>
+        </MediaAnalyticsListener>
+      </PeopleTeamsAnalyticsListener>
+    </NotificationsAnalyticsListener>
+  </RecentWorkAnalyticsListener>
+</AtlasAnalyticsListener>
 `;

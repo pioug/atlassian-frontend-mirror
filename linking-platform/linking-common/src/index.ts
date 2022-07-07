@@ -34,3 +34,4 @@ export { APIError } from './errors';
 export type { APIErrorKind, ErrorType, ServerErrorType } from './errors';
 export type { CardState, CardStore } from './store';
 export { getUrl } from './store';
+export type { LinkingPlatformFeatureFlags } from './ff';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/give-kudos",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Give Kudos experience ",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,6 +35,7 @@
     "@atlaskit/drawer": "^7.1.10",
     "@atlaskit/icon": "^21.10.7",
     "@atlaskit/modal-dialog": "^12.2.9",
+    "@atlaskit/portal": "^4.2.8",
     "@babel/runtime": "^7.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

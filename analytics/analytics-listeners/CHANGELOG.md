@@ -1,5 +1,15 @@
 # @atlaskit/analytics-listeners
 
+## 8.3.0
+
+### Minor Changes
+
+- [`b6c9baebdf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c9baebdf9) - Add Atlas analytics listener
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.1
 
 ### Patch Changes

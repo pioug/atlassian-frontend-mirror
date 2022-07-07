@@ -26,7 +26,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-namespaced-context": "^6.4.0",
+    "@atlaskit/analytics-namespaced-context": "^6.5.0",
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
@@ -42,7 +42,7 @@
     "url-search-params": "^0.10.0"
   },
   "devDependencies": {
-    "@atlaskit/analytics-listeners": "^8.2.0",
+    "@atlaskit/analytics-listeners": "^8.3.0",
     "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-common": "^68.0.0",

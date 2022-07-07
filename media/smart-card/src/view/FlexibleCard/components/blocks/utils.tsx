@@ -136,8 +136,9 @@ export const renderElementItems = (
     (acc: React.ReactElement[], curr: ElementItem, idx: number) => {
       const { name, ...props } = curr;
       const Element = Elements[name];
+      const typedProps = props as any;
       if (Element && isElementDisplayValid(name, display)) {
-        const element = <Element key={idx} {...props} />;
+        const element = <Element key={idx} {...typedProps} />;
         if (!isElementNull(element)) {
           return [...acc, element];
         }

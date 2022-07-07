@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.5.0
+
+### Minor Changes
+
+- [`b6c9baebdf9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6c9baebdf9) - Add Atlas analytics listener
+
 ## 6.4.1
 
 ### Patch Changes

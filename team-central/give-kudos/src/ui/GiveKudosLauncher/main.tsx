@@ -19,13 +19,14 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+import Portal from '@atlaskit/portal';
 
 import messages from '../../messages';
 import { GiveKudosDrawerProps } from '../../types';
 
 import { SidebarContainer } from './styled';
 
-const GiveKudosDrawerWrapper = styled.span`
+const GiveKudosDrawerWrapper = styled.div`
   > Drawer > iframe {
     border: 0;
   }
@@ -229,39 +230,45 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   )}`;
 
   return (
-    <GiveKudosDrawerWrapper data-testid={testId}>
-      <ModalTransition>
-        {isCloseConfirmModalOpen && (
-          <Modal onClose={closeWarningModal} width="small">
-            <ModalHeader>
-              <ModalTitle>Confirm Close</ModalTitle>
-            </ModalHeader>
-            <ModalBody>
-              <FormattedMessage {...messages.unsavedKudosWarning} />
-            </ModalBody>
-            <ModalFooter>
-              <Button appearance="subtle" onClick={closeWarningModal} autoFocus>
-                <FormattedMessage
-                  {...messages.unsavedKudosWarningCancelButton}
-                />
-              </Button>
-              <Button
-                appearance="primary"
-                onClick={() => {
-                  sendCancelAnalytic();
-                  closeDrawer();
-                }}
-              >
-                <FormattedMessage
-                  {...messages.unsavedKudosWarningCloseButton}
-                />
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
-      </ModalTransition>
-      {renderDrawer}
-    </GiveKudosDrawerWrapper>
+    <Portal>
+      <GiveKudosDrawerWrapper data-testid={testId}>
+        <ModalTransition>
+          {isCloseConfirmModalOpen && (
+            <Modal onClose={closeWarningModal} width="small">
+              <ModalHeader>
+                <ModalTitle>Confirm Close</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <FormattedMessage {...messages.unsavedKudosWarning} />
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  appearance="subtle"
+                  onClick={closeWarningModal}
+                  autoFocus
+                >
+                  <FormattedMessage
+                    {...messages.unsavedKudosWarningCancelButton}
+                  />
+                </Button>
+                <Button
+                  appearance="primary"
+                  onClick={() => {
+                    sendCancelAnalytic();
+                    closeDrawer();
+                  }}
+                >
+                  <FormattedMessage
+                    {...messages.unsavedKudosWarningCloseButton}
+                  />
+                </Button>
+              </ModalFooter>
+            </Modal>
+          )}
+        </ModalTransition>
+        {renderDrawer}
+      </GiveKudosDrawerWrapper>
+    </Portal>
   );
 };
 

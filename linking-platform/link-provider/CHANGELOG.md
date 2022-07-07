@@ -1,5 +1,29 @@
 # @atlaskit/link-provider
 
+## 1.0.6
+
+### Patch Changes
+
+- [`b2032a5f6e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2032a5f6e3) - Add FF support to <LinkProvider />
+
+  ```
+  import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
+
+  const MyComponent = () => {
+    const showHoverPreview = useFeatureFlag('showHoverPreview')
+
+    return (
+      <>
+        {showHoverPreview}
+      </>
+    )
+  }
+
+  <SmartCardProvider featureFlags={{showHoverPreview: true}}>
+    <MyComponent />
+  </SmartCardProvider>
+  ```
+
 ## 1.0.5
 
 ### Patch Changes

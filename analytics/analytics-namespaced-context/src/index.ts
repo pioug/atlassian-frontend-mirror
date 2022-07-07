@@ -30,3 +30,5 @@ export {
   RECENT_WORK_CONTEXT,
   RecentWorkAnalyticsContext,
 } from './RecentWorkAnalyticsContext';
+
+export { ATLAS_CONTEXT, AtlasAnalyticsContext } from './AtlasAnalyticsContext';

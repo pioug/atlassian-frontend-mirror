@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 19.1.27
+
+### Patch Changes
+
+- [`98d3f88e428`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98d3f88e428) - This PR adds external element typings for Flexible UI metadata.
+  This means code completion will now be available when an element has a prop that can be overridden.
+  As of this PR, these are the `CreatedOn` and `ModifiedOn` elements, which now accept some `text` which will override the existing text.
+
+  This PR also exposes the overrideCss prop, allowing integrators to supply any CSS for their elements.
+
 ## 19.1.26
 
 ### Patch Changes

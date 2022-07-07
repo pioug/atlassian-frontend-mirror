@@ -47,30 +47,12 @@ export type BlockProps = {
  */
 export type ElementItem = {
   /**
-   * The name of the metadata element, used by Flexible UI to determine which
-   * element to render.
+   * Any additional CSS properties to apply to the element.
    */
-  name:
-    | ElementName.AuthorGroup
-    | ElementName.CollaboratorGroup
-    | ElementName.CommentCount
-    | ElementName.CreatedBy
-    | ElementName.CreatedOn
-    | ElementName.ModifiedBy
-    | ElementName.ModifiedOn
-    | ElementName.Priority
-    | ElementName.ProgrammingLanguage
-    | ElementName.Provider
-    | ElementName.ReactCount
-    | ElementName.State
-    | ElementName.SubscriberCount
-    | ElementName.ViewCount
-    | ElementName.VoteCount
-    | ElementName.LatestCommit;
+  overrideCss?: SerializedStyles;
 
   /**
-   * The size of the element to render.
-   * The elements that support sizing are AuthorGroup and CollaboratorGroup.
+   * The size of the element to display.
    */
   size?: SmartLinkSize;
 
@@ -80,7 +62,7 @@ export type ElementItem = {
    * serving as a hook for automated tests
    */
   testId?: string;
-};
+} & ElementItemProps;
 
 /**
  * Used to represent an Action when passing props into Flexible UI.
@@ -148,3 +130,177 @@ export type CustomActionItem = BaseActionItem & {
   );
 
 export type ActionItem = NamedActionItem | CustomActionItem;
+
+/**
+ * A type that contains all the possible combinations of elements with their corresponding props.
+ */
+export type ElementItemProps =
+  | AuthorGroup
+  | CollaboratorGroup
+  | CommentCount
+  | CreatedBy
+  | CreatedOn
+  | LatestCommit
+  | LinkIcon
+  | ModifiedBy
+  | ModifiedOn
+  | Preview
+  | Priority
+  | ProgrammingLanguage
+  | Provider
+  | ReactCount
+  | Snippet
+  | State
+  | SubscriberCount
+  | Title
+  | ViewCount
+  | VoteCount;
+
+/**
+ * Represents the props available for an AuthorGroup element.
+ * @see AuthorGroup
+ */
+export type AuthorGroup = {
+  name: ElementName.AuthorGroup;
+};
+/**
+ * Represents the props available for an CollaboratorGroup element.
+ * @see CollaboratorGroup
+ */
+export type CollaboratorGroup = {
+  name: ElementName.CollaboratorGroup;
+};
+/**
+ * Represents the props available for an CommentCount element.
+ * @see CommentCount
+ */
+export type CommentCount = {
+  name: ElementName.CommentCount;
+};
+/**
+ * Represents the props available for an CreatedBy element.
+ * @see CreatedBy
+ */
+export type CreatedBy = {
+  name: ElementName.CreatedBy;
+};
+/**
+ * Represents the props available for an CreatedOn element.
+ * @see CreatedOn
+ */
+export type CreatedOn = {
+  name: ElementName.CreatedOn;
+  /**
+   * A string which will be displayed before the specified element.
+   */
+  text?: string;
+};
+/**
+ * Represents the props available for an LastCommit element.
+ * @see BadgeProps
+ */
+export type LatestCommit = {
+  name: ElementName.LatestCommit;
+};
+/**
+ * Represents the props available for an LinkIcon element.
+ * @see LinkIcon
+ */
+export type LinkIcon = {
+  name: ElementName.LinkIcon;
+};
+/**
+ * Represents the props available for an ModifiedBy element.
+ * @see ModifiedBy
+ */
+export type ModifiedBy = {
+  name: ElementName.ModifiedBy;
+};
+/**
+ * Represents the props available for an ModifiedOn element.
+ * @see ModifiedOn
+ */
+export type ModifiedOn = {
+  name: ElementName.ModifiedOn;
+  /**
+   * A string which will be displayed before the specified element.
+   */
+  text?: string;
+};
+/**
+ * Represents the props available for an Preview element.
+ * @see Preview
+ */
+export type Preview = {
+  name: ElementName.Preview;
+};
+/**
+ * Represents the props available for an Priority element.
+ * @see Priority
+ */
+export type Priority = {
+  name: ElementName.Priority;
+};
+/**
+ * Represents the props available for an ProgrammingLanguage element.
+ * @see ProgrammingLanguage
+ */
+export type ProgrammingLanguage = {
+  name: ElementName.ProgrammingLanguage;
+};
+/**
+ * Represents the props available for an Provider element.
+ * @see Provider
+ */
+export type Provider = {
+  name: ElementName.Provider;
+};
+/**
+ * Represents the props available for an ReactCount element.
+ * @see ReactCount
+ */
+export type ReactCount = {
+  name: ElementName.ReactCount;
+};
+/**
+ * Represents the props available for an Snippet element.
+ * @see Snippet
+ */
+export type Snippet = {
+  name: ElementName.Snippet;
+};
+/**
+ * Represents the props available for an State element.
+ * @see State
+ */
+export type State = {
+  name: ElementName.State;
+};
+/**
+ * Represents the props available for an SubscriberCount element.
+ * @see SubscriberCount
+ */
+export type SubscriberCount = {
+  name: ElementName.SubscriberCount;
+};
+/**
+ * Represents the props available for an Title element.
+ * @see Title
+ */
+export type Title = {
+  name: ElementName.Title;
+};
+/**
+ * Represents the props available for an ViewCount element.
+ * @see ViewCount
+ */
+export type ViewCount = {
+  name: ElementName.ViewCount;
+};
+/**
+ * Represents the props available for an VoteCount element.
+ * @see VoteCount
+ */
+export type VoteCount = {
+  name: ElementName.VoteCount;
+};

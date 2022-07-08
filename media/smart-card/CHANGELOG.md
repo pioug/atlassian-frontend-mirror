@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 19.1.28
+
+### Patch Changes
+
+- [`455538b6a3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455538b6a3f) - use useFeatureFlag hook to get hover preview FF
+
 ## 19.1.27
 
 ### Patch Changes

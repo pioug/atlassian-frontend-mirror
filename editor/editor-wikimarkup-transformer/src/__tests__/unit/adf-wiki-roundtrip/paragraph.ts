@@ -159,4 +159,13 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     const adf = transformer.parse(wiki).toJSON();
     expect(adf).toEqual(node.toJSON());
   });
+
+  test('Should roundtrip paragraph text with braces not containing macro in it properly ', () => {
+    const text = 'this is a sample { "text": "something" } object';
+    const node = doc(p(text))(defaultSchema);
+    const wiki = transformer.encode(node);
+    const adf = transformer.parse(wiki).toJSON();
+    expect(adf).toEqual(node.toJSON());
+    expect(wiki).toEqual(text);
+  });
 });

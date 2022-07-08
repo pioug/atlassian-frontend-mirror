@@ -473,4 +473,55 @@ describe('HoverCard', () => {
       });
     });
   });
+
+  describe('feature flags:', () => {
+    const setupWithFF = async (providerFF?: boolean, cardFF?: boolean) => {
+      mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+      mockClient = new (fakeFactory(mockFetch))();
+      mockUrl = 'https://some.url';
+
+      const { queryByTestId, findByTestId } = render(
+        <Provider
+          client={mockClient}
+          featureFlags={{ showHoverPreview: providerFF }}
+        >
+          <Card appearance="inline" url={mockUrl} showHoverPreview={cardFF} />
+        </Provider>,
+      );
+
+      const element = await findByTestId('inline-card-resolved-view');
+      jest.useFakeTimers();
+      fireEvent.mouseEnter(element);
+      jest.runAllTimers();
+      return { findByTestId, queryByTestId };
+    };
+
+    const cases: [
+      'should' | 'should not',
+      boolean | undefined,
+      boolean | undefined,
+    ][] = [
+      ['should not', undefined, undefined],
+      ['should', true, undefined],
+      ['should not', false, undefined],
+      ['should', undefined, true],
+      ['should', true, true],
+      ['should', false, true],
+      ['should not', undefined, false],
+      ['should not', true, false],
+      ['should not', false, false],
+    ];
+    test.each(cases)(
+      'hover card %p render when prop is %p on provider and %p on card',
+      async (outcome, providerFF, cardFF) => {
+        if (outcome === 'should') {
+          const { findByTestId } = await setupWithFF(providerFF, cardFF);
+          expect(await findByTestId('hover-card')).toBeDefined();
+        } else {
+          const { queryByTestId } = await setupWithFF(providerFF, cardFF);
+          expect(queryByTestId('hover-card')).toBeNull();
+        }
+      },
+    );
+  });
 });

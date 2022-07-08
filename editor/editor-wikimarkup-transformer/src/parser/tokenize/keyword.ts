@@ -6,7 +6,7 @@ interface KeywordToken {
   regex: RegExp;
 }
 
-const macroKeywordTokenMap: KeywordToken[] = [
+export const macroKeywordTokenMap: KeywordToken[] = [
   {
     type: TokenType.ADF_MACRO,
     regex: /^{adf/i,

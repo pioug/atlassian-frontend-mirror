@@ -163,4 +163,11 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     const node = doc(p('Hello \0 World'))(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });
+
+  test('[ESS-2507] Should only escape opening braces having macro keywords', () => {
+    const node = doc(p('this is a \\{panel} \\{notmacro} \\{panel}'))(
+      defaultSchema,
+    );
+    expect(transformer.encode(node)).toMatchSnapshot();
+  });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.11
+
+### Patch Changes
+
+- [`31ea1d0b1f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31ea1d0b1f8) - Escape opening braces for only macro keywords
+
 ## 11.0.10
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { NodeEncoder, NodeEncoderOpts } from '..';
+import { macroKeywordTokenMap } from '../../parser/tokenize/keyword';
 
 import { code } from '../marks/code';
 import { textColor } from '../marks/color';
@@ -43,7 +44,13 @@ const isEscapeNeeded = (node: PMNode, parent?: PMNode) => {
 };
 
 function escapingWikiFormatter(text: string) {
-  return text.replace(/[{\\![]/g, '\\$&');
+  const pattern = [
+    '([\\![])',
+    ...macroKeywordTokenMap.map(
+      (macro) => `(${macro.regex.source.replace('^', '')})`,
+    ),
+  ].join('|');
+  return text.replace(new RegExp(pattern, 'g'), '\\$&');
 }
 
 export const text: NodeEncoder = (

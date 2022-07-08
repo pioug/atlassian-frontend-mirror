@@ -22,7 +22,7 @@
     "@babel/runtime": "^7.0.0",
     "chalk": "^2.1.0",
     "meow": "^8.1.1",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "ora": "^3.0.0",
     "semver": "^7.3.0",
     "terminal-link": "^1.2.0",

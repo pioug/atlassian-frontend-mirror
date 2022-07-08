@@ -6,9 +6,11 @@ exports[`ADF => WikiMarkup - Paragraph [CS-206] should convert mixed text format
 
 exports[`ADF => WikiMarkup - Paragraph [CS-293] escape link/mention/file link formatter characters 1`] = `"this is not a \\\\[~mention]"`;
 
-exports[`ADF => WikiMarkup - Paragraph [CS-293] escape macro formatter characters 1`] = `"this is not a \\\\{macro}"`;
+exports[`ADF => WikiMarkup - Paragraph [CS-293] escape macro formatter characters 1`] = `"this is not a {macro}"`;
 
 exports[`ADF => WikiMarkup - Paragraph [CS-293] escape media formatter characters 1`] = `"this is not a \\\\!file.txt\\\\!"`;
+
+exports[`ADF => WikiMarkup - Paragraph [ESS-2507] Should only escape opening braces having macro keywords 1`] = `"this is a \\\\{panel} {notmacro} \\\\{panel}"`;
 
 exports[`ADF => WikiMarkup - Paragraph should convert citation with strong mark 1`] = `"This is an *??strong citation??* text"`;
 

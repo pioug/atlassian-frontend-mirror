@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { MouseEvent, KeyboardEvent } from 'react';
 
+import { useFeatureFlag } from '@atlaskit/link-provider';
 import { CardWithUrlContentProps } from './types';
 import { isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
@@ -61,6 +62,11 @@ export function CardWithUrlContent({
   const services = getServices(state.details);
 
   let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
+
+  const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
+  if (showHoverPreview === undefined && showHoverPreviewFlag !== undefined) {
+    showHoverPreview = showHoverPreviewFlag;
+  }
 
   // Setup UI handlers.
   const handleClick = useCallback(

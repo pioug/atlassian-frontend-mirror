@@ -162,7 +162,8 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
    * so the component could still be used elsewhere if needed.
    */
   const headingsContext = useContext(HeadingContext);
-  const setHeadings = headingsContext?.setHeadings;
+  const setHeadingsOverride = headingsContext?.setHeadingsOverride;
+  const resetHeadings = headingsContext?.resetHeadings;
   const headings = headingsContext?.headings;
 
   /**
@@ -234,14 +235,14 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
 
       if (query !== '') {
         // Remove token groups from side navigation headings context
-        if (setHeadings && headings && headings?.length > 1) {
-          setHeadings([ALL_DESIGN_TOKENS_LIST_HEADING]);
+        if (setHeadingsOverride && headings && headings.length > 1) {
+          setHeadingsOverride([ALL_DESIGN_TOKENS_LIST_HEADING]);
         }
 
         opts.isDebounced ? debouncedSearch(query) : search(query);
       }
     },
-    [setHeadings, headings, debouncedSearch],
+    [setHeadingsOverride, headings, debouncedSearch],
   );
 
   /**
@@ -264,13 +265,22 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
 
   // Update token groups in side navigation headings context when groups change
   useEffect(() => {
-    if (setHeadings && searchQuery === '') {
-      setHeadings([
+    if (setHeadingsOverride && searchQuery === '') {
+      setHeadingsOverride([
         ALL_DESIGN_TOKENS_LIST_HEADING,
         ...getTokenGroupHeadings(filteredTokenGroups),
       ]);
     }
-  }, [setHeadings, searchQuery, filteredTokenGroups]);
+  }, [setHeadingsOverride, searchQuery, filteredTokenGroups]);
+
+  // Clean-up: clear headings override on unmount
+  useEffect(() => {
+    return () => {
+      if (resetHeadings) {
+        resetHeadings();
+      }
+    };
+  }, [resetHeadings]);
 
   /**
    * Exact search

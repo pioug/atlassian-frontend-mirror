@@ -4,7 +4,11 @@ import React from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import { BlockProps } from '../types';
-import { SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
+import {
+  ElementName,
+  SmartLinkDirection,
+  SmartLinkSize,
+} from '../../../../../constants';
 import { getBaseStyles, getGapSize, renderChildren } from '../utils';
 
 const getBlockStyles = (
@@ -16,6 +20,16 @@ const getBlockStyles = (
   [data-separator] + [data-separator]:before {
     content: '•';
     margin-right: ${getGapSize(size)}rem;
+  }
+  // Pull request elements: source branch → target branch
+  [data-smart-element='${ElementName.SourceBranch}']
+    + [data-smart-element='${ElementName.TargetBranch}']:before {
+    content: '→';
+  }
+  // Pull request elements: target branch ← source branch
+  [data-smart-element='${ElementName.TargetBranch}']
+    + [data-smart-element='${ElementName.SourceBranch}']:before {
+    content: '←';
   }
 `;
 

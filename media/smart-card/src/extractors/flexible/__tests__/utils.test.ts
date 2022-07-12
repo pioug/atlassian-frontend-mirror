@@ -2,15 +2,20 @@ import { JsonLd } from 'json-ld-types';
 
 import {
   TEST_BASE_DATA,
+  TEST_LINK,
   TEST_NAME,
   TEST_PERSON,
+  TEST_PULL_REQUEST,
+  TEST_URL,
 } from '../../common/__mocks__/jsonld';
 import {
   extractCommentCount,
   extractCreatedBy,
   extractModifiedBy,
   extractProgrammingLanguage,
+  extractSourceBranch,
   extractSubscriberCount,
+  extractTargetBranch,
 } from '../utils';
 
 describe('extractCommentCount', () => {
@@ -84,5 +89,83 @@ describe('extractModifiedBy', () => {
       'atlassian:updatedBy': TEST_PERSON,
     } as JsonLd.Data.BaseData);
     expect(value).toEqual(TEST_NAME);
+  });
+});
+
+describe('extractSourceBranch', () => {
+  it('returns undefined when link has no source branch', () => {
+    expect(
+      extractSourceBranch(TEST_BASE_DATA as JsonLd.Data.SourceCodePullRequest),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when pull request has no source branch', () => {
+    expect(extractSourceBranch(TEST_PULL_REQUEST)).toBeUndefined();
+  });
+
+  it('returns undefined when pull request has no source branch name (string)', () => {
+    expect(
+      extractSourceBranch({
+        ...TEST_PULL_REQUEST,
+        'atlassian:mergeSource': TEST_URL,
+      }),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when pull request has no source branch name (object)', () => {
+    expect(
+      extractSourceBranch({
+        ...TEST_PULL_REQUEST,
+        'atlassian:mergeSource': { '@type': 'Link', href: TEST_URL },
+      }),
+    ).toBeUndefined();
+  });
+
+  it('returns name of the pull request source branch', () => {
+    expect(
+      extractSourceBranch({
+        ...TEST_PULL_REQUEST,
+        'atlassian:mergeSource': TEST_LINK,
+      }),
+    ).toEqual(TEST_NAME);
+  });
+});
+
+describe('extractTargetBranch', () => {
+  it('returns undefined when link has no source branch', () => {
+    expect(
+      extractTargetBranch(TEST_BASE_DATA as JsonLd.Data.SourceCodePullRequest),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when pull request has no source branch', () => {
+    expect(extractTargetBranch(TEST_PULL_REQUEST)).toBeUndefined();
+  });
+
+  it('returns undefined when pull request has no source branch name (string)', () => {
+    expect(
+      extractTargetBranch({
+        ...TEST_PULL_REQUEST,
+        'atlassian:mergeDestination': TEST_URL,
+      }),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined when pull request has no source branch name (object)', () => {
+    expect(
+      extractTargetBranch({
+        ...TEST_PULL_REQUEST,
+        'atlassian:mergeDestination': { '@type': 'Link', href: TEST_URL },
+      }),
+    ).toBeUndefined();
+  });
+
+  it('returns name of the pull request source branch', () => {
+    expect(
+      extractTargetBranch({
+        ...TEST_PULL_REQUEST,
+        'atlassian:mergeDestination': TEST_LINK,
+      }),
+    ).toEqual(TEST_NAME);
   });
 });

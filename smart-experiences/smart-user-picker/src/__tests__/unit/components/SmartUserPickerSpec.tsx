@@ -590,7 +590,7 @@ describe('SmartUserPicker', () => {
         productKey: 'jira',
         sessionId: mockPREFETCH_SESSION_ID,
         siteId: 'site-id',
-        orgId: 'org-id',
+        organizationId: 'org-id',
       },
       includeGroups: false,
       includeTeams: false,

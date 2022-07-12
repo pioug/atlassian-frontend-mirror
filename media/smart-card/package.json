@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "19.1.28",
+  "version": "19.1.29",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
     "@emotion/styled": "^10.0.7",
     "@formatjs/intl-utils": "^3.8.4",
     "facepaint": "^1.2.1",
-    "json-ld-types": "2.4.2",
+    "json-ld-types": "3.0.2",
     "react-error-boundary": "^3.1.3",
     "react-lazily-render": "^1.2.0",
     "react-loadable": "^5.1.0",

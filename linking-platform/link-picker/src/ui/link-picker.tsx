@@ -27,6 +27,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 import { FormFooter } from '@atlaskit/form';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+import LinkSearchNoResults from './link-search-no-results';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -276,6 +277,9 @@ class LinkPicker extends PureComponent<
       </span>
     );
 
+    const noResults =
+      activePlugin && !isLoading && !items.length && !isSafeUrl(url);
+
     return (
       <div
         data-testid="link-picker"
@@ -370,6 +374,13 @@ class LinkPicker extends PureComponent<
             onMouseEnter={this.handleMouseEnterResultItem}
             onMouseLeave={this.handleMouseLeaveResultItem}
           />
+          {noResults && (
+            <LinkSearchNoResults
+              testId="link-search-no-results"
+              header={formatMessage(messages.noResults)}
+              description={formatMessage(messages.noResultsDescription)}
+            />
+          )}
           <FormFooter align="end">
             <ButtonGroup>
               <Button

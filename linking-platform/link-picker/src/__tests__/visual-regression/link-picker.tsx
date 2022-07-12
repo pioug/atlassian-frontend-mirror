@@ -147,4 +147,15 @@ describe('link-picker', () => {
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Should error message after search returns no results', async () => {
+    const url = getURL('vr');
+    const page = await setup(url);
+
+    await page.type('[data-testid="link-url"]', 'FOO', { delay: 50 });
+    await page.waitForSelector('[data-testid="link-search-no-results"]');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

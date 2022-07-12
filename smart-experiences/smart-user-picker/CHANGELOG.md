@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 5.1.2
+
+### Patch Changes
+
+- [`7536b86964b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7536b86964b) - Update context key for URS from orgId to organizationId
+
 ## 5.1.1
 
 ### Patch Changes

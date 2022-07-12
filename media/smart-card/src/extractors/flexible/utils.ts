@@ -10,6 +10,12 @@ import {
 } from '../common/person';
 import { LinkTypeUpdatedBy } from '../common/person/extractPersonUpdatedBy';
 
+const extractLinkName = (link?: JsonLd.Primitives.Link): string | undefined => {
+  if (link && typeof link === 'object' && link['@type'] === 'Link') {
+    return link.name;
+  }
+};
+
 const extractValue = <TData extends JsonLd.Data.BaseData, TResult>(
   data: JsonLd.Data.BaseData,
   key: keyof TData,
@@ -67,5 +73,15 @@ export const extractProgrammingLanguage = (data: JsonLd.Data.BaseData) =>
     'schema:programmingLanguage',
   );
 
+export const extractSourceBranch = (
+  data: JsonLd.Data.SourceCodePullRequest,
+): string | undefined =>
+  extractLinkName(data['atlassian:mergeSource'] as JsonLd.Primitives.Link);
+
 export const extractSubscriberCount = (data: JsonLd.Data.BaseData) =>
   extractValue<LinkSubscriberType, number>(data, 'atlassian:subscriberCount');
+
+export const extractTargetBranch = (
+  data: JsonLd.Data.SourceCodePullRequest,
+): string | undefined =>
+  extractLinkName(data['atlassian:mergeDestination'] as JsonLd.Primitives.Link);

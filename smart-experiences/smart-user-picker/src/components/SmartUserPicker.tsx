@@ -212,7 +212,7 @@ export class SmartUserPickerWithoutAnalytics extends React.Component<
         principalId,
         productKey,
         siteId,
-        orgId,
+        organizationId: orgId,
         childObjectId,
         sessionId,
         productAttributes,

@@ -14,7 +14,9 @@ export type LinkTypeUpdatedBy =
 export const extractPersonsUpdatedBy = (
   jsonLd: LinkTypeUpdatedBy,
 ): LinkPerson[] | undefined => {
-  const updatedBy = jsonLd['atlassian:updatedBy'];
+  const updatedBy = jsonLd['atlassian:updatedBy'] as
+    | JsonLd.Primitives.Object
+    | JsonLd.Primitives.Link;
   if (updatedBy) {
     const extractedPersons = extractPersonFromJsonLd(updatedBy);
     return extractedPersons ? [extractedPersons] : undefined;

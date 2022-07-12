@@ -105,6 +105,7 @@ const withTooltip = (
 const Link: React.FC<LinkProps> = ({
   hideTooltip,
   maxLines = DEFAULT_MAX_LINES,
+  name,
   overrideCss,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-link',
@@ -121,6 +122,7 @@ const Link: React.FC<LinkProps> = ({
         getAnchorStyles(size, theme, getMaxLines(maxLines), hasSpace),
         overrideCss,
       ]}
+      data-smart-element={name}
       data-smart-element-link
       data-testid={testId}
       onClick={onClick}

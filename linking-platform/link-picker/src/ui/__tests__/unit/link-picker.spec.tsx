@@ -6,6 +6,7 @@ import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 import { LinkPickerPlugin, ResolveResult } from '../../../types';
 import { LinkPickerWithIntl, LinkPickerProps } from '../../link-picker';
 import LinkSearchList from '../../link-search-list';
+import LinkSearchNoResults from '../../link-search-no-results';
 import PanelTextInput from '../../text-input';
 import { getDefaultItems, ManualPromise } from '../__helpers';
 import { messages } from '../../../messages';
@@ -260,6 +261,15 @@ describe('<LinkPicker />', () => {
         .simulate('click');
 
       expect(onCancel).toHaveBeenCalledTimes(1);
+    });
+
+    it('should NOT display a no-results search message', async () => {
+      const { component, updateInputFieldWithStateUpdated } = await setup();
+
+      await updateInputFieldWithStateUpdated('link-url', 'xyz');
+      component.update();
+
+      expect(component.find(LinkSearchNoResults).exists()).toBe(false);
     });
   });
 
@@ -1011,6 +1021,37 @@ describe('<LinkPicker />', () => {
         },
         rawUrl: 'example.com',
       });
+    });
+
+    it('should display a message if search returns no results and state is not loading', async () => {
+      const {
+        component,
+        updateInputFieldWithStateUpdated,
+      } = await setupWithGenericPlugin();
+
+      // Set url to invalid
+      await updateInputFieldWithStateUpdated('link-url', 'xyz');
+      expect(component.find(LinkSearchNoResults).exists()).toBe(false);
+
+      await flushPromises();
+      component.update();
+
+      expect(component.find(LinkSearchNoResults).exists()).toBe(true);
+    });
+
+    it('should not display a no-result search message when inserting a valid URL', async () => {
+      const {
+        component,
+        updateInputFieldWithStateUpdated,
+      } = await setupWithGenericPlugin();
+
+      // Set url to invalid
+      await updateInputFieldWithStateUpdated('link-url', 'http://google.com');
+
+      await flushPromises();
+      component.update();
+
+      expect(component.find(LinkSearchNoResults).exists()).toBe(false);
     });
   });
 });

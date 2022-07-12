@@ -9,7 +9,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '../../../src';
 import darkTheme from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import lightTheme from '../../../src/artifacts/tokens-raw/atlassian-light';
-import { cleanTokenName } from '../../1-tokens-reference';
+import { cleanTokenName } from '../../utils';
 import results from '../data/results';
 import type { resultID, Token as TokenType } from '../types';
 

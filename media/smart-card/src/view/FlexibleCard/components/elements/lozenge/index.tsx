@@ -17,6 +17,7 @@ const styles = css`
  */
 const Lozenge: React.FC<LozengeProps> = ({
   appearance = 'default',
+  name,
   overrideCss,
   text,
   testId = 'smart-element-lozenge',
@@ -29,6 +30,7 @@ const Lozenge: React.FC<LozengeProps> = ({
     <span
       css={[styles, overrideCss]}
       data-fit-to-content
+      data-smart-element={name}
       data-smart-element-lozenge
       data-testid={testId}
     >

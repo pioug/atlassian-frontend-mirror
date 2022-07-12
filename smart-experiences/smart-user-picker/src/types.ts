@@ -14,7 +14,7 @@ export interface Context {
   childObjectId?: string;
   productKey: string;
   siteId: string;
-  orgId?: string;
+  organizationId?: string;
   productAttributes?: ProductAttributes;
 }
 

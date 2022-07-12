@@ -29,6 +29,7 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { AnalyticsFacade } from '../../../state/analytics';
 import { getExtensionKey } from '../../../state/helpers';
 import { titleBlockCss, metadataBlockCss, footerBlockCss } from '../styled';
+import { extractType } from '../../../extractors/common/primitives/extractType';
 
 const flexibleUiOptions = {
   hideElevation: true,
@@ -110,12 +111,15 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     cardActions,
   ]);
 
+  const data = cardState.details?.data as JsonLd.Data.BaseData;
+  const types = data ? extractType(data) : undefined;
   //TODO: EDM-3224 deleted simulated and use real JsonLd
-  const { primary, secondary } = extractMetadata(
-    getSimulatedMetadata(extensionKey),
+  const { primary, secondary, subtitle } = extractMetadata(
+    getSimulatedMetadata(extensionKey, types),
   );
 
-  const data = cardState.details?.data as JsonLd.Data.BaseData;
+  const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;
+
   const body =
     data && extractPreview(data) ? <PreviewBlock /> : <SnippetBlock />;
 
@@ -130,9 +134,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     >
       <TitleBlock
         actions={titleActions}
+        maxLines={titleMaxLines}
         overrideCss={titleBlockCss}
         size={SmartLinkSize.Large}
         position={SmartLinkPosition.Center}
+        subtitle={subtitle}
       />
       <MetadataBlock
         primary={primary}

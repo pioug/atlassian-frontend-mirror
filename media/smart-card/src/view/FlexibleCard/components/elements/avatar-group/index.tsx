@@ -43,6 +43,7 @@ const getStyles = (size: SmartLinkSize) => {
 const AvatarGroup: React.FC<AvatarGroupProps> = ({
   items = [],
   maxCount = MAX_COUNT,
+  name,
   overrideCss,
   size = SmartLinkSize.Medium,
   testId = 'smart-element-avatar-group',
@@ -54,6 +55,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
     <span
       css={[getStyles(size), overrideCss]}
       data-fit-to-content
+      data-smart-element={name}
       data-smart-element-avatar-group
       data-testid={testId}
     >

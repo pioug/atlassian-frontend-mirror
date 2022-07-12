@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d96054f56fadd3c595206b9334ccc5e6>>
+ * @codegen <<SignedSource::4d0639c90d18380e142efed6da97a9b0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -2007,7 +2007,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#5C6C7A",
+    "value": "#596773",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2015,7 +2015,7 @@ const tokens = [
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
     "original": {
-      "value": "#5C6C7A",
+      "value": "#596773",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2029,7 +2029,7 @@ const tokens = [
     ]
   },
   {
-    "value": "#A9C5DF7A",
+    "value": "#9BB4CA80",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2037,7 +2037,7 @@ const tokens = [
     "filePath": "src/tokens/palette.tsx",
     "isSource": false,
     "original": {
-      "value": "#A9C5DF7A",
+      "value": "#9BB4CA80",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"

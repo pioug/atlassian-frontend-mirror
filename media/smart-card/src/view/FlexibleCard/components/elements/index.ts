@@ -93,6 +93,11 @@ export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
  */
 export const Snippet = createElement<TextProps>(ElementName.Snippet);
 /**
+ * Creates a SourceBranch Text element using the data from sourceBranch in the Flexible UI Context.
+ * @see Text
+ */
+export const SourceBranch = createElement<TextProps>(ElementName.SourceBranch);
+/**
  * Creates a State Lozenge element using the data from State in the Flexible UI Context.
  * @see Lozenge
  */
@@ -104,6 +109,11 @@ export const State = createElement<LozengeProps>(ElementName.State);
 export const SubscriberCount = createElement<BadgeProps>(
   ElementName.SubscriberCount,
 );
+/**
+ * Creates a TargetBranch Text element using the data from targetBranch in the Flexible UI Context.
+ * @see Text
+ */
+export const TargetBranch = createElement<TextProps>(ElementName.TargetBranch);
 /**
  * Creates a Title Link element using the data from Title in the Flexible UI Context.
  * This represents the main link text within the Smart Link.

@@ -1,8 +1,15 @@
 import { SerializedStyles } from '@emotion/core';
 
-import { SmartLinkSize } from '../../../../constants';
+import { ElementName, SmartLinkSize } from '../../../../constants';
 
 export type ElementProps = {
+  /**
+   * Name of the element, can be used as a selector.
+   * E.g. [data-smart-element="Provider"]
+   * @internal
+   */
+  name?: ElementName;
+
   /**
    * Any additional CSS properties to apply to the element.
    */

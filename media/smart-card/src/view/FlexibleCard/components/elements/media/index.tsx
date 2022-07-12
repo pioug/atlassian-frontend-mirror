@@ -57,6 +57,7 @@ const styles = css`
  * @see Preview
  */
 const Media: React.FC<MediaProps> = ({
+  name,
   overrideCss,
   testId = 'smart-element-media',
   type,
@@ -69,6 +70,7 @@ const Media: React.FC<MediaProps> = ({
   return (
     <div
       css={[styles, overrideCss]}
+      data-smart-element={name}
       data-smart-element-media
       data-testid={testId}
     >

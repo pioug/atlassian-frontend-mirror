@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 19.1.29
+
+### Patch Changes
+
+- [`acfb4cbb01f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/acfb4cbb01f) - set hover card z-index to 511 to go over issue view modal
+
 ## 19.1.28
 
 ### Patch Changes

@@ -150,8 +150,10 @@ export type ElementItemProps =
   | Provider
   | ReactCount
   | Snippet
+  | SourceBranch
   | State
   | SubscriberCount
+  | TargetBranch
   | Title
   | ViewCount
   | VoteCount;
@@ -270,6 +272,13 @@ export type Snippet = {
   name: ElementName.Snippet;
 };
 /**
+ * Represents the props available for an SourceBranch element.
+ * @see SourceBranch
+ */
+export type SourceBranch = {
+  name: ElementName.SourceBranch;
+};
+/**
  * Represents the props available for an State element.
  * @see State
  */
@@ -282,6 +291,13 @@ export type State = {
  */
 export type SubscriberCount = {
   name: ElementName.SubscriberCount;
+};
+/**
+ * Represents the props available for an TargetBranch element.
+ * @see TargetBranch
+ */
+export type TargetBranch = {
+  name: ElementName.TargetBranch;
 };
 /**
  * Represents the props available for an Title element.

@@ -54,6 +54,10 @@ export type FlexibleUiDataContext = {
    */
   createdOn?: string;
   /**
+   * Contains the information about the latest commit in the repository
+   */
+  latestCommit?: string;
+  /**
    * Contains the favicon of the resource.
    * @type Icon
    * @see LinkIcon
@@ -90,11 +94,23 @@ export type FlexibleUiDataContext = {
    */
   programmingLanguage?: string;
   /**
+   * Contains the provider icon of the linked resource.
+   * @type Icon
+   * @see Provider
+   */
+  provider?: Icon;
+  /**
    * Contains the snippet of the resource.
    * @type string
    * @see Snippet
    */
   snippet?: string;
+  /**
+   * Contains the source branch name of the link typed pull request.
+   * @type string
+   * @see SourceBranch
+   */
+  sourceBranch?: string;
   /**
    * Contains the number of subscribers of the linked resource.
    * @type number
@@ -108,6 +124,12 @@ export type FlexibleUiDataContext = {
    */
   state?: LinkLozenge;
   /**
+   * Contains the target branch name of the link typed pull request.
+   * @type string
+   * @see TargetBranch
+   */
+  targetBranch?: string;
+  /**
    * Contains the Title of the linked resource.
    * @type string
    * @see Title
@@ -119,17 +141,6 @@ export type FlexibleUiDataContext = {
    * @see Title
    */
   url?: string;
-  /**
-   * Contains the provider icon of the linked resource.
-   * @type Icon
-   * @see Provider
-   */
-  provider?: Icon;
-
-  /**
-   * Contains the information about the latest commit in the repository
-   */
-  latestCommit?: string;
 };
 
 export type Icon = {

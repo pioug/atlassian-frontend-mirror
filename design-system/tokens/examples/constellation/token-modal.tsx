@@ -75,7 +75,7 @@ const TokensModal = () => {
         <Button testId="secondary" appearance="subtle">
           Cancel
         </Button>
-        <Button autoFocus testId="primary" appearance="primary">
+        <Button testId="primary" appearance="primary">
           Confirm
         </Button>
       </div>

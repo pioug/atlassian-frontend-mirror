@@ -30,8 +30,10 @@ const context = getContext({
   reactCount: 78,
   snippet:
     'Nunc justo lectus, blandit ut ultrices a, elementum quis quam. In ut dolor ac nulla gravida scelerisque vitae sit amet ipsum. Pellentesque vitae luctus lorem. Etiam enim ligula, lobortis vel convallis ut, elementum ut nibh. Mauris ultricies mi risus, vel condimentum lorem convallis eu. Cras pharetra, dui nec gravida rutrum, mauris odio commodo mauris, eu lacinia dui mi nec tortor. Curabitur eleifend tortor eros, id venenatis est posuere sit amet. ',
+  sourceBranch: 'lp-flexible-smart-links',
   state: { appearance: 'success', text: 'DONE' },
   subscriberCount: 45,
+  targetBranch: 'master',
   viewCount: 2,
   voteCount: 4,
   url:

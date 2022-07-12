@@ -16,6 +16,7 @@ export type PreviewInvokeMethod = 'keyboard' | 'mouse_hover' | 'mouse_click';
 export interface MetadataOptions {
   primary: Array<ElementItem>;
   secondary: Array<ElementItem>;
+  subtitle: Array<ElementItem>;
 }
 
 export type HoverCardContentProps = {

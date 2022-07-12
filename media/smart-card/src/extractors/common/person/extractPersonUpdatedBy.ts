@@ -16,6 +16,8 @@ export const extractPersonUpdatedBy = (
 ): LinkPerson | undefined => {
   const updatedBy = jsonLd['atlassian:updatedBy'];
   if (updatedBy) {
-    return extractPersonFromJsonLd(updatedBy);
+    return extractPersonFromJsonLd(
+      updatedBy as JsonLd.Primitives.Object | JsonLd.Primitives.Link,
+    );
   }
 };

@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { createElement } from '../utils';
 import {
@@ -35,9 +35,9 @@ describe('createElement', () => {
   describe('elements', () => {
     it('creates Title component from Link element', async () => {
       const Component = createElement(ElementName.Title);
-      const { getByTestId } = renderComponent(Component, context, testId);
+      const { findByTestId } = renderComponent(Component, context, testId);
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(Component).toBeDefined();
       expect(element.getAttribute('data-smart-element-link')).toBeTruthy();
@@ -47,9 +47,9 @@ describe('createElement', () => {
 
     it('creates LinkIcon component from Icon element', async () => {
       const Component = createElement(ElementName.LinkIcon);
-      const { getByTestId } = renderComponent(Component, context, testId);
+      const { findByTestId } = renderComponent(Component, context, testId);
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(Component).toBeDefined();
       expect(element.getAttribute('data-smart-element-icon')).toBeTruthy();
@@ -57,55 +57,37 @@ describe('createElement', () => {
 
     it('creates State component from Lozenge element', async () => {
       const Component = createElement(ElementName.State);
-      const { getByTestId } = renderComponent(Component, context, testId);
+      const { findByTestId } = renderComponent(Component, context, testId);
 
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
 
       expect(Component).toBeDefined();
       expect(element.textContent).toEqual(context.state?.text);
     });
 
     it.each([
-      [
-        ElementName.CommentCount,
-        'commentCount' as EnumKeysAsString<FlexibleUiDataContext>,
-      ],
-      [
-        ElementName.ViewCount,
-        'viewCount' as EnumKeysAsString<FlexibleUiDataContext>,
-      ],
-      [
-        ElementName.ReactCount,
-        'reactCount' as EnumKeysAsString<FlexibleUiDataContext>,
-      ],
-      [
-        ElementName.VoteCount,
-        'voteCount' as EnumKeysAsString<FlexibleUiDataContext>,
-      ],
-      [
-        ElementName.ProgrammingLanguage,
-        'programmingLanguage' as EnumKeysAsString<FlexibleUiDataContext>,
-      ],
-      [
-        ElementName.SubscriberCount,
-        'subscriberCount' as EnumKeysAsString<FlexibleUiDataContext>,
-      ],
+      [ElementName.CommentCount, 'commentCount'],
+      [ElementName.ViewCount, 'viewCount'],
+      [ElementName.ReactCount, 'reactCount'],
+      [ElementName.VoteCount, 'voteCount'],
+      [ElementName.ProgrammingLanguage, 'programmingLanguage'],
+      [ElementName.SubscriberCount, 'subscriberCount'],
     ])(
       'creates %s component from Badge element',
-      async (
-        elementName: ElementName,
-        contextKey: EnumKeysAsString<FlexibleUiDataContext>,
-      ) => {
+      async (elementName: ElementName, contextKey: string) => {
+        const expectedTextContent = context[
+          contextKey as EnumKeysAsString<FlexibleUiDataContext>
+        ]?.toString();
         const Component = createElement(elementName);
         expect(Component).toBeDefined();
 
-        const { getByTestId } = renderComponent(Component, context, testId);
+        const { findByTestId } = renderComponent(Component, context, testId);
 
-        const element = await waitForElement(() => getByTestId(testId));
-        const icon = await waitForElement(() => getByTestId(`${testId}-icon`));
+        const element = await findByTestId(testId);
+        const icon = await findByTestId(`${testId}-icon`);
 
         expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
-        expect(element.textContent).toEqual(context[contextKey]?.toString());
+        expect(element.textContent).toEqual(expectedTextContent);
         expect(icon).toBeDefined();
       },
     );
@@ -114,31 +96,23 @@ describe('createElement', () => {
       const Component = createElement(ElementName.Provider);
       expect(Component).toBeDefined();
 
-      const { getByTestId } = renderComponent(Component, context, testId, {
+      const { findByTestId } = renderComponent(Component, context, testId, {
         icon: 'Provider:Confluence' as IconType,
       });
-      const element = await waitForElement(() => getByTestId(testId));
+      const element = await findByTestId(testId);
       expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
       expect(element.textContent).toEqual(context.provider?.label);
-      const icon = await waitForElement(() =>
-        getByTestId(`${testId}-icon--wrapper`),
-      );
+      const icon = await findByTestId(`${testId}-icon--wrapper`);
       expect(icon).toBeDefined();
     });
 
     it('creates Priority component from Badge element', async () => {
       const Component = createElement(ElementName.Priority);
-      const { getByTestId } = renderComponent(Component, context);
+      const { findByTestId } = renderComponent(Component, context);
 
-      const element = await waitForElement(() =>
-        getByTestId('smart-element-badge'),
-      );
-      const icon = await waitForElement(() =>
-        getByTestId('smart-element-badge-icon'),
-      );
-      const label = await waitForElement(() =>
-        getByTestId('smart-element-badge-label'),
-      );
+      const element = await findByTestId('smart-element-badge');
+      const icon = await findByTestId('smart-element-badge-icon');
+      const label = await findByTestId('smart-element-badge-label');
 
       expect(Component).toBeDefined();
       expect(element).toBeDefined();
@@ -146,29 +120,27 @@ describe('createElement', () => {
       expect(label).toBeDefined();
     });
 
-    it('creates CreatedBy component from Text element', async () => {
-      const Component = createElement(ElementName.CreatedBy);
-      const { getByTestId } = renderComponent(Component, context);
+    it.each([
+      [ElementName.CreatedBy, 'createdBy'],
+      [ElementName.ModifiedBy, 'modifiedBy'],
+      [ElementName.SourceBranch, 'sourceBranch'],
+      [ElementName.TargetBranch, 'targetBranch'],
+    ])(
+      'creates %s component from Text element',
+      async (elementName: ElementName, contextKey: string) => {
+        const key = contextKey as EnumKeysAsString<FlexibleUiDataContext>;
+        const Component = createElement(elementName);
+        const { findByTestId } = renderComponent(Component, context);
 
-      const element = await waitForElement(() =>
-        getByTestId('smart-element-text'),
-      );
+        const element = await findByTestId('smart-element-text');
 
-      expect(Component).toBeDefined();
-      expect(element).toBeDefined();
-    });
-
-    it('creates ModifiedBy component from Text element', async () => {
-      const Component = createElement(ElementName.ModifiedBy);
-      const { getByTestId } = renderComponent(Component, context);
-
-      const element = await waitForElement(() =>
-        getByTestId('smart-element-text'),
-      );
-
-      expect(Component).toBeDefined();
-      expect(element).toBeDefined();
-    });
+        expect(Component).toBeDefined();
+        expect(element.textContent).toEqual(
+          expect.stringContaining(context[key] as string),
+        );
+        expect(element).toBeDefined();
+      },
+    );
   });
 
   it('throws error if base element does not exists', () => {
@@ -217,12 +189,12 @@ describe('createElement', () => {
   it('allows overrides of preset props and data', async () => {
     const expectedTextContent = 'Override title';
     const Component = createElement(ElementName.Title);
-    const { getByTestId } = renderComponent(Component, context, testId, {
+    const { findByTestId } = renderComponent(Component, context, testId, {
       text: expectedTextContent,
       theme: SmartLinkTheme.Black,
     });
 
-    const element = await waitForElement(() => getByTestId(testId));
+    const element = await findByTestId(testId);
 
     expect(element.textContent).toEqual(expectedTextContent);
     expect(element).toHaveStyleDeclaration(

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.1.0
+
+### Minor Changes
+
+- [`ba5d8ed23cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba5d8ed23cc) - Adds search error message
+
 ## 1.0.0
 
 ### Major Changes

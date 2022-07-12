@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import {
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useReducer,
@@ -29,7 +28,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import ToolTip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import HeadingContext from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
+import { useHeadings } from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/local-nav/heading-context';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import SectionLink from '../../../../../services/website-constellation/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/section-link';
 import { token } from '../../src';
@@ -161,7 +160,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
    * This doesn't assume the component is wrapped in a context provider,
    * so the component could still be used elsewhere if needed.
    */
-  const headingsContext = useContext(HeadingContext);
+  const headingsContext = useHeadings();
   const setHeadingsOverride = headingsContext?.setHeadingsOverride;
   const resetHeadings = headingsContext?.resetHeadings;
   const headings = headingsContext?.headings;

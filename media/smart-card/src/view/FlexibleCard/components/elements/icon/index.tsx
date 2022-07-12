@@ -93,6 +93,7 @@ const renderImageIcon = (
 const Icon: React.FC<IconProps> = ({
   icon,
   label = 'Link',
+  name,
   position = SmartLinkPosition.Top,
   overrideCss,
   render,
@@ -118,6 +119,7 @@ const Icon: React.FC<IconProps> = ({
     <div
       css={[styles, renderStyles, overrideCss]}
       data-fit-to-content
+      data-smart-element={name}
       data-smart-element-icon
       data-testid={testId}
     >

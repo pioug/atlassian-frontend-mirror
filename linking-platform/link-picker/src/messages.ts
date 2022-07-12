@@ -86,13 +86,23 @@ export const messages = defineMessages({
       'Describes type of items shown in the list for screen-reader users',
   },
   cancelButton: {
-    id: 'fabric.linkPicker.cancel.button',
+    id: 'fabric.linkPicker.button.cancel',
     defaultMessage: 'Cancel',
     description: 'Button to cancel and dismiss the link picker',
   },
   insertButton: {
-    id: 'fabric.linkPicker.cancel.insert',
+    id: 'fabric.linkPicker.button.insert',
     defaultMessage: 'Insert',
     description: 'Button to insert searched or selected link',
+  },
+  noResults: {
+    id: 'fabric.linkPicker.search.noResults.heading',
+    defaultMessage: 'We couldn’t find anything matching your search.',
+    description: 'Heading message shown when a search has no results',
+  },
+  noResultsDescription: {
+    id: 'fabric.linkPicker.search.noResults.description',
+    defaultMessage: 'Try again with a different term.',
+    description: 'Describes possible action when a search returns no results',
   },
 });

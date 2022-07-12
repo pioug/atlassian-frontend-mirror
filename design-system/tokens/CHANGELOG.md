@@ -1,5 +1,32 @@
 # @atlaskit/tokens
 
+## 0.10.11
+
+### Patch Changes
+
+- [`d9d18df130f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d18df130f) - [ux] Tweaked the values of the DN500 and DN500A base tokens to improve color contrast when paired with text:
+
+  - DN500 has changed from `#5C6C7A` to `#596773`
+  - DN500A has changed from `#A9C5DF7A` to `#9BB4CA80`
+
+  This changes the values in dark mode for the following tokens:
+
+  _(active)_:
+
+  - `color.text.disabled`
+  - `color.icon.disabled`
+  - `color.background.accent.gray.subtle`
+
+  _(deprecated)_:
+
+  - `color.overlay.pressed`
+
+## 0.10.10
+
+### Patch Changes
+
+- [`dc05530d2a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc05530d2a0) - Internal refactor to the way the documentation is built.
+
 ## 0.10.9
 
 ### Patch Changes

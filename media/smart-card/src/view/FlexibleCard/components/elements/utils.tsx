@@ -46,14 +46,21 @@ const elementMappings: Record<
     props: { icon: IconType.Vote },
   },
   [ElementName.CreatedBy]: { component: Text },
+  [ElementName.CreatedOn]: { component: DateTime },
+  [ElementName.LatestCommit]: {
+    component: Badge,
+    props: { icon: IconType.Commit },
+  },
   [ElementName.LinkIcon]: { component: Icon },
   [ElementName.ModifiedBy]: { component: Text },
+  [ElementName.ModifiedOn]: { component: DateTime },
   [ElementName.Preview]: { component: Media },
   [ElementName.Priority]: { component: Badge },
   [ElementName.ProgrammingLanguage]: {
     component: Badge,
     props: { icon: IconType.ProgrammingLanguage },
   },
+  [ElementName.Provider]: { component: Badge },
   [ElementName.Snippet]: {
     component: Text,
     props: {
@@ -63,19 +70,14 @@ const elementMappings: Record<
       `,
     },
   },
+  [ElementName.SourceBranch]: { component: Text },
   [ElementName.State]: { component: Lozenge },
   [ElementName.SubscriberCount]: {
     component: Badge,
     props: { icon: IconType.Subscriber },
   },
+  [ElementName.TargetBranch]: { component: Text },
   [ElementName.Title]: { component: Link },
-  [ElementName.CreatedOn]: { component: DateTime },
-  [ElementName.ModifiedOn]: { component: DateTime },
-  [ElementName.Provider]: { component: Badge },
-  [ElementName.LatestCommit]: {
-    component: Badge,
-    props: { icon: IconType.Commit },
-  },
 };
 
 const getContextKey = (name: ElementName) => {
@@ -117,6 +119,8 @@ const getData = (
     case ElementName.ModifiedOn:
       return toDateTimeProps('modified', context.modifiedOn);
     case ElementName.Snippet:
+    case ElementName.SourceBranch:
+    case ElementName.TargetBranch:
       return toTextProps(data as string | undefined);
     case ElementName.Title:
       return toLinkProps(context.title, context.url);
@@ -171,6 +175,8 @@ export const createElement = <P extends {}>(name: ElementName): React.FC<P> => {
   return (overrides: P) => {
     const context = useContext(FlexibleUiContext);
     const data = getData(name, contextKey, context);
-    return data ? <BaseElement {...props} {...data} {...overrides} /> : null;
+    return data ? (
+      <BaseElement {...props} {...data} {...overrides} name={name} />
+    ) : null;
   };
 };

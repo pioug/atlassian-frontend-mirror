@@ -162,6 +162,25 @@ ${(
   />
 )}
 
+### Source branch and target branch
+
+The \`SourceBranch\` and \`TargetBranch\` elements show the source and target
+branch of a pull request link.
+An arrow pointing toward the target branch will show automatically when these
+two elements are positioned next to each other.
+
+The elements data are mapped to \`atlassian:mergeSource\` and
+\`atlassian:mergeDestination\` respectively.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/element-source-target-branch').default
+    }
+    source={require('!!raw-loader!../../../examples/content/element-source-target-branch')}
+  />
+)}
+
 ### State
 
 A \`State\` element can show different things based on the type of the link resource.

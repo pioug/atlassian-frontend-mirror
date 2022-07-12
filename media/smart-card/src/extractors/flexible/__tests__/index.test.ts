@@ -2,6 +2,7 @@ import { JsonLd } from 'json-ld-types';
 
 import extractFlexibleUiContext from '../index';
 
+import BitbucketPullRequest from './__fixtures__/bitbucket-pull-request';
 import ConfluenceBlog from './__fixtures__/confluence-blog';
 import ConfluencePage from './__fixtures__/confluence-page';
 import ConfluenceSpace from './__fixtures__/confluence-space';
@@ -21,6 +22,35 @@ describe('extractFlexibleUiContext', () => {
     icon: 'Provider:Jira',
     label: 'Jira',
   };
+
+  it('returns flexible ui context for bitbucket pull request', () => {
+    const data = extractFlexibleUiContext(
+      BitbucketPullRequest as JsonLd.Response,
+    );
+
+    expect(data).toEqual({
+      authorGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
+      collaboratorGroup: [
+        { name: 'Angie Mccarthy', src: 'https://person-url' },
+      ],
+      createdBy: 'Angie Mccarthy',
+      createdOn: '2022-07-04T12:04:10.182Z',
+      linkIcon: {
+        icon: 'BitBucket:PullRequest',
+        label:
+          'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
+      },
+      modifiedBy: 'Angie Mccarthy',
+      modifiedOn: '2022-07-04T12:05:28.601Z',
+      provider: { label: 'Bitbucket', url: 'https://icon-url' },
+      sourceBranch: 'source-branch',
+      state: { appearance: 'inprogress', text: 'open' },
+      targetBranch: 'target-branch',
+      title:
+        'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
+      url: 'https://link-url',
+    });
+  });
 
   it('returns flexible ui context for confluence page', () => {
     const data = extractFlexibleUiContext(ConfluencePage as JsonLd.Response);

@@ -1,3 +1,4 @@
+import { waitForTooltip } from '@atlaskit/visual-regression/helper';
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Flexible Card', () => {
@@ -15,7 +16,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-block');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
-      const image = await takeSnapshot(page, 520);
+      const image = await takeSnapshot(page, 620);
 
       expect(image).toMatchProdImageSnapshot();
     });
@@ -84,6 +85,7 @@ describe('Flexible Card', () => {
       await page.click('[data-testid="action-group-more-button"]');
 
       await page.waitForSelector('[data-testid="third-action-item"]');
+      await waitForTooltip(page);
       const image2 = await takeSnapshot(page, 810);
 
       expect(image2).toMatchProdImageSnapshot();
@@ -169,7 +171,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-text-and-date');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-text"]');
-      const image = await takeSnapshot(page, 300);
+      const image = await takeSnapshot(page, 330);
 
       expect(image).toMatchProdImageSnapshot();
     });

@@ -107,6 +107,7 @@ const renderImageIcon = (
 const Badge: React.FC<BadgeProps> = ({
   icon,
   label,
+  name,
   overrideCss,
   testId = 'smart-element-badge',
   url,
@@ -123,6 +124,7 @@ const Badge: React.FC<BadgeProps> = ({
     <span
       css={[badgeStyles, overrideCss]}
       data-fit-to-content
+      data-smart-element={name}
       data-smart-element-badge
       data-testid={testId}
     >

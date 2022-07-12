@@ -29,18 +29,20 @@ export const ElementDisplaySchema: Record<
   [ElementName.VoteCount]: ['inline'],
   [ElementName.CreatedBy]: ['inline'],
   [ElementName.CreatedOn]: ['inline'],
+  [ElementName.LatestCommit]: ['inline'],
   [ElementName.LinkIcon]: ['inline'],
   [ElementName.ModifiedBy]: ['inline'],
   [ElementName.ModifiedOn]: ['inline'],
   [ElementName.Preview]: ['block'],
   [ElementName.Priority]: ['inline'],
   [ElementName.ProgrammingLanguage]: ['inline'],
+  [ElementName.Provider]: ['inline'],
   [ElementName.Snippet]: ['block'],
+  [ElementName.SourceBranch]: ['inline'],
   [ElementName.State]: ['inline'],
   [ElementName.SubscriberCount]: ['inline'],
+  [ElementName.TargetBranch]: ['inline'],
   [ElementName.Title]: ['inline'],
-  [ElementName.Provider]: ['inline'],
-  [ElementName.LatestCommit]: ['inline'],
 };
 
 const getDirectionStyles = (

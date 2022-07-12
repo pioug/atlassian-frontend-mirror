@@ -107,7 +107,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
           {children}
         </span>
       )}
-      zIndex={501} // Temporary fix for Confluence inline comment on editor mod has z-index of 500
+      zIndex={511} // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
     />
   );
 };

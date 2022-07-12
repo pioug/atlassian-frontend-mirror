@@ -23,6 +23,7 @@ const Text: React.FC<TextProps> = ({
   content,
   maxLines = 1,
   message,
+  name,
   overrideCss,
   testId = 'smart-element-text',
 }) => {
@@ -34,6 +35,7 @@ const Text: React.FC<TextProps> = ({
     <span
       css={[getStyles(maxLines), overrideCss]}
       data-separator
+      data-smart-element={name}
       data-smart-element-text
       data-testid={testId}
     >

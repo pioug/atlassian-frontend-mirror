@@ -17,6 +17,8 @@ import {
   extractViewCount,
   extractReactCount,
   extractVoteCount,
+  extractSourceBranch,
+  extractTargetBranch,
 } from './utils';
 import { extractPersonCreatedBy } from '../common/person';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
@@ -48,18 +50,24 @@ const extractFlexibleUiContext = (
     voteCount: extractVoteCount(data),
     createdBy: extractCreatedBy(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
+    latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
     linkIcon: extractLinkIcon(response, renderers),
     modifiedBy: extractModifiedBy(data),
     modifiedOn: extractDateUpdated(data),
     preview: extractPreview(data),
     priority: extractPriority(data as JsonLd.Data.Task),
+    provider: extractProviderIcon(data),
     programmingLanguage: extractProgrammingLanguage(data),
     snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
+    sourceBranch: extractSourceBranch(
+      data as JsonLd.Data.SourceCodePullRequest,
+    ),
     state: extractLozenge(data),
     subscriberCount: extractSubscriberCount(data),
+    targetBranch: extractTargetBranch(
+      data as JsonLd.Data.SourceCodePullRequest,
+    ),
     title: extractTitle(data) || url,
-    provider: extractProviderIcon(data),
-    latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
     url,
   };
 };

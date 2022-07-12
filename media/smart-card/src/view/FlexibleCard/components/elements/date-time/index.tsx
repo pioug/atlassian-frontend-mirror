@@ -41,6 +41,7 @@ const typeToDescriptorMap: Record<
  */
 const DateTime: React.FC<DateTimeProps> = ({
   date,
+  name,
   overrideCss,
   type,
   testId = 'smart-element-date-time',
@@ -73,6 +74,7 @@ const DateTime: React.FC<DateTimeProps> = ({
     <span
       css={[styles, overrideCss]}
       data-separator
+      data-smart-element={name}
       data-smart-element-date-time
       data-testid={testId}
     >

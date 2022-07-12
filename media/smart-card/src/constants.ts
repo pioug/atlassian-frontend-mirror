@@ -78,7 +78,7 @@ export enum SmartLinkWidth {
  * When adding an element...
  * 1) Create base element if it doesn't already exist.
  *    Base element are inside src/view/FlexibleCard/components/elements.
- *    E.g. Badge,DateTime, Icon, Lozenge, etc.
+ *    E.g. Badge, DateTime, Icon, Lozenge, etc.
  * 2) Update FlexibleUiContext with the new prop for data representing
  *    the element, preferably with the same name as the element itself.
  *    (src/state/flexible-ui-context/types.ts)
@@ -104,8 +104,10 @@ export enum ElementName {
   Provider = 'Provider',
   ReactCount = 'ReactCount',
   Snippet = 'Snippet',
+  SourceBranch = 'SourceBranch',
   State = 'State',
   SubscriberCount = 'SubscriberCount',
+  TargetBranch = 'TargetBranch',
   Title = 'Title',
   ViewCount = 'ViewCount',
   VoteCount = 'VoteCount',

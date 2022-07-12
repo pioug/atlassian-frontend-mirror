@@ -646,15 +646,15 @@ const palette: PaletteColorTokenSchema = {
         },
       },
       DN500: {
-        value: '#5C6C7A',
+        value: '#596773',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
         },
       },
       DN500A: {
-        // #A9C5DF 48%
-        value: '#A9C5DF7A',
+        // #9BB4CA @50%
+        value: '#9BB4CA80',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',

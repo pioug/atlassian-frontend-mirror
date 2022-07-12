@@ -8,6 +8,8 @@ import { ElementName, SmartLinkTheme, TitleBlock } from '../src/index';
 
 const cardState = getCardState({
   '@type': 'atlassian:Template',
+  'atlassian:mergeSource': { '@type': 'Link', name: 'lp-flexible-smart-links' },
+  'atlassian:mergeDestination': { '@type': 'Link', name: 'master' },
   'atlassian:state': 'open',
   'atlassian:updatedBy': { '@type': 'Person', name: 'Tweak' },
   attributedTo: [
@@ -34,22 +36,22 @@ export default () => (
           { name: ElementName.CreatedBy },
           { name: ElementName.ModifiedBy },
         ]}
-        text="Between text elements"
+        text="Between text-based elements"
       />
       <TitleBlock
         subtitle={[{ name: ElementName.CreatedBy }]}
-        text="Single text element (omitted)"
+        text="Single text-based element (omitted)"
       />
       <TitleBlock
         subtitle={[
           { name: ElementName.CreatedOn },
           { name: ElementName.ModifiedOn },
         ]}
-        text="Between date-time elements"
+        text="Between date-time-based elements"
       />
       <TitleBlock
         subtitle={[{ name: ElementName.ModifiedOn }]}
-        text="Single date-time element (omitted)"
+        text="Single date-time-based element (omitted)"
       />
       <TitleBlock
         subtitle={[
@@ -58,7 +60,21 @@ export default () => (
           { name: ElementName.ModifiedBy },
           { name: ElementName.ModifiedOn },
         ]}
-        text="Between text and date-time elements"
+        text="Between text-based and date-time-based elements"
+      />
+      <TitleBlock
+        subtitle={[
+          { name: ElementName.SourceBranch },
+          { name: ElementName.TargetBranch },
+        ]}
+        text="Between source branch and target branch elements"
+      />
+      <TitleBlock
+        subtitle={[
+          { name: ElementName.TargetBranch },
+          { name: ElementName.SourceBranch },
+        ]}
+        text="Between target branch and source branch elements"
       />
       <TitleBlock
         subtitle={[
@@ -69,6 +85,8 @@ export default () => (
           { name: ElementName.ModifiedBy },
           { name: ElementName.ModifiedOn },
           { name: ElementName.CommentCount },
+          { name: ElementName.SourceBranch },
+          { name: ElementName.TargetBranch },
           { name: ElementName.ProgrammingLanguage },
         ]}
         text="With other element types"

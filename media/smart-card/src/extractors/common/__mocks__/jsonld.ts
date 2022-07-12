@@ -62,6 +62,16 @@ export const TEST_PROJECT: JsonLd.Data.Project = {
   'atlassian:member': TEST_PERSON,
   'schema:dateCreated': '2018-07-10T15:00:32Z',
 };
+
+export const TEST_PULL_REQUEST: JsonLd.Data.SourceCodePullRequest = {
+  ...TEST_BASE_DATA,
+  '@type': 'atlassian:SourceCodePullRequest',
+  'atlassian:isMerged': false,
+  'atlassian:state': 'OPEN',
+  'schema:dateCreated': '2018-07-10T15:00:32Z',
+  'schema:potentialAction': undefined,
+};
+
 export const TEST_TASK: JsonLd.Data.Task = {
   '@type': 'atlassian:Task',
   '@context': {

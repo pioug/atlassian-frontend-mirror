@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6554dd5fa7c18bf2250697f2e567297>>
+ * @codegen <<SignedSource::98101caf910ff8cddc38a424e29e4980>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -593,7 +593,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for text in a disabled state."
     },
-    "value": "#5C6C7A",
+    "value": "#596773",
     "filePath": "src/tokens/atlassian-dark/color/text.tsx",
     "isSource": true,
     "original": {
@@ -1402,7 +1402,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for icons in a disabled state."
     },
-    "value": "#5C6C7A",
+    "value": "#596773",
     "filePath": "src/tokens/atlassian-dark/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -3779,7 +3779,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for vibrant gray backgrounds when there is no meaning tied to the color, such as colored tags."
     },
-    "value": "#5C6C7A",
+    "value": "#596773",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -7950,7 +7950,7 @@ const tokens = [
       "replacement": "color.interaction.pressed",
       "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
     },
-    "value": "#A9C5DF7A",
+    "value": "#9BB4CA80",
     "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
     "isSource": true,
     "original": {

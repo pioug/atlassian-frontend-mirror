@@ -58,7 +58,8 @@ describe('ssr for renderer', () => {
     page = global.page;
   });
 
-  it('should not throw when rendering any example on the server', async () => {
+  // FIXME: Unskip via https://product-fabric.atlassian.net/browse/ED-15263
+  it.skip('should not throw when rendering any example on the server', async () => {
     const { ReactRenderer } = require('../../index');
     const element = React.createElement<CustomProvidersProps>(
       CustomProviders,

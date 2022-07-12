@@ -1,6 +1,9 @@
 import { Device, snapshot, initFullPageEditorWithAdf } from '../_utils';
 import adf from './__fixtures__/custom-panel.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import {
+  PuppeteerPage,
+  waitForTooltip,
+} from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
 import { waitForFloatingControl } from '../../__helpers/page-objects/_toolbar';
 
@@ -64,5 +67,6 @@ describe('Custom panel looks correct for fullpage:', () => {
     await waitForFloatingControl(page, floatingControlsAriaLabel);
     await page.click(backgroundColorButtonSelector);
     await page.waitForSelector(purpleColorButtonSelector);
+    await waitForTooltip(page);
   });
 });

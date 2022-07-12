@@ -16,11 +16,7 @@ import {
 import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 
 import { token } from '../../../src';
-import {
-  cleanTokenName,
-  getBoxShadow,
-  getTextContrast,
-} from '../../1-tokens-reference';
+import { cleanTokenName, getBoxShadow, getTextContrast } from '../../utils';
 import type { Token as TokenType } from '../types';
 
 import CopyPasteBlock from './copy-paste-block';

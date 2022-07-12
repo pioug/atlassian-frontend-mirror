@@ -1,25 +1,16 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
 
-import { mockRecentClient, searchProvider } from '../example-helpers/providers';
 import { LinkPicker } from '../src';
+import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
-mockRecentClient();
+const plugins = [new MockLinkPickerPlugin()];
 
 export default function Vr() {
   return (
     <div className="example" style={{ padding: 50 }}>
       <IntlProvider locale="en">
-        <LinkPicker
-          plugins={[
-            new AtlassianLinkPickerPlugin({
-              searchProvider,
-            }),
-          ]}
-          onSubmit={() => {}}
-          onCancel={() => {}}
-        />
+        <LinkPicker plugins={plugins} onSubmit={() => {}} onCancel={() => {}} />
       </IntlProvider>
     </div>
   );

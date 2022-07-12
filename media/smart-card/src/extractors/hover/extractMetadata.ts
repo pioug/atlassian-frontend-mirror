@@ -22,5 +22,6 @@ export const extractMetadata: (
   return {
     primary: elementNamesToItems(metadata.primary ?? []),
     secondary: elementNamesToItems(metadata.secondary ?? []),
+    subtitle: elementNamesToItems(metadata.subtitle ?? []),
   };
 };

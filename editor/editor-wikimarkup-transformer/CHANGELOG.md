@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.12
+
+### Patch Changes
+
+- [`6a6291137de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a6291137de) - Handle hardbreaks and force-line-breaks differently
+
 ## 11.0.11
 
 ### Patch Changes

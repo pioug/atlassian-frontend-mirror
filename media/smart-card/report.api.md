@@ -267,9 +267,13 @@ export enum ElementName {
   // (undocumented)
   Snippet = 'Snippet',
   // (undocumented)
+  SourceBranch = 'SourceBranch',
+  // (undocumented)
   State = 'State',
   // (undocumented)
   SubscriberCount = 'SubscriberCount',
+  // (undocumented)
+  TargetBranch = 'TargetBranch',
   // (undocumented)
   Title = 'Title',
   // (undocumented)

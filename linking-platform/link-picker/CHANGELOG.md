@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.1.1
+
+### Patch Changes
+
+- [`780484d9518`](https://bitbucket.org/atlassian/atlassian-frontend/commits/780484d9518) - Fixes missing svg asset for no search results in version 1.1.0.
+
 ## 1.1.0
 
 ### Minor Changes

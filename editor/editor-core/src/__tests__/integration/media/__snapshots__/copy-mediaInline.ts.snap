@@ -68,19 +68,6 @@ Object {
             "url": null,
             "width": null,
           },
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "type": Object {
-                  "nodeType": "mediaInline",
-                },
-                "unsupported": Object {
-                  "type": "file",
-                },
-              },
-              "type": "unsupportedNodeAttribute",
-            },
-          ],
           "type": "mediaInline",
         },
       ],

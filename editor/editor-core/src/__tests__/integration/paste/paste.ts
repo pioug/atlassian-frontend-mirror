@@ -378,7 +378,7 @@ BrowserTestCase(
       });
 
       await page.paste();
-      await page.waitForSelector(mediaInlineCardSelector);
+      await page.waitForSelector(mediaInlineCardSelector, { timeout: 1000 });
 
       const collectionMatcher = expect.objectContaining({
         content: expect.arrayContaining([

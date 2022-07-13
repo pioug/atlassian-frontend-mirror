@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^23.1.0",
+    "@atlaskit/adf-schema": "^23.2.0",
     "@atlaskit/editor-common": "^68.0.0",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6",

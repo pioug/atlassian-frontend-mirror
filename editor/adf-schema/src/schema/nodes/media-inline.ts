@@ -1,9 +1,10 @@
 import { NodeSpec } from 'prosemirror-model';
 import { LinkDefinition } from '../marks/link';
-import { MediaBaseAttributes, createMediaSpec, defaultAttrs } from './media';
+import { createMediaSpec, defaultAttrs, MediaBaseAttributes } from './media';
 
 export interface MediaInlineAttributes extends MediaBaseAttributes {
   data?: object;
+  type?: 'file' | 'link';
 }
 
 /**

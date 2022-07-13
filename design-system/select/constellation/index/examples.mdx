@@ -4,6 +4,7 @@ order: 0
 
 import SelectCreatable from '../../examples/constellation/select-creatable';
 import SelectSingle from '../../examples/constellation/select-single';
+import SelectSingleClearable from '../../examples/constellation/select-single-clearable';
 import SelectMulti from '../../examples/constellation/select-multi';
 import SelectRadio from '../../examples/constellation/select-radio';
 import SelectCheckbox from '../../examples/constellation/select-checkbox';
@@ -13,11 +14,18 @@ import SelectAsyncCreatable from '../../examples/constellation/select-async-crea
 import SelectCountry from '../../examples/constellation/select-country';
 import SelectGroupedOptions from '../../examples/constellation/select-grouped-options';
 
+
 ## Single select
 
 Allows the user to select a single item from a dropdown list of options.
 
 <Example Component={SelectSingle} packageName="@atlaskit/select" />
+
+## Single select clearable
+
+Setting `isClearable` to true lets users clear their selection using the Backspace or Delete key.
+
+<Example Component={SelectSingleClearable} packageName="@atlaskit/select" />
 
 ### Grouped options
 

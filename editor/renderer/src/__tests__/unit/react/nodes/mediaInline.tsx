@@ -16,6 +16,7 @@ describe('MediaInline', () => {
   let providerFactory: ProviderFactory;
   let mediaProvider: MediaProvider;
   const mockFile = {
+    type: 'file',
     id: 'test-id',
     collection: 'test-collection',
   };

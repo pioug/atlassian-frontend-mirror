@@ -164,6 +164,7 @@ const doc = {
         {
           type: 'mediaInline',
           attrs: {
+            type: 'file',
             id: 'a3d20d67-14b1-4cfc-8ba8-918bbc8d71e1',
             collection: 'MediaServicesSample',
             alt: '',

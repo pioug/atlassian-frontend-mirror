@@ -901,6 +901,8 @@ export const mediaInline: NodeSpec;
 export interface MediaInlineAttributes extends MediaBaseAttributes {
   // (undocumented)
   data?: object;
+  // (undocumented)
+  type?: 'file' | 'link';
 }
 
 // @public

@@ -7,38 +7,20 @@ export function createEmptyParagraphNode(schema: Schema): PMNode {
 }
 
 /**
- * Create paragraphs from inline nodes. Two and more
- * hardbreaks will start a new paragraph
+ * Create paragraphs from inline nodes. Function will return
+ * an empty array in case only hardbreaks are present
  */
 export function createParagraphNodeFromInlineNodes(
   inlineNodes: PMNode[],
   schema: Schema,
 ): PMNode[] {
   const { paragraph } = schema.nodes;
-
-  const result: PMNode[] = [];
-  let buffer: PMNode[] = [];
-  let hardbreakBuffer: PMNode[] = [];
-  for (const node of inlineNodes) {
-    if (node.type.name === 'hardBreak') {
-      hardbreakBuffer.push(node);
-      continue;
-    }
-
-    // There are more than one hardBreaks, we should make
-    // a new paragraph
-    if (hardbreakBuffer.length > 1 && buffer.length > 0) {
-      result.push(paragraph.createChecked({}, buffer));
-      buffer = [];
-      hardbreakBuffer = [];
-    }
-    buffer.push(...hardbreakBuffer, node);
-    hardbreakBuffer = [];
+  const result = [];
+  const textNodes = inlineNodes.filter(
+    (node) => node.type.name !== 'hardBreak',
+  );
+  if (textNodes.length > 0) {
+    result.push(paragraph.createChecked({}, inlineNodes));
   }
-
-  if (buffer.length > 0) {
-    result.push(paragraph.createChecked({}, buffer));
-  }
-
   return result;
 }

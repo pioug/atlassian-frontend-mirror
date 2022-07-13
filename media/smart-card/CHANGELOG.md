@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 19.1.30
+
+### Patch Changes
+
+- [`3a2bc5af606`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2bc5af606) - Flexible UI: Add pull request source and target branch element (text)
+  Hover Preview: Update Bitbucket metadata for pull request link
+
 ## 19.1.29
 
 ### Patch Changes

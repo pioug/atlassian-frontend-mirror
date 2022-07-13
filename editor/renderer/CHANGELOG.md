@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 96.0.2
+
+### Patch Changes
+
+- [`d5ebbd97b8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5ebbd97b8c) - ED-15264 add styled-components dependency
+
 ## 96.0.1
 
 ### Patch Changes

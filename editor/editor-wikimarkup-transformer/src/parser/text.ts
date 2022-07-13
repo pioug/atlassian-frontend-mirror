@@ -10,6 +10,7 @@ import { parseToken, TokenType } from './tokenize';
 import { Context } from '../interfaces';
 import { parseWhitespaceOnly } from './tokenize/whitespace';
 import { escapeHandler } from './utils/escape';
+import { normalizePMNodes } from './utils/normalize';
 
 const processState = {
   NEWLINE: 0,
@@ -35,7 +36,9 @@ export function parseString({
   let state = processState.NEWLINE;
   let buffer = [];
   let tokenType = TokenType.STRING;
+  let newLines: PMNode[] = [];
   const output: PMNode[] = [];
+  let inlineNodes: PMNode[] = [];
 
   while (index < input.length) {
     const char = input.charAt(index);
@@ -115,9 +118,38 @@ export function parseString({
         if (token.type === 'text') {
           buffer.push(token.text);
         } else if (token.type === 'pmnode') {
-          output.push(...createTextNode(buffer.join(''), schema));
+          /*ESS-2539 We are keeping track of consecutive newLines in the newLines array
+            Whenever more than two consecutive newLines are encountered, we start a new paragraph 
+          */
+          if (
+            newLines.length >= 2 &&
+            (tokenType !== TokenType.HARD_BREAK || buffer.length > 0)
+          ) {
+            output.push(...normalizePMNodes(inlineNodes, schema));
+            // push newLines to the buffer as a separator between media nodes
+            inlineNodes = isConsecutiveMediaGroups(inlineNodes, token.nodes)
+              ? [...newLines]
+              : [];
+            newLines = [];
+          }
+          if (inlineNodes.length === 0) {
+            newLines = [];
+          }
+          if (
+            newLines.length > 0 &&
+            isNewLineRequiredBetweenNodes(inlineNodes, buffer, token.nodes)
+          ) {
+            inlineNodes.push(...newLines);
+            newLines = [];
+          }
+          inlineNodes.push(...createTextNode(buffer.join(''), schema));
+          if (tokenType === TokenType.HARD_BREAK) {
+            newLines.push(...token.nodes);
+          } else {
+            inlineNodes.push(...token.nodes);
+            newLines = [];
+          }
           buffer = []; // clear the buffer
-          output.push(...token.nodes);
         }
         index += token.length;
         if (tokenType === TokenType.HARD_BREAK) {
@@ -143,8 +175,45 @@ export function parseString({
   const bufferedStr = buffer.join('');
   if (bufferedStr.length > 0) {
     // Wrapping the rest of the buffer into a text node
-    output.push(...createTextNode(bufferedStr, schema));
+    if (newLines.length >= 2) {
+      // normalize the nodes already parsed if more than two consecutive newLines are encountered
+      output.push(...normalizePMNodes(inlineNodes, schema));
+      inlineNodes = [];
+      newLines = [];
+    }
+    if (
+      newLines.length > 0 &&
+      inlineNodes.length > 0 &&
+      !inlineNodes[inlineNodes.length - 1].isBlock
+    ) {
+      inlineNodes.push(...newLines);
+    }
+    inlineNodes.push(...createTextNode(bufferedStr, schema));
   }
 
-  return output;
+  return [...output, ...inlineNodes];
+}
+
+/* checks whether a newLine is required between two consecutive nodes 
+   Returns true for inline nodes, false for block nodes 
+*/
+function isNewLineRequiredBetweenNodes(
+  currentNodes: PMNode[],
+  buffer: string[],
+  nextNodes: PMNode[],
+) {
+  return (
+    currentNodes.length > 0 &&
+    (nextNodes[0].type.name === 'hardBreak'
+      ? buffer.length > 0 && !currentNodes[currentNodes.length - 1].isBlock
+      : !currentNodes[currentNodes.length - 1].isBlock && !nextNodes[0].isBlock)
+  );
+}
+
+function isConsecutiveMediaGroups(currentNodes: PMNode[], nextNodes: PMNode[]) {
+  return (
+    currentNodes.length > 0 &&
+    currentNodes[currentNodes.length - 1].type.name === 'mediaGroup' &&
+    nextNodes[0].type.name === 'mediaGroup'
+  );
 }

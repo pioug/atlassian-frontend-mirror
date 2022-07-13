@@ -29,8 +29,8 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^23.1.0",
-    "@atlaskit/adf-utils": "^17.0.0",
+    "@atlaskit/adf-schema": "^23.2.0",
+    "@atlaskit/adf-utils": "^17.1.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21",
     "prosemirror-model": "1.14.3"

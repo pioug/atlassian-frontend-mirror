@@ -234,6 +234,7 @@ describe('media -> commands -> helpers.ts', () => {
 
       it('when the node is a media inline node', () => {
         const mediaInlineNode = mediaInline({
+          type: 'file',
           id: 'test-id',
           collection: 'test-collection',
         })();

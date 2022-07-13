@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`WikiMarkup => ADF - force line break ESS-2359 returns empty paragraph if it contains only force-line-breaks 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks in the beginning and end of paragraph 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": " foo ",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+        Object {
+          "text": " bar",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "text": "foo ",
+          "type": "text",
+        },
+        Object {
+          "type": "hardBreak",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
 exports[`WikiMarkup => ADF - force line break should detect invalid force line break 1`] = `
 Object {
   "content": Array [

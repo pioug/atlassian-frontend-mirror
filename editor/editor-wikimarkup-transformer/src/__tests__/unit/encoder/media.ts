@@ -185,15 +185,15 @@ describe('ADF => WikiMarkup - Media', () => {
   });
 
   test('should convert mediaInline node with context', () => {
-    const node = doc(p(mediaInline({ collection: 'tmp', id: 'abc-123' })()))(
-      defaultSchema,
-    );
+    const node = doc(
+      p(mediaInline({ type: 'file', collection: 'tmp', id: 'abc-123' })()),
+    )(defaultSchema);
     expect(transformer.encode(node, context)).toMatchSnapshot();
   });
 
   test('should convert mediaInline node with no context', () => {
     const node = doc(
-      p(mediaInline({ collection: 'tmp', id: 'abc-123-uuid' })()),
+      p(mediaInline({ type: 'file', collection: 'tmp', id: 'abc-123-uuid' })()),
     )(defaultSchema);
     expect(transformer.encode(node)).toMatchSnapshot();
   });

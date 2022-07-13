@@ -50,7 +50,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/adf-utils": "^17.0.0",
+    "@atlaskit/adf-utils": "^17.1.0",
     "@atlaskit/docs": "^9.0.0",
     "@atlaskit/editor-core": "^167.0.0",
     "@atlaskit/editor-test-helpers": "^17.0.0",

@@ -38,6 +38,10 @@ const getMockProvidersResponse = ({
           source:
             '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar|list|board)\\/?',
         },
+        {
+          source:
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/form\\/(?<formId>\\w+)\\/?',
+        },
       ],
     },
     {
@@ -192,6 +196,14 @@ describe('providers > editor', () => {
     [
       'Jira work management (JWM) board view',
       'https://jdog.jira-dev.com/jira/core/projects/NPM5/board',
+    ],
+    [
+      'Jira work management (JWM) form view',
+      'https://jdog.jira-dev.com/jira/core/projects/NPM5/form/1',
+    ],
+    [
+      'Jira work management (JWM) form view with Query Params',
+      'https://jdog.jira-dev.com/jira/core/projects/NPM5/form/1?atlOrigin=eyJpIjoiM2MzNTA5N2FmNzNjNDQxNmFhNDAzNDhhYmIyZTRiNGQiLCJwIjoiaiJ9',
     ],
   ])(
     'returns embedCard when  %s link inserted, calling /providers endpoint',

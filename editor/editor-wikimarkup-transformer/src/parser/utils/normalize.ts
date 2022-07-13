@@ -22,19 +22,17 @@ export function normalizeInlineNodes(
       inlineNodeBuffer.push(node);
       continue;
     }
-    const trimedInlineNodes = trimInlineNodes(inlineNodeBuffer);
-    if (trimedInlineNodes.length > 0) {
+    if (inlineNodeBuffer.length > 0) {
       output.push(
-        ...createParagraphNodeFromInlineNodes(trimedInlineNodes, schema),
+        ...createParagraphNodeFromInlineNodes(inlineNodeBuffer, schema),
       );
     }
     inlineNodeBuffer = []; // clear buffer
     output.push(node);
   }
-  const trimedInlineNodes = trimInlineNodes(inlineNodeBuffer);
-  if (trimedInlineNodes.length > 0) {
+  if (inlineNodeBuffer.length > 0) {
     output.push(
-      ...createParagraphNodeFromInlineNodes(trimedInlineNodes, schema),
+      ...createParagraphNodeFromInlineNodes(inlineNodeBuffer, schema),
     );
   }
   if (output.length === 0) {
@@ -131,31 +129,6 @@ function isHardBreak(n: PMNode, separatorBuffer: PMNode[]): boolean {
 
 function isEmptyTextNode(n: PMNode): boolean {
   return n.textContent !== undefined && n.textContent.trim().length === 0;
-}
-
-/**
- * Remove leading and trailing hardBreak
- */
-function trimInlineNodes(nodes: PMNode[]) {
-  let leadingNode = nodes.shift();
-  while (leadingNode) {
-    if (leadingNode.type.name !== 'hardBreak') {
-      nodes.unshift(leadingNode);
-      break;
-    }
-    leadingNode = nodes.shift();
-  }
-
-  let trailingNode = nodes.pop();
-  while (trailingNode) {
-    if (trailingNode.type.name !== 'hardBreak') {
-      nodes.push(trailingNode);
-      break;
-    }
-    trailingNode = nodes.pop();
-  }
-
-  return nodes;
 }
 
 export function isNextLineEmpty(input: string) {

@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.3.0
+
+### Minor Changes
+
+- [`fef6f1ffea6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fef6f1ffea6) - Add 'template-browser' in the allowedFeatures, if included, the embedded confluence URL should contain query param `?inEditorTemplatesPanel=auto_closed`
+
 ## 1.2.1
 
 ### Patch Changes

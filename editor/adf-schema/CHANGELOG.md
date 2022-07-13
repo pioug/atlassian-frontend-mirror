@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 23.2.0
+
+### Minor Changes
+
+- [`4d8c675bd2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d8c675bd2a) - EDM-3779 Hotfix: Extend Media Inline ADF Schema to have type attribute
+
 ## 23.1.0
 
 ### Minor Changes

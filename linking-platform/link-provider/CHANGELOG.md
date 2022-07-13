@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.0.7
+
+### Patch Changes
+
+- [`d45fd532d5e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d45fd532d5e) - [ux] Make form smart link view as embed view by default
+
 ## 1.0.6
 
 ### Patch Changes

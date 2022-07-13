@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.2.5
+
+### Patch Changes
+
+- [`0a61837e1ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a61837e1ff) - Bump patch version of smart-user-picker to support right context key for org ID
+
 ## 3.2.4
 
 ### Patch Changes

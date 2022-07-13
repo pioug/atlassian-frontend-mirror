@@ -31,7 +31,7 @@ const isPolarisView = (url: string) =>
 
 const isJwmView = (url: string) =>
   url.match(
-    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board)\/?/,
+    /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|(form\/[^\/]+?))\/?/,
   );
 
 export class EditorCardProvider implements CardProvider {

@@ -909,6 +909,12 @@
           "type": "object",
           "properties": {
             "data": {},
+            "type": {
+              "enum": [
+                "link",
+                "file"
+              ]
+            },
             "id": {
               "type": "string",
               "minLength": 1

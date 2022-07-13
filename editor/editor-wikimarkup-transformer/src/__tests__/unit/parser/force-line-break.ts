@@ -30,4 +30,21 @@ describe('WikiMarkup => ADF - force line break', () => {
     const transformer = new WikiMarkupTransformer();
     expect(transformer.parse(wiki)).toMatchSnapshot();
   });
+
+  test('ESS-2359 should detect hardbreaks in the beginning and end of paragraph', () => {
+    const wiki = `\\\\ foo \\\\ bar
+    
+    foo \\\\`;
+    const transformer = new WikiMarkupTransformer();
+    expect(transformer.parse(wiki)).toMatchSnapshot();
+  });
+
+  test('ESS-2359 returns empty paragraph if it contains only force-line-breaks', () => {
+    // This behaviour differs from JIRA as jira wiki will create a paragraph with only force-line-breaks
+    const wiki = `\\\\
+    \\\\
+    \\\\`;
+    const transformer = new WikiMarkupTransformer();
+    expect(transformer.parse(wiki)).toMatchSnapshot();
+  });
 });

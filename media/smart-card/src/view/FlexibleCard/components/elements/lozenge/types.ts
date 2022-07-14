@@ -17,5 +17,5 @@ export type LozengeProps = ElementProps & {
   /**
    * The text to display within the lozenge.
    */
-  text?: string;
+  text?: string | React.ReactNode;
 };

@@ -140,6 +140,7 @@ export type ElementItemProps =
   | CommentCount
   | CreatedBy
   | CreatedOn
+  | DueOn
   | LatestCommit
   | LinkIcon
   | ModifiedBy
@@ -196,6 +197,13 @@ export type CreatedOn = {
    * A string which will be displayed before the specified element.
    */
   text?: string;
+};
+/**
+ * Represents the props available for an DueOn element.
+ * @see CreatedOn
+ */
+export type DueOn = {
+  name: ElementName.DueOn;
 };
 /**
  * Represents the props available for an LastCommit element.

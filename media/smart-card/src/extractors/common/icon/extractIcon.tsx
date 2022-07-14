@@ -6,15 +6,19 @@ import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
 import PullRequestIcon from '@atlaskit/icon-object/glyph/pull-request/16';
 import BranchIcon from '@atlaskit/icon-object/glyph/branch/16';
 import RepoIcon from '@atlaskit/icon-object/glyph/code/16';
+import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
 
 import { extractorPriorityMap } from './priority';
-import { extractProvider, LinkProvider } from '../context/extractProvider';
-import { extractTitle } from '../primitives/extractTitle';
+import {
+  extractProvider,
+  LinkProvider,
+  extractUrlFromIconJsonLd,
+  extractTitle,
+} from '@atlaskit/linking-common/extractors';
 import { extractFileFormat } from './extractFileFormat';
 import { extractIconFromDocument } from './extractIconFromDocument';
 import { extractIconFromTask } from './extractIconFromTask';
 import { extractTaskType, LinkTaskType } from '../lozenge/extractTaskType';
-import { extractUrlFromIconJsonLd } from '../utils';
 
 export type IconPriority = 'type' | 'provider';
 export interface IconOpts {
@@ -63,6 +67,8 @@ const extractIconByType = (
     case 'atlassian:Template':
     case 'atlassian:UndefinedLink':
       return extractIconFromDocument(type, opts);
+    case 'atlassian:Goal':
+      return opts.icon || <TaskIcon label={opts.title || 'goal'} />;
     case 'atlassian:Project':
       return (
         opts.icon || (

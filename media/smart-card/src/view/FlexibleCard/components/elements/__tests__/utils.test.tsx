@@ -55,6 +55,16 @@ describe('createElement', () => {
       expect(element.getAttribute('data-smart-element-icon')).toBeTruthy();
     });
 
+    it('creates DueOn component from Lozenge element', async () => {
+      const Component = createElement(ElementName.DueOn);
+      const { findByTestId } = renderComponent(Component, context, testId);
+
+      const element = await findByTestId(testId);
+
+      expect(Component).toBeDefined();
+      expect(element.textContent).toEqual('Feb 22, 2022');
+    });
+
     it('creates State component from Lozenge element', async () => {
       const Component = createElement(ElementName.State);
       const { findByTestId } = renderComponent(Component, context, testId);

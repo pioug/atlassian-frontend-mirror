@@ -3,15 +3,13 @@ import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { RetryOptions } from './types';
 import { SmartLinkStatus } from '../../constants';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
-import {
-  extractProvider,
-  extractRequestAccessContext,
-} from '../../extractors/common/context';
+import { extractRequestAccessContext } from '../../extractors/common/context';
 import { MessageKey, messages } from '../../messages';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import extractFlexibleLinkContext from '../../extractors/flexible';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { handleOnClick } from '../../utils';
+import { extractProvider } from '@atlaskit/linking-common/extractors';
 
 export const getContextByStatus = (
   url: string,

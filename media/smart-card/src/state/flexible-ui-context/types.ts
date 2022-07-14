@@ -1,5 +1,5 @@
 import { LinkLozenge } from '../../extractors/common/lozenge/types';
-import { LinkPerson } from '../../extractors/common/person/types';
+import { LinkPerson } from '@atlaskit/linking-common/extractors';
 import { IconType, MediaType } from '../../constants';
 
 /**
@@ -23,6 +23,13 @@ export type FlexibleUiDataContext = {
    * @see CommentCount
    */
   commentCount?: number;
+  /**
+   * Contains the ISO timestamp of when the resource was due.
+   * This value is mapped to JsonLD endTime.
+   * @type string - ISO Timestamp
+   * @see DueOn
+   */
+  dueOn?: string;
   /**
    * Contains the number of views of the linked resource.
    * @type number

@@ -1,8 +1,12 @@
 import { JsonLd } from 'json-ld-types';
 import { CardPlatform } from '../../view/Card/types';
-import { extractLink, extractTitle } from '../common/primitives';
-import { extractProvider } from '../common/context';
-import { extractPreview, LinkPreview } from '@atlaskit/linking-common';
+import {
+  extractLink,
+  extractTitle,
+  extractProvider,
+  extractPreview,
+  LinkPreview,
+} from '@atlaskit/linking-common/extractors';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';
 

@@ -42,6 +42,11 @@ export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
  */
 export const CreatedBy = createElement<TextProps>(ElementName.CreatedBy);
 /**
+ * Creates a DueOn Lozenge element using the data from dueOn in the Flexible UI Context.
+ * @see Lozenge
+ */
+export const DueOn = createElement<LozengeProps>(ElementName.DueOn);
+/**
  * Creates an element that contains Last Commit hash
  */
 export const LatestCommit = createElement<BadgeProps>(ElementName.LatestCommit);

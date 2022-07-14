@@ -1,11 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
-import {
-  extractLink,
-  extractSummary,
-  extractTitle,
-} from '../common/primitives';
+import { extractSummary } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractLinkIcon } from './icon';
 import {
@@ -19,14 +15,17 @@ import {
   extractVoteCount,
   extractSourceBranch,
   extractTargetBranch,
+  extractDueOn,
 } from './utils';
-import { extractPersonCreatedBy } from '../common/person';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
-import { extractDateUpdated } from '../common/date/extractDateUpdated';
 import {
+  extractPersonCreatedBy,
+  extractLink,
+  extractTitle,
+  extractDateUpdated,
   extractDateCreated,
   LinkTypeCreated,
-} from '../common/date/extractDateCreated';
+} from '@atlaskit/linking-common/extractors';
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
@@ -50,6 +49,7 @@ const extractFlexibleUiContext = (
     voteCount: extractVoteCount(data),
     createdBy: extractCreatedBy(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
+    dueOn: extractDueOn(data),
     latestCommit: extractLatestCommit(data as JsonLd.Data.SourceCodeRepository),
     linkIcon: extractLinkIcon(response, renderers),
     modifiedBy: extractModifiedBy(data),

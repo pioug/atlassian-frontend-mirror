@@ -305,6 +305,32 @@ describe('extractJsonldDataIcon', () => {
     });
   });
 
+  describe('when type is atlassian:Goal', () => {
+    it('returns icon for Goal - with top level icon', () => {
+      const expectUrl = 'https://some-icon-url.com';
+      const data: JsonLd.Data.BaseData = {
+        ...baseData,
+        icon: expectUrl,
+        '@type': 'atlassian:Goal',
+      };
+      const { icon, url } = extractJsonldDataIcon(data) || {};
+
+      expect(icon).toBeUndefined();
+      expect(url).toBe(expectUrl);
+    });
+
+    it('returns icon for Project - no top level icon', () => {
+      const data: JsonLd.Data.BaseData = {
+        ...baseData,
+        '@type': 'atlassian:Goal',
+      };
+      const { icon, url } = extractJsonldDataIcon(data) || {};
+
+      expect(icon).toBe(IconType.Task);
+      expect(url).toBeUndefined();
+    });
+  });
+
   describe('when type is atlassian:Project', () => {
     it('returns icon for Project - with top level icon', () => {
       const expectUrl = 'https://some-icon-url.com';

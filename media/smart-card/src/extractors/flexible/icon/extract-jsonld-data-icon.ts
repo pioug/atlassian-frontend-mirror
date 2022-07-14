@@ -9,7 +9,7 @@ import extractProviderIcon from './extract-provider-icon';
 import extractUrlIcon from './extract-url-icon';
 import { IconDescriptor } from './types';
 import { extractTaskType } from '../../common/lozenge';
-import { extractTitle } from '../../common/primitives';
+import { extractTitle } from '@atlaskit/linking-common/extractors';
 import { extractorPriorityMap as priorityMap } from '../../common/icon/priority';
 import { IconType } from '../../../constants';
 
@@ -76,6 +76,8 @@ const extractJsonldDataIcon = (
           : extractJiraTaskIcon(taskType, taskLabel);
       }
       return { icon: IconType.Task, label: taskLabel };
+    case 'atlassian:Goal':
+      return urlIcon || { icon: IconType.Task, label: label || 'Goal' };
     case 'atlassian:Project':
       return urlIcon || { icon: IconType.Project, label: label || 'Project' };
     case 'atlassian:SourceCodeCommit':

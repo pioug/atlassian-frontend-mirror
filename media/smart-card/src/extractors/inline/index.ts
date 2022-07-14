@@ -1,14 +1,14 @@
 import { JsonLd } from 'json-ld-types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
-import {
-  extractLink,
-  extractTitle,
-  extractTitleTextColor,
-} from '../common/primitives';
+import { extractTitleTextColor } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractIcon } from '../common/icon';
 import { extractTitlePrefix } from '../common/title-prefix';
-import { extractProvider } from '../common/context';
+import {
+  extractLink,
+  extractTitle,
+  extractProvider,
+} from '@atlaskit/linking-common/extractors';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
 

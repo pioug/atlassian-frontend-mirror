@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.2.0
+
+### Minor Changes
+
+- [`cd5e63258cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd5e63258cd) - Moved extractors to linking-common/extractors
+
 ## 1.1.3
 
 ### Patch Changes

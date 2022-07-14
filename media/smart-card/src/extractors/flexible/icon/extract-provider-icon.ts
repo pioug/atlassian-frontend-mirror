@@ -5,7 +5,7 @@ import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';
 import { IconDescriptor } from './types';
 import { IconType } from '../../../constants';
 import extractUrlIcon from './extract-url-icon';
-import { extractTitle } from '../../common/primitives';
+import { extractTitle } from '@atlaskit/linking-common/extractors';
 
 const extractProviderIcon = (
   data?: JsonLd.Data.BaseData,

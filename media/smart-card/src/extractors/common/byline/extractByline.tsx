@@ -5,16 +5,14 @@ import { FormattedRelativeTime } from 'react-intl-next';
 import { selectUnit } from '@formatjs/intl-utils';
 
 import {
-  extractPersonUpdatedBy,
-  LinkTypeUpdatedBy,
-} from '../person/extractPersonUpdatedBy';
-import { extractPersonCreatedBy } from '../person/extractPersonCreatedBy';
-import {
   extractDateCreated,
+  extractDateUpdated,
+  extractPersonCreatedBy,
+  extractPersonUpdatedBy,
+  LinkPerson,
   LinkTypeCreated,
-} from '../date/extractDateCreated';
-import { extractDateUpdated } from '../date/extractDateUpdated';
-import { LinkPerson } from '../person';
+  LinkTypeUpdatedBy,
+} from '@atlaskit/linking-common/extractors';
 
 export const extractByline = (
   jsonLd: JsonLd.Data.BaseData,

@@ -3,7 +3,7 @@ import { LinkLozenge } from './types';
 import { extractState } from './extractState';
 import { extractTag } from './extractTag';
 import { extractTaskStatus } from './extractTaskStatus';
-import { extractType } from '../primitives/extractType';
+import { extractType } from '@atlaskit/linking-common/extractors';
 import { extractTaskType } from './extractTaskType';
 
 const DOC_TYPES = [
@@ -30,6 +30,10 @@ export const extractLozenge = (
     } else if (type.some((types) => DOC_TYPES.includes(types))) {
       const jsonLdDocument = jsonLd as JsonLd.Data.Document;
       const lozengeFromState = extractState(jsonLdDocument);
+      return lozengeFromState;
+    } else if (type.includes('atlassian:Goal')) {
+      const jsonLdProject = jsonLd as JsonLd.Data.Goal;
+      const lozengeFromState = extractState(jsonLdProject);
       return lozengeFromState;
     } else if (type.includes('atlassian:Project')) {
       const jsonLdProject = jsonLd as JsonLd.Data.Project;

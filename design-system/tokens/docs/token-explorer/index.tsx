@@ -234,7 +234,7 @@ const TokenExplorer = ({ scrollOffset, testId }: TokenExplorerProps) => {
 
       if (query !== '') {
         // Remove token groups from side navigation headings context
-        if (setHeadingsOverride && headings && headings.length > 1) {
+        if (headings && headings.length > 1) {
           setHeadingsOverride([ALL_DESIGN_TOKENS_LIST_HEADING]);
         }
 

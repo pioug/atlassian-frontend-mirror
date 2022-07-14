@@ -42,6 +42,21 @@ describe('extractors.lozenge.lozenge', () => {
     ).toEqual({ text: 'draft', appearance: 'inprogress' });
   });
 
+  it('returns lozenge if type supported - goal', () => {
+    expect(
+      extractLozenge({
+        ...TEST_BASE_DATA,
+        '@type': 'atlassian:Goal',
+        'atlassian:state': {
+          '@type': 'Object',
+          name: 'On track',
+          appearance: 'success',
+        },
+        'atlassian:subscriberCount': 0,
+      } as JsonLd.Data.Goal),
+    ).toEqual({ text: 'On track', appearance: 'success' });
+  });
+
   it('returns lozenge if type supported - pull request', () => {
     expect(
       extractLozenge({

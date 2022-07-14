@@ -28,12 +28,6 @@ export type CardType =
   | 'errored'
   | 'not_found';
 
-export interface LinkPreview {
-  src?: string;
-  content?: string;
-  aspectRatio?: number;
-}
-
 export interface CardAction<T = JsonLd.Response> extends AnyAction {
   type: CardActionType;
   url: string;

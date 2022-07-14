@@ -11,6 +11,7 @@ import {
 import {
   extractCommentCount,
   extractCreatedBy,
+  extractDueOn,
   extractModifiedBy,
   extractProgrammingLanguage,
   extractSourceBranch,
@@ -45,6 +46,21 @@ describe('extractCreatedBy', () => {
       attributedTo: TEST_PERSON,
     });
     expect(value).toEqual(TEST_NAME);
+  });
+});
+
+describe('extractDueOn', () => {
+  it('returns undefined when there is no data on resource due date', () => {
+    expect(extractDueOn(TEST_BASE_DATA)).toBeUndefined();
+  });
+
+  it('returns resource due date', () => {
+    const endTime = '2022-06-28T06:44:18.713591Z';
+    const value = extractDueOn({
+      ...TEST_BASE_DATA,
+      endTime,
+    });
+    expect(value).toEqual(endTime);
   });
 });
 

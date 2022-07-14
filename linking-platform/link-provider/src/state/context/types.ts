@@ -2,10 +2,10 @@ import { Store } from 'redux';
 import {
   CardPlatform,
   CardAppearance,
-  LinkPreview,
   CardStore,
   LinkingPlatformFeatureFlags,
 } from '@atlaskit/linking-common';
+import { LinkPreview } from '@atlaskit/linking-common/extractors';
 import CardClient from '../../client';
 import { CardConnections } from '../store/types';
 

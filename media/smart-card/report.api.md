@@ -247,6 +247,8 @@ export enum ElementName {
   // (undocumented)
   CreatedOn = 'CreatedOn',
   // (undocumented)
+  DueOn = 'DueOn',
+  // (undocumented)
   LatestCommit = 'LatestCommit',
   // (undocumented)
   LinkIcon = 'LinkIcon',

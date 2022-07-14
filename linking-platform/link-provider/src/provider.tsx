@@ -2,13 +2,11 @@ import React from 'react';
 import { useContext, useMemo } from 'react';
 import { createStore, Reducer } from 'redux';
 import { JsonLd } from 'json-ld-types';
+import { CardPlatform, CardStore, getUrl } from '@atlaskit/linking-common';
 import {
-  CardPlatform,
   LinkPreview,
   extractPreview,
-  CardStore,
-  getUrl,
-} from '@atlaskit/linking-common';
+} from '@atlaskit/linking-common/extractors';
 import { cardReducer } from './reducers';
 import { SmartCardContext } from './state/context';
 import { CardProviderProps } from './state/context/types';

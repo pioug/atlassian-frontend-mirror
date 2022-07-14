@@ -7,8 +7,8 @@ import {
 import {
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
-} from '../common/person';
-import { LinkTypeUpdatedBy } from '../common/person/extractPersonUpdatedBy';
+  LinkTypeUpdatedBy,
+} from '@atlaskit/linking-common/extractors';
 
 const extractLinkName = (link?: JsonLd.Primitives.Link): string | undefined => {
   if (link && typeof link === 'object' && link['@type'] === 'Link') {
@@ -25,6 +25,9 @@ const extractValue = <TData extends JsonLd.Data.BaseData, TResult>(
 
 export const extractCommentCount = (data: JsonLd.Data.BaseData) =>
   extractValue<LinkCommentType, number>(data, 'schema:commentCount');
+
+export const extractDueOn = (data: JsonLd.Data.BaseData) =>
+  extractValue<JsonLd.Data.BaseData, string>(data, 'endTime');
 
 type LinkViewCountType =
   | JsonLd.Data.Document

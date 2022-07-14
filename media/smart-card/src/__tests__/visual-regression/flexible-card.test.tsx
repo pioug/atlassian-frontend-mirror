@@ -142,7 +142,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-lozenge');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-lozenge"]');
-      const image = await takeSnapshot(page, 170);
+      const image = await takeSnapshot(page, 200);
 
       expect(image).toMatchProdImageSnapshot();
     });

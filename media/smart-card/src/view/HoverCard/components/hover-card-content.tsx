@@ -29,7 +29,7 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { AnalyticsFacade } from '../../../state/analytics';
 import { getExtensionKey } from '../../../state/helpers';
 import { titleBlockCss, metadataBlockCss, footerBlockCss } from '../styled';
-import { extractType } from '../../../extractors/common/primitives/extractType';
+import { extractType } from '@atlaskit/linking-common/extractors';
 
 const flexibleUiOptions = {
   hideElevation: true,

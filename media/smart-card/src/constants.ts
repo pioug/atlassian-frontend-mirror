@@ -95,6 +95,7 @@ export enum ElementName {
   CommentCount = 'CommentCount',
   CreatedBy = 'CreatedBy',
   CreatedOn = 'CreatedOn',
+  DueOn = 'DueOn',
   LinkIcon = 'LinkIcon',
   ModifiedBy = 'ModifiedBy',
   ModifiedOn = 'ModifiedOn',

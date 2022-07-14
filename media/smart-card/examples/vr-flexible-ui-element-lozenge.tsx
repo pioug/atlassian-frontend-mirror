@@ -4,10 +4,13 @@ import { css, jsx } from '@emotion/core';
 import { HorizontalWrapper, VRTestWrapper } from './utils/vr-test';
 import { FlexibleUiContext } from '../src/state/flexible-ui-context';
 import { getContext } from './utils/flexible-ui';
-import { State } from '../src/view/FlexibleCard/components/elements';
+import { DueOn, State } from '../src/view/FlexibleCard/components/elements';
 import { LozengeAppearance } from '../src/view/FlexibleCard/components/elements/lozenge/types';
 
-const context = getContext({ state: { text: 'State' } });
+const context = getContext({
+  dueOn: '2020-02-04T12:40:12.353+0800',
+  state: { text: 'State' },
+});
 const content = ['Short', 'Very long text, longer than long, long, long'];
 const appearances: LozengeAppearance[] = [
   'default',
@@ -43,6 +46,9 @@ export default () => (
             testId="vr-test-lozenge"
           />
         ))}
+      </HorizontalWrapper>
+      <HorizontalWrapper>
+        <DueOn />
       </HorizontalWrapper>
       <h5>Override CSS</h5>
       <State appearance="moved" overrideCss={overrideCss} text="override" />

@@ -4,7 +4,6 @@ export type {
   CardPlatform,
   CardType,
   CardActionType,
-  LinkPreview,
   CardAction,
   ServerActionOpts,
   ServerActionPayload,
@@ -17,7 +16,6 @@ export type {
   EmbedCardAdf,
 } from './types';
 
-export { extractUrlFromLinkJsonLd, extractPreview } from './extractors';
 export {
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,

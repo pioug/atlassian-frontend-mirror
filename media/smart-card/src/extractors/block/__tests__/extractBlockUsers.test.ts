@@ -8,7 +8,7 @@ import {
   TEST_PROJECT,
   TEST_TASK,
 } from '../../common/__mocks__/jsonld';
-import { LinkPerson } from '../../common/person/types';
+import { LinkPerson } from '@atlaskit/linking-common/extractors';
 
 const getExpectedLinkPersonList = (name = 'my name'): LinkPerson[] => {
   return [

@@ -1,5 +1,5 @@
-jest.mock('@atlaskit/linking-common', () => ({
-  ...jest.requireActual<Object>('@atlaskit/linking-common'),
+jest.mock('@atlaskit/linking-common/extractors', () => ({
+  ...jest.requireActual<Object>('@atlaskit/linking-common/extractors'),
   extractPreview: () => 'some-link-preview',
 }));
 

@@ -1,5 +1,6 @@
 src/
 examples-utils/
+example-helpers/
 examples/
 index.ts
 docs/

@@ -13,7 +13,7 @@ import { Context } from 'react';
 import { InvokePayload } from '@atlaskit/linking-common';
 import { JsonLd } from 'json-ld-types';
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
-import { LinkPreview } from '@atlaskit/linking-common';
+import { LinkPreview } from '@atlaskit/linking-common/extractors';
 import { ServerActionOpts } from '@atlaskit/linking-common';
 import { Store } from 'redux';
 

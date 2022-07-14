@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 19.2.0
+
+### Minor Changes
+
+- [`cd5e63258cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd5e63258cd) - Moved extractors to linking-common/extractors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.1.31
+
+### Patch Changes
+
+- [`34d17437062`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34d17437062) - Flexible UI: Add DueOn element
+  Hover Preview: Update Atlas metadata
+
 ## 19.1.30
 
 ### Patch Changes

@@ -10,6 +10,7 @@ export const extractorPriorityMap: Record<JsonLdType, number> = {
   'schema:BlogPosting': 10,
   'schema:SpreadsheetDigitalDocument': 10,
   'schema:PresentationDigitalDocument': 10,
+  'atlassian:Goal': 10,
   'atlassian:Task': 10,
   'atlassian:Project': 10,
   'atlassian:Template': 10,

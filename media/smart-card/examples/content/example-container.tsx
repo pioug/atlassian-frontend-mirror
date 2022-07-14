@@ -12,6 +12,7 @@ import previewImage from '../images/rectangle.svg';
 const today = new Date();
 const yesterday = new Date().setDate(today.getDate() - 1);
 const lastMonth = new Date().setDate(today.getMonth() - 1);
+const nextMonth = new Date().setDate(today.getMonth() + 1);
 const context = getContext({
   authorGroup: [{ name: 'Aliza', src: avatar3 }],
   collaboratorGroup: [
@@ -22,6 +23,7 @@ const context = getContext({
   commentCount: 22,
   createdBy: 'Aliza',
   createdOn: new Date(lastMonth).toISOString(),
+  dueOn: new Date(nextMonth).toISOString(),
   modifiedBy: 'Steve',
   modifiedOn: new Date(yesterday).toISOString(),
   preview: { type: MediaType.Image, url: previewImage },

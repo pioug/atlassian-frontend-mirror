@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 1.0.8
+
+### Patch Changes
+
+- [`cd5e63258cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd5e63258cd) - Moved extractors to linking-common/extractors
+- Updated dependencies
+
 ## 1.0.7
 
 ### Patch Changes

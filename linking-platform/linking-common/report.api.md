@@ -148,17 +148,6 @@ export interface EmbedCardAdf {
 export type ErrorType = ServerErrorType | 'UnexpectedError';
 
 // @public (undocumented)
-export const extractPreview: (
-  jsonLd: JsonLd.Data.BaseData,
-  platform?: JsonLd.Primitives.Platforms | undefined,
-) => LinkPreview | undefined;
-
-// @public (undocumented)
-export const extractUrlFromLinkJsonLd: (
-  link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
-) => string | undefined;
-
-// @public (undocumented)
 export const getUrl: (store: Store<CardStore>, url: string) => CardState;
 
 // @public (undocumented)
@@ -185,16 +174,6 @@ export interface InvokePayload<T> {
 export interface LinkingPlatformFeatureFlags {
   // (undocumented)
   showHoverPreview?: boolean;
-}
-
-// @public (undocumented)
-export interface LinkPreview {
-  // (undocumented)
-  aspectRatio?: number;
-  // (undocumented)
-  content?: string;
-  // (undocumented)
-  src?: string;
 }
 
 // @public (undocumented)

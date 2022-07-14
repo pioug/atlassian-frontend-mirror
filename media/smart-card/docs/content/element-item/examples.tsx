@@ -77,6 +77,18 @@ ${(
   />
 )}
 
+### Due on
+
+A \`DueOn\` element shows the due date of the link resource.
+Its data is mapped to \`endTime\` from a link resolver.
+
+${(
+  <CustomExample
+    Component={require('../../../examples/content/element-due-on').default}
+    source={require('!!raw-loader!../../../examples/content/element-due-on')}
+  />
+)}
+
 ### Latest Commit
 A \`LatestCommit\` element shows the latest commit to a given repository.
 

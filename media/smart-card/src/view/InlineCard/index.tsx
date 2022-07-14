@@ -4,16 +4,14 @@ import { InlineCardProps } from './types';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { JsonLd } from 'json-ld-types';
-import {
-  extractProvider,
-  extractRequestAccessContext,
-} from '../../extractors/common/context';
+import { extractRequestAccessContext } from '../../extractors/common/context';
 import { CardLinkView } from '../LinkView';
 import { InlineCardErroredView } from './ErroredView';
 import { InlineCardForbiddenView } from './ForbiddenView';
 import { InlineCardResolvedView } from './ResolvedView';
 import { InlineCardResolvingView } from './ResolvingView';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
+import { extractProvider } from '@atlaskit/linking-common/extractors';
 
 export {
   InlineCardResolvedView,

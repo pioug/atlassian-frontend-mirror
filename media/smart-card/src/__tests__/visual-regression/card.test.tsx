@@ -38,24 +38,14 @@ const getViewport = (testCases: ProviderTestCase[]) => {
 };
 
 describe('Card', () => {
-  describe('Bitbucket', () => {
-    const testCases = generate([
-      ['branch', 430],
-      ['commit', 260],
-      ['file', 260],
-      ['project', 430],
-      ['pr', 320],
-      ['repository', 260],
-    ]);
+  const runTest = (testName: string, testCases: ProviderTestCase[]) => {
     const viewport = getViewport(testCases);
 
     it.each(testCases)(
       'renders %s link',
       async (testId: string, height: number, y: number) => {
-        const url = getURL('vr-card-bitbucket');
+        const url = getURL(testName);
         const page = await setup(url);
-
-        // Test
         await page.setViewport(viewport);
 
         const selector = `[data-testid="inline-card-${testId}-resolved-view"]`;
@@ -70,5 +60,26 @@ describe('Card', () => {
         expect(image).toMatchProdImageSnapshot();
       },
     );
+  };
+
+  describe('Atlas', () => {
+    const height = 340;
+    const testCases = generate([
+      ['goal', height],
+      ['project', height],
+    ]);
+    runTest('vr-card-atlas', testCases);
+  });
+
+  describe('Bitbucket', () => {
+    const testCases = generate([
+      ['branch', 430],
+      ['commit', 260],
+      ['file', 260],
+      ['project', 430],
+      ['pr', 320],
+      ['repository', 260],
+    ]);
+    runTest('vr-card-bitbucket', testCases);
   });
 });

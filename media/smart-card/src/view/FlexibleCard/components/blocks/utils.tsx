@@ -29,6 +29,7 @@ export const ElementDisplaySchema: Record<
   [ElementName.VoteCount]: ['inline'],
   [ElementName.CreatedBy]: ['inline'],
   [ElementName.CreatedOn]: ['inline'],
+  [ElementName.DueOn]: ['inline'],
   [ElementName.LatestCommit]: ['inline'],
   [ElementName.LinkIcon]: ['inline'],
   [ElementName.ModifiedBy]: ['inline'],

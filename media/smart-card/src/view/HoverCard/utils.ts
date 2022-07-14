@@ -53,6 +53,33 @@ export const getSimulatedMetadata = (
         },
       };
 
+    case 'watermelon-object-provider':
+      if (types.includes('atlassian:Project')) {
+        return {
+          metadata: {
+            primary: [
+              ElementName.AuthorGroup,
+              ElementName.ModifiedOn,
+              ElementName.State,
+              ElementName.DueOn,
+            ],
+            secondary: [],
+            subtitle: [],
+          },
+        };
+      }
+      return {
+        metadata: {
+          primary: [
+            ElementName.AuthorGroup,
+            ElementName.State,
+            ElementName.DueOn,
+          ],
+          secondary: [],
+          subtitle: [],
+        },
+      };
+
     default:
       return {
         metadata: {

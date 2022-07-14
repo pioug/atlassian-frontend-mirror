@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.1.2
+
+### Patch Changes
+
+- [`28f54174eaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28f54174eaf) - Removes example-helpers from built distribution. Fixes missing /dist from previous patch.
+
 ## 1.1.1
 
 ### Patch Changes

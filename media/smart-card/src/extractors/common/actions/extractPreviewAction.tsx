@@ -9,8 +9,10 @@ import {
 import { CardInnerAppearance, CardPlatform } from '../../../view/Card/types';
 
 import { extractDownloadUrl } from '../detail';
-import { extractProvider } from '../context';
-import { extractPreview } from '../preview';
+import {
+  extractProvider,
+  extractPreview,
+} from '@atlaskit/linking-common/extractors';
 import { AnalyticsHandler } from '../../../utils/types';
 import {
   BlockCardResolvedViewProps,

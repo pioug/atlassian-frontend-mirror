@@ -1,14 +1,8 @@
 import { JsonLd } from 'json-ld-types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
-import {
-  extractLink,
-  extractTitle,
-  extractTitleTextColor,
-  extractSummary,
-} from '../common/primitives';
+import { extractTitleTextColor, extractSummary } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractIcon } from '../common/icon';
-import { extractProvider } from '../common/context/extractProvider';
 import {
   extractCommentCount,
   LinkCommentType,
@@ -18,17 +12,20 @@ import {
   LinkSubscriberType,
 } from '../common/detail';
 import { LinkDetail } from '../common/detail/types';
-import { LinkPerson } from '../common/person/types';
-import { extractMembers } from '../common/person/extractMembers';
-import { extractPersonAssignedTo } from '../common/person/extractPersonAssignedTo';
-import { extractPersonCreatedBy } from '../common/person/extractPersonCreatedBy';
 import {
+  extractLink,
+  extractTitle,
+  extractProvider,
+  LinkPerson,
+  extractMembers,
+  extractPersonAssignedTo,
+  extractPersonCreatedBy,
   extractPersonUpdatedBy,
   LinkTypeUpdatedBy,
-} from '../common/person/extractPersonUpdatedBy';
+  extractImage,
+} from '@atlaskit/linking-common/extractors';
 import { extractByline } from '../common/byline/extractByline';
 import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
-import { extractImage } from '../common/preview/extractImage';
 import { extractActions } from '../common/actions/extractActions';
 import { ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';

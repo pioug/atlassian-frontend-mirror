@@ -30,6 +30,14 @@ This is a text`,
     ],
     ['[EX-500] should handle escape correctly', '\\* \\m'],
     ['[ADFS-725] should strip null chars', 'Hello \0 World!'],
+    [
+      '[ESS-2539] shoudld create new paragraph after two consecutive new lines',
+      'line 1 \r\n\r\n line 2',
+    ],
+    [
+      '[ESS-2539] shoudld keep text after multiple force line breaks in same paragraph',
+      'line1\\\\\r\n\\\\\r\n\\\\line2',
+    ],
   ];
 
   for (const [testCaseDescription, markup] of testCases) {

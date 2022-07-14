@@ -6,7 +6,8 @@ export const extractState = (
   jsonLd:
     | JsonLd.Data.SourceCodePullRequest
     | JsonLd.Data.Document
-    | JsonLd.Data.Project,
+    | JsonLd.Data.Project
+    | JsonLd.Data.Goal,
 ): LinkLozenge | undefined => {
   const state = jsonLd['atlassian:state'];
   if (state) {
@@ -20,11 +21,17 @@ export const extractState = (
       }
     } else if (state['@type'] === 'Link') {
       if (state.name) {
-        return { text: state.name, appearance: 'default' };
+        return {
+          text: state.name,
+          appearance: (state as any).appearance || 'default',
+        };
       }
     } else if (state['@type'] === 'Object') {
       if (state.name) {
-        return { text: state.name, appearance: 'default' };
+        return {
+          text: state.name,
+          appearance: (state as any).appearance || 'default',
+        };
       }
     }
   }

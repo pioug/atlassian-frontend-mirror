@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MessageDescriptor } from 'react-intl-next';
+import { FormattedDate, MessageDescriptor } from 'react-intl-next';
 import { css } from '@emotion/core';
 
 import { ElementName, IconType } from '../../../../constants';
@@ -20,6 +20,7 @@ import { DateTimeProps } from './date-time/types';
 import { LinkProps } from './link/types';
 import { TextProps } from './text/types';
 import { tokens } from '../../../../utils/token';
+import { LozengeProps } from './lozenge/types';
 
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 
@@ -47,6 +48,7 @@ const elementMappings: Record<
   },
   [ElementName.CreatedBy]: { component: Text },
   [ElementName.CreatedOn]: { component: DateTime },
+  [ElementName.DueOn]: { component: Lozenge },
   [ElementName.LatestCommit]: {
     component: Badge,
     props: { icon: IconType.Commit },
@@ -114,6 +116,8 @@ const getData = (
       return toFormattedTextProps(messages.created_by, context.createdBy);
     case ElementName.CreatedOn:
       return toDateTimeProps('created', context.createdOn);
+    case ElementName.DueOn:
+      return toDateLozengeProps(context.dueOn);
     case ElementName.ModifiedBy:
       return toFormattedTextProps(messages.modified_by, context.modifiedBy);
     case ElementName.ModifiedOn:
@@ -137,6 +141,25 @@ const toAvatarGroupProps = (
 
 const toBadgeProps = (label?: string): Partial<BadgeProps> | undefined => {
   return label ? { label } : undefined;
+};
+
+const toDateLozengeProps = (
+  dateString?: string,
+): Partial<LozengeProps> | undefined => {
+  if (dateString) {
+    const text = Date.parse(dateString) ? (
+      <FormattedDate
+        value={new Date(dateString)}
+        year="numeric"
+        month="short"
+        day="numeric"
+        formatMatcher="best fit"
+      />
+    ) : (
+      dateString
+    );
+    return { text };
+  }
 };
 
 const toDateTimeProps = (

@@ -168,4 +168,15 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     expect(adf).toEqual(node.toJSON());
     expect(wiki).toEqual(text);
   });
+
+  test('should convert three paragraph to three different lines', () => {
+    const node = doc(
+      p('This is the first paragraph'),
+      p('This is the second paragraph'),
+      p('This is the third paragraph'),
+    )(defaultSchema);
+    const wiki = transformer.encode(node);
+    const adf = transformer.parse(wiki).toJSON();
+    expect(adf).toEqual(node.toJSON());
+  });
 });

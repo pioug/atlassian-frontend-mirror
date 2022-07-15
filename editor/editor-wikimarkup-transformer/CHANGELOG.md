@@ -1,5 +1,17 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.14
+
+### Patch Changes
+
+- [`21684885de9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21684885de9) - ESS-2539 Insert hardbreaks between text properly
+
+## 11.0.13
+
+### Patch Changes
+
+- [`82576043a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/82576043a8a) - ESS-2539 Added new test cases for line-breaks
+
 ## 11.0.12
 
 ### Patch Changes

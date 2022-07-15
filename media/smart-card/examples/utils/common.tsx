@@ -25,3 +25,13 @@ export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
     </IntlProvider>
   );
 };
+
+const content = `
+<html>
+  <body style="font-family:sans-serif;text-align:center;">
+    VR TEST: EMBED CONTENT
+  </body>
+</html>
+`;
+const encodedContent = encodeURIComponent(content);
+export const overrideEmbedContent = `data:text/html;charset=utf-8,${encodedContent}`;

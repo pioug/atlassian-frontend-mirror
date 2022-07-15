@@ -1,5 +1,7 @@
 export type {
   InvokePayload,
+  InvocationContext,
+  InvocationSearchPayload,
   CardAppearance,
   CardPlatform,
   CardType,

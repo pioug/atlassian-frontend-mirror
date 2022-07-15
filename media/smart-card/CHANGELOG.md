@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 20.0.1
+
+### Patch Changes
+
+- [`3e4f8e1490a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e4f8e1490a) - Hover Preview: Fix Hover Preview shows on top of Preview modal
+
+## 20.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.0
 
 ### Minor Changes

@@ -39,25 +39,41 @@ const flexibleUiOptions = {
   hidePadding: true,
 };
 
-const getOpenAction = (url: string, analytics: AnalyticsFacade): ActionItem =>
+const getOpenAction = (
+  url: string,
+  analytics: AnalyticsFacade,
+  onActionClick?: (actionId: string) => void,
+): ActionItem =>
   ({
     name: ActionName.CustomAction,
     icon: <ShortcutIcon label="open in new tab" size="medium" />,
     iconPosition: 'before',
     onClick: () => {
+      if (onActionClick) {
+        onActionClick('open-content');
+      }
       window.open(url, '_blank');
       analytics.ui.hoverCardOpenLinkClickedEvent('card');
     },
     testId: 'hover-card-open-button',
   } as CustomActionItem);
 
-const toFooterActions = (cardActions: LinkAction[]): ActionItem[] =>
+const toFooterActions = (
+  cardActions: LinkAction[],
+  onActionClick?: (actionId: string) => void,
+): ActionItem[] =>
   cardActions.map(
     (action: LinkAction) =>
       ({
         content: action.text,
         name: ActionName.CustomAction,
-        onClick: () => action.invoke(),
+        onClick: () => {
+          if (onActionClick) {
+            onActionClick(action.id);
+          }
+
+          return action.invoke();
+        },
         testId: action.id,
       } as CustomActionItem),
   );
@@ -66,6 +82,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   analytics,
   cardActions = [],
   cardState,
+  onActionClick,
   onResolve,
   renderers,
   url,
@@ -102,14 +119,15 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     [cardState.status, analytics.ui],
   );
 
-  const titleActions = useMemo(() => [getOpenAction(url, analytics)], [
-    url,
-    analytics,
-  ]);
+  const titleActions = useMemo(
+    () => [getOpenAction(url, analytics, onActionClick)],
+    [url, analytics, onActionClick],
+  );
 
-  const footerActions = useMemo(() => toFooterActions(cardActions), [
-    cardActions,
-  ]);
+  const footerActions = useMemo(
+    () => toFooterActions(cardActions, onActionClick),
+    [cardActions, onActionClick],
+  );
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const types = data ? extractType(data) : undefined;

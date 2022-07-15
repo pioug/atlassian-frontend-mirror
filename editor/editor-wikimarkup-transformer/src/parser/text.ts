@@ -204,9 +204,11 @@ function isNewLineRequiredBetweenNodes(
 ) {
   return (
     currentNodes.length > 0 &&
-    (nextNodes[0].type.name === 'hardBreak'
-      ? buffer.length > 0 && !currentNodes[currentNodes.length - 1].isBlock
-      : !currentNodes[currentNodes.length - 1].isBlock && !nextNodes[0].isBlock)
+    (buffer.length > 0
+      ? !currentNodes[currentNodes.length - 1].isBlock
+      : nextNodes[0].type.name !== 'hardBreak' &&
+        !currentNodes[currentNodes.length - 1].isBlock &&
+        !nextNodes[0].isBlock)
   );
 }
 

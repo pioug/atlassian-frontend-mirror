@@ -7,7 +7,7 @@ import Button from '../../src';
 const ButtonIconAfterExample = () => {
   return (
     <Button
-      iconAfter={<StarFilledIcon label="Star icon" size="small" />}
+      iconAfter={<StarFilledIcon label="" size="medium" />}
       appearance="primary"
     >
       Icon after

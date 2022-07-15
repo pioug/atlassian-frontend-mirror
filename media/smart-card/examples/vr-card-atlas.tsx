@@ -9,16 +9,7 @@ import {
   AtlasGoal,
   AtlasProject,
 } from '../examples-helpers/_jsonLDExamples/provider.atlas';
-
-const content = `
-<html>
-  <body style="font-family:sans-serif;text-align:center;">
-    VR TEST: EMBED CONTENT
-  </body>
-</html>
-`;
-const encodedContent = encodeURIComponent(content);
-const overrideEmbedContent = `data:text/html;charset=utf-8,${encodedContent}`;
+import { overrideEmbedContent } from './utils/common';
 
 const examples = {
   [AtlasProject.data.url]: AtlasProject,

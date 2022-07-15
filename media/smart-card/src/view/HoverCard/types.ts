@@ -24,6 +24,7 @@ export type HoverCardContentProps = {
   cardActions?: LinkAction[];
   cardState: CardState;
   renderers?: CardProviderRenderers;
+  onActionClick: (actionId: string) => void;
   onResolve: () => void;
   url: string;
 };

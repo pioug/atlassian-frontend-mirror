@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.2.1
+
+### Patch Changes
+
+- [`5db7cbdb520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5db7cbdb520) - XPC3P-23 Add types for search dialog
+
 ## 1.2.0
 
 ### Minor Changes

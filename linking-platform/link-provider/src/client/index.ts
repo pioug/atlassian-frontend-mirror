@@ -5,7 +5,11 @@ import DataLoader from 'dataloader';
 import { JsonLd } from 'json-ld-types';
 import retry, { Options } from 'async-retry';
 import pThrottle from 'p-throttle';
-import { InvokePayload, APIError } from '@atlaskit/linking-common';
+import {
+  InvokePayload,
+  APIError,
+  InvocationSearchPayload,
+} from '@atlaskit/linking-common';
 import * as api from './api';
 import { CardClient as CardClientInterface, EnvironmentsKeys } from './types';
 import { getResolverUrl } from './utils/environments';
@@ -230,5 +234,32 @@ export default class CardClient implements CardClientInterface {
       context: data.context,
     };
     return await api.request('post', `${this.resolverUrl}/invoke`, request);
+  }
+
+  /**
+   * Make request to the Search endpoint See `InvocationRequest` in ORS openapi.yaml for backend
+   * spec.
+   * @param data Payload including the search provider key and query. An empty search query string
+   * results in recent results being returned (pre-query).
+   * @returns JsonLd collection of search results.
+   */
+  public async search(
+    data: InvokePayload<InvocationSearchPayload>,
+  ): Promise<JsonLd.Collection> {
+    const { key, action } = data;
+    // Note: context in action is different to context in data, see types.
+    const { query, context } = action;
+    const request = {
+      key,
+      search: {
+        query,
+        context,
+      },
+    };
+    return await api.request(
+      'post',
+      `${this.resolverUrl}/invoke/search`,
+      request,
+    );
   }
 }

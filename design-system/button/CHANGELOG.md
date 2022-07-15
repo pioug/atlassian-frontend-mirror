@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.3.4
+
+### Patch Changes
+
+- [`65a90f6ba14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65a90f6ba14) - Use medium icons for button examples
+
 ## 16.3.3
 
 ### Patch Changes

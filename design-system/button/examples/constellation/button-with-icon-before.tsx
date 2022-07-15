@@ -7,7 +7,7 @@ import Button from '../../src';
 const ButtonIconBeforeExample = () => {
   return (
     <Button
-      iconBefore={<StarFilledIcon label="Star icon" size="small" />}
+      iconBefore={<StarFilledIcon label="" size="medium" />}
       appearance="primary"
     >
       Icon before

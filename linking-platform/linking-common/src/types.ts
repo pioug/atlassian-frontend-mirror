@@ -7,6 +7,19 @@ export interface InvokePayload<T> {
   action: T;
 }
 
+export type InvocationSearchPayload = {
+  query: string;
+  context?: InvocationContext;
+};
+
+export type InvocationContext = {
+  /**
+   * The parent context of the resource on which this action is being invoked.
+   * See `InvocationSearchRequest` in ORS `openapi.yml`.
+   */
+  id: string;
+};
+
 export type CardAppearance = 'inline' | 'block' | 'embed';
 export type CardPlatform = JsonLd.Primitives.Platforms;
 export type CardActionType =

@@ -238,6 +238,30 @@ describe('Smart Card: Client', () => {
     );
   });
 
+  it('search()', async () => {
+    const client = new SmartCardClient('stg');
+
+    client.search({
+      key: 'google-search-provider',
+      action: { query: 'search terms', context: { id: 'some-id' } },
+    });
+    expect(mockRequest).toBeCalled();
+
+    expect(mockRequest).toBeCalledWith(
+      'post',
+      expect.stringMatching(
+        /.*?commerce-components-preview.*?\/invoke\/search/,
+      ),
+      {
+        key: 'google-search-provider',
+        search: {
+          query: 'search terms',
+          context: { id: 'some-id' },
+        },
+      },
+    );
+  });
+
   describe('prefetchData', () => {
     it('successfully triggers prefetching of data for multiple URLs', async () => {
       mockRequest.mockImplementationOnce(async () => [

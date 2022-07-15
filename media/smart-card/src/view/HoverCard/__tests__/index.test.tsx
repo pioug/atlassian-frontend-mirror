@@ -243,13 +243,16 @@ describe('HoverCard', () => {
   });
 
   it('should open preview modal after clicking preview button', async () => {
-    const { findByTestId } = await setup();
+    const { findByTestId, queryByTestId } = await setup();
     jest.runAllTimers();
     const previewButton = await findByTestId('preview-content');
     fireEvent.click(previewButton);
     const previewModal = await findByTestId('preview-modal');
 
     expect(previewModal).toBeTruthy();
+
+    const hoverCard = queryByTestId('hover-card');
+    expect(hoverCard).toBeNull();
   });
 
   it('should render open action', async () => {
@@ -267,11 +270,12 @@ describe('HoverCard', () => {
     const { findByTestId } = await setup();
     jest.runAllTimers();
 
-    await findByTestId('smart-block-title-resolved-view');
+    const content = await findByTestId('smart-block-title-resolved-view');
     const openButton = await findByTestId('hover-card-open-button');
     fireEvent.click(openButton);
 
     expect(open).toHaveBeenCalledWith('https://some.url', '_blank');
+    expect(content).toBeTruthy();
     mockOpen.mockRestore();
   });
 
@@ -417,8 +421,10 @@ describe('HoverCard', () => {
       });
     });
 
-    it('should fire clicked event when preview button is clicked', async () => {
-      const spy = jest.spyOn(analytics, 'uiActionClickedEvent');
+    it('should fire clicked event and close event when preview button is clicked', async () => {
+      const clickSpy = jest.spyOn(analytics, 'uiActionClickedEvent');
+      const closeSpy = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
+
       const { findByTestId } = await setup(mockBaseResponseWithPreview);
       jest.runAllTimers();
 
@@ -428,7 +434,7 @@ describe('HoverCard', () => {
       fireEvent.click(button);
 
       expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
-      expect(spy.mock.results[0].value).toEqual({
+      expect(clickSpy.mock.results[0].value).toEqual({
         action: 'clicked',
         actionSubject: 'button',
         actionSubjectId: 'invokePreviewScreen',
@@ -440,6 +446,23 @@ describe('HoverCard', () => {
           extensionKey: 'test-object-provider',
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',
+        },
+        eventType: 'ui',
+      });
+      expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
+      expect(closeSpy.mock.results[0].value).toEqual({
+        action: 'dismissed',
+        actionSubject: 'hoverCard',
+        attributes: {
+          componentName: 'smart-cards',
+          definitionId: 'd1',
+          id: expect.any(String),
+          extensionKey: 'test-object-provider',
+          hoverTime: 0,
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
+          previewDisplay: 'card',
+          previewInvokeMethod: 'mouse_hover',
         },
         eventType: 'ui',
       });

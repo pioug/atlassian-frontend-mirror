@@ -87,7 +87,7 @@ const Modal = ({
   onClose,
   onOpen,
   src,
-  testId,
+  testId = 'smart-links-preview-modal',
   showModal,
   providerName,
   metadata,

@@ -193,6 +193,14 @@ abc
 
       `,
     ],
+    [
+      'ESS-2539 Should render list separated by ruler properly',
+      `
+      - a
+      ----
+      -- b
+    `,
+    ],
   ];
 
   const context = {

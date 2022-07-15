@@ -40,19 +40,21 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
   const linkState = useLinkState(url);
   const analytics = useSmartLinkAnalytics(url, analyticsHandler, id);
 
+  const hideCard = useCallback(() => {
+    //Check its previously open to avoid firing events when moving between the child and hover card components
+    if (isOpen === true && cardOpenTime.current) {
+      const hoverTime = Date.now() - cardOpenTime.current;
+      analytics.ui.hoverCardDismissedEvent('card', hoverTime, 'mouse_hover');
+    }
+    setIsOpen(false);
+  }, [analytics.ui, isOpen]);
+
   const initHideCard = useCallback(() => {
     if (fadeInTimeoutId.current) {
       clearTimeout(fadeInTimeoutId.current);
     }
-    fadeOutTimeoutId.current = setTimeout(() => {
-      //Check its previously open to avoid firing events when moving between the child and hover card components
-      if (isOpen === true && cardOpenTime.current) {
-        const hoverTime = Date.now() - cardOpenTime.current;
-        analytics.ui.hoverCardDismissedEvent('card', hoverTime, 'mouse_hover');
-      }
-      setIsOpen(false);
-    }, delay);
-  }, [delay, isOpen, analytics.ui]);
+    fadeOutTimeoutId.current = setTimeout(() => hideCard(), delay);
+  }, [hideCard]);
 
   const initShowCard = useCallback(() => {
     if (fadeOutTimeoutId.current) {
@@ -74,13 +76,20 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
     analyticsHandler,
   });
 
-  const onClose = useCallback(() => setIsOpen(false), []);
+  const onActionClick = useCallback(
+    (actionId) => {
+      if (actionId === 'preview-content') {
+        hideCard();
+      }
+    },
+    [hideCard],
+  );
 
   return (
     <Popup
       testId="hover-card"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={hideCard}
       placement="bottom-start"
       content={({ update }) => (
         <div
@@ -92,6 +101,7 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
             analytics={analytics}
             cardActions={linkActions}
             cardState={linkState}
+            onActionClick={onActionClick}
             onResolve={update}
             renderers={renderers}
             url={url}

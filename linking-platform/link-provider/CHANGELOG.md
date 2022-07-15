@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.1.0
+
+### Minor Changes
+
+- [`896bfc34e67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/896bfc34e67) - Added search API to the client
+
 ## 1.0.8
 
 ### Patch Changes

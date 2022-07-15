@@ -1,3 +1,5 @@
+import { overrideEmbedContent } from '../../../../../examples/utils/common';
+
 export const mockBaseResponse = {
   meta: {
     visibility: 'public',
@@ -30,7 +32,7 @@ export const mockBaseResponse = {
       name: 'Michael Schrute',
     },
     preview: {
-      href: 'https://www.ilovecheese.com',
+      href: overrideEmbedContent,
     },
     url: 'https://some.url',
   },

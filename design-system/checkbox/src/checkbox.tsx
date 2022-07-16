@@ -186,6 +186,7 @@ const Checkbox = memo(
     return (
       <Label
         isDisabled={isDisabled}
+        id={rest.id ? `${rest.id}-label` : undefined}
         testId={testId && `${testId}--checkbox-label`}
       >
         <input

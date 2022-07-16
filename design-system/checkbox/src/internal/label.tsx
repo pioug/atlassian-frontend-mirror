@@ -94,6 +94,7 @@ export default function Label({
   isDisabled,
   testId,
   onClick,
+  id,
 }: LabelProps) {
   const { mode } = useGlobalTheme();
 
@@ -109,6 +110,7 @@ export default function Label({
       data-testid={testId}
       data-disabled={isDisabled || undefined}
       onClick={onClick}
+      id={id}
     >
       {children}
     </label>

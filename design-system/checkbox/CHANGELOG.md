@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.3.16
+
+### Patch Changes
+
+- [`f55cf469372`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f55cf469372) - Added id property to the checkbox label for compatibility with aria-labelledby
+
 ## 12.3.15
 
 ### Patch Changes

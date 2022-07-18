@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.1.1
+
+### Patch Changes
+
+- [`74fdf4bb16b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74fdf4bb16b) - Fix problem when for public links one can't go back to smart-link via dropdown after switching to URL
+
 ## 1.1.0
 
 ### Minor Changes

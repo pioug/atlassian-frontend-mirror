@@ -9,6 +9,7 @@ import React, {
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import styled from 'styled-components';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
@@ -32,6 +33,8 @@ const GiveKudosDrawerWrapper = styled.div`
   }
 `;
 
+const ANALYTICS_CHANNEL = 'atlas';
+
 const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
@@ -39,10 +42,11 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   const messageListenerEventHandler = useRef((e: any) => {});
   const unloadEventHandler = useRef((e: any) => {});
   const intl = useIntl();
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+
   const {
     addFlag,
     teamCentralBaseUrl,
-    analytics,
     analyticsSource,
     onClose,
     testId,
@@ -58,11 +62,14 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 
   const sendAnalytic = useCallback(
     (action: string, options: {}) => {
-      if (analytics && analyticsSource) {
-        // TODO analytics(`${analyticsSource}.${action}`, options);
-      }
+      const analyticsEvent = createAnalyticsEvent({
+        action: action,
+        actionSubject: 'createKudos',
+        attributes: { ...options, analyticsSource },
+      });
+      analyticsEvent.fire(ANALYTICS_CHANNEL);
     },
-    [analytics, analyticsSource],
+    [analyticsSource, createAnalyticsEvent],
   );
 
   const closeDrawer = useCallback(() => {
@@ -84,9 +91,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
         const uuid = String(event.data).replace(/^(kudos-created-)/, '');
 
         closeDrawer();
-        sendAnalytic('created', {
-          id: 'createKudos',
-        });
+        sendAnalytic('created', {});
         addFlag &&
           addFlag({
             title: <FormattedMessage {...messages.kudosCreatedFlag} />,
@@ -146,14 +151,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   }, [isDirty, shouldBlockTransition]);
 
   const sendCancelAnalytic = () => {
-    sendAnalytic('cancelled', {
-      id: 'createKudos',
-    });
-    // props.analytics.pushTrackEvent({
-    //   source: props.analyticsSource,
-    //   actionSubject: 'createKudos',
-    //   action: 'cancelled',
-    // });
+    sendAnalytic('cancelled', {});
   };
 
   const handleCloseDrawerClickedFunc = () => {

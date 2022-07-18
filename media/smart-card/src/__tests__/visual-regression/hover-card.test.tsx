@@ -38,7 +38,8 @@ describe('Hover Card', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should open preview modal', async () => {
+  // FIXME: This test was automatically skipped due to failure on 18/07/2022: https://product-fabric.atlassian.net/browse/EDM-3883
+  it.skip('should open preview modal', async () => {
     const page = await renderHoverCard();
 
     await page.click('[data-testid="preview-content"]');

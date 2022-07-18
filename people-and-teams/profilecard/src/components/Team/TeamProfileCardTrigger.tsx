@@ -359,7 +359,6 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
               type: KudosType.TEAM,
               recipientId: this.props.teamId!,
             }}
-            analytics={this.fireAnalytics}
             analyticsSource="team-profile-card"
             teamCentralBaseUrl={this.state.teamCentralBaseUrl!}
             cloudId={this.props.cloudId || ''}

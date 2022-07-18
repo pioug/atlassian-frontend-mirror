@@ -12,7 +12,6 @@ export interface GiveKudosDrawerProps {
   testId?: string;
   isOpen: boolean;
   onClose: () => void;
-  analytics?: any;
   analyticsSource: string;
   recipient?: KudosRecipient;
   teamCentralBaseUrl: string;

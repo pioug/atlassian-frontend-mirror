@@ -287,7 +287,6 @@ class ProfilecardTrigger extends React.PureComponent<
                 type: KudosType.INDIVIDUAL,
                 recipientId: this.props.userId!,
               }}
-              analytics={this.props.analytics}
               analyticsSource="profile-card"
               teamCentralBaseUrl={this.state.teamCentralBaseUrl!}
               cloudId={this.props.cloudId!}

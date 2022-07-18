@@ -41,6 +41,7 @@ export class EditorCardProvider implements CardProvider {
   private requestHeaders: HeadersInit;
   private transformer: Transformer;
   private providersLoader: DataLoader<string, ProvidersData | undefined>;
+  private checkedUrls: Map<string, boolean>;
 
   constructor(envKey?: EnvironmentsKeys) {
     this.baseUrl = getBaseUrl(envKey);
@@ -52,6 +53,7 @@ export class EditorCardProvider implements CardProvider {
     this.providersLoader = new DataLoader(keys => this.batchProviders(keys), {
       batchScheduleFn: callback => setTimeout(callback, BATCH_WAIT_TIME),
     });
+    this.checkedUrls = new Map<string, boolean>();
   }
 
   private async batchProviders(
@@ -65,6 +67,9 @@ export class EditorCardProvider implements CardProvider {
 
   private async check(resourceUrl: string): Promise<boolean | undefined> {
     try {
+      if (this.checkedUrls.has(resourceUrl)) {
+        return this.checkedUrls.get(resourceUrl);
+      }
       const endpoint = `${this.resolverUrl}/check`;
       const response = await api.request<ORSCheckResponse>(
         'post',
@@ -74,6 +79,7 @@ export class EditorCardProvider implements CardProvider {
         },
         this.requestHeaders,
       );
+      this.checkedUrls.set(resourceUrl, response.isSupported);
       return response.isSupported;
     } catch (err) {
       // eslint-disable-next-line
@@ -109,7 +115,7 @@ export class EditorCardProvider implements CardProvider {
   }
 
   async findPattern(url: string): Promise<boolean> {
-    return !!(await this.findPatternData(url));
+    return !!(await this.findPatternData(url)) || !!(await this.check(url));
   }
 
   private doesUrlMatchPath(path: string, url: string) {

@@ -547,4 +547,38 @@ describe('HoverCard', () => {
       },
     );
   });
+
+  it('does not propagate event to parent when clicking inside hover card content', async () => {
+    const containerOnClick = jest.fn();
+    mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+    mockClient = new (fakeFactory(mockFetch))();
+
+    const { findByTestId } = render(
+      <div onClick={containerOnClick}>
+        <Provider client={mockClient}>
+          <Card
+            appearance="inline"
+            url="https://some.url"
+            showHoverPreview={true}
+          />
+        </Provider>
+      </div>,
+    );
+
+    const element = await findByTestId('inline-card-resolved-view');
+    jest.useFakeTimers();
+    fireEvent.mouseEnter(element);
+    jest.runAllTimers();
+
+    const content = await findByTestId('smart-links-container');
+    fireEvent.click(content);
+
+    const link = await findByTestId('smart-element-link');
+    fireEvent.click(link);
+
+    const previewButton = await findByTestId('preview-content');
+    fireEvent.click(previewButton);
+
+    expect(containerOnClick).not.toHaveBeenCalled();
+  });
 });

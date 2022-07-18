@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e5fbc101e73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5fbc101e73) - Remove analytics prop from give kudos component
+
 ## 0.4.0
 
 ### Minor Changes

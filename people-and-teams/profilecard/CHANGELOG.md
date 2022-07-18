@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 16.10.0
+
+### Minor Changes
+
+- [`e5fbc101e73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5fbc101e73) - Remove analytics prop from give kudos component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.9.1
 
 ### Patch Changes

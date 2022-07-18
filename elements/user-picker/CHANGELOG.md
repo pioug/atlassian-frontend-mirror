@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.2.1
+
+### Patch Changes
+
+- [`607b182bb8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/607b182bb8a) - Add typecasting to prevent type errors during multivaluecontainer placeholder translations. Also fix warnings for importing json attributes from version.json for analytics.
+
 ## 9.2.0
 
 ### Minor Changes

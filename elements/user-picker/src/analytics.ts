@@ -3,9 +3,12 @@ import {
   AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
 import { v4 as uuidv4 } from 'uuid';
-import { name as packageName, version as packageVersion } from './version.json';
+import versionJson from './version.json';
 import { Option, OptionData, UserPickerProps, UserPickerState } from './types';
 import { isExternalUser } from './components/utils';
+
+const packageName = versionJson.name;
+const packageVersion = versionJson.version;
 
 const UUID_REGEXP_TEAMS_GROUPS = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
 const UUID_REGEXP_OLD_AAID = /^[a-fA-F0-9]{1,8}:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;

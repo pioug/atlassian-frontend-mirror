@@ -100,7 +100,17 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
     if (addMoreMessage === undefined) {
       return (
         <FormattedMessage {...messages.addMore}>
-          {(addMore) => this.addPlaceholder((addMore as unknown) as string)}
+          {(addMore) => {
+            let addMoreMessages: string | string[] = (addMore as unknown) as
+              | string
+              | string[];
+            if (addMore && typeof addMore === 'string') {
+              addMoreMessages = [addMore];
+            }
+            const placeholder = (addMoreMessages as string[])?.join('') ?? '';
+
+            return this.addPlaceholder(placeholder);
+          }}
         </FormattedMessage>
       );
     }

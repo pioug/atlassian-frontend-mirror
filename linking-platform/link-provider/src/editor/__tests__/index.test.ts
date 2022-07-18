@@ -220,10 +220,12 @@ describe('providers > editor', () => {
 
   it('returns inlineCard when calling /providers endpoint, with fallback to /check', async () => {
     const provider = new EditorCardProvider();
+    // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
       ok: true,
     });
+    // Mocking call to /check
     mockFetch.mockResolvedValueOnce({
       json: async () => ({ isSupported: true }),
       ok: true,
@@ -235,9 +237,11 @@ describe('providers > editor', () => {
 
   it('returns undefined when calling /providers endpoint, with fallback to /check, not supported', async () => {
     const provider = new EditorCardProvider();
+    // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
     });
+    // Mocking call to /check
     mockFetch.mockResolvedValueOnce({
       json: async () => ({ isSupported: false }),
     });
@@ -300,12 +304,51 @@ describe('providers > editor', () => {
 
   it('should not find pattern for a link', async () => {
     const provider = new EditorCardProvider();
+    // Mocking call to /providers
     mockFetch.mockResolvedValueOnce({
       json: async () => getMockProvidersResponse(),
       ok: true,
     });
+    // Mocking call to /check
+    mockFetch.mockResolvedValueOnce({
+      json: async () => ({ isSupported: false }),
+      ok: true,
+    });
     const url = 'https://site-without-pattern.com';
     expect(await provider.findPattern(url)).toBe(false);
+  });
+
+  it('should return true when /check fallback call says it is supported when pattern is not found', async () => {
+    const provider = new EditorCardProvider();
+    // Mocking call to /providers
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    // Mocking call to /check
+    mockFetch.mockResolvedValueOnce({
+      json: async () => ({ isSupported: true }),
+      ok: true,
+    });
+    const url = 'https://site-without-pattern.com';
+    expect(await provider.findPattern(url)).toBe(true);
+  });
+
+  it('should not call /check second time', async () => {
+    const provider = new EditorCardProvider();
+    // Mocking call to /providers
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    // Mocking call to /check
+    mockFetch.mockResolvedValueOnce({
+      json: async () => ({ isSupported: true }),
+      ok: true,
+    });
+    const url = 'https://site-without-pattern.com';
+    expect(await provider.findPattern(url)).toBe(true);
+    expect(await provider.findPattern(url)).toBe(true);
   });
 
   describe('with user preferences', () => {

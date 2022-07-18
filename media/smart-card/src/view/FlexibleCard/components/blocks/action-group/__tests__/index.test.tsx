@@ -10,6 +10,7 @@ import { messages } from '../../../../../../messages';
 
 describe('ActionGroup', () => {
   const testId = 'smart-element-test';
+  let containerOnClick = jest.fn();
 
   const setup = (itemsCount: number, visibleButtonsNum?: number) => {
     const makeActionItem: (_: any, i: number) => ActionItem = (_, i) => ({
@@ -23,10 +24,16 @@ describe('ActionGroup', () => {
 
     return render(
       <IntlProvider locale="en">
-        <ActionGroup items={items} visibleButtonsNum={visibleButtonsNum} />
+        <div onClick={containerOnClick}>
+          <ActionGroup items={items} visibleButtonsNum={visibleButtonsNum} />
+        </div>
       </IntlProvider>,
     );
   };
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   describe('when there is just one action item', () => {
     it('renders action group', async () => {
@@ -41,6 +48,15 @@ describe('ActionGroup', () => {
     it('should not render ellipse button', async () => {
       const { queryByTestId } = setup(1);
       expect(queryByTestId('action-group-more-button')).toBeNull();
+    });
+
+    it('does not propagate click event to parent container', async () => {
+      const { findByTestId } = setup(1);
+
+      const action = await findByTestId('smart-element-test-1');
+      userEvent.click(action);
+
+      expect(containerOnClick).not.toHaveBeenCalled();
     });
   });
 
@@ -124,6 +140,32 @@ describe('ActionGroup', () => {
             );
             expect(secondActionElement).toBeDefined();
             expect(secondActionElement?.textContent).toMatch('Delete');
+          }
+        });
+
+        it('does not propagate click event to parent container', async () => {
+          const itemCount = visibleButtonsNum + 1;
+          const { findByTestId } = setup(itemCount, visibleButtonsNum);
+          const moreButton = await findByTestId('action-group-more-button');
+          userEvent.click(moreButton);
+          expect(containerOnClick).not.toHaveBeenCalled();
+
+          /**
+           * for visibleButtonsNum = 3 and total 4 buttons,
+           * dropdown shows actions #3, #4 (indices 2, 3)
+           *
+           * for visibleButtonsNum = 2 and total 3 buttons,
+           * dropdown shows actions #2, #3 (indices 1, 2)
+           *
+           * for visibleButtonsNum = 1 and total 2 buttons,
+           * dropdown shows actions #1, #2 (indices 0, 1)
+           */
+          for (let i = 0; i < 2; i++) {
+            const action = await findByTestId(
+              `smart-element-test-${i + visibleButtonsNum}`,
+            );
+            userEvent.click(action);
+            expect(containerOnClick).not.toHaveBeenCalled();
           }
         });
 

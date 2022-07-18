@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 20.0.2
+
+### Patch Changes
+
+- [`12950ccea1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12950ccea1b) - Hover Preview: Stop hover preview from propagating click event to parent element
+
 ## 20.0.1
 
 ### Patch Changes

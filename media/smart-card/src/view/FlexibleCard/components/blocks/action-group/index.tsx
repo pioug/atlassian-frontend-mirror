@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/core';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -53,8 +54,12 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   const restActions = isMoreThenTwoItems
     ? items.slice(visibleButtonsNum - 1)
     : [];
+
+  // Stop AK dropdown menu to propagate event on click.
+  const onClick = useCallback((e) => e.stopPropagation(), []);
+
   return (
-    <div css={styles} className="actions-button-group">
+    <div css={styles} className="actions-button-group" onClick={onClick}>
       <ButtonGroup>
         {renderActionItems(firstActions, size, appearance)}
         {restActions.length > 0 ? (

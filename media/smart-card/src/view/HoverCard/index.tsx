@@ -17,6 +17,8 @@ import { useSmartLinkRenderers } from '../../state/renderers';
 import HoverCardContent from './components/hover-card-content';
 import { HOVER_CARD_ANALYTICS_DISPLAY } from './utils';
 
+export const hoverCardClassName = 'smart-links-hover-preview';
+
 export const HoverCardComponent: FC<HoverCardProps> = ({
   children,
   id,
@@ -85,6 +87,9 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
     [hideCard],
   );
 
+  // Stop hover preview content to propagate event to parent.
+  const onClick = useCallback((e) => e.stopPropagation(), []);
+
   return (
     <Popup
       testId="hover-card"
@@ -95,7 +100,9 @@ export const HoverCardComponent: FC<HoverCardProps> = ({
         <div
           onMouseEnter={initShowCard}
           onMouseLeave={initHideCard}
+          className={hoverCardClassName}
           css={HoverCardContainer}
+          onClick={onClick}
         >
           <HoverCardContent
             analytics={analytics}

@@ -213,7 +213,6 @@ export default class ProfileCardResourced extends React.PureComponent<
                   type: KudosType.INDIVIDUAL,
                   recipientId: this.props.userId!,
                 }}
-                analytics={this.props.analytics}
                 analyticsSource="profile-card"
                 teamCentralBaseUrl={newProps.teamCentralBaseUrl!}
                 cloudId={this.props.cloudId!}

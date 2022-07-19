@@ -9,48 +9,33 @@ import { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import { GasPureScreenEventPayload } from '@atlaskit/analytics-gas-types';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-export type AnalyticsWebClient = {
+export declare type AnalyticsWebClient = {
   sendUIEvent: (event: GasPurePayload) => void;
   sendOperationalEvent: (event: GasPurePayload) => void;
   sendTrackEvent: (event: GasPurePayload) => void;
   sendScreenEvent: (event: GasPureScreenEventPayload) => void;
 };
 
-// @public (undocumented)
-class FabricAnalyticsListeners extends React_2.Component<Props> {
-  constructor(props: Props);
-  // (undocumented)
+declare class FabricAnalyticsListeners extends React_2.Component<Props> {
   logger: Logger;
-  // (undocumented)
+  constructor(props: Props);
   render(): React_2.ReactNode;
 }
 export default FabricAnalyticsListeners;
 
-// @public (undocumented)
-export enum FabricChannel {
-  // (undocumented)
-  atlas = 'atlas',
-  // (undocumented)
+export declare enum FabricChannel {
   atlaskit = 'atlaskit',
-  // (undocumented)
-  editor = 'editor',
-  // (undocumented)
   elements = 'fabric-elements',
-  // (undocumented)
-  media = 'media',
-  // (undocumented)
   navigation = 'navigation',
-  // (undocumented)
-  notifications = 'notifications',
-  // (undocumented)
+  editor = 'editor',
+  media = 'media',
   peopleTeams = 'peopleTeams',
-  // (undocumented)
+  notifications = 'notifications',
   recentWork = 'recentWork',
+  atlas = 'atlas',
 }
 
-// @public (undocumented)
-export const LOG_LEVEL: {
+export declare const LOG_LEVEL: {
   DEBUG: number;
   INFO: number;
   WARN: number;
@@ -58,5 +43,25 @@ export const LOG_LEVEL: {
   OFF: number;
 };
 
-// (No @packageDocumentation comment for this package)
+declare class Logger {
+  logLevel: number;
+  constructor({ logLevel }?: { logLevel?: number });
+  setLogLevel(logLevel: number): void;
+  logMessage(level: number, type: keyof Console, ...args: any[]): void;
+  debug(...args: any[]): void;
+  info(...args: any[]): void;
+  warn(...args: any[]): void;
+  error(...args: any[]): void;
+}
+
+declare type Props = {
+  /** Children! */
+  children?: React_2.ReactNode;
+  client?: AnalyticsWebClient | Promise<AnalyticsWebClient>;
+  logLevel?: number;
+  /** A list of individual listeners to exclude, identified by channel */
+  excludedChannels?: FabricChannel[];
+};
+
+export {};
 ```

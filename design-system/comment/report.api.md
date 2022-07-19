@@ -12,12 +12,67 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
-// @public
-const Comment_2: FC<CommentProps>;
+declare interface ActionItemProps extends WithAnalyticsEventsProps {
+  /**
+   * The content to render inside the action button.
+   */
+  children?: ReactNode;
+  /**
+   * Set if the action button is disabled.
+   */
+  isDisabled?: boolean;
+  /**
+   * Handler called when the element is clicked.
+   */
+  onClick?: (
+    event: React_2.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
+  /**
+   * Handler called when the element is focused.
+   */
+  onFocus?: (event: React_2.FocusEvent<HTMLElement>) => void;
+  /**
+   * Handler called when the element is moused over.
+   */
+  onMouseOver?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+declare interface AuthorProps extends WithAnalyticsEventsProps {
+  /**
+   * The name of the author.
+   */
+  children?: ReactNode;
+  /**
+   * The URL of the link. If not provided, the element will be rendered as text.
+   */
+  href?: string;
+  /**
+   * Handler called when the element is clicked.
+   */
+  onClick?: (
+    event: React_2.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
+  /**
+   * Handler called when the element is focused.
+   */
+  onFocus?: (event: React_2.FocusEvent<HTMLElement>) => void;
+  /**
+   * Handler called when the element is moused over.
+   */
+  onMouseOver?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+/**
+ * __Comment__
+ *
+ * Comments enable discussions on an entity such as a page, blog post, issue or pull request.
+ */
+declare const Comment_2: FC<CommentProps>;
 export default Comment_2;
 
-// @public (undocumented)
-export const CommentAction: React_2.ForwardRefExoticComponent<
+export declare const CommentAction: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<ActionItemProps, keyof WithAnalyticsEventsProps> &
       React_2.RefAttributes<any> &
@@ -33,8 +88,7 @@ export const CommentAction: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export const CommentAuthor: React_2.ForwardRefExoticComponent<
+export declare const CommentAuthor: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<AuthorProps, keyof WithAnalyticsEventsProps> &
       React_2.RefAttributes<any> &
@@ -50,8 +104,7 @@ export const CommentAuthor: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export const CommentEdited: ForwardRefExoticComponent<
+export declare const CommentEdited: ForwardRefExoticComponent<
   Pick<
     Omit<EditedProps, keyof WithAnalyticsEventsProps> &
       RefAttributes<any> &
@@ -61,35 +114,98 @@ export const CommentEdited: ForwardRefExoticComponent<
     RefAttributes<any>
 >;
 
-// @public
-export const CommentLayout: FC<LayoutProps>;
+/**
+ * __Layout__
+ *
+ * The base layout for the comment component.
+ *
+ */
+export declare const CommentLayout: FC<LayoutProps>;
 
-// @public (undocumented)
-export interface CommentProps {
+export declare interface CommentProps {
+  /**
+   * A list of `CommentAction` items rendered as a row of buttons below the content.
+   */
   actions?: Array<ReactNode>;
-  afterContent?: ReactNode;
+  /**
+   * A `CommentAuthor` element containing the name of the author.
+   */
   author?: ReactNode;
+  /**
+   * The element to display as the avatar - generally an `@atlaskit/avatar`.
+   */
   avatar: ReactNode;
+  /**
+   * Nested comments are to be provided as children.
+   */
   children?: ReactNode;
+  /**
+   * The main content on the comment.
+   */
   content?: ReactNode;
-  edited?: ReactNode;
-  errorActions?: Array<ReactNode>;
-  errorIconLabel?: string;
-  headingLevel?: string;
+  /**
+   * Whether this comment should appear highlighted.
+   */
   highlighted?: boolean;
-  id?: string;
-  isError?: boolean;
-  isSaving?: boolean;
+  /**
+   * Text for the "restricted to" label. Will display in the top items.
+   */
   restrictedTo?: ReactNode;
+  /**
+   * Enables "optimistic saving" mode which removes actions and displays `savingText` prop.
+   */
+  isSaving?: boolean;
+  /**
+   * Text to show when in "optimistic saving" mode.
+   */
   savingText?: string;
-  shouldRenderNestedCommentsInline?: boolean;
-  testId?: string;
+  /**
+   * A `CommentTime` element containing the time to be displayed.
+   */
   time?: ReactNode;
+  /**
+   * Optional hook for automated testing.
+   */
+  testId?: string;
+  /**
+   * The type of the comment. This will be rendered in a lozenge at the top of the comment.
+   */
   type?: string;
+  /**
+   * A `CommentEdited` element which displays next to the time. Indicates whether the comment has been edited.
+   */
+  edited?: ReactNode;
+  /**
+   * Indicates whether the component is in an error state. Hides actions and time.
+   */
+  isError?: boolean;
+  /**
+   * A list of `CommentAction` items rendered with a warning icon instead of the actions.
+   */
+  errorActions?: Array<ReactNode>;
+  /**
+   * Text to show in the error icon label.
+   */
+  errorIconLabel?: string;
+  /**
+   * An ID to be applied to the comment.
+   */
+  id?: string;
+  /**
+   * Content that is rendered after the comment's content.
+   */
+  afterContent?: ReactNode;
+  /**
+   * Controls if nested comments are rendered at the same depth as the comment.
+   */
+  shouldRenderNestedCommentsInline?: boolean;
+  /**
+   * A semantic heading level to display on this comment (1, 2, 3 etc).
+   */
+  headingLevel?: string;
 }
 
-// @public (undocumented)
-export const CommentTime: React_2.ForwardRefExoticComponent<
+export declare const CommentTime: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<TimeProps, keyof WithAnalyticsEventsProps> &
       React_2.RefAttributes<any> &
@@ -105,5 +221,77 @@ export const CommentTime: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// (No @packageDocumentation comment for this package)
+declare interface EditedProps extends WithAnalyticsEventsProps {
+  /**
+   * Content to render indicating that the comment has been edited.
+   */
+  children?: ReactNode;
+  /**
+   * Handler called when the element is focused.
+   */
+  onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
+  /**
+   * Handler called when the element is moused over.
+   */
+  onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+declare interface LayoutProps {
+  /**
+   * The element to display as the Comment avatar - generally an Atlaskit Avatar
+   */
+  avatar?: ReactNode;
+  /**
+   * Nested comments to render
+   */
+  children?: ReactNode;
+  /**
+   * The main content of the Comment
+   */
+  content?: ReactNode;
+  /**
+   * Whether this comment should appear highlighted
+   */
+  highlighted?: boolean;
+  /**
+   * Optional ID for the comment
+   */
+  id?: string;
+  /**
+   * Optional boolean to render any child comments at the same level as this comment
+   */
+  shouldRenderNestedCommentsInline?: boolean;
+  /**
+   * Hook for automated testing.
+   */
+  testId?: string;
+}
+
+declare interface TimeProps extends WithAnalyticsEventsProps {
+  /**
+   * The time of the comment.
+   */
+  children?: ReactNode;
+  /**
+   * The URL of the link. If not provided, the element will be rendered as text.
+   */
+  href?: string;
+  /**
+   * Handler called when the element is clicked.
+   */
+  onClick?: (
+    event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
+  /**
+   * Handler called when the element is focused.
+   */
+  onFocus?: (event: React_2.FocusEvent<HTMLElement>) => void;
+  /**
+   * Handler called when the element is moused over.
+   */
+  onMouseOver?: (event: React_2.MouseEvent<HTMLElement, MouseEvent>) => void;
+}
+
+export {};
 ```

@@ -16,8 +16,7 @@ import { Validator } from 'prop-types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const Cell: {
+export declare const Cell: {
   new (props: Readonly<CellProps & CellWithColumnWidthProps>): {
     UNSAFE_componentWillMount(): void;
     setColumnWidth(width?: string | number | undefined): void;
@@ -142,24 +141,31 @@ export const Cell: {
   contextType?: React_2.Context<any> | undefined;
 };
 
-// @public (undocumented)
-export interface CellProps {
-  className?: string;
-  indentLevel?: number;
+export declare interface CellProps {
+  /**
+   * Whether the cell contents should wrap or display on a single line and be concatenated.
+   */
   singleLine?: boolean;
+  /**
+   * Indent level for the cell. Each indent level adds 25px to the left padding.
+   */
+  indentLevel?: number;
+  /**
+   * Width of the header item. Takes a string or a number representing the width in pixels.
+   */
   width?: number | string;
+  /**
+   * Class name to apply to cell.
+   */
+  className?: string;
 }
 
-// @public (undocumented)
-export interface CellWithColumnWidthProps {
-  // (undocumented)
+export declare interface CellWithColumnWidthProps {
+  width?: number | string;
   columnIndex?: number;
-  // (undocumented)
-  width?: number | string;
 }
 
-// @public (undocumented)
-export const Header: {
+export declare const Header: {
   new (props: Readonly<any>): {
     UNSAFE_componentWillMount(): void;
     setColumnWidth(width?: string | number | undefined): void;
@@ -284,15 +290,12 @@ export const Header: {
   contextType?: Context<any> | undefined;
 };
 
-// @public (undocumented)
-class Headers_2 extends Component<any> {
-  // (undocumented)
+declare class Headers_2 extends Component<any> {
   render(): JSX.Element;
 }
 export { Headers_2 as Headers };
 
-// @public (undocumented)
-export const Row: React_2.ForwardRefExoticComponent<
+export declare const Row: React_2.ForwardRefExoticComponent<
   Pick<
     Pick<Omit<any, keyof WithAnalyticsEventsProps>, string | number | symbol> &
       React_2.RefAttributes<any> &
@@ -302,29 +305,27 @@ export const Row: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export class Rows<T> extends Component<RowsProps<T>> {
-  // (undocumented)
+export declare class Rows<T> extends Component<RowsProps<T>> {
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface RowsProps<T> {
-  // (undocumented)
+export declare interface RowsProps<T> {
   items?: WithChildren<T>[];
-  // (undocumented)
   render: (args: WithChildren<T>) => React_2.ReactNode;
 }
 
-// @public (undocumented)
-class TableTree extends Component<any, State> {
-  // (undocumented)
+declare interface State {
+  columnWidths: number[];
+}
+
+declare class TableTree extends Component<any, State> {
   static childContextTypes: {
     tableTree: PropTypes.Validator<object>;
   };
-  // (undocumented)
+  state: State;
   componentDidMount(): void;
-  // (undocumented)
+  setColumnWidth: (columnIndex: number, width: number) => void;
+  getColumnWidth: (columnIndex: any) => number | null;
   getChildContext(): {
     tableTree: {
       columnWidths: number[];
@@ -332,29 +333,37 @@ class TableTree extends Component<any, State> {
       getColumnWidth: (columnIndex: any) => number | null;
     };
   };
-  // (undocumented)
-  getColumnWidth: (columnIndex: any) => number | null;
-  // (undocumented)
   render(): JSX.Element;
-  // (undocumented)
-  setColumnWidth: (columnIndex: number, width: number) => void;
-  // (undocumented)
-  state: State;
 }
 export default TableTree;
 
-// @public
-export class TableTreeDataHelper<T extends any = any> {
-  constructor({ key }?: { key?: keyof T | undefined });
-  // (undocumented)
-  appendItems(items: T[], allItems?: T[], parentItem?: T | null): T[];
-  // (undocumented)
+/**
+ * This helper class will create a cache of all the id's in the items object and
+ * path to the object.
+ * Example:
+ * [{
+ *   // item 1,
+ *   id: 1,
+ *   children:[{
+ *     // item 1.1,
+ *     id: '2'
+ *   }]
+ * }]
+ *
+ * Cache will look something like:
+ * {1: 0, 2: '0.children[0]'}
+ */
+export declare class TableTreeDataHelper<T extends any = any> {
   key: keyof T;
-  // (undocumented)
   keysCache: any;
-  // (undocumented)
+  constructor({ key }?: { key?: keyof T | undefined });
   updateItems(items: T[], allItems?: T[], parentItem?: T | null): T[];
+  appendItems(items: T[], allItems?: T[], parentItem?: T | null): T[];
 }
 
-// (No @packageDocumentation comment for this package)
+declare type WithChildren<T> = T & {
+  children?: T[] | null;
+};
+
+export {};
 ```

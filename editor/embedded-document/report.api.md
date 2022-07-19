@@ -13,63 +13,95 @@ import { ReactElement } from 'react';
 import { RendererProps } from '@atlaskit/renderer';
 import { ServiceConfig } from '@atlaskit/util-service-support';
 
-// @public (undocumented)
-interface Document_2 {
-  // (undocumented)
-  body: string;
-  // (undocumented)
-  containerId?: string;
-  // (undocumented)
-  createdBy: User;
-  // (undocumented)
+declare interface Config extends ServiceConfig {}
+
+declare interface Document_2 {
   documentId: string;
-  // (undocumented)
-  language?: string;
-  // (undocumented)
   objectId: string;
-  // (undocumented)
+  containerId?: string;
+  createdBy: User;
+  language?: string;
   title?: string;
+  body: string;
 }
 export { Document_2 as Document };
 
-// @public (undocumented)
-export class DocumentBody extends PureComponent<Props_2> {
-  // (undocumented)
+declare interface DocumentActions {
+  createDocument(value: any): Promise<Document_2>;
+  editDocument(): void;
+  cancelEdit(): void;
+  updateDocument(value: any): Promise<Document_2>;
+}
+
+export declare class DocumentBody extends PureComponent<Props_2> {
+  private renderChild;
+  private stateMapper;
+  private renderPropsMapper;
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type DocumentMode = 'view' | 'edit' | 'create';
+export declare type DocumentMode = 'view' | 'edit' | 'create';
 
-// @public (undocumented)
-export class EmbeddedDocument extends Component<Props, State> {
+export declare class EmbeddedDocument extends Component<Props, State> {
+  private actions;
+  private provider;
   constructor(props: Props);
-  // (undocumented)
   componentDidMount(): Promise<void>;
-  // (undocumented)
+  private getDocumentByObjectId;
+  private getDocument;
+  private setDocumentMode;
+  private updateDocument;
+  private createDocument;
+  private setDocumentState;
+  /**
+   * Toolbar will only be rendered here if we're in "view"-mode.
+   *
+   * In all other modes, the toolbar rendering will be triggered
+   * by the Document-component.
+   */
+  private renderToolbar;
+  /**
+   * Title will only be rendered here if we're in "view"-mode.
+   *
+   * In all other modes, the title rendering will be triggered
+   * by the Document-component.
+   */
+  private renderTitle;
+  private renderContent;
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface Provider {
-  // (undocumented)
-  createDocument(
-    body: string,
-    objectId: string,
-    title?: string,
-    language?: string,
-  ): Promise<Document_2 | null>;
-  // (undocumented)
+declare interface Props extends ProviderProps {
+  objectId: string;
+  documentId?: string;
+  containerId?: string;
+  language?: string;
+  mode?: DocumentMode;
+  renderTitle?: (mode: DocumentMode, doc?: any) => ReactElement<any>;
+  renderToolbar?: (
+    mode: DocumentMode,
+    editorActions?: any,
+  ) => ReactElement<any>;
+}
+
+declare interface Props_2 {
+  editorProps?: Partial<EditorProps>;
+  rendererProps?: Partial<RendererProps>;
+}
+
+declare interface Props_3 {
+  render(actions: DocumentActions): React_2.ReactNode;
+}
+
+export declare interface Provider {
   getDocument(
     documentId: string,
     language?: string,
   ): Promise<Document_2 | null>;
-  // (undocumented)
   getDocumentByObjectId(
     objectId: string,
     language?: string,
   ): Promise<Document_2 | null>;
-  // (undocumented)
   updateDocument(
     documentId: string,
     body: string,
@@ -77,29 +109,30 @@ export interface Provider {
     title?: string,
     language?: string,
   ): Promise<Document_2 | null>;
+  createDocument(
+    body: string,
+    objectId: string,
+    title?: string,
+    language?: string,
+  ): Promise<Document_2 | null>;
 }
 
-// @public (undocumented)
-export class ServiceProvider implements Provider {
+declare interface ProviderProps {
+  provider?: Provider;
+  url?: string;
+}
+
+export declare class ServiceProvider implements Provider {
+  private config;
   constructor(config: Config);
-  // (undocumented)
-  createDocument(
-    body: string,
-    objectId: string,
-    title?: string,
-    language?: string,
-  ): Promise<Document_2 | null>;
-  // (undocumented)
   getDocument(
     documentId: string,
     language?: string,
   ): Promise<Document_2 | null>;
-  // (undocumented)
   getDocumentByObjectId(
     objectId: string,
     language?: string,
   ): Promise<Document_2 | null>;
-  // (undocumented)
   updateDocument(
     documentId: string,
     body: string,
@@ -107,19 +140,32 @@ export class ServiceProvider implements Provider {
     title?: string,
     language?: string,
   ): Promise<Document_2 | null>;
+  createDocument(
+    body: string,
+    objectId: string,
+    title?: string,
+    language?: string,
+  ): Promise<Document_2 | null>;
 }
 
-// @public (undocumented)
-export const Toolbar: (props: {
+declare interface State {
+  doc?: Document_2;
+  isLoading?: boolean;
+  hasError?: boolean;
+  mode?: DocumentMode;
+}
+
+export declare const Toolbar: (props: {
   mode: DocumentMode;
   editorActions?: any;
 }) => JSX.Element;
 
-// @public (undocumented)
-export class WithDocumentActions extends PureComponent<Props_3> {
-  // (undocumented)
+declare interface User {}
+
+export declare class WithDocumentActions extends PureComponent<Props_3> {
+  private actionsMapper;
   render(): JSX.Element;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

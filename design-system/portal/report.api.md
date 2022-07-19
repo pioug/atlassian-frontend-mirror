@@ -8,26 +8,38 @@
 import type { Layers } from '@atlaskit/theme/types';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-function Portal(props: PortalProps): JSX.Element | null;
+/**
+ * Named layers of all z-index used in the Atlassian Design System.
+ */
+declare type LayerName = keyof Layers;
+
+declare function Portal(props: PortalProps): JSX.Element | null;
 export default Portal;
 
-// @public (undocumented)
-export const PORTAL_MOUNT_EVENT = 'akPortalMount';
+export declare const PORTAL_MOUNT_EVENT = 'akPortalMount';
 
-// @public (undocumented)
-export const PORTAL_UNMOUNT_EVENT = 'akPortalUnmount';
+export declare const PORTAL_UNMOUNT_EVENT = 'akPortalUnmount';
 
-// @public
-export type PortalEvent = CustomEvent<PortalEventDetail>;
+/**
+ * Custom event object that will be fired when Atlassian Portal component is mounted and unmounted
+ */
+export declare type PortalEvent = CustomEvent<PortalEventDetail>;
 
-// @public
-export interface PortalProps {
-  // (undocumented)
+/**
+ * Interface for event to be fired on Atlassian Portal component mount and unmount
+ */
+declare interface PortalEventDetail {
+  layer: LayerName | null;
+  zIndex: number;
+}
+
+/**
+ * Interface for props to be passed in Atlassian Portal component
+ */
+export declare interface PortalProps {
   children: React_2.ReactNode;
-  // (undocumented)
   zIndex?: number | string;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

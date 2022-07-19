@@ -14,8 +14,7 @@ import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { StyledComponent } from '@emotion/styled-base';
 
-// @public (undocumented)
-export const ContentWrapper: StyledComponent<
+export declare const ContentWrapper: StyledComponent<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   Omit_2<
     ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>,
@@ -24,8 +23,7 @@ export const ContentWrapper: StyledComponent<
   any
 >;
 
-// @public (undocumented)
-export const FlexContainer: StyledComponent<
+export declare const FlexContainer: StyledComponent<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   Omit_2<
     ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>,
@@ -34,22 +32,34 @@ export const FlexContainer: StyledComponent<
   any
 >;
 
-// @public (undocumented)
-export class RightSidePanel extends Component<Props, State> {
-  // (undocumented)
+declare interface Props {
+  isOpen: boolean;
   attachPanelTo: string;
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  render(): React_2.ReactNode;
-  // (undocumented)
-  renderDrawer(Container: HTMLElement): ReactNode;
-  // (undocumented)
+  children?: ReactNode;
+  skipAnimationOnMount?: boolean;
+  mountOnEnter?: boolean;
+  unmountOnExit?: boolean;
+  disableEnterAnimation?: boolean;
+  disableExitAnimation?: boolean;
+  onOpenAnimationFinished?: () => void;
+  onCloseAnimationFinished?: () => void;
+}
+
+export declare class RightSidePanel extends Component<Props, State> {
+  attachPanelTo: string;
   state: {
     entered: boolean;
     container: undefined;
   };
+  componentDidMount(): void;
+  renderDrawer(Container: HTMLElement): ReactNode;
+  render(): React_2.ReactNode;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface State {
+  entered: boolean;
+  container?: Element | null;
+}
+
+export {};
 ```

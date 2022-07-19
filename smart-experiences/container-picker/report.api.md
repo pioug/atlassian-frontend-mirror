@@ -11,8 +11,23 @@ import { FunctionComponent } from 'react';
 import { default as React_2 } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const ContainerPicker: React_2.ForwardRefExoticComponent<
+declare interface ContainerOption {
+  label: string;
+  value: ContainerOptionValue;
+}
+
+declare interface ContainerOptionValue {
+  id: string;
+  name: string;
+  type: string;
+  url: string;
+  iconUrl: string;
+  analyticsAttributes?: {
+    [key: string]: string;
+  };
+}
+
+export declare const ContainerPicker: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<Props, keyof WithAnalyticsEventsProps>,
     | 'value'
@@ -44,33 +59,50 @@ export const ContainerPicker: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export type ContainerPickerProps = ProductContainerPickerProps & ProductProps;
+export declare type ContainerPickerProps = ProductContainerPickerProps &
+  ProductProps;
 
-// @public (undocumented)
-export interface Context {
-  // (undocumented)
-  baseUrl?: string;
-  // (undocumented)
-  cloudId: string;
-  // (undocumented)
+export declare interface Context {
   sessionId?: string;
+  cloudId: string;
+  baseUrl?: string;
 }
 
-// @public (undocumented)
-export interface ProductProps {
-  // (undocumented)
+declare interface ProductContainerPickerProps {
+  cloudId: string;
+  contextType: string;
+  baseUrl?: string;
+  isMulti?: boolean;
+  maxOptions?: number;
+  maxRequestOptions?: number;
+  principalId?: string;
+  isLoading?: boolean;
+  debounceTime?: number;
+  /** Selected values to display. If not provided, ContainerPicker will control it internally. */
+  value?: Value;
+  formatOptionLabel?: (
+    data: ContainerOption,
+    context: FormatOptionLabelMeta<ContainerOption>,
+  ) => React.ReactNode;
+}
+
+export declare interface ProductProps {
   product: ProductType;
 }
 
-// @public (undocumented)
-export type ProductType = 'jira' | 'confluence';
+export declare type ProductType = 'jira' | 'confluence';
 
-// @public (undocumented)
-export const ProjectPicker: FunctionComponent<ProductContainerPickerProps>;
+export declare const ProjectPicker: FunctionComponent<ProductContainerPickerProps>;
 
-// @public (undocumented)
-export const SpacePicker: FunctionComponent<ProductContainerPickerProps>;
+declare type Props = ContainerPickerProps & WithAnalyticsEventsProps;
 
-// (No @packageDocumentation comment for this package)
+export declare const SpacePicker: FunctionComponent<ProductContainerPickerProps>;
+
+declare type Value =
+  | ContainerOptionValue
+  | ContainerOptionValue[]
+  | null
+  | undefined;
+
+export {};
 ```

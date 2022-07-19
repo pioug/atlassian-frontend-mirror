@@ -7,8 +7,7 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 import { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 
-// @public (undocumented)
-export const CONFLUENCE_LANGUAGE_MAP: {
+export declare const CONFLUENCE_LANGUAGE_MAP: {
   actionscript: string;
   applescript: string;
   'c++': string;
@@ -36,14 +35,12 @@ export const CONFLUENCE_LANGUAGE_MAP: {
   xml: string;
 };
 
-// @public (undocumented)
-export class ConfluenceTransformer implements Transformer_2<string> {
+export declare class ConfluenceTransformer implements Transformer_2<string> {
+  private schema;
   constructor(schema: Schema);
-  // (undocumented)
-  encode: (node: Node_2) => string;
-  // (undocumented)
   parse: (html: string) => Node_2;
+  encode: (node: Node_2) => string;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

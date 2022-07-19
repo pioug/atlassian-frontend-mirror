@@ -11,107 +11,200 @@ import { ReactNode } from 'react';
 import { RefObject } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export type Appearance = 'danger' | 'warning';
+export declare type Appearance = 'danger' | 'warning';
 
-// @public (undocumented)
-export type KeyboardOrMouseEvent =
+export declare type KeyboardOrMouseEvent =
   | React_2.MouseEvent<any>
   | React_2.KeyboardEvent<any>
   | KeyboardEvent;
 
-// @public (undocumented)
-export type ModalAttributes = {
+export declare type ModalAttributes = {
+  /**
+   * Test id passed to the modal dialog.
+   */
   testId?: ModalDialogProps['testId'];
+  /**
+   * Id referenced by the modal dialog's `aria-labelledby` attribute.
+   * This id should be assigned to the modal title element.
+   */
   titleId: string;
+  /**
+   * Callback function called when the modal dialog is requesting to be closed,
+   * wrapped in modal dialog's analytic event context.
+   */
   onClose?: OnCloseHandler;
 };
 
-// @public (undocumented)
-export const ModalBody: (props: ModalBodyProps) => JSX.Element;
+export declare const ModalBody: (props: ModalBodyProps) => JSX.Element;
 
-// @public (undocumented)
-export interface ModalBodyProps {
+export declare interface ModalBodyProps {
+  /**
+   * Children of modal dialog footer.
+   */
   children: React_2.ReactNode;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export interface ModalDialogProps {
+export declare interface ModalDialogProps {
+  /**
+   * Focus is moved to the first interactive element inside the modal dialog when `true`.
+   * Pass an element `ref` to focus on a specific element.
+   */
   autoFocus?: boolean | RefObject<HTMLElement | null | undefined>;
+  /**
+   * Contents of the modal dialog.
+   */
   children?: React_2.ReactNode;
+  /**
+   * Height of the modal dialog.
+   * When unset the modal dialog will grow to fill the viewport and then start overflowing its contents.
+   */
   height?: number | string;
-  isBlanketHidden?: boolean;
-  onClose?: OnCloseHandler;
-  onCloseComplete?: OnCloseCompleteHandler;
-  onOpenComplete?: OnOpenCompleteHandler;
-  onStackChange?: OnStackChangeHandler;
-  shouldCloseOnEscapePress?: boolean;
-  shouldCloseOnOverlayClick?: boolean;
-  shouldScrollInViewport?: boolean;
-  stackIndex?: number;
-  testId?: string;
+  /**
+   * Width of the modal dialog.
+   * The recommended way to specify modal width is using named size options.
+   */
   width?: number | string | WidthNames;
-}
+  /**
+   * Callback function called when the modal dialog is requesting to be closed.
+   */
+  onClose?: OnCloseHandler;
+  /**
+   * Callback function called when the modal dialog has finished closing.
+   */
+  onCloseComplete?: OnCloseCompleteHandler;
+  /**
+   * Callback function called when the modal dialog has finished opening.
+   */
+  onOpenComplete?: OnOpenCompleteHandler;
+  /**
+   * Callback function called when the modal changes position in the stack.
+   */
+  onStackChange?: OnStackChangeHandler;
+  /**
+   * Will set the scroll boundary to the viewport.
+   * If set to false, the scroll boundary is set to the modal dialog body.
+   */
+  shouldScrollInViewport?: boolean;
+  /**
+   * Calls `onClose` when clicking the blanket behind the modal dialog.
+   */
+  shouldCloseOnOverlayClick?: boolean;
+  /**
+   * Calls `onClose` when pressing escape.
+   */
+  shouldCloseOnEscapePress?: boolean;
+  /**
+   * Will remove the blanket tinted background color.
+   */
+  isBlanketHidden?: boolean;
+  /**
+   * Number representing where in the stack of modals this modal sits.
+   * This offsets the modal dialogs vertical position.
+   */
+  stackIndex?: number;
+  /**
+     * A `testId` prop is provided for specified elements,
+     * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+     * serving as a hook for automated tests.
 
-// @public (undocumented)
-export const ModalFooter: (props: ModalFooterProps) => JSX.Element;
+     * If not overridden using `testId` prop in the respective components,
+     * this will set `data-testid` on these elements when defined:
 
-// @public (undocumented)
-export interface ModalFooterProps {
-  children?: ReactNode;
+     * - Modal dialog - `{testId}`
+     * - Modal header - `{testId}--header`
+     * - Modal title - `{testId}--title`
+     * - Modal body - `{testId}--body`
+     * - Modal footer - `{testId}--footer`
+     * - Scrollable element - `{testId}--scrollable`
+     * - Blanket - `{testId}--blanket`
+     */
   testId?: string;
 }
 
-// @public (undocumented)
-export const ModalHeader: (props: ModalHeaderProps) => JSX.Element;
+export declare const ModalFooter: (props: ModalFooterProps) => JSX.Element;
 
-// @public (undocumented)
-export interface ModalHeaderProps {
+export declare interface ModalFooterProps {
+  /**
+   * Children of modal dialog footer.
+   */
+  children?: ReactNode;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
+}
+
+export declare const ModalHeader: (props: ModalHeaderProps) => JSX.Element;
+
+export declare interface ModalHeaderProps {
+  /**
+   * Children of modal dialog header.
+   */
   children?: React_2.ReactNode;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export const ModalTitle: (props: ModalTitleProps) => JSX.Element;
+export declare const ModalTitle: (props: ModalTitleProps) => JSX.Element;
 
-// @public (undocumented)
-export interface ModalTitleProps {
+export declare interface ModalTitleProps {
+  /**
+   * Appearance of the modal that changes the color of the primary action and adds an icon to the title.
+   */
   appearance?: Appearance;
+  /**
+   * Children of modal dialog header.
+   */
   children?: ReactNode;
+  /**
+   * When `true` will allow the title to span multiple lines.
+   * Defaults to `true`.
+   */
   isMultiline?: boolean;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export const ModalTransition: (
+export declare const ModalTransition: (
   props: Pick<ExitingPersistenceProps, 'children'>,
 ) => JSX.Element;
 
-// @public (undocumented)
-const ModalWrapper: (props: ModalDialogProps) => JSX.Element;
+declare const ModalWrapper: (props: ModalDialogProps) => JSX.Element;
 export default ModalWrapper;
 
-// @public (undocumented)
-export type OnCloseCompleteHandler = (element: HTMLElement) => void;
+export declare type OnCloseCompleteHandler = (element: HTMLElement) => void;
 
-// @public (undocumented)
-export type OnCloseHandler = (
+export declare type OnCloseHandler = (
   e: KeyboardOrMouseEvent,
   analyticEvent: UIAnalyticsEvent,
 ) => void;
 
-// @public (undocumented)
-export type OnOpenCompleteHandler = (
+export declare type OnOpenCompleteHandler = (
   node: HTMLElement,
   isAppearing: boolean,
 ) => void;
 
-// @public (undocumented)
-export type OnStackChangeHandler = (stackIndex: number) => void;
+export declare type OnStackChangeHandler = (stackIndex: number) => void;
 
-// @public (undocumented)
-export const useModal: () => ModalAttributes;
+export declare const useModal: () => ModalAttributes;
 
-// (No @packageDocumentation comment for this package)
+declare type WidthNames = 'small' | 'medium' | 'large' | 'x-large';
+
+export {};
 ```

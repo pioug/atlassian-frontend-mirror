@@ -17,17 +17,91 @@ import { default as React_2 } from 'react';
 import { Store } from 'redux';
 import { Unsubscribe } from 'redux';
 
-// @public (undocumented)
-export const ADD_COMMENT_ERROR = 'addCommentError';
+declare class AbstractConversationResource implements ResourceProvider {
+  private _store;
+  get store(): Store<State | undefined>;
+  dispatch: (action: Action) => void;
+  constructor();
+  /**
+   * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
+   */
+  getConversations(
+    _objectId: string,
+    _containerId?: string,
+  ): Promise<Conversation_2[]>;
+  /**
+   * Subscribe to the provider's internal store
+   * @param {Handler} handler
+   */
+  subscribe(handler: Handler): Unsubscribe;
+  /**
+   * Creates a new Conversation and associates it with the containerId provided.
+   */
+  create(
+    _localId: string,
+    _value: any,
+    _meta: any,
+    _objectId: string,
+    _containerId?: string,
+  ): Promise<Conversation_2>;
+  /**
+   * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
+   */
+  addComment(
+    _conversationId: string,
+    _parentId: string,
+    _doc: any,
+    _localId?: string,
+  ): Promise<Comment_3>;
+  /**
+   * Updates a comment based on ID. Returns updated content
+   */
+  updateComment(
+    _conversationId: string,
+    _commentId: string,
+    _document: any,
+  ): Promise<Comment_3>;
+  /**
+   * Deletes a comment based on ID. Returns updated comment.
+   */
+  deleteComment(
+    _conversationId: string,
+    _commentId: string,
+  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
+  /**
+   * Reverts a comment based on ID.
+   */
+  revertComment(
+    _conversationId: string,
+    _commentId: string,
+  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
+  /**
+   * Updates a user in the store. Returns updated user
+   */
+  updateUser(_user?: User): Promise<User | undefined>;
+  saveDraft(
+    _isLocal: boolean,
+    _value: any,
+    _conversationId: string,
+    _commentId: string | undefined,
+    _meta: any,
+    _objectId: string,
+    _containerId?: string,
+  ): void;
+}
 
-// @public (undocumented)
-export const ADD_COMMENT_REQUEST = 'addCommentRequest';
+declare interface Action {
+  type: string;
+  payload?: any;
+}
 
-// @public (undocumented)
-export const ADD_COMMENT_SUCCESS = 'addCommentSuccess';
+export declare const ADD_COMMENT_ERROR = 'addCommentError';
 
-// @public (undocumented)
-const Comment_2: ComponentClass<
+export declare const ADD_COMMENT_REQUEST = 'addCommentRequest';
+
+export declare const ADD_COMMENT_SUCCESS = 'addCommentSuccess';
+
+declare const Comment_2: ComponentClass<
   Omit_2<
     {
       comments: Comment_3[];
@@ -200,22 +274,93 @@ const Comment_2: ComponentClass<
 };
 export { Comment_2 as Comment };
 
-// @public (undocumented)
-export class Conversation extends React_2.Component<ContainerProps, any> {
+declare interface Comment_3 extends Pick<Conversation_2, 'comments' | 'error'> {
+  commentId: string;
+  conversationId: string;
+  parentId?: string;
+  document: {
+    adf?: any;
+    md?: string;
+    html?: string;
+  };
+  createdBy: User;
+  createdAt: number;
+  deleted?: boolean;
+  state?: 'SUCCESS' | 'SAVING' | 'ERROR';
+  localId?: string;
+  oldDocument?: {
+    adf?: any;
+    md?: string;
+    html?: string;
+  };
+  isPlaceholder?: boolean;
+  commentAri?: string;
+  nestedDepth?: number;
+}
+
+declare interface ContainerProps {
+  id?: string;
+  objectId: string;
+  containerId?: string;
+  provider: ResourceProvider;
+  dataProviders?: ProviderFactory;
+  meta?: {
+    [key: string]: any;
+  };
+  isExpanded?: boolean;
+  onCancel?: () => void;
+  showBeforeUnloadWarning?: boolean;
+  onEditorOpen?: () => void;
+  onEditorClose?: () => void;
+  onEditorChange?: () => void;
+  renderEditor?: RenderEditorWithComments;
+  placeholder?: string;
+  disableScrollTo?: boolean;
+  allowFeedbackAndHelpButtons?: boolean;
+  portal?: HTMLElement;
+  renderAdditionalCommentActions?: (
+    CommentAction: typeof CommentAction,
+    comment: Comment_3,
+  ) => JSX.Element[];
+  renderAfterComment?: (comment: Comment_3) => JSX.Element;
+  maxCommentNesting?: number;
+}
+
+export declare class Conversation extends React_2.Component<
+  ContainerProps,
+  any
+> {
   constructor(props: ContainerProps);
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class ConversationResource extends AbstractConversationResource {
+declare interface Conversation_2 {
+  conversationId: string;
+  objectId: string;
+  containerId?: string;
+  localId?: string;
+  comments?: Comment_3[];
+  meta: {
+    [key: string]: any;
+  };
+  error?: Error;
+  isMain?: boolean;
+}
+
+export declare class ConversationResource extends AbstractConversationResource {
+  private config;
   constructor(config: ConversationResourceConfig);
-  addComment(
-    conversationId: string,
-    parentId: string,
-    doc: any,
-    localId?: string,
-  ): Promise<Comment_3>;
+  private makeRequest;
+  /**
+   * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
+   */
+  getConversations(
+    objectId: string,
+    containerId?: string,
+  ): Promise<Conversation_2[]>;
+  /**
+   * Creates a new Conversation and associates it with the containerId provided.
+   */
   create(
     localId: string,
     value: any,
@@ -223,83 +368,123 @@ export class ConversationResource extends AbstractConversationResource {
     objectId: string,
     containerId?: string,
   ): Promise<Conversation_2>;
-  // (undocumented)
+  /**
+   * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
+   */
+  addComment(
+    conversationId: string,
+    parentId: string,
+    doc: any,
+    localId?: string,
+  ): Promise<Comment_3>;
+  /**
+   * Updates a comment based on ID. Returns updated content
+   */
+  updateComment(
+    conversationId: string,
+    commentId: string,
+    document: any,
+  ): Promise<Comment_3>;
+  /**
+   * Deletes a comment based on ID. Returns updated comment.
+   */
+  deleteComment(
+    conversationId: string,
+    commentId: string,
+  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
+  /**
+   * Reverts a comment based on ID.
+   */
+  revertComment(
+    conversationId: string,
+    commentId: string,
+  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
+  /**
+   * Updates a user in the store. Returns updated user
+   */
+  updateUser(user?: User): Promise<User | undefined>;
+  /**
+   * Internal helper methods for optimistic updates
+   */
+  private createConversation;
   protected createComment(
     conversationId: string,
     parentId: string,
     doc: any,
     localId?: string,
   ): Comment_3;
-  deleteComment(
-    conversationId: string,
-    commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
-  // (undocumented)
   protected getComment(
     conversationId: string,
     commentId: string,
   ): Comment_3 | undefined;
+}
+
+export declare interface ConversationResourceConfig {
+  url: string;
+  user?: User;
+}
+
+export declare const CREATE_CONVERSATION_ERROR = 'createConversationError';
+
+export declare const CREATE_CONVERSATION_REQUEST = 'createConversationRequest';
+
+export declare const CREATE_CONVERSATION_SUCCESS = 'createConversationSuccess';
+
+export declare const DELETE_COMMENT_ERROR = 'deleteCommentError';
+
+export declare const DELETE_COMMENT_REQUEST = 'deleteCommentRequest';
+
+export declare const DELETE_COMMENT_SUCCESS = 'deleteCommentSuccess';
+
+declare type EventAttributes = {
+  nestedDepth?: number;
+};
+
+declare type EventData = {
+  actionSubjectId?: string;
+  objectId?: string;
+  containerId?: string;
+  nestedDepth?: number;
+  eventType?: eventTypes;
+  action?: string;
+  actionSubject?: string;
+  attributes?: EventAttributes;
+};
+
+declare enum eventTypes {
+  UI = 'ui',
+  TRACK = 'track',
+}
+
+export declare const FETCH_CONVERSATIONS_REQUEST = 'fetchConversationsRequest';
+
+export declare const FETCH_CONVERSATIONS_SUCCESS = 'fetchConversationsSuccess';
+
+declare type Handler = (state: State | undefined) => void;
+
+export declare const HIGHLIGHT_COMMENT = 'highlightComment';
+
+declare interface Props extends SharedProps {
+  comment: Comment_3;
+  conversationId: string;
+  objectId?: string;
+  containerId?: string;
+  renderComment: (props: any) => JSX.Element;
+}
+
+declare type RenderEditorWithComments = (
+  Editor: typeof Editor,
+  props: EditorProps,
+  comment?: Comment_3,
+) => JSX.Element;
+
+export declare interface ResourceProvider {
+  store: Store<State | undefined>;
   getConversations(
     objectId: string,
     containerId?: string,
   ): Promise<Conversation_2[]>;
-  revertComment(
-    conversationId: string,
-    commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
-  updateComment(
-    conversationId: string,
-    commentId: string,
-    document: any,
-  ): Promise<Comment_3>;
-  updateUser(user?: User): Promise<User | undefined>;
-}
-
-// @public (undocumented)
-export interface ConversationResourceConfig {
-  // (undocumented)
-  url: string;
-  // (undocumented)
-  user?: User;
-}
-
-// @public (undocumented)
-export const CREATE_CONVERSATION_ERROR = 'createConversationError';
-
-// @public (undocumented)
-export const CREATE_CONVERSATION_REQUEST = 'createConversationRequest';
-
-// @public (undocumented)
-export const CREATE_CONVERSATION_SUCCESS = 'createConversationSuccess';
-
-// @public (undocumented)
-export const DELETE_COMMENT_ERROR = 'deleteCommentError';
-
-// @public (undocumented)
-export const DELETE_COMMENT_REQUEST = 'deleteCommentRequest';
-
-// @public (undocumented)
-export const DELETE_COMMENT_SUCCESS = 'deleteCommentSuccess';
-
-// @public (undocumented)
-export const FETCH_CONVERSATIONS_REQUEST = 'fetchConversationsRequest';
-
-// @public (undocumented)
-export const FETCH_CONVERSATIONS_SUCCESS = 'fetchConversationsSuccess';
-
-// @public (undocumented)
-export const HIGHLIGHT_COMMENT = 'highlightComment';
-
-// @public (undocumented)
-export interface ResourceProvider {
-  // (undocumented)
-  addComment(
-    conversationId: string,
-    parentId: string,
-    document: any,
-    localId?: string,
-  ): Promise<Comment_3>;
-  // (undocumented)
+  subscribe(handler: Handler): Unsubscribe;
   create(
     localId: string,
     value: any,
@@ -307,22 +492,26 @@ export interface ResourceProvider {
     objectId: string,
     containerId?: string,
   ): Promise<Conversation_2>;
-  // (undocumented)
+  addComment(
+    conversationId: string,
+    parentId: string,
+    document: any,
+    localId?: string,
+  ): Promise<Comment_3>;
+  updateComment(
+    conversationId: string,
+    commentId: string,
+    document: any,
+  ): Promise<Comment_3>;
   deleteComment(
     conversationId: string,
     commentId: string,
   ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
-  // (undocumented)
-  getConversations(
-    objectId: string,
-    containerId?: string,
-  ): Promise<Conversation_2[]>;
-  // (undocumented)
   revertComment(
     conversationId: string,
     commentId: string,
   ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
-  // (undocumented)
+  updateUser(user?: User): Promise<User | undefined>;
   saveDraft(
     isLocal: boolean,
     value: any,
@@ -332,31 +521,99 @@ export interface ResourceProvider {
     objectId: string,
     containerId?: string,
   ): void;
-  // (undocumented)
-  store: Store<State | undefined>;
-  // (undocumented)
-  subscribe(handler: Handler): Unsubscribe;
-  // (undocumented)
-  updateComment(
-    conversationId: string,
-    commentId: string,
-    document: any,
-  ): Promise<Comment_3>;
-  // (undocumented)
-  updateUser(user?: User): Promise<User | undefined>;
 }
 
-// @public (undocumented)
-export const UPDATE_COMMENT_ERROR = 'updateCommentError';
+declare type SendAnalyticsEvent = (eventData: EventData) => void;
 
-// @public (undocumented)
-export const UPDATE_COMMENT_REQUEST = 'updateCommentRequest';
+/**
+ * Props which are passed down from the parent Conversation/Comment
+ */
+declare interface SharedProps {
+  user?: User;
+  comments?: Comment_3[];
+  maxCommentNesting?: number;
+  onAddComment?: (
+    conversationId: string,
+    parentId: string,
+    value: any,
+    localId?: string,
+    onSuccess?: SuccessHandler,
+  ) => void;
+  onUpdateComment?: (
+    conversationId: string,
+    commentId: string,
+    value: any,
+    onSuccess?: SuccessHandler,
+  ) => void;
+  onDeleteComment?: (
+    conversationId: string,
+    commentId: string,
+    onSuccess?: SuccessHandler,
+  ) => void;
+  onRevertComment?: (conversationId: string, commentId: string) => void;
+  onCancelComment?: (conversationId: string, commentId: string) => void;
+  onCancel?: () => void;
+  onHighlightComment?: (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    commentId: string,
+  ) => void;
+  onEditorOpen?: () => void;
+  onEditorClose?: () => void;
+  onEditorChange?: (
+    isLocal: boolean,
+    value: any,
+    conversationId: string,
+    commentId: string | undefined,
+    meta: any,
+    objectId: string,
+    containerId?: string,
+  ) => void;
+  dataProviders?: ProviderFactory;
+  onUserClick?: (user: User) => void;
+  onRetry?: (localId?: string) => void;
+  onCommentPermalinkClick?: (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    commentId: string,
+  ) => void;
+  renderEditor?: RenderEditorWithComments;
+  objectId?: string;
+  containerId?: string;
+  isHighlighted?: boolean;
+  placeholder?: string;
+  disableScrollTo?: boolean;
+  allowFeedbackAndHelpButtons?: boolean;
+  sendAnalyticsEvent: SendAnalyticsEvent;
+  portal?: HTMLElement;
+  renderAdditionalCommentActions?: (
+    CommentAction: typeof CommentAction,
+    comment: Comment_3,
+  ) => JSX.Element[];
+  renderAfterComment?: (comment: Comment_3) => JSX.Element;
+}
 
-// @public (undocumented)
-export const UPDATE_COMMENT_SUCCESS = 'updateCommentSuccess';
+declare interface State {
+  conversations: Conversation_2[];
+  user?: User;
+  highlighted?: string;
+}
 
-// @public (undocumented)
-export const UPDATE_USER_SUCCESS = 'updateUserSuccess';
+declare type SuccessHandler = (id: string) => void;
 
-// (No @packageDocumentation comment for this package)
+export declare const UPDATE_COMMENT_ERROR = 'updateCommentError';
+
+export declare const UPDATE_COMMENT_REQUEST = 'updateCommentRequest';
+
+export declare const UPDATE_COMMENT_SUCCESS = 'updateCommentSuccess';
+
+export declare const UPDATE_USER_SUCCESS = 'updateUserSuccess';
+
+declare interface User {
+  id: string;
+  avatarUrl?: string;
+  name?: string;
+  profileUrl?: string;
+  type?: string;
+}
+
+export {};
 ```

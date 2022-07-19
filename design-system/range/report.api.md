@@ -5,8 +5,9 @@
 ```ts
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-const _default: React_2.ForwardRefExoticComponent<
+declare type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+declare const _default: React_2.ForwardRefExoticComponent<
   Omit<
     Omit<
       React_2.InputHTMLAttributes<HTMLInputElement>,
@@ -19,8 +20,26 @@ const _default: React_2.ForwardRefExoticComponent<
 >;
 export default _default;
 
-// @public (undocumented)
-export type RangeProps = Combine<
+declare type OwnProps = {
+  /** Sets the default value if range is not set. */
+  defaultValue?: number;
+  /** Sets whether the field range is disabled. */
+  isDisabled?: boolean;
+  /** Sets the maximum value of the range. */
+  max?: number;
+  /** Sets the minimum value of the range.*/
+  min?: number;
+  /** Hook to be invoked on change of the range. */
+  onChange?: (value: number) => void;
+  /** Sets the step value for the range.  */
+  step?: number;
+  /** A `testId` prop is provided for specific elements. This is a unique string that appears as a data attribute `data-testid` in the rendered code and serves as a hook for automated tests. */
+  testId?: string;
+  /** Sets the value of the range. */
+  value?: number;
+};
+
+export declare type RangeProps = Combine<
   Omit<
     React_2.InputHTMLAttributes<HTMLInputElement>,
     'disabled' | 'required' | 'checked'
@@ -28,5 +47,5 @@ export type RangeProps = Combine<
   OwnProps
 >;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

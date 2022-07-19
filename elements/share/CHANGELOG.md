@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.2.6
+
+### Patch Changes
+
+- [`c58555a28e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c58555a28e7) - Make the share component a functional component to work with storybook
+
 ## 3.2.5
 
 ### Patch Changes

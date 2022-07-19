@@ -11,26 +11,70 @@ import { ReactNode } from 'react';
 import { WithMediaClientConfig } from '@atlaskit/media-client';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 
-// @public (undocumented)
-class MediaImage_2 extends React_2.PureComponent<
+declare interface AsyncMediaImageState {
+  MediaImage?: MediaImageWithMediaClientConfigComponent;
+}
+
+declare class MediaImage_2 extends React_2.PureComponent<
   MediaImageLoaderProps,
   AsyncMediaImageState
 > {
-  // (undocumented)
-  componentDidMount(): Promise<void>;
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
   static MediaImage?: MediaImageWithMediaClientConfigComponent;
-  // (undocumented)
-  render(): React_2.ReactNode;
-  // (undocumented)
   state: AsyncMediaImageState;
+  componentDidMount(): Promise<void>;
+  render(): React_2.ReactNode;
 }
 export { MediaImage_2 as MediaImage };
 
-// @public (undocumented)
-export type MediaImageProps = MediaImageInternalProps & WithMediaClientConfig;
+declare interface MediaImageChildrenProps {
+  /** Boolean with value to check if component is loading image source from API */
+  loading: boolean;
+  /** Boolean with value to check if there was an error during the image load from media API */
+  error: boolean;
+  /** Data structure with image data, if media API returned with success */
+  data: MediaImageState | undefined;
+}
 
-// (No @packageDocumentation comment for this package)
+declare interface MediaImageInternalProps {
+  /** Instance of file identifier */
+  identifier: FileIdentifier;
+  /** Instance of Media MediaClient */
+  mediaClient: MediaClient;
+  /** Media API Configuration object */
+  apiConfig?: MediaStoreGetFileImageParams;
+  /** Render props returning `MediaImageChildrenProps` data structure */
+  children: (props: MediaImageChildrenProps) => ReactNode;
+}
+
+declare interface MediaImageLoaderChildrenProps {
+  loading: boolean;
+  error: boolean;
+  data: MediaImageState | undefined;
+}
+
+declare type MediaImageLoaderProps = MediaImageWithMediaClientConfigProps &
+  AsyncMediaImageState & {
+    children: (props: MediaImageLoaderChildrenProps) => ReactNode;
+  };
+
+export declare type MediaImageProps = MediaImageInternalProps &
+  WithMediaClientConfig;
+
+declare interface MediaImageState {
+  /** Current status of the image to be loaded */
+  status: 'loading' | 'error' | 'processed' | 'succeeded';
+  /** Image source. It will be added in case the request for the image returns with success or image preview is available */
+  src?: string;
+}
+
+declare type MediaImageWithMediaClientConfigComponent = React_2.ComponentType<
+  MediaImageWithMediaClientConfigProps
+>;
+
+declare type MediaImageWithMediaClientConfigProps = WithMediaClientConfigProps<
+  MediaImageInternalProps
+>;
+
+export {};
 ```

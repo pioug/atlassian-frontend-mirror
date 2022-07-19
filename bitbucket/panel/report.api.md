@@ -6,32 +6,47 @@
 import { PureComponent } from 'react';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-class Panel extends PureComponent<Props, State> {
-  // (undocumented)
+declare type BasePanelProps = {
+  /** Content to be shown inside the panel. */
+  children?: ReactNode;
+  /** Header to render on the panel. Clicking the header expands and collapses the panel */
+  header?: ReactNode;
+};
+
+declare class Panel extends PureComponent<Props, State> {
   static defaultProps: {
     isDefaultExpanded: boolean;
   };
-  // (undocumented)
-  handleChange: () => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   state: {
     isExpanded: boolean;
   };
+  handleChange: () => void;
+  render(): JSX.Element;
 }
 export default Panel;
 
-// @public (undocumented)
-export class PanelStateless extends PureComponent<Props_2> {
-  // (undocumented)
+export declare class PanelStateless extends PureComponent<Props_2> {
   static defaultProps: {
     isExpanded: boolean;
   };
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// (No @packageDocumentation comment for this package)
+declare type Props = BasePanelProps & {
+  /** Defines whether the panel is expanded by default. */
+  isDefaultExpanded?: boolean;
+};
+
+declare type Props_2 = BasePanelProps & {
+  /** Defines whether the panel is expanded by default. */
+  isExpanded: boolean;
+  /** This callback is called when panel is expanded/collapsed */
+  onChange: (isExpanded: boolean) => void;
+};
+
+declare type State = {
+  isExpanded: boolean;
+};
+
+export {};
 ```

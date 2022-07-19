@@ -6,64 +6,58 @@
 import { ReactNode } from 'react';
 import { StatelessComponent } from 'react';
 
-// @public (undocumented)
-export const ATLAS_CONTEXT = 'atlasCtx';
+export declare const ATLAS_CONTEXT = 'atlasCtx';
 
-// @public (undocumented)
-export const AtlasAnalyticsContext: StatelessComponent<Props>;
+export declare const AtlasAnalyticsContext: StatelessComponent<Props>;
 
-// @public (undocumented)
-export enum EDITOR_APPEARANCE_CONTEXT {
-  // (undocumented)
-  CHROMELESS = 'chromeless',
-  // (undocumented)
-  COMMENT = 'comment',
-  // (undocumented)
+export declare enum EDITOR_APPEARANCE_CONTEXT {
   FIXED_WIDTH = 'fixedWidth',
-  // (undocumented)
   FULL_WIDTH = 'fullWidth',
-  // (undocumented)
+  COMMENT = 'comment',
+  CHROMELESS = 'chromeless',
   MOBILE = 'mobile',
 }
 
-// @public (undocumented)
-export const EDITOR_CONTEXT = 'fabricEditorCtx';
+export declare const EDITOR_CONTEXT = 'fabricEditorCtx';
 
-// @public (undocumented)
-export const ELEMENTS_CONTEXT = 'fabricElementsCtx';
+export declare const ELEMENTS_CONTEXT = 'fabricElementsCtx';
 
-// @public (undocumented)
-export const FabricEditorAnalyticsContext: StatelessComponent<FabricEditorAnalyticsContextProps>;
+export declare const FabricEditorAnalyticsContext: StatelessComponent<FabricEditorAnalyticsContextProps>;
 
-// @public (undocumented)
-export const FabricElementsAnalyticsContext: StatelessComponent<Props>;
+declare type FabricEditorAnalyticsContextProps = Props & {
+  data: {
+    appearance: EDITOR_APPEARANCE_CONTEXT | undefined;
+    packageName: string;
+    packageVersion: string;
+    componentName: 'renderer' | 'editorCore';
+    editorSessionId: string;
+  };
+};
 
-// @public (undocumented)
-export const MEDIA_CONTEXT = 'mediaCtx';
+export declare const FabricElementsAnalyticsContext: StatelessComponent<Props>;
 
-// @public (undocumented)
-export const NAVIGATION_CONTEXT = 'navigationCtx';
+export declare const MEDIA_CONTEXT = 'mediaCtx';
 
-// @public (undocumented)
-export const NavigationAnalyticsContext: StatelessComponent<Props>;
+export declare const NAVIGATION_CONTEXT = 'navigationCtx';
 
-// @public (undocumented)
-export const NOTIFICATIONS_CONTEXT = 'NotificationsCtx';
+export declare const NavigationAnalyticsContext: StatelessComponent<Props>;
 
-// @public (undocumented)
-export const NotificationsAnalyticsContext: StatelessComponent<Props>;
+export declare const NOTIFICATIONS_CONTEXT = 'NotificationsCtx';
 
-// @public (undocumented)
-export const PEOPLE_TEAMS_CONTEXT = 'peopleTeamsCtx';
+export declare const NotificationsAnalyticsContext: StatelessComponent<Props>;
 
-// @public (undocumented)
-export const PeopleTeamsAnalyticsContext: StatelessComponent<Props>;
+export declare const PEOPLE_TEAMS_CONTEXT = 'peopleTeamsCtx';
 
-// @public (undocumented)
-export const RECENT_WORK_CONTEXT = 'RecentWorkCtx';
+export declare const PeopleTeamsAnalyticsContext: StatelessComponent<Props>;
 
-// @public (undocumented)
-export const RecentWorkAnalyticsContext: StatelessComponent<Props>;
+declare type Props = {
+  children?: ReactNode;
+  data: {};
+};
 
-// (No @packageDocumentation comment for this package)
+export declare const RECENT_WORK_CONTEXT = 'RecentWorkCtx';
+
+export declare const RecentWorkAnalyticsContext: StatelessComponent<Props>;
+
+export {};
 ```

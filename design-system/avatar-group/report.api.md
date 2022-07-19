@@ -10,8 +10,16 @@ import { MouseEventHandler } from 'react';
 import type { ReactNode } from 'react';
 import { SizeType } from '@atlaskit/avatar';
 
-// @public
-const AvatarGroup: ({
+/**
+ * __Avatar group__
+ *
+ * An avatar group displays a number of avatars grouped together in a stack or grid.
+ *
+ * - [Examples](https://atlassian.design/components/avatar-group/examples)
+ * - [Code](https://atlassian.design/components/avatar-group/code)
+ * - [Usage](https://atlassian.design/components/avatar-group/usage)
+ */
+declare const AvatarGroup: ({
   appearance,
   avatar,
   borderColor,
@@ -29,30 +37,131 @@ const AvatarGroup: ({
 }: AvatarGroupProps) => JSX.Element;
 export default AvatarGroup;
 
-// @public (undocumented)
-export interface AvatarGroupProps {
-  appearance?: 'grid' | 'stack';
-  avatar?: ElementType<AvatarProps>;
-  borderColor?: string;
-  boundariesElement?: 'viewport' | 'window' | 'scrollParent';
-  data: Array<AvatarProps>;
-  isTooltipDisabled?: boolean;
-  label?: string;
-  maxCount?: number;
+declare interface AvatarGroupItemProps {
+  avatar: AvatarProps;
+  isActive?: boolean;
+  isHover?: boolean;
+  index: number;
   onAvatarClick?: onAvatarClickHandler;
-  onMoreClick?: MouseEventHandler;
-  overrides?: AvatarGroupOverrides;
-  showMoreButtonProps?: Partial<React.HTMLAttributes<HTMLElement>>;
-  size?: SizeType;
   testId?: string;
 }
 
-// @public (undocumented)
-export type AvatarProps = AvatarPropTypes & {
+declare interface AvatarGroupOverrides {
+  AvatarGroupItem?: {
+    render?: (
+      Component: ElementType<AvatarGroupItemProps>,
+      props: AvatarGroupItemProps,
+      index: number,
+    ) => ReactNode;
+  };
+  Avatar?: {
+    render?: (
+      Component: ElementType<AvatarProps>,
+      props: AvatarProps,
+      index: number,
+    ) => ReactNode;
+  };
+}
+
+export declare interface AvatarGroupProps {
+  /**
+   * Indicates the layout of the avatar-group.
+   * Avatars will either be overlapped in a stack, or
+   * laid out in an even grid formation
+   * Defaults to "stack".
+   */
+  appearance?: 'grid' | 'stack';
+  /**
+   * Component used to render each avatar
+   */
+  avatar?: ElementType<AvatarProps>;
+  /**
+   * The maximum number of avatars allowed in the list.
+   * Defaults to 5 when displayed as a stack,
+   * and 11 when displayed as a grid.
+   */
+  maxCount?: number;
+  /**
+   * Defines the size of the avatar.
+   * Defaults to "medium".
+   */
+  size?: SizeType;
+  /**
+   * Typically the background color that the avatar is presented on.
+   * Accepts any color argument that the CSS border-color property accepts.
+   */
+  borderColor?: string;
+  /**
+   * Array of avatar data passed to each `avatar` component.
+   * These props will be spread on to the component passed into avatar.
+   */
+  data: Array<AvatarProps>;
+  /**
+   * Handle the click event on the avatar item.
+   * Note that if an onClick prop is provided as part of avatar data, it will take precedence over onAvatarClick.
+   */
+  onAvatarClick?: onAvatarClickHandler;
+  /**
+   * Take control of the click event on the more indicator.
+   * This will cancel the default dropdown behavior.
+   */
+  onMoreClick?: MouseEventHandler;
+  /**
+   * Provide additional props to the MoreButton.
+   * Example use cases: altering tab order by providing tabIndex;
+   * adding onClick behaviour without losing the default dropdown
+   */
+  showMoreButtonProps?: Partial<React.HTMLAttributes<HTMLElement>>;
+  /**
+   * Element the overflow popup should be attached to.
+   * Defaults to "viewport".
+   */
+  boundariesElement?: 'viewport' | 'window' | 'scrollParent';
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  /**
+   * Will set these elements when defined:
+   * - Container element - `{testId}--avatar-group`
+   * - Avatar items - `{testId}--avatar-{index}`
+   * - Overflow menu button - `{testId}--overflow-menu--trigger`
+   * - Overflow menu content - `{testId}--overflow-menu--content`
+   */
+  testId?: string;
+  /**
+   * Custom overrides for the composed components.
+   */
+  overrides?: AvatarGroupOverrides;
+  /**
+   * Disables tooltips
+   */
+  isTooltipDisabled?: boolean;
+  /**
+     Text to be used as aria-label for the list of avatars.
+     Screen reader announcement with default label, which is `avatar group`, is `list, avatar group, X items`.
+
+     The label should describe the `AvatarGroup`'s entities, for instance:
+     - `label="team members"`, screen reader announcement would be `list team members, X items`
+     - `label="reviewers"` screen reader announcement would be `list reviewers, X items`
+
+     When there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.
+     */
+  label?: string;
+}
+
+export declare type AvatarProps = AvatarPropTypes & {
   name: string;
   enableTooltip?: boolean;
   key?: string | number;
 };
 
-// (No @packageDocumentation comment for this package)
+declare type onAvatarClickHandler = (
+  event: React.MouseEvent,
+  analyticsEvent: AnalyticsEvent | undefined,
+  index: number,
+) => void;
+
+export {};
 ```

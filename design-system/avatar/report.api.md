@@ -13,132 +13,253 @@ import { Ref } from 'react';
 import { RefAttributes } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const ACTIVE_SCALE_FACTOR = 0.9;
+export declare const ACTIVE_SCALE_FACTOR = 0.9;
 
-// @public (undocumented)
-export type AppearanceType = 'circle' | 'square';
+export declare type AppearanceType = 'circle' | 'square';
 
-// @public
-const Avatar: ForwardRefExoticComponent<
+/**
+ * __Avatar__
+ *
+ * An avatar is a visual representation of a user or entity.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/examples)
+ * - [Code](https://atlassian.design/components/avatar/code)
+ * - [Usage](https://atlassian.design/components/avatar/usage)
+ */
+declare const Avatar: ForwardRefExoticComponent<
   AvatarPropTypes & RefAttributes<HTMLElement>
 >;
 export default Avatar;
 
-// @public (undocumented)
-export const AVATAR_RADIUS: AvatarSizeMap;
+export declare const AVATAR_RADIUS: AvatarSizeMap;
 
-// @public (undocumented)
-export const AVATAR_SIZES: AvatarSizeMap;
+export declare const AVATAR_SIZES: AvatarSizeMap;
 
-// @public (undocumented)
-export type AvatarClickEventHandler = (
+export declare type AvatarClickEventHandler = (
   event: React.MouseEvent,
   analyticsEvent?: UIAnalyticsEvent,
 ) => void;
 
-// @public
-export const AvatarItem: ForwardRefExoticComponent<
+/**
+ * __Avatar item__
+ *
+ * An avatar item is a wrapper that goes around an avatar when it's displayed alongside text, such as a name or status.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/avatar-item/examples)
+ * - [Code](https://atlassian.design/components/avatar/avatar-item/code)
+ */
+export declare const AvatarItem: ForwardRefExoticComponent<
   AvatarItemProps & RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-export interface AvatarItemProps {
+export declare interface AvatarItemProps {
+  /**
+   * Used to provide better content to screen readers when using presence/status. Rather
+   * than a screen reader speaking "online, approved, John Smith", passing in an label
+   * allows a custom message like "John Smith (approved and online)".
+   */
+  label?: string;
+  /**
+   * Slot to place an avatar element. Use @atlaskit/avatar.
+   */
   avatar: ReactNode;
+  /**
+   * Change background color.
+   */
   backgroundColor?: string;
+  /**
+   * Use a custom component instead of the default span.
+   */
   children?: (props: CustomAvatarItemProps) => ReactNode;
+  /**
+   * URL for avatars being used as a link.
+   */
   href?: string;
+  /**
+   * Disable the item from being interactive
+   */
   isDisabled?: boolean;
-  isTruncationDisabled?: boolean;
-  label?: string;
+  /**
+   * Handler to be called on click.
+   */
   onClick?: AvatarClickEventHandler;
+  /**
+   * PrimaryText text.
+   */
   primaryText?: ReactNode;
+  /**
+   * SecondaryText text.
+   */
   secondaryText?: ReactNode;
+  /**
+   * Pass target down to the anchor, if href is provided.
+   */
   target?: '_blank' | '_self' | '_top' | '_parent';
+  /**
+   * By default, overflowing text is truncated if it exceeds the container width. Use this prop to disable this.
+   */
+  isTruncationDisabled?: boolean;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export interface AvatarPropTypes {
-  analyticsContext?: Record<string, any>;
+export declare interface AvatarPropTypes {
+  /**
+   * Indicates the shape of the avatar. Most avatars are circular, but square avatars
+   * can be used for 'container' objects.
+   */
   appearance?: AppearanceType;
-  borderColor?: string;
-  children?: (props: CustomAvatarProps) => ReactNode;
-  href?: string;
-  isDisabled?: boolean;
+  /**
+   * Used to provide better content to screen readers when using presence/status. Rather
+   * than a screen reader speaking "online, approved, John Smith", passing in a label
+   * allows a custom message like "John Smith (approved and online)".
+   */
   label?: string;
-  name?: string;
-  onClick?: AvatarClickEventHandler;
-  presence?: ('online' | 'busy' | 'focus' | 'offline') | ReactNode;
-  size?: SizeType;
-  src?: string;
-  stackIndex?: number;
-  status?: ('approved' | 'declined' | 'locked') | ReactNode;
-  tabIndex?: number;
-  target?: '_blank' | '_self' | '_top' | '_parent';
-  testId?: string;
-}
-
-// @public (undocumented)
-export const BORDER_WIDTH = 2;
-
-// @public (undocumented)
-export interface CustomAvatarItemProps {
-  // (undocumented)
-  'aria-disabled'?: boolean | 'false' | 'true' | undefined;
-  'aria-label'?: string;
-  // (undocumented)
-  children: ReactNode;
-  // (undocumented)
-  className?: string;
-  // (undocumented)
-  href?: string;
-  // (undocumented)
-  onClick?: MouseEventHandler;
-  // (undocumented)
-  ref: Ref<HTMLElement>;
-  // (undocumented)
-  testId?: string;
-}
-
-// @public (undocumented)
-export interface CustomAvatarProps {
-  'aria-label'?: string;
-  // (undocumented)
-  children: ReactNode;
-  // (undocumented)
-  className?: string;
-  // (undocumented)
-  href?: string;
-  // (undocumented)
-  onClick?: MouseEventHandler;
-  // (undocumented)
-  ref: Ref<HTMLElement>;
-  // (undocumented)
-  tabIndex?: number;
-  // (undocumented)
-  testId?: string;
-}
-
-// @public (undocumented)
-export type IndicatorSizeType = 'small' | 'medium' | 'large' | 'xlarge';
-
-// @public
-export const Presence: FC<PresenceProps>;
-
-// @public (undocumented)
-export interface PresenceProps {
+  /**
+   * Used to override the default border color around the avatar body.
+   * Accepts any color argument that the border-color CSS property accepts.
+   */
   borderColor?: string;
+  /**
+   * Supply a custom avatar component instead of the default
+   */
+  children?: (props: CustomAvatarProps) => ReactNode;
+  /**
+   * Provides a url for avatars being used as a link.
+   */
+  href?: string;
+  /**
+   * Change the style to indicate the avatar is disabled.
+   */
+  isDisabled?: boolean;
+  /**
+   * Provides alt text for the avatar image.
+   */
+  name?: string;
+  /**
+   * Indicates a user's online status by showing a small icon on the avatar.
+   * Refer to presence values on the Presence component.
+   * Alternatively accepts any React element. For best results, it is recommended to
+   * use square content with height and width of 100%.
+   */
+  presence?: ('online' | 'busy' | 'focus' | 'offline') | ReactNode;
+  /**
+   * Defines the size of the avatar
+   */
+  size?: SizeType;
+  /**
+   * A url to load an image from (this can also be a base64 encoded image).
+   */
+  src?: string;
+  /**
+   * Indicates contextual information by showing a small icon on the avatar.
+   * Refer to status values on the Status component.
+   */
+  status?: ('approved' | 'declined' | 'locked') | ReactNode;
+  /**
+   * The index of where this avatar is in the group `stack`.
+   */
+  stackIndex?: number;
+  /**
+   * Assign specific tabIndex order to the underlying node.
+   */
+  tabIndex?: number;
+  /**
+   * Pass target down to the anchor, if href is provided.
+   */
+  target?: '_blank' | '_self' | '_top' | '_parent';
+  /**
+   * Handler to be called on click.
+   */
+  onClick?: AvatarClickEventHandler;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   */
+  testId?: string;
+  /**
+   * Analytics context meta data
+   */
+  analyticsContext?: Record<string, any>;
+}
+
+declare type AvatarSizeMap = Record<SizeType, number>;
+
+export declare const BORDER_WIDTH = 2;
+
+export declare interface CustomAvatarItemProps {
+  testId?: string;
+  onClick?: MouseEventHandler;
+  className?: string;
+  href?: string;
+  children: ReactNode;
+  ref: Ref<HTMLElement>;
+  /**
+   * This is used in render props so is okay to be defined.
+   * eslint-disable-next-line consistent-props-definitions
+   */
+  'aria-label'?: string;
+  'aria-disabled'?: boolean | 'false' | 'true' | undefined;
+}
+
+export declare interface CustomAvatarProps {
+  /**
+   * This is used in render props so is okay to be defined.
+   * eslint-disable-next-line consistent-props-definitions
+   */
+  'aria-label'?: string;
+  tabIndex?: number;
+  testId?: string;
+  onClick?: MouseEventHandler;
+  className?: string;
+  href?: string;
+  children: ReactNode;
+  ref: Ref<HTMLElement>;
+}
+
+export declare type IndicatorSizeType = 'small' | 'medium' | 'large' | 'xlarge';
+
+/**
+ * __Avatar presence__
+ *
+ * A presence shows an avatar’s availability.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/avatar-presence/examples)
+ * - [Code](https://atlassian.design/components/avatar/avatar-presence/code)
+ * - [Usage](https://atlassian.design/components/avatar/avatar-presence/usage)
+ */
+export declare const Presence: FC<PresenceProps>;
+
+export declare interface PresenceProps {
+  /**
+   * Used to override the default border color of the presence indicator.
+   * Accepts any color argument that the border-color CSS property accepts.
+   */
+  borderColor?: string;
+  /**
+   * Content to use as a custom presence indicator (usually not required if
+   * consuming Presence separate to Avatar).
+   */
   children?: ReactNode;
+  /**
+   * The type of presence indicator to show
+   */
   presence?: PresenceType;
+  /**
+   * Test Id
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export type PresenceType = 'busy' | 'focus' | 'offline' | 'online' | ReactNode;
+export declare type PresenceType =
+  | 'busy'
+  | 'focus'
+  | 'offline'
+  | 'online'
+  | ReactNode;
 
-// @public (undocumented)
-export type SizeType =
+export declare type SizeType =
   | 'xsmall'
   | 'small'
   | 'medium'
@@ -146,33 +267,54 @@ export type SizeType =
   | 'xlarge'
   | 'xxlarge';
 
-// @public
-export const Skeleton: FC<SkeletonProps>;
+/**
+ * __Skeleton__
+ *
+ * A skeleton is the loading state for the avatar component.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/avatar-skeleton/examples)
+ * - [Code](https://atlassian.design/components/avatar/avatar-skeleton/code)
+ */
+export declare const Skeleton: FC<SkeletonProps>;
 
-// @public (undocumented)
-export interface SkeletonProps {
-  // (undocumented)
+export declare interface SkeletonProps {
   appearance?: AppearanceType;
-  // (undocumented)
   color?: string;
-  // (undocumented)
   size?: SizeType;
-  // (undocumented)
   weight?: 'normal' | 'strong';
 }
 
-// @public
-export const Status: FC<StatusProps>;
+/**
+ * __Avatar status__
+ *
+ * An avatar status shows contextual information, such as if someone approves or declines something.
+ *
+ * - [Examples](https://atlassian.design/components/avatar/avatar-status/examples)
+ * - [Code](https://atlassian.design/components/avatar/avatar-status/code)
+ */
+export declare const Status: FC<StatusProps>;
 
-// @public (undocumented)
-export interface StatusProps {
+export declare interface StatusProps {
+  /**
+   * Override the default border color of the status indicator. This accepts
+   * any color argument that the CSS property `border-color` accepts.
+   */
   borderColor?: string;
+  /**
+   * Content to use as a custom status indicator. Not needed if consuming
+   * `Status` separate to `Avatar`.
+   */
   children?: ReactNode;
+  /**
+   * Content to use as a custom status indicator. Not needed if consuming
+   * `Status` separate to `Avatar`.
+   */
   status?: StatusType;
 }
 
-// @public (undocumented)
-export type StatusType = ('approved' | 'declined' | 'locked') | ReactNode;
+export declare type StatusType =
+  | ('approved' | 'declined' | 'locked')
+  | ReactNode;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

@@ -7,78 +7,55 @@ import { AnyAction } from 'redux';
 import { JsonLd } from 'json-ld-types';
 import { Store } from 'redux';
 
-// @public (undocumented)
-export const ACTION_ERROR = 'errored';
+export declare const ACTION_ERROR = 'errored';
 
-// @public (undocumented)
-export const ACTION_ERROR_FALLBACK = 'fallback';
+export declare const ACTION_ERROR_FALLBACK = 'fallback';
 
-// @public (undocumented)
-export const ACTION_PENDING = 'pending';
+export declare const ACTION_PENDING = 'pending';
 
-// @public (undocumented)
-export const ACTION_PRELOAD = 'preload';
+export declare const ACTION_PRELOAD = 'preload';
 
-// @public (undocumented)
-export const ACTION_RELOADING = 'reloading';
+export declare const ACTION_RELOADING = 'reloading';
 
-// @public (undocumented)
-export const ACTION_RESOLVED = 'resolved';
+export declare const ACTION_RESOLVED = 'resolved';
 
-// @public (undocumented)
-export const ACTION_RESOLVING = 'resolving';
+export declare const ACTION_RESOLVING = 'resolving';
 
-// @public (undocumented)
-export class APIError extends Error {
+export declare class APIError extends Error {
+  readonly kind: APIErrorKind;
+  readonly hostname: string;
+  readonly message: string;
+  readonly type?: ErrorType | undefined;
   constructor(
     kind: APIErrorKind,
     hostname: string,
     message: string,
     type?: ErrorType | undefined,
   );
-  // (undocumented)
-  readonly hostname: string;
-  // (undocumented)
-  readonly kind: APIErrorKind;
-  // (undocumented)
-  readonly message: string;
-  // (undocumented)
-  readonly type?: ErrorType | undefined;
 }
 
-// @public (undocumented)
-export type APIErrorKind = 'fatal' | 'auth' | 'error' | 'fallback';
+export declare type APIErrorKind = 'fatal' | 'auth' | 'error' | 'fallback';
 
-// @public (undocumented)
-export interface BlockCardAdf {
-  // (undocumented)
+export declare interface BlockCardAdf {
+  type: 'blockCard';
   attrs: {
     url: string;
   };
-  // (undocumented)
-  type: 'blockCard';
 }
 
-// @public (undocumented)
-export interface CardAction<T = JsonLd.Response> extends AnyAction {
-  // (undocumented)
-  payload?: T;
-  // (undocumented)
+export declare interface CardAction<T = JsonLd.Response> extends AnyAction {
   type: CardActionType;
-  // (undocumented)
   url: string;
+  payload?: T;
 }
 
-// @public (undocumented)
-export const cardAction: CardBaseActionCreator;
+export declare const cardAction: CardBaseActionCreator;
 
-// @public (undocumented)
-export type CardActionParams = {
+export declare type CardActionParams = {
   url: string;
 };
 
-// @public (undocumented)
-export type CardActionType =
+export declare type CardActionType =
   | 'pending'
   | 'resolving'
   | 'resolved'
@@ -86,43 +63,32 @@ export type CardActionType =
   | 'fallback'
   | 'reloading';
 
-// @public (undocumented)
-export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
+export declare type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
 
-// @public (undocumented)
-export type CardAppearance = 'inline' | 'block' | 'embed';
+export declare type CardAppearance = 'inline' | 'block' | 'embed';
 
-// @public (undocumented)
-export type CardBaseActionCreator<T = JsonLd.Response> = (
+export declare type CardBaseActionCreator<T = JsonLd.Response> = (
   type: CardActionType,
   params: CardActionParams,
   payload?: T,
   error?: APIError,
 ) => CardAction<T>;
 
-// @public (undocumented)
-export type CardPlatform = JsonLd.Primitives.Platforms;
+export declare type CardPlatform = JsonLd.Primitives.Platforms;
 
-// @public (undocumented)
-export interface CardState {
-  // (undocumented)
-  details?: JsonLd.Response;
-  // (undocumented)
-  error?: APIError;
-  // @deprecated (undocumented)
-  lastUpdatedAt?: number;
-  // (undocumented)
+export declare interface CardState {
   status: CardType;
+  details?: JsonLd.Response;
+  /** @deprecated Feature removed (EDM-2205) */
+  lastUpdatedAt?: number;
+  error?: APIError;
 }
 
-// @public (undocumented)
-export interface CardStore {
-  // (undocumented)
+export declare interface CardStore {
   [key: string]: CardState;
 }
 
-// @public (undocumented)
-export type CardType =
+export declare type CardType =
   | 'pending'
   | 'resolving'
   | 'resolved'
@@ -133,67 +99,62 @@ export type CardType =
   | 'errored'
   | 'not_found';
 
-// @public (undocumented)
-export interface EmbedCardAdf {
-  // (undocumented)
+export declare interface EmbedCardAdf {
+  type: 'embedCard';
   attrs: {
     url: string;
     layout: 'wide';
   };
-  // (undocumented)
-  type: 'embedCard';
 }
 
-// @public (undocumented)
-export type ErrorType = ServerErrorType | 'UnexpectedError';
+export declare type ErrorType = ServerErrorType | 'UnexpectedError';
 
-// @public (undocumented)
-export const getUrl: (store: Store<CardStore>, url: string) => CardState;
+export declare const getUrl: (
+  store: Store<CardStore>,
+  url: string,
+) => CardState;
 
-// @public (undocumented)
-export interface InlineCardAdf {
-  // (undocumented)
+export declare interface InlineCardAdf {
+  type: 'inlineCard';
   attrs: {
     url: string;
   };
-  // (undocumented)
-  type: 'inlineCard';
 }
 
-// @public (undocumented)
-export interface InvokePayload<T> {
-  // (undocumented)
-  action: T;
-  // (undocumented)
-  context?: string;
-  // (undocumented)
+export declare type InvocationContext = {
+  /**
+   * The parent context of the resource on which this action is being invoked.
+   * See `InvocationSearchRequest` in ORS `openapi.yml`.
+   */
+  id: string;
+};
+
+export declare type InvocationSearchPayload = {
+  query: string;
+  context?: InvocationContext;
+};
+
+export declare interface InvokePayload<T> {
   key: string;
+  context?: string;
+  action: T;
 }
 
-// @public (undocumented)
-export interface LinkingPlatformFeatureFlags {
-  // (undocumented)
+export declare interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
 }
 
-// @public (undocumented)
-export interface ServerActionOpts {
-  // (undocumented)
-  payload: ServerActionPayload;
-  // (undocumented)
+export declare interface ServerActionOpts {
   type: string;
+  payload: ServerActionPayload;
 }
 
-// @public (undocumented)
-export interface ServerActionPayload {
-  // (undocumented)
-  context?: JsonLd.Primitives.Object | JsonLd.Primitives.Link;
-  // (undocumented)
+export declare interface ServerActionPayload {
   id: string;
+  context?: JsonLd.Primitives.Object | JsonLd.Primitives.Link;
 }
 
-// @public (undocumented)
-export type ServerErrorType =
+export declare type ServerErrorType =
   | 'ResolveBadRequestError'
   | 'ResolveAuthError'
   | 'ResolveUnsupportedError'
@@ -201,5 +162,5 @@ export type ServerErrorType =
   | 'ResolveTimeoutError'
   | 'InternalServerError';
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

@@ -10,127 +10,301 @@ import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { Ref } from 'react';
 
-// @public
-export type Direction = 'top' | 'right' | 'bottom' | 'left';
+declare type AnimationCurve =
+  | 'cubic-bezier(0.15,1,0.3,1)'
+  | 'cubic-bezier(0.2,0,0,1)'
+  | 'cubic-bezier(0.8,0,0,0.8)';
 
-// @public
-export const durationStep = 25;
+declare type CallbackRef = (instance: Element_2) => void;
 
-// @public (undocumented)
-export const easeIn: AnimationCurve;
+/**
+ * Direction an element enters from or leaves towards
+ */
+export declare type Direction = 'top' | 'right' | 'bottom' | 'left';
 
-// @public (undocumented)
-export const easeInOut: AnimationCurve;
+/**
+ * Think of this as the motion equivalent of the @atlaskit/theme `grid()`.
+ */
+export declare const durationStep = 25;
 
-// @public (undocumented)
-export const easeOut: AnimationCurve;
+export declare const easeIn: AnimationCurve;
 
-// @public (undocumented)
-export const ExitingPersistence: React_2.FC<ExitingPersistenceProps>;
+export declare const easeInOut: AnimationCurve;
 
-// @public (undocumented)
-export interface ExitingPersistenceProps {
-  appear?: boolean;
-  children?: ReactNode;
-  exitThenEnter?: boolean;
+export declare const easeOut: AnimationCurve;
+
+declare type Element_2 = HTMLElement | null;
+
+/**
+ * Internal data passed to child motions.
+ */
+declare interface ExitingChildContext {
+  /**
+   * Will perform an exit animation instead of an enter animation.
+   */
+  isExiting: boolean;
+  /**
+   * Will be called when the animation has completed.
+   */
+  onFinish?: () => void;
+  /**
+   * Used to tell the child motions to animate in when initially mounting.
+   */
+  appear: boolean;
 }
 
-// @public (undocumented)
-export const FadeIn: React_2.FC<FadeKeyframesMotionProps>;
+export declare const ExitingPersistence: React_2.FC<ExitingPersistenceProps>;
 
-// @public (undocumented)
-export const fadeInAnimation: (
+export declare interface ExitingPersistenceProps {
+  /**
+   * Children can be any valid react node.
+   * Either a single element,
+   * multiple elements,
+   * or multiple elements in an array.
+   */
+  children?: ReactNode;
+  /**
+   * When elements are exiting will exit all elements first and then mount the new ones.
+   * Defaults to `false`.
+   */
+  exitThenEnter?: boolean;
+  /**
+   * When initially mounting if set to `true` all child motions will animate in.
+   */
+  appear?: boolean;
+}
+
+/**
+ * Whether an element will fade on enter, on exit or both
+ */
+declare type Fade = 'none' | 'in' | 'out' | 'inout';
+
+export declare const FadeIn: React_2.FC<FadeKeyframesMotionProps>;
+
+export declare const fadeInAnimation: (
   movement?: Direction | undefined,
 ) => ObjectInterpolation<undefined>;
 
-// @public
-export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
+/**
+ * Props for controlling the behaviour of the FadeIn animation
+ */
+export declare interface FadeKeyframesMotionProps extends KeyframesMotionProps {
+  /**
+   * Sets an entering and exiting motion
+   */
   entranceDirection?: Direction;
 }
 
-// @public
-export const isReducedMotion: () => boolean;
+/**
+ * Use for any programatic motions needed at runtime.
+ * Will return `true` if the current user prefers reduced motion.
+ * This is generally set through OS preferences/settings.
+ */
+export declare const isReducedMotion: () => boolean;
 
-// @public (undocumented)
-export const largeDurationMs: number;
+/**
+ * These are props that motions should use as their external props for consumers.
+ * See [FadeIn](packages/helpers/motion/src/entering/fade-in.tsx) for an example usage.
+ */
+declare interface KeyframesMotionProps
+  extends MotionProps<{
+    className: string;
+    ref: Ref<any>;
+  }> {
+  /**
+   * Can be used to pause the animation before it has finished.
+   */
+  isPaused?: boolean;
+}
 
-// @public (undocumented)
-export const mediumDurationMs: number;
+export declare const largeDurationMs: number;
 
-// @public
-export const prefersReducedMotion: () => {
+export declare const mediumDurationMs: number;
+
+/**
+ * Common props all entering motions should make available for consumers.
+ */
+declare interface MotionProps<TProps extends {}> {
+  /**
+   * Duration in `ms`.
+   * How long the motion will take.
+   */
+  duration?: number;
+  /**
+   * Will callback when the motion has finished in the particular direction.
+   * If it finished entering direction will be `entering`.
+   * And vice versa for `exiting`.
+   */
+  onFinish?: (state: Transition) => void;
+  /**
+   * Children as `function`.
+   * Will be passed `props` for you to hook up.
+   * The `state` arg can be used to know if the motion is `entering` or `exiting`.
+   */
+  children: (opts: TProps, state: Transition) => React.ReactNode;
+}
+
+/**
+ * Use for any CSS based motion (animation or transition).
+ * Always put at the end of your declaration for correct use of the cascade.
+ * Reduced motion preference is generally set through OS preferences/settings.
+ */
+export declare const prefersReducedMotion: () => {
   '@media (prefers-reduced-motion: reduce)': {
     animation: string;
     transition: string;
   };
 };
 
-// @public (undocumented)
-export const ResizingHeight: ({
+export declare const ResizingHeight: ({
   children,
   ...props
 }: ResizingHeightOpts & {
   children: (opts: { ref: CallbackRef }) => React.ReactNode;
 }) => ReactNode;
 
-// @public (undocumented)
-export const ShrinkOut: React_2.FC<ShrinkOutProps>;
+declare interface ResizingHeightOpts {
+  /**
+     * Duration as a `function`.
+     * Will receive previous and next `height` and return the `duration`.
 
-// @public (undocumented)
-export const shrinkOutAnimation: () => ObjectInterpolation<undefined>;
+     * By default this will match the [ADG specifications](https://atlassian.design) for how long motion should take.
+     * Design specifications are still a work in progress.
+     */
+  duration?: (prevHeight: number, nextHeight: number) => number;
+  /**
+     * Timing function as a `function`.
+     * This is handy for changing the curve depending on the user interaction.
+     * Does the user interact [directly or indirectly](/packages/helpers/motion/docs/variables)?
+     * You'll want to use an appropriate curve.
+     * Will receive previous and next `height`,
+     * `duration`,
+     * and return the [timing function](https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function).
 
-// @public (undocumented)
-export interface ShrinkOutProps
+     * By default this will assume indirect motion using `easeInOut`.
+     */
+  timingFunction?: (
+    prevHeight: number,
+    nextHeight: number,
+    duration: number,
+  ) => string;
+}
+
+export declare const ShrinkOut: React_2.FC<ShrinkOutProps>;
+
+export declare const shrinkOutAnimation: () => ObjectInterpolation<undefined>;
+
+export declare interface ShrinkOutProps
   extends MotionProps<{
     ref: React_2.Ref<any>;
   }> {}
 
-// @public (undocumented)
-export const SlideIn: React_2.FC<SlideInProps>;
+export declare const SlideIn: React_2.FC<SlideInProps>;
 
-// @public (undocumented)
-export const slideInAnimation: (
+export declare const slideInAnimation: (
   from: Direction,
   state: Transition,
   fade: Fade,
 ) => ObjectInterpolation<undefined>;
 
-// @public (undocumented)
-export const smallDurationMs: number;
+declare interface SlideInProps extends KeyframesMotionProps {
+  /**
+     * Direction the element will slide in from.
+     * E.g. `"right"` will slide in from the right to the left.
 
-// @public
-export const StaggeredEntrance: React_2.FC<StaggeredEntranceProps>;
+     * If `exitTo` is not set, exiting will reverse this motion.
+     * E.g. if `enterFrom: "right"`, will slide out to the right.
+     */
+  enterFrom: Direction;
+  /**
+     * Direction the element will slide out towards.
+     * E.g. `"right"` will slide out to the right.
 
-// @public (undocumented)
-export interface StaggeredEntranceProps {
-  children: JSX.Element | JSX.Element[];
-  column?: number;
-  columns?: number | 'responsive';
-  delayStep?: number;
+     * If this is not set, exiting will reverse the entrance motion.
+     * E.g. if `enterFrom: "right"`, will slide out to the right.
+     */
+  exitTo?: Direction;
+  /**
+     * Whether an element will fade on enter, on exit or both.
+
+     * `'none'` is the default and will cause the element to not fade,
+     * `'in'` will cause the element to fade on enter,
+     * `'out'` will cause the element to fade on exit,
+     * `'inout'` will cause the element to fade on both
+     */
+  fade?: Fade;
+  /**
+   * A custom function used to override the default animation timings.
+   * Returns which animation curve to use depending on the current transitioning state.
+   */
+  animationTimingFunction?: (state: Transition) => AnimationCurve;
 }
 
-// @public
-export type Transition = 'entering' | 'exiting';
+export declare const smallDurationMs: number;
 
-// @public (undocumented)
-export const useExitingPersistence: () => ExitingChildContext;
+/**
+ * For a list of elements that need to animate in,
+ * this should be used in conjunction with entering components.
+ * This does not need Javascript to execute so it will run immediately for any SSR rendered React apps before the JS has executed.
+ *
+ * Will dynamically add delay to each child entering component.
+ * Unfortunately all entering components _NEED_ to be a direct descendant.
+ */
+export declare const StaggeredEntrance: React_2.FC<StaggeredEntranceProps>;
 
-// @public
-export const useIsReducedMotion: () => boolean;
+export declare interface StaggeredEntranceProps {
+  /**
+   * Delay in ms.
+   * How long each element group will be staggered.
+   * This will be multipled by the column and row of the element.
+   * Defaults to `50`.
+   */
+  delayStep?: number;
+  /**
+     Number of columns the children elements will be displayed over.
+     Use `"responsive"` to have it calculate dynamically on the client side.
 
-// @public (undocumented)
-export const useResizingHeight: ({
+     **NOTE:** This has a big caveat that the elements will be invisible until the client side Javascript executes.
+     If you have a fixed grid or list, set this to a specific number.
+     Defaults to `"responsive"`.
+     */
+  columns?: number | 'responsive';
+  /**
+   * Index of the column.
+   * Useful if you want to have columns inside separate containers.
+   * Starts from `0`.
+   */
+  column?: number;
+  /**
+   * Any valid react child with an entrance motion somewhere in the tree as a descendant.
+   */
+  children: JSX.Element | JSX.Element[];
+}
+
+/**
+ * Direction the motion is going.
+ */
+export declare type Transition = 'entering' | 'exiting';
+
+export declare const useExitingPersistence: () => ExitingChildContext;
+
+/**
+ * A React hook version of {@link isReducedMotion}.
+ * Useful for React components that need to re-render if the user's motion
+ * preference changes at runtime.
+ */
+export declare const useIsReducedMotion: () => boolean;
+
+export declare const useResizingHeight: ({
   duration: calcDuration,
   timingFunction: calcTimingFunction,
 }?: ResizingHeightOpts) => {
   ref: CallbackRef;
 };
 
-// @public (undocumented)
-export const ZoomIn: React_2.FC<KeyframesMotionProps>;
+export declare const ZoomIn: React_2.FC<KeyframesMotionProps>;
 
-// @public (undocumented)
-export const zoomInAnimation: () => ObjectInterpolation<undefined>;
+export declare const zoomInAnimation: () => ObjectInterpolation<undefined>;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

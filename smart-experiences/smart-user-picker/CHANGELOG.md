@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 5.1.3
+
+### Patch Changes
+
+- [`977329d177c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/977329d177c) - Import version json and use attributes rather than importing directly
+
 ## 5.1.2
 
 ### Patch Changes

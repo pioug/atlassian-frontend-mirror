@@ -38,15 +38,14 @@ describe('Hover Card', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 18/07/2022: https://product-fabric.atlassian.net/browse/EDM-3883
-  it.skip('should open preview modal', async () => {
+  it('should open preview modal', async () => {
     const page = await renderHoverCard();
 
     await page.click('[data-testid="preview-content"]');
+    await page.waitForSelector('[data-testid="smart-links-preview-modal"]');
     await page.waitForSelector('[data-testid="hover-card"]', {
       hidden: true,
     });
-    await page.waitForSelector('[data-testid="smart-links-preview-modal"]');
 
     const image = await takeSnapshot(page, 800, 0);
     expect(image).toMatchProdImageSnapshot();

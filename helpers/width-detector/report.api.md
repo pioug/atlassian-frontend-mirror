@@ -5,44 +5,70 @@
 ```ts
 import { default as React_2 } from 'react';
 
-// @public @deprecated (undocumented)
-class WidthDetector extends React_2.Component<Props, State> {
-  constructor(props: Props);
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
+declare type Props = {
+  children: (width?: number) => React_2.ReactNode;
+  onResize?: (width: number) => void;
+  /** Optional styles to be applied to the containing element */
+  containerStyle?: React_2.CSSProperties;
+};
+
+declare type ResizeObject = HTMLObjectElement & {
+  data: String;
+  contentDocument: HTMLDocument;
+};
+
+declare type State = {
+  width?: number;
+};
+
+/**
+ * @deprecated use WidthOvserver instead
+ *
+ * This component uses iframes for rendering and is currently
+ * not performant. It will be DEPRECATED in the future.
+ * It is recommended that you instead use WidthObserver from @atlaskit/width-detector
+ */
+declare class WidthDetector extends React_2.Component<Props, State> {
+  state: State;
   container?: HTMLDivElement;
-  // (undocumented)
+  resizeObjectDocument?: Window;
+  resizeObject?: ResizeObject;
+  constructor(props: Props);
   static defaultProps: {
     containerStyle: {};
   };
-  // (undocumented)
-  handleContainerRef: (ref: HTMLDivElement) => void;
-  // (undocumented)
-  handleObjectLoad: () => void;
-  // (undocumented)
-  handleObjectRef: (ref: ResizeObject) => void;
-  // (undocumented)
   handleResize: (() => void) & {
     cancel(): void;
   };
-  // (undocumented)
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  handleContainerRef: (ref: HTMLDivElement) => void;
+  handleObjectRef: (ref: ResizeObject) => void;
+  handleObjectLoad: () => void;
   render(): JSX.Element;
-  // (undocumented)
-  resizeObject?: ResizeObject;
-  // (undocumented)
-  resizeObjectDocument?: Window;
-  // (undocumented)
-  state: State;
 }
 export default WidthDetector;
 
-// @public
-export const WidthObserver: React_2.MemoExoticComponent<(
+/**
+ * This component will observer the current width,
+ * and it will call the `setWidth` callback every time this changes.
+ *
+ * The only required is the parent HTMLElement should have `position: relative`
+ * because this is an absolute element.
+ */
+export declare const WidthObserver: React_2.MemoExoticComponent<(
   props: WidthObserverProps,
 ) => JSX.Element>;
 
-// (No @packageDocumentation comment for this package)
+declare type WidthObserverProps = {
+  setWidth: (width: number) => void;
+  /**
+   * Whether to limit update events to when the sentinel element is in the viewport.
+   * Set this to true for cases where the sentinel scrolls off screen but you still need width udpates.
+   * Defaults to false
+   * */
+  offscreen?: boolean;
+};
+
+export {};
 ```

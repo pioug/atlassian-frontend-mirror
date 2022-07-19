@@ -8,85 +8,75 @@ import { Mark } from 'prosemirror-model';
 import { Node as Node_2 } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 
-// @public (undocumented)
-export type Attrs = {
+export declare type Attrs = {
   [key: string]: string;
 };
 
-// @public (undocumented)
-export const commonStyle: {
+export declare const commonStyle: {
   'font-family': string;
   'font-size': string;
   'font-weight': number;
   'line-height': string;
 };
 
-// @public (undocumented)
-export const createClassName: (name: string) => string;
+export declare const createClassName: (name: string) => string;
 
-// @public (undocumented)
-export const CS_CONTENT_PREFIX = 'csg';
+export declare const CS_CONTENT_PREFIX = 'csg';
 
-// @public
-class EmailSerializer implements SerializerWithImages<string> {
-  constructor(schema?: Schema, opts?: Partial<EmailSerializerOpts>);
-  // (undocumented)
-  static fromSchema(
-    schema?: Schema,
-    opts?: Partial<EmailSerializerOpts>,
-  ): EmailSerializer;
-  // (undocumented)
+/**
+ * EmailSerializer allows to disable/mock images via isImageStubEnabled flag.
+ * The reason behind this is that in emails, images are embedded separately as inline attachemnts
+ * and referenced via CID. However, when rendered in browser, this does not work and breaks the experience
+ * when rendered in demo page, so we instead inline the image data.
+ */
+declare class EmailSerializer implements SerializerWithImages<string> {
+  private schema;
   readonly opts: EmailSerializerOpts;
-  // (undocumented)
-  serializeFragment: (...args: any) => string;
-  // (undocumented)
+  private static readonly defaultOpts;
+  constructor(schema?: Schema, opts?: Partial<EmailSerializerOpts>);
   serializeFragmentWithImages: (
     fragment: Fragment,
     context?: MetaDataContext | undefined,
   ) => SerializeFragmentWithAttachmentsResult;
+  serializeFragment: (...args: any) => string;
+  static fromSchema(
+    schema?: Schema,
+    opts?: Partial<EmailSerializerOpts>,
+  ): EmailSerializer;
 }
 export { EmailSerializer };
 export default EmailSerializer;
 
-// @public (undocumented)
-export interface EmailSerializerOpts {
-  // (undocumented)
+export declare interface EmailSerializerOpts {
   isImageStubEnabled: boolean;
-  // (undocumented)
   isInlineCSSEnabled: boolean;
 }
 
-// @public (undocumented)
-export type MarkSerializer = (opts: MarkSerializerOpts) => string;
+export declare type MarkSerializer = (opts: MarkSerializerOpts) => string;
 
-// @public (undocumented)
-export interface MarkSerializerOpts {
-  // (undocumented)
+export declare interface MarkSerializerOpts {
   mark: Mark;
-  // (undocumented)
   text: string;
 }
 
-// @public (undocumented)
-export const MEDIA_PREVIEW_IMAGE_HEIGHT = 108;
+export declare const MEDIA_PREVIEW_IMAGE_HEIGHT = 108;
 
-// @public (undocumented)
-export const MEDIA_PREVIEW_IMAGE_WIDTH = 162;
+export declare const MEDIA_PREVIEW_IMAGE_WIDTH = 162;
 
-// @public (undocumented)
-export interface MediaMetaDataContextItem {
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
+declare type MediaImageBase64 = {
+  contentId: string;
+  contentType: string;
+  data: string;
+};
+
+export declare interface MediaMetaDataContextItem {
   name: string;
-  // (undocumented)
+  mediaType: MediaType;
+  mimeType: string;
   size: number;
 }
 
-// @public (undocumented)
-export type MediaType =
+export declare type MediaType =
   | 'image'
   | 'doc'
   | 'video'
@@ -94,15 +84,12 @@ export type MediaType =
   | 'archive'
   | 'unknown';
 
-// @public (undocumented)
-export interface MetaDataContext {
-  // (undocumented)
+export declare interface MetaDataContext {
   conversion?: {
     inlineCardConversion?: {
       [key: string]: string;
     };
   };
-  // (undocumented)
   hydration?: {
     mediaMetaData?: {
       [key: string]: MediaMetaDataContextItem;
@@ -110,43 +97,64 @@ export interface MetaDataContext {
   };
 }
 
-// @public (undocumented)
-export type NodeSerializer = (opts: NodeSerializerOpts) => string;
+export declare type NodeSerializer = (opts: NodeSerializerOpts) => string;
 
-// @public (undocumented)
-export interface NodeSerializerOpts {
-  // (undocumented)
+export declare interface NodeSerializerOpts {
+  node: Node_2;
   attrs: {
     [key: string]: any;
   };
-  // (undocumented)
-  context?: MetaDataContext;
-  // (undocumented)
   marks: Mark[];
-  // (undocumented)
-  node: Node_2;
-  // (undocumented)
-  parent?: Node_2;
-  // (undocumented)
   text?: string | null;
+  parent?: Node_2;
+  context?: MetaDataContext;
 }
 
-// @public (undocumented)
-export interface SmartCardWithDataAttributes {
-  // (undocumented)
+declare interface ScData {
+  '@type': string;
+  generator: {
+    '@type': string;
+    name: string;
+  };
+  name: string;
+  url: string;
+  summary: string;
+}
+
+declare interface SerializeFragmentWithAttachmentsResult {
+  result: string | null;
+  embeddedImages: MediaImageBase64[];
+}
+
+declare interface Serializer<T> {
+  serializeFragment(
+    fragment: Fragment,
+    props?: any,
+    target?: any,
+    key?: string,
+  ): T | null;
+}
+
+declare interface SerializerWithImages<T> extends Serializer<T> {
+  serializeFragmentWithImages(
+    fragment: Fragment,
+    props?: any,
+    target?: any,
+    key?: string,
+  ): SerializeFragmentWithAttachmentsResult | null;
+}
+
+export declare interface SmartCardWithDataAttributes {
   data: ScData;
 }
 
-// @public (undocumented)
-export interface SmartCardWithUrlAttributes {
-  // (undocumented)
+export declare interface SmartCardWithUrlAttributes {
   url: string;
 }
 
-// @public (undocumented)
-export type Style = {
+export declare type Style = {
   [key: string]: string | number | undefined;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

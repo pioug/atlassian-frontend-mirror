@@ -33,21 +33,63 @@ import { WithContextProps } from '@atlaskit/analytics-next';
 import { WithIntlProps } from 'react-intl-next';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export type ActionItem = NamedActionItem | CustomActionItem;
+export declare type ActionItem = NamedActionItem | CustomActionItem;
 
-// @public
-export enum ActionName {
-  // (undocumented)
-  CustomAction = 'CustomAction',
-  // (undocumented)
+/**
+ * Flexible UI action (button)
+ */
+export declare enum ActionName {
   DeleteAction = 'DeleteAction',
-  // (undocumented)
   EditAction = 'EditAction',
+  CustomAction = 'CustomAction',
 }
 
-// @public (undocumented)
-export type AnalyticsAction =
+declare type ActionProps = {
+  /**
+   * Determines the size of the Action. Corresponds to an Action appearance.
+   */
+  size?: SmartLinkSize;
+  /**
+   * Determines the text content of the Action.
+   */
+  content?: React.ReactNode;
+  /**
+   * Determines the appearance of the action. Corresponds to the Atlaskit action appearance.
+   */
+  appearance?: Appearance;
+  /**
+   * Determines the onClick behaviour of the Action.
+   */
+  onClick: () => any;
+  /**
+   * Determines the icon rendered within the Action.
+   */
+  icon?: ReactChild;
+  /**
+   * Determines where the icon should be rendered if text is provided.
+   */
+  iconPosition?: 'before' | 'after';
+  /**
+   * Determines the tooltip message when hovering over the Action.
+   */
+  tooltipMessage?: React.ReactNode;
+  /**
+   * Used to determine whether the Action is in a Dropdown.
+   */
+  asDropDownItem?: boolean;
+  /**
+   * Additional CSS properties on the Action.
+   */
+  overrideCss?: SerializedStyles;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests
+   */
+  testId?: string;
+};
+
+export declare type AnalyticsAction =
   | 'resolved'
   | 'unresolved'
   | 'connectSucceeded'
@@ -63,8 +105,7 @@ export type AnalyticsAction =
   | 'dismissed'
   | 'created';
 
-// @public (undocumented)
-export type AnalyticsActionSubject =
+export declare type AnalyticsActionSubject =
   | 'smartLink'
   | 'smartLinkAction'
   | 'applicationAccount'
@@ -72,11 +113,11 @@ export type AnalyticsActionSubject =
   | 'consentModal'
   | 'hoverCard';
 
-// @public (undocumented)
-export type AnalyticsHandler = (event: AnalyticsPayload) => void;
+declare type AnalyticsFacade = ReturnType<typeof useSmartLinkAnalytics>;
 
-// @public (undocumented)
-export type AnalyticsPayload = GasPayload & {
+export declare type AnalyticsHandler = (event: AnalyticsPayload) => void;
+
+export declare type AnalyticsPayload = GasPayload & {
   action?: AnalyticsAction;
   actionSubject: AnalyticsActionSubject;
   attributes: GasPayload['attributes'] & {
@@ -84,47 +125,118 @@ export type AnalyticsPayload = GasPayload & {
   };
 };
 
+declare type AnchorTarget = '_blank' | '_self' | '_top' | '_parent';
+
 export { APIError };
+
+/**
+ * Represents the props available for an AuthorGroup element.
+ * @see AuthorGroup
+ */
+declare type AuthorGroup = {
+  name: ElementName.AuthorGroup;
+};
+
+/**
+ * Used to represent an Action when passing props into Flexible UI.
+ */
+declare type BaseActionItem = {
+  /**
+   * Determines whether the action should hide the text content of the button.
+   */
+  hideContent?: boolean;
+  /**
+   * Determines whether the action should hide the icon inside the button.
+   */
+  hideIcon?: boolean;
+  /**
+   * Determines the text and icon representation of the action, with exception
+   * to CustomAction.
+   */
+  name: ActionName;
+  /**
+   * Determines the onClick behaviour of the action.
+   */
+  onClick: () => any;
+  /**
+   * Additional CSS properties on the Action.
+   */
+  overrideCss?: SerializedStyles;
+  /**
+   * Determines the size of the Action. Corresponds to an Action appearance.
+   */
+  size?: SmartLinkSize;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests
+   */
+  testId?: string;
+};
 
 export { BlockCardAdf };
 
-// @public (undocumented)
-export const blockCardContentClassName = 'block-card-content';
+export declare const blockCardContentClassName = 'block-card-content';
 
-// @public (undocumented)
-export const blockCardContentHeaderClassName = 'block-card-content-header';
+export declare const blockCardContentHeaderClassName =
+  'block-card-content-header';
 
-// @public (undocumented)
-export const blockCardContentHeaderNameClassName =
+export declare const blockCardContentHeaderNameClassName =
   'block-card-content-header-name';
 
-// @public (undocumented)
-export const blockCardErroredViewClassName = 'block-card-errored-view';
+export declare const blockCardErroredViewClassName = 'block-card-errored-view';
 
-// @public (undocumented)
-export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
+export declare const blockCardForbiddenViewClassName =
+  'block-card-forbidden-view';
 
-// @public (undocumented)
-export const blockCardForbiddenViewLinkClassName =
+export declare const blockCardForbiddenViewLinkClassName =
   'block-card-forbidden-view-link';
 
-// @public (undocumented)
-export const blockCardIconImageClassName = 'block-card-icon-image';
+export declare const blockCardIconImageClassName = 'block-card-icon-image';
 
-// @public (undocumented)
-export const blockCardNotFoundViewClassName = 'block-card-not-found-view';
+export declare const blockCardNotFoundViewClassName =
+  'block-card-not-found-view';
 
-// @public (undocumented)
-export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
+export declare const blockCardResolvedViewByClassName =
+  'block-card-resolved-view-by';
 
-// @public (undocumented)
-export const blockCardResolvedViewClassName = 'block-card-resolved-view';
+export declare const blockCardResolvedViewClassName =
+  'block-card-resolved-view';
 
-// @public (undocumented)
-export const blockCardResolvingViewClassName = 'block-card-resolving-view';
+export declare const blockCardResolvingViewClassName =
+  'block-card-resolving-view';
 
-// @public (undocumented)
-export const Card: React_2.ForwardRefExoticComponent<
+declare type BlockProps = {
+  /**
+   * The direction that the block should arrange it's elements. Can be vertical
+   * or horizontal. Default is horizontal.
+   * @internal
+   */
+  direction?: SmartLinkDirection;
+  /**
+   * Any additional CSS properties to apply to the block.
+   */
+  overrideCss?: SerializedStyles;
+  /**
+   * The size of the block and the size that the underlying elements should
+   * default to.
+   */
+  size?: SmartLinkSize;
+  /**
+   * The status of the Smart Link. Used to conditionally render different blocks
+   * when Smart Link is in different states.
+   * @internal
+   */
+  status?: SmartLinkStatus;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests
+   */
+  testId?: string;
+};
+
+export declare const Card: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<
       React_2.PropsWithChildren<
@@ -168,178 +280,458 @@ export { CardAppearance };
 
 export { CardContext };
 
+declare type CardInnerAppearance = CardAppearance | 'preview' | 'flexible';
+
 export { CardPlatform };
 
-// @public (undocumented)
-export interface CardProps extends WithAnalyticsEventsProps {
-  // (undocumented)
-  analyticsEvents?: AnalyticsFacade;
-  // (undocumented)
+export declare interface CardProps extends WithAnalyticsEventsProps {
   appearance: CardAppearance;
-  // (undocumented)
-  children?: React.ReactNode;
-  // (undocumented)
-  container?: HTMLElement;
-  // (undocumented)
-  data?: any;
-  // (undocumented)
-  embedIframeRef?: React.Ref<HTMLIFrameElement>;
-  // (undocumented)
   id?: string;
-  // (undocumented)
-  importer?: (target: any) => void;
-  // (undocumented)
-  inheritDimensions?: boolean;
-  // (undocumented)
-  inlinePreloaderStyle?: InlinePreloaderStyle;
-  // (undocumented)
-  isFrameVisible?: boolean;
-  // (undocumented)
-  isSelected?: boolean;
-  // (undocumented)
-  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-  // (undocumented)
-  onResolve?: OnResolveCallback;
-  // (undocumented)
-  placeholder?: string;
-  // (undocumented)
   platform?: CardPlatform;
-  // (undocumented)
-  showActions?: boolean;
-  // (undocumented)
-  showHoverPreview?: boolean;
-  // (undocumented)
-  testId?: string;
-  // (undocumented)
-  ui?: FlexibleUiOptions;
-  // (undocumented)
+  isSelected?: boolean;
+  isFrameVisible?: boolean;
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+  importer?: (target: any) => void;
+  container?: HTMLElement;
+  data?: any;
   url?: string;
+  testId?: string;
+  showActions?: boolean;
+  onResolve?: OnResolveCallback;
+  inheritDimensions?: boolean;
+  embedIframeRef?: React.Ref<HTMLIFrameElement>;
+  inlinePreloaderStyle?: InlinePreloaderStyle;
+  ui?: FlexibleUiOptions;
+  children?: React.ReactNode;
+  showHoverPreview?: boolean;
+  analyticsEvents?: AnalyticsFacade;
+  placeholder?: string;
 }
 
 export { CardType };
 
 export { Client };
 
-// @public (undocumented)
-export const contentFooterClassName = 'smart-link-content-footer';
+/**
+ * Represents the props available for an CollaboratorGroup element.
+ * @see CollaboratorGroup
+ */
+declare type CollaboratorGroup = {
+  name: ElementName.CollaboratorGroup;
+};
+
+/**
+ * Represents the props available for an CommentCount element.
+ * @see CommentCount
+ */
+declare type CommentCount = {
+  name: ElementName.CommentCount;
+};
+
+export declare const contentFooterClassName = 'smart-link-content-footer';
+
+/**
+ * Represents the props available for an CreatedBy element.
+ * @see CreatedBy
+ */
+declare type CreatedBy = {
+  name: ElementName.CreatedBy;
+};
+
+/**
+ * Represents the props available for an CreatedOn element.
+ * @see CreatedOn
+ */
+declare type CreatedOn = {
+  name: ElementName.CreatedOn;
+  /**
+   * A string which will be displayed before the specified element.
+   */
+  text?: string;
+};
+
+/**
+ * This represents an action where either Icon or label must be provided.
+ */
+declare type CustomActionItem = BaseActionItem & {
+  name: ActionName.CustomAction;
+} & (
+    | (Required<Pick<ActionProps, 'icon' | 'iconPosition'>> &
+        Pick<ActionProps, 'content'>)
+    | ((Required<Pick<ActionProps, 'content'>> &
+        Pick<ActionProps, 'icon' | 'iconPosition'>) &
+        Pick<ActionProps, 'tooltipMessage'>)
+  );
+
+declare type DestinationProduct =
+  | 'jira'
+  | 'confluence'
+  | 'bitbucket'
+  | 'trello';
+
+declare type DestinationSubproduct = 'core' | 'software' | 'servicedesk';
+
+/**
+ * Represents the props available for an DueOn element.
+ * @see CreatedOn
+ */
+declare type DueOn = {
+  name: ElementName.DueOn;
+};
 
 export { EditorCardProvider };
 
 export { editorCardProvider };
 
-// @public
-export type ElementItem = {
+/**
+ * Used to represent a metadata element to be rendered.
+ */
+export declare type ElementItem = {
+  /**
+   * Any additional CSS properties to apply to the element.
+   */
   overrideCss?: SerializedStyles;
+  /**
+   * The size of the element to display.
+   */
   size?: SmartLinkSize;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests
+   */
   testId?: string;
 } & ElementItemProps;
 
-// @public
-export enum ElementName {
-  // (undocumented)
+/**
+ * A type that contains all the possible combinations of elements with their corresponding props.
+ */
+declare type ElementItemProps =
+  | AuthorGroup
+  | CollaboratorGroup
+  | CommentCount
+  | CreatedBy
+  | CreatedOn
+  | DueOn
+  | LatestCommit
+  | LinkIcon
+  | ModifiedBy
+  | ModifiedOn
+  | Preview
+  | Priority
+  | ProgrammingLanguage
+  | Provider_2
+  | ReactCount
+  | Snippet
+  | SourceBranch
+  | State_2
+  | SubscriberCount
+  | TargetBranch
+  | Title
+  | ViewCount
+  | VoteCount;
+
+/**
+ * Flexible UI element name - each reflecting the link data its represented.
+ * When adding an element...
+ * 1) Create base element if it doesn't already exist.
+ *    Base element are inside src/view/FlexibleCard/components/elements.
+ *    E.g. Badge, DateTime, Icon, Lozenge, etc.
+ * 2) Update FlexibleUiContext with the new prop for data representing
+ *    the element, preferably with the same name as the element itself.
+ *    (src/state/flexible-ui-context/types.ts)
+ * 3) Update Flexible UI extractor (src/extractors/flexible/index.ts)
+ * 4) Set base element and data mapping
+ *    (src/view/FlexibleCard/components/elements/utils.tsx)
+ * 5) Create element. (src/view/FlexibleCard/components/elements/index.ts)
+ * 6) Update element ElementDisplaySchema for inline/block display
+ *    (src/view/FlexibleCard/components/blocks/utils.tsx)
+ */
+export declare enum ElementName {
   AuthorGroup = 'AuthorGroup',
-  // (undocumented)
   CollaboratorGroup = 'CollaboratorGroup',
-  // (undocumented)
   CommentCount = 'CommentCount',
-  // (undocumented)
   CreatedBy = 'CreatedBy',
-  // (undocumented)
   CreatedOn = 'CreatedOn',
-  // (undocumented)
   DueOn = 'DueOn',
-  // (undocumented)
-  LatestCommit = 'LatestCommit',
-  // (undocumented)
   LinkIcon = 'LinkIcon',
-  // (undocumented)
   ModifiedBy = 'ModifiedBy',
-  // (undocumented)
   ModifiedOn = 'ModifiedOn',
-  // (undocumented)
   Preview = 'Preview',
-  // (undocumented)
   Priority = 'Priority',
-  // (undocumented)
   ProgrammingLanguage = 'ProgrammingLanguage',
-  // (undocumented)
   Provider = 'Provider',
-  // (undocumented)
   ReactCount = 'ReactCount',
-  // (undocumented)
   Snippet = 'Snippet',
-  // (undocumented)
   SourceBranch = 'SourceBranch',
-  // (undocumented)
   State = 'State',
-  // (undocumented)
   SubscriberCount = 'SubscriberCount',
-  // (undocumented)
   TargetBranch = 'TargetBranch',
-  // (undocumented)
   Title = 'Title',
-  // (undocumented)
   ViewCount = 'ViewCount',
-  // (undocumented)
   VoteCount = 'VoteCount',
+  LatestCommit = 'LatestCommit',
 }
 
 export { EmbedCardAdf };
 
-// @public (undocumented)
-export const embedHeaderHeight = 32;
+export declare const embedHeaderHeight = 32;
 
-// @public (undocumented)
-export class EmbedResizeMessageListener extends React_2.Component<
+export declare class EmbedResizeMessageListener extends React_2.Component<
   Props,
   State
 > {
-  // (undocumented)
   componentDidMount(): void;
-  // (undocumented)
   componentWillUnmount(): void;
-  // (undocumented)
+  private messageCallback;
+  private onEmbedHeightChange;
   render(): React_2.ReactNode;
 }
 
-// @public
-export const FooterBlock: React_2.FC<FooterBlockProps>;
+declare type FlexibleUiOptions = {
+  /**
+   * Determines whether the entire Smart Link container should be clickable.
+   */
+  clickableContainer?: boolean;
+  /**
+   * Determines whether to hide elevation styling.
+   */
+  hideElevation?: boolean;
+  /**
+   * Determines whether to hide css padding styling.
+   */
+  hidePadding?: boolean;
+  /**
+   * Determines whether to hide css background color styling.
+   */
+  hideBackground?: boolean;
+  /**
+   * Determines the default padding and sizing of the underlying blocks and
+   * elements within Flexible UI.
+   */
+  size?: SmartLinkSize;
+  /**
+   * Determines the default theme of the Flexible UI.
+   * Can be Black or Link (default URL blue)
+   */
+  theme?: SmartLinkTheme;
+};
+
+/**
+ * Represents a FooterBlock, designed to contain elements and actions that should appear
+ * at the bottom of a link card.
+ * @public
+ * @param {FooterBlockProps} FooterBlockProps
+ * @see Block
+ */
+export declare const FooterBlock: React_2.FC<FooterBlockProps>;
+
+declare type FooterBlockProps = {
+  /**
+   * An array of actions to be displayed on the right.
+   * Adding more than three actions will result in the second and following
+   * actions being hidden inside of a dropdown
+   * @see ActionItem
+   */
+  actions?: ActionItem[];
+} & BlockProps;
 
 export { InlineCardAdf };
 
-// @public (undocumented)
-export const loadingPlaceholderClassName = 'smart-link-loading-placeholder';
+declare type InlinePreloaderStyle =
+  | 'on-left-with-skeleton'
+  | 'on-right-without-skeleton';
 
-// @public
-export const MetadataBlock: React_2.FC<MetadataBlockProps>;
+declare type InvokeType = 'server' | 'client';
 
-// @public (undocumented)
-export const metadataListClassName = 'smart-link-metadata-list';
+/**
+ * Represents the props available for an LastCommit element.
+ * @see BadgeProps
+ */
+declare type LatestCommit = {
+  name: ElementName.LatestCommit;
+};
 
-// @public
-export const PreviewBlock: React_2.FC<PreviewBlockProps>;
+/**
+ * Represents the props available for an LinkIcon element.
+ * @see LinkIcon
+ */
+declare type LinkIcon = {
+  name: ElementName.LinkIcon;
+};
+
+export declare const loadingPlaceholderClassName =
+  'smart-link-loading-placeholder';
+
+/**
+ * Represents a MetadataBlock, designed to contain groups of metadata in the form of elements.
+ * Accepts an array of elements to be shown either primary (left hand side) or secondary (right hand side).
+ * @public
+ * @param {MetadataBlockProps} MetadataBlockProps
+ * @see Block
+ */
+export declare const MetadataBlock: React_2.FC<MetadataBlockProps>;
+
+declare type MetadataBlockProps = {
+  /**
+   * Determines the number of lines the metadata should span across.
+   * Default is 2. Maximum is 2.
+   */
+  maxLines?: number;
+  /**
+   * An array of metadata elements to display on the left.
+   * By default elements will be shown to the right of the TitleBlock.
+   * The visibility of the element is determine by the link data.
+   * If link contain no data to display a particular element, the element
+   * will simply not show up.
+   * @see ElementItem
+   */
+  primary?: ElementItem[];
+  /**
+   * An array of metadata elements to display on the right.
+   * By default elements will be shown to the right of the TitleBlock.
+   * The visibility of the element is determine by the link data.
+   * If link contain no data to display a particular element, the element
+   * will simply not show up.
+   * @see ElementItem
+   */
+  secondary?: ElementItem[];
+} & BlockProps;
+
+export declare const metadataListClassName = 'smart-link-metadata-list';
+
+/**
+ * Represents the props available for an ModifiedBy element.
+ * @see ModifiedBy
+ */
+declare type ModifiedBy = {
+  name: ElementName.ModifiedBy;
+};
+
+/**
+ * Represents the props available for an ModifiedOn element.
+ * @see ModifiedOn
+ */
+declare type ModifiedOn = {
+  name: ElementName.ModifiedOn;
+  /**
+   * A string which will be displayed before the specified element.
+   */
+  text?: string;
+};
+
+/**
+ * This represents an action where Icon and Content are provided implicitly.
+ * @example DeleteAction - by default will contain a cross icon with the
+ * 'delete' content if content and icon are not provided.
+ */
+declare type NamedActionItem = BaseActionItem & {
+  name: Exclude<ActionName, ActionName.CustomAction>;
+};
+
+declare type OnResolveCallback = (data: {
+  url?: string;
+  title?: string;
+  aspectRatio?: number;
+}) => void;
+
+/**
+ * Represents the props available for an Preview element.
+ * @see Preview
+ */
+declare type Preview = {
+  name: ElementName.Preview;
+};
+
+/**
+ * Represents a PreviewBlock, which typically contains media or other large format content.
+ * @public
+ * @param {PreviewBlock} PreviewBlock
+ * @see Block
+ */
+export declare const PreviewBlock: React_2.FC<PreviewBlockProps>;
+
+declare type PreviewBlockProps = BlockProps;
+
+declare type PreviewDisplay = 'card' | 'embed';
+
+declare type PreviewInvokeMethod = 'keyboard' | 'mouse_hover' | 'mouse_click';
+
+/**
+ * Represents the props available for an Priority element.
+ * @see Priority
+ */
+declare type Priority = {
+  name: ElementName.Priority;
+};
+
+/**
+ * Represents the props available for an ProgrammingLanguage element.
+ * @see ProgrammingLanguage
+ */
+declare type ProgrammingLanguage = {
+  name: ElementName.ProgrammingLanguage;
+};
+
+declare interface Props {
+  embedIframeRef: React_2.RefObject<HTMLIFrameElement>;
+  onHeightUpdate: (height: number) => void;
+}
 
 export { Provider };
 
+/**
+ * Represents the props available for an Provider element.
+ * @see Provider
+ */
+declare type Provider_2 = {
+  name: ElementName.Provider;
+};
+
 export { ProviderProps };
 
-// @public (undocumented)
-export type ResolveResponse = JsonLd.Response;
+/**
+ * Represents the props available for an ReactCount element.
+ * @see ReactCount
+ */
+declare type ReactCount = {
+  name: ElementName.ReactCount;
+};
+
+export declare type ResolveResponse = JsonLd.Response;
+
+/**
+ * Retry options used if Smart Link resolves to an errored state.
+ */
+declare type RetryOptions = {
+  /**
+   * Determines the error message to show.
+   */
+  descriptor?: MessageDescriptor;
+  /**
+   * Determines the onClick behaviour of the error message.
+   */
+  onClick?: ((e: React.MouseEvent<HTMLElement>) => void) | undefined;
+  /**
+   * A list of optional value pairs for string interpolation in the message.
+   */
+  values?: Record<string, string>;
+};
 
 export { SmartCardContext as Context };
 export { SmartCardContext };
 
-// @public
-export enum SmartLinkDirection {
-  // (undocumented)
+/**
+ * The direction of Flexible UI components. It establish the main-axis
+ * or how the child components laid out inside the parent component.
+ * Similar to flex's flex-direction concept.
+ */
+export declare enum SmartLinkDirection {
   Horizontal = 'horizontal',
-  // (undocumented)
   Vertical = 'vertical',
 }
 
-// @public (undocumented)
-export class SmartLinkEvents {
-  // (undocumented)
+export declare class SmartLinkEvents {
   insertSmartLink(
     url: string,
     type: CardInnerAppearance,
@@ -347,58 +739,257 @@ export class SmartLinkEvents {
   ): void;
 }
 
-// @public
-export enum SmartLinkPosition {
-  // (undocumented)
-  Center = 'center',
-  // (undocumented)
+/**
+ * The positioning of the component within the parent component.
+ * Similar to flex's align-items or align-self concept.
+ */
+export declare enum SmartLinkPosition {
   Top = 'top',
+  Center = 'center',
 }
 
-// @public
-export enum SmartLinkSize {
-  // (undocumented)
-  Large = 'large',
-  // (undocumented)
-  Medium = 'medium',
-  // (undocumented)
-  Small = 'small',
-  // (undocumented)
+/**
+ * The sizing options of the Flexible UI component. Every component
+ * has or inherits the sizing props. Implementation varies
+ * as per component.
+ */
+export declare enum SmartLinkSize {
   XLarge = 'xlarge',
+  Large = 'large',
+  Medium = 'medium',
+  Small = 'small',
 }
 
-// @public
-export enum SmartLinkTheme {
-  // (undocumented)
+/**
+ * Smart Links link request status
+ */
+declare enum SmartLinkStatus {
+  Pending = 'pending',
+  Resolving = 'resolving',
+  Resolved = 'resolved',
+  Forbidden = 'forbidden',
+  Errored = 'errored',
+  NotFound = 'not_found',
+  Unauthorized = 'unauthorized',
+  Fallback = 'fallback',
+}
+
+/**
+ * Flexible UI theme available on the Card level.
+ * This determine the styling of the link.
+ */
+export declare enum SmartLinkTheme {
   Black = 'black',
-  // (undocumented)
   Link = 'link',
 }
 
-// @public
-export const SnippetBlock: React_2.FC<SnippetBlockProps>;
+/**
+ * Represents the props available for an Snippet element.
+ * @see Snippet
+ */
+declare type Snippet = {
+  name: ElementName.Snippet;
+};
 
-// @public
-export const TitleBlock: React_2.FC<TitleBlockProps>;
+/**
+ * Represents a SnippetBlock, which is used to display longer form text content, like descriptions.
+ * @public
+ * @param {SnippetBlock} SnippetBlock
+ * @see Block
+ */
+export declare const SnippetBlock: React_2.FC<SnippetBlockProps>;
 
-// @public
-export const useSmartLinkAnalytics: (
+declare type SnippetBlockProps = {
+  /**
+   * Determines the maximum lines the text within the snippet block should
+   * spread over. Default is 3. Maximum is 3.
+   */
+  maxLines?: number;
+} & BlockProps;
+
+/**
+ * Represents the props available for an SourceBranch element.
+ * @see SourceBranch
+ */
+declare type SourceBranch = {
+  name: ElementName.SourceBranch;
+};
+
+declare interface State {}
+
+/**
+ * Represents the props available for an State element.
+ * @see State
+ */
+declare type State_2 = {
+  name: ElementName.State;
+};
+
+/**
+ * Represents the props available for an SubscriberCount element.
+ * @see SubscriberCount
+ */
+declare type SubscriberCount = {
+  name: ElementName.SubscriberCount;
+};
+
+/**
+ * Represents the props available for an TargetBranch element.
+ * @see TargetBranch
+ */
+declare type TargetBranch = {
+  name: ElementName.TargetBranch;
+};
+
+/**
+ * Represents the props available for an Title element.
+ * @see Title
+ */
+declare type Title = {
+  name: ElementName.Title;
+};
+
+/**
+ * Represents a TitleBlock, which is the foundation of Flexible UI.
+ * This contains an icon, the link, and any associated metadata and actions in one block.
+ * The TitleBlock will also render differently given the state of the smart link.
+ * This can be found in the corresponding Resolving, Resolved and Errored views.
+ * @public
+ * @param {TitleBlockProps} TitleBlockProps
+ * @see Block
+ * @see TitleBlockResolvingView
+ * @see TitleBlockResolvedView
+ * @see TitleBlockErroredView
+ */
+export declare const TitleBlock: React_2.FC<TitleBlockProps>;
+
+declare type TitleBlockProps = {
+  /**
+   * An array of action items to be displayed after the title
+   * on the right of the block.
+   * An action item provides preset icon and label, with exception of
+   * a custom action which either Icon or label must be provided.
+   * @see ActionItem
+   */
+  actions?: ActionItem[];
+  /**
+   * Determines the href target behaviour of the Link.
+   */
+  anchorTarget?: AnchorTarget;
+  /**
+   * [Experiment] Determines whether the linked title should display tooltip on hover.
+   */
+  hideTitleTooltip?: boolean;
+  /**
+   * Determines the maximum number of lines for the underlying link text to
+   * spread over. Default is 2. Maximum is 2.
+   */
+  maxLines?: number;
+  /**
+   * An array of metadata elements to display in the TitleBlock.
+   * By default elements will be shown to the right of the TitleBlock.
+   * The visibility of the element is determine by the link data.
+   * If link contain no data to display a particular element, the element
+   * will simply not show up.
+   * @see ElementItem
+   */
+  metadata?: ElementItem[];
+  /**
+   * Determines the position of the link icon in relative to the vertical
+   * height of the TitleBlock.  It can either be centred or placed on “top”.
+   * Default is top.
+   */
+  position?: SmartLinkPosition;
+  /**
+   * Determines the onClick behaviour of the Link. By default used for analytics.
+   * @internal
+   */
+  onClick?: React_2.EventHandler<React_2.MouseEvent | React_2.KeyboardEvent>;
+  /**
+   * The options that determine the retry behaviour when a Smart Link errors.
+   * @internal
+   */
+  retry?: RetryOptions;
+  /**
+   * Determines whether TitleBlock will hide actions until the user is hovering
+   * over the link.
+   */
+  showActionOnHover?: boolean;
+  /**
+   * An array of metadata elements to display in the TitleBlock.
+   * By default elements will be shown below the link text.
+   * The visibility of the element is determine by the link data.
+   * If link contain no data to display a particular element, the element
+   * will simply not show up.
+   * @see ElementItem
+   */
+  subtitle?: ElementItem[];
+  /**
+   * The text to display in the link. Overrides any text that is retrieved from
+   * the Smart Link.
+   */
+  text?: string;
+  /**
+   * The theme of the link text. Can be Black or Link (default URL blue)
+   * @internal
+   */
+  theme?: SmartLinkTheme;
+} & BlockProps;
+
+/**
+ * This hook provides usage of Smart Link analytics outside of the Card component.
+ * Can be provided to Card via the analyticsEvents prop to change the analytics events.
+ * @param url URL of the link
+ * @param dispatchAnalytics dispatchAnalytics function
+ * @param id fallback id of the events sent if no id is available
+ * @param defaultLocation location attribute to be used
+ * @returns
+ */
+export declare const useSmartLinkAnalytics: (
   url: string,
   dispatchAnalytics: AnalyticsHandler,
   id?: string | undefined,
   defaultLocation?: string | undefined,
 ) => {
   ui: {
+    /**
+     * This fires an event that represents when a user clicks on the authentication
+     * call to action with no current authenticated account. (i.e. Connect to Preview).
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @returns
+     */
     authEvent: (
       display: CardInnerAppearance,
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents when a user clicks on the authentication
+     * call to action with a forbidden authenticated account. (i.e. Try another account).
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @returns
+     */
     authAlternateAccountEvent: (
       display: CardInnerAppearance,
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents when a user clicks on a Smart Link.
+     * @param id The unique ID for this Smart Link.
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param status What status the Smart Link is currently in (e.g. resolved, unresolved)
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param isModifierKeyPressed Whether a modifier key was pressed when clicking the Smart Link.
+     * @param location Where the Smart Link is currently rendered.
+     * @param destinationProduct The product the Smart Link is linked to.
+     * @returns
+     */
     cardClickedEvent: (
       id: string | undefined,
       display: CardInnerAppearance,
@@ -411,6 +1002,16 @@ export const useSmartLinkAnalytics: (
       destinationSubproduct?: DestinationSubproduct | string | undefined,
       actionSubjectId?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents when a user clicks on a Smart Link action.
+     * Note: This also starts the UFO smart-link-action-invocation experience.
+     * @param id The unique ID for this Smart Link.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param actionType The type of the action that was clicked, e.g. PreviewAction
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param invokeType Whether the action invoked made a call to a server.
+     * @returns
+     */
     actionClickedEvent: (
       id: string | undefined,
       extensionKey: string | undefined,
@@ -418,17 +1019,40 @@ export const useSmartLinkAnalytics: (
       display: CardInnerAppearance,
       invokeType: InvokeType,
     ) => void;
+    /**
+     * This fires an event that represents when a user clicks on a hover preview's "navigate to link" button.
+     * https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3206743323/Analytics+Metrics+-+Hover+Previews
+     * @param previewDisplay What format the preview is in.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param previewInvokeMethod How the preview was triggered.
+     */
     hoverCardOpenLinkClickedEvent: (
       previewDisplay: PreviewDisplay,
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
       previewInvokeMethod?: PreviewInvokeMethod | undefined,
     ) => void;
+    /**
+     * This fires an event that represents when a user closed the authentication window without authenticating after opening it.
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @returns
+     */
     closedAuthEvent: (
       display: CardInnerAppearance,
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents when a Smart Link was rendered successfully.
+     * Note: this fires even if the Smart Link request errored out.
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param id The unique ID for this Smart Link.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     */
     renderSuccessEvent: (
       display: CardInnerAppearance,
       status: CardType,
@@ -436,6 +1060,14 @@ export const useSmartLinkAnalytics: (
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents a hover preview being opened.
+     * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param previewInvokeMethod How the preview was triggered.
+     * @returns
+     */
     hoverCardViewedEvent: (
       previewDisplay: PreviewDisplay,
       previewInvokeMethod?: PreviewInvokeMethod | undefined,
@@ -443,6 +1075,15 @@ export const useSmartLinkAnalytics: (
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents a hover preview being dismissed.
+     * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
+     * @param hoverTime The duration that the user hovered over a Smart Link before the preview was dismissed.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param previewInvokeMethod How the preview was triggered.
+     * @returns
+     */
     hoverCardDismissedEvent: (
       previewDisplay: PreviewDisplay,
       hoverTime: number,
@@ -453,12 +1094,27 @@ export const useSmartLinkAnalytics: (
     ) => void;
   };
   operational: {
+    /**
+     * This fires an event that represents an action being successfully invoked.
+     * @param id The unique ID for this Smart Link.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param actionType The type of action invoked, e.g. PreviewAction
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     */
     invokeSucceededEvent: (
       id: string | undefined,
       extensionKey: string | undefined,
       actionType: string,
       display: CardInnerAppearance,
     ) => void;
+    /**
+     * This fires an event that represents an action being unsuccessfully invoked.
+     * @param id The unique ID for this Smart Link.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param actionType The type of action invoked, e.g. PreviewAction
+     * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+     * @param reason The reason the invocation failed.
+     */
     invokeFailedEvent: (
       id: string | undefined,
       providerKey: string | undefined,
@@ -466,17 +1122,39 @@ export const useSmartLinkAnalytics: (
       display: CardInnerAppearance,
       reason: string,
     ) => void;
+    /**
+     * This fires an event that represents an account successfully being connected via a Smart Link.
+     * @param id The unique ID for this Smart Link.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     */
     connectSucceededEvent: (
       id?: string,
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
+    /**
+     * This fires an event that represents an account unsuccessfully being connected.
+     * @param id The unique ID for this Smart Link.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param reason The reason why the Smart Link connect account failed.
+     */
     connectFailedEvent: (
       id?: string,
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
       reason?: string | undefined,
     ) => void;
+    /**
+     * This fires an event which represents a Smart Link request succeeding or failing based on the status.
+     * @param id The unique ID for this Smart Link.
+     * @param status The status of the Smart Link.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @param resourceType The type of resource that was invoked. This is provider specific (e.g. File, PullRequest).
+     * @param error An error representing why the Smart Link request failed.
+     */
     instrument: (
       id: string | undefined,
       status: CardType,
@@ -487,12 +1165,24 @@ export const useSmartLinkAnalytics: (
     ) => void;
   };
   track: {
+    /**
+     * This fires an event which represents a user starting the Smart Link connect account process.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @returns
+     */
     appAccountConnected: (
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
     ) => void;
   };
   screen: {
+    /**
+     * This fires an event which represents the connect account page being opened.
+     * @param definitionId The definitionId of the Smart Link resolver invoked.
+     * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+     * @returns
+     */
     authPopupEvent: (
       definitionId?: string | undefined,
       extensionKey?: string | undefined,
@@ -500,8 +1190,23 @@ export const useSmartLinkAnalytics: (
   };
 };
 
-// @public (undocumented)
-export function useSmartLinkEvents(): SmartLinkEvents;
+export declare function useSmartLinkEvents(): SmartLinkEvents;
 
-// (No @packageDocumentation comment for this package)
+/**
+ * Represents the props available for an ViewCount element.
+ * @see ViewCount
+ */
+declare type ViewCount = {
+  name: ElementName.ViewCount;
+};
+
+/**
+ * Represents the props available for an VoteCount element.
+ * @see VoteCount
+ */
+declare type VoteCount = {
+  name: ElementName.VoteCount;
+};
+
+export {};
 ```

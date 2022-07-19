@@ -12,8 +12,12 @@ import { ValueType } from '@atlaskit/select';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const ColorPaletteMenu: React_2.ForwardRefExoticComponent<
+declare interface Color {
+  label: string;
+  value: string;
+}
+
+export declare const ColorPaletteMenu: React_2.ForwardRefExoticComponent<
   Pick<
     Pick<
       Omit<ColorPaletteMenuProps, keyof WithAnalyticsEventsProps>,
@@ -49,80 +53,78 @@ export const ColorPaletteMenu: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export interface ColorPaletteMenuProps {
-  checkMarkColor?: string;
-  cols: number;
-  createAnalyticsEvent?: any;
+export declare interface ColorPaletteMenuProps {
+  /** color picker button label */
   label?: string;
-  mode?: Mode;
-  onChange: (value: string, analyticsEvent?: object) => void;
+  /** list of available colors */
   palette: Palette;
+  /** selected color */
   selectedColor?: string;
+  /** maximum column length */
+  cols: number;
+  /** color of checkmark on selected color */
+  checkMarkColor?: string;
+  /** onChange handler */
+  onChange: (value: string, analyticsEvent?: object) => void;
+  /** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
+  createAnalyticsEvent?: any;
+  /** style of the color-picker, either 'Compact' or 'Standard', default value is 'Standard' */
+  mode?: Mode;
 }
 
-// @public (undocumented)
-export class ColorPaletteMenuWithoutAnalytics extends React_2.Component<
+export declare class ColorPaletteMenuWithoutAnalytics extends React_2.Component<
   ColorPaletteMenuProps
 > {
-  // (undocumented)
-  changeAnalyticsCaller: () => UIAnalyticsEvent | undefined;
-  // (undocumented)
-  createAndFireEventOnAtlaskit: (
-    payload: AnalyticsEventPayload,
-  ) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent;
-  // (undocumented)
   static defaultProps: {
     cols: number;
     mode: Mode;
   };
-  // (undocumented)
-  onChange: (value: string) => void;
-  // (undocumented)
-  render(): JSX.Element;
-}
-
-// @public (undocumented)
-export interface ColorPickerProps {
-  checkMarkColor?: string;
-  cols?: number;
-  createAnalyticsEvent?: any;
-  label?: string;
-  onChange: (value: string, analyticsEvent?: object) => void;
-  palette: Palette;
-  popperProps?: PopupSelectProps['popperProps'];
-  selectedColor?: string;
-}
-
-// @public (undocumented)
-export class ColorPickerWithoutAnalytics extends React_2.Component<
-  ColorPickerProps
-> {
-  // (undocumented)
-  changeAnalyticsCaller: () => UIAnalyticsEvent | undefined;
-  // (undocumented)
   createAndFireEventOnAtlaskit: (
     payload: AnalyticsEventPayload,
   ) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent;
-  // (undocumented)
-  onChangeSelect: (option: ValueType<Color>) => void;
-  // (undocumented)
-  onKeyDown: (e: React_2.KeyboardEvent<HTMLElement>) => void;
-  // (undocumented)
-  onOptionKeyDown: (value: string) => void;
-  // (undocumented)
+  changeAnalyticsCaller: () => UIAnalyticsEvent | undefined;
+  onChange: (value: string) => void;
   render(): JSX.Element;
-  // (undocumented)
+}
+
+export declare interface ColorPickerProps {
+  /** color picker button label */
+  label?: string;
+  /** list of available colors */
+  palette: Palette;
+  /** selected color */
+  selectedColor?: string;
+  /** maximum column length */
+  cols?: number;
+  /** color of checkmark on selected color */
+  checkMarkColor?: string;
+  /** props for react-popper */
+  popperProps?: PopupSelectProps['popperProps'];
+  /** onChange handler */
+  onChange: (value: string, analyticsEvent?: object) => void;
+  /** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
+  createAnalyticsEvent?: any;
+}
+
+export declare class ColorPickerWithoutAnalytics extends React_2.Component<
+  ColorPickerProps
+> {
+  createAndFireEventOnAtlaskit: (
+    payload: AnalyticsEventPayload,
+  ) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent;
   state: {
     isTabbing: boolean;
   };
+  changeAnalyticsCaller: () => UIAnalyticsEvent | undefined;
+  onChangeSelect: (option: ValueType<Color>) => void;
+  onOptionKeyDown: (value: string) => void;
+  onKeyDown: (e: React_2.KeyboardEvent<HTMLElement>) => void;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export const Compact: Mode;
+export declare const Compact: Mode;
 
-// @public (undocumented)
-const _default: React_2.ForwardRefExoticComponent<
+declare const _default: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<ColorPickerProps, keyof WithAnalyticsEventsProps> &
       React_2.RefAttributes<any> &
@@ -141,8 +143,14 @@ const _default: React_2.ForwardRefExoticComponent<
 >;
 export default _default;
 
-// @public (undocumented)
-export const Standard: Mode;
+declare enum Mode {
+  Compact = 0,
+  Standard = 1,
+}
 
-// (No @packageDocumentation comment for this package)
+declare type Palette = Color[];
+
+export declare const Standard: Mode;
+
+export {};
 ```

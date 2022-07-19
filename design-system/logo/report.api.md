@@ -5,8 +5,7 @@
 ```ts
 /// <reference types="react" />
 
-// @public (undocumented)
-export const AtlassianIcon: ({
+export declare const AtlassianIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -16,8 +15,7 @@ export const AtlassianIcon: ({
   testId,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const AtlassianLogo: ({
+export declare const AtlassianLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -27,8 +25,7 @@ export const AtlassianLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const AtlassianStartLogo: ({
+export declare const AtlassianStartLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -38,8 +35,7 @@ export const AtlassianStartLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const AtlassianWordmark: ({
+export declare const AtlassianWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -49,8 +45,7 @@ export const AtlassianWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const BitbucketIcon: ({
+export declare const BitbucketIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -60,8 +55,7 @@ export const BitbucketIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const BitbucketLogo: ({
+export declare const BitbucketLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -71,8 +65,7 @@ export const BitbucketLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const BitbucketWordmark: ({
+export declare const BitbucketWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -82,8 +75,7 @@ export const BitbucketWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const CompassIcon: ({
+export declare const CompassIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -93,8 +85,7 @@ export const CompassIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const CompassLogo: ({
+export declare const CompassLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -104,8 +95,7 @@ export const CompassLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const CompassWordmark: ({
+export declare const CompassWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -115,8 +105,7 @@ export const CompassWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const ConfluenceIcon: ({
+export declare const ConfluenceIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -126,8 +115,7 @@ export const ConfluenceIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const ConfluenceLogo: ({
+export declare const ConfluenceLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -137,8 +125,7 @@ export const ConfluenceLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const ConfluenceWordmark: ({
+export declare const ConfluenceWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -148,8 +135,7 @@ export const ConfluenceWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const HalpIcon: ({
+export declare const HalpIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -159,8 +145,7 @@ export const HalpIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const HalpLogo: ({
+export declare const HalpLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -170,8 +155,7 @@ export const HalpLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const HalpWordmark: ({
+export declare const HalpWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -181,8 +165,10 @@ export const HalpWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const HipchatIcon: ({
+/**
+ * @deprecated HipchatIcon will be removed from @atlaskit/logo in the next major release.
+ */
+export declare const HipchatIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -192,8 +178,10 @@ export const HipchatIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const HipchatLogo: ({
+/**
+ * @deprecated HipchatLogo will be removed from @atlaskit/logo in the next major release.
+ */
+export declare const HipchatLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -203,8 +191,10 @@ export const HipchatLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const HipchatWordmark: ({
+/**
+ * @deprecated HipchatWordmark will be removed from @atlaskit/logo in the next major release.
+ */
+export declare const HipchatWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -214,8 +204,10 @@ export const HipchatWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const JiraCoreIcon: ({
+/**
+ * @deprecated JiraCoreIcon will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementIcon instead.
+ */
+export declare const JiraCoreIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -225,8 +217,10 @@ export const JiraCoreIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const JiraCoreLogo: ({
+/**
+ * @deprecated JiraCoreLogo will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementLogo instead.
+ */
+export declare const JiraCoreLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -236,8 +230,10 @@ export const JiraCoreLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const JiraCoreWordmark: ({
+/**
+ * @deprecated JiraCoreWordmark will be removed from @atlaskit/logo in the next major release. Please use JiraWorkManagementWordmark instead.
+ */
+export declare const JiraCoreWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -247,8 +243,7 @@ export const JiraCoreWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraIcon: ({
+export declare const JiraIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -258,8 +253,7 @@ export const JiraIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraLogo: ({
+export declare const JiraLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -269,8 +263,10 @@ export const JiraLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const JiraServiceDeskIcon: ({
+/**
+ * @deprecated JiraServiceDeskIcon will be removed from atlaskit/logo in the next major release. Please use JiraServiceManagementIcon instead.
+ */
+export declare const JiraServiceDeskIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -280,8 +276,10 @@ export const JiraServiceDeskIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const JiraServiceDeskLogo: ({
+/**
+ * @deprecated JiraServiceDeskLogo will be removed from atlaskit/logo in the next major release. Please use JiraServiceManagementLogo instead.
+ */
+export declare const JiraServiceDeskLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -291,8 +289,10 @@ export const JiraServiceDeskLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const JiraServiceDeskWordmark: ({
+/**
+ * @deprecated JiraServiceDeskWordmark will be removed from atlaskit/logo in the next major release. Please use JiraServiceManagementWordmark instead.
+ */
+export declare const JiraServiceDeskWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -302,8 +302,7 @@ export const JiraServiceDeskWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraServiceManagementIcon: ({
+export declare const JiraServiceManagementIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -313,8 +312,7 @@ export const JiraServiceManagementIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraServiceManagementLogo: ({
+export declare const JiraServiceManagementLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -324,8 +322,7 @@ export const JiraServiceManagementLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraServiceManagementWordmark: ({
+export declare const JiraServiceManagementWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -335,8 +332,7 @@ export const JiraServiceManagementWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraSoftwareIcon: ({
+export declare const JiraSoftwareIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -346,8 +342,7 @@ export const JiraSoftwareIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraSoftwareLogo: ({
+export declare const JiraSoftwareLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -357,8 +352,7 @@ export const JiraSoftwareLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraSoftwareWordmark: ({
+export declare const JiraSoftwareWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -368,8 +362,7 @@ export const JiraSoftwareWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraWordmark: ({
+export declare const JiraWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -379,8 +372,7 @@ export const JiraWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraWorkManagementIcon: ({
+export declare const JiraWorkManagementIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -390,8 +382,7 @@ export const JiraWorkManagementIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraWorkManagementLogo: ({
+export declare const JiraWorkManagementLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -401,8 +392,7 @@ export const JiraWorkManagementLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const JiraWorkManagementWordmark: ({
+export declare const JiraWorkManagementWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -412,19 +402,43 @@ export const JiraWorkManagementWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export type LogoProps = {
+export declare type LogoProps = {
+  /**
+   * The size of the icon, uses the same sizing scheme as in `@atlaskit/icon`.
+   */
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+  /**
+   * CSS color to be applied to the wordmark portion of the logo SVG.
+   */
   textColor?: string;
+  /**
+   * CSS color to be applied to the non-gradient icon portion of the logo SVG.
+   */
   iconColor?: string;
+  /**
+   * CSS color to start the gradient/shadow on the icon.
+   */
   iconGradientStart?: string;
+  /**
+   * CSS color to end the gradient/shadow on the icon. Should usually match iconColor to avoid
+   * rendering issues in some browsers such as Safari.
+   */
   iconGradientStop?: string;
+  /**
+   * Accessible text to be used for screen readers (it's optional since defaultProps contains empty string for it).
+   */
   label?: string;
+  /**
+   * A testId prop is provided for specified elements, which is a unique string that appears as a data attribute data-testid in the rendered code, serving as a hook for automated tests.
+   * - `{testId}--wrapper` to access the svg element's wrapper
+   */
   testId?: string;
 };
 
-// @public @deprecated (undocumented)
-export const OpsGenieIcon: ({
+/**
+ * @deprecated OpsGenieIcon is incorrectly cased and will be removed from atlaskit/logo in the next major release. Please use OpsgenieIcon (no capital 'g') instead.
+ */
+export declare const OpsGenieIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -433,29 +447,10 @@ export const OpsGenieIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public
-export const OpsgenieIcon: ({
-  iconColor,
-  iconGradientStart,
-  iconGradientStop,
-  label,
-  size,
-  testId,
-  textColor,
-}: LogoProps) => JSX.Element;
-
-// @public @deprecated (undocumented)
-export const OpsGenieLogo: ({
-  iconColor,
-  iconGradientStart,
-  iconGradientStop,
-  size,
-  testId,
-  textColor,
-}: LogoProps) => JSX.Element;
-
-// @public
-export const OpsgenieLogo: ({
+/**
+ * This is the correct seplling of Opsgenie and the icon we are moving towards after OpsGenie is deprecated correctly.
+ */
+export declare const OpsgenieIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -465,8 +460,10 @@ export const OpsgenieLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const OpsGenieWordmark: ({
+/**
+ * @deprecated OpsGenieLogo is incorrectly cased and will be removed from atlaskit/logo in the next major release. Please use OpsgenieLogo (no capital 'g') instead.
+ */
+export declare const OpsGenieLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -475,18 +472,10 @@ export const OpsGenieWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const OpsgenieWordmark: ({
-  iconColor,
-  iconGradientStart,
-  iconGradientStop,
-  size,
-  testId,
-  textColor,
-}: LogoProps) => JSX.Element;
-
-// @public (undocumented)
-export const StatuspageIcon: ({
+/**
+ * This is the correct logo as it has the correct casing. Please do not use old-logo.tsx.
+ */
+export declare const OpsgenieLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -496,8 +485,28 @@ export const StatuspageIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const StatuspageLogo: ({
+/**
+ * @deprecated OpsGenieWordmark is incorrectly cased and will be removed from atlaskit/logo in the next major release. Please use OpsgenieLogo (no capital 'g') instead.
+ */
+export declare const OpsGenieWordmark: ({
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  size,
+  testId,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+export declare const OpsgenieWordmark: ({
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  size,
+  testId,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+export declare const StatuspageIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -507,8 +516,7 @@ export const StatuspageLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const StatuspageWordmark: ({
+export declare const StatuspageLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -518,38 +526,7 @@ export const StatuspageWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public @deprecated (undocumented)
-export const StrideIcon: ({
-  iconColor,
-  iconGradientStart,
-  iconGradientStop,
-  size,
-  testId,
-  textColor,
-}: LogoProps) => JSX.Element;
-
-// @public @deprecated (undocumented)
-export const StrideLogo: ({
-  iconColor,
-  iconGradientStart,
-  iconGradientStop,
-  size,
-  testId,
-  textColor,
-}: LogoProps) => JSX.Element;
-
-// @public @deprecated (undocumented)
-export const StrideWordmark: ({
-  iconColor,
-  iconGradientStart,
-  iconGradientStop,
-  size,
-  testId,
-  textColor,
-}: LogoProps) => JSX.Element;
-
-// @public (undocumented)
-export const TrelloIcon: ({
+export declare const StatuspageWordmark: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -559,8 +536,43 @@ export const TrelloIcon: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const TrelloLogo: ({
+/**
+ * @deprecated StrideIcon will be removed from atlaskit/logo in the next major release.
+ */
+export declare const StrideIcon: ({
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  size,
+  testId,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+/**
+ * @deprecated StrideLogo will be removed from atlaskit/logo in the next major release.
+ */
+export declare const StrideLogo: ({
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  size,
+  testId,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+/**
+ * @deprecated StrideWordmark will be removed from atlaskit/logo in the next major release.
+ */
+export declare const StrideWordmark: ({
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  size,
+  testId,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+export declare const TrelloIcon: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -570,8 +582,7 @@ export const TrelloLogo: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// @public (undocumented)
-export const TrelloWordmark: ({
+export declare const TrelloLogo: ({
   iconColor,
   iconGradientStart,
   iconGradientStop,
@@ -581,5 +592,15 @@ export const TrelloWordmark: ({
   textColor,
 }: LogoProps) => JSX.Element;
 
-// (No @packageDocumentation comment for this package)
+export declare const TrelloWordmark: ({
+  iconColor,
+  iconGradientStart,
+  iconGradientStop,
+  label,
+  size,
+  testId,
+  textColor,
+}: LogoProps) => JSX.Element;
+
+export {};
 ```

@@ -8,17 +8,14 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 import { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 
-// @public (undocumented)
-export type Markdown = string;
+export declare type Markdown = string;
 
-// @public (undocumented)
-export class MarkdownTransformer implements Transformer_2<Markdown> {
+export declare class MarkdownTransformer implements Transformer_2<Markdown> {
+  private markdownParser;
   constructor(schema?: Schema, tokenizer?: MarkdownIt);
-  // (undocumented)
   encode(_node: Node_2): Markdown;
-  // (undocumented)
   parse(content: Markdown): Node_2;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

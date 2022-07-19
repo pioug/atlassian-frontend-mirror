@@ -6,71 +6,96 @@
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-export type AsyncAvatarPickerDialogProps = AvatarPickerDialogProps & {
+export declare type AsyncAvatarPickerDialogProps = AvatarPickerDialogProps & {
   placeholder?: ReactNode;
 };
 
-// @public (undocumented)
-export interface Avatar {
-  // (undocumented)
+declare interface AsyncAvatarPickerDialogState {
+  AvatarPickerDialog?: typeof _default;
+}
+
+export declare interface Avatar {
   dataURI: string;
 }
 
-// @public (undocumented)
-export class AvatarPickerDialog extends React_2.PureComponent<
+export declare class AvatarPickerDialog extends React_2.PureComponent<
   AsyncAvatarPickerDialogProps,
   AsyncAvatarPickerDialogState
 > {
-  // (undocumented)
-  static AvatarPickerDialog?: typeof _default;
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
-  render(): {};
-  // (undocumented)
+  static AvatarPickerDialog?: typeof _default;
   state: {
     AvatarPickerDialog: React_2.FC<AvatarPickerDialogProps> | undefined;
   };
-  // (undocumented)
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): {};
 }
 
-// @public (undocumented)
-export const ImageNavigator: React_2.FC<ImageNavigatorProps>;
-
-// @public (undocumented)
-export interface ImageNavigatorProps {
-  // (undocumented)
-  errorMessage?: string;
-  // (undocumented)
+declare interface AvatarPickerDialogProps {
+  /** This property is used to provide an array of pre-defined avatars. The **Avatar** object is a simple type with a single **dataURI: string** property. For convenience, this type is exported from the **@atlassian/media-avatar-picker** module along with the **AvatarPickerDialog** component. */
+  avatars: Array<Avatar>;
+  /** This property is used along with the **avatar** property. It allows you to set the currently selected pre-defined avatar. By default, there is no pre-defined avatar selected, even if the **avatars** property is set. */
+  defaultSelectedAvatar?: Avatar;
+  /** This property is raised when the user clicks the **Save** button and there is a pre-defined avatar selected, and no image selected. An **Avatar** object with a **dataURI** property is passed. */
+  onAvatarPicked: (avatar: Avatar) => void;
+  /** This optional property is used to set the selected image so that the component opens up with it visible already. The value should be a valid dataURI string. If an invalid dataURI is given, the bad format error state will be triggered and a message shown. */
   imageSource?: string;
-  // (undocumented)
+  /** This property is raised when the user clicks the **Save** button and there is a selected image.
+   * Two arguments are passed, the **file:File** which is a blob, and the crop settings which is an object containing **x:number**,**y:number**, and **size:number** values, which are all relative to the coordinates of the selected image. **Note** due to limitations on Safari <= 10.0 and IE11, a **Blob** object will be returned instead of a **File**.
+   * This still allows access to the image byte data to facilitate uploads, essentially minus the filename and date attributes.
+   */
+  onImagePicked?: (file: File, crop: CropProperties) => void;
+  /** This property is raised when the user clicks the **Save** button and there is a selected image. The selected image is provided as a dataURI string. */
+  onImagePickedDataURI?: (dataUri: string) => void;
+  /** This property is raised when the user clicks **Cancel** button.
+   *  **Note** this does not close the dialog.
+   * It is up to the consumer to re-render and remove the dialog from the UI.
+   */
+  onCancel: () => void;
+  /** The title text for the dialog. The default is _Upload an avatar_. */
+  title?: string;
+  /** The primary button text. The default is _Save_. */
+  primaryButtonText?: string;
+  /** This optional property allows the consumer to display an error message. This may occur from a call to a service. The string is clipped if greater than 125 charaters (approximately 3 lines within the dialog). */
+  errorMessage?: string;
+  /** This optional property is used while the avatar is loaded. */
   isLoading?: boolean;
-  // (undocumented)
+  /** This property decribe the text related to the Avatar. */
+  predefinedAvatarsText?: string;
+  /** The target width/height of the resulting (square) avatar. Leave blank for default (200x200) */
+  outputSize?: number;
+  /** This optional property allows the consumer to define the maximum image size that can be uploaded. */
   maxImageSize?: number;
-  // (undocumented)
-  onCropChanged?: (x: number, y: number, size: number) => void;
-  // (undocumented)
-  onImageError: (errorMessage: string) => void;
-  // (undocumented)
-  onImageLoaded: (file: File) => void;
-  // (undocumented)
-  onImageUploaded: (file: File) => void;
-  // (undocumented)
-  onLoad?: OnLoadHandler;
-  // (undocumented)
-  onRemoveImage: () => void;
 }
 
-// @public (undocumented)
-export interface LoadParameters {
-  // (undocumented)
+declare interface CropProperties {
+  x: number;
+  y: number;
+  size: number;
+}
+
+declare const _default: React_2.FC<AvatarPickerDialogProps>;
+
+export declare const ImageNavigator: React_2.FC<ImageNavigatorProps>;
+
+export declare interface ImageNavigatorProps {
+  imageSource?: string;
+  errorMessage?: string;
+  onImageLoaded: (file: File) => void;
+  onLoad?: OnLoadHandler;
+  onCropChanged?: (x: number, y: number, size: number) => void;
+  onRemoveImage: () => void;
+  onImageUploaded: (file: File) => void;
+  onImageError: (errorMessage: string) => void;
+  isLoading?: boolean;
+  maxImageSize?: number;
+}
+
+export declare interface LoadParameters {
   export: (outputSize?: number) => string;
 }
 
-// @public (undocumented)
-export type OnLoadHandler = (params: LoadParameters) => void;
+export declare type OnLoadHandler = (params: LoadParameters) => void;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

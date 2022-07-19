@@ -10,52 +10,48 @@ import { default as React_2 } from 'react';
 import type { ReactElement } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-// @public
-export type Appearance =
+/** Appearance determines the icon and background color pairing indicating the message type */
+export declare type Appearance =
   | 'information'
   | 'warning'
   | 'error'
   | 'success'
   | 'discovery';
 
-// @public (undocumented)
-const SectionMessage: React_2.ForwardRefExoticComponent<
+declare const SectionMessage: React_2.ForwardRefExoticComponent<
   SectionMessageProps & React_2.RefAttributes<HTMLElement>
 >;
 export default SectionMessage;
 
-// @public (undocumented)
-export const SectionMessageAction: NamedExoticComponent<SectionMessageActionProps>;
+export declare const SectionMessageAction: NamedExoticComponent<SectionMessageActionProps>;
 
-// @public (undocumented)
-export interface SectionMessageActionProps {
-  // (undocumented)
+export declare interface SectionMessageActionProps {
   children: React.ReactNode;
-  href?: string;
-  // (undocumented)
   linkComponent?: React.ComponentType<any>;
+  /**
+   * Click handler which will be attached to the rendered link button. The second argument can be used to
+   * track analytics data. See the tutorial in the analytics-next package for details.
+   */
   onClick?: (
     e: React.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
-  // (undocumented)
+  /**
+   * The URL that the rendered link button will point to.
+   */
+  href?: string;
   testId?: string;
 }
 
-// @public (undocumented)
-export interface SectionMessageProps {
-  // (undocumented)
-  actions?: ReactElement | ReactElement<SectionMessageActionProps>[];
+export declare interface SectionMessageProps {
+  /** The appearance styling to use for the section message. */
   appearance?: Appearance;
-  // (undocumented)
   children: React.ReactNode;
-  // (undocumented)
-  icon?: React.ElementType;
-  // (undocumented)
-  testId?: string;
-  // (undocumented)
   title?: string;
+  actions?: ReactElement | ReactElement<SectionMessageActionProps>[];
+  icon?: React.ElementType;
+  testId?: string;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

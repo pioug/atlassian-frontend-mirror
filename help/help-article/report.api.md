@@ -5,8 +5,7 @@
 ```ts
 /// <reference types="react" />
 
-// @public (undocumented)
-export type AdfDoc = {
+export declare type AdfDoc = {
   type: string;
   version: number;
   content: {
@@ -14,16 +13,12 @@ export type AdfDoc = {
   }[];
 };
 
-// @public (undocumented)
-export enum BODY_FORMAT_TYPES {
-  // (undocumented)
+export declare enum BODY_FORMAT_TYPES {
   adf = 'adf',
-  // (undocumented)
   html = 'html',
 }
 
-// @public (undocumented)
-export type HelpArticle = {
+export declare type HelpArticle = {
   title?: string;
   body?: string | AdfDoc;
   bodyFormat?: BODY_FORMAT_TYPES;
@@ -32,9 +27,8 @@ export type HelpArticle = {
   onArticleRenderDone?(): void;
 };
 
-// @public (undocumented)
-const HelpArticle_2: (props: HelpArticle) => JSX.Element;
+declare const HelpArticle_2: (props: HelpArticle) => JSX.Element;
 export default HelpArticle_2;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

@@ -10,6 +10,7 @@ import { CardAppearance } from '@atlaskit/linking-common';
 import { CardPlatform } from '@atlaskit/linking-common';
 import { CardStore } from '@atlaskit/linking-common';
 import { Context } from 'react';
+import { InvocationSearchPayload } from '@atlaskit/linking-common';
 import { InvokePayload } from '@atlaskit/linking-common';
 import { JsonLd } from 'json-ld-types';
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
@@ -17,74 +18,109 @@ import { LinkPreview } from '@atlaskit/linking-common/extractors';
 import { ServerActionOpts } from '@atlaskit/linking-common';
 import { Store } from 'redux';
 
-// @public (undocumented)
-export interface CardAuthFlowOpts {
-  // (undocumented)
+declare const BaseUrls: {
+  dev: string;
+  development: string;
+  stg: string;
+  staging: string;
+  prd: string;
+  prod: string;
+  production: string;
+};
+
+export declare interface CardAuthFlowOpts {
   authFlow?: 'oauth2' | 'disabled';
 }
 
-// @public (undocumented)
-export class CardClient implements CardClient_2 {
+export declare class CardClient implements CardClient_2 {
+  private resolverUrl;
+  private loadersByDomain;
+  private retryConfig;
+  private resolvedCache;
   constructor(envKey?: EnvironmentsKeys);
-  // (undocumented)
-  fetchData(url: string): Promise<JsonLd.Response>;
-  // (undocumented)
-  postData(data: InvokePayload<InvokeRequest>): Promise<JsonLd.Response>;
-  // (undocumented)
+  private batchResolve;
+  private createLoader;
+  private getLoader;
   prefetchData(url: string): Promise<JsonLd.Response | undefined>;
+  fetchData(url: string): Promise<JsonLd.Response>;
+  postData(data: InvokePayload<InvokeRequest>): Promise<JsonLd.Response>;
+  /**
+   * Make request to the Search endpoint See `InvocationRequest` in ORS openapi.yaml for backend
+   * spec.
+   * @param data Payload including the search provider key and query. An empty search query string
+   * results in recent results being returned (pre-query).
+   * @returns JsonLd collection of search results.
+   */
+  search(
+    data: InvokePayload<InvocationSearchPayload>,
+  ): Promise<JsonLd.Collection>;
 }
 
-// @public (undocumented)
-export interface CardContext {
-  // (undocumented)
-  config: CardProviderCacheOpts & CardAuthFlowOpts;
-  // (undocumented)
+declare interface CardClient_2 {
+  fetchData(url: string): Promise<JsonLd.Response>;
+  prefetchData(url: string): Promise<JsonLd.Response | undefined>;
+  postData(data: InvokePayload<ServerActionOpts>): Promise<JsonLd.Response>;
+}
+
+declare interface CardConnections {
+  client: CardClient;
+}
+
+export declare interface CardContext {
+  store: Store<CardStore>;
+  prefetchStore: Record<string, boolean>;
   connections: CardConnections;
-  // (undocumented)
+  config: CardProviderCacheOpts & CardAuthFlowOpts;
   extractors: {
     getPreview: (
       url: string,
       platform?: CardPlatform,
     ) => LinkPreview | undefined;
   };
-  // (undocumented)
-  featureFlags?: LinkingPlatformFeatureFlags;
-  // (undocumented)
-  prefetchStore: Record<string, boolean>;
-  // (undocumented)
   renderers?: CardProviderRenderers;
-  // (undocumented)
-  store: Store<CardStore>;
+  featureFlags?: LinkingPlatformFeatureFlags;
 }
 
-// @public @deprecated (undocumented)
-export interface CardProviderCacheOpts {
-  // (undocumented)
+declare interface CardProvider {
+  resolve(
+    url: string,
+    appearance: CardAppearance,
+    shouldForceAppearance?: boolean,
+  ): Promise<any>;
+}
+
+/** @deprecated Feature removed (EDM-2205) */
+export declare interface CardProviderCacheOpts {
   maxAge?: number;
-  // (undocumented)
   maxLoadingDelay?: number;
 }
 
-// @public (undocumented)
-export interface CardProviderRenderers {
-  // (undocumented)
+export declare interface CardProviderRenderers {
   adf?: (adf: string) => React.ReactNode;
-  // (undocumented)
   emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
 }
 
-// @public (undocumented)
-export interface CardProviderStoreOpts {
-  // (undocumented)
+export declare interface CardProviderStoreOpts {
   initialState: CardStore;
 }
 
-// @public (undocumented)
-export class EditorCardProvider implements CardProvider {
+export declare class EditorCardProvider implements CardProvider {
+  private baseUrl;
+  private resolverUrl;
+  private providersData?;
+  private requestHeaders;
+  private transformer;
+  private providersLoader;
+  private checkedUrls;
   constructor(envKey?: EnvironmentsKeys);
-  // (undocumented)
+  private batchProviders;
+  private check;
+  private fetchProvidersData;
   findPattern(url: string): Promise<boolean>;
-  // (undocumented)
+  private doesUrlMatchPath;
+  private findUserPreference;
+  private findPatternData;
+  private getHardCodedAppearance;
   resolve(
     url: string,
     appearance: CardAppearance,
@@ -92,15 +128,15 @@ export class EditorCardProvider implements CardProvider {
   ): Promise<CardAdf>;
 }
 
-// @public (undocumented)
-export const editorCardProvider: EditorCardProvider;
+export declare const editorCardProvider: EditorCardProvider;
 
-// @public (undocumented)
-export type EnvironmentsKeys = keyof typeof BaseUrls;
+export declare type EnvironmentsKeys = keyof typeof BaseUrls;
 
-// @public (undocumented)
-export type ProviderProps = {
+declare type InvokeRequest = ServerActionOpts;
+
+export declare type ProviderProps = {
   client?: CardClient;
+  /** @deprecated Feature removed (EDM-2205) */
   cacheOptions?: CardProviderCacheOpts;
   storeOptions?: CardProviderStoreOpts;
   children: React.ReactNode;
@@ -110,11 +146,9 @@ export type ProviderProps = {
   };
 } & CardAuthFlowOpts;
 
-// @public (undocumented)
-export const SmartCardContext: Context<CardContext | undefined>;
+export declare const SmartCardContext: Context<CardContext | undefined>;
 
-// @public (undocumented)
-export function SmartCardProvider({
+export declare function SmartCardProvider({
   storeOptions,
   client: customClient,
   authFlow: customAuthFlow,
@@ -123,13 +157,11 @@ export function SmartCardProvider({
   featureFlags,
 }: ProviderProps): JSX.Element;
 
-// @public (undocumented)
-export function useFeatureFlag(
+export declare function useFeatureFlag(
   featureFlag: keyof LinkingPlatformFeatureFlags,
 ): boolean | undefined;
 
-// @public (undocumented)
-export function useSmartLinkContext(): CardContext;
+export declare function useSmartLinkContext(): CardContext;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

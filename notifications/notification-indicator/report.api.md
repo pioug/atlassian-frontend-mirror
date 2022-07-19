@@ -10,8 +10,7 @@ import { NotificationLogProvider } from '@atlaskit/notification-log-client';
 import { RefAttributes } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const NotificationIndicator: ForwardRefExoticComponent<
+export declare const NotificationIndicator: ForwardRefExoticComponent<
   Pick<Omit<Props, keyof WithAnalyticsEventsProps>, never> &
     Partial<
       Pick<
@@ -30,5 +29,39 @@ export const NotificationIndicator: ForwardRefExoticComponent<
     RefAttributes<any>
 >;
 
-// (No @packageDocumentation comment for this package)
+declare interface Props {
+  notificationLogProvider: Promise<NotificationLogProvider>;
+  appearance?:
+    | 'added'
+    | 'default'
+    | 'important'
+    | 'primary'
+    | 'primaryInverted'
+    | 'removed';
+  max?: number;
+  refreshRate?: number;
+  refreshOnHidden?: boolean;
+  refreshOnVisibilityChange?: boolean;
+  onCountUpdating?: (param: ValueUpdatingParams) => ValueUpdatingResult;
+  onCountUpdated?: (param: ValueUpdatedParams) => void;
+  createAnalyticsEvent?: any;
+}
+
+declare interface ValueUpdatedParams {
+  oldCount: number;
+  newCount: number;
+  source: string;
+}
+
+declare interface ValueUpdatingParams {
+  source: string;
+  visibilityChangesSinceTimer?: number;
+}
+
+declare interface ValueUpdatingResult {
+  skip?: boolean;
+  countOverride?: number;
+}
+
+export {};
 ```

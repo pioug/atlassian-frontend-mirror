@@ -5,8 +5,27 @@
 ```ts
 /// <reference types="react" />
 
-// @public (undocumented)
-export const QuizWidget: (props: Props) => JSX.Element;
+declare interface Props {
+  quizContent: QuizInterface;
+  score: number | null;
+  correctAnswers?: QuizElement | null;
+  onSubmitButtonClick?: (choosenAnswers: string[]) => void;
+  onNextButtonClick?: () => void;
+}
 
-// (No @packageDocumentation comment for this package)
+declare type QuizElement = {
+  [key: number]: string;
+};
+
+declare interface QuizInterface {
+  name: string;
+  questions: QuizElement;
+  answers: {
+    [key: number]: string[];
+  };
+}
+
+export declare const QuizWidget: (props: Props) => JSX.Element;
+
+export {};
 ```

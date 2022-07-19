@@ -7,22 +7,23 @@ import { PureComponent } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
-  // (undocumented)
+declare class MobileHeader extends PureComponent<
+  MobileHeaderProps,
+  MobileHeaderState
+> {
+  state: {
+    isAnimatingNavigation: boolean;
+    isAnimatingSidebar: boolean;
+  };
   static defaultProps: {
     topOffset: number;
     pageHeading: string;
     menuIconLabel: string;
     drawerState: string;
   };
-  // (undocumented)
+  UNSAFE_componentWillReceiveProps(nextProps: MobileHeaderProps): void;
   handleNavSlideFinish: () => void;
-  // (undocumented)
   handleSidebarSlideFinish: () => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   renderSlider: (
     isOpen: boolean,
     isAnimating: boolean,
@@ -33,15 +34,27 @@ class MobileHeader extends PureComponent<MobileHeaderProps, MobileHeaderState> {
     renderFn?: ((isOpen: boolean) => ReactNode) | undefined,
     topOffset?: number | undefined,
   ) => JSX.Element;
-  // (undocumented)
-  state: {
-    isAnimatingNavigation: boolean;
-    isAnimatingSidebar: boolean;
-  };
-  // (undocumented)
-  UNSAFE_componentWillReceiveProps(nextProps: MobileHeaderProps): void;
+  render(): JSX.Element;
 }
 export default MobileHeader;
 
-// (No @packageDocumentation comment for this package)
+declare interface MobileHeaderProps {
+  navigation?: (isOpen: boolean) => ReactNode;
+  sidebar?: (isOpen: boolean) => ReactNode;
+  onNavigationOpen?: () => void;
+  onDrawerClose?: () => void;
+  drawerState: 'navigation' | 'sidebar' | 'none' | string;
+  secondaryContent?: ReactNode;
+  pageHeading: ReactNode;
+  menuIconLabel: string;
+  customMenu?: ReactNode;
+  topOffset?: number;
+}
+
+declare interface MobileHeaderState {
+  isAnimatingSidebar: boolean;
+  isAnimatingNavigation: boolean;
+}
+
+export {};
 ```

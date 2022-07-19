@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.1.3
+
+### Patch Changes
+
+- [`22e6401bf78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22e6401bf78) - Inlines svg assets directly into the UI
+
 ## 1.1.2
 
 ### Patch Changes

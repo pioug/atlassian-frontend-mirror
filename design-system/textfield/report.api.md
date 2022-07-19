@@ -7,17 +7,14 @@ import { AllHTMLAttributes } from 'react';
 import { FormEventHandler } from 'react';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-export type Appearance = 'subtle' | 'standard' | 'none';
+export declare type Appearance = 'subtle' | 'standard' | 'none';
 
-// @public (undocumented)
-const _default: React_2.NamedExoticComponent<
+declare const _default: React_2.NamedExoticComponent<
   TextFieldProps & React_2.RefAttributes<unknown>
 >;
 export default _default;
 
-// @public (undocumented)
-export const TextFieldColors: {
+export declare const TextFieldColors: {
   backgroundColor: {
     standard: {
       light: 'var(--ds-background-input)';
@@ -128,25 +125,76 @@ export const TextFieldColors: {
   };
 };
 
-// @public (undocumented)
-export interface TextFieldProps extends AllHTMLAttributes<HTMLInputElement> {
+export declare interface TextFieldProps
+  extends AllHTMLAttributes<HTMLInputElement> {
+  /**
+   * Affects the visual style of the text field.
+   */
   appearance?: 'standard' | 'none' | 'subtle';
-  className?: string;
-  elemAfterInput?: React_2.ReactNode;
-  elemBeforeInput?: React_2.ReactNode;
+  /**
+   * Applies compact styling, making the field smaller.
+   */
   isCompact?: boolean;
+  /**
+   * Sets the field as to appear disabled,
+   * users will not be able to interact with the text field.
+   */
   isDisabled?: boolean;
+  /**
+   * Changes the text field to have a border indicating that its value is invalid.
+   */
   isInvalid?: boolean;
+  /**
+   * Sets content text value to appear monospaced.
+   */
   isMonospaced?: boolean;
+  /**
+   * If true, prevents the value of the input from being edited.
+   */
   isReadOnly?: boolean;
+  /**
+   * Set required for form that the field is part of.
+   */
   isRequired?: boolean;
-  name?: string;
-  onChange?: FormEventHandler<HTMLInputElement>;
-  onMouseDown?: React_2.MouseEventHandler<HTMLElement>;
-  placeholder?: string;
-  testId?: string;
+  /**
+   * Element after input in text field.
+   */
+  elemAfterInput?: React_2.ReactNode;
+  /**
+   * Element before input in text field.
+   */
+  elemBeforeInput?: React_2.ReactNode;
+  /**
+   * Sets maximum width of input.
+   */
   width?: string | number;
+  /**
+   * Handler called when the mouse down event is triggered on the input element.
+   */
+  onMouseDown?: React_2.MouseEventHandler<HTMLElement>;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
+  /**
+   * Name of the input element.
+   */
+  name?: string;
+  /**
+   * Class name to apply to the input element.
+   */
+  className?: string;
+  /**
+   * Placeholder text to display in the text field whenever it is empty.
+   */
+  placeholder?: string;
+  /**
+   * Handler called when the inputs value changes.
+   */
+  onChange?: FormEventHandler<HTMLInputElement>;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

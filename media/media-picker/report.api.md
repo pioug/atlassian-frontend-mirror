@@ -12,91 +12,128 @@ import { default as React_2 } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 
-// @public (undocumented)
-export class Browser extends React_2.PureComponent<
+export declare class Browser extends React_2.PureComponent<
   BrowserWithMediaClientConfigProps,
   State_3
 > {
-  // (undocumented)
-  static Browser?: BrowserWithMediaClientConfigComponent;
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
+  private mounted;
   static displayName: string;
-  // (undocumented)
-  render(): JSX.Element | null;
-  // (undocumented)
+  static Browser?: BrowserWithMediaClientConfigComponent;
   state: {
     Browser: BrowserWithMediaClientConfigComponent | undefined;
   };
-  // (undocumented)
+  componentDidMount(): void;
+  componentWillUnmount(): void;
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): JSX.Element | null;
 }
 
-// @public (undocumented)
-export interface BrowserConfig extends LocalUploadConfig {
-  // (undocumented)
-  readonly fileExtensions?: Array<string>;
-  // (undocumented)
+export declare interface BrowserConfig extends LocalUploadConfig {
   readonly multiple?: boolean;
-  // (undocumented)
+  readonly fileExtensions?: Array<string>;
   readonly replaceFileId?: string;
 }
 
-// @public (undocumented)
-class Clipboard_2 extends React_2.PureComponent<
+declare interface BrowserOwnProps {
+  config: BrowserConfig;
+  isOpen?: boolean;
+  onClose?: () => void;
+  /**
+   * This prop will be mainly used for those contexts (like Editor) where there is no react lifecylce and we cannot rerender easily.
+   * Otherwise, isOpen prop is preferred.
+   */
+  onBrowseFn?: (browse: () => void) => void;
+  onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
+  children?: (browse: () => void) => React_2.ReactChild;
+}
+
+declare type BrowserProps = LocalUploadComponentBaseProps & BrowserOwnProps;
+
+declare type BrowserWithMediaClientConfigComponent = React_2.ComponentType<
+  BrowserWithMediaClientConfigProps
+>;
+
+declare type BrowserWithMediaClientConfigProps = WithMediaClientConfigProps<
+  Omit<BrowserProps, 'config'> & {
+    config?: BrowserConfig;
+  }
+>;
+
+declare class Clipboard_2 extends React_2.PureComponent<
   ClipboardWithMediaClientConfigProps,
   State_2
 > {
-  // (undocumented)
-  static Clipboard?: ClipboardWithMediaClientConfigComponent;
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
-  render(): JSX.Element | null;
-  // (undocumented)
+  static Clipboard?: ClipboardWithMediaClientConfigComponent;
   state: {
     Clipboard: ClipboardWithMediaClientConfigComponent | undefined;
   };
-  // (undocumented)
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): JSX.Element | null;
 }
 export { Clipboard_2 as Clipboard };
 
-// @public (undocumented)
-export class Dropzone extends React_2.PureComponent<
+declare interface ClipboardConfig extends LocalUploadConfig {}
+
+declare type ClipboardProps = LocalUploadComponentBaseProps & {
+  config: ClipboardConfig;
+};
+
+declare type ClipboardWithMediaClientConfigComponent = React_2.ComponentType<
+  ClipboardWithMediaClientConfigProps
+>;
+
+declare type ClipboardWithMediaClientConfigProps = WithMediaClientConfigProps<
+  Omit<ClipboardProps, 'config'> & {
+    config?: ClipboardConfig;
+  }
+>;
+
+export declare class Dropzone extends React_2.PureComponent<
   DropzoneWithMediaClientConfigProps,
   State
 > {
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
   static Dropzone?: DropzoneWithMediaClientConfigComponent;
-  // (undocumented)
   static MediaPickerErrorBoundary?: MediaPickerErrorBoundaryComponent;
-  // (undocumented)
-  render(): JSX.Element | null;
-  // (undocumented)
   state: {
     Dropzone: DropzoneWithMediaClientConfigComponent | undefined;
     MediaPickerErrorBoundary: MediaPickerErrorBoundaryComponent | undefined;
   };
-  // (undocumented)
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): JSX.Element | null;
 }
 
-// @public (undocumented)
-export interface DropzoneConfig extends LocalUploadConfig {
-  // (undocumented)
+export declare interface DropzoneConfig extends LocalUploadConfig {
   container?: HTMLElement;
-  // (undocumented)
   headless?: boolean;
 }
 
-// @public (undocumented)
-export type ImagePreview = NonImagePreview & {
+declare interface DropzoneDragEnterEventPayload {
+  length: number;
+}
+
+declare interface DropzoneDragLeaveEventPayload {
+  length: number;
+}
+
+declare type DropzoneProps = LocalUploadComponentBaseProps & {
+  config: DropzoneConfig;
+  onDrop?: () => void;
+  onDragEnter?: (payload: DropzoneDragEnterEventPayload) => void;
+  onDragLeave?: (payload: DropzoneDragLeaveEventPayload) => void;
+  onCancelFn?: (cancel: (uniqueIdentifier: string) => void) => void;
+};
+
+declare type DropzoneWithMediaClientConfigComponent = React_2.ComponentType<
+  DropzoneWithMediaClientConfigProps
+>;
+
+declare type DropzoneWithMediaClientConfigProps = WithMediaClientConfigProps<
+  DropzoneProps
+>;
+
+export declare type ImagePreview = NonImagePreview & {
   readonly dimensions: {
     readonly width: number;
     readonly height: number;
@@ -104,21 +141,27 @@ export type ImagePreview = NonImagePreview & {
   readonly scaleFactor: number;
 };
 
-// @public (undocumented)
-export const isImagePreview: (preview: Preview) => preview is ImagePreview;
+export declare const isImagePreview: (
+  preview: Preview,
+) => preview is ImagePreview;
 
-// @public (undocumented)
-export interface LocalUploadConfig {
-  // (undocumented)
-  featureFlags?: MediaFeatureFlags;
-  // (undocumented)
-  shouldCopyFileToRecents?: boolean;
-  // (undocumented)
+declare type LocalUploadComponentBaseProps = {
+  mediaClient: MediaClient;
+  config: LocalUploadConfig;
+  onUploadsStart?: (payload: UploadsStartEventPayload) => void;
+  onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
+  onEnd?: (payload: UploadEndEventPayload) => void;
+  onError?: (payload: UploadErrorEventPayload) => void;
+  featureFlags?: MediaFeatureFlags_2;
+} & WithAnalyticsEventsProps;
+
+export declare interface LocalUploadConfig {
   uploadParams: UploadParams;
+  shouldCopyFileToRecents?: boolean;
+  featureFlags?: MediaFeatureFlags;
 }
 
-// @public (undocumented)
-type MediaError_2 = {
+declare type MediaError_2 = {
   readonly fileId?: string;
   readonly name: MediaErrorName;
   readonly description: string;
@@ -126,8 +169,7 @@ type MediaError_2 = {
 };
 export { MediaError_2 as MediaError };
 
-// @public (undocumented)
-export type MediaErrorName =
+export declare type MediaErrorName =
   | 'object_create_fail'
   | 'metadata_fetch_fail'
   | 'token_fetch_fail'
@@ -138,8 +180,7 @@ export type MediaErrorName =
   | 'remote_upload_fail'
   | 'invalid_uuid';
 
-// @public (undocumented)
-export type MediaFile = {
+export declare type MediaFile = {
   readonly id: string;
   readonly name: string;
   readonly size: number;
@@ -148,41 +189,56 @@ export type MediaFile = {
   readonly occurrenceKey?: string;
 };
 
-// @public (undocumented)
-export type NonImagePreview = {
+declare type MediaPickerAnalyticsErrorBoundaryProps = {
+  data?: {
+    [k: string]: any;
+  };
+};
+
+declare type MediaPickerErrorBoundaryComponent = React_2.ComponentType<
+  MediaPickerAnalyticsErrorBoundaryProps
+>;
+
+export declare type NonImagePreview = {
   readonly file?: Blob;
 };
 
-// @public (undocumented)
-export type Preview = NonImagePreview | ImagePreview;
+export declare type Preview = NonImagePreview | ImagePreview;
 
-// @public (undocumented)
-export type UploadEndEventPayload = {
+declare type State = {
+  Dropzone?: DropzoneWithMediaClientConfigComponent;
+  MediaPickerErrorBoundary?: MediaPickerErrorBoundaryComponent;
+};
+
+declare type State_2 = {
+  Clipboard?: ClipboardWithMediaClientConfigComponent;
+};
+
+declare type State_3 = {
+  Browser?: BrowserWithMediaClientConfigComponent;
+};
+
+export declare type UploadEndEventPayload = {
   readonly file: MediaFile;
 };
 
-// @public (undocumented)
-export type UploadErrorEventPayload = {
+export declare type UploadErrorEventPayload = {
   readonly fileId: string;
   readonly error: MediaError_2;
 };
 
-// @public (undocumented)
-export interface UploadParams {
-  // (undocumented)
+export declare interface UploadParams {
   collection?: string;
 }
 
-// @public (undocumented)
-export type UploadPreviewUpdateEventPayload = {
+export declare type UploadPreviewUpdateEventPayload = {
   readonly file: MediaFile;
   readonly preview: Preview;
 };
 
-// @public (undocumented)
-export type UploadsStartEventPayload = {
+export declare type UploadsStartEventPayload = {
   readonly files: MediaFile[];
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

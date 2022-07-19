@@ -5,274 +5,201 @@
 ```ts
 import { SerializedStyles } from '@emotion/react';
 
-// @public (undocumented)
-export const akEditorActiveBackground = '#42526E';
+export declare const akEditorActiveBackground = '#42526E';
 
-// @public (undocumented)
-export const akEditorActiveForeground = '#FFFFFF';
+export declare const akEditorActiveForeground = '#FFFFFF';
 
-// @public (undocumented)
-export const akEditorBlockquoteBorderColor = '#DFE1E6';
+export declare const akEditorBlockquoteBorderColor = '#DFE1E6';
 
-// @public (undocumented)
-export const akEditorBreakoutPadding = 96;
+export declare const akEditorBreakoutPadding = 96;
 
-// @public (undocumented)
-export const akEditorCodeBackground = '#F4F5F7';
+export declare const akEditorCodeBackground = '#F4F5F7';
 
-// @public (undocumented)
-export const akEditorCodeBlockPadding = '12px';
+export declare const akEditorCodeBlockPadding = '12px';
 
-// @public (undocumented)
-export const akEditorCodeFontFamily: string;
+export declare const akEditorCodeFontFamily: string;
 
-// @public (undocumented)
-export const akEditorCodeInlinePadding = '2px 4px';
+export declare const akEditorCodeInlinePadding = '2px 4px';
 
-// @public (undocumented)
-export const akEditorContextPanelWidth = 320;
+export declare const akEditorContextPanelWidth = 320;
 
-// @public (undocumented)
-export const akEditorDefaultLayoutWidth = 760;
+export declare const akEditorDefaultLayoutWidth = 760;
 
-// @public (undocumented)
-export const akEditorDeleteBackground = '#FFEBE6';
+export declare const akEditorDeleteBackground = '#FFEBE6';
 
-// @public (undocumented)
-export const akEditorDeleteBackgroundShaded = '#FFEBE6';
+export declare const akEditorDeleteBackgroundShaded = '#FFEBE6';
 
-// @public (undocumented)
-export const akEditorDeleteBackgroundWithOpacity = 'rgba(255, 189, 173, 0.5)';
+export declare const akEditorDeleteBackgroundWithOpacity =
+  'rgba(255, 189, 173, 0.5)';
 
-// @public (undocumented)
-export const akEditorDeleteBorder = '#FF5630';
+export declare const akEditorDeleteBorder = '#FF5630';
 
-// @public (undocumented)
-export const akEditorDeleteIconColor = '#DE350B';
+export declare const akEditorDeleteIconColor = '#DE350B';
 
-// @public (undocumented)
-export const akEditorDropdownActiveBackground = '#091E42';
+export declare const akEditorDropdownActiveBackground = '#091E42';
 
-// @public (undocumented)
-export const akEditorFloatingDialogZIndex: number;
+export declare const akEditorFloatingDialogZIndex: number;
 
-// @public (undocumented)
-export const akEditorFloatingOverlapPanelZIndex: number;
+export declare const akEditorFloatingOverlapPanelZIndex: number;
 
-// @public (undocumented)
-export const akEditorFloatingPanelZIndex: 400;
+export declare const akEditorFloatingPanelZIndex: 400;
 
-// @public (undocumented)
-export const akEditorFocus = '#4C9AFF';
+export declare const akEditorFocus = '#4C9AFF';
 
-// @public (undocumented)
-export const akEditorFullPageDefaultFontSize = 16;
+export declare const akEditorFullPageDefaultFontSize = 16;
 
-// @public (undocumented)
-export const akEditorFullPageMaxWidth = 680;
+export declare const akEditorFullPageMaxWidth = 680;
 
-// @public (undocumented)
-export const akEditorFullWidthLayoutLineLength = 1792;
+export declare const akEditorFullWidthLayoutLineLength = 1792;
 
-// @public (undocumented)
-export const akEditorFullWidthLayoutWidth = 1800;
+export declare const akEditorFullWidthLayoutWidth = 1800;
 
-// @public (undocumented)
-export const akEditorGridLineZIndex = 9999;
+export declare const akEditorGridLineZIndex = 9999;
 
-// @public (undocumented)
-export const akEditorGutterPadding = 32;
+export declare const akEditorGutterPadding = 32;
 
-// @public (undocumented)
-export const akEditorInactiveForeground = '#42526E';
+export declare const akEditorInactiveForeground = '#42526E';
 
-// @public (undocumented)
-export const akEditorLineHeight = 1.714;
+export declare const akEditorLineHeight = 1.714;
 
-// @public (undocumented)
-export const akEditorMediaResizeHandlerPadding = 4;
+export declare const akEditorMediaResizeHandlerPadding = 4;
 
-// @public (undocumented)
-export const akEditorMediaResizeHandlerPaddingWide = 12;
+export declare const akEditorMediaResizeHandlerPaddingWide = 12;
 
-// @public (undocumented)
-export const akEditorMentionSelected = '#7A869A';
+export declare const akEditorMentionSelected = '#7A869A';
 
-// @public (undocumented)
-export const akEditorMenuZIndex: 500;
+export declare const akEditorMenuZIndex: 500;
 
-// @public (undocumented)
-export const akEditorMobileBreakoutPoint = 720;
+export declare const akEditorMobileBreakoutPoint = 720;
 
-// @public (undocumented)
-export const akEditorMobileMaxWidth = 0;
+export declare const akEditorMobileMaxWidth = 0;
 
-// @public (undocumented)
-export const akEditorPopupBackground = '#253858';
+export declare const akEditorPopupBackground = '#253858';
 
-// @public (undocumented)
-export const akEditorPopupText = '#DEEBFF';
+export declare const akEditorPopupText = '#DEEBFF';
 
-// @public (undocumented)
-export const akEditorPrimaryButton = '#0052CC';
+export declare const akEditorPrimaryButton = '#0052CC';
 
-// @public (undocumented)
-export const akEditorRuleBackground = '#EBECF0';
+export declare const akEditorRuleBackground = '#EBECF0';
 
-// @public (undocumented)
-export const akEditorRuleBorderRadius = '1px';
+export declare const akEditorRuleBorderRadius = '1px';
 
-// @public (undocumented)
-export const akEditorSelectedBgColor = '#DEEBFF';
+export declare const akEditorSelectedBgColor = '#DEEBFF';
 
-// @public (undocumented)
-export const akEditorSelectedBlanketColor = '#B3D4FF';
+export declare const akEditorSelectedBlanketColor = '#B3D4FF';
 
-// @public (undocumented)
-export const akEditorSelectedBlanketOpacity = 0.3;
+export declare const akEditorSelectedBlanketOpacity = 0.3;
 
-// @public (undocumented)
-export const akEditorSelectedBorder: string;
+export declare const akEditorSelectedBorder: string;
 
-// @public (undocumented)
-export const akEditorSelectedBorderBoldSize = 2;
+export declare const akEditorSelectedBorderBoldSize = 2;
 
-// @public (undocumented)
-export const akEditorSelectedBorderColor = '#0065FF';
+export declare const akEditorSelectedBorderColor = '#0065FF';
 
-// @public (undocumented)
-export const akEditorSelectedBorderSize = 1;
+export declare const akEditorSelectedBorderSize = 1;
 
-// @public (undocumented)
-export const akEditorSelectedBoxShadow: string;
+export declare const akEditorSelectedBoxShadow: string;
 
-// @public (undocumented)
-export const akEditorSelectedIconColor = '#0052CC';
+export declare const akEditorSelectedIconColor = '#0052CC';
 
-// @public (undocumented)
-export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
+export declare const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
-// @public (undocumented)
-export const akEditorShadowZIndex = 2;
+export declare const akEditorShadowZIndex = 2;
 
-// @public (undocumented)
-export const akEditorSmallZIndex: number;
+export declare const akEditorSmallZIndex: number;
 
-// @public (undocumented)
-export const akEditorStickyHeaderZIndex = 11;
+export declare const akEditorStickyHeaderZIndex = 11;
 
-// @public (undocumented)
-export const akEditorSubtleAccent = '#DFE1E6';
+export declare const akEditorSubtleAccent = '#DFE1E6';
 
-// @public (undocumented)
-export const akEditorSwoopCubicBezier = 'cubic-bezier(0.15, 1, 0.3, 1)';
+export declare const akEditorSwoopCubicBezier = 'cubic-bezier(0.15, 1, 0.3, 1)';
 
-// @public (undocumented)
-export const akEditorTableBorder = '#C1C7D0';
+export declare const akEditorTableBorder = '#C1C7D0';
 
-// @public (undocumented)
-export const akEditorTableBorderDark = '#3B475C';
+export declare const akEditorTableBorderDark = '#3B475C';
 
-// @public (undocumented)
-export const akEditorTableBorderDelete = '#FF5630';
+export declare const akEditorTableBorderDelete = '#FF5630';
 
-// @public (undocumented)
-export const akEditorTableBorderRadius = '3px';
+export declare const akEditorTableBorderRadius = '3px';
 
-// @public (undocumented)
-export const akEditorTableBorderSelected = '#0065FF';
+export declare const akEditorTableBorderSelected = '#0065FF';
 
-// @public (undocumented)
-export const akEditorTableCellBackgroundOpacity = 0.5;
+export declare const akEditorTableCellBackgroundOpacity = 0.5;
 
-// @public (undocumented)
-export const akEditorTableCellDelete = '#FFEBE6';
+export declare const akEditorTableCellDelete = '#FFEBE6';
 
-// @public (undocumented)
-export const akEditorTableCellMinWidth = 48;
+export declare const akEditorTableCellMinWidth = 48;
 
-// @public (undocumented)
-export const akEditorTableCellSelected = '#B3D4FF';
+export declare const akEditorTableCellSelected = '#B3D4FF';
 
-// @public (undocumented)
-export const akEditorTableFloatingControls = '#F4F5F7';
+export declare const akEditorTableFloatingControls = '#F4F5F7';
 
-// @public (undocumented)
-export const akEditorTableLegacyCellMinWidth = 128;
+export declare const akEditorTableLegacyCellMinWidth = 128;
 
-// @public (undocumented)
-export const akEditorTableNumberColumnWidth = 42;
+export declare const akEditorTableNumberColumnWidth = 42;
 
-// @public (undocumented)
-export const akEditorTableToolbar = '#F4F5F7';
+export declare const akEditorTableToolbar = '#F4F5F7';
 
-// @public (undocumented)
-export const akEditorTableToolbarDark = '#283447';
+export declare const akEditorTableToolbarDark = '#283447';
 
-// @public (undocumented)
-export const akEditorTableToolbarDelete = '#FFBDAD';
+export declare const akEditorTableToolbarDelete = '#FFBDAD';
 
-// @public (undocumented)
-export const akEditorTableToolbarSelected = '#4C9AFF';
+export declare const akEditorTableToolbarSelected = '#4C9AFF';
 
-// @public (undocumented)
-export const akEditorTableToolbarSize = 11;
+export declare const akEditorTableToolbarSize = 11;
 
-// @public (undocumented)
-export const akEditorToolbarKeylineHeight = 2;
+export declare const akEditorToolbarKeylineHeight = 2;
 
-// @public (undocumented)
-export const akEditorUnitZIndex = 1;
+export declare const akEditorUnitZIndex = 1;
 
-// @public (undocumented)
-export const akEditorWideLayoutWidth = 960;
+export declare const akEditorWideLayoutWidth = 960;
 
-// @public (undocumented)
-export const akLayoutGutterOffset: number;
+export declare const akLayoutGutterOffset: number;
 
-// @public (undocumented)
-export const akRichMediaResizeZIndex: number;
+export declare const akRichMediaResizeZIndex: number;
 
-// @public (undocumented)
-export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
+export declare const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
-// @public (undocumented)
-export const blockNodesVerticalMargin = '0.75rem';
+export declare const blockNodesVerticalMargin = '0.75rem';
 
-// @public (undocumented)
-export const breakoutWideScaleRatio = 1.33;
+export declare const breakoutWideScaleRatio = 1.33;
 
-// @public (undocumented)
-export const DEFAULT_EMBED_CARD_HEIGHT = 480;
+export declare const DEFAULT_EMBED_CARD_HEIGHT = 480;
 
-// @public (undocumented)
-export const DEFAULT_EMBED_CARD_WIDTH = 680;
+export declare const DEFAULT_EMBED_CARD_WIDTH = 680;
 
-// @public (undocumented)
-export const editorFontSize: ({ theme }: { theme: EditorTheme }) => number;
+export declare const editorFontSize: ({
+  theme,
+}: {
+  theme: EditorTheme;
+}) => number;
 
-// @public (undocumented)
-export type EditorTheme = {
+export declare type EditorTheme = {
   baseFontSize?: number;
 };
 
-// @public
-export const getSelectionStyles: (
+/**
+ * Adds correct selection styling for a node
+ * Pass in which selection style properties you want and it will return css string of necessary styles
+ *
+ * eg.
+ *  .expand.ak-editor-selected-node {
+ *    ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
+ *  }
+ *
+ */
+export declare const getSelectionStyles: (
   selectionStyles: Array<SelectionStyle>,
 ) => string;
 
-// @public (undocumented)
-export const getTableCellBackgroundDarkModeColors: string;
+export declare const getTableCellBackgroundDarkModeColors: string;
 
-// @public (undocumented)
-export const gridMediumMaxWidth = 1024;
+export declare const gridMediumMaxWidth = 1024;
 
-// @public (undocumented)
-export const hideNativeBrowserTextSelectionStyles =
+export declare const hideNativeBrowserTextSelectionStyles =
   '\n  ::selection,*::selection {\n    background-color: transparent;\n  }\n  ::-moz-selection,*::-moz-selection {\n    background-color: transparent;\n  }\n';
 
-// @public (undocumented)
-export const overflowShadow: ({
+export declare const overflowShadow: ({
   background,
   width,
 }: {
@@ -280,28 +207,25 @@ export const overflowShadow: ({
   width: string;
 }) => SerializedStyles;
 
-// @public (undocumented)
-export const relativeFontSizeToBase16: (px: number | string) => string;
+export declare const relativeFontSizeToBase16: (px: number | string) => string;
 
-// @public (undocumented)
-export const relativeSize: (
+export declare const relativeSize: (
   multiplier: number,
 ) => ({ theme }: { theme: EditorTheme }) => number;
 
-// @public
-export enum SelectionStyle {
-  // (undocumented)
-  Background = 2,
-  // (undocumented)
-  Blanket = 3,
-  // (undocumented)
+/**
+ * These are generic selection styles for all nodes
+ * If you have custom behaviour needed for a node, add that in the plugin's styles
+ * file in editor-core
+ */
+export declare enum SelectionStyle {
   Border = 0,
-  // (undocumented)
   BoxShadow = 1,
+  Background = 2,
+  Blanket = 3,
 }
 
-// @public (undocumented)
-export const VIEWPORT_SIZES: {
+export declare const VIEWPORT_SIZES: {
   laptopHiDPI: {
     width: number;
     height: number;
@@ -332,5 +256,5 @@ export const VIEWPORT_SIZES: {
   };
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

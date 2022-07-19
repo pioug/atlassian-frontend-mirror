@@ -18,26 +18,19 @@ import { RefObject } from 'react';
 import SourceCodeIcon from '@atlaskit/icon-file-type/glyph/source-code/24';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const absolute: (top?: number, left?: number) => string;
+export declare const absolute: (top?: number, left?: number) => string;
 
-// @public (undocumented)
-export interface AccessContext {
-  // (undocumented)
+export declare interface AccessContext {
   accessType?: AccessTypes;
-  // (undocumented)
   cloudId?: string;
-  // (undocumented)
+  url?: string;
   smartLinksAccessMetadataExperimentCohort?:
     | 'experiment'
     | 'control'
     | 'not-enrolled';
-  // (undocumented)
-  url?: string;
 }
 
-// @public (undocumented)
-export type AccessTypes =
+export declare type AccessTypes =
   | 'REQUEST_ACCESS'
   | 'PENDING_REQUEST_EXISTS'
   | 'FORBIDDEN'
@@ -46,103 +39,85 @@ export type AccessTypes =
   | 'APPROVED_REQUEST_EXISTS'
   | 'ACCESS_EXISTS';
 
-// @public (undocumented)
-export const borderRadius: string;
+export declare const borderRadius: string;
 
-// @public (undocumented)
-export const borderRadiusBottom: string;
+export declare const borderRadiusBottom: string;
 
-// @public (undocumented)
-export class Bounds extends Rectangle {
-  constructor(x: number, y: number, width: number, height: number);
-  // (undocumented)
-  get bottom(): number;
-  // (undocumented)
-  get center(): Vector2;
-  // (undocumented)
-  clone(): Bounds;
-  // (undocumented)
-  get corner(): Vector2;
-  // (undocumented)
-  equals(bounds: Bounds): boolean;
-  // (undocumented)
-  flipped(): Bounds;
-  // (undocumented)
-  readonly height: number;
-  // (undocumented)
-  hFlipWithin(containerBounds: Bounds): Bounds;
-  // (undocumented)
-  get left(): number;
-  // (undocumented)
-  map(fn: (value: number) => number): Bounds;
-  // (undocumented)
-  get origin(): Vector2;
-  // (undocumented)
-  get rect(): Rectangle;
-  // (undocumented)
-  relativeTo(bounds: Bounds): Bounds;
-  // (undocumented)
-  get right(): number;
-  // (undocumented)
-  rotate90DegWithin(containerBounds: Bounds): Bounds;
-  // (undocumented)
-  scaled(scale: number): Bounds;
-  // (undocumented)
-  get top(): number;
-  // (undocumented)
-  translated(xDelta: number, yDelta: number): Bounds;
-  // (undocumented)
-  vFlipWithin(containerBounds: Bounds): Bounds;
-  // (undocumented)
-  readonly width: number;
-  // (undocumented)
+export declare class Bounds extends Rectangle {
   readonly x: number;
-  // (undocumented)
   readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  constructor(x: number, y: number, width: number, height: number);
+  get origin(): Vector2;
+  get corner(): Vector2;
+  get center(): Vector2;
+  get rect(): Rectangle;
+  get left(): number;
+  get top(): number;
+  get right(): number;
+  get bottom(): number;
+  flipped(): Bounds;
+  scaled(scale: number): Bounds;
+  relativeTo(bounds: Bounds): Bounds;
+  clone(): Bounds;
+  map(fn: (value: number) => number): Bounds;
+  hFlipWithin(containerBounds: Bounds): Bounds;
+  vFlipWithin(containerBounds: Bounds): Bounds;
+  rotate90DegWithin(containerBounds: Bounds): Bounds;
+  translated(xDelta: number, yDelta: number): Bounds;
+  equals(bounds: Bounds): boolean;
 }
 
-// @public (undocumented)
-export class Camera {
-  constructor(viewport: Rectangle, originalImg: Rectangle);
-  // (undocumented)
-  get fittedImg(): Rectangle;
-  // (undocumented)
+export declare class Camera {
+  readonly viewport: Rectangle;
   readonly originalImg: Rectangle;
-  // (undocumented)
+  constructor(viewport: Rectangle, originalImg: Rectangle);
   resizedViewport(newViewport: Rectangle): Camera;
-  // (undocumented)
+  get scaleToFit(): number;
+  get scaleDownToFit(): number;
+  get fittedImg(): Rectangle;
   scaledImg(newScale: number): Rectangle;
-  // (undocumented)
   scaledOffset(
     prevOffset: Vector2,
     prevScale: number,
     newScale: number,
   ): Vector2;
-  // (undocumented)
-  get scaleDownToFit(): number;
-  // (undocumented)
-  get scaleToFit(): number;
-  // (undocumented)
-  readonly viewport: Rectangle;
 }
 
-// @public (undocumented)
-export const center =
+export declare const center =
   '\n  display: flex;\n  align-items: center;\n  justify-content: center;\n';
 
-// @public (undocumented)
-export const CustomMediaPlayer: React_2.ComponentType<
+export declare const CustomMediaPlayer: React_2.ComponentType<
   CustomMediaPlayerProps & WithAnalyticsEventsProps
 >;
 
-// @public (undocumented)
-export function dataURItoFile(dataURI: string, filename?: string): File;
+declare interface CustomMediaPlayerProps
+  extends WithPlaybackProps,
+    WithShowControlMethodProp {
+  readonly type: CustomMediaPlayerType;
+  readonly src: string;
+  readonly fileId?: string;
+  readonly onHDToggleClick?: () => void;
+  readonly isShortcutEnabled?: boolean;
+  readonly lastWatchTimeConfig?: TimeSaverConfig;
+  readonly onCanPlay?: () => void;
+  readonly onError?: () => void;
+  readonly onDownloadClick?: () => void;
+  readonly onFirstPlay?: () => void;
+  readonly onFullscreenChange?: (fullscreen: boolean) => void;
+  readonly originalDimensions?: NumericalCardDimensions;
+  readonly featureFlags?: MediaFeatureFlags;
+  readonly poster?: string;
+}
 
-// @public (undocumented)
-export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+declare type CustomMediaPlayerType = 'audio' | 'video';
 
-// @public (undocumented)
-export const Ellipsify: ({
+export declare function dataURItoFile(dataURI: string, filename?: string): File;
+
+export declare const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+
+export declare const Ellipsify: ({
   text,
   lines,
   endLength,
@@ -150,80 +125,68 @@ export const Ellipsify: ({
   testId,
 }: EllipsifyProps) => JSX.Element;
 
-// @public (undocumented)
-export interface EllipsifyProps {
-  // (undocumented)
-  endLength?: number;
-  // (undocumented)
-  inline?: boolean;
-  // (undocumented)
-  lines: number;
-  // (undocumented)
-  testId?: string;
-  // (undocumented)
+export declare interface EllipsifyProps {
   text?: string;
+  lines: number;
+  endLength?: number;
+  inline?: boolean;
+  testId?: string;
 }
 
-// @public (undocumented)
-export const ellipsis: (maxWidth?: string | number) => string;
+export declare const ellipsis: (maxWidth?: string | number) => string;
 
-// @public (undocumented)
-export const errorIcon: JSX.Element;
+export declare const errorIcon: JSX.Element;
 
-// @public (undocumented)
-export const ExifOrientation: {
+export declare const ExifOrientation: {
   [key: string]: number;
 };
 
-// @public (undocumented)
-export const fadeIn: string;
+export declare const fadeIn: string;
 
-// @public (undocumented)
-export type FileInfo = {
+export declare type FileInfo = {
   file: File;
   src: string;
 };
 
-// @public (undocumented)
-export function fileToArrayBuffer(file: File): Promise<Uint8Array>;
+export declare function fileToArrayBuffer(file: File): Promise<Uint8Array>;
 
-// @public (undocumented)
-export function fileToDataURI(blob: Blob): Promise<string>;
+export declare function fileToDataURI(blob: Blob): Promise<string>;
 
-// @public (undocumented)
-export const findParentByClassname: (
+export declare const findParentByClassname: (
   element: HTMLElement,
   className: string,
   maxParentElement?: HTMLElement,
 ) => HTMLElement | undefined;
 
-// @public (undocumented)
-export const formatDate: (timestamp: number, locale?: string) => string;
+export declare const formatDate: (timestamp: number, locale?: string) => string;
 
-// @public (undocumented)
-export const formatDuration: (seconds: number) => string;
+export declare const formatDuration: (seconds: number) => string;
 
-// @public (undocumented)
-export const getCssFromImageOrientation: (orientation: number) => string;
+export declare const getCssFromImageOrientation: (
+  orientation: number,
+) => string;
 
-// @public (undocumented)
-export function getFileInfo(file: File, src?: string): Promise<FileInfo>;
+export declare function getFileInfo(
+  file: File,
+  src?: string,
+): Promise<FileInfo>;
 
-// @public (undocumented)
-export function getFileInfoFromSrc(src: string, file?: File): Promise<FileInfo>;
+export declare function getFileInfoFromSrc(
+  src: string,
+  file?: File,
+): Promise<FileInfo>;
 
-// @public (undocumented)
-export function getImageInfo(fileInfo: FileInfo): Promise<ImageInfo | null>;
+export declare function getImageInfo(
+  fileInfo: FileInfo,
+): Promise<ImageInfo | null>;
 
-// @public (undocumented)
-export function getMetaTagNumericValue(
+export declare function getMetaTagNumericValue(
   tags: ImageMetaDataTags,
   key: string,
   defaultValue: number,
 ): number;
 
-// @public (undocumented)
-export function getMimeIcon(
+export declare function getMimeIcon(
   mimeType: string,
   fileName: string,
 ):
@@ -234,30 +197,24 @@ export function getMimeIcon(
     }
   | undefined;
 
-// @public (undocumented)
-export function getOrientation(file: File): Promise<number>;
+export declare function getOrientation(file: File): Promise<number>;
 
-// @public (undocumented)
-export function getScaleFactor(
+export declare function getScaleFactor(
   file: File,
   tags: ImageMetaDataTags | null,
 ): number;
 
-// @public (undocumented)
-export function getScaleFactorFromFile(file: File): number | null;
+export declare function getScaleFactorFromFile(file: File): number | null;
 
-// @public (undocumented)
-export const hideControlsClassName = 'mvng-hide-controls';
+export declare const hideControlsClassName = 'mvng-hide-controls';
 
-// @public (undocumented)
-export type ImageInfo = {
+export declare type ImageInfo = {
   scaleFactor: number;
   width: number;
   height: number;
 };
 
-// @public (undocumented)
-export type ImageMetaData = {
+export declare type ImageMetaData = {
   type: string;
   width: number;
   height: number;
@@ -266,45 +223,61 @@ export type ImageMetaData = {
   tags: ImageMetaDataTags | null;
 };
 
-// @public (undocumented)
-export type ImageMetaDataTags = {
+export declare type ImageMetaDataTags = {
   Orientation?: string;
   PixelPerUnitX?: number;
   PixelPerUnitY?: number;
   [key: string]: string | number | undefined;
 };
 
-// @public
-export class InactivityDetector extends Component<
+/**
+ * Hides all the child elements with `hideControlsClassName` classname when user is inactive,
+ * which means they haven't moved mouse over the component for `mouseMovementDelay` ms.
+ * Exception is if user holding mouse over one of the hideable elements (those that have specified classname).
+ *
+ */
+export declare class InactivityDetector extends Component<
   InactivityDetectorProps,
   InactivityDetectorState
 > {
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+  private checkActivityTimeout?;
+  private contentWrapperElement;
   state: InactivityDetectorState;
+  private clearTimeout;
+  private hideControls;
+  private checkMouseMovement;
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export const isIntersectionObserverSupported: () => boolean;
+declare interface InactivityDetectorProps {
+  children: (triggerActivityCallback: () => void) => ReactElement;
+}
 
-// @public
-export const isRotated: (orientation: number) => boolean;
+declare interface InactivityDetectorState {
+  controlsAreVisible: boolean;
+}
 
-// @public (undocumented)
-export const keyCodes: {
+declare type InlinePreloaderStyle =
+  | 'on-left-with-skeleton'
+  | 'on-right-without-skeleton';
+
+export declare const isIntersectionObserverSupported: () => boolean;
+
+/**
+ * Returns true if image rotated 90 or 270 degrees (on it's side)
+ */
+export declare const isRotated: (orientation: number) => boolean;
+
+export declare const keyCodes: {
   space: string;
   m: string;
   rightArrow: string;
   leftArrow: string;
 };
 
-// @public (undocumented)
-export const languages: {
+export declare const languages: {
   zh: string;
   cs: string;
   da: string;
@@ -331,135 +304,119 @@ export const languages: {
   sv: string;
 };
 
-// @public (undocumented)
-export function loadImage(src: string): Promise<HTMLImageElement>;
+export declare function loadImage(src: string): Promise<HTMLImageElement>;
 
-// @public (undocumented)
-export const locales: {
+export declare const locales: {
   [key: string]: any;
 };
 
-// @public (undocumented)
-export function MediaButton({
+export declare function MediaButton({
   appearance,
   buttonRef,
   ...rest
 }: Props): JSX.Element;
 
-// @public (undocumented)
-class MediaImage_2 extends Component<MediaImageProps, MediaImageState> {
-  constructor(props: MediaImageProps);
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
+declare type MediaButtonAppearance = Appearance;
+
+declare class MediaImage_2 extends Component<MediaImageProps, MediaImageState> {
   static defaultProps: Partial<MediaImageProps>;
-  // (undocumented)
   imageRef: React_2.RefObject<HTMLImageElement>;
-  // (undocumented)
+  constructor(props: MediaImageProps);
+  componentDidMount(): void;
   onImageLoad: (e: React_2.SyntheticEvent<HTMLImageElement>) => void;
-  // (undocumented)
   render(): JSX.Element;
 }
 export { MediaImage_2 as MediaImage };
 
-// @public (undocumented)
-export interface MediaImageProps {
-  // (undocumented)
-  alt?: string;
-  // (undocumented)
-  crop?: boolean;
-  // (undocumented)
-  crossOrigin?: '' | 'anonymous' | 'use-credentials';
-  // (undocumented)
+export declare interface MediaImageProps {
   dataURI: string;
-  // (undocumented)
-  forceSyncDisplay?: boolean;
-  // (undocumented)
-  loading?: 'auto' | 'lazy' | 'eager';
-  // (undocumented)
-  onImageError?: () => void;
-  // (undocumented)
-  onImageLoad?: (loadedImage: HTMLImageElement) => void;
-  // (undocumented)
-  previewOrientation?: number;
-  // (undocumented)
+  alt?: string;
+  crop?: boolean;
   stretch?: boolean;
+  previewOrientation?: number;
+  crossOrigin?: '' | 'anonymous' | 'use-credentials';
+  onImageLoad?: (loadedImage: HTMLImageElement) => void;
+  onImageError?: () => void;
+  loading?: 'auto' | 'lazy' | 'eager';
+  forceSyncDisplay?: boolean;
 }
 
-// @public (undocumented)
-export interface MediaImageState {
-  // (undocumented)
-  imgHeight: number;
-  // (undocumented)
-  imgWidth: number;
-  // (undocumented)
+export declare interface MediaImageState {
   isImageLoaded: boolean;
-  // (undocumented)
-  parentHeight: number;
-  // (undocumented)
+  imgWidth: number;
+  imgHeight: number;
   parentWidth: number;
+  parentHeight: number;
 }
 
-// @public (undocumented)
-export class MediaInlineCardErroredView extends React_2.Component<
+export declare class MediaInlineCardErroredView extends React_2.Component<
   MediaInlineCardErroredViewProps
 > {
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   renderMessage: () => JSX.Element;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface MediaInlineCardErroredViewProps {
-  // (undocumented)
-  icon?: React_2.ReactNode;
-  isSelected?: boolean;
+export declare interface MediaInlineCardErroredViewProps {
+  /** The error message to display */
   message: string;
+  /** The optional click handler */
   onClick?: React_2.EventHandler<React_2.MouseEvent | React_2.KeyboardEvent>;
+  /** A flag that determines whether the card is selected in edit mode. */
+  isSelected?: boolean;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
+  icon?: React_2.ReactNode;
 }
 
-// @public (undocumented)
-export class MediaInlineCardLoadedView extends React_2.Component<
+export declare class MediaInlineCardLoadedView extends React_2.Component<
   MediaInlineCardLoadedViewProps
 > {
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface MediaInlineCardLoadedViewProps {
+export declare interface MediaInlineCardLoadedViewProps {
+  /** The optional con of the service (e.g. Dropbox/Asana/Google/etc) to display */
   icon?: React_2.ReactNode;
-  isSelected?: boolean;
-  onClick?: React_2.EventHandler<React_2.MouseEvent | React_2.KeyboardEvent>;
-  testId?: string;
+  /** The name of the resource */
   title?: string;
+  /** A flag that determines whether the card is selected in edit mode. */
+  isSelected?: boolean;
+  /** The optional click handler */
+  onClick?: React_2.EventHandler<React_2.MouseEvent | React_2.KeyboardEvent>;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  testId?: string;
+  /** The Emoji icon prefix that was added to the title text via Add emoji button */
   titlePrefix?: React_2.ReactNode;
 }
 
-// @public (undocumented)
-export class MediaInlineCardLoadingView extends React_2.Component<
+export declare class MediaInlineCardLoadingView extends React_2.Component<
   MediaInlineCardLoadingViewProps
 > {
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface MediaInlineCardLoadingViewProps {
-  // (undocumented)
-  inlinePreloaderStyle?: InlinePreloaderStyle;
-  isSelected?: boolean;
+export declare interface MediaInlineCardLoadingViewProps {
+  /** The file name to display */
   message: string;
+  inlinePreloaderStyle?: InlinePreloaderStyle;
+  /** The optional click handler */
   onClick?: React_2.EventHandler<React_2.MouseEvent | React_2.KeyboardEvent>;
+  /** A flag that determines whether the card is selected in edit mode. */
+  isSelected?: boolean;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
-  // (undocumented)
   withoutHover?: boolean;
 }
 
-// @public (undocumented)
-export type MessageKey =
+declare type MediaTypeProps = {
+  testId?: string;
+  mediaType?: MediaType;
+  mimeType?: string;
+  name?: string;
+  size?: 'small' | 'large';
+};
+
+export declare type MessageKey =
   | 'retry'
   | 'failed_to_load'
   | 'failed_to_upload'
@@ -577,11 +534,13 @@ export type MessageKey =
   | 'zip_entry_load_fail'
   | RequestAccessMessageKey;
 
-// @public (undocumented)
-export const messages: Messages;
+declare type Messages = {
+  [K in MessageKey]: MessageDescriptor;
+};
 
-// @public (undocumented)
-export const MimeTypeIcon: ({
+export declare const messages: Messages;
+
+export declare const MimeTypeIcon: ({
   mediaType,
   mimeType,
   name,
@@ -589,156 +548,158 @@ export const MimeTypeIcon: ({
   size,
 }: MediaTypeProps) => JSX.Element;
 
-// @public (undocumented)
-export const ModalSpinner: ({
+declare interface MimeTypesRepresentation {
+  label: string;
+  mimeTypes: string[];
+  icon: any;
+}
+
+export declare const ModalSpinner: ({
   blankedColor,
   invertSpinnerColor,
 }: Props_2) => JSX.Element;
 
-// @public (undocumented)
-export function readImageMetaData(
+declare type Props = WithMediaButtonAppearance<CustomThemeButtonProps> & {
+  buttonRef?: RefObject<HTMLButtonElement>;
+};
+
+declare interface Props_2 {
+  blankedColor?: string;
+  invertSpinnerColor?: boolean;
+}
+
+export declare function readImageMetaData(
   fileInfo: FileInfo,
 ): Promise<ImageMetaData | null>;
 
-// @public (undocumented)
-export class Rectangle {
-  constructor(width: number, height: number);
-  // (undocumented)
-  get aspectRatio(): number;
-  // (undocumented)
-  get center(): Vector2;
-  // (undocumented)
-  clone(): Rectangle;
-  // (undocumented)
-  flipped(): Rectangle;
-  // (undocumented)
-  readonly height: number;
-  // (undocumented)
-  resized(width: number, height: number): Rectangle;
-  // (undocumented)
-  scaled(scale: number): Rectangle;
-  // (undocumented)
-  scaleToFit(containing: Rectangle): number;
-  // (undocumented)
-  scaleToFitLargestSide(containing: Rectangle): number;
-  // (undocumented)
-  scaleToFitSmallestSide(containing: Rectangle): number;
-  // (undocumented)
+export declare class Rectangle {
   readonly width: number;
+  readonly height: number;
+  constructor(width: number, height: number);
+  get aspectRatio(): number;
+  get center(): Vector2;
+  scaled(scale: number): Rectangle;
+  resized(width: number, height: number): Rectangle;
+  flipped(): Rectangle;
+  scaleToFit(containing: Rectangle): number;
+  scaleToFitLargestSide(containing: Rectangle): number;
+  scaleToFitSmallestSide(containing: Rectangle): number;
+  clone(): Rectangle;
 }
 
-// @public (undocumented)
-export class Shortcut extends Component<ShortcutProps, {}> {
-  // (undocumented)
+declare type RequestAccessMessageKey =
+  | 'request_access_description'
+  | 'click_to_join_description'
+  | 'request_access_pending_description'
+  | 'click_to_join'
+  | 'request_access'
+  | 'request_access_pending'
+  | 'forbidden_description'
+  | 'request_denied_description';
+
+export declare class Shortcut extends Component<ShortcutProps, {}> {
   componentDidMount(): void;
-  // (undocumented)
   componentWillUnmount(): void;
-  // (undocumented)
   render(): null;
+  private keyHandler;
+  private init;
+  private release;
 }
 
-// @public (undocumented)
-export type ShortcutProps = {
+export declare type ShortcutProps = {
   handler: () => void;
 } & (WithKeyCode | WithCode);
 
-// @public (undocumented)
-export const size: (value?: string | number) => string;
+export declare const size: (value?: string | number) => string;
 
-// @public (undocumented)
-export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
-  static defaultProps: Partial<TimeRangeProps>;
-  // (undocumented)
-  onMouseMove: (e: MouseEvent) => void;
-  // (undocumented)
-  onMouseUp: () => void;
-  // (undocumented)
-  onThumbMouseDown: (e: React_2.SyntheticEvent<HTMLDivElement>) => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  state: TimeRangeState;
-  // (undocumented)
+export declare class TimeRange extends Component<
+  TimeRangeProps,
+  TimeRangeState
+> {
   thumbElement: React_2.RefObject<HTMLDivElement>;
-  // (undocumented)
   wrapperElement: React_2.RefObject<HTMLDivElement>;
-  // (undocumented)
   wrapperElementWidth: number;
+  state: TimeRangeState;
+  static defaultProps: Partial<TimeRangeProps>;
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  private setWrapperWidth;
+  onMouseMove: (e: MouseEvent) => void;
+  onMouseUp: () => void;
+  onThumbMouseDown: (e: React_2.SyntheticEvent<HTMLDivElement>) => void;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface TimeRangeProps {
-  // (undocumented)
-  bufferedTime: number;
-  // (undocumented)
+export declare interface TimeRangeProps {
   currentTime: number;
-  // (undocumented)
-  disableThumbTooltip: boolean;
-  // (undocumented)
+  bufferedTime: number;
   duration: number;
-  // (undocumented)
-  isAlwaysActive: boolean;
-  // (undocumented)
   onChange: (newTime: number) => void;
-  // (undocumented)
+  disableThumbTooltip: boolean;
+  isAlwaysActive: boolean;
   onChanged?: () => void;
 }
 
-// @public (undocumented)
-export interface TimeRangeState {
-  // (undocumented)
-  dragStartClientX: number;
-  // (undocumented)
+export declare interface TimeRangeState {
   isDragging: boolean;
+  dragStartClientX: number;
 }
 
-// @public
-export function toHumanReadableMediaSize(size: number): string;
+declare interface TimeSaverConfig {
+  contentId: string;
+}
 
-// @public (undocumented)
-export const Truncate: React_2.FC<TruncateProps>;
+/**
+ * Takes a media (file) size in bytes and returns a human readable string
+ */
+export declare function toHumanReadableMediaSize(size: number): string;
 
-// @public (undocumented)
-export type TruncateProps = {
+export declare const Truncate: React_2.FC<TruncateProps>;
+
+export declare type TruncateProps = {
   text: string;
   fontSizePX?: number;
   startFixedChars?: number;
   endFixedChars?: number;
 };
 
-// @public (undocumented)
-export class Vector2 {
-  constructor(x: number, y: number);
-  // (undocumented)
-  add({ x: thatX, y: thatY }: Vector2): Vector2;
-  // (undocumented)
-  clone(): Vector2;
-  // (undocumented)
-  map(fn: (component: number) => number): Vector2;
-  // (undocumented)
-  rounded(): Vector2;
-  // (undocumented)
-  scaled(scalar: number): Vector2;
-  // (undocumented)
-  sub({ x: thatX, y: thatY }: Vector2): Vector2;
-  // (undocumented)
-  toString(): string;
-  // (undocumented)
+export declare class Vector2 {
   readonly x: number;
-  // (undocumented)
   readonly y: number;
+  constructor(x: number, y: number);
+  add({ x: thatX, y: thatY }: Vector2): Vector2;
+  sub({ x: thatX, y: thatY }: Vector2): Vector2;
+  scaled(scalar: number): Vector2;
+  map(fn: (component: number) => number): Vector2;
+  clone(): Vector2;
+  rounded(): Vector2;
+  toString(): string;
 }
 
-// @public (undocumented)
-export interface WithShowControlMethodProp {
-  // (undocumented)
+declare type WithCode = {
+  code: string;
+  keyCode?: never;
+};
+
+declare type WithKeyCode = {
+  /** @deprecated use code: string instead */
+  keyCode: number;
+  code?: never;
+};
+
+declare type WithMediaButtonAppearance<T> = Omit<T, 'appearance'> & {
+  appearance?: MediaButtonAppearance;
+};
+
+declare type WithPlaybackProps = {
+  readonly isAutoPlay: boolean;
+  readonly isHDAvailable?: boolean;
+  readonly isHDActive?: boolean;
+};
+
+export declare interface WithShowControlMethodProp {
   showControls?: () => void;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

@@ -7,97 +7,67 @@ import { EventEmitter2 } from 'eventemitter2';
 import { LRUCache } from 'lru-fast';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-// @public (undocumented)
-export interface AsapBasedAuth {
-  // (undocumented)
+export declare interface AsapBasedAuth {
   readonly asapIssuer: string;
-  // (undocumented)
-  readonly baseUrl: string;
-  // (undocumented)
   readonly token: string;
+  readonly baseUrl: string;
 }
 
-// @public (undocumented)
-export type Auth = ClientBasedAuth | AsapBasedAuth;
+export declare type Auth = ClientBasedAuth | AsapBasedAuth;
 
-// @public (undocumented)
-export interface AuthContext {
-  // (undocumented)
+export declare interface AuthContext {
   readonly collectionName?: string;
 }
 
-// @public (undocumented)
-export type AuthProvider = (context?: AuthContext) => Promise<Auth>;
+declare type AuthFromContextProvider = (contextId: string) => Promise<Auth>;
 
-// @public (undocumented)
-export const authToOwner: (auth: Auth) => ClientAltBasedAuth | AsapBasedAuth;
+export declare type AuthProvider = (context?: AuthContext) => Promise<Auth>;
 
-// @public (undocumented)
-export interface CachedMediaState<T> {
-  // (undocumented)
-  eventEmitter?: EventEmitter2;
-  // (undocumented)
-  stateDeferreds: Map<string, StateDeferredValue<T>>;
-  // (undocumented)
+export declare const authToOwner: (
+  auth: Auth,
+) => ClientAltBasedAuth | AsapBasedAuth;
+
+export declare interface CachedMediaState<T> {
   streams: LRUCache<string, ReplaySubject<T>>;
+  stateDeferreds: Map<string, StateDeferredValue<T>>;
+  eventEmitter?: EventEmitter2;
 }
 
-// @public (undocumented)
-export interface ClientAltBasedAuth {
-  // (undocumented)
-  readonly baseUrl: string;
-  // (undocumented)
+export declare interface ClientAltBasedAuth {
   readonly id: string;
-  // (undocumented)
   readonly token: string;
-}
-
-// @public (undocumented)
-export interface ClientBasedAuth {
-  // (undocumented)
   readonly baseUrl: string;
-  // (undocumented)
-  readonly clientId: string;
-  // (undocumented)
-  readonly token: string;
 }
 
-// @public (undocumented)
-export function isAsapBasedAuth(auth: Auth): auth is AsapBasedAuth;
+export declare interface ClientBasedAuth {
+  readonly clientId: string;
+  readonly token: string;
+  readonly baseUrl: string;
+}
 
-// @public (undocumented)
-export function isClientBasedAuth(auth: Auth): auth is ClientBasedAuth;
+export declare function isAsapBasedAuth(auth: Auth): auth is AsapBasedAuth;
 
-// @public (undocumented)
-export type MediaApiConfig = {
+export declare function isClientBasedAuth(auth: Auth): auth is ClientBasedAuth;
+
+export declare type MediaApiConfig = {
   authProvider: AuthProvider;
   initialAuth?: Auth;
 };
 
-// @public (undocumented)
-export interface MediaClientConfig {
-  // (undocumented)
+export declare interface MediaClientConfig {
   readonly authProvider: AuthProvider;
-  // (undocumented)
-  readonly getAuthFromContext?: AuthFromContextProvider;
-  // (undocumented)
   readonly initialAuth?: Auth;
-  // (undocumented)
   readonly stargateBaseUrl?: string;
+  readonly getAuthFromContext?: AuthFromContextProvider;
 }
 
-// @public (undocumented)
-export const mediaState: CachedMediaState<Object>;
+export declare const mediaState: CachedMediaState<Object>;
 
-// @public (undocumented)
-export interface StateDeferredValue<T> {
-  // (undocumented)
+export declare interface StateDeferredValue<T> {
   promise: Promise<T>;
-  // (undocumented)
   resolve: Function;
-  // (undocumented)
   value?: T;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

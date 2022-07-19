@@ -7,51 +7,34 @@
 
 import { LazyExoticComponent } from 'react';
 
-// @public (undocumented)
-export interface GiveKudosDrawerProps {
-  // (undocumented)
-  addFlag?: (flag: any) => void;
-  // (undocumented)
-  analytics?: any;
-  // (undocumented)
-  analyticsSource: string;
-  // (undocumented)
-  cloudId: string;
-  // (undocumented)
-  isOpen: boolean;
-  // (undocumented)
-  onClose: () => void;
-  // (undocumented)
-  recipient?: KudosRecipient;
-  // (undocumented)
-  teamCentralBaseUrl: string;
-  // (undocumented)
+export declare interface GiveKudosDrawerProps {
   testId?: string;
+  isOpen: boolean;
+  onClose: () => void;
+  analyticsSource: string;
+  recipient?: KudosRecipient;
+  teamCentralBaseUrl: string;
+  cloudId: string;
+  addFlag?: (flag: any) => void;
 }
 
-// @public (undocumented)
-export const GiveKudosLauncher: (props: GiveKudosDrawerProps) => JSX.Element;
+export declare const GiveKudosLauncher: (
+  props: GiveKudosDrawerProps,
+) => JSX.Element;
 
-// @public (undocumented)
-export const GiveKudosLauncherLazy: LazyExoticComponent<(
+export declare const GiveKudosLauncherLazy: LazyExoticComponent<(
   props: GiveKudosDrawerProps,
 ) => JSX.Element>;
 
-// @public (undocumented)
-export interface KudosRecipient {
-  // (undocumented)
-  recipientId: string;
-  // (undocumented)
+export declare interface KudosRecipient {
   type: KudosType;
+  recipientId: string;
 }
 
-// @public (undocumented)
-export enum KudosType {
-  // (undocumented)
+export declare enum KudosType {
   INDIVIDUAL = 'individual',
-  // (undocumented)
   TEAM = 'team',
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

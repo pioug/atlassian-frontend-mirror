@@ -22,26 +22,24 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export { AbstractResource };
 
-// @public (undocumented)
-export interface AltRepresentations {
-  // (undocumented)
+export declare interface AltRepresentations {
   [key: string]: EmojiServiceRepresentation;
 }
 
-// @public (undocumented)
-export interface CategoryDescription {
-  // (undocumented)
-  icon: any;
-  // (undocumented)
+declare interface BaseResourcedEmojiProps {
+  emojiId: EmojiId;
+  showTooltip?: boolean;
+  fitToHeight?: number;
+}
+
+export declare interface CategoryDescription {
   id: string;
-  // (undocumented)
   name: keyof typeof messages;
-  // (undocumented)
+  icon: any;
   order: number;
 }
 
-// @public (undocumented)
-export type CategoryId =
+export declare type CategoryId =
   | 'FREQUENT'
   | 'PEOPLE'
   | 'NATURE'
@@ -54,364 +52,830 @@ export type CategoryId =
   | 'ATLASSIAN'
   | 'CUSTOM';
 
-// @public (undocumented)
-export const customCategory = 'CUSTOM';
+export declare const customCategory = 'CUSTOM';
 
-// @public (undocumented)
-export const defaultEmojiHeight = 20;
+export declare const defaultEmojiHeight = 20;
 
-// @public
-export const denormaliseEmojiServiceResponse: (
+/**
+ * Denormalised an emoji response (emojis + sprite references) into an array of
+ * emoji with local sprite definitions.
+ */
+export declare const denormaliseEmojiServiceResponse: (
   emojiData: EmojiServiceResponse,
 ) => EmojiResponse;
 
-// @public (undocumented)
-export const Emoji: (props: Props) => JSX.Element;
-
-// @public (undocumented)
-export interface EmojiDescription extends EmojiId {
-  // (undocumented)
-  altRepresentation?: EmojiRepresentation;
-  // (undocumented)
-  ascii?: string[];
-  // (undocumented)
-  category: string;
-  // (undocumented)
-  createdDate?: string;
-  // (undocumented)
-  creatorUserId?: string;
-  // (undocumented)
-  name?: string;
-  // (undocumented)
-  order?: number;
-  // (undocumented)
-  representation: EmojiRepresentation;
-  // (undocumented)
-  searchable: boolean;
-  // (undocumented)
-  type: string;
+/**
+ * A queue which will limit the number of duplicates of type T that it holds. When the duplicate limit is
+ * reached the earliest inserted duplicate (the "original") is removed to make room for the new insertion.
+ */
+declare class DuplicateLimitedQueue<T> {
+  private maximumSize;
+  private perItemSize;
+  private items;
+  private itemCountMap;
+  /**
+   * An array derived from items and itemCountMap which holds each item once and is ordered by
+   * how often an item is duplicated in the items array.
+   */
+  private itemsOrderedByFrequency;
+  /**
+   * Construct a new DuplicateLimitedQueue.
+   *
+   * @param options the options for this queue.
+   */
+  constructor(options: QueueOptions);
+  /**
+   * @param item the item to add to the queue.
+   */
+  enqueue(item: T): void;
+  /**
+   * Return the items in the queue, ordered by how often they are duplicated. The items with the
+   * most duplicates come first in the returned Array.
+   *
+   * If there are no items in the queue then an empty Array will be returned.
+   */
+  getItemsOrderedByDuplicateCount(): Array<T>;
+  /**
+   * Exposed for storybook/testing purposes only. Clear the contents of the queue.
+   */
+  clear(): void;
+  /**
+   * A more efficient mechanism for adding multiple items. Ordering is only performed once all
+   * the items have been added.
+   *
+   * @param items the items to be enqueued, which happens in their presented order.
+   */
+  protected bulkEnqueue(items: T[]): void;
+  /**
+   * Return the items currently stored in the queue.
+   */
+  protected getItems(): T[];
+  private createEmptyState;
+  /**
+   * Enqueue the supplied item, keeping consistency with the limits configured. However no ordering is
+   * performed by this enqueuing. You must trigger that manually if required.
+   *
+   * @param item the item to be queued
+   */
+  private enqueueWithoutOrdering;
+  /**
+   * Get an array of items from the queue ordered by how often they are duplicated in the queue.
+   */
+  private orderItemsByFrequency;
+  private decrementCount;
+  /**
+   * Walk the list of items and remove the first occurrence of the matching item.
+   *
+   * @param item the item to be removed.
+   */
+  private removeFirstOccurrence;
+  /**
+   * Remove the first item from the queue and update the itemCountMap accordingly.
+   * @return the item add the front of the queue or undefined if the queue is empty
+   */
+  private remove;
+  /**
+   * Add the supplied item to the end of the queue and update the itemCountMap accordingly.
+   * @param item the item to be added to the queue
+   */
+  private add;
 }
 
-// @public (undocumented)
-export interface EmojiDescriptionWithVariations extends EmojiDescription {
-  // (undocumented)
+export declare const Emoji: (props: Props) => JSX.Element;
+
+export declare interface EmojiDescription extends EmojiId {
+  name?: string;
+  order?: number;
+  type: string;
+  category: string;
+  ascii?: string[];
+  createdDate?: string;
+  creatorUserId?: string;
+  representation: EmojiRepresentation;
+  altRepresentation?: EmojiRepresentation;
+  searchable: boolean;
+}
+
+export declare interface EmojiDescriptionWithVariations
+  extends EmojiDescription {
   skinVariations?: EmojiDescription[];
 }
 
-// @public
-export interface EmojiId {
-  // (undocumented)
-  fallback?: string;
-  // (undocumented)
-  id?: string;
-  // (undocumented)
+/**
+ * Minimum information to defined an emoji is the shortName.
+ * In order to uniquely define an emoji, the id should be included, and is
+ * used in preference to shortName if provided, and has a matching emoji.
+ * If not emoji can be found by id (e.g. a custom emoji has been removed),
+ * fallback behaviour will be to attempt to find a matching emoji by shortName.
+ */
+export declare interface EmojiId {
   shortName: string;
+  id?: string;
+  fallback?: string;
 }
 
-// @public (undocumented)
-export const emojiImage = 'emoji-common-emoji-image';
+export declare const emojiImage = 'emoji-common-emoji-image';
 
-// @public (undocumented)
-export interface EmojiImageRepresentation {
-  // (undocumented)
+export declare interface EmojiImageRepresentation {
   height: number;
-  // (undocumented)
   width: number;
 }
 
-// @public
-export class EmojiLoader {
+/**
+ * Emoji providers should return JSON in the format defined by EmojiServiceResponse.
+ */
+export declare class EmojiLoader {
+  private config;
   constructor(config: EmojiLoaderConfig);
+  /**
+   * Returns a promise with an array of Emoji from all providers.
+   */
   loadEmoji(): Promise<EmojiResponse>;
 }
 
-// @public (undocumented)
-export interface EmojiMeta {
-  // (undocumented)
-  mediaApiToken?: MediaApiToken;
-  // (undocumented)
-  spriteSheets?: SpriteSheets;
+declare interface EmojiLoaderConfig extends ServiceConfig {
+  getRatio?: () => number;
 }
 
-// @public (undocumented)
-export const emojiNode = 'emoji-common-node';
+export declare interface EmojiMeta {
+  spriteSheets?: SpriteSheets;
+  mediaApiToken?: MediaApiToken;
+}
 
-// @public (undocumented)
-const EmojiPicker: ForwardRefExoticComponent<
+export declare const emojiNode = 'emoji-common-node';
+
+declare const EmojiPicker: ForwardRefExoticComponent<
   Omit<Props_3 & WithAnalyticsEventsProps, keyof WithAnalyticsEventsProps> &
     RefAttributes<any>
 >;
 export { EmojiPicker };
 export default EmojiPicker;
 
-// @public (undocumented)
-export const emojiPickerHeight = 295;
+export declare const emojiPickerHeight = 295;
 
-// @public (undocumented)
-export const emojiPickerWidth = 350;
+export declare const emojiPickerWidth = 350;
 
-// @public (undocumented)
-export const EmojiPlaceholder: (props: Props_2) => JSX.Element;
+export declare const EmojiPlaceholder: (props: Props_2) => JSX.Element;
 
-// @public (undocumented)
-export interface EmojiProvider
+declare interface EmojiProgessCallback {
+  (progress: EmojiProgress): void;
+}
+
+declare interface EmojiProgress {
+  readonly percent: number;
+}
+
+export declare interface EmojiProvider
   extends Provider<string, EmojiSearchResult, any, undefined, SearchOptions> {
-  calculateDynamicCategories?(): Promise<string[]>;
+  /**
+   * Returns an immutable copy of EmojiDescription where mediaPath has token and client appended to url
+   *
+   * Will allow emoji to render site emojis without needing to fail first
+   */
+  getMediaEmojiDescriptionURLWithInlineToken(
+    emoji: EmojiDescription,
+  ): Promise<EmojiDescription>;
+  /**
+   * Returns the first matching emoji matching the shortName, or null if none found.
+   *
+   * Will load media api images before returning.
+   */
+  findByShortName(
+    shortName: string,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  /**
+   * Returns the first matching emoji matching the emojiId.id.
+   *
+   * If not found or emojiId.id is undefined, fallback to a search by shortName.
+   *
+   * Will load media api images before returning.
+   */
+  findByEmojiId(
+    emojiId: EmojiId,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  /**
+   * Return the emoji that matches the supplied id or undefined. As with findByEmojiId, this call should load
+   * the media api images before returning.
+   */
+  findById(
+    id: string,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  /**
+   * Finds emojis belonging to specified category.
+   *
+   * Does not automatically load Media API images.
+   */
+  findInCategory(categoryId: string): Promise<EmojiDescription[]>;
+  /**
+   * Returns a map matching ascii representations to their corresponding EmojiDescription.
+   */
+  getAsciiMap(): Promise<Map<string, EmojiDescription>>;
+  /**
+   * Returns, in a Promise, an array of the most frequently used emoji, ordered from most frequent to least frequent.
+   * If there is no frequently used data then an empty array should be returned.
+   *
+   * @param options supply options to be applied to the request.
+   */
+  getFrequentlyUsed(options?: SearchOptions): Promise<EmojiDescription[]>;
+  /**
+   * Records an emoji selection, for example for using in tracking recent emoji.
+   * If no recordConfig is configured then a resolved promise should be returned
+   *
+   * Optional.
+   */
+  recordSelection?(emoji: EmojiDescription): Promise<any>;
+  /**
+   * Deletes the given emoji from the site emoji service
+   * No changes are made if it is not a media emoji, no siteEmojiResource has been initialised
+   * or the user is not authorised.
+   * It should also be removed from the EmojiResource so it cannot be returned via search
+   *
+   * Optional.
+   *
+   * @return a boolean indicating whether the delete was successful
+   */
   deleteSiteEmoji(emoji: EmojiDescription): Promise<boolean>;
+  /**
+   * Load media emoji that may require authentication to download, producing
+   * a new EmojiDescription to be used for rendering, if necessary.
+   *
+   * Future results may be returned from a cache.
+   *
+   * Acts as a no-op if not a media emoji.
+   *
+   * Downloads and caches the altRepresentation image if useAlt is passed in
+   *
+   * @return an OptionalEmojiDescription or a promise for one, may be the same as the input,
+   *   or updated with a new url to cached image data. Will return the original EmojiDescription
+   *   if not a custom emoji.
+   */
+  loadMediaEmoji(
+    emoji: EmojiDescription,
+    useAlt?: boolean,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  /**
+   * Indicates if media emoji should be rendered optimistically,
+   * i.e. assume the url can be rendered directly from the URL, and
+   * only explicitly loaded via loadEmojiImageData if it fails to load.
+   *
+   * If useAlt is provided, the altRepresentation image URL is used
+   */
+  optimisticMediaRendering(emoji: EmojiDescription, useAlt?: boolean): boolean;
+  /**
+   * Used by the picker and typeahead to obtain a skin tone preference
+   * if the user has previously selected one via the Tone Selector
+   */
+  getSelectedTone(): ToneSelection;
+  /**
+   * Used by Tone Selector to indicate to the provider that the user
+   * has selected a skin tone preference that should be remembered
+   */
+  setSelectedTone(tone: ToneSelection): void;
+  /**
+   * Returns a list of all the non-standard categories with emojis in the EmojiRepository
+   * e.g. 'FREQUENT', 'ATLASSIAN' and 'CUSTOM'
+   */
+  calculateDynamicCategories?(): Promise<string[]>;
+  /**
+   * Returns the logged user passed by the Product
+   */
+  getCurrentUser(): OptionalUser;
+}
+
+export declare class EmojiRepository {
+  private emojis;
+  private fullSearch;
+  private shortNameMap;
+  private idMap;
+  private asciiMap;
+  private dynamicCategoryList;
+  private static readonly defaultEmojiWeight;
+  protected usageTracker: UsageFrequencyTracker;
+  constructor(emojis: EmojiDescription[], usageTracker?: UsageFrequencyTracker);
+  /**
+   * Returns all available (and searchable) emoji in some default order.
+   */
+  all(): EmojiSearchResult;
+  /**
+   * Text search of emoji shortName and name field for suitable matches.
+   *
+   * Returns an array of all (searchable) emoji if query is empty or null, otherwise returns matching emoji.
+   *
+   * You can change how the results are sorted by specifying a custom EmojiComparator in the SearchOptions. If
+   * you don't want any sorting you can also disable via the SearchOptions (this might be a useful optimisation).
+   * If no sort is specified in SearchOptions then a default sorting it applied based on the query.
+   */
+  search(query?: string, options?: SearchOptions): EmojiSearchResult;
+  /**
+   * Returns all emoji with matching shortName
+   */
+  findAllMatchingShortName(shortName: string): EmojiDescription[];
+  /**
+   * Returns the first matching emoji matching the shortName, or null if none found.
+   */
+  findByShortName(shortName: string): OptionalEmojiDescription;
+  /**
+   * Returns the first matching emoji matching the id, or null if none found.
+   */
+  findById(id: string): OptionalEmojiDescription;
+  findByAsciiRepresentation(asciiEmoji: string): OptionalEmojiDescription;
+  findInCategory(categoryId: CategoryId): EmojiDescription[];
+  addUnknownEmoji(emoji: EmojiDescription): void;
+  getAsciiMap(): Map<string, EmojiDescription>;
+  /**
+   * Return the most frequently used emoji, ordered from most frequent to least frequent. Return an empty array if
+   * there are none.
+   *
+   * @param options optional settings to be applied to the set of frequently used emoji
+   */
+  getFrequentlyUsed(options?: SearchOptions): EmojiDescription[];
+  getDynamicCategoryList(): CategoryId[];
+  /**
+   * Call this on emoji usage to allow the EmojiRepository to track the usage of emoji (which could be useful
+   * in sorting, etc).
+   *
+   * @param emoji the emoji that was just used
+   */
+  used(emoji: EmojiDescription): void;
+  delete(emoji: EmojiDescription): void;
+  private withAsciiMatch;
+  private applySearchOptions;
+  private initMembers;
+  /**
+   * Optimisation to initialise all map member variables in single loop over emojis
+   */
+  private initRepositoryMetadata;
+  private initSearchIndex;
+  private getAllSearchableEmojis;
+  private addToMaps;
+  private addToDynamicCategories;
+}
+
+export declare type EmojiRepresentation =
+  | SpriteRepresentation
+  | ImageRepresentation
+  | MediaApiRepresentation
+  | undefined;
+
+export declare class EmojiResource
+  extends EmojiResource_2
+  implements UploadingEmojiProvider {
+  protected allowUpload: boolean;
+  constructor(config: EmojiResourceConfig);
+  isUploadSupported(): Promise<boolean>;
+  uploadCustomEmoji(upload: EmojiUpload): Promise<EmojiDescription>;
+  prepareForUpload(): Promise<void>;
+}
+
+declare class EmojiResource_2
+  extends AbstractResource<
+    string,
+    EmojiSearchResult,
+    any,
+    undefined,
+    SearchOptions
+  >
+  implements EmojiProvider {
+  protected recordConfig?: ServiceConfig;
+  protected emojiRepository?: EmojiRepository;
+  protected lastQuery?: LastQuery;
+  protected activeLoaders: number;
+  protected retries: Map<Retry<any>, ResolveReject<any>>;
+  protected siteEmojiResource?: SiteEmojiResource;
+  protected selectedTone: ToneSelection;
+  protected currentUser?: User;
+  constructor(config: EmojiResourceConfig);
+  private getProviderType;
+  protected initEmojiRepository(emojiResponses: EmojiResponse[]): void;
+  protected initSiteEmojiResource(
+    emojiResponse: EmojiResponse,
+    provider: ServiceConfig,
+  ): Promise<void>;
+  private performRetries;
+  private loadStoredTone;
+  protected refreshLastFilter(): void;
+  protected isLoaded: () => false | EmojiRepository | undefined;
+  protected retryIfLoading<T>(retry: Retry<T>, defaultResponse: T): Promise<T>;
+  protected notifyResult(result: EmojiSearchResult): void;
+  /**
+   *  Returns the EmojiDescription with a valid media path that includes query token and client attributes to access the emoji media inline.
+   */
+  getMediaEmojiDescriptionURLWithInlineToken(
+    emoji: EmojiDescription,
+  ): Promise<EmojiDescription>;
+  loadMediaEmoji(
+    emoji: EmojiDescription,
+    useAlt?: boolean,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  optimisticMediaRendering(emoji: EmojiDescription, useAlt?: boolean): boolean;
+  filter(query?: string, options?: SearchOptions): void;
+  findByShortName(
+    shortName: string,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
   findByEmojiId(
     emojiId: EmojiId,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
   findById(
     id: string,
   ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
-  findByShortName(
-    shortName: string,
-  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
-  findInCategory(categoryId: string): Promise<EmojiDescription[]>;
+  findInCategory(categoryId: CategoryId): Promise<EmojiDescription[]>;
   getAsciiMap(): Promise<Map<string, EmojiDescription>>;
-  getCurrentUser(): OptionalUser;
   getFrequentlyUsed(options?: SearchOptions): Promise<EmojiDescription[]>;
-  getMediaEmojiDescriptionURLWithInlineToken(
-    emoji: EmojiDescription,
-  ): Promise<EmojiDescription>;
+  /**
+   * Record the selection of an emoji to a remote service if 'recordConfig' has been supplied.
+   * Regardless of the recordConfig, emoji selections will always be recorded on the EmojiRepository
+   * for the purposes of tracking the frequency of use.
+   *
+   * @param emoji The full description of the emoji to record usage for.
+   */
+  recordSelection(emoji: EmojiDescription): Promise<any>;
+  deleteSiteEmoji(emoji: EmojiDescription): Promise<boolean>;
   getSelectedTone(): ToneSelection;
-  loadMediaEmoji(
-    emoji: EmojiDescription,
-    useAlt?: boolean,
-  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
-  optimisticMediaRendering(emoji: EmojiDescription, useAlt?: boolean): boolean;
-  recordSelection?(emoji: EmojiDescription): Promise<any>;
   setSelectedTone(tone: ToneSelection): void;
+  calculateDynamicCategories(): Promise<CategoryId[]>;
+  getCurrentUser(): OptionalUser;
+  protected addUnknownEmoji(emoji: EmojiDescription): void;
 }
 
-// @public (undocumented)
-export class EmojiRepository {
-  constructor(emojis: EmojiDescription[], usageTracker?: UsageFrequencyTracker);
-  // (undocumented)
-  addUnknownEmoji(emoji: EmojiDescription): void;
-  all(): EmojiSearchResult;
-  // (undocumented)
-  delete(emoji: EmojiDescription): void;
-  findAllMatchingShortName(shortName: string): EmojiDescription[];
-  // (undocumented)
-  findByAsciiRepresentation(asciiEmoji: string): OptionalEmojiDescription;
-  findById(id: string): OptionalEmojiDescription;
-  findByShortName(shortName: string): OptionalEmojiDescription;
-  // (undocumented)
-  findInCategory(categoryId: CategoryId): EmojiDescription[];
-  // (undocumented)
-  getAsciiMap(): Map<string, EmojiDescription>;
-  // (undocumented)
-  getDynamicCategoryList(): CategoryId[];
-  getFrequentlyUsed(options?: SearchOptions): EmojiDescription[];
-  search(query?: string, options?: SearchOptions): EmojiSearchResult;
-  // (undocumented)
-  protected usageTracker: UsageFrequencyTracker;
-  used(emoji: EmojiDescription): void;
-}
-
-// @public (undocumented)
-export type EmojiRepresentation =
-  | SpriteRepresentation
-  | ImageRepresentation
-  | MediaApiRepresentation
-  | undefined;
-
-// @public (undocumented)
-export class EmojiResource
-  extends EmojiResource_2
-  implements UploadingEmojiProvider {
-  constructor(config: EmojiResourceConfig);
-  // (undocumented)
-  protected allowUpload: boolean;
-  // (undocumented)
-  isUploadSupported(): Promise<boolean>;
-  // (undocumented)
-  prepareForUpload(): Promise<void>;
-  // (undocumented)
-  uploadCustomEmoji(upload: EmojiUpload): Promise<EmojiDescription>;
-}
-
-// @public (undocumented)
-export interface EmojiResourceConfig {
-  allowUpload?: boolean;
-  currentUser?: User;
-  providers: ServiceConfig[];
+export declare interface EmojiResourceConfig {
+  /**
+   * The service configuration for remotely recording emoji selections.
+   * A post will be performed to this URL with the EmojiId as the body.
+   */
   recordConfig?: ServiceConfig;
+  /**
+   * This defines the different providers. Later providers will override earlier
+   * providers when performing shortName based look up.
+   */
+  providers: ServiceConfig[];
+  /**
+   * Must be set to true to enable upload support in the emoji components.
+   *
+   * Can be used for the restriction of the upload UI based on permissions, or feature flags.
+   *
+   * Note this also requires that other conditions are met (for example, one of the providers
+   * must support upload for the UploadingEmojiResource implementation of UploadingEmojiProvider).
+   */
+  allowUpload?: boolean;
+  /**
+   * Logged user in the Product.
+   */
+  currentUser?: User;
 }
 
-// @public (undocumented)
-export interface EmojiResponse {
-  // (undocumented)
+export declare interface EmojiResponse {
   emojis: EmojiDescriptionWithVariations[];
-  // (undocumented)
   mediaApiToken?: MediaApiToken;
 }
 
-// @public (undocumented)
-export interface EmojiSearchResult {
-  // (undocumented)
+export declare interface EmojiSearchResult {
   emojis: EmojiDescription[];
-  // (undocumented)
   query?: string;
 }
 
-// @public (undocumented)
-export interface EmojiServiceDescription {
-  // (undocumented)
-  altRepresentations?: AltRepresentations;
-  // (undocumented)
-  ascii?: string[];
-  // (undocumented)
-  category: string;
-  // (undocumented)
-  createdDate?: string;
-  // (undocumented)
-  creatorUserId?: string;
-  // (undocumented)
-  fallback?: string;
-  // (undocumented)
+export declare interface EmojiServiceDescription {
   id: string;
-  // (undocumented)
-  name?: string;
-  // (undocumented)
-  order?: number;
-  // (undocumented)
-  representation: EmojiServiceRepresentation;
-  // (undocumented)
-  searchable: boolean;
-  // (undocumented)
   shortName: string;
-  // (undocumented)
+  name?: string;
+  order?: number;
+  fallback?: string;
+  ascii?: string[];
+  createdDate?: string;
+  creatorUserId?: string;
   type: string;
+  category: string;
+  representation: EmojiServiceRepresentation;
+  altRepresentations?: AltRepresentations;
+  searchable: boolean;
 }
 
-// @public (undocumented)
-export interface EmojiServiceDescriptionWithVariations
+export declare interface EmojiServiceDescriptionWithVariations
   extends EmojiServiceDescription {
-  // (undocumented)
   skinVariations?: EmojiServiceDescription[];
 }
 
-// @public (undocumented)
-export type EmojiServiceRepresentation =
+export declare type EmojiServiceRepresentation =
   | SpriteServiceRepresentation
   | ImageRepresentation;
 
-// @public
-export interface EmojiServiceResponse {
-  // (undocumented)
+/**
+ * The expected response from an Emoji service.
+ */
+export declare interface EmojiServiceResponse {
   emojis: EmojiServiceDescriptionWithVariations[];
-  // (undocumented)
   meta?: EmojiMeta;
 }
 
-// @public (undocumented)
-export const emojiSprite = 'emoji-common-emoji-sprite';
+export declare const emojiSprite = 'emoji-common-emoji-sprite';
 
-// @public (undocumented)
-export class EmojiTypeAhead extends LoadingEmojiComponent<Props_7, State> {
-  constructor(props: Props_7);
-  // (undocumented)
-  asyncLoadComponent(): void;
-  // (undocumented)
+export declare class EmojiTypeAhead extends LoadingEmojiComponent<
+  Props_7,
+  State
+> {
   static AsyncLoadedComponent?: ComponentClass<Props_8>;
-  // (undocumented)
+  state: {
+    asyncLoadedComponent: React_2.ComponentClass<Props_8, any> | undefined;
+  };
+  constructor(props: Props_7);
+  selectNext: () => void;
+  selectPrevious: () => void;
   chooseCurrentSelection: () => void;
-  // (undocumented)
   count: () => number;
-  // (undocumented)
+  asyncLoadComponent(): void;
   renderLoaded(
     loadedEmojiProvider: EmojiProvider,
     EmojiTypeAheadComponent: ComponentClass<Props_8>,
   ): JSX.Element | null;
-  // (undocumented)
-  selectNext: () => void;
-  // (undocumented)
-  selectPrevious: () => void;
-  // (undocumented)
-  state: {
-    asyncLoadedComponent: React_2.ComponentClass<Props_8, any> | undefined;
-  };
 }
 
-// @public (undocumented)
-export class EmojiTypeAheadItem extends PureComponent<Props_11, {}> {
-  // (undocumented)
-  onEmojiMenuItemMouseMove: React_2.MouseEventHandler<HTMLDivElement>;
-  // (undocumented)
+declare interface EmojiTypeAheadBaseProps {
+  onSelection?: OnEmojiEvent;
+  query?: string;
+  listLimit?: number;
+  onOpen?: OnLifecycle;
+  onClose?: OnLifecycle;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}
+
+export declare class EmojiTypeAheadItem extends PureComponent<Props_11, {}> {
   onEmojiSelected: React_2.MouseEventHandler<HTMLDivElement>;
-  // (undocumented)
+  onEmojiMenuItemMouseMove: React_2.MouseEventHandler<HTMLDivElement>;
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface EmojiUpload {
-  // (undocumented)
-  dataURL: string;
-  // (undocumented)
-  filename: string;
-  // (undocumented)
-  height: number;
-  // (undocumented)
+export declare interface EmojiUpload {
   name: string;
-  // (undocumented)
   shortName: string;
-  // (undocumented)
+  filename: string;
+  dataURL: string;
   width: number;
+  height: number;
 }
 
-// @public (undocumented)
-export type EmojiUploader = EmojiUploaderInternal;
+export declare type EmojiUploader = EmojiUploaderInternal;
 
-// @public (undocumented)
-export const EmojiUploader: React_2.ForwardRefExoticComponent<
+export declare const EmojiUploader: React_2.ForwardRefExoticComponent<
   Omit<Props_5, keyof WithAnalyticsEventsProps> & React_2.RefAttributes<any>
 >;
 
-// @public
-export interface EmojiVariationDescription extends EmojiDescription {
+declare class EmojiUploaderInternal extends LoadingEmojiComponent<
+  Props_5,
+  State
+> {
+  static AsyncLoadedComponent?: ComponentClass<Props_6>;
+  state: {
+    asyncLoadedComponent: React_2.ComponentClass<Props_6, any> | undefined;
+  };
+  constructor(props: Props_5);
+  asyncLoadComponent(): void;
+  renderLoaded(
+    loadedEmojiProvider: EmojiProvider,
+    EmojiUploadComponent: ComponentClass<Props_6>,
+  ): JSX.Element;
+}
+
+/**
+ * Describes an emoji which is a variant of some base emoji. This is used when you want to promote the
+ * skinVariations in an EmojiDescriptionWithVariations to represent them along side their base representations.
+ */
+export declare interface EmojiVariationDescription extends EmojiDescription {
+  /** The id of the 'non-variant version of the emoji */
   baseId: string;
 }
 
-// @public (undocumented)
-export interface ImageRepresentation extends EmojiImageRepresentation {
-  // (undocumented)
+export declare interface ImageRepresentation extends EmojiImageRepresentation {
   imagePath: string;
 }
 
-// @public (undocumented)
-export interface MediaApiRepresentation extends EmojiImageRepresentation {
-  // (undocumented)
+declare interface LastQuery {
+  query?: string;
+  options?: SearchOptions;
+}
+
+/**
+ * A base class for components that don't want to start rendering
+ * until the EmojiProvider is resolved.
+ * Notes: super.componentDidMount and super.componentWillUnmount will need to be
+ * called explicitly if they are overridden on the child class.
+ */
+declare abstract class LoadingEmojiComponent<
+  P extends Props_4,
+  S extends State
+> extends Component<P, S> {
+  private isUnmounted;
+  constructor(props: P, state: S);
+  componentDidMount(): void;
+  UNSAFE_componentWillReceiveProps(nextProps: Readonly<P>): void;
+  componentWillUnmount(): void;
+  private loadEmojiProvider;
+  private loaded;
+  abstract asyncLoadComponent(): void;
+  protected setAsyncState(asyncLoadedComponent: ComponentClass<any>): void;
+  renderLoading(): JSX.Element | null;
+  abstract renderLoaded(
+    loadedEmojiProvider: EmojiProvider,
+    asyncLoadedComponent: ComponentClass<any>,
+  ): JSX.Element | null;
+  render(): JSX.Element | null;
+}
+
+export declare interface MediaApiRepresentation
+  extends EmojiImageRepresentation {
   mediaPath: string;
 }
 
-// @public
-export interface MediaApiToken {
-  // (undocumented)
-  clientId: string;
-  // (undocumented)
-  collectionName: string;
-  // (undocumented)
-  expiresAt: number;
-  // (undocumented)
-  jwt: string;
-  // (undocumented)
+/**
+ * An access token for emoji stored in the MediaApi
+ * (indicated by urls beginning with the url of the token.)
+ */
+export declare interface MediaApiToken {
   url: string;
+  clientId: string;
+  jwt: string;
+  collectionName: string;
+  expiresAt: number;
 }
 
-// @public (undocumented)
-export type Message = React.ReactNode;
+export declare type Message = React.ReactNode;
 
-// @public (undocumented)
-export interface OnCategory {
-  // (undocumented)
+declare const messages: {
+  deleteEmojiTitle: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  deleteEmojiDescription: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  deleteEmojiLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  addCustomEmojiLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiPlaceholder: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiNameAriaLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiChooseFileTitle: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiChooseFileScreenReaderDescription: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiSelectSkinToneButtonAriaLabelText: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiImageRequirements: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiPreviewTitle: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiPreview: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  addEmojiLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  retryLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  cancelLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  searchPlaceholder: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  searchLabel: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  categoriesSearchResults: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  frequentCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  peopleCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  natureCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  foodsCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  activityCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  placesCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  objectsCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  symbolsCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  flagsCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  productivityCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  userUploadsCustomCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  allUploadsCustomCategory: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  deleteEmojiFailed: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiInvalidImage: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiUploadFailed: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+  emojiImageTooBig: {
+    id: string;
+    defaultMessage: string;
+    description: string;
+  };
+};
+
+export declare interface OnCategory {
   (categoryId: CategoryId | null): void;
 }
 
-// @public (undocumented)
-export interface OnEmojiEvent<T = any> {
-  // (undocumented)
+export declare interface OnEmojiEvent<T = any> {
   (
     emojiId: EmojiId,
     emoji: OptionalEmojiDescription,
@@ -419,31 +883,153 @@ export interface OnEmojiEvent<T = any> {
   ): void;
 }
 
-// @public (undocumented)
-export interface OnToneSelected {
-  // (undocumented)
-  (variation: number): void;
-}
-
-// @public (undocumented)
-export interface OnToneSelectorCancelled {
-  // (undocumented)
+declare interface OnLifecycle {
   (): void;
 }
 
-// @public (undocumented)
-export type OptionalEmojiDescription = EmojiDescription | undefined;
+export declare interface OnToneSelected {
+  (variation: number): void;
+}
 
-// @public (undocumented)
-export type OptionalEmojiDescriptionWithVariations =
+export declare interface OnToneSelectorCancelled {
+  (): void;
+}
+
+export declare type OptionalEmojiDescription = EmojiDescription | undefined;
+
+export declare type OptionalEmojiDescriptionWithVariations =
   | EmojiDescriptionWithVariations
   | undefined;
 
-// @public (undocumented)
-export type OptionalUser = User | undefined;
+export declare type OptionalUser = User | undefined;
 
-// @public (undocumented)
-export const recordSelectionFailedSli: (
+declare interface PickerRefHandler {
+  (ref: any): any;
+}
+
+declare interface Props {
+  /**
+   * The emoji to render
+   */
+  emoji: EmojiDescription;
+  /**
+   * Show the emoji as selected
+   */
+  selected?: boolean;
+  /**
+   * Automatically show the emoji as selected based on mouse hover.
+   *
+   * CSS, fast, does not require a re-render, but selected state not
+   * externally controlled via props.
+   */
+  selectOnHover?: boolean;
+  /**
+   * Called when an emoji is selected
+   */
+  onSelected?: OnEmojiEvent;
+  /**
+   * Called when the mouse moved over the emoji.
+   */
+  onMouseMove?: OnEmojiEvent;
+  /**
+   * Called when an emoji is deleted
+   */
+  onDelete?: OnEmojiEvent;
+  /**
+   * Callback for if an emoji image fails to load.
+   */
+  onLoadError?: OnEmojiEvent<HTMLImageElement>;
+  /**
+   * Additional css classes, if required.
+   */
+  className?: string;
+  /**
+   * Show a tooltip on mouse hover.
+   */
+  showTooltip?: boolean;
+  /**
+   * Show a delete button on mouse hover
+   * Used only for custom emoji
+   */
+  showDelete?: boolean;
+  /**
+   * Fits emoji to height in pixels, keeping aspect ratio
+   */
+  fitToHeight?: number;
+  shouldBeInteractive?: boolean;
+}
+
+declare interface Props_10 extends BaseResourcedEmojiProps {
+  emojiProvider: EmojiResource;
+}
+
+declare interface Props_11 {
+  onMouseMove: OnEmojiEvent;
+  onSelection: OnEmojiEvent;
+  selected: boolean;
+  emoji: EmojiDescription;
+}
+
+declare interface Props_2 {
+  shortName: string;
+  size?: number;
+  showTooltip?: boolean;
+  representation?: EmojiImageRepresentation;
+}
+
+declare interface Props_3 extends Props_4 {
+  onSelection?: OnEmojiEvent;
+  onPickerRef?: PickerRefHandler;
+  hideToneSelector?: boolean;
+}
+
+declare interface Props_4 {
+  emojiProvider: Promise<EmojiProvider>;
+}
+
+declare interface Props_5 extends Props_4 {
+  onUploaderRef?: UploadRefHandler;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}
+
+declare interface Props_6 {
+  emojiProvider: EmojiProvider;
+  onUploaderRef?: UploadRefHandler;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}
+
+declare interface Props_7 extends EmojiTypeAheadBaseProps, Props_4 {
+  /** CSS selector, or target HTML element */
+  target?: string | HTMLElement;
+  position?: RelativePosition;
+  zIndex?: number | string;
+  offsetX?: number;
+  offsetY?: number;
+}
+
+declare interface Props_8 extends EmojiTypeAheadBaseProps {
+  emojiProvider: EmojiProvider;
+}
+
+declare interface Props_9 extends BaseResourcedEmojiProps, Props_4 {}
+
+/**
+ * The options used to configure a newly constructed queue.
+ */
+declare interface QueueOptions {
+  /**
+   * The maximum number of duplicates allowed per item in the queue.
+   */
+  maxDuplicates: number;
+  /**
+   * The minimum number of unique items the queue should try to contain.
+   * This number constrains the absolute size of the queue. It needs to be
+   * large enough to contain maxDuplicates * minUniqueItems.
+   */
+  minUniqueItems: number;
+}
+
+export declare const recordSelectionFailedSli: (
   options?:
     | {
         createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
@@ -451,8 +1037,7 @@ export const recordSelectionFailedSli: (
     | undefined,
 ) => (err: Error) => Promise<never>;
 
-// @public (undocumented)
-export const recordSelectionSucceededSli: (
+export declare const recordSelectionSucceededSli: (
   options?:
     | {
         createAnalyticsEvent?: CreateUIAnalyticsEvent | undefined;
@@ -460,145 +1045,175 @@ export const recordSelectionSucceededSli: (
     | undefined,
 ) => () => void;
 
-// @public (undocumented)
-export type RelativePosition = 'above' | 'below' | 'auto';
+export declare type RelativePosition = 'above' | 'below' | 'auto';
 
-// @public (undocumented)
-export class ResourcedEmoji extends LoadingEmojiComponent<Props_9, State> {
-  constructor(props: Props_9);
-  // (undocumented)
-  asyncLoadComponent(): void;
-  // (undocumented)
+declare interface ResolveReject<T> {
+  resolve(result: T): void;
+  reject(reason?: any): void;
+}
+
+export declare class ResourcedEmoji extends LoadingEmojiComponent<
+  Props_9,
+  State
+> {
   static AsyncLoadedComponent: ComponentClass<Props_10>;
-  // (undocumented)
+  state: {
+    asyncLoadedComponent: React_2.ComponentClass<Props_10, any>;
+  };
+  constructor(props: Props_9);
   componentWillUnmount(): void;
-  // (undocumented)
+  asyncLoadComponent(): void;
+  renderLoading(): JSX.Element;
   renderLoaded(
     loadedEmojiProvider: EmojiResource,
     ResourcedEmojiComponent: ComponentClass<Props_10>,
   ): JSX.Element;
-  // (undocumented)
-  renderLoading(): JSX.Element;
-  // (undocumented)
-  state: {
-    asyncLoadedComponent: React_2.ComponentClass<Props_10, any>;
-  };
 }
 
-// @public (undocumented)
-export interface SearchOptions {
-  // (undocumented)
-  limit?: number;
-  // (undocumented)
+declare interface Retry<T> {
+  (): Promise<T> | T;
+}
+
+export declare interface SearchOptions {
   skinTone?: number;
-  // (undocumented)
+  limit?: number;
   sort?: SearchSort;
 }
 
-// @public (undocumented)
-export enum SearchSort {
-  // (undocumented)
-  Default = 1,
-  // (undocumented)
+export declare enum SearchSort {
   None = 0,
-  // (undocumented)
+  Default = 1,
   UsageFrequency = 2,
 }
 
-// @public (undocumented)
-export const selected = 'emoji-common-selected';
+export declare const selected = 'emoji-common-selected';
 
-// @public (undocumented)
-export const selectOnHover = 'emoji-common-select-on-hover';
+export declare const selectOnHover = 'emoji-common-select-on-hover';
 
-// @public (undocumented)
-export interface SpriteImageRepresentation extends EmojiImageRepresentation {
-  // (undocumented)
+declare class SiteEmojiResource {
+  private siteServiceConfig;
+  private mediaApiToken;
+  private mediaEmojiCache;
+  protected tokenManager: TokenManager;
+  constructor(siteServiceConfig: ServiceConfig, mediaApiToken: MediaApiToken);
+  /**
+   * Will generate an emoji media path that is inclusive of client and token within the query parameter
+   */
+  generateTokenisedMediaURL(emoji: EmojiDescription): Promise<string>;
+  /**
+   * Will load media emoji, returning a new EmojiDescription if, for example,
+   * the URL has changed.
+   */
+  loadMediaEmoji(
+    emoji: EmojiDescription,
+    useAlt?: boolean,
+  ): OptionalEmojiDescription | Promise<OptionalEmojiDescription>;
+  optimisticRendering(
+    emoji: EmojiDescription,
+    useAlt?: boolean,
+  ): boolean | Promise<boolean>;
+  uploadEmoji(
+    upload: EmojiUpload,
+    progressCallback?: EmojiProgessCallback,
+  ): Promise<EmojiDescription>;
+  /**
+   * Check if the MediaEmojiResource has been able to initialise an uploadToken. Retrieving an upload token
+   * is asynchronous so the Promise will need to resolve before the state is known. If the token retrieval
+   * completes with failure then the Promise will resolve to false.
+   */
+  hasUploadToken(): Promise<boolean>;
+  prepareForUpload(): void;
+  findEmoji(emojiId: EmojiId): Promise<OptionalEmojiDescription>;
+  /**
+   * Calls to site-scoped EmojiResource to delete emoji
+   * @param emoji media emoji to delete
+   * @returns Promise.resolve() if success and Promise.reject() for failure
+   */
+  deleteEmoji(emoji: EmojiDescription): Promise<boolean>;
+  private postToEmojiService;
+}
+
+export declare interface SpriteImageRepresentation
+  extends EmojiImageRepresentation {
   x: number;
-  // (undocumented)
-  xIndex: number;
-  // (undocumented)
   y: number;
-  // (undocumented)
+  xIndex: number;
   yIndex: number;
 }
 
-// @public
-export interface SpriteRepresentation extends SpriteImageRepresentation {
-  // (undocumented)
+/**
+ * Sprite representation exposed from the EmojiResource.
+ */
+export declare interface SpriteRepresentation
+  extends SpriteImageRepresentation {
   sprite: SpriteSheet;
 }
 
-// @public
-export interface SpriteServiceRepresentation extends SpriteImageRepresentation {
+/**
+ * Representation returned from a sprite service.
+ */
+export declare interface SpriteServiceRepresentation
+  extends SpriteImageRepresentation {
+  /** Should match a index in a SpriteSheets */
   spriteRef: string;
 }
 
-// @public (undocumented)
-export interface SpriteSheet {
-  // (undocumented)
-  column: number;
-  // (undocumented)
-  height: number;
-  // (undocumented)
-  row: number;
-  // (undocumented)
+export declare interface SpriteSheet {
   url: string;
-  // (undocumented)
+  row: number;
+  column: number;
+  height: number;
   width: number;
 }
 
-// @public (undocumented)
-export interface SpriteSheets {
-  // (undocumented)
+export declare interface SpriteSheets {
   [index: string]: SpriteSheet;
 }
 
-// @public (undocumented)
-export interface Styles {
-  // (undocumented)
+declare interface State {
+  loadedEmojiProvider?: EmojiProvider;
+  asyncLoadedComponent?: ComponentClass<any>;
+}
+
+export declare interface Styles {
   [index: string]: any;
 }
 
-// @public (undocumented)
-export const toEmojiId: (emoji: EmojiDescription) => EmojiId;
+export declare const toEmojiId: (emoji: EmojiDescription) => EmojiId;
 
-// @public (undocumented)
-export type ToneSelection = number | undefined;
+declare class TokenManager {
+  private siteServiceConfig;
+  private tokens;
+  constructor(siteServiceConfig: ServiceConfig);
+  isValidToken(mediaApiToken: MediaApiToken): boolean;
+  addToken(type: TokenType, mediaApiToken: MediaApiToken): void;
+  getToken(type: TokenType, forceRefresh?: boolean): Promise<MediaApiToken>;
+}
 
-// @public (undocumented)
-export const toOptionalEmojiId: (
+declare type TokenType = 'read' | 'upload';
+
+export declare type ToneSelection = number | undefined;
+
+export declare const toOptionalEmojiId: (
   emoji: OptionalEmojiDescription,
 ) => EmojiId | undefined;
 
-// @public (undocumented)
-export enum UfoComponentName {
-  // (undocumented)
+export declare enum UfoComponentName {
   EMOJI = 'emoji',
-  // (undocumented)
   EMOJI_PICKER = 'emoji-picker',
-  // (undocumented)
   EMOJI_PROVIDER = 'emoji-provider',
 }
 
-// @public (undocumented)
-export enum UfoExperienceName {
-  // (undocumented)
-  EMOJI_PICKER_OPENED = 'emoji-picker-opened',
-  // (undocumented)
+export declare enum UfoExperienceName {
   EMOJI_RENDERED = 'emoji-rendered',
-  // (undocumented)
   EMOJI_RESOURCE_FETCHED = 'emoji-resource-fetched',
-  // (undocumented)
-  EMOJI_SEARCHED = 'emoji-searched',
-  // (undocumented)
+  EMOJI_PICKER_OPENED = 'emoji-picker-opened',
   EMOJI_SELECTION_RECORDED = 'emoji-selection-recorded',
-  // (undocumented)
   EMOJI_UPLOADED = 'emoji-uploaded',
+  EMOJI_SEARCHED = 'emoji-searched',
 }
 
-// @public (undocumented)
-export const ufoExperiences: {
+export declare const ufoExperiences: {
   'emoji-rendered': ConcurrentExperience;
   'emoji-resource-fetched': ConcurrentExperience;
   'emoji-picker-opened': UFOExperience;
@@ -607,28 +1222,66 @@ export const ufoExperiences: {
   'emoji-searched': UFOExperience;
 };
 
-// @public (undocumented)
-export interface UploadingEmojiProvider extends EmojiProvider {
+export declare interface UploadingEmojiProvider extends EmojiProvider {
+  /**
+   * Returns true if upload is supported.
+   *
+   * Waits until resources have loaded before returning.
+   */
   isUploadSupported(): Promise<boolean>;
-  prepareForUpload(): Promise<void>;
+  /**
+   * Uploads an emoji to the configured repository.
+   *
+   * Will return a promise with the EmojiDescription once completed.
+   *
+   * The last search will be re-run to ensure the new emoji is considered in the search.
+   */
   uploadCustomEmoji(upload: EmojiUpload): Promise<EmojiDescription>;
+  /**
+   * Allows the preloading of data (e.g. authentication tokens) to speed the uploading of emoji.
+   */
+  prepareForUpload(): Promise<void>;
 }
 
-// @public
-export class UsageFrequencyTracker {
-  constructor(useStorageIfPossible?: boolean);
-  clear(): void;
-  getOrder(): Array<string>;
-  // (undocumented)
+declare interface UploadRefHandler {
+  (ref: HTMLDivElement): void;
+}
+
+/**
+ * Keeps track of the last 150 emoji usages, although limiting the maximum count for a single emoji to 25 to
+ * ensure we don't end up with only a single emoji being recorded. Usage is persisted to local storage for
+ * consistency between 'sessions'.
+ *
+ * Skin tone variations for an emoji will be 'collapsed' so they are tracked as their base emoji. Gender
+ * variations are not collapsed in this way and will be tracked per gender. This decision reflects the UI of
+ * the EmojiPicker component.
+ */
+export declare class UsageFrequencyTracker {
+  private static readonly queueOptions;
   protected queue: DuplicateLimitedQueue<string>;
+  private gateway;
+  constructor(useStorageIfPossible?: boolean);
+  /**
+   * Record the fact that the supplied emoji was used. You should note that usage is updated asynchronously so you can not
+   * count on getOrder() reflecting this usage immediately.
+   *
+   * @param emoji the emoji who's usage is to be recorded. If the emoji has no id then no usage will be recorded
+   */
   recordUsage(emoji: EmojiDescription): void;
+  /**
+   * Returns an array of emoji id (without skin tone variations) sorted by most used to least used. If there
+   * are no usages then an empty array will be returned.
+   */
+  getOrder(): Array<string>;
+  /**
+   * Exposed for testing only. Clear any recorded usage.
+   */
+  clear(): void;
 }
 
-// @public (undocumented)
-export interface User {
-  // (undocumented)
+export declare interface User {
   id: string;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

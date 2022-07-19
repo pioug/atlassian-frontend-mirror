@@ -16,8 +16,17 @@ import { SyntheticEvent } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const Radio: MemoExoticComponent<ForwardRefExoticComponent<
+declare type OptionPropType = {
+  isDisabled?: boolean;
+  label?: ReactNode;
+  name?: string;
+  value?: RadioValue;
+  testId?: string;
+};
+
+declare type OptionsPropType = Array<OptionPropType>;
+
+export declare const Radio: MemoExoticComponent<ForwardRefExoticComponent<
   Pick<
     Omit<
       Omit<
@@ -359,8 +368,37 @@ export const Radio: MemoExoticComponent<ForwardRefExoticComponent<
     RefAttributes<HTMLInputElement>
 >>;
 
-// @public (undocumented)
-export function RadioGroup(props: RadioGroupProps): JSX.Element;
+export declare function RadioGroup(props: RadioGroupProps): JSX.Element;
 
-// (No @packageDocumentation comment for this package)
+declare interface RadioGroupProps {
+  /** Once set, controls the selected value on the `RadioGroup` */
+  value?: RadioValue | null;
+  /** Sets the initial selected value on the `RadioGroup` */
+  defaultValue?: RadioValue | null;
+  /** Sets the disabled state of all `Radio` elements in the group. Overrides the `isDisabled` setting of all child `Radio` items. */
+  isDisabled?: boolean;
+  /** Sets the required state of all `Radio` elements in the group */
+  isRequired?: boolean;
+  /** Sets the invalid state of all `Radio` elements in the group */
+  isInvalid?: boolean;
+  /** An array of objects, each object is mapped onto a `Radio` element within the group. Name must be unique to the group. */
+  options: OptionsPropType;
+  /** Function that gets fired after each invalid event */
+  onInvalid?: (event: SyntheticEvent<any>) => void;
+  /** Function that gets after each change event */
+  onChange?: (
+    e: React_2.ChangeEvent<HTMLInputElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
+  /** Sets the `name` prop on each of the `Radio` elements in the group */
+  name?: string;
+  /** Additional information to be included in the `context` of analytics events that come from radio */
+  analyticsContext?: Record<string, any>;
+  /** The id of the element that links to this radiogroup. */
+  'aria-labelledby'?: string;
+}
+
+declare type RadioValue = string;
+
+export {};
 ```

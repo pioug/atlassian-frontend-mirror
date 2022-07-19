@@ -5,13 +5,16 @@
 ```ts
 import { Node as Node_2 } from 'prosemirror-model';
 
-// @public (undocumented)
-export class SlackTransformer implements Transformer_2<string> {
-  // (undocumented)
+export declare class SlackTransformer implements Transformer_2<string> {
+  private serializer;
   encode(node: Node_2): string;
-  // (undocumented)
   parse(_slackMarkdown: string): Node_2;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface Transformer_2<T> {
+  encode(node: Node_2): T;
+  parse(content: T): Node_2;
+}
+
+export {};
 ```

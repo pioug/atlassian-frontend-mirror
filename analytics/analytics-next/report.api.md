@@ -12,97 +12,122 @@ import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { RequiredKeys } from 'prop-types';
 
-// @public (undocumented)
-export let AnalyticsContext: AnalyticsContextFunction;
+export declare let AnalyticsContext: AnalyticsContextFunction;
 
-// @public (undocumented)
-export const AnalyticsErrorBoundary: React_2.ForwardRefExoticComponent<
+declare type AnalyticsContextFunction = (
+  props: {
+    /** Children! */
+    children: React.ReactNode;
+    /** Arbitrary data. Any events created below this component in the tree will
+     * have this added as an item in their context array. */
+    data: Object;
+  },
+  context?: AnalyticsReactContextInterface,
+) => JSX.Element;
+
+export declare const AnalyticsErrorBoundary: React_2.ForwardRefExoticComponent<
   Omit<AnalyticsErrorBoundaryProps, keyof WithAnalyticsEventsProps> &
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export interface AnalyticsErrorBoundaryProps extends WithAnalyticsEventsProps {
-  // (undocumented)
-  channel: string;
+declare type AnalyticsErrorBoundaryErrorInfo = {
+  componentStack: string;
+};
+
+export declare interface AnalyticsErrorBoundaryProps
+  extends WithAnalyticsEventsProps {
+  /** React component to be wrapped */
   children: ReactNode;
-  // (undocumented)
+  channel: string;
   data: {};
-  // (undocumented)
   ErrorComponent?: React_2.ComponentType;
-  // (undocumented)
   onError?: (error: Error, info?: AnalyticsErrorBoundaryErrorInfo) => void;
 }
 
-// @public (undocumented)
-export class AnalyticsEvent {
-  constructor(props: AnalyticsEventProps);
-  // (undocumented)
-  clone: () => AnalyticsEvent | null;
-  // (undocumented)
-  _isAnalyticsEvent: boolean;
-  // (undocumented)
+export declare class AnalyticsEvent {
   payload: AnalyticsEventPayload;
-  // (undocumented)
+  _isAnalyticsEvent: boolean;
+  constructor(props: AnalyticsEventProps);
+  clone: () => AnalyticsEvent | null;
   update(updater: AnalyticsEventUpdater): this;
 }
 
-// @public (undocumented)
-export type AnalyticsEventPayload = Record<string, any>;
+declare type AnalyticsEventCallback = (
+  payload: AnalyticsEventPayload,
+) => AnalyticsEventPayload;
 
-// @public (undocumented)
-export type AnalyticsEventProps = {
+declare type AnalyticsEventCreator = (
+  create: CreateUIAnalyticsEvent,
+  props: Record<string, any>,
+) => UIAnalyticsEvent | undefined;
+
+export declare type AnalyticsEventPayload = Record<string, any>;
+
+export declare type AnalyticsEventProps = {
   payload: AnalyticsEventPayload;
 };
 
-// @public (undocumented)
-export let AnalyticsListener: AnalyticsListenerFunction;
+declare type AnalyticsEventUpdater =
+  | AnalyticsEventPayload
+  | AnalyticsEventCallback;
+
+export declare let AnalyticsListener: AnalyticsListenerFunction;
+
+declare type AnalyticsListenerFunction = (
+  props: {
+    /** Children! */
+    children?: React.ReactNode;
+    /** The channel to listen for events on. */
+    channel?: string;
+    /** A function which will be called when an event is fired on this Listener's
+     * channel. It is passed the event and the channel as arguments. */
+    onEvent: (event: UIAnalyticsEvent, channel?: string) => void;
+  },
+  context?: AnalyticsReactContextInterface,
+) => JSX.Element;
 
 export { AnalyticsReactContext };
 
 export { AnalyticsReactContextInterface };
 
-// @public (undocumented)
-export function cleanProps(
+declare type ChannelIdentifier = string;
+
+export declare function cleanProps(
   props: Record<string, any>,
 ): {
   [x: string]: any;
 };
 
-// @public (undocumented)
-export const createAndFireEvent: (
+declare type Context = Record<string, any>[];
+
+export declare const createAndFireEvent: (
   channel?: string | undefined,
 ) => (
   payload: AnalyticsEventPayload,
 ) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent;
 
-// @public (undocumented)
-export type CreateUIAnalyticsEvent = (
+declare type CreateEventMap = Record<string, CreateEventMapValue>;
+
+declare type CreateEventMapValue =
+  | AnalyticsEventPayload
+  | AnalyticsEventCreator;
+
+export declare type CreateUIAnalyticsEvent = (
   payload: AnalyticsEventPayload,
 ) => UIAnalyticsEvent;
 
-// @public (undocumented)
-export const isAnalyticsEvent: (obj: any) => boolean;
+export declare const isAnalyticsEvent: (obj: any) => boolean;
 
-// @public (undocumented)
-export const isUIAnalyticsEvent: (obj: any) => boolean;
+export declare const isUIAnalyticsEvent: (obj: any) => boolean;
 
-// @public (undocumented)
-export class UIAnalyticsEvent extends AnalyticsEvent {
-  constructor(props: UIAnalyticsEventProps);
-  // (undocumented)
-  clone: () => UIAnalyticsEvent | null;
-  // (undocumented)
+export declare class UIAnalyticsEvent extends AnalyticsEvent {
   context: Context;
-  // (undocumented)
-  fire: (channel?: string | undefined) => void;
-  // (undocumented)
   handlers: UIAnalyticsEventHandler[];
-  // (undocumented)
   hasFired: boolean;
-  // (undocumented)
   _isUIAnalyticsEvent: boolean;
-  // (undocumented)
+  constructor(props: UIAnalyticsEventProps);
+  clone: () => UIAnalyticsEvent | null;
+  fire: (channel?: string | undefined) => void;
   update(
     updater:
       | Record<string, any>
@@ -110,38 +135,31 @@ export class UIAnalyticsEvent extends AnalyticsEvent {
   ): this;
 }
 
-// @public (undocumented)
-export type UIAnalyticsEventHandler = (
+export declare type UIAnalyticsEventHandler = (
   event: UIAnalyticsEvent,
   channel?: ChannelIdentifier,
 ) => void;
 
-// @public (undocumented)
-export type UIAnalyticsEventProps = AnalyticsEventProps & {
+export declare type UIAnalyticsEventProps = AnalyticsEventProps & {
   context?: Context;
   handlers?: UIAnalyticsEventHandler[];
 };
 
-// @public (undocumented)
-export function useAnalyticsEvents(): UseAnalyticsEventsHook;
+export declare function useAnalyticsEvents(): UseAnalyticsEventsHook;
 
-// @public (undocumented)
-export type UseAnalyticsEventsHook = {
+export declare type UseAnalyticsEventsHook = {
   createAnalyticsEvent: CreateUIAnalyticsEvent;
 };
 
-// @public (undocumented)
-export const useCallbackWithAnalytics: UseCallbackWithAnalyticsHook;
+export declare const useCallbackWithAnalytics: UseCallbackWithAnalyticsHook;
 
-// @public (undocumented)
-export type UseCallbackWithAnalyticsHook = (
+export declare type UseCallbackWithAnalyticsHook = (
   method: (...args: any[]) => void,
   payload: Record<string, any> | ((...args: any[]) => void),
   channel?: string,
 ) => (...args: any[]) => void;
 
-// @public (undocumented)
-export function usePlatformLeafEventHandler<T>({
+export declare function usePlatformLeafEventHandler<T>({
   fn,
   action,
   componentName,
@@ -151,11 +169,9 @@ export function usePlatformLeafEventHandler<T>({
   analyticsData,
 }: UsePlatformLeafEventHandlerHookArgs<T>): (value: T) => void;
 
-// @public (undocumented)
-export type UsePlatformLeafEventHandlerHook<T> = (value: T) => void;
+export declare type UsePlatformLeafEventHandlerHook<T> = (value: T) => void;
 
-// @public (undocumented)
-export type UsePlatformLeafEventHandlerHookArgs<T> = {
+export declare type UsePlatformLeafEventHandlerHookArgs<T> = {
   fn: (value: T, analyticsEvent: UIAnalyticsEvent) => void;
   action: string;
   componentName: string;
@@ -165,8 +181,7 @@ export type UsePlatformLeafEventHandlerHookArgs<T> = {
   analyticsData?: Record<string, any>;
 };
 
-// @public (undocumented)
-export function usePlatformLeafSyntheticEventHandler({
+export declare function usePlatformLeafSyntheticEventHandler({
   fn,
   action,
   componentName,
@@ -175,11 +190,9 @@ export function usePlatformLeafSyntheticEventHandler({
   analyticsData,
 }: UsePlatformLeafSyntheticEventHandlerHookArgs): () => void;
 
-// @public (undocumented)
-export type UsePlatformLeafSyntheticEventHandlerHook = () => void;
+export declare type UsePlatformLeafSyntheticEventHandlerHook = () => void;
 
-// @public (undocumented)
-export type UsePlatformLeafSyntheticEventHandlerHookArgs = {
+export declare type UsePlatformLeafSyntheticEventHandlerHookArgs = {
   fn: (analyticsEvent: UIAnalyticsEvent) => void;
   action: string;
   componentName: string;
@@ -188,8 +201,7 @@ export type UsePlatformLeafSyntheticEventHandlerHookArgs = {
   analyticsData?: Record<string, any>;
 };
 
-// @public (undocumented)
-export const withAnalyticsContext: (
+export declare const withAnalyticsContext: (
   defaultData?: any,
 ) => <Props, Component>(
   WrappedComponent: React_2.JSXElementConstructor<Props> & Component,
@@ -4101,8 +4113,7 @@ export const withAnalyticsContext: (
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export const withAnalyticsEvents: (
+export declare const withAnalyticsEvents: (
   createEventMap?: CreateEventMap,
 ) => <Props extends WithAnalyticsEventsProps, Component>(
   WrappedComponent: React_2.JSXElementConstructor<Props> & Component,
@@ -7544,18 +7555,18 @@ export const withAnalyticsEvents: (
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export interface WithAnalyticsEventsProps {
+export declare interface WithAnalyticsEventsProps {
+  /**
+   * You should not be accessing this prop under any circumstances.
+   * It is provided by `@atlaskit/analytics-next` and integrated in the component
+   */
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  // (undocumented)
   ref?: React_2.Ref<any>;
 }
 
-// @public (undocumented)
-export interface WithContextProps {
-  // (undocumented)
+export declare interface WithContextProps {
   analyticsContext?: Record<string, any>;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

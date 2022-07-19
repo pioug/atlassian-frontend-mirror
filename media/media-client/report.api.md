@@ -18,124 +18,114 @@ import { MediaType } from '@atlaskit/media-common';
 import { default as React_2 } from 'react';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-// @public (undocumented)
-export type AbortFunction = () => void;
+export declare type AbortFunction = () => void;
 
-// @public (undocumented)
-export const addFileAttrsToUrl: (
+export declare const addFileAttrsToUrl: (
   url: string,
   fileAttrs: MediaBlobUrlAttrs,
 ) => string;
 
-// @public (undocumented)
-export type AppendChunksToUploadRequestBody = {
+export declare type AppendChunksToUploadRequestBody = {
   readonly chunks: string[];
   readonly hash?: string;
   readonly offset?: number;
 };
 
-// @public (undocumented)
-export type Artifacts = {
+export declare type Artifacts = {
   [name: string]: MediaArtifact;
 };
 
-// @public (undocumented)
-export const checkWebpSupport: () => Promise<boolean>;
+/**
+ * Base class for media errors
+ */
+declare abstract class BaseMediaClientError<
+    Attributes extends MediaClientErrorAttributes
+  >
+  extends Error
+  implements MediaClientError<Attributes> {
+  readonly message: string;
+  constructor(message: string);
+  abstract get attributes(): Attributes;
+}
 
-// @public (undocumented)
-export type ClientOptions = {
+export declare const checkWebpSupport: () => Promise<boolean>;
+
+export declare type ClientOptions = {
   readonly retryOptions?: Partial<RetryOptions>;
   readonly clientTimeout?: number;
 };
 
-// @public (undocumented)
-export class CollectionFetcher {
+export declare class CollectionFetcher {
+  readonly mediaStore: MediaStore;
   constructor(mediaStore: MediaStore);
-  // (undocumented)
+  private createFileStateObserver;
+  private populateCache;
+  private removeFromCache;
   getItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
   ): MediaSubscribable<MediaCollectionItem[]>;
-  // (undocumented)
-  loadNextPage(
-    collectionName: string,
-    params?: MediaStoreGetCollectionItemsParams,
-  ): Promise<void>;
-  // (undocumented)
-  readonly mediaStore: MediaStore;
-  // (undocumented)
   removeFile(
     id: string,
     collectionName: string,
     occurrenceKey?: string,
   ): Promise<void>;
+  loadNextPage(
+    collectionName: string,
+    params?: MediaStoreGetCollectionItemsParams,
+  ): Promise<void>;
 }
 
-// @public (undocumented)
-export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
-  // (undocumented)
+declare type CompletionObserver<
+  T extends MediaSubscribableItem
+> = PartialObserver<T> & Required<Pick<PartialObserver<T>, 'complete'>>;
+
+export declare interface CopyDestination
+  extends MediaStoreCopyFileWithTokenParams {
   authProvider: AuthProvider;
-  // (undocumented)
   mediaStore?: MediaStore;
 }
 
-// @public (undocumented)
-export interface CopyFileOptions {
-  // (undocumented)
-  mimeType?: string;
-  // (undocumented)
+export declare interface CopyFileOptions {
   preview?: FilePreview | Promise<FilePreview>;
+  mimeType?: string;
 }
 
-// @public (undocumented)
-export interface CopySourceFile {
-  // (undocumented)
-  authProvider: AuthProvider;
-  // (undocumented)
-  collection?: string;
-  // (undocumented)
+export declare interface CopySourceFile {
   id: string;
+  collection?: string;
+  authProvider: AuthProvider;
 }
 
-// @public (undocumented)
-export interface CreatedTouchedFile {
-  // (undocumented)
+export declare interface CreatedTouchedFile {
   fileId: string;
-  // (undocumented)
   uploadId: string;
 }
 
-// @public (undocumented)
-export function createMediaSubject<T extends MediaSubscribableItem>(
+export declare function createMediaSubject<T extends MediaSubscribableItem>(
   initialState?: T | Error,
 ): ReplaySubject<T>;
 
-// @public (undocumented)
-export function createMediaSubscribable<T extends MediaSubscribableItem>(
-  mediaSubscribableItem?: T | Error,
-): MediaSubscribable<T>;
+export declare function createMediaSubscribable<
+  T extends MediaSubscribableItem
+>(mediaSubscribableItem?: T | Error): MediaSubscribable<T>;
 
-// @public (undocumented)
-export function createUrl(
+export declare function createUrl(
   url: string,
   { params, auth }: CreateUrlOptions,
 ): string;
 
-// @public (undocumented)
-export type CreateUrlOptions = {
+export declare type CreateUrlOptions = {
   readonly params?: RequestParams;
   readonly auth?: Auth;
 };
 
-// @public (undocumented)
-export type Dimensions = {
+export declare type Dimensions = {
   width: number;
   height: number;
 };
 
-// @public (undocumented)
-export interface EdgeData {
-  // (undocumented)
+export declare interface EdgeData {
   data: {
     clientId: string;
     token: string;
@@ -145,119 +135,106 @@ export interface EdgeData {
   };
 }
 
-// @public (undocumented)
-export interface EmptyFile {
-  // (undocumented)
-  readonly createdAt: number;
-  // (undocumented)
+export declare interface EmptyFile {
   readonly id: string;
+  readonly createdAt: number;
 }
 
-// @public (undocumented)
-export interface ErrorFileState {
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  message?: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
+export declare interface ErrorFileState {
   status: 'error';
+  id: string;
+  occurrenceKey?: string;
+  message?: string;
 }
 
-// @public (undocumented)
-export type EventPayloadListener<
+declare type ErrorObserver<T extends MediaSubscribableItem> = PartialObserver<
+  T
+> &
+  Required<Pick<PartialObserver<T>, 'error'>>;
+
+export declare type EventPayloadListener<
   M extends EventPayloadMap<P>,
   E extends keyof M,
   P = any
 > = (payload: M[E]) => void;
 
-// @public (undocumented)
-export type Executor = () => Promise<void>;
+declare type EventPayloadMap<P> = {
+  readonly [event: string]: P;
+};
 
-// @public (undocumented)
-export interface ExternalImageIdentifier {
-  // (undocumented)
-  readonly dataURI: string;
-  // (undocumented)
+export declare type Executor = () => Promise<void>;
+
+export declare interface ExternalImageIdentifier {
   readonly mediaItemType: 'external-image';
-  // (undocumented)
+  readonly dataURI: string;
   readonly name?: string;
 }
 
-// @public (undocumented)
-export interface FileDetails {
-  // (undocumented)
-  artifacts?: Artifacts;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  creationDate?: number;
-  // (undocumented)
+declare type ExternalUploadPayload = {
+  uploadableFileUpfrontIds: UploadableFileUpfrontIds;
+  dimensions: Dimensions;
+};
+
+export declare interface FileDetails {
   id: string;
-  // (undocumented)
-  mediaType?: MediaType;
-  // (undocumented)
-  mimeType?: string;
-  // (undocumented)
   name?: string;
-  // (undocumented)
-  processingStatus?: FileProcessingStatus;
-  // (undocumented)
   size?: number;
+  mimeType?: string;
+  mediaType?: MediaType;
+  creationDate?: number;
+  processingStatus?: FileProcessingStatus;
+  artifacts?: Artifacts;
+  createdAt?: number;
 }
 
-// @public (undocumented)
-export interface FileFetcher {
-  // (undocumented)
-  copyFile(
-    source: CopySourceFile,
-    destination: CopyDestination,
-    options?: CopyFileOptions,
-  ): Promise<MediaFile>;
-  // (undocumented)
-  downloadBinary(
+export declare interface FileFetcher {
+  getFileState(
     id: string,
-    name?: string,
-    collectionName?: string,
-  ): Promise<void>;
-  // (undocumented)
+    options?: GetFileOptions,
+  ): MediaSubscribable<FileState>;
   getArtifactURL(
     artifacts: MediaFileArtifacts,
     artifactName: keyof MediaFileArtifacts,
     collectionName?: string,
   ): Promise<string>;
-  // (undocumented)
-  getCurrentState(id: string, options?: GetFileOptions): Promise<FileState>;
-  // (undocumented)
-  getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
-  // (undocumented)
-  getFileState(
-    id: string,
-    options?: GetFileOptions,
-  ): MediaSubscribable<FileState>;
-  // (undocumented)
   touchFiles(
     descriptors: TouchFileDescriptor[],
     collection?: string,
   ): Promise<TouchedFiles>;
-  // (undocumented)
   upload(
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
   ): MediaSubscribable<FileState>;
-  // (undocumented)
   uploadExternal(
     url: string,
     collection?: string,
   ): Promise<ExternalUploadPayload>;
+  downloadBinary(
+    id: string,
+    name?: string,
+    collectionName?: string,
+  ): Promise<void>;
+  getCurrentState(id: string, options?: GetFileOptions): Promise<FileState>;
+  copyFile(
+    source: CopySourceFile,
+    destination: CopyDestination,
+    options?: CopyFileOptions,
+  ): Promise<MediaFile>;
+  getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
 }
 
-// @public (undocumented)
-export class FileFetcherError extends BaseMediaClientError<
+export declare class FileFetcherError extends BaseMediaClientError<
   FileFetcherErrorAttributes
 > {
+  readonly reason: FileFetcherErrorReason;
+  readonly id: string;
+  readonly metadata?:
+    | {
+        readonly collectionName?: string | undefined;
+        readonly occurrenceKey?: string | undefined;
+      }
+    | undefined;
   constructor(
     reason: FileFetcherErrorReason,
     id: string,
@@ -268,28 +245,15 @@ export class FileFetcherError extends BaseMediaClientError<
         }
       | undefined,
   );
-  // (undocumented)
   get attributes(): {
     reason: FileFetcherErrorReason;
     id: string;
     collectionName: string | undefined;
     occurrenceKey: string | undefined;
   };
-  // (undocumented)
-  readonly id: string;
-  // (undocumented)
-  readonly metadata?:
-    | {
-        readonly collectionName?: string | undefined;
-        readonly occurrenceKey?: string | undefined;
-      }
-    | undefined;
-  // (undocumented)
-  readonly reason: FileFetcherErrorReason;
 }
 
-// @public (undocumented)
-export type FileFetcherErrorAttributes = {
+export declare type FileFetcherErrorAttributes = {
   readonly reason: FileFetcherErrorReason;
   readonly id: string;
   readonly metadata?: {
@@ -298,160 +262,128 @@ export type FileFetcherErrorAttributes = {
   };
 };
 
-// @public (undocumented)
-export type FileFetcherErrorReason =
+export declare type FileFetcherErrorReason =
   | 'invalidFileId'
   | 'emptyItems'
   | 'zeroVersionFile';
 
-// @public (undocumented)
-export class FileFetcherImpl implements FileFetcher {
+export declare class FileFetcherImpl implements FileFetcher {
+  private readonly mediaStore;
+  private readonly dataloader;
   constructor(mediaStore: MediaStore);
-  // (undocumented)
-  copyFile(
-    source: CopySourceFile,
-    destination: CopyDestination,
-    options?: CopyFileOptions,
-  ): Promise<MediaFile>;
-  // (undocumented)
-  downloadBinary(
+  getFileState(
     id: string,
-    name?: string,
-    collectionName?: string,
-  ): Promise<void>;
-  // (undocumented)
+    options?: GetFileOptions,
+  ): MediaSubscribable<FileState>;
+  getCurrentState(id: string, options?: GetFileOptions): Promise<FileState>;
   getArtifactURL(
     artifacts: MediaFileArtifacts,
     artifactName: keyof MediaFileArtifacts,
     collectionName?: string,
   ): Promise<string>;
-  // (undocumented)
-  getCurrentState(id: string, options?: GetFileOptions): Promise<FileState>;
-  // (undocumented)
   getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
-  // (undocumented)
-  getFileState(
-    id: string,
-    options?: GetFileOptions,
-  ): MediaSubscribable<FileState>;
-  // (undocumented)
+  private createDownloadFileStream;
   touchFiles(
     descriptors: TouchFileDescriptor[],
     collection?: string,
   ): Promise<TouchedFiles>;
-  // (undocumented)
+  private generateUploadableFileUpfrontIds;
+  uploadExternal(
+    url: string,
+    collection?: string,
+  ): Promise<ExternalUploadPayload>;
   upload(
     file: UploadableFile,
     controller?: UploadController,
     uploadableFileUpfrontIds?: UploadableFileUpfrontIds,
   ): MediaSubscribable<FileState>;
-  // (undocumented)
-  uploadExternal(
-    url: string,
-    collection?: string,
-  ): Promise<ExternalUploadPayload>;
+  downloadBinary(
+    id: string,
+    name?: string,
+    collectionName?: string,
+  ): Promise<void>;
+  copyFile(
+    source: CopySourceFile,
+    destination: CopyDestination,
+    options?: CopyFileOptions,
+  ): Promise<MediaFile>;
 }
 
-// @public (undocumented)
-export interface FileIdentifier {
-  // (undocumented)
-  readonly collectionName?: string;
-  // (undocumented)
-  readonly id: string;
-  // (undocumented)
+export declare interface FileIdentifier {
   readonly mediaItemType: 'file';
-  // (undocumented)
+  readonly id: string;
   readonly occurrenceKey?: string;
+  readonly collectionName?: string;
 }
 
-// @public (undocumented)
-export interface FileItem {
-  // (undocumented)
-  details: FileDetails;
-  // (undocumented)
+export declare interface FileItem {
   type: 'file';
+  details: FileDetails;
 }
 
-// @public (undocumented)
-export interface FilePreview {
-  // (undocumented)
+export declare interface FilePreview {
+  value: Blob | string;
   origin?: 'local' | 'remote';
-  // (undocumented)
   originalDimensions?: {
     width: number;
     height: number;
   };
-  // (undocumented)
-  value: Blob | string;
 }
 
-// @public (undocumented)
-export type FileProcessingStatus =
+export declare type FileProcessingStatus =
   | 'pending'
   | 'running'
   | 'succeeded'
   | 'failed';
 
-// @public (undocumented)
-export type FileState =
+export declare type FileState =
   | UploadingFileState
   | ProcessingFileState
   | ProcessedFileState
   | ErrorFileState
   | ProcessingFailedState;
 
-// @public (undocumented)
-export type FileStatus = FileStatus_2;
+export declare type FileStatus = FileStatus_2;
 
-// @public (undocumented)
-export const getArtifactUrl: (
+export declare const getArtifactUrl: (
   artifacts: MediaFileArtifacts,
   prop: keyof MediaFileArtifacts,
 ) => string | undefined;
 
-// @public (undocumented)
-export const getAttrsFromUrl: (
+export declare const getAttrsFromUrl: (
   blobUrl: string,
 ) => MediaBlobUrlAttrs | undefined;
 
-// @public (undocumented)
-export const getDimensionsFromBlob: (
+export declare const getDimensionsFromBlob: (
   mediaType: MediaType,
   blob: Blob,
 ) => Promise<Dimensions>;
 
-// @public (undocumented)
-export interface GetFileOptions {
-  // (undocumented)
-  collectionName?: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
+export declare interface GetFileOptions {
   preview?: PreviewOptions;
+  collectionName?: string;
+  occurrenceKey?: string;
 }
 
-// @public (undocumented)
-export const getMediaClient: (
+export declare const getMediaClient: (
   mediaClientConfig: MediaClientConfig,
   featureFlags?: MediaFeatureFlags | undefined,
 ) => MediaClient;
 
-// @public (undocumented)
-export function getMediaClientErrorReason(
+export declare function getMediaClientErrorReason(
   err: Error,
 ): MediaClientErrorReason | 'unknown';
 
-// @public (undocumented)
-export const getMediaEnvironment: () => string | undefined;
+export declare const getMediaEnvironment: () => string | undefined;
 
-// @public (undocumented)
-export const getMediaRegion: () => string | undefined;
+export declare const getMediaRegion: () => string | undefined;
 
-// @public @deprecated (undocumented)
-export const getMediaTypeFromMimeType: (mimeType: string) => MediaType;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const getMediaTypeFromMimeType: (mimeType: string) => MediaType;
 
-// @public (undocumented)
-export const globalMediaEventEmitter: {
+export declare const globalMediaEventEmitter: {
   on<E extends keyof UploadEventPayloadMap>(
     event: E,
     listener: EventPayloadListener<UploadEventPayloadMap, E, any>,
@@ -466,119 +398,129 @@ export const globalMediaEventEmitter: {
   ): boolean | undefined;
 };
 
-// @public (undocumented)
-export type Identifier = FileIdentifier | ExternalImageIdentifier;
+export declare type Identifier = FileIdentifier | ExternalImageIdentifier;
 
-// @public (undocumented)
-export interface ImageMetadata {
-  // (undocumented)
-  original?: ImageMetadataArtifact;
-  // (undocumented)
+export declare interface ImageMetadata {
   pending: boolean;
-  // (undocumented)
   preview?: ImageMetadataArtifact;
+  original?: ImageMetadataArtifact;
 }
 
-// @public (undocumented)
-export type ImageMetadataArtifact = {
+export declare type ImageMetadataArtifact = {
   url?: string;
   width?: number;
   height?: number;
   size?: number;
 };
 
-// @public (undocumented)
-export type ImageResizeMode = 'crop' | 'fit' | 'full-fit' | 'stretchy-fit';
+export declare type ImageResizeMode =
+  | 'crop'
+  | 'fit'
+  | 'full-fit'
+  | 'stretchy-fit';
 
-// @public (undocumented)
-export const imageResizeModeToFileImageMode: (
+export declare const imageResizeModeToFileImageMode: (
   resizeMode?: ImageResizeMode | undefined,
 ) => MediaStoreGetFileImageParams['mode'];
 
-// @public (undocumented)
-export function isAbortedRequestError(err: any): boolean;
+export declare function isAbortedRequestError(err: any): boolean;
 
-// @public @deprecated (undocumented)
-export const isAudioMimeTypeSupportedByServer: (mimeType: string) => boolean;
-
-// @public (undocumented)
-export const isDifferentIdentifier: (a: Identifier, b: Identifier) => boolean;
-
-// @public @deprecated (undocumented)
-export const isDocumentMimeTypeSupportedByBrowser: (
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isAudioMimeTypeSupportedByServer: (
   mimeType: string,
 ) => boolean;
 
-// @public @deprecated (undocumented)
-export const isDocumentMimeTypeSupportedByServer: (mimeType: string) => boolean;
+export declare const isDifferentIdentifier: (
+  a: Identifier,
+  b: Identifier,
+) => boolean;
 
-// @public (undocumented)
-export const isErrorFileState: (
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isDocumentMimeTypeSupportedByBrowser: (
+  mimeType: string,
+) => boolean;
+
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isDocumentMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
+
+export declare const isErrorFileState: (
   fileState: FileState,
 ) => fileState is ErrorFileState;
 
-// @public (undocumented)
-export const isExternalImageIdentifier: (
+export declare const isExternalImageIdentifier: (
   identifier: Identifier,
 ) => identifier is ExternalImageIdentifier;
 
-// @public (undocumented)
-export function isFileFetcherError(err: Error): err is FileFetcherError;
+export declare function isFileFetcherError(err: Error): err is FileFetcherError;
 
-// @public (undocumented)
-export const isFileIdentifier: (
+export declare const isFileIdentifier: (
   identifier: Identifier,
 ) => identifier is FileIdentifier;
 
-// @public (undocumented)
-export const isFinalFileState: (
+export declare const isFinalFileState: (
   fileState: FileState,
 ) => fileState is ProcessedFileState | ProcessingFailedState | ErrorFileState;
 
-// @public @deprecated (undocumented)
-export const isImageMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isImageMimeTypeSupportedByBrowser: (
+  mimeType: string,
+) => boolean;
 
-// @public @deprecated (undocumented)
-export const isImageMimeTypeSupportedByServer: (mimeType: string) => boolean;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isImageMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isImageRemote: (
+export declare const isImageRemote: (
   imageUrl: string,
   windowOrigin?: string,
 ) => boolean;
 
-// @public (undocumented)
-export const isImageRepresentationReady: (fileState: FileState) => boolean;
+export declare const isImageRepresentationReady: (
+  fileState: FileState,
+) => boolean;
 
-// @public (undocumented)
-export const isMediaBlobUrl: (url: string) => boolean;
+export declare const isMediaBlobUrl: (url: string) => boolean;
 
-// @public (undocumented)
-export function isMediaClientError(
+export declare function isMediaClientError(
   error: any,
 ): error is MediaClientError<{
   reason: MediaClientErrorReason;
 }>;
 
-// @public (undocumented)
-export const isMediaCollectionItemFullDetails: (
+export declare const isMediaCollectionItemFullDetails: (
   mediaCollectionItem: MediaCollectionItemDetails,
 ) => mediaCollectionItem is MediaCollectionItemFullDetails;
 
-// @public (undocumented)
-export function isMediaStoreError(err: Error): err is MediaStoreError;
+export declare function isMediaStoreError(err: Error): err is MediaStoreError;
 
-// @public @deprecated (undocumented)
-export const isMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isMimeTypeSupportedByBrowser: (
+  mimeType: string,
+) => boolean;
 
-// @public @deprecated (undocumented)
-export const isMimeTypeSupportedByServer: (mimeType: string) => boolean;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isMimeTypeSupportedByServer: (mimeType: string) => boolean;
 
-// @public (undocumented)
-export function isPollingError(err?: Error): err is PollingError;
+export declare function isPollingError(err?: Error): err is PollingError;
 
-// @public (undocumented)
-export const isPreviewableFileState: (
+export declare const isPreviewableFileState: (
   fileState: FileState,
 ) => fileState is (
   | UploadingFileState
@@ -588,100 +530,92 @@ export const isPreviewableFileState: (
 ) &
   PreviewableFileState;
 
-// @public (undocumented)
-export const isPreviewableType: (
+export declare const isPreviewableType: (
   type: MediaType,
   featureFlags?: MediaFeatureFlags | undefined,
 ) => boolean;
 
-// @public (undocumented)
-export const isProcessedFileState: (
+export declare const isProcessedFileState: (
   fileState: FileState,
 ) => fileState is ProcessedFileState;
 
-// @public (undocumented)
-export const isProcessingFileState: (
+export declare const isProcessingFileState: (
   fileState: FileState,
 ) => fileState is ProcessingFileState;
 
-// @public (undocumented)
-export function isRateLimitedError(error: Error | undefined): boolean;
+export declare function isRateLimitedError(error: Error | undefined): boolean;
 
-// @public (undocumented)
-export function isRequestError(err: Error): err is RequestError;
+export declare function isRequestError(err: Error): err is RequestError;
 
-// @public @deprecated (undocumented)
-export const isUnknownMimeTypeSupportedByServer: (mimeType: string) => boolean;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isUnknownMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isUploadingFileState: (
+export declare const isUploadingFileState: (
   fileState: FileState,
 ) => fileState is UploadingFileState;
 
-// @public @deprecated (undocumented)
-export const isVideoMimeTypeSupportedByServer: (mimeType: string) => boolean;
+/**
+ * @deprecated This export will be removed. Please use one from @atlaskit/media-common or @atlaskit/media-common/mediaTypeUtils
+ */
+export declare const isVideoMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export interface ItemsPayload {
-  // (undocumented)
+export declare interface ItemsPayload {
   items: ResponseFileItem[];
 }
 
-// @public (undocumented)
-export const mapMediaFileToFileState: (
+export declare const mapMediaFileToFileState: (
   mediaFile: MediaStoreResponse<MediaFile>,
 ) => FileState;
 
-// @public (undocumented)
-export const mapMediaItemToFileState: (
+export declare const mapMediaItemToFileState: (
   id: string,
   item: MediaCollectionItemFullDetails,
 ) => FileState;
 
-// @public @deprecated (undocumented)
-export function mapResponseToBlob(response: Response): Promise<Blob>;
+/**
+ * @deprecated Helper is deprecated and will be removed in the next major version.
+ * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
+ */
+export declare function mapResponseToBlob(response: Response): Promise<Blob>;
 
-// @public @deprecated (undocumented)
-export function mapResponseToJson(response: Response): Promise<any>;
+/**
+ * @deprecated Helper is deprecated and will be removed in the next major version.
+ * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
+ */
+export declare function mapResponseToJson(response: Response): Promise<any>;
 
-// @public @deprecated (undocumented)
-export function mapResponseToVoid(): Promise<void>;
+/**
+ * @deprecated Helper is deprecated and will be removed in the next major version.
+ * TODO: https://product-fabric.atlassian.net/browse/BMPT-1354
+ */
+export declare function mapResponseToVoid(): Promise<void>;
 
-// @public (undocumented)
-export const MAX_RESOLUTION = 4096;
+export declare const MAX_RESOLUTION = 4096;
 
-// @public (undocumented)
-export interface MediaArtifact {
-  // (undocumented)
+export declare interface MediaArtifact {
   processingStatus?: FileProcessingStatus;
-  // (undocumented)
   url?: string;
 }
 
-// @public (undocumented)
-export interface MediaBlobUrlAttrs {
-  // (undocumented)
-  alt?: string;
-  // (undocumented)
-  collection?: string;
-  // (undocumented)
-  contextId: string;
-  // (undocumented)
-  height?: number;
-  // (undocumented)
+export declare interface MediaBlobUrlAttrs {
   id: string;
-  // (undocumented)
-  mimeType?: string;
-  // (undocumented)
-  name?: string;
-  // (undocumented)
+  contextId: string;
+  collection?: string;
   size?: number;
-  // (undocumented)
+  name?: string;
+  mimeType?: string;
   width?: number;
+  height?: number;
+  alt?: string;
 }
 
-// @public (undocumented)
-export type MediaChunksProbe = {
+export declare type MediaChunksProbe = {
   readonly results: {
     readonly [etag: string]: {
       readonly exists: boolean;
@@ -689,79 +623,69 @@ export type MediaChunksProbe = {
   };
 };
 
-// @public (undocumented)
-export class MediaClient {
+export declare class MediaClient {
+  readonly mediaClientConfig: MediaClientConfig;
+  readonly featureFlags?: MediaFeatureFlags | undefined;
+  readonly mediaStore: MediaStore;
+  readonly collection: CollectionFetcher;
+  readonly file: FileFetcher;
+  readonly stargate: StargateClient;
+  private readonly eventEmitter;
+  private mobileUpload?;
+  readonly config: MediaClientConfig;
   constructor(
     mediaClientConfig: MediaClientConfig,
     featureFlags?: MediaFeatureFlags | undefined,
   );
-  // (undocumented)
-  readonly collection: CollectionFetcher;
-  // (undocumented)
-  readonly config: MediaClientConfig;
-  // (undocumented)
-  emit<E extends keyof UploadEventPayloadMap>(
-    event: E,
-    payload: UploadEventPayloadMap[E],
-  ): boolean;
-  // (undocumented)
-  readonly featureFlags?: MediaFeatureFlags | undefined;
-  // (undocumented)
-  readonly file: FileFetcher;
-  // (undocumented)
   getImage(
     id: string,
     params?: MediaStoreGetFileImageParams,
     controller?: AbortController,
     fetchMaxRes?: boolean,
   ): Promise<Blob>;
-  // (undocumented)
-  getImageMetadata(
-    id: string,
-    params?: MediaStoreGetFileImageParams,
-  ): Promise<ImageMetadata>;
-  // (undocumented)
   getImageUrl(
     id: string,
     params?: MediaStoreGetFileImageParams,
   ): Promise<string>;
-  // (undocumented)
   getImageUrlSync(id: string, params?: MediaStoreGetFileImageParams): string;
-  // (undocumented)
-  readonly mediaClientConfig: MediaClientConfig;
-  // (undocumented)
-  readonly mediaStore: MediaStore;
-  // (undocumented)
+  getImageMetadata(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ): Promise<ImageMetadata>;
   mobileUploadPromise(): Promise<MobileUpload>;
-  // (undocumented)
-  off<E extends keyof UploadEventPayloadMap>(
-    event: E,
-    listener: EventPayloadListener<UploadEventPayloadMap, E>,
-  ): void;
-  // (undocumented)
   on<E extends keyof UploadEventPayloadMap>(
     event: E,
     listener: EventPayloadListener<UploadEventPayloadMap, E>,
   ): void;
-  // (undocumented)
-  readonly stargate: StargateClient;
+  off<E extends keyof UploadEventPayloadMap>(
+    event: E,
+    listener: EventPayloadListener<UploadEventPayloadMap, E>,
+  ): void;
+  emit<E extends keyof UploadEventPayloadMap>(
+    event: E,
+    payload: UploadEventPayloadMap[E],
+  ): boolean;
 }
 
-// @public
-export interface MediaClientError<Attributes extends MediaClientErrorAttributes>
-  extends Error {
-  // (undocumented)
+/**
+ * MediaClientError is the main interface which all the errors
+ * in Media Client must implement.
+ * MediaClientErrorReason is a dictionary that restricts all the possible
+ * reasons that the erros can define. Its values are private to this file.
+ * Any new error has to define its own Error Reasons locally, and also declare them
+ * here to comply with the interface restrictions
+ */
+export declare interface MediaClientError<
+  Attributes extends MediaClientErrorAttributes
+> extends Error {
   readonly attributes: Attributes;
 }
 
-// @public (undocumented)
-export interface MediaClientErrorAttributes {
-  // (undocumented)
+export declare interface MediaClientErrorAttributes {
   reason: MediaClientErrorReason;
 }
 
-// @public (undocumented)
-export type MediaClientErrorReason =
+export declare type MediaClientErrorReason =
   | 'clientOffline'
   | 'clientAbortedRequest'
   | 'clientTimeoutRequest'
@@ -785,27 +709,23 @@ export type MediaClientErrorReason =
   | 'pollingMaxAttemptsExceeded'
   | 'fileSizeExceedsLimit';
 
-// @public (undocumented)
-export type MediaCollection = {
+export declare type MediaCollection = {
   readonly name: string;
   readonly createdAt: number;
 };
 
-// @public (undocumented)
-export type MediaCollectionItem = {
+export declare type MediaCollectionItem = {
   readonly id: string;
   readonly insertedAt: number;
   readonly occurrenceKey: string;
   readonly details: MediaCollectionItemDetails;
 };
 
-// @public (undocumented)
-export type MediaCollectionItemDetails =
+export declare type MediaCollectionItemDetails =
   | MediaCollectionItemMinimalDetails
   | MediaCollectionItemFullDetails;
 
-// @public (undocumented)
-export type MediaCollectionItemFullDetails = {
+export declare type MediaCollectionItemFullDetails = {
   readonly mediaType: MediaType;
   readonly mimeType: string;
   readonly name: string;
@@ -816,20 +736,17 @@ export type MediaCollectionItemFullDetails = {
   readonly createdAt?: number;
 };
 
-// @public (undocumented)
-export type MediaCollectionItemMinimalDetails = {
+export declare type MediaCollectionItemMinimalDetails = {
   readonly name: string;
   readonly size: number;
 };
 
-// @public (undocumented)
-export type MediaCollectionItems = {
+export declare type MediaCollectionItems = {
   readonly contents: MediaCollectionItem[];
   readonly nextInclusiveStartKey?: string;
 };
 
-// @public (undocumented)
-export type MediaFile = {
+export declare type MediaFile = {
   readonly id: string;
   readonly mediaType: MediaType;
   readonly mimeType: string;
@@ -841,151 +758,55 @@ export type MediaFile = {
   readonly createdAt?: number;
 };
 
-// @public (undocumented)
-export type MediaFileArtifact = {
+export declare type MediaFileArtifact = {
   readonly url: string;
   readonly processingStatus: MediaFileProcessingStatus;
 };
 
-// @public (undocumented)
-export interface MediaFileArtifacts {
-  // (undocumented)
-  'audio.mp3'?: MediaFileArtifact;
-  // (undocumented)
-  'document.pdf'?: MediaFileArtifact;
-  // (undocumented)
+export declare interface MediaFileArtifacts {
   'video_1280.mp4'?: MediaFileArtifact;
-  // (undocumented)
   'video_640.mp4'?: MediaFileArtifact;
+  'document.pdf'?: MediaFileArtifact;
+  'audio.mp3'?: MediaFileArtifact;
 }
 
-// @public (undocumented)
-export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
+export declare type MediaFileProcessingStatus =
+  | 'pending'
+  | 'succeeded'
+  | 'failed';
 
-// @public (undocumented)
-export type MediaItemType = 'file' | 'external-image';
+export declare type MediaItemType = 'file' | 'external-image';
 
-// @public (undocumented)
-export type MediaObserver<T extends MediaSubscribableItem> =
+export declare type MediaObserver<T extends MediaSubscribableItem> =
   | NextObserver<T>
   | ErrorObserver<T>
   | CompletionObserver<T>
   | ((value: T) => void);
 
-// @public (undocumented)
-export type MediaRepresentations = {
+export declare type MediaRepresentations = {
   image?: Object;
 };
 
-// @public (undocumented)
-export class MediaStore {
+export declare class MediaStore {
+  private readonly config;
+  readonly featureFlags?: MediaFeatureFlags | undefined;
   constructor(
     config: MediaApiConfig,
     featureFlags?: MediaFeatureFlags | undefined,
   );
-  // (undocumented)
-  appendChunksToUpload(
-    uploadId: string,
-    body: AppendChunksToUploadRequestBody,
-    collectionName?: string,
-  ): Promise<void>;
-  // (undocumented)
-  copyFileWithToken(
-    body: MediaStoreCopyFileWithTokenBody,
-    params: MediaStoreCopyFileWithTokenParams,
-  ): Promise<MediaStoreResponse<MediaFile>>;
-  // (undocumented)
-  createFileFromUpload(
-    body: MediaStoreCreateFileFromUploadBody,
-    params?: MediaStoreCreateFileFromUploadParams,
-  ): Promise<MediaStoreResponse<MediaFile>>;
-  // (undocumented)
-  createUpload(
-    createUpTo?: number,
-    collectionName?: string,
-  ): Promise<MediaStoreResponse<MediaUpload[]>>;
-  // (undocumented)
-  readonly featureFlags?: MediaFeatureFlags | undefined;
-  // (undocumented)
-  getArtifactURL(
-    artifacts: MediaFileArtifacts,
-    artifactName: keyof MediaFileArtifacts,
-    collectionName?: string,
-  ): Promise<string>;
-  // (undocumented)
   getCollectionItems(
     collectionName: string,
     params?: MediaStoreGetCollectionItemsParams,
   ): Promise<MediaStoreResponse<MediaCollectionItems>>;
-  // (undocumented)
-  getFile(
-    fileId: string,
-    params?: MediaStoreGetFileParams,
-  ): Promise<MediaStoreResponse<MediaFile>>;
-  // (undocumented)
-  getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
-  // (undocumented)
-  getFileImageURL(
-    id: string,
-    params?: MediaStoreGetFileImageParams,
-  ): Promise<string>;
-  // (undocumented)
-  getFileImageURLSync(
-    id: string,
-    params?: MediaStoreGetFileImageParams,
-  ): string;
-  // (undocumented)
-  getImage(
-    id: string,
-    params?: MediaStoreGetFileImageParams,
-    controller?: AbortController,
-    fetchMaxRes?: boolean,
-  ): Promise<Blob>;
-  // (undocumented)
-  getImageMetadata(
-    id: string,
-    params?: MediaStoreGetFileImageParams,
-  ): Promise<{
-    metadata: ImageMetadata;
-  }>;
-  // (undocumented)
-  getItems(
-    ids: string[],
-    collectionName?: string,
-  ): Promise<MediaStoreResponse<ItemsPayload>>;
-  // (undocumented)
-  probeChunks(
-    chunks: string[],
-    {
-      collectionName,
-      uploadId,
-    }?: {
-      collectionName?: string;
-      uploadId?: string;
-    },
-  ): Promise<MediaStoreResponse<MediaChunksProbe>>;
-  // (undocumented)
   removeCollectionFile(
     id: string,
     collectionName: string,
     occurrenceKey?: string,
   ): Promise<void>;
-  // (undocumented)
-  request(
-    path: string,
-    options?: MediaStoreRequestOptions,
-    controller?: AbortController,
-  ): Promise<Response>;
-  // (undocumented)
-  resolveAuth: (authContext?: AuthContext | undefined) => Promise<Auth>;
-  // (undocumented)
-  resolveInitialAuth: () => Auth;
-  // (undocumented)
-  touchFiles(
-    body: MediaStoreTouchFileBody,
-    params?: MediaStoreTouchFileParams,
-  ): Promise<MediaStoreResponse<TouchedFiles>>;
-  // (undocumented)
+  createUpload(
+    createUpTo?: number,
+    collectionName?: string,
+  ): Promise<MediaStoreResponse<MediaUpload[]>>;
   uploadChunk(
     etag: string,
     blob: Blob,
@@ -999,22 +820,88 @@ export class MediaStore {
       partNumber?: number;
     },
   ): Promise<void>;
+  probeChunks(
+    chunks: string[],
+    {
+      collectionName,
+      uploadId,
+    }?: {
+      collectionName?: string;
+      uploadId?: string;
+    },
+  ): Promise<MediaStoreResponse<MediaChunksProbe>>;
+  createFileFromUpload(
+    body: MediaStoreCreateFileFromUploadBody,
+    params?: MediaStoreCreateFileFromUploadParams,
+  ): Promise<MediaStoreResponse<MediaFile>>;
+  touchFiles(
+    body: MediaStoreTouchFileBody,
+    params?: MediaStoreTouchFileParams,
+  ): Promise<MediaStoreResponse<TouchedFiles>>;
+  getFile(
+    fileId: string,
+    params?: MediaStoreGetFileParams,
+  ): Promise<MediaStoreResponse<MediaFile>>;
+  getFileImageURL(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ): Promise<string>;
+  getFileImageURLSync(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ): string;
+  private createFileImageURL;
+  getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
+  getArtifactURL(
+    artifacts: MediaFileArtifacts,
+    artifactName: keyof MediaFileArtifacts,
+    collectionName?: string,
+  ): Promise<string>;
+  getImage(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+    controller?: AbortController,
+    fetchMaxRes?: boolean,
+  ): Promise<Blob>;
+  getItems(
+    ids: string[],
+    collectionName?: string,
+  ): Promise<MediaStoreResponse<ItemsPayload>>;
+  getImageMetadata(
+    id: string,
+    params?: MediaStoreGetFileImageParams,
+  ): Promise<{
+    metadata: ImageMetadata;
+  }>;
+  appendChunksToUpload(
+    uploadId: string,
+    body: AppendChunksToUploadRequestBody,
+    collectionName?: string,
+  ): Promise<void>;
+  copyFileWithToken(
+    body: MediaStoreCopyFileWithTokenBody,
+    params: MediaStoreCopyFileWithTokenParams,
+  ): Promise<MediaStoreResponse<MediaFile>>;
+  request(
+    path: string,
+    options?: MediaStoreRequestOptions,
+    controller?: AbortController,
+  ): Promise<Response>;
+  resolveAuth: (authContext?: AuthContext | undefined) => Promise<Auth>;
+  resolveInitialAuth: () => Auth;
 }
 
-// @public (undocumented)
-export type MediaStoreCopyFileWithTokenBody = {
+export declare type MediaStoreCopyFileWithTokenBody = {
   sourceFile: SourceFile;
 };
 
-// @public (undocumented)
-export type MediaStoreCopyFileWithTokenParams = {
+export declare type MediaStoreCopyFileWithTokenParams = {
   readonly collection?: string;
   readonly replaceFileId?: string;
   readonly occurrenceKey?: string;
 };
 
-// @public (undocumented)
-export type MediaStoreCreateFileFromBinaryParams = {
+export declare type MediaStoreCreateFileFromBinaryParams = {
   readonly replaceFileId?: string;
   readonly collection?: string;
   readonly occurrenceKey?: string;
@@ -1023,22 +910,19 @@ export type MediaStoreCreateFileFromBinaryParams = {
   readonly name?: string;
 };
 
-// @public (undocumented)
-export type MediaStoreCreateFileFromUploadBody = {
+export declare type MediaStoreCreateFileFromUploadBody = {
   readonly uploadId: string;
   readonly name?: string;
   readonly mimeType?: string;
   readonly conditions?: MediaStoreCreateFileFromUploadConditions;
 };
 
-// @public (undocumented)
-export type MediaStoreCreateFileFromUploadConditions = {
+export declare type MediaStoreCreateFileFromUploadConditions = {
   readonly hash: string;
   readonly size: number;
 };
 
-// @public (undocumented)
-export type MediaStoreCreateFileFromUploadParams = {
+export declare type MediaStoreCreateFileFromUploadParams = {
   readonly collection?: string;
   readonly occurrenceKey?: string;
   readonly expireAfter?: number;
@@ -1046,52 +930,43 @@ export type MediaStoreCreateFileFromUploadParams = {
   readonly skipConversions?: boolean;
 };
 
-// @public (undocumented)
-export type MediaStoreCreateFileParams = {
+export declare type MediaStoreCreateFileParams = {
   readonly occurrenceKey?: string;
   readonly collection?: string;
 };
 
-// @public (undocumented)
-export class MediaStoreError extends BaseMediaClientError<
+export declare class MediaStoreError extends BaseMediaClientError<
   MediaStoreErrorAttributes
 > {
+  readonly reason: MediaStoreErrorReason;
+  readonly innerError?: Error | undefined;
   constructor(reason: MediaStoreErrorReason, innerError?: Error | undefined);
-  // (undocumented)
   get attributes(): {
     reason: MediaStoreErrorReason;
     innerError: Error | undefined;
   };
-  // (undocumented)
-  readonly innerError?: Error | undefined;
-  // (undocumented)
-  readonly reason: MediaStoreErrorReason;
 }
 
-// @public (undocumented)
-export type MediaStoreErrorAttributes = {
+export declare type MediaStoreErrorAttributes = {
   readonly reason: MediaStoreErrorReason;
   readonly innerError?: Error;
 };
 
-// @public (undocumented)
-export type MediaStoreErrorReason =
+export declare type MediaStoreErrorReason =
   | 'failedAuthProvider'
   | 'tokenExpired'
   | 'missingInitialAuth'
   | 'emptyAuth'
   | 'authProviderTimedOut';
 
-// @public (undocumented)
-export type MediaStoreGetCollectionItemsParams = {
+export declare type MediaStoreGetCollectionItemsParams = {
   readonly limit?: number;
   readonly inclusiveStartKey?: string;
   readonly sortDirection?: 'asc' | 'desc';
   readonly details?: 'minimal' | 'full';
 };
 
-// @public (undocumented)
-export type MediaStoreGetFileImageParams = {
+export declare type MediaStoreGetFileImageParams = {
   readonly allowAnimated?: boolean;
   readonly version?: number;
   readonly collection?: string;
@@ -1102,14 +977,12 @@ export type MediaStoreGetFileImageParams = {
   readonly 'max-age'?: number;
 };
 
-// @public (undocumented)
-export type MediaStoreGetFileParams = {
+export declare type MediaStoreGetFileParams = {
   readonly version?: number;
   readonly collection?: string;
 };
 
-// @public (undocumented)
-export type MediaStoreRequestOptions = RequestMetadata & {
+export declare type MediaStoreRequestOptions = RequestMetadata & {
   readonly method?: RequestMethod;
   readonly authContext?: AuthContext;
   readonly params?: RequestParams;
@@ -1118,75 +991,64 @@ export type MediaStoreRequestOptions = RequestMetadata & {
   readonly clientOptions?: ClientOptions;
 };
 
-// @public (undocumented)
-export interface MediaStoreResponse<Data> {
-  // (undocumented)
+export declare interface MediaStoreResponse<Data> {
   readonly data: Data;
 }
 
-// @public (undocumented)
-export interface MediaStoreTouchFileBody {
-  // (undocumented)
+export declare interface MediaStoreTouchFileBody {
   descriptors: TouchFileDescriptor[];
 }
 
-// @public (undocumented)
-export interface MediaStoreTouchFileParams {
-  // (undocumented)
+export declare interface MediaStoreTouchFileParams {
   readonly collection?: string;
 }
 
-// @public (undocumented)
-export type MediaSubscribable<T extends MediaSubscribableItem> = {
+export declare type MediaSubscribable<T extends MediaSubscribableItem> = {
   subscribe(observer?: MediaObserver<T>): MediaSubscription;
 };
 
-// @public (undocumented)
-export type MediaSubscribableItem = FileState | MediaCollectionItem[];
+export declare type MediaSubscribableItem = FileState | MediaCollectionItem[];
 
-// @public (undocumented)
-export type MediaSubscription = {
+export declare type MediaSubscription = {
   unsubscribe: () => void;
 };
 
 export { MediaType };
 
-// @public (undocumented)
-export type MediaUpload = {
+export declare type MediaUpload = {
   readonly id: string;
   readonly created: number;
   readonly expires: number;
 };
 
-// @public (undocumented)
-export interface MediaViewedEventPayload {
-  // (undocumented)
+export declare interface MediaViewedEventPayload {
   fileId: string;
-  // (undocumented)
-  isUserCollection?: boolean;
-  // (undocumented)
   viewingLevel: 'minimal' | 'full' | 'download';
+  isUserCollection?: boolean;
 }
 
-// @public (undocumented)
-export type MobileUploadEndEvent = {
+declare interface MobileUpload {
+  notifyUploadStart(event: MobileUploadStartEvent): void;
+  notifyUploadProgress(event: MobileUploadProgressEvent): void;
+  notifyUploadEnd(event: MobileUploadEndEvent): void;
+  notifyUploadError(event: MobileUploadErrorEvent): void;
+}
+
+export declare type MobileUploadEndEvent = {
   fileId: string;
 };
 
-// @public (undocumented)
-export type MobileUploadErrorEvent = {
+export declare type MobileUploadErrorEvent = {
   fileId: string;
   message: string;
 };
 
-// @public (undocumented)
-export type MobileUploadProgressEvent = {
+export declare type MobileUploadProgressEvent = {
   fileId: string;
   progress: number;
 };
 
-// @public (undocumented)
-export type MobileUploadStartEvent = {
+export declare type MobileUploadStartEvent = {
   fileId: string;
   collectionName?: string;
   occurrenceKey?: string;
@@ -1197,168 +1059,143 @@ export type MobileUploadStartEvent = {
   createdAt?: number;
 };
 
-// @public (undocumented)
-export type NonErrorFileState = Exclude<FileState, ErrorFileState>;
+declare type NextObserver<T extends MediaSubscribableItem> = PartialObserver<
+  T
+> &
+  Required<Pick<PartialObserver<T>, 'next'>>;
 
-// @public (undocumented)
-export const objectToQueryString: (json: {
+export declare type NonErrorFileState = Exclude<FileState, ErrorFileState>;
+
+export declare const objectToQueryString: (json: {
   [key: string]: string | number | boolean | null | undefined;
 }) => string;
 
-// @public (undocumented)
-export class PollingError extends BaseMediaClientError<PollingErrorAttributes> {
-  constructor(reason: PollingErrorReason, attempts: number);
-  // (undocumented)
+declare type PartialObserver<T extends MediaSubscribableItem> = {
+  next?: (value: T) => void;
+  error?: (err: any) => void;
+  complete?: () => void;
+};
+
+export declare class PollingError extends BaseMediaClientError<
+  PollingErrorAttributes
+> {
+  readonly reason: PollingErrorReason;
   readonly attempts: number;
-  // (undocumented)
+  constructor(reason: PollingErrorReason, attempts: number);
   get attributes(): {
     reason: 'pollingMaxAttemptsExceeded';
     attempts: number;
   };
-  // (undocumented)
-  readonly reason: PollingErrorReason;
 }
 
-// @public (undocumented)
-export type PollingErrorAttributes = {
+export declare type PollingErrorAttributes = {
   readonly reason: PollingErrorReason;
   readonly attempts: number;
   readonly innerError?: Error;
 };
 
-// @public (undocumented)
-export type PollingErrorReason = 'pollingMaxAttemptsExceeded';
+export declare type PollingErrorReason = 'pollingMaxAttemptsExceeded';
 
-// @public
-export class PollingFunction {
-  constructor(options?: Partial<PollingOptions>);
-  // (undocumented)
-  attempt: number;
-  // (undocumented)
-  cancel(): void;
-  // (undocumented)
-  execute(executor: Executor): Promise<void>;
-  // (undocumented)
-  getIntervalMsForIteration(iteration: number): number;
-  // (undocumented)
-  next(): void;
-  // (undocumented)
-  onError?: (error: Error) => void;
-  // (undocumented)
+/**
+ * This class encapsulates polling functionality with the following features:
+ *
+ *  - async executor function provides each attempt
+ *  - executor will only repeat defined max amount of times (options)
+ *  - each attempt uses a timeout to the next attempt by an interval (ms)
+ *  - each attempt increases the timeout interval by a "poll_backoffFactor"
+ *  - if max attempts are exceeded or executor has exception then onError handler is called
+ *
+ * IMPORTANT! the executor function must explicitly call ".next()" for the next iteration to run
+ */
+export declare class PollingFunction {
   options: PollingOptions;
-  // (undocumented)
   poll_intervalMs: number;
-  // (undocumented)
+  attempt: number;
   shouldIterate: boolean;
-  // (undocumented)
+  onError?: (error: Error) => void;
   timeoutId: number;
+  constructor(options?: Partial<PollingOptions>);
+  execute(executor: Executor): Promise<void>;
+  private fail;
+  getIntervalMsForIteration(iteration: number): number;
+  next(): void;
+  cancel(): void;
 }
 
-// @public (undocumented)
-export interface PreviewableFileState {
-  // (undocumented)
+declare interface PollingOptions {
+  poll_intervalMs: number;
+  poll_maxAttempts: number;
+  poll_backoffFactor: number;
+  poll_maxIntervalMs: number;
+}
+
+export declare interface PreviewableFileState {
   preview: FilePreview | Promise<FilePreview>;
 }
 
-// @public (undocumented)
-export interface PreviewOptions {}
+export declare interface PreviewOptions {}
 
-// @public (undocumented)
-export interface ProcessedFileState {
-  // (undocumented)
-  artifacts: MediaFileArtifacts;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  representations?: MediaRepresentations;
-  // (undocumented)
-  size: number;
-  // (undocumented)
+export declare interface ProcessedFileState {
   status: 'processed';
+  id: string;
+  occurrenceKey?: string;
+  name: string;
+  size: number;
+  artifacts: MediaFileArtifacts;
+  mediaType: MediaType;
+  mimeType: string;
+  preview?: FilePreview | Promise<FilePreview>;
+  representations?: MediaRepresentations;
+  createdAt?: number;
 }
 
-// @public (undocumented)
-export interface ProcessingFailedState {
-  // (undocumented)
-  artifacts: Object;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  representations?: MediaRepresentations;
-  // (undocumented)
-  size: number;
-  // (undocumented)
+export declare interface ProcessingFailedState {
   status: 'failed-processing';
-}
-
-// @public (undocumented)
-export interface ProcessingFileState {
-  // (undocumented)
-  artifacts?: MediaFileArtifacts;
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
   id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
   occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  representations?: MediaRepresentations;
-  // (undocumented)
+  name: string;
   size: number;
-  // (undocumented)
-  status: 'processing';
+  artifacts: Object;
+  mediaType: MediaType;
+  mimeType: string;
+  preview?: FilePreview | Promise<FilePreview>;
+  representations?: MediaRepresentations;
+  createdAt?: number;
 }
 
-// @public (undocumented)
-export const RECENTS_COLLECTION = 'recents';
+export declare interface ProcessingFileState {
+  status: 'processing';
+  id: string;
+  occurrenceKey?: string;
+  name: string;
+  size: number;
+  artifacts?: MediaFileArtifacts;
+  mediaType: MediaType;
+  mimeType: string;
+  preview?: FilePreview | Promise<FilePreview>;
+  representations?: MediaRepresentations;
+  createdAt?: number;
+}
 
-// @public (undocumented)
-export function request(
+export declare const RECENTS_COLLECTION = 'recents';
+
+export declare function request(
   url: string,
   options?: RequestOptions,
   controller?: AbortController,
 ): Promise<Response>;
 
-// @public (undocumented)
-export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
+export declare class RequestError extends BaseMediaClientError<
+  RequestErrorAttributes
+> {
+  readonly reason: RequestErrorReason;
+  readonly metadata?: RequestErrorMetadata | undefined;
+  readonly innerError?: Error | undefined;
   constructor(
     reason: RequestErrorReason,
     metadata?: RequestErrorMetadata | undefined,
     innerError?: Error | undefined,
   );
-  // (undocumented)
   get attributes(): {
     reason: RequestErrorReason;
     method: RequestMethod | undefined;
@@ -1370,28 +1207,19 @@ export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
     statusCode: number | undefined;
     innerError: Error | undefined;
   };
-  // (undocumented)
-  readonly innerError?: Error | undefined;
-  // (undocumented)
-  readonly metadata?: RequestErrorMetadata | undefined;
-  // (undocumented)
-  readonly reason: RequestErrorReason;
 }
 
-// @public (undocumented)
-export type RequestErrorAttributes = RequestErrorMetadata & {
+export declare type RequestErrorAttributes = RequestErrorMetadata & {
   readonly reason: RequestErrorReason;
 };
 
-// @public (undocumented)
-export type RequestErrorMetadata = RequestMetadata & {
+export declare type RequestErrorMetadata = RequestMetadata & {
   readonly attempts?: number;
   readonly clientExhaustedRetries?: boolean;
   readonly statusCode?: number;
 };
 
-// @public (undocumented)
-export type RequestErrorReason =
+export declare type RequestErrorReason =
   | 'clientOffline'
   | 'clientAbortedRequest'
   | 'clientTimeoutRequest'
@@ -1405,24 +1233,20 @@ export type RequestErrorReason =
   | 'serverBadGateway'
   | 'serverUnexpectedError';
 
-// @public (undocumented)
-export type RequestHeaders = {
+export declare type RequestHeaders = {
   [key: string]: string;
 };
 
-// @public (undocumented)
-export type RequestMetadata = {
+export declare type RequestMetadata = {
   readonly method?: RequestMethod;
   readonly endpoint?: string;
   readonly mediaRegion?: string;
   readonly mediaEnv?: string;
 };
 
-// @public (undocumented)
-export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export declare type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-// @public (undocumented)
-export type RequestOptions = RequestMetadata & {
+export declare type RequestOptions = RequestMetadata & {
   readonly auth?: Auth;
   readonly params?: RequestParams;
   readonly headers?: RequestHeaders;
@@ -1430,197 +1254,136 @@ export type RequestOptions = RequestMetadata & {
   readonly clientOptions?: ClientOptions;
 };
 
-// @public (undocumented)
-export type RequestParams = {
+export declare type RequestParams = {
   [key: string]: any;
 };
 
-// @public (undocumented)
-export interface ResponseFileItem {
-  // (undocumented)
-  collection?: string;
-  // (undocumented)
-  details: MediaCollectionItemFullDetails;
-  // (undocumented)
+export declare interface ResponseFileItem {
   id: string;
-  // (undocumented)
   type: 'file';
+  details: MediaCollectionItemFullDetails;
+  collection?: string;
 }
 
-// @public (undocumented)
-export type RetryOptions = {
+export declare type RetryOptions = {
   readonly startTimeoutInMs: number;
   readonly maxAttempts: number;
   readonly factor: number;
 };
 
-// @public (undocumented)
-export const safeUnsubscribe: (subscription: MediaSubscription) => void;
+export declare const safeUnsubscribe: (subscription: MediaSubscription) => void;
 
-// @public (undocumented)
-export interface SourceFile {
-  // (undocumented)
-  collection?: string;
-  // (undocumented)
+export declare interface SourceFile {
   id: string;
-  // (undocumented)
   owner: ClientAltBasedAuth | AsapBasedAuth;
-  // (undocumented)
+  collection?: string;
   version?: number;
 }
 
-// @public (undocumented)
-export class StargateClient {
+export declare class StargateClient {
+  private baseUrl;
   constructor(baseUrl: string | undefined);
-  // (undocumented)
   fetchToken(clientId: string): Promise<EdgeData>;
-  // (undocumented)
   isTokenExpired(token: EdgeData): boolean;
 }
 
-// @public (undocumented)
-export class StreamsCache<T> {
+export declare class StreamsCache<T> {
+  private readonly streams;
   constructor(streams: LRUCache<string, ReplaySubject<T>>);
-  // (undocumented)
-  get(id: string): ReplaySubject<T> | undefined;
-  // (undocumented)
-  getOrInsert(id: string, callback: () => ReplaySubject<T>): ReplaySubject<T>;
-  // (undocumented)
   has(id: string): boolean;
-  // (undocumented)
-  remove(id: string): void;
-  // (undocumented)
-  removeAll(): void;
-  // (undocumented)
   set(id: string, stream: ReplaySubject<T>): void;
-  // (undocumented)
+  get(id: string): ReplaySubject<T> | undefined;
+  getOrInsert(id: string, callback: () => ReplaySubject<T>): ReplaySubject<T>;
+  removeAll(): void;
+  remove(id: string): void;
   get size(): number;
 }
 
-// @public (undocumented)
-export type TouchedFiles = {
+export declare type TouchedFiles = {
   created: CreatedTouchedFile[];
 };
 
-// @public (undocumented)
-export interface TouchFileDescriptor {
-  // (undocumented)
-  collection?: string;
-  // (undocumented)
-  deletable?: boolean;
-  // (undocumented)
-  expireAfter?: number;
-  // (undocumented)
+export declare interface TouchFileDescriptor {
   fileId: string;
-  // (undocumented)
+  collection?: string;
   occurrenceKey?: string;
+  expireAfter?: number;
+  deletable?: boolean;
 }
 
-// @public (undocumented)
-export type UploadableFile = {
+export declare type UploadableFile = {
   content: ChunkinatorFile;
   name?: string;
   mimeType?: string;
   collection?: string;
 };
 
-// @public (undocumented)
-export type UploadableFileUpfrontIds = {
+export declare type UploadableFileUpfrontIds = {
   id: string;
   deferredUploadId: Promise<string>;
   occurrenceKey?: string;
 };
 
-// @public (undocumented)
-export class UploadController {
-  constructor();
-  // (undocumented)
-  abort(): void;
-  // (undocumented)
+export declare class UploadController {
   abortFunction?: AbortFunction;
-  // (undocumented)
+  constructor();
   setAbort(abortFunction: AbortFunction): void;
+  abort(): void;
 }
 
-// @public (undocumented)
-export type UploadEventPayloadMap = {
+export declare type UploadEventPayloadMap = {
   'file-added': FileState;
   'media-viewed': MediaViewedEventPayload;
 };
 
-// @public (undocumented)
-export const uploadFile: (
+export declare const uploadFile: (
   file: UploadableFile,
   store: MediaStore,
   uploadableFileUpfrontIds: UploadableFileUpfrontIds,
   callbacks?: UploadFileCallbacks | undefined,
 ) => UploadFileResult;
 
-// @public (undocumented)
-export type UploadFileCallbacks = {
+export declare type UploadFileCallbacks = {
   onProgress: (progress: number) => void;
   onUploadFinish: (error?: any) => void;
 };
 
-// @public (undocumented)
-export interface UploadFileResult {
-  // (undocumented)
+export declare interface UploadFileResult {
   cancel: () => void;
 }
 
-// @public (undocumented)
-export interface UploadingFileState {
-  // (undocumented)
-  createdAt?: number;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  mediaType: MediaType;
-  // (undocumented)
-  mimeType: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
-  preview?: FilePreview | Promise<FilePreview>;
-  // (undocumented)
-  progress: number;
-  // (undocumented)
-  size: number;
-  // (undocumented)
+export declare interface UploadingFileState {
   status: 'uploading';
+  id: string;
+  occurrenceKey?: string;
+  name: string;
+  size: number;
+  progress: number;
+  mediaType: MediaType;
+  mimeType: string;
+  preview?: FilePreview | Promise<FilePreview>;
+  createdAt?: number;
 }
 
-// @public (undocumented)
-export interface WithMediaClient {
-  // (undocumented)
-  identifier?: Identifier;
-  // (undocumented)
+export declare interface WithMediaClient {
   mediaClient: MediaClient;
+  identifier?: Identifier;
 }
 
-// @public (undocumented)
-export const withMediaClient: WithMediaClientFunction;
+export declare const withMediaClient: WithMediaClientFunction;
 
-// @public (undocumented)
-export interface WithMediaClientConfig {
-  // (undocumented)
+export declare interface WithMediaClientConfig {
   mediaClientConfig: MediaClientConfig;
 }
 
-// @public (undocumented)
-export type WithMediaClientConfigProps<P extends WithMediaClient> = Omit<
-  P,
-  'mediaClient'
-> &
-  WithMediaClientConfig;
+export declare type WithMediaClientConfigProps<
+  P extends WithMediaClient
+> = Omit<P, 'mediaClient'> & WithMediaClientConfig;
 
-// @public (undocumented)
-export type WithMediaClientFunction = <P extends WithMediaClient>(
+export declare type WithMediaClientFunction = <P extends WithMediaClient>(
   Component: React_2.ComponentType<P>,
   featureFlags?: MediaFeatureFlags,
 ) => React_2.ComponentType<WithMediaClientConfigProps<P>>;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

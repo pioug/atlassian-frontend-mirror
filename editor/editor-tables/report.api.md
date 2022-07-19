@@ -11,110 +11,127 @@ import { Selection as Selection_2 } from 'prosemirror-state';
 import { Slice } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 
-// @public (undocumented)
-export class CellSelection extends Selection_2 {
-  // (undocumented)
+declare type Axis = 'horiz' | 'vert';
+
+declare class CellBookmark {
+  readonly anchor: number;
+  readonly head: number;
+  constructor(anchor: number, head: number);
+  map(mapping: Mapping): CellBookmark;
+  resolve(doc: Node_2): Selection_2;
+}
+
+export declare class CellSelection extends Selection_2 {
   readonly $anchorCell: ResolvedPos;
-  // (undocumented)
   readonly $headCell: ResolvedPos;
+  readonly visible: boolean;
   constructor($anchorCell: ResolvedPos, $headCell?: ResolvedPos);
-  // (undocumented)
+  map(doc: Node_2, mapping: Mapping): Selection_2;
+  content(): Slice;
+  replace(tr: Transaction, content?: Slice<any>): void;
+  replaceWith(tr: Transaction, node: Node_2): void;
+  forEachCell(f: (node: Node_2, pos: number) => void): void;
+  isColSelection(): boolean;
   static colSelection(
     $anchorCell: ResolvedPos,
     $headCell?: ResolvedPos,
   ): CellSelection;
-  // (undocumented)
-  content(): Slice;
-  // (undocumented)
+  isRowSelection(): boolean;
+  eq(other: CellSelection): boolean;
+  static rowSelection(
+    $anchorCell: ResolvedPos,
+    $headCell?: ResolvedPos,
+  ): CellSelection;
+  toJSON(): SerializedCellSelection;
+  static fromJSON(doc: Node_2, json: SerializedCellSelection): CellSelection;
   static create(
     doc: Node_2,
     anchorCell: number,
     headCell?: number,
   ): CellSelection;
-  // (undocumented)
-  eq(other: CellSelection): boolean;
-  // (undocumented)
-  forEachCell(f: (node: Node_2, pos: number) => void): void;
-  // (undocumented)
-  static fromJSON(doc: Node_2, json: SerializedCellSelection): CellSelection;
-  // (undocumented)
   getBookmark(): CellBookmark;
-  // (undocumented)
-  isColSelection(): boolean;
-  // (undocumented)
-  isRowSelection(): boolean;
-  // (undocumented)
-  map(doc: Node_2, mapping: Mapping): Selection_2;
-  // (undocumented)
-  replace(tr: Transaction, content?: Slice<any>): void;
-  // (undocumented)
-  replaceWith(tr: Transaction, node: Node_2): void;
-  // (undocumented)
-  static rowSelection(
-    $anchorCell: ResolvedPos,
-    $headCell?: ResolvedPos,
-  ): CellSelection;
-  // (undocumented)
-  toJSON(): SerializedCellSelection;
-  // (undocumented)
-  readonly visible: boolean;
 }
 
-// @public (undocumented)
-export const findTable: (
+export declare const findTable: (
   selection: Selection_2,
 ) => ContentNodeWithPos | undefined;
 
-// @public (undocumented)
-export class Rect {
-  constructor(left: number, top: number, right: number, bottom: number);
-  // (undocumented)
-  bottom: number;
-  // (undocumented)
+export declare class Rect {
   left: number;
-  // (undocumented)
-  right: number;
-  // (undocumented)
   top: number;
+  right: number;
+  bottom: number;
+  constructor(left: number, top: number, right: number, bottom: number);
 }
 
-// @public (undocumented)
-export class TableMap {
+declare interface SerializedCellSelection {
+  type: 'cell';
+  anchor: number;
+  head: number;
+}
+
+export declare class TableMap {
+  width: number;
+  height: number;
+  map: number[];
+  problems?: TableProblem[] | null;
   constructor(
     width: number,
     height: number,
     map: number[],
     problems?: TableProblem[] | null,
   );
-  // (undocumented)
-  cellsInRect(rect: Rect): number[];
-  // (undocumented)
-  colCount(pos: number): number;
-  // (undocumented)
   findCell(pos: number): Rect;
-  // (undocumented)
-  static get(table: Node_2): TableMap;
-  // (undocumented)
-  height: number;
-  // (undocumented)
-  map: number[];
-  // (undocumented)
+  colCount(pos: number): number;
   nextCell(pos: number, axis: Axis, dir: number): number | null;
-  // (undocumented)
-  positionAt(row: number, col: number, table: Node_2): number;
-  // (undocumented)
-  problems?: TableProblem[] | null;
-  // (undocumented)
   rectBetween(a: number, b: number): Rect;
-  // (undocumented)
-  width: number;
+  cellsInRect(rect: Rect): number[];
+  positionAt(row: number, col: number, table: Node_2): number;
+  static get(table: Node_2): TableMap;
 }
 
-// @public (undocumented)
-export const uuid: {
+declare type TableProblem =
+  | TableProblemCollision
+  | TableProblemLongRowspan
+  | TableProblemMissing
+  | TableProblemColWidthMismatch;
+
+declare type TableProblemCollision = {
+  type: TableProblemTypes.COLLISION;
+  row: number;
+  pos: number;
+  n: number;
+};
+
+declare type TableProblemColWidthMismatch = {
+  type: TableProblemTypes;
+  pos: number;
+  colwidth: number;
+};
+
+declare type TableProblemLongRowspan = {
+  type: TableProblemTypes.OVERLONG_ROWSPAN;
+  pos: number;
+  n: number;
+};
+
+declare type TableProblemMissing = {
+  type: TableProblemTypes.MISSING;
+  row: number;
+  n: number;
+};
+
+declare enum TableProblemTypes {
+  COLLISION = 'collision',
+  OVERLONG_ROWSPAN = 'overlong_rowspan',
+  MISSING = 'missing',
+  COLWIDTH_MISMATCH = 'colwidth mismatch',
+}
+
+export declare const uuid: {
   setStatic(value: string | false): void;
   generate(): string;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

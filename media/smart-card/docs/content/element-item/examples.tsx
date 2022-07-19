@@ -89,8 +89,10 @@ ${(
   />
 )}
 
-### Latest Commit
+### Latest commit
+
 A \`LatestCommit\` element shows the latest commit to a given repository.
+Its data is mapped to \`atlassian:latestCommit\` from a link resolver.
 
 ${(
   <CustomExample

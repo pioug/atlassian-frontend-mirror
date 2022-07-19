@@ -7,53 +7,51 @@ import type { EditorState } from 'prosemirror-state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from 'prosemirror-state';
 
-// @public (undocumented)
-export function createInputRulePlugin(
+export declare function createInputRulePlugin(
   pluginName: string,
   rules: InputRuleWrapper[],
   options?: Options,
 ): SafePlugin;
 
-// @public (undocumented)
-export type InputRuleHandler = (
+export declare type InputRuleHandler = (
   state: EditorState,
   matchResult: RegExpExecArray,
   start: number,
   end: number,
 ) => Transaction | null;
 
-// @public (undocumented)
-export interface InputRuleWrapper {
-  // (undocumented)
-  handler: InputRuleHandler;
-  // (undocumented)
+export declare interface InputRuleWrapper {
   match: RegExp;
-  // (undocumented)
+  handler: InputRuleHandler;
   onHandlerApply?: OnHandlerApply;
 }
 
-// @public (undocumented)
-export const leafNodeReplacementCharacter = '\uFFFC';
+export declare const leafNodeReplacementCharacter = '\uFFFC';
 
-// @public (undocumented)
-export const MAX_REGEX_MATCH = 500;
+export declare const MAX_REGEX_MATCH = 500;
 
-// @public (undocumented)
-export type OnHandlerApply = (
+declare type OnBeforeRegexMatch = (tr: Transaction) => void;
+
+export declare type OnHandlerApply = (
   state: EditorState,
   tr: Transaction,
   matchResult: RegExpExecArray,
 ) => void;
 
-// @public (undocumented)
-export type OnInputEvent = (props: {
+export declare type OnInputEvent = (props: {
   state: EditorState;
   from: number;
   to: number;
 }) => boolean;
 
-// @public (undocumented)
-export const TEXT_INPUT_RULE_TRANSACTION_KEY = 'input_rule_plugin_transaction';
+declare type Options = {
+  allowInsertTextOnDocument?: boolean;
+  onInputEvent?: OnInputEvent;
+  onBeforeRegexMatch?: OnBeforeRegexMatch;
+};
 
-// (No @packageDocumentation comment for this package)
+export declare const TEXT_INPUT_RULE_TRANSACTION_KEY =
+  'input_rule_plugin_transaction';
+
+export {};
 ```

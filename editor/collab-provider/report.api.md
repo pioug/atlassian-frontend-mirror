@@ -18,110 +18,147 @@ import type { Step } from 'prosemirror-transform';
 import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 import { Transaction } from 'prosemirror-state';
 
-// @public (undocumented)
-export type CollabConnectedPayload = CollabEventConnectionData;
+declare type BaseEvents = Pick<
+  CollabEditProvider<CollabEvents>,
+  'setup' | 'send' | 'sendMessage'
+>;
 
-// @public (undocumented)
-export interface CollabDataPayload extends CollabEventRemoteData {
-  // (undocumented)
-  json: StepJson[];
-  // (undocumented)
-  userIds: string[];
-  // (undocumented)
+export declare type CollabConnectedPayload = CollabEventConnectionData;
+
+export declare interface CollabDataPayload extends CollabEventRemoteData {
   version: number;
+  json: StepJson[];
+  userIds: string[];
 }
 
-// @public (undocumented)
-export interface CollabDisconnectedPayload {
-  // (undocumented)
+export declare interface CollabDisconnectedPayload {
   reason: DisconnectReason;
-  // (undocumented)
   sid: string;
 }
 
-// @public (undocumented)
-export interface CollabErrorPayload {
-  // (undocumented)
-  code: string;
-  // (undocumented)
-  message: string;
-  // (undocumented)
+export declare interface CollabErrorPayload {
   status: number;
+  code: string;
+  message: string;
 }
 
-// @public (undocumented)
-export interface CollabEvents {
-  // (undocumented)
-  'local-steps': CollabLocalStepsPayload;
-  // (undocumented)
+export declare interface CollabEvents {
   'metadata:changed': CollabMetadataPayload;
-  // (undocumented)
-  connected: CollabConnectedPayload;
-  // (undocumented)
-  data: CollabDataPayload;
-  // (undocumented)
-  disconnected: CollabDisconnectedPayload;
-  // (undocumented)
-  entity: any;
-  // (undocumented)
-  error: CollabErrorPayload;
-  // (undocumented)
   init: CollabInitPayload;
-  // (undocumented)
-  presence: CollabPresencePayload;
-  // (undocumented)
+  connected: CollabConnectedPayload;
+  disconnected: CollabDisconnectedPayload;
+  data: CollabDataPayload;
   telepointer: CollabTelepointerPayload;
+  presence: CollabPresencePayload;
+  'local-steps': CollabLocalStepsPayload;
+  error: CollabErrorPayload;
+  entity: any;
 }
 
-// @public (undocumented)
-export interface CollabInitPayload extends CollabEventInitData {
-  // (undocumented)
+export declare interface CollabInitPayload extends CollabEventInitData {
   doc: any;
-  // (undocumented)
-  metadata?: Metadata_2;
-  // (undocumented)
-  userId?: string;
-  // (undocumented)
   version: number;
+  userId?: string;
+  metadata?: Metadata_2;
 }
 
-// @public (undocumented)
-export type CollabLocalStepsPayload = {
+export declare type CollabLocalStepsPayload = {
   steps: Step[];
 };
 
-// @public (undocumented)
-export type CollabMetadataPayload = Metadata_2;
+export declare type CollabMetadataPayload = Metadata_2;
 
-// @public (undocumented)
-export type CollabPresencePayload = CollabEventPresenceData;
+export declare type CollabPresencePayload = CollabEventPresenceData;
 
-// @public (undocumented)
-export type CollabTelepointerPayload = CollabEventTelepointerData;
+export declare type CollabTelepointerPayload = CollabEventTelepointerData;
 
-// @public (undocumented)
-export class Provider extends Emitter<CollabEvents> implements BaseEvents {
+declare interface Config {
+  url: string;
+  documentAri: string;
+  lifecycle?: Lifecycle;
+  storage?: Storage_2;
+  need404?: boolean;
+  createSocket(
+    path: string,
+    auth?: (cb: (data: object) => void) => void,
+  ): Socket;
+  analyticsClient?: AnalyticsWebClient;
+  getUser?(
+    userId: string,
+  ): Promise<
+    Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & {
+      userId: string;
+    }
+  >;
+  permissionTokenRefresh?: () => Promise<string>;
+}
+
+declare enum DisconnectReason {
+  CLIENT_DISCONNECT = 'CLIENT_DISCONNECT',
+  SERVER_DISCONNECT = 'SERVER_DISCONNECT',
+  SOCKET_CLOSED = 'SOCKET_CLOSED',
+  SOCKET_ERROR = 'SOCKET_ERROR',
+  SOCKET_TIMEOUT = 'SOCKET_TIMEOUT',
+  UNKNOWN_DISCONNECT = 'UNKNOWN_DISCONNECT',
+}
+
+declare class Emitter<T = any> {
+  private eventEmitter;
+  /**
+   * Emit events to subscribers
+   */
+  protected emit<K extends keyof T>(evt: K, data: T[K]): this;
+  /**
+   * Subscribe to events emitted by this provider
+   */
+  on<K extends keyof T>(evt: K, handler: (args: T[K]) => void): this;
+  /**
+   * Unsubscribe from events emitted by this provider
+   */
+  off<K extends keyof T>(evt: K, handler: (args: T[K]) => void): this;
+  /**
+   * Unsubscribe from all events emitted by this provider.
+   */
+  unsubscribeAll<K extends keyof T>(evt?: K): this;
+}
+
+declare type EventHandler = () => void;
+
+declare interface Lifecycle {
+  on(event: LifecycleEvents, handler: EventHandler): void;
+}
+
+declare type LifecycleEvents = 'save' | 'restore';
+
+declare interface Metadata_2 {
+  [key: string]: string | number | boolean;
+}
+
+export declare class Provider
+  extends Emitter<CollabEvents>
+  implements BaseEvents {
+  private participants;
+  private channel;
+  private config;
+  private getState;
+  private metadata;
+  private stepRejectCounter;
+  private analyticsClient?;
+  private isChannelInitialized;
+  private onSyncUpError?;
+  private sessionId?;
+  private clientId?;
+  private userId?;
+  private participantUpdateTimeout?;
+  private presenceUpdateTimeout?;
+  private disconnectedAt?;
   constructor(config: Config);
-  // (undocumented)
-  destroy(): this;
-  // (undocumented)
-  disconnect(): this;
-  // (undocumented)
-  getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
+  private initializeChannel;
+  /**
+   * Called by collab plugin in editor when it's ready to
+   * initialize a collab session.
+   */
   initialize(getState: () => EditorState): this;
-  send(
-    _tr: Transaction | null,
-    _oldState: EditorState | null,
-    newState: EditorState,
-  ): void;
-  sendMessage(data: any): void;
-  // (undocumented)
-  setEditorWidth(editorWidth: string, broadcast?: boolean): void;
-  // (undocumented)
-  setMetadata(metadata: Metadata_2): void;
-  // (undocumented)
-  setTitle(title: string, broadcast?: boolean): void;
-  // (undocumented)
   setup({
     getState,
     onSyncUpError,
@@ -129,22 +166,124 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     getState: () => EditorState;
     onSyncUpError?: SyncUpErrorFunction;
   }): this;
+  /**
+   * We can use this function to throttle/delay
+   * Any send steps operation
+   *
+   * The getState function will return the current EditorState
+   * from the EditorView.
+   */
+  private sendStepsFromCurrentState;
+  /**
+   * Send steps from transaction to other participants
+   */
+  send(
+    _tr: Transaction | null,
+    _oldState: EditorState | null,
+    newState: EditorState,
+  ): void;
+  /**
+   * Called when we receive steps from the service
+   */
+  private onStepsAdded;
+  private throttledCatchup;
+  private fitlerQueue;
+  private updateDocumentWithMetadata;
+  private applyLocalsteps;
+  private getCurrentPmVersion;
+  private getUnconfirmedSteps;
+  /**
+   * Called when:
+   *   * session established(offline -> online)
+   *   * try to accept steps but version is behind.
+   */
+  private catchup;
+  private onErrorHandled;
+  private pauseQueue?;
+  private queue;
+  private queueSteps;
+  private processQueue;
+  private processSteps;
+  /**
+   * Send messages, such as telepointers, to other participants.
+   */
+  sendMessage(data: any): void;
+  private sendPresence;
+  /**
+   * Called when a participant joins the session.
+   *
+   * We keep track of participants internally in this class, and emit the `presence` event to update
+   * the active avatars in the editor.
+   * This method will be triggered from backend to notify all participants to exchange presence
+   *
+   */
+  private onPresenceJoined;
+  private onPresence;
+  /**
+   * Called when a metadata is changed.
+   *
+   */
+  private onMetadataChanged;
+  /**
+   * Called when a participant leaves the session.
+   *
+   * We emit the `presence` event to update the active avatars in the editor.
+   */
+  private onParticipantLeft;
+  /**
+   * Called when we receive an update event from another participant.
+   */
+  private onParticipantUpdated;
+  /**
+   * Called when we receive a telepointer update from another
+   * participant.
+   */
+  private onParticipantTelepointer;
+  private updateParticipant;
+  /**
+   * Keep list of participants up to date. Filter out inactive users etc.
+   */
+  private updateParticipants;
+  private emitTelepointersFromSteps;
+  private disconnectedReasonMapper;
+  private onDisconnected;
+  destroy(): this;
+  disconnect(): this;
+  setTitle(title: string, broadcast?: boolean): void;
+  setEditorWidth(editorWidth: string, broadcast?: boolean): void;
+  setMetadata(metadata: Metadata_2): void;
+  getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
+  /**
+   * Unsubscribe from all events emitted by this provider.
+   */
   unsubscribeAll(): this;
 }
 
-// @public (undocumented)
-export interface Socket extends SimpleEventEmitter {
-  // (undocumented)
-  close(): Socket;
-  // (undocumented)
-  connect(): Socket;
-  // (undocumented)
-  emit(event: string, ...args: any[]): Socket;
-  // (undocumented)
+declare interface SimpleEventEmitter {
+  on(event: string, fn: Function): SimpleEventEmitter;
+}
+
+export declare interface Socket extends SimpleEventEmitter {
   id: string;
-  // (undocumented)
+  connect(): Socket;
+  emit(event: string, ...args: any[]): Socket;
+  close(): Socket;
   io?: Manager;
 }
 
-// (No @packageDocumentation comment for this package)
+declare type StepJson = {
+  from?: number;
+  to?: number;
+  stepType?: string;
+  clientId: string;
+  userId: string;
+};
+
+declare interface Storage_2 {
+  get(key: string): Promise<string>;
+  set(key: string, value: string): Promise<void>;
+  delete(key: string): Promise<void>;
+}
+
+export {};
 ```

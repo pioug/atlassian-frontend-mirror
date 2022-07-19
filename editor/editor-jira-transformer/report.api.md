@@ -7,47 +7,60 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 import { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 
-// @public (undocumented)
-export interface ContextInfo {
-  // (undocumented)
-  baseUrl: string;
-  // (undocumented)
+export declare interface ContextInfo {
   clientId: string;
-  // (undocumented)
-  collection: string;
-  // (undocumented)
+  baseUrl: string;
   token: string;
+  collection: string;
 }
 
-// @public (undocumented)
-export type CustomEncoder = (userId: string) => string;
+export declare type CustomEncoder = (userId: string) => string;
 
-// @public (undocumented)
-export interface JIRACustomEncoders {
-  // (undocumented)
+export declare interface JIRACustomEncoders {
   mention?: CustomEncoder;
 }
 
-// @public (undocumented)
-export class JIRATransformer implements Transformer_2<string> {
+export declare class JIRATransformer implements Transformer_2<string> {
+  private schema;
+  private customEncoders;
+  private mediaContextInfo?;
+  private doc;
   constructor(
     schema: Schema,
     customEncoders?: JIRACustomEncoders,
     mediaContextInfo?: MediaContextInfo,
   );
-  // (undocumented)
   encode(node: Node_2): string;
-  // (undocumented)
   parse(html: string): Node_2;
+  private getContent;
+  private encodeNode;
+  private makeDocument;
+  private encodeFragment;
+  private encodeHeading;
+  private encodeParagraph;
+  private encodeText;
+  private encodeHardBreak;
+  private encodeHorizontalRule;
+  private encodeBulletList;
+  private encodeOrderedList;
+  private encodeListItem;
+  private encodeMention;
+  private encodeEmoji;
+  private encodeCodeBlock;
+  private encodeBlockQuote;
+  private encodeMediaGroup;
+  private encodeMediaSingle;
+  private addDataToNode;
+  private buildURLWithContextInfo;
+  private isImageMimeType;
+  private encodeMedia;
+  private encodeTable;
 }
 
-// @public (undocumented)
-export interface MediaContextInfo {
-  // (undocumented)
-  uploadContext?: ContextInfo;
-  // (undocumented)
+export declare interface MediaContextInfo {
   viewContext?: ContextInfo;
+  uploadContext?: ContextInfo;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

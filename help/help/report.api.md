@@ -20,77 +20,49 @@ import { WithContextProps } from '@atlaskit/analytics-next';
 import { WithIntlProps } from 'react-intl-next';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export interface Article extends ArticleItem {
-  // (undocumented)
+export declare interface Article extends ArticleItem {
   body: string | AdfDoc;
-  // (undocumented)
   bodyFormat?: BODY_FORMAT_TYPES;
-  // (undocumented)
   relatedArticles?: ArticleItem[];
 }
 
-// @public (undocumented)
-export enum ARTICLE_ITEM_TYPES {
-  // (undocumented)
+export declare enum ARTICLE_ITEM_TYPES {
   topicInProduct = 'topicInProduct',
 }
 
-// @public (undocumented)
-export enum ARTICLE_TYPE {
-  // (undocumented)
+export declare enum ARTICLE_TYPE {
   HELP_ARTICLE = 'HELP_ARTICLE',
-  // (undocumented)
   WHATS_NEW = 'WHATS_NEW',
 }
 
-// @public (undocumented)
-export interface ArticleFeedback {
-  // (undocumented)
-  contactMe: boolean;
-  // (undocumented)
-  feedbackReason: string;
-  // (undocumented)
-  feedbackReasonText: string;
-  // (undocumented)
+export declare interface ArticleFeedback {
   wasHelpful: boolean;
+  feedbackReason: string;
+  feedbackReasonText: string;
+  contactMe: boolean;
 }
 
-// @public (undocumented)
-export interface articleId {
-  // (undocumented)
+export declare interface articleId {
   id: string;
-  // (undocumented)
   type: ARTICLE_TYPE;
 }
 
-// @public (undocumented)
-export interface ArticleItem {
-  // (undocumented)
+export declare interface ArticleItem {
   description?: string;
-  // (undocumented)
-  href?: string;
-  // (undocumented)
   id: string;
-  // (undocumented)
   lastPublished: string;
-  // (undocumented)
-  productName?: string;
-  // (undocumented)
+  title: string;
+  type: ARTICLE_ITEM_TYPES;
   routes?: {
     routeName: string;
     routeGroup: string;
   }[];
-  // (undocumented)
-  title: string;
-  // (undocumented)
   topicId?: string;
-  // (undocumented)
-  type: ARTICLE_ITEM_TYPES;
+  productName?: string;
+  href?: string;
 }
 
-// @public (undocumented)
-export const ArticlesListItem: React_2.FC<
+export declare const ArticlesListItem: React_2.FC<
   WithIntlProps<Props_3 & Partial<ArticleItem> & WrappedComponentProps<'intl'>>
 > & {
   WrappedComponent: React_2.ComponentType<
@@ -98,8 +70,7 @@ export const ArticlesListItem: React_2.FC<
   >;
 };
 
-// @public (undocumented)
-const _default: React_2.ForwardRefExoticComponent<
+declare const _default: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<Props, keyof WithAnalyticsEventsProps> &
       React_2.RefAttributes<any> &
@@ -110,8 +81,7 @@ const _default: React_2.ForwardRefExoticComponent<
 >;
 export default _default;
 
-// @public (undocumented)
-export const DividerLine: StyledComponent<
+export declare const DividerLine: StyledComponent<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   Omit_2<
     ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>,
@@ -120,13 +90,7 @@ export const DividerLine: StyledComponent<
   any
 >;
 
-// @public (undocumented)
-export interface Help {
-  // (undocumented)
-  children?: React.ReactNode;
-  // (undocumented)
-  footer?: React.ReactNode;
-  // (undocumented)
+export declare interface Help {
   header?: {
     onCloseButtonClick?(
       event: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -137,7 +101,42 @@ export interface Help {
       analyticsEvent: UIAnalyticsEvent,
     ): void;
   };
-  // (undocumented)
+  footer?: React.ReactNode;
+  home?: {
+    homeOptions?: Props_2[];
+  };
+  search?: {
+    onSearch?(value: string): Promise<ArticleItem[]>;
+    onSearchInputChanged?(
+      event: React.KeyboardEvent<HTMLInputElement>,
+      analyticsEvent: UIAnalyticsEvent,
+      value: string,
+    ): void;
+    onSearchInputCleared?(
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent: UIAnalyticsEvent,
+    ): void;
+    onSearchResultItemClick?(
+      event: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent: UIAnalyticsEvent,
+      articleData: ArticleItem,
+    ): void;
+    onSearchExternalUrlClick?(
+      event?: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticsEvent?: UIAnalyticsEvent,
+    ): void;
+    searchExternalUrl?: string;
+  };
+  navigation?: {
+    navigationData?: {
+      articleId: articleId;
+      history: HistoryItem[];
+    };
+    setNavigationData?(navigationData: {
+      articleId?: articleId;
+      history?: HistoryItem[];
+    }): void;
+  };
   helpArticle?: {
     onGetHelpArticle?(articleId: articleId): Promise<Article>;
     onHelpArticleLoadingFailTryAgainButtonClick?(
@@ -161,22 +160,6 @@ export interface Help {
       ArticleItem: ArticleItem,
     ): void;
   };
-  // (undocumented)
-  home?: {
-    homeOptions?: Props_2[];
-  };
-  // (undocumented)
-  navigation?: {
-    navigationData?: {
-      articleId: articleId;
-      history: HistoryItem[];
-    };
-    setNavigationData?(navigationData: {
-      articleId?: articleId;
-      history?: HistoryItem[];
-    }): void;
-  };
-  // (undocumented)
   relatedArticles?: {
     routeGroup?: string;
     routeName?: string;
@@ -195,30 +178,6 @@ export interface Help {
       articleData: ArticleItem,
     ) => void;
   };
-  // (undocumented)
-  search?: {
-    onSearch?(value: string): Promise<ArticleItem[]>;
-    onSearchInputChanged?(
-      event: React.KeyboardEvent<HTMLInputElement>,
-      analyticsEvent: UIAnalyticsEvent,
-      value: string,
-    ): void;
-    onSearchInputCleared?(
-      event: React.MouseEvent<HTMLElement, MouseEvent>,
-      analyticsEvent: UIAnalyticsEvent,
-    ): void;
-    onSearchResultItemClick?(
-      event: React.MouseEvent<HTMLElement, MouseEvent>,
-      analyticsEvent: UIAnalyticsEvent,
-      articleData: ArticleItem,
-    ): void;
-    onSearchExternalUrlClick?(
-      event?: React.MouseEvent<HTMLElement, MouseEvent>,
-      analyticsEvent?: UIAnalyticsEvent,
-    ): void;
-    searchExternalUrl?: string;
-  };
-  // (undocumented)
   whatsNew?: {
     whatsNewGetNotificationProvider?: Promise<NotificationLogProvider>;
     productName?: string;
@@ -242,10 +201,10 @@ export interface Help {
     ): void;
     onGetWhatsNewArticle?(id: articleId): Promise<WhatsNewArticle>;
   };
+  children?: React.ReactNode;
 }
 
-// @public (undocumented)
-export const HelpContentButton: ({
+export declare const HelpContentButton: ({
   id,
   href,
   notificationMax,
@@ -256,22 +215,60 @@ export const HelpContentButton: ({
   tooltipText,
 }: Props_2) => JSX.Element;
 
-// @public (undocumented)
-export interface HistoryItem {
-  // (undocumented)
-  article?: Article | WhatsNewArticle;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  state: REQUEST_STATE;
-  // (undocumented)
-  type: ARTICLE_TYPE;
-  // (undocumented)
+export declare interface HistoryItem {
   uid: number;
+  id: string;
+  state: REQUEST_STATE;
+  type: ARTICLE_TYPE;
+  article?: Article | WhatsNewArticle;
 }
 
-// @public (undocumented)
-export const RelatedArticles: React_2.ForwardRefExoticComponent<
+declare type Props = Help & WithAnalyticsEventsProps;
+
+declare type Props_2 = {
+  id?: string;
+  href?: string;
+  notificationMax?: number;
+  notificationLogProvider?: Promise<NotificationLogProvider>;
+  text: string;
+  icon?: React_2.ReactChild;
+  tooltipText?: string;
+  onClick?: (
+    id: string,
+    analytics: UIAnalyticsEvent,
+    event: React_2.MouseEvent<HTMLElement>,
+  ) => void;
+};
+
+declare interface Props_3 {
+  styles?: {};
+  onClick?: (
+    event: React_2.MouseEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
+}
+
+declare interface Props_4 {
+  style?: 'primary' | 'secondary';
+  routeGroup?: string;
+  routeName?: string;
+  onGetRelatedArticles?(
+    routeGroup?: string,
+    routeName?: string,
+  ): Promise<ArticleItem[]>;
+  onRelatedArticlesListItemClick?: (
+    event: React_2.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+    articleData: ArticleItem,
+  ) => void;
+  onRelatedArticlesShowMoreClick?: (
+    event: React_2.MouseEvent<HTMLElement>,
+    analyticsEvent: UIAnalyticsEvent,
+    isCollapsed: boolean,
+  ) => void;
+}
+
+export declare const RelatedArticles: React_2.ForwardRefExoticComponent<
   Omit<Props_4 & WrappedComponentProps<'intl'>, 'intl'> & {
     forwardedRef?: React_2.Ref<any> | undefined;
   } & {
@@ -280,49 +277,43 @@ export const RelatedArticles: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export enum WHATS_NEW_ITEM_TYPES {
-  // (undocumented)
-  EXPERIMENT = 'Experiment',
-  // (undocumented)
-  FIX = 'Fix',
-  // (undocumented)
-  IMPROVEMENT = 'Improvement',
-  // (undocumented)
+declare enum REQUEST_STATE {
+  done = 'done',
+  loading = 'loading',
+  error = 'error',
+  reload = 'reload',
+}
+
+export declare enum WHATS_NEW_ITEM_TYPES {
   NEW_FEATURE = 'Announcement',
-  // (undocumented)
+  IMPROVEMENT = 'Improvement',
+  FIX = 'Fix',
   REMOVED = 'Removed',
+  EXPERIMENT = 'Experiment',
 }
 
-// @public (undocumented)
-export interface WhatsNewArticle extends WhatsNewArticleItem {
-  // (undocumented)
-  bodyFormat?: BODY_FORMAT_TYPES;
-  // (undocumented)
+export declare interface WhatsNewArticle extends WhatsNewArticleItem {
   description: string | AdfDoc;
+  bodyFormat?: BODY_FORMAT_TYPES;
 }
 
-// @public (undocumented)
-export interface WhatsNewArticleItem {
-  // (undocumented)
-  changeTargetSchedule?: string;
-  // (undocumented)
-  communityUrl?: string;
-  // (undocumented)
-  featureRolloutDate?: string;
-  // (undocumented)
-  href?: string;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  relatedExternalLinks?: string;
-  // (undocumented)
-  status?: string;
-  // (undocumented)
+export declare interface WhatsNewArticleItem {
   title?: string;
-  // (undocumented)
+  changeTargetSchedule?: string;
   type?: WHATS_NEW_ITEM_TYPES;
+  status?: string;
+  featureRolloutDate?: string;
+  relatedExternalLinks?: string;
+  communityUrl?: string;
+  href?: string;
+  id: string;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface whatsNewSearchResult {
+  articles: WhatsNewArticleItem[];
+  nextPage: string;
+  hasNextPage: boolean;
+}
+
+export {};
 ```

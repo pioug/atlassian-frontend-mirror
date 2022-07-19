@@ -6,85 +6,102 @@
 import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-export class DeactivateUserOverviewScreen extends React_2.Component<
+export declare class DeactivateUserOverviewScreen extends React_2.Component<
   DeactivateUserOverviewScreenProps
 > {
-  // (undocumented)
   static defaultProps: Partial<DeactivateUserOverviewScreenProps>;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  renderBillingListElement: () => JSX.Element;
-  // (undocumented)
-  renderLoseAccessListElement: () => JSX.Element;
-  // (undocumented)
-  renderPersonalDataListElement: () => JSX.Element;
-  // (undocumented)
   selectAdminOrSelfCopy: (
     adminCopy: MessageDescriptor,
     selfCopy: MessageDescriptor,
   ) => MessageDescriptor;
+  renderLoseAccessListElement: () => JSX.Element;
+  renderPersonalDataListElement: () => JSX.Element;
+  renderBillingListElement: () => JSX.Element;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class DeleteUserContentPreviewScreen extends React_2.Component<
+declare interface DeactivateUserOverviewScreenProps {
+  accessibleSites: string[];
+  isCurrentUser: boolean;
+  user: User;
+}
+
+export declare class DeleteUserContentPreviewScreen extends React_2.Component<
   DeleteUserContentPreviewScreenProps,
   DeleteUserContentPreviewScreenState
 > {
-  // (undocumented)
+  state: DeleteUserContentPreviewScreenState;
   componentDidMount(): void;
-  // (undocumented)
   handleClickSection: (userName: string, position: number) => () => void;
-  // (undocumented)
   isCardSelected: (position: number) => boolean;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   selectAdminOrSelfCopy: (
     adminCopy: MessageDescriptor,
     selfCopy: MessageDescriptor,
   ) => MessageDescriptor;
-  // (undocumented)
-  state: DeleteUserContentPreviewScreenState;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class DeleteUserOverviewScreen extends React_2.Component<
+declare interface DeleteUserContentPreviewScreenProps {
+  isCurrentUser: boolean;
+  user: User;
+  preferenceSelection: (username: string) => void;
+}
+
+declare interface DeleteUserContentPreviewScreenState {
+  currentActive: number;
+}
+
+export declare class DeleteUserOverviewScreen extends React_2.Component<
   DeleteUserOverviewScreenProps
 > {
-  // (undocumented)
   static defaultProps: Partial<DeleteUserOverviewScreenProps>;
-  // (undocumented)
-  displayFirstListElement: () => JSX.Element | null;
-  // (undocumented)
-  displayFourthListElement: () => JSX.Element;
-  // (undocumented)
-  displaySecondListElement: () => JSX.Element;
-  // (undocumented)
-  displayThirdListElement: () => JSX.Element;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   selectAdminOrSelfCopy: (
     adminCopy: MessageDescriptor,
     selfCopy: MessageDescriptor,
   ) => MessageDescriptor;
-}
-
-// @public (undocumented)
-export class FocusedTaskCloseAccount extends React_2.Component<Props, State> {
-  // (undocumented)
-  nextScreen: () => void;
-  // (undocumented)
-  previousScreen: () => void;
-  // (undocumented)
+  displayFirstListElement: () => JSX.Element | null;
+  displaySecondListElement: () => JSX.Element;
+  displayThirdListElement: () => JSX.Element;
+  displayFourthListElement: () => JSX.Element;
   render(): JSX.Element;
-  // (undocumented)
-  renderCurrentScreen: () => React_2.ReactNode;
-  // (undocumented)
-  state: State;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface DeleteUserOverviewScreenProps {
+  accessibleSites: string[];
+  isCurrentUser: boolean;
+  user: User;
+  deactivateUserHandler?: () => void;
+  isUserDeactivated: boolean;
+}
+
+export declare class FocusedTaskCloseAccount extends React_2.Component<
+  Props,
+  State
+> {
+  state: State;
+  nextScreen: () => void;
+  previousScreen: () => void;
+  renderCurrentScreen: () => React_2.ReactNode;
+  render(): JSX.Element;
+}
+
+declare interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+  screens: React_2.ReactNode[];
+  submitButton: React_2.ReactNode;
+  learnMoreLink: string;
+}
+
+declare interface State {
+  currentScreenIdx: number;
+}
+
+declare interface User {
+  avatarUrl: string;
+  fullName: string;
+  email: string;
+}
+
+export {};
 ```

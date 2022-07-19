@@ -9,8 +9,7 @@ import { ReactNode } from 'react';
 import { StylesConfig } from '@atlaskit/select';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export type ActionTypes =
+export declare type ActionTypes =
   | 'select-option'
   | 'deselect-option'
   | 'remove-value'
@@ -19,11 +18,9 @@ export type ActionTypes =
   | 'clear'
   | 'create-option';
 
-// @public (undocumented)
-export type Appearance = 'normal' | 'compact';
+export declare type Appearance = 'normal' | 'compact';
 
-// @public (undocumented)
-export type AtlasKitSelectChange = (
+export declare type AtlasKitSelectChange = (
   value: AtlaskitSelectValue,
   extraInfo: {
     removedValue?: Option_2;
@@ -32,89 +29,77 @@ export type AtlasKitSelectChange = (
   },
 ) => void;
 
-// @public (undocumented)
-export type AtlaskitSelectValue = Option_2 | Array<Option_2> | null | undefined;
+export declare type AtlaskitSelectValue =
+  | Option_2
+  | Array<Option_2>
+  | null
+  | undefined;
 
-// @public (undocumented)
-export type DefaultValue = Value | OptionIdentifier | OptionIdentifier[];
+declare type BoundariesElement =
+  | 'scrollParent'
+  | 'window'
+  | 'viewport'
+  | HTMLElement;
 
-// @public (undocumented)
-export interface Email extends OptionData {
-  // (undocumented)
-  suggestion?: boolean;
-  // (undocumented)
+export declare type DefaultValue =
+  | Value
+  | OptionIdentifier
+  | OptionIdentifier[];
+
+export declare interface Email extends OptionData {
   type: 'email';
+  suggestion?: boolean;
 }
 
-// @public (undocumented)
-export const EmailType = 'email';
+export declare const EmailType = 'email';
 
-// @public (undocumented)
-export type EmailValidationResponse = 'INVALID' | 'POTENTIAL' | 'VALID';
+export declare type EmailValidationResponse = 'INVALID' | 'POTENTIAL' | 'VALID';
 
-// @public (undocumented)
-export type EmailValidator = (inputText: string) => EmailValidationResponse;
+export declare type EmailValidator = (
+  inputText: string,
+) => EmailValidationResponse;
 
-// @public (undocumented)
-export interface ExternalUser extends User {
-  // (undocumented)
+export declare interface ExternalUser extends User {
   externalUserType?: 'crossSite' | 'thirdParty';
-  // (undocumented)
   requiresSourceHydration?: boolean;
-  // (undocumented)
   sources: UserSource[];
 }
 
-// @public (undocumented)
-export interface Group extends OptionData {
-  // (undocumented)
+export declare interface Group extends OptionData {
   highlight?: GroupHighlight;
-  // (undocumented)
   type: 'group';
 }
 
-// @public (undocumented)
-export interface GroupHighlight {
-  // (undocumented)
+export declare interface GroupHighlight {
   name: HighlightRange[];
 }
 
-// @public (undocumented)
-export const GroupType = 'group';
+export declare const GroupType = 'group';
 
-// @public (undocumented)
-export interface HighlightRange {
-  // (undocumented)
-  end: number;
-  // (undocumented)
+export declare interface HighlightRange {
   start: number;
+  end: number;
 }
 
-// @public (undocumented)
-export type InputActionTypes =
+export declare type InputActionTypes =
   | 'set-value'
   | 'input-change'
   | 'input-blur'
   | 'menu-close';
 
-// @public (undocumented)
-export const isEmail: (option: OptionData) => option is Email;
+export declare const isEmail: (option: OptionData) => option is Email;
 
-// @public (undocumented)
-export const isExternalUser: (option: OptionData) => option is ExternalUser;
+export declare const isExternalUser: (
+  option: OptionData,
+) => option is ExternalUser;
 
-// @public (undocumented)
-export const isTeam: (option: OptionData) => option is Team;
+export declare const isTeam: (option: OptionData) => option is Team;
 
-// @public (undocumented)
-export const isUser: (option: OptionData) => option is User;
+export declare const isUser: (option: OptionData) => option is User;
 
-// @public (undocumented)
-export const isValidEmail: EmailValidator;
+export declare const isValidEmail: EmailValidator;
 
-// @public (undocumented)
-export interface LoadOptions {
-  // (undocumented)
+export declare interface LoadOptions {
   (searchText?: string, sessionId?: string):
     | Promisable<OptionData | OptionData[]>
     | Iterable<
@@ -122,59 +107,55 @@ export interface LoadOptions {
       >;
 }
 
-// @public (undocumented)
-export interface LozengeProps {
-  // (undocumented)
-  appearance?: LozengeColor;
-  // (undocumented)
-  isBold?: boolean;
-  // (undocumented)
-  text: string;
-  // (undocumented)
-  tooltip?: string;
+declare interface LoadUserSource {
+  (accountId: string, signal?: AbortSignal): Promise<UserSourceResult[]>;
 }
 
-// @public (undocumented)
-export type OnChange = (value: Value, action: ActionTypes) => void;
+declare type LozengeColor =
+  | 'default'
+  | 'success'
+  | 'removed'
+  | 'inprogress'
+  | 'new'
+  | 'moved';
 
-// @public (undocumented)
-export type OnInputChange = (query?: string, sessionId?: string) => void;
+export declare interface LozengeProps {
+  text: string;
+  tooltip?: string;
+  appearance?: LozengeColor;
+  isBold?: boolean;
+}
 
-// @public (undocumented)
-export type OnOption = (value: Value, sessionId?: string) => void;
+export declare type OnChange = (value: Value, action: ActionTypes) => void;
 
-// @public (undocumented)
-export type OnPicker = (sessionId?: string) => void;
+export declare type OnInputChange = (
+  query?: string,
+  sessionId?: string,
+) => void;
 
-// @public (undocumented)
-type Option_2<Data = OptionData> = {
+export declare type OnOption = (value: Value, sessionId?: string) => void;
+
+export declare type OnPicker = (sessionId?: string) => void;
+
+declare type Option_2<Data = OptionData> = {
   label: string;
   value: string;
   data: Data;
 };
 export { Option_2 as Option };
 
-// @public (undocumented)
-export interface OptionData {
-  // (undocumented)
+export declare interface OptionData {
   avatarUrl?: any;
-  // (undocumented)
-  fixed?: boolean;
-  // (undocumented)
   id: string;
-  // (undocumented)
-  lozenge?: string | LozengeProps;
-  // (undocumented)
   name: string;
-  // (undocumented)
   type?: 'user' | 'team' | 'email' | 'group';
+  fixed?: boolean;
+  lozenge?: string | LozengeProps;
 }
 
-// @public (undocumented)
-export type OptionIdentifier = Pick<OptionData, 'id' | 'type'>;
+export declare type OptionIdentifier = Pick<OptionData, 'id' | 'type'>;
 
-// @public (undocumented)
-export const PopupUserPicker: React_2.ForwardRefExoticComponent<
+export declare const PopupUserPicker: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<PopupUserPickerProps, keyof WithAnalyticsEventsProps>,
     | 'target'
@@ -254,88 +235,86 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export type PopupUserPickerProps = UserPickerProps & {
+export declare type PopupUserPickerProps = UserPickerProps & {
+  /** Whether to use the popup version of the single picker */
   target: Target;
+  /** Optional title assigned to popup picker */
   popupTitle?: string;
+  /**
+   * The boundary element that the popup will check for overflow.
+   * Defaults to `"viewport"` which are parent scroll containers,
+   * but can be set to any element.
+   */
   boundariesElement?: BoundariesElement;
+  /**
+   * Distance the popup should be offset from the reference in the format of [along, away] (units in px).
+   */
   offset?: [number, number];
+  /**
+   * Placement of where the popup should be displayed relative to the trigger element.
+   * Defaults to `"auto"`.
+   */
   placement?: Placement;
+  /**
+   * The root boundary that the popup will check for overflow.
+   * Defaults to `"viewport"` but can be set to `"document"`.
+   * See `@atlaskit/popper` for further details.
+   */
   rootBoundary?: RootBoundary;
+  /**
+   * Allows the dropdown menu to be placed on the opposite side of its trigger if it does not
+   * fit in the viewport.
+   */
   shouldFlip?: boolean;
 };
 
-// @public (undocumented)
-export type Promisable<T> = T | PromiseLike<T>;
+export declare type Promisable<T> = T | PromiseLike<T>;
 
-// @public (undocumented)
-export type Target = (options: { ref: any; isOpen: boolean }) => ReactNode;
+declare type RootBoundary = 'viewport' | 'document';
 
-// @public (undocumented)
-export interface Team extends OptionData {
-  // (undocumented)
+export declare type Target = (options: {
+  ref: any;
+  isOpen: boolean;
+}) => ReactNode;
+
+export declare interface Team extends OptionData {
   avatarUrl?: string;
-  // (undocumented)
   description?: string;
-  // (undocumented)
-  highlight?: TeamHighlight;
-  // (undocumented)
-  includesYou?: boolean;
-  // (undocumented)
   memberCount?: number;
-  // (undocumented)
   members?: TeamMember[];
-  // (undocumented)
+  includesYou?: boolean;
+  highlight?: TeamHighlight;
   type: 'team';
 }
 
-// @public (undocumented)
-export interface TeamHighlight {
-  // (undocumented)
+export declare interface TeamHighlight {
+  name: HighlightRange[];
   description?: HighlightRange[];
-  // (undocumented)
-  name: HighlightRange[];
 }
 
-// @public (undocumented)
-export interface TeamMember {
-  // (undocumented)
-  id: string;
-  // (undocumented)
+export declare interface TeamMember {
   name: string;
+  id: string;
 }
 
-// @public (undocumented)
-export const TeamType = 'team';
+export declare const TeamType = 'team';
 
-// @public (undocumented)
-export interface User extends OptionData {
-  // (undocumented)
+export declare interface User extends OptionData {
   avatarUrl?: string;
-  // (undocumented)
-  byline?: string;
-  // (undocumented)
-  email?: string;
-  // (undocumented)
-  highlight?: UserHighlight;
-  // (undocumented)
-  isExternal?: boolean;
-  // (undocumented)
   publicName?: string;
-  // (undocumented)
+  highlight?: UserHighlight;
+  byline?: string;
   type?: 'user';
+  email?: string;
+  isExternal?: boolean;
 }
 
-// @public (undocumented)
-export interface UserHighlight {
-  // (undocumented)
+export declare interface UserHighlight {
   name: HighlightRange[];
-  // (undocumented)
   publicName: HighlightRange[];
 }
 
-// @public (undocumented)
-const UserPicker: React_2.ForwardRefExoticComponent<
+declare const UserPicker: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<UserPickerProps, keyof WithAnalyticsEventsProps>,
     | 'autoFocus'
@@ -403,62 +382,143 @@ const UserPicker: React_2.ForwardRefExoticComponent<
 >;
 export default UserPicker;
 
-// @public (undocumented)
-export type UserPickerProps = WithAnalyticsEventsProps & {
+export declare type UserPickerProps = WithAnalyticsEventsProps & {
+  /**
+   * Used to configure additional information regarding where the
+   * user picker has been mounted.
+   *
+   * The purpose is to give more context as to where user picker events
+   * are being fired from, as the current data may not uniquely identify
+   * which field is the source.
+   *
+   * The value will be passed as a data attribute for analytics.
+   * Examples include "assignee", "watchers" and "share".
+   *
+   * A second usage for the fieldId is for server side rendering (SSR) where it must be a unique id per UserPicker
+   * instance contained in the serialized SSR content. E.g. a SPA page rendered through SSR that has multiple user pickers.
+   *
+   * fieldId can be set to null if the integrator is not listening
+   * for the analytic events or does not care about SSR.
+   */
   fieldId: string | null;
+  /** List of users or teams to be used as options by the user picker. */
   options?: OptionData[];
+  /** Width of the user picker field. It can be the amount of pixels as numbers or a string with the percentage. */
   width?: number | string;
+  /** Sets the minimum width for the menu. If not set, menu will always have the same width of the field. */
   menuMinWidth?: number;
+  /** Sets max height of the user picker. If not set, the height will grow based on number of picked users. */
   maxPickerHeight?: number;
+  /** Sets the background color to be the same color as a textfield (Atlaskit N10) */
   textFieldBackgroundColor?: boolean;
+  /**
+   * Function used to load options asynchronously.
+   * accepts two optional params:
+   * searchText?: optional text to filter results
+   * sessionId?: user picker session identifier, used to track success metric for users providers
+   */
   loadOptions?: LoadOptions;
+  /**
+   * Function used to load user source if they are an external user.
+   * accepts two params:
+   * accountId: account ID of the user to lookup sources
+   * signal: AbortController signal to abort the request if the tooltip is closed
+   */
   loadUserSource?: LoadUserSource;
+  /** Callback for value change events fired whenever a selection is inserted or removed. */
   onChange?: OnChange;
+  /** To enable multi user picker. */
   isMulti?: boolean;
+  /** Input text value. */
   search?: string;
+  /** Anchor for the user picker popup. */
   anchor?: React_2.ComponentType<any>;
+  /** Controls if user picker menu is open or not. If not provided, UserPicker will control menu state internally. */
   open?: boolean;
+  /** Show the loading indicator. */
   isLoading?: boolean;
+  /** Callback for search input text change events. */
   onInputChange?: OnInputChange;
+  /** Callback for when a selection is made. */
   onSelection?: OnOption;
+  /** Callback for when the field gains focus. */
   onFocus?: OnPicker;
+  /** Callback for when the field loses focus. */
   onBlur?: OnPicker;
+  /** Callback for when the value/s in the picker is cleared. */
   onClear?: OnPicker;
+  /** Callback that is triggered when popup picker is closed */
   onClose?: OnPicker;
+  /** Appearance of the user picker. */
   appearance?: Appearance;
+  /** Display the picker with a subtle style. */
   subtle?: boolean;
+  /** Display the picker with no border. */
   noBorder?: boolean;
+  /**
+   * You may pass through a `StylesConfig` to be merged with the picker default styles if a custom override is required.
+   * Consider using noBorder, subtle before customising further.
+   * See https://react-select.com/styles
+   */
   styles?: StylesConfig;
+  /** Default value for the field to be used on initial render.
+   * `defaultValue` differs from `value` in that it sets the initial value then leaves the component 'uncontrolled'
+   * whereas setting the `value` prop delegates responsibility for maintaining the value to the caller
+   * (i.e. listen to `onChange`) */
   defaultValue?: DefaultValue;
+  /** Placeholder text to be shown when there is no value in the field. */
   placeholder?: React_2.ReactNode;
+  /** Message to encourage the user to add more items to user picker. */
   addMoreMessage?: string;
+  /** Message to be shown when the menu is open but no options are provided.
+   * If message is null, no message will be displayed.
+   * If message is undefined, default message will be displayed.
+   */
   noOptionsMessage?:
     | ((value: { inputValue: string }) => string | null)
     | string
     | null;
+  /** Controls if the user picker has a value or not. If not provided, UserPicker will control the value internally. */
   value?: Value;
+  /** Disable all interactions with the picker, putting it in a read-only state. */
   isDisabled?: boolean;
+  /** Display a remove button on the single picker. True by default. */
   isClearable?: boolean;
+  /** Optional tooltip to display on hover over the clear indicator. */
   clearValueLabel?: string;
+  /** React-select prop for controlling menu position */
   menuPosition?: 'absolute' | 'fixed';
+  /** React-select prop for blocking menu scroll on container when menu scrolled to the very top/bottom of the menu */
   captureMenuScroll?: boolean;
+  /** Whether the menu should use a portal, and where it should attach. */
   menuPortalTarget?: HTMLElement;
+  /** Whether the user is allowed to enter emails as a value. */
   allowEmail?: boolean;
+  /** Setting this with allowEmail will cause the picker to constantly show an email option at the bottom for the supplied email domain/an email the user types in */
   suggestEmailsForDomain?: string;
+  /** Email option label */
   emailLabel?: string;
+  /** Whether to disable interaction with the input */
   disableInput?: boolean;
+  /** Override default email validation function. */
   isValidEmail?: EmailValidator;
+  /** Override the internal behaviour to automatically focus the control when the picker is open */
   autoFocus?: boolean;
+  /** The maximum number options to be displayed in the dropdown menu during any state of search. The value should be non-negative. */
   maxOptions?: number;
+  /** Allows clicking on a label with the same id to open user picker. */
   inputId?: string;
+  /** Whether to close menu on scroll */
   closeMenuOnScroll?: boolean | EventListener;
+  /** Whether to block scrolling actions */
   menuShouldBlockScroll?: boolean;
+  /** Accessibility: Identifies the element (or elements) that labels the current element.*/
   ariaLabelledBy?: string;
+  /** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/
   ariaLive?: 'polite' | 'off' | 'assertive';
 };
 
-// @public (undocumented)
-export type UserPickerState = {
+export declare type UserPickerState = {
   options: OptionData[];
   value?: AtlaskitSelectValue;
   isDefaultSet: boolean;
@@ -470,8 +530,7 @@ export type UserPickerState = {
   resolving: boolean;
 };
 
-// @public (undocumented)
-export type UserSource =
+export declare type UserSource =
   | 'google'
   | 'slack'
   | 'microsoft'
@@ -480,11 +539,14 @@ export type UserSource =
   | 'confluence'
   | 'other-atlassian';
 
-// @public (undocumented)
-export const UserType = 'user';
+declare interface UserSourceResult {
+  sourceId: string;
+  sourceType: UserSource;
+}
 
-// @public (undocumented)
-export type Value = OptionData | OptionData[] | null | undefined;
+export declare const UserType = 'user';
 
-// (No @packageDocumentation comment for this package)
+export declare type Value = OptionData | OptionData[] | null | undefined;
+
+export {};
 ```

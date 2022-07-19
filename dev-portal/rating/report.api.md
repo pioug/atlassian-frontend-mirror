@@ -9,18 +9,19 @@ import { ForwardRefExoticComponent } from 'react';
 import { default as React_2 } from 'react';
 import { RefAttributes } from 'react';
 
-// @public (undocumented)
-export interface InternalRatingProps extends RatingProps {
+export declare interface InternalRatingProps extends RatingProps {
+  /**
+   * Render callback that should return a ReactNode.
+   * Is passed an argument which is an object with one property `isChecked`.
+   */
   render: RatingRender;
 }
 
-// @public (undocumented)
-export const Rating: ForwardRefExoticComponent<
+export declare const Rating: ForwardRefExoticComponent<
   InternalRatingProps & RefAttributes<HTMLLabelElement>
 >;
 
-// @public (undocumented)
-export function RatingGroup({
+export declare function RatingGroup({
   groupName,
   onChange,
   defaultValue,
@@ -29,40 +30,133 @@ export function RatingGroup({
   children,
 }: RatingGroupProps): JSX.Element;
 
-// @public (undocumented)
-export interface RatingGroupProps {
-  children: JSX.Element | JSX.Element[];
-  defaultValue?: string;
+export declare interface RatingGroupProps {
+  /**
+   * Callback that is called everytime the rating changes.
+   * Use this in conjunction with `value` for [controlled behaviour](https://reactjs.org/docs/forms.html#controlled-components).
+   */
+  onChange?: (value?: string) => void;
+  /**
+     * Group name for all of the child rating items.
+     * If you have **multiple ratings on the same page make sure to have a unique name** for each group.
+
+     * Defaults to `"ak--rating-group"`.
+     */
   groupName?: string;
-  onChange?: (value?: string) => void;
-  testId?: string;
+  /**
+     * Will set the default checked value for a child radio rating item.
+     * Use when wanting to use this in an [uncontrolled way](https://reactjs.org/docs/uncontrolled-components.html).
+
+     * Do not use with `value`.
+     */
+  defaultValue?: string;
+  /**
+     * Value that is used to check a child rating item.
+     * Use when wanting to use this in a [controlled way](https://reactjs.org/docs/forms.html#controlled-components).
+
+     * Do not use with `defaultValue`.
+     */
   value?: string;
-}
+  /**
+     A `testId` prop is provided for specified elements,
+     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+     serving as a hook for automated tests.
 
-// @public (undocumented)
-export interface RatingProps {
-  id?: string;
-  isChecked?: boolean;
-  label: string;
-  name?: string;
-  onChange?: (value?: string) => void;
+     Will set these elements:
+
+     * The root container `"{testId}--root"`
+     * The empty input `"{testId}--input-empty"` which is used to signify "nothing is selected yet".
+     */
   testId?: string;
-  value: string;
+  /**
+     * Pass in child rating items.
+     * This component expects the markup to be defined in a particular way,
+     * so if you pass extra wrapping markup expect undefined behaviour.
+
+     * You can have any amount of child rating items.
+     */
+  children: JSX.Element | JSX.Element[];
 }
 
-// @public (undocumented)
-export type RatingRender = (props: { isChecked: boolean }) => React.ReactNode;
+export declare interface RatingProps {
+  /**
+   * Label for the rating item.
+   * This will be read by screen readers as well as used in the tooltip when hovering over the item.
+   */
+  label: string;
+  /**
+     * This is passed to the radio button input.
 
-// @public (undocumented)
-export const Star: React_2.ForwardRefExoticComponent<
+     * When using this with the `<Rating />` component this is handled for you.
+     */
+  name?: string;
+  /**
+     * Sets checked state on the rating item.
+
+     * When using this with the `<Rating />` component this is handled for you.
+     */
+  isChecked?: boolean;
+  /**
+     A `testId` prop is provided for specified elements,
+     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+     serving as a hook for automated tests.
+
+     Will set two elements:
+
+     * The label as `"{testId}--label"`
+     * The radio button as `"{testId}--input"`
+     * The unchecked icon container `"{testId}--icon-container"`
+     * The checked icon container `"{testId}--icon-checked-container"`
+
+     When using this with the `<Rating />` component this will inherit its `testId` as `"{testId}--{index}--{element}"`,
+     for example label would be `"{testId}--{index}--label"`.
+     */
+  testId?: string;
+  /**
+   * Value of the rating item.
+   * This will be passed back in the `onChange()` handler when checked.
+   */
+  value: string;
+  /**
+     * Id that is passed to both the label and the radio button element.
+     * This is needed to declare their relationship.
+
+     * When using this with the `<Rating />` component this is handled for you.
+     */
+  id?: string;
+  /**
+     * Handler that is called back whenever the radio button element changes its checked state.
+     * When checked will be passed the `value` -
+     * when unchecked will be passed `undefined`.
+
+     * When using this with the `<Rating />` component this is handled for you.
+     */
+  onChange?: (value?: string) => void;
+}
+
+export declare type RatingRender = (props: {
+  isChecked: boolean;
+}) => React.ReactNode;
+
+export declare const Star: React_2.ForwardRefExoticComponent<
   StarProps & React_2.RefAttributes<HTMLLabelElement>
 >;
 
-// @public (undocumented)
-export interface StarProps extends RatingProps {
-  color?: string;
+export declare interface StarProps extends RatingProps {
+  /**
+     * Size of the star icon.
+
+     * Defaults to `"large"`.
+     */
   size?: 'small' | 'medium' | 'large' | 'xlarge';
+  /**
+     * Color of the star icon,
+     * when wanting to customize the color please ensure you use `colors` from `@atlaskit/theme`.
+
+     * Defaults to `colors.Y200`.
+     */
+  color?: string;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

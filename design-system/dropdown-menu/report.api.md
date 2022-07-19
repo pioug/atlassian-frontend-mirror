@@ -16,87 +16,378 @@ import type { SectionProps } from '@atlaskit/menu';
 import type { SectionProps as SectionProps_2 } from '@atlaskit/menu/types';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
-// @public (undocumented)
-export interface CustomTriggerProps extends Omit<TriggerProps, 'ref'> {
-  isSelected?: boolean;
-  onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
-  testId?: string;
+export declare interface CustomTriggerProps extends Omit<TriggerProps, 'ref'> {
+  /**
+   * Ref that should be applied to the trigger. This is used to calculate the menu position.
+   */
   triggerRef: Ref<HTMLElement>;
+  /**
+   * Makes the trigger appear selected.
+   */
+  isSelected?: boolean;
+  /**
+   * Event that is triggered when the element is clicked.
+   */
+  onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   *
+   * As dropdown-menu is composed of different components, we passed down the testId to the sub component you want to test:
+   * - `testId--trigger` to get the menu trigger.
+   * - `testId--content` to get the dropdown content trigger.
+   */
+  testId?: string;
 }
 
-// @public
-export const DropdownItem: (props: DropdownItemProps) => JSX.Element;
+/**
+ * __Dropdown menu item__
+ *
+ * A dropdown item populates the dropdown menu with items. Every item should be inside a dropdown item group.
+ *
+ * - [Examples](https://atlassian.design/components/dropdown-item/examples)
+ * - [Code](https://atlassian.design/components/dropdown-item/code)
+ * - [Usage](https://atlassian.design/components/dropdown-item/usage)
+ */
+export declare const DropdownItem: (props: DropdownItemProps) => JSX.Element;
 
-// @public
-export const DropdownItemCheckbox: (
+/**
+ * __Dropdown item checkbox__
+ *
+ * A dropdown item checkbox creates groups that have multiple selections.
+ *
+ * - [Examples](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/examples)
+ * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/code)
+ * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/usage)
+ */
+export declare const DropdownItemCheckbox: (
   props: DropdownItemCheckboxProps,
 ) => JSX.Element;
 
-// @public
-export const DropdownItemCheckboxGroup: (
+/**
+ * __Dropdown item checkbox group__
+ *
+ * A wrapping element for dropdown menu checkbox items.
+ *
+ */
+export declare const DropdownItemCheckboxGroup: (
   props: DropdownItemCheckboxGroupProps,
 ) => JSX.Element;
 
-export { DropdownItemGroup };
-
-// @public (undocumented)
-export interface DropdownItemProps {
-  children: React.ReactNode;
-  component?: CustomItemProps['component'];
-  description?: string | JSX.Element;
-  elemAfter?: React.ReactNode;
-  elemBefore?: React.ReactNode;
-  href?: string;
-  isDisabled?: boolean;
-  isSelected?: boolean;
-  onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
-  rel?: string;
-  shouldDescriptionWrap?: boolean;
-  shouldTitleWrap?: boolean;
-  target?: string;
-  testId?: string;
-  title?: string;
+declare interface DropdownItemCheckboxGroupProps extends SectionProps {
+  /**
+   * Unique identifier for the checkbox group.
+   */
+  id: string;
 }
 
-// @public
-export const DropdownItemRadio: (props: DropdownItemRadioProps) => JSX.Element;
+declare interface DropdownItemCheckboxProps {
+  /**
+   * Primary content for the item.
+   */
+  children: React.ReactNode;
+  /**
+   * Description of the item.
+   * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
+   */
+  description?: string | JSX.Element;
+  /**
+   * Makes the checkbox appear disabled as well as removing interactivity.
+   */
+  isDisabled?: boolean;
+  /**
+   * When `true` the title of the item will wrap multiple lines if it's long enough.
+   */
+  shouldTitleWrap?: boolean;
+  /**
+   * When `true` the description of the item will wrap multiple lines if it's long enough.
+   */
+  shouldDescriptionWrap?: boolean;
+  /**
+   * Event that is triggered when the checkbox is clicked.
+   */
+  onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
+  /**
+   * Sets whether the checkbox is checked or unchecked.
+   */
+  isSelected?: boolean;
+  /**
+   * Sets whether the checkbox begins selected.
+   */
+  defaultSelected?: boolean;
+  /**
+   * Unique id of a checkbox
+   */
+  id: string;
+  /**
+   * Adds a title attribute to the root item element.
+   */
+  title?: string;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
+}
 
-// @public
-export const DropdownItemRadioGroup: (
+export { DropdownItemGroup };
+
+export declare interface DropdownItemProps {
+  /**
+   * Primary content for the item.
+   */
+  children: React.ReactNode;
+  /**
+   * Custom component to render as an item.
+   */
+  component?: CustomItemProps['component'];
+  /**
+   * Description of the item.
+   * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
+   */
+  description?: string | JSX.Element;
+  /**
+   * Makes the element appear disabled as well as removing interactivity.
+   */
+  isDisabled?: boolean;
+  /**
+   * When `true` the title of the item will wrap multiple lines if it's long enough.
+   */
+  shouldTitleWrap?: boolean;
+  /**
+   * When `true` the description of the item will wrap multiple lines if it's long enough.
+   */
+  shouldDescriptionWrap?: boolean;
+  /**
+   * Event that is triggered when the element is clicked.
+   */
+  onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
+  /**
+   * Makes the element appear selected.
+   */
+  isSelected?: boolean;
+  /**
+   * Link to another page.
+   */
+  href?: string;
+  /**
+   * Where to display the linked URL,
+   * see [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.
+   */
+  target?: string;
+  /**
+   * Adds a title attribute to the root item element.
+   */
+  title?: string;
+  /**
+   * Element to render before the item text.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   */
+  elemBefore?: React.ReactNode;
+  /**
+   * Element to render after the item text.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   */
+  elemAfter?: React.ReactNode;
+  /**
+   * The relationship of the linked URL as space-separated link types.
+   * Generally you'll want to set this to "noopener noreferrer" when `target` is "_blank".
+   */
+  rel?: string;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
+}
+
+/**
+ * __Dropdown item radio__
+ *
+ * A dropdown item radio displays groups that have a single selection.
+ *
+ * - [Examples](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/examples)
+ * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/code)
+ * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/usage)
+ */
+export declare const DropdownItemRadio: (
+  props: DropdownItemRadioProps,
+) => JSX.Element;
+
+/**
+ * __Dropdown item radio group__
+ *  Store which manages the selection state for each DropdownItemRadio
+ *  across mount and unmounts.
+ *
+ */
+export declare const DropdownItemRadioGroup: (
   props: DropdownItemRadioGroupProps,
 ) => JSX.Element;
 
-// @public
-const DropdownMenu: (props: DropdownMenuProps) => JSX.Element;
+declare interface DropdownItemRadioGroupProps extends SectionProps {
+  id: string;
+}
+
+declare interface DropdownItemRadioProps {
+  /**
+   * Primary content for the item.
+   */
+  children: React.ReactNode;
+  /**
+   * Description of the item.
+   * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
+   */
+  description?: string | JSX.Element;
+  /**
+   * Makes the checkbox appear disabled as well as removing interactivity.
+   */
+  isDisabled?: boolean;
+  /**
+   * When `true` the title of the item will wrap multiple lines if it's long enough.
+   */
+  shouldTitleWrap?: boolean;
+  /**
+   * When `true` the description of the item will wrap multiple lines if it's long enough.
+   */
+  shouldDescriptionWrap?: boolean;
+  /**
+   * Event that is triggered when the checkbox is clicked.
+   */
+  onClick?: (e: MouseEvent_2 | KeyboardEvent_2) => void;
+  /**
+   * Sets whether the checkbox is checked or unchecked.
+   */
+  isSelected?: boolean;
+  /**
+   * Sets whether the checkbox begins selected.
+   */
+  defaultSelected?: boolean;
+  /**
+   * Unique id of a checkbox
+   */
+  id: string;
+  /**
+   * Adds a title attribute to the root item element.
+   */
+  title?: string;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
+}
+
+/**
+ * __Dropdown menu__
+ *
+ * A dropdown menu displays a list of actions or options to a user.
+ *
+ * - [Examples](https://atlassian.design/components/dropdown-menu/examples)
+ * - [Code](https://atlassian.design/components/dropdown-menu/code)
+ * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
+ */
+declare const DropdownMenu: (props: DropdownMenuProps) => JSX.Element;
 export default DropdownMenu;
 
-// @public (undocumented)
-export interface DropdownMenuGroupProps extends SectionProps_2 {}
+export declare interface DropdownMenuGroupProps extends SectionProps_2 {}
 
-// @public (undocumented)
-export interface DropdownMenuProps {
+export declare interface DropdownMenuProps {
+  /**
+   * Controls the appearance of the menu.
+   * Default menu has scroll after its height exceeds the pre-defined amount.
+   * Tall menu has no scroll until the height exceeds the height of the viewport.
+   */
   appearance?: 'default' | 'tall';
+  /**
+   * Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock
+   * which traps the focus within the menu. Also, the first item gets fouced automatically
+   * if the menu is triggered using the keyboard.
+   *
+   */
   autoFocus?: boolean;
+  /**
+   * Content that will be rendered inside the layer element. Should typically be
+   * `DropdownItemGroup` or `DropdownItem`, or checkbox / radio variants of those.
+   */
   children?: ReactNode;
-  defaultOpen?: boolean;
+  /**
+   * If true, a Spinner is rendered instead of the items
+   */
   isLoading?: boolean;
-  isOpen?: boolean;
-  onOpenChange?: (args: OnOpenChangeArgs) => void;
-  placement?: Placement;
-  shouldFlip?: boolean;
+  /**
+   * Text to be used as status for assistive technologies. Defaults to "Loading".
+   */
   statusLabel?: string;
-  testId?: string;
+  /**
+   * Controls the open state of the dropdown.
+   */
+  isOpen?: boolean;
+  /**
+   * Position of the menu.
+   */
+  placement?: Placement;
+  /**
+   * Allows the dropdown menu to be placed on the opposite side of its trigger if it does not
+   * fit in the viewport.
+   */
+  shouldFlip?: boolean;
+  /**
+   * Content which will trigger the dropdown menu to open and close. Use with `triggerType`
+   * to easily get a button trigger.
+   */
   trigger?: string | ((triggerButtonProps: CustomTriggerProps) => ReactElement);
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   *
+   * As dropdown-menu is composed of different components, we passed down the testId to the sub component you want to test:
+   * - `testId--trigger` to get the menu trigger.
+   * - `testId--content` to get the dropdown content trigger.
+   */
+  testId?: string;
+  /**
+   * Controls the initial open state of the dropdown. If provided, the component is considered to be controlled
+   * which means that the user is responsible for managing the open and close state of the menu.
+   */
+  defaultOpen?: boolean;
+  /**
+   * Called when the menu should be open/closed. Receives an object with `isOpen` state.
+   */
+  onOpenChange?: (args: OnOpenChangeArgs) => void;
+  /**
+   * Z-index that the popup should be displayed in.
+   * This is passed to the portal component.
+   * Defaults to `layers.modal()` from `@atlaskit/theme` which is 510.
+   */
   zIndex?: number;
 }
 
-// @public (undocumented)
-export interface OnOpenChangeArgs {
-  // (undocumented)
-  event?: MouseEvent_2 | KeyboardEvent_2;
-  // (undocumented)
+export declare interface OnOpenChangeArgs {
   isOpen: boolean;
+  event?: MouseEvent_2 | KeyboardEvent_2;
 }
 
-// (No @packageDocumentation comment for this package)
+declare type Placement =
+  | 'auto-start'
+  | 'auto'
+  | 'auto-end'
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'left-end'
+  | 'left'
+  | 'left-start';
+
+export {};
 ```

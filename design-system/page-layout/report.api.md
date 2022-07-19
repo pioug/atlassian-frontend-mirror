@@ -12,32 +12,77 @@ import { MouseEvent as MouseEvent_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-export const Banner: (props: SlotHeightProps) => JSX.Element;
+export declare const Banner: (props: SlotHeightProps) => JSX.Element;
 
-// @public (undocumented)
-export const BANNER_HEIGHT: string;
+export declare const BANNER_HEIGHT: string;
 
-// @public (undocumented)
-export const Content: (props: ContentProps) => JSX.Element;
+export declare const Content: (props: ContentProps) => JSX.Element;
 
-// @public (undocumented)
-export type Dimensions = Partial<Record<DimensionNames, number>>;
+declare interface ContentProps {
+  /** React children! */
+  children: ReactNode;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   **/
+  testId?: string;
+}
 
-// @public (undocumented)
-export const LEFT_PANEL_WIDTH: string;
+declare type DimensionNames =
+  | 'leftPanelWidth'
+  | 'bannerHeight'
+  | 'topNavigationHeight'
+  | 'leftSidebarWidth'
+  | 'leftSidebarFlyoutWidth'
+  | 'rightSidebarWidth'
+  | 'rightPanelWidth';
 
-// @public (undocumented)
-export const LEFT_SIDEBAR_WIDTH: string;
+export declare type Dimensions = Partial<Record<DimensionNames, number>>;
 
-// @public (undocumented)
-export const LeftPanel: (props: SlotWidthProps) => JSX.Element;
+export declare const LEFT_PANEL_WIDTH: string;
 
-// @public (undocumented)
-export const LeftSidebar: (props: LeftSidebarProps) => JSX.Element;
+export declare const LEFT_SIDEBAR_WIDTH: string;
 
-// @public (undocumented)
-export type LeftSidebarState = {
+export declare const LeftPanel: (props: SlotWidthProps) => JSX.Element;
+
+export declare const LeftSidebar: (props: LeftSidebarProps) => JSX.Element;
+
+declare interface LeftSidebarProps extends SlotWidthProps {
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   */
+  testId?: string;
+  /** You can override prop(s) for the mentioned component(s). */
+  overrides?: {
+    ResizeButton?: {
+      render?: (
+        Component: ElementType<ResizeButtonProps>,
+        props: ResizeButtonProps,
+      ) => ReactElement;
+    };
+  };
+  /** Display label for grab area. This will be announced to the screenreaders when the grab area receives focus */
+  resizeGrabAreaLabel?: string;
+  /** Display label for resize button. */
+  resizeButtonLabel?: string;
+  /** Called when left-sidebar is collapsed. */
+  onCollapse?: () => void;
+  /** Called when left-sidebar is expanded. */
+  onExpand?: () => void;
+  /** Called when left-sidebar resize starts using mouse or touch. */
+  onResizeStart?: (leftSidebarState: LeftSidebarState) => void;
+  /** Called when left-sidebar resize ends using mouse or touch. */
+  onResizeEnd?: (leftSidebarState: LeftSidebarState) => void;
+  /** Called when left-sidebar is collapsed and mouse leaves the area. */
+  onFlyoutCollapse?: () => void;
+  /** Called after flyout delay when left-sidebar is collapsed and mouse enters the area. */
+  onFlyoutExpand?: () => void;
+  /** Controls whether the LeftSidebar mounts in a collapsed state, this will override the setting in localStorage */
+  collapsedState?: 'collapsed' | 'expanded';
+  /** Controls the width when LeftSidebar mounts, this will override the setting in localStorage */
+  width?: number;
+}
+
+export declare type LeftSidebarState = {
   isFlyoutOpen: boolean;
   isResizing: boolean;
   isLeftSidebarCollapsed: boolean;
@@ -47,14 +92,13 @@ export type LeftSidebarState = {
   isFixed: boolean;
 };
 
-// @public (undocumented)
-export const LeftSidebarWithoutResize: (props: SlotWidthProps) => JSX.Element;
+export declare const LeftSidebarWithoutResize: (
+  props: SlotWidthProps,
+) => JSX.Element;
 
-// @public (undocumented)
-export const Main: (props: SlotWidthProps) => JSX.Element;
+export declare const Main: (props: SlotWidthProps) => JSX.Element;
 
-// @public (undocumented)
-export const PageLayout: ({
+export declare const PageLayout: ({
   skipLinksLabel,
   children,
   testId,
@@ -62,48 +106,103 @@ export const PageLayout: ({
   onLeftSidebarCollapse,
 }: PageLayoutProps) => JSX.Element;
 
-// @public (undocumented)
-export const RIGHT_PANEL_WIDTH: string;
-
-// @public (undocumented)
-export const RIGHT_SIDEBAR_WIDTH: string;
-
-// @public (undocumented)
-export const RightPanel: (props: SlotWidthProps) => JSX.Element;
-
-// @public (undocumented)
-export const RightSidebar: (props: SlotWidthProps) => JSX.Element;
-
-// @public (undocumented)
-export interface SlotHeightProps extends SlotProps {
-  height?: number;
-  shouldPersistHeight?: boolean;
+declare interface PageLayoutProps extends SidebarResizeControllerProps {
+  /** React children! */
+  children: ReactNode;
+  skipLinksLabel?: string;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   **/
+  testId?: string;
 }
 
-// @public (undocumented)
-export interface SlotWidthProps extends SlotProps {
+declare type ResizeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  isLeftSidebarCollapsed: boolean;
+  label: string;
+  testId?: string;
+};
+
+export declare const RIGHT_PANEL_WIDTH: string;
+
+export declare const RIGHT_SIDEBAR_WIDTH: string;
+
+export declare const RightPanel: (props: SlotWidthProps) => JSX.Element;
+
+export declare const RightSidebar: (props: SlotWidthProps) => JSX.Element;
+
+declare type SidebarResizeControllerProps = {
+  /** Called when left-sidebar expanded. */
+  onLeftSidebarExpand?: (leftSidebarState: LeftSidebarState) => void;
+  /** Called when left-sidebar collapsed. */
+  onLeftSidebarCollapse?: (leftSidebarState: LeftSidebarState) => void;
+};
+
+declare type SkipLinkData = {
+  /** id for the element that will be skipped to */
+  id: string;
+  /** Text for the link that will appear in the skip link menu */
+  skipLinkTitle: string;
+  /** Desired position in the skip link menu */
+  listIndex?: number;
+};
+
+export declare interface SlotHeightProps extends SlotProps {
+  /** It save height in local storage. */
+  shouldPersistHeight?: boolean;
+  /** Height! */
+  height?: number;
+}
+
+declare interface SlotProps {
+  /** Sets positon to fixed. */
+  isFixed?: boolean;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests .
+   */
+  testId?: string;
+  /** React Children! */
+  children: ReactNode;
+  id?: string;
+  skipLinkTitle?: string;
+}
+
+export declare interface SlotWidthProps extends SlotProps {
+  /** It save width in local storage. */
   shouldPersistWidth?: boolean;
+  /** Width! */
   width?: number;
 }
 
-// @public (undocumented)
-export const TOP_NAVIGATION_HEIGHT: string;
+export declare const TOP_NAVIGATION_HEIGHT: string;
 
-// @public (undocumented)
-export const TopNavigation: (props: SlotHeightProps) => JSX.Element;
+export declare const TopNavigation: (props: SlotHeightProps) => JSX.Element;
 
-// @public (undocumented)
-export const useCustomSkipLink: (
+export declare const useCustomSkipLink: (
   id: SkipLinkData['id'],
   skipLinkTitle: SkipLinkData['skipLinkTitle'],
   listIndex?: SkipLinkData['listIndex'],
 ) => void;
 
-// @public
-export const useLeftSidebarFlyoutLock: () => void;
+/**
+ * **WARNING:** This hook is intended as a temporary solution and
+ * is likely to be removed in a future version of page-layout.
+ *
+ * ---
+ *
+ * This hook will prevent the left sidebar from automatically collapsing
+ * when it is in a flyout state.
+ *
+ * The intended use case for this hook is to allow popup menus in the
+ * left sidebar to be usable while it is in a flyout state.
+ *
+ * ## Usage
+ * The intended usage is to use this hook within the popup component
+ * you are rendering. This way the left sidebar will be locked for
+ * as long as the popup is open.
+ */
+export declare const useLeftSidebarFlyoutLock: () => void;
 
-// @public (undocumented)
-export const usePageLayoutResize: () => {
+export declare const usePageLayoutResize: () => {
   isLeftSidebarCollapsed: boolean;
   expandLeftSidebar: () => void;
   collapseLeftSidebar: (
@@ -116,5 +215,5 @@ export const usePageLayoutResize: () => {
   leftSidebarState: LeftSidebarState;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

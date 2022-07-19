@@ -20,44 +20,161 @@ import { ReactNode } from 'react';
 import { Ref } from 'react';
 import { ThemeProp } from '@atlaskit/theme/components';
 
-// @public
-export class Modal extends Component<ModalProps> {
-  // (undocumented)
-  footerComponent: (
-    props: ModalProps,
-  ) => ElementType<ModalFooterProps> | (() => JSX.Element | null);
-  // (undocumented)
+declare interface Action extends Omit<CustomThemeButtonProps, 'children'> {
+  key?: string;
+  text?: ReactNode;
+}
+
+declare type Actions = Action[];
+
+declare type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
+  bgColor?: string;
+  radius?: number;
+  className?: string;
+  testId?: string;
+};
+
+declare interface CardTokens {
+  container: Record<string, string | undefined>;
+}
+
+/**
+ * __Onboarding modal__
+ *
+ * If the product change is large enough,
+ * this component can be used to outline the benefits of the change to the user.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ */
+export declare class Modal extends Component<ModalProps> {
   headerComponent: (
     props: ModalProps,
   ) => ElementType<ModalHeaderProps> | (() => JSX.Element);
-  // (undocumented)
+  footerComponent: (
+    props: ModalProps,
+  ) => ElementType<ModalFooterProps> | (() => JSX.Element | null);
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export const modalButtonTheme: (
+export declare const modalButtonTheme: (
   current: any,
   themeProps: Record<string, any>,
 ) => any;
+
+declare type ModalProps = {
+  /**
+   * Buttons to render in the footer
+   */
+  actions?: Actions;
+  /**
+   * The elements rendered in the modal
+   */
+  children: ReactNode;
+  /**
+   * Path to the the your image
+   */
+  image?: string;
+  /**
+   * Optional element rendered above the body
+   */
+  header?: ElementType<ModalHeaderProps>;
+  /**
+   * Optional element rendered below the body
+   */
+  footer?: ElementType<ModalFooterProps>;
+  /**
+   * Heading text rendered above the body
+   */
+  heading?: string;
+  /**
+   * Boolean prop to confirm if primary button in the footer should be shown on the right
+   */
+  experimental_shouldShowPrimaryButtonOnRight?: boolean;
+};
 
 export { ModalTransition };
 
-// @public
-export const Spotlight: React_2.FC<SpotlightProps>;
+/**
+ * __Spotlight__
+ *
+ * A spotlight gives visual focus to an element and is paired with a dialog.
+ *
+ * Spotlights are used for onboarding and can be connected to create a tour.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ */
+export declare const Spotlight: React_2.FC<SpotlightProps>;
 
-// @public (undocumented)
-export const spotlightButtonTheme: (
+export declare const spotlightButtonTheme: (
   current: any,
   themeProps: Record<string, any>,
 ) => any;
 
-// @public (undocumented)
-export const SpotlightCard: React_2.ForwardRefExoticComponent<
+export declare const SpotlightCard: React_2.ForwardRefExoticComponent<
   SpotlightCardProps & React_2.RefAttributes<HTMLElement>
 >;
 
-// @public
-export class SpotlightManager extends PureComponent<
+declare interface SpotlightCardProps {
+  /**
+   * Buttons to render in the footer
+   */
+  actions?: Actions;
+  /**
+   * An optional element rendered to the left of the footer actions
+   */
+  actionsBeforeElement?: ReactNode;
+  /**
+   * The content of the card
+   */
+  children?: ReactNode;
+  /**
+   * The container elements rendered by the component
+   */
+  components?: {
+    Header?: ComponentType<any>;
+    Footer?: ComponentType<any>;
+  };
+  /**
+   * The heading to be rendered above the body
+   */
+  heading?: ReactNode;
+  /**
+   * An optional element rendered to the right of the heading
+   */
+  headingAfterElement?: ReactNode;
+  /**
+   * The image src to render above the heading
+   */
+  image?: string | ReactNode;
+  /**
+   * Removes elevation styles if set
+   */
+  isFlat?: boolean;
+  /**
+   * The theme of the card
+   */
+  theme?: ThemeProp<CardTokens, {}>;
+  /**
+   * Width of the card in pixels
+   */
+  width?: number;
+  innerRef?: Ref<HTMLElement> | null;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
+}
+
+/**
+ * __Spotlight manager__
+ *
+ * Wraps usage of spotlight and manages progression through multiple spotlights.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ */
+export declare class SpotlightManager extends PureComponent<
   SpotlightManagerProps,
   {
     spotlightCount: number;
@@ -66,13 +183,17 @@ export class SpotlightManager extends PureComponent<
     };
   }
 > {
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
   static defaultProps: {
     blanketIsTinted: boolean;
   };
-  // (undocumented)
+  componentDidMount(): void;
+  state: {
+    spotlightCount: number;
+    targets: {};
+  };
+  targetRef: (name: string) => (element: HTMLElement | void) => void;
+  spotlightOpen: () => void;
+  spotlightClose: () => void;
   getStateProviderValue: MemoizedFn<
     (
       this: any,
@@ -83,53 +204,203 @@ export class SpotlightManager extends PureComponent<
       targets: any;
     }
   >;
-  // (undocumented)
   render(): JSX.Element;
-  // (undocumented)
-  spotlightClose: () => void;
-  // (undocumented)
-  spotlightOpen: () => void;
-  // (undocumented)
-  state: {
-    spotlightCount: number;
-    targets: {};
-  };
-  // (undocumented)
-  targetRef: (name: string) => (element: HTMLElement | void) => void;
 }
 
-// @public
-export const SpotlightPulse: React.FC<TargetProps>;
+declare interface SpotlightManagerProps {
+  /**
+   * Boolean prop for toggling blanket transparency
+   */
+  blanketIsTinted?: boolean;
+  /**
+   * Typically the app, or a section of the app
+   */
+  children: ReactNode;
+  /**
+   * @deprecated
+   * Replaces the wrapping fragment with component
+   */
+  component?: ElementType;
+}
 
-// @public
-export const SpotlightTarget: React_2.FC<SpotlightTargetProps>;
+declare interface SpotlightProps {
+  /**
+   * Buttons to render in the footer
+   */
+  actions?: Actions;
+  /**
+   * An optional node to be rendered beside the footer actions
+   */
+  actionsBeforeElement?: ReactNode;
+  /**
+   * The elements rendered in the modal
+   */
+  children?: ReactNode;
+  /**
+   * Where the dialog should appear, relative to the contents of the children.
+   */
+  dialogPlacement?:
+    | 'top left'
+    | 'top center'
+    | 'top right'
+    | 'right top'
+    | 'right middle'
+    | 'right bottom'
+    | 'bottom left'
+    | 'bottom center'
+    | 'bottom right'
+    | 'left top'
+    | 'left middle'
+    | 'left bottom';
+  /**
+   * The width of the dialog in pixels. Min 160 - Max 600
+   */
+  dialogWidth?: number;
+  /**
+   * Optional element rendered below the body
+   */
+  footer?: ComponentType<any>;
+  /**
+   * Optional element rendered above the body
+   */
+  header?: ComponentType<any>;
+  /**
+   * Heading text rendered above the body
+   */
+  heading?: string;
+  /**
+   * An optional element rendered to the right of the heading
+   */
+  headingAfterElement?: ReactNode;
+  /**
+   * Path to the the your image
+   */
+  image?: string;
+  /**
+   * Whether or not to display a pulse animation around the spotlighted element
+   */
+  pulse?: boolean;
+  /**
+   * The name of the SpotlightTarget
+   */
+  target?: string;
+  /**
+   * The spotlight target node
+   */
+  targetNode?: HTMLElement;
+  /**
+   * The background color of the element being highlighted
+   */
+  targetBgColor?: string;
+  /**
+   * Function to fire when a user clicks on the cloned target
+   */
+  targetOnClick?: (eventData: {
+    event: MouseEvent_2<HTMLElement>;
+    target?: string;
+  }) => void;
+  /**
+   * The border-radius of the element being highlighted
+   */
+  targetRadius?: number;
+  /**
+   * Alternative element to render than the wrapped target
+   */
+  targetReplacement?: ComponentType<any>;
+  /**
+     This prop is a unique string that appears as an attribute `data-testid` in the rendered HTML output serving as a hook for automated tests.
+     As this component is composed of multiple components we use this `testId` as a prefix:
 
-// @public
-export class SpotlightTransition extends React_2.Component<
+     - `"${testId}--dialog"` to identify the spotlight dialog
+     - `"${testId}--target"` to identify the spotlight target clone
+
+     Defaults to `"spotlight"`.
+     */
+  testId?: string;
+}
+
+/**
+ * __Pulse__
+ *
+ * Allows consumers to apply the spotlight pulse effect in a custom way.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ */
+export declare const SpotlightPulse: React.FC<TargetProps>;
+
+/**
+ * __Spotlight target__
+ *
+ * Wraps an element, allowing it to be targeted by a spotlight.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ */
+export declare const SpotlightTarget: React_2.FC<SpotlightTargetProps>;
+
+declare interface SpotlightTargetProps {
+  /**
+   * A single child
+   */
+  children: ReactNode;
+  /**
+   * The name to reference from Spotlight
+   */
+  name: string;
+}
+
+/**
+ * __Spotlight transition__
+ *
+ * Provides context used for fading animations.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ */
+export declare class SpotlightTransition extends React_2.Component<
   SpotlightTransitionProps,
   State
 > {
-  // (undocumented)
   static getDerivedStateFromProps(
     props: SpotlightTransitionProps,
     state: State,
   ): {
     currentChildren: React_2.ReactNode;
   };
-  // (undocumented)
-  onExited: () => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   state: {
     currentChildren: undefined;
   };
+  onExited: () => void;
+  render(): JSX.Element;
 }
 
-// @public
-export function useSpotlight(): {
+declare interface SpotlightTransitionProps {
+  /**
+   * Children that are conditionally rendered. The transition happens based
+   * on the existence or non-existence of children.
+   */
+  children?: ReactNode;
+}
+
+declare interface State {
+  currentChildren: ReactNode;
+}
+
+declare type TargetProps = Omit<BaseProps, 'css'> & {
+  pulse?: boolean;
+  testId?: string;
+};
+
+/**
+ * Enables advanced usage of spotlights.
+ *
+ * Provides the following methods:
+ * - `isTargetRendered`
+ *
+ *    Checks if the given spotlight target is currently
+ *    being rendered.
+ */
+export declare function useSpotlight(): {
   isTargetRendered: (target: string) => boolean;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

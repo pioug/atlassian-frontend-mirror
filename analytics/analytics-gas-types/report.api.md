@@ -5,20 +5,15 @@
 ```ts
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const DEFAULT_SOURCE = 'unknown';
+export declare const DEFAULT_SOURCE = 'unknown';
 
-// @public (undocumented)
-export type EventType = 'ui' | 'track' | 'screen' | 'operational';
+export declare type EventType = 'ui' | 'track' | 'screen' | 'operational';
 
-// @public (undocumented)
-export type GasCorePayload = GasPurePayload & WithEventType;
+export declare type GasCorePayload = GasPurePayload & WithEventType;
 
-// @public (undocumented)
-export type GasPayload = AnalyticsEventPayload & GasCorePayload;
+export declare type GasPayload = AnalyticsEventPayload & GasCorePayload;
 
-// @public (undocumented)
-export type GasPurePayload = {
+export declare type GasPurePayload = {
   actionSubject: string;
   actionSubjectId?: string;
   attributes?: {
@@ -35,8 +30,7 @@ export type GasPurePayload = {
   action?: string;
 };
 
-// @public (undocumented)
-export type GasPureScreenEventPayload = {
+export declare type GasPureScreenEventPayload = {
   name: string;
   attributes?: {
     [key: string]: any;
@@ -44,25 +38,20 @@ export type GasPureScreenEventPayload = {
   tags?: Array<string>;
 };
 
-// @public (undocumented)
-export type GasScreenEventPayload = GasPureScreenEventPayload & WithEventType;
+export declare type GasScreenEventPayload = GasPureScreenEventPayload &
+  WithEventType;
 
-// @public (undocumented)
-export const OPERATIONAL_EVENT_TYPE = 'operational';
+export declare const OPERATIONAL_EVENT_TYPE = 'operational';
 
-// @public (undocumented)
-export const SCREEN_EVENT_TYPE = 'screen';
+export declare const SCREEN_EVENT_TYPE = 'screen';
 
-// @public (undocumented)
-export const TRACK_EVENT_TYPE = 'track';
+export declare const TRACK_EVENT_TYPE = 'track';
 
-// @public (undocumented)
-export const UI_EVENT_TYPE = 'ui';
+export declare const UI_EVENT_TYPE = 'ui';
 
-// @public (undocumented)
-export type WithEventType = {
+export declare type WithEventType = {
   eventType: EventType;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

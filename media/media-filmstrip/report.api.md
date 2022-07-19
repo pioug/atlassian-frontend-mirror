@@ -15,48 +15,37 @@ import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { WheelEvent as WheelEvent_2 } from 'react';
 
-// @public (undocumented)
-export interface ArrowProps {
-  // (undocumented)
+export declare interface ArrowProps {
   onClick: (event: MouseEvent_2<HTMLDivElement>) => void;
 }
 
-// @public (undocumented)
-export interface ChildOffset {
-  // (undocumented)
+export declare interface ChildOffset {
   left: number;
-  // (undocumented)
   right: number;
 }
 
-// @public (undocumented)
-export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+export declare class Filmstrip extends Component<
+  FilmstripProps,
+  FilmstripState
+> {
   state: FilmstripState;
+  private handleSize;
+  private handleScroll;
+  private renderCards;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface FilmstripItem {
-  // (undocumented)
-  readonly actions?: Array<CardAction>;
-  // (undocumented)
+export declare interface FilmstripItem {
   readonly identifier: Identifier;
-  // (undocumented)
-  readonly onClick?: CardOnClickCallback;
-  // (undocumented)
-  readonly onMouseEnter?: (result: CardEvent) => void;
-  // (undocumented)
+  readonly actions?: Array<CardAction>;
   readonly selectable?: boolean;
-  // (undocumented)
   readonly selected?: boolean;
-  // (undocumented)
+  readonly onClick?: CardOnClickCallback;
+  readonly onMouseEnter?: (result: CardEvent) => void;
   readonly shouldEnableDownloadButton?: boolean;
 }
 
-// @public (undocumented)
-export type FilmstripProps = {
+export declare type FilmstripProps = {
   items: FilmstripItem[];
   shouldOpenMediaViewer?: boolean;
   mediaClientConfig?: MediaClientConfig;
@@ -64,155 +53,126 @@ export type FilmstripProps = {
   featureFlags?: MediaFeatureFlags;
 };
 
-// @public (undocumented)
-export interface FilmstripState {
-  // (undocumented)
+export declare interface FilmstripState {
   animate: boolean;
-  // (undocumented)
   offset: number;
 }
 
-// @public (undocumented)
-export class FilmstripView extends React_2.Component<
+export declare class FilmstripView extends React_2.Component<
   FilmstripViewProps,
   FilmstripViewState
 > {
-  constructor(props: FilmstripViewProps);
-  // (undocumented)
-  bufferElement?: HTMLElement;
-  // (undocumented)
-  get canGoLeft(): boolean;
-  // (undocumented)
-  get canGoRight(): boolean;
-  // (undocumented)
-  childOffsets: ChildOffset[];
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentDidUpdate(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
   static defaultProps: Partial<FilmstripViewProps>;
-  // (undocumented)
-  getClosestForLeft(offset: number): number;
-  // (undocumented)
-  getClosestForRight(offset: number): number;
-  // (undocumented)
-  handleBufferElementChange: (bufferElement: HTMLElement) => void;
-  // (undocumented)
-  handleLeftClick: (event: MouseEvent_2<HTMLDivElement, any>) => void;
-  // (undocumented)
-  handleMutation: (mutationList: MutationRecord[]) => void;
-  // (undocumented)
-  handleRightClick: (event: MouseEvent_2<HTMLDivElement, any>) => void;
-  // (undocumented)
-  handleScroll: (event: WheelEvent_2<HTMLDivElement>) => void;
-  // (undocumented)
-  handleSizeChange: () => void;
-  // (undocumented)
-  handleTouchEnd: (event: React_2.TouchEvent) => void;
-  // (undocumented)
-  handleTouchMove: (event: React_2.TouchEvent) => void;
-  // (undocumented)
-  handleTouchStart: (event: React_2.TouchEvent) => void;
-  // (undocumented)
-  handleWindowElementChange: (windowElement: HTMLElement) => void;
-  // (undocumented)
-  initMutationObserver(): void;
-  get maxOffset(): number;
-  // (undocumented)
-  get minOffset(): number;
-  // (undocumented)
+  bufferElement?: HTMLElement;
+  windowElement?: HTMLElement;
   mutationObserver?: MutationObserver;
-  // (undocumented)
-  get offset(): number;
-  // (undocumented)
+  childOffsets: ChildOffset[];
   previousOffset: number;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  renderLeftArrow(): JSX.Element | null;
-  // (undocumented)
-  renderRightArrow(): JSX.Element | null;
-  // (undocumented)
   state: {
     bufferWidth: number;
     windowWidth: number;
     touchMoveStartPosition: number;
     isTouchMoveInProgress: boolean;
   };
-  // (undocumented)
+  constructor(props: FilmstripViewProps);
+  get offset(): number;
+  get minOffset(): number;
+  /**
+   * The furthest we can scroll, where the end of the buffer is just in view
+   */
+  get maxOffset(): number;
+  get canGoLeft(): boolean;
+  get canGoRight(): boolean;
   get transitionDuration(): number;
-  // (undocumented)
+  initMutationObserver(): void;
   triggerScrollEvent(): void;
-  // (undocumented)
-  windowElement?: HTMLElement;
+  getClosestForLeft(offset: number): number;
+  getClosestForRight(offset: number): number;
+  handleSizeChange: () => void;
+  handleWindowElementChange: (windowElement: HTMLElement) => void;
+  handleBufferElementChange: (bufferElement: HTMLElement) => void;
+  handleMutation: (mutationList: MutationRecord[]) => void;
+  handleLeftClick: (event: MouseEvent_2<HTMLDivElement, any>) => void;
+  handleRightClick: (event: MouseEvent_2<HTMLDivElement, any>) => void;
+  handleScroll: (event: WheelEvent_2<HTMLDivElement>) => void;
+  handleTouchStart: (event: React_2.TouchEvent) => void;
+  handleTouchEnd: (event: React_2.TouchEvent) => void;
+  handleTouchMove: (event: React_2.TouchEvent) => void;
+  renderLeftArrow(): JSX.Element | null;
+  renderRightArrow(): JSX.Element | null;
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  componentDidUpdate(): void;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface FilmstripViewProps {
+export declare interface FilmstripViewProps {
+  /**  A **boolean**. Defaults to **false**.
+   *  When true, any change to the **offset** property will be animated.
+   * Having **animate=true** results in an awkward UX when changing the **offset** property before the
+   * animation finishes.
+   */
   animate?: boolean;
-  children?: ReactNode;
+  /** A **number**. Defaults to 0.
+   * Determines the visible portion of the filmstrip.
+   */
   offset?: number;
-  onScroll?: (event: ScrollEvent) => void;
+  /** Any React **node** */
+  children?: ReactNode;
+  /** A **function** called when the size of the filmstrip has been changed e.g. when mounted, after the window is resized or the children have changed.
+   * **Arguments:**
+   * - event:
+   * - width - A number. The visible width of the filmstrip;
+   * - offset - A number.
+   * - offsets: ChildOffset[];
+   * - minOffset - A number.
+   * - maxOffset - A number.
+   */
   onSize?: (event: SizeEvent) => void;
-  // (undocumented)
+  /** A **function** called when the user has indicated they wish to change the visible porition of the filmstrip e.g. clicked the left or right arrows, or scrolled the scroll wheel.
+   * **Arguments:**
+   * - event:
+   * - direction - Either **"left"** or **"right"**. The direction the user wants to move the filmstrip.
+   * - offset - A **number**. The desired offset.
+   * - animate - A **boolean**. Whether the change should be animated (this arg could probably do with a better name!)
+   */
+  onScroll?: (event: ScrollEvent) => void;
   testId?: string;
 }
 
-// @public (undocumented)
-export interface FilmstripViewState {
-  // (undocumented)
+export declare interface FilmstripViewState {
   bufferWidth: number;
-  // (undocumented)
-  isTouchMoveInProgress: boolean;
-  // (undocumented)
-  touchMoveStartPosition: number;
-  // (undocumented)
   windowWidth: number;
+  touchMoveStartPosition: number;
+  isTouchMoveInProgress: boolean;
 }
 
-// @public (undocumented)
-export const LeftArrow: React_2.SFC<ArrowProps>;
+export declare const LeftArrow: React_2.SFC<ArrowProps>;
 
-// @public (undocumented)
-export const mediaFilmstripItemDOMSelector: (offset: number) => string;
+export declare const mediaFilmstripItemDOMSelector: (offset: number) => string;
 
-// @public (undocumented)
-export const MUTATION_CONFIG: {
+export declare const MUTATION_CONFIG: {
   attributes: boolean;
   childList: boolean;
   subtree: boolean;
   characterData: boolean;
 };
 
-// @public (undocumented)
-export const RightArrow: React_2.SFC<ArrowProps>;
+export declare const RightArrow: React_2.SFC<ArrowProps>;
 
-// @public (undocumented)
-export interface ScrollEvent {
-  // (undocumented)
-  animate: boolean;
-  // (undocumented)
+export declare interface ScrollEvent {
   direction: 'left' | 'right';
-  // (undocumented)
   offset: number;
+  animate: boolean;
 }
 
-// @public (undocumented)
-export interface SizeEvent {
-  // (undocumented)
-  maxOffset: number;
-  // (undocumented)
-  minOffset: number;
-  // (undocumented)
-  offset: number;
-  // (undocumented)
-  offsets: ChildOffset[];
-  // (undocumented)
+export declare interface SizeEvent {
   width: number;
+  offset: number;
+  offsets: ChildOffset[];
+  minOffset: number;
+  maxOffset: number;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

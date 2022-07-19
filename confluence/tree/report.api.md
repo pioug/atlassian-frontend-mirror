@@ -17,28 +17,76 @@ import { DroppableProvided } from 'react-beautiful-dnd-next';
 import { DropResult } from 'react-beautiful-dnd-next';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-export type ItemId = string | number;
+declare type Combine = {
+  draggableId: DraggableId;
+  droppableId: DroppableId;
+};
 
-// @public (undocumented)
-export const moveItemOnTree: (
+declare class DelayedFunction {
+  delay: number;
+  timeoutId: number | undefined;
+  fn?: Function;
+  constructor(delay: number);
+  start(fn: Function): void;
+  stop(): void;
+}
+
+declare type DragState = {
+  source: DraggableLocation;
+  mode: string;
+  destination?: DraggableLocation;
+  horizontalLevel?: number;
+  combine?: Combine;
+};
+
+declare type FlattenedItem = {
+  item: TreeItem;
+  path: Path;
+};
+
+declare type FlattenedTree = FlattenedItem[];
+
+export declare type ItemId = string | number;
+
+export declare const moveItemOnTree: (
   tree: TreeData,
   from: TreeSourcePosition,
   to: TreeDestinationPosition,
 ) => TreeData;
 
-// @public (undocumented)
-export const mutateTree: (
+export declare const mutateTree: (
   tree: TreeData,
   itemId: ItemId,
   mutation: TreeItemMutation,
 ) => TreeData;
 
-// @public (undocumented)
-export type Path = number[];
+export declare type Path = number[];
 
-// @public (undocumented)
-export type RenderItemParams = {
+declare type Props = {
+  /** The tree data structure. */
+  tree: TreeData;
+  /** Function that will be called when a parent item needs to be expanded. */
+  onExpand: (itemId: ItemId, path: Path) => void;
+  /** Function that will be called when a parent item needs to be collapsed. */
+  onCollapse: (itemId: ItemId, path: Path) => void;
+  /** Function that will be called when the user starts dragging. */
+  onDragStart: (itemId: ItemId) => void;
+  /** Function that will be called when the user finishes dragging. */
+  onDragEnd: (
+    sourcePosition: TreeSourcePosition,
+    destinationPosition?: TreeDestinationPosition,
+  ) => void;
+  /** Function that will be called to render a single item. */
+  renderItem: (item: RenderItemParams) => ReactNode;
+  /** Number of pixel is used to scaffold the tree by the consumer. */
+  offsetPerLevel: number;
+  /** Boolean to turn on drag&drop re-ordering on the tree */
+  isDragEnabled: boolean | ((item: TreeItem) => boolean);
+  /** Boolean to turn on hovering while dragging */
+  isNestingEnabled: boolean;
+};
+
+export declare type RenderItemParams = {
   item: TreeItem;
   depth: number;
   onExpand: (itemId: ItemId) => void;
@@ -47,18 +95,13 @@ export type RenderItemParams = {
   snapshot: DraggableStateSnapshot;
 };
 
-// @public (undocumented)
-class Tree extends Component<Props, State> {
-  // (undocumented)
-  calculateEffectivePath: (
-    flatItem: FlattenedItem,
-    snapshot: DraggableStateSnapshot,
-  ) => Path;
-  // (undocumented)
-  static closeParentIfNeeded(tree: TreeData, draggedItemId?: ItemId): TreeData;
-  // (undocumented)
-  containerElement: HTMLElement | undefined;
-  // (undocumented)
+declare type State = {
+  /** The flattened tree data structure transformed from props.tree */
+  flattenedTree: FlattenedTree;
+  draggedItemId?: ItemId;
+};
+
+declare class Tree extends Component<Props, State> {
   static defaultProps: {
     tree: {
       children: never[];
@@ -72,11 +115,14 @@ class Tree extends Component<Props, State> {
     isDragEnabled: boolean;
     isNestingEnabled: boolean;
   };
-  // (undocumented)
+  state: {
+    flattenedTree: never[];
+    draggedItemId: undefined;
+  };
   dragState?: DragState;
-  // (undocumented)
+  itemsElement: Record<ItemId, HTMLElement | undefined>;
+  containerElement: HTMLElement | undefined;
   expandTimer: DelayedFunction;
-  // (undocumented)
   static getDerivedStateFromProps(
     props: Props,
     state: State,
@@ -84,38 +130,28 @@ class Tree extends Component<Props, State> {
     flattenedTree: FlattenedItem[];
     draggedItemId?: ItemId | undefined;
   };
-  // (undocumented)
-  getDroppedLevel: () => number | undefined;
-  // (undocumented)
-  isExpandable: (item: FlattenedItem) => boolean;
-  // (undocumented)
-  itemsElement: Record<ItemId, HTMLElement | undefined>;
-  // (undocumented)
-  onDragEnd: (result: DropResult) => void;
-  // (undocumented)
+  static closeParentIfNeeded(tree: TreeData, draggedItemId?: ItemId): TreeData;
   onDragStart: (result: DragStart) => void;
-  // (undocumented)
   onDragUpdate: (update: DragUpdate) => void;
-  // (undocumented)
   onDropAnimating: () => void;
-  // (undocumented)
+  onDragEnd: (result: DropResult) => void;
   onPointerMove: () => void;
-  // (undocumented)
+  calculateEffectivePath: (
+    flatItem: FlattenedItem,
+    snapshot: DraggableStateSnapshot,
+  ) => Path;
+  isExpandable: (item: FlattenedItem) => boolean;
+  getDroppedLevel: () => number | undefined;
   patchDroppableProvided: (provided: DroppableProvided) => DroppableProvided;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+  setItemRef: (itemId: ItemId, el: HTMLElement | null) => void;
+  renderItems: () => Array<ReactNode>;
+  renderItem: (flatItem: FlattenedItem, index: number) => ReactNode;
   renderDraggableItem: (
     flatItem: FlattenedItem,
   ) => (
     provided: DraggableProvided,
     snapshot: DraggableStateSnapshot,
   ) => JSX.Element;
-  // (undocumented)
-  renderItem: (flatItem: FlattenedItem, index: number) => ReactNode;
-  // (undocumented)
-  renderItems: () => Array<ReactNode>;
-  // (undocumented)
   renderTreeItem: ({
     flatItem,
     path,
@@ -127,32 +163,27 @@ class Tree extends Component<Props, State> {
     provided: DraggableProvided;
     snapshot: DraggableStateSnapshot;
   }) => JSX.Element;
-  // (undocumented)
-  setItemRef: (itemId: ItemId, el: HTMLElement | null) => void;
-  // (undocumented)
-  state: {
-    flattenedTree: never[];
-    draggedItemId: undefined;
-  };
+  render(): JSX.Element;
 }
 export default Tree;
 
-// @public (undocumented)
-export interface TreeData {
-  // (undocumented)
-  items: Record<ItemId, TreeItem>;
-  // (undocumented)
+export declare interface TreeData {
   rootId: ItemId;
+  items: Record<ItemId, TreeItem>;
 }
 
-// @public (undocumented)
-export type TreeDestinationPosition = {
+export declare type TreeDestinationPosition = {
   parentId: ItemId;
   index?: number;
 };
 
-// @public (undocumented)
-export type TreeItem = {
+declare type TreeDraggableProvided = {
+  draggableProps: DraggableProvidedDraggableProps;
+  dragHandleProps: DraggableProvidedDragHandleProps | null;
+  innerRef: (el: HTMLElement | null) => void;
+};
+
+export declare type TreeItem = {
   id: ItemId;
   children: ItemId[];
   hasChildren?: boolean;
@@ -161,11 +192,21 @@ export type TreeItem = {
   data?: TreeItemData;
 };
 
-// @public (undocumented)
-export type TreeSourcePosition = {
+declare type TreeItemData = any;
+
+declare type TreeItemMutation = {
+  id?: ItemId;
+  children?: ItemId[];
+  hasChildren?: boolean;
+  isExpanded?: boolean;
+  isChildrenLoading?: boolean;
+  data?: TreeItemData;
+};
+
+export declare type TreeSourcePosition = {
   parentId: ItemId;
   index: number;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

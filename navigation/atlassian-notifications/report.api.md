@@ -8,11 +8,14 @@
 import { DetailedHTMLProps } from 'react';
 import { IframeHTMLAttributes } from 'react';
 
-// @public (undocumented)
-export const Notifications: (props: NotificationsProps) => JSX.Element;
+declare type IframeProps = DetailedHTMLProps<
+  IframeHTMLAttributes<HTMLIFrameElement>,
+  HTMLIFrameElement
+>;
 
-// @public (undocumented)
-export type NotificationsProps = Omit<IframeProps, 'src'> & {
+export declare const Notifications: (props: NotificationsProps) => JSX.Element;
+
+export declare type NotificationsProps = Omit<IframeProps, 'src'> & {
   _url?: string;
   locale?: string;
   product?: 'confluence' | 'jira' | string;
@@ -21,5 +24,5 @@ export type NotificationsProps = Omit<IframeProps, 'src'> & {
   isNewExperience?: boolean;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

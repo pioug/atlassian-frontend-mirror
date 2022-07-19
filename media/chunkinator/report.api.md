@@ -5,23 +5,16 @@
 ```ts
 import { Observable } from 'rxjs/Observable';
 
-// @public (undocumented)
-export interface Callbacks {
-  // (undocumented)
+export declare interface Callbacks {
   onProgress?: (progress: number) => void;
 }
 
-// @public (undocumented)
-export interface Chunk {
-  // (undocumented)
+export declare interface Chunk {
   blob: Blob;
-  // (undocumented)
   hash: string;
 }
 
-// @public (undocumented)
-export interface Chunkinator {
-  // (undocumented)
+export declare interface Chunkinator {
   (
     file: ChunkinatorFile,
     options: Options,
@@ -29,62 +22,42 @@ export interface Chunkinator {
   ): ChunkinatorResponse;
 }
 
-// @public (undocumented)
-export const chunkinator: Chunkinator;
+export declare const chunkinator: Chunkinator;
 
-// @public (undocumented)
-export type ChunkinatorFile = string | Blob;
+export declare type ChunkinatorFile = string | Blob;
 
-// @public (undocumented)
-export type ChunkinatorResponse = Observable<ProbedBlob[]>;
+export declare type ChunkinatorResponse = Observable<ProbedBlob[]>;
 
-// @public (undocumented)
-export interface HashedBlob {
-  // (undocumented)
+export declare interface HashedBlob {
   blob: Blob;
-  // (undocumented)
   hash: string;
 }
 
-// @public (undocumented)
-export type HashingFunction = (blob: Blob) => Promise<string>;
+export declare type HashingFunction = (blob: Blob) => Promise<string>;
 
-// @public (undocumented)
-export interface Options {
-  // (undocumented)
+export declare interface Options {
   chunkSize: number;
-  // (undocumented)
   hashingConcurrency: number;
-  // (undocumented)
   hashingFunction?: HashingFunction;
-  // (undocumented)
   probingBatchSize: number;
-  // (undocumented)
   probingFunction: ProbingFunction;
-  // (undocumented)
-  processingBatchSize: number;
-  // (undocumented)
-  processingFunction?: ProcessingFunction;
-  // (undocumented)
   uploadingConcurrency: number;
-  // (undocumented)
   uploadingFunction: UploadingFunction;
+  processingBatchSize: number;
+  processingFunction?: ProcessingFunction;
 }
 
-// @public (undocumented)
-export interface ProbedBlob extends HashedBlob {
-  // (undocumented)
+export declare interface ProbedBlob extends HashedBlob {
   exists: boolean;
 }
 
-// @public (undocumented)
-export type ProbingFunction = (chunks: Chunk[]) => Promise<boolean[]>;
+export declare type ProbingFunction = (chunks: Chunk[]) => Promise<boolean[]>;
 
-// @public (undocumented)
-export type ProcessingFunction = (probedBlobs: Chunk[]) => Promise<void>;
+export declare type ProcessingFunction = (
+  probedBlobs: Chunk[],
+) => Promise<void>;
 
-// @public (undocumented)
-export type UploadingFunction = (chunk: Chunk) => Promise<void>;
+export declare type UploadingFunction = (chunk: Chunk) => Promise<void>;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

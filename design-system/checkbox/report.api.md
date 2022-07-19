@@ -12,8 +12,16 @@ import { default as React_2 } from 'react';
 import { RefAttributes } from 'react';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-// @public
-const Checkbox: MemoExoticComponent<ForwardRefExoticComponent<
+/**
+ * __Checkbox__
+ *
+ * A checkbox an input control that allows a user to select one or more options from a number of choices.
+ *
+ * - [Examples](https://atlassian.design/components/checkbox/examples)
+ * - [Code](https://atlassian.design/components/checkbox/code)
+ * - [Usage](https://atlassian.design/components/checkbox/usage)
+ */
+declare const Checkbox: MemoExoticComponent<ForwardRefExoticComponent<
   Omit<
     Omit<
       InputHTMLAttributes<HTMLInputElement>,
@@ -27,8 +35,7 @@ const Checkbox: MemoExoticComponent<ForwardRefExoticComponent<
 export { Checkbox };
 export default Checkbox;
 
-// @public (undocumented)
-export type CheckboxProps = Combine<
+export declare type CheckboxProps = Combine<
   Omit<
     React_2.InputHTMLAttributes<HTMLInputElement>,
     /**
@@ -47,5 +54,83 @@ export type CheckboxProps = Combine<
   OwnProps
 >;
 
-// (No @packageDocumentation comment for this package)
+declare type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+/**
+ *
+ *
+ * CHECKBOX PROPTYPES
+ *
+ *
+ */
+declare type OwnProps = {
+  /**
+   * Sets whether the checkbox begins checked.
+   */
+  defaultChecked?: boolean;
+  /**
+   * id assigned to input
+   */
+  id?: string;
+  /**
+   * Sets whether the checkbox is checked or unchecked.
+   */
+  isChecked?: boolean;
+  /**
+   * Sets whether the checkbox is disabled.
+   */
+  isDisabled?: boolean;
+  /**
+   * Sets whether the checkbox is indeterminate. This only affects the
+   * style and does not modify the isChecked property.
+   */
+  isIndeterminate?: boolean;
+  /**
+   * Marks the field as invalid. Changes style of unchecked component.
+   */
+  isInvalid?: boolean;
+  /**
+   * Marks the field as required & changes the label style.
+   */
+  isRequired?: boolean;
+  /**
+   * The label to be displayed to the right of the checkbox. The label is part
+   * of the clickable element to select the checkbox.
+   */
+  label?: React_2.ReactChild;
+  /**
+   * The name of the submitted field in a checkbox.
+   */
+  name?: string;
+  /**
+   * Function that is called whenever the state of the checkbox changes. It will
+   * be called with an object containing the react synthetic event. Use currentTarget to get value, name and checked
+   */
+  onChange?: (
+    e: React_2.ChangeEvent<HTMLInputElement>,
+    analyticsEvent: UIAnalyticsEvent,
+  ) => void;
+  /**
+   * The value to be used in the checkbox input. This is the value that will be returned on form submission.
+   */
+  value?: number | string;
+  /**
+   * The size of the Checkbox
+   */
+  size?: Size;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * we have generated testid based on the one you pass to the Checkbox component:
+   * - `{testId}--hidden-checkbox` to check if it got changed to checked/unchecked.
+   */
+  testId?: string;
+  /**
+   * Additional information to be included in the `context` of analytics events that come from radio
+   */
+  analyticsContext?: Record<string, any>;
+};
+
+declare type Size = 'small' | 'medium' | 'large' | 'xlarge';
+
+export {};
 ```

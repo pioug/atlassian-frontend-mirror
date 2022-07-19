@@ -12,17 +12,20 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps as WithAnalyticsEventsProps_2 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { WithIntlProps } from 'react-intl-next';
 
-// @public (undocumented)
-export class AbstractMentionResource
+export declare class AbstractMentionResource
   extends AbstractResource<MentionDescription[]>
   implements MentionProvider {
-  // (undocumented)
+  shouldHighlightMention(_mention: MentionDescription): boolean;
   filter(query?: string): void;
-  // (undocumented)
+  recordMentionSelection(_mention: MentionDescription): void;
   isFiltering(_query: string): boolean;
-  // (undocumented)
+  protected _notifyListeners(
+    mentionsResult: MentionsResult,
+    stats?: MentionStats,
+  ): void;
   protected _notifyAllResultsListeners(mentionsResult: MentionsResult): void;
-  // (undocumented)
+  protected _notifyErrorListeners(error: Error, query?: string): void;
+  protected _notifyInfoListeners(info: string): void;
   protected _notifyAnalyticsListeners(
     event: string,
     actionSubject: string,
@@ -31,50 +34,55 @@ export class AbstractMentionResource
       [key: string]: any;
     },
   ): void;
-  // (undocumented)
-  protected _notifyErrorListeners(error: Error, query?: string): void;
-  // (undocumented)
-  protected _notifyInfoListeners(info: string): void;
-  // (undocumented)
-  protected _notifyListeners(
-    mentionsResult: MentionsResult,
-    stats?: MentionStats,
-  ): void;
-  // (undocumented)
-  recordMentionSelection(_mention: MentionDescription): void;
-  // (undocumented)
-  shouldHighlightMention(_mention: MentionDescription): boolean;
 }
 
-// @public (undocumented)
-export class AbstractPresenceResource
+export declare class AbstractPresenceResource
   extends AbstractResource<PresenceMap>
   implements PresenceProvider {
-  // (undocumented)
-  protected notifyListeners(presences: PresenceMap): void;
-  // (undocumented)
   refreshPresence(userIds: string[]): void;
+  protected notifyListeners(presences: PresenceMap): void;
 }
 
-// @public
-export class ContextMentionResource implements MentionProvider {
+declare class AbstractResource<Result> implements ResourceProvider<Result> {
+  protected changeListeners: Map<string, ResultCallback<Result>>;
+  protected errListeners: Map<string, ErrorCallback_2>;
+  protected infoListeners: Map<string, InfoCallback>;
+  protected allResultsListeners: Map<string, ResultCallback<Result>>;
+  protected analyticsListeners: Map<string, AnalyticsCallback>;
+  constructor();
+  subscribe(
+    key: string,
+    callback?: ResultCallback<Result>,
+    errCallback?: ErrorCallback_2,
+    infoCallback?: InfoCallback,
+    allResultsCallback?: ResultCallback<Result>,
+    analyticsListeners?: AnalyticsCallback,
+  ): void;
+  unsubscribe(key: string): void;
+}
+
+declare interface AnalyticsCallback {
+  (
+    event: string,
+    actionSubject: string,
+    action: string,
+    attributes?: {
+      [key: string]: any;
+    },
+  ): void;
+}
+
+/**
+ * This component is stateful and should be instantianted per contextIdentifiers.
+ */
+export declare class ContextMentionResource implements MentionProvider {
+  private mentionProvider;
+  private contextIdentifier;
   constructor(
     mentionProvider: MentionProvider,
     contextIdentifier: MentionContextIdentifier,
   );
-  // (undocumented)
-  callDefault: <
-    K extends
-      | 'filter'
-      | 'recordMentionSelection'
-      | 'shouldHighlightMention'
-      | 'isFiltering'
-      | 'subscribe'
-      | 'unsubscribe'
-  >(
-    f: K,
-  ) => MentionProvider[K];
-  // (undocumented)
+  getContextIdentifier(): MentionContextIdentifier | undefined;
   callWithContextIds: <
     K extends
       | 'filter'
@@ -87,23 +95,17 @@ export class ContextMentionResource implements MentionProvider {
     f: K,
     declaredArgs: number,
   ) => MentionProvider[K];
-  // (undocumented)
-  filter: (
-    query?: string | undefined,
-    contextIdentifier?: MentionContextIdentifier | undefined,
-  ) => void;
-  // (undocumented)
-  getContextIdentifier(): MentionContextIdentifier | undefined;
-  // (undocumented)
-  isFiltering: (query: string) => boolean;
-  // (undocumented)
-  recordMentionSelection: (
-    mention: MentionDescription,
-    contextIdentifier?: MentionContextIdentifier | undefined,
-  ) => void;
-  // (undocumented)
-  shouldHighlightMention: (mention: MentionDescription) => boolean;
-  // (undocumented)
+  callDefault: <
+    K extends
+      | 'filter'
+      | 'recordMentionSelection'
+      | 'shouldHighlightMention'
+      | 'isFiltering'
+      | 'subscribe'
+      | 'unsubscribe'
+  >(
+    f: K,
+  ) => MentionProvider[K];
   subscribe: (
     key: string,
     callback?: ResultCallback<MentionDescription[]> | undefined,
@@ -112,154 +114,264 @@ export class ContextMentionResource implements MentionProvider {
     allResultsCallback?: ResultCallback<MentionDescription[]> | undefined,
     analyticsCallback?: AnalyticsCallback | undefined,
   ) => void;
-  // (undocumented)
   unsubscribe: (key: string) => void;
+  filter: (
+    query?: string | undefined,
+    contextIdentifier?: MentionContextIdentifier | undefined,
+  ) => void;
+  recordMentionSelection: (
+    mention: MentionDescription,
+    contextIdentifier?: MentionContextIdentifier | undefined,
+  ) => void;
+  shouldHighlightMention: (mention: MentionDescription) => boolean;
+  isFiltering: (query: string) => boolean;
 }
 
-// @public (undocumented)
-export class DefaultMentionNameResolver implements MentionNameResolver {
+declare interface Data {
+  PresenceBulk: PresenceBulk[];
+}
+
+export declare class DefaultMentionNameResolver implements MentionNameResolver {
+  static waitForBatch: number;
+  private client;
+  private nameCache;
+  private nameQueue;
+  private nameStartTime;
+  private processingQueue;
+  private debounce;
+  private fireHydrationEvent;
   constructor(
     client: MentionNameClient,
     analyticsProps?: WithAnalyticsEventsProps,
   );
-  // (undocumented)
-  cacheName(id: string, name: string): void;
-  // (undocumented)
   lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
-  // (undocumented)
-  static waitForBatch: number;
+  cacheName(id: string, name: string): void;
+  private scheduleProcessQueue;
+  private isQueueAtLimit;
+  private splitQueueAtLimit;
+  private resolveQueueItem;
+  private processQueue;
+  private fireAnalytics;
 }
 
-// @public (undocumented)
-export const ELEMENTS_CHANNEL = 'fabric-elements';
+export declare const ELEMENTS_CHANNEL = 'fabric-elements';
 
-// @public (undocumented)
-export type InviteExperimentCohort = 'variation' | 'control' | 'not-enrolled';
+declare interface ErrorCallback_2 {
+  (error: Error, query?: string): void;
+}
 
-// @public (undocumented)
-export type InviteFlow = 'mention' | 'assign';
+declare interface Highlight {
+  name: HighlightDetail[];
+  mentionName: HighlightDetail[];
+  nickname: HighlightDetail[];
+}
 
-// @public (undocumented)
-export const isResolvingMentionProvider: (
+declare interface HighlightDetail {
+  start: number;
+  end: number;
+}
+
+declare interface InfoCallback {
+  (info: string): void;
+}
+
+export declare type InviteExperimentCohort =
+  | 'variation'
+  | 'control'
+  | 'not-enrolled';
+
+export declare type InviteFlow = 'mention' | 'assign';
+
+declare interface InviteFromMentionProvider {
+  productName?: string;
+  shouldEnableInvite?: boolean;
+  inviteExperimentCohort?: InviteExperimentCohort;
+  onInviteItemClick?(flow: InviteFlow): void;
+  userRole?: UserRole;
+}
+
+export declare const isResolvingMentionProvider: (
   p: any,
 ) => p is ResolvingMentionProvider;
 
-// @public (undocumented)
-export function isSpecialMention(mention: MentionDescription): boolean;
+export declare function isSpecialMention(mention: MentionDescription): boolean;
 
-// @public (undocumented)
-export const Mention: React_2.ForwardRefExoticComponent<
+declare type LozengeColor =
+  | 'default'
+  | 'success'
+  | 'removed'
+  | 'inprogress'
+  | 'new'
+  | 'moved';
+
+declare interface LozengeProps {
+  text: React.ReactNode;
+  appearance?: LozengeColor;
+}
+
+export declare const Mention: React_2.ForwardRefExoticComponent<
   Omit<Props_5, keyof WithAnalyticsEventsProps_2> & React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export type Mention = MentionInternal;
+export declare type Mention = MentionInternal;
 
-// @public (undocumented)
-export type MentionContextIdentifier = {
+export declare type MentionContextIdentifier = {
   containerId?: string;
   objectId?: string;
   childObjectId?: string;
   sessionId?: string;
 };
 
-// @public (undocumented)
-export interface MentionDescription {
-  // (undocumented)
-  accessLevel?: string;
-  // (undocumented)
-  avatarUrl?: string;
-  // (undocumented)
-  context?: MentionDescContext;
-  // (undocumented)
-  highlight?: Highlight;
-  // (undocumented)
+declare interface MentionDescContext {
+  members: TeamMember[];
+  includesYou: boolean;
+  memberCount: number;
+  teamLink: string;
+}
+
+export declare interface MentionDescription {
   id: string;
-  // (undocumented)
-  inContext?: boolean;
-  // (undocumented)
-  lozenge?: string | LozengeProps;
-  // (undocumented)
-  mentionName?: string;
-  // (undocumented)
+  avatarUrl?: string;
   name?: string;
-  // (undocumented)
+  mentionName?: string;
   nickname?: string;
-  // (undocumented)
+  highlight?: Highlight;
+  lozenge?: string | LozengeProps;
   presence?: Presence;
-  // (undocumented)
-  source?: string;
-  // (undocumented)
+  accessLevel?: string;
+  inContext?: boolean;
   userType?: string;
+  context?: MentionDescContext;
+  source?: string;
 }
 
-// @public (undocumented)
-export class MentionItem extends React_2.PureComponent<Props, {}> {
-  // (undocumented)
+declare type MentionEventHandler = (
+  mentionId: string,
+  text: string,
+  event?: SyntheticEvent<HTMLSpanElement>,
+) => void;
+
+declare class MentionInternal extends React_2.PureComponent<Props_5, {}> {
+  private hoverTimeout?;
+  constructor(props: Props_5);
+  componentDidMount(): void;
+  private handleOnClick;
+  private handleOnMouseEnter;
+  private handleOnMouseLeave;
+  private getMentionType;
+  componentWillUnmount(): void;
+  renderUnknownUserError(id: string): JSX.Element;
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class MentionList extends React_2.PureComponent<Props_2, State> {
+export declare class MentionItem extends React_2.PureComponent<Props, {}> {
+  private onMentionSelected;
+  private onMentionMenuItemMouseMove;
+  private onMentionMenuItemMouseEnter;
+  render(): JSX.Element;
+}
+
+export declare class MentionList extends React_2.PureComponent<Props_2, State> {
+  private lastMousePosition;
+  private scrollable?;
+  private items;
   constructor(props: Props_2);
-  // (undocumented)
-  chooseCurrentSelection: () => void;
-  // (undocumented)
-  componentDidUpdate(): void;
-  // (undocumented)
-  mentionsCount: () => number;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  selectId: (id: string, callback?: (() => any) | undefined) => void;
-  // (undocumented)
-  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
-  // (undocumented)
-  selectNext: () => void;
-  // (undocumented)
-  selectPrevious: () => void;
-  // (undocumented)
   UNSAFE_componentWillReceiveProps(nextProps: Props_2): void;
+  componentDidUpdate(): void;
+  selectNext: () => void;
+  selectPrevious: () => void;
+  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
+  selectId: (id: string, callback?: (() => any) | undefined) => void;
+  chooseCurrentSelection: () => void;
+  mentionsCount: () => number;
+  private revealItem;
+  /**
+   * The default selection state is to chose index 0 and not have any particular key selected
+   */
+  private setDefaultSelectionState;
+  private selectIndexOnHover;
+  private itemSelected;
+  private renderItems;
+  private isSelectedMention;
+  private handleScrollableRef;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface MentionNameClient {
-  // (undocumented)
+export declare interface MentionNameClient {
   getLookupLimit(): number;
-  // (undocumented)
   lookupMentionNames(ids: string[]): Promise<MentionNameDetails[]>;
 }
 
-// @public (undocumented)
-export interface MentionNameDetails {
-  // (undocumented)
+export declare interface MentionNameDetails {
   id: string;
-  // (undocumented)
   name?: string;
-  // (undocumented)
   status: MentionNameStatus;
 }
 
-// @public (undocumented)
-export interface MentionNameResolver {
-  // (undocumented)
-  cacheName(id: string, name: string): void;
-  // (undocumented)
+export declare interface MentionNameResolver {
   lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
+  cacheName(id: string, name: string): void;
 }
 
-// @public (undocumented)
-export enum MentionNameStatus {
-  // (undocumented)
-  OK = 2,
-  // (undocumented)
-  SERVICE_ERROR = 1,
-  // (undocumented)
+export declare enum MentionNameStatus {
   UNKNOWN = 0,
+  SERVICE_ERROR = 1,
+  OK = 2,
 }
 
-// @public (undocumented)
-const MentionPickerWithAnalytics: React_2.ForwardRefExoticComponent<
+/**
+ * @class MentionPicker
+ */
+declare class MentionPicker_2 extends React_2.PureComponent<
+  Props_4 &
+    WithAnalyticsEventsProps_2 & {
+      intl: IntlShape;
+    },
+  State_3
+> {
+  private subscriberKey;
+  private mentionListRef?;
+  static defaultProps: {
+    onSelection: () => void;
+    onOpen: () => void;
+    onClose: () => void;
+  };
+  constructor(
+    props: Props_4 &
+      WithAnalyticsEventsProps_2 & {
+        intl: IntlShape;
+      },
+  );
+  componentDidMount(): void;
+  UNSAFE_componentWillReceiveProps(
+    nextProps: Props_4 & WithAnalyticsEventsProps_2,
+  ): void;
+  componentWillUnmount(): void;
+  selectNext: () => void;
+  selectPrevious: () => void;
+  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
+  selectId: (id: string, callback?: (() => any) | undefined) => void;
+  chooseCurrentSelection: () => void;
+  mentionsCount: () => number;
+  private applyPropChanges;
+  private subscribeResourceProvider;
+  private unsubscribeResourceProvider;
+  /**
+   * Called after the 'visible' state is changed to decide whether the onOpen or onClose
+   * handlers should be called.
+   *
+   * It should be noted that the visible state of the component is not considered in
+   * this function. Instead the old state and new state should be passed as parameters.
+   */
+  private onFilterVisibilityChange;
+  private filterChange;
+  private filterError;
+  private filterInfo;
+  private handleMentionListRef;
+  render(): JSX.Element;
+}
+
+declare const MentionPickerWithAnalytics: React_2.ForwardRefExoticComponent<
   Omit<
     Pick<
       WithIntlProps<
@@ -278,188 +390,387 @@ const MentionPickerWithAnalytics: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-type MentionPickerWithAnalytics = MentionPicker_2;
+declare type MentionPickerWithAnalytics = MentionPicker_2;
 export { MentionPickerWithAnalytics as MentionPicker };
 export default MentionPickerWithAnalytics;
 
-// @public (undocumented)
-export interface MentionProvider
+export declare interface MentionProvider
   extends ResourceProvider<MentionDescription[]>,
     InviteFromMentionProvider {
-  // (undocumented)
   filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;
-  // (undocumented)
-  isFiltering(query: string): boolean;
-  // (undocumented)
   recordMentionSelection(
     mention: MentionDescription,
     contextIdentifier?: MentionContextIdentifier,
   ): void;
-  // (undocumented)
   shouldHighlightMention(mention: MentionDescription): boolean;
+  isFiltering(query: string): boolean;
 }
 
-// @public
-export class MentionResource
+/**
+ * Provides a Javascript API
+ */
+export declare class MentionResource
   extends AbstractMentionResource
   implements ResolvingMentionProvider {
-  constructor(config: MentionResourceConfig);
-  // (undocumented)
-  cacheMentionName(id: string, mentionName: string): void;
-  // (undocumented)
-  filter(
-    query?: string,
-    contextIdentifier?: MentionContextIdentifier,
-  ): Promise<void>;
-  // (undocumented)
+  private config;
+  private lastReturnedSearch;
+  private activeSearches;
+  productName?: string;
+  shouldEnableInvite: boolean;
   inviteExperimentCohort?: InviteExperimentCohort;
-  // (undocumented)
-  isFiltering(query: string): boolean;
-  // (undocumented)
+  userRole: UserRole;
+  onInviteItemClick?: (flow: InviteFlow) => void;
+  constructor(config: MentionResourceConfig);
+  shouldHighlightMention(mention: MentionDescription): boolean;
   notify(
     searchTime: number,
     mentionResult: MentionsResult,
     query?: string,
   ): void;
-  // (undocumented)
   notifyError(error: Error, query?: string): void;
-  // (undocumented)
-  onInviteItemClick?: (flow: InviteFlow) => void;
-  // (undocumented)
-  productName?: string;
-  // (undocumented)
+  filter(
+    query?: string,
+    contextIdentifier?: MentionContextIdentifier,
+  ): Promise<void>;
   recordMentionSelection(
     mention: MentionDescription,
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<void>;
-  // (undocumented)
-  recordSelection(
-    mention: MentionDescription,
-    contextIdentifier?: MentionContextIdentifier,
-  ): Promise<void>;
+  isFiltering(query: string): boolean;
+  resolveMentionName(
+    id: string,
+  ): Promise<MentionNameDetails> | MentionNameDetails;
+  cacheMentionName(id: string, mentionName: string): void;
+  supportsMentionNameResolving(): boolean;
+  protected updateActiveSearches(query: string): void;
+  protected verifyMentionConfig(config: MentionResourceConfig): void;
+  private initialState;
+  /**
+   * Clear a context object to generate query params by removing empty
+   * strings, `undefined` and empty values.
+   *
+   * @param contextIdentifier the current context identifier
+   * @returns a safe context for query encoding
+   */
+  private clearContext;
+  private getQueryParams;
+  /**
+   * Returns the initial mention display list before a search is performed for the specified
+   * container.
+   *
+   * @param contextIdentifier
+   * @returns Promise
+   */
   protected remoteInitialState(
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<MentionsResult>;
-  // (undocumented)
+  private search;
   protected remoteSearch(
     query: string,
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<MentionsResult>;
-  // (undocumented)
-  resolveMentionName(
-    id: string,
-  ): Promise<MentionNameDetails> | MentionNameDetails;
-  // (undocumented)
-  shouldEnableInvite: boolean;
-  // (undocumented)
-  shouldHighlightMention(mention: MentionDescription): boolean;
-  // (undocumented)
-  supportsMentionNameResolving(): boolean;
-  // (undocumented)
-  protected updateActiveSearches(query: string): void;
-  // (undocumented)
-  userRole: UserRole;
-  // (undocumented)
-  protected verifyMentionConfig(config: MentionResourceConfig): void;
+  private transformServiceResponse;
+  recordSelection(
+    mention: MentionDescription,
+    contextIdentifier?: MentionContextIdentifier,
+  ): Promise<void>;
 }
 
-// @public (undocumented)
-export interface MentionResourceConfig extends ServiceConfig {
-  // (undocumented)
+export declare interface MentionResourceConfig extends ServiceConfig {
   containerId?: string;
-  // (undocumented)
-  debounceTime?: number;
-  // (undocumented)
-  inviteExperimentCohort?: InviteExperimentCohort;
-  // (undocumented)
-  mentionNameResolver?: MentionNameResolver;
-  // (undocumented)
-  onInviteItemClick?: (flow: InviteFlow) => void;
-  // (undocumented)
   productId?: string;
-  // (undocumented)
-  productName?: string;
-  // (undocumented)
-  shouldEnableInvite?: boolean;
-  // (undocumented)
   shouldHighlightMention?: (mention: MentionDescription) => boolean;
-  // (undocumented)
+  inviteExperimentCohort?: InviteExperimentCohort;
+  mentionNameResolver?: MentionNameResolver;
+  shouldEnableInvite?: boolean;
+  onInviteItemClick?: (flow: InviteFlow) => void;
   userRole?: UserRole;
+  productName?: string;
+  debounceTime?: number;
 }
 
-// @public (undocumented)
-export interface MentionsResult {
-  // (undocumented)
+export declare interface MentionsResult {
   mentions: MentionDescription[];
-  // (undocumented)
   query: string;
 }
 
-// @public (undocumented)
-export type MentionStats = {
+export declare type MentionStats = {
   [key: string]: any;
 };
 
-// @public (undocumented)
-export interface PresenceProvider extends ResourceProvider<PresenceMap> {
-  // (undocumented)
+declare interface OnClose {
+  (): void;
+}
+
+declare interface OnMentionEvent {
+  (mention: MentionDescription, event?: SyntheticEvent<any>): void;
+}
+
+declare interface OnOpen {
+  (): void;
+}
+
+declare type OwnProps = {
+  id: string;
+  text: string;
+  isHighlighted?: boolean;
+  accessLevel?: string;
+  onClick?: MentionEventHandler;
+  onMouseEnter?: MentionEventHandler;
+  onMouseLeave?: MentionEventHandler;
+  onHover?: () => void;
+};
+
+declare interface OwnProps_2 {
+  createTeamLink?: string;
+  /** Callback to track the event where user click on x icon */
+  onClose: () => void;
+  onCreateTeamLinkClick?: () => void;
+  onViewed?: () => void;
+}
+
+declare type Position = 'above' | 'below' | 'auto';
+
+declare interface Presence {
+  time?: string;
+  status?: string;
+}
+
+declare interface PresenceBulk {
+  userId: string;
+  state: null | string;
+  type: null | string;
+  date: null | string;
+  message: null | string;
+  stateMetadata?: string;
+}
+
+declare interface PresenceCache {
+  contains(userId: string): boolean;
+  get(userId: string): Presence;
+  getBulk(userIds: string[]): PresenceMap;
+  getMissingUserIds(userIds: string[]): string[];
+  update(presUpdate: PresenceMap): void;
+}
+
+declare interface PresenceMap {
+  [userId: string]: Presence;
+}
+
+declare interface PresenceParser {
+  mapState(state: string): string;
+  parse(response: PresenceResponse): PresenceMap;
+}
+
+export declare interface PresenceProvider
+  extends ResourceProvider<PresenceMap> {
   refreshPresence(userIds: string[]): void;
 }
 
-// @public (undocumented)
-export class PresenceResource extends AbstractPresenceResource {
+export declare class PresenceResource extends AbstractPresenceResource {
+  private config;
+  private presenceCache;
+  private presenceParser;
   constructor(config: PresenceResourceConfig);
-  // (undocumented)
   refreshPresence(userIds: string[]): void;
+  private retrievePresence;
+  private queryDirectoryForPresences;
+  private static cleanUrl;
 }
 
-// @public
-export interface ResolvingMentionProvider extends MentionProvider {
-  // (undocumented)
-  cacheMentionName(id: string, mentionName: string): void;
-  // (undocumented)
+declare interface PresenceResourceConfig {
+  url: string;
+  cloudId: string;
+  productId?: string;
+  cache?: PresenceCache;
+  cacheExpiry?: number;
+  parser?: PresenceParser;
+}
+
+declare interface PresenceResponse {
+  data: Data;
+}
+
+declare interface Props {
+  mention: MentionDescription;
+  selected?: boolean;
+  onMouseMove?: OnMentionEvent;
+  onMouseEnter?: OnMentionEvent;
+  onSelection?: OnMentionEvent;
+}
+
+declare interface Props_2 {
+  mentions: MentionDescription[];
+  resourceError?: Error;
+  onSelection?: OnMentionEvent;
+  initialHighlightElement?: React_2.ReactElement | null;
+}
+
+declare interface Props_3 {
+  resourceProvider: MentionProvider;
+  presenceProvider?: PresenceProvider;
+  query?: string;
+  onSelection?: OnMentionEvent;
+  resourceError?: Error;
+  isTeamMentionHighlightEnabled?: boolean;
+  createTeamPath?: string;
+}
+
+declare interface Props_4 {
+  resourceProvider: MentionProvider;
+  presenceProvider?: PresenceProvider;
+  query?: string;
+  onSelection?: OnMentionEvent;
+  onOpen?: OnOpen;
+  onClose?: OnClose;
+  target?: string;
+  position?: Position;
+  zIndex?: number | string;
+  offsetX?: number;
+  offsetY?: number;
+  showTeamMentionsHighlight?: boolean;
+  createTeamPath?: string;
+}
+
+declare type Props_5 = OwnProps & WithAnalyticsEventsProps_2;
+
+declare interface Props_6 {
+  id: string;
+  text: string;
+  accessLevel?: string;
+  mentionProvider?: Promise<MentionProvider>;
+  onClick?: MentionEventHandler;
+  onMouseEnter?: MentionEventHandler;
+  onMouseLeave?: MentionEventHandler;
+}
+
+declare type Props_7 = OwnProps_2 & WithAnalyticsEventsProps_2;
+
+/**
+ * Support
+ */
+export declare interface ResolvingMentionProvider extends MentionProvider {
   resolveMentionName(
     id: string,
   ): Promise<MentionNameDetails> | MentionNameDetails;
-  // (undocumented)
+  cacheMentionName(id: string, mentionName: string): void;
   supportsMentionNameResolving(): boolean;
 }
 
-// @public (undocumented)
-export class ResourcedMention extends React_2.PureComponent<Props_6, State_4> {
-  constructor(props: Props_6);
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
+export declare class ResourcedMention extends React_2.PureComponent<
+  Props_6,
+  State_4
+> {
   _isMounted: boolean;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+  constructor(props: Props_6);
+  componentDidMount(): void;
+  componentWillUnmount(): void;
   UNSAFE_componentWillReceiveProps(nextProps: Props_6): void;
+  private setStateSafely;
+  private processName;
+  private handleMentionProvider;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export const ResourcedMentionList: React_2.ForwardRefExoticComponent<
+export declare const ResourcedMentionList: React_2.ForwardRefExoticComponent<
   Omit<Props_3 & WithAnalyticsEventsProps, keyof WithAnalyticsEventsProps> &
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export type ResourcedMentionList = ResourcedMentionListWithoutAnalytics;
+export declare type ResourcedMentionList = ResourcedMentionListWithoutAnalytics;
 
-// @public (undocumented)
-export interface TeamMember {
-  // (undocumented)
+declare class ResourcedMentionListWithoutAnalytics extends React_2.PureComponent<
+  Props_3 & WithAnalyticsEventsProps,
+  State_2
+> {
+  private subscriberKey;
+  private mentionListRef?;
+  constructor(props: Props_3 & WithAnalyticsEventsProps);
+  componentDidMount(): void;
+  UNSAFE_componentWillReceiveProps(nextProps: Props_3): void;
+  componentWillUnmount(): void;
+  selectNext: () => void;
+  selectPrevious: () => void;
+  selectIndex: (index: number, callback?: (() => any) | undefined) => void;
+  selectId: (id: string, callback?: (() => any) | undefined) => void;
+  chooseCurrentSelection: () => void;
+  mentionsCount: () => number;
+  private subscribeMentionProvider;
+  private subscribePresenceProvider;
+  private unsubscribeMentionProvider;
+  private unsubscribePresenceProvider;
+  private applyPropChanges;
+  private refreshPresences;
+  private filterChange;
+  private sendAnalytics;
+  private filterError;
+  private presenceUpdate;
+  private notifySelection;
+  private handleMentionListRef;
+  private closeHighlight;
+  private mentionsHighlight;
+  render(): JSX.Element;
+}
+
+declare interface ResourceProvider<Result> {
+  /**
+   * Subscribe to ResourceProvider results
+   *
+   * @param {string} key subscriber key used to unsubscribe
+   * @param {ResultCallback<Result>} callback This callback only receives latest results
+   * @param {ErrorCallback} errCallback This callback will errors
+   * @param {InfoCallback} infoCallback This callback will info
+   * @param {ResultCallback<Result>} allResultsCallback This callback will receive all results
+   */
+  subscribe(
+    key: string,
+    callback?: ResultCallback<Result>,
+    errCallback?: ErrorCallback_2,
+    infoCallback?: InfoCallback,
+    allResultsCallback?: ResultCallback<Result>,
+    analyticsCallback?: AnalyticsCallback,
+  ): void;
+  /**
+   * Unsubscribe to this resource provider results
+   * @param {string} key key used when subscribing
+   */
+  unsubscribe(key: string): void;
+}
+
+declare interface ResultCallback<T> {
+  (result: T, query?: string, stats?: MentionStats): void;
+}
+
+declare interface State {
+  selectedKey?: string;
+  selectedIndex: number;
+}
+
+declare interface State_2 {
+  resourceError?: Error;
+  mentions: MentionDescription[];
+}
+
+declare interface State_3 {
+  visible: boolean;
+  info?: string;
+}
+
+declare interface State_4 {
+  isHighlighted: boolean;
+  resolvedMentionName?: string;
+}
+
+declare interface State_5 {
+  isHighlightHidden: boolean;
+}
+
+export declare interface TeamMember {
   id: string;
-  // (undocumented)
   name: string;
 }
 
-// @public (undocumented)
-export const TeamMentionHighlight: React_2.ForwardRefExoticComponent<
+export declare const TeamMentionHighlight: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<Props_7, keyof WithAnalyticsEventsProps_2>,
     'onClose' | 'onCreateTeamLinkClick' | 'onViewed'
@@ -478,88 +789,120 @@ export const TeamMentionHighlight: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export type TeamMentionHighlight = TeamMentionHighlightInternal;
+export declare type TeamMentionHighlight = TeamMentionHighlightInternal;
 
-// @public (undocumented)
-export class TeamMentionHighlightController {
-  // (undocumented)
-  static getSeenCount: () => number;
-  // (undocumented)
+export declare class TeamMentionHighlightController {
+  private static readFromLocalStorage;
+  private static saveToLocalStorage;
+  private static markAsDone;
   static isHighlightEnabled: () => boolean;
-  // (undocumented)
-  static registerClosed: () => void;
-  // (undocumented)
-  static registerCreateLinkClick: () => void;
-  // (undocumented)
   static registerRender: () => TeamMentionState;
-  // (undocumented)
+  static getSeenCount: () => number;
+  static registerCreateLinkClick: () => void;
   static registerTeamMention: () => void;
+  static registerClosed: () => void;
 }
 
-// @public
-export class TeamMentionResource
+declare class TeamMentionHighlightInternal extends React_2.Component<
+  Props_7,
+  State_5
+> {
+  elWrapper: RefObject<HTMLDivElement>;
+  elCloseWrapper: RefObject<HTMLDivElement>;
+  elCreateTeamWrapper: RefObject<HTMLDivElement>;
+  static defaultProps: {
+    createTeamLink: string;
+  };
+  constructor(props: Props_7);
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  onCreateTeamLinkClick: () => void;
+  private preventClickOnCard;
+  private addEventHandler;
+  private removeEventHandler;
+  onCloseClick: () => void;
+  render(): JSX.Element | null;
+}
+
+declare interface TeamMentionProvider extends MentionProvider {
+  mentionTypeaheadHighlightEnabled: () => boolean;
+  mentionTypeaheadCreateTeamPath: () => string | undefined;
+}
+
+/**
+ * Provides a Javascript API to fetch users and teams
+ * In future we will have a new endpoint to return both users and teams, we can
+ * remove this class at this point
+ */
+export declare class TeamMentionResource
   extends MentionResource
   implements TeamMentionProvider {
+  private readonly teamMentionConfig;
+  private lastSearchQuery?;
+  private lastReturnedSearchTeam;
   constructor(
     userMentionConfig: MentionResourceConfig,
     teamMentionConfig: TeamMentionResourceConfig,
   );
-  // (undocumented)
   filter(
     query?: string,
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<void>;
-  // (undocumented)
-  mentionTypeaheadCreateTeamPath: () => string | undefined;
-  // (undocumented)
   mentionTypeaheadHighlightEnabled: () => boolean;
-  // (undocumented)
+  mentionTypeaheadCreateTeamPath: () => string | undefined;
+  /**
+   * Returns the initial mention display list before a search is performed for the specified
+   * container.
+   */
+  private remoteInitialStateTeamAndUsers;
+  /**
+   * Both user and team requests are not blocked together
+   * If users request arrives first, show users. Show teams when team request arrives.
+   * If team request arrives first, block waiting for user request, then show both
+   * If one errors, show the non-erroring one
+   * If both error, show error
+   */
+  private handleBothRequests;
   notify(
     searchTime: number,
     mentionResult: MentionsResult,
     query?: string,
   ): void;
+  private getQueryParamsOfTeamMentionConfig;
+  private remoteUserSearch;
+  private remoteTeamSearch;
+  private convertTeamResultToMentionResult;
+  private trimTeamARI;
 }
 
-// @public (undocumented)
-export interface TeamMentionResourceConfig extends MentionResourceConfig {
-  // (undocumented)
-  createTeamPath?: string;
-  // (undocumented)
-  teamHighlightEnabled?: boolean;
-  // (undocumented)
+export declare interface TeamMentionResourceConfig
+  extends MentionResourceConfig {
   teamLinkResolver?: (teamId: string) => string;
+  teamHighlightEnabled?: boolean;
+  createTeamPath?: string;
 }
 
-// @public (undocumented)
-export enum UserAccessLevel {
-  // (undocumented)
-  APPLICATION = 2,
-  // (undocumented)
-  CONTAINER = 3,
-  // (undocumented)
+declare interface TeamMentionState {
+  seenCount: number;
+  dontShow: boolean;
+}
+
+export declare enum UserAccessLevel {
   NONE = 0,
-  // (undocumented)
   SITE = 1,
+  APPLICATION = 2,
+  CONTAINER = 3,
 }
 
-// @public (undocumented)
-export type UserRole = 'admin' | 'trusted' | 'basic';
+export declare type UserRole = 'admin' | 'trusted' | 'basic';
 
-// @public (undocumented)
-export enum UserType {
-  // (undocumented)
-  APP = 2,
-  // (undocumented)
+export declare enum UserType {
   DEFAULT = 0,
-  // (undocumented)
   SPECIAL = 1,
-  // (undocumented)
-  SYSTEM = 4,
-  // (undocumented)
+  APP = 2,
   TEAM = 3,
+  SYSTEM = 4,
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

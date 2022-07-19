@@ -11,24 +11,49 @@ import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-// @public
-const Blanket: MemoExoticComponent<ForwardRefExoticComponent<
+/**
+ * __Blanket__
+ *
+ * A Blanket provides the overlay layer for components such as a modal dialog or a tooltip
+ *
+ * - [Examples](https://atlaskit.atlassian.com/examples/design-system/blanket/basic-usage)
+ */
+declare const Blanket: MemoExoticComponent<ForwardRefExoticComponent<
   BlanketProps & RefAttributes<HTMLDivElement>
 >>;
 export default Blanket;
 
-// @public (undocumented)
-export interface BlanketProps {
-  analyticsContext?: Record<string, any>;
-  children?: ReactNode;
+export declare interface BlanketProps {
+  /**
+   * Whether mouse events can pierce the blanket. If true, onBlanketClicked will not be fired.
+   */
+  shouldAllowClickThrough?: boolean;
+  /**
+   * Whether the blanket has a tinted background color.
+   */
   isTinted?: boolean;
+  /**
+   * Handler function to be called when the blanket is clicked.
+   */
   onBlanketClicked?: (
     event: React.MouseEvent<HTMLDivElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
-  shouldAllowClickThrough?: boolean;
+  /**
+   * Additional information to be included in the `context` of analytics events.
+   */
+  analyticsContext?: Record<string, any>;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
+  /**
+   * The children to be rendered within Blanket.
+   */
+  children?: ReactNode;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

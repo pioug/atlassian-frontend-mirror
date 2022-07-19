@@ -5,29 +5,26 @@
 ```ts
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-export type Color = 'grey' | 'red' | 'blue' | 'green' | 'purple' | 'yellow';
+export declare type Color =
+  | 'grey'
+  | 'red'
+  | 'blue'
+  | 'green'
+  | 'purple'
+  | 'yellow';
 
-// @public (undocumented)
-class Date_2 extends React_2.Component<DateProps> {
-  // (undocumented)
-  static defaultProps: Partial<DateProps>;
-  // (undocumented)
+declare class Date_2 extends React_2.Component<DateProps> {
   static displayName: string;
-  // (undocumented)
+  static defaultProps: Partial<DateProps>;
   handleOnClick: (event: React_2.SyntheticEvent<any>) => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   renderContent: () => {} | null;
+  render(): JSX.Element;
 }
 export { Date_2 as Date };
 
-// @public (undocumented)
-export const DateLozenge: React_2.ComponentType<Props>;
+export declare const DateLozenge: React_2.ComponentType<Props>;
 
-// @public (undocumented)
-export type DateProps = {
+export declare type DateProps = {
   onClick?: OnClick;
   value: ValueType;
   format?: string;
@@ -36,5 +33,17 @@ export type DateProps = {
   children?: React_2.StatelessComponent<DateProps> | string | React_2.ReactNode;
 };
 
-// (No @packageDocumentation comment for this package)
+declare type OnClick = (
+  value: ValueType,
+  event: React_2.SyntheticEvent<any>,
+) => void;
+
+declare type Props = React_2.HTMLProps<HTMLSpanElement> & {
+  clickable?: boolean;
+  color?: Color;
+};
+
+declare type ValueType = number;
+
+export {};
 ```

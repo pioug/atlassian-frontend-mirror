@@ -12,11 +12,9 @@ import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export type AppearanceType = 'default' | 'rounded';
+export declare type AppearanceType = 'default' | 'rounded';
 
-// @public (undocumented)
-const _default: MemoExoticComponent<ForwardRefExoticComponent<
+declare const _default: MemoExoticComponent<ForwardRefExoticComponent<
   Pick<
     RemovableTagProps,
     | 'appearance'
@@ -37,35 +35,50 @@ const _default: MemoExoticComponent<ForwardRefExoticComponent<
 export { _default as RemovableTag };
 export default _default;
 
-// @public (undocumented)
-export interface RemovableTagProps
+export declare interface RemovableTagProps
   extends SimpleTagProps,
     WithAnalyticsEventsProps {
-  isRemovable?: boolean;
-  onAfterRemoveAction?: (text: string) => void;
-  onBeforeRemoveAction?: () => boolean;
+  /**
+   * Text rendered as the aria-label for remove button.
+   **/
   removeButtonLabel?: string;
+  /**
+   * Flag to indicate if a tag is removable.
+   **/
+  isRemovable?: boolean;
+  /**
+   * Handler to be called before the tag is removed. If it does not return a
+   * truthy value, the tag will not be removed.
+   **/
+  onBeforeRemoveAction?: () => boolean;
+  /**
+   * Handler to be called after tag is removed. Called with the string 'Post
+   * Removal Hook'.
+   **/
+  onAfterRemoveAction?: (text: string) => void;
 }
 
-// @public (undocumented)
-export const SimpleTag: MemoExoticComponent<ForwardRefExoticComponent<
+export declare const SimpleTag: MemoExoticComponent<ForwardRefExoticComponent<
   SimpleTagProps & RefAttributes<any>
 >>;
 
-// @public (undocumented)
-export interface SimpleTagProps {
+export declare interface SimpleTagProps {
+  /** Set whether tags should be rounded. */
   appearance?: AppearanceType;
+  /** The color theme to apply, setting both background and text color. */
   color?: TagColor;
+  /** Component to be rendered before the Tag. */
   elemBefore?: ReactNode;
-  href?: string;
-  // (undocumented)
-  linkComponent?: ComponentType<any>;
-  testId?: string;
+  /** Text to be displayed in the tag. */
   text: string;
+  /** uri or path. If provided, the tag will be a link.  */
+  href?: string;
+  linkComponent?: ComponentType<any>;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
+  testId?: string;
 }
 
-// @public (undocumented)
-export type TagColor =
+export declare type TagColor =
   | 'standard'
   | 'green'
   | 'blue'
@@ -83,5 +96,5 @@ export type TagColor =
   | 'yellowLight'
   | undefined;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

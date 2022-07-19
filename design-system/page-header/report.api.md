@@ -6,8 +6,17 @@
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 
-// @public
-const PageHeader: ({
+/**
+ * __Page header__
+ *
+ * A page header defines the top of a page. It contains a title and can be optionally combined with
+ * breadcrumbs buttons, search, and filters.
+ *
+ * - [Examples](https://atlassian.design/components/page-header/examples)
+ * - [Code](https://atlassian.design/components/page-header/code)
+ * - [Usage](https://atlassian.design/components/page-header/usage)
+ */
+declare const PageHeader: ({
   innerRef,
   breadcrumbs,
   actions,
@@ -19,5 +28,40 @@ const PageHeader: ({
 }: PageHeaderProps) => JSX.Element;
 export default PageHeader;
 
-// (No @packageDocumentation comment for this package)
+declare type PageHeaderProps = {
+  /**
+   * Contents of the action bar to be rendered next to the page title.
+   */
+  actions?: ReactElement;
+  /**
+   * Contents of the action bar to be rendered next to the page title. Typically a button group.
+   */
+  bottomBar?: ReactElement;
+  /**
+   * Page breadcrumbs to be rendered above the title.
+   */
+  breadcrumbs?: ReactElement;
+  /**
+   * Contents of the bottom bar to be rendered below the page title. Typically contains a search bar and/or filters.
+   */
+  children?: ReactNode;
+  /**
+   * Content of the page title. The text wraps by default.
+   */
+  disableTitleStyles?: boolean;
+  /**
+   * Returns the inner ref to the DOM element of the title. This is exposed so the focus can be set.
+   */
+  innerRef?: (element: HTMLElement) => void;
+  /**
+   * Prevent the title from wrapping across lines. This should be avoided.
+   */
+  truncateTitle?: boolean;
+  /**
+   * Used as id of inner h1 tag. This is exposed so the header text can be used as label of other element by aria-labeledby
+   */
+  id?: string;
+};
+
+export {};
 ```

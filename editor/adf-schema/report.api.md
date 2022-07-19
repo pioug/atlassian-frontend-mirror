@@ -11,8 +11,7 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { NodeSpec } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 
-// @public (undocumented)
-export function acNameToEmoji(
+export declare function acNameToEmoji(
   acName: NameToEmoji,
 ): {
   id: string;
@@ -20,8 +19,41 @@ export function acNameToEmoji(
   text: string;
 };
 
-// @public (undocumented)
-export function acShortcutToEmoji(
+/**
+ * Confluence glyphs ac:name of <ac:emoticon /> map to new emojis
+ * {
+ *   [ac:name] : ['emoji-id', 'emoji-shortName', 'emoji-fallback']
+ *   ...
+ * }
+ * Glyphs that do not map to Fabric Emoji
+ * will be mapped to Emoji Id '2b50' (:star:) with preserving ac:name as shortName attribute;
+ */
+declare const acNameToEmojiMap: {
+  smile: string[];
+  sad: string[];
+  cheeky: string[];
+  laugh: string[];
+  wink: string[];
+  information: string[];
+  tick: string[];
+  cross: string[];
+  warning: string[];
+  plus: string[];
+  minus: string[];
+  question: string[];
+  'thumbs-up': string[];
+  'thumbs-down': string[];
+  'light-on': string[];
+  'yellow-star': string[];
+  'light-off': string[];
+  'red-star': string[];
+  'green-star': string[];
+  'blue-star': string[];
+  heart: string[];
+  'broken-heart': string[];
+};
+
+export declare function acShortcutToEmoji(
   hipchatEmoticonShortName: string,
 ): {
   id: string;
@@ -29,100 +61,82 @@ export function acShortcutToEmoji(
   text: string;
 };
 
-// @public (undocumented)
-export const alignment: MarkSpec;
+export declare const alignment: MarkSpec;
 
-// @public (undocumented)
-export interface AlignmentAttributes {
-  // (undocumented)
+export declare interface AlignmentAttributes {
   align: 'center' | 'end';
 }
 
-// @public
-export interface AlignmentMarkDefinition {
-  // (undocumented)
-  attrs: AlignmentAttributes;
-  // (undocumented)
+/**
+ * @name alignment_mark
+ */
+export declare interface AlignmentMarkDefinition {
   type: 'alignment';
+  attrs: AlignmentAttributes;
 }
 
-// @public
-export const alignmentPositionMap: {
+/** TODO: Flip these positions for RTL */
+export declare const alignmentPositionMap: {
   [key: string]: string;
 };
 
-// @public (undocumented)
-export const annotation: MarkSpec;
+export declare const annotation: MarkSpec;
 
-// @public (undocumented)
-export type AnnotationDataAttributes = {
+export declare type AnnotationDataAttributes = {
   'data-mark-type': string;
   'data-mark-annotation-type': AnnotationTypes;
   'data-id': AnnotationId;
   'data-mark-annotation-state'?: AnnotationMarkStates;
 };
 
-// @public (undocumented)
-export type AnnotationId = string;
+export declare type AnnotationId = string;
 
-// @public (undocumented)
-export interface AnnotationMarkAttributes {
-  // (undocumented)
-  annotationType: AnnotationTypes;
-  // (undocumented)
+export declare interface AnnotationMarkAttributes {
   id: AnnotationId;
+  annotationType: AnnotationTypes;
 }
 
-// @public
-export interface AnnotationMarkDefinition {
-  // (undocumented)
-  attrs: AnnotationMarkAttributes;
-  // (undocumented)
+/**
+ * @name annotation_mark
+ */
+export declare interface AnnotationMarkDefinition {
   type: 'annotation';
+  attrs: AnnotationMarkAttributes;
 }
 
-// @public (undocumented)
-export enum AnnotationMarkStates {
-  // (undocumented)
-  ACTIVE = 'active',
-  // (undocumented)
+export declare enum AnnotationMarkStates {
   RESOLVED = 'resolved',
+  ACTIVE = 'active',
 }
 
-// @public (undocumented)
-export enum AnnotationTypes {
-  // (undocumented)
+export declare enum AnnotationTypes {
   INLINE_COMMENT = 'inlineComment',
 }
 
-// @public (undocumented)
-export const B100 = '#4C9AFF';
+export declare const B100 = '#4C9AFF';
 
-// @public (undocumented)
-export const B400 = '#0052CC';
+export declare const B400 = '#0052CC';
 
-// @public (undocumented)
-export const B50 = '#DEEBFF';
+export declare const B50 = '#DEEBFF';
 
-// @public (undocumented)
-export const B500 = '#0747A6';
+export declare const B500 = '#0747A6';
 
-// @public (undocumented)
-export const B75 = '#B3D4FF';
+export declare const B75 = '#B3D4FF';
 
-// @public (undocumented)
-export const blockCard: NodeSpec;
+export declare const blockCard: NodeSpec;
 
-// @public
-export interface BlockCardDefinition {
-  // (undocumented)
-  attrs: CardAttributes;
-  // (undocumented)
+/**
+ * @name blockCard_node
+ */
+export declare interface BlockCardDefinition {
   type: 'blockCard';
+  attrs: CardAttributes;
 }
 
-// @public
-export type BlockContent =
+/**
+ * @name block_content
+ */
+export declare type BlockContent =
   | PanelDefinition
   | ParagraphDefinition
   | ParagraphWithAlignmentDefinition
@@ -144,66 +158,91 @@ export type BlockContent =
   | BlockCardDefinition
   | EmbedCardDefinition;
 
-// @public (undocumented)
-export const blockquote: NodeSpec;
+export declare const blockquote: NodeSpec;
 
-// @public
-export interface BlockQuoteDefinition {
-  content: Array<ParagraphDefinition>;
-  // (undocumented)
+/**
+ * @name blockquote_node
+ */
+export declare interface BlockQuoteDefinition {
   type: 'blockquote';
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: Array<ParagraphDefinition>;
 }
 
-// @public (undocumented)
-export const bodiedExtension: NodeSpec;
+export declare const bodiedExtension: NodeSpec;
 
-// @public
-export type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
+/**
+ * @name bodiedExtension_node
+ */
+declare interface BodiedExtensionBaseDefinition {
+  type: 'bodiedExtension';
+  attrs: ExtensionAttributes;
+  marks?: Array<any>;
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: Array<NonNestableBlockContent>;
+}
+
+/**
+ * @name bodiedExtension_with_marks_node
+ */
+export declare type BodiedExtensionDefinition = BodiedExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
-// @public (undocumented)
-export const breakout: MarkSpec;
+export declare const breakout: MarkSpec;
 
-// @public (undocumented)
-export type BreakoutMarkAttrs = {
+export declare type BreakoutMarkAttrs = {
   mode: 'wide' | 'full-width';
 };
 
-// @public
-export interface BreakoutMarkDefinition {
-  // (undocumented)
-  attrs: BreakoutMarkAttrs;
-  // (undocumented)
+/**
+ * @name breakout_mark
+ */
+export declare interface BreakoutMarkDefinition {
   type: 'breakout';
+  attrs: BreakoutMarkAttrs;
 }
 
-// @public (undocumented)
-export function buildAnnotationMarkDataAttributes({
+export declare function buildAnnotationMarkDataAttributes({
   id,
   annotationType,
   state,
 }: BuildDataAttributesProps): AnnotationDataAttributes;
 
-// @public (undocumented)
-export const bulletList: NodeSpec;
+declare type BuildDataAttributesProps = AnnotationMarkAttributes & {
+  state?: AnnotationMarkStates | undefined | null;
+};
 
-// @public
-export interface BulletListDefinition {
-  // (undocumented)
-  content: Array<ListItemDefinition>;
-  // (undocumented)
+export declare const bulletList: NodeSpec;
+
+/**
+ * @name bulletList_node
+ */
+export declare interface BulletListDefinition {
   type: 'bulletList';
+  /**
+   * @minItems 1
+   */
+  content: Array<ListItemDefinition>;
 }
 
-// @public (undocumented)
-export const bulletListSelector = '.ak-ul';
+export declare const bulletListSelector = '.ak-ul';
 
-// @public (undocumented)
-export const caption: NodeSpec;
+export declare const caption: NodeSpec;
 
-// @public
-export interface CaptionDefinition {
-  // (undocumented)
+/**
+ * @name caption_node
+ */
+export declare interface CaptionDefinition {
+  type: 'caption';
+  /**
+   * @minItems 0
+   */
   content: Array<
     | InlineFormattedText
     | InlineCode
@@ -215,17 +254,13 @@ export interface CaptionDefinition {
     | InlineCardDefinition
     | StatusDefinition
   >;
-  // (undocumented)
-  type: 'caption';
 }
 
-// @public (undocumented)
-export type CardAttributes = UrlType | DataType;
+export declare type CardAttributes = UrlType | DataType;
 
 export { CellAttributes };
 
-// @public (undocumented)
-export type CellDomAttrs = {
+export declare type CellDomAttrs = {
   colspan?: string;
   rowspan?: string;
   style?: string;
@@ -234,95 +269,131 @@ export type CellDomAttrs = {
   class?: string;
 };
 
-// @public (undocumented)
-export const code: MarkSpec;
+export declare const code: MarkSpec;
 
-// @public (undocumented)
-export const codeBlock: NodeSpec;
+export declare const codeBlock: NodeSpec;
 
-// @public (undocumented)
-export type CodeBlockAttrs = {
+export declare type CodeBlockAttrs = {
   language?: string;
 };
 
-// @public
-export type CodeBlockBaseDefinition = {
+/**
+ * @name codeBlock_node
+ */
+export declare type CodeBlockBaseDefinition = {
   type: 'codeBlock';
+  /**
+   * @allowUnsupportedInline true
+   */
   content?: Array<TextDefinition & NoMark>;
   marks?: Array<any>;
   attrs?: CodeBlockAttrs;
 };
 
-// @public
-export type CodeBlockDefinition = CodeBlockBaseDefinition & NoMark;
+/**
+ * @name codeBlock_with_no_marks_node
+ */
+export declare type CodeBlockDefinition = CodeBlockBaseDefinition & NoMark;
 
-// @public (undocumented)
-export const codeBlockToJSON: (
+export declare const codeBlockToJSON: (
   node: Node_2,
 ) => {
   attrs: Record<string, any>;
 };
 
-// @public
-export type CodeBlockWithMarksDefinition = CodeBlockBaseDefinition &
+/**
+ * @name codeBlock_with_marks_node
+ */
+export declare type CodeBlockWithMarksDefinition = CodeBlockBaseDefinition &
   MarksObject<BreakoutMarkDefinition>;
 
-// @public
-export interface CodeDefinition {
-  // (undocumented)
+/**
+ * @name code_mark
+ */
+export declare interface CodeDefinition {
   type: 'code';
 }
 
-// @public (undocumented)
-export const colorPalette: Map<string, TextColorKey>;
+export declare const colorPalette: Map<string, TextColorKey>;
 
-// @public (undocumented)
-export const colorPaletteExtended: Map<string, TextColorKey>;
+export declare const colorPaletteExtended: Map<string, TextColorKey>;
 
-// @public (undocumented)
-export const confluenceInlineComment: MarkSpec;
+export declare const confluenceInlineComment: MarkSpec;
 
-// @public (undocumented)
-export const confluenceJiraIssue: NodeSpec;
+export declare const confluenceJiraIssue: NodeSpec;
 
-// @public (undocumented)
-export const confluenceUnsupportedBlock: NodeSpec;
+declare interface ConfluenceLinkMetadata {
+  linkType: string;
+  versionAtSave?: string | null;
+  fileName?: string | null;
+  spaceKey?: string | null;
+  contentTitle?: string | null;
+  isRenamedTitle?: boolean;
+  anchorName?: string | null;
+  contentId?: string | null;
+  container?: ConfluenceLinkMetadata;
+}
 
-// @public (undocumented)
-export const confluenceUnsupportedInline: NodeSpec;
+export declare const confluenceUnsupportedBlock: NodeSpec;
 
-// @public (undocumented)
-export const copyPrivateMediaAttributes: (
+export declare const confluenceUnsupportedInline: NodeSpec;
+
+export declare const copyPrivateMediaAttributes: (
   from: Record<string, any>,
   to: Record<string, any>,
   map?: ((str: string) => string) | undefined,
 ) => void;
 
-// @public
-export function createSchema<
+/**
+ * Creates a schema preserving order of marks and nodes.
+ */
+export declare function createSchema<
   N extends string = string,
   M extends string = string
 >(config: SchemaConfig<N, M>): Schema<N, M>;
 
-// @public (undocumented)
-export const dataConsumer: MarkSpec;
+export declare const dataConsumer: MarkSpec;
 
-// @public (undocumented)
-export interface DataConsumerAttributes {
-  // (undocumented)
+export declare interface DataConsumerAttributes {
+  /**
+   * @minItems 1
+   */
   sources: Array<DataConsumerSource>;
 }
 
-// @public
-export interface DataConsumerDefinition {
-  // (undocumented)
-  attrs: DataConsumerAttributes;
-  // (undocumented)
+/**
+ * @name dataConsumer_mark
+ * @description This mark is used for metadata surrounding a node consuming data
+ * from a given source node
+ */
+export declare interface DataConsumerDefinition {
   type: 'dataConsumer';
+  attrs: DataConsumerAttributes;
 }
 
-// @public
-export const dataConsumerToJSON: (
+/**
+ * This annotation is purely for reference, & does _nothing_ given annotating
+ * `minLength` on an array of strings is not supported with our schema+spec
+ * generator.
+ *
+ * We're keeping it to signal that data consumer `sources` shouldn't be empty
+ * strings
+ *
+ * // @minLength 1
+ */
+declare type DataConsumerSource = string;
+
+/**
+ * We want to ensure any "invalid ADF" doesn't get serialised, but the entire
+ * mark itself is not valid without a non-empty `sources`.
+ *
+ * We _almost could_ simply return `null` if sources length is < 0 & would fit
+ * the type signature of prosemirror-model's `fragment` but not `mark`'s toJSON.
+ *
+ * So we'll leave any extra transformation checks in
+ * `editor-json-transformer`(?)
+ */
+export declare const dataConsumerToJSON: (
   mark: Mark,
 ) => {
   type: string;
@@ -331,61 +402,75 @@ export const dataConsumerToJSON: (
   };
 };
 
-// @public (undocumented)
-export interface DataType {
+export declare interface DataType {
+  /**
+   * @additionalProperties true
+   */
   data: object;
 }
 
-// @public (undocumented)
-export const date: NodeSpec;
+export declare const date: NodeSpec;
 
-// @public
-export interface DateDefinition {
-  // (undocumented)
+/**
+ * @name date_node
+ */
+export declare interface DateDefinition {
+  type: 'date';
   attrs: {
+    /**
+     * @minLength 1
+     */
     timestamp: string;
   };
-  // (undocumented)
-  type: 'date';
 }
 
-// @public (undocumented)
-export const decisionItem: NodeSpec;
+export declare const decisionItem: NodeSpec;
 
-// @public
-export interface DecisionItemDefinition {
-  // (undocumented)
+/**
+ * @name decisionItem_node
+ */
+export declare interface DecisionItemDefinition {
+  type: 'decisionItem';
+  /**
+   * @allowUnsupportedInline true
+   */
+  content?: Array<Inline>;
   attrs: {
     localId: string;
     state: string;
   };
-  content?: Array<Inline>;
-  // (undocumented)
-  type: 'decisionItem';
 }
 
-// @public (undocumented)
-export const decisionList: NodeSpec;
+export declare const decisionList: NodeSpec;
 
-// @public
-export interface DecisionListDefinition {
-  // (undocumented)
+/**
+ * @name decisionList_node
+ */
+export declare interface DecisionListDefinition {
+  type: 'decisionList';
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: Array<DecisionItemDefinition>;
   attrs: {
     localId: string;
   };
-  content: Array<DecisionItemDefinition>;
-  // (undocumented)
-  type: 'decisionList';
 }
 
-// @public (undocumented)
-export const decisionListSelector: string;
+export declare const decisionListSelector: string;
 
-// @public (undocumented)
-export const doc: NodeSpec;
+export declare const doc: NodeSpec;
 
-// @public
-export interface DocNode {
+/**
+ * @name doc_node
+ */
+export declare interface DocNode {
+  version: 1;
+  type: 'doc';
+  /**
+   * @allowUnsupportedBlock true
+   */
   content: Array<
     | BlockContent
     | LayoutSectionDefinition
@@ -393,73 +478,78 @@ export interface DocNode {
     | ExpandWithBreakoutDefinition
     | ParagraphWithIndentationDefinition
   >;
-  // (undocumented)
-  type: 'doc';
-  // (undocumented)
-  version: 1;
 }
 
-// @public (undocumented)
-export const em: MarkSpec;
+export declare const em: MarkSpec;
 
-// @public (undocumented)
-export const embedCard: NodeSpec;
+export declare const embedCard: NodeSpec;
 
-// @public (undocumented)
-export interface EmbedCardAttributes extends RichMediaAttributes {
-  // (undocumented)
-  originalHeight?: number;
-  // (undocumented)
+export declare interface EmbedCardAttributes extends RichMediaAttributes {
   originalWidth?: number;
+  originalHeight?: number;
+  /**
+   * @validatorFn safeUrl
+   */
   url: string;
 }
 
-// @public
-export interface EmbedCardDefinition {
-  // (undocumented)
-  attrs: EmbedCardAttributes;
-  // (undocumented)
+/**
+ * @name embedCard_node
+ */
+export declare interface EmbedCardDefinition {
   type: 'embedCard';
+  attrs: EmbedCardAttributes;
 }
 
-// @public
-export interface EmDefinition {
-  // (undocumented)
+/**
+ * @name em_mark
+ */
+export declare interface EmDefinition {
   type: 'em';
 }
 
-// @public (undocumented)
-export const emoji: NodeSpec;
+export declare const emoji: NodeSpec;
 
-// @public (undocumented)
-export interface EmojiAttributes {
-  // (undocumented)
+export declare interface EmojiAttributes {
   id?: string;
-  // (undocumented)
   shortName: string;
-  // (undocumented)
   text?: string;
 }
 
-// @public
-export interface EmojiDefinition {
-  // (undocumented)
-  attrs: EmojiAttributes;
-  // (undocumented)
+/**
+ * @name emoji_node
+ */
+export declare interface EmojiDefinition {
   type: 'emoji';
+  attrs: EmojiAttributes;
 }
 
-// @public (undocumented)
-export function emojiIdToAcName(emojiId: string): never;
+export declare function emojiIdToAcName(emojiId: string): never;
 
-// @public (undocumented)
-export const expand: NodeSpec;
+export declare const expand: NodeSpec;
 
-// @public
-export type ExpandDefinition = ExpandBaseDefinition & NoMark;
+/**
+ * @name expand_node
+ */
+declare interface ExpandBaseDefinition {
+  type: 'expand';
+  attrs: {
+    title?: string;
+  };
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: Array<NonNestableBlockContent>;
+  marks?: Array<any>;
+}
 
-// @public (undocumented)
-export const expandToJSON: (
+/**
+ * @name expand_with_no_mark_node
+ */
+export declare type ExpandDefinition = ExpandBaseDefinition & NoMark;
+
+export declare const expandToJSON: (
   node: Node_2,
 ) => {
   attrs: {
@@ -467,53 +557,79 @@ export const expandToJSON: (
   };
 };
 
-// @public (undocumented)
-export const extension: NodeSpec;
+/**
+ * @name expand_with_breakout_mark_node
+ */
+declare type ExpandWithBreakoutDefinition = ExpandBaseDefinition &
+  MarksObject<BreakoutMarkDefinition>;
 
-// @public
-export type ExtensionDefinition = ExtensionBaseDefinition &
-  MarksObject<DataConsumerDefinition | FragmentDefinition>;
+export declare const extension: NodeSpec;
 
-// @public (undocumented)
-export type ExtensionLayout = 'default' | 'wide' | 'full-width';
-
-// @public (undocumented)
-export interface ExternalMediaAttributes {
-  // (undocumented)
-  __external?: boolean;
-  // (undocumented)
-  alt?: string;
-  // (undocumented)
-  height?: number;
-  // (undocumented)
-  type: 'external';
-  // (undocumented)
-  url: string;
-  // (undocumented)
-  width?: number;
+declare interface ExtensionAttributes {
+  /**
+   * @minLength 1
+   */
+  extensionKey: string;
+  /**
+   * @minLength 1
+   */
+  extensionType: string;
+  parameters?: object;
+  text?: string;
+  layout?: ExtensionLayout;
+  /**
+   * @minLength 1
+   */
+  localId?: string;
 }
 
-// @public (undocumented)
-export const fragment: MarkSpec;
+/**
+ * @name extension_node
+ */
+declare interface ExtensionBaseDefinition {
+  type: 'extension';
+  attrs: ExtensionAttributes;
+  marks?: Array<any>;
+}
 
-// @public (undocumented)
-export interface FragmentAttributes {
-  // (undocumented)
+/**
+ * @name extension_with_marks_node
+ */
+export declare type ExtensionDefinition = ExtensionBaseDefinition &
+  MarksObject<DataConsumerDefinition | FragmentDefinition>;
+
+export declare type ExtensionLayout = 'default' | 'wide' | 'full-width';
+
+export declare interface ExternalMediaAttributes {
+  type: 'external';
+  url: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  __external?: boolean;
+}
+
+export declare const fragment: MarkSpec;
+
+export declare interface FragmentAttributes {
+  /**
+   * @minLength 1
+   */
   localId: LocalId;
-  // (undocumented)
   name?: string;
 }
 
-// @public
-export interface FragmentDefinition {
-  // (undocumented)
-  attrs: FragmentAttributes;
-  // (undocumented)
+/**
+ * @name fragment_mark
+ * @description Indicates that the elements decorated with this mark belong to a "fragment" entity, which represents a collection of ADF nodes.
+ * This entity can be referred to later by its `localId` attribute.
+ */
+export declare interface FragmentDefinition {
   type: 'fragment';
+  attrs: FragmentAttributes;
 }
 
-// @public (undocumented)
-export const fragmentToJSON: (
+export declare const fragmentToJSON: (
   mark: Mark,
 ) => {
   type: string;
@@ -523,29 +639,21 @@ export const fragmentToJSON: (
   };
 };
 
-// @public (undocumented)
-export const G200 = '#57D9A3';
+export declare const G200 = '#57D9A3';
 
-// @public (undocumented)
-export const G300 = '#36B37E';
+export declare const G300 = '#36B37E';
 
-// @public (undocumented)
-export const G400 = '#00875A';
+export declare const G400 = '#00875A';
 
-// @public (undocumented)
-export const G50 = '#E3FCEF';
+export declare const G50 = '#E3FCEF';
 
-// @public (undocumented)
-export const G500 = '#006644';
+export declare const G500 = '#006644';
 
-// @public (undocumented)
-export const G75 = '#ABF5D1';
+export declare const G75 = '#ABF5D1';
 
-// @public (undocumented)
-export const generateUuid: () => string;
+export declare const generateUuid: () => string;
 
-// @public (undocumented)
-export const getCellAttrs: (
+export declare const getCellAttrs: (
   dom: HTMLElement,
   defaultValues?: CellAttributes,
 ) => {
@@ -555,11 +663,13 @@ export const getCellAttrs: (
   background: string | null;
 };
 
-// @public
-export const getCellDomAttrs: (node: Node_2) => CellDomAttrs;
+/**
+ * gets cell dom attributes based on node attributes
+ * @returns CellDomAttrs
+ */
+export declare const getCellDomAttrs: (node: Node_2) => CellDomAttrs;
 
-// @public (undocumented)
-export function getEmojiAcName({
+export declare function getEmojiAcName({
   id,
   shortName,
 }: {
@@ -567,84 +677,109 @@ export function getEmojiAcName({
   shortName: string;
 }): string;
 
-// @public (undocumented)
-export function getLinkMatch(str?: string): Match | null;
+export declare function getLinkMatch(str?: string): Match | null;
 
-// @public (undocumented)
-export const hardBreak: NodeSpec;
+export declare const hardBreak: NodeSpec;
 
-// @public
-export interface HardBreakDefinition {
-  // (undocumented)
+/**
+ * @name hardBreak_node
+ */
+export declare interface HardBreakDefinition {
+  type: 'hardBreak';
   attrs?: {
     text?: '\n';
   };
-  // (undocumented)
-  type: 'hardBreak';
 }
 
-// @public (undocumented)
-export const heading: NodeSpec;
+export declare const heading: NodeSpec;
 
-// @public
-export interface HeadingBaseDefinition {
-  // (undocumented)
+/**
+ * @name heading_node
+ */
+export declare interface HeadingBaseDefinition {
+  type: 'heading';
+  /**
+   * @allowUnsupportedInline true
+   */
+  content?: Array<Inline>;
+  marks?: Array<any>;
   attrs: {
+    /**
+     * @minimum 1
+     * @maximum 6
+     */
     level: number;
   };
-  content?: Array<Inline>;
-  // (undocumented)
-  marks?: Array<any>;
-  // (undocumented)
-  type: 'heading';
 }
 
-// @public
-export type HeadingDefinition = HeadingBaseDefinition & NoMark;
+/**
+ * @name heading_with_no_marks_node
+ */
+export declare type HeadingDefinition = HeadingBaseDefinition & NoMark;
 
-// @public
-export type HeadingWithAlignmentDefinition = HeadingBaseDefinition &
+/**
+ * @name heading_with_alignment_node
+ */
+export declare type HeadingWithAlignmentDefinition = HeadingBaseDefinition &
   MarksObject<AlignmentMarkDefinition>;
 
-// @public
-export type HeadingWithIndentationDefinition = HeadingBaseDefinition &
+/**
+ * @name heading_with_indentation_node
+ */
+export declare type HeadingWithIndentationDefinition = HeadingBaseDefinition &
   MarksObject<IndentationMarkDefinition>;
 
-// @public (undocumented)
-export type HeadingWithMarksDefinition =
+export declare type HeadingWithMarksDefinition =
   | HeadingWithAlignmentDefinition
   | HeadingWithIndentationDefinition;
 
-// @public
-export function hexToRgb(color: string): string | null;
+/**
+ * Converts hex color format to rgb.
+ * Works well with full hex color format and shortcut as well.
+ *
+ * @param hex - hex color string (#xxx, or #xxxxxx)
+ */
+export declare function hexToRgb(color: string): string | null;
 
-// @public
-export function hexToRgba(rawColor: string, alpha: number): string | null;
+/**
+ * Converts hex color format to rgba.
+ *
+ * @param hex - hex color string (#xxx, or #xxxxxx)
+ */
+export declare function hexToRgba(
+  rawColor: string,
+  alpha: number,
+): string | null;
 
-// @public (undocumented)
-export const image: NodeSpec;
+export declare const image: NodeSpec;
 
-// @public (undocumented)
-export const indentation: MarkSpec;
+export declare const indentation: MarkSpec;
 
-// @public (undocumented)
-export interface IndentationMarkAttributes {
+export declare interface IndentationMarkAttributes {
+  /**
+   * @minimum 1
+   * @maximum 6
+   */
   level: number;
 }
 
-// @public
-export interface IndentationMarkDefinition {
-  // (undocumented)
-  attrs: IndentationMarkAttributes;
-  // (undocumented)
+/**
+ * @name indentation_mark
+ */
+export declare interface IndentationMarkDefinition {
   type: 'indentation';
+  attrs: IndentationMarkAttributes;
 }
 
-// @public
-export type Inline = InlineFormattedText | InlineCode | InlineAtomic;
+/**
+ * @name inline_node
+ */
+export declare type Inline = InlineFormattedText | InlineCode | InlineAtomic;
 
-// @public
-export type InlineAtomic =
+/**
+ * @name atomic_inline_node
+ */
+export declare type InlineAtomic =
   | HardBreakDefinition
   | MentionDefinition
   | EmojiDefinition
@@ -655,30 +790,60 @@ export type InlineAtomic =
   | StatusDefinition
   | MediaInlineDefinition;
 
-// @public (undocumented)
-export const inlineCard: NodeSpec;
+export declare const inlineCard: NodeSpec;
 
-// @public
-export interface InlineCardDefinition {
-  // (undocumented)
-  attrs: CardAttributes;
-  // (undocumented)
+/**
+ * @name inlineCard_node
+ */
+export declare interface InlineCardDefinition {
   type: 'inlineCard';
+  attrs: CardAttributes;
 }
 
-// @public
-export type InlineCode = TextDefinition &
+/**
+ * @name code_inline_node
+ */
+export declare type InlineCode = TextDefinition &
   MarksObject<CodeDefinition | LinkDefinition | AnnotationMarkDefinition>;
 
-// @public (undocumented)
-export const inlineExtension: NodeSpec;
+export declare const inlineExtension: NodeSpec;
 
-// @public
-export type InlineExtensionDefinition = InlineExtensionBaseDefinition &
+declare interface InlineExtensionAttributes {
+  /**
+   * @minLength 1
+   */
+  extensionKey: string;
+  /**
+   * @minLength 1
+   */
+  extensionType: string;
+  parameters?: object;
+  text?: string;
+  /**
+   * @minLength 1
+   */
+  localId?: string;
+}
+
+/**
+ * @name inlineExtension_node
+ */
+declare interface InlineExtensionBaseDefinition {
+  type: 'inlineExtension';
+  attrs: InlineExtensionAttributes;
+  marks?: Array<any>;
+}
+
+/**
+ * @name inlineExtension_with_marks_node
+ */
+export declare type InlineExtensionDefinition = InlineExtensionBaseDefinition &
   MarksObject<DataConsumerDefinition | FragmentDefinition>;
 
-// @public
-export type InlineFormattedText = TextDefinition &
+/**
+ * @name formatted_text_inline_node
+ */
+export declare type InlineFormattedText = TextDefinition &
   MarksObject<
     | LinkDefinition
     | EmDefinition
@@ -690,102 +855,127 @@ export type InlineFormattedText = TextDefinition &
     | AnnotationMarkDefinition
   >;
 
-// @public
-export type InlineLinkText = TextDefinition & MarksObject<LinkDefinition>;
+/**
+ * @name link_text_inline_node
+ */
+export declare type InlineLinkText = TextDefinition &
+  MarksObject<LinkDefinition>;
 
-// @public (undocumented)
-export const inlineNodes: Set<string>;
+export declare const inlineNodes: Set<string>;
 
-// @public (undocumented)
-export function isHex(color: string): boolean;
+export declare function isHex(color: string): boolean;
 
-// @public (undocumented)
-export function isRgb(color: string): boolean;
+export declare function isRgb(color: string): boolean;
 
-// @public
-export const isSafeUrl: (url: string) => boolean;
+/**
+ * Please notify the Editor Mobile team (Slack: #help-mobilekit) if the logic for this changes.
+ */
+export declare const isSafeUrl: (url: string) => boolean;
 
-// @public (undocumented)
-export const layoutColumn: NodeSpec;
+export declare const layoutColumn: NodeSpec;
 
-// @public
-export interface LayoutColumnDefinition {
-  // (undocumented)
+/**
+ * @name layoutColumn_node
+ */
+export declare interface LayoutColumnDefinition {
+  type: 'layoutColumn';
   attrs: {
+    /**
+     * @minimum 0
+     * @maximum 100
+     */
     width: number;
   };
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
   content: Array<BlockContent>;
-  // (undocumented)
-  type: 'layoutColumn';
 }
 
-// @public (undocumented)
-export const layoutSection: NodeSpec;
+export declare const layoutSection: NodeSpec;
 
-// @public (undocumented)
-export type LayoutSectionDefinition =
+/**
+ * @name layoutSection_node
+ */
+declare type LayoutSectionBaseDefinition = {
+  type: 'layoutSection';
+  marks?: Array<BreakoutMarkDefinition>;
+  content: Array<LayoutColumnDefinition>;
+};
+
+export declare type LayoutSectionDefinition =
   | LayoutSectionFullDefinition
   | LayoutSectionWithSingleColumnDefinition;
 
-// @public
-export type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
+/**
+ * Need duplicate `type` and `marks` to make both validator and json-schema satisfied
+ */
+/**
+ * @name layoutSection_full_node
+ */
+export declare type LayoutSectionFullDefinition = LayoutSectionBaseDefinition & {
   type: 'layoutSection';
   marks?: Array<BreakoutMarkDefinition>;
+  /**
+   * @minItems 2
+   * @maxItems 3
+   * @allowUnsupportedBlock true
+   */
   content: Array<LayoutColumnDefinition>;
 };
 
-// @public
-export type LayoutSectionWithSingleColumnDefinition = LayoutSectionBaseDefinition & {
+/**
+ * @stage 0
+ * @name layoutSection_with_single_column_node
+ */
+export declare type LayoutSectionWithSingleColumnDefinition = LayoutSectionBaseDefinition & {
   type: 'layoutSection';
   marks?: Array<BreakoutMarkDefinition>;
+  /**
+   * @minItems 1
+   * @maxItems 3
+   * @allowUnsupportedBlock true
+   */
   content: Array<LayoutColumnDefinition>;
 };
 
-// @public (undocumented)
-export const link: MarkSpec;
+export declare const link: MarkSpec;
 
-// @public (undocumented)
-export interface LinkAttributes {
-  // (undocumented)
-  __confluenceMetadata?: ConfluenceLinkMetadata;
-  // (undocumented)
-  collection?: string;
+export declare interface LinkAttributes {
+  /**
+   * @validatorFn safeUrl
+   */
   href: string;
-  // (undocumented)
-  id?: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
   title?: string;
+  id?: string;
+  collection?: string;
+  occurrenceKey?: string;
+  __confluenceMetadata?: ConfluenceLinkMetadata;
 }
 
-// @public
-export interface LinkDefinition {
-  // (undocumented)
-  attrs: LinkAttributes;
-  // (undocumented)
+/**
+ * @name link_mark
+ */
+export declare interface LinkDefinition {
   type: 'link';
+  attrs: LinkAttributes;
 }
 
-// @public (undocumented)
-export const linkify: LinkifyIt.LinkifyIt;
+export declare const linkify: LinkifyIt.LinkifyIt;
 
-// @public (undocumented)
-export const linkifyMatch: (text: string) => Match[];
+export declare const linkifyMatch: (text: string) => Match[];
 
-// @public (undocumented)
-export const linkToJSON: (
+export declare const linkToJSON: (
   mark: Mark,
 ) => {
   type: string;
   attrs: Record<string, string>;
 };
 
-// @public (undocumented)
-export const listItem: NodeSpec;
+export declare const listItem: NodeSpec;
 
-// @public (undocumented)
-export interface ListItemArray
+export declare interface ListItemArray
   extends Array<
     | ParagraphDefinition
     | OrderedListDefinition
@@ -793,181 +983,199 @@ export interface ListItemArray
     | MediaSingleDefinition
     | CodeBlockDefinition
   > {
-  // (undocumented)
   0: ParagraphDefinition | MediaSingleDefinition | CodeBlockDefinition;
 }
 
-// @public
-export interface ListItemDefinition {
-  // (undocumented)
-  content: ListItemArray;
-  // (undocumented)
+/**
+ * @name listItem_node
+ */
+export declare interface ListItemDefinition {
   type: 'listItem';
+  /**
+   * @minItems 1
+   */
+  content: ListItemArray;
 }
 
-// @public
-export interface MarksObject<T> {
-  // (undocumented)
+declare type LocalId = string;
+
+/**
+ * @additionalProperties true
+ */
+export declare interface MarksObject<T> {
   marks?: Array<T>;
 }
 
-// @public (undocumented)
-export interface Match {
-  // (undocumented)
-  index: number;
-  // (undocumented)
-  input?: string;
-  // (undocumented)
-  lastIndex: number;
-  // (undocumented)
-  length?: number;
-  // (undocumented)
-  raw: string;
-  // (undocumented)
+export declare interface Match {
   schema: any;
-  // (undocumented)
+  index: number;
+  lastIndex: number;
+  raw: string;
   text: string;
-  // (undocumented)
   url: string;
+  length?: number;
+  input?: string;
 }
 
-// @public (undocumented)
-export const media: NodeSpec;
+export declare const media: NodeSpec;
 
-// @public (undocumented)
-export type MediaADFAttrs = MediaAttributes | ExternalMediaAttributes;
+export declare type MediaADFAttrs = MediaAttributes | ExternalMediaAttributes;
 
-// @public (undocumented)
-export interface MediaAttributes extends MediaBaseAttributes {
-  // (undocumented)
+export declare interface MediaAttributes extends MediaBaseAttributes {
   type: 'file' | 'link';
 }
 
-// @public (undocumented)
-export interface MediaBaseAttributes {
-  // (undocumented)
-  __contextId?: string | null;
-  // (undocumented)
-  __displayType?: MediaDisplayType | null;
-  // (undocumented)
-  __external?: boolean;
-  // (undocumented)
-  __fileMimeType?: string | null;
-  // (undocumented)
-  __fileName?: string | null;
-  // (undocumented)
-  __fileSize?: number | null;
-  // (undocumented)
-  alt?: string;
-  // (undocumented)
-  collection: string;
-  // (undocumented)
-  height?: number;
-  // (undocumented)
+export declare interface MediaBaseAttributes {
+  /**
+   * @minLength 1
+   */
   id: string;
-  // (undocumented)
-  occurrenceKey?: string;
-  // (undocumented)
+  collection: string;
+  height?: number;
   width?: number;
+  /**
+   * @minLength 1
+   */
+  occurrenceKey?: string;
+  alt?: string;
+  __fileName?: string | null;
+  __fileSize?: number | null;
+  __fileMimeType?: string | null;
+  __displayType?: MediaDisplayType | null;
+  __contextId?: string | null;
+  __external?: boolean;
 }
 
-// @public
-export interface MediaDefinition {
-  // (undocumented)
-  attrs: MediaADFAttrs;
-  // (undocumented)
-  marks?: Array<LinkDefinition>;
-  // (undocumented)
+/**
+ * @additionalProperties true
+ */
+declare interface MediaCaptionContent {
+  /**
+   * @minItems 1
+   * @maxItems 2
+   * @allowUnsupportedBlock true
+   */
+  content: [MediaDefinition, CaptionDefinition?];
+}
+
+/**
+ * @name media_node
+ */
+export declare interface MediaDefinition {
   type: 'media';
+  /**
+   * @minItems 1
+   */
+  attrs: MediaADFAttrs;
+  marks?: Array<LinkDefinition>;
 }
 
-// @public (undocumented)
-export type MediaDisplayType = 'file' | 'thumbnail';
+export declare type MediaDisplayType = 'file' | 'thumbnail';
 
-// @public (undocumented)
-export const mediaGroup: NodeSpec;
+export declare const mediaGroup: NodeSpec;
 
-// @public
-export interface MediaGroupDefinition {
-  content: Array<MediaDefinition>;
-  // (undocumented)
+/**
+ * @name mediaGroup_node
+ */
+export declare interface MediaGroupDefinition {
   type: 'mediaGroup';
+  /**
+   * @minItems 1
+   *  @allowUnsupportedBlock true
+   */
+  content: Array<MediaDefinition>;
 }
 
-// @public (undocumented)
-export const mediaInline: NodeSpec;
+export declare const mediaInline: NodeSpec;
 
-// @public (undocumented)
-export interface MediaInlineAttributes extends MediaBaseAttributes {
-  // (undocumented)
+export declare interface MediaInlineAttributes extends MediaBaseAttributes {
   data?: object;
-  // (undocumented)
   type?: 'file' | 'link';
 }
 
-// @public
-export interface MediaInlineDefinition {
-  // (undocumented)
-  attrs: MediaInlineAttributes;
-  // (undocumented)
-  marks?: Array<LinkDefinition>;
-  // (undocumented)
+/**
+ * @name mediaInline_node
+ */
+export declare interface MediaInlineDefinition {
   type: 'mediaInline';
+  attrs: MediaInlineAttributes;
+  marks?: Array<LinkDefinition>;
 }
 
-// @public (undocumented)
-export const mediaSingle: NodeSpec;
+export declare const mediaSingle: NodeSpec;
 
-// @public (undocumented)
-export type MediaSingleDefinition =
+/**
+ * @name mediaSingle_node
+ * @additionalProperties true
+ */
+declare interface MediaSingleBaseDefinition {
+  type: 'mediaSingle';
+  attrs?: RichMediaAttributes;
+  marks?: Array<LinkDefinition>;
+}
+
+export declare type MediaSingleDefinition =
   | MediaSingleFullDefinition
   | MediaSingleWithCaptionDefinition;
 
-// @public (undocumented)
-export const mediaSingleToJSON: (
+/**
+ * @additionalProperties true
+ */
+declare interface MediaSingleFullContent {
+  /**
+   * @minItems 1
+   * @maxItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: Array<MediaDefinition>;
+}
+
+/**
+ * @name mediaSingle_full_node
+ */
+declare type MediaSingleFullDefinition = MediaSingleBaseDefinition &
+  MediaSingleFullContent;
+
+export declare const mediaSingleToJSON: (
   node: Node_2,
 ) => {
   attrs: any;
 };
 
-// @public (undocumented)
-export const mediaSingleWithCaption: NodeSpec;
+export declare const mediaSingleWithCaption: NodeSpec;
 
-// @public (undocumented)
-export const mediaToJSON: (
+/**
+ * @name mediaSingle_caption_node
+ */
+declare type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
+  MediaCaptionContent;
+
+export declare const mediaToJSON: (
   node: Node_2,
 ) => {
   attrs: Record<string, any>;
 };
 
-// @public (undocumented)
-export type MediaType = 'file' | 'link' | 'external';
+export declare type MediaType = 'file' | 'link' | 'external';
 
-// @public (undocumented)
-export const mention: NodeSpec;
+export declare const mention: NodeSpec;
 
-// @public (undocumented)
-export interface MentionAttributes {
-  // (undocumented)
-  accessLevel?: string;
-  // (undocumented)
+export declare interface MentionAttributes {
   id: string;
-  // (undocumented)
   text?: string;
-  // (undocumented)
   userType?: MentionUserType;
+  accessLevel?: string;
 }
 
-// @public
-export interface MentionDefinition {
-  // (undocumented)
-  attrs: MentionAttributes;
-  // (undocumented)
+/**
+ * @name mention_node
+ */
+export declare interface MentionDefinition {
   type: 'mention';
+  attrs: MentionAttributes;
 }
 
-// @public (undocumented)
-export const mentionToJSON: (
+export declare const mentionToJSON: (
   node: Node_2,
 ) => {
   attrs: {
@@ -975,70 +1183,79 @@ export const mentionToJSON: (
   };
 };
 
-// @public (undocumented)
-export type MentionUserType = keyof typeof USER_TYPES;
+export declare type MentionUserType = keyof typeof USER_TYPES;
 
-// @public (undocumented)
-export const N0 = '#FFFFFF';
+export declare const N0 = '#FFFFFF';
 
-// @public (undocumented)
-export const N20 = '#F4F5F7';
+export declare const N20 = '#F4F5F7';
 
-// @public (undocumented)
-export const N200 = '#6B778C';
+export declare const N200 = '#6B778C';
 
-// @public (undocumented)
-export const N30 = '#EBECF0';
+export declare const N30 = '#EBECF0';
 
-// @public (undocumented)
-export const N300 = '#5E6C84';
+export declare const N300 = '#5E6C84';
 
-// @public (undocumented)
-export const N40 = '#DFE1E6';
+export declare const N40 = '#DFE1E6';
 
-// @public (undocumented)
-export const N50 = '#C1C7D0';
+export declare const N50 = '#C1C7D0';
 
-// @public (undocumented)
-export const N500 = '#42526E';
+export declare const N500 = '#42526E';
 
-// @public (undocumented)
-export const N60 = '#B3BAC5';
+export declare const N60 = '#B3BAC5';
 
-// @public (undocumented)
-export const N80 = '#97A0AF';
+export declare const N80 = '#97A0AF';
 
-// @public (undocumented)
-export const N800 = '#172B4D';
+export declare const N800 = '#172B4D';
 
-// @public (undocumented)
-export const N90 = '#8993A4';
+export declare const N90 = '#8993A4';
 
-// @public (undocumented)
-export type NameToEmoji = keyof typeof acNameToEmojiMap;
+export declare type NameToEmoji = keyof typeof acNameToEmojiMap;
 
-// @public (undocumented)
-export const nestedExpand: NodeSpec;
+export declare const nestedExpand: NodeSpec;
 
-// @public
-export type NestedExpandContent = Array<
+/**
+ * @name nestedExpand_node
+ */
+declare interface NestedExpandBaseDefinition {
+  type: 'nestedExpand';
+  attrs: {
+    title?: string;
+  };
+  content: NestedExpandContent;
+}
+
+/**
+ * @name nestedExpand_content
+ * @minItems 1
+ * @allowUnsupportedBlock true
+ */
+export declare type NestedExpandContent = Array<
   | ParagraphDefinition
   | HeadingDefinition
   | MediaSingleDefinition
   | MediaGroupDefinition
 >;
 
-// @public
-export type NestedExpandDefinition = NestedExpandBaseDefinition & NoMark;
+/**
+ * @name nestedExpand_with_no_marks_node
+ */
+export declare type NestedExpandDefinition = NestedExpandBaseDefinition &
+  NoMark;
 
-// @public
-export interface NoMark {
-  // (undocumented)
+/**
+ * @additionalProperties true
+ */
+export declare interface NoMark {
+  /**
+   * @maxItems 0
+   */
   marks?: Array<any>;
 }
 
-// @public
-export type NonNestableBlockContent =
+/**
+ * @name non_nestable_block_content
+ */
+export declare type NonNestableBlockContent =
   | PanelDefinition
   | ParagraphDefinition
   | BlockQuoteDefinition
@@ -1056,72 +1273,72 @@ export type NonNestableBlockContent =
   | BlockCardDefinition
   | EmbedCardDefinition;
 
-// @public
-export function normalizeHexColor(
+/**
+ * @return String with HEX-coded color
+ */
+export declare function normalizeHexColor(
   color: string | null,
   defaultColor?: string,
 ): string | null;
 
-// @public
-export function normalizeUrl(url?: string): string;
+/**
+ * Adds protocol to url if needed.
+ */
+export declare function normalizeUrl(url?: string): string;
 
-// @public (undocumented)
-export const orderedList: NodeSpec;
+export declare const orderedList: NodeSpec;
 
-// @public
-export interface OrderedListDefinition {
-  // (undocumented)
+/**
+ * @name orderedList_node
+ */
+export declare interface OrderedListDefinition {
+  type: 'orderedList';
+  /**
+   * @minItems 1
+   */
+  content: Array<ListItemDefinition>;
   attrs?: {
+    /**
+     * @minimum 1
+     */
     order: number;
   };
-  // (undocumented)
-  content: Array<ListItemDefinition>;
-  // (undocumented)
-  type: 'orderedList';
 }
 
-// @public (undocumented)
-export const orderedListSelector = '.ak-ol';
+export declare const orderedListSelector = '.ak-ol';
 
-// @public (undocumented)
-export const P100 = '#998DD9';
+export declare const P100 = '#998DD9';
 
-// @public (undocumented)
-export const P300 = '#6554C0';
+export declare const P300 = '#6554C0';
 
-// @public (undocumented)
-export const P400 = '#5243AA';
+export declare const P400 = '#5243AA';
 
-// @public (undocumented)
-export const P50 = '#EAE6FF';
+export declare const P50 = '#EAE6FF';
 
-// @public (undocumented)
-export const P500 = '#403294';
+export declare const P500 = '#403294';
 
-// @public (undocumented)
-export const P75 = '#C0B6F2';
+export declare const P75 = '#C0B6F2';
 
-// @public (undocumented)
-export const panel: (allowCustomPanel: boolean) => NodeSpec;
+export declare const panel: (allowCustomPanel: boolean) => NodeSpec;
 
-// @public (undocumented)
-export interface PanelAttributes {
-  // (undocumented)
-  panelColor?: string;
-  // (undocumented)
-  panelIcon?: string;
-  // (undocumented)
-  panelIconId?: string;
-  // (undocumented)
-  panelIconText?: string;
-  // (undocumented)
+export declare interface PanelAttributes {
   panelType: PanelType;
+  panelIcon?: string;
+  panelIconId?: string;
+  panelIconText?: string;
+  panelColor?: string;
 }
 
-// @public
-export interface PanelDefinition {
-  // (undocumented)
+/**
+ * @name panel_node
+ */
+export declare interface PanelDefinition {
+  type: 'panel';
   attrs: PanelAttributes;
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
   content: Array<
     | ParagraphDefinition
     | HeadingDefinition
@@ -1129,99 +1346,103 @@ export interface PanelDefinition {
     | BulletListDefinition
     | BlockCardDefinition
   >;
-  // (undocumented)
-  type: 'panel';
 }
 
-// @public (undocumented)
-export enum PanelType {
-  // (undocumented)
-  CUSTOM = 'custom',
-  // (undocumented)
-  ERROR = 'error',
-  // (undocumented)
+export declare enum PanelType {
   INFO = 'info',
-  // (undocumented)
   NOTE = 'note',
-  // (undocumented)
-  SUCCESS = 'success',
-  // (undocumented)
   TIP = 'tip',
-  // (undocumented)
   WARNING = 'warning',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  CUSTOM = 'custom',
 }
 
-// @public (undocumented)
-export const paragraph: NodeSpec;
+export declare const paragraph: NodeSpec;
 
-// @public
-export interface ParagraphBaseDefinition {
-  content?: Array<Inline>;
-  // (undocumented)
-  marks?: Array<any>;
-  // (undocumented)
+/**
+ * @name paragraph_node
+ */
+export declare interface ParagraphBaseDefinition {
   type: 'paragraph';
+  /**
+   * @allowUnsupportedInline true
+   */
+  content?: Array<Inline>;
+  marks?: Array<any>;
 }
 
-// @public
-export type ParagraphDefinition = ParagraphBaseDefinition & NoMark;
+/**
+ * @name paragraph_with_no_marks_node
+ */
+export declare type ParagraphDefinition = ParagraphBaseDefinition & NoMark;
 
-// @public
-export type ParagraphWithAlignmentDefinition = ParagraphBaseDefinition &
+/**
+ * NOTE: Need this because TS is too smart and inline everything.
+ * So we need to give them separate identity.
+ * Probably there's a way to solve it but that will need time and exploration.
+ * // http://bit.ly/2raXFX5
+ * type T1 = X | Y
+ * type T2 = A | T1 | B // T2 = A | X | Y | B
+ */
+/**
+ * @name paragraph_with_alignment_node
+ */
+export declare type ParagraphWithAlignmentDefinition = ParagraphBaseDefinition &
   MarksObject<AlignmentMarkDefinition>;
 
-// @public
-export type ParagraphWithIndentationDefinition = ParagraphBaseDefinition &
+/**
+ * @name paragraph_with_indentation_node
+ */
+export declare type ParagraphWithIndentationDefinition = ParagraphBaseDefinition &
   MarksObject<IndentationMarkDefinition>;
 
-// @public (undocumented)
-export type ParagraphWithMarksDefinition =
+export declare type ParagraphWithMarksDefinition =
   | ParagraphWithAlignmentDefinition
   | ParagraphWithIndentationDefinition;
 
-// @public (undocumented)
-export const placeholder: NodeSpec;
+export declare const placeholder: NodeSpec;
 
-// @public
-export interface PlaceholderDefinition {
-  // (undocumented)
+/**
+ * @name placeholder_node
+ */
+export declare interface PlaceholderDefinition {
+  type: 'placeholder';
   attrs: {
     text: string;
   };
-  // (undocumented)
-  type: 'placeholder';
 }
 
-// @public (undocumented)
-export const R100 = '#FF8F73';
+export declare const R100 = '#FF8F73';
 
-// @public (undocumented)
-export const R300 = '#FF5630';
+export declare const R300 = '#FF5630';
 
-// @public (undocumented)
-export const R400 = '#DE350B';
+export declare const R400 = '#DE350B';
 
-// @public
-export const R50 = '#FFEBE6';
+/**
+ * We're avoding importing these colors from @atlaskit/theme since we
+ * do not want to have react as a dependency of this package.
+ * TODO: Refactor this once tokenization by Core team is ready
+ * https://product-fabric.atlassian.net/browse/CS-908
+ */
+export declare const R50 = '#FFEBE6';
 
-// @public (undocumented)
-export const R500 = '#BF2600';
+export declare const R500 = '#BF2600';
 
-// @public (undocumented)
-export const R75 = '#FFBDAD';
+export declare const R75 = '#FFBDAD';
 
-// @public (undocumented)
-export function rgbToHex(value: string): string | null;
+export declare function rgbToHex(value: string): string | null;
 
-// @public (undocumented)
-export interface RichMediaAttributes {
-  // (undocumented)
-  layout: RichMediaLayout;
+export declare interface RichMediaAttributes {
+  /**
+   * @minimum 0
+   * @maximum 100
+   */
   width?: number;
+  layout: RichMediaLayout;
 }
 
-// @public (undocumented)
-export type RichMediaLayout =
+export declare type RichMediaLayout =
   | 'wrap-right'
   | 'center'
   | 'wrap-left'
@@ -1230,17 +1451,16 @@ export type RichMediaLayout =
   | 'align-end'
   | 'align-start';
 
-// @public (undocumented)
-export const rule: NodeSpec;
+export declare const rule: NodeSpec;
 
-// @public
-export interface RuleDefinition {
-  // (undocumented)
+/**
+ * @name rule_node
+ */
+export declare interface RuleDefinition {
   type: 'rule';
 }
 
-// @public (undocumented)
-export function sanitizeNodes(
+export declare function sanitizeNodes(
   nodes: {
     [key: string]: NodeSpec;
   },
@@ -1251,166 +1471,187 @@ export function sanitizeNodes(
   [key: string]: NodeSpec;
 };
 
-// @public (undocumented)
-const status_2: NodeSpec;
+declare interface SchemaConfig<N = string, M = string> {
+  nodes: N[];
+  customNodeSpecs?: SchemaCustomNodeSpecs;
+  marks?: M[];
+  customMarkSpecs?: SchemaCustomMarkSpecs;
+}
+
+declare interface SchemaCustomMarkSpecs {
+  [name: string]: MarkSpec;
+}
+
+declare interface SchemaCustomNodeSpecs {
+  [name: string]: NodeSpec;
+}
+
+declare const status_2: NodeSpec;
 export { status_2 as status };
 
-// @public
-export interface StatusDefinition {
-  // (undocumented)
+/**
+ * @name status_node
+ */
+export declare interface StatusDefinition {
+  type: 'status';
   attrs: {
+    /**
+     * @minLength 1
+     */
     text: string;
     color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
     localId?: string;
+    /**
+     * Supported values are bold and subtle
+     */
     style?: string;
   };
-  // (undocumented)
-  type: 'status';
 }
 
-// @public (undocumented)
-export const strike: MarkSpec;
+export declare const strike: MarkSpec;
 
-// @public
-export interface StrikeDefinition {
-  // (undocumented)
+/**
+ * @name strike_mark
+ */
+export declare interface StrikeDefinition {
   type: 'strike';
 }
 
-// @public (undocumented)
-export const strong: MarkSpec;
+export declare const strong: MarkSpec;
 
-// @public
-export interface StrongDefinition {
-  // (undocumented)
+/**
+ * @name strong_mark
+ */
+export declare interface StrongDefinition {
   type: 'strong';
 }
 
-// @public (undocumented)
-export const subsup: MarkSpec;
+export declare const subsup: MarkSpec;
 
-// @public (undocumented)
-export interface SubSupAttributes {
-  // (undocumented)
+export declare interface SubSupAttributes {
   type: 'sub' | 'sup';
 }
 
-// @public
-export interface SubSupDefinition {
-  // (undocumented)
-  attrs: SubSupAttributes;
-  // (undocumented)
+/**
+ * @name subsup_mark
+ */
+export declare interface SubSupDefinition {
   type: 'subsup';
+  attrs: SubSupAttributes;
 }
 
-// @public (undocumented)
-export const T100 = '#79E2F2';
+export declare const T100 = '#79E2F2';
 
-// @public (undocumented)
-export const T300 = '#00B8D9';
+export declare const T300 = '#00B8D9';
 
-// @public (undocumented)
-export const T50 = '#E6FCFF';
+export declare const T50 = '#E6FCFF';
 
-// @public (undocumented)
-export const T500 = '#008DA6';
+export declare const T500 = '#008DA6';
 
-// @public (undocumented)
-export const T75 = '#B3F5FF';
+export declare const T75 = '#B3F5FF';
 
-// @public (undocumented)
-export const table: NodeSpec;
+export declare const table: NodeSpec;
 
-// @public (undocumented)
-export interface TableAttributes {
-  // (undocumented)
-  __autoSize?: boolean;
-  // (undocumented)
+export declare interface TableAttributes {
   isNumberColumnEnabled?: boolean;
-  // (undocumented)
   layout?: TableLayout;
-  // (undocumented)
+  __autoSize?: boolean;
+  /**
+   * @minLength 1
+   */
   localId?: string;
 }
 
-// @public (undocumented)
-export const tableBackgroundBorderColor: string;
+export declare const tableBackgroundBorderColor: string;
 
-// @public (undocumented)
-export const tableBackgroundColorNames: Map<string, string>;
+export declare const tableBackgroundColorNames: Map<string, string>;
 
-// @public (undocumented)
-export const tableBackgroundColorPalette: Map<string, string>;
+export declare const tableBackgroundColorPalette: Map<string, string>;
 
-// @public (undocumented)
-export const tableCell: NodeSpec;
+export declare const tableCell: NodeSpec;
 
-// @public (undocumented)
-export const tableCellContentDomSelector: string;
+/**
+ * @name table_cell_content
+ * @minItems 1
+ * @allowUnsupportedBlock true
+ */
+declare type TableCellContent = Array<
+  | PanelDefinition
+  | ParagraphDefinition
+  | ParagraphWithAlignmentDefinition
+  | BlockQuoteDefinition
+  | OrderedListDefinition
+  | BulletListDefinition
+  | RuleDefinition
+  | HeadingDefinition
+  | HeadingWithMarksDefinition
+  | CodeBlockDefinition
+  | MediaGroupDefinition
+  | MediaSingleDefinition
+  | DecisionListDefinition
+  | TaskListDefinition
+  | ExtensionDefinition
+  | BlockCardDefinition
+  | NestedExpandDefinition
+  | EmbedCardDefinition
+>;
 
-// @public (undocumented)
-export const tableCellContentWrapperSelector: string;
+export declare const tableCellContentDomSelector: string;
 
-// @public
-export interface TableCellDefinition {
-  // (undocumented)
-  attrs?: CellAttributes;
-  // (undocumented)
-  content: TableCellContent;
-  // (undocumented)
+export declare const tableCellContentWrapperSelector: string;
+
+/**
+ * @name table_cell_node
+ */
+export declare interface TableCellDefinition {
   type: 'tableCell';
-}
-
-// @public (undocumented)
-export const tableCellSelector: string;
-
-// @public
-export interface TableDefinition {
-  // (undocumented)
-  attrs?: TableAttributes;
-  // (undocumented)
-  content: Array<TableRowDefinition>;
-  // (undocumented)
-  marks?: Array<FragmentDefinition>;
-  // (undocumented)
-  type: 'table';
-}
-
-// @public (undocumented)
-export const tableHeader: NodeSpec;
-
-// @public
-export interface TableHeaderDefinition {
-  // (undocumented)
   attrs?: CellAttributes;
-  // (undocumented)
   content: TableCellContent;
-  // (undocumented)
+}
+
+export declare const tableCellSelector: string;
+
+/**
+ * @name table_node
+ */
+export declare interface TableDefinition {
+  type: 'table';
+  attrs?: TableAttributes;
+  /**
+   * @minItems 1
+   */
+  content: Array<TableRowDefinition>;
+  marks?: Array<FragmentDefinition>;
+}
+
+export declare const tableHeader: NodeSpec;
+
+/**
+ * @name table_header_node
+ */
+export declare interface TableHeaderDefinition {
   type: 'tableHeader';
+  attrs?: CellAttributes;
+  content: TableCellContent;
 }
 
-// @public (undocumented)
-export const tableHeaderSelector: string;
+export declare const tableHeaderSelector: string;
 
-// @public (undocumented)
-export type TableLayout = 'default' | 'full-width' | 'wide';
+export declare type TableLayout = 'default' | 'full-width' | 'wide';
 
-// @public (undocumented)
-export const tablePrefixSelector = 'pm-table';
+export declare const tablePrefixSelector = 'pm-table';
 
-// @public (undocumented)
-export const tableRow: NodeSpec;
+export declare const tableRow: NodeSpec;
 
-// @public
-export interface TableRowDefinition {
-  // (undocumented)
-  content: Array<TableHeaderDefinition | TableCellDefinition>;
-  // (undocumented)
+/**
+ * @name table_row_node
+ */
+export declare interface TableRowDefinition {
   type: 'tableRow';
+  content: Array<TableHeaderDefinition | TableCellDefinition>;
 }
 
-// @public (undocumented)
-export const tableToJSON: (
+export declare const tableToJSON: (
   node: Node_2,
 ) => {
   attrs: {
@@ -1418,145 +1659,165 @@ export const tableToJSON: (
   };
 };
 
-// @public (undocumented)
-export const taskItem: NodeSpec;
+export declare const taskItem: NodeSpec;
 
-// @public
-export interface TaskItemDefinition {
-  // (undocumented)
+/**
+ * @name taskItem_node
+ */
+export declare interface TaskItemDefinition {
+  type: 'taskItem';
+  /**
+   * @allowUnsupportedInline true
+   */
+  content?: Array<Inline>;
   attrs: {
     localId: string;
     state: 'TODO' | 'DONE';
   };
-  content?: Array<Inline>;
-  // (undocumented)
-  type: 'taskItem';
 }
 
-// @public (undocumented)
-export const taskList: NodeSpec;
+export declare const taskList: NodeSpec;
 
-// @public (undocumented)
-export interface TaskListContent
+export declare interface TaskListContent
   extends Array<TaskItemDefinition | TaskListDefinition> {
-  // (undocumented)
   0: TaskItemDefinition;
 }
 
-// @public
-export interface TaskListDefinition {
-  // (undocumented)
+/**
+ * @name taskList_node
+ */
+export declare interface TaskListDefinition {
+  type: 'taskList';
+  /**
+   * @minItems 1
+   * @allowUnsupportedBlock true
+   */
+  content: TaskListContent;
   attrs: {
     localId: string;
   };
-  content: TaskListContent;
-  // (undocumented)
-  type: 'taskList';
 }
 
-// @public (undocumented)
-export const taskListSelector: string;
+export declare const taskListSelector: string;
 
-// @public (undocumented)
-export const text: NodeSpec & {
+export declare const text: NodeSpec & {
   toDebugString?: () => string;
 };
 
-// @public (undocumented)
-export const textColor: MarkSpec;
+export declare const textColor: MarkSpec;
 
-// @public (undocumented)
-export interface TextColorAttributes {
+export declare interface TextColorAttributes {
+  /**
+   * @pattern "^#[0-9a-fA-F]{6}$"
+   */
   color: string;
 }
 
-// @public
-export interface TextColorDefinition {
-  // (undocumented)
-  attrs: TextColorAttributes;
-  // (undocumented)
+/**
+ * @name textColor_mark
+ */
+export declare interface TextColorDefinition {
   type: 'textColor';
+  attrs: TextColorAttributes;
 }
 
-// @public
-export interface TextDefinition {
-  // (undocumented)
-  marks?: Array<any>;
-  // (undocumented)
-  text: string;
-  // (undocumented)
+declare type TextColorKey =
+  | 'Light gray'
+  | 'Purple'
+  | 'Teal'
+  | 'Green'
+  | 'Red'
+  | 'Orange'
+  | 'Dark gray'
+  | 'Blue'
+  | 'Yellow'
+  | 'Dark blue'
+  | 'Dark teal'
+  | 'Dark green'
+  | 'Dark red'
+  | 'Dark purple'
+  | 'White'
+  | 'Light blue'
+  | 'Light teal'
+  | 'Light green'
+  | 'Light yellow'
+  | 'Light red'
+  | 'Light purple';
+
+/**
+ * @name text_node
+ */
+export declare interface TextDefinition {
   type: 'text';
+  /**
+   * @minLength 1
+   */
+  text: string;
+  marks?: Array<any>;
 }
 
-// @public (undocumented)
-export const toJSONTableCell: (
+export declare const toJSONTableCell: (
   node: Node_2,
 ) => {
   attrs: Record<string, any>;
 };
 
-// @public (undocumented)
-export const toJSONTableHeader: (
+export declare const toJSONTableHeader: (
   node: Node_2,
 ) => {
   attrs: Record<string, any>;
 };
 
-// @public (undocumented)
-export const typeAheadQuery: MarkSpec;
+export declare const typeAheadQuery: MarkSpec;
 
-// @public (undocumented)
-export const underline: MarkSpec;
+export declare const underline: MarkSpec;
 
-// @public
-export interface UnderlineDefinition {
-  // (undocumented)
+/**
+ * @name underline_mark
+ */
+export declare interface UnderlineDefinition {
   type: 'underline';
 }
 
-// @public (undocumented)
-export const unknownBlock: NodeSpec;
+export declare const unknownBlock: NodeSpec;
 
-// @public (undocumented)
-export const unsupportedBlock: NodeSpec;
+export declare const unsupportedBlock: NodeSpec;
 
-// @public (undocumented)
-export const unsupportedInline: NodeSpec;
+export declare const unsupportedInline: NodeSpec;
 
-// @public (undocumented)
-export const unsupportedMark: MarkSpec;
+export declare const unsupportedMark: MarkSpec;
 
-// @public (undocumented)
-export const unsupportedNodeAttribute: MarkSpec;
+export declare const unsupportedNodeAttribute: MarkSpec;
 
-// @public (undocumented)
-export const unsupportedNodeTypesForMediaCards: Set<string>;
+export declare const unsupportedNodeTypesForMediaCards: Set<string>;
 
-// @public (undocumented)
-export interface UrlType {
+export declare interface UrlType {
+  /**
+   * @validatorFn safeUrl
+   */
   url: string;
 }
 
-// @public (undocumented)
-export const uuid: {
+declare enum USER_TYPES {
+  DEFAULT = 'DEFAULT',
+  SPECIAL = 'SPECIAL',
+  APP = 'APP',
+}
+
+export declare const uuid: {
   setStatic(value: string | false): void;
   generate(): string;
 };
 
-// @public (undocumented)
-export const Y200 = '#FFC400';
+export declare const Y200 = '#FFC400';
 
-// @public (undocumented)
-export const Y400 = '#FF991F';
+export declare const Y400 = '#FF991F';
 
-// @public (undocumented)
-export const Y50 = '#FFFAE6';
+export declare const Y50 = '#FFFAE6';
 
-// @public (undocumented)
-export const Y500 = '#FF8B00';
+export declare const Y500 = '#FF8B00';
 
-// @public (undocumented)
-export const Y75 = '#FFF0B3';
+export declare const Y75 = '#FFF0B3';
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

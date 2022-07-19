@@ -11,317 +11,298 @@ import { ReactNode } from 'react';
 import { ServiceConfig } from '@atlaskit/util-service-support';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export type Appearance = 'inline';
+export declare type Appearance = 'inline';
 
-// @public
-export type ARI = string;
+/**
+ * Same as PubSub client types (don't want a direct dep though)
+ */
+export declare type ARI = string;
 
-// @public (undocumented)
-export type AVI = string;
+export declare type AVI = string;
 
-// @public (undocumented)
-export interface BaseItem<S> extends ObjectKey {
-  // (undocumented)
-  lastUpdateDate: Date;
-  // (undocumented)
+export declare interface BaseItem<S> extends ObjectKey {
   state: S;
-  // (undocumented)
+  lastUpdateDate: Date;
   type: DecisionType | TaskType;
 }
 
-// @public (undocumented)
-export interface ContentRef {
-  // (undocumented)
+export declare interface ContentRef {
   (ref: HTMLElement | null): void;
 }
 
-// @public (undocumented)
-export type Cursor = string;
+export declare type Cursor = string;
 
-// @public (undocumented)
-export interface Decision extends BaseItem<DecisionState> {
-  // (undocumented)
+export declare interface Decision extends BaseItem<DecisionState> {
   creationDate?: Date;
-  // (undocumented)
   creator?: UserId;
-  // (undocumented)
-  lastUpdateDate: Date;
-  // (undocumented)
   lastUpdater?: UserId;
-  // (undocumented)
+  lastUpdateDate: Date;
   participants?: UserId[];
-  // (undocumented)
   status: DecisionStatus;
-  // (undocumented)
   type: DecisionType;
 }
 
-// @public (undocumented)
-export class DecisionItem extends PureComponent<Props, {}> {
-  // (undocumented)
+export declare class DecisionItem extends PureComponent<Props, {}> {
   static defaultProps: Partial<Props>;
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class DecisionList extends PureComponent<Props_2, {}> {
-  // (undocumented)
+export declare class DecisionList extends PureComponent<Props_2, {}> {
   render(): JSX.Element | null;
 }
 
-// @public (undocumented)
-export type DecisionState = 'DECIDED';
+export declare type DecisionState = 'DECIDED';
 
-// @public (undocumented)
-export type DecisionStatus = 'CREATED';
+export declare type DecisionStatus = 'CREATED';
 
-// @public (undocumented)
-export type DecisionType = 'DECISION';
+export declare type DecisionType = 'DECISION';
 
-// @public (undocumented)
-export type Handler = (state: TaskState | DecisionState) => void;
+export declare type Handler = (state: TaskState | DecisionState) => void;
 
-// @public (undocumented)
-export type Item = Decision | Task;
+export declare type Item = Decision | Task;
 
-// @public (undocumented)
-export interface Meta {
-  // (undocumented)
+export declare interface Meta {
   cursor?: string;
 }
 
-// @public (undocumented)
-export interface ObjectKey {
-  // (undocumented)
-  containerAri?: string;
-  // (undocumented)
+export declare interface ObjectKey {
   localId: string;
-  // (undocumented)
+  containerAri?: string;
   objectAri: string;
 }
 
-// @public (undocumented)
-export interface OnUpdate<T> {
-  // (undocumented)
+export declare interface OnUpdate<T> {
   (allDecisions: T[], newDecisions: T[]): void;
 }
 
-// @public (undocumented)
-export interface PubSubClient {
-  // (undocumented)
-  join(aris: ARI[]): Promise<PubSubClient>;
-  // (undocumented)
-  leave(aris: ARI[]): Promise<PubSubClient>;
-  // (undocumented)
-  off(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
-  // (undocumented)
-  on(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
+declare interface Props {
+  children?: any;
+  contentRef?: ContentRef;
+  placeholder?: string;
+  showPlaceholder?: boolean;
+  appearance?: Appearance;
+  dataAttributes?: {
+    [key: string]: string | number;
+  };
 }
 
-// @public (undocumented)
-export interface PubSubOnEvent<T = any> {
-  // (undocumented)
+declare interface Props_2 {
+  children?: ReactNode;
+}
+
+declare interface Props_3 {
+  taskId: string;
+  isDone?: boolean;
+  isRenderer?: boolean;
+  onChange?: (taskId: string, isChecked: boolean) => void;
+  contentRef?: ContentRef;
+  children?: any;
+  taskDecisionProvider?: Promise<TaskDecisionProvider>;
+  objectAri?: string;
+  showPlaceholder?: boolean;
+  placeholder?: string;
+  appearance?: Appearance;
+  disabled?: boolean;
+  dataAttributes?: {
+    [key: string]: string | number;
+  };
+}
+
+declare interface Props_4 {
+  taskId: string;
+  isDone?: boolean;
+  isRenderer?: boolean;
+  onChange?: (taskId: string, isChecked: boolean) => void;
+  contentRef?: ContentRef;
+  children?: any;
+  placeholder?: string;
+  showPlaceholder?: boolean;
+  appearance?: Appearance;
+  disabled?: boolean;
+  dataAttributes?: {
+    [key: string]: string | number;
+  };
+}
+
+declare interface Props_5 {
+  listId?: string;
+  children?: ReactNode;
+}
+
+export declare interface PubSubClient {
+  on(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
+  off(eventAvi: string, listener: PubSubOnEvent): PubSubClient;
+  join(aris: ARI[]): Promise<PubSubClient>;
+  leave(aris: ARI[]): Promise<PubSubClient>;
+}
+
+export declare interface PubSubOnEvent<T = any> {
   (event: string, data: T): void;
 }
 
-// @public (undocumented)
-export enum PubSubSpecialEventType {
-  // (undocumented)
-  CONNECTED = 'CONNECTED',
-  // (undocumented)
+export declare enum PubSubSpecialEventType {
   ERROR = 'ERROR',
-  // (undocumented)
+  CONNECTED = 'CONNECTED',
   RECONNECT = 'RECONNECT',
 }
 
-// @public (undocumented)
-export interface RecentUpdateContext {
-  // (undocumented)
-  localId?: string;
-  // (undocumented)
+export declare interface RecentUpdateContext {
   objectAri: string;
+  localId?: string;
 }
 
-// @public (undocumented)
-export type RecentUpdatesId = string;
+export declare type RecentUpdatesId = string;
 
-// @public
-export interface RecentUpdatesListener {
+/**
+ * A subscriber interface that can be called back if there are new decisions/tasks/items
+ * available as the result of an external change.
+ */
+export declare interface RecentUpdatesListener {
+  /**
+   * An id that can be used to unsubscribe
+   */
   id(id: RecentUpdatesId): void;
+  /**
+   * Indicates there are recent updates, and the listener should refresh
+   * the latest items from the TaskDecisionProvider.
+   *
+   * There will be a number of retries until expectedLocalId, if passed.
+   *
+   * @param updateContext Recent update context
+   */
   recentUpdates(updateContext: RecentUpdateContext): void;
 }
 
-// @public (undocumented)
-export interface RenderDocument {
-  // (undocumented)
+export declare interface RenderDocument {
   (document: any, rendererContext?: RendererContext): JSX.Element;
 }
 
-// @public
-export interface RendererContext {
-  // (undocumented)
+/**
+ * Same as RendererContext in editor-core (don't want an direct dep though)
+ */
+export declare interface RendererContext {
+  objectAri: string;
   containerAri?: string;
-  // (undocumented)
-  objectAri: string;
 }
 
-// @public (undocumented)
-export class ResourcedTaskItem extends PureComponent<Props_3, State> {
-  constructor(props: Props_3);
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
+export declare class ResourcedTaskItem extends PureComponent<Props_3, State> {
   static defaultProps: Partial<Props_3>;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+  private mounted;
+  constructor(props: Props_3);
+  componentDidMount(): void;
   UNSAFE_componentWillReceiveProps(nextProps: Props_3): void;
+  componentWillUnmount(): void;
+  private subscribe;
+  private unsubscribe;
+  private onUpdate;
+  private handleOnChange;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface ServiceDecision {
-  // (undocumented)
+export declare interface ServiceDecision {
   creationDate?: string;
-  // (undocumented)
   creatorId?: UserId;
-  // (undocumented)
-  lastUpdateDate: string;
-  // (undocumented)
   lastUpdaterId?: UserId;
-  // (undocumented)
+  lastUpdateDate: string;
   localId: string;
-  // (undocumented)
   objectAri: string;
-  // (undocumented)
   participants?: UserId[];
-  // (undocumented)
   state?: DecisionState;
-  // (undocumented)
   status: DecisionStatus;
-  // (undocumented)
   type: DecisionType;
 }
 
-// @public (undocumented)
-export interface ServiceDecisionResponse {
-  // (undocumented)
+export declare interface ServiceDecisionResponse {
   decisions: ServiceDecision[];
-  // (undocumented)
   meta: Meta;
 }
 
-// @public (undocumented)
-export type ServiceItem = ServiceDecision | ServiceTask;
+export declare type ServiceItem = ServiceDecision | ServiceTask;
 
-// @public (undocumented)
-export interface ServiceTask {
-  // (undocumented)
+export declare interface ServiceTask {
   creationDate?: string;
-  // (undocumented)
   creatorId?: UserId;
-  // (undocumented)
-  lastUpdateDate: string;
-  // (undocumented)
   lastUpdaterId?: UserId;
-  // (undocumented)
-  localId: string;
-  // (undocumented)
-  objectAri: string;
-  // (undocumented)
-  parentLocalId?: string;
-  // (undocumented)
-  participants?: UserId[];
-  // (undocumented)
-  position: number;
-  // (undocumented)
-  state: TaskState;
-  // (undocumented)
-  type: TaskType;
-}
-
-// @public (undocumented)
-export interface ServiceTaskState {
-  // (undocumented)
   lastUpdateDate: string;
-  // (undocumented)
   localId: string;
-  // (undocumented)
   objectAri: string;
-  // (undocumented)
-  state: TaskState;
-}
-
-// @public (undocumented)
-export interface Task extends BaseItem<TaskState> {
-  // (undocumented)
-  creationDate?: Date;
-  // (undocumented)
-  creator?: UserId;
-  // (undocumented)
-  lastUpdateDate: Date;
-  // (undocumented)
-  lastUpdater?: UserId;
-  // (undocumented)
   parentLocalId?: string;
-  // (undocumented)
   participants?: UserId[];
-  // (undocumented)
-  position?: number;
-  // (undocumented)
+  position: number;
+  state: TaskState;
   type: TaskType;
 }
 
-// @public (undocumented)
-export interface TaskDecisionProvider {
-  // (undocumented)
+export declare interface ServiceTaskState {
+  lastUpdateDate: string;
+  localId: string;
+  objectAri: string;
+  state: TaskState;
+}
+
+declare interface State {
+  isDone?: boolean;
+}
+
+export declare interface Task extends BaseItem<TaskState> {
+  creationDate?: Date;
+  creator?: UserId;
+  lastUpdater?: UserId;
+  lastUpdateDate: Date;
+  parentLocalId?: string;
+  participants?: UserId[];
+  position?: number;
+  type: TaskType;
+}
+
+export declare interface TaskDecisionProvider {
+  unsubscribeRecentUpdates(id: RecentUpdatesId): void;
   notifyRecentUpdates(updateContext: RecentUpdateContext): void;
-  // (undocumented)
+  toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
   subscribe(
     objectKey: ObjectKey,
     handler: Handler,
     item?: BaseItem<TaskState | DecisionState>,
   ): void;
-  // (undocumented)
-  toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
-  // (undocumented)
   unsubscribe(objectKey: ObjectKey, handler: Handler): void;
-  // (undocumented)
-  unsubscribeRecentUpdates(id: RecentUpdatesId): void;
 }
 
-// @public (undocumented)
-export class TaskDecisionResource implements TaskDecisionProvider {
+export declare class TaskDecisionResource implements TaskDecisionProvider {
+  private recentUpdates;
+  private itemStateManager;
   constructor(serviceConfig: TaskDecisionResourceConfig);
-  destroy(): void;
-  // (undocumented)
+  unsubscribeRecentUpdates(id: RecentUpdatesId): void;
   notifyRecentUpdates(recentUpdateContext: RecentUpdateContext): void;
-  // (undocumented)
+  toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
   subscribe(
     objectKey: ObjectKey,
     handler: Handler,
     item?: BaseItem<TaskState | DecisionState>,
   ): void;
-  // (undocumented)
-  toggleTask(objectKey: ObjectKey, state: TaskState): Promise<TaskState>;
-  // (undocumented)
   unsubscribe(objectKey: ObjectKey, handler: Handler): void;
-  // (undocumented)
-  unsubscribeRecentUpdates(id: RecentUpdatesId): void;
+  /**
+   * Usually only needed for testing to ensure no outstanding requests
+   * are sent to a server (typically mocked).
+   */
+  destroy(): void;
 }
 
-// @public (undocumented)
-export interface TaskDecisionResourceConfig extends ServiceConfig {
-  disableServiceHydration?: boolean;
-  // (undocumented)
+export declare interface TaskDecisionResourceConfig extends ServiceConfig {
   pubSubClient?: PubSubClient;
+  /**
+   * Indicates if initial state for an action or decision is should be cached,
+   * from the content, i.e. was originally hydrated from the service initially,
+   * and so should be considered up to date.
+   *
+   * Will stop the initiation of the hydration from the service the first
+   * time an action or decision is seen.
+   *
+   * If false the state will always be hydrated from the service on first view.
+   */
+  disableServiceHydration?: boolean;
 }
 
-// @public (undocumented)
-export const TaskItem: React_2.ForwardRefExoticComponent<
+export declare const TaskItem: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<Props_4 & WithAnalyticsEventsProps, keyof WithAnalyticsEventsProps>,
     never
@@ -339,20 +320,15 @@ export const TaskItem: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export class TaskList extends PureComponent<Props_5, {}> {
-  // (undocumented)
+export declare class TaskList extends PureComponent<Props_5, {}> {
   render(): JSX.Element | null;
 }
 
-// @public (undocumented)
-export type TaskState = 'TODO' | 'DONE';
+export declare type TaskState = 'TODO' | 'DONE';
 
-// @public (undocumented)
-export type TaskType = 'TASK';
+export declare type TaskType = 'TASK';
 
-// @public (undocumented)
-export type UserId = string;
+export declare type UserId = string;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

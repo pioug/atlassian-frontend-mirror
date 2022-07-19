@@ -19,8 +19,7 @@ import { WithIntlProps } from 'react-intl-next';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export const MediaTable: React_2.ComponentType<WithMediaClientConfigProps<
+export declare const MediaTable: React_2.ComponentType<WithMediaClientConfigProps<
   Omit<
     React_2.PropsWithChildren<
       WithIntlProps<MediaTableProps & WrappedComponentProps<'intl'>>
@@ -30,45 +29,57 @@ export const MediaTable: React_2.ComponentType<WithMediaClientConfigProps<
     React_2.RefAttributes<any>
 >>;
 
-// @public (undocumented)
-export interface MediaTableItem {
-  // (undocumented)
+export declare interface MediaTableItem {
   data: RowData;
-  // (undocumented)
   identifier: FileIdentifier;
+  /** An object containing props that will be applied to the row component */
   rowProps?: RowProps;
 }
 
-// @public (undocumented)
-export interface MediaTableProps {
-  columns: HeadType;
-  // (undocumented)
-  createAnalyticsEvent: CreateUIAnalyticsEvent;
-  isLoading?: boolean;
+export declare interface MediaTableProps {
+  /** The table rows to display in the current page */
   items: MediaTableItem[];
-  itemsPerPage?: number;
-  // (undocumented)
   mediaClient: MediaClient;
-  onPreviewClose?: () => void;
-  onPreviewOpen?: () => void;
-  onSetPage?: (pageNumber: number) => void;
-  onSort?: (key: string, sortOrder: SortOrderType) => void;
-  pageNumber?: number;
-  sortKey?: string;
-  sortOrder?: SortOrderType;
+  /** Object describing the column headings */
+  columns: HeadType;
+  /** The total number of table rows. This is used to calculate pagination */
   totalItems: number;
+  /** The maximum number of rows per page. No maximum by default */
+  itemsPerPage?: number;
+  /** The current page number */
+  pageNumber?: number;
+  /** The property that the table items are sorted by. This must match a key in columns.cells */
+  sortKey?: string;
+  /** The direction that the table items are sorted in - ascending or descending */
+  sortOrder?: SortOrderType;
+  /** Whether to show the loading state or not */
+  isLoading?: boolean;
+  /** Called when a pagination control is clicked. Provides the new page number to paginate by */
+  onSetPage?: (pageNumber: number) => void;
+  /** Called when a column header is clicked. Provides the key of the column and the new sortOrder to sort by */
+  onSort?: (key: string, sortOrder: SortOrderType) => void;
+  createAnalyticsEvent: CreateUIAnalyticsEvent;
+  /** Called when the preview is opened by the user clicking on an item in the table */
+  onPreviewOpen?: () => void;
+  /** Called when the preview is closed */
+  onPreviewClose?: () => void;
 }
 
-// @public (undocumented)
-export const NameCell: FC<NameCellProps>;
+export declare const NameCell: FC<NameCellProps>;
 
-// @public (undocumented)
-export interface NameCellProps extends TruncateProps {
-  // (undocumented)
+export declare interface NameCellProps extends TruncateProps {
   mediaType?: MediaType;
+}
+
+declare interface RowData {
+  [key: string]: string | React.ReactNode;
+}
+
+declare interface RowProps {
+  className?: string;
 }
 
 export { SortOrderType };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

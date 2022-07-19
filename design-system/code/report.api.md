@@ -12,8 +12,7 @@ import { default as React_2 } from 'react';
 import type { ReactNode } from 'react';
 import type { Theme } from '@atlaskit/theme/types';
 
-// @public (undocumented)
-export const Code: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
+export declare const Code: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
   Pick<
     CodeProps,
     | 'as'
@@ -384,34 +383,96 @@ export const Code: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent
     React_2.RefAttributes<HTMLElement>
 >>;
 
-// @public (undocumented)
-export const CodeBlock: NamedExoticComponent<CodeBlockProps>;
+export declare const CodeBlock: NamedExoticComponent<CodeBlockProps>;
 
-// @public (undocumented)
-export interface CodeBlockProps {
-  codeBidiWarningLabel?: string;
-  codeBidiWarnings?: boolean;
-  codeBidiWarningTooltipEnabled?: boolean;
-  highlight?: string;
-  highlightedEndText?: string;
-  highlightedStartText?: string;
-  language?: SupportedLanguages;
-  showLineNumbers?: boolean;
-  testId?: string;
+export declare interface CodeBlockProps {
+  /**
+   * The code to be formatted
+   */
   text: string;
-}
-
-// @public (undocumented)
-export interface CodeProps extends HTMLProps<HTMLElement> {
-  children?: ReactNode;
-  codeBidiWarningLabel?: string;
-  codeBidiWarnings?: boolean;
-  codeBidiWarningTooltipEnabled?: boolean;
+  /**
+   * A unique string that appears as a data attribute `data-testid`
+   * in the rendered code. Serves as a hook for automated tests.
+   */
   testId?: string;
+  /**
+   * Whether to showLineNumbers or not, defaults to true
+   */
+  showLineNumbers?: boolean;
+  /**
+   * The language in which the code is written
+   */
+  language?: SupportedLanguages;
+  /**
+     * Lines to highlight comma delimited.
+     * Example uses:
+
+     * - To highlight one line `highlight="3"`
+     * - To highlight a group of lines `highlight="1-5"`
+     * - To highlight multiple groups `highlight="1-5,7,10,15-20"`
+     */
+  highlight?: string;
+  /**
+   * Screen reader text for the start of a highlighted line
+   */
+  highlightedStartText?: string;
+  /**
+   * Screen reader text for the end of a highlighted line
+   */
+  highlightedEndText?: string;
+  /**
+   * When false, disables decorating code with bidi warnings
+   *
+   * defaults to true
+   */
+  codeBidiWarnings?: boolean;
+  /**
+   * Labels for the previous and next buttons used in pagination.
+   * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
+   */
+  codeBidiWarningLabel?: string;
+  /**
+   * Defaults to enabled (true)
+   *
+   * Intended to be disabled when used in a mobile view, such as in the editor
+   * via mobile bridge, where the tooltip could end up being cut off of otherwise
+   * not work as expected.
+   */
+  codeBidiWarningTooltipEnabled?: boolean;
 }
 
-// @public (undocumented)
-export const getCodeStyles: (
+export declare interface CodeProps extends HTMLProps<HTMLElement> {
+  /**
+   * A unique string that appears as a data attribute `data-testid`
+   * in the rendered code. Serves as a hook for automated tests.
+   */
+  testId?: string;
+  /**
+   * Content to be rendered in the inline code block
+   */
+  children?: ReactNode;
+  /**
+   * When false, disables decorating code with bidi warnings
+   *
+   * defaults to true
+   */
+  codeBidiWarnings?: boolean;
+  /**
+   * Labels for the previous and next buttons used in pagination.
+   * Defaults to `Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.`.
+   */
+  codeBidiWarningLabel?: string;
+  /**
+   * Defaults to enabled (true)
+   *
+   * Intended to be disabled when used in a mobile view, such as in the editor
+   * via mobile bridge, where the tooltip could end up being cut off of otherwise
+   * not work as expected.
+   */
+  codeBidiWarningTooltipEnabled?: boolean;
+}
+
+export declare const getCodeStyles: (
   globalTheme:
     | Theme
     | {
@@ -419,14 +480,13 @@ export const getCodeStyles: (
       },
 ) => CSSObject;
 
-// @public (undocumented)
-export type Language = typeof SUPPORTED_LANGUAGES[number];
+export declare type Language = typeof SUPPORTED_LANGUAGES[number];
 
-// @public (undocumented)
-export type LanguageAlias = typeof SUPPORTED_LANGUAGES[number]['alias'][number];
+export declare type LanguageAlias = typeof SUPPORTED_LANGUAGES[number]['alias'][number];
 
-// @public (undocumented)
-export const SUPPORTED_LANGUAGES: readonly [
+declare type LanguageName = typeof SUPPORTED_LANGUAGES[number]['name'];
+
+export declare const SUPPORTED_LANGUAGES: readonly [
   {
     readonly name: 'PHP';
     readonly alias: readonly ['php', 'php3', 'php4', 'php5'];
@@ -826,8 +886,7 @@ export const SUPPORTED_LANGUAGES: readonly [
   },
 ];
 
-// @public (undocumented)
-export type SupportedLanguages = LanguageName | LanguageAlias;
+export declare type SupportedLanguages = LanguageName | LanguageAlias;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

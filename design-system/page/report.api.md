@@ -7,8 +7,32 @@
 
 import type { ReactNode } from 'react';
 
-// @public
-export const Grid: ({
+/**
+ * The props accepted by the internal `Grid` element.
+ */
+declare type BaseGridProps = {
+  /**
+   * The content of the grid. Direct children should be instances of `GridColumn`.
+   */
+  children?: React.ReactNode;
+  /**
+   * Whether the grid should use a fixed-width layout or expand to fill available space.
+   */
+  layout?: GridLayout;
+  /**
+   * Applies a `data-testid` to the rendered DOM for use in testing.
+   */
+  testId?: string;
+};
+
+/**
+ * __Grid__
+ *
+ * A grid contains one or more `GridColumn` to provide a grid layout.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/page)
+ */
+export declare const Grid: ({
   spacing: spacingProp,
   columns: columnsProp,
   layout,
@@ -17,15 +41,71 @@ export const Grid: ({
   theme,
 }: GridProps) => JSX.Element;
 
-// @public
-export const GridColumn: ({
+/**
+ * __Grid column__
+ *
+ * A grid column can span one or more column positions within a grid.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/page)
+ */
+export declare const GridColumn: ({
   medium,
   children,
   testId,
 }: GridColumnProps) => JSX.Element;
 
-// @public
-const Page: ({
+declare type GridColumnProps = {
+  /**
+   * The number of columns in its parent `Grid` that the `GridColumn` should span.
+   */
+  medium?: number;
+  /**
+   * The content to display within the column.
+   */
+  children?: ReactNode;
+  /**
+   * Applies a `data-testid` to the rendered DOM for use in testing.
+   */
+  testId?: string;
+};
+
+declare type GridLayout = 'fluid' | 'fixed';
+
+/**
+ * The props accepted by the external `Grid` element.
+ *
+ * @extends BaseGridProps
+ */
+declare type GridProps = BaseGridProps & {
+  /**
+   * The amount of space between each grid column. Refer to
+   * [this example](/packages/design-system/page/example/spacing-example)
+   * for a visualization of the different spacing options.
+   */
+  spacing?: GridSpacing;
+  /**
+   * The total number of columns available in each row of the grid.
+   */
+  columns?: number;
+  /**
+   * For consumers still using the theme prop to set the grid layout.
+   */
+  theme?: ThemeProps;
+};
+
+declare type GridSpacing = keyof typeof spacingMapping;
+
+/**
+ * __Page__
+ *
+ * Used to build page layouts.
+ *
+ * Has built in support for positioning [banners](https://atlassian.design/components/banner/examples)
+ * and the deprecated `@atlaskit/navigation`.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/page)
+ */
+declare const Page: ({
   isBannerOpen,
   bannerHeight,
   banner,
@@ -35,5 +115,75 @@ const Page: ({
 }: PageProps) => JSX.Element;
 export default Page;
 
-// (No @packageDocumentation comment for this package)
+declare type PageProps = {
+  /**
+     * If you provide the banner or banners you are to use, page will help you
+     * coordinate the showing and hiding of them in conjunction with `isBannerOpen`.
+     * This is designed to take [our banner](/packages/design-system/banner) component, and
+     * matches the animation timing of our banner.
+
+     * The only time that two banners should be rendered are when an announcement
+     * banner is loaded alongside an error or warning banner.
+     */
+  banner?: ReactNode;
+  /**
+   * Takes our [navigation component](/packages/design-system/navigation) and helps
+   * position it with consideration to rendered banners.
+   */
+  navigation?: ReactNode;
+  /**
+   * The contents of the page, to be rendered next to navigation. It will be
+   * correctly position with relation to both any banner, as well as navigation.
+   */
+  children?: ReactNode;
+  /**
+   * Sets whether to show or hide the banner. This is responsible for moving the
+   * page contents down, as well as whether to render the banner component.
+   */
+  isBannerOpen?: boolean;
+  /**
+     * 52 is line height (20) + 4*grid. This is the height of all banners aside
+     * from the dynamically heighted announcement banner.
+
+     * Banner height can be retrieved from banner using its `innerRef`, which always
+     * returns its height when expanded even when it's collapsed.
+
+     * In addition to setting the height of the banner's container for dynamically
+     * heighted banners, you will need to set the `pageOffset` in navigation. Since
+     * this is a lot to think about, [here](/examples/core/page/navigation-example)
+     * is an example that implements displaying both an announcement banner and a
+     * warning banner on a page, while matching the height of each.
+     */
+  bannerHeight?: number;
+  /**
+   * Applies a `data-testid` to the rendered DOM for use in testing.
+   */
+  testId?: string;
+};
+
+declare const spacingMapping: {
+  readonly comfortable: number;
+  readonly cosy: number;
+  readonly compact: number;
+};
+
+/**
+ * Values set for the theme.
+ */
+declare type ThemeProps = {
+  /**
+   * Number of columns in the grid.
+   */
+  columns: number;
+  /**
+   * Desired spacing of the grid.
+   */
+  spacing: GridSpacing;
+  /**
+   * Sets whether the grid is nested or not.
+   */
+  isNestedGrid?: boolean;
+};
+
+export {};
 ```

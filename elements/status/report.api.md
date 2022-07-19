@@ -8,19 +8,33 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithIntlProps } from 'react-intl-next';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export type Color = 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
+export declare type Color =
+  | 'neutral'
+  | 'purple'
+  | 'blue'
+  | 'red'
+  | 'yellow'
+  | 'green';
 
-// @public (undocumented)
-export type Props = OwnProps & WithAnalyticsEventsProps;
+declare type ColorType = Color;
 
-// @public (undocumented)
-export const Status: React_2.ForwardRefExoticComponent<
+declare interface OwnProps {
+  text: string;
+  color: Color;
+  style?: StatusStyle;
+  localId?: string;
+  onClick?: (event: React_2.SyntheticEvent<any>) => void;
+  onHover?: () => void;
+  role?: string;
+}
+
+export declare type Props = OwnProps & WithAnalyticsEventsProps;
+
+export declare const Status: React_2.ForwardRefExoticComponent<
   Omit<Props, keyof WithAnalyticsEventsProps> & React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export const StatusPicker: React_2.FC<
+export declare const StatusPicker: React_2.FC<
   WithIntlProps<StatusPickerProps & WrappedComponentProps<'intl'>>
 > & {
   WrappedComponent: React_2.ComponentType<
@@ -28,26 +42,17 @@ export const StatusPicker: React_2.FC<
   >;
 };
 
-// @public (undocumented)
-export interface StatusPickerProps {
-  // (undocumented)
-  autoFocus?: boolean;
-  // (undocumented)
-  onColorClick: (value: ColorType) => void;
-  // (undocumented)
-  onColorHover?: (value: ColorType) => void;
-  // (undocumented)
-  onEnter: () => void;
-  // (undocumented)
-  onTextChanged: (value: string) => void;
-  // (undocumented)
+export declare interface StatusPickerProps {
   selectedColor: ColorType;
-  // (undocumented)
   text: string;
+  onEnter: () => void;
+  onColorClick: (value: ColorType) => void;
+  onColorHover?: (value: ColorType) => void;
+  onTextChanged: (value: string) => void;
+  autoFocus?: boolean;
 }
 
-// @public (undocumented)
-export type StatusStyle = 'bold' | 'subtle';
+export declare type StatusStyle = 'bold' | 'subtle';
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

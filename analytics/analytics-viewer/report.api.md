@@ -8,27 +8,46 @@
 import { default as React_2 } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const AnalyticsViewer: ({ events, className }: Props) => JSX.Element;
+export declare const AnalyticsViewer: ({
+  events,
+  className,
+}: Props) => JSX.Element;
 
-// @public (undocumented)
-export class AnalyticsViewerContainer extends React_2.Component<
+export declare class AnalyticsViewerContainer extends React_2.Component<
   Props_2,
   State
 > {
-  constructor(props: Props_2);
-  // (undocumented)
   static defaultProps: {
     channel: string;
   };
-  // (undocumented)
+  constructor(props: Props_2);
   handleOnEvent: (
     event: UIAnalyticsEvent,
     channel?: string | undefined,
   ) => void;
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// (No @packageDocumentation comment for this package)
+declare type Event_2 = {
+  channel?: string;
+  event: UIAnalyticsEvent;
+};
+
+declare type EventsArray = Event_2[];
+
+declare type Props = {
+  events: EventsArray;
+  className?: string;
+};
+
+declare type Props_2 = {
+  children: React_2.ReactNode;
+  channel?: string;
+};
+
+declare type State = {
+  events: EventsArray;
+};
+
+export {};
 ```

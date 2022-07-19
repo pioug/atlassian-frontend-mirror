@@ -5,15 +5,13 @@
 ```ts
 import { Node as Node_2 } from 'prosemirror-model';
 
-// @public (undocumented)
-export type JSONDocNode = {
+export declare type JSONDocNode = {
   version: number;
   type: 'doc';
   content: JSONNode[];
 };
 
-// @public (undocumented)
-export type JSONNode = {
+export declare type JSONNode = {
   type: string;
   attrs?: object;
   content?: Array<JSONNode | undefined>;
@@ -21,14 +19,20 @@ export type JSONNode = {
   text?: string;
 };
 
-// @public (undocumented)
-export class JSONTransformer implements Transformer_2<JSONDocNode> {
-  // (undocumented)
+export declare class JSONTransformer implements Transformer_2<JSONDocNode> {
   encode(node: Node_2): JSONDocNode;
-  encodeNode(node: Node_2): JSONNode;
-  // (undocumented)
+  private internalParse;
   parse(content: JSONDocNode): Node_2;
+  /**
+   * This method is used to encode a single node
+   */
+  encodeNode(node: Node_2): JSONNode;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface Transformer_2<T> {
+  encode(node: Node_2): T;
+  parse(content: T): Node_2;
+}
+
+export {};
 ```

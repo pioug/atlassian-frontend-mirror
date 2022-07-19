@@ -5,8 +5,7 @@
 ```ts
 import { Rule } from 'eslint';
 
-// @public (undocumented)
-export const configs: {
+export declare const configs: {
   recommended: {
     plugins: string[];
     rules: {
@@ -18,8 +17,7 @@ export const configs: {
   };
 };
 
-// @public (undocumented)
-export const rules: {
+export declare const rules: {
   'ensure-design-token-usage': Rule.RuleModule;
   'icon-label': Rule.RuleModule;
   'no-deprecated-apis': Rule.RuleModule;
@@ -29,5 +27,5 @@ export const rules: {
   'use-visually-hidden': Rule.RuleModule;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

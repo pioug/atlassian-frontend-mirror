@@ -6,16 +6,49 @@
 import { Node as Node_2 } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 
-// @public (undocumented)
-class WikiMarkupTransformer implements Transformer_2<string> {
+declare interface Context {
+  readonly issueKeyRegex?: RegExp | undefined;
+  readonly tokenErrCallback?: TokenErrCallback;
+  readonly conversion?: {
+    readonly inlineCardConversion?: ConversionMap;
+    readonly mediaConversion?: MediaConversionMap;
+    mentionConversion?: ConversionMap;
+  };
+  readonly hydration?: {
+    readonly media?: {
+      targetCollectionId?: string;
+    };
+  };
+}
+
+declare interface ConversionMap {
+  [key: string]: string;
+}
+
+declare interface MediaConversionMap {
+  [key: string]: {
+    transform?: string;
+    embed?: boolean;
+  };
+}
+
+declare type TokenErrCallback = (err: Error, tokenType: string) => void;
+
+declare interface Transformer_2<T> {
+  encode(node: Node_2): T;
+  parse(content: T): Node_2;
+}
+
+declare class WikiMarkupTransformer implements Transformer_2<string> {
+  private schema;
   constructor(schema?: Schema);
-  // (undocumented)
+  private sanitizeWikiMarkup;
   encode(node: Node_2, context?: Context): string;
-  // (undocumented)
   parse(wikiMarkup: string, context?: Context): Node_2;
+  private buildContext;
 }
 export { WikiMarkupTransformer };
 export default WikiMarkupTransformer;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

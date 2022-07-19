@@ -10,8 +10,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-const _default: React_2.ForwardRefExoticComponent<
+declare const _default: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<Props, keyof WithAnalyticsEventsProps> &
       React_2.RefAttributes<any> &
@@ -22,5 +21,27 @@ const _default: React_2.ForwardRefExoticComponent<
 >;
 export default _default;
 
-// (No @packageDocumentation comment for this package)
+declare interface HelpLayout extends HelpPanelHeader {
+  isLoading?: boolean;
+  footer?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+declare interface HelpPanelHeader {
+  headerTitle?: string;
+  headerContent?: React.ReactNode;
+  onCloseButtonClick?(
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+  ): void;
+  onBackButtonClick?(
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
+    analyticsEvent: UIAnalyticsEvent,
+  ): void;
+  isBackbuttonVisible?: boolean;
+}
+
+declare type Props = HelpLayout & WithAnalyticsEventsProps;
+
+export {};
 ```

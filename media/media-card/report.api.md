@@ -23,139 +23,106 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export const Card: React_2.FC<CardWithMediaClientConfigProps>;
+export declare const Card: React_2.FC<CardWithMediaClientConfigProps>;
 
-// @public (undocumented)
-export interface CardAction {
-  // (undocumented)
-  handler: CardEventHandler;
-  // (undocumented)
-  icon?: ReactNode;
-  // (undocumented)
+export declare interface CardAction {
   label?: string;
+  handler: CardEventHandler;
+  icon?: ReactNode;
 }
 
-// @public (undocumented)
-export type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
+export declare type CardAppearance = 'auto' | 'image' | 'square' | 'horizontal';
 
-// @public (undocumented)
-export interface CardDimensions {
-  // (undocumented)
-  height?: CardDimensionValue;
-  // (undocumented)
+declare type CardBaseProps = CardProps &
+  WithAnalyticsEventsProps &
+  Partial<WrappedComponentProps>;
+
+export declare interface CardDimensions {
   width?: CardDimensionValue;
+  height?: CardDimensionValue;
 }
 
-// @public (undocumented)
-export type CardDimensionValue = number | string;
+export declare type CardDimensionValue = number | string;
 
-// @public (undocumented)
-export class CardError extends Component<ErrorCardProps, {}> {
-  // (undocumented)
+export declare class CardError extends Component<ErrorCardProps, {}> {
   static defaultProps: {
     size: string;
   };
-  // (undocumented)
-  get icon(): JSX.Element;
-  // (undocumented)
   render(): JSX.Element;
+  get icon(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface CardEvent {
-  // (undocumented)
+export declare interface CardEvent {
   event: MouseEvent_2<HTMLElement>;
-  // (undocumented)
   mediaItemDetails?: FileDetails;
 }
 
-// @public (undocumented)
-export type CardEventHandler = (item?: FileItem, event?: Event) => void;
+export declare type CardEventHandler = (item?: FileItem, event?: Event) => void;
 
-// @public (undocumented)
-export interface CardEventProps {
-  // (undocumented)
+export declare interface CardEventProps {
   readonly onClick?: CardOnClickCallback;
-  readonly onFullscreenChange?: (fullscreen: boolean) => void;
-  // (undocumented)
   readonly onMouseEnter?: (result: CardEvent) => void;
+  /** Callback function to be called when video enters and exit fullscreen.
+   * `fullscreen = true` indicates video enters fullscreen
+   * `fullscreen = false` indicates video exits fullscreen
+   */
+  readonly onFullscreenChange?: (fullscreen: boolean) => void;
 }
 
-// @public (undocumented)
-export class CardLoading extends Component<StaticCardProps, {}> {
-  // (undocumented)
+export declare class CardLoading extends Component<StaticCardProps, {}> {
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface CardOnClickCallback {
-  // (undocumented)
+export declare interface CardOnClickCallback {
   (result: CardEvent, analyticsEvent?: UIAnalyticsEvent): void;
 }
 
-// @public (undocumented)
-export interface CardPreview {
-  // (undocumented)
+export declare interface CardPreview {
   dataURI: string;
-  // (undocumented)
   orientation?: number;
-  // (undocumented)
   source: CardPreviewSource;
 }
 
-// @public (undocumented)
-export interface CardProps extends SharedCardProps, CardEventProps {
-  // (undocumented)
-  readonly contextId?: string;
-  // (undocumented)
-  readonly identifier: Identifier;
-  // (undocumented)
-  readonly isLazy?: boolean;
-  // (undocumented)
+declare type CardPreviewSource =
+  | 'local'
+  | 'remote'
+  | 'ssr-server'
+  | 'ssr-client'
+  | 'ssr-data'
+  | 'cache-local'
+  | 'cache-remote'
+  | 'cache-ssr-client'
+  | 'cache-ssr-server'
+  | 'external';
+
+export declare interface CardProps extends SharedCardProps, CardEventProps {
   readonly mediaClient: MediaClient;
-  // (undocumented)
-  readonly mediaViewerDataSource?: MediaViewerDataSource;
-  // (undocumented)
-  readonly shouldEnableDownloadButton?: boolean;
-  // (undocumented)
-  readonly shouldOpenMediaViewer?: boolean;
-  // (undocumented)
-  readonly ssr?: SSR;
-  // (undocumented)
+  readonly identifier: Identifier;
+  readonly isLazy?: boolean;
   readonly useInlinePlayer?: boolean;
+  readonly shouldOpenMediaViewer?: boolean;
+  readonly mediaViewerDataSource?: MediaViewerDataSource;
+  readonly contextId?: string;
+  readonly shouldEnableDownloadButton?: boolean;
+  readonly ssr?: SSR;
 }
 
-// @public (undocumented)
-export interface CardState {
-  // (undocumented)
-  cardPreview?: CardPreview;
-  // (undocumented)
-  cardRef: HTMLDivElement | null;
-  // (undocumented)
-  error?: MediaCardError;
-  // (undocumented)
-  fileState?: FileState;
-  // (undocumented)
-  isBannedLocalPreview: boolean;
-  // (undocumented)
-  isCardVisible: boolean;
-  // (undocumented)
-  isPlayingFile: boolean;
-  // (undocumented)
-  mediaViewerSelectedItem?: Identifier;
-  // (undocumented)
-  previewDidRender: boolean;
-  // (undocumented)
-  progress?: number;
-  // (undocumented)
-  shouldAutoplay?: boolean;
-  // (undocumented)
+export declare interface CardState {
   status: CardStatus;
+  isCardVisible: boolean;
+  shouldAutoplay?: boolean;
+  isPlayingFile: boolean;
+  mediaViewerSelectedItem?: Identifier;
+  fileState?: FileState;
+  progress?: number;
+  cardPreview?: CardPreview;
+  error?: MediaCardError;
+  cardRef: HTMLDivElement | null;
+  isBannedLocalPreview: boolean;
+  previewDidRender: boolean;
 }
 
-// @public (undocumented)
-export type CardStatus =
+export declare type CardStatus =
   | 'uploading'
   | 'loading'
   | 'processing'
@@ -164,82 +131,139 @@ export type CardStatus =
   | 'error'
   | 'failed-processing';
 
-// @public (undocumented)
-export const defaultImageCardDimensions: {
+declare type CardWithMediaClientConfigProps = WithMediaClientConfigProps<
+  CardBaseProps
+>;
+
+export declare const defaultImageCardDimensions: {
   width: number;
   height: number;
 };
 
-// @public (undocumented)
-export const fileCardImageViewSelectedSelector =
+declare type ErrorBoundaryComponent = React_2.ComponentType<{
+  data?: {
+    [k: string]: any;
+  };
+}>;
+
+declare interface ErrorCardProps extends StaticCardProps {
+  readonly size: 'small' | 'medium' | 'large' | 'xlarge';
+}
+
+export declare const fileCardImageViewSelectedSelector =
   'media-file-card-view-selected';
 
-// @public (undocumented)
-export const fileCardImageViewSelector = 'media-file-card-view';
+export declare const fileCardImageViewSelector = 'media-file-card-view';
 
-// @public (undocumented)
-export const inlinePlayerClassName = 'media-card-inline-player';
+declare type ImageLoadPrimaryReason =
+  | 'cache-remote-uri'
+  | 'cache-local-uri'
+  | 'local-uri'
+  | 'remote-uri'
+  | 'external-uri'
+  | 'unknown-uri';
 
-// @public (undocumented)
-export class MediaInlineCard extends React_2.PureComponent<
+export declare const inlinePlayerClassName = 'media-card-inline-player';
+
+declare type LocalPreviewPrimaryReason =
+  | 'local-preview-get'
+  | 'local-preview-unsupported'
+  | 'local-preview-rejected'
+  | 'local-preview-image'
+  | 'local-preview-video';
+
+declare class MediaCardError extends Error {
+  readonly primaryReason: MediaCardErrorPrimaryReason;
+  readonly secondaryError?: Error | undefined;
+  constructor(
+    primaryReason: MediaCardErrorPrimaryReason,
+    secondaryError?: Error | undefined,
+  );
+}
+
+declare type MediaCardErrorPrimaryReason =
+  | 'upload'
+  | 'metadata-fetch'
+  | 'error-file-state'
+  | RemotePreviewPrimaryReason
+  | LocalPreviewPrimaryReason
+  | ImageLoadPrimaryReason
+  | SsrPreviewPrimaryReason
+  | 'preview-fetch';
+
+export declare class MediaInlineCard extends React_2.PureComponent<
   MediaInlineCardWithMediaClientConfigProps & MediaInlineCardLoaderState,
   MediaInlineCardLoaderState
 > {
-  // (undocumented)
-  componentDidMount(): Promise<void>;
-  // (undocumented)
-  componentWillUnmount(): Promise<void>;
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
-  static ErrorBoundary?: ErrorBoundaryComponent;
-  // (undocumented)
-  isMounted: boolean;
-  // (undocumented)
   static MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+  static ErrorBoundary?: ErrorBoundaryComponent;
+  isMounted: boolean;
   state: MediaInlineCardLoaderState;
+  componentDidMount(): Promise<void>;
+  componentWillUnmount(): Promise<void>;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export const newFileExperienceClassName = 'new-file-experience-wrapper';
+declare interface MediaInlineCardLoaderState {
+  MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;
+  ErrorBoundary?: ErrorBoundaryComponent;
+}
+
+declare interface MediaInlineCardProps {
+  identifier: FileIdentifier;
+  mediaClient: MediaClient;
+  shouldOpenMediaViewer?: boolean;
+  isSelected?: boolean;
+  onClick?: React_2.EventHandler<React_2.MouseEvent | React_2.KeyboardEvent>;
+  mediaViewerDataSource?: MediaViewerDataSource;
+}
+
+declare type MediaInlineCardWithMediaClientConfigComponent = React_2.ComponentType<
+  MediaInlineCardWithMediaClientConfigProps
+>;
+
+declare type MediaInlineCardWithMediaClientConfigProps = WithMediaClientConfigProps<
+  MediaInlineCardProps
+>;
+
+export declare const newFileExperienceClassName = 'new-file-experience-wrapper';
 
 export { NumericalCardDimensions };
 
-// @public (undocumented)
-export interface SharedCardProps {
-  // (undocumented)
-  readonly actions?: Array<CardAction>;
-  // (undocumented)
-  readonly alt?: string;
-  // (undocumented)
-  readonly appearance?: CardAppearance;
-  // (undocumented)
-  readonly dimensions?: CardDimensions;
-  // (undocumented)
+declare type RemotePreviewPrimaryReason =
+  | 'remote-preview-fetch'
+  | 'remote-preview-not-ready';
+
+export declare interface SharedCardProps {
   readonly disableOverlay?: boolean;
-  // (undocumented)
-  readonly featureFlags?: MediaFeatureFlags;
-  // (undocumented)
-  readonly originalDimensions?: NumericalCardDimensions;
-  // (undocumented)
   readonly resizeMode?: ImageResizeMode;
-  // (undocumented)
+  readonly featureFlags?: MediaFeatureFlags;
+  readonly appearance?: CardAppearance;
+  readonly dimensions?: CardDimensions;
+  readonly originalDimensions?: NumericalCardDimensions;
+  readonly actions?: Array<CardAction>;
   readonly selectable?: boolean;
-  // (undocumented)
   readonly selected?: boolean;
-  // (undocumented)
+  readonly alt?: string;
   readonly testId?: string;
-  // (undocumented)
   readonly titleBoxBgColor?: string;
-  // (undocumented)
   readonly titleBoxIcon?: TitleBoxIcon;
 }
 
-// @public (undocumented)
-export type TitleBoxIcon = 'LockFilledIcon';
+declare type SsrPreviewPrimaryReason =
+  | 'ssr-client-uri'
+  | 'ssr-client-load'
+  | 'ssr-server-uri'
+  | 'ssr-server-load';
 
-// (No @packageDocumentation comment for this package)
+declare interface StaticCardProps {
+  dimensions?: CardDimensions;
+  testId?: string;
+  featureFlags?: MediaFeatureFlags;
+}
+
+export declare type TitleBoxIcon = 'LockFilledIcon';
+
+export {};
 ```

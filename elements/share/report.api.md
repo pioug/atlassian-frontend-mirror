@@ -15,50 +15,41 @@ import type { TriggerProps } from '@atlaskit/popup';
 import type { Value } from '@atlaskit/smart-user-picker';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export const ADMIN_NOTIFIED = 'admin-notified';
+export declare const ADMIN_NOTIFIED = 'admin-notified';
 
-// @public (undocumented)
-type Comment_2 = {
+declare type Comment_2 = {
   format: 'plain_text' | 'adf';
   value: string;
 };
 export { Comment_2 as Comment };
 
-// @public (undocumented)
-export type ConfigResponse = {
+export declare type ConfigResponse = {
   disableSharingToEmails?: boolean;
 };
 
-// @public (undocumented)
-export type Content = {
+export declare type Content = {
   ari: string;
   link: string;
   title: string;
   type: string;
 };
 
-// @public (undocumented)
-export type DialogContentState = {
+export declare type DialogContentState = {
   users: OptionData[];
   comment: Comment_2;
 };
 
-// @public (undocumented)
-export type DialogPlacement = Placement;
+export declare type DialogPlacement = Placement;
 
-// @public (undocumented)
-export type Flag = {
+export declare type Flag = {
   appearance: 'success';
   title: MessageDescriptor;
   type: FlagType;
 };
 
-// @public (undocumented)
-export type FlagType = 'object-shared' | 'admin-notified';
+export declare type FlagType = 'object-shared' | 'admin-notified';
 
-// @public (undocumented)
-export type FormChildrenArgs<T> = {
+export declare type FormChildrenArgs<T> = {
   formProps: React.DetailedHTMLProps<
     React.FormHTMLAttributes<HTMLFormElement>,
     HTMLFormElement
@@ -66,35 +57,42 @@ export type FormChildrenArgs<T> = {
   getValues: () => T;
 };
 
-// @public (undocumented)
-export type KeysOfType<T, TProp> = {
+declare type Integration = {
+  type: string;
+  Icon: React.ComponentType;
+  Content: React.ComponentType<IntegrationContentProps>;
+};
+
+declare type IntegrationContentProps = {
+  onClose: () => void;
+  changeTab?: (index: TabType) => void;
+};
+
+declare type IntegrationMode = 'tabs' | 'split' | 'off';
+
+export declare type KeysOfType<T, TProp> = {
   [P in keyof T]: T[P] extends TProp ? P : never;
 }[keyof T];
 
-// @public (undocumented)
-export type MessageDescriptor = {
+export declare type MessageDescriptor = {
   id: string;
   description: string;
   defaultMessage: string;
 };
 
-// @public (undocumented)
-export type MetaData = {
+export declare type MetaData = {
   productId: string;
   atlOriginId: string;
   shareeAction?: 'view' | 'edit';
 };
 
-// @public (undocumented)
-export const OBJECT_SHARED = 'object-shared';
+export declare const OBJECT_SHARED = 'object-shared';
 
-// @public (undocumented)
-export type OriginAnalyticAttributes = {
+export declare type OriginAnalyticAttributes = {
   hasGeneratedId: boolean;
 };
 
-// @public (undocumented)
-export type OriginTracing = {
+export declare type OriginTracing = {
   id: string;
   addToUrl: (link: string) => string;
   toAnalyticsAttributes: (
@@ -102,23 +100,20 @@ export type OriginTracing = {
   ) => OriginTracingWithIdGenerated | OriginTracingForSubSequentEvents;
 };
 
-// @public (undocumented)
-export type OriginTracingFactory = () => OriginTracing;
+export declare type OriginTracingFactory = () => OriginTracing;
 
-// @public (undocumented)
-export type OriginTracingForSubSequentEvents = {
+export declare type OriginTracingForSubSequentEvents = {
   originId: string;
   originProduct: string;
 };
 
-// @public (undocumented)
-export type OriginTracingWithIdGenerated = {
+export declare type OriginTracingWithIdGenerated = {
   originIdGenerated: string;
   originProduct: string;
 };
 
-// @public
-export type ProductId =
+/** Product ID (Canonical ID) in ARI of the share request */
+export declare type ProductId =
   | 'bitbucket'
   | 'confluence'
   | 'jira-addon'
@@ -131,11 +126,9 @@ export type ProductId =
   | 'jira-unknown'
   | 'trello';
 
-// @public (undocumented)
-export type ProductName = 'jira' | 'confluence';
+export declare type ProductName = 'jira' | 'confluence';
 
-// @public (undocumented)
-export type RenderCustomTriggerButton = (
+export declare type RenderCustomTriggerButton = (
   args: {
     error?: ShareError;
     isDisabled?: boolean;
@@ -145,17 +138,27 @@ export type RenderCustomTriggerButton = (
   triggerProps: TriggerProps,
 ) => React.ReactNode;
 
-// @public (undocumented)
-export type ShareButtonStyle = 'icon-only' | 'icon-with-text' | 'text-only';
+export declare type ShareButtonStyle =
+  | 'icon-only'
+  | 'icon-with-text'
+  | 'text-only';
 
-// @public (undocumented)
-export type ShareContentState = {
+declare interface ShareClient {
+  share(
+    content: Content,
+    recipients: User[],
+    metadata: MetaData,
+    comment?: Comment_2,
+  ): Promise<ShareResponse>;
+  getConfig(cloudId: string): Promise<ConfigResponse>;
+}
+
+export declare type ShareContentState = {
   users: User[];
   comment?: Comment_2;
 };
 
-// @public (undocumented)
-export const ShareDialogContainer: React_2.ForwardRefExoticComponent<
+export declare const ShareDialogContainer: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<
       WithAnalyticsEventsProps & ShareDialogContainerProps,
@@ -225,43 +228,125 @@ export const ShareDialogContainer: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export type ShareDialogContainerProps = {
+export declare type ShareDialogContainerProps = {
   onTriggerButtonClick?: () => void;
   onDialogOpen?: () => void;
   onDialogClose?: () => void;
   isAutoOpenDialog?: boolean;
+  /** Share service client implementation that gets share configs and performs share.
+   * Optional, a default one is provided. */
   shareClient?: ShareClient;
+  /** URL Shortener service client implementation that may shorten links for copy.
+   * Optional, a default one is provided. */
   urlShortenerClient?: UrlShortenerClient;
+  /** Data provided to the `urlShortenerClient` to shorten the shared URL.
+   * If it is not provided, the link will not be shortened.
+   * If link shortening fails, the full URL will be shared instead. */
   shortLinkData?: ShortenRequest;
+  /** Cloud ID of the instance.
+   * Note: we assume this props is stable. */
   cloudId: string;
+  /** Organisation ID of the instance. */
   orgId?: string;
+  /** Placement of the modal to the trigger button. */
   dialogPlacement?: DialogPlacement;
+  /**
+   * Z-index that the popup should be displayed in.
+   * This is passed to the portal component.
+   * Defaults to `layers.modal()` from `@atlaskit/theme`.
+   */
   dialogZIndex?: number;
+  /** Transform function to provide custom formatted copy link.
+   * Optional, a default one is provided. */
   formatCopyLink?: (origin: OriginTracing, link: string) => string;
+  /** Function used to load users options asynchronously. Not needed if smart user picker is enabled. */
   loadUserOptions?: LoadOptions;
+  /** Factory function to generate new Origin Tracing instance. */
   originTracingFactory: OriginTracingFactory;
+  /** Product ID (Canonical ID) in ARI of the share request.
+   * Note: we assume this props is stable. */
   productId: ProductId;
+  /** Render function for a custom Share Dialog Trigger Button. */
   renderCustomTriggerButton?: RenderCustomTriggerButton;
+  /** Atlassian Resource Identifier of a Site resource to be shared. */
   shareAri: string;
+  /** Content Type of the resource to be shared. It will also affect on the successful share message in the flag. A pre-defined list as follows:*/
+  /** blogpost */
+  /** board */
+  /** calendar */
+  /** draft */
+  /** filter */
+  /** issue */
+  /** media */
+  /** page */
+  /** project */
+  /** pullrequest */
+  /** question */
+  /** report */
+  /** repository */
+  /** request */
+  /** roadmap */
+  /** site */
+  /** space */
+  /** Any other unlisted type will have a default message of "Link shared". */
   shareContentType: string;
+  /** Link of the resource to be shared (should NOT includes origin tracing).
+   * Optional, the current page URL is used by default. */
   shareLink?: string;
+  /** Title of the resource to be shared that will be sent in notifications. */
   shareTitle: string;
+  /** Title of the share modal. */
   shareFormTitle?: React.ReactNode;
+  /** Copy for helper message to be displayed under share form input box. */
   shareFormHelperMessage?: string;
+  /** To enable closing the modal on escape key press. */
   shouldCloseOnEscapePress?: boolean;
+  /**
+   * Callback function for showing successful share flag(s) with a parameter providing details of the flag, including the type of the message with a localized default title
+   * This package has an opinion on showing flag(s) upon successful share, and Flag system is NOT provided. Instead, showFlag prop is available for this purpose.
+   */
   showFlags: (flags: Array<Flag>) => void;
+  /**
+   * Power the user picker with smarts. To enable smart user picker, the following props are used:
+   * - `product`: 'jira' or 'confluence'
+   * - `loggedInAccountId`: if not provided, defaults to obtaining from request context
+   * - `cloudId`
+   */
   enableSmartUserPicker?: boolean;
+  /**
+   * The userId of the sharer. If not provided, smart user picker
+   * defaults it to the value 'Context'
+   * which will tell the recommendation service to extract the
+   * value from the request context.
+   */
   loggedInAccountId?: string;
+  /** Appearance of the share modal trigger button  */
   triggerButtonAppearance?: Appearance;
+  /** Share button Icon */
   triggerButtonIcon?: React.ComponentType<IconProps>;
+  /** Style of the share modal trigger button. */
   triggerButtonStyle?: ShareButtonStyle;
+  /** Position of the tooltip on share modal trigger button. */
   triggerButtonTooltipPosition?: TooltipPosition;
+  /** Custom text of the tooltip on share modal trigger button. */
   triggerButtonTooltipText?: React.ReactNode;
+  /** Message to be appended to the modal. */
   bottomMessage?: React.ReactNode;
+  /** @deprecated Use the `shortLinkData` prop instead.
+   *
+   * Whether we should use the Atlassian Url Shortener or not.
+   * Note that all products may not be supported. */
   useUrlShortener?: boolean;
+  /** Action that will be performed by the recipient when he/she receives the notification. */
   shareeAction?: 'view' | 'edit';
+  /**
+   * Optional, this prop can be `jira` or `confluence`. Default value is `confluence`.
+   * We use this prop to control different text messages in UI.
+   */
   product?: ProductName;
+  /**
+   * Footer for the share dialog.
+   */
   customFooter?: React.ReactNode;
   onUserSelectionChange?: (value: Value) => void;
   shareFieldsFooter?: React.ReactNode;
@@ -269,45 +354,67 @@ export type ShareDialogContainerProps = {
   isPublicLink?: boolean;
   integrationMode?: IntegrationMode;
   shareIntegrations?: Array<Integration>;
+  /**
+   * Optionally sets a tabIndex value if you need to set focus
+   */
   tabIndex?: number;
   copyTooltipText?: string;
 };
 
-// @public (undocumented)
-export type ShareError = {
+export declare type ShareError = {
   message: string;
 };
 
-// @public (undocumented)
-export type ShareRequest = (
+export declare type ShareRequest = (
   content: Content,
   recipients: User[],
   metadata: MetaData,
   comment?: Comment_2,
 ) => Promise<ShareResponse>;
 
-// @public (undocumented)
-export type ShareResponse = {
+export declare type ShareResponse = {
   shareRequestId: string;
 };
 
-// @public (undocumented)
-export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left' | 'mouse';
+declare interface ShortenRequest {
+  cloudId?: string;
+  product: string;
+  type: string;
+  params: Record<string, string>;
+  query?: string;
+}
 
-// @public (undocumented)
-export type User = UserWithId | UserWithEmail;
+declare interface ShortenResponse {
+  shortUrl: string;
+}
 
-// @public (undocumented)
-export type UserWithEmail = {
+declare enum TabType {
+  default = 0,
+  Slack = 1,
+}
+
+export declare type TooltipPosition =
+  | 'top'
+  | 'right'
+  | 'bottom'
+  | 'left'
+  | 'mouse';
+
+declare interface UrlShortenerClient {
+  shorten(data: ShortenRequest): Promise<ShortenResponse>;
+}
+
+export declare type User = UserWithId | UserWithEmail;
+
+export declare type UserWithEmail = {
   type: 'user';
   email: string;
 };
 
-// @public (undocumented)
-export type UserWithId = {
+export declare type UserWithId = {
   type: 'user' | 'group' | 'team';
   id: string;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

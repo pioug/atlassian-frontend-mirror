@@ -5,75 +5,92 @@
 ```ts
 import { ServiceConfig } from '@atlaskit/util-service-support';
 
-// @public (undocumented)
-export interface ActionablePubSubClient extends PubSubClient {
-  // (undocumented)
-  networkDown(): void;
-  // (undocumented)
+export declare interface ActionablePubSubClient extends PubSubClient {
   networkUp(): void;
+  networkDown(): void;
 }
 
-// @public (undocumented)
-export type ARI = string;
+export declare type ARI = string;
 
-// @public (undocumented)
-export type AVI = string;
+export declare type AVI = string;
 
-// @public (undocumented)
-class Client implements ActionablePubSubClient {
+declare class Client implements ActionablePubSubClient {
+  private config;
+  private eventEmitter;
+  private currentChannels;
+  private capabilities;
+  private protocols;
+  private currentProtocol;
+  private retryCount;
+  private subscribeDebounced;
+  private subscribedToBaseEvents;
+  private subscribeBaseRequest;
+  private featureFlags;
   constructor(config: PubSubClientConfig, protocols?: Protocol[]);
-  // (undocumented)
-  join(aris: ARI[]): Promise<PubSubClient>;
-  // (undocumented)
-  leave(aris: ARI[]): Promise<PubSubClient>;
-  // (undocumented)
-  networkDown(): void;
-  // (undocumented)
-  networkUp(): void;
-  // (undocumented)
-  off(event: string, listener: OnEvent): PubSubClient;
-  // (undocumented)
   on(event: string, listener: OnEvent): PubSubClient;
+  off(event: string, listener: OnEvent): PubSubClient;
+  join(aris: ARI[]): Promise<PubSubClient>;
+  leave(aris: ARI[]): Promise<PubSubClient>;
+  networkUp(): void;
+  networkDown(): void;
+  private debouncedSubscribeToCurrentChannels;
+  private registerProtocols;
+  private subscribeToCurrentChannels;
+  private onMessage;
+  private onAccessDenied;
+  private onNetworkUp;
+  private onReconnect;
+  private fetchSubscribeProtocol;
 }
 export default Client;
 
-// @public (undocumented)
-export interface OnEvent<T = any> {
-  // (undocumented)
-  (event: string, data: T): void;
-}
-
-// @public (undocumented)
-export interface PubSubClient {
-  // (undocumented)
-  join(aris: ARI[]): Promise<PubSubClient>;
-  // (undocumented)
-  leave(aris: ARI[]): Promise<PubSubClient>;
-  // (undocumented)
-  off(eventAvi: string, listener: OnEvent): PubSubClient;
-  // (undocumented)
-  on(eventAvi: string, listener: OnEvent): PubSubClient;
-}
-
-// @public (undocumented)
-export interface PubSubClientConfig extends ServiceConfig {
-  // (undocumented)
-  featureFlags?: {
-    [key: string]: boolean;
-  };
-  // (undocumented)
-  product: string;
-}
-
-// @public (undocumented)
-export enum SpecialEventType {
-  // (undocumented)
+declare enum EventType {
+  MESSAGE = 'MESSAGE',
   CONNECTED = 'CONNECTED',
-  // (undocumented)
-  ERROR = 'ERROR',
-  // (undocumented)
+  ACCESS_DENIED = 'ACCESS_DENIED',
+  NETWORK_DOWN = 'NETWORK_DOWN',
+  NETWORK_UP = 'NETWORK_UP',
   RECONNECT = 'RECONNECT',
 }
 
-// (No @packageDocumentation comment for this package)
+export declare interface OnEvent<T = any> {
+  (event: string, data: T): void;
+}
+
+declare interface Protocol {
+  getType(): string;
+  subscribe(config: ProtocolConfig): void;
+  unsubscribeAll(): void;
+  getCapabilities(): string[];
+  on(event: EventType, handler: OnEvent): void;
+  off(event: EventType, handler: OnEvent): void;
+  networkUp(): void;
+  networkDown(): void;
+}
+
+declare interface ProtocolConfig {
+  type: string;
+}
+
+export declare interface PubSubClient {
+  on(eventAvi: string, listener: OnEvent): PubSubClient;
+  off(eventAvi: string, listener: OnEvent): PubSubClient;
+  join(aris: ARI[]): Promise<PubSubClient>;
+  leave(aris: ARI[]): Promise<PubSubClient>;
+}
+
+export declare interface PubSubClientConfig extends ServiceConfig {
+  product: string;
+  featureFlags?: {
+    [key: string]: boolean;
+  };
+}
+
+export declare enum SpecialEventType {
+  ERROR = 'ERROR',
+  CONNECTED = 'CONNECTED',
+  RECONNECT = 'RECONNECT',
+}
+
+export {};
 ```

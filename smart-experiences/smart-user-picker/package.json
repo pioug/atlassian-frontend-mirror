@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-user-picker",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

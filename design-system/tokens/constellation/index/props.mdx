@@ -1,0 +1,34 @@
+import TokenPropsTable from '../../examples/constellation/token-props-table';
+
+## API
+
+### token(path, fallback)
+
+The `token()` function takes a dot-separated token name and returns a valid CSS custom property for the corresponding token. This method will warn you if an unknown token is provided.
+
+Additionally, provide a fallback argument to the `token()` method to ensure experiences remain consistent for users until we are ready to launch. When the theme CSS is not present in your app, the fallback color will render instead. Keep the fallback colour as the color visible in your app today.
+
+<TokenPropsTable propName={'path'} description={'Name of the color token in string form'} typing={'keyof CSSTokenMap'} required={true}/>
+<TokenPropsTable propName={'fallback'} description={'Optional color value, represented as a color code or hex value, used for when token usage has not been switched on for the site'} typing={'string'}/>
+
+### setGlobalTheme(theme)
+
+Use the `setGlobalTheme` method to switch themes globally at runtime. This updates the `data-theme` attribute on your page's HTML tag.
+
+<TokenPropsTable propName={'theme'} description={'Used to specify which theme the site is currently using'} typing={'Themes < "light", "dark" >'} required={true}/>
+
+### useThemeObserver()
+
+A React hook which returns the current theme set on `<html>`, or `null` if not set. It is useful for watching the theme and then performing side-effects when it changes.
+
+<TokenPropsTable propName={'return value'} description={'Returns the current theme, or null if not set'} typing={'Themes < "light", "dark" > | null'}/>
+
+### ThemeMutationObserver(callback)
+
+An observer which watches the `<html>` element for changes to the theme. In React, use the `useThemeObserver` hook.
+
+<TokenPropsTable propName={'callback'} description={'Watches the <html> element for changes to the theme. The supplied callback function fires when the theme changes.'} typing={'(theme: Themes | null) => unknown'} required={true}/>
+
+
+
+

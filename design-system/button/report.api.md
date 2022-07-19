@@ -14,8 +14,7 @@ import { ThemeModes as ThemeModes_2 } from '@atlaskit/theme';
 import { ThemeProp } from '@atlaskit/theme/components';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export type Appearance =
+export declare type Appearance =
   | 'default'
   | 'danger'
   | 'link'
@@ -24,37 +23,54 @@ export type Appearance =
   | 'subtle-link'
   | 'warning';
 
-// @public (undocumented)
-export type BaseOwnProps = {
+export declare type BaseOwnProps = {
+  /** The base styling to apply to the button */
   appearance?: Appearance;
+  /** Set the button to autofocus on mount */
   autoFocus?: boolean;
+  /** Add a classname to the button */
   className?: string;
+  /** Used to 'overlay' something over a button. This is commonly used to display a loading spinner */
   overlay?: React_2.ReactNode;
+  /** Provides a url for buttons being used as a link */
   href?: string;
+  /** Places an icon within the button, after the button's text */
   iconAfter?: React_2.ReactChild;
+  /** Places an icon within the button, before the button's text */
   iconBefore?: React_2.ReactChild;
+  /** Set if the button is disabled */
   isDisabled?: boolean;
+  /** Change the style to indicate the button is selected */
   isSelected?: boolean;
+  /** Handler to be called on blur */
   onBlur?: React_2.FocusEventHandler<HTMLElement>;
+  /** Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details */
   onClick?: (
     e: React_2.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
+  /** Handler to be called on focus */
   onFocus?: React_2.FocusEventHandler<HTMLElement>;
+  /** Set the amount of padding in the button */
   spacing?: Spacing;
+  /** Pass target down to a link within the button component, if a href is provided */
   target?: React_2.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  /** Pass type down to a button */
   type?: React_2.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  /** Option to fit button width to its parent width */
   shouldFitContainer?: boolean;
+  /** Text content to be rendered in the button */
   children?: React_2.ReactNode;
+  /** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
   testId?: string;
   component?:
     | React_2.ComponentType<React_2.AllHTMLAttributes<HTMLElement>>
     | React_2.ElementType;
+  /** Additional information to be included in the `context` of analytics events that come from button */
   analyticsContext?: Record<string, any>;
 };
 
-// @public (undocumented)
-export type BaseProps = Combine<
+export declare type BaseProps = Combine<
   Combine<
     Omit<React_2.AllHTMLAttributes<HTMLElement>, 'disabled'>,
     {
@@ -65,43 +81,47 @@ export type BaseProps = Combine<
   BaseOwnProps
 >;
 
-// @public (undocumented)
-const Button: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
+declare const Button: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
   ButtonProps & React_2.RefAttributes<HTMLElement>
 >>;
 export default Button;
 
-// @public (undocumented)
-export function ButtonGroup({
+export declare function ButtonGroup({
   appearance,
   children,
 }: ButtonGroupProps): JSX.Element;
 
-// @public (undocumented)
-export interface ButtonProps extends BaseProps {}
+declare type ButtonGroupProps = {
+  /** The appearance to apply to all buttons. */
+  appearance?: Appearance;
+  children?: React_2.ReactNode;
+};
 
-// @public (undocumented)
-export const CustomThemeButton: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
+export declare interface ButtonProps extends BaseProps {}
+
+declare type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+export declare const CustomThemeButton: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
   Omit<BaseProps, 'overlay'> &
     CustomThemeButtonOwnProps &
     React_2.RefAttributes<HTMLElement>
 >>;
 
-// @public (undocumented)
-export type CustomThemeButtonOwnProps = {
+export declare type CustomThemeButtonOwnProps = {
   isLoading?: boolean;
+  /** Slow + discouraged custom theme API
+   * See custom theme guide for usage details
+   */
   theme?: (
     current: (props: ThemeProps) => ThemeTokens,
     props: ThemeProps,
   ) => ThemeTokens;
 };
 
-// @public (undocumented)
-export type CustomThemeButtonProps = Omit<BaseProps, 'overlay'> &
+export declare type CustomThemeButtonProps = Omit<BaseProps, 'overlay'> &
   CustomThemeButtonOwnProps;
 
-// @public (undocumented)
-export type InteractionState =
+export declare type InteractionState =
   | 'disabled'
   | 'focusSelected'
   | 'selected'
@@ -110,27 +130,22 @@ export type InteractionState =
   | 'focus'
   | 'default';
 
-// @public (undocumented)
-export const LoadingButton: React_2.ForwardRefExoticComponent<
+export declare const LoadingButton: React_2.ForwardRefExoticComponent<
   Omit<BaseProps, 'overlay'> &
     LoadingButtonOwnProps &
     React_2.RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-export type LoadingButtonOwnProps = {
+export declare type LoadingButtonOwnProps = {
   isLoading?: boolean;
 };
 
-// @public (undocumented)
-export type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
+export declare type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
   LoadingButtonOwnProps;
 
-// @public (undocumented)
-export type Spacing = 'compact' | 'default' | 'none';
+export declare type Spacing = 'compact' | 'default' | 'none';
 
-// @public (undocumented)
-export const Theme: {
+export declare const Theme: {
   Consumer: ComponentType<
     {
       children: (tokens: ThemeTokens) => ReactNode;
@@ -147,18 +162,16 @@ export const Theme: {
   useTheme: (props: ThemeProps) => ThemeTokens;
 };
 
-// @public (undocumented)
-export type ThemeProps = Partial<CustomThemeButtonProps> & {
+export declare type ThemeProps = Partial<CustomThemeButtonProps> & {
   state: InteractionState;
   iconIsOnlyChild?: boolean;
   mode?: ThemeModes;
 };
 
-// @public (undocumented)
-export type ThemeTokens = {
+export declare type ThemeTokens = {
   buttonStyles: CSSObject;
   spinnerStyles: CSSObject;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

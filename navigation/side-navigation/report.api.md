@@ -20,123 +20,219 @@ import { RefAttributes } from 'react';
 import { SkeletonHeadingItemProps } from '@atlaskit/menu';
 import { SkeletonItemProps } from '@atlaskit/menu';
 
-// @public (undocumented)
-export const ButtonItem: React_2.ForwardRefExoticComponent<
+export declare const ButtonItem: React_2.ForwardRefExoticComponent<
   ButtonItemProps & React_2.RefAttributes<HTMLElement>
 >;
 
 export { ButtonItemProps };
 export { ButtonItemProps as GoBackItemProps };
 
-// @public
-export const CustomItem: CustomItemType;
+/**
+ * Used to support any custom items needed by products alongside the Header and Footer patterns.
+ * Specific implementation of headers and footers are provided in the examples folder.
+ */
+export declare const CustomItem: CustomItemType;
 
 export { CustomItemComponentProps };
 
 export { CustomItemProps };
 
-// @public (undocumented)
-export const Footer: (props: HeaderProps) => JSX.Element;
+declare interface CustomItemType {
+  <TComponentProps extends {}>(
+    props: CustomItemProps<TComponentProps> & {
+      ref?: any;
+    } & Omit<TComponentProps, keyof CustomItemComponentProps>,
+  ): JSX.Element | null;
+}
 
-// @public (undocumented)
-export const GoBackItem: React_2.ForwardRefExoticComponent<
+export declare const Footer: (props: HeaderProps) => JSX.Element;
+
+export declare const GoBackItem: React_2.ForwardRefExoticComponent<
   ButtonItemProps & React_2.RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-export const Header: React_2.ForwardRefExoticComponent<
+export declare const Header: React_2.ForwardRefExoticComponent<
   HeaderProps & React_2.RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-interface HeaderProps {
-  children?: React_2.ReactNode;
-  component?: React_2.ComponentType<CustomItemComponentProps>;
-  // @deprecated
+declare interface HeaderProps {
+  /**
+   * A function that can be used to override the styles of the component.
+   * It receives the current styles and state and expects a styles object.
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
+   */
   cssFn?: CSSFn;
-  description?: string | JSX.Element;
+  /**
+   * Element to render before the item text.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   */
   iconBefore?: React_2.ReactNode;
+  /**
+   * Event that is triggered when the element is clicked.
+   */
   onClick?: (event: React_2.MouseEvent | React_2.KeyboardEvent) => void;
+  /**
+   * Description of the item.
+   * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
+   */
+  description?: string | JSX.Element;
+  /**
+   * Primary content for the item.
+   */
+  children?: React_2.ReactNode;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
+  /**
+     * Custom component to render as an item.
+     * This can be both a functional component or a class component.
+     * **Will return `null` if no component is defined.**
+
+     * **NOTE:** Make sure the reference for this component does not change between renders else undefined behavior may happen.
+     */
+  component?: React_2.ComponentType<CustomItemComponentProps>;
 }
 export { HeaderProps as FooterProps };
 export { HeaderProps };
 
-// @public (undocumented)
-export const HeadingItem: (props: HeadingItemProps) => JSX.Element | null;
+export declare const HeadingItem: (
+  props: HeadingItemProps,
+) => JSX.Element | null;
 
 export { HeadingItemProps };
 
-// @public (undocumented)
-export const LinkItem: React_2.ForwardRefExoticComponent<
+export declare const LinkItem: React_2.ForwardRefExoticComponent<
   LinkItemProps & React_2.RefAttributes<HTMLElement>
 >;
 
 export { LinkItemProps };
 
-// @public (undocumented)
-export const LoadingItems: ({
+export declare const LoadingItems: ({
   children,
   isLoading,
   fallback,
   testId,
 }: LoadingItemsProps) => JSX.Element;
 
-// @public (undocumented)
-export interface LoadingItemsProps {
+export declare interface LoadingItemsProps {
+  /**
+   * Child items that will be loaded asynchronously.
+   */
   children: React.ReactNode;
+  /**
+   * Fallback you want to show when loading.
+   * You'll want to use the supplied [skeleton item](/packages/navigation/side-navigation/docs/skeleton-item)
+   * or [skeleton heading item](/packages/navigation/side-navigation/docs/skeleton-heading-item) components.
+   */
   fallback: React.ReactNode;
+  /**
+   * Used to show either the loading fallback or the loaded contents.
+   * Will cross fade between children and fallback when this is flipped.
+   */
   isLoading?: boolean;
+  /**
+     * A `testId` prop is provided for specified elements,
+     * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+     * serving as a hook for automated tests.
+
+     * Will set these elements when defined:
+     * - The entering container - `{testId}--entering`
+     * - The exiting container - `{testId}--exiting`
+     */
   testId?: string;
 }
 
-// @public (undocumented)
-export const NavigationContent: ForwardRefExoticComponent<
+export declare const NavigationContent: ForwardRefExoticComponent<
   NavigationContentProps &
     HTMLAttributes<HTMLElement> &
     RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-export interface NavigationContentProps {
-  // (undocumented)
+export declare interface NavigationContentProps {
   children: React.ReactNode;
+  /**
+   * Forces the top scroll indicator to be shown all the time.
+   */
   showTopScrollIndicator?: boolean;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export const NavigationFooter: ({
+export declare const NavigationFooter: ({
   children,
 }: NavigationFooterProps) => JSX.Element;
 
-// @public (undocumented)
-export interface NavigationFooterProps {
-  // (undocumented)
+export declare interface NavigationFooterProps {
   children: ReactNode;
 }
 
-// @public (undocumented)
-export const NavigationHeader: (props: NavigationHeaderProps) => JSX.Element;
+export declare const NavigationHeader: (
+  props: NavigationHeaderProps,
+) => JSX.Element;
 
-// @public (undocumented)
-export interface NavigationHeaderProps {
-  // (undocumented)
+export declare interface NavigationHeaderProps {
   children: JSX.Element | JSX.Element[];
 }
 
-// @public (undocumented)
-export const NestableNavigationContent: (
+export declare const NestableNavigationContent: (
   props: NestableNavigationContentProps,
 ) => JSX.Element;
 
-// @public (undocumented)
-export interface NestableNavigationContentProps {
+export declare interface NestableNavigationContentProps {
+  /**
+   * The NestableNavigationContent wraps the entire navigation hierarchy of a side-navigation.
+   * Using this component is only needed if you want to enable nested views with [nesting items](/packages/navigation/side-navigation/docs/nesting-item),
+   * else you should use [navigation content](/packages/navigation/side-navigation/docs/navigation-content) instead.
+   */
   children: JSX.Element | JSX.Element[];
+  /**
+     * A `testId` prop is provided for specified elements,
+     * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+     * serving as a hook for automated tests.
+
+     * Will set these elements when defined:
+     * - This wrapper - `{testId}`
+     * - The back item (displayed when inside a nested view) - `{testId}--go-back-item`
+     */
+  testId?: string;
+  /**
+   * Array of the initial stack you want to show.
+   * Useful when wanting to set the initial nested view but not wanting to opt into controlled state.
+   * Make sure to have all intermediate navigation pages line up.
+   */
   initialStack?: string[];
+  /**
+   * Enables you to control the stack of navigation views you want to show.
+   * Do not jump between controlled and uncontrolled else undefined behaviour will occur.
+   * This means either using `initialStack` OR `stack` but not both.
+   * Make sure your stack array has a stable reference and does not change between renders.
+   */
+  stack?: string[];
+  /**
+   * Allows you to react based on transitions between [nesting items](/packages/navigation/side-navigation/docs/nesting-item).
+   * It will be called everytime a user navigates from one [nesting item](/packages/navigation/side-navigation/docs/nesting-item) to another,
+   * both up or down the navigation hierarchy.
+   * This prop should be used with the `stack` prop for controlled behavior.
+   */
   onChange?: (stack: string[]) => void;
-  // @deprecated
+  /**
+     Custom overrides for the composed components.
+
+     @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
+     */
   overrides?: {
+    /**
+     * Use this to override the default back button displayed when navigation is nested.
+     * You'll want to import the [go back item](/packages/navigation/docs/go-back-item) component and use it here.
+     * This will be displayed for all children [nesting items](/packages/navigation/side-navigation/docs/nesting-item) unless they define their own.
+     */
     GoBackItem?: {
       render?: (props: {
         onClick: () => void;
@@ -144,82 +240,180 @@ export interface NestableNavigationContentProps {
       }) => React.ReactNode;
     };
   };
-  stack?: string[];
-  testId?: string;
 }
 
-// @public
-export const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
+/**
+ * NestingItem will render itself differently depending in what context it is rendered in.
+ * When not open - it will render itself as an item.
+ * When open - it will render its children.
+ */
+export declare const NestingItem: <TCustomComponentProps extends CustomItemComponentProps>(
   props: NestingItemProps<TCustomComponentProps> &
     Omit<TCustomComponentProps, keyof CustomItemComponentProps>,
 ) => JSX.Element;
 
-// @public (undocumented)
-export interface NestingItemProps<
-  TCustomComponentProps = CustomItemComponentProps
-> {
-  children: React_2.ReactNode;
-  component?: React_2.ComponentType<TCustomComponentProps>;
-  cssFn?: CSSFn;
-  description?: string | JSX.Element;
-  iconAfter?: React_2.ReactNode;
-  iconBefore?: React_2.ReactNode;
-  id: string;
-  isDisabled?: boolean;
-  isSelected?: boolean;
-  onClick?: (event: React_2.MouseEvent | React_2.KeyboardEvent) => void;
-  overrides?: NestingItemOverrides;
-  testId?: string;
-  title: React_2.ReactNode;
+declare interface NestingItemOverrides extends Overrides {
+  /**
+   * Use this to override the back button displayed when navigation is nested.
+   * You'll want to import the [go back item](/packages/navigation/side-navigation/docs/go-back-item) component and use it here.
+   * This will be displayed for all children nesting item components unless they define their own.
+   */
+  GoBackItem?: {
+    render?: (props: {
+      onClick: () => void;
+      testId?: string;
+    }) => React_2.ReactNode;
+  };
 }
 
-// @public (undocumented)
-export const Section: React_2.ForwardRefExoticComponent<
+export declare interface NestingItemProps<
+  TCustomComponentProps = CustomItemComponentProps
+> {
+  /**
+   * A **unique identifier** for the nesting item.
+   * Every nesting item component needs a unique id else undefined behavior will occur.
+   */
+  id: string;
+  /**
+   * Text to display when the nesting item is rendered as a interactable element.
+   */
+  title: React_2.ReactNode;
+  /**
+   * The view that should be shown when this nesting item is visible.
+   */
+  children: React_2.ReactNode;
+  /**
+   * Used to customize the rendered component when shown as an item.
+   * You can use this for example to change it to a SPA link.
+   */
+  component?: React_2.ComponentType<TCustomComponentProps>;
+  /**
+     * A `testId` prop is provided for specified elements,
+     * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+     * serving as a hook for automated tests.
+
+     * Will set these elements when defined:
+     * - The container - `{testId}--container`
+     * - The nesting item - `{testId}--item`
+     * - The go back item - `{testId}--go-back-item` (only used if you pass in a override).
+     * - The nesting item default right arrow icon - `{testId}--item--right-arrow`
+     */
+  testId?: string;
+  /**
+   * A function that can be used to override the styles of the component.
+   * It receives the current styles and state and expects a styles object.
+   */
+  cssFn?: CSSFn;
+  /**
+   * Element to render before the item text.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   */
+  iconBefore?: React_2.ReactNode;
+  /**
+   * Element to render after the item text.
+   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   */
+  iconAfter?: React_2.ReactNode;
+  /**
+   * Event that is triggered when the element is clicked.
+   */
+  onClick?: (event: React_2.MouseEvent | React_2.KeyboardEvent) => void;
+  /**
+   * Description of the item.
+   * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
+   */
+  description?: string | JSX.Element;
+  /**
+   * Makes the element appear disabled as well as removing interactivity.
+   */
+  isDisabled?: boolean;
+  /**
+   * Makes the element appear selected.
+   */
+  isSelected?: boolean;
+  /**
+   * Custom overrides for the composed components.
+   */
+  overrides?: NestingItemOverrides;
+}
+
+export declare const Section: React_2.ForwardRefExoticComponent<
   SectionProps & React_2.RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-export interface SectionProps {
+export declare interface SectionProps {
+  /**
+   * Children of the section,
+   * should generally be item or heading components.
+   */
   children: React_2.ReactNode;
-  hasSeparator?: boolean;
-  testId?: string;
+  /**
+   * The text passed to heading.
+   * If a title is not provided no heading will be rendered.
+   */
   title?: string;
+  /**
+   * Will render a border at the top of the section.
+   */
+  hasSeparator?: boolean;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
 }
 
-// @public (undocumented)
-export const SideNavigation: ForwardRefExoticComponent<
+export declare const SideNavigation: ForwardRefExoticComponent<
   SideNavigationProps & RefAttributes<HTMLElement>
 >;
 
-// @public (undocumented)
-export interface SideNavigationProps {
-  children: JSX.Element[] | JSX.Element;
+export declare interface SideNavigationProps {
+  /**
+   *  Describes the specific role of this navigation component for users viewing the page with a screen reader.
+   *  Differentiates from other navigation components on a page.
+   */
   label: string;
+  /**
+   * Child navigation elements.
+   * You'll want to compose children from [navigation header](/packages/navigation/side-navigation/docs/navigation-header),
+   * [navigation content](/packages/navigation/side-navigation/docs/navigation-content) or [nestable navigation content](/packages/navigation/side-navigation/docs/nestable-navigation-content),
+   * and [navigation footer](/packages/navigation/side-navigation/docs/navigation-footer).
+   */
+  children: JSX.Element[] | JSX.Element;
+  /**
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
   testId?: string;
 }
 
-// @public (undocumented)
-export const SkeletonHeadingItem: (
+export declare const SkeletonHeadingItem: (
   props: SkeletonHeadingItemProps,
 ) => JSX.Element | null;
 
 export { SkeletonHeadingItemProps };
 
-// @public (undocumented)
-export const SkeletonItem: (props: SkeletonItemProps) => JSX.Element | null;
+export declare const SkeletonItem: (
+  props: SkeletonItemProps,
+) => JSX.Element | null;
 
 export { SkeletonItemProps };
 
-// @public
-export const useShouldNestedElementRender: () => {
+/**
+ * Used by children of the NestableNavigationContent component to see if they should render or not.
+ * If `shouldRender` returns `true` - return your nodes.
+ * If it returns `false` - either return `null` or `children` if you have children.
+ */
+export declare const useShouldNestedElementRender: () => {
   shouldRender: boolean;
 };
 
-// @public (undocumented)
-export const VAR_SCROLL_INDICATOR_COLOR = '--ds-menu-scroll-indicator-color';
+export declare const VAR_SCROLL_INDICATOR_COLOR =
+  '--ds-menu-scroll-indicator-color';
 
-// @public (undocumented)
-export const VAR_SEPARATOR_COLOR = '--ds-menu-seperator-color';
+export declare const VAR_SEPARATOR_COLOR = '--ds-menu-seperator-color';
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

@@ -7,9 +7,32 @@ import { ForwardRefExoticComponent } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
 
-// @public
-const TagGroup: ForwardRefExoticComponent<TagGroupProps & RefAttributes<any>>;
+declare type Alignment = 'start' | 'end';
+
+/**
+ * __Tag group__
+ *
+ * A tag group controls the layout and alignment for a collection of tags.
+ *
+ * - [Examples](https://atlassian.design/components/tag-group/examples)
+ * - [Code](https://atlassian.design/components/tag-group/code)
+ * - [Usage](https://atlassian.design/components/tag-group/usage)
+ */
+declare const TagGroup: ForwardRefExoticComponent<
+  TagGroupProps & RefAttributes<any>
+>;
 export default TagGroup;
 
-// (No @packageDocumentation comment for this package)
+declare interface TagGroupProps {
+  /**
+   * Whether the tags should be left-aligned or right-aligned.
+   */
+  alignment?: Alignment;
+  /**
+   * Tags to render within the tag group.
+   */
+  children: ReactNode;
+}
+
+export {};
 ```

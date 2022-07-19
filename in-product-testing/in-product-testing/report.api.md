@@ -7,41 +7,52 @@
 
 import { cy } from 'local-cypress';
 
-// @public (undocumented)
-export type CypressType = typeof cy;
+export declare type CypressType = typeof cy;
 
-// @public (undocumented)
-export interface InProductCommonTestCaseOpts {
-  // (undocumented)
+export declare interface InProductCommonTestCaseOpts {
   runOnly?: string[];
 }
 
-// @public (undocumented)
-export class InProductTestCase {
+export declare class InProductTestCase {
+  private _title;
+  private _precondition?;
+  private _assertions;
+  private _id;
+  private _testOptions?;
   constructor(opts: InProductTestCaseOpts);
-  // (undocumented)
   get assertions(): (cy: Cypress.cy & EventEmitter) => void;
-  // (undocumented)
+  private shouldSkipTest;
   test(cy: CypressType): void;
 }
 
-// @public (undocumented)
-export class InProductTestCollection {
+declare interface InProductTestCaseOpts<
+  TestCaseOpts extends InProductCommonTestCaseOpts = any
+> {
+  id: string;
+  title: string;
+  assertions: (cy: CypressType) => void;
+  testOptions?: TestCaseOpts;
+  precondition?: () => boolean;
+}
+
+export declare class InProductTestCollection {
+  private title;
+  private testCases;
   constructor(opts: InProductTestCollectionOpts);
-  // (undocumented)
   test(cy: CypressType): void;
 }
 
-// @public (undocumented)
-export class InProductTestPageObject {
-  constructor(cy: CypressType);
-  // (undocumented)
-  protected cy: CypressType;
-  // (undocumented)
-  protected toAriaLabel(label: string): string;
-  // (undocumented)
-  protected toTestId(id: string): string;
+declare interface InProductTestCollectionOpts {
+  title: string;
+  testCases: InProductTestCase[];
 }
 
-// (No @packageDocumentation comment for this package)
+export declare class InProductTestPageObject {
+  protected cy: CypressType;
+  constructor(cy: CypressType);
+  protected toTestId(id: string): string;
+  protected toAriaLabel(label: string): string;
+}
+
+export {};
 ```

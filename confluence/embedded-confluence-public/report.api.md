@@ -9,15 +9,13 @@ import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
 import { default as React_2 } from 'react';
 import type { ViewPageProps } from '@atlassian/embedded-confluence-common';
 
-// @public (undocumented)
-export const EditPage: React_2.FC<EditPageProps>;
+export declare const EditPage: React_2.FC<EditPageProps>;
 
 export { ExperienceTracker };
 
 export { ExperienceTrackerContext };
 
-// @public (undocumented)
-export const ViewPage: React_2.FC<ViewPageProps>;
+export declare const ViewPage: React_2.FC<ViewPageProps>;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

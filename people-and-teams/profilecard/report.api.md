@@ -13,9 +13,11 @@ import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export interface ApiClientResponse {
-  // (undocumented)
+declare type AnalyticsFromDuration = (duration: number) => Record<string, any>;
+
+declare type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
+
+export declare interface ApiClientResponse {
   User: {
     id: string;
     isBot: boolean;
@@ -36,289 +38,234 @@ export interface ApiClientResponse {
   };
 }
 
-// @public (undocumented)
-export const DELAY_MS_HIDE = 200;
+declare interface CacheConfig {
+  cacheSize?: number;
+  cacheMaxAge?: number;
+}
 
-// @public (undocumented)
-export const DELAY_MS_SHOW = 800;
+declare interface CachedData<T> {
+  expire: number;
+  profile: T;
+}
 
-// @public (undocumented)
-export interface MessageIntlProviderProps {
-  // (undocumented)
+declare class CachingClient<T> {
+  config: Required<CacheConfig>;
+  cache: LRUCache<string, CachedData<T>> | null;
+  constructor(config: CacheConfig);
+  setCachedProfile(cacheIdentifier: string, profile: T): void;
+  getCachedProfile(cacheIdentifier: string): T | null;
+  flushCache(): void;
+}
+
+declare interface ClientOverrides {
+  userClient?: UserProfileClient;
+  teamClient?: TeamProfileClient;
+  teamCentralClient?: TeamCentralCardClient;
+}
+
+export declare const DELAY_MS_HIDE = 200;
+
+export declare const DELAY_MS_SHOW = 800;
+
+declare type FeatureFlagExtraContext = {
+  key: string;
+  value: string;
+};
+
+declare type LozengeColor =
+  | 'default'
+  | 'success'
+  | 'removed'
+  | 'inprogress'
+  | 'new'
+  | 'moved';
+
+declare interface LozengeProps {
+  text: React_2.ReactNode;
+  appearance?: LozengeColor;
+  isBold?: boolean;
+}
+
+export declare interface MessageIntlProviderProps {
   children: React_2.ReactNode;
-  // (undocumented)
   intl: IntlShape;
 }
 
-// @public
-export const modifyResponse: (
+/**
+ * Transform response from GraphQL
+ * - Prefix `timestring` with `remoteWeekdayString` depending on `remoteWeekdayIndex`
+ * - Remove properties which will be not used later
+ * @ignore
+ * @param  {object} response
+ * @return {object}
+ */
+export declare const modifyResponse: (
   response: ApiClientResponse,
 ) => ProfileCardClientData;
 
-// @public (undocumented)
-export class ProfileCard extends React_2.PureComponent<ProfilecardProps> {
-  constructor(props: ProfilecardProps);
-  // (undocumented)
-  callAnalytics: (id: string, options: any) => void;
-  // (undocumented)
-  callClientFetchProfile: (...args: any) => void;
-  // (undocumented)
-  clientFetchProfile: () => void;
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
+export declare class ProfileCard extends React_2.PureComponent<
+  ProfilecardProps
+> {
   static defaultProps: ProfilecardProps;
-  // (undocumented)
-  getActions(): ProfileCardAction[];
-  // (undocumented)
-  getDisabledAccountDesc(): {};
-  // (undocumented)
-  getDisabledAccountName(): string | JSX.Element | null | undefined;
-  // (undocumented)
   GIVE_KUDOS_ACTION_ID: string;
-  // (undocumented)
-  kudosButtonCallback: () => void;
-  // (undocumented)
-  kudosUrl: () => string;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  renderActionsButtons(): JSX.Element | null;
-  // (undocumented)
-  renderButton: (action: ProfileCardAction, idx: number) => ReactElement;
-  // (undocumented)
-  renderCardDetails(): JSX.Element;
-  // (undocumented)
-  renderCardDetailsApp(): JSX.Element;
-  // (undocumented)
-  renderCardDetailsDefault(): JSX.Element;
-  // (undocumented)
-  renderCardDetailsForDisabledAccount(): JSX.Element;
-  // (undocumented)
-  renderCustomLozenges(lozenges: LozengeProps[]): JSX.Element | null;
-  // (undocumented)
+  private timeOpen;
+  clientFetchProfile: () => void;
+  constructor(props: ProfilecardProps);
+  private durationSince;
+  callClientFetchProfile: (...args: any) => void;
+  callAnalytics: (id: string, options: any) => void;
+  componentDidMount(): void;
   renderErrorMessage(): JSX.Element;
+  kudosUrl: () => string;
+  kudosButtonCallback: () => void;
+  getActions(): ProfileCardAction[];
+  renderButton: (action: ProfileCardAction, idx: number) => ReactElement;
+  renderActionsButtons(): JSX.Element | null;
+  private onActionClick;
+  renderCardDetailsDefault(): JSX.Element;
+  renderCardDetailsForDisabledAccount(): JSX.Element;
+  getDisabledAccountName(): string | JSX.Element | null | undefined;
+  getDisabledAccountDesc(): {};
+  private renderFullNameAndPublicName;
+  renderCustomLozenges(lozenges: LozengeProps[]): JSX.Element | null;
+  renderCardDetailsApp(): JSX.Element;
+  renderCardDetails(): JSX.Element;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface ProfileCardAction {
-  // (undocumented)
+export declare interface ProfileCardAction {
   callback?: (...args: any[]) => any;
-  // (undocumented)
-  id?: string;
-  // (undocumented)
-  label: React_2.ReactNode;
-  // (undocumented)
-  link?: string;
-  // (undocumented)
   shouldRender?: (data: any) => boolean;
+  id?: string;
+  label: React_2.ReactNode;
+  link?: string;
 }
 
-// @public (undocumented)
-export interface ProfileCardClientData {
-  // (undocumented)
-  avatarUrl?: string;
-  // (undocumented)
-  companyName?: string;
-  // (undocumented)
-  customLozenges?: LozengeProps[];
-  // (undocumented)
-  email?: string;
-  // (undocumented)
-  fullName?: string;
-  // (undocumented)
+export declare interface ProfileCardClientData {
   isBot: boolean;
-  // (undocumented)
   isCurrentUser: boolean;
-  // (undocumented)
   isNotMentionable: boolean;
-  // (undocumented)
+  avatarUrl?: string;
+  email?: string;
+  fullName?: string;
   location?: string;
-  // (undocumented)
   meta?: string;
-  // (undocumented)
   nickname?: string;
-  // (undocumented)
-  status: StatusType;
-  // (undocumented)
-  statusModifiedDate?: number | null;
-  // (undocumented)
+  companyName?: string;
   timestring?: string;
+  status: StatusType;
+  statusModifiedDate?: number | null;
+  customLozenges?: LozengeProps[];
 }
 
-// @public (undocumented)
-export type ProfileCardErrorType = {
+export declare type ProfileCardErrorType = {
   reason: 'default' | 'NotFound';
 } | null;
 
-// @public (undocumented)
-export interface ProfilecardProps {
-  // (undocumented)
-  actions?: ProfileCardAction[];
-  // (undocumented)
-  addFlag?: (flag: any) => void;
-  // (undocumented)
-  analytics?: any;
-  // (undocumented)
-  avatarUrl?: string;
-  // (undocumented)
-  clientFetchProfile?: any;
-  // (undocumented)
-  cloudId?: string;
-  // (undocumented)
-  companyName?: string;
-  // (undocumented)
-  customLozenges?: LozengeProps[];
-  // (undocumented)
-  disabledAccountMessage?: React_2.ReactNode;
-  // (undocumented)
-  email?: string;
-  // (undocumented)
-  errorType?: ProfileCardErrorType;
-  // (undocumented)
-  fullName?: string;
-  // (undocumented)
-  hasDisabledAccountLozenge?: boolean;
-  // (undocumented)
-  hasError?: boolean;
-  // (undocumented)
-  isBot?: boolean;
-  // (undocumented)
-  isCurrentUser?: boolean;
-  // (undocumented)
-  isKudosEnabled?: boolean;
-  // (undocumented)
+export declare interface ProfilecardProps {
   isLoading?: boolean;
-  // (undocumented)
-  isNotMentionable?: boolean;
-  // (undocumented)
-  location?: string;
-  // (undocumented)
-  meta?: string;
-  // (undocumented)
-  nickname?: string;
-  onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  // (undocumented)
-  openKudosDrawer?: () => void;
-  reportingLines?: TeamCentralReportingLinesData;
-  reportingLinesProfileUrl?: string;
-  // (undocumented)
+  hasError?: boolean;
+  errorType?: ProfileCardErrorType;
   status?: StatusType;
-  // (undocumented)
-  statusModifiedDate?: number | null;
-  // (undocumented)
-  teamCentralBaseUrl?: string;
-  // (undocumented)
-  timestring?: string;
-  // (undocumented)
+  isBot?: boolean;
+  isNotMentionable?: boolean;
+  avatarUrl?: string;
+  fullName?: string;
+  meta?: string;
   userId?: string;
-  // (undocumented)
+  isCurrentUser?: boolean;
+  nickname?: string;
+  email?: string;
+  location?: string;
+  companyName?: string;
+  timestring?: string;
+  actions?: ProfileCardAction[];
+  clientFetchProfile?: any;
+  analytics?: any;
+  statusModifiedDate?: number | null;
   withoutElevation?: boolean;
+  /** Show manager and direct reports section on profile hover card, if available */
+  reportingLines?: TeamCentralReportingLinesData;
+  /** Base URL to populate href value for manager's and direct reports' user avatar  */
+  reportingLinesProfileUrl?: string;
+  /** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise */
+  onReportingLinesClick?: (user: ReportingLinesUser) => void;
+  isKudosEnabled?: boolean;
+  teamCentralBaseUrl?: string;
+  addFlag?: (flag: any) => void;
+  cloudId?: string;
+  disabledAccountMessage?: React_2.ReactNode;
+  hasDisabledAccountLozenge?: boolean;
+  customLozenges?: LozengeProps[];
+  openKudosDrawer?: () => void;
 }
 
-// @public (undocumented)
-class ProfileCardResourced extends React_2.PureComponent<
+declare class ProfileCardResourced extends React_2.PureComponent<
   ProfileCardResourcedProps,
   ProfileCardResourcedState
 > {
-  // (undocumented)
-  clientFetchProfile: () => void;
-  // (undocumented)
-  closeKudosDrawer: () => void;
-  // (undocumented)
+  static defaultProps: Partial<ProfileCardResourcedProps>;
+  _isMounted: boolean;
+  state: ProfileCardResourcedState;
   componentDidMount(): void;
-  // (undocumented)
   componentDidUpdate(
     prevProps: ProfileCardResourcedProps,
     prevState: ProfileCardResourcedState,
   ): void;
-  // (undocumented)
   componentWillUnmount(): void;
-  // (undocumented)
-  static defaultProps: Partial<ProfileCardResourcedProps>;
-  // (undocumented)
-  filterActions: () => ProfileCardAction[];
-  // (undocumented)
-  handleClientError(err: any): void;
-  // (undocumented)
+  private callAnalytics;
+  clientFetchProfile: () => void;
   handleClientSuccess(
     profileData: ProfileCardClientData,
     reportingLinesData: TeamCentralReportingLinesData,
     shouldShowGiveKudos: boolean,
   ): void;
-  // (undocumented)
-  _isMounted: boolean;
-  // (undocumented)
+  handleClientError(err: any): void;
+  filterActions: () => ProfileCardAction[];
   openKudosDrawer: () => void;
-  // (undocumented)
+  closeKudosDrawer: () => void;
   render(): React_2.ReactNode;
-  // (undocumented)
-  state: ProfileCardResourcedState;
 }
 export default ProfileCardResourced;
 
-// @public (undocumented)
-export interface ProfileCardResourcedProps {
-  // (undocumented)
-  actions?: ProfileCardAction[];
-  // (undocumented)
-  addFlag?: (flag: any) => void;
-  // (undocumented)
-  analytics?: any;
-  // (undocumented)
-  children?: React_2.ReactNode;
-  // (undocumented)
-  cloudId: string;
-  // (undocumented)
-  onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  // (undocumented)
-  position?: ProfilecardTriggerPosition;
-  // (undocumented)
-  reportingLinesProfileUrl?: string;
-  // (undocumented)
-  resourceClient: ProfileClient_2;
-  // (undocumented)
-  trigger?: TriggerType;
-  // (undocumented)
+export declare interface ProfileCardResourcedProps {
   userId: string;
+  cloudId: string;
+  resourceClient: ProfileClient_2;
+  actions?: ProfileCardAction[];
+  reportingLinesProfileUrl?: string;
+  onReportingLinesClick?: (user: ReportingLinesUser) => void;
+  analytics?: any;
+  position?: ProfilecardTriggerPosition;
+  trigger?: TriggerType;
+  children?: React_2.ReactNode;
+  addFlag?: (flag: any) => void;
 }
 
-// @public (undocumented)
-export interface ProfileCardResourcedState {
-  // (undocumented)
-  data: ProfileCardClientData | null;
-  // (undocumented)
-  error?: ProfileCardErrorType;
-  // (undocumented)
-  hasError: boolean;
-  // (undocumented)
-  isKudosEnabled?: boolean;
-  // (undocumented)
-  isLoading?: boolean;
-  // (undocumented)
-  kudosDrawerOpen: boolean;
-  // (undocumented)
-  reportingLinesData?: TeamCentralReportingLinesData;
-  // (undocumented)
+export declare interface ProfileCardResourcedState {
   visible?: boolean;
+  isLoading?: boolean;
+  hasError: boolean;
+  error?: ProfileCardErrorType;
+  data: ProfileCardClientData | null;
+  reportingLinesData?: TeamCentralReportingLinesData;
+  isKudosEnabled?: boolean;
+  kudosDrawerOpen: boolean;
 }
 
-// @public (undocumented)
-export class ProfileCardTrigger extends React_2.PureComponent<
+export declare class ProfileCardTrigger extends React_2.PureComponent<
   ProfileCardTriggerProps,
   ProfileCardTriggerState
 > {
-  // (undocumented)
-  clientFetchProfile: () => void;
-  // (undocumented)
-  closeKudosDrawer: () => void;
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentDidUpdate(prevProps: ProfileCardTriggerProps): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
+  static defaultProps: Partial<ProfileCardTriggerProps>;
+  _isMounted: boolean;
+  showDelay: number;
+  hideDelay: number;
+  showTimer: number;
+  hideTimer: number;
+  hideProfilecard: () => void;
+  showProfilecard: () => void;
+  onClick: (event: React_2.MouseEvent) => void;
   containerListeners:
     | {
         onMouseEnter: () => void;
@@ -330,55 +277,31 @@ export class ProfileCardTrigger extends React_2.PureComponent<
         onMouseEnter?: undefined;
         onMouseLeave?: undefined;
       };
-  // (undocumented)
-  static defaultProps: Partial<ProfileCardTriggerProps>;
-  // (undocumented)
-  filterActions(): ProfileCardAction[];
-  // (undocumented)
-  handleClientError(err: any): void;
-  // (undocumented)
+  layerListeners: {
+    handleClickOutside: () => void;
+    handleEscapeKeydown: () => void;
+  };
+  state: ProfileCardTriggerState;
+  componentDidMount(): void;
+  componentDidUpdate(prevProps: ProfileCardTriggerProps): void;
+  componentWillUnmount(): void;
+  clientFetchProfile: () => void;
   handleClientSuccess(
     profileData: ProfileCardClientData,
     reportingLinesData: TeamCentralReportingLinesData,
     shouldShowGiveKudos: boolean,
   ): void;
-  // (undocumented)
-  hideDelay: number;
-  // (undocumented)
-  hideProfilecard: () => void;
-  // (undocumented)
-  hideTimer: number;
-  // (undocumented)
-  _isMounted: boolean;
-  // (undocumented)
-  layerListeners: {
-    handleClickOutside: () => void;
-    handleEscapeKeydown: () => void;
-  };
-  // (undocumented)
-  onClick: (event: React_2.MouseEvent) => void;
-  // (undocumented)
-  openKudosDrawer: () => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  renderCard: () => JSX.Element;
-  // (undocumented)
+  handleClientError(err: any): void;
+  filterActions(): ProfileCardAction[];
   renderProfileCard(): JSX.Element;
-  // (undocumented)
+  openKudosDrawer: () => void;
+  closeKudosDrawer: () => void;
+  renderCard: () => JSX.Element;
   renderWithTrigger(): JSX.Element;
-  // (undocumented)
-  showDelay: number;
-  // (undocumented)
-  showProfilecard: () => void;
-  // (undocumented)
-  showTimer: number;
-  // (undocumented)
-  state: ProfileCardTriggerState;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type ProfilecardTriggerPosition =
+export declare type ProfilecardTriggerPosition =
   | 'bottom-start'
   | 'bottom'
   | 'bottom-end'
@@ -392,99 +315,91 @@ export type ProfilecardTriggerPosition =
   | 'right'
   | 'right-start';
 
-// @public (undocumented)
-export interface ProfileCardTriggerProps {
-  // (undocumented)
-  actions?: ProfileCardAction[];
-  // (undocumented)
-  addFlag?: (flag: any) => void;
-  // (undocumented)
-  analytics?: any;
-  // (undocumented)
-  children?: React_2.ReactNode;
-  cloudId?: string;
-  // (undocumented)
-  onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  // (undocumented)
-  position?: ProfilecardTriggerPosition;
-  // (undocumented)
-  reportingLinesProfileUrl?: string;
-  // (undocumented)
-  resourceClient: ProfileClient_2;
-  // (undocumented)
-  testId?: string;
-  // (undocumented)
-  trigger?: TriggerType;
-  // (undocumented)
+export declare interface ProfileCardTriggerProps {
   userId: string;
+  /**
+     A cloudId can be provided, and we'll verify that the target userId is an
+     actual user in the specified site.
+
+     Instead you can omit the cloudId and we won't do such a check.
+
+     If you have a cloudId and only want to show users who are in that site
+     then please provide it. If you're a site-less product or don't care about
+     verifying that the shown user is in a particular site, don't provide a
+     cloudId.
+     */
+  cloudId?: string;
+  resourceClient: ProfileClient_2;
+  actions?: ProfileCardAction[];
+  reportingLinesProfileUrl?: string;
+  onReportingLinesClick?: (user: ReportingLinesUser) => void;
+  analytics?: any;
+  position?: ProfilecardTriggerPosition;
+  trigger?: TriggerType;
+  children?: React_2.ReactNode;
+  testId?: string;
+  addFlag?: (flag: any) => void;
 }
 
-// @public (undocumented)
-export interface ProfileCardTriggerState {
-  // (undocumented)
-  data: ProfileCardClientData | null;
-  // (undocumented)
-  error?: ProfileCardErrorType;
-  // (undocumented)
-  hasError: boolean;
-  // (undocumented)
-  isLoading?: boolean;
-  // (undocumented)
-  kudosDrawerOpen: boolean;
-  // (undocumented)
-  reportingLinesData?: TeamCentralReportingLinesData;
-  // (undocumented)
-  shouldShowGiveKudos?: boolean;
-  // (undocumented)
-  teamCentralBaseUrl?: string;
-  // (undocumented)
+export declare interface ProfileCardTriggerState {
   visible?: boolean;
+  isLoading?: boolean;
+  hasError: boolean;
+  error?: ProfileCardErrorType;
+  data: ProfileCardClientData | null;
+  reportingLinesData?: TeamCentralReportingLinesData;
+  shouldShowGiveKudos?: boolean;
+  teamCentralBaseUrl?: string;
+  kudosDrawerOpen: boolean;
 }
 
-// @public (undocumented)
-export class ProfileClient {
+export declare class ProfileClient {
+  userClient: UserProfileClient;
+  teamClient: TeamProfileClient;
+  tcClient?: TeamCentralCardClient;
   constructor(config: ProfileClientOptions, clients?: ClientOverrides);
-  // (undocumented)
   flushCache(): void;
-  // (undocumented)
   getProfile(cloudId: string, userId: string): Promise<any>;
-  // (undocumented)
-  getReportingLines(userId: string): Promise<TeamCentralReportingLinesData>;
-  // (undocumented)
-  getTeamCentralBaseUrl(): string | undefined;
-  // (undocumented)
   getTeamProfile(
     teamId: string,
     orgId?: string,
     analytics?: (event: Record<string, any>) => void,
   ): Promise<Team>;
-  // (undocumented)
+  getReportingLines(userId: string): Promise<TeamCentralReportingLinesData>;
+  getTeamCentralBaseUrl(): string | undefined;
   shouldShowGiveKudos(): Promise<boolean>;
-  // (undocumented)
-  tcClient?: TeamCentralCardClient;
-  // (undocumented)
-  teamClient: TeamProfileClient;
-  // (undocumented)
-  userClient: UserProfileClient;
 }
 
-// @public (undocumented)
-export interface ProfileClientOptions {
-  // (undocumented)
-  cacheMaxAge?: number;
-  // (undocumented)
-  cacheSize?: number;
-  // (undocumented)
-  gatewayGraphqlUrl?: string;
-  productIdentifier?: string;
-  teamCentralBaseUrl?: string;
-  teamCentralUrl?: string;
-  // (undocumented)
+declare interface ProfileClient_2 {
+  flushCache: () => void;
+  getProfile: (
+    cloudId: string,
+    userId: string,
+  ) => Promise<ProfileCardClientData>;
+  getTeamProfile: (
+    teamId: string,
+    orgId?: string,
+    fireAnalytics?: (event: Record<string, any>) => void,
+  ) => Promise<Team>;
+  getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
+  shouldShowGiveKudos: () => Promise<boolean>;
+  getTeamCentralBaseUrl: () => string | undefined;
+}
+
+export declare interface ProfileClientOptions {
   url: string;
+  gatewayGraphqlUrl?: string;
+  cacheSize?: number;
+  cacheMaxAge?: number;
+  /** Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql*/
+  teamCentralUrl?: string;
+  /** URL to the Team Central app e.g. team.atlassian.com */
+  teamCentralBaseUrl?: string;
+  /** Name of integrating product e.g. jira, atlas, confluence **/
+  productIdentifier?: string;
 }
 
-// @public (undocumented)
-export type RelativeDateKeyType =
+export declare type RelativeDateKeyType =
   | 'ThisWeek'
   | 'ThisMonth'
   | 'LastMonth'
@@ -493,8 +408,18 @@ export type RelativeDateKeyType =
   | 'MoreThanAYear'
   | null;
 
-// @public (undocumented)
-export type StatusModifiedDateType =
+declare interface ReportingLinesUser {
+  accountIdentifier: string;
+  identifierType: 'ATLASSIAN_ID' | 'BASE64_HASH' | 'UNKNOWN';
+  pii?: ReportingLinesUserPII;
+}
+
+declare interface ReportingLinesUserPII {
+  name: string;
+  picture?: string;
+}
+
+export declare type StatusModifiedDateType =
   | 'noDate'
   | 'thisWeek'
   | 'thisMonth'
@@ -503,42 +428,126 @@ export type StatusModifiedDateType =
   | 'severalMonths'
   | 'moreThanAYear';
 
-// @public (undocumented)
-export type StatusType = 'active' | 'inactive' | 'closed';
+export declare type StatusType = 'active' | 'inactive' | 'closed';
 
-// @public (undocumented)
-export interface Team {
-  // (undocumented)
-  description: string;
-  // (undocumented)
-  displayName: string;
-  // (undocumented)
-  id: string;
-  // (undocumented)
+export declare interface Team {
   largeAvatarImageUrl?: string;
-  // (undocumented)
+  smallAvatarImageUrl?: string;
   largeHeaderImageUrl?: string;
-  // (undocumented)
+  smallHeaderImageUrl?: string;
+  id: string;
+  displayName: string;
+  description: string;
+  organizationId?: string;
   members?: {
     id: string;
     fullName: string;
     avatarUrl: string;
   }[];
-  // (undocumented)
-  organizationId?: string;
-  // (undocumented)
-  smallAvatarImageUrl?: string;
-  // (undocumented)
-  smallHeaderImageUrl?: string;
 }
 
-// @public (undocumented)
-export const TeamProfileCard: (
+declare class TeamCentralCardClient extends CachingClient<
+  TeamCentralReportingLinesData
+> {
+  options: TeamCentralCardClientOptions;
+  /**
+   * Simple circuit breaker to avoid making unnecessary calls to Team Central on auth failures
+   * This is to handle the case where products may have provided teamCentralUrl, but the site itself
+   * doesn't actually have any TC product.
+   *
+   * There's currently no way to reset this circuit breaker, but that's fine. This is meant to
+   * catch a pretty specific edge case.
+   */
+  bypassOnFailure: boolean;
+  featureFlagKeys: Map<string, boolean>;
+  constructor(options: TeamCentralCardClientOptions);
+  makeFeatureFlagCheckRequest(
+    featureKey: string,
+    context?: FeatureFlagExtraContext[],
+  ): Promise<boolean>;
+  makeRequest(userId: string): Promise<TeamCentralReportingLinesData>;
+  getReportingLines(userId: string): Promise<TeamCentralReportingLinesData>;
+  getFlagEnabled(
+    featureKey: string,
+    productIdentifier?: string,
+  ): Promise<boolean>;
+  private filterReportingLinesUser;
+}
+
+declare type TeamCentralCardClientOptions = ProfileClientOptions & {
+  teamCentralUrl: string;
+};
+
+declare interface TeamCentralReportingLinesData {
+  managers?: ReportingLinesUser[];
+  reports?: ReportingLinesUser[];
+}
+
+export declare const TeamProfileCard: (
   props: TeamProfilecardProps,
 ) => JSX.Element | null;
 
-// @public (undocumented)
-export const TeamProfileCardTrigger: React_2.ForwardRefExoticComponent<
+declare interface TeamProfilecardCoreProps {
+  /**
+     The id of the user viewing the profile card.
+
+     This is used to determine whether to say that the member count is
+     "including you" or not.
+     */
+  viewingUserId?: string;
+  /**
+     A list of extra buttons to be displayed at the bottom of the card.
+     View Profile is always included by default.
+     */
+  actions?: ProfileCardAction[];
+  /**
+     A function allowing products to provide an href for the user avatars in the
+     profilecard, e.g. so they can link to user's profile pages.
+     */
+  generateUserLink?: (userId: string) => string;
+  /**
+     A function allowing products to provide an onClick handler for when the
+     user clicks on a user's avatar or avatar group item.
+     */
+  onUserClick?: (userId: string, event: React_2.MouseEvent<Element>) => void;
+  /**
+     This should be a link to the team's profile page. This will be used for:
+
+     - Wrapping the trigger in a link to the team profile page (unless
+     triggerLinkType is `none`).
+
+     - Providing the link for the View Profile action button on the card.
+     */
+  viewProfileLink: string;
+  /**
+     An onClick action that navigates to the team's profile page. Something you
+     may want, e.g. for an SPA site or tracking analytics of navigation. This
+     is optional, just the viewProfileLink will suffice. Will be used for:
+
+     - Adding an onClick to the trigger if the triggerLinkType is
+     `clickable-link`.
+
+     - Providing an onClick for the View Profile action button on the card.
+     */
+  viewProfileOnClick?: (event?: React_2.MouseEvent<Element>) => void;
+}
+
+declare interface TeamProfilecardProps extends TeamProfilecardCoreProps {
+  /** Indicates whether the team's details are still loading. */
+  isLoading?: boolean;
+  /** Indicates whether an error occurred whilst fetching team details. */
+  hasError?: boolean;
+  /** Describes the type of error that occurred, if any. */
+  errorType?: ProfileCardErrorType;
+  /** The details of the team to be shown. */
+  team?: Team;
+  /** A callback that will try to re-fetch data in case an error occurred. */
+  clientFetchProfile?: () => void;
+  /** Details relevant to passing around analytics. */
+  analytics: AnalyticsFunction;
+}
+
+export declare const TeamProfileCardTrigger: React_2.ForwardRefExoticComponent<
   Pick<
     Omit<
       TeamProfileCardTriggerProps & {
@@ -563,52 +572,106 @@ export const TeamProfileCardTrigger: React_2.ForwardRefExoticComponent<
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export class TeamProfileClient extends CachingClient<Team> {
+declare interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
+  /** The id of the team. */
+  teamId: string;
+  /**
+     The id of the organization that the team belongs to.
+     Currently this is unused, but will become necessary in the future.
+     */
+  orgId: string;
+  /** An instance of ProfileClient. */
+  resourceClient: ProfileClient_2;
+  /**
+     The position relative to the trigger that the card should be displayed in.
+     */
+  position?: ProfilecardTriggerPosition;
+  /**
+     The interaction method used to trigger the team profile card to appear.
+
+     - Click is generally recommended, but your needs may vary.
+
+     - Hover works for mouse users, but does not support those who use a
+     keyboard or screen reader, avoid using this if it's possible or makes
+     sense.
+
+     - Hover-click is usable for scenarios like inline-edits, where mouse users
+     cannot click on the trigger without causing side effects, but keyboard
+     users are still able to navigate into and trigger the profile card.
+
+     Look at the "Team Profilecard Trigger" or "Trigger Link Types" examples to
+     see how they behave, or ask in #team-twp-people-teams on Slack for our
+     recommendations.
+     */
+  trigger?: 'hover' | 'click' | 'hover-click';
+  /**
+     We generally prefer to wrap the trigger in a link to the team profile
+     page. This prop determines how that link behaves.
+
+     - Link is generally the recommended prop (especially in combination with
+     click or hover-click for the trigger prop above). It wraps the trigger in
+     an anchor tag with the team profile link (that users can interact with
+     via middle-click, etc.), but left clicking on the link is suppressed.
+
+     - None does not wrap the trigger in a link at all. This makes it difficult
+     for keyboard or screen reader users to know how to trigger the profile
+     card. Generally avoid this.
+
+     - Clickable-link wraps the trigger in a link with no special behaviour.
+     This is suitable for places where you want the trigger to serve primarily
+     as a link, and optionally allow hovering to preview the team first.
+
+     Look at the example on "Trigger Link Types" for more in-depth analysis, or
+     ask in #team-twp-people-teams on Slack for our recommendations.
+     */
+  triggerLinkType?: 'none' | 'link' | 'clickable-link';
+  /**
+     This is the component that will cause a team profile card to appear when
+     interacted with according to the method specified by the trigger prop.
+     */
+  children?: React_2.ReactNode;
+  /**
+   * Used by the card to show Flags.
+   */
+  addFlag?: (flag: any) => void;
+  /**
+   * Optional cloudId. Pass this if rendering card within a sited context.
+   */
+  cloudId?: string;
+}
+
+export declare class TeamProfileClient extends CachingClient<Team> {
+  options: ProfileClientOptions;
   constructor(options: ProfileClientOptions);
-  // (undocumented)
+  makeRequestViaGateway(
+    teamId: string,
+    _orgId: string | undefined,
+  ): Promise<Team>;
+  makeRequest(teamId: string, orgId: string | undefined): Promise<Team>;
   getProfile(
     teamId: string,
     orgId: string | undefined,
     analytics?: (event: Record<string, any>) => void,
   ): Promise<Team>;
-  // (undocumented)
-  makeRequest(teamId: string, orgId: string | undefined): Promise<Team>;
-  // (undocumented)
-  makeRequestViaGateway(
-    teamId: string,
-    _orgId: string | undefined,
-  ): Promise<Team>;
-  // (undocumented)
-  options: ProfileClientOptions;
 }
 
-// @public (undocumented)
-export type TriggerType = 'hover' | 'click';
+export declare type TriggerType = 'hover' | 'click';
 
-// @public (undocumented)
-export class UserProfileClient extends CachingClient<any> {
+export declare class UserProfileClient extends CachingClient<any> {
+  options: ProfileClientOptions;
   constructor(options: ProfileClientOptions);
-  // (undocumented)
-  getProfile(cloudId: string, userId: string): Promise<any>;
-  // (undocumented)
   makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData>;
-  // (undocumented)
-  options: ProfileClientOptions;
+  getProfile(cloudId: string, userId: string): Promise<any>;
 }
 
-// @public (undocumented)
-export function withOuterListeners<P>(
+export declare function withOuterListeners<P>(
   Component: ComponentType<P>,
 ): React_2.ComponentClass<P & WithOuterListenersProps>;
 
-// @public (undocumented)
-export interface WithOuterListenersProps {
-  // (undocumented)
+export declare interface WithOuterListenersProps {
   handleClickOutside?: () => void;
-  // (undocumented)
   handleEscapeKeydown?: () => void;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

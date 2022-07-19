@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 import styled from 'styled-components';
@@ -295,9 +295,8 @@ const IntegrationContent = (props: IntegrationContentProps) => {
 
 setSmartUserPickerEnv('local');
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
-export default class Example extends React.Component<{}, State> {
-  state: State = {
+export default function Example() {
+  const defaultProps: State = {
     isAutoOpenDialog: false,
     customButton: false,
     customTitle: false,
@@ -327,9 +326,9 @@ export default class Example extends React.Component<{}, State> {
     locale: 'en-US',
   };
 
-  key: number = 0;
+  const [state, setState] = useState<State>(defaultProps);
 
-  share = (
+  const share = (
     _content: Content,
     _users: User[],
     _metaData: MetaData,
@@ -353,423 +352,427 @@ export default class Example extends React.Component<{}, State> {
     });
   };
 
-  shareClient: ShareClient = {
+  const shareClient: ShareClient = {
     getConfig: () =>
       new Promise<ConfigResponse>((resolve) => {
         setTimeout(() => {
-          resolve(configOptions[this.state.chosenConfig].value);
+          resolve(configOptions[state.chosenConfig].value);
         }, 1000);
       }),
-    share: this.share,
+    share: share,
   };
 
-  urlShortenerClient: UrlShortenerClient = new MockUrlShortenerClient();
+  const urlShortenerClient: UrlShortenerClient = new MockUrlShortenerClient();
 
-  render() {
-    const {
-      isAutoOpenDialog,
-      customButton,
-      customTitle,
-      customHelperMessage,
-      chosenConfig,
-      customTooltipText,
-      customTriggerButtonIcon,
-      dialogPlacement,
-      escapeOnKeyPress,
-      hasFooter,
-      triggerButtonAppearance,
-      triggerButtonStyle,
-      triggerButtonTooltipPosition,
-      product,
-      restrictionMessage,
-      useUrlShortener,
-      shortLinkData,
-      enableSmartUserPicker,
-      hasShareFieldsFooter,
-      isCopyDisabled,
-      isPublicLink,
-      hasTabs,
-      hasSplit,
-      integrationMode,
-      shareIntegrations,
-      locales,
-      locale,
-    } = this.state;
+  const localeOptions = state.locales.map((l) => ({
+    label: l,
+    value: l,
+  }));
 
-    const localeOptions = locales.map((l) => ({
-      label: l,
-      value: l,
-    }));
-
-    this.key++;
-    return (
-      <AnalyticsListener onEvent={listenerHandler} channel="fabric-elements">
-        <IntlProvider locale={locale}>
-          <App>
-            {(showFlags) => (
-              <>
-                <h4>Share Component</h4>
+  return (
+    <AnalyticsListener onEvent={listenerHandler} channel="fabric-elements">
+      <IntlProvider locale={state.locale}>
+        <App>
+          {(showFlags) => (
+            <>
+              <h4>Share Component</h4>
+              <WrapperWithMarginTop>
+                <ShareDialogContainer
+                  isAutoOpenDialog={state.isAutoOpenDialog}
+                  shareClient={shareClient}
+                  urlShortenerClient={urlShortenerClient}
+                  cloudId={JDOG_CLOUD_ID}
+                  dialogPlacement={state.dialogPlacement}
+                  loadUserOptions={loadUserOptions}
+                  originTracingFactory={originTracingFactory}
+                  productId="confluence"
+                  renderCustomTriggerButton={
+                    state.customButton ? renderCustomTriggerButton : undefined
+                  }
+                  shareAri="ari"
+                  shareContentType="issue"
+                  shareFormTitle={
+                    state.customTitle ? 'Custom Title' : undefined
+                  }
+                  shareTitle="My Share"
+                  shouldCloseOnEscapePress={state.escapeOnKeyPress}
+                  showFlags={showFlags}
+                  enableSmartUserPicker={state.enableSmartUserPicker}
+                  triggerButtonAppearance={state.triggerButtonAppearance}
+                  triggerButtonIcon={
+                    state.customTriggerButtonIcon ? WorldIcon : undefined
+                  }
+                  triggerButtonStyle={state.triggerButtonStyle}
+                  triggerButtonTooltipText={
+                    state.customTooltipText ? 'Custom Tooltip Text' : undefined
+                  }
+                  triggerButtonTooltipPosition={
+                    state.triggerButtonTooltipPosition
+                  }
+                  bottomMessage={
+                    state.restrictionMessage ? <RestrictionMessage /> : null
+                  }
+                  useUrlShortener={state.useUrlShortener}
+                  shortLinkData={state.shortLinkData}
+                  product={state.product}
+                  customFooter={state.hasFooter ? <CustomFooter /> : undefined}
+                  onUserSelectionChange={console.log}
+                  shareFieldsFooter={
+                    state.hasShareFieldsFooter ? (
+                      <ShareFieldsFooter />
+                    ) : undefined
+                  }
+                  onDialogOpen={() => {
+                    console.log('Share Dialog Opened');
+                  }}
+                  isCopyDisabled={state.isCopyDisabled}
+                  isPublicLink={state.isPublicLink}
+                  integrationMode={state.integrationMode}
+                  shareIntegrations={state.shareIntegrations}
+                  shareFormHelperMessage={
+                    state.customHelperMessage
+                      ? 'Custom Helper Message'
+                      : undefined
+                  }
+                />
+              </WrapperWithMarginTop>
+              <h4>Options</h4>
+              <div>
                 <WrapperWithMarginTop>
-                  <ShareDialogContainer
-                    isAutoOpenDialog={isAutoOpenDialog}
-                    key={`key-${this.key}`}
-                    shareClient={this.shareClient}
-                    urlShortenerClient={this.urlShortenerClient}
-                    cloudId={JDOG_CLOUD_ID}
-                    dialogPlacement={dialogPlacement}
-                    loadUserOptions={loadUserOptions}
-                    originTracingFactory={originTracingFactory}
-                    productId="confluence"
-                    renderCustomTriggerButton={
-                      customButton ? renderCustomTriggerButton : undefined
-                    }
-                    shareAri="ari"
-                    shareContentType="issue"
-                    shareFormTitle={customTitle ? 'Custom Title' : undefined}
-                    shareTitle="My Share"
-                    shouldCloseOnEscapePress={escapeOnKeyPress}
-                    showFlags={showFlags}
-                    enableSmartUserPicker={enableSmartUserPicker}
-                    triggerButtonAppearance={triggerButtonAppearance}
-                    triggerButtonIcon={
-                      customTriggerButtonIcon ? WorldIcon : undefined
-                    }
-                    triggerButtonStyle={triggerButtonStyle}
-                    triggerButtonTooltipText={
-                      customTooltipText ? 'Custom Tooltip Text' : undefined
-                    }
-                    triggerButtonTooltipPosition={triggerButtonTooltipPosition}
-                    bottomMessage={
-                      restrictionMessage ? <RestrictionMessage /> : null
-                    }
-                    useUrlShortener={useUrlShortener}
-                    shortLinkData={shortLinkData}
-                    product={product}
-                    customFooter={hasFooter ? <CustomFooter /> : undefined}
-                    onUserSelectionChange={console.log}
-                    shareFieldsFooter={
-                      hasShareFieldsFooter ? <ShareFieldsFooter /> : undefined
-                    }
-                    onDialogOpen={() => {
-                      console.log('Share Dialog Opened');
-                    }}
-                    isCopyDisabled={isCopyDisabled}
-                    isPublicLink={isPublicLink}
-                    integrationMode={integrationMode}
-                    shareIntegrations={shareIntegrations}
-                    shareFormHelperMessage={
-                      customHelperMessage ? 'Custom Helper Message' : undefined
+                  Enable Integration Tabs
+                  <Toggle
+                    isChecked={state.hasTabs}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        hasTabs: !state.hasTabs,
+                        hasSplit: false,
+                        integrationMode:
+                          state.integrationMode !== 'tabs' ? 'tabs' : 'off',
+                        shareIntegrations: [
+                          {
+                            type: 'Slack',
+                            Icon: SlackIcon,
+                            Content: IntegrationContent,
+                          },
+                        ],
+                      })
                     }
                   />
                 </WrapperWithMarginTop>
-                <h4>Options</h4>
-                <div>
-                  <WrapperWithMarginTop>
-                    Enable Integration Tabs
-                    <Toggle
-                      isChecked={hasTabs}
-                      onChange={() =>
-                        this.setState({
-                          hasTabs: !hasTabs,
-                          hasSplit: false,
-                          integrationMode:
-                            integrationMode !== 'tabs' ? 'tabs' : 'off',
-                          shareIntegrations: [
-                            {
-                              type: 'Slack',
-                              Icon: SlackIcon,
-                              Content: IntegrationContent,
+                <WrapperWithMarginTop>
+                  Enable Integration Split Button
+                  <Toggle
+                    isChecked={state.hasSplit}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        hasTabs: false,
+                        hasSplit: !state.hasSplit,
+                        integrationMode:
+                          state.integrationMode !== 'split' ? 'split' : 'off',
+                        shareIntegrations: [
+                          {
+                            type: 'Slack',
+                            Icon: SlackIcon,
+                            Content: IntegrationContent,
+                          },
+                        ],
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Is Public Link
+                  <Toggle
+                    isChecked={state.isPublicLink}
+                    onChange={() =>
+                      setState({ ...state, isPublicLink: !state.isPublicLink })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Is Copy Disabled
+                  <Toggle
+                    isChecked={state.isCopyDisabled}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        isCopyDisabled: !state.isCopyDisabled,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Close Share Dialog on escape key press
+                  <Toggle
+                    isChecked={state.escapeOnKeyPress}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        escapeOnKeyPress: !state.escapeOnKeyPress,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Custom Share Dialog Trigger Button
+                  <Toggle
+                    isChecked={state.customButton}
+                    onChange={() =>
+                      setState({ ...state, customButton: !state.customButton })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Custom Share Dialog Title
+                  <Toggle
+                    isChecked={state.customTitle}
+                    onChange={() =>
+                      setState({ ...state, customTitle: !state.customTitle })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Custom Share Form Helper Message
+                  <Toggle
+                    isChecked={state.customHelperMessage}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        customHelperMessage: !state.customHelperMessage,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Custom Trigger Button Tooltip Text
+                  <Toggle
+                    isChecked={state.customTooltipText}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        customTooltipText: !state.customTooltipText,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Custom Trigger Button Icon
+                  <Toggle
+                    isChecked={state.customTriggerButtonIcon}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        customTriggerButtonIcon: !state.customTriggerButtonIcon,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Show Restriction Message
+                  <Toggle
+                    isChecked={state.restrictionMessage}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        restrictionMessage: !state.restrictionMessage,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Use URL shortener
+                  <Toggle
+                    isChecked={!!state.shortLinkData}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        shortLinkData: state.shortLinkData
+                          ? undefined
+                          : {
+                              product: state.product,
+                              type: 'test',
+                              params: { x: 'a' },
                             },
-                          ],
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Enable Integration Split Button
-                    <Toggle
-                      isChecked={hasSplit}
-                      onChange={() =>
-                        this.setState({
-                          hasTabs: false,
-                          hasSplit: !hasSplit,
-                          integrationMode:
-                            integrationMode !== 'split' ? 'split' : 'off',
-                          shareIntegrations: [
-                            {
-                              type: 'Slack',
-                              Icon: SlackIcon,
-                              Content: IntegrationContent,
-                            },
-                          ],
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Is Public Link
-                    <Toggle
-                      isChecked={isPublicLink}
-                      onChange={() =>
-                        this.setState({ isPublicLink: !isPublicLink })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Is Copy Disabled
-                    <Toggle
-                      isChecked={isCopyDisabled}
-                      onChange={() =>
-                        this.setState({ isCopyDisabled: !isCopyDisabled })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Close Share Dialog on escape key press
-                    <Toggle
-                      isChecked={escapeOnKeyPress}
-                      onChange={() =>
-                        this.setState({ escapeOnKeyPress: !escapeOnKeyPress })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Custom Share Dialog Trigger Button
-                    <Toggle
-                      isChecked={customButton}
-                      onChange={() =>
-                        this.setState({ customButton: !customButton })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Custom Share Dialog Title
-                    <Toggle
-                      isChecked={customTitle}
-                      onChange={() =>
-                        this.setState({ customTitle: !customTitle })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Custom Share Form Helper Message
-                    <Toggle
-                      isChecked={customHelperMessage}
-                      onChange={() =>
-                        this.setState({
-                          customHelperMessage: !customHelperMessage,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Custom Trigger Button Tooltip Text
-                    <Toggle
-                      isChecked={customTooltipText}
-                      onChange={() =>
-                        this.setState({ customTooltipText: !customTooltipText })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Custom Trigger Button Icon
-                    <Toggle
-                      isChecked={customTriggerButtonIcon}
-                      onChange={() =>
-                        this.setState({
-                          customTriggerButtonIcon: !customTriggerButtonIcon,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Show Restriction Message
-                    <Toggle
-                      isChecked={restrictionMessage}
-                      onChange={() =>
-                        this.setState({
-                          restrictionMessage: !restrictionMessage,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Use URL shortener
-                    <Toggle
-                      isChecked={!!shortLinkData}
-                      onChange={() =>
-                        this.setState({
-                          shortLinkData: shortLinkData
-                            ? undefined
-                            : {
-                                product,
-                                type: 'test',
-                                params: { x: 'a' },
-                              },
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Use URL shortener legacy API
-                    <Toggle
-                      isChecked={useUrlShortener}
-                      onChange={() =>
-                        this.setState({ useUrlShortener: !useUrlShortener })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Auto open dialog
-                    <Toggle
-                      isChecked={isAutoOpenDialog}
-                      onChange={() => {
-                        // Because the onFocus of this toggle, the `@atlaskit/popup` dialog
-                        // closes itself right after it's opened, when the focus is shifted.
-                        setTimeout(() => {
-                          this.setState({
-                            isAutoOpenDialog: !isAutoOpenDialog,
-                          });
-                        }, 150);
-                      }}
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Custom Footer
-                    <Toggle
-                      isChecked={hasFooter}
-                      onChange={() => this.setState({ hasFooter: !hasFooter })}
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Enable Smart User Picker
-                    <Toggle
-                      isChecked={enableSmartUserPicker}
-                      onChange={() =>
-                        this.setState({
-                          enableSmartUserPicker: !enableSmartUserPicker,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Share Fields Footer
-                    <Toggle
-                      isChecked={hasShareFieldsFooter}
-                      onChange={() =>
-                        this.setState({
-                          hasShareFieldsFooter: !hasShareFieldsFooter,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Dialog Placement
-                    <Select
-                      value={dialogPlacementOptions.find(
-                        (option) => option.value === dialogPlacement,
-                      )}
-                      options={dialogPlacementOptions}
-                      onChange={(option: any) =>
-                        this.setState({ dialogPlacement: option.value })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Share config
-                    <Select
-                      value={configOptions[chosenConfig]}
-                      options={configOptions}
-                      onChange={(config: ConfigOption | null) => {
-                        this.setState({
-                          chosenConfig:
-                            configOptions.findIndex(
-                              (option) => option.label === config?.label,
-                            ) || 0,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Use URL shortener legacy API
+                  <Toggle
+                    isChecked={state.useUrlShortener}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        useUrlShortener: !state.useUrlShortener,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Auto open dialog
+                  <Toggle
+                    isChecked={state.isAutoOpenDialog}
+                    onChange={() => {
+                      // Because the onFocus of this toggle, the `@atlaskit/popup` dialog
+                      // closes itself right after it's opened, when the focus is shifted.
+                      setTimeout(() => {
+                        setState({
+                          ...state,
+                          isAutoOpenDialog: !state.isAutoOpenDialog,
                         });
-                      }}
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Trigger Button Style
-                    <Select<TriggerButtonStyleOption>
-                      value={{
-                        label: triggerButtonStyle,
-                        value: triggerButtonStyle,
-                      }}
-                      options={triggerButtonStyleOptions}
-                      onChange={(option: any) =>
-                        this.setState({ triggerButtonStyle: option.value })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Trigger Button Appearance
-                    <Select<TriggerButtonAppearanceOption>
-                      value={{
-                        label: triggerButtonAppearance,
-                        value: triggerButtonAppearance,
-                      }}
-                      options={triggerButtonAppearanceOptions}
-                      onChange={(option: any) =>
-                        this.setState({ triggerButtonAppearance: option.value })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Trigger Button Tooltip Position
-                    <Select<TriggerPositionOption>
-                      value={{
-                        label: triggerButtonTooltipPosition,
-                        value: triggerButtonTooltipPosition,
-                      }}
-                      options={triggerButtonTooltipPositionOptions}
-                      onChange={(option: any) =>
-                        this.setState({
-                          triggerButtonTooltipPosition: option.value,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Product
-                    <Select
-                      value={{
-                        label: product,
-                        value: product,
-                      }}
-                      options={[
-                        { label: 'confluence', value: 'confluence' },
-                        { label: 'jira', value: 'jira' },
-                      ]}
-                      onChange={(option: any) =>
-                        this.setState({
-                          product: option.value,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                  <WrapperWithMarginTop>
-                    Locale
-                    <Select
-                      value={{
-                        label: locale,
-                        value: locale,
-                      }}
-                      options={localeOptions}
-                      onChange={(option: any) =>
-                        this.setState({
-                          locale: option.value,
-                        })
-                      }
-                    />
-                  </WrapperWithMarginTop>
-                </div>
-              </>
-            )}
-          </App>
-        </IntlProvider>
-      </AnalyticsListener>
-    );
-  }
+                      }, 150);
+                    }}
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Custom Footer
+                  <Toggle
+                    isChecked={state.hasFooter}
+                    onChange={() =>
+                      setState({ ...state, hasFooter: !state.hasFooter })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Enable Smart User Picker
+                  <Toggle
+                    isChecked={state.enableSmartUserPicker}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        enableSmartUserPicker: !state.enableSmartUserPicker,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Share Fields Footer
+                  <Toggle
+                    isChecked={state.hasShareFieldsFooter}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        hasShareFieldsFooter: !state.hasShareFieldsFooter,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Dialog Placement
+                  <Select
+                    value={dialogPlacementOptions.find(
+                      (option) => option.value === state.dialogPlacement,
+                    )}
+                    options={dialogPlacementOptions}
+                    onChange={(option: any) =>
+                      setState({ ...state, dialogPlacement: option.value })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Share config
+                  <Select
+                    value={configOptions[state.chosenConfig]}
+                    options={configOptions}
+                    onChange={(config: ConfigOption | null) => {
+                      setState({
+                        ...state,
+                        chosenConfig:
+                          configOptions.findIndex(
+                            (option) => option.label === config?.label,
+                          ) || 0,
+                      });
+                    }}
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Trigger Button Style
+                  <Select<TriggerButtonStyleOption>
+                    value={{
+                      label: state.triggerButtonStyle,
+                      value: state.triggerButtonStyle,
+                    }}
+                    options={triggerButtonStyleOptions}
+                    onChange={(option: any) =>
+                      setState({ ...state, triggerButtonStyle: option.value })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Trigger Button Appearance
+                  <Select<TriggerButtonAppearanceOption>
+                    value={{
+                      label: state.triggerButtonAppearance,
+                      value: state.triggerButtonAppearance,
+                    }}
+                    options={triggerButtonAppearanceOptions}
+                    onChange={(option: any) =>
+                      setState({
+                        ...state,
+                        triggerButtonAppearance: option.value,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Trigger Button Tooltip Position
+                  <Select<TriggerPositionOption>
+                    value={{
+                      label: state.triggerButtonTooltipPosition,
+                      value: state.triggerButtonTooltipPosition,
+                    }}
+                    options={triggerButtonTooltipPositionOptions}
+                    onChange={(option: any) =>
+                      setState({
+                        ...state,
+                        triggerButtonTooltipPosition: option.value,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Product
+                  <Select
+                    value={{
+                      label: state.product,
+                      value: state.product,
+                    }}
+                    options={[
+                      { label: 'confluence', value: 'confluence' },
+                      { label: 'jira', value: 'jira' },
+                    ]}
+                    onChange={(option: any) =>
+                      setState({
+                        ...state,
+                        product: option.value,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Locale
+                  <Select
+                    value={{
+                      label: state.locale,
+                      value: state.locale,
+                    }}
+                    options={localeOptions}
+                    onChange={(option: any) =>
+                      setState({
+                        ...state,
+                        locale: option.value,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+              </div>
+            </>
+          )}
+        </App>
+      </IntlProvider>
+    </AnalyticsListener>
+  );
 }

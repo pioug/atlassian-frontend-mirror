@@ -5,31 +5,27 @@
 ```ts
 import { RequestServiceOptions } from '@atlaskit/util-service-support';
 
-// @public (undocumented)
-export const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
+export declare const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
 
-// @public (undocumented)
-export interface NotificationCountResponse {
-  // (undocumented)
+export declare interface NotificationCountResponse {
   count: number;
 }
 
-// @public (undocumented)
-export class NotificationLogClient implements NotificationLogProvider {
+export declare class NotificationLogClient implements NotificationLogProvider {
+  private serviceConfig;
+  private cloudId?;
+  private source;
   constructor(baseUrl: string, cloudId?: string, source?: string);
-  // (undocumented)
   countUnseenNotifications(
     options?: RequestServiceOptions,
   ): Promise<NotificationCountResponse>;
 }
 
-// @public (undocumented)
-export interface NotificationLogProvider {
-  // (undocumented)
+export declare interface NotificationLogProvider {
   countUnseenNotifications(
     options?: RequestServiceOptions,
   ): Promise<NotificationCountResponse>;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

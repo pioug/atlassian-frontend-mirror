@@ -10,36 +10,39 @@ import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 
-// @public (undocumented)
-export class MediaViewer extends React_2.PureComponent<
+declare interface AsyncMediaViewerState {
+  MediaViewer?: MediaViewerWithMediaClientConfigComponent;
+  MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
+}
+
+export declare class MediaViewer extends React_2.PureComponent<
   MediaViewerWithMediaClientConfigProps & AsyncMediaViewerState,
   AsyncMediaViewerState
 > {
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
   static MediaViewer?: MediaViewerWithMediaClientConfigComponent;
-  // (undocumented)
   static MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   state: AsyncMediaViewerState;
-  // (undocumented)
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface MediaViewerDataSource {
-  // (undocumented)
-  collectionName?: string;
-  // (undocumented)
+declare type MediaViewerAnalyticsErrorBoundaryProps = {
+  data?: {
+    [k: string]: any;
+  };
+};
+
+export declare interface MediaViewerDataSource {
   list?: Array<Identifier>;
+  collectionName?: string;
 }
 
-// @public (undocumented)
-export interface MediaViewerExtensions {
-  // (undocumented)
+declare type MediaViewerErrorBoundaryComponent = React_2.ComponentType<
+  MediaViewerAnalyticsErrorBoundaryProps
+>;
+
+export declare interface MediaViewerExtensions {
   sidebar?: {
     icon: ReactNode;
     renderer: (
@@ -49,33 +52,29 @@ export interface MediaViewerExtensions {
   };
 }
 
-// @public (undocumented)
-export interface MediaViewerExtensionsActions {
-  // (undocumented)
+export declare interface MediaViewerExtensionsActions {
   close: () => void;
 }
 
-// @public (undocumented)
-export interface MediaViewerProps {
-  // (undocumented)
-  readonly collectionName: string;
-  // (undocumented)
-  readonly contextId?: string;
-  // (undocumented)
-  readonly dataSource: MediaViewerDataSource;
-  // (undocumented)
-  readonly extensions?: MediaViewerExtensions;
-  // (undocumented)
-  readonly featureFlags?: MediaFeatureFlags;
-  // (undocumented)
+export declare interface MediaViewerProps {
   readonly mediaClient: MediaClient;
-  // (undocumented)
-  readonly onClose?: () => void;
-  // (undocumented)
-  readonly pageSize?: number;
-  // (undocumented)
   readonly selectedItem: Identifier;
+  readonly dataSource: MediaViewerDataSource;
+  readonly collectionName: string;
+  readonly pageSize?: number;
+  readonly onClose?: () => void;
+  readonly featureFlags?: MediaFeatureFlags;
+  readonly extensions?: MediaViewerExtensions;
+  readonly contextId?: string;
 }
 
-// (No @packageDocumentation comment for this package)
+declare type MediaViewerWithMediaClientConfigComponent = React_2.ComponentType<
+  MediaViewerWithMediaClientConfigProps
+>;
+
+declare type MediaViewerWithMediaClientConfigProps = WithMediaClientConfigProps<
+  MediaViewerProps
+>;
+
+export {};
 ```

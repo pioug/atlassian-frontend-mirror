@@ -7,22 +7,19 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { Schema } from 'prosemirror-model';
 import { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 
-// @public (undocumented)
-export class BitbucketTransformer implements Transformer_2<string> {
+export declare class BitbucketTransformer implements Transformer_2<string> {
+  private serializer;
+  private schema;
+  private options;
   constructor(schema: Schema, options?: TransformerOptions);
-  // (undocumented)
-  buildDOMTree(html: string): HTMLElement;
-  // (undocumented)
   encode(node: Node_2): string;
-  // (undocumented)
   parse(html: string): Node_2;
+  buildDOMTree(html: string): HTMLElement;
 }
 
-// @public (undocumented)
-export interface TransformerOptions {
-  // (undocumented)
+export declare interface TransformerOptions {
   disableBitbucketLinkStripping?: boolean;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

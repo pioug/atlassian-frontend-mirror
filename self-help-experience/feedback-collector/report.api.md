@@ -7,12 +7,16 @@ import { Component } from 'react';
 import { FunctionComponent } from 'react';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-export const FeedbackButton: React_2.FunctionComponent<Props_3>;
+declare interface AkProps {
+  isDismissAllowed?: boolean;
+  description?: React_2.ReactText;
+  title?: React_2.ReactText;
+  onDismissed?: (...args: Array<any>) => void;
+}
 
-// @public (undocumented)
-class FeedbackCollector extends Component<Props> {
-  // (undocumented)
+export declare const FeedbackButton: React_2.FunctionComponent<Props_3>;
+
+declare class FeedbackCollector extends Component<Props> {
   static defaultProps: {
     url: string;
     canBeContactedFieldId: string;
@@ -54,57 +58,176 @@ class FeedbackCollector extends Component<Props> {
     onClose: () => void;
     onSubmit: () => void;
   };
-  // (undocumented)
-  getCustomerName(): FieldValueType;
-  // (undocumented)
-  getDescription(formValues: FormFields): FieldValueType;
-  // (undocumented)
+  getEntitlementInformation(): Promise<FieldType[] | []>;
+  getTypeFieldValue(dtype: SelectValue): FieldValueType;
   getEmailAndAtlassianID(
     formValues: FormFields,
   ): Promise<{
     email: any;
     aaidOrHash: any;
   }>;
-  // (undocumented)
-  getEntitlementInformation(): Promise<FieldType[] | []>;
-  // (undocumented)
+  getDescription(formValues: FormFields): FieldValueType;
   getSummary(formValues: FormFields): FieldValueType;
-  // (undocumented)
-  getTypeFieldValue(dtype: SelectValue): FieldValueType;
-  // (undocumented)
+  getCustomerName(): FieldValueType;
   mapFormToJSD(formValues: FormFields): Promise<FeedbackType>;
-  // (undocumented)
   postFeedback: (formValues: FormFields) => Promise<void>;
-  // (undocumented)
   render(): JSX.Element;
 }
 export default FeedbackCollector;
 
-// @public (undocumented)
-export const FeedbackFlag: FunctionComponent<
+export declare const FeedbackFlag: FunctionComponent<
   AkProps & {
     locale?: string;
   }
 >;
 
-// @public (undocumented)
-export const FeedbackForm: FunctionComponent<
+export declare const FeedbackForm: FunctionComponent<
   Props_2 & {
     locale?: string;
   }
 >;
 
-// @public (undocumented)
-export interface FormFields {
-  // (undocumented)
-  canBeContacted: boolean;
-  // (undocumented)
-  description: string;
-  // (undocumented)
-  enrollInResearchGroup: boolean;
-  // (undocumented)
+declare type FeedbackType = {
+  fields: FieldType[];
+};
+
+declare type FieldType = {
+  id: string;
+  value: FieldValueType;
+};
+
+declare type FieldValueType = string | Object | Object[];
+
+export declare interface FormFields {
   type: SelectValue;
+  description: string;
+  canBeContacted: boolean;
+  enrollInResearchGroup: boolean;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface Props {
+  /** Override the URL for HTTPS calls, only needed if service is not behind stargate (like the Atlaskit frontend itself) */
+  url: string;
+  /** The customer email */
+  email?: string;
+  /** The customer name */
+  name?: string;
+  /** The request id to access the widget service */
+  requestTypeId: string;
+  /** The embeddable key to access the widget service. Accessible from the corresponding Jira project */
+  embeddableKey: string;
+  /**  Additional fields to send to the widget service **/
+  additionalFields: FieldType[];
+  /**  Override the default id for the "can be contacted" custom field in your widget service **/
+  canBeContactedFieldId: string;
+  /**  Override the default value for the "can be contacted" custom field in your widget service */
+  canBeContactedDefaultValue: FieldValueType;
+  /**  Override the default id for the "customer name" custom field in your widget service */
+  customerNameFieldId: string;
+  /**  Override the default value for the "customer name" custom field in your widget service */
+  customerNameDefaultValue: FieldValueType;
+  /**  Override the default id for the "description" custom field in your widget service */
+  descriptionFieldId: string;
+  /**  Override the default value for the "description" custom field in your widget service */
+  descriptionDefaultValue: FieldValueType;
+  /**  Override the default id for the "enroll in research" custom field in your widget service */
+  enrollInResearchFieldId: string;
+  /**  Override the default value for the "enroll in research" custom field in your widget service */
+  enrollInResearchDefaultValue: FieldValueType;
+  /**  Override the default id for the "email" custom field in your widget service */
+  emailFieldId: string;
+  /**  Override the default value for the "email" custom field in your widget service */
+  emailDefaultValue: FieldValueType;
+  /**  Override the default id for the "summary" custom field in your widget service */
+  summaryFieldId: string;
+  /**  Override the default value for the "summary" custom field in your widget service */
+  summaryDefaultValue: FieldValueType;
+  /**  Number of characters that the "summary" field accepts, the rest will be truncated */
+  summaryTruncateLength: number;
+  /** After this delay the onSubmit callback will be triggered optimistically */
+  timeoutOnSubmit: number;
+  /**  Override the default id for the "type" custom field in your widget service */
+  typeFieldId: string;
+  /**  Override the default value for the "Bug" type of response in your widget service */
+  typeBugDefaultValue: FieldValueType;
+  /**  Override the default value for the "Comment" type of response in your widget service */
+  typeCommentDefaultValue: FieldValueType;
+  /**  Override the default value for the "Suggestion" type of response in your widget service */
+  typeSuggestionDefaultValue: FieldValueType;
+  /**  Override the default value for the "Question" type of response in your widget service */
+  typeQuestionDefaultValue: FieldValueType;
+  /**  Override the default value for the "Empty" type of response in your widget service */
+  typeEmptyDefaultValue: FieldValueType;
+  /**  Override to hide the feedback type select drop down for the feedback */
+  showTypeField: boolean;
+  /**  Message which will be shown as the title of the feedback dialog */
+  feedbackTitle?: React_2.ReactText;
+  /**  Message which will be shown below the title of the feedback dialog */
+  feedbackTitleDetails?: React_2.ReactChild;
+  /**  Message which will be shown next to the enrol in research checkbox */
+  enrolInResearchLabel?: React_2.ReactChild;
+  /**  Message which will be shown next to the can be contacted checkbox */
+  canBeContactedLabel?: React_2.ReactChild;
+  /**  Message which will be shown inside the summary text field */
+  summaryPlaceholder?: string;
+  /**  Message for submit button label */
+  submitButtonLabel?: string;
+  /**  Message for cancel button label */
+  cancelButtonLabel?: string;
+  /**  Message for select option labels and field labels */
+  feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
+  /** Function that will be called to initiate the exit transition. */
+  onClose: () => void;
+  /** Function that will be called optimistically after a delay when the feedback is submitted. */
+  onSubmit: (formFields: FormFields) => void;
+  /**  Optional locale for i18n */
+  locale?: string;
+}
+
+declare interface Props_2 {
+  /**  Message which will be shown as the title of the feedback dialog **/
+  feedbackTitle?: React_2.ReactText;
+  /**  Override to hide the feedback type select drop down for the feedback **/
+  showTypeField?: boolean;
+  /**  Message which will be shown below the title of the feedback dialog **/
+  feedbackTitleDetails?: React_2.ReactChild;
+  /**  Message which will be shown next to the enrol in research checkbox **/
+  enrolInResearchLabel?: React_2.ReactChild;
+  /**  Message which will be shown next to the can be contacted checkbox **/
+  canBeContactedLabel?: React_2.ReactChild;
+  /**  Message which will be shown inside the summary text field **/
+  summaryPlaceholder?: string;
+  /**  Message for submit button label **/
+  submitButtonLabel?: string;
+  /**  Message for cancel button label **/
+  cancelButtonLabel?: string;
+  /**  Message for select option labels and field labels **/
+  feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
+  /** Function that will be called to initiate the exit transition. */
+  onClose: () => void;
+  /** Function that will be called immediately after the submit action  */
+  onSubmit: (formValues: FormFields) => void;
+  /**  Optional locale for i18n **/
+  locale?: string;
+}
+
+declare interface Props_3 {
+  embeddableKey: string;
+  requestTypeId: string;
+  email?: string;
+}
+
+declare interface SelectOptionDetails {
+  fieldLabel: string;
+  selectOptionLabel: string;
+}
+
+declare type SelectValue =
+  | 'bug'
+  | 'comment'
+  | 'suggestion'
+  | 'question'
+  | 'empty';
+
+export {};
 ```

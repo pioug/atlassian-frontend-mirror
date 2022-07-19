@@ -7,12 +7,14 @@
 
 import { PureComponent } from 'react';
 
-// @public (undocumented)
-export class ProgressTracker extends PureComponent<
+declare interface LinkComponentProps {
+  item: Stage;
+}
+
+export declare class ProgressTracker extends PureComponent<
   ProgressTrackerProps,
   State
 > {
-  // (undocumented)
   static defaultProps: {
     items: never[];
     spacing: string;
@@ -22,9 +24,6 @@ export class ProgressTracker extends PureComponent<
     animated: boolean;
     label: string;
   };
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   state: {
     prevStages: {
       percentageComplete: number;
@@ -36,40 +35,69 @@ export class ProgressTracker extends PureComponent<
       onClick?: (() => void) | undefined;
     }[];
   };
-  // (undocumented)
   UNSAFE_componentWillReceiveProps(nextProps: ProgressTrackerProps): void;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface ProgressTrackerProps {
-  animated: boolean;
+export declare interface ProgressTrackerProps {
+  /**
+   * Ordered list of stage data
+   */
   items: Stages;
-  label?: string;
-  render: ProgressTrackerStageRenderProp;
+  /**
+   * Margin spacing type between steps
+   */
   spacing: Spacing;
+  /**
+   * Render prop to specify custom implementations of components
+   */
+  render: ProgressTrackerStageRenderProp;
+  /**
+   * Turns off transition animations if set to false
+   */
+  animated: boolean;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   */
   testId?: string;
+  /**
+   * Text to be used as an aria-label of progress tracker
+   */
+  label?: string;
 }
 
-// @public (undocumented)
-export interface Stage {
-  // (undocumented)
-  href?: string;
-  // (undocumented)
+declare interface ProgressTrackerStageRenderProp {
+  link: (props: LinkComponentProps) => JSX.Element;
+}
+
+declare type Spacing = keyof typeof spacing;
+
+/**
+ * Ideally these are exported by @atlaskit/page
+ */
+declare const spacing: {
+  readonly comfortable: number;
+  readonly cosy: number;
+  readonly compact: number;
+};
+
+export declare interface Stage {
   id: string;
-  // (undocumented)
   label: string;
-  // (undocumented)
-  noLink?: boolean;
-  // (undocumented)
-  onClick?: () => void;
-  // (undocumented)
   percentageComplete: number;
-  // (undocumented)
   status: Status;
+  noLink?: boolean;
+  href?: string;
+  onClick?: () => void;
 }
 
-// @public (undocumented)
-export type Stages = Stage[];
+export declare type Stages = Stage[];
 
-// (No @packageDocumentation comment for this package)
+declare interface State {
+  prevStages: Stages;
+}
+
+declare type Status = 'unvisited' | 'visited' | 'current' | 'disabled';
+
+export {};
 ```

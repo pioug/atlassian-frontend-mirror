@@ -43,11 +43,9 @@ import { ValueContainerProps as ValueContainerProps_2 } from 'react-select';
 import { ValueType as ValueType_2 } from 'react-select';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export type ActionMeta<Option = OptionType> = ActionMeta_2<Option>;
+export declare type ActionMeta<Option = OptionType> = ActionMeta_2<Option>;
 
-// @public (undocumented)
-export const AsyncCreatableSelect: {
+export declare const AsyncCreatableSelect: {
   new <Option = OptionType, IsMulti extends boolean = false>(
     props: SelectProps<Option, IsMulti>,
   ): {
@@ -141,8 +139,7 @@ export const AsyncCreatableSelect: {
   contextType?: Context<any> | undefined;
 };
 
-// @public (undocumented)
-export const AsyncSelect: {
+export declare const AsyncSelect: {
   new <Option = OptionType, IsMulti extends boolean = false>(
     props: SelectProps<Option, IsMulti>,
   ): {
@@ -236,28 +233,23 @@ export const AsyncSelect: {
   contextType?: Context<any> | undefined;
 };
 
-// @public (undocumented)
-export const CheckboxOption: FC<OptionProps<OptionType, true>>;
+export declare const CheckboxOption: FC<OptionProps<OptionType, true>>;
 
-// @public (undocumented)
-export const CheckboxSelect: ({
+export declare const CheckboxSelect: ({
   components,
   ...props
 }: SelectProps<OptionType, true>) => JSX.Element;
 
 export { components };
 
-// @public (undocumented)
-export type ControlProps<
+export declare type ControlProps<
   OptionType,
   IsMulti extends boolean = false
 > = ControlProps_2<OptionType, IsMulti>;
 
-// @public (undocumented)
-export const CountrySelect: (props: any) => JSX.Element;
+export declare const CountrySelect: (props: any) => JSX.Element;
 
-// @public (undocumented)
-export const CreatableSelect: {
+export declare const CreatableSelect: {
   new <Option = OptionType, IsMulti extends boolean = false>(
     props: SelectProps<Option, IsMulti>,
   ): {
@@ -353,8 +345,7 @@ export const CreatableSelect: {
 
 export { createFilter };
 
-// @public (undocumented)
-const _default: {
+declare const _default: {
   new <Option = OptionType, IsMulti extends boolean = false>(
     props: SelectProps<Option, IsMulti>,
   ): {
@@ -449,8 +440,9 @@ const _default: {
 };
 export default _default;
 
-// @public (undocumented)
-export type FormatOptionLabelMeta<
+declare type defaultModifiers = 'offset' | 'preventOverflow';
+
+export declare type FormatOptionLabelMeta<
   OptionType,
   IsMulti extends boolean = false
 > = FormatOptionLabelMeta_2<OptionType, IsMulti>;
@@ -459,14 +451,12 @@ export { GroupedOptionsType };
 
 export { GroupType };
 
-// @public (undocumented)
-export type IndicatorComponentType<
+export declare type IndicatorComponentType<
   OptionType,
   IsMulti extends boolean = false
 > = IndicatorComponentType_2<OptionType, IsMulti>;
 
-// @public (undocumented)
-export type IndicatorProps<
+export declare type IndicatorProps<
   OptionType,
   IsMulti extends boolean = false
 > = IndicatorProps_2<OptionType, IsMulti>;
@@ -477,28 +467,23 @@ export { makeAsyncSelect };
 
 export { makeCreatableSelect };
 
-// @public (undocumented)
-export type MenuListComponentProps<
+export declare type MenuListComponentProps<
   OptionType,
   IsMulti extends boolean = false
 > = MenuListComponentProps_2<OptionType, IsMulti>;
 
-// @public (undocumented)
-export type MenuProps<
+export declare type MenuProps<
   OptionType,
   IsMulti extends boolean = false
 > = MenuProps_2<OptionType, IsMulti>;
 
 export { mergeStyles };
 
-// @public (undocumented)
-export interface OptionProps<
+export declare interface OptionProps<
   Option = OptionType,
   IsMulti extends boolean = false
 > extends OptionProps_2<Option, IsMulti> {
-  // (undocumented)
   [key: string]: any;
-  // (undocumented)
   Icon?: React.ComponentType<{
     label: string;
     size?: 'small' | 'medium' | 'large' | 'xlarge';
@@ -506,115 +491,37 @@ export interface OptionProps<
     primaryColor?: string;
     secondaryColor?: string;
   }>;
-  // (undocumented)
   isDisabled: boolean;
-  // (undocumented)
   isFocused: boolean;
-  // (undocumented)
   isSelected: boolean;
 }
 
-// @public (undocumented)
-export type OptionsType<Option = OptionType> = OptionsType_2<Option>;
+export declare type OptionsType<Option = OptionType> = OptionsType_2<Option>;
 
-// @public (undocumented)
-export interface OptionType {
-  // (undocumented)
+export declare interface OptionType {
   [key: string]: any;
-  // (undocumented)
   label: string;
-  // (undocumented)
   value: string | number;
 }
 
-// @public (undocumented)
-export class PopupSelect<
+declare type PopperPropsNoChildren<Modifiers> = Omit<
+  PopperProps<Modifiers>,
+  'children'
+>;
+
+export declare class PopupSelect<
   Option = OptionType,
   IsMulti extends boolean = false
 > extends PureComponent<PopupSelectProps<Option, IsMulti>, State> {
-  close: (
-    options?:
-      | {
-          controlOverride?: boolean | undefined;
-        }
-      | undefined,
-  ) => void;
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
-  componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti>): void;
-  // (undocumented)
-  componentWillUnmount(): void;
-  // (undocumented)
-  defaultOpenState: boolean | undefined;
-  // (undocumented)
-  static defaultProps: {
-    closeMenuOnSelect: boolean;
-    components: {};
-    maxMenuHeight: number;
-    maxMenuWidth: number;
-    minMenuWidth: number;
-    popperProps: {};
-    searchThreshold: number;
-    styles: {};
-    options: never[];
-  };
-  // (undocumented)
-  defaultStyles: StylesConfig<Option, IsMulti>;
-  // (undocumented)
   focusTrap: FocusTrap | null;
-  // (undocumented)
-  static getDerivedStateFromProps(
-    props: PopupSelectProps<OptionType>,
-    state: State,
-  ): Partial<State<string>> | null;
-  // (undocumented)
-  getItemCount: () => number;
-  // (undocumented)
-  getMaxHeight: () => number | undefined;
-  // (undocumented)
-  getSelectRef: (ref: Select<Option, IsMulti>) => void;
-  // (undocumented)
-  handleClick: ({ target }: MouseEvent) => void;
-  // (undocumented)
-  handleKeyDown: (event: KeyboardEvent) => void;
-  // (undocumented)
-  handleSelectChange: (
-    value: ValueType<Option, IsMulti>,
-    actionMeta: ActionMeta<Option>,
-  ) => void;
-  // (undocumented)
-  initialiseFocusTrap: () => void;
-  // (undocumented)
-  isOpenControlled: boolean;
-  // (undocumented)
   menuRef: HTMLElement | null;
-  open: (
-    options?:
-      | {
-          controlOverride?: boolean | undefined;
-        }
-      | undefined,
-  ) => void;
-  // (undocumented)
-  popperWrapperId: string;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  renderSelect: () => JSX.Element | null;
-  // (undocumented)
-  resolveMenuRef: (
-    popperRef: React_2.Ref<HTMLElement>,
-  ) => (ref: HTMLElement) => void;
-  // (undocumented)
-  resolveTargetRef: (
-    popperRef: React_2.Ref<HTMLElement>,
-  ) => (ref: HTMLElement) => void;
-  // (undocumented)
   selectRef: Select<Option, IsMulti> | null;
-  // (undocumented)
-  showSearchControl: () => boolean;
-  // (undocumented)
+  targetRef: HTMLElement | null;
+  unbindWindowClick: UnbindFn | null;
+  unbindWindowKeydown: UnbindFn | null;
+  defaultStyles: StylesConfig<Option, IsMulti>;
+  isOpenControlled: boolean;
+  defaultOpenState: boolean | undefined;
   state: {
     isOpen: boolean;
     mergedComponents: {
@@ -628,79 +535,176 @@ export class PopupSelect<
     };
     mergedPopperProps: PopperPropsNoChildren<string>;
   };
-  // (undocumented)
-  targetRef: HTMLElement | null;
-  // (undocumented)
-  unbindWindowClick: UnbindFn | null;
-  // (undocumented)
-  unbindWindowKeydown: UnbindFn | null;
+  popperWrapperId: string;
+  static defaultProps: {
+    closeMenuOnSelect: boolean;
+    components: {};
+    maxMenuHeight: number;
+    maxMenuWidth: number;
+    minMenuWidth: number;
+    popperProps: {};
+    searchThreshold: number;
+    styles: {};
+    options: never[];
+  };
+  static getDerivedStateFromProps(
+    props: PopupSelectProps<OptionType>,
+    state: State,
+  ): Partial<State<string>> | null;
+  componentDidMount(): void;
+  componentWillUnmount(): void;
+  componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti>): void;
+  handleKeyDown: (event: KeyboardEvent) => void;
+  handleClick: ({ target }: MouseEvent) => void;
+  handleSelectChange: (
+    value: ValueType<Option, IsMulti>,
+    actionMeta: ActionMeta<Option>,
+  ) => void;
+  /**
+   * Opens the popup
+   *
+   * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
+   */
+  open: (
+    options?:
+      | {
+          controlOverride?: boolean | undefined;
+        }
+      | undefined,
+  ) => void;
+  initialiseFocusTrap: () => void;
+  /**
+   * Closes the popup
+   *
+   * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
+   */
+  close: (
+    options?:
+      | {
+          controlOverride?: boolean | undefined;
+        }
+      | undefined,
+  ) => void;
+  resolveTargetRef: (
+    popperRef: React_2.Ref<HTMLElement>,
+  ) => (ref: HTMLElement) => void;
+  resolveMenuRef: (
+    popperRef: React_2.Ref<HTMLElement>,
+  ) => (ref: HTMLElement) => void;
+  getSelectRef: (ref: Select<Option, IsMulti>) => void;
+  getItemCount: () => number;
+  getMaxHeight: () => number | undefined;
+  showSearchControl: () => boolean;
+  renderSelect: () => JSX.Element | null;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export interface PopupSelectProps<
+export declare interface PopupSelectProps<
   Option = OptionType,
   IsMulti extends boolean = false,
   Modifiers = string
 > extends Props<Option, IsMulti> {
+  /**
+   * Defines whether the menu should close when selected. Defaults to "true"
+   */
   closeMenuOnSelect?: boolean;
-  // (undocumented)
-  defaultIsOpen?: boolean;
+  /**
+   * The footer content shown at the bottom of the Popup, underneath the Select options
+   */
   footer?: ReactNode;
-  // (undocumented)
-  isOpen?: boolean;
-  maxMenuWidth?: number | string;
-  minMenuWidth?: number | string;
+  /**
+     The props passed down to React Popper.
+
+     Use these to override the default positioning strategy, behaviour and placement used by this library.
+     For more information, see the [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
+
+     */
   popperProps?: PopperPropsNoChildren<Modifiers>;
+  /**
+   * The maximum number of options the Select can contain without rendering the search field.
+   */
   searchThreshold?: number;
+  /**
+   * The maximum width for the popup menu. Can be a number, representing width in pixels,
+   * or a string containing a CSS length datatype.
+   */
+  maxMenuWidth?: number | string;
+  /**
+   * The maximum width for the popup menu. Can be a number, representing width in pixels,
+   * or a string containing a CSS length datatype.
+   */
+  minMenuWidth?: number | string;
+  /**
+     Render props used to anchor the popup to your content.
+
+     Make this an interactive element, such as an @atlaskit/button component.
+
+     The provided render props in `options` are detailed below:
+     - `isOpen`: The current state of the popup.
+     Use this to change the appearance of your target based on the state of your component
+     - `ref`: Pass this ref to the element the Popup should be attached to
+     - `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to
+     ensure your experience is accessible
+     */
   target?: (
     options: PopupSelectTriggerProps & {
       isOpen: boolean;
     },
   ) => ReactNode;
+  isOpen?: boolean;
+  defaultIsOpen?: boolean;
 }
 
-// @public (undocumented)
-export const RadioOption: FC<OptionProps>;
+declare interface PopupSelectTriggerProps {
+  ref: any;
+  'aria-haspopup': 'true';
+  'aria-expanded': boolean;
+  'aria-controls'?: string;
+}
 
-// @public (undocumented)
-export const RadioSelect: ({
+export declare const RadioOption: FC<OptionProps>;
+
+export declare const RadioSelect: ({
   components,
   ...props
 }: SelectProps<OptionType>) => JSX.Element;
 
-// @public (undocumented)
-export type SelectComponentsConfig<
+export declare type SelectComponentsConfig<
   OptionType,
   IsMulti extends boolean = false
 > = SelectComponentsConfig_2<OptionType, IsMulti>;
 
-// @public (undocumented)
-export interface SelectProps<OptionType, IsMulti extends boolean = false>
-  extends Props<OptionType, IsMulti>,
+export declare interface SelectProps<
+  OptionType,
+  IsMulti extends boolean = false
+> extends Props<OptionType, IsMulti>,
     WithAnalyticsEventsProps {
-  // (undocumented)
   spacing?: 'compact' | 'default';
-  // (undocumented)
   validationState?: ValidationState;
 }
 
-// @public (undocumented)
-export type StylesConfig<
+declare interface State<Modifiers = string> {
+  isOpen: boolean;
+  mergedComponents: Object;
+  mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
+}
+
+export declare type StylesConfig<
   Option = OptionType,
   IsMulti extends boolean = false
 > = StylesConfig_2<Option, IsMulti>;
 
-// @public (undocumented)
-export type ValueContainerProps<
+declare type ValidationState = 'default' | 'error' | 'success';
+
+export declare type ValueContainerProps<
   OptionType,
   IsMulti extends boolean = false
 > = ValueContainerProps_2<OptionType, IsMulti>;
 
-// @public (undocumented)
-export type ValueType<
+export declare type ValueType<
   OptionType,
   IsMulti extends boolean = false
 > = ValueType_2<OptionType, IsMulti>;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

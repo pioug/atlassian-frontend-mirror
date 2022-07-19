@@ -7,98 +7,220 @@ import { ComponentType } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-export class AkNavigationItem extends React_2.PureComponent<Props_2> {
-  // (undocumented)
+export declare class AkNavigationItem extends React_2.PureComponent<Props_2> {
   static defaultProps: Partial<Props_2>;
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class AkSearch extends React_2.PureComponent<Props_4> {
-  // (undocumented)
+export declare class AkSearch extends React_2.PureComponent<Props_4> {
   static defaultProps: Partial<Props_4>;
-  // (undocumented)
-  inputRef?: React_2.Ref<any>;
-  // (undocumented)
   onInputKeyDown: (event: React_2.KeyboardEvent<HTMLInputElement>) => void;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
-  renderInputControls: () => JSX.Element | null;
-  // (undocumented)
   setInputRef: (ref: React_2.Ref<any>) => void;
+  renderInputControls: () => JSX.Element | null;
+  inputRef?: React_2.Ref<any>;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type CancelableEvent =
+declare type AnalyticsData = Object;
+
+export declare type CancelableEvent =
   | KeyboardEvent
   | MouseEvent
   | React.KeyboardEvent<HTMLInputElement>
   | React.MouseEvent<HTMLElement>;
 
-// @public
-export class ContainerResult extends React_2.PureComponent<
+declare type CommonResultProps = {
+  /** Unique ID of the result. This is passed as a parameter to certain callbacks */
+  resultId: string | number;
+  /** Type of the result. This is passed as a parameter to certain callbacks. */
+  type?: string;
+  /** Src URL of the image to be used as the result's icon, overriden by avatar prop */
+  avatarUrl?: string;
+  /** React Component of the image to be used as the result's icon, takes precedence over avatarUrl */
+  avatar?: ReactNode;
+  /** Content to be shown after the main content. Shown to the right of content (or to the left in RTL mode). */
+  elemAfter?: ReactNode;
+  /** Icon to be shown after the main content when the result is selected */
+  selectedIcon?: ReactNode;
+  /** Location to link out to on click. */
+  href?: string;
+  /** Target to open the link in. */
+  target?: string;
+  /** Reduces padding and font size. */
+  isCompact?: boolean;
+  /** Triggered by mouseClick event. */
+  onClick?: (resultData: ResultData) => void;
+  /** key/value pairs of attributes to be send in analytics events. */
+  analyticsData?: AnalyticsData | (() => AnalyticsData);
+};
+
+/**
+ * Generic result type for Atlassian containers.
+ */
+export declare class ContainerResult extends React_2.PureComponent<
   ContainerResultProps
 > {
-  // (undocumented)
   getAvatar: () => {};
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type ContainerResultProps = CommonResultProps & {
+export declare type ContainerResultProps = CommonResultProps & {
+  /** Name of the container. Provides the main text to be displayed as the item. */
   name: React_2.ReactNode;
+  /** Text to appear to the right of the text. It has a lower font-weight. */
   caption?: string;
+  /** Set whether to display a lock on the result's icon */
   isPrivate?: boolean;
+  /** Text to be shown alongside the main `text`. */
   subText?: React_2.ReactNode;
 };
 
-// @public (undocumented)
-const _default: React_2.ComponentClass<Props_3, any>;
+declare const _default: React_2.ComponentClass<Props_3, any>;
 export { _default as AkQuickSearch };
 export { _default as QuickSearch };
 
-// @public
-export class ObjectResult extends React_2.PureComponent<ObjectResultProps> {
-  // (undocumented)
+declare type DefaultProps = {
+  context: ResultContextType;
+};
+
+/**
+ * Generic result type for Atlassian objects.
+ */
+export declare class ObjectResult extends React_2.PureComponent<
+  ObjectResultProps
+> {
   getAvatar: () => {};
-  // (undocumented)
   getSubtext(): {} | null | undefined;
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type ObjectResultProps = CommonResultProps & {
+export declare type ObjectResultProps = CommonResultProps & {
+  /** Name of the container. Provides the main text to be displayed as the item. */
   name: React_2.ReactNode;
+  /** Text to appear to the right of the text. It has a lower font-weight. */
   caption?: string;
+  /** Name of the container to which the object belongs. Displayed alongside the name */
   containerName?: React_2.ReactNode;
+  /** Set whether to display a lock on the result's icon */
   isPrivate?: boolean;
+  /** A key or identifier of the object. Ajoined to the `containerName` when provided. */
   objectKey?: React_2.ReactNode;
 };
 
-// @public (undocumented)
-export class PersonResult extends React_2.PureComponent<PersonResultProps> {
-  // (undocumented)
+export declare class PersonResult extends React_2.PureComponent<
+  PersonResultProps
+> {
   static defaultProps: Partial<PersonResultProps>;
-  // (undocumented)
-  getAvatar: () => {};
-  // (undocumented)
   getMention: () => string | undefined;
-  // (undocumented)
+  getAvatar: () => {};
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type PersonResultProps = CommonResultProps & {
+export declare type PersonResultProps = CommonResultProps & {
+  /** Name of the container. Provides the main text to be displayed as the item. */
   name: React_2.ReactNode;
+  /** A user's custom handle. Appears to the right of their `name`. It has a lower font-weight. */
   mentionName?: string;
+  /** A character with which to prefix the `mentionName`. Defaults to '@' */
   mentionPrefix?: string;
+  /** Text to be shown alongside the main `text`. */
   presenceMessage?: React_2.ReactNode;
+  /** Sets the appearance of the presence indicator */
   presenceState?: 'online' | 'busy' | 'offline' | null;
+};
+
+declare type Props = {
+  /** Text to appear as heading above group. Will be auto-capitalised. */
+  title: React_2.ReactNode;
+  /** React Elements to be displayed within the group. This should generally be a collection of ResultItems. */
+  children?: React_2.ReactNode;
+};
+
+declare type Props_2 = {
+  /** Text to appear to the right of the text. It has a lower font-weight. */
+  caption?: string;
+  /** Location to link out to on click. This is passed down to the custom link component if one is provided. */
+  href?: string;
+  /** Target frame for item `href` link to be aimed at. */
+  target?: string;
+  /** React element to appear to the left of the text. This should be an @atlaskit/icon component. */
+  icon?: React_2.ReactNode;
+  /** Makes the navigation item appear with reduced padding and font size. */
+  isCompact?: boolean;
+  /** Set whether the item should be highlighted as selected. Selected items have a different background color. */
+  isSelected?: boolean;
+  /** Set whether the item has been highlighted using mouse navigation. Mouse selected items will not display the selectedIcon. */
+  isMouseSelected?: boolean;
+  /** Function to be called on click. This is passed down to a custom link component, if one is provided.  */
+  onClick?(e: MouseEvent): void;
+  /** Standard onmouseenter event */
+  onMouseEnter?: (e: MouseEvent) => void;
+  /** Standard onmouseleave event */
+  onMouseLeave?: (e: MouseEvent) => void;
+  /** Text to be shown alongside the main `text`. */
+  subText?: React_2.ReactNode;
+  /** Main text to be displayed as the item. Accepts a react component but in most cases this should just be a string. */
+  text?: React_2.ReactNode;
+  /** React component to be placed to the right of the main text. */
+  textAfter?: React_2.ReactNode;
+  /** React component to be placed to the right of the main text when the item is selected with keyboard navigation. */
+  selectedIcon?: React_2.ReactNode;
+  /** React component to be used for rendering links */
+  linkComponent?: React_2.ComponentType;
+};
+
+declare type Props_3 = {
+  /** Search results in the form of ResultItemGroups containing Result components */
+  children: React_2.ReactNode;
+  /** Set search loading state */
+  isLoading?: boolean;
+  /** onBlur callback for search input */
+  onSearchBlur?: (event: React_2.FocusEvent<HTMLInputElement>) => void;
+  /** onInput callback for search input */
+  onSearchInput?: (
+    event: React_2.FormEvent<HTMLInputElement>,
+    isAutocompleted?: boolean,
+  ) => void;
+  /** onKeyDown callback for search input */
+  onSearchKeyDown?: (event: React_2.KeyboardEvent<HTMLInputElement>) => void;
+  /** Called when the user submits the search form without selecting a result */
+  onSearchSubmit?: (event: React_2.KeyboardEvent<HTMLInputElement>) => void;
+  /** Placeholder text for search input field */
+  placeholder?: string;
+  /** Value of the search input field */
+  value?: string;
+  /** Corresponds to the `resultId` of the selected result */
+  selectedResultId?: SelectedResultId;
+  /** Optional way of being notified when the selected result changes due to keyboard nav */
+  onSelectedResultIdChanged?: (id: SelectedResultId) => void;
+  firePrivateAnalyticsEvent?: (eventName: string, eventData: Object) => void;
+  /** React component to be used for rendering links */
+  linkComponent?: React_2.ComponentType<any>;
+  /** The elements to render to the right of the search input. */
+  inputControls?: React_2.ReactNode;
+  /** One string that is used to autocomplete the current search query */
+  autocompleteText?: string;
+};
+
+declare type Props_4 = {
+  /** The elements to render as options to search from. */
+  children?: React_2.ReactNode;
+  /** The elements to render to the right of the search input. */
+  inputControls?: React_2.ReactNode;
+  /** Set whether the loading state should be shown. */
+  isLoading?: boolean;
+  /** Function to be called when the search input loses focus. */
+  onBlur?: (event: React_2.FocusEvent<HTMLInputElement>) => void;
+  /** Function to be called when a input action occurs (native `oninput` event). */
+  onInput?: (event: React_2.FormEvent<HTMLInputElement>) => void;
+  /** Function to be called when the user hits the escape key.  */
+  onKeyDown?: (event: React_2.KeyboardEvent<HTMLInputElement>) => void;
+  /** Placeholder text for search field. */
+  placeholder?: string;
+  /** Current value of search field. */
+  value?: string;
+  /** Autocomplete information */
+  autocompleteText?: string;
 };
 
 declare namespace quickSearchResultTypes {
@@ -106,33 +228,73 @@ declare namespace quickSearchResultTypes {
 }
 export { quickSearchResultTypes };
 
-// @public (undocumented)
-export const ResultBase: (props: ResultBaseProps) => JSX.Element;
+export declare const ResultBase: (props: ResultBaseProps) => JSX.Element;
 
-// @public (undocumented)
-export type ResultBaseProps = CommonResultProps & {
+declare class ResultBase_2 extends React_2.PureComponent<
+  DefaultProps & ResultBaseProps
+> {
+  static defaultProps: Partial<ResultBaseProps>;
+  state: {
+    isMouseSelected: boolean;
+  };
+  registerResult(): void;
+  componentDidMount(): void;
+  componentDidUpdate(): void;
+  componentWillUnmount(): void;
+  getAnalyticsData(): AnalyticsData;
+  handleClick: (e: MouseEvent) => void;
+  handleMouseEnter: (event: MouseEvent) => void;
+  handleMouseLeave: () => void;
+  render(): JSX.Element;
+}
+
+export declare type ResultBaseProps = CommonResultProps & {
+  /** Type of the result. This is passed as a parameter to certain callbacks. */
   type: string;
+  /** Main text to be displayed as the item. */
   text: React_2.ReactNode;
+  /** Text to be shown alongside the main `text`. */
   subText?: React_2.ReactNode;
+  /** Text to appear to the right of the text. It has a lower font-weight. */
   caption?: string;
+  /** React element to appear to the left of the text. */
   icon?: React_2.ReactNode;
+  /** The context provided by QuickSearch. */
   context?: ResultContextType;
 };
 
-// @public (undocumented)
-export type ResultData = {
+declare type ResultContextType = {
+  /** Register result as keyboard navigation target */
+  registerResult: (result: ResultBase_2) => void;
+  /** Unregister result as keyboard navigation target */
+  unregisterResult: (result: ResultBase_2) => void;
+  /** Triggered by mouseEnter event. */
+  onMouseEnter: (resultData: ResultData) => void;
+  /** Standard onMouseLeave event. */
+  onMouseLeave: () => void;
+  /** Fires an analytics event */
+  sendAnalytics?: (eventName: string, eventData: Object) => void;
+  /** get the index of the search result in the list of result */
+  getIndex: (resultId: ResultId) => number | null;
+  /** React component to be used for rendering links */
+  linkComponent?: ComponentType;
+};
+
+export declare type ResultData = {
   resultId: ResultId;
   type: string;
   event: CancelableEvent;
 };
 
-// @public (undocumented)
-class ResultItemGroup extends React_2.Component<Props> {
-  // (undocumented)
+declare type ResultId = string | number;
+
+declare class ResultItemGroup extends React_2.Component<Props> {
   render(): JSX.Element;
 }
 export { ResultItemGroup as AkNavigationItemGroup };
 export { ResultItemGroup };
 
-// (No @packageDocumentation comment for this package)
+declare type SelectedResultId = ResultId | null;
+
+export {};
 ```

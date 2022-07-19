@@ -6,43 +6,75 @@
 import { default as React_2 } from 'react';
 import { ThemeProp } from '@atlaskit/theme/components';
 
-// @public (undocumented)
-class ProgressBar extends React_2.PureComponent<DefaultProgressBarProps> {
-  // (undocumented)
+declare interface CustomProgressBarProps {
+  /**
+   * Current progress, a number between 0 and 1.
+   */
+  value: number;
+  /**
+   * When true the component is in indeterminate state.
+   */
+  isIndeterminate: boolean;
+  /**
+   * The aria-label attribute associated with the progress bar.
+   */
+  ariaLabel?: string;
+}
+
+declare interface DefaultProgressBarProps extends CustomProgressBarProps {
+  /**
+   * The theme the component should use. NOTE: This is being deprecated and will be removed after 13 May 2022. Please consider migrating to
+   * one of progress bar's variants.
+   */
+  theme?: ThemeProp<ThemeTokens, ThemeProps>;
+}
+
+declare class ProgressBar extends React_2.PureComponent<
+  DefaultProgressBarProps
+> {
   static defaultProps: {
     value: number;
     isIndeterminate: boolean;
   };
-  // (undocumented)
   render(): JSX.Element;
 }
 export default ProgressBar;
 
-// @public (undocumented)
-export class SuccessProgressBar extends React_2.PureComponent<
+export declare class SuccessProgressBar extends React_2.PureComponent<
   CustomProgressBarProps
 > {
-  // (undocumented)
   static defaultProps: {
     value: number;
     isIndeterminate: boolean;
   };
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class TransparentProgressBar extends React_2.PureComponent<
+declare type ThemeProps = {
+  value: string | number;
+};
+
+/**
+ * @deprecated This allows for users to customize the theme. This is being deprecated, please consider
+ * migrating to one of progress bar's variants.
+ */
+declare type ThemeTokens = {
+  container: any;
+  bar: any;
+  determinateBar: any;
+  increasingBar: any;
+  decreasingBar: any;
+};
+
+export declare class TransparentProgressBar extends React_2.PureComponent<
   CustomProgressBarProps
 > {
-  // (undocumented)
   static defaultProps: {
     value: number;
     isIndeterminate: boolean;
   };
-  // (undocumented)
   render(): JSX.Element;
 }
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

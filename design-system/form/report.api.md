@@ -10,131 +10,415 @@ import { FormState } from 'final-form';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
-// @public
-export const CheckboxField: FC<CheckboxProps>;
+declare type Align = 'start' | 'end';
 
-// @public (undocumented)
-export interface CheckboxFieldProps extends FieldProps<string | undefined> {
-  // (undocumented)
+/**
+ * __Checkbox field__
+ *
+ * A checkbox field is a form field that lets users select an item. Users can check or uncheck the checkbox.
+ *
+ * - [Examples] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
+ * - [Code] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
+ * - [Usage] https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#checkboxfield-reference
+ */
+export declare const CheckboxField: FC<CheckboxProps>;
+
+export declare interface CheckboxFieldProps
+  extends FieldProps<string | undefined> {
   isChecked: boolean;
 }
 
-// @public
-export const ErrorMessage: React_2.FC<MessageProps>;
+declare interface CheckboxProps {
+  /**
+   * Content to render in the checkbox field. This is a function that is called with information about the field.
+   */
+  children: (args: {
+    fieldProps: CheckboxFieldProps;
+    error?: string;
+    valid: boolean;
+    meta: Meta;
+  }) => ReactNode;
+  /**
+   * Sets the default state of the checkbox as checked.
+   */
+  defaultIsChecked?: boolean;
+  /**
+   * Sets whether the field is required for submission. Required fields are marked with a red asterisk.
+   */
+  isRequired?: boolean;
+  /**
+   * Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.
+   */
+  isDisabled?: boolean;
+  /**
+   * Label displayed beside the checkbox.
+   */
+  label?: ReactNode;
+  /**
+   * Specifies the name of the field. This is important for referencing the form data.
+   */
+  name: string;
+  /**
+   * The value of the checkbox. This is the value used in the form state when the checkbox is checked.
+   */
+  value?: string;
+}
 
-// @public (undocumented)
-export function Field<
+/**
+ * __Error message__
+ *
+ * An error message is used to tell a user that the field input is invalid. For example, an error message could be
+ * 'Invalid username, needs to be more than 4 characters'.
+ *
+ */
+export declare const ErrorMessage: React_2.FC<MessageProps>;
+
+export declare function Field<
   FieldValue = string,
   Element extends SupportedElements = HTMLInputElement
 >(props: FieldComponentProps<FieldValue, Element>): JSX.Element;
 
-// @public (undocumented)
-export interface FieldProps<
+declare interface FieldComponentProps<
+  FieldValue,
+  Element extends SupportedElements
+> {
+  /**
+   * Content to render in the field. This is a function that is called with props for the field component and other information about the field.
+   */
+  children: (args: {
+    fieldProps: FieldProps<FieldValue, Element>;
+    error?: string;
+    valid: boolean;
+    meta: Meta;
+  }) => ReactNode;
+  /**
+   * Sets the default value of the field. If a function is provided, it is called with the current default value of the field.
+   */
+  defaultValue?:
+    | FieldValue
+    | ((currentDefaultValue?: FieldValue) => FieldValue);
+  /**
+   * Passed to the ID attribute of the field. This is randomly generated if it is not specified.
+   */
+  id?: string;
+  /**
+   * Sets whether the field is required for submission. Required fields are marked with a red asterisk.
+   */
+  isRequired?: boolean;
+  /**
+   * Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.
+   */
+  isDisabled?: boolean;
+  /**
+   * Label displayed above the form field.
+   */
+  label?: ReactNode;
+  /**
+   * Specifies the name of the field. This is important for referencing the form data.
+   */
+  name: string;
+  /**
+   * Access the current field value and transform it to return a different field value.
+   */
+  transform?: (
+    event: FormEvent<Element> | FieldValue,
+    current: FieldValue,
+  ) => FieldValue;
+  /**
+   * Checks whether the field input is valid. This is usually used to display a message relevant to the current value using `ErrorMessage`, `HelperMessage` or `ValidMessage`.
+   */
+  validate?: (
+    value: FieldValue | undefined,
+    formState: Object,
+    fieldState: Meta,
+  ) => string | void | Promise<string | void>;
+}
+
+export declare interface FieldProps<
   FieldValue,
   Element extends SupportedElements = HTMLInputElement
 > {
-  // (undocumented)
-  'aria-invalid': 'true' | 'false';
-  // (undocumented)
-  'aria-labelledby': string;
-  // (undocumented)
   id: string;
-  // (undocumented)
-  isDisabled: boolean;
-  // (undocumented)
-  isInvalid: boolean;
-  // (undocumented)
   isRequired: boolean;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  onBlur: () => void;
-  // (undocumented)
+  isDisabled: boolean;
+  isInvalid: boolean;
   onChange: (value: FormEvent<Element> | FieldValue) => void;
-  // (undocumented)
+  onBlur: () => void;
   onFocus: () => void;
-  // (undocumented)
   value: FieldValue;
+  name: string;
+  'aria-invalid': 'true' | 'false';
+  'aria-labelledby': string;
 }
 
-// @public
-export const Fieldset: ({ children, legend }: FieldsetProps) => JSX.Element;
+/**
+ * __Fieldset__
+ *
+ * A fieldset groups a number of fields together. For example, when multiple CheckboxFields share the same name,
+ * a fieldset can be used to group them together. This makes the form more accessible.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields)
+ * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields)
+ */
+export declare const Fieldset: ({
+  children,
+  legend,
+}: FieldsetProps) => JSX.Element;
 
-// @public (undocumented)
-function Form<FormValues extends Record<string, any> = {}>(
+declare interface FieldsetProps {
+  /**
+   * Content to render in the fieldset.
+   */
+  children: ReactNode;
+  /**
+   * Label describing the contents of the fieldset.
+   */
+  legend?: ReactNode;
+}
+
+declare function Form<FormValues extends Record<string, any> = {}>(
   props: FormProps<FormValues>,
 ): JSX.Element;
 export default Form;
 
-// @public (undocumented)
-export type FormApi<FormData> = FormApi_2<FormData>;
+export declare type FormApi<FormData> = FormApi_2<FormData>;
 
-// @public
-export function FormFooter({ align, children }: FormFooterProps): JSX.Element;
+declare interface FormChildrenProps {
+  ref: React_2.RefObject<HTMLFormElement>;
+  onSubmit: (
+    event?:
+      | React_2.FormEvent<HTMLFormElement>
+      | React_2.SyntheticEvent<HTMLElement>,
+  ) => void;
+  onKeyDown: (event: React_2.KeyboardEvent<HTMLElement>) => void;
+}
 
-// @public
-export const FormHeader: React.FC<FormHeaderProps>;
+/**
+ * __Form footer__
+ *
+ * A form footer has the content to be shown at the bottom of the form. This is usually the submit button.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ */
+export declare function FormFooter({
+  align,
+  children,
+}: FormFooterProps): JSX.Element;
 
-// @public (undocumented)
-export interface FormProps<FormValues> {
+declare interface FormFooterProps {
+  /**
+   * Content to render in the footer of the form.
+   */
+  children?: ReactNode;
+  /**
+   * Sets the alignment of the footer contents. This is often a button. This should be left-aligned in single-page forms, flags, cards, and section messages.
+   */
+  align?: Align;
+}
+
+/**
+ * __Form header__
+ *
+ * A form header contains the form component's heading and subheadings. This provides the correct padding
+ * and styling for it.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ */
+export declare const FormHeader: React.FC<FormHeaderProps>;
+
+declare interface FormHeaderProps {
+  /**
+   * Title of the form. This is a header.
+   */
+  title?: ReactNode;
+  /**
+   * Description or subtitle of the form.
+   */
+  description?: ReactNode;
+  /**
+   * Child content to render in the form below the title and description.
+   */
+  children?: ReactNode;
+}
+
+export declare interface FormProps<FormValues> {
+  /**
+   *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
+   *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
+   */
   children: (args: {
     formProps: FormChildrenProps;
     disabled: boolean;
     dirty: boolean;
     submitting: boolean;
     getState: () => FormState<FormValues>;
+    /**
+     * @deprecated
+     */
     getValues: () => FormValues;
     setFieldValue: (name: string, value: any) => void;
     reset: (initialValues?: FormValues) => void;
   }) => ReactNode;
-  isDisabled?: boolean;
+  /**
+   *   Event handler called when the form is submitted. Fields must be free of validation errors.
+   */
   onSubmit: OnSubmitHandler<FormValues>;
+  /**
+   *   Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
+   */
+  isDisabled?: boolean;
 }
 
-// @public
-export const FormSection: React_2.FC<FormSectionProps>;
+/**
+ * __Form section__
+ *
+ * A form section is used to define a section of a form layout. This contains a section title, content
+ * and a description of the section.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout)
+ */
+export declare const FormSection: React_2.FC<FormSectionProps>;
 
-// @public
-export const HelperMessage: React_2.FC<MessageProps>;
+declare interface FormSectionProps {
+  /**
+   * Title of the form section.
+   */
+  title?: ReactNode;
+  /**
+   * Content or components to render after the description.
+   */
+  children?: ReactNode;
+  /**
+   * Description of the contents of the section.
+   */
+  description?: ReactNode;
+}
 
-// @public
-export const Label: FC<LabelProps>;
+/**
+ * __Helper message__
+ *
+ * A helper message tells the user what kind of input the field takes. For example, a helper message could be
+ * 'Password should be more than 4 characters'
+ *
+ */
+export declare const HelperMessage: React_2.FC<MessageProps>;
 
-// @public (undocumented)
-export interface LabelProps {
-  // (undocumented)
-  htmlFor: string;
-  // (undocumented)
+/**
+ * __Label__
+ *
+ * A label represents a caption for an item in a user interface.
+ *
+ * It's recommended that a label has a `4px` spacing above its associated
+ * control element.
+ */
+export declare const Label: FC<LabelProps>;
+
+export declare interface LabelProps {
   id?: string;
+  htmlFor: string;
 }
 
-// @public (undocumented)
-export type OnSubmitHandler<FormData> = (
+declare interface MessageProps {
+  /**
+   * The content of the message
+   */
+  children: ReactNode;
+  /**
+   * A testId prop is provided for specified elements, which is a unique string
+   *  that appears as a data attribute data-testid in the rendered code,
+   *  serving as a hook for automated tests
+   */
+  testId?: string;
+  /**
+   * Checks whether message input is invalid and should show an error.
+   */
+  error?: boolean;
+  /**
+   * Checks whether message input is valid.
+   */
+  valid?: boolean;
+  fieldId?: string;
+}
+
+declare interface Meta {
+  dirty: boolean;
+  dirtySinceLastSubmit: boolean;
+  submitFailed: boolean;
+  submitting: boolean;
+  touched: boolean;
+  valid: boolean;
+  error?: string;
+  submitError?: boolean;
+  validating?: boolean;
+}
+
+export declare type OnSubmitHandler<FormData> = (
   values: FormData,
   form: FormApi<FormData>,
   callback?: (errors?: Record<string, string>) => void,
 ) => void | Object | Promise<Object | void>;
 
-// @public
-export const RangeField: FC<RangeFieldProps>;
+/**
+ * __Range field__
+ *
+ * A range field is where a user can submit a range input as a part of a form.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
+ * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields#rangefield-reference)
+ */
+export declare const RangeField: FC<RangeFieldProps>;
 
-// @public (undocumented)
-export interface RangeFieldProps {
-  // (undocumented)
+export declare interface RangeFieldProps {
   children: (args: {
     fieldProps: RangeProps;
     error?: string;
     meta: Meta;
   }) => React_2.ReactNode;
-  defaultValue: number | ((currentDefaultValue?: number) => number);
-  id?: string;
-  isDisabled?: boolean;
-  label?: ReactNode;
+  /**
+   * Specifies the name of the field. This is important for referencing the form data.
+   */
   name: string;
+  /**
+   *  Sets the default value of the field. If a function is provided, it is called with the current default value of the field.
+   */
+  defaultValue: number | ((currentDefaultValue?: number) => number);
+  /**
+   * Value passed to the `id` attribute of the field. This is randomly generated if it is not specified.
+   */
+  id?: string;
+  /**
+   * Sets whether the field is disabled. Users cannot edit or focus on the fields. If the parent form component is disabled, then the field will always be disabled.
+   */
+  isDisabled?: boolean;
+  /**
+   * Displays a label above the range field and identifies the form fields.
+   */
+  label?: ReactNode;
 }
 
-// @public
-export const ValidMessage: React_2.FC<MessageProps>;
+declare type RangeProps = Omit<FieldProps<number>, 'isInvalid' | 'isRequired'>;
 
-// (No @packageDocumentation comment for this package)
+declare type SupportedElements =
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement;
+
+/**
+ * __Valid message__
+ *
+ * A valid message is used to tell a user that the field input is valid. For example,
+ * a helper message could be 'Nice one, this username is available'.
+ *
+ */
+export declare const ValidMessage: React_2.FC<MessageProps>;
+
+export {};
 ```

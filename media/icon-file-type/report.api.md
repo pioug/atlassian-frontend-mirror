@@ -7,5 +7,5 @@ import { default as default_2 } from '@atlaskit/icon/base';
 
 export default default_2;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

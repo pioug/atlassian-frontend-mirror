@@ -6,9 +6,35 @@
 import { FC } from 'react';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-const Banner: FC<BannerProps>;
+declare const Banner: FC<BannerProps>;
 export default Banner;
 
-// (No @packageDocumentation comment for this package)
+declare interface BannerProps {
+  /**
+   * Visual style to be used for the banner
+   */
+  appearance?: 'warning' | 'error' | 'announcement';
+  /**
+   * Content to be shown next to the icon. Typically text content but can contain links.
+   */
+  children?: React_2.ReactNode;
+  /**
+   * Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/design-system/icon)
+   */
+  icon?: React_2.ReactChild;
+  /**
+   * Defines whether the banner is shown. An animation is used when the value is changed.
+   */
+  isOpen?: boolean;
+  /**
+   * Returns the inner ref of the component. This is exposed so the height can be used in page.
+   */
+  innerRef?: (element: HTMLElement) => void;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   */
+  testId?: string;
+}
+
+export {};
 ```

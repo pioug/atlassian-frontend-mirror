@@ -11,8 +11,78 @@ import { ReactNode } from 'react';
 import { ThemeProp } from '@atlaskit/theme/components';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-const TextArea: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
+declare type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+declare interface OwnProps extends WithAnalyticsEventsProps {
+  /**
+   * controls the appearance of the field.
+   * subtle shows styling on hover.
+   * none prevents all field styling.
+   */
+  appearance?: 'standard' | 'subtle' | 'none';
+  /** Set whether the fields should expand to fill available horizontal space. */
+  isCompact?: boolean;
+  /** Sets the field as uneditable, with a changed hover state. */
+  isDisabled?: boolean;
+  /** If true, prevents the value of the input from being edited. */
+  isReadOnly?: boolean;
+  /** Set required for form that the field is part of. */
+  isRequired?: boolean;
+  /** Sets styling to indicate that the input is invalid. */
+  isInvalid?: boolean;
+  /** The minimum number of rows of text to display */
+  minimumRows?: number;
+  /** The maxheight of the textarea */
+  maxHeight?: string;
+  /** The value of the text-area. */
+  value?: string;
+  /** The default value of the textarea */
+  defaultValue?: string;
+  /** Name of the input form control */
+  name?: string;
+  /** The placeholder within the textarea */
+  placeholder?: string;
+  /** Handler to be called when the input is blurred */
+  onBlur?: React_2.FocusEventHandler<HTMLTextAreaElement>;
+  /** Handler to be called when the input changes. */
+  onChange?: React_2.ChangeEventHandler<HTMLTextAreaElement>;
+  /** Handler to be called when the input is focused */
+  onFocus?: React_2.FocusEventHandler<HTMLTextAreaElement>;
+  /** Sets content text value to monospace */
+  isMonospaced?: boolean;
+  /**
+   * Enables the resizing of the textarea:
+   * auto: both directions.
+   * horizontal: only along the x axis.
+   * vertical: only along the y axis.
+   * smart (default): vertically grows and shrinks the textarea automatically to wrap your input text.
+   * none: explicitly disallow resizing on the textarea.
+   */
+  resize?: 'auto' | 'vertical' | 'horizontal' | 'smart' | 'none';
+  /**
+   * Enables native spell check on the `textarea` element.
+   */
+  spellCheck?: boolean;
+  /**
+   * The theme function TextArea consumes to derive theming constants for use in styling its components
+   */
+  theme?: any;
+  /**
+   * A `testId` prop is provided for specified elements, which is a unique
+   * string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests */
+  testId?: string;
+}
+
+declare type Props = Combine<
+  Omit<
+    React_2.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'disabled' | 'required' | 'readonly'
+  >,
+  OwnProps
+>;
+
+declare const TextArea: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
   Pick<
     Props,
     | 'appearance'
@@ -299,8 +369,7 @@ const TextArea: React_2.MemoExoticComponent<React_2.ForwardRefExoticComponent<
 >>;
 export default TextArea;
 
-// @public (undocumented)
-export const Theme: {
+export declare const Theme: {
   Consumer: ComponentType<
     {
       children: (tokens: ThemeTokens) => ReactNode;
@@ -313,17 +382,14 @@ export const Theme: {
   useTheme: (props: ThemeProps) => ThemeTokens;
 };
 
-// @public (undocumented)
-export type ThemeAppearance = 'standard' | 'subtle' | 'none';
+export declare type ThemeAppearance = 'standard' | 'subtle' | 'none';
 
-// @public (undocumented)
-export type ThemeProps = {
+export declare type ThemeProps = {
   appearance: ThemeAppearance;
   mode: 'dark' | 'light';
 };
 
-// @public (undocumented)
-export type ThemeTokens = {
+export declare type ThemeTokens = {
   borderColor: string;
   borderColorFocus: string;
   backgroundColor: string;
@@ -348,8 +414,7 @@ export type ThemeTokens = {
   placeholderTextColor: string;
 };
 
-// @public (undocumented)
-export const themeTokens: {
+export declare const themeTokens: {
   borderColor: {
     standard: {
       light: 'var(--ds-border-input)';
@@ -464,5 +529,5 @@ export const themeTokens: {
   };
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

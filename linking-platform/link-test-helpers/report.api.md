@@ -9,25 +9,23 @@ import { ReactWrapper } from 'enzyme';
 import { RenderResult } from '@testing-library/react';
 import { ShallowWrapper } from 'enzyme';
 
-// @public (undocumented)
-export const flushPromises: () => Promise<unknown>;
+export declare const flushPromises: () => Promise<unknown>;
 
-// @public (undocumented)
-export function mountWithIntl<
+export declare function mountWithIntl<
   P = {},
   S = {},
   C extends Component<P, S> = Component<P, S>
 >(jsx: JSX.Element): ReactWrapper<P, S, C>;
 
-// @public (undocumented)
-export const renderWithIntl: (component: React_2.ReactNode) => RenderResult;
+export declare const renderWithIntl: (
+  component: React_2.ReactNode,
+) => RenderResult;
 
-// @public (undocumented)
-export function shallowWithIntl<
+export declare function shallowWithIntl<
   P = {},
   S = {},
   C extends Component<P, S> = Component<P, S>
 >(jsx: JSX.Element): ShallowWrapper<P, S, C>;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

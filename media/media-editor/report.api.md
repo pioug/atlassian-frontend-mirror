@@ -10,52 +10,94 @@ import { WithIntlProps } from 'react-intl-next';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export interface Dimensions {
-  // (undocumented)
-  height: number;
-  // (undocumented)
-  width: number;
+declare interface AsyncEditorViewState {
+  EditorView?: typeof _default;
 }
 
-// @public (undocumented)
-export class EditorView extends React_2.PureComponent<
+declare interface AsyncSmartMediaEditorState {
+  SmartMediaEditor?: SmartEditorWithMediaClientConfigComponent;
+}
+
+declare type CancelInputType = 'esc' | 'button';
+
+declare const _default: React_2.FC<
+  WithIntlProps<EditorViewProps & WrappedComponentProps<'intl'>>
+> & {
+  WrappedComponent: React_2.ComponentType<
+    EditorViewProps & WrappedComponentProps<'intl'>
+  >;
+};
+
+export declare interface Dimensions {
+  width: number;
+  height: number;
+}
+
+export declare class EditorView extends React_2.PureComponent<
   EditorViewProps & AsyncEditorViewState,
   AsyncEditorViewState
 > {
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
   static EditorView?: typeof _default;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
   state: AsyncEditorViewState;
-  // (undocumented)
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export class SmartMediaEditor extends React_2.PureComponent<
+declare interface EditorViewProps {
+  readonly imageUrl: string;
+  readonly onSave: (image: string, dimensions: Dimensions) => void;
+  readonly onCancel: (input: CancelInputType) => void;
+  readonly onError: (message: string) => void;
+  readonly onAnyEdit?: (tool: Tool, shapeParameters: ShapeParameters) => void;
+}
+
+declare interface ShapeParameters {
+  color: string;
+  lineWidth: number;
+  addShadow: boolean;
+}
+
+declare type SmartEditorWithMediaClientConfigComponent = React_2.ComponentType<
+  SmartEditorWithMediaClientConfigProps
+>;
+
+declare type SmartEditorWithMediaClientConfigProps = WithMediaClientConfigProps<
+  SmartMediaEditorProps
+>;
+
+export declare class SmartMediaEditor extends React_2.PureComponent<
   SmartEditorWithMediaClientConfigProps & AsyncSmartMediaEditorState,
   AsyncSmartMediaEditorState & {
     isErrored: boolean;
   }
 > {
-  // (undocumented)
   static displayName: string;
-  // (undocumented)
-  render(): JSX.Element | null;
-  // (undocumented)
   static SmartMediaEditor?: SmartEditorWithMediaClientConfigComponent;
-  // (undocumented)
   state: {
     SmartMediaEditor: SmartEditorWithMediaClientConfigComponent | undefined;
     isErrored: boolean;
   };
-  // (undocumented)
   UNSAFE_componentWillMount(): Promise<void>;
+  render(): JSX.Element | null;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface SmartMediaEditorProps {
+  identifier: FileIdentifier;
+  mediaClient: MediaClient;
+  onUploadStart?: (identifier: FileIdentifier, dimensions: Dimensions) => void;
+  onFinish?: (identifier: FileIdentifier) => void;
+  onClose?: () => void;
+}
+
+declare type Tool =
+  | 'line'
+  | 'blur'
+  | 'arrow'
+  | 'brush'
+  | 'oval'
+  | 'rectangle'
+  | 'text';
+
+export {};
 ```

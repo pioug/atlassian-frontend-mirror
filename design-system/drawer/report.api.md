@@ -11,33 +11,41 @@ import { SyntheticEvent } from 'react';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
-// @public (undocumented)
-export interface BaseProps {
-  children?: ReactNode;
-  icon?: ComponentType<any>;
-  onCloseComplete?: (node: HTMLElement | null) => void;
-  onOpenComplete?: (node: HTMLElement | null) => void;
-  overrides?: OverridesType;
-  // @deprecated (undocumented)
-  shouldUnmountOnExit?: boolean;
+export declare interface BaseProps {
+  /** A unique hook to be used for testing. */
   testId?: string;
+  /** The content of the drawer. */
+  children?: ReactNode;
+  /** Icon to be rendered in your drawer as a component, if available. */
+  icon?: ComponentType<any>;
+  /** Available drawer sizes. */
   width?: DrawerWidth;
+  /** A callback function that will be called when the drawer has finished its opening transition. */
+  onOpenComplete?: (node: HTMLElement | null) => void;
+  /** A callback function that will be called when the drawer has finished its close transition. */
+  onCloseComplete?: (node: HTMLElement | null) => void;
+  /**
+   *  * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release.
+   * Boolean that controls if drawer should be retained/discarded
+   * */
+  shouldUnmountOnExit?: boolean;
+  /** Override drawer components. */
+  overrides?: OverridesType;
 }
 
-// @public
-export type CloseTrigger = 'backButton' | 'blanket' | 'escKey';
+/** Type of keyboard event that triggers which key will should close the drawer. */
+export declare type CloseTrigger = 'backButton' | 'blanket' | 'escKey';
 
-// @public (undocumented)
-export type ContentCSSProps = Omit<ContentProps, 'cssFn'>;
+export declare type ContentCSSProps = Omit<ContentProps, 'cssFn'>;
 
-// @public (undocumented)
-export interface ContentProps extends React.HTMLProps<HTMLDivElement> {
-  // @deprecated (undocumented)
+export declare interface ContentProps extends React.HTMLProps<HTMLDivElement> {
+  /**
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+   */
   cssFn: (defaultStyles: CSSObject) => CSSObject;
 }
 
-// @public (undocumented)
-const _default: React_2.ForwardRefExoticComponent<
+declare const _default: React_2.ForwardRefExoticComponent<
   Pick<
     Pick<
       Omit<DrawerProps, keyof WithAnalyticsEventsProps>,
@@ -95,8 +103,7 @@ const _default: React_2.ForwardRefExoticComponent<
 >;
 export default _default;
 
-// @public (undocumented)
-export type DefaultsType = {
+export declare type DefaultsType = {
   Sidebar: {
     component: React.ComponentType<SidebarProps>;
     cssFn: (defaultStyles: CSSObject) => CSSObject;
@@ -107,66 +114,77 @@ export type DefaultsType = {
   };
 };
 
-// @public (undocumented)
-export type DrawerPrimitiveDefaults = Pick<DefaultsType, 'Sidebar' | 'Content'>;
+export declare type DrawerPrimitiveDefaults = Pick<
+  DefaultsType,
+  'Sidebar' | 'Content'
+>;
 
-// @public (undocumented)
-export type DrawerPrimitiveOverrides = Pick<
+export declare type DrawerPrimitiveOverrides = Pick<
   OverridesType,
   'Sidebar' | 'Content'
 >;
 
-// @public (undocumented)
-export interface DrawerPrimitiveProps extends BaseProps {
-  // (undocumented)
+export declare interface DrawerPrimitiveProps extends BaseProps {
   in: boolean;
-  // (undocumented)
   onClose: (event: SyntheticEvent<HTMLElement>) => void;
 }
 
-// @public (undocumented)
-export type DrawerProps = BaseProps &
+export declare type DrawerProps = BaseProps &
   FocusLockProps &
   WithAnalyticsEventsProps & {
+    /** Callback function called while the drawer is displayed and `keydown` event is triggered. */
     onKeyDown?: (event: SyntheticEvent) => void;
+    /** Callback function called when the drawer is closed. */
     onClose?: (event: SyntheticEvent<HTMLElement>, analyticsEvent: any) => void;
+    /** Controls if the drawer is open or closed. */
     isOpen: boolean;
   };
 
-// @public (undocumented)
-export type DrawerWidth = 'extended' | 'full' | 'medium' | 'narrow' | 'wide';
+export declare type DrawerWidth =
+  | 'extended'
+  | 'full'
+  | 'medium'
+  | 'narrow'
+  | 'wide';
 
-// @public (undocumented)
-export interface FocusLockProps {
+export declare interface FocusLockProps {
+  /** Controls whether to focus the first tabbable element inside the focus lock. */
   autoFocusFirstElem?: boolean | (() => HTMLElement | null);
+  /** Content inside the focus lock. */
   children?: ReactNode;
+  /**  Whether the focus lock is active or not. */
   isFocusLockEnabled?: boolean;
+  /** Whether to return the focus to the previous active element on closing the drawer. */
   shouldReturnFocus?: boolean;
 }
 
-// @public (undocumented)
-export type OverridesType = {
+export declare type OverridesType = {
   Sidebar?: {
     component?: React.ComponentType<SidebarProps>;
+    /**
+     * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+     */
     cssFn?: (defaultStyles: CSSObject) => CSSObject;
   };
   Content?: {
     component?: React.ComponentType<ContentProps>;
+    /**
+     * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+     */
     cssFn?: (defaultStyles: CSSObject) => CSSObject;
   };
 };
 
-// @public (undocumented)
-export type SidebarCSSProps = Omit<SidebarProps, 'cssFn'>;
+export declare type SidebarCSSProps = Omit<SidebarProps, 'cssFn'>;
 
-// @public (undocumented)
-export interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
-  // @deprecated (undocumented)
+export declare interface SidebarProps extends React.HTMLProps<HTMLDivElement> {
+  /**
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2673 for more information.
+   */
   cssFn: (defaultStyles: CSSObject) => CSSObject;
 }
 
-// @public (undocumented)
-export type Widths = {
+export declare type Widths = {
   extended: string;
   full: string;
   medium: number;
@@ -174,5 +192,5 @@ export type Widths = {
   wide: number;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

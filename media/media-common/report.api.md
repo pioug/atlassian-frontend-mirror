@@ -6,46 +6,50 @@
 import { GasCorePayload } from '@atlaskit/analytics-gas-types';
 import { default as React_2 } from 'react';
 
-// @public (undocumented)
-export const ANALYTICS_MEDIA_CHANNEL = 'media';
+export declare const ANALYTICS_MEDIA_CHANNEL = 'media';
 
-// @public (undocumented)
-export const areEqualFeatureFlags: (
+export declare const areEqualFeatureFlags: (
   ffA?: MediaFeatureFlags | undefined,
   ffB?: MediaFeatureFlags | undefined,
 ) => boolean;
 
-// @public (undocumented)
-export type ContextPublicAttributes = PackageAttributes;
+declare type BaseAttributes = {};
 
-// @public (undocumented)
-export type ContextStaticProps = WithMediaFeatureFlags;
+declare type BaseEventPayload<Attributes extends BaseAttributes> = Omit<
+  GasCorePayload,
+  'attributes'
+> & {
+  attributes: Attributes;
+};
 
-// @public (undocumented)
-export const debounce: (
+export declare type ContextPublicAttributes = PackageAttributes;
+
+export declare type ContextStaticProps = WithMediaFeatureFlags;
+
+export declare const debounce: (
   func: Function,
   wait: number,
 ) => (...args: any[]) => void;
 
-// @public (undocumented)
-export const defaultMediaFeatureFlags: Required<MediaFeatureFlags>;
+export declare const defaultMediaFeatureFlags: Required<MediaFeatureFlags>;
 
-// @public (undocumented)
-export const downloadUrl: (
+export declare const downloadUrl: (
   url: string,
   options?: DownloadUrlOptions | undefined,
 ) => void;
 
-// @public (undocumented)
-export type FailureAttributes = {
+declare interface DownloadUrlOptions {
+  name?: string;
+}
+
+export declare type FailureAttributes = {
   status: 'fail';
   failReason: string;
   error?: string;
   errorDetail?: string;
 };
 
-// @public (undocumented)
-export type FileAttributes = {
+export declare type FileAttributes = {
   fileId: string;
   fileSize?: number;
   fileMediatype?: MediaType;
@@ -54,88 +58,91 @@ export type FileAttributes = {
   fileStatus?: FileStatus;
 };
 
-// @public (undocumented)
-export type FileStatus =
+export declare type FileStatus =
   | 'uploading'
   | 'processing'
   | 'processed'
   | 'error'
   | 'failed-processing';
 
-// @public
-export const filterFeatureFlagKeysAllProducts: (
+/**
+ * Takes a record of {Media Feature Flag Names → boolean}.
+ * Returns the Launch Darkly Keys from all products for each of the flags set as true in the input record.
+ * */
+export declare const filterFeatureFlagKeysAllProducts: (
   flags: RequiredMediaFeatureFlags,
 ) => Array<string>;
 
-// @public (undocumented)
-export const filterFeatureFlagNames: (
+export declare const filterFeatureFlagNames: (
   flags: RequiredMediaFeatureFlags,
 ) => Array<keyof MediaFeatureFlags>;
 
-// @public
-export function getMediaFeatureFlag<T = boolean>(
+/**
+ * Public accessor from components to fallback to defaults if flags not passed,
+ * otherwise whatever product has set will be returned.
+ *
+ * To override locally for testing:
+ * - `localStorage[flagName] = true` to enable locally,
+ * - `delete localStorage[flagName]` to remove.
+ *
+ * (you will see a warning in console if override used)
+ * */
+export declare function getMediaFeatureFlag<T = boolean>(
   flagName: keyof MediaFeatureFlags,
   featureFlags?: MediaFeatureFlags,
 ): T;
 
-// @public (undocumented)
-export const getMediaTypeFromMimeType: (mimeType: string) => MediaType;
+export declare const getMediaTypeFromMimeType: (mimeType: string) => MediaType;
 
-// @public (undocumented)
-export const isAudioMimeTypeSupportedByServer: (mimeType: string) => boolean;
-
-// @public (undocumented)
-export const isDocumentMimeTypeSupportedByBrowser: (
+export declare const isAudioMimeTypeSupportedByServer: (
   mimeType: string,
 ) => boolean;
 
-// @public (undocumented)
-export const isDocumentMimeTypeSupportedByServer: (mimeType: string) => boolean;
+export declare const isDocumentMimeTypeSupportedByBrowser: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isImageMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
+export declare const isDocumentMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isImageMimeTypeSupportedByServer: (mimeType: string) => boolean;
+export declare const isImageMimeTypeSupportedByBrowser: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isMimeTypeSupportedByBrowser: (mimeType: string) => boolean;
+export declare const isImageMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isMimeTypeSupportedByServer: (mimeType: string) => boolean;
+export declare const isMimeTypeSupportedByBrowser: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const isUndefined: (value: any) => boolean;
+export declare const isMimeTypeSupportedByServer: (mimeType: string) => boolean;
 
-// @public (undocumented)
-export const isUnknownMimeTypeSupportedByServer: (mimeType: string) => boolean;
+export declare const isUndefined: (value: any) => boolean;
 
-// @public (undocumented)
-export const isVideoMimeTypeSupportedByServer: (mimeType: string) => boolean;
+export declare const isUnknownMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export const matches: (srcObj: Object) => (obj: Object) => boolean;
+export declare const isVideoMimeTypeSupportedByServer: (
+  mimeType: string,
+) => boolean;
 
-// @public (undocumented)
-export interface MediaFeatureFlags {
-  // (undocumented)
-  captions?: boolean;
-  // (undocumented)
-  folderUploads?: boolean;
-  // (undocumented)
-  mediaInline?: boolean;
-  // (undocumented)
-  mediaUploadApiV2?: boolean;
-  // (undocumented)
+export declare const matches: (srcObj: Object) => (obj: Object) => boolean;
+
+export declare interface MediaFeatureFlags {
   newCardExperience?: boolean;
-  // (undocumented)
+  captions?: boolean;
+  mediaInline?: boolean;
+  folderUploads?: boolean;
   observedWidth?: boolean;
-  // (undocumented)
   timestampOnVideo?: boolean;
+  mediaUploadApiV2?: boolean;
 }
 
-// @public (undocumented)
-export type MediaType =
+export declare type MediaType =
   | 'doc'
   | 'audio'
   | 'video'
@@ -143,24 +150,19 @@ export type MediaType =
   | 'archive'
   | 'unknown';
 
-// @public (undocumented)
-export interface NumericalCardDimensions {
-  // (undocumented)
-  height: number;
-  // (undocumented)
+export declare interface NumericalCardDimensions {
   width: number;
+  height: number;
 }
 
-// @public (undocumented)
-export const omitBy: (
+export declare const omitBy: (
   obj: Object,
   predicate: Function,
 ) => {
   [k: string]: any;
 };
 
-// @public (undocumented)
-export type OperationalAttributes =
+export declare type OperationalAttributes =
   | BaseAttributes
   | (BaseAttributes & WithFileAttributes)
   | (BaseAttributes & WithFileAttributes & StatusAttributes)
@@ -169,8 +171,7 @@ export type OperationalAttributes =
       StatusAttributes &
       WithPerformanceAttributes);
 
-// @public (undocumented)
-export type OperationalEventPayload<
+export declare type OperationalEventPayload<
   Attributes extends OperationalAttributes,
   Action extends string,
   ActionSubject extends string,
@@ -182,37 +183,37 @@ export type OperationalEventPayload<
   actionSubjectId?: ActionSubjectId;
 };
 
-// @public (undocumented)
-export type PackageAttributes = {
+export declare type PackageAttributes = {
   packageName: string;
   packageVersion: string;
   componentName: string;
   component: string;
 };
 
-// @public (undocumented)
-export type PerformanceAttributes = {
+export declare type PerformanceAttributes = {
   overall: {
     durationSincePageStart: number;
     durationSinceCommenced?: number;
   };
 };
 
-// @public (undocumented)
-export const pick: (
+export declare const pick: (
   obj?: Object | undefined,
   keys?: Array<String>,
 ) => {
   [k: string]: any;
 };
 
-// @public (undocumented)
-export type ScreenAttributes =
+declare type RequiredMediaFeatureFlags = Record<
+  keyof Required<MediaFeatureFlags>,
+  boolean
+>;
+
+export declare type ScreenAttributes =
   | BaseAttributes
   | (BaseAttributes & WithFileAttributes);
 
-// @public (undocumented)
-export type ScreenEventPayload<
+export declare type ScreenEventPayload<
   Attributes extends ScreenAttributes,
   ActionSubject extends string
 > = BaseEventPayload<Attributes> & {
@@ -221,21 +222,19 @@ export type ScreenEventPayload<
   name: ActionSubject;
 };
 
-// @public (undocumented)
-export type SSR = 'client' | 'server';
+export declare type SSR = 'client' | 'server';
 
-// @public (undocumented)
-export type SuccessAttributes = {
+declare type StatusAttributes = SuccessAttributes | FailureAttributes;
+
+export declare type SuccessAttributes = {
   status: 'success';
 };
 
-// @public (undocumented)
-export type TrackAttributes =
+export declare type TrackAttributes =
   | BaseAttributes
   | (BaseAttributes & WithFileAttributes);
 
-// @public (undocumented)
-export type TrackEventPayload<
+export declare type TrackEventPayload<
   Attributes extends TrackAttributes,
   Action extends string,
   ActionSubject extends string,
@@ -247,13 +246,11 @@ export type TrackEventPayload<
   actionSubjectId?: ActionSubjectId;
 };
 
-// @public (undocumented)
-export type UIAttributes =
+export declare type UIAttributes =
   | BaseAttributes
   | (BaseAttributes & WithFileAttributes);
 
-// @public (undocumented)
-export type UIEventPayload<
+export declare type UIEventPayload<
   Attributes extends UIAttributes,
   Action extends string,
   ActionSubject extends string
@@ -264,18 +261,27 @@ export type UIEventPayload<
   actionSubjectId?: string;
 };
 
-// @public (undocumented)
-export const useMemoizeFeatureFlags: (
+export declare const useMemoizeFeatureFlags: (
   featureFlags?: MediaFeatureFlags | undefined,
 ) => MediaFeatureFlags | undefined;
 
-// @public (undocumented)
-export type WithFileAttributes = {
+export declare type WithFileAttributes = {
   fileAttributes: FileAttributes;
 };
 
-// @public
-export const withMediaAnalyticsContext: (
+/**
+ * HOC for attaching MediaAnalyticsContext to a top-level React Component.
+ *
+ * Similar than "packages/analytics/analytics-next/src/hocs/withAnalyticsContext.tsx",
+ * except that we restrict attributes put in this context using ContextPublicAttributes and ContextPrivateAttributes.
+ *
+ * As a constraint, the wrapped React Component's props must extend ContextStaticProps.
+ *
+ * @param {ContextPublicAttributes} attributes public attributes to put in context
+ *
+ * @see packages/analytics/analytics-next/src/hocs/withAnalyticsContext.tsx
+ */
+export declare const withMediaAnalyticsContext: (
   contextPublicAttributes: ContextPublicAttributes,
   options?: {
     filterFeatureFlags?: Array<keyof MediaFeatureFlags>;
@@ -290,16 +296,13 @@ export const withMediaAnalyticsContext: (
     React_2.RefAttributes<any>
 >;
 
-// @public (undocumented)
-export interface WithMediaFeatureFlags {
-  // (undocumented)
+export declare interface WithMediaFeatureFlags {
   featureFlags?: MediaFeatureFlags;
 }
 
-// @public (undocumented)
-export type WithPerformanceAttributes = {
+export declare type WithPerformanceAttributes = {
   performanceAttributes?: PerformanceAttributes;
 };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

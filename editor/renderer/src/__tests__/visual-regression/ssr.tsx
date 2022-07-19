@@ -83,7 +83,8 @@ describe('ssr for renderer', () => {
     await snapshot(page);
   });
 
-  it('should render image right dimensions for a resized image on the server', async () => {
+  // FIXME: Unskip via https://product-fabric.atlassian.net/browse/ED-15288
+  it.skip('should render image right dimensions for a resized image on the server', async () => {
     const { ReactRenderer } = require('../../index');
     const element = React.createElement(
       CustomProviders,

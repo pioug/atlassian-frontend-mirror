@@ -12,8 +12,7 @@ import { Provider } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 
-// @public (undocumented)
-export function asExperiment(
+export declare function asExperiment(
   experimentComponentMap: ExperimentComponentMap,
   experimentKey: string,
   callbacks: {
@@ -167,49 +166,45 @@ export function asExperiment(
   contextType?: React_2.Context<any> | undefined;
 };
 
-// @public (undocumented)
-export class CohortTracker extends Component<Props> {
-  // (undocumented)
-  componentDidMount(): void;
-  // (undocumented)
+export declare class CohortTracker extends Component<Props> {
   static displayName: string;
-  // (undocumented)
+  componentDidMount(): void;
   render(): null;
 }
 
-// @public (undocumented)
-export type EnrollmentDetails = {
+export declare type EnrollmentDetails = {
   cohort: string;
   isEligible: boolean;
   ineligibilityReasons?: string[];
 };
 
-// @public (undocumented)
-export const ExperimentConsumer: Consumer<ExperimentContext>;
+declare type EnrollmentOptions = {
+  [experimentKey: string]: any;
+};
 
-// @public (undocumented)
-export type ExperimentContext = {
+declare type ExperimentComponentMap = {
+  fallback: ComponentType<any>;
+  [key: string]: ComponentType<any>;
+};
+
+export declare const ExperimentConsumer: Consumer<ExperimentContext>;
+
+export declare type ExperimentContext = {
   experiments: Experiments;
   options?: ExperimentEnrollmentOptions;
 };
 
-// @public (undocumented)
-export class ExperimentController extends Component<Props_2, State_2> {
-  constructor(props: Props_2);
-  // (undocumented)
+export declare class ExperimentController extends Component<Props_2, State_2> {
   static displayName: string;
-  // (undocumented)
-  render(): JSX.Element;
-  // (undocumented)
+  resolverPromises: ResolverPromises;
+  constructor(props: Props_2);
   resolveEnrollmentForExperiment(
     experimentKey: ExperimentKey,
   ): Promise<EnrollmentDetails>;
-  // (undocumented)
-  resolverPromises: ResolverPromises;
+  render(): JSX.Element;
 }
 
-// @public (undocumented)
-export type ExperimentDetails =
+export declare type ExperimentDetails =
   | {
       isEnrollmentDecided: false;
       enrollmentResolver: ExperimentEnrollmentResolver;
@@ -219,34 +214,60 @@ export type ExperimentDetails =
       enrollmentDetails?: EnrollmentDetails;
     };
 
-// @public (undocumented)
-export type ExperimentEnrollmentConfig = {
+export declare type ExperimentEnrollmentConfig = {
   [experimentKey: string]: ExperimentEnrollmentResolver;
 };
 
-// @public (undocumented)
-export type ExperimentEnrollmentOptions = EnrollmentOptions | OptionsResolver;
+export declare type ExperimentEnrollmentOptions =
+  | EnrollmentOptions
+  | OptionsResolver;
 
-// @public (undocumented)
-export type ExperimentEnrollmentResolver = (
+export declare type ExperimentEnrollmentResolver = (
   options?: ExperimentEnrollmentOptions,
 ) => EnrollmentDetails | Promise<EnrollmentDetails>;
 
-// @public (undocumented)
-export type ExperimentKey = string;
+export declare type ExperimentKey = string;
 
-// @public (undocumented)
-export const ExperimentProvider: Provider<ExperimentContext>;
+export declare const ExperimentProvider: Provider<ExperimentContext>;
 
-// @public (undocumented)
-export type Experiments = {
+export declare type Experiments = {
   [experimentKey: string]: ExperimentDetails;
 };
 
-// @public (undocumented)
-export type ExposureDetails = EnrollmentDetails & {
+export declare type ExposureDetails = EnrollmentDetails & {
   experimentKey: ExperimentKey;
 };
 
-// (No @packageDocumentation comment for this package)
+declare type OptionsResolver = (
+  experimentKey: ExperimentKey,
+) => EnrollmentOptions;
+
+declare interface Props {
+  exposureDetails: ExposureDetails;
+  onExposure: (
+    exposureDetails: ExposureDetails,
+    options?: ExperimentEnrollmentOptions,
+  ) => void;
+  options?: ExperimentEnrollmentOptions;
+}
+
+declare type Props_2 = {
+  experimentEnrollmentConfig: ExperimentEnrollmentConfig;
+  experimentEnrollmentOptions?: ExperimentEnrollmentOptions;
+  children?: ReactNode;
+};
+
+declare type ResolverPromises = {
+  [experimentKey: string]: Promise<EnrollmentDetails>;
+};
+
+declare type State = {
+  forceFallback: boolean;
+};
+
+declare type State_2 = {
+  experiments: Experiments;
+};
+
+export {};
 ```

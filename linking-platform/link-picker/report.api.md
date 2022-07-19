@@ -10,11 +10,9 @@ import { default as React_2 } from 'react';
 import { WithIntlProps } from 'react-intl-next';
 import { WrappedComponentProps } from 'react-intl-next';
 
-// @public (undocumented)
-export type LinkInputType = 'manual' | 'typeAhead';
+export declare type LinkInputType = 'manual' | 'typeAhead';
 
-// @public (undocumented)
-export const LinkPicker: React_2.FC<
+export declare const LinkPicker: React_2.FC<
   WithIntlProps<WrappedComponentProps<'intl'> & LinkPickerProps>
 > & {
   WrappedComponent: React_2.ComponentType<
@@ -22,44 +20,81 @@ export const LinkPicker: React_2.FC<
   >;
 };
 
-// @public (undocumented)
-export interface LinkPickerPlugin {
-  // (undocumented)
+export declare interface LinkPickerPlugin {
   resolve: (
     state: LinkPickerState,
   ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;
 }
 
-// @public (undocumented)
-export interface LinkPickerProps {
-  displayText?: string | null;
-  onCancel: () => void;
+export declare interface LinkPickerProps {
+  /** Callback to fire on form submission. */
   onSubmit: (arg: OnSubmitParameter) => void;
-  plugins?: LinkPickerPlugin[];
+  /** Callback to fire when the cancel button is clicked. */
+  onCancel: () => void;
+  /** The url of the linked resource for editing. */
   url?: string;
+  /** The desired text to be displayed alternatively to the title of the linked resource for editing. */
+  displayText?: string | null;
+  /** Plugins that provide link suggestions / search capabilities. */
+  plugins?: LinkPickerPlugin[];
 }
 
-// @public (undocumented)
-export interface LinkPickerState {
+export declare interface LinkPickerState {
+  /** Current query string / URL input field value */
   query: string;
 }
 
-// @public (undocumented)
-export interface LinkSearchListItemData {
-  container?: string;
+export declare interface LinkSearchListItemData {
+  /** Unique identifiable attribute for the item */
+  objectId: string;
+  /** Name / title / display text of the link */
+  name: string;
+  /** URL of the resource being linked to */
+  url: string;
+  /** Icon to display in link result */
   icon:
     | string
     | React.ComponentType<{
         alt: string;
       }>;
+  /** Alt text describing the icon */
   iconAlt: string | MessageDescriptor;
-  lastUpdatedDate?: Date;
+  /** Context to display in link result */
+  container?: string;
+  /** Optional last view date to display in link result */
   lastViewedDate?: Date;
-  name: string;
-  objectId: string;
+  /** Optional last updated date to display in link result */
+  lastUpdatedDate?: Date;
+  /** Whether the result is pre-fetched from activity provider */
   prefetch?: boolean;
-  url: string;
 }
 
-// (No @packageDocumentation comment for this package)
+declare interface Meta {
+  /** Indicates how the link was picked. */
+  inputMethod: LinkInputType;
+}
+
+declare interface OnSubmitParameter {
+  /** The `url` of the linked resource. */
+  url: string;
+  /** The desired text to be displayed alternatively to the title of the linked resource. */
+  displayText: string | null;
+  /** The resolved `title` of the resource at the time of link picking (if applicable, null if not known). */
+  title: string | null;
+  /** Meta data about the link picking submission. */
+  meta: Meta;
+  /**
+   * The input value of the `url` field at time of submission if inserted "manually".
+   * This can useful if the `url` was manually inserted with a value that is different from the normalised value returned as `url`.
+   * @example
+   * { url: 'https://google.com', rawUrl: 'google.com' }
+   */
+  rawUrl?: string;
+}
+
+declare interface ResolveResult {
+  data: LinkSearchListItemData[];
+}
+
+export {};
 ```

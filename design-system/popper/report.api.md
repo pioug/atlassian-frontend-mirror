@@ -23,12 +23,13 @@ export { ManagerProps };
 
 export { Modifier };
 
+declare type Offset = [number | null | undefined, number | null | undefined];
+
 export { Placement };
 
 export { placements };
 
-// @public (undocumented)
-export function Popper<CustomModifiers>({
+export declare function Popper<CustomModifiers>({
   children,
   offset,
   placement,
@@ -43,11 +44,40 @@ export { PopperChildrenProps };
 
 export { PopperProps };
 
+declare interface Props<Modifiers> {
+  /**
+   * Returns the element to be positioned.
+   */
+  children?: (childrenProps: PopperChildrenProps) => React_2.ReactNode;
+  /**
+   * Distance the popup should be offset from the reference in the format of [along, away] (units in px).
+   * Defaults to [0, 8] - which means the popup will be 8px away from the edge of the reference specified
+   * by the `placement` prop.
+   */
+  offset?: Offset;
+  /**
+   * Which side of the Reference to show on.
+   */
+  placement?: Placement;
+  /**
+   * Replacement reference element to position popper relative to.
+   */
+  referenceElement?: HTMLElement | VirtualElement;
+  /**
+   * Additional modifiers and modifier overwrites.
+   */
+  modifiers?: PopperProps<Modifiers>['modifiers'];
+  /**
+   * Placement strategy used. Can be 'fixed' or 'absolute'
+   */
+  strategy?: PopperProps<Modifiers>['strategy'];
+}
+
 export { Reference };
 
 export { ReferenceProps };
 
 export { StrictModifier };
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

@@ -5,8 +5,7 @@
 ```ts
 import { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 
-// @public (undocumented)
-const manifestFunction: ({
+declare const manifestFunction: ({
   appKey,
   canMountinIframe,
 }: {
@@ -15,5 +14,5 @@ const manifestFunction: ({
 }) => ExtensionManifest;
 export default manifestFunction;
 
-// (No @packageDocumentation comment for this package)
+export {};
 ```

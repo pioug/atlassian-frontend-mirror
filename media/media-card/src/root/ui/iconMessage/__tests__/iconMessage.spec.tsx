@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { IconMessage } from '..';
-import { IconMessageWrapper } from '../styled';
+import { IconMessageWrapper } from '../iconMessageWrapper';
 import { messages } from '@atlaskit/media-ui';
 
 describe('iconMessage', () => {

@@ -124,7 +124,7 @@ describe('ElementList', () => {
       );
       expect(tooltipHitboxs.length).toBe(5);
       expect(
-        tooltipHitboxs.first().find('span[data-testid="element-item-0"]')
+        tooltipHitboxs.first().find('button[data-testid="element-item-0"]')
           .length,
       ).toBe(1);
     });

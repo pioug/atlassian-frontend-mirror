@@ -1,5 +1,6 @@
+/**@jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
-import styled from 'styled-components';
 import {
   createStorybookMediaClientConfig,
   genericFileId,
@@ -9,11 +10,11 @@ import { MainWrapper } from '../example-helpers';
 
 const dimensions = { width: 500, height: 400 };
 
-const CardWrapper = styled.div`
+const cardWrapperStyles = css`
   width: ${dimensions.width}px;
   margin: auto;
 `;
-const DummyContent: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
+const dummyContentStyles = css`
   height: 300vh;
 `;
 
@@ -23,17 +24,17 @@ class Example extends React.Component<{}, {}> {
   render() {
     return (
       <MainWrapper>
-        <DummyContent>
+        <div css={dummyContentStyles}>
           <h3>Scroll down to see Card loading once it hits the viewport</h3>
-        </DummyContent>
-        <CardWrapper>
+        </div>
+        <div css={cardWrapperStyles}>
           <Card
             mediaClientConfig={mediaClientConfig}
             identifier={genericFileId}
             disableOverlay={true}
             dimensions={dimensions}
           />
-        </CardWrapper>
+        </div>
       </MainWrapper>
     );
   }

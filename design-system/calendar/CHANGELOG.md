@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 12.3.0
+
+### Minor Changes
+
+- [`e1e33cfe0db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e1e33cfe0db) - [ux] Adds tabIndex prop for `@atlaskit/calendar`, useful when needing to disable calendar from receiving focus by keyboard.
+
 ## 12.2.0
 
 ### Minor Changes

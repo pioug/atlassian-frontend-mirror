@@ -1,19 +1,11 @@
 /** @jsx jsx */
 import React, { useCallback, useMemo, useRef, useLayoutEffect } from 'react';
 import { css, jsx } from '@emotion/react';
-import {
-  text as colorsText,
-  N200,
-  N20,
-  DN70,
-  N800,
-  DN600,
-  DN300,
-} from '@atlaskit/theme/colors';
+import { DN600, N200, N800 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item, { itemThemeNamespace } from '@atlaskit/item';
+import { ThemeProps } from '@atlaskit/theme/types';
+import { ButtonItem } from '@atlaskit/menu';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
 import IconFallback from '../../quick-insert/assets/fallback';
@@ -25,42 +17,6 @@ import { token } from '@atlaskit/tokens';
 export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
 export const ITEM_PADDING = 12;
-
-export const itemTheme = {
-  [itemThemeNamespace]: {
-    padding: {
-      default: {
-        bottom: ITEM_PADDING,
-        left: ITEM_PADDING,
-        right: ITEM_PADDING,
-        top: ITEM_PADDING,
-      },
-    },
-    beforeItemSpacing: {
-      default: () => ITEM_PADDING,
-    },
-    borderRadius: () => 0,
-    hover: {
-      // background: colors.transparent, transparent is not a thing
-      text: colorsText,
-      secondaryText: token('color.text.subtlest', N200),
-    },
-    selected: {
-      background: themed({
-        light: token('color.background.neutral.subtle.hovered', N20),
-        dark: token('color.background.neutral.subtle.hovered', DN70),
-      }),
-      text: themed({
-        light: token('color.text', N800),
-        dark: token('color.text', DN600),
-      }),
-      secondaryText: themed({
-        light: token('color.text.subtlest', N200),
-        dark: token('color.text.subtlest', DN300),
-      }),
-    },
-  },
-};
 
 export const itemIcon = css`
   width: ${ICON_WIDTH}px;
@@ -88,8 +44,12 @@ const itemBody = css`
   line-height: 1.4;
 `;
 
-const itemText = css`
+const itemText = (theme: ThemeProps) => css`
   white-space: initial;
+  color: ${themed({
+    light: token('color.text', N800),
+    dark: token('color.text', DN600),
+  })(theme)};
   .item-description {
     font-size: ${relativeFontSizeToBase16(11.67)};
     color: ${token('color.text.subtlest', N200)};
@@ -188,29 +148,27 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
   }
 
   return (
-    <Item
-      onClick={insertSelectedItem}
-      onMouseMove={onMouseMove}
-      elemBefore={elementIcon}
-      isSelected={isSelected}
-      aria-selected={isSelected}
-      aria-label={item.title}
-      role="option"
-      theme={itemTheme}
-    >
-      <div css={itemBody}>
-        <div css={itemText}>
-          <div className="item-title">{item.title}</div>
-          {item.description && (
-            <div className="item-description">{item.description}</div>
-          )}
+    <span onMouseMove={onMouseMove}>
+      <ButtonItem
+        onClick={insertSelectedItem}
+        iconBefore={elementIcon}
+        isSelected={isSelected}
+        aria-selected={isSelected}
+        aria-label={item.title}
+        role="option"
+        description={item.description}
+      >
+        <div css={itemBody}>
+          <div css={itemText}>
+            <div className="item-title">{item.title}</div>
+          </div>
+          <div css={itemAfter}>
+            {item.keyshortcut && (
+              <div css={shortcutStyle}>{item.keyshortcut}</div>
+            )}
+          </div>
         </div>
-        <div css={itemAfter}>
-          {item.keyshortcut && (
-            <div css={shortcutStyle}>{item.keyshortcut}</div>
-          )}
-        </div>
-      </div>
-    </Item>
+      </ButtonItem>
+    </span>
   );
 };

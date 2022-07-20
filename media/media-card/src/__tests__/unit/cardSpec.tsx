@@ -1298,8 +1298,8 @@ describe('Card', () => {
 
       const contextData = card.find(AnalyticsContext).at(0).props().data;
       expect(contextData).toMatchObject({
-        packageVersion: '999.9.9',
-        packageName: '@atlaskit/media-card',
+        packageName: expect.any(String),
+        packageVersion: expect.any(String),
         componentName: 'mediaCard',
         component: 'mediaCard',
       });

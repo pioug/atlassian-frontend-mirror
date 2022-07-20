@@ -1,5 +1,13 @@
 # @atlaskit/media-editor
 
+## 39.2.2
+
+### Patch Changes
+
+- [`e3d4c39b20c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3d4c39b20c) - Remove version.json file.
+  Use injected package name and version from environment variable instead.
+- Updated dependencies
+
 ## 39.2.1
 
 ### Patch Changes

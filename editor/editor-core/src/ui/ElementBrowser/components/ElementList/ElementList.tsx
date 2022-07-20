@@ -1,13 +1,11 @@
 /** @jsx jsx */
 import React, { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
-import memoizeOne from 'memoize-one';
 import { AutoSizer, Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item from '@atlaskit/item';
-import { B100, N20, N200 } from '@atlaskit/theme/colors';
+import { ButtonItem } from '@atlaskit/menu';
+import { B100, N200 } from '@atlaskit/theme/colors';
 import Tooltip from '@atlaskit/tooltip';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -27,9 +25,7 @@ import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
 import { itemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';
 import { shortcutStyle } from '../../../styles';
 import {
-  ELEMENT_ITEM_HEIGHT,
   ELEMENT_LIST_PADDING,
-  GRID_SIZE,
   SCROLLBAR_THUMB_COLOR,
   SCROLLBAR_TRACK_COLOR,
   SCROLLBAR_WIDTH,
@@ -170,48 +166,6 @@ function ElementList({
   );
 }
 
-const getStyles = memoizeOne((mode) => {
-  return {
-    ...(mode === Modes.full && {
-      '-ms-flex': 'auto',
-      position: 'relative',
-      boxSizing: 'border-box',
-    }),
-    height: {
-      default: ELEMENT_ITEM_HEIGHT,
-    },
-    padding: {
-      default: {
-        top: GRID_SIZE * 1.5,
-        right: GRID_SIZE * 1.5,
-        bottom: GRID_SIZE * 1.5,
-        left: GRID_SIZE * 1.5,
-      },
-    },
-    borderRadius: GRID_SIZE / 2,
-    // TODO: apply a different background for when a selected item is hovered.
-    // Not possible due to current implementation of @atlaskit/item component.
-    selected: {
-      background: token('color.background.selected', N20),
-    },
-    hover: {
-      background: token(
-        'color.background.neutral.subtle.hovered',
-        'rgb(244, 245, 247)',
-      ),
-    },
-    active: {
-      background: token(
-        'color.background.neutral.subtle.pressed',
-        'rgb(244, 245, 247)',
-      ),
-    },
-    beforeItemSpacing: {
-      default: GRID_SIZE * 1.5,
-    },
-  };
-});
-
 type ElementItemType = {
   inlineMode: boolean;
   item: QuickInsertItem;
@@ -225,7 +179,7 @@ type ElementItemType = {
 const MemoizedElementItem = memo(ElementItem);
 MemoizedElementItem.displayName = 'MemoizedElementItem';
 
-function ElementItem({
+export function ElementItem({
   inlineMode,
   selected,
   item,
@@ -236,90 +190,64 @@ function ElementItem({
 }: ElementItemType) {
   const ref = useFocus(focus);
 
-  const theme = useMemo(
-    () => ({
-      '@atlaskit-shared-theme/item': getStyles(inlineMode ? 'inline' : 'full'),
-    }),
-    [inlineMode],
-  );
-
   /**
    * Note: props.onSelectItem(item) is not called here as the StatelessElementBrowser's
    * useEffect would trigger it on selectedItemIndex change. (Line 106-110)
    * This implementation was changed for keyboard/click selection to work with `onInsertItem`.
    */
   const onClick = useCallback(
-    (e: React.MouseEvent) => {
+    (
+      e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,
+    ) => {
       e.preventDefault();
       e.stopPropagation();
       setFocusedItemIndex(index);
-      if (inlineMode) {
-        onInsertItem(item);
+
+      switch (e.nativeEvent.detail) {
+        case 0:
+          onInsertItem(item);
+          break;
+        case 1:
+          if (inlineMode) {
+            onInsertItem(item);
+          }
+          break;
+        case 2:
+          if (!inlineMode) {
+            onInsertItem(item);
+          }
+          break;
+        default:
+          return;
       }
     },
     [index, inlineMode, item, onInsertItem, setFocusedItemIndex],
   );
 
-  const onDoubleClick = useCallback(
-    (e: React.MouseEvent) => {
-      if (inlineMode) {
-        return;
-      }
-      e.preventDefault();
-      e.stopPropagation();
-      setFocusedItemIndex(index);
-      onInsertItem(item);
-    },
-    [inlineMode, setFocusedItemIndex, index, onInsertItem, item],
-  );
-
-  // After tabbing we wanna select the item on enter/space key press from item level,
-  // preventing the default top level component behavior.
-  const onKeyPress = useCallback(
-    (e: React.KeyboardEvent) => {
-      const SPACE_KEY = 32;
-      const ENTER_KEY = 13;
-
-      if (e.which === ENTER_KEY || e.which === SPACE_KEY) {
-        e.preventDefault();
-        e.stopPropagation();
-        setFocusedItemIndex(index);
-        onInsertItem(item);
-      }
-    },
-    [index, item, onInsertItem, setFocusedItemIndex],
-  );
-
   const { icon, title, description, keyshortcut } = item;
   return (
     <Tooltip content={description} testId={`element-item-tooltip-${index}`}>
-      <Item
+      <ButtonItem
         onClick={onClick}
-        onDoubleClick={onDoubleClick}
-        elemBefore={<ElementBefore icon={icon} title={title} />}
+        iconBefore={<ElementBefore icon={icon} title={title} />}
         isSelected={selected}
         aria-describedby={title}
-        innerRef={ref}
-        onKeyPress={onKeyPress}
-        data-testid={`element-item-${index}`}
-        tabIndex={0}
-        style={inlineMode ? null : itemStyleOverrides}
-        theme={theme}
+        ref={ref}
+        testId={`element-item-${index}`}
       >
         <ItemContent
+          style={inlineMode ? null : itemStyleOverrides}
+          tabIndex={0}
           title={title}
           description={description}
           keyshortcut={keyshortcut}
         />
-      </Item>
+      </ButtonItem>
     </Tooltip>
   );
 }
 
 /**
- * Some properties (specified in 'BaseItem' packages/design-system/item/src/styled/Item.js) cannot be changed with
- * ThemeProvider as they are of higher specificity.
- *
  * Inline mode should use the existing Align-items:center value.
  */
 const itemStyleOverrides = {
@@ -386,22 +314,14 @@ const elementItemsWrapper = css`
       padding-bottom: 4px;
     }
   }
-
-  // temporary solution before we migrated off dst/item
-  & span[class^='ItemParts__Before'] {
-    margin-right: 12px;
-  }
 `;
 
 const elementItemWrapper = css`
-  /**
-     * Since we are using "Item" component's content itself for description,
-     * the height of description overflows the parent container padding/margin.
-     * manually setting it to take 100% of parent.
-     */
-  span {
-    span:nth-of-type(2) {
-      max-height: 100%;
+  div {
+    button {
+      height: 75px;
+      align-items: flex-start;
+      padding: 12px 12px 11px;
     }
   }
 `;

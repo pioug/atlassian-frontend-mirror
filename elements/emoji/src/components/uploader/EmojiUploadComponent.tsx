@@ -74,6 +74,7 @@ export default class EmojiUploadComponent extends PureComponent<Props, State> {
       errorSetter,
       this.prepareForUpload,
       this.fireAnalytics,
+      retry,
     );
   };
 

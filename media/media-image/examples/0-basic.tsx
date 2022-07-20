@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import Textfield from '@atlaskit/textfield';
 import {
@@ -13,7 +14,10 @@ import {
 import Spinner from '@atlaskit/spinner';
 import Select from '@atlaskit/select';
 import { MediaImage } from '../src';
-import { OptionsWrapper, MediaImageWrapper } from '../example-helpers/styled';
+import {
+  optionsWrapperStyles,
+  mediaImageWrapperStyles,
+} from '../example-helpers/styles';
 
 export interface ExampleProps {}
 
@@ -60,7 +64,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 
     return (
       <div>
-        <OptionsWrapper>
+        <div css={optionsWrapperStyles}>
           <Select
             options={imageIds}
             defaultValue={imageId}
@@ -82,8 +86,8 @@ class Example extends Component<ExampleProps, ExampleState> {
             value={`${height}`}
             onChange={this.onHeightChange}
           />
-        </OptionsWrapper>
-        <MediaImageWrapper>
+        </div>
+        <div css={mediaImageWrapperStyles}>
           <MediaImage
             identifier={imageId.value}
             mediaClientConfig={mediaClientConfig}
@@ -106,7 +110,7 @@ class Example extends Component<ExampleProps, ExampleState> {
               return <img src={data.src} />;
             }}
           </MediaImage>
-        </MediaImageWrapper>
+        </div>
       </div>
     );
   }

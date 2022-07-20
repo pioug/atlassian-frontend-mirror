@@ -805,7 +805,7 @@ describe('Tooltip', () => {
       jest.runAllTimers();
     });
 
-    expect(getByTestId('tooltip').getAttribute('style')).toEqual(
+    expect(getByTestId('tooltip--wrapper').getAttribute('style')).toEqual(
       'position: fixed; left: 0px; top: 0px;',
     );
   });
@@ -830,7 +830,7 @@ describe('Tooltip', () => {
       jest.runAllTimers();
     });
 
-    expect(getByTestId('tooltip').getAttribute('style')).toEqual(
+    expect(getByTestId('tooltip--wrapper').getAttribute('style')).toEqual(
       'position: absolute; left: 0px; top: 0px;',
     );
   });

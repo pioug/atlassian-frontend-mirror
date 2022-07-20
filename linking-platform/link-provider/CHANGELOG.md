@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.1.2
+
+### Patch Changes
+
+- [`4c73e4d0cfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c73e4d0cfa) - Add optional argument to CardProvider.resolve method identifying if it's a manual request or not
+
 ## 1.1.1
 
 ### Patch Changes

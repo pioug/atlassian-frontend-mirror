@@ -1,5 +1,11 @@
 # @atlaskit/media-core
 
+## 33.0.1
+
+### Patch Changes
+
+- [`455daa4c9b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455daa4c9b9) - Removed styled-component unused dependency from package.json
+
 ## 33.0.0
 
 ### Major Changes

@@ -1,20 +1,19 @@
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { CopyTextContext } from '../../../../react/nodes/copy-text-provider';
-import CopyButton from '../../../../react/nodes/codeBlockCopyButton';
 
 const mockCopyTextToClipboard = jest.fn();
+jest.mock('../../../../react/utils/clipboard', () => {
+  const module = jest.requireActual('../../../../react/utils/clipboard');
+  return {
+    ...module,
+    copyTextToClipboard: (text: string) => mockCopyTextToClipboard(text),
+  };
+});
+
+import CopyButton from '../../../../react/nodes/codeBlockCopyButton';
 
 const render = () => {
-  return mountWithIntl(
-    <CopyTextContext.Provider
-      value={{
-        copyTextToClipboard: mockCopyTextToClipboard,
-      }}
-    >
-      <CopyButton content={'Some code'} />
-    </CopyTextContext.Provider>,
-  );
+  return mountWithIntl(<CopyButton content={'Some code'} />);
 };
 
 describe('CopyButton', () => {

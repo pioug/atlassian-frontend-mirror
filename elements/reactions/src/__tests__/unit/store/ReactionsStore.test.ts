@@ -105,7 +105,7 @@ describe('ReactionStore', () => {
     ReactionStore.ufoExperiences.remove.getInstance = jest.fn(
       () => fakeRemoveUFOInstance as any,
     );
-    ReactionStore.ufoExperiences.render.getInstance = jest.fn(
+    ReactionStore.ufoExperiences.render = jest.fn(
       () => fakeRenderUFOInstance as any,
     );
     ReactionStore.ufoExperiences.fetchDetails.getInstance = jest.fn(

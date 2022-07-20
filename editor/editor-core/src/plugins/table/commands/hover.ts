@@ -114,7 +114,7 @@ export const hoverRows = (hoveredRows: number[], isInDanger?: boolean) =>
     (tr) => tr.setMeta('addToHistory', false),
   );
 
-export const hoverTable = (isInDanger?: boolean) =>
+export const hoverTable = (isInDanger?: boolean, isSelected?: boolean) =>
   createCommand(
     (state) => {
       const table = findTable(state.selection);
@@ -132,6 +132,7 @@ export const hoverTable = (isInDanger?: boolean) =>
         cells,
         'table',
         isInDanger,
+        isSelected,
       );
 
       return {

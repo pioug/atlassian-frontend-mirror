@@ -13,14 +13,14 @@ import {
   ArchiveSidebarFileEntryWrapper,
   ArchiveDownloadButtonWrapper,
   SidebarItemWrapper,
-  itemStyle,
-} from './styled';
+} from './styleWrappers';
 import {
   getMediaTypeFromFilename,
   isMacPrivateFile,
   rejectAfter,
 } from '../../utils';
 import { ArchiveViewerError } from '../../errors';
+import { itemStyle } from './styles';
 
 export interface ArchiveSidebarFolderProps {
   root: string;
@@ -41,7 +41,7 @@ export class ArchiveSidebarFolderEntry extends React.Component<
     const onClick = () => onEntrySelected(entry);
 
     return (
-      <ArchiveSidebarFileEntryWrapper key={entry.name}>
+      <ArchiveSidebarFileEntryWrapper key={entry.name} index={entry.name}>
         <SidebarItemWrapper>
           <ButtonItem
             iconBefore={this.renderEntryIcon(entry)}

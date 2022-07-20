@@ -4,4 +4,4 @@ export { CardActionIconButton } from './cardActionIconButton';
 export type { CardActionIconButtonProps } from './cardActionIconButton';
 export { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
 export type { CardActionsDropdownMenuProps } from './cardActionsDropdownMenu';
-export { CardActionIconButtonVariant } from './styled';
+export { CardActionIconButtonVariant } from './styles';

@@ -16,8 +16,10 @@ import {
   FileState,
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
+  FileIdentifier,
 } from '@atlaskit/media-client';
 import { CardPreview } from '../../../../types';
+import { ImageResizeMode } from '@atlaskit/media-client';
 import cardPreviewCache from '../cache';
 import {
   getCardPreviewFromFilePreview,
@@ -69,6 +71,14 @@ const cardPreviewParams = ({
   mediaBlobUrlAttrs,
 } as unknown) as CardPreviewParams;
 
+const fileIdentifier: FileIdentifier = {
+  id: 'some-id',
+  mediaItemType: 'file',
+  collectionName: 'some-collection-name',
+  occurrenceKey: 'some-occurrence-key',
+};
+const defaultMode: ImageResizeMode = 'crop';
+
 const filePreview = ({
   thisIs: 'some-file-preview',
 } as unknown) as FilePreview;
@@ -108,6 +118,8 @@ describe('shouldResolvePreview()', () => {
         hasCardPreview: true,
         fileState: {} as FileState,
         isBannedLocalPreview: false,
+        identifier: fileIdentifier,
+        fileImageMode: defaultMode,
       }),
     ).toBe(false);
 
@@ -120,6 +132,8 @@ describe('shouldResolvePreview()', () => {
         hasCardPreview: true,
         fileState,
         isBannedLocalPreview: false,
+        identifier: fileIdentifier,
+        fileImageMode: defaultMode,
       }),
     ).toBe(false);
   });
@@ -133,7 +147,8 @@ describe('shouldResolvePreview()', () => {
       hasCardPreview: false,
       fileState: processedFileState,
       dimensions: {},
-      prevDimensions: {},
+      identifier: fileIdentifier,
+      fileImageMode: defaultMode,
       isBannedLocalPreview: false,
     });
     expect(result).toBe(true);
@@ -148,7 +163,8 @@ describe('shouldResolvePreview()', () => {
       hasCardPreview: true,
       fileState: processedFileState,
       dimensions: {},
-      prevDimensions: {},
+      identifier: fileIdentifier,
+      fileImageMode: defaultMode,
       isBannedLocalPreview: false,
     });
     expect(result).toBe(false);
@@ -196,6 +212,7 @@ describe('getCardPreview()', () => {
       dataURI: dataUriWithContext,
       orientation: localPreview.orientation,
       source: 'local',
+      dimensions: cardPreviewParams.dimensions,
     };
     const expectedCachedResult = {
       ...expectedResult,
@@ -205,7 +222,7 @@ describe('getCardPreview()', () => {
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
-      cardPreviewParams.dimensions,
+      defaultMode,
       expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
@@ -220,6 +237,7 @@ describe('getCardPreview()', () => {
       dataURI: dataUriWithContext,
       orientation: remotePreview.orientation,
       source: 'remote',
+      dimensions: cardPreviewParams.dimensions,
     };
     const expectedCachedResult = {
       ...expectedResult,
@@ -239,7 +257,7 @@ describe('getCardPreview()', () => {
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
-      cardPreviewParams.dimensions,
+      defaultMode,
       expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
@@ -313,6 +331,7 @@ describe('getCardPreview()', () => {
       dataURI: dataUriWithContext,
       orientation: remotePreview.orientation,
       source: 'remote',
+      dimensions: cardPreviewParams.dimensions,
     };
     const expectedCachedResult = {
       ...expectedResult,
@@ -333,7 +352,7 @@ describe('getCardPreview()', () => {
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
-      cardPreviewParams.dimensions,
+      defaultMode,
       expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
@@ -401,6 +420,7 @@ describe('fetchAndCacheRemotePreview', () => {
       dataURI: dataUriWithContext,
       orientation: remotePreview.orientation,
       source: 'remote',
+      dimensions: cardPreviewParams.dimensions,
     };
     const expectedCachedResult = {
       ...expectedResult,
@@ -430,7 +450,7 @@ describe('fetchAndCacheRemotePreview', () => {
     // The result must be cached
     expect(cardPreviewCache.set).toBeCalledWith(
       cardPreviewParams.id,
-      cardPreviewParams.dimensions,
+      defaultMode,
       expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);

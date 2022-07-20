@@ -90,6 +90,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       mode,
       className,
       style,
+      tabIndex = 0,
     },
     ref,
   ) {
@@ -198,7 +199,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
           aria-describedby={announceId}
           aria-label="calendar"
           role="grid"
-          tabIndex={0}
+          tabIndex={tabIndex}
         >
           <HeadingComponent
             // The month number needs to be translated to index in the month

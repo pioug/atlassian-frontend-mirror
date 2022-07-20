@@ -40,7 +40,11 @@ describe('resolveWithProvider()', () => {
     }
   }
 
-  const cardProvider = new TestCardProvider();
+  let cardProvider: CardProvider;
+
+  beforeEach(() => {
+    cardProvider = new TestCardProvider();
+  });
 
   it('should resolve with the right request appearance', async () => {
     const url = 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing';
@@ -49,6 +53,7 @@ describe('resolveWithProvider()', () => {
       compareLinkText: false,
       pos: 0,
       source: INPUT_METHOD.MANUAL,
+      shouldReplaceLink: true,
       url,
     };
     const outstandingRequests: OutstandingRequests = {};
@@ -71,7 +76,40 @@ describe('resolveWithProvider()', () => {
       options,
     );
     expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
-    expect(cardProvider.resolve).toBeCalledWith(url, 'block');
+    expect(cardProvider.resolve).toBeCalledWith(url, 'block', true);
+  });
+
+  it('should set shouldForceAppearance as false in case input source is Manual, but shouldReplaceLink flag is false', async () => {
+    const url = 'https://docs.google.com/spreadsheets/d/168c/edit?usp=sharing';
+    const request: Request = {
+      appearance: 'block',
+      compareLinkText: false,
+      pos: 0,
+      source: INPUT_METHOD.MANUAL,
+      shouldReplaceLink: false,
+      url,
+    };
+    const outstandingRequests: OutstandingRequests = {};
+    const { editorView } = editor(
+      doc(
+        p(
+          '{<node>}',
+          inlineCard({
+            url,
+          })(),
+        ),
+      ),
+    );
+    const options = { allowBlockCards: true };
+    await resolveWithProvider(
+      editorView,
+      outstandingRequests,
+      cardProvider,
+      request,
+      options,
+    );
+    expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
+    expect(cardProvider.resolve).toBeCalledWith(url, 'block', false);
   });
 
   describe('Allowed card type', () => {
@@ -107,6 +145,8 @@ describe('resolveWithProvider()', () => {
           request,
           options,
         )) as CardAdf;
+
+        expect(testCardProvider.resolve).toBeCalledWith(url, appearance, false);
 
         expect(cardAdf.type).toEqual('inlineCard');
 

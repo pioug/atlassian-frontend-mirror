@@ -201,6 +201,7 @@ export const PanelSharedSelectors = {
   searchEmoji: `[aria-label="Search emoji"]`,
   orangeWarningIcon: `[aria-label=":warning:"]`,
   yellowWarningIcon: `[aria-label=":warning:"]  span:nth-child(1)`,
+  copyButton: `button[aria-label="Copy"]`,
 };
 
 const iconDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => (

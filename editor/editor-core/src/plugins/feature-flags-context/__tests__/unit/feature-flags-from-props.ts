@@ -376,4 +376,31 @@ describe('Feature Flags from Props', () => {
       );
     });
   });
+
+  describe('floating toolbar copy button', () => {
+    it('should add the FF value', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {
+            floatingToolbarCopyButton: true,
+          },
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          floatingToolbarCopyButton: true,
+        }),
+      );
+    });
+    it('should default to false if nothing passed in', () => {
+      expect(
+        createFeatureFlagsFromProps({
+          featureFlags: {},
+        }),
+      ).toEqual(
+        expect.objectContaining({
+          floatingToolbarCopyButton: false,
+        }),
+      );
+    });
+  });
 });

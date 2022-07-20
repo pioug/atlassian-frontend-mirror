@@ -218,6 +218,7 @@ const Menu = ({
           locale={selectProps.calendarLocale}
           testId={selectProps.testId && `${selectProps.testId}--calendar`}
           weekStartDay={selectProps.calendarWeekStartDay}
+          tabIndex={-1}
         />
       </div>
     }
@@ -572,7 +573,6 @@ class DatePicker extends Component<DatePickerProps, State> {
       testId,
       weekStartDay,
     } = this.props;
-    const BORDER_WIDTH = 2;
     const ICON_PADDING = 2;
 
     const { value, view, isOpen, inputValue } = this.getSafeState();
@@ -628,6 +628,7 @@ class DatePicker extends Component<DatePickerProps, State> {
         data-testid={testId && `${testId}--container`}
       >
         <input
+          id={selectProps.inputId}
           name={name}
           type="hidden"
           value={value}
@@ -655,7 +656,7 @@ class DatePicker extends Component<DatePickerProps, State> {
             indicatorsContainer: (base) => ({
               ...base,
               paddingLeft: ICON_PADDING,
-              paddingRight: gridSize() - BORDER_WIDTH,
+              paddingRight: gridSize() - ICON_PADDING,
             }),
           })}
           placeholder={this.getPlaceholder()}

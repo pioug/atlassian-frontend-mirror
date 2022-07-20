@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.6.0
+
+### Minor Changes
+
+- [`52f9dc8a972`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52f9dc8a972) - [ux] Change text to be left-aligned and span the whole width of banner. Remove possibility of multi-line banners with announcement appearance.
+
 ## 11.5.1
 
 ### Patch Changes

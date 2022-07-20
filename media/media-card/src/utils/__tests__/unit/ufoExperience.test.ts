@@ -35,10 +35,6 @@ jest.mock('../../../utils/analytics', () => {
     LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
   };
 });
-jest.mock('../../../version.json', () => ({
-  name: 'test package',
-  version: '1.0',
-}));
 
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
@@ -81,10 +77,6 @@ describe('ufoExperience', () => {
     client: {
       status: 'success',
     },
-  };
-  const packageInfo = {
-    packageName: 'test package',
-    packageVersion: '1.0',
   };
   const fileAttributes = {
     fileId: 'some-id',
@@ -139,7 +131,8 @@ describe('ufoExperience', () => {
               wasStatusProcessing: true,
               wasStatusUploading: true,
             },
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
           },
@@ -165,7 +158,8 @@ describe('ufoExperience', () => {
               wasStatusUploading: false,
             },
             failReason: 'failed-processing',
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
           },
@@ -205,7 +199,8 @@ describe('ufoExperience', () => {
             },
             request: undefined,
             ...mediaCardErrorInfo,
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
           },

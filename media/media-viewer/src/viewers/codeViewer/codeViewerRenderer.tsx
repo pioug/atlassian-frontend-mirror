@@ -1,4 +1,6 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { ReactNode, Component } from 'react';
 import { FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
@@ -6,9 +8,26 @@ import type { SupportedLanguages } from '@atlaskit/code/types';
 import CodeBlock from '@atlaskit/code/block';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
-import { CodeViewWrapper, CodeViewerHeaderBar } from './styled';
 import { lineCount } from './util';
+import { codeViewerHeaderBarStyles, codeViewWrapperStyles } from './styles';
 
+export const CodeViewWrapper = ({
+  children,
+  'data-testid': testId,
+}: {
+  children: ReactNode;
+  'data-testid': string | undefined;
+}) => {
+  return (
+    <div css={codeViewWrapperStyles} data-testid={testId}>
+      {children}
+    </div>
+  );
+};
+
+export const CodeViewerHeaderBar = () => {
+  return <div css={codeViewerHeaderBarStyles}></div>;
+};
 export type Props = {
   item: FileState;
   src: string;
@@ -32,7 +51,7 @@ const initialState: State = {
 // otherwise the "text" language will be used which is plain and more performant
 const MAX_FORMATTED_LINES = 10000;
 
-export class CodeViewRenderer extends React.Component<Props, State> {
+export class CodeViewRenderer extends Component<Props, State> {
   state: State = initialState;
 
   componentDidMount() {
@@ -70,7 +89,11 @@ export class CodeViewRenderer extends React.Component<Props, State> {
       successful: () => (
         <CodeViewWrapper data-testid={testId}>
           <CodeViewerHeaderBar />
-          <CodeBlock language={selectedLanguage} text={src} />
+          <CodeBlock
+            language={selectedLanguage}
+            text={src}
+            testId="code-block"
+          />
         </CodeViewWrapper>
       ),
       failed: (error) => (

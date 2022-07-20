@@ -1,4 +1,4 @@
-import { CONTAINER_PADDING } from '../../image-cropper/styled';
+import { CONTAINER_PADDING } from '../../image-cropper/styles';
 
 jest.mock('../../util');
 import { asMock, mockCanvas } from '@atlaskit/media-test-helpers';

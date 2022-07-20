@@ -3,10 +3,6 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 import { CardStatus } from '../../src';
 import { FileAttributes } from '@atlaskit/media-common';
 import {
@@ -45,6 +41,9 @@ type ErrorUfoPayload = {
   request: RequestMetadata | undefined;
   fileStateFlags: FileStateFlags;
 } & MediaCardErrorInfo;
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 let concurrentExperience: ConcurrentExperience | undefined;
 

@@ -14,7 +14,7 @@ import Spinner from '@atlaskit/spinner';
 import { Auth } from '@atlaskit/media-core';
 import { AudioViewer } from '../../../../../viewers/audio';
 import { Props } from '../../../../../viewers/video';
-import { DefaultCoverWrapper, AudioCover } from '../../../../../styled';
+import { DefaultCoverWrapper, AudioCover } from '../../../../../styleWrappers';
 import { ErrorMessage } from '../../../../../errorMessage';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
 

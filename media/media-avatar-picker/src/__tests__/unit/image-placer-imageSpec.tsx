@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import { ImageWrapper } from '../../image-placer/styled';
+import { ImageWrapper } from '../../image-placer/imageWrapper';
 
 jest.mock('../../image-cropper/isImageRemote');
 

@@ -14,10 +14,13 @@ import {
   MockFile,
 } from '@atlaskit/media-test-helpers';
 import { wideImage } from '../example-helpers/assets/wide-image';
-import { MainWrapper } from '../example-helpers/MainWrapper';
+import {
+  MainWrapper,
+  MVSidebar,
+  MVSidebarHeader,
+} from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src/components/media-viewer';
 import { MediaViewerExtensionsActions } from '../src';
-import { MVSidebar, MVSidebarHeader } from '../example-helpers/styled';
 
 let files: MockFile[] = [];
 

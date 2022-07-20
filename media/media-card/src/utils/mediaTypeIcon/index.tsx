@@ -6,7 +6,7 @@ import VideoIcon from '@atlaskit/icon/glyph/media-services/video';
 import DocIcon from '@atlaskit/icon/glyph/document';
 import UnknownIcon from '@atlaskit/icon/glyph/page';
 import { MediaType } from '@atlaskit/media-client';
-import { IconWrapper } from './styled';
+import { IconWrapper } from './iconWrapper';
 
 const icons: { [k in MediaType]: React.ComponentType<any> } = {
   image: ImageIcon,

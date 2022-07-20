@@ -7,8 +7,8 @@ import EditIcon from '@atlaskit/icon/glyph/edit';
 import { CardAction } from '../../../../actions';
 
 import { ActionsBar } from '../actionsBar';
-import { Wrapper } from '../styled';
 import { CardActionsView } from '../../../../utils/cardActions';
+import { ActionsBarWrapper } from '../actionsBarWrapper';
 
 describe('ActionsBar', () => {
   const deleteAction: CardAction = {
@@ -29,7 +29,7 @@ describe('ActionsBar', () => {
 
   it('will not render on empty actions', () => {
     const component = shallow(<ActionsBar actions={[]} />);
-    expect(component.find(Wrapper)).toHaveLength(0);
+    expect(component.find(ActionsBarWrapper)).toHaveLength(0);
     expect(component.find(CardActionsView)).toHaveLength(0);
   });
 
@@ -37,7 +37,7 @@ describe('ActionsBar', () => {
     const component = mount(
       <ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />,
     );
-    expect(component.find(Wrapper)).toHaveLength(1);
+    expect(component.find(ActionsBarWrapper)).toHaveLength(1);
     expect(component.find(CardActionsView)).toHaveLength(1);
   });
 });

@@ -115,7 +115,7 @@ describe('UploadingEmojiResource', () => {
         siteEmojiResource,
         config,
       );
-
+      emojiResource.fetchEmojiProvider();
       return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(true);
       });
@@ -135,6 +135,7 @@ describe('UploadingEmojiResource', () => {
         siteEmojiResource,
         config,
       );
+      emojiResource.fetchEmojiProvider();
       return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(false);
       });
@@ -142,6 +143,7 @@ describe('UploadingEmojiResource', () => {
 
     it('resource has no media support', () => {
       const emojiResource = new TestUploadingEmojiResource();
+      emojiResource.fetchEmojiProvider();
       return emojiResource.isUploadSupported().then((supported) => {
         expect(supported).toEqual(false);
       });
@@ -170,6 +172,7 @@ describe('UploadingEmojiResource', () => {
 
     it('no media support - throw error', () => {
       const emojiResource = new TestUploadingEmojiResource();
+      emojiResource.fetchEmojiProvider();
       return emojiResource
         .uploadCustomEmoji(upload)
         .then(() => {
@@ -190,6 +193,7 @@ describe('UploadingEmojiResource', () => {
       uploadEmojiStub.returns(Promise.resolve(mediaEmoji));
 
       const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+      emojiResource.fetchEmojiProvider();
 
       return emojiResource.uploadCustomEmoji(upload).then((emoji) => {
         expect(uploadEmojiStub.calledWith(upload)).toEqual(true);
@@ -201,19 +205,21 @@ describe('UploadingEmojiResource', () => {
       const siteEmojiResource = sinon.createStubInstance(
         SiteEmojiResource,
       ) as any;
+
       const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
       hasUploadTokenStub.returns(Promise.resolve(true));
       const uploadEmojiStub = siteEmojiResource.uploadEmoji;
       uploadEmojiStub.returns(Promise.reject('bad things'));
 
       const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+      emojiResource.fetchEmojiProvider();
       return emojiResource
-        .uploadCustomEmoji(upload)
+        .uploadCustomEmoji(upload, true)
         .then(() => {
           expect(true).toEqual(false);
         })
         .catch(() => {
-          expect(uploadEmojiStub.calledWith(upload)).toEqual(true);
+          expect(uploadEmojiStub.calledWith(upload, true)).toEqual(true);
           expect(true).toEqual(true);
         });
     });
@@ -232,6 +238,7 @@ describe('UploadingEmojiResource', () => {
       ) as any;
       const prepareForUploadStub = siteEmojiResource.prepareForUpload;
       const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+      emojiResource.fetchEmojiProvider();
       emojiResource.prepareForUpload();
       return waitUntil(() => prepareForUploadStub.called).then(() => {
         expect(prepareForUploadStub.called).toEqual(true);
@@ -245,6 +252,8 @@ describe('UploadingEmojiResource', () => {
         SiteEmojiResource,
       ) as any;
       const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+      emojiResource.fetchEmojiProvider();
+      emojiResource.prepareForUpload();
       const deleteStub = siteEmojiResource.deleteEmoji;
       deleteStub.returns(new Promise(() => {}));
       emojiResource.deleteSiteEmoji(mediaEmoji);
@@ -275,6 +284,8 @@ describe('UploadingEmojiResource', () => {
         siteEmojiResource,
         config,
       );
+      emojiResource.fetchEmojiProvider();
+      emojiResource.prepareForUpload();
       return alwaysPromise(emojiResource.findById(mediaEmoji.id!))
         .then((emoji) => expect(emoji).toEqual(mediaEmoji))
         .catch(() => expect(true).toEqual(false));
@@ -302,6 +313,8 @@ describe('UploadingEmojiResource', () => {
         siteEmojiResource,
         config,
       );
+      emojiResource.fetchEmojiProvider();
+      emojiResource.prepareForUpload();
       return emojiResource
         .deleteSiteEmoji(mediaEmoji)
         .then((result) => {
@@ -361,6 +374,8 @@ describe('helpers', () => {
     loadMediaEmoji = () => undefined;
     optimisticMediaRendering = () => false;
     getFrequentlyUsed = (_options?: SearchOptions) => Promise.resolve([]);
+    fetchEmojiProvider = (force?: boolean) => Promise.resolve(undefined);
+    getOptimisticImageURL = () => undefined;
   }
 
   class TestUploadingEmojiProvider

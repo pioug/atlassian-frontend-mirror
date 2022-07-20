@@ -9,7 +9,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { FailedTitleBox } from '../failedTitleBox';
 import { Breakpoint } from '../../common';
-import { TitleBoxWrapper } from '../styled';
+import { TitleBoxWrapper } from '../titleBoxComponents';
 import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { FormattedMessage } from 'react-intl-next';
 

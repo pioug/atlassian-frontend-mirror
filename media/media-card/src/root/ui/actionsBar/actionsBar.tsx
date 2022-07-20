@@ -1,17 +1,11 @@
 import React from 'react';
 
-import { CardAction } from '../../../actions';
 import {
   CardActionIconButtonVariant,
   CardActionsView,
 } from '../../../utils/cardActions';
-
-import { Wrapper } from './styled';
-
-export interface ActionsBarProps {
-  actions: Array<CardAction>;
-  isFixed?: boolean;
-}
+import { ActionsBarWrapper } from './actionsBarWrapper';
+import { ActionsBarProps } from './types';
 
 export class ActionsBar extends React.Component<ActionsBarProps> {
   render() {
@@ -22,12 +16,12 @@ export class ActionsBar extends React.Component<ActionsBarProps> {
     }
 
     return (
-      <Wrapper isFixed={isFixed}>
+      <ActionsBarWrapper isFixed={isFixed}>
         <CardActionsView
           actions={actions}
           variant={CardActionIconButtonVariant.filled}
         />
-      </Wrapper>
+      </ActionsBarWrapper>
     );
   }
 }

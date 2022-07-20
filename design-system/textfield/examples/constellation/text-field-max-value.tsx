@@ -11,7 +11,7 @@ export default function TextFieldMaxValueExample() {
       {({ formProps }) => (
         <form {...formProps} name="max-length-example">
           <Field
-            label="Example for using maxlength"
+            label="Example for using maxLength"
             name="max-length"
             defaultValue=""
           >

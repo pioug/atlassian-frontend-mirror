@@ -16,12 +16,12 @@ import {
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import {
+  MainWrapper,
   ButtonList,
   Group,
   MVSidebar,
   MVSidebarHeader,
-} from '../example-helpers/styled';
-import { MainWrapper } from '../example-helpers/MainWrapper';
+} from '../example-helpers/MainWrapper';
 import {
   docIdentifier,
   largePdfIdentifier,

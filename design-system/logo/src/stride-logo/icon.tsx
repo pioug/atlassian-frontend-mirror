@@ -9,10 +9,10 @@ import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
-const svg = (iconGradientStart: string, iconGradientStop: string) => {
-  const id = uid({ iconGradientStart: iconGradientStop });
-  return `<canvas height="32" width="32" aria-hidden="true"></canvas>
-  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+const svg = ({ iconGradientStart, iconGradientStop }: LogoProps) => {
+  let id = uid({ iconGradientStart: iconGradientStop });
+  return `
+  <svg viewBox="0 0 32 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
     <defs>
         <linearGradient x1="62.272%" x2="15.737%" y1="26.041%" y2="68.741%" id="${id}">
             <stop stop-color="${iconGradientStart}" ${
@@ -47,7 +47,7 @@ export const StrideIcon = ({
 
   return (
     <Wrapper
-      svg={svg}
+      svg={svg({ iconGradientStart, iconGradientStop })}
       iconColor={iconColor}
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}

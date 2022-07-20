@@ -8,6 +8,7 @@ export {
   isSameMark,
   isSubSupType,
   markOrder,
+  ADFStages,
 } from './utils/validator';
 export type {
   ADDoc,

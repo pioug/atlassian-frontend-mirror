@@ -1,4 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { MouseEvent } from 'react';
+import { MessageDescriptor } from 'react-intl-next';
+
 import { MediaItemType, FileDetails } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
@@ -6,6 +10,12 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
+import SpinnerIcon from '@atlaskit/spinner';
+import Tooltip from '@atlaskit/tooltip';
+import { toHumanReadableMediaSize, messages } from '@atlaskit/media-ui';
+import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
+
 import { SharedCardProps, CardStatus, CardDimensionValue } from '../index';
 import { FileCardImageView } from '../files';
 import { breakpointSize } from '../utils/breakpoint';
@@ -16,29 +26,20 @@ import {
 import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
 import { getCSSUnitValue } from '../utils/getCSSUnitValue';
 import { getElementDimension } from '../utils/getElementDimension';
-import { Wrapper } from './styled';
 import { createAndFireMediaCardEvent } from '../utils/analytics';
 import { attachDetailsToActions } from '../actions';
 import { getErrorMessage } from '../utils/getErrorMessage';
-import { toHumanReadableMediaSize, messages } from '@atlaskit/media-ui';
-import {
-  NewFileExperienceWrapper,
-  CardImageContainer,
-  calcBreakpointSize,
-} from './ui/styled';
+import { cardImageContainerStyles, calcBreakpointSize } from './ui/styles';
 import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
 import { ProgressBar } from './ui/progressBar/progressBar';
 import { PlayButton } from './ui/playButton/playButton';
 import { TickBox } from './ui/tickBox/tickBox';
-import { Blanket } from './ui/blanket/styled';
+import { Blanket } from './ui/blanket/blanket';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
-import Tooltip from '@atlaskit/tooltip';
 import { Breakpoint } from './ui/common';
-import { IconWrapper } from './ui/iconWrapper/styled';
-import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
-import SpinnerIcon from '@atlaskit/spinner';
+import { IconWrapper } from './ui/iconWrapper/iconWrapper';
 import {
   PreviewUnavailable,
   CreatingPreview,
@@ -46,12 +47,11 @@ import {
   PreviewCurrentlyUnavailable,
   FailedToLoad,
 } from './ui/iconMessage';
-import { isRateLimitedError, isPollingError } from '@atlaskit/media-client';
-import { newFileExperienceClassName } from './card/cardConstants';
 import { isUploadError, MediaCardError } from '../errors';
 import { CardPreview } from '..';
-import { MessageDescriptor } from 'react-intl-next';
 import { MediaCardCursor } from '../types';
+import { NewFileExperienceWrapper } from './ui/newFileExperience/newFileExperienceWrapper';
+import { Wrapper } from './cardViewWrapper';
 
 export interface CardViewOwnProps extends SharedCardProps {
   readonly status: CardStatus;
@@ -219,7 +219,7 @@ export class CardViewBase extends React.Component<
 
     return (
       <Wrapper
-        data-testid={testId || 'media-card-view'}
+        testId={testId || 'media-card-view'}
         shouldUsePointerCursor={true}
         breakpointSize={breakpointSize(this.width)}
         dimensions={wrapperDimensions}
@@ -396,8 +396,7 @@ export class CardViewBase extends React.Component<
 
     return (
       <NewFileExperienceWrapper
-        className={newFileExperienceClassName}
-        data-testid={testId || 'media-card-view'}
+        testId={testId || 'media-card-view'}
         dimensions={dimensions}
         appearance={appearance}
         onClick={onClick}
@@ -590,8 +589,9 @@ export class CardViewBase extends React.Component<
     const hasTitleBox = !!renderTitleBox || !!renderFailedTitleBox;
 
     return (
-      <>
-        <CardImageContainer
+      <React.Fragment>
+        <div
+          css={cardImageContainerStyles}
           className="media-file-card-view"
           data-testid="media-file-card-view"
           data-test-media-name={name}
@@ -609,9 +609,9 @@ export class CardViewBase extends React.Component<
             this.renderFailedTitleBox(customTitleMessage)}
           {renderProgressBar && this.renderProgressBar(!hasTitleBox)}
           {renderTickBox && this.renderTickBox()}
-        </CardImageContainer>
+        </div>
         {this.renderActionsBar()}
-      </>
+      </React.Fragment>
     );
   };
 }

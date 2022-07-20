@@ -15,7 +15,11 @@ import {
   State,
 } from '../../../../../viewers/image/interactive-img';
 import { ZoomControls } from '../../../../../zoomControls';
-import { HDIconGroupWrapper, ImageWrapper, Img } from '../../../../../styled';
+import {
+  HDIconGroupWrapper,
+  ImageWrapper,
+  Img,
+} from '../../../../../styleWrappers';
 import { ZoomLevel } from '../../../../../domain/zoomLevel';
 import { WrappedComponentProps } from 'react-intl-next';
 
@@ -23,6 +27,9 @@ interface ImageSize {
   naturalWidth: number;
   naturalHeight: number;
 }
+
+const imageWrapperClassName = 'div.media-viewer-image-content';
+const imageClassName = 'img.media-viewer-image';
 
 function callOnLoad(
   component: ReactWrapper<Props & WrappedComponentProps, State>,
@@ -59,7 +66,7 @@ function setup(props?: Partial<Props & ImageSize>) {
     />,
   );
 
-  const wrapper = component.find(ImageWrapper).getDOMNode();
+  const wrapper = component.find(imageWrapperClassName).getDOMNode();
   Object.defineProperty(wrapper, 'clientWidth', {
     value: 400,
   });
@@ -147,7 +154,7 @@ describe('InteractiveImg', () => {
 
   it('should set the correct scrollLeft and scrollTop values on the ImageWrapper', () => {
     const { component, camera, zoomLevel } = setup();
-    const imgWrapper = component.find(ImageWrapper).getDOMNode();
+    const imgWrapper = component.find(imageWrapperClassName).getDOMNode();
 
     const prevOffset = new Vector2(imgWrapper.scrollLeft, imgWrapper.scrollTop);
     const prevScale = zoomLevel.value;
@@ -221,9 +228,11 @@ describe('InteractiveImg', () => {
     it('should move image after a mousedown event', () => {
       const { component } = setup();
 
-      component.find(Img).simulate('mousedown', { screenX: 100, screenY: 100 });
+      component
+        .find(imageClassName)
+        .simulate('mousedown', { screenX: 100, screenY: 100 });
 
-      const wrapper = component.find(ImageWrapper).getDOMNode();
+      const wrapper = component.find(imageWrapperClassName).getDOMNode();
       const { scrollLeft: oldScrollLeft, scrollTop: oldScrollTop } = wrapper;
 
       const mouseMove = createMouseEvent('mousemove', {
@@ -239,7 +248,10 @@ describe('InteractiveImg', () => {
     it('should stop moving image after a mouseup event', () => {
       const { component } = setup();
 
-      component.find(Img).simulate('mousedown', { screenX: 100, screenY: 100 });
+      component
+        .find({ 'data-testid': 'media-viewer-image' })
+        .hostNodes()
+        .simulate('mousedown', { screenX: 100, screenY: 100 });
       const mouseUp = createMouseEvent('mouseup');
       document.dispatchEvent(mouseUp);
 
@@ -274,7 +286,10 @@ describe('InteractiveImg', () => {
       const { component, camera } = setup();
       const zoomLevel = new ZoomLevel(camera.scaleToFit * 1.5);
       component.setState({ zoomLevel });
-      component.find(Img).simulate('mousedown', { screenX: 100, screenY: 100 });
+      component
+        .find(imageClassName)
+        .hostNodes()
+        .simulate('mousedown', { screenX: 100, screenY: 100 });
       expect(component.find(Img).prop('isDragging')).toEqual(true);
     });
 
@@ -291,13 +306,15 @@ describe('InteractiveImg', () => {
       naturalWidth: 200,
       naturalHeight: 150,
     });
+    const wrapper = component.find(imageClassName);
+    let styles = getComputedStyle(wrapper.getDOMNode());
 
-    expect(component.find(Img)).not.toHaveStyleRule(
-      'image-rendering',
-      'pixelated',
-    );
+    expect(styles.imageRendering).not.toBe('pixelated');
+
     clickZoomIn(component);
-    expect(component.find(Img)).toHaveStyleRule('image-rendering', 'pixelated');
+    styles = getComputedStyle(wrapper.getDOMNode());
+
+    expect(styles.imageRendering).toBe('pixelated');
   });
 
   it('should load non-binary resource first', () => {
@@ -389,7 +406,7 @@ describe('InteractiveImg', () => {
 describe('analytics', () => {
   it('should raise onBlanketClicked when blanket clicked', () => {
     const { component, onBlanketClicked } = setup();
-    component.find(ImageWrapper).simulate('click');
+    component.find(imageWrapperClassName).simulate('click');
     expect(onBlanketClicked).toHaveBeenCalled();
   });
 });

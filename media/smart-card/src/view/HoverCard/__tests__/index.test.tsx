@@ -6,7 +6,7 @@ jest.doMock('../../../utils/analytics/analytics');
 
 import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
-import { fireEvent, render, cleanup } from '@testing-library/react';
+import { fireEvent, render, cleanup, wait } from '@testing-library/react';
 import { fakeFactory } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
 import { Provider } from '../../..';
@@ -20,6 +20,7 @@ import {
   mockBaseResponseWithPreview,
   mockBaseResponseWithDownload,
 } from './__mocks__/mocks';
+import * as HoverCardComponent from '../components/HoverCardComponent';
 
 describe('HoverCard', () => {
   let mockClient: CardClient;
@@ -491,6 +492,35 @@ describe('HoverCard', () => {
           extensionKey: 'test-object-provider',
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',
+        },
+        eventType: 'ui',
+      });
+    });
+
+    it('should fire render failed event when hover card errors during render', async () => {
+      const mock = jest.spyOn(analytics, 'uiRenderFailedEvent');
+      jest.spyOn(analytics, 'fireSmartLinkEvent');
+      jest
+        .spyOn(HoverCardComponent, 'HoverCardComponent')
+        .mockImplementation(() => {
+          throw new Error('something happened');
+        });
+
+      //setup function implicitly tests that the inline link resolved view is still in the DOM
+      await setup();
+      jest.runAllTimers();
+
+      await wait(() => expect(analytics.fireSmartLinkEvent).toBeCalled(), {
+        timeout: 5000,
+      });
+      expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
+      expect(mock.mock.results[0].value).toEqual({
+        action: 'renderFailed',
+        actionSubject: 'smartLink',
+        attributes: {
+          error: new Error('something happened'),
+          errorInfo: expect.any(Object),
+          display: 'flexible',
         },
         eventType: 'ui',
       });

@@ -99,12 +99,12 @@ export function assignToDate(time: { hour: number; minute: number }): Date {
 export default function (time: string): string | Date {
   const trimmedTime = time.toString().trim();
   if (!isValid(trimmedTime)) {
-    return 'invalid time format';
+    throw RangeError('invalid time format');
   }
   const time1 = removeSpacer(trimmedTime);
   const time2 = convertTo24hrTime(time1);
   if (!time2) {
-    return 'invalid time format';
+    throw RangeError('invalid time format');
   }
   return assignToDate(time2);
 }

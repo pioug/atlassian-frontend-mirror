@@ -8,9 +8,7 @@ import { gridSize as getGridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const gridSize = getGridSize();
-
-const MAX_HEIGHT_SCROLLABLE = gridSize * 11;
-const MAX_HEIGHT_TRUNCATED = gridSize * 6.5;
+const MAX_HEIGHT = gridSize * 6.5;
 
 const iconStyles = css({
   display: 'flex',
@@ -23,7 +21,7 @@ const iconStyles = css({
   },
 });
 
-const visibilityStyles = css({
+const overflowStyles = css({
   overflow: 'hidden',
 });
 
@@ -32,7 +30,7 @@ const contentStyles = css({
   margin: 'auto',
   padding: gridSize * 1.5,
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'start',
   color: 'currentColor',
   fontWeight: 500,
   textAlign: 'center',
@@ -43,12 +41,7 @@ const contentStyles = css({
   },
 });
 
-const cappedWidthStyles = css({
-  maxWidth: 876,
-});
-
 const childrenTextStyles = css({
-  maxWidth: 876,
   padding: gridSize / 2,
   flex: '0 1 auto',
   alignSelf: 'center',
@@ -57,19 +50,8 @@ const childrenTextStyles = css({
   whiteSpace: 'nowrap',
 });
 
-const noOverflowStyles = css({
-  textOverflow: 'none',
-});
-
 const containerStyles = css({
-  maxHeight: MAX_HEIGHT_TRUNCATED,
-
-  overflow: 'visible',
-});
-
-const scrollStyles = css({
-  maxHeight: MAX_HEIGHT_SCROLLABLE,
-  overflow: 'scroll',
+  maxHeight: MAX_HEIGHT,
 });
 
 const appearanceStyles = {
@@ -158,25 +140,21 @@ const Banner: FC<BannerProps> = ({
     return baseProps;
   }, [isOpen, appearance]);
 
-  const isAnnouncementAppearance = appearance === 'announcement';
-
   return (
     <div
-      css={visibilityStyles}
+      css={overflowStyles}
       style={{ maxHeight: `${isOpen ? maxHeight : 0}px` }}
       data-testid={testId}
     >
       <div
-        css={[containerStyles, isAnnouncementAppearance && scrollStyles]}
+        css={[containerStyles]}
         style={{
           ...appearanceStyles[appearance],
         }}
         ref={bannerRef}
         {...accessibilityProps}
       >
-        <div
-          css={[contentStyles, isAnnouncementAppearance && cappedWidthStyles]}
-        >
+        <div css={[contentStyles]}>
           <span
             css={iconStyles}
             style={{
@@ -185,14 +163,7 @@ const Banner: FC<BannerProps> = ({
           >
             {icon}
           </span>
-          <span
-            css={[
-              childrenTextStyles,
-              isAnnouncementAppearance && noOverflowStyles,
-            ]}
-          >
-            {children}
-          </span>
+          <span css={[childrenTextStyles]}>{children}</span>
         </div>
       </div>
     </div>

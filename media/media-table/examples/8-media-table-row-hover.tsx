@@ -1,31 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { HeadType } from '@atlaskit/dynamic-table/types';
 import { MediaTable } from '../src';
 import {
   RenderMediaTableWithFieldRange,
   generateItems,
-  ROW_HIGHLIGHT_CLASSNAME,
 } from '../example-helpers/helpers';
 
-const ROW_CLASSNAME = 'media-table-row';
-const GreenOnHover = styled.div`
-  background-color: red;
-  height: 8px;
-  width: 8px;
-
-  .${ROW_CLASSNAME}:hover & {
-    background-color: green;
-  }
-`;
+import {
+  greenOnHoverStyles,
+  ROW_CLASSNAME,
+  ROW_HIGHLIGHT_CLASSNAME,
+} from '../example-helpers/styles';
 
 const NUM_ITEMS = 50;
 const items = generateItems(NUM_ITEMS).map((item, index) => ({
   ...item,
   data: {
     ...item.data,
-    hover: <GreenOnHover />,
+    hover: <div css={greenOnHoverStyles} />,
   },
   rowProps: {
     className: `${ROW_CLASSNAME}${

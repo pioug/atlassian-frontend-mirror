@@ -9,7 +9,6 @@ import {
   MediaSubscription,
 } from '@atlaskit/media-client';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
-import { InlinePlayerWrapper } from './styled';
 import {
   CardDimensions,
   defaultImageCardDimensions,
@@ -23,12 +22,11 @@ import {
 } from '@atlaskit/analytics-next';
 import { ProgressBar } from './ui/progressBar/progressBar';
 import { Breakpoint } from './ui/common';
-import { calcBreakpointSize } from './ui/styled';
+import { calcBreakpointSize } from './ui/styles';
 import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
 import { getElementDimension } from '../utils/getElementDimension';
 import type { CardPreview } from '..';
-
-export const inlinePlayerClassName = 'media-card-inline-player';
+import { InlinePlayerWrapper } from './inlinePlayerWrapper';
 export interface InlinePlayerOwnProps {
   identifier: FileIdentifier;
   mediaClient: MediaClient;
@@ -252,9 +250,8 @@ export class InlinePlayerBase extends Component<
 
     return (
       <InlinePlayerWrapper
-        className={inlinePlayerClassName}
-        data-testid={testId || 'media-card-inline-player'}
-        selected={selected}
+        testId={testId || 'media-card-inline-player'}
+        selected={{ selected }}
         onClick={onClick}
         innerRef={forwardRef || undefined}
         dimensions={dimensions}

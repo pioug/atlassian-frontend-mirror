@@ -31,8 +31,7 @@ import {
   sleep,
   timeoutPromise,
 } from '@atlaskit/media-test-helpers';
-import { mediaSubscribableToPromise } from '../../utils/mediaSubscribableToPromise';
-import { toMediaSubscribable } from '../..//utils/toMediaSubscribable';
+import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import * as MediaStoreModule from '../../client/media-store';
 
@@ -594,8 +593,8 @@ describe('FileFetcher', () => {
         return expect(copiedFileObservable).toBeDefined();
       }
 
-      const copiedFileState = await mediaSubscribableToPromise(
-        toMediaSubscribable(copiedFileObservable),
+      const copiedFileState = await toPromise(
+        fromObservable(copiedFileObservable),
       );
       expect(copiedFileState).toEqual({
         id: 'copied-file-id',
@@ -645,8 +644,8 @@ describe('FileFetcher', () => {
         return expect(copiedFileObservable).toBeDefined();
       }
 
-      const copiedFileState = await mediaSubscribableToPromise(
-        toMediaSubscribable(copiedFileObservable),
+      const copiedFileState = await toPromise(
+        fromObservable(copiedFileObservable),
       );
       expect(copiedFileState).toEqual({
         id: 'copied-file-id',
@@ -698,7 +697,7 @@ describe('FileFetcher', () => {
 
       try {
         await Promise.race([
-          mediaSubscribableToPromise(toMediaSubscribable(copiedFileObservable)),
+          toPromise(fromObservable(copiedFileObservable)),
           timeoutPromise(
             300,
             'There should be no emission from copiedFileObservable',
@@ -741,7 +740,7 @@ describe('FileFetcher', () => {
         }
 
         try {
-          await mediaSubscribableToPromise(toMediaSubscribable(fileObservable));
+          await toPromise(fromObservable(fileObservable));
         } catch (err) {
           expect(err).toEqual(error);
         }
@@ -790,8 +789,8 @@ describe('FileFetcher', () => {
         return expect(copiedFileObservable).toBeDefined();
       }
 
-      const copiedFileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(copiedFileObservable),
+      const copiedFileState = await toPromise(
+        fromObservable<FileState>(copiedFileObservable),
       );
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
@@ -841,8 +840,8 @@ describe('FileFetcher', () => {
         return expect(copiedFileObservable).toBeDefined();
       }
 
-      const copiedFileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(copiedFileObservable),
+      const copiedFileState = await toPromise(
+        fromObservable<FileState>(copiedFileObservable),
       );
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
@@ -891,8 +890,8 @@ describe('FileFetcher', () => {
         return expect(copiedFileObservable).toBeDefined();
       }
 
-      const copiedFileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(copiedFileObservable),
+      const copiedFileState = await toPromise(
+        fromObservable<FileState>(copiedFileObservable),
       );
       if (!isPreviewableFileState(copiedFileState)) {
         return expect(isPreviewableFileState(copiedFileState)).toBeTruthy();
@@ -1029,8 +1028,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       expect(fileState).toEqual(
         expect.objectContaining({
@@ -1064,8 +1063,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       if (isErrorFileState(fileState)) {
         return expect(fileState.status).not.toBe('error');
@@ -1102,8 +1101,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       expect(fileState).toEqual(
         expect.objectContaining({
@@ -1131,8 +1130,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       expect(fileState).toEqual(
         expect.objectContaining({
@@ -1161,8 +1160,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       expect(fileState).toEqual(
         expect.objectContaining({
@@ -1221,8 +1220,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       expect(fileState).toEqual(
         expect.objectContaining({
@@ -1256,8 +1255,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       if (isErrorFileState(fileState)) {
         return expect(fileState.status).not.toBe('error');
@@ -1289,8 +1288,8 @@ describe('FileFetcher', () => {
         return expect(fileObservable).toBeDefined();
       }
 
-      const fileState = await mediaSubscribableToPromise(
-        toMediaSubscribable<FileState>(fileObservable),
+      const fileState = await toPromise(
+        fromObservable<FileState>(fileObservable),
       );
       expect(fileState).toEqual(
         expect.objectContaining({
@@ -1337,9 +1336,7 @@ describe('FileFetcher', () => {
       }
 
       try {
-        await mediaSubscribableToPromise(
-          toMediaSubscribable<FileState>(fileObservable),
-        );
+        await toPromise(fromObservable<FileState>(fileObservable));
       } catch (err) {
         expect(err).toEqual(error);
       }

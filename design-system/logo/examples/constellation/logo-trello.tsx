@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-
 import { TrelloIcon, TrelloLogo, TrelloWordmark } from '../../src';
 
 const LogoTrello = () => {
@@ -18,22 +16,13 @@ const LogoTrello = () => {
         <tbody>
           <tr>
             <td>
-              <TrelloLogo
-                textColor={N700}
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <TrelloLogo appearance="brand" />
             </td>
             <td>
-              <TrelloWordmark textColor={N700} />
+              <TrelloWordmark appearance="brand" />
             </td>
             <td>
-              <TrelloIcon
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <TrelloIcon appearance="brand" />
             </td>
           </tr>
         </tbody>

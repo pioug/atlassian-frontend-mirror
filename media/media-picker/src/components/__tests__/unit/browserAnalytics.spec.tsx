@@ -88,8 +88,8 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
@@ -163,8 +163,8 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
@@ -243,8 +243,8 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
@@ -343,8 +343,8 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {
@@ -376,8 +376,8 @@ describe('Browser analytics instrumentation', () => {
       expect.objectContaining({
         context: [
           {
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             componentName: 'browser',
             component: 'browser',
             [MEDIA_CONTEXT]: {

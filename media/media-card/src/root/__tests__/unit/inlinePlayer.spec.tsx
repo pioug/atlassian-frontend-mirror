@@ -32,9 +32,10 @@ import {
   InlinePlayerProps,
   getPreferredVideoArtifact,
   InlinePlayerState,
+  InlinePlayerOwnProps,
 } from '../../../root/inlinePlayer';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
-import { InlinePlayerWrapper } from '../../../root/styled';
+import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WrappedComponentProps } from 'react-intl-next';
 
 const defaultFileState: FileState = {
@@ -146,19 +147,22 @@ describe('<InlinePlayer />', () => {
 
   describe('dimensions', () => {
     const expectToHaveWidthHeight = (
-      component: any,
+      component: ReactWrapper<
+        InlinePlayerOwnProps &
+          WithAnalyticsEventsProps &
+          WrappedComponentProps<'intl'>,
+        InlinePlayerState
+      >,
       width: string,
       height: string,
     ) => {
-      expect(component.find(InlinePlayerWrapper)).toHaveStyleRule(
-        'width',
-        width,
-      );
-      expect(component.find(InlinePlayerWrapper)).toHaveStyleRule(
-        'height',
-        height,
-      );
+      const wrapper = component.find('div#inlinePlayerWrapper');
+      const styles = getComputedStyle(wrapper.getDOMNode());
+
+      expect(styles.width).toBe(width);
+      expect(styles.height).toBe(height);
     };
+
     it('should set width/height according to dimensions in the wrapper element', async () => {
       const { component } = setup({
         dimensions: {
@@ -170,6 +174,7 @@ describe('<InlinePlayer />', () => {
       await update(component);
       expectToHaveWidthHeight(component, '80%', '20px');
     });
+
     it('default to 100%/audo width/height if no dimensions given', async () => {
       const { component } = setup();
 

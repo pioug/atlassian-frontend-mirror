@@ -83,6 +83,7 @@ describe('typeahead: up & down arrow navigation', () => {
         await page.click(
           `[aria-label="Popup"] [role="listbox"] [role="option"][aria-selected="true"]`,
         );
+        await page.click(editable);
         await page.keys('X');
 
         const jsonDocument = await page.$eval(editable, getDocFromElement);
@@ -131,9 +132,14 @@ describe('typeahead: up & down arrow navigation', () => {
         await quickInsert(page, title, false);
         await sendArrowUpKey(page, { numTimes: 1 });
         await sendArrowDownKey(page, { numTimes: 2 });
-        await page.click(
+        const elem = await page.$$(
           `[aria-label="Popup"] [role="listbox"] [role="option"][aria-selected="true"]`,
         );
+        const attr = await elem[0].getAttribute('aria-label');
+        expect(attr).toEqual('Heading 4');
+        await elem[0].click();
+        await page.waitForElementCount('h4', 1);
+        await page.click('h4');
         await page.keys('X');
 
         const jsonDocument = await page.$eval(editable, getDocFromElement);

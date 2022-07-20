@@ -11,18 +11,18 @@ import {
   AudioPlayer,
   CustomAudioPlayerWrapper,
   DefaultCoverWrapper,
-  blanketColor,
-} from '../../styled';
+} from '../../styleWrappers';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
 import ErrorMessage from '../../errorMessage';
 import { BaseViewer } from '../base-viewer';
 import { InteractiveImg } from '../image/interactive-img';
 import { PDFRenderer } from '../doc/pdfRenderer';
+import { blanketColor } from '../../styles';
 import {
   ArchiveItemViewerWrapper,
   ArchiveLayout,
   ArchiveViewerWrapper,
-} from './styled';
+} from './styleWrappers';
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
 import { getMediaTypeFromFilename, rejectAfter } from '../../utils';
 import { Spinner } from '../../loading';

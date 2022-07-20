@@ -1,5 +1,23 @@
 # @atlaskit/link-picker
 
+## 1.2.1
+
+### Patch Changes
+
+- [`d17b35d4c20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d17b35d4c20) - Display validation message when submitting empty input
+
+## 1.2.0
+
+### Minor Changes
+
+- [`21b0c90e0d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21b0c90e0d4) - Adds error boundary around the link picker to track errors and display an error message.
+
+## 1.1.4
+
+### Patch Changes
+
+- [`97cfed0aa0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/97cfed0aa0d) - Add tests around how the link picker handles editing links
+
 ## 1.1.3
 
 ### Patch Changes

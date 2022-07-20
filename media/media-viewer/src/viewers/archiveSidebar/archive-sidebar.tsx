@@ -3,7 +3,7 @@ import { ZipEntry, ZipInfo, unzip } from 'unzipit';
 
 import { MediaClient } from '@atlaskit/media-client';
 
-import { ArchiveSideBar, Separator } from './styled';
+import { ArchiveSideBar, Separator } from './styleWrappers';
 import {
   ArchiveSidebarFolderEntry,
   ArchiveSidebarFolderProps,

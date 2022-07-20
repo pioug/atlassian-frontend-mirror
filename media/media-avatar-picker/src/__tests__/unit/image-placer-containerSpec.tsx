@@ -9,7 +9,7 @@ import {
   ImagePlacerContainer,
   ImagePlacerContainerProps,
 } from '../../image-placer/container';
-import { ContainerWrapper } from '../../image-placer/styled';
+import { ContainerWrapper } from '../../image-placer/containerWrapper';
 
 interface SetupInfo {
   wrapper: ShallowWrapper;

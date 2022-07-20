@@ -4,8 +4,8 @@ import {
   clickFirstCell,
   getSelectorForTableCell,
   selectRow,
+  tableSelectors,
 } from '../../__helpers/page-objects/_table';
-import { tableSelectors } from '../../__helpers/page-objects/_table';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { pressKeyCombo } from '../../__helpers/page-objects/_keyboard';
 import { animationFrame } from '../../__helpers/page-objects/_editor';
@@ -26,6 +26,16 @@ const initEditor = async (adf: Object) => {
     },
   });
   await clickFirstCell(page, true);
+};
+
+const hideFloatingToolbar = async (page: PuppeteerPage) => {
+  await page.evaluate(
+    (floatingToolbarSelector) => {
+      const elem = document.querySelector(floatingToolbarSelector);
+      elem && (elem.style.display = 'none');
+    },
+    [tableSelectors.floatingToolbar],
+  );
 };
 
 describe('Snapshot Test: table insert row', () => {
@@ -50,6 +60,10 @@ describe('Snapshot Test: table insert row', () => {
   afterEach(async () => {
     await animationFrame(page);
     await animationFrame(page);
+    // we omit floating toolbar from the snapshot
+    // as its not part of the test focus and appears to flake into/out of appearance.
+    // TODO: remove hideFloatingToolbar() logic and fix flakiness ED-15254
+    await hideFloatingToolbar(page);
     await snapshot(page, {}, tableSelectors.tableWrapper);
   });
 
@@ -59,6 +73,8 @@ describe('Snapshot Test: table insert row', () => {
       cell: 1,
     });
     await click(page, lastCell);
+    await animationFrame(page);
+    await animationFrame(page);
     await pressKeyCombo(page, ['Control', 'Alt', 'ArrowUp']);
   });
 
@@ -68,6 +84,8 @@ describe('Snapshot Test: table insert row', () => {
       cell: 1,
     });
     await click(page, lastCell);
+    await animationFrame(page);
+    await animationFrame(page);
     await pressKeyCombo(page, ['Control', 'Alt', 'ArrowDown']);
   });
 

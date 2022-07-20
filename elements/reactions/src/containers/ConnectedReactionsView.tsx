@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { UFOExperience } from '@atlaskit/ufo';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import {
   withAnalyticsEvents,
@@ -15,6 +14,7 @@ import {
 import { ReactionStatus } from '../types/ReactionStatus';
 import { ufoExperiences } from '../store/ReactionsStore';
 import { Actions } from '../types';
+import { WithSamplingUFOExperience } from '@atlaskit/emoji';
 
 export type Props = {
   /**
@@ -33,10 +33,10 @@ export type Props = {
 
 const ReactionsView: React.FC<Props & WithAnalyticsEventsProps> = (props) => {
   // // compose a UFO experience object
-  let experienceInstance = useRef<UFOExperience>();
+  let experienceInstance = useRef<WithSamplingUFOExperience>();
   const { ari, createAnalyticsEvent, store, containerAri } = props;
   useEffect(() => {
-    experienceInstance.current = ufoExperiences.render.getInstance(ari);
+    experienceInstance.current = ufoExperiences.render(ari);
   }, [ari]);
 
   useEffect(() => {

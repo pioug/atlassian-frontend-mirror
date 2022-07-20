@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import ModalDialog, { ModalFooter, ModalBody } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -13,11 +15,11 @@ import { Avatar } from '../avatar-list';
 import ImageNavigator, { CropProperties } from '../image-navigator';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
 import {
-  AvatarPickerViewWrapper,
-  ModalHeader,
-  CroppingWrapper,
-  ModalFooterButtons,
-} from './styled';
+  avatarPickerViewWrapperStyles,
+  modalHeaderStyles,
+  croppingWrapperStyles,
+  modalFooterButtonsStyles,
+} from './styles';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
 import { LoadParameters } from '../image-navigator/index';
 
@@ -166,7 +168,7 @@ export class AvatarPickerDialog extends PureComponent<
       >
         {this.headerContent()}
         <ModalBody>
-          <AvatarPickerViewWrapper>{this.renderBody()}</AvatarPickerViewWrapper>
+          <div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
         </ModalBody>
         {this.footerContent()}
       </ModalDialog>
@@ -182,9 +184,9 @@ export class AvatarPickerDialog extends PureComponent<
   headerContent = () => {
     const { title } = this.props;
     return (
-      <ModalHeader data-test-id="modal-header">
+      <div css={modalHeaderStyles} data-test-id="modal-header">
         {title || <FormattedMessage {...messages.upload_an_avatar} />}
-      </ModalHeader>
+      </div>
     );
   };
 
@@ -193,7 +195,7 @@ export class AvatarPickerDialog extends PureComponent<
     const { onSaveClick, isDisabled } = this;
     return (
       <ModalFooter>
-        <ModalFooterButtons>
+        <div css={modalFooterButtonsStyles}>
           <Button
             appearance="primary"
             onClick={onSaveClick}
@@ -204,7 +206,7 @@ export class AvatarPickerDialog extends PureComponent<
           <Button appearance="default" onClick={onCancel}>
             <FormattedMessage {...messages.cancel} />
           </Button>
-        </ModalFooterButtons>
+        </div>
       </ModalFooter>
     );
   };
@@ -265,7 +267,7 @@ export class AvatarPickerDialog extends PureComponent<
     switch (mode) {
       case Mode.Cropping:
         return (
-          <CroppingWrapper>
+          <div css={croppingWrapperStyles}>
             <ImageNavigator
               imageSource={selectedImageSource}
               errorMessage={errorMessage}
@@ -277,7 +279,7 @@ export class AvatarPickerDialog extends PureComponent<
               isLoading={isLoading}
             />
             {this.renderPredefinedAvatarList()}
-          </CroppingWrapper>
+          </div>
         );
       case Mode.PredefinedAvatars:
         return (

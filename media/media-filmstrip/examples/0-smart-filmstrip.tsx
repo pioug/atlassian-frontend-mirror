@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component, SyntheticEvent } from 'react';
 import {
   createUploadMediaClient,
@@ -11,8 +12,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { CardEvent, CardAction } from '@atlaskit/media-card';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { Filmstrip, FilmstripItem } from '../src';
-import { ExampleWrapper, FilmstripWrapper } from '../example-helpers/styled';
 import {
   FileItem,
   FileState,
@@ -21,6 +20,8 @@ import {
   FileIdentifier,
 } from '@atlaskit/media-client';
 import Button from '@atlaskit/button/standard-button';
+import { filmstripWrapperStyles } from '../example-helpers/styles';
+import { Filmstrip, FilmstripItem } from '../src';
 
 export interface ExampleState {
   items: FilmstripItem[];
@@ -213,14 +214,14 @@ class Example extends Component<{}, ExampleState> {
     const { items, mediaClient, shouldOpenMediaViewer } = this.state;
 
     return (
-      <ExampleWrapper>
-        <FilmstripWrapper>
+      <div>
+        <div css={filmstripWrapperStyles}>
           <Filmstrip
             mediaClientConfig={mediaClient && mediaClient.config}
             items={items}
             shouldOpenMediaViewer={shouldOpenMediaViewer}
           />
-        </FilmstripWrapper>
+        </div>
         <div>
           Upload file <input type="file" onChange={this.uploadFile} />
         </div>
@@ -236,7 +237,7 @@ class Example extends Component<{}, ExampleState> {
           </Button>
           MediaClient is: {shouldOpenMediaViewer ? 'ON' : 'OFF'}
         </div>
-      </ExampleWrapper>
+      </div>
     );
   }
 }

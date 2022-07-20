@@ -2,8 +2,8 @@ import { mount, ReactWrapper } from 'enzyme';
 import { render } from '@testing-library/react';
 import React from 'react';
 
-import { browser } from '../../../browser';
-import PanelTextInput from '../../text-input';
+import { browser } from '../../link-picker/browser';
+import PanelTextInput from '../../link-picker/text-input';
 
 const noop = () => {};
 

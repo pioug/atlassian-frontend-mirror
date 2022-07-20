@@ -1,3 +1,5 @@
+import { CardDimensions } from './utils';
+
 export type CardStatus =
   | 'uploading'
   | 'loading'
@@ -38,6 +40,7 @@ export type CardPreviewSource =
 export interface CardPreview {
   dataURI: string;
   orientation?: number;
+  dimensions?: CardDimensions;
   source: CardPreviewSource;
 }
 

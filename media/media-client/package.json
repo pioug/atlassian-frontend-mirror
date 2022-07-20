@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "17.0.0",
+  "version": "17.1.0",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/chunkinator": "^4.0.0",
+    "@atlaskit/chunkinator": "^4.1.0",
     "@atlaskit/media-common": "^2.15.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
@@ -43,24 +43,25 @@
     "xstate": "^4.20.0"
   },
   "peerDependencies": {
-    "@atlaskit/media-core": "^33.0.0",
+    "@atlaskit/media-core": "^33.0.1",
+    "@emotion/react": "^11.7.1",
     "react": "^16.8.0"
   },
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^73.8.0",
+    "@atlaskit/media-card": "^74.0.0",
     "@atlaskit/media-core": "^33.0.0",
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@emotion/react": "^11.7.1",
     "@types/deep-equal": "^1.0.1",
     "@types/uuid-validate": "^0.0.0",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "styled-components": "^3.2.6",
     "typescript": "4.2.4"
   },
   "resolutions": {

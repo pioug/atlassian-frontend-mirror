@@ -22,7 +22,7 @@ const listWithCurrentIdentifier = [externalImageIdentifier, ...defaultList];
 const listWithoutCurrentIdentifier = [...defaultList];
 
 export default () => (
-  <MainWrapper>
+  <MainWrapper shouldApplyStyles={false}>
     <h1>Datasource with current identifier</h1>
     <Card
       shouldOpenMediaViewer

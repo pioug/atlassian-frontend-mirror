@@ -43,6 +43,7 @@ import {
 } from '../analytics';
 import { messages } from './message';
 import { EmojiId } from '@atlaskit/emoji/types';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/utils';
 
 export const panelIconMap: {
   [key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;
@@ -67,6 +68,7 @@ export const getToolbarItems = (
   activePanelType?: string,
   activePanelColor?: string,
   activePanelIcon?: string,
+  state?: EditorState,
 ): FloatingToolbarItem<Command>[] => {
   // TODO: ED-14403 investigate why these titles are not getting translated for the tooltips
   const items: FloatingToolbarItem<Command>[] = [
@@ -281,6 +283,15 @@ export const getToolbarItems = (
     }
   }
 
+  if (state && showCopyButton(state)) {
+    items.push(
+      {
+        type: 'separator',
+      },
+      getCopyButtonConfig(state, formatMessage, panelNodeType),
+    );
+  }
+
   items.push(
     {
       type: 'separator',
@@ -331,6 +342,7 @@ export const getToolbarConfig = (
       options.allowCustomPanel
         ? panelIcon || isStandardPanel(panelType)
         : undefined,
+      state,
     );
 
     const getDomRef = (editorView: EditorView) => {

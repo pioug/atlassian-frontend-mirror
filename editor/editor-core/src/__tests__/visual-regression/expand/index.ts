@@ -133,7 +133,8 @@ describe('Expand: full-page', () => {
       await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
     });
 
-    it('should display expand as selected when click on padding', async () => {
+    // TODO: Unskip flaky tests (ED-15254)
+    it.skip('should display expand as selected when click on padding', async () => {
       await initFullPageEditorWithAdf(
         page,
         simpleExpandAdf,

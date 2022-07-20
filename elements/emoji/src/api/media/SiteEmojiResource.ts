@@ -112,10 +112,11 @@ export default class SiteEmojiResource {
 
   uploadEmoji(
     upload: EmojiUpload,
+    retry = false,
     progressCallback?: EmojiProgessCallback,
   ): Promise<EmojiDescription> {
     const startTime = Date.now();
-    return this.tokenManager.getToken('upload').then((uploadToken) => {
+    return this.tokenManager.getToken('upload', retry).then((uploadToken) => {
       const tokenLoadTime = Date.now() - startTime;
       debug('upload token load time', tokenLoadTime);
       return new Promise<EmojiDescription>((resolve, reject) => {

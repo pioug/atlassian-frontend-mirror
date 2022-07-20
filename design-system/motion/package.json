@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/focus-ring": "^1.0.0",
-    "@atlaskit/logo": "^13.7.0",
+    "@atlaskit/logo": "^13.8.0",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",

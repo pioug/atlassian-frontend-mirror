@@ -6,7 +6,7 @@ import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { N20, N30, N700 } from '@atlaskit/theme/colors';
-import { CopyTextConsumer } from './copy-text-provider';
+import { copyTextToClipboard } from '../utils/clipboard';
 import { codeBlockCopyButtonMessages } from '../../messages';
 
 import { token } from '@atlaskit/tokens';
@@ -63,39 +63,29 @@ const CopyButton: React.FC<Props & WrappedComponentProps> = ({
     setClassName('copy-to-clipboard');
   };
   return (
-    <CopyTextConsumer>
-      {({ copyTextToClipboard }) => {
-        return (
-          <span css={copyButtonWrapperStyles}>
-            <Tooltip
-              content={tooltip}
-              hideTooltipOnClick={false}
-              position="top"
-            >
-              <div onMouseLeave={onMouseLeave}>
-                <Button
-                  className={className}
-                  aria-label={tooltip}
-                  spacing="compact"
-                  appearance="subtle"
-                  aria-haspopup={true}
-                  iconBefore={<CopyIcon label={tooltip} />}
-                  onClick={() => {
-                    copyTextToClipboard(content);
-                    setTooltip(
-                      intl.formatMessage(
-                        codeBlockCopyButtonMessages.copiedCodeToClipboard,
-                      ),
-                    );
-                    setClassName('copy-to-clipboard clicked');
-                  }}
-                ></Button>
-              </div>
-            </Tooltip>
-          </span>
-        );
-      }}
-    </CopyTextConsumer>
+    <span css={copyButtonWrapperStyles}>
+      <Tooltip content={tooltip} hideTooltipOnClick={false} position="top">
+        <div onMouseLeave={onMouseLeave}>
+          <Button
+            className={className}
+            aria-label={tooltip}
+            spacing="compact"
+            appearance="subtle"
+            aria-haspopup={true}
+            iconBefore={<CopyIcon label={tooltip} />}
+            onClick={() => {
+              copyTextToClipboard(content);
+              setTooltip(
+                intl.formatMessage(
+                  codeBlockCopyButtonMessages.copiedCodeToClipboard,
+                ),
+              );
+              setClassName('copy-to-clipboard clicked');
+            }}
+          ></Button>
+        </div>
+      </Tooltip>
+    </span>
   );
 };
 

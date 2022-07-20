@@ -1,10 +1,6 @@
 import React, { Component, createRef } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  version as packageVersion,
-  name as packageName,
-} from '../../version.json';
-import {
   UIAnalyticsEvent,
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
@@ -105,6 +101,9 @@ import {
 import { generateUniqueId } from '../../utils/generateUniqueId';
 import { FileStateFlags } from '../../types';
 
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
 export type CardBaseProps = CardProps &
   WithAnalyticsEventsProps &
   Partial<WrappedComponentProps>;
@@ -144,11 +143,12 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     let status: CardStatus = 'loading';
     let cardPreview: CardPreview | undefined;
     let error: MediaCardError | undefined;
-    const { identifier, dimensions = {}, ssr, mediaClient } = this.props;
+    const { identifier, resizeMode, ssr, mediaClient } = this.props;
 
     if (isFileIdentifier(identifier)) {
       const { id } = identifier;
-      cardPreview = getCardPreviewFromCache(id, dimensions);
+      const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
+      cardPreview = getCardPreviewFromCache(id, fileImageMode);
       if (!cardPreview && ssr) {
         this.ssrData = getSSRData(identifier);
         if (this.ssrData?.error) {
@@ -243,7 +243,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const {
       mediaClient: prevMediaClient,
       identifier: prevIdentifier,
-      dimensions: prevDimensions,
     } = prevProps;
     const { isCardVisible: prevIsCardVisible } = prevState;
     const {
@@ -253,6 +252,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       featureFlags,
       useInlinePlayer,
       disableOverlay,
+      resizeMode,
     } = this.props;
     const {
       isCardVisible,
@@ -267,6 +267,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
     const turnedVisible = !prevIsCardVisible && isCardVisible;
     const isNewMediaClient = prevMediaClient !== mediaClient;
+    const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
 
     this.updateFileStateFlag(fileState);
 
@@ -305,7 +306,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         status,
         fileState,
         dimensions,
-        prevDimensions,
+        identifier,
+        fileImageMode,
         featureFlags,
         hasCardPreview: !!cardPreview,
         isBannedLocalPreview,
@@ -578,9 +580,10 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         updateState.isBannedLocalPreview = true;
         this.fireLocalPreviewErrorEvent(error);
       }
-      const { identifier, dimensions = {} } = this.props;
+      const { identifier, resizeMode } = this.props;
+      const fileImageMode = imageResizeModeToFileImageMode(resizeMode);
       isFileIdentifier(identifier) &&
-        removeCardPreviewFromCache(identifier.id, dimensions);
+        removeCardPreviewFromCache(identifier.id, fileImageMode);
       this.safeSetState(updateState);
     } else {
       this.safeSetState({

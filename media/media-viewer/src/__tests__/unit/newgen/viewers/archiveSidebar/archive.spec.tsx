@@ -31,9 +31,12 @@ import {
   getArchiveEntriesFromFileState,
   Props as ArchiveViewerProps,
 } from '../../../../../viewers/archiveSidebar/archive';
-import { ArchiveLayout } from '../../../../../viewers/archiveSidebar/styled';
+import { ArchiveLayout } from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
-import { AudioPlayer, CustomVideoPlayerWrapper } from '../../../../../styled';
+import {
+  AudioPlayer,
+  CustomVideoPlayerWrapper,
+} from '../../../../../styleWrappers';
 import { PDFRenderer } from '../../../../../viewers/doc/pdfRenderer';
 import ArchiveSidebarRenderer from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
 import ErrorMessage from '../../../../../errorMessage';

@@ -4,7 +4,11 @@ import { hideControlsClassName, MediaButton } from '@atlaskit/media-ui';
 import ZoomOutIcon from '@atlaskit/icon/glyph/media-services/zoom-out';
 import ZoomInIcon from '@atlaskit/icon/glyph/media-services/zoom-in';
 import { ZoomLevel } from './domain/zoomLevel';
-import { ZoomWrapper, ZoomControlsWrapper, ZoomLevelIndicator } from './styled';
+import {
+  ZoomWrapper,
+  ZoomControlsWrapper,
+  ZoomLevelIndicator,
+} from './styleWrappers';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,

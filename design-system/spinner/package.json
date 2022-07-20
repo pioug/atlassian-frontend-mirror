@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/spinner",
-  "version": "15.1.12",
+  "version": "15.1.13",
   "description": "A spinner is an animated spinning icon that lets users know content is being loaded.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,15 +13,20 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Spinner",
       "category": "Components"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./constants": "./src/constants.tsx",
+    "./spinner": "./src/spinner.tsx",
+    "./types": "./src/types.tsx"
   },
   "dependencies": {
     "@atlaskit/theme": "^12.1.0",
@@ -38,7 +43,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/lozenge": "^11.1.0",
-    "@atlaskit/motion": "^1.1.0",
+    "@atlaskit/motion": "^1.2.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/select": "^15.3.0",
     "@atlaskit/ssr": "*",
@@ -58,6 +63,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "design-system": "v1",
       "dom-events": "use-bind-event-listener",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",

@@ -13,9 +13,8 @@ import {
   AudioCover,
   Audio,
   DefaultCoverWrapper,
-  blanketColor,
   CustomAudioPlayerWrapper,
-} from '../styled';
+} from '../styleWrappers';
 import { BaseState, BaseViewer } from './base-viewer';
 import { isIE } from '../utils/isIE';
 import {
@@ -23,6 +22,7 @@ import {
   WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
+import { blanketColor } from '../styles';
 
 export type Props = Readonly<
   {
@@ -122,7 +122,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
           <Audio
             autoPlay={isAutoPlay}
             controls
-            innerRef={this.saveAudioElement}
+            ref={this.saveAudioElement}
             src={src}
             preload="metadata"
           />

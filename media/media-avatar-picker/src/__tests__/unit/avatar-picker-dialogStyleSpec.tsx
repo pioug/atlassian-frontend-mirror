@@ -1,21 +1,23 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { DragZone } from '../../image-navigator/styled';
+import { render } from 'enzyme';
+import { DragZone } from '../../image-navigator/dragZone';
 
 describe('Avatar Picker Styles', () => {
   describe('image-navigator', () => {
     it('DragZone is dropping file', () => {
-      const wrapper = shallow(
+      const dragZone = render(
         <DragZone isDroppingFile={true} showBorder={true} />,
       );
-      expect(wrapper).toMatchSnapshot();
+
+      expect(dragZone).toMatchSnapshot();
     });
 
     it('DragZone is not dropping file', () => {
-      const wrapper = shallow(
+      const dragZone = render(
         <DragZone isDroppingFile={false} showBorder={true} />,
       );
-      expect(wrapper).toMatchSnapshot();
+
+      expect(dragZone).toMatchSnapshot();
     });
   });
 });

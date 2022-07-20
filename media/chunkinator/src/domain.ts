@@ -5,7 +5,7 @@ export interface SlicenatorOptions {
 }
 
 export interface Slicenator {
-  (blob: Blob, options: SlicenatorOptions): Observable<Blob>;
+  (blob: Blob, options: SlicenatorOptions): Observable<SlicedBlob>;
 }
 
 export interface HashinatorOptions {
@@ -13,13 +13,17 @@ export interface HashinatorOptions {
   hasher?: HashingFunction;
 }
 
-export interface HashedBlob {
+export interface SlicedBlob {
+  partNumber: number;
   blob: Blob;
+}
+
+export interface HashedBlob extends SlicedBlob {
   hash: string;
 }
 
 export interface Hashinator {
-  (blobs$: Observable<Blob>, options: HashinatorOptions): Observable<
+  (blobs$: Observable<SlicedBlob>, options: HashinatorOptions): Observable<
     HashedBlob
   >;
 }
@@ -58,8 +62,7 @@ export interface Processinator {
 
 // Public
 
-export interface Chunk {
-  blob: Blob;
+export interface Chunk extends SlicedBlob {
   hash: string;
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "4.3.6",
+  "version": "4.3.7",
   "description": "A text area lets users enter long form text which spans over multiple lines.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,12 +17,18 @@
   "homepage": "https://atlassian.design/components/textarea/",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Text area",
       "category": "Components"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./component-tokens": "./src/component-tokens.ts",
+    "./styles": "./src/styles.ts",
+    "./text-area": "./src/text-area.tsx",
+    "./theme": "./src/theme.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",

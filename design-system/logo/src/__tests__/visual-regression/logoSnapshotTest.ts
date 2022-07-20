@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  takeElementScreenShot,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
 
@@ -22,6 +23,7 @@ describe('Snapshot Test', () => {
   });
 
   it('Logo color example should match production example', async () => {
+    const selector = '[data-testid="color"]';
     const url = getExampleUrl(
       'design-system',
       'logo',
@@ -29,11 +31,24 @@ describe('Snapshot Test', () => {
       global.__BASEURL__,
     );
     const { page } = global;
-    page.setViewport({ width: 800, height: 650 });
-
     await loadPage(page, url);
-    await waitForElementCount(page, 'svg', 5);
-    const image = await page.screenshot();
+    await waitForElementCount(page, 'svg', 8);
+    const image = await takeElementScreenShot(page, selector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Logo sizes example should match production example', async () => {
+    const selector = '[data-testid="sizes"]';
+    const url = getExampleUrl(
+      'design-system',
+      'logo',
+      'sizes',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await waitForElementCount(page, 'svg', 15);
+    const image = await takeElementScreenShot(page, selector);
     expect(image).toMatchProdImageSnapshot();
   });
 });

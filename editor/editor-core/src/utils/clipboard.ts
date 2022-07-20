@@ -1,3 +1,5 @@
+import ClipboardPolyfill, * as clipboard from 'clipboard-polyfill';
+
 export function checkClipboardTypes(
   type: DOMStringList | ReadonlyArray<string>,
   item: string,
@@ -37,5 +39,29 @@ export const copyToClipboard = async (textToCopy: string) => {
     }
   } else {
     throw new Error('Clipboard api is not supported');
+  }
+};
+
+export const copyHTMLToClipboard = async (htmlToCopy: string) => {
+  // @ts-ignore
+  if (isClipboardApiSupported() && typeof ClipboardItem !== 'undefined') {
+    try {
+      const blobInput = new Blob([htmlToCopy], {
+        type: 'text/html',
+      });
+      // @ts-ignore
+      const data = [new ClipboardItem({ 'text/html': blobInput })];
+      // @ts-ignore
+      navigator.clipboard.write(data);
+    } catch (error) {
+      throw new Error('Clipboard api is not supported');
+    }
+  } else {
+    // At the time of development, Firefox doesn't support ClipboardItem API
+    // Hence of use of this polyfill
+    const Clipboard: typeof ClipboardPolyfill = clipboard as any;
+    const dt = new Clipboard.DT();
+    dt.setData('text/html', htmlToCopy);
+    Clipboard.write(dt);
   }
 };

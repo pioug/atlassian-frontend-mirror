@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 98.1.0
+
+### Minor Changes
+
+- [`ab4f37635d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab4f37635d9) - Modified the renderer package to include a prop 'nodeComponents' that will override the nodes the renderer provides and allow us to render our own custom nodes
+- [`2d979ce9877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d979ce9877) - [ux] ED-14945: Add windowed codeblock support in renderer (This feature sits behind a flag in the featureFlags prop 'allow-windowed-code-block')
+
+### Patch Changes
+
+- [`153b80fdcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153b80fdcda) - [ux] ED-15111: Fix aligned text and headings margin-top values in layouts in Renderer (by clearing them)
+- [`07e38f1e753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07e38f1e753) - [ux] ED-14419: removed CopyTextProvider in favour of util function copyTextToClipboard()
+
+  This removes workarounds for unsupported browsers such as Internet Explorer and Safari releases before v12.
+
+- Updated dependencies
+
 ## 98.0.0
 
 ### Patch Changes

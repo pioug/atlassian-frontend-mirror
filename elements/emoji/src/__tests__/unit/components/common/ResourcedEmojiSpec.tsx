@@ -1,7 +1,7 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
+import { render, waitForElement, cleanup } from '@testing-library/react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { render } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
 import { EmojiDescription, UfoEmojiTimings } from '../../../../types';
@@ -56,6 +56,38 @@ describe('<ResourcedEmoji />', () => {
     mockConstants.SAMPLING_RATE_EMOJI_RENDERED_EXP = 1;
     samplingUfo.clearSampled();
     jest.clearAllMocks();
+  });
+  afterEach(cleanup);
+
+  it('should render a fallback element if emoji cannot be found', async () => {
+    const fallback = <h1>wow cool</h1>;
+    const component = await render(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise()}
+        emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
+        customFallback={fallback}
+      />,
+    );
+
+    await waitForElement(async () => {
+      const result = await component.findByText('wow cool');
+      expect(result).toBeInTheDocument();
+    });
+  });
+
+  it('should render a fallback string if emoji cannot be found', async () => {
+    const component = await render(
+      <ResourcedEmoji
+        emojiProvider={getEmojiResourcePromise()}
+        emojiId={{ shortName: 'does-not-exist', id: 'does-not-exist' }}
+        customFallback="wow cool"
+      />,
+    );
+
+    await waitForElement(async () => {
+      const result = await component.findByText('wow cool');
+      expect(result).toBeInTheDocument();
+    });
   });
 
   it('should render emoji', () => {
@@ -171,11 +203,8 @@ describe('<ResourcedEmoji />', () => {
 
   it('unknown emoji', () => {
     let resolver: (value?: any | PromiseLike<any>) => void;
-    // @ts-ignore Unused var never read, should this be deleted?
-    let resolverResult;
     const config = {
       promiseBuilder: (result: EmojiDescription) => {
-        resolverResult = result;
         return new Promise((resolve) => {
           resolver = resolve;
         });

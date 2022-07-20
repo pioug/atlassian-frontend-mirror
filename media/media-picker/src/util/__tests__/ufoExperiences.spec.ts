@@ -8,10 +8,6 @@ jest.mock('@atlaskit/ufo', () => {
     ConcurrentExperience: jest.fn(),
   };
 });
-jest.mock('../../version.json', () => ({
-  name: 'test package',
-  version: '1.0',
-}));
 
 jest.mock('@atlaskit/media-client', () => {
   const mediaClient = jest.requireActual('@atlaskit/media-client');
@@ -42,11 +38,6 @@ describe('ufoExperience', () => {
     fileId: 'some-id',
     fileMediatype: undefined,
     fileMimetype: undefined,
-  };
-
-  const packageInfo = {
-    packageName: 'test package',
-    packageVersion: '1.0',
   };
 
   const mockStart = jest.fn();
@@ -111,7 +102,8 @@ describe('ufoExperience', () => {
       expect(mockSuccess).toBeCalledWith({
         metadata: {
           fileAttributes: fileAttributes,
-          ...packageInfo,
+          packageName: expect.any(String),
+          packageVersion: expect.any(String),
           mediaEnvironment: mockMediaEnvironment,
           mediaRegion: mockMediaRegion,
         },
@@ -151,7 +143,8 @@ describe('ufoExperience', () => {
             fileId: expect.any(String),
           },
           uploadDurationMsec: -1,
-          ...packageInfo,
+          packageName: expect.any(String),
+          packageVersion: expect.any(String),
           mediaEnvironment: mockMediaEnvironment,
           mediaRegion: mockMediaRegion,
         },

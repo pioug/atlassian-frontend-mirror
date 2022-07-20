@@ -15,7 +15,11 @@ import {
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import { MediaViewer, MediaViewerComponent } from '../../../media-viewer';
-import { CloseButtonWrapper, SidebarWrapper } from '../../../styled';
+import {
+  CloseButtonWrapper,
+  SidebarWrapper,
+  Blanket,
+} from '../../../styleWrappers';
 import Header from '../../../header';
 import { ItemSource } from '../../../domain';
 import { List } from '../../../list';
@@ -23,7 +27,6 @@ import {
   MediaViewerProps,
   MediaViewerExtensions,
 } from '../../../components/types';
-import { Blanket } from '../../../styled';
 function createFixture(
   items: Identifier[],
   identifier: Identifier,
@@ -97,9 +100,7 @@ describe('<MediaViewer />', () => {
     const { el } = createFixture([identifier], identifier);
     const blanket = el.find(Blanket);
     expect(blanket).toHaveLength(1);
-    expect(blanket.getDOMNode().getAttribute('data-testid')).toEqual(
-      'media-viewer-popup',
-    );
+    expect(blanket.prop('data-testid')).toEqual('media-viewer-popup');
   });
 
   describe('Analytics', () => {

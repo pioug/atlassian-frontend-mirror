@@ -1,6 +1,6 @@
 export {
-  AnnotationTypes,
   PanelType,
+  AnnotationTypes,
   alignment,
   alignmentPositionMap,
   annotation,

@@ -1,5 +1,20 @@
 # @atlaskit/datetime-picker
 
+## 12.1.0
+
+### Minor Changes
+
+- [`58d4cd75f7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58d4cd75f7a) - Removed deprecated hideIcon prop from DateTimePicker because it is unused and serves no functionality.
+  Removed the deprecation notice for the formatDisplayLabel prop in TimePicker
+
+### Patch Changes
+
+- [`c3a1b950d49`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3a1b950d49) - DSP-3301 specifies label to input id
+- [`c2f866d31d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2f866d31d1) - [ux] Fix timepicker clear icon alignment
+- [`7566be18f20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7566be18f20) - [ux] Time picker no longer loses focus to the document when tabbing through it in a popup.
+- [`574b6c8ba7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/574b6c8ba7f) - [ux] DSP-2987 Add code to catch console error
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

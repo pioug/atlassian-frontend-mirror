@@ -36,7 +36,6 @@ import { RendererAppearance } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
-import { CopyTextProvider } from '../../react/nodes/copy-text-provider';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
 import { name, version } from '../../version.json';
 import { ReactSerializerInit } from '../../react';
@@ -216,6 +215,8 @@ export class Renderer extends PureComponent<RendererProps> {
         annotationProvider.inlineComment.allowDraftMode,
     );
 
+    const { featureFlags } = this.featureFlags(props.featureFlags);
+
     return {
       providers: this.providerFactory,
       eventHandlers: props.eventHandlers,
@@ -244,6 +245,9 @@ export class Renderer extends PureComponent<RendererProps> {
       allowAnnotations: props.allowAnnotations,
       allowSelectAllTrap: props.allowSelectAllTrap,
       allowPlaceholderText: props.allowPlaceholderText,
+      nodeComponents: props.nodeComponents,
+      // does not currently support SSR, should not be enabled in environments where Renderer is SSR-ed
+      allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
     };
   }
 
@@ -381,43 +385,39 @@ export class Renderer extends PureComponent<RendererProps> {
         <RendererContextProvider
           value={this.featureFlags(this.props.featureFlags)}
         >
-          <CopyTextProvider>
-            <ActiveHeaderIdProvider
-              value={getActiveHeadingId(allowHeadingAnchorLinks)}
+          <ActiveHeaderIdProvider
+            value={getActiveHeadingId(allowHeadingAnchorLinks)}
+          >
+            <AnalyticsContext.Provider
+              value={{
+                fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
+                  this.fireAnalyticsEvent(event),
+              }}
             >
-              <AnalyticsContext.Provider
-                value={{
-                  fireAnalyticsEvent: (event: AnalyticsEventPayload) =>
-                    this.fireAnalyticsEvent(event),
-                }}
-              >
-                <SmartCardStorageProvider>
-                  <RendererWrapper
-                    appearance={appearance}
-                    allowNestedHeaderLinks={allowNestedHeaderLinks}
-                    allowColumnSorting={allowColumnSorting}
-                    allowCopyToClipboard={allowCopyToClipboard}
-                    allowCustomPanels={allowCustomPanels}
-                    allowPlaceholderText={allowPlaceholderText}
-                    innerRef={this.editorRef}
-                    onClick={handleWrapperOnClick}
-                    onMouseDown={this.onMouseDownEditView}
+              <SmartCardStorageProvider>
+                <RendererWrapper
+                  appearance={appearance}
+                  allowNestedHeaderLinks={allowNestedHeaderLinks}
+                  allowColumnSorting={allowColumnSorting}
+                  allowCopyToClipboard={allowCopyToClipboard}
+                  allowCustomPanels={allowCustomPanels}
+                  allowPlaceholderText={allowPlaceholderText}
+                  innerRef={this.editorRef}
+                  onClick={handleWrapperOnClick}
+                  onMouseDown={this.onMouseDownEditView}
+                >
+                  {enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
+                  <RendererActionsInternalUpdater
+                    doc={pmDoc}
+                    schema={schema}
+                    onAnalyticsEvent={this.fireAnalyticsEvent}
                   >
-                    {enableSsrInlineScripts ? (
-                      <BreakoutSSRInlineScript />
-                    ) : null}
-                    <RendererActionsInternalUpdater
-                      doc={pmDoc}
-                      schema={schema}
-                      onAnalyticsEvent={this.fireAnalyticsEvent}
-                    >
-                      {result}
-                    </RendererActionsInternalUpdater>
-                  </RendererWrapper>
-                </SmartCardStorageProvider>
-              </AnalyticsContext.Provider>
-            </ActiveHeaderIdProvider>
-          </CopyTextProvider>
+                    {result}
+                  </RendererActionsInternalUpdater>
+                </RendererWrapper>
+              </SmartCardStorageProvider>
+            </AnalyticsContext.Provider>
+          </ActiveHeaderIdProvider>
         </RendererContextProvider>
       );
 

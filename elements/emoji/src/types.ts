@@ -2,6 +2,7 @@ import { SyntheticEvent } from 'react';
 import { messages } from './components/i18n';
 import { CategoryId } from './components/picker/categories';
 import { Provider } from '@atlaskit/util-service-support/types';
+import { EmojiRepository } from './resource';
 
 export type { CategoryId } from './components/picker/categories';
 
@@ -134,6 +135,16 @@ export interface EmojiProvider
    * Returns the logged user passed by the Product
    */
   getCurrentUser(): OptionalUser;
+
+  /**
+   * Fetches and returns emojiResource
+   */
+  fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined>;
+
+  /**
+   * Returns a constructed URL to fetch emoji media asset if 'optimisticImageApi' config has been provided
+   */
+  getOptimisticImageURL(emojiId: EmojiId): string | undefined;
 }
 
 export interface UploadingEmojiProvider extends EmojiProvider {
@@ -151,7 +162,10 @@ export interface UploadingEmojiProvider extends EmojiProvider {
    *
    * The last search will be re-run to ensure the new emoji is considered in the search.
    */
-  uploadCustomEmoji(upload: EmojiUpload): Promise<EmojiDescription>;
+  uploadCustomEmoji(
+    upload: EmojiUpload,
+    retry?: boolean,
+  ): Promise<EmojiDescription>;
 
   /**
    * Allows the preloading of data (e.g. authentication tokens) to speed the uploading of emoji.
@@ -392,6 +406,7 @@ export enum ProviderTypes {
   STANDARD = 'STANDARD',
   ATLASSIAN = 'ATLASSIAN',
   UNKNOWN = 'UNKNOWN',
+  SINGLE = 'SINGLE',
 }
 
 export enum UfoExperienceName {

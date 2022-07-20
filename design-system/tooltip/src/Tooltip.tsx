@@ -7,8 +7,14 @@ import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
-import { ExitingPersistence, FadeIn, Transition } from '@atlaskit/motion';
-import { Popper, PopperProps } from '@atlaskit/popper';
+import {
+  Direction,
+  ExitingPersistence,
+  FadeIn,
+  Transition,
+} from '@atlaskit/motion';
+import { mediumDurationMs } from '@atlaskit/motion/durations';
+import { Placement, Popper, PopperProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -26,7 +32,32 @@ const analyticsAttributes = {
 };
 function noop() {}
 
-type State = 'hide' | 'show-immediate' | 'show-fade-in' | 'fade-out';
+// Inverts motion direction
+const invertedDirection = {
+  top: 'bottom',
+  bottom: 'top',
+  left: 'right',
+  right: 'left',
+} as const;
+
+/**
+ * Converts a Popper placement to it's general direction.
+ *
+ * @param position - Popper Placement value, e.g. 'top-start'
+ * @returns Popper Direction, e.g. 'top'
+ */
+const getDirectionFromPlacement = (placement: Placement): Direction =>
+  placement.split('-')[0] as Direction;
+
+type State =
+  | 'hide'
+  | 'show-immediate'
+  | 'fade-in'
+  | 'fade-out'
+  // This occurs immediately before 'fade-out' so the ExitPersistence can render FadeIn
+  // with the updated duration before removal. This ensures 'show-immediate' durations of 0
+  // do not affect normal exit transitions.
+  | 'before-fade-out';
 
 function Tooltip({
   children,
@@ -158,17 +189,14 @@ function Tooltip({
             hasCalledShowHandler.current = true;
             lastHandlers.current.onShowHandler();
           }
-          setState(isImmediate ? 'show-immediate' : 'show-fade-in');
+          setState(isImmediate ? 'show-immediate' : 'fade-in');
         },
         hide: ({ isImmediate }) => {
-          setState(
-            (current: State): State => {
-              if (current !== 'hide') {
-                return isImmediate ? 'hide' : 'fade-out';
-              }
-              return current;
-            },
-          );
+          if (isImmediate) {
+            setState('hide');
+          } else {
+            setState('before-fade-out');
+          }
         },
         done: done,
       };
@@ -191,6 +219,10 @@ function Tooltip({
   useEffect(() => {
     if (state === 'hide') {
       return noop;
+    }
+
+    if (state === 'before-fade-out') {
+      setState('fade-out');
     }
 
     const unbind = bind(window, {
@@ -309,9 +341,9 @@ function Tooltip({
     state !== 'hide' && Boolean(content);
 
   const shouldRenderTooltipChildren: boolean =
-    state === 'show-immediate' || state === 'show-fade-in';
+    state !== 'hide' && state !== 'fade-out';
 
-  const getReferentElement = () => {
+  const getReferenceElement = () => {
     // Use the initial mouse position if appropriate, or the target element
     const api: API | null = apiRef.current;
     const initialMouse: FakeMouseElement | null = api
@@ -351,38 +383,53 @@ function Tooltip({
         <Portal zIndex={tooltipZIndex}>
           <Popper
             placement={tooltipPosition}
-            referenceElement={getReferentElement() as HTMLElement}
+            referenceElement={getReferenceElement() as HTMLElement}
             strategy={strategy}
           >
-            {({ ref, style, update }) => (
-              <ExitingPersistence appear>
-                {shouldRenderTooltipChildren && (
-                  <FadeIn
-                    onFinish={onAnimationFinished}
-                    duration={state === 'show-immediate' ? 0 : undefined}
-                  >
-                    {({ className }) => (
-                      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-                      <Container
-                        ref={ref}
-                        className={`Tooltip ${className}`}
-                        style={style}
-                        truncate={truncate}
-                        placement={tooltipPosition}
-                        testId={testId}
-                        onMouseOut={onMouseOut}
-                        onMouseOver={onMouseOverTooltip}
-                        id={tooltipId}
-                      >
-                        {typeof content === 'function'
-                          ? content({ update })
-                          : content}
-                      </Container>
-                    )}
-                  </FadeIn>
-                )}
-              </ExitingPersistence>
-            )}
+            {({ ref, style, update, placement }) => {
+              // Invert the entrance and exit directions.
+              // E.g. a tooltip's position is on the 'right', it should enter from and exit to the 'left'
+              // This gives the effect the tooltip is appearing from the target
+              const direction =
+                position === 'mouse'
+                  ? undefined
+                  : invertedDirection[getDirectionFromPlacement(placement)];
+
+              return (
+                <ExitingPersistence appear>
+                  {shouldRenderTooltipChildren && (
+                    <FadeIn
+                      distance="constant"
+                      entranceDirection={direction}
+                      exitDirection={direction}
+                      onFinish={onAnimationFinished}
+                      duration={
+                        state === 'show-immediate' ? 0 : mediumDurationMs
+                      }
+                    >
+                      {({ className }) => (
+                        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+                        <Container
+                          ref={ref}
+                          className={`Tooltip ${className}`}
+                          style={style}
+                          truncate={truncate}
+                          placement={tooltipPosition}
+                          testId={testId}
+                          onMouseOut={onMouseOut}
+                          onMouseOver={onMouseOverTooltip}
+                          id={tooltipId}
+                        >
+                          {typeof content === 'function'
+                            ? content({ update })
+                            : content}
+                        </Container>
+                      )}
+                    </FadeIn>
+                  )}
+                </ExitingPersistence>
+              );
+            }}
           </Popper>
         </Portal>
       ) : null}

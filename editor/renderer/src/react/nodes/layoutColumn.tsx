@@ -1,11 +1,17 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 
 import {
   WidthProvider,
   clearNextSiblingMarginTopStyle,
+  clearNextSiblingBlockMarkMarginTopStyle,
 } from '@atlaskit/editor-common/ui';
+
+const layoutColumnClearMarginTopStyles = css`
+  ${clearNextSiblingMarginTopStyle}
+  ${clearNextSiblingBlockMarkMarginTopStyle}
+`;
 
 export default function LayoutSection(
   props: { width?: number } & React.Props<any>,
@@ -17,7 +23,7 @@ export default function LayoutSection(
       style={{ flexBasis: `${props.width}%` }}
     >
       <WidthProvider>
-        <div css={clearNextSiblingMarginTopStyle} />
+        <div css={layoutColumnClearMarginTopStyles} />
         {props.children}
       </WidthProvider>
     </div>

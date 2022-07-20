@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ResourcedEmojiControl, {
   getEmojiConfig,
   getRealEmojiResource,
@@ -6,12 +6,39 @@ import ResourcedEmojiControl, {
 import { emojiPickerHeight } from '../src/util/constants';
 import { IntlProvider } from 'react-intl-next';
 import { EmojiProvider, ResourcedEmoji } from '../src';
-// import { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repository';
-// const emojiService = getEmojiRepository();
+import { token } from '@atlaskit/tokens';
+import { N0, Y50 } from '@atlaskit/theme/colors';
 
 interface RenderRealEmojisProps {
   emailProvider: Promise<EmojiProvider>;
 }
+
+const CustomFallbackElement: FC = ({ children }) => {
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        borderRadius: '100%',
+        height: '50px',
+        width: '50px',
+        backgroundColor: token('color.background.neutral.bold', Y50),
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          width: '100%',
+          color: token('color.text.inverse', N0),
+        }}
+      >
+        {children}
+      </div>
+    </span>
+  );
+};
 
 export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
   const emojiTest = {
@@ -32,6 +59,7 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
 
   return (
     <>
+      <p>A resource emoji with a standard emoji</p>
       <ResourcedEmoji
         emojiId={{
           id: grinEmoji.id,
@@ -42,6 +70,7 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
         emojiProvider={props.emailProvider}
         fitToHeight={24}
       />
+      <p>A resource emoji with a custom emoji</p>
       <ResourcedEmoji
         emojiId={{
           id: emojiTest.id,
@@ -62,6 +91,18 @@ export const RenderRealResourcedEmojis = (props: RenderRealEmojisProps) => {
         showTooltip={true}
         emojiProvider={props.emailProvider}
         fitToHeight={24}
+      />
+      <p>A resource emoji with a custom fallback element.</p>
+      <ResourcedEmoji
+        emojiId={{
+          id: wrongEmoji.id,
+          fallback: wrongEmoji.fallback,
+          shortName: wrongEmoji.shortName,
+        }}
+        showTooltip={true}
+        emojiProvider={props.emailProvider}
+        fitToHeight={50}
+        customFallback={<CustomFallbackElement>FB</CustomFallbackElement>}
       />
     </>
   );

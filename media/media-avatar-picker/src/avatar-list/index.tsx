@@ -1,8 +1,9 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 
-import { AvatarListWrapper } from './styled';
-import { SmallAvatarImage } from '../predefined-avatar-view/styled';
+import { avatarListWrapperStyles } from './styles';
+import { SmallAvatarImage } from '../predefined-avatar-view/smallImageAvatar';
 
 export interface Avatar {
   dataURI: string;
@@ -29,15 +30,16 @@ export class AvatarList extends PureComponent<AvatarListProps, {}> {
             isSelected={avatar === selectedAvatar}
             src={avatar.dataURI}
             onClick={this.onItemClick(avatar)}
+            id="small-avatar-image"
           />
         </li>
       );
     });
 
     return (
-      <AvatarListWrapper>
+      <div css={avatarListWrapperStyles}>
         <ul>{cards}</ul>
-      </AvatarListWrapper>
+      </div>
     );
   }
 

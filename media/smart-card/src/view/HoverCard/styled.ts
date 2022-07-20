@@ -1,5 +1,15 @@
 import { css } from '@emotion/core';
 import { loadingPlaceholderClassName } from '../../index';
+import { SmartLinkSize, SmartLinkTheme } from '../../constants';
+import { FlexibleUiOptions } from '../FlexibleCard/types';
+
+export const flexibleUiOptions: FlexibleUiOptions = {
+  hideElevation: true,
+  size: SmartLinkSize.Medium,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  theme: SmartLinkTheme.Black,
+  hidePadding: true,
+};
 
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';

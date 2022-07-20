@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { Card } from '../src';
 import {
@@ -10,9 +11,9 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaViewerDataSource } from '@atlaskit/media-viewer';
 import {
-  MediaViewerExampleWrapper,
-  MediaViewerExampleColumn,
-} from '../example-helpers/styled';
+  mediaViewerExampleWrapperStyles,
+  mediaViewerExampleColumnStyles,
+} from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
@@ -34,8 +35,8 @@ class Example extends Component<{}, {}> {
 
     return (
       <MainWrapper>
-        <MediaViewerExampleWrapper>
-          <MediaViewerExampleColumn>
+        <div css={mediaViewerExampleWrapperStyles}>
+          <div css={mediaViewerExampleColumnStyles}>
             <h3>shouldOpenMediaViewer + mediaViewerDataSource</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
@@ -55,8 +56,8 @@ class Example extends Component<{}, {}> {
               shouldOpenMediaViewer={shouldOpenMediaViewer}
               mediaViewerDataSource={mediaViewerDataSource}
             />
-          </MediaViewerExampleColumn>
-          <MediaViewerExampleColumn>
+          </div>
+          <div css={mediaViewerExampleColumnStyles}>
             <h3>shouldOpenMediaViewer + list without card identifier</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
@@ -64,8 +65,8 @@ class Example extends Component<{}, {}> {
               shouldOpenMediaViewer={shouldOpenMediaViewer}
               mediaViewerDataSource={{ list: [gifFileId] }}
             />
-          </MediaViewerExampleColumn>
-          <MediaViewerExampleColumn>
+          </div>
+          <div css={mediaViewerExampleColumnStyles}>
             <h3>useInlinePlayer=true</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
@@ -74,16 +75,16 @@ class Example extends Component<{}, {}> {
               mediaViewerDataSource={mediaViewerDataSource}
               useInlinePlayer={true}
             />
-          </MediaViewerExampleColumn>
-          <MediaViewerExampleColumn>
+          </div>
+          <div css={mediaViewerExampleColumnStyles}>
             <h3>mediaViewerDataSource=undefined</h3>
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={largeImageFileId}
               shouldOpenMediaViewer={shouldOpenMediaViewer}
             />
-          </MediaViewerExampleColumn>
-        </MediaViewerExampleWrapper>
+          </div>
+        </div>
       </MainWrapper>
     );
   }

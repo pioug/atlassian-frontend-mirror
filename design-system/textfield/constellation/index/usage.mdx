@@ -13,13 +13,12 @@ Common text input types include: usernames, descriptions, URLs, emails, addresse
 ![Text field anatomy](images/text-field-anatomy.png)
 
 1. **Label:** Should indicate what sort of information the field requires and is left-aligned directly above the input area.
-2. **Placeholder text:** Lets people know how they should use the field, for example, “Start typing to see names.”
+2. **Placeholder text:** Avoid placeholders when possible. Never use placeholder text to communicate critical information — this is not accessible. Instead, use field labels or helper text to describe the purpose of the field and how to use it. Placeholders can be used for search fields or some short example entries.
 3. **Input area:** This is where people enter text.
 4. **Helper text:** Gives context about a field's input.
 
 ## Best practices
 
-- Only supply placeholder text where clarification is required, try not to overuse it.
 - Place labels directly above the input, and align to the left.
 
 ## Content guidelines
@@ -30,6 +29,11 @@ Common text input types include: usernames, descriptions, URLs, emails, addresse
 ## Server
 
 Consult [AUI](https://docs.atlassian.com/aui/latest/docs/forms.html) for implementation details.
+
+## Accessibility
+
+- Avoid using placeholder text whenever possible. Make sure any critical information is communicated either in the field label or using helper text below the field. Search fields or brief examples are the only exceptions where placeholder text is OK.
+
 
 ## Related
 

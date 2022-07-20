@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid/v4';
 import { FileState } from '../src';
-import { FileStateWrapper } from '../example-helpers/styled';
+import { FileStateWrapper } from '../example-helpers/stylesWrapper';
 
 export interface ExampleState {
   fileStates: { [id: string]: FileState };

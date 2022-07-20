@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 0.1.13
+
+### Patch Changes
+
+- [`354050b68da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/354050b68da) - Revert font size calculations to raw pixels.
+
 ## 0.1.12
 
 ### Patch Changes

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-
 import { BitbucketIcon, BitbucketLogo, BitbucketWordmark } from '../../src';
 
 const LogoBitbucket = () => {
@@ -18,22 +16,13 @@ const LogoBitbucket = () => {
         <tbody>
           <tr>
             <td>
-              <BitbucketLogo
-                textColor={N700}
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <BitbucketLogo appearance="brand" />
             </td>
             <td>
-              <BitbucketWordmark textColor={N700} />
+              <BitbucketWordmark appearance="brand" />
             </td>
             <td>
-              <BitbucketIcon
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <BitbucketIcon appearance="brand" />
             </td>
           </tr>
         </tbody>

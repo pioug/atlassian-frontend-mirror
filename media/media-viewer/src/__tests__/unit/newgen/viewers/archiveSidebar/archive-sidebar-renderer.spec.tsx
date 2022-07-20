@@ -15,8 +15,8 @@ import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 import ArchiveSidebarRenderer, {
   ArchiveSidebarRendererProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
-import { ArchiveSideBar } from '../../../../../viewers/archiveSidebar/styled';
-import { SpinnerWrapper } from '../../../../../styled';
+import { SpinnerWrapper } from '../../../../../styleWrappers';
+import { ArchiveSideBar } from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { ArchiveSidebar } from '../../../../../viewers/archiveSidebar/archive-sidebar';
 import { unzip, ZipEntry } from 'unzipit';
 

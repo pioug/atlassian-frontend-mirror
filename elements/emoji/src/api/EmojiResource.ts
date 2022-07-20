@@ -5,7 +5,10 @@ import {
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 import { CategoryId } from '../components/picker/categories';
-import { selectedToneStorageKey } from '../util/constants';
+import {
+  SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP,
+  selectedToneStorageKey,
+} from '../util/constants';
 import {
   isMediaEmoji,
   isMediaRepresentation,
@@ -21,6 +24,7 @@ import {
   EmojiSearchResult,
   EmojiUpload,
   OptionalEmojiDescription,
+  OptionalEmojiDescriptionWithVariations,
   OptionalUser,
   ProviderTypes,
   SearchOptions,
@@ -32,7 +36,12 @@ import debug from '../util/logger';
 import EmojiLoader from './EmojiLoader';
 import EmojiRepository from './EmojiRepository';
 import SiteEmojiResource from './media/SiteEmojiResource';
-import { ufoExperiences } from '../util/analytics';
+import {
+  EmojiLoaderConfig,
+  OptimisticImageApiLoaderConfig,
+  SingleEmojiApiLoaderConfig,
+} from './EmojiUtils';
+import { sampledUfoEmojiResourceFetched } from '../util/analytics/ufoExperiences';
 
 export type { EmojiProvider, UploadingEmojiProvider } from '../types'; // Re-exporting to not cause a breaking change
 // Re-exporting to not cause a breaking change
@@ -64,6 +73,20 @@ export interface EmojiResourceConfig {
    * Logged user in the Product.
    */
   currentUser?: User;
+
+  /**
+   * This is specifically used for fetching a meta information of a single emoji.
+   * Useful for when rendering a single or a subset of emojis on a page that does not require the
+   * whole provider list to be downloaded.
+   */
+  singleEmojiApi?: SingleEmojiApiLoaderConfig;
+
+  /**
+   * Used for fetching emoji asset and render this asset before provider has been
+   * downloaded to reduce the time the user is presented with a placeholder
+   * while downloading the emoji meta data
+   */
+  optimisticImageApi?: OptimisticImageApiLoaderConfig;
 }
 
 export interface OnEmojiProviderChange
@@ -118,59 +141,14 @@ export class EmojiResource
   protected siteEmojiResource?: SiteEmojiResource;
   protected selectedTone: ToneSelection;
   protected currentUser?: User;
+  protected isInitialised: boolean = false;
+  public emojiProviderConfig: EmojiResourceConfig;
 
   constructor(config: EmojiResourceConfig) {
     super();
+    this.emojiProviderConfig = config;
     this.recordConfig = config.recordConfig;
     this.currentUser = config.currentUser;
-
-    // Ensure order is retained by tracking until all done.
-    const emojiResponses: EmojiResponse[] = [];
-
-    this.activeLoaders = config.providers.length;
-
-    config.providers.forEach((provider, index) => {
-      const providerType = this.getProviderType(provider);
-      ufoExperiences['emoji-resource-fetched']
-        .getInstance(providerType)
-        .start();
-      ufoExperiences['emoji-resource-fetched']
-        .getInstance(providerType)
-        .addMetadata({ type: providerType });
-
-      const loader = new EmojiLoader(provider);
-      const emojis = loader.loadEmoji();
-      emojis
-        .then((emojiResponse) => {
-          emojiResponses[index] = emojiResponse;
-          this.initEmojiRepository(emojiResponses);
-          this.initSiteEmojiResource(emojiResponse, provider).then(() => {
-            this.activeLoaders--;
-            this.performRetries();
-            this.refreshLastFilter();
-            // if not site emoji it would still resolve
-            // TODO: improve the logic in future
-            ufoExperiences['emoji-resource-fetched']
-              .getInstance(providerType)
-              .success();
-          });
-        })
-        .catch((reason) => {
-          this.activeLoaders--;
-          this.notifyError(reason);
-          ufoExperiences['emoji-resource-fetched']
-            .getInstance(providerType)
-            .failure({
-              metadata: {
-                reason,
-                source: 'EmojiProvider',
-                data: {
-                  providerUrl: provider.url,
-                },
-              },
-            });
-        });
-    });
 
     if (storageAvailable('localStorage')) {
       this.selectedTone = this.loadStoredTone();
@@ -179,6 +157,110 @@ export class EmojiResource
     if (config.providers.length === 0) {
       throw new Error('No providers specified');
     }
+  }
+
+  public fetchEmojiProvider(force?: boolean) {
+    // unless (re-)fetch is being forced, fetching will only
+    // happen if no emojiRepository exists
+    // in case this method is called and emojiRepository has already been populated
+    // the method will just return the existing emojiRepository
+    if (force || (!this.emojiRepository && !this.isInitialised)) {
+      this.isInitialised = true;
+      // Ensure order is retained by tracking until all done.
+      const emojiResponses: EmojiResponse[] = [];
+
+      this.activeLoaders = this.emojiProviderConfig.providers.length;
+
+      this.emojiProviderConfig.providers.forEach(async (provider, index) => {
+        const providerType = this.getProviderType(provider);
+        sampledUfoEmojiResourceFetched(providerType).start({
+          samplingRate: SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP,
+        });
+        sampledUfoEmojiResourceFetched(providerType).addMetadata({
+          type: providerType,
+        });
+
+        const loader = new EmojiLoader(provider);
+        const emojis = loader.loadEmoji();
+        await emojis
+          .then((emojiResponse) => {
+            emojiResponses[index] = emojiResponse;
+            this.initEmojiRepository(emojiResponses);
+            this.initSiteEmojiResource(emojiResponse, provider).then(() => {
+              this.activeLoaders--;
+              this.performRetries();
+              this.refreshLastFilter();
+              // if not site emoji it would still resolve
+              // TODO: improve the logic in future
+              sampledUfoEmojiResourceFetched(providerType).success();
+            });
+          })
+          .catch((reason) => {
+            this.activeLoaders--;
+            this.notifyError(reason);
+            sampledUfoEmojiResourceFetched(providerType).failure({
+              metadata: {
+                reason,
+                source: 'EmojiProvider',
+                data: {
+                  providerUrl: provider.url,
+                },
+              },
+            });
+          });
+      });
+    }
+    return Promise.resolve(this.emojiRepository);
+  }
+
+  public async fetchByEmojiId(
+    emojiId: EmojiId,
+    optimistic: boolean,
+  ): Promise<OptionalEmojiDescriptionWithVariations> {
+    // Check if repository exists and emoji is defined.
+    if (this.emojiRepository && this.isLoaded()) {
+      const emoji = await this.findByEmojiId(emojiId);
+      if (emoji) {
+        return Promise.resolve(
+          this.getMediaEmojiDescriptionURLWithInlineToken(emoji),
+        );
+      }
+    }
+
+    // If optimistic is fetched
+    if (this.emojiProviderConfig.singleEmojiApi && optimistic) {
+      // if config has singleEmojiApi then fetch single emoji
+      const provider: EmojiLoaderConfig = {
+        url: this.emojiProviderConfig.singleEmojiApi.getUrl(emojiId),
+        securityProvider: this.emojiProviderConfig.singleEmojiApi
+          .securityProvider,
+      };
+      const loader = new EmojiLoader(provider);
+      try {
+        const loadEmoji = await loader.loadEmoji();
+        if (!loadEmoji.emojis[0]) {
+          return;
+        }
+        if (!this.siteEmojiResource) {
+          await this.initSiteEmojiResource(loadEmoji, provider);
+        }
+        return this.getMediaEmojiDescriptionURLWithInlineToken(
+          loadEmoji.emojis[0],
+        );
+      } catch {
+        const emoji = await this.findByEmojiId(emojiId);
+        if (!emoji) {
+          return;
+        }
+        return this.getMediaEmojiDescriptionURLWithInlineToken(emoji);
+      }
+    }
+
+    const emoji = await this.findByEmojiId(emojiId);
+    if (!emoji) {
+      return;
+    }
+    return this.getMediaEmojiDescriptionURLWithInlineToken(emoji);
   }
 
   private getProviderType(provider: ServiceConfig) {
@@ -251,6 +333,13 @@ export class EmojiResource
       }
     });
   }
+
+  public getOptimisticImageURL = (emojiId: EmojiId): string | undefined => {
+    if (this.emojiProviderConfig.optimisticImageApi) {
+      return this.emojiProviderConfig.optimisticImageApi.getUrl(emojiId);
+    }
+    return;
+  };
 
   private loadStoredTone(): ToneSelection {
     if (typeof window === 'undefined') {
@@ -549,13 +638,15 @@ export default class UploadingEmojiResource
     return this.retryIfLoading(() => this.isUploadSupported(), false);
   }
 
-  uploadCustomEmoji(upload: EmojiUpload): Promise<EmojiDescription> {
+  uploadCustomEmoji(
+    upload: EmojiUpload,
+    retry = false,
+  ): Promise<EmojiDescription> {
     return this.isUploadSupported().then((supported) => {
       if (!supported || !this.siteEmojiResource) {
         return Promise.reject('No media api support is configured');
       }
-
-      return this.siteEmojiResource.uploadEmoji(upload).then((emoji) => {
+      return this.siteEmojiResource.uploadEmoji(upload, retry).then((emoji) => {
         this.addUnknownEmoji(emoji);
         this.refreshLastFilter();
         return emoji;

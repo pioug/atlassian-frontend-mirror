@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-
 import { CompassIcon, CompassLogo, CompassWordmark } from '../../src';
 
 const LogoCompass = () => {
@@ -18,22 +16,13 @@ const LogoCompass = () => {
         <tbody>
           <tr>
             <td>
-              <CompassLogo
-                textColor={N700}
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <CompassLogo appearance="brand" />
             </td>
             <td>
-              <CompassWordmark textColor={N700} />
+              <CompassWordmark appearance="brand" />
             </td>
             <td>
-              <CompassIcon
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <CompassIcon appearance="brand" />
             </td>
           </tr>
         </tbody>

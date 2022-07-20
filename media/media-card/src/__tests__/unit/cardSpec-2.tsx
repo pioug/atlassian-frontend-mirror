@@ -39,6 +39,7 @@ import { getSSRData } from '../../utils/globalScope';
 import { extractErrorInfo, getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ImageResizeMode } from '@atlaskit/media-client';
 
 const getCardPreviewFromCache = jest.spyOn(
   getCardPreviewModule,
@@ -99,6 +100,7 @@ const indentifiers: {
     mediaItemType: 'external-image',
   },
 };
+const defaultMode: ImageResizeMode = 'crop';
 
 const fileStates: { processed: ProcessedFileState } = {
   processed: {
@@ -187,7 +189,7 @@ describe('Media Card', () => {
         />,
       );
       const { id } = indentifiers.file;
-      expect(getCardPreviewFromCache).toBeCalledWith(id, dimensions);
+      expect(getCardPreviewFromCache).toBeCalledWith(id, defaultMode);
       expect(mediaCard.state('cardPreview')).toBe(filePreviews.cachedRemote);
     });
 
@@ -604,7 +606,8 @@ describe('Media Card', () => {
         hasCardPreview: !!cardPreview,
         isBannedLocalPreview,
         dimensions: initialDimensions,
-        prevDimensions: expect.objectContaining({}),
+        identifier: indentifiers.file,
+        fileImageMode: defaultMode,
         featureFlags,
       });
       expect(shouldResolvePreview).toHaveBeenNthCalledWith(2, {
@@ -613,7 +616,8 @@ describe('Media Card', () => {
         hasCardPreview: !!cardPreview,
         isBannedLocalPreview,
         dimensions: nextDimensions,
-        prevDimensions: initialDimensions,
+        identifier: indentifiers.file,
+        fileImageMode: defaultMode,
         featureFlags,
       });
     });
@@ -924,7 +928,7 @@ describe('Media Card', () => {
         // Should be removed from cache based on the Id & passed dimensions
         expect(removeCardPreviewFromCache).toBeCalledWith(
           indentifiers.file.id,
-          dimensions,
+          defaultMode,
         );
       },
     );

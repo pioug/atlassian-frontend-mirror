@@ -37,9 +37,17 @@ export async function clickEditableContent(page: PuppeteerPage) {
   await page.click(selectors.editor);
 }
 
-export async function clickFirstParagraph(page: PuppeteerPage | WebDriverPage) {
-  await page.waitForSelector(selectors.firstEditorParagraph);
-  await page.click(selectors.firstEditorParagraph);
+export async function clickFirstParagraph(
+  page: PuppeteerPage | WebDriverPage,
+  { topLevelParagraph }: { topLevelParagraph: boolean } = {
+    topLevelParagraph: true,
+  },
+) {
+  const selector = topLevelParagraph
+    ? selectors.firstEditorParagraph
+    : selectors.firstEditorParagraph.replace('>', '');
+  await page.waitForSelector(selector);
+  await page.click(selector);
 }
 
 /**

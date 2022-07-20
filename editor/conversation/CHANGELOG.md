@@ -1,5 +1,15 @@
 # @atlaskit/conversation
 
+## 16.1.0
+
+### Minor Changes
+
+- [`b1e59f5b212`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1e59f5b212) - Added deprecation notice to package.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.57
 
 ### Patch Changes

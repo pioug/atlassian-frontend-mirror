@@ -6,6 +6,7 @@ import {
   RendererAppearance,
   StickyHeaderConfig,
   HeadingAnchorLinksProps,
+  NodeComponentsProps,
 } from '../ui/Renderer/types';
 import { isNestedHeaderLinksEnabled } from './utils/links';
 import { AnalyticsEventPayload } from '../analytics/events';
@@ -62,6 +63,8 @@ export interface ReactSerializerInit {
   allowCustomPanels?: boolean;
   allowAnnotations?: boolean;
   allowSelectAllTrap?: boolean;
+  nodeComponents?: NodeComponentsProps;
+  allowWindowedCodeBlock?: boolean;
 }
 
 interface ParentInfo {
@@ -151,6 +154,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private smartLinks?: SmartLinksOptions;
   private allowAnnotations: boolean = false;
   private allowSelectAllTrap?: boolean;
+  private nodeComponents?: NodeComponentsProps;
+  private allowWindowedCodeBlock?: boolean;
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -178,6 +183,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.media = init.media;
     this.smartLinks = init.smartLinks;
     this.allowSelectAllTrap = init.allowSelectAllTrap;
+    this.nodeComponents = init.nodeComponents;
+    this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
   }
 
   private resetState() {
@@ -266,9 +273,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const serializedContent = this.serializeFragment(
       node.content,
       this.getNodeProps(node, parentInfo),
-      toReact(node, {
-        allowSelectAllTrap: this.allowSelectAllTrap,
-      }),
+      toReact(
+        node,
+        {
+          allowSelectAllTrap: this.allowSelectAllTrap,
+          allowWindowedCodeBlock: this.allowWindowedCodeBlock,
+        },
+        this.nodeComponents,
+      ),
       nodeKey,
       {
         parentIsIncompleteTask,

@@ -31,14 +31,15 @@ describe('Media Emoji Handling across components', () => {
   });
 
   describe('<ResourcedEmoji/>', () => {
-    it('ResourcedEmoji renders media emoji via CachingEmoji', () => {
+    it('ResourcedEmoji renders media emoji via Emoji', () => {
       const component = mountWithIntl(
         <ResourcedEmoji emojiProvider={emojiProvider} emojiId={mediaEmojiId} />,
       );
+
       return waitUntil(() => hasSelector(component, Emoji)).then(() => {
         const emojiDescription = component.find(Emoji).prop('emoji');
         expect(emojiDescription).toEqual(mediaEmoji);
-        expect(component.find(CachingMediaEmoji).length).toEqual(1);
+        expect(component.find(Emoji).length).toEqual(1);
       });
     });
   });

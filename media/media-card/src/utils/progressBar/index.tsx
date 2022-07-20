@@ -1,6 +1,7 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import { ProgressWrapper } from './styled';
+import { progressWrapperStyles } from './styles';
 
 export interface ProgressBarProps {
   progress?: number;
@@ -15,9 +16,9 @@ export class ProgressBar extends Component<ProgressBarProps, {}> {
     const progress = Math.min(1, Math.max(0, this.props.progress));
     const progressBarStyle = { width: `${progress * 100}%` };
     return (
-      <ProgressWrapper>
+      <div css={progressWrapperStyles}>
         <div className={'progressBar'} style={progressBarStyle} />
-      </ProgressWrapper>
+      </div>
     );
   }
 }

@@ -33,7 +33,7 @@ export default class MobileEditorConfiguration
   implements EditorConfigurationProvider {
   private editorAppearance: EditorAppearance = EditorAppearance.FULL;
   private mode: ThemeMode = 'light';
-  private locale: string = 'en';
+  private locale: string = navigator.language;
   private enableQuickInsert: boolean = false;
   private selectionObserverEnabled: boolean = false;
   private allowCollabProvider: boolean = false;

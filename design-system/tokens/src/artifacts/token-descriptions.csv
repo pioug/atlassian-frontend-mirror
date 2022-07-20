@@ -168,8 +168,6 @@ color.blanket.selected, "Use as an overlay to communicate selected states when a
 color.blanket.danger, "Use as an overlay to communicate danger states when a simple background color change isn't possible, such as deletion of Editor block elements"
 color.interaction.hovered, "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
 color.interaction.pressed, "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
-color.interaction.inverse.hovered, "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
-color.interaction.inverse.pressed, "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
 color.skeleton, "Use for skeleton loading states"
 color.skeleton.subtle, "Use for the pulse or shimmer effect in skeleton loading states"
 color.link, "Use for links in a default or hovered state. Add an underline for hovered states."

@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { Component } from 'react';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
@@ -5,14 +7,14 @@ import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
 import {
-  CircularMask,
-  Container,
-  DragOverlay,
-  RectMask,
-  RemoveImageContainer,
-  RemoveImageButton,
-  ImageContainer,
-} from './styled';
+  circularMaskStyles,
+  containerStyles,
+  dragOverlayStyles,
+  rectMaskStyles,
+  removeImageContainerStyles,
+  removeImageButtonStyles,
+  imageContainerStyles,
+} from './styles';
 import { ERROR } from '../avatar-picker-dialog';
 import { CONTAINER_INNER_SIZE } from '../avatar-picker-dialog/layout-const';
 
@@ -106,8 +108,12 @@ export class ImageCropper extends Component<
     }
 
     return (
-      <Container style={containerStyle}>
-        <ImageContainer style={imageContainerStyle}>
+      <div id="container" css={containerStyles} style={containerStyle}>
+        <div
+          id="image-container"
+          css={imageContainerStyles}
+          style={imageContainerStyle}
+        >
           <MediaImage
             crossOrigin={crossOrigin}
             dataURI={imageSource}
@@ -117,18 +123,30 @@ export class ImageCropper extends Component<
             onImageLoad={onImageLoaded}
             onImageError={this.onImageError}
           />
-        </ImageContainer>
-        {isCircularMask ? <CircularMask /> : <RectMask />}
-        <DragOverlay onMouseDown={this.onDragStarted} />
-        <RemoveImageContainer>
-          <RemoveImageButton onClick={onRemoveImage}>
+        </div>
+        {isCircularMask ? (
+          <div css={circularMaskStyles} />
+        ) : (
+          <div css={rectMaskStyles} />
+        )}
+        <div
+          id="drag-overlay"
+          css={dragOverlayStyles}
+          onMouseDown={this.onDragStarted}
+        />
+        <div id="remove-image-container" css={removeImageContainerStyles}>
+          <button
+            id="remove-image-button"
+            css={removeImageButtonStyles}
+            onClick={onRemoveImage}
+          >
             <CrossIcon
               size="small"
               label={formatMessage(messages.remove_image)}
             />
-          </RemoveImageButton>
-        </RemoveImageContainer>
-      </Container>
+          </button>
+        </div>
+      </div>
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ProgressBar } from '../progressBar';
 import { Breakpoint } from '../../common';
-import { StyledBar } from '../styled';
+import { StyledBar } from '../styledBar';
 
 describe('Progress Bar', () => {
   it('should render ProgressBar properly', () => {

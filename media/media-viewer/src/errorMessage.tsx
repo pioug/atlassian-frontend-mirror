@@ -12,7 +12,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ErrorMessageWrapper, ErrorImage } from './styled';
+import { ErrorMessageWrapper, ErrorImage } from './styleWrappers';
 import { errorLoadingFile } from './error-images';
 import { fireAnalytics } from './analytics';
 import {

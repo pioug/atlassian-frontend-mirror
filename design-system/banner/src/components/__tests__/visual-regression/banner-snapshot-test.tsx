@@ -92,18 +92,4 @@ describe('Snapshot Test', () => {
     const image = await page.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
-
-  it('Announcement banner example with multiple lines should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'banner',
-      'announcement-banner-with-multiple-lines',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForAnnouncementBannerVisible(page);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
 });

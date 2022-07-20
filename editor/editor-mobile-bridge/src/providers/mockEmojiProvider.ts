@@ -1,8 +1,8 @@
 /**
  * Mocking out emojis for the editor, so they easily fall back to text.
  */
-import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { EmojiDescription } from '@atlaskit/emoji';
+import { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
+import { EmojiDescription, EmojiId } from '@atlaskit/emoji';
 
 class EmojiProviderImpl implements EmojiProvider {
   findByShortName() {
@@ -55,6 +55,14 @@ class EmojiProviderImpl implements EmojiProvider {
 
   getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription) {
     return Promise.resolve(emoji);
+  }
+
+  fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined> {
+    return Promise.resolve(undefined);
+  }
+
+  getOptimisticImageURL(emojiId: EmojiId): string | undefined {
+    return;
   }
 
   setSelectedTone() {}

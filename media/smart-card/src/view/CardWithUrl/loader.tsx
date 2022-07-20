@@ -9,14 +9,11 @@ import React, {
 import uuid from 'uuid';
 
 import { CardProps } from '../Card/types';
-import { uiRenderFailedEvent, fireSmartLinkEvent } from '../../utils/analytics';
+import { fireSmartLinkEvent } from '../../utils/analytics';
 import { AnalyticsPayload } from '../../utils/types';
 import { clearMarks, clearMeasures } from '../../utils/performance';
 import { ErrorBoundary } from 'react-error-boundary';
-import {
-  failUfoExperience,
-  startUfoExperience,
-} from '../../state/analytics/ufoExperiences';
+import { useSmartLinkAnalytics } from '../../state/analytics';
 import { LoadingCardLink } from './component-lazy/LazyFallback';
 import { CardWithUrlContentProps } from './types';
 
@@ -75,6 +72,8 @@ export function CardWithURLRenderer(props: CardProps) {
     [appearance, createAnalyticsEvent],
   );
 
+  const analytics = useSmartLinkAnalytics(url ?? '', dispatchAnalytics, id);
+
   const logError = useCallback(
     (
       error: Error,
@@ -96,15 +95,10 @@ export function CardWithURLRenderer(props: CardProps) {
         const errorInfo: ErrorInfo = {
           componentStack,
         };
-        // Start and fail the smart-link-rendered experience. If it has already
-        // been started nothing happens.
-        startUfoExperience('smart-link-rendered', id);
-        failUfoExperience('smart-link-rendered', id);
-        failUfoExperience('smart-link-authenticated', id);
-        dispatchAnalytics(uiRenderFailedEvent(appearance, error, errorInfo));
+        analytics.ui.renderFailedEvent(appearance, id, error, errorInfo);
       }
     },
-    [appearance, dispatchAnalytics, id],
+    [analytics.ui, appearance, id],
   );
 
   if (!url) {

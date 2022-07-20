@@ -1,11 +1,9 @@
 import React from 'react';
 import { orderedList, bulletList, listItem } from '@atlaskit/adf-schema';
 import { EditorPlugin } from '../../types';
-import ToolbarLists from './ui/ToolbarLists';
-import { createPlugin, pluginKey } from './pm-plugins/main';
+import { createPlugin } from './pm-plugins/main';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
-import WithPluginState from '../../ui/WithPluginState';
 import { messages } from './messages';
 import {
   addAnalytics,
@@ -17,7 +15,6 @@ import {
 } from '../analytics';
 import { tooltip, toggleBulletList, toggleOrderedList } from '../../keymaps';
 import { IconList, IconListNumber } from '../quick-insert/assets';
-import { ToolbarSize } from '../../ui/Toolbar/types';
 
 const listPlugin = (): EditorPlugin => ({
   name: 'list',
@@ -108,46 +105,6 @@ const listPlugin = (): EditorPlugin => ({
         },
       },
     ],
-  },
-
-  primaryToolbarComponent({
-    editorView,
-    popupsMountPoint,
-    popupsBoundariesElement,
-    popupsScrollableElement,
-    toolbarSize,
-    disabled,
-    isToolbarReducedSpacing,
-  }) {
-    const isSmall = toolbarSize < ToolbarSize.L;
-
-    return (
-      <WithPluginState
-        plugins={{ listState: pluginKey }}
-        render={({ listState: listState }) => {
-          if (!listState) {
-            return null;
-          }
-
-          return (
-            <ToolbarLists
-              isSmall={isSmall}
-              isSeparator={true}
-              isReducedSpacing={isToolbarReducedSpacing}
-              disabled={disabled}
-              editorView={editorView}
-              popupsMountPoint={popupsMountPoint}
-              popupsBoundariesElement={popupsBoundariesElement}
-              popupsScrollableElement={popupsScrollableElement}
-              bulletListActive={listState!.bulletListActive}
-              bulletListDisabled={listState!.bulletListDisabled}
-              orderedListActive={listState!.orderedListActive}
-              orderedListDisabled={listState!.orderedListDisabled}
-            />
-          );
-        }}
-      />
-    );
   },
 });
 

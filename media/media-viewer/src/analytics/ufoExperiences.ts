@@ -11,11 +11,6 @@ import {
   RequestMetadata,
 } from '@atlaskit/media-client';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-
 import { PrimaryErrorReason } from '../errors';
 import { FileStateFlags } from '../components/types';
 import { LOGGED_FEATURE_FLAG_KEYS } from '.';
@@ -33,6 +28,9 @@ export type UFOSucceedEventPayload = {
   fileAttributes: FileAttributes;
   fileStateFlags?: FileStateFlags;
 };
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 let ufoExperience: UFOExperience | undefined;
 

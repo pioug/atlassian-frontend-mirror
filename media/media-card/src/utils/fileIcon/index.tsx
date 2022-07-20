@@ -1,8 +1,9 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { MediaType } from '@atlaskit/media-client';
 import { MediaTypeIcon } from '../mediaTypeIcon';
-import { FileTypeIcon } from './styled';
+import { fileTypeIconStyles } from './styles';
 
 export interface FileIconProps {
   mediaType?: MediaType;
@@ -29,9 +30,9 @@ export class FileIcon extends Component<FileIconProps, {}> {
       defaultIcon
     );
     return (
-      <FileTypeIcon style={style} className={fileTypeIconClass}>
+      <div css={fileTypeIconStyles} style={style} className={fileTypeIconClass}>
         {icon}
-      </FileTypeIcon>
+      </div>
     );
   }
 }

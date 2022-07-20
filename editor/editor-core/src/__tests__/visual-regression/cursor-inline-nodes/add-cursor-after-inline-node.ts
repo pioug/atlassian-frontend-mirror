@@ -12,7 +12,8 @@ const initEditor = async (_adf: Object, page: PuppeteerPage) =>
     appearance: Appearance.fullPage,
   });
 
-describe('Cursor/status:', () => {
+// TODO: Unskip flaky tests (ED-15254)
+describe.skip('Cursor/status:', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;

@@ -48,6 +48,7 @@ import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { messages } from './messages';
 import buildLayoutButtons from '../../ui/MediaAndEmbedsToolbar';
 import { buildVisitedLinkPayload } from '../../utils/linking-utils';
+import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
 
 export const removeCard: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -288,8 +289,14 @@ export const floatingToolbar = (
         }
       : {};
 
+    // Applies padding override for when link picker is currently displayed
+    const className = pluginState.showLinkingToolbar
+      ? FLOATING_TOOLBAR_LINKPICKER_CLASSNAME
+      : undefined;
+
     return {
       title: intl.formatMessage(messages.card),
+      className,
       nodeType,
       ...toolbarOffset,
       getDomRef: (view) => {

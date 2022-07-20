@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.2.5",
+  "version": "5.2.6",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,12 +16,15 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
-    "deprecatedAutoEntryPoints": true,
     "releaseModel": "scheduled",
     "website": {
       "name": "Popper",
       "category": "Components"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./Popper": "./src/Popper.tsx"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

@@ -10,14 +10,11 @@ import {
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { PrimaryErrorReason } from '../errors';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-
 import { MediaViewerEventPayload } from './events';
 
 const componentName = 'mediaViewer';
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export {
   packageName,

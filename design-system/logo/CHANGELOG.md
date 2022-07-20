@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 13.8.0
+
+### Minor Changes
+
+- [`c7c2083475d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7c2083475d) - [ux] - Adds `appearance` prop that allows you to choose between three brand-approved appearances: `brand`, `neutral` and `inverse`. These will be based on design tokens and theme-responsive.
+
+  - Deprecates the `iconColor`, `iconGradientStart`, `iconGradientEnd` and `textColor` props. They will still be supported in the immediate future but the goal is to shift usages towards using the `appearance` prop.
+
 ## 13.7.1
 
 ### Patch Changes

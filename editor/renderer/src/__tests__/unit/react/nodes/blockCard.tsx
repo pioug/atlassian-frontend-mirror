@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 
-import { Card } from '@atlaskit/smart-card';
+import { Card, Provider, Client } from '@atlaskit/smart-card';
 
 import BlockCard from '../../../../react/nodes/blockCard';
 
@@ -41,18 +41,20 @@ describe('Renderer - React/Nodes/BlockCard', () => {
     expect(node.find(BlockCard).prop('data')).toEqual(data);
   });
 
-  it('should render with onClick if eventHandlers has correct event key', () => {
+  it('should render with onClick if eventHandlers has correct event key', async () => {
     const mockedOnClick = jest.fn();
     const mockedEvent = { target: {} };
     node = mount(
-      <BlockCard
-        url={url}
-        eventHandlers={{
-          smartCard: {
-            onClick: mockedOnClick,
-          },
-        }}
-      />,
+      <Provider client={new Client('staging')}>
+        <BlockCard
+          url={url}
+          eventHandlers={{
+            smartCard: {
+              onClick: mockedOnClick,
+            },
+          }}
+        />
+      </Provider>,
     );
 
     const onClick = node.find(Card).prop('onClick');
@@ -63,7 +65,11 @@ describe('Renderer - React/Nodes/BlockCard', () => {
   });
 
   it('should render with onClick as undefined if eventHandlers is not present', () => {
-    node = mount(<BlockCard url={url} />);
+    node = mount(
+      <Provider client={new Client('staging')}>
+        <BlockCard url={url} />{' '}
+      </Provider>,
+    );
 
     expect(node.find(Card).prop('onClick')).toBeUndefined();
   });

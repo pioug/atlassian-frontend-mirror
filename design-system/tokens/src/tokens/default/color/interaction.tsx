@@ -24,26 +24,6 @@ const color: AttributeSchema<InteractionColorTokenSchema> = {
             'Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars.',
         },
       },
-      inverse: {
-        hovered: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            introduced: '0.6.0',
-            description:
-              'Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.',
-          },
-        },
-        pressed: {
-          attributes: {
-            group: 'paint',
-            state: 'active',
-            introduced: '0.6.0',
-            description:
-              'Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.',
-          },
-        },
-      },
     },
   },
 };

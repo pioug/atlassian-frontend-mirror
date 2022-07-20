@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/**@jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { InlinePlayer } from '../src/root/inlinePlayer';
 import {
   createStorybookMediaClient,
@@ -17,12 +17,10 @@ type WrapperDimensions = {
 const wrapperDimensions = { width: '500px', height: '500px' };
 const dimensions = { width: '100%', height: '100%' };
 
-const InlinePlayerWrapper = styled.div`
-  ${({ width, height }: WrapperDimensions) => `
-    width: ${width};
-    height: ${height};
-    margin: 20px 20px;
-  `}
+const inlinePlayerWrapperStyles = ({ width, height }: WrapperDimensions) => css`
+  width: ${width};
+  height: ${height};
+  margin: 20px 20px;
 `;
 
 export default () => {
@@ -49,7 +47,7 @@ export default () => {
   return (
     <MainWrapper disableFeatureFlagWrapper={true}>
       <IntlProvider locale={'en'}>
-        <InlinePlayerWrapper {...wrapperDimensions}>
+        <div css={inlinePlayerWrapperStyles({ ...wrapperDimensions })}>
           <InlinePlayer
             identifier={videoSquareFileId}
             mediaClient={mediaClient}
@@ -58,7 +56,7 @@ export default () => {
             selected={true}
             autoplay={false}
           />
-        </InlinePlayerWrapper>
+        </div>
       </IntlProvider>
     </MainWrapper>
   );

@@ -9,9 +9,8 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 import { MediaViewer } from '../src';
-import { ButtonList, Group } from '../example-helpers/styled';
 import { zipItem } from '../example-helpers';
-import { MainWrapper } from '../example-helpers/MainWrapper';
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 
 interface State {
   selectedIdentifier?: Identifier;

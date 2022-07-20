@@ -54,10 +54,6 @@ exports[`ElementList should match snapshot 1`] = `
   padding-bottom: 4px;
 }
 
-.emotion-1 span[class^='ItemParts__Before'] {
-  margin-right: 12px;
-}
-
 <WithAnalyticsContext(ElementList)
   items={
     Array [

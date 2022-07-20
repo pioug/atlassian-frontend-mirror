@@ -1,5 +1,7 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
-import { MarginWrapperSquare, MarginWrapperCircle } from './styled';
+import { marginWrapperSquareStyles, marginWrapperCircleStyles } from './styles';
 
 export interface MarginProps {
   width: number;
@@ -13,8 +15,10 @@ export interface MarginState {}
 export class Margin extends React.Component<MarginProps, MarginState> {
   render() {
     const { width, height, size, circular } = this.props;
-    const Element = circular ? MarginWrapperCircle : MarginWrapperSquare;
+    const [id, styles] = circular
+      ? ['marginWrapperCircle', marginWrapperCircleStyles]
+      : ['marginWrapperSquare', marginWrapperSquareStyles];
 
-    return <Element width={width} height={height} size={size} />;
+    return <div css={styles({ width, height, size })} id={id} />;
   }
 }

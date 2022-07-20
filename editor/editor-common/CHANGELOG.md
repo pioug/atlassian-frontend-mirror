@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 69.0.0
+
+### Major Changes
+
+- [`04589993d81`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04589993d81) - ED-15148: moved duplicate entrypoints from @atlaskit/editor-common/utils to @atlaskit/editor-common/validator
+
+### Minor Changes
+
+- [`8ff3031db06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ff3031db06) - Introduce new optional argument to CardProvider.resolve
+- [`07c8b0b4504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07c8b0b4504) - [ux] ED-15102 adds a copy button to nodes with floating toolbars
+- [`2d979ce9877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d979ce9877) - [ux] ED-14945: Add windowed codeblock support in renderer (This feature sits behind a flag in the featureFlags prop 'allow-windowed-code-block')
+- [`04746af08f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04746af08f6) - [ux] ED-15097 added floating toolbar copy button to table
+- [`e4dba654a71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4dba654a71) - [ux] ED-15233: Fix breakout button positioning for breakout supported nodes in scenarios where editor disabled props changes while Editor is visually hidden and redisplayed.
+  Fixed by skipping breakout width update work when the editorView dom element is width 0 (hidden) and deferring LayoutButton position updates to second animation frame (on window
+  and editor resizes).
+- [`11f56527739`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11f56527739) - Export emoji placeholder class name
+
+### Patch Changes
+
+- [`153b80fdcda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/153b80fdcda) - [ux] ED-15111: Fix aligned text and headings margin-top values in layouts in Renderer (by clearing them)
+- Updated dependencies
+
 ## 68.0.2
 
 ### Patch Changes

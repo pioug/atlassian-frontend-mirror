@@ -1,15 +1,22 @@
+const mockCopyTextToClipboard = jest.fn();
+jest.mock('../../../../react/utils/clipboard', () => {
+  const module = jest.requireActual('../../../../react/utils/clipboard');
+  return {
+    ...module,
+    copyTextToClipboard: (text: string) => mockCopyTextToClipboard(text),
+  };
+});
+
 import React from 'react';
 import Heading, { HeadingLevels } from '../../../../react/nodes/heading';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
-import { CopyTextContext } from '../../../../react/nodes/copy-text-provider';
 import ReactSerializer from '../../../../react';
 
 describe('<Heading />', () => {
   let heading: any;
   let serialiser = new ReactSerializer({});
-  const copyTextToClipboard = jest.fn();
   const fireAnalyticsEvent = jest.fn();
 
   test.each([1, 2, 3, 4, 5, 6])(
@@ -62,34 +69,27 @@ describe('<Heading />', () => {
     });
   });
 
-  const renderHeadingWithCopyProvider = () => {
+  const renderHeadingWithAnchor = () => {
     return mountWithIntl(
-      <CopyTextContext.Provider
+      <AnalyticsContext.Provider
         value={{
-          copyTextToClipboard: copyTextToClipboard,
+          fireAnalyticsEvent: fireAnalyticsEvent,
         }}
       >
-        <AnalyticsContext.Provider
-          value={{
-            fireAnalyticsEvent: fireAnalyticsEvent,
+        <Heading
+          level={1}
+          headingId="This-is-a-Heading-1"
+          showAnchorLink={true}
+          dataAttributes={{
+            'data-renderer-start-pos': 0,
           }}
+          nodeType="heading"
+          marks={[]}
+          serializer={serialiser}
         >
-          <Heading
-            level={1}
-            headingId="This-is-a-Heading-1"
-            showAnchorLink={true}
-            dataAttributes={{
-              'data-renderer-start-pos': 0,
-            }}
-            nodeType="heading"
-            marks={[]}
-            serializer={serialiser}
-          >
-            This is a Heading 1
-          </Heading>
-        </AnalyticsContext.Provider>
-        ,
-      </CopyTextContext.Provider>,
+          This is a Heading 1
+        </Heading>
+      </AnalyticsContext.Provider>,
     );
   };
 
@@ -101,10 +101,11 @@ describe('<Heading />', () => {
 
     afterEach(() => {
       window.location = locationBackup;
+      mockCopyTextToClipboard.mockClear();
     });
 
     it('should call "fireAnalyticsEvent" with correct event data', () => {
-      heading = renderHeadingWithCopyProvider();
+      heading = renderHeadingWithAnchor();
       heading.find('button').simulate('click');
       expect(fireAnalyticsEvent).toHaveBeenCalledWith({
         action: 'clicked',
@@ -115,9 +116,9 @@ describe('<Heading />', () => {
     });
 
     it('Should call "copyTextToClipboard" with correct param', () => {
-      heading = renderHeadingWithCopyProvider();
+      heading = renderHeadingWithAnchor();
       heading.find('button').simulate('click');
-      expect(copyTextToClipboard).toHaveBeenCalledWith(
+      expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
         'http://localhost/#This-is-a-Heading-1',
       );
     });
@@ -130,9 +131,9 @@ describe('<Heading />', () => {
           hash: '#some-other-link',
         },
       });
-      heading = renderHeadingWithCopyProvider();
+      heading = renderHeadingWithAnchor();
       heading.find('button').simulate('click');
-      expect(copyTextToClipboard).toHaveBeenCalledWith(
+      expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
         'http://localhost/#This-is-a-Heading-1',
       );
     });

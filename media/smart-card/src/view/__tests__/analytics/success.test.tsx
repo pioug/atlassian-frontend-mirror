@@ -24,6 +24,7 @@ import { JestFunction, asMock } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';
+import * as cardWithUrlContent from '../../CardWithUrl/component';
 
 describe('smart-card: success analytics', () => {
   let mockClient: CardClient;
@@ -327,8 +328,17 @@ describe('smart-card: success analytics', () => {
 
     it('should fire render failure when an unexpected error happens', async () => {
       const mockUrl = 'https://this.is.the.eight.url';
-      // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
-      render(<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />);
+      const spy = jest
+        .spyOn(cardWithUrlContent, 'CardWithUrlContent')
+        .mockImplementation(() => {
+          throw new Error();
+        });
+
+      render(
+        <Provider client={mockClient}>
+          <Card appearance="inline" url={mockUrl} />
+        </Provider>,
+      );
 
       await wait(
         () => expect(analytics.fireSmartLinkEvent).toBeCalledTimes(1),
@@ -354,27 +364,33 @@ describe('smart-card: success analytics', () => {
       expect(mockStartUfoExperience).toHaveBeenCalledBefore(
         mockFailUfoExperience as jest.Mock,
       );
+
+      spy.mockRestore();
     });
 
     it('should not send repeated render failed events when nonessential props are changed', async () => {
-      const mockUrl = 'https://this.is.the.sixth.url';
-      // Notice we are not wrapping Card within a Provider intentionally, to make it throw an error
+      const mockUrl = 'https://this.is.the.eight.url';
+      const spy = jest
+        .spyOn(cardWithUrlContent, 'CardWithUrlContent')
+        .mockImplementation(() => {
+          throw new Error();
+        });
+
       const { rerender } = render(
-        <Card
-          testId="resolvedCard1"
-          appearance="inline"
-          url={mockUrl}
-          showActions={false}
-        />,
+        <Provider client={mockClient}>
+          <Card appearance="inline" url={mockUrl} showActions={false} />
+        </Provider>,
       );
 
       rerender(
-        <Card
-          testId="resolvedCard1"
-          appearance="inline"
-          url={mockUrl}
-          showActions={true}
-        />,
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCard1"
+            appearance="inline"
+            url={mockUrl}
+            showActions={true}
+          />
+        </Provider>,
       );
 
       await wait(
@@ -383,6 +399,8 @@ describe('smart-card: success analytics', () => {
           timeout: 5000,
         },
       );
+
+      spy.mockRestore();
     });
   });
 

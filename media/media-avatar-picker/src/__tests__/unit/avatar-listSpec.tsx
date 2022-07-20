@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Avatar, AvatarList, AvatarListProps } from '../../avatar-list';
-import { SmallAvatarImage } from '../../predefined-avatar-view/styled';
+import { SmallAvatarImage } from '../../predefined-avatar-view/smallImageAvatar';
 
 describe('Avatar List', () => {
   const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };

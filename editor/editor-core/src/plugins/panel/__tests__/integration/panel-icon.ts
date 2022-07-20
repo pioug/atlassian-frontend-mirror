@@ -4,7 +4,7 @@ import {
   goToEditorTestingWDExample,
 } from '../../../../__tests__/__helpers/testing-example-helpers';
 import { fullpage } from '../../../../__tests__/integration/_helpers';
-import panelAdf from './__fixtures__/custom-panel-adf.json';
+import panelAdf from '../__fixtures__/custom-panel-adf.json';
 
 // Vertical alignment only works for inline-block elements in Firefox.
 BrowserTestCase(

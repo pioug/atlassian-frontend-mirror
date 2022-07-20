@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.0.0
+
+### Major Changes
+
+- [`c251c5d890c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c251c5d890c) - [MEX-1026] Migrated from styled-components library to @emotion/react in @atlaskit/media-avatar-picker
+
 ## 23.2.2
 
 ### Patch Changes

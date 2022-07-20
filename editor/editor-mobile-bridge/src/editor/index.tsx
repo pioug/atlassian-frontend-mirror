@@ -10,6 +10,7 @@ import { ErrorBoundary } from './error-boundary';
 import { toNativeBridge } from './web-to-native';
 import { getBridge } from './native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from './hooks/use-editor-configuration';
+import { useRemountKey } from './hooks/use-remount-key';
 import { useProviders } from './hooks/use-providers';
 
 interface AppProps {
@@ -57,12 +58,19 @@ const Editor: React.FC<AppProps> = (props) => {
     content.current = bridge.getContent();
   }, [bridge]);
 
+  const appearanceMode = editorConfiguration.getEditorAppearance();
+  const locale = editorConfiguration.getLocale();
+  const remountKey = useRemountKey(appearanceMode, locale);
+
   return (
     <ErrorBoundary>
       <MobileEditor
+        // [ED-14955] Use `remountKey` to reconstruct schema when switching
+        // between appearance modes (e.g., full, compact)
+        key={remountKey}
         defaultValue={props.defaultValue}
         bridge={bridge}
-        locale={editorConfiguration.getLocale()}
+        locale={locale}
         editorConfiguration={editorConfiguration}
         onLocaleChanged={onLocaleChanged}
         onWillLocaleChange={onWillLocaleChange}

@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 1.2.0
+
+### Minor Changes
+
+- [`a1c9465b456`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1c9465b456) - - `FadeIn` now supports different exit directions using the `exitDirection` prop
+  - `FadeIn` now supports different distance options for animations, using the `distance` prop
+
 ## 1.1.2
 
 ### Patch Changes

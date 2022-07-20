@@ -6,18 +6,18 @@ import { IntlProvider } from 'react-intl-next';
 import { TitleBox, FormattedDate } from '../titleBox';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { Breakpoint } from '../../common';
-import {
-  TitleBoxWrapper,
-  TitleBoxHeader,
-  TitleBoxFooter,
-  TitleBoxIcon,
-} from '../styled';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 import {
   asMockFunction,
   expectFunctionToHaveBeenCalledWith,
 } from '@atlaskit/media-test-helpers';
+import {
+  TitleBoxFooter,
+  TitleBoxHeader,
+  TitleBoxIcon,
+  TitleBoxWrapper,
+} from '../titleBoxComponents';
 
 describe('TitleBox', () => {
   it('should render TitleBox properly', () => {

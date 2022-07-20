@@ -15,6 +15,7 @@ import {
   jiraIssuePlugin,
   layoutPlugin,
   listPlugin,
+  toolbarListsIndentationPlugin,
   macroPlugin,
   maxContentSizePlugin,
   mediaPlugin,
@@ -48,6 +49,7 @@ import {
   viewUpdateSubscriptionPlugin,
   beforePrimaryToolbarPlugin,
   codeBidiWarningPlugin,
+  copyButtonPlugin,
 } from '../plugins';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import {
@@ -512,6 +514,12 @@ export default function createPluginsList(
 
   // UI only plugins
   preset.add([
+    toolbarListsIndentationPlugin,
+    {
+      showIndentationButtons: !!featureFlags.indentationButtonsInTheToolbar,
+    },
+  ]);
+  preset.add([
     insertBlockPlugin,
     {
       allowTables: !!props.allowTables,
@@ -587,6 +595,10 @@ export default function createPluginsList(
         appearance: props.appearance,
       },
     ]);
+  }
+
+  if (featureFlags.floatingToolbarCopyButton) {
+    preset.add(copyButtonPlugin);
   }
 
   const excludes = new Set<string>();

@@ -1,12 +1,14 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
-import { PredefinedAvatarViewWrapper, LargeAvatarImage } from './styled';
+import { predefinedAvatarViewWrapperStyles } from './styles';
 import { Avatar } from '../avatar-list';
 
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import Button from '@atlaskit/button/custom-theme-button';
+import { LargeAvatarImage } from './largeImageAvatar';
 
 export interface BackBtnProps {
   onClick?: () => void;
@@ -62,7 +64,10 @@ export class PredefinedAvatarView extends PureComponent<
     });
 
     return (
-      <PredefinedAvatarViewWrapper>
+      <div
+        css={predefinedAvatarViewWrapperStyles}
+        id="predefined-avatar-view-wrapper"
+      >
         <div className="header">
           <BackBtn onClick={onGoBack} />
           <div className="description">
@@ -72,7 +77,7 @@ export class PredefinedAvatarView extends PureComponent<
           </div>
         </div>
         <ul>{cards}</ul>
-      </PredefinedAvatarViewWrapper>
+      </div>
     );
   }
 

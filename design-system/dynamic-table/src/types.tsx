@@ -377,7 +377,7 @@ export type LoadingSpinnerSizeType = 'small' | 'large';
 export interface HeadCellType extends RowCellType {
   /** Whether the column the cell sits above is sortable. */
   isSortable?: boolean;
-  /** The pixel width of the cell. */
+  /** The width of the cell as a percentage. */
   width?: number;
   /** Whether the text in the cell will truncate or not if constrained. */
   shouldTruncate?: boolean;

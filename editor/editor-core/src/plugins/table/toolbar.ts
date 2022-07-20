@@ -51,6 +51,7 @@ import { Rect } from '@atlaskit/editor-tables/table-map';
 import { findParentDomRefOfType } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { closestElement } from '../../utils/dom';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/utils';
 
 // TODO: ED-14403 investigate why these translations don't work
 export const messages = defineMessages({
@@ -334,6 +335,18 @@ export const getToolbarConfig = (
           type: 'extensions-placeholder',
           separator: 'end',
         },
+        ...(state && showCopyButton(state)
+          ? [
+              getCopyButtonConfig(
+                state,
+                intl.formatMessage,
+                nodeType,
+                hoverTable(false, true),
+                clearHoverSelection(),
+              ),
+              { type: 'separator' } as FloatingToolbarItem<Command>,
+            ]
+          : []),
         {
           id: 'editor.table.delete',
           type: 'button',

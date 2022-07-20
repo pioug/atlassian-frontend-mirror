@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Card } from '../src';
 import {
   defaultCollectionName,
@@ -13,10 +14,7 @@ import {
   generateFilesFromTestData,
   MockFile,
 } from '@atlaskit/media-test-helpers';
-import {
-  InlineCardVideoWrapper,
-  InlineCardVideoWrapperItem,
-} from '../example-helpers/styled';
+import { inlineCardVideoWrapperItemStyles } from '../example-helpers/styles';
 import { canUseDOM } from 'exenv';
 import { FileIdentifier } from '@atlaskit/media-client';
 import { MainWrapper } from '../example-helpers';
@@ -42,8 +40,8 @@ const vrFileIdentifier: FileIdentifier = {
 
 export default () => (
   <MainWrapper>
-    <InlineCardVideoWrapper>
-      <InlineCardVideoWrapperItem>
+    <div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>video large [disableOverlay=true] width=500 height=300</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -55,9 +53,9 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
+      </div>
 
-      <InlineCardVideoWrapperItem>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>
           video large [disableOverlay=true] width=500 height=300 (but with
           constraining box of 250px x auto)
@@ -72,8 +70,8 @@ export default () => (
             useInlinePlayer={true}
           />
         </div>
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>Image file [disableOverlay=true]</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -81,8 +79,8 @@ export default () => (
           disableOverlay={true}
           onClick={onClick}
         />
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>Image file [disableOverlay=true] [useInlinePlayer=true]</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -91,8 +89,8 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>video [disableOverlay=true] no dimensions</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -101,8 +99,8 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>video [disableOverlay=true] width=100% height=300</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -112,8 +110,8 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>video horizontal [disableOverlay=true] width=500 height=300</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -123,8 +121,8 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>video horizontal width=200 height=500</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -133,8 +131,8 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
-      <InlineCardVideoWrapperItem>
+      </div>
+      <div css={inlineCardVideoWrapperItemStyles}>
         <h1>video horizontal no dimensions</h1>
         <Card
           mediaClientConfig={mediaClientConfig}
@@ -142,7 +140,7 @@ export default () => (
           onClick={onClick}
           useInlinePlayer={true}
         />
-      </InlineCardVideoWrapperItem>
-    </InlineCardVideoWrapper>
+      </div>
+    </div>
   </MainWrapper>
 );

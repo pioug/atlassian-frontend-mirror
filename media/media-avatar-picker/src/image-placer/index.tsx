@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import {
   Rectangle,
@@ -11,7 +13,7 @@ import {
 import { ImagePlacerContainer } from './container';
 import { ImagePlacerImage } from './image';
 import { Margin } from './margin';
-import { ImagePlacerWrapper, ImagePlacerErrorWrapper } from './styled';
+import { imagePlacerWrapperStyles } from './styles';
 import {
   initialiseImagePreview,
   renderImageAtCurrentView,
@@ -21,6 +23,7 @@ import {
   applyConstraints,
   transformVisibleBoundsToImageCoords,
 } from './constraints';
+import { ImagePlacerErrorWrapper } from './imagePlacerErrorWrapper';
 
 /*
 "container(Width|Height)" is the outputed size of the final image plus "margin"s.
@@ -506,7 +509,7 @@ export class ImagePlacer extends React.Component<
     const imgSrc = typeof src === 'string' ? src : undefined;
 
     return (
-      <ImagePlacerWrapper backgroundColor={backgroundColor}>
+      <div css={imagePlacerWrapperStyles({ backgroundColor })}>
         <ImagePlacerContainer
           width={containerWidth}
           height={containerHeight}
@@ -539,7 +542,7 @@ export class ImagePlacer extends React.Component<
             </div>
           )}
         </ImagePlacerContainer>
-      </ImagePlacerWrapper>
+      </div>
     );
   }
 }

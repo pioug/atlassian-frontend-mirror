@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmstripView .render() styles 1`] = `
+.emotion-8 {
+  position: relative;
+  padding: 3px 0;
+  border-radius: 3px;
+}
+
+.emotion-8:hover .arrow {
+  opacity: 1;
+}
+
+.emotion-8 .ellipsed-text {
+  white-space: initial;
+}
+
+.emotion-4 {
+  width: inherit;
+  overflow: hidden;
+  padding: 2px 0;
+}
+
+.emotion-3 {
+  margin: 0;
+  padding: 0;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.emotion-0 {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 4px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0;
+}
+
+.emotion-7 {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  top: 0;
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.2);
+  right: 0;
+}
+
+.emotion-6 {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  background-color: #F4F5F7;
+  border-radius: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.6);
+  color: black;
+  width: 30px;
+  height: 30px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  opacity: 0;
+  right: 8px;
+}
+
+.emotion-6:hover {
+  color: black;
+  background-color: #DFE1E6;
+}
+
+.emotion-6:active {
+  color: #0052CC;
+  background-color: #DEEBFF;
+}
+
+.emotion-6 svg {
+  height: 30px;
+  width: 20px;
+}
+
+.emotion-6 svg {
+  padding-left: 1px;
+}
+
+.emotion-5 {
+  display: inline-block;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.emotion-5 > svg {
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color);
+  fill: var(--icon-secondary-color);
+  vertical-align: bottom;
+}
+
+.emotion-5 > svg stop {
+  stop-color: currentColor;
+}
+
+@media screen and (forced-colors:active) {
+  .emotion-5 > svg {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    --icon-primary-color: CanvasText;
+    --icon-secondary-color: Canvas;
+  }
+}
+
+<FilmstripView
+  animate={false}
+  offset={0}
+>
+  <FilmStripViewWrapper>
+    <Noop />
+<div
+      className="emotion-8"
+    >
+      <ForwardRef
+        data-testid="filmstrip-list-wrapper"
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        onWheel={[Function]}
+      >
+        <Noop />
+<div
+          className="emotion-4"
+          data-testid="filmstrip-list-wrapper"
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          onWheel={[Function]}
+        >
+          <ForwardRef
+            style={
+              Object {
+                "transform": "translateX(0px)",
+                "transitionDuration": "0s",
+                "transitionProperty": "none",
+              }
+            }
+          >
+            <Noop />
+<ul
+              className="emotion-3"
+              style={
+                Object {
+                  "transform": "translateX(0px)",
+                  "transitionDuration": "0s",
+                  "transitionProperty": "none",
+                }
+              }
+            >
+              <FilmStripListItem
+                index={0}
+                key="0/.0"
+              >
+                <Noop />
+<li
+                  className="media-filmstrip-list-item emotion-0"
+                  data-testid="media-filmstrip-list-item"
+                >
+                  a
+                </li>
+              </FilmStripListItem>
+              <FilmStripListItem
+                index={1}
+                key="1/.1"
+              >
+                <Noop />
+<li
+                  className="media-filmstrip-list-item emotion-0"
+                  data-testid="media-filmstrip-list-item"
+                >
+                  b
+                </li>
+              </FilmStripListItem>
+              <FilmStripListItem
+                index={2}
+                key="2/.2"
+              >
+                <Noop />
+<li
+                  className="media-filmstrip-list-item emotion-0"
+                  data-testid="media-filmstrip-list-item"
+                >
+                  c
+                </li>
+              </FilmStripListItem>
+            </ul>
+          </ForwardRef>
+        </div>
+      </ForwardRef>
+      <RightArrow
+        onClick={[Function]}
+      >
+        <ShadowRight>
+          <Noop />
+<div
+            className="emotion-7"
+          >
+            <ArrowRightWrapper
+              onClick={[Function]}
+            >
+              <Noop />
+<div
+                className="arrow emotion-6"
+                onClick={[Function]}
+              >
+                <ArrowRightIcon
+                  label="right"
+                >
+                  <Memo(Icon)
+                    dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.793 5.793a.999.999 0 000 1.414L15.586 11H6a1 1 0 000 2h9.586l-3.793 3.793a.999.999 0 000 1.414c.39.39 1.024.39 1.415 0l5.499-5.5a.997.997 0 00.293-.679v-.057a.996.996 0 00-.293-.678l-5.499-5.5a1 1 0 00-1.415 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                    label="right"
+                  >
+                    <span
+                      aria-label="right"
+                      className="emotion-5"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.793 5.793a.999.999 0 000 1.414L15.586 11H6a1 1 0 000 2h9.586l-3.793 3.793a.999.999 0 000 1.414c.39.39 1.024.39 1.415 0l5.499-5.5a.997.997 0 00.293-.679v-.057a.996.996 0 00-.293-.678l-5.499-5.5a1 1 0 00-1.415 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                        }
+                      }
+                      role="img"
+                      style={
+                        Object {
+                          "--icon-primary-color": "currentColor",
+                          "--icon-secondary-color": "var(--ds-surface, #FFFFFF)",
+                        }
+                      }
+                    />
+                  </Memo(Icon)>
+                </ArrowRightIcon>
+              </div>
+            </ArrowRightWrapper>
+          </div>
+        </ShadowRight>
+      </RightArrow>
+    </div>
+  </FilmStripViewWrapper>
+</FilmstripView>
+`;

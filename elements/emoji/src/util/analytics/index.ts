@@ -5,7 +5,10 @@ export {
   withSampling,
 } from './samplingUfo';
 
-export type { UFOExperienceSampledRecords, WithSampling } from './samplingUfo';
+export type {
+  UFOExperienceSampledRecords,
+  WithSamplingUFOExperience,
+} from './samplingUfo';
 
 export {
   categoryClickedEvent,

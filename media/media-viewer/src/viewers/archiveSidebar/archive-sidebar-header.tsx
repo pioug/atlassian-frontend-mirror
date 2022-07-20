@@ -6,11 +6,11 @@ import HomeIcon from '@atlaskit/icon/glyph/home';
 
 import { getFormattedFolderName } from '../../utils';
 import {
-  itemStyle,
   SidebarHeaderEntry,
   SidebarHeaderIcon,
   SidebarHeaderWrapper,
-} from './styled';
+} from './styleWrappers';
+import { itemStyle } from './styles';
 
 export type HeaderProps = {
   folderName: string;

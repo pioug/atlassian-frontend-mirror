@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-
 import {
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
@@ -22,22 +20,13 @@ const LogoJiraServiceManagement = () => {
         <tbody>
           <tr>
             <td>
-              <JiraServiceManagementLogo
-                textColor={N700}
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <JiraServiceManagementLogo appearance="brand" />
             </td>
             <td>
-              <JiraServiceManagementWordmark textColor={N700} />
+              <JiraServiceManagementWordmark appearance="brand" />
             </td>
             <td>
-              <JiraServiceManagementIcon
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <JiraServiceManagementIcon appearance="brand" />
             </td>
           </tr>
         </tbody>

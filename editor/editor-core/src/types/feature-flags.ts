@@ -341,6 +341,26 @@ export type FeatureFlags = {
    * @default false
    */
   showHoverPreview?: boolean;
+
+  /**
+   * @description
+   * Show indentation buttons in the Editor toolbar
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3237512038/EXPLORE+Indentation+buttons+in+the+Editor+toolbar
+   * @see https://product-fabric.atlassian.net/browse/ED-15067
+   * @default false
+   */
+  indentationButtonsInTheToolbar?: boolean;
+
+  /**
+   * @description
+   * Show copy buttons in the Floating toolbar
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/3237609689/Cubone+Mini+project+-+Copy+button+in+the+floating+toolbar
+   * @see https://product-fabric.atlassian.net/browse/ED-15090
+   * @default false
+   */
+  floatingToolbarCopyButton?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

@@ -1,4 +1,4 @@
-import { Component, ComponentClass } from 'react';
+import { Component, ComponentType } from 'react';
 
 import { EmojiProvider } from '../../api/EmojiResource';
 
@@ -8,7 +8,7 @@ export interface Props {
 
 export interface State {
   loadedEmojiProvider?: EmojiProvider;
-  asyncLoadedComponent?: ComponentClass<any>;
+  asyncLoadedComponent?: ComponentType<any>;
 }
 
 /**
@@ -69,7 +69,7 @@ export default abstract class LoadingEmojiComponent<
 
   private loaded = <
     T extends State & {
-      asyncLoadedComponent: ComponentClass<any>;
+      asyncLoadedComponent: ComponentType<any>;
       loadedEmojiProvider: EmojiProvider;
     }
   >(
@@ -78,7 +78,7 @@ export default abstract class LoadingEmojiComponent<
 
   abstract asyncLoadComponent(): void;
 
-  protected setAsyncState(asyncLoadedComponent: ComponentClass<any>) {
+  protected setAsyncState(asyncLoadedComponent: ComponentType<any>) {
     if (!this.isUnmounted) {
       this.setState({ asyncLoadedComponent });
     }
@@ -90,7 +90,7 @@ export default abstract class LoadingEmojiComponent<
 
   abstract renderLoaded(
     loadedEmojiProvider: EmojiProvider,
-    asyncLoadedComponent: ComponentClass<any>,
+    asyncLoadedComponent: ComponentType<any>,
   ): JSX.Element | null;
 
   render() {

@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 2.1.3
+
+### Patch Changes
+
+- [`450a17a332a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/450a17a332a) - [ux] ED-14654: Lower z-index values on editor elements so they do not stick out of the editor and interfere with consuming products
+- [`30c74c32783`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30c74c32783) - [ux] ED-15234: reverts ED-14654 because causing header zindex issues
+
 ## 2.1.2
 
 ### Patch Changes

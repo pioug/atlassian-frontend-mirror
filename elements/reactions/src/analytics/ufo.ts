@@ -4,6 +4,7 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';
+import { withSampling } from '@atlaskit/emoji';
 
 /**
  * Initial experience config object (deferred from @atlaskit/ufo inner types)
@@ -110,3 +111,6 @@ export const ReactionsRemove = new ConcurrentExperience(
     ExperiencePerformanceTypes.InlineResult,
   ),
 );
+
+export const sampledReactionsRendered = (instanceId: string) =>
+  withSampling(ReactionsRendered.getInstance(instanceId));

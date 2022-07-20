@@ -5,11 +5,6 @@ import {
   PackageAttributes,
 } from '@atlaskit/media-common';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-
 // Component name will be prefixed with "media-picker-" in logs. Check ufoExperiences in utils files
 export type ComponentName = 'browser' | 'clipboard' | 'dropzone';
 
@@ -22,6 +17,9 @@ const relevantFlags = {
   folderUploads: true,
   mediaUploadApiV2: true,
 };
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
 

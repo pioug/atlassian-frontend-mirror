@@ -2,12 +2,13 @@ import MobileEditorConfiguration, {
   EditorAppearance,
 } from '../../editor-configuration';
 
+const locale = navigator.language;
 describe('Editor Configuration', () => {
   it('should have default values for its properties', () => {
     const editorConfig = new MobileEditorConfiguration();
 
     expect(editorConfig.getMode()).toEqual('light');
-    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.getLocale()).toEqual(locale);
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
@@ -69,7 +70,7 @@ describe('Editor Configuration', () => {
     const editorConfig = new MobileEditorConfiguration('{ "mode": "dark" }');
 
     expect(editorConfig.getMode()).toEqual('dark');
-    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.getLocale()).toEqual(locale);
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
@@ -93,7 +94,7 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.getMode()).toEqual('light');
-    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.getLocale()).toEqual(locale);
     expect(editorConfig.isQuickInsertEnabled()).toEqual(true);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
@@ -106,7 +107,7 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.getMode()).toEqual('light');
-    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.getLocale()).toEqual(locale);
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(true);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);
@@ -119,7 +120,7 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.getMode()).toEqual('light');
-    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.getLocale()).toEqual(locale);
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(true);
@@ -132,7 +133,7 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.getMode()).toEqual('light');
-    expect(editorConfig.getLocale()).toEqual('en');
+    expect(editorConfig.getLocale()).toEqual(locale);
     expect(editorConfig.isQuickInsertEnabled()).toEqual(false);
     expect(editorConfig.isSelectionObserverEnabled()).toEqual(false);
     expect(editorConfig.isCollabProviderEnabled()).toEqual(false);

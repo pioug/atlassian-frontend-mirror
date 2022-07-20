@@ -4,25 +4,6 @@ export {
 } from './annotation';
 export { getExtensionLozengeData } from './macro';
 export type { Params } from './macro';
-export {
-  getMarksByOrder,
-  getValidContent,
-  getValidDocument,
-  getValidMark,
-  getValidNode,
-  getValidUnknownNode,
-  isSameMark,
-  isSubSupType,
-  markOrder,
-} from './validator';
-export type {
-  ADDoc,
-  ADFStage,
-  ADFStages,
-  ADMark,
-  ADMarkSimple,
-  ADNode,
-} from './validator';
 export { default as browser } from './browser';
 export { default as ErrorReporter } from './error-reporter';
 export type { ErrorReportingHandler } from './error-reporter';

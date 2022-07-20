@@ -5,7 +5,7 @@ import {
   WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 import { ItemViewer } from './item-viewer';
-import { HeaderWrapper, ListWrapper } from './styled';
+import { HeaderWrapper, ListWrapper } from './styleWrappers';
 import { Navigation } from './navigation';
 import Header from './header';
 import { MediaViewerExtensions } from './components/types';

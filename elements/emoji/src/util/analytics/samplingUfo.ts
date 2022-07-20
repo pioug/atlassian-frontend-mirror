@@ -70,14 +70,6 @@ const hasSampledFromStart = (experience: UFOExperience) => {
   return ufoExperiencesSampled[experience.id].sampled;
 };
 
-export interface WithSampling extends Omit<UFOExperience, 'start'> {
-  start: (options: {
-    samplingRate: number;
-    samplingFunc?: SamplingFunc;
-    startTime?: number;
-  }) => Promise<void>;
-}
-
 /**
  * This function is a temp solution to reduce the event traffic, as UFO package does not support it.
  *
@@ -145,6 +137,13 @@ export const withSampling = (ufoExperience: UFOExperience) => {
     return ufoExperience.abort(config);
   };
 
+  const addMetadata = (data: CustomData) => {
+    if (!hasSampledFromStart(ufoExperience)) {
+      return;
+    }
+    return ufoExperience.addMetadata(data);
+  };
+
   const mark = (name: string, timestamp?: number) => {
     if (!hasSampledFromStart(ufoExperience)) {
       return;
@@ -171,11 +170,12 @@ export const withSampling = (ufoExperience: UFOExperience) => {
   return {
     ...ufoExperience,
     start,
+    addMetadata,
     success,
     failure,
     abort,
     mark,
     markFMP,
     markInlineResponse,
-  } as WithSampling;
+  } as WithSamplingUFOExperience;
 };

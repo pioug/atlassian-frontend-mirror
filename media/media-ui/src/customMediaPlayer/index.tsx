@@ -1,10 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import {
-  version as packageVersion,
-  name as packageName,
-} from '../version.json';
-import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
@@ -73,6 +69,10 @@ import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
 import { SkipTenBackwardIcon, SkipTenForwardIcon } from './icons';
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
 export interface CustomMediaPlayerProps
   extends WithPlaybackProps,
     WithShowControlMethodProp {

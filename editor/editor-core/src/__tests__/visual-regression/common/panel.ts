@@ -17,6 +17,7 @@ import {
 } from '@atlaskit/editor-common/panel';
 import { waitForNoTooltip } from '@atlaskit/visual-regression/helper';
 import { panelSelectors } from '../../__helpers/page-objects/_panel';
+import { waitForEmojisToLoad } from '../../__helpers/page-objects/_emoji';
 import {
   pressKey,
   pressWithKeyModifier,
@@ -25,6 +26,7 @@ import {
 describe('Panel:', () => {
   let page: PuppeteerPage;
   let adfContent: Object;
+  let hasEmojiAtSnapshot: boolean = true;
 
   beforeAll(() => {
     page = global.page;
@@ -38,8 +40,16 @@ describe('Panel:', () => {
     });
     await waitForFloatingControl(page, 'Panel floating controls');
   });
+
   afterEach(async () => {
-    await snapshot(page);
+    if (hasEmojiAtSnapshot) {
+      await waitForEmojisToLoad(page);
+    }
+
+    await waitForNoTooltip(page);
+    await snapshot(page, { useUnsafeThreshold: true, tolerance: 0.01 });
+
+    hasEmojiAtSnapshot = true;
   });
 
   it('looks correct', async () => {
@@ -70,11 +80,6 @@ describe('Panel:', () => {
 
     // Change panel type to note
     await page.click(PanelSharedSelectors.noteButton);
-
-    // await animationFrame doesn't wait for the button to be styled fully selected, and selected
-    // buttons don't have any different selectors we can wait for. However, the snapshot importantly
-    // shows the new panel colour, icon and node selection intact
-    await waitForNoTooltip(page);
   });
 
   // More basic panels to stop test flakiness
@@ -83,18 +88,20 @@ describe('Panel:', () => {
       adfContent = basicPanel;
     });
 
+    beforeEach(() => {
+      hasEmojiAtSnapshot = false;
+    });
+
     it('updates the toolbar when changing from one panel to another', async () => {
       await page.click(PanelSharedSelectors.errorPanel);
       await page.click(PanelSharedSelectors.successPanel);
       await page.hover(`${PanelSharedSelectors.title}`);
-      await waitForNoTooltip(page);
     });
 
     it('removes the panel when clicking on remove icon', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(PanelSharedSelectors.removeButton);
       await page.hover(`${PanelSharedSelectors.title}`);
-      await waitForNoTooltip(page);
     });
   });
 });
@@ -121,9 +128,13 @@ describe('custom panels', () => {
     );
     await waitForFloatingControl(page, 'Panel floating controls');
   });
+
   afterEach(async () => {
+    await waitForEmojisToLoad(page);
+    await waitForNoTooltip(page);
     await snapshot(page);
   });
+
   beforeAll(() => {
     page = global.page;
     adfContent = customPanel;
@@ -133,7 +144,6 @@ describe('custom panels', () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.colorPalette}`);
     await page.hover(`${PanelSharedSelectors.title}`);
-    await waitForNoTooltip(page);
   });
 
   it('updates the panel background color', async () => {
@@ -141,7 +151,6 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.colorPalette}`);
     await page.click(`${PanelSharedSelectors.selectedColor}`);
     await page.hover(`${PanelSharedSelectors.title}`);
-    await waitForNoTooltip(page);
   });
 
   it('remove emoji icon from custom panel', async () => {
@@ -155,7 +164,6 @@ describe('custom panels', () => {
     });
     await page.click(`${PanelSharedSelectors.removeEmojiIcon}`);
     await page.hover(`${PanelSharedSelectors.title}`);
-    await waitForNoTooltip(page);
   });
 
   it('remove icon from Standard panel', async () => {
@@ -163,7 +171,6 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.infoPanel}`);
     await page.click(`${PanelSharedSelectors.removeEmojiIcon}`);
     await page.hover(`${PanelSharedSelectors.title}`);
-    await waitForNoTooltip(page);
   });
 
   it('updates the panel and add emoji icon', async () => {
@@ -176,7 +183,6 @@ describe('custom panels', () => {
       visible: true,
     });
     await page.click(`${PanelSharedSelectors.title}`);
-    await waitForNoTooltip(page);
   });
 
   it('should show emoji picker on top of the toolbar', async () => {
@@ -196,7 +202,6 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.colorPalette}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
     await page.hover(`${PanelSharedSelectors.title}`);
-    await waitForNoTooltip(page);
   });
 
   describe('should close Popup ', () => {
@@ -211,14 +216,12 @@ describe('custom panels', () => {
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.emojiIcon}`);
       await page.hover(`${PanelSharedSelectors.title}`);
-      await waitForNoTooltip(page);
     });
 
     it('when clicked on different panel', async () => {
       await page.click(`.${PanelSharedCssClassName.icon}`);
       await page.click(`${PanelSharedSelectors.colorPalette}`);
       await page.click(`${PanelSharedSelectors.infoPanel}`);
-      await waitForNoTooltip(page);
     });
   });
 
@@ -247,7 +250,6 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.emojiNameInCustomEmoji}`);
     await page.hover(`${PanelSharedSelectors.title}`);
     await page.click(`${PanelSharedSelectors.emojiPopup} input`);
-    await waitForNoTooltip(page);
   });
 
   describe('with a duplicate short name, ', () => {
@@ -274,8 +276,6 @@ describe('custom panels', () => {
         visible: true,
       });
       await page.click(`${PanelSharedSelectors.title}`);
-
-      await waitForNoTooltip(page);
     });
   });
 });
@@ -287,7 +287,10 @@ describe('Dark mode panel', () => {
   beforeAll(() => {
     page = global.page;
   });
+
   afterEach(async () => {
+    await waitForEmojisToLoad(page);
+    await waitForNoTooltip(page);
     await snapshot(page);
   });
 

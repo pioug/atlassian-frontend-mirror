@@ -355,8 +355,8 @@ const container = document.createElement('div');
     describe('Analytics', () => {
       const expectedContext = (featureFlags: MediaFeatureFlags) => [
         {
-          packageName: '@atlaskit/media-picker',
-          packageVersion: '999.9.9',
+          packageName: expect.any(String),
+          packageVersion: expect.any(String),
           componentName: 'dropzone',
           component: 'dropzone',
           [MEDIA_CONTEXT]: {

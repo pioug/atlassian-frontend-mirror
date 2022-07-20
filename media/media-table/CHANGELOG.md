@@ -1,5 +1,15 @@
 # @atlaskit/media-table
 
+## 13.0.0
+
+### Major Changes
+
+- [`af775dcb785`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af775dcb785) - [MEX-1034] Migrated from styled-components library to @emotion/react in @atlaskit/media-table
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

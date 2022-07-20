@@ -53,6 +53,16 @@ export class MockNonUploadingEmojiResource
     }
   }
 
+  async fetchEmojiProvider(
+    force?: boolean,
+  ): Promise<EmojiRepository | undefined> {
+    return Promise.resolve(this.emojiRepository);
+  }
+
+  public getOptimisticImageURL(emojiId: EmojiId) {
+    return 'optimisticUrl';
+  }
+
   getCurrentUser(): OptionalUser {
     return this.currentUser;
   }

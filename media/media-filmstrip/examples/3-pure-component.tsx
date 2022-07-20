@@ -1,8 +1,7 @@
 import React from 'react';
-import { HTMLAttributes, ComponentClass } from 'react';
-import styled from 'styled-components';
 import { FilmstripView } from '../src/filmstripView';
 import { FilmstripState } from '../src';
+import { PureComponentBox } from '../example-helpers/wrapper';
 
 export interface StoryProps {}
 
@@ -10,12 +9,6 @@ export interface StoryState {
   animate: boolean;
   offset: number;
 }
-
-const Box: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  width: 250px;
-  height: 100px;
-  background-color: lightgreen;
-`;
 
 export class Story extends React.PureComponent<StoryProps, StoryState> {
   state: StoryState = {
@@ -48,13 +41,13 @@ export class Story extends React.PureComponent<StoryProps, StoryState> {
           onSize={this.handleSizeChange}
           onScroll={this.handleScrollChange}
         >
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
-          <Box />
+          <PureComponentBox />
+          <PureComponentBox />
+          <PureComponentBox />
+          <PureComponentBox />
+          <PureComponentBox />
+          <PureComponentBox />
+          <PureComponentBox />
         </FilmstripView>
       </div>
     );

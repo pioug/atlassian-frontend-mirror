@@ -1,10 +1,11 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import FieldRange from '@atlaskit/range';
 import ScaleLargeIcon from '@atlaskit/icon/glyph/media-services/scale-large';
 import ScaleSmallIcon from '@atlaskit/icon/glyph/media-services/scale-small';
 import Button from '@atlaskit/button/custom-theme-button';
-import { SliderWrapper } from './styled';
+import { sliderWrapperStyles } from './styles';
 
 export interface SliderProps {
   value: number;
@@ -21,7 +22,7 @@ export class Slider extends Component<SliderProps, {}> {
   render() {
     const { value, onChange } = this.props;
     return (
-      <SliderWrapper>
+      <div css={sliderWrapperStyles}>
         <Button
           className="zoom_button zoom_button_small"
           iconAfter={<ScaleSmallIcon label="scale-small-icon" />}
@@ -33,7 +34,7 @@ export class Slider extends Component<SliderProps, {}> {
           iconAfter={<ScaleLargeIcon label="scale-large-icon" />}
           onClick={() => onChange(100)}
         />
-      </SliderWrapper>
+      </div>
     );
   }
 }

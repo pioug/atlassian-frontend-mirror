@@ -12,6 +12,8 @@ export const layoutSelectors = {
   active: '[data-layout-section].selected',
   content: '[data-layout-content="true"]',
   removeButton: 'button[aria-label="Remove"]',
+  floatingToolbar: '[aria-label="Layout floating controls"]',
+  breakoutButton: '[aria-label="Go wide"]',
 };
 
 export type BreakoutType = 'fixed' | 'wide' | 'fullWidth';

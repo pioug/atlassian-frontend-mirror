@@ -6,77 +6,106 @@ import { easeInOut } from '../utils/curves';
 import { largeDurationMs } from '../utils/durations';
 
 import KeyframesMotion, { KeyframesMotionProps } from './keyframes-motion';
-import { Direction } from './types';
+import type { Direction, Distance } from './types';
 
-const entranceMotions = {
-  bottom: 'translate3d(0, calc(5% + 4px), 0)',
-  left: 'translate3d(calc(-5% - 4px), 0, 0)',
-  right: 'translate3d(calc(5% + 4px), 0, 0)',
-  top: 'translate3d(0, calc(-5% - 4px), 0)',
+const directionMotions: Record<Distance, Record<Direction, string>> = {
+  proportional: {
+    bottom: 'translate3d(0, calc(5% + 4px), 0)',
+    left: 'translate3d(calc(-5% - 4px), 0, 0)',
+    right: 'translate3d(calc(5% + 4px), 0, 0)',
+    top: 'translate3d(0, calc(-5% - 4px), 0)',
+  },
+  constant: {
+    bottom: 'translate3d(0, 4px, 0)',
+    left: 'translate3d(-4px, 0, 0)',
+    right: 'translate3d(4px, 0, 0)',
+    top: 'translate3d(0, -4px, 0)',
+  },
 };
 
-const exitMotions = {
-  bottom: 'translate3d(0, calc(-5% - 4px), 0)',
-  left: 'translate3d(calc(5% + 4px), 0, 0)',
-  right: 'translate3d(calc(-5% - 4px), 0, 0)',
-  top: 'translate3d(0, calc(5% + 4px), 0)',
-};
+const invertedDirection = {
+  top: 'bottom',
+  bottom: 'top',
+  left: 'right',
+  right: 'left',
+} as const;
 
 export const fadeInAnimation = (
-  movement?: Direction,
+  direction?: Direction,
+  distance: Distance = 'proportional',
 ): ObjectInterpolation<undefined> => {
   return {
     from: {
       opacity: 0,
-      ...(movement !== undefined && {
-        transform: entranceMotions[movement],
+      ...(direction !== undefined && {
+        transform: directionMotions[distance][direction],
       }),
     },
     '50%': {
       opacity: 1,
     },
     to: {
-      transform: movement !== undefined ? 'none' : undefined,
+      transform: direction !== undefined ? 'none' : undefined,
     },
   };
 };
 
 export const fadeOutAnimation = (
-  movement?: Direction,
+  direction?: Direction,
+  distance: Distance = 'proportional',
 ): ObjectInterpolation<undefined> => ({
   from: {
     opacity: 1,
-    transform: movement !== undefined ? 'translate3d(0, 0, 0)' : undefined,
+    transform: direction !== undefined ? 'translate3d(0, 0, 0)' : undefined,
   },
   to: {
     opacity: 0,
-    ...(movement !== undefined && {
-      transform: exitMotions[movement],
+    ...(direction !== undefined && {
+      transform: directionMotions[distance][direction],
     }),
   },
 });
 
 /**
- * Props for controlling the behaviour of the FadeIn animation
+ * Props for controlling the behavior of the FadeIn animation
  */
 export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
   /**
-   * Sets an entering and exiting motion
+   * The direction the element will enter from using a slide animation. If undefined, no slide will be applied.
    */
   entranceDirection?: Direction;
+  /**
+   * The direction the element will exit to using a slide animation.
+   * If undefined but `entranceDirection` is set, it will exit to the opposite side by default.
+   */
+  exitDirection?: Direction;
+  /**
+   * The distance the element moves in a direction-based animation.
+   * A `proportional` distance is based on the size of the element.
+   * A `constant` distance will always move the same amount, regardless of size.
+   */
+  distance?: Distance;
 }
 
 const FadeIn: React.FC<FadeKeyframesMotionProps> = ({
   children,
   duration = largeDurationMs,
-  entranceDirection: entranceSlideDirection,
+  entranceDirection,
+  exitDirection,
+  distance = 'proportional',
   ...props
 }: FadeKeyframesMotionProps) => {
+  const invertedEntranceDirection =
+    entranceDirection && invertedDirection[entranceDirection];
+
   return (
     <KeyframesMotion
       duration={duration}
-      enteringAnimation={fadeInAnimation(entranceSlideDirection)}
-      exitingAnimation={fadeOutAnimation(entranceSlideDirection)}
+      enteringAnimation={fadeInAnimation(entranceDirection, distance)}
+      exitingAnimation={fadeOutAnimation(
+        exitDirection || invertedEntranceDirection,
+        distance,
+      )}
       animationTimingFunction={() => easeInOut}
       {...props}
     >

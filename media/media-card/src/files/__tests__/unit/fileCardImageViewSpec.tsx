@@ -7,10 +7,10 @@ import { MediaType } from '@atlaskit/media-client';
 import { FileCardImageView, FileCardImageViewProps } from '../..';
 import { CardOverlay } from '../../cardImageView/cardOverlay';
 import {
-  Wrapper,
   PlayIconWrapper,
   ProgressBarWrapper,
-} from '../../cardImageView/styled';
+} from '../../cardImageView/cardImageViewWrapper';
+import { CardImageViewWrapper } from '../../cardImageView/cardImageViewWrapper';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import { ProgressBar } from '../../../utils/progressBar';
 import CardActions from '../../../utils/cardActions';
@@ -484,8 +484,12 @@ describe('FileCardImageView', () => {
   });
 
   it('should render correct background based on mediaType"', function () {
-    const wrapperAsImage = shallow(<Wrapper mediaType="image" />);
-    const wrapperNotImage = shallow(<Wrapper />);
+    const wrapperAsImage = mount(
+      <CardImageViewWrapper mediaType="image" />,
+    ).find('div#cardImageViewWrapper');
+    const wrapperNotImage = mount(<CardImageViewWrapper />).find(
+      'div#cardImageViewWrapper',
+    );
 
     expect(wrapperAsImage).toMatchSnapshot();
     expect(wrapperNotImage).toMatchSnapshot();

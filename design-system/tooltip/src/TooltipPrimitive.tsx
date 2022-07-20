@@ -46,20 +46,20 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
       [VAR_PRIMITIVE_ZINDEX]: layers.tooltip(),
     };
     return (
-      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-      <div
-        role="tooltip"
-        ref={ref}
-        style={styleWithZIndex}
-        className={className}
-        onMouseOut={onMouseOut}
-        onMouseOver={onMouseOver}
-        css={primitiveStyles}
-        data-placement={placement}
-        data-testid={testId}
-        id={id}
-      >
-        {children}
+      <div ref={ref} style={styleWithZIndex} data-testid={`${testId}--wrapper`}>
+        {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
+        <div
+          role="tooltip"
+          className={className}
+          onMouseOut={onMouseOut}
+          onMouseOver={onMouseOver}
+          css={primitiveStyles}
+          data-placement={placement}
+          data-testid={testId}
+          id={id}
+        >
+          {children}
+        </div>
       </div>
     );
   },

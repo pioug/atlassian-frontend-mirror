@@ -1,18 +1,9 @@
 import React from 'react';
 
-import { B200, B400 } from '@atlaskit/theme/colors';
-
 import { AtlassianIcon } from '../../src';
 
 const LogoSmall = () => {
-  return (
-    <AtlassianIcon
-      size="small"
-      iconColor={B200}
-      iconGradientStart={B400}
-      iconGradientStop={B200}
-    />
-  );
+  return <AtlassianIcon size="small" appearance="brand" />;
 };
 
 export default LogoSmall;

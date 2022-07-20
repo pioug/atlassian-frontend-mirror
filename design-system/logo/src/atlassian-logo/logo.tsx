@@ -5,23 +5,46 @@ import { uid } from 'react-uid';
 
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
+import { getColorsFromAppearance } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (iconGradientStart: string, iconGradientStop: string) => {
-  const id = uid({ iconGradientStart: iconGradientStop });
-  return `<canvas height="32" width="190" aria-hidden="true"></canvas>
-  <svg viewBox="0 0 190 32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+const svg = ({
+  appearance,
+  iconGradientStart,
+  iconGradientStop,
+  iconColor,
+  textColor,
+}: LogoProps) => {
+  let colors = {
+    iconGradientStart,
+    iconGradientStop,
+    iconColor,
+    textColor,
+    // We treat the word "Atlassian" differently to normal product logos, it has a bold brand look
+    atlassianLogoTextColor: textColor,
+  };
+  let id = uid({ iconGradientStart: iconGradientStop });
+
+  if (appearance) {
+    colors = getColorsFromAppearance(appearance);
+    id = `atlassianLogo-${appearance}`;
+  }
+
+  return `
+  <svg viewBox="0 0 190 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
     <defs>
       <linearGradient x1="99.684716%" y1="15.8138128%" x2="39.8444399%" y2="97.4388388%" id="${id}">
-        <stop stop-color="${iconGradientStart}" ${
-    iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
+        <stop stop-color="${colors.iconGradientStart}" ${
+    colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
   } offset="0%"></stop>
-        <stop stop-color="${iconGradientStop}" offset="100%"></stop>
+        <stop stop-color="${colors.iconGradientStop}" offset="100%"></stop>
       </linearGradient>
     </defs>
-    <g stroke="none" stroke-width="1" fill-rule="nonzero">
-      <path d="M6.90502605,15.6123193 C6.76436383,15.4302139 6.53773035,15.3340846 6.30742588,15.35884 C6.0771214,15.3835955 5.876643,15.525635 5.7787929,15.7333781 L0.0719979599,27.0218487 C-0.0337056449,27.2310259 -0.0224063827,27.4794358 0.101860917,27.6783741 C0.226128216,27.8773125 0.445645594,27.9984148 0.68202605,27.9984369 L8.62844459,27.9984369 C8.88847261,28.0044096 9.12761649,27.8581627 9.23847268,27.6253781 C10.9526159,24.1210252 9.91378448,18.7926722 6.90502605,15.6123193 Z" fill="url(#${id})"></path>
-      <path d="M11.0859556,5.33713587 C8.19309829,9.74089822 7.85921851,15.3267488 10.2073011,20.0371359 L14.0383488,27.6176065 C14.1538739,27.8462194 14.3900332,27.9906411 14.6483769,27.9906653 L22.5933685,27.9906653 C22.829749,27.9906431 23.0492663,27.8695408 23.1735336,27.6706025 C23.2978009,27.4716641 23.3091002,27.2232543 23.2033966,27.014077 C23.2033966,27.014077 12.5147056,5.8619594 12.2460792,5.33290058 C12.1377032,5.11315026 11.9118188,4.97410225 11.6646746,4.97500451 C11.4175304,4.97590676 11.1926893,5.11660025 11.0859556,5.33713587 L11.0859556,5.33713587 Z" fill="currentColor"></path>
+    <g stroke="none" stroke-width="1" fill="${colors.atlassianLogoTextColor}" >
+      <path fill="url(#${id})" d="M6.90502605,15.6123193 C6.76436383,15.4302139 6.53773035,15.3340846 6.30742588,15.35884 C6.0771214,15.3835955 5.876643,15.525635 5.7787929,15.7333781 L0.0719979599,27.0218487 C-0.0337056449,27.2310259 -0.0224063827,27.4794358 0.101860917,27.6783741 C0.226128216,27.8773125 0.445645594,27.9984148 0.68202605,27.9984369 L8.62844459,27.9984369 C8.88847261,28.0044096 9.12761649,27.8581627 9.23847268,27.6253781 C10.9526159,24.1210252 9.91378448,18.7926722 6.90502605,15.6123193 Z"></path>
+      <path fill="${
+        colors.iconColor
+      }" d="M11.0859556,5.33713587 C8.19309829,9.74089822 7.85921851,15.3267488 10.2073011,20.0371359 L14.0383488,27.6176065 C14.1538739,27.8462194 14.3900332,27.9906411 14.6483769,27.9906653 L22.5933685,27.9906653 C22.829749,27.9906431 23.0492663,27.8695408 23.1735336,27.6706025 C23.2978009,27.4716641 23.3091002,27.2232543 23.2033966,27.014077 C23.2033966,27.014077 12.5147056,5.8619594 12.2460792,5.33290058 C12.1377032,5.11315026 11.9118188,4.97410225 11.6646746,4.97500451 C11.4175304,4.97590676 11.1926893,5.11660025 11.0859556,5.33713587 L11.0859556,5.33713587 Z"></path>
       <path d="M104.2774,14.3919316 C104.2774,17.1872257 105.588069,19.4065198 110.714802,20.3862846 C113.773504,21.0215787 114.414212,21.5100493 114.414212,22.5187551 C114.414212,23.4985198 113.772077,24.1327551 111.617715,24.1327551 C109.013896,24.0864379 106.462135,23.403307 104.189999,22.1442846 L104.189999,26.6972257 C105.733976,27.4465198 107.772754,28.2822846 111.559566,28.2822846 C116.919251,28.2822846 119.045788,25.9175787 119.045788,22.4033434 M119.045788,22.4033434 C119.045788,19.0892257 117.268858,17.5327551 112.25878,16.4668728 C109.491535,15.8615787 108.821574,15.2566375 108.821574,14.3919316 C108.821574,13.297814 109.811889,12.835814 111.646968,12.835814 C113.860906,12.835814 116.045591,13.4986375 118.113622,14.4208728 L118.113622,10.0691081 C116.130615,9.17615406 113.970906,8.73311319 111.792518,8.7724022 C106.840589,8.7724022 104.2774,10.9048728 104.2774,14.3919316" fill="inherit"></path>
       <polygon fill="inherit" points="173.129997 9.07000017 173.129997 28.0038825 177.20791 28.0038825 177.20791 13.5657649 178.926691 17.3983531 184.694132 28.0038825 189.820865 28.0038825 189.820865 9.07000017 185.742952 9.07000017 185.742952 21.2891766 184.198975 17.7442355 179.567399 9.07000017"></polygon>
       <rect fill="inherit" x="142.740005" y="9.07000017" width="4.45677247" height="18.9338824"></rect>
@@ -36,18 +59,26 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
 };
 
 export const AtlassianLogo = ({
-  iconColor = defaultLogoParams.iconColor,
-  iconGradientStart = defaultLogoParams.iconGradientStart,
-  iconGradientStop = defaultLogoParams.iconGradientStop,
+  appearance,
   label = 'Atlassian',
   size = defaultLogoParams.size,
   testId,
+  iconColor = defaultLogoParams.iconColor,
+  iconGradientStart = defaultLogoParams.iconGradientStart,
+  iconGradientStop = defaultLogoParams.iconGradientStop,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
   return (
     <Wrapper
+      appearance={appearance}
       label={label}
-      svg={svg}
+      svg={svg({
+        appearance,
+        iconGradientStart,
+        iconGradientStop,
+        iconColor,
+        textColor,
+      })}
       iconColor={iconColor}
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}

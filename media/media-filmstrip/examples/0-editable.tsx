@@ -1,8 +1,7 @@
 // eslint-disable-line no-console
-
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
-import { HTMLAttributes, ComponentClass, LabelHTMLAttributes } from 'react';
-import styled from 'styled-components';
 import { RadioGroup } from '@atlaskit/radio';
 import Range from '@atlaskit/range';
 import Button from '@atlaskit/button/standard-button';
@@ -20,38 +19,12 @@ import {
   archiveFileId,
 } from '@atlaskit/media-test-helpers';
 import { FilmstripView } from '../src/filmstripView';
-
-const StoryWrapper: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  padding: 1em;
-`;
-
-const Separator: ComponentClass<HTMLAttributes<{}>> = styled.hr`
-  margin: 1em 0;
-  border: 1px solid #ccc;
-`;
-
-const ControlLabel: ComponentClass<
-  HTMLAttributes<{}> & LabelHTMLAttributes<{}>
-> = styled.label`
-  display: block;
-  margin-top: 1em;
-  font-weight: bold;
-`;
-
-const Flex: ComponentClass<HTMLAttributes<{}>> = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-interface BoxProps {
-  grow?: number;
-}
-
-const Box: ComponentClass<HTMLAttributes<{}> & BoxProps> = styled.div`
-  padding: 4px;
-  ${({ grow }: { grow?: number }) => (grow && `flex-grow: ${grow};`) || ''};
-`;
+import { flexStyles, storyWrapperStyles } from '../example-helpers/styles';
+import {
+  ControlLabel,
+  EditableBox,
+  Separator,
+} from '../example-helpers/wrapper';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
@@ -229,16 +202,16 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
     return (
       <div>
         <ControlLabel>Offset: </ControlLabel>
-        <Flex>
-          <Box>
+        <div css={flexStyles}>
+          <EditableBox>
             <Button
               onClick={this.handleGoToStart}
               isSelected={offset === minOffset}
             >
               Start
             </Button>
-          </Box>
-          <Box grow={1}>
+          </EditableBox>
+          <EditableBox grow={1}>
             <Range
               step={1}
               min={minOffset}
@@ -246,16 +219,16 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
               value={offset}
               onChange={this.handleGoTo}
             />
-          </Box>
-          <Box>
+          </EditableBox>
+          <EditableBox>
             <Button
               onClick={this.handleGoToEnd}
               isSelected={offset === maxOffset}
             >
               End
             </Button>
-          </Box>
-        </Flex>
+          </EditableBox>
+        </div>
 
         <ControlLabel>Width: </ControlLabel>
         <RadioGroup
@@ -297,13 +270,13 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 
   render() {
     return (
-      <StoryWrapper>
+      <div css={storyWrapperStyles}>
         <h1>Make your own 🍽</h1>
         <Separator />
         {this.renderFilmstrip()}
         <Separator />
         {this.renderControls()}
-      </StoryWrapper>
+      </div>
     );
   }
 }

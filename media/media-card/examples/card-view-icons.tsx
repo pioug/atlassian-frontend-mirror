@@ -1,29 +1,17 @@
-// eslint-disable-line no-console
+/**@jsx jsx */
+import { css, jsx } from '@emotion/react';
 import React from 'react';
-import styled from 'styled-components';
 import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';
+import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
-type WrapperDimensions = {
-  width: string;
-  height: string;
-};
 const wrapperDimensionsSmall = { width: '156px', height: '108px' }; // Minimum supported dimensions
 const dimensions = { width: '100%', height: '100%' };
 
-const CardWrapper = styled.div`
-  ${({ width, height }: WrapperDimensions) => `
-    display: inline-block;
-    width: ${width};
-    height: ${height};
-    margin: 15px 20px;
-  `}
-`;
-
-const StyledContainer = styled.div`
+const styledContainerStyles = css`
   max-width: 800px;
   margin: 20px auto;
   h3 {
@@ -60,17 +48,17 @@ const mimeTypes: { mime: string; name: string }[] = [
 
 const IconsTable = () => {
   return (
-    <StyledContainer>
+    <div css={styledContainerStyles}>
       <h3>MimeTypes</h3>
       {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
       <IntlProvider locale={'en'}>
-        <>
+        <React.Fragment>
           {mimeTypes.map((item, i) =>
             renderCardImageView('complete', 'audio', item.mime, item.name, i),
           )}
-        </>
+        </React.Fragment>
       </IntlProvider>
-    </StyledContainer>
+    </div>
   );
 };
 
@@ -92,7 +80,10 @@ function renderCardImageView(
 
   return (
     <MainWrapper key={key}>
-      <CardWrapper {...wrapperDimensionsSmall}>
+      <CardViewWrapper
+        wrapperDimensions={wrapperDimensionsSmall}
+        displayInline={true}
+      >
         <CardView
           featureFlags={{
             newCardExperience: true,
@@ -104,7 +95,7 @@ function renderCardImageView(
           progress={0.5}
           dimensions={dimensions}
         />
-      </CardWrapper>
+      </CardViewWrapper>
     </MainWrapper>
   );
 }

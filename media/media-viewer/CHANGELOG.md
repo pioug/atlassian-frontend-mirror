@@ -1,5 +1,18 @@
 # @atlaskit/media-viewer
 
+## 47.0.0
+
+### Major Changes
+
+- [`910bb0dca94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/910bb0dca94) - Migrated to emotion from styled-components
+
+### Patch Changes
+
+- [`4c82874f35c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c82874f35c) - Wrap each line in a parent element in code viewer to fix call stack overflow issue.
+- [`e3d4c39b20c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3d4c39b20c) - Remove version.json file.
+  Use injected package name and version from environment variable instead.
+- Updated dependencies
+
 ## 46.5.0
 
 ### Minor Changes

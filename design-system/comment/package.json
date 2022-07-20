@@ -40,7 +40,7 @@
     "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/checkbox": "^12.3.9",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^169.0.0",
+    "@atlaskit/editor-core": "^169.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

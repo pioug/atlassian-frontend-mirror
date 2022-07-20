@@ -9,13 +9,20 @@ import * as layout3Col from '../__fixtures__/layout-3-columns.adf.json';
 import * as layoutLeftSidebar from '../__fixtures__/layout-left-sidebar.adf.json';
 import * as layoutRightSidebar from '../__fixtures__/layout-right-sidebar.adf.json';
 import * as layout3ColWithSidebars from '../__fixtures__/layout-3-columns-with-sidebars.adf.json';
+import * as layoutWithDifferentColumnChildren from '../__fixtures__/layout-with-different-column-children.adf.json';
+
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
+import { selectors as mentionSelectors } from '../__helpers/page-objects/_mention';
 import { selectors as rendererSelectors } from '../__helpers/page-objects/_renderer';
 
-const initRenderer = async (page: PuppeteerPage, adf: any) => {
+const initRenderer = async (
+  page: PuppeteerPage,
+  adf: any,
+  viewport?: { width?: number; height?: number },
+) => {
   await initRendererWithADF(page, {
     appearance: 'full-page',
-    viewport: { width: 1040, height: 700 },
+    viewport: { width: 1040, height: 700, ...viewport },
     adf,
   });
 };
@@ -49,6 +56,20 @@ describe('Snapshot Test: Layouts', () => {
         const taskItemSelector =
           'div[data-task-list-local-id] div[data-renderer-start-pos]';
         await waitForText(page, taskItemSelector, 'item one');
+      });
+    });
+
+    describe('spacing', () => {
+      it(`should correctly reset/clear top margins of first nested elements of each layout column`, async () => {
+        await initRenderer(page, layoutWithDifferentColumnChildren, {
+          height: 1000,
+        });
+        await page.waitForSelector(emojiSelectors.standard);
+        await waitForText(
+          page,
+          mentionSelectors.mentionContainer,
+          '@Verdie Carrales',
+        );
       });
     });
   });

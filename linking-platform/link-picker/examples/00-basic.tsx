@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import Button from '@atlaskit/button';
+
 import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
 
 import { searchProvider } from '../example-helpers/providers';
@@ -20,14 +20,19 @@ export default function Basic() {
     },
   });
   const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(true);
-  const onSubmit = (payload: OnSubmitPayload) => {
+
+  const handleSubmit = (payload: OnSubmitPayload) => {
     setLink(payload);
     setIsLinkPickerVisible(false);
   };
 
-  const onToggle = () => {
-    setIsLinkPickerVisible(!isLinkPickerVisible);
+  const handleClick = (e: SyntheticEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsLinkPickerVisible(true);
   };
+
+  const handleCancel = () => setIsLinkPickerVisible(false);
 
   const plugins: [LinkPickerPlugin] = React.useMemo(
     () => [
@@ -40,20 +45,19 @@ export default function Basic() {
   );
 
   const linkPicker = isLinkPickerVisible && (
-    <LinkPicker plugins={plugins} onSubmit={onSubmit} onCancel={onToggle} />
+    <LinkPicker
+      plugins={plugins}
+      url={link.url}
+      displayText={link.displayText}
+      onSubmit={handleSubmit}
+      onCancel={handleCancel}
+    />
   );
 
   return (
     <div className="example" style={{ padding: 50 }}>
       <IntlProvider locale="en">
-        <Button
-          onClick={onToggle}
-          appearance="primary"
-          isSelected={isLinkPickerVisible}
-        >
-          Toggle
-        </Button>
-        <div>
+        <div onClick={handleClick}>
           <a href={link.url} target="_blank">
             {link.displayText || link.url}
           </a>

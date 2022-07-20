@@ -36,10 +36,14 @@ describe('Hashinator', () => {
     it('should convert blob to hashed blob', () => {
       const blob = new Blob(['1234567890']);
       mockNextDigest('1234567890');
-      return blobToHashedBlob(defaultHasher)(blob).then((hashedBlob) => {
+      return blobToHashedBlob(defaultHasher)({
+        blob: blob,
+        partNumber: 1,
+      }).then((hashedBlob) => {
         expect(hashedBlob).toEqual({
           blob,
           hash: '31323334353637383930-10',
+          partNumber: 1,
         });
       });
     });
@@ -50,22 +54,27 @@ describe('Hashinator', () => {
       {
         blob: new Blob(['1234567890']),
         hash: '31323334353637383930-10',
+        partNumber: 1,
       },
       {
         blob: new Blob(['0987654321']),
         hash: '30393837363534333231-10',
+        partNumber: 2,
       },
       {
         blob: new Blob(['qwertyuiop']),
         hash: '71776572747975696f70-10',
+        partNumber: 3,
       },
       {
         blob: new Blob(['asdfghjkl;']),
         hash: '6173646667686a6b6c3b-10',
+        partNumber: 4,
       },
       {
         blob: new Blob(['zxcvbnm,./']),
         hash: '7a786376626e6d2c2e2f-10',
+        partNumber: 5,
       },
     ];
 
@@ -75,7 +84,10 @@ describe('Hashinator', () => {
     mockNextDigest('asdfghjkl;');
     mockNextDigest('zxcvbnm,./');
 
-    const blobs = expectedHashedBlobs.map((hashedBlob) => hashedBlob.blob);
+    const blobs = expectedHashedBlobs.map((hashedBlob, index) => ({
+      blob: hashedBlob.blob,
+      partNumber: index + 1,
+    }));
     const actualObservable = hashinator(of(...blobs), {
       concurrency: 2,
     });

@@ -11,6 +11,9 @@ import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
+export const FLOATING_TOOLBAR_LINKPICKER_CLASSNAME =
+  'card-floating-toolbar--link-picker';
+
 export const smartCardStyles = css`
   .${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER} {
     max-width: calc(100% - 20px);
@@ -110,5 +113,9 @@ export const smartCardStyles = css`
         background: ${token('color.border.danger', akEditorDeleteBorder)};
       }
     }
+  }
+
+  .${FLOATING_TOOLBAR_LINKPICKER_CLASSNAME} {
+    padding: 0;
   }
 `;

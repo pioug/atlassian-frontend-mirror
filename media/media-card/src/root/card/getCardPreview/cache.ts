@@ -1,37 +1,40 @@
+import { ImageResizeMode } from '@atlaskit/media-client';
 import {
   createObjectURLCache,
   ObjectURLCache,
 } from '../../../utils/objectURLCache';
-import { CardDimensions } from '../../../utils/cardDimensions';
 import { CardPreview } from '../../../types';
 
 // Dimensions are used to create a key.
 // Cache is invalidated when different dimensions are provided.
-export const getCacheKey = (id: string, dimensions: CardDimensions) => {
-  return [id, dimensions.height, dimensions.width].join('-');
+type Mode = ImageResizeMode | undefined;
+
+export const getCacheKey = (id: string, mode: Mode) => {
+  const resizeMode = mode || 'crop';
+  return [id, resizeMode].join('-');
 };
 
 export interface CardPreviewCache {
-  get(id: string, dimensions: CardDimensions): CardPreview | undefined;
-  set(id: string, dimensions: CardDimensions, cardPreview: CardPreview): void;
-  remove(id: string, dimensions: CardDimensions): void;
+  get(id: string, mode: Mode): CardPreview | undefined;
+  set(id: string, mode: Mode, cardPreview: CardPreview): void;
+  remove(id: string, mode: Mode): void;
 }
 
 export class CardPreviewCacheImpl implements CardPreviewCache {
   constructor(private previewCache: ObjectURLCache) {}
 
-  get = (id: string, dimensions: CardDimensions): CardPreview | undefined => {
-    const cacheKey = getCacheKey(id, dimensions);
+  get = (id: string, mode: Mode): CardPreview | undefined => {
+    const cacheKey = getCacheKey(id, mode);
     return this.previewCache.get(cacheKey);
   };
 
-  set = (id: string, dimensions: CardDimensions, cardPreview: CardPreview) => {
-    const cacheKey = getCacheKey(id, dimensions);
+  set = (id: string, mode: Mode, cardPreview: CardPreview) => {
+    const cacheKey = getCacheKey(id, mode);
     this.previewCache.set(cacheKey, cardPreview);
   };
 
-  remove = (id: string, dimensions: CardDimensions) => {
-    const cacheKey = getCacheKey(id, dimensions);
+  remove = (id: string, mode: Mode) => {
+    const cacheKey = getCacheKey(id, mode);
     this.previewCache.remove(cacheKey);
   };
 }

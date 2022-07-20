@@ -122,12 +122,12 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
   openTime: number;
 
   UNSAFE_componentWillMount() {
+    ufoExperiences['emoji-picker-opened'].success();
     this.openTime = Date.now();
     this.fireAnalytics(openedPickerEvent());
   }
 
   componentDidMount() {
-    ufoExperiences['emoji-picker-opened'].success();
     const { emojiProvider, hideToneSelector } = this.props;
     emojiProvider.subscribe(this.onProviderChange);
     this.onSearch(this.state.query);
@@ -481,6 +481,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       errorSetter,
       onSuccess,
       this.fireAnalytics,
+      retry,
     );
   };
 

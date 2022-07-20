@@ -1,33 +1,13 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
-import styled from 'styled-components';
 import { MediaStore } from '../src';
 import { createUploadMediaClient } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid/v4';
-
-const Wrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-`;
-
-const Row = styled.div`
-  flex-direction: row;
-  justify-content: center;
-  > * {
-    margin-right: 10px;
-  }
-`;
-
-const Response = styled.div`
-  font-family: monospace;
-  white-space: pre;
-`;
+import {
+  Response,
+  Row,
+  UploadTouchWrapper as Wrapper,
+} from '../example-helpers/stylesWrapper';
 
 const context = createUploadMediaClient();
 

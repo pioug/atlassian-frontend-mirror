@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-jira-transformer",
-  "version": "8.1.28",
+  "version": "8.1.29",
   "description": "Editor JIRA transformer's",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^23.2.0",
-    "@atlaskit/editor-common": "^68.0.0",
+    "@atlaskit/editor-common": "^69.0.0",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6",
     "prosemirror-model": "1.14.3"
@@ -36,11 +36,11 @@
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^169.0.0",
+    "@atlaskit/editor-core": "^169.1.0",
     "@atlaskit/editor-json-transformer": "^8.7.0",
-    "@atlaskit/editor-test-helpers": "^17.0.0",
+    "@atlaskit/editor-test-helpers": "^17.1.0",
     "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/util-data-test": "^17.3.0",
+    "@atlaskit/util-data-test": "^17.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "@types/prosemirror-model": "^1.11.0",

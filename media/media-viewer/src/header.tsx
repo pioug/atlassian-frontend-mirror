@@ -39,7 +39,7 @@ import {
   MetadataIconWrapper,
   MetadataFileName,
   FormattedMessageWrapper,
-} from './styled';
+} from './styleWrappers';
 import {
   ToolbarDownloadButton,
   DisabledToolbarDownloadButton,

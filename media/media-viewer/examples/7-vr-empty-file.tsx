@@ -5,8 +5,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Card } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
-import { ButtonList, Group } from '../example-helpers/styled';
-import { MainWrapper } from '../example-helpers/MainWrapper';
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import { emptyImage } from '../example-helpers';
 import { MediaViewer } from '../src';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';

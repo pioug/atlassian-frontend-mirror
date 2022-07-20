@@ -18,6 +18,7 @@ export type ProviderPattern = {
   supportedViews?: DisplayViews[];
   defaultView?: DisplayViews;
 };
+
 type Provider = {
   key: string;
   patterns: ProviderPattern[];

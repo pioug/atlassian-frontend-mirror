@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import {
   createStorybookMediaClientConfig,
@@ -7,7 +8,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { ExternalImageIdentifier } from '@atlaskit/media-client';
 import { Card } from '../src';
-import { ExternalIdentifierWrapper } from '../example-helpers/styled';
+import { externalIdentifierWrapperStyles } from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
@@ -29,7 +30,7 @@ class Example extends Component {
   render() {
     return (
       <MainWrapper>
-        <ExternalIdentifierWrapper>
+        <div css={externalIdentifierWrapperStyles}>
           <div>
             <h2>External image identifier</h2>
             <Card
@@ -58,7 +59,7 @@ class Example extends Component {
               identifier={brokenIdentifierWithName}
             />
           </div>
-        </ExternalIdentifierWrapper>
+        </div>
       </MainWrapper>
     );
   }

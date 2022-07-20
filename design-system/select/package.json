@@ -54,7 +54,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.1.0",
     "@atlaskit/form": "^8.5.0",
-    "@atlaskit/logo": "^13.7.0",
+    "@atlaskit/logo": "^13.8.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.0.0",
     "@atlaskit/ssr": "*",

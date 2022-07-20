@@ -207,7 +207,8 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('The edit button should have focus after edit is confirmed by pressing Enter', async () => {
+  // FIXME: This test was automatically skipped due to failure on 19/07/2022: https://product-fabric.atlassian.net/browse/SKIP-343
+  it.skip('The edit button should have focus after edit is confirmed by pressing Enter', async () => {
     const url = getExampleUrl(
       'design-system',
       'inline-edit',

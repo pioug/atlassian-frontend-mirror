@@ -18,7 +18,7 @@ export const defaultLogoParams: Partial<LogoProps> = {
  * The props for the <Wrapper /> that takes the svg and turns it into a component.
  */
 export type WrapperProps = LogoProps & {
-  svg: string | ((a: string, b: string) => string);
+  svg: string;
 };
 
 export const sizes = {

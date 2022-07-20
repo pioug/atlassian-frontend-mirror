@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import CodeBlock from '../../../../react/nodes/codeBlock';
+import CodeBlock from '../../../../react/nodes/codeBlock/codeBlock';
 import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 
 const textSample = 'window.alert';

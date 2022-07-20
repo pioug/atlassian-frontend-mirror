@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 0.10.12
+
+### Patch Changes
+
+- [`83c253f28bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83c253f28bd) - [ux] - Correct 'color.interaction.hovered' and 'color.interaction.pressed' token values, which were mistakenly mapped inversely in light and dark mode. The token values have now been swapped.
+
+  - Deprecate 'color.interaction.inverse.hovered' which has been replaced with 'color.background.inverse.subtle.hovered'.
+  - Deprecate 'color.interaction.inverse.pressed' which has been replaced with 'color.background.inverse.subtle.pressed'.
+
 ## 0.10.11
 
 ### Patch Changes

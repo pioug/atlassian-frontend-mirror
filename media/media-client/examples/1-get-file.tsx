@@ -7,9 +7,9 @@ import {
   defaultMediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaSubscribable } from '../src/utils/toMediaSubscribable';
+import { MediaSubscribable } from '../src/utils/mediaSubscribable';
 import { FileState, MediaClient } from '../src';
-import { FilesWrapper, FileWrapper } from '../example-helpers/styled';
+import { FileWrapper } from '../example-helpers/stylesWrapper';
 
 export interface ComponentProps {}
 export interface ComponentState {
@@ -120,7 +120,7 @@ class Example extends Component<ComponentProps, ComponentState> {
       );
     });
 
-    return <FilesWrapper>{fileData}</FilesWrapper>;
+    return <div>{fileData}</div>;
   };
 
   render() {

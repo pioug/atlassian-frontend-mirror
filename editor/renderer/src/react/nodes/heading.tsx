@@ -9,7 +9,7 @@ import {
   EVENT_TYPE,
 } from '../../analytics/enums';
 import AnalyticsContext from '../../analytics/analyticsContext';
-import { CopyTextConsumer } from './copy-text-provider';
+import { copyTextToClipboard } from '../utils/clipboard';
 import { NodeProps } from '../types';
 import {
   HeadingAnchorLinksProps,
@@ -78,36 +78,25 @@ function Heading(
         {showAnchorLink && isRightAligned
           ? WrapChildTextInSpan(props.children)
           : props.children}
-        {showAnchorLink && (
-          <CopyTextConsumer>
-            {({ copyTextToClipboard }) => {
-              return (
-                headingId && (
-                  <AnalyticsContext.Consumer>
-                    {({ fireAnalyticsEvent }) => (
-                      <HeadingAnchor
-                        enableNestedHeaderLinks={enableNestedHeaderLinks}
-                        level={props.level}
-                        onCopyText={() => {
-                          fireAnalyticsEvent({
-                            action: ACTION.CLICKED,
-                            actionSubject: ACTION_SUBJECT.BUTTON,
-                            actionSubjectId:
-                              ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
-                            eventType: EVENT_TYPE.UI,
-                          });
+        {showAnchorLink && headingId && (
+          <AnalyticsContext.Consumer>
+            {({ fireAnalyticsEvent }) => (
+              <HeadingAnchor
+                enableNestedHeaderLinks={enableNestedHeaderLinks}
+                level={props.level}
+                onCopyText={() => {
+                  fireAnalyticsEvent({
+                    action: ACTION.CLICKED,
+                    actionSubject: ACTION_SUBJECT.BUTTON,
+                    actionSubjectId: ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
+                    eventType: EVENT_TYPE.UI,
+                  });
 
-                          return copyTextToClipboard(
-                            getCurrentUrlWithHash(headingId),
-                          );
-                        }}
-                      />
-                    )}
-                  </AnalyticsContext.Consumer>
-                )
-              );
-            }}
-          </CopyTextConsumer>
+                  return copyTextToClipboard(getCurrentUrlWithHash(headingId));
+                }}
+              />
+            )}
+          </AnalyticsContext.Consumer>
         )}
       </>
     </HX>

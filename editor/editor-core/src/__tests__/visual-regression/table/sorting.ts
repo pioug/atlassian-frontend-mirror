@@ -61,7 +61,7 @@ describe('Table sorting', () => {
       await animationFrame(page);
       await snapshot(
         page,
-        { tolerance: 0, useUnsafeThreshold: true },
+        { tolerance: 0.03, useUnsafeThreshold: true },
         `.${tableSelectors.rowControls}`,
       );
     });
@@ -87,14 +87,15 @@ describe('Table sorting', () => {
         await animationFrame(page);
         await snapshot(
           page,
-          { tolerance: 0, useUnsafeThreshold: true },
+          { tolerance: 0.03, useUnsafeThreshold: true },
           `.${tableSelectors.rowControls}`,
         );
       });
     });
   });
 
-  describe('when there is merged cells', () => {
+  // TODO: Skipped flaky tests (ED-15254)
+  describe.skip('when there is merged cells', () => {
     beforeEach(async () => {
       await initFullPageEditorWithAdf(
         page,
@@ -104,6 +105,8 @@ describe('Table sorting', () => {
         editorProps,
       );
       await clickFirstCell(page);
+      await animationFrame(page);
+      await animationFrame(page);
     });
 
     it('should hovered the merged cells', async () => {
@@ -111,8 +114,9 @@ describe('Table sorting', () => {
         row: 1,
         cell: 1,
       });
-
       await page.click(firstCell);
+      await animationFrame(page);
+      await animationFrame(page);
       await hoverCellOption(page, tableSelectors.sortColumnASC);
       await waitForTooltip(page);
       await snapshot(page, {}, tableSelectors.tableWrapper);

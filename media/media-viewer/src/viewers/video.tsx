@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/media-ui';
 import { Outcome } from '../domain';
 import { MediaViewerError } from '../errors';
-import { Video, CustomVideoPlayerWrapper } from '../styled';
+import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
 import { isIE } from '../utils/isIE';
 import { BaseState, BaseViewer } from './base-viewer';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';

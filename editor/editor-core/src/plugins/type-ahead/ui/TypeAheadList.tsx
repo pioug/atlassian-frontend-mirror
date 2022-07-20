@@ -8,12 +8,11 @@ import React, {
 } from 'react';
 import { jsx, css } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { ItemGroup } from '@atlaskit/item';
+import { MenuGroup } from '@atlaskit/menu';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 
 import type { TypeAheadItem, OnSelectItem } from '../types';
-import { ICON_HEIGHT, itemTheme, ITEM_PADDING } from './TypeAheadListItem';
+import { ICON_HEIGHT, ITEM_PADDING } from './TypeAheadListItem';
 import { VariableSizeList as List } from 'react-window';
 import { ResizeObserverProvider } from './hooks/use-resize-observer';
 import { useDynamicListHeightCalculation } from './hooks/use-dynamic-list-height-calculation';
@@ -142,14 +141,13 @@ const TypeAheadListComponent = React.memo(
       fitHeight,
     );
     return (
-      <ItemGroup
+      <MenuGroup
         role="listbox"
         aria-live="polite"
         aria-label={intl.formatMessage(
           typeAheadListMessages.typeAheadResultLabel,
         )}
         aria-relevant="additions removals"
-        theme={itemTheme}
       >
         <ResizeObserverProvider>
           <UpdateListItemHeightContext.Provider value={setListItemHeight}>
@@ -168,9 +166,12 @@ const TypeAheadListComponent = React.memo(
                   height={height}
                   overscanCount={3}
                   css={css`
-                    // temporary solution before we migrated off dst/item
-                    & span[class^='ItemParts__Before'] {
-                      margin-right: 12px;
+                    button {
+                      padding: 12px 12px 11px;
+
+                      span:last-child span:last-child {
+                        white-space: normal;
+                      }
                     }
                   `}
                 >
@@ -180,7 +181,7 @@ const TypeAheadListComponent = React.memo(
             </ListItemActionsContext.Provider>
           </UpdateListItemHeightContext.Provider>
         </ResizeObserverProvider>
-      </ItemGroup>
+      </MenuGroup>
     );
   },
 );

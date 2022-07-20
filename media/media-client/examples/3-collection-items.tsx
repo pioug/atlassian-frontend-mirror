@@ -1,10 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
 import { createUploadMediaClient } from '@atlaskit/media-test-helpers';
-import { MediaSubscription } from '../src/utils/toMediaSubscribable';
+import { MediaSubscription } from '../src/utils/mediaSubscribable';
 import { Card } from '@atlaskit/media-card';
 import Button from '@atlaskit/button/standard-button';
-import { CardsWrapper, Header } from '../example-helpers/styled';
+import { CardsWrapper, Header } from '../example-helpers/stylesWrapper';
 import { FileIdentifier, RECENTS_COLLECTION } from '../src';
 
 const mediaClient = createUploadMediaClient();

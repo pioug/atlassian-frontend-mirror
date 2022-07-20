@@ -1,11 +1,12 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 
 import { AvatarList, Avatar } from '../avatar-list';
 
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import Button from '@atlaskit/button/custom-theme-button';
-import { PredefinedAvatarsWrapper } from './styled';
+import { predefinedAvatarsWrapperStyles } from './styles';
 
 interface ShowMoreButtonProps {
   onClick?: () => void;
@@ -57,14 +58,14 @@ export class PredefinedAvatarList extends PureComponent<
       onAvatarSelected,
     } = this.props;
     return (
-      <PredefinedAvatarsWrapper>
+      <div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
         <AvatarList
           avatars={avatars}
           selectedAvatar={selectedAvatar}
           onItemClick={onAvatarSelected}
         />
         <ShowMoreButton onClick={onShowMore} />
-      </PredefinedAvatarsWrapper>
+      </div>
     );
   }
 }

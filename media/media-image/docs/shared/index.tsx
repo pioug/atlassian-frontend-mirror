@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 import { N40 } from '@atlaskit/theme/colors';
 
-export const Hr = styled.hr`
+export const hrStyles = css`
   background: ${N40};
   border: 0;
   height: 2px;

@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import {
   createUploadMediaClientConfig,
   defaultCollectionName,
@@ -10,6 +10,10 @@ import {
 import { IntlProvider } from 'react-intl-next';
 import MediaInlineCard from '../src/root/inline/loader';
 import { MainWrapper } from '../example-helpers';
+import {
+  mediaInlineTableStyles,
+  mediaInlineWrapperStyles,
+} from '../example-helpers/styles';
 
 const mockImageFile: MockFileInputParams = {
   id: '0c3c64b9-65ad-4592-89d0-f838beebd81e',
@@ -60,26 +64,12 @@ mediaMock.enable();
 
 const mediaClientConfig = createUploadMediaClientConfig();
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 100px;
-`;
-const Table = styled.table`
-  width: 800px;
-  tr,
-  td {
-    border: 1px solid #ddd;
-  }
-`;
-
 export default () => {
   return (
     <MainWrapper disableFeatureFlagWrapper={true}>
       <IntlProvider locale={'en'}>
-        <Wrapper>
-          <Table>
+        <div css={mediaInlineWrapperStyles}>
+          <table css={mediaInlineTableStyles}>
             <tbody>
               <tr>
                 <th>Type</th>
@@ -167,8 +157,8 @@ export default () => {
                 </td>
               </tr>
             </tbody>
-          </Table>
-        </Wrapper>
+          </table>
+        </div>
       </IntlProvider>
     </MainWrapper>
   );

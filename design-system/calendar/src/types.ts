@@ -112,6 +112,10 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    * @internal Legacy theme mode, can be either 'light' or 'dark'
    */
   mode?: ThemeModes;
+  /**
+   * Tab index indicates if the calendar can be focused by keyboard or only programmatically.
+   */
+  tabIndex?: number;
 }
 
 export interface CalendarRef {

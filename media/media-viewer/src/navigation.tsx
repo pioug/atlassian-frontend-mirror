@@ -11,7 +11,12 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ArrowsWrapper, RightWrapper, LeftWrapper, Arrow } from './styled';
+import {
+  ArrowsWrapper,
+  RightWrapper,
+  LeftWrapper,
+  Arrow,
+} from './styleWrappers';
 import { getSelectedIndex } from './utils';
 import { createNavigatedEvent } from './analytics/events/ui/navigated';
 import { fireAnalytics } from './analytics';

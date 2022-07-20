@@ -1,16 +1,10 @@
-import {
-  PuppeteerPage,
-  waitForLoadedBackgroundImages,
-} from '@atlaskit/visual-regression/helper';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initFullPageEditorWithAdf,
   Device,
 } from '../../../../__tests__/visual-regression/_utils';
-import {
-  emojiSelectors,
-  waitForEmojis,
-} from '../../../../__tests__/__helpers/page-objects/_emoji';
+import { waitForEmojisToLoad } from '../../../../__tests__/__helpers/page-objects/_emoji';
 import {
   clickMediaInPosition,
   waitForMediaToBeLoaded,
@@ -61,11 +55,7 @@ describe('Snapshot Test: Caption with media', () => {
 
       it('should show the caption with an emoji', async () => {
         await initEditor(page, captionWithEmoji);
-        await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
-        await page.waitForSelector(
-          '.emoji-common-node[aria-label=":slight_smile:"]',
-        );
-        await waitForEmojis(page);
+        await waitForEmojisToLoad(page);
       });
 
       it('should show the caption with a long text', async () => {

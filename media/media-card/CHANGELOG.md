@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 74.0.0
+
+### Major Changes
+
+- [`13d807ed06f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13d807ed06f) - [MEX-1027] Migrate to @emotion/react in Media-card
+
+### Minor Changes
+
+- [`974e87d133a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/974e87d133a) - [MEX-1574] Updated fetching for caching images
+
+### Patch Changes
+
+- [`e3d4c39b20c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3d4c39b20c) - Remove version.json file.
+  Use injected package name and version from environment variable instead.
+- Updated dependencies
+
 ## 73.8.0
 
 ### Minor Changes

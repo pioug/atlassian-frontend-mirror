@@ -60,6 +60,6 @@ export const quickInsert = async (
   if (clickAtSelection) {
     const optionSelector = ` [role="option"][aria-label*="${firstWordTitle}" i]`;
     await page.waitForSelector(selectors.typeaheadPopup.concat(optionSelector));
-    await page.click(selectors.typeaheadPopup.concat(optionSelector));
+    await page.keys('Enter');
   }
 };

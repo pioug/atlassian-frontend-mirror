@@ -9,10 +9,10 @@ import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
-const svg = (iconGradientStart: string, iconGradientStop: string) => {
-  const id = uid({ iconGradientStart: iconGradientStop });
-  return `<canvas height="32" width="211" aria-hidden="true"></canvas>
-  <svg viewBox="0 0 211 32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+const svg = ({ iconGradientStart, iconGradientStop, size }: LogoProps) => {
+  let id = uid({ iconGradientStart: iconGradientStop });
+  return `
+  <svg viewBox="0 0 211 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
     <defs>
       <linearGradient x1="38.0412357%" y1="6.63683429%" x2="59.8560262%" y2="63.7778713%" id="${id}">
         <stop stop-color="${iconGradientStart}" ${
@@ -54,7 +54,7 @@ export const JiraServiceDeskLogo = ({
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}
       size={size}
-      svg={svg}
+      svg={svg({ iconGradientStart, iconGradientStop })}
       testId={testId}
       textColor={textColor}
     />

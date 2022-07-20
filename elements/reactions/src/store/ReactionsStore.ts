@@ -5,6 +5,8 @@ import * as Types from '../types';
 import { batch, batchByKey } from './batched';
 import * as utils from './utils';
 import { isRealErrorFromService } from './utils';
+import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../analytics/constants';
+import { sampledReactionsRendered } from '../analytics/ufo';
 
 export type State = {
   reactions: {
@@ -36,9 +38,9 @@ export const ufoExperiences = {
    */
   remove: Analytics.UFO.ReactionsRemove,
   /**
-   * Experience when the list of reactions gets rendered
+   * Experience when the list of reactions gets rendered with sampling
    */
-  render: Analytics.UFO.ReactionsRendered,
+  render: (instanceId: string) => sampledReactionsRendered(instanceId),
   /**
    * Experience when a reaction details gets fetched
    */
@@ -346,10 +348,10 @@ export class MemoryReactionsStore implements ReactionsStore {
      * TODO:
      * All reactions are usually fetched in a single call to reactions-service. Need to check why "getReactions" gets called randomly 1-2 times everytime on each fetch request despite using same containerAri.
      */
-    const exp = ufoExperiences.render.getInstance(containerAri);
+    const sampledExp = ufoExperiences.render(containerAri);
     const arisArr = aris.reduce(utils.flattenAris);
     // ufo start reaction experience
-    exp.start();
+    sampledExp.start({ samplingRate: SAMPLING_RATE_REACTIONS_RENDERED_EXP });
     this.client
       .getReactions(containerAri, arisArr)
       .then((value: Types.Reactions) => {
@@ -377,7 +379,7 @@ export class MemoryReactionsStore implements ReactionsStore {
             'getReactions',
           );
         }
-        exp.success();
+        sampledExp.success();
       })
       .catch((error) => {
         if (isRealErrorFromService(error.code)) {
@@ -389,7 +391,7 @@ export class MemoryReactionsStore implements ReactionsStore {
               error.code,
             );
           }
-          exp.failure({
+          sampledExp.failure({
             metadata: {
               error,
               source: 'Reaction-Store',

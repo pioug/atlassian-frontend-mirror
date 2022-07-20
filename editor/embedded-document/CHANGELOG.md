@@ -1,5 +1,15 @@
 # @atlaskit/embedded-document
 
+## 0.8.0
+
+### Minor Changes
+
+- [`3e0d1d605e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e0d1d605e6) - Marking @atlaskit/embedded-document as deprecated as it is no longer being used.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.7.49
 
 ### Patch Changes

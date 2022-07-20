@@ -2,8 +2,8 @@ import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import LinkSearchList, {
   Props as LinkSearchListProps,
-} from '../../link-search-list';
-import LinkSearchListItem from '../../list-item';
+} from '../../link-picker/link-search-list';
+import LinkSearchListItem from '../../link-picker/list-item';
 import { getDefaultItems } from '../__helpers';
 import { mountWithIntl } from '@atlaskit/link-test-helpers';
 

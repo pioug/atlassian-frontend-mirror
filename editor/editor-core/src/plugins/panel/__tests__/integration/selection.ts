@@ -12,7 +12,7 @@ import {
   getProsemirrorSelection,
 } from '../../../../__tests__/integration/_helpers';
 
-import panelAdf from './__fixtures__/basic-panel-adf.json';
+import panelAdf from '../__fixtures__/basic-panel-adf.json';
 import { calcUserDragAndDropFromMidPoint } from '../../../../__tests__/__helpers/utils';
 
 BrowserTestCase(

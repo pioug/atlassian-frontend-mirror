@@ -1,13 +1,13 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 
 import { CardAction } from '../../actions';
-import { Wrapper } from './styled';
 import {
   CardActionIconButton,
   CardActionIconButtonProps,
 } from './cardActionIconButton';
-import { CardActionIconButtonVariant } from './styled';
+import { CardActionIconButtonVariant, wrapperStyles } from './styles';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
 import { PreventClickThrough } from '../preventClickThrough';
 import { createAndFireMediaCardEvent } from '../analytics';
@@ -43,12 +43,12 @@ export class CardActionsView extends Component<CardActionsViewProps> {
 
     return (
       <PreventClickThrough>
-        <Wrapper>
+        <div css={wrapperStyles}>
           {primaryAction
             ? this.renderActionIconButton(primaryAction, true)
             : null}
           {this.renderOtherActionButtons(otherActions)}
-        </Wrapper>
+        </div>
       </PreventClickThrough>
     );
   }

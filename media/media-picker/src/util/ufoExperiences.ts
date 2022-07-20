@@ -10,10 +10,6 @@ import {
   getMediaRegion,
 } from '@atlaskit/media-client';
 import { ComponentName, LOGGED_FEATURE_FLAG_KEYS } from './analytics';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 export type UFOFailedEventPayload = {
   failReason: string;
@@ -22,6 +18,9 @@ export type UFOFailedEventPayload = {
   uploadDurationMsec: number;
   request?: RequestMetadata;
 } & WithFileAttributes;
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 let ufoExperience: ConcurrentExperience | undefined;
 

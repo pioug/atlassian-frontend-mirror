@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.3.17
+
+### Patch Changes
+
+- [`90e89e12034`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90e89e12034) - [ux] Updated colors to use appropriate tokens
+
 ## 12.3.16
 
 ### Patch Changes

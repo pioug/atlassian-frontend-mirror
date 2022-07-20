@@ -1,30 +1,19 @@
+/**@jsx jsx */
+import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
-import styled from 'styled-components';
 import { CardStatus } from '../src';
 import { CardView } from '../src/root/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
+import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
-type WrapperDimensions = {
-  width: string;
-  height: string;
-};
 const wrapperDimensionsSmall = { width: '156px', height: '108px' }; // Minimum supported dimensions
 const dimensions = { width: '100%', height: '100%' };
 
-const CardWrapper = styled.div`
-  ${({ width, height }: WrapperDimensions) => `
-    display: inline-block;
-    width: ${width};
-    height: ${height};
-    margin: 15px 20px;
-  `}
-`;
-
-const StyledContainer = styled.div`
+const styledContainerStyles = css`
   max-width: 800px;
   margin: 20px auto;
   h3 {
@@ -44,13 +33,13 @@ const mimeTypes: { media: MediaType; mime: string; name: string }[] = [
 const IconsTable = () => {
   return (
     <MainWrapper disableFeatureFlagWrapper={true}>
-      <StyledContainer>
+      <div css={styledContainerStyles}>
         {/* Reference page:
         https://hello.atlassian.net/wiki/spaces/~231281387/pages/910276304/Visual+Regression+Tests+MediaCard
         for what we test for, in terms of Visual regressions in MediaCard */}
         {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
         <IntlProvider locale={'en'}>
-          <>
+          <React.Fragment>
             {mimeTypes.map((item, i) =>
               renderCardImageView(
                 'complete',
@@ -60,9 +49,9 @@ const IconsTable = () => {
                 i,
               ),
             )}
-          </>
+          </React.Fragment>
         </IntlProvider>
-      </StyledContainer>
+      </div>
     </MainWrapper>
   );
 };
@@ -120,7 +109,11 @@ function renderCardImageView(
     : undefined;
 
   return (
-    <CardWrapper key={key} {...wrapperDimensionsSmall}>
+    <CardViewWrapper
+      wrapperDimensions={wrapperDimensionsSmall}
+      displayInline={true}
+      key={key}
+    >
       <CardView
         featureFlags={{
           newCardExperience: true,
@@ -137,7 +130,7 @@ function renderCardImageView(
         selected={selected}
         disableAnimation={true}
       />
-    </CardWrapper>
+    </CardViewWrapper>
   );
 }
 export default () => <IconsTable />;

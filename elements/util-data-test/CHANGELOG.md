@@ -1,5 +1,21 @@
 # @atlaskit/util-data-test
 
+## 17.5.0
+
+### Minor Changes
+
+- [`32312d1534d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32312d1534d) - Add get-atlassian-emojis entry point
+
+## 17.4.0
+
+### Minor Changes
+
+- [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.0
 
 ### Minor Changes

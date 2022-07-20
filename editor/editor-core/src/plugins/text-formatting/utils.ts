@@ -125,12 +125,14 @@ export const checkFormattingIsPresent = (state: EditorState) => {
   return marksArePresent(state) || blockStylingIsPresent(state);
 };
 
-export const usePreviousObjectState = (value: any): MenuIconItem[] => {
-  const ref = useRef([]);
+export const usePreviousObjectState = (
+  value: MenuIconItem[],
+): MenuIconItem[] => {
+  const ref = useRef<MenuIconItem[]>([]);
   useEffect(() => {
     ref.current = value;
   });
-  return ref.current!;
+  return ref.current;
 };
 
 export const compareItemsArrays = (

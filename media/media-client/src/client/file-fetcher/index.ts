@@ -49,7 +49,11 @@ import {
 import { getMediaTypeFromUploadableFile } from '../../utils/getMediaTypeFromUploadableFile';
 import { overrideMediaTypeIfUnknown } from '../../utils/overrideMediaTypeIfUnknown';
 import { convertBase64ToBlob } from '../../utils/convertBase64ToBlob';
-import { mediaSubscribableToPromise } from '../../utils/mediaSubscribableToPromise';
+import {
+  toPromise,
+  fromObservable,
+  MediaSubscribable,
+} from '../../utils/mediaSubscribable';
 import {
   getDimensionsFromBlob,
   Dimensions,
@@ -65,10 +69,6 @@ import {
 } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import {
-  toMediaSubscribable,
-  MediaSubscribable,
-} from '../../utils/toMediaSubscribable';
 
 export type {
   FileFetcherErrorAttributes,
@@ -156,10 +156,10 @@ export class FileFetcherImpl implements FileFetcher {
         }),
       );
 
-      return toMediaSubscribable(subject);
+      return fromObservable(subject);
     }
 
-    return toMediaSubscribable(
+    return fromObservable(
       getFileStreamsCache().getOrInsert(id, () =>
         this.createDownloadFileStream(id, collectionName),
       ),
@@ -167,7 +167,7 @@ export class FileFetcherImpl implements FileFetcher {
   }
 
   getCurrentState(id: string, options?: GetFileOptions): Promise<FileState> {
-    return mediaSubscribableToPromise(this.getFileState(id, options));
+    return toPromise(this.getFileState(id, options));
   }
 
   public getArtifactURL(
@@ -461,7 +461,7 @@ export class FileFetcherImpl implements FileFetcher {
       });
     }
 
-    return toMediaSubscribable(subject);
+    return fromObservable(subject);
   }
 
   public async downloadBinary(

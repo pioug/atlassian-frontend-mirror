@@ -6,6 +6,7 @@ import EmojiPicker from './components/picker/EmojiPicker';
 import EmojiUploader from './components/uploader/EmojiUploader';
 import EmojiTypeAhead from './components/typeahead/EmojiTypeAhead';
 import EmojiTypeAheadItem from './components/typeahead/EmojiTypeAheadItem';
+import { EmojiImage } from './components/common/EmojiImage';
 export {
   // renaming exports to prevent breaking changes due to renaming
   commonSelectedStyles as selected,
@@ -13,6 +14,7 @@ export {
   emojiSprite,
   emojiNodeStyles as emojiNode,
   emojiImage,
+  placeholder as emojiPlaceholder,
 } from './components/common/styles';
 import EmojiResource, {
   EmojiProvider,
@@ -27,6 +29,8 @@ import {
   recordSelectionFailedSli,
   recordSelectionSucceededSli,
   ufoExperiences,
+  withSampling,
+  WithSamplingUFOExperience,
 } from './util/analytics';
 import {
   customCategory,
@@ -47,6 +51,7 @@ export {
   EmojiResource,
   EmojiRepository,
   EmojiTypeAhead,
+  EmojiImage,
   ResourcedEmoji,
   // functions
   denormaliseEmojiServiceResponse,
@@ -55,6 +60,7 @@ export {
   recordSelectionFailedSli,
   recordSelectionSucceededSli,
   ufoExperiences,
+  withSampling,
   // Constants
   emojiPickerWidth,
   emojiPickerHeight,
@@ -68,6 +74,7 @@ export type {
   EmojiProvider,
   UploadingEmojiProvider,
   EmojiResourceConfig,
+  WithSamplingUFOExperience,
 };
 
 export {

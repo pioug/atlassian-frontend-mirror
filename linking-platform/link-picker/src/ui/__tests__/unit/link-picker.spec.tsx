@@ -3,13 +3,15 @@ import React from 'react';
 import { flushPromises, mountWithIntl } from '@atlaskit/link-test-helpers';
 import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
-import { LinkPickerPlugin, ResolveResult } from '../../../types';
-import { LinkPickerWithIntl, LinkPickerProps } from '../../link-picker';
-import LinkSearchList from '../../link-search-list';
-import LinkSearchNoResults from '../../link-search-no-results';
-import PanelTextInput from '../../text-input';
+import { LinkPicker, LinkPickerProps } from '../../../';
+
+import { LinkPickerPlugin, ResolveResult } from '../../types';
+import LinkSearchNoResults from '../../link-picker/link-search-no-results';
+import PanelTextInput from '../../link-picker/text-input';
+import LinkSearchList from '../../link-picker/link-search-list';
 import { getDefaultItems, ManualPromise } from '../__helpers';
-import { messages } from '../../../messages';
+import { messages } from '../../link-picker/messages';
+import { ErrorBoundaryFallback } from '../../error-boundary-fallback';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {
   return jest.fn().mockImplementation(() => -5);
@@ -52,7 +54,7 @@ describe('<LinkPicker />', () => {
     const onCancel: LinkPickerProps['onCancel'] = jest.fn();
 
     const component = mountWithIntl(
-      <LinkPickerWithIntl
+      <LinkPicker
         url={url}
         onSubmit={onSubmit}
         plugins={plugins}
@@ -270,6 +272,60 @@ describe('<LinkPicker />', () => {
       component.update();
 
       expect(component.find(LinkSearchNoResults).exists()).toBe(false);
+    });
+
+    it('should submit valid edited url and title if provided a url', async () => {
+      const {
+        component,
+        onSubmit,
+        pressReturnInputField,
+        updateInputFieldWithStateUpdated,
+      } = await setup({
+        url: 'https://www.google.com',
+      });
+      await updateInputFieldWithStateUpdated(
+        'link-url',
+        'https://www.atlassian.com',
+      );
+      await updateInputFieldWithStateUpdated('link-text', 'link');
+      pressReturnInputField('link-text');
+      component.update();
+
+      expect(onSubmit).toHaveBeenCalledTimes(1);
+      expect(onSubmit).toHaveBeenCalledWith({
+        url: 'https://www.atlassian.com',
+        displayText: 'link',
+        title: null,
+        meta: {
+          inputMethod: 'manual',
+        },
+        rawUrl: 'https://www.atlassian.com',
+      });
+    });
+
+    it('should not submit if provided a valid url and changed to invalid', async () => {
+      const {
+        component,
+        onSubmit,
+        pressReturnInputField,
+        updateInputFieldWithStateUpdated,
+      } = await setup({
+        url: 'https://www.atlassian.com',
+      });
+      await updateInputFieldWithStateUpdated('link-url', 'foo');
+      pressReturnInputField('link-url');
+      component.update();
+
+      expect(onSubmit).not.toHaveBeenCalled();
+      expect(onSubmit).not.toHaveBeenCalledWith({
+        url: 'foo',
+        displayText: null,
+        title: null,
+        meta: {
+          inputMethod: 'manual',
+        },
+        rawUrl: 'foo',
+      });
     });
   });
 
@@ -795,6 +851,18 @@ describe('<LinkPicker />', () => {
       expect(errorMessage.at(0)).toHaveLength(1);
     });
 
+    it('should display Error message when URL is empty', async () => {
+      const {
+        component,
+        pressReturnInputField,
+      } = await setupWithGenericPlugin();
+
+      pressReturnInputField('link-url');
+
+      const errorMessage = component.find('[testId="link-error"]');
+      expect(errorMessage.at(0)).toHaveLength(1);
+    });
+
     it('should remove invalid URL Error when Input is edited', async () => {
       const {
         component,
@@ -1052,6 +1120,19 @@ describe('<LinkPicker />', () => {
       component.update();
 
       expect(component.find(LinkSearchNoResults).exists()).toBe(false);
+    });
+  });
+
+  describe('error boundary', () => {
+    it('renders a fallback ui if the inner link picker component throws an error', async () => {
+      jest.spyOn(console, 'error').mockImplementation(() => {});
+
+      // Provide an invalid initial prop to throw an error
+      const { component } = await setup({
+        url: new URL('https://atlassian.com') as any,
+      });
+
+      expect(component.find(ErrorBoundaryFallback)).toHaveLength(1);
     });
   });
 });

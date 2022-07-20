@@ -23,11 +23,17 @@ export const Provider = ({ name, icon }: ProviderProps) => {
   }
 
   return (
-    <div css={{ display: 'flex', alignItems: 'center' }}>
+    <div
+      css={{
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: gs(1.5),
+        whiteSpace: 'normal',
+      }}
+    >
       {iconToRender}
       <span
         css={{
-          fontSize: gs(1.5),
           color: token('color.text.subtlest', N300),
           margin: 0,
           marginLeft: gs(0.5),

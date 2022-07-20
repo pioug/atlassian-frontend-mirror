@@ -7,20 +7,19 @@ jest.mock('../../utils/shouldDisplayImageThumbnail', () => ({
 }));
 
 import React from 'react';
-
 import { shallow, mount } from 'enzyme';
-import { FileDetails } from '@atlaskit/media-client';
 
+import { FileDetails } from '@atlaskit/media-client';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import * as mediaUi from '@atlaskit/media-ui';
+import { FabricChannel } from '@atlaskit/analytics-listeners';
+
 import { CardView, CardViewBase, CardViewOwnProps } from '../../root/cardView';
 import { FileCardImageView } from '../../files';
-import { Wrapper } from '../../root/styled';
 import { breakpointSize, BreakpointSizeValue } from '../../utils/breakpoint';
-
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
-import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { CardDimensionValue } from '../../index';
-import * as mediaUi from '@atlaskit/media-ui';
+import { Wrapper } from '../../root/cardViewWrapper';
 
 const mockHumanReadableMediaSize = 'some KB';
 jest.mock('@atlaskit/media-ui', () => ({

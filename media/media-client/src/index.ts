@@ -227,13 +227,13 @@ export {
 } from './utils/url';
 export type { MediaBlobUrlAttrs } from './utils/url';
 
-export { createMediaSubscribable } from './utils/toMediaSubscribable';
+export { createMediaSubscribable } from './utils/mediaSubscribable';
 
 export type {
   MediaSubscribable,
   MediaSubscription,
   MediaObserver,
-} from './utils/toMediaSubscribable';
+} from './utils/mediaSubscribable';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';
 

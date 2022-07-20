@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 169.1.0
+
+### Minor Changes
+
+- [`ceb3d47ff02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ceb3d47ff02) - [ux] ED-15074 Adds indentation buttons to the Editor toolbar. Buttons are disabled by default and also behind indentationButtonsInTheToolbar feature flag.
+- [`8ff3031db06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ff3031db06) - Introduce new optional argument to CardProvider.resolve
+- [`e7659ee829a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7659ee829a) - ED-15074 Moved list toolbar UI into toolbarListsIndentation plugin to share logic with indentation toolbar buttons.
+- [`54079156b5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54079156b5a) - ED-15092 Added floatingToolbarCopyButton feature flag
+- [`07c8b0b4504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07c8b0b4504) - [ux] ED-15102 adds a copy button to nodes with floating toolbars
+- [`2d979ce9877`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d979ce9877) - [ux] ED-14945: Add windowed codeblock support in renderer (This feature sits behind a flag in the featureFlags prop 'allow-windowed-code-block')
+- [`46ddfdc949b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46ddfdc949b) - [ux] Removing deprecated `@atlaskit/item` package and replacing with new DS component
+- [`04746af08f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04746af08f6) - [ux] ED-15097 added floating toolbar copy button to table
+- [`9de4b38fdd6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9de4b38fdd6) - ED-15073 Added indentationButtonsInTheToolbar feature flag ready for feature development.
+
+### Patch Changes
+
+- [`cf63e4add85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf63e4add85) - Removes extraneous padding from around the floating toolbar when editing a link.
+- [`450a17a332a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/450a17a332a) - [ux] ED-14654: Lower z-index values on editor elements so they do not stick out of the editor and interfere with consuming products
+- [`215256ec669`](https://bitbucket.org/atlassian/atlassian-frontend/commits/215256ec669) - [ED-15023] Remove typescript override in text formatting toolbar utils
+- [`30c74c32783`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30c74c32783) - [ux] ED-15234: reverts ED-14654 because causing header zindex issues
+- [`86b38a65f7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86b38a65f7f) - Add integration test for non image files upload
+- [`e4dba654a71`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4dba654a71) - [ux] ED-15233: Fix breakout button positioning for breakout supported nodes in scenarios where editor disabled props changes while Editor is visually hidden and redisplayed.
+  Fixed by skipping breakout width update work when the editorView dom element is width 0 (hidden) and deferring LayoutButton position updates to second animation frame (on window
+  and editor resizes).
+- Updated dependencies
+
 ## 169.0.0
 
 ### Patch Changes

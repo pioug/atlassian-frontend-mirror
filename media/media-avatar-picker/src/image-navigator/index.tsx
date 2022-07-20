@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React from 'react';
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import {
   FormattedMessage,
@@ -19,17 +21,16 @@ import {
 } from '@atlaskit/media-ui';
 import * as exenv from 'exenv';
 import {
-  Container,
-  SliderContainer,
-  FileInput,
-  ImageUploader,
-  DragZone,
-  DragZoneImage,
-  DragZoneText,
-  SelectionBlocker,
-  PaddedBreak,
-  ImageBg,
-} from './styled';
+  containerStyles,
+  sliderContainerStyles,
+  fileInputStyles,
+  imageUploaderStyles,
+  dragZoneImageStyles,
+  dragZoneTextStyles,
+  selectionBlockerStyles,
+  paddedBreakStyles,
+  imageBgStyles,
+} from './styles';
 import { uploadPlaceholder, errorIcon } from './images';
 import { fileSizeMb } from '../util';
 import { ERROR, MAX_SIZE_MB, ACCEPT } from '../avatar-picker-dialog';
@@ -39,6 +40,7 @@ import {
   CONTAINER_SIZE,
   CONTAINER_PADDING,
 } from '../avatar-picker-dialog/layout-const';
+import { DragZone } from './dragZone';
 
 export interface LoadParameters {
   export: (outputSize?: number) => string;
@@ -340,10 +342,18 @@ export class ImageNavigator extends Component<
           <Spinner size="medium" />
         ) : (
           <div>
-            <DragZoneImage src={dropZoneImageSrc} alt={dragZoneAlt} />
-            <DragZoneText isFullSize={!!errorMessage}>
+            <img
+              id="drag-zone-image"
+              css={dragZoneImageStyles}
+              src={dropZoneImageSrc}
+              alt={dragZoneAlt}
+            />
+            <div
+              id="drag-zone-text"
+              css={dragZoneTextStyles({ isFullSize: !!errorMessage })}
+            >
               <Ellipsify text={dragZoneText} lines={3} />
-            </DragZoneText>
+            </div>
           </div>
         )}
       </DragZone>
@@ -354,18 +364,19 @@ export class ImageNavigator extends Component<
     const { errorMessage, isLoading } = this.props;
 
     return (
-      <ImageUploader>
+      <div id="image-uploader" css={imageUploaderStyles}>
         {this.renderDragZone()}
         {isLoading ? null : (
           <div>
-            <PaddedBreak>
+            <p id="padded-break" css={paddedBreakStyles}>
               <FormattedMessage
                 {...(errorMessage ? messages.try_again : messages.or)}
               />
-            </PaddedBreak>
+            </p>
             <Button onClick={this.onUploadButtonClick} isDisabled={isLoading}>
               <FormattedMessage {...messages.upload_photo} />
-              <FileInput
+              <input
+                css={fileInputStyles}
                 type="file"
                 id="image-input"
                 onChange={this.onFileChange}
@@ -374,7 +385,7 @@ export class ImageNavigator extends Component<
             </Button>
           </div>
         )}
-      </ImageUploader>
+      </div>
     );
   }
 
@@ -392,7 +403,7 @@ export class ImageNavigator extends Component<
 
     return (
       <div>
-        <ImageBg />
+        <div css={imageBgStyles} />
         <ImageCropper
           imageSource={dataURI}
           imageOrientation={imageOrientation}
@@ -407,10 +418,10 @@ export class ImageNavigator extends Component<
           onRemoveImage={onRemoveImage}
           onImageError={onImageError}
         />
-        <SliderContainer>
+        <div css={sliderContainerStyles}>
           <Slider value={scale} onChange={this.onScaleChange} />
-        </SliderContainer>
-        {isDragging ? <SelectionBlocker /> : null}
+        </div>
+        {isDragging ? <div css={selectionBlockerStyles} /> : null}
       </div>
     );
   }
@@ -431,7 +442,7 @@ export class ImageNavigator extends Component<
         ? this.renderImageCropper(dataURI)
         : this.renderImageUploader();
 
-    return <Container>{content}</Container>;
+    return <div css={containerStyles}>{content}</div>;
   }
 }
 

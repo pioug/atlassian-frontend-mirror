@@ -1,7 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
 
-export const HOVER_CARD_ANALYTICS_DISPLAY = 'flexible';
+export const SMART_CARD_ANALYTICS_DISPLAY = 'flexible';
 
 export const getSimulatedMetadata = (
   extensionKey: string = '',

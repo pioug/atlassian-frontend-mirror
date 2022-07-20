@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { css, jsx } from '@emotion/react';
 import {
   I18NWrapper,
   externaBrokenlIdentifier,
@@ -8,17 +9,16 @@ import {
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import { Card } from '../src';
-import styled from 'styled-components';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
-const Wrapper = styled.div`
+const wrapperStyles = css`
   max-width: 800px;
   margin: 20px auto;
 `;
 
-const CardContainer = styled.div`
+const cardContainerStyles = css`
   display: inline-block;
   margin-right: 20px;
   margin-top: 20px;
@@ -38,22 +38,25 @@ const fileIds = [
 
 export default () => {
   return (
-    <Wrapper>
+    <div css={wrapperStyles}>
       <I18NWrapper>
         <MainWrapper>
           {fileIds.map((fileId, fileIdIndex) =>
             cardDimensions.map((dimensions, dimensionIndex) => (
-              <CardContainer key={`${dimensionIndex}${fileIdIndex}`}>
+              <div
+                css={cardContainerStyles}
+                key={`${dimensionIndex}${fileIdIndex}`}
+              >
                 <Card
                   identifier={fileId}
                   mediaClientConfig={mediaClientConfig}
                   dimensions={dimensions}
                 />
-              </CardContainer>
+              </div>
             )),
           )}
         </MainWrapper>
       </I18NWrapper>
-    </Wrapper>
+    </div>
   );
 };

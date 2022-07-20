@@ -22,8 +22,8 @@ import {
   MetadataFileName,
   MetadataSubText,
   Header as HeaderWrapper,
-} from '../../../styled';
-import { LeftHeader } from '../../../styled';
+  LeftHeader,
+} from '../../../styleWrappers';
 import Button from '@atlaskit/button/custom-theme-button';
 
 const identifier: Identifier = {

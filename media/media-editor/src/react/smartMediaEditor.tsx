@@ -39,11 +39,10 @@ import { fileToBase64, fireAnalyticsEvent } from '../util';
 import ErrorView from './editorView/errorView/errorView';
 import { CancelInputType, Dimensions, ShapeParameters, Tool } from '../common';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 import { start, end } from 'perf-marks';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const convertFileNameToPng = (fileName?: string) => {
   if (!fileName) {

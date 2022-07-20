@@ -29,7 +29,7 @@ const headingResetStyles = css({
 
 const h900Styles = css({
   color: token('color.text', N800),
-  fontSize: `${35 / 14}rem`,
+  fontSize: 35,
   fontWeight: 500,
   letterSpacing: '-0.01em',
   lineHeight: lh(35, 40),
@@ -37,7 +37,7 @@ const h900Styles = css({
 
 const h800Styles = css({
   color: token('color.text', N800),
-  fontSize: `${29 / 14}rem`,
+  fontSize: 29,
   fontWeight: 600,
   letterSpacing: '-0.01em',
   lineHeight: lh(29, 32),
@@ -45,7 +45,7 @@ const h800Styles = css({
 
 const h700Styles = css({
   color: token('color.text', N800),
-  fontSize: `${24 / 14}rem`,
+  fontSize: 24,
   fontWeight: 500,
   letterSpacing: '-0.01em',
   lineHeight: lh(24, 28),
@@ -53,7 +53,7 @@ const h700Styles = css({
 
 const h600Styles = css({
   color: token('color.text', N800),
-  fontSize: `${20 / 14}rem`,
+  fontSize: 20,
   fontWeight: 500,
   letterSpacing: '-0.008em',
   lineHeight: lh(20, 24),
@@ -61,7 +61,7 @@ const h600Styles = css({
 
 const h500Styles = css({
   color: token('color.text', N800),
-  fontSize: `${16 / 14}rem`,
+  fontSize: 16,
   fontWeight: 600,
   letterSpacing: '-0.006em',
   lineHeight: lh(16, 20),
@@ -69,7 +69,7 @@ const h500Styles = css({
 
 const h400Styles = css({
   color: token('color.text', N800),
-  fontSize: '1rem',
+  fontSize: 14,
   fontWeight: 600,
   letterSpacing: '-0.003em',
   lineHeight: lh(14, 16),
@@ -77,7 +77,7 @@ const h400Styles = css({
 
 const h300Styles = css({
   color: token('color.text', N800),
-  fontSize: `${12 / 14}rem`,
+  fontSize: 12,
   fontWeight: 600,
   letterSpacing: 0,
   lineHeight: lh(12, 16),
@@ -86,7 +86,7 @@ const h300Styles = css({
 
 const h200Styles = css({
   color: token('color.text.subtlest', N200),
-  fontSize: `${12 / 14}rem`,
+  fontSize: 12,
   fontWeight: 600,
   letterSpacing: 0,
   lineHeight: lh(12, 16),
@@ -94,7 +94,7 @@ const h200Styles = css({
 
 const h100Styles = css({
   color: token('color.text.subtlest', N200),
-  fontSize: `${11 / 14}rem`,
+  fontSize: 11,
   fontWeight: 700,
   letterSpacing: 0,
   lineHeight: lh(11, 16),

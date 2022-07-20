@@ -81,6 +81,10 @@ const productLogoStyles = css({
     maxHeight: 24,
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  '& > span > svg': {
+    width: '100%',
+  },
+  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
   },

@@ -8,7 +8,8 @@ export const waitForMenuIconsToLoad = async (
   page: PuppeteerPage,
   minItems: number,
 ) => {
-  const menuIconSelector = '.fabric-editor-typeahead [class^="Item-"] svg';
+  const menuIconSelector =
+    '.fabric-editor-typeahead [data-testid^="list-item-height-observed-"] svg';
   await page.waitForFunction(
     (selector: string, minItems: number) => {
       const els = Array.from(document.querySelectorAll(selector));

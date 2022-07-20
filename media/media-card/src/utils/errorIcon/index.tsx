@@ -1,8 +1,9 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 
-import { ErrorIconWrapper } from './styled';
+import { errorIconWrapperStyles } from './styles';
 
 export interface ErrorIconProps {
   readonly size: 'small' | 'medium' | 'large' | 'xlarge';
@@ -16,9 +17,9 @@ export class ErrorIcon extends Component<ErrorIconProps, {}> {
     const { size } = this.props;
 
     return (
-      <ErrorIconWrapper>
+      <div css={errorIconWrapperStyles}>
         <WarningIcon label="Error" size={size} />
-      </ErrorIconWrapper>
+      </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 jest.mock('@atlaskit/media-common');
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import {
   ArchiveSidebarFolderEntry,
   ArchiveSidebarFolderProps,
@@ -12,7 +12,7 @@ import {
   ArchiveSidebarFolderWrapper,
   ArchiveSidebarFileEntryWrapper,
   ArchiveDownloadButtonWrapper,
-} from '../../../../../viewers/archiveSidebar/styled';
+} from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { ZipEntry } from 'unzipit';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
@@ -36,6 +36,10 @@ describe('ArchiveSidebarFolderEntry', () => {
   function mountBaseComponent(props: Partial<ArchiveSidebarFolderProps>) {
     const passedProps = { ...baseProps, ...props };
     return mount(<ArchiveSidebarFolderEntry {...passedProps} />);
+  }
+  function shallowBaseComponent(props: Partial<ArchiveSidebarFolderProps>) {
+    const passedProps = { ...baseProps, ...props };
+    return shallow(<ArchiveSidebarFolderEntry {...passedProps} />);
   }
 
   it('should render ArchiveSidebarFolderWrapper but not ButtonItem element if no entries', () => {
@@ -185,7 +189,7 @@ describe('ArchiveSidebarFolderEntry', () => {
       } as any,
       root: 'root/',
     };
-    const el = mountBaseComponent(props);
+    const el = shallowBaseComponent(props);
     const downloadButtonWrapper = el.find(ArchiveDownloadButtonWrapper);
     expect(downloadButtonWrapper).toHaveLength(1);
     downloadButtonWrapper.simulate('click');
@@ -208,7 +212,7 @@ describe('ArchiveSidebarFolderEntry', () => {
       root: 'root/',
       onError: onErrorMock,
     };
-    const el = mountBaseComponent(props);
+    const el = shallowBaseComponent(props);
     el.find(ArchiveDownloadButtonWrapper).simulate('click');
     await sleep(0);
     expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);

@@ -1,10 +1,18 @@
-import { css } from '@emotion/core';
+import { css, keyframes } from '@emotion/core';
 
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { defaultEmojiHeight } from '../../util/constants';
 import { akEmojiSelectedBackgroundColor } from '../../util/shared-styles';
-import { N20, N200, N300, N900, R300, R400 } from '@atlaskit/theme/colors';
+import {
+  N20,
+  N200,
+  N20A,
+  N300,
+  N900,
+  R300,
+  R400,
+} from '@atlaskit/theme/colors';
 
 export const commonSelectedStyles = 'emoji-common-selected';
 export const selectOnHoverStyles = 'emoji-common-select-on-hover';
@@ -36,7 +44,7 @@ export const emojiToneSelectorContainer = css({
 });
 
 export const emojiStyles = css({
-  borderRadius: '5px',
+  borderRadius: `${borderRadius()}px`,
   backgroundColor: 'transparent',
   display: 'inline-block',
   verticalAlign: 'middle',
@@ -68,22 +76,45 @@ export const emojiContainer = css({
   [`.${emojiSprite}`]: {
     background: 'transparent no-repeat',
     display: 'inline-block',
-    verticalAlign: 'middle',
     minHeight: `${defaultEmojiHeight}px`,
     minWidth: `${defaultEmojiHeight}px`,
+    verticalAlign: 'middle',
   },
 });
 
 export const placeholder = 'emoji-common-placeholder';
 
 export const placeholderContainer = css({
-  // Ensure no vertical reflow
+  position: 'relative',
   margin: '-1px 0',
   display: 'inline-block',
   background: token('color.border', '#f7f7f7'),
-  borderRadius: '20%',
+  borderRadius: `${borderRadius()}px`,
+  overflow: 'hidden',
   verticalAlign: 'middle',
   whiteSpace: 'nowrap',
+  textAlign: 'center',
+});
+
+const easeSweep = keyframes`
+  from {
+    transform: translateX(-100%);
+  }
+  to   {
+    transform: translateX(100%);
+  }
+`;
+
+export const placeholderContainerAnimated = css({
+  '&::before': {
+    content: '""',
+    display: 'block',
+    position: 'absolute',
+    background: token('color.background.neutral', N20A),
+    height: '100%',
+    width: '100%',
+    animation: `${easeSweep} 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite`,
+  },
 });
 
 export const emojiButton = css({
@@ -99,7 +130,7 @@ export const emojiButton = css({
   },
 
   '&>span': {
-    borderRadius: '5px',
+    borderRadius: `${borderRadius()}px`,
     padding: '8px',
 
     // Scale sprite to fit regardless of default emoji size

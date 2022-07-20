@@ -15,6 +15,8 @@ export enum TOOLBAR_ACTION_SUBJECT_ID {
   TEXT_FORMATTING_ITALIC = 'italic',
   UNDO = 'undo',
   REDO = 'redo',
+  INDENT = 'indent',
+  OUTDENT = 'outdent',
 }
 
 type ToolbarButtonClickedAEP = UIAEP<

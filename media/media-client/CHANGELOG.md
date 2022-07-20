@@ -1,5 +1,18 @@
 # @atlaskit/media-client
 
+## 17.1.0
+
+### Minor Changes
+
+- [`c07a8176ddf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c07a8176ddf) - New BlobType SlicedBlob that includes partnumber introduced and used for uploading chunks
+- [`a2e6bd37426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a2e6bd37426) - add uploadId to prob function to support new media upload api
+
+### Patch Changes
+
+- [`e80f52696fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e80f52696fe) - Migrated styled-components to emotion
+- [`de9dc9e7cbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de9dc9e7cbd) - Renamed internal helpers and files
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

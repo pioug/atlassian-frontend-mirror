@@ -99,6 +99,8 @@ export const extractBlockUsers = (
     if (assignedMembers) {
       return [assignedMembers];
     }
+  } else if (jsonLd['@type'] === 'atlassian:SourceCodePullRequest') {
+    return extractPersonCreatedBy(jsonLd as JsonLd.Data.SourceCodePullRequest);
   } else {
     const updatedBy = extractPersonUpdatedBy(jsonLd as LinkTypeUpdatedBy);
     let updatedByMembers;

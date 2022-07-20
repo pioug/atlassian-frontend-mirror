@@ -8,8 +8,7 @@ import {
   defaultCollectionName,
   defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { ButtonList, Group } from '../example-helpers/styled';
-import { MainWrapper } from '../example-helpers/MainWrapper';
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import {
   docIdentifier,
   largePdfIdentifier,

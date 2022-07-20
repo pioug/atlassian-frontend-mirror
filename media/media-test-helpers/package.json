@@ -23,7 +23,7 @@
     "@atlaskit/checkbox": "^12.2.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/locale": "^2.1.0",
-    "@atlaskit/media-client": "^17.0.0",
+    "@atlaskit/media-client": "^17.1.0",
     "@atlaskit/media-common": "^2.15.0",
     "@atlaskit/media-core": "^33.0.0",
     "@atlaskit/media-ui": "^22.1.0",

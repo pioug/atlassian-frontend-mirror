@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import {
   createStorybookMediaClientConfig,
@@ -8,11 +9,11 @@ import Toggle from '@atlaskit/toggle';
 import Range from '@atlaskit/range';
 import { Identifier } from '@atlaskit/media-client';
 import { Card, CardDimensions } from '../src';
-import { CardDimensionsWrapper } from '../example-helpers/styled';
+import { cardDimensionsWrapperStyles } from '../example-helpers/styles';
 import {
-  EditableCardOptions,
-  EditableCardContent,
-} from '../example-helpers/styled';
+  editableCardOptionsStyles,
+  editableCardContentStyles,
+} from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
@@ -111,9 +112,9 @@ class EditableCard extends Component<{}, EditableCardState> {
     return (
       <MainWrapper>
         <div>
-          <EditableCardOptions>
+          <div css={editableCardOptionsStyles}>
             Card dimensions <hr />
-            <CardDimensionsWrapper>
+            <div css={cardDimensionsWrapperStyles}>
               <div>
                 Card Width ({formattedWidth}) | Use percentage:
                 <Toggle
@@ -158,7 +159,7 @@ class EditableCard extends Component<{}, EditableCardState> {
                   onChange={this.onParentHeightChange}
                 />
               </div>
-            </CardDimensionsWrapper>
+            </div>
             isLazy
             <Toggle defaultChecked={isLazy} onChange={this.onIsLazyChange} />
             use dimensions
@@ -166,8 +167,8 @@ class EditableCard extends Component<{}, EditableCardState> {
               defaultChecked={useDimensions}
               onChange={this.onUseDimensionsChange}
             />
-          </EditableCardOptions>
-          <EditableCardContent style={parentStyle}>
+          </div>
+          <div css={editableCardContentStyles} style={parentStyle}>
             <Card
               mediaClientConfig={mediaClientConfig}
               identifier={identifier}
@@ -175,7 +176,7 @@ class EditableCard extends Component<{}, EditableCardState> {
               isLazy={isLazy}
               alt="this is an alt text"
             />
-          </EditableCardContent>
+          </div>
         </div>
       </MainWrapper>
     );

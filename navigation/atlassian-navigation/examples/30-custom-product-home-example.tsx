@@ -13,6 +13,7 @@ import {
 } from './shared/PrimaryItems';
 import {
   BitbucketProductHome,
+  CompassProductHome,
   ConfluenceProductHome,
   DefaultCustomProductHome,
   JiraProductHome,
@@ -109,6 +110,20 @@ const CustomProductHomeExample = () => (
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
       testId="opsgenie-nav"
+    />
+    <br />
+    <AtlassianNavigation
+      label="site"
+      primaryItems={jiraPrimaryItems}
+      renderAppSwitcher={SwitcherPopup}
+      renderCreate={DefaultCreate}
+      renderHelp={HelpPopup}
+      renderNotifications={NotificationsPopup}
+      renderProductHome={CompassProductHome}
+      renderProfile={ProfilePopup}
+      renderSearch={DefaultSearch}
+      renderSettings={DefaultSettings}
+      testId="compass-nav"
     />
     <br />
     <AtlassianNavigation

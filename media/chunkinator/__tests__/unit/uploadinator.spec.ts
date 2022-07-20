@@ -21,9 +21,9 @@ describe('Uploadinator', () => {
 
   it('invokes uploader for all non-existing chunks', async () => {
     const probedChunks = [
-      { blob: new Blob(), hash: 'foo', exists: true },
-      { blob: new Blob(), hash: 'bar', exists: false },
-      { blob: new Blob(), hash: 'baz', exists: false },
+      { blob: new Blob(), hash: 'foo', exists: true, partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
+      { blob: new Blob(), hash: 'baz', exists: false, partNumber: 3 },
     ];
 
     const uploader = jest.fn(() => Promise.resolve());
@@ -43,8 +43,8 @@ describe('Uploadinator', () => {
 
   it('returns chunks in-order even if promises resolve out of order', async () => {
     const probedChunks = [
-      { blob: new Blob(), hash: 'foo', exists: false },
-      { blob: new Blob(), hash: 'bar', exists: false },
+      { blob: new Blob(), hash: 'foo', exists: false, partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
     ];
 
     const uploader = jest.fn().mockImplementation((chunk) => {
@@ -68,9 +68,9 @@ describe('Uploadinator', () => {
   it('invokes parallel batches of N uploads, sequentially', async () => {
     MockDate.reset();
     const probedChunks = [
-      { blob: new Blob(), hash: 'foo', exists: false },
-      { blob: new Blob(), hash: 'bar', exists: false },
-      { blob: new Blob(), hash: 'baz', exists: false },
+      { blob: new Blob(), hash: 'foo', exists: false, partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
+      { blob: new Blob(), hash: 'baz', exists: false, partNumber: 3 },
     ];
 
     const invocations = new Array<{ ts: number; hash: string }>();

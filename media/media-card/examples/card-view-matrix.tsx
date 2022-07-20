@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
 import {
@@ -7,7 +9,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
-import styled from 'styled-components';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditIcon from '@atlaskit/icon/glyph/edit';
@@ -17,31 +18,20 @@ import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
 import { Y75 } from '@atlaskit/theme/colors';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
+import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
-type WrapperDimensions = {
-  width: string;
-  height: string;
-};
 const wrapperDimensionsSmall = { width: '156px', height: '108px' }; // Minimum supported dimensions
 const wrapperDimensionsBig = { width: '600px', height: '450px' }; // Maximum supported dimensions
 const dimensions = { width: '100%', height: '100%' };
 
-const CardWrapper = styled.div`
-  ${({ width, height }: WrapperDimensions) => `
-    width: ${width};
-    height: ${height};
-    margin: 15px 20px;
-  `}
-`;
-
-const CheckboxesContainer = styled.div`
+const checkboxesContainerStyles = css`
   display: flex;
   justify-content: center;
   margin-top: 20px;
   align-items: center;
 `;
 
-const StyledTable = styled.table`
+const styledTableStyles = css`
   margin: 30px auto 0 auto;
   max-width: 1100px;
   thead * {
@@ -53,11 +43,11 @@ const StyledTable = styled.table`
   }
 `;
 
-const StyledContainer = styled.div`
+const styledContainerStyles = css`
   min-width: 1100px;
 `;
 
-const SelectWrapper = styled.div`
+const selectWrapperStyles = css`
   * {
     text-align: left !important;
   }
@@ -136,8 +126,8 @@ class Example extends React.Component<{}, State> {
 
     return (
       <MainWrapper>
-        <StyledContainer>
-          <CheckboxesContainer>
+        <div css={styledContainerStyles}>
+          <div css={checkboxesContainerStyles}>
             <Checkbox
               value="withDataURI"
               label="Has withDataURI?"
@@ -220,8 +210,8 @@ class Example extends React.Component<{}, State> {
               onChange={this.onCheckboxChange}
               name="withTransparency"
             />
-          </CheckboxesContainer>
-          <StyledTable>
+          </div>
+          <table css={styledTableStyles}>
             <thead>
               <tr>
                 <th key="first-column" />
@@ -233,13 +223,13 @@ class Example extends React.Component<{}, State> {
                   <th key={`${status}-column`}>
                     {status}
                     {status === 'error' && (
-                      <SelectWrapper>
+                      <div css={selectWrapperStyles}>
                         <Select
                           options={errorOptions}
                           onChange={this.onRadioGroupSelect}
                           defaultValue={errorOptions[0]}
                         />
-                      </SelectWrapper>
+                      </div>
                     )}
                   </th>
                 ))}
@@ -248,7 +238,7 @@ class Example extends React.Component<{}, State> {
             <tbody>
               {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
               <IntlProvider locale={'en'}>
-                <>
+                <React.Fragment>
                   {mediaTypes.map(([mediaType, mimeType]) => (
                     <tr key={`${mediaType}-row`}>
                       <th
@@ -272,11 +262,11 @@ class Example extends React.Component<{}, State> {
                       ))}
                     </tr>
                   ))}
-                </>
+                </React.Fragment>
               </IntlProvider>
             </tbody>
-          </StyledTable>
-        </StyledContainer>
+          </table>
+        </div>
       </MainWrapper>
     );
   }
@@ -361,7 +351,7 @@ class Example extends React.Component<{}, State> {
       : wrapperDimensionsSmall;
 
     return (
-      <CardWrapper {...wrapperDimensions}>
+      <CardViewWrapper wrapperDimensions={wrapperDimensions}>
         <CardView
           status={status}
           mediaItemType="file"
@@ -383,7 +373,7 @@ class Example extends React.Component<{}, State> {
           titleBoxIcon={withBgColorAndIcon ? 'LockFilledIcon' : undefined}
           error={mediaCardErrorState(error)}
         />
-      </CardWrapper>
+      </CardViewWrapper>
     );
   };
 }

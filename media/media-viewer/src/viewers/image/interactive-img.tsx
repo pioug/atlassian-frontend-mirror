@@ -22,7 +22,7 @@ import {
   HDIconWrapper,
   ImageWrapper,
   Img,
-} from '../../styled';
+} from '../../styleWrappers';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
 import { ZoomControls } from '../../zoomControls';
@@ -170,8 +170,9 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
       <ImageWrapper
         data-testid="media-viewer-image-content"
         onClick={this.onImageClicked}
-        innerRef={this.saveWrapperRef}
+        ref={this.saveWrapperRef}
         style={wrapperStyleOverride}
+        className="media-viewer-image-content"
       >
         <Img
           data-testid="media-viewer-image"
@@ -183,6 +184,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
           onError={onError}
           onMouseDown={this.startDragging}
           shouldPixelate={zoomLevel.value > 1}
+          className="media-viewer-image"
         />
 
         {/*

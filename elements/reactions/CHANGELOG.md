@@ -1,5 +1,15 @@
 # @atlaskit/reactions
 
+## 21.4.0
+
+### Minor Changes
+
+- [`34155ee7563`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34155ee7563) - add sampling for 2 ufo experiences to reduce volume of analytics
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.3.4
 
 ### Patch Changes

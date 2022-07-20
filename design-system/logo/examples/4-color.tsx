@@ -5,7 +5,7 @@ import { B200, B400, N0, N100, N400, N600 } from '@atlaskit/theme/colors';
 import { AtlassianLogo } from '../src';
 
 export default () => (
-  <>
+  <div data-testid="color">
     <AtlassianLogo />
     <AtlassianLogo
       textColor={B400}
@@ -28,5 +28,10 @@ export default () => (
       iconGradientStart={B400}
       iconGradientStop={B200}
     />
-  </>
+    <AtlassianLogo appearance="brand" />
+    <AtlassianLogo appearance="neutral" />
+    <div style={{ display: 'inline-block', background: B400 }}>
+      <AtlassianLogo appearance="inverse" />
+    </div>
+  </div>
 );

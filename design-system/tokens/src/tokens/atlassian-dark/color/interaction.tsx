@@ -5,21 +5,11 @@ const color: ValueSchema<InteractionColorTokenSchema> = {
     interaction: {
       hovered: {
         // @ts-ignore temporary values
-        value: '#00000029',
+        value: '#ffffff33',
       },
       pressed: {
         // @ts-ignore temporary values
-        value: '#00000052',
-      },
-      inverse: {
-        hovered: {
-          // @ts-ignore temporary values
-          value: '#ffffff33',
-        },
-        pressed: {
-          // @ts-ignore temporary values
-          value: '#ffffff5c',
-        },
+        value: '#ffffff5c',
       },
     },
   },

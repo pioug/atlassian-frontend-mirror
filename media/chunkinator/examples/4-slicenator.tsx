@@ -8,9 +8,9 @@ const onChange = (e: ChangeEvent<HTMLInputElement>) => {
   const imageData: Blob[] = [];
 
   observable.subscribe({
-    next(chunk) {
-      console.log('chunk', chunk.size);
-      imageData.push(chunk);
+    next(slicedBlob) {
+      console.log('chunk', slicedBlob.blob.size);
+      imageData.push(slicedBlob.blob);
     },
     complete() {
       const blob = new Blob(imageData, { type: 'image/png' });

@@ -1,5 +1,6 @@
 import ensureTokenUsage from './rules/ensure-design-token-usage';
 import iconLabel from './rules/icon-label';
+import noBannedImports from './rules/no-banned-imports';
 import noDeprecatedAPIs from './rules/no-deprecated-apis';
 import noDeprecatedUsage from './rules/no-deprecated-design-token-usage';
 import noDeprecatedImports from './rules/no-deprecated-imports';
@@ -12,6 +13,7 @@ export const rules = {
   'no-deprecated-apis': noDeprecatedAPIs,
   'no-deprecated-design-token-usage': noDeprecatedUsage,
   'no-deprecated-imports': noDeprecatedImports,
+  'no-banned-imports': noBannedImports,
   'no-unsafe-design-token-usage': noUnsafeUsage,
   'use-visually-hidden': useVisuallyHidden,
 };
@@ -24,6 +26,18 @@ export const configs = {
       '@atlaskit/design-system/no-deprecated-apis': 'warn',
       '@atlaskit/design-system/no-deprecated-imports': 'error',
       '@atlaskit/design-system/use-visually-hidden': 'error',
+      '@atlaskit/design-system/no-banned-imports': 'error',
+    },
+  },
+  all: {
+    plugins: ['@atlaskit/design-system'],
+    rules: {
+      '@atlaskit/design-system/icon-label': 'error',
+      '@atlaskit/design-system/no-deprecated-apis': 'error',
+      '@atlaskit/design-system/no-deprecated-imports': 'error',
+      '@atlaskit/design-system/use-visually-hidden': 'error',
+      '@atlaskit/design-system/ensure-design-token-usage': 'error',
+      '@atlaskit/design-system/no-banned-imports': 'error',
     },
   },
 };

@@ -81,7 +81,8 @@ describe('Snapshot Test: Media with alt text', () => {
         await snapshot(page);
       });
 
-      describe('when the shortcut is pressed', () => {
+      // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+      describe.skip('when the shortcut is pressed', () => {
         it('should display the alt text description', async () => {
           await pressKeyCombo(page, ['Control', 'Alt', 'y']);
           await page.waitForSelector('[data-testid="alt-text-input"]', {
@@ -118,7 +119,8 @@ describe('Snapshot Test: Media with alt text', () => {
           ))!;
         });
 
-        describe('when valid value is entered', () => {
+        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+        describe.skip('when valid value is entered', () => {
           beforeEach(async () => {
             await altTextInput.press('y');
           });
@@ -127,8 +129,7 @@ describe('Snapshot Test: Media with alt text', () => {
             await snapshot(page);
           });
 
-          // TODO: https://product-fabric.atlassian.net/browse/ED-13527
-          it.skip('clears alt text when the user click the alt text button', async () => {
+          it('clears alt text when the user click the alt text button', async () => {
             await page.waitForSelector('button[aria-label="Clear alt text"]');
             await page.click('button[aria-label="Clear alt text"]');
             await animationFrame(page);
@@ -136,7 +137,8 @@ describe('Snapshot Test: Media with alt text', () => {
           });
         });
 
-        describe('when invalid value is entered', () => {
+        // TODO: https://product-fabric.atlassian.net/browse/ED-13527
+        describe.skip('when invalid value is entered', () => {
           beforeEach(async () => {
             await altTextInput.press('<');
           });

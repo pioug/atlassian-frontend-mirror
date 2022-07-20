@@ -5,6 +5,7 @@ order: 0
 import TooltipDefault from '../../examples/constellation/tooltip-default';
 import TooltipTruncate from '../../examples/constellation/tooltip-truncate';
 import TooltipPosition from '../../examples/constellation/tooltip-position';
+import TooltipPositionMouse from '../../examples/constellation/tooltip-position-mouse';
 import TooltipComponent from '../../examples/constellation/tooltip-component';
 import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
 import TooltipCustomization from '../../examples/constellation/tooltip-customization';
@@ -26,14 +27,15 @@ The tooltip text wraps when the content is wider than the max-width. Additionall
 
 ## Positioning
 
-The tooltip position is flexible and changes depending on how close the element is to the edge of the screen.
+Use the `position` prop to set a preferred position (auto, top, right, left, or bottom). The tooltip will move automatically if it is near the edge of the screen.
 
-The `top`, `right`, `bottom`, and `left` positions appear outside the target element, center-aligned along the appropriate axis. To place a tooltip in non-centered positions, see other placement `Options` in the <a rel="noopener noreferrer" href="https://popper.js.org/docs/v2/constructors/#options" target="_blank">React Popper v2 documentation</a>.
+Using a position of `auto` will place the tooltip on the side with the most space available.
 
+<Example Component={TooltipPosition} packageName="@atlaskit/tooltip" />
 
 If set to `mouse`, the tooltip will display next to the mouse pointer. Use `mousePosition` if you want to customize where the tooltip shows in relation to the mouse.
 
-<Example Component={TooltipPosition} packageName="@atlaskit/tooltip" />
+<Example Component={TooltipPositionMouse} packageName="@atlaskit/tooltip" />
 
 ## Custom component
 

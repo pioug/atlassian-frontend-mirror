@@ -1,9 +1,13 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { MouseEvent, Component, ReactNode } from 'react';
 import cx from 'classnames';
+
 import { MediaType } from '@atlaskit/media-client';
 import TickIcon from '@atlaskit/icon/glyph/check';
 import { Ellipsify } from '@atlaskit/media-ui';
+
 // We dont require things directly from "utils" to avoid circular dependencies
 import { FileIcon } from '../../../utils/fileIcon';
 import { ErrorIcon } from '../../../utils/errorIcon';
@@ -12,19 +16,21 @@ import { CardAction, CardEventHandler } from '../../../actions';
 import { CardStatus } from '../../../index';
 
 import {
-  TickBox,
-  Overlay,
-  ErrorLine,
-  LeftColumn,
-  TopRow,
-  BottomRow,
-  RightColumn,
-  ErrorMessage,
-  TitleWrapper,
-  Subtitle,
+  tickBoxStyles,
+  errorLineStyles,
+  leftColumnStyles,
+  topRowStyles,
+  bottomRowStyles,
+  rightColumnStyles,
+  subtitleStyles,
+} from './styles';
+import {
   Metadata,
   AltWrapper,
-} from './styled';
+  ErrorMessage,
+  TitleWrapper,
+  Overlay,
+} from './cardOverlayComponents';
 
 const resolveTitleText = (
   cardStatus: CardStatus,
@@ -121,9 +127,9 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
         noHover={noHover}
         className={this.wrapperClassNames}
       >
-        <TopRow className={'top-row'}>
+        <div css={topRowStyles} className={'top-row'}>
           {this.errorLine()}
-          <TitleWrapper className={'title'}>
+          <TitleWrapper>
             {titleText ? (
               <Ellipsify
                 testId="media-card-file-name"
@@ -133,10 +139,10 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
             ) : null}
           </TitleWrapper>
           {this.tickBox()}
-        </TopRow>
-        <BottomRow className={'bottom-row'}>
-          <LeftColumn>{this.bottomLeftColumn()}</LeftColumn>
-          <RightColumn>
+        </div>
+        <div css={bottomRowStyles} className={'bottom-row'}>
+          <div css={leftColumnStyles}>{this.bottomLeftColumn()}</div>
+          <div css={rightColumnStyles}>
             {actions ? (
               <CardActions
                 actions={actions}
@@ -144,8 +150,8 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
                 triggerColor={menuTriggerColor}
               />
             ) : null}
-          </RightColumn>
-        </BottomRow>
+          </div>
+        </div>
       </Overlay>
     );
   }
@@ -154,17 +160,17 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
     const { error, alt } = this.props;
     return (
       error && (
-        <>
-          <ErrorLine>
+        <React.Fragment>
+          <div css={errorLineStyles}>
             <ErrorIcon />
             <ErrorMessage>{error}</ErrorMessage>
-          </ErrorLine>
+          </div>
           {alt && (
-            <ErrorLine>
+            <div css={errorLineStyles}>
               <AltWrapper>{alt}</AltWrapper>
-            </ErrorLine>
+            </div>
           )}
-        </>
+        </React.Fragment>
       )
     );
   }
@@ -174,7 +180,13 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
     const tick = <TickIcon label="tick" />;
     const className = cx('tickbox', { selected });
 
-    return selectable && <TickBox className={className}> {tick} </TickBox>;
+    return (
+      selectable && (
+        <div css={tickBoxStyles} className={className}>
+          {tick}
+        </div>
+      )
+    );
   }
 
   bottomLeftColumn() {
@@ -190,7 +202,9 @@ export class CardOverlay extends Component<CardOverlayProps, CardOverlayState> {
         ) : null;
 
       const subtitleEl = subtitle ? (
-        <Subtitle className="file-size">{subtitle}</Subtitle>
+        <div css={subtitleStyles} className="file-size">
+          {subtitle}
+        </div>
       ) : null;
 
       return (

@@ -76,3 +76,67 @@ import {
     },
   );
 });
+
+BrowserTestCase(
+  'insert-mediaGroup.ts: Inserts multiple media group with non-image files',
+  { skip: [] },
+  async (
+    client: Parameters<typeof goToEditorTestingWDExample>[0],
+    testName: string,
+  ) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: comment.appearance,
+      media: {
+        allowMediaGroup: true,
+      },
+    });
+
+    // type some text
+    await page.click(editable);
+    await page.type(editable, 'some text');
+
+    // now we can insert media as necessary
+    await insertMedia(page, ['test.pdf', 'test.txt', 'test.xls']);
+
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
+
+    const doc = await page.$eval(editable, getDocFromElement);
+
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);
+
+BrowserTestCase(
+  'insert-mediaGroup.ts: Inserts one media group with non-image files',
+  { skip: [] },
+  async (
+    client: Parameters<typeof goToEditorTestingWDExample>[0],
+    testName: string,
+  ) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(page, {
+      appearance: comment.appearance,
+      media: {
+        allowMediaGroup: true,
+      },
+    });
+
+    // type some text
+    await page.click(editable);
+    await page.type(editable, 'some text');
+
+    // now we can insert media as necessary
+    await insertMedia(page, ['test.pdf']);
+
+    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
+      true,
+    );
+
+    const doc = await page.$eval(editable, getDocFromElement);
+
+    expect(doc).toMatchCustomDocSnapshot(testName);
+  },
+);

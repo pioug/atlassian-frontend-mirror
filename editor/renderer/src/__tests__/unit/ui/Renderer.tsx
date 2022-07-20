@@ -32,6 +32,7 @@ import Loadable from 'react-loadable';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { invalidDoc } from '../../__fixtures__/invalid-doc';
 import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
+import { tableLayout } from '../../__fixtures__/table';
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import { Media } from '../../../react/nodes';
 import { IntlProvider } from 'react-intl-next';
@@ -596,6 +597,29 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
           }),
         );
       });
+    });
+  });
+
+  describe('Custom components', () => {
+    const table = (props: any) => (
+      <table className="custom-component">
+        <tbody>{props.children}</tbody>
+      </table>
+    );
+    it('should find the prop nodeComponents', () => {
+      const renderer = initRenderer(tableLayout, { nodeComponents: { table } });
+      expect(renderer.props()).toEqual(
+        expect.objectContaining({ nodeComponents: { table } }),
+      );
+    });
+    it('should render the custom table component', () => {
+      const renderer = initRenderer(tableLayout, { nodeComponents: { table } });
+      expect(renderer.find(table)).toHaveLength(12);
+    });
+    it('should render default tables', () => {
+      const renderer = initRenderer(tableLayout);
+      expect(renderer.find(table)).toHaveLength(0);
+      expect(renderer.find('table')).toHaveLength(12);
     });
   });
 });

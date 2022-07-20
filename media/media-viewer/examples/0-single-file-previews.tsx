@@ -6,8 +6,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Card } from '@atlaskit/media-card';
 import { Identifier } from '@atlaskit/media-client';
-import { ButtonList, Group } from '../example-helpers/styled';
-import { MainWrapper } from '../example-helpers/MainWrapper';
+import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import {
   archiveItem,
   audioItem,
@@ -153,7 +152,6 @@ export default class Example extends React.Component<{}, State> {
               <li>{this.createItem(emailItem, 'Normal')}</li>
             </ButtonList>
           </Group>
-          å
           <Group>
             <h2>Errors</h2>
             <ButtonList>

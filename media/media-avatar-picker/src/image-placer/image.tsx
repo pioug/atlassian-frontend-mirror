@@ -1,6 +1,6 @@
 import React from 'react';
-import { ImageWrapper } from './styled';
 import { isImageRemote } from '../image-cropper/isImageRemote';
+import { ImageWrapper } from './imageWrapper';
 
 export interface ImagePlacerImageProps {
   src?: string;
@@ -55,12 +55,12 @@ export class ImagePlacerImage extends React.Component<
         const crossOrigin = isImageRemote(src) ? 'anonymous' : undefined;
         return (
           <ImageWrapper
-            src={src}
             x={x}
             y={y}
-            crossOrigin={crossOrigin}
             width={width}
             height={height}
+            src={src}
+            crossOrigin={crossOrigin}
             onLoad={this.onLoad}
             onError={this.onError}
             draggable={false}

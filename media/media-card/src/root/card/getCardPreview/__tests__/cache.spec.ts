@@ -1,6 +1,7 @@
 import { ObjectURLCache } from '../../../../utils/objectURLCache';
 import { CardPreviewCacheImpl, getCacheKey } from '../cache';
 import { CardPreview } from '../../../..';
+import { ImageResizeMode } from '@atlaskit/media-client';
 const objectURLCache = {
   set: jest.fn(),
   get: jest.fn(),
@@ -20,32 +21,31 @@ describe('CardPreviewCache', () => {
     const id = 'some-id';
     const newId = 'some-new-id';
 
-    const dimensions = { width: '1px', height: '1px' };
-    const sameDimensions = { width: '1px', height: '1px' };
-    const newDimensions = { width: '2px', height: '2px' };
+    const mode: ImageResizeMode = 'fit';
+    const newMode: ImageResizeMode = 'crop';
 
-    const key = getCacheKey(id, dimensions);
-    const sameKey = getCacheKey(id, sameDimensions);
-    const newKeyIdChanged = getCacheKey(newId, dimensions);
-    const newKeyDimChanged = getCacheKey(id, newDimensions);
+    const key = getCacheKey(id, mode);
+    const sameKey = getCacheKey(id, mode);
+    const newKeyIdChanged = getCacheKey(newId, mode);
+    const newKeyModeChanged = getCacheKey(id, newMode);
 
     expect(key === sameKey).toBe(true);
     expect(key !== newKeyIdChanged).toBe(true);
-    expect(key !== newKeyDimChanged).toBe(true);
+    expect(key !== newKeyModeChanged).toBe(true);
   });
 
   it('should add a cardPreview to cache', () => {
     const id = 'some-id';
-    const dimensions = { width: '1%', height: '1%' };
+    const mode: ImageResizeMode = 'fit';
 
     const preview: CardPreview = {
       dataURI: 'i-am-a-card-preview',
       source: 'remote',
     };
 
-    cache.set(id, dimensions, preview);
+    cache.set(id, mode, preview);
 
-    const cacheKey = getCacheKey(id, dimensions);
+    const cacheKey = getCacheKey(id, mode);
     expect(objectURLCache.set).toBeCalledWith(cacheKey, preview);
   });
 
@@ -54,21 +54,21 @@ describe('CardPreviewCache', () => {
     objectURLCache.get.mockReturnValueOnce(expectedPreview);
 
     const id = 'some-id';
-    const dimensions = { width: '1%', height: '1%' };
+    const mode: ImageResizeMode = 'full-fit';
 
-    const preview = cache.get(id, dimensions);
+    const preview = cache.get(id, mode);
 
-    const cacheKey = getCacheKey(id, dimensions);
+    const cacheKey = getCacheKey(id, mode);
     expect(objectURLCache.get).toBeCalledWith(cacheKey);
     expect(preview).toBe(expectedPreview);
   });
 
   it('should remove a cardPreview from cache', () => {
     const id = 'some-id';
-    const dimensions = { width: '1%', height: '1%' };
-    cache.remove(id, dimensions);
+    const mode: ImageResizeMode = 'crop';
+    cache.remove(id, mode);
 
-    const cacheKey = getCacheKey(id, dimensions);
+    const cacheKey = getCacheKey(id, mode);
     expect(objectURLCache.remove).toBeCalledWith(cacheKey);
   });
 });

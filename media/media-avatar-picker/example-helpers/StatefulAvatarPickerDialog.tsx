@@ -1,7 +1,7 @@
+/**@jsx jsx */
 /* eslint-disable no-console */
-
 import React from 'react';
-import styled from 'styled-components';
+import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/custom-theme-button';
 import { ModalTransition } from '@atlaskit/modal-dialog';
 import {
@@ -10,16 +10,9 @@ import {
   AsyncAvatarPickerDialogProps,
 } from '../src';
 import { generateAvatars } from '../example-helpers';
+import { layoutStyles } from './styles';
 
 const avatars: Array<Avatar> = generateAvatars(30);
-
-const Layout: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  height: 80vh;
-`;
 
 export interface State {
   isOpen: boolean;
@@ -120,24 +113,24 @@ export default class StatefulAvatarPickerDialog extends React.Component<
     } = this.state;
 
     return (
-      <Layout>
+      <div css={layoutStyles}>
         <Button appearance="primary" onClick={this.openPicker}>
           Open sesame!
         </Button>
         {this.renderPicker()}
         {imagePreviewSourceViaDataURIAPI !== '' ? (
-          <>
+          <React.Fragment>
             <p>onImagePickedDataURI(dataUri: string)</p>
             <img src={imagePreviewSourceViaDataURIAPI} />
-          </>
+          </React.Fragment>
         ) : null}
         {imagePreviewSourceViaFileAPI !== '' ? (
-          <>
+          <React.Fragment>
             <p>onImagePicked(selectedImage: File, crop: CropProperties)</p>
             <img src={imagePreviewSourceViaFileAPI} />
-          </>
+          </React.Fragment>
         ) : null}
-      </Layout>
+      </div>
     );
   }
 }

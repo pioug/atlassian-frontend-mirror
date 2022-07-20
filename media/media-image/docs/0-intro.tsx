@@ -1,4 +1,5 @@
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import {
   md,
   code,
@@ -8,7 +9,7 @@ import {
 } from '@atlaskit/docs';
 import { createRxjsNotice } from '@atlaskit/media-common/docs';
 
-import { Hr } from './shared';
+import { hrStyles } from './shared';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -19,7 +20,7 @@ export default md`
 
   View this guide to help upgrade breaking changes between major versions of media-image.
 
-  ${(<Hr />)}
+  ${(<hr css={hrStyles} />)}
 
   This package exports \`MediaImage\` component using
   [render prop pattern](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce).

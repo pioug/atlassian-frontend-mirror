@@ -1,6 +1,5 @@
-import styled from 'styled-components';
+import { css } from '@emotion/react';
 
-import { HTMLAttributes, ComponentClass } from 'react';
 import { fontFamily } from '@atlaskit/theme/constants';
 import { fadeIn } from '@atlaskit/media-ui';
 
@@ -23,7 +22,7 @@ export type { WithAppearanceProps } from './mixins';
 export { easeOutCubic, easeOutExpo } from './easing';
 export { spin } from './animations';
 
-export const Root: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const rootStyles = () => css`
   box-sizing: border-box;
   font-family: ${fontFamily()};
 
@@ -36,8 +35,8 @@ export const cardShadow = `
   box-shadow: 0 1px 1px rgba(9, 30, 66, 0.2), 0 0 1px 0 rgba(9, 30, 66, 0.24);
 `;
 
-export const FadeinImage: ComponentClass<HTMLAttributes<{}>> = styled.div`
+export const fadeinImageStyles = () => css`
   ${fadeIn};
 `;
 
-export default Root;
+export default rootStyles;

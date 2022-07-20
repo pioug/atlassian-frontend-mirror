@@ -193,6 +193,18 @@ const color: ValueSchema<DeprecatedTokenSchema> = {
       hover: { value: 'DN400A' },
       pressed: { value: 'DN500A' },
     },
+    interaction: {
+      inverse: {
+        hovered: {
+          // @ts-ignore temporary values
+          value: '#ffffff33',
+        },
+        pressed: {
+          // @ts-ignore temporary values
+          value: '#ffffff5c',
+        },
+      },
+    },
   },
   shadow: {
     card: {

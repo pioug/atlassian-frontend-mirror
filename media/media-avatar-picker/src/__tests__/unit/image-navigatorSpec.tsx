@@ -7,14 +7,6 @@ import ImageNavigator, {
   ImageNavigator as ImageNavigatorView,
   Props as ImageNavigatorProps,
 } from '../../image-navigator';
-import { CONTAINER_INNER_SIZE } from '../../avatar-picker-dialog/layout-const';
-import {
-  ImageUploader,
-  DragZone,
-  DragZoneImage,
-  DragZoneText,
-  PaddedBreak,
-} from '../../image-navigator/styled';
 import { ImageCropper } from '../../image-cropper';
 import { Slider } from '../../image-navigator/slider';
 import {
@@ -24,6 +16,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { errorIcon } from '../../image-navigator/images';
 import { ReactWrapper } from 'enzyme';
+import { DragZone } from '../../image-navigator/dragZone';
 
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader
 
@@ -34,6 +27,10 @@ describe('Image navigator', () => {
   let onImageError: () => void;
   let onImageUploaded: () => void;
   let isLoading: boolean;
+  const dragZoneImageSelector = 'img#drag-zone-image';
+  const paddedBreakSelector = 'p#padded-break';
+  const imageUploaderSelector = 'div#image-uploader';
+  const dragZoneTextSelector = 'div#drag-zone-text';
 
   const setup = (props?: Partial<ImageNavigatorProps>) => {
     return mountWithIntlContext(
@@ -95,26 +92,17 @@ describe('Image navigator', () => {
       expect(component.state().isDragging).toBe(false);
     });
 
-    describe('when image is dragged', () => {
-      const imageHeight = CONTAINER_INNER_SIZE * 2;
-      const imageWidth = CONTAINER_INNER_SIZE * 2;
-      beforeEach(() => {
-        imageCropper().props().onImageSize(imageWidth, imageHeight);
-        slider().props().onChange(100);
-      });
-    });
-
     describe('when image is scaled', () => {
       it('should render loading state when "isLoading" is true', () => {
         const component = setup({ isLoading: true });
 
         expect(component.find(Spinner)).toHaveLength(1);
         expect(component.find(DragZone).prop('showBorder')).toBeFalsy();
-        expect(component.find(DragZoneImage)).toHaveLength(0);
-        expect(component.find(DragZoneText)).toHaveLength(0);
+        expect(component.find(dragZoneImageSelector)).toHaveLength(0);
+        expect(component.find(dragZoneTextSelector)).toHaveLength(0);
         expect(component.find(ImageCropper)).toHaveLength(0);
         expect(component.find(Button)).toHaveLength(0);
-        expect(component.find(PaddedBreak)).toHaveLength(0);
+        expect(component.find(paddedBreakSelector)).toHaveLength(0);
       });
     });
   });
@@ -143,13 +131,12 @@ describe('Image navigator', () => {
     });
 
     it('should render ImageUploader to allow users to pick an image', () => {
-      expect(component.find(ImageUploader)).toHaveLength(1);
+      expect(component.find(imageUploaderSelector)).toHaveLength(1);
     });
 
     describe('when a file is dropped', () => {
       class MockFileReader {
         onload: any;
-
         readAsDataURL() {
           this.onload({ target: this });
         }
@@ -209,6 +196,7 @@ describe('Image navigator', () => {
         const { onDrop } = component.find(DragZone).props();
 
         onDrop(mockDropEvent(droppedImage));
+
         expect(onImageError).toHaveBeenCalledWith(
           'Image is too large, must be no larger than 10Mb',
         );
@@ -225,10 +213,10 @@ describe('Image navigator', () => {
             maxImageSize={4}
           />,
         );
-
         const { onDrop } = component.find(DragZone).props();
 
         onDrop(mockDropEvent(droppedImage));
+
         expect(onImageError).toHaveBeenCalledWith(
           'Image is too large, must be no larger than 4Mb',
         );
@@ -279,7 +267,7 @@ describe('Image navigator', () => {
     });
 
     it('should display error icon', () => {
-      expect(component.find(DragZoneImage).props().src).toBe(errorIcon);
+      expect(component.find(dragZoneImageSelector).props().src).toBe(errorIcon);
     });
 
     it('should not display image cropper', () => {

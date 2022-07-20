@@ -8,7 +8,13 @@ import {
 export const EXPIRES_AT_LATENCY_IN_SECONDS = 30;
 
 interface TokenDetail {
+  /**
+   * mediaApiToken is initialized from site emoji, if expired will be refreshed
+   */
   mediaApiToken?: MediaApiToken;
+  /**
+   * activeTokenRefresh is the active pending promise, used to prevents concurrent same promises
+   */
   activeTokenRefresh?: Promise<MediaApiToken>;
 }
 
@@ -33,6 +39,12 @@ export default class TokenManager {
     return false;
   }
 
+  fetchNewToken(type: TokenType): Promise<MediaApiToken> {
+    return serviceUtils.requestService<MediaApiToken>(this.siteServiceConfig, {
+      path: `token/${type}`,
+    });
+  }
+
   addToken(type: TokenType, mediaApiToken: MediaApiToken): void {
     this.tokens.set(type, {
       mediaApiToken,
@@ -46,29 +58,24 @@ export default class TokenManager {
       this.tokens.set(type, tokenDetail);
     }
     const { mediaApiToken, activeTokenRefresh } = tokenDetail;
+
     if (mediaApiToken) {
       if (this.isValidToken(mediaApiToken) && !forceRefresh) {
         // still valid
         return Promise.resolve(mediaApiToken);
       }
       if (activeTokenRefresh) {
-        // refresh already active, return that
+        // refresh token promise already active, return that
         return activeTokenRefresh;
       }
-      // clear expired token
-      tokenDetail.mediaApiToken = undefined;
     }
 
-    const path = `token/${type}`;
-
     // request a new token and track the promise for future requests until completed
-    tokenDetail.activeTokenRefresh = serviceUtils
-      .requestService<MediaApiToken>(this.siteServiceConfig, { path })
-      .then((mediaApiToken) => {
-        tokenDetail.activeTokenRefresh = undefined;
-        tokenDetail.mediaApiToken = mediaApiToken;
-        return mediaApiToken;
-      });
+    tokenDetail.activeTokenRefresh = this.fetchNewToken(type).then((token) => {
+      tokenDetail.mediaApiToken = token;
+      tokenDetail.activeTokenRefresh = undefined;
+      return token;
+    });
 
     return tokenDetail.activeTokenRefresh;
   }

@@ -1,5 +1,21 @@
 # @atlaskit/emoji
 
+## 65.0.0
+
+### Major Changes
+
+- [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
+
+### Minor Changes
+
+- [`34155ee7563`](https://bitbucket.org/atlassian/atlassian-frontend/commits/34155ee7563) - add sampling for 2 ufo experiences to reduce volume of analytics
+- [`11f56527739`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11f56527739) - Export emoji placeholder class name
+
+### Patch Changes
+
+- [`cd92dca3d5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd92dca3d5c) - minor improvements on upload emoji and add more tests
+- Updated dependencies
+
 ## 64.7.1
 
 ### Patch Changes

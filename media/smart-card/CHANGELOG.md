@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 20.0.5
+
+### Patch Changes
+
+- [`6e4810f82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e4810f82c3) - wrap hover preview in error boundary and emit failure event
+
+## 20.0.4
+
+### Patch Changes
+
+- [`2a5cc0d4297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a5cc0d4297) - Block: Update pull request link avatar to author (attributedTo)
+
+## 20.0.3
+
+### Patch Changes
+
+- [`4c2c26ca270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c2c26ca270) - Fix regression in logos in BlockCard footers in preview mode cuased by the `appearance` prop.
+- [`d4133fe0edc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4133fe0edc) - Fix regression in logos in BlockCard footers caused by inheriting ProseMirror styles after a change in @atlaskit/logo internals.
+- Updated dependencies
+
 ## 20.0.2
 
 ### Patch Changes

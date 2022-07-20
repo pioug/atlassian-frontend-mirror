@@ -80,7 +80,11 @@ describe('CodeViewRenderer', () => {
 
     expect(
       codeBlock.contains(
-        <CodeBlock language={defaultLanguage} text={defaultSrc} />,
+        <CodeBlock
+          language={defaultLanguage}
+          text={defaultSrc}
+          testId="code-block"
+        />,
       ),
     ).toEqual(true);
   });
@@ -97,7 +101,9 @@ describe('CodeViewRenderer', () => {
     expect(codeBlock).toHaveLength(1);
 
     expect(
-      codeBlock.contains(<CodeBlock language={'text'} text={longString} />),
+      codeBlock.contains(
+        <CodeBlock language={'text'} text={longString} testId="code-block" />,
+      ),
     ).toEqual(true);
   });
 });

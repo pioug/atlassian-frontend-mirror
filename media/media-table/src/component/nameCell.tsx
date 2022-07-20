@@ -1,9 +1,11 @@
-import React, { FC } from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
+import { FC } from 'react';
 import { MediaType } from '@atlaskit/media-client';
 import Tooltip from '@atlaskit/tooltip';
 import { Truncate, TruncateProps } from '@atlaskit/media-ui/truncateText';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import { NameCellWrapper, TruncateWrapper } from './styled';
+import { nameCellWrapperStyles, truncateWrapperStyles } from './styles';
 
 export interface NameCellProps extends TruncateProps {
   mediaType?: MediaType;
@@ -13,13 +15,13 @@ export const NameCell: FC<NameCellProps> = (props) => {
   const { mediaType, text, ...rest } = props;
 
   return (
-    <NameCellWrapper>
+    <div css={nameCellWrapperStyles}>
       {mediaType && <MediaTypeIcon type={mediaType} />}
-      <TruncateWrapper>
+      <div css={truncateWrapperStyles}>
         <Tooltip content={text}>
           <Truncate text={text} {...rest} />
         </Tooltip>
-      </TruncateWrapper>
-    </NameCellWrapper>
+      </div>
+    </div>
   );
 };

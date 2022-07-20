@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.6.1
+
+### Patch Changes
+
+- [`deca22d60e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deca22d60e1) - Update DynamicTable HeaderCellType to make it clear that the width prop takes a percentage not a pixel value
+
 ## 14.6.0
 
 ### Minor Changes

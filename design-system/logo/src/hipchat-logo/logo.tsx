@@ -9,10 +9,10 @@ import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
-const svg = (iconGradientStart: string, iconGradientStop: string) => {
-  const id = uid({ iconGradientStart: iconGradientStop });
-  return `<canvas height="32" width="118" aria-hidden="true"></canvas>
-  <svg viewBox="0 0 118 32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+const svg = ({ iconGradientStart, iconGradientStop }: LogoProps) => {
+  let id = uid({ iconGradientStart: iconGradientStop });
+  return `
+  <svg viewBox="0 0 118 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
     <defs>
       <linearGradient x1="49.9923722%" y1="107.31548%" x2="49.9923722%" y2="38.7491835%" id="${id}">
         <stop stop-color="${iconGradientStart}" ${
@@ -53,7 +53,10 @@ export const HipchatLogo = ({
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}
       size={size}
-      svg={svg}
+      svg={svg({
+        iconGradientStart,
+        iconGradientStop,
+      })}
       testId={testId}
       textColor={textColor}
     />

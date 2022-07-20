@@ -11,7 +11,7 @@ import {
   PreviewWrapper,
   Wrapper,
   FileInput,
-} from '../example-helpers/styled';
+} from '../example-helpers/stylesWrapper';
 import { uploadFile, MediaStore, UploadableFileUpfrontIds } from '../src';
 import { UploadableFile, UploadFileCallbacks } from '../src/uploader';
 

@@ -1,13 +1,10 @@
 import React from 'react';
-import { Wrapper } from './styled';
 import TickIcon from '@atlaskit/icon/glyph/check';
-
-export type TickBoxProps = {
-  selected?: boolean;
-};
+import { TickBoxProps } from './types';
+import { TickBoxWrapper } from './tickBoxWrapper';
 
 export const TickBox = ({ selected }: TickBoxProps) => (
-  <Wrapper selected={selected}>
+  <TickBoxWrapper selected={selected}>
     <TickIcon label="tick" />
-  </Wrapper>
+  </TickBoxWrapper>
 );

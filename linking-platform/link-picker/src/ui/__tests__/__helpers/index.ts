@@ -1,4 +1,4 @@
-import { LinkSearchListItemData } from '../../../../src/types';
+import { LinkSearchListItemData } from '../../types';
 
 export { default as ManualPromise } from './manual-promise';
 

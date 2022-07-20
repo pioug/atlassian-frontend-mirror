@@ -15,13 +15,14 @@ export const uploadEmoji = (
   errorSetter: (message: MessageDescriptor | undefined) => void,
   onSuccess: (emojiDescription: EmojiDescription) => void,
   fireAnalytics: (event: AnalyticsEventPayload) => void,
+  retry: boolean,
 ) => {
   const startTime = Date.now();
   errorSetter(undefined);
   if (supportsUploadFeature(emojiProvider)) {
     ufoExperiences['emoji-uploaded'].start();
     emojiProvider
-      .uploadCustomEmoji(upload)
+      .uploadCustomEmoji(upload, retry)
       .then((emojiDescription) => {
         fireAnalytics(
           uploadSucceededEvent({
@@ -45,9 +46,6 @@ export const uploadEmoji = (
           metadata: {
             source: 'UploadEmoji',
             error: err,
-            data: {
-              upload: { ...upload },
-            },
           },
         });
       });

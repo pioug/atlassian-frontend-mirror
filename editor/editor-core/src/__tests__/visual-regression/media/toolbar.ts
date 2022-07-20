@@ -41,7 +41,8 @@ describe('Snapshot Test: Media', () => {
       await page.click(mediaImageSelector);
     });
 
-    describe('Media Single', () => {
+    // TODO: Unskip flaky tests (ED-15254)
+    describe.skip('Media Single', () => {
       it('should show add link button', async () => {
         await makeSnapshot(page);
       });
@@ -86,7 +87,8 @@ describe('Snapshot Test: Media', () => {
         await makeSnapshot(page);
       });
 
-      it('should show error message when entering invalid link', async () => {
+      // TODO: Unskip flaky tests (ED-15254)
+      it.skip('should show error message when entering invalid link', async () => {
         await page.waitForSelector('[aria-label="Add link"]');
         await page.click('[aria-label="Add link"]');
         await waitForActivityItems(page, 5);

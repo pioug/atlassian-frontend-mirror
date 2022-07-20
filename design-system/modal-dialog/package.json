@@ -43,7 +43,7 @@
     "@atlaskit/ds-lib": "^2.0.0",
     "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/motion": "^1.1.0",
+    "@atlaskit/motion": "^1.2.0",
     "@atlaskit/portal": "^4.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",

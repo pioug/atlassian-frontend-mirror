@@ -39,10 +39,14 @@ const hashingFunction = async (blob: Blob): Promise<string> => {
 
 const createProbingFunction = (
   store: MediaStore,
+  deferredUploadId: Promise<string>,
   collectionName?: string,
 ) => async (chunks: Chunk[]): Promise<boolean[]> => {
   const response = await store.probeChunks(hashedChunks(chunks), {
     collectionName,
+    uploadId: getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
+      ? await deferredUploadId
+      : undefined,
   });
   const results = response.data.results;
 
@@ -51,12 +55,17 @@ const createProbingFunction = (
 
 const createUploadingFunction = (
   store: MediaStore,
+  deferredUploadId: Promise<string>,
   collectionName?: string,
-) => {
-  return (chunk: Chunk) =>
-    store.uploadChunk(chunk.hash, chunk.blob, {
-      collectionName,
-    });
+) => async (chunk: Chunk) => {
+  const options = getMediaFeatureFlag('mediaUploadApiV2', store.featureFlags)
+    ? { partNumber: chunk.partNumber, uploadId: await deferredUploadId }
+    : {};
+
+  return await store.uploadChunk(chunk.hash, chunk.blob, {
+    collectionName,
+    ...options,
+  });
 };
 
 const createProcessingFunction = (
@@ -138,8 +147,16 @@ export const uploadFile = (
       probingBatchSize: 100,
       chunkSize,
       uploadingConcurrency: 3,
-      uploadingFunction: createUploadingFunction(store, collection),
-      probingFunction: createProbingFunction(store, collection),
+      uploadingFunction: createUploadingFunction(
+        store,
+        deferredUploadId,
+        collection,
+      ),
+      probingFunction: createProbingFunction(
+        store,
+        deferredUploadId,
+        collection,
+      ),
       processingBatchSize: PROCESSING_BATCH_SIZE,
       processingFunction: createProcessingFunction(
         store,

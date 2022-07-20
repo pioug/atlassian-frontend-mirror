@@ -6,9 +6,9 @@ import { toArray } from 'rxjs/operators/toArray';
 describe('processinator', () => {
   it('should process blobs in batches', async () => {
     const probedChunks: ProbedBlob[] = [
-      { blob: new Blob(), hash: 'foo', exists: true },
-      { blob: new Blob(), hash: 'bar', exists: false },
-      { blob: new Blob(), hash: 'baz', exists: false },
+      { blob: new Blob(), hash: 'foo', exists: true, partNumber: 1 },
+      { blob: new Blob(), hash: 'bar', exists: false, partNumber: 2 },
+      { blob: new Blob(), hash: 'baz', exists: false, partNumber: 3 },
     ];
     const processor = jest.fn();
     processor.mockReturnValue(Promise.resolve());

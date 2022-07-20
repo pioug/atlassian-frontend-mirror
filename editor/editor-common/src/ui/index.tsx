@@ -64,7 +64,10 @@ export {
 export type { StyleProps as ExpandStyleProps } from './Expand';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
-export { clearNextSiblingMarginTopStyle } from './clear-next-sibling-margin-top';
+export {
+  clearNextSiblingMarginTopStyle,
+  clearNextSiblingBlockMarkMarginTopStyle,
+} from './clear-next-sibling-margin-top';
 export {
   IntlErrorBoundary,
   REACT_INTL_ERROR_MESSAGE,

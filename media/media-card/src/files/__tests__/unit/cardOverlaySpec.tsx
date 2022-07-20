@@ -3,12 +3,13 @@ import { shallow, ShallowWrapper, ReactWrapper } from 'enzyme';
 import { Ellipsify } from '@atlaskit/media-ui';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { CardOverlay } from '../../cardImageView/cardOverlay';
-import {
-  TitleWrapper,
-  Metadata,
-  ErrorMessage,
-} from '../../cardImageView/cardOverlay/styled';
 import { CardActionsView } from '../../../utils/';
+import {
+  AltWrapper,
+  ErrorMessage,
+  Metadata,
+  TitleWrapper,
+} from '../../cardImageView/cardOverlay/cardOverlayComponents';
 
 describe('CardOverlay', () => {
   const errorMessage = 'Loading failed';
@@ -41,11 +42,15 @@ describe('CardOverlay', () => {
     });
 
     it('should render both error message and alt text', () => {
-      const errorMessages = card.find(ErrorMessage).children() as ReactWrapper;
-      expect(errorMessages.map((x) => x.text())).toEqual([
-        errorMessage,
-        altTextMessage,
-      ]);
+      const receivedErrorMessage = card
+        .find(ErrorMessage)
+        .children() as ReactWrapper;
+      const receivedAltMessage = card
+        .find(AltWrapper)
+        .children() as ReactWrapper;
+
+      expect(receivedErrorMessage.text()).toBe(errorMessage);
+      expect(receivedAltMessage.text()).toBe(altTextMessage);
     });
   });
 

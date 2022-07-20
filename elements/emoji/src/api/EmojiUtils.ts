@@ -17,6 +17,7 @@ import {
   EmojiServiceRepresentation,
   EmojiServiceResponse,
   SpriteServiceRepresentation,
+  EmojiId,
 } from '../types';
 import {
   isImageRepresentation,
@@ -28,6 +29,14 @@ import debug from '../util/logger';
 
 export interface EmojiLoaderConfig extends ServiceConfig {
   getRatio?: () => number;
+}
+
+export interface SingleEmojiApiLoaderConfig extends ServiceConfig {
+  getUrl: (emojiId: EmojiId) => string;
+}
+
+export interface OptimisticImageApiLoaderConfig extends ServiceConfig {
+  getUrl: (emojiId: EmojiId) => string;
 }
 
 export const emojiRequest = (

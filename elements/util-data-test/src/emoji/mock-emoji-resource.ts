@@ -2,7 +2,12 @@ import {
   UploadingEmojiProvider,
   EmojiRepository,
 } from '@atlaskit/emoji/resource';
-import { EmojiDescription, EmojiUpload } from '@atlaskit/emoji/types';
+import {
+  EmojiDescription,
+  EmojiId,
+  EmojiUpload,
+  OptionalEmojiDescriptionWithVariations,
+} from '@atlaskit/emoji/types';
 import { emojiFromUpload } from './emoji-from-upload';
 import { MockNonUploadingEmojiResource } from './mock-non-uploading-emoji-resource';
 import { MockEmojiResourceConfig, UploadDetail } from './types';
@@ -33,6 +38,27 @@ export class MockEmojiResource
       );
     }
     return emoji;
+  }
+
+  async fetchEmojiProvider(
+    force?: boolean,
+  ): Promise<EmojiRepository | undefined> {
+    return Promise.resolve(this.emojiRepository);
+  }
+
+  public async fetchByEmojiId(
+    emojiId: EmojiId,
+    optimistic: boolean,
+  ): Promise<OptionalEmojiDescriptionWithVariations> {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(this.findByEmojiId(emojiId));
+      }, 1000);
+    });
+  }
+
+  public getOptimisticImageURL(emojiId: EmojiId) {
+    return 'optimisticUrl';
   }
 
   isUploadSupported(): Promise<boolean> {

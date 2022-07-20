@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ComponentClass } from 'react';
 
 import {
@@ -25,9 +25,8 @@ const resourcedEmojiModuleLoader = () =>
     /* webpackChunkName:"@atlaskit-internal_resourcedEmojiComponent" */ './ResourcedEmojiComponent'
   );
 
-const resourcedEmojiComponentLoader: () => Promise<
-  ComponentClass<ComponentProps>
-> = () => resourcedEmojiModuleLoader().then((module) => module.default);
+const resourcedEmojiComponentLoader: () => Promise<FC<ComponentProps>> = () =>
+  resourcedEmojiModuleLoader().then((module) => module.ResourcedEmojiComponent);
 
 export default class ResourcedEmoji extends LoadingEmojiComponent<
   Props,
@@ -35,7 +34,7 @@ export default class ResourcedEmoji extends LoadingEmojiComponent<
 > {
   // state initialised with static component to prevent
   // rerender when the module has already been loaded
-  static AsyncLoadedComponent: ComponentClass<ComponentProps>;
+  static AsyncLoadedComponent: FC<ComponentProps>;
   state = {
     asyncLoadedComponent: ResourcedEmoji.AsyncLoadedComponent,
   };

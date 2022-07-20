@@ -1,18 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { placeholder, placeholderContainer } from './styles';
+import {
+  placeholder,
+  placeholderContainer,
+  placeholderContainerAnimated,
+} from './styles';
 import { defaultEmojiHeight } from '../../util/constants';
 import { EmojiImageRepresentation } from '../../types';
-import {
-  isImageRepresentation,
-  isMediaRepresentation,
-} from '../../util/type-helpers';
 
 export interface Props {
   shortName: string;
   size?: number;
   showTooltip?: boolean;
   representation?: EmojiImageRepresentation;
+  loading?: boolean;
 }
 
 const EmojiPlaceholder = (props: Props) => {
@@ -21,16 +22,12 @@ const EmojiPlaceholder = (props: Props) => {
     size = defaultEmojiHeight,
     showTooltip,
     representation,
+    loading = false,
   } = props;
 
   let scaledWidth;
   let scaledHeight;
-  if (
-    representation &&
-    size &&
-    (isImageRepresentation(representation) ||
-      isMediaRepresentation(representation))
-  ) {
+  if (representation && size) {
     const width = representation.width;
     const height = representation.height;
     if (width && height) {
@@ -42,6 +39,7 @@ const EmojiPlaceholder = (props: Props) => {
   const height: number = scaledHeight || size;
   const style = {
     fill: 'f7f7f7',
+    minWidth: `${width}px`,
     width: `${width}px`,
     height: `${height}px`,
   };
@@ -49,9 +47,14 @@ const EmojiPlaceholder = (props: Props) => {
   return (
     <span
       data-testid={`emoji-placeholder-${shortName}`}
+      aria-busy={loading}
       aria-label={shortName}
       className={placeholder}
-      css={placeholderContainer}
+      css={
+        loading
+          ? [placeholderContainer, placeholderContainerAnimated]
+          : placeholderContainer
+      }
       style={style}
       title={showTooltip ? shortName : ''}
     />

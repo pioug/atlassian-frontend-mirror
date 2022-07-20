@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -16,7 +18,7 @@ import {
   MediaSubscription,
 } from '@atlaskit/media-client';
 import { MediaViewer, MediaViewerDataSource } from '@atlaskit/media-viewer';
-import { MediaTableWrapper } from './styled';
+import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';
 import {
   RowData,
@@ -277,10 +279,10 @@ export class MediaTable extends Component<
 
   render() {
     const content = (
-      <MediaTableWrapper>
+      <div css={mediaTableWrapperStyles}>
         {this.renderTable()}
         {this.renderMediaViewer()}
-      </MediaTableWrapper>
+      </div>
     );
 
     return this.props.intl ? (

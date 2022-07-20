@@ -1,7 +1,9 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { useState } from 'react';
 import dateFnsFormat from 'date-fns/format';
 import { MediaType } from '@atlaskit/media-client';
-import { ExampleWrapper, ROW_HIGHLIGHT_CLASSNAME } from './styled';
+import { exampleWrapperStyles, ROW_HIGHLIGHT_CLASSNAME } from './styles';
 import Range from '@atlaskit/range';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import {
@@ -14,8 +16,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaTableItem, NameCell } from '../src';
 import { IntlProvider } from 'react-intl-next';
-
-export { ROW_HIGHLIGHT_CLASSNAME } from './styled';
 
 export const createMockFileData = (name: string, mediaType: MediaType) => {
   return <NameCell text={name} mediaType={mediaType} endFixedChars={4} />;
@@ -31,7 +31,7 @@ export const RenderMediaTableWithFieldRange = (
   const [width, setWidth] = useState(1000);
 
   return (
-    <ExampleWrapper>
+    <div css={exampleWrapperStyles}>
       <IntlProvider locale="en">
         <div>
           Parent width: {width}px
@@ -45,7 +45,7 @@ export const RenderMediaTableWithFieldRange = (
         </div>
         <div style={{ width: `${width}px` }}>{MediaTableNode}</div>
       </IntlProvider>
-    </ExampleWrapper>
+    </div>
   );
 };
 

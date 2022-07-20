@@ -1,12 +1,6 @@
 import React from 'react';
 import ImageCropper, { ImageCropperProp } from '../../image-cropper';
 import { ERROR } from '../../avatar-picker-dialog';
-import {
-  Container,
-  DragOverlay,
-  ImageContainer,
-  RemoveImageButton,
-} from '../../image-cropper/styled';
 import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { MediaImage } from '@atlaskit/media-ui';
 
@@ -41,10 +35,10 @@ describe('Image cropper', () => {
       <ImageCropper {...allProps} />,
     );
     const img = component.find('img');
-    const imgContainer = component.find(ImageContainer);
-    const container = component.find(Container);
-    const removeImageButton = component.find(RemoveImageButton);
-    const dragOverlay = component.find(DragOverlay);
+    const imgContainer = component.find('div#image-container');
+    const container = component.find('div#container');
+    const removeImageButton = component.find('button#remove-image-button');
+    const dragOverlay = component.find('div#drag-overlay');
 
     return {
       onDragStartedSpy,

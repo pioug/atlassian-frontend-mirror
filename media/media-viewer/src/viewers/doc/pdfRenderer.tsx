@@ -2,9 +2,9 @@ import React from 'react';
 import { FileState } from '@atlaskit/media-client';
 import * as PDFJSViewer from 'pdfjs-dist/web/pdf_viewer';
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
-import { injectGlobal } from 'styled-components';
+import { css, Global } from '@emotion/react';
 import { ZoomControls } from '../../zoomControls';
-import { PDFWrapper } from '../../styled';
+import { PDFWrapper } from '../../styleWrappers';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
@@ -13,9 +13,7 @@ import { MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
 
 export const pdfViewerClassName = 'pdfViewer';
-
-/* eslint-disable no-unused-expressions */
-injectGlobal`
+const globalStyles = css`
   .${pdfViewerClassName} {
     margin-top: 64px;
     margin-bottom: 64px;
@@ -40,7 +38,7 @@ injectGlobal`
         opacity: 0.8;
 
         ::selection {
-          background: rgb(0,0,255);
+          background: rgb(0, 0, 255);
         }
       }
 
@@ -50,7 +48,8 @@ injectGlobal`
         bottom: 0;
       }
 
-      .textLayer > div, .annotationLayer > section {
+      .textLayer > div,
+      .annotationLayer > section {
         color: transparent;
         position: absolute;
         white-space: pre;
@@ -67,7 +66,8 @@ injectGlobal`
       }
 
       .linkAnnotation > a {
-        background: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7") 0 0 repeat;
+        background: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')
+          0 0 repeat;
       }
 
       .linkAnnotation > a:hover {
@@ -170,19 +170,22 @@ export class PDFRenderer extends React.Component<Props, State> {
     return this.state.doc.match({
       pending: () => <Spinner />,
       successful: () => (
-        <PDFWrapper
-          data-testid="media-viewer-pdf-content"
-          innerRef={this.savePdfElement}
-        >
-          <div
-            className={pdfViewerClassName}
-            onClick={closeOnDirectClick(this.props.onClose)}
-          />
-          <ZoomControls
-            zoomLevel={this.state.zoomLevel}
-            onChange={this.handleZoom}
-          />
-        </PDFWrapper>
+        <>
+          <Global styles={globalStyles} />
+          <PDFWrapper
+            data-testid="media-viewer-pdf-content"
+            ref={this.savePdfElement}
+          >
+            <div
+              className={pdfViewerClassName}
+              onClick={closeOnDirectClick(this.props.onClose)}
+            />
+            <ZoomControls
+              zoomLevel={this.state.zoomLevel}
+              onChange={this.handleZoom}
+            />
+          </PDFWrapper>
+        </>
       ),
       failed: (error) => {
         const { item } = this.props;

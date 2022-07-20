@@ -122,12 +122,17 @@ describe('TokenManager', () => {
         url: siteServiceConfig.url,
       });
 
-      const addedToken = {
+      const addedExpiredToken = {
         ...defaultMediaApiToken(),
         expiresAt: expiresAt(-60),
       };
 
-      const expectedToken = defaultMediaApiToken();
+      const expectedToken = {
+        ...defaultMediaApiToken(),
+        expiresAt: expiresAt(500),
+        clientId: 'refresh',
+      };
+
       fetchMock.mock({
         matcher: tokenReadUrl,
         response: {
@@ -136,11 +141,64 @@ describe('TokenManager', () => {
         name: 'token-read',
       });
 
-      tokenManager.addToken('read', addedToken);
-      return tokenManager.getToken('read').then((token) => {
+      tokenManager.addToken('read', addedExpiredToken);
+
+      tokenManager
+        .getToken('read')
+        .then((token) => {
+          expect(token).toEqual(expectedToken);
+          return tokenManager.getToken('read');
+        })
+        .then((token) => {
+          expect(token).toEqual(expectedToken);
+        });
+
+      tokenManager.getToken('read').then((token) => {
         expect(token).toEqual(expectedToken);
-        expect(fetchMock.calls('token-read').length).toEqual(1);
       });
+      expect(fetchMock.calls('token-read').length).toEqual(1);
+    });
+
+    it('get expired upload token refreshes from server', () => {
+      const tokenManager = new TokenManager({
+        url: siteServiceConfig.url,
+      });
+
+      const addedExpiredToken = {
+        ...defaultMediaApiToken(),
+        expiresAt: expiresAt(-60),
+      };
+
+      const expectedToken = {
+        ...defaultMediaApiToken(),
+        expiresAt: expiresAt(500),
+        clientId: 'refresh',
+      };
+
+      fetchMock.mock({
+        matcher: tokenUploadUrl,
+        response: {
+          body: expectedToken,
+        },
+        name: 'token-upload',
+      });
+
+      tokenManager.addToken('upload', addedExpiredToken);
+
+      tokenManager
+        .getToken('upload')
+        .then((token) => {
+          expect(token).toEqual(expectedToken);
+          return tokenManager.getToken('upload');
+        })
+        .then((token) => {
+          expect(token).toEqual(expectedToken);
+        });
+
+      tokenManager.getToken('upload').then((token) => {
+        expect(token).toEqual(expectedToken);
+      });
+      expect(fetchMock.calls('token-upload').length).toEqual(1);
     });
 
     it('read / upload tokens are separate tokens', () => {

@@ -63,8 +63,6 @@ export interface Props extends WithAnalyticsEventsProps {
   timeIsEditable?: boolean;
   /** Set if the picker has an invalid value. */
   isInvalid?: boolean;
-  /** DEPRECATED - This is here only for backwards compatibility and doesn't do anything. It will be removed in the next MAJOR. */
-  hideIcon?: boolean;
   /** Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format). */
   dateFormat?: string;
   /** Props applied to the `DatePicker`. */
@@ -385,6 +383,9 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     const isClearable = Boolean(dateValue || timeValue);
     const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 
+    const labelId =
+      datePickerSelectProps?.inputId || timePickerSelectProps?.inputId || '';
+
     return (
       <div
         css={[
@@ -400,7 +401,7 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
         {...innerProps}
         data-testid={testId}
       >
-        <input name={name} type="hidden" value={value} />
+        <input id={labelId} name={name} type="hidden" value={value} />
         <div css={datePickerContainerStyles}>
           <DatePicker
             {...bothProps}

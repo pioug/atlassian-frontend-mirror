@@ -12,6 +12,7 @@ import {
   RendererAppearance,
   StickyHeaderProps,
   HeadingAnchorLinksProps,
+  NodeComponentsProps,
 } from './Renderer/types';
 import { MediaOptions } from '../types/mediaOptions';
 import { SmartLinksOptions } from '../types/smartLinksOptions';
@@ -75,6 +76,7 @@ export interface RendererProps {
   allowUgcScrubber?: boolean;
   allowSelectAllTrap?: boolean;
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
+  nodeComponents?: NodeComponentsProps;
 
   /**
    * @default undefined

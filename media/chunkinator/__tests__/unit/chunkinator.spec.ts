@@ -115,12 +115,27 @@ describe('chunkinator', () => {
     const observable = chunkinator(file, options, { onProgress });
     await observable.toPromise();
     expect(processingFunction).toHaveBeenCalledTimes(2);
-    expect(processingFunction.mock.calls[0][0]).toEqual([
-      { blob: new Blob(['12345']), exists: false, hash: 'random-hash-5' },
-      { blob: new Blob(['67890']), exists: false, hash: 'random-hash-5' },
+    expect(processingFunction.mock.calls[0][0]).toStrictEqual([
+      {
+        blob: new Blob(['12345']),
+        exists: false,
+        hash: 'random-hash-5',
+        partNumber: 1,
+      },
+      {
+        blob: new Blob(['67890']),
+        exists: false,
+        hash: 'random-hash-5',
+        partNumber: 2,
+      },
     ]);
-    expect(processingFunction.mock.calls[1][0]).toEqual([
-      { blob: new Blob(['12345']), exists: false, hash: 'random-hash-5' },
+    expect(processingFunction.mock.calls[1][0]).toStrictEqual([
+      {
+        blob: new Blob(['12345']),
+        exists: false,
+        hash: 'random-hash-5',
+        partNumber: 3,
+      },
     ]);
   });
 

@@ -6,11 +6,11 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaClientConfig } from '@atlaskit/media-core';
 import { FileState, MediaClient, UploadController } from '../src';
-import { FilesWrapper, FileWrapper } from '../example-helpers/styled';
+import { FileWrapper } from '../example-helpers/stylesWrapper';
 import {
   MediaSubscribable,
   MediaSubscription,
-} from '../src/utils/toMediaSubscribable';
+} from '../src/utils/mediaSubscribable';
 
 export interface ComponentProps {}
 export interface ComponentState {
@@ -122,7 +122,7 @@ class Example extends Component<ComponentProps, ComponentState> {
       );
     });
 
-    return <FilesWrapper>{fileData}</FilesWrapper>;
+    return <div>{fileData}</div>;
   };
 
   cancelUpload = () => {

@@ -1,5 +1,5 @@
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
-import { TestPage } from './_types';
+import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helper';
 import { selectors } from './_editor';
 
 export const EMOJI_TRIGGER = ':';
@@ -8,10 +8,19 @@ export const emojiSelectors = {
   standard: `.${EmojiSharedCssClassName.EMOJI_SPRITE}`,
   custom: `.${EmojiSharedCssClassName.EMOJI_IMAGE}`,
   node: `.${EmojiSharedCssClassName.EMOJI_NODE}`,
+  placeholder: `.${EmojiSharedCssClassName.EMOJI_PLACEHOLDER}`,
 };
 
-export async function waitForEmojis(page: TestPage) {
-  await page.waitForSelector(emojiSelectors.standard);
+export async function waitForNoEmojiPlaceholder(page: PuppeteerPage) {
+  await page.waitForSelector(emojiSelectors.placeholder, {
+    timeout: 5000,
+    hidden: true,
+  });
+}
+
+export async function waitForEmojisToLoad(page: PuppeteerPage) {
+  await waitForNoEmojiPlaceholder(page);
+  await waitForLoadedBackgroundImages(page, emojiSelectors.standard);
 }
 
 export const emojiSearch = async (

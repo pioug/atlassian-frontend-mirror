@@ -30,7 +30,7 @@ import { ItemSource } from './domain';
 import { List } from './list';
 import { Collection } from './collection';
 import { Content } from './content';
-import { Blanket, SidebarWrapper } from './styled';
+import { Blanket, SidebarWrapper } from './styleWrappers';
 import { start } from 'perf-marks';
 import { MediaViewerExtensions } from './components/types';
 import { mediaViewerPopupClass } from './classnames';

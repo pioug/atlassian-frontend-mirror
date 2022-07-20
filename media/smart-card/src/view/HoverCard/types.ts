@@ -4,10 +4,18 @@ import { AnalyticsFacade } from '../../state/analytics';
 import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { CardState } from '@atlaskit/linking-common';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { AnalyticsHandler } from '../../utils/types';
+import { ReactElement } from 'react';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
   id?: string;
   url: string;
+  children: ReactElement;
+}
+
+export interface HoverCardComponentProps extends HoverCardProps {
+  analyticsHandler: AnalyticsHandler;
+  analytics: AnalyticsFacade;
 }
 
 export type PreviewDisplay = 'card' | 'embed';

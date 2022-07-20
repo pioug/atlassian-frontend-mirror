@@ -6,12 +6,14 @@ import {
   addFileAttrsToUrl,
   MediaStoreGetFileImageParams,
   MediaBlobUrlAttrs,
+  FileIdentifier,
 } from '@atlaskit/media-client';
 import {
   MediaFeatureFlags,
   isMimeTypeSupportedByBrowser,
   SSR,
 } from '@atlaskit/media-common';
+import { ImageResizeMode } from '@atlaskit/media-client';
 import { CardDimensions } from '../../../utils/cardDimensions';
 import cardPreviewCache from './cache';
 import {
@@ -65,7 +67,7 @@ export type CardPreviewParams = {
 
 const extendAndCachePreview = (
   id: string,
-  dimensions: CardDimensions,
+  mode: ImageResizeMode | undefined,
   preview: CardPreview,
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 ): CardPreview => {
@@ -91,7 +93,7 @@ const extendAndCachePreview = (
     ? addFileAttrsToUrl(preview.dataURI, mediaBlobUrlAttrs)
     : preview.dataURI;
   // We store new cardPreview into cache
-  cardPreviewCache.set(id, dimensions, { ...preview, source, dataURI });
+  cardPreviewCache.set(id, mode, { ...preview, source, dataURI });
   return { ...preview, dataURI };
 };
 
@@ -115,8 +117,11 @@ export const getCardPreview = async ({
   imageUrlParams,
   mediaBlobUrlAttrs,
 }: CardPreviewParams): Promise<CardPreview> => {
-  const cachedPreview = cardPreviewCache.get(id, dimensions);
-  if (cachedPreview) {
+  const mode = imageUrlParams.mode;
+  const cachedPreview = cardPreviewCache.get(id, mode);
+  const dimensionsAreBigger = isBigger(cachedPreview?.dimensions, dimensions);
+
+  if (cachedPreview && !dimensionsAreBigger) {
     return cachedPreview;
   }
 
@@ -125,8 +130,8 @@ export const getCardPreview = async ({
       const localPreview = await getCardPreviewFromFilePreview(filePreview);
       return extendAndCachePreview(
         id,
-        dimensions,
-        localPreview,
+        mode,
+        { ...localPreview, dimensions },
         mediaBlobUrlAttrs,
       );
     }
@@ -178,7 +183,8 @@ export const shouldResolvePreview = ({
   status,
   fileState,
   dimensions,
-  prevDimensions,
+  identifier,
+  fileImageMode,
   hasCardPreview,
   isBannedLocalPreview,
   featureFlags,
@@ -186,7 +192,8 @@ export const shouldResolvePreview = ({
   status: CardStatus;
   fileState: FileState;
   dimensions?: CardDimensions;
-  prevDimensions?: CardDimensions;
+  identifier: FileIdentifier;
+  fileImageMode?: ImageResizeMode;
   hasCardPreview: boolean;
   isBannedLocalPreview: boolean;
   featureFlags?: MediaFeatureFlags;
@@ -195,7 +202,8 @@ export const shouldResolvePreview = ({
     status,
     extractFilePreviewStatus(fileState, isBannedLocalPreview, featureFlags),
   );
-  const dimensionsAreBigger = isBigger(prevDimensions, dimensions);
+  const cardPreview = cardPreviewCache.get(identifier.id, fileImageMode);
+  const dimensionsAreBigger = isBigger(cardPreview?.dimensions, dimensions);
   return statusIsPreviewable && (!hasCardPreview || dimensionsAreBigger);
 };
 
@@ -262,8 +270,8 @@ export const fetchAndCacheRemotePreview = async (
   );
   return extendAndCachePreview(
     id,
-    dimensions,
-    remotePreview,
+    params.mode,
+    { ...remotePreview, dimensions },
     mediaBlobUrlAttrs,
   );
 };

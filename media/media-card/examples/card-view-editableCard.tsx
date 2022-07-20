@@ -1,6 +1,5 @@
-// eslint-disable-line no-console
-
-import React from 'react';
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import { RadioGroup } from '@atlaskit/radio';
 import {
@@ -29,14 +28,14 @@ import {
   actions,
 } from '../example-helpers';
 import {
-  EditableCardOptions,
-  EditableCardContent,
-  SliderWrapper,
-  OptionsWrapper,
-  CardDimensionsWrapper,
-  FlexWrapper,
-  CardPreviewWrapper,
-} from '../example-helpers/styled';
+  editableCardOptionsStyles,
+  editableCardContentStyles,
+  sliderWrapperStyles,
+  optionsWrapperStyles,
+  cardDimensionsWrapperStyles,
+  flexWrapperStyles,
+  cardPreviewWrapperStyles,
+} from '../example-helpers/styles';
 import { defaultImageCardDimensions } from '../src/utils/cardDimensions';
 import { MainWrapper } from '../example-helpers';
 
@@ -230,17 +229,17 @@ export const generateStoriesForEditableCards = () => {
       return (
         <I18NWrapper>
           <MainWrapper>
-            <FlexWrapper>
-              <CardPreviewWrapper>
-                <CardDimensionsWrapper>
+            <div css={flexWrapperStyles}>
+              <div css={cardPreviewWrapperStyles}>
+                <div css={cardDimensionsWrapperStyles}>
                   <div>
                     Card dimensions: {width}x{height}
                   </div>
                   <div>
                     Parent dimensions: {parentWidth}x{parentHeight}
                   </div>
-                </CardDimensionsWrapper>
-                <EditableCardContent style={parentStyle}>
+                </div>
+                <div css={editableCardContentStyles} style={parentStyle}>
                   <CardView
                     appearance={appearance}
                     status={status}
@@ -258,10 +257,10 @@ export const generateStoriesForEditableCards = () => {
                     onClick={this.onClick}
                     onMouseEnter={this.onMouseEnter}
                   />
-                </EditableCardContent>
-              </CardPreviewWrapper>
-              <EditableCardOptions>
-                <SliderWrapper>
+                </div>
+              </div>
+              <div css={editableCardOptionsStyles}>
+                <div css={sliderWrapperStyles}>
                   <div>
                     Card dimensions <hr />
                     <div>
@@ -396,8 +395,8 @@ export const generateStoriesForEditableCards = () => {
                       onChange={this.onUseDimensionsChange}
                     />
                   </div>
-                </SliderWrapper>
-                <OptionsWrapper>
+                </div>
+                <div css={optionsWrapperStyles}>
                   <div>
                     Appearance
                     <RadioGroup
@@ -448,9 +447,9 @@ export const generateStoriesForEditableCards = () => {
                       onChange={this.onResizeModeChange}
                     />
                   </div>
-                </OptionsWrapper>
-              </EditableCardOptions>
-            </FlexWrapper>
+                </div>
+              </div>
+            </div>
           </MainWrapper>
         </I18NWrapper>
       );

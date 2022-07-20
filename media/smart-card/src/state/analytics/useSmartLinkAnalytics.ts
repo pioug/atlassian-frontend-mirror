@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { ErrorInfo, useMemo } from 'react';
 import { CardType, APIError, getUrl } from '@atlaskit/linking-common';
 import { AnalyticsHandler } from '../../utils/types';
 import { CardInnerAppearance } from '../../view/Card/types';
@@ -13,6 +13,7 @@ import {
   uiActionClickedEvent,
   uiClosedAuthEvent,
   uiRenderSuccessEvent,
+  uiRenderFailedEvent,
   uiHoverCardViewedEvent,
   uiHoverCardDismissedEvent,
   uiHoverCardOpenLinkClickedEvent,
@@ -62,13 +63,14 @@ export const useSmartLinkAnalytics = (
   const defaultId = id || 'NULL';
   // We don't want to trigger a re-render by using useSmartCardState
   const { store } = useSmartLinkContext();
-  const state = getUrl(store, url);
+  const state = store ? getUrl(store, url) : undefined;
+  const details = state ? state.details : undefined;
 
-  const extractedDefinitionId = getDefinitionId(state.details);
-  const extractedExtensionKey = getExtensionKey(state.details);
-  const extractedResourceType = getResourceType(state.details);
-  const extractedSubproduct = getSubproduct(state.details);
-  const extractedProduct = getProduct(state.details);
+  const extractedDefinitionId = getDefinitionId(details);
+  const extractedExtensionKey = getExtensionKey(details);
+  const extractedResourceType = getResourceType(details);
+  const extractedSubproduct = getSubproduct(details);
+  const extractedProduct = getProduct(details);
 
   /** Contains all ui analytics events */
   const ui = useMemo(
@@ -240,6 +242,27 @@ export const useSmartLinkAnalytics = (
         dispatchAnalytics(
           uiRenderSuccessEvent(display, status, definitionId, extensionKey),
         );
+      },
+      /**
+       * This fires an event that represents when a Smart Link renders unsuccessfuly.
+       * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
+       * @param id The unique ID for this Smart Link.
+       * @param error: An error representing why the Smart Link render failed.
+       * @param errorInfo: Additional details about the error including the stack trace.
+       */
+      renderFailedEvent: (
+        display: CardInnerAppearance,
+        id: string = defaultId,
+        error: Error,
+        errorInfo: ErrorInfo,
+      ) => {
+        // Start and fail the smart-link-rendered experience. If it has already
+        // been started nothing happens.
+        startUfoExperience('smart-link-rendered', id);
+        failUfoExperience('smart-link-rendered', id);
+        failUfoExperience('smart-link-authenticated', id);
+
+        dispatchAnalytics(uiRenderFailedEvent(display, error, errorInfo));
       },
       /**
        * This fires an event that represents a hover preview being opened.

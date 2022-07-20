@@ -6,22 +6,22 @@ Ensures usage of up-to-date Atlassian Design System dependencies.
 
 👎 Example of **incorrect** code for this rule:
 
-```js
+```ts
 import Item from '@atlaskit/item';
-                          ^^^^
+                  ^^^^^^^^^^^^^^
 ```
 
-```js
+```ts
 import GlobalNav from '@atlaskit/global-navigation';
-                          ^^^^
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ```
 
 👍 Example of **correct** code for this rule:
 
-```js
+```ts
 import Modal from '@atlaskit/modal-dialog';
 ```
 
-```js
+```ts
 import { ButtonItem } from '@atlaskit/menu';
 ```

@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { Component, ReactNode } from 'react';
 import {
@@ -13,25 +15,23 @@ import { CardAction } from '../../actions';
 
 import { CardOverlay } from './cardOverlay';
 import {
-  PlayIconWrapper,
-  Wrapper,
-  ProgressBarWrapper,
-  Body,
-  CardActionsWrapper,
-  Overlay,
-  ProgressWrapper,
-  Title,
-  PlayIconBackground,
-} from './styled';
+  bodyStyles,
+  cardActionsWrapperStyles,
+  overlayStyles,
+  progressWrapperStyles,
+  titleStyles,
+  playIconBackgroundStyles,
+} from './styles';
 import { CardLoading } from '../../utils/lightCards/cardLoading';
 import { shouldDisplayImageThumbnail } from '../../utils/shouldDisplayImageThumbnail';
 import { ProgressBar } from '../../utils/progressBar';
 import CardActions from '../../utils/cardActions';
 import { CardPreview } from '../..';
 import {
-  fileCardImageViewSelectedSelector,
-  fileCardImageViewSelector,
-} from './classnames';
+  CardImageViewWrapper,
+  PlayIconWrapper,
+  ProgressBarWrapper,
+} from './cardImageViewWrapper';
 
 export interface FileCardImageViewProps {
   readonly mediaName?: string;
@@ -76,22 +76,17 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
       mediaName,
     } = this.props;
     return (
-      <Wrapper
-        data-testid="media-file-card-view"
-        data-test-media-name={mediaName}
-        data-test-status={status}
-        data-test-progress={progress}
-        data-test-selected={selected ? true : undefined}
+      <CardImageViewWrapper
+        mediaName={mediaName}
+        status={status}
+        progress={progress}
         disableOverlay={disableOverlay}
         selectable={selectable}
         selected={selected}
         mediaType={mediaType}
-        className={`${fileCardImageViewSelector} ${
-          selected ? fileCardImageViewSelectedSelector : ''
-        }`}
       >
         {this.renderCardContents()}
-      </Wrapper>
+      </CardImageViewWrapper>
     );
   }
 
@@ -141,7 +136,7 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
     } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <div className="wrapper" />
         <CardOverlay
           cardStatus={status}
@@ -153,7 +148,7 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
           subtitle={fileSize}
           actions={actions}
         />
-      </>
+      </React.Fragment>
     );
   };
 
@@ -161,7 +156,7 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
     const { status, mediaName, mediaType, actions, fileSize } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <div className="wrapper" />
         <CardOverlay
           cardStatus={status}
@@ -172,7 +167,7 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
           subtitle={fileSize}
           actions={actions}
         />
-      </>
+      </React.Fragment>
     );
   };
 
@@ -227,13 +222,13 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
 
     return (
       <PlayIconWrapper>
-        <PlayIconBackground>
+        <div css={playIconBackgroundStyles}>
           <VidPlayIcon
             testId="media-card-play-button"
             label="play"
             size="large"
           />
-        </PlayIconBackground>
+        </div>
       </PlayIconWrapper>
     );
   };
@@ -302,25 +297,25 @@ export class FileCardImageView extends Component<FileCardImageViewProps> {
 
     return (
       <ProgressBarWrapper>
-        <Overlay>
-          <Title>
+        <div css={overlayStyles}>
+          <div css={titleStyles}>
             <Ellipsify
               testId="media-card-file-name"
               text={mediaName || ''}
               lines={2}
             />
-          </Title>
-          <Body>
-            <ProgressWrapper>
+          </div>
+          <div css={bodyStyles}>
+            <div css={progressWrapperStyles}>
               <ProgressBar progress={progress} />
-            </ProgressWrapper>
-            <CardActionsWrapper>
+            </div>
+            <div css={cardActionsWrapperStyles}>
               {actions ? (
                 <CardActions actions={actions} triggerColor="white" />
               ) : null}
-            </CardActionsWrapper>
-          </Body>
-        </Overlay>
+            </div>
+          </div>
+        </div>
       </ProgressBarWrapper>
     );
   };

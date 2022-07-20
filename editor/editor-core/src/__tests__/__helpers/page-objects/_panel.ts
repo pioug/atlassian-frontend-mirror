@@ -10,4 +10,5 @@ export const panelSelectors = {
   infoPanel: PanelSharedSelectors.infoPanel,
   removeButton: PanelSharedSelectors.removeButton,
   icon: `.${PanelSharedCssClassName.icon}`,
+  copyButton: PanelSharedSelectors.copyButton,
 };

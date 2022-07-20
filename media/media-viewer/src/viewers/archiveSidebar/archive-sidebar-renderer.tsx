@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 import { MediaClient, FileState } from '@atlaskit/media-client';
 
-import { SpinnerWrapper } from '../../styled';
+import { SpinnerWrapper } from '../../styleWrappers';
 import { ArchiveSidebar } from './archive-sidebar';
 import { getArchiveEntriesFromFileState } from './archive';
 import { Spinner } from '../../loading';
 import { ArchiveViewerError } from '../../errors';
-import { ArchiveSideBar } from './styled';
+import { ArchiveSideBar } from './styleWrappers';
 import { ZipEntry } from 'unzipit';
 
 export interface ArchiveSidebarRendererProps {

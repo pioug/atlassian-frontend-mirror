@@ -1,5 +1,16 @@
 # @atlaskit/tooltip
 
+## 17.5.13
+
+### Patch Changes
+
+- [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
+- [`4efc76f8a72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4efc76f8a72) - [ux] Fixes a bug where tooltip entrance and exit direction animations were not working since version 12.1.7, after upgrading `react-popper`.
+
+  This involved adding a wrapper `<div>` around the tooltip to separate the positioning and animation styles. The wrapper can be identified in tests using `testId` with the pattern `{testId}--wrapper`.
+
+- Updated dependencies
+
 ## 17.5.12
 
 ### Patch Changes

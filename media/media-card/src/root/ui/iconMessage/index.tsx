@@ -1,18 +1,8 @@
 import React from 'react';
-import { IconMessageWrapper } from './styled';
+import { IconMessageWrapper } from './iconMessageWrapper';
 import { messages } from '@atlaskit/media-ui';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
-import { FormattedMessageWrapper } from '../../styled';
-
-export type InternalIconMessageProps = {
-  messageDescriptor: MessageDescriptor;
-  animated?: boolean;
-  reducedFont?: boolean;
-};
-
-type CreatingPreviewProps = {
-  disableAnimation?: boolean;
-};
+import { FormattedMessage } from 'react-intl-next';
+import { InternalIconMessageProps, CreatingPreviewProps } from './types';
 
 export const IconMessage: React.FC<InternalIconMessageProps> = ({
   messageDescriptor,
@@ -21,9 +11,9 @@ export const IconMessage: React.FC<InternalIconMessageProps> = ({
 }) => {
   return (
     <IconMessageWrapper animated={animated} reducedFont={reducedFont}>
-      <FormattedMessageWrapper>
+      <span>
         <FormattedMessage {...messageDescriptor} />
-      </FormattedMessageWrapper>
+      </span>
     </IconMessageWrapper>
   );
 };

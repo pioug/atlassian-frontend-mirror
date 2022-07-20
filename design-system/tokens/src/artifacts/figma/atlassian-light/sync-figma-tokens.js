@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::ea16fe34d028f699adfcf9883b1b1b4e>>
+ * @codegen <<SignedSource::213d670970d78ba33388bd90f64c31b4>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -1527,7 +1527,7 @@ synchronizeFigmaTokens('AtlassianLight', {
       "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
     },
-    "value": "#ffffff33"
+    "value": "#00000029"
   },
   "Color/Interaction/Pressed": {
     "attributes": {
@@ -1535,24 +1535,6 @@ synchronizeFigmaTokens('AtlassianLight', {
       "state": "active",
       "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
-    },
-    "value": "#ffffff5c"
-  },
-  "Color/Interaction/Inverse/Hovered": {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
-    },
-    "value": "#00000029"
-  },
-  "Color/Interaction/Inverse/Pressed": {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.6.0",
-      "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
     },
     "value": "#00000052"
   },
@@ -1789,6 +1771,8 @@ synchronizeFigmaTokens('AtlassianLight', {
   "Color/Background/Sunken": "Elevation/Surface/Sunken",
   "Color/Background/TransparentNeutral/Hover": "Color/Background/Neutral/Subtle/Hovered",
   "Color/Background/TransparentNeutral/Pressed": "Color/Background/Neutral/Subtle/Pressed",
+  "Color/Interaction/Inverse/Hovered": "Color/Background/Inverse/Subtle/Hovered",
+  "Color/Interaction/Inverse/Pressed": "Color/Background/Inverse/Subtle/Pressed",
   "Color/Accent/BoldBlue": "Color/Background/Accent/Blue/Bolder",
   "Color/Accent/BoldGreen": "Color/Background/Accent/Green/Bolder",
   "Color/Accent/BoldOrange": "Color/Background/Accent/Orange/Bolder",

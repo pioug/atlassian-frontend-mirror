@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {
+import {
   useState,
   useCallback,
   ComponentClass,
@@ -9,8 +9,7 @@ import React, {
 import { css, jsx } from '@emotion/react';
 
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item, { itemThemeNamespace } from '@atlaskit/item';
+import { Section, ButtonItem } from '@atlaskit/menu';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius, gridSize } from '@atlaskit/theme';
@@ -137,30 +136,20 @@ const InsertMenu = ({
 };
 
 const ViewMore = ({ item }: { item: QuickInsertItem }) => {
-  const onKeyPress = useCallback(
-    (e: React.KeyboardEvent) => {
-      const SPACE_KEY = 32;
-      const ENTER_KEY = 13;
-
-      if (e.which === ENTER_KEY || e.which === SPACE_KEY) {
-        // @ts-ignore We manually transformed "view more" to a quickInsert item
-        // action would always toggle the ModalElementBrowser
-        item.action();
-      }
-    },
-    [item],
-  );
   return (
-    <Item
-      onClick={item.action}
-      elemBefore={<div css={itemBefore}>{item.icon!()}</div>}
-      aria-describedby={item.title}
-      data-testid="view-more-elements-item"
-      onKeyPress={onKeyPress}
-      theme={viewMoreItemTheme}
-    >
-      {item.title}
-    </Item>
+    <Section hasSeparator>
+      <ButtonItem
+        onClick={item.action as any}
+        iconBefore={<div css={itemBefore}>{item.icon!()}</div>}
+        aria-describedby={item.title}
+        data-testid="view-more-elements-item"
+        css={css`
+          padding: 0px 12px;
+        `}
+      >
+        {item.title}
+      </ButtonItem>
+    </Section>
   );
 };
 
@@ -219,20 +208,6 @@ const itemBefore = css`
   align-items: center;
   margin-right: ${gridSize() / 2}px;
 `;
-
-const PADDING_LEFT = 14;
-const HEIGHT = 40;
-
-const viewMoreItemTheme = {
-  [itemThemeNamespace]: {
-    padding: {
-      default: {
-        left: PADDING_LEFT,
-      },
-    },
-    height: HEIGHT,
-  },
-};
 
 const flexWrapperStyles = css`
   display: flex;

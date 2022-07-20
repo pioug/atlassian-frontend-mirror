@@ -7,12 +7,18 @@ const urlDateTimePicker = getExampleUrl(
   'datetime-picker',
   'date-picker-states',
 );
+const urlDatePickerTabCheck = getExampleUrl(
+  'design-system',
+  'datetime-picker',
+  'date-picker-tabcheck',
+);
 /* Css used for the test */
 const datePicker = '[data-testid="datePicker--container"]';
 const menu = `[aria-label="calendar"]`;
 const date = '[role=gridcell]:nth-child(6)';
 const input = 'input#react-select-stock-input';
 const toggle = 'label[for="toggle"]';
+const calendar = `[aria-label='calendar']`;
 
 const value = `${datePicker} > div`;
 
@@ -104,5 +110,31 @@ BrowserTestCase(
     /* After un-disabling the date picker can be opened by clicking */
     await page.click(datePicker);
     expect(await page.waitForSelector(menu)).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  'Tabing through input component with datepicker and in popup panel should be able tab to next input after datepicker',
+  {},
+  async (client: any) => {
+    const page = new Page(client);
+    await page.goto(urlDatePickerTabCheck);
+
+    await page.click('input#text1');
+    await page.keys('Tab');
+
+    expect(await page.waitForSelector(calendar)).toBe(true);
+
+    await page.keys('Tab');
+    expect(await page.hasFocus('input#text2')).toBe(true);
+
+    await page.click('button#popup-trigger');
+    await page.click('input#text3');
+    await page.keys('Tab');
+
+    expect(await page.waitForSelector(calendar)).toBe(true);
+
+    await page.keys('Tab');
+    expect(await page.hasFocus('input#text4')).toBe(true);
   },
 );

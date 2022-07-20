@@ -9,10 +9,10 @@ import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
-const svg = (iconGradientStart: string, iconGradientStop: string) => {
-  const id = uid({ iconGradientStart: iconGradientStop });
-  return `<canvas height="32" width="32" aria-hidden="true"></canvas>
-  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+const svg = ({ iconGradientStart, iconGradientStop }: LogoProps) => {
+  let id = uid({ iconGradientStart: iconGradientStop });
+  return `
+  <svg viewBox="0 0 32 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
     <defs>
       <linearGradient x1="50%" x2="50%" y1="109.344%" y2="50%" id="${id}">
         <stop stop-color="${iconGradientStart}" ${
@@ -31,12 +31,12 @@ const svg = (iconGradientStart: string, iconGradientStop: string) => {
  * @deprecated HipchatIcon will be removed from @atlaskit/logo in the next major release.
  */
 export const HipchatIcon = ({
-  iconColor = defaultLogoParams.iconColor,
-  iconGradientStart = defaultLogoParams.iconGradientStart,
-  iconGradientStop = defaultLogoParams.iconGradientStop,
   label = 'Hipchat',
   size = defaultLogoParams.size,
   testId,
+  iconColor = defaultLogoParams.iconColor,
+  iconGradientStart = defaultLogoParams.iconGradientStart,
+  iconGradientStop = defaultLogoParams.iconGradientStop,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -48,7 +48,10 @@ export const HipchatIcon = ({
   return (
     <Wrapper
       label={label}
-      svg={svg}
+      svg={svg({
+        iconGradientStart,
+        iconGradientStop,
+      })}
       iconColor={iconColor}
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}

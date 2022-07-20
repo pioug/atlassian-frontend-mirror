@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "17.3.0",
+  "version": "17.5.0",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,6 +13,7 @@
     "./emoji-samples": "./src/emoji-test/emoji-samples.ts",
     "./emoji-types": "./src/emoji/types.ts",
     "./filter-to-searchable": "./src/emoji-test/filter-to-searchable.ts",
+    "./get-atlassian-emojis": "./src/emoji/get-atlassian-emojis.ts",
     "./get-emoji-provider": "./src/emoji/get-emoji-provider.ts",
     "./get-emoji-repository": "./src/emoji/get-emoji-repository.ts",
     "./get-emoji-resource-standard-atlassian": "./src/emoji/get-emoji-resource-standard-atlassian.ts",
@@ -66,7 +67,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
-    "@atlaskit/emoji": "^64.7.0",
+    "@atlaskit/emoji": "^65.0.0",
     "@atlaskit/mention": "^21.0.0",
     "@atlaskit/profilecard": "^16.10.0",
     "@atlaskit/task-decision": "^17.4.0",

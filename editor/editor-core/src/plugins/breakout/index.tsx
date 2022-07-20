@@ -46,6 +46,12 @@ class BreakoutView {
   }
 
   private updateWidth = (widthState: WidthPluginState) => {
+    // we skip updating the width of breakout nodes if the editorView dom
+    // element was hidden (to avoid breakout width and button thrashing
+    // when an editor is hidden, re-rendered and unhidden).
+    if (widthState.width === 0) {
+      return;
+    }
     const width = calcBreakoutWidth(this.node.attrs.mode, widthState.width);
     let newStyle = `width: ${width}; `;
 

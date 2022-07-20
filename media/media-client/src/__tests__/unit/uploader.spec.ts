@@ -40,6 +40,7 @@ describe('Uploader', () => {
   };
 
   const probedBlob: ProbedBlob = {
+    partNumber: 1,
     blob: new Blob(),
     hash: 'some-hash',
     exists: true,
@@ -71,15 +72,15 @@ describe('Uploader', () => {
         (async () => {
           callbacks.onProgress && callbacks.onProgress(0.1);
           await options.processingFunction!([
-            { hash: '1', blob },
-            { hash: '2', blob },
-            { hash: '3', blob },
+            { hash: '1', blob, partNumber: 1 },
+            { hash: '2', blob, partNumber: 2 },
+            { hash: '3', blob, partNumber: 3 },
           ]);
           callbacks.onProgress && callbacks.onProgress(0.2);
           await options.processingFunction!([
-            { hash: '4', blob },
-            { hash: '5', blob },
-            { hash: '6', blob },
+            { hash: '4', blob, partNumber: 4 },
+            { hash: '5', blob, partNumber: 5 },
+            { hash: '6', blob, partNumber: 6 },
           ]);
         })(),
       ).pipe(mapTo([probedBlob]));

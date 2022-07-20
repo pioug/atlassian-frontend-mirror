@@ -13,7 +13,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
 import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
-import { DownloadButtonWrapper } from './styled';
+import { DownloadButtonWrapper } from './styleWrappers';
 import { MediaViewerError } from './errors';
 
 const downloadIcon = <DownloadIcon label="Download" />;

@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 23.2.1
+
+### Patch Changes
+
+- [`28ceecfd24d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/28ceecfd24d) - empty changeset
+
 ## 23.2.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { ErrorIcon } from '../errorIcon';
-import { Wrapper } from './styled';
+import { Wrapper } from './lightCardWrappers';
 import { StaticCardProps } from './types';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 

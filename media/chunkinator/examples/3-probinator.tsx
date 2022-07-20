@@ -2,14 +2,15 @@ import React, { ChangeEvent } from 'react';
 import { map } from 'rxjs/operators/map';
 import { slicenator } from '../src/slicenator';
 import { probinator } from '../src/probinator';
-import { HashedBlob } from '../src/domain';
+import { HashedBlob, SlicedBlob } from '../src/domain';
 
-const createHash = (blob: Blob) => {
-  console.log('createHash', blob.size);
+const createHash = (slicedBlob: SlicedBlob) => {
+  console.log('createHash', slicedBlob.blob.size);
 
   return {
-    blob,
+    blob: slicedBlob.blob,
     hash: performance.now().toString(),
+    partNumber: slicedBlob.partNumber,
   };
 };
 const prober = (hashedBlobs: HashedBlob[]) => {

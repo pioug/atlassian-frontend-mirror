@@ -61,11 +61,15 @@ export const createControlsHoverDecoration = (
   cells: Cell[],
   type: 'row' | 'column' | 'table',
   danger?: boolean,
+  selected?: boolean,
 ): Decoration[] =>
   cells.map((cell) => {
     const classes = [ClassName.HOVERED_CELL];
     if (danger) {
       classes.push(ClassName.HOVERED_CELL_IN_DANGER);
+    }
+    if (selected) {
+      classes.push(ClassName.SELECTED_CELL);
     }
 
     classes.push(

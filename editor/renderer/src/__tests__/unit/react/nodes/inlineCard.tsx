@@ -46,14 +46,16 @@ describe('Renderer - React/Nodes/InlineCard', () => {
     const mockedOnClick = jest.fn();
     const mockedEvent = { target: {} };
     node = mount(
-      <InlineCard
-        url={url}
-        eventHandlers={{
-          smartCard: {
-            onClick: mockedOnClick,
-          },
-        }}
-      />,
+      <Provider client={new Client('staging')}>
+        <InlineCard
+          url={url}
+          eventHandlers={{
+            smartCard: {
+              onClick: mockedOnClick,
+            },
+          }}
+        />{' '}
+      </Provider>,
     );
 
     const onClick = node.find(Card).prop('onClick');
@@ -64,7 +66,11 @@ describe('Renderer - React/Nodes/InlineCard', () => {
   });
 
   it('should render with onClick as undefined if eventHandlers is not present', () => {
-    node = mount(<InlineCard url={url} />);
+    node = mount(
+      <Provider client={new Client('staging')}>
+        <InlineCard url={url} />{' '}
+      </Provider>,
+    );
 
     expect(node.find(Card).prop('onClick')).toBeUndefined();
   });

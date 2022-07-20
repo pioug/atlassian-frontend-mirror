@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { AudioViewer } from '../../../../../viewers/audio';
 import Spinner from '@atlaskit/spinner';
-import { DefaultCoverWrapper, AudioCover } from '../../../../../styled';
+import { DefaultCoverWrapper, AudioCover } from '../../../../../styleWrappers';
 import { ErrorMessage } from '../../../../../errorMessage';
 import Button from '@atlaskit/button/custom-theme-button';
 import { Auth } from '@atlaskit/media-core';

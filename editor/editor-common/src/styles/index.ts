@@ -45,3 +45,8 @@ export {
   smartCardSharedStyles,
   SmartCardSharedCssClassName,
 } from './shared/smart-card';
+
+export {
+  CodeBlockSharedCssClassName,
+  codeBlockSharedStyles,
+} from './shared/code-block';

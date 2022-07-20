@@ -1,5 +1,11 @@
 # @atlaskit/editor-jira-transformer
 
+## 8.1.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.28
 
 ### Patch Changes

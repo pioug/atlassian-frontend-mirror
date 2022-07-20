@@ -1,4 +1,5 @@
-// Copy this file to local-config.ts and customise.
+import { EmojiId } from './src/types';
+
 export default {
   recordConfig: {
     url: 'https://www.example.org/',
@@ -16,4 +17,24 @@ export default {
       }),
     },
   ],
+  singleEmojiApi: {
+    getUrl: (emojiId: EmojiId) =>
+      `https://www.example.org/emoji/${emojiId.id || emojiId.shortName}`,
+    securityProvider: () => ({
+      headers: {
+        'User-Context': '{token}',
+        Authorization: 'Bearer {token}',
+      },
+    }),
+  },
+  optimisticImageApi: {
+    getUrl: (emojiId: EmojiId) =>
+      `http://www.example.org/site-id/${emojiId.id || emojiId.shortName}/path`,
+    securityProvider: () => ({
+      headers: {
+        'User-Context': '{token}',
+        Authorization: 'Bearer {token}',
+      },
+    }),
+  },
 };

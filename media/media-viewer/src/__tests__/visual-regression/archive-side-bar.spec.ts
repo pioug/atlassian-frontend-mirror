@@ -1,9 +1,9 @@
 import {
   getExampleUrl,
+  loadPage,
   pageSelector,
   PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
-import { sleep } from '@atlaskit/media-test-helpers';
 
 describe('Archive sidebar', () => {
   let page: PuppeteerPage;
@@ -14,9 +14,29 @@ describe('Archive sidebar', () => {
     global.__BASEURL__,
   );
 
+  /* 
+    - ArchiveSidebarFolderWrapper has its `opacity` set to `0` and `transform` set to `translateY(-100%)` by default and relies on keyframe animation to turn it to `1` and `translateY(0)` respectively
+    - However, we are disabling the animation side effects with loadPage() helper, therefore its opacity and transform will not change without the push from animation
+    - To mitigate this, we "normalise" those properties to a snapshot-worthy values
+    - Styles are located in: packages/media/media-viewer/src/viewers/archiveSidebar/styles.ts
+  */
+
+  const normaliseArchiveViewerFolderWrapperStyles = async (
+    page: PuppeteerPage,
+  ) => {
+    const css = `
+    [data-testid="archive-sidebar-folder-wrapper"] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+`;
+    await page.addStyleTag({ content: css });
+  };
+
   beforeEach(async () => {
     ({ page } = global);
-    await page.goto(url);
+    await loadPage(page, url);
+    await normaliseArchiveViewerFolderWrapperStyles(page);
     await page.waitForSelector(pageSelector);
     await page.click('div[data-testid="media-file-card-view"]');
     await page.waitForSelector('span[aria-label="Folder"]');
@@ -24,7 +44,6 @@ describe('Archive sidebar', () => {
 
   it('should have side bar for archive file', async () => {
     await page.hover('div[data-testid="media-viewer-popup"]');
-    await sleep(300);
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
@@ -32,7 +51,8 @@ describe('Archive sidebar', () => {
 
   it('should show navigation back button on opening the folder', async () => {
     await page.click('span[aria-label="Folder"]');
-    await sleep(2000);
+    // Moving the mouse out of the way so it doesn't highlight the div when the screenshot is taken
+    await page.mouse.move(0, 0);
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();

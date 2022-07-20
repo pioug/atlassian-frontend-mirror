@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Button from '@atlaskit/button/custom-theme-button';
 import { ZoomControlsBase, ZoomControlsProps } from '../../../zoomControls';
-import { ZoomLevelIndicator } from '../../../styled';
+import { ZoomLevelIndicator } from '../../../styleWrappers';
 import { ZoomLevel } from '../../../domain/zoomLevel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 

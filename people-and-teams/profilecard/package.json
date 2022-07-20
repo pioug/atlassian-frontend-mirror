@@ -68,7 +68,7 @@
     "@atlaskit/flag": "^14.5.0",
     "@atlaskit/inline-edit": "^12.0.0",
     "@atlaskit/select": "^15.3.0",
-    "@atlaskit/util-data-test": "^17.3.0",
+    "@atlaskit/util-data-test": "^17.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^8.0.1",
     "enzyme": "^3.10.0",

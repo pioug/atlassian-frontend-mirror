@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::98101caf910ff8cddc38a424e29e4980>>
+ * @codegen <<SignedSource::c45a3bc7ab921b5a279f8b05f859f21b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -7129,7 +7129,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
     },
-    "value": "#00000029",
+    "value": "#ffffff33",
     "filePath": "src/tokens/atlassian-dark/color/interaction.tsx",
     "isSource": true,
     "original": {
@@ -7139,7 +7139,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use as a background overlay for elements in a hovered state when their background color cannot change, such as avatars."
       },
-      "value": "#00000029"
+      "value": "#ffffff33"
     },
     "name": "color.interaction.hovered",
     "path": [
@@ -7155,7 +7155,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
     },
-    "value": "#00000052",
+    "value": "#ffffff5c",
     "filePath": "src/tokens/atlassian-dark/color/interaction.tsx",
     "isSource": true,
     "original": {
@@ -7165,7 +7165,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use as a background overlay for elements in a pressed state when their background color cannot change, such as avatars."
       },
-      "value": "#00000052"
+      "value": "#ffffff5c"
     },
     "name": "color.interaction.pressed",
     "path": [
@@ -7177,19 +7177,23 @@ const tokens = [
   {
     "attributes": {
       "group": "paint",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.6.0",
-      "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
+      "deprecated": "0.10.8",
+      "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
+      "replacement": "color.background.inverse.subtle.hovered"
     },
     "value": "#ffffff33",
-    "filePath": "src/tokens/atlassian-dark/color/interaction.tsx",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.6.0",
-        "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
+        "deprecated": "0.10.8",
+        "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
+        "replacement": "color.background.inverse.subtle.hovered"
       },
       "value": "#ffffff33"
     },
@@ -7204,19 +7208,23 @@ const tokens = [
   {
     "attributes": {
       "group": "paint",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "0.6.0",
-      "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
+      "deprecated": "0.10.8 ",
+      "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
+      "replacement": "color.background.inverse.subtle.pressed"
     },
     "value": "#ffffff5c",
-    "filePath": "src/tokens/atlassian-dark/color/interaction.tsx",
+    "filePath": "src/tokens/atlassian-dark/deprecated/deprecated.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "0.6.0",
-        "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards."
+        "deprecated": "0.10.8 ",
+        "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
+        "replacement": "color.background.inverse.subtle.pressed"
       },
       "value": "#ffffff5c"
     },

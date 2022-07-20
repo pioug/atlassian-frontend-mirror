@@ -300,7 +300,7 @@ describe('SiteEmojiResource', () => {
         progress = progressUpdate;
       };
 
-      siteEmojiResource.uploadEmoji(upload, progressCallback);
+      siteEmojiResource.uploadEmoji(upload, false, progressCallback);
 
       const portion = 0.5;
       const donePromise = waitUntil(() => progress).then(() => {

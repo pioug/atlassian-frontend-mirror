@@ -27,8 +27,8 @@ export default () => (
       sollicitudin. In sit amet lobortis turpis.
     </Banner>
     <div>
-      Above we have an announcement banner with long contents, which will expand
-      slightly, then create a scrollable block
+      Above we have an announcement banner with long content which will be
+      truncated.
     </div>
   </Fragment>
 );

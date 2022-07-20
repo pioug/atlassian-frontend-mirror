@@ -2,13 +2,13 @@
 order: 0
 ---
 
-import LogoLogomark from '../../examples/constellation/logo-logomark';
+import LogoIcon from '../../examples/constellation/logo-icon';
 import LogoWordmark from '../../examples/constellation/logo-wordmark';
 import LogoSmall from '../../examples/constellation/logo-small';
 import LogoMedium from '../../examples/constellation/logo-medium';
 import LogoLarge from '../../examples/constellation/logo-large';
-import LogoBlue from '../../examples/constellation/logo-blue';
-import LogoWhite from '../../examples/constellation/logo-white';
+import LogoBrand from '../../examples/constellation/logo-brand';
+import LogoInverse from '../../examples/constellation/logo-inverse';
 import LogoNeutral from '../../examples/constellation/logo-neutral';
 import LogoDefault from '../../examples/constellation/logo-default';
 
@@ -28,11 +28,11 @@ import LogoTrello from '../../examples/constellation/logo-trello';
 
 ## Types
 
-### Logomark
+### Icon
 
-A logomark is an image or symbol that represents a brand or product. It generally does not contain the name of the brand or product.
+An icon is an image or symbol that represents a brand or product. It generally does not contain the name of the brand or product.
 
-<Example Component={LogoLogomark} packageName="@atlaskit/logo" />
+<Example Component={LogoIcon} packageName="@atlaskit/logo" />
 
 ### Wordmark
 
@@ -42,27 +42,24 @@ The brand or product name only. A wordmark is a brand or product name styled as 
 
 ### Lockup
 
-A lockup is the combination of wordmark (the brand or product name) and its logomark, generally referred altogether as a logo.
+A lockup is the combination of wordmark (the brand or product name) and its icon, generally referred altogether as a logo.
 
 <Example
-  Component={LogoBlue}
+  Component={LogoBrand}
   packageName="@atlaskit/logo"
 />
 
-## Color
+## Appearance
 
-Our product logos are used in three color schemes: blue, neutral, and white. By default, the wordmark and logomark inherit their colors from the parent element. Colors can be passed in via the `textColor`, `iconColor`, `iconGradientStart` and `iconGradientEnd` props to alter the appearance.
+By default, the wordmark and icon inherit their colors from the parent element, however, this can lead to incorrect color combinations.
+Moving forward, all usages of `@atlaskit/logo` should use the `appearance` prop to choose between three brand-approved appearances: brand, neutral, and inverse.
 
-### Default
+### Brand
 
-<Example Component={LogoDefault} packageName="@atlaskit/logo" />
-
-### Blue
-
-Blue product logos work best on a white or light background.
+Brand product logos are used in situations that demand a bold brand presence against a neutral background.
 
 <Example
-  Component={LogoBlue}
+  Component={LogoBrand}
   packageName="@atlaskit/logo"
   backgroundColor="white"
 />
@@ -77,12 +74,12 @@ Neutral product logos can be used when the hierarchy calls for the logo to reced
   backgroundColor="neutral"
 />
 
-### White
+### Inverse
 
-White product logos should be used on dark backgrounds.
+Inverse product logos should be used to contrast against bold backgrounds.
 
 <Example
-  Component={LogoWhite}
+  Component={LogoInverse}
   packageName="@atlaskit/logo"
   backgroundColor="blue"
 />

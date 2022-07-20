@@ -1209,6 +1209,32 @@ Also use for yellow icons or borders when there is no meaning tied to the color,
         },
       },
     },
+    interaction: {
+      inverse: {
+        hovered: {
+          attributes: {
+            group: 'paint',
+            state: 'deprecated',
+            introduced: '0.6.0',
+            deprecated: '0.10.8',
+            description:
+              'Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.',
+            replacement: 'color.background.inverse.subtle.hovered',
+          },
+        },
+        pressed: {
+          attributes: {
+            group: 'paint',
+            state: 'deprecated',
+            introduced: '0.6.0',
+            deprecated: '0.10.8 ',
+            description:
+              'Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.',
+            replacement: 'color.background.inverse.subtle.pressed',
+          },
+        },
+      },
+    },
   },
   shadow: {
     card: {

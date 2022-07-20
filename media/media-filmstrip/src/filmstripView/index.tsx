@@ -1,18 +1,17 @@
 import React from 'react';
 import { ReactNode, WheelEvent, MouseEvent, ReactElement } from 'react';
-import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
-import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
+
 import debounce from 'debounce';
 import {
-  FilmStripViewWrapper,
-  FilmStripListWrapper,
   FilmStripList,
-  ArrowLeftWrapper,
-  ArrowRightWrapper,
-  ShadowLeft,
-  ShadowRight,
   FilmStripListItem,
-} from './styled';
+  FilmStripListWrapper,
+  FilmStripViewWrapper,
+  LeftArrow,
+  RightArrow,
+} from './wrappers';
+
+export { LeftArrow, RightArrow } from './wrappers';
 
 const DURATION_MIN = 0.5;
 const DURATION_MAX = 1.0;
@@ -91,22 +90,6 @@ export interface ArrowProps {
 }
 
 export const MediaFilmStripListItemSelector = 'media-filmstrip-list-item';
-
-export const LeftArrow: React.SFC<ArrowProps> = ({ onClick }: ArrowProps) => (
-  <ShadowLeft>
-    <ArrowLeftWrapper className="arrow" onClick={onClick}>
-      <ArrowLeft label="left" />
-    </ArrowLeftWrapper>
-  </ShadowLeft>
-);
-
-export const RightArrow: React.SFC<ArrowProps> = ({ onClick }: ArrowProps) => (
-  <ShadowRight>
-    <ArrowRightWrapper className="arrow" onClick={onClick}>
-      <ArrowRight label="right" />
-    </ArrowRightWrapper>
-  </ShadowRight>
-);
 
 export class FilmstripView extends React.Component<
   FilmstripViewProps,
@@ -323,12 +306,12 @@ export class FilmstripView extends React.Component<
     );
   };
 
-  handleWindowElementChange = (windowElement: HTMLElement) => {
+  handleWindowElementChange = (windowElement: HTMLDivElement) => {
     this.windowElement = windowElement;
     this.handleSizeChange();
   };
 
-  handleBufferElementChange = (bufferElement: HTMLElement) => {
+  handleBufferElementChange = (bufferElement: HTMLUListElement) => {
     if (!bufferElement) {
       return;
     }
@@ -492,14 +475,15 @@ export class FilmstripView extends React.Component<
       <FilmStripViewWrapper data-testid={testId}>
         {this.renderLeftArrow()}
         <FilmStripListWrapper
-          innerRef={this.handleWindowElementChange}
+          ref={this.handleWindowElementChange}
           onWheel={this.handleScroll}
           onTouchStart={this.handleTouchStart}
           onTouchMove={this.handleTouchMove}
           onTouchEnd={this.handleTouchEnd}
+          data-testid="filmstrip-list-wrapper"
         >
           <FilmStripList
-            innerRef={this.handleBufferElementChange}
+            ref={this.handleBufferElementChange}
             style={{ transform, transitionProperty, transitionDuration }}
           >
             {React.Children.map(children, mapReactChildToReactNode)}
@@ -514,11 +498,7 @@ export class FilmstripView extends React.Component<
 function mapReactChildToReactNode(child: ReactNode, index: number): ReactNode {
   const key = (isReactElement(child) && child.key) || index;
   return (
-    <FilmStripListItem
-      className={MediaFilmStripListItemSelector}
-      data-testid="media-filmstrip-list-item"
-      key={key}
-    >
+    <FilmStripListItem key={key} index={key}>
       {child}
     </FilmStripListItem>
   );

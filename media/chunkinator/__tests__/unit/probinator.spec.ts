@@ -41,7 +41,7 @@ describe('Probinator', () => {
       .then(() => {
         expect(prober).toHaveBeenCalledTimes(1);
         expect(prober).toHaveBeenCalledWith([
-          { blob: expect.any(Blob), hash: '0' },
+          { blob: expect.any(Blob), hash: '0', partNumber: 0 },
         ]);
       });
   });
@@ -57,12 +57,12 @@ describe('Probinator', () => {
       .then(() => {
         expect(prober).toHaveBeenCalledTimes(2);
         expect(prober).toHaveBeenCalledWith([
-          { blob: expect.any(Blob), hash: '0' },
-          { blob: expect.any(Blob), hash: '1' },
-          { blob: expect.any(Blob), hash: '2' },
+          { blob: expect.any(Blob), hash: '0', partNumber: 0 },
+          { blob: expect.any(Blob), hash: '1', partNumber: 0 },
+          { blob: expect.any(Blob), hash: '2', partNumber: 0 },
         ]);
         expect(prober).toHaveBeenCalledWith([
-          { blob: expect.any(Blob), hash: '3' },
+          { blob: expect.any(Blob), hash: '3', partNumber: 0 },
         ]);
       });
   });
@@ -103,6 +103,7 @@ function createHashedBlob$(count: number): Observable<HashedBlob> {
     map((hash) => ({
       blob: new Blob([]),
       hash: hash.toString(),
+      partNumber: 0,
     })),
   );
 }

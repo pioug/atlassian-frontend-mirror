@@ -3,6 +3,7 @@
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
 import { sizes, WrapperProps } from './constants';
+import { Size } from './types';
 
 const CSS_VAR_COLOR = '--logo-color';
 const CSS_VAR_FILL = '--logo-fill';
@@ -15,18 +16,8 @@ const baseWrapperStyles = css({
   userSelect: 'none',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '> svg': {
-    width: '100%',
     height: '100%',
-    position: 'absolute',
-    top: '0',
-    left: '0',
     fill: 'inherit',
-  },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  '> canvas': {
-    display: 'block',
-    height: '100%',
-    visibility: 'hidden',
   },
 });
 
@@ -37,7 +28,6 @@ const stopColorStyles = css({
   },
 });
 
-type Size = keyof typeof sizes;
 type SizeStyles = Record<Size, SerializedStyles>;
 const sizeStyles = Object.entries(sizes).reduce((acc, [key, val]) => {
   acc[key as Size] = css({
@@ -54,16 +44,19 @@ const sizeStyles = Object.entries(sizes).reduce((acc, [key, val]) => {
 const Wrapper = ({
   label,
   svg,
+  size,
+  appearance,
   iconGradientStart,
   iconGradientStop,
-  size,
   iconColor,
-  testId: userDefinedTestId,
   textColor,
+  testId: userDefinedTestId,
   ...rest
 }: WrapperProps) => {
   const shouldApplyStopColor =
-    iconGradientStart === 'inherit' && iconGradientStop === 'inherit';
+    iconGradientStart === 'inherit' &&
+    iconGradientStop === 'inherit' &&
+    appearance === undefined;
 
   const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 
@@ -84,10 +77,7 @@ const Wrapper = ({
       aria-label={label ? label : undefined}
       role={label ? 'img' : 'presentation'}
       dangerouslySetInnerHTML={{
-        __html:
-          typeof svg === 'function'
-            ? svg(String(iconGradientStart), String(iconGradientStop))
-            : svg,
+        __html: svg,
       }}
       {...rest}
     />

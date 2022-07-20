@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component, ReactNode, MouseEvent } from 'react';
+import { CardActionButton } from './cardActionButton';
 
-import { CardActionButton, CardActionIconButtonVariant } from './styled';
+import { CardActionIconButtonVariant } from './styles';
 
 export type CardActionIconButtonProps = {
   readonly icon: ReactNode;
@@ -16,7 +17,6 @@ export class CardActionIconButton extends Component<CardActionIconButtonProps> {
     const { icon, triggerColor, onClick, variant } = this.props;
     return (
       <CardActionButton
-        data-testid="media-card-primary-action"
         onClick={onClick}
         onMouseDown={this.onMouseDown}
         style={{ color: triggerColor }}

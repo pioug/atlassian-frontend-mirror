@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
-import { Wrapper, AnimatedWrapper } from './styled';
+import { Wrapper, AnimatedWrapper } from './lightCardWrappers';
 import { StaticCardProps } from './types';
 import SpinnerIcon from '@atlaskit/spinner';
 import FileIcon from '@atlaskit/icon/glyph/file';

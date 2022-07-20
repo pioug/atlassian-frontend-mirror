@@ -54,6 +54,7 @@ import { RendererCssClassName } from '../../consts';
 import { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
+import { getLightWeightCodeBlockStylesForRootRendererStyleSheet } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 
 export const FullPagePadding = 32;
 
@@ -711,6 +712,8 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (
         padding: 2px;
       }
     }
+
+    ${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
 
     ${columnLayoutSharedStyle};
     & [data-layout-section] {

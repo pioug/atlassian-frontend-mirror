@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-
 import { HalpIcon, HalpLogo, HalpWordmark } from '../../src';
 
 const LogoHalp = () => (
@@ -17,22 +15,13 @@ const LogoHalp = () => (
       <tbody>
         <tr>
           <td>
-            <HalpLogo
-              textColor={N700}
-              iconColor={B200}
-              iconGradientStart={B400}
-              iconGradientStop={B200}
-            />
+            <HalpLogo appearance="brand" />
           </td>
           <td>
-            <HalpWordmark textColor={N700} />
+            <HalpWordmark appearance="brand" />
           </td>
           <td>
-            <HalpIcon
-              iconColor={B200}
-              iconGradientStart={B400}
-              iconGradientStop={B200}
-            />
+            <HalpIcon appearance="brand" />
           </td>
         </tr>
       </tbody>

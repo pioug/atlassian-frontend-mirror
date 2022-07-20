@@ -26,4 +26,8 @@ export type HeadingAnchorLinksConfig = {
   allowNestedHeaderLinks?: boolean;
 };
 
+export type NodeComponentsProps = {
+  [key: string]: React.ComponentType<any>;
+};
+
 export type HeadingAnchorLinksProps = boolean | HeadingAnchorLinksConfig;

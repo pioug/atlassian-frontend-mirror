@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.2.6
+
+### Patch Changes
+
+- [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to using declarative entrypoints internally. Public API is unchanged.
+
 ## 5.2.5
 
 ### Patch Changes

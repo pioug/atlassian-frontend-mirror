@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.1.0
+
+### Minor Changes
+
+- [`c07a8176ddf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c07a8176ddf) - New BlobType SlicedBlob that includes partnumber introduced and used for uploading chunks
+- [`bd3245ea9e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd3245ea9e3) - remove rxjs-async-map package
+
+### Patch Changes
+
+- [`6cadf4e4d75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cadf4e4d75) - Removed un-used dev dependency - 'styled-components'
+
 ## 4.0.0
 
 ### Major Changes

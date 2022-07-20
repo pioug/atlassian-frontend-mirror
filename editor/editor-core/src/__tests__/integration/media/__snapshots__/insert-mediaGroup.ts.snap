@@ -78,3 +78,129 @@ Object {
   "type": "doc",
 }
 `;
+
+exports[`insert-mediaGroup.ts: Inserts multiple media group with non-image files 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "some text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "application/vnd.ms-excel",
+            "__fileName": "example.png",
+            "__fileSize": 20480,
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "text/plain",
+            "__fileName": "example.png",
+            "__fileSize": 3541,
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "application/pdf",
+            "__fileName": "example.png",
+            "__fileSize": 469513,
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`insert-mediaGroup.ts: Inserts one media group with non-image files 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "some text",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "__contextId": "DUMMY-OBJECT-ID",
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "application/pdf",
+            "__fileName": "example.png",
+            "__fileSize": 469513,
+            "alt": "",
+            "collection": "MediaServicesSample",
+            "height": null,
+            "id": "1234-5678-abcd-efgh",
+            "occurrenceKey": null,
+            "type": "file",
+            "url": null,
+            "width": null,
+          },
+          "type": "media",
+        },
+      ],
+      "type": "mediaGroup",
+    },
+    Object {
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

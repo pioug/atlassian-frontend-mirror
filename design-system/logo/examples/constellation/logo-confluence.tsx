@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { B200, B400, N700 } from '@atlaskit/theme/colors';
-
 import { ConfluenceIcon, ConfluenceLogo, ConfluenceWordmark } from '../../src';
 
 const LogoConfluence = () => {
@@ -18,22 +16,13 @@ const LogoConfluence = () => {
         <tbody>
           <tr>
             <td>
-              <ConfluenceLogo
-                textColor={N700}
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <ConfluenceLogo appearance="brand" />
             </td>
             <td>
-              <ConfluenceWordmark textColor={N700} />
+              <ConfluenceWordmark appearance="brand" />
             </td>
             <td>
-              <ConfluenceIcon
-                iconColor={B200}
-                iconGradientStart={B400}
-                iconGradientStop={B200}
-              />
+              <ConfluenceIcon appearance="brand" />
             </td>
           </tr>
         </tbody>

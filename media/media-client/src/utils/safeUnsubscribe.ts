@@ -1,4 +1,4 @@
-import { MediaSubscription } from './toMediaSubscribable';
+import { MediaSubscription } from './mediaSubscribable';
 
 // TODO: remove this in next major version
 export const safeUnsubscribe = (subscription: MediaSubscription) => {

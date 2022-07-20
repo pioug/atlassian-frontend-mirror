@@ -14,7 +14,6 @@ import {
   CardActionIconButton,
   CardActionsDropdownMenu,
 } from '../../cardActions';
-import { CardActionButton } from '../../cardActions/styled';
 import { CardAction } from '../../../actions';
 import { PreventClickThrough } from '../../preventClickThrough';
 
@@ -37,13 +36,13 @@ describe('CardActions', () => {
     handler: jest.fn(),
     icon: <CrossIcon size="small" label="delete" />,
   };
-
+  const cardActionButtonId = 'div#cardActionButton';
   const menuActions = [openAction, closeAction, annotateAction, deleteAction];
 
   const openDropdownMenuIfExists = (card: ReactWrapper) => {
     const dropdownMenu = card.find(DropdownMenu);
     if (dropdownMenu.length > 0) {
-      dropdownMenu.find(CardActionButton).simulate('click');
+      dropdownMenu.find(cardActionButtonId).simulate('click');
     }
   };
 
@@ -118,7 +117,7 @@ describe('CardActions', () => {
     );
 
     expect(iconButtons).toHaveLength(1);
-    const actionButton = iconButtons.find(CardActionButton);
+    const actionButton = iconButtons.find(cardActionButtonId);
     expect(actionButton.find(AnnotateIcon)).toHaveLength(1);
     expect(actionButton.prop('style')).toEqual({ color: triggerColor });
     expect(dropdownMenu).toHaveLength(0);
@@ -152,7 +151,7 @@ describe('CardActions', () => {
       <CardActionsView actions={menuActions} onToggle={onToggle} />,
     );
 
-    card.find(DropdownMenu).find(CardActionButton).simulate('click');
+    card.find(DropdownMenu).find(cardActionButtonId).simulate('click');
 
     expect(onToggle).toHaveBeenCalled();
   });
@@ -179,7 +178,7 @@ describe('CardActions', () => {
   it('should pass supplied trigger color to dropdown menu trigger when there are multiple actions', () => {
     const triggerColor = 'some-color-string';
     const { dropdownMenu } = setup(menuActions, triggerColor);
-    const trigger = dropdownMenu.find(CardActionButton);
+    const trigger = dropdownMenu.find(cardActionButtonId);
 
     expect(trigger.prop('style')).toMatchObject({ color: triggerColor });
   });

@@ -1,4 +1,4 @@
-import { asyncMap } from 'rxjs-async-map';
+import { asyncMap } from './utils';
 
 import { ProbedBlob, Uploadinator } from './domain';
 

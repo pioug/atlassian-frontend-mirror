@@ -2,11 +2,13 @@ declare var global: any; // we need define an interface for the Node global obje
 declare var window: any;
 import React from 'react';
 import { shallow, CommonWrapper, mount } from 'enzyme';
-import { FilmstripView, LeftArrow, RightArrow } from '../../filmstripView';
+import { FilmstripView } from '../../filmstripView';
 import {
-  FilmStripListWrapper,
+  LeftArrow,
+  RightArrow,
   FilmStripListItem,
-} from '../../filmstripView/styled';
+  FilmStripListWrapper,
+} from '../../filmstripView/wrappers';
 
 const BUFFER_WIDTH = 100;
 const WINDOW_WIDTH = 10;
@@ -245,7 +247,7 @@ describe('FilmstripView', () => {
 
   describe('.handleTouchStart()', () => {
     it('should update FilmstripView state properties when touch move starts', () => {
-      const element = mount(<FilmstripView />);
+      const element = shallow(<FilmstripView />);
 
       const filmstripListElement = element.find(FilmStripListWrapper);
       filmstripListElement.simulate('touchStart', {
@@ -263,7 +265,7 @@ describe('FilmstripView', () => {
       const INITIAL_TOUCH_START_POSITION = 100;
       const NEW_TOUCH_START_POSITION = 200;
       const onScroll = jest.fn();
-      const element = mount(<FilmstripView />);
+      const element = shallow(<FilmstripView />);
 
       mockSizing(element, 700, 300);
       element.setProps({ offset: INITIAL_OFFSET, onScroll });
@@ -291,7 +293,7 @@ describe('FilmstripView', () => {
       const INITIAL_TOUCH_START_POSITION = 200;
       const NEW_TOUCH_START_POSITION = 100;
       const onScroll = jest.fn();
-      const element = mount(
+      const element = shallow(
         <FilmstripView offset={INITIAL_OFFSET} onScroll={onScroll} />,
       );
 
@@ -319,7 +321,7 @@ describe('FilmstripView', () => {
       const INITIAL_TOUCH_START_POSITION = 100;
       const NEW_TOUCH_START_POSITION = 200;
       const onScroll = jest.fn();
-      const element = mount(
+      const element = shallow(
         <FilmstripView offset={INITIAL_OFFSET} onScroll={onScroll} />,
       );
 
@@ -339,7 +341,7 @@ describe('FilmstripView', () => {
 
   describe('.handleTouchEnd()', () => {
     it('should update FilmstripView state properties when touch move ends', () => {
-      const element = mount(<FilmstripView />);
+      const element = shallow(<FilmstripView />);
       const filmstripListElement = element.find(FilmStripListWrapper);
 
       filmstripListElement.simulate('touchEnd', {
@@ -426,6 +428,14 @@ describe('FilmstripView', () => {
   });
 
   describe('.render()', () => {
+    it('styles', () => {
+      const element = mount(
+        <FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,
+      );
+      mockSizing(element);
+      expect(element).toMatchSnapshot();
+    });
+
     it('should not render the left arrow when offset is equal to minOffset', () => {
       const element = shallow(
         <FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>,

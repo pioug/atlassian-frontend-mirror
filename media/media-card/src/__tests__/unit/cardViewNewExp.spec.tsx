@@ -1,6 +1,6 @@
 jest.mock('../../utils/getElementDimension');
-jest.mock('../../root/ui/styled', () => {
-  const original = jest.requireActual('../../root/ui/styled');
+jest.mock('../../root/ui/styles', () => {
+  const original = jest.requireActual('../../root/ui/styles');
   return {
     ...original,
     calcBreakpointSize: jest.fn(original.calcBreakpointSize),
@@ -13,22 +13,19 @@ import { CardViewBase, CardViewOwnProps } from '../../root/cardView';
 import { CardStatus } from '../../';
 import { FileDetails } from '@atlaskit/media-client';
 import { PlayButton } from '../../root/ui/playButton/playButton';
-import { Blanket } from '../../root/ui/blanket/styled';
+import { Blanket } from '../../root/ui/blanket/blanket';
 import { TitleBox } from '../../root/ui/titleBox/titleBox';
 import { ProgressBar } from '../../root/ui/progressBar/progressBar';
 import { ImageRenderer } from '../../root/ui/imageRenderer/imageRenderer';
 import { TickBox } from '../../root/ui/tickBox/tickBox';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { FailedTitleBox } from '../../root/ui/titleBox/failedTitleBox';
-import {
-  NewFileExperienceWrapper,
-  calcBreakpointSize,
-} from '../../root/ui/styled';
+import { calcBreakpointSize } from '../../root/ui/styles';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
 import Tooltip from '@atlaskit/tooltip';
 import SpinnerIcon from '@atlaskit/spinner';
-import { IconWrapper } from '../../root/ui/iconWrapper/styled';
+import { IconWrapper } from '../../root/ui/iconWrapper/iconWrapper';
 import {
   PreviewUnavailable,
   PreviewCurrentlyUnavailable,
@@ -37,6 +34,7 @@ import {
 } from '../../root/ui/iconMessage';
 import { createPollingMaxAttemptsError } from '@atlaskit/media-test-helpers';
 import { MediaCardError } from '../../errors';
+import { NewFileExperienceWrapper } from '../../root/ui/newFileExperience/newFileExperienceWrapper';
 
 const cardPreview = {
   dataURI: 'some-data',
@@ -111,7 +109,7 @@ describe('CardView New Experience', () => {
     expect(wrapper).toHaveLength(1);
     expect(wrapper.props()).toEqual(
       expect.objectContaining({
-        'data-testid': cardProps.testId,
+        testId: cardProps.testId,
         dimensions: cardProps.dimensions,
         appearance: cardProps.appearance,
         onClick: cardProps.onClick,

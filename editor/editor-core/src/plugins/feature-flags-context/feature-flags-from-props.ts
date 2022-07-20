@@ -203,5 +203,18 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.showHoverPreview
         : false,
     ),
+
+    indentationButtonsInTheToolbar: Boolean(
+      typeof props.featureFlags?.['indentation-buttons-in-the-toolbar'] ===
+        'boolean'
+        ? !!props.featureFlags?.['indentation-buttons-in-the-toolbar']
+        : false,
+    ),
+
+    floatingToolbarCopyButton: Boolean(
+      typeof props.featureFlags?.floatingToolbarCopyButton === 'boolean'
+        ? !!props.featureFlags?.floatingToolbarCopyButton
+        : false,
+    ),
   };
 }

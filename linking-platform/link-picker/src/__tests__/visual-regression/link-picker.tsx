@@ -29,11 +29,28 @@ export async function setup(url: string) {
 }
 
 describe('link-picker', () => {
-  let testSelector = '[data-testid="link-picker"]';
+  let testSelector: string;
+
+  beforeEach(() => {
+    testSelector = '[data-testid="link-picker"]';
+  });
 
   it('should render component with results', async () => {
     const url = getURL('vr');
     const page = await setup(url);
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render component to edit a link', async () => {
+    const url = getURL('with-plugins');
+    const page = await setup(url);
+    await page.type('[data-testid="link-url"]', 'http://atlassian.com');
+    await page.keyboard.press('Enter');
+
+    await page.click('a');
+    await page.waitForSelector(testSelector);
+
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
@@ -113,7 +130,7 @@ describe('link-picker', () => {
   });
 
   it('Should render Linkpicker within Popup with input focused', async () => {
-    const url = getURL('in-popup');
+    const url = getURL('with-plugins');
     const page = await setup(url);
 
     const image = await page.screenshot();
@@ -121,7 +138,7 @@ describe('link-picker', () => {
   });
 
   it('Should render Linkpicker without Plugins', async () => {
-    const url = getURL('no-plugins');
+    const url = getURL('without-plugins');
     const page = await setup(url);
 
     const image = await takeElementScreenShot(page, testSelector);
@@ -133,6 +150,16 @@ describe('link-picker', () => {
     const page = await setup(url);
 
     await page.type('[data-testid="link-url"]', 'FAB');
+    await page.focus('[data-testid="link-text"]');
+    await page.keyboard.press('Enter');
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should display error message and highlight input border for empty URLs', async () => {
+    const url = getURL('vr');
+    const page = await setup(url);
+
     await page.focus('[data-testid="link-text"]');
     await page.keyboard.press('Enter');
     const image = await takeElementScreenShot(page, testSelector);
@@ -154,7 +181,16 @@ describe('link-picker', () => {
 
     await page.type('[data-testid="link-url"]', 'FOO', { delay: 50 });
     await page.waitForSelector('[data-testid="link-search-no-results"]');
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
 
+  it('Should provide an error message when an error is caught in the error boundary', async () => {
+    const url = getURL('root-error-boundary');
+    const page = await setup(url);
+
+    testSelector = '[data-testid="link-picker-root-error-boundary-ui"]';
+    await page.waitForSelector(testSelector);
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });

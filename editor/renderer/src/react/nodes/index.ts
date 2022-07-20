@@ -32,7 +32,6 @@ import {
   UnsupportedInline,
 } from '@atlaskit/editor-common/ui';
 
-import type CodeBlockComponent from './codeBlock';
 import type TaskListComponent from './taskList';
 import type TaskItemComponent from './taskItem';
 import type DecisionListComponent from './decisionList';
@@ -50,12 +49,25 @@ import type MediaInlineComponent from './mediaInline';
 import type MediaSingleComponent from './mediaSingle';
 import type MentionComponent from './mention';
 import type ExpandComponent from '../../ui/Expand';
+import { NodeComponentsProps } from '../../ui/Renderer/types';
+
+import type CodeBlockComponent from './codeBlock/codeBlock';
+import type WindowedCodeBlockComponent from './codeBlock/windowedCodeBlock';
+
+const WindowedCodeBlock = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_renderer-node_WindowedCodeBlock" */
+      './codeBlock/windowedCodeBlock'
+    ).then((mod) => mod.default) as Promise<typeof WindowedCodeBlockComponent>,
+  loading: () => null,
+});
 
 const CodeBlock = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_renderer-node_CodeBlock" */
-      './codeBlock'
+      './codeBlock/codeBlock'
     ).then((mod) => mod.default) as Promise<typeof CodeBlockComponent>,
   loading: () => null,
 });
@@ -218,7 +230,6 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
   bulletList: BulletList,
   blockCard: BlockCard,
   caption: Caption,
-  codeBlock: CodeBlock,
   date: Date,
   decisionItem: DecisionItem,
   decisionList: DecisionList,
@@ -260,17 +271,32 @@ export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
 
 export interface ToReactFlags {
   allowSelectAllTrap?: boolean;
+  allowWindowedCodeBlock?: boolean;
 }
 
 export const toReact = (
   node: Node,
   flags?: ToReactFlags,
+  nodeComponents?: NodeComponentsProps,
 ): React.ComponentType<any> => {
   if (node.type.name === 'doc' && flags?.allowSelectAllTrap === true) {
     return DocWithSelectAllTrap;
   }
 
-  return nodeToReact[node.type.name];
+  if (node.type.name === 'codeBlock') {
+    if (flags?.allowWindowedCodeBlock === true) {
+      return WindowedCodeBlock;
+    }
+    return CodeBlock;
+  }
+
+  // Allowing custom components to override those provided in nodeToReact
+  const nodes = {
+    ...nodeToReact,
+    ...nodeComponents,
+  };
+
+  return nodes[node.type.name];
 };
 
 export interface TextWrapper {
@@ -424,6 +450,7 @@ export {
   BlockCard,
   Caption,
   CodeBlock,
+  WindowedCodeBlock,
   Date,
   DecisionItem,
   DecisionList,

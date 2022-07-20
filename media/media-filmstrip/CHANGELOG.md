@@ -1,5 +1,15 @@
 # @atlaskit/media-filmstrip
 
+## 45.0.0
+
+### Major Changes
+
+- [`740b02e577f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/740b02e577f) - Migrated from styled-components library to @emotion/react in @atlaskit/media-filmstrip
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.0.1
 
 ### Patch Changes

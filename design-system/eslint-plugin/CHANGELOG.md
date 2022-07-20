@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.7.0
+
+### Minor Changes
+
+- [`740057653f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/740057653f9) - Adds additional rule to restrict usage of banned imports from the design system.
+
 ## 4.6.0
 
 ### Minor Changes

@@ -104,5 +104,5 @@ export {
   fileCardImageViewSelector,
   fileCardImageViewSelectedSelector,
 } from './files/cardImageView/classnames';
-export { inlinePlayerClassName } from './root/inlinePlayer';
+export { inlinePlayerClassName } from './root/styles';
 export { newFileExperienceClassName } from './root/card/cardConstants';

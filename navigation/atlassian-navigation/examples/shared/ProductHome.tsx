@@ -3,6 +3,8 @@ import React from 'react';
 import {
   BitbucketIcon,
   BitbucketLogo,
+  CompassIcon,
+  CompassLogo,
   ConfluenceIcon,
   ConfluenceLogo,
   JiraIcon,
@@ -78,6 +80,16 @@ export const OpsGenieProductHome = () => (
     icon={OpsgenieIcon}
     logo={OpsgenieLogo}
     testId="opsgenie-product-home"
+  />
+);
+
+export const CompassProductHome = () => (
+  <ProductHome
+    siteTitle="Extranet"
+    icon={CompassIcon}
+    logo={CompassLogo}
+    href="#"
+    testId="confluence-product-home"
   />
 );
 

@@ -18,7 +18,7 @@ import {
 } from '../../image-placer';
 import { ImagePlacerContainer } from '../../image-placer/container';
 import { ImagePlacerImage } from '../../image-placer/image';
-import { ImagePlacerErrorWrapper } from '../../image-placer/styled';
+import { ImagePlacerErrorWrapper } from '../../image-placer/imagePlacerErrorWrapper';
 import { initialiseImagePreview } from '../../image-placer/imageProcessor';
 
 interface SetupInfo {

@@ -1,6 +1,6 @@
-import { asyncMap } from 'rxjs-async-map';
+import { asyncMap } from './utils';
 
-import { HashedBlob, Hashinator, HashingFunction } from './domain';
+import { HashedBlob, Hashinator, HashingFunction, SlicedBlob } from './domain';
 
 function arrayBufferToHex(buffer: ArrayBuffer) {
   return Array.prototype.map
@@ -30,9 +30,13 @@ export const defaultHasher: HashingFunction = (blob) => {
 };
 
 export const blobToHashedBlob = (hasher: HashingFunction) => (
-  blob: Blob,
+  slicedBlob: SlicedBlob,
 ): Promise<HashedBlob> =>
-  hasher(blob).then((hash) => ({ blob, hash: `${hash}-${blob.size}` }));
+  hasher(slicedBlob.blob).then((hash) => ({
+    blob: slicedBlob.blob,
+    hash: `${hash}-${slicedBlob.blob.size}`,
+    partNumber: slicedBlob.partNumber,
+  }));
 
 export const hashinator: Hashinator = (blobs$, { hasher, concurrency }) =>
   asyncMap(blobToHashedBlob(hasher || defaultHasher), concurrency)(blobs$);

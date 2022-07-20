@@ -1,5 +1,6 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { useState, ChangeEvent } from 'react';
-import styled from 'styled-components';
 import {
   imageFileId,
   docFileId,
@@ -24,22 +25,12 @@ import { IntlProvider } from 'react-intl-next';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { ThemeModes } from '@atlaskit/theme';
+import {
+  mediaInlineTableStyles,
+  mediaInlineWrapperStyles,
+} from '../example-helpers/styles';
 
 const mediaClientConfig = createUploadMediaClientConfig();
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 100px;
-`;
-const Table = styled.table`
-  width: 800px;
-  tr,
-  td {
-    border: 1px solid #ddd;
-  }
-`;
 
 const LIGHT_THEME = 'light',
   DARK_THEME = 'dark';
@@ -73,18 +64,18 @@ export default () => {
     setThemeMode(event.currentTarget.checked ? DARK_THEME : LIGHT_THEME);
   };
   const toggleDarkMode = (
-    <>
+    <React.Fragment>
       <label htmlFor="toggle-darkmode">Dark Mode</label>
       <Toggle id="toggle-darkmode" onChange={onThemeToggle} label="Dark Mode" />
-    </>
+    </React.Fragment>
   );
   return (
     <MainWrapper disableFeatureFlagWrapper={true}>
       <AtlaskitThemeProvider mode={themeMode}>
         {toggleDarkMode}
         <IntlProvider locale={'en'}>
-          <Wrapper>
-            <Table>
+          <div css={mediaInlineWrapperStyles}>
+            <table css={mediaInlineTableStyles}>
               <tbody>
                 <tr>
                   <th>Type</th>
@@ -178,8 +169,8 @@ export default () => {
                   </td>
                 </tr>
               </tbody>
-            </Table>
-          </Wrapper>
+            </table>
+          </div>
         </IntlProvider>
       </AtlaskitThemeProvider>
     </MainWrapper>

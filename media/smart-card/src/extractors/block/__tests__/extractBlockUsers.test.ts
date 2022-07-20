@@ -6,6 +6,7 @@ import {
   TEST_DOCUMENT,
   TEST_PERSON,
   TEST_PROJECT,
+  TEST_PULL_REQUEST,
   TEST_TASK,
 } from '../../common/__mocks__/jsonld';
 import { LinkPerson } from '@atlaskit/linking-common/extractors';
@@ -35,6 +36,26 @@ describe('extractors.block.extractBlockUsers', () => {
     };
     const linkPerson = extractBlockUsers(modifiedTask);
     expect(linkPerson).toEqual(getExpectedLinkPersonList());
+  });
+
+  it('should extract created by members from pull request if present', () => {
+    const createdBy: JsonLd.Primitives.Person = {
+      '@type': 'Person',
+      name: 'Steve Johnso',
+      icon: 'steve-icon-url',
+    };
+    const updatedBy: JsonLd.Primitives.Person = {
+      '@type': 'Person',
+      name: 'Angie Mccarthy',
+      icon: 'angie-icon-url',
+    };
+    const modifiedPullRequest: JsonLd.Data.SourceCodePullRequest = {
+      ...TEST_PULL_REQUEST,
+      attributedTo: createdBy,
+      'atlassian:updatedBy': updatedBy,
+    };
+    const linkPerson = extractBlockUsers(modifiedPullRequest);
+    expect(linkPerson).toEqual([{ name: createdBy.name, src: createdBy.icon }]);
   });
 
   it('should extract the person it was updated by for generic data', () => {

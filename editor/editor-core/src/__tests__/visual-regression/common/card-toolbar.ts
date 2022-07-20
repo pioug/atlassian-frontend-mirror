@@ -17,6 +17,37 @@ describe('Card toolbar:', () => {
     page = global.page;
   });
 
+  it('shows suggestions in link picker when clearing the url in edit mode', async () => {
+    await initFullPageEditorWithAdf(
+      page,
+      cardAppearanceAdf,
+      undefined,
+      {
+        width: 950,
+        height: 1020,
+      },
+      {
+        smartLinks: {
+          resolveBeforeMacros: ['jira'],
+          allowBlockCards: true,
+          allowEmbeds: true,
+        },
+      },
+    );
+    // we first render a smart inline link
+    await waitForResolvedInlineCard(page);
+    await waitForInlineCardSelection(page);
+    // enter edit mode
+    await page.click(
+      'div[aria-label="Floating Toolbar"] [data-testid="link-toolbar-edit-link-button"]',
+    );
+    await page.waitForSelector(
+      '[aria-label="Card options"][data-editor-popup="true"]',
+    );
+    await page.click('[aria-label="Clear link"]');
+    await snapshot(page);
+  });
+
   it('can exit edit link mode by pressing esc', async () => {
     await initFullPageEditorWithAdf(
       page,

@@ -1,3 +1,5 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import { Component, SyntheticEvent } from 'react';
 import {
@@ -28,10 +30,9 @@ import {
   MediaSubscribable,
 } from '@atlaskit/media-client';
 import {
-  CardWrapper,
-  CardFlowHeader,
-  CardsWrapper,
-} from '../example-helpers/styled';
+  cardWrapperStyles,
+  cardFlowHeaderStyles,
+} from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createUploadMediaClientConfig();
@@ -78,7 +79,7 @@ class Example extends Component<ComponentProps, ComponentState> {
         collectionName: defaultCollectionName,
       };
       return (
-        <CardWrapper key={id}>
+        <div css={cardWrapperStyles} key={id}>
           <div>
             <h3>{name}</h3>
             <Card
@@ -86,11 +87,11 @@ class Example extends Component<ComponentProps, ComponentState> {
               identifier={identifier}
             />
           </div>
-        </CardWrapper>
+        </div>
       );
     });
 
-    return <CardsWrapper>{cards}</CardsWrapper>;
+    return <div>{cards}</div>;
   }
 
   cancelUpload = () => {
@@ -148,15 +149,15 @@ class Example extends Component<ComponentProps, ComponentState> {
 
   render() {
     return (
-      <>
-        <CardFlowHeader>
+      <React.Fragment>
+        <div css={cardFlowHeaderStyles}>
           Upload file <input type="file" onChange={this.uploadFile} />
           <Button appearance="primary" onClick={this.cancelUpload}>
             Cancel upload
           </Button>
-        </CardFlowHeader>
+        </div>
         {this.renderCards()}
-      </>
+      </React.Fragment>
     );
   }
 }

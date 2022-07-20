@@ -9,6 +9,13 @@ export type Transition = 'entering' | 'exiting';
 export type Direction = 'top' | 'right' | 'bottom' | 'left';
 
 /**
+ * The distance the element moves in a direction-based animation.
+ * A `proportional` distance is based on the size of the element.
+ * A `constant` distance will always move the same amount, regardless of size.
+ */
+export type Distance = 'constant' | 'proportional';
+
+/**
  * Whether an element will fade on enter, on exit or both
  */
 export type Fade = 'none' | 'in' | 'out' | 'inout';

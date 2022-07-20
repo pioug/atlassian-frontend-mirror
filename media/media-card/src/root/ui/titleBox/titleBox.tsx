@@ -1,27 +1,17 @@
 import React from 'react';
-import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { TitleBoxIcon as TitleBoxIconType } from '../../../index';
-import {
-  TitleBoxWrapper,
-  TitleBoxHeader,
-  TitleBoxFooter,
-  TitleBoxIcon,
-} from './styled';
-import { Breakpoint } from '../common';
-import { Truncate } from '@atlaskit/media-ui/truncateText';
 
+import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
+import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 
-export type TitleBoxProps = {
-  name: string;
-  breakpoint: Breakpoint;
-  createdAt?: number;
-  titleBoxBgColor?: string;
-  titleBoxIcon?: TitleBoxIconType;
-};
-
-type FormattedDateProps = { timestamp: number };
+import { FormattedDateProps, TitleBoxProps } from './types';
+import {
+  TitleBoxWrapper,
+  TitleBoxFooter,
+  TitleBoxHeader,
+  TitleBoxIcon,
+} from './titleBoxComponents';
 
 export const FormattedDate: React.ComponentType<FormattedDateProps> = injectIntl(
   ({ timestamp, intl }: FormattedDateProps & WrappedComponentProps) => {

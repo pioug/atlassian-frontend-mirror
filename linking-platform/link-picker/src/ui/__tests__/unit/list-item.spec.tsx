@@ -4,7 +4,7 @@ import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { screen } from '@testing-library/dom';
 import MockDate from 'mockdate';
 
-import LinkSearchListItem from '../../list-item';
+import LinkSearchListItem from '../../link-picker/list-item';
 
 describe('<LinkSearchListItem />', () => {
   beforeEach(() => {

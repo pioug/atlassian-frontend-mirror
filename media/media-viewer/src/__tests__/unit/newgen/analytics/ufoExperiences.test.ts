@@ -13,10 +13,6 @@ jest.mock('@atlaskit/ufo', () => {
     }),
   };
 });
-jest.mock('../../../../version.json', () => ({
-  name: 'test package',
-  version: '1.0',
-}));
 
 jest.mock('@atlaskit/media-client', () => {
   const mediaClient = jest.requireActual('@atlaskit/media-client');
@@ -55,10 +51,6 @@ describe('ufoExperience', () => {
     fileMediatype: undefined,
     fileMimetype: undefined,
   };
-  const packageInfo = {
-    packageName: 'test package',
-    packageVersion: '1.0',
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -95,7 +87,8 @@ describe('ufoExperience', () => {
         expect(mocks.success).toBeCalledWith({
           metadata: {
             fileAttributes: fileAttributes,
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
             fileStateFlags: {
@@ -111,7 +104,8 @@ describe('ufoExperience', () => {
 
         expect(mocks.success).toBeCalledWith({
           metadata: {
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
           },
@@ -136,7 +130,8 @@ describe('ufoExperience', () => {
             failReason: 'imageviewer-external-onerror',
             errorDetail: undefined,
             fileAttributes: fileAttributes,
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
             fileStateFlags: {
@@ -152,7 +147,8 @@ describe('ufoExperience', () => {
 
         expect(mocks.failure).toBeCalledWith({
           metadata: {
-            ...packageInfo,
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,
             mediaRegion: mockMediaRegion,
           },

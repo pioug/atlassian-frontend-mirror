@@ -1,5 +1,28 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.0
+
+### Minor Changes
+
+- [`8a6ceb519b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a6ceb519b4) - ED-14955 Fix the task list not rendered in hybrid editor
+- [`06232e0f8dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06232e0f8dd) - [ux] Opt In SSR for Resourced Emoji and Emoji Placeholder with EmojiResource interfaces
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.3.14
 
 ### Patch Changes

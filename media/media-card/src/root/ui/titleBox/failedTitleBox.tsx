@@ -1,18 +1,11 @@
 import React from 'react';
-import { TitleBoxWrapper, ErrorMessageWrapper } from './styled';
-import { Breakpoint } from '../common';
+import { FormattedMessage } from 'react-intl-next';
+
 import EditorWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { messages } from '@atlaskit/media-ui';
 import { R300 } from '@atlaskit/theme/colors';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
-import { FormattedMessageWrapper } from '../../styled';
-
-export type OnRetryFunction = () => void;
-
-export type FailedTitleBoxProps = {
-  breakpoint: Breakpoint;
-  customMessage?: MessageDescriptor;
-};
+import { ErrorMessageWrapper, TitleBoxWrapper } from './titleBoxComponents';
+import { FailedTitleBoxProps } from './types';
 
 export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
   breakpoint,
@@ -26,9 +19,9 @@ export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
           size={'small'}
           primaryColor={R300}
         />
-        <FormattedMessageWrapper>
+        <span>
           <FormattedMessage {...customMessage} />
-        </FormattedMessageWrapper>
+        </span>
       </ErrorMessageWrapper>
     </TitleBoxWrapper>
   );

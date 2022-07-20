@@ -8,16 +8,13 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 
 import { CardAction } from '../../actions';
-import {
-  CardActionButton,
-  CardActionIconButtonVariant,
-  CardActionButtonProps,
-} from './styled';
+import { CardActionIconButtonVariant, CardActionButtonProps } from './styles';
 import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { createAndFireMediaCardEvent } from '../analytics';
+import { CardActionButton } from './cardActionButton';
 
 export type CardActionsDropdownMenuProps = {
   readonly actions: CardAction[];

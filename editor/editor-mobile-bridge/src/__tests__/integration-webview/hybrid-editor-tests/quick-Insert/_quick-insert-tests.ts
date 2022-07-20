@@ -59,6 +59,10 @@ export default async () => {
       await page.tapKeys(ACTION_ITEM_QUICK_INSERT_FR);
       await page.tapKeys(SPECIAL_KEYS.ENTER);
 
+      await new Promise((resolve) => {
+        window.setTimeout(() => resolve(null), 0);
+      });
+
       expect(await isActionItemHelpTextTranslatedToFR(page)).toBe(true);
     },
   );

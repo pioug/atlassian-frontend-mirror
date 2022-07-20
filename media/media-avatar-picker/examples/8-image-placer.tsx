@@ -1,12 +1,13 @@
+/**@jsx jsx */
+import { jsx } from '@emotion/react';
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { ImagePlacer, ImageActions } from '../src/image-placer';
 import {
-  Slider,
-  Label,
-  ExportedImage,
-  ExportedImageWrapper,
-} from '../example-helpers/styled';
+  labelStyles,
+  exportedImageStyles,
+  exportedImageWrapperStyles,
+} from '../example-helpers/styles';
 
 export interface ExampleState {
   containerWidth: number;
@@ -135,30 +136,30 @@ class Example extends React.Component<{}, ExampleState> {
             {this.createSlider(CONTAINER_WIDTH_LABEL, containerWidth)}
             {this.createSlider(CONTAINER_HEIGHT_LABEL, containerHeight)}
             {this.createSlider(MARGIN_LABEL, margin, 0, 100, 5)}
-            <Label>
+            <label css={labelStyles}>
               <span>Circular:</span>
               <input
                 type="checkbox"
                 defaultChecked={isCircular}
                 onChange={this.onCircularChanged}
               />
-            </Label>
-            <Label>
+            </label>
+            <label css={labelStyles}>
               <span>Render Circular Mask:</span>
               <input
                 type="checkbox"
                 defaultChecked={useCircularClipWithActions}
                 onChange={this.onRenderCircularMaskChanged}
               />
-            </Label>
-            <Label>
+            </label>
+            <label css={labelStyles}>
               <span>Use Constraints:</span>
               <input
                 type="checkbox"
                 defaultChecked={useConstraints}
                 onChange={this.onUseConstraintsChanged}
               />
-            </Label>
+            </label>
           </GridColumn>
         </Grid>
         <Grid>
@@ -181,14 +182,14 @@ class Example extends React.Component<{}, ExampleState> {
         </Grid>
         <Grid>
           <GridColumn>
-            <Slider
+            <input
               type="range"
               min="0"
               max="100"
               value={`${zoom * 100}`}
               step="1"
               onChange={this.onZoomSliderChange}
-              innerRef={this.onZoomSliderElement}
+              ref={this.onZoomSliderElement}
               style={{ width: containerWidth + margin * 2 }}
             />
           </GridColumn>
@@ -206,9 +207,13 @@ class Example extends React.Component<{}, ExampleState> {
         <Grid>
           <GridColumn>
             {exportedDataURI ? (
-              <ExportedImageWrapper>
-                <ExportedImage src={exportedDataURI} style={{ margin }} />
-              </ExportedImageWrapper>
+              <div css={exportedImageWrapperStyles}>
+                <img
+                  css={exportedImageStyles}
+                  src={exportedDataURI}
+                  style={{ margin }}
+                />
+              </div>
             ) : null}
           </GridColumn>
         </Grid>
@@ -230,9 +235,9 @@ class Example extends React.Component<{}, ExampleState> {
     const displayTitle = title.replace(/_/g, ' ');
     const stepListId = `stepList_${displayTitle}`;
     return (
-      <Label>
+      <label css={labelStyles}>
         <span>{displayTitle}:</span>
-        <Slider
+        <input
           type="range"
           min={min}
           max={max}
@@ -243,7 +248,7 @@ class Example extends React.Component<{}, ExampleState> {
         />
         {defaultValue}
         <datalist id={stepListId}>{dataListOptions}</datalist>
-      </Label>
+      </label>
     );
   }
 

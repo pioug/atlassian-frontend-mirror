@@ -8,6 +8,7 @@ import {
   ExitingPersistence,
   mediumDurationMs,
 } from '@atlaskit/motion';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 import usePreviousValue from '@atlaskit/ds-lib/use-previous-value';
 
 export const counterTestId = 'counter-container';

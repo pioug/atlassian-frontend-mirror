@@ -1,3 +1,5 @@
+import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-intersection-observer';
+
 import { OverflowShadowsObserver } from '../../../nodeviews/OverflowShadowsObserver';
 import { ShadowEvent } from '../../../types';
 
@@ -9,9 +11,10 @@ describe('OverflowShadowsObserver', () => {
   const updateSpy = jest.fn();
   const observeSpy = jest.fn();
   const disconnectSpy = jest.fn();
-  let originalObserver: IntersectionObserver;
   let overflowShadowsObserver: OverflowShadowsObserver;
-  let intersect: (options: TriggerIntersectOptions) => void;
+
+  const mockObserver = new MockIntersectionObserver();
+
   beforeEach(() => {
     overflowShadowsObserver = new OverflowShadowsObserver(
       updateSpy,
@@ -26,14 +29,11 @@ describe('OverflowShadowsObserver', () => {
 
   beforeAll(() => {
     buildTable();
-    originalObserver = (window as any).IntersectionObserver;
-    const { observer, triggerIntersect } = createIntersectionObserverMock();
-    (window as any).IntersectionObserver = observer;
-    intersect = triggerIntersect;
+    mockObserver.setup({ observe: observeSpy, disconnect: disconnectSpy });
   });
 
   afterAll(() => {
-    (window as any).IntersectionObserver = originalObserver;
+    mockObserver.cleanup();
   });
 
   it('observes on first and last table cells', () => {
@@ -117,7 +117,7 @@ describe('OverflowShadowsObserver', () => {
           expectedShow,
         },
       ) => {
-        intersect({
+        mockObserver.triggerIntersect({
           boundingClientRect: {
             height: 10,
             width: 10,
@@ -149,59 +149,5 @@ describe('OverflowShadowsObserver', () => {
     td2 = document.createElement('td');
     tr.appendChild(td1);
     tr.appendChild(td2);
-  }
-
-  type TriggerIntersectOptions = {
-    target: HTMLElement;
-    isIntersecting: boolean;
-    intersectionRatio: number;
-    rootBounds?: {
-      bottom?: number;
-      top?: number;
-      height?: number;
-      width?: number;
-    };
-    boundingClientRect: {
-      bottom?: number;
-      top?: number;
-      height: number;
-      width?: number;
-    };
-  };
-
-  function createIntersectionObserverMock(): {
-    observer: IntersectionObserver;
-    triggerIntersect: (options: TriggerIntersectOptions) => void;
-  } {
-    let intersectCallback: (entries: any[]) => {};
-    return {
-      observer: (function intersectionObserverMock(
-        this: IntersectionObserver,
-        callback: () => {},
-      ) {
-        this.disconnect = disconnectSpy;
-        this.observe = observeSpy;
-        intersectCallback = callback;
-      } as unknown) as IntersectionObserver,
-
-      triggerIntersect: ({
-        target,
-        isIntersecting,
-        boundingClientRect,
-        rootBounds,
-        intersectionRatio,
-      }: TriggerIntersectOptions) => {
-        const entries = [
-          {
-            target,
-            rootBounds,
-            boundingClientRect,
-            isIntersecting,
-            intersectionRatio,
-          },
-        ];
-        intersectCallback(entries);
-      },
-    };
   }
 });

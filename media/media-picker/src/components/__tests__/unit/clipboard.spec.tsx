@@ -327,8 +327,8 @@ describe('Clipboard', () => {
       expect.objectContaining({
         context: [
           {
-            packageName: '@atlaskit/media-picker',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
             componentName: 'clipboard',
             component: 'clipboard',
             [MEDIA_CONTEXT]: {

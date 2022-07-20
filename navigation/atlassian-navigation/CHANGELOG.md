@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.4
+
+### Patch Changes
+
+- [`416570be6bf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/416570be6bf) - Small update to styles to account for change in `@atlaskit/logo`.
+- Updated dependencies
+
 ## 2.2.3
 
 ### Patch Changes

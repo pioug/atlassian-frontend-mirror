@@ -66,7 +66,7 @@ export interface Props extends WithAnalyticsEventsProps {
   defaultIsOpen?: boolean;
   /** The default for `value`. */
   defaultValue?: string;
-  /** DEPRECATED - Use locale instead. Function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format)). */
+  /** A function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format)) */
   formatDisplayLabel?: (time: string, timeFormat: string) => string;
   /** The id of the field. Currently, react-select transforms this to have a `react-select-` prefix, and an `--input` suffix when applied to the input. For example, the id `my-input` would be transformed to `react-select-my-input--input`. Keep this in mind when needing to refer to the ID. This will be fixed in an upcoming release. */
   id?: string;
@@ -235,11 +235,18 @@ class TimePicker extends React.Component<TimePickerProps, State> {
   onCreateOption = (inputValue: any): void => {
     if (this.props.timeIsEditable) {
       const { parseInputValue, timeFormat } = this.props;
-      const formattedValue =
-        format(
-          parseInputValue(inputValue, timeFormat || defaultTimeFormat) as Date,
-          'HH:mm',
-        ) || '';
+
+      let sanitizedInput;
+      try {
+        sanitizedInput = parseInputValue(
+          inputValue,
+          timeFormat || defaultTimeFormat,
+        ) as Date;
+      } catch (e) {
+        return; // do nothing, the main validation should happen in the form
+      }
+
+      const formattedValue = format(sanitizedInput, 'HH:mm') || '';
 
       this.setState({ value: formattedValue });
       this.props.onChange(formattedValue);
@@ -366,7 +373,6 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       testId,
     } = this.props;
     const ICON_PADDING = 2;
-    const BORDER_WIDTH = 2;
 
     const { value = '', isOpen } = this.getSafeState();
     const validationState = this.props.isInvalid ? 'error' : 'default';
@@ -393,7 +399,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       selectComponents.ClearIndicator = EmptyClearIndicator;
     }
 
-    const renderIconContainer = Boolean(hideIcon && value);
+    const renderIconContainer = Boolean(!hideIcon && value);
 
     const mergedStyles = mergeStyles(selectStyles, {
       control: (base) => ({
@@ -412,7 +418,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       indicatorsContainer: (base) => ({
         ...base,
         paddingLeft: renderIconContainer ? ICON_PADDING : 0,
-        paddingRight: renderIconContainer ? gridSize() - BORDER_WIDTH : 0,
+        paddingRight: renderIconContainer ? gridSize() - ICON_PADDING : 0,
       }),
     });
 
@@ -424,7 +430,12 @@ class TimePicker extends React.Component<TimePickerProps, State> {
         data-testid={testId && `${testId}--container`}
         onKeyDown={this.onSelectKeyDown}
       >
-        <input name={name} type="hidden" value={value} />
+        <input
+          id={selectProps.inputId}
+          name={name}
+          type="hidden"
+          value={value}
+        />
         <SelectComponent
           autoFocus={autoFocus}
           components={selectComponents}

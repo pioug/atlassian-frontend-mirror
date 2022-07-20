@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-shared-styles",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Style values used in the editor/renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

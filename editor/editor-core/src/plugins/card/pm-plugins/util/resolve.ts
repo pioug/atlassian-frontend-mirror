@@ -21,8 +21,14 @@ export const resolveWithProvider = (
   request: Request,
   options: CardOptions,
 ) => {
+  // When user manually changes appearance from blue link to smart link, we should respect that,
+  let shouldForceAppearance =
+    // This flag is set to true only in one place atm:
+    // packages/editor/editor-core/src/plugins/card/pm-plugins/doc.ts @ convertHyperlinkToSmartCard
+    // Which is used when user switching from URL to smart link appearance.
+    !!request.shouldReplaceLink;
   const handleResolve = provider
-    .resolve(request.url, request.appearance)
+    .resolve(request.url, request.appearance, shouldForceAppearance)
     .then((resolvedCard) => {
       delete outstandingRequests[request.url];
       return resolvedCard;

@@ -32,6 +32,7 @@ const PopupPlacementExample = () => {
 
         return (
           <Popup
+            key={placement}
             placement={placement}
             isOpen={isOpen}
             onClose={() => {

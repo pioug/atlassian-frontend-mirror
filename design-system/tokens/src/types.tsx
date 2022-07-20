@@ -566,10 +566,6 @@ export interface InteractionColorTokenSchema {
     interaction: {
       pressed: PaintToken;
       hovered: PaintToken;
-      inverse: {
-        pressed: PaintToken;
-        hovered: PaintToken;
-      };
     };
   };
 }
@@ -776,6 +772,12 @@ export interface DeprecatedTokenSchema {
     overlay: {
       pressed: PaintToken;
       hover: PaintToken;
+    };
+    interaction: {
+      inverse: {
+        hovered: PaintToken;
+        pressed: PaintToken;
+      };
     };
   };
   shadow: {

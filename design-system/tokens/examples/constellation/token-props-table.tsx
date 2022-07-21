@@ -9,10 +9,9 @@ import { gridSize } from '@atlaskit/theme/constants';
 import token from '../../src/get-token';
 
 const containerStyles = css({
-  borderRadius: `${gridSize()}px`,
   margin: `${gridSize() * 4}px -${gridSize() * 2}px 0`,
   padding: `${gridSize()}px ${gridSize() * 2}px`,
-
+  borderRadius: `${gridSize()}px`,
   'h3 + &': {
     marginTop: '0px',
   },
@@ -23,17 +22,17 @@ const tableStyles = css({
   borderCollapse: 'collapse',
 
   th: {
-    textAlign: 'left',
     padding: `${gridSize() / 2}px ${gridSize() * 2}px ${
       gridSize() / 2
     }px ${gridSize()}px`,
-    whiteSpace: 'nowrap',
+    textAlign: 'left',
     verticalAlign: 'top',
+    whiteSpace: 'nowrap',
   },
 
   td: {
-    padding: `${gridSize() / 2}px 0 ${gridSize() / 2}px ${gridSize()}px`,
     width: '100%',
+    padding: `${gridSize() / 2}px 0 ${gridSize() / 2}px ${gridSize()}px`,
   },
 
   tbody: {
@@ -42,22 +41,22 @@ const tableStyles = css({
 });
 
 const headerStyles = css({
+  margin: `0 0 ${gridSize() / 2}px 0`,
+  paddingBottom: `${gridSize()}px`,
   borderBottom: `1px solid ${token('color.border', '#EBECF0')}`,
   fontSize: '1em',
   fontWeight: 'normal',
   lineHeight: '1.4',
-  margin: `0 0 ${gridSize() / 2}px 0`,
-  paddingBottom: `${gridSize()}px`,
 });
 
 const codeStyles = css({
+  display: 'inline-block',
+  padding: '4px 8px',
   backgroundColor: `${token('color.background.neutral', N20)}`,
   borderRadius: '3px',
   color: `${token('color.text', N800)}`,
-  display: 'inline-block',
   fontSize: '1em',
   lineHeight: '20px',
-  padding: '4px 8px',
 });
 
 const TokenPropsTable = ({

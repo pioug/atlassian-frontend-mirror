@@ -395,14 +395,14 @@ const containerStyles = css({
 });
 
 const boxStyles = css({
+  display: 'flex',
+  boxSizing: 'border-box',
+  minHeight: '100px',
+  margin: '0.5em',
+  padding: '1em',
   border: 'none',
   borderRadius: '3px',
-  boxSizing: 'border-box',
-  display: 'flex',
   fontSize: 'inherit',
-  margin: '0.5em',
-  minHeight: '100px',
-  padding: '1em',
   textAlign: 'left',
 });
 

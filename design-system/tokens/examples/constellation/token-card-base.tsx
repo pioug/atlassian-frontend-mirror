@@ -6,14 +6,14 @@ import WorldIcon from '@atlaskit/icon/glyph/world';
 import { borderRadius } from '@atlaskit/theme/constants';
 
 const cardStyles = css({
+  display: 'flex',
   width: '100%',
   height: '108px',
-  fontSize: '24px',
-  borderRadius: `${borderRadius()}px`,
   padding: '1em',
-  display: 'flex',
   alignItems: 'center',
   columnGap: '8px',
+  borderRadius: `${borderRadius()}px`,
+  fontSize: '24px',
   ':hover': {
     cursor: 'pointer',
   },
@@ -25,9 +25,9 @@ const Card = ({ tokenSet }: { tokenSet: Record<string, string> }) => {
       css={[
         cardStyles,
         css({
-          color: tokenSet.color,
           backgroundColor: tokenSet.backgroundColor,
           border: tokenSet.border,
+          color: tokenSet.color,
           ':hover': { backgroundColor: tokenSet.hoverBackgroundColor },
           ':active': { backgroundColor: tokenSet.activeBackgroundColor },
         }),

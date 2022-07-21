@@ -11,18 +11,20 @@ const shimmer = keyframes`
 `;
 
 const skeletonStyles = css({
-  borderRadius: borderRadius(),
-  userSelect: 'none',
-  backgroundColor: token('color.skeleton', '#091E420F'),
   display: 'block',
+  backgroundColor: token('color.skeleton', '#091E420F'),
+  borderRadius: borderRadius(),
   overflow: 'hidden',
-
+  userSelect: 'none',
   ':before': {
-    content: '""',
-    height: '100%',
-    width: '100%',
     display: 'block',
-
+    width: '100%',
+    height: '100%',
+    animationDuration: '0.8s',
+    animationFillMode: 'forwards',
+    animationIterationCount: 'infinite',
+    animationName: shimmer,
+    animationTimingFunction: 'ease-out',
     backgroundImage: `linear-gradient(
       to right,
       transparent 0%,
@@ -30,12 +32,7 @@ const skeletonStyles = css({
       transparent 100%
     )`,
     backgroundRepeat: 'no-repeat',
-
-    animationName: shimmer,
-    animationDuration: '0.8s',
-    animationFillMode: 'forwards',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'ease-out',
+    content: '""',
   },
 });
 

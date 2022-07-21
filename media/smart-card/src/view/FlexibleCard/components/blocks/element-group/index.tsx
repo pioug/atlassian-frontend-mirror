@@ -17,12 +17,16 @@ const getAlignmentStyles = (align?: SmartLinkAlignment) => {
   switch (align) {
     case SmartLinkAlignment.Right:
       return css`
+        -webkit-box-align: end;
+        -ms-flex-align: end;
         justify-content: flex-end;
         text-align: right;
       `;
     case SmartLinkAlignment.Left:
     default:
       return css`
+        -webkit-box-align: start;
+        -ms-flex-align: start;
         justify-content: flex-start;
         text-align: left;
       `;

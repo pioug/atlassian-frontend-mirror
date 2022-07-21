@@ -9,28 +9,28 @@ import { token } from '../../../src';
 import { Path } from '../types';
 
 const summaryContainerStyles = css({
-  cursor: 'pointer',
   display: 'grid',
-  gridTemplateColumns: '16fr 16fr 1fr',
-  columnGap: gridSize() * 0.5,
   padding: gridSize() * 2,
-  color: token('color.text.selected', B400),
-  border: `1px solid ${token('color.border.selected', B400)}`,
-  background: token('color.background.selected', B50),
-  borderRadius: 8,
   alignItems: 'center',
+  columnGap: gridSize() * 0.5,
+  gridTemplateColumns: '16fr 16fr 1fr',
+  background: token('color.background.selected', B50),
+  border: `1px solid ${token('color.border.selected', B400)}`,
+  borderRadius: 8,
+  color: token('color.text.selected', B400),
+  cursor: 'pointer',
 });
 
 const questionSummaryStyles = css({
+  margin: 0,
   fontSize: '12px',
   fontWeight: 600,
-  margin: 0,
   textAlign: 'left',
 });
 
 const answerSummaryStyles = css({
-  fontSize: fontSize(),
   margin: 0,
+  fontSize: fontSize(),
   justifySelf: 'end',
   textAlign: 'end',
 });

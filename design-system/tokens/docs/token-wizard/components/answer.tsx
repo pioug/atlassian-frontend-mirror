@@ -21,14 +21,14 @@ import { Answer, Path } from '../types';
 
 const answerSummaryStyles = css({
   fontSize: '20px',
-  lineHeight: '24px',
   fontWeight: 500,
+  lineHeight: '24px',
 });
 
 const answerDescriptionStyles = css({
   marginTop: 4,
-  lineHeight: '20px',
   fontSize: '14px',
+  lineHeight: '20px',
 });
 
 const getAnswerStyled = (selected: boolean): CSSObject => ({

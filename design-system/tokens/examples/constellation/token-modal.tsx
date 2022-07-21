@@ -26,12 +26,12 @@ const dialogStyles = css({
   flex: '1 1 auto',
   flexDirection: 'column',
   backgroundColor: token('elevation.surface.overlay', N0),
-  pointerEvents: 'auto',
   borderRadius: '3px',
   boxShadow: token(
     'elevation.shadow.overlay',
     `0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
   ),
+  pointerEvents: 'auto',
 });
 
 const headerStyles = css({

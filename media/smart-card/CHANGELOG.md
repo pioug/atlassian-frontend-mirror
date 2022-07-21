@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 20.0.6
+
+### Patch Changes
+
+- [`afb579e5778`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afb579e5778) - Flexible UI: Fix styling on MetadataBlock and FooterBlock in Firefox and Safari browser
+
 ## 20.0.5
 
 ### Patch Changes

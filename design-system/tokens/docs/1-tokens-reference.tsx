@@ -41,30 +41,30 @@ const sortByStatus = (a: Token, b: Token) => {
 };
 
 const dividerStyles = css({
+  marginTop: `${gridSize() * 1.5}px`,
+  marginBottom: `${gridSize() * 1.5}px`,
   border: 'none',
   borderTop: `2px solid ${token('color.border', '#ebecf0')}`,
-  marginBottom: `${gridSize() * 1.5}px`,
-  marginTop: `${gridSize() * 1.5}px`,
 });
 
 const listStyles = css({
-  listStyle: 'none',
-  padding: 0,
   margin: 0,
+  padding: 0,
+  listStyle: 'none',
   li: {
-    padding: 0,
     margin: 0,
+    padding: 0,
   },
 });
 
 const tokenStyles = css({
   display: 'grid',
-  gridGap: '10px',
-  gridTemplateColumns: 'repeat(6, 1fr)',
-  borderRadius: borderRadius(),
-  border: `1px solid ${token('color.border', '#eaeaea')}`,
   marginBottom: `${gridSize()}px`,
   padding: '10px',
+  gridGap: '10px',
+  gridTemplateColumns: 'repeat(6, 1fr)',
+  border: `1px solid ${token('color.border', '#eaeaea')}`,
+  borderRadius: borderRadius(),
 });
 
 const tokenNameStyles = css({
@@ -72,11 +72,11 @@ const tokenNameStyles = css({
 });
 
 const tokenValueStyles = css({
-  gridColumnStart: 'span 2',
-  padding: '5px',
-  borderRadius: borderRadius(),
   minWidth: '180px',
+  padding: '5px',
+  gridColumnStart: 'span 2',
   border: `1px solid ${token('color.border', '#eaeaea')}`,
+  borderRadius: borderRadius(),
   'span:nth-of-type(2)': {
     display: 'none',
   },
@@ -89,36 +89,36 @@ const tokenValueStyles = css({
 });
 
 const searchWrapperStyles = css({
+  display: 'flex',
+  margin: `${gridSize() * 2}px 0px`,
+  padding: 8,
   position: 'sticky',
-  top: 54,
   zIndex: 1,
+  top: 54,
+  flexDirection: 'column',
   backgroundColor: token('elevation.surface.raised', 'white'),
+  border: `1px solid ${token('color.border', '#eaeaea')}`,
+  borderRadius: borderRadius(),
   boxShadow: token(
     'elevation.shadow.raised',
     `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
   ),
-  display: 'flex',
-  flexDirection: 'column',
-  margin: `${gridSize() * 2}px 0px`,
-  padding: 8,
-  borderRadius: borderRadius(),
-  border: `1px solid ${token('color.border', '#eaeaea')}`,
   '@media (min-width: 1241px)': {
     top: 0,
   },
 });
 
 const tokenDescriptionStyles = css({
-  gridRowStart: '2',
-  gridColumnStart: 'span 6',
   margin: 0,
+  gridColumnStart: 'span 6',
+  gridRowStart: '2',
 });
 
 const tokenMetaDataStyles = css({
-  gridColumn: '1/7',
-  color: token('color.text.subtlest', N200),
   display: 'flex',
   alignItems: 'center',
+  gridColumn: '1/7',
+  color: token('color.text.subtlest', N200),
 });
 
 interface Token {

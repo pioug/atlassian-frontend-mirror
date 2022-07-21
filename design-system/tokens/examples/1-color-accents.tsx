@@ -148,15 +148,15 @@ const rowStyles = css({
 
 const boxStyles = css({
   display: 'flex',
-  alignItems: 'center',
+  boxSizing: 'border-box',
   width: '100%',
   maxWidth: '200px',
   minHeight: '100px',
-  borderRadius: '3px',
-  padding: '1em',
-  boxSizing: 'border-box',
-  textAlign: 'left',
   marginTop: '1em',
+  padding: '1em',
+  alignItems: 'center',
+  borderRadius: '3px',
+  textAlign: 'left',
   ':hover': {
     cursor: 'pointer',
   },
@@ -174,9 +174,9 @@ const Box = ({
     css={[
       boxStyles,
       css({
-        color: style.color,
         backgroundColor: style.backgroundColor,
         border: style.border,
+        color: style.color,
       }),
     ]}
   >

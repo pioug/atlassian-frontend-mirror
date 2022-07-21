@@ -53,19 +53,17 @@ const ALL_DESIGN_TOKENS_LIST_HEADING = {
 } as const;
 
 const clearButtonStyles = css({
-  marginRight: gridSize(),
-  cursor: 'pointer',
-  appearance: 'none',
-  border: 'none',
-  background: 'none',
-  padding: 0,
   display: 'flex',
+  marginRight: gridSize(),
+  padding: 0,
   alignItems: 'center',
-
+  appearance: 'none',
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
   '&:hover, &:focus': {
     color: token('color.link', '#0C66E4'),
   },
-
   '&:active': {
     color: token('color.link.pressed', '#0055CC'),
   },

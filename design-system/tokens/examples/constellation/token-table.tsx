@@ -148,10 +148,10 @@ const overflowStyles = css({
 });
 
 const shadowStyles = css({
+  width: '10px',
   position: 'absolute',
   top: '-10px',
   bottom: '-10px',
-  width: '10px',
   boxShadow: token(
     'elevation.shadow.overflow',
     `2px 0px 8px ${N50A}, 1px 0px 0px ${N60A}`,

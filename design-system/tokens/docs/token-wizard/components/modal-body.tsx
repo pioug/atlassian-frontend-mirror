@@ -18,21 +18,18 @@ const BREAKPOINT = 912;
 
 const gridStyles = css({
   display: 'grid',
-  gridTemplateColumns: '1fr',
-  columnGap: 16,
   paddingBottom: 32,
-
+  columnGap: 16,
+  gridTemplateColumns: '1fr',
   [`@media (min-width: ${BREAKPOINT}px)`]: {
-    gridTemplateColumns: '1fr 1fr',
     height: 'calc(100% - 32px)',
+    gridTemplateColumns: '1fr 1fr',
   },
 });
 
 const leftContainerStyles = css({
-  borderRadius: 8,
-  border: `1px solid ${token('color.border', N40)}`,
   padding: 16,
-
+  border: `1px solid ${token('color.border', N40)}`,
   [`@media (min-width: ${BREAKPOINT}px)`]: {
     height: 492,
     overflow: 'scroll',
@@ -41,8 +38,8 @@ const leftContainerStyles = css({
 
 const selectAnswerStyles = css({
   marginBottom: 8,
-  lineHeight: '20px',
   fontSize: '14px',
+  lineHeight: '20px',
 });
 
 /**

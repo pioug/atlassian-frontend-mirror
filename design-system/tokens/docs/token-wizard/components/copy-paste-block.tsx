@@ -13,14 +13,12 @@ const COPY_MESSAGE = {
 };
 
 const copyButtonStyles = css({
-  border: 'none',
-  background: 'none',
   padding: 0,
-
+  background: 'none',
+  border: 'none',
   svg: {
     display: 'none',
   },
-
   '&:hover, &:focus': {
     svg: {
       display: 'inline-block',

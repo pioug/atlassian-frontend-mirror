@@ -11,18 +11,18 @@ import { token } from '../../../src';
 import CopyToClipboard from './copy-to-clipboard';
 
 const copyValueBaseStyles = css({
-  boxSizing: 'border-box',
-  background: token('color.background.neutral', '#091E420F'),
-  color: token('color.text', '#172B4D'),
-  borderRadius: borderRadius(),
-  padding: '2px 12px',
-  minHeight: 24,
   display: 'flex',
+  boxSizing: 'border-box',
+  minHeight: 24,
+  padding: '2px 12px',
   alignItems: 'center',
   justifyContent: 'center',
-  lineHeight: 1,
+  background: token('color.background.neutral', '#091E420F'),
+  borderRadius: borderRadius(),
+  color: token('color.text', '#172B4D'),
   fontFamily: codeFontFamily(),
   fontSize: 12,
+  lineHeight: 1,
 });
 
 const copyValueButtonStyles = css({

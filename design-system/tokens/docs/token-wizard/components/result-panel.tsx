@@ -20,10 +20,9 @@ const headerStyles = css({
 });
 
 const leftContainerStyles = css({
-  borderRadius: 8,
-  border: `1px solid ${token('color.border', N40)}`,
   padding: 16,
-
+  border: `1px solid ${token('color.border', N40)}`,
+  borderRadius: 8,
   '@media (min-width: 480px)': {
     height: 492,
     overflow: 'scroll',
@@ -32,8 +31,8 @@ const leftContainerStyles = css({
 
 const resultTitleStyles = css({
   fontSize: '20px',
-  lineHeight: '24px',
   fontWeight: 500,
+  lineHeight: '24px',
 });
 
 const dividerStyles = css({

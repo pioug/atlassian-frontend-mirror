@@ -22,40 +22,37 @@ import type { Token as TokenType } from '../types';
 import CopyPasteBlock from './copy-paste-block';
 
 const cardsWrapperStyles = css({
-  margin: `${gridSize()}px 0 ${gridSize()}px`,
   display: 'flex',
+  margin: `${gridSize()}px 0 ${gridSize()}px`,
 });
 
 const tokenNameStyled = css({
   padding: `${gridSize() * 0.5}px`,
+  background: token('color.background.neutral', N20),
+  borderRadius: borderRadius(),
+  color: token('color.text', N800),
+  cursor: 'copy',
   fontSize: '12px',
   lineHeight: '24px',
-  borderRadius: borderRadius(),
-  cursor: 'copy',
-  background: token('color.background.neutral', N20),
-  color: token('color.text', N800),
-
   span: {
-    verticalAlign: 'middle',
     color: token('color.icon.subtle', N90),
+    verticalAlign: 'middle',
   },
-
   ':hover': {
     background: token('color.background.neutral.hovered', N30),
   },
-
   ':active': {
     background: token('color.background.neutral.pressed', N60),
   },
 });
 
 const colorBlockStyles = css({
+  minWidth: gridSize() * 12,
+  borderRadius: 3,
   cursor: 'copy',
   fontSize: fontSize(),
   lineHeight: '24px',
-  borderRadius: 3,
   textAlign: 'center',
-  minWidth: gridSize() * 12,
 });
 
 const subheadingStyles = css({
@@ -64,27 +61,27 @@ const subheadingStyles = css({
 });
 
 const descriptionStyles = css({
-  fontSize: fontSize(),
-  lineHeight: '24px',
   marginTop: gridSize(),
   paddingBottom: gridSize() * 2,
+  fontSize: fontSize(),
+  lineHeight: '24px',
 });
 
 const valueCardStyles = css({
+  minWidth: gridSize() * 6,
+  marginRight: gridSize() * 0.5,
+  padding: 2,
   background: token('elevation.surface.raised', N0),
+  borderRadius: borderRadius(),
   boxShadow: token(
     'elevation.shadow.raised',
     `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
   ),
-  padding: 2,
-  borderRadius: borderRadius(),
-  marginRight: gridSize() * 0.5,
-  minWidth: gridSize() * 6,
 });
 
 const themeTextStyles = css({
-  textAlign: 'center',
   margin: '0 12px',
+  textAlign: 'center',
 });
 /**
  * __TokenItem__

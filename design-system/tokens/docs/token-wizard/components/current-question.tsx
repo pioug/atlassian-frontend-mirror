@@ -9,23 +9,23 @@ import questions from '../data/questions';
 import { Question, questionID } from '../types';
 
 const questionContainerStyles = css({
+  marginBottom: gridSize() * 1.5,
+  padding: gridSize() * 2,
   background: token('color.background.selected.bold', B400),
   borderRadius: 8,
-  padding: gridSize() * 2,
-  marginBottom: gridSize() * 1.5,
 });
 
 const questionStyles = css({
-  fontSize: '20px',
-  lineHeight: '24px',
-  fontWeight: 500,
   color: token('color.text.inverse', N0),
+  fontSize: '20px',
+  fontWeight: 500,
+  lineHeight: '24px',
 });
 
 const questionDescriptionStyles = css({
+  color: token('color.text.inverse', N0),
   fontSize: '14px',
   lineHeight: '20px',
-  color: token('color.text.inverse', N0),
 });
 
 /**

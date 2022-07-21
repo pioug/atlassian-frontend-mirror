@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.3.0
+
+### Minor Changes
+
+- [`0fa3ac70ed0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fa3ac70ed0) - Restores backwards compatibility that was broken in 1.2.x
+
 ## 1.2.1
 
 ### Patch Changes

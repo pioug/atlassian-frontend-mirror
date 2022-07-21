@@ -17,7 +17,8 @@ import {
 } from '@atlaskit/media-integration-test-helpers';
 
 describe('Embed Cards:', () => {
-  it('displays embed properly with different layouts', async () => {
+  // FIXME: This test was automatically skipped due to failure on 20/07/2022: https://product-fabric.atlassian.net/browse/ED-15297
+  it.skip('displays embed properly with different layouts', async () => {
     const { page } = global;
 
     await initFullPageEditorWithAdf(

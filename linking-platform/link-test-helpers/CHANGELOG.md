@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 1.2.0
+
+### Minor Changes
+
+- [`3fe49774601`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fe49774601) - Refactor link picker test to use RTL
+
 ## 1.1.0
 
 ### Minor Changes

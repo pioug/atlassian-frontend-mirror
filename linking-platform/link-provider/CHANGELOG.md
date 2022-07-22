@@ -1,5 +1,31 @@
 # @atlaskit/link-provider
 
+## 1.1.5
+
+### Patch Changes
+
+- [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export types/functions in linking common to be used in smart card
+
+  - add flag to card action to override re-using previous 'resolved' state
+
+  - add prop to cardState which reflects the metadata state, can be pending, resolved or errored
+
+  - modified reducer and dispatchers to handle these new props
+
+- Updated dependencies
+
+## 1.1.4
+
+### Patch Changes
+
+- [`0377d53f311`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0377d53f311) - Properly process case when old editor uses new component AND we have user preferences coming from /providers
+
+## 1.1.3
+
+### Patch Changes
+
+- [`263ef1e543b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/263ef1e543b) - Change data structure of lpup data we get
+
 ## 1.1.2
 
 ### Patch Changes

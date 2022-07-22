@@ -1,5 +1,17 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.0.16
+
+### Patch Changes
+
+- [`2760fbd2066`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2760fbd2066) - ESS-2569: fixed backslash issue in roundtrip wiki to adf
+
+## 11.0.15
+
+### Patch Changes
+
+- [`273a8696f10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/273a8696f10) - ESS-2539 Handle token with empty nodes
+
 ## 11.0.14
 
 ### Patch Changes

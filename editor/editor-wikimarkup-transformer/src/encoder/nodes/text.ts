@@ -42,10 +42,12 @@ const isEscapeNeeded = (node: PMNode, parent?: PMNode) => {
     node.marks.find((m) => m.type.name === 'code') !== undefined
   );
 };
-
+/**
+ * ESS-2569: Removing the backsalshes from the regex
+ */
 function escapingWikiFormatter(text: string) {
   const pattern = [
-    '([\\![])',
+    '([![])',
     ...macroKeywordTokenMap.map(
       (macro) => `(${macro.regex.source.replace('^', '')})`,
     ),

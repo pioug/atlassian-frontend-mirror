@@ -19,6 +19,7 @@ import {
   mockIframelyResponse,
   mockBaseResponseWithPreview,
   mockBaseResponseWithDownload,
+  mockSSRResponse,
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
 
@@ -610,5 +611,49 @@ describe('HoverCard', () => {
     fireEvent.click(previewButton);
 
     expect(containerOnClick).not.toHaveBeenCalled();
+  });
+
+  describe('SSR', () => {
+    it('links render hover card correctly', async () => {
+      mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+      mockClient = new (fakeFactory(mockFetch))();
+      mockUrl = 'https://some.url';
+      const storeOptions: any = {
+        initialState: {
+          [mockUrl]: {
+            status: 'resolved',
+            details: mockSSRResponse,
+          },
+        },
+      };
+
+      const { findByTestId } = render(
+        <Provider client={mockClient} storeOptions={storeOptions}>
+          <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
+        </Provider>,
+      );
+
+      expect(mockFetch).toBeCalledTimes(0);
+      const element = await findByTestId('inline-card-resolved-view');
+      expect(element.textContent).toBe('I am a fan of cheese');
+
+      jest.useFakeTimers();
+      fireEvent.mouseEnter(element);
+      jest.runAllTimers();
+
+      expect(mockFetch).toBeCalledTimes(1);
+      const titleBlock = await findByTestId('smart-block-title-resolved-view');
+      await findByTestId('smart-block-metadata-resolved-view');
+      const snippetBlock = await findByTestId(
+        'smart-block-snippet-resolved-view',
+      );
+      const footerBlock = await findByTestId(
+        'smart-footer-block-resolved-view',
+      );
+      //trim because the icons are causing new lines in the textContent
+      expect(titleBlock.textContent?.trim()).toBe('I love cheese');
+      expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
+      expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
+    });
   });
 });

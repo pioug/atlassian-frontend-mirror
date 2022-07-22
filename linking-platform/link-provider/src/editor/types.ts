@@ -28,7 +28,7 @@ export type LinkAppearance = CardAppearance | 'url';
 
 export interface UserPreferences {
   defaultAppearance: LinkAppearance;
-  appearanceMap: Record<string, LinkAppearance>;
+  appearances: { urlSegment: string; appearance: LinkAppearance }[];
 }
 
 export type ORSProvidersResponse = {

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { useCallback, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { JsonLd } from 'json-ld-types';
 import { css, jsx } from '@emotion/core';
 import 'brace';
@@ -13,6 +14,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import { response1 } from './content/example-responses';
 import CardExample from './jsonld-editor/card-example';
 import JsonldExample from './jsonld-editor/jsonld-example';
+import LoadLinkForm from './jsonld-editor/load-link-form';
 
 const styles = css`
   display: flex;
@@ -32,8 +34,10 @@ const initialText = stringify(initialJson);
 
 const Example: React.FC = () => {
   const [json, setJson] = useState<JsonLd.Response>(initialJson);
+  const [jsonError, setJsonError] = useState<string | undefined>();
   const [text, setText] = useState<string>(initialText);
-  const [error, setError] = useState<string | undefined>();
+  const [url, setUrl] = useState<string>();
+  const [urlError, setUrlError] = useState<string | undefined>();
 
   const theme = useThemeObserver();
   const editorTheme = theme === 'dark' ? 'twilight' : 'tomorrow';
@@ -44,9 +48,9 @@ const Example: React.FC = () => {
       setText(str);
 
       setJson(json);
-      setError(undefined);
+      setJsonError(undefined);
     } catch (err) {
-      setError(err.message);
+      setJsonError(err.message);
     }
   }, []);
 
@@ -56,23 +60,48 @@ const Example: React.FC = () => {
 
       const updatedJson = JSON.parse(str);
       setJson(updatedJson);
-      setError(undefined);
+      setJsonError(undefined);
     } catch (err) {
-      setError(err.message);
+      setJsonError(err.message);
     }
   }, []);
+
+  const onSubmitUrl = useCallback((url: string) => {
+    setUrl(url);
+    setUrlError(undefined);
+  }, []);
+
+  const onUrlResolve = useCallback(
+    (json: JsonLd.Response) => {
+      setUrl(undefined);
+      onJsonChange(json);
+    },
+    [onJsonChange],
+  );
+
+  const onUrlFallback = useCallback(({ error, resetErrorBoundary }) => {
+    setUrlError(error.message);
+    resetErrorBoundary();
+    return null;
+  }, []);
+
+  const onUrlReset = useCallback(() => setUrl(undefined), []);
 
   return (
     <div css={styles}>
       <div>
-        <CardExample response={json} />
+        <ErrorBoundary fallbackRender={onUrlFallback} onReset={onUrlReset}>
+          <CardExample json={json} onResolve={onUrlResolve} url={url} />
+        </ErrorBoundary>
       </div>
       <div>
         <h6>JSON-LD</h6>
+        <LoadLinkForm onSubmit={onSubmitUrl} error={urlError} />
         <JsonldExample
           defaultValue={initialJson.data as JsonLd.Data.BaseData}
           onSelect={onJsonChange}
         />
+        {jsonError && <InlineMessage type="error" title={jsonError} />}
         <AceEditor
           focus={true}
           mode="json"
@@ -88,7 +117,6 @@ const Example: React.FC = () => {
           enableLiveAutocompletion={true}
           width="100%"
         />
-        {error && <InlineMessage type="error" title={error} />}
       </div>
     </div>
   );

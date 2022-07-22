@@ -1,17 +1,23 @@
 import React from 'react';
 
-import { flushPromises, mountWithIntl } from '@atlaskit/link-test-helpers';
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
+import {
+  renderWithIntl as render,
+  asyncAct,
+  ManualPromise,
+} from '@atlaskit/link-test-helpers';
+import {
+  MockLinkPickerGeneratorPlugin,
+  MockLinkPickerPromisePlugin,
+  mockedPluginData,
+} from '@atlaskit/link-test-helpers/link-picker';
+import { act, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom/extend-expect';
 
-import { LinkPicker, LinkPickerProps } from '../../../';
+import { LinkPicker, LinkPickerPlugin, LinkPickerProps } from '../../../';
 
-import { LinkPickerPlugin, ResolveResult } from '../../types';
-import LinkSearchNoResults from '../../link-picker/link-search-no-results';
-import PanelTextInput from '../../link-picker/text-input';
-import LinkSearchList from '../../link-picker/link-search-list';
-import { getDefaultItems, ManualPromise } from '../__helpers';
 import { messages } from '../../link-picker/messages';
-import { ErrorBoundaryFallback } from '../../error-boundary-fallback';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {
   return jest.fn().mockImplementation(() => -5);
@@ -34,103 +40,57 @@ describe('<LinkPicker />', () => {
   interface SetupArgumentObject {
     url?: string;
     waitForResolves?: boolean;
-    plugins?: [LinkPickerPlugin];
+    plugins?: LinkPickerPlugin[];
   }
 
-  const setup = async ({
-    plugins,
-    waitForResolves = true,
-    url = '',
-  }: SetupArgumentObject = {}) => {
-    const eventListenerMap: {
-      [prop: string]: EventListenerOrEventListenerObject;
-    } = {};
+  const setupLinkPicker = ({ url = '', plugins }: SetupArgumentObject = {}) => {
+    const onSubmitMock: LinkPickerProps['onSubmit'] = jest.fn();
+    const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
 
-    document.addEventListener = jest.fn((event, cb) => {
-      eventListenerMap[event] = cb;
-    });
-
-    const onSubmit: LinkPickerProps['onSubmit'] = jest.fn();
-    const onCancel: LinkPickerProps['onCancel'] = jest.fn();
-
-    const component = mountWithIntl(
+    render(
       <LinkPicker
         url={url}
-        onSubmit={onSubmit}
-        plugins={plugins}
-        onCancel={onCancel}
+        onSubmit={onSubmitMock}
+        plugins={plugins ?? []}
+        onCancel={onCancelMock}
       />,
     );
 
-    const waitFor = async (...promises: Promise<unknown>[]) => {
-      await Promise.all(promises);
-      await flushPromises();
-      component.update();
-    };
-
-    if (waitForResolves) {
-      await flushPromises();
-      component.update();
-    }
-
-    const updateInputField = (testId: string, value: string) => {
-      const linkUrlInput = component.find(`input[data-testid="${testId}"]`);
-      (linkUrlInput.getDOMNode() as HTMLInputElement).value = value;
-      linkUrlInput.simulate('change', {
-        target: { name: undefined, value },
-      });
-    };
-
-    const updateInputFieldWithStateUpdated = async (
-      testId: string,
-      value: string,
-    ) => {
-      updateInputField(testId, value);
-      await flushPromises();
-    };
-
-    const pressReturnInputField = (testId: string) => {
-      const linkUrlInput = component.find(`input[data-testid="${testId}"]`);
-      linkUrlInput.simulate('keydown', {
-        keyCode: 13,
-      });
-    };
-
-    const pressDownArrowInputField = (testId: string) => {
-      const linkUrlInput = component.find(`input[data-testid="${testId}"]`);
-      linkUrlInput.simulate('keydown', {
-        keyCode: 40,
-      });
-    };
-
     return {
-      component,
-      onSubmit,
-      onCancel,
-      waitFor,
-      eventListenerMap,
-      updateInputField,
-      updateInputFieldWithStateUpdated,
-      pressReturnInputField,
-      pressDownArrowInputField,
+      onSubmitMock,
+      onCancelMock,
+      testIds: {
+        urlInputField: 'link-url',
+        textInputField: 'link-text',
+        searchIcon: 'link-picker-search-icon',
+        insertButton: 'link-picker-insert-button',
+        cancelButton: 'link-picker-cancel-button',
+        clearUrlButton: 'clear-text',
+        resultListTitle: 'link-picker-list-title',
+        emptyResultPage: 'link-search-no-results',
+        searchResultList: 'link-search-list',
+        searchResultItem: 'link-search-list-item',
+        searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
+        urlError: 'link-error',
+        errorBoundary: 'link-picker-root-error-boundary-ui',
+      },
     };
   };
 
   describe('with no plugins', () => {
     it('should submit with valid url in the input field', async () => {
-      const {
-        component,
-        onSubmit,
-        pressReturnInputField,
-        updateInputFieldWithStateUpdated,
-      } = await setup();
+      const { onSubmitMock, testIds } = setupLinkPicker();
 
-      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
-      pressReturnInputField('link-url');
-      component.update();
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+        keyCode: 13,
+      });
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://www.atlassian.com',
         title: null,
         displayText: null,
@@ -142,32 +102,27 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display a valid URL on load', async () => {
-      const { component } = await setup({
-        url: 'https://www.atlassian.com',
-      });
+      const { testIds } = setupLinkPicker({ url: 'https://www.atlassian.com' });
 
-      expect(
-        (component
-          .find('input[data-testid="link-url"]')
-          .getDOMNode() as HTMLInputElement).value,
-      ).toBe('https://www.atlassian.com');
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+        'https://www.atlassian.com',
+      );
     });
 
-    it('should submit with valid url and title in the input field', async () => {
-      const {
-        component,
-        onSubmit,
-        pressReturnInputField,
-        updateInputFieldWithStateUpdated,
-      } = await setup();
+    it('should submit with valid url and displayText in the input field', async () => {
+      const { onSubmitMock, testIds } = setupLinkPicker();
 
-      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
-      await updateInputFieldWithStateUpdated('link-text', 'link');
-      pressReturnInputField('link-text');
-      component.update();
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      await userEvent.type(screen.getByTestId(testIds.textInputField), 'link');
+      fireEvent.keyDown(screen.getByTestId(testIds.textInputField), {
+        keyCode: 13,
+      });
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://www.atlassian.com',
         displayText: 'link',
         title: null,
@@ -179,71 +134,44 @@ describe('<LinkPicker />', () => {
     });
 
     it('should NOT display search icon', async () => {
-      const { component } = await setup();
-      const searchIcon = component.find(
-        '[data-testid="link-url-container"] [data-testid="link-picker-search-icon"]',
-      );
+      const { testIds } = setupLinkPicker();
 
-      expect(searchIcon.exists()).toBe(false);
+      expect(screen.queryByTestId(testIds.searchIcon)).toBeNull();
     });
 
     it('should render a Field (URL field) with correct aria-describedby prop', async () => {
       const screenReaderDescriptionId = 'search-recent-links-field-description';
-      const { component } = await setup();
+      const { testIds } = setupLinkPicker();
 
-      expect(
-        component.find(PanelTextInput).first().prop('aria-describedby'),
-      ).toEqual(screenReaderDescriptionId);
-    });
-
-    it('should render LinkSearchList component with correct ariaControls prop', async () => {
-      const ariaControlValue = 'fabric.smartcard.linkpicker.suggested.results';
-      const { component } = await setup();
-
-      expect(component.find(LinkSearchList).prop('ariaControls')).toEqual(
-        ariaControlValue,
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveAttribute(
+        'aria-describedby',
+        screenReaderDescriptionId,
       );
     });
 
     it('should NOT display an invalid URL on load', async () => {
-      const { component } = await setup({
-        url: 'javascript:alert(1)',
-      });
+      const { testIds } = setupLinkPicker({ url: 'javascript:alert(1)' });
 
-      expect(
-        (component
-          .find('input[data-testid="link-url"]')
-          .getDOMNode() as HTMLInputElement).value,
-      ).toBe('');
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue('');
     });
 
     it('should NOT display a list subtitle', async () => {
-      const { component } = await setup({
-        url: 'javascript:alert(1)',
-      });
-      const subtitle = component.find(
-        '[data-testid="link-picker-list-subtitle"]',
-      );
+      const { testIds } = setupLinkPicker({ url: 'javascript:alert(1)' });
 
-      expect(subtitle.exists()).toBe(false);
+      expect(screen.queryByTestId(testIds.resultListTitle)).toBeNull();
     });
 
     it('should submit when insert button is clicked', async () => {
-      const {
-        component,
-        onSubmit,
-        updateInputFieldWithStateUpdated,
-      } = await setup();
+      const { testIds, onSubmitMock } = setupLinkPicker();
 
-      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
-      component
-        .find('[data-testid="link-picker-insert-button"]')
-        .at(1)
-        .simulate('click');
-      component.update();
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      userEvent.click(screen.getByTestId(testIds.insertButton));
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://www.atlassian.com',
         displayText: null,
         title: null,
@@ -255,44 +183,38 @@ describe('<LinkPicker />', () => {
     });
 
     it('should handle event when cancel button is clicked', async () => {
-      const { component, onCancel } = await setup();
+      const { testIds, onCancelMock } = setupLinkPicker();
 
-      component
-        .find('[data-testid="link-picker-cancel-button"]')
-        .at(1)
-        .simulate('click');
+      userEvent.click(screen.getByTestId(testIds.cancelButton));
 
-      expect(onCancel).toHaveBeenCalledTimes(1);
+      expect(onCancelMock).toHaveBeenCalledTimes(1);
     });
 
     it('should NOT display a no-results search message', async () => {
-      const { component, updateInputFieldWithStateUpdated } = await setup();
+      const { testIds } = setupLinkPicker();
 
-      await updateInputFieldWithStateUpdated('link-url', 'xyz');
-      component.update();
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'xyz');
 
-      expect(component.find(LinkSearchNoResults).exists()).toBe(false);
+      expect(screen.queryByTestId(testIds.emptyResultPage)).toBeNull();
     });
 
     it('should submit valid edited url and title if provided a url', async () => {
-      const {
-        component,
-        onSubmit,
-        pressReturnInputField,
-        updateInputFieldWithStateUpdated,
-      } = await setup({
+      const { testIds, onSubmitMock } = setupLinkPicker({
         url: 'https://www.google.com',
       });
-      await updateInputFieldWithStateUpdated(
-        'link-url',
+
+      userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
         'https://www.atlassian.com',
       );
-      await updateInputFieldWithStateUpdated('link-text', 'link');
-      pressReturnInputField('link-text');
-      component.update();
+      await userEvent.type(screen.getByTestId(testIds.textInputField), 'link');
+      fireEvent.keyDown(screen.getByTestId(testIds.textInputField), {
+        keyCode: 13,
+      });
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'https://www.atlassian.com',
         displayText: 'link',
         title: null,
@@ -304,20 +226,15 @@ describe('<LinkPicker />', () => {
     });
 
     it('should not submit if provided a valid url and changed to invalid', async () => {
-      const {
-        component,
-        onSubmit,
-        pressReturnInputField,
-        updateInputFieldWithStateUpdated,
-      } = await setup({
+      const { testIds, onSubmitMock } = setupLinkPicker({
         url: 'https://www.atlassian.com',
       });
-      await updateInputFieldWithStateUpdated('link-url', 'foo');
-      pressReturnInputField('link-url');
-      component.update();
 
-      expect(onSubmit).not.toHaveBeenCalled();
-      expect(onSubmit).not.toHaveBeenCalledWith({
+      userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'foo');
+
+      expect(onSubmitMock).not.toHaveBeenCalled();
+      expect(onSubmitMock).not.toHaveBeenCalledWith({
         url: 'foo',
         displayText: null,
         title: null,
@@ -330,38 +247,49 @@ describe('<LinkPicker />', () => {
   });
 
   describe('with generic plugin', () => {
-    const setupWithGenericPlugin = async ({
-      plugins,
+    const setupLinkPickerWithGenericPlugin = ({
       ...rest
     }: SetupArgumentObject = {}) => {
-      const plugin: LinkPickerPlugin = plugins
-        ? plugins[0]
-        : new MockLinkPickerPlugin();
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: false,
+      });
+      const updatedResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(3) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        initialResultPromise,
+        updatedResultPromise,
+      ]);
       const resolve = jest.spyOn(plugin, 'resolve');
 
+      const { testIds, onSubmitMock } = setupLinkPicker({
+        plugins: [plugin],
+        ...rest,
+      });
+
       return {
-        ...(await setup({
-          plugins: plugins ?? [plugin],
-          ...rest,
-        })),
+        onSubmitMock,
+        testIds,
+        plugin,
         resolve,
       };
     };
 
     it('should submit with valid url in the input field', async () => {
-      const {
-        component,
-        onSubmit,
-        pressReturnInputField,
-        updateInputFieldWithStateUpdated,
-      } = await setupWithGenericPlugin();
+      const { onSubmitMock, testIds } = setupLinkPickerWithGenericPlugin();
 
-      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
-      pressReturnInputField('link-url');
-      component.update();
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+        keyCode: 13,
+      });
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://www.atlassian.com',
         displayText: null,
         title: null,
@@ -373,20 +301,19 @@ describe('<LinkPicker />', () => {
     });
 
     it('should submit with valid url and title in the input field', async () => {
-      const {
-        component,
-        onSubmit,
-        pressReturnInputField,
-        updateInputFieldWithStateUpdated,
-      } = await setupWithGenericPlugin();
+      const { onSubmitMock, testIds } = setupLinkPickerWithGenericPlugin();
 
-      await updateInputFieldWithStateUpdated('link-url', 'www.atlassian.com');
-      await updateInputFieldWithStateUpdated('link-text', 'link');
-      pressReturnInputField('link-text');
-      component.update();
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      await userEvent.type(screen.getByTestId(testIds.textInputField), 'link');
+      fireEvent.keyDown(screen.getByTestId(testIds.textInputField), {
+        keyCode: 13,
+      });
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://www.atlassian.com',
         displayText: 'link',
         title: null,
@@ -398,12 +325,8 @@ describe('<LinkPicker />', () => {
     });
 
     it('should not trigger plugin to resolve results and should not be in loading state if provided a `url`', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest.spyOn(plugin, 'resolve');
-
-      const { component } = await setup({
+      const { testIds, resolve } = setupLinkPickerWithGenericPlugin({
         url: 'https://www.atlassian.com',
-        plugins: [plugin],
       });
 
       expect(resolve).toHaveBeenCalledTimes(0);
@@ -411,163 +334,124 @@ describe('<LinkPicker />', () => {
         query: 'https://www.atlassian.com',
       });
 
-      const { items, isLoading } = component.find(LinkSearchList).props();
-      expect(isLoading).toBe(false);
-      expect(items).toHaveLength(0);
+      expect(screen.queryByTestId(testIds.searchResultList)).toBeNull();
+    });
+
+    it('should show partial result and a loading spinner if the AsyncGenerator has not totally done', async () => {
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: false,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        initialResultPromise,
+        new ManualPromise({
+          value: { data: [] },
+          done: true,
+        }),
+      ]);
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith({ query: '' });
+
+      await asyncAct(() => initialResultPromise);
+
+      expect(screen.getByTestId(testIds.searchResultList)).toBeInTheDocument();
+      expect(screen.queryAllByTestId(testIds.searchResultItem)).toHaveLength(3);
+      expect(
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeInTheDocument();
     });
 
     it('should begin yielding plugin link results on mount if `url` is not a valid URL', async () => {
-      const { resolve } = await setupWithGenericPlugin({
+      const { resolve, testIds, plugin } = setupLinkPickerWithGenericPlugin({
         url: 'xyz',
       });
 
       expect(resolve).toHaveBeenCalledTimes(1);
       expect(resolve).toHaveBeenCalledWith({ query: '' });
+
+      await asyncAct(() => plugin.promises[0]);
+      await asyncAct(() => plugin.promises[1]);
+
+      expect(screen.getByTestId(testIds.searchResultList)).toBeInTheDocument();
+      expect(screen.queryAllByTestId(testIds.searchResultItem)).toHaveLength(5);
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
     });
 
     it('should support resolve via promise', async () => {
-      const promise = new ManualPromise();
-      const results: ResolveResult = { data: [] };
-      const resolve = jest.fn();
-      resolve.mockImplementationOnce(() => promise);
+      const plugin = new MockLinkPickerPromisePlugin();
+      const resolve = jest.spyOn(plugin, 'resolve');
 
-      const {
-        component,
-        updateInputFieldWithStateUpdated,
-        waitFor,
-      } = await setup({
-        plugins: [{ resolve }],
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        plugins: [plugin],
       });
 
       expect(resolve).toHaveBeenCalledTimes(1);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
-      await updateInputFieldWithStateUpdated('link-url', 'atlas');
-      expect(resolve).toHaveBeenCalledTimes(2);
+      expect(
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeInTheDocument();
 
-      await waitFor(promise.resolve(results));
-      const list = () => component.find(LinkSearchList);
-      expect(list().prop('isLoading')).toBe(false);
-      expect(list().prop('items')).toEqual(results.data);
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'atlas');
+
+      // Each character typing would trigger a resolve
+      expect(resolve).toHaveBeenCalledTimes(6);
+      expect(
+        await screen.findByTestId(testIds.searchResultList),
+      ).toBeInTheDocument();
+      expect(screen.queryAllByTestId(testIds.searchResultItem)).toHaveLength(5);
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
     });
 
-    it('should have `isLoading` before plugin resolves first results', async () => {
-      const { component } = await setupWithGenericPlugin({
-        waitForResolves: false,
-      });
-
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
-    });
-
-    it('should render plugin results in `LinkSearchList` and then put `isLoading` to false if plugin is done', async () => {
-      const itemsPromise = new ManualPromise<ResolveResult['data']>();
-      const plugin = new MockLinkPickerPlugin();
-      const getResults = jest
-        .spyOn(plugin, 'fetchUpdatedResults')
-        .mockReturnValue(itemsPromise);
-
-      const { component, waitFor } = await setup({
-        waitForResolves: false,
+    it('should show loading spinner before plugin resolves first results', async () => {
+      const { testIds } = setupLinkPickerWithGenericPlugin({
         url: '',
-        plugins: [plugin],
       });
 
-      expect(getResults).toHaveBeenCalledTimes(0);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
-
-      const results = getDefaultItems(5);
-      await waitFor(itemsPromise.resolve(results));
-
-      expect(getResults).toHaveBeenCalledTimes(1);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(false);
-      expect(component.find(LinkSearchList).props().items).toStrictEqual(
-        results,
-      );
+      expect(
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeInTheDocument();
     });
 
-    it('should still keep `isLoading` as `true` until plugin yields all results, then put `isLoading` to `false`', async () => {
-      const initialResultsPromise = new ManualPromise<[]>();
-      const updatedResultsPromise = new ManualPromise<[]>();
-      const plugin = new MockLinkPickerPlugin();
-
-      const getInitialResults = jest
-        .spyOn(plugin, 'getInitialResults')
-        .mockReturnValue(initialResultsPromise);
-
-      const fetchUpdatedResults = jest
-        .spyOn(plugin, 'fetchUpdatedResults')
-        .mockReturnValue(updatedResultsPromise);
-
-      const { component, waitFor } = await setup({
-        waitForResolves: false,
-        url: '',
-        plugins: [plugin],
+    it('should render plugin results in `LinkSearchList` and then remove spinner if plugin is done', async () => {
+      const { resolve, testIds, plugin } = setupLinkPickerWithGenericPlugin({
+        url: 'xyz',
       });
 
-      expect(getInitialResults).toHaveBeenCalledTimes(1);
-      expect(fetchUpdatedResults).toHaveBeenCalledTimes(0);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
+      await asyncAct(() => plugin.promises[0]);
+      await asyncAct(() => plugin.promises[1]);
 
-      await waitFor(initialResultsPromise.resolve([]));
-
-      expect(getInitialResults).toHaveBeenCalledTimes(1);
-      expect(fetchUpdatedResults).toHaveBeenCalledTimes(1);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
-
-      await waitFor(updatedResultsPromise.resolve([]));
-
-      expect(getInitialResults).toHaveBeenCalledTimes(1);
-      expect(fetchUpdatedResults).toHaveBeenCalledTimes(1);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(false);
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith({ query: '' });
+      expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(5);
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
     });
 
-    it('should put `isLoading` to `false` when plugin resolve rejects', async () => {
-      const initialResultsPromise = new ManualPromise<[]>();
-      const updatedResultsPromise = new ManualPromise<[]>();
-      const plugin = new MockLinkPickerPlugin();
-
-      const getInitialResults = jest
-        .spyOn(plugin, 'getInitialResults')
-        .mockReturnValue(initialResultsPromise);
-
-      const fetchUpdatedResults = jest
-        .spyOn(plugin, 'fetchUpdatedResults')
-        .mockReturnValue(updatedResultsPromise);
-
-      const { component, waitFor } = await setup({
-        waitForResolves: false,
-        plugins: [plugin],
+    it('should still keep loading spinner until plugin yields all results, then remove spinner', async () => {
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: false,
       });
-
-      expect(getInitialResults).toHaveBeenCalledTimes(1);
-      expect(fetchUpdatedResults).toHaveBeenCalledTimes(0);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
-
-      await waitFor(initialResultsPromise.resolve([]));
-
-      expect(getInitialResults).toHaveBeenCalledTimes(1);
-      expect(fetchUpdatedResults).toHaveBeenCalledTimes(1);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(true);
-
-      await expect(
-        waitFor(updatedResultsPromise.reject()),
-      ).rejects.toBeInstanceOf(Error);
-      component.update();
-
-      expect(getInitialResults).toHaveBeenCalledTimes(1);
-      expect(fetchUpdatedResults).toHaveBeenCalledTimes(1);
-      expect(component.find(LinkSearchList).props().isLoading).toBe(false);
-    });
-
-    it('should trigger plugin to yield link results when input query changes', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest
-        .spyOn(plugin, 'resolve')
-        .mockImplementation(async function* () {
-          yield { data: [] };
-          return { data: [] };
-        });
-
-      const { component, updateInputFieldWithStateUpdated } = await setup({
+      const updatedResultPromise = new ManualPromise({
+        value: { data: mockedPluginData.slice(0, 2) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        initialResultPromise,
+        updatedResultPromise,
+      ]);
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const { testIds } = setupLinkPickerWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -575,259 +459,199 @@ describe('<LinkPicker />', () => {
       expect(resolve).toHaveBeenCalledTimes(1);
       expect(resolve).toHaveBeenCalledWith({ query: '' });
 
-      await updateInputFieldWithStateUpdated('link-url', 'dogs');
-      component.update();
+      await asyncAct(() => initialResultPromise);
 
-      expect(resolve).toHaveBeenCalledTimes(2);
+      expect(screen.getByTestId(testIds.searchResultList)).toBeInTheDocument();
+      expect(screen.queryAllByTestId(testIds.searchResultItem)).toHaveLength(3);
+      expect(
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeInTheDocument();
+
+      await asyncAct(() => updatedResultPromise.resolve());
+
+      expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(2);
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
+    });
+
+    it('should put `isLoading` to `false` when plugin resolve rejects', async () => {
+      const initialResultPromise = new ManualPromise({
+        value: { data: [] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      await asyncAct(() => initialResultPromise.reject());
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
+    });
+
+    it('should trigger plugin to yield link results when input query changes', async () => {
+      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
+
+      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledWith({ query: '' });
+
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'dogs');
+
+      // Each character would trigger a resolve call
+      expect(resolve).toHaveBeenCalledTimes(5);
       expect(resolve).toHaveBeenCalledWith({ query: 'dogs' });
     });
 
     it('should not trigger plugin to yield results and should not be in loading state if provided a `url`', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest
-        .spyOn(plugin, 'resolve')
-        .mockImplementation(async function* () {
-          yield { data: [] };
-          return { data: [] };
-        });
-
-      const { component } = await setup({
+      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
         url: 'https://www.atlassian.com',
-        plugins: [plugin],
       });
 
       expect(resolve).toHaveBeenCalledTimes(0);
       expect(resolve).not.toHaveBeenCalledWith({
         query: 'https://www.atlassian.com',
       });
-
-      const items = component.find(LinkSearchList).props().items;
-      if (!items) {
-        return expect(items).toBeDefined();
-      }
-      expect(items).toHaveLength(0);
+      expect(screen.queryByTestId(testIds.searchResultList)).toBeNull();
     });
 
     it('should not trigger plugin to yield link results if the input query starts with https://', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest
-        .spyOn(plugin, 'resolve')
-        .mockImplementation(async function* () {
-          yield { data: [] };
-          return { data: [] };
-        });
-
-      const { component, updateInputFieldWithStateUpdated } = await setup({
-        url: '',
-        plugins: [plugin],
+      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+        url: 'https://',
       });
 
-      expect(resolve).toHaveBeenCalledTimes(1);
-      expect(resolve).toHaveBeenCalledWith({ query: '' });
-
-      await updateInputFieldWithStateUpdated(
-        'link-url',
-        'https://www.atlassian.com',
-      );
-
-      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledTimes(0);
       expect(resolve).not.toHaveBeenCalledWith({
-        query: 'https://www.atlassian.com',
+        query: 'https://',
       });
-
-      const items = component.find(LinkSearchList).prop('items')!;
-      expect(items).toHaveLength(0);
+      expect(screen.queryByTestId(testIds.searchResultList)).toBeNull();
     });
 
     it('should not get plugin to yield link results if the input query starts with http://', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest
-        .spyOn(plugin, 'resolve')
-        .mockImplementation(async function* () {
-          yield { data: [] };
-          return { data: [] };
-        });
-
-      const { component, updateInputFieldWithStateUpdated } = await setup({
-        url: '',
-        plugins: [plugin],
+      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+        url: 'http://',
       });
 
-      expect(resolve).toHaveBeenCalledTimes(1);
-      expect(resolve).toHaveBeenCalledWith({ query: '' });
-
-      await updateInputFieldWithStateUpdated(
-        'link-url',
-        'http://www.atlassian.com',
-      );
-
-      expect(resolve).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledTimes(0);
       expect(resolve).not.toHaveBeenCalledWith({
-        query: 'http://www.atlassian.com',
+        query: 'http://',
       });
-
-      const items = component.find(LinkSearchList).prop('items');
-      expect(items).toBeDefined();
-      expect(items).toHaveLength(0);
-    });
-
-    it('should still request update from plugin when query is emptied', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest.spyOn(plugin, 'resolve');
-
-      const { updateInputFieldWithStateUpdated } = await setup({
-        plugins: [plugin],
-        url: '',
-      });
-
-      expect(resolve).toHaveBeenCalledWith({ query: '' });
-      expect(resolve).toHaveBeenCalledTimes(1);
-
-      await updateInputFieldWithStateUpdated('link-url', 'abc');
-
-      expect(resolve).toHaveBeenCalledWith({ query: 'abc' });
-      expect(resolve).toHaveBeenCalledTimes(2);
-
-      await updateInputFieldWithStateUpdated('link-url', '');
-
-      expect(resolve).toHaveBeenCalledWith({ query: '' });
-      expect(resolve).toHaveBeenCalledTimes(3);
+      expect(screen.queryByTestId(testIds.searchResultList)).toBeNull();
     });
 
     it('should still request update from plugin when query is emptied after initial state has valid `url`', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest.spyOn(plugin, 'resolve');
-
-      const { updateInputFieldWithStateUpdated } = await setup({
-        plugins: [plugin],
+      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
         url: 'www.atlassian.com',
       });
 
-      await updateInputFieldWithStateUpdated('link-url', '');
+      userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue('');
       expect(resolve).toHaveBeenCalledWith({ query: '' });
       expect(resolve).toHaveBeenCalledTimes(1);
     });
 
     it('should stop yielding results from plugin resolve generator when the query/context changes', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const initialResults = jest.spyOn(plugin, 'getInitialResults');
-      const updatedResults = jest.spyOn(plugin, 'fetchUpdatedResults');
-
-      initialResults
-        .mockReturnValueOnce(Promise.resolve([]))
-        .mockReturnValueOnce(new ManualPromise<never>())
-        .mockReturnValueOnce(Promise.resolve([]));
-
-      const { updateInputFieldWithStateUpdated } = await setup({
+      const firstResultPromise = new ManualPromise<any>({
+        value: { data: [mockedPluginData[0]] },
+        done: true,
+      });
+      const secondResultPromise = new ManualPromise<any>({
+        value: { data: [mockedPluginData[1]] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        firstResultPromise,
+        secondResultPromise,
+      ]);
+      const resolve = jest.spyOn(plugin, 'resolve');
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
         plugins: [plugin],
       });
 
-      expect(initialResults).toHaveBeenCalledTimes(1);
-      expect(updatedResults).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledTimes(1);
 
-      await updateInputFieldWithStateUpdated('link-url', 'atlas');
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'w');
 
-      expect(initialResults).toHaveBeenCalledTimes(2);
-      // Does not step through to the final yield/return as previous initialResults yield has not resolved
-      expect(updatedResults).toHaveBeenCalledTimes(1);
+      expect(resolve).toHaveBeenCalledTimes(2);
 
-      await updateInputFieldWithStateUpdated('link-url', 'atlass');
+      // We release the first result
+      await asyncAct(() =>
+        firstResultPromise.resolve({
+          value: { data: [mockedPluginData[0]] },
+          done: true,
+        }),
+      );
 
-      expect(initialResults).toHaveBeenCalledTimes(3);
-      expect(updatedResults).toHaveBeenCalledTimes(2);
+      // We should still be loading since now the query version is updated
+      expect(
+        screen.getByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeInTheDocument();
+
+      // We rlease the second result
+      await asyncAct(() =>
+        secondResultPromise.resolve({
+          value: { data: [mockedPluginData[1]] },
+          done: true,
+        }),
+      );
+
+      // The latest result should be displayed
+      expect(screen.getByTestId(testIds.searchResultList)).toBeInTheDocument();
+      expect(screen.queryAllByTestId(testIds.searchResultItem)).toHaveLength(1);
+      expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
+        mockedPluginData[1].name,
+      );
+      expect(
+        screen.queryByTestId(testIds.searchResultLoadingIndicator),
+      ).toBeNull();
     });
 
     it('should still request update from plugin when query is emptied', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest.spyOn(plugin, 'resolve');
-
-      const { updateInputFieldWithStateUpdated } = await setup({
-        plugins: [plugin],
+      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
         url: '',
       });
 
       expect(resolve).toHaveBeenCalledWith({ query: '' });
       expect(resolve).toHaveBeenCalledTimes(1);
 
-      await updateInputFieldWithStateUpdated('link-url', 'abc');
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'abc');
 
+      expect(resolve).toHaveBeenCalledTimes(4);
       expect(resolve).toHaveBeenCalledWith({ query: 'abc' });
-      expect(resolve).toHaveBeenCalledTimes(2);
 
-      await updateInputFieldWithStateUpdated('link-url', '');
-
-      expect(resolve).toHaveBeenCalledWith({ query: '' });
-      expect(resolve).toHaveBeenCalledTimes(3);
-    });
-
-    it('should still request update from plugin when query is emptied after initial state has valid `url`', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const resolve = jest.spyOn(plugin, 'resolve');
-
-      const { updateInputFieldWithStateUpdated } = await setup({
-        plugins: [plugin],
-        url: 'www.atlassian.com',
-      });
-
-      await updateInputFieldWithStateUpdated('link-url', '');
+      userEvent.click(screen.getByTestId(testIds.clearUrlButton));
 
       expect(resolve).toHaveBeenCalledWith({ query: '' });
-      expect(resolve).toHaveBeenCalledTimes(1);
-    });
-
-    it('should not set picker items to plugin resolves if previous plugin yield resolves after the query has changed', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const initialResults = jest.spyOn(plugin, 'getInitialResults');
-      const updatedResults = jest.spyOn(plugin, 'fetchUpdatedResults');
-
-      initialResults
-        .mockReturnValueOnce(Promise.resolve([]))
-        .mockReturnValueOnce(new ManualPromise<never>())
-        .mockReturnValueOnce(Promise.resolve([]));
-
-      const { updateInputFieldWithStateUpdated } = await setup({
-        plugins: [plugin],
-      });
-
-      expect(initialResults).toHaveBeenCalledTimes(1);
-      expect(updatedResults).toHaveBeenCalledTimes(1);
-
-      await updateInputFieldWithStateUpdated('link-url', 'atlas');
-
-      expect(initialResults).toHaveBeenCalledTimes(2);
-      // Does not step through to the final yield/return as previous initialResults yield has not resolved
-      expect(updatedResults).toHaveBeenCalledTimes(1);
-
-      await updateInputFieldWithStateUpdated('link-url', 'atlass');
-
-      expect(initialResults).toHaveBeenCalledTimes(3);
-      expect(updatedResults).toHaveBeenCalledTimes(2);
+      expect(resolve).toHaveBeenCalledTimes(5);
     });
 
     it('should submit with selected item when clicked', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const results = getDefaultItems(5);
-
-      jest.spyOn(plugin, 'fetchUpdatedResults').mockResolvedValue(results);
-
-      const { component, onSubmit } = await setupWithGenericPlugin({
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+        url: '',
         plugins: [plugin],
       });
 
-      // Hover second item
-      component
-        .find('div[data-testid="link-search-list-item"]')
-        .at(1)
-        .simulate('mouseenter');
-      // Click second item
-      component
-        .find('div[data-testid="link-search-list-item"]')
-        .at(1)
-        .simulate('click');
+      await asyncAct(() => initialResultPromise);
 
-      const [, secondItem] = results;
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      userEvent.click(screen.getAllByTestId(testIds.searchResultItem)[1]);
+
+      const secondItem = mockedPluginData[1];
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: secondItem.url,
         title: secondItem.name,
         displayText: null,
@@ -838,74 +662,87 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display Error message when URL is invalid', async () => {
-      const {
-        component,
-        updateInputField,
-        pressReturnInputField,
-      } = await setupWithGenericPlugin();
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
 
-      updateInputField('link-url', 'ABC');
-      pressReturnInputField('link-url');
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'ABC');
+      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+        keyCode: 13,
+      });
 
-      const errorMessage = component.find('[testId="link-error"]');
-      expect(errorMessage.at(0)).toHaveLength(1);
+      expect(screen.getByTestId(testIds.urlError)).toBeInTheDocument();
     });
 
     it('should display Error message when URL is empty', async () => {
-      const {
-        component,
-        pressReturnInputField,
-      } = await setupWithGenericPlugin();
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
 
-      pressReturnInputField('link-url');
+      act(() => {
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 13,
+        });
+      });
 
-      const errorMessage = component.find('[testId="link-error"]');
-      expect(errorMessage.at(0)).toHaveLength(1);
+      expect(screen.getByTestId(testIds.urlError)).toBeInTheDocument();
     });
 
     it('should remove invalid URL Error when Input is edited', async () => {
-      const {
-        component,
-        updateInputField,
-        pressReturnInputField,
-      } = await setupWithGenericPlugin();
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
 
-      // This will trigger the Error message
-      updateInputField('link-url', 'ABC');
-      pressReturnInputField('link-url');
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'ABC');
+      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+        keyCode: 13,
+      });
 
-      updateInputField('link-url', 'ABCD');
-      const errorMessage = component.find('[testId="link-error"]');
-      expect(errorMessage.at(0)).toHaveLength(0);
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'D');
+
+      expect(screen.queryByTestId(testIds.urlError)).toBeNull();
 
       // If value is changed to previous trigger it still should not display error
-      updateInputField('link-url', 'ABC');
-      expect(errorMessage.at(0)).toHaveLength(0);
+      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+        keyCode: 8,
+      });
+      expect(screen.queryByTestId(testIds.urlError)).toBeNull();
     });
 
     it('should submit with selected item when navigated to via keyboard and enter is pressed', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const results = getDefaultItems(5);
-      jest.spyOn(plugin, 'fetchUpdatedResults').mockResolvedValue(results);
-
-      const {
-        onSubmit,
-        pressDownArrowInputField,
-        pressReturnInputField,
-      } = await setup({
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+        url: '',
         plugins: [plugin],
       });
 
-      // Set first item to active
-      pressDownArrowInputField('link-url');
-      // Set second item to active
-      pressDownArrowInputField('link-url');
-      // Submit
-      pressReturnInputField('link-url');
+      await asyncAct(() => initialResultPromise);
+      act(() => {
+        // Set first item to active
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 40,
+        });
+      });
+      act(() => {
+        // Set second item to active
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 40,
+        });
+      });
+      act(() => {
+        // Submit
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 13,
+        });
+      });
 
-      const [, secondItem] = results;
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      const secondItem = mockedPluginData[1];
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: secondItem.url,
         displayText: null,
         title: secondItem.name,
@@ -916,96 +753,107 @@ describe('<LinkPicker />', () => {
     });
 
     it('should populate url field with active item when navigated to via keyboard', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const results = getDefaultItems(5);
-      jest.spyOn(plugin, 'fetchUpdatedResults').mockResolvedValue(results);
-
-      const {
-        component,
-        pressDownArrowInputField,
-      } = await setupWithGenericPlugin({
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
         plugins: [plugin],
       });
 
-      // Set first item to active
-      pressDownArrowInputField('link-url');
-      await flushPromises();
-      component.update();
+      await asyncAct(() => initialResultPromise);
+      act(() => {
+        // Set first item to active
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 40,
+        });
+      });
 
-      const [first] = component.find(LinkSearchList).prop('items')!;
-
-      expect(
-        (component
-          .find('input[data-testid="link-url"]')
-          .getDOMNode() as HTMLInputElement).value,
-      ).toBe(first.url);
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+        mockedPluginData[0].url,
+      );
     });
 
     it('should insert the right item after a few interaction with both mouse and keyboard', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const results = getDefaultItems(5);
-      jest.spyOn(plugin, 'fetchUpdatedResults').mockResolvedValue(results);
-
-      const { component, pressDownArrowInputField } = await setup({
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 5) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
         plugins: [plugin],
       });
 
-      // Hover over the first item on the list
-      const firstSearchItem = component
-        .find('div[data-testid="link-search-list-item"]')
-        .first();
-      firstSearchItem.simulate('mouseenter');
+      await asyncAct(() => initialResultPromise);
 
-      // This should move to the second item in the list
-      pressDownArrowInputField('link-url');
+      act(() => {
+        // Hover over the first item on the list
+        fireEvent.mouseOver(screen.getAllByTestId(testIds.searchResultItem)[0]);
+      });
+      act(() => {
+        // This should move to the second item in the list
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 40,
+        });
+      });
 
-      const [, second] = component.find('LinkSearchList').prop('items');
-
-      expect(
-        (component
-          .find('input[data-testid="link-url"]')
-          .getDOMNode() as HTMLInputElement).value,
-      ).toBe(second.url);
+      const secondItem = mockedPluginData[1];
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+        secondItem.url,
+      );
     });
 
     it('should not submit when URL is invalid and there is no result', async () => {
-      const {
-        component,
-        pressDownArrowInputField,
-        updateInputFieldWithStateUpdated,
-        onSubmit,
-      } = await setupWithGenericPlugin();
+      const resultPromise = Promise.resolve({
+        value: { data: [] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        resultPromise,
+        resultPromise,
+        resultPromise,
+        resultPromise,
+      ]);
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
 
       // Set url to invalid
-      await updateInputFieldWithStateUpdated('link-url', 'xyz');
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'xyz');
 
-      // Set first item to active
-      pressDownArrowInputField('link-url');
+      act(() => {
+        // This should move to the second item in the list
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 40,
+        });
+      });
 
-      await flushPromises();
-      component.update();
-
-      const items = component.find(LinkSearchList).prop('items');
-      expect(items).toHaveLength(0);
-      expect(onSubmit).not.toHaveBeenCalled();
+      expect(screen.queryByTestId(testIds.searchResultList)).toBeNull();
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue('xyz');
     });
 
     it('should submit arbitrary link', async () => {
-      const {
-        component,
-        onSubmit,
-        updateInputFieldWithStateUpdated,
-        pressReturnInputField,
-      } = await setupWithGenericPlugin();
+      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
 
-      await updateInputFieldWithStateUpdated('link-url', 'example.com');
-      pressReturnInputField('link-url');
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'example.com',
+      );
+      act(() => {
+        // This should move to the second item in the list
+        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
+          keyCode: 13,
+        });
+      });
 
-      await flushPromises();
-      component.update();
-
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://example.com',
         displayText: null,
         title: null,
@@ -1017,70 +865,65 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display search icon', async () => {
-      const { component } = await setupWithGenericPlugin();
-      const searchIcon = component.find(
-        '[data-testid="link-url-container"] [data-testid="link-picker-search-icon"]',
-      );
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
 
-      expect(searchIcon.exists()).toBeTruthy();
+      expect(screen.getByTestId(testIds.searchIcon)).toBeInTheDocument();
     });
 
     it('should display a subtitle for recent items', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const results = getDefaultItems(5);
-
-      jest.spyOn(plugin, 'fetchUpdatedResults').mockResolvedValue(results);
-
-      const { component } = await setupWithGenericPlugin({
-        plugins: [plugin],
+      const { testIds, plugin } = setupLinkPickerWithGenericPlugin({
+        url: '',
       });
 
-      const subtitle = component.find('[data-testid="link-picker-list-title"]');
-      expect(subtitle.at(0)).toHaveLength(1);
-      expect(subtitle.at(0).render().text()).toMatch(
+      await asyncAct(() => plugin.promises[0]);
+      await asyncAct(() => plugin.promises[1]);
+
+      expect(screen.getByTestId(testIds.resultListTitle)).toHaveTextContent(
         messages.titleRecentlyViewed.defaultMessage,
       );
     });
 
     it('should display a subtitle for search results', async () => {
-      const plugin = new MockLinkPickerPlugin();
-      const results = getDefaultItems(5);
-
-      jest.spyOn(plugin, 'fetchUpdatedResults').mockResolvedValue(results);
-
-      const {
-        component,
-        updateInputFieldWithStateUpdated,
-      } = await setupWithGenericPlugin({
+      const resultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 1) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        resultPromise,
+        resultPromise,
+        resultPromise,
+        resultPromise,
+      ]);
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
         plugins: [plugin],
       });
 
-      await updateInputFieldWithStateUpdated('link-url', 'dogs');
-      component.update();
-      const subtitle = component.find('[data-testid="link-picker-list-title"]');
-      expect(subtitle.at(0).render().text()).toMatch(
+      await asyncAct(() => resultPromise);
+
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'do');
+
+      expect(screen.getByTestId(testIds.resultListTitle)).toHaveTextContent(
         messages.titleResults.defaultMessage,
       );
     });
 
     it('should submit when insert button is clicked', async () => {
-      const {
-        component,
-        onSubmit,
-        updateInputFieldWithStateUpdated,
-      } = await setupWithGenericPlugin();
+      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+        url: '',
+      });
 
-      await updateInputFieldWithStateUpdated('link-url', 'example.com');
-      await flushPromises();
-      component.update();
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'example.com',
+      );
 
-      component
-        .find('[data-testid="link-picker-insert-button"]')
-        .at(1)
-        .simulate('click');
+      userEvent.click(screen.getByTestId(testIds.insertButton));
 
-      expect(onSubmit).toHaveBeenCalledTimes(1);
-      expect(onSubmit).toHaveBeenCalledWith({
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith({
         url: 'http://example.com',
         displayText: null,
         title: null,
@@ -1092,34 +935,47 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display a message if search returns no results and state is not loading', async () => {
-      const {
-        component,
-        updateInputFieldWithStateUpdated,
-      } = await setupWithGenericPlugin();
+      const resultPromise = Promise.resolve({
+        value: { data: [] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([
+        resultPromise,
+        resultPromise,
+        resultPromise,
+        resultPromise,
+      ]);
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
 
-      // Set url to invalid
-      await updateInputFieldWithStateUpdated('link-url', 'xyz');
-      expect(component.find(LinkSearchNoResults).exists()).toBe(false);
+      await asyncAct(() => resultPromise);
 
-      await flushPromises();
-      component.update();
+      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'xyz');
 
-      expect(component.find(LinkSearchNoResults).exists()).toBe(true);
+      expect(screen.getByTestId(testIds.emptyResultPage)).toBeInTheDocument();
     });
 
     it('should not display a no-result search message when inserting a valid URL', async () => {
-      const {
-        component,
-        updateInputFieldWithStateUpdated,
-      } = await setupWithGenericPlugin();
+      const resultPromise = Promise.resolve({
+        value: { data: [] },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin(
+        Array(20).fill(resultPromise),
+      );
+      const { testIds } = setupLinkPickerWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
 
-      // Set url to invalid
-      await updateInputFieldWithStateUpdated('link-url', 'http://google.com');
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'http://google.com',
+      );
 
-      await flushPromises();
-      component.update();
-
-      expect(component.find(LinkSearchNoResults).exists()).toBe(false);
+      expect(screen.queryByTestId(testIds.emptyResultPage)).toBeNull();
     });
   });
 
@@ -1128,11 +984,11 @@ describe('<LinkPicker />', () => {
       jest.spyOn(console, 'error').mockImplementation(() => {});
 
       // Provide an invalid initial prop to throw an error
-      const { component } = await setup({
+      const { testIds } = setupLinkPicker({
         url: new URL('https://atlassian.com') as any,
       });
 
-      expect(component.find(ErrorBoundaryFallback)).toHaveLength(1);
+      expect(screen.getByTestId(testIds.errorBoundary)).toBeInTheDocument();
     });
   });
 });

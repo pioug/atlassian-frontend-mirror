@@ -42,33 +42,58 @@ describe('Quick Insert Search', () => {
     { priority: 10, title: 'Task Report', action, featured: true },
   ];
 
-  it('should find exact match', () => {
-    const results = find('Date', items);
-    expect(results[0].title).toBe('Date');
-  });
-
-  it('should find exact match when searching by keywords', () => {
-    const results = find('cell', items);
-    expect(results[0].title).toBe('Table');
-  });
-
-  it('should match substring of a word which includes first letter', () => {
-    const result = find('hor', items);
-    expect(result[0].title).toEqual('Horizontal rule');
-    expect(result.length).toEqual(1);
-  });
-
-  it('should match substring of a sentence which includes first letter of last word', () => {
-    const result = find('rul', items);
-    expect(result[0].title).toEqual('Horizontal rule');
-  });
-
-  it('should match substring and respect the priority.', () => {
-    const result = find('ta', items);
-    expect(result.length).toEqual(3);
-    expect(result[0].title).toEqual('Table');
-    expect(result[1].title).toEqual('Task Report');
-    expect(result[2].title).toEqual('Horizontal rule');
+  describe('should match substring', () => {
+    it.each<[string, string, QuickInsertItem[], string[]]>([
+      ['by exact match', 'Date', items, ['Date']],
+      ['when searching by keywords', 'cell', items, ['Table']],
+      [
+        'for a word which includes first letter',
+        'hor',
+        items,
+        ['Horizontal rule'],
+      ],
+      [
+        'for a sentence which includes first letter of last word',
+        'rul',
+        items,
+        ['Horizontal rule'],
+      ],
+      [
+        'and respect the priority',
+        'ta',
+        items,
+        ['Table', 'Task Report', 'Horizontal rule'],
+      ],
+      [
+        'and take into account weights for keyword and title',
+        'excel',
+        [
+          {
+            title: 'Office Excel',
+            action,
+            featured: true,
+            keywords: ['viewxls'],
+          },
+          {
+            title: 'Excerpt',
+            action,
+            featured: false,
+            keywords: ['excerpt-include'],
+          },
+          {
+            title: 'Excerpt include',
+            action,
+            featured: false,
+            keywords: ['excerpt-include'],
+          },
+        ],
+        ['Office Excel', 'Excerpt', 'Excerpt include'],
+      ],
+    ])('%s', (_, searchString, items, expectedTitles) => {
+      const result = find(searchString, items);
+      expect(result.length).toEqual(expectedTitles.length);
+      expect(result.map((x) => x.title)).toEqual(expectedTitles);
+    });
   });
 
   it('should find an item approximately matching a query', () => {

@@ -2,7 +2,7 @@ import * as testMocks from './index.test.mock';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { useSmartCardActions } from '..';
 import { mocks } from '../../../utils/mocks';
-import { APIError } from '@atlaskit/linking-common';
+import { APIError, APIErrorKind } from '@atlaskit/linking-common';
 import { useSmartLinkContext, CardContext } from '@atlaskit/link-provider';
 import { CardState } from '../../types';
 import { JsonLd } from 'json-ld-types';
@@ -78,7 +78,7 @@ describe('Smart Card: Actions', () => {
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
       );
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith({
         payload: undefined,
         type: 'pending',
@@ -104,7 +104,7 @@ describe('Smart Card: Actions', () => {
       const actions = useSmartCardActions(id, url, analytics);
       await actions.register();
 
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(4);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'resolved',
@@ -128,7 +128,7 @@ describe('Smart Card: Actions', () => {
       await deferrable.promise;
       await deferrable.flush();
 
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'reloading',
@@ -158,7 +158,7 @@ describe('Smart Card: Actions', () => {
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
       );
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
       expect(mockContext.store.dispatch).toHaveBeenCalledWith({
         payload: {
           meta: {
@@ -203,8 +203,8 @@ describe('Smart Card: Actions', () => {
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
       );
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-      expect(mockContext.store.dispatch).nthCalledWith(2, {
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
+      expect(mockContext.store.dispatch).nthCalledWith(3, {
         type: 'fallback',
         url: 'https://some/url',
         error: new APIError(
@@ -238,8 +238,8 @@ describe('Smart Card: Actions', () => {
       expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
         url,
       );
-      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-      expect(mockContext.store.dispatch).nthCalledWith(2, {
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
+      expect(mockContext.store.dispatch).nthCalledWith(3, {
         type: 'fallback',
         url: 'https://some/url',
         error: new APIError(
@@ -276,6 +276,149 @@ describe('Smart Card: Actions', () => {
           'https://some/url',
           'Fatal error resolving URL',
         ),
+      });
+    });
+  });
+
+  describe('loadMetadata()', () => {
+    beforeEach(() => {
+      mockState({
+        status: 'resolved',
+        details: mocks.success,
+      });
+    });
+
+    it('dispatches resolved metadata state for a success response', async () => {
+      mockFetchData(Promise.resolve(mocks.success));
+
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+      const actions = useSmartCardActions(id, url, analytics);
+
+      const promise = actions.loadMetadata();
+      await expect(promise).resolves.toBeUndefined();
+
+      expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+        url,
+      );
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
+      expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+        payload: undefined,
+        type: 'metadata',
+        url: url,
+        error: undefined,
+        metadataStatus: 'pending',
+      });
+      expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+        payload: undefined,
+        type: 'metadata',
+        url: url,
+        error: undefined,
+        metadataStatus: 'resolved',
+      });
+      expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
+        payload: mocks.success,
+        type: 'resolved',
+        url: url,
+        error: undefined,
+        metadataStatus: undefined,
+        ignoreStatusCheck: true,
+      });
+    });
+
+    const errorKinds: APIErrorKind[] = ['fatal', 'auth', 'error', 'fallback'];
+    it.each(errorKinds)(
+      'dispatches error metadata state if response is a %s error',
+      async (errorKind) => {
+        const mockError = new APIError(errorKind, url, 'error-message');
+        mockFetchData(Promise.reject(mockError));
+
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        const actions = useSmartCardActions(id, url, analytics);
+        const promise = actions.loadMetadata();
+
+        await expect(promise).resolves.toBeUndefined();
+        expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+          url,
+        );
+        expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+        expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+          payload: undefined,
+          type: 'metadata',
+          url: url,
+          error: undefined,
+          metadataStatus: 'pending',
+        });
+        expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+          payload: undefined,
+          type: 'metadata',
+          url: url,
+          error: undefined,
+          metadataStatus: 'errored',
+        });
+      },
+    );
+
+    const responseKinds: Array<[string, JsonLd.Response]> = [
+      ['forbidden', mocks.forbidden],
+      ['unauthorized', mocks.unauthorized],
+      ['notFound', mocks.notFound],
+    ];
+    it.each(responseKinds)(
+      'dispatches error metadata state if response is a %s response',
+      async (name, responseKind) => {
+        mockFetchData(Promise.resolve(responseKind));
+
+        const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+        const actions = useSmartCardActions(id, url, analytics);
+        const promise = actions.loadMetadata();
+
+        await expect(promise).resolves.toBeUndefined();
+        expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+          url,
+        );
+        expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+        expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+          payload: undefined,
+          type: 'metadata',
+          url: url,
+          error: undefined,
+          metadataStatus: 'pending',
+        });
+        expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+          payload: undefined,
+          type: 'metadata',
+          url: url,
+          error: undefined,
+          metadataStatus: 'errored',
+        });
+      },
+    );
+
+    it('dispatches error metadata status if response is undefined', async () => {
+      mockFetchData(Promise.resolve(undefined));
+
+      const analytics = useSmartLinkAnalytics(url, dispatchAnalytics, id);
+      const actions = useSmartCardActions(id, url, analytics);
+      const promise = actions.loadMetadata();
+
+      await expect(promise).resolves.toBeUndefined();
+      expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+        url,
+      );
+      expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+      expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+        payload: undefined,
+        type: 'metadata',
+        url: url,
+        error: undefined,
+        metadataStatus: 'pending',
+      });
+      expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+        payload: undefined,
+        type: 'metadata',
+        url: url,
+        error: undefined,
+        metadataStatus: 'errored',
       });
     });
   });

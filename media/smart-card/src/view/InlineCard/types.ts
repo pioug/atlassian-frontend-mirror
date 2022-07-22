@@ -1,7 +1,7 @@
 import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
-import { InlinePreloaderStyle } from '../types';
+import { InlinePreloaderStyle, OnErrorCallback } from '../types';
 
 export type InlineCardProps = {
   id: string;
@@ -12,6 +12,7 @@ export type InlineCardProps = {
   isSelected?: boolean;
   testId?: string;
   onResolve?: (data: { url?: string; title?: string }) => void;
+  onError?: OnErrorCallback;
   inlinePreloaderStyle?: InlinePreloaderStyle;
   renderers?: CardProviderRenderers;
   showHoverPreview?: boolean;

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { CardType } from '@atlaskit/linking-common';
 import { ActionProps } from './BlockCard/components/Action';
 import { RequestAccessMessageKey } from '../messages';
 
@@ -39,3 +40,15 @@ export interface RequestAccessContextProps extends AccessContext {
 export type InlinePreloaderStyle =
   | 'on-left-with-skeleton'
   | 'on-right-without-skeleton';
+
+export type ErrorCardType =
+  | 'errored'
+  | 'fallback'
+  | 'forbidden'
+  | 'not_found'
+  | 'unauthorized';
+
+export type OnErrorCallback = (data: {
+  status: Extract<CardType, ErrorCardType>;
+  url: string;
+}) => void;

@@ -4,3 +4,5 @@ export const ANALYTICS_FALLBACK = 'fallback';
 
 export const ERROR_MESSAGE_OAUTH = 'Provider.authFlow is not set to OAuth2.';
 export const ERROR_MESSAGE_FATAL = 'Fatal error resolving URL';
+
+export const ERROR_MESSAGE_METADATA = 'Error resolving metadata.';

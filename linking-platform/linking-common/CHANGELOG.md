@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 1.4.0
+
+### Minor Changes
+
+- [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export types/functions in linking common to be used in smart card
+
+  - add flag to card action to override re-using previous 'resolved' state
+
+  - add prop to cardState which reflects the metadata state, can be pending, resolved or errored
+
+  - modified reducer and dispatchers to handle these new props
+
 ## 1.3.0
 
 ### Minor Changes

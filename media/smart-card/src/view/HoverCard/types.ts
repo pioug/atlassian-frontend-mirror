@@ -28,6 +28,7 @@ export interface MetadataOptions {
 }
 
 export type HoverCardContentProps = {
+  id?: string;
   analytics: AnalyticsFacade;
   cardActions?: LinkAction[];
   cardState: CardState;

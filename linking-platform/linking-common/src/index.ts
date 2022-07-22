@@ -10,6 +10,7 @@ export type {
   CardAction,
   ServerActionOpts,
   ServerActionPayload,
+  MetadataStatus,
 } from './types';
 
 export type {
@@ -28,6 +29,7 @@ export {
   ACTION_RESOLVED,
   ACTION_RESOLVING,
   ACTION_RELOADING,
+  ACTION_UPDATE_METADATA_STATUS,
   cardAction,
 } from './actions';
 export type { CardActionParams, CardBaseActionCreator } from './actions';

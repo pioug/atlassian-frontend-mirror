@@ -15,6 +15,7 @@ import { fakeFactory, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
 describe('smart-card: card states, embed', () => {
+  const mockOnError = jest.fn();
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockUrl: string;
@@ -208,11 +209,9 @@ describe('smart-card: card states, embed', () => {
         it('embed: renders the forbidden view if no access, with auth prompt', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.forbidden);
           const { getByText, container } = render(
-            <IntlProvider locale="en">
-              <Provider client={mockClient}>
-                <Card appearance="embed" url={mockUrl} />
-              </Provider>
-            </IntlProvider>,
+            <Provider client={mockClient}>
+              <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+            </Provider>,
           );
           await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -227,6 +226,10 @@ describe('smart-card: card states, embed', () => {
           );
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
+          expect(mockOnError).toHaveBeenCalledWith({
+            url: mockUrl,
+            status: 'forbidden',
+          });
         });
       });
 
@@ -235,11 +238,9 @@ describe('smart-card: card states, embed', () => {
           mocks.forbidden.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.forbidden);
           const { getByText } = render(
-            <IntlProvider locale="en">
-              <Provider client={mockClient}>
-                <Card appearance="embed" url={mockUrl} />
-              </Provider>
-            </IntlProvider>,
+            <Provider client={mockClient}>
+              <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+            </Provider>,
           );
           const forbiddenLink = await waitForElement(() =>
             getByText(/Restricted link/),
@@ -247,6 +248,10 @@ describe('smart-card: card states, embed', () => {
           expect(forbiddenLink).toBeTruthy();
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
+          expect(mockOnError).toHaveBeenCalledWith({
+            url: mockUrl,
+            status: 'forbidden',
+          });
         });
       });
     });
@@ -256,15 +261,14 @@ describe('smart-card: card states, embed', () => {
         it('embed: renders with connect flow', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText, getByTestId } = render(
-            <IntlProvider locale="en">
-              <Provider client={mockClient}>
-                <Card
-                  testId="block-unauthorized-connect"
-                  appearance="embed"
-                  url={mockUrl}
-                />
-              </Provider>
-            </IntlProvider>,
+            <Provider client={mockClient}>
+              <Card
+                testId="block-unauthorized-connect"
+                appearance="embed"
+                url={mockUrl}
+                onError={mockOnError}
+              />
+            </Provider>,
           );
           const unauthorizedLink = await waitForElement(() =>
             getByText(/Connect your.*?account/),
@@ -276,6 +280,10 @@ describe('smart-card: card states, embed', () => {
           expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
+          expect(mockOnError).toHaveBeenCalledWith({
+            url: mockUrl,
+            status: 'unauthorized',
+          });
         });
       });
 
@@ -284,11 +292,9 @@ describe('smart-card: card states, embed', () => {
           mocks.unauthorized.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText } = render(
-            <IntlProvider locale="en">
-              <Provider client={mockClient}>
-                <Card appearance="embed" url={mockUrl} />
-              </Provider>
-            </IntlProvider>,
+            <Provider client={mockClient}>
+              <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+            </Provider>,
           );
           const unauthorizedLink = await waitForElement(() =>
             getByText(/Connect your.*?account/),
@@ -296,6 +302,10 @@ describe('smart-card: card states, embed', () => {
           expect(unauthorizedLink).toBeTruthy();
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
+          expect(mockOnError).toHaveBeenCalledWith({
+            url: mockUrl,
+            status: 'unauthorized',
+          });
         });
       });
 
@@ -303,11 +313,9 @@ describe('smart-card: card states, embed', () => {
         it('embed: renders in error state', async () => {
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
           const { getByText } = render(
-            <IntlProvider locale="en">
-              <Provider client={mockClient} authFlow="disabled">
-                <Card appearance="embed" url={mockUrl} />
-              </Provider>
-            </IntlProvider>,
+            <Provider client={mockClient} authFlow="disabled">
+              <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+            </Provider>,
           );
           const errorView = await waitForElement(() =>
             getByText(/We couldn't load this link/),
@@ -315,19 +323,40 @@ describe('smart-card: card states, embed', () => {
           expect(errorView).toBeTruthy();
           expect(mockFetch).toBeCalled();
           expect(mockFetch).toBeCalledTimes(1);
+          expect(mockOnError).toHaveBeenCalledWith({
+            url: mockUrl,
+            status: 'fallback',
+          });
         });
       });
     });
 
     describe('> state: error', () => {
+      it('embed: renders error card when link not found', async () => {
+        mockFetch.mockImplementationOnce(() =>
+          Promise.reject(new Error('Something went wrong')),
+        );
+        const { findByTestId } = render(
+          <Provider client={mockClient}>
+            <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+          </Provider>,
+        );
+        const errorView = await findByTestId('embed-card-errored-view');
+        expect(errorView).toBeTruthy();
+        expect(mockFetch).toBeCalled();
+        expect(mockFetch).toBeCalledTimes(1);
+        expect(mockOnError).toHaveBeenCalledWith({
+          url: mockUrl,
+          status: 'errored',
+        });
+      });
+
       it('embed: renders not found card when link not found', async () => {
         mockFetch.mockImplementationOnce(async () => mocks.notFound);
         const { getByText } = render(
-          <IntlProvider locale="en">
-            <Provider client={mockClient}>
-              <Card appearance="embed" url={mockUrl} />
-            </Provider>
-          </IntlProvider>,
+          <Provider client={mockClient}>
+            <Card appearance="embed" url={mockUrl} onError={mockOnError} />
+          </Provider>,
         );
         const errorView = await waitForElement(() =>
           getByText(/Uh oh. We can't find this link!/),
@@ -335,6 +364,10 @@ describe('smart-card: card states, embed', () => {
         expect(errorView).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
+        expect(mockOnError).toHaveBeenCalledWith({
+          url: mockUrl,
+          status: 'not_found',
+        });
       });
     });
   });

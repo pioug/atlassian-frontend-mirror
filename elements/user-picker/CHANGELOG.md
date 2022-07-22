@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.2.2
+
+### Patch Changes
+
+- [`d27d65448a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d27d65448a2) - [ux] Add margin-left to addMoreText field
+
 ## 9.2.1
 
 ### Patch Changes

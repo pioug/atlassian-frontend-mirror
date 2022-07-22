@@ -34,6 +34,7 @@ export function CardWithUrlContent({
   appearance,
   dispatchAnalytics,
   onResolve,
+  onError,
   testId,
   showActions,
   inheritDimensions,
@@ -167,7 +168,6 @@ export function CardWithUrlContent({
     }
   }, [
     appearance,
-    state.details,
     state.status,
     url,
     definitionId,
@@ -197,6 +197,7 @@ export function CardWithUrlContent({
         url={url}
         testId={testId}
         onResolve={onResolve}
+        onError={onError}
       >
         {children}
       </FlexibleCard>
@@ -220,6 +221,7 @@ export function CardWithUrlContent({
           handleFrameClick={handleClickWrapper}
           isSelected={isSelected}
           onResolve={onResolve}
+          onError={onError}
           testId={testId}
           inlinePreloaderStyle={inlinePreloaderStyle}
           showHoverPreview={showHoverPreview}
@@ -240,6 +242,7 @@ export function CardWithUrlContent({
           handleAnalytics={dispatchAnalytics}
           isSelected={isSelected}
           onResolve={onResolve}
+          onError={onError}
           testId={testId}
           showActions={showActions}
           platform={platform}
@@ -260,6 +263,7 @@ export function CardWithUrlContent({
           isFrameVisible={isFrameVisible}
           platform={platform}
           onResolve={onResolve}
+          onError={onError}
           testId={testId}
           inheritDimensions={inheritDimensions}
           showActions={showActions}

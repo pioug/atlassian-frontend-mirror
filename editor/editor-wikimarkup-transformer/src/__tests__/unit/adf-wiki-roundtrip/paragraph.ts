@@ -179,4 +179,12 @@ describe('ADF => WikiMarkup - Paragraph', () => {
     const adf = transformer.parse(wiki).toJSON();
     expect(adf).toEqual(node.toJSON());
   });
+  test('[ESS-2569] should roundtrip backslashes correctly', () => {
+    const text = 'this\\and\\that';
+    const node = doc(p(text))(defaultSchema);
+    const wiki = transformer.encode(node);
+    const adf = transformer.parse(wiki).toJSON();
+    expect(adf).toEqual(node.toJSON());
+    expect(wiki).toEqual(text);
+  });
 });

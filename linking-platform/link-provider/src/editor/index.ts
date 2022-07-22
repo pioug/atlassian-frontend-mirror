@@ -131,12 +131,12 @@ export class EditorCardProvider implements CardProvider {
 
     const userPreferences = this.providersData?.userPreferences;
     if (userPreferences) {
-      const { defaultAppearance, appearanceMap } = userPreferences;
-      const matchedPath = Object.keys(appearanceMap).find(path =>
-        this.doesUrlMatchPath(path, url),
+      const { defaultAppearance, appearances } = userPreferences;
+      const matchedLabeledAppearance = appearances.find(({ urlSegment }) =>
+        this.doesUrlMatchPath(urlSegment, url),
       );
-      if (matchedPath) {
-        return appearanceMap[matchedPath];
+      if (matchedLabeledAppearance) {
+        return matchedLabeledAppearance.appearance;
       }
       if (defaultAppearance !== 'inline') {
         return defaultAppearance;
@@ -167,7 +167,7 @@ export class EditorCardProvider implements CardProvider {
     shouldForceAppearance?: boolean,
   ): Promise<CardAdf> {
     try {
-      if (shouldForceAppearance) {
+      if (shouldForceAppearance === true) {
         // At this point we don't need to check pattern nor call `check` because manual change means
         // this url is already supported and can be resolved. We want to ignore all other options and
         // respect user's choice.
@@ -180,7 +180,7 @@ export class EditorCardProvider implements CardProvider {
         this.findUserPreference(url),
       ]);
 
-      if (userPreference === 'url') {
+      if (shouldForceAppearance === false && userPreference === 'url') {
         return Promise.reject(undefined);
       }
 
@@ -188,24 +188,27 @@ export class EditorCardProvider implements CardProvider {
       if (isSupported) {
         const providerDefaultAppearance = matchedProviderPattern?.defaultView;
 
-        return this.transformer.toAdf(
-          url,
-          // User preferred appearance. It would be either one that has matching domain/path pattern OR
-          // if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
-          userPreference ||
-            // If user's default choice is "inline" or user hasn't specified preferences at all,
-            // we check whatever one of the hardcoded providers match url (jira roadmap, polaris, etc)
-            hardCodedAppearance ||
-            // If non match, we see if this provider has default appearance for this particular regexp
-            providerDefaultAppearance ||
-            // If not, we pick what editor (or any other client) requested
-            appearance,
-        );
+        const preferredAppearance =
+          shouldForceAppearance === undefined
+            ? // Ignore both User and provider's appearances if older editor that doesn't send shouldForceAppearance
+              hardCodedAppearance || appearance
+            : // User preferred appearance. It would be either one that has matching domain/path pattern OR
+              // if user's default choice is NOT "inline" (so, block or embed at this point, url was dealt with above)
+              (userPreference as CardAppearance) ||
+              // If user's default choice is "inline" or user hasn't specified preferences at all,
+              // we check whatever one of the hardcoded providers match url (jira roadmap, polaris, etc)
+              hardCodedAppearance ||
+              // If non match, we see if this provider has default appearance for this particular regexp
+              providerDefaultAppearance ||
+              // If not, we pick what editor (or any other client) requested
+              appearance;
+
+        return this.transformer.toAdf(url, preferredAppearance);
       }
     } catch (e) {
       // eslint-disable-next-line
       console.warn(
-        `Error when trying to check Smart Card url "${url} - ${e.prototype.name} ${e.message}`,
+        `Error when trying to check Smart Card url "${url} - ${e.name} ${e.message}`,
         e,
       );
     }

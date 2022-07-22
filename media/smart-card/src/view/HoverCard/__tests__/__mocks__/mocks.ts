@@ -133,3 +133,28 @@ export const mockBaseResponseWithDownload = {
     'atlassian:downloadUrl': 'mock-download-url',
   },
 };
+
+export const mockSSRResponse = {
+  meta: {
+    visibility: 'public',
+    access: 'granted',
+    auth: [],
+    definitionId: 'd1',
+    key: 'test-object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@type': ['Object'],
+    name: 'I am a fan of cheese',
+    url: 'https://some.url',
+    icon: {
+      '@type': 'Image',
+      url:
+        'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
+    },
+  },
+};

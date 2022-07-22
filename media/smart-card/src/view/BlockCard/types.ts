@@ -6,6 +6,7 @@ import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
 import { AnalyticsHandler } from '../../utils/types';
 import { OnResolveCallback, CardPlatform } from '../Card/types';
+import { OnErrorCallback } from '../types';
 
 export type BlockCardProps = {
   id: string;
@@ -19,6 +20,7 @@ export type BlockCardProps = {
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   isSelected?: boolean;
   onResolve?: OnResolveCallback;
+  onError?: OnErrorCallback;
   testId?: string;
   showActions?: boolean;
   renderers?: CardProviderRenderers;

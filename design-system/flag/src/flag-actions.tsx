@@ -71,7 +71,7 @@ const appeanceNormalButtonStyles = css({
 
 const isBoldButtonStyles = css({
   '&&, a&&': {
-    marginLeft: gridSize,
+    marginRight: gridSize,
   },
 });
 

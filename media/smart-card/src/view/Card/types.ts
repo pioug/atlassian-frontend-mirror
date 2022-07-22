@@ -2,7 +2,7 @@ import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { CardAppearance, CardPlatform } from '@atlaskit/linking-common';
 import { AnalyticsFacade } from '../../state/analytics';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
-import { InlinePreloaderStyle } from '../types';
+import { InlinePreloaderStyle, OnErrorCallback } from '../types';
 
 export type { CardAppearance, CardPlatform };
 export type CardInnerAppearance = CardAppearance | 'preview' | 'flexible';
@@ -27,6 +27,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
   testId?: string;
   showActions?: boolean;
   onResolve?: OnResolveCallback;
+  onError?: OnErrorCallback;
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
   inlinePreloaderStyle?: InlinePreloaderStyle;

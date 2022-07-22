@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 20.1.0
+
+### Minor Changes
+
+- [`58eb89c70f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58eb89c70f5) - Add onError callback on Card component.
+  The callback is triggered when Card component unable to resolve the link.
+
+  Return statuses are errored, fallback, forbidden, not_found and unauthorized.
+
+  Usage
+
+  ```typescript
+  const onError = (data: { status: string; url: string }) => {};
+
+  <Card appearance="inline" onError={onError} url="https://link-url" />;
+  ```
+
+### Patch Changes
+
+- [`e15410365b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e15410365b2) - - export types/functions in linking common to be used in smart card
+
+  - add flag to card action to override re-using previous 'resolved' state
+
+  - add prop to cardState which reflects the metadata state, can be pending, resolved or errored
+
+  - modified reducer and dispatchers to handle these new props
+
+- Updated dependencies
+
 ## 20.0.6
 
 ### Patch Changes

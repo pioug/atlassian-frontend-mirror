@@ -147,7 +147,9 @@ export function parseString({
             newLines.push(...token.nodes);
           } else {
             inlineNodes.push(...token.nodes);
-            newLines = [];
+            if (token.nodes.length > 0) {
+              newLines = [];
+            }
           }
           buffer = []; // clear the buffer
         }
@@ -202,20 +204,30 @@ function isNewLineRequiredBetweenNodes(
   buffer: string[],
   nextNodes: PMNode[],
 ) {
-  return (
-    currentNodes.length > 0 &&
-    (buffer.length > 0
-      ? !currentNodes[currentNodes.length - 1].isBlock
-      : nextNodes[0].type.name !== 'hardBreak' &&
-        !currentNodes[currentNodes.length - 1].isBlock &&
-        !nextNodes[0].isBlock)
-  );
+  if (currentNodes.length === 0) {
+    return false;
+  }
+  if (buffer.length > 0 && currentNodes.at(-1)?.isBlock) {
+    return false;
+  }
+  if (buffer.length === 0) {
+    if (nextNodes.length === 0) {
+      return false;
+    }
+    if (nextNodes[0]?.type.name === 'hardBreak') {
+      return false;
+    }
+    if (nextNodes[0]?.isBlock || currentNodes.at(-1)?.isBlock) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function isConsecutiveMediaGroups(currentNodes: PMNode[], nextNodes: PMNode[]) {
   return (
     currentNodes.length > 0 &&
-    currentNodes[currentNodes.length - 1].type.name === 'mediaGroup' &&
-    nextNodes[0].type.name === 'mediaGroup'
+    currentNodes.at(-1)?.type.name === 'mediaGroup' &&
+    nextNodes[0]?.type.name === 'mediaGroup'
   );
 }

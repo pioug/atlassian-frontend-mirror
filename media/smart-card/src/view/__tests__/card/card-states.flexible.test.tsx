@@ -23,6 +23,7 @@ import { flushPromises } from '@atlaskit/media-test-helpers';
 import { JsonLd } from 'json-ld-types';
 
 describe('smart-card: card states, flexible', () => {
+  const mockOnError = jest.fn();
   let mockClient: CardClient;
   let mockFetch: jest.Mock<Promise<JsonLd.Response>>;
   let mockUrl: string;
@@ -56,7 +57,7 @@ describe('smart-card: card states, flexible', () => {
 
         const { getByTestId } = render(
           <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl}>
+            <Card appearance="inline" url={mockUrl} onError={mockOnError}>
               <TitleBlock />
             </Card>
           </Provider>,
@@ -72,6 +73,10 @@ describe('smart-card: card states, flexible', () => {
           getByTestId('smart-block-title-errored-view'),
         );
         expect(erroredViewAgain).toBeTruthy();
+        expect(mockOnError).toHaveBeenCalledWith({
+          url: mockUrl,
+          status: 'errored',
+        });
       });
     });
 
@@ -289,7 +294,7 @@ describe('smart-card: card states, flexible', () => {
 
       const { findByTestId, queryByTestId } = render(
         <Provider client={mockClient} authFlow="disabled">
-          <Card appearance="inline" url={mockUrl}>
+          <Card appearance="inline" url={mockUrl} onError={mockOnError}>
             <TitleBlock testId="auth-flow-disabled" />
           </Card>
         </Provider>,
@@ -303,6 +308,10 @@ describe('smart-card: card states, flexible', () => {
       expect(icon.getAttribute('aria-label')).toBe('Confluence');
       expect(link.textContent).toBe(mockUrl);
       expect(message).not.toBeInTheDocument();
+      expect(mockOnError).toHaveBeenCalledWith({
+        url: mockUrl,
+        status: 'fallback',
+      });
     });
   });
 });

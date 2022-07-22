@@ -5,6 +5,7 @@ import { CardPlatform, OnResolveCallback } from '../Card/types';
 import { ReactNode } from 'react';
 import { ActionProps } from '../BlockCard/components/Action';
 import { RequestAccessMessageKey } from '../../messages';
+import { OnErrorCallback } from '../types';
 
 export type EmbedCardProps = {
   url: string;
@@ -19,6 +20,7 @@ export type EmbedCardProps = {
   isFrameVisible?: boolean;
   platform?: CardPlatform;
   onResolve?: OnResolveCallback;
+  onError?: OnErrorCallback;
   testId?: string;
   inheritDimensions?: boolean;
   showActions?: boolean;

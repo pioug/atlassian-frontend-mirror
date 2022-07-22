@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 14.6.2
+
+### Patch Changes
+
+- [`982f05dc6b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/982f05dc6b9) - [ux] Remove left indentation on bold flag's actions section
+
 ## 14.6.1
 
 ### Patch Changes

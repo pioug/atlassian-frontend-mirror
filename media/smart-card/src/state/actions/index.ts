@@ -1,7 +1,6 @@
 import { useMemo, useCallback } from 'react';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { JsonLd } from 'json-ld-types';
-import { APIError } from '@atlaskit/linking-common';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   ACTION_PENDING,
@@ -9,7 +8,10 @@ import {
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,
   ACTION_RELOADING,
+  ACTION_UPDATE_METADATA_STATUS,
   cardAction,
+  MetadataStatus,
+  APIError,
 } from '@atlaskit/linking-common';
 import {
   getDefinitionId,
@@ -18,7 +20,11 @@ import {
   getStatus,
   getExtensionKey,
 } from '../helpers';
-import { ERROR_MESSAGE_OAUTH, ERROR_MESSAGE_FATAL } from './constants';
+import {
+  ERROR_MESSAGE_OAUTH,
+  ERROR_MESSAGE_FATAL,
+  ERROR_MESSAGE_METADATA,
+} from './constants';
 
 import { CardAppearance } from '../../view/Card';
 import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
@@ -35,7 +41,7 @@ export const useSmartCardActions = (
 ) => {
   const { store, connections, config } = useSmartLinkContext();
   const { getState, dispatch } = store;
-  const { details, status } = getState()[url] || {
+  const { details, status, metadataStatus } = getState()[url] || {
     status: 'pending',
     details: undefined,
   };
@@ -43,8 +49,33 @@ export const useSmartCardActions = (
   const hasAuthFlowSupported = config.authFlow !== 'disabled';
   const hasData = !!(details && details.data);
 
+  const setMetadataStatus = useCallback(
+    (metadataStatus: MetadataStatus) => {
+      dispatch(
+        cardAction(
+          ACTION_UPDATE_METADATA_STATUS,
+          { url },
+          undefined,
+          undefined,
+          metadataStatus,
+        ),
+      );
+    },
+    [dispatch, url],
+  );
+
   const handleResolvedLinkError = useCallback(
-    (url: string, error: APIError, response?: JsonLd.Response) => {
+    (
+      url: string,
+      error: APIError,
+      response?: JsonLd.Response,
+      isMetadataRequest?: boolean,
+    ) => {
+      // If metadata request then set metadata status, return and do not alter link status
+      if (isMetadataRequest) {
+        setMetadataStatus('errored');
+        return;
+      }
       if (error.kind === 'fatal') {
         // If there's no previous data in the store for this URL, then bail
         // out and let the editor handle fallbacks (returns to a blue link).
@@ -71,11 +102,16 @@ export const useSmartCardActions = (
         }
       }
     },
-    [hasData, status, dispatch, details],
+    [setMetadataStatus, hasData, status, dispatch, details],
   );
 
   const handleResolvedLinkResponse = useCallback(
-    (resourceUrl: string, response: JsonLd.Response, isReloading = false) => {
+    (
+      resourceUrl: string,
+      response: JsonLd.Response,
+      isReloading = false,
+      isMetadataRequest?: boolean,
+    ) => {
       const hostname = new URL(resourceUrl).hostname;
       const nextStatus = response ? getStatus(response) : 'fatal';
 
@@ -89,6 +125,7 @@ export const useSmartCardActions = (
           resourceUrl,
           new APIError('fallback', hostname, ERROR_MESSAGE_OAUTH),
           response,
+          isMetadataRequest,
         );
         return;
       }
@@ -98,33 +135,77 @@ export const useSmartCardActions = (
         handleResolvedLinkError(
           resourceUrl,
           new APIError('fatal', hostname, ERROR_MESSAGE_FATAL),
+          undefined,
+          isMetadataRequest,
         );
         return;
       }
 
+      // Handle errors of any other kind in the metadata request response
+      if (isMetadataRequest && nextStatus !== 'resolved') {
+        handleResolvedLinkError(
+          resourceUrl,
+          new APIError('error', hostname, ERROR_MESSAGE_METADATA),
+          response,
+          isMetadataRequest,
+        );
+        return;
+      }
+
+      //if a link resolves normally, metadata will also always be resolved
+      setMetadataStatus('resolved');
       // Dispatch Analytics and resolved card action - including unauthorized states.
       if (isReloading) {
         dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
       } else {
-        dispatch(cardAction(ACTION_RESOLVED, { url: resourceUrl }, response));
+        dispatch(
+          cardAction(
+            ACTION_RESOLVED,
+            { url: resourceUrl },
+            response,
+            undefined,
+            undefined,
+            isMetadataRequest,
+          ),
+        );
       }
     },
-    [dispatch, handleResolvedLinkError, hasAuthFlowSupported],
+    [
+      dispatch,
+      handleResolvedLinkError,
+      hasAuthFlowSupported,
+      setMetadataStatus,
+    ],
   );
 
   const resolve = useCallback(
-    async (resourceUrl = url, isReloading = false) => {
+    async (
+      resourceUrl = url,
+      isReloading = false,
+      isMetadataRequest = false,
+    ) => {
       // Request JSON-LD data for the card from ORS, iff it has extended
       // its cache lifespan OR there is no data for it currently. Once the data
       // has come back asynchronously, dispatch the resolved action for the card.
-
-      if (isReloading || !hasData) {
+      if (isReloading || !hasData || isMetadataRequest) {
         return connections.client
           .fetchData(resourceUrl)
           .then((response) =>
-            handleResolvedLinkResponse(resourceUrl, response, isReloading),
+            handleResolvedLinkResponse(
+              resourceUrl,
+              response,
+              isReloading,
+              isMetadataRequest,
+            ),
           )
-          .catch((error) => handleResolvedLinkError(resourceUrl, error));
+          .catch((error) =>
+            handleResolvedLinkError(
+              resourceUrl,
+              error,
+              undefined,
+              isMetadataRequest,
+            ),
+          );
       } else {
         addMetadataToExperience('smart-link-rendered', id, { cached: true });
       }
@@ -142,9 +223,10 @@ export const useSmartCardActions = (
   const register = useCallback(() => {
     if (!details) {
       dispatch(cardAction(ACTION_PENDING, { url }));
+      setMetadataStatus('pending');
     }
     return resolve();
-  }, [url, resolve, details, dispatch]);
+  }, [details, resolve, dispatch, url, setMetadataStatus]);
 
   const reload = useCallback(() => {
     const definitionId = getDefinitionId(details);
@@ -156,6 +238,14 @@ export const useSmartCardActions = (
       resolve(url, true);
     }
   }, [url, details, getState, resolve]);
+
+  const loadMetadata = useCallback(() => {
+    //metadataStatus will be undefined for SSR links only
+    if (metadataStatus === undefined) {
+      setMetadataStatus('pending');
+      return resolve(url, false, true);
+    }
+  }, [metadataStatus, resolve, setMetadataStatus, url]);
 
   const authorize = useCallback(
     (appearance: CardAppearance) => {
@@ -265,10 +355,14 @@ export const useSmartCardActions = (
     [id, analytics.ui, analytics.operational, connections.client],
   );
 
-  return useMemo(() => ({ register, reload, authorize, invoke }), [
-    register,
-    reload,
-    authorize,
-    invoke,
-  ]);
+  return useMemo(
+    () => ({
+      register,
+      reload,
+      authorize,
+      invoke,
+      loadMetadata,
+    }),
+    [register, reload, authorize, invoke, loadMetadata],
+  );
 };

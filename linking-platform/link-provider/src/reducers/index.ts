@@ -6,6 +6,7 @@ import {
   ACTION_RESOLVED,
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,
+  ACTION_UPDATE_METADATA_STATUS,
   CardStore,
   CardState,
   CardActionType,
@@ -24,13 +25,14 @@ const isCardAction = (action: AnyAction): action is CardAction => {
     ACTION_RELOADING,
     ACTION_ERROR,
     ACTION_ERROR_FALLBACK,
+    ACTION_UPDATE_METADATA_STATUS,
   ].includes(action.type);
 };
 
 function persistPayloadToState(
   payload: JsonLd.Response<JsonLd.Data.BaseData> | undefined,
   state: CardState,
-  type: Exclude<CardActionType, 'reloading'>,
+  type: Exclude<CardActionType, 'reloading' | 'metadata'>,
 ) {
   const nextDetails = payload;
   const nextState = { ...state };
@@ -70,6 +72,9 @@ function reduceToNextState(state: CardState, action: CardAction) {
         details: action.payload,
       };
     }
+    case ACTION_UPDATE_METADATA_STATUS: {
+      return { ...state, metadataStatus: action.metadataStatus };
+    }
   }
 }
 
@@ -84,7 +89,9 @@ export const cardReducer: CardReducer<CardStore, JsonLd.Response> = (
 
   // Card may have reached the same state on account of multiple of the same
   // URL being present in an editor session. E.g. page with N links to one resource.
-  const hasSameStatus = cardState && cardState.status === action.type;
+  const hasSameStatus =
+    !action.ignoreStatusCheck && cardState && cardState.status === action.type;
+
   if (hasSameStatus) {
     return state;
   } else {

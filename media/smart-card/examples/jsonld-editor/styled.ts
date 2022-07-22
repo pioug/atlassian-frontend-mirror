@@ -71,3 +71,10 @@ export const jsonldExampleStyles = css`
   gap: 0.25rem;
   margin: 0.75rem 0;
 `;
+
+export const loadLinkStyles = css`
+  align-content: stretch;
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+`;

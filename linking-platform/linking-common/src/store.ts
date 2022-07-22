@@ -1,6 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import { Store } from 'redux';
-import { CardType } from './types';
+import { CardType, MetadataStatus } from './types';
 import { APIError } from './errors';
 
 export interface CardStore {
@@ -12,6 +12,7 @@ export interface CardState {
   /** @deprecated Feature removed (EDM-2205) */
   lastUpdatedAt?: number;
   error?: APIError;
+  metadataStatus?: MetadataStatus;
 }
 
 export const getUrl = (store: Store<CardStore>, url: string) => {

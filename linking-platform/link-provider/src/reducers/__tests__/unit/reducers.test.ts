@@ -10,6 +10,8 @@ import {
   ACTION_ERROR_FALLBACK,
   APIError,
   ACTION_RELOADING,
+  ACTION_UPDATE_METADATA_STATUS,
+  MetadataStatus,
 } from '@atlaskit/linking-common';
 import { Reducer } from 'react';
 import { JsonLd } from 'json-ld-types';
@@ -188,6 +190,31 @@ describe('Smart Card: Reducers', () => {
       });
     });
 
+    it('successfully updates state when not transitioning between states but ignore status check flag is provided', () => {
+      mockDateNow.mockImplementationOnce(() => 456);
+      store[url] = {
+        status: 'resolved',
+        details: mockPayload,
+      };
+      const ignoreStatusCheck = true;
+
+      store = reducer(
+        store,
+        cardAction(
+          ACTION_RESOLVED,
+          mockActionParams,
+          mockOtherPayload,
+          undefined,
+          undefined,
+          ignoreStatusCheck,
+        ),
+      );
+      expect(store).toHaveProperty('/some/url', {
+        status: 'resolved',
+        details: mockOtherPayload,
+      });
+    });
+
     it('successfully persists new state when reload action is invoked', () => {
       mockDateNow.mockImplementationOnce(() => 456);
       store[url] = {
@@ -227,5 +254,53 @@ describe('Smart Card: Reducers', () => {
         status: 'resolved',
       });
     });
+  });
+
+  describe('ACTION_UPDATE_METADATA_STATUS', () => {
+    const mockPayload: JsonLd.Response = {
+      meta: {
+        visibility: 'public',
+        access: 'granted',
+      },
+      data: {
+        '@context': {
+          '@vocab': 'https://www.w3.org/ns/activitystreams#',
+          atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+          schema: 'http://schema.org/',
+        },
+        '@type': 'Object',
+      },
+    };
+
+    const metadataStatuses: MetadataStatus[] = [
+      'pending',
+      'resolved',
+      'errored',
+    ];
+    it.each([...metadataStatuses, undefined])(
+      'successfully updates metadata status to %s while persisting existing card state',
+      status => {
+        store[url] = {
+          status: 'resolved',
+          details: mockPayload,
+        };
+        mockDateNow.mockImplementationOnce(() => 123);
+        store = reducer(
+          store,
+          cardAction(
+            ACTION_UPDATE_METADATA_STATUS,
+            mockActionParams,
+            undefined,
+            undefined,
+            status,
+          ),
+        );
+        expect(store).toHaveProperty('/some/url', {
+          status: 'resolved',
+          metadataStatus: status,
+          details: mockPayload,
+        });
+      },
+    );
   });
 });

@@ -66,7 +66,7 @@
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/radio": "^5.3.2",
     "@atlaskit/range": "^6.0.0",
-    "@atlaskit/select": "^15.3.0",
+    "@atlaskit/select": "^15.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.4.0",
     "@atlaskit/visual-regression": "*",

@@ -6,10 +6,9 @@ import { QuickInsertPluginState, QuickInsertPluginOptions } from './types';
 const options = {
   threshold: 0.3,
   keys: [
-    // Weights must sum to <= 1.0
-    { name: 'title', weight: 0.5 },
+    { name: 'title', weight: 0.57 },
     { name: 'priority', weight: 0.3 },
-    { name: 'keywords', weight: 0.15 },
+    { name: 'keywords', weight: 0.08 },
     { name: 'description', weight: 0.04 },
     { name: 'keyshortcut', weight: 0.01 },
   ],

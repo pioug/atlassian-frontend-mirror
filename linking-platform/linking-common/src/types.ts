@@ -28,7 +28,8 @@ export type CardActionType =
   | 'resolved'
   | 'errored'
   | 'fallback'
-  | 'reloading';
+  | 'reloading'
+  | 'metadata';
 
 export type CardType =
   | 'pending'
@@ -40,6 +41,8 @@ export type CardType =
   | 'forbidden'
   | 'errored'
   | 'not_found';
+
+export type MetadataStatus = 'pending' | 'resolved' | 'errored';
 
 /**
  * @deprecated This has been moved to `@atlaskit/linking-common/extractors`
@@ -54,6 +57,7 @@ export interface CardAction<T = JsonLd.Response> extends AnyAction {
   type: CardActionType;
   url: string;
   payload?: T;
+  metadataStatus?: MetadataStatus;
 }
 export interface ServerActionOpts {
   type: string;

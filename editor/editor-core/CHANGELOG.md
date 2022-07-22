@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 170.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 169.1.1
+
+### Patch Changes
+
+- [`ebe16f97977`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebe16f97977) - [ux] ED-15292 adjusted weights for the quickinsert search to match weighting system used in newer version of fuse.js (library that we use for fuzzy search)
+
 ## 169.1.0
 
 ### Minor Changes

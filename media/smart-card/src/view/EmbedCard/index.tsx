@@ -31,6 +31,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       isFrameVisible,
       platform,
       onResolve,
+      onError,
       testId,
       inheritDimensions,
     },
@@ -97,6 +98,9 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           );
         }
       case 'unauthorized':
+        if (onError) {
+          onError({ url, status });
+        }
         const unauthorisedViewProps = extractEmbedProps(data, meta, platform);
         return (
           <EmbedCardUnauthorisedView
@@ -108,6 +112,9 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           />
         );
       case 'forbidden':
+        if (onError) {
+          onError({ url, status });
+        }
         const forbiddenViewProps = extractEmbedProps(data, meta, platform);
         const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
         const requestAccessContext = extractRequestAccessContext({
@@ -126,6 +133,9 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
           />
         );
       case 'not_found':
+        if (onError) {
+          onError({ url, status });
+        }
         const notFoundViewProps = extractEmbedProps(data, meta, platform);
         return (
           <EmbedCardNotFoundView
@@ -137,6 +147,9 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         );
       case 'fallback':
       case 'errored':
+        if (onError) {
+          onError({ url, status });
+        }
         return (
           <EmbedCardErroredView
             onRetry={handleErrorRetry}

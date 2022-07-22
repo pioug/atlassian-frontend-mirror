@@ -1,5 +1,4 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { InlineCardProps } from './types';
 import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
@@ -30,6 +29,7 @@ export const InlineCard: FC<InlineCardProps> = ({
   isSelected,
   renderers,
   onResolve,
+  onError,
   testId,
   inlinePreloaderStyle,
   showHoverPreview,
@@ -74,6 +74,10 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'unauthorized':
+      if (onError) {
+        onError({ url, status });
+      }
+
       const provider = extractProvider(cardDetails as JsonLd.Data.BaseData);
       return (
         <InlineCardUnauthorizedView
@@ -86,6 +90,10 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'forbidden':
+      if (onError) {
+        onError({ url, status });
+      }
+
       const providerForbidden = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
@@ -108,6 +116,10 @@ export const InlineCard: FC<InlineCardProps> = ({
         />
       );
     case 'not_found':
+      if (onError) {
+        onError({ url, status });
+      }
+
       const providerNotFound = extractProvider(
         cardDetails as JsonLd.Data.BaseData,
       );
@@ -123,6 +135,10 @@ export const InlineCard: FC<InlineCardProps> = ({
       );
     case 'fallback':
     case 'errored':
+      if (onError) {
+        onError({ url, status });
+      }
+
       return (
         <CardLinkView
           link={url}

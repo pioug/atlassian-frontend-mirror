@@ -21,6 +21,7 @@ describe(useSmartLinkReload.name, () => {
       invoke: jest.fn(),
       register: jest.fn(),
       reload: jest.fn(),
+      loadMetadata: jest.fn(),
     };
     mocked(useSmartCardActions).mockReturnValue(mockedActions);
 

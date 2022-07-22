@@ -44,6 +44,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   renderers,
   isSelected,
   onResolve,
+  onError,
   testId,
   showActions,
   platform,
@@ -85,6 +86,10 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'unauthorized':
+      if (onError) {
+        onError({ url, status });
+      }
+
       const unauthorizedViewProps = extractBlockProps(
         data,
         meta,
@@ -101,6 +106,10 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'forbidden':
+      if (onError) {
+        onError({ url, status });
+      }
+
       const forbiddenViewProps = extractBlockProps(data, meta, extractorOpts);
       const cardMetadata = details?.meta ?? getUnauthorizedJsonLd().meta;
       const requestAccessContext = extractRequestAccessContext({
@@ -119,6 +128,10 @@ export const BlockCard: FC<BlockCardProps> = ({
         />
       );
     case 'not_found':
+      if (onError) {
+        onError({ url, status });
+      }
+
       const notFoundViewProps = extractBlockProps(data, meta, extractorOpts);
       return (
         <BlockCardNotFoundView
@@ -130,6 +143,10 @@ export const BlockCard: FC<BlockCardProps> = ({
       );
     case 'fallback':
     case 'errored':
+      if (onError) {
+        onError({ url, status });
+      }
+
       if (authFlow && authFlow === 'disabled') {
         return (
           <CardLinkView

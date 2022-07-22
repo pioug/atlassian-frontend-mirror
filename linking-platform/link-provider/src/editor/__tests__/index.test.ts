@@ -1,5 +1,9 @@
 import { EditorCardProvider } from '..';
-import { ORSProvidersResponse, UserPreferences } from '../types';
+import {
+  LinkAppearance,
+  ORSProvidersResponse,
+  UserPreferences,
+} from '../types';
 
 const getMockProvidersResponse = ({
   userPreferences,
@@ -115,7 +119,7 @@ describe('providers > editor', () => {
       ok: true,
     });
     const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
-    const adf = await provider.resolve(url, 'inline');
+    const adf = await provider.resolve(url, 'inline', false);
     expect(adf).toEqual(expectedInlineAdf(url));
   });
 
@@ -126,7 +130,7 @@ describe('providers > editor', () => {
       ok: true,
     });
     const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
-    const adf = await provider.resolve(url, 'block');
+    const adf = await provider.resolve(url, 'block', false);
     expect(adf).toEqual(expectedBlockAdf(url));
   });
 
@@ -147,7 +151,7 @@ describe('providers > editor', () => {
         json: async () => getMockProvidersResponse(),
         ok: true,
       });
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedInlineAdf(url));
     },
   );
@@ -213,7 +217,7 @@ describe('providers > editor', () => {
         json: async () => getMockProvidersResponse(),
         ok: true,
       });
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedEmbedAdf(url));
     },
   );
@@ -231,7 +235,7 @@ describe('providers > editor', () => {
       ok: true,
     });
     const url = 'https://drive.google.com/file/123';
-    const adf = await provider.resolve(url, 'inline');
+    const adf = await provider.resolve(url, 'inline', false);
     expect(adf).toEqual(expectedInlineAdf(url));
   });
 
@@ -246,7 +250,7 @@ describe('providers > editor', () => {
       json: async () => ({ isSupported: false }),
     });
     const url = 'https://drive.google.com/file/123';
-    const promise = provider.resolve(url, 'inline');
+    const promise = provider.resolve(url, 'inline', false);
     await expect(promise).rejects.toEqual(undefined);
   });
 
@@ -263,7 +267,7 @@ describe('providers > editor', () => {
       },
     });
     const url = 'https://drive.google.com/file/123';
-    const promise = provider.resolve(url, 'inline');
+    const promise = provider.resolve(url, 'inline', false);
     await expect(promise).rejects.toEqual(undefined);
   });
 
@@ -288,7 +292,7 @@ describe('providers > editor', () => {
       ok: true,
     });
     const url = 'https://site-with-default-view.com/testing';
-    const adf = await provider.resolve(url, 'inline');
+    const adf = await provider.resolve(url, 'inline', false);
     expect(adf).toEqual(expectedEmbedAdf(url));
   });
 
@@ -359,14 +363,14 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'url',
-              appearanceMap: {},
+              appearances: [],
             },
           }),
         ok: true,
       });
 
       const url = 'https://site-with-default-view.com/testing/index.html';
-      const promise = provider.resolve(url, 'inline');
+      const promise = provider.resolve(url, 'inline', false);
       await expect(promise).rejects.toEqual(undefined);
     });
 
@@ -377,14 +381,14 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {},
+              appearances: [],
             },
           }),
         ok: true,
       });
 
       const url = 'https://site-with-default-view.com/testing/index.html';
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedBlockAdf(url));
     });
 
@@ -395,16 +399,19 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {
-                'site-with-default-view.com/testing': 'inline',
-              },
+              appearances: [
+                {
+                  urlSegment: 'site-with-default-view.com/testing',
+                  appearance: 'inline',
+                },
+              ],
             },
           }),
         ok: true,
       });
 
       const url = 'https://site-with-default-view.com/testing/index.html';
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedInlineAdf(url));
     });
 
@@ -415,17 +422,23 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {
-                'some-other-path.com': 'embed',
-                'site-with-default-view.com/testing': 'url',
-              },
+              appearances: [
+                {
+                  urlSegment: 'some-other-path.com',
+                  appearance: 'embed',
+                },
+                {
+                  urlSegment: 'site-with-default-view.com/testing',
+                  appearance: 'url',
+                },
+              ],
             },
           }),
         ok: true,
       });
 
       const url = 'https://site-with-default-view.com/testing/index.html';
-      const promise = provider.resolve(url, 'inline');
+      const promise = provider.resolve(url, 'inline', false);
       await expect(promise).rejects.toEqual(undefined);
     });
 
@@ -436,53 +449,59 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {
-                'some-other-path.com': 'embed',
-                'site-with-default-view.com/testing': 'inline',
-              },
+              appearances: [
+                {
+                  urlSegment: 'some-other-path.com',
+                  appearance: 'embed',
+                },
+                {
+                  urlSegment: 'site-with-default-view.com/testing',
+                  appearance: 'inline',
+                },
+              ],
             },
           }),
         ok: true,
       });
 
       const url = 'https://site-with-default-view.com/testing/index.html';
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedInlineAdf(url));
     });
 
-    it('should use user default appearance even for urls we have harcoded appearance for', async () => {
+    it('should use user default appearance even for urls we have hardcoded appearance for', async () => {
       const provider = new EditorCardProvider();
       mockFetch.mockResolvedValueOnce({
         json: async () =>
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {},
+              appearances: [],
             },
           }),
         ok: true,
       });
 
       const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedBlockAdf(url));
     });
 
-    it('should use harcoded appearance when user has "inline" default appearance (and no pattern matches url)', async () => {
+    it('should use hardcoded appearance when user has "inline" default appearance (and no pattern matches url)', async () => {
       const provider = new EditorCardProvider();
       mockFetch.mockResolvedValueOnce({
         json: async () =>
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'inline',
-              appearanceMap: {},
+              appearances: [],
             },
           }),
         ok: true,
       });
 
       const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedEmbedAdf(url));
     });
 
@@ -493,16 +512,19 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {
-                'jdog.jira-dev.com/jira/core': 'inline',
-              },
+              appearances: [
+                {
+                  urlSegment: 'jdog.jira-dev.com/jira/core',
+                  appearance: 'inline',
+                },
+              ],
             },
           }),
         ok: true,
       });
 
       const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
-      const adf = await provider.resolve(url, 'inline');
+      const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedInlineAdf(url));
     });
 
@@ -513,13 +535,112 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'inline',
-              appearanceMap: {},
+              appearances: [],
             },
           }),
         ok: true,
       });
 
       const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedEmbedAdf(url));
+    });
+  });
+
+  describe('when consumer calls function without shouldForceAppearance argument defined', () => {
+    const allUserPreferencesCombinations = [
+      ...(['url', 'inline', 'block', 'embed'] as LinkAppearance[]).map<
+        [string, UserPreferences]
+      >(defaultAppearance => [
+        ` default appearance = ${defaultAppearance}`,
+        {
+          defaultAppearance,
+          appearances: [],
+        } as UserPreferences,
+      ]),
+      ...(['url', 'inline', 'block', 'embed'] as LinkAppearance[]).map<
+        [string, UserPreferences]
+      >(defaultAppearance => [
+        `specific url appearance = ${defaultAppearance}`,
+        {
+          defaultAppearance: 'block',
+          appearances: [
+            {
+              urlSegment: 'some-domain.com',
+              appearance: 'embed',
+            },
+          ],
+        } as UserPreferences,
+      ]),
+    ];
+
+    it.each<[string, UserPreferences]>(allUserPreferencesCombinations)(
+      "should use requested appearance over user's preferred %s",
+      async (_, userPreferences) => {
+        const provider = new EditorCardProvider();
+        mockFetch.mockResolvedValueOnce({
+          json: async () =>
+            getMockProvidersResponse({
+              userPreferences,
+            }),
+          ok: true,
+        });
+        mockFetch.mockResolvedValueOnce({
+          json: async () => ({ isSupported: true }),
+          ok: true,
+        });
+
+        const url = 'https://docs.google.com/testing/index.html';
+        const adf = await provider.resolve(url, 'inline');
+        expect(adf).toEqual(expectedInlineAdf(url));
+      },
+    );
+
+    it("should use requested appearance over provider's appearance", async () => {
+      // This means for pre-G released editor we will not be using provider specific appearance
+      // If we to do otherwise we would introduce a bug where user switching to URL and back would not get
+      // appearance they chose, but instead provider's specific appearance would be used.
+
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearances: [],
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://site-with-default-view.com/testing/index.html';
+      const adf = await provider.resolve(url, 'inline');
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should use hardcoded appearance over requested appearance', async () => {
+      // This means for pre-G released editor we still have a bug,
+      // where if user switches to URL first and then back to `inline` for Jira Roadmap link for ex,
+      // we will display embed instead. That is an existing bug.
+
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'block',
+              appearances: [
+                {
+                  urlSegment: 'jdog.jira-dev.com/jira/core',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      const url = 'https://jdog.jira-dev.com/jira/core/projects/NPM5/board';
       const adf = await provider.resolve(url, 'inline');
       expect(adf).toEqual(expectedEmbedAdf(url));
     });
@@ -545,7 +666,7 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {},
+              appearances: [],
             },
           }),
         ok: true,
@@ -563,9 +684,12 @@ describe('providers > editor', () => {
           getMockProvidersResponse({
             userPreferences: {
               defaultAppearance: 'block',
-              appearanceMap: {
-                'site-with-default-view.com/testing': 'url',
-              },
+              appearances: [
+                {
+                  urlSegment: 'site-with-default-view.com/testing',
+                  appearance: 'url',
+                },
+              ],
             },
           }),
         ok: true,

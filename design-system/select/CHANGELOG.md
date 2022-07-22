@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.4.0
+
+### Minor Changes
+
+- [`4609a8a733a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4609a8a733a) - Made SelectWithoutAnalytics component and InputActionMeta type available from @atlaskit/select
+
 ## 15.3.2
 
 ### Patch Changes

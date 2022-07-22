@@ -4,7 +4,7 @@ export { makeCreatableSelect } from 'react-select/creatable';
 
 export { CheckboxOption, RadioOption } from './components/input-options';
 
-export { default } from './Select';
+export { default, SelectWithoutAnalytics } from './Select';
 export { default as AsyncSelect } from './AsyncSelect';
 export { default as CheckboxSelect } from './CheckboxSelect';
 export { default as CountrySelect } from './CountrySelect';
@@ -20,6 +20,7 @@ export type {
   FormatOptionLabelMeta,
   IndicatorComponentType,
   IndicatorProps,
+  InputActionMeta,
   InputProps,
   MenuProps,
   MenuListComponentProps,

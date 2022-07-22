@@ -199,6 +199,16 @@ linebreaks{noformat}`,
 
       '{adf}{"type":"paragraph","content":[]}{adf}',
     ],
+    [
+      'ESS-2539 should ignore the newline right before an empty node',
+
+      '{color:#000000}This is sample text \n {color:#000000}',
+    ],
+    [
+      'ESS-2539 should not ignore the newline if there is text after empty node',
+
+      '{color:#000000}This is sample text \n {color:#000000} some text',
+    ],
   ];
 
   const context = {

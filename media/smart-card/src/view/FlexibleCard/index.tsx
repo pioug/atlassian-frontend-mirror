@@ -16,22 +16,38 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   cardState,
   children,
   onAuthorize,
+  onError,
+  onResolve,
   renderers,
   ui,
   url,
   onClick,
   testId,
-  onResolve,
 }: React.PropsWithChildren<FlexibleCardProps>) => {
   const { status: cardType, details } = cardState;
   const status = cardType as SmartLinkStatus;
   const context = getContextByStatus(url, status, details, renderers);
   const retry = getRetryOptions(url, status, details, onAuthorize);
+  const { title } = context || {};
+
   useEffect(() => {
-    if (status === 'resolved' && onResolve) {
-      onResolve({ url });
+    switch (status) {
+      case SmartLinkStatus.Resolved:
+        if (onResolve) {
+          onResolve({ title, url });
+        }
+        break;
+      case SmartLinkStatus.Errored:
+      case SmartLinkStatus.Fallback:
+      case SmartLinkStatus.Forbidden:
+      case SmartLinkStatus.NotFound:
+      case SmartLinkStatus.Unauthorized:
+        if (onError) {
+          onError({ status, url });
+        }
+        break;
     }
-  }, [onResolve, status, url]);
+  }, [onError, onResolve, status, title, url]);
   return (
     <FlexibleUiContext.Provider value={context}>
       <Container

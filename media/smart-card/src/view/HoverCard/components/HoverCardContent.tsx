@@ -9,6 +9,7 @@ import {
 } from '../../../constants';
 import extractPreview from '../../../extractors/flexible/extract-preview';
 import { extractMetadata } from '../../../extractors/hover/extractMetadata';
+import { useSmartCardActions } from '../../../state/actions';
 import { AnalyticsFacade } from '../../../state/analytics';
 import { getExtensionKey } from '../../../state/helpers';
 import { LinkAction } from '../../../state/hooks-external/useSmartLinkActions';
@@ -74,6 +75,7 @@ export const toFooterActions = (
   );
 
 const HoverCardContent: React.FC<HoverCardContentProps> = ({
+  id = '',
   analytics,
   cardActions = [],
   cardState,
@@ -82,6 +84,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   renderers,
   url,
 }) => {
+  const actions = useSmartCardActions(id, url, analytics);
+  useEffect(() => {
+    actions.loadMetadata();
+  }, [actions]);
+
   useEffect(() => {
     // Since hover preview only render on resolved status,
     // there is no need to check for statuses.

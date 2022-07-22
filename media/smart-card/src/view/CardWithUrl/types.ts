@@ -2,7 +2,7 @@ import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
 import { CardAppearance, CardPlatform, OnResolveCallback } from '../Card/types';
 import { AnalyticsHandler } from '../../utils/types';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
-import { InlinePreloaderStyle } from '../types';
+import { InlinePreloaderStyle, OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
 
 export type CardWithUrlContentProps = {
@@ -17,6 +17,7 @@ export type CardWithUrlContentProps = {
   dispatchAnalytics: AnalyticsHandler;
   testId?: string;
   onResolve?: OnResolveCallback;
+  onError?: OnErrorCallback;
   showActions?: boolean;
   inheritDimensions?: boolean;
   embedIframeRef?: React.Ref<HTMLIFrameElement>;

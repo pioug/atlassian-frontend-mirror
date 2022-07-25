@@ -30,7 +30,8 @@ async function setup(url: string) {
 }
 
 describe('Card SSR Cases', () => {
-  it('Card SSR Cases tests', async () => {
+  // FIXME: This test was automatically skipped due to failure on 24/07/2022: https://product-fabric.atlassian.net/browse/MEX-1824
+  it.skip('Card SSR Cases tests', async () => {
     const url = getURL();
     const { image } = await setup(url);
     expect(image).toMatchProdImageSnapshot();

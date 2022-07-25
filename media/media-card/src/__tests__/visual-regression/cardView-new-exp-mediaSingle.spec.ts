@@ -13,6 +13,7 @@ function getURL(params: string): string {
 
 describe('Media Card Singles', () => {
   describe('Show tooltip when overlay is enabled', () => {
+    // FIXME: This test was automatically skipped due to failure on 24/07/2022: https://product-fabric.atlassian.net/browse/MEX-1823
     it.each(['uploading', 'complete', 'failed-processing', 'error'])(
       'with filestate %s',
       async (status) => {

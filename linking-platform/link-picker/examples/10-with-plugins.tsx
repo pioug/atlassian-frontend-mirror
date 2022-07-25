@@ -2,9 +2,11 @@ import React, { SyntheticEvent, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
-import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
-
-import { mockRecentClient, searchProvider } from '../example-helpers/providers';
+import {
+  AtlassianLinkPickerPlugin,
+  Scope,
+} from '@atlassian/link-picker-atlassian-plugin';
+import { mockRecentClient } from '../example-helpers/providers';
 import { LinkPicker, LinkPickerPlugin } from '../src';
 
 type OnSubmitPayload = Parameters<
@@ -40,7 +42,10 @@ export default function InPopup() {
   const plugins: [LinkPickerPlugin] = React.useMemo(
     () => [
       new AtlassianLinkPickerPlugin({
-        searchProvider,
+        cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+        scope: Scope.ConfluencePageBlog,
+        aggregatorUrl:
+          'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
         activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
       }),
     ],

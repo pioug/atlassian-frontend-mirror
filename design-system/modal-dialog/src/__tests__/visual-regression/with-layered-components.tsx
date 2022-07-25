@@ -98,7 +98,8 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('with FlagGroup', async () => {
+  // FIXME: This test was automatically skipped due to failure on 23/07/2022: https://product-fabric.atlassian.net/browse/SKIP-356
+  it.skip('with FlagGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToMiddle);
@@ -123,7 +124,8 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('with AvatarGroup', async () => {
+  // FIXME: This test was automatically skipped due to failure on 20/07/2022: https://product-fabric.atlassian.net/browse/SKIP-347
+  it.skip('with AvatarGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToBottom);

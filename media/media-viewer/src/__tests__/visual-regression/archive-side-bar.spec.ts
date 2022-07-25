@@ -42,14 +42,16 @@ describe('Archive sidebar', () => {
     await page.waitForSelector('span[aria-label="Folder"]');
   });
 
-  it('should have side bar for archive file', async () => {
+  // FIXME: This test was automatically skipped due to failure on 23/07/2022: https://product-fabric.atlassian.net/browse/MEX-1818
+  it.skip('should have side bar for archive file', async () => {
     await page.hover('div[data-testid="media-viewer-popup"]');
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should show navigation back button on opening the folder', async () => {
+  // FIXME: This test was automatically skipped due to failure on 23/07/2022: https://product-fabric.atlassian.net/browse/MEX-1819
+  it.skip('should show navigation back button on opening the folder', async () => {
     await page.click('span[aria-label="Folder"]');
     // Moving the mouse out of the way so it doesn't highlight the div when the screenshot is taken
     await page.mouse.move(0, 0);

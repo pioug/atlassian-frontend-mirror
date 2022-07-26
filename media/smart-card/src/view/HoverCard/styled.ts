@@ -11,6 +11,7 @@ export const flexibleUiOptions: FlexibleUiOptions = {
   hidePadding: true,
 };
 
+export const CARD_WIDTH_REM = 24;
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 
@@ -24,7 +25,7 @@ export const HoverCardContainer = css`
   background: none;
   border-width: 0;
   box-sizing: border-box;
-  width: 24rem;
+  width: ${CARD_WIDTH_REM}rem;
   padding: 1rem;
 
   .${loadingPlaceholderClassName} {
@@ -78,4 +79,16 @@ export const metadataBlockCss = css`
 
 export const footerBlockCss = css`
   padding-top: 0.25rem;
+`;
+
+export const loadingViewContainer = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const skeletonContainer = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  align-items: center;
 `;

@@ -29,6 +29,13 @@ describe('Hover Card', () => {
     return page;
   };
 
+  const renderHoverCardWithSSR = async () => {
+    const url = getURL('vr-hover-cards-ssr');
+    const page = await setup(url);
+
+    return page;
+  };
+
   it('should open below trigger component when there is room below in viewport', async () => {
     const height = 650;
 
@@ -59,5 +66,33 @@ describe('Hover Card', () => {
 
     const image = await takeSnapshot(page, 800, 0);
     expect(image).toMatchProdImageSnapshot(snapshotOptions);
+  });
+  describe('SSR links', () => {
+    it('should open with loading state', async () => {
+      const page = await renderHoverCardWithSSR();
+
+      await page.waitForSelector(
+        '[data-testid="ssr-hover-card-loading-resolved-view"]',
+      );
+      await page.hover('[data-testid="ssr-hover-card-loading-resolved-view"]');
+      await page.waitForSelector('[data-testid="hover-card"]');
+      await page.waitForSelector('[data-testid="hover-card-loading-view"]');
+
+      const image = await takeSnapshot(page, 300);
+      expect(image).toMatchProdImageSnapshot(snapshotOptions);
+    });
+
+    it('should render with available data in case of error', async () => {
+      const page = await renderHoverCardWithSSR();
+
+      await page.waitForSelector(
+        '[data-testid="ssr-hover-card-errored-resolved-view"]',
+      );
+      await page.hover('[data-testid="ssr-hover-card-errored-resolved-view"]');
+      await page.waitForSelector('[data-testid="hover-card"]');
+
+      const image = await takeSnapshot(page, 150);
+      expect(image).toMatchProdImageSnapshot(snapshotOptions);
+    });
   });
 });

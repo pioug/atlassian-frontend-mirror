@@ -6,6 +6,8 @@ import { CardState } from '@atlaskit/linking-common';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { AnalyticsHandler } from '../../utils/types';
 import { ReactElement } from 'react';
+import { TitleBlockProps } from '../FlexibleCard/components/blocks/title-block/types';
+import { FlexibleCardProps } from '../FlexibleCard/types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
   id?: string;
@@ -36,4 +38,9 @@ export type HoverCardContentProps = {
   onActionClick: (actionId: string) => void;
   onResolve: () => void;
   url: string;
+};
+
+export type HoverCardLoadingViewProps = {
+  flexibleCardProps: FlexibleCardProps;
+  titleBlockProps: TitleBlockProps;
 };

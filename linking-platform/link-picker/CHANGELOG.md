@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.3.0
+
+### Minor Changes
+
+- [`0ddad39a369`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ddad39a369) - [ux] Lazy load the link-picker instead. The lazily loaded picker is now the default that's exported
+
 ## 1.2.1
 
 ### Patch Changes

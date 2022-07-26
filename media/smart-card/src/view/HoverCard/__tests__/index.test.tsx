@@ -613,9 +613,15 @@ describe('HoverCard', () => {
     expect(containerOnClick).not.toHaveBeenCalled();
   });
 
-  describe('SSR', () => {
-    it('links render hover card correctly', async () => {
-      mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+  describe('SSR links', () => {
+    const setupWithSSR = async () => {
+      let resolveFetch = (value: unknown) => {};
+      let rejectFetch = (reason: any) => {};
+      const mockPromise = new Promise((resolve, reject) => {
+        resolveFetch = resolve;
+        rejectFetch = reject;
+      });
+      mockFetch = jest.fn(() => mockPromise);
       mockClient = new (fakeFactory(mockFetch))();
       mockUrl = 'https://some.url';
       const storeOptions: any = {
@@ -627,7 +633,7 @@ describe('HoverCard', () => {
         },
       };
 
-      const { findByTestId } = render(
+      const { findByTestId, queryByTestId } = render(
         <Provider client={mockClient} storeOptions={storeOptions}>
           <Card appearance="inline" url={mockUrl} showHoverPreview={true} />
         </Provider>,
@@ -640,20 +646,57 @@ describe('HoverCard', () => {
       jest.useFakeTimers();
       fireEvent.mouseEnter(element);
       jest.runAllTimers();
+      await wait(() => expect(mockFetch).toBeCalledTimes(1));
 
-      expect(mockFetch).toBeCalledTimes(1);
-      const titleBlock = await findByTestId('smart-block-title-resolved-view');
+      return { findByTestId, queryByTestId, resolveFetch, rejectFetch };
+    };
+
+    it('should render hover card correctly', async () => {
+      const {
+        findByTestId,
+        queryByTestId,
+        resolveFetch,
+      } = await setupWithSSR();
+
+      await findByTestId('hover-card-loading-view');
+      resolveFetch(mockConfluenceResponse);
+      jest.runAllTimers();
+
       await findByTestId('smart-block-metadata-resolved-view');
+      const titleBlock = await findByTestId('smart-block-title-resolved-view');
       const snippetBlock = await findByTestId(
         'smart-block-snippet-resolved-view',
       );
       const footerBlock = await findByTestId(
         'smart-footer-block-resolved-view',
       );
+      expect(queryByTestId('hover-card-loading-view')).toBeNull();
+
       //trim because the icons are causing new lines in the textContent
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
       expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
       expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
+    });
+
+    it('should fall back to default path if fetch fails', async () => {
+      const { rejectFetch, queryByTestId, findByTestId } = await setupWithSSR();
+
+      await findByTestId('hover-card-loading-view');
+      rejectFetch('error');
+
+      const titleBlock = await findByTestId('smart-block-title-resolved-view');
+      const snippetBlock = await findByTestId(
+        'smart-block-snippet-resolved-view',
+      );
+      const footerBlock = await findByTestId(
+        'smart-footer-block-resolved-view',
+      );
+      expect(queryByTestId('hover-card-loading-view')).toBeNull();
+
+      //trim because the icons are causing new lines in the textContent
+      expect(titleBlock.textContent?.trim()).toBe('I am a fan of cheese');
+      expect(snippetBlock.textContent).toBe('');
+      expect(footerBlock.textContent?.trim()).toBe('');
     });
   });
 });

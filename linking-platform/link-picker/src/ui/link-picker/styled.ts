@@ -17,6 +17,13 @@ export const rootContainerStyles = css`
   min-height: ${LINK_PICKER_MIN_HEIGHT_IN_PX}px;
 `;
 
+export const rootContainerStylesForLoader = css`
+  ${rootContainerStyles}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const searchIconStyles = css`
   margin-left: ${gridSize() / 2}px;
   color: ${token('color.icon', N500)};

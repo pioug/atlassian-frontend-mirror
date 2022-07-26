@@ -566,4 +566,4 @@ function limit<T>(items: Array<T>) {
   return items.slice(0, RECENT_SEARCH_LIST_SIZE);
 }
 
-export const LinkPickerWithIntl = injectIntl(LinkPicker);
+export default injectIntl(LinkPicker);

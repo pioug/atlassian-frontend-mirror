@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 20.1.1
+
+### Patch Changes
+
+- [`59469f2ed1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59469f2ed1c) - Add loading state for hover previews
+
 ## 20.1.0
 
 ### Minor Changes

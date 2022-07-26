@@ -15,7 +15,8 @@ import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 
-import { LinkPicker, LinkPickerPlugin, LinkPickerProps } from '../../../';
+import { LinkPickerPlugin, LinkPickerProps } from '../../../';
+import LinkPicker from '../../link-picker';
 
 import { messages } from '../../link-picker/messages';
 
@@ -976,19 +977,6 @@ describe('<LinkPicker />', () => {
       );
 
       expect(screen.queryByTestId(testIds.emptyResultPage)).toBeNull();
-    });
-  });
-
-  describe('error boundary', () => {
-    it('renders a fallback ui if the inner link picker component throws an error', async () => {
-      jest.spyOn(console, 'error').mockImplementation(() => {});
-
-      // Provide an invalid initial prop to throw an error
-      const { testIds } = setupLinkPicker({
-        url: new URL('https://atlassian.com') as any,
-      });
-
-      expect(screen.getByTestId(testIds.errorBoundary)).toBeInTheDocument();
     });
   });
 });

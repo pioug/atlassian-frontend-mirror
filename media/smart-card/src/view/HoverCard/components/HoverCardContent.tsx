@@ -22,10 +22,12 @@ import {
   SnippetBlock,
   TitleBlock,
 } from '../../FlexibleCard/components/blocks';
+import { TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import {
   ActionItem,
   CustomActionItem,
 } from '../../FlexibleCard/components/blocks/types';
+import { FlexibleCardProps } from '../../FlexibleCard/types';
 import {
   flexibleUiOptions,
   footerBlockCss,
@@ -34,6 +36,7 @@ import {
 } from '../styled';
 import { HoverCardContentProps } from '../types';
 import { getSimulatedMetadata, SMART_CARD_ANALYTICS_DISPLAY } from '../utils';
+import HoverCardLoadingView from './HoverCardLoadingView';
 
 export const getOpenAction = (
   url: string,
@@ -143,23 +146,38 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   const body =
     data && extractPreview(data) ? <PreviewBlock /> : <SnippetBlock />;
 
-  return (
-    <FlexibleCard
-      cardState={cardState}
-      onClick={onClick}
-      onResolve={onResolve}
-      renderers={renderers}
-      ui={flexibleUiOptions}
-      url={url}
-    >
-      <TitleBlock
-        actions={titleActions}
-        maxLines={titleMaxLines}
-        overrideCss={titleBlockCss}
-        size={SmartLinkSize.Large}
-        position={SmartLinkPosition.Center}
-        subtitle={subtitle}
+  const titleBlockProps: TitleBlockProps = {
+    actions: titleActions,
+    maxLines: titleMaxLines,
+    overrideCss: titleBlockCss,
+    size: SmartLinkSize.Large,
+    position: SmartLinkPosition.Center,
+    subtitle: subtitle,
+  };
+
+  const flexibleCardProps: FlexibleCardProps = {
+    cardState: cardState,
+    onClick: onClick,
+    onResolve: onResolve,
+    renderers: renderers,
+    ui: flexibleUiOptions,
+    url: url,
+    children: {},
+  };
+
+  if (cardState.metadataStatus === 'pending') {
+    return (
+      <HoverCardLoadingView
+        flexibleCardProps={flexibleCardProps}
+        titleBlockProps={titleBlockProps}
       />
+    );
+  }
+
+  // if metadataStatus is 'errored' simply render using data available (normal path)
+  return (
+    <FlexibleCard {...flexibleCardProps}>
+      <TitleBlock {...titleBlockProps} />
       <MetadataBlock
         primary={primary}
         secondary={secondary}

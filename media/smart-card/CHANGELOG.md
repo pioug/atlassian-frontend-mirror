@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 20.1.2
+
+### Patch Changes
+
+- [`0fb4cccede9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0fb4cccede9) - add on mouse hover to hover card
+
 ## 20.1.1
 
 ### Patch Changes

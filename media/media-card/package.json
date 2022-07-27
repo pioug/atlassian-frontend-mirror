@@ -61,7 +61,7 @@
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/checkbox": "^12.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/inline-message": "^11.2.0",
+    "@atlaskit/inline-message": "^11.3.0",
     "@atlaskit/media-core": "^33.0.0",
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/radio": "^5.3.2",

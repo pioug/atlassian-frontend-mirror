@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "20.1.1",
+  "version": "20.1.2",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,7 +70,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/field-base": "^15.0.6",
     "@atlaskit/form": "^8.5.0",
-    "@atlaskit/inline-message": "^11.2.0",
+    "@atlaskit/inline-message": "^11.3.0",
     "@atlaskit/lozenge": "^11.1.0",
     "@atlaskit/media-integration-test-helpers": "^2.6.0",
     "@atlaskit/media-test-helpers": "^30.0.0",

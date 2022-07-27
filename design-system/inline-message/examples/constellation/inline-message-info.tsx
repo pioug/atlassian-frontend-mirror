@@ -4,7 +4,7 @@ import InlineMessage from '../../src';
 
 const InlineMessageInfoExample = () => {
   return (
-    <InlineMessage type="info">
+    <InlineMessage appearance="info">
       <p>
         <strong>Test drive your new search</strong>
       </p>

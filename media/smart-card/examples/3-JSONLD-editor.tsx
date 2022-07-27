@@ -111,7 +111,7 @@ class Example extends React.Component<ExampleProps, ExampleState> {
                   enableLiveAutocompletion={true}
                   width="100%"
                 />
-                {error && <InlineMessage type="error" title={error} />}
+                {error && <InlineMessage appearance="error" title={error} />}
               </GridColumn>
             </Grid>
           </Page>

@@ -14,7 +14,7 @@ const MessageContent = (
 
 export default () => (
   <InlineMessage
-    type="connectivity"
+    appearance="connectivity"
     title="JIRA Service Desk"
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     secondaryText="Carrot cake chocolate bar caramels. Wafer jelly beans toffee chocolate ice cream jujubes candy canes. Sugar plum brownie jelly chocolate cake. Candy canes topping halvah tiramisu caramels dessert brownie jelly-o. Sweet tart cookie cupcake jelly-o jelly caramels bear claw."

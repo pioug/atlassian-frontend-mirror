@@ -1,5 +1,11 @@
 # @atlaskit/inline-message
 
+## 11.3.0
+
+### Minor Changes
+
+- [`38469010a1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/38469010a1c) - Replaces usage of the `type` prop with `appearance`.
+
 ## 11.2.8
 
 ### Patch Changes

@@ -15,14 +15,14 @@ const MessageContent = (
 export default () => (
   <div>
     <InlineMessage
-      type="error"
+      appearance="error"
       title="JIRA Service Desk"
       secondaryText="Authenticate to see more information"
     >
       {MessageContent}
     </InlineMessage>
     <InlineMessage
-      type="error"
+      appearance="error"
       secondaryText="Authenticate to see more information"
     >
       {MessageContent}

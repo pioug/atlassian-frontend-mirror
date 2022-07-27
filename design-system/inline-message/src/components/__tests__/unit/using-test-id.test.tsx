@@ -19,7 +19,7 @@ const MessageContent = (
 
 const createWrapper = (testId?: string) => (
   <InlineMessage
-    type="error"
+    appearance="error"
     title="My testing Inline Message"
     secondaryText="Use data-testid to reliable testing"
     testId={testId ? testId : undefined}

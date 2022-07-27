@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
 import { PopupUserPicker } from '../src';
+import { IntlProvider } from 'react-intl-next';
 
 export const MenuPlaceholder = styled.div`
   min-width: ${12}px;
@@ -101,108 +102,114 @@ const Example = () => {
   });
 
   return (
-    <Container>
-      <OptionsContainer>
-        <OptionContainer>
-          <text>Placement:</text>
-          <SelectContainer>
-            <Select
-              options={getSelectItems<Placement>(placementOptions)}
-              defaultValue={state.placement}
-              onChange={(value) =>
-                value &&
+    <IntlProvider locale="en">
+      <Container>
+        <OptionsContainer>
+          <OptionContainer>
+            <text>Placement:</text>
+            <SelectContainer>
+              <Select
+                options={getSelectItems<Placement>(placementOptions)}
+                defaultValue={state.placement}
+                onChange={(value) =>
+                  value &&
+                  setState({
+                    ...state,
+                    placement: value as {
+                      label: string;
+                      value: Placement;
+                    },
+                  })
+                }
+                name="placement"
+                placeholder="Placement"
+                width={500}
+              />
+            </SelectContainer>
+          </OptionContainer>
+          <OptionContainer>
+            <text>Boundaries Element:</text>
+            <SelectContainer>
+              <Select
+                options={getSelectItems(boundariesElementOptions)}
+                defaultValue={state.boundariesElement}
+                onChange={(value) =>
+                  value &&
+                  setState({
+                    ...state,
+                    boundariesElement: value as {
+                      label: string;
+                      value: Boundary;
+                    },
+                  })
+                }
+                name="placement"
+                placeholder="Placement"
+                width={500}
+              />
+            </SelectContainer>
+          </OptionContainer>
+          <OptionContainer>
+            <text>
+              <div>X offset: </div>
+              {state.xOffset}
+            </text>
+            <Range
+              value={state.xOffset}
+              min={0}
+              max={500}
+              onChange={(value: number) =>
+                setState({ ...state, xOffset: value })
+              }
+            />
+          </OptionContainer>
+          <OptionContainer>
+            <text>
+              <div>Y offset: </div>
+              {state.yOffset}
+            </text>
+            <Range
+              value={state.yOffset}
+              min={0}
+              max={500}
+              onChange={(value: number) =>
+                setState({ ...state, yOffset: value })
+              }
+            />
+          </OptionContainer>
+          <div>
+            <input
+              checked={Boolean(state.shouldFlip)}
+              id="shouldFlip"
+              onChange={(e) => {
+                // @ts-ignore
                 setState({
                   ...state,
-                  placement: value as {
-                    label: string;
-                    value: Placement;
-                  },
-                })
-              }
-              name="placement"
-              placeholder="Placement"
-              width={500}
+                  shouldFlip: !state.shouldFlip,
+                });
+              }}
+              type="checkbox"
             />
-          </SelectContainer>
-        </OptionContainer>
-        <OptionContainer>
-          <text>Boundaries Element:</text>
-          <SelectContainer>
-            <Select
-              options={getSelectItems(boundariesElementOptions)}
-              defaultValue={state.boundariesElement}
-              onChange={(value) =>
-                value &&
-                setState({
-                  ...state,
-                  boundariesElement: value as {
-                    label: string;
-                    value: Boundary;
-                  },
-                })
-              }
-              name="placement"
-              placeholder="Placement"
-              width={500}
-            />
-          </SelectContainer>
-        </OptionContainer>
-        <OptionContainer>
-          <text>
-            <div>X offset: </div>
-            {state.xOffset}
-          </text>
-          <Range
-            value={state.xOffset}
-            min={0}
-            max={500}
-            onChange={(value: number) => setState({ ...state, xOffset: value })}
-          />
-        </OptionContainer>
-        <OptionContainer>
-          <text>
-            <div>Y offset: </div>
-            {state.yOffset}
-          </text>
-          <Range
-            value={state.yOffset}
-            min={0}
-            max={500}
-            onChange={(value: number) => setState({ ...state, yOffset: value })}
-          />
-        </OptionContainer>
-        <div>
-          <input
-            checked={Boolean(state.shouldFlip)}
-            id="shouldFlip"
-            onChange={(e) => {
-              // @ts-ignore
-              setState({
-                ...state,
-                shouldFlip: !state.shouldFlip,
-              });
-            }}
-            type="checkbox"
-          />
-          <label htmlFor="should flip">should flip</label>
-        </div>
-      </OptionsContainer>
+            <label htmlFor="should flip">should flip</label>
+          </div>
+        </OptionsContainer>
 
-      <PopupContainer>
-        <PopupUserPicker
-          popupTitle="Assignee"
-          fieldId="example"
-          target={({ ref }) => {
-            return <button ref={ref}>Target</button>;
-          }}
-          width={200}
-          placement={state.placement.value}
-          shouldFlip={true}
-          offset={[state.xOffset, state.yOffset]}
-          boundariesElement={state.boundariesElement.value}
-        />
-      </PopupContainer>
-    </Container>
+        <PopupContainer>
+          <PopupUserPicker
+            popupTitle="Assignee"
+            fieldId="example"
+            target={({ ref }) => {
+              return <button ref={ref}>Target</button>;
+            }}
+            width={200}
+            placement={state.placement.value}
+            shouldFlip={true}
+            offset={[state.xOffset, state.yOffset]}
+            boundariesElement={state.boundariesElement.value}
+          />
+        </PopupContainer>
+      </Container>
+    </IntlProvider>
   );
 };
 export default Example;

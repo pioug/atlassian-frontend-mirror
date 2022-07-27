@@ -152,6 +152,7 @@ interface State {
    * This variable defines whether the default onSelectBlur or onSelectFocus
    * events should behave as normal
    */
+  isFocused: boolean;
   clearingFromIcon: boolean;
   value: string;
   /** Value to be shown in the calendar as selected.  */
@@ -264,6 +265,7 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     this.state = {
       isOpen: this.props.defaultIsOpen,
+      isFocused: false,
       clearingFromIcon: false,
       inputValue: this.props.selectProps.inputValue,
       selectedValue: this.props.value || this.props.defaultValue,
@@ -345,7 +347,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       // Don't close menu if blurring after the user has clicked clear
       this.setState({ clearingFromIcon: false });
     } else {
-      this.setState({ isOpen: false });
+      this.setState({ isOpen: false, isFocused: false });
     }
     this.props.onBlur(event);
   };
@@ -360,6 +362,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       this.setState({
         isOpen: true,
         view: value,
+        isFocused: true,
       });
     }
 
@@ -492,9 +495,11 @@ class DatePicker extends Component<DatePickerProps, State> {
     }
   };
 
-  getSubtleControlStyles = (isOpen: boolean) => ({
+  getSubtleControlStyles = () => ({
     border: `2px solid ${
-      isOpen ? token('color.border.focused', B100) : `transparent`
+      this.getSafeState().isFocused
+        ? token('color.border.focused', B100)
+        : `transparent`
     }`,
     backgroundColor: 'transparent',
     padding: '1px',
@@ -594,7 +599,7 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     const { styles: selectStyles = {} } = selectProps;
     const controlStyles =
-      appearance === 'subtle' ? this.getSubtleControlStyles(isOpen) : {};
+      appearance === 'subtle' ? this.getSubtleControlStyles() : {};
     const disabledStyle: CSSProperties = isDisabled
       ? { pointerEvents: 'none' }
       : {};

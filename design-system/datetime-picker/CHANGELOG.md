@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.1.1
+
+### Patch Changes
+
+- [`3fa327b5d01`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fa327b5d01) - [ux] Border on a subtle appearance date-picker will now persist after a date is selected and field is in focus
+
 ## 12.1.0
 
 ### Minor Changes

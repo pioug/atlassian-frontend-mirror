@@ -31,7 +31,7 @@ export default () => {
           Toggle mode
         </button>
         <InlineMessage
-          type="error"
+          appearance="error"
           title="My testing Inline Message"
           secondaryText="Use data-testid for reliable testing"
           testId="the-inline-message"

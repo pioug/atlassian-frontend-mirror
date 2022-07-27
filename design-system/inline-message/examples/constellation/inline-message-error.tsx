@@ -5,7 +5,7 @@ import InlineMessage from '../../src';
 const InlineMessageErrorExample = () => {
   return (
     <InlineMessage
-      type="error"
+      appearance="error"
       iconLabel="Error! This name is already in use. Try another."
       secondaryText="Username taken"
     >

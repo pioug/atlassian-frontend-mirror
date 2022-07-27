@@ -35,6 +35,12 @@ interface InlineMessageProps {
    * Set the icon to be used before the title. Options are: connectivity,
    * confirmation, info, warning, and error.
    */
+  appearance?: IconAppearance;
+  /**
+   * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-5207 for more information.
+   * Instead use the 'appearance' prop.
+   * Set the icon to be used before the title.
+   */
   type?: IconAppearance;
   // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
@@ -150,6 +156,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
   secondaryText = '',
   title = '',
   type = 'connectivity',
+  appearance,
   children,
   testId,
   iconLabel,
@@ -163,12 +170,16 @@ const InlineMessage: FC<InlineMessageProps> = ({
   const onCloseDialog = useCallback(() => setIsOpen(false), [setIsOpen]);
   const theme = useGlobalTheme();
 
+  if (!appearance) {
+    appearance = type;
+  }
+
   return (
     <div
       css={rootStyles}
       style={
         {
-          '--icon-accent-color': iconColor({ appearance: type, theme }),
+          '--icon-accent-color': iconColor({ appearance: appearance, theme }),
         } as CSSProperties
       }
       data-testid={testId}
@@ -188,7 +199,11 @@ const InlineMessage: FC<InlineMessageProps> = ({
           testId={testId && `${testId}--button`}
         >
           <div css={buttonContentsStyles}>
-            <MessageIcon isOpen={isOpen} appearance={type} label={iconLabel} />
+            <MessageIcon
+              isOpen={isOpen}
+              appearance={appearance}
+              label={iconLabel}
+            />
             {title && (
               <span
                 style={{ color: titleColor({ theme }) }}

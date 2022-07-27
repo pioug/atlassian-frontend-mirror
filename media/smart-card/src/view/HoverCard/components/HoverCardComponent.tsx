@@ -23,6 +23,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const fadeOutTimeoutId = useRef<NodeJS.Timeout>();
   const fadeInTimeoutId = useRef<NodeJS.Timeout>();
   const cardOpenTime = useRef<number>();
+  const mousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const renderers = useSmartLinkRenderers();
   const linkState = useLinkState(url);
@@ -73,6 +74,16 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     [hideCard],
   );
 
+  const setMousePosition = useCallback(
+    (event) => {
+      if (isOpen) {
+        return;
+      }
+      mousePos.current = { x: event.clientX, y: event.clientY };
+    },
+    [isOpen],
+  );
+
   // Stop hover preview content to propagate event to parent.
   const onClick = useCallback((e) => e.stopPropagation(), []);
 
@@ -104,10 +115,18 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       )}
       trigger={(triggerProps) => (
         <span
-          {...triggerProps}
           onMouseEnter={initShowCard}
           onMouseLeave={initHideCard}
+          onMouseMove={setMousePosition}
         >
+          <span
+            {...triggerProps}
+            css={{ position: 'sticky' }}
+            style={{
+              left: mousePos.current.x,
+              top: mousePos.current.y,
+            }}
+          />
           {children}
         </span>
       )}

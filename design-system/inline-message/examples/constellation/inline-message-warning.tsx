@@ -4,7 +4,7 @@ import InlineMessage from '../../src';
 
 const InlineMessageWarningExample = () => {
   return (
-    <InlineMessage type="warning" secondaryText="Your bill may increase">
+    <InlineMessage appearance="warning" secondaryText="Your bill may increase">
       <p>
         <strong>Adding new users</strong>
       </p>

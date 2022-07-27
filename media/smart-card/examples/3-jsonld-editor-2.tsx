@@ -101,7 +101,7 @@ const Example: React.FC = () => {
           defaultValue={initialJson.data as JsonLd.Data.BaseData}
           onSelect={onJsonChange}
         />
-        {jsonError && <InlineMessage type="error" title={jsonError} />}
+        {jsonError && <InlineMessage appearance="error" title={jsonError} />}
         <AceEditor
           focus={true}
           mode="json"

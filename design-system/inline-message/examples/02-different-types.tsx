@@ -8,19 +8,22 @@ export default () => (
       <p>Default type dialog</p>
     </InlineMessage>
     <br />
-    <InlineMessage title="Confirmation Inline Message" type="confirmation">
-      <p>Confirmation type dialoge</p>
+    <InlineMessage
+      title="Confirmation Inline Message"
+      appearance="confirmation"
+    >
+      <p>Confirmation type dialog</p>
     </InlineMessage>
     <br />
-    <InlineMessage title="Info Inline Message" type="info">
+    <InlineMessage title="Info Inline Message" appearance="info">
       <p>Info type dialog</p>
     </InlineMessage>
     <br />
-    <InlineMessage title="Warning Inline Message" type="warning">
+    <InlineMessage title="Warning Inline Message" appearance="warning">
       <p>Warning type dialog</p>
     </InlineMessage>
     <br />
-    <InlineMessage title="Error Inline Message" type="error">
+    <InlineMessage title="Error Inline Message" appearance="error">
       <p>Error type dialog</p>
     </InlineMessage>
   </div>

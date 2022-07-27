@@ -5,7 +5,7 @@ import InlineMessage from '../../src';
 const InlineMessageConnectivityExample = () => {
   return (
     <InlineMessage
-      type="connectivity"
+      appearance="connectivity"
       iconLabel="Log in to see more information"
     >
       <p>

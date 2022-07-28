@@ -70,11 +70,16 @@ describe('usePrefetch', () => {
     expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
 
     expect(mockStore.dispatch).toBeCalled();
-    expect(mockStore.dispatch).toBeCalledTimes(1);
+    expect(mockStore.dispatch).toBeCalledTimes(2);
     expect(mockStore.dispatch).toBeCalledWith({
       url: mockUrl,
       type: 'resolved',
       payload: mocks.success,
+    });
+    expect(mockStore.dispatch).toBeCalledWith({
+      url: mockUrl,
+      type: 'metadata',
+      metadataStatus: 'resolved',
     });
   });
 
@@ -90,11 +95,16 @@ describe('usePrefetch', () => {
     expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
 
     expect(mockStore.dispatch).toBeCalled();
-    expect(mockStore.dispatch).toBeCalledTimes(1);
+    expect(mockStore.dispatch).toBeCalledTimes(2);
     expect(mockStore.dispatch).toBeCalledWith({
       url: mockUrl,
       type: 'resolved',
       payload: mocks.success,
+    });
+    expect(mockStore.dispatch).toBeCalledWith({
+      url: mockUrl,
+      type: 'metadata',
+      metadataStatus: 'resolved',
     });
   });
 

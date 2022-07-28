@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.3.0
+
+### Minor Changes
+
+- [`bc0b47732f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc0b47732f8) - [ux] Fix bug where user picker input is not being unfocused when disableInput is set. The new behavior will enable you to still focus on the input but not interact with it, unless it is to delete selected users.
+
 ## 9.2.2
 
 ### Patch Changes

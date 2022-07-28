@@ -13,15 +13,16 @@ export class Input extends React.Component<Props> {
     if (e.key === 'Enter') {
       e.preventDefault();
     }
+    if (this.props.selectProps?.disableInput) {
+      e.preventDefault();
+    }
   };
 
   render() {
-    const { selectProps } = this.props;
     return (
       <components.Input
         {...(this.props as any)}
         innerRef={this.props.innerRef}
-        isDisabled={selectProps && selectProps.disableInput}
         onKeyPress={this.handleKeyPress}
       />
     );

@@ -6,7 +6,7 @@ import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkA
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
-import { HoverCardContainer } from '../styled';
+import { HoverCardContainer, CARD_GAP_PX } from '../styled';
 import { HoverCardComponentProps } from '../types';
 import { SMART_CARD_ANALYTICS_DISPLAY } from '../utils';
 
@@ -24,6 +24,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const fadeInTimeoutId = useRef<NodeJS.Timeout>();
   const cardOpenTime = useRef<number>();
   const mousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const popupOffset = useRef<[number, number]>();
+  const parentSpan = useRef<HTMLSpanElement>(null);
 
   const renderers = useSmartLinkRenderers();
   const linkState = useLinkState(url);
@@ -55,6 +57,13 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       if (isOpen === false) {
         cardOpenTime.current = Date.now();
         analytics.ui.hoverCardViewedEvent(hoverDisplay, invokeMethod);
+      }
+      if (parentSpan.current) {
+        const { bottom, left } = parentSpan.current.getBoundingClientRect();
+        popupOffset.current = [
+          mousePos.current.x - left,
+          mousePos.current.y - bottom + CARD_GAP_PX,
+        ];
       }
       setIsOpen(true);
     }, delay);
@@ -93,6 +102,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       isOpen={isOpen}
       onClose={hideCard}
       placement="bottom-start"
+      offset={popupOffset.current}
       content={({ update }) => (
         <div
           onMouseEnter={initShowCard}
@@ -114,20 +124,15 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         </div>
       )}
       trigger={(triggerProps) => (
-        <span
-          onMouseEnter={initShowCard}
-          onMouseLeave={initHideCard}
-          onMouseMove={setMousePosition}
-        >
+        <span ref={parentSpan}>
           <span
             {...triggerProps}
-            css={{ position: 'sticky' }}
-            style={{
-              left: mousePos.current.x,
-              top: mousePos.current.y,
-            }}
-          />
-          {children}
+            onMouseEnter={initShowCard}
+            onMouseLeave={initHideCard}
+            onMouseMove={setMousePosition}
+          >
+            {children}
+          </span>
         </span>
       )}
       zIndex={511} // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510

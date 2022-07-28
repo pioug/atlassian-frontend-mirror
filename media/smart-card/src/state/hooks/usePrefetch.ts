@@ -1,5 +1,9 @@
 import { useCallback } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import {
+  ACTION_UPDATE_METADATA_STATUS,
+  cardAction,
+} from '@atlaskit/linking-common';
 
 export function usePrefetch(url: string) {
   const { store, prefetchStore, connections } = useSmartLinkContext();
@@ -35,6 +39,17 @@ export function usePrefetch(url: string) {
         // a Smart Link, rather than rendering a loading spinner -> immediate Smart Link.
         if (response) {
           dispatch({ type: 'resolved', url, payload: response });
+          // Put the metadata in resolved state, theres no need for a pending or errored state as
+          // we are following the same render flow as described by the comments above and below.
+          dispatch(
+            cardAction(
+              ACTION_UPDATE_METADATA_STATUS,
+              { url },
+              undefined,
+              undefined,
+              'resolved',
+            ),
+          );
         }
       } catch (_err) {
         // Do nothing, link will be retried under the hood with exponential backoff.

@@ -67,6 +67,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     prevState: UserPickerState,
   ) {
     const derivedState: Partial<UserPickerState> = {};
+    if (nextProps.isDisabled || nextProps.disableInput) {
+      derivedState.menuIsOpen = false;
+    }
     if (nextProps.open !== undefined) {
       derivedState.menuIsOpen = nextProps.open;
     }
@@ -190,7 +193,10 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       const remainingValues = this.state.value.filter(
         (val: Option) => val.data.id !== removedValue.data.id,
       );
-      this.setState({ value: remainingValues ? remainingValues : [] });
+      this.setState({
+        value: remainingValues ? remainingValues : [],
+        menuIsOpen: true,
+      });
     }
 
     if (!this.props.value) {
@@ -445,7 +451,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     // Space
     if (event.keyCode === 32 && !this.state.inputValue) {
       event.preventDefault();
-      this.setState({ inputValue: ' ' });
+      !this.props.disableInput && this.setState({ inputValue: ' ' });
     }
 
     if (this.session) {

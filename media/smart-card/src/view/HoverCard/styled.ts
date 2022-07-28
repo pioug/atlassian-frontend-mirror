@@ -12,6 +12,9 @@ export const flexibleUiOptions: FlexibleUiOptions = {
 };
 
 export const CARD_WIDTH_REM = 24;
+// gap between mouse cursor and hover card
+export const CARD_GAP_PX = 10;
+
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 

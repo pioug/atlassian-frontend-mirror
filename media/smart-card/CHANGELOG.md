@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 20.1.4
+
+### Patch Changes
+
+- [`8df009f4313`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8df009f4313) - fix metadata status for prefetching
+
+## 20.1.3
+
+### Patch Changes
+
+- [`7c0644e5daf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c0644e5daf) - fix on mouse hover functionality for hover cards
+
 ## 20.1.2
 
 ### Patch Changes

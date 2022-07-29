@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.5.0
+
+### Minor Changes
+
+- [`3b5e61f9b3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b5e61f9b3b) - [ux] Adds in TAB UI support for Link Picker
+
 ## 1.4.0
 
 ### Minor Changes

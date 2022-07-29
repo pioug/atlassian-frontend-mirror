@@ -19,6 +19,7 @@ import {
   ErrorResponse,
   isSuccessfulResponse,
   isErrorResponse,
+  SearchProviderInfoResponse,
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
 
@@ -261,5 +262,15 @@ export default class CardClient implements CardClientInterface {
       `${this.resolverUrl}/invoke/search`,
       request,
     );
+  }
+
+  public async fetchAvailableSearchProviders() {
+    const response = await api.request<SearchProviderInfoResponse>(
+      'post',
+      `${this.resolverUrl}/providers`,
+      { type: 'search' },
+    );
+
+    return response.providers;
   }
 }

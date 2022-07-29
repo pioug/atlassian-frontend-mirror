@@ -39,6 +39,10 @@ export interface ResolveResult {
 }
 
 export interface LinkPickerPlugin {
+  /** Uniquely identify the tab */
+  tabKey?: string;
+  /** Human-readable label for the plugin */
+  tabTitle?: string;
   resolve: (
     state: LinkPickerState,
   ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;

@@ -39,3 +39,5 @@ export type { APIErrorKind, ErrorType, ServerErrorType } from './errors';
 export type { CardState, CardStore } from './store';
 export { getUrl } from './store';
 export type { LinkingPlatformFeatureFlags } from './ff';
+
+export { promiseDebounce } from './promiseDebounce';

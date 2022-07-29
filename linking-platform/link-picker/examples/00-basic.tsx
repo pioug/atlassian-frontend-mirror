@@ -5,6 +5,7 @@ import {
   AtlassianLinkPickerPlugin,
   Scope,
 } from '@atlassian/link-picker-atlassian-plugin';
+import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
 
 import { LinkPicker, LinkPickerPlugin } from '../src';
 
@@ -34,9 +35,9 @@ export default function Basic() {
     setIsLinkPickerVisible(true);
   };
 
+  const forgePlugins: LinkPickerPlugin[] = useForgeSearchProviders('stg');
   const handleCancel = () => setIsLinkPickerVisible(false);
-
-  const plugins: [LinkPickerPlugin] = React.useMemo(
+  const plugins: LinkPickerPlugin[] = React.useMemo(
     () => [
       new AtlassianLinkPickerPlugin({
         cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
@@ -45,8 +46,9 @@ export default function Basic() {
           'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
         activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
       }),
+      ...forgePlugins,
     ],
-    [],
+    [forgePlugins],
   );
 
   const linkPicker = isLinkPickerVisible && (

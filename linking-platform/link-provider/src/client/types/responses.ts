@@ -41,3 +41,16 @@ export const isErrorResponse = (
   const hasErrorBody = 'error' in response;
   return hasStatus && hasErrorBody;
 };
+
+export interface SearchProviderInfo {
+  key: string;
+  metadata: {
+    name: string;
+    avatarUrl: string;
+    displayName?: string;
+  };
+}
+
+export interface SearchProviderInfoResponse {
+  providers: SearchProviderInfo[];
+}

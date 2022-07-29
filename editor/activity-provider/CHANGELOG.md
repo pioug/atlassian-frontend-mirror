@@ -1,5 +1,11 @@
 # @atlaskit/activity-provider
 
+## 2.3.4
+
+### Patch Changes
+
+- [`09e3f210e94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09e3f210e94) - This Activity Provider is now deprecated. Please migrate to using the recent-work-client instead. For more details please contact #activity-platform.
+
 ## 2.3.3
 
 ### Patch Changes

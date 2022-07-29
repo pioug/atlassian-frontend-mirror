@@ -2,6 +2,7 @@
 import { KeyboardEvent, PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
 import {
   LinkSearchListItemData,
@@ -75,6 +76,7 @@ export interface State {
   isEditing: boolean;
   displayText: string;
   invalidUrl: string | null;
+  activePlugin: number;
 }
 
 class LinkPicker extends PureComponent<
@@ -97,6 +99,7 @@ class LinkPicker extends PureComponent<
       displayText: props.displayText || '',
       items: [],
       invalidUrl: null,
+      activePlugin: 0,
     };
 
     /* Cache functions */
@@ -121,7 +124,7 @@ class LinkPicker extends PureComponent<
       return null;
     }
 
-    return this.props.plugins[0];
+    return this.props.plugins[this.state.activePlugin];
   }
 
   /**
@@ -161,10 +164,10 @@ class LinkPicker extends PureComponent<
           return;
         }
 
-        this.setState({
+        this.setState(prev => ({
           items: limit(value.data),
           isLoading: !done,
-        });
+        }));
 
         if (done) {
           return;
@@ -239,6 +242,17 @@ class LinkPicker extends PureComponent<
     }
   };
 
+  private getTabs = () => {
+    if (this.props.plugins && this.props.plugins.length > 1) {
+      return this.props.plugins
+        .filter(plugin => !!plugin.tabTitle)
+        .map(plugin => ({
+          tabTitle: plugin.tabTitle!,
+        }));
+    }
+    return [];
+  };
+
   render() {
     const {
       items,
@@ -253,6 +267,7 @@ class LinkPicker extends PureComponent<
       intl: { formatMessage },
     } = this.props;
     const activePlugin = this.getActivePlugin();
+    const tabs = this.getTabs();
 
     const linkPlaceHolder = formatMessage(
       activePlugin ? messages.placeholder : messages.linkPlaceholder,
@@ -283,6 +298,28 @@ class LinkPicker extends PureComponent<
 
     return (
       <div data-testid="link-picker" css={rootContainerStyles}>
+        {tabs.length > 0 && (
+          <Tabs
+            id="link-picker-tabs"
+            testId="link-picker-tabs"
+            onChange={activePlugin =>
+              this.setState({ activePlugin }, () => {
+                this.updateResults();
+              })
+            }
+          >
+            <TabList>
+              {tabs.map(tab => {
+                const label = tab.tabTitle;
+                return (
+                  <Tab key={label} testId="link-picker-tab">
+                    {label}
+                  </Tab>
+                );
+              })}
+            </TabList>
+          </Tabs>
+        )}
         {screenReaderText && (
           <Announcer
             ariaLive="assertive"

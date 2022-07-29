@@ -98,13 +98,16 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 23/07/2022: https://product-fabric.atlassian.net/browse/SKIP-356
-  it.skip('with FlagGroup', async () => {
+  it('with FlagGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToMiddle);
     await page.click("[data-testid='flag-trigger']");
     await page.waitForSelector("[data-testid='flag-1']");
+
+    // DSP-860: Flag group has a known issue when multiple trigger clicks are executed in quick succession
+    // that is why this timeout is currently needed... :(
+    await page.waitForTimeout(1000);
 
     await page.click("[data-testid='flag-trigger']");
     await page.waitForSelector("[data-testid='flag-2']");

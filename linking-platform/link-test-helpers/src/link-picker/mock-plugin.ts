@@ -55,12 +55,32 @@ export class MockLinkPickerGeneratorPlugin implements LinkPickerPlugin {
 }
 
 export class MockLinkPickerPromisePlugin implements LinkPickerPlugin {
+  private _tabKey?: string;
+  private _tabTitle?: string;
   public result: Promise<LinkSearchListItemData[]>;
-  constructor() {
-    this.result = Promise.resolve(pluginData);
-  }
+  constructor({
+    tabKey,
+    tabTitle,
+    promise = Promise.resolve(pluginData),
+  }: {
+    tabKey?: string;
+    tabTitle?: string;
+    promise?: Promise<LinkSearchListItemData[]>;
+  } = {}) {
+    this.result = promise;
 
+    this._tabKey = tabKey;
+    this._tabTitle = tabTitle;
+  }
   async resolve({ query }: LinkPickerState) {
     return { data: await this.result };
+  }
+
+  get tabKey() {
+    return this._tabKey;
+  }
+
+  get tabTitle() {
+    return this._tabTitle;
   }
 }

@@ -74,6 +74,8 @@ describe('<LinkPicker />', () => {
         searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
         urlError: 'link-error',
         errorBoundary: 'link-picker-root-error-boundary-ui',
+        tabList: 'link-picker-tabs',
+        tabItem: 'link-picker-tab',
       },
     };
   };
@@ -977,6 +979,108 @@ describe('<LinkPicker />', () => {
       );
 
       expect(screen.queryByTestId(testIds.emptyResultPage)).toBeNull();
+    });
+
+    describe('Tab UI', () => {
+      it('should render the Tab UI if there were multiple plugins with tabTitle available', async () => {
+        const plugin1 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'tab1',
+        });
+        const plugin2 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab2',
+          tabTitle: 'tab2',
+        });
+
+        const { testIds } = setupLinkPickerWithGenericPlugin({
+          plugins: [plugin1, plugin2],
+        });
+
+        expect(screen.getByTestId(testIds.tabList)).toBeInTheDocument();
+        const tabItems = screen.getAllByTestId(testIds.tabItem);
+        expect(tabItems).toHaveLength(2);
+        expect(tabItems[0]).toHaveTextContent('tab1');
+        expect(tabItems[1]).toHaveTextContent('tab2');
+      });
+
+      it('should NOT render TAB UI if there was only one plugin', async () => {
+        const plugin1 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'tab1',
+        });
+
+        const { testIds } = setupLinkPickerWithGenericPlugin({
+          plugins: [plugin1],
+        });
+
+        expect(screen.queryByTestId(testIds.tabList)).toBeNull();
+      });
+
+      it('should only show the items from the first plugin when loaded', async () => {
+        const promise1 = Promise.resolve(mockedPluginData.slice(0, 1));
+        const plugin1 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'tab1',
+          promise: promise1,
+        });
+        const promise2 = Promise.resolve(mockedPluginData.slice(1, 2));
+        const plugin2 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab2',
+          tabTitle: 'tab2',
+          promise: promise2,
+        });
+
+        const resolve1 = jest.spyOn(plugin1, 'resolve');
+        const resolve2 = jest.spyOn(plugin2, 'resolve');
+
+        const { testIds } = setupLinkPickerWithGenericPlugin({
+          plugins: [plugin1, plugin2],
+        });
+
+        expect(resolve1).toBeCalledTimes(1);
+        expect(resolve2).not.toHaveBeenCalled();
+
+        await asyncAct(() => promise1);
+
+        expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(1);
+        expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
+          mockedPluginData[0].name,
+        );
+      });
+
+      it('should load and show the items from the second plugin when second tab was clicked', async () => {
+        const promise1 = Promise.resolve(mockedPluginData.slice(0, 1));
+        const plugin1 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'tab1',
+          promise: promise1,
+        });
+        const promise2 = Promise.resolve(mockedPluginData.slice(1, 2));
+        const plugin2 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab2',
+          tabTitle: 'tab2',
+          promise: promise2,
+        });
+
+        const resolve1 = jest.spyOn(plugin1, 'resolve');
+        const resolve2 = jest.spyOn(plugin2, 'resolve');
+
+        const { testIds } = setupLinkPickerWithGenericPlugin({
+          plugins: [plugin1, plugin2],
+        });
+
+        userEvent.click(screen.getAllByTestId(testIds.tabItem)[1]);
+
+        expect(resolve1).toBeCalledTimes(1);
+        expect(resolve2).toBeCalledTimes(1);
+
+        await asyncAct(() => promise2);
+
+        expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(1);
+        expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
+          mockedPluginData[1].name,
+        );
+      });
     });
   });
 });

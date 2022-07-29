@@ -44,6 +44,9 @@ export const makeGetRecentItemBody = (cloudId: string) => ({
   },
 });
 
+/**
+ * @deprecated - Please use @atlassian/recent-work-client instead
+ */
 export default class ActivityResource implements ActivityProvider {
   private recentPromise?: Promise<ActivityResponse>;
   private url: string;

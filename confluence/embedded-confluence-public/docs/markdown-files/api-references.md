@@ -156,6 +156,7 @@ A list of features for `ViewPage`:
 A list of features for `EditPage`:
 
 - `'delete-draft'` - To show/hide the "Delete unpublished draft" or "Revert to last published version" menu item within the "Ellipsis" icon depending on if a document has already been published or not. To handle navigation after a user deletes/reverts a page, please listen for the experience tracker event: `"taskSuccess"`of `"edit-page/revert-draft"`. If no navigation is defined by 3rd party, by default no navigation will occur and will remain on the same page after a page has been deleted/reverted. Thus please make sure some navigation is defined.
+- `'template-browser'` - To show/hide template browser in the edit page. If included, an empty edit page will show a template browser sidebar, and the ellipsis menu will include a dropdown option "Templates" to toggle the sidebar.
 
 ### `allowedFeatures` example
 

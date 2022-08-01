@@ -25,10 +25,14 @@ export default function getMediaSingleNodeView(
   const { link } = schema.marks;
   const mediaMarks = [];
 
-  let mediaNodeAttrs: { width?: number; height?: number; alt?: string } = {
-    width: defaultWidth,
-    height: defaultHeight,
-  };
+  let mediaNodeAttrs: { width?: number; height?: number; alt?: string } = {};
+  if (context?.defaults?.media?.width !== null) {
+    mediaNodeAttrs.width = context?.defaults?.media?.width ?? defaultWidth;
+  }
+  if (context?.defaults?.media?.height !== null) {
+    mediaNodeAttrs.height = context?.defaults?.media?.height ?? defaultHeight;
+  }
+
   const mediaSingleAttrs: any = { layout: 'center' };
 
   if (attrs.width && attrs.width.endsWith('%')) {

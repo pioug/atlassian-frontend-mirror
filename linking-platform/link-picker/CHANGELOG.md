@@ -1,5 +1,18 @@
 # @atlaskit/link-picker
 
+## 1.5.0
+
+### Minor Changes
+
+- [`e54051625bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e54051625bc) - Convert Link Picker from class component to functional component to comply with tangerine guidelines.
+  https://tangerine.staging.atl-paas.net/guides/components-and-hooks-patterns/prefer-functional-components-over-classes/
+
+## 1.4.1
+
+### Patch Changes
+
+- [`140453ba9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/140453ba9f6) - [ux] Move tabs to be below input fields
+
 ## 1.4.0
 
 ### Minor Changes

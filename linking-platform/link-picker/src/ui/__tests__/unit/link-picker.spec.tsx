@@ -16,7 +16,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 
 import { LinkPickerPlugin, LinkPickerProps } from '../../../';
-import LinkPicker from '../../link-picker';
+import LinkPicker, { testIds } from '../../link-picker';
 
 import { messages } from '../../link-picker/messages';
 
@@ -60,23 +60,7 @@ describe('<LinkPicker />', () => {
     return {
       onSubmitMock,
       onCancelMock,
-      testIds: {
-        urlInputField: 'link-url',
-        textInputField: 'link-text',
-        searchIcon: 'link-picker-search-icon',
-        insertButton: 'link-picker-insert-button',
-        cancelButton: 'link-picker-cancel-button',
-        clearUrlButton: 'clear-text',
-        resultListTitle: 'link-picker-list-title',
-        emptyResultPage: 'link-search-no-results',
-        searchResultList: 'link-search-list',
-        searchResultItem: 'link-search-list-item',
-        searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
-        urlError: 'link-error',
-        errorBoundary: 'link-picker-root-error-boundary-ui',
-        tabList: 'link-picker-tabs',
-        tabItem: 'link-picker-tab',
-      },
+      testIds,
     };
   };
 
@@ -167,10 +151,13 @@ describe('<LinkPicker />', () => {
     it('should submit when insert button is clicked', async () => {
       const { testIds, onSubmitMock } = setupLinkPicker();
 
-      await userEvent.type(
-        screen.getByTestId(testIds.urlInputField),
-        'www.atlassian.com',
+      await asyncAct(() =>
+        userEvent.type(
+          screen.getByTestId(testIds.urlInputField),
+          'www.atlassian.com',
+        ),
       );
+
       userEvent.click(screen.getByTestId(testIds.insertButton));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
@@ -401,7 +388,9 @@ describe('<LinkPicker />', () => {
         screen.getByTestId(testIds.searchResultLoadingIndicator),
       ).toBeInTheDocument();
 
-      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'atlas');
+      await asyncAct(() =>
+        userEvent.type(screen.getByTestId(testIds.urlInputField), 'atlas'),
+      );
 
       // Each character typing would trigger a resolve
       expect(resolve).toHaveBeenCalledTimes(6);
@@ -554,7 +543,9 @@ describe('<LinkPicker />', () => {
         url: 'www.atlassian.com',
       });
 
-      userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+      act(() => {
+        userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+      });
 
       expect(screen.getByTestId(testIds.urlInputField)).toHaveValue('');
       expect(resolve).toHaveBeenCalledWith({ query: '' });
@@ -582,7 +573,9 @@ describe('<LinkPicker />', () => {
 
       expect(resolve).toHaveBeenCalledTimes(1);
 
-      await userEvent.type(screen.getByTestId(testIds.urlInputField), 'w');
+      await asyncAct(() =>
+        userEvent.type(screen.getByTestId(testIds.urlInputField), 'w'),
+      );
 
       expect(resolve).toHaveBeenCalledTimes(2);
 
@@ -599,7 +592,7 @@ describe('<LinkPicker />', () => {
         screen.getByTestId(testIds.searchResultLoadingIndicator),
       ).toBeInTheDocument();
 
-      // We rlease the second result
+      // We release the second result
       await asyncAct(() =>
         secondResultPromise.resolve({
           value: { data: [mockedPluginData[1]] },
@@ -631,7 +624,9 @@ describe('<LinkPicker />', () => {
       expect(resolve).toHaveBeenCalledTimes(4);
       expect(resolve).toHaveBeenCalledWith({ query: 'abc' });
 
-      userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+      act(() => {
+        userEvent.click(screen.getByTestId(testIds.clearUrlButton));
+      });
 
       expect(resolve).toHaveBeenCalledWith({ query: '' });
       expect(resolve).toHaveBeenCalledTimes(5);
@@ -1055,6 +1050,7 @@ describe('<LinkPicker />', () => {
           tabTitle: 'tab1',
           promise: promise1,
         });
+
         const promise2 = Promise.resolve(mockedPluginData.slice(1, 2));
         const plugin2 = new MockLinkPickerPromisePlugin({
           tabKey: 'tab2',
@@ -1069,7 +1065,9 @@ describe('<LinkPicker />', () => {
           plugins: [plugin1, plugin2],
         });
 
-        userEvent.click(screen.getAllByTestId(testIds.tabItem)[1]);
+        act(() => {
+          userEvent.click(screen.getAllByTestId(testIds.tabItem)[1]);
+        });
 
         expect(resolve1).toBeCalledTimes(1);
         expect(resolve2).toBeCalledTimes(1);

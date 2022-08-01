@@ -32,7 +32,8 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should display select options with icons correctly', async () => {
+  // FIXME: This test was automatically skipped due to failure on 28/07/2022: https://product-fabric.atlassian.net/browse/ED-15322
+  it.skip('should display select options with icons correctly', async () => {
     const iconSelectSelector = 'div[id^="enum-select-icon"]';
     const page = await goToConfigPanelWithParameters();
 

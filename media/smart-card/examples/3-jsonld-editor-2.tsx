@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { useCallback, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import { JsonLd } from 'json-ld-types';
 import { css, jsx } from '@emotion/core';
 import 'brace';
@@ -11,10 +10,10 @@ import 'brace/ext/language_tools';
 import AceEditor from 'react-ace';
 import InlineMessage from '@atlaskit/inline-message';
 import { useThemeObserver } from '@atlaskit/tokens';
-import { response1 } from './content/example-responses';
 import CardExample from './jsonld-editor/card-example';
 import JsonldExample from './jsonld-editor/jsonld-example';
 import LoadLinkForm from './jsonld-editor/load-link-form';
+import { getDefaultResponse } from './jsonld-editor/utils';
 
 const styles = css`
   display: flex;
@@ -29,7 +28,7 @@ const styles = css`
 
 const stringify = (obj: object) => JSON.stringify(obj, null, 2);
 
-const initialJson = response1 as JsonLd.Response;
+const initialJson = getDefaultResponse();
 const initialText = stringify(initialJson);
 
 const Example: React.FC = () => {
@@ -79,20 +78,22 @@ const Example: React.FC = () => {
     [onJsonChange],
   );
 
-  const onUrlFallback = useCallback(({ error, resetErrorBoundary }) => {
-    setUrlError(error.message);
-    resetErrorBoundary();
-    return null;
+  const onUrlError = useCallback((error) => {
+    setUrlError(
+      `${error.message}. Revert to the last successful JSON-LD content.`,
+    );
+    setUrl(undefined);
   }, []);
-
-  const onUrlReset = useCallback(() => setUrl(undefined), []);
 
   return (
     <div css={styles}>
       <div>
-        <ErrorBoundary fallbackRender={onUrlFallback} onReset={onUrlReset}>
-          <CardExample json={json} onResolve={onUrlResolve} url={url} />
-        </ErrorBoundary>
+        <CardExample
+          json={json}
+          onError={onUrlError}
+          onResolve={onUrlResolve}
+          url={url}
+        />
       </div>
       <div>
         <h6>JSON-LD</h6>

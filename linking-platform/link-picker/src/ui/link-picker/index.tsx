@@ -1,14 +1,12 @@
 /** @jsx jsx */
-import { KeyboardEvent, PureComponent } from 'react';
+import { KeyboardEvent, useCallback, useReducer } from 'react';
 import { jsx } from '@emotion/react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import Tabs, { Tab, TabList } from '@atlaskit/tabs';
+import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
 
 import {
   LinkSearchListItemData,
   LinkInputType,
   LinkPickerPlugin,
-  ResolveResult,
 } from '../types';
 import { messages } from './messages';
 import PanelTextInput from './text-input';
@@ -26,10 +24,30 @@ import Announcer from './/announcer';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { FormFooter } from '@atlaskit/form';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import LinkSearchNoResults from './link-search-no-results';
+import { usePlugins } from '../../services/use-plugins';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
+
+export const testIds = {
+  linkPicker: 'link-picker',
+  urlInputField: 'link-url',
+  textInputField: 'link-text',
+  searchIcon: 'link-picker-search-icon',
+  insertButton: 'link-picker-insert-button',
+  cancelButton: 'link-picker-cancel-button',
+  clearUrlButton: 'clear-text',
+  resultListTitle: 'link-picker-list-title',
+  emptyResultPage: 'link-search-no-results',
+  searchResultList: 'link-search-list',
+  searchResultItem: 'link-search-list-item',
+  searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
+  urlError: 'link-error',
+  tabList: 'link-picker-tabs',
+  tabItem: 'link-picker-tab',
+};
 
 interface Meta {
   /** Indicates how the link was picked. */
@@ -67,523 +85,367 @@ export interface LinkPickerProps {
   plugins?: LinkPickerPlugin[];
 }
 
-export interface State {
-  items: LinkSearchListItemData[];
+export interface PickerState {
   selectedIndex: number;
   activeIndex: number;
   url: string;
-  isLoading: boolean;
-  isEditing: boolean;
   displayText: string;
-  invalidUrl: string | null;
-  activePlugin: number;
+  invalidUrl: boolean;
+  activeTab: number;
 }
 
-class LinkPicker extends PureComponent<
-  WrappedComponentProps & LinkPickerProps,
-  State
-> {
-  private handleClearUrl: () => void;
-  private handleClearDisplayText: () => void;
-  private queryVersion: number = 0;
+type LinkPickerForm = 'url' | 'displayText';
 
-  constructor(props: WrappedComponentProps & LinkPickerProps) {
-    super(props);
+const initState = {
+  url: '',
+  displayText: '',
+  activeIndex: -1,
+  selectedIndex: -1,
+  invalidUrl: false,
+  activeTab: 0,
+};
 
-    this.state = {
-      selectedIndex: -1,
-      activeIndex: -1,
-      isLoading: false,
-      isEditing: !!props.url,
-      url: normalizeUrl(props.url) || '',
-      displayText: props.displayText || '',
-      items: [],
-      invalidUrl: null,
-      activePlugin: 0,
+function reducer(state: PickerState, payload: Partial<PickerState>) {
+  if (payload.url && state.url !== payload.url) {
+    return {
+      ...state,
+      invalidUrl: false,
+      selectedIndex:
+        isSafeUrl(payload.url) && payload.url.length ? -1 : state.selectedIndex,
+      ...payload,
     };
-
-    /* Cache functions */
-    this.handleClearUrl = this.createClearHandler('url');
-    this.handleClearDisplayText = this.createClearHandler('displayText');
   }
+  return { ...state, ...payload };
+}
 
-  componentDidMount() {
-    this.loadInitialLinkSearchResult();
-  }
+function LinkPicker({
+  onSubmit,
+  onCancel,
+  plugins,
+  url: initUrl,
+  displayText: initDisplayText,
+}: LinkPickerProps) {
+  const [state, dispatch] = useReducer(reducer, {
+    ...initState,
+    url: normalizeUrl(initUrl) || '',
+    displayText: initDisplayText || '',
+  });
 
-  private loadInitialLinkSearchResult() {
-    const { url } = this.state;
+  const { activeIndex, selectedIndex, url, displayText, invalidUrl } = state;
 
-    if (!url) {
-      this.updateResults();
-    }
-  }
+  const isEditing = !!initUrl;
 
-  private getActivePlugin() {
-    if (!this.props.plugins || this.props.plugins.length === 0) {
-      return null;
-    }
+  const intl = useIntl();
+  const { items, isLoading, isSelectedItem, isActivePlugin, tabs } = usePlugins(
+    state,
+    plugins,
+  );
 
-    return this.props.plugins[this.state.activePlugin];
-  }
-
-  /**
-   * Interface between link picker and plugins to update results
-   */
-  private async updateResults() {
-    const queryVersion = ++this.queryVersion;
-    const activePlugin = this.getActivePlugin();
-    if (!activePlugin) {
-      return;
-    }
-
-    const updates = activePlugin.resolve({
-      query: this.state.url,
-    });
-
-    this.setState({
-      isLoading: true,
-      items: [],
-    });
-
-    try {
-      while (queryVersion === this.queryVersion) {
-        let done: boolean = false;
-        let value: ResolveResult;
-
-        if (updates instanceof Promise) {
-          done = true;
-          value = await updates;
-        } else {
-          const result = await updates.next();
-          done = result.done ?? false;
-          value = result.value;
-        }
-
-        if (queryVersion !== this.queryVersion) {
-          return;
-        }
-
-        this.setState(prev => ({
-          items: limit(value.data),
-          isLoading: !done,
-        }));
-
-        if (done) {
-          return;
-        }
-      }
-    } catch {
-      this.setState({
-        isLoading: false,
-      });
-    }
-  }
-
-  private updateInput = async (input: string) => {
-    // If input is a valid URL, do not search or display link suggestions
-    if (input.length && isSafeUrl(input)) {
-      return this.setState({
-        url: input,
-        selectedIndex: -1,
-        items: [],
-        isLoading: false,
-        invalidUrl: null,
-      });
-    }
-
-    return this.setState(
-      {
-        url: input,
-        // Unset selection on any input change
-        selectedIndex: -1,
-        invalidUrl: null,
-      },
-      () => {
-        this.updateResults();
-      },
-    );
-  };
-
-  private createClearHandler = (field: 'url' | 'displayText') => {
-    return () => {
-      switch (field) {
-        case 'url': {
-          this.updateInput('');
-          break;
-        }
-        case 'displayText': {
-          this.setState({
-            [field]: '',
-          });
-        }
-      }
-    };
-  };
-
-  private getScreenReaderText = () => {
-    const { intl } = this.props;
-    const { items, selectedIndex } = this.state;
-
-    if (items.length && selectedIndex > -1) {
-      const { name, container, lastUpdatedDate, lastViewedDate } = items[
-        selectedIndex
-      ];
-
-      const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
-      const formattedDate = [
-        date?.pageAction,
-        date?.dateString,
-        date?.timeSince,
-      ]
-        .filter(Boolean)
-        .join(' ');
-      return [name, container, formattedDate].filter(Boolean).join(', ');
-    }
-  };
-
-  private getTabs = () => {
-    if (this.props.plugins && this.props.plugins.length > 1) {
-      return this.props.plugins
-        .filter(plugin => !!plugin.tabTitle)
-        .map(plugin => ({
-          tabTitle: plugin.tabTitle!,
-        }));
-    }
-    return [];
-  };
-
-  render() {
-    const {
-      items,
-      isLoading,
-      isEditing,
-      activeIndex,
-      selectedIndex,
+  const handleChangeUrl = useCallback((url: string) => {
+    dispatch({
       url,
+    });
+  }, []);
+
+  const handleChangeText = useCallback((displayText: string) => {
+    dispatch({
       displayText,
-    } = this.state;
-    const {
-      intl: { formatMessage },
-    } = this.props;
-    const activePlugin = this.getActivePlugin();
-    const tabs = this.getTabs();
+    });
+  }, []);
 
-    const linkPlaceHolder = formatMessage(
-      activePlugin ? messages.placeholder : messages.linkPlaceholder,
-    );
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      const { keyCode } = event;
+      const KEY_CODE_ARROW_DOWN = 40;
+      const KEY_CODE_ARROW_UP = 38;
 
-    const linkLabel = formatMessage(messages.linkLabel);
-    const linkTextLabel = formatMessage(messages.linkTextLabel);
-    const linkTextPlaceHolder = formatMessage(messages.linkTextPlaceholder);
+      if (!items || !items.length) {
+        return;
+      }
 
-    const screenReaderDescriptionId = 'search-recent-links-field-description';
-    const linkSearchListId = 'link-picker-search-list';
-    const ariaActiveDescendant =
-      selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
+      let updatedIndex = activeIndex;
+      switch (keyCode) {
+        case KEY_CODE_ARROW_DOWN: // down
+          event.preventDefault();
+          updatedIndex = (activeIndex + 1) % items.length;
+          break;
 
-    // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
-    // as the Aria design pattern for combobox does not work in this case
-    // for details: https://a11y-internal.atlassian.net/browse/AK-740
-    const screenReaderText = browser.safari && this.getScreenReaderText();
+        case KEY_CODE_ARROW_UP: // up
+          event.preventDefault();
+          updatedIndex = activeIndex > 0 ? activeIndex - 1 : items.length - 1;
+          break;
+      }
 
-    const searchIcon = activePlugin && (
-      <span css={searchIconStyles} data-testid="link-picker-search-icon">
-        <EditorSearchIcon size="medium" label={''} />
-      </span>
-    );
+      if (
+        [KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) &&
+        items[updatedIndex]
+      ) {
+        dispatch({
+          activeIndex: updatedIndex,
+          selectedIndex: updatedIndex,
+          url: items[updatedIndex].url,
+          invalidUrl: false,
+        });
+      }
+    },
+    [activeIndex, items],
+  );
 
-    const noResults =
-      activePlugin && !isLoading && !items.length && !isSafeUrl(url);
+  const handleClear = useCallback((field: LinkPickerForm) => {
+    dispatch({
+      [field]: '',
+    });
+  }, []);
 
-    return (
-      <div data-testid="link-picker" css={rootContainerStyles}>
-        {tabs.length > 0 && (
-          <Tabs
-            id="link-picker-tabs"
-            testId="link-picker-tabs"
-            onChange={activePlugin =>
-              this.setState({ activePlugin }, () => {
-                this.updateResults();
-              })
-            }
-          >
-            <TabList>
-              {tabs.map(tab => {
-                const label = tab.tabTitle;
-                return (
-                  <Tab key={label} testId="link-picker-tab">
-                    {label}
-                  </Tab>
-                );
-              })}
-            </TabList>
-          </Tabs>
-        )}
-        {screenReaderText && (
-          <Announcer
-            ariaLive="assertive"
-            text={screenReaderText}
-            ariaRelevant="additions"
-            delay={250}
-          />
-        )}
-        <VisuallyHidden>
-          <span aria-hidden="true" id={screenReaderDescriptionId}>
-            {formatMessage(messages.searchLinkAriaDescription)}
-          </span>
-        </VisuallyHidden>
-        <PanelTextInput
-          name="link"
-          testId="link-url"
-          role="combobox"
-          label={linkLabel}
-          placeholder={linkPlaceHolder}
-          value={url}
-          autoFocus
-          autoComplete="off"
-          elemBeforeInput={searchIcon}
-          onSubmit={this.handleSubmit}
-          onChange={this.updateInput}
-          onKeyDown={this.handleKeyDown}
-          onClear={this.handleClearUrl}
-          error={this.state.invalidUrl}
-          clearLabel={formatMessage(messages.clearLink)}
-          aria-controls={linkSearchListId}
-          aria-autocomplete="list"
-          aria-activedescendant={ariaActiveDescendant}
-          aria-describedby={screenReaderDescriptionId}
-          aria-expanded
-        />
-        <PanelTextInput
-          name="link-text"
-          testId="link-text"
-          autoComplete="off"
-          label={linkTextLabel}
-          placeholder={linkTextPlaceHolder}
-          aria-label={formatMessage(messages.linkAriaLabel)}
-          value={displayText}
-          onSubmit={this.handleSubmit}
-          onKeyDown={this.handleKeyDown}
-          onChange={this.updateTextInput}
-          onClear={this.handleClearDisplayText}
-          clearLabel={formatMessage(messages.clearText)}
-        />
-        {!!items.length && (
-          <div
-            css={listTitleStyles}
-            id="link-picker-list-title"
-            data-testid="link-picker-list-title"
-          >
-            {formatMessage(
-              this.state.url
-                ? messages.titleResults
-                : messages.titleRecentlyViewed,
-            )}
-          </div>
-        )}
-        <VisuallyHidden>
-          <span
-            aria-live="polite"
-            aria-atomic="true"
-            id="fabric.smartcard.linkpicker.suggested.results"
-          >
-            {url &&
-              formatMessage(messages.searchLinkResults, {
-                count: items.length,
-              })}
-          </span>
-        </VisuallyHidden>
-        <LinkSearchList
-          ariaLabelledBy="link-picker-list-title"
-          ariaControls="fabric.smartcard.linkpicker.suggested.results"
-          id={linkSearchListId}
-          role="listbox"
-          items={items}
-          isLoading={isLoading}
-          selectedIndex={selectedIndex}
-          activeIndex={activeIndex}
-          onSelect={this.handleSelected}
-          onMouseEnter={this.handleMouseEnterResultItem}
-          onMouseLeave={this.handleMouseLeaveResultItem}
-        />
-        {noResults && (
-          <LinkSearchNoResults
-            testId="link-search-no-results"
-            header={formatMessage(messages.noResults)}
-            description={formatMessage(messages.noResultsDescription)}
-          />
-        )}
-        <FormFooter align="end">
-          <ButtonGroup>
-            <Button
-              appearance="default"
-              onClick={this.handleCancel}
-              testId="link-picker-cancel-button"
-            >
-              {formatMessage(messages.cancelButton)}
-            </Button>
-            <Button
-              type="submit"
-              appearance="primary"
-              onClick={this.handleSubmit}
-              testId="link-picker-insert-button"
-            >
-              {formatMessage(
-                isEditing ? messages.saveButton : messages.insertButton,
-              )}
-            </Button>
-          </ButtonGroup>
-        </FormFooter>
-      </div>
-    );
-  }
+  const handleMouseEnterResultItem = useCallback(
+    (objectId: string) => {
+      const index = findIndex(items, item => item.objectId === objectId);
+      dispatch({
+        activeIndex: index,
+      });
+    },
+    [items],
+  );
 
-  private isUrlPopulatedWithSelectedItem = () => {
-    /**
-     * When we use ArrowKey to navigate through result items,
-     * the URL field will be populated with the content of
-     * selected item.
-     * This function will check if the URL field is populated
-     * with selected item.
-     * It can be useful to detect whether we want to insert a
-     * smartlink or a hyperlink with customized title
-     */
-    const { items, selectedIndex, url } = this.state;
+  const handleMouseLeaveResultItem = useCallback(
+    (objectId: string) => {
+      const index = findIndex(items, item => item.objectId === objectId);
+      // This is to avoid updating index that was set by other mouseenter event
+      if (activeIndex === index) {
+        dispatch({
+          activeIndex: -1,
+        });
+      }
+    },
+    [activeIndex, items],
+  );
 
-    const selectedItem: LinkSearchListItemData | undefined =
-      items[selectedIndex];
-
-    if (selectedItem && selectedItem.url === url) {
-      return true;
-    }
-
-    return false;
-  };
-
-  private handleSelected = (objectId: string) => {
-    const { items } = this.state;
-
-    const selectedItem = items.find(item => item.objectId === objectId);
-
-    if (selectedItem) {
-      const { url, name } = selectedItem;
-      this.handleInsert(url, name, 'typeAhead');
-    }
-  };
-
-  private handleInsert = (
-    url: string,
-    title: string | null,
-    inputType: LinkInputType,
-  ) => {
-    const { onSubmit } = this.props;
-    const { url: rawUrl, displayText } = this.state;
-
-    if (onSubmit) {
+  const handleInsert = useCallback(
+    (url: string, title: string | null, inputType: LinkInputType) => {
       onSubmit({
         url,
         displayText: displayText || null,
         title: title || null,
         meta: { inputMethod: inputType },
-        ...(inputType === 'manual' ? { rawUrl } : {}),
+        ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
       });
-    }
-  };
+    },
+    [displayText, onSubmit, state.url],
+  );
 
-  private handleMouseEnterResultItem = (objectId: string) => {
-    const { items } = this.state;
+  const handleSelected = useCallback(
+    (objectId: string) => {
+      const selectedItem = items.find(item => item.objectId === objectId);
 
-    const index = findIndex(items, item => item.objectId === objectId);
-    this.setState({
-      activeIndex: index,
-    });
-  };
+      if (selectedItem) {
+        const { url, name } = selectedItem;
+        handleInsert(url, name, 'typeAhead');
+      }
+    },
+    [handleInsert, items],
+  );
 
-  private handleMouseLeaveResultItem = (objectId: string) => {
-    const { items, activeIndex } = this.state;
-
-    const index = findIndex(items, item => item.objectId === objectId);
-    // This is to avoid updating index that was set by other mouseenter event
-    if (activeIndex === index) {
-      this.setState({
-        activeIndex: -1,
-      });
-    }
-  };
-
-  private handleSubmit = () => {
-    const { url, selectedIndex, items } = this.state;
-    const { intl } = this.props;
+  const handleSubmit = useCallback(() => {
     const selectedItem: LinkSearchListItemData | undefined =
       items[selectedIndex];
 
-    if (this.isUrlPopulatedWithSelectedItem()) {
-      return this.handleInsert(
-        selectedItem.url,
-        selectedItem.name,
-        'typeAhead',
-      );
+    if (isSelectedItem) {
+      return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
     }
 
     const normalized = normalizeUrl(url);
     if (normalized) {
-      return this.handleInsert(normalized, null, 'manual');
+      return handleInsert(normalized, null, 'manual');
     }
 
-    return this.setState({
-      invalidUrl: intl.formatMessage(messages.linkInvalid),
+    return dispatch({
+      invalidUrl: true,
     });
-  };
+  }, [handleInsert, isSelectedItem, items, selectedIndex, url]);
 
-  private handleKeyDown = (event: KeyboardEvent<any>) => {
-    const { items, activeIndex } = this.state;
-    const { keyCode } = event;
-    const KEY_CODE_ARROW_DOWN = 40;
-    const KEY_CODE_ARROW_UP = 38;
+  const linkPlaceHolder = isActivePlugin
+    ? messages.placeholder
+    : messages.linkPlaceholder;
 
-    if (!items || !items.length) {
-      return;
-    }
+  const linkListTitle = url
+    ? messages.titleResults
+    : messages.titleRecentlyViewed;
 
-    let updatedIndex = activeIndex;
-    switch (keyCode) {
-      case KEY_CODE_ARROW_DOWN: // down
-        event.preventDefault();
-        updatedIndex = (activeIndex + 1) % items.length;
-        break;
+  const insertButtonMsg = isEditing
+    ? messages.saveButton
+    : messages.insertButton;
 
-      case KEY_CODE_ARROW_UP: // up
-        event.preventDefault();
-        updatedIndex = activeIndex > 0 ? activeIndex - 1 : items.length - 1;
-        break;
-    }
+  const noResults =
+    isActivePlugin && !isLoading && !items.length && !isSafeUrl(url);
 
-    if (
-      [KEY_CODE_ARROW_DOWN, KEY_CODE_ARROW_UP].includes(keyCode) &&
-      items[updatedIndex]
-    ) {
-      this.setState({
-        activeIndex: updatedIndex,
-        selectedIndex: updatedIndex,
-        url: items[updatedIndex].url,
-        invalidUrl: null,
-      });
-    }
-  };
+  const screenReaderDescriptionId = 'search-recent-links-field-description';
+  const linkSearchListId = 'link-picker-search-list';
+  const ariaActiveDescendant =
+    selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
 
-  private handleCancel = () => {
-    const { onCancel } = this.props;
-    if (onCancel) {
-      onCancel();
-    }
-  };
+  // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
+  // as the Aria design pattern for combobox does not work in this case
+  // for details: https://a11y-internal.atlassian.net/browse/AK-740
+  const screenReaderText =
+    browser.safari && getScreenReaderText(items, selectedIndex, intl);
 
-  private updateTextInput = (displayText: string) => {
-    this.setState({
-      displayText: displayText,
-    });
-  };
+  const searchIcon = isActivePlugin && (
+    <span css={searchIconStyles} data-testid={testIds.searchIcon}>
+      <EditorSearchIcon size="medium" label={''} />
+    </span>
+  );
+
+  return (
+    <div data-testid={testIds.linkPicker} css={rootContainerStyles}>
+      {screenReaderText && (
+        <Announcer
+          ariaLive="assertive"
+          text={screenReaderText}
+          ariaRelevant="additions"
+          delay={250}
+        />
+      )}
+      <VisuallyHidden id={screenReaderDescriptionId}>
+        <FormattedMessage {...messages.searchLinkAriaDescription} />
+      </VisuallyHidden>
+      <PanelTextInput
+        role="combobox"
+        autoComplete="off"
+        name="url"
+        testId={testIds.urlInputField}
+        label={intl.formatMessage(messages.linkLabel)}
+        placeholder={intl.formatMessage(linkPlaceHolder)}
+        value={url}
+        autoFocus
+        elemBeforeInput={searchIcon}
+        clearLabel={intl.formatMessage(messages.clearLink)}
+        aria-expanded
+        aria-autocomplete="list"
+        aria-controls={linkSearchListId}
+        aria-activedescendant={ariaActiveDescendant}
+        aria-describedby={screenReaderDescriptionId}
+        error={invalidUrl ? intl.formatMessage(messages.linkInvalid) : null}
+        onClear={handleClear}
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
+        onChange={handleChangeUrl}
+      />
+      <PanelTextInput
+        autoComplete="off"
+        name="displayText"
+        testId={testIds.textInputField}
+        value={displayText}
+        label={intl.formatMessage(messages.linkTextLabel)}
+        placeholder={intl.formatMessage(messages.linkTextPlaceholder)}
+        clearLabel={intl.formatMessage(messages.clearText)}
+        aria-label={intl.formatMessage(messages.linkAriaLabel)}
+        onClear={handleClear}
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
+        onChange={handleChangeText}
+      />
+      {tabs.length > 0 && (
+        <Tabs
+          id={testIds.tabList}
+          testId={testIds.tabList}
+          onChange={activeTab =>
+            dispatch({
+              selectedIndex: -1,
+              activeIndex: -1,
+              invalidUrl: false,
+              activeTab,
+            })
+          }
+        >
+          <TabList>
+            {tabs.map(tab => (
+              <Tab key={tab.tabTitle} testId={testIds.tabItem}>
+                {tab.tabTitle}
+              </Tab>
+            ))}
+          </TabList>
+        </Tabs>
+      )}
+      {!!items.length && (
+        <div
+          css={listTitleStyles}
+          id={testIds.resultListTitle}
+          data-testid={testIds.resultListTitle}
+        >
+          <FormattedMessage {...linkListTitle} />
+        </div>
+      )}
+      <VisuallyHidden id="fabric.smartcard.linkpicker.suggested.results">
+        {url && (
+          <FormattedMessage
+            {...messages.searchLinkResults}
+            values={{ count: items.length }}
+            aria-live="polite"
+            aria-atomic="true"
+          />
+        )}
+      </VisuallyHidden>
+      <LinkSearchList
+        ariaLabelledBy={testIds.resultListTitle}
+        ariaControls="fabric.smartcard.linkpicker.suggested.results"
+        id={linkSearchListId}
+        role="listbox"
+        items={items}
+        isLoading={isLoading}
+        selectedIndex={selectedIndex}
+        activeIndex={activeIndex}
+        onSelect={handleSelected}
+        onMouseEnter={handleMouseEnterResultItem}
+        onMouseLeave={handleMouseLeaveResultItem}
+      />
+      {noResults && (
+        <LinkSearchNoResults
+          testId={testIds.emptyResultPage}
+          header={intl.formatMessage(messages.noResults)}
+          description={intl.formatMessage(messages.noResultsDescription)}
+        />
+      )}
+      <FormFooter align="end">
+        <ButtonGroup>
+          <Button
+            appearance="default"
+            onClick={onCancel}
+            testId={testIds.cancelButton}
+          >
+            {intl.formatMessage(messages.cancelButton)}
+          </Button>
+          <Button
+            type="submit"
+            appearance="primary"
+            onClick={handleSubmit}
+            testId={testIds.insertButton}
+          >
+            {intl.formatMessage(insertButtonMsg)}
+          </Button>
+        </ButtonGroup>
+      </FormFooter>
+    </div>
+  );
+}
+
+export default LinkPicker;
+
+function getScreenReaderText(
+  items: LinkSearchListItemData[],
+  selectedIndex: number,
+  intl: IntlShape,
+): string | undefined {
+  if (items.length && selectedIndex > -1) {
+    const { name, container, lastUpdatedDate, lastViewedDate } = items[
+      selectedIndex
+    ];
+
+    const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
+    const formattedDate = [date?.pageAction, date?.dateString, date?.timeSince]
+      .filter(Boolean)
+      .join(' ');
+    return [name, container, formattedDate].filter(Boolean).join(', ');
+  }
 }
 
 function findIndex<T>(array: T[], predicate: (item: T) => boolean): number {
@@ -598,9 +460,3 @@ function findIndex<T>(array: T[], predicate: (item: T) => boolean): number {
 
   return index;
 }
-
-function limit<T>(items: Array<T>) {
-  return items.slice(0, RECENT_SEARCH_LIST_SIZE);
-}
-
-export default injectIntl(LinkPicker);

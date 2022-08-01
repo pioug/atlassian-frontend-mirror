@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.1.0
+
+### Minor Changes
+
+- [`635a121bf58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/635a121bf58) - Add option to suppress default image width and height in wikimarkup transformer
+
 ## 11.0.16
 
 ### Patch Changes

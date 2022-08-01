@@ -16,6 +16,7 @@ import Textfield, { TextFieldProps } from '@atlaskit/textfield';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
 import { isRedoEvent, isUndoEvent } from '../utils';
 import { clearTextButtonStyles, fieldStyles } from './styled';
+import { testIds } from '../';
 
 export interface Props
   extends Omit<
@@ -32,7 +33,7 @@ export interface Props
   onUndo?: Function;
   // overrides default browser redo behaviour (cm + shift + z / ctrl + y) with that function
   onRedo?: Function;
-  onClear?: () => void;
+  onClear?: Function;
   clearLabel?: string;
   error?: string | null;
 }
@@ -101,16 +102,16 @@ const PanelTextInput = (props: Props) => {
   const handleClear = useCallback(() => {
     if (inputRef.current && onClear) {
       inputRef.current.focus();
-      onClear();
+      onClear(name);
     }
-  }, [onClear]);
+  }, [name, onClear]);
 
   const clearText = restProps.value !== '' && (
     <Tooltip content={clearLabel}>
       <button
         css={clearTextButtonStyles}
         onClick={handleClear}
-        data-testid="clear-text"
+        data-testid={testIds.clearUrlButton}
       >
         <Selectclear size="medium" label={clearLabel || ''} />
       </button>
@@ -133,7 +134,7 @@ const PanelTextInput = (props: Props) => {
                 isInvalid={!!error}
               />
               {error && (
-                <ErrorMessage testId="link-error">{error}</ErrorMessage>
+                <ErrorMessage testId={testIds.urlError}>{error}</ErrorMessage>
               )}
             </Fragment>
           );

@@ -44,14 +44,19 @@ const CardExample: React.FC<{
         Bowsprit scallywag weigh anchor Davy Jones' Locker warp ballast scurvy
         nipper brigantine Jolly Roger wench sloop Shiver me timbers rope's end
         chandler. Admiral of the Black cackle fruit deck{' '}
-        <Card appearance="inline" url={url} showHoverPreview={true} /> wench
-        bounty rope's end bilge water scourge of the seven seas hardtack come
-        about execution dock Nelsons folly handsomely rigging splice the main
-        brace.
+        <Card
+          appearance="inline"
+          data={json?.data}
+          url={url}
+          showHoverPreview={true}
+        />
+        wench bounty rope's end bilge water scourge of the seven seas hardtack
+        come about execution dock Nelsons folly handsomely rigging splice the
+        main brace.
       </p>
       <h6>Block</h6>
       <br />
-      <Card appearance="block" url={url} />
+      <Card appearance="block" data={json?.data} url={url} />
       <h6>
         Flexible (
         <a href="https://atlaskit.atlassian.com/packages/media/smart-card/docs/flexible">

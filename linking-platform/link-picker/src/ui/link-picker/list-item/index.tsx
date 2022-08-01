@@ -13,6 +13,7 @@ import {
   composeListItemStyles,
   imgStyles,
 } from './styled';
+import { testIds } from '../';
 
 export interface Props {
   item: LinkSearchListItemData;
@@ -54,18 +55,21 @@ const LinkSearchListItem = ({
       role={role}
       id={id}
       aria-selected={selected}
-      data-testid="link-search-list-item"
+      data-testid={testIds.searchResultItem}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleSelect}
     >
       <ListItemIcon item={item} intl={intl} />
       <div css={itemNameStyles}>
-        <div data-testid="link-search-list-item-title" css={listItemNameStyles}>
+        <div
+          data-testid={`${testIds.searchResultItem}-title`}
+          css={listItemNameStyles}
+        >
           {item.name}
         </div>
         <div
-          data-testid="link-search-list-item-subtitle"
+          data-testid={`${testIds.searchResultItem}-subtitle`}
           css={listItemContextStyles}
         >
           {container}

@@ -81,4 +81,12 @@ export interface Context {
       targetCollectionId?: string;
     };
   };
+  readonly defaults?: {
+    readonly media?: {
+      // defaults to 200, no width will be emitted when null
+      width: number | null;
+      // defaults to 183, no height will be emitted when null
+      height: number | null;
+    };
+  };
 }

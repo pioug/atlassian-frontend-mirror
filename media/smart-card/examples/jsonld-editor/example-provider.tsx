@@ -9,15 +9,16 @@ import { isResolvedOrErrored } from './utils';
 
 type Props = {
   json?: JsonLd.Response;
+  onError?: (error: Error) => void;
   onResolve?: (json: JsonLd.Response) => void;
   url?: string;
 };
-const ExampleProvider: React.FC<Props> = ({ children, json, url }) => {
+const ExampleProvider: React.FC<Props> = ({ children, json, onError, url }) => {
   const forceFetch = url !== undefined;
-  const client = useMemo(() => new CustomClient('staging', json, forceFetch), [
-    forceFetch,
-    json,
-  ]);
+  const client = useMemo(
+    () => new CustomClient('staging', json, forceFetch, onError),
+    [forceFetch, json, onError],
+  );
   return <SmartCardProvider client={client}>{children}</SmartCardProvider>;
 };
 
@@ -36,10 +37,10 @@ const UpdateJson: React.FC<{
 const withExampleProvider = <P extends object>(
   Component: React.ComponentType<P>,
 ): React.FC<P & Props> => (props) => {
-  const { json, onResolve, url } = props;
+  const { json, onError, onResolve, url } = props;
 
   return (
-    <ExampleProvider json={json} url={url}>
+    <ExampleProvider json={json} onError={onError} url={url}>
       <UpdateJson onResolve={onResolve} url={url} />
       <Component {...props} />
     </ExampleProvider>

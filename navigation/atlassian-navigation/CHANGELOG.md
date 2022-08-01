@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.5
+
+### Patch Changes
+
+- [`deeaf03eb21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deeaf03eb21) - Fix an issue where ProductHome rendered incorrectly in Safari
+
 ## 2.2.4
 
 ### Patch Changes

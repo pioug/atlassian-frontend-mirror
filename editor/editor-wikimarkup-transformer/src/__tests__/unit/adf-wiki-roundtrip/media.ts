@@ -104,4 +104,28 @@ describe('WikiMarkup => ADF - Media', () => {
     const adf = transformer.parse(wiki, wikiContext);
     expect(adf.toJSON()).toEqual(expected.toJSON());
   });
+  test('should provide default width and height to images', () => {
+    const wiki = `!https://example.org/image.png!`;
+    const adf = transformer.parse(wiki, wikiContext);
+    expect(adf.toJSON().content[0]?.content[0]?.attrs?.width).toEqual(200);
+    expect(adf.toJSON().content[0]?.content[0]?.attrs?.height).toEqual(183);
+  });
+  test('should accept default width and height to images', () => {
+    const wiki = `!https://example.org/image.png!`;
+    const adf = transformer.parse(wiki, {
+      ...wikiContext,
+      defaults: { media: { width: 123, height: 321 } },
+    });
+    expect(adf.toJSON().content[0]?.content[0]?.attrs?.width).toEqual(123);
+    expect(adf.toJSON().content[0]?.content[0]?.attrs?.height).toEqual(321);
+  });
+  test('should optionally suppress default width and height to images', () => {
+    const wiki = `!https://example.org/image.png!`;
+    const adf = transformer.parse(wiki, {
+      ...wikiContext,
+      defaults: { media: { width: null, height: null } },
+    });
+    expect(adf.toJSON().content[0]?.content[0]?.attrs?.width).toBeNull();
+    expect(adf.toJSON().content[0]?.content[0]?.attrs?.height).toBeNull();
+  });
 });

@@ -20,7 +20,6 @@ export const AVATAR_PADDING = 6;
 export const INDICATOR_WIDTH = 39;
 const TOTAL_PADDING_TAG_TO_CONTAINER = 10;
 const TAG_MARGIN_WIDTH = 4;
-const PLACEHOLDER_MARGIN = 2;
 
 export const getStyles = memoizeOne(
   (
@@ -185,7 +184,6 @@ export const getStyles = memoizeOne(
         /* Necessary to make input height and tag height the same. */
         marginBottom: TAG_MARGIN_WIDTH,
         marginTop: TAG_MARGIN_WIDTH,
-        marginLeft: PLACEHOLDER_MARGIN,
         /* Padding top and bottom of 2 is set by default. */
         paddingTop: 0,
         paddingBottom: 0,

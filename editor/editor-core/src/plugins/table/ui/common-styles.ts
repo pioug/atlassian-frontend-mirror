@@ -578,6 +578,8 @@ export const tableStyles = (props: ThemeProps) => css`
     /* Table */
     .${ClassName.TABLE_NODE_WRAPPER} > table {
       table-layout: fixed;
+      // Fixes Chrome border clipping bug ED-15245
+      background: ${tableBorderColor(props)};
 
       .${ClassName.COLUMN_CONTROLS_DECORATIONS} + * {
         margin-top: 0;

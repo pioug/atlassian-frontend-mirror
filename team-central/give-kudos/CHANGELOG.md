@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 0.6.0
+
+### Minor Changes
+
+- [`5f8c2104be0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8c2104be0) - [ux] Add icon to kudos created flag and increase kudos drawer z index
+
 ## 0.5.0
 
 ### Minor Changes

@@ -103,6 +103,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       onClose={hideCard}
       placement="bottom-start"
       offset={popupOffset.current}
+      autoFocus={false}
       content={({ update }) => (
         <div
           onMouseEnter={initShowCard}

@@ -13,6 +13,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
+import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -21,6 +22,9 @@ import Modal, {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Portal from '@atlaskit/portal';
+import { G300 } from '@atlaskit/theme/colors';
+import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
 import { GiveKudosDrawerProps } from '../../types';
@@ -108,7 +112,12 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
                 }}
               />
             ),
-            icon: <></>,
+            icon: (
+              <SuccessIcon
+                label="success"
+                primaryColor={token('color.icon.success', G300)}
+              />
+            ),
           });
       } else if (event.data === 'dirty') {
         setIsDirty(true);
@@ -228,7 +237,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   )}`;
 
   return (
-    <Portal>
+    <Portal zIndex={layers.modal()}>
       <GiveKudosDrawerWrapper data-testid={testId}>
         <ModalTransition>
           {isCloseConfirmModalOpen && (

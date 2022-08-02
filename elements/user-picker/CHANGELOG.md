@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.3.1
+
+### Patch Changes
+
+- [`fd025cbb820`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd025cbb820) - [ux] Fix input cursor position relative to the placeholder
+
 ## 9.3.0
 
 ### Minor Changes

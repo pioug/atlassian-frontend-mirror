@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 11.6.1
+
+### Patch Changes
+
+- [`a19199a0c68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a19199a0c68) - Mark `isOpen` and `innerRef` props on @atlaskit/banner as deprecated.
+
 ## 11.6.0
 
 ### Minor Changes

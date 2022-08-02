@@ -83,10 +83,16 @@ interface BannerProps {
    */
   icon?: React.ReactChild;
   /**
+   * @deprecated
+   * @see https://hello.atlassian.net/wiki/spaces/DST/pages/1724409294/RFC+Deprecating+props+isOpen+and+innerRef+in+atlaskit+banner
+   *
    * Defines whether the banner is shown. An animation is used when the value is changed.
    */
   isOpen?: boolean;
   /**
+   * @deprecated
+   * @see https://hello.atlassian.net/wiki/spaces/DST/pages/1724409294/RFC+Deprecating+props+isOpen+and+innerRef+in+atlaskit+banner
+   *
    * Returns the inner ref of the component. This is exposed so the height can be used in page.
    */
   innerRef?: (element: HTMLElement) => void;

@@ -33,6 +33,13 @@ tester.run('no-deprecated-imports', rule, {
         </SomeUsage>
       );`,
     },
+    {
+      code: `import { SomeElement } from 'some-other-library';
+
+      const Element = () => (
+        <SomeElement isOpen innerRef={() => 'hi'} />
+      );`,
+    },
   ],
   invalid: [
     {
@@ -72,6 +79,22 @@ tester.run('no-deprecated-imports', rule, {
 
       const Element = () => (
         <ButtonItem overrides={{ Item: { cssFn }}} />
+      );`,
+      errors: [{ messageId: 'noDeprecatedApis' }],
+    },
+    {
+      code: `import Banner from '@atlaskit/banner';
+
+      const Element = () => (
+        <Banner isOpen />
+      );`,
+      errors: [{ messageId: 'noDeprecatedApis' }],
+    },
+    {
+      code: `import Banner from '@atlaskit/banner';
+
+      const Element = () => (
+        <Banner innerRef={() => 'hi'} />
       );`,
       errors: [{ messageId: 'noDeprecatedApis' }],
     },

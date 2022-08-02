@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 171.0.1
+
+### Patch Changes
+
+- [`e4d5a7638c4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4d5a7638c4) - Fix table border issue on chrome 104 by adding background color to table
+
 ## 171.0.0
 
 ### Patch Changes

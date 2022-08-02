@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-deprecated-apis */
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import Banner from '@atlaskit/banner';
@@ -31,6 +32,7 @@ const NavigationExample = () => {
     if (isAnnouncementBannerOpen) {
       offset += announcementBannerHeight;
     }
+
     return offset;
   }, [isAnnouncementBannerOpen, isErrorBannerOpen]);
 

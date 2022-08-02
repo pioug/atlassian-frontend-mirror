@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.7.1
+
+### Patch Changes
+
+- [`37ac5652977`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37ac5652977) - Mark `isOpen` and `innerRef` props on @atlaskit/banner as deprecated.
+
 ## 4.7.0
 
 ### Minor Changes

@@ -14,11 +14,18 @@ const unsafeOverridesConfig = {
     '@atlaskit/menu',
     '@atlaskit/side-navigation',
   ],
+  innerRef: ['@atlaskit/banner'],
+  isOpen: ['@atlaskit/banner'],
 };
 
 type BannedAPIs = keyof typeof unsafeOverridesConfig;
 
-const unsafeOverrides: BannedAPIs[] = ['cssFn', 'overrides'];
+const unsafeOverrides: BannedAPIs[] = [
+  'cssFn',
+  'overrides',
+  'innerRef',
+  'isOpen',
+];
 
 const rule: Rule.RuleModule = {
   meta: {

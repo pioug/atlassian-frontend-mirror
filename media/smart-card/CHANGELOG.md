@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 21.0.1
+
+### Patch Changes
+
+- [`919a3124eb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919a3124eb8) - turn off autofocus for hover card
+
 ## 21.0.0
 
 ### Patch Changes

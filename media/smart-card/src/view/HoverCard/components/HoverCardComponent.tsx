@@ -23,7 +23,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const fadeOutTimeoutId = useRef<NodeJS.Timeout>();
   const fadeInTimeoutId = useRef<NodeJS.Timeout>();
   const cardOpenTime = useRef<number>();
-  const mousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const mousePos = useRef<{ x: number; y: number }>();
   const popupOffset = useRef<[number, number]>();
   const parentSpan = useRef<HTMLSpanElement>(null);
 
@@ -31,6 +31,16 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const linkState = useLinkState(url);
   const hoverDisplay = 'card';
   const invokeMethod = 'mouse_hover';
+
+  const setMousePosition = useCallback(
+    (event) => {
+      if (isOpen) {
+        return;
+      }
+      mousePos.current = { x: event.clientX, y: event.clientY };
+    },
+    [isOpen],
+  );
 
   const hideCard = useCallback(() => {
     //Check its previously open to avoid firing events when moving between the child and hover card components
@@ -48,26 +58,32 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     fadeOutTimeoutId.current = setTimeout(() => hideCard(), delay);
   }, [hideCard]);
 
-  const initShowCard = useCallback(() => {
-    if (fadeOutTimeoutId.current) {
-      clearTimeout(fadeOutTimeoutId.current);
-    }
-    fadeInTimeoutId.current = setTimeout(() => {
-      //Check if its previously closed to avoid firing events when moving between the child and hover card components
-      if (isOpen === false) {
-        cardOpenTime.current = Date.now();
-        analytics.ui.hoverCardViewedEvent(hoverDisplay, invokeMethod);
+  const initShowCard = useCallback(
+    (event) => {
+      if (fadeOutTimeoutId.current) {
+        clearTimeout(fadeOutTimeoutId.current);
       }
-      if (parentSpan.current) {
-        const { bottom, left } = parentSpan.current.getBoundingClientRect();
-        popupOffset.current = [
-          mousePos.current.x - left,
-          mousePos.current.y - bottom + CARD_GAP_PX,
-        ];
-      }
-      setIsOpen(true);
-    }, delay);
-  }, [delay, isOpen, analytics.ui]);
+      //Set mouse position in the case it's not already set by onMouseMove, as in the case of scrolling
+      setMousePosition(event);
+      fadeInTimeoutId.current = setTimeout(() => {
+        //Check if its previously closed to avoid firing events when moving between the child and hover card components
+        if (isOpen === false) {
+          cardOpenTime.current = Date.now();
+          analytics.ui.hoverCardViewedEvent(hoverDisplay, invokeMethod);
+        }
+        //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
+        if (parentSpan.current && mousePos.current) {
+          const { bottom, left } = parentSpan.current.getBoundingClientRect();
+          popupOffset.current = [
+            mousePos.current.x - left,
+            mousePos.current.y - bottom + CARD_GAP_PX,
+          ];
+        }
+        setIsOpen(true);
+      }, delay);
+    },
+    [isOpen, setMousePosition, analytics.ui],
+  );
 
   const linkActions = useSmartLinkActions({
     url,
@@ -81,16 +97,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       }
     },
     [hideCard],
-  );
-
-  const setMousePosition = useCallback(
-    (event) => {
-      if (isOpen) {
-        return;
-      }
-      mousePos.current = { x: event.clientX, y: event.clientY };
-    },
-    [isOpen],
   );
 
   // Stop hover preview content to propagate event to parent.

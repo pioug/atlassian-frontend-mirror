@@ -545,6 +545,221 @@ describe('providers > editor', () => {
       const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedEmbedAdf(url));
     });
+
+    it('should use the appearance associated with the preference containing the longest urlSegment that matches the url', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com',
+                  appearance: 'block',
+                },
+                {
+                  urlSegment: 'box.com/s',
+                  appearance: 'embed',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://app.box.com/s/yyr1vmw55haa09jnuj439amf0w7r5q1b';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedEmbedAdf(url));
+    });
+
+    it('should match a urlSegment as full word prior to location of urlSegment', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://dropbox.com/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should match a urlSegment as full word at the start of the url', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'box.com/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedBlockAdf(url));
+    });
+
+    it('should match a urlSegment as full word after the location of urlSegment', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://box.community/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should match a urlSegment as full word at the end of the url', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com/foo/bar/index.html',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://box.com/foo/bar/index.html';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedBlockAdf(url));
+    });
+
+    it('should match urlSegment to url of subdomain', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://app.box.com/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedBlockAdf(url));
+    });
+
+    it('should escape the url segment', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'inline',
+              appearances: [
+                {
+                  urlSegment: 'box.com',
+                  appearance: 'block',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      // If the '.' was not escaped it would match any character literally.
+      const url = 'https://boxacom/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
   });
 
   describe('when consumer calls function without shouldForceAppearance argument defined', () => {

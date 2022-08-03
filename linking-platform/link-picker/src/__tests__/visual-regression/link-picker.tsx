@@ -185,6 +185,24 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  it('Should render tabs with multiple plugins', async () => {
+    const url = getURL('vr-multiple-plugins');
+    const page = await setup(url);
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Should render tabs with multiple plugins and select second tab', async () => {
+    const url = getURL('vr-multiple-plugins');
+    const page = await setup(url);
+
+    await page.click('#link-picker-tabs-1');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
   it('Should provide an error message when an error is caught in the error boundary', async () => {
     const url = getURL('root-error-boundary');
     const page = await setup(url);

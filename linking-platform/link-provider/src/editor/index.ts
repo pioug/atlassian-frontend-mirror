@@ -119,7 +119,9 @@ export class EditorCardProvider implements CardProvider {
   }
 
   private doesUrlMatchPath(path: string, url: string) {
-    return url.includes(path);
+    const escapedPath = path.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const regexPattern = new RegExp(`(^|\\W)${escapedPath}($|\\W)`);
+    return regexPattern.test(url);
   }
 
   private async findUserPreference(
@@ -132,12 +134,21 @@ export class EditorCardProvider implements CardProvider {
     const userPreferences = this.providersData?.userPreferences;
     if (userPreferences) {
       const { defaultAppearance, appearances } = userPreferences;
-      const matchedLabeledAppearance = appearances.find(({ urlSegment }) =>
-        this.doesUrlMatchPath(urlSegment, url),
+      const allMatchedLabeledAppearances = appearances.filter(
+        ({ urlSegment }) => this.doesUrlMatchPath(urlSegment, url),
       );
-      if (matchedLabeledAppearance) {
-        return matchedLabeledAppearance.appearance;
+
+      if (allMatchedLabeledAppearances.length > 0) {
+        const longestMatchedLabeledAppearance = allMatchedLabeledAppearances.reduce(
+          (previousLabeledAppearance, currentLabeledAppearance) =>
+            previousLabeledAppearance.urlSegment.length >
+            currentLabeledAppearance.urlSegment.length
+              ? previousLabeledAppearance
+              : currentLabeledAppearance,
+        );
+        return longestMatchedLabeledAppearance.appearance;
       }
+
       if (defaultAppearance !== 'inline') {
         return defaultAppearance;
       }

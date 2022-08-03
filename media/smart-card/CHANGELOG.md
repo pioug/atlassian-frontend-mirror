@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 21.0.2
+
+### Patch Changes
+
+- [`0a08e95af20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0a08e95af20) - fix bug where scrolling onto an inline link opens hover card in unexpected locations
+
 ## 21.0.1
 
 ### Patch Changes

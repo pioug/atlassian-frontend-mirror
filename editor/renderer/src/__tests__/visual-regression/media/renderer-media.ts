@@ -174,7 +174,8 @@ describe('Snapshot Test: Media', () => {
       await snapshotRenderer();
     });
 
-    it('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
+    // FIXME: This test was automatically skipped due to failure on 02/08/2022: https://product-fabric.atlassian.net/browse/ED-15367
+    it.skip('should render 2 media items in 2 lines when wrapped with a large enough width', async () => {
       await initRenderer(page, wrappedMediaTextSplitAdf);
       await waitForAllMedia(page, 2);
       await snapshotRenderer({

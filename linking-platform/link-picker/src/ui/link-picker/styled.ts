@@ -35,3 +35,8 @@ export const listTitleStyles = css`
   text-transform: uppercase;
   margin-bottom: ${gridSize() / 2}px;
 `;
+
+export const tabsWrapperStyles = css`
+  margin-left: -${gridSize()}px;
+  margin-right: -${gridSize()}px;
+`;

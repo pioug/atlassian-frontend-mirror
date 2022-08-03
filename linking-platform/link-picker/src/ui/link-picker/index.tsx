@@ -3,6 +3,12 @@ import { KeyboardEvent, useCallback, useReducer } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
 
+import Button, { ButtonGroup } from '@atlaskit/button';
+import { FormFooter } from '@atlaskit/form';
+import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import Tabs, { Tab, TabList } from '@atlaskit/tabs';
+import VisuallyHidden from '@atlaskit/visually-hidden';
+
 import {
   LinkSearchListItemData,
   LinkInputType,
@@ -16,16 +22,11 @@ import {
   rootContainerStyles,
   searchIconStyles,
   listTitleStyles,
+  tabsWrapperStyles,
 } from './styled';
 import { browser } from './browser';
 import { transformTimeStamp } from './transformTimeStamp';
-import Announcer from './/announcer';
-
-import Button, { ButtonGroup } from '@atlaskit/button';
-import { FormFooter } from '@atlaskit/form';
-import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
-import Tabs, { Tab, TabList } from '@atlaskit/tabs';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import Announcer from './announcer';
 import LinkSearchNoResults from './link-search-no-results';
 import { usePlugins } from '../../services/use-plugins';
 
@@ -345,26 +346,28 @@ function LinkPicker({
         onChange={handleChangeText}
       />
       {tabs.length > 0 && (
-        <Tabs
-          id={testIds.tabList}
-          testId={testIds.tabList}
-          onChange={activeTab =>
-            dispatch({
-              selectedIndex: -1,
-              activeIndex: -1,
-              invalidUrl: false,
-              activeTab,
-            })
-          }
-        >
-          <TabList>
-            {tabs.map(tab => (
-              <Tab key={tab.tabTitle} testId={testIds.tabItem}>
-                {tab.tabTitle}
-              </Tab>
-            ))}
-          </TabList>
-        </Tabs>
+        <div css={tabsWrapperStyles}>
+          <Tabs
+            id={testIds.tabList}
+            testId={testIds.tabList}
+            onChange={activeTab =>
+              dispatch({
+                selectedIndex: -1,
+                activeIndex: -1,
+                invalidUrl: false,
+                activeTab,
+              })
+            }
+          >
+            <TabList>
+              {tabs.map(tab => (
+                <Tab key={tab.tabTitle} testId={testIds.tabItem}>
+                  {tab.tabTitle}
+                </Tab>
+              ))}
+            </TabList>
+          </Tabs>
+        </div>
       )}
       {!!items.length && (
         <div

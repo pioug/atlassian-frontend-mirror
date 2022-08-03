@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.5.1
+
+### Patch Changes
+
+- [`99dba1b6364`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99dba1b6364) - [ux] Fix the tab margin in Link Picker
+
 ## 1.5.0
 
 ### Minor Changes

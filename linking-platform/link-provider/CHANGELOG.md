@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.2.1
+
+### Patch Changes
+
+- [`0c7b099146e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c7b099146e) - Improve path matching of user link preferences
+
 ## 1.2.0
 
 ### Minor Changes

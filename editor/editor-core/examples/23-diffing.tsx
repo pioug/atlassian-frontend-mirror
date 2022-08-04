@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/standard-button';
 import TextArea from '@atlaskit/textarea';
 import { codeFontFamily } from '@atlaskit/theme/constants';
 import { N900, N10, N40, G75, R75 } from '@atlaskit/theme/colors';
-import { diffLines } from 'diff';
+import { diffLines, Change } from 'diff';
 
 const container = css`
   display: flex;
@@ -78,16 +78,9 @@ const label = css`
   padding-top: 1em;
 `;
 
-type LineDiff = {
-  value: string;
-  count: number;
-  added?: boolean;
-  removed?: boolean;
-};
-
 type State = {
   editMode: boolean;
-  diffs: LineDiff[];
+  diffs: Change[];
   documentOne: string;
   documentTwo: string;
 };
@@ -120,7 +113,7 @@ export default class DiffingExample extends React.Component<null, State> {
     this.setState({ documentTwo: e.target.value });
   };
 
-  renderDiff = (diffs: LineDiff[]): ReactNode[] =>
+  renderDiff = (diffs: Change[]): ReactNode[] =>
     diffs.map((diff, idx) => {
       let LineComponent = Line;
       if (diff.added) {

@@ -90,7 +90,7 @@ describe('ShareForm', () => {
         isLoading: false,
         children: (
           <>
-            {submitButtonLabel || <FormattedMessage {...messages.formSend} />}
+            {submitButtonLabel || <FormattedMessage {...messages.formShare} />}
           </>
         ),
       });

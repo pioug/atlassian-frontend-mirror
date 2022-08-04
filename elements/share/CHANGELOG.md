@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.3.0
+
+### Minor Changes
+
+- [`3f35716fe41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f35716fe41) - [ux] changed share dialogue button to 'share' from 'send'
+
 ## 3.2.6
 
 ### Patch Changes

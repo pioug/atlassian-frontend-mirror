@@ -190,7 +190,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     const formPublicLabel = tabMode
       ? messages.formSharePublic
       : messages.formSendPublic;
-    const formSendLabel = tabMode ? messages.formShare : messages.formSend;
+    const formSendLabel = messages.formShare;
     const sendLabel = isPublicLink ? formPublicLabel : formSendLabel;
     const buttonLabel = shareError ? messages.formRetry : sendLabel;
     const ButtonLabelWrapper =

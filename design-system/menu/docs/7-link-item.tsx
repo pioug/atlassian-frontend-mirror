@@ -28,15 +28,15 @@ import { LinkItem } from '@atlaskit/menu';
   ${(
     <Example
       title="Link item"
-      Component={require('../examples/link-item.tsx').default}
-      source={require('!!raw-loader!../examples/link-item.tsx')}
+      Component={require('../examples/link-item').default}
+      source={require('!!raw-loader!../examples/link-item')}
     />
   )}
 
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/link-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/link-item')}
     />
   )}
 `;

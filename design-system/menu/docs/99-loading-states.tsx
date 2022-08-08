@@ -16,8 +16,8 @@ export default md`
   ${(
     <Example
       title="Loading skeleton"
-      Component={require('../examples/loading-skeleton.tsx').default}
-      source={require('!!raw-loader!../examples/loading-skeleton.tsx')}
+      Component={require('../examples/loading-skeleton').default}
+      source={require('!!raw-loader!../examples/loading-skeleton')}
     />
   )}
 `;

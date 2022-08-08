@@ -17,8 +17,8 @@ import { NavigationFooter, Footer } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/navigation-footer.tsx').default}
-      source={require('!!raw-loader!../examples/navigation-footer.tsx')}
+      Component={require('../examples/navigation-footer').default}
+      source={require('!!raw-loader!../examples/navigation-footer')}
     />
   )}
 

@@ -3,7 +3,7 @@
  *
  * Token names mapped to their value in the default Atlassian theme ('light')
  *
- * @codegen <<SignedSource::621a5ab1342cac3bcd8fb719515b731c>>
+ * @codegen <<SignedSource::bf85c12f621d58ae427a6fd99c62fd24>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -28,7 +28,7 @@ const defaultTokenValues = {
   'color.text': '#172B4D',
   'color.text.subtle': '#44546F',
   'color.text.subtlest': '#626F86',
-  'color.text.disabled': '#8993A5',
+  'color.text.disabled': '#091E424F',
   'color.text.inverse': '#FFFFFF',
   'color.text.brand': '#0C66E4',
   'color.text.selected': '#0C66E4',
@@ -57,7 +57,7 @@ const defaultTokenValues = {
   'color.icon': '#44546F',
   'color.icon.subtle': '#626F86',
   'color.icon.inverse': '#FFFFFF',
-  'color.icon.disabled': '#8993A5',
+  'color.icon.disabled': '#091E424F',
   'color.icon.brand': '#0C66E4',
   'color.icon.selected': '#0C66E4',
   'color.icon.danger': '#E34935',
@@ -142,7 +142,7 @@ const defaultTokenValues = {
   'color.background.accent.gray.subtler': '#DCDFE4',
   'color.background.accent.gray.subtle': '#8993A5',
   'color.background.accent.gray.bolder': '#626F86',
-  'color.background.disabled': '#091E420F',
+  'color.background.disabled': '#091E4208',
   'color.background.inverse.subtle': '#00000029',
   'color.background.inverse.subtle.hovered': '#0000003D',
   'color.background.inverse.subtle.pressed': '#00000052',

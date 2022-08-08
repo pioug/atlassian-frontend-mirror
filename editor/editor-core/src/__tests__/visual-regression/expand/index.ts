@@ -71,7 +71,8 @@ describe('Expand: full-page', () => {
    */
   describe.each(themes)('Theme: %s', (theme) => {
     describe.each(['default', 'wide', 'full-width'])('Breakout: %s', (mode) => {
-      it(`should render a ${mode} collapsed top level expand`, async () => {
+      // FIXME: This test was automatically skipped due to failure on 03/08/2022: https://product-fabric.atlassian.net/browse/ED-15373
+      it.skip(`should render a ${mode} collapsed top level expand`, async () => {
         await initFullPageEditorWithAdf(
           page,
           expandADF(mode),

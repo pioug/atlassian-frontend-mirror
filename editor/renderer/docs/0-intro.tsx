@@ -64,9 +64,9 @@ ReactDOM.render(<ReactRenderer document={DOCUMENT} truncated={true} maxHeight={7
 
 ${(
   <Example
-    Component={require('../examples/15-truncated.tsx').default}
+    Component={require('../examples/15-truncated').default}
     title="Truncated"
-    source={require('!!raw-loader!../examples/15-truncated.tsx')}
+    source={require('!!raw-loader!../examples/15-truncated')}
   />
 )}
 

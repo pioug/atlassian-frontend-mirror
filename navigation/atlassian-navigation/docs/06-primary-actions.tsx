@@ -21,8 +21,8 @@ import { PrimaryButton } from '@atlaskit/atlassian-navigation';
   ${(
     <Example
       title="Primary button"
-      Component={require('../examples/primary-button.tsx').default}
-      source={require('!!raw-loader!../examples/primary-button.tsx')}
+      Component={require('../examples/primary-button').default}
+      source={require('!!raw-loader!../examples/primary-button')}
     />
   )}
 
@@ -48,8 +48,8 @@ import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation';
   ${(
     <Example
       title="Primary dropdown button"
-      Component={require('../examples/primary-dropdown-button.tsx').default}
-      source={require('!!raw-loader!../examples/primary-dropdown-button.tsx')}
+      Component={require('../examples/primary-dropdown-button').default}
+      source={require('!!raw-loader!../examples/primary-dropdown-button')}
     />
   )}
 

@@ -203,7 +203,7 @@ const gapMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cd05b856816392f4ac8e227854831f76>>
+ * @codegen <<SignedSource::f48a8ffccf0c385e9e05322037509c45>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background"]
@@ -211,6 +211,9 @@ const gapMap = {
 const borderColorMap = {
   default: css({
     borderColor: token('color.border', '#091E4224'),
+  }),
+  bold: css({
+    borderColor: token('color.border.bold', '#758195'),
   }),
   inverse: css({
     borderColor: token('color.border.inverse', '#FFFFFF'),
@@ -251,7 +254,7 @@ type BorderColor = keyof typeof borderColorMap;
 
 const backgroundColorMap = {
   disabled: css({
-    backgroundColor: token('color.background.disabled', '#091E420F'),
+    backgroundColor: token('color.background.disabled', '#091E4208'),
   }),
   'inverse.subtle': css({
     backgroundColor: token('color.background.inverse.subtle', '#00000029'),

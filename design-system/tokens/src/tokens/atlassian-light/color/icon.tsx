@@ -13,7 +13,7 @@ const color: ValueSchema<IconColorTokenSchema> = {
         value: 'N0',
       },
       disabled: {
-        value: 'N500',
+        value: 'N400A',
       },
       brand: {
         value: 'B700',

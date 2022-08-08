@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c45a3bc7ab921b5a279f8b05f859f21b>>
+ * @codegen <<SignedSource::2d1a0dfbc05adf2fcb798f5a600f0b29>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -593,7 +593,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for text in a disabled state."
     },
-    "value": "#596773",
+    "value": "#BFDBF847",
     "filePath": "src/tokens/atlassian-dark/color/text.tsx",
     "isSource": true,
     "original": {
@@ -603,7 +603,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text in a disabled state."
       },
-      "value": "DN500"
+      "value": "DN400A"
     },
     "name": "color.text.disabled",
     "path": [
@@ -1402,7 +1402,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for icons in a disabled state."
     },
-    "value": "#596773",
+    "value": "#BFDBF847",
     "filePath": "src/tokens/atlassian-dark/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -1412,7 +1412,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons in a disabled state."
       },
-      "value": "DN500"
+      "value": "DN400A"
     },
     "name": "color.icon.disabled",
     "path": [
@@ -3835,7 +3835,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for backgrounds of elements in a disabled state."
     },
-    "value": "#A1BDD914",
+    "value": "#BCD6F00A",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3845,7 +3845,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for backgrounds of elements in a disabled state."
       },
-      "value": "DN200A"
+      "value": "DN100A"
     },
     "name": "color.background.disabled",
     "path": [

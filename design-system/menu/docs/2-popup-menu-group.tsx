@@ -19,15 +19,15 @@ import { PopupMenuGroup } from '@atlaskit/menu';
   ${(
     <Example
       title="Variable width menu"
-      Component={require('../examples/growing-menu.tsx').default}
-      source={require('!!raw-loader!../examples/growing-menu.tsx')}
+      Component={require('../examples/growing-menu').default}
+      source={require('!!raw-loader!../examples/growing-menu')}
     />
   )}
 
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-section/menu-group.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-section/menu-group')}
     />
   )}
 `;

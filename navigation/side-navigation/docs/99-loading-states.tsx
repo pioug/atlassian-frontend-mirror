@@ -47,8 +47,8 @@ import {
   ${(
     <Example
       title=""
-      Component={require('../examples/07-loading-section.tsx').default}
-      source={require('!!raw-loader!../examples/07-loading-section.tsx')}
+      Component={require('../examples/07-loading-section').default}
+      source={require('!!raw-loader!../examples/07-loading-section')}
     />
   )}
 
@@ -88,8 +88,8 @@ import { SectionHeading, SkeletonItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/08-suspense-loading-section.tsx').default}
-      source={require('!!raw-loader!../examples/08-suspense-loading-section.tsx')}
+      Component={require('../examples/08-suspense-loading-section').default}
+      source={require('!!raw-loader!../examples/08-suspense-loading-section')}
     />
   )}
 `;

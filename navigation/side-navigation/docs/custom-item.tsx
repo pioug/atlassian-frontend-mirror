@@ -30,8 +30,8 @@ const Container = (props: CustomItemComponentProps) => {
   ${(
     <Example
       title=""
-      Component={require('../examples/custom-item.tsx').default}
-      source={require('!!raw-loader!../examples/custom-item.tsx')}
+      Component={require('../examples/custom-item').default}
+      source={require('!!raw-loader!../examples/custom-item')}
     />
   )}
 

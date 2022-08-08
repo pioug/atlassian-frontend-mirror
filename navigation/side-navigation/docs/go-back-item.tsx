@@ -16,8 +16,8 @@ import { GoBackItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/go-back-item.tsx').default}
-      source={require('!!raw-loader!../examples/go-back-item.tsx')}
+      Component={require('../examples/go-back-item').default}
+      source={require('!!raw-loader!../examples/go-back-item')}
     />
   )}
 

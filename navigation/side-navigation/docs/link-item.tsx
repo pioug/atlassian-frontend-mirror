@@ -24,8 +24,8 @@ import { LinkItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/link-item.tsx').default}
-      source={require('!!raw-loader!../examples/link-item.tsx')}
+      Component={require('../examples/link-item').default}
+      source={require('!!raw-loader!../examples/link-item')}
     />
   )}
 

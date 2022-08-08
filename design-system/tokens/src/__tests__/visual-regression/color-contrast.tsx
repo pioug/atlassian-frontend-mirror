@@ -2,6 +2,7 @@ import {
   checkColorContrast,
   toHaveNoViolations,
 } from '@af/accessibility-testing';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 expect.extend(toHaveNoViolations);

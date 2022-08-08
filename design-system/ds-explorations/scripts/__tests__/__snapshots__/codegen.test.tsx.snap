@@ -3,7 +3,7 @@
 exports[`@atlaskit/design-system-explorations bg styles are generated correctly 1`] = `
 "const backgroundColorMap = {
   disabled: css({
-    backgroundColor: token('color.background.disabled', '#091E420F'),
+    backgroundColor: token('color.background.disabled', '#091E4208'),
   }),
   'inverse.subtle': css({
     backgroundColor: token('color.background.inverse.subtle', '#00000029'),
@@ -124,7 +124,7 @@ exports[`@atlaskit/design-system-explorations text styles are generated correctl
     color: token('color.text.subtlest', '#626F86'),
   }),
   disabled: css({
-    color: token('color.text.disabled', '#8993A5'),
+    color: token('color.text.disabled', '#091E424F'),
   }),
   inverse: css({
     color: token('color.text.inverse', '#FFFFFF'),

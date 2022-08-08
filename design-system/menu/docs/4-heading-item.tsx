@@ -19,15 +19,15 @@ import { HeadingItem } from '@atlaskit/menu';
   ${(
     <Example
       title="Heading item"
-      Component={require('../examples/heading-item.tsx').default}
-      source={require('!!raw-loader!../examples/heading-item.tsx')}
+      Component={require('../examples/heading-item').default}
+      source={require('!!raw-loader!../examples/heading-item')}
     />
   )}
 
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/heading-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/heading-item')}
     />
   )}
 `;

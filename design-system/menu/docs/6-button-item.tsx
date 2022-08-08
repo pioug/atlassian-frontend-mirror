@@ -27,15 +27,15 @@ import { ButtonItem } from '@atlaskit/menu';
   ${(
     <Example
       title="Button item"
-      Component={require('../examples/button-item.tsx').default}
-      source={require('!!raw-loader!../examples/button-item.tsx')}
+      Component={require('../examples/button-item').default}
+      source={require('!!raw-loader!../examples/button-item')}
     />
   )}
 
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/button-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/button-item')}
     />
   )}
 `;

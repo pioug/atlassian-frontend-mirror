@@ -66,7 +66,7 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::588616346f4a4bd0abb93bf324335944>>
+ * @codegen <<SignedSource::85816aeddf2947ff7678c0c551db336c>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
@@ -82,7 +82,7 @@ const textColorMap = {
     color: token('color.text.subtlest', '#626F86'),
   }),
   disabled: css({
-    color: token('color.text.disabled', '#8993A5'),
+    color: token('color.text.disabled', '#091E424F'),
   }),
   inverse: css({
     color: token('color.text.inverse', '#FFFFFF'),

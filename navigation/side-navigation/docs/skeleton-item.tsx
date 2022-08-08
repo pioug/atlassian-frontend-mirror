@@ -15,8 +15,8 @@ import { SkeletonItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/skeleton-item.tsx').default}
-      source={require('!!raw-loader!../examples/skeleton-item.tsx')}
+      Component={require('../examples/skeleton-item').default}
+      source={require('!!raw-loader!../examples/skeleton-item')}
     />
   )}
 

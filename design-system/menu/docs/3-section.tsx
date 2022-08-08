@@ -22,8 +22,8 @@ import { Section } from '@atlaskit/menu';
   ${(
     <Example
       title="Section with Heading"
-      Component={require('../examples/section-with-heading.tsx').default}
-      source={require('!!raw-loader!../examples/section-with-heading.tsx')}
+      Component={require('../examples/section-with-heading').default}
+      source={require('!!raw-loader!../examples/section-with-heading')}
     />
   )}
 
@@ -60,8 +60,8 @@ import { Section } from '@atlaskit/menu';
   ${(
     <Example
       title="Scrollable sections"
-      Component={require('../examples/scrollable-sections.tsx').default}
-      source={require('!!raw-loader!../examples/scrollable-sections.tsx')}
+      Component={require('../examples/scrollable-sections').default}
+      source={require('!!raw-loader!../examples/scrollable-sections')}
     />
   )}
 
@@ -103,14 +103,14 @@ import { HeadingItem } from '@atlaskit/menu';
   ${(
     <Props
       heading="Section Props"
-      props={require('!!extract-react-types-loader!../src/menu-section/section.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-section/section')}
     />
   )}
 
   ${(
     <Props
       heading="Heading Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/heading-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/heading-item')}
     />
   )}
 

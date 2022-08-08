@@ -42,8 +42,8 @@ import {
   ${(
     <Example
       title="Menu"
-      Component={require('../examples/menu.tsx').default}
-      source={require('!!raw-loader!../examples/menu.tsx')}
+      Component={require('../examples/menu').default}
+      source={require('!!raw-loader!../examples/menu')}
     />
   )}
 `;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3624adf3c629ed50172b90c1d2268662>>
+ * @codegen <<SignedSource::fc44c853b0acd381a2c5fd8f63ae1bf6>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -593,7 +593,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for text in a disabled state."
     },
-    "value": "#8993A5",
+    "value": "#091E424F",
     "filePath": "src/tokens/atlassian-light/color/text.tsx",
     "isSource": true,
     "original": {
@@ -603,7 +603,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for text in a disabled state."
       },
-      "value": "N500"
+      "value": "N400A"
     },
     "name": "color.text.disabled",
     "path": [
@@ -1402,7 +1402,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for icons in a disabled state."
     },
-    "value": "#8993A5",
+    "value": "#091E424F",
     "filePath": "src/tokens/atlassian-light/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -1412,7 +1412,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons in a disabled state."
       },
-      "value": "N500"
+      "value": "N400A"
     },
     "name": "color.icon.disabled",
     "path": [
@@ -3835,7 +3835,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for backgrounds of elements in a disabled state."
     },
-    "value": "#091E420F",
+    "value": "#091E4208",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3845,7 +3845,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for backgrounds of elements in a disabled state."
       },
-      "value": "N200A"
+      "value": "N100A"
     },
     "name": "color.background.disabled",
     "path": [

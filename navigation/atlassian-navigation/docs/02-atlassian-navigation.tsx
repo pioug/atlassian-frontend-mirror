@@ -24,8 +24,8 @@ import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
   ${(
     <Example
       title="Atlassian navigation"
-      Component={require('../examples/barebones.tsx').default}
-      source={require('!!raw-loader!../examples/barebones.tsx')}
+      Component={require('../examples/barebones').default}
+      source={require('!!raw-loader!../examples/barebones')}
     />
   )}
 

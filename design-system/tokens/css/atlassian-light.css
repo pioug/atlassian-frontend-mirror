@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5cbe2fca5facc8e88dc6c1e0606e6881>>
+ * @codegen <<SignedSource::f188dd3bf2da5dc22166cc13f91c1373>>
  * @codegenCommand yarn build tokens
  */
 html[data-theme="light"] {
@@ -25,7 +25,7 @@ html[data-theme="light"] {
   --ds-text: #172B4D;
   --ds-text-subtle: #44546F;
   --ds-text-subtlest: #626F86;
-  --ds-text-disabled: #8993A5;
+  --ds-text-disabled: #091E424F;
   --ds-text-inverse: #FFFFFF;
   --ds-text-brand: #0C66E4;
   --ds-text-selected: #0C66E4;
@@ -54,7 +54,7 @@ html[data-theme="light"] {
   --ds-icon: #44546F;
   --ds-icon-subtle: #626F86;
   --ds-icon-inverse: #FFFFFF;
-  --ds-icon-disabled: #8993A5;
+  --ds-icon-disabled: #091E424F;
   --ds-icon-brand: #0C66E4;
   --ds-icon-selected: #0C66E4;
   --ds-icon-danger: #E34935;
@@ -139,7 +139,7 @@ html[data-theme="light"] {
   --ds-background-accent-gray-subtler: #DCDFE4;
   --ds-background-accent-gray-subtle: #8993A5;
   --ds-background-accent-gray-bolder: #626F86;
-  --ds-background-disabled: #091E420F;
+  --ds-background-disabled: #091E4208;
   --ds-background-inverse-subtle: #00000029;
   --ds-background-inverse-subtle-hovered: #0000003D;
   --ds-background-inverse-subtle-pressed: #00000052;

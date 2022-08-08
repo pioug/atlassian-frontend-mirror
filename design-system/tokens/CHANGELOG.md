@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 0.10.13
+
+### Patch Changes
+
+- [`39a56a3c4e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39a56a3c4e7) - Update disabled tokens to use alpha base tokens:
+
+  - `color.text.disabled`
+  - `color.icon.disabled`
+  - `color.background.disabled`
+
 ## 0.10.12
 
 ### Patch Changes

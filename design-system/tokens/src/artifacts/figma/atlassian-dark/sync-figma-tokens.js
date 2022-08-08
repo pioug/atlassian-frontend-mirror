@@ -3,7 +3,7 @@
  *
  * Read instructions for running here {@see packages/design-system/tokens/src/figma/README.md}
  *
- * @codegen <<SignedSource::5a87f7ef6c790e325e64fb87bed99d4c>>
+ * @codegen <<SignedSource::9521f91d1c165be0dc7a4a18e852eed3>>
  * @codegenCommand yarn build tokens
  */
 // eslint-disable-next-line no-undef
@@ -204,7 +204,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "introduced": "0.0.15",
       "description": "Use for text in a disabled state."
     },
-    "value": "#596773"
+    "value": "#BFDBF847"
   },
   "Color/Text/Inverse": {
     "attributes": {
@@ -402,7 +402,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "introduced": "0.6.0",
       "description": "Use for icons in a disabled state."
     },
-    "value": "#596773"
+    "value": "#BFDBF847"
   },
   "Color/Icon/Brand": {
     "attributes": {
@@ -1005,7 +1005,7 @@ synchronizeFigmaTokens('AtlassianDark', {
       "introduced": "0.0.15",
       "description": "Use for backgrounds of elements in a disabled state."
     },
-    "value": "#A1BDD914"
+    "value": "#BCD6F00A"
   },
   "Color/Background/Inverse/Subtle/Default": {
     "attributes": {

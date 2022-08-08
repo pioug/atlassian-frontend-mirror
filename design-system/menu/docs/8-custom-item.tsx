@@ -30,15 +30,15 @@ const Container = (props: CustomItemComponentProps) => {
 ${(
   <Example
     title="Custom item"
-    Component={require('../examples/custom-item.tsx').default}
-    source={require('!!raw-loader!../examples/custom-item.tsx')}
+    Component={require('../examples/custom-item').default}
+    source={require('!!raw-loader!../examples/custom-item')}
   />
 )}
 
 ${(
   <Props
     heading="Props"
-    props={require('!!extract-react-types-loader!../extract-react-types/custom-item-hack-for-ert.tsx')}
+    props={require('!!extract-react-types-loader!../extract-react-types/custom-item-hack-for-ert')}
   />
 )}
 `;

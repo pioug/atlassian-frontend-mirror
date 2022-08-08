@@ -15,16 +15,16 @@ import { Create } from '@atlaskit/atlassian-navigation';
   ${(
     <Example
       title="Create"
-      Component={require('../examples/create.tsx').default}
-      source={require('!!raw-loader!../examples/create.tsx')}
+      Component={require('../examples/create').default}
+      source={require('!!raw-loader!../examples/create')}
     />
   )}
 
   ${(
     <Example
       title="Create as a link"
-      Component={require('../examples/create-with-link.tsx').default}
-      source={require('!!raw-loader!../examples/create-with-link.tsx')}
+      Component={require('../examples/create-with-link').default}
+      source={require('!!raw-loader!../examples/create-with-link')}
     />
   )}
 

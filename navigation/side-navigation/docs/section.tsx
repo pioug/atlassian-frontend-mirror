@@ -25,8 +25,8 @@ import { Section } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/section.tsx').default}
-      source={require('!!raw-loader!../examples/section.tsx')}
+      Component={require('../examples/section').default}
+      source={require('!!raw-loader!../examples/section')}
     />
   )}
 

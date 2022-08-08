@@ -22,8 +22,8 @@ import { SkeletonHeadingItem } from '@atlaskit/menu';
   ${(
     <Example
       title="Skeleton heading item"
-      Component={require('../examples/skeleton-heading-item.tsx').default}
-      source={require('!!raw-loader!../examples/skeleton-heading-item.tsx')}
+      Component={require('../examples/skeleton-heading-item').default}
+      source={require('!!raw-loader!../examples/skeleton-heading-item')}
     />
   )}
 
@@ -32,7 +32,7 @@ import { SkeletonHeadingItem } from '@atlaskit/menu';
   ${(
     <Props
       heading=""
-      props={require('!!extract-react-types-loader!../src/menu-item/skeleton-heading-item.tsx')}
+      props={require('!!extract-react-types-loader!../src/menu-item/skeleton-heading-item')}
     />
   )}
 `;

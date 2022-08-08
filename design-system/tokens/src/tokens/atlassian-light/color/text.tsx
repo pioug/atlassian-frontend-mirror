@@ -16,7 +16,7 @@ const color: ValueSchema<TextColorTokenSchema> = {
         value: 'N0',
       },
       disabled: {
-        value: 'N500',
+        value: 'N400A',
       },
       brand: {
         value: 'B700',

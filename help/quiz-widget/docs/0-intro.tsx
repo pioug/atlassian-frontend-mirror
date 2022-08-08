@@ -39,7 +39,7 @@ ${(
   ${(
     <Props
       heading="QuizWidget Props"
-      props={require('!!extract-react-types-loader!../src/components/QuizWidget/index.tsx')}
+      props={require('!!extract-react-types-loader!../src/components/QuizWidget/index')}
     />
   )}
 `;

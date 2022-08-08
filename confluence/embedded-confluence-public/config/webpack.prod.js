@@ -5,7 +5,7 @@ const { moduleResolveMapBuilder } = require('@atlassian/multi-entry-tools');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
-const commonConfig = require('./webpack.common.js');
+const commonConfig = require('./webpack.common');
 
 const indexPath = path.resolve(__dirname, '../src/index.ts');
 

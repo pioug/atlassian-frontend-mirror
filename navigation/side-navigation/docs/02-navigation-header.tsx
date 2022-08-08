@@ -18,8 +18,8 @@ import { NavigationHeader, Header } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/navigation-header.tsx').default}
-      source={require('!!raw-loader!../examples/navigation-header.tsx')}
+      Component={require('../examples/navigation-header').default}
+      source={require('!!raw-loader!../examples/navigation-header')}
     />
   )}
 

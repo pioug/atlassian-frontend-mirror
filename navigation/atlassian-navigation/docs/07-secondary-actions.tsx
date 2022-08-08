@@ -21,8 +21,8 @@ import { Help } from '@atlaskit/atlassian-navigation';
   ${(
     <Example
       title="Help button"
-      Component={require('../examples/help-button.tsx').default}
-      source={require('!!raw-loader!../examples/help-button.tsx')}
+      Component={require('../examples/help-button').default}
+      source={require('!!raw-loader!../examples/help-button')}
     />
   )}
 

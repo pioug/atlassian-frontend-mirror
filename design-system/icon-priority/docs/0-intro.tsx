@@ -32,7 +32,7 @@ export default md`
   ${(
     <Props
       heading=""
-      props={require('!!extract-react-types-loader!../../icon/src/extract-react-types/glyph-no-color.tsx')}
+      props={require('!!extract-react-types-loader!../../icon/src/extract-react-types/glyph-no-color')}
     />
   )}
 `;

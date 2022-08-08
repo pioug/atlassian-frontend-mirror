@@ -19,8 +19,8 @@ import { AtlassianLogo, AtlassianIcon } from '@atlaskit/logo';
   ${(
     <Example
       title="Product home"
-      Component={require('../examples/product-home.tsx').default}
-      source={require('!!raw-loader!../examples/product-home.tsx')}
+      Component={require('../examples/product-home').default}
+      source={require('!!raw-loader!../examples/product-home')}
     />
   )}
 
@@ -57,8 +57,8 @@ export default () => (
   ${(
     <Example
       title="Custom product home"
-      Component={require('../examples/custom-product-home.tsx').default}
-      source={require('!!raw-loader!../examples/custom-product-home.tsx')}
+      Component={require('../examples/custom-product-home').default}
+      source={require('!!raw-loader!../examples/custom-product-home')}
     />
   )}
 

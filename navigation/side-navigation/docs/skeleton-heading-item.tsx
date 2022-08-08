@@ -15,8 +15,8 @@ import { SkeletonHeadingItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/skeleton-heading-item.tsx').default}
-      source={require('!!raw-loader!../examples/skeleton-heading-item.tsx')}
+      Component={require('../examples/skeleton-heading-item').default}
+      source={require('!!raw-loader!../examples/skeleton-heading-item')}
     />
   )}
 

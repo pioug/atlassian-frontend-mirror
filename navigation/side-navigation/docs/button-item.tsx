@@ -23,8 +23,8 @@ import { ButtonItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/button-item.tsx').default}
-      source={require('!!raw-loader!../examples/button-item.tsx')}
+      Component={require('../examples/button-item').default}
+      source={require('!!raw-loader!../examples/button-item')}
     />
   )}
 

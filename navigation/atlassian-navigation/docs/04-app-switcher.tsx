@@ -15,8 +15,8 @@ import { AppSwitcher } from '@atlaskit/atlassian-navigation';
   ${(
     <Example
       title="App switcher"
-      Component={require('../examples/app-switcher.tsx').default}
-      source={require('!!raw-loader!../examples/app-switcher.tsx')}
+      Component={require('../examples/app-switcher').default}
+      source={require('!!raw-loader!../examples/app-switcher')}
     />
   )}
 

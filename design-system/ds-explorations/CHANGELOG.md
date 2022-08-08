@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 0.0.3
+
+### Patch Changes
+
+- [`40151c42d7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40151c42d7d) - Update background, text and icon disabled colors to use alpha base tokens
+
 ## 0.0.2
 
 ### Patch Changes

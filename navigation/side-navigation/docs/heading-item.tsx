@@ -15,8 +15,8 @@ import { HeadingItem } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/heading-item.tsx').default}
-      source={require('!!raw-loader!../examples/heading-item.tsx')}
+      Component={require('../examples/heading-item').default}
+      source={require('!!raw-loader!../examples/heading-item')}
     />
   )}
 

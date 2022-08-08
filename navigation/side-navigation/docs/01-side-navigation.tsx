@@ -19,8 +19,8 @@ import { SideNavigation } from '@atlaskit/side-navigation';
   ${(
     <Example
       title=""
-      Component={require('../examples/side-navigation.tsx').default}
-      source={require('!!raw-loader!../examples/side-navigation.tsx')}
+      Component={require('../examples/side-navigation').default}
+      source={require('!!raw-loader!../examples/side-navigation')}
     />
   )}
 

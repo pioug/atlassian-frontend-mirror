@@ -8,11 +8,14 @@ export type ReactionRequest<T> = (
   metadata?: { [k: string]: any },
 ) => Promise<T>;
 
+/**
+ * Collection of methods to interact with the reactions API
+ */
 export interface ReactionClient {
   /**
    * Fetch list of reactions for a given ARI.
-   * @param containerAri F
-   * @param aris
+   * @param containerAri Key identifer for the container wrapper (JIRA ticket, JIRA issue, Connfluence page, etc.)
+   * @param aris collection of Asset ids in the container (JIRA issue, Connfluence page, etc.)
    */
   getReactions(containerAri: string, aris: string[]): Promise<Reactions>;
   /**

@@ -171,6 +171,7 @@ type PastedTimedAEP = PasteBaseOperationalAEP<
     pasteIntoNode: PASTE_ACTION_SUBJECT_ID;
     content: Array<string>;
     time: number;
+    distortedDuration: boolean;
   },
   undefined
 >;

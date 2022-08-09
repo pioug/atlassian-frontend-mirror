@@ -33,6 +33,16 @@ const skeletonIconButtonStyles = css({
   },
 });
 
+/**
+ * __Skeleton icon button__
+ *
+ * Skeleton buttons are lightweight HTML button elements with CSS that represent
+ * their heavier interactive counterparts, for use when elements of the
+ * navigation are loaded dynamically. This one represents a generic icon button.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const SkeletonIconButton = ({
   children,
   testId,
@@ -44,6 +54,7 @@ export const SkeletonIconButton = ({
       style={theme.mode.iconButton.default as React.CSSProperties}
       data-testid={testId}
       css={skeletonIconButtonStyles}
+      type="button"
     >
       {children}
     </button>

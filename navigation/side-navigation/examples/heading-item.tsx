@@ -8,7 +8,12 @@ import { HeadingItem } from '../src';
 const Example = () => (
   <>
     <HeadingItem>Actions</HeadingItem>
-    <HeadingItem cssFn={() => ({ color: R300 })}>Actions</HeadingItem>
+    <HeadingItem
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+      cssFn={() => ({ color: R300 })}
+    >
+      Actions
+    </HeadingItem>
   </>
 );
 

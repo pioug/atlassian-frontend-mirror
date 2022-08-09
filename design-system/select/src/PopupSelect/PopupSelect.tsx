@@ -1,8 +1,8 @@
 import React, { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import FocusLock from 'react-focus-lock';
 import Select, { components as RSComponents, mergeStyles } from 'react-select';
 import { uid } from 'react-uid';
-import createFocusTrap, { FocusTrap } from 'focus-trap';
 import { Manager, Reference, Popper, PopperProps } from 'react-popper';
 import { Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
@@ -142,7 +142,6 @@ export default class PopupSelect<
   Option = OptionType,
   IsMulti extends boolean = false
 > extends PureComponent<PopupSelectProps<Option, IsMulti>, State> {
-  focusTrap: FocusTrap | null = null;
   menuRef: HTMLElement | null = null;
   selectRef: Select<Option, IsMulti> | null = null;
   targetRef: HTMLElement | null = null;
@@ -314,7 +313,7 @@ export default class PopupSelect<
       onOpen();
     }
 
-    this.setState({ isOpen: true }, this.initialiseFocusTrap);
+    this.setState({ isOpen: true });
 
     if (this.selectRef) {
       this.selectRef.select.openMenu('first'); // HACK
@@ -330,31 +329,13 @@ export default class PopupSelect<
     });
   };
 
-  initialiseFocusTrap = () => {
-    if (!this.menuRef) {
-      return;
-    }
-
-    const trapConfig = {
-      clickOutsideDeactivates: true,
-      escapeDeactivates: true,
-      fallbackFocus: this.menuRef,
-      returnFocusOnDeactivate: true,
-    };
-
-    this.focusTrap = createFocusTrap(this.menuRef, trapConfig);
-
-    // allow time for the HTMLElement to render
-    setTimeout(() => this.focusTrap!.activate(), 1);
-  };
-
   /**
    * Closes the popup
    *
    * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
    */
   close = (options?: { controlOverride?: boolean }) => {
-    const { onClose } = this.props;
+    const { onClose, onMenuClose } = this.props;
 
     if (!options?.controlOverride && this.isOpenControlled) {
       // Prevent popup closing if it's open state is already being controlled
@@ -365,11 +346,11 @@ export default class PopupSelect<
       onClose();
     }
 
-    this.setState({ isOpen: false });
-
-    if (this.focusTrap) {
-      this.focusTrap.deactivate();
+    if (onMenuClose) {
+      onMenuClose();
     }
+
+    this.setState({ isOpen: false });
 
     if (this.targetRef != null) {
       this.targetRef.focus();
@@ -490,21 +471,23 @@ export default class PopupSelect<
                 maxWidth={maxMenuWidth}
                 id={this.popperWrapperId}
               >
-                <Select<Option, IsMulti>
-                  backspaceRemovesValue={false}
-                  controlShouldRenderValue={false}
-                  isClearable={false}
-                  tabSelectsValue={false}
-                  menuIsOpen
-                  ref={this.getSelectRef}
-                  {...props}
-                  isSearchable={showSearchControl}
-                  styles={{ ...this.defaultStyles, ...props.styles }}
-                  maxMenuHeight={this.getMaxHeight()}
-                  components={components as Partial<SelectComponents>}
-                  onChange={this.handleSelectChange}
-                />
-                {footer}
+                <FocusLock returnFocus>
+                  <Select<Option, IsMulti>
+                    backspaceRemovesValue={false}
+                    controlShouldRenderValue={false}
+                    isClearable={false}
+                    tabSelectsValue={false}
+                    menuIsOpen
+                    ref={this.getSelectRef}
+                    {...props}
+                    isSearchable={showSearchControl}
+                    styles={{ ...this.defaultStyles, ...props.styles }}
+                    maxMenuHeight={this.getMaxHeight()}
+                    components={components as Partial<SelectComponents>}
+                    onChange={this.handleSelectChange}
+                  />
+                  {footer}
+                </FocusLock>
               </MenuDialog>
             </NodeResolver>
           );

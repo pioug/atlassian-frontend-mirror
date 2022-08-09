@@ -1,174 +1,176 @@
 import { EmojiId } from '@atlaskit/emoji/types';
+import { Reactions, ReactionSummary } from '../types';
 import { defaultReactionsByShortName } from '../components/Selector';
-import { Reactions } from '../types/Reactions';
-import { ReactionSummary } from '../types/ReactionSummary';
+import { Constants } from '../shared';
 import { ReactionClient } from './ReactionClient';
 
-export const containerAri: string = 'ari:cloud:owner:demo-cloud-id:container/1';
-export const ari: string = 'ari:cloud:owner:demo-cloud-id:item/1';
-export const reaction = (
+export const containerAri = `${Constants.ContainerAriPrefix}1`;
+export const ari = `${Constants.AriPrefix}1`;
+export const getReactionSummary: (
   shortName: string,
   count: number,
   reacted: boolean,
-) => ({
-  ari,
-  containerAri,
-  emojiId: (defaultReactionsByShortName.get(shortName) as EmojiId).id!,
-  count,
-  reacted,
+) => ReactionSummary = (shortName, count, reacted) => {
+  return {
+    ari,
+    containerAri,
+    emojiId: (defaultReactionsByShortName.get(shortName) as EmojiId).id!,
+    count,
+    reacted,
+  };
+};
+
+export const getUser = (id: string, displayName: string) => ({
+  id,
+  displayName,
 });
 
-export const user = (id: string, displayName: string) => ({ id, displayName });
-
-const objectReactionKey = (containerAri: string, ari: string): string => {
+const getReactionKey = (containerAri: string, ari: string): string => {
   return `${containerAri}|${ari}`;
 };
 
 const defaultUsers = [
-  user('oscar', 'Oscar Wallhult'),
-  user('julien', 'Julien Michel Hoarau'),
-  user('craig', 'Craig Petchell'),
-  user('jerome', 'Jerome Touffe-Blin'),
-  user('esoares', 'Eduardo Soares'),
-  user('lpereira', 'Luiz Pereira'),
-  user('pcurren', 'Paul Curren'),
-  user('ttjandra', 'Tara Tjandra'),
-  user('severington', 'Ste Everington'),
-  user('sguillope', 'Sylvain Guillope'),
-  user('alunnon', 'Alex Lunnon'),
+  getUser('oscar', 'Oscar Wallhult'),
+  getUser('julien', 'Julien Michel Hoarau'),
+  getUser('craig', 'Craig Petchell'),
+  getUser('jerome', 'Jerome Touffe-Blin'),
+  getUser('esoares', 'Eduardo Soares'),
+  getUser('lpereira', 'Luiz Pereira'),
+  getUser('pcurren', 'Paul Curren'),
+  getUser('ttjandra', 'Tara Tjandra'),
+  getUser('severington', 'Ste Everington'),
+  getUser('sguillope', 'Sylvain Guillope'),
+  getUser('alunnon', 'Alex Lunnon'),
 ];
 
+const mockData: {
+  [key: string]: ReactionSummary[];
+} = {
+  [getReactionKey(containerAri, ari)]: [
+    getReactionSummary(':fire:', 1, true),
+    getReactionSummary(':thumbsup:', 999, false),
+    getReactionSummary(':astonished:', 9, false),
+    getReactionSummary(':heart:', 99, false),
+  ],
+};
+
+/**
+ * Mocked version of the client to fetch user information
+ */
 export class MockReactionsClient implements ReactionClient {
   private delay: number;
 
-  public mockData: {
-    [key: string]: ReactionSummary[];
-  } = {
-    [objectReactionKey(containerAri, ari)]: [
-      reaction(':fire:', 1, true),
-      reaction(':thumbsup:', 9, false),
-      reaction(':astonished:', 5, false),
-      reaction(':heart:', 100, false),
-    ],
-  };
-
-  constructor(delay: number = 0) {
+  constructor(delay = 0) {
     this.delay = delay;
   }
 
   private delayPromise = () =>
     new Promise((resolve) => window.setTimeout(resolve, this.delay));
 
-  getReactions(containerAri: string, aris: string[]): Promise<Reactions> {
-    return this.delayPromise().then(() =>
-      aris.reduce((results, ari) => {
-        const reactionKey = objectReactionKey(containerAri, ari);
-        results[ari] = this.mockData[reactionKey] || [];
-        return results;
-      }, {} as Reactions),
-    );
+  async getReactions(containerAri: string, aris: string[]): Promise<Reactions> {
+    await this.delayPromise();
+    return aris.reduce((results, ari) => {
+      const reactionKey = getReactionKey(containerAri, ari);
+      results[ari] = mockData[reactionKey] || [];
+      return results;
+    }, {} as Reactions);
   }
 
-  getDetailedReaction(
+  async getDetailedReaction(
     containerAri: string,
     ari: string,
     emojiId: string,
   ): Promise<ReactionSummary> {
-    return this.delayPromise().then(() => {
-      const reactionKey = `${containerAri}|${ari}`;
-      const reactionsMockData = this.mockData[reactionKey];
+    await this.delayPromise();
+    const reactionKey = `${containerAri}|${ari}`;
+    const reactionsMockData = mockData[reactionKey];
+    if (reactionsMockData) {
+      const reaction = reactionsMockData.find(
+        (reaction_1) => reaction_1.emojiId === emojiId,
+      );
 
-      if (reactionsMockData) {
-        const reaction = reactionsMockData.find(
-          (reaction) => reaction.emojiId === emojiId,
-        );
+      if (reaction) {
+        const users = [...defaultUsers]
+          .slice(
+            Math.floor(Math.random() * 4),
+            Math.floor(Math.random() * 9) + 4,
+          )
+          .slice(0, reaction.count);
+        return {
+          ...reaction,
+          users,
+        };
+      }
+    }
+    return {
+      containerAri,
+      ari,
+      emojiId,
+      count: 1,
+      reacted: true,
+      users: [],
+    };
+  }
 
-        if (reaction) {
-          const users = [...defaultUsers]
-            .slice(
-              Math.floor(Math.random() * 4),
-              Math.floor(Math.random() * 9) + 4,
-            )
-            .slice(0, reaction.count);
+  async addReaction(
+    containerAri: string,
+    ari: string,
+    emojiId: string,
+  ): Promise<ReactionSummary[]> {
+    await this.delayPromise();
+    const reactionKey = getReactionKey(containerAri, ari);
+    let found = false;
+    const reactionsMockData = mockData[reactionKey];
+    if (reactionsMockData) {
+      mockData[reactionKey] = reactionsMockData.map((reaction) => {
+        if (reaction.emojiId === emojiId) {
+          found = true;
           return {
             ...reaction,
-            users,
+            count: reaction.count + 1,
+            reacted: true,
           };
         }
-      }
-      return {
-        containerAri,
-        ari,
-        emojiId,
-        count: 1,
-        reacted: true,
-        users: [],
-      };
-    });
+        return reaction;
+      });
+    }
+    if (!found) {
+      mockData[reactionKey] = [
+        ...(reactionsMockData ? reactionsMockData : []),
+        {
+          containerAri,
+          ari,
+          emojiId,
+          count: 1,
+          reacted: true,
+        },
+      ];
+    }
+    return mockData[reactionKey];
   }
 
-  addReaction(
+  async deleteReaction(
     containerAri: string,
     ari: string,
     emojiId: string,
   ): Promise<ReactionSummary[]> {
-    return this.delayPromise().then(() => {
-      const reactionKey = objectReactionKey(containerAri, ari);
-      let found = false;
-      const reactionsMockData = this.mockData[reactionKey];
-
-      if (reactionsMockData) {
-        this.mockData[reactionKey] = reactionsMockData.map((reaction) => {
-          if (reaction.emojiId === emojiId) {
-            found = true;
-            return {
-              ...reaction,
-              count: reaction.count + 1,
-              reacted: true,
-            };
+    await this.delayPromise();
+    const reactionKey = getReactionKey(containerAri, ari);
+    mockData[reactionKey] = mockData[reactionKey]
+      .map((reaction) => {
+        if (reaction.emojiId === emojiId) {
+          if (reaction.count === 1) {
+            return undefined;
           }
-          return reaction;
-        });
-      }
-      if (!found) {
-        this.mockData[reactionKey] = [
-          ...(reactionsMockData ? reactionsMockData : []),
-          {
-            containerAri,
-            ari,
-            emojiId,
-            count: 1,
-            reacted: true,
-          },
-        ];
-      }
-      return this.mockData[reactionKey];
-    });
-  }
-
-  deleteReaction(
-    containerAri: string,
-    ari: string,
-    emojiId: string,
-  ): Promise<ReactionSummary[]> {
-    return this.delayPromise().then(() => {
-      const reactionKey = objectReactionKey(containerAri, ari);
-      this.mockData[reactionKey] = this.mockData[reactionKey]
-        .map((reaction) => {
-          if (reaction.emojiId === emojiId) {
-            if (reaction.count === 1) {
-              return undefined;
-            }
-            return {
-              ...reaction,
-              count: reaction.count - 1,
-              reacted: false,
-            };
-          }
-          return reaction;
-        })
-        .filter((reaction) => !!reaction) as ReactionSummary[];
-      return this.mockData[reactionKey];
-    });
+          return {
+            ...reaction,
+            count: reaction.count - 1,
+            reacted: false,
+          };
+        }
+        return reaction;
+      })
+      .filter((reaction_1) => !!reaction_1) as ReactionSummary[];
+    return mockData[reactionKey];
   }
 }

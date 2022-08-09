@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { KeyboardEvent, useCallback, useReducer } from 'react';
+import { KeyboardEvent, useCallback, useLayoutEffect, useReducer } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
 
@@ -78,6 +78,8 @@ export interface LinkPickerProps {
   onSubmit: (arg: OnSubmitParameter) => void;
   /** Callback to fire when the cancel button is clicked. */
   onCancel: () => void;
+  /** Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs */
+  onContentResize?: () => void;
   /** The url of the linked resource for editing. */
   url?: string;
   /** The desired text to be displayed alternatively to the title of the linked resource for editing. */
@@ -122,6 +124,7 @@ function reducer(state: PickerState, payload: Partial<PickerState>) {
 function LinkPicker({
   onSubmit,
   onCancel,
+  onContentResize,
   plugins,
   url: initUrl,
   displayText: initDisplayText,
@@ -141,6 +144,12 @@ function LinkPicker({
     state,
     plugins,
   );
+
+  useLayoutEffect(() => {
+    if (onContentResize) {
+      onContentResize();
+    }
+  }, [onContentResize, items, isLoading, isActivePlugin, tabs]);
 
   const handleChangeUrl = useCallback((url: string) => {
     dispatch({

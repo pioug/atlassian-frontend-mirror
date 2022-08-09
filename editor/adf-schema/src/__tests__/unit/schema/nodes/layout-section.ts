@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import {
@@ -10,8 +9,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const schema = makeSchema();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema layout-section node`, () => {
+describe(`${packageName}/schema layout-section node`, () => {
   it('serializes to <div data-layout-section="true"/>', () => {
     const html = toHTML(schema.nodes.layoutSection.create(), schema);
     expect(html).toContain('<div data-layout-section="true">');

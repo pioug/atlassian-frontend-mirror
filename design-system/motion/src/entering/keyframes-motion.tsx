@@ -125,19 +125,19 @@ const EnteringMotion: React.FC<InternalKeyframesMotionProps> = ({
             ref: staggered.ref,
             className: hasAnimationStyles
               ? css({
+                  ...prefersReducedMotion(),
+                  animationDelay: `${delay}ms`,
+                  animationDuration: `${
+                    isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration
+                  }ms`,
+                  animationFillMode: isExiting ? 'forwards' : 'backwards',
                   animationName: `${keyframes(
                     isExiting
                       ? exitingAnimation || enteringAnimation
                       : enteringAnimation,
                   )}`,
-                  animationTimingFunction: animationTimingFunction(state),
-                  animationDelay: `${delay}ms`,
-                  animationFillMode: isExiting ? 'forwards' : 'backwards',
-                  animationDuration: `${
-                    isExiting ? duration * EXITING_MOTION_MULTIPLIER : duration
-                  }ms`,
                   animationPlayState: paused ? 'paused' : 'running',
-                  ...prefersReducedMotion(),
+                  animationTimingFunction: animationTimingFunction(state),
                 })
               : '',
           },

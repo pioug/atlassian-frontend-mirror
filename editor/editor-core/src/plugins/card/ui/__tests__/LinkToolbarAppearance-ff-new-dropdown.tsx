@@ -41,7 +41,9 @@ describe('LinkToolbarAppearance', () => {
           'view-changing-experiment-toolbar-style': 'newDropdown',
         },
         allowPanel: true,
-        smartLinks: {},
+        smartLinks: {
+          allowEmbeds: true,
+        },
       },
       pluginKey,
     });

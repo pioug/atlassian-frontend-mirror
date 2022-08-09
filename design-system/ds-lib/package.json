@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -25,19 +25,19 @@
   },
   "af:exports": {
     "./keycodes": "./src/utils/keycodes.tsx",
-    "./noop": "./src/utils/noop.ts",
-    "./deprecation-warning": "./src/utils/deprecation-warning.ts",
-    "./warn-once": "./src/utils/warn-once.ts",
-    "./merge-refs": "./src/utils/merge-refs.ts",
-    "./use-controlled": "./src/hooks/use-controlled.ts",
-    "./use-lazy-ref": "./src/hooks/use-lazy-ref.ts",
-    "./use-lazy-callback": "./src/hooks/use-lazy-callback.ts",
-    "./use-state-ref": "./src/hooks/use-state-ref.ts",
+    "./noop": "./src/utils/noop.tsx",
+    "./deprecation-warning": "./src/utils/deprecation-warning.tsx",
+    "./warn-once": "./src/utils/warn-once.tsx",
+    "./merge-refs": "./src/utils/merge-refs.tsx",
+    "./use-controlled": "./src/hooks/use-controlled.tsx",
+    "./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
+    "./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
+    "./use-state-ref": "./src/hooks/use-state-ref.tsx",
     "./use-focus-event": "./src/hooks/use-focus-event.tsx",
-    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.ts",
-    "./use-previous-value": "./src/hooks/use-previous-value.ts",
-    "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.ts",
-    "./use-auto-focus": "./src/hooks/use-auto-focus.ts"
+    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
+    "./use-previous-value": "./src/hooks/use-previous-value.tsx",
+    "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
+    "./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
@@ -65,6 +65,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "ui-components": [
         "lite-mode"
       ],

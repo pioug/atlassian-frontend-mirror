@@ -39,7 +39,7 @@ const theme = generateTheme({
   ${(
     <Props
       heading=""
-      props={require('!!extract-react-types-loader!../src/theme/themeGenerator')}
+      props={require('!!extract-react-types-loader!../src/theme/theme-generator')}
     />
   )}
 `;

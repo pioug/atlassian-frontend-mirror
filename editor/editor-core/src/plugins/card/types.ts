@@ -7,6 +7,7 @@ import {
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CardOptions } from '@atlaskit/editor-common/card';
+import { LinkPickerOptions } from '../hyperlink/types';
 
 export type CardInfo = {
   title?: string;
@@ -39,6 +40,7 @@ export type CardPluginOptions = CardOptions & {
   platform: 'mobile' | 'web';
   fullWidthMode?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  linkPicker?: LinkPickerOptions;
 };
 
 // actions

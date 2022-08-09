@@ -12,6 +12,13 @@ export type LoadingButtonOwnProps = {
 export type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
   LoadingButtonOwnProps;
 
+/**
+ * __Loading button__
+ *
+ * A small wrapper around Button that allows you to show an @atlaskit/spinner as an overlay on the button when you set an isLoading prop to true.
+ *
+ * - [Examples](https://atlassian.design/components/button/examples#loading-button)
+ */
 const LoadingButton = React.forwardRef(function LoadingButton(
   { isLoading = false, ...rest }: LoadingButtonProps,
   ref: React.Ref<HTMLElement>,

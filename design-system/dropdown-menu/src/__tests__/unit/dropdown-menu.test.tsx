@@ -63,7 +63,10 @@ describe('dropdown menu', () => {
       act(() => {
         fireEvent.click(document.body);
       });
-      expect(callback).toHaveBeenCalledWith({ isOpen: false });
+      expect(callback).toHaveBeenCalledWith({
+        isOpen: false,
+        event: new MouseEvent('click'),
+      });
     });
 
     it('should open the menu list when button is clicked', () => {

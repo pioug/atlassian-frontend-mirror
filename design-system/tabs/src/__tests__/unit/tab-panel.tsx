@@ -2,6 +2,8 @@ import React, { ReactNode } from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import Tabs, { Tab, TabList, TabPanel, useTabPanel } from '../../index';
 import { TabPanelContext } from '../../internal/context';
 
@@ -10,13 +12,11 @@ afterEach(cleanup);
 const CustomTabPanel = ({ children }: { children: ReactNode }) => {
   const context = useTabPanel();
   return (
-    <span {...context} onFocus={() => {}}>
+    <span {...context} onFocus={noop}>
       {children}
     </span>
   );
 };
-
-const noop = () => {};
 
 describe('@atlaskit/tabs', () => {
   describe('tab panel', () => {

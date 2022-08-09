@@ -27,6 +27,15 @@ const actionStyles = css({
   },
 });
 
+/**
+ * __Section message action__
+ *
+ * A section message action is designed to work with the `action` prop from
+ * `SectionMessage`. It renders either a button or a link depending on whether
+ * an `onClick` or `href` prop is supplied, with a dot seperator in between actions.
+ *
+ * - [Examples](https://atlassian.design/components/section-message/examples#actions)
+ */
 const SectionMessageAction = memo(function SectionMessageAction({
   children,
   onClick,

@@ -129,7 +129,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
     if (rendererContext && rendererContext.adDoc && !nodeIsInCache) {
       getListOfIdentifiersFromDoc(rendererContext.adDoc).forEach(
         (identifier) => {
-          if (identifier.mediaItemType === 'file') {
+          if (identifier.mediaItemType === 'file' && identifier.id === id) {
             mediaIdentifierMap.set(identifier.id as string, {
               ...identifier,
               collectionName,

@@ -35,6 +35,14 @@ const fixedStyles = css({
   left: LEFT_PANEL_WIDTH,
 });
 
+/**
+ * __Top navigation__
+ *
+ * Provides a slot for top navigation within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const TopNavigation = (props: SlotHeightProps) => {
   const {
     children,

@@ -12,6 +12,7 @@ import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import { Field } from '@atlaskit/form';
 import Info from '@atlaskit/icon/glyph/info';
@@ -298,7 +299,7 @@ const FlagGroupExample = () => {
           <Flag
             testId={`flag-${index + 1}`}
             actions={[
-              { content: 'Nice one!', onClick: () => {} },
+              { content: 'Nice one!', onClick: noop },
               { content: 'No, thanks', onClick: () => dismissFlag(flag.id) },
             ]}
             {...flag}

@@ -43,6 +43,15 @@ const buttonHighlightedStyles = css({
   },
 });
 
+/**
+ * __Primary button__
+ *
+ * A primary button allows you to add top-level navigation items.
+ * Should be passed into `AtlassianNavigation`'s `primaryItems` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#dropdown-menu)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
   (props: PrimaryButtonProps, ref: Ref<HTMLElement>) => {
     const {
@@ -72,6 +81,7 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
           testId={testId}
           ref={ref}
           isSelected={isSelected}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           theme={getPrimaryButtonTheme(theme)}
           {...buttonProps}
         >

@@ -1,5 +1,12 @@
 # @atlaskit/pagination
 
+## 14.1.9
+
+### Patch Changes
+
+- [`ac051e856a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac051e856a6) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 14.1.8
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';

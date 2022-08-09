@@ -40,8 +40,8 @@ const Contact = () => (
   </div>
 );
 
-interface Props {
-  disabled: boolean;
+interface LinkProps {
+  isDisabled: boolean;
   page: any;
   pages: any[];
   selectedIndex: number;
@@ -49,7 +49,7 @@ interface Props {
 }
 
 function renderLink(pageType: string, selectedIndex: number) {
-  return function PageItem({ disabled, page, pages, ...rest }: Props) {
+  return function PageItem({ isDisabled, page, pages, ...rest }: LinkProps) {
     let href;
     if (pageType === 'page') {
       href = page.href;
@@ -67,7 +67,7 @@ function renderLink(pageType: string, selectedIndex: number) {
             paddingLeft: `${gridSize() / 2}px`,
             paddingRight: `${gridSize() / 2}px`,
           };
-    return disabled ? (
+    return isDisabled ? (
       <div {...rest} style={style} />
     ) : (
       <Link {...rest} style={style} to={href} />

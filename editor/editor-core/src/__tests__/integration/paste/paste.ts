@@ -331,9 +331,10 @@ BrowserTestCase(
   },
 );
 
+// enable this test case for firefox: https://product-fabric.atlassian.net/browse/ED-15270
 BrowserTestCase(
   'paste.ts: media inline card copied from renderer and pasted',
-  {},
+  { skip: ['firefox'] },
   async (client: WebdriverIO.BrowserObject, testName: string) => {
     let page = new WebdriverPage(client);
     let url = getExampleUrl(

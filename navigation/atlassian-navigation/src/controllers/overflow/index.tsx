@@ -11,6 +11,8 @@ import React, {
 
 import throttle from 'lodash/throttle';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import { OverflowProviderProps } from './types';
 
 // Prevent width detector from triggering too many re-renders
@@ -23,7 +25,7 @@ const updateHashRef = (currentRef: string[], value: string) => {
   currentRef.length = 3;
 };
 
-interface OverflowContextType {
+interface OverflowContext {
   /**
    * Returns `true` when the navigation item is visible,
    * and `false` when the navigation item has been pushed into the overflow menu.
@@ -39,14 +41,13 @@ interface OverflowContextType {
   closeOverflowMenu: () => void;
 }
 
-const noop = () => {};
-
 const OverflowContext = createContext({
   isVisible: true,
   openOverflowMenu: noop,
   closeOverflowMenu: noop,
 });
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const OverflowProvider = ({
   children,
   isVisible,
@@ -62,6 +63,13 @@ export const OverflowProvider = ({
   return <Provider value={value}>{children}</Provider>;
 };
 
+/**
+ * __useOverFlowStatus__
+ *
+ * Returns the current context value for the nearest OverflowProvider.
+ *
+ * - [Example](https://atlassian.design/components/atlassian-navigation/examples#responsive)
+ */
 export const useOverflowStatus = () => useContext(OverflowContext);
 
 export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
@@ -144,4 +152,5 @@ export const useOverflowController = (nodes: ReactNode | ReactNode[]) => {
 };
 
 // Used to extract props for useOverflowStatus();
-export default (props: OverflowContextType) => {};
+// eslint-disable-next-line @repo/internal/react/use-noop
+export default (props: OverflowContext) => {};

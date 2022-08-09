@@ -44,7 +44,9 @@ const iconButtonStyles = css({
 });
 
 const IconWrapper: FC<IconWrapperProps> = (props) => (
-  <button type="button" css={iconButtonStyles} {...props} />
+  <button type="button" css={iconButtonStyles} onClick={props.onClick}>
+    {props.children}
+  </button>
 );
 
 const SidebarOverrideComponent: FC = ({ children }) => {
@@ -98,6 +100,7 @@ export default class DrawersExample extends Component<{}, State> {
           onCloseComplete={this.onCloseComplete}
           isOpen={this.state.isDrawerOpen}
           width="narrow"
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={{
             Sidebar: {
               component: SidebarOverrideComponent,

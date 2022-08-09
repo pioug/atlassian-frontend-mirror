@@ -1,6 +1,5 @@
 import type { SourceCode } from 'eslint';
-// eslint-disable-next-line import/no-unresolved
-import type { ObjectExpression } from 'estree';
+import { isNodeOfType, ObjectExpression, Property } from 'eslint-codemod-utils';
 
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 const referenceObject = {
@@ -53,8 +52,9 @@ export const makeTemplateLiteralIntoEntries = (templateString: string) => {
  */
 export const getObjectLikeness = (node: ObjectExpression) => {
   const styleEntries = node.properties
-    .map(({ type, key, value }) => {
-      if (type === 'Property' && key.type === 'Identifier') {
+    .filter((node): node is Property => isNodeOfType(node, 'Property'))
+    .map(({ key, value }) => {
+      if (key.type === 'Identifier') {
         return {
           key: key.name,
           value: value.type === 'Literal' && value.value,

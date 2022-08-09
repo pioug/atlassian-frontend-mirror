@@ -100,6 +100,14 @@ const siteTitleStyles = css({
   alignItems: 'center',
 });
 
+/**
+ * __Custom product home__
+ *
+ * Use `CustomProductHome` to provide a custom logo and icon with URLs.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#custom-product-home)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 const CustomProductHome = (props: CustomProductHomeProps) => {
   const {
     iconAlt,
@@ -147,6 +155,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
         onClick={onClick}
         onMouseDown={preventFocusRing}
         data-testid={testId && `${testId}-container`}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...rest}
       >
         {logoUrl && (

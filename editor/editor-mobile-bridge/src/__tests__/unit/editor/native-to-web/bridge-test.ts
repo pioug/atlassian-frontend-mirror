@@ -17,7 +17,7 @@ describe('general', () => {
   const bridge: any = new WebBridgeImpl();
 
   it('should return valid bridge version', () => {
-    expect(bridge.currentVersion()).toEqual('1.2.3.4');
+    expect(bridge.currentVersion()).toEqual(process.env._PACKAGE_VERSION_);
   });
 });
 

@@ -34,7 +34,7 @@ const ScrollPerformance = () => {
 
   return (
     <>
-      <button data-testid="open" onClick={open}>
+      <button data-testid="open" onClick={open} type="button">
         {openText}
       </button>
 

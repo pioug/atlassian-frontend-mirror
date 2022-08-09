@@ -1,9 +1,10 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { codeBlock } from '../../../../schema/nodes/code-block';
 import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
-import { name } from '../../../../version.json';
 
-describe(`${name}/schema codeBlock node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema codeBlock node`, () => {
   const schema = makeSchema();
 
   it('should have code property to be true', () => {

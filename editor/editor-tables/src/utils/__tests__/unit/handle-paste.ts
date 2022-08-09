@@ -9,6 +9,8 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import { tableNewColumnMinWidth } from '../../../table-map';
+
 describe('handle paste', () => {
   const createEditor = createEditorFactory();
 
@@ -100,6 +102,142 @@ describe('handle paste', () => {
 
         expect(editorView.state.doc).toEqualDocument(expectedResult);
       });
+
+      it('should add a new column with a set width to the destination table', () => {
+        const { editorView } = editor(
+          doc(
+            table({
+              isNumberColumnEnabled: false,
+              layout: 'default',
+              localId: 'test',
+            })(
+              tr(
+                td({ colwidth: [150] })(p()),
+                td({ colwidth: [120] })(p()),
+                td({ colwidth: [90] })(p()),
+              ),
+              tr(
+                td({ colwidth: [150] })(p()),
+                td({ colwidth: [120] })(p()),
+                td({ colwidth: [90] })(p()),
+              ),
+              tr(
+                td({ colwidth: [150] })(p()),
+                td({ colwidth: [120] })(p('{<>}')),
+                td({ colwidth: [90] })(p()),
+              ),
+            ),
+          ),
+        );
+
+        dispatchPasteEvent(editorView, {
+          html: htmlTableCellsWithResizedColumnWidths,
+        });
+
+        const expectedResult = doc(
+          table({
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'test',
+          })(
+            tr(
+              td({ colwidth: [150] })(p()),
+              td({ colwidth: [120] })(p()),
+              td({ colwidth: [90] })(p()),
+              td({ colwidth: [650] })(p()),
+            ),
+            tr(
+              td({ colwidth: [150] })(p()),
+              td({ colwidth: [120] })(p()),
+              td({ colwidth: [90] })(p()),
+              td({ colwidth: [650] })(p()),
+            ),
+            tr(
+              td({ colwidth: [150] })(p()),
+              td({ colwidth: [120] })(p('A')),
+              td({ colwidth: [90] })(p('B')),
+              td({ colwidth: [650] })(p('C')),
+            ),
+          ),
+        );
+
+        expect(editorView.state.doc).toEqualDocument(expectedResult);
+      });
+    });
+  });
+
+  describe('paste table cells without column widths into a table with resized columns', () => {
+    const htmlTableCellsWithResizedColumnWidths = `
+      <meta charset='utf-8'>
+      <table data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="test" data-pm-slice="1 1 []">
+      <tbody>
+      <tr>
+      <td class="pm-table-cell-content-wrap"><p>A</p></td>
+      <td class="pm-table-cell-content-wrap"><p>B</p></td>
+      <td class="pm-table-cell-content-wrap"><p>C</p></td>
+      </tr>
+      </tbody>
+      </table>`;
+
+    it('should keep destination column widths and add a new column with a set width to the destination table', () => {
+      const { editorView } = editor(
+        doc(
+          table({
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'test',
+          })(
+            tr(
+              td({ colwidth: [150] })(p()),
+              td({ colwidth: [120] })(p()),
+              td({ colwidth: [90] })(p()),
+            ),
+            tr(
+              td({ colwidth: [150] })(p()),
+              td({ colwidth: [120] })(p()),
+              td({ colwidth: [90] })(p()),
+            ),
+            tr(
+              td({ colwidth: [150] })(p()),
+              td({ colwidth: [120] })(p('{<>}')),
+              td({ colwidth: [90] })(p()),
+            ),
+          ),
+        ),
+      );
+
+      dispatchPasteEvent(editorView, {
+        html: htmlTableCellsWithResizedColumnWidths,
+      });
+
+      const expectedResult = doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'test',
+        })(
+          tr(
+            td({ colwidth: [150] })(p()),
+            td({ colwidth: [120] })(p()),
+            td({ colwidth: [90] })(p()),
+            td({ colwidth: [tableNewColumnMinWidth] })(p()),
+          ),
+          tr(
+            td({ colwidth: [150] })(p()),
+            td({ colwidth: [120] })(p()),
+            td({ colwidth: [90] })(p()),
+            td({ colwidth: [tableNewColumnMinWidth] })(p()),
+          ),
+          tr(
+            td({ colwidth: [150] })(p()),
+            td({ colwidth: [120] })(p('A')),
+            td({ colwidth: [90] })(p('B')),
+            td({ colwidth: [tableNewColumnMinWidth] })(p('C')),
+          ),
+        ),
+      );
+
+      expect(editorView.state.doc).toEqualDocument(expectedResult);
     });
   });
 });

@@ -6,7 +6,7 @@ import {
   CellAttributes,
 } from '../../../../schema/nodes/tableNodes';
 import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
-import { name } from '../../../../version.json';
+
 import {
   ATTRIBUTES_PARSE_DEFAULTS,
   ATTRIBUTES_PARSE_NUMBERED_COLUMNS,
@@ -45,8 +45,9 @@ const makeSchema = () =>
   });
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema table node`, () => {
+describe(`${packageName}/schema table node`, () => {
   beforeAll(() => {
     uuid.setStatic(TABLE_LOCAL_ID);
   });

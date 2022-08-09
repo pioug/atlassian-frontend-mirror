@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { Provider, Client } from '@atlaskit/smart-card';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 
@@ -27,7 +27,7 @@ export default function Example() {
   );
 
   return (
-    <Provider client={new Client('staging')}>
+    <SmartCardProvider client={new CardClient('staging')}>
       <RendererDemo
         allowColumnSorting
         allowSelectAllTrap
@@ -37,6 +37,6 @@ export default function Example() {
         actionButtons={toggleCheckbox}
         withProviders
       />
-    </Provider>
+    </SmartCardProvider>
   );
 }

@@ -37,7 +37,6 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../analytics/enums';
 import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
-import { name, version } from '../../version.json';
 import { ReactSerializerInit } from '../../react';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
 import {
@@ -68,6 +67,8 @@ export interface Extension<T> {
   parameters?: T;
   content?: any; // This would be the original Atlassian Document Format
 }
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export type { RendererProps as Props };
 
@@ -486,8 +487,8 @@ const RendererWithAnalytics = React.memo((props: RendererProps) => (
   <FabricEditorAnalyticsContext
     data={{
       appearance: getAnalyticsAppearance(props.appearance),
-      packageName: name,
-      packageVersion: version,
+      packageName,
+      packageVersion,
       componentName: 'renderer',
       editorSessionId: uuid(),
     }}

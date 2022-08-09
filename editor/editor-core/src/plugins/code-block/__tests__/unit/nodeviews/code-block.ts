@@ -26,7 +26,7 @@ const createCodeBlockNodeview = (node: RefsNode) => {
   const { editorView } = createProsemirrorEditorFactory()({
     doc: doc(p()),
   });
-  return codeBlockNodeView()(node, editorView, () => -1);
+  return codeBlockNodeView(node, editorView, () => -1);
 };
 
 describe('Code Block - NodeView', () => {
@@ -161,7 +161,7 @@ describe('Code Block - NodeView', () => {
         ]),
         pluginKey: codeBlockPluginKey,
       });
-      const nodeView = codeBlockNodeView()(node, editorView, () => -1);
+      const nodeView = codeBlockNodeView(node, editorView, () => -1);
 
       waitForAnimationFrame();
 
@@ -182,7 +182,7 @@ describe('Code Block - NodeView', () => {
         ]),
         pluginKey: codeBlockPluginKey,
       });
-      const nodeView = codeBlockNodeView()(node, editorView, () => -1);
+      const nodeView = codeBlockNodeView(node, editorView, () => -1);
 
       waitForAnimationFrame();
 

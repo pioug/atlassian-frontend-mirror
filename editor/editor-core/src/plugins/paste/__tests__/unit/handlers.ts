@@ -45,6 +45,7 @@ import {
   handleExpandPasteInTable,
   handleRichText,
   handlePasteIntoCaption,
+  handlePastePanelIntoList,
 } from '../../handlers';
 import pastePlugin from '../../index';
 import hyperlinkPlugin from '../../../hyperlink';
@@ -58,6 +59,7 @@ import emojiPlugin from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
+import listPlugin from '../../../list';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -751,6 +753,62 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
       });
     },
   );
+});
+
+describe('handlePastePanelIntoList', () => {
+  const destinationDocument = doc(ul(li(p('1')), li(p('2 {<>}')), li(p('3'))));
+  const createEditor = createProsemirrorEditorFactory();
+  const editor = (doc: any) => {
+    const preset = new Preset<LightEditorPlugin>()
+      .add([pastePlugin, {}])
+      .add(listPlugin)
+      .add(panelPlugin)
+      .add(hyperlinkPlugin)
+      .add(blockTypePlugin);
+    return createEditor({
+      doc,
+      preset,
+    });
+  };
+  const createPasteSlice = (pasteContent: any, editorView: any) => {
+    const pasteSlice = new Slice(
+      pasteContent(editorView.state.schema).content,
+      2,
+      2,
+    );
+    handlePastePanelIntoList(pasteSlice)(editorView.state, editorView.dispatch);
+  };
+
+  it('should paste inside the list when pasting panel content', () => {
+    const pasteContent = doc(panel()(p('{<}This is a test{>}')));
+    const expectedDocument = doc(
+      ul(li(p('1')), li(p('2 This is a test{<>}')), li(p('3'))),
+    );
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView);
+
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
+
+  it('should paste inside the list when pasting panel content with link', () => {
+    const href = 'http://www.atlassian.com';
+    const pasteContent = doc(
+      panel()(p('{<}This is a test ', a({ href })(href), '{>}')),
+    );
+    const expectedDocument = doc(
+      ul(li(p('1')), li(p('2 This is a test ', a({ href })(href))), li(p('3'))),
+    );
+    const { editorView } = editor(destinationDocument);
+    createPasteSlice(pasteContent, editorView);
+
+    expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+    expect(() => {
+      editorView.state.tr.doc.check();
+    }).not.toThrow();
+  });
 });
 
 describe('handleExpand', () => {

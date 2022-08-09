@@ -1,7 +1,6 @@
 import React from 'react';
 import { PureComponent } from 'react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import DropdownList from '@atlaskit/droplist';
+import DropdownList, { OpenChangedEvent } from '../DropList';
 import { Popup } from '@atlaskit/editor-common/ui';
 import withOuterListeners from '../with-outer-listeners';
 
@@ -11,7 +10,7 @@ export interface Props {
   scrollableElement?: HTMLElement;
   trigger: React.ReactElement<any>;
   isOpen?: boolean;
-  onOpenChange?: (attrs: any) => void;
+  onOpenChange?: (attrs: OpenChangedEvent) => void;
   fitWidth?: number;
   fitHeight?: number;
   zIndex?: number;
@@ -71,12 +70,9 @@ export class Dropdown extends PureComponent<Props, State> {
       >
         <div style={{ height: 0, minWidth: fitWidth || 0 }}>
           <DropdownList
-            disabled={true}
             isOpen={true}
             onOpenChange={onOpenChange}
-            appearance="tall"
             position={popupPlacement.join(' ')}
-            shouldFlip={false}
             shouldFitContainer={true}
           >
             {children}

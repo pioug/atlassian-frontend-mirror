@@ -16,6 +16,7 @@ const relevantFlags = {
   mediaInline: false,
   folderUploads: true,
   mediaUploadApiV2: true,
+  memoryCacheLogging: false,
 };
 
 const packageName = process.env._PACKAGE_NAME_ as string;

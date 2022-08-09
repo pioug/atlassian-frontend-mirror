@@ -25,10 +25,11 @@ export interface Config {
   storage?: Storage;
   // ESS-1009 Allow to opt-in into 404 response
   need404?: boolean;
-  createSocket(
+  createSocket: (
     path: string,
     auth?: (cb: (data: object) => void) => void,
-  ): Socket;
+    productInfo?: ProductInformation,
+  ) => Socket;
   analyticsClient?: AnalyticsWebClient;
   getUser?(
     userId: string,
@@ -36,6 +37,7 @@ export interface Config {
     Pick<CollabParticipant, 'avatar' | 'email' | 'name'> & { userId: string }
   >;
   permissionTokenRefresh?: () => Promise<string>;
+  productInfo?: ProductInformation;
 }
 
 interface SimpleEventEmitter {
@@ -66,6 +68,7 @@ export interface CollabErrorPayload {
   status: number;
   code: string;
   message: string;
+  reason?: string;
 }
 export interface CollabInitPayload extends EditorCollabInitData {
   doc: any;
@@ -145,7 +148,7 @@ export type ErrorPayload = {
   data?: {
     status: number;
     code?: string;
-    meta?: string;
+    meta?: string | { description: string; reason?: string };
   };
 };
 
@@ -197,3 +200,8 @@ export interface CatchupOptions {
   }: CollabInitPayload) => void;
   applyLocalsteps: (steps: Step[]) => void;
 }
+
+export type ProductInformation = {
+  product: string;
+  subProduct?: string;
+};

@@ -34,7 +34,8 @@ const textStyles = css({
   /**
    * This ensures that the element fills the whole header space
    * and its content does not overflow (since flex items don't
-   * shrink past its content size by default). */
+   * shrink past its content size by default).
+   */
   flex: '1 1 auto',
   wordWrap: 'break-word',
 });
@@ -48,7 +49,8 @@ const iconStyles = css({
 /**
  * When the title is truncated (not multi-line), we adjust the
  * line height to avoid cropping the descenders. This removes
- * the extra spacing that we get from that adjustment. */
+ * the extra spacing that we get from that adjustment.
+ */
 const lineHeightOffset = fontSize - fontSize * adjustedLineHeight;
 
 const truncatedTextStyles = css({
@@ -104,6 +106,15 @@ export interface ModalTitleProps {
   testId?: string;
 }
 
+/**
+ * __Modal title__
+ *
+ * A modal title is used to display a title within a modal.
+ *
+ * - [Examples](https://atlassian.design/components/modal-dialog/examples)
+ * - [Code](https://atlassian.design/components/modal-dialog/code)
+ * - [Usage](https://atlassian.design/components/modal-dialog/usage)
+ */
 const ModalTitle = (props: ModalTitleProps) => {
   const {
     appearance,

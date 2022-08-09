@@ -49,6 +49,7 @@ import {
   handlePasteLinkOnSelectedTextWithAnalytics,
   sendPasteAnalyticsEvent,
   handlePasteIntoCaptionWithAnalytics,
+  handlePastePanelIntoListWithAnalytics,
 } from './analytics';
 import {
   analyticsPluginKey,
@@ -202,8 +203,13 @@ export function createPlugin(
           const content = getContentNodeTypes(slice.content);
           const pasteId = uuid();
           const measureName = `${measurements.PASTE}_${pasteId}`;
-          measureRender(measureName, (duration: number) => {
-            const payload = createPasteMeasurePayload(view, duration, content);
+          measureRender(measureName, ({ duration, distortedDuration }) => {
+            const payload = createPasteMeasurePayload({
+              view,
+              duration,
+              content,
+              distortedDuration,
+            });
             if (payload) {
               dispatchAnalyticsEvent(payload);
             }
@@ -270,6 +276,13 @@ export function createPlugin(
             slice.openStart,
             slice.openEnd,
           );
+
+          // https://product-fabric.atlassian.net/browse/ED-15134
+          // Lists are not allowed within Blockquotes at this time. Attempting to
+          // paste a markdown list ie. ">- foo" will yeild a markdownSlice of size 0.
+          // Rather then blocking the paste action with no UI feedback, this will instead
+          // force a "paste as plain text" action by clearing the markdownSlice.
+          markdownSlice = !markdownSlice?.size ? undefined : markdownSlice;
 
           if (markdownSlice) {
             // linkify text prior to converting to macro
@@ -484,6 +497,16 @@ export function createPlugin(
               event,
               slice,
               PasteTypes.richText,
+            )(state, dispatch)
+          ) {
+            return true;
+          }
+
+          if (
+            handlePastePanelIntoListWithAnalytics(
+              view,
+              event,
+              slice,
             )(state, dispatch)
           ) {
             return true;

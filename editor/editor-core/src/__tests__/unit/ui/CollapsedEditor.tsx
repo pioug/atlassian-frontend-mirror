@@ -1,4 +1,4 @@
-import { name } from '../../../version.json';
+import { name } from '../../../version-wrapper';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import Editor from '../../../editor';

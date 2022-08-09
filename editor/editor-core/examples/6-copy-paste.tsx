@@ -18,7 +18,7 @@ import {
 } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';

@@ -74,6 +74,19 @@ const rightStyles = css({
   },
 });
 
+/**
+ * __Navigation skeleton__
+ *
+ * Use loading skeletons to reduce the perceived loading time of heavier
+ * full-page experiences. This should only be used when the whole navigation is
+ * delayed; if there are only certain dynamically loaded navigation items that
+ * slow down the page, you should look into using
+ * [skeleton buttons](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
+ * instead.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-loader)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ */
 export const NavigationSkeleton = ({
   primaryItemsCount = 4,
   secondaryItemsCount = 4,

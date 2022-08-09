@@ -10,7 +10,7 @@ type SlotWrapperProps = {
   className?: string;
   hasExtraPadding?: boolean;
   minHeight?: string | number;
-  noHorizontalScrollbar?: boolean;
+  hasHorizontalScrollbar?: boolean;
 };
 
 const slotWrapperStyles = css({
@@ -33,7 +33,7 @@ const SlotWrapper = ({
   className,
   hasExtraPadding,
   minHeight,
-  noHorizontalScrollbar,
+  hasHorizontalScrollbar = true,
 }: SlotWrapperProps) => (
   <div
     className={className}
@@ -41,7 +41,7 @@ const SlotWrapper = ({
     style={{
       minHeight,
       outline: borderColor ? `2px dashed ${borderColor}` : 'none',
-      overflowX: noHorizontalScrollbar ? 'hidden' : 'auto',
+      overflowX: hasHorizontalScrollbar ? 'auto' : 'hidden',
     }}
   >
     {children}

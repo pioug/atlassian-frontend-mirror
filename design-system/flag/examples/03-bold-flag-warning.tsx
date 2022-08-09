@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -21,8 +22,8 @@ export default () => (
       title="Presence isn't working"
       description="We'll do our best to get it up and running again soon."
       actions={[
-        { content: 'Try again', onClick: () => {} },
-        { content: 'Check StatusPage', onClick: () => {} },
+        { content: 'Try again', onClick: noop },
+        { content: 'Check StatusPage', onClick: noop },
       ]}
     />
   </FlagGroup>

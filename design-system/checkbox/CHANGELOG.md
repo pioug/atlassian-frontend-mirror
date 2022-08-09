@@ -1,5 +1,12 @@
 # @atlaskit/checkbox
 
+## 12.3.18
+
+### Patch Changes
+
+- [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
+- Updated dependencies
+
 ## 12.3.17
 
 ### Patch Changes

@@ -67,8 +67,8 @@ export default function ModalDemo() {
             </ModalHeader>
             <ModalBody>
               <p>The first {'"tabbable"'} element will be focused.</p>
-              <button>I am focused!</button>
-              <button>I am NOT focused</button>
+              <button type="button">I am focused!</button>
+              <button type="button">I am NOT focused</button>
             </ModalBody>
             <ModalFooter>
               <Button appearance="primary" onClick={close}>

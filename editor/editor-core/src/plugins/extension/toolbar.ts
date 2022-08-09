@@ -24,6 +24,7 @@ import { ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
 import { updateExtensionLayout, removeExtension } from './commands';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 
 export const messages = defineMessages({
   edit: {
@@ -173,6 +174,12 @@ export const getToolbarConfig = (
           type: 'extensions-placeholder',
           separator: 'end',
         },
+        ...(state && showCopyButton(state)
+          ? [
+              getCopyButtonConfig(state, intl.formatMessage, nodeType),
+              { type: 'separator' } as FloatingToolbarItem<Command>,
+            ]
+          : []),
         {
           id: 'editor.extension.delete',
           type: 'button',

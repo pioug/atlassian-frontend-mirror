@@ -10,6 +10,15 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/conte
 
 export type { ButtonItemProps } from '@atlaskit/menu';
 
+/**
+ * __Button item__
+ *
+ * A button item renders an item wrapped in a button tag, used primarily when an
+ * action does something other than changing routes.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#button-item)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
   // Type needed on props to extract types with extract react types.
   ({ cssFn, ...rest }: ButtonItemProps, ref) => {
@@ -18,7 +27,7 @@ const ButtonItem = forwardRef<HTMLElement, ButtonItemProps>(
       return null;
     }
     const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
-    // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
+    // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
     return <Button ref={ref} cssFn={cssOverride} {...rest} />;
   },
 );

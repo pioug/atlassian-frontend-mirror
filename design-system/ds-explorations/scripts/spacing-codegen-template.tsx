@@ -10,6 +10,9 @@ const spacingProperties = {
   height: {
     cssProperty: 'height',
   },
+  padding: {
+    cssProperty: 'padding',
+  },
   paddingBlock: {
     cssProperty: 'paddingBlock',
   },
@@ -39,6 +42,11 @@ const ${spacingProperty}Map = {
     })
     .join(',\n\t')}
 };`,
-    { singleQuote: true, parser: 'typescript', plugins: [parserTypeScript] },
+    {
+      singleQuote: true,
+      trailingComma: 'all',
+      parser: 'typescript',
+      plugins: [parserTypeScript],
+    },
   );
 };

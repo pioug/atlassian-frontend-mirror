@@ -131,6 +131,15 @@ const TabListWithMode = (props: InnerProps) => {
   );
 };
 
+/**
+ * __TabList__
+ *
+ * A TabList groups `Tab` components together.
+ *
+ * - [Examples](https://atlassian.design/components/tabs/examples)
+ * - [Code](https://atlassian.design/components/tabs/code)
+ * - [Usage](https://atlassian.design/components/tabs/usage)
+ */
 export const TabList = (props: TabListProps) => (
   <GlobalTheme.Consumer>
     {({ mode }: { mode: ThemeModes }) => (

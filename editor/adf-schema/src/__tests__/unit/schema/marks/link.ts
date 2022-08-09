@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   toHTML,
@@ -15,8 +14,9 @@ const content = 'foo';
 const sampleLink = `<a href="${href}">${content}</a>`;
 const sampleBlockLink = `<a href="${href}" data-block-link="true" class="blockLink"><p>${content}</p></a>`;
 const emptyLink = `<a>${content}</a>`;
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema link mark`, () => {
+describe(`${packageName}/schema link mark`, () => {
   itMatches(`<p>${sampleLink}</p>`, href, content);
   itMatches(
     `<p><a href="${href}" title="test" alt="hello">${content}</a></p>`,

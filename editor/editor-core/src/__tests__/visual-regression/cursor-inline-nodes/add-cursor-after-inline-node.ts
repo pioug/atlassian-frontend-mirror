@@ -5,6 +5,7 @@ import {
   animationFrame,
   getBoundingRect,
 } from '../../__helpers/page-objects/_editor';
+import { waitForEmojisToLoad } from '../../__helpers/page-objects/_emoji';
 
 const initEditor = async (_adf: Object, page: PuppeteerPage) =>
   initEditorWithAdf(page, {
@@ -25,6 +26,10 @@ describe.skip('Cursor/status:', () => {
       it('should delete the inline node', async () => {
         const adfWithInlineNode = adfs[inlineNode];
         await initEditor(adfWithInlineNode, page);
+
+        if (inlineNode === 'emoji') {
+          await waitForEmojisToLoad(page);
+        }
 
         await animationFrame(page);
 

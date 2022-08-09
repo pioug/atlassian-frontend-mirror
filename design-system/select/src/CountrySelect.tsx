@@ -1,63 +1,61 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 
 import { groupedCountries } from './data/countries';
 import Select from './Select';
-import { FormatOptionLabelMeta } from './types';
+import { FormatOptionLabelMeta, SelectProps } from './types';
 
-// flow stuff
-interface OptionType {
-  abbr: string;
-  code: number;
-  icon: string;
-  name: string;
-}
+type Country = typeof groupedCountries[number]['options'][number];
 
 // custom option renderer
-const labelCSS = () => ({
+const labelStyles = css({
   alignItems: 'center',
   display: 'flex',
   lineHeight: 1.2,
 });
 
-const flagCSS = () => ({
+const flagStyles = css({
   fontSize: '18px',
   marginRight: '8px',
 });
 
-const Opt = ({ children, icon }: any) => (
-  <div css={labelCSS()}>
-    <span css={flagCSS()}>{icon}</span>
+const Opt = ({
+  children,
+  icon,
+}: {
+  icon: Country['icon'];
+  children: string;
+}) => (
+  <div css={labelStyles}>
+    <span css={flagStyles}>{icon}</span>
     {children}
   </div>
 );
 
 // return the country name; used for searching
-const getOptionLabel = ({ abbr, code, name }: OptionType) =>
+const getOptionLabel = ({ abbr, code, name }: Omit<Country, 'icon'>) =>
   `${name} (${abbr.toUpperCase()}) +${code}`;
 
 // set the country's abbreviation for the option value, (also searchable)
-const getOptionValue = (opt: OptionType) => opt.abbr;
+const getOptionValue = (opt: Country) => opt.abbr;
 
 // the text node of the control
-const controlLabel = (opt: OptionType) => (
+const controlLabel = (opt: Country) => (
   <Opt icon={opt.icon}>{opt.abbr.toUpperCase()}</Opt>
 );
 // the text node for an option
-const optionLabel = ({ abbr, code, icon, name }: OptionType) => (
-  <Opt icon={icon}>
-    {name} ({abbr.toUpperCase()}) +{code}
-  </Opt>
+const optionLabel = ({ abbr, code, icon, name }: Country) => (
+  <Opt icon={icon}>{getOptionLabel({ abbr, code, name })}</Opt>
 );
 
 // switch formatters based on render context (menu | value)
 const formatOptionLabel = (
-  opt: OptionType,
-  { context }: FormatOptionLabelMeta<OptionType>,
+  opt: Country,
+  { context }: FormatOptionLabelMeta<Country>,
 ) => (context === 'value' ? controlLabel(opt) : optionLabel(opt));
 
 // put it all together
-const CountrySelect = (props: any) => (
+const CountrySelect = (props: SelectProps<Country>) => (
   <Select
     isClearable={false}
     formatOptionLabel={formatOptionLabel}
@@ -65,11 +63,6 @@ const CountrySelect = (props: any) => (
     getOptionValue={getOptionValue}
     isMulti={false}
     options={groupedCountries}
-    styles={{
-      container: (css) => ({ ...css, width: 105 }),
-      dropdownIndicator: (css) => ({ ...css, paddingLeft: 0 }),
-      menu: (css) => ({ ...css, width: 300 }),
-    }}
     {...props}
   />
 );

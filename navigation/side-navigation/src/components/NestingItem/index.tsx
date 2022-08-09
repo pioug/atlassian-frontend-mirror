@@ -62,13 +62,14 @@ export interface NestingItemProps<
    * Used to customize the rendered component when shown as an item.
    * You can use this for example to change it to a SPA link.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: React.ComponentType<TCustomComponentProps>;
 
   /**
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests.
-
+   *
    * Will set these elements when defined:
    * - The container - `{testId}--container`
    * - The nesting item - `{testId}--item`
@@ -81,6 +82,7 @@ export interface NestingItemProps<
    * A function that can be used to override the styles of the component.
    * It receives the current styles and state and expects a styles object.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: CSSFn;
 
   /**
@@ -119,6 +121,7 @@ export interface NestingItemProps<
   /**
    * Custom overrides for the composed components.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: NestingItemOverrides;
 }
 

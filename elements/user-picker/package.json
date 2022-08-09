@@ -32,7 +32,7 @@
     "@atlaskit/logo": "^13.8.0",
     "@atlaskit/lozenge": "^11.0.0",
     "@atlaskit/popper": "^5.0.0",
-    "@atlaskit/select": "^15.4.0",
+    "@atlaskit/select": "^15.5.0",
     "@atlaskit/spinner": "^15.1.4",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",

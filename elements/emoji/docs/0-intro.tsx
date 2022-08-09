@@ -1,11 +1,16 @@
 import React from 'react';
-import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
-import SectionMessage, {
-  SectionMessageAction,
-} from '@atlaskit/section-message';
+import {
+  md,
+  Example,
+  code,
+  AtlassianInternalWarning,
+  Props,
+} from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 import SimpleEmojiExample from '../examples/00-simple-emoji';
 
 const SimpleEmojiSource = require('!!raw-loader!../examples/00-simple-emoji');
+const EmojiProps = require('!!extract-react-types-loader!../src/components/common/Emoji');
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -20,9 +25,9 @@ export default md`
 
   ${code`
   import EmojiPicker from '@atlaskit/emoji/picker';
-  import { EmojiResource } from '@atlaskit/emoji/resource';
+  import { EmojiResource, EmojiResourceConfig } from '@atlaskit/emoji/resource';
 
-  const emojiProvider = new EmojiResource({
+  const config: EmojiResourceConfig = {
     providers: [
       {
         url: 'https://emoji-example/emoji/standard',
@@ -36,7 +41,9 @@ export default md`
         }),
       },
     ],
-  });
+  }
+
+  const emojiProvider = new EmojiResource(config);
 
   ReactDOM.render(
     <EmojiPicker
@@ -46,7 +53,25 @@ export default md`
       }}
     />,
     container,
-  );`}
+  );
+  `}
+
+
+
+  ${(
+    <>
+      <br />
+      <SectionMessage
+        appearance="warning"
+        title="Emoji provider is required to be configured in order to use components from this package."
+      >
+        <p>
+          Please refer to `Emoji picker` section for more information on how to
+          configure emoji provider.
+        </p>
+      </SectionMessage>
+    </>
+  )}
 
   ### Other emoji components import examples
 
@@ -75,27 +100,10 @@ export default md`
     <Example
       packageName="@atlaskit/emoji"
       Component={SimpleEmojiExample}
-      title="Emoji"
+      title=" Simple Emoji"
       source={SimpleEmojiSource}
     />
   )}
 
-  ${(
-    <SectionMessage
-      appearance="warning"
-      title="Props can not be displayed for the time being."
-      actions={[
-        {
-          key: '1',
-          href:
-            'https://bitbucket.org/atlassian/atlaskit-mk-2/src/master/packages/elements/emoji/src/components/common/Emoji.tsx',
-          text: 'Emoji Props',
-        },
-      ].map(({ text, ...restAction }) => (
-        <SectionMessageAction {...restAction}>{text}</SectionMessageAction>
-      ))}
-    >
-      <p>You can still find props in the source code.</p>
-    </SectionMessage>
-  )}
+  ${(<Props props={EmojiProps} />)}
 `;

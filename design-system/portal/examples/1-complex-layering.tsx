@@ -43,13 +43,13 @@ type SpotlightProps = {
   stepOne: ReactNode;
   stepTwo: ReactNode;
   stepThree: ReactNode;
-  open: boolean;
+  isOpen: boolean;
   onFinish: () => void;
 };
 
 function ThreeStepSpotlight(props: SpotlightProps) {
   const [step, setStep] = useState(1);
-  const { stepOne, stepTwo, stepThree, open, onFinish } = props;
+  const { stepOne, stepTwo, stepThree, isOpen, onFinish } = props;
 
   const next = () => {
     const nextStep = step + 1;
@@ -75,7 +75,7 @@ function ThreeStepSpotlight(props: SpotlightProps) {
         <SpotlightTarget name="3">{stepThree}</SpotlightTarget>
       </div>
       <SpotlightTransition>
-        {open && (
+        {isOpen && (
           <Spotlight
             actions={[{ onClick: next, text: step === 3 ? 'Close' : 'Next' }]}
             heading={`Here is step ${step} of 3`}
@@ -119,7 +119,7 @@ function Modal(props: ModalProps) {
         <ModalBody>
           <p>This dialog has three great features:</p>
           <ThreeStepSpotlight
-            open={onboardingOpen}
+            isOpen={onboardingOpen}
             onFinish={() => toggleOnboarding(false)}
             stepOne={
               <TooltipButton

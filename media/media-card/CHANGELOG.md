@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 74.1.0
+
+### Minor Changes
+
+- [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
+
+### Patch Changes
+
+- [`baece961cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baece961cdd) - Add media-card example for use by media-pollinator-test
+- [`2285a60dc65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2285a60dc65) - Logs events when status is error, even if there is no error data
+- [`196bfa84bfd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/196bfa84bfd) - Removed custom anchors from ViewportObserver in favour of IntersectionObserver's rootMargin
+- Updated dependencies
+
 ## 74.0.0
 
 ### Major Changes

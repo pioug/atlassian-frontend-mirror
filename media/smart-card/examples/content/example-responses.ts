@@ -3,8 +3,90 @@ import avatar1 from '../images/avatar-1.svg';
 import avatar2 from '../images/avatar-2.svg';
 import avatar3 from '../images/avatar-3.svg';
 import preview from '../images/rectangle.svg';
+import { iconBitbucket } from '../images';
 
 export const url = 'https://product-fabric.atlassian.net/wiki/spaces/EM';
+
+// This response is a showcase of a link response that contains a vast amount of data.
+// It is unlikely that a real link would have all these information.
+// For example, a blog link would not have data for a pull request target branch.',
+export const unicornResponse = {
+  meta: {
+    visibility: 'public',
+    access: 'granted',
+    auth: [],
+    definitionId: 'd1',
+    key: 'object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@type': ['Object', 'atlassian:Task'],
+    'atlassian:latestCommit': {
+      url: 'https://commit-url/d4f2fc9',
+      '@id': 'https://commit-url/d4f2fc9',
+      '@type': 'atlassian:SourceCodeCommit',
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      name: 'd4f2fc9',
+      attributedTo: 'Steve Johnson',
+      'schema:dateCreated': '2022-07-04T11:57:38.000Z',
+      updated: '2022-07-04T11:57:38.000Z',
+      icon: { '@type': 'Image', url: iconBitbucket },
+      generator: {
+        '@type': 'Application',
+        name: 'Bitbucket',
+        icon: { '@type': 'Image', url: iconBitbucket },
+      },
+      'atlassian:committedBy': 'Steve Johnson',
+      summary: 'EDM-3605: Nullam eu sem vehicula, consequat eros id.',
+    },
+    'atlassian:mergeSource': {
+      '@type': 'Link',
+      href: 'https://repository/branch/123',
+      name: 'lp-linking-platform',
+    },
+    'atlassian:mergeDestination': {
+      '@type': 'Link',
+      href: 'https://repository/branch/1',
+      name: 'master',
+    },
+    'atlassian:priority': 'Major',
+    'atlassian:reactCount': 78,
+    'atlassian:state': 'draft',
+    'atlassian:subscriberCount': 45,
+    'atlassian:updatedBy': { '@type': 'Person', icon: avatar2, name: 'Steve' },
+    'atlassian:viewCount': 120,
+    'atlassian:voteCount': 38,
+    attributedTo: [
+      { '@type': 'Person', icon: avatar1, name: 'Angie' },
+      { '@type': 'Person', icon: avatar2, name: 'Steve' },
+      { '@type': 'Person', icon: avatar3, name: 'Aliza' },
+    ],
+    generator: {
+      '@type': 'Application',
+      '@id': 'https://www.atlassian.com/#Confluence',
+      name: 'Confluence',
+    },
+    endTime: '2022-07-31T00:00:00.000Z',
+    image: preview,
+    mediaType: 'text/plain',
+    name: 'An unicorn link response for Smart Links example.',
+    'schema:commentCount': 22,
+    'schema:dateCreated': '2022-01-21T10:25:11.676+1100',
+    'schema:programmingLanguage': 'Javascript',
+    summary:
+      'This is a showcase of a link response that contains a vast amount of data. It is unlikely that a real link would have all these information. For example, a blog link would not have data for a pull request target branch.',
+    updated: '2022-02-05T16:44:00.000+1000',
+    url,
+  },
+};
 
 export const response1 = {
   meta: {

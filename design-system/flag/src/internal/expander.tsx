@@ -49,4 +49,5 @@ const Expander: FC<ExpanderProps> = ({ children, isExpanded, testId }) => {
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Expander;

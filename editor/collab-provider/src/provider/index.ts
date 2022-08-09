@@ -4,7 +4,7 @@ import { Step } from 'prosemirror-transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import throttle from 'lodash/throttle';
 import isequal from 'lodash/isEqual';
-
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
 import {
@@ -36,8 +36,11 @@ import {
 
 import { SyncUpErrorFunction } from '@atlaskit/editor-common/types';
 
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { startMeasure, stopMeasure } from '../analytics/performance';
+import {
+  MEASURE_NAME,
+  startMeasure,
+  stopMeasure,
+} from '../analytics/performance';
 
 const logger = createLogger('Provider', 'black');
 
@@ -171,6 +174,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       getState,
     });
   }
+
   setup({
     getState,
     onSyncUpError,
@@ -321,7 +325,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    *   * try to accept steps but version is behind.
    */
   private catchup = async () => {
-    startMeasure('callingCatchupApi');
+    startMeasure(MEASURE_NAME.CALLING_CATCHUP_API);
     // if the queue is already paused, we are busy with something else, so don't proceed.
     if (this.pauseQueue) {
       logger(`Queue is paused. Aborting.`);
@@ -337,7 +341,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         updateDocumentWithMetadata: this.updateDocumentWithMetadata,
         applyLocalsteps: this.applyLocalsteps,
       });
-      const measure = stopMeasure('callingCatchupApi');
+      const measure = stopMeasure(MEASURE_NAME.CALLING_CATCHUP_API);
       triggerCollabAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CATCHUP,
@@ -349,7 +353,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         this.analyticsClient,
       );
     } catch (error) {
-      const measure = stopMeasure('callingCatchupApi');
+      const measure = stopMeasure(MEASURE_NAME.CALLING_CATCHUP_API);
       triggerCollabAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CATCHUP,
@@ -802,8 +806,39 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     }
 
     const state = this.getState!();
+    // Convert ProseMirror document in Editor state to ADF document
+    let adfDocument;
+    try {
+      startMeasure(MEASURE_NAME.CONVERT_PM_TO_ADF);
+      adfDocument = new JSONTransformer().encode(state.doc);
+      const measure = stopMeasure(MEASURE_NAME.CONVERT_PM_TO_ADF);
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.CONVERT_PM_TO_ADF,
+          attributes: {
+            eventStatus: EVENT_STATUS.SUCCESS,
+            latency: measure?.duration,
+          },
+        },
+        this.analyticsClient,
+      );
+    } catch (error) {
+      const measure = stopMeasure(MEASURE_NAME.CONVERT_PM_TO_ADF);
+      triggerCollabAnalyticsEvent(
+        {
+          eventAction: EVENT_ACTION.CONVERT_PM_TO_ADF,
+          attributes: {
+            eventStatus: EVENT_STATUS.FAILURE,
+            latency: measure?.duration,
+            error: error as ErrorPayload,
+          },
+        },
+        this.analyticsClient,
+      );
+      logger(`Error when converting PM document to ADF: `, error);
+    }
     return {
-      content: state.doc.toJSON() as JSONDocNode,
+      content: adfDocument,
       title: this.metadata.title?.toString(),
       stepVersion: getVersion(state),
     };

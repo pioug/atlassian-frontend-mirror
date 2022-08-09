@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item from '@atlaskit/item';
+import { CustomItem } from '@atlaskit/menu';
 import AkButton from '@atlaskit/button/standard-button';
 import {
   doc,
@@ -184,7 +183,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       it(`should have tagName ${blockType.tagName} present`, () => {
         expect(
           toolbarOption
-            .find(Item)
+            .find(CustomItem)
             .findWhere(
               (n) =>
                 n.type() === blockType.tagName &&

@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
@@ -6,7 +5,9 @@ import {
 } from '@atlaskit/editor-test-helpers/adf-schema';
 import { date } from '../../../../../src';
 
-describe(`${name}/schema date node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema date node`, () => {
   describe('parse html', () => {
     it('converts to date PM node', () => {
       const doc = fromHTML('<span data-node-type="date" />', schema);

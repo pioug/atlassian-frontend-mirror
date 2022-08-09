@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 14.6.3
+
+### Patch Changes
+
+- [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 14.6.2
 
 ### Patch Changes

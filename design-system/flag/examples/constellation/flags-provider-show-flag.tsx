@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import noop from '@atlaskit/ds-lib/noop';
 import Info from '@atlaskit/icon/glyph/info';
 import { P300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -11,7 +12,7 @@ import { FlagsProvider, useFlags } from '../../src';
 const actions = [
   {
     content: 'Nice one!',
-    onClick: () => {},
+    onClick: noop,
   },
 ];
 

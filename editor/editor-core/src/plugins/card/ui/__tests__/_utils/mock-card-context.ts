@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import type { CardContext as CardContextType } from '@atlaskit/smart-card';
+import type { CardContext as CardContextType } from '@atlaskit/link-provider';
 import { asMock } from '@atlaskit/media-test-helpers';
 
 type ContextWrapper<T> = {

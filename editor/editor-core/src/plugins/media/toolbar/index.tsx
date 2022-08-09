@@ -42,6 +42,7 @@ import {
   MediaInlineNodeSelector,
   MediaSingleNodeSelector,
 } from '../nodeviews/styles';
+import { getCopyButtonConfig, showCopyButton } from '../../copy-button/toolbar';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -118,6 +119,12 @@ const generateMediaCardFloatingToolbar = (
       title: intl.formatMessage(messages.download),
     },
     { type: 'separator' },
+    ...(state && showCopyButton(state)
+      ? [
+          getCopyButtonConfig(state, intl.formatMessage, mediaGroup),
+          { type: 'separator' } as FloatingToolbarItem<Command>,
+        ]
+      : []),
     {
       id: 'editor.media.delete',
       type: 'button',
@@ -196,6 +203,12 @@ const generateMediaInlineFloatingToolbar = (
       title: intl.formatMessage(messages.download),
     },
     { type: 'separator' },
+    ...(state && showCopyButton(state)
+      ? [
+          getCopyButtonConfig(state, intl.formatMessage, mediaInline),
+          { type: 'separator' } as FloatingToolbarItem<Command>,
+        ]
+      : []),
     {
       id: 'editor.media.delete',
       type: 'button',
@@ -308,6 +321,12 @@ const generateMediaSingleFloatingToolbar = (
   };
   const items: Array<FloatingToolbarItem<Command>> = [
     ...toolbarButtons,
+    ...(state && showCopyButton(state)
+      ? [
+          getCopyButtonConfig(state, intl.formatMessage, mediaSingle),
+          { type: 'separator' } as FloatingToolbarItem<Command>,
+        ]
+      : []),
     removeButton,
   ];
 

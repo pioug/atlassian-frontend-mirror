@@ -44,8 +44,8 @@ const selectWrapperStyles = css({
   padding: '20px',
 });
 
-const SelectWrapper = ({ ...rest }) => {
-  return <div css={selectWrapperStyles} {...rest} />;
+const SelectWrapper: React.FC = ({ children }) => {
+  return <div css={selectWrapperStyles}>{children}</div>;
 };
 
 export default class GetPath extends Component<any, any> {

@@ -42,7 +42,6 @@ jest.mock('uuid/v4', () => ({
   default: jest.fn(() => mockUuid),
 }));
 
-import { name } from '../../version.json';
 import { mount, shallow, ReactWrapper } from 'enzyme';
 import React from 'react';
 import Editor from '../../editor';
@@ -103,7 +102,7 @@ const measureTTI: any = mockMeasureTTI;
 
 expect.extend(matchers);
 
-describe(name, () => {
+describe(packageName, () => {
   describe('Editor', () => {
     describe('callbacks', () => {
       it('should fire onChange when text is inserted', () => {
@@ -947,6 +946,34 @@ describe(name, () => {
       it('should be populated with mediaProvider', (done) => {
         const { providerFactory, mediaProvider } = setup();
         assertProvider(providerFactory, 'mediaProvider', mediaProvider, done);
+      });
+
+      it('should be populated with cardProvider from `linking.smartLinks` (prefer over `smartLinks`)', (done) => {
+        const linkingCardProvider = {} as any;
+        const smartLinksCardProvider = {} as any;
+        const linkingCardOptions: CardOptions = {
+          provider: Promise.resolve(linkingCardProvider),
+        };
+        const smartLinksCardOptions: CardOptions = {
+          provider: Promise.resolve(smartLinksCardProvider),
+        };
+
+        const component = mount(
+          <Editor
+            linking={{ smartLinks: linkingCardOptions }}
+            smartLinks={smartLinksCardOptions}
+          />,
+        );
+        const providerFactory = component
+          .find<EditorViewProps & WrappedComponentProps>(BaseReactEditorView)
+          .props().providerFactory;
+
+        assertProvider(
+          providerFactory,
+          'cardProvider',
+          linkingCardProvider,
+          done,
+        );
       });
 
       it('should be populated with cardProvider', (done) => {

@@ -59,7 +59,7 @@ const wrapperDivStyles = css({
 const WrapperDiv: React.FC<WrapperDivProps> = ({
   color,
   background,
-  ...rest
+  children,
 }) => {
   return (
     <div
@@ -67,14 +67,17 @@ const WrapperDiv: React.FC<WrapperDivProps> = ({
       style={
         { '--color': color, '--background': background } as React.CSSProperties
       }
-      {...rest}
-    />
+    >
+      {children}
+    </div>
   );
 };
 
 const Wrapper: React.FC<WrapperDivProps> = (props) => (
   <Fragment>
-    <WrapperDiv {...props}>{props.children}</WrapperDiv>
+    <WrapperDiv color={props.color} background={props.background}>
+      {props.children}
+    </WrapperDiv>
     <br />
   </Fragment>
 );
@@ -84,7 +87,11 @@ export default () => (
     {logoOptions.map((Child, index) => (
       <div style={{ display: 'flex', marginBottom: '20px' }} key={index}>
         {iconVariants.map((pairing, index2) => (
-          <Wrapper {...pairing} key={`${index}${index2}`}>
+          <Wrapper
+            color={pairing.color}
+            background={pairing.background}
+            key={`${index}${index2}`}
+          >
             <Child />
           </Wrapper>
         ))}

@@ -2,13 +2,13 @@ import { Node as PmNode, Schema } from 'prosemirror-model';
 import { IndentationMarkAttributes } from '@atlaskit/adf-schema';
 import { toggleBlockMark } from '../../../commands';
 import { Command } from '../../../types/command';
-import { createAnalyticsDispatch } from './utils';
-import { INDENT_DIRECTION } from '../../analytics';
+import { createAnalyticsDispatch, IndentationInputMethod } from './utils';
+import { INDENT_DIRECTION, INPUT_METHOD } from '../../analytics';
 import getAttrsWithChangesRecorder from '../../../utils/getAttrsWithChangesRecorder';
 
-const MAX_INDENTATION_LEVEL = 6;
+export const MAX_INDENTATION_LEVEL = 6;
 
-const isIndentationAllowed = (schema: Schema, node: PmNode) => {
+export const isIndentationAllowed = (schema: Schema, node: PmNode) => {
   const {
     nodes: { paragraph, heading },
     marks: { alignment },
@@ -47,13 +47,18 @@ function createIndentationCommand(
   };
 }
 
-function createIndentationCommandWithAnalytics(
+function createIndentationCommandWithAnalytics({
+  getNewIndentationAttrs,
+  direction,
+  inputMethod,
+}: {
   getNewIndentationAttrs: (
     prevAttrs?: IndentationMarkAttributes,
     node?: PmNode,
-  ) => IndentationMarkAttributes | undefined | false,
-  direction: INDENT_DIRECTION,
-): Command {
+  ) => IndentationMarkAttributes | undefined | false;
+  direction: INDENT_DIRECTION;
+  inputMethod: IndentationInputMethod;
+}): Command {
   // Create a new getAttrs function to record the changes
   const {
     getAttrs,
@@ -67,7 +72,12 @@ function createIndentationCommandWithAnalytics(
   return (state, dispatch) => {
     return indentationCommand(
       state,
-      createAnalyticsDispatch(getAndResetAttrsChanges, state, dispatch),
+      createAnalyticsDispatch({
+        getAttrsChanges: getAndResetAttrsChanges,
+        inputMethod,
+        state,
+        dispatch,
+      }),
     );
   };
 }
@@ -93,10 +103,14 @@ const getIndentAttrs = (
   return { level: level + 1 }; // Otherwise, increase the level by one
 };
 
-export const indent: Command = createIndentationCommandWithAnalytics(
-  getIndentAttrs,
-  INDENT_DIRECTION.INDENT,
-);
+export const getIndentCommand = (
+  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
+): Command =>
+  createIndentationCommandWithAnalytics({
+    getNewIndentationAttrs: getIndentAttrs,
+    direction: INDENT_DIRECTION.INDENT,
+    inputMethod,
+  });
 
 /**
  * Get new level for outdent
@@ -120,10 +134,14 @@ const getOutdentAttrs = (
   return { level: level - 1 }; // Decrease the level on other cases
 };
 
-export const outdent: Command = createIndentationCommandWithAnalytics(
-  getOutdentAttrs,
-  INDENT_DIRECTION.OUTDENT,
-);
+export const getOutdentCommand = (
+  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
+): Command =>
+  createIndentationCommandWithAnalytics({
+    getNewIndentationAttrs: getOutdentAttrs,
+    direction: INDENT_DIRECTION.OUTDENT,
+    inputMethod,
+  });
 
 export const removeIndentation: Command = (state, dispatch) =>
   toggleBlockMark(state.schema.marks.indentation, () => false)(state, dispatch);

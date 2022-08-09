@@ -53,6 +53,13 @@ function getInteractionState({
 
 const initial: State = { isHover: false, isActive: false, isFocus: false };
 
+/**
+ * __Custom theme button__
+ *
+ * A custom theme button. Avoid using this component. It exists for those already using custom theming, which is hard to use and has performance issues.
+ *
+ * - [Examples](https://atlassian.design/components/button/examples#custom-theme-button)
+ */
 const CustomThemeButton = React.memo(
   React.forwardRef<HTMLElement, Props>(function CustomThemeButton(
     {
@@ -164,13 +171,7 @@ const CustomThemeButton = React.memo(
               isLoading={isLoading}
               {...restProps}
             >
-              {({
-                buttonStyles,
-              }: {
-                buttonStyles: CSSObject;
-                // No longer supporting spinnerStyles
-                // spinnerStyles: CSSObject;
-              }) => (
+              {({ buttonStyles }: { buttonStyles: CSSObject }) => (
                 <ButtonBase
                   {...restProps}
                   ref={ref}

@@ -1,11 +1,12 @@
 {
   "name": "@atlaskit/pagination",
-  "version": "14.1.8",
+  "version": "14.1.9",
   "description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "homepage": "https://atlassian.design/components/pagination/",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
@@ -13,7 +14,11 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
+  "af:exports": {
+    "./types": "./src/entry-points/types.tsx",
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -26,7 +31,7 @@
     "@atlaskit/analytics-next": "^8.0.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/ds-lib": "^2.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/theme": "^12.1.0",
     "@babel/runtime": "^7.0.0",
@@ -38,7 +43,8 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/dynamic-table": "^14.6.0",
+    "@atlaskit/ds-lib": "^2.1.0",
+    "@atlaskit/dynamic-table": "^14.7.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -60,6 +66,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "design-system": "v1",
       "dom-events": "use-bind-event-listener",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
@@ -71,10 +78,5 @@
       ]
     }
   },
-  "af:exports": {
-    "./types": "./src/entry-points/types.ts",
-    ".": "./src/index.ts"
-  },
-  "homepage": "https://atlassian.design/components/pagination/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

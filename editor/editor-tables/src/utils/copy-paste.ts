@@ -308,6 +308,7 @@ function isolateHorizontal(
         ...cell.attrs,
         rowspan: cellTop + cell.attrs.rowspan - top,
       });
+
       if (!newCell) {
         throw new Error('isolateHorizontal: failed to create cell');
       }

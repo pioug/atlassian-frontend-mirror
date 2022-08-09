@@ -8,7 +8,10 @@ describe('useOverflowController', () => {
   it('should show all items as visible', () => {
     const { result } = renderHook(({ nodes }) => useOverflowController(nodes), {
       initialProps: {
-        nodes: [<button>Hello</button>, <button>World</button>],
+        nodes: [
+          <button type="button">Hello</button>,
+          <button type="button">World</button>,
+        ],
       },
     });
 
@@ -18,7 +21,10 @@ describe('useOverflowController', () => {
   it('should display items within the set width', () => {
     const { result } = renderHook(({ nodes }) => useOverflowController(nodes), {
       initialProps: {
-        nodes: [<button>Hello</button>, <button>World</button>],
+        nodes: [
+          <button type="button">Hello</button>,
+          <button type="button">World</button>,
+        ],
       },
     });
 
@@ -38,7 +44,10 @@ describe('useOverflowController', () => {
     expect(result.current.visibleItems.length).toEqual(0);
 
     rerender({
-      nodes: [<button>Hello</button>, <button>World</button>],
+      nodes: [
+        <button type="button">Hello</button>,
+        <button type="button">World</button>,
+      ],
     });
 
     act(() => result.current.updateWidth(1000));
@@ -57,7 +66,7 @@ describe('useOverflowController', () => {
     expect(result.current.visibleItems.length).toEqual(0);
 
     rerender({
-      nodes: [<button>Hello</button>],
+      nodes: [<button type="button">Hello</button>],
     });
 
     act(() => result.current.updateWidth(1000));
@@ -65,7 +74,10 @@ describe('useOverflowController', () => {
     expect(result.current.visibleItems.length).toEqual(1);
 
     rerender({
-      nodes: [<button>Hello</button>, <button>World</button>],
+      nodes: [
+        <button type="button">Hello</button>,
+        <button type="button">World</button>,
+      ],
     });
 
     act(() => result.current.updateWidth(1001));

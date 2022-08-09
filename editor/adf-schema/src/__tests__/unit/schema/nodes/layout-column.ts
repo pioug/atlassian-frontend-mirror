@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   fromHTML,
@@ -13,8 +12,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const schema = makeSchema();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema layout-column node`, () => {
+describe(`${packageName}/schema layout-column node`, () => {
   it('serializes to <div data-layout-column />', () => {
     const html = toHTML(schema.nodes.layoutColumn.create(), schema);
     expect(html).toContain('<div data-layout-column="true">');

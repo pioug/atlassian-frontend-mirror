@@ -9,14 +9,14 @@ const options = [
   { value: 'dark', name: 'numbers', label: 'Dark Mode' },
 ];
 
-type ThemeType = 'light' | 'dark';
+type ThemeMode = 'light' | 'dark';
 export default function ThemedRadio() {
-  const [themeMode, setThemeMode] = useState<ThemeType>('dark');
+  const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
 
   const switchTheme = ({
     currentTarget: { value },
   }: SyntheticEvent<HTMLInputElement>) => {
-    setThemeMode(value as ThemeType);
+    setThemeMode(value as ThemeMode);
   };
 
   return (

@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 2.2.6
+
+### Patch Changes
+
+- [`95c1a5e91d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95c1a5e91d1) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

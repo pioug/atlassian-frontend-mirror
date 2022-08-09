@@ -4,24 +4,25 @@ import { mount, ReactWrapper } from 'enzyme';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
+import noop from '@atlaskit/ds-lib/noop';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
-import { Caption } from '../../../styled/DynamicTable';
+import { Caption } from '../../../styled/dynamic-table';
 import {
   EmptyViewContainer,
   EmptyViewWithFixedHeight,
-} from '../../../styled/EmptyBody';
+} from '../../../styled/empty-body';
 import { RowCellType, RowType, StatelessProps } from '../../../types';
-import Body from '../../Body';
-import LoadingContainer from '../../LoadingContainer';
-import LoadingContainerAdvanced from '../../LoadingContainerAdvanced';
+import Body from '../../body';
+import LoadingContainer from '../../loading-container';
+import LoadingContainerAdvanced from '../../loading-container-advanced';
 import Pagination from '../../managed-pagination';
-import RankableTableBody from '../../rankable/Body';
-import { State } from '../../Stateless';
-import TableHead from '../../TableHead';
+import RankableTableBody from '../../rankable/body';
+import { State } from '../../stateless';
+import TableHead from '../../table-head';
 
 import { head, rows, rowsWithKeys, secondSortKey } from './_data';
-import { headNumeric, rowsNumeric } from './_dataNumeric';
+import { headNumeric, rowsNumeric } from './_data-numeric';
 
 describe('@atlaskit/dynamic-table', () => {
   describe('stateless', () => {
@@ -151,12 +152,12 @@ describe('@atlaskit/dynamic-table', () => {
     });
 
     it('should pass down extra props', () => {
-      const theadOnClick = () => {};
-      const theadOnKeyDown = () => {};
-      const thOnClick = () => {};
-      const thOnKeyDown = () => {};
-      const trOnClick = () => {};
-      const tdOnClick = () => {};
+      const theadOnClick = noop;
+      const theadOnKeyDown = noop;
+      const thOnClick = noop;
+      const thOnKeyDown = noop;
+      const trOnClick = noop;
+      const tdOnClick = noop;
 
       const newHead = {
         onClick: theadOnClick,

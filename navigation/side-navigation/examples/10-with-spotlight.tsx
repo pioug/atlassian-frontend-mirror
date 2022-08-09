@@ -66,7 +66,7 @@ const BasicExample = () => {
   return (
     <SpotlightManager>
       <div css={twoColumnWrapper}>
-        <AppFrame hideAppBar>
+        <AppFrame shouldHideAppBar>
           <SideNavigation label="project" testId="side-navigation">
             <NavigationHeader>
               <SampleHeader />
@@ -244,7 +244,7 @@ const SpotlightRenderer = () => {
 
   return (
     <div>
-      <button id="show-spotlight" onClick={() => setVariant(0)}>
+      <button id="show-spotlight" onClick={() => setVariant(0)} type="button">
         Show spotlight
       </button>
     </div>

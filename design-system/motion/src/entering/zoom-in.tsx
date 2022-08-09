@@ -27,10 +27,18 @@ export const shrinkOutAnimation = (): ObjectInterpolation<undefined> => ({
   },
 });
 
+/**
+ * __ZoomIn__
+ *
+ * Will over zoom an element into position.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ */
 const ZoomIn: React.FC<KeyframesMotionProps> = ({
   children,
   duration = 125,
-  ...props
+  isPaused,
+  onFinish,
 }: KeyframesMotionProps) => {
   return (
     <KeyframesMotion
@@ -38,7 +46,8 @@ const ZoomIn: React.FC<KeyframesMotionProps> = ({
       enteringAnimation={zoomInAnimation()}
       exitingAnimation={shrinkOutAnimation()}
       animationTimingFunction={() => 'ease-in-out'}
-      {...props}
+      isPaused={isPaused}
+      onFinish={onFinish}
     >
       {children}
     </KeyframesMotion>

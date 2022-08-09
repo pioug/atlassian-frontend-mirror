@@ -1,13 +1,13 @@
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 
 import { readFilesSync } from '@atlaskit/editor-test-helpers/adf-schema';
-import { name } from '../../../version.json';
 import v1SchemaFull from '../../../../json-schema/v1/full.json';
 import v1SchemaStage0 from '../../../../json-schema/v1/stage-0.json';
 
 const ajv = initialize();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name} json-schema v1`, () => {
+describe(`${packageName} json-schema v1`, () => {
   const validateFull = ajv.compile(v1SchemaFull);
   const validateStage0 = ajv.compile(v1SchemaStage0);
 

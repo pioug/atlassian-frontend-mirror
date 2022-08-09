@@ -10,6 +10,12 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/conte
 
 export type { HeadingItemProps } from '@atlaskit/menu';
 
+/**
+ * __Heading item__
+ *
+ * Available for advanced use cases, for most situations providing a title to Section should be enough.
+ *
+ */
 const HeadingItem = (props: HeadingItemProps) => {
   const { shouldRender } = useShouldNestedElementRender();
   if (!shouldRender) {
@@ -18,7 +24,7 @@ const HeadingItem = (props: HeadingItemProps) => {
 
   const cssFn = overrideStyleFunction(sectionHeaderStyle, props.cssFn);
 
-  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
+  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides, @repo/internal/react/no-unsafe-spread-props
   return <MenuHeadingItem {...props} cssFn={cssFn} />;
 };
 

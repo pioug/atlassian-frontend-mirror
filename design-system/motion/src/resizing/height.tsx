@@ -12,7 +12,7 @@ interface ResizingHeightOpts {
   /**
    * Duration as a `function`.
    * Will receive previous and next `height` and return the `duration`.
-
+   *
    * By default this will match the [ADG specifications](https://atlassian.design) for how long motion should take.
    * Design specifications are still a work in progress.
    */
@@ -26,7 +26,7 @@ interface ResizingHeightOpts {
    * Will receive previous and next `height`,
    * `duration`,
    * and return the [timing function](https://developer.mozilla.org/en-US/docs/Web/CSS/timing-function).
-
+   *
    * By default this will assume indirect motion using `easeInOut`.
    */
   timingFunction?: (
@@ -40,6 +40,17 @@ interface Dimensions {
   height: number;
 }
 
+/**
+ * __useResizingHeight__
+ *
+ * useResizingHeight animates height changes over state changes. If the height hasn't changed nothing will happen.
+ *
+ * __WARNING__: Potentially janky. This hook animates height which is
+ * [notoriously unperformant](https://firefox-source-docs.mozilla.org/performance/bestpractices.html#Get_familiar_with_the_pipeline_that_gets_pixels_to_the_screen).
+ * Test your app over low powered devices, you may want to avoid this if you can see it impacting FPS.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/resizing-motions)
+ */
 export const useResizingHeight = ({
   duration: calcDuration = () => mediumDurationMs,
   timingFunction: calcTimingFunction = () => easeInOut,
@@ -116,6 +127,13 @@ export const useResizingHeight = ({
   return { ref: setElementRef };
 };
 
+/**
+ * __ResizingHeight__
+ *
+ * Component which consumes the useResizingHook() under-the-hood. Its props are the same as the hooks opts.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/resizing-motions)
+ */
 export const ResizingHeight = ({
   children,
   ...props
@@ -129,4 +147,5 @@ export const ResizingHeight = ({
 /**
  * This exists only to be able to extract opts.
  */
+// eslint-disable-next-line @repo/internal/react/use-noop
 export default (opts: ResizingHeightOpts) => {};

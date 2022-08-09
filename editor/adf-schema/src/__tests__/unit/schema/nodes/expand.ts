@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
@@ -6,7 +5,9 @@ import {
 } from '@atlaskit/editor-test-helpers/adf-schema';
 import { expand } from '../../../../../src';
 
-describe(`${name}/schema expand node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema expand node`, () => {
   describe('parse html', () => {
     it('converts to PM node', () => {
       const doc = fromHTML('<div data-node-type="expand" />', schema);

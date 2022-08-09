@@ -13,6 +13,8 @@ const primaryButtonSkeletonStyles = css({
   marginLeft: gridSize * 1.5,
 });
 
+// Internal only
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const PrimaryItemsContainerSkeleton = ({
   count,
 }: PrimaryItemsContainerSkeletonProps) => (

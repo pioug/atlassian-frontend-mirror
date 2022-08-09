@@ -17,7 +17,9 @@ export default function Example() {
 
   return (
     <>
-      <button onClick={open}>open modal</button>
+      <button onClick={open} type="button">
+        open modal
+      </button>
 
       <ModalTransition>
         {isOpen && (

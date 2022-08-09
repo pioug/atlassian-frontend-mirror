@@ -43,9 +43,21 @@ export type CommonProps<T> = {
 };
 
 export type Props = {
+  /**
+   * Optional mouse click DOM event on showing more emoji icon
+   */
   onClick?: React.MouseEventHandler<HTMLElement>;
+  /**
+   * Optional button css
+   */
   revealStyle?: SerializedStyles;
+  /**
+   * Optional custom styling for wrapper show more emoji button
+   */
   style?: CommonProps<React.CSSProperties>;
+  /**
+   * Optional custom styling for wrapper show more emoji button
+   */
   className?: CommonProps<string>;
 };
 export const showMoreTestId = 'show-more-button';

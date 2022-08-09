@@ -4,7 +4,7 @@ import Spinner, { Appearance, Size } from '@atlaskit/spinner';
 
 import { BaseProps } from '../types';
 
-type Props = Pick<
+type LoadingSpinnerProps = Pick<
   BaseProps,
   'appearance' | 'isDisabled' | 'isSelected' | 'spacing'
 >;
@@ -13,7 +13,7 @@ function getSpinnerAppearance({
   appearance,
   isDisabled,
   isSelected,
-}: Props): Appearance {
+}: LoadingSpinnerProps): Appearance {
   if (isDisabled) {
     return 'inherit';
   }
@@ -29,7 +29,7 @@ function getSpinnerAppearance({
 export default function LoadingSpinner({
   spacing = 'default',
   ...rest
-}: Props) {
+}: LoadingSpinnerProps) {
   const size: Size = spacing === 'default' ? 'medium' : 'small';
 
   return <Spinner size={size} appearance={getSpinnerAppearance(rest)} />;

@@ -1,5 +1,20 @@
 # @atlaskit/dynamic-table
 
+## 14.7.0
+
+### Minor Changes
+
+- [`266abf54eea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/266abf54eea) - [ux] Pagination no longer renders when rowsPerPage is set, but there's only one page of content
+
+### Patch Changes
+
+- [`39e49a80bee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39e49a80bee) - Remove adding undefined to css if width is 'undefined'
+- [`f619b95cd00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f619b95cd00) - [ux] bug fix: table no longer shows empty page, when number of pages reduced
+- [`31cf385e99b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31cf385e99b) - DSP-2011 Change dynamically generated styles to be static
+- [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
+- [`02eb9c1c335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02eb9c1c335) - [ux] Fix table row shift 1px when dragging first table row issue
+- Updated dependencies
+
 ## 14.6.1
 
 ### Patch Changes

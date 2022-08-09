@@ -1,11 +1,12 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
   fromHTML,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema unsupportedInline node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema unsupportedInline node`, () => {
   const originalValue = {
     type: 'invalidInlineNode',
   };

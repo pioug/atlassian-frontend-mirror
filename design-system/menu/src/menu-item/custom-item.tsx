@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/core';
 import noop from '@atlaskit/ds-lib/noop';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
-import { useBlurOnMouseDown } from '../internal/hooks/use-blur-on-mouse-down';
 import type { CustomItemComponentProps, CustomItemProps } from '../types';
 
 const preventEvent: MouseEventHandler = (e) => {
@@ -55,7 +54,7 @@ const CustomItem = memo(
       CustomItemProps,
       ref,
     ) => {
-      const onMouseDownHandler = useBlurOnMouseDown(onMouseDown);
+      const onMouseDownHandler = onMouseDown;
 
       if (!Component) {
         return null;

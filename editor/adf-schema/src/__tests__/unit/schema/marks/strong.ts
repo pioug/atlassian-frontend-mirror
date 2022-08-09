@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   fromHTML,
@@ -6,7 +5,9 @@ import {
   textWithMarks,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema strong mark`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema strong mark`, () => {
   itMatches('<strong>text</strong>', 'text');
   itMatches('<b>text</b>', 'text');
   itMatches('<b style="font-weight: bold">text</b>', 'text');

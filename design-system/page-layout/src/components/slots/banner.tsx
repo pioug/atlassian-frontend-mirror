@@ -34,6 +34,14 @@ const bannerFixedStyles = css({
   left: LEFT_PANEL_WIDTH,
 });
 
+/**
+ * __Banner__
+ *
+ * Provides a slot for a Banner within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const Banner = (props: SlotHeightProps) => {
   const {
     children,

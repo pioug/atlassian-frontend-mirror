@@ -2,6 +2,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import noop from '@atlaskit/ds-lib/noop';
 import Form, { CheckboxField, Field, FormFooter } from '@atlaskit/form';
 
 import { Radio, RadioGroup } from '../src';
@@ -42,7 +43,7 @@ export default function FormExample() {
                 {({ fieldProps }: { fieldProps: object }) => (
                   <Radio
                     {...fieldProps}
-                    onChange={() => {}}
+                    onChange={noop}
                     label="standalone radio"
                   />
                 )}

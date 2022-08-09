@@ -15,6 +15,7 @@ const ThemedSkeletonExample = () => (
           primaryItemsCount={primary}
           secondaryItemsCount={secondary}
           showSiteName
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           theme={theme}
           testId={`themed-skeleton-${i}`}
         />

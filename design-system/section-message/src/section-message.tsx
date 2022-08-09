@@ -127,6 +127,15 @@ const SectionMessageWithMode = forwardRef(function SectionMessage(
   );
 });
 
+/**
+ * __Section message__
+ *
+ * A section message is used to alert users to a particular section of the screen.
+ *
+ * - [Examples](https://atlassian.design/components/section-message/examples)
+ * - [Code](https://atlassian.design/components/section-message/code)
+ * - [Usage](https://atlassian.design/components/section-message/usage)
+ */
 const SectionMessage = forwardRef(function SectionMessage(
   props: SectionMessageProps,
   ref: React.Ref<HTMLElement>,

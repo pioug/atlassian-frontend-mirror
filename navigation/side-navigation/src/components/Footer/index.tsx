@@ -9,11 +9,18 @@ import { HeaderProps } from '../Header';
 import { CustomItem } from '../Item';
 
 const Container: React.FC<CustomItemComponentProps> = (props) => {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <div {...props} />;
 };
 
 export type { HeaderProps as FooterProps } from '../Header';
 
+/**
+ * __Header__
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const Footer = (props: HeaderProps) => {
   const cssFn = overrideStyleFunction(
     () => ({
@@ -52,8 +59,10 @@ const Footer = (props: HeaderProps) => {
 
   return (
     <CustomItem
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}
       component={props.component || Container}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={cssFn}
     />
   );

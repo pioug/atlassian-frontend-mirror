@@ -12,7 +12,7 @@ import AppFrame from '../common/app-frame';
 
 const ContentExample = () => {
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation label="project">
         <NavigationHeader>
           <Header>Money machine</Header>

@@ -7,7 +7,7 @@ import {
   PublicInteractionTask,
 } from 'storybook-addon-performance';
 
-import RadioGroup from '../src/RadioGroup';
+import RadioGroup from '../src/radio-group';
 
 const interactionTasks: PublicInteractionTask[] = [
   {

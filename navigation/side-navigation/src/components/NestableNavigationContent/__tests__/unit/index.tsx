@@ -388,6 +388,7 @@ describe('NestingTransitionProvider', () => {
     const { getByTestId, getByText } = render(
       <NestingTransitionProvider
         testId="provider"
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         overrides={{
           GoBackItem: {
             render: (props) => (
@@ -414,6 +415,7 @@ describe('NestingTransitionProvider', () => {
     const { getByTestId, getByText } = render(
       <NestingTransitionProvider
         testId="provider"
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         overrides={{
           GoBackItem: {
             render: (props) => (
@@ -425,6 +427,7 @@ describe('NestingTransitionProvider', () => {
         <NestingItem
           title="Hello Nested"
           id="1"
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={{
             GoBackItem: {
               render: ({ onClick }) => (

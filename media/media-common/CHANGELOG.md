@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 2.16.0
+
+### Minor Changes
+
+- [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
+
 ## 2.15.0
 
 ### Minor Changes

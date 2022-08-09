@@ -5,7 +5,7 @@ import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import {
   createEditorExampleForTests,
@@ -14,6 +14,7 @@ import {
 import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
+import { getDefaultLinkPickerOptions } from '../example-helpers/link-picker';
 import { CollabEditOptions } from '../src/plugins/collab-edit';
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
@@ -66,6 +67,15 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
         );
       }
 
+      if (nonSerializableProps.withLinkPickerOptions) {
+        props.linking = {
+          linkPicker: {
+            ...getDefaultLinkPickerOptions(),
+            ...props.linkPicker,
+          },
+        };
+      }
+
       if (props.media) {
         props.media = {
           allowMediaSingle: true,
@@ -112,7 +122,7 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
         createEditor()
       );
 
-      if (props && props.smartLinks) {
+      if (props.linking?.smartLinks || props.smartLinks) {
         return (
           <SmartCardProvider client={cardClient}>
             {editorContent}

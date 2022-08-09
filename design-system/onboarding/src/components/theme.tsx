@@ -138,6 +138,10 @@ function extract(
   }, {});
 }
 
+/**
+ * @deprecated
+ * Custom button themes are deprecated and will be removed in the future.
+ */
 export const spotlightButtonTheme = (
   current: any,
   themeProps: Record<string, any>,
@@ -153,6 +157,10 @@ export const spotlightButtonTheme = (
   };
 };
 
+/**
+ * @deprecated
+ * Custom button themes are deprecated and will be removed in the future.
+ */
 export const modalButtonTheme = (
   current: any,
   themeProps: Record<string, any>,

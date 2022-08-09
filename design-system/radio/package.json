@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "5.3.11",
+  "version": "5.3.12",
   "description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -23,13 +23,14 @@
     }
   },
   "af:exports": {
-    "./Radio": "./src/Radio.tsx",
-    "./RadioGroup": "./src/RadioGroup.tsx",
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
+    "./Radio": "./src/radio.tsx",
+    "./RadioGroup": "./src/radio-group.tsx",
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
@@ -64,6 +65,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "styling": [

@@ -65,24 +65,6 @@ export interface FindReplaceToolbarButtonProps
 class FindReplaceToolbarButton extends React.PureComponent<
   FindReplaceToolbarButtonProps & WrappedComponentProps
 > {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeydown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeydown);
-  }
-
-  /**
-   * Prevent browser find opening if you hit cmd+f with cursor
-   * inside find/replace component
-   */
-  handleKeydown = (event: KeyboardEvent) => {
-    if (event.metaKey && event.key === 'f') {
-      event.preventDefault();
-    }
-  };
-
   toggleOpen = () => {
     if (this.props.isActive) {
       this.props.onCancel({ triggerMethod: TRIGGER_METHOD.TOOLBAR });

@@ -6,6 +6,7 @@ import EmojiRepository from '../../../../api/EmojiRepository';
 import Emoji, {
   Props as EmojiProps,
 } from '../../../../components/common/Emoji';
+import * as commonHelper from '../common/_common-test-helpers';
 import EmojiButton from '../../../../components/common/EmojiButton';
 import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 import { messages } from '../../../../components/i18n';
@@ -46,6 +47,7 @@ import {
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { ufoExperiences } from '../../../../util/analytics';
 import EmojiPickerComponent from '../../../../components/picker/EmojiPickerComponent';
+import { emojiPicker } from '../../../../components/picker/styles';
 
 describe('<EmojiPicker />', () => {
   let onEvent: jest.SpyInstance;
@@ -157,6 +159,32 @@ describe('<EmojiPicker />', () => {
       expect(previewEmoji.at(0).prop('emoji').shortName).toEqual(
         ':raised_hand:',
       );
+    });
+
+    it('should adjust picker height if preview is shown', async () => {
+      const component = await helper.setupPicker();
+      const pickerWrapper = component.find(EmojiPickerComponent);
+      const classNameDefault = emojiPicker(false);
+      expect(classNameDefault.styles).toContain('height:295px');
+      // Preview is disabled by default
+      expect(pickerWrapper.state('isPreviewDisplayed')).toBe(false);
+      const divWrapper = pickerWrapper.find('div').first();
+      expect(divWrapper.hasClass(`css-${classNameDefault.name}`)).toBe(true);
+
+      const emoji = helper.findEmojiWithId(component, '270b').first();
+      expect(emoji).toHaveLength(1);
+
+      pickerWrapper.setState({ selectedEmoji: emoji.prop('emoji') });
+      await waitUntil(() => commonHelper.previewVisible(component));
+      const classNameWithPreview = emojiPicker(true);
+      expect(classNameWithPreview.styles).toContain('height:348px');
+      const divWithPreviewWrapper = component
+        .find(EmojiPickerComponent)
+        .find('div')
+        .first();
+      expect(
+        divWithPreviewWrapper.hasClass(`css-${classNameWithPreview.name}`),
+      ).toBe(true);
     });
 
     it('media emoji should render placeholder while loading', async () => {

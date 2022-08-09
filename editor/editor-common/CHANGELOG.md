@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 69.1.0
+
+### Minor Changes
+
+- [`2affe8adcfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2affe8adcfa) - ED-14510: Generic feature flag to disable spellcheck via browser and version
+- [`5020781d90a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5020781d90a) - [ux] ED-15099 added floatng toolbar copy button to Expand
+- [`995991c4b11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/995991c4b11) - [ux] ED-15108 added floating toolbar copy button to Layout
+
+### Patch Changes
+
+- [`832e383140e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/832e383140e) - Import ProfileCardTrigger from specialized entrypoint for better tree-shaking
+- [`04db970c32b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04db970c32b) - ED-14899 add attribute to render measurements and rework analytics events to prevent measurements done in background to resulting in misleading render durations.
+- Updated dependencies
+
 ## 69.0.1
 
 ### Patch Changes

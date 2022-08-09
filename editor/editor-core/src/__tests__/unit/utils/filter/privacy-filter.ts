@@ -1,4 +1,4 @@
-import { name } from '../../../../version.json';
+import { name } from '../../../../version-wrapper';
 import { JSONDocNode } from '../../../../utils/index';
 import { sanitizeNodeForPrivacy } from '../../../../utils/filter/privacy-filter';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

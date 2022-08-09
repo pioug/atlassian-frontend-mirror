@@ -8,10 +8,19 @@ import { isRealErrorFromService } from './utils';
 import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../analytics/constants';
 import { sampledReactionsRendered } from '../analytics/ufo';
 
+/**
+ * store main structure
+ */
 export type State = {
+  /**
+   * collection of the different reactions (key => unique reaction id , value => state of the reaction)
+   */
   reactions: {
     [key: string]: Types.ReactionsState;
   };
+  /**
+   * custom animation for given emojis as true|false (key => unique reaction id, value => collection of emojiIds and true|false to apply custom animation)
+   */
   flash: {
     [key: string]: {
       [emojiId: string]: boolean;
@@ -19,7 +28,15 @@ export type State = {
   };
 };
 
-export type OnUpdateCallback = (state: State) => void;
+/**
+ * Callback event when changes apply to the main store
+ * @param state latest store state
+ */
+export type OnChangeCallback = (state: State) => void;
+
+/**
+ * Optional metadata information in the store used in sending the API client requests
+ */
 export interface StoreMetadata {
   subproduct?: string;
   [k: string]: any;
@@ -47,10 +64,31 @@ export const ufoExperiences = {
   fetchDetails: Analytics.UFO.ReactionDetailsFetch,
 };
 
+/**
+ * Collection of methods to manage internal state across the different Reaction container components ConnectedReactionPicker and ConnectedReactionsView
+ */
 export interface ReactionsStore extends Types.Actions {
+  /**
+   * Get current state of the stor
+   */
   getState: () => State;
-  onChange: (callback: OnUpdateCallback) => void;
-  removeOnChangeListener: (callback: OnUpdateCallback) => void;
+  /**
+   * Register a callback event on change to the store instance state data
+   * @param callback event to register
+   * @deprecated initially implemented by the MemoryReactionsStore and kept. This is not required by external ReactionsStore implementation
+   */
+  onChange: (callback: OnChangeCallback) => void;
+  /**
+   * Deregister any callback event on changes to the store instance state data
+   * @param callback event to deregister
+   * @deprecated initially implemented by the MemoryReactionsStore and kept. This is not required by external ReactionsStore implementation
+   */
+  removeOnChangeListener: (callback: OnChangeCallback) => void;
+  /**
+   * Add Atlaskit analytics events to different operations in the store
+   * @param createAnalyticsEvent analytics event trigger
+   * @deprecated initially implemented by the MemoryReactionsStore and kept. This is not required by external ReactionsStore implementation
+   */
   setCreateAnalyticsEvent?: (
     createAnalyticsEvent: CreateUIAnalyticsEvent,
   ) => void;
@@ -60,7 +98,7 @@ export class MemoryReactionsStore implements ReactionsStore {
   private client: ReactionClient;
   private state: State;
   private metadata: StoreMetadata | undefined;
-  private callbacks: OnUpdateCallback[] = [];
+  private callbacks: OnChangeCallback[] = [];
   private createAnalyticsEvent?: CreateUIAnalyticsEvent;
 
   constructor(
@@ -205,7 +243,10 @@ export class MemoryReactionsStore implements ReactionsStore {
   private withReadyReaction(containerAri: string, ari: string) {
     return (updater: Types.Updater<Types.ReactionsReadyState>) => {
       const reactionsState = this.getReactionsState(containerAri, ari);
-      if (reactionsState.status === Types.ReactionStatus.ready) {
+      if (
+        reactionsState &&
+        reactionsState.status === Types.ReactionStatus.ready
+      ) {
         const updated = updater(reactionsState);
         if (updated) {
           this.setReactions(containerAri, ari, updated);
@@ -437,11 +478,11 @@ export class MemoryReactionsStore implements ReactionsStore {
 
   getState = () => this.state;
 
-  onChange = (callback: OnUpdateCallback): void => {
+  onChange = (callback: OnChangeCallback): void => {
     this.callbacks.push(callback);
   };
 
-  removeOnChangeListener = (toRemove: OnUpdateCallback): void => {
+  removeOnChangeListener = (toRemove: OnChangeCallback): void => {
     this.callbacks = this.callbacks.filter((callback) => callback !== toRemove);
   };
 }

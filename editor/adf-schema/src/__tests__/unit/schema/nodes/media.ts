@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   media,
   camelCaseToKebabCase,
@@ -33,8 +32,9 @@ const getDataSet = (dom: HTMLElement) => {
     return accum;
   }, {});
 };
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema media node`, () => {
+describe(`${packageName}/schema media node`, () => {
   it('should parse html', () => {
     const doc = fromHTML(
       `

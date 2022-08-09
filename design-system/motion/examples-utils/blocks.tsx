@@ -5,8 +5,8 @@ import { forwardRef } from 'react';
 import { css, jsx, keyframes } from '@emotion/core';
 
 import { AtlassianIcon } from '@atlaskit/logo';
-import { B400, N0 } from '@atlaskit/theme/colors';
-import { e200 } from '@atlaskit/theme/elevation';
+import { B400, N0, N50A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 interface BlockProps extends React.HTMLProps<HTMLDivElement> {
   appearance?: 'small' | 'medium' | 'large';
@@ -35,21 +35,24 @@ export const Block = forwardRef<HTMLDivElement, BlockProps>(
     return (
       <div
         ref={ref}
-        css={css`
-          ${e200()}
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 16px;
-          width: ${size}px;
-          height: ${size}px;
-          background-color: ${N0};
-          border-radius: ${Math.floor(size / 7)}px;
-          cursor: ${onClick ? 'pointer' : 'default'};
-          :hover {
-            background-color: ${onClick ? B400 : undefined};
-          }
-        `}
+        css={css({
+          display: 'flex',
+          width: `${size}px`,
+          height: `${size}px`,
+          margin: '16px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: N0,
+          borderRadius: `${Math.floor(size / 7)}px`,
+          boxShadow: token(
+            'elevation.shadow.overlay',
+            `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+          ),
+          cursor: onClick ? 'pointer' : 'default',
+          ':hover': {
+            backgroundColor: onClick ? B400 : undefined,
+          },
+        })}
         {...props}
       >
         {props.children || <AtlassianIcon size={logoSize[appearance] as any} />}

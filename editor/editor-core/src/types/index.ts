@@ -36,3 +36,4 @@ export type {
   UIComponentFactory,
   UiComponentFactoryParams,
 } from './ui-components';
+export type { DisableSpellcheckByBrowser, Range, Browsers } from './browser';

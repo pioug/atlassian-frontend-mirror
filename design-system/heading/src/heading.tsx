@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-import { N200, N800 } from '@atlaskit/theme/colors';
+import { N0, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import type { HeadingProps } from './types';
@@ -28,7 +28,6 @@ const headingResetStyles = css({
 });
 
 const h900Styles = css({
-  color: token('color.text', N800),
   fontSize: 35,
   fontWeight: 500,
   letterSpacing: '-0.01em',
@@ -36,7 +35,6 @@ const h900Styles = css({
 });
 
 const h800Styles = css({
-  color: token('color.text', N800),
   fontSize: 29,
   fontWeight: 600,
   letterSpacing: '-0.01em',
@@ -44,7 +42,6 @@ const h800Styles = css({
 });
 
 const h700Styles = css({
-  color: token('color.text', N800),
   fontSize: 24,
   fontWeight: 500,
   letterSpacing: '-0.01em',
@@ -52,7 +49,6 @@ const h700Styles = css({
 });
 
 const h600Styles = css({
-  color: token('color.text', N800),
   fontSize: 20,
   fontWeight: 500,
   letterSpacing: '-0.008em',
@@ -60,7 +56,6 @@ const h600Styles = css({
 });
 
 const h500Styles = css({
-  color: token('color.text', N800),
   fontSize: 16,
   fontWeight: 600,
   letterSpacing: '-0.006em',
@@ -68,7 +63,6 @@ const h500Styles = css({
 });
 
 const h400Styles = css({
-  color: token('color.text', N800),
   fontSize: 14,
   fontWeight: 600,
   letterSpacing: '-0.003em',
@@ -76,7 +70,6 @@ const h400Styles = css({
 });
 
 const h300Styles = css({
-  color: token('color.text', N800),
   fontSize: 12,
   fontWeight: 600,
   letterSpacing: 0,
@@ -85,7 +78,6 @@ const h300Styles = css({
 });
 
 const h200Styles = css({
-  color: token('color.text.subtlest', N200),
   fontSize: 12,
   fontWeight: 600,
   letterSpacing: 0,
@@ -93,7 +85,6 @@ const h200Styles = css({
 });
 
 const h100Styles = css({
-  color: token('color.text.subtlest', N200),
   fontSize: 11,
   fontWeight: 700,
   letterSpacing: 0,
@@ -112,6 +103,18 @@ const styleMap = {
   h100: h100Styles,
 } as const;
 
+const colorStyleMap = {
+  default: css({
+    color: token('color.text', N800),
+  }),
+  inverse: css({
+    color: token('color.text.inverse', N0),
+  }),
+  subtlest: css({
+    color: token('color.text.subtlest', N200),
+  }),
+};
+
 /**
  * __Heading__
  *
@@ -127,18 +130,32 @@ const styleMap = {
  * );
  * ```
  */
-const Heading: FC<HeadingProps> = ({ children, level, id, testId, as }) => {
+const Heading: FC<HeadingProps> = ({
+  children,
+  level,
+  id,
+  testId,
+  as,
+  color = 'default',
+}) => {
   if (process.env.NODE_ENV !== 'production' && as && typeof as !== 'string') {
     throw new Error('`as` prop should be a string.');
   }
 
   const Markup = as || levelMap[level];
+  const isSubtleHeading = level === 'h200' || level === 'h100';
 
   return (
     <Markup
       id={id}
       data-testid={testId}
-      css={[headingResetStyles, styleMap[level]]}
+      css={[
+        headingResetStyles,
+        styleMap[level],
+        color === 'inverse' && colorStyleMap.inverse,
+        color === 'default' && isSubtleHeading && colorStyleMap.subtlest,
+        color === 'default' && !isSubtleHeading && colorStyleMap.default,
+      ]}
     >
       {children}
     </Markup>

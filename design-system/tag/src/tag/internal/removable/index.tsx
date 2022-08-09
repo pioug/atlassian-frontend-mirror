@@ -26,21 +26,21 @@ export interface RemovableTagProps
     WithAnalyticsEventsProps {
   /**
    * Text rendered as the aria-label for remove button.
-   **/
+   */
   removeButtonLabel?: string;
   /**
    * Flag to indicate if a tag is removable.
-   **/
+   */
   isRemovable?: boolean;
   /**
    * Handler to be called before the tag is removed. If it does not return a
    * truthy value, the tag will not be removed.
-   **/
+   */
   onBeforeRemoveAction?: () => boolean;
   /**
    * Handler to be called after tag is removed. Called with the string 'Post
    * Removal Hook'.
-   **/
+   */
   onAfterRemoveAction?: (text: string) => void;
 }
 

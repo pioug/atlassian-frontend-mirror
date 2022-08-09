@@ -126,6 +126,10 @@ const themeStyles = css({
   },
 });
 
+/**
+ * __Input__
+ * Internal-only styled input component.
+ */
 export const Input = forwardRef(
   (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
     const { valuePercent, style, ...strippedProps } = props;

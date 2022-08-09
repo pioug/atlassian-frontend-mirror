@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl-next';
 import retry from 'async-retry';
 import merge from 'lodash/merge';
 
-import { setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
 import ConfigPanel from '../../../ui/ConfigPanel';
 import {
   DefaultExtensionProvider,
@@ -151,9 +150,6 @@ export function createOptionResolver(
 }
 
 export async function mockJiraSmartUserProvider() {
-  // WARNING: this is required by the SmartUserPicker for testing environments
-  setSmartUserPickerEnv('local');
-
   return {
     siteId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',
     principalId: 'Context',

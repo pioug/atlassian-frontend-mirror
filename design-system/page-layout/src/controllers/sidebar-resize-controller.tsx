@@ -8,6 +8,7 @@ import React, {
   useState,
 } from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import { isReducedMotion } from '@atlaskit/motion';
 
 import {
@@ -26,7 +27,6 @@ import {
 } from './sidebar-resize-context';
 
 type Callback = (leftSidebarState: LeftSidebarState) => void;
-const noop = () => {};
 const handleDataAttributesAndCb = (
   callback: Callback = noop,
   isLeftSidebarCollapsed: boolean,
@@ -36,6 +36,7 @@ const handleDataAttributesAndCb = (
   callback(leftSidebarState);
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   children,
   onLeftSidebarExpand: onExpand,

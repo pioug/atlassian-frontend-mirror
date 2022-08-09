@@ -35,6 +35,7 @@ const DrawerOverridesExample = () => {
   return (
     <Fragment>
       <Drawer
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         overrides={{
           Sidebar: {
             component: ({ children }) => (

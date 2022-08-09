@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popper",
-  "version": "5.2.6",
+  "version": "5.2.7",
   "description": "Wrapper for react-popper with common config and some helpers",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -23,8 +23,8 @@
     }
   },
   "af:exports": {
-    ".": "./src/index.ts",
-    "./Popper": "./src/Popper.tsx"
+    ".": "./src/index.tsx",
+    "./Popper": "./src/popper.tsx"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
@@ -37,6 +37,7 @@
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/visual-regression": "*",
@@ -61,6 +62,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",

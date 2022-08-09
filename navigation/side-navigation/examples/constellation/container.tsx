@@ -5,7 +5,7 @@ import AppFrame from '../common/app-frame';
 
 const ContainerExample = () => {
   return (
-    <AppFrame hideAppBar hideBorder>
+    <AppFrame shouldHideAppBar shouldHideBorder>
       <SideNavigation label="project">
         <div />
       </SideNavigation>

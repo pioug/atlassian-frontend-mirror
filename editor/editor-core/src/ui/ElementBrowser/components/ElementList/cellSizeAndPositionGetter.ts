@@ -2,7 +2,7 @@ import {
   CollectionCellSizeAndPosition,
   CollectionCellSizeAndPositionGetter,
 } from 'react-virtualized/dist/commonjs/Collection';
-import { ELEMENT_ITEM_HEIGHT, SCROLLBAR_WIDTH } from '../../constants';
+import { ELEMENT_ITEM_HEIGHT } from '../../constants';
 import { generateVirtualizedContainerDatum } from './utils';
 
 /**
@@ -12,6 +12,7 @@ import { generateVirtualizedContainerDatum } from './utils';
  **/
 export default function cellSizeAndPositionGetter(
   containerWidth: number,
+  scrollbarWidth: number,
 ): CollectionCellSizeAndPositionGetter {
   const GUTTER_SIZE = 4;
   /**
@@ -24,7 +25,7 @@ export default function cellSizeAndPositionGetter(
       containerWidth,
       {
         gutterSize: GUTTER_SIZE,
-        scrollbarWidth: SCROLLBAR_WIDTH,
+        scrollbarWidth,
       },
     );
 

@@ -12,7 +12,7 @@ import { InviteExperimentCohort, UserRole } from '@atlaskit/mention';
 import {
   name as packageName,
   version as packageVersion,
-} from '../../version.json';
+} from '../../version-wrapper';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { isTeamType } from './utils';

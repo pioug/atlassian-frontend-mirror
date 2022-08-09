@@ -11,6 +11,14 @@ import { MotionProps } from './types';
 
 export interface ShrinkOutProps extends MotionProps<{ ref: React.Ref<any> }> {}
 
+/**
+ * __ShrinkOut__
+ *
+ * Will shrink an element down to nothing when exiting.
+ * Works best with flex children as collapsing margins can come with undesired behaviour.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ */
 const ShrinkOut: React.FC<ShrinkOutProps> = ({
   children,
   duration = smallDurationMs,

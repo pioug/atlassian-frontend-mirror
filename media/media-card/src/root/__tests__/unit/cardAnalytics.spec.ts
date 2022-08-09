@@ -92,6 +92,26 @@ describe('fireOperationalEvent', () => {
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
 
+  it('should fire failed event if status is error with a default Error if the error was not provided', () => {
+    fireOperationalEvent(
+      createAnalyticsEvent,
+      'error',
+      fileAttributes,
+      performanceAttributes,
+      ssrReliability,
+    );
+
+    expect(getRenderErrorEventPayload).toBeCalledWith(
+      fileAttributes,
+      performanceAttributes,
+      expect.any(Error),
+      ssrReliability,
+    );
+    expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
+    expect(event.fire).toBeCalledTimes(1);
+    expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
+  });
+
   it('should fire succeeded event with ssrReliability error when status is complete', () => {
     fireOperationalEvent(
       createAnalyticsEvent,

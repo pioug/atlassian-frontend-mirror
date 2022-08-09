@@ -74,10 +74,12 @@ const GrabArea = ({
     data-testid={testId}
     type="button"
     css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   >
     <span css={lineStyles} {...grabAreaLineSelector} />
   </button>
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default GrabArea;

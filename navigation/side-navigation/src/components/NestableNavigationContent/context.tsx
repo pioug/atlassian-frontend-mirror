@@ -9,6 +9,9 @@ interface NestedContext {
   backButton?: React.ReactNode;
 }
 
+/**
+ * @internal
+ */
 export const NestedContext = createContext<NestedContext | undefined>(
   undefined,
 );

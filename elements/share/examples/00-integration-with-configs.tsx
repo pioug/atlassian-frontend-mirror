@@ -8,7 +8,7 @@ import { Appearance } from '@atlaskit/button/types';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
-import { OptionData, setSmartUserPickerEnv } from '@atlaskit/smart-user-picker';
+import { OptionData } from '@atlaskit/smart-user-picker';
 import Toggle from '@atlaskit/toggle';
 import { ufologger } from '@atlaskit/ufo';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
@@ -292,8 +292,6 @@ const IntegrationContent = (props: IntegrationContentProps) => {
     </>
   );
 };
-
-setSmartUserPickerEnv('local');
 
 export default function Example() {
   const defaultProps: State = {

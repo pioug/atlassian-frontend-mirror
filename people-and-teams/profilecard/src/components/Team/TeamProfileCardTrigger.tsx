@@ -142,6 +142,10 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
     }
   };
 
+  onClose = () => {
+    this.hideProfilecard();
+  };
+
   openKudosDrawer = () => {
     this.hideProfilecard(DELAY_MS_HIDE);
     this.setState({ kudosDrawerOpen: true });
@@ -414,7 +418,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
       <ErrorBoundary onError={this.onErrorBoundary}>
         <Popup
           isOpen={!!this.state.visible}
-          onClose={this.hideProfilecard}
+          onClose={this.onClose}
           placement={this.props.position}
           content={this.renderProfileCard}
           trigger={(triggerProps) => this.renderTrigger(triggerProps)}

@@ -48,7 +48,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig(
+      const toolbarConfig = getToolbarConfig()(
         editorView.state,
         intl,
         providerFactory,
@@ -76,7 +76,7 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig(
+      const toolbarConfig = getToolbarConfig()(
         editorView.state,
         intl,
         providerFactory,
@@ -104,14 +104,11 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig(
-        editorView.state,
-        intl,
-        providerFactory,
-        {
+      const toolbarConfig = getToolbarConfig({
+        cardOptions: {
           allowEmbeds: true,
         },
-      );
+      })(editorView.state, intl, providerFactory);
 
       const items = (toolbarConfig && toolbarConfig.items) || [];
       const toolbarAppearanceItem: any = (items as []).find(

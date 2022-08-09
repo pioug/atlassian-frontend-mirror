@@ -61,7 +61,9 @@ describe('LinkToolbarAppearance', () => {
       providerFactory,
       editorProps: {
         allowPanel: true,
-        smartLinks: {},
+        smartLinks: {
+          allowEmbeds: true,
+        },
       },
       pluginKey,
     });

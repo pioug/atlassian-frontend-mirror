@@ -51,7 +51,7 @@ import { Rect } from '@atlaskit/editor-tables/table-map';
 import { findParentDomRefOfType } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { closestElement } from '../../utils/dom';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/utils';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 
 // TODO: ED-14403 investigate why these translations don't work
 export const messages = defineMessages({

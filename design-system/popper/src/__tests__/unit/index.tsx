@@ -12,7 +12,9 @@ jest.mock('popper.js', () => {
 
     constructor() {
       return {
+        // eslint-disable-next-line @repo/internal/react/use-noop
         destroy: () => {},
+        // eslint-disable-next-line @repo/internal/react/use-noop
         scheduleUpdate: () => {},
       };
     }
@@ -44,6 +46,7 @@ const referenceElement = document.createElement('div');
 
 const mountPopper = (props: { referenceElement: HTMLDivElement }) =>
   mount(
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <PopperCompo {...props}>
       {({ ref, style, placement, arrowProps }) => (
         <div ref={ref} style={style} data-placement={placement}>

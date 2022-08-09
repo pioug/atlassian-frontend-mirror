@@ -37,7 +37,6 @@ import { ReactEditorView } from './create-editor';
 import { EventDispatcher } from './event-dispatcher';
 import EditorContext from './ui/EditorContext';
 import {
-  PortalProvider,
   PortalProviderWithThemeProviders,
   PortalRenderer,
 } from './ui/PortalProvider';
@@ -63,7 +62,6 @@ import {
 } from './plugins/quick-insert/types';
 import { createFeatureFlagsFromProps } from './plugins/feature-flags-context/feature-flags-from-props';
 import { RenderTracking } from './utils/performance/components/RenderTracking';
-import { checkIfMobileBridge } from './utils/check-if-mobile-bridge';
 
 export type {
   AllowedBlockTypes,
@@ -480,9 +478,9 @@ export default class Editor extends React.Component<EditorProps, State> {
         type: 'removed',
       },
 
-      allowDynamicTextSizing: {
+      smartLinks: {
         message:
-          'Dynamic text sizing has been unshipped since 2020. The prop is no longer needed.',
+          'To use smartLinks, pass the same object into the smartlinks key of linking - <Editor linking={{ smartLinks: {existing object} }}.',
         type: 'removed',
       },
     };
@@ -562,6 +560,7 @@ export default class Editor extends React.Component<EditorProps, State> {
       searchProvider,
       UNSAFE_cards,
       smartLinks,
+      linking,
     } = props;
 
     const { extensionProvider, quickInsertProvider } = this.state;
@@ -594,6 +593,7 @@ export default class Editor extends React.Component<EditorProps, State> {
     this.providerFactory.setProvider('macroProvider', macroProvider);
 
     const cardProvider =
+      linking?.smartLinks?.provider ||
       (smartLinks && smartLinks.provider) ||
       (UNSAFE_cards && UNSAFE_cards.provider);
     if (cardProvider) {
@@ -653,24 +653,6 @@ export default class Editor extends React.Component<EditorProps, State> {
     const renderTrackingEnabled = renderTracking?.enabled;
     const useShallow = renderTracking?.useShallow;
 
-    /**
-     * The PortalProviderWithThemeProviders renders portals with atlaskit
-     * and the deprecated styled components theme providers.
-     *
-     * Without this the node views react trees;
-     * - do not have access to the atlaskit theme via the `useGlobalTheme` hook
-     * - do not have access to the theme when using the `styled`${({theme}) => theme.}` api.
-     *
-     * Added for a mobile regression, which needed to be fixed on master.
-     * Once this makes it's way to develop, we should consider making it the default
-     * behaviour.
-     *
-     * https://product-fabric.atlassian.net/browse/ED-14204
-     */
-    const EnvironmentDrivenPortalProvider = checkIfMobileBridge()
-      ? PortalProviderWithThemeProviders
-      : PortalProvider;
-
     return (
       <FabricEditorAnalyticsContext
         data={{
@@ -704,7 +686,7 @@ export default class Editor extends React.Component<EditorProps, State> {
                   <WidthProvider css={fullHeight}>
                     <EditorContext editorActions={this.editorActions}>
                       <ContextAdapter>
-                        <EnvironmentDrivenPortalProvider
+                        <PortalProviderWithThemeProviders
                           onAnalyticsEvent={this.handleAnalyticsEvent}
                           useAnalyticsContext={
                             this.props.UNSAFE_useAnalyticsContext

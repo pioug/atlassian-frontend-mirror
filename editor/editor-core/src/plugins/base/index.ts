@@ -7,7 +7,7 @@ import { EditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import focusHandlerPlugin from './pm-plugins/focus-handler';
 import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
-import fixChromeSpellCheckingPlugin from './pm-plugins/fix-chrome-spell-checking';
+import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
 import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
@@ -125,8 +125,8 @@ const basePlugin = (options?: BasePluginOptions): EditorPlugin => ({
     }
 
     plugins.push({
-      name: 'fixChromeSpellCheckingPlugin',
-      plugin: () => fixChromeSpellCheckingPlugin(),
+      name: 'disableSpellcheckingPlugin',
+      plugin: () => disableSpellcheckingPlugin(),
     });
 
     return plugins;

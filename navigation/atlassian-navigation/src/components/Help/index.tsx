@@ -11,6 +11,14 @@ import { HelpProps } from './types';
 const HELP_NOTIFICATION_BADGE_ID =
   'atlassian-navigation-help-notification-count';
 
+/**
+ * __Help__
+ *
+ * A help button that can be passed into `AtlassianNavigation`'s `renderHelp` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#help)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const Help = forwardRef((props: HelpProps, ref: Ref<any>) => {
   const { badge, tooltip, ...iconButtonProps } = props;
   const {

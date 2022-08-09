@@ -13,10 +13,10 @@ import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from './web-to-native';
 import WebBridgeImpl from './native-to-web';
 import {
-  Provider as SmartCardProvider,
+  SmartCardProvider,
   EditorCardProvider,
-  Client as EditorCardClient,
-} from '@atlaskit/smart-card';
+  CardClient as EditorCardClient,
+} from '@atlaskit/link-provider';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { useCollabEdit } from './hooks/use-collab-edit';
 import { useQuickInsert } from './hooks/use-quickinsert';

@@ -1,5 +1,7 @@
 import React, { createContext, ReactNode } from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 interface SpotlightTransitionProps {
   /**
    * Children that are conditionally rendered. The transition happens based
@@ -21,7 +23,8 @@ const SpotlightTransitionContext = createContext<
   SpotlightTransitionContextModel
 >({
   isOpen: true,
-  onExited: () => {},
+
+  onExited: noop,
 });
 
 // checks if children exist and are truthy
@@ -32,9 +35,11 @@ const hasChildren = (children: ReactNode) =>
 /**
  * __Spotlight transition__
  *
- * Provides context used for fading animations.
+ * A spotlight transition holds onto spotlights so they can fade out when exiting the viewport.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 class SpotlightTransition extends React.Component<
   SpotlightTransitionProps,

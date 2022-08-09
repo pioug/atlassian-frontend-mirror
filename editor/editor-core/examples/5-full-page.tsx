@@ -31,10 +31,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 
 import { EmojiProvider } from '@atlaskit/emoji/resource';
-import {
-  Provider as SmartCardProvider,
-  Client as SmartCardClient,
-} from '@atlaskit/smart-card';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import {
   currentUser,
@@ -225,7 +222,7 @@ export interface ExampleProps {
   clickToEdit?: boolean;
 }
 
-const smartCardClient = new SmartCardClient('staging');
+const smartCardClient = new CardClient('staging');
 export class ExampleEditorComponent extends React.Component<
   EditorProps & ExampleProps,
   State

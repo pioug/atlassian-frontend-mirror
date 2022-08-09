@@ -4,6 +4,7 @@ import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 import keymap from './pm-plugins/keymaps';
 import ideUX from './pm-plugins/ide-ux';
+import { codeBlockCopySelectionPlugin } from './pm-plugins/codeBlockCopySelectionPlugin';
 import {
   addAnalytics,
   ACTION,
@@ -43,6 +44,10 @@ const codeBlockPlugin = (options: CodeBlockOptions): EditorPlugin => ({
       {
         name: 'codeBlockKeyMap',
         plugin: ({ schema }: PMPluginFactoryParams) => keymap(schema),
+      },
+      {
+        name: 'codeBlockCopySelection',
+        plugin: () => codeBlockCopySelectionPlugin(),
       },
     ];
   },

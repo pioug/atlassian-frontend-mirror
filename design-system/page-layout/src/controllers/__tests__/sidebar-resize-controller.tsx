@@ -18,6 +18,7 @@ const completeAnimations = () => {
   act(() => raf.flush());
   act(() => jest.runAllTimers());
 };
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ResizeControlledConsumer = () => {
   const {
     isLeftSidebarCollapsed,
@@ -36,8 +37,12 @@ export const ResizeControlledConsumer = () => {
 
   return (
     <>
-      <button data-testid="collapse" onClick={collapseLeftSidebar} />
-      <button data-testid="expand" onClick={expandLeftSidebar} />
+      <button
+        data-testid="collapse"
+        onClick={collapseLeftSidebar}
+        type="button"
+      />
+      <button data-testid="expand" onClick={expandLeftSidebar} type="button" />
       <p data-testid="isLeftSidebarCollapsed">
         {String(isLeftSidebarCollapsed)}
       </p>

@@ -185,6 +185,32 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
   };
 }
 
+export function handlePastePanelIntoList(slice: Slice): Command {
+  return (state: EditorState, dispatch?: CommandDispatch): boolean => {
+    const { schema, tr } = state;
+    const { selection } = tr;
+
+    // Check this pasting action is related to copy content from panel node into a selected the list node
+    const selectionParentListNode = selection.$to.node(selection.$to.depth - 1);
+    const panelNode = slice.content.firstChild;
+    if (
+      !dispatch ||
+      !selectionParentListNode ||
+      selectionParentListNode?.type !== schema.nodes.listItem ||
+      !panelNode ||
+      panelNode?.type !== schema.nodes.panel ||
+      panelNode?.content.firstChild === undefined
+    ) {
+      return false;
+    }
+
+    // Paste the panel node contents extracted instead of pasting the entire panel node
+    tr.replaceSelection(slice).scrollIntoView();
+    dispatch(tr);
+    return true;
+  };
+}
+
 // If we paste a link onto some selected text, apply the link as a mark
 export function handlePasteLinkOnSelectedText(slice: Slice): Command {
   return (state, dispatch) => {
@@ -809,7 +835,7 @@ export function insertIntoPanel(tr: Transaction, slice: Slice, panel: any) {
 export function handleRichText(slice: Slice): Command {
   return (state, dispatch) => {
     const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
-    const { selection } = state;
+    const { selection, schema } = state;
     const firstChildOfSlice = slice.content?.firstChild;
     const lastChildOfSlice = slice.content?.lastChild;
 
@@ -847,7 +873,7 @@ export function handleRichText(slice: Slice): Command {
       panelParentOverCurrentSelection.node?.content.size === 2;
 
     if (isSliceContentListNodes || isTargetPanelEmpty) {
-      insertSliceForLists({ tr, slice });
+      insertSliceForLists({ tr, slice, schema });
     } else if (noNeedForSafeInsert) {
       tr.replaceSelection(slice);
     } else {

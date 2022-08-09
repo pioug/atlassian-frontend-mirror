@@ -14,6 +14,7 @@ import {
   SSR,
 } from '@atlaskit/media-common';
 import { ImageResizeMode } from '@atlaskit/media-client';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CardDimensions } from '../../../utils/cardDimensions';
 import cardPreviewCache from './cache';
 import {
@@ -31,6 +32,11 @@ import {
   extractFilePreviewStatus,
   isPreviewableStatus,
 } from './filePreviewStatus';
+import {
+  fireImageFetchingOperationalEvent,
+  calculatePercentageDifference,
+} from '../imageRefetchingAnalytics';
+import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 export {
   getCardPreviewFromFilePreview,
@@ -63,6 +69,8 @@ export type CardPreviewParams = {
   isRemotePreviewReady: boolean;
   imageUrlParams: MediaStoreGetFileImageParams;
   mediaBlobUrlAttrs?: MediaBlobUrlAttrs;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+  featureFlags?: MediaFeatureFlags;
 };
 
 const extendAndCachePreview = (
@@ -116,12 +124,23 @@ export const getCardPreview = async ({
   isRemotePreviewReady,
   imageUrlParams,
   mediaBlobUrlAttrs,
+  createAnalyticsEvent,
+  featureFlags,
 }: CardPreviewParams): Promise<CardPreview> => {
   const mode = imageUrlParams.mode;
   const cachedPreview = cardPreviewCache.get(id, mode);
   const dimensionsAreBigger = isBigger(cachedPreview?.dimensions, dimensions);
 
   if (cachedPreview && !dimensionsAreBigger) {
+    if (getMediaFeatureFlag('memoryCacheLogging', featureFlags)) {
+      createAnalyticsEvent &&
+        fireImageFetchingOperationalEvent(createAnalyticsEvent, 'cache-hit', {
+          fileId: id,
+          prevDimensions: cachedPreview.dimensions,
+          currentDimensions: dimensions,
+          source: cachedPreview.source,
+        });
+    }
     return cachedPreview;
   }
 
@@ -170,13 +189,31 @@ export const getCardPreview = async ({
     throw new MediaCardError('remote-preview-not-ready');
   }
 
-  return fetchAndCacheRemotePreview(
+  const remotePreview = await fetchAndCacheRemotePreview(
     mediaClient,
     id,
     dimensions,
     imageUrlParams,
     mediaBlobUrlAttrs,
   );
+  if (getMediaFeatureFlag('memoryCacheLogging', featureFlags)) {
+    createAnalyticsEvent &&
+      fireImageFetchingOperationalEvent(
+        createAnalyticsEvent,
+        'remote-success',
+        {
+          fileId: id,
+          prevDimensions: cachedPreview?.dimensions,
+          currentDimensions: dimensions,
+          dimensionsPercentageDiff: calculatePercentageDifference(
+            cachedPreview?.dimensions,
+            dimensions,
+          ),
+          source: remotePreview.source,
+        },
+      );
+  }
+  return remotePreview;
 };
 
 export const shouldResolvePreview = ({

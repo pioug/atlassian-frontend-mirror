@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -19,7 +20,7 @@ export default () => (
       id="error"
       key="error"
       title="We couldn't connect"
-      actions={[{ content: 'Check StatusPage', onClick: () => {} }]}
+      actions={[{ content: 'Check StatusPage', onClick: noop }]}
     />
   </FlagGroup>
 );

@@ -1,5 +1,12 @@
 /** @jsx jsx */
-import React, { Fragment, memo, useCallback, useEffect, useMemo } from 'react';
+import React, {
+  Fragment,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { css, jsx } from '@emotion/react';
 import { AutoSizer, Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
@@ -24,19 +31,14 @@ import {
 import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
 import { itemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';
 import { shortcutStyle } from '../../../styles';
-import {
-  ELEMENT_LIST_PADDING,
-  SCROLLBAR_THUMB_COLOR,
-  SCROLLBAR_TRACK_COLOR,
-  SCROLLBAR_WIDTH,
-} from '../../constants';
+import { ELEMENT_LIST_PADDING, SCROLLBAR_WIDTH } from '../../constants';
 import useContainerWidth from '../../hooks/use-container-width';
 import useFocus from '../../hooks/use-focus';
 import { Modes, SelectedItemProps } from '../../types';
 import { EmptyStateHandler } from '../../../../types/empty-state-handler';
 import cellSizeAndPositionGetter from './cellSizeAndPositionGetter';
 import EmptyState from './EmptyState';
-import { getColumnCount } from './utils';
+import { getColumnCount, getScrollbarWidth } from './utils';
 
 export interface Props {
   items: QuickInsertItem[];
@@ -62,6 +64,7 @@ function ElementList({
   ...props
 }: Props & SelectedItemProps & WithAnalyticsEventsProps) {
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
+  const [scrollbarWidth, setScrollbarWidth] = useState(SCROLLBAR_WIDTH);
 
   const fullMode = mode === Modes.full;
 
@@ -72,8 +75,13 @@ function ElementList({
      **/
     if (fullMode && containerWidth > 0) {
       setColumnCount(getColumnCount(containerWidth));
+      const updatedScrollbarWidth = getScrollbarWidth();
+
+      if (updatedScrollbarWidth > 0) {
+        setScrollbarWidth(updatedScrollbarWidth);
+      }
     }
-  }, [fullMode, containerWidth, setColumnCount]);
+  }, [fullMode, containerWidth, setColumnCount, scrollbarWidth]);
 
   const onExternalLinkClick = useCallback(() => {
     fireAnalyticsEvent(createAnalyticsEvent)({
@@ -143,7 +151,8 @@ function ElementList({
                     cellCount={items.length}
                     cellRenderer={cellRenderer}
                     cellSizeAndPositionGetter={cellSizeAndPositionGetter(
-                      containerWidth,
+                      containerWidth - ELEMENT_LIST_PADDING * 2,
+                      scrollbarWidth,
                     )}
                     height={height}
                     width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
@@ -274,23 +283,6 @@ const ItemContent = memo(
   ),
 );
 
-const scrollbarStyle = css`
-  ::-webkit-scrollbar {
-    width: ${SCROLLBAR_WIDTH}px;
-  }
-  ::-webkit-scrollbar-track-piece {
-    background: ${SCROLLBAR_TRACK_COLOR};
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${SCROLLBAR_THUMB_COLOR};
-  }
-
-  /** Firefox **/
-  scrollbar-color: ${SCROLLBAR_THUMB_COLOR} ${SCROLLBAR_TRACK_COLOR};
-
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-`;
-
 const elementItemsWrapper = css`
   flex: 1;
   flex-flow: row wrap;
@@ -300,7 +292,6 @@ const elementItemsWrapper = css`
   padding: ${ELEMENT_LIST_PADDING}px; // For Focus outline
 
   .ReactVirtualized__Collection {
-    ${scrollbarStyle};
     border-radius: 3px; // Standard border-radius across other components like Search or Item.
     outline: none;
 

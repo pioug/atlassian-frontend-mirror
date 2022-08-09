@@ -44,6 +44,7 @@ const appearancesCases: {
 ];
 const CustomLinkComponent = React.forwardRef(
   (props = {}, ref: React.Ref<HTMLButtonElement>) => (
+    // eslint-disable-next-line react/button-has-type
     <button {...props} ref={ref}>
       hello world
     </button>

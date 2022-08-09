@@ -13,7 +13,6 @@ import { SelectOption } from './ui/Select';
 import React from 'react';
 import { DropdownOptions, RenderOptionsPropsT } from './ui/types';
 import { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
-import { CardOptions } from '@atlaskit/editor-common/card';
 import { PaletteColor } from '../../ui/ColorPalette/Palettes/type';
 import { EmojiId } from '@atlaskit/emoji/types';
 
@@ -216,5 +215,4 @@ export type FloatingToolbarHandler = (
   state: EditorState,
   intl: IntlShape,
   providerFactory: ProviderFactory,
-  cardOptions?: CardOptions,
 ) => FloatingToolbarConfig | undefined;

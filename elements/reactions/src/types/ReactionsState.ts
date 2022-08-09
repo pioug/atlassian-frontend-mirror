@@ -1,6 +1,9 @@
 import { ReactionStatus } from './ReactionStatus';
 import { ReactionSummary } from './ReactionSummary';
 
+/**
+ * state in which the reaction is at
+ */
 export type ReactionsState =
   | ReactionsNotLoaded
   | ReactionsLoading

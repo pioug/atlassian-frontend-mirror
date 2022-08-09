@@ -28,11 +28,11 @@ import { SkeletonNotificationButton } from '../src/skeleton-notification-button'
 import { SkeletonSettingsButton } from '../src/skeleton-settings-button';
 import { SkeletonSwitcherButton } from '../src/skeleton-switcher-button';
 
-import { DefaultCreate } from './shared/Create';
-import { HelpPopup } from './shared/HelpPopup';
-import { NotificationsPopup } from './shared/NotificationsPopup';
-import { avatarUrl, ProfilePopup } from './shared/ProfilePopup';
-import { SwitcherPopup } from './shared/SwitcherPopup';
+import { DefaultCreate } from './shared/create';
+import { HelpPopup } from './shared/help-popup';
+import { NotificationsPopup } from './shared/notifications-popup';
+import { avatarUrl, ProfilePopup } from './shared/profile-popup';
+import { SwitcherPopup } from './shared/switcher-popup';
 import { theme } from './shared/themes';
 
 const paragraphStyles = css({
@@ -131,6 +131,7 @@ const AppsContent = () => (
 
 type PrimaryDropdownProps = {
   content: PopupProps['content'];
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   text: string;
   isHighlighted?: boolean;
 };
@@ -275,6 +276,7 @@ const JiraIntegrationWithSkeletonButtonsExample = () => {
             ? () => <SkeletonNotificationButton label="notifications button" />
             : NotificationsPopup
         }
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         theme={theme[themeIndex]}
         testId="atlassian-navigation"
       />

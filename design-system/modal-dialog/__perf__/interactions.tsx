@@ -27,7 +27,7 @@ const InteractionPerformance = ({ index = 0 }: { index?: number }) => {
 
   return (
     <>
-      <button data-testid="open-button" onClick={open}>
+      <button data-testid="open-button" onClick={open} type="button">
         {openText(index)}
       </button>
 

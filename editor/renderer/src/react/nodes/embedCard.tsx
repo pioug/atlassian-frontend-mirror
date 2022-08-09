@@ -1,11 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useMemo, useContext, useState, useRef } from 'react';
-import {
-  Card,
-  Context as CardContext,
-  EmbedResizeMessageListener,
-} from '@atlaskit/smart-card';
+import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
+import { SmartCardContext } from '@atlaskit/link-provider';
 
 import {
   WidthConsumer,
@@ -119,7 +116,7 @@ export default function EmbedCard(props: {
 
   const [hasPreview, setPreviewAvailableState] = useState(true);
 
-  const cardContext = useContext(CardContext);
+  const cardContext = useContext(SmartCardContext);
 
   const onResolve = ({
     aspectRatio: resolvedAspectRatio,

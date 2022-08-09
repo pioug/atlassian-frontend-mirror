@@ -30,6 +30,15 @@ export interface SideNavigationProps {
   testId?: string;
 }
 
+/**
+ * __Side navigation__
+ *
+ * A highly composable side navigation component that supports nested views.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ * - [Usage](https://atlassian.design/components/side-navigation/usage)
+ */
 const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
   (props: SideNavigationProps, ref) => {
     const { children, testId, label } = props;

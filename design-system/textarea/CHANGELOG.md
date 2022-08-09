@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 4.3.8
+
+### Patch Changes
+
+- [`e4abd2c2888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abd2c2888) - Update token used for background color of subtle text area on hover
+- [`926f9b57c59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/926f9b57c59) - Internal code change turning on new linting rules.
+- [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
+
 ## 4.3.7
 
 ### Patch Changes

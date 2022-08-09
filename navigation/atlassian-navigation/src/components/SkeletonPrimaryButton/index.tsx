@@ -77,6 +77,16 @@ const isDropdownButtonStyles = css({
   },
 });
 
+/**
+ * __Skeleton primary button__
+ *
+ * Skeleton buttons are lightweight HTML button elements with CSS that represent
+ * their heavier interactive counterparts, for use when elements of the
+ * navigation are loaded dynamically. This one represents a primary button.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const SkeletonPrimaryButton = ({
   isDropdownButton = false,
   isHighlighted = false,
@@ -99,6 +109,7 @@ export const SkeletonPrimaryButton = ({
 
   return (
     <button
+      type="button"
       style={dynamicStyles as React.CSSProperties}
       css={[
         primaryButtonSkeletonStyles,

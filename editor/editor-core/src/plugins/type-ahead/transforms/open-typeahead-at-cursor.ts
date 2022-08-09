@@ -2,6 +2,7 @@ import { Transaction, TextSelection } from 'prosemirror-state';
 import { pluginKey } from '../pm-plugins/key';
 import { ACTIONS } from '../pm-plugins/actions';
 import type { TypeAheadHandler, TypeAheadInputMethod } from '../types';
+import { browser } from '@atlaskit/editor-common/utils';
 
 type Props = {
   triggerHandler: TypeAheadHandler;
@@ -52,6 +53,18 @@ export const openTypeAheadAtCursor = ({
 
   if (nodeAtCursor && isPlaceholderAtCursorPosition) {
     tr.delete(cursorPos, cursorPos + nodeAtCursor.nodeSize);
+  }
+
+  // ME-2375 remove the superfluous '@' inserted before decoration
+  // by composition (https://github.com/ProseMirror/prosemirror/issues/903)
+  if (
+    browser.chrome &&
+    browser.android &&
+    cursorPos > 2 &&
+    !!selection?.$head?.parent?.textContent &&
+    selection.$head.parent.textContent.endsWith?.('@')
+  ) {
+    tr.delete(cursorPos - 1, cursorPos);
   }
 
   return tr;

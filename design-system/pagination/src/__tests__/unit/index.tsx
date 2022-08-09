@@ -138,6 +138,7 @@ describe('Pagination', () => {
           ref: React.Ref<HTMLDivElement>,
         ) {
           return (
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
             <div ref={ref} {...rest} data-testid={`Page-${page}`}>
               Page - {page}
             </div>
@@ -150,6 +151,7 @@ describe('Pagination', () => {
           return (
             <div
               ref={ref}
+              // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
               {...props}
               data-testid={`custom-${props['aria-label']}`}
             >

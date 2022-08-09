@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 12.3.1
+
+### Patch Changes
+
+- [`124a1b7532b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/124a1b7532b) - Remove calendar's background when design tokens are provided, to allow calendar to match the color of any surface in light or dark mode
+- [`6bf81ead961`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bf81ead961) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

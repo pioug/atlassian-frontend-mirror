@@ -28,21 +28,16 @@ export const overflowTruncateStyles = css({
   overflow: 'hidden',
 });
 
-export const getTruncationStyleVars = ({ width }: TruncateStyleProps) => {
-  return {
-    [CSS_VAR_WIDTH]: typeof width !== 'undefined' ? `${width}%` : undefined,
-  };
-};
+export const getTruncationStyleVars = ({ width }: TruncateStyleProps) =>
+  typeof width !== 'undefined' ? { [CSS_VAR_WIDTH]: `${width}%` } : undefined;
 
 export const cellStyles = css({
-  border: 'none',
   padding: `${gridSize / 2}px ${gridSize}px`,
+  border: 'none',
   textAlign: 'left',
-
   '&:first-of-type': {
     paddingLeft: 0,
   },
-
   '&:last-child': {
     paddingRight: 0,
   },

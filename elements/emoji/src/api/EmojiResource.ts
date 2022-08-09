@@ -82,9 +82,8 @@ export interface EmojiResourceConfig {
   singleEmojiApi?: SingleEmojiApiLoaderConfig;
 
   /**
-   * Used for fetching emoji asset and render this asset before provider has been
-   * downloaded to reduce the time the user is presented with a placeholder
-   * while downloading the emoji meta data
+   * Renders an image while the provider is being downloaded to reduce the time
+   * the user is being presented with a placeholder
    */
   optimisticImageApi?: OptimisticImageApiLoaderConfig;
 }

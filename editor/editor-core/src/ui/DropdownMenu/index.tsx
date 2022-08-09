@@ -1,15 +1,21 @@
 /** @jsx jsx */
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import DropList from '@atlaskit/droplist';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item, { ItemGroup } from '@atlaskit/item';
-import Tooltip from '@atlaskit/tooltip';
+import DropList from '../DropList';
+import {
+  CustomItem,
+  CustomItemComponentProps,
+  MenuGroup,
+} from '@atlaskit/menu';
+import Tooltip, { PositionType } from '@atlaskit/tooltip';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import withOuterListeners from '../with-outer-listeners';
-import { Props, State } from './types';
+import { MenuItem, Props, State } from './types';
+import { DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 const wrapper = css`
   /* tooltip in ToolbarButton is display:block */
@@ -18,25 +24,49 @@ const wrapper = css`
   }
 `;
 
-const DropListWithOutsideListeners: any = withOuterListeners(DropList);
-
-/**
- * Hack for item to imitate old dropdown-menu selected styles
- */
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4500
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-const itemWrapper = css`
-  && > span,
-  && > span:hover {
-    background: #6c798f;
-    color: #fff;
+const buttonStyles = (isActive?: boolean) => (theme: ThemeProps) => {
+  if (isActive) {
+    /**
+     * Hack for item to imitate old dropdown-menu selected styles
+     */
+    // TODO: https://product-fabric.atlassian.net/browse/DSP-4500
+    /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+    return css`
+      > span,
+      > span:hover {
+        background: #6c798f;
+        color: #fff;
+      }
+    `;
+  } else {
+    return css`
+      > span:hover[aria-disabled='false'] {
+        color: ${themed({
+          light: token('color.text', N900),
+          dark: token('color.text', DN600),
+        })(theme)};
+        background-color: ${themed({
+          light: token(
+            'color.background.neutral.subtle.hovered',
+            'rgb(244, 245, 247)',
+          ),
+          dark: token(
+            'color.background.neutral.subtle.hovered',
+            'rgb(59, 71, 92)',
+          ),
+        })(theme)};
+      }
+      > span[aria-disabled='true'] {
+        color: ${themed({
+          light: token('color.text.disabled', N70),
+          dark: token('color.text.disabled', DN80),
+        })(theme)};
+      }
+    `;
   }
-`;
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+};
 
-const itemContentWrapper = css`
-  margin-left: 8px;
-`;
+const DropListWithOutsideListeners: any = withOuterListeners(DropList);
 
 /**
  * Wrapper around @atlaskit/droplist which uses Popup and Portal to render
@@ -68,59 +98,6 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       this.props.onOpenChange({ isOpen: false });
     }
   };
-
-  private renderItem(item: typeof Item) {
-    const {
-      onItemActivated,
-      onMouseEnter,
-      onMouseLeave,
-      shouldUseDefaultRole,
-    } = this.props;
-
-    // onClick and value.name are the action indicators in the handlers
-    // If neither are present, don't wrap in an Item.
-    if (!item.onClick && !item.value && !item.value.name) {
-      return <span key={String(item.content)}>{item.content}</span>;
-    }
-
-    const dropListItem = (
-      <div
-        css={item.isActive ? itemWrapper : ''}
-        key={item.key || item.content}
-      >
-        <Item
-          role={shouldUseDefaultRole ? 'button' : 'menuitem'}
-          elemBefore={item.elemBefore}
-          elemAfter={item.elemAfter}
-          isDisabled={item.isDisabled}
-          onClick={() => onItemActivated && onItemActivated({ item })}
-          onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
-          onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
-          className={item.className}
-          aria-label={item.label || String(item.content)}
-          aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
-        >
-          <span css={!!item.elemBefore ? itemContentWrapper : ''}>
-            {item.content}
-          </span>
-        </Item>
-      </div>
-    );
-
-    if (item.tooltipDescription) {
-      return (
-        <Tooltip
-          key={item.key || item.content}
-          content={item.tooltipDescription}
-          position={item.tooltipPosition}
-        >
-          {dropListItem}
-        </Tooltip>
-      );
-    }
-
-    return dropListItem;
-  }
 
   private renderDropdownMenu() {
     const { target, popupPlacement } = this.state;
@@ -161,12 +138,21 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
         >
           <div style={{ height: 0, minWidth: fitWidth || 0 }} />
           {items.map((group, index) => (
-            <ItemGroup
+            <MenuGroup
               key={index}
               role={shouldUseDefaultRole ? 'group' : 'menu'}
             >
-              {group.items.map((item) => this.renderItem(item))}
-            </ItemGroup>
+              {group.items.map((item) => (
+                <DropdownMenuItem
+                  key={item.key ?? String(item.content)}
+                  item={item}
+                  onItemActivated={this.props.onItemActivated}
+                  shouldUseDefaultRole={this.props.shouldUseDefaultRole}
+                  onMouseEnter={this.props.onMouseEnter}
+                  onMouseLeave={this.props.onMouseLeave}
+                />
+              ))}
+            </MenuGroup>
           ))}
         </DropListWithOutsideListeners>
       </Popup>
@@ -183,4 +169,78 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
       </div>
     );
   }
+}
+
+type DropdownMenuItemCustomComponentProps = CustomItemComponentProps & {
+  item: MenuItem;
+} & React.ComponentProps<'span'>;
+
+const DropdownMenuItemCustomComponent = React.forwardRef<
+  HTMLAnchorElement,
+  DropdownMenuItemCustomComponentProps
+>((props: DropdownMenuItemCustomComponentProps, ref) => {
+  const { children, ...rest } = props;
+
+  return (
+    <span ref={ref} {...rest}>
+      {children}
+    </span>
+  );
+});
+
+function DropdownMenuItem({
+  item,
+  onItemActivated,
+  shouldUseDefaultRole,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  item: MenuItem;
+} & Pick<
+  Props,
+  'onItemActivated' | 'shouldUseDefaultRole' | 'onMouseEnter' | 'onMouseLeave'
+>) {
+  // onClick and value.name are the action indicators in the handlers
+  // If neither are present, don't wrap in an Item.
+  if (!item.onClick && !(item.value && item.value.name)) {
+    return <span key={String(item.content)}>{item.content}</span>;
+  }
+
+  const dropListItem = (
+    <div css={(theme: ThemeProps) => buttonStyles(item.isActive)({ theme })}>
+      <CustomItem
+        item={item}
+        key={item.key ?? String(item.content)}
+        role={shouldUseDefaultRole ? 'button' : 'menuitem'}
+        iconBefore={item.elemBefore}
+        iconAfter={item.elemAfter}
+        isDisabled={item.isDisabled}
+        onClick={() => onItemActivated && onItemActivated({ item })}
+        aria-label={item['aria-label'] || String(item.content)}
+        aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
+        onMouseDown={(e) => {
+          e.preventDefault();
+        }}
+        component={DropdownMenuItemCustomComponent}
+        onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
+        onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
+      >
+        {item.content}
+      </CustomItem>
+    </div>
+  );
+
+  if (item.tooltipDescription) {
+    return (
+      <Tooltip
+        key={item.key ?? String(item.content)}
+        content={item.tooltipDescription}
+        position={item.tooltipPosition as PositionType}
+      >
+        {dropListItem}
+      </Tooltip>
+    );
+  }
+
+  return dropListItem;
 }

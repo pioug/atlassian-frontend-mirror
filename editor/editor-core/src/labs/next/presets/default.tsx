@@ -38,6 +38,7 @@ import { SelectionPluginOptions } from '../../../plugins/selection/types';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../../../plugins/undo-redo';
 import { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
+import { HyperlinkPluginOptions } from '../../../plugins/hyperlink/types';
 // #endregion
 
 interface EditorPresetDefaultProps {
@@ -56,6 +57,7 @@ export type DefaultPresetPluginOptions = {
   codeBlock?: CodeBlockOptions;
   selection?: SelectionPluginOptions;
   cardOptions?: CardOptions;
+  hyperlinkOptions?: HyperlinkPluginOptions;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   typeAhead?: TypeAheadPluginOptions;
 };
@@ -82,7 +84,7 @@ export function createDefaultPreset(
     preset.add([annotationPlugin, options.annotationProviders]);
   }
 
-  preset.add([hyperlinkPlugin, options.cardOptions]);
+  preset.add([hyperlinkPlugin, options.hyperlinkOptions]);
   preset.add([textFormattingPlugin, options.textFormatting]);
   preset.add(widthPlugin);
   preset.add([quickInsertPlugin, options.quickInsert]);

@@ -18,16 +18,16 @@ const wrapperStyles = css({
 const overflow = css({
   overflowX: 'auto',
   '::after': {
-    top: 0,
-    position: 'absolute',
-    left: 'calc(100% - 8px)',
-    height: '100%',
     width: 8,
-    content: "''",
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 'calc(100% - 8px)',
     background: `linear-gradient(to right, ${token(
       'color.blanket',
       'rgba(99, 114, 130, 0)',
     )} 0px, ${token('color.blanket', 'rgba(9, 30, 66, 0.13)')} 100%)`,
+    content: "''",
   },
 });
 

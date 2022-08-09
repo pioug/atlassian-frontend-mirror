@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.7.2
+
+### Patch Changes
+
+- [`9f64ab9d5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9f64ab9d5ea) - Improvements / added robustness to edge cases previously unhandled.
+- [`8e848e3a4a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e848e3a4a6) - Internal updates to a number of rules. Introduced a custom formatter for the rule 'no-raw-spacing-values'.
+- [`31494c13aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31494c13aaa) - Type fixes to the internals of a number of rules.
+
 ## 4.7.1
 
 ### Patch Changes

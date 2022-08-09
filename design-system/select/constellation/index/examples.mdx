@@ -13,6 +13,8 @@ import SelectAsync from '../../examples/constellation/select-async';
 import SelectAsyncCreatable from '../../examples/constellation/select-async-creatable';
 import SelectCountry from '../../examples/constellation/select-country';
 import SelectGroupedOptions from '../../examples/constellation/select-grouped-options';
+import SelectPopupModalExample from '../../examples/constellation/select-popup-in-modal';
+
 
 
 ## Single select
@@ -50,6 +52,12 @@ Use `PopupSelect` in scenarios where the trigger needs a custom appearance,
 or must occupy very limited horizontal space.
 
 <Example Component={SelectPopup} packageName="@atlaskit/select" />
+
+### Popup select in modal
+
+When using PopupSelect in a modal, use the offset and preventOverflow [Popper props](https://atlaskit.atlassian.com/packages/design-system/popper) to keep the menu from covering the target in the limited space.
+
+<Example Component={SelectPopupModalExample} packageName="@atlaskit/select" />
 
 ### Radio select
 

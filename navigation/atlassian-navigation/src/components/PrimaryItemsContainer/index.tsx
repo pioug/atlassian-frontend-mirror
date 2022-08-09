@@ -40,6 +40,8 @@ const widthObserverContainerStyles = css({
   flexShrink: 1,
 });
 
+// Internal only
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const PrimaryItemsContainer = ({
   moreLabel,
   items,

@@ -2,10 +2,6 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 export const ELEMENTS_CHANNEL = 'fabric-elements';
 
@@ -16,6 +12,9 @@ type EventPayload = {
     [key: string]: any;
   };
 };
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const createStatusAnalyticsAndFire = (
   createAnalyticsEvent: CreateUIAnalyticsEvent,

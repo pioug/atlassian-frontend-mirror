@@ -7,6 +7,7 @@ import {
   UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 import CloseIcon from '@atlaskit/icon/glyph/editor/close';
 import CheckIcon from '@atlaskit/icon/glyph/editor/done';
 import GlobalTheme from '@atlaskit/theme/components';
@@ -18,7 +19,7 @@ import { Size, ToggleProps } from './types';
 export const getIconSize = (size: Size) =>
   size === 'large' ? 'large' : 'small';
 
-const noop = () => {};
+const noop = __noop;
 
 const analyticsAttributes = {
   componentName: 'toggle',
@@ -125,6 +126,15 @@ const InnerToggle = forwardRef<HTMLInputElement, ExtendedToggleProps>(
   },
 );
 
+/**
+ * __Toggle__
+ *
+ * A toggle is used to view or switch between enabled or disabled states.
+ *
+ * - [Examples](https://atlassian.design/components/toggle/examples)
+ * - [Code](https://atlassian.design/components/toggle/code)
+ * - [Usage](https://atlassian.design/components/toggle/usage)
+ */
 const Toggle = memo(
   forwardRef<HTMLInputElement, ToggleProps>(function Toggle(props, ref) {
     return (

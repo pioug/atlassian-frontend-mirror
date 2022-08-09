@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   fromHTML,
@@ -6,7 +5,9 @@ import {
   textWithMarks,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema underline mark`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema underline mark`, () => {
   itMatches('<u>text</u>', 'text');
   itMatches('<span style="text-decoration: underline">text</span>', 'text');
 

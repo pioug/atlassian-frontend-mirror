@@ -12,6 +12,14 @@ import LeftSidebarInner from './internal/left-sidebar-inner';
 import LeftSidebarOuter from './internal/left-sidebar-outer';
 import SlotDimensions from './slot-dimensions';
 
+/**
+ * __Left sidebar without resize__
+ *
+ * Provides a slot for a left sidebar without resize within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
   const {
     children,

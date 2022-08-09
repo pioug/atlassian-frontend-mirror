@@ -13,6 +13,14 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const AUTO_DISMISS_SECONDS = 8;
 
+/**
+ * __Auto dismiss flag__
+ *
+ * An auto dismiss flag is dismissed automatically after eight seconds.
+ *
+ * - [Examples](https://atlassian.design/components/flag/auto-dismiss-flag/examples)
+ * - [Code](https://atlassian.design/components/flag/auto-dismiss-flag/code)
+ */
 const AutoDismissFlag = (props: AutoDismissFlagProps) => {
   const { id, analyticsContext, onDismissed: onDismissedProp = noop } = props;
   const autoDismissTimer = useRef<number | null>(null);
@@ -74,6 +82,7 @@ const AutoDismissFlag = (props: AutoDismissFlagProps) => {
 
   return (
     <Flag
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}
       onMouseOver={stopAutoDismissTimer}
       onFocus={stopAutoDismissTimer}

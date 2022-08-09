@@ -29,11 +29,11 @@ it('should render a custom component if provided', () => {
 });
 
 it('should support having a custom component with extra strange props', () => {
-  type Props = React.AllHTMLAttributes<HTMLElement> & {
+  type LinkProps = React.AllHTMLAttributes<HTMLElement> & {
     to: string;
   };
   const Link = React.forwardRef(function Link(
-    { children, to, ...rest }: Props,
+    { children, to, ...rest }: LinkProps,
     ref: React.Ref<HTMLElement>,
   ) {
     return (

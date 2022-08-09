@@ -28,8 +28,17 @@ const emojiPickerLoader: () => Promise<ComponentClass<ComponentProps>> = () =>
   emojiPickerModuleLoader().then((module) => module.default);
 
 export interface Props extends LoadingProps {
+  /**
+   * Callback to be executed on emoji selection.
+   */
   onSelection?: OnEmojiEvent;
+  /**
+   * Callback to handle picker reference.
+   */
   onPickerRef?: PickerRefHandler;
+  /**
+   * Flag to disable tone selector.
+   */
   hideToneSelector?: boolean;
 }
 

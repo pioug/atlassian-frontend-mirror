@@ -32,6 +32,7 @@ const byDOMOrder = (a: SkipLinkData, b: SkipLinkData) => {
   return indexA - indexB;
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SkipLinksController: FC = ({ children }) => {
   const [links, setLinks] = useState<SkipLinkData[]>([]);
 

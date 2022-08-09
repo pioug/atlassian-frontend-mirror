@@ -9,6 +9,7 @@ import IconExplorerCell from './utils/icon-explorer-cell';
 
 const allIcons = Promise.all(
   Object.keys(metadata).map(async (name: string) => {
+    // eslint-disable-next-line import/dynamic-import-chunkname
     const icon = await import(`../glyph/${name}.js`);
     return { name, icon: icon.default };
   }),

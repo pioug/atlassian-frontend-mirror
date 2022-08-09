@@ -13,7 +13,9 @@ const baseWrapperStyles = css({
   position: 'relative',
   color: `var(${CSS_VAR_COLOR})`,
   fill: `var(${CSS_VAR_FILL})`,
+  lineHeight: 1,
   userSelect: 'none',
+  whiteSpace: 'normal',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '> svg': {
     height: '100%',
@@ -79,6 +81,7 @@ const Wrapper = ({
       dangerouslySetInnerHTML={{
         __html: svg,
       }}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
     />
   );

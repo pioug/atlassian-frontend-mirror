@@ -1,5 +1,14 @@
 import LogoProps from '!!extract-react-types-loader!../../extract-react-types/logo';
+import SectionMessage from '@atlaskit/section-message';
+import { Code } from '@atlaskit/code';
 
 ## Props
+
+<SectionMessage appearance="warning">
+The following props are deprecated and will be removed in a future major
+release: <Code>iconColor</Code>, <Code>textColor</Code>,
+<Code>iconGradientStart</Code> and <Code>iconGradientStop</Code>.
+The <Code>appearance</Code> prop should be used instead.
+</SectionMessage>
 
 <PropsTable heading="" props={LogoProps} />

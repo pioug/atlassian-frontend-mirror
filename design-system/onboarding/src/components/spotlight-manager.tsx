@@ -7,14 +7,13 @@ import React, {
 
 import memoizeOne from 'memoize-one';
 
+import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import Blanket from '../styled/blanket';
 
 import { Fade } from './animation';
-
-const noop = () => {};
 
 const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<
   any
@@ -53,7 +52,7 @@ interface SpotlightManagerProps {
   children: ReactNode;
   /**
    * @deprecated
-   * Replaces the wrapping fragment with component
+   * Component is deprecated and will be removed in the future.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: ElementType;
@@ -70,9 +69,11 @@ const Container = ({
 /**
  * __Spotlight manager__
  *
- * Wraps usage of spotlight and manages progression through multiple spotlights.
+ * A spotlight manager manages the visibility of spotlights used to introduce new features to users through focused messages or multi-step tours.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 export default class SpotlightManager extends PureComponent<
   SpotlightManagerProps,

@@ -46,7 +46,11 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
       [VAR_PRIMITIVE_ZINDEX]: layers.tooltip(),
     };
     return (
-      <div ref={ref} style={styleWithZIndex} data-testid={`${testId}--wrapper`}>
+      <div
+        ref={ref}
+        style={styleWithZIndex}
+        data-testid={testId ? `${testId}--wrapper` : undefined}
+      >
         {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
         <div
           role="tooltip"

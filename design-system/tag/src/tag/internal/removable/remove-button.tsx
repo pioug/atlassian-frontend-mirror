@@ -87,4 +87,5 @@ const RemoveButton = ({
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default RemoveButton;

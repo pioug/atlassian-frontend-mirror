@@ -50,11 +50,7 @@ export class MockEmojiResource
     emojiId: EmojiId,
     optimistic: boolean,
   ): Promise<OptionalEmojiDescriptionWithVariations> {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(this.findByEmojiId(emojiId));
-      }, 1000);
-    });
+    return this.findByEmojiId(emojiId);
   }
 
   public getOptimisticImageURL(emojiId: EmojiId) {

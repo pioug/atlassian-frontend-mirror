@@ -1,5 +1,11 @@
-import React from 'react';
-import { PureComponent, ReactElement } from 'react';
+import React, {
+  FC,
+  ReactElement,
+  cloneElement,
+  ChangeEvent,
+  useEffect,
+  useState,
+} from 'react';
 import {
   EmojiResource,
   EmojiProvider,
@@ -33,67 +39,47 @@ export interface Props {
   customPadding?: number;
 }
 
-export interface State {
-  emojiProvider: Promise<EmojiProvider>;
-}
+export const ResourcedEmojiControl: FC<Props> = (props) => {
+  const { customEmojiProvider, children, emojiConfig, customPadding } = props;
+  const paddingBottom = customPadding ? `${customPadding}px` : '30px';
 
-export default class ResourcedEmojiControl extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      emojiProvider:
-        this.props.customEmojiProvider ||
-        Promise.resolve(new EmojiResource(this.props.emojiConfig)),
-    };
-  }
+  const [emojiProvider, setEmojiProvider] = useState<Promise<EmojiProvider>>(
+    customEmojiProvider || Promise.resolve(new EmojiResource(emojiConfig)),
+  );
 
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    // Make a weak attempt to reduce the duplication in EmojiResource creation when a storybook is mounted
-    if (
-      JSON.stringify(nextProps.emojiConfig) !==
-      JSON.stringify(this.props.emojiConfig)
-    ) {
-      this.refreshEmoji(nextProps.emojiConfig);
-    }
-  }
-
-  refreshEmoji(emojiConfig: EmojiResourceConfig) {
-    this.setState({
-      emojiProvider: Promise.resolve(new EmojiResource(emojiConfig)),
-    });
-  }
-
-  emojiConfigChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // eslint-disable-next-line no-new-func
-    const config = new Function('', `return (${event.target.value})`)();
-    this.refreshEmoji(config);
+  const refreshEmoji = (emojiConfig: EmojiResourceConfig) => {
+    setEmojiProvider(Promise.resolve(new EmojiResource(emojiConfig)));
   };
 
-  render() {
-    const { customPadding } = this.props;
-    const { emojiProvider } = this.state;
-    const paddingBottom = customPadding ? `${customPadding}px` : '30px';
+  const emojiConfigChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    // eslint-disable-next-line no-new-func
+    const config = new Function('', `return (${event.target.value})`)();
+    refreshEmoji(config);
+  };
 
-    return (
-      <div style={{ padding: '10px' }}>
-        <div style={{ paddingBottom }}>
-          {React.cloneElement(this.props.children, { emojiProvider })}
-        </div>
-        <div>
-          <p>
-            <label htmlFor="emoji-urls">EmojiLoader config</label>
-          </p>
-          <p>
-            <textarea
-              id="emoji-urls"
-              rows={15}
-              style={{ height: '280px', width: '500px' }}
-              onChange={this.emojiConfigChange}
-              defaultValue={JSON.stringify(this.props.emojiConfig, null, 2)}
-            />
-          </p>
-        </div>
+  useEffect(() => {
+    refreshEmoji(emojiConfig);
+  }, [emojiConfig]);
+
+  return (
+    <div style={{ padding: '10px' }}>
+      <div style={{ paddingBottom }}>
+        {cloneElement(children, { emojiProvider })}
       </div>
-    );
-  }
-}
+      <div>
+        <p>
+          <label htmlFor="emoji-urls">EmojiLoader config</label>
+        </p>
+        <p>
+          <textarea
+            id="emoji-urls"
+            rows={15}
+            style={{ height: '280px', width: '500px' }}
+            onChange={emojiConfigChange}
+            defaultValue={JSON.stringify(emojiConfig, null, 2)}
+          />
+        </p>
+      </div>
+    </div>
+  );
+};

@@ -32,6 +32,15 @@ export interface SectionProps {
 }
 
 // Type needed on props to extract types with extract react types.
+/**
+ * __Section__
+ *
+ * Used to separate items into sections. Using the title prop makes a section
+ * implicitly group the items for screen readers with no additional work required.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#section)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const Section = forwardRef<HTMLElement, SectionProps>(
   (props: SectionProps, ref) => {
     const { shouldRender } = useShouldNestedElementRender();
@@ -43,7 +52,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       <MenuSection
         {...props}
         ref={ref}
-        // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
+        // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
         overrides={{ HeadingItem: { cssFn: sectionHeaderStyle } }}
       />
     );

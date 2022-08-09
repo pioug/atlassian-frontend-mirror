@@ -31,6 +31,14 @@ const leftPanelFixedStyles = css({
   left: 0,
 });
 
+/**
+ * __Left panel__
+ *
+ * Provides a slot for a left panel within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const LeftPanel = (props: SlotWidthProps) => {
   const {
     children,

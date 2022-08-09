@@ -231,6 +231,7 @@ export type MountOptions = {
   /** Toggles chosen extension providers */
   withTestExtensionProviders?: TestExtensionProviders;
   withContextPanel?: boolean;
+  withLinkPickerOptions?: boolean;
   invalidAltTextValues?: string[];
   withCollab?: boolean;
   hooks?: EventHooks;
@@ -282,6 +283,7 @@ type InitEditorWithADFOptions = {
   withSidebar?: boolean;
   withCollab?: boolean;
   withContextPanel?: boolean;
+  withLinkPickerOptions?: boolean;
   /** Toggles chosen extension providers */
   withTestExtensionProviders?: TestExtensionProviders;
   forceReload?: boolean;
@@ -304,6 +306,7 @@ async function setupEditor(
     withContextPanel,
     withTestExtensionProviders,
     forceReload,
+    withLinkPickerOptions,
   } = options;
 
   const {
@@ -348,6 +351,7 @@ async function setupEditor(
       invalidAltTextValues,
       withCollab,
       withTestExtensionProviders,
+      withLinkPickerOptions,
     },
   );
 

@@ -113,6 +113,7 @@ function createEditorWindowBindings<T>(
           providers,
           extensionHandlers,
           withContextPanel: options.withContextPanel,
+          withLinkPickerOptions: options.withLinkPickerOptions,
         }}
         lifeCycleHandlers={{
           onMount(actions: any) {
@@ -253,7 +254,11 @@ function createProviders(
   if (opts.media || (props && props.media)) {
     providers.mediaProvider = storyMediaProviderFactory();
   }
-  if (opts.cards || (props && (props.smartLinks || props.UNSAFE_cards))) {
+  if (
+    opts.cards ||
+    (props &&
+      (props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards))
+  ) {
     providers.cardsProvider = Promise.resolve(cardProvider);
   }
   if (opts.collab) {
@@ -288,7 +293,10 @@ export function mapPropsToProviders(
   providers: Record<string, boolean> = {},
   props: EditorProps,
 ): Record<string, boolean> {
-  if (props && (props.smartLinks || props.UNSAFE_cards)) {
+  if (
+    props &&
+    (props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards)
+  ) {
     providers.cards = true;
   }
 
@@ -324,6 +332,16 @@ export function mapProvidersToProps(
     props.UNSAFE_cards = {
       ...props.UNSAFE_cards,
       provider: providers.cardsProvider,
+    };
+  }
+
+  if (props && props.linking?.smartLinks) {
+    props.linking = {
+      ...props.linking,
+      smartLinks: {
+        ...props.linking.smartLinks,
+        provider: providers.cardsProvider,
+      },
     };
   }
 
@@ -453,6 +471,7 @@ type EditorExampleComponentProps<T> = {
     providers?: Record<string, any>;
     extensionHandlers?: ExtensionHandlers;
     withContextPanel?: boolean;
+    withLinkPickerOptions?: boolean;
   };
   lifeCycleHandlers: {
     onChange?: any;
@@ -480,4 +499,5 @@ export type MountEditorOptions = {
   extensionHandlers?: boolean;
   invalidAltTextValues?: string[];
   withCollab?: boolean;
+  withLinkPickerOptions?: boolean;
 };

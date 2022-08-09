@@ -1,5 +1,16 @@
 # @atlaskit/onboarding
 
+## 10.5.0
+
+### Minor Changes
+
+- [`0c0a8c64d54`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c0a8c64d54) - Removes internal usage of the deprecated theme prop.
+
+### Patch Changes
+
+- [`a3241bd63a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3241bd63a3) - Updates jsdoc for all exported outputs of onboarding.
+- Updated dependencies
+
 ## 10.4.2
 
 ### Patch Changes

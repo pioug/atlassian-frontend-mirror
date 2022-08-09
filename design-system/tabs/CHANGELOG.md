@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 13.2.12
+
+### Patch Changes
+
+- [`f0056770cce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0056770cce) - Internal code change turning on new linting rules.
+
 ## 13.2.11
 
 ### Patch Changes

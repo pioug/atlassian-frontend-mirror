@@ -26,7 +26,7 @@ export interface NestableNavigationContentProps {
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests.
-
+   *
    * Will set these elements when defined:
    * - This wrapper - `{testId}`
    * - The back item (displayed when inside a nested view) - `{testId}--go-back-item`
@@ -56,12 +56,12 @@ export interface NestableNavigationContentProps {
    */
   onChange?: (stack: string[]) => void;
 
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-    Custom overrides for the composed components.
-
-    @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
+   * Custom overrides for the composed components.
+   *
+   *   @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: {
     /**
      * Use this to override the default back button displayed when navigation is nested.
@@ -77,6 +77,14 @@ export interface NestableNavigationContentProps {
   };
 }
 
+/**
+ * __Nestable navigation content__
+ *
+ * The container for navigation items with nested views
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#nested-navigation)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const NestableNavigationContent = (props: NestableNavigationContentProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { children, testId, overrides, initialStack, onChange, stack } = props;

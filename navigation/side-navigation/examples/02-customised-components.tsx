@@ -42,6 +42,7 @@ const CustomComponent: React.FC<CustomItemComponentProps> = (props) => {
           transform: 'translateX(0)',
         },
       }}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
     >
       {children}
@@ -67,6 +68,7 @@ const CustomisedExample = () => {
           Custom Title Component
         </div>
       }
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={() => ({
         color: G400,
         '&:hover': {
@@ -78,6 +80,7 @@ const CustomisedExample = () => {
         },
       })}
       iconBefore={<NestIcon label="" />}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       overrides={{
         GoBackItem: {
           render: (props) => (
@@ -95,6 +98,7 @@ const CustomisedExample = () => {
       id="1"
       title="Styled using cssFn"
       iconBefore={<NestIcon label="" />}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={() => ({
         color: G400,
         '&:hover': {
@@ -105,6 +109,7 @@ const CustomisedExample = () => {
           backgroundColor: G200,
         },
       })}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       overrides={{
         GoBackItem: {
           render: (props) => (
@@ -125,6 +130,7 @@ const CustomisedExample = () => {
           <SampleHeader />
         </NavigationHeader>
         <NestableNavigationContent
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={{
             GoBackItem: {
               render: (props) => (

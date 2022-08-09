@@ -1,5 +1,4 @@
 import { EditorView } from 'prosemirror-view';
-import { Transaction } from 'prosemirror-state';
 import { closestElement } from '../../utils/dom';
 import {
   setSelectionTopLevelBlocks,
@@ -18,14 +17,35 @@ const insideContentArea = (ref: HTMLElement | null): boolean => {
   return false;
 };
 
+/**
+ * @see ED-14699 - check if editor is inside a modal to continue to bring cursor to input when
+ * any part of the editor container is clicked
+ *
+ * Handles two cases when a click event is fired:
+ *
+ * 1. if editor (e.g. comment inside of Jira ticket view) is inside modal then ensure focus and cursor is brought to the input
+ * 2. if another modal is open (e.g. delete confirmation modal for confluence table) then ignore clicks as they shouldn't influence editor state
+ */
+export const checkForModal = (target: HTMLElement) => {
+  const modalDialog = target.closest('[role=dialog]');
+
+  if (modalDialog) {
+    // return false if not an editor inside modal, otherwise return true
+    return !!modalDialog?.querySelector('.akEditor');
+  }
+
+  // no modal present so we can return true
+  return true;
+};
+
 const clickAreaClickHandler = (
   view: EditorView<any>,
   event: React.MouseEvent<any>,
 ) => {
-  const contentArea = event.currentTarget.querySelector(
+  const isTargetContentArea = event.currentTarget.querySelector(
     '.ak-editor-content-area',
   );
-  const editorFocused = !!(view && view.hasFocus());
+  const isEditorFocused = !!view?.hasFocus?.();
   const target = event.target as HTMLElement;
 
   // @see https://product-fabric.atlassian.net/browse/ED-4287
@@ -41,29 +61,24 @@ const clickAreaClickHandler = (
     target,
     'nav[aria-label="Breadcrumbs"]',
   );
-  const targetIsNotContentArea = !contentArea;
-  const tragetIsNotChildOfContentArea = !insideContentArea(
+  const isTargetChildOfContentArea = insideContentArea(
     target.parentNode as HTMLElement | null,
   );
-  const editorIsNotInFocus = editorFocused === false;
   const selection = window.getSelection();
   const isEditorPopupTextSelected =
     selection?.type === 'Range' &&
     closestElement(selection?.anchorNode as HTMLElement, '[data-editor-popup]');
-  const isModalDialog = !!target.closest('[role=dialog]');
 
   const isClickOutsideEditor =
-    (targetIsNotContentArea ||
-      tragetIsNotChildOfContentArea ||
-      editorIsNotInFocus) &&
+    (!isTargetContentArea || !isTargetChildOfContentArea || !isEditorFocused) &&
     !isInputClicked &&
     !isTextAreaClicked &&
     !isPopupClicked &&
-    !isModalDialog &&
     !isBreadcrumbClicked &&
-    !isPopupClicked &&
-    !isEditorPopupTextSelected;
+    !isEditorPopupTextSelected &&
+    checkForModal(target);
 
+  // click was within editor container and focus should be brought to input
   if (isClickOutsideEditor && view) {
     outsideProsemirrorEditorClickHandler(view, event);
   }
@@ -74,17 +89,22 @@ const outsideProsemirrorEditorClickHandler = (
   event: React.MouseEvent<any, MouseEvent>,
 ) => {
   const { dispatch, dom, state } = view;
-  const editorFocused = !!(view && view.hasFocus());
   const { tr } = state;
+  const isEditorFocused = !!view?.hasFocus?.();
+  const isBottomAreaClicked =
+    event.clientY > dom.getBoundingClientRect().bottom;
 
-  appendEmptyParagraph(event, dom, tr);
+  if (isBottomAreaClicked) {
+    addParagraphAtEnd(tr);
+  }
+
   if (hasGapCursorPlugin(state)) {
     setSelectionTopLevelBlocks(
       tr,
       event,
       dom as HTMLElement,
       view.posAtCoords.bind(view),
-      editorFocused,
+      isEditorFocused,
     );
   }
 
@@ -99,17 +119,6 @@ const outsideProsemirrorEditorClickHandler = (
   view.focus();
   event.stopPropagation();
   event.preventDefault();
-};
-
-const appendEmptyParagraph = (
-  event: React.MouseEvent<any, MouseEvent>,
-  dom: Element,
-  tr: Transaction,
-) => {
-  const bottomAreaClicked = event.clientY > dom.getBoundingClientRect().bottom;
-  if (bottomAreaClicked) {
-    addParagraphAtEnd(tr);
-  }
 };
 
 export { clickAreaClickHandler };

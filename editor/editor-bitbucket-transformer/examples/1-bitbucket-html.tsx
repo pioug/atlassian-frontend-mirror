@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -36,50 +37,51 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
     if (!this.state.hasJquery) {
       return <h3>Please wait, loading jQuery ...</h3>;
     }
-
     return (
-      <EditorContext>
-        <div>
-          <ToolsDrawer
-            renderEditor={({
-              mentionProvider,
-              emojiProvider,
-              onChange,
-              disabled,
-            }) => (
-              <div style={{ padding: '20px' }}>
-                <CollapsedEditor
-                  placeholder="What do you want to say?"
-                  isExpanded={this.state.isExpanded}
-                  onFocus={this.onFocus}
-                  onExpand={EXPAND_ACTION}
-                >
-                  <Editor
-                    appearance="comment"
+      <IntlProvider locale="en">
+        <EditorContext>
+          <div>
+            <ToolsDrawer
+              renderEditor={({
+                mentionProvider,
+                emojiProvider,
+                onChange,
+                disabled,
+              }) => (
+                <div style={{ padding: '20px' }}>
+                  <CollapsedEditor
                     placeholder="What do you want to say?"
-                    shouldFocus={true}
-                    allowRule={true}
-                    allowHelpDialog={true}
-                    disabled={disabled}
-                    mentionProvider={mentionProvider}
-                    emojiProvider={emojiProvider}
-                    defaultValue={exampleHTML}
-                    onChange={onChange}
-                    onSave={SAVE_ACTION}
-                    onCancel={CANCEL_ACTION}
-                    contentTransformerProvider={(schema) =>
-                      new BitbucketTransformer(schema)
-                    }
-                    taskDecisionProvider={Promise.resolve(
-                      getMockTaskDecisionResource(),
-                    )}
-                  />
-                </CollapsedEditor>
-              </div>
-            )}
-          />
-        </div>
-      </EditorContext>
+                    isExpanded={this.state.isExpanded}
+                    onFocus={this.onFocus}
+                    onExpand={EXPAND_ACTION}
+                  >
+                    <Editor
+                      appearance="comment"
+                      placeholder="What do you want to say?"
+                      shouldFocus={true}
+                      allowRule={true}
+                      allowHelpDialog={true}
+                      disabled={disabled}
+                      mentionProvider={mentionProvider}
+                      emojiProvider={emojiProvider}
+                      defaultValue={exampleHTML}
+                      onChange={onChange}
+                      onSave={SAVE_ACTION}
+                      onCancel={CANCEL_ACTION}
+                      contentTransformerProvider={(schema) =>
+                        new BitbucketTransformer(schema)
+                      }
+                      taskDecisionProvider={Promise.resolve(
+                        getMockTaskDecisionResource(),
+                      )}
+                    />
+                  </CollapsedEditor>
+                </div>
+              )}
+            />
+          </div>
+        </EditorContext>
+      </IntlProvider>
     );
   }
 

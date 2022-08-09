@@ -1,5 +1,16 @@
 # @atlaskit/reactions
 
+## 21.5.0
+
+### Minor Changes
+
+- [`e3192fc9dc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3192fc9dc2) - Fix add own emoji in reaction picker
+
+### Patch Changes
+
+- [`ac51581fc14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac51581fc14) - Update the examples, docs descriptions and added tsdoc comments to relevant components and objects
+- Updated dependencies
+
 ## 21.4.0
 
 ### Minor Changes

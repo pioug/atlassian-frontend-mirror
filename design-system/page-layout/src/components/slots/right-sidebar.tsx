@@ -56,6 +56,14 @@ const fixedOuterStyles = css({
   },
 });
 
+/**
+ * __Right sidebar__
+ *
+ * Provides a slot for a right sidebar within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const RightSidebar = (props: SlotWidthProps) => {
   const {
     children,

@@ -2,15 +2,15 @@ import React, { Fragment } from 'react';
 
 import { AtlassianNavigation } from '../src';
 
-import { DefaultCreate } from './shared/Create';
-import { HelpPopup } from './shared/HelpPopup';
-import { NotificationsPopup } from './shared/NotificationsPopup';
-import { defaultPrimaryItems } from './shared/PrimaryItems';
-import { DefaultProductHome } from './shared/ProductHome';
-import { ProfilePopup } from './shared/ProfilePopup';
-import { DefaultSearch } from './shared/Search';
-import { DefaultSettings } from './shared/Settings';
-import { SwitcherPopup } from './shared/SwitcherPopup';
+import { DefaultCreate } from './shared/create';
+import { HelpPopup } from './shared/help-popup';
+import { NotificationsPopup } from './shared/notifications-popup';
+import { defaultPrimaryItems } from './shared/primary-items';
+import { DefaultProductHome } from './shared/product-home';
+import { ProfilePopup } from './shared/profile-popup';
+import { DefaultSearch } from './shared/search';
+import { DefaultSettings } from './shared/settings';
+import { SwitcherPopup } from './shared/switcher-popup';
 import { themes } from './shared/themes';
 
 const ThemingExample = () => (
@@ -28,6 +28,7 @@ const ThemingExample = () => (
           renderProfile={ProfilePopup}
           renderSearch={DefaultSearch}
           renderSettings={DefaultSettings}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           theme={theme}
         />
         {i < themes.length - 1 && <br />}

@@ -1,4 +1,5 @@
 import { utils } from '@atlaskit/util-service-support';
+// TODO: Validate if this is actually equivalent to the AnalyticsWebClient in @atlassiansox/analytics-web-client
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { Emitter } from './emitter';
 import { ErrorCodeMapper } from './error-code-mapper';
@@ -14,8 +15,12 @@ import type {
   Metadata,
   ErrorPayload,
 } from './types';
-import { createLogger } from './helpers/utils';
-import { startMeasure, stopMeasure } from './analytics/performance';
+import { createLogger, getProduct, getSubProduct } from './helpers/utils';
+import {
+  MEASURE_NAME,
+  startMeasure,
+  stopMeasure,
+} from './analytics/performance';
 import { triggerCollabAnalyticsEvent } from './analytics';
 import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
 
@@ -46,15 +51,17 @@ export class Channel extends Emitter<ChannelEvent> {
    * Connect to collab service using websockets
    */
   connect() {
-    startMeasure('socketConnect');
+    startMeasure(MEASURE_NAME.SOCKET_CONNECT);
     if (!this.initialized) {
-      startMeasure('documentInit');
+      startMeasure(MEASURE_NAME.DOCUMENT_INIT);
     }
     const { documentAri, url } = this.config;
     const { createSocket } = this.config;
     const { permissionTokenRefresh } = this.config;
+
+    let authCb = null;
     if (permissionTokenRefresh) {
-      const authCb = (cb: (data: object) => void) => {
+      authCb = (cb: (data: object) => void) => {
         permissionTokenRefresh()
           .then((token) => {
             cb({
@@ -70,9 +77,8 @@ export class Channel extends Emitter<ChannelEvent> {
             this.emit('error', err);
           });
       };
-      this.socket = createSocket(`${url}/session/${documentAri}`, authCb);
     } else {
-      const authCb = (cb: (data: object) => void) => {
+      authCb = (cb: (data: object) => void) => {
         cb({
           // The initialized status. If false, BE will send document, otherwise not.
           initialized: this.initialized,
@@ -80,8 +86,12 @@ export class Channel extends Emitter<ChannelEvent> {
           need404: this.config.need404,
         });
       };
-      this.socket = createSocket(`${url}/session/${documentAri}`, authCb);
     }
+    this.socket = createSocket(
+      `${url}/session/${documentAri}`,
+      authCb,
+      this.config.productInfo,
+    );
 
     // Due to https://github.com/socketio/socket.io-client/issues/1473,
     // reconnect no longer fired on the socket.
@@ -143,7 +153,7 @@ export class Channel extends Emitter<ChannelEvent> {
     // `connect_error`'s paramter type is `Error`.
     // Ensure the error emit to the provider has the same structure, so we can handle them unified.
     this.socket.on('connect_error', (error: Error) => {
-      const measure = stopMeasure('socketConnect');
+      const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
       triggerCollabAnalyticsEvent(
         {
           eventAction: EVENT_ACTION.CONNECTION,
@@ -172,7 +182,7 @@ export class Channel extends Emitter<ChannelEvent> {
   private onConnect = () => {
     this.connected = true;
     logger('Connected.', this.socket!.id);
-    const measure = stopMeasure('socketConnect');
+    const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT);
     triggerCollabAnalyticsEvent(
       {
         eventAction: EVENT_ACTION.CONNECTION,
@@ -197,7 +207,7 @@ export class Channel extends Emitter<ChannelEvent> {
 
     if (data.type === 'initial') {
       if (!this.initialized) {
-        const measure = stopMeasure('documentInit');
+        const measure = stopMeasure(MEASURE_NAME.DOCUMENT_INIT);
         triggerCollabAnalyticsEvent(
           {
             eventAction: EVENT_ACTION.DOCUMENT_INIT,
@@ -232,15 +242,17 @@ export class Channel extends Emitter<ChannelEvent> {
         queryParams: {
           version: fromVersion,
         },
-        ...(this.config.permissionTokenRefresh
-          ? {
-              requestInit: {
-                headers: {
+        requestInit: {
+          headers: {
+            ...(this.config.permissionTokenRefresh
+              ? {
                   'x-token': await this.config.permissionTokenRefresh(),
-                },
-              },
-            }
-          : {}),
+                }
+              : {}),
+            'x-product': getProduct(this.config.productInfo),
+            'x-subproduct': getSubProduct(this.config.productInfo),
+          },
+        },
       });
       return {
         doc,

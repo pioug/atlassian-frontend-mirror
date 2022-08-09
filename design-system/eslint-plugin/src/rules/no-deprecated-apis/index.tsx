@@ -1,9 +1,5 @@
 import type { Rule } from 'eslint';
-import {
-  closestOfType,
-  isNodeOfType,
-  JSXAttribute,
-} from 'eslint-codemod-utils';
+import { closestOfType, isNodeOfType } from 'eslint-codemod-utils';
 
 import { getImportedNodeBySource } from '../utils/get-import-node-by-source';
 
@@ -43,7 +39,11 @@ const rule: Rule.RuleModule = {
   create(context) {
     return {
       // find JSX atribute - find name of attribute - get source and find relevant identifiers.
-      JSXAttribute(node: JSXAttribute & Rule.NodeParentExtension) {
+      JSXAttribute(node: any) {
+        if (!isNodeOfType(node, 'JSXAttribute')) {
+          return;
+        }
+
         if (!unsafeOverrides.includes(node?.name?.name as BannedAPIs)) {
           return;
         }

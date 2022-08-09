@@ -66,9 +66,12 @@ export function measureContentRenderedPerformance(
 ) {
   measureRender(
     measurements.PROSEMIRROR_CONTENT_RENDERED,
-    (actualRenderingDuration) => {
+    ({ duration: actualRenderingDuration }) => {
       const { totalNodeSize, nodes } = getTotalNodeSizeAndNodes(docNode);
 
+      // NOTE as this does not take distortedDuration into account when firing
+      // events -- the measurement is possibly misleading -- see the measureRender
+      // function description for more details.
       callback(totalNodeSize, nodes, actualRenderingDuration);
     },
   );

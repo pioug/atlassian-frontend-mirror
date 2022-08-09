@@ -115,6 +115,8 @@ export function getDefaultPresetOptionsFromEditorProps(
   const isMobile = appearance === 'mobile';
 
   const inputTracking = props.performanceTracking?.inputTracking;
+  const cardOptions =
+    props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards;
 
   return {
     createAnalyticsEvent,
@@ -124,7 +126,7 @@ export function getDefaultPresetOptionsFromEditorProps(
     },
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {
-      cardOptions: props.smartLinks || props.UNSAFE_cards,
+      cardOptions,
       sanitizePrivateContent: props.sanitizePrivateContent,
       plainTextPasteLinkification:
         props.featureFlags?.plainTextPasteLinkification === true,
@@ -167,7 +169,11 @@ export function getDefaultPresetOptionsFromEditorProps(
         props.elementBrowser && props.elementBrowser.emptyStateHandler,
     },
     selection: { useLongPressSelection: false },
-    cardOptions: props.smartLinks || props.UNSAFE_cards,
+    cardOptions,
+    hyperlinkOptions: {
+      linkPicker: props.linking?.linkPicker,
+      cardOptions,
+    },
     codeBlock: {
       ...props.codeBlock,
       useLongPressSelection: false,
@@ -458,16 +464,18 @@ export default function createPluginsList(
     ]);
   }
 
-  if (props.smartLinks || props.UNSAFE_cards) {
+  if (props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards) {
     const fullWidthMode = props.appearance === 'full-width';
     preset.add([
       cardPlugin,
       {
         ...props.UNSAFE_cards,
         ...props.smartLinks,
+        ...props.linking?.smartLinks,
         platform: isMobile ? 'mobile' : 'web',
         fullWidthMode,
         createAnalyticsEvent,
+        linkPicker: props.linking?.linkPicker,
       },
     ]);
   }
@@ -517,6 +525,7 @@ export default function createPluginsList(
     toolbarListsIndentationPlugin,
     {
       showIndentationButtons: !!featureFlags.indentationButtonsInTheToolbar,
+      allowHeadingAndParagraphIndentation: !!props.allowIndentation,
     },
   ]);
   preset.add([
@@ -588,14 +597,12 @@ export default function createPluginsList(
     preset.add([viewUpdateSubscriptionPlugin]);
   }
 
-  if (featureFlags.codeBidiWarnings) {
-    preset.add([
-      codeBidiWarningPlugin,
-      {
-        appearance: props.appearance,
-      },
-    ]);
-  }
+  preset.add([
+    codeBidiWarningPlugin,
+    {
+      appearance: props.appearance,
+    },
+  ]);
 
   if (featureFlags.floatingToolbarCopyButton) {
     preset.add(copyButtonPlugin);

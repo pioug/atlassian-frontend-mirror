@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 1.2.7
+
+### Patch Changes
+
+- [`26b3e978512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26b3e978512) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 1.2.6
 
 ### Patch Changes

@@ -4,9 +4,9 @@ import { Label } from '@atlaskit/form';
 
 import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
-interface Props {
+interface ControlledProps {
   initialValue?: string;
-  initialIsOpen?: boolean;
+  isInitialOpen?: boolean;
   children: (value: {
     value: string;
     onValueChange: (value: string) => void;
@@ -20,17 +20,17 @@ interface State {
   isOpen: boolean;
 }
 
-class Controlled extends React.Component<Props, State> {
+class Controlled extends React.Component<ControlledProps, State> {
   state: State;
 
   recentlySelected: boolean = false;
   recSelTimeoutId: number | null = null;
 
-  constructor(props: Props) {
+  constructor(props: ControlledProps) {
     super(props);
     this.state = {
       value: props.initialValue || '',
-      isOpen: props.initialIsOpen || false,
+      isOpen: props.isInitialOpen || false,
     };
   }
 

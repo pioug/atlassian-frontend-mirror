@@ -47,6 +47,14 @@ const flyoutStyles = css({
   marginLeft: `calc(-1 * var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
 });
 
+/**
+ * __Main__
+ *
+ * Provides a slot for main content within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const Main = (props: SlotWidthProps) => {
   const { children, testId, id, skipLinkTitle } = props;
 

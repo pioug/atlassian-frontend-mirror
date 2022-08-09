@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -20,7 +21,7 @@ const FlagErrorExample = () => {
       key="error"
       title="We're having trouble connecting"
       description="Check your internet connection and try again."
-      actions={[{ content: 'Try again', onClick: () => {} }]}
+      actions={[{ content: 'Try again', onClick: noop }]}
     />
   );
 };

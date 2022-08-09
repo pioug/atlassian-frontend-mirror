@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should indent list item 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "hello",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+            Object {
+              "content": Array [
+                Object {
+                  "content": Array [
+                    Object {
+                      "content": Array [
+                        Object {
+                          "text": "world",
+                          "type": "text",
+                        },
+                      ],
+                      "type": "paragraph",
+                    },
+                  ],
+                  "type": "listItem",
+                },
+              ],
+              "type": "bulletList",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should indent task list item 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "hello",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+          },
+          "content": Array [
+            Object {
+              "attrs": Object {
+                "localId": "abc-123",
+                "state": "TODO",
+              },
+              "content": Array [
+                Object {
+                  "text": "world",
+                  "type": "text",
+                },
+              ],
+              "type": "taskItem",
+            },
+          ],
+          "type": "taskList",
+        },
+      ],
+      "type": "taskList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should indent top-level headings 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "hello world",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "level": 1,
+          },
+          "type": "indentation",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should indent top-level paragraph 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello world",
+          "type": "text",
+        },
+      ],
+      "marks": Array [
+        Object {
+          "attrs": Object {
+            "level": 1,
+          },
+          "type": "indentation",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should outdent list item 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "hello",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+        Object {
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "world",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "listItem",
+        },
+      ],
+      "type": "bulletList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should outdent task list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "localId": "abc-123",
+      },
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "hello",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+        Object {
+          "attrs": Object {
+            "localId": "abc-123",
+            "state": "TODO",
+          },
+          "content": Array [
+            Object {
+              "text": "world",
+              "type": "text",
+            },
+          ],
+          "type": "taskItem",
+        },
+      ],
+      "type": "taskList",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should outdent top-level heading 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "attrs": Object {
+        "level": 1,
+      },
+      "content": Array [
+        Object {
+          "text": "hello world",
+          "type": "text",
+        },
+      ],
+      "type": "heading",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`should outdent top-level paragraph 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "text": "hello world",
+          "type": "text",
+        },
+      ],
+      "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;

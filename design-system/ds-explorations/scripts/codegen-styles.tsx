@@ -27,7 +27,11 @@ Promise.all(
   ),
 ).then(() => {
   // generate spacing values
-  [{ target: 'box.partial.tsx' }].forEach(({ target }) => {
+  [
+    { target: 'box.partial.tsx' },
+    { target: 'stack.partial.tsx' },
+    { target: 'inline.partial.tsx' },
+  ].forEach(({ target }) => {
     const targetPath = join(__dirname, '../', 'src', 'components', target);
 
     const source = createPartialSignedArtifact(

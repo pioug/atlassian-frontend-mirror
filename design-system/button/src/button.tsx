@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { CSSObject } from '@emotion/core';
 
+import noop from '@atlaskit/ds-lib/noop';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import ButtonBase from './shared/button-base';
@@ -9,14 +10,21 @@ import { getCss } from './shared/css';
 import getIsOnlySingleIcon from './shared/get-is-only-single-icon';
 import { Appearance, BaseProps, Spacing } from './types';
 
-function noop() {}
-
 const isFirefox: boolean =
   typeof navigator !== 'undefined' &&
   navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 export interface ButtonProps extends BaseProps {}
 
+/**
+ * __Button__
+ *
+ * A button triggers an event or action. They let users know what will happen next.
+ *
+ * - [Examples](https://atlassian.design/components/button/examples)
+ * - [Code](https://atlassian.design/components/button/code)
+ * - [Usage](https://atlassian.design/components/button/usage)
+ */
 const Button = React.memo(
   React.forwardRef(function Button(
     {

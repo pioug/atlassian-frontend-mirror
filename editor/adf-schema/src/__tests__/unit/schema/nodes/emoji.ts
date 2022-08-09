@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   fromHTML as fromHTML_,
@@ -7,8 +6,9 @@ import {
 
 const schema = makeSchema();
 const fromHTML = (html: string) => fromHTML_(html, schema);
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema underline emoji node`, () => {
+describe(`${packageName}/schema underline emoji node`, () => {
   it('should have all emoji node props when serializing to DOM', () => {
     const html = toHTML(
       schema.nodes.emoji.create({ shortName: 'abc', id: '123', text: 'xyz' }),

@@ -1,11 +1,17 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import React, { useCallback } from 'react';
 import { JsonLd } from 'json-ld-types';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import Button from '@atlaskit/button';
-import { jsonldExampleStyles } from './styled';
 import { getJsonLdResponse } from '../utils/flexible-ui';
+
+const jsonldExampleStyles = css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.75rem 0;
+`;
 
 const JsonldExample: React.FC<{
   defaultValue: JsonLd.Data.BaseData;

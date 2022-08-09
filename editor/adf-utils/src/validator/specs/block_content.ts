@@ -2,6 +2,7 @@ export default [
   'blockCard',
   'paragraph_with_no_marks',
   'paragraph_with_alignment',
+  'paragraph_with_indentation',
   'bulletList',
   'mediaSingle_full',
   'mediaSingle_caption',

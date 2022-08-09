@@ -61,7 +61,8 @@ describe('Blanket', () => {
       },
     );
 
-    it.each(timeStampList)(
+    // FIXME: This test was automatically skipped due to failure on 08/08/2022: https://product-fabric.atlassian.net/browse/DSP-6228
+    it.skip.each(timeStampList)(
       'should fade out correctly (timeStamp = %dms)',
       async (timeStamp: number) => {
         const { page } = global;

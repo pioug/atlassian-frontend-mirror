@@ -9,6 +9,7 @@ interface ManagedPaginationProps {
   value?: number;
   onChange: (newValue: any, analyticsEvent?: UIAnalyticsEvent) => void;
   total: number;
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   i18n?: I18nShape;
   testId?: string;
 }

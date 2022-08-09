@@ -8,6 +8,7 @@ import { emojiPickerFooter, emojiPickerFooterWithTopShadow } from './styles';
 export interface Props {
   selectedEmoji?: EmojiDescription;
   isUploading: boolean;
+  onPreviewDisplayed: (isDisplayed: boolean) => void;
 }
 
 export default class EmojiPickerFooter extends PureComponent<Props, {}> {
@@ -20,11 +21,13 @@ export default class EmojiPickerFooter extends PureComponent<Props, {}> {
     ];
 
     if (!selectedEmoji || isUploading) {
+      this.props.onPreviewDisplayed(false);
       return null;
     }
-
+    this.props.onPreviewDisplayed(true);
     return (
       <div css={previewFooterClassnames}>
+        {/* <p>hello</p> */}
         {selectedEmoji && <EmojiPreviewComponent emoji={selectedEmoji} />}
       </div>
     );

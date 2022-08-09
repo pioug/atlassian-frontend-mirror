@@ -43,7 +43,7 @@ export interface SlideInProps extends KeyframesMotionProps {
   /**
    * Direction the element will slide in from.
    * E.g. `"right"` will slide in from the right to the left.
-
+   *
    * If `exitTo` is not set, exiting will reverse this motion.
    * E.g. if `enterFrom: "right"`, will slide out to the right.
    */
@@ -52,7 +52,7 @@ export interface SlideInProps extends KeyframesMotionProps {
   /**
    * Direction the element will slide out towards.
    * E.g. `"right"` will slide out to the right.
-
+   *
    * If this is not set, exiting will reverse the entrance motion.
    * E.g. if `enterFrom: "right"`, will slide out to the right.
    */
@@ -60,7 +60,7 @@ export interface SlideInProps extends KeyframesMotionProps {
 
   /**
    * Whether an element will fade on enter, on exit or both.
-
+   *
    * `'none'` is the default and will cause the element to not fade,
    * `'in'` will cause the element to fade on enter,
    * `'out'` will cause the element to fade on exit,
@@ -75,15 +75,23 @@ export interface SlideInProps extends KeyframesMotionProps {
   animationTimingFunction?: (state: Transition) => AnimationCurve;
 }
 
+/**
+ * __SlideIn__
+ *
+ * Will slide an element into position, generally used for things that appear from outside of the viewport into view.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ */
 const SlideIn: React.FC<SlideInProps> = ({
   children,
   enterFrom,
   exitTo,
   fade = 'none',
   duration = mediumDurationMs,
+  isPaused,
+  onFinish,
   animationTimingFunction = (state) =>
     state === 'entering' ? easeOut : easeIn,
-  ...props
 }: SlideInProps) => {
   return (
     <KeyframesMotion
@@ -91,7 +99,8 @@ const SlideIn: React.FC<SlideInProps> = ({
       enteringAnimation={slideInAnimation(enterFrom, 'entering', fade)}
       exitingAnimation={slideInAnimation(exitTo || enterFrom, 'exiting', fade)}
       animationTimingFunction={animationTimingFunction}
-      {...props}
+      isPaused={isPaused}
+      onFinish={onFinish}
     >
       {children}
     </KeyframesMotion>

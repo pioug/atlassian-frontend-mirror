@@ -54,6 +54,7 @@ describe('<ModalHeader />', () => {
           <button
             data-testid="custom-close"
             onClick={onClose as MouseEventHandler<HTMLButtonElement>}
+            type="button"
           >
             Custom close
           </button>

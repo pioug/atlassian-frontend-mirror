@@ -1,8 +1,9 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema confluence-inline-comment mark`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema confluence-inline-comment mark`, () => {
   it('serializes to <span data-reference="hash-ref-goes-here">', () => {
     const schema = makeSchema();
     const node = schema.text('foo', [

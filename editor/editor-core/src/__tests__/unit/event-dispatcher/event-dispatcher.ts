@@ -1,4 +1,4 @@
-import { name } from '../../../version.json';
+import { name } from '../../../version-wrapper';
 import { EventDispatcher, createDispatch } from '../../../event-dispatcher';
 import { PluginKey } from 'prosemirror-state';
 

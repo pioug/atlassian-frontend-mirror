@@ -96,7 +96,7 @@ const SettingsSection = () => {
 
 const LoadingSkeleton = () => {
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation label="project" testId="side-navigation">
         <NavigationHeader>
           <SampleHeader />

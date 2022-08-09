@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   fromHTML,
@@ -8,8 +7,9 @@ import {
 
 const testColorObj1 = { color: '#97a0af' };
 const testColorObj2 = { color: '#97A0AF' };
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema textColor mark`, () => {
+describe(`${packageName}/schema textColor mark`, () => {
   itMatches(
     `<span style="color: rgb(151, 160, 175);">text</span>`,
     'text',

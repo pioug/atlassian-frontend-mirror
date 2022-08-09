@@ -1,24 +1,14 @@
-/** @jsx jsx */
-import { memo } from 'react';
+import React, { memo } from 'react';
 
-import { css, jsx } from '@emotion/core';
-
+import {
+  UNSAFE_Box as Box,
+  UNSAFE_Text as Text,
+} from '@atlaskit/ds-explorations';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 
 import { backgroundColors, textColors } from './internal/theme';
 import { formatValue } from './internal/utils';
 import type { BadgeProps } from './types';
-
-const badgeStyles = css({
-  display: 'inline-block',
-  minWidth: '1px',
-  padding: '2px 6px',
-  borderRadius: '8px',
-  fontSize: '12px',
-  fontWeight: 'normal',
-  lineHeight: 1,
-  textAlign: 'center',
-});
 
 /**
  * __Badge__
@@ -42,16 +32,22 @@ const Badge = memo(function Badge({
   const textColor = style?.color ?? textColors[appearance][mode];
 
   return (
-    <span
-      data-testid={testId}
-      css={badgeStyles}
-      style={{
+    <Box
+      testId={testId}
+      as="span"
+      borderRadius="badge"
+      display="inlineFlex"
+      paddingInline="sp-75"
+      paddingBlock="sp-25"
+      UNSAFE_style={{
         backgroundColor,
         color: textColor,
       }}
     >
-      {typeof children === 'number' ? formatValue(children, max) : children}
-    </span>
+      <Text fontSize="12" lineHeight="12px" textAlign="center">
+        {typeof children === 'number' ? formatValue(children, max) : children}
+      </Text>
+    </Box>
   );
 });
 

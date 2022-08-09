@@ -34,16 +34,33 @@ export interface OnLifecycle {
 }
 
 export interface EmojiTypeAheadBaseProps {
+  /**
+   * Callback to be executed when user selects an emoji.
+   */
   onSelection?: OnEmojiEvent;
+  /**
+   * Search query.
+   */
   query?: string;
+  /**
+   * Number of results to be displayed in the search results list
+   */
   listLimit?: number;
-
+  /**
+   * Callback to be executed when typeahead component is being shown
+   */
   onOpen?: OnLifecycle;
+  /**
+   * Callback to be executed when typeahead component disappears
+   */
   onClose?: OnLifecycle;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }
 
 export interface Props extends EmojiTypeAheadBaseProps {
+  /**
+   * EmojiResource instance that handles fetching of emoji data.
+   */
   emojiProvider: EmojiProvider;
 }
 

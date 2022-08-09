@@ -1,6 +1,6 @@
 import { Team } from '@atlaskit/user-picker';
 
-import { getConfig } from '../config';
+import { config } from '../config';
 import { UNKNOWN_TEAM } from './constants';
 
 type LegionRequest = {
@@ -24,7 +24,7 @@ const transformTeam = (team: LegionResponse, id: string): Team => {
 };
 
 const hydrateTeamFromLegion = (request: LegionRequest): Promise<Team> => {
-  const url = `${getConfig().getTeamsUrl(request.baseUrl)}/${request.id}`;
+  const url = `${config.getTeamsUrl(request.baseUrl)}/${request.id}`;
   return fetch(url, {
     method: 'GET',
     credentials: 'include',

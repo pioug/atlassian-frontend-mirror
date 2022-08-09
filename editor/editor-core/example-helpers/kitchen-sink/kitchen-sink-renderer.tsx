@@ -2,10 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import React from 'react';
-import {
-  Provider as SmartCardProvider,
-  Client as SmartCardClient,
-} from '@atlaskit/smart-card';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { rendererPadding } from './kitchen-sink-styles';
@@ -23,7 +20,7 @@ export interface KitchenSinkRendererProps {
 
 export const KitchenSinkRenderer: React.StatelessComponent<KitchenSinkRendererProps> = React.memo(
   (props) => {
-    const smartCardClient = React.useMemo(() => new SmartCardClient('stg'), []);
+    const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
 
     return (
       <div css={rendererPadding(props.isFullPage)}>

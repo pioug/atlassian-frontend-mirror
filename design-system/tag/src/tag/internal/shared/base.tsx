@@ -126,4 +126,5 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
   );
 });
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default BaseTag;

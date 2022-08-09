@@ -80,4 +80,5 @@ const LeftSidebarInner = ({
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default LeftSidebarInner;

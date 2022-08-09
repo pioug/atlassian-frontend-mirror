@@ -3,6 +3,9 @@ import { Component, ComponentType } from 'react';
 import { EmojiProvider } from '../../api/EmojiResource';
 
 export interface Props {
+  /**
+   * Emoji Resource instance
+   */
   emojiProvider: Promise<EmojiProvider>;
 }
 

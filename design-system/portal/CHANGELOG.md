@@ -1,5 +1,11 @@
 # @atlaskit/portal
 
+## 4.2.9
+
+### Patch Changes
+
+- [`d5f0b466415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d5f0b466415) - Internal code change turning on new linting rules.
+
 ## 4.2.8
 
 ### Patch Changes

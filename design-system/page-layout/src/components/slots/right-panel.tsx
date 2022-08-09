@@ -31,6 +31,14 @@ const fixedStyles = css({
   bottom: 0,
 });
 
+/**
+ * __Right panel__
+ *
+ * Provides a slot for a right panel within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const RightPanel = (props: SlotWidthProps) => {
   const {
     children,

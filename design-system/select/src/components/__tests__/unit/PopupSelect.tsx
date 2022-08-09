@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mount } from 'enzyme';
+import waitForExpect from 'wait-for-expect';
 
 import { PopupSelect, OptionsType } from '../../..';
 
@@ -41,9 +43,9 @@ describe('Popup Select', () => {
     global.window.removeEventListener.mockRestore();
   });
 
-  it('should return focus to trigger element on close', () => {
+  it('should maintain focus in select element after tabbing when open', async () => {
     const onChangeMock = jest.fn();
-    const { getByTestId, getByText } = render(
+    const { getByText } = render(
       <React.Fragment>
         <PopupSelect
           options={OPTIONS}
@@ -56,24 +58,84 @@ describe('Popup Select', () => {
             </button>
           )}
         />
-        <button data-testid="focus-decoy">Focus decoy</button>
       </React.Fragment>,
     );
 
-    const selectTrigger = getByTestId('select-trigger');
-    const focusDecoy = getByTestId('focus-decoy');
+    const selectTrigger = getByText('Target');
 
-    focusDecoy.focus();
     selectTrigger.click();
 
-    // @ts-ignore
-    expect(document.activeElement?.dataset.testid).toEqual('focus-decoy');
+    expect(selectTrigger).not.toHaveFocus();
+    expect(document.body.querySelector('#react-select-2-input')).toHaveFocus();
+
+    userEvent.tab();
+
+    await waitForExpect(() => {
+      expect(selectTrigger).not.toHaveFocus();
+      expect(
+        document.body.querySelector('#react-select-2-input'),
+      ).toHaveFocus();
+    });
+  });
+
+  it('should return focus to trigger element on close', () => {
+    const onChangeMock = jest.fn();
+    const { getByText } = render(
+      <React.Fragment>
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          testId={'PopupSelect'}
+          onChange={(value) => onChangeMock(value)}
+          target={({ ref }) => (
+            <button ref={ref} data-testid="select-trigger">
+              Target
+            </button>
+          )}
+        />
+      </React.Fragment>,
+    );
+
+    const selectTrigger = getByText('Target');
+
+    selectTrigger.click();
 
     getByText('1').click();
 
     expect(onChangeMock).toHaveBeenCalledWith({ label: '1', value: 'one' });
-    // @ts-ignore
-    expect(document.activeElement?.dataset.testid).toEqual('select-trigger');
+    expect(selectTrigger).toHaveFocus();
+  });
+
+  it('should return focus to trigger element on escape', () => {
+    const onChangeMock = jest.fn();
+    const { getByText } = render(
+      <React.Fragment>
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          testId={'PopupSelect'}
+          onChange={(value) => onChangeMock(value)}
+          target={({ ref }) => (
+            <button ref={ref} data-testid="select-trigger">
+              Target
+            </button>
+          )}
+        />
+      </React.Fragment>,
+    );
+
+    const selectTrigger = getByText('Target');
+
+    selectTrigger.click();
+
+    const escapeKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
+      key: 'Escape',
+    });
+
+    document.dispatchEvent(escapeKeyDownEvent);
+
+    expect(onChangeMock).not.toHaveBeenCalled();
+    expect(selectTrigger).toHaveFocus();
   });
 
   it('stays open when cleared', () => {
@@ -85,6 +147,7 @@ describe('Popup Select', () => {
         target={({ ref }) => <button ref={ref}>Target</button>}
       />,
     );
+
     atlaskitSelectWrapper.setState({ isOpen: true });
     // Check ClearIndicator exists
     expect(atlaskitSelectWrapper.find('ClearIndicator').exists()).toBeTruthy();
@@ -123,6 +186,33 @@ describe('Popup Select', () => {
     expect(addedListeners().length).toBe(4);
     atlaskitSelectWrapper.unmount();
     expect(removedListeners().length).toBe(4);
+  });
+
+  test('triggers onMenuClose method when closed', async () => {
+    const onMenuCloseMock = jest.fn();
+    const { getByText } = render(
+      <React.Fragment>
+        <PopupSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          testId={'PopupSelect'}
+          onMenuClose={onMenuCloseMock}
+          target={({ ref }) => (
+            <button ref={ref} data-testid="select-trigger">
+              Target
+            </button>
+          )}
+        />
+        <button data-testid="focus-decoy">Focus decoy</button>
+      </React.Fragment>,
+    );
+    const selectTrigger = getByText('Target');
+    selectTrigger.click();
+
+    expect(getByText('Select...')).toBeTruthy();
+
+    selectTrigger.click();
+    expect(onMenuCloseMock).toHaveBeenCalled();
   });
 
   test('renders a read only input when isSearchable is false', async () => {

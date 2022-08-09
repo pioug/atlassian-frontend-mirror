@@ -14,8 +14,7 @@ type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 BrowserTestCase(
   'card: embed card should render as block card if preview missing',
   {
-    // skip: ['safari'],
-    skip: ['*'],
+    skip: [],
   },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);

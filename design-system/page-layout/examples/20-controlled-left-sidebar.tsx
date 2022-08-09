@@ -30,12 +30,12 @@ const BasicGrid = () => {
           width={350}
           collapsedState="collapsed"
         >
-          <SlotWrapper hasExtraPadding noHorizontalScrollbar>
+          <SlotWrapper hasExtraPadding hasHorizontalScrollbar={false}>
             <SlotLabel isSmall>Space Navigation</SlotLabel>
           </SlotWrapper>
         </LeftSidebar>
         <Main testId="main" id="main" skipLinkTitle="Main Content">
-          <SlotWrapper noHorizontalScrollbar minHeight={400}>
+          <SlotWrapper hasHorizontalScrollbar={false} minHeight={400}>
             <SlotLabel isSmall>Main Content</SlotLabel>
             <p>
               When you set <b>collapsedState</b> to <b>expanded</b> the

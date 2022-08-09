@@ -20,6 +20,9 @@ interface NestingMotionProps {
   testId?: string;
 }
 
+/**
+ * @internal
+ */
 export const NestingMotion = (props: NestingMotionProps) => {
   const { children, enterFrom, exitTo, testId } = props;
   return (

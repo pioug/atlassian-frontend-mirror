@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 1.2.1
+
+### Patch Changes
+
+- [`01a461fe433`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01a461fe433) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import __noop from '@atlaskit/ds-lib/noop';
+
 import { NestedContext } from '../../../NestableNavigationContent/context';
 import LoadingItems from '../../index';
 
@@ -75,8 +77,8 @@ describe('<LoadingItems />', () => {
         value={{
           currentStackId: '1',
           parentId: '2',
-          onNest: () => {},
-          onUnNest: () => {},
+          onNest: __noop,
+          onUnNest: __noop,
           stack: [],
         }}
       >

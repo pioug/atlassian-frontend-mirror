@@ -5,8 +5,17 @@ import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
 import React from 'react';
 
 export interface Props {
+  /**
+   * Optional Event handler when the button to open the picker is clicked
+   */
   onClick: Function;
+  /**
+   * apply "miniMode" className to the button (defaults to false)
+   */
   miniMode?: boolean;
+  /**
+   * Enable/Disable the button to be clickable (defaults to false)
+   */
   disabled?: boolean;
 }
 

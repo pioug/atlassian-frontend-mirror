@@ -1,5 +1,4 @@
 import { NodeSpec } from 'prosemirror-model';
-import { name } from '../../../../version.json';
 import { createSchema, SchemaConfig } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { panel } from '../../../../schema/nodes/panel';
@@ -12,6 +11,7 @@ const schemaWithAllowCustomPanel = makeSchema({
 const schemaWithoutCustomPanel = makeSchema({
   panel: panel(false),
 });
+const packageName = process.env._PACKAGE_NAME_ as string;
 
 function expectHtmlWithData(html: string, expectedData: Object) {
   const parser = new DOMParser();
@@ -21,7 +21,7 @@ function expectHtmlWithData(html: string, expectedData: Object) {
   expect(htmlNode.dataset).toEqual(expect.objectContaining(expectedData));
 }
 
-describe(`${name}/schema panel node `, () => {
+describe(`${packageName}/schema panel node `, () => {
   describe('With default panel NodeSpec ', () => {
     it('should have data-panel-type when serializing to DOM', () => {
       const html = toHTML(

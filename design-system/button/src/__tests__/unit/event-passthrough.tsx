@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
 
 import Button from '../../index';
 
@@ -60,7 +61,7 @@ bindings.forEach((binding: Binding) => {
 
     // initially not disabled to validate binding
     const { getByTestId } = render(
-      <AnalyticsListener onEvent={() => {}}>
+      <AnalyticsListener onEvent={noop}>
         <Button testId="button" href="http://google.com" {...buttonHandler}>
           Hello
         </Button>

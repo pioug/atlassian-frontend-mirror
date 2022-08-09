@@ -1,5 +1,12 @@
 # @atlaskit/media-test-helpers
 
+## 30.0.2
+
+### Patch Changes
+
+- [`baece961cdd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baece961cdd) - Add media-card example for use by media-pollinator-test
+- Updated dependencies
+
 ## 30.0.1
 
 ### Patch Changes

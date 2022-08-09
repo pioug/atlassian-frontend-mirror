@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 6.2.7
+
+### Patch Changes
+
+- [`f0be7593aa3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0be7593aa3) - Internal code change turning on new linting rules.
+
 ## 6.2.6
 
 ### Patch Changes

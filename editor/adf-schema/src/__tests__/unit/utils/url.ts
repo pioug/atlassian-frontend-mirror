@@ -1,7 +1,7 @@
 import { normalizeUrl, getLinkMatch } from '../../../utils/url';
-import { name } from '../../../version.json';
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/url url utils`, () => {
+describe(`${packageName}/url url utils`, () => {
   describe('normalizeUrl', () => {
     const examples = [
       ['prettyandsimple@example.com', 'mailto:prettyandsimple@example.com'],

@@ -822,54 +822,61 @@ export class ReactEditorView<T = {}> extends React.Component<
   };
 
   private createEditorView = (node: HTMLDivElement) => {
-    measureRender(measurements.PROSEMIRROR_RENDERED, (duration, startTime) => {
-      const proseMirrorRenderedTracking = this.props.editorProps
-        ?.performanceTracking?.proseMirrorRenderedTracking;
+    measureRender(
+      measurements.PROSEMIRROR_RENDERED,
+      ({ duration, startTime, distortedDuration }) => {
+        const proseMirrorRenderedTracking = this.props.editorProps
+          ?.performanceTracking?.proseMirrorRenderedTracking;
 
-      const forceSeverityTracking =
-        typeof proseMirrorRenderedTracking === 'undefined' &&
-        shouldForceTracking();
+        const forceSeverityTracking =
+          typeof proseMirrorRenderedTracking === 'undefined' &&
+          shouldForceTracking();
 
-      this.proseMirrorRenderedSeverity =
-        !!forceSeverityTracking || proseMirrorRenderedTracking?.trackSeverity
-          ? getAnalyticsEventSeverity(
+        this.proseMirrorRenderedSeverity =
+          !!forceSeverityTracking || proseMirrorRenderedTracking?.trackSeverity
+            ? getAnalyticsEventSeverity(
+                duration,
+                proseMirrorRenderedTracking?.severityNormalThreshold ??
+                  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+                proseMirrorRenderedTracking?.severityDegradedThreshold ??
+                  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+              )
+            : undefined;
+
+        if (this.view) {
+          const nodes = getNodesCount(this.view.state.doc);
+          const ttfb = getResponseEndTime();
+
+          this.dispatchAnalyticsEvent({
+            action: ACTION.PROSEMIRROR_RENDERED,
+            actionSubject: ACTION_SUBJECT.EDITOR,
+            attributes: {
               duration,
-              proseMirrorRenderedTracking?.severityNormalThreshold ??
-                PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-              proseMirrorRenderedTracking?.severityDegradedThreshold ??
-                PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-            )
-          : undefined;
+              startTime,
+              nodes,
+              ttfb,
+              severity: this.proseMirrorRenderedSeverity,
+              objectId: getContextIdentifier(this.editorState)?.objectId,
+              distortedDuration,
+            },
+            eventType: EVENT_TYPE.OPERATIONAL,
+          });
 
-      if (this.view) {
-        const nodes = getNodesCount(this.view.state.doc);
-        const ttfb = getResponseEndTime();
+          if (!distortedDuration) {
+            this.experienceStore?.mark(
+              EditorExperience.loadEditor,
+              ACTION.PROSEMIRROR_RENDERED,
+              startTime + duration,
+            );
+          }
 
-        this.dispatchAnalyticsEvent({
-          action: ACTION.PROSEMIRROR_RENDERED,
-          actionSubject: ACTION_SUBJECT.EDITOR,
-          attributes: {
-            duration,
-            startTime,
+          this.experienceStore?.addMetadata(EditorExperience.loadEditor, {
             nodes,
             ttfb,
-            severity: this.proseMirrorRenderedSeverity,
-            objectId: getContextIdentifier(this.editorState)?.objectId,
-          },
-          eventType: EVENT_TYPE.OPERATIONAL,
-        });
-
-        this.experienceStore?.mark(
-          EditorExperience.loadEditor,
-          ACTION.PROSEMIRROR_RENDERED,
-          startTime + duration,
-        );
-        this.experienceStore?.addMetadata(EditorExperience.loadEditor, {
-          nodes,
-          ttfb,
-        });
-      }
-    });
+          });
+        }
+      },
+    );
 
     // Creates the editor-view from this.editorState. If an editor has been mounted
     // previously, this will contain the previous state of the editor.

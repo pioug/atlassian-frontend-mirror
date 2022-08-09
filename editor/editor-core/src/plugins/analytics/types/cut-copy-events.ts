@@ -7,6 +7,8 @@ type CopyAEP = TrackAEP<
   undefined,
   {
     content: string[];
+    inputMethod?: string;
+    nodeType?: string;
   },
   undefined
 >;

@@ -1,27 +1,29 @@
 import React from 'react';
 import {
+  PuppeteerPage,
   waitForNoTooltip,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 import {
-  snapshot,
-  initEditorWithAdf,
   Appearance,
   Device,
   deviceViewPorts,
   editorSelector,
+  initEditorWithAdf,
+  snapshot,
 } from '../_utils';
 import {
   clickToolbarMenu,
-  ToolbarMenuItem,
-  toolbarMenuItemsSelectors as selectors,
   mainToolbarSelector,
   retryUntilStablePosition,
   toolbarDropdownMenuSelectors,
+  ToolbarMenuItem,
+  toolbarMenuItemsSelectors as selectors,
 } from '../../__helpers/page-objects/_toolbar';
-import { animationFrame } from '../../__helpers/page-objects/_editor';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { scrollToBottom } from '../../__helpers/page-objects/_editor';
+import {
+  animationFrame,
+  scrollToBottom,
+} from '../../__helpers/page-objects/_editor';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
 describe('Toolbar', () => {
@@ -43,6 +45,11 @@ describe('Toolbar', () => {
   it('should display headings menu correctly', async () => {
     await clickToolbarMenu(page, ToolbarMenuItem.fontStyle);
     await waitForTooltip(page, 'Text styles');
+  });
+
+  it('should display text alignment menu correctly', async () => {
+    await clickToolbarMenu(page, ToolbarMenuItem.alignment);
+    await waitForTooltip(page, 'Text alignment');
   });
 
   it('should display text color menu correctly', async () => {

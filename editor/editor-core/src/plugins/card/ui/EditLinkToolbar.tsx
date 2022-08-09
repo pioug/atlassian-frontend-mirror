@@ -5,6 +5,7 @@ import { Node } from 'prosemirror-model';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
+import { LinkPickerOptions } from '../../hyperlink/types';
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
 import { showLinkToolbar, hideLinkToolbar } from '../pm-plugins/actions';
 
@@ -32,6 +33,7 @@ export type EditLinkToolbarProps = {
   text: string;
   node: Node;
   onSubmit?: (href: string, text?: string) => void;
+  linkPickerOptions?: LinkPickerOptions;
 };
 
 export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
@@ -51,11 +53,19 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
   }
 
   render() {
-    const { providerFactory, url, text, view, onSubmit } = this.props;
+    const {
+      linkPickerOptions,
+      providerFactory,
+      url,
+      text,
+      view,
+      onSubmit,
+    } = this.props;
 
     return (
       <HyperlinkToolbar
         view={view}
+        linkPickerOptions={linkPickerOptions}
         providerFactory={providerFactory}
         displayUrl={url}
         displayText={text}
@@ -97,9 +107,11 @@ export const editLink: Command = (state, dispatch) => {
 export const buildEditLinkToolbar = ({
   providerFactory,
   node,
+  linkPicker,
 }: {
   providerFactory: ProviderFactory;
   node: Node;
+  linkPicker?: LinkPickerOptions;
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
@@ -115,6 +127,7 @@ export const buildEditLinkToolbar = ({
         <EditLinkToolbar
           key={idx}
           view={view}
+          linkPickerOptions={linkPicker}
           providerFactory={providerFactory}
           url={displayInfo.url}
           text={displayInfo.title || ''}

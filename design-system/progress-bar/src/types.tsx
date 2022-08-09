@@ -1,5 +1,8 @@
 import { ThemeProp } from '@atlaskit/theme/components';
 
+/**
+ * @deprecated
+ */
 export type ThemeProps = {
   value: string | number;
 };
@@ -18,23 +21,36 @@ export type ThemeTokens = {
 
 export interface CustomProgressBarProps {
   /**
-   * Current progress, a number between 0 and 1.
+   * Sets the value of the progress bar, between `0` and `1` inclusive.
    */
-  value: number;
+  value?: number;
   /**
-   * When true the component is in indeterminate state.
+   * Shows the progress bar in an indeterminate state when `true`.
    */
-  isIndeterminate: boolean;
+  isIndeterminate?: boolean;
   /**
-   * The aria-label attribute associated with the progress bar.
+   * Label associated with the progress bar,
+   * read by screen readers.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   ariaLabel?: string;
+  /**
+   * A `testId` prop is a unique string that appears as a data attribute `data-testid` in the rendered code,
+   * serving as a hook for automated tests.
+   */
+  testId?: string;
 }
 
 export interface DefaultProgressBarProps extends CustomProgressBarProps {
   /**
-   * The theme the component should use. NOTE: This is being deprecated and will be removed after 13 May 2022. Please consider migrating to
-   * one of progress bar's variants.
+   * @deprecated
+   * Theme prop is deprecated and will be removed in the future.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   theme?: ThemeProp<ThemeTokens, ThemeProps>;
+
+  /**
+   * Visual style of the progress bar.
+   */
+  appearance?: 'default' | 'success' | 'inverse';
 }

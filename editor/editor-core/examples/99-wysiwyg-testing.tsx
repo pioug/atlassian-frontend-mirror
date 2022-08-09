@@ -2,7 +2,7 @@ import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';

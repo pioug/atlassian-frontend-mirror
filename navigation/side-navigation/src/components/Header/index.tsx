@@ -9,6 +9,7 @@ import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
 
 const Container: React.FC<CustomItemComponentProps> = (props) => {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <div {...props} />;
 };
 
@@ -18,6 +19,7 @@ export interface HeaderProps {
    * It receives the current styles and state and expects a styles object.
    * @deprecated Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-2682 for more information.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   cssFn?: CSSFn;
 
   /**
@@ -52,13 +54,20 @@ export interface HeaderProps {
   /**
    * Custom component to render as an item.
    * This can be both a functional component or a class component.
-   * **Will return `null` if no component is defined.**
-
-   * **NOTE:** Make sure the reference for this component does not change between renders else undefined behavior may happen.
+   * __Will return `null` if no component is defined.__
+   *
+   * __NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: React.ComponentType<CustomItemComponentProps>;
 }
 
+/**
+ * __Header__
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const Header = forwardRef<HTMLElement, HeaderProps>(
   (props: HeaderProps, ref) => {
     const cssFn = overrideStyleFunction(
@@ -88,7 +97,9 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
         {...props}
         ref={ref}
         component={props.component || Container}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         cssFn={cssFn}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         overrides={{
           Title: {
             render: (_, { children, ...props }) => (

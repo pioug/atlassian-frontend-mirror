@@ -28,6 +28,8 @@ export function Toolbar(props: ToolbarProps) {
     orderedListActive,
     orderedListDisabled,
     showIndentationButtons,
+    indentDisabled,
+    outdentDisabled,
     onItemActivated,
   } = props;
   const labelUnorderedList = formatMessage(messages.unorderedList);
@@ -74,10 +76,12 @@ export function Toolbar(props: ToolbarProps) {
       {showIndentationButtons && (
         <ToolbarButton
           buttonId={TOOLBAR_BUTTON.INDENT}
+          testId={TOOLBAR_BUTTON.INDENT}
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleOnItemActivated('indent')}
           iconBefore={<IndentIcon label="" />}
-          disabled={true}
+          disabled={indentDisabled || disabled}
+          aria-label={formatMessage(indentationMessages.indent)}
           title={
             <ToolTipContent
               description={formatMessage(indentationMessages.indent)}
@@ -89,10 +93,12 @@ export function Toolbar(props: ToolbarProps) {
       {showIndentationButtons && (
         <ToolbarButton
           buttonId={TOOLBAR_BUTTON.OUTDENT}
+          testId={TOOLBAR_BUTTON.OUTDENT}
           spacing={isReducedSpacing ? 'none' : 'default'}
           onClick={handleOnItemActivated('outdent')}
           iconBefore={<OutdentIcon label="" />}
-          disabled={true}
+          disabled={outdentDisabled || disabled}
+          aria-label={formatMessage(indentationMessages.outdent)}
           title={
             <ToolTipContent
               description={formatMessage(indentationMessages.outdent)}

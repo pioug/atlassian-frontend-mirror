@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/chunkinator": "^4.1.0",
-    "@atlaskit/media-common": "^2.15.0",
+    "@atlaskit/media-common": "^2.16.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
     "deep-equal": "^1.0.1",
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^74.0.0",
+    "@atlaskit/media-card": "^74.1.0",
     "@atlaskit/media-core": "^33.0.0",
     "@atlaskit/media-test-helpers": "^30.0.0",
     "@atlaskit/ssr": "*",

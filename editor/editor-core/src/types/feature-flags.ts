@@ -1,3 +1,5 @@
+import type { DisableSpellcheckByBrowser } from './browser';
+
 /**
  * Feature Flags for experimental features/behaviours.
  *
@@ -187,25 +189,6 @@ export type FeatureFlags = {
   tableOverflowShadowsOptimization?: boolean;
 
   /**
-   * @decsription
-   * Enables optional code syntax highlighting for code-block nodes
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-10368
-   * @default false
-   */
-  codeBlockSyntaxHighlighting?: boolean;
-
-  /**
-   * @description
-   * Disables decorating code snippets with bidi character warnings
-   * when they are used in inline code and code blocks.
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-13860
-   * @default true
-   */
-  codeBidiWarnings?: boolean;
-
-  /**
    * @description
    * Yield to user interaction work before sending analytics
    *
@@ -296,13 +279,6 @@ export type FeatureFlags = {
   saferDispatchedTransactions?: boolean;
 
   /**
-   * Disable Spellchecking for chrome version below the max unsafe number
-   * @see https://ops.internal.atlassian.com/jira/browse/HOT-97409
-   * @default null
-   */
-  maxUnsafeChromeSpellcheckingVersion?: number;
-
-  /**
    * Create non-smart hyperlinks on plain text paste (Cmd/Ctrl+Shift+v)
    * @see https://product-fabric.atlassian.net/browse/EDM-2492
    * @default false
@@ -335,12 +311,31 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enable display of a prewiew modal on mouse over of inline smart card
+   * Enable display of a preview modal on mouse over of inline smart card
    *
    * @see https://product-fabric.atlassian.net/browse/EDM-2860
    * @default false
    */
   showHoverPreview?: boolean;
+
+  /**
+   * @description
+   * Generic way of disabling spellcheck per browser by version range
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-14510
+   * @default {}
+   * Example:
+   * {
+   *    ie: {
+   *      minimum: 101,
+   *    },
+   *    chrome: {
+   *      minimum: 96,
+   *      maximum: 109,
+   *    },
+   * };
+   */
+  disableSpellcheckByBrowser?: DisableSpellcheckByBrowser | undefined;
 
   /**
    * @description
@@ -361,6 +356,16 @@ export type FeatureFlags = {
    * @default false
    */
   floatingToolbarCopyButton?: boolean;
+
+  /**
+   * @description
+   * Use the linking platform link picker for link insertion and edit
+   *
+   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
+   * @see https://product-fabric.atlassian.net/browse/EDM-2577
+   * @default false
+   */
+  lpLinkPicker?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

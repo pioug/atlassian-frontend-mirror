@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-object",
-  "version": "6.2.6",
+  "version": "6.2.7",
   "description": "An object icon is used to represent an Atlassian-specific content type.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -9,7 +9,7 @@
   "homepage": "https://atlassian.design/components/icon-object/",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -24,12 +24,12 @@
     }
   },
   "af:exports": {
-    "./metadata": "./src/entry-points/metadata.ts",
+    "./metadata": "./src/entry-points/metadata.tsx",
     "./glyph": "./glyph",
-    ".": "./src/index.ts"
+    ".": "./src/index.tsx"
   },
   "scripts": {
-    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
+    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },
   "dependencies": {
     "@atlaskit/icon": "^21.10.0",
@@ -64,6 +64,7 @@
   ],
   "techstack": {
     "@repo/internal": {
+      "design-system": "v1",
       "dom-events": "use-bind-event-listener",
       "theming": "tokens",
       "styling": [

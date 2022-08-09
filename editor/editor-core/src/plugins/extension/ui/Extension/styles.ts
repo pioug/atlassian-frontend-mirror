@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { gridSize } from '@atlaskit/theme/constants';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N20, DN50, DN700, B200, N20A, N70 } from '@atlaskit/theme/colors';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
@@ -21,7 +20,6 @@ export const wrapperDefault = (theme: ThemeProps) => css`
   })(theme)};
   position: relative;
   vertical-align: middle;
-  font-size: ${relativeFontSizeToBase16(fontSize())};
 
   .ProseMirror-selectednode > span > & > .extension-overlay {
     box-shadow: inset 0px 0px 0px 2px ${token('color.border.selected', B200)};

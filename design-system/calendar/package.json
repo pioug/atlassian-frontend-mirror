@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/calendar",
-  "version": "12.3.0",
+  "version": "12.3.1",
   "description": "An interactive calendar for date selection experiences.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/button": "^16.3.0",
-    "@atlaskit/ds-lib": "^2.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/locale": "^2.3.0",
     "@atlaskit/theme": "^12.1.0",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/select": "^15.4.0",
+    "@atlaskit/select": "^15.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
@@ -62,6 +62,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",
@@ -73,8 +74,8 @@
     }
   },
   "af:exports": {
-    "./types": "./src/entry-points/types.ts",
-    ".": "./src/index.ts"
+    "./types": "./src/entry-points/types.tsx",
+    ".": "./src/index.tsx"
   },
   "homepage": "https://atlassian.design/components/calendar/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

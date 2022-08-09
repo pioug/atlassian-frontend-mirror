@@ -51,5 +51,3 @@ export type {
   ExternalUser,
   UserSource,
 } from '@atlaskit/user-picker';
-
-export { setSmartUserPickerEnv } from './config';

@@ -124,9 +124,18 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
   measureRender: jest.fn(
     (
       measureName: string,
-      onMeasureComplete?: (duration: number, startTime: number) => void,
+      onMeasureComplete?: (measurement: {
+        duration: number;
+        startTime: number;
+        distortedDuration: boolean;
+      }) => void,
     ) => {
-      onMeasureComplete && onMeasureComplete(5000, 1);
+      onMeasureComplete &&
+        onMeasureComplete({
+          duration: 5000,
+          startTime: 1,
+          distortedDuration: false,
+        });
     },
   ),
 }));
@@ -449,6 +458,31 @@ describe('paste plugins', () => {
             ),
           );
         });
+      });
+    });
+
+    describe('paste in markdown', () => {
+      it('should parse markdown and create blockquote', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        dispatchPasteEvent(editorView, { plain: '>**Hello**' });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(blockquote(p(strong('Hello')))),
+        );
+      });
+
+      it('should parse markdown and create blockquote with text', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        dispatchPasteEvent(editorView, { plain: '>-Hello' });
+        expect(editorView.state.doc).toEqualDocument(
+          doc(blockquote(p('-Hello'))),
+        );
+      });
+
+      // For now blockquotes are not allowed to conatin lists.
+      it('should output plain text if blockquote contains list', () => {
+        const { editorView } = editor(doc(p('{<>}')));
+        dispatchPasteEvent(editorView, { plain: '>- Hello' });
+        expect(editorView.state.doc).toEqualDocument(doc(p('>- Hello')));
       });
     });
 
@@ -928,6 +962,43 @@ describe('paste plugins', () => {
         });
         expect(editorView.state).toEqualDocumentAndSelection(
           doc(panel({ panelType: 'info' })(ul(li(p('hello{<>}'))))),
+        );
+      });
+    });
+
+    describe('paste into list', () => {
+      it('should panel content paste inside the list instead of copying the panel itself', () => {
+        const panelHtml = `<div class="ak-editor-panel" data-panel-type="info"><span class="ak-editor-panel__icon"><span class="Icon__IconWrapper-dyhwwi-0 bcqBjl" aria-label="Panel info"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" role="presentation"><path d="M12 20a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-8.5a1 1 0 0 0-1 1V15a1 1 0 0 0 2 0v-2.5a1 1 0 0 0-1-1zm0-1.125a1.375 1.375 0 1 0 0-2.75 1.375 1.375 0 0 0 0 2.75z" fill="currentColor" fill-rule="evenodd"></path></svg></span></span><div class="ak-editor-panel__content"><p>This is a test</p></div></div>`;
+
+        const { editorView } = editor(
+          doc(ul(li(p('1')), li(p('2 {<>}')), li(p('3')))),
+        );
+        dispatchPasteEvent(editorView, {
+          html: panelHtml,
+        });
+        expect(editorView.state).toEqualDocumentAndSelection(
+          doc(ul(li(p('1')), li(p('2 This is a test{<>}')), li(p('3')))),
+        );
+      });
+
+      it('should panel content (with link) paste inside the list instead of copying the panel itself', () => {
+        const panelHtml = `<div class="ak-editor-panel" data-panel-type="info" style=""><div class="ak-editor-panel__icon" contenteditable="false"><span role="img" aria-label="Panel info" class="css-60ak9x-Icon" style="--icon-primary-color:currentColor; --icon-secondary-color:var(--ds-surface, #FFFFFF);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C9.34784 22 6.8043 20.9464 4.92893 19.0711C3.05357 17.1957 2 14.6522 2 12C2 9.34784 3.05357 6.8043 4.92893 4.92893C6.8043 3.05357 9.34784 2 12 2C14.6522 2 17.1957 3.05357 19.0711 4.92893C20.9464 6.8043 22 9.34784 22 12C22 14.6522 20.9464 17.1957 19.0711 19.0711C17.1957 20.9464 14.6522 22 12 22V22ZM12 11.375C11.6685 11.375 11.3505 11.5067 11.1161 11.7411C10.8817 11.9755 10.75 12.2935 10.75 12.625V15.75C10.75 16.0815 10.8817 16.3995 11.1161 16.6339C11.3505 16.8683 11.6685 17 12 17C12.3315 17 12.6495 16.8683 12.8839 16.6339C13.1183 16.3995 13.25 16.0815 13.25 15.75V12.625C13.25 12.2935 13.1183 11.9755 12.8839 11.7411C12.6495 11.5067 12.3315 11.375 12 11.375ZM12 9.96875C12.4558 9.96875 12.893 9.78767 13.2153 9.46534C13.5377 9.14301 13.7188 8.70584 13.7188 8.25C13.7188 7.79416 13.5377 7.35699 13.2153 7.03466C12.893 6.71233 12.4558 6.53125 12 6.53125C11.5442 6.53125 11.107 6.71233 10.7847 7.03466C10.4623 7.35699 10.2812 7.79416 10.2812 8.25C10.2812 8.70584 10.4623 9.14301 10.7847 9.46534C11.107 9.78767 11.5442 9.96875 12 9.96875Z" fill="currentColor"></path></svg></span></div><div class="ak-editor-panel__content"><p>This is a test <a href="http://www.atlassian.com">http://www.atlassian.com</a> </p></div></div>`;
+
+        const { editorView } = editor(
+          doc(ul(li(p('1')), li(p('2 {<>}')), li(p('3')))),
+        );
+        dispatchPasteEvent(editorView, {
+          html: panelHtml,
+        });
+        const href = 'http://www.atlassian.com';
+        expect(editorView.state).toEqualDocumentAndSelection(
+          doc(
+            ul(
+              li(p('1')),
+              li(p('2 This is a test ', link({ href })(href))),
+              li(p('3')),
+            ),
+          ),
         );
       });
     });
@@ -2979,11 +3050,12 @@ describe('paste plugins', () => {
             'layoutColumn',
             'layoutSection',
           ];
-          expect(createPasteMeasurePayloadMocked).toHaveBeenLastCalledWith(
-            expect.anything(),
-            5000,
-            expectedContent,
-          );
+          expect(createPasteMeasurePayloadMocked).toHaveBeenLastCalledWith({
+            view: expect.anything(),
+            duration: 5000,
+            content: expectedContent,
+            distortedDuration: false,
+          });
         });
       });
     });

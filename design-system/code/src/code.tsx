@@ -10,6 +10,15 @@ import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
 import { getCodeStyles } from './internal/theme/styles';
 import type { CodeProps } from './types';
 
+/**
+ * __Code__
+ *
+ * Code highlights short strings of code snippets inline with body text.
+ *
+ * - [Examples](https://atlassian.design/components/code/examples)
+ * - [Code](https://atlassian.design/components/code/code)
+ * - [Usage](https://atlassian.design/components/code/usage)
+ */
 const Code = memo(
   forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
     const theme = useGlobalTheme();
@@ -66,6 +75,7 @@ function RenderCodeChildrenWithBidiWarnings({
     }
 
     if (isReactElement(childNode) && childNode.props.children) {
+      // eslint-disable-next-line @repo/internal/react/no-clone-element
       const newChildNode = React.cloneElement(childNode as JSX.Element, {
         children: (
           <RenderCodeChildrenWithBidiWarnings

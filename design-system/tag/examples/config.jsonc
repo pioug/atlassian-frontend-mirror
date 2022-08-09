@@ -5,12 +5,12 @@
  */
 {
   "testExamples": [
-    "0-basicTag.tsx",
+    "0-basic-tag.tsx",
     "0-removable-tag.tsx",
     "1-appearance.tsx",
-    "12-simpleTag-with-theme.tsx",
+    "12-simple-tag-with-theme.tsx",
     "13-removable-tag-with-theme.tsx",
-    "3-textMaxLength.tsx",
+    "3-text-max-length.tsx",
     "9-simple-tag.tsx"
   ]
 }

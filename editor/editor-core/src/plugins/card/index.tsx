@@ -4,17 +4,10 @@ import { EditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
-import { CardOptions } from '@atlaskit/editor-common/card';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { cardKeymap } from './pm-plugins/keymap';
+import { CardPluginOptions } from './types';
 
-const cardPlugin = (
-  options: CardOptions & {
-    platform: 'mobile' | 'web';
-    fullWidthMode?: boolean;
-    createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  },
-): EditorPlugin => {
+const cardPlugin = (options: CardPluginOptions): EditorPlugin => {
   return {
     name: 'card',
 
@@ -66,7 +59,11 @@ const cardPlugin = (
     },
 
     pluginsOptions: {
-      floatingToolbar: floatingToolbar(options, options.platform),
+      floatingToolbar: floatingToolbar(
+        options,
+        options.platform,
+        options.linkPicker,
+      ),
     },
   };
 };

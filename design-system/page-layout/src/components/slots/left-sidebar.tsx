@@ -35,6 +35,14 @@ import LeftSidebarOuter from './internal/left-sidebar-outer';
 import ResizableChildrenWrapper from './internal/resizable-children-wrapper';
 import SlotDimensions from './slot-dimensions';
 
+/**
+ * __Left sidebar__
+ *
+ * Provides a slot for a left sidebar within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const LeftSidebar = (props: LeftSidebarProps) => {
   const {
     children,
@@ -318,6 +326,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
           testId={testId}
           resizeGrabAreaLabel={resizeGrabAreaLabel}
           resizeButtonLabel={resizeButtonLabel}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           overrides={overrides}
           onCollapse={onCollapse}
           onExpand={onExpand}

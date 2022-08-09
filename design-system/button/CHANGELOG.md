@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 16.3.5
+
+### Patch Changes
+
+- [`e09f1576233`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e09f1576233) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 16.3.4
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/require-jsdoc */
 import React from 'react';
 
 import { IndicatorProps } from '@atlaskit/select';

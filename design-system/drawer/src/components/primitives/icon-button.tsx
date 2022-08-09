@@ -50,4 +50,5 @@ const IconButton: FC<IconButtonProps> = ({ children, onClick, testId }) => (
   </button>
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default IconButton;

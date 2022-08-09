@@ -1,3 +1,4 @@
+import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
@@ -15,7 +16,7 @@ function WithBoth({
   onAtlaskitEvent,
   onPublicEvent,
   flagProps = {},
-  onDismissed = () => {},
+  onDismissed = noop,
 }: {
   onAtlaskitEvent: jest.Mock;
   onPublicEvent: jest.Mock;

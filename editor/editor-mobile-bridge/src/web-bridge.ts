@@ -1,8 +1,7 @@
-import { version } from './version.json';
-
 type Padding = { top: number; right: number; bottom: number; left: number };
 
 export const defaultPadding = [16, 16, 0, 16];
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export default abstract class WebBridge {
   private padding: Padding = { top: 0, right: 0, bottom: 0, left: 0 };
@@ -37,6 +36,6 @@ export default abstract class WebBridge {
   }
 
   currentVersion(): string {
-    return version;
+    return packageVersion;
   }
 }

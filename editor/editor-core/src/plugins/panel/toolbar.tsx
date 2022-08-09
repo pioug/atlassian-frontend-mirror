@@ -43,7 +43,7 @@ import {
 } from '../analytics';
 import { messages } from './message';
 import { EmojiId } from '@atlaskit/emoji/types';
-import { getCopyButtonConfig, showCopyButton } from '../copy-button/utils';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 
 export const panelIconMap: {
   [key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;

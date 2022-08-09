@@ -43,6 +43,7 @@ export const sizes = {
 /**
  * @deprecated This has been renamed, please import `LogoProps` instead.
  */
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type Props = LogoProps;
 /**
  * @deprecated This has been renamed, please import `defaultLogoParams` instead.

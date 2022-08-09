@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
@@ -17,8 +16,9 @@ const findNestedExpand = (doc: Node, schema: Schema) => {
 
   return expand as Node | null;
 };
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema nestedExpand node`, () => {
+describe(`${packageName}/schema nestedExpand node`, () => {
   describe('parse html', () => {
     it('converts to PM node', () => {
       const doc = fromHTML('<div data-node-type="nestedExpand" />', schema);

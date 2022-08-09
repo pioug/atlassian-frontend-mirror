@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.6.1
+
+### Patch Changes
+
+- [`e3f36b94557`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3f36b94557) - Inlines svg assets directly into the UI
+
+## 1.6.0
+
+### Minor Changes
+
+- [`c9c0a119587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c9c0a119587) - [ux] EDM-3881: add onContentRezise prop to allow callbacks after contents changed in items, plugin, tabs, etc.
+
 ## 1.5.1
 
 ### Patch Changes

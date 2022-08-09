@@ -120,11 +120,13 @@ export const TargetOverlay: React.FC<React.HTMLAttributes<HTMLDivElement>> = (
 );
 
 /**
- * __Pulse__
+ * __Spotlight pulse__
  *
- * Allows consumers to apply the spotlight pulse effect in a custom way.
+ * A spotlight pulse draws attention to a new feature.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 export const Pulse: React.FC<TargetProps> = ({
   children,

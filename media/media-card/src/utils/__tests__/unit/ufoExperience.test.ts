@@ -27,9 +27,9 @@ jest.mock('../../../utils/analytics', () => {
       .mockImplementation(() => undefined),
     extractErrorInfo: jest.fn().mockImplementation(() => {
       return {
-        failReason: 'nativeError',
-        error: 'nativeError',
-        errorDetail: 'description of the error',
+        failReason: 'some-reason',
+        error: 'some-error',
+        errorDetail: 'some-description',
       };
     }),
     LOGGED_FEATURE_FLAG_KEYS: ['feature-flag-1', 'feature-flag-2'],
@@ -42,8 +42,9 @@ import {
   startUfoExperience,
   completeUfoExperience,
 } from '../../../utils/ufoExperiences';
+import { extractErrorInfo } from '../../../utils/analytics';
 import { MediaCardError } from '../../../errors';
-import { MediaCardErrorInfo, SSRStatus } from '../../../utils/analytics';
+import { SSRStatus } from '../../../utils/analytics';
 
 describe('ufoExperience', () => {
   const mockStart: jest.Mock = jest.fn();
@@ -84,11 +85,6 @@ describe('ufoExperience', () => {
     fileMimetype: undefined,
   };
   const id = 'some-id';
-  const mediaCardErrorInfo: MediaCardErrorInfo = {
-    failReason: 'nativeError',
-    error: 'nativeError',
-    errorDetail: 'description of the error',
-  };
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -166,29 +162,16 @@ describe('ufoExperience', () => {
         });
       });
 
-      it('should not fail an experience if the status is error but no error is provided', () => {
+      it('should fail an experience with a default error if the status is error but no error is provided', () => {
         completeUfoExperience(
           id,
           'error',
           fileAttributes,
           { wasStatusUploading: false, wasStatusProcessing: false },
           ssrReliability,
-          undefined,
         );
 
-        expect(mockFailure).toBeCalledTimes(0);
-      });
-
-      it('should fail an experience with provided error data if the status is error', () => {
-        completeUfoExperience(
-          id,
-          'error',
-          fileAttributes,
-          { wasStatusUploading: false, wasStatusProcessing: false },
-          ssrReliability,
-          new MediaCardError('upload'),
-        );
-
+        expect(extractErrorInfo).toBeCalledWith(expect.any(Error));
         expect(mockFailure).toBeCalledWith({
           metadata: {
             fileAttributes,
@@ -198,7 +181,41 @@ describe('ufoExperience', () => {
               wasStatusUploading: false,
             },
             request: undefined,
-            ...mediaCardErrorInfo,
+            failReason: 'some-reason',
+            error: 'some-error',
+            errorDetail: 'some-description',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
+            mediaEnvironment: mockMediaEnvironment,
+            mediaRegion: mockMediaRegion,
+          },
+        });
+      });
+
+      it('should fail an experience with provided error data if the status is error', () => {
+        const error = new MediaCardError('upload');
+        completeUfoExperience(
+          id,
+          'error',
+          fileAttributes,
+          { wasStatusUploading: false, wasStatusProcessing: false },
+          ssrReliability,
+          error,
+        );
+
+        expect(extractErrorInfo).toBeCalledWith(error);
+        expect(mockFailure).toBeCalledWith({
+          metadata: {
+            fileAttributes,
+            ssrReliability,
+            fileStateFlags: {
+              wasStatusProcessing: false,
+              wasStatusUploading: false,
+            },
+            request: undefined,
+            failReason: 'some-reason',
+            error: 'some-error',
+            errorDetail: 'some-description',
             packageName: expect.any(String),
             packageVersion: expect.any(String),
             mediaEnvironment: mockMediaEnvironment,

@@ -41,6 +41,7 @@ import { PanelPluginConfig } from './../plugins/panel/types';
 import { EditorPlugin } from './editor-plugin';
 import { MentionPluginConfig } from './../plugins/mentions/types';
 import { EmptyStateHandler } from './empty-state-handler';
+import { LinkingOptions } from '../plugins/hyperlink/types';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -155,12 +156,6 @@ export interface EditorProps {
         menuDisabled: boolean;
       };
 
-  /**
-   * @deprecated [ED-14507] This feature has been turned off since 2020
-   * and is no longer affecting any behaviour
-   */
-  allowDynamicTextSizing?: boolean;
-
   // Enable text alignment support inside `heading` and `paragraph`
   allowTextAlignment?: boolean;
 
@@ -193,7 +188,13 @@ export interface EditorProps {
   /** @deprecated Use smartLinks instead. */
   UNSAFE_cards?: CardOptions;
 
+  /** @deprecated Use linking instead. */
   smartLinks?: CardOptions;
+
+  /**
+   *  Configure and extend editor linking behaviour
+   */
+  linking?: LinkingOptions;
 
   allowExpand?:
     | boolean

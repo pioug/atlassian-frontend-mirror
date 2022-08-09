@@ -40,6 +40,14 @@ const gridStyles = css({
   outline: 'none',
 });
 
+/**
+ * __Page layout__
+ *
+ * A collection of components which let you compose an application's page layout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const PageLayout = ({
   skipLinksLabel = DEFAULT_I18N_PROPS_SKIP_LINKS,
   children,

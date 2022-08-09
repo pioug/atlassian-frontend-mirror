@@ -1,4 +1,4 @@
-import { name } from '../../../version.json';
+import { name } from '../../../version-wrapper';
 import placeholderTextPlugin from '../../../plugins/placeholder-text';
 import {
   insertPlaceholderTextAtSelection,

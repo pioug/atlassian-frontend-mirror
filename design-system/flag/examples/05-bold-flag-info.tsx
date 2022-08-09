@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -20,7 +21,7 @@ export default () => (
       key="info"
       title="Connecting"
       description="We are talking to the interwebs, please hold."
-      actions={[{ content: 'Good luck', onClick: () => {} }]}
+      actions={[{ content: 'Good luck', onClick: noop }]}
     />
   </FlagGroup>
 );

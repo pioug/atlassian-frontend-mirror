@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { MentionProvider, ResourcedMention } from '@atlaskit/mention';
-import { ProfileCardTrigger } from '@atlaskit/profilecard';
+import ProfileCardTrigger from '@atlaskit/profilecard/user';
 
 import { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import { MentionEventHandler } from '../EventHandlers';

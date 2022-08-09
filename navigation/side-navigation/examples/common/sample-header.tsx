@@ -11,6 +11,7 @@ import { Header } from '../../src';
 import SampleIcon from './sample-logo';
 
 const Container: React.FC<CustomItemComponentProps> = (props) => {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <div {...props} />;
 };
 

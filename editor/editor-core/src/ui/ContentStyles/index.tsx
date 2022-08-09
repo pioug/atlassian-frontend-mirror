@@ -23,10 +23,7 @@ import { gapCursorStyles } from '../../plugins/selection/gap-cursor/styles';
 import { tableStyles } from '../../plugins/table/ui/common-styles';
 import { placeholderStyles } from '../../plugins/placeholder/styles';
 import { blocktypeStyles } from '../../plugins/block-type/styles';
-import {
-  codeBlockStyles,
-  highlightingCodeBlockStyles,
-} from '../../plugins/code-block/styles';
+import { codeBlockStyles } from '../../plugins/code-block/styles';
 import { listsStyles } from '../../plugins/list/styles';
 import { ruleStyles } from '../../plugins/rule/styles';
 import { mediaStyles } from '../../plugins/media/styles';
@@ -92,9 +89,7 @@ const contentStyles = (props: ContentStylesProps) => css`
 
   ${placeholderTextStyles}
   ${placeholderStyles}
-  ${props.featureFlags?.codeBlockSyntaxHighlighting
-    ? highlightingCodeBlockStyles(props)
-    : codeBlockStyles(props)}
+  ${codeBlockStyles(props)}
 
   ${blocktypeStyles(
     props,

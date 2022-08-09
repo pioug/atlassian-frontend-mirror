@@ -1,5 +1,5 @@
 import { PanelType } from '@atlaskit/adf-schema';
-import { name } from '../../../version.json';
+import { name } from '../../../version-wrapper';
 
 import {
   doc,

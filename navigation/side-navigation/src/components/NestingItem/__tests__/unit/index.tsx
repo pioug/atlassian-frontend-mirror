@@ -123,6 +123,7 @@ describe('<NestingItem />', () => {
       children,
       ...props
     }: CustomItemComponentProps & { href: string }) => (
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       <a {...props}>{children}</a>
     );
 
@@ -157,6 +158,7 @@ describe('<NestingItem />', () => {
         children,
         ...props
       }: CustomItemComponentProps & { href: string }) => (
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         <a {...props}>{children}</a>
       );
 
@@ -191,6 +193,7 @@ describe('<NestingItem />', () => {
         children,
         ...props
       }: CustomItemComponentProps & { href: string }) => {
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         return <a {...props}>{children}</a>;
       };
 
@@ -200,7 +203,7 @@ describe('<NestingItem />', () => {
             id="hello"
             title="yeah"
             href="/my-details"
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @repo/internal/react/no-unsafe-overrides
             cssFn={() => ({ color: 'red' })}
             component={CustomComponent}
             testId="target"

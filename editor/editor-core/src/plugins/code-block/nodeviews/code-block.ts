@@ -160,7 +160,7 @@ export class CodeBlockView {
   }
 }
 
-export const codeBlockNodeView = () => (
+export const codeBlockNodeView = (
   node: Node,
   view: EditorView,
   getPos: getPosHandler,

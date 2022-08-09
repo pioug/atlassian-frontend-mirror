@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -21,8 +22,8 @@ const FlagInfoExample = () => {
       title="There’s no one in this project"
       description="Add yourself or your team to get the party started."
       actions={[
-        { content: 'Add teammates', onClick: () => {} },
-        { content: 'Close', onClick: () => {} },
+        { content: 'Add teammates', onClick: noop },
+        { content: 'Close', onClick: noop },
       ]}
     />
   );

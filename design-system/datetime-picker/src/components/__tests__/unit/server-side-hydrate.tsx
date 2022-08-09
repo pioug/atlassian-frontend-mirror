@@ -2,9 +2,10 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
+import noop from '@atlaskit/ds-lib/noop';
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
+jest.spyOn(global.console, 'error').mockImplementation(noop);
 
 afterEach(() => {
   jest.resetAllMocks();
@@ -29,6 +30,6 @@ test('should ssr then hydrate datetime-picker correctly', async (done) => {
       ),
   );
 
-  expect(mockCalls.length).toBe(0); // eslint-disable-line no-console
+  expect(mockCalls.length).toBe(0);
   done();
 });

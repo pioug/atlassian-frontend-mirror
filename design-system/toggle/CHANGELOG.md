@@ -1,5 +1,12 @@
 # @atlaskit/toggle
 
+## 12.4.9
+
+### Patch Changes
+
+- [`8202e37941b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8202e37941b) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 12.4.8
 
 ### Patch Changes

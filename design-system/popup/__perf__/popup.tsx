@@ -14,6 +14,7 @@ function PopupStory() {
       trigger={(triggerProps) => (
         //@ts-ignore https://product-fabric.atlassian.net/browse/DST-1866
         <button
+          type="button"
           data-testid="popup-trigger"
           {...triggerProps}
           onClick={() => setIsOpen(!isOpen)}

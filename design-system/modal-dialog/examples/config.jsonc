@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "00-defaultModal.tsx",
+    "00-default-modal.tsx",
     "01-appearance-override.tsx",
     "10-appearance.tsx",
     "20-autofocus.tsx",

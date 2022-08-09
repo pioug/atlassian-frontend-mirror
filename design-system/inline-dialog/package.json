@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/ds-lib": "^2.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/popper": "^5.0.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
@@ -52,7 +52,7 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.1.0",
-    "@atlaskit/select": "^15.4.0",
+    "@atlaskit/select": "^15.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

@@ -11,6 +11,13 @@ export const hyperlinkSelectors = {
   hyperlink: '.ProseMirror a',
 };
 
+export const linkPickerSelectors = {
+  linkPicker: '[data-testid="link-picker"]',
+  linkInput: '[data-testid="link-url"]',
+  linkDisplayTextInput: '[data-testid="link-text"]',
+  listItem: '[data-testid="link-search-list-item"]',
+};
+
 export const copyHyperlink = async (
   page: WebDriverPage,
   link: string,

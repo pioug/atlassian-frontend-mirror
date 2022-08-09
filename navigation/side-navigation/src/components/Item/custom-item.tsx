@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/no-unsafe-overrides */
 import React, { forwardRef } from 'react';
 
 import {
@@ -15,7 +16,7 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/conte
 export type { CustomItemComponentProps, CustomItemProps } from '@atlaskit/menu';
 
 // Dirty hack to get generics working with forward ref [1/2]
-interface CustomItemType {
+interface CustomItemPropsHack {
   <TComponentProps extends {}>(
     props: CustomItemProps<TComponentProps> & { ref?: any } & Omit<
         TComponentProps,
@@ -28,7 +29,10 @@ interface CustomItemType {
  * Used to support any custom items needed by products alongside the Header and Footer patterns.
  * Specific implementation of headers and footers are provided in the examples folder.
  */
-const CustomItem: CustomItemType = forwardRef<HTMLElement, CustomItemProps>(
+const CustomItem: CustomItemPropsHack = forwardRef<
+  HTMLElement,
+  CustomItemProps
+>(
   // Type needed on props to extract types with extract react types.
   ({ cssFn, ...rest }: CustomItemProps, ref) => {
     const { shouldRender } = useShouldNestedElementRender();

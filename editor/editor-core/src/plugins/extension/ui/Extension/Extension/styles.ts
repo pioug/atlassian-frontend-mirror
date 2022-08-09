@@ -37,7 +37,7 @@ export const wrapperStyle = (theme: ThemeProps, extensionWidth: string) => css`
 `;
 
 export const header = css`
-  padding: ${padding / 2}px ${padding / 2}px ${padding / 4}px;
+  padding: ${padding / 2}px ${padding / 2}px 0px;
   vertical-align: middle;
 
   &.with-children:not(.without-frame) {

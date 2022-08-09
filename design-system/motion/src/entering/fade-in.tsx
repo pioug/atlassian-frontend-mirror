@@ -87,13 +87,21 @@ export interface FadeKeyframesMotionProps extends KeyframesMotionProps {
   distance?: Distance;
 }
 
+/**
+ * __FadeIn__
+ *
+ * Useful for fading in one or more elements.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ */
 const FadeIn: React.FC<FadeKeyframesMotionProps> = ({
   children,
   duration = largeDurationMs,
   entranceDirection,
   exitDirection,
   distance = 'proportional',
-  ...props
+  onFinish,
+  isPaused,
 }: FadeKeyframesMotionProps) => {
   const invertedEntranceDirection =
     entranceDirection && invertedDirection[entranceDirection];
@@ -107,7 +115,8 @@ const FadeIn: React.FC<FadeKeyframesMotionProps> = ({
         distance,
       )}
       animationTimingFunction={() => easeInOut}
-      {...props}
+      onFinish={onFinish}
+      isPaused={isPaused}
     >
       {children}
     </KeyframesMotion>

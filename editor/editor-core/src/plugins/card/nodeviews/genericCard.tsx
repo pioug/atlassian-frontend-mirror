@@ -5,11 +5,8 @@ import { EditorView } from 'prosemirror-view';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-  Context as SmartCardContext,
-  APIError,
-  CardPlatform,
-} from '@atlaskit/smart-card';
+import { APIError, CardPlatform } from '@atlaskit/smart-card';
+import { SmartCardContext } from '@atlaskit/link-provider';
 
 import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
 import { titleUrlPairFromNode } from '../utils';

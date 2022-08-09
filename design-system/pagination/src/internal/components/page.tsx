@@ -5,7 +5,7 @@ import type { Appearance } from '@atlaskit/button/types';
 
 type Diff<T, U> = T extends U ? never : T;
 
-type PagePropsType = Diff<
+type PageProps = Diff<
   ButtonProps,
   {
     appearance?: Appearance;
@@ -18,6 +18,7 @@ type PagePropsType = Diff<
   }
 > & { page?: any };
 
-export default function Page(props: PagePropsType) {
+export default function Page(props: PageProps) {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <Button {...props} appearance="subtle" />;
 }

@@ -7,6 +7,7 @@ interface BoundingBox {
   offsetWidth: number;
 }
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ComponentStub = React.forwardRef(
   (
     {

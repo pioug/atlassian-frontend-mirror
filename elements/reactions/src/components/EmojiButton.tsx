@@ -23,8 +23,17 @@ const emojiButtonStyle = css({
 });
 
 export interface Props {
+  /**
+   * identifier info for a given emoji
+   */
   emojiId: EmojiId;
+  /**
+   * Async provider to fetch the emoji
+   */
   emojiProvider: Promise<EmojiProvider>;
+  /**
+   * Event handler when a new emoji is selected
+   */
   onClick: OnEmojiEvent;
 }
 

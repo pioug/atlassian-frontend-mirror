@@ -14,6 +14,8 @@ const containerStyles = css({
   position: 'relative',
 });
 
+// Not exported to consumers
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const BadgeContainer = (props: BadgeProps) => {
   const { id: badgeId, badge: Badge, children } = props;
   return (

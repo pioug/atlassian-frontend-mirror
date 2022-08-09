@@ -1,13 +1,19 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
+  goToEditorTestingWDExample,
+  mountEditor,
+} from '../../../__helpers/testing-example-helpers';
+import {
   getDocFromElement,
   editable,
   gotoEditor,
   linkUrlSelector,
   insertLongText,
+  fullpage,
 } from '../../_helpers';
 import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
+import { linkPickerSelectors } from '../../../__helpers/page-objects/_hyperlink';
 
 BrowserTestCase(
   `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
@@ -29,3 +35,41 @@ BrowserTestCase(
     expect(doc).toMatchCustomDocSnapshot(testName);
   },
 );
+
+describe('with feature flag: lp-link-picker', () => {
+  BrowserTestCase(
+    `card: selecting a link from CMD + K menu should create an inline card using keyboard`,
+    {},
+    async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          smartLinks: {
+            allowEmbeds: true,
+          },
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          providers: {
+            cards: true,
+          },
+          withLinkPickerOptions: true,
+        },
+      );
+      await insertLongText(page);
+      await page.click(`[aria-label="${messages.link.defaultMessage}"]`);
+      await page.waitForSelector(linkPickerSelectors.linkInput);
+
+      await page.type(linkPickerSelectors.linkInput, 'home opt-in');
+      await page.keys(['ArrowDown', 'Return']);
+      await page.waitForSelector('.inlineCardView-content-wrap');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+});

@@ -3,13 +3,29 @@ order: 0
 ---
 
 import ProgressBarDefaultExample from '../../examples/constellation/progress-bar-default';
+import ProgressBarSuccessExample from '../../examples/constellation/progress-bar-success';
+import ProgressBarInverseExample from '../../examples/constellation/progress-bar-inverse';
 import ProgressBarIndeterminateExample from '../../examples/constellation/progress-bar-indeterminate';
 
-## Default
+## Appearance
 
-Determinate progress bars fill the container from 0 to 100%. This reflects the progress of the process.
+### Default
+
+The default appearance of a progress bar.
 
 <Example Component={ProgressBarDefaultExample} packageName="@atlaskit/progress-bar" />
+
+### Inverse
+
+Inverse is used on bold backgrounds to maintain suitable contrast.
+
+<Example Component={ProgressBarInverseExample} packageName="@atlaskit/progress-bar" backgroundColor="blue" />
+
+### Success
+
+Success indicates the completion of a process.
+
+<Example Component={ProgressBarSuccessExample} packageName="@atlaskit/progress-bar" />
 
 ## Indeterminate
 

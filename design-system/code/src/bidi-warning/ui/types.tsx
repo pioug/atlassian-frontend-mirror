@@ -2,7 +2,8 @@ export type CodeBidiWarningProps = {
   /**
    * A `testId` prop is provided for specified elements, which is a unique
    * string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests */
+   * serving as a hook for automated tests
+   */
   testId?: string;
   /**
    * A bidi character which can be used to perform a "bidi override attack".
@@ -20,9 +21,15 @@ export type CodeBidiWarningProps = {
    * via mobile bridge, where the tooltip could end up being cut off of otherwise
    * not work as expected.
    */
+  // See DSP-5460
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   tooltipEnabled?: boolean;
 
-  // Useful when wrapping the bidi character with the decoration is not achievable.
+  /**
+   * Useful when wrapping the bidi character with the decoration is not achievable.
+   */
+  // See DSP-5460
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   skipChildren?: boolean;
 
   /**

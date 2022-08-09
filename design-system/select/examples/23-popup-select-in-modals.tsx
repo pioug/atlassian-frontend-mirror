@@ -28,6 +28,15 @@ export default () => {
       searchThreshold={99}
       options={options}
       menuPlacement="bottom"
+      popperProps={{
+        modifiers: [
+          { name: 'offset', options: { offset: [0, 8] } },
+          {
+            name: 'preventOverflow',
+            enabled: false,
+          },
+        ],
+      }}
       target={({ ref }) => <Button ref={ref}>Choose</Button>}
     />
   );

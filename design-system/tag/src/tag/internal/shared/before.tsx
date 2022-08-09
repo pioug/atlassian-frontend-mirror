@@ -22,4 +22,5 @@ const beforeElementStyles = css({
 const Before = ({ elemBefore }: BeforeProps) =>
   elemBefore ? <span css={beforeElementStyles}>{elemBefore}</span> : null;
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Before;

@@ -1,4 +1,4 @@
-import { name } from '../../../../version.json';
+import { name } from '../../../../version-wrapper';
 import { mediaPlugin } from '../../../../plugins';
 import { EditorPlugin } from '../../../../types';
 import { mediaSingleWithCaption, mediaSingle } from '@atlaskit/adf-schema';

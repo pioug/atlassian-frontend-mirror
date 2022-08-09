@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -21,8 +22,8 @@ const FlagWarningExample = () => {
       title="This page is visible to people outside your organization"
       description="Are you sure you want to publish?"
       actions={[
-        { content: 'Publish', onClick: () => {} },
-        { content: 'Go back', onClick: () => {} },
+        { content: 'Publish', onClick: noop },
+        { content: 'Go back', onClick: noop },
       ]}
     />
   );

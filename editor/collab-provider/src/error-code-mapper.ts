@@ -34,36 +34,40 @@ export const ErrorCodeMapper = {
 export const errorCodeMapper = (
   error: ErrorPayload,
 ): CollabErrorPayload | undefined => {
-  if (error.data) {
-    switch (error.data.code) {
-      case 'INSUFFICIENT_EDITING_PERMISSION':
-        return {
-          status: 403,
-          code: ErrorCodeMapper.noPermissionError.code,
-          message: ErrorCodeMapper.noPermissionError.message,
-        };
-      case 'DOCUMENT_NOT_FOUND':
-        return {
-          status: 404,
-          code: ErrorCodeMapper.documentNotFound.code,
-          message: ErrorCodeMapper.documentNotFound.message,
-        };
-      case 'FAILED_ON_S3':
-      case 'DYNAMO_ERROR':
-        return {
-          status: 500,
-          code: ErrorCodeMapper.failToSave.code,
-          message: ErrorCodeMapper.failToSave.message,
-        };
-      case 'CATCHUP_FAILED':
-      case 'GET_QUERY_TIME_OUT':
-        return {
-          status: 500,
-          code: ErrorCodeMapper.internalError.code,
-          message: ErrorCodeMapper.internalError.message,
-        };
-      default:
-        break;
-    }
+  switch (error.data?.code) {
+    case 'INSUFFICIENT_EDITING_PERMISSION':
+      return {
+        status: 403,
+        code: ErrorCodeMapper.noPermissionError.code,
+        message: ErrorCodeMapper.noPermissionError.message,
+        reason:
+          // Typescript magic so it detects the union type
+          typeof error.data.meta === 'object'
+            ? error.data.meta.reason
+            : undefined,
+      };
+    case 'DOCUMENT_NOT_FOUND':
+      return {
+        status: 404,
+        code: ErrorCodeMapper.documentNotFound.code,
+        message: ErrorCodeMapper.documentNotFound.message,
+      };
+    case 'FAILED_ON_S3':
+    case 'DYNAMO_ERROR':
+      return {
+        status: 500,
+        code: ErrorCodeMapper.failToSave.code,
+        message: ErrorCodeMapper.failToSave.message,
+      };
+    case 'CATCHUP_FAILED':
+    case 'GET_QUERY_TIME_OUT':
+    case 'INIT_DATA_LOAD_FAILED':
+      return {
+        status: 500,
+        code: ErrorCodeMapper.internalError.code,
+        message: ErrorCodeMapper.internalError.message,
+      };
+    default:
+      break;
   }
 };

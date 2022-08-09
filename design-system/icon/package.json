@@ -48,7 +48,7 @@
     "@af/icon-build-process": "^0.3.0",
     "@atlaskit/button": "^16.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dynamic-table": "^14.6.0",
+    "@atlaskit/dynamic-table": "^14.7.0",
     "@atlaskit/icon-file-type": "^6.3.0",
     "@atlaskit/icon-object": "^6.2.0",
     "@atlaskit/icon-priority": "^6.3.0",

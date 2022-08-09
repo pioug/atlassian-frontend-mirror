@@ -143,6 +143,7 @@ export class DrawerBase extends Component<
             onOpenComplete={onOpenComplete}
             width={width}
             shouldUnmountOnExit={shouldUnmountOnExit}
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             overrides={overrides}
           >
             {children}

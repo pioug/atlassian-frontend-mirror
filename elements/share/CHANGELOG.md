@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 3.3.1
+
+### Patch Changes
+
+- [`575b4888124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/575b4888124) - Removed internal test/demo usages of setSmartUserPickerEnv
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

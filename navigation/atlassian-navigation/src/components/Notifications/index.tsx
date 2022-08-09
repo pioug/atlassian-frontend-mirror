@@ -9,6 +9,15 @@ import { NotificationsProps } from './types';
 
 const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
 
+/**
+ * __Notifications__
+ *
+ * A notifications button that can be passed into `AtlassianNavigation`'s
+ * `renderNotifications` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#notifications)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const Notifications = forwardRef(
   (props: NotificationsProps, ref: Ref<any>) => {
     const { badge, tooltip, ...iconButtonProps } = props;

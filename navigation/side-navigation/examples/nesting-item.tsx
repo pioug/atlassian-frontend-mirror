@@ -18,6 +18,7 @@ const CustomNestingItem = ({
   ...props
 }: CustomItemComponentProps & { href: string }) => {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <a href={href} {...props}>
       {children}
     </a>
@@ -64,6 +65,7 @@ const BasicExample = () => {
             iconBefore={<SettingsIcon label="" />}
             title="Settings"
             description="I have a custom back button"
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             overrides={{
               GoBackItem: {
                 render: (props) => (
@@ -90,6 +92,7 @@ const BasicExample = () => {
             href="/custom-link"
             iconBefore={<SettingsIcon label="" />}
             title="Settings"
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             cssFn={() => ({
               // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
               color: 'red',

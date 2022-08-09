@@ -6,15 +6,27 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
   startMeasure: jest.fn(),
   measureRender: jest.fn(async (name: string, callback: Function) => {
     await Promise.resolve(0);
-    callback(mockStopMeasureDuration, mockStartTime);
+    callback({
+      duration: mockStopMeasureDuration,
+      startTime: mockStartTime,
+      distortedDuration: false,
+    });
   }),
   stopMeasure: jest.fn(
     (
       measureName: string,
-      onMeasureComplete?: (duration: number, startTime: number) => void,
+      onMeasureComplete?: (measurement: {
+        duration: number;
+        startTime: number;
+        distortedDuration: boolean;
+      }) => void,
     ) => {
       onMeasureComplete &&
-        onMeasureComplete(mockStopMeasureDuration, mockStartTime);
+        onMeasureComplete({
+          duration: mockStopMeasureDuration,
+          startTime: mockStartTime,
+          distortedDuration: false,
+        });
     },
   ),
   isPerformanceAPIAvailable: jest.fn(() => true),
@@ -1311,7 +1323,7 @@ describe('@atlaskit/editor-core', () => {
       ({ condition, threshold, severity }) => {
         (measureRender as any).mockImplementationOnce(
           (name: any, callback: any) => {
-            callback && callback(threshold, 1);
+            callback && callback({ duration: threshold, startTime: 1 });
           },
         );
 

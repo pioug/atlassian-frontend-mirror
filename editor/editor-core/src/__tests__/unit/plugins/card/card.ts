@@ -1,4 +1,4 @@
-import { name } from '../../../../version.json';
+import { name } from '../../../../version-wrapper';
 import { doc, embedCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 

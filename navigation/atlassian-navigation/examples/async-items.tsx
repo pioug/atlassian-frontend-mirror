@@ -15,7 +15,7 @@ const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
   const overflowStatus = useOverflowStatus();
 
   return overflowStatus.isVisible ? (
-    <PrimaryButton {...props} />
+    <PrimaryButton>{props.children}</PrimaryButton>
   ) : (
     <ButtonItem>{props.children}</ButtonItem>
   );

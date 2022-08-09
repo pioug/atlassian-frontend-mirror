@@ -54,8 +54,7 @@ describe('Custom panel looks correct for fullpage:', () => {
     await page.waitForSelector(panelSelectors.panel);
   });
 
-  // TODO: ED-15252 fix this test - TimeoutError: waiting for function failed: timeout 5000ms exceeded
-  it.skip('displays correctly with opened color picker in the floating toolbar in the light mode', async () => {
+  it('displays correctly with opened color picker in the floating toolbar in the light mode', async () => {
     await initFullPageEditorWithAdf(
       page,
       adf,

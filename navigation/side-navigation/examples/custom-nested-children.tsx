@@ -50,7 +50,7 @@ const CorrectCustomLeafNodeComponent = () => {
 
 const BasicExample = () => {
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation label="project" testId="side-navigation">
         <NestableNavigationContent>
           <Section>

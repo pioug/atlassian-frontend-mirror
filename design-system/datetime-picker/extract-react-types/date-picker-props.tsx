@@ -1,5 +1,5 @@
-import { Props } from '../src/components/DatePicker';
+import { DatePickerBaseProps } from '../src/components/date-picker';
 
-export default function DatePickerProps(props: Props) {
+export default function DatePickerProps(props: DatePickerBaseProps) {
   return null;
 }

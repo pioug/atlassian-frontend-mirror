@@ -2,6 +2,8 @@ import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import { Tab, TabList } from '../../index';
 import { TabListContext } from '../../internal/context';
 import { TabListAttributesType } from '../../types';
@@ -23,7 +25,7 @@ const renderTabList = (
     value={{
       selected: 0,
       tabsId: 'test',
-      onChange: () => {},
+      onChange: noop,
       ...overridingValue,
     }}
   >
@@ -71,7 +73,7 @@ describe('@atlaskit/tabs', () => {
           value={{
             selected: 0,
             tabsId: 'test',
-            onChange: () => {},
+            onChange: noop,
           }}
         >
           <TabList>
@@ -121,7 +123,7 @@ describe('@atlaskit/tabs', () => {
           value={{
             selected: 1,
             tabsId: 'test',
-            onChange: () => {},
+            onChange: noop,
           }}
         >
           <div>

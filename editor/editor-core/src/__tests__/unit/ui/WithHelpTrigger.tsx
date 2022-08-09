@@ -1,4 +1,4 @@
-import { name } from '../../../version.json';
+import { name } from '../../../version-wrapper';
 import { mount } from 'enzyme';
 import React from 'react';
 import WithHelpTrigger from '../../../ui/WithHelpTrigger';

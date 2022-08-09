@@ -2431,6 +2431,9 @@
           "$ref": "#/definitions/paragraph_with_alignment_node"
         },
         {
+          "$ref": "#/definitions/paragraph_with_indentation_node"
+        },
+        {
           "$ref": "#/definitions/bulletList_node"
         },
         {

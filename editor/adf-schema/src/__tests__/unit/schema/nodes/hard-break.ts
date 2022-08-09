@@ -1,10 +1,10 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
 const schema = makeSchema();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema hardBreak node`, () => {
+describe(`${packageName}/schema hardBreak node`, () => {
   it('serializes to <br>', () => {
     const html = toHTML(schema.nodes.hardBreak.create(), schema);
     expect(html).toContain('<br>');

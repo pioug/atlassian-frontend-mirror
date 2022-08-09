@@ -1,5 +1,12 @@
 # @atlaskit/tooltip
 
+## 17.5.14
+
+### Patch Changes
+
+- [`13a202fde6b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/13a202fde6b) - Fixes a bug where undefined test IDs were being added to Tooltip wrappers when no test ID was set
+- Updated dependencies
+
 ## 17.5.13
 
 ### Patch Changes

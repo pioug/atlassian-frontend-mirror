@@ -11,7 +11,7 @@ import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-
 import { mount } from 'enzyme';
 import React from 'react';
 import { FlashAnimation } from '../../../components/FlashAnimation';
-import { Reaction, ReactionOnClick } from '../../../components/Reaction';
+import { Reaction, OnReactionClick } from '../../../components/Reaction';
 import { ReactionTooltip } from '../../../components/ReactionTooltip';
 import { ReactionSummary, User } from '../../../types';
 import { hasSelector } from '../_test-utils';
@@ -40,7 +40,7 @@ const buildReaction = (
 const renderReaction = (
   reacted: boolean,
   count: number,
-  onClick: ReactionOnClick,
+  onClick: OnReactionClick,
   flash: boolean = false,
 ) => (
   <Reaction
@@ -93,7 +93,7 @@ describe('@atlaskit/reactions/reaction', () => {
     const ReactionWithAnalyticsListener = (props: {
       reacted: boolean;
       count: number;
-      onClick: ReactionOnClick;
+      onClick: OnReactionClick;
       users?: User[];
     }) => (
       <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>

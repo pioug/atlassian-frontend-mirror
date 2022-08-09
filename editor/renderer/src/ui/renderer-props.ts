@@ -48,8 +48,6 @@ export interface RendererProps {
   adfStage?: ADFStage;
   disableHeadingIDs?: boolean;
   disableActions?: boolean;
-  /** @deprecated  [ED-14507] allowDynamicTextSizing is no longer in use */
-  allowDynamicTextSizing?: boolean;
   allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
   allowPlaceholderText?: boolean;
   maxHeight?: number;

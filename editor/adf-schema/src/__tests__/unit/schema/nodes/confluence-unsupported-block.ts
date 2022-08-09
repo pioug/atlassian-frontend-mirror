@@ -1,11 +1,12 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
   fromHTML,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema unsupportedBlock node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema unsupportedBlock node`, () => {
   it('should parse unsupported block nodes', () => {
     const doc = fromHTML(
       '<div data-node-type="confluenceUnsupportedBlock" data-confluence-unsupported="block" data-confluence-unsupported-block-cxhtml="foobar"/>',

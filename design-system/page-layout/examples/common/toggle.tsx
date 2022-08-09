@@ -30,6 +30,7 @@ const Toggle = ({
         type="checkbox"
         onChange={onChange}
         checked={isChecked}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...props}
       />
       {children}

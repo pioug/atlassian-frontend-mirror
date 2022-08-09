@@ -16,7 +16,7 @@ import RocketIcon from '../common/sample-logo';
 
 const Example = () => {
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation label="project" testId="side-navigation">
         <NavigationHeader>
           <Header

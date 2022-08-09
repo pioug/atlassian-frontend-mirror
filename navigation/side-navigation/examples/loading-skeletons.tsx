@@ -19,7 +19,7 @@ import SampleHeader from './common/sample-header';
 
 const BasicExample = () => {
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation label="project" testId="side-navigation">
         <NavigationHeader>
           <SampleHeader />

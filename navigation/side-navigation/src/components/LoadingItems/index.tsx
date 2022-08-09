@@ -28,7 +28,7 @@ export interface LoadingItemsProps {
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests.
-
+   *
    * Will set these elements when defined:
    * - The entering container - `{testId}--entering`
    * - The exiting container - `{testId}--exiting`
@@ -36,6 +36,11 @@ export interface LoadingItemsProps {
   testId?: string;
 }
 
+/**
+ * __Loading items__
+ *
+ * Loading items conditionally render based on the useShouldNestedElementRender() hook.
+ */
 const LoadingItems = ({
   children,
   isLoading,

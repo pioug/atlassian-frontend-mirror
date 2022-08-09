@@ -1,12 +1,12 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
 const schema = makeSchema();
 const src = 'http://test.com';
 const srcDataURI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAY)';
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema image node`, () => {
+describe(`${packageName}/schema image node`, () => {
   it('serializes to <img>', () => {
     const html = toHTML(schema.nodes.image.create({ src }), schema);
     expect(html).toContain(`<img src="${src}" alt="">`);

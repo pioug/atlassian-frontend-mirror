@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render, wait } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
 
 import Tag, { RemovableTagProps } from '../../index';
 
@@ -18,7 +19,7 @@ describe('Tag analytics', () => {
     onBeforeRemoveAction: () => {
       return true;
     },
-    onAfterRemoveAction: () => {},
+    onAfterRemoveAction: noop,
   };
 
   it('should listen to analytcis event on tag removal', async () => {

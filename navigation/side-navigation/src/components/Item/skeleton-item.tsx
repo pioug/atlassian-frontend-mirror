@@ -7,6 +7,14 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/conte
 
 export type { SkeletonItemProps } from '@atlaskit/menu';
 
+/**
+ * __Skeleton item__
+ *
+ * A skeleton item can be used to reduce the perceived laoding time.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#loading)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const SkeletonItem = (props: SkeletonItemProps) => {
   const { shouldRender } = useShouldNestedElementRender();
   if (!shouldRender) {
@@ -15,7 +23,7 @@ const SkeletonItem = (props: SkeletonItemProps) => {
 
   return (
     <SkelItem
-      // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
+      // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
       cssFn={() => ({
         paddingLeft: ITEM_SIDE_PADDING,
         paddingRight: ITEM_SIDE_PADDING,
@@ -24,6 +32,7 @@ const SkeletonItem = (props: SkeletonItemProps) => {
           marginRight: 18,
         },
       })}
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}
     />
   );

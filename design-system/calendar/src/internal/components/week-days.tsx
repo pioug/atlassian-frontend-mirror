@@ -15,14 +15,14 @@ const daysGridStyles = css({
   border: 0,
 });
 
-interface Props {
+interface WeekDaysProps {
   weeks: Week[];
   handleClickDay: (date: DateObj) => void;
   mode?: ThemeModes;
   testId?: string;
 }
 
-const WeekDays = memo<Props>(function WeekDays({
+const WeekDays = memo<WeekDaysProps>(function WeekDays({
   weeks,
   handleClickDay,
   mode,
@@ -58,4 +58,5 @@ const WeekDays = memo<Props>(function WeekDays({
 
 WeekDays.displayName = 'WeekDays';
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default WeekDays;

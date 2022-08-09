@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/use-primitives */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 

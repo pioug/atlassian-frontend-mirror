@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 7.5.0
+
+### Minor Changes
+
+- [`1c555e79e56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c555e79e56) - Added the capability to pass product information (product & sub-product) to the collab service
+- [`247420a48f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/247420a48f7) - [ESS-1050] Return ADF document from getFinalAcknowledgedState
+- [`17f1b0b87cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/17f1b0b87cc) - ESS-1019 changes the reconnectionDelayMax to 128s to reduce the reconnection storm.
+
+### Patch Changes
+
+- [`bf848f39cb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf848f39cb1) - ESS-2419 Emit the reason of permission errors to the consumers of collab-provider
+- [`680dc155ebc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/680dc155ebc) - Raise errors in the collab provider when the server fails loading initilisation data
+- Updated dependencies
+
 ## 7.4.4
 
 ### Patch Changes

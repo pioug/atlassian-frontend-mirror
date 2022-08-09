@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
@@ -6,7 +5,9 @@ import {
 } from '@atlaskit/editor-test-helpers/adf-schema';
 import { inlineExtension } from '../../../../../src';
 
-describe(`${name}/schema inlineExtension node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema inlineExtension node`, () => {
   describe('parse html', () => {
     it('converts to inlineExtension PM node', () => {
       const doc = fromHTML(

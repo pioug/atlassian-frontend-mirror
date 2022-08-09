@@ -9,7 +9,7 @@ describe('useAutoFocus()', () => {
   const Component = ({ autoFocus }: { autoFocus: boolean }) => {
     const ref = useRef<HTMLButtonElement>(null);
     useAutoFocus(ref, autoFocus);
-    return <button ref={ref} id="test" />;
+    return <button ref={ref} id="test" type="button" />;
   };
 
   it('should focus on initial render', () => {
@@ -37,7 +37,7 @@ describe('useAutoFocus()', () => {
     const Component = ({ autoFocus }: { autoFocus: boolean }) => {
       const ref = createRef<HTMLButtonElement>();
       useAutoFocus(ref, autoFocus);
-      return <button ref={ref} id="test" />;
+      return <button ref={ref} id="test" type="button" />;
     };
 
     render(<Component autoFocus />);

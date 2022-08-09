@@ -3,10 +3,10 @@
 import { css, jsx } from '@emotion/core';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
 
 import TextArea from '../src';
 
-const noop = () => {};
 const sendAnalytics = (analytic: UIAnalyticsEvent) =>
   console.log('analytic: ', analytic.payload);
 const wrapperStyles = css({

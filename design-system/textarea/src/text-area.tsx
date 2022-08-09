@@ -29,35 +29,65 @@ export interface OwnProps extends WithAnalyticsEventsProps {
    * none prevents all field styling.
    */
   appearance?: 'standard' | 'subtle' | 'none';
-  /** Set whether the fields should expand to fill available horizontal space. */
+  /**
+   * Set whether the fields should expand to fill available horizontal space.
+   */
   isCompact?: boolean;
-  /** Sets the field as uneditable, with a changed hover state. */
+  /**
+   * Sets the field as uneditable, with a changed hover state.
+   */
   isDisabled?: boolean;
-  /** If true, prevents the value of the input from being edited. */
+  /**
+   * If true, prevents the value of the input from being edited.
+   */
   isReadOnly?: boolean;
-  /** Set required for form that the field is part of. */
+  /**
+   * Set required for form that the field is part of.
+   */
   isRequired?: boolean;
-  /** Sets styling to indicate that the input is invalid. */
+  /**
+   * Sets styling to indicate that the input is invalid.
+   */
   isInvalid?: boolean;
-  /** The minimum number of rows of text to display */
+  /**
+   * The minimum number of rows of text to display
+   */
   minimumRows?: number;
-  /** The maxheight of the textarea */
+  /**
+   * The maxheight of the textarea
+   */
   maxHeight?: string;
-  /** The value of the text-area. */
+  /**
+   * The value of the text-area.
+   */
   value?: string;
-  /** The default value of the textarea */
+  /**
+   * The default value of the textarea
+   */
   defaultValue?: string;
-  /** Name of the input form control */
+  /**
+   * Name of the input form control
+   */
   name?: string;
-  /** The placeholder within the textarea */
+  /**
+   * The placeholder within the textarea
+   */
   placeholder?: string;
-  /** Handler to be called when the input is blurred */
+  /**
+   * Handler to be called when the input is blurred
+   */
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
-  /** Handler to be called when the input changes. */
+  /**
+   * Handler to be called when the input changes.
+   */
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
-  /** Handler to be called when the input is focused */
+  /**
+   * Handler to be called when the input is focused
+   */
   onFocus?: React.FocusEventHandler<HTMLTextAreaElement>;
-  /** Sets content text value to monospace */
+  /**
+   * Sets content text value to monospace
+   */
   isMonospaced?: boolean;
   /**
    * Enables the resizing of the textarea:
@@ -71,22 +101,25 @@ export interface OwnProps extends WithAnalyticsEventsProps {
   /**
    * Enables native spell check on the `textarea` element.
    */
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   spellCheck?: boolean;
   /**
    * The theme function TextArea consumes to derive theming constants for use in styling its components
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   theme?: any;
   /**
    * A `testId` prop is provided for specified elements, which is a unique
    * string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests */
+   * serving as a hook for automated tests
+   */
   testId?: string;
 }
 
 // TODO: DSP-2566 Move `Combine` type utility into @atlaskit/ds-lib https://product-fabric.atlassian.net/browse/DSP-2566
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
-export type Props = Combine<
+export type TextAreaProps = Combine<
   Omit<
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     'disabled' | 'required' | 'readonly'
@@ -94,7 +127,7 @@ export type Props = Combine<
   OwnProps
 >;
 
-interface InternalProps extends Props {
+interface InternalProps extends TextAreaProps {
   tokens: ThemeTokens;
 }
 
@@ -225,9 +258,18 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
   );
 });
 
+/**
+ * __Text area__
+ *
+ * A text area lets users enter long form text which spans over multiple lines.
+ *
+ * - [Examples](https://atlassian.design/components/textarea/examples)
+ * - [Code](https://atlassian.design/components/textarea/code)
+ * - [Usage](https://atlassian.design/components/textarea/usage)
+ */
 const TextArea = memo(
-  forwardRef<HTMLTextAreaElement, Props>(function TextArea(
-    props: Props,
+  forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+    props: TextAreaProps,
     ref: React.Ref<HTMLTextAreaElement>,
   ) {
     return (

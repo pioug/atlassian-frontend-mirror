@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Provider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import { default as Renderer } from '../src/ui/Renderer';
 import document from './helper/smart-card.adf.json';
 
 export default function Example() {
   return (
-    <Provider>
+    <SmartCardProvider>
       <Renderer
         document={document}
         appearance="full-page"
@@ -19,6 +19,6 @@ export default function Example() {
           },
         }}
       />
-    </Provider>
+    </SmartCardProvider>
   );
 }

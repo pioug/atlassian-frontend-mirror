@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
@@ -12,7 +11,9 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-describe(`${name}/schema bodiedExtension node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema bodiedExtension node`, () => {
   describe('parse html', () => {
     it('converts to extension PM node', () => {
       const doc = fromHTML(

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/modal-dialog",
-  "version": "12.2.13",
+  "version": "12.2.14",
   "description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -14,9 +14,9 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "af:exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts",
-    "./hooks": "./src/hooks.ts",
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx",
+    "./hooks": "./src/hooks.tsx",
     "./modal-dialog": "./src/modal-wrapper.tsx",
     "./modal-header": "./src/modal-header.tsx",
     "./modal-title": "./src/modal-title.tsx",
@@ -24,7 +24,7 @@
     "./modal-footer": "./src/modal-footer.tsx",
     "./modal-transition": "./src/modal-transition.tsx"
   },
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -40,7 +40,7 @@
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/blanket": "^12.2.0",
     "@atlaskit/codemod-utils": "^4.1.0",
-    "@atlaskit/ds-lib": "^2.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/motion": "^1.2.0",
@@ -104,6 +104,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",

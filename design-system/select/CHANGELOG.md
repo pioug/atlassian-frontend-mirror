@@ -1,5 +1,22 @@
 # @atlaskit/select
 
+## 15.5.0
+
+### Minor Changes
+
+- [`c17c6943be2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c17c6943be2) - Updated appearance of multi-select tags; when delete button is hovered, the appearance now matches @atlaskit/tag. The change is only visible with design token CSS enabled (in light or dark mode)
+- [`45cae79ec0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45cae79ec0f) - [ux] Internal changes to <CountrySelect /> to no longer override container and menu width. The behaviour is now the same as the default Select component. Visual changes are possible if the <CountrySelect /> is being used in an unconstrained container (it will now expand to fill as is the default).
+
+  Component now also uses the correct types (previously set to `any`). Props are still passed through so there is no runtime effect, but this may effect compilation for users providing props that are unsupported by the runtime.
+
+- [`6e6ff42cd4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e6ff42cd4c) - Replaces focus-trap with react-focus-lock in line with implementation in Jira Frontend.
+
+### Patch Changes
+
+- [`1c4840e546a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c4840e546a) - fix popup select alignment bug
+- [`dec5021eefd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dec5021eefd) - [ux] Trigger onMenuClose prop when popup select closes.
+- [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
+
 ## 15.4.0
 
 ### Minor Changes

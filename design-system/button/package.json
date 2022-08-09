@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.3.4",
+  "version": "16.3.5",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "scheduled",
@@ -23,16 +23,16 @@
     }
   },
   "af:exports": {
-    "./button-group": "./src/entry-points/button-group.ts",
-    "./custom-theme-button": "./src/entry-points/custom-theme-button.ts",
-    "./loading-button": "./src/entry-points/loading-button.ts",
-    "./standard-button": "./src/entry-points/standard-button.ts",
-    "./types": "./src/entry-points/types.ts",
-    ".": "./src/index.ts"
+    "./button-group": "./src/entry-points/button-group.tsx",
+    "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
+    "./loading-button": "./src/entry-points/loading-button.tsx",
+    "./standard-button": "./src/entry-points/standard-button.tsx",
+    "./types": "./src/entry-points/types.tsx",
+    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
-    "@atlaskit/ds-lib": "^2.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/spinner": "^15.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
@@ -48,7 +48,7 @@
     "@atlaskit/icon": "^21.10.0",
     "@atlaskit/logo": "^13.8.0",
     "@atlaskit/section-message": "^6.1.0",
-    "@atlaskit/select": "^15.4.0",
+    "@atlaskit/select": "^15.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
@@ -73,6 +73,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",
       "theming": "tokens",

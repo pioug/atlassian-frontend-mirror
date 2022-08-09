@@ -18,6 +18,8 @@ import analyticsPlugin from '../../../analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
 
+const coreVersion = process.env._PACKAGE_VERSION_;
+
 describe('feedbackDialogPlugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -71,7 +73,7 @@ describe('feedbackDialogPlugin', () => {
       expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
         ['bitbucket', 'atlaskit-comment-bitbucket'],
         'editor',
-        '999.9.9',
+        coreVersion,
         '666.6.6',
         '',
         '',
@@ -123,7 +125,7 @@ describe('feedbackDialogPlugin', () => {
         expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
           ['jira', 'label1'],
           'package1',
-          '999.9.9',
+          coreVersion,
           '111.222.333',
           '',
           '',
@@ -143,7 +145,7 @@ describe('feedbackDialogPlugin', () => {
           expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
             ['jira', 'label1'],
             'package1',
-            '999.9.9',
+            coreVersion,
             '111.222.333',
             '',
             '',
@@ -152,7 +154,7 @@ describe('feedbackDialogPlugin', () => {
           expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
             ['bitbucket', 'label2'],
             'package2',
-            '999.9.9',
+            coreVersion,
             '444.555.666',
             '',
             '',
@@ -180,7 +182,7 @@ describe('feedbackDialogPlugin', () => {
         expect(loadJiraCollectorDialogScript).toHaveBeenCalledWith(
           ['confluence', 'label3'],
           'package3',
-          '999.9.9',
+          coreVersion,
           '777.888.999',
           'sessionId',
           'contentId',

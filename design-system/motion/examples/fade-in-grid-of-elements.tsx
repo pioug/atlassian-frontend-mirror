@@ -79,6 +79,7 @@ export default () => {
                       css={{ display: 'block', padding: 0, margin: '4px' }}
                     >
                       <Block appearance={state.size}>
+                        {/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
                         {cloneElement(logos[index % logos.length], {
                           size: state.numOfChildren > 9 ? 'small' : 'xlarge',
                         })}

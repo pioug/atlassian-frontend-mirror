@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import type { JSXElement } from 'eslint-codemod-utils';
+import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
 import { findProp } from '../utils/jsx';
 
@@ -66,8 +66,11 @@ const rule: Rule.RuleModule = {
         }
       },
 
-      JSXElement(node: JSXElement) {
-        if (node.openingElement.name.type !== 'JSXIdentifier') {
+      JSXElement(node: any) {
+        if (!isNodeOfType(node, 'JSXElement')) {
+          return;
+        }
+        if (!isNodeOfType(node.openingElement.name, 'JSXIdentifier')) {
           return;
         }
 

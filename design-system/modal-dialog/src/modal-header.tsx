@@ -31,6 +31,15 @@ export interface ModalHeaderProps {
   testId?: string;
 }
 
+/**
+ * __Modal header__
+ *
+ * A modal header contains the title of the modal and can contain other React elements such as a close button.
+ *
+ * - [Examples](https://atlassian.design/components/modal-dialog/examples#modal-header)
+ * - [Code](https://atlassian.design/components/modal-dialog/code#modal-header-props)
+ * - [Usage](https://atlassian.design/components/modal-dialog/usage)
+ */
 const ModalHeader = (props: ModalHeaderProps) => {
   const { children, testId: userDefinedTestId } = props;
   const { testId: modalTestId } = useModal();

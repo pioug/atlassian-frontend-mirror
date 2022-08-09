@@ -64,6 +64,16 @@ const flagContainerStyles = css({
   transition: 'background-color 200ms',
 });
 
+/**
+ * __Flag__
+ *
+ * A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction,
+ * often displayed using a flag group.
+ *
+ * - [Examples](https://atlassian.design/components/flag/examples)
+ * - [Code](https://atlassian.design/components/flag/code)
+ * - [Usage](https://atlassian.design/components/flag/usage)
+ */
 const Flag = (props: FlagProps) => {
   const {
     actions = [],

@@ -3,7 +3,7 @@ import { BodiedExtensionDefinition as BodiedExtension } from '../bodied-extensio
 import { PanelDefinition as Panel } from '../panel';
 import {
   ParagraphDefinition as Paragraph,
-  ParagraphWithAlignmentDefinition as ParagraphWithMarks,
+  ParagraphWithMarksDefinition as ParagraphWithMarks,
 } from '../paragraph';
 import { BlockQuoteDefinition as Blockquote } from '../blockquote';
 import { OrderedListDefinition as OrderedList } from '../ordered-list';

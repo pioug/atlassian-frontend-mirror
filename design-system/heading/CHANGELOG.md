@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 0.1.14
+
+### Patch Changes
+
+- [`47b01007f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47b01007f27) - Introduces color prop with values default and inverse.
+
 ## 0.1.13
 
 ### Patch Changes

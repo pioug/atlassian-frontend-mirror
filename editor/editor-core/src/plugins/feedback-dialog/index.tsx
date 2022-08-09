@@ -2,7 +2,7 @@ import React from 'react';
 import { PluginKey } from 'prosemirror-state';
 import { EditorPlugin, FeedbackInfo } from '../../types';
 import { IconFeedback } from '../quick-insert/assets';
-import { version as coreVersion } from '../../version.json';
+import { version as coreVersion } from '../../version-wrapper';
 
 import {
   addAnalytics,

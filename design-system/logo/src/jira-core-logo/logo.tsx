@@ -10,6 +10,9 @@ import { LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
 const svg = ({ iconGradientStart, iconGradientStop }: LogoProps) => {
+  // Will be fixed upon removal of deprecated iconGradientStart and
+  // iconGradientStop props, or with React 18's useId() hook when we update.
+  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
   let id = uid({ iconGradientStart: iconGradientStop });
   return `
   <svg viewBox="0 0 123 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">

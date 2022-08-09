@@ -9,7 +9,7 @@ import { Placement } from '@atlaskit/popper';
 import Popup from '../src';
 
 type PopupProps = {
-  loading: boolean;
+  isLoading: boolean;
   setPosition(): void;
   position: string;
   update?(): void;
@@ -39,7 +39,7 @@ const expanderStyles = css({
 });
 
 const PopupContent: FC<PopupProps> = ({
-  loading,
+  isLoading,
   setPosition,
   position,
   setButtonWidth,
@@ -63,7 +63,7 @@ const PopupContent: FC<PopupProps> = ({
     typeof update === 'function' && update();
   };
 
-  return loading ? (
+  return isLoading ? (
     <div id="spinner" css={loadingStyles}>
       Loading...
     </div>
@@ -135,7 +135,7 @@ export default () => {
         offset={[0, 20]}
         content={({ update }) => (
           <PopupContent
-            loading={!isLoaded}
+            isLoading={!isLoaded}
             setPosition={setPosition}
             position={position}
             setButtonWidth={setButtonWidth}

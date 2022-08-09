@@ -54,12 +54,22 @@ function createPlugin(options: AnalyticsPluginOptions) {
                 payload.action !== ACTION.DELETED
               ) {
                 const measureName = `${payload.actionSubject}:${payload.action}:${payload.actionSubjectId}`;
-                measureRender(measureName, (duration) => {
-                  fireAnalyticsEvent(pluginState.createAnalyticsEvent)({
-                    payload: extendPayload(payload, duration),
-                    channel,
-                  });
-                });
+                measureRender(
+                  // NOTE this name could be resulting in misleading data -- where if multiple payloads are
+                  // received before a render completes -- the measurement value will be inaccurate (this is
+                  // due to measureRender requiring unique measureNames)
+                  measureName,
+                  ({ duration, distortedDuration }) => {
+                    fireAnalyticsEvent(pluginState.createAnalyticsEvent)({
+                      payload: extendPayload({
+                        payload,
+                        duration,
+                        distortedDuration,
+                      }),
+                      channel,
+                    });
+                  },
+                );
               }
             }
           }
@@ -128,15 +138,21 @@ const analyticsPlugin = (options: AnalyticsPluginOptions): EditorPlugin => ({
   },
 });
 
-export function extendPayload(
-  payload: AnalyticsEventPayload,
-  duration: number,
-) {
+export function extendPayload({
+  payload,
+  duration,
+  distortedDuration,
+}: {
+  payload: AnalyticsEventPayload;
+  duration: number;
+  distortedDuration: boolean;
+}) {
   return {
     ...payload,
     attributes: {
       ...payload.attributes,
       duration,
+      distortedDuration,
     },
     eventType: EVENT_TYPE.OPERATIONAL,
   } as AnalyticsEventPayload;

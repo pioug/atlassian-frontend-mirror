@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -21,7 +22,7 @@ export default () => (
         key="success"
         title="This is a flag with a very long title. It spans multiple lines. Therefore, the text should wrap. The banner should grow in height. It should not truncate."
         description="All wires now hooked up."
-        actions={[{ content: 'Alrighty then', onClick: () => {} }]}
+        actions={[{ content: 'Alrighty then', onClick: noop }]}
       />
     </FlagGroup>
   </>

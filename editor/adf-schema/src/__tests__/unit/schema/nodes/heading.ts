@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import {
@@ -10,8 +9,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 const schema = makeSchema();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema heading node`, () => {
+describe(`${packageName}/schema heading node`, () => {
   it('serializes to <h4>', () => {
     const html = toHTML(schema.nodes.heading.create({ level: 4 }), schema);
     expect(html).toContain('<h4>');

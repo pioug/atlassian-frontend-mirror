@@ -26,22 +26,8 @@ exports[`ElementList should match snapshot 1`] = `
 }
 
 .emotion-1 .ReactVirtualized__Collection {
-  scrollbar-color: #eeeeee rgba(255, 255, 255, 0);
-  -ms-overflow-style: -ms-autohiding-scrollbar;
   border-radius: 3px;
   outline: none;
-}
-
-.emotion-1 .ReactVirtualized__Collection::-webkit-scrollbar {
-  width: 8px;
-}
-
-.emotion-1 .ReactVirtualized__Collection::-webkit-scrollbar-track-piece {
-  background: rgba(255, 255, 255, 0);
-}
-
-.emotion-1 .ReactVirtualized__Collection::-webkit-scrollbar-thumb {
-  background: #eeeeee;
 }
 
 .emotion-1 .ReactVirtualized__Collection:focus {

@@ -92,11 +92,14 @@ const DropdownMenu = (props: DropdownMenuProps) => {
     [onOpenChange, isLocalOpen, setLocalIsOpen],
   );
 
-  const handleOnClose = useCallback(() => {
-    const newValue = false;
-    setLocalIsOpen(newValue);
-    onOpenChange({ isOpen: newValue });
-  }, [onOpenChange, setLocalIsOpen]);
+  const handleOnClose = useCallback(
+    (event) => {
+      const newValue = false;
+      setLocalIsOpen(newValue);
+      onOpenChange({ isOpen: newValue, event });
+    },
+    [onOpenChange, setLocalIsOpen],
+  );
 
   const { isFocused, bindFocus } = useFocus();
 

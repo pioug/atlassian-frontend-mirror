@@ -32,6 +32,7 @@ export default () => {
     <div css={wrapperStyles}>
       <p>Theme:</p>
       <TextArea
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         theme={ourTheme}
         resize="auto"
         defaultValue="Custom theme textarea"

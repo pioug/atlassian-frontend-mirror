@@ -20,6 +20,7 @@ export const defaultEmojiHeight = 20;
 
 export const emojiPickerWidth = 350;
 export const emojiPickerHeight = 295;
+export const emojiPickerHeightWithPreview = 348;
 
 export const localStoragePrefix = 'fabric.emoji';
 export const selectedToneStorageKey = `${localStoragePrefix}.selectedTone`;

@@ -3,8 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { gridSize } from '@atlaskit/theme/constants';
 import { B400 } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item, { itemThemeNamespace } from '@atlaskit/item';
+import { ButtonItem } from '@atlaskit/menu';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
 import { DropdownOptionT } from './types';
@@ -26,33 +25,18 @@ const spacer = css`
 const menuContainer = css`
   min-width: ${menuItemDimensions.width}px;
 
-  // temporary solution before we migrated off dst/item
-  & span[class^='ItemParts__Before'] {
-    margin-right: 4px;
+  // temporary solution to retain spacing defined by @atlaskit/Item
+  & button {
+    min-height: ${gridSize() * 4}px;
+    padding: 8px 8px 7px;
+
+    & > [data-item-elem-before] {
+      margin-right: ${gridSize() / 2}px;
+    }
   }
 `;
 
-const padding = gridSize();
 export const itemSpacing = gridSize() / 2;
-
-const editorItemTheme = {
-  borderRadius: 0,
-  beforeItemSpacing: {
-    compact: itemSpacing,
-  },
-  padding: {
-    compact: {
-      bottom: padding,
-      left: padding,
-      right: padding,
-      top: padding,
-    },
-  },
-  height: {
-    compact: menuItemDimensions.height,
-  },
-};
-
 export interface Props {
   hide: Function;
   dispatchCommand: Function;
@@ -68,10 +52,9 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
           .filter((item) => !item.hidden)
           .map((item, idx) => {
             const itemContent = (
-              <Item
+              <ButtonItem
                 key={idx}
-                isCompact={true}
-                elemBefore={this.renderSelected(item, intl)}
+                iconBefore={this.renderSelected(item, intl)}
                 onClick={() => {
                   /**
                    * The order of dispatching the event and hide() is important, because
@@ -84,10 +67,12 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
                 }}
                 data-testid={item.testId}
                 isDisabled={item.disabled}
-                theme={{ [itemThemeNamespace]: editorItemTheme }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
               >
                 {item.title}
-              </Item>
+              </ButtonItem>
             );
 
             if (item.tooltip) {

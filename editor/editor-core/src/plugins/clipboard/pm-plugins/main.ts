@@ -143,7 +143,7 @@ export const sendClipboardAnalytics = (
   return false;
 };
 
-const getAnalyticsPayload = (
+export const getAnalyticsPayload = (
   state: EditorState,
   action: ACTION.CUT | ACTION.COPIED,
 ): AnalyticsEventPayload | undefined => {

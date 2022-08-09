@@ -5,7 +5,11 @@ import { Manager, Popper, Reference } from '../src';
 export default () => (
   <Manager>
     <Reference>
-      {({ ref }) => <button ref={ref}>Reference element</button>}
+      {({ ref }) => (
+        <button ref={ref} type="button">
+          Reference element
+        </button>
+      )}
     </Reference>
     <Popper placement="right">
       {({ ref, style }) => (

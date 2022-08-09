@@ -236,6 +236,7 @@ const BasicGrid = () => {
                 }
                 onFlyoutExpand={() => console.log('onFlyoutExpand')}
                 onFlyoutCollapse={() => console.log('onFlyoutCollapse')}
+                // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
                 overrides={{
                   ResizeButton: {
                     render: (Component, props) => (
@@ -253,7 +254,7 @@ const BasicGrid = () => {
                   },
                 }}
               >
-                <SlotWrapper hasExtraPadding noHorizontalScrollbar>
+                <SlotWrapper hasExtraPadding hasHorizontalScrollbar={false}>
                   <SlotLabel>LeftSidebar</SlotLabel>
                   <ToggleFixed slotName="LeftSidebar" />
                   <ToggleScrollable slotName="LeftSidebar" />

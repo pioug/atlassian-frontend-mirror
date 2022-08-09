@@ -1,4 +1,8 @@
-import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import {
+  getExampleUrl,
+  loadPage,
+  takeElementScreenShot,
+} from '@atlaskit/visual-regression/helper';
 
 describe('Snapshot Test', () => {
   it('Lozenge basic example should match production example', async () => {
@@ -17,7 +21,8 @@ describe('Snapshot Test', () => {
       'span[data-testid="lozenge-truncated-custom-width"]',
     );
     await page.waitForSelector('span[data-testid="lozenge-defaults"]');
-    const image = await page.screenshot();
+    const containerSelector = "[data-testid='test-container']";
+    const image = await takeElementScreenShot(page, containerSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 
@@ -36,7 +41,40 @@ describe('Snapshot Test', () => {
     await page.waitForSelector(
       'span[data-testid="lozenge-truncated-by-container-size"]',
     );
-    const image = await page.screenshot();
+    const containerSelector = "[data-testid='test-container']";
+    const image = await takeElementScreenShot(page, containerSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Lozenge with custom color should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'lozenge',
+      'custom-color',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[data-testid="lozenge-custom-color1"]');
+    await page.waitForSelector('span[data-testid="lozenge-custom-color2"]');
+    const containerSelector = "[data-testid='test-container']";
+    const image = await takeElementScreenShot(page, containerSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('Lozenge with custom theme should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'lozenge',
+      'with-custom-theme',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    await page.waitForSelector('span[data-testid="custom-lozenge-new"]');
+    await page.waitForSelector('span[data-testid="custom-lozenge-default"]');
+    const containerSelector = "[data-testid='test-container']";
+    const image = await takeElementScreenShot(page, containerSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 });

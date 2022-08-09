@@ -1,7 +1,8 @@
 import React from 'react';
 import { payloadPublisher, ufologger } from '@atlassian/ufo';
 import { IntlProvider } from 'react-intl-next';
-import ResourcedEmojiControl, {
+import {
+  ResourcedEmojiControl,
   getEmojiConfig,
   getRealEmojiResource,
 } from '../example-helpers/demo-resource-control';

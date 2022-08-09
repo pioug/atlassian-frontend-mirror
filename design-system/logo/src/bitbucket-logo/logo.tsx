@@ -21,6 +21,9 @@ const svg = ({
     iconColor,
     textColor,
   };
+  // Will be fixed upon removal of deprecated iconGradientStart and
+  // iconGradientStop props, or with React 18's useId() hook when we update.
+  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
   let id = uid({ iconGradientStart: iconGradientStop });
 
   if (appearance) {
@@ -50,6 +53,15 @@ const svg = ({
   </svg>`;
 };
 
+/**
+ * __Bitbucket logo__
+ *
+ * The Bitbucket logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
 export const BitbucketLogo = ({
   appearance,
   label = 'Bitbucket',

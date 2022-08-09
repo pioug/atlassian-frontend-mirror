@@ -25,4 +25,5 @@ const Description: FC<DescriptionProps> = ({
   </div>
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Description;

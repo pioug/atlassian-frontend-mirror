@@ -76,6 +76,14 @@ const analyticsData = {
   componentName: 'atlassianNavigation',
 };
 
+/**
+ * __Atlassian navigation__
+ *
+ * The horizontal navigation component for Atlassian products.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/examples)
+ */
 export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
   const {
     label: label,
@@ -111,6 +119,7 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
               moreLabel={moreLabel}
               items={primaryItems}
               create={create}
+              // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
               theme={theme}
             />
           </nav>

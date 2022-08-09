@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -20,7 +21,7 @@ const FlagSuccessExample = () => {
       key="success"
       title="Welcome to the room"
       description="You’re now part of Coffee Club."
-      actions={[{ content: 'Join the conversation', onClick: () => {} }]}
+      actions={[{ content: 'Join the conversation', onClick: noop }]}
     />
   );
 };

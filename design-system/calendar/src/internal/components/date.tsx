@@ -16,7 +16,7 @@ import { ThemeModes } from '@atlaskit/theme/types';
 import { dateCellStyles as getDateCellStyles } from '../styles/date';
 import type { DateObj } from '../types';
 
-interface Props {
+interface DateProps {
   children: number;
   isDisabled?: boolean;
   isFocused?: boolean;
@@ -32,7 +32,7 @@ interface Props {
 }
 
 const Date = memo(
-  forwardRef<HTMLButtonElement, Props>(function Date(
+  forwardRef<HTMLButtonElement, DateProps>(function Date(
     {
       children: day,
       isDisabled = false,
@@ -107,4 +107,5 @@ const Date = memo(
 
 Date.displayName = 'Date';
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Date;

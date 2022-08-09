@@ -12,6 +12,16 @@ export type SkeletonSettingsButtonProps = {
   label: string;
 };
 
+/**
+ * __Skeleton settings button__
+ *
+ * Skeleton buttons are lightweight HTML button elements with CSS that represent
+ * their heavier interactive counterparts, for use when elements of the
+ * navigation are loaded dynamically. This one represents the Settings button.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const SkeletonSettingsButton = ({
   label = '',
 }: SkeletonSettingsButtonProps) => (

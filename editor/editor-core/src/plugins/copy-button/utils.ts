@@ -1,52 +1,25 @@
-import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { NodeType } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { IntlShape } from 'react-intl-next';
-import { Command } from '../../../src/types';
-import commonMessages from '../../messages';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
-import { FloatingToolbarItem } from '../floating-toolbar/types';
-import { copy, resetCopiedState } from './commands';
-import { pluginKey } from './pm-plugins/plugin-key';
+import {
+  findSelectedNodeOfType,
+  findParentNodeOfType,
+} from 'prosemirror-utils';
+import { DOMSerializer, Schema, Node as PMNode } from 'prosemirror-model';
+import { Transaction } from 'prosemirror-state';
 
-export const getCopyButtonConfig = (
-  state: EditorState,
-  formatMessage: IntlShape['formatMessage'],
-  nodeType: NodeType,
-  onMouseEnter?: Command,
-  onMouseLeave?: Command,
-): FloatingToolbarItem<Command> => {
-  const copyButtonState = pluginKey.getState(state);
+export function getSelectedNodeOrNodeParentByNodeType({
+  nodeType,
+  selection,
+}: {
+  nodeType: NodeType | Array<NodeType>;
+  selection: Transaction['selection'];
+}) {
+  let node = findSelectedNodeOfType(nodeType)(selection);
+  if (!node) {
+    node = findParentNodeOfType(nodeType)(selection);
+  }
+  return node;
+}
 
-  return {
-    id: 'editor.floatingToolbar.copy',
-    type: 'button',
-    appearance: 'subtle',
-    icon: CopyIcon,
-    onClick: copy(nodeType),
-    title: formatMessage(
-      copyButtonState?.copied
-        ? commonMessages.copiedToClipboard
-        : commonMessages.copyToClipboard,
-    ),
-    onMouseEnter:
-      onMouseEnter ||
-      hoverDecoration(nodeType, true, 'ak-editor-selected-node'),
-    onMouseLeave: resetCopiedState(nodeType, onMouseLeave),
-    onFocus: hoverDecoration(nodeType, true, 'ak-editor-selected-node'),
-    onBlur: hoverDecoration(nodeType, false),
-    hideTooltipOnClick: false,
-    tabIndex: null,
-    // TODO select and delete styling needs to be removed when keyboard cursor moves away
-    // problem already exist with delete as well
-  };
-};
-
-export const showCopyButton = (state?: EditorState) => {
-  return (
-    state &&
-    // Check if the Copy button plugin is enabled
-    // @ts-ignore pluginKey.key
-    state.plugins.find((p: any) => p.key === pluginKey.key)
-  );
+export const toDOM = (node: PMNode, schema: Schema): Node => {
+  return DOMSerializer.fromSchema(schema).serializeNode(node);
 };

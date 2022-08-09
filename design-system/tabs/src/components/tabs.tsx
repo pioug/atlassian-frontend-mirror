@@ -137,6 +137,15 @@ const TabsWithMode = (props: InnerProps) => {
   );
 };
 
+/**
+ * __Tabs__
+ *
+ * Tabs acts as a container for all Tab components.
+ *
+ * - [Examples](https://atlassian.design/components/tabs/examples)
+ * - [Code](https://atlassian.design/components/tabs/code)
+ * - [Usage](https://atlassian.design/components/tabs/usage)
+ */
 export const Tabs = (props: TabsProps) => (
   <GlobalTheme.Consumer>
     {({ mode }: { mode: ThemeModes }) => (

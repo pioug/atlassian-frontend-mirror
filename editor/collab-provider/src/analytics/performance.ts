@@ -1,4 +1,9 @@
-type MeasureName = 'callingCatchupApi' | 'socketConnect' | 'documentInit';
+export enum MEASURE_NAME {
+  CALLING_CATCHUP_API = 'callingCatchupApi',
+  SOCKET_CONNECT = 'socketConnect',
+  DOCUMENT_INIT = 'documentInit',
+  CONVERT_PM_TO_ADF = 'convertPMToADF',
+}
 
 const isPerformanceAPIAvailable = (): boolean => {
   return (
@@ -17,7 +22,7 @@ const hasPerformanceAPIAvailable = isPerformanceAPIAvailable();
 
 const measureMap = new Map<string, number>();
 
-export function startMeasure(measureName: MeasureName) {
+export function startMeasure(measureName: MEASURE_NAME) {
   if (!hasPerformanceAPIAvailable) {
     return;
   }
@@ -27,7 +32,7 @@ export function startMeasure(measureName: MeasureName) {
 }
 
 export function stopMeasure(
-  measureName: MeasureName,
+  measureName: MEASURE_NAME,
   onMeasureComplete?: (duration: number, startTime: number) => void,
 ): { duration: number; startTime: number } | undefined {
   if (!hasPerformanceAPIAvailable) {

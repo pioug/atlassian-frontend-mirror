@@ -18,14 +18,16 @@ const bodyStyles = css({
 /**
  * Adding the padding here avoids cropping the keyline on its sides.
  * The combined vertical spacing is maintained by subtracting the
- * keyline height from header and footer. */
+ * keyline height from header and footer.
+ */
 const bodyScrollStyles = css({
   padding: `${keylineHeight}px ${padding}px`,
 });
 
 /**
  * Keylines will not be shown if scrolling in viewport so we do
- * not account for them in this case. */
+ * not account for them in this case.
+ */
 const viewportScrollStyles = css({
   padding: `0px ${padding}px`,
 });
@@ -44,6 +46,15 @@ export interface ModalBodyProps {
   testId?: string;
 }
 
+/**
+ * __Modal body__
+ *
+ * A modal body is used to display the main content of a modal.
+ *
+ * - [Examples](https://atlassian.design/components/modal-dialog/examples)
+ * - [Code](https://atlassian.design/components/modal-dialog/code#modal-body-props)
+ * - [Usage](https://atlassian.design/components/modal-dialog/usage)
+ */
 const ModalBody = (props: ModalBodyProps) => {
   const { children, testId: userDefinedTestId } = props;
   const { testId: modalTestId } = useModal();

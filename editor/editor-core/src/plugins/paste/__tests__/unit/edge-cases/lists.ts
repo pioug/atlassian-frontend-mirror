@@ -17,6 +17,14 @@ import {
   td,
   hardBreak,
   DocBuilder,
+  taskList,
+  taskItem,
+  decisionList,
+  decisionItem,
+  emoji,
+  mention,
+  a,
+  inlineCard,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -2022,6 +2030,362 @@ describe('paste list', () => {
     ),
   ];
 
+  const case44: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the end of an action item',
+    'paste content is a single list item',
+
+    // Destination
+    // prettier-ignore
+    doc(taskList()(taskItem()('a{<>}'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(ul(li(p('{<}b{>}')))),
+    // Expected Document
+    // prettier-ignore
+    doc(taskList()(taskItem()('ab{<>}'))),
+  ];
+
+  const case45: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the start of an action item',
+    'paste content is a single list item',
+
+    // Destination
+    // prettier-ignore
+    doc(taskList()(taskItem()('{<>}a'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(ul(li(p('{<}b{>}')))),
+    // Expected Document
+    // prettier-ignore
+    doc(taskList()(taskItem()('b{<>}a'))),
+  ];
+
+  const case46: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the the middle of an action item',
+    'paste content is a single list item',
+
+    // Destination
+    // prettier-ignore
+    doc(taskList()(taskItem()('a{<>}b'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(ul(li(p('{<}c{>}')))),
+    // Expected Document
+    // prettier-ignore
+    doc(taskList()(taskItem()('ac{<>}b'))),
+  ];
+
+  const case47: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the end of a decision item',
+    'paste content is a single list item',
+
+    // Destination
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('a{<>}'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(ul(li(p('{<}b{>}')))),
+    // Expected Document
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('ab{<>}'))),
+  ];
+
+  const case48: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the start of a decision item',
+    'paste content is a single list item',
+
+    // Destination
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('{<>}a'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(ul(li(p('{<}b{>}')))),
+    // Expected Document
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('b{<>}a'))),
+  ];
+
+  const case49: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the the middle of a decision item',
+    'paste content is a single list item',
+
+    // Destination
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('a{<>}b'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(ul(li(p('{<}c{>}')))),
+    // Expected Document
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('ac{<>}b'))),
+  ];
+
+  const case50: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the end of an action item',
+    'paste content is a single list item of text, emoji, mention, link, status, inlineCard',
+
+    // Destination
+    // prettier-ignore
+    doc(taskList()(taskItem()('a{<>}'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p(
+            '{<}b',
+            emoji({ shortName: ':grinning:', text: '😀' })(),
+            mention({ id: '1', text: '@Oscar Wallhult' })(),
+            a({ href: 'http://www.atlassian.com' })('e'),
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+            'c{>}',
+          ),
+        ),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      taskList()(
+        taskItem()(
+          'ab',
+          emoji({ shortName: ':grinning:', text: '😀' })(),
+          mention({ id: '1', text: '@Oscar Wallhult' })(),
+          a({ href: 'http://www.atlassian.com' })('e'),
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          'c{<>}',
+        ),
+      ),
+    ),
+  ];
+
+  const case51: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the start of an action item',
+    'paste content is a single list item of text, emoji, mention, link, status, inlineCard',
+
+    // Destination
+    // prettier-ignore
+    doc(taskList()(taskItem()('{<>}a'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p(
+            '{<}b',
+            emoji({ shortName: ':grinning:', text: '😀' })(),
+            mention({ id: '1', text: '@Oscar Wallhult' })(),
+            a({ href: 'http://www.atlassian.com' })('e'),
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+            'c{>}',
+          ),
+        ),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      taskList()(
+        taskItem()(
+          'b',
+          emoji({ shortName: ':grinning:', text: '😀' })(),
+          mention({ id: '1', text: '@Oscar Wallhult' })(),
+          a({ href: 'http://www.atlassian.com' })('e'),
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          'c{<>}a',
+        ),
+      ),
+    ),
+  ];
+
+  const case52: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the middle of an action item',
+    'paste content is a single list item of text, emoji, mention, link, status, inlineCard',
+
+    // Destination
+    // prettier-ignore
+    doc(taskList()(taskItem()('a{<>}b'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p(
+            '{<}c',
+            emoji({ shortName: ':grinning:', text: '😀' })(),
+            mention({ id: '1', text: '@Oscar Wallhult' })(),
+            a({ href: 'http://www.atlassian.com' })('d'),
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+            'e{>}',
+          ),
+        ),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      taskList()(
+        taskItem()(
+          'ac',
+          emoji({ shortName: ':grinning:', text: '😀' })(),
+          mention({ id: '1', text: '@Oscar Wallhult' })(),
+          a({ href: 'http://www.atlassian.com' })('d'),
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          'e{<>}b',
+        ),
+      ),
+    ),
+  ];
+
+  // same for decisions
+
+  const case53: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the end of an decision item',
+    'paste content is a single list item of text, emoji, mention, link, status, inlineCard',
+
+    // Destination
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('a{<>}'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p(
+            '{<}b',
+            emoji({ shortName: ':grinning:', text: '😀' })(),
+            mention({ id: '1', text: '@Oscar Wallhult' })(),
+            a({ href: 'http://www.atlassian.com' })('e'),
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+            'c{>}',
+          ),
+        ),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      decisionList()(
+        decisionItem()(
+          'ab',
+          emoji({ shortName: ':grinning:', text: '😀' })(),
+          mention({ id: '1', text: '@Oscar Wallhult' })(),
+          a({ href: 'http://www.atlassian.com' })('e'),
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          'c{<>}',
+        ),
+      ),
+    ),
+  ];
+
+  const case54: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the start of an decision item',
+    'paste content is a single list item of text, emoji, mention, link, status, inlineCard',
+
+    // Destination
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('{<>}a'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p(
+            '{<}b',
+            emoji({ shortName: ':grinning:', text: '😀' })(),
+            mention({ id: '1', text: '@Oscar Wallhult' })(),
+            a({ href: 'http://www.atlassian.com' })('e'),
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+            'c{>}',
+          ),
+        ),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      decisionList()(
+        decisionItem()(
+          'b',
+          emoji({ shortName: ':grinning:', text: '😀' })(),
+          mention({ id: '1', text: '@Oscar Wallhult' })(),
+          a({ href: 'http://www.atlassian.com' })('e'),
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          'c{<>}a',
+        ),
+      ),
+    ),
+  ];
+
+  const case55: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+    'destination is the middle of an decision item',
+    'paste content is a single list item of text, emoji, mention, link, status, inlineCard',
+
+    // Destination
+    // prettier-ignore
+    doc(decisionList()(decisionItem()('a{<>}b'))),
+    // Pasted Content
+    // prettier-ignore
+    doc(
+      ul(
+        li(
+          p(
+            '{<}c',
+            emoji({ shortName: ':grinning:', text: '😀' })(),
+            mention({ id: '1', text: '@Oscar Wallhult' })(),
+            a({ href: 'http://www.atlassian.com' })('d'),
+            inlineCard({
+              url: 'http://www.atlassian.com/',
+            })(),
+            'e{>}',
+          ),
+        ),
+      ),
+    ),
+
+    // Expected Document
+    // prettier-ignore
+    doc(
+      decisionList()(
+        decisionItem()(
+          'ac',
+          emoji({ shortName: ':grinning:', text: '😀' })(),
+          mention({ id: '1', text: '@Oscar Wallhult' })(),
+          a({ href: 'http://www.atlassian.com' })('d'),
+          inlineCard({
+            url: 'http://www.atlassian.com/',
+          })(),
+          'e{<>}b',
+        ),
+      ),
+    ),
+  ];
+
   describe.each<[string, string, DocBuilder, DocBuilder, DocBuilder]>([
     case0,
     case1,
@@ -2067,6 +2431,18 @@ describe('paste list', () => {
     case41,
     case42,
     case43,
+    case44,
+    case45,
+    case46,
+    case47,
+    case48,
+    case49,
+    case50,
+    case51,
+    case52,
+    case53,
+    case54,
+    case55,
   ])(
     '[case%#] when %s and %s',
     (
@@ -2086,7 +2462,11 @@ describe('paste list', () => {
           true,
         );
         const { tr } = destinationState;
-        insertSlice({ tr, slice: Slice.maxOpen(pasteSlice.content, false) });
+        insertSlice({
+          tr,
+          slice: Slice.maxOpen(pasteSlice.content, false),
+          schema: destinationState.schema,
+        });
         expect(tr).toEqualDocumentAndSelection(expectedDocument(defaultSchema));
         expect(() => {
           tr.doc.check();
@@ -2499,7 +2879,11 @@ describe('paste list', () => {
       ) => {
         const destinationState = createEditorState(destinationDocument);
         const { tr } = destinationState;
-        insertSlice({ tr, slice: slicePasted });
+        insertSlice({
+          tr,
+          slice: slicePasted,
+          schema: destinationState.schema,
+        });
 
         it('should match the expected document and selection', () => {
           expect(tr).toEqualDocumentAndSelection(

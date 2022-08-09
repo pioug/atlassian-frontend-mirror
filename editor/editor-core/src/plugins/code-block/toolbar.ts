@@ -16,6 +16,10 @@ import {
 } from './actions';
 import commonMessages from '../../messages';
 import { CodeBlockState } from './pm-plugins/main-state';
+import {
+  provideVisualFeedbackForCopyButton,
+  removeVisualFeedbackForCopyButton,
+} from './pm-plugins/codeBlockCopySelectionPlugin';
 import { Command } from '../../types';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { pluginKey } from './plugin-key';
@@ -91,13 +95,20 @@ export const getToolbarConfig = (
           type: 'button',
           appearance: 'subtle',
           icon: CopyIcon,
+          // note: copyContentToClipboard contains logic that also removes the
+          // visual feedback for the copy button
           onClick: copyContentToClipboard,
           title: formatMessage(
             codeBlockState.contentCopied
               ? commonMessages.copiedToClipboard
               : commonMessages.copyToClipboard,
           ),
+          onMouseEnter: provideVisualFeedbackForCopyButton,
+          // note: resetCopiedState contains logic that also removes the
+          // visual feedback for the copy button
           onMouseLeave: resetCopiedState,
+          onFocus: provideVisualFeedbackForCopyButton,
+          onBlur: removeVisualFeedbackForCopyButton,
           hideTooltipOnClick: false,
           disabled: codeBlockState.isNodeSelected,
           tabIndex: null,

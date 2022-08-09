@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.1.5
+
+### Patch Changes
+
+- [`e6f25536fe3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6f25536fe3) - [ux][ed-15168] Fixes a bug where a width-less column was created when pasting table cells into a table that had columns with set widths.
+
 ## 2.1.4
 
 ### Patch Changes

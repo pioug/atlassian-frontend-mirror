@@ -3,20 +3,21 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
 import { isTextSelection } from '../../../utils';
-import { indent, outdent } from '../commands';
+import { getIndentCommand, getOutdentCommand } from '../commands';
+import { INPUT_METHOD } from '../../analytics';
 
 export function keymapPlugin(): SafePlugin | undefined {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
     keymaps.findShortcutByKeymap(keymaps.indent)!,
-    indent,
+    getIndentCommand(INPUT_METHOD.KEYBOARD),
     list,
   );
 
   keymaps.bindKeymapWithCommand(
     keymaps.findShortcutByKeymap(keymaps.outdent)!,
-    outdent,
+    getOutdentCommand(INPUT_METHOD.KEYBOARD),
     list,
   );
 
@@ -29,7 +30,9 @@ export function keymapPlugin(): SafePlugin | undefined {
         selection.$cursor &&
         selection.$cursor.parentOffset === 0
       ) {
-        return dispatch ? outdent(state, dispatch) : false;
+        return dispatch
+          ? getOutdentCommand(INPUT_METHOD.KEYBOARD)(state, dispatch)
+          : false;
       }
       return false;
     },

@@ -23,6 +23,15 @@ const svg = ({ appearance, textColor }: LogoProps) => {
 </svg>`;
 };
 
+/**
+ * __Confluence wordmark__
+ *
+ * The Confluence brand/product name styled as a logo, without an accompanying icon.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
 export const ConfluenceWordmark = ({
   appearance,
   label = 'Confluence',

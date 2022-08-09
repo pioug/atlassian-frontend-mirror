@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
@@ -7,7 +6,9 @@ import {
 import { status } from '../../../../../src';
 import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers/constants';
 
-describe(`${name}/schema status node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema status node`, () => {
   describe('parse html', () => {
     it('converts to status PM node', () => {
       const doc = fromHTML('<span data-node-type="status" />', schema);

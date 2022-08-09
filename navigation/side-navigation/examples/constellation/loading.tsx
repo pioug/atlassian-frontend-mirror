@@ -14,7 +14,7 @@ import AppFrame from '../common/app-frame';
 
 const LoadingExample = () => {
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation label="settings">
         <NavigationContent>
           <LoadingItems

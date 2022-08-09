@@ -15,34 +15,27 @@ const decoration = css({
   position: 'relative',
 
   ':before': {
-    /* layout */
     display: 'inline-flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: '0 4px',
-    fontSize: '14px',
-    lineHeight: '18px',
-
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
     background: token('color.background.warning', Y75),
-
+    color: token('color.text.warning', '#7F5F01'),
+    content: '"<"attr(data-bidi-character-code)">"',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    lineHeight: '18px',
     /**
      * Ensures the decoration receives pointer events when it occurs with
      * an ancestor that disables them.
      */
     pointerEvents: 'auto',
-
-    /* contents */
-    content: '"<"attr(data-bidi-character-code)">"',
-    // This color is Y800 which is not yet rolled out
-    // https://hello.atlassian.net/wiki/spaces/~tswan/pages/1366555782?focusedCommentId=1370387374#comment-1370387374
-    color: token('color.text.warning', '#7F5F01'),
-    fontStyle: 'normal',
   },
 
   ':hover:before': {
-    color: token('color.text.warning', '#533F04'),
     background: token('color.background.warning.hovered', Y75),
+    color: token('color.text.warning', '#533F04'),
   },
 });
 

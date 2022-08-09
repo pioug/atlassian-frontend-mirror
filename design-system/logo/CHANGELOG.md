@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 13.8.1
+
+### Patch Changes
+
+- [`d448e04e6a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d448e04e6a8) - [ux] Internal changes to make the styling more resilient to inherited styles.
+- [`c320954edd7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c320954edd7) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 13.8.0
 
 ### Minor Changes

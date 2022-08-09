@@ -5,7 +5,6 @@ import { jsx } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
-import { useFeatureFlags } from '../../../use-feature-flags';
 import { useInViewport } from '../../hooks/use-in-viewport';
 import { useBidiWarnings } from '../../hooks/use-bidi-warnings';
 import type { Props as CodeBlockProps } from './codeBlock';
@@ -32,7 +31,6 @@ const WindowedCodeBlock = ({
   codeBidiWarningTooltipEnabled,
   className: rootClassName,
 }: CodeBlockProps) => {
-  const featureFlags = useFeatureFlags();
   const { warningLabel } = useBidiWarnings({
     enableWarningTooltip: codeBidiWarningTooltipEnabled,
   });
@@ -62,7 +60,6 @@ const WindowedCodeBlock = ({
           <LazyAkCodeBlock
             language={language}
             text={text}
-            codeBidiWarnings={featureFlags?.codeBidiWarnings}
             codeBidiWarningLabel={warningLabel}
             codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
           />

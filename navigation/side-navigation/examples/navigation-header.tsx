@@ -9,6 +9,7 @@ const InteractiveContainer = ({
   ...props
 }: CustomItemComponentProps) => {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <a href="#" {...props}>
       {children}
     </a>

@@ -10,18 +10,23 @@ const A = styled.a`
 `;
 
 const StyledExample = (props: HTMLAttributes<HTMLAnchorElement>) => {
-  // eslint-disable-next-line styled-components-a11y/anchor-has-content
+  // eslint-disable-next-line styled-components-a11y/anchor-has-content, @repo/internal/react/no-unsafe-spread-props
   return <A {...props} target="_blank" />;
 };
 
-interface Props {
+interface SpreadExampleProps {
   children: string;
   className: string;
   href: string;
   tabIndex?: number;
 }
 
-const SpreadExample = ({ children, className, href, tabIndex = -1 }: Props) => {
+const SpreadExample = ({
+  children,
+  className,
+  href,
+  tabIndex = -1,
+}: SpreadExampleProps) => {
   const props = { className, href, tabIndex };
   return (
     <a {...props} target="_blank">

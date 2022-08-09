@@ -16,16 +16,48 @@ import { ReactionSource } from '../types';
 import { layers } from '@atlaskit/theme/constants';
 
 export interface Props {
+  /**
+   * Provider for loading emojis
+   */
   emojiProvider: Promise<EmojiProvider>;
+  /**
+   * Event callback when an emoji button is selected
+   * @param id emoji unique id
+   * @param source source where the reaction was picked (either the initial default reactions or the custom reactions picker)
+   */
   onSelection: (emojiId: string, source: ReactionSource) => void;
+  /**
+   * apply "miniMode" className to the <ReactionPicker /> component (defaults to false)
+   */
   miniMode?: boolean;
+  /**
+   * @deprecated Not been used anymore
+   */
   boundariesElement?: string;
+  /**
+   * Optional class name
+   */
   className?: string;
+  /**
+   * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
+   */
   allowAllEmojis?: boolean;
+  /**
+   * Enable/Disable the button to be clickable (defaults to false)
+   */
   disabled?: boolean;
+  /**
+   * Optional event handler when the emoji picker is opened
+   */
   onOpen?: () => void;
+  /**
+   * Optional event handler when the emoji picker is clicked outside and closed
+   */
   onCancel?: () => void;
-  onMore?: () => void;
+  /**
+   * Optional event handler when the custom emoji picker icon is selected
+   */
+  onShowMore?: () => void;
 }
 
 export interface State {
@@ -59,6 +91,9 @@ const popupStyle = css({
 
 function noop() {}
 
+/**
+ * This renders the picker component (wrapped by the ConnectedReactionPicker)
+ */
 export class ReactionPicker extends PureComponent<Props, State> {
   updatePopper: () => void = noop;
 
@@ -76,11 +111,15 @@ export class ReactionPicker extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside);
+    document.addEventListener('click', this.handleClickOutside, {
+      capture: true,
+    });
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener('click', this.handleClickOutside, {
+      capture: true,
+    });
     UFO.PickerRender.abort({
       metadata: {
         source: 'Reaction-Picker',
@@ -125,9 +164,9 @@ export class ReactionPicker extends PureComponent<Props, State> {
 
   private showFullPicker = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const { onMore } = this.props;
-    if (onMore) {
-      onMore();
+    const { onShowMore } = this.props;
+    if (onShowMore) {
+      onShowMore();
     }
     // Update popper position
     this.setState(

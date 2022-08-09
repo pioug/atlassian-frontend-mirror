@@ -45,12 +45,18 @@ const ListExample = () => {
       </li>
       <li>
         Current position of <i>List example</i> skip link: <b>{position}</b>
-        <button onClick={moveUp}>Move up</button>
-        <button onClick={moveDown}>Move down</button>
+        <button onClick={moveUp} type="button">
+          Move up
+        </button>
+        <button onClick={moveDown} type="button">
+          Move down
+        </button>
       </li>
       <li>
         Current id: <b>{id}</b>
-        <button onClick={changeId}>Update the id of this section</button>
+        <button onClick={changeId} type="button">
+          Update the id of this section
+        </button>
       </li>
     </ol>
   );

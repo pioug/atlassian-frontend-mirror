@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import DateComponent from '../../../../react/nodes/date';
+import { DateComponent } from '../../../../react/nodes/date';
 import { createIntl, IntlProvider, IntlShape } from 'react-intl-next';
 
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';

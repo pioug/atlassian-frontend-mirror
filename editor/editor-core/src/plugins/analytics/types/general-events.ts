@@ -92,6 +92,7 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
     nodes?: Record<string, number>;
     ttfb?: number;
     severity?: SEVERITY;
+    distortedDuration?: boolean;
   },
   undefined
 >;

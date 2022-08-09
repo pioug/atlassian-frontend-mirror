@@ -33,11 +33,29 @@ export const containerStyle = css({
 });
 
 export type Props = {
+  /**
+   * Count of emoji been selected
+   */
   value: number;
+  /**
+   * Has the emoji been selected by given user (defaults to false)
+   */
   highlight?: boolean;
+  /**
+   * Max threshold of selections to show before having a label (defaults to 1000)
+   */
   limit?: number;
+  /**
+   * Label to show when the value surpasses the limit value (defaults to "1k+")
+   */
   overLimitLabel?: string;
+  /**
+   * Optional wrapper class name
+   */
   className?: string;
+  /**
+   * Duration in ms of how long the motion will take (defaults to "mediumDurationMs" from '@atlaskit/motion')
+   */
   animationDuration?: number;
 };
 

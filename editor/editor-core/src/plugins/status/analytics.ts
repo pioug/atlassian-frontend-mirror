@@ -6,7 +6,7 @@ import {
 import {
   name as packageName,
   version as packageVersion,
-} from '../../version.json';
+} from '../../version-wrapper';
 
 export const FABRIC_CHANNEL = 'fabric-elements';
 

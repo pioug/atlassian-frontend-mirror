@@ -1,9 +1,10 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { Schema } from 'prosemirror-model';
 
-describe(`${name}/schema confluence-inline-comment mark`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema confluence-inline-comment mark`, () => {
   let schema: Schema;
   beforeEach(() => {
     schema = makeSchema();

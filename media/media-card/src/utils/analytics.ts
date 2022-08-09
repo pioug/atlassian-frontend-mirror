@@ -30,6 +30,8 @@ import {
   MediaCardError,
   MediaCardErrorPrimaryReason,
 } from '../errors';
+import { CardDimensions } from './cardDimensions';
+import { CardPreviewSource } from '../types';
 
 const relevantFlags = {
   newCardExperience: true,
@@ -39,6 +41,19 @@ const relevantFlags = {
   mediaInline: false,
   folderUploads: false,
   mediaUploadApiV2: true,
+  memoryCacheLogging: true,
+};
+
+export type CardPreviewAttributes = {
+  fileId: string;
+  prevDimensions: CardDimensions | undefined;
+  currentDimensions: CardDimensions | undefined;
+  dimensionsPercentageDiff?: CardDimensions | undefined;
+  source: CardPreviewSource;
+};
+
+type WithCardPreviewCacheAttributes = {
+  cardPreviewAttributes: CardPreviewAttributes;
 };
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);
@@ -103,6 +118,18 @@ export type RenderCommencedEventPayload = OperationalEventPayload<
   'mediaCardRender'
 >;
 
+export type CacheHitEventPayload = OperationalEventPayload<
+  WithCardPreviewCacheAttributes,
+  'cache-hit',
+  'mediaCardCache'
+>;
+
+export type RemoteSuccessEventPayload = OperationalEventPayload<
+  WithCardPreviewCacheAttributes,
+  'Remote-success',
+  'mediaCardCache'
+>;
+
 export type CopiedFileEventPayload = UIEventPayload<{}, 'copied', string>;
 
 export type ClickedEventPayload = UIEventPayload<
@@ -127,7 +154,9 @@ export type MediaCardAnalyticsEventPayload =
   | RenderFailedEventPayload
   | CopiedFileEventPayload
   | ClickedEventPayload
-  | RenderScreenEventPayload;
+  | RenderScreenEventPayload
+  | CacheHitEventPayload
+  | RemoteSuccessEventPayload;
 
 export const getFileAttributes = (
   metadata: FileDetails,
@@ -178,6 +207,28 @@ export const getRenderSucceededEventPayload = (
     performanceAttributes,
     status: 'success',
     ssrReliability,
+  },
+});
+
+export const getCacheHitEventPayload = (
+  cardPreviewAttributes: CardPreviewAttributes,
+): CacheHitEventPayload => ({
+  eventType: 'operational',
+  action: 'cache-hit',
+  actionSubject: 'mediaCardCache',
+  attributes: {
+    cardPreviewAttributes,
+  },
+});
+
+export const getRemoteSuccessEventPayload = (
+  cardPreviewAttributes: CardPreviewAttributes,
+): RemoteSuccessEventPayload => ({
+  eventType: 'operational',
+  action: 'Remote-success',
+  actionSubject: 'mediaCardCache',
+  attributes: {
+    cardPreviewAttributes,
   },
 });
 

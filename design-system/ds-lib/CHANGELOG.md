@@ -1,5 +1,15 @@
 # @atlaskit/ds-lib
 
+## 2.1.0
+
+### Minor Changes
+
+- [`620c24e72b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620c24e72b4) - Introduces `propDeprecationWarning` function.
+
+### Patch Changes
+
+- [`cd1a2f64027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cd1a2f64027) - Internal code change turning on new linting rules.
+
 ## 2.0.1
 
 ### Patch Changes

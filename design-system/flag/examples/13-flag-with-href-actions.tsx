@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import Flag, { AppearanceTypes } from '../src';
 
-type FlagType = {
+type FlagVariant = {
   appearance: AppearanceTypes;
   description: string;
   title: string;
@@ -30,7 +30,7 @@ const FlagActions = [
   },
 ];
 
-const flagTypes: Array<FlagType> = [
+const flagVariants: Array<FlagVariant> = [
   {
     appearance: 'error',
     description: 'You need to take action, something has gone terribly wrong!',
@@ -91,7 +91,7 @@ const flagTypes: Array<FlagType> = [
 
 export default () => (
   <Fragment>
-    {flagTypes.map((flag: FlagType) => (
+    {flagVariants.map((flag: FlagVariant) => (
       <div key={flag.appearance} style={{ marginBottom: '10px' }}>
         <Flag
           appearance={flag.appearance}

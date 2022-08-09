@@ -40,16 +40,14 @@ export default function InPopup() {
           isOpen={isOpen}
           autoFocus={false}
           onClose={handleToggle}
-          content={props => (
-            <div>
-              <LinkPicker
-                {...props}
-                url={link.url}
-                displayText={link.displayText}
-                onSubmit={handleSubmit}
-                onCancel={handleToggle}
-              />
-            </div>
+          content={({ update }) => (
+            <LinkPicker
+              url={link.url}
+              displayText={link.displayText}
+              onSubmit={handleSubmit}
+              onCancel={handleToggle}
+              onContentResize={update}
+            />
           )}
           placement="bottom-start"
           trigger={({ ref, ...triggerProps }) => (

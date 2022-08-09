@@ -30,7 +30,7 @@ import Popup from '@atlaskit/popup';
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/Popup')}
+      props={require('!!extract-react-types-loader!../src/popup')}
     />
   )}
 `;

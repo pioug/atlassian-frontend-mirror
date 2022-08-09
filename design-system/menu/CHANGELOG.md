@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 1.3.8
+
+### Patch Changes
+
+- [`b196f69e76b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b196f69e76b) - Menu items no longer intercept mouse down events to force focus or blur behavior depending on the last focused element.
+- Updated dependencies
+
 ## 1.3.7
 
 ### Patch Changes

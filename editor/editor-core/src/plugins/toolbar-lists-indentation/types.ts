@@ -14,5 +14,7 @@ export interface ToolbarProps {
   isSeparator?: boolean;
   isReducedSpacing?: boolean;
   showIndentationButtons?: boolean;
+  indentDisabled?: boolean;
+  outdentDisabled?: boolean;
   onItemActivated: typeof onItemActivated;
 }

@@ -15,6 +15,7 @@ export const Centered = ({
       alignItems: 'center',
       justifyContent: 'center',
     }}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
   />
 );

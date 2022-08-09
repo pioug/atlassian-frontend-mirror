@@ -1,7 +1,7 @@
 import { OptionData } from '@atlaskit/user-picker';
 
 import { transformUsers } from './users-transformer';
-import { getConfig } from '../config';
+import { config } from '../config';
 import { ConfluenceAttributes, RecommendationRequest } from '../types';
 import { IntlShape } from 'react-intl-next';
 
@@ -9,7 +9,7 @@ const getUserRecommendations = (
   request: RecommendationRequest,
   intl: IntlShape,
 ): Promise<OptionData[]> => {
-  const url = getConfig().getRecommendationServiceUrl(request.baseUrl || '');
+  const url = config.getRecommendationServiceUrl(request.baseUrl || '');
   return fetch(url, {
     method: 'POST',
     credentials: 'include',

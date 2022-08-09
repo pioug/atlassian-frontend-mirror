@@ -1,5 +1,15 @@
 # @atlaskit/datetime-picker
 
+## 12.1.2
+
+### Patch Changes
+
+- [`df3d5287649`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df3d5287649) - Internal code change turning on new linting rules.
+- [`429a576a4b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/429a576a4b2) - fix change-event firing for invalid inputs in datetime-picker select.
+- [`84afee665fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84afee665fc) - [ux] Implemented missing functionality to submit forms on enter press after a date has been selected in DatePicker
+- [`2a2dcc1cf91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a2dcc1cf91) - Updated styles to use new input design tokens. Fixed bug where border radius on datePicker rendered incorrectly.
+- Updated dependencies
+
 ## 12.1.1
 
 ### Patch Changes

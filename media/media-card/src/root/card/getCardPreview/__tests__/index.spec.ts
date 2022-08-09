@@ -8,6 +8,15 @@ jest.mock('@atlaskit/media-client', () => {
     addFileAttrsToUrl: jest.fn(),
   };
 });
+jest.mock('../../../../utils/analytics', () => {
+  const actualModule = jest.requireActual('../../../../utils/analytics');
+  return {
+    __esModule: true,
+    ...actualModule,
+    getCacheHitEventPayload: jest.fn(() => 'cache-hit-payload'),
+    getRemoteSuccessEventPayload: jest.fn(() => 'remote-success-payload'),
+  };
+});
 import { asMockFunction, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
   FilePreview,
@@ -36,6 +45,12 @@ import { LocalPreviewError } from '../../../../errors';
 import * as filePreviewStatusModule from '../filePreviewStatus';
 import * as dimensionComparerModule from '../../../../utils/dimensionComparer';
 import { CardStatus } from '../../../../';
+import {
+  getCacheHitEventPayload,
+  getRemoteSuccessEventPayload,
+  CardPreviewAttributes,
+} from '../../../../utils/analytics';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const localPreview: CardPreview = {
   dataURI: 'some-card-preview-from-file-preview',
@@ -61,6 +76,9 @@ const imageUrlParams: MediaStoreGetFileImageParams = {
   height: 66,
   mode: 'crop',
 };
+const event = { fire: jest.fn() };
+const createAnalyticsEventMock = jest.fn(() => event);
+const createAnalyticsEvent = (createAnalyticsEventMock as unknown) as CreateUIAnalyticsEvent;
 
 // filePreview and isRemotePreviewReady have to be set in their relevant tests
 const cardPreviewParams = ({
@@ -69,6 +87,7 @@ const cardPreviewParams = ({
   dimensions: { width: '33', height: '44' },
   imageUrlParams,
   mediaBlobUrlAttrs,
+  createAnalyticsEvent,
 } as unknown) as CardPreviewParams;
 
 const fileIdentifier: FileIdentifier = {
@@ -89,6 +108,8 @@ const remoteFetchParams = [
   cardPreviewParams.imageUrlParams,
 ];
 
+const isBigger = jest.spyOn(dimensionComparerModule, 'isBigger');
+
 describe('shouldResolvePreview()', () => {
   const dummyStatus = 'some-status' as CardStatus;
 
@@ -96,8 +117,6 @@ describe('shouldResolvePreview()', () => {
     filePreviewStatusModule,
     'isPreviewableStatus',
   );
-
-  const isBigger = jest.spyOn(dimensionComparerModule, 'isBigger');
 
   const processedFileState: ProcessedFileState = {
     status: 'processed',
@@ -175,6 +194,7 @@ describe('getCardPreview()', () => {
   beforeEach(() => {
     asMockFunction(cardPreviewCache.get).mockClear();
     asMockFunction(cardPreviewCache.set).mockClear();
+    event.fire.mockClear();
   });
 
   it(`should return card preview from cache if exists`, async () => {
@@ -190,6 +210,31 @@ describe('getCardPreview()', () => {
         source: 'cache-remote',
       }),
     );
+  });
+
+  it(`should trigger operational event with action "cache-hit" when card Preview exists in cache & current dimensions are smaller & memoryCacheLogging flag is set to true`, async () => {
+    const cardCachePreviewAttributes: CardPreviewAttributes = {
+      fileId: 'some-id',
+      prevDimensions: { width: '50', height: '55' },
+      currentDimensions: { width: '33', height: '44' },
+      source: 'cache-remote',
+    };
+    asMockFunction(cardPreviewCache.get).mockReturnValueOnce({
+      dataURI: 'some-card-preview-from-cache',
+      source: 'cache-remote',
+      dimensions: { width: '50', height: '55' },
+    });
+    isBigger.mockReturnValueOnce(false);
+    await getCardPreview({
+      ...cardPreviewParams,
+      featureFlags: {
+        memoryCacheLogging: true,
+      },
+    });
+
+    expect(getCacheHitEventPayload).toBeCalledWith(cardCachePreviewAttributes);
+    expect(createAnalyticsEvent).toBeCalledWith('cache-hit-payload');
+    expect(event.fire).toBeCalledTimes(1);
   });
 
   it('should return card preview from passed file preview', async () => {
@@ -261,6 +306,38 @@ describe('getCardPreview()', () => {
       expectedCachedResult,
     );
     expect(cardPreview).toEqual(expectedResult);
+  });
+
+  it('should trigger operational event with action "remote-success" when card Preview exists in cache & new dimensions are bigger & memoryCacheLogging flag is set to true', async () => {
+    const cardRemotePreviewAttributes: CardPreviewAttributes = {
+      fileId: 'some-id',
+      prevDimensions: { width: '30', height: '35' },
+      currentDimensions: { width: '33', height: '44' },
+      dimensionsPercentageDiff: { width: '10.00', height: '25.71' },
+      source: 'remote',
+    };
+    asMockFunction(getCardPreviewFromBackend).mockResolvedValueOnce(
+      remotePreview,
+    );
+    asMockFunction(cardPreviewCache.get).mockReturnValueOnce({
+      dataURI: 'some-card-preview-from-cache',
+      source: 'cache-remote',
+      dimensions: { width: '30', height: '35' },
+    });
+    isBigger.mockReturnValueOnce(true);
+    await getCardPreview({
+      ...cardPreviewParams,
+      featureFlags: {
+        memoryCacheLogging: true,
+      },
+      isRemotePreviewReady: true,
+    });
+
+    expect(getRemoteSuccessEventPayload).toBeCalledWith(
+      cardRemotePreviewAttributes,
+    );
+    expect(createAnalyticsEventMock).toBeCalledWith('remote-success-payload');
+    expect(event.fire).toBeCalledTimes(1);
   });
 
   it('should throw local preview error and call onLocalPreviewError if there is no remote preview', async () => {

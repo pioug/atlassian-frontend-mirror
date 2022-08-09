@@ -157,9 +157,14 @@ export default class Example extends React.Component<Props, State> {
     const { documentId, collabUrl } = this.state;
     // Enable the debug log
     (window as any).COLLAB_PROVIDER_LOGGER = true;
+
     const collabProvider = createSocketIOCollabProvider({
       url: collabUrl,
       documentAri: `ari:cloud:confluence:collab-test:blog/${documentId}`,
+      productInfo: {
+        product: 'editor-core example',
+        subProduct: 'collab provider example',
+      },
     });
     collabProvider.on('error', (err) => {
       console.error('error from collabProvider:', {
@@ -316,6 +321,7 @@ export default class Example extends React.Component<Props, State> {
     });
     console.log('target', event.target);
   };
+
   private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {
     if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
       // Move to the editor view

@@ -19,11 +19,11 @@ import {
 } from '../src';
 import { useOverflowStatus } from '../src/controllers/overflow';
 
-import { DefaultCreate } from './shared/Create';
-import { HelpPopup } from './shared/HelpPopup';
-import { NotificationsPopup } from './shared/NotificationsPopup';
-import { ProfilePopup } from './shared/ProfilePopup';
-import { SwitcherPopup } from './shared/SwitcherPopup';
+import { DefaultCreate } from './shared/create';
+import { HelpPopup } from './shared/help-popup';
+import { NotificationsPopup } from './shared/notifications-popup';
+import { ProfilePopup } from './shared/profile-popup';
+import { SwitcherPopup } from './shared/switcher-popup';
 
 const ProductHomeExample = () => (
   <ProductHome
@@ -152,6 +152,7 @@ const AppsContent = () => (
 
 type PrimaryDropdownProps = {
   content: PopupProps['content'];
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   text: string;
   isHighlighted?: boolean;
 };

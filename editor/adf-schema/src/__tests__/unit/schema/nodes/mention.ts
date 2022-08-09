@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   toHTML,
@@ -7,8 +6,9 @@ import {
 
 const schema = makeSchema();
 const fromHTML = (html: string) => fromHTML_(html, schema);
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema mention node`, () => {
+describe(`${packageName}/schema mention node`, () => {
   it('should have mention id and display name when serializing to DOM', () => {
     const html = toHTML(
       schema.nodes.mention.create({ id: '@bar', text: 'foo bar' }),

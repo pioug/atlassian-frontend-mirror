@@ -9,7 +9,7 @@ import {
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   measureRender: jest.fn((_, callback) => {
-    callback(1000);
+    callback({ duration: 1000 });
   }),
 }));
 

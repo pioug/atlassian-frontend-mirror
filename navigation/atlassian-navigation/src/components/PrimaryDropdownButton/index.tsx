@@ -15,6 +15,15 @@ const chevronIconStyles = css({
   opacity: 0.51,
 });
 
+/**
+ * __Primary dropdown button__
+ *
+ * A primary dropdown button allows you to add dropdown menus to the navigation.
+ * Should be passed into `AtlassianNavigation`'s `primaryItems` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#button)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const PrimaryDropdownButton = forwardRef<
   HTMLElement,
   PrimaryDropdownButtonProps

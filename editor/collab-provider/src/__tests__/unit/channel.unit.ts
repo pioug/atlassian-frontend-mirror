@@ -17,10 +17,12 @@ import {
   Metadata,
   PresencePayload,
   StepsPayload,
+  ProductInformation,
 } from '../../types';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';
+import { getProduct, getSubProduct } from '../../helpers/utils';
 
 const expectValidChannel = (channel: Channel): void => {
   expect(channel).toBeDefined();
@@ -73,19 +75,12 @@ const getExpectValidEventHandler = (channel: Channel) => (
   }
 };
 
-describe('channel unit tests', () => {
-  let logSpy: jest.SpyInstance;
-
+describe('Channel unit tests', () => {
   beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-  });
-  afterEach(() => {
-    logSpy.mockClear();
+    jest.spyOn(console, 'log').mockImplementation(() => {});
   });
 
-  afterAll(() => {
-    jest.resetAllMocks();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should register eventHandlers as expected', () => {
     const channel = getChannel();
@@ -121,6 +116,7 @@ describe('channel unit tests', () => {
     const customCreateSocket = (
       url: string,
       auth?: (cb: (data: object) => void) => void,
+      productInfo?: ProductInformation,
     ): Socket => {
       const { pathname } = new URL(url);
       return io(url, {
@@ -130,6 +126,10 @@ describe('channel unit tests', () => {
         auth: (cb) => {
           cbSpy = jest.fn(cb);
           auth!(cbSpy as any);
+        },
+        extraHeaders: {
+          'x-product': getProduct(productInfo),
+          'x-subproduct': getSubProduct(productInfo),
         },
       });
     };
@@ -147,6 +147,7 @@ describe('channel unit tests', () => {
           initialized: false,
         });
         expect(channel.getConnected()).toBe(true);
+        expect(cbSpy).toHaveBeenCalledTimes(1);
         expect(cbSpy).toHaveBeenCalledWith({
           initialized: false,
           need404: true,
@@ -444,16 +445,77 @@ describe('channel unit tests', () => {
     await channel.fetchCatchup(1);
 
     expect(permissionTokenRefresh).toBeCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(expect.anything(), {
-      path: expect.any(String),
+      path: 'document/ari%3Acloud%3Aconfluence%3AABC%3Apage%2Ftestpage/catchup',
       queryParams: {
         version: 1,
       },
       requestInit: {
         headers: {
           'x-token': 'new-token',
+          'x-product': 'unknown',
+          'x-subproduct': 'unknown',
         },
       },
+    });
+  });
+
+  describe('Product information headers', () => {
+    it('should pass the product information to the socket.io client', () => {
+      const events = new Map<string, (...args: any) => {}>();
+      const createSocketMock = jest.fn().mockImplementation(() => ({
+        on: jest
+          .fn()
+          .mockImplementation((eventName, callback) =>
+            events.set(eventName, callback),
+          ),
+        events,
+      }));
+      getChannel({
+        ...testChannelConfig,
+        createSocket: createSocketMock,
+        productInfo: {
+          product: 'confluence',
+        },
+      });
+
+      expect(createSocketMock).toHaveBeenCalledTimes(1);
+      expect(
+        createSocketMock,
+      ).toHaveBeenCalledWith(
+        'http://dummy-url:6666/session/ari:cloud:confluence:ABC:page/testpage',
+        expect.any(Function),
+        { product: 'confluence' },
+      );
+    });
+
+    it('should send the product headers along with the catch-up request', async () => {
+      const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({});
+      const configuration = {
+        ...testChannelConfig,
+        productInfo: {
+          product: 'embeddedConfluence',
+          subProduct: 'JSM',
+        },
+      };
+      const channel = getChannel(configuration);
+      await channel.fetchCatchup(1);
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(expect.any(Object), {
+        path:
+          'document/ari%3Acloud%3Aconfluence%3AABC%3Apage%2Ftestpage/catchup',
+        queryParams: {
+          version: 1,
+        },
+        requestInit: {
+          headers: {
+            'x-product': 'embeddedConfluence',
+            'x-subproduct': 'JSM',
+          },
+        },
+      });
     });
   });
 });

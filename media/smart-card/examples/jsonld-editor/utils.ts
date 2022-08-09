@@ -1,21 +1,15 @@
 import { JsonLd } from 'json-ld-types';
-import { CardType } from '@atlaskit/linking-common';
-import { SmartLinkStatus } from '../../src/constants';
-import { response1 } from '../content/example-responses';
+import { unicornResponse } from '../content/example-responses';
+import { extractUrlFromLinkJsonLd } from '@atlaskit/linking-common';
 
-export const isResolvedOrErrored = (status: CardType) => {
-  switch (status) {
-    case SmartLinkStatus.Errored:
-    case SmartLinkStatus.Fallback:
-    case SmartLinkStatus.Forbidden:
-    case SmartLinkStatus.NotFound:
-    case SmartLinkStatus.Resolved:
-    case SmartLinkStatus.Unauthorized:
-      return true;
-    default:
-      return false;
-  }
-};
+const defaultUrl = 'https://atlaskit.atlassian.com/packages/media/smart-card';
 
 export const getDefaultResponse = (): JsonLd.Response =>
-  response1 as JsonLd.Response;
+  unicornResponse as JsonLd.Response;
+
+export const getDefaultUrl = (): string => {
+  const response = getDefaultResponse();
+  const data = response?.data as JsonLd.Data.BaseData;
+  const url = extractUrlFromLinkJsonLd(data?.url || defaultUrl);
+  return url || defaultUrl;
+};

@@ -70,19 +70,43 @@ const flashStyle = css({
   borderRadius: '10px',
   height: `${flashHeight}px`,
 });
-export interface ReactionOnClick {
-  (emojiId: string, event?: SyntheticEvent<any>): void;
-}
+
+/**
+ * @param id give id for the emoji
+ * @param event selected mouse event proerties
+ */
+export type OnReactionClick = (
+  id: string,
+  event: React.MouseEvent<HTMLButtonElement>,
+) => void;
 
 export interface Props {
+  /**
+   * Data for the reaction
+   */
   reaction: ReactionSummary;
+  /**
+   * Provider for loading emojis
+   */
   emojiProvider: Promise<EmojiProvider>;
-  onClick: ReactionOnClick;
+  /**
+   * event handler when the emoji button is clicked
+   */
+  onClick: OnReactionClick;
+  /**
+   * Optional wrapper reaction <button /> class name
+   */
   className?: string;
+  /**
+   * Optional event when the mouse cursor hovers over the reaction
+   */
   onMouseEnter?: (
     reaction: ReactionSummary,
     event?: SyntheticEvent<any>,
   ) => void;
+  /**
+   * Show custom animation or render as standard without animation
+   */
   flash?: boolean;
 }
 
@@ -98,7 +122,6 @@ class ReactionWithoutAnalytics extends PureComponent<
     flash: false,
     className: undefined,
     onMouseEnter: undefined,
-    flashOnMount: false,
   };
 
   static displayName = 'Reaction';

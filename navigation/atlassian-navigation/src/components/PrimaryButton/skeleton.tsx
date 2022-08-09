@@ -17,6 +17,8 @@ const skeletonStyles = css({
   opacity: 0.15,
 });
 
+// Not exported to consumers, only used in NavigationSkeleton
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const PrimaryButtonSkeleton = (props: PrimaryButtonSkeletonProps) => {
   const theme = useTheme();
 
@@ -24,7 +26,7 @@ export const PrimaryButtonSkeleton = (props: PrimaryButtonSkeletonProps) => {
     <div
       style={theme.mode.skeleton as React.CSSProperties}
       css={skeletonStyles}
-      {...props}
+      className={props.className}
     />
   );
 };

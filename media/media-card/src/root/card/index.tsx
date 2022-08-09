@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
   UIAnalyticsEvent,
@@ -43,11 +43,7 @@ import {
   CardPreview,
 } from '../..';
 import { CardView } from '../cardView';
-import {
-  ABS_VIEWPORT_ANCHOR_OFFSET_TOP,
-  ViewportDetector,
-  ViewportAnchor,
-} from '../../utils/viewportDetector';
+import { ViewportDetector } from '../../utils/viewportDetector';
 import { getRequestedDimensions } from '../../utils/getDataURIDimension';
 import {
   getCardPreview,
@@ -117,8 +113,6 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     wasStatusUploading: false,
     wasStatusProcessing: false,
   };
-  private viewportPreAnchorRef = createRef<HTMLDivElement>();
-  private viewportPostAnchorRef = createRef<HTMLDivElement>();
   private ssrReliability: SSRStatus = {
     server: { status: 'unknown' },
     client: { status: 'unknown' },
@@ -236,7 +230,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     // and then check if the triggered listener is from the card
     // that contains a div in current window.getSelection()
     // won't work in IE11
-    getDocument().addEventListener('copy', this.fireCopiedEvent);
+    getDocument()?.addEventListener('copy', this.fireCopiedEvent);
   }
 
   componentDidUpdate(prevProps: CardProps, prevState: CardState) {
@@ -357,7 +351,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   componentWillUnmount() {
     this.hasBeenMounted = false;
     this.unsubscribe();
-    getDocument().removeEventListener('copy', this.fireCopiedEvent);
+    getDocument()?.removeEventListener('copy', this.fireCopiedEvent);
   }
 
   updateStateForIdentifier(identifier: FileIdentifier) {
@@ -401,7 +395,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   ): CardPreviewParams => {
     const { isBannedLocalPreview } = this.state;
     const { id } = identifier;
-    const { dimensions = {}, mediaClient } = this.props;
+    const { dimensions = {}, mediaClient, createAnalyticsEvent } = this.props;
 
     return {
       mediaClient,
@@ -414,6 +408,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       isRemotePreviewReady: isImageRepresentationReady(fileState),
       imageUrlParams: this.getImageURLParams(identifier),
       mediaBlobUrlAttrs: this.getMediaBlobUrlAttrs(identifier, fileState),
+      createAnalyticsEvent,
+      featureFlags: this.props.featureFlags,
     };
   };
 
@@ -951,21 +947,8 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     );
 
     return isLazy ? (
-      <ViewportDetector
-        cardEl={cardRef}
-        preAnchorRef={this.viewportPreAnchorRef}
-        postAnchorRef={this.viewportPostAnchorRef}
-        onVisible={this.onCardInViewport}
-      >
-        <ViewportAnchor
-          ref={this.viewportPreAnchorRef}
-          offsetTop={-ABS_VIEWPORT_ANCHOR_OFFSET_TOP}
-        />
+      <ViewportDetector cardEl={cardRef} onVisible={this.onCardInViewport}>
         {card}
-        <ViewportAnchor
-          ref={this.viewportPostAnchorRef}
-          offsetTop={ABS_VIEWPORT_ANCHOR_OFFSET_TOP}
-        />
       </ViewportDetector>
     ) : (
       card

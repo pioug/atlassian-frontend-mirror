@@ -1,5 +1,12 @@
 # @atlaskit/side-navigation
 
+## 1.2.13
+
+### Patch Changes
+
+- [`b2767947029`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2767947029) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 1.2.12
 
 ### Patch Changes

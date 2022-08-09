@@ -109,6 +109,8 @@ function useItems(
     | 'bulletListActive'
     | 'orderedListDisabled'
     | 'orderedListActive'
+    | 'indentDisabled'
+    | 'outdentDisabled'
     | 'showIndentationButtons'
   >,
 ) {
@@ -147,7 +149,7 @@ function useItems(
         key: 'indent',
         content: labelIndent,
         value: { name: 'indent' },
-        isDisabled: true,
+        isDisabled: props.indentDisabled,
         isActive: false,
         elemAfter: <div css={shortcutStyle}>{tooltip(toggleIndentKeymap)}</div>,
       },
@@ -155,7 +157,7 @@ function useItems(
         key: 'outdent',
         content: labelOutdent,
         value: { name: 'outdent' },
-        isDisabled: true,
+        isDisabled: props.outdentDisabled,
         isActive: false,
         elemAfter: (
           <div css={shortcutStyle}>{tooltip(toggleOutdentKeymap)}</div>

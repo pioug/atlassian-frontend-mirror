@@ -47,16 +47,18 @@ import {
   isInsideDecision,
 } from './helpers';
 
+type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 const indentationAnalytics = (
   curIndentLevel: number,
   direction: INDENT_DIRECTION,
+  inputMethod: IndentationInputMethod,
 ): AnalyticsEventPayload => ({
   action: ACTION.FORMATTED,
   actionSubject: ACTION_SUBJECT.TEXT,
   actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
   eventType: EVENT_TYPE.TRACK,
   attributes: {
-    inputMethod: INPUT_METHOD.KEYBOARD,
+    inputMethod,
     previousIndentationLevel: curIndentLevel,
     newIndentLevel:
       direction === INDENT_DIRECTION.OUTDENT
@@ -136,16 +138,23 @@ const joinTaskDecisionFollowing: Command = (state, dispatch) => {
   return false;
 };
 
-const unindent = filter(isInsideTask, (state, dispatch) => {
-  const curIndentLevel = getCurrentIndentLevel(state.selection);
-  if (!curIndentLevel || curIndentLevel === 1) {
-    return false;
-  }
+export const getUnindentCommand = (
+  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
+) =>
+  filter(isInsideTask, (state, dispatch) => {
+    const curIndentLevel = getCurrentIndentLevel(state.selection);
+    if (!curIndentLevel || curIndentLevel === 1) {
+      return false;
+    }
 
-  return withAnalytics(
-    indentationAnalytics(curIndentLevel, INDENT_DIRECTION.OUTDENT),
-  )(autoJoin(liftSelection, ['taskList']))(state, dispatch);
-});
+    return withAnalytics(
+      indentationAnalytics(
+        curIndentLevel,
+        INDENT_DIRECTION.OUTDENT,
+        inputMethod,
+      ),
+    )(autoJoin(liftSelection, ['taskList']))(state, dispatch);
+  });
 
 // if selection is decision item or first action item in table cell
 // then dont consume the Tab, as table-keymap should tab to the next cell
@@ -164,23 +173,30 @@ const shouldLetTabThroughInTable = (state: EditorState) => {
   return false;
 };
 
-const indent = filter(isInsideTask, (state, dispatch) => {
-  // limit ui indentation to 6 levels
-  const curIndentLevel = getCurrentIndentLevel(state.selection);
-  if (!curIndentLevel || curIndentLevel >= 6) {
-    return true;
-  }
+export const getIndentCommand = (
+  inputMethod: IndentationInputMethod = INPUT_METHOD.KEYBOARD,
+) =>
+  filter(isInsideTask, (state, dispatch) => {
+    // limit ui indentation to 6 levels
+    const curIndentLevel = getCurrentIndentLevel(state.selection);
+    if (!curIndentLevel || curIndentLevel >= 6) {
+      return true;
+    }
 
-  const { taskList, taskItem } = state.schema.nodes;
-  const { $from, $to } = state.selection;
-  const maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
-  if (maxDepth >= 6) {
-    return true;
-  }
-  return withAnalytics(
-    indentationAnalytics(curIndentLevel, INDENT_DIRECTION.INDENT),
-  )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
-});
+    const { taskList, taskItem } = state.schema.nodes;
+    const { $from, $to } = state.selection;
+    const maxDepth = subtreeHeight($from, $to, [taskList, taskItem]);
+    if (maxDepth >= 6) {
+      return true;
+    }
+    return withAnalytics(
+      indentationAnalytics(
+        curIndentLevel,
+        INDENT_DIRECTION.INDENT,
+        inputMethod,
+      ),
+    )(autoJoin(wrapSelectionInTaskList, ['taskList']))(state, dispatch);
+  });
 
 const backspaceFrom = ($from: ResolvedPos): Command => (state, dispatch) => {
   // previous was empty, just delete backwards
@@ -196,7 +212,7 @@ const backspaceFrom = ($from: ResolvedPos): Command => (state, dispatch) => {
   // if nested, just unindent
   const { taskList, paragraph } = state.schema.nodes;
   if ($from.node($from.depth - 2).type === taskList) {
-    return unindent(state, dispatch);
+    return getUnindentCommand()(state, dispatch);
   }
 
   // bottom level, should "unwrap" taskItem contents into paragraph
@@ -397,7 +413,10 @@ const splitListItem = (
 const enter: Command = filter(
   isInsideTaskOrDecisionItem,
   chainCommands(
-    filter(isEmptyTaskDecision, chainCommands(unindent, splitListItem)),
+    filter(
+      isEmptyTaskDecision,
+      chainCommands(getUnindentCommand(), splitListItem),
+    ),
     (state, dispatch) => {
       const { selection, schema } = state;
       const { taskItem } = schema.nodes;
@@ -456,14 +475,18 @@ export function keymapPlugin(
         isInsideTaskOrDecisionItem,
         (state) => !shouldLetTabThroughInTable(state),
       ],
-      (state, dispatch) => unindent(state, dispatch) || !!consumeTabs,
+      (state, dispatch) =>
+        getUnindentCommand(INPUT_METHOD.KEYBOARD)(state, dispatch) ||
+        !!consumeTabs,
     ),
     Tab: filter(
       [
         isInsideTaskOrDecisionItem,
         (state) => !shouldLetTabThroughInTable(state),
       ],
-      (state, dispatch) => indent(state, dispatch) || !!consumeTabs,
+      (state, dispatch) =>
+        getIndentCommand(INPUT_METHOD.KEYBOARD)(state, dispatch) ||
+        !!consumeTabs,
     ),
   };
 

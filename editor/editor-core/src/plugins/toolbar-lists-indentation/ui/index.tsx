@@ -19,6 +19,8 @@ export interface Props {
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
   showIndentationButtons?: boolean;
+  indentDisabled?: boolean;
+  outdentDisabled?: boolean;
 }
 
 export default function ToolbarListsIndentation(props: Props) {
@@ -34,6 +36,8 @@ export default function ToolbarListsIndentation(props: Props) {
     popupsMountPoint,
     popupsBoundariesElement,
     popupsScrollableElement,
+    indentDisabled,
+    outdentDisabled,
   } = props;
 
   if (isSmall) {
@@ -49,6 +53,8 @@ export default function ToolbarListsIndentation(props: Props) {
         showIndentationButtons={showIndentationButtons}
         orderedListActive={orderedListActive}
         orderedListDisabled={orderedListDisabled}
+        indentDisabled={indentDisabled}
+        outdentDisabled={outdentDisabled}
         disabled={disabled}
         onItemActivated={onItemActivated}
       />
@@ -64,6 +70,8 @@ export default function ToolbarListsIndentation(props: Props) {
       showIndentationButtons={showIndentationButtons}
       orderedListActive={orderedListActive}
       orderedListDisabled={orderedListDisabled}
+      indentDisabled={indentDisabled}
+      outdentDisabled={outdentDisabled}
       disabled={disabled}
       onItemActivated={onItemActivated}
     />

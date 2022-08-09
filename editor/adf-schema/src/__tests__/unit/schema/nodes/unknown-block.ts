@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   fromHTML,
@@ -6,7 +5,9 @@ import {
 } from '@atlaskit/editor-test-helpers/adf-schema';
 import { inlineNodes } from '../../../../schema/inline-nodes';
 
-describe(`${name}/schema unknownBlock node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema unknownBlock node`, () => {
   describe('should be able to parse inline node', () => {
     inlineNodes.forEach((node) => {
       /**

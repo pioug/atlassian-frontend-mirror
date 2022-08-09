@@ -33,7 +33,7 @@ function Example() {
     <div css={{ margin: 20 }}>
       <h3 css={{ marginBottom: 15 }}>ADG Button</h3>
       <ButtonGroup>
-        <CustomThemeButton iconBefore={<AddIcon label="add" />}>
+        <CustomThemeButton iconBefore={<AddIcon label="" />}>
           Button
         </CustomThemeButton>
         <CustomThemeButton appearance="primary">Button</CustomThemeButton>
@@ -43,17 +43,21 @@ function Example() {
       <h3 css={{ marginBottom: 15 }}>Themed Button</h3>
       <ButtonGroup>
         <CustomThemeButton
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           theme={ourTheme}
-          iconBefore={<AddIcon label="add" />}
+          iconBefore={<AddIcon label="" />}
         >
           Button
         </CustomThemeButton>
+        {/* eslint-disable-next-line @repo/internal/react/no-unsafe-overrides */}
         <CustomThemeButton theme={ourTheme} appearance="primary">
           Button
         </CustomThemeButton>
+        {/* eslint-disable-next-line @repo/internal/react/no-unsafe-overrides */}
         <CustomThemeButton theme={ourTheme} appearance="primary" isLoading>
           Button
         </CustomThemeButton>
+        {/* eslint-disable-next-line @repo/internal/react/no-unsafe-overrides */}
         <CustomThemeButton theme={ourTheme} isDisabled>
           Button
         </CustomThemeButton>
@@ -62,7 +66,7 @@ function Example() {
       <h3 css={{ marginBottom: 15 }}>Themed using Theme.Provider</h3>
       <Theme.Provider value={ourTheme}>
         <ButtonGroup>
-          <CustomThemeButton iconBefore={<AddIcon label="add" />}>
+          <CustomThemeButton iconBefore={<AddIcon label="" />}>
             Button
           </CustomThemeButton>
           <CustomThemeButton appearance="primary">Button</CustomThemeButton>

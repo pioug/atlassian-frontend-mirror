@@ -67,6 +67,7 @@ const assignIndex = (num: number, arr: number[]): number => {
 
   return assignIndex(num + 1, arr);
 };
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
   const { skipLinksData } = useSkipLinks();
 
@@ -181,6 +182,7 @@ const focusTargetRef = (href: string) => (
   return false;
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SkipLink = ({
   href,
   children,

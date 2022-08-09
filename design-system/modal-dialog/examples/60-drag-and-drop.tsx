@@ -11,6 +11,7 @@ import {
 } from 'react-beautiful-dnd';
 
 import Button from '@atlaskit/button/standard-button';
+import noop from '@atlaskit/ds-lib/noop';
 import { G300, R200, R75, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -21,8 +22,6 @@ import ModalDialog, {
   ModalTitle,
   ModalTransition,
 } from '../src';
-
-const noop = () => {};
 
 const gridUnit = 4;
 
@@ -133,6 +132,7 @@ function ItemLineCard(props: ItemLineCardProps) {
           innerIsActive && activeCardStyles,
           isHovering && hoverCardStyles,
         ]}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...cardProps}
       >
         {children(isHovering, innerIsActive, isFocused, item)}
@@ -160,6 +160,7 @@ function ItemLineCard(props: ItemLineCardProps) {
 
 interface ItemLineCardGroupProps {
   groupId: string;
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items: Item[];
   isReorderEnabled?: boolean;
   children: (

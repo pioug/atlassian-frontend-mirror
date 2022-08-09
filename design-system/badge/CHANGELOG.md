@@ -1,5 +1,14 @@
 # @atlaskit/badge
 
+## 15.0.14
+
+### Patch Changes
+
+- [`899199caabb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/899199caabb) - Internal changes to the way styles are applied. There should be no noticeable changes to consumers.
+- [`8067cc918d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8067cc918d9) - Update implementation to match changes made to Text primitive
+- [`ea36ea17c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea36ea17c4e) - Text now supports text-align and it's used for Badge to retain existing visuals
+- Updated dependencies
+
 ## 15.0.13
 
 ### Patch Changes

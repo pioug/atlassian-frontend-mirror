@@ -42,12 +42,17 @@ const customDarkTheme = {
   },
 };
 
-const CustomLozenge = ({ children, appearance = 'default' }: LozengeProps) => {
+const CustomLozenge = ({
+  children,
+  appearance = 'default',
+  testId,
+}: LozengeProps) => {
   const { mode } = useGlobalTheme();
   const theme = mode === 'dark' ? customDarkTheme : null;
 
   return (
     <Lozenge
+      testId={testId}
       appearance={appearance}
       style={{
         backgroundColor: theme?.backgroundColor[appearance],
@@ -66,12 +71,16 @@ export default function Example() {
 
   return (
     <AtlaskitThemeProvider mode={themeMode}>
-      <div>
+      <div data-testid="test-container">
         <p>
-          Default: <CustomLozenge>default</CustomLozenge>
+          Default:
+          <CustomLozenge testId="custom-lozenge-default">default</CustomLozenge>
         </p>
         <p>
-          Appearance: new <CustomLozenge appearance="new">new</CustomLozenge>
+          Appearance: new
+          <CustomLozenge testId="custom-lozenge-new" appearance="new">
+            new
+          </CustomLozenge>
         </p>
       </div>
       <br />

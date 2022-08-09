@@ -3,13 +3,7 @@ import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { SpotlightContext } from './spotlight-manager';
 
 /**
- * Enables advanced usage of spotlights.
- *
- * Provides the following methods:
- * - `isTargetRendered`
- *
- *    Checks if the given spotlight target is currently
- *    being rendered.
+ * Use spotlight hook returns information about available spotlight targets.
  */
 export default function useSpotlight() {
   const { targets } = useContext(SpotlightContext);

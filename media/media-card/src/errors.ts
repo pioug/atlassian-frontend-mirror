@@ -1,5 +1,9 @@
 import { CardPreview } from '.';
 
+/**
+ * Primary reason is logged through Data Portal.
+ * Make sure all the values are whitelisted in Measure -> Event Regitry -> "mediaCardRender failed" event
+ */
 export type MediaCardErrorPrimaryReason =
   | 'upload'
   | 'metadata-fetch'
@@ -8,6 +12,7 @@ export type MediaCardErrorPrimaryReason =
   | LocalPreviewPrimaryReason
   | ImageLoadPrimaryReason
   | SsrPreviewPrimaryReason
+  | 'missing-error-data'
   // Reasons below are used to wrap unexpected/unknown errors with ensureMediaCardError
   | 'preview-fetch';
 

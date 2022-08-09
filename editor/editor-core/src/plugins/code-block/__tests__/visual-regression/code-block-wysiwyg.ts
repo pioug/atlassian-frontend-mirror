@@ -5,7 +5,6 @@ import { tableHeaderCodeBlock } from '../__fixtures__/table-header-code-block';
 import { overflowCodeBlock } from '../__fixtures__/overflow-code-block';
 import { tableHeaderOverflowCodeBlock } from '../__fixtures__/table-header-overflow-code-block';
 import { tabCodeBlock } from '../__fixtures__/tab-code-block';
-import { highlightingCodeBlock } from '../__fixtures__/highlighting-code-block';
 
 /**
  * Note: these WYSIWYG tests don't have corresponding LFS image snapshots.
@@ -31,23 +30,6 @@ describe('code-block: WYSIWYG', () => {
       adf: minimalCodeBlock,
       editorSelector: '.code-block',
       rendererSelector: '.code-block',
-    });
-
-    await expect($editorElement).toMatchVisually($rendererElement, {
-      threshold: 0.02,
-    });
-  });
-
-  test('code-block is WYSIWYG when highlighting', async () => {
-    const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
-      adf: highlightingCodeBlock,
-      editorSelector: '.code-block',
-      rendererSelector: '.code-block',
-      editorProps: {
-        featureFlags: {
-          'code-block-syntax-highlighting': true,
-        },
-      },
     });
 
     await expect($editorElement).toMatchVisually($rendererElement, {

@@ -4,6 +4,8 @@ import { defaultCollectionName } from './collectionNames';
 
 const cachedAuths: { [key: string]: Promise<Auth> } = {};
 
+export type MediaEnv = 'dev' | 'staging';
+
 type Access = { [resource: string]: string[] };
 const accessUrns: { [key: string]: Access } = {
   MediaServicesSample: {
@@ -28,8 +30,9 @@ const accessUrns: { [key: string]: Access } = {
 const requestAuthProvider = async (
   authEnvironment: string,
   collectionName: string,
+  env: MediaEnv = 'dev',
 ): Promise<Auth> => {
-  const url = `https://media-playground.dev.atl-paas.net/token/tenant?environment=${authEnvironment}`;
+  const url = `https://media-playground.${env}.atl-paas.net/token/tenant?environment=${authEnvironment}`;
   const body = JSON.stringify({
     access: accessUrns[collectionName] || {},
   });
@@ -48,9 +51,10 @@ const requestAuthProvider = async (
   return response.json();
 };
 
-export const mediaPickerAuthProvider = (authEnvironment: string = 'asap') => (
-  context?: AuthContext,
-) => {
+export const mediaPickerAuthProvider = (
+  authEnvironment: string = 'asap',
+  env?: MediaEnv,
+) => (context?: AuthContext) => {
   const collectionName =
     (context && context.collectionName) || defaultCollectionName;
   authEnvironment = authEnvironment === 'asap' ? 'asap' : '';
@@ -60,6 +64,7 @@ export const mediaPickerAuthProvider = (authEnvironment: string = 'asap') => (
     cachedAuths[cacheKey] = requestAuthProvider(
       authEnvironment,
       collectionName,
+      env,
     );
   }
   return cachedAuths[cacheKey];

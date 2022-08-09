@@ -51,6 +51,15 @@ const TooltipSwitch = ({ buttonTooltip, children }: TooltipSwitchProps) =>
     <Fragment>{children}</Fragment>
   );
 
+/**
+ * _Create__
+ *
+ * A call to action button that can be passed into `AtlassianNavigation`'s
+ * `renderCreate` prop. It is shown after all other primary buttons.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#create)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const Create = ({
   onClick,
   href,
@@ -68,6 +77,7 @@ export const Create = ({
           id="createGlobalItem"
           onClick={onClick}
           href={href}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           theme={getCreateButtonTheme(theme)}
           testId={testId && `${testId}-button`}
           data-hide-on-smallscreens
@@ -83,6 +93,7 @@ export const Create = ({
         onClick={onClick}
         href={href}
         tooltip={iconButtonTooltip}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         theme={getCreateButtonTheme(theme)}
         aria-label={text}
         data-hide-on-largescreens

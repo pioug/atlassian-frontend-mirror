@@ -1,4 +1,5 @@
 jest.mock('../../../plugins');
+jest.mock('../../../plugins/hyperlink');
 jest.mock('../../../plugins/placeholder');
 jest.mock('../../../plugins/selection');
 jest.mock('../../../plugins/code-block');
@@ -14,6 +15,7 @@ import {
   feedbackDialogPlugin,
   placeholderTextPlugin,
   layoutPlugin,
+  cardPlugin,
   statusPlugin,
   historyPlugin,
   scrollIntoViewPlugin,
@@ -23,6 +25,7 @@ import {
   quickInsertPlugin,
 } from '../../../plugins';
 
+import hyperlinkPlugin from '../../../plugins/hyperlink';
 import placeholderPlugin from '../../../plugins/placeholder';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
@@ -112,6 +115,138 @@ describe('createPluginsList', () => {
   it('should add layoutPlugin if allowLayout prop is provided', () => {
     const plugins = createPluginsList({ allowLayouts: true });
     expect(plugins).toContain(layoutPlugin());
+  });
+
+  it('should initialise hyperlink with `linking.smartLinks` if provided', () => {
+    const smartLinks = { allowEmbeds: true };
+    const linkPickerPlugins: Array<never> = [];
+
+    createPluginsList({
+      linking: { smartLinks, linkPicker: { plugins: linkPickerPlugins } },
+    });
+
+    expect(hyperlinkPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cardOptions: {
+          allowEmbeds: true,
+        },
+        linkPicker: {
+          plugins: linkPickerPlugins,
+        },
+      }),
+    );
+  });
+
+  it('should initialise hyperlink, falling back to `smartLinks` prop if `linking.smartLinks` is not provided', () => {
+    const smartLinks = { allowEmbeds: true };
+    const linkPickerPlugins: Array<never> = [];
+
+    createPluginsList({
+      smartLinks,
+      linking: { linkPicker: { plugins: linkPickerPlugins } },
+    });
+
+    expect(hyperlinkPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cardOptions: {
+          allowEmbeds: true,
+        },
+        linkPicker: {
+          plugins: linkPickerPlugins,
+        },
+      }),
+    );
+  });
+
+  it('should initialise hyperlink, preferring `linking.smartLinks` over `smartLinks` prop if both are provided', () => {
+    const smartLinks = { allowEmbeds: true };
+    const linkingSmartLinks = { allowEmbeds: false };
+    const linkPickerPlugins: Array<never> = [];
+
+    createPluginsList({
+      smartLinks,
+      linking: {
+        smartLinks: linkingSmartLinks,
+        linkPicker: { plugins: linkPickerPlugins },
+      },
+    });
+
+    expect(hyperlinkPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        cardOptions: {
+          allowEmbeds: false,
+        },
+        linkPicker: {
+          plugins: linkPickerPlugins,
+        },
+      }),
+    );
+  });
+
+  it('should add cardPlugin if `linking.smartLinks` is provided', () => {
+    const smartLinks = { allowEmbeds: true };
+    const linkPickerPlugins: Array<never> = [];
+
+    createPluginsList({
+      linking: { smartLinks, linkPicker: { plugins: linkPickerPlugins } },
+    });
+
+    expect(cardPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        allowEmbeds: true,
+        platform: 'web',
+        fullWidthMode: false,
+        linkPicker: {
+          plugins: linkPickerPlugins,
+        },
+      }),
+    );
+  });
+
+  it('should add cardPlugin, falling back to `smartLinks` prop if `linking.smartLinks` is not provided', () => {
+    const smartLinks = { allowEmbeds: true };
+    const linkPickerPlugins: Array<never> = [];
+
+    createPluginsList({
+      smartLinks,
+      linking: { linkPicker: { plugins: linkPickerPlugins } },
+    });
+
+    expect(cardPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        allowEmbeds: true,
+        platform: 'web',
+        fullWidthMode: false,
+        linkPicker: {
+          plugins: linkPickerPlugins,
+        },
+      }),
+    );
+  });
+
+  it('should add cardPlugin, preferring `linking.smartLinks` over `smartLinks` prop if both are provided', () => {
+    const smartLinks = { allowEmbeds: true };
+    const linkingSmartLinks = { allowEmbeds: false };
+    const linkPickerPlugins: Array<never> = [];
+
+    createPluginsList({
+      smartLinks,
+      linking: {
+        smartLinks: linkingSmartLinks,
+        linkPicker: { plugins: linkPickerPlugins },
+      },
+    });
+
+    expect(cardPlugin).toHaveBeenCalledWith(
+      expect.objectContaining({
+        allowEmbeds: false,
+        platform: 'web',
+        fullWidthMode: false,
+        linkPicker: {
+          plugins: linkPickerPlugins,
+        },
+      }),
+    );
   });
 
   it('should not add statusPlugin if allowStatus prop is false', () => {

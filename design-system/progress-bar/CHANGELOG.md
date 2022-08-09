@@ -1,5 +1,15 @@
 # @atlaskit/progress-bar
 
+## 0.5.8
+
+### Patch Changes
+
+- [`7d4fbb433e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d4fbb433e7) - Internal styles refactor after turning on the static styles tech stack.
+- [`247bf9bb0e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/247bf9bb0e4) - Introduces `testId` prop for use for automated tests.
+- [`54deac49754`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54deac49754) - [ux] Appearance prop now available for default, success, and inverse appearances.
+- [`c960c028450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c960c028450) - Adds jsdoc descriptions to exported components.
+- Updated dependencies
+
 ## 0.5.7
 
 ### Patch Changes

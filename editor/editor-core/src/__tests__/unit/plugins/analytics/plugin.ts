@@ -101,9 +101,10 @@ describe('analytics', () => {
 
     describe('#extendPayload', () => {
       it('should extend event attributes with performance metric: duration', () => {
-        expect(extendPayload(payload, 123).attributes).toHaveProperty(
-          'duration',
-        );
+        expect(
+          extendPayload({ payload, duration: 123, distortedDuration: false })
+            .attributes,
+        ).toHaveProperty('duration');
       });
     });
   });

@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @repo/internal/react/use-primitives */
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';

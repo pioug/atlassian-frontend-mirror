@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 17.1.1
+
+### Patch Changes
+
+- [`fecd5f5c96c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fecd5f5c96c) - ED-15067 Added paragraph_with_indentation to block content to allow indented paragraphs inside of layout columns. Prior to this change, it was possible to add indentation but it resulted in an unsupported mark.
+- Updated dependencies
+
 ## 17.1.0
 
 ### Minor Changes

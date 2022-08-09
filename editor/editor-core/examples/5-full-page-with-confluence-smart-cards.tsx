@@ -3,7 +3,7 @@ import React from 'react';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import SectionMessage from '@atlaskit/section-message';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import Toggle from '@atlaskit/toggle';
 
 import { default as FullPageExample } from './5-full-page';

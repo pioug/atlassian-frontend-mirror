@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import { SkipLinksContext } from '../../../../controllers/skip-link-context';
 import { SkipLinkWrapper, useCustomSkipLink } from '../../../skip-links';
 import Banner from '../../../slots/banner';
@@ -16,8 +18,8 @@ describe('skip links', () => {
           { id: 'left', skipLinkTitle: 'Left panel' },
           { id: 'right', skipLinkTitle: 'Right panel' },
         ],
-        registerSkipLink: () => {},
-        unregisterSkipLink: () => {},
+        registerSkipLink: noop,
+        unregisterSkipLink: noop,
       };
       const { container } = render(
         <SkipLinksContext.Provider value={context}>

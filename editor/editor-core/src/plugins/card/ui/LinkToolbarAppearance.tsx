@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IntlShape } from 'react-intl-next';
 import { EditorState } from 'prosemirror-state';
-import { CardContext, CardPlatform } from '@atlaskit/smart-card';
+import { CardPlatform } from '@atlaskit/smart-card';
+import { CardContext } from '@atlaskit/link-provider';
 import { EditorView } from 'prosemirror-view';
 import { Fragment } from 'prosemirror-model';
 import {
@@ -60,14 +61,20 @@ export class LinkToolbarAppearance extends React.Component<
       }
     }
 
-    const isSmartLinkSupportedInParent = isSupportedInParent(
+    const isBlockCardLinkSupportedInParent = isSupportedInParent(
       editorState,
       Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
       currentAppearance,
     );
-    const tooltip = isSmartLinkSupportedInParent
-      ? undefined
-      : parentNodeName(editorState, intl);
+
+    const isEmbedCardLinkSupportedInParent = allowEmbeds
+      ? isSupportedInParent(
+          editorState,
+          Fragment.from(editorState.schema.nodes.embedCard.createChecked({})),
+          currentAppearance,
+        )
+      : false;
+
     const embedOption = allowEmbeds &&
       preview && {
         appearance: 'embed' as const,
@@ -76,8 +83,10 @@ export class LinkToolbarAppearance extends React.Component<
         selected: currentAppearance === 'embed',
         hidden: false,
         testId: 'embed-appearance',
-        disabled: !isSmartLinkSupportedInParent,
-        tooltip,
+        disabled: !isEmbedCardLinkSupportedInParent,
+        tooltip: isEmbedCardLinkSupportedInParent
+          ? undefined
+          : getUnavailableMessage(editorState, intl),
       };
     const options: OptionConfig[] = [
       {
@@ -100,8 +109,10 @@ export class LinkToolbarAppearance extends React.Component<
         onClick: setSelectedCardAppearance('block'),
         selected: currentAppearance === 'block',
         testId: 'block-appearance',
-        disabled: !isSmartLinkSupportedInParent,
-        tooltip,
+        disabled: !isBlockCardLinkSupportedInParent,
+        tooltip: isBlockCardLinkSupportedInParent
+          ? undefined
+          : getUnavailableMessage(editorState, intl),
       },
     ];
 
@@ -169,7 +180,7 @@ export class LinkToolbarAppearance extends React.Component<
   }
 }
 
-const parentNodeName = (state: EditorState, intl: IntlShape): string => {
+const getUnavailableMessage = (state: EditorState, intl: IntlShape): string => {
   try {
     const parentNode = state.selection.$from.node(1);
     const parentName = intl.formatMessage(

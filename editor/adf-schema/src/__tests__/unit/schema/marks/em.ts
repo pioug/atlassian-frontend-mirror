@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import {
   fromHTML,
@@ -6,7 +5,9 @@ import {
   textWithMarks,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema em mark`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema em mark`, () => {
   itMatches('<em>text</em>', 'text');
   itMatches('<i>text</i>', 'text');
   itMatches('<span style="font-style: italic">text</span>', 'text');

@@ -132,6 +132,7 @@ describe('Left sidebar', () => {
           <Content>
             <LeftSidebar
               testId="left-sidebar"
+              // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
               overrides={{
                 ResizeButton: {
                   render: (Component, props) => (

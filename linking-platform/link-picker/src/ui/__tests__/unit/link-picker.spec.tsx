@@ -47,6 +47,7 @@ describe('<LinkPicker />', () => {
   const setupLinkPicker = ({ url = '', plugins }: SetupArgumentObject = {}) => {
     const onSubmitMock: LinkPickerProps['onSubmit'] = jest.fn();
     const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
+    const onContentResize: LinkPickerProps['onContentResize'] = jest.fn();
 
     render(
       <LinkPicker
@@ -54,12 +55,14 @@ describe('<LinkPicker />', () => {
         onSubmit={onSubmitMock}
         plugins={plugins ?? []}
         onCancel={onCancelMock}
+        onContentResize={onContentResize}
       />,
     );
 
     return {
       onSubmitMock,
       onCancelMock,
+      onContentResize,
       testIds,
     };
   };
@@ -254,13 +257,14 @@ describe('<LinkPicker />', () => {
       ]);
       const resolve = jest.spyOn(plugin, 'resolve');
 
-      const { testIds, onSubmitMock } = setupLinkPicker({
+      const { testIds, onSubmitMock, onContentResize } = setupLinkPicker({
         plugins: [plugin],
         ...rest,
       });
 
       return {
         onSubmitMock,
+        onContentResize,
         testIds,
         plugin,
         resolve,
@@ -311,6 +315,73 @@ describe('<LinkPicker />', () => {
           inputMethod: 'manual',
         },
         rawUrl: 'www.atlassian.com',
+      });
+    });
+
+    describe('onContentResize', () => {
+      /**
+       * Two calls to onContentResize are expected on setup,
+       * one for the initial load and one for the isLoading state change
+       */
+      it('should call callback when picker is loaded', async () => {
+        const { onContentResize } = setupLinkPickerWithGenericPlugin();
+        expect(onContentResize).toHaveBeenCalledTimes(2);
+      });
+
+      it('should call callback when user inputs a url', async () => {
+        const { onContentResize } = setupLinkPickerWithGenericPlugin();
+
+        await userEvent.type(
+          screen.getByTestId(testIds.urlInputField),
+          'www.atlassian.com',
+        );
+        expect(onContentResize).toHaveBeenCalledTimes(3);
+      });
+
+      it('should call callback when results are loaded', async () => {
+        const {
+          onContentResize,
+          resolve,
+          plugin,
+        } = setupLinkPickerWithGenericPlugin({
+          url: 'xyz',
+        });
+        expect(onContentResize).toHaveBeenCalledTimes(2);
+
+        expect(resolve).toHaveBeenCalledTimes(1);
+
+        await asyncAct(() => plugin.promises[0]);
+        await asyncAct(() => plugin.promises[1]);
+
+        expect(onContentResize).toHaveBeenCalledTimes(4);
+      });
+
+      it('should call callback when tabs are changed', async () => {
+        const promise1 = Promise.resolve(mockedPluginData.slice(0, 1));
+        const plugin1 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab1',
+          tabTitle: 'tab1',
+          promise: promise1,
+        });
+
+        const promise2 = Promise.resolve(mockedPluginData.slice(1, 2));
+        const plugin2 = new MockLinkPickerPromisePlugin({
+          tabKey: 'tab2',
+          tabTitle: 'tab2',
+          promise: promise2,
+        });
+
+        const { onContentResize, testIds } = setupLinkPickerWithGenericPlugin({
+          plugins: [plugin1, plugin2],
+        });
+
+        expect(onContentResize).toHaveBeenCalledTimes(2);
+
+        act(() => {
+          userEvent.click(screen.getAllByTestId(testIds.tabItem)[1]);
+        });
+
+        expect(onContentResize).toHaveBeenCalledTimes(3);
       });
     });
 

@@ -6,11 +6,13 @@ import { css, jsx } from '@emotion/core';
 import { CONTENT } from '../../common/constants';
 
 interface ContentProps {
-  /** React children! */
+  /**
+   * React children
+   */
   children: ReactNode;
   /**
    * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-   **/
+   */
   testId?: string;
 }
 
@@ -21,6 +23,14 @@ const contentStyles = css({
   gridArea: CONTENT,
 });
 
+/**
+ * __Content__
+ *
+ * Provides a slot for your application content within the PageLayout.
+ *
+ * - [Examples](https://atlassian.design/components/page-layout/examples)
+ * - [Code](https://atlassian.design/components/page-layout/code)
+ */
 const Content = (props: ContentProps) => {
   const { children, testId } = props;
 

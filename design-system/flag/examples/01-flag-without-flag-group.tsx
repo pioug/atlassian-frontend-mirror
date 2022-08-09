@@ -1,5 +1,6 @@
 import React from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -9,8 +10,8 @@ import Flag from '../src';
 export default () => (
   <Flag
     actions={[
-      { content: 'Show me', onClick: () => {} },
-      { content: 'No thanks', onClick: () => {} },
+      { content: 'Show me', onClick: noop },
+      { content: 'No thanks', onClick: noop },
     ]}
     icon={
       <SuccessIcon

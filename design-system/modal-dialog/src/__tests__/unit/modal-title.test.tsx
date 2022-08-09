@@ -39,7 +39,9 @@ describe('<ModalTitle />', () => {
       return (
         <div>
           <h4 id={titleId}>{title}</h4>
-          <button onClick={noop}>Close</button>
+          <button onClick={noop} type="button">
+            Close
+          </button>
         </div>
       );
     };

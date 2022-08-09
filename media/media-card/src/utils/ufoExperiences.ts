@@ -73,7 +73,7 @@ export const completeUfoExperience = (
   fileAttributes: FileAttributes,
   fileStateFlags: FileStateFlags,
   ssrReliability: SSRStatus,
-  error?: MediaCardError,
+  error: MediaCardError = new MediaCardError('missing-error-data'),
 ) => {
   switch (status) {
     case 'complete':
@@ -92,14 +92,13 @@ export const completeUfoExperience = (
       });
       break;
     case 'error':
-      error &&
-        failUfoExperience(id, {
-          fileAttributes,
-          ...extractErrorInfo(error),
-          request: getRenderErrorRequestMetadata(error),
-          ssrReliability,
-          fileStateFlags,
-        });
+      failUfoExperience(id, {
+        fileAttributes,
+        ...extractErrorInfo(error),
+        request: getRenderErrorRequestMetadata(error),
+        ssrReliability,
+        fileStateFlags,
+      });
       break;
   }
 };

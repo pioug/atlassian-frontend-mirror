@@ -43,3 +43,43 @@ describe('ColorPalette', () => {
     ).toBe(0);
   });
 });
+
+describe('ColorPalette keyboard navigation', () => {
+  it('should select next color on tab', () => {
+    const onClick = jest.fn();
+    const component = mountWithIntl(
+      <ColorPalette onClick={onClick} selectedColor={'neutral'} />,
+    );
+
+    // Simulate pressing of TAB key. Colors order defined internally in color-palette.tsx
+    component.find('div').simulate('keydown', { keyCode: 9 });
+    expect(onClick).toHaveBeenCalledWith('purple');
+  });
+
+  it('should select first color on tab at last color', () => {
+    const onClick = jest.fn();
+    const component = mountWithIntl(
+      <ColorPalette onClick={onClick} selectedColor={'green'} />,
+    );
+    component.find('div').simulate('keydown', { keyCode: 9 });
+    expect(onClick).toHaveBeenCalledWith('neutral');
+  });
+
+  it('should select previous color on shift-tab', () => {
+    const onClick = jest.fn();
+    const component = mountWithIntl(
+      <ColorPalette onClick={onClick} selectedColor={'purple'} />,
+    );
+    component.find('div').simulate('keydown', { keyCode: 9, shiftKey: true });
+    expect(onClick).toHaveBeenCalledWith('neutral');
+  });
+
+  it('should select last color on shift-tab at first color', () => {
+    const onClick = jest.fn();
+    const component = mountWithIntl(
+      <ColorPalette onClick={onClick} selectedColor={'neutral'} />,
+    );
+    component.find('div').simulate('keydown', { keyCode: 9, shiftKey: true });
+    expect(onClick).toHaveBeenCalledWith('green');
+  });
+});

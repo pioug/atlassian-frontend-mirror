@@ -314,10 +314,7 @@ export const allCountries: Array<Country> = [
 ];
 
 // separate countries into groups
-export const groupedCountries: Array<{
-  label: string;
-  options: Array<Country>;
-}> = [
+export const groupedCountries = [
   {
     label: 'Suggested',
     options: allCountries.filter((c) => c.suggested),
@@ -326,4 +323,4 @@ export const groupedCountries: Array<{
     label: 'All Countries',
     options: allCountries.filter((c) => !c.suggested),
   },
-];
+] as const;

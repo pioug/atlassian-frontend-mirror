@@ -1,10 +1,16 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import React, { useCallback } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
-import { loadLinkStyles } from './styled';
+
+const loadLinkStyles = css`
+  align-content: stretch;
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+`;
 
 const pattern = new RegExp(
   '^(https?:\\/\\/)?' + // protocol

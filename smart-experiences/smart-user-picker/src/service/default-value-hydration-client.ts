@@ -7,7 +7,7 @@ import {
   Team,
 } from '@atlaskit/user-picker';
 
-import { getConfig } from '../config';
+import { config } from '../config';
 import getHydratedUsersFromPrs from './users-client';
 import hydrateTeamFromLegion from './teams-client';
 import { UNKNOWN } from './constants';
@@ -56,7 +56,7 @@ interface ConfluenceUserItem {
 const getHydratedUsersFromProducts = (
   request: UsersRequest,
 ): Promise<User[]> => {
-  const url = `${getConfig().getUsersServiceUrl(
+  const url = `${config.getUsersServiceUrl(
     request.productKey,
     request.baseUrl,
   )}`;

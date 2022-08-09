@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 47.0.1
+
+### Patch Changes
+
+- [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
+- Updated dependencies
+
 ## 47.0.0
 
 ### Major Changes

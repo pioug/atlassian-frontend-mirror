@@ -1,5 +1,12 @@
 # @atlaskit/status
 
+## 1.1.4
+
+### Patch Changes
+
+- [`721bc4d7794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/721bc4d7794) - ED-14377 To remove the imports of version.json which is deprecated
+- [`b3fedfabde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3fedfabde4) - Changing status colors with tab and shfit-tab
+
 ## 1.1.3
 
 ### Patch Changes

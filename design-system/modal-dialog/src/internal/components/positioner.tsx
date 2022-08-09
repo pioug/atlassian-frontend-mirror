@@ -56,9 +56,11 @@ const stackTransitionStyles = css({
   transitionProperty: 'transform',
   transitionTimingFunction: easeInOut,
 
-  /** Duplicated from @atlaskit/motion/accessibility
+  /**
+   * Duplicated from @atlaskit/motion/accessibility
    * because @repo/internal/styles/consistent-style-ordering
-   * doesn't work well with object spreading. */
+   * doesn't work well with object spreading.
+   */
   '@media (prefers-reduced-motion: reduce)': {
     animation: 'none',
     transition: 'none',
@@ -106,4 +108,5 @@ const Positioner = (props: PositionerProps) => {
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Positioner;

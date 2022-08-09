@@ -9,7 +9,11 @@ import {
 
 import { emojiSprite, placeholder, emojiNodeStyles } from '../common/styles';
 
-import { emojiPickerHeight, emojiPickerWidth } from '../../util/constants';
+import {
+  emojiPickerHeight,
+  emojiPickerHeightWithPreview,
+  emojiPickerWidth,
+} from '../../util/constants';
 import {
   B200,
   B300,
@@ -23,19 +27,23 @@ import {
 
 // Level 1 - picker
 
-export const emojiPicker = css({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  background: token('elevation.surface.overlay', 'white'),
-  border: `${emojiPickerBorderColor} 1px solid`,
-  borderRadius: `${borderRadius()}px`,
-  boxShadow: emojiPickerBoxShadow,
-  height: `${emojiPickerHeight}px`,
-  width: `${emojiPickerWidth}px`,
-  marginBottom: '8px',
-  minWidth: `${emojiPickerWidth}px`,
-});
+export const emojiPicker = (hasPreview?: boolean) => {
+  return css({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    background: token('elevation.surface.overlay', 'white'),
+    border: `${emojiPickerBorderColor} 1px solid`,
+    borderRadius: `${borderRadius()}px`,
+    boxShadow: emojiPickerBoxShadow,
+    height: `${
+      hasPreview ? emojiPickerHeightWithPreview : emojiPickerHeight
+    }px`,
+    width: `${emojiPickerWidth}px`,
+    marginBottom: '8px',
+    minWidth: `${emojiPickerWidth}px`,
+  });
+};
 
 // Level 2
 

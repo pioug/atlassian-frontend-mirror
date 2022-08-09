@@ -33,6 +33,16 @@ const fillScreenStyles = css({
   WebkitOverflowScrolling: 'touch',
 });
 
+/**
+ * __Modal wrapper__
+ *
+ * A modal wrapper displays content that requires user interaction, in a layer above the page.
+ * This component is primary container for other modal components.
+ *
+ * - [Examples](https://atlassian.design/components/modal-dialog/examples)
+ * - [Code](https://atlassian.design/components/modal-dialog/code)
+ * - [Usage](https://atlassian.design/components/modal-dialog/usage)
+ */
 const ModalWrapper = (props: ModalDialogProps) => {
   const {
     autoFocus = true,
@@ -43,8 +53,12 @@ const ModalWrapper = (props: ModalDialogProps) => {
     onClose = noop,
     onStackChange = noop,
     isBlanketHidden,
+    children,
+    height,
+    width,
+    onCloseComplete,
+    onOpenComplete,
     testId,
-    ...modalDialogProps
   } = props;
 
   const calculatedStackIndex = useModalStack({ onStackChange });
@@ -90,8 +104,13 @@ const ModalWrapper = (props: ModalDialogProps) => {
         stackIndex={stackIndex}
         onClose={onCloseHandler}
         shouldScrollInViewport={shouldScrollInViewport}
-        {...modalDialogProps}
-      />
+        height={height}
+        width={width}
+        onCloseComplete={onCloseComplete}
+        onOpenComplete={onOpenComplete}
+      >
+        {children}
+      </ModalDialog>
     </Blanket>
   );
 
@@ -109,15 +128,9 @@ const ModalWrapper = (props: ModalDialogProps) => {
               disabled={!isForeground}
               returnFocus
             >
-              {/**
-               * Ensures scroll events are blocked on the document body and locked
-               * on the modal dialog.
-               */}
+              {/* Ensures scroll events are blocked on the document body and locked */}
               <ScrollLock />
-              {/**
-               * TouchScrollable makes the whole modal dialog scrollable when
-               * scroll boundary is set to viewport.
-               */}
+              {/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
               {shouldScrollInViewport ? (
                 <TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
               ) : (

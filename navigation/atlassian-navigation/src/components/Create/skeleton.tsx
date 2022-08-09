@@ -24,6 +24,8 @@ const mobileStyles = css({
   },
 });
 
+// Not exported to consumers, only used in NavigationSkeleton
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const CreateSkeleton = () => {
   const theme = useTheme();
   return (

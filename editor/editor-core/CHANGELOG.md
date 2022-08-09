@@ -1,5 +1,89 @@
 # @atlaskit/editor-core
 
+## 172.0.0
+
+### Major Changes
+
+- [`c72a6787b9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c72a6787b9d) - BREAKING: Removes optional `cardOptions` parameter for the `FloatingToolbarHandler` type.
+
+  Adds support for using `@atlaskit/link-picker` as the link picking user interface.
+
+  The link picker requires configuration via the `linking` prop in order to enable link search and suggestions capabilities.
+
+  The new link picking UI can be opted in by enabling the `lp-link-picker` feature flag.
+
+  In addition, `smartLinks` is now also configurable via the `linking` prop.
+
+  Example Usage:
+
+  ```tsx
+  import { AtlassianLinkPickerPlugin } from '@atlassian/link-picker-atlassian-plugin';
+
+  <Editor
+    linking={{
+      smartLinks: { ... },
+      linkPicker: {
+        plugins: [new AtlassianLinkPickerPlugin({ ... })]
+      }
+    }}
+    featureFlags={{
+      'lp-link-picker': true
+    }}
+    />
+  ```
+
+  See [Link Picker docs on Atlaskit](https://atlaskit.atlassian.com/packages/linking-platform/link-picker) for more information on how to configure the link picker.
+
+- [`080e2269f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/080e2269f18) - ED-14838: Completely remove allowDynamicTextSizing prop references and deprecation warnings from editor and renderer
+- [`3cc03bb97e3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3cc03bb97e3) - replace @atlaskit/smart-card peer dependency with @atlaskit/link-provider
+
+### Minor Changes
+
+- [`83e8b89dfc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83e8b89dfc0) - [ux] ED-15098 added floating toolbar copy button to card
+- [`559bc4c2996`](https://bitbucket.org/atlassian/atlassian-frontend/commits/559bc4c2996) - [ux] ED-15100 add floating toolbar copy button to extension
+- [`6433d875811`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6433d875811) - [ux] ED-15101 add floating toolbar copy button to media file cards
+- [`92207ab17aa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/92207ab17aa) - Added analytics to floating toolbar copy button
+- [`2affe8adcfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2affe8adcfa) - ED-14510: Generic feature flag to disable spellcheck via browser and version
+- [`5020781d90a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5020781d90a) - [ux] ED-15099 added floatng toolbar copy button to Expand
+- [`8c3844a3d0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c3844a3d0c) - [ux] Refactored DropDown to remove dependency to deprecated package @alaskit/droplist
+- [`6ef6f24577e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ef6f24577e) - [ux] ED-15010 added floating toolbar copy button to media
+- [`995991c4b11`](https://bitbucket.org/atlassian/atlassian-frontend/commits/995991c4b11) - [ux] ED-15108 added floating toolbar copy button to Layout
+- [`aa0ef1b96e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa0ef1b96e2) - Passing theme context to editor data portals
+- [`1847f358354`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1847f358354) - [ux] ED-15067 Enables indent and outdent buttons for allowed nodes when indentationButtonsInTheToolbar feature flag is true.
+- [`653778721dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/653778721dc) - ED-15099 fixed floating toolbar copy button not working for nested Expand (Expand inside a table)
+- [`6da96104699`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6da96104699) - [ux][ed-15095] Adds visual feedback to what will be copied when using the code blocks toolbar copy button.
+- [`9df1b8dc62e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9df1b8dc62e) - [ux] ED-15133 Update Extension component to use the editor default text size. Prior to this, text inside of extensions was 2px smaller than the rest of the document.
+- [`ac105d01a9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac105d01a9a) - [ux] ED-15096 add floating toolbar copy button to hyperlink
+- [`4c921ea986d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c921ea986d) - [ME-2375] Fix the duplicated `@` symbol when mention is after an inline content
+- [`6ec84e8dd3f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ec84e8dd3f) - [ux] ED-15098 add floating toolbar copy button to Card
+
+### Patch Changes
+
+- [`330619e1611`](https://bitbucket.org/atlassian/atlassian-frontend/commits/330619e1611) - [ux] Fix focus when a user clicks the editor container when editor is rendered inside a modal
+- [`89757fc6ad2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89757fc6ad2) - ED-14959 Remove handler code that prevents the native find toolbar from appearing
+- [`d989ae10078`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d989ae10078) - ED-15134 - Pasting unsupported markdown will result in paste as plain text action
+- [`2eb44cace7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eb44cace7f) - [ED-15095] fix visual indicator of selection to be copied when hovering/focusing on the code block copy button
+- [`2475c367647`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2475c367647) - ED-14860 remove code-block-syntax highlighting
+- [`721bc4d7794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/721bc4d7794) - ED-14377 To remove the imports of version.json which is deprecated
+- [`575b4888124`](https://bitbucket.org/atlassian/atlassian-frontend/commits/575b4888124) - Removed internal test/demo usages of setSmartUserPickerEnv
+- [`7389a63560c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7389a63560c) - ED-14510-test added more unit test and an error handler when parsing JSON string.
+- [`cc39f3ee3b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc39f3ee3b8) - [ux] ED-15067 Enables indentation buttons for paragraphs and headings inside of layout columns. Note that the buttons are disabled by default and behind indentationButtonsInTheToolbar feature flag.
+- [`16fa5a45e7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16fa5a45e7a) - [EDM-3364] Remove @atlaskit/smart-card peer dependency which was accidentally put back during a conflict resolution. It should no longer be in the peer dependencies of editor-core or renderer packages as it has been replaced by @atlaskit/link-provider
+- [`6f23f0982e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f23f0982e8) - [ED-15036] Remove custom scrollbar styles from Element Browser
+- [`46a69f32845`](https://bitbucket.org/atlassian/atlassian-frontend/commits/46a69f32845) - remove unused code from editor-core
+- [`b09e4b69ec0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b09e4b69ec0) - [ux] ED-15212: Fix pasting single list items into actions and decisions by ensuring the list content is added to the action or decision rather than pasted after it
+- [`05c057b6252`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05c057b6252) - [ux] ED-15307 Fixes issues where the table cell options actions would not work on firefox, and visual indicators added to the table on hover of the actions would not consistently be cleared.
+- [`f33714afb1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f33714afb1c) - ED-15310 Prevents indentation buttons on paragraphs and headings nested in blocks in layouts.
+- [`de16b09b138`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de16b09b138) - ED-15071 Added toolbar input type to list, paragraph and heading, action list indent and outdent functions for analytics. Added a check for indentationAllowed in toolbar-lists-indentation plugin to disable the buttons for paragrpahs and headings if it is false.
+- [`1b1af645388`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b1af645388) - [ux] ED-15250 Disables indentation button for lists that are already at max indentation level.
+- [`6cbd22a9318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cbd22a9318) - ED-15179 bumped markdown-it dependency to prevent vulnerability issue
+- [`f44a3db7605`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f44a3db7605) - [ux] ED-15255 Fixes indentation buttons inside layout columns.
+- [`b10472a1e57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b10472a1e57) - ED-14471 remove codeBidiWarnings feature flag
+- [`09df2919a7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09df2919a7f) - [ux][ed-15176] disabled embedCardLinks in unsupported parent nodes
+- [`16982c2890e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16982c2890e) - [ux] ED-15112 - Bugfix on the issue when copying text from a panel and pasting it into a list, which creates another panel underneath the list. Instead, this bugfix is now just pasting the text inside the list.
+- [`04db970c32b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04db970c32b) - ED-14899 add attribute to render measurements and rework analytics events to prevent measurements done in background to resulting in misleading render durations.
+- Updated dependencies
+
 ## 171.0.1
 
 ### Patch Changes

@@ -7,6 +7,8 @@ import {
   RenderResult,
 } from '@testing-library/react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import Tabs, { Tab, TabList, TabPanel, useTab } from '../../index';
 import { TabContext } from '../../internal/context';
 
@@ -17,13 +19,11 @@ const CustomTab = ({ label }: { label: string }) => {
 
   // In this example custom tab we have added an onFocus call
   return (
-    <span {...tabAttributes} onFocus={() => {}}>
+    <span {...tabAttributes} onFocus={noop}>
       {label}
     </span>
   );
 };
-
-const noop = () => {};
 
 describe('@atlaskit/tabs', () => {
   describe('tab', () => {

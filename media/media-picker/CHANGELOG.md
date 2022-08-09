@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 63.0.3
+
+### Patch Changes
+
+- [`a332288b5ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a332288b5ea) - Added analytics for media-card memoryCacheLogging and added relevant featureFlag keys for media-common package.
+- Updated dependencies
+
 ## 63.0.2
 
 ### Patch Changes

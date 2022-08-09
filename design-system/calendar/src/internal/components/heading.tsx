@@ -32,7 +32,7 @@ const getMonthAndYearStyles = (mode: ThemeModes = 'light') =>
 const arrowLeftStyles = css({ marginLeft: 8 });
 const arrowRightStyles = css({ marginRight: 8 });
 
-interface Props {
+interface HeadingProps {
   monthLongTitle: string;
   year: number;
   previousMonthLabel?: string;
@@ -43,7 +43,7 @@ interface Props {
   testId?: string;
 }
 
-const Heading = memo<Props>(function Heading({
+const Heading = memo<HeadingProps>(function Heading({
   monthLongTitle,
   year,
   previousMonthLabel = 'Last month',
@@ -101,4 +101,5 @@ const Heading = memo<Props>(function Heading({
 
 Heading.displayName = 'Heading';
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Heading;

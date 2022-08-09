@@ -9,6 +9,15 @@ import ButtonItem from './button-item';
 
 export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
 
+/**
+ * __Go back item__
+ *
+ * A go back item is used to provide a customized "go back" button in nested
+ * navigations.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#go-back-item)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
   (
     {
@@ -40,6 +49,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
     return (
       <ButtonItem
         isSelected={isSelected || isInteracted}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         cssFn={cssFn}
         iconBefore={iconBefore}
         onClick={onClickHandler}

@@ -16,11 +16,11 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { HyperlinkState, InsertStatus, stateKey } from '../../pm-plugins/main';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CardOptions } from '@atlaskit/editor-common/card';
 import analyticsPlugin from '../../../analytics';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import blockTypePlugin from '../../../block-type';
+import { HyperlinkPluginOptions } from '../../types';
 
 describe('hyperlink - keymap with no card provider', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -347,11 +347,13 @@ describe('hyperlink - keymap with card provider', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
-  const mockCardOptions: CardOptions = {
-    provider: Promise.resolve({
-      resolve: 'TEST_VALUE' as any,
-      findPattern: 'yeet' as any,
-    }),
+  const mockHyperlinkOptions: HyperlinkPluginOptions = {
+    cardOptions: {
+      provider: Promise.resolve({
+        resolve: 'TEST_VALUE' as any,
+        findPattern: 'yeet' as any,
+      }),
+    },
   };
   const editor = (
     doc: DocBuilder,
@@ -362,7 +364,7 @@ describe('hyperlink - keymap with card provider', () => {
       doc,
       preset: preset
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([hyperlinkPlugin, mockCardOptions])
+        .add([hyperlinkPlugin, mockHyperlinkOptions])
         .add(blockTypePlugin)
         .add(textFormattingPlugin),
     });

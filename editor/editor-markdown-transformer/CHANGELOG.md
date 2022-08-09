@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 4.2.12
+
+### Patch Changes
+
+- [`6cbd22a9318`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cbd22a9318) - ED-15179 bumped markdown-it dependency to prevent vulnerability issue
+- Updated dependencies
+
 ## 4.2.11
 
 ### Patch Changes

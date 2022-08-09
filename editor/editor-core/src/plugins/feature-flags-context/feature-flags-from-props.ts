@@ -1,16 +1,35 @@
 import { EditorProps } from '../../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import type { FeatureFlags } from '../../types/feature-flags';
-import { browser } from '@atlaskit/editor-common/utils';
+import { DisableSpellcheckByBrowser } from '../../types/browser';
 
-const safeNumberFeatureFlag = (value: unknown): number | undefined => {
-  const parsedValue = parseInt(value as any, 10);
-  return !isNaN(parsedValue) &&
-    Number.isInteger(parsedValue) &&
-    Number.isSafeInteger(parsedValue)
-    ? parsedValue
-    : undefined;
-};
+function verifyJSON(json: string) {
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    return undefined;
+  }
+}
+
+function getSpellCheck(featureFlags: {
+  [featureFlag: string]: string | boolean;
+}): DisableSpellcheckByBrowser | undefined {
+  if (!!featureFlags?.['disableSpellcheckByBrowser']) {
+    return typeof featureFlags?.['disableSpellcheckByBrowser'] === 'object'
+      ? featureFlags?.['disableSpellcheckByBrowser']
+      : typeof featureFlags?.['disableSpellcheckByBrowser'] === 'string'
+      ? verifyJSON(featureFlags?.['disableSpellcheckByBrowser'])
+      : undefined;
+  }
+  if (!!featureFlags?.['disable-spellcheck-by-browser']) {
+    return typeof featureFlags?.['disable-spellcheck-by-browser'] === 'object'
+      ? featureFlags?.['disable-spellcheck-by-browser']
+      : typeof featureFlags?.['disable-spellcheck-by-browser'] === 'string'
+      ? verifyJSON(featureFlags?.['disable-spellcheck-by-browser'])
+      : undefined;
+  }
+  return undefined;
+}
 
 /**
  * Transforms EditorProps to an FeatureFlags object,
@@ -149,22 +168,10 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         ? !!props.featureFlags?.ufo
         : false,
     ),
-    codeBlockSyntaxHighlighting: Boolean(
-      typeof normalizedFeatureFlags.codeBlockSyntaxHighlighting === 'boolean'
-        ? !!normalizedFeatureFlags.codeBlockSyntaxHighlighting &&
-            !browser.safari
-        : false,
-    ),
     twoLineEditorToolbar: Boolean(
       typeof props.featureFlags?.twoLineEditorToolbar === 'boolean'
         ? !!props.featureFlags?.twoLineEditorToolbar
         : false,
-    ),
-
-    codeBidiWarnings: Boolean(
-      typeof props.featureFlags?.codeBidiWarnings === 'boolean'
-        ? !!props.featureFlags?.codeBidiWarnings
-        : true,
     ),
 
     saferDispatchedTransactions: Boolean(
@@ -174,10 +181,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         (typeof props.featureFlags?.saferDispatchedTransactions === 'boolean'
           ? !!props.featureFlags?.saferDispatchedTransactions
           : false),
-    ),
-
-    maxUnsafeChromeSpellcheckingVersion: safeNumberFeatureFlag(
-      props.featureFlags?.maxUnsafeChromeSpellcheckingVersion,
     ),
 
     useNativeCollabPlugin: Boolean(
@@ -205,16 +208,22 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     ),
 
     indentationButtonsInTheToolbar: Boolean(
-      typeof props.featureFlags?.['indentation-buttons-in-the-toolbar'] ===
-        'boolean'
-        ? !!props.featureFlags?.['indentation-buttons-in-the-toolbar']
-        : false,
+      (typeof normalizedFeatureFlags.indentationButtonsInTheToolbar ===
+        'boolean' &&
+        !!normalizedFeatureFlags.indentationButtonsInTheToolbar) ||
+        (typeof props.featureFlags?.indentationButtonsInTheToolbar === 'boolean'
+          ? !!props.featureFlags?.indentationButtonsInTheToolbar
+          : false),
     ),
 
     floatingToolbarCopyButton: Boolean(
-      typeof props.featureFlags?.floatingToolbarCopyButton === 'boolean'
-        ? !!props.featureFlags?.floatingToolbarCopyButton
-        : false,
+      (typeof normalizedFeatureFlags.floatingToolbarCopyButton === 'boolean' &&
+        !!normalizedFeatureFlags.floatingToolbarCopyButton) ||
+        (typeof props.featureFlags?.floatingToolbarCopyButton === 'boolean'
+          ? !!props.featureFlags?.floatingToolbarCopyButton
+          : false),
     ),
+
+    disableSpellcheckByBrowser: getSpellCheck(props.featureFlags!),
   };
 }

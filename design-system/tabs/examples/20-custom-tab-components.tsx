@@ -7,7 +7,9 @@ import Tabs, { Tab, TabList, TabPanel, useTab } from '../src';
 
 import { Panel } from './shared';
 
-/** This custom component wraps a tooltip around the tab item */
+/**
+ * This custom component wraps a tooltip around the tab item
+ */
 const TooltipTab = ({ label, tooltip }: { label: string; tooltip: string }) => (
   <Tooltip content={tooltip}>
     <Tab>{label}</Tab>
@@ -20,7 +22,9 @@ const lintTabStyles = css({
     textDecoration: 'none',
   },
 });
-/** This custom component makes the tab items function like regular links */
+/**
+ * This custom component makes the tab items function like regular links
+ */
 const LinkTab = ({ label, href }: { label: string; href: string }) => {
   // We also remove the onKeyDown handler and tabIndex attribute
   // from elementProps to opt out of default keyboard navigation

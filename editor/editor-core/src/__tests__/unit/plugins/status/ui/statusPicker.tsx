@@ -4,6 +4,9 @@ import { FABRIC_CHANNEL } from '../../../../../plugins/status/analytics';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
+
 describe('StatusPicker', () => {
   const closeStatusPicker = jest.fn();
   const createAnalyticsEvent = jest.fn();
@@ -61,8 +64,8 @@ describe('StatusPicker', () => {
     attributes: expect.objectContaining({
       componentName: 'status',
       localId,
-      packageName: '@atlaskit/editor-core',
-      packageVersion: expect.any(String),
+      packageName: packageName,
+      packageVersion: packageVersion,
       selectedColor,
       textLength,
       state,
@@ -83,8 +86,8 @@ describe('StatusPicker', () => {
       duration: expect.any(Number),
       inputMethod: 'blur',
       localId,
-      packageName: '@atlaskit/editor-core',
-      packageVersion: expect.any(String),
+      packageName: packageName,
+      packageVersion: packageVersion,
       selectedColor,
       state,
       textLength,

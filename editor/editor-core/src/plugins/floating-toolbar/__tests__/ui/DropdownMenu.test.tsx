@@ -1,8 +1,7 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item from '@atlaskit/item';
+import { ButtonItem } from '@atlaskit/menu';
 import DropdownMenu from '../../ui/DropdownMenu';
 import { DropdownOptionT } from '../../ui/types';
 
@@ -28,12 +27,12 @@ describe('<DropdownMenu />', () => {
       />,
     );
 
-    expect(dropdownMenu.find(Item)).toHaveLength(2);
+    expect(dropdownMenu.find(ButtonItem)).toHaveLength(2);
     expect(dropdownMenu.find(Tooltip)).toHaveLength(1);
     expect(dropdownMenu.find(Tooltip).prop('content')).toEqual('tooltip text');
-    expect(dropdownMenu.find(Tooltip).find(Item)).toHaveLength(1);
-    expect(dropdownMenu.find(Tooltip).find(Item).prop('children')).toEqual(
-      'item with tooltip',
-    );
+    expect(dropdownMenu.find(Tooltip).find(ButtonItem)).toHaveLength(1);
+    expect(
+      dropdownMenu.find(Tooltip).find(ButtonItem).prop('children'),
+    ).toEqual('item with tooltip');
   });
 });

@@ -53,7 +53,6 @@ export interface Props {
 
   /**
    * Automatically show the emoji as selected based on mouse hover.
-   *
    * CSS, fast, does not require a re-render, but selected state not
    * externally controlled via props.
    */

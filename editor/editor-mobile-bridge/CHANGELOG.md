@@ -1,5 +1,14 @@
 # @atlaskit/editor-mobile-bridge
 
+## 34.4.14
+
+### Patch Changes
+
+- [`721bc4d7794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/721bc4d7794) - ED-14377 To remove the imports of version.json which is deprecated
+- [`6317ceaac4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6317ceaac4b) - use @atlaskit/link-picker
+- [`04db970c32b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04db970c32b) - ED-14899 add attribute to render measurements and rework analytics events to prevent measurements done in background to resulting in misleading render durations.
+- Updated dependencies
+
 ## 34.4.13
 
 ### Patch Changes

@@ -1,10 +1,10 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
 const schema = makeSchema();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema paragraph node`, () => {
+describe(`${packageName}/schema paragraph node`, () => {
   it('serializes to <p>', () => {
     const html = toHTML(schema.nodes.paragraph.create(), schema);
     expect(html).toContain('<p>');

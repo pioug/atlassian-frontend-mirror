@@ -14,6 +14,7 @@ const additions: CSSObject = {
 const OurButton = (props: CustomThemeButtonProps) => (
   <CustomThemeButton
     testId="button"
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
     theme={(current, themeProps) => {
       const { buttonStyles, spinnerStyles } = current(themeProps);
       return {
@@ -24,6 +25,7 @@ const OurButton = (props: CustomThemeButtonProps) => (
         spinnerStyles: spinnerStyles,
       };
     }}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
   />
 );

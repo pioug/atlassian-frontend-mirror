@@ -1,3 +1,5 @@
+import type { ProductInformation } from '../types';
+
 export const createLogger = (prefix: string, color: string = 'blue') => (
   msg: string,
   data: any = null,
@@ -29,3 +31,9 @@ export function sleep(ms: number) {
     setTimeout(resolve, ms);
   });
 }
+
+export const getProduct = (productInfo?: ProductInformation): string =>
+  productInfo?.product ?? 'unknown';
+
+export const getSubProduct = (productInfo?: ProductInformation): string =>
+  productInfo?.subProduct ?? (!!productInfo?.product ? 'none' : 'unknown');

@@ -115,6 +115,17 @@ const siteTitleStyles = css({
   alignItems: 'center',
 });
 
+/**
+ * __Product home__
+ *
+ * The ProductHome component displays the product visual identity composed of:
+ * logo, icon, and optional text. Values for logo and icon are never displayed
+ * at the same time, where icon is used only when space is restricted. Should be
+ * passed into `AtlassianNavigation`'s `renderProductHome` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#product-home)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 const ProductHome = ({
   icon: Icon,
   logo: Logo,
@@ -167,6 +178,7 @@ const ProductHome = ({
         onClick={onClick}
         onMouseDown={preventFocusRing}
         data-testid={testId && `${testId}-container`}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...rest}
       >
         <div

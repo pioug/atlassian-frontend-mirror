@@ -32,6 +32,7 @@ const InteractiveFooter: React.FC<CustomItemComponentProps> = ({
   ...props
 }) => {
   return (
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     <a href="#" {...props}>
       {children}
     </a>
@@ -101,7 +102,7 @@ const LoadingSkeleton = () => {
   useEffect(() => reset(false), []);
 
   return (
-    <AppFrame hideAppBar>
+    <AppFrame shouldHideAppBar>
       <SideNavigation key={key} label="project" testId="side-navigation">
         <NavigationHeader>
           <SampleHeader />

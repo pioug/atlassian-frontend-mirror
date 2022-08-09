@@ -16,11 +16,11 @@ import {
   createReactionSelectionEvent,
   createReactionsRenderedEvent,
 } from '../analytics';
-import { OnEmoji, OnReaction, ReactionSource } from '../types';
+import { ReactionSource } from '../types';
 import { ReactionStatus } from '../types/ReactionStatus';
 import { ReactionSummary } from '../types/ReactionSummary';
 import { messages } from './i18n';
-import { Reaction } from './Reaction';
+import { Reaction, OnReactionClick } from './Reaction';
 import { ReactionPicker } from './ReactionPicker';
 
 const reactionStyle = css({
@@ -41,27 +41,60 @@ const wrapperStyle = css({
 });
 
 export interface StateMapperProps {
+  /**
+   * List of reactions to render
+   */
   reactions: ReactionSummary[];
+  /**
+   * Condition for the reaction list status while been fetched
+   */
   status: ReactionStatus;
+  /**
+   * Optional emoji reactions list to show custom animation or render as standard (key => emoji string "id", value => true/false to show custom animation)
+   */
   flash?: {
     [emojiId: string]: boolean;
   };
 }
 
-export interface Props extends StateMapperProps {
+export interface ReactionsProps extends StateMapperProps {
+  /**
+   * event handler to fetching the reactions
+   */
   loadReaction: () => void;
-  onSelection: OnEmoji;
-
-  onReactionClick: OnEmoji;
-  onReactionHover?: OnReaction;
+  /**
+   * Event callback when an emoji button is selected
+   */
+  onSelection: (emojiId: string) => void;
+  /**
+   * event handler when the emoji button is clicked
+   */
+  onReactionClick: OnReactionClick;
+  /**
+   * Optional event when the mouse cursor hovers over the reaction
+   * @param emojiId hovered reaction emoji id
+   */
+  onReactionHover?: (emojiId: string) => void;
+  /**
+   * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
+   */
   allowAllEmojis?: boolean;
+  /**
+   * @deprecated Not been used anymore
+   */
   boundariesElement?: string;
+  /**
+   * Optional error message to show when unable to display the reaction emoji
+   */
   errorMessage?: string;
+  /**
+   * Provider for loading emojis
+   */
   emojiProvider: Promise<EmojiProvider>;
 }
 
 export class ReactionsWithoutAnalytics extends React.PureComponent<
-  Props & WithAnalyticsEventsProps
+  ReactionsProps & WithAnalyticsEventsProps
 > {
   static defaultProps = {
     flash: {},
@@ -73,7 +106,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
   private openTime: number | undefined;
   private renderTime: number | undefined;
 
-  constructor(props: Props & WithAnalyticsEventsProps) {
+  constructor(props: ReactionsProps & WithAnalyticsEventsProps) {
     super(props);
     if (props.status !== ReactionStatus.ready) {
       this.renderTime = Date.now();
@@ -180,7 +213,7 @@ export class ReactionsWithoutAnalytics extends React.PureComponent<
           onSelection={this.handleOnSelection}
           onOpen={this.handlePickerOpen}
           onCancel={this.handleOnCancel}
-          onMore={this.handleOnMore}
+          onShowMore={this.handleOnMore}
         />
       </Tooltip>
     );

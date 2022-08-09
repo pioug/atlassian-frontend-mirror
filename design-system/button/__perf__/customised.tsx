@@ -5,7 +5,7 @@ import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import { CustomThemeButton } from '../src';
 
 export default () => (
-  <CustomThemeButton iconBefore={<AddIcon label="add" />}>
+  <CustomThemeButton iconBefore={<AddIcon label="" />}>
     Button
   </CustomThemeButton>
 );

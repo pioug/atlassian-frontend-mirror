@@ -31,6 +31,7 @@ export const relevantFlags = {
   mediaInline: false,
   folderUploads: false,
   mediaUploadApiV2: true,
+  memoryCacheLogging: false,
 };
 
 export const LOGGED_FEATURE_FLAGS = filterFeatureFlagNames(relevantFlags);

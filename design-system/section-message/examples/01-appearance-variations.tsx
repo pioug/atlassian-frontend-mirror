@@ -36,7 +36,10 @@ const Example = () => (
         appearance="error"
         actions={
           <React.Fragment>
-            <SectionMessageAction onClick={() => {}}>
+            <SectionMessageAction
+              // eslint-disable-next-line @repo/internal/react/use-noop
+              onClick={() => {}}
+            >
               Outtake
             </SectionMessageAction>
             <SectionMessageAction>Moana</SectionMessageAction>

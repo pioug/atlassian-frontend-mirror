@@ -1,11 +1,12 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
   fromHTML,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema mediaSingle node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema mediaSingle node`, () => {
   describe('parse html', () => {
     it('gets attributes from html', () => {
       const doc = fromHTML(

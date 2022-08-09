@@ -90,6 +90,7 @@ const ResizeButton = ({
     // Prevents focus staying attached to the button
     // when pressed
     onMouseDown={preventDefault}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
   >
     <ChevronRight label="" />
@@ -97,4 +98,5 @@ const ResizeButton = ({
   </button>
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default ResizeButton;

@@ -25,7 +25,7 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
-interface OptionType {
+interface Option {
   label: string;
   value: string[];
 }
@@ -56,8 +56,8 @@ const ControlledExample = () => {
     <AppFrame
       content={
         <div css={{ flexGrow: 1, padding: 32 }}>
-          <Select<OptionType>
-            onChange={(value) => setStack((value as OptionType).value || [])}
+          <Select<Option>
+            onChange={(value) => setStack((value as Option).value || [])}
             options={[
               { label: 'Root', value: [] },
               {

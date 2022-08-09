@@ -13,7 +13,6 @@ import { Placement, Popper } from '@atlaskit/popper';
 import { DialogImage } from '../styled/dialog';
 import { Actions } from '../types';
 
-import { CardTokens } from './card';
 import SpotlightCard from './spotlight-card';
 import ValueChanged from './value-changed';
 
@@ -176,34 +175,23 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
               returnFocus={false}
               autoFocus
             >
-              <SpotlightCard
-                ref={ref}
-                testId={testId}
-                // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-                theme={(parent) => {
-                  const { container, ...others } = parent({});
-                  return {
-                    ...others,
-                    container: {
-                      ...container,
-                      ...style,
-                      ...animationStyles,
-                    },
-                  } as CardTokens;
-                }}
-                width={dialogWidth}
-                actions={actions}
-                actionsBeforeElement={actionsBeforeElement}
-                image={image && <DialogImage alt={heading} src={image} />}
-                components={{
-                  Header: header,
-                  Footer: footer,
-                }}
-                heading={heading}
-                headingAfterElement={headingAfterElement}
-              >
-                {children}
-              </SpotlightCard>
+              <div ref={ref} style={{ ...style, ...animationStyles }}>
+                <SpotlightCard
+                  testId={testId}
+                  width={dialogWidth}
+                  actions={actions}
+                  actionsBeforeElement={actionsBeforeElement}
+                  image={image && <DialogImage alt={heading} src={image} />}
+                  components={{
+                    Header: header,
+                    Footer: footer,
+                  }}
+                  heading={heading}
+                  headingAfterElement={headingAfterElement}
+                >
+                  {children}
+                </SpotlightCard>
+              </div>
             </FocusLock>
           </ValueChanged>
         )}

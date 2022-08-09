@@ -6,6 +6,7 @@ import { CustomGlyphProps } from '@atlaskit/icon/types';
 function NextGenProjectIcon(props: CustomGlyphProps) {
   return (
     <svg
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="20"

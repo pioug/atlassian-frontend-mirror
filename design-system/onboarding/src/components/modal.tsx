@@ -56,17 +56,16 @@ type ModalProps = {
   experimental_shouldShowPrimaryButtonOnRight?: boolean;
 };
 
-function noop() {}
-
 /**
- * __Onboarding modal__
+ * __Benefits modal__
  *
- * If the product change is large enough,
- * this component can be used to outline the benefits of the change to the user.
+ * A benefits modal explains the benefits of a significant new feature or experience change.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ * - [Examples](https://atlassian.design/components/onboarding/benefits-modal/examples)
+ * - [Code](https://atlassian.design/components/onboarding/benefits-modal/code)
+ * - [Usage](https://atlassian.design/components/onboarding/benefits-modal/usage)
  */
-export default class OnboardingModal extends Component<ModalProps> {
+export default class BenefitsModal extends Component<ModalProps> {
   headerComponent = (props: ModalProps) => {
     const { header: HeaderElement, image: src } = props;
 
@@ -118,7 +117,6 @@ export default class OnboardingModal extends Component<ModalProps> {
     return (
       <Modal
         autoFocus
-        onClose={noop}
         shouldScrollInViewport
         shouldCloseOnOverlayClick={false}
         shouldCloseOnEscapePress={false}

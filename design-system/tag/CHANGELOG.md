@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 11.3.5
+
+### Patch Changes
+
+- [`292f10ad52d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/292f10ad52d) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 11.3.4
 
 ### Patch Changes

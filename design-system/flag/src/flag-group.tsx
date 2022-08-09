@@ -17,15 +17,25 @@ import Portal from '@atlaskit/portal';
 import { gridSize as getGridSize, layers } from '@atlaskit/theme/constants';
 
 type FlagGroupProps = {
-  /** ID attribute used for DOM selection. */
+  /**
+   * ID attribute used for DOM selection.
+   */
   id?: string;
-  /** Describes the specific role of this FlagGroup for users viewing the page with a screen reader (defaults to `Flag notifications`). */
+  /**
+   * Describes the specific role of this FlagGroup for users viewing the page with a screen reader (defaults to `Flag notifications`).
+   */
   label?: string;
-  /** Describes the specific tag on which the screen reader text will be rendered (defaults to `h2`). */
+  /**
+   * Describes the specific tag on which the screen reader text will be rendered (defaults to `h2`).
+   */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   labelTag?: React.ElementType;
-  /** Flag elements to be displayed. */
+  /**
+   * Flag elements to be displayed.
+   */
   children?: Array<ReactElement> | ReactElement | null | boolean;
-  /** Handler which will be called when a Flag's dismiss button is clicked.
+  /**
+   * Handler which will be called when a Flag's dismiss button is clicked.
    * Receives the id of the dismissed Flag as a parameter.
    */
   onDismissed?: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
@@ -43,14 +53,16 @@ type FlagGroupAPI = {
 };
 
 const defaultFlagGroupContext = {
-  onDismissed: () => {},
+  onDismissed: noop,
   isDismissAllowed: false,
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const FlagGroupContext = createContext<FlagGroupAPI>(
   defaultFlagGroupContext,
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export function useFlagGroup() {
   return useContext(FlagGroupContext);
 }
@@ -105,6 +117,14 @@ const flagGroupContainerStyles = css({
   },
 });
 
+/**
+ * __Flag group__
+ *
+ * A flag group is used to group a set of related flags, with entry and exit animations.
+ *
+ * - [Examples](https://atlassian.design/components/flag/flag-group/examples)
+ * - [Code](https://atlassian.design/components/flag/flag-group/code)
+ */
 const FlagGroup = (props: FlagGroupProps) => {
   const {
     id,

@@ -15,7 +15,7 @@ import { SkeletonHelpButton } from '../../src/skeleton-help-button';
 import { SkeletonNotificationButton } from '../../src/skeleton-notification-button';
 import { SkeletonSettingsButton } from '../../src/skeleton-settings-button';
 import { SkeletonSwitcherButton } from '../../src/skeleton-switcher-button';
-import { avatarUrl } from '../shared/ProfilePopup';
+import { avatarUrl } from '../shared/profile-popup';
 
 const SkeletonCreate = () => (
   <SkeletonCreateButton text="Create"></SkeletonCreateButton>

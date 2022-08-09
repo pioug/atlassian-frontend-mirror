@@ -60,6 +60,7 @@ const VK_LEFT = 37; //ArrowLeft
 const VK_RIGHT = 39; //ArrowRight
 const VK_UP = 38; //ArrowUp
 const VK_DOWN = 40; //ArrowDown
+const VK_TAB = 9;
 
 export default ({
   cols = 7,
@@ -80,18 +81,29 @@ export default ({
         ([colorValue]) => colorValue === selectedColor,
       );
       let newColorIndex = null;
+      const nextColor = () =>
+        colorIndex + 1 > palette.length - 1 ? 0 : colorIndex + 1;
+      const previousColor = () =>
+        colorIndex - 1 < 0 ? palette.length - 1 : colorIndex - 1;
+
       switch (e.keyCode) {
         case VK_RIGHT:
         case VK_DOWN:
           e.preventDefault();
-          newColorIndex =
-            colorIndex + 1 > palette.length - 1 ? 0 : colorIndex + 1;
+          newColorIndex = nextColor();
           break;
         case VK_LEFT:
         case VK_UP:
           e.preventDefault();
-          newColorIndex =
-            colorIndex - 1 < 0 ? palette.length - 1 : colorIndex - 1;
+          newColorIndex = previousColor();
+          break;
+        case VK_TAB:
+          e.preventDefault();
+          if (e.shiftKey) {
+            newColorIndex = previousColor();
+          } else {
+            newColorIndex = nextColor();
+          }
           break;
       }
       if (newColorIndex === null) {

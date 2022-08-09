@@ -10,6 +10,7 @@ import {
   PrimaryButton,
   ProductHome,
 } from '@atlaskit/atlassian-navigation';
+import noop from '@atlaskit/ds-lib/noop';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
@@ -101,7 +102,7 @@ export const DefaultCreate = () => (
   <Create
     buttonTooltip="Create"
     iconButtonTooltip="Create"
-    onClick={() => {}}
+    onClick={noop}
     text="Create"
   />
 );

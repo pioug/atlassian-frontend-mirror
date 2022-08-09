@@ -7,7 +7,6 @@ import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
 import type { SupportedLanguages } from '@atlaskit/code';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
-import { useFeatureFlags } from '../../../use-feature-flags';
 import CodeBlockContainer from './components/codeBlockContainer';
 
 export interface Props {
@@ -25,7 +24,6 @@ function CodeBlock(props: Props & WrappedComponentProps) {
     allowCopyToClipboard = false,
     codeBidiWarningTooltipEnabled,
   } = props;
-  const featureFlags = useFeatureFlags();
 
   const codeBidiWarningLabel = props.intl.formatMessage(
     codeBidiWarningMessages.label,
@@ -45,7 +43,6 @@ function CodeBlock(props: Props & WrappedComponentProps) {
       <AkCodeBlock
         language={language}
         text={text}
-        codeBidiWarnings={featureFlags?.codeBidiWarnings}
         codeBidiWarningLabel={codeBidiWarningLabel}
         codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
       />

@@ -5,9 +5,9 @@
  */
 {
   "testExamples": [
-    "10-Button.tsx",
-    "30-Appearances.tsx",
-    "99-Testing.tsx"
+    "10-button.tsx",
+    "30-appearances.tsx",
+    "99-testing.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/logo",

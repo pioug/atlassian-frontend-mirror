@@ -28,7 +28,7 @@ const lightWrapperStyles = css({
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: 16,
-  backgroundColor: token('elevation.surface.overlay', N0),
+  backgroundColor: token('utility.UNSAFE_util.transparent', N0),
   color: token('color.text', N900),
   outline: 'none',
   userSelect: 'none',
@@ -38,7 +38,7 @@ const darkWrapperStyles = css({
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: 16,
-  backgroundColor: token('elevation.surface.overlay', N700),
+  backgroundColor: token('utility.UNSAFE_util.transparent', N700),
   color: token('color.text', DN600),
   outline: 'none',
   userSelect: 'none',
@@ -228,6 +228,15 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
   },
 );
 
+/**
+ * __Calendar__
+ *
+ * A calendar is used for date selection.
+ *
+ * - [Examples](https://atlassian.design/components/calendar/examples)
+ * - [Code](https://atlassian.design/components/calendar/code)
+ * - [Usage](https://atlassian.design/components/calendar/usage)
+ */
 const Calendar = memo(
   forwardRef<HTMLDivElement, CalendarProps>(function Calendar(props, ref) {
     return (

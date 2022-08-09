@@ -30,8 +30,9 @@ const Layout: React.FC = (props) => (
       gridTemplateColumns: '1fr 1fr',
       gap: 8,
     }}
-    {...props}
-  />
+  >
+    {props.children}
+  </div>
 );
 
 const H2: React.FC = (props) => (
@@ -40,8 +41,9 @@ const H2: React.FC = (props) => (
     css={{
       marginBottom: 8,
     }}
-    {...props}
-  />
+  >
+    {props.children}
+  </h2>
 );
 
 export default function Component() {

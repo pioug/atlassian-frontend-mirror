@@ -9,7 +9,10 @@ import {
   editable,
   getDocFromElement,
 } from '../../../../__tests__/integration/_helpers';
-import { hyperlinkSelectors } from '../../../../__tests__/__helpers/page-objects/_hyperlink';
+import {
+  hyperlinkSelectors,
+  linkPickerSelectors,
+} from '../../../../__tests__/__helpers/page-objects/_hyperlink';
 import basicHyperlinkAdf from '../__fixtures__/basic-hyperlink.adf.json';
 
 BrowserTestCase(
@@ -204,3 +207,211 @@ BrowserTestCase(
     expect(await page.isExisting(hyperlinkSelectors.linkInput)).toBe(true);
   },
 );
+
+describe('with feature flag: lp-link-picker', () => {
+  BrowserTestCase(
+    'can edit hyperlink text with toolbar',
+    {},
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.editLinkBtn);
+      await page.type(linkPickerSelectors.linkDisplayTextInput, 'Trello');
+      await page.keys('Return');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  BrowserTestCase(
+    'can edit hyperlink URL with toolbar',
+    {},
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.editLinkBtn);
+      await page.waitForSelector(hyperlinkSelectors.clearLinkBtn);
+      await page.click(hyperlinkSelectors.clearLinkBtn);
+      await page.type(hyperlinkSelectors.linkInput, 'http://trello.com');
+      await page.keys('Return');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  BrowserTestCase(
+    'can add anchor link URL with toolbar',
+    {},
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.editLinkBtn);
+      await page.waitForSelector(hyperlinkSelectors.clearLinkBtn);
+      await page.click(hyperlinkSelectors.clearLinkBtn);
+      await page.type(hyperlinkSelectors.linkInput, '#anchor-link');
+      await page.keys('Return');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  BrowserTestCase(
+    "doesn't update hyperlink text if hit escape key",
+    {},
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.editLinkBtn);
+      await page.waitForSelector(linkPickerSelectors.linkDisplayTextInput);
+      await page.type(linkPickerSelectors.linkDisplayTextInput, 'Trello');
+      await page.keys('Escape');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  BrowserTestCase(
+    "doesn't update hyperlink URL if hit escape key",
+    {},
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.clearLinkBtn);
+      await page.type(linkPickerSelectors.linkInput, 'http://trello.com');
+      await page.keys('Escape');
+
+      const doc = await page.$eval(editable, getDocFromElement);
+      expect(doc).toMatchCustomDocSnapshot(testName);
+    },
+  );
+
+  BrowserTestCase(
+    "doesn't close edit link toolbar when text is selected using the mouse and the click is released outside of the toolbar",
+    {},
+    async (client: any, testName: string) => {
+      const page = await goToEditorTestingWDExample(client);
+      await mountEditor(
+        page,
+        {
+          appearance: fullpage.appearance,
+          defaultValue: basicHyperlinkAdf,
+          featureFlags: {
+            'lp-link-picker': true,
+          },
+        },
+        {
+          withLinkPickerOptions: true,
+        },
+      );
+
+      await page.waitForSelector(hyperlinkSelectors.hyperlink);
+      await page.click(hyperlinkSelectors.hyperlink);
+      await page.waitForSelector(hyperlinkSelectors.editLinkBtn);
+      await page.click(hyperlinkSelectors.editLinkBtn);
+
+      const linkInputLocation = await page.getLocation(
+        linkPickerSelectors.linkInput,
+      );
+      const floatingToolbarLocation = await page.getLocation(
+        '[aria-label="Floating Toolbar"]',
+      );
+      const floatingToolbarSize = await page.getElementSize(
+        '[aria-label="Floating Toolbar"]',
+      );
+      await page.simulateUserDragAndDrop(
+        linkInputLocation.x,
+        linkInputLocation.y,
+        floatingToolbarLocation.x + floatingToolbarSize.width,
+        floatingToolbarLocation.y + floatingToolbarSize.height,
+        1,
+      );
+
+      expect(await page.isExisting(linkPickerSelectors.linkInput)).toBe(true);
+    },
+  );
+});

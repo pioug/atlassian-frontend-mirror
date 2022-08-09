@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
-export type EllipsisPropType = {
+export type EllipsisProp = {
   key: string;
 };
 
@@ -14,9 +14,7 @@ const ellipsisStyles = css({
   textAlign: 'center',
 });
 
-export default function renderEllipsis({
-  key,
-}: EllipsisPropType): ReactElement {
+export default function renderEllipsis({ key }: EllipsisProp): ReactElement {
   return (
     <span key={key} css={ellipsisStyles}>
       ...

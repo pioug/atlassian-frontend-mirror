@@ -2,6 +2,7 @@ import {
   PuppeteerPage,
   waitForLoadedImageElements,
   waitForNoTooltip,
+  evaluateTeardownMockDate,
 } from '@atlaskit/visual-regression/helper';
 
 import {
@@ -61,6 +62,7 @@ describe('Hyperlink', () => {
         adf: manyHyperlinksAdf,
         viewport: { width: 800, height: 400 },
       });
+      await evaluateTeardownMockDate(page);
     });
 
     describe('heading', () => {
@@ -129,6 +131,68 @@ describe('Hyperlink', () => {
             },
           },
         });
+        await page.click('[data-testid="media-caption"]');
+        await clickToolbarMenu(page, ToolbarMenuItem.link);
+        await waitForLoadedImageElements(page, 5000);
+      });
+    });
+  });
+
+  describe('hyperlink menu with Link Picker Options and ff:lp-link-picker', () => {
+    describe('edit link', () => {
+      it('displays correctly when link matches display text', async () => {
+        await initEditorWithAdf(page, {
+          appearance: Appearance.fullPage,
+          adf: hyperlinkAdf,
+          viewport: { width: 800, height: 500 },
+          editorProps: {
+            featureFlags: {
+              'lp-link-picker': true,
+            },
+          },
+          withLinkPickerOptions: true,
+        });
+        await click(page, hyperlinkSelectors.hyperlink);
+        await page.click(hyperlinkSelectors.editLinkBtn);
+      });
+
+      it('displays correctly when link is different to display text', async () => {
+        await initEditorWithAdf(page, {
+          appearance: Appearance.fullPage,
+          adf: hyperlinkWithTextAdf,
+          viewport: { width: 800, height: 400 },
+          editorProps: {
+            featureFlags: {
+              'lp-link-picker': true,
+            },
+          },
+          withLinkPickerOptions: true,
+        });
+        await click(page, hyperlinkSelectors.hyperlink);
+        await page.click(hyperlinkSelectors.editLinkBtn);
+      });
+    });
+
+    describe('insert link', () => {
+      it('displays correctly when inside a caption node', async () => {
+        await initEditorWithAdf(page, {
+          appearance: Appearance.fullPage,
+          adf: mediaWithCaptionAdf,
+          viewport: { width: 800, height: 1200 },
+          editorProps: {
+            featureFlags: {
+              'lp-link-picker': true,
+            },
+            media: {
+              allowMediaSingle: true,
+              featureFlags: {
+                captions: true,
+              },
+            },
+          },
+          withLinkPickerOptions: true,
+        });
+
         await page.click('[data-testid="media-caption"]');
         await clickToolbarMenu(page, ToolbarMenuItem.link);
         await waitForLoadedImageElements(page, 5000);

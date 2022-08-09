@@ -1,7 +1,10 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
-import { sleep } from '../../helpers/utils';
+import * as Utilities from '../../helpers/utils';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+
+jest.useFakeTimers();
 
 jest.mock('prosemirror-collab', () => {
   return {
@@ -59,6 +62,7 @@ import { ErrorPayload } from '../../types';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { Node } from 'prosemirror-model';
 
 const testProviderConfig = {
   url: `http://provider-url:66661`,
@@ -68,16 +72,14 @@ const clientId = 'some-random-prosmirror-client-Id';
 
 describe('provider unit tests', () => {
   let socket: any;
-  let logSpy: jest.SpyInstance;
+
   beforeEach(() => {
-    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     const channel = new Channel({} as any);
     socket = channel.getSocket()!;
   });
-  afterEach(() => {
-    logSpy.mockClear();
-    jest.clearAllMocks();
-  });
+
+  afterEach(jest.clearAllMocks);
+
   const editorState: any = {
     plugins: [
       {
@@ -94,11 +96,30 @@ describe('provider unit tests', () => {
       origins: [],
       version: 0,
     },
-    doc: {
-      toJSON: () => {
-        return 'test';
-      },
-    },
+    doc: Node.fromJSON(defaultSchema, {
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            { type: 'text', text: 'Hello, World!' },
+            {
+              // Add a node that looks different in ADF
+              type: 'text',
+              marks: [
+                {
+                  type: 'typeAheadQuery',
+                  attrs: {
+                    trigger: '/',
+                  },
+                },
+              ],
+              text: '/',
+            },
+          ],
+        },
+      ],
+    }),
   };
 
   describe('Emit events', () => {
@@ -176,7 +197,7 @@ describe('provider unit tests', () => {
       expect(throttledCatchupSpy).toBeCalledTimes(3);
     });
 
-    it('should not emit empty joined or left presence', async (done) => {
+    it('should not emit empty joined or left presence', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       let counter = 0;
       provider.on('presence', ({ joined, left }) => {
@@ -197,10 +218,10 @@ describe('provider unit tests', () => {
         userId: 'blabla-userId',
         clientId: 'blabla-clientId',
       });
-      setTimeout(() => {
-        expect(counter).toBe(1);
-        done();
-      }, 5000);
+
+      await new Promise(process.nextTick);
+
+      expect(counter).toBe(1);
     });
 
     it('emit disconnected to consumer', () => {
@@ -545,53 +566,99 @@ describe('provider unit tests', () => {
 
   describe('getFinalAcknowledgedState', () => {
     it('should return the final state', async () => {
+      const triggerCollabAnalyticsEventSpy = jest.spyOn(
+        analytics,
+        'triggerCollabAnalyticsEvent',
+      );
       const provider = createSocketIOCollabProvider(testProviderConfig);
       provider.initialize(() => editorState);
-      const finalAck = await provider.getFinalAcknowledgedState();
-      expect(finalAck).toEqual({
-        content: 'test',
-        stepVersion: 0,
+      socket.emit('metadata:changed', {
+        title: "What's in a good title?",
       });
+
+      const finalAck = await provider.getFinalAcknowledgedState();
+
+      expect(finalAck).toEqual({
+        title: "What's in a good title?",
+        stepVersion: 0,
+        content: {
+          content: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  text: 'Hello, World!',
+                },
+                {
+                  type: 'text',
+                  text: '/',
+                  marks: [],
+                },
+              ],
+              type: 'paragraph',
+            },
+          ],
+          type: 'doc',
+          version: 1,
+        },
+      });
+      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledWith(
+        {
+          eventAction: 'convertPMToADF',
+          attributes: {
+            eventStatus: 'SUCCESS',
+          },
+        },
+        undefined,
+      );
     });
 
     describe('when syncing up with server', () => {
-      let sendSpy: jest.SpyInstance;
-      let provider: Provider;
-      let getState: () => any;
-      let newState: any;
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const sendSpy = jest
+        .spyOn(provider as any, 'sendStepsFromCurrentState')
+        .mockImplementation(() => {});
+      const newState = {
+        ...editorState,
+        collab: {
+          steps: [1],
+          origins: [1],
+        },
+      };
 
-      beforeEach(() => {
-        provider = createSocketIOCollabProvider(testProviderConfig);
-        sendSpy = jest
-          .spyOn(provider as any, 'sendStepsFromCurrentState')
-          .mockImplementation(() => {});
+      describe("should fail if can't syncup", () => {
+        beforeEach(() => {
+          jest.spyOn(Utilities, 'sleep').mockResolvedValue(() => undefined);
+        });
 
-        newState = JSON.parse(JSON.stringify(editorState));
-        newState.collab.steps = [1];
-        newState.collab.origins = [1];
-        newState.doc = {
-          toJSON: () => {
-            return 'test';
-          },
-        };
-
-        getState = () => newState;
-      });
-
-      describe('should fail if cant syncup', () => {
         it('should throw ', async () => {
-          provider.initialize(getState);
+          provider.initialize(() => newState);
+
           await expect(
             provider.getFinalAcknowledgedState(),
           ).rejects.toThrowError(new Error("Can't syncup with Collab Service"));
+
           expect(sendSpy).toHaveBeenCalledTimes(ACK_MAX_TRY + 1);
         });
 
         it('should call onSyncUpError', async () => {
           const onSyncUpErrorMock = jest.fn();
-          provider.setup({ getState, onSyncUpError: onSyncUpErrorMock });
+          provider.setup({
+            getState: () => newState,
+            onSyncUpError: onSyncUpErrorMock,
+          });
+
           await expect(provider.getFinalAcknowledgedState()).rejects.toThrow(); // Trigger error from function
+
           expect(onSyncUpErrorMock).toHaveBeenCalledTimes(1);
+          expect(onSyncUpErrorMock).toHaveBeenCalledWith({
+            clientId: 'some-random-prosmirror-client-Id',
+            lengthOfUnconfirmedSteps: 1,
+            maxRetries: 10,
+            tries: 11,
+            version: undefined,
+          });
         });
       });
 
@@ -607,12 +674,32 @@ describe('provider unit tests', () => {
 
             called++;
           });
-
         provider.initialize(() => editorState);
+
         const finalAck = await provider.getFinalAcknowledgedState();
+
         expect(finalAck).toEqual({
-          content: 'test',
           stepVersion: 0,
+          content: {
+            content: [
+              {
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello, World!',
+                  },
+                  {
+                    type: 'text',
+                    text: '/',
+                    marks: [],
+                  },
+                ],
+                type: 'paragraph',
+              },
+            ],
+            type: 'doc',
+            version: 1,
+          },
         });
       });
     });
@@ -646,12 +733,48 @@ describe('provider unit tests', () => {
       await nextTick();
       await verifyMetadataTitle('new-title');
     });
+
+    it('should not log UGC when logging an error', async () => {
+      const triggerCollabAnalyticsEventSpy = jest.spyOn(
+        analytics,
+        'triggerCollabAnalyticsEvent',
+      );
+      const provider = createSocketIOCollabProvider(testProviderConfig);
+      const invalidDocument = {
+        type: 'doc',
+        content: [
+          {
+            type: 'some-invalid-type',
+            textContent: 'Super secret UGC',
+          },
+        ],
+      };
+      provider.initialize(() => ({
+        ...editorState,
+        doc: invalidDocument,
+      }));
+
+      await provider.getFinalAcknowledgedState();
+
+      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledTimes(1);
+      expect(triggerCollabAnalyticsEventSpy).toHaveBeenCalledWith(
+        {
+          eventAction: 'convertPMToADF',
+          attributes: {
+            eventStatus: 'FAILURE',
+            error: new TypeError('Cannot convert undefined or null to object'),
+          },
+        },
+        undefined,
+      );
+    });
   });
 
   describe('catchup should reset the flags (pauseQueue and stepRejectCounter) when called', () => {
     beforeEach(() => {
       jest.spyOn(analytics, 'triggerCollabAnalyticsEvent');
     });
+
     it('should reset pauseQueue and stepRejectCounter flags', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(
@@ -673,16 +796,14 @@ describe('provider unit tests', () => {
         socket.emit('error', stepRejectedError);
       }
 
-      await sleep(0);
-
       expect(throttledCatchupSpy).toBeCalledTimes(1);
       expect(catchup).toBeCalledTimes(1);
+
+      await new Promise(process.nextTick);
 
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
         socket.emit('error', stepRejectedError);
       }
-
-      await sleep(0);
 
       expect(throttledCatchupSpy).toBeCalledTimes(2);
       expect(catchup).toBeCalledTimes(2);
@@ -714,7 +835,6 @@ describe('provider unit tests', () => {
         socket.emit('error', stepRejectedError);
       }
 
-      await sleep(0);
       expect(throttledCatchupSpy).toBeCalledTimes(1);
       expect(catchup).toBeCalledTimes(1);
       expect(triggerCollabAnalyticsEvent).nthCalledWith(
@@ -731,8 +851,6 @@ describe('provider unit tests', () => {
       for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
         socket.emit('error', stepRejectedError);
       }
-
-      await sleep(0);
 
       expect(triggerCollabAnalyticsEvent).toBeCalledTimes(
         MAX_STEP_REJECTED_ERROR * 2 + 2,

@@ -162,4 +162,5 @@ const ModalDialog = (props: ModalDialogProps) => {
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default ModalDialog;

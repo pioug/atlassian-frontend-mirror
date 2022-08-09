@@ -1,5 +1,7 @@
 import React, { createContext, Ref, useContext, useRef, useState } from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import { useLayoutEffect } from '../utils/use-layout-effect';
 import { useUniqueId } from '../utils/use-unique-id';
 
@@ -13,12 +15,12 @@ export interface StaggeredEntranceProps {
   delayStep?: number;
 
   /**
-   Number of columns the children elements will be displayed over.
-   Use `"responsive"` to have it calculate dynamically on the client side.
-
-   **NOTE:** This has a big caveat that the elements will be invisible until the client side Javascript executes.
-   If you have a fixed grid or list, set this to a specific number.
-   Defaults to `"responsive"`.
+   * Number of columns the children elements will be displayed over.
+   * Use `"responsive"` to have it calculate dynamically on the client side.
+   *
+   * __NOTE:__ This has a big caveat that the elements will be invisible until the client side Javascript executes.
+   * If you have a fixed grid or list, set this to a specific number.
+   * Defaults to `"responsive"`.
    */
   columns?: number | 'responsive';
 
@@ -37,7 +39,7 @@ export interface StaggeredEntranceProps {
 
 const StaggeredEntranceContext = createContext<
   (id: string) => { isReady: boolean; delay: number; ref: Ref<any> }
->(() => ({ isReady: true, delay: 0, ref: () => {} }));
+>(() => ({ isReady: true, delay: 0, ref: noop }));
 
 export const useStaggeredEntrance = () => {
   const indentifier = useUniqueId();

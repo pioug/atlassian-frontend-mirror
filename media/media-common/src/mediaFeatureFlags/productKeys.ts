@@ -11,6 +11,7 @@ const productKeys: ProductKeys = {
     // TODO https://product-fabric.atlassian.net/browse/MEX-1620
     timestampOnVideo: '',
     mediaUploadApiV2: 'confluence.enable.media.upload.api.v2',
+    memoryCacheLogging: 'confluence-frontend-media-card-memory-cache-logging',
   },
   jira: {
     newCardExperience: 'issue.details.media-cards-new-experience',
@@ -23,6 +24,7 @@ const productKeys: ProductKeys = {
     // TODO https://product-fabric.atlassian.net/browse/MEX-1620
     timestampOnVideo: '',
     mediaUploadApiV2: 'issue.details.enable-media-upload-api-version-2',
+    memoryCacheLogging: 'jira-frontend-media-card-memory-cache-logging',
   },
 };
 

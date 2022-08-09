@@ -10,8 +10,8 @@ import {
   Settings,
 } from '../src';
 
-import { DefaultCreate } from './shared/Create';
-import { defaultPrimaryItems } from './shared/PrimaryItems';
+import { DefaultCreate } from './shared/create';
+import { defaultPrimaryItems } from './shared/primary-items';
 
 export const JiraProductHome = () => (
   <ProductHome
@@ -41,6 +41,7 @@ const ThemingExample = () => (
     renderCreate={DefaultCreate}
     renderProductHome={JiraProductHome}
     renderSettings={() => <Settings testId="settings" tooltip="Settings" />}
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
     theme={theme}
   />
 );

@@ -26,12 +26,12 @@ const dayNameCellStyles = css({
   whiteSpace: 'nowrap',
 });
 
-interface Props {
+interface WeekHeaderProps {
   daysShort: string[];
   mode?: ThemeModes;
 }
 
-const WeekHeader = memo<Props>(function WeekHeader({ daysShort }) {
+const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort }) {
   return (
     <div css={dayNameGridStyles}>
       {daysShort.map((shortDay) => (
@@ -45,4 +45,5 @@ const WeekHeader = memo<Props>(function WeekHeader({ daysShort }) {
 
 WeekHeader.displayName = 'WeekHeader';
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default WeekHeader;

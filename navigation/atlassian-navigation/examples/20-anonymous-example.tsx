@@ -2,12 +2,12 @@ import React from 'react';
 
 import { AtlassianNavigation, SignIn } from '../src';
 
-import { DefaultCreate } from './shared/Create';
-import { HelpPopup } from './shared/HelpPopup';
-import { defaultPrimaryItems } from './shared/PrimaryItems';
-import { DefaultProductHome } from './shared/ProductHome';
-import { DefaultSearch } from './shared/Search';
-import { SwitcherPopup } from './shared/SwitcherPopup';
+import { DefaultCreate } from './shared/create';
+import { HelpPopup } from './shared/help-popup';
+import { defaultPrimaryItems } from './shared/primary-items';
+import { DefaultProductHome } from './shared/product-home';
+import { DefaultSearch } from './shared/search';
+import { SwitcherPopup } from './shared/switcher-popup';
 
 const SignInExample = () => <SignIn tooltip="Sign in" />;
 

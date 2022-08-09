@@ -2,12 +2,10 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { NodeSelection } from 'prosemirror-state';
 import { EditorView, EditorProps as PMEditorProps } from 'prosemirror-view';
-import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 
 import { IntlShape } from 'react-intl-next';
 import type { EditorProps } from '../../../types';
 import { codeBlockNodeView } from '../nodeviews/code-block';
-import { highlightingCodeBlockNodeView } from '../nodeviews/highlighting-code-block';
 import { createSelectionClickHandler } from '../../selection/utils';
 import { pluginKey } from '../plugin-key';
 import { ACTIONS } from './actions';
@@ -18,7 +16,6 @@ import {
 import { findCodeBlock } from '../utils';
 import { codeBlockClassNames } from '../ui/class-names';
 import { CodeBlockState } from './main-state';
-import { getFeatureFlags } from '../../feature-flags-context';
 
 export const createPlugin = ({
   useLongPressSelection = false,
@@ -33,12 +30,6 @@ export const createPlugin = ({
   // Don't want to add an uneccessary listener to web
   allowCompositionInputOverride?: boolean;
 }) => {
-  const intl = getIntl();
-
-  const codeBidiWarningLabel = intl.formatMessage(
-    codeBidiWarningMessages.label,
-  );
-
   const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
 
   // ME-1599: Composition on mobile was causing the DOM observer to mutate the code block
@@ -147,24 +138,7 @@ export const createPlugin = ({
     key: pluginKey,
     props: {
       nodeViews: {
-        codeBlock(node, view, getPos) {
-          const featureFlags = getFeatureFlags(view.state);
-          // The appearance being mobile indicates we are in an editor being
-          // rendered by mobile bridge in a web view.
-          // The tooltip is likely to have unexpected behaviour there, with being cut
-          // off, so we disable it. This is also to keep the behaviour consistent with
-          // the rendering in the mobile Native Renderer.
-          const codeBidiWarningTooltipEnabled = appearance !== 'mobile';
-
-          const createCodeBlockNodeView = featureFlags?.codeBlockSyntaxHighlighting
-            ? highlightingCodeBlockNodeView({
-                codeBidiWarnings: featureFlags?.codeBidiWarnings,
-                codeBidiWarningLabel,
-                codeBidiWarningTooltipEnabled: codeBidiWarningTooltipEnabled,
-              })
-            : codeBlockNodeView();
-          return createCodeBlockNodeView(node, view, getPos);
-        },
+        codeBlock: codeBlockNodeView,
       },
       handleClickOn: createSelectionClickHandler(
         ['codeBlock'],

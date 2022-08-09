@@ -7,6 +7,14 @@ export interface NavigationHeaderProps {
   children: JSX.Element | JSX.Element[];
 }
 
+/**
+ * __Navigation header__
+ *
+ * Allows for customisation of the header.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#header-and-footer)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const NavigationHeader = (props: NavigationHeaderProps) => {
   const { children } = props;
   return (

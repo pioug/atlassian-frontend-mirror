@@ -13,6 +13,8 @@ const skeletonStyles = css({
   opacity: 0.15,
 });
 
+// Not exported to consumers, only used in NavigationSkeleton
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconButtonSkeleton = ({
   className,
   marginLeft,

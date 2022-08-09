@@ -3,6 +3,7 @@ import { SyntheticEvent, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 
+import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
@@ -106,7 +107,7 @@ const ConnectionDemo = () => {
 
   const getActions = () => {
     if (appearance === 'warning') {
-      return [{ content: 'Good luck!', onClick: () => {} }];
+      return [{ content: 'Good luck!', onClick: noop }];
     }
     return undefined;
   };

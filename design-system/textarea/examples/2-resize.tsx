@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/core';
 import Button, { ButtonGroup } from '@atlaskit/button';
 
 import TextArea from '../src';
-import { Props } from '../src/text-area';
+import { TextAreaProps } from '../src/text-area';
 
 const wrapperStyles = css({
   maxWidth: 500,
@@ -14,7 +14,8 @@ const wrapperStyles = css({
 export default () => {
   const [text, setText] = useState<string | undefined>();
 
-  const handleChange: Props['onChange'] = (e) => setText(e.currentTarget.value);
+  const handleChange: TextAreaProps['onChange'] = (e) =>
+    setText(e.currentTarget.value);
 
   const longText =
     'A text area lets users enter long form text which spans over multiple lines. The `resize` prop provides control of how the text area will handle resizing to fit content. Setting this prop to `smart` will automatically increase and decrease the height of the text area to fit text';

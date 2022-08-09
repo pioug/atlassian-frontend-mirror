@@ -22,8 +22,8 @@ import { token } from '@atlaskit/tokens';
 const theme = {
   light: {
     borderColor: {
-      rest: token('color.border', N40),
-      hovered: token('color.border', N40),
+      rest: token('color.border.input', N40),
+      hovered: token('color.border.input', N40),
       disabled: token('color.background.disabled', N20),
       checked: token('color.background.selected.bold', B400),
       active: token('color.border', B50),
@@ -48,8 +48,8 @@ const theme = {
   },
   dark: {
     borderColor: {
-      rest: token('color.border', DN80),
-      hovered: token('color.border', DN200),
+      rest: token('color.border.input', DN80),
+      hovered: token('color.border.input', DN200),
       disabled: token('color.background.disabled', DN10),
       checked: token('color.background.selected.bold', B400),
       active: token('color.border', B200),

@@ -50,10 +50,13 @@ describe('Media', () => {
     },
   };
 
-  const createFileIdentifier = (index = 0): FileIdentifier => ({
+  const createFileIdentifier = (
+    index = 0,
+    collectionName = 'MediaServicesSample',
+  ): FileIdentifier => ({
     id: `b9d94b5f-e06c-4a80-bfda-00000000000${index}`,
     mediaItemType: 'file',
-    collectionName: 'MediaServicesSample',
+    collectionName,
   });
 
   const createExternalIdentifier = (index = 0): ExternalImageIdentifier => ({
@@ -62,7 +65,22 @@ describe('Media', () => {
     name: `https://example.com/image${index}.png`,
   });
 
-  const mountFileCard = async (identifier: FileIdentifier) => {
+  const mountFileCard = async (
+    identifier: FileIdentifier,
+    adDocContent?: any,
+  ) => {
+    const content = adDocContent ?? [
+      {
+        attrs: {
+          collection: identifier.collectionName,
+          height: 580,
+          id: await identifier.id,
+          type: 'file',
+          width: 1021,
+        },
+        type: 'media',
+      },
+    ];
     const card = mount(
       <MediaCard
         type="file"
@@ -71,18 +89,7 @@ describe('Media', () => {
         mediaProvider={mediaProvider as any}
         rendererContext={{
           adDoc: {
-            content: [
-              {
-                attrs: {
-                  collection: identifier.collectionName,
-                  height: 580,
-                  id: await identifier.id,
-                  type: 'file',
-                  width: 1021,
-                },
-                type: 'media',
-              },
-            ],
+            content,
           },
         }}
       />,
@@ -602,7 +609,60 @@ describe('Media', () => {
         mediaExternalCard.unmount();
       });
 
-      it('should update the list on re-render if new cards are added', async () => {
+      it('should have a mediaViewerDataSource if doc content has mutiple media cards with different collection ids', async () => {
+        const fileIdentifier = createFileIdentifier(1, 'collection1');
+        const fileIdentifier2 = createFileIdentifier(2, 'collection2');
+        const adDocContent = [
+          {
+            attrs: {
+              collection: fileIdentifier.collectionName,
+              height: 580,
+              id: await fileIdentifier.id,
+              type: 'file',
+              width: 1021,
+            },
+            type: 'media',
+          },
+          {
+            attrs: {
+              collection: fileIdentifier2.collectionName,
+              height: 580,
+              id: await fileIdentifier2.id,
+              type: 'file',
+              width: 1021,
+            },
+            type: 'media',
+          },
+        ];
+        const mediaFileCard = await mountFileCard(fileIdentifier, adDocContent);
+        const mediaFileCard2 = await mountFileCard(
+          fileIdentifier2,
+          adDocContent,
+        );
+
+        await sleep(0);
+        mediaFileCard.update();
+        mediaFileCard2.update();
+
+        expect(
+          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
+        ).toEqual({ list: [fileIdentifier] });
+        expect(
+          mediaFileCard2.find(Card).at(0).props().mediaViewerDataSource,
+        ).toEqual({ list: [fileIdentifier, fileIdentifier2] });
+
+        mediaFileCard.setProps({});
+        expect(mediaFileCard.find(Card).at(0).props()).toHaveProperty(
+          'mediaViewerDataSource',
+        );
+        expect(
+          mediaFileCard.find(Card).at(0).props().mediaViewerDataSource,
+        ).toEqual({ list: [fileIdentifier, fileIdentifier2] });
+        mediaFileCard.unmount();
+        mediaFileCard2.unmount();
+      });
+
+      it('should update the list on re-render if new external cards are added', async () => {
         const fileIdentifier = createFileIdentifier(1);
         const externalIdentifier = createExternalIdentifier(1);
         const mediaFileCard = await mountFileCard(fileIdentifier);

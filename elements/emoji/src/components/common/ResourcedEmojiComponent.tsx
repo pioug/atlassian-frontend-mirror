@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import EmojiProvider from '../../api/EmojiResource';
+import { EmojiResource } from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
 import { isPromise } from '../../util/type-helpers';
 import {
@@ -9,44 +9,54 @@ import {
 } from '../../types';
 import Emoji from './Emoji';
 import EmojiPlaceholder from './EmojiPlaceholder';
-import { State as LoadingState } from './LoadingEmojiComponent';
 import { sampledUfoRenderedEmoji } from '../../util/analytics';
 import LegacyEmojiContextProvider from '../../context/LegacyEmojiContextProvider';
 import { EmojiImage } from './EmojiImage';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 
 export interface BaseResourcedEmojiProps {
+  /**
+   * Emoji to display
+   */
   emojiId: EmojiId;
+  /**
+   * Allows to show the tooltip.
+   * Defaults to `false`.
+   */
   showTooltip?: boolean;
+  /**
+   * Scales the emoji proportionally to provided hight.
+   * Defaults to `undefined`.
+   */
   fitToHeight?: number;
   /**
    * Optimistic will call the fetch interface first and not wait for the entire emoji collection
    * to be available before rendering. This is useful for views or pages that show a select set of
    * emojis.
+   * Defaults to `false`.
    */
   optimistic?: boolean;
   /**
    * Custom Fallback allows a custom element or string to be rendered if an emoji fails to be fetched or found.
    * By default it takes the fallback or shortName inside emojiId, but if this prop is set it override the internal
    * fallbacks
-   *
-   * customFallback<Element | string> else emojiId.fallback else emojiId.shortName
+   * customFallback<Element | string> else emojiId.fallback else emojiId.shortName.
+   * Defaults to `undefined`.
    */
   customFallback?: JSX.Element | string;
   /**
    * Will attempt to render a highly condensed version of the emoji with an image url before showing the meta version.
-   * All it required to work is an emojiId, imageUrl and some sizing (with good defaults)
+   * All that is required for optimistic images to render is an emojiId, imageUrl and sizing props.
+   * Defaults to `undefined`.
    */
   optimisticImageURL?: string;
 }
 
 export interface Props extends BaseResourcedEmojiProps {
-  emojiProvider: EmojiProvider;
-}
-
-export interface State extends LoadingState {
-  emoji: OptionalEmojiDescription;
-  loaded: boolean;
+  /**
+   * EmojiResource instance that handles fetching of emoji data.
+   */
+  emojiProvider: EmojiResource;
 }
 
 enum ResourcedEmojiComponentRenderStatesEnum {
@@ -59,11 +69,11 @@ enum ResourcedEmojiComponentRenderStatesEnum {
 export const ResourcedEmojiComponent: FC<Props> = ({
   emojiProvider,
   emojiId,
-  showTooltip,
-  customFallback,
+  showTooltip = false,
+  customFallback = undefined,
   fitToHeight = defaultEmojiHeight,
   optimistic = false,
-  optimisticImageURL,
+  optimisticImageURL = undefined,
 }) => {
   const { shortName, id, fallback } = emojiId;
   const emojiContextValue = {
@@ -75,7 +85,7 @@ export const ResourcedEmojiComponent: FC<Props> = ({
   const [loaded, setLoaded] = useState(false);
 
   const fetchOrGetEmoji = (
-    emojiProvider: EmojiProvider,
+    emojiProvider: EmojiResource,
     emojiId: EmojiId,
     optimisticFetch: boolean = false,
   ) => {
@@ -222,3 +232,5 @@ export const ResourcedEmojiComponent: FC<Props> = ({
     </LegacyEmojiContextProvider>
   );
 };
+
+export default ResourcedEmojiComponent;

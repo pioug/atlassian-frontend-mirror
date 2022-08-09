@@ -15,18 +15,34 @@ import {
   tokenToStyle,
 } from './utils';
 
+type Token = {
+  token: string;
+  fallback: string;
+};
+
+// NB: Fallback CSS variables can be deleted when tokens are no longer behind a feature flag
 const colors = {
   text: {
     prefix: 'color.text.',
     cssProperty: 'color',
+    legacyFallbackCSSProperty: '--ds-co-fb',
+    filterFn: <T extends Token>(t: T) => t.token.startsWith(colors.text.prefix),
   },
   background: {
     prefix: 'color.background.',
     cssProperty: 'backgroundColor',
+    legacyFallbackCSSProperty: '--ds-bg-fb',
+    filterFn: <T extends Token>(t: T) =>
+      t.token.startsWith(colors.background.prefix) ||
+      t.token.startsWith('elevation.surface') ||
+      t.token.startsWith('color.blanket'),
   },
   border: {
     prefix: 'color.border.',
     cssProperty: 'borderColor',
+    legacyFallbackCSSProperty: '--ds-bo-fb',
+    filterFn: <T extends Token>(t: T) =>
+      t.token.startsWith(colors.border.prefix),
   },
 } as const;
 
@@ -35,12 +51,12 @@ const activeTokens = tokens
     (t) =>
       t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated',
   )
-  .map((t) => {
-    return {
+  .map(
+    (t): Token => ({
       token: t.name,
-      fallback: t.value,
-    };
-  })
+      fallback: t.value as string,
+    }),
+  )
   .filter(compose(pick('token'), not(isAccent)))
   .filter(compose(pick('token'), not(isPressed)))
   .filter(compose(pick('token'), not(isHovered)));
@@ -52,29 +68,35 @@ export const createColorStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
   }
 
-  const { prefix, cssProperty } = colors[colorProperty];
+  const { prefix, cssProperty, filterFn, legacyFallbackCSSProperty } = colors[
+    colorProperty
+  ];
 
   return (
     prettier.format(
       `
 const ${colorProperty}ColorMap = {
   ${activeTokens
-    .filter(({ token }) => token.includes(prefix))
+    .filter(filterFn)
     // @ts-ignore
     .map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }))
     .map((t) => {
       // handle the default case eg color.border or color.text
-      const replacedProp = t.token.replace(prefix, '');
-      const propName = !t.token.startsWith(prefix) ? 'default' : replacedProp;
+      const propName = t.token.replace(prefix, '');
       return `'${propName}': ${tokenToStyle(
         cssProperty,
         t.token,
-        t.fallback as string,
+        `"var(${legacyFallbackCSSProperty})"`,
       )}`;
     })
     .join(',\n\t')}
 };`,
-      { singleQuote: true, parser: 'typescript', plugins: [parserTypeScript] },
+      {
+        singleQuote: true,
+        parser: 'typescript',
+        trailingComma: 'all',
+        plugins: [parserTypeScript],
+      },
     ) +
     `\ntype ${capitalize(
       colorProperty,

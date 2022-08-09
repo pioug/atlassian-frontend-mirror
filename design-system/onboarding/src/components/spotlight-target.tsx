@@ -18,9 +18,11 @@ interface SpotlightTargetProps {
 /**
  * __Spotlight target__
  *
- * Wraps an element, allowing it to be targeted by a spotlight.
+ * A spotlight target marks a component to be used for introducing new features to users through focused messages or multi-step tours.
  *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 const SpotlightTarget: React.FC<SpotlightTargetProps> = ({
   children,

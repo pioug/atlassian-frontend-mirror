@@ -106,11 +106,11 @@ export interface SpotlightProps {
 /**
  * __Spotlight__
  *
- * A spotlight gives visual focus to an element and is paired with a dialog.
+ * An onboarding spotlight introduces new features to users through focused messages or multi-step tours.
  *
- * Spotlights are used for onboarding and can be connected to create a tour.
- *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 const Spotlight: React.FC<SpotlightProps> = ({
   dialogWidth = 400,

@@ -17,7 +17,10 @@ import {
   getNewIndentLevel,
 } from '../../../../plugins/indentation/commands/utils';
 
-const { indent, outdent } = indentationCommands;
+const {
+  getIndentCommand: indent,
+  getOutdentCommand: outdent,
+} = indentationCommands;
 
 describe('indentation', () => {
   const createEditor = createEditorFactory();
@@ -35,7 +38,7 @@ describe('indentation', () => {
     it('indents a top level paragraph', () => {
       const { editorView } = editor(doc(p('hello{<>}')));
       const { dispatch, state } = editorView;
-      indent(state, dispatch);
+      indent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 1 })(p('hello'))),
       );
@@ -44,7 +47,7 @@ describe('indentation', () => {
     it('indents only the current paragraph', () => {
       const { editorView } = editor(doc(p('hello{<>}'), p('world')));
       const { dispatch, state } = editorView;
-      indent(state, dispatch);
+      indent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 1 })(p('hello')), p('world')),
       );
@@ -53,7 +56,7 @@ describe('indentation', () => {
     it('indents a top level heading', () => {
       const { editorView } = editor(doc(h1('hello{<>}')));
       const { dispatch, state } = editorView;
-      indent(state, dispatch);
+      indent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 1 })(h1('hello'))),
       );
@@ -64,7 +67,7 @@ describe('indentation', () => {
         doc(p('{<}hello'), blockquote(p('hello')), p('world{>}')),
       );
       const { dispatch, state } = editorView;
-      indent(state, dispatch);
+      indent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           indentation({ level: 1 })(p('hello')),
@@ -79,7 +82,7 @@ describe('indentation', () => {
         doc(indentation({ level: 6 })(p('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      indent(state, dispatch);
+      indent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 6 })(p('hello'))),
       );
@@ -92,7 +95,7 @@ describe('indentation', () => {
         doc(indentation({ level: 3 })(p('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      outdent(state, dispatch);
+      outdent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 2 })(p('hello'))),
       );
@@ -103,7 +106,7 @@ describe('indentation', () => {
         doc(indentation({ level: 3 })(p('hello{<>}')), p('world')),
       );
       const { dispatch, state } = editorView;
-      outdent(state, dispatch);
+      outdent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 2 })(p('hello')), p('world')),
       );
@@ -114,7 +117,7 @@ describe('indentation', () => {
         doc(indentation({ level: 3 })(h1('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      outdent(state, dispatch);
+      outdent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(indentation({ level: 2 })(h1('hello'))),
       );
@@ -129,7 +132,7 @@ describe('indentation', () => {
         ),
       );
       const { dispatch, state } = editorView;
-      outdent(state, dispatch);
+      outdent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           indentation({ level: 1 })(p('hello')),
@@ -144,7 +147,7 @@ describe('indentation', () => {
         doc(indentation({ level: 1 })(p('hello{<>}'))),
       );
       const { dispatch, state } = editorView;
-      outdent(state, dispatch);
+      outdent()(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p('hello')));
     });
   });
@@ -152,7 +155,9 @@ describe('indentation', () => {
   describe('keymap', () => {
     it('calls indent command on Tab', () => {
       const indentMock = jest.fn();
-      jest.spyOn(indentationCommands, 'indent').mockImplementation(indentMock);
+      jest
+        .spyOn(indentationCommands, 'getIndentCommand')
+        .mockImplementation(() => indentMock);
       const { editorView } = editor(doc(p('{<>}')));
 
       expect(indentMock).toHaveBeenCalledTimes(0);
@@ -163,8 +168,8 @@ describe('indentation', () => {
     it('calls outdent command on Shift + Tab', () => {
       const outdentMock = jest.fn();
       jest
-        .spyOn(indentationCommands, 'outdent')
-        .mockImplementation(outdentMock);
+        .spyOn(indentationCommands, 'getOutdentCommand')
+        .mockImplementation(() => outdentMock);
       const { editorView } = editor(doc(p('{<>}')));
 
       expect(outdentMock).toHaveBeenCalledTimes(0);
@@ -175,8 +180,8 @@ describe('indentation', () => {
     it('calls outdent command on Backspace at the start of node', () => {
       const outdentMock = jest.fn();
       jest
-        .spyOn(indentationCommands, 'outdent')
-        .mockImplementation(outdentMock);
+        .spyOn(indentationCommands, 'getOutdentCommand')
+        .mockImplementation(() => outdentMock);
       const { editorView } = editor(doc(p('{<>}hello')));
 
       expect(outdentMock).toHaveBeenCalledTimes(0);
@@ -187,8 +192,8 @@ describe('indentation', () => {
     it('should not call outdent command on Backspace if not at the start of node', () => {
       const outdentMock = jest.fn();
       jest
-        .spyOn(indentationCommands, 'outdent')
-        .mockImplementation(outdentMock);
+        .spyOn(indentationCommands, 'getOutdentCommand')
+        .mockImplementation(() => outdentMock);
       const { editorView } = editor(doc(p('h{<>}ello')));
 
       expect(outdentMock).toHaveBeenCalledTimes(0);

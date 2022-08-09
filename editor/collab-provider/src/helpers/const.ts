@@ -8,6 +8,7 @@ export enum EVENT_ACTION {
   CATCHUP = 'catchup',
   DOCUMENT_INIT = 'documentInit',
   ADD_STEPS = 'addSteps',
+  CONVERT_PM_TO_ADF = 'convertPMToADF',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',

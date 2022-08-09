@@ -32,7 +32,11 @@ export default function TabsControlledExample() {
           <Panel>Four</Panel>
         </TabPanel>
       </Tabs>
-      <button disabled={selected === 3} onClick={() => handleUpdate(3)}>
+      <button
+        disabled={selected === 3}
+        onClick={() => handleUpdate(3)}
+        type="button"
+      >
         Select the last tab
       </button>
     </div>

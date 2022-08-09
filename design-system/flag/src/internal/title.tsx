@@ -18,4 +18,5 @@ const Title: FC<TitleProps> = ({ color, children }) => (
   </span>
 );
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Title;

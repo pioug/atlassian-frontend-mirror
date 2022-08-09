@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Context as CardContext } from '@atlaskit/smart-card';
-import type { CardContext as CardContextType } from '@atlaskit/smart-card';
+import { SmartCardContext } from '@atlaskit/link-provider';
+import type { CardContext as CardContextType } from '@atlaskit/link-provider';
 import {
   default as AnalyticsReactContext,
   AnalyticsReactContextInterface,
@@ -26,7 +26,7 @@ function useContextMemoized<T>(reactContext: React.Context<T>) {
 // and gives access to the original Provider so that
 // the child can re-emit it
 export const ContextAdapter: React.FunctionComponent = ({ children }) => {
-  const card = useContextMemoized(CardContext);
+  const card = useContextMemoized(SmartCardContext);
   const analytics = useContextMemoized(AnalyticsReactContext);
   return (
     <LegacyContextAdapter card={card} analytics={analytics}>

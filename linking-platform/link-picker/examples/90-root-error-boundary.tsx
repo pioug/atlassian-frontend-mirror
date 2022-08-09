@@ -17,16 +17,14 @@ export default function RootErrorBoundary() {
           isOpen={isOpen}
           autoFocus={false}
           onClose={handleToggle}
-          content={props => (
-            <div>
-              <LinkPicker
-                {...props}
-                // commit a crime to reap our punishment
-                url={new URL('https://atlassian.com') as any}
-                onSubmit={() => {}}
-                onCancel={() => {}}
-              />
-            </div>
+          content={({ update }) => (
+            <LinkPicker
+              // commit a crime to reap our punishment
+              url={new URL('https://atlassian.com') as any}
+              onSubmit={() => {}}
+              onCancel={() => {}}
+              onContentResize={update}
+            />
           )}
           placement="bottom-start"
           trigger={({ ref, ...triggerProps }) => (

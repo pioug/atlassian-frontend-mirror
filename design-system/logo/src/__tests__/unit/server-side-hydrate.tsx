@@ -2,10 +2,11 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 // @ts-ignore
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
+jest.spyOn(global.console, 'error').mockImplementation(__noop);
 
 afterEach(() => {
   jest.resetAllMocks();

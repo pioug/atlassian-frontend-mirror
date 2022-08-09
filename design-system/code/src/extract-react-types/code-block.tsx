@@ -18,15 +18,14 @@ export default function CodeBlock(__: {
 
   /**
    * The language in which the code is written
-
    * @see `SupportedLanguages` for type information in src
    */
   language?: string;
 
   /**
    * Lines to highlight comma delimited.
+   *
    * Example uses:
-
    * - To highlight one line `highlight="3"`
    * - To highlight a group of lines `highlight="1-5"`
    * - To highlight multiple groups `highlight="1-5,7,10,15-20"`

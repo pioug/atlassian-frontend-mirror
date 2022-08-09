@@ -1,8 +1,9 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema breakout mark`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema breakout mark`, () => {
   it('serializes to the correct HTML', () => {
     const schema = makeSchema();
     const node = schema.nodes.codeBlock.create(

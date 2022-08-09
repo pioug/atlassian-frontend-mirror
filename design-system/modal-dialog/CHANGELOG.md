@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 12.2.14
+
+### Patch Changes
+
+- [`454ec1bbf07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/454ec1bbf07) - Internal code change turning on new linting rules.
+- Updated dependencies
+
 ## 12.2.13
 
 ### Patch Changes

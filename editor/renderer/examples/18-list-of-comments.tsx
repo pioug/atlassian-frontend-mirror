@@ -1,6 +1,6 @@
 import React from 'react';
 import RendererDemo from './helper/RendererDemo';
-import { Provider, Client } from '@atlaskit/smart-card';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 const myComment = {
   version: 1,
@@ -41,7 +41,7 @@ const myComment = {
 
 export default function Example() {
   return (
-    <Provider client={new Client('staging')}>
+    <SmartCardProvider client={new CardClient('staging')}>
       <RendererDemo
         appearance="comment"
         document={myComment}
@@ -50,6 +50,6 @@ export default function Example() {
         showHowManyCopies
         copies={10}
       />
-    </Provider>
+    </SmartCardProvider>
   );
 }

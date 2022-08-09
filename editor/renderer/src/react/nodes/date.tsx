@@ -7,6 +7,7 @@ import {
   timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext';
 
 export interface Props {
   timestamp: string;
@@ -36,4 +37,18 @@ class Date extends PureComponent<Props & WrappedComponentProps, {}> {
   }
 }
 
-export default injectIntl(Date);
+export const DateComponent = injectIntl(Date);
+
+function DateWithFormatContext(props: Props) {
+  const [isChecked] = useTaskItemsFormatContext();
+  let parentIsIncompleteTask = props.parentIsIncompleteTask;
+  if (typeof isChecked !== 'undefined') {
+    parentIsIncompleteTask = !isChecked;
+  }
+
+  return (
+    <DateComponent {...props} parentIsIncompleteTask={parentIsIncompleteTask} />
+  );
+}
+
+export default DateWithFormatContext;

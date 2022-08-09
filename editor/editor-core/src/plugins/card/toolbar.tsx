@@ -9,7 +9,7 @@ import { CardPlatform } from '@atlaskit/smart-card';
 
 import { Command } from '../../types';
 import {
-  FloatingToolbarConfig,
+  FloatingToolbarHandler,
   FloatingToolbarItem,
 } from '../floating-toolbar/types';
 import {
@@ -48,7 +48,9 @@ import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { messages } from './messages';
 import buildLayoutButtons from '../../ui/MediaAndEmbedsToolbar';
 import { buildVisitedLinkPayload } from '../../utils/linking-utils';
+import { LinkPickerOptions } from '../hyperlink/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 
 export const removeCard: Command = (state, dispatch) => {
   if (!(state.selection instanceof NodeSelection)) {
@@ -146,6 +148,14 @@ const generateDeleteButton = (
     title: intl.formatMessage(commonMessages.remove),
     onClick: removeCard,
   };
+  const copyButton = [
+    ...(state && showCopyButton(state)
+      ? [
+          getCopyButtonConfig(state, intl.formatMessage, node.type),
+          { type: 'separator' } as FloatingToolbarItem<Command>,
+        ]
+      : []),
+  ];
   if (node.type === inlineCard) {
     const unlinkButtonWithSeparator: Array<FloatingToolbarItem<Command>> = [
       {
@@ -157,10 +167,10 @@ const generateDeleteButton = (
       },
       { type: 'separator' },
     ];
-    return [...unlinkButtonWithSeparator, removeButton];
+    return [...unlinkButtonWithSeparator, ...copyButton, removeButton];
   }
 
-  return [removeButton];
+  return [...copyButton, removeButton];
 };
 
 const generateToolbarItems = (
@@ -169,6 +179,7 @@ const generateToolbarItems = (
   providerFactory: ProviderFactory,
   cardOptions: CardOptions,
   platform?: CardPlatform,
+  linkPicker?: LinkPickerOptions,
 ) => (node: Node): Array<FloatingToolbarItem<Command>> => {
   const { url } = titleUrlPairFromNode(node);
   let metadata = {};
@@ -191,6 +202,7 @@ const generateToolbarItems = (
     return [
       buildEditLinkToolbar({
         providerFactory,
+        linkPicker,
         node,
       }),
     ];
@@ -262,12 +274,9 @@ const generateToolbarItems = (
 export const floatingToolbar = (
   cardOptions: CardOptions,
   platform?: CardPlatform,
-) => {
-  return (
-    state: EditorState,
-    intl: IntlShape,
-    providerFactory: ProviderFactory,
-  ): FloatingToolbarConfig | undefined => {
+  linkPickerOptions?: LinkPickerOptions,
+): FloatingToolbarHandler => {
+  return (state, intl, providerFactory) => {
     const { inlineCard, blockCard, embedCard } = state.schema.nodes;
     const nodeType = [inlineCard, blockCard, embedCard];
     const pluginState: CardPluginState = pluginKey.getState(state);
@@ -319,6 +328,7 @@ export const floatingToolbar = (
         providerFactory,
         cardOptions,
         platform,
+        linkPickerOptions,
       ),
       ...(pluginState.showLinkingToolbar ? editLinkToolbarConfig : {}),
     };

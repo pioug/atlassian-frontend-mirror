@@ -1,5 +1,11 @@
 # @atlaskit/popper
 
+## 5.2.7
+
+### Patch Changes
+
+- [`ff5655480e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff5655480e6) - Internal code change turning on new linting rules.
+
 ## 5.2.6
 
 ### Patch Changes

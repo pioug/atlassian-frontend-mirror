@@ -1,10 +1,10 @@
-import { name } from '../../../../version.json';
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 
 const schema = makeSchema();
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema decisionItem node`, () => {
+describe(`${packageName}/schema decisionItem node`, () => {
   it('serializes to <li> with proper data-attributes', () => {
     const html = toHTML(schema.nodes.decisionItem.create(), schema);
     expect(html).toContain('<li');

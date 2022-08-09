@@ -44,16 +44,16 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     control: (css, { isFocused, isDisabled }) => {
       let borderColor: string = isFocused
         ? token('color.border.focused', B100)
-        : token('color.border', N20);
+        : token('color.border.input', N20);
       let backgroundColor: string = isFocused
-        ? token('elevation.surface', N0)
-        : token('color.background.neutral', N20);
+        ? token('color.background.input.pressed', N0)
+        : token('color.background.input', N20);
       let backgroundColorHover: string = isFocused
-        ? token('elevation.surface', N0)
-        : token('elevation.surface', N30);
+        ? token('color.background.input.pressed', N0)
+        : token('color.background.input.hovered', N30);
 
       if (isDisabled) {
-        backgroundColor = token('color.background.neutral', N20);
+        backgroundColor = token('color.background.disabled', N20);
         borderColor = token('color.background.disabled', N20);
       }
       if (validationState === 'error') {
@@ -180,7 +180,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       } else if (isSelected) {
         backgroundColor = token('color.background.selected', B50);
       } else if (isFocused) {
-        backgroundColor = token('color.background.input.pressed', N20);
+        backgroundColor = token('color.background.neutral.subtle.hovered', N20);
       }
       if (!isDisabled && (isFocused || isSelected)) {
         boxShadow = `inset 2px 0px 0px ${token('color.border.selected', B400)}`;
@@ -241,7 +241,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       borderRadius: '2px',
       backgroundColor: isFocused
         ? token('color.background.selected', N40)
-        : token('color.background.neutral.subtle.hovered', N40),
+        : token('color.background.neutral', N40),
       boxShadow: isFocused
         ? `0 0 0 2px ${token(
             'elevation.surface',
@@ -252,13 +252,25 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       '@media screen and (-ms-high-contrast: active)': {
         border: isFocused ? '1px solid transparent' : 'none',
       },
+      pointerEvents: 'none',
+
+      color: isFocused
+        ? token('color.text.selected', 'hsl(0, 0%, 20%)')
+        : token('color.text', 'hsl(0, 0%, 20%)'),
+
+      ':hover': {
+        backgroundColor: token('color.background.danger.hovered', N40),
+        color: token('color.text.danger', 'inherit'),
+      },
+      ':active': {
+        backgroundColor: token('color.background.danger.pressed', N40),
+        color: token('color.text.danger', 'inherit'),
+      },
     }),
     multiValueLabel: (css, { isFocused }) => ({
       ...css,
       padding: '2px',
-      color: isFocused
-        ? token('color.text.selected', 'hsl(0, 0%, 20%)')
-        : token('color.text', 'hsl(0, 0%, 20%)'),
+      color: 'inherit',
       paddingRight: '2px',
     }),
     multiValueRemove: (
@@ -269,7 +281,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       },
     ) => ({
       ...css,
-      backgroundColor: isFocused && token('color.background.selected', R75),
+      pointerEvents: 'auto',
+      backgroundColor:
+        isFocused && token('utility.UNSAFE_util.transparent', R75),
       fill: isFocused
         ? token('color.text.selected', '#000')
         : token('color.text', '#000'),
@@ -277,11 +291,11 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingRight: '2px',
       borderRadius: '0px 2px 2px 0px',
       ':hover': {
-        backgroundColor: token('color.background.danger.hovered', R75),
+        backgroundColor: token('utility.UNSAFE_util.transparent', R75),
         fill: token('color.text.danger', '#000'),
       },
       ':active': {
-        backgroundColor: token('color.background.danger.pressed', R75),
+        backgroundColor: token('utility.UNSAFE_util.transparent', R75),
         fill: token('color.text.danger', '#000'),
       },
     }),

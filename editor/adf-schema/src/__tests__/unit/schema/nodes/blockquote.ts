@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   fromHTML,
   toHTML,
@@ -8,7 +7,9 @@ import {
   blockquote,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema blockquote node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema blockquote node`, () => {
   it('should be possible to create a blockquote with a paragraph', () => {
     const html = toHTML(
       schema.nodes.blockquote.create({}, schema.nodes.paragraph.create()),

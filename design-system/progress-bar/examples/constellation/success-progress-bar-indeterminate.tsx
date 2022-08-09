@@ -3,7 +3,7 @@ import React from 'react';
 import { SuccessProgressBar } from '../../src';
 
 const SuccessProgressBarIndeterminateExample = () => {
-  return <SuccessProgressBar isIndeterminate />;
+  return <SuccessProgressBar ariaLabel="Loading issues" isIndeterminate />;
 };
 
 export default SuccessProgressBarIndeterminateExample;

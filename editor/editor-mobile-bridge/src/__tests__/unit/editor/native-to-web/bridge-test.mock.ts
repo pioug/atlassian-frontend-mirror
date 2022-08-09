@@ -7,11 +7,6 @@ export const mockPmHistory = {
 };
 jest.mock('prosemirror-history', () => mockPmHistory);
 
-jest.mock('../../../../version.json', () => ({
-  name: '@atlaskit/editor-mobile-bridge',
-  version: '1.2.3.4',
-}));
-
 const mockEditorCore = {
   ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
   getListCommands: jest.fn(() => ({

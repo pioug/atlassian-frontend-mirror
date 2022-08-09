@@ -8,6 +8,10 @@ import TaskItemWithProviders from './task-item-with-providers';
 import { RendererContext } from '../types';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { NodeProps } from '../types';
+import {
+  TaskItemsFormatProvider,
+  TaskItemsFormatConsumer,
+} from '../../ui/TaskItemsFormatContext';
 
 export interface Props {
   localId: string;
@@ -55,18 +59,27 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, {}> {
           userContext: 'document',
         }}
       >
-        <TaskItemWithProviders
-          objectAri={objectAri}
-          taskId={localId}
-          isDone={state === 'DONE'}
-          isRenderer
-          disabled={disabled}
-          taskDecisionProvider={taskDecisionProvider}
-          contextIdentifierProvider={contextIdentifierProvider}
-          dataAttributes={dataAttributes}
-        >
-          {children}
-        </TaskItemWithProviders>
+        <TaskItemsFormatProvider>
+          <TaskItemsFormatConsumer>
+            {([, dispatch]) => (
+              <TaskItemWithProviders
+                objectAri={objectAri}
+                taskId={localId}
+                isDone={state === 'DONE'}
+                isRenderer
+                disabled={disabled}
+                taskDecisionProvider={taskDecisionProvider}
+                contextIdentifierProvider={contextIdentifierProvider}
+                dataAttributes={dataAttributes}
+                onChange={(_, isChecked) => {
+                  dispatch(isChecked);
+                }}
+              >
+                {children}
+              </TaskItemWithProviders>
+            )}
+          </TaskItemsFormatConsumer>
+        </TaskItemsFormatProvider>
       </FabricElementsAnalyticsContext>
     );
   };

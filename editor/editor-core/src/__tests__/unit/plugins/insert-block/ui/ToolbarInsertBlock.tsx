@@ -3,9 +3,6 @@ import { WrappedComponentProps } from 'react-intl-next';
 import { ReactWrapper, mount } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 
-// TODO Use `@atlaskit/menu
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import Item from '@atlaskit/item';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import Button from '@atlaskit/button/standard-button';
@@ -110,7 +107,7 @@ const getInsertMenuButton = (
 ) => {
   openInsertMenu(toolbarOption);
   return toolbarOption
-    .find<any>(Item)
+    .find('span[role="menuitem"]')
     .filterWhere((n) => n.text().indexOf(title) > -1);
 };
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Node as PMNode } from 'prosemirror-model';
-import { Card as SmartCard } from '@atlaskit/smart-card';
+import {
+  Card as SmartCard,
+  EmbedResizeMessageListener,
+} from '@atlaskit/smart-card';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
@@ -28,7 +31,6 @@ import {
   isRichMediaInsideOfBlockNode,
 } from '../../../utils/rich-media-utils';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { pluginKey as tableResizePluginKey } from '../../table/pm-plugins/table-resizing';
 import { ColumnResizingPluginState } from '../../table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';

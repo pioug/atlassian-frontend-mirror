@@ -42,7 +42,7 @@
     "build-chrome-extension": "yarn --cwd tokens-browser-extension build-chrome-extension"
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^2.0.0",
+    "@atlaskit/ds-lib": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "@babel/traverse": "^7.15.0",
     "@babel/types": "^7.15.0"
@@ -59,8 +59,8 @@
     "@atlaskit/checkbox": "^12.3.9",
     "@atlaskit/code": "^14.3.0",
     "@atlaskit/docs": "^9.0.10",
-    "@atlaskit/dropdown-menu": "^11.2.0",
-    "@atlaskit/dynamic-table": "^14.6.0",
+    "@atlaskit/dropdown-menu": "^11.3.0",
+    "@atlaskit/dynamic-table": "^14.7.0",
     "@atlaskit/empty-state": "^7.3.9",
     "@atlaskit/focus-ring": "^1.0.0",
     "@atlaskit/heading": "^0.1.8",

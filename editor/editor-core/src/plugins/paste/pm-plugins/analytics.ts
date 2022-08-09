@@ -29,6 +29,7 @@ import {
   handleSelectedTable,
   handlePasteLinkOnSelectedText,
   handlePasteIntoCaption,
+  handlePastePanelIntoList,
 } from '../handlers';
 import { Command } from '../../../types';
 import { pipe } from '../../../utils';
@@ -402,6 +403,18 @@ export const handleRichTextWithAnalytics = (
     }),
   )(slice);
 
+export const handlePastePanelIntoListWithAnalytics = (
+  view: EditorView,
+  event: ClipboardEvent,
+  slice: Slice,
+): Command =>
+  pipe(
+    handlePastePanelIntoList,
+    pasteCommandWithAnalytics(view, event, slice, {
+      type: PasteTypes.richText,
+    }),
+  )(slice);
+
 export const handleExpandWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
@@ -440,11 +453,17 @@ export const handlePasteLinkOnSelectedTextWithAnalytics = (
     }),
   )(slice);
 
-export const createPasteMeasurePayload = (
-  view: EditorView,
-  duration: number,
-  content: Array<string>,
-): AnalyticsEventPayload => {
+export const createPasteMeasurePayload = ({
+  view,
+  duration,
+  content,
+  distortedDuration,
+}: {
+  view: EditorView;
+  duration: number;
+  content: Array<string>;
+  distortedDuration: boolean;
+}): AnalyticsEventPayload => {
   const pasteIntoNode = getActionSubjectId(view);
   return {
     action: ACTION.PASTED_TIMED,
@@ -454,6 +473,7 @@ export const createPasteMeasurePayload = (
       pasteIntoNode,
       content,
       time: duration,
+      distortedDuration,
     },
   };
 };

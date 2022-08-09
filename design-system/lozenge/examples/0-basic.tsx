@@ -25,7 +25,7 @@ const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
 ];
 
 export default () => (
-  <div>
+  <div data-testid="test-container">
     <Row>
       <Col>
         <p>Subtle</p>

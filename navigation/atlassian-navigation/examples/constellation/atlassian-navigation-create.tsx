@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 
 import { AtlassianNavigation, Create, ProductHome } from '../../src';
 
@@ -13,7 +13,7 @@ const CreateButton = () => (
   />
 );
 
-const Home = () => <ProductHome icon={AtlassianIcon} logo={AtlassianLogo} />;
+const Home = () => <ProductHome icon={JiraIcon} logo={JiraLogo} />;
 
 const CreateButtonExample = () => (
   <AtlassianNavigation

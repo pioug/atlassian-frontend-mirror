@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode, useState, useCallback } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
@@ -101,7 +102,7 @@ const FlagGroupExample = () => {
             actions={[
               {
                 content: 'Nice one!',
-                onClick: () => {},
+                onClick: noop,
               },
               {
                 content: 'Not right now thanks',

@@ -12,7 +12,7 @@ import {
   convertTo24hrTime,
   isValid,
   removeSpacer,
-} from '../../../internal/parseTime';
+} from '../../../internal/parse-time';
 
 test('EmptyClearIndicator', () => {
   expect(EmptyClearIndicator).toBe(null);

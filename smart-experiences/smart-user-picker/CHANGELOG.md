@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.0.0
+
+### Major Changes
+
+- [`be2c0ae7ba4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be2c0ae7ba4) - The `setSmartUserPickerEnv` export has been removed. This should be a no-op upgrade as it was only used internally for test/example files in other packages.
+
 ## 5.1.3
 
 ### Patch Changes

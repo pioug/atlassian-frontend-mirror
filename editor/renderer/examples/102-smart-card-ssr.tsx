@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { Provider, Client } from '@atlaskit/smart-card';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
@@ -31,7 +31,10 @@ const Page = ({ title }: PageProps) => {
         <h3>{title}</h3>
       </div>
       <IntlProvider locale="en">
-        <Provider storeOptions={storeOptions} client={new Client('staging')}>
+        <SmartCardProvider
+          storeOptions={storeOptions}
+          client={new CardClient('staging')}
+        >
           <Renderer
             document={smartCardAdf}
             schema={defaultSchema}
@@ -39,7 +42,7 @@ const Page = ({ title }: PageProps) => {
             enableSsrInlineScripts={true}
             {...rendererProps}
           />
-        </Provider>
+        </SmartCardProvider>
       </IntlProvider>
     </div>
   );

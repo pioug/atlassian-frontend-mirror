@@ -59,11 +59,6 @@ describe('Code block:', () => {
       adf: tableHeaderCode,
       appearance: Appearance.fullPage,
       viewport: { width: 1280, height: 500 },
-      editorProps: {
-        featureFlags: {
-          'code-block-syntax-highlighting': true,
-        },
-      },
     });
 
     await snapshot(page, undefined, codeBlockSelectors.codeBlock);

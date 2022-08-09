@@ -5,8 +5,13 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 
 export type Props = {
-  children: React.ReactNode | React.ReactNode[];
+  /**
+   * Optional wrapper div class name
+   */
   className?: string;
+  /**
+   * Show custom animation or render as standard without animation
+   */
   flash?: boolean;
 };
 
@@ -44,7 +49,7 @@ export const flashStyle = css({
 /**
  * Flash animation background component. See Reaction component for usage.
  */
-export const FlashAnimation = (props: Props) => (
+export const FlashAnimation: React.FC<Props> = (props) => (
   <div
     className={props.className}
     css={[containerStyle, props.flash && flashStyle]}

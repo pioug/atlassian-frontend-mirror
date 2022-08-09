@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.1.11
+
+### Patch Changes
+
+- [`fd86b8e4c63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd86b8e4c63) - Internal code change turning on new linting rules.
+
 ## 7.1.10
 
 ### Patch Changes

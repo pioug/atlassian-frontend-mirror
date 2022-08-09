@@ -56,7 +56,7 @@ const commentEditorStyle = css`
   }
 
   min-width: 272px;
-  /* Border + Toolbar + Footer + (Paragraph + ((Parahraph + Margin) * (DefaultLines - 1)) */
+  /* Border + Toolbar + Footer + (Paragraph + ((Paragraph + Margin) * (DefaultLines - 1)) */
   /* calc(2px + 40px + 24px + ( 20px + (32px * 2))) */
 
   height: auto;
@@ -76,7 +76,7 @@ const ContentArea = createEditorContentStyle(css`
   line-height: 24px;
 
   /** Hack for Bitbucket to ensure entire editorView gets drop event; see ED-3294 **/
-  /** Hack for tables controlls. Otherwise marging collapse and controlls are misplaced. **/
+  /** Hack for table controls. Otherwise margin collapse and controls are misplaced. **/
   .ProseMirror {
     margin: 12px ${CommentEditorMargin}px ${CommentEditorMargin}px;
   }

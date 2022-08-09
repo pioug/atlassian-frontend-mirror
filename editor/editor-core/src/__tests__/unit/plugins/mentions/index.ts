@@ -26,6 +26,8 @@ import {
 } from '../../../../plugins/mentions/utils';
 import { EditorProps } from '../../../../types';
 
+const packageName = process.env._PACKAGE_NAME_;
+const packageVersion = process.env._PACKAGE_VERSION_;
 let mockRegisterTeamMention = jest.fn();
 
 jest.mock('@atlaskit/mention/spotlight', () => ({
@@ -258,8 +260,8 @@ describe('mentionTypeahead', () => {
               actionSubject: expectedActionSubject,
               eventType: 'ui',
               attributes: expect.objectContaining({
-                packageName: '@atlaskit/editor-core',
-                packageVersion: expect.any(String),
+                packageName,
+                packageVersion,
                 sessionId: expect.stringMatching(sessionIdRegex),
                 spaceInQuery: false,
                 queryLength: 3,
@@ -302,8 +304,8 @@ describe('mentionTypeahead', () => {
               actionSubject: expectedActionSubject,
               eventType: 'ui',
               attributes: expect.objectContaining({
-                packageName: '@atlaskit/editor-core',
-                packageVersion: expect.any(String),
+                packageName,
+                packageVersion,
                 duration: expect.any(Number),
                 position: 0,
                 keyboardKey: keyboardKey,
@@ -351,8 +353,8 @@ describe('mentionTypeahead', () => {
               actionSubject: expectedActionSubject,
               eventType: 'ui',
               attributes: expect.objectContaining({
-                packageName: '@atlaskit/editor-core',
-                packageVersion: expect.any(String),
+                packageName,
+                packageVersion,
                 duration: expect.any(Number),
                 position: 0,
                 keyboardKey: keyboardKey,
@@ -384,8 +386,8 @@ describe('mentionTypeahead', () => {
               actionSubject: expectedActionSubject,
               eventType: 'operational',
               attributes: expect.objectContaining({
-                packageName: '@atlaskit/editor-core',
-                packageVersion: expect.any(String),
+                packageName,
+                packageVersion,
                 duration: expect.any(Number),
                 queryLength: 0,
                 spaceInQuery: false,
@@ -427,8 +429,8 @@ describe('mentionTypeahead', () => {
               actionSubject: expectedActionSubject,
               eventType: 'operational',
               attributes: expect.objectContaining({
-                packageName: '@atlaskit/editor-core',
-                packageVersion: expect.any(String),
+                packageName,
+                packageVersion,
                 duration: expect.any(Number),
                 queryLength: 3,
                 spaceInQuery: false,
@@ -493,8 +495,8 @@ describe('mentionTypeahead', () => {
 
           const commonAttrsTypeAhead = {
             componentName: 'mention',
-            packageName: '@atlaskit/editor-core',
-            packageVersion: expect.any(String),
+            packageName,
+            packageVersion,
             queryLength: expect.any(Number),
             spaceInQuery: false,
             sessionId: expect.stringMatching(sessionIdRegex),
@@ -532,8 +534,8 @@ describe('mentionTypeahead', () => {
 
           const commonAttrsTypeAhead = {
             componentName: 'mention',
-            packageName: '@atlaskit/editor-core',
-            packageVersion: expect.any(String),
+            packageName,
+            packageVersion,
             queryLength: expect.any(Number),
             spaceInQuery: false,
             sessionId: expect.stringMatching(sessionIdRegex),

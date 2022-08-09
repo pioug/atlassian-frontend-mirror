@@ -12,8 +12,8 @@ import {
   TopNavigation,
 } from '../../src';
 
-import JiraIntegrationExample from './product-integration/AtlassianNavigation';
-import Sidebar from './product-integration/SideNavigation';
+import JiraIntegrationExample from './product-integration/atlassian-navigation';
+import Sidebar from './product-integration/side-navigation';
 
 const wrapperStyles = css({
   boxSizing: 'border-box',

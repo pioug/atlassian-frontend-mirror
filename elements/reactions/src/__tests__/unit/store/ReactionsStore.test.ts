@@ -3,8 +3,8 @@ import { ReactionClient } from '../../../client';
 import {
   ari,
   containerAri,
-  reaction,
-  user,
+  getReactionSummary,
+  getUser,
 } from '../../../client/MockReactionsClient';
 import * as ReactionStore from '../../../store/ReactionsStore';
 import { ReactionStatus } from '../../../types/ReactionStatus';
@@ -89,9 +89,9 @@ describe('ReactionStore', () => {
 
   const getReactionsResponse = Promise.resolve({
     [ari]: [
-      reaction(':fire:', 2, true),
-      reaction(':thumbsup:', 3, false),
-      reaction(':clap:', 1, true),
+      getReactionSummary(':fire:', 2, true),
+      getReactionSummary(':thumbsup:', 3, false),
+      getReactionSummary(':clap:', 1, true),
     ],
   });
 
@@ -187,9 +187,9 @@ describe('ReactionStore', () => {
             [`${containerAri}|${ari}`]: {
               status: ReactionStatus.ready,
               reactions: [
-                reaction(':thumbsup:', 3, false),
-                reaction(':fire:', 2, true),
-                reaction(':clap:', 1, true),
+                getReactionSummary(':thumbsup:', 3, false),
+                getReactionSummary(':fire:', 2, true),
+                getReactionSummary(':clap:', 1, true),
               ],
             },
           },
@@ -219,9 +219,9 @@ describe('ReactionStore', () => {
             [`${containerAri}|${ari}`]: {
               status: ReactionStatus.ready,
               reactions: [
-                reaction(':thumbsup:', 3, false),
-                reaction(':fire:', 2, true),
-                reaction(':clap:', 1, true),
+                getReactionSummary(':thumbsup:', 3, false),
+                getReactionSummary(':fire:', 2, true),
+                getReactionSummary(':clap:', 1, true),
               ],
             },
           },
@@ -263,8 +263,8 @@ describe('ReactionStore', () => {
           reactions: {
             [`${containerAri}|${ari}`]: {
               reactions: [
-                reaction(':thumbsup:', 3, false),
-                reaction(':clap:', 3, true),
+                getReactionSummary(':thumbsup:', 3, false),
+                getReactionSummary(':clap:', 3, true),
               ],
               status: ReactionStatus.ready,
             },
@@ -276,7 +276,9 @@ describe('ReactionStore', () => {
     });
 
     it('should send metadata information when adding a reaction', () => {
-      const response = Promise.resolve(reaction(':thumbsup:', 4, true));
+      const response = Promise.resolve(
+        getReactionSummary(':thumbsup:', 4, true),
+      );
 
       (fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(response);
 
@@ -296,8 +298,8 @@ describe('ReactionStore', () => {
         reactions: {
           [`${containerAri}|${ari}`]: {
             reactions: [
-              reaction(':thumbsup:', 3, false),
-              reaction(':clap:', 3, true),
+              getReactionSummary(':thumbsup:', 3, false),
+              getReactionSummary(':clap:', 3, true),
             ],
             status: ReactionStatus.ready,
           },
@@ -307,7 +309,9 @@ describe('ReactionStore', () => {
     });
 
     it('should call adaptor to add reaction', () => {
-      const response = Promise.resolve(reaction(':thumbsup:', 4, true));
+      const response = Promise.resolve(
+        getReactionSummary(':thumbsup:', 4, true),
+      );
 
       (fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(response);
 
@@ -319,10 +323,10 @@ describe('ReactionStore', () => {
             status: ReactionStatus.ready,
             reactions: [
               {
-                ...reaction(':thumbsup:', 4, true),
+                ...getReactionSummary(':thumbsup:', 4, true),
                 optimisticallyUpdated: true,
               },
-              reaction(':clap:', 3, true),
+              getReactionSummary(':clap:', 3, true),
             ],
           },
         },
@@ -330,7 +334,9 @@ describe('ReactionStore', () => {
     });
 
     it('should call adaptor to add reaction using toggle action', () => {
-      const response = Promise.resolve(reaction(':thumbsup:', 4, true));
+      const response = Promise.resolve(
+        getReactionSummary(':thumbsup:', 4, true),
+      );
 
       (fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(response);
 
@@ -342,10 +348,10 @@ describe('ReactionStore', () => {
             status: ReactionStatus.ready,
             reactions: [
               {
-                ...reaction(':thumbsup:', 4, true),
+                ...getReactionSummary(':thumbsup:', 4, true),
                 optimisticallyUpdated: true,
               },
-              reaction(':clap:', 3, true),
+              getReactionSummary(':clap:', 3, true),
             ],
           },
         },
@@ -360,8 +366,8 @@ describe('ReactionStore', () => {
           [`${containerAri}|${ari}`]: {
             status: ReactionStatus.ready,
             reactions: [
-              reaction(':thumbsup:', 3, false),
-              reaction(':clap:', 3, true),
+              getReactionSummary(':thumbsup:', 3, false),
+              getReactionSummary(':clap:', 3, true),
             ],
           },
         },
@@ -385,9 +391,9 @@ describe('ReactionStore', () => {
           [`${containerAri}|${ari}`]: {
             status: ReactionStatus.ready,
             reactions: [
-              reaction(':thumbsup:', 3, false),
+              getReactionSummary(':thumbsup:', 3, false),
               {
-                ...reaction(':clap:', 2, false),
+                ...getReactionSummary(':clap:', 2, false),
                 optimisticallyUpdated: true,
               },
             ],
@@ -403,8 +409,8 @@ describe('ReactionStore', () => {
         reactions: {
           [`${containerAri}|${ari}`]: {
             reactions: [
-              reaction(':thumbsup:', 3, false),
-              reaction(':clap:', 3, true),
+              getReactionSummary(':thumbsup:', 3, false),
+              getReactionSummary(':clap:', 3, true),
             ],
             status: ReactionStatus.ready,
           },
@@ -416,8 +422,8 @@ describe('ReactionStore', () => {
     describe('getDetailedReaction analytics', () => {
       it('should call adaptor to get detailed reaction', async () => {
         const response = Promise.resolve({
-          ...reaction(':thumbsup:', 1, true),
-          users: [user('id', 'Some real user')],
+          ...getReactionSummary(':thumbsup:', 1, true),
+          users: [getUser('id', 'Some real user')],
         });
         (fakeClient.getDetailedReaction as jest.Mock<any>).mockReturnValueOnce(
           response,
@@ -440,10 +446,10 @@ describe('ReactionStore', () => {
               status: ReactionStatus.ready,
               reactions: [
                 {
-                  ...reaction(':thumbsup:', 3, false),
-                  users: [user('id', 'Some real user')],
+                  ...getReactionSummary(':thumbsup:', 3, false),
+                  users: [getUser('id', 'Some real user')],
                 },
-                reaction(':clap:', 3, true),
+                getReactionSummary(':clap:', 3, true),
               ],
             },
           },
@@ -472,7 +478,9 @@ describe('ReactionStore', () => {
 
     describe('addReaction analytics', () => {
       it('should fire SLI analytics when reaction is added successfully', async () => {
-        const response = Promise.resolve(reaction(':thumbsup:', 4, true));
+        const response = Promise.resolve(
+          getReactionSummary(':thumbsup:', 4, true),
+        );
         store.setCreateAnalyticsEvent(fakeCreateAnalyticsEvent);
         (fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
           response,
@@ -522,7 +530,9 @@ describe('ReactionStore', () => {
       });
 
       it('should not fire addReaction SLI analytics when createAnalyticsEvent is not provided', async () => {
-        const response = Promise.resolve(reaction(':thumbsup:', 4, true));
+        const response = Promise.resolve(
+          getReactionSummary(':thumbsup:', 4, true),
+        );
         store.setCreateAnalyticsEvent(undefined);
         (fakeClient.addReaction as jest.Mock<any>).mockReturnValueOnce(
           response,

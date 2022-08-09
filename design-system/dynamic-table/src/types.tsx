@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/consistent-types-definitions */
 import React, { Ref } from 'react';
 
 import {
@@ -55,7 +56,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   /**
    * Rows to be placed in the table.
    * Each row contains cells which should map to the ones defined in the head.
-
+   *
    * Ensure each cell has a unique `key` per column - this is used for both Reacts reconcilation of lists and column sorting.
    */
   rows?: Array<RowType>;
@@ -109,7 +110,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   onPageRowsUpdate?: (pageRows: Array<RowType>) => void;
 
   /**
-   * Page the table should show.
+   * Page the table should show. Set by default to 1, so never undefined.
    */
   page?: number;
 
@@ -149,6 +150,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
    * Labels for the pagination wrapper, previous and next buttons used in pagination.
    * Defaults to `"pagination"`, `"previous"` and `"next"`.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   paginationi18n?: I18nShape;
 
   /**
@@ -157,19 +159,19 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
   highlightedRowIndex?: number | number[];
 
   /**
-    A `testId` prop is provided for specified elements,
-    which is a unique string that appears as a data attribute
-    `data-testid` in the rendered code, serving as a hook for automated tests.
-
-    The value of `testId` is used to prefix `testId` props in given elements.
-    - `{testId}--table` - Table.
-    - `{testId}--head` - Table header.
-    - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-    - `{testId}--row--{index - content of the first cell}` - Table row.
-    - `{testId}--body` - Table body.
-    - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-    - `{testId}--loadingSpinner` - The spinner overlaid when loading.
-    - `{testId}--pagination` - The table pagination.
+   *  A `testId` prop is provided for specified elements,
+   *  which is a unique string that appears as a data attribute
+   *  `data-testid` in the rendered code, serving as a hook for automated tests.
+   *
+   *  The value of `testId` is used to prefix `testId` props in given elements.
+   *  - `{testId}--table` - Table.
+   *  - `{testId}--head` - Table header.
+   *  - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+   *  - `{testId}--row--{index - content of the first cell}` - Table row.
+   *  - `{testId}--body` - Table body.
+   *  - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+   *  - `{testId}--loadingSpinner` - The spinner overlaid when loading.
+   * - `{testId}--pagination` - The table pagination.
    */
   testId?: string;
 
@@ -197,7 +199,6 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
    * Rows to be placed in the table.
    * Each row contains cells which should map to the ones defined in the head.
    * Rows accept standard HTML <tr> props in addition to those listed below.
-
    * Ensure each cell has a unique `key` per column - this is used for both React's reconciliation of lists and column sorting.
    */
   rows?: Array<RowType>;
@@ -224,7 +225,7 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   isFixedSize?: boolean;
 
   /**
-   * Controls how many rows should be diplayed per page.
+   * Controls how many rows should be displayed per page. If set, also turns on pagination, if there is more than one page to show.
    */
   rowsPerPage?: number;
 
@@ -306,6 +307,7 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
    * Labels for the previous and next buttons used in pagination.
    * Defaults to `"previous"` and `"next"`.
    */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   paginationi18n?: I18nShape;
 
   /**
@@ -314,19 +316,18 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
   highlightedRowIndex?: number | number[];
 
   /**
-    A `testId` prop is provided for specified elements,
-    which is a unique string that appears as a data attribute
-    `data-testid` in the rendered code, serving as a hook for automated tests.
-
-    The value of `testId` is used to prefix `testId` props in given elements.
-    - `{testId}--table` - Table.
-    - `{testId}--head` - Table header.
-    - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
-    - `{testId}--row--{index - content of the first cell}` - Table row.
-    - `{testId}--body` - Table body.
-    - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
-    - `{testId}--loadingSpinner` - The spinner overlaid when loading.
-    - `{testId}--pagination` - The table pagination.
+   * A `testId` prop is provided for specified elements,
+   * which is a unique string that appears as a data attribute
+   * `data-testid` in the rendered code, serving as a hook for automated tests.
+   * The value of `testId` is used to prefix `testId` props in given elements.
+   *  - `{testId}--table` - Table.
+   *  - `{testId}--head` - Table header.
+   *  - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+   *  - `{testId}--row--{index - content of the first cell}` - Table row.
+   *  - `{testId}--body` - Table body.
+   *  - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
+   *  - `{testId}--loadingSpinner` - The spinner overlaid when loading.
+   *  - `{testId}--pagination` - The table pagination.
    */
   testId?: string;
 
@@ -375,11 +376,17 @@ export type SpinnerSizeType = SizeType;
 export type LoadingSpinnerSizeType = 'small' | 'large';
 
 export interface HeadCellType extends RowCellType {
-  /** Whether the column the cell sits above is sortable. */
+  /**
+   * Whether the column the cell sits above is sortable.
+   */
   isSortable?: boolean;
-  /** The width of the cell as a percentage. */
+  /**
+   * The width of the cell as a percentage.
+   */
   width?: number;
-  /** Whether the text in the cell will truncate or not if constrained. */
+  /**
+   * Whether the text in the cell will truncate or not if constrained.
+   */
   shouldTruncate?: boolean;
 }
 

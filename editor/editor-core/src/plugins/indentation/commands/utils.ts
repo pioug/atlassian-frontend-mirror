@@ -19,6 +19,9 @@ export type NewAttributes = IndentationMarkAttributes | undefined | false;
 export type IndentationChangesOptions = {
   direction: INDENT_DIRECTION;
 };
+export type IndentationInputMethod =
+  | INPUT_METHOD.KEYBOARD
+  | INPUT_METHOD.TOOLBAR;
 
 const indentTypes: Record<string, string> = {
   paragraph: INDENT_TYPE.PARAGRAPH,
@@ -62,14 +65,20 @@ export function getPrevIndentLevel(prevAttrs: PrevAttributes): number {
  * @param dispatch
  * @returns
  */
-export function createAnalyticsDispatch(
+export function createAnalyticsDispatch({
+  getAttrsChanges,
+  inputMethod,
+  state,
+  dispatch,
+}: {
   getAttrsChanges: () => GetAttrsChange<
     IndentationMarkAttributes,
     IndentationChangesOptions
-  >[],
-  state: EditorState,
-  dispatch?: (tr: Transaction) => void,
-): (tr: Transaction) => void {
+  >[];
+  inputMethod: IndentationInputMethod;
+  state: EditorState;
+  dispatch?: (tr: Transaction) => void;
+}): (tr: Transaction) => void {
   return (tr: Transaction) => {
     let currentTr = tr;
     const changes = getAttrsChanges(); // Get all attributes changes
@@ -87,7 +96,7 @@ export function createAnalyticsDispatch(
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_INDENT,
         eventType: EVENT_TYPE.TRACK,
         attributes: {
-          inputMethod: INPUT_METHOD.KEYBOARD,
+          inputMethod,
           previousIndentationLevel: getPrevIndentLevel(prevAttrs),
           newIndentLevel: getNewIndentLevel(prevAttrs, newAttrs),
           direction,

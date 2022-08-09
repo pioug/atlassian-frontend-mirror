@@ -1,6 +1,7 @@
 import React from 'react';
 import { EmojiPicker } from '../src/picker';
-import ResourcedEmojiControl, {
+import {
+  ResourcedEmojiControl,
   getEmojiConfig,
   getRealEmojiResource,
 } from '../example-helpers/demo-resource-control';

@@ -1,4 +1,4 @@
-import { name } from '../../../version.json';
+import { name } from '../../../version-wrapper';
 import { Selection } from 'prosemirror-state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

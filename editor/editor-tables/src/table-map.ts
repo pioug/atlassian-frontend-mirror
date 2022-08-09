@@ -107,6 +107,12 @@ export type TableProblem =
   | TableProblemMissing
   | TableProblemColWidthMismatch;
 
+// Ideally tableNewColumnMinWidth should be imported
+// from '@atlaskit/editor-common/styles';
+// We don't want to introduce a new dependency.
+// Thus we define the constant here.
+export const tableNewColumnMinWidth = 140;
+
 // ::- A table map describes the structore of a given table. To avoid
 // recomputing them all the time, they are cached per table node. To
 // be able to do that, positions saved in the map are relative to the
@@ -330,6 +336,7 @@ function computeMap(table: PMNode) {
       mapPos += colspan;
       pos += cellNode.nodeSize;
     }
+
     let expectedPos = (row + 1) * width;
     let missing = 0;
     while (mapPos < expectedPos) {
@@ -358,6 +365,20 @@ function computeMap(table: PMNode) {
       badWidths = true;
     }
   }
+
+  // colWidths is an array of numbers, it can look like this
+  // const colWidths = [255, 3, 125, 3, 150, 2, 130, 1];
+  // 255 is a colWidth and 3 is a number of cells with this colwidth.
+  // This check exists to make sure that the table has been resized,
+  // which means there will be elements in the colWidths array.
+  if (colWidths.length > 0 && colWidths.length !== width * 2) {
+    for (let i = 0; i < width * 2 - colWidths.length; i++) {
+      colWidths.push(tableNewColumnMinWidth, 0);
+    }
+
+    badWidths = true;
+  }
+
   if (badWidths) {
     findBadColWidths(tableMap, colWidths, table);
   }

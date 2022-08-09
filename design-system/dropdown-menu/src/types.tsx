@@ -75,7 +75,7 @@ export interface CustomTriggerProps extends Omit<TriggerProps, 'ref'> {
 
 export interface OnOpenChangeArgs {
   isOpen: boolean;
-  event?: MouseEvent | KeyboardEvent;
+  event: MouseEvent | KeyboardEvent;
 }
 
 export interface MenuWrapperProps extends MenuGroupProps {

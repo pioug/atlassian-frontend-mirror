@@ -8,7 +8,9 @@ import { gridSize } from '@atlaskit/theme/constants';
 import { Appearance } from './types';
 
 export type ButtonGroupProps = {
-  /** The appearance to apply to all buttons. */
+  /**
+   * The appearance to apply to all buttons.
+   */
   appearance?: Appearance;
   children?: React.ReactNode;
 };
@@ -38,7 +40,8 @@ export default function ButtonGroup({
         return (
           <div key={idx} css={groupItemStyles}>
             {appearance
-              ? React.cloneElement(child as JSX.Element, { appearance })
+              ? // eslint-disable-next-line @repo/internal/react/no-clone-element
+                React.cloneElement(child as JSX.Element, { appearance })
               : child}
           </div>
         );

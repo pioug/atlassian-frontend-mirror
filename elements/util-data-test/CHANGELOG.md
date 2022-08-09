@@ -1,5 +1,12 @@
 # @atlaskit/util-data-test
 
+## 17.5.1
+
+### Patch Changes
+
+- [`40dc0e98bc6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/40dc0e98bc6) - remove fake timeout of findByEmojiId in mock
+- Updated dependencies
+
 ## 17.5.0
 
 ### Minor Changes

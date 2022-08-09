@@ -34,6 +34,15 @@ export interface ModalFooterProps {
   testId?: string;
 }
 
+/**
+ * __Modal footer__
+ *
+ * A modal footer often contains a primary action and the ability to cancel and close the dialog, though can contain any React element.
+ *
+ * - [Examples](https://atlassian.design/components/modal-dialog/examples#modal-footer)
+ * - [Code](https://atlassian.design/components/modal-dialog/code#modal-footer-props)
+ * - [Usage](https://atlassian.design/components/modal-dialog/usage)
+ */
 const ModalFooter = (props: ModalFooterProps) => {
   const { children, testId: userDefinedTestId } = props;
   const { testId: modalTestId } = useModal();

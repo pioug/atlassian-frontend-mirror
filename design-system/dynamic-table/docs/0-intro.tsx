@@ -41,7 +41,7 @@ export default md`
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/Stateful')}
+      props={require('!!extract-react-types-loader!../src/components/stateful')}
     />
   )}
 `;

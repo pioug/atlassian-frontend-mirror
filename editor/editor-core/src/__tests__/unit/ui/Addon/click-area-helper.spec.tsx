@@ -8,7 +8,10 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
+import {
+  clickAreaClickHandler,
+  checkForModal,
+} from '../../../../ui/Addon/click-area-helper';
 import { EditorView } from 'prosemirror-view';
 import {
   GapCursorSelection,
@@ -18,6 +21,31 @@ import * as utils from '../../../../utils/dom';
 import * as commands from '../../../../commands';
 import * as actions from '../../../../../src/plugins/selection/gap-cursor/actions';
 
+import Modal from '@atlaskit/modal-dialog';
+
+const Editor = (props: any) => (
+  <div onClick={props.handleClick}>
+    <div className="akEditor">
+      <div className="ak-editor-content-area">
+        <div className="child-ak-editor-content-area"></div>
+      </div>
+    </div>
+    <div className="outside-ak-editor-content-area"></div>
+  </div>
+);
+
+const DummyComponent = (props: any) => {
+  if (props.renderInsideModal) {
+    return (
+      <Modal>
+        <Editor handleClick={props.handleClick} />
+      </Modal>
+    );
+  }
+
+  return <Editor handleClick={props.handleClick} />;
+};
+
 describe('Editor click area handler', () => {
   const createEditor = createEditorFactory();
   const editor = (doc: DocBuilder) =>
@@ -26,17 +54,9 @@ describe('Editor click area handler', () => {
       editorProps: { allowPanel: true },
     });
 
-  const DummyComponent = (props: any) => (
-    <div onClick={props.handleClick}>
-      <div className="ak-editor-content-area">
-        <div className="child-ak-editor-content-area"></div>
-      </div>
-      <div className="outside-ak-editor-content-area"></div>
-    </div>
-  );
-
   let wrapper: any;
   let editorView: EditorView<any>;
+
   beforeEach(() => {
     editorView = editor(doc(p('Hello world'))).editorView;
 
@@ -48,13 +68,14 @@ describe('Editor click area handler', () => {
       />,
     );
   });
+
   afterEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();
   });
+
   describe('for append paragraph', () => {
     it('should call view.focus when an empty paragraph is created', () => {
-      editorView = editor(doc(p('Hello world'))).editorView;
       const focusSpy = jest.spyOn(editorView, 'focus');
       wrapper
         .find('.ak-editor-content-area')
@@ -80,6 +101,7 @@ describe('Editor click area handler', () => {
         );
         setSelectionTopLevelBlockMock.mockImplementation(() => {});
       });
+
       it('should append paragraph after last node, when clicked outside ak-editor-content-area', () => {
         wrapper
           .find('.outside-ak-editor-content-area')
@@ -123,7 +145,7 @@ describe('Editor click area handler', () => {
         clientY: -10,
       });
       const selection = editorView.state.selection as GapCursorSelection;
-      expect(selection instanceof GapCursorSelection).toBe(true);
+      expect(selection instanceof GapCursorSelection).toBeTruthy();
       expect(selection.side).toEqual(Side.LEFT);
     });
 
@@ -134,9 +156,52 @@ describe('Editor click area handler', () => {
         .find('.ak-editor-content-area')
         .simulate('click', { clientY: -10 });
       const selection = editorView.state.selection as GapCursorSelection;
-      expect(selection instanceof GapCursorSelection).toBe(true);
+      expect(selection instanceof GapCursorSelection).toBeTruthy();
       expect(selection.side).toEqual(Side.LEFT);
       expect(focusSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('for modal support', () => {
+    it('should call view.focus when an editor is used inside modal', () => {
+      const focusSpy = jest.spyOn(editorView, 'focus');
+      wrapper = mount(
+        <DummyComponent
+          handleClick={(event: React.MouseEvent<any>) => {
+            clickAreaClickHandler(editorView, event);
+          }}
+          renderInsideModal
+        />,
+      );
+
+      wrapper
+        .find('.ak-editor-content-area')
+        .simulate('click', { clientY: -10 });
+
+      expect(focusSpy).toHaveBeenCalled();
+    });
+
+    it('should NOT call view.focus when a modal is open when editing', () => {
+      const focusSpy = jest.spyOn(editorView, 'focus');
+      const onClickButtonHandler = jest.fn();
+      wrapper = mount(
+        <>
+          <DummyComponent
+            handleClick={(event: React.MouseEvent<any>) => {
+              clickAreaClickHandler(editorView, event);
+            }}
+          />
+          <Modal>
+            <div>Some Content</div>
+            <button id="test-button" onClick={onClickButtonHandler}></button>
+          </Modal>
+        </>,
+      );
+
+      wrapper.find('#test-button').simulate('click');
+
+      expect(onClickButtonHandler).toHaveBeenCalled();
+      expect(focusSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -147,7 +212,62 @@ describe('Editor click area handler', () => {
     (closestElementSpy as any).mockReturnValue({});
     wrapper.find('.ak-editor-content-area').simulate('click', { clientY: 10 });
     const selection = editorView.state.selection as GapCursorSelection;
-    expect(selection instanceof GapCursorSelection).toBe(false);
+    expect(selection instanceof GapCursorSelection).toBeFalsy();
     expect(editorView.state.doc).toEqualDocument(doc(p('Hello world')));
+  });
+});
+
+describe('checkForModal', () => {
+  it('should return true when editor is rendered inside a modal', () => {
+    let results: any;
+    const wrapper = mount(
+      <DummyComponent
+        handleClick={(event: React.MouseEvent<any>) => {
+          results = checkForModal(event.target as HTMLElement);
+        }}
+        renderInsideModal
+      />,
+    );
+
+    wrapper.find('.ak-editor-content-area').simulate('click', { clientY: -10 });
+
+    expect(results).toBeTruthy();
+  });
+
+  it('should return false when a modal is open over an editor', () => {
+    let results: any;
+    const onClickButtonHandler = jest.fn();
+    const wrapper = mount(
+      <>
+        <DummyComponent
+          handleClick={(event: React.MouseEvent<any>) => {
+            results = checkForModal(event.target as HTMLElement);
+          }}
+        />
+        <Modal>
+          <div>Some Content</div>
+          <button id="test-button" onClick={onClickButtonHandler}></button>
+        </Modal>
+      </>,
+    );
+
+    wrapper.find('#test-button').simulate('click');
+
+    expect(results).toBeFalsy();
+  });
+
+  it("should return true when there isn't an open modal", () => {
+    let results: any;
+    const wrapper = mount(
+      <DummyComponent
+        handleClick={(event: React.MouseEvent<any>) => {
+          results = checkForModal(event.target as HTMLElement);
+        }}
+      />,
+    );
+
+    wrapper.find('.ak-editor-content-area').simulate('click', { clientY: -10 });
+
+    expect(results).toBeTruthy();
   });
 });

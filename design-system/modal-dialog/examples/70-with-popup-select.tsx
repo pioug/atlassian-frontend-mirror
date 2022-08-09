@@ -29,7 +29,9 @@ export default function ModalWithPopupSelect() {
         <PopupSelect
           {...defaults}
           target={({ ref }: { ref: React.RefObject<any> }) => (
-            <button ref={ref}>Click me</button>
+            <button ref={ref} type="button">
+              Click me
+            </button>
           )}
           popperProps={{ placement: 'bottom', strategy: 'fixed' }}
           searchThreshold={10}

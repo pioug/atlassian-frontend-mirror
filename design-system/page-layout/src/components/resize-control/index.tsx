@@ -362,4 +362,5 @@ const ResizeControl = ({
   /* eslint-enable jsx-a11y/role-supports-aria-props */
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default ResizeControl;

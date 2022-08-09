@@ -1,11 +1,12 @@
-import { name } from '../../../../version.json';
 import {
   schema,
   toDOM,
   fromHTML,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 
-describe(`${name}/schema unsupportedInline node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema unsupportedInline node`, () => {
   it('should parse unsupported inline nodes', () => {
     const doc = fromHTML(
       '<div data-node-type="confluenceUnsupportedInline" data-confluence-unsupported="inline" data-confluence-unsupported-inline-cxhtml="foobar"/>',

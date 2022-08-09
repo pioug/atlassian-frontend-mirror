@@ -13,8 +13,8 @@ import {
   OpsgenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
-import { N10, N20 } from '@atlaskit/theme/colors';
-import { e500 } from '@atlaskit/theme/elevation';
+import { N10, N20, N50A, N60A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Centered } from '../examples-utils';
 import { FadeIn, StaggeredEntrance, useResizingHeight } from '../src';
@@ -59,15 +59,18 @@ export default () => {
         <div
           data-testid="menu"
           {...useResizingHeight()}
-          css={css`
-            ${e500()};
-            border-radius: 3px;
-            margin-top: 24px;
-            margin-bottom: 56px;
-            max-width: 500px;
-            width: 100%;
-            padding-bottom: 8px;
-          `}
+          css={css({
+            width: '100%',
+            maxWidth: '500px',
+            marginTop: '24px',
+            marginBottom: '56px',
+            paddingBottom: '8px',
+            borderRadius: '3px',
+            boxShadow: token(
+              'elevation.shadow.overlay',
+              `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
+            ),
+          })}
         >
           <FocusRing isInset>
             <input
@@ -76,21 +79,20 @@ export default () => {
               type="text"
               readOnly
               value={searchTerm[`s${num}`]}
-              css={css`
-                display: block;
-                border-radius: 3px 3px 0 0;
-                color: #172b4d;
-                font-size: 24px;
-                padding: 16px;
-                border: none;
-                box-sizing: border-box;
-                width: 100%;
-                margin-bottom: 8px;
-
-                :hover {
-                  background-color: ${N10};
-                }
-              `}
+              css={css({
+                display: 'block',
+                boxSizing: 'border-box',
+                width: '100%',
+                marginBottom: '8px',
+                padding: '16px',
+                border: 'none',
+                borderRadius: '3px 3px 0 0',
+                color: '#172b4d',
+                fontSize: '24px',
+                ':hover': {
+                  backgroundColor: N10,
+                },
+              })}
             />
           </FocusRing>
           <StaggeredEntrance columns={1}>
@@ -100,16 +102,15 @@ export default () => {
                 <FadeIn key={index}>
                   {(motion) => (
                     <div
-                      css={css`
-                        font-size: 16px;
-                        font-weight: 500;
-                        padding: 16px;
-                        display: flex;
-
-                        :hover {
-                          background-color: ${N20};
-                        }
-                      `}
+                      css={css({
+                        display: 'flex',
+                        padding: '16px',
+                        fontSize: '16px',
+                        fontWeight: 500,
+                        ':hover': {
+                          backgroundColor: N20,
+                        },
+                      })}
                       {...motion}
                     >
                       {logos[index][0]}

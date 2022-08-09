@@ -17,7 +17,7 @@ import {
 } from './theme';
 import type { ActionsType, AppearanceTypes } from './types';
 
-type Props = {
+type FlagActionsProps = {
   appearance: AppearanceTypes;
   actions: ActionsType;
   linkComponent?: ComponentType<CustomThemeButtonProps>;
@@ -75,7 +75,7 @@ const isBoldButtonStyles = css({
   },
 });
 
-const FlagActions = (props: Props) => {
+const FlagActions = (props: FlagActionsProps) => {
   const {
     appearance = DEFAULT_APPEARANCE,
     actions = [],
@@ -131,4 +131,5 @@ const FlagActions = (props: Props) => {
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default FlagActions;

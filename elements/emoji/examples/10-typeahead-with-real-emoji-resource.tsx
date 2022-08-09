@@ -2,7 +2,8 @@ import { layers } from '@atlaskit/theme/constants';
 import React from 'react';
 import { Component } from 'react';
 import { onClose, onOpen, onSelection } from '../example-helpers';
-import ResourcedEmojiControl, {
+import {
+  ResourcedEmojiControl,
   getEmojiConfig,
   getRealEmojiResource,
 } from '../example-helpers/demo-resource-control';

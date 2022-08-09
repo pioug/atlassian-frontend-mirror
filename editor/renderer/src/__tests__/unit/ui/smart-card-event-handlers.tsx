@@ -10,7 +10,7 @@ import { ReactWrapper } from 'enzyme';
 import Renderer, { Props } from '../../../ui/Renderer';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { cardClient } from '@atlaskit/media-integration-test-helpers';
 
 const initialDoc = {

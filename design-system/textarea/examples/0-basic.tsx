@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 
-import { docsText } from '../common';
 import TextArea from '../src';
+
+import { docsText } from './common';
 
 const wrapperStyles = css({
   maxWidth: 500,
@@ -63,7 +64,9 @@ export default () => {
           }}
         />
       </div>
-      <button onClick={focus}>focus</button>
+      <button onClick={focus} type="button">
+        focus
+      </button>
     </div>
   );
 };

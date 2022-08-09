@@ -96,6 +96,14 @@ const SearchComponent = (props: SearchComponentProps) => {
   );
 };
 
+/**
+ * __Search__
+ *
+ * A search input that can be passed into `AtlassianNavigation`'s `renderSearch` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#search)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const Search = (props: SearchProps) => {
   const { placeholder, tooltip, label, value, ...iconButtonProps } = props;
 
@@ -111,6 +119,7 @@ export const Search = (props: SearchProps) => {
         css={searchIconStyles}
         icon={<SearchIcon label={label} />}
         tooltip={tooltip}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...iconButtonProps}
       />
     </Fragment>

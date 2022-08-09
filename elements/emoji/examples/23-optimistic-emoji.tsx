@@ -2,7 +2,8 @@ import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import ResourcedEmojiControl, {
+import {
+  ResourcedEmojiControl,
   getEmojiConfig,
   getRealEmojiResource,
 } from '../example-helpers/demo-resource-control';

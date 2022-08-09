@@ -6,7 +6,7 @@ import {
   useEffect,
 } from 'react';
 
-const noop = () => {};
+import noop from '@atlaskit/ds-lib/noop';
 
 export type LeftSidebarState = {
   isFlyoutOpen: boolean;
@@ -42,6 +42,7 @@ const leftSidebarState = {
   flyoutLockCount: 0,
   isFixed: true,
 };
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SidebarResizeContext = createContext<SidebarResizeContextValue>({
   isLeftSidebarCollapsed: false,
   expandLeftSidebar: noop,
@@ -56,7 +57,7 @@ export const usePageLayoutResize = () => {
 };
 
 /**
- * **WARNING:** This hook is intended as a temporary solution and
+ * _**WARNING:**_ This hook is intended as a temporary solution and
  * is likely to be removed in a future version of page-layout.
  *
  * ---
@@ -72,7 +73,6 @@ export const usePageLayoutResize = () => {
  * you are rendering. This way the left sidebar will be locked for
  * as long as the popup is open.
  */
-
 export const useLeftSidebarFlyoutLock = () => {
   const { setLeftSidebarState } = useContext(SidebarResizeContext);
 

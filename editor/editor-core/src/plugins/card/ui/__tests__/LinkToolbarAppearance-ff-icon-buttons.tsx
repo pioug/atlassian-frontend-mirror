@@ -40,7 +40,9 @@ describe('LinkToolbarAppearance', () => {
           'view-changing-experiment-toolbar-style': 'toolbarIcons',
         },
         allowPanel: true,
-        smartLinks: {},
+        smartLinks: {
+          allowEmbeds: true,
+        },
       },
       pluginKey,
     });

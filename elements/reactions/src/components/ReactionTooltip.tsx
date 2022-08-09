@@ -44,18 +44,23 @@ const footerStyle = css({
 });
 
 export interface Props {
+  /**
+   * Optional name for the reaction emoji
+   */
   emojiName?: string;
+  /**
+   * Info on the emoji reaction to render
+   */
   reaction: ReactionSummary;
-  children: React.ReactNode;
 }
 
 const TOOLTIP_USERS_LIMIT = 5;
 
-export const ReactionTooltip = ({
+export const ReactionTooltip: React.FC<Props> = ({
   emojiName,
   children,
   reaction: { users },
-}: Props) => {
+}) => {
   const content =
     !users || users.length === 0 ? null : (
       <div css={tooltipStyle}>

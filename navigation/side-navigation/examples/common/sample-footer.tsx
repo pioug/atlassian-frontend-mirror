@@ -13,6 +13,7 @@ import { Footer } from '../../src';
 import SampleIcon from './next-gen-project-icon';
 
 const Container: React.FC<CustomItemComponentProps> = (props) => {
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   return <div {...props} />;
 };
 

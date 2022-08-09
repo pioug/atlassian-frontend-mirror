@@ -71,7 +71,7 @@ function useCreateEditor(
           if (!editorSharedConfig) {
             measureRender(
               measurements.PROSEMIRROR_RENDERED,
-              (duration, startTime) => {
+              ({ duration, startTime, distortedDuration }) => {
                 if (sharedConfig && sharedConfig.dispatch) {
                   sharedConfig.dispatch(analyticsEventKey, {
                     payload: {
@@ -79,6 +79,7 @@ function useCreateEditor(
                       actionSubject: ACTION_SUBJECT.EDITOR,
                       attributes: {
                         duration,
+                        distortedDuration,
                         startTime,
                         nodes: getNodesCount(sharedConfig.editorView.state.doc),
                         ttfb: getResponseEndTime(),

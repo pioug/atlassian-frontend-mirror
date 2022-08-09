@@ -27,6 +27,7 @@ import {
 } from './actions';
 import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { PresetLayout } from './types';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
 
 type PresetLayoutButtonItem = {
   id?: string;
@@ -147,6 +148,14 @@ export const buildToolbar = (
               buildLayoutButton(intl, i, currentLayout),
             )
           : []),
+
+        ...(state && showCopyButton(state)
+          ? [
+              separator,
+              getCopyButtonConfig(state, intl.formatMessage, nodeType),
+            ]
+          : []),
+
         separator,
         deleteButton,
       ],

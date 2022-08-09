@@ -12,7 +12,7 @@ import type {
 } from '@atlaskit/adf-utils/validatorTypes';
 import { validator } from '@atlaskit/adf-utils/validator';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mentionResourceProviderWithTeamMentionHighlight } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';

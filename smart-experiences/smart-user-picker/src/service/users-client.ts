@@ -1,7 +1,7 @@
 import { User } from '@atlaskit/user-picker';
 import { UNKNOWN_USER } from './constants';
 import { graphqlQuery } from './graphqlUtils';
-import { getConfig } from '../config';
+import { config } from '../config';
 
 interface UserData {
   accountId: string;
@@ -46,7 +46,7 @@ const getHydratedUsers = (
   baseUrl: string | undefined,
   userIds: string[],
 ): Promise<User[]> => {
-  const url = getConfig().getGraphQLUrl(baseUrl);
+  const url = config.getGraphQLUrl(baseUrl);
   return new Promise((resolve) => {
     makeRequest(url, userIds)
       .then((data) => {

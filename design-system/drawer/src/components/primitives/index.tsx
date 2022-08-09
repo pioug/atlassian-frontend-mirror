@@ -153,4 +153,5 @@ const DrawerPrimitive = ({
   );
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default DrawerPrimitive;

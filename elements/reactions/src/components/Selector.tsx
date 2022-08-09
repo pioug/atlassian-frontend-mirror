@@ -14,9 +14,21 @@ import { ShowMore } from './ShowMore';
 import { equalEmojiId } from './utils';
 
 export interface Props {
+  /**
+   * Provider for loading emojis
+   */
   emojiProvider: Promise<EmojiProvider>;
+  /**
+   * Event handler when an emoji gets selected
+   */
   onSelection: OnEmojiEvent;
+  /**
+   * Enable/Disable selection of extra custom emoji beyond default list (defaults to false)
+   */
   showMore?: boolean;
+  /**
+   * Optional event when extra custom emojis icon is selected
+   */
   onMoreClick: React.MouseEventHandler<HTMLElement>;
 }
 

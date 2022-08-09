@@ -25,9 +25,21 @@ export type Props = {
    * Individual id for a reaction
    */
   ari: string;
+  /**
+   * Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)
+   */
   allowAllEmojis?: boolean;
+  /**
+   * @deprecated Not been used anymore
+   */
   boundariesElement?: string;
+  /**
+   * Provider for loading emojis
+   */
   emojiProvider: Promise<EmojiProvider>;
+  /**
+   * Reference to the store
+   */
   store: ReactionStoreProp;
 };
 

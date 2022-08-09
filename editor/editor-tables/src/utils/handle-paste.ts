@@ -2,7 +2,7 @@ import { Fragment, Slice } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
 import { CellSelection } from '../cell-selection';
-import { TableMap } from '../table-map';
+import { Rect, TableMap } from '../table-map';
 import type { CellSelectionRect } from '../types';
 import { selectionCell } from '../utils/selection-cell';
 import { tableNodeTypes } from '../utils/table-node-types';
@@ -18,6 +18,7 @@ export function handlePaste(
   if (!isInTable(view.state)) {
     return false;
   }
+
   let cells = pastedCells(slice);
   const sel = view.state.selection;
   if (sel instanceof CellSelection) {
@@ -32,9 +33,11 @@ export function handlePaste(
         ],
       };
     }
+
     const table = sel.$anchorCell.node(-1);
     const start = sel.$anchorCell.start(-1);
-    const rect = TableMap.get(table).rectBetween(
+    const tableMap = TableMap.get(table);
+    const rect = tableMap.rectBetween(
       sel.$anchorCell.pos - start,
       sel.$headCell.pos - start,
     );
@@ -44,7 +47,7 @@ export function handlePaste(
       view.dispatch,
       start,
       rect,
-      clearColumnWidthOfCells(cells),
+      clearColumnWidthOfCells(cells, rect, tableMap),
     );
     return true;
   }
@@ -54,12 +57,15 @@ export function handlePaste(
       throw new Error(`handlePaste: no cell found`);
     }
     const start = $cell.start(-1);
+    const rect = TableMap.get($cell.node(-1)).findCell($cell.pos - start);
+    const tableMap = TableMap.get($cell.node(-1));
+
     insertCells(
       view.state,
       view.dispatch,
       start,
-      TableMap.get($cell.node(-1)).findCell($cell.pos - start),
-      clearColumnWidthOfCells(cells),
+      rect,
+      clearColumnWidthOfCells(cells, rect, tableMap),
     );
     return true;
   }
@@ -67,12 +73,35 @@ export function handlePaste(
 }
 
 // Clear the pasted cells column widths so that it maintains
-// the column widths of the destination table
-const clearColumnWidthOfCells = (cells: CellSelectionRect) => {
-  cells.rows.forEach((row) => {
-    for (let i = 0; i < row.childCount; i++) {
-      row.child(i).attrs.colwidth = null;
+// the column widths of the destination table only if the pasted
+// cells overlap with existing cells in the destination table.
+// If the table grows on paste, keep the column widhts of the
+// original table.
+const clearColumnWidthOfCells = (
+  cells: CellSelectionRect,
+  rect: Rect,
+  table: TableMap,
+) => {
+  const overlappingCells = [];
+
+  for (const row of cells.rows) {
+    let colNum = rect.left;
+
+    for (let index = 0; index < row.childCount; index++) {
+      const cell = row.child(index);
+
+      if (colNum + cell.attrs.colspan <= table.width) {
+        overlappingCells.push(cell);
+        colNum += cell.attrs.colspan;
+      } else {
+        break;
+      }
     }
-  });
+  }
+
+  for (const cell of overlappingCells) {
+    cell.attrs.colwidth = null;
+  }
+
   return cells;
 };

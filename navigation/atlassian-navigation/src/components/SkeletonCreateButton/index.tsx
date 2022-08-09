@@ -26,6 +26,16 @@ const skeletonCreateButtonStyles = css({
   },
 });
 
+/**
+ * __Skeleton create button__
+ *
+ * Skeleton buttons are lightweight HTML button elements with CSS that represent
+ * their heavier interactive counterparts, for use when elements of the
+ * navigation are loaded dynamically. This one represents the Create button.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const SkeletonCreateButton = ({
   text,
   testId,
@@ -37,6 +47,7 @@ export const SkeletonCreateButton = ({
       style={theme.mode.create.default as React.CSSProperties}
       css={skeletonCreateButtonStyles}
       data-testid={testId}
+      type="button"
     >
       {text}
     </button>

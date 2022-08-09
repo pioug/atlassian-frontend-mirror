@@ -1,5 +1,9 @@
 import React from 'react';
-import { FloatingToolbarHandler, AlignType } from '../floating-toolbar/types';
+import {
+  FloatingToolbarHandler,
+  AlignType,
+  FloatingToolbarItem,
+} from '../floating-toolbar/types';
 import {
   stateKey,
   HyperlinkState,
@@ -32,6 +36,8 @@ import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
 import { Command } from '../../types';
 import { addAnalytics, ACTION_SUBJECT_ID } from '../analytics';
 import { buildVisitedLinkPayload } from '../../utils/linking-utils';
+import { getCopyButtonConfig, showCopyButton } from '../copy-button/toolbar';
+import { HyperlinkPluginOptions } from './types';
 
 /* type guard for edit links */
 function isEditLink(
@@ -73,12 +79,9 @@ function getLinkText(
   return activeLinkMark.node.text;
 }
 
-export const getToolbarConfig: FloatingToolbarHandler = (
-  state,
-  intl,
-  providerFactory,
-  cardOptions,
-) => {
+export const getToolbarConfig = (
+  options?: HyperlinkPluginOptions,
+): FloatingToolbarHandler => (state, intl, providerFactory) => {
   const { formatMessage } = intl;
   const linkState: HyperlinkState | undefined = stateKey.getState(state);
 
@@ -141,7 +144,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                     intl={intl}
                     editorView={editorView}
                     editorState={state}
-                    cardOptions={cardOptions}
+                    cardOptions={options?.cardOptions}
                     providerFactory={providerFactory}
                     // platform={} // TODO: pass platform
                   />
@@ -186,6 +189,16 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               icon: UnlinkIcon,
               tabIndex: null,
             },
+            ...(state && showCopyButton(state)
+              ? [
+                  { type: 'separator' } as FloatingToolbarItem<Command>,
+                  getCopyButtonConfig(
+                    state,
+                    intl.formatMessage,
+                    hyperLinkToolbar.nodeType,
+                  ),
+                ]
+              : []),
           ],
         };
       }
@@ -215,11 +228,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
               render: (
                 view?: EditorView,
                 idx?: number,
-              ):
-                | React.ComponentClass
-                | React.SFC
-                | React.ReactElement<any>
-                | null => {
+              ): React.ReactElement | null => {
                 if (!view) {
                   return null;
                 }
@@ -227,6 +236,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                   <HyperlinkAddToolbar
                     view={view}
                     key={idx}
+                    linkPickerOptions={options?.linkPicker}
                     displayUrl={link}
                     displayText={displayText || ''}
                     providerFactory={providerFactory}
@@ -244,7 +254,7 @@ export const getToolbarConfig: FloatingToolbarHandler = (
                             href,
                             title,
                             displayText,
-                            !!(cardOptions && cardOptions.provider),
+                            !!options?.cardOptions?.provider,
                           )(view.state, view.dispatch);
                       view.focus();
                     }}

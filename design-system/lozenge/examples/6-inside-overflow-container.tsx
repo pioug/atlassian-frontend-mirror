@@ -4,7 +4,7 @@ import React from 'react';
 import Lozenge from '../src';
 
 export default () => (
-  <div>
+  <div data-testid="test-container">
     <p>
       <h4>Constrained by maxWidth: </h4>
       <Lozenge

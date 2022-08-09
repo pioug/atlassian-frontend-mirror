@@ -20,7 +20,7 @@ export const fireOperationalEvent = (
   fileAttributes: FileAttributes,
   performanceAttributes: PerformanceAttributes,
   ssrReliability: SSRStatus,
-  error?: MediaCardError,
+  error: MediaCardError = new MediaCardError('missing-error-data'),
 ) => {
   const fireEvent = (payload: MediaCardAnalyticsEventPayload) =>
     fireMediaCardEvent(payload, createAnalyticsEvent);
@@ -45,15 +45,14 @@ export const fireOperationalEvent = (
       );
       break;
     case 'error':
-      error &&
-        fireEvent(
-          getRenderErrorEventPayload(
-            fileAttributes,
-            performanceAttributes,
-            error,
-            ssrReliability,
-          ),
-        );
+      fireEvent(
+        getRenderErrorEventPayload(
+          fileAttributes,
+          performanceAttributes,
+          error,
+          ssrReliability,
+        ),
+      );
       break;
   }
 };

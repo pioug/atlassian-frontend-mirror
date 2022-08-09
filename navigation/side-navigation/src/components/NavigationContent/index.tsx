@@ -15,6 +15,7 @@ export interface NavigationContentProps {
   /**
    * Forces the top scroll indicator to be shown all the time.
    */
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   showTopScrollIndicator?: boolean;
 
   /**
@@ -25,6 +26,14 @@ export interface NavigationContentProps {
   testId?: string;
 }
 
+/**
+ * __Navigation content__
+ *
+ * A navigation content is used as the container for navigation items.
+ *
+ * - [Examples](https://atlassian.design/components/side-navigation/examples#content)
+ * - [Code](https://atlassian.design/components/side-navigation/code)
+ */
 const NavigationContent = forwardRef<
   HTMLElement,
   // We place HTMLAttributes here so ERT doesn't blow up.

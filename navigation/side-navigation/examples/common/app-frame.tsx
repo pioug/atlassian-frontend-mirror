@@ -10,14 +10,14 @@ import GlobalNav from './global-nav';
 interface AppFrameProps {
   children: React.ReactNode;
   content?: React.ReactNode;
-  hideAppBar?: boolean;
-  hideBorder?: boolean;
+  shouldHideAppBar?: boolean;
+  shouldHideBorder?: boolean;
 }
 
 const AppFrame = ({
   children,
-  hideAppBar,
-  hideBorder,
+  shouldHideAppBar,
+  shouldHideBorder,
   content,
 }: AppFrameProps) => {
   return (
@@ -28,14 +28,14 @@ const AppFrame = ({
         minHeight: 600,
       }}
     >
-      {hideAppBar || (
+      {shouldHideAppBar || (
         <div css={{ zIndex: 10, position: 'relative' }}>
           <GlobalNav />
         </div>
       )}
       <div
         css={{
-          height: hideAppBar
+          height: shouldHideAppBar
             ? '100%'
             : `calc(100% - ${HORIZONTAL_GLOBAL_NAV_HEIGHT}px)`,
           minHeight: 600,
@@ -45,7 +45,7 @@ const AppFrame = ({
         <div
           css={{
             minHeight: 600,
-            borderRight: hideBorder
+            borderRight: shouldHideBorder
               ? undefined
               : `1px solid ${token('color.border', N40)}`,
           }}

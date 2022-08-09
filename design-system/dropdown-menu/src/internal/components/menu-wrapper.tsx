@@ -35,7 +35,7 @@ const MenuWrapper = ({
     // from a MenuItemRadio or MenuItemCheckbox so that the user can
     // select multiple items.
     if (isTargetMenuItemOrDecendant && onClose) {
-      onClose();
+      onClose(e);
     }
   };
 

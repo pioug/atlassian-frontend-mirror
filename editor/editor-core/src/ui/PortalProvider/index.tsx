@@ -78,46 +78,22 @@ export class PortalProviderAPI extends EventDispatcher {
     hasAnalyticsContext: boolean = false,
     hasIntlContext: boolean = false,
   ) {
-    if (this.themeMode) {
-      const childrenWithThemeProviders = () => (
-        <PortalProviderThemeProviders mode={this.themeMode!}>
-          {children()}
-        </PortalProviderThemeProviders>
-      );
-      this.portals.set(container, {
-        children: childrenWithThemeProviders,
-        hasAnalyticsContext,
-        hasIntlContext,
-      });
-      let wrappedChildren = this.useAnalyticsContext ? (
-        <AnalyticsContextWrapper>
-          {childrenWithThemeProviders()}
-        </AnalyticsContextWrapper>
-      ) : (
-        (childrenWithThemeProviders() as JSX.Element)
-      );
-      if (hasIntlContext) {
-        wrappedChildren = (
-          <RawIntlProvider value={this.intl}>{wrappedChildren}</RawIntlProvider>
-        );
-      }
-      unstable_renderSubtreeIntoContainer(
-        this.context,
-        wrappedChildren,
-        container,
-      );
-      return;
-    }
-
+    const childrenWithThemeProviders = () => (
+      <PortalProviderThemeProviders mode={this.themeMode!}>
+        {children()}
+      </PortalProviderThemeProviders>
+    );
     this.portals.set(container, {
-      children,
+      children: childrenWithThemeProviders,
       hasAnalyticsContext,
       hasIntlContext,
     });
     let wrappedChildren = this.useAnalyticsContext ? (
-      <AnalyticsContextWrapper>{children()}</AnalyticsContextWrapper>
+      <AnalyticsContextWrapper>
+        {childrenWithThemeProviders()}
+      </AnalyticsContextWrapper>
     ) : (
-      (children() as JSX.Element)
+      (childrenWithThemeProviders() as JSX.Element)
     );
     if (hasIntlContext) {
       wrappedChildren = (

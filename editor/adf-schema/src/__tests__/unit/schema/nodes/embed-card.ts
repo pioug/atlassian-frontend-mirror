@@ -1,9 +1,10 @@
-import { name } from '../../../../version.json';
 import { toDOM, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { createSchema } from '../../../../schema/create-schema';
 import { embedCard } from '../../../../schema/nodes/embed-card';
 
-describe(`${name}/schema embedCard node`, () => {
+const packageName = process.env._PACKAGE_NAME_ as string;
+
+describe(`${packageName}/schema embedCard node`, () => {
   const schema = createSchema({
     nodes: ['doc', 'paragraph', 'embedCard', 'text'],
   });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/motion",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Atlassian motion variables, components and more.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -15,16 +15,16 @@
   "sideEffects": false,
   "af:exports": {
     ".": "./src/index.tsx",
-    "./types": "./src/entry-points/types.ts",
-    "./curves": "./src/entry-points/curves.ts",
-    "./durations": "./src/entry-points/durations.ts",
-    "./accessibility": "./src/entry-points/accessibility.ts",
-    "./exiting-persistence": "./src/entry-points/exiting-persistence.ts",
-    "./fade-in": "./src/entry-points/fade-in.ts",
-    "./slide-in": "./src/entry-points/slide-in.ts",
-    "./zoom-in": "./src/entry-points/zoom-in.ts",
-    "./shrink-out": "./src/entry-points/shrink-out.ts",
-    "./staggered-entrance": "./src/entry-points/staggered-entrance.ts"
+    "./types": "./src/entry-points/types.tsx",
+    "./curves": "./src/entry-points/curves.tsx",
+    "./durations": "./src/entry-points/durations.tsx",
+    "./accessibility": "./src/entry-points/accessibility.tsx",
+    "./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
+    "./fade-in": "./src/entry-points/fade-in.tsx",
+    "./slide-in": "./src/entry-points/slide-in.tsx",
+    "./zoom-in": "./src/entry-points/zoom-in.tsx",
+    "./shrink-out": "./src/entry-points/shrink-out.tsx",
+    "./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
   },
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -36,6 +36,7 @@
     }
   },
   "dependencies": {
+    "@atlaskit/ds-lib": "^2.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9",
     "bind-event-listener": "^2.1.1"
@@ -52,6 +53,7 @@
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^12.1.0",
+    "@atlaskit/tokens": "^0.10.0",
     "@atlaskit/tooltip": "^17.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -76,6 +78,7 @@
     },
     "@repo/internal": {
       "dom-events": "use-bind-event-listener",
+      "design-system": "v1",
       "theming": "tokens",
       "deprecation": "no-deprecated-imports",
       "styling": [

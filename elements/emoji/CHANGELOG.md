@@ -1,5 +1,16 @@
 # @atlaskit/emoji
 
+## 65.1.0
+
+### Minor Changes
+
+- [`cceb3262363`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cceb3262363) - [ux] Show preview below the scrollable emoji box
+
+### Patch Changes
+
+- [`641bf010d2a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/641bf010d2a) - Added JSDoc comments for exposing props
+- [`c47218c565a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c47218c565a) - Convert the demo resource control to functional componment
+
 ## 65.0.0
 
 ### Major Changes

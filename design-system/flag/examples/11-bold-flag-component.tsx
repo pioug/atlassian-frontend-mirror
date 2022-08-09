@@ -1,5 +1,6 @@
 import React, { CSSProperties, ReactElement } from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
@@ -12,8 +13,8 @@ import Flag from '../src';
 import { AppearanceTypes } from '../src/types';
 
 const actions = [
-  { content: 'Understood', onClick: () => {} },
-  { content: 'No Way!', onClick: () => {} },
+  { content: 'Understood', onClick: noop },
+  { content: 'No Way!', onClick: noop },
 ];
 const appearances: { [key: string]: { description: string; title: string } } = {
   error: {

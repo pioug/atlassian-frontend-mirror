@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/range",
-  "version": "6.0.6",
+  "version": "6.0.7",
   "description": "A range lets users choose an approximate value on a slider.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -13,7 +13,7 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
+  "atlaskit:src": "src/index.tsx",
   "homepage": "https://atlassian.design/components/range/",
   "atlassian": {
     "team": "Design System Team",
@@ -24,12 +24,13 @@
     }
   },
   "af:exports": {
-    ".": "./src/index.ts",
+    ".": "./src/index.tsx",
     "./range": "./src/range.tsx",
     "./styled": "./src/styled.tsx",
-    "./theme": "./src/theme.ts"
+    "./theme": "./src/theme.tsx"
   },
   "dependencies": {
+    "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",
@@ -67,6 +68,7 @@
       "import-structure": "atlassian-conventions"
     },
     "@repo/internal": {
+      "design-system": "v1",
       "dom-events": "use-bind-event-listener",
       "ui-components": "lite-mode",
       "analytics": "analytics-next",

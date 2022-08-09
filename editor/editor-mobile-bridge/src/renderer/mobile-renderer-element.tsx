@@ -12,10 +12,7 @@ import { MediaProvider as MediaProviderType } from '@atlaskit/editor-common/prov
 import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { toNativeBridge } from './web-to-native/implementation';
-import {
-  Provider as SmartCardProvider,
-  Client as CardClient,
-} from '@atlaskit/smart-card';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import {
   getEnableLightDarkTheming,

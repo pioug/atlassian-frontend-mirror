@@ -3,11 +3,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import waitForExpect from 'wait-for-expect';
 
+import noop from '@atlaskit/ds-lib/noop';
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 declare var global: any;
 
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
+jest.spyOn(global.console, 'error').mockImplementation(noop);
 
 afterEach(() => {
   jest.resetAllMocks();

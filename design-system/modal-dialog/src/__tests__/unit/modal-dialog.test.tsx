@@ -99,7 +99,8 @@ describe('<ModalDialog />', () => {
 
       /**
        * Need to assert it this way because assertion against CSS variables
-       * is only supported in @testing-library/jest-dom 5.11.3. */
+       * is only supported in @testing-library/jest-dom 5.11.3.
+       */
       expect(styles).toContain('--modal-dialog-height: 42px;');
       expect(modalDialog).toHaveStyleDeclaration(
         'height',
@@ -166,7 +167,8 @@ describe('<ModalDialog />', () => {
 
       /**
        * Need to assert it this way because assertion against CSS variables
-       * is only supported in @testing-library/jest-dom 5.11.3. */
+       * is only supported in @testing-library/jest-dom 5.11.3.
+       */
       expect(styles).toContain('--modal-dialog-width: 42px;');
       expect(modalDialog).toHaveStyleDeclaration(
         'width',
@@ -570,8 +572,8 @@ describe('multiple modals', () => {
 
     /**
      * Need to assert it this way because assertion against CSS variables
-     * is only supported in @testing-library/jest-dom 5.11.3. */
-
+     * is only supported in @testing-library/jest-dom 5.11.3.
+     */
     // This transform is applied to animate during a stack shift.
     // 8px is the vertical offset for one modal during a stack shift.
     expect(getByTestId('back--positioner').getAttribute('style')).toContain(

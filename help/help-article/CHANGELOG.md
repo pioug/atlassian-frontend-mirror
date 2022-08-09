@@ -1,5 +1,11 @@
 # @atlaskit/help-article
 
+## 4.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.27
 
 ### Patch Changes

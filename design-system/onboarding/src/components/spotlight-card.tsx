@@ -1,14 +1,88 @@
-import React, { ComponentType, ReactNode, Ref } from 'react';
+/** @jsx jsx */
+import React, { ComponentType, forwardRef, ReactNode, Ref } from 'react';
 
-import { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
+import { css, jsx } from '@emotion/core';
+
+import Button, {
+  Theme as ButtonTheme,
+} from '@atlaskit/button/custom-theme-button';
+import Heading from '@atlaskit/heading';
 import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
-import { ThemeProp } from '@atlaskit/theme/components';
+import { createTheme, ThemeProp } from '@atlaskit/theme/components';
+import {
+  borderRadius,
+  gridSize as getGridSize,
+  layers,
+} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
 import { Actions } from '../types';
 
-import Card, { CardTokens } from './card';
 import { spotlightButtonTheme } from './theme';
+
+const gridSize = getGridSize();
+
+const bodyStyles = css({
+  display: 'flex',
+  padding: `${gridSize * 2}px ${gridSize * 2.5}px`,
+  flexDirection: 'column',
+});
+
+const defaultHeaderStyles = css({
+  display: 'flex',
+  paddingBottom: `${gridSize}px`,
+  alignItems: 'baseline',
+  justifyContent: 'space-between',
+});
+
+const DefaultHeader: React.FC<{}> = ({ children }) => (
+  <div css={defaultHeaderStyles}>{children}</div>
+);
+
+const defaultFooterStyles = css({
+  display: 'flex',
+  paddingTop: `${gridSize}px`,
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
+const DefaultFooter: React.FC<{}> = ({ children }) => (
+  <div css={defaultFooterStyles}>{children}</div>
+);
+
+const containerStyles = css({
+  height: 'fit-content',
+  zIndex: layers.spotlight() + 1,
+  background: token('color.background.discovery.bold', P300),
+  borderRadius: `${borderRadius()}px`,
+  color: token('color.text.inverse', N0),
+  overflow: 'auto',
+});
+
+const containerShadowStyles = css({
+  boxShadow: token(
+    'elevation.shadow.raised',
+    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+  ),
+});
+
+/**
+ * @deprecated
+ */
+const Theme = createTheme<CardTokens, {}>(() => ({
+  container: {},
+}));
+
+/**
+ * @deprecated
+ */
+interface CardTokens {
+  /**
+   * @deprecated
+   */
+  container: Record<string, string | undefined>;
+}
 
 interface SpotlightCardProps {
   /**
@@ -47,17 +121,20 @@ interface SpotlightCardProps {
    */
   isFlat?: boolean;
   /**
-   * The theme of the card
+   * @deprecated
+   * Theme prop is deprecated and will be removed in the future.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   theme?: ThemeProp<CardTokens, {}>;
   /**
-   * Width of the card in pixels
+   * Width of the card in pixels.
    */
   width?: number;
-
-  innerRef?: Ref<HTMLElement> | null;
-
+  /**
+   * @deprecated
+   * Use `ref` instead.
+   */
+  innerRef?: Ref<HTMLDivElement> | null;
   /**
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -66,75 +143,97 @@ interface SpotlightCardProps {
   testId?: string;
 }
 
-class SpotlightCard extends React.Component<SpotlightCardProps> {
-  static defaultProps = {
-    width: 400,
-    isFlat: false,
-    components: {},
-    theme: (themeFn: Function) => themeFn(),
-  };
-
-  render() {
+/**
+ * __Spotlight card__
+ *
+ * A spotlight card is for onboarding messages that need a more flexible layout, or don't require a dialog.
+ *
+ * - [Examples](https://atlassian.design/components/onboarding/spotlight-card/examples)
+ * - [Code](https://atlassian.design/components/onboarding/spotlight-card/code)
+ * - [Usage](https://atlassian.design/components/onboarding/spotlight-card/usage)
+ */
+const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
+  (props: SpotlightCardProps, ref) => {
     const {
-      actions,
+      actions = [],
       actionsBeforeElement,
       children,
-      components,
-      isFlat,
+      components = {},
       heading,
       headingAfterElement,
       image,
       innerRef,
-      theme,
-      width,
+      isFlat,
       testId,
-    } = this.props;
+      theme,
+      width = 400,
+    } = props;
+    const { Header = DefaultHeader, Footer = DefaultFooter } = components;
+
     return (
       <ButtonTheme.Provider value={spotlightButtonTheme}>
-        <Card
-          testId={testId}
-          ref={innerRef}
-          heading={heading}
-          headingAfterElement={headingAfterElement}
-          actions={actions}
-          actionsBeforeElement={actionsBeforeElement}
-          components={components}
-          image={image}
-          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-          theme={(parent) => {
-            const { container, ...others } = parent({});
-            return theme!(
-              () => ({
-                ...others,
-                container: {
-                  background: token('color.background.discovery.bold', P300),
-                  color: token('color.text.inverse', N0),
-                  width: `${Math.min(Math.max(width!, 160), 600)}px`,
-                  boxShadow: isFlat
-                    ? undefined
-                    : token(
-                        'elevation.shadow.raised',
-                        `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-                      ),
-                  ...container,
-                },
-              }),
-              {},
-            );
-          }}
-        >
-          {children}
-        </Card>
+        <Theme.Provider value={theme}>
+          <Theme.Consumer>
+            {({ container }) => {
+              return (
+                <div
+                  css={[
+                    containerStyles,
+                    !isFlat && containerShadowStyles,
+                    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+                    container,
+                  ]}
+                  style={{ width: `${Math.min(Math.max(width!, 160), 600)}px` }}
+                  ref={ref || innerRef}
+                  data-testid={testId}
+                >
+                  {typeof image === 'string' ? (
+                    <img src={image} alt="" />
+                  ) : (
+                    image
+                  )}
+                  <div css={bodyStyles}>
+                    {heading || headingAfterElement ? (
+                      <Header>
+                        <Heading color="inverse" level="h600" as="h4">
+                          {heading}
+                        </Heading>
+                        {headingAfterElement}
+                      </Header>
+                    ) : null}
+                    {children}
+
+                    {actions.length > 0 || actionsBeforeElement ? (
+                      <Footer>
+                        {/* Always need an element so space-between alignment works */}
+                        {actionsBeforeElement || <span />}
+                        <DialogActionItemContainer>
+                          {actions.map(({ text, key, ...rest }, idx) => {
+                            return (
+                              <DialogActionItem
+                                key={
+                                  key ||
+                                  (typeof text === 'string' ? text : `${idx}`)
+                                }
+                              >
+                                <Button {...rest}>{text}</Button>
+                              </DialogActionItem>
+                            );
+                          })}
+                        </DialogActionItemContainer>
+                      </Footer>
+                    ) : null}
+                  </div>
+                </div>
+              );
+            }}
+          </Theme.Consumer>
+        </Theme.Provider>
       </ButtonTheme.Provider>
     );
-  }
-}
-
-/**
- * __Spotlight card__
- *
- * - [Examples](https://atlaskit.atlassian.com/packages/design-system/onboarding)
- */
-export default React.forwardRef<HTMLElement, SpotlightCardProps>(
-  (props, ref) => <SpotlightCard {...props} innerRef={ref} />,
+  },
 );
+
+SpotlightCard.displayName = 'SpotlightCard';
+
+export default SpotlightCard;

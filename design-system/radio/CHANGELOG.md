@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 5.3.12
+
+### Patch Changes
+
+- [`72cfbe1a536`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72cfbe1a536) - Internal code change turning on new linting rules.
+- [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated styles to use new input design tokens
+- Updated dependencies
+
 ## 5.3.11
 
 ### Patch Changes

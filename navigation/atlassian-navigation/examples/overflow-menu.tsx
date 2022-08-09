@@ -18,7 +18,7 @@ const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
   const overflowStatus = useOverflowStatus();
 
   return overflowStatus.isVisible ? (
-    <PrimaryButton {...props} />
+    <PrimaryButton>{props.children}</PrimaryButton>
   ) : (
     <ButtonItem>{props.children}</ButtonItem>
   );
@@ -28,7 +28,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
   const overflowStatus = useOverflowStatus();
 
   return overflowStatus.isVisible ? (
-    <PrimaryDropdownButton {...props} />
+    <PrimaryDropdownButton>{props.children}</PrimaryDropdownButton>
   ) : (
     <ButtonItem
       iconAfter={

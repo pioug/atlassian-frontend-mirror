@@ -1,4 +1,3 @@
-import { name } from '../../../../version.json';
 import {
   toHTML,
   fromHTML,
@@ -8,8 +7,9 @@ import {
   p,
   schema,
 } from '@atlaskit/editor-test-helpers/adf-schema';
+const packageName = process.env._PACKAGE_NAME_ as string;
 
-describe(`${name}/schema listItem node`, () => {
+describe(`${packageName}/schema listItem node`, () => {
   it('should be possible to create a list item with a single paragraph', () => {
     const html = toHTML(
       schema.nodes.listItem.create({}, schema.nodes.paragraph.create()),

@@ -29,11 +29,13 @@ export interface ExitingPersistenceProps {
    * When elements are exiting will exit all elements first and then mount the new ones.
    * Defaults to `false`.
    */
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   exitThenEnter?: boolean;
 
   /**
    * When initially mounting if set to `true` all child motions will animate in.
    */
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   appear?: boolean;
 }
 
@@ -166,6 +168,13 @@ const hasAnyExitingChildMountedAgain = (
   return exitingChildMountedAgain;
 };
 
+/**
+ * __ExitingPersistence__
+ *
+ * Useful for enabling elements to persist and animate away when they are removed from the DOM.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/motion/docs/entering-motions)
+ */
 const ExitingPersistence: React.FC<ExitingPersistenceProps> = memo(
   ({
     appear: appearFromProp = false,
@@ -221,6 +230,7 @@ const ExitingPersistence: React.FC<ExitingPersistenceProps> = memo(
         ? persistedChildren.current
         : spliceNewElementsIntoPrevious(children, persistedChildren.current)
       ).map((child) => {
+        // eslint-disable-next-line @repo/internal/react/no-children-properties-access
         const currentChild = childrenObj[child.key];
         if (!currentChild) {
           // We've found an exiting child - mark it!

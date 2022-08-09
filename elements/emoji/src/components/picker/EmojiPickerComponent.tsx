@@ -64,9 +64,21 @@ export interface PickerRefHandler {
 }
 
 export interface Props {
+  /**
+   * EmojiResource instance that handles emoji meta data.
+   */
   emojiProvider: EmojiProvider;
+  /**
+   * Callback to be executed when user selects an emoji.
+   */
   onSelection?: OnEmojiEvent;
+  /**
+   * Callback performed when picker reference is being set.
+   */
   onPickerRef?: PickerRefHandler;
+  /**
+   * Flag to disable tone selector.
+   */
   hideToneSelector?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }
@@ -91,6 +103,11 @@ export interface State {
   emojiToDelete?: EmojiDescription;
   // the picker is considered loaded when at least 1 set of emojis have loaded
   loading: boolean;
+  /*
+    Indicating whether preview has been showed in the picker.
+    The current usecase is to extend the pick container height when preview is displayed, this is to avoid preview hides away the last few emoji rows
+  */
+  isPreviewDisplayed?: boolean;
 }
 
 export default class EmojiPickerComponent extends PureComponent<Props, State> {
@@ -114,6 +131,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       loading: true,
       uploadSupported: false,
       uploading: false,
+      isPreviewDisplayed: false,
     };
 
     this.openTime = 0;
@@ -237,6 +255,12 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
         } as State);
         this.fireAnalytics(categoryClickedEvent({ category: categoryId }));
       }
+    });
+  };
+
+  onPreviewDisplayed = (isDisplayed: boolean) => {
+    this.setState({
+      isPreviewDisplayed: isDisplayed,
     });
   };
 
@@ -589,6 +613,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
       uploading,
       uploadErrorMessage,
       uploadSupported,
+      isPreviewDisplayed,
     } = this.state;
 
     const recordUsageOnSelection = createRecordSelectionDefault(
@@ -610,7 +635,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
     const picker = (
       <LegacyEmojiContextProvider emojiContextValue={emojiContextValue}>
         <div
-          css={emojiPicker}
+          css={emojiPicker(isPreviewDisplayed)}
           ref={this.handlePickerRef}
           data-emoji-picker-container
         >
@@ -650,6 +675,7 @@ export default class EmojiPickerComponent extends PureComponent<Props, State> {
           <EmojiPickerFooter
             selectedEmoji={selectedEmoji}
             isUploading={uploading}
+            onPreviewDisplayed={this.onPreviewDisplayed}
           />
         </div>
       </LegacyEmojiContextProvider>

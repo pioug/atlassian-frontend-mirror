@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import Button from '@atlaskit/button/standard-button';
+import noop from '@atlaskit/ds-lib/noop';
 import Toggle from '@atlaskit/toggle';
 
 import Popup from '../../../src';
 
 import { data } from './data';
-
-const noop = () => {};
 
 const wrapperStyles = css({
   display: 'flex',

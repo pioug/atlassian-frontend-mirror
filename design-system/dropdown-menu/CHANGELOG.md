@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 11.3.0
+
+### Minor Changes
+
+- [`01d80d395bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d80d395bc) - pass event to onOpenChange consistently
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.2
 
 ### Patch Changes

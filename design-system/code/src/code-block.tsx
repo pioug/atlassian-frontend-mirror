@@ -12,6 +12,15 @@ import type { CodeBlockProps } from './internal/types';
 import { normalizeLanguage } from './internal/utils/get-normalized-language';
 import { createBidiWarningRenderer } from './react-syntax-highlighter-bidi-warning-renderer';
 
+/**
+ * __Code block__
+ *
+ * A code block highlights an entire block of code and keeps the formatting.
+ *
+ * - [Examples](https://atlassian.design/components/code/code-block/examples)
+ * - [Code](https://atlassian.design/components/code/code-block/code)
+ * - [Usage](https://atlassian.design/components/code/code-block/usage)
+ */
 const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
   showLineNumbers = true,
   language: providedLanguage = 'text',

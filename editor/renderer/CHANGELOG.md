@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 101.0.0
+
+### Major Changes
+
+- [`83730e9b1fa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83730e9b1fa) - replace @atlaskit/smart-card peer dependency by @atlaskit/link-provider
+- [`080e2269f18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/080e2269f18) - ED-14838: Completely remove allowDynamicTextSizing prop references and deprecation warnings from editor and renderer
+
+### Patch Changes
+
+- [`721bc4d7794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/721bc4d7794) - ED-14377 To remove the imports of version.json which is deprecated
+- [`a293488d55d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a293488d55d) - [ux] ED-13304 fixes inconsistent date in action item formatting between edit/render mode when checked/unchecked
+- [`16fa5a45e7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/16fa5a45e7a) - [EDM-3364] Remove @atlaskit/smart-card peer dependency which was accidentally put back during a conflict resolution. It should no longer be in the peer dependencies of editor-core or renderer packages as it has been replaced by @atlaskit/link-provider
+- [`cad3842e2d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cad3842e2d3) - fix media viewer navigation issue when files have different collection Ids
+- [`b10472a1e57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b10472a1e57) - ED-14471 remove codeBidiWarnings feature flag
+- Updated dependencies
+
 ## 100.0.0
 
 ### Patch Changes

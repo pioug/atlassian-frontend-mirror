@@ -9,7 +9,7 @@ export const wrapperStyle = (theme: ThemeProps) => css`
 
   cursor: pointer;
   display: inline-flex;
-  margin: 1px;
+  margin: 1px 1px 4px;
 
   > img {
     border-radius: ${borderRadius()}px;

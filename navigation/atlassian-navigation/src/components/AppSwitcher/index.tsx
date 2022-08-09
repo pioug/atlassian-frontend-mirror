@@ -6,6 +6,15 @@ import { IconButton } from '../IconButton';
 
 import { AppSwitcherProps } from './types';
 
+/**
+ * _App switcher__
+ *
+ * An AppSwitcher button that can be passed into `AtlassianNavigation`'s
+ * `renderAppSwitcher` prop.
+ *
+ * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#app-switcher)
+ * - [Code](https://atlassian.design/components/atlassian-navigation/code)
+ */
 export const AppSwitcher = forwardRef(
   (props: AppSwitcherProps, ref: Ref<any>) => {
     const { tooltip, ...iconButtonProps } = props;
@@ -26,4 +35,5 @@ export const AppSwitcher = forwardRef(
 );
 
 // exists only to extract props
+// eslint-disable-next-line @repo/internal/react/use-noop
 export default (props: AppSwitcherProps) => {};

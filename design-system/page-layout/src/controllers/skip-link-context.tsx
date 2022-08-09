@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect } from 'react';
 
+import noop from '@atlaskit/ds-lib/noop';
+
 import { SkipLinkContextProps, SkipLinkData } from './types';
 
-const noop = () => {};
-
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SkipLinksContext = createContext<SkipLinkContextProps>({
   skipLinksData: [],
   registerSkipLink: noop,

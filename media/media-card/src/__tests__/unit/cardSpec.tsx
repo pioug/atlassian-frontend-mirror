@@ -86,7 +86,7 @@ import { CardAction, CardProps, CardState, CardPreview } from '../..';
 import { Card, CardBase, CardBaseProps } from '../../root/card';
 import { CardView } from '../../root/cardView';
 import { InlinePlayer } from '../../root/inlinePlayer';
-import { ViewportDetector, ViewportAnchor } from '../../utils/viewportDetector';
+import { ViewportDetector } from '../../utils/viewportDetector';
 import {
   getCardPreview,
   getCardPreviewFromCache,
@@ -308,9 +308,6 @@ describe('Card', () => {
     const viewportDetector = card.find(ViewportDetector);
     expect(viewportDetector).toHaveLength(1);
     expect(viewportDetector.prop('onVisible')).toBeDefined();
-
-    const viewportAnchor = card.find(ViewportAnchor);
-    expect(viewportAnchor).toHaveLength(2);
   });
 
   it('should request metadata when Card is in viewport', () => {
@@ -327,7 +324,6 @@ describe('Card', () => {
       onMouseEnter: hoverHandler,
     });
     expect(component.find(ViewportDetector)).toHaveLength(0);
-    expect(component.find(ViewportAnchor)).toHaveLength(0);
   });
 
   it('should only pass MediaCardError down to CardView', () => {

@@ -97,6 +97,7 @@ const generateDraggableButtonItems = (n: number): CustomDraggable[] => {
       renderItem: (props: RenderDraggableProps) => (
         <ButtonItem
           // disable the dynamic margin behaviour
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           cssFn={() => {
             return {
               '&:first-child:not(style)': {
@@ -138,6 +139,7 @@ const generateDraggableCustomItems = (n: number): CustomDraggable[] => {
           component={CustomComponent}
           // disable the dynamic margin behaviour
           iconBefore={<ItemIcon label="" />}
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
           cssFn={() => ({
             '&:first-child:not(style)': {
               marginTop: 0,

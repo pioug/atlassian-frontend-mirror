@@ -22,7 +22,7 @@ export default md`
   ${(
     <Props
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/Stateless')}
+      props={require('!!extract-react-types-loader!../src/components/stateless')}
     />
   )}
 `;

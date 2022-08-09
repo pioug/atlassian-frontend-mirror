@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 16.11.0
+
+### Minor Changes
+
+- [`01d80d395bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01d80d395bc) - pass event to onOpenChange consistently
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.10.1
 
 ### Patch Changes

@@ -8,11 +8,11 @@ import {
 } from '@atlaskit/editor-test-helpers/enzyme';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { reaction } from '../../../client/MockReactionsClient';
+import { getReactionSummary } from '../../../client/MockReactionsClient';
 import { messages } from '../../../components/i18n';
 import { ReactionPicker } from '../../../components/ReactionPicker';
 import {
-  Props,
+  ReactionsProps,
   Reactions,
   ReactionsWithoutAnalytics,
 } from '../../../components/Reactions';
@@ -22,13 +22,13 @@ import { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 describe('@atlaskit/reactions/reactions', () => {
-  const renderReactions = (extraProps: Partial<Props> = {}) =>
+  const renderReactions = (extraProps: Partial<ReactionsProps> = {}) =>
     shallowWithIntl(
       <ReactionsWithoutAnalytics
         emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
         reactions={[
-          reaction(':fire:', 1, true),
-          reaction(':thumbsup:', 9, false),
+          getReactionSummary(':fire:', 1, true),
+          getReactionSummary(':thumbsup:', 9, false),
         ]}
         status={ReactionStatus.ready}
         onReactionClick={() => {}}
@@ -87,13 +87,13 @@ describe('@atlaskit/reactions/reactions', () => {
 
   describe('with analytics', () => {
     const onEvent = jest.fn();
-    const TestComponent = (props: Partial<Props>) => (
+    const TestComponent = (props: Partial<ReactionsProps>) => (
       <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
         <Reactions
           emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
           reactions={[
-            reaction(':fire:', 1, true),
-            reaction(':thumbsup:', 9, false),
+            getReactionSummary(':fire:', 1, true),
+            getReactionSummary(':thumbsup:', 9, false),
           ]}
           status={ReactionStatus.loading}
           onReactionClick={() => {}}
@@ -104,7 +104,7 @@ describe('@atlaskit/reactions/reactions', () => {
       </AnalyticsListener>
     );
 
-    let component: ReactWrapper<Props>;
+    let component: ReactWrapper<ReactionsProps>;
 
     beforeEach(() => {
       component = mountWithIntl(<TestComponent />);
@@ -264,10 +264,10 @@ describe('@atlaskit/reactions/reactions', () => {
       });
 
       it('should trigger clicked from emojiPicker', () => {
-        const onMore = component.find(ReactionPicker).prop('onMore');
-        expect(onMore).toBeDefined();
-        if (onMore) {
-          onMore();
+        const onShowMore = component.find(ReactionPicker).prop('onShowMore');
+        expect(onShowMore).toBeDefined();
+        if (onShowMore) {
+          onShowMore();
         }
 
         expect(onEvent).toHaveBeenCalledWith(

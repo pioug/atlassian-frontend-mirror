@@ -9,6 +9,7 @@
     "01-status-picker.tsx"
   ],
   "exampleDependencies": [
-    "react-intl"
+    "react-intl",
+    "react-intl-next"
   ]
 }

@@ -55,4 +55,30 @@ describe('promiseDebounce', () => {
     await expect(e).resolves.toBe(2);
     await expect(f).resolves.toBe(2);
   });
+
+  it('should handle the rejection error properly', async () => {
+    const debounceInterval = 200;
+
+    const fn = (() => {
+      let value = 0;
+      return jest.fn(() => Promise.reject(++value));
+    })();
+
+    const debounced = promiseDebounce(fn, debounceInterval);
+
+    const a = debounced();
+    const b = debounced();
+    const c = debounced();
+
+    await flushPromises();
+    expect(fn).toHaveBeenCalledTimes(0);
+
+    await flushPromises();
+    clock.tick(debounceInterval);
+
+    expect(fn).toHaveBeenCalledTimes(1);
+    await expect(a).rejects.toBe(1);
+    await expect(b).rejects.toBe(1);
+    await expect(c).rejects.toBe(1);
+  });
 });

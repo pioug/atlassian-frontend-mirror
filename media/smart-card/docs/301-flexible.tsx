@@ -85,6 +85,13 @@ Check out the links below to discover what this awesome feature has to offer.
 * [ElementItem](./element-item)
 * [ActionItem](./action-item)
 
+### Tools
+
+A few useful tools to help visualise your linking vision.
+
+* Flexible Smart Links Builder ([go/flexible-smart-links-builder](http://go/flexible-smart-links-builder))
+* JSON-LD Editor ([go/smart-links-jsonld-editor](http://go/smart-links-jsonld-editor))
+
 ### Here are some ideas to get you started!
 
 UI props ([FlexibleUiOptions](./ui-options)) can be combined to provide a wide range of bespoke-looking integrations.

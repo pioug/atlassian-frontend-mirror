@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 1.3.1
+
+### Patch Changes
+
+- [`c6d5f628b85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6d5f628b85) - Remove the temporary patch for fixing SSR issue caused by dasherized locale
+
 ## 1.3.0
 
 ### Minor Changes

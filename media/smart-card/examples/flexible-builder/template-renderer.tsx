@@ -3,12 +3,15 @@ import { css, jsx } from '@emotion/core';
 import React, { useCallback, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import Range from '@atlaskit/range/range';
+import Toggle from '@atlaskit/toggle';
+import Tooltip from '@atlaskit/tooltip';
 import { Card } from '../../src';
 import { BlockTemplate, FlexibleTemplate } from './types';
 import { token } from '@atlaskit/tokens';
 import * as Blocks from '../../src/view/FlexibleCard/components/blocks';
 import withJsonldEditorProvider from '../jsonld-editor/jsonld-editor-provider';
 import withJsonldEditorReload from '../jsonld-editor/jsonld-editor-reload';
+import FlexibleDataView from '../utils/flexible-data-view';
 
 const backColor = token('color.background.neutral.subtle', '#FFFFFF');
 const frontColor = token(
@@ -41,19 +44,28 @@ const backgroundStyles = css`
   margin-bottom: 1rem;
 `;
 
-const cardContainerStyles = (width: number) => css`
+const toggleStyles = (show: boolean) => css`
+  opacity: ${show ? 1 : 0};
+  display: ${show ? 'block' : 'none'};
+`;
+
+const cardContainerStyles = (width: number, show: boolean = true) => css`
   margin: 0 auto;
   min-width: 10rem;
   width: ${width}%;
+  ${toggleStyles(show)}
 `;
 
-// class CustomClient extends CardClient {
-//   fetchData(url: string) {
-//     return Promise.resolve(response0 as JsonLd.Response);
-//   }
-// }
+const dataContainerStyles = (show: boolean) => css`
+  margin: 0 auto;
+  min-width: 25rem;
+  width: 60%;
+  ${toggleStyles(show)}
+`;
 
-// const url = response1.data.url;
+const toggleContainerStyles = css`
+  text-align: right;
+`;
 
 const renderBlock = ({ name, ...props }: BlockTemplate, key: string) => {
   const Block = Blocks[name];
@@ -66,6 +78,13 @@ const TemplateRenderer: React.FC<{
 }> = ({ template, url }) => {
   const [width, setWidth] = useState(60);
   const handleOnChange = useCallback((width) => setWidth(width), []);
+
+  const [showDataView, setShowDataView] = useState(false);
+  const handleOnToggle = useCallback(
+    () => setShowDataView((prev) => !prev),
+    [],
+  );
+
   return (
     <React.Fragment>
       <Range
@@ -76,15 +95,31 @@ const TemplateRenderer: React.FC<{
         onChange={handleOnChange}
       />
       <div css={backgroundStyles}>
-        <div css={cardContainerStyles(width)}>
-          <ErrorBoundary fallback={<div>Whoops! Something went wrong.</div>}>
+        <div css={toggleContainerStyles}>
+          <Tooltip
+            content={
+              showDataView ? 'Hide link data view' : 'Show link data view'
+            }
+          >
+            <Toggle
+              label="Toggle link data view"
+              defaultChecked
+              onChange={handleOnToggle}
+            />
+          </Tooltip>
+        </div>
+        <ErrorBoundary fallback={<div>Whoops! Something went wrong.</div>}>
+          <div css={dataContainerStyles(showDataView)}>
+            <FlexibleDataView url={url} />
+          </div>
+          <div css={cardContainerStyles(width, !showDataView)}>
             <Card appearance="block" ui={template.ui} url={url}>
               {template.blocks.map((block, idx) =>
                 renderBlock(block, block.name + idx),
               )}
             </Card>
-          </ErrorBoundary>
-        </div>
+          </div>
+        </ErrorBoundary>
       </div>
     </React.Fragment>
   );

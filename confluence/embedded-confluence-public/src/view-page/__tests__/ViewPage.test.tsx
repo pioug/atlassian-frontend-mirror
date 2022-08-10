@@ -37,7 +37,7 @@ it('should use default locale to localize text by if no locale is provided', asy
 
   expect(getByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
-    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=en_US`,
+    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=en-US`,
   );
 });
 
@@ -50,7 +50,7 @@ it('should localize text by locale provided by React prop', async () => {
 
   expect(getByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
-    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh_CN`,
+    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
   );
 });
 
@@ -65,6 +65,6 @@ it('should localize text by locale provided by IntlProvider', async () => {
 
   expect(getByTestId('confluence-page-iframe')).toHaveAttribute(
     'src',
-    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh_CN`,
+    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
   );
 });

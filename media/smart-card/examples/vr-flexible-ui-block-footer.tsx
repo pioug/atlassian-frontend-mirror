@@ -5,14 +5,15 @@ import { jsx } from '@emotion/core';
 import { VRTestWrapper } from './utils/vr-test';
 import { FooterBlock } from '../src/view/FlexibleCard/components/blocks';
 import { SmartLinkSize } from '../src/constants';
-import { blockOverrideCss, getCardState } from './utils/flexible-ui';
-import FlexibleCard from '../src/view/FlexibleCard';
-import { ActionItem } from '../src';
 import {
+  blockOverrideCss,
+  getCardState,
   makeCustomActionItem,
   makeDeleteActionItem,
   makeEditActionItem,
-} from './flexible-ui/utils';
+} from './utils/flexible-ui';
+import FlexibleCard from '../src/view/FlexibleCard';
+import { ActionItem } from '../src';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 
 const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {

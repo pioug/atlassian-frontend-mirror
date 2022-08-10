@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.5.1
+
+### Patch Changes
+
+- [`9b79278f983`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b79278f983) - Fix promise debounce to support rejects
+
 ## 1.5.0
 
 ### Minor Changes

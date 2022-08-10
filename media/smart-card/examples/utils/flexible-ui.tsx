@@ -1,9 +1,17 @@
+import React from 'react';
 import { JsonLd } from 'json-ld-types';
 import { css } from '@emotion/core';
+import LikeIcon from '@atlaskit/icon/glyph/like';
 import { token } from '@atlaskit/tokens';
 import { CardType, CardState } from '@atlaskit/linking-common';
 import extractFlexibleLinkContext from '../../src/extractors/flexible';
 import { FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
+import { ActionName, ElementName } from '../../src';
+import { ElementDisplaySchema } from '../../src/view/FlexibleCard/components/blocks/utils';
+import {
+  CustomActionItem,
+  NamedActionItem,
+} from '../../src/view/FlexibleCard/components/blocks/types';
 
 export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
   ({
@@ -59,6 +67,33 @@ export const getContext = (
   };
 };
 
+export const makeDeleteActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedActionItem => ({
+  name: ActionName.DeleteAction,
+  onClick: () => console.log('Delete action!'),
+  ...options,
+});
+
+export const makeEditActionItem = (
+  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
+): NamedActionItem => ({
+  name: ActionName.EditAction,
+  onClick: () => console.log('Edit action!'),
+  ...options,
+});
+
+export const makeCustomActionItem = (
+  options: Pick<CustomActionItem, 'icon' | 'content' | 'testId'> = {},
+): CustomActionItem => ({
+  name: ActionName.CustomAction,
+  onClick: () => console.log('Custom action!'),
+  icon: <LikeIcon label="like" />,
+  iconPosition: 'before',
+  content: 'Like',
+  ...options,
+});
+
 export const exampleTokens = {
   backgroundColor: token('color.background.neutral', '#091E420F'),
   iconBackgroundColor: token('color.icon.brand', '#0C66E4'),
@@ -71,3 +106,10 @@ export const blockOverrideCss = css`
   border-radius: 0.5rem;
   padding: 1rem;
 `;
+
+export const metadataElements = Object.values(ElementName).filter(
+  (name) =>
+    name !== ElementName.Title &&
+    name !== ElementName.LinkIcon &&
+    ElementDisplaySchema[name].includes('inline'),
+);

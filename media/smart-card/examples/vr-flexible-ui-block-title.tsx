@@ -11,15 +11,15 @@ import {
   SmartLinkSize,
   SmartLinkTheme,
 } from '../src/constants';
-import { blockOverrideCss, getCardState } from './utils/flexible-ui';
+import {
+  blockOverrideCss,
+  getCardState,
+  makeCustomActionItem,
+  makeDeleteActionItem,
+  makeEditActionItem,
+} from './utils/flexible-ui';
 import FlexibleCard from '../src/view/FlexibleCard';
 import { ActionItem, CardType } from '../src';
-
-import {
-  makeDeleteActionItem,
-  makeCustomActionItem,
-  makeEditActionItem,
-} from './flexible-ui/utils';
 import { TitleBlockProps } from '../src/view/FlexibleCard/components/blocks/title-block/types';
 
 const gridStyles = css`

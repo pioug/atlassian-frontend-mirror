@@ -19,7 +19,7 @@ import { messages } from '../../../../../../messages';
 import {
   makeCustomActionItem,
   makeDeleteActionItem,
-} from '../../../../../../../examples/flexible-ui/utils';
+} from '../../../../../../../examples/utils/flexible-ui';
 
 describe('TitleBlock', () => {
   const testId = 'smart-block-title-resolved-view';

@@ -11,6 +11,7 @@
     "@atlaskit/textfield",
     "@atlaskit/theme",
     "@atlaskit/user-picker",
-    "react-intl"
+    "react-intl",
+    "react-intl-next"
   ]
 }

@@ -7,7 +7,7 @@ export default customMd`
 ### Authors
 
 A \`AuthorGroup\` element shows the group of people who have attributed to the link resource.
-Its data is mapped to \`atlassian:attributedTo\` from a link resolver.
+Its data is mapped to \`attributedTo\` from a link resolver.
 
 ${(
   <CustomExample
@@ -149,6 +149,21 @@ ${(
       require('../../../examples/content/element-priority-variants').default
     }
     sourceVisible={false}
+  />
+)}
+
+### Programming language
+
+A \`ProgrammingLanguage\` element shows the programming language of the link resource.
+It is mainly used in repository or pull request link.
+Its data is mapped to \`schema:programmingLanguage\` from a link resolver.
+
+${(
+  <CustomExample
+    Component={
+      require('../../../examples/content/element-programming-language').default
+    }
+    source={require('!!raw-loader!../../../examples/content/element-programming-language')}
   />
 )}
 

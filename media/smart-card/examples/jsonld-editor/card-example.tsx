@@ -1,87 +1,11 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
-import {
-  Card,
-  ElementName,
-  FooterBlock,
-  MetadataBlock,
-  PreviewBlock,
-  SnippetBlock,
-  TitleBlock,
-} from '../../src';
+import { Card } from '../../src';
 import withJsonldEditorProvider from './jsonld-editor-provider';
 import withJsonldEditorReload from './jsonld-editor-reload';
-import { token } from '@atlaskit/tokens';
-
-const labelStyles = css`
-  align-items: center;
-  background-color: ${token('color.background.neutral', '#091E420F')};
-  border-radius: 3px;
-  color: ${token('color.text', '#172B4D')};
-  font-family: 'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono',
-    'Ubuntu Mono', Menlo, Consolas, Courier, monospace;
-  font-size: 0.75rem;
-  justify-content: center;
-  line-height: 0.75rem;
-  padding: 0.125rem 0;
-`;
-
-const flexStyles = css`
-  [data-smart-block] {
-    &[data-testid^='smart-block-title'],
-    &[data-testid^='smart-block-preview'],
-    &[data-testid^='smart-block-snippet'],
-    &[data-testid^='smart-footer-block'] {
-      padding-top: 1.5rem;
-      position: relative;
-      :before {
-        display: flex;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        ${labelStyles}
-      }
-    }
-
-    &[data-testid^='smart-block-title']:before {
-      content: 'TitleBlock';
-    }
-
-    &[data-testid^='smart-block-preview']:before {
-      content: 'PreviewBlock';
-    }
-
-    &[data-testid^='smart-block-snippet']:before {
-      content: 'SnippetBlock';
-    }
-
-    &[data-testid^='smart-footer-block']:before {
-      content: 'FooterBlock';
-    }
-
-    &[data-testid^='smart-block-metadata'] {
-      [data-smart-element]:before {
-        content: attr(data-smart-element);
-        display: inline-flex;
-        margin-right: 1rem;
-        width: 10rem;
-        ${labelStyles}
-      }
-    }
-  }
-
-  [data-smart-element-group] {
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-  }
-`;
-
-const elements = Object.values(ElementName).filter(
-  (name) => name !== ElementName.Title && name !== ElementName.LinkIcon,
-);
+import FlexibleDataView from '../utils/flexible-data-view';
 
 const CardExample: React.FC<{
   json?: JsonLd.Response<JsonLd.Data.BaseData>;
@@ -115,17 +39,7 @@ const CardExample: React.FC<{
         )
       </h6>
       <br />
-      <div css={flexStyles}>
-        <Card appearance="block" url={url}>
-          {elements.map((name, idx) => (
-            <MetadataBlock key={idx} maxLines={1} primary={[{ name }]} />
-          ))}
-          <TitleBlock />
-          <PreviewBlock />
-          <SnippetBlock />
-          <FooterBlock />
-        </Card>
-      </div>
+      <FlexibleDataView url={url} />
     </div>
   );
 };

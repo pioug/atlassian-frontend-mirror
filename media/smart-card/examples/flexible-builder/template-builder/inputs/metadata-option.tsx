@@ -3,20 +3,16 @@ import { jsx } from '@emotion/core';
 import React, { useCallback, useMemo } from 'react';
 import Select from '@atlaskit/select/Select';
 import { ElementItem, ElementName } from '../../../../src';
-import { ElementDisplaySchema } from '../../../../src/view/FlexibleCard/components/blocks/utils';
 import { OptionsType, ValueType as Value } from '@atlaskit/select';
 import { Field } from '@atlaskit/form';
 import { ChangeParams, handleOnChange } from '../../utils';
 import { BlockTemplate } from '../../types';
+import { metadataElements } from '../../../utils/flexible-ui';
 
-const options = Object.values(ElementName)
-  .filter(
-    (name) =>
-      name !== ElementName.Title &&
-      name !== ElementName.LinkIcon &&
-      ElementDisplaySchema[name].includes('inline'),
-  )
-  .map((name) => ({ label: name, value: name }));
+const options = metadataElements.map((name) => ({
+  label: name,
+  value: name,
+}));
 
 const MetadataOption: React.FC<{
   label?: string;

@@ -110,4 +110,15 @@ export const messages = defineMessages({
     defaultMessage: 'Save',
     description: 'Button to save edited link',
   },
+  searchErrorHeader: {
+    id: 'fabric.linkPicker.search.error.heading',
+    defaultMessage: 'We’re having trouble loading data.',
+    description: 'Heading message shown when a search throws an error',
+  },
+  searchErrorDescription: {
+    id: 'fabric.linkPicker.search.error.description',
+    defaultMessage:
+      'Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.',
+    description: 'Describes possible actions when search throws an error',
+  },
 });

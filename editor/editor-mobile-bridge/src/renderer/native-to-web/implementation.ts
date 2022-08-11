@@ -61,17 +61,12 @@ class RendererBridgeImplementation
   }
 
   setContent(content: Serialized<JSONDocNode>) {
-    if (!eventDispatcher) {
-      return;
-    }
-
-    if (!!this.content && this.content === content) {
-      return;
-    }
-
     this.content = content;
     const performanceMatrices = new PerformanceMatrices();
 
+    if (!eventDispatcher) {
+      return;
+    }
     let adfContent: JSONDocNode;
     if (typeof content === 'string') {
       try {

@@ -1,5 +1,6 @@
 import {
   LinkPickerPlugin,
+  LinkPickerPluginErrorFallback,
   LinkPickerState,
   LinkSearchListItemData,
 } from '@atlaskit/link-picker';
@@ -74,6 +75,49 @@ export class MockLinkPickerPromisePlugin implements LinkPickerPlugin {
   }
   async resolve({ query }: LinkPickerState) {
     return { data: await this.result };
+  }
+
+  get tabKey() {
+    return this._tabKey;
+  }
+
+  get tabTitle() {
+    return this._tabTitle;
+  }
+}
+
+export class UnstableMockLinkPickerPlugin implements LinkPickerPlugin {
+  private _tabKey?: string;
+  private _tabTitle?: string;
+  private hasThrown: boolean;
+  errorFallback?: LinkPickerPluginErrorFallback;
+  constructor({
+    tabKey,
+    tabTitle,
+    errorFallback,
+  }: {
+    tabKey?: string;
+    tabTitle?: string;
+    promise?: Promise<LinkSearchListItemData[]>;
+    errorFallback?: LinkPickerPluginErrorFallback;
+  } = {}) {
+    this._tabKey = tabKey;
+    this._tabTitle = tabTitle;
+    this.hasThrown = false;
+    this.errorFallback = errorFallback;
+  }
+
+  private loadResults(_query: string): Promise<LinkSearchListItemData[]> {
+    if (!this.hasThrown) {
+      this.hasThrown = true;
+      throw new Error('Unstable plugin error');
+    }
+
+    return Promise.resolve(pluginData);
+  }
+
+  async resolve({ query }: LinkPickerState) {
+    return { data: await this.loadResults(query) };
   }
 
   get tabKey() {

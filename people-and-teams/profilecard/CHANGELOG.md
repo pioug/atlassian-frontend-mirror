@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 16.12.0
+
+### Minor Changes
+
+- [`12835d685b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12835d685b4) - [ux] Only show give kudos button on active profiles
+
 ## 16.11.0
 
 ### Minor Changes

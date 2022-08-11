@@ -118,9 +118,6 @@ interface Match {
 
 export const isSafeUrl = (url: string): boolean => {
   const urlTrimmed = url.trim();
-  if (urlTrimmed.length === 0) {
-    return true;
-  }
   return whitelistedURLPatterns.some(p => p.test(urlTrimmed));
 };
 

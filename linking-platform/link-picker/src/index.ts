@@ -5,4 +5,5 @@ export type {
   LinkPickerPlugin,
   LinkPickerState,
   LinkSearchListItemData,
+  LinkPickerPluginErrorFallback,
 } from './ui/types';

@@ -66,8 +66,10 @@ export const ArticlesListItemTypeTitle = styled.div`
   padding-bottom: ${gridSize() / 2}px;
 `;
 
-export const ArticlesListItemLinkIcon = styled.div`
+export const ArticlesListItemLinkIcon = styled.span`
   align-self: auto;
+  padding-inline-start: 5px;
+  vertical-align: middle;
 `;
 
 export const ArticlesListItemTitleText = styled.span`
@@ -75,7 +77,7 @@ export const ArticlesListItemTitleText = styled.span`
   color: ${token('color.text', colors.N800)};
   font-size: ${fontSize()}px;
   font-weight: 600;
-  display: block;
+  display: inline-block;
   line-height: ${gridSize() * 2.5}px;
   white-space: normal;
   overflow-x: hidden;

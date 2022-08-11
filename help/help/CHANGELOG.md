@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.1.11
+
+### Patch Changes
+
+- [`ce7d477bc24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce7d477bc24) - [ux] Fixing styling on the ArticleListItem component
+
 ## 7.1.10
 
 ### Patch Changes

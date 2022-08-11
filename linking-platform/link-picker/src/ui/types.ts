@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl-next';
 
 export type LinkInputType = 'manual' | 'typeAhead';
@@ -39,11 +40,18 @@ export interface ResolveResult {
 }
 
 export interface LinkPickerPlugin {
+  resolve: (
+    state: LinkPickerState,
+  ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;
   /** Uniquely identify the tab */
   tabKey?: string;
   /** Human-readable label for the plugin */
   tabTitle?: string;
-  resolve: (
-    state: LinkPickerState,
-  ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;
+  /** Render function to customise the UI that is displayed when an error occurs resolving results */
+  errorFallback?: LinkPickerPluginErrorFallback;
 }
+
+export type LinkPickerPluginErrorFallback = (
+  error: unknown,
+  retry: () => void,
+) => ReactNode;

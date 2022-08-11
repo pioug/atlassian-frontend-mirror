@@ -3,4 +3,5 @@ export {
   MockLinkPickerPlugin,
   MockLinkPickerGeneratorPlugin,
   MockLinkPickerPromisePlugin,
+  UnstableMockLinkPickerPlugin,
 } from './mock-plugin';

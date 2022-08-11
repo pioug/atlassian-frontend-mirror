@@ -1,75 +1,73 @@
-import { useEffect, useRef, useReducer, useMemo } from 'react';
+import {
+  useEffect,
+  useReducer,
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
 
-import { PickerState, RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
+import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 import {
   LinkPickerPlugin,
+  LinkPickerPluginErrorFallback,
+  LinkPickerState,
   LinkSearchListItemData,
   ResolveResult,
 } from '../../ui/types';
-import { isSafeUrl } from '../../ui/link-picker/url';
 
 export interface LinkPickerPluginsService {
-  items: LinkSearchListItemData[];
+  items: LinkSearchListItemData[] | null;
   isLoading: boolean;
-  isSelectedItem: boolean;
   isActivePlugin: boolean;
   tabs: { tabTitle: string }[];
+  error: unknown | null;
+  retry: () => void;
+  errorFallback?: LinkPickerPluginErrorFallback;
 }
 
-function reducer(
-  state: { items: LinkSearchListItemData[]; isLoading: boolean },
-  payload: { items?: LinkSearchListItemData[]; isLoading?: boolean },
-) {
+interface PluginState {
+  items: LinkSearchListItemData[] | null;
+  error: unknown | null;
+  isLoading: boolean;
+}
+
+function reducer(state: PluginState, payload: Partial<PluginState>) {
   return { ...state, ...payload };
 }
 
 export function usePlugins(
-  state: PickerState,
+  state: LinkPickerState | null,
+  activeTab: number,
   plugins?: LinkPickerPlugin[],
 ): LinkPickerPluginsService {
+  const [retries, setRetries] = useState(0);
   const [pluginState, dispatch] = useReducer(reducer, {
-    items: [],
+    items: null,
+    error: null,
     isLoading: false,
   });
 
-  const { url, selectedIndex } = state;
-  const { items, isLoading } = pluginState;
-
-  const activePlugin =
-    !plugins || plugins.length === 0 ? null : plugins[state.activeTab];
+  const { items, isLoading, error } = pluginState;
 
   const queryVersion = useRef(0);
-  const pluginRef = useRef(activePlugin);
-
-  const selectedItem: LinkSearchListItemData | undefined = items[selectedIndex];
-  const isSelectedItem = selectedItem?.url === url;
+  const activePlugin = plugins?.[activeTab];
 
   useEffect(() => {
     if (!activePlugin) {
       return;
     }
 
-    if (isSelectedItem) {
+    if (!state) {
+      dispatch({ items: null, isLoading: false, error: null });
       return;
     }
 
-    if (isSafeUrl(url) && url.length) {
-      dispatch({ items: [], isLoading: false });
-      return;
-    }
+    const updates = activePlugin.resolve(state);
 
-    const updates = activePlugin.resolve({
-      query: url,
-    });
-
-    if (pluginRef.current !== activePlugin) {
-      dispatch({ items: [], isLoading: true });
-    } else {
-      dispatch({ isLoading: true });
-    }
+    dispatch({ items: null, isLoading: true, error: null });
 
     const newQuery = ++queryVersion.current;
-
     const updateResults = async () => {
       try {
         while (newQuery === queryVersion.current) {
@@ -95,13 +93,17 @@ export function usePlugins(
             return;
           }
         }
-      } catch {
-        dispatch({ isLoading: false });
+      } catch (error) {
+        dispatch({
+          error,
+          items: null,
+          isLoading: false,
+        });
       }
     };
 
     updateResults();
-  }, [activePlugin, queryVersion, url, isSelectedItem]);
+  }, [activePlugin, queryVersion, state, retries]);
 
   const tabs = useMemo(() => {
     if (!plugins || plugins.length <= 1) {
@@ -115,12 +117,18 @@ export function usePlugins(
       }));
   }, [plugins]);
 
+  const handleRetry = useCallback(() => {
+    setRetries(prev => ++prev);
+  }, []);
+
   return {
     tabs,
     items,
     isLoading,
-    isSelectedItem,
     isActivePlugin: !!activePlugin,
+    error,
+    retry: handleRetry,
+    errorFallback: activePlugin?.errorFallback,
   };
 }
 

@@ -1,15 +1,29 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 const loadLinkStyles = css`
   align-content: stretch;
   align-items: center;
   display: flex;
   gap: 1rem;
+`;
+
+const tooltipStyles = css`
+  a {
+    color: ${token('color.background.accent.blue.subtle', '#579DFF')};
+    :active {
+      color: ${token('color.text.information', '#85B8FF')};
+    }
+    :hover {
+      color: ${token('color.background.accent.blue.subtle', '#579DFF')};
+    }
+  }
 `;
 
 const pattern = new RegExp(
@@ -39,6 +53,44 @@ const LoadLinkForm: React.FC<{
     [onSubmit],
   );
 
+  const helpMessage = useMemo(
+    () => (
+      <Tooltip
+        content={
+          <div css={tooltipStyles}>
+            <p>
+              We know it's not a usual "log in" but we need to acquire
+              ASAP-signed JWT token through a micros static server for our
+              Atlaskit examples.{' '}
+              <a
+                href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
+                target="_blank"
+              >
+                Read more about that here.
+              </a>
+            </p>
+            <p>
+              For Atlassian product links such as Confluence or Jira, please use
+              staging links such as pug or jdog. Production links including
+              hello and product fabric will not resolve on staging environment.
+            </p>
+          </div>
+        }
+      >
+        {(tooltipProps) => (
+          <a
+            href="https://commerce-components-preview.dev.atlassian.com"
+            target="_blank"
+            {...tooltipProps}
+          >
+            To load link, please log in to staging environment (required VPN).
+          </a>
+        )}
+      </Tooltip>
+    ),
+    [],
+  );
+
   return (
     <Form onSubmit={handleSubmit}>
       {({ formProps }) => (
@@ -52,14 +104,7 @@ const LoadLinkForm: React.FC<{
                     Load link
                   </Button>
                 </div>
-                <HelperMessage>
-                  <a
-                    href="https://commerce-components-preview.dev.atlassian.com"
-                    target="_blank"
-                  >
-                    To load link, please log in to staging environment.
-                  </a>
-                </HelperMessage>
+                <HelperMessage>{helpMessage}</HelperMessage>
                 {error === 'INCORRECT_URL' && (
                   <ErrorMessage>Please enter a valid url.</ErrorMessage>
                 )}

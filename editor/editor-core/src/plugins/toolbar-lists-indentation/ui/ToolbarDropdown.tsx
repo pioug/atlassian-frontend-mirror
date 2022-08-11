@@ -146,14 +146,6 @@ function useItems(
     const labelOutdent = formatMessage(indentationMessages.outdent);
     items.push(
       {
-        key: 'indent',
-        content: labelIndent,
-        value: { name: 'indent' },
-        isDisabled: props.indentDisabled,
-        isActive: false,
-        elemAfter: <div css={shortcutStyle}>{tooltip(toggleIndentKeymap)}</div>,
-      },
-      {
         key: 'outdent',
         content: labelOutdent,
         value: { name: 'outdent' },
@@ -162,6 +154,14 @@ function useItems(
         elemAfter: (
           <div css={shortcutStyle}>{tooltip(toggleOutdentKeymap)}</div>
         ),
+      },
+      {
+        key: 'indent',
+        content: labelIndent,
+        value: { name: 'indent' },
+        isDisabled: props.indentDisabled,
+        isActive: false,
+        elemAfter: <div css={shortcutStyle}>{tooltip(toggleIndentKeymap)}</div>,
       },
     );
   }

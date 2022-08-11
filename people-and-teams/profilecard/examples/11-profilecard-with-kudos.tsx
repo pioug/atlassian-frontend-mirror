@@ -81,6 +81,10 @@ export default function Example() {
 
   mockClient.teamClient = mockTeamClient;
 
+  const mockClientForInactiveAccount = getMockProfileClient(10, 0, {
+    status: 'inactive',
+  });
+
   const defaultProps = {
     cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
     resourceClient: mockClient,
@@ -124,6 +128,14 @@ export default function Example() {
           >
             <strong>hover over me</strong>
           </ProfileCardTrigger>
+        </Wrap>
+        <Wrap>
+          <ProfileCardResourced
+            {...defaultProps}
+            resourceClient={mockClientForInactiveAccount}
+            userId="655363:3ddf0886-bc87-42aa-b1ba-32e4991e99d8"
+            addFlag={addFlag}
+          />
         </Wrap>
         <Wrap>
           <TeamProfilecardTrigger

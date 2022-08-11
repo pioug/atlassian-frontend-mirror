@@ -118,7 +118,11 @@ export default class Profilecard extends React.PureComponent<ProfilecardProps> {
 
   getActions() {
     const actions = this.props.actions || [];
-    if (!this.props.isCurrentUser && this.props.isKudosEnabled) {
+    if (
+      !this.props.isCurrentUser &&
+      this.props.status === 'active' &&
+      this.props.isKudosEnabled
+    ) {
       const kudosAction = {
         label: <FormattedMessage {...messages.giveKudosButton} />,
         id: this.GIVE_KUDOS_ACTION_ID,

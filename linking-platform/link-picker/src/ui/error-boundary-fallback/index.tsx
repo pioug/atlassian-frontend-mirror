@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import EmptyState from '@atlaskit/empty-state';
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import GenericErrorSVG from './generic-error-svg';
+import GenericErrorSVG from '../../common/generic-error-svg';
 import { rootContainerStyles } from '../link-picker/styled';
 
 const messages = defineMessages({

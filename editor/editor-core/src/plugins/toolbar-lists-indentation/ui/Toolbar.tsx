@@ -75,23 +75,6 @@ export function Toolbar(props: ToolbarProps) {
       />
       {showIndentationButtons && (
         <ToolbarButton
-          buttonId={TOOLBAR_BUTTON.INDENT}
-          testId={TOOLBAR_BUTTON.INDENT}
-          spacing={isReducedSpacing ? 'none' : 'default'}
-          onClick={handleOnItemActivated('indent')}
-          iconBefore={<IndentIcon label="" />}
-          disabled={indentDisabled || disabled}
-          aria-label={formatMessage(indentationMessages.indent)}
-          title={
-            <ToolTipContent
-              description={formatMessage(indentationMessages.indent)}
-              keymap={toggleIndentKeymap}
-            />
-          }
-        />
-      )}
-      {showIndentationButtons && (
-        <ToolbarButton
           buttonId={TOOLBAR_BUTTON.OUTDENT}
           testId={TOOLBAR_BUTTON.OUTDENT}
           spacing={isReducedSpacing ? 'none' : 'default'}
@@ -103,6 +86,23 @@ export function Toolbar(props: ToolbarProps) {
             <ToolTipContent
               description={formatMessage(indentationMessages.outdent)}
               keymap={toggleOutdentKeymap}
+            />
+          }
+        />
+      )}
+      {showIndentationButtons && (
+        <ToolbarButton
+          buttonId={TOOLBAR_BUTTON.INDENT}
+          testId={TOOLBAR_BUTTON.INDENT}
+          spacing={isReducedSpacing ? 'none' : 'default'}
+          onClick={handleOnItemActivated('indent')}
+          iconBefore={<IndentIcon label="" />}
+          disabled={indentDisabled || disabled}
+          aria-label={formatMessage(indentationMessages.indent)}
+          title={
+            <ToolTipContent
+              description={formatMessage(indentationMessages.indent)}
+              keymap={toggleIndentKeymap}
             />
           }
         />

@@ -9,9 +9,10 @@ import {
   MockLinkPickerGeneratorPlugin,
   MockLinkPickerPromisePlugin,
   mockedPluginData,
+  UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
 import { act, fireEvent } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -381,7 +382,9 @@ describe('<LinkPicker />', () => {
           userEvent.click(screen.getAllByTestId(testIds.tabItem)[1]);
         });
 
-        expect(onContentResize).toHaveBeenCalledTimes(3);
+        await waitFor(() => {
+          expect(onContentResize).toHaveBeenCalledTimes(3);
+        });
       });
     });
 
@@ -660,7 +663,7 @@ describe('<LinkPicker />', () => {
 
       // We should still be loading since now the query version is updated
       expect(
-        screen.getByTestId(testIds.searchResultLoadingIndicator),
+        await screen.findByTestId(testIds.searchResultLoadingIndicator),
       ).toBeInTheDocument();
 
       // We release the second result
@@ -1149,6 +1152,66 @@ describe('<LinkPicker />', () => {
         expect(screen.getByTestId(testIds.searchResultItem)).toHaveTextContent(
           mockedPluginData[1].name,
         );
+      });
+    });
+
+    describe('on Error', () => {
+      it('should use errorFallback if provided with plugin', async () => {
+        const FallbackUI = (props: { error: unknown; retry: () => void }) => {
+          const { retry, error } = props;
+          const message = error instanceof Error ? error.message : 'Try again';
+          return (
+            <button data-testid="mocked-fallback-action" onClick={retry}>
+              {message}
+            </button>
+          );
+        };
+
+        const plugin1 = new UnstableMockLinkPickerPlugin({
+          tabKey: 'tab1',
+          tabTitle: 'Unstable',
+          errorFallback: (error, retry) => (
+            <FallbackUI error={error} retry={retry} />
+          ),
+        });
+        const resolve1 = jest.spyOn(plugin1, 'resolve');
+
+        const { testIds } = setupLinkPickerWithGenericPlugin({
+          plugins: [plugin1],
+        });
+
+        await screen.findByTestId(testIds.linkPicker);
+        const retryAction = screen.getByTestId('mocked-fallback-action');
+        expect(retryAction).toBeInTheDocument();
+        expect(
+          screen.queryByText(messages.searchErrorDescription.description),
+        ).not.toBeInTheDocument();
+
+        act(() => userEvent.click(retryAction));
+
+        await screen.findByTestId(testIds.searchResultList);
+        expect(resolve1).toBeCalledTimes(2);
+        expect(screen.getAllByTestId(testIds.searchResultItem)).toHaveLength(5);
+      });
+
+      it('should use default error message if provided errorFallback returns null', async () => {
+        const plugins = [
+          new UnstableMockLinkPickerPlugin({
+            tabKey: 'tab1',
+            tabTitle: 'Unstable',
+            errorFallback: (error, retry) => null,
+          }),
+        ];
+
+        const { testIds } = setupLinkPickerWithGenericPlugin({
+          plugins,
+        });
+
+        await screen.findByTestId(testIds.linkPicker);
+
+        expect(
+          await screen.findByTestId(testIds.searchError),
+        ).toBeInTheDocument();
       });
     });
   });

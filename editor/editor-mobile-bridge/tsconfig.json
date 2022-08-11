@@ -4,7 +4,6 @@
     "baseUrl": "./",
     "resolveJsonModule": true,
     "declaration": false,
-    "noImplicitAny": true,
     "module": "commonjs"
   },
   "include": [

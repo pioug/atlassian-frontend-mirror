@@ -63,17 +63,19 @@ export const ArticlesListItem: React.FC<
       onClick={handleOnClick}
     >
       <ArticlesListItemContainer>
-        <ArticlesListItemTitleText>{title}</ArticlesListItemTitleText>
-        {href && (
-          <ArticlesListItemLinkIcon>
-            <ShortcutIcon
-              size="small"
-              label=""
-              primaryColor={token('color.icon.subtle', colors.N90)}
-              secondaryColor={token('color.icon.subtle', colors.N90)}
-            />
-          </ArticlesListItemLinkIcon>
-        )}
+        <ArticlesListItemTitleText>
+          {title}
+          {href && (
+            <ArticlesListItemLinkIcon>
+              <ShortcutIcon
+                size="small"
+                label=""
+                primaryColor={token('color.icon.subtle', colors.N90)}
+                secondaryColor={token('color.icon.subtle', colors.N90)}
+              />
+            </ArticlesListItemLinkIcon>
+          )}
+        </ArticlesListItemTitleText>
       </ArticlesListItemContainer>
       <ArticlesListItemDescription>{description}</ArticlesListItemDescription>
     </ArticlesListItemWrapper>

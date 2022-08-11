@@ -212,4 +212,14 @@ describe('link-picker', () => {
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('Should provide an error message when an error is thrown by a plugin', async () => {
+    const url = getURL('vr-search-error');
+    const page = await setup(url);
+
+    await page.click('#link-picker-tabs-1');
+
+    const image = await takeElementScreenShot(page, testSelector);
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

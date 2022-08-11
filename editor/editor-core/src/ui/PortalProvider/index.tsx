@@ -78,16 +78,16 @@ export class PortalProviderAPI extends EventDispatcher {
     hasAnalyticsContext: boolean = false,
     hasIntlContext: boolean = false,
   ) {
+    this.portals.set(container, {
+      children: children,
+      hasAnalyticsContext,
+      hasIntlContext,
+    });
     const childrenWithThemeProviders = () => (
       <PortalProviderThemeProviders mode={this.themeMode!}>
         {children()}
       </PortalProviderThemeProviders>
     );
-    this.portals.set(container, {
-      children: childrenWithThemeProviders,
-      hasAnalyticsContext,
-      hasIntlContext,
-    });
     let wrappedChildren = this.useAnalyticsContext ? (
       <AnalyticsContextWrapper>
         {childrenWithThemeProviders()}
@@ -110,8 +110,15 @@ export class PortalProviderAPI extends EventDispatcher {
   // TODO: until https://product-fabric.atlassian.net/browse/ED-5013
   // we (unfortunately) need to re-render to pass down any updated context.
   // selectively do this for nodeviews that opt-in via `hasAnalyticsContext`
-  forceUpdate({ intl }: { intl: IntlShape }) {
+  forceUpdate({
+    intl,
+    themeMode,
+  }: {
+    intl: IntlShape;
+    themeMode: ThemeModes | undefined;
+  }) {
     this.intl = intl;
+    this.themeMode = themeMode;
 
     this.portals.forEach((portal, container) => {
       if (
@@ -124,15 +131,25 @@ export class PortalProviderAPI extends EventDispatcher {
 
       let wrappedChildren = portal.children() as JSX.Element;
 
+      const childrenWithThemeProviders = () => (
+        <PortalProviderThemeProviders mode={themeMode!}>
+          {wrappedChildren}
+        </PortalProviderThemeProviders>
+      );
+
       if (portal.hasAnalyticsContext && this.useAnalyticsContext) {
         wrappedChildren = (
-          <AnalyticsContextWrapper>{wrappedChildren}</AnalyticsContextWrapper>
+          <AnalyticsContextWrapper>
+            {childrenWithThemeProviders()}
+          </AnalyticsContextWrapper>
         );
       }
 
       if (portal.hasIntlContext) {
         wrappedChildren = (
-          <RawIntlProvider value={this.intl}>{wrappedChildren}</RawIntlProvider>
+          <RawIntlProvider value={this.intl}>
+            {childrenWithThemeProviders()}
+          </RawIntlProvider>
         );
       }
 
@@ -199,7 +216,10 @@ class BasePortalProvider extends React.Component<BasePortalProviderProps> {
   }
 
   componentDidUpdate() {
-    this.portalProviderAPI.forceUpdate({ intl: this.props.intl });
+    this.portalProviderAPI.forceUpdate({
+      intl: this.props.intl,
+      themeMode: this.props.themeMode,
+    });
   }
 }
 
@@ -209,7 +229,6 @@ export const PortalProviderWithThemeProviders = (
 ) => {
   const intl = useIntl();
   const globalTheme = useGlobalTheme();
-
   return (
     <BasePortalProvider
       intl={intl}

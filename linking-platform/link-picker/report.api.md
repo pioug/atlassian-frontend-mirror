@@ -5,10 +5,9 @@
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
 ```ts
-/// <reference types="react" />
-
 import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
+import { ReactNode } from 'react';
 
 export declare type LinkInputType = 'manual' | 'typeAhead';
 
@@ -17,14 +16,21 @@ export declare const LinkPicker: React_2.MemoExoticComponent<(
 ) => JSX.Element>;
 
 export declare interface LinkPickerPlugin {
+  resolve: (
+    state: LinkPickerState,
+  ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;
   /** Uniquely identify the tab */
   tabKey?: string;
   /** Human-readable label for the plugin */
   tabTitle?: string;
-  resolve: (
-    state: LinkPickerState,
-  ) => Promise<ResolveResult> | AsyncGenerator<ResolveResult, ResolveResult>;
+  /** Render function to customise the UI that is displayed when an error occurs resolving results */
+  errorFallback?: LinkPickerPluginErrorFallback;
 }
+
+export declare type LinkPickerPluginErrorFallback = (
+  error: unknown,
+  retry: () => void,
+) => ReactNode;
 
 export declare interface LinkPickerProps {
   /** Callback to fire on form submission. */

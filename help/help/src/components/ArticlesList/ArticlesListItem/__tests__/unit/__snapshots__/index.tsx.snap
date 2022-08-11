@@ -47,7 +47,7 @@ exports[`ArticlesListItem Should match snapshot 1`] = `
   color: var(--ds-text,#172B4D);
   font-size: 14px;
   font-weight: 600;
-  display: block;
+  display: inline-block;
   line-height: 20px;
   white-space: normal;
   overflow-x: hidden;
@@ -74,8 +74,8 @@ exports[`ArticlesListItem Should match snapshot 1`] = `
       class="emotion-0"
     >
       mockArticle title
+      
     </span>
-    
   </div>
   <p
     class="emotion-2"

@@ -1,146 +1,98 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 import {
   MockLinkPickerPlugin,
-  mockedPluginData,
   MockLinkPickerPromisePlugin,
+  UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
-import { PickerState, RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 import { usePlugins } from './';
-import { LinkPickerPlugin } from '../../ui/types';
+import { LinkPickerPlugin, LinkPickerState } from '../../ui/types';
+import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
 
 describe('usePlugins', () => {
-  const state: PickerState = {
-    url: '',
-    displayText: '',
-    activeIndex: -1,
-    selectedIndex: -1,
-    invalidUrl: false,
-    activeTab: 0,
-  };
+  const state = { query: '' };
+  const activeTab = 0;
+  const plugins = [new MockLinkPickerPlugin()];
 
-  it('should NOT return results if not given plugins', () => {
-    const { result } = renderHook(() => usePlugins(state));
+  describe('Without Plugins', () => {
+    it('Should NOT return values', () => {
+      const { result } = renderHook(() => usePlugins(state, activeTab));
 
-    expect(result.current).toMatchObject({
-      items: [],
-      isLoading: false,
-      isSelectedItem: false,
-      isActivePlugin: false,
+      expect(result.current.items).toBeNull();
+      expect(result.current.error).toBeNull();
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.isActivePlugin).toBe(false);
     });
   });
 
-  describe('with plugins', () => {
-    const plugins = [new MockLinkPickerPlugin()];
+  describe('With Plugins', () => {
+    const setUpHook = (props: {
+      state: LinkPickerState;
+      activeTab: number;
+      plugins?: LinkPickerPlugin[];
+    }) => {
+      return renderHook(
+        props => {
+          return usePlugins(props.state, props.activeTab, props.plugins);
+        },
+        { initialProps: props },
+      );
+    };
 
     it('isActivePlugin should be `true`', async () => {
-      const { result } = renderHook(() => usePlugins(state, plugins));
+      const { result } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
 
       expect(result.current.isActivePlugin).toBe(true);
     });
 
-    it('should return results', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        usePlugins(state, plugins),
-      );
-
-      expect(result.current.items.length).toBe(0);
+    it('Should return Items', async () => {
+      const { result, waitForNextUpdate } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
 
       await waitForNextUpdate();
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+      expect(result.current.items).not.toBeNull();
+      expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
     });
 
-    it('should NOT return results if state contains a valid url', () => {
-      const newState = { ...state, url: 'http://www.atlassian.com' };
-      const { result } = renderHook(() => usePlugins(newState, plugins));
+    it('Should filter recent Items when given a new query', async () => {
+      const { result, rerender, waitForNextUpdate } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
 
-      expect(result.current.isActivePlugin).toBe(true);
-      expect(result.current.isLoading).toBe(false);
-      expect(result.current.items.length).toBe(0);
+      await waitForNextUpdate();
+      expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+
+      rerender({ state: { query: 'Editor' }, activeTab, plugins });
+
+      await waitForNextUpdate();
+      expect(result.current.items?.length).toBe(1);
     });
 
-    it('should filter recent results when given a search term', async () => {
-      const newState = { ...state, url: 'Atlassian Editor' };
-      const { result, rerender, waitForNextUpdate } = renderHook(
-        (props: { state: PickerState; plugins?: LinkPickerPlugin[] }) => {
-          return usePlugins(props.state, props.plugins);
-        },
-        { initialProps: { state, plugins } },
-      );
-
-      await waitForNextUpdate();
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-
-      rerender({ state: newState, plugins });
-
-      await waitForNextUpdate();
-      expect(result.current.items.length).toBe(1);
-    });
-
-    it('should NOT filter or fetch new results if the state changes but the url does not', async () => {
-      const { result, rerender, waitForNextUpdate } = renderHook(
-        (props: { state: PickerState; plugins?: LinkPickerPlugin[] }) => {
-          return usePlugins(props.state, props.plugins);
-        },
-        { initialProps: { state, plugins } },
-      );
-
-      await waitForNextUpdate();
-      const initItems = result.current.items.sort();
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-
-      rerender({ state: { ...state, activeIndex: 4 }, plugins });
-      expect(result.current.items.sort()).toEqual(initItems);
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-
-      rerender({ state: { ...state, activeIndex: 3 }, plugins });
-      expect(result.current.items.sort()).toEqual(initItems);
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-
-      rerender({ state: { ...state, activeIndex: 2 }, plugins });
-      expect(result.current.items.sort()).toEqual(initItems);
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-    });
-
-    it('isSelectedItem should be `true` when url and selectedIndex match a result in the list', async () => {
-      const newState = {
-        ...state,
-        url: mockedPluginData[0].url,
-        selectedIndex: 0,
-      };
-      const { result, rerender, waitForNextUpdate } = renderHook(
-        (props: { state: PickerState; plugins?: LinkPickerPlugin[] }) => {
-          return usePlugins(props.state, props.plugins);
-        },
-        { initialProps: { state, plugins } },
-      );
-
-      await waitForNextUpdate();
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-
-      rerender({ state: newState, plugins });
-
-      await waitForNextUpdate();
-      expect(result.current.isSelectedItem).toBe(true);
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
-      expect(result.current.items[0].url).toEqual(mockedPluginData[0].url);
-    });
-
-    it('isLoading should be `true` while plugin is fetching results', async () => {
-      const { result, waitForNextUpdate } = renderHook(() =>
-        usePlugins(state, plugins),
-      );
-
-      expect(result.current.items.length).toBe(0);
+    it('isLoading should be `true` while the plugin is fetching new Items', async () => {
+      const { result, waitForNextUpdate } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
 
       await waitForNextUpdate();
       expect(result.current.isLoading).toBe(true);
 
       await waitForNextUpdate();
       expect(result.current.isLoading).toBe(false);
-      expect(result.current.items.length).toEqual(RECENT_SEARCH_LIST_SIZE);
+      expect(result.current.items).not.toBeNull();
+      expect(result.current.items?.length).toEqual(RECENT_SEARCH_LIST_SIZE);
     });
 
-    it('should return tabs and available tabTitle', async () => {
+    it('Should return available tabs and tabTitle', async () => {
       const plugin1 = new MockLinkPickerPromisePlugin({
         tabKey: 'tab1',
         tabTitle: 'tab1',
@@ -150,13 +102,84 @@ describe('usePlugins', () => {
         tabTitle: 'tab2',
       });
 
-      const { result } = renderHook(() =>
-        usePlugins(state, [plugin1, plugin2]),
-      );
+      const { result } = setUpHook({
+        state,
+        activeTab,
+        plugins: [plugin1, plugin2],
+      });
 
       expect(result.current.tabs).toHaveLength(2);
       expect(result.current.tabs[0].tabTitle).toBe('tab1');
       expect(result.current.tabs[1].tabTitle).toBe('tab2');
+    });
+
+    it('Should clear items set isLoading to `false` and return error when plugin throws', async () => {
+      const plugins = [
+        new UnstableMockLinkPickerPlugin({
+          tabKey: 'tab1',
+          tabTitle: 'Unstable',
+        }),
+      ];
+
+      const { result, waitForNextUpdate } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
+
+      await waitForNextUpdate();
+
+      expect(result.current.items).toBeNull();
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.error).not.toBeNull();
+    });
+
+    it('retry function should trigger a new search when plugin throws an error', async () => {
+      const plugins = [
+        new UnstableMockLinkPickerPlugin({
+          tabKey: 'tab1',
+          tabTitle: 'Unstable',
+        }),
+      ];
+
+      const { result, waitForNextUpdate } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
+
+      await waitForNextUpdate();
+
+      const { retry } = result.current;
+      expect(retry).toBeDefined();
+      act(() => retry());
+
+      await waitForNextUpdate();
+
+      expect(result.current.error).toBeNull();
+      expect(result.current.items).not.toBe(null);
+      expect(result.current.items?.length).not.toBe(0);
+    });
+
+    it('errorFallback should be defined when provided with Plugin', async () => {
+      const plugins = [
+        new UnstableMockLinkPickerPlugin({
+          tabKey: 'tab1',
+          tabTitle: 'Unstable',
+          errorFallback: (error, retry) => null,
+        }),
+      ];
+
+      const { result, waitForNextUpdate } = setUpHook({
+        state,
+        activeTab,
+        plugins,
+      });
+
+      await waitForNextUpdate();
+
+      const { errorFallback } = result.current;
+      expect(errorFallback).toBeDefined();
     });
   });
 });

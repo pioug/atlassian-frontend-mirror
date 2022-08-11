@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import { KeyboardEvent, useCallback, useLayoutEffect, useReducer } from 'react';
+import {
+  Fragment,
+  KeyboardEvent,
+  useCallback,
+  useLayoutEffect,
+  useReducer,
+} from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
 
@@ -14,6 +20,10 @@ import {
   LinkInputType,
   LinkPickerPlugin,
 } from '../types';
+
+import { usePlugins } from '../../services/use-plugins';
+import { useSearchQuery } from '../../services/use-search-query';
+
 import { messages } from './messages';
 import PanelTextInput from './text-input';
 import LinkSearchList from './link-search-list';
@@ -25,12 +35,13 @@ import {
   tabsWrapperStyles,
 } from './styled';
 import { browser } from './browser';
-import { transformTimeStamp } from './transformTimeStamp';
 import Announcer from './announcer';
 import LinkSearchNoResults from './link-search-no-results';
-import { usePlugins } from '../../services/use-plugins';
+import { transformTimeStamp } from './transformTimeStamp';
+import LinkSearchError from './link-search-error';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
+export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 
 export const testIds = {
   linkPicker: 'link-picker',
@@ -48,6 +59,7 @@ export const testIds = {
   urlError: 'link-error',
   tabList: 'link-picker-tabs',
   tabItem: 'link-picker-tab',
+  searchError: 'link-search-error',
 };
 
 interface Meta {
@@ -118,6 +130,7 @@ function reducer(state: PickerState, payload: Partial<PickerState>) {
       ...payload,
     };
   }
+
   return { ...state, ...payload };
 }
 
@@ -135,15 +148,32 @@ function LinkPicker({
     displayText: initDisplayText || '',
   });
 
-  const { activeIndex, selectedIndex, url, displayText, invalidUrl } = state;
-
-  const isEditing = !!initUrl;
+  const {
+    activeIndex,
+    selectedIndex,
+    url,
+    displayText,
+    invalidUrl,
+    activeTab,
+  } = state;
 
   const intl = useIntl();
-  const { items, isLoading, isSelectedItem, isActivePlugin, tabs } = usePlugins(
-    state,
-    plugins,
-  );
+  const queryState = useSearchQuery(state);
+
+  const {
+    items,
+    isLoading,
+    isActivePlugin,
+    tabs,
+    error,
+    retry,
+    errorFallback,
+  } = usePlugins(queryState, activeTab, plugins);
+
+  const isEditing = !!initUrl;
+  const selectedItem: LinkSearchListItemData | undefined =
+    items?.[selectedIndex];
+  const isSelectedItem = selectedItem?.url === url;
 
   useLayoutEffect(() => {
     if (onContentResize) {
@@ -209,9 +239,9 @@ function LinkPicker({
 
   const handleMouseEnterResultItem = useCallback(
     (objectId: string) => {
-      const index = findIndex(items, item => item.objectId === objectId);
+      const index = items?.findIndex(item => item.objectId === objectId);
       dispatch({
-        activeIndex: index,
+        activeIndex: index ?? -1,
       });
     },
     [items],
@@ -219,7 +249,7 @@ function LinkPicker({
 
   const handleMouseLeaveResultItem = useCallback(
     (objectId: string) => {
-      const index = findIndex(items, item => item.objectId === objectId);
+      const index = items?.findIndex(item => item.objectId === objectId);
       // This is to avoid updating index that was set by other mouseenter event
       if (activeIndex === index) {
         dispatch({
@@ -245,7 +275,7 @@ function LinkPicker({
 
   const handleSelected = useCallback(
     (objectId: string) => {
-      const selectedItem = items.find(item => item.objectId === objectId);
+      const selectedItem = items?.find(item => item.objectId === objectId);
 
       if (selectedItem) {
         const { url, name } = selectedItem;
@@ -256,10 +286,7 @@ function LinkPicker({
   );
 
   const handleSubmit = useCallback(() => {
-    const selectedItem: LinkSearchListItemData | undefined =
-      items[selectedIndex];
-
-    if (isSelectedItem) {
+    if (isSelectedItem && selectedItem) {
       return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
     }
 
@@ -271,22 +298,22 @@ function LinkPicker({
     return dispatch({
       invalidUrl: true,
     });
-  }, [handleInsert, isSelectedItem, items, selectedIndex, url]);
+  }, [handleInsert, isSelectedItem, selectedItem, url]);
 
   const linkPlaceHolder = isActivePlugin
     ? messages.placeholder
     : messages.linkPlaceholder;
 
-  const linkListTitle = url
-    ? messages.titleResults
-    : messages.titleRecentlyViewed;
+  const linkListTitle =
+    queryState?.query?.length !== 0
+      ? messages.titleResults
+      : messages.titleRecentlyViewed;
 
   const insertButtonMsg = isEditing
     ? messages.saveButton
     : messages.insertButton;
 
-  const noResults =
-    isActivePlugin && !isLoading && !items.length && !isSafeUrl(url);
+  const noResults = items?.length === 0 && !error;
 
   const screenReaderDescriptionId = 'search-recent-links-field-description';
   const linkSearchListId = 'link-picker-search-list';
@@ -297,7 +324,7 @@ function LinkPicker({
   // as the Aria design pattern for combobox does not work in this case
   // for details: https://a11y-internal.atlassian.net/browse/AK-740
   const screenReaderText =
-    browser.safari && getScreenReaderText(items, selectedIndex, intl);
+    browser.safari && getScreenReaderText(items ?? [], selectedIndex, intl);
 
   const searchIcon = isActivePlugin && (
     <span css={searchIconStyles} data-testid={testIds.searchIcon}>
@@ -354,68 +381,99 @@ function LinkPicker({
         onKeyDown={handleKeyDown}
         onChange={handleChangeText}
       />
-      {tabs.length > 0 && (
-        <div css={tabsWrapperStyles}>
-          <Tabs
-            id={testIds.tabList}
-            testId={testIds.tabList}
-            onChange={activeTab =>
-              dispatch({
-                selectedIndex: -1,
-                activeIndex: -1,
-                invalidUrl: false,
-                activeTab,
-              })
-            }
-          >
-            <TabList>
-              {tabs.map(tab => (
-                <Tab key={tab.tabTitle} testId={testIds.tabItem}>
-                  {tab.tabTitle}
-                </Tab>
-              ))}
-            </TabList>
-          </Tabs>
-        </div>
-      )}
-      {!!items.length && (
-        <div
-          css={listTitleStyles}
-          id={testIds.resultListTitle}
-          data-testid={testIds.resultListTitle}
-        >
-          <FormattedMessage {...linkListTitle} />
-        </div>
-      )}
-      <VisuallyHidden id="fabric.smartcard.linkpicker.suggested.results">
-        {url && (
-          <FormattedMessage
-            {...messages.searchLinkResults}
-            values={{ count: items.length }}
-            aria-live="polite"
-            aria-atomic="true"
+      {queryState && (
+        <Fragment>
+          {tabs.length > 0 && (
+            <div css={tabsWrapperStyles}>
+              <Tabs
+                id={testIds.tabList}
+                testId={testIds.tabList}
+                onChange={activeTab =>
+                  dispatch({
+                    selectedIndex: -1,
+                    activeIndex: -1,
+                    invalidUrl: false,
+                    activeTab,
+                  })
+                }
+              >
+                <TabList>
+                  {tabs.map(tab => (
+                    <Tab key={tab.tabTitle} testId={testIds.tabItem}>
+                      {tab.tabTitle}
+                    </Tab>
+                  ))}
+                </TabList>
+              </Tabs>
+            </div>
+          )}
+          {!!items?.length && (
+            <div
+              css={listTitleStyles}
+              id={testIds.resultListTitle}
+              data-testid={testIds.resultListTitle}
+            >
+              <FormattedMessage {...linkListTitle} />
+            </div>
+          )}
+          <VisuallyHidden id="fabric.smartcard.linkpicker.suggested.results">
+            {url && (
+              <FormattedMessage
+                {...messages.searchLinkResults}
+                values={{ count: items?.length ?? 0 }}
+                aria-live="polite"
+                aria-atomic="true"
+              />
+            )}
+          </VisuallyHidden>
+          <LinkSearchList
+            ariaLabelledBy={testIds.resultListTitle}
+            ariaControls="fabric.smartcard.linkpicker.suggested.results"
+            id={linkSearchListId}
+            role="listbox"
+            items={items ?? []}
+            isLoading={isLoading}
+            selectedIndex={selectedIndex}
+            activeIndex={activeIndex}
+            onSelect={handleSelected}
+            onMouseEnter={handleMouseEnterResultItem}
+            onMouseLeave={handleMouseLeaveResultItem}
           />
-        )}
-      </VisuallyHidden>
-      <LinkSearchList
-        ariaLabelledBy={testIds.resultListTitle}
-        ariaControls="fabric.smartcard.linkpicker.suggested.results"
-        id={linkSearchListId}
-        role="listbox"
-        items={items}
-        isLoading={isLoading}
-        selectedIndex={selectedIndex}
-        activeIndex={activeIndex}
-        onSelect={handleSelected}
-        onMouseEnter={handleMouseEnterResultItem}
-        onMouseLeave={handleMouseLeaveResultItem}
-      />
-      {noResults && (
-        <LinkSearchNoResults
-          testId={testIds.emptyResultPage}
-          header={intl.formatMessage(messages.noResults)}
-          description={intl.formatMessage(messages.noResultsDescription)}
-        />
+
+          {error &&
+            (errorFallback?.(error, retry) ?? (
+              <LinkSearchError
+                testId={testIds.searchError}
+                header={intl.formatMessage(messages.searchErrorHeader)}
+                description={
+                  <FormattedMessage
+                    {...messages.searchErrorDescription}
+                    values={{
+                      a: (label: string) => (
+                        <Button
+                          appearance="link"
+                          spacing="none"
+                          href={CONTACT_SUPPORT_LINK}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {label}
+                        </Button>
+                      ),
+                    }}
+                  />
+                }
+              />
+            ))}
+
+          {noResults && (
+            <LinkSearchNoResults
+              testId={testIds.emptyResultPage}
+              header={intl.formatMessage(messages.noResults)}
+              description={intl.formatMessage(messages.noResultsDescription)}
+            />
+          )}
+        </Fragment>
       )}
       <FormFooter align="end">
         <ButtonGroup>
@@ -458,17 +516,4 @@ function getScreenReaderText(
       .join(' ');
     return [name, container, formattedDate].filter(Boolean).join(', ');
   }
-}
-
-function findIndex<T>(array: T[], predicate: (item: T) => boolean): number {
-  let index = -1;
-  array.some((item, i) => {
-    if (predicate(item)) {
-      index = i;
-      return true;
-    }
-    return false;
-  });
-
-  return index;
 }

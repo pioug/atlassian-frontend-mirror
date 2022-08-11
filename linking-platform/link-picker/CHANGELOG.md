@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.7.0
+
+### Minor Changes
+
+- [`d0feee9b4ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0feee9b4ad) - [ux] Add a UI error message to display when the link picker plugin resolve throws an error
+
 ## 1.6.1
 
 ### Patch Changes

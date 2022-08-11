@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 172.0.2
+
+### Patch Changes
+
+- [`8ed516834c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ed516834c1) - [ux] ED-15407: Bring forward patches below to master:
+
+  - ED-14988: Patch dark mode in mobile-bridge by ensuring theme context is not stale. Repaints editor nodes when theme mode changes.
+  - ME-2511: Revert the premature optimisation that introduces race condition.
+  - Partly from ED-15327: PortalProvider fix to ensure theme toggling updates nested mentions, nodes
+
+## 172.0.1
+
+### Patch Changes
+
+- [`4e63a26de78`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e63a26de78) - [ux] DTR-624 Reversed order of indentation buttons in the toolbar. Note that the buttons are behind a feature flag and disabled by default.
+
 ## 172.0.0
 
 ### Major Changes

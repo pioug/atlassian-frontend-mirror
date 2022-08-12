@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.4.0
+
+### Minor Changes
+
+- [`e5aa0ac9b74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e5aa0ac9b74) - [ux] ED-15329 migrates @atlaskit/share to emotion -- fixes a spacing bug with bottom margin on share button.
+
 ## 3.3.1
 
 ### Patch Changes

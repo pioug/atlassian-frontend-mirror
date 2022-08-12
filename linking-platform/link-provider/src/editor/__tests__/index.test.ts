@@ -760,6 +760,96 @@ describe('providers > editor', () => {
       const adf = await provider.resolve(url, 'inline', false);
       expect(adf).toEqual(expectedInlineAdf(url));
     });
+
+    it('should match against urlSegment which starts with non-letter character', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'url',
+              appearances: [
+                {
+                  urlSegment: '.box.com',
+                  appearance: 'inline',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://app.box.com/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should match against urlSegment which ends with non-letter character', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'url',
+              appearances: [
+                {
+                  urlSegment: 'wikipedia.org/wiki/Leif_',
+                  appearance: 'inline',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://en.wikipedia.org/wiki/Leif_Edling';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
+
+    it('should match against urlSegment which starts and ends with non-letter character', async () => {
+      const provider = new EditorCardProvider();
+      // Mocking call to /providers
+      mockFetch.mockResolvedValueOnce({
+        json: async () =>
+          getMockProvidersResponse({
+            userPreferences: {
+              defaultAppearance: 'url',
+              appearances: [
+                {
+                  urlSegment: '.box.com/',
+                  appearance: 'inline',
+                },
+              ],
+            },
+          }),
+        ok: true,
+      });
+
+      // Mocking call to /check
+      mockFetch.mockResolvedValueOnce({
+        json: async () => ({ isSupported: true }),
+        ok: true,
+      });
+
+      const url = 'https://app.box.com/foo';
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedInlineAdf(url));
+    });
   });
 
   describe('when consumer calls function without shouldForceAppearance argument defined', () => {

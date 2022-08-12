@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -30,12 +31,12 @@ import { IntegrationForm } from './IntegrationForm';
 import { ShareHeader } from './ShareHeader';
 import { UserPickerField } from './UserPickerField';
 
-const SubmitButtonWrapper = styled.div`
+const submitButtonWrapperStyles = css`
   display: flex;
   margin-left: auto;
 `;
 
-const CenterAlignedIconWrapper = styled.div`
+const centerAlignedIconWrapperStyles = css`
   display: flex;
   align-self: center;
   padding: 0 10px;
@@ -45,7 +46,7 @@ const CenterAlignedIconWrapper = styled.div`
   }
 `;
 
-export const FormWrapper = styled.div`
+export const formWrapperStyles = css`
   margin-top: ${gridSize()}px;
   width: 100%;
 
@@ -55,22 +56,21 @@ export const FormWrapper = styled.div`
   }
 `;
 
-export const FormFooter = styled.div`
-  margin-bottom: ${gridSize}px;
+export const formFooterStyles = css`
   display: flex;
   justify-content: flex-start;
 `;
 
-const FormField = styled.div`
+const formFieldStyles = css`
   margin-bottom: 12px;
 `;
 
-const IntegrationWrapper = styled.div`
+const integrationWrapperStyles = css`
   display: flex;
   align-items: center;
 `;
 
-const IntegrationIconWrapper = styled.span`
+const integrationIconWrapperStyles = css`
   margin-bottom: -6px;
   margin-right: 5px;
 `;
@@ -137,7 +137,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       <AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
         <form {...formProps}>
           {showTitle && <ShareHeader title={title} />}
-          <FormField>
+          <div css={formFieldStyles}>
             <UserPickerField
               onInputChange={onUserInputChange}
               onChange={onUserSelectionChange}
@@ -154,12 +154,12 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               helperMessage={helperMessage}
               orgId={orgId}
             />
-          </FormField>
-          <FormField>
+          </div>
+          <div css={formFieldStyles}>
             <CommentField defaultValue={defaultValue && defaultValue.comment} />
-          </FormField>
+          </div>
           {fieldsFooter}
-          <FormFooter>
+          <div css={formFooterStyles} data-testid="form-footer">
             <CopyLinkButton
               isDisabled={isDisabled}
               onLinkCopy={onLinkCopy}
@@ -168,7 +168,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               copyTooltipText={copyTooltipText}
             />
             {this.renderSubmitButton()}
-          </FormFooter>
+          </div>
         </form>
       </AnalyticsContext>
     );
@@ -197,8 +197,8 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       buttonAppearance === 'warning' ? 'strong' : React.Fragment;
 
     return (
-      <SubmitButtonWrapper>
-        <CenterAlignedIconWrapper>
+      <div css={submitButtonWrapperStyles}>
+        <div css={centerAlignedIconWrapperStyles}>
           {shouldShowWarning && (
             <Tooltip
               content={<FormattedMessage {...messages.shareFailureMessage} />}
@@ -210,7 +210,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               />
             </Tooltip>
           )}
-        </CenterAlignedIconWrapper>
+        </div>
         <Button
           appearance={buttonAppearance}
           type="submit"
@@ -221,7 +221,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
             {submitButtonLabel || <FormattedMessage {...buttonLabel} />}
           </ButtonLabelWrapper>
         </Button>
-      </SubmitButtonWrapper>
+      </div>
     );
   };
 
@@ -276,26 +276,26 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
           <TabList>
             <Tab key={`share-tab-default`}>{this.renderMainTabTitle()}</Tab>
             <Tab key={`share-tab-${firstIntegration.type}`}>
-              <IntegrationWrapper>
-                <IntegrationIconWrapper>
+              <div css={integrationWrapperStyles}>
+                <span css={integrationIconWrapperStyles}>
                   <firstIntegration.Icon />
-                </IntegrationIconWrapper>
+                </span>
                 {integrationTabText(firstIntegration.type)}
-              </IntegrationWrapper>
+              </div>
             </Tab>
           </TabList>
           <TabPanel key={`share-tabPanel-default`}>
-            <FormWrapper>{this.renderShareForm()}</FormWrapper>
+            <div css={formWrapperStyles}>{this.renderShareForm()}</div>
           </TabPanel>
           <TabPanel key={`share-tabPanel-integration`}>
             <AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
-              <FormWrapper>
+              <div css={formWrapperStyles}>
                 <IntegrationForm
                   Content={firstIntegration.Content}
                   onIntegrationClose={() => handleCloseDialog?.()}
                   changeTab={this.changeTab}
                 />
-              </FormWrapper>
+              </div>
             </AnalyticsContext>
           </TabPanel>
         </Tabs>

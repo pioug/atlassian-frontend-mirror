@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/core';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -11,7 +11,7 @@ import DropdownMenu from '@atlaskit/dropdown-menu';
 import { SmartLinkSize } from '../../../../../constants';
 import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { sizeToSpacing } from '../../actions/action';
+import { sizeToButtonSpacing } from '../../utils';
 import { tokens } from '../../../../../utils/token';
 import { messages } from '../../../../../messages';
 
@@ -47,43 +47,77 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   onDropdownOpenChange,
   testId,
 }) => {
-  const isMoreThenTwoItems = items.length > visibleButtonsNum;
-  const firstActions = isMoreThenTwoItems
-    ? items.slice(0, visibleButtonsNum - 1)
-    : items;
-  const restActions = isMoreThenTwoItems
-    ? items.slice(visibleButtonsNum - 1)
-    : [];
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [buttonActions, dropdownItemActions] = useMemo(() => {
+    const isMoreThenTwoItems = items.length > visibleButtonsNum;
+    const buttons = isMoreThenTwoItems
+      ? items.slice(0, visibleButtonsNum - 1)
+      : items;
+    const dropdownItems = isMoreThenTwoItems
+      ? items.slice(visibleButtonsNum - 1)
+      : [];
+    return [buttons, dropdownItems];
+  }, [items, visibleButtonsNum]);
 
   // Stop AK dropdown menu to propagate event on click.
   const onClick = useCallback((e) => e.stopPropagation(), []);
 
+  const onOpenChange = useCallback(
+    (attrs) => {
+      setIsOpen(attrs.isOpen);
+      if (onDropdownOpenChange) {
+        onDropdownOpenChange(attrs.isOpen);
+      }
+    },
+    [onDropdownOpenChange],
+  );
+
+  const onActionClick = useCallback(() => {
+    if (isOpen) {
+      onOpenChange({ isOpen: false });
+    }
+  }, [isOpen, onOpenChange]);
+
   return (
     <div css={styles} className="actions-button-group" onClick={onClick}>
       <ButtonGroup>
-        {renderActionItems(firstActions, size, appearance)}
-        {restActions.length > 0 ? (
+        {renderActionItems(
+          buttonActions,
+          size,
+          appearance,
+          false,
+          onActionClick,
+        )}
+        {dropdownItemActions.length > 0 ? (
           <DropdownMenu
-            onOpenChange={({ isOpen }) =>
-              onDropdownOpenChange && onDropdownOpenChange(isOpen)
-            }
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
             trigger={({ triggerRef, ...props }) => (
               <Tooltip
                 content={<FormattedMessage {...messages.more_actions} />}
+                hideTooltipOnClick={true}
                 testId="action-group-more-button-tooltip"
                 tag="span"
               >
                 <Button
                   {...props}
-                  spacing={sizeToSpacing[size]}
+                  spacing={sizeToButtonSpacing[size]}
                   testId="action-group-more-button"
                   iconBefore={<MoreIcon label="more" />}
                   ref={triggerRef}
                 />
               </Tooltip>
             )}
+            testId="action-group-dropdown"
           >
-            {renderActionItems(restActions, size, appearance, true)}
+            {renderActionItems(
+              dropdownItemActions,
+              size,
+              appearance,
+              true,
+              onActionClick,
+            )}
           </DropdownMenu>
         ) : null}
       </ButtonGroup>

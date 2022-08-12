@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/core';
 
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import { G400, N200, R400 } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
 import { useGlobalTheme } from '@atlaskit/theme/components';
 import {
   fontFamily as getFontFamily,
@@ -26,7 +26,7 @@ const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
 const darkH200Styles = css(h200({ theme: { mode: 'dark' } }));
 
 const messageErrorColorStyles = css({
-  color: token('color.text.danger', R400),
+  color: token('color.text.danger', '#AE2A19'),
 });
 
 const messageNeutralColorStyles = css({
@@ -34,7 +34,7 @@ const messageNeutralColorStyles = css({
 });
 
 const messageValidColorStyles = css({
-  color: token('color.text.success', G400),
+  color: token('color.text.success', '#216E4E'),
 });
 
 const messageStyles = css({

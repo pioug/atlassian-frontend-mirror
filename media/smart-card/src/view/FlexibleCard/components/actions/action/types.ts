@@ -56,22 +56,3 @@ export type ActionProps = {
    */
   testId?: string;
 };
-
-export type ActionIconProps = {
-  /**
-   * Determines the size of the Icon within the Action.
-   */
-  size?: SmartLinkSize;
-
-  /**
-   * Determines the icon within the Action.
-   */
-  icon?: ReactChild;
-
-  /**
-   * A `testId` prop is provided for specified elements, which is a unique
-   * string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests
-   */
-  testId?: string;
-};

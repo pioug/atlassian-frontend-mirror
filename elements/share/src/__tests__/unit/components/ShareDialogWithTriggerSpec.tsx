@@ -688,8 +688,7 @@ describe('ShareDialogWithTrigger', () => {
         shareError: new Error('unable to share'),
       });
       wrapper
-        .dive()
-        .find('div')
+        .find('EmotionCssPropInternal')
         .first()
         .simulate('keydown', escapeKeyDownEvent);
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(1);
@@ -735,8 +734,7 @@ describe('ShareDialogWithTrigger', () => {
 
       wrapper.setState(state);
       wrapper
-        .dive()
-        .find('div')
+        .find('EmotionCssPropInternal')
         .first()
         .simulate('keydown', escapeKeyDownEvent);
       expect(escapeKeyDownEvent.preventDefault).toHaveBeenCalledTimes(0);
@@ -779,8 +777,7 @@ describe('ShareDialogWithTrigger', () => {
         shareError: new Error('unable to share'),
       });
       wrapper
-        .dive()
-        .find('div')
+        .find('EmotionCssPropInternal')
         .first()
         .simulate('keydown', escapeKeyDownEvent);
       // @atlaskit/popup will catch the ESC, and close the window, we only

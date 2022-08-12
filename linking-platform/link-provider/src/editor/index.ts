@@ -119,8 +119,18 @@ export class EditorCardProvider implements CardProvider {
   }
 
   private doesUrlMatchPath(path: string, url: string) {
+    // Using [a-zA-Z0-9] here instead of \w since that includes underscores
+    const startingRegex = new RegExp(/^[a-zA-Z0-9]/).test(path)
+      ? '(^|[^a-zA-Z0-9])'
+      : '';
+    const endingRegex = new RegExp(/[a-zA-Z0-9]$/).test(path)
+      ? '($|[^a-zA-Z0-9])'
+      : '';
+
     const escapedPath = path.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regexPattern = new RegExp(`(^|\\W)${escapedPath}($|\\W)`);
+    const regexPattern = new RegExp(
+      `${startingRegex}${escapedPath}${endingRegex}`,
+    );
     return regexPattern.test(url);
   }
 

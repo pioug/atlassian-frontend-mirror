@@ -100,6 +100,18 @@ export const getBaseStyles = (
   }
 `;
 
+export const highlightRemoveStyles = css`
+  outline: none !important;
+  outline-color: inherit;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
+
 const isActionGroup = (node: React.ReactNode) =>
   React.isValidElement(node) && node.type === ActionGroup;
 
@@ -161,6 +173,7 @@ export const renderActionItems = (
   size: SmartLinkSize = SmartLinkSize.Medium,
   appearance?: Appearance,
   asDropDownItems?: boolean,
+  onActionItemClick?: () => void,
 ): React.ReactNode | undefined => {
   const actions = items.reduce(
     (acc: React.ReactElement[], curr: ActionItem, idx: number) => {
@@ -176,6 +189,14 @@ export const renderActionItems = (
         actionProps.icon = undefined;
       }
       if (Action) {
+        const handleOnClick = () => {
+          if (onActionItemClick) {
+            onActionItemClick();
+          }
+          if (onClick) {
+            onClick();
+          }
+        };
         return [
           ...acc,
           <Action
@@ -183,7 +204,7 @@ export const renderActionItems = (
             size={size}
             key={idx}
             appearance={appearance}
-            onClick={onClick}
+            onClick={handleOnClick}
             {...actionProps}
           />,
         ];

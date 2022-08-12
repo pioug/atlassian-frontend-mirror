@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 21.0.4
+
+### Patch Changes
+
+- [`4347099f4ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4347099f4ba) - [ux] Blue highlight is removed for when a user right-clicks on a Flex UI Smart Link
+
+## 21.0.3
+
+### Patch Changes
+
+- [`a657fbfe5e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a657fbfe5e1) - [ux] Flexible UI: Fix action menu and its tooltip not disappear after an action is clicked
+
 ## 21.0.2
 
 ### Patch Changes

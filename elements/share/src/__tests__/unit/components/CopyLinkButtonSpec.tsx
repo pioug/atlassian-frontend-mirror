@@ -15,7 +15,6 @@ import Tooltip from '@atlaskit/tooltip';
 import {
   CopyLinkButton,
   HiddenInput,
-  MessageContainer,
   Props,
   State,
 } from '../../../components/CopyLinkButton';
@@ -206,7 +205,9 @@ describe('CopyLinkButton', () => {
       );
       wrapper.find(Button).simulate('click');
       expect(wrapper.find(CheckCircleIcon)).toHaveLength(1);
-      expect(wrapper.find(MessageContainer)).toHaveLength(1);
+      expect(wrapper.find('div[data-testid="message-container"]')).toHaveLength(
+        1,
+      );
       expect(wrapper.instance().autoDismiss).not.toBeUndefined();
 
       wrapper.instance().handleDismissCopiedMessage();
@@ -214,7 +215,9 @@ describe('CopyLinkButton', () => {
 
       expect(wrapper.state().shouldShowCopiedMessage).toBeFalsy();
       expect(wrapper.find(CheckCircleIcon)).toHaveLength(0);
-      expect(wrapper.find(MessageContainer)).toHaveLength(0);
+      expect(wrapper.find('div[data-testid="message-container"]')).toHaveLength(
+        0,
+      );
       expect(wrapper.instance().autoDismiss).toBeUndefined();
     });
   });

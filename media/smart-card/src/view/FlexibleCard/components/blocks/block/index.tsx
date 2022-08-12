@@ -9,13 +9,19 @@ import {
   SmartLinkDirection,
   SmartLinkSize,
 } from '../../../../../constants';
-import { getBaseStyles, getGapSize, renderChildren } from '../utils';
+import {
+  getBaseStyles,
+  getGapSize,
+  highlightRemoveStyles,
+  renderChildren,
+} from '../utils';
 
 const getBlockStyles = (
   direction: SmartLinkDirection,
   size: SmartLinkSize,
 ): SerializedStyles => css`
   ${getBaseStyles(direction, size)}
+  ${highlightRemoveStyles}
   justify-content: flex-start;
   [data-separator] + [data-separator]:before {
     content: '•';

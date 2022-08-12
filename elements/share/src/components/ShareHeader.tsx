@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx, Theme, useTheme } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { gridSize } from '@atlaskit/theme/constants';
 import { h500 } from '@atlaskit/theme/typography';
@@ -11,13 +12,13 @@ import { messages } from '../i18n';
 export type Props = {
   title?: React.ReactNode;
 };
-const HeaderWrapper = styled.div`
+const headerWrapperStyles = css`
   display: flex;
   justify-content: space-between;
 `;
 
-export const FormHeaderTitle = styled.h1`
-  ${h500};
+export const getFormHeaderTitleStyles = (theme: Theme) => css`
+  ${h500(theme)}
   line-height: ${gridSize() * 4}px;
   margin-right: ${gridSize() * 4}px;
   margin-top: ${gridSize() * 4}px;
@@ -30,10 +31,14 @@ export const FormHeaderTitle = styled.h1`
   }
 `;
 
-export const ShareHeader: React.StatelessComponent<Props> = ({ title }) => (
-  <HeaderWrapper>
-    <FormHeaderTitle>
-      {title || <FormattedMessage {...messages.formTitle} />}
-    </FormHeaderTitle>
-  </HeaderWrapper>
-);
+export const ShareHeader: React.StatelessComponent<Props> = ({ title }) => {
+  const theme = useTheme();
+
+  return (
+    <div css={headerWrapperStyles}>
+      <h1 css={getFormHeaderTitleStyles(theme)}>
+        {title || <FormattedMessage {...messages.formTitle} />}
+      </h1>
+    </div>
+  );
+};

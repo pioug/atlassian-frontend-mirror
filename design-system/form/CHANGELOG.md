@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.5.6
+
+### Patch Changes
+
+- [`f2b8ca863a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f2b8ca863a0) - [ux] Updates to slightly darken fallback colors for field messages
+
 ## 8.5.5
 
 ### Patch Changes

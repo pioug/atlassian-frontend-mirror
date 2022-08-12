@@ -1,12 +1,13 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import { h500 } from '@atlaskit/theme/typography';
 
 import { IntegrationContentProps } from '../types';
 
-export const FormWrapper = styled.div`
+export const formWrapperStyle = css`
   [class^='FormHeader__FormHeaderWrapper'] {
     h1:first-child {
       ${h500()}
@@ -46,7 +47,7 @@ export const IntegrationForm = ({
   onIntegrationClose = () => undefined,
   changeTab = () => undefined,
 }: IntegrationFormProps) => (
-  <FormWrapper>
+  <div css={formWrapperStyle}>
     {Content && <Content onClose={onIntegrationClose} changeTab={changeTab} />}
-  </FormWrapper>
+  </div>
 );

@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React, { useCallback } from 'react';
 
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import styled from 'styled-components';
 
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
@@ -22,7 +23,7 @@ import { DialogPlacement, Integration } from '../types';
 import { shareIntegrationButtonEvent } from './analytics/analytics';
 import IntegrationButton from './IntegrationButton';
 
-const SplitButtonWrapper = styled.div`
+const splitButtonWrapperStyles = css`
   display: flex;
   button {
     border-radius: ${borderRadius()}px 0 0 ${borderRadius()}px;
@@ -32,7 +33,7 @@ const SplitButtonWrapper = styled.div`
   }
 `;
 
-const DropdownMenuWrapper = styled.div`
+const dropdownMenuWrapperStyles = css`
   margin-left: 1px;
   button {
     border-radius: 0 ${borderRadius()}px ${borderRadius()}px 0;
@@ -42,7 +43,8 @@ const DropdownMenuWrapper = styled.div`
   }
 `;
 
-const DropDownIntegrationButtonWrapper = styled.span`
+// span
+const dropDownIntegrationButtonWrapperStyles = css`
   button:hover {
     background: transparent;
   }
@@ -110,7 +112,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
   );
 
   return (
-    <DropdownMenuWrapper>
+    <div css={dropdownMenuWrapperStyles}>
       <DropdownMenu
         testId="split-button-dropdown"
         trigger={({ triggerRef, ...providedProps }) => (
@@ -131,7 +133,7 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
               key={integration.type}
               testId={`split-button-dropdownitem-${integration.type}`}
             >
-              <DropDownIntegrationButtonWrapper>
+              <span css={dropDownIntegrationButtonWrapperStyles}>
                 <IntegrationButton
                   textColor={token('color.text', N800)}
                   appearance="subtle"
@@ -140,12 +142,12 @@ const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
                   text={integrationButtonText(integration.type)}
                   IntegrationIcon={integration.Icon}
                 />
-              </DropDownIntegrationButtonWrapper>
+              </span>
             </DropdownItem>
           ))}
         </DropdownItemGroup>
       </DropdownMenu>
-    </DropdownMenuWrapper>
+    </div>
   );
 };
 
@@ -164,7 +166,7 @@ export default function SplitButton({
   createAndFireEvent,
 }: SplitButtonProps): JSX.Element {
   return (
-    <SplitButtonWrapper data-testid="split-button">
+    <div css={splitButtonWrapperStyles} data-testid="split-button">
       {shareButton}
       <SplitButtonDropdown
         shareIntegrations={shareIntegrations}
@@ -175,6 +177,6 @@ export default function SplitButton({
         onIntegrationClick={onIntegrationClick}
         createAndFireEvent={createAndFireEvent}
       />
-    </SplitButtonWrapper>
+    </div>
   );
 }

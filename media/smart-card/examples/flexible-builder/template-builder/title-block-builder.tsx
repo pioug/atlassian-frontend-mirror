@@ -112,6 +112,13 @@ const TitleBlockBuilder: React.FC<BlockBuilderProps> = ({
         propName="actions"
         template={template}
       />
+      <CheckboxOption
+        label="Only show action on hover"
+        name="title.showActionOnHover"
+        onChange={onChange}
+        propName="showActionOnHover"
+        template={template}
+      />
     </div>
   );
 };

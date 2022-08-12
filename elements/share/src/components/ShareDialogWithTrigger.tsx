@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
-import styled from 'styled-components';
 
 import {
   AnalyticsEventPayload,
@@ -52,7 +53,7 @@ import ShareButton from './ShareButton';
 import SplitButton from './SplitButton';
 import { generateSelectZIndex, resolveShareFooter } from './utils';
 
-const ShareButtonWrapper = styled.div`
+const shareButtonWrapperStyles = css`
   display: inline-flex;
   outline: none;
 `;
@@ -513,7 +514,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 
     // for performance purposes, we may want to have a loadable content i.e. ShareForm
     return (
-      <ShareButtonWrapper
+      <div
+        css={shareButtonWrapperStyles}
         tabIndex={tabIndex}
         onKeyDown={this.handleKeyDown}
         style={style}
@@ -575,7 +577,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         <Portal zIndex={generateSelectZIndex(dialogZIndex)}>
           <div ref={this.selectPortalRef} />
         </Portal>
-      </ShareButtonWrapper>
+      </div>
     );
   }
 }

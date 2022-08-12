@@ -1,9 +1,16 @@
 import React from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 import { FormattedMessage } from 'react-intl-next';
-
+import { Spacing } from '@atlaskit/button';
 import { SmartLinkSize } from '../../../constants';
 import { MessageProps } from './types';
+
+export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
+  [SmartLinkSize.Small]: 'none',
+  [SmartLinkSize.Medium]: 'compact',
+  [SmartLinkSize.Large]: 'compact',
+  [SmartLinkSize.XLarge]: 'default',
+};
 
 export const getFormattedMessage = (message?: MessageProps) => {
   if (message) {

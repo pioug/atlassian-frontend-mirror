@@ -12,7 +12,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { CommentField } from '../../../components/CommentField';
 import CopyLinkButton from '../../../components/CopyLinkButton';
-import { FormFooter, ShareForm } from '../../../components/ShareForm';
+import { ShareForm } from '../../../components/ShareForm';
 import { ShareHeader } from '../../../components/ShareHeader';
 import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
@@ -80,7 +80,7 @@ describe('ShareForm', () => {
       });
       expect(form.find(CommentField)).toHaveLength(allowComment ? 1 : 0);
 
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       expect(footer).toHaveLength(1);
       const button = footer.find(Button);
       expect(button).toHaveLength(1);
@@ -122,7 +122,7 @@ describe('ShareForm', () => {
         .dive()
         .dive()
         .find('form');
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       expect(footer.find(Button).prop('isLoading')).toBeTruthy();
     });
 
@@ -146,7 +146,7 @@ describe('ShareForm', () => {
         .dive()
         .dive()
         .find('form');
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       expect(footer.find(Tooltip)).toHaveLength(0);
       expect(footer.find(Button).prop('isLoading')).toBeTruthy();
       expect(footer.find(Button).prop('appearance')).toEqual('primary');
@@ -195,7 +195,7 @@ describe('ShareForm', () => {
         .dive()
         .dive()
         .find('form');
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       const button = footer.find(Button);
       expect(button).toHaveLength(1);
       expect(button.prop('appearance')).toEqual('warning');
@@ -285,7 +285,7 @@ describe('ShareForm', () => {
         .dive()
         .dive()
         .find('form');
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       const button = footer.find(Button);
       expect(button).toHaveLength(1);
 
@@ -311,7 +311,7 @@ describe('ShareForm', () => {
         .dive()
         .dive()
         .find('form');
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       const button = footer.find(Button);
       expect(button).toHaveLength(1);
 
@@ -338,7 +338,7 @@ describe('ShareForm', () => {
         .dive()
         .find('form');
 
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       expect(footer).toHaveLength(1);
 
       const copyLinkButton = footer.find(CopyLinkButton).dive();
@@ -414,7 +414,7 @@ describe('ShareForm', () => {
         .dive()
         .dive()
         .find('form');
-      const footer = form.find(FormFooter);
+      const footer = form.find('[data-testid="form-footer"]');
       const button = footer.find(Button);
       expect(button).toHaveLength(1);
 

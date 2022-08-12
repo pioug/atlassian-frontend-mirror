@@ -1,19 +1,19 @@
+/** @jsx jsx */
 import React from 'react';
 
-import styled from 'styled-components';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const IntegrationButtonCopyWrapper = styled.span`
-  color: ${(props) => props.theme.textColor || token('color.text', N500)};
+const integrationButtonCopyWrapperStyle = css`
   display: flex;
   justify-content: left;
 `;
 
-const IntegrationIconWrapper = styled.span`
+const integrationIconWrapperStyle = css`
   margin: 1px 8px 0 0;
 `;
 
@@ -27,12 +27,15 @@ const IntegrationButton: React.FC<Props> = (props) => {
   const { text, textColor, IntegrationIcon, ...restProps } = props;
   return (
     <Button {...restProps}>
-      <IntegrationButtonCopyWrapper theme={{ textColor: textColor }}>
-        <IntegrationIconWrapper>
+      <span
+        css={integrationButtonCopyWrapperStyle}
+        style={{ color: textColor || token('color.text', N500) }}
+      >
+        <span css={integrationIconWrapperStyle}>
           <IntegrationIcon />
-        </IntegrationIconWrapper>
+        </span>
         <span>{text}</span>
-      </IntegrationButtonCopyWrapper>
+      </span>
     </Button>
   );
 };

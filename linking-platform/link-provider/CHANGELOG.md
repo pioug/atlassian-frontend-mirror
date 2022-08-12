@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.2.2
+
+### Patch Changes
+
+- [`779661fb6b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779661fb6b9) - Fix matching logic to support non letter characters at start or end of urlSegment
+
 ## 1.2.1
 
 ### Patch Changes

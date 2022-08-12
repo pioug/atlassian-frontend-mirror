@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { render, waitForElement } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import {
   ActionName,
@@ -269,4 +270,28 @@ describe('renderActionItems', () => {
       });
     },
   );
+
+  it('calls onActionItemClick and onClick when action is clicked', async () => {
+    const onActionItemClick = jest.fn();
+    const onClick = jest.fn();
+    const { findByTestId } = render(
+      <IntlProvider locale="en">
+        <FlexibleUiContext.Provider value={context}>
+          {renderActionItems(
+            [{ name: ActionName.DeleteAction, onClick, testId }],
+            undefined,
+            undefined,
+            undefined,
+            onActionItemClick,
+          )}
+        </FlexibleUiContext.Provider>
+      </IntlProvider>,
+    );
+
+    const action = await findByTestId(testId);
+    userEvent.click(action);
+
+    expect(onActionItemClick).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalled();
+  });
 });

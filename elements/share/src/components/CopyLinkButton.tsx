@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import React from 'react';
 
+import { css, jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
-import styled from 'styled-components';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
@@ -26,7 +27,7 @@ const AUTO_DISMISS_SECONDS = 8;
 
 export const AUTO_DISMISS_MS = AUTO_DISMISS_SECONDS * 1000;
 
-export const MessageContainer = styled.div`
+export const messageContainerStyle = css`
   display: flex;
   align-items: center;
   margin: -8px -16px;
@@ -34,7 +35,7 @@ export const MessageContainer = styled.div`
 
 const isSafari = navigator.userAgent.indexOf('Safari');
 
-const MessageSpan = styled.span`
+const messageTextStyle = css`
   text-indent: 6px;
 `;
 
@@ -148,7 +149,7 @@ export class CopyLinkButton extends React.Component<
     } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         {/* Added ARIA live region specifically for VoiceOver + Safari since the status */}
         {/* message 'Link copied to clipboard' is not announced by VO */}
         {isSafari && (
@@ -162,15 +163,15 @@ export class CopyLinkButton extends React.Component<
           zIndex={Z_INDEX}
           content={() => (
             <InlineDialogContentWrapper>
-              <MessageContainer>
+              <div css={messageContainerStyle} data-testid="message-container">
                 <CheckCircleIcon
                   label=""
                   primaryColor={token('color.icon.success', G300)}
                 />
-                <MessageSpan>
+                <span css={messageTextStyle}>
                   <FormattedMessage {...messages.copiedToClipboardMessage} />
-                </MessageSpan>
-              </MessageContainer>
+                </span>
+              </div>
             </InlineDialogContentWrapper>
           )}
           isOpen={shouldShowCopiedMessage}
@@ -186,7 +187,7 @@ export class CopyLinkButton extends React.Component<
             )
           }
         />
-      </>
+      </React.Fragment>
     );
   }
 }

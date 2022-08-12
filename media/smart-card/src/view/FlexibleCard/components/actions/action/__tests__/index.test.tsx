@@ -10,105 +10,159 @@ import TestIcon from '@atlaskit/icon/glyph/activity';
 describe('Action', () => {
   const testId = 'smart-action';
 
-  it('should render Action with some text', async () => {
-    const text = 'spaghetti';
-    const onClick = () => {};
+  it('renders action', async () => {
     const { findByTestId } = render(
-      <Action onClick={onClick} content={text} />,
+      <Action onClick={() => {}} testId={testId} />,
     );
-
     const element = await findByTestId(testId);
-
-    expect(element).toBeTruthy();
-    expect(element.textContent).toBe('spaghetti');
+    expect(element).not.toBeNull();
   });
 
-  it('should render Action with some icons', async () => {
-    const text = 'spaghetti';
-    const onClick = () => {};
-    const { findByTestId } = render(
-      <Action onClick={onClick} content={text} />,
-    );
-
-    const element = await findByTestId(testId);
-
-    expect(element).toBeTruthy();
-    expect(element.textContent).toBe('spaghetti');
+  it('does not render action without onClick', async () => {
+    // @ts-ignore Ignore to perform the test.
+    const { queryByTestId } = render(<Action testId={testId} />);
+    const element = queryByTestId(testId);
+    expect(element).toBeNull();
   });
 
-  it('should call the supplied onClick when button is clicked', async () => {
-    const text = 'spaghetti';
-    const mockOnClick = jest.fn();
-    const { findByTestId } = render(
-      <Action onClick={mockOnClick} content={text} />,
-    );
+  describe('as button', () => {
+    it('renders action with some text', async () => {
+      const text = 'spaghetti';
+      const { findByTestId } = render(
+        <Action onClick={() => {}} content={text} testId={testId} />,
+      );
 
-    const element = await findByTestId(testId);
+      const element = await findByTestId(testId);
 
-    expect(element).toBeTruthy();
-    expect(element.textContent).toBe('spaghetti');
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('spaghetti');
+    });
 
-    userEvent.click(element);
-    expect(mockOnClick).toHaveBeenCalled();
+    it('calls onClick when button is clicked', async () => {
+      const text = 'spaghetti';
+      const mockOnClick = jest.fn();
+      const { findByTestId } = render(
+        <Action onClick={mockOnClick} content={text} testId={testId} />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('spaghetti');
+
+      userEvent.click(element);
+      expect(mockOnClick).toHaveBeenCalled();
+    });
+
+    describe('size', () => {
+      it.each([
+        [SmartLinkSize.XLarge, '1.5rem'],
+        [SmartLinkSize.Large, '1.5rem'],
+        [SmartLinkSize.Medium, '1rem'],
+        [SmartLinkSize.Small, '1rem'],
+      ])(
+        'renders action in %s size',
+        async (size: SmartLinkSize, expectedSize: string) => {
+          const testIcon = <TestIcon label="test" />;
+          const { findByTestId } = render(
+            <Action
+              onClick={() => {}}
+              size={size}
+              testId={testId}
+              icon={testIcon}
+            />,
+          );
+
+          const element = await findByTestId(`${testId}-icon`);
+
+          expect(element).toHaveStyleDeclaration('height', expectedSize);
+          expect(element).toHaveStyleDeclaration('width', expectedSize);
+        },
+      );
+    });
+
+    it('renders with override css', async () => {
+      const overrideCss = css`
+        font-style: italic;
+      `;
+      const testId = 'css';
+      const { findByTestId } = await render(
+        <Action
+          content="spaghetti"
+          onClick={() => {}}
+          overrideCss={overrideCss}
+          testId={testId}
+        />,
+      );
+      const action = await findByTestId(`${testId}-button-wrapper`);
+      expect(action).toHaveStyleDeclaration('font-style', 'italic');
+    });
+
+    it('does not propagate click event to parent container', async () => {
+      const containerOnClick = jest.fn();
+      const actionOnClick = jest.fn();
+      const { findByTestId } = render(
+        <div onClick={containerOnClick}>
+          <Action onClick={actionOnClick} content="Click!" />,
+        </div>,
+      );
+
+      const element = await findByTestId(testId);
+      userEvent.click(element);
+
+      expect(actionOnClick).toHaveBeenCalledTimes(1);
+      expect(containerOnClick).not.toHaveBeenCalled();
+    });
   });
 
-  describe('size', () => {
-    it.each([
-      [SmartLinkSize.XLarge, '1.5rem'],
-      [SmartLinkSize.Large, '1.5rem'],
-      [SmartLinkSize.Medium, '1rem'],
-      [SmartLinkSize.Small, '1rem'],
-    ])(
-      'should render action in %s size',
-      async (size: SmartLinkSize, expectedSize: string) => {
-        const testIcon = <TestIcon label="test" />;
-        const { findByTestId } = render(
+  describe('as dropdown item', () => {
+    it('renders action', async () => {
+      const text = 'spaghetti';
+      const { findByTestId } = render(
+        <Action asDropDownItem={true} onClick={() => {}} content={text} />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe('spaghetti');
+    });
+
+    it('calls onClick when dropdown item is clicked', async () => {
+      const text = 'spaghetti';
+      const onClick = jest.fn();
+      const { findByTestId } = render(
+        <Action asDropDownItem={true} onClick={onClick} content={text} />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe(text);
+
+      userEvent.click(element);
+      expect(onClick).toHaveBeenCalled();
+    });
+
+    it('does not propagate click event to parent container', async () => {
+      const containerOnClick = jest.fn();
+      const actionOnClick = jest.fn();
+      const { findByTestId } = render(
+        <div onClick={containerOnClick}>
           <Action
-            onClick={() => {}}
-            size={size}
-            testId={testId}
-            icon={testIcon}
-          />,
-        );
+            asDropDownItem={true}
+            onClick={actionOnClick}
+            content="Click!"
+          />
+          ,
+        </div>,
+      );
 
-        const element = await findByTestId(`${testId}-icon`);
+      const element = await findByTestId(testId);
+      userEvent.click(element);
 
-        expect(element).toHaveStyleDeclaration('height', expectedSize);
-        expect(element).toHaveStyleDeclaration('width', expectedSize);
-      },
-    );
-  });
-
-  it('renders with override css', async () => {
-    const overrideCss = css`
-      font-style: italic;
-    `;
-    const testId = 'css';
-    const { findByTestId } = await render(
-      <Action
-        content="spaghetti"
-        onClick={() => {}}
-        overrideCss={overrideCss}
-        testId={testId}
-      />,
-    );
-    const action = await findByTestId(`${testId}-button-wrapper`);
-    expect(action).toHaveStyleDeclaration('font-style', 'italic');
-  });
-
-  it('does not propagate click event to parent container', async () => {
-    const containerOnClick = jest.fn();
-    const actionOnClick = jest.fn();
-    const { findByTestId } = render(
-      <div onClick={containerOnClick}>
-        <Action onClick={actionOnClick} content="Click!" />,
-      </div>,
-    );
-
-    const element = await findByTestId(testId);
-    userEvent.click(element);
-
-    expect(actionOnClick).toHaveBeenCalledTimes(1);
-    expect(containerOnClick).not.toHaveBeenCalled();
+      expect(actionOnClick).toHaveBeenCalledTimes(1);
+      expect(containerOnClick).not.toHaveBeenCalled();
+    });
   });
 });

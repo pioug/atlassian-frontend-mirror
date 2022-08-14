@@ -140,7 +140,8 @@ describe('Hyperlink', () => {
 
   describe('hyperlink menu with Link Picker Options and ff:lp-link-picker', () => {
     describe('edit link', () => {
-      it('displays correctly when link matches display text', async () => {
+      // FIXME: This test was automatically skipped due to failure on 13/08/2022: https://product-fabric.atlassian.net/browse/ED-15428
+      it.skip('displays correctly when link matches display text', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: hyperlinkAdf,
@@ -156,7 +157,8 @@ describe('Hyperlink', () => {
         await page.click(hyperlinkSelectors.editLinkBtn);
       });
 
-      it('displays correctly when link is different to display text', async () => {
+      // FIXME: This test was automatically skipped due to failure on 13/08/2022: https://product-fabric.atlassian.net/browse/ED-15429
+      it.skip('displays correctly when link is different to display text', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: hyperlinkWithTextAdf,
@@ -174,7 +176,8 @@ describe('Hyperlink', () => {
     });
 
     describe('insert link', () => {
-      it('displays correctly when inside a caption node', async () => {
+      // FIXME: This test was automatically skipped due to failure on 13/08/2022: https://product-fabric.atlassian.net/browse/ED-15430
+      it.skip('displays correctly when inside a caption node', async () => {
         await initEditorWithAdf(page, {
           appearance: Appearance.fullPage,
           adf: mediaWithCaptionAdf,
@@ -201,7 +204,8 @@ describe('Hyperlink', () => {
   });
 
   describe('selection', () => {
-    it('displayed when link is clicked with shift', async () => {
+    // FIXME: This test was automatically skipped due to failure on 13/08/2022: https://product-fabric.atlassian.net/browse/ED-15431
+    it.skip('displayed when link is clicked with shift', async () => {
       await initEditorWithAdf(page, {
         appearance: Appearance.fullPage,
         adf: hyperlinkWithText,

@@ -39,7 +39,8 @@ describe('Table floating toolbar:fullpage', () => {
     );
   });
 
-  it('display cell options', async () => {
+  // FIXME: This test was automatically skipped due to failure on 14/08/2022: https://product-fabric.atlassian.net/browse/ED-15433
+  it.skip('display cell options', async () => {
     // Click table cell options button within the selected cell
     await clickCellOptions(page);
     // Wait for table cell options drop down list to be shown

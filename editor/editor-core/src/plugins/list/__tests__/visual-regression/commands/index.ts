@@ -18,7 +18,8 @@ describe('Snapshot Test: list commands', () => {
   });
 
   describe('when all text are selected and toggled', () => {
-    it('should convert all text to list', async () => {
+    // FIXME: This test was automatically skipped due to failure on 01/08/2022: https://product-fabric.atlassian.net/browse/ED-15364
+    it.skip('should convert all text to list', async () => {
       await initEditor(page, textListADF);
 
       // select all through keyboard

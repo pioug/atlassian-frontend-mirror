@@ -102,6 +102,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     showIntegrationForm: false,
     selectedIntegration: null,
     tabIndex: 0,
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -183,9 +184,25 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     ] as Flag[];
   };
 
+  private setIsLoading = (isLoading: boolean) => {
+    this.setState({ isLoading });
+  };
+
+  private focus = () => {
+    if (this.containerRef.current) {
+      this.containerRef.current.focus();
+    }
+  };
+
   private handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const { isDialogOpen } = this.state;
+    const { isLoading, isDialogOpen } = this.state;
     const { shouldCloseOnEscapePress } = this.props;
+
+    if (isLoading) {
+      event.stopPropagation();
+      this.focus();
+    }
+
     if (isDialogOpen) {
       switch (event.key) {
         case 'Esc':
@@ -197,9 +214,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
             event.stopPropagation();
             // put the focus back onto the share dialog so that
             // the user can press the escape key again to close the dialog
-            if (this.containerRef.current) {
-              this.containerRef.current.focus();
-            }
+            this.focus();
             return;
           }
           // The dialog will auto-close in @atlaskit/popup, we just need to fire
@@ -240,9 +255,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
             onDialogOpen();
           }
 
-          if (this.containerRef.current) {
-            this.containerRef.current.focus();
-          }
+          this.focus();
         }
       },
     );
@@ -543,6 +556,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 defaultValue={defaultValue}
                 config={config}
                 isFetchingConfig={isFetchingConfig}
+                setIsLoading={this.setIsLoading}
                 submitButtonLabel={submitButtonLabel}
                 product={product}
                 enableSmartUserPicker={enableSmartUserPicker}

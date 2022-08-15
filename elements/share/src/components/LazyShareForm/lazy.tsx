@@ -18,20 +18,32 @@ const LazyShareFormLazy = lazyForPaint<FunctionComponent<LazyShareFormProps>>(
   { ssr: false },
 );
 
-const LoadingDialog = ({
+type LoadingDialog = Pick<
+  LazyShareFormProps,
+  'shareFormTitle' | 'showTitle' | 'setIsLoading'
+>;
+
+const LoadingDialog: React.FC<LoadingDialog> = ({
   shareFormTitle,
   showTitle,
-}: Pick<LazyShareFormProps, 'shareFormTitle' | 'showTitle'>) => (
-  <ShareFormWrapper
-    shareFormTitle={shareFormTitle}
-    // if `showTitle` is passed, we use it. Otherwise, we will show title for loading dialog.
-    shouldShowTitle={typeof showTitle === 'boolean' ? showTitle : true}
-  >
-    <SpinnerWrapper>
-      <Spinner />
-    </SpinnerWrapper>
-  </ShareFormWrapper>
-);
+  setIsLoading,
+}) => {
+  React.useEffect(() => {
+    setIsLoading(true);
+  });
+
+  return (
+    <ShareFormWrapper
+      shareFormTitle={shareFormTitle}
+      // if `showTitle` is passed, we use it. Otherwise, we will show title for loading dialog.
+      shouldShowTitle={typeof showTitle === 'boolean' ? showTitle : true}
+    >
+      <SpinnerWrapper>
+        <Spinner />
+      </SpinnerWrapper>
+    </ShareFormWrapper>
+  );
+};
 
 export default (props: LazyShareFormProps) => (
   <LazySuspense
@@ -39,6 +51,7 @@ export default (props: LazyShareFormProps) => (
       <LoadingDialog
         shareFormTitle={props.shareFormTitle}
         showTitle={props.showTitle}
+        setIsLoading={props.setIsLoading}
       />
     }
   >

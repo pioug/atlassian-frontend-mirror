@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 3.4.1
+
+### Patch Changes
+
+- [`620f202bc02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/620f202bc02) - Prevent event propagation in Share loading state
+
 ## 3.4.0
 
 ### Minor Changes

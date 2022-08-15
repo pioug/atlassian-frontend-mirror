@@ -79,6 +79,7 @@ export type ShareDialogWithTriggerProps = Pick<
 };
 
 export type ShareDialogWithTriggerStates = {
+  isLoading: boolean;
   isDialogOpen: boolean;
   isSharing: boolean;
   shareError?: ShareError;

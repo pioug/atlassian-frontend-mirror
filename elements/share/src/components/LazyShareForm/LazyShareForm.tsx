@@ -60,6 +60,7 @@ export type LazyShareFormProps = Pick<
 
     // others
     showTitle: boolean;
+    setIsLoading: (isLoading: boolean) => void;
   };
 
 /**
@@ -71,6 +72,7 @@ function LazyShareForm(props: LazyShareFormProps) {
     copyLink,
     config,
     isFetchingConfig,
+    setIsLoading,
     loadOptions,
     shareFormTitle,
     shareFormHelperMessage,
@@ -115,6 +117,10 @@ function LazyShareForm(props: LazyShareFormProps) {
       )}
     </div>
   );
+
+  React.useEffect(() => {
+    setIsLoading(false);
+  });
 
   return (
     <ShareFormWrapper

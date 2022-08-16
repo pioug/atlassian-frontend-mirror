@@ -131,6 +131,10 @@ export type CustomActionItem = BaseActionItem & {
 
 export type ActionItem = NamedActionItem | CustomActionItem;
 
+export type OnActionMenuOpenChangeOptions = {
+  isOpen: boolean;
+};
+
 /**
  * A type that contains all the possible combinations of elements with their corresponding props.
  */

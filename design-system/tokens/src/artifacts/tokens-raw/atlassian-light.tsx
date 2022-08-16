@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fc44c853b0acd381a2c5fd8f63ae1bf6>>
+ * @codegen <<SignedSource::f6a9d19d9e568ee23ce24a7127ceb09c>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -7177,9 +7177,10 @@ const tokens = [
   {
     "attributes": {
       "group": "paint",
-      "state": "deprecated",
+      "state": "deleted",
       "introduced": "0.6.0",
       "deprecated": "0.10.8",
+      "deleted": "0.10.13",
       "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
       "replacement": "color.background.inverse.subtle.hovered"
     },
@@ -7189,9 +7190,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "paint",
-        "state": "deprecated",
+        "state": "deleted",
         "introduced": "0.6.0",
         "deprecated": "0.10.8",
+        "deleted": "0.10.13",
         "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
         "replacement": "color.background.inverse.subtle.hovered"
       },
@@ -7208,9 +7210,10 @@ const tokens = [
   {
     "attributes": {
       "group": "paint",
-      "state": "deprecated",
+      "state": "deleted",
       "introduced": "0.6.0",
       "deprecated": "0.10.8 ",
+      "deleted": "0.10.13",
       "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
       "replacement": "color.background.inverse.subtle.pressed"
     },
@@ -7220,9 +7223,10 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "paint",
-        "state": "deprecated",
+        "state": "deleted",
         "introduced": "0.6.0",
         "deprecated": "0.10.8 ",
+        "deleted": "0.10.13",
         "description": "Use as a background overlay for elements in a hovered state on bold backgrounds, such as the buttons on spotlight cards.",
         "replacement": "color.background.inverse.subtle.pressed"
       },

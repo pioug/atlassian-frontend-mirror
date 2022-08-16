@@ -23,7 +23,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^8.2.0",
     "@atlaskit/icon": "^21.10.0",
-    "@atlaskit/select": "^15.5.0",
+    "@atlaskit/select": "^15.6.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/tokens": "^0.10.0",
     "@babel/runtime": "^7.0.0",

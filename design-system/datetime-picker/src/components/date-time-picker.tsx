@@ -179,6 +179,15 @@ const subtleFocusedBgStyles = css({
   borderColor: 'transparent',
 });
 
+const noBgStyles = css({
+  backgroundColor: 'transparent',
+  borderColor: 'transparent',
+  '&:hover': {
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+  },
+});
+
 const hoverStyles = css({
   '&:hover': {
     backgroundColor: token('color.background.input.hovered', N30),
@@ -450,6 +459,7 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
           bothProps.isInvalid && isInvalidBorderStyles,
           notFocusedOrIsDisabled &&
             (bothProps.isInvalid ? isInvalidHoverStyles : hoverStyles),
+          bothProps.appearance === 'none' && noBgStyles,
         ]}
         {...innerProps}
         data-testid={testId}

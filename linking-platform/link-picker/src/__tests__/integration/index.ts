@@ -35,6 +35,7 @@ BrowserTestCase(
     await page.click(testIds.insertButton);
 
     await page.click('a');
+    await page.waitFor(testIds.linkPicker);
     await page.click(testIds.clearUrlButton);
     await page.type(testIds.urlInputField, 'https://atlassian.com');
     await page.type(testIds.textInputField, 'Edited');
@@ -100,9 +101,10 @@ BrowserTestCase(
     await page.click(trigger);
     await page.waitFor(testIds.linkPicker);
 
-    // Entirely visible when mounted
+    // NOT Entirely visible when mounted
+    await page.waitForVisible(testIds.emptyResultPage);
     expect(await isElementCompletelyVisible(page, testIds.linkPicker)).toBe(
-      true,
+      false,
     );
 
     // Entirely visible while loading results
@@ -113,7 +115,7 @@ BrowserTestCase(
     );
 
     // NOT Entirely visible once all results loaded
-    await page.waitForInvisible(testIds.searchResultLoadingIndicator);
+    await page.waitForVisible(testIds.searchResultList);
     expect(await isElementCompletelyVisible(page, testIds.linkPicker)).toBe(
       false,
     );
@@ -142,7 +144,7 @@ BrowserTestCase(
     );
 
     // Entirely visible once all results loaded
-    await page.waitForInvisible(testIds.searchResultLoadingIndicator);
+    await page.waitForVisible(testIds.searchResultList);
     expect(await isElementCompletelyVisible(page, testIds.linkPicker)).toBe(
       true,
     );

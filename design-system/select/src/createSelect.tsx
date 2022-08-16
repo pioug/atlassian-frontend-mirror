@@ -75,6 +75,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
         validationState,
         spacing,
         isMulti,
+        appearance,
         ...props
       } = this.props;
       const isCompact = spacing === 'compact';
@@ -88,7 +89,11 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
           {...props}
           components={this.components}
           styles={mergeStyles(
-            baseStyles<Option, IsMulti>(validationState!, isCompact),
+            baseStyles<Option, IsMulti>(
+              validationState!,
+              isCompact,
+              this.props.appearance || 'default',
+            ),
             styles!,
           )}
         />

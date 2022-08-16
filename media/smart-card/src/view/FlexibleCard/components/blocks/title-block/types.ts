@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { ActionItem, BlockProps, ElementItem } from '../types';
+import {
+  ActionItem,
+  BlockProps,
+  ElementItem,
+  OnActionMenuOpenChangeOptions,
+} from '../types';
 import { SmartLinkPosition, SmartLinkTheme } from '../../../../../constants';
 import { RetryOptions } from '../../../types';
 import { AnchorTarget } from '../../types';
@@ -40,6 +45,12 @@ export type TitleBlockProps = {
    * @see ElementItem
    */
   metadata?: ElementItem[];
+
+  /**
+   * Called when the action dropdown menu (if present) is open/closed.
+   * Receives an object with `isOpen` state.
+   */
+  onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
 
   /**
    * Determines the position of the link icon in relative to the vertical

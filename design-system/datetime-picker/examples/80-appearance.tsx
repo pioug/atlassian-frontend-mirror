@@ -15,6 +15,10 @@ export default () => {
         TimePicker - subtle appearance
       </Label>
       <TimePicker id="time-subtle" onChange={console.log} appearance="subtle" />
+      <Label htmlFor="react-select-time-no-appearance--input">
+        TimePicker - 'none' appearance
+      </Label>
+      <TimePicker id="time-none" onChange={console.log} appearance="none" />
       <Label htmlFor="react-select-time-compact--input">
         TimePicker - compact spacing
       </Label>
@@ -32,6 +36,10 @@ export default () => {
         DatePicker - subtle appearance
       </Label>
       <DatePicker id="date-subtle" onChange={console.log} appearance="subtle" />
+      <Label htmlFor="react-select-date-no-appearance--input">
+        DatePicker - 'none' appearance
+      </Label>
+      <DatePicker id="date-none" onChange={console.log} appearance="none" />
       <Label htmlFor="react-select-date-compact--input">
         DatePicker - compact spacing
       </Label>
@@ -48,6 +56,14 @@ export default () => {
         id="datetime-subtle"
         onChange={console.log}
         appearance="subtle"
+      />
+      <Label htmlFor="react-select-datetime-no-appearance--input">
+        DateTimePicker - 'none' appearance
+      </Label>
+      <DateTimePicker
+        id="datetime-none"
+        onChange={console.log}
+        appearance="none"
       />
       <Label htmlFor="react-select-datetime-compact--input">
         DateTimePicker - compact spacing

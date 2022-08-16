@@ -12,6 +12,7 @@ const unsafeOverridesConfig = {
   ],
   innerRef: ['@atlaskit/banner'],
   isOpen: ['@atlaskit/banner'],
+  type: ['@atlaskit/inline-message'],
 };
 
 type BannedAPIs = keyof typeof unsafeOverridesConfig;
@@ -21,6 +22,7 @@ const unsafeOverrides: BannedAPIs[] = [
   'overrides',
   'innerRef',
   'isOpen',
+  'type',
 ];
 
 const rule: Rule.RuleModule = {

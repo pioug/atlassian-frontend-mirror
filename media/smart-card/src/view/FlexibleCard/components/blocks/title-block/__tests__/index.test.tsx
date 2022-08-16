@@ -20,6 +20,7 @@ import {
   makeCustomActionItem,
   makeDeleteActionItem,
 } from '../../../../../../../examples/utils/flexible-ui';
+import { NamedActionItem } from '../../types';
 
 describe('TitleBlock', () => {
   const testId = 'smart-block-title-resolved-view';
@@ -79,73 +80,179 @@ describe('TitleBlock', () => {
     expect(element).toBeDefined();
   });
 
-  // Do not blindly add more actions here (like Download and Preview)
-  const nonResolvedAllowedActions = [
-    ActionName.EditAction,
-    ActionName.DeleteAction,
-    ActionName.CustomAction,
-  ];
+  describe('with actions', () => {
+    // Do not blindly add more actions here (like Download and Preview)
+    const nonResolvedAllowedActions = [
+      ActionName.EditAction,
+      ActionName.DeleteAction,
+      ActionName.CustomAction,
+    ];
 
-  for (const [status, allowedActionNames] of [
-    [SmartLinkStatus.Resolved, Object.values(ActionName)],
-    [SmartLinkStatus.Resolving, nonResolvedAllowedActions],
-    [SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
-    [SmartLinkStatus.Errored, nonResolvedAllowedActions],
-    [SmartLinkStatus.NotFound, nonResolvedAllowedActions],
-    [SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
-    [SmartLinkStatus.Fallback, nonResolvedAllowedActions],
-  ] as [SmartLinkStatus, ActionName[]][]) {
-    for (const allowedActionName of allowedActionNames) {
-      it(`should render ${allowedActionName} action in ${status} view `, async () => {
-        const testId = 'smart-element-test';
+    for (const [status, allowedActionNames] of [
+      [SmartLinkStatus.Resolved, Object.values(ActionName)],
+      [SmartLinkStatus.Resolving, nonResolvedAllowedActions],
+      [SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
+      [SmartLinkStatus.Errored, nonResolvedAllowedActions],
+      [SmartLinkStatus.NotFound, nonResolvedAllowedActions],
+      [SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
+      [SmartLinkStatus.Fallback, nonResolvedAllowedActions],
+    ] as [SmartLinkStatus, ActionName[]][]) {
+      for (const allowedActionName of allowedActionNames) {
+        it(`should render ${allowedActionName} action in ${status} view `, async () => {
+          const testId = 'smart-element-test';
 
-        const action =
-          allowedActionName === ActionName.CustomAction
-            ? makeCustomActionItem({
-                testId: `${testId}-1`,
-              })
-            : {
-                name: allowedActionName,
-                testId: `${testId}-1`,
-                onClick: () => {},
-              };
+          const action =
+            allowedActionName === ActionName.CustomAction
+              ? makeCustomActionItem({
+                  testId: `${testId}-1`,
+                })
+              : {
+                  name: allowedActionName,
+                  testId: `${testId}-1`,
+                  onClick: () => {},
+                };
 
-        const { findByTestId } = renderTitleBlock({
-          status,
-          actions: [action],
+          const { findByTestId } = renderTitleBlock({
+            status,
+            actions: [action],
+          });
+
+          const element = await findByTestId(`smart-element-test-1`);
+          expect(element).toBeDefined();
         });
-
-        const element = await findByTestId(`smart-element-test-1`);
-        expect(element).toBeDefined();
-      });
+      }
     }
-  }
 
-  // Uncomment and implement when new actions (like Download and preview) are added
-  // it('should not render ___ action in non resolved view ___', () => {});
+    // Uncomment and implement when new actions (like Download and preview) are added
+    // it('should not render ___ action in non resolved view ___', () => {});
 
-  it('should render only one action when on hover only activated', async () => {
-    const testId = 'smart-element-test';
-    const { findByTestId, queryByTestId } = renderTitleBlock({
-      actions: [
-        makeDeleteActionItem({ testId: `${testId}-1` }),
-        makeCustomActionItem({ testId: `${testId}-2` }),
-      ],
-      showActionOnHover: true,
+    it('should render only one action when on hover only activated', async () => {
+      const testId = 'smart-element-test';
+      const { findByTestId, queryByTestId } = renderTitleBlock({
+        actions: [
+          makeDeleteActionItem({ testId: `${testId}-1` }),
+          makeCustomActionItem({ testId: `${testId}-2` }),
+        ],
+        showActionOnHover: true,
+      });
+
+      const moreButton = await findByTestId('action-group-more-button');
+      expect(moreButton).toBeDefined();
+
+      expect(queryByTestId(`smart-element-test-1`)).toBeNull();
+      expect(queryByTestId(`smart-element-test-2`)).toBeNull();
+
+      userEvent.click(moreButton);
+
+      for (let i = 0; i < 2; i++) {
+        const element = await findByTestId(`smart-element-test-${i + 1}`);
+        expect(element).toBeDefined();
+      }
     });
 
-    const moreButton = await findByTestId('action-group-more-button');
-    expect(moreButton).toBeDefined();
+    describe('with onActionMenuOpenChange', () => {
+      const actionTestId = 'test-action';
+      const onActionMenuOpenChange = jest.fn();
 
-    expect(queryByTestId(`smart-element-test-1`)).toBeNull();
-    expect(queryByTestId(`smart-element-test-2`)).toBeNull();
+      const getAction = (
+        props?: Partial<NamedActionItem>,
+      ): NamedActionItem => ({
+        name: ActionName.DeleteAction,
+        onClick: () => {},
+        ...props,
+      });
 
-    userEvent.click(moreButton);
+      afterEach(() => {
+        onActionMenuOpenChange.mockClear();
+      });
 
-    for (let i = 0; i < 2; i++) {
-      const element = await findByTestId(`smart-element-test-${i + 1}`);
-      expect(element).toBeDefined();
-    }
+      it('calls onActionMenuOpenChange when action dropdown menu is present', async () => {
+        const { findByTestId } = renderTitleBlock({
+          actions: [getAction(), getAction(), getAction()],
+          onActionMenuOpenChange,
+        });
+
+        // Open the action dropdown menu
+        const moreButton = await findByTestId('action-group-more-button');
+        userEvent.click(moreButton);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
+
+        // Close the action dropdown menu
+        userEvent.click(moreButton);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
+      });
+
+      it('calls onActionMenuOpenChange when action button is clicked', async () => {
+        const { findByTestId } = renderTitleBlock({
+          actions: [
+            getAction({ testId: actionTestId }),
+            getAction(),
+            getAction(),
+          ],
+          onActionMenuOpenChange,
+        });
+
+        // Open the action dropdown menu
+        const moreButton = await findByTestId('action-group-more-button');
+        userEvent.click(moreButton);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
+
+        // Click on the action button outside action dropdown menu
+        const action = await findByTestId(actionTestId);
+        userEvent.click(action);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
+      });
+
+      it('calls onActionMenuOpenChange when action dropdown menu item is clicked', async () => {
+        const { findByTestId } = renderTitleBlock({
+          actions: [
+            getAction(),
+            getAction(),
+            getAction({ testId: actionTestId }),
+          ],
+          onActionMenuOpenChange,
+        });
+
+        // Open the action dropdown menu
+        const moreButton = await findByTestId('action-group-more-button');
+        userEvent.click(moreButton);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
+
+        // Click on the action dropdown menu item
+        const action = await findByTestId(actionTestId);
+        userEvent.click(action);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
+      });
+
+      it('calls onActionMenuOpenChange when dropdown menu is closed', async () => {
+        const { findByTestId } = renderTitleBlock({
+          actions: [getAction(), getAction(), getAction()],
+          onActionMenuOpenChange,
+        });
+
+        // Open the action dropdown menu
+        const moreButton = await findByTestId('action-group-more-button');
+        userEvent.click(moreButton);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: true });
+
+        // Click on the action button outside action dropdown menu
+        const title = await findByTestId(titleTestId);
+        userEvent.click(title);
+        expect(onActionMenuOpenChange).toHaveBeenCalledWith({ isOpen: false });
+      });
+
+      it('does not call onActionMenuOpenChange when there is no dropdown menu', async () => {
+        const onActionMenuOpenChange = jest.fn();
+        const { findByTestId } = renderTitleBlock({
+          actions: [getAction({ testId: actionTestId })],
+          onActionMenuOpenChange,
+        });
+
+        const action = await findByTestId(actionTestId);
+        userEvent.click(action);
+        expect(onActionMenuOpenChange).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('anchor link', () => {

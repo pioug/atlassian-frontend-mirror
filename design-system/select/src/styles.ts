@@ -27,6 +27,7 @@ const paddingExcludingBorder = gridSize() - BORDER_WIDTH;
 export default function baseStyles<Option, IsMulti extends boolean>(
   validationState: ValidationState,
   isCompact: boolean,
+  appearance: 'default' | 'subtle' | 'none',
 ): StylesConfig<Option, IsMulti> {
   return {
     container: (css, { isDisabled }) => ({
@@ -75,6 +76,24 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       }
 
       const transitionDuration = '200ms';
+
+      if (appearance === 'subtle') {
+        borderColor = isFocused
+          ? token('color.border.focused', B100)
+          : 'transparent';
+        backgroundColor = isFocused
+          ? token('elevation.surface', N0)
+          : 'transparent';
+        backgroundColorHover = isFocused
+          ? token('elevation.surface', N0)
+          : token('elevation.surface', N30);
+      }
+      if (appearance === 'none') {
+        borderColor = 'transparent';
+        backgroundColor = 'transparent';
+        backgroundColorHover = 'transparent';
+        borderColorHover = 'transparent';
+      }
 
       return {
         ...css,

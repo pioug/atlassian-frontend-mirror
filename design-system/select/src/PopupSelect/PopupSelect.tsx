@@ -149,7 +149,11 @@ export default class PopupSelect<
   unbindWindowKeydown: UnbindFn | null = null;
 
   defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
-    baseStyles(this.props.validationState, this.props.spacing === 'compact'),
+    baseStyles(
+      this.props.validationState,
+      this.props.spacing === 'compact',
+      'default',
+    ),
     {
       groupHeading: (provided) => ({
         ...provided,

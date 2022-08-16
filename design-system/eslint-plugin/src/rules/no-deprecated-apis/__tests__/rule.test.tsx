@@ -40,6 +40,13 @@ tester.run('no-deprecated-imports', rule, {
         <SomeElement isOpen innerRef={() => 'hi'} />
       );`,
     },
+    {
+      code: `import InlineMessage from '@atlaskit/inline-message';
+
+      const Element = () => (
+        <InlineMessage appearance='connectivity' />
+      );`,
+    },
   ],
   invalid: [
     {
@@ -95,6 +102,14 @@ tester.run('no-deprecated-imports', rule, {
 
       const Element = () => (
         <Banner innerRef={() => 'hi'} />
+      );`,
+      errors: [{ messageId: 'noDeprecatedApis' }],
+    },
+    {
+      code: `import InlineMessage from '@atlaskit/inline-message';
+
+      const Element = () => (
+        <InlineMessage type='connectivity' />
       );`,
       errors: [{ messageId: 'noDeprecatedApis' }],
     },

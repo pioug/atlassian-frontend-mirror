@@ -12,8 +12,7 @@ describe('Snapshot Test', () => {
     page = global.page;
   });
 
-  // FIXME: This test was automatically skipped due to failure on 14/08/2022: https://product-fabric.atlassian.net/browse/DSP-6305
-  it.skip('Textfield variations should match production example', async () => {
+  it('Textfield variations should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'textfield',
@@ -71,8 +70,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 14/08/2022: https://product-fabric.atlassian.net/browse/DSP-6306
-  it.skip('Should display validation based on Textfield validity in production example', async () => {
+  it('Should display validation based on Textfield validity in production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'textfield',

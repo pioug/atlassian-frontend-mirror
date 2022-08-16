@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { css, SerializedStyles } from '@emotion/core';
 
 import { TitleBlockProps } from './types';
@@ -61,6 +61,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
   anchorTarget,
   hideTitleTooltip,
   maxLines,
+  onActionMenuOpenChange,
   onClick,
   overrideCss,
   status = SmartLinkStatus.Fallback,
@@ -71,11 +72,20 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
   ...props
 }) => {
   const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
+  const onDropdownOpenChange = useCallback(
+    (isOpen) => {
+      setActionDropdownOpen(isOpen);
+      if (onActionMenuOpenChange) {
+        onActionMenuOpenChange({ isOpen });
+      }
+    },
+    [onActionMenuOpenChange],
+  );
   const actionGroup = actions.length > 0 && (
     <ActionGroup
       items={actions}
       visibleButtonsNum={showActionOnHover ? 1 : 2}
-      onDropdownOpenChange={(isOpen) => setActionDropdownOpen(isOpen)}
+      onDropdownOpenChange={onDropdownOpenChange}
     />
   );
   const actionStyles = getActionStyles(showActionOnHover, actionDropdownOpen);

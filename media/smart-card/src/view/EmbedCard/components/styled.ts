@@ -212,7 +212,10 @@ export interface ContentProps {
 export const Content = styled.div`
   ${borderRadius}
   ${cardShadow}
-  background-color: ${token('elevation.surface', 'white')};
+  background-color: ${token(
+    'elevation.surface.raised',
+    'white',
+  )};
   position: absolute;
   z-index: 1;
   width: 100%;

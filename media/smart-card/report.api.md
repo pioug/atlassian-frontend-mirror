@@ -641,6 +641,10 @@ declare type NamedActionItem = BaseActionItem & {
   name: Exclude<ActionName, ActionName.CustomAction>;
 };
 
+export declare type OnActionMenuOpenChangeOptions = {
+  isOpen: boolean;
+};
+
 declare type OnErrorCallback = (data: {
   status: Extract<CardType, ErrorCardType>;
   url: string;
@@ -911,6 +915,11 @@ declare type TitleBlockProps = {
    * @see ElementItem
    */
   metadata?: ElementItem[];
+  /**
+   * Called when the action dropdown menu (if present) is open/closed.
+   * Receives an object with `isOpen` state.
+   */
+  onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
   /**
    * Determines the position of the link icon in relative to the vertical
    * height of the TitleBlock.  It can either be centred or placed on “top”.

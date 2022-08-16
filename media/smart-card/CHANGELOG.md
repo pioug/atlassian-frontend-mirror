@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 21.1.1
+
+### Patch Changes
+
+- [`e6a3654a137`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6a3654a137) - Fix bug where smart cards used `elevation.surface` instead of `elevation.surface.raised` design tokens for card backgrounds.
+
+## 21.1.0
+
+### Minor Changes
+
+- [`fa7f42de6c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa7f42de6c0) - Flexible UI: Add onActionMenuOpenChange on TitleBlock to detect action dropdown menu open/close
+
 ## 21.0.4
 
 ### Patch Changes

@@ -28,7 +28,7 @@ import Select, {
   SelectComponentsConfig,
   ValueType,
 } from '@atlaskit/select';
-import { B100, N20, N50A, N60A } from '@atlaskit/theme/colors';
+import { N20, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -557,18 +557,6 @@ class DatePicker extends Component<DatePickerProps, State> {
     }
   };
 
-  getSubtleControlStyles = () => ({
-    border: `2px solid ${
-      this.getSafeState().isFocused
-        ? token('color.border.focused', B100)
-        : `transparent`
-    }`,
-    backgroundColor: this.getSafeState().isOpen
-      ? token('color.background.input.pressed', 'transparent')
-      : 'transparent',
-    padding: '1px',
-  });
-
   /**
    * There are two props that can change how the date is parsed.
    * The priority of props used is:
@@ -663,8 +651,6 @@ class DatePicker extends Component<DatePickerProps, State> {
     }
 
     const { styles: selectStyles = {} } = selectProps;
-    const controlStyles =
-      appearance === 'subtle' ? this.getSubtleControlStyles() : {};
     const disabledStyle: CSSProperties = isDisabled
       ? { pointerEvents: 'none' }
       : {};
@@ -705,6 +691,7 @@ class DatePicker extends Component<DatePickerProps, State> {
           data-testid={testId && `${testId}--input`}
         />
         <Select
+          appearance={this.props.appearance}
           enableAnimation={false}
           menuIsOpen={menuIsOpen}
           closeMenuOnSelect
@@ -720,7 +707,6 @@ class DatePicker extends Component<DatePickerProps, State> {
           styles={mergeStyles(selectStyles, {
             control: (base: any) => ({
               ...base,
-              ...controlStyles,
               ...disabledStyle,
             }),
             indicatorsContainer: (base) => ({

@@ -4,20 +4,15 @@
 
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
-````ts
-import type { CSSProperties } from 'react';
+```ts
+import { CSSProperties } from 'react';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { HTMLAttributes } from 'react';
-import { jsx } from '@emotion/react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
-import { SerializedStyles } from '@emotion/react';
-
-declare const asAllowlist: readonly ['span', 'div', 'p'];
-
-declare type AsElement = typeof asAllowlist[number];
+import { SerializedStyles } from '@emotion/utils';
 
 declare type BackgroundColor = keyof typeof backgroundColorMap;
 
@@ -50,27 +45,6 @@ declare const backgroundColorMap: {
   'elevation.surface.overlay': SerializedStyles;
 };
 
-declare const backgroundHoverColorMap: {
-  'inverse.subtle': SerializedStyles;
-  input: SerializedStyles;
-  neutral: SerializedStyles;
-  'neutral.subtle': SerializedStyles;
-  'neutral.bold': SerializedStyles;
-  'brand.bold': SerializedStyles;
-  selected: SerializedStyles;
-  'selected.bold': SerializedStyles;
-  danger: SerializedStyles;
-  'danger.bold': SerializedStyles;
-  warning: SerializedStyles;
-  'warning.bold': SerializedStyles;
-  success: SerializedStyles;
-  'success.bold': SerializedStyles;
-  discovery: SerializedStyles;
-  'discovery.bold': SerializedStyles;
-  information: SerializedStyles;
-  'information.bold': SerializedStyles;
-};
-
 declare interface BasePrimitiveProps {
   /**
    * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
@@ -88,7 +62,7 @@ declare type BorderColor = keyof typeof borderColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ebb55786a54803214357d0eef0cac448>>
+ * @codegen <<SignedSource::e3f27406477352f51168b4108558f051>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background"]
@@ -134,6 +108,78 @@ declare const borderWidthMap: {
   '2px': SerializedStyles;
   '3px': SerializedStyles;
 };
+
+declare interface BoxProps
+  extends Omit<HTMLAttributes<HTMLElement>, 'style'>,
+    BasePrimitiveProps {
+  /**
+   * The DOM element to render as the Box. Defaults to `div`.
+   */
+  as?: ElementType;
+  /**
+   * Elements to be rendered inside the Box.
+   */
+  children: ReactNode;
+  /**
+   * Token representing background color with a fallback.
+   */
+  backgroundColor?: [BackgroundColor, string];
+  /**
+   * Defines border style.
+   */
+  borderStyle?: BorderStyle;
+  /**
+   * Defines border width.
+   */
+  borderWidth?: BorderWidth;
+  /**
+   * Token representing border color with a fallback.
+   */
+  borderColor?: [BorderColor, string];
+  /**
+   * Defines border radius.
+   */
+  borderRadius?: BorderRadius;
+  /**
+   * Defines the main axis direction.
+   */
+  flexDirection?: FlexDirection;
+  /**
+   * Used to align children along the cross axis.
+   */
+  alignItems?: FlexAlignItems;
+  /**
+   * Used to align children along the main axis.
+   */
+  justifyContent?: FlexJustifyContent;
+  /**
+   * Shorthand for `paddingBlock` and `paddingInline` together.
+   *
+   * @see paddingBlock
+   * @see paddingInline
+   */
+  padding?: GlobalSpacingToken;
+  /**
+   * Token representing CSS `padding-block`.
+   */
+  paddingBlock?: GlobalSpacingToken;
+  /**
+   * Token representing CSS `padding-inline`.
+   */
+  paddingInline?: GlobalSpacingToken;
+  /**
+   * Token representing width.
+   */
+  width?: GlobalSpacingToken;
+  /**
+   * Token representing height.
+   */
+  height?: GlobalSpacingToken;
+  /**
+   * Defines display type and layout. Defaults to `flex`.
+   */
+  display?: Display;
+}
 
 declare type Display = keyof typeof displayMap;
 
@@ -205,9 +251,9 @@ declare const flexJustifyContentMap_3: {
 declare type FontSize = keyof typeof fontSizeMap;
 
 declare const fontSizeMap: {
-  '11px': SerializedStyles;
-  '12px': SerializedStyles;
-  '14px': SerializedStyles;
+  '11': SerializedStyles;
+  '12': SerializedStyles;
+  '14': SerializedStyles;
 };
 
 declare type FontWeight = keyof typeof fontWeightMap;
@@ -215,10 +261,9 @@ declare type FontWeight = keyof typeof fontWeightMap;
 declare const fontWeightMap: {
   '400': SerializedStyles;
   '500': SerializedStyles;
-  '700': SerializedStyles;
 };
 
-declare type GlobalSpacingToken = keyof typeof UNSAFE_SPACING_SCALE;
+declare type GlobalSpacingToken = keyof typeof SPACING_SCALE;
 
 declare interface InlineProps extends BasePrimitiveProps {
   /**
@@ -244,13 +289,6 @@ declare interface InlineProps extends BasePrimitiveProps {
   children: ReactNode;
 }
 
-declare type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
-
-declare interface InteractionSurfaceProps extends BasePrimitiveProps {
-  children?: ReactNode;
-  appearance?: InteractionBackgroundColor;
-}
-
 declare type LineHeight = keyof typeof lineHeightMap;
 
 declare const lineHeightMap: {
@@ -263,9 +301,18 @@ declare const lineHeightMap: {
   '40px': SerializedStyles;
 };
 
-declare const positionMap: {
-  absolute: SerializedStyles;
-  relative: SerializedStyles;
+declare const SPACING_SCALE: {
+  'sp-0': number;
+  'sp-25': number;
+  'sp-50': number;
+  'sp-75': number;
+  'sp-100': number;
+  'sp-200': number;
+  'sp-300': number;
+  'sp-400': number;
+  'sp-500': number;
+  'sp-600': number;
+  'sp-800': number;
 };
 
 declare interface StackProps extends BasePrimitiveProps {
@@ -299,7 +346,7 @@ declare type TextColor = keyof typeof textColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::140ffff6e1310c1c37e2067e2c232b92>>
+ * @codegen <<SignedSource::85a0a0bc073c7af8fd63101d6c88d59e>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
@@ -320,184 +367,23 @@ declare const textColorMap: {
   information: SerializedStyles;
 };
 
-declare type TextTransform = keyof typeof textTransformMap;
-
-declare const textTransformMap: {
-  none: SerializedStyles;
-  lowercase: SerializedStyles;
-  uppercase: SerializedStyles;
-};
-
-/**
- * __Box__
- *
- * Box is a primitive component that has the design decisions of the Atlassian Design System baked in.
- * Renders a `div` by default.
- *
- * @internal
- */
-export declare const UNSAFE_Box: ForwardRefExoticComponent<
-  UNSAFE_BoxProps<HTMLElement> & RefAttributes<HTMLElement>
->;
-
-export declare interface UNSAFE_BoxProps<T extends HTMLElement = HTMLElement>
-  extends Omit<HTMLAttributes<T>, 'style' | 'as' | 'className'>,
-    BasePrimitiveProps {
-  /**
-   * The DOM element to render as the Box. Defaults to `div`.
-   */
-  as?: ElementType;
-  /**
-   * Elements to be rendered inside the Box.
-   */
-  children?: ReactNode;
-  /**
-   * The html className attribute.
-   *
-   * Before using this prop please ensure:
-   * - The styles cannot otherwise be achieved through `Box` directly.
-   * - The use case needs custom styles that cannot be designed or implemented differently
-   *
-   * Ensure you're using the `@atlaskit/eslint-plugin-design-system` with this prop to prevent unbounded usage.
-   *
-   * @see `@atlaskit/eslint-plugin-design-system`
-   */
-  className?: string;
-  /**
-   * Token representing background color with a fallback.
-   */
-  backgroundColor?: [BackgroundColor, string];
-  /**
-   * Defines border style.
-   */
-  borderStyle?: BorderStyle;
-  /**
-   * Defines border width.
-   */
-  borderWidth?: BorderWidth;
-  /**
-   * Token representing border color with a fallback.
-   */
-  borderColor?: [BorderColor, string];
-  /**
-   * Defines border radius.
-   */
-  borderRadius?: BorderRadius;
-  /**
-   * Defines the main axis direction.
-   */
-  flexDirection?: FlexDirection;
-  /**
-   * Used to align children along the cross axis.
-   */
-  alignItems?: FlexAlignItems;
-  /**
-   * Used to align children along the main axis.
-   */
-  justifyContent?: FlexJustifyContent;
-  /**
-   * Shorthand for `paddingBlock` and `paddingInline` together.
-   *
-   * @see paddingBlock
-   * @see paddingInline
-   */
-  padding?: GlobalSpacingToken;
-  /**
-   * Token representing CSS `padding-block`.
-   */
-  paddingBlock?: GlobalSpacingToken;
-  /**
-   * Token representing CSS `padding-inline`.
-   */
-  paddingInline?: GlobalSpacingToken;
-  /**
-   * Token representing width.
-   */
-  width?: GlobalSpacingToken;
-  /**
-   * Token representing height.
-   */
-  height?: GlobalSpacingToken;
-  /**
-   * Defines display type and layout. Defaults to `flex`.
-   */
-  display?: Display;
-  /**
-   * CSS position property.
-   */
-  position?: keyof typeof positionMap;
-}
-
-/**
- * __Inline__
- *
- * Inline is a primitive component based on flexbox that manages the horizontal layout of direct children.
- * Renders a `div` by default.
- *
- */
-export declare const UNSAFE_Inline: ForwardRefExoticComponent<
-  InlineProps & RefAttributes<HTMLDivElement>
->;
-
-/**
- *
- * @example
- * ```js
- * // a minimal icon button
- * <Box as="button">
- *   <InteractionSurface />
- *   <WarningIcon label="icon button" />
- * </Box>
- * ```
- */
-export declare const UNSAFE_InteractionSurface: ({
-  appearance,
-  children,
-  testId,
-}: InteractionSurfaceProps) => jsx.JSX.Element;
-
-export declare const UNSAFE_SPACING_SCALE: {
-  'sp-0': number;
-  'sp-25': number;
-  'sp-50': number;
-  'sp-75': number;
-  'sp-100': number;
-  'sp-150': number;
-  'sp-200': number;
-  'sp-300': number;
-  'sp-400': number;
-  'sp-500': number;
-  'sp-600': number;
-  'sp-800': number;
-};
-
-/**
- * __Stack__
- *
- * Stack is a primitive component based on flexbox that manages the vertical layout of direct children.
- * Renders a `div` by default.
- *
- */
-export declare const UNSAFE_Stack: ForwardRefExoticComponent<
-  StackProps & RefAttributes<HTMLDivElement>
->;
-
-/**
- * __Text__
- *
- * Text is a primitive component that has the Atlassian Design System's design guidelines baked in.
- * This includes considerations for text attributes such as color, font size, font weight, and line height.
- * It renders a `span` by default.
- *
- * @internal
- */
-export declare const UNSAFE_Text: FC<UNSAFE_TextProps>;
-
-export declare interface UNSAFE_TextProps extends BasePrimitiveProps {
+declare interface TextProps extends BasePrimitiveProps {
   /**
    * HTML tag to be rendered. Defaults to `span`.
    */
-  as?: AsElement;
+  as?:
+    | 'span'
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'label'
+    | 'a'
+    | 'ul'
+    | 'ol'
+    | 'p';
   /**
    * Elements rendered within the Text element
    */
@@ -519,31 +405,59 @@ export declare interface UNSAFE_TextProps extends BasePrimitiveProps {
    */
   lineHeight?: LineHeight;
   /**
-   * Truncates text with an ellipsis when text overflows its parent container
-   * (i.e. `width` has been set on parent that is shorter than text length).
-   */
-  shouldTruncate?: boolean;
-  /**
    * Text align https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
    */
   textAlign?: TextAlign;
   /**
-   * Text transform https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform
+   * For use with `a` link tags.
    */
-  textTransform?: TextTransform;
-  /**
-   * Vertical align https://developer.mozilla.org/en-US/docs/Web/CSS/vertical-align
-   */
-  verticalAlign?: VerticalAlign;
+  href?: string;
 }
 
-declare type VerticalAlign = keyof typeof verticalAlignMap;
+/**
+ * __Box__
+ *
+ * Box is a primitive component that has the design decisions of the Atlassian Design System baked in.
+ * Renders a `div` by default.
+ *
+ * @internal
+ */
+export declare const UNSAFE_Box: ForwardRefExoticComponent<
+  BoxProps & RefAttributes<HTMLElement>
+>;
 
-declare const verticalAlignMap: {
-  top: SerializedStyles;
-  middle: SerializedStyles;
-  bottom: SerializedStyles;
-};
+/**
+ * __Inline__
+ *
+ * Inline is a primitive component based on flexbox that manages the horizontal layout of direct children.
+ * Renders a `div` by default.
+ *
+ */
+export declare const UNSAFE_Inline: ForwardRefExoticComponent<
+  InlineProps & RefAttributes<HTMLDivElement>
+>;
+
+/**
+ * __Stack__
+ *
+ * Stack is a primitive component based on flexbox that manages the vertical layout of direct children.
+ * Renders a `div` by default.
+ *
+ */
+export declare const UNSAFE_Stack: ForwardRefExoticComponent<
+  StackProps & RefAttributes<HTMLDivElement>
+>;
+
+/**
+ * __Text__
+ *
+ * Text is a primitive component that has the Atlassian Design System's design guidelines baked in.
+ * This includes considerations for text attributes such as color, font size, font weight, and line height.
+ * It renders a `span` by default.
+ *
+ * @internal
+ */
+export declare const UNSAFE_Text: FC<TextProps>;
 
 export {};
-````
+```

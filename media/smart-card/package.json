@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "21.0.4",
+  "version": "21.1.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -79,7 +79,7 @@
     "@atlaskit/radio": "^5.3.0",
     "@atlaskit/range": "^6.0.0",
     "@atlaskit/section-message": "^6.1.5",
-    "@atlaskit/select": "^15.5.0",
+    "@atlaskit/select": "^15.6.0",
     "@atlaskit/table-tree": "^9.1.0",
     "@atlaskit/tabs": "^13.2.10",
     "@atlaskit/textarea": "^4.3.0",

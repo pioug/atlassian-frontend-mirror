@@ -60,6 +60,8 @@ export interface SelectProps<OptionType, IsMulti extends boolean = false>
   spacing?: 'compact' | 'default';
   /* The state of validation if used in a form */
   validationState?: ValidationState;
+  /* This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' removes them completely */
+  appearance?: 'default' | 'subtle' | 'none';
 }
 
 export type ActionMeta<Option = OptionType> = RSActionMeta<Option>;

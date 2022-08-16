@@ -211,9 +211,9 @@ export declare const PopupUserPicker: React_2.ForwardRefExoticComponent<
     Partial<
       Pick<
         Omit<PopupUserPickerProps, keyof WithAnalyticsEventsProps>,
-        | 'offset'
         | 'isMulti'
         | 'width'
+        | 'offset'
         | 'boundariesElement'
         | 'placement'
         | 'rootBoundary'

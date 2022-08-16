@@ -24,11 +24,8 @@ import Select, {
   OptionType,
   SelectComponentsConfig,
   SelectProps,
-  StylesConfig,
 } from '@atlaskit/select';
-import { B100 } from '@atlaskit/theme/colors';
 import { gridSize } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import {
   defaultTimeFormat,
@@ -352,21 +349,6 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     }
   };
 
-  getSubtleControlStyles = (selectStyles: StylesConfig) =>
-    !selectStyles.control
-      ? {
-          border: `2px solid ${
-            this.getSafeState().isFocused
-              ? token('color.border.focused', B100)
-              : `transparent`
-          }`,
-          backgroundColor: this.getSafeState().isFocused
-            ? token('color.background.input.pressed', 'transparent')
-            : 'transparent',
-          padding: '1px',
-        }
-      : {};
-
   /**
    * There are multiple props that can change how the time is formatted.
    * The priority of props used is:
@@ -427,10 +409,6 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     const validationState = this.props.isInvalid ? 'error' : 'default';
 
     const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
-    const controlStyles =
-      this.props.appearance === 'subtle'
-        ? this.getSubtleControlStyles(selectStyles)
-        : {};
     const SelectComponent = this.props.timeIsEditable
       ? CreatableSelect
       : Select;
@@ -453,7 +431,6 @@ class TimePicker extends React.Component<TimePickerProps, State> {
     const mergedStyles = mergeStyles(selectStyles, {
       control: (base) => ({
         ...base,
-        ...controlStyles,
       }),
       menu: (base: any) => ({
         ...base,
@@ -486,6 +463,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           value={value}
         />
         <SelectComponent
+          appearance={this.props.appearance}
           autoFocus={autoFocus}
           components={selectComponents}
           instanceId={id}

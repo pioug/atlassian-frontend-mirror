@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 0.10.14
+
+### Patch Changes
+
+- [`e3377246ebc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3377246ebc) - Moves the following `deprecated` tokens to the `sunset` phase. Please ensure that all `sunset` tokens are removed from your application, they will be completely removed in the next major version:
+
+  - 'color.interaction.inverse.hovered' => 'color.background.inverse.subtle.hovered'
+  - 'color.interaction.inverse.pressed' => 'color.background.inverse.subtle.pressed'
+
+  If you have configured the design token eslint rules, running `eslint --fix` will resolve these changes automatically.
+
 ## 0.10.13
 
 ### Patch Changes

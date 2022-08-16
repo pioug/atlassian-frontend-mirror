@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.6.0
+
+### Minor Changes
+
+- [`68cc8008851`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68cc8008851) - [ux] Introduces appearance prop to component, with 'default', 'subtle' and 'none' variants
+
 ## 15.5.0
 
 ### Minor Changes

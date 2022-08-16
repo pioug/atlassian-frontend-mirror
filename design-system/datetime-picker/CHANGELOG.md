@@ -1,5 +1,12 @@
 # @atlaskit/datetime-picker
 
+## 12.1.3
+
+### Patch Changes
+
+- [`299e4104e10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/299e4104e10) - [ux] Added appearance 'none' option to component and adopts appearance handling from @atlaskit/select
+- Updated dependencies
+
 ## 12.1.2
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import { token } from '@atlaskit/tokens';
 
 export const tokens = {
   actionIcon: token('color.icon', '#44546F'),
-  background: token('elevation.surface', '#FFFFFF'),
+  background: token('elevation.surface.raised', '#FFFFFF'),
   badgeIcon: token('color.icon.subtle', '#626F86'),
   badgeText: token('color.text.subtlest', '#626F86'),
   blackLink: token('color.text.subtle', '#44546F'),

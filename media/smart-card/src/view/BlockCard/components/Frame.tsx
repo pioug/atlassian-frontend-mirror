@@ -34,7 +34,7 @@ const sharedFrameStyles = {
   maxWidth: gs(95),
   width: '100%',
   display: 'flex',
-  backgroundColor: token('elevation.surface', 'white'),
+  backgroundColor: token('elevation.surface.raised', 'white'),
 } as const;
 
 export const ExpandedFrame = ({

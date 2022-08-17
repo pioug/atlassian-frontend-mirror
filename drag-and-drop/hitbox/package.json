@@ -1,0 +1,65 @@
+{
+  "name": "@atlaskit/drag-and-drop-hitbox",
+  "version": "0.0.0",
+  "description": "@atlaskit/drag-and-drop package hitbox testing",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": true,
+    "releaseModel": "continuous"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./types": "./src/types.ts",
+    "./closest-edge": "./src/closest-edge.ts",
+    "./reorder-with-edge": "./src/reorder-with-edge.ts",
+    "./experimental/tree": "./src/experimental/tree.ts"
+  },
+  "dependencies": {
+    "@atlaskit/drag-and-drop": "^0.0.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "typescript": "4.2.4",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "theming": "tokens",
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion",
+        "static"
+      ]
+    }
+  },
+  "homepage": "https://atlassian.design/components/drag-and-drop/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

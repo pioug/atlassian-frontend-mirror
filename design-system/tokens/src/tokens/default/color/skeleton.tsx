@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { AttributeSchema, SkeletonColorTokenSchema } from '../../../types';
 
-const color: AttributeSchema<SkeletonColorTokenSchema> = {
+const color: AttributeSchema<SkeletonColorTokenSchema<BaseToken>> = {
   color: {
     skeleton: {
       '[default]': {

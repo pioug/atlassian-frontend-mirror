@@ -1,1 +1,1 @@
-export { default } from '../artifacts/palettes-raw';
+export { default } from '../artifacts/palettes-raw/palette';

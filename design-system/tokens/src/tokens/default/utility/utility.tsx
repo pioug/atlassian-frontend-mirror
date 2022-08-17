@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { AttributeSchema, UtilTokenSchema } from '../../../types';
 
-const utility: AttributeSchema<UtilTokenSchema> = {
+const utility: AttributeSchema<UtilTokenSchema<BaseToken>> = {
   UNSAFE_util: {
     transparent: {
       attributes: {

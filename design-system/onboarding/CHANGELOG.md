@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.5.1
+
+### Patch Changes
+
+- [`994508770f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/994508770f7) - Bumps the `@atlaskit/heading` dependency forward to a higher minimum version.
+
 ## 10.5.0
 
 ### Minor Changes

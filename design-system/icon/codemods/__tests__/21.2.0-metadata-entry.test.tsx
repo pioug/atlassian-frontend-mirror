@@ -115,13 +115,11 @@ describe('Update imports', () => {
       import { metadata } from '@atlaskit/icon';
       import { metadata as objectIconMetadata } from '@atlaskit/icon-object';
       import { metadata as fileTypeIconMetadata } from '@atlaskit/icon-file-type';
-      import { metadata as priorityIconMetadata } from '@atlaskit/icon-priority';
     `,
     `
       import metadata from '@atlaskit/icon/metadata';
       import { metadata as objectIconMetadata } from '@atlaskit/icon-object';
       import { metadata as fileTypeIconMetadata } from '@atlaskit/icon-file-type';
-      import { metadata as priorityIconMetadata } from '@atlaskit/icon-priority';
     `,
     'should work as expected on a real-world case',
   );

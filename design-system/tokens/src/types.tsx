@@ -1,5 +1,5 @@
 import { InternalTokenIds } from './artifacts/types-internal';
-import { THEMES } from './constants';
+import { THEME_NAME_MAP, THEMES } from './constants';
 
 export type Groups = 'raw' | 'paint' | 'shadow' | 'palette';
 export type ActiveTokenState = 'active';
@@ -10,19 +10,9 @@ export type TokenState =
   | DeprecatedTokenState
   | DeletedTokenState;
 export type Replacement = InternalTokenIds | InternalTokenIds[]; // Ideally, this is typed to all tokens that are active
-export type PaletteCategory =
-  | 'blue'
-  | 'purple'
-  | 'red'
-  | 'magenta'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'teal'
-  | 'light mode neutral'
-  | 'dark mode neutral';
 
 export type Themes = typeof THEMES[number];
+export type ThemesLongName = keyof typeof THEME_NAME_MAP;
 
 export interface Token<TValue, Group extends Groups> {
   value: TValue;
@@ -94,22 +84,9 @@ export type ValueSchema<Schema extends object> = DeepOmit<Schema, 'attributes'>;
 // Recursively strips out values from schema
 export type AttributeSchema<Schema extends object> = DeepOmit<Schema, 'value'>;
 
-export interface PaletteToken extends BaseToken<string, 'palette'> {
-  attributes: {
-    group: 'palette';
-    category: PaletteCategory;
-  };
-}
-export type ColorPalette = keyof PaletteColorTokenSchema['color']['palette'];
-
-export type PaintToken<Value extends string = ColorPalette> = DesignToken<
-  Value,
-  'paint'
->;
-
-export type ShadowToken<Value extends string = ColorPalette> = DesignToken<
+export type ShadowToken<BaseToken> = DesignToken<
   Array<{
-    color: Value;
+    color: BaseToken;
     opacity: number;
     offset: { x: number; y: number };
     radius: number;
@@ -119,682 +96,586 @@ export type ShadowToken<Value extends string = ColorPalette> = DesignToken<
   'shadow'
 >;
 
+export type PaintToken<BaseToken> = DesignToken<BaseToken, 'paint'>;
+
 export type RawToken = DesignToken<string, 'raw'>;
 
-export interface PaletteColorTokenSchema {
-  color: {
-    palette: {
-      B100: PaletteToken;
-      B200: PaletteToken;
-      B300: PaletteToken;
-      B400: PaletteToken;
-      B500: PaletteToken;
-      B600: PaletteToken;
-      B700: PaletteToken;
-      B800: PaletteToken;
-      B900: PaletteToken;
-      B1000: PaletteToken;
-      R100: PaletteToken;
-      R200: PaletteToken;
-      R300: PaletteToken;
-      R400: PaletteToken;
-      R500: PaletteToken;
-      R600: PaletteToken;
-      R700: PaletteToken;
-      R800: PaletteToken;
-      R900: PaletteToken;
-      R1000: PaletteToken;
-      Y100: PaletteToken;
-      Y200: PaletteToken;
-      Y300: PaletteToken;
-      Y400: PaletteToken;
-      Y500: PaletteToken;
-      Y600: PaletteToken;
-      Y700: PaletteToken;
-      Y800: PaletteToken;
-      Y900: PaletteToken;
-      Y1000: PaletteToken;
-      G100: PaletteToken;
-      G200: PaletteToken;
-      G300: PaletteToken;
-      G400: PaletteToken;
-      G500: PaletteToken;
-      G600: PaletteToken;
-      G700: PaletteToken;
-      G800: PaletteToken;
-      G900: PaletteToken;
-      G1000: PaletteToken;
-      P100: PaletteToken;
-      P200: PaletteToken;
-      P300: PaletteToken;
-      P400: PaletteToken;
-      P500: PaletteToken;
-      P600: PaletteToken;
-      P700: PaletteToken;
-      P800: PaletteToken;
-      P900: PaletteToken;
-      P1000: PaletteToken;
-      T100: PaletteToken;
-      T200: PaletteToken;
-      T300: PaletteToken;
-      T400: PaletteToken;
-      T500: PaletteToken;
-      T600: PaletteToken;
-      T700: PaletteToken;
-      T800: PaletteToken;
-      T900: PaletteToken;
-      T1000: PaletteToken;
-      O100: PaletteToken;
-      O200: PaletteToken;
-      O300: PaletteToken;
-      O400: PaletteToken;
-      O500: PaletteToken;
-      O600: PaletteToken;
-      O700: PaletteToken;
-      O800: PaletteToken;
-      O900: PaletteToken;
-      O1000: PaletteToken;
-      M100: PaletteToken;
-      M200: PaletteToken;
-      M300: PaletteToken;
-      M400: PaletteToken;
-      M500: PaletteToken;
-      M600: PaletteToken;
-      M700: PaletteToken;
-      M800: PaletteToken;
-      M900: PaletteToken;
-      M1000: PaletteToken;
-      'DN-100': PaletteToken;
-      'DN-100A': PaletteToken;
-      DN0: PaletteToken;
-      DN100: PaletteToken;
-      DN100A: PaletteToken;
-      DN200: PaletteToken;
-      DN200A: PaletteToken;
-      DN300: PaletteToken;
-      DN300A: PaletteToken;
-      DN400: PaletteToken;
-      DN400A: PaletteToken;
-      DN500: PaletteToken;
-      DN500A: PaletteToken;
-      DN600: PaletteToken;
-      DN700: PaletteToken;
-      DN800: PaletteToken;
-      DN900: PaletteToken;
-      DN1000: PaletteToken;
-      DN1100: PaletteToken;
-      N0: PaletteToken;
-      N100: PaletteToken;
-      N100A: PaletteToken;
-      N200: PaletteToken;
-      N200A: PaletteToken;
-      N300: PaletteToken;
-      N300A: PaletteToken;
-      N400: PaletteToken;
-      N400A: PaletteToken;
-      N500: PaletteToken;
-      N500A: PaletteToken;
-      N600: PaletteToken;
-      N700: PaletteToken;
-      N800: PaletteToken;
-      N900: PaletteToken;
-      N1000: PaletteToken;
-      N1100: PaletteToken;
-    };
+interface PaletteToken extends BaseToken<string, 'palette'> {
+  attributes: {
+    group: 'palette';
+    category:
+      | 'blue'
+      | 'purple'
+      | 'red'
+      | 'magenta'
+      | 'orange'
+      | 'yellow'
+      | 'green'
+      | 'teal'
+      | 'light mode neutral'
+      | 'dark mode neutral';
   };
 }
 
-export interface BackgroundColorTokenSchema {
+export interface PaletteColorTokenSchema<PaletteValues extends string> {
+  color: {
+    palette: Record<PaletteValues, PaletteToken>;
+  };
+}
+
+export interface BackgroundColorTokenSchema<BaseToken> {
   color: {
     blanket: {
-      '[default]': PaintToken;
-      selected: PaintToken;
-      danger: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      selected: PaintToken<BaseToken>;
+      danger: PaintToken<BaseToken>;
     };
     background: {
-      disabled: PaintToken;
+      disabled: PaintToken<BaseToken>;
       inverse: {
         subtle: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       input: {
-        '[default]': PaintToken;
-        hovered: PaintToken;
-        pressed: PaintToken;
+        '[default]': PaintToken<BaseToken>;
+        hovered: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       neutral: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         subtle: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       brand: {
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       selected: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       danger: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       warning: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       success: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       discovery: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       information: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
         bold: {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
     };
   };
 }
 
-export interface BorderColorTokenSchema {
+export interface BorderColorTokenSchema<BaseToken> {
   color: {
     border: {
-      '[default]': PaintToken;
-      bold: PaintToken;
-      inverse: PaintToken;
-      focused: PaintToken;
-      input: PaintToken;
-      disabled: PaintToken;
-      brand: PaintToken;
-      selected: PaintToken;
-      danger: PaintToken;
-      warning: PaintToken;
-      success: PaintToken;
-      discovery: PaintToken;
-      information: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      bold: PaintToken<BaseToken>;
+      inverse: PaintToken<BaseToken>;
+      focused: PaintToken<BaseToken>;
+      input: PaintToken<BaseToken>;
+      disabled: PaintToken<BaseToken>;
+      brand: PaintToken<BaseToken>;
+      selected: PaintToken<BaseToken>;
+      danger: PaintToken<BaseToken>;
+      warning: PaintToken<BaseToken>;
+      success: PaintToken<BaseToken>;
+      discovery: PaintToken<BaseToken>;
+      information: PaintToken<BaseToken>;
     };
   };
 }
 
-export interface IconColorTokenSchema {
+export interface IconColorTokenSchema<BaseToken> {
   color: {
     icon: {
-      '[default]': PaintToken;
-      subtle: PaintToken;
-      inverse: PaintToken;
-      disabled: PaintToken;
-      brand: PaintToken;
-      selected: PaintToken;
-      danger: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      subtle: PaintToken<BaseToken>;
+      inverse: PaintToken<BaseToken>;
+      disabled: PaintToken<BaseToken>;
+      brand: PaintToken<BaseToken>;
+      selected: PaintToken<BaseToken>;
+      danger: PaintToken<BaseToken>;
       warning: {
-        '[default]': PaintToken;
-        inverse: PaintToken;
+        '[default]': PaintToken<BaseToken>;
+        inverse: PaintToken<BaseToken>;
       };
-      success: PaintToken;
-      discovery: PaintToken;
-      information: PaintToken;
+      success: PaintToken<BaseToken>;
+      discovery: PaintToken<BaseToken>;
+      information: PaintToken<BaseToken>;
     };
   };
 }
 
-export interface TextColorTokenSchema {
+export interface TextColorTokenSchema<BaseToken> {
   color: {
     text: {
-      '[default]': PaintToken;
-      subtle: PaintToken;
-      subtlest: PaintToken;
-      inverse: PaintToken;
-      brand: PaintToken;
-      selected: PaintToken;
-      danger: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      subtle: PaintToken<BaseToken>;
+      subtlest: PaintToken<BaseToken>;
+      inverse: PaintToken<BaseToken>;
+      brand: PaintToken<BaseToken>;
+      selected: PaintToken<BaseToken>;
+      danger: PaintToken<BaseToken>;
       warning: {
-        '[default]': PaintToken;
-        inverse: PaintToken;
+        '[default]': PaintToken<BaseToken>;
+        inverse: PaintToken<BaseToken>;
       };
-      success: PaintToken;
-      information: PaintToken;
-      discovery: PaintToken;
-      disabled: PaintToken;
+      success: PaintToken<BaseToken>;
+      information: PaintToken<BaseToken>;
+      discovery: PaintToken<BaseToken>;
+      disabled: PaintToken<BaseToken>;
     };
     link: {
-      '[default]': PaintToken;
-      pressed: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      pressed: PaintToken<BaseToken>;
     };
   };
 }
 
-export interface AccentColorTokenSchema {
+export interface AccentColorTokenSchema<BaseToken> {
   color: {
     text: {
       accent: {
         blue: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         red: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         orange: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         yellow: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         green: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         purple: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         teal: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         magenta: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         gray: {
-          '[default]': PaintToken;
-          bolder: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
       };
     };
     icon: {
       accent: {
-        blue: PaintToken;
-        red: PaintToken;
-        orange: PaintToken;
-        yellow: PaintToken;
-        green: PaintToken;
-        purple: PaintToken;
-        teal: PaintToken;
-        magenta: PaintToken;
-        gray: PaintToken;
+        blue: PaintToken<BaseToken>;
+        red: PaintToken<BaseToken>;
+        orange: PaintToken<BaseToken>;
+        yellow: PaintToken<BaseToken>;
+        green: PaintToken<BaseToken>;
+        purple: PaintToken<BaseToken>;
+        teal: PaintToken<BaseToken>;
+        magenta: PaintToken<BaseToken>;
+        gray: PaintToken<BaseToken>;
       };
     };
     border: {
       accent: {
-        blue: PaintToken;
-        red: PaintToken;
-        orange: PaintToken;
-        yellow: PaintToken;
-        green: PaintToken;
-        purple: PaintToken;
-        teal: PaintToken;
-        magenta: PaintToken;
-        gray: PaintToken;
+        blue: PaintToken<BaseToken>;
+        red: PaintToken<BaseToken>;
+        orange: PaintToken<BaseToken>;
+        yellow: PaintToken<BaseToken>;
+        green: PaintToken<BaseToken>;
+        purple: PaintToken<BaseToken>;
+        teal: PaintToken<BaseToken>;
+        magenta: PaintToken<BaseToken>;
+        gray: PaintToken<BaseToken>;
       };
     };
     background: {
       accent: {
         blue: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         red: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         orange: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         yellow: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         green: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         teal: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         purple: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         magenta: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
         gray: {
-          subtlest: PaintToken;
-          subtler: PaintToken;
-          subtle: PaintToken;
-          bolder: PaintToken;
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
         };
       };
     };
   };
 }
 
-export interface InteractionColorTokenSchema {
+export interface InteractionColorTokenSchema<BaseToken> {
   color: {
     interaction: {
-      pressed: PaintToken;
-      hovered: PaintToken;
+      pressed: PaintToken<BaseToken>;
+      hovered: PaintToken<BaseToken>;
     };
   };
 }
 
-export interface SkeletonColorTokenSchema {
+export interface SkeletonColorTokenSchema<BaseToken> {
   color: {
     skeleton: {
-      '[default]': PaintToken;
-      subtle: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      subtle: PaintToken<BaseToken>;
     };
   };
 }
 
-export interface UtilTokenSchema {
+export interface UtilTokenSchema<BaseToken> {
   UNSAFE_util: {
     transparent: RawToken;
     MISSING_TOKEN: RawToken;
   };
 }
 
-export interface SurfaceTokenSchema {
+export interface SurfaceTokenSchema<BaseToken> {
   elevation: {
     surface: {
-      '[default]': PaintToken;
-      sunken: PaintToken;
-      raised: PaintToken;
-      overlay: PaintToken;
+      '[default]': PaintToken<BaseToken>;
+      sunken: PaintToken<BaseToken>;
+      raised: PaintToken<BaseToken>;
+      overlay: PaintToken<BaseToken>;
     };
   };
 }
 
-export interface ShadowTokenSchema {
+export interface ShadowTokenSchema<BaseToken> {
   elevation: {
     shadow: {
-      raised: ShadowToken;
-      overflow: ShadowToken;
-      overlay: ShadowToken;
+      raised: ShadowToken<BaseToken>;
+      overflow: ShadowToken<BaseToken>;
+      overlay: ShadowToken<BaseToken>;
     };
   };
 }
 
-export interface DeprecatedTokenSchema {
+export interface DeprecatedTokenSchema<BaseToken> {
   color: {
     accent: {
-      boldBlue: PaintToken;
-      boldGreen: PaintToken;
-      boldOrange: PaintToken;
-      boldPurple: PaintToken;
-      boldRed: PaintToken;
-      boldTeal: PaintToken;
-      subtleBlue: PaintToken;
-      subtleRed: PaintToken;
-      subtleGreen: PaintToken;
-      subtleOrange: PaintToken;
-      subtleTeal: PaintToken;
-      subtlePurple: PaintToken;
-      subtleMagenta: PaintToken;
+      boldBlue: PaintToken<BaseToken>;
+      boldGreen: PaintToken<BaseToken>;
+      boldOrange: PaintToken<BaseToken>;
+      boldPurple: PaintToken<BaseToken>;
+      boldRed: PaintToken<BaseToken>;
+      boldTeal: PaintToken<BaseToken>;
+      subtleBlue: PaintToken<BaseToken>;
+      subtleRed: PaintToken<BaseToken>;
+      subtleGreen: PaintToken<BaseToken>;
+      subtleOrange: PaintToken<BaseToken>;
+      subtleTeal: PaintToken<BaseToken>;
+      subtlePurple: PaintToken<BaseToken>;
+      subtleMagenta: PaintToken<BaseToken>;
     };
     background: {
       accent: {
         blue: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         red: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         orange: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         yellow: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         green: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         teal: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         purple: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
         magenta: {
-          '[default]': PaintToken;
-          bold: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          bold: PaintToken<BaseToken>;
         };
       };
-      default: PaintToken;
-      sunken: PaintToken;
-      card: PaintToken;
+      default: PaintToken<BaseToken>;
+      sunken: PaintToken<BaseToken>;
+      card: PaintToken<BaseToken>;
       inverse: {
-        '[default]': PaintToken;
+        '[default]': PaintToken<BaseToken>;
       };
-      overlay: PaintToken;
+      overlay: PaintToken<BaseToken>;
       selected: {
-        resting: PaintToken;
-        hover: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
       };
-      blanket: PaintToken;
+      blanket: PaintToken<BaseToken>;
       brand: {
         '[default]': {
-          '[default]': PaintToken;
-          hovered: PaintToken;
-          pressed: PaintToken;
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
         };
       };
       boldBrand: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleBrand: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       boldDanger: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleDanger: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       boldWarning: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleWarning: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       boldSuccess: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleSuccess: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       boldDiscovery: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleDiscovery: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       boldNeutral: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       transparentNeutral: {
-        hover: PaintToken;
-        pressed: PaintToken;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleNeutral: {
-        resting: PaintToken;
-        hover: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        hover: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
       subtleBorderedNeutral: {
-        resting: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
     };
     border: {
-      focus: PaintToken;
-      neutral: PaintToken;
+      focus: PaintToken<BaseToken>;
+      neutral: PaintToken<BaseToken>;
     };
     iconBorder: {
-      brand: PaintToken;
-      danger: PaintToken;
-      warning: PaintToken;
-      success: PaintToken;
-      discovery: PaintToken;
+      brand: PaintToken<BaseToken>;
+      danger: PaintToken<BaseToken>;
+      warning: PaintToken<BaseToken>;
+      success: PaintToken<BaseToken>;
+      discovery: PaintToken<BaseToken>;
     };
     text: {
-      highEmphasis: PaintToken;
-      mediumEmphasis: PaintToken;
-      lowEmphasis: PaintToken;
-      onBold: PaintToken;
-      onBoldWarning: PaintToken;
+      highEmphasis: PaintToken<BaseToken>;
+      mediumEmphasis: PaintToken<BaseToken>;
+      lowEmphasis: PaintToken<BaseToken>;
+      onBold: PaintToken<BaseToken>;
+      onBoldWarning: PaintToken<BaseToken>;
       link: {
-        resting: PaintToken;
-        pressed: PaintToken;
+        resting: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
     };
     overlay: {
-      pressed: PaintToken;
-      hover: PaintToken;
+      pressed: PaintToken<BaseToken>;
+      hover: PaintToken<BaseToken>;
     };
     interaction: {
       inverse: {
-        hovered: PaintToken;
-        pressed: PaintToken;
+        hovered: PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
       };
     };
   };
   shadow: {
-    card: ShadowToken;
-    overlay: ShadowToken;
+    card: ShadowToken<BaseToken>;
+    overlay: ShadowToken<BaseToken>;
   };
 }
 
-export type ElevationTokenSchema = SurfaceTokenSchema & ShadowTokenSchema;
+export type ElevationTokenSchema<BaseToken> = SurfaceTokenSchema<BaseToken> &
+  ShadowTokenSchema<BaseToken>;
 
-export type ColorTokenSchema = BackgroundColorTokenSchema &
-  BorderColorTokenSchema &
-  IconColorTokenSchema &
-  TextColorTokenSchema &
-  AccentColorTokenSchema &
-  UtilTokenSchema;
+export type ColorTokenSchema<BaseToken> = BackgroundColorTokenSchema<
+  BaseToken
+> &
+  BorderColorTokenSchema<BaseToken> &
+  IconColorTokenSchema<BaseToken> &
+  TextColorTokenSchema<BaseToken> &
+  AccentColorTokenSchema<BaseToken> &
+  UtilTokenSchema<BaseToken>;
 
-export type TokenSchema = PaletteColorTokenSchema &
-  ColorTokenSchema &
-  ElevationTokenSchema;
+export type TokenSchema<BaseToken> = ColorTokenSchema<BaseToken> &
+  ElevationTokenSchema<BaseToken>;

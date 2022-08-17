@@ -12,7 +12,6 @@ import Button from '@atlaskit/button/standard-button';
 import Textfield from '@atlaskit/textfield';
 import objectIconMetadata from '@atlaskit/icon-object/metadata';
 import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
-import priorityIconMetadata from '@atlaskit/icon-priority/metadata';
 
 import metadata from '../src/metadata';
 import IconExplorerCell from './utils/icon-explorer-cell';
@@ -68,24 +67,10 @@ const fileTypeIconInfo = Promise.all(
     .reduce((acc, b) => ({ ...acc, ...b })),
 );
 
-const priorityIconInfo = Promise.all(
-  Object.keys(priorityIconMetadata).map(async (name: string) => {
-    const icon = await import(`@atlaskit/icon-priority/glyph/${name}.js`);
-    return { name, icon: icon.default };
-  }),
-).then((newData) =>
-  newData
-    .map((icon) => ({
-      [icon.name]: { ...priorityIconMetadata[icon.name], component: icon.icon },
-    }))
-    .reduce((acc, b) => ({ ...acc, ...b })),
-);
-
 const getAllIcons = async (): Promise<IconsList> => {
   const iconData = await iconIconInfo;
   const objectData = await objectIconInfo;
   const filetypeData = await fileTypeIconInfo;
-  const priorityData = await priorityIconInfo;
 
   return {
     first: {
@@ -122,16 +107,6 @@ const getAllIcons = async (): Promise<IconsList> => {
       divider: true,
     },
     ...filetypeData,
-    forth: {
-      componentName: 'divider-priority-icons',
-      component: (() =>
-        'exported from @atlaskit/icon-priority' as unknown) as ComponentType<
-        any
-      >,
-      keywords: getKeywords(priorityIconMetadata),
-      divider: true,
-    },
-    ...priorityData,
   };
 };
 interface IconData {

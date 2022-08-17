@@ -4,8 +4,8 @@ import type { PaintToken, RawToken, ShadowToken } from '../../src/types';
 
 export interface TransformedTokenWithAttributes extends TransformedToken {
   attributes:
-    | (TransformedToken['attributes'] & PaintToken['attributes'])
-    | ShadowToken['attributes']
+    | (TransformedToken['attributes'] & PaintToken<string>['attributes'])
+    | ShadowToken<string>['attributes']
     | RawToken['attributes'];
 }
 

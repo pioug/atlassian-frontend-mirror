@@ -1,47 +1,22 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { DeprecatedTokenSchema, ValueSchema } from '../../../types';
 
-const color: ValueSchema<DeprecatedTokenSchema> = {
+const color: ValueSchema<DeprecatedTokenSchema<BaseToken>> = {
   color: {
     accent: {
-      boldBlue: {
-        value: 'B400',
-      },
-      boldGreen: {
-        value: 'G400',
-      },
-      boldOrange: {
-        value: 'O400',
-      },
-      boldPurple: {
-        value: 'P400',
-      },
-      boldRed: {
-        value: 'R400',
-      },
-      boldTeal: {
-        value: 'T400',
-      },
-      subtleBlue: {
-        value: 'B200',
-      },
-      subtleGreen: {
-        value: 'G200',
-      },
-      subtleMagenta: {
-        value: 'M200',
-      },
-      subtleOrange: {
-        value: 'O200',
-      },
-      subtlePurple: {
-        value: 'P200',
-      },
-      subtleRed: {
-        value: 'R200',
-      },
-      subtleTeal: {
-        value: 'T200',
-      },
+      boldBlue: { value: 'B400' },
+      boldGreen: { value: 'G400' },
+      boldOrange: { value: 'O400' },
+      boldPurple: { value: 'P400' },
+      boldRed: { value: 'R400' },
+      boldTeal: { value: 'T400' },
+      subtleBlue: { value: 'B200' },
+      subtleGreen: { value: 'G200' },
+      subtleMagenta: { value: 'M200' },
+      subtleOrange: { value: 'O200' },
+      subtlePurple: { value: 'P200' },
+      subtleRed: { value: 'R200' },
+      subtleTeal: { value: 'T200' },
     },
     background: {
       accent: {

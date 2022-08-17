@@ -15,7 +15,6 @@
   "exampleDependencies": [
     "@atlaskit/icon-file-type",
     "@atlaskit/icon-object",
-    "@atlaskit/icon-priority",
     "lodash",
     "nullthrows"
   ]

@@ -1,0 +1,29 @@
+# Drop indicator
+
+When reordering draggable items within drop targets, a drop indicator is used to communicate the intended resting place of the draggable item. The orientation of the drop indicator should always match the direction of the content flow.
+
+## Edge
+
+Use `edge` to specify which edge of the drop target the drop indicator should be rendered on.
+
+```
+<DropIndicator edge="top">
+  {({className}) => (
+    <DropTarget className={className} />
+  )}
+</DropIndicator
+```
+
+## Gap
+
+Use `gap` to specify the distance between each draggable item.
+
+The line will be drawn at an offset of half this value, resulting in the line being drawn between draggable items.
+
+```
+<DropIndicator edge="right" gap={8}>
+  {({className}) => (
+    <DropTarget className={className} />
+  )}
+</DropIndicator
+```

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
-    <title>jira/priority-low</title>
-    <desc>Created with Sketch.</desc>
-    <g id="jira/priority-low" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M12.0556718,12.0212906 L5.60219029,15.8858322 C5.12836572,16.1695728 4.51423782,16.0154793 4.23049722,15.5416547 C3.94675662,15.0678301 4.10085012,14.4537022 4.57467469,14.1699616 L11.5442956,9.9963401 C11.8618684,9.80616784 12.2585146,9.80697729 12.5753086,9.99844412 L19.4808285,14.1720657 C19.953491,14.4577378 20.1050767,15.0724895 19.8194046,15.5451521 C19.5337325,16.0178146 18.9189807,16.1694003 18.4463182,15.8837282 L12.0556718,12.0212906 Z" id="icon/20px/low-priority-" fill="#0065FF" fill-rule="nonzero" transform="translate(12.026001, 12.941162) rotate(-180.000000) translate(-12.026001, -12.941162) "></path>
-    </g>
-</svg>

@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { IconColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: ValueSchema<IconColorTokenSchema> = {
+const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
   color: {
     icon: {
       '[default]': {

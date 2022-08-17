@@ -1,9 +1,10 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type {
   AttributeSchema,
   InteractionColorTokenSchema,
 } from '../../../types';
 
-const color: AttributeSchema<InteractionColorTokenSchema> = {
+const color: AttributeSchema<InteractionColorTokenSchema<BaseToken>> = {
   color: {
     interaction: {
       hovered: {

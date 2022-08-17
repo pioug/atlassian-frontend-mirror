@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 0.10.15
+
+### Patch Changes
+
+- [`50299267c2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50299267c2e) - Refactors style-dictionary to support multiple palettes.
+
+  - Adds legacy-palette containing colours from `@atlaskit/theme`.
+  - Palettes are processed as their own 'themes' (functionally) and now have their own configuration via style-dictionary.
+  - formatters + transformers were renamed and moved to match best practices
+  - Types were updated to allow multi-palette values (base tokens)
+
 ## 0.10.14
 
 ### Patch Changes

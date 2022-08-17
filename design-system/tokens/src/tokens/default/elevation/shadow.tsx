@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { AttributeSchema, ShadowTokenSchema } from '../../../types';
 
-const shadow: AttributeSchema<ShadowTokenSchema> = {
+const shadow: AttributeSchema<ShadowTokenSchema<BaseToken>> = {
   elevation: {
     shadow: {
       raised: {

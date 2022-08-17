@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { AccentColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: ValueSchema<AccentColorTokenSchema> = {
+const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
   color: {
     text: {
       accent: {

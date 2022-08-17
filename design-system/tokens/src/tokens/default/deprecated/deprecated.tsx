@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { AttributeSchema, DeprecatedTokenSchema } from '../../../types';
 
-const color: AttributeSchema<DeprecatedTokenSchema> = {
+const color: AttributeSchema<DeprecatedTokenSchema<BaseToken>> = {
   color: {
     accent: {
       boldBlue: {

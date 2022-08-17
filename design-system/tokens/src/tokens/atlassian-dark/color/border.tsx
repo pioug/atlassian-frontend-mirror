@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { BorderColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: ValueSchema<BorderColorTokenSchema> = {
+const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
   color: {
     border: {
       '[default]': {

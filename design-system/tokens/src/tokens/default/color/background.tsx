@@ -1,9 +1,10 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type {
   AttributeSchema,
   BackgroundColorTokenSchema,
 } from '../../../types';
 
-const color: AttributeSchema<BackgroundColorTokenSchema> = {
+const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
   color: {
     blanket: {
       '[default]': {

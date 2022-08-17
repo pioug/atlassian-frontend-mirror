@@ -85,7 +85,7 @@ export const getBorderForBackground = (hex: string) => {
  *
  * @param rawShadow - ShadowToken raw value
  */
-export const getBoxShadow = (rawShadow: ShadowToken['value']) =>
+export const getBoxShadow = (rawShadow: ShadowToken<string>['value']) =>
   rawShadow
     .map(({ radius, offset, color, opacity }) => {
       const { r, g, b } = hexToRGBAValues(color);

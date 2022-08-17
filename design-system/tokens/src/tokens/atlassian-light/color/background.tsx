@@ -1,6 +1,7 @@
+import type { BaseToken } from '../../../palettes/palette';
 import type { BackgroundColorTokenSchema, ValueSchema } from '../../../types';
 
-const color: ValueSchema<BackgroundColorTokenSchema> = {
+const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
   color: {
     blanket: {
       '[default]': { value: 'N500A' },

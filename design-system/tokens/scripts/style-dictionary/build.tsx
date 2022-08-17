@@ -4,24 +4,33 @@ import path from 'path';
 
 import styleDictionary, { Config } from 'style-dictionary';
 
-import { DEFAULT_THEME, LONG_SHORT_MAPPING } from '../../src/constants';
+import { DEFAULT_THEME, THEME_NAME_MAP } from '../../src/constants';
+import defaultPalette from '../../src/palettes/palette';
+import { ThemesLongName } from '../../src/types';
 
-import formatterCSSVariables from './formatters/format-css-variables';
-import formatterFigma from './formatters/format-figma';
-import formatterRaw from './formatters/format-raw';
-import formatterRenameMapper from './formatters/format-rename-mapper';
-import formatterTokenDescriptionCSV from './formatters/format-token-description-csv';
-import formatterTSTokenDefaults from './formatters/format-typescript-token-defaults';
-import formatterTSGeneratedTypes from './formatters/format-typescript-token-generated-types';
-import formatterTSGeneratedTypesInternal from './formatters/format-typescript-token-generated-types-internal';
-import formatterTSTokenNames from './formatters/format-typescript-token-names';
-import boxShadowTransform from './formatters/transforms/box-shadow';
-import paletteTransform from './formatters/transforms/palette';
+import formatterCSSVariables from './formatters/css-variables';
+import formatterTokenDescriptionCSV from './formatters/csv-token-description';
+import formatterFigma from './formatters/figma';
+import formatterRaw from './formatters/raw';
+import formatterRenameMapper from './formatters/rename-mapper';
+import formatterTSTokenDefaults from './formatters/typescript-token-defaults';
+import formatterTSGeneratedTypes from './formatters/typescript-token-generated-types';
+import formatterTSGeneratedTypesInternal from './formatters/typescript-token-generated-types-internal';
+import formatterTSTokenNames from './formatters/typescript-token-names';
+import boxShadowTransform from './transformers/box-shadow';
+import dotSyntax from './transformers/dot-syntax';
+import paletteTransform from './transformers/palette';
 
-const TOKENS_INPUT_DIR = './src/tokens/';
-const TOKENS_OUTPUT_DIR = './src/artifacts/';
+const PALETTE_INPUT_DIR = './src/palettes/';
+const THEME_INPUT_DIR = './src/tokens/';
+const ARTIFACT_OUTPUT_DIR = './src/artifacts/';
 
-const createConfig = (themeName: string): Config => {
+const paletteConfig = {
+  'atlassian-light': defaultPalette,
+  'atlassian-dark': defaultPalette,
+};
+
+const createThemeConfig = (themeName: ThemesLongName): Config => {
   // Optionally generate the default token mapping if the current theme
   // is the default one
   const typescriptFiles = [
@@ -39,12 +48,15 @@ const createConfig = (themeName: string): Config => {
     },
   ];
 
-  if (LONG_SHORT_MAPPING[themeName] === DEFAULT_THEME) {
+  if (THEME_NAME_MAP[themeName] === DEFAULT_THEME) {
     typescriptFiles.push({
       format: 'typescript/custom-token-default-values',
       destination: `token-default-values.tsx`,
     });
   }
+
+  // Palette to be applied to the theme.
+  const palette = paletteConfig[themeName];
 
   return {
     parsers: [
@@ -67,22 +79,20 @@ const createConfig = (themeName: string): Config => {
       raw: formatterRaw as any,
     },
     transform: {
-      'name/custom-dot': {
-        type: 'name',
-        transformer: (token) => token.path.join('.'),
-      },
-      'color/custom-palette': paletteTransform,
+      'name/custom-dot': dotSyntax,
+      'color/custom-palette': paletteTransform(palette),
       'box-shadow/custom-figma': boxShadowTransform,
     },
-    source: [path.join(TOKENS_INPUT_DIR, `${themeName}/**/*.tsx`)],
+    source: [path.join(THEME_INPUT_DIR, `${themeName}/**/*.tsx`)],
     include: [
-      path.join(TOKENS_INPUT_DIR, 'palette.tsx'),
-      path.join(TOKENS_INPUT_DIR, 'default/**/*.tsx'),
+      // path.join(TOKENS_INPUT_DIR, 'palette.tsx'),
+      // path.join(TOKENS_INPUT_DIR, 'legacy-palette.tsx'),
+      path.join(THEME_INPUT_DIR, 'default/**/*.tsx'),
     ],
     platforms: {
       figma: {
         transforms: ['name/custom-dot', 'color/custom-palette'],
-        buildPath: path.join(TOKENS_OUTPUT_DIR, `/figma/${themeName}/`),
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, `/figma/${themeName}/`),
         options: {
           themeName,
         },
@@ -95,7 +105,7 @@ const createConfig = (themeName: string): Config => {
       },
       renameMapper: {
         transforms: ['name/custom-dot'],
-        buildPath: TOKENS_OUTPUT_DIR,
+        buildPath: ARTIFACT_OUTPUT_DIR,
         files: [
           {
             format: 'rename-mapper',
@@ -105,7 +115,7 @@ const createConfig = (themeName: string): Config => {
       },
       raw: {
         transforms: ['name/custom-dot', 'color/custom-palette'],
-        buildPath: path.join(TOKENS_OUTPUT_DIR, '/tokens-raw/'),
+        buildPath: path.join(ARTIFACT_OUTPUT_DIR, '/tokens-raw/'),
         options: {
           themeName,
           groups: ['paint', 'shadow', 'raw'],
@@ -117,19 +127,6 @@ const createConfig = (themeName: string): Config => {
           },
         ],
       },
-      rawPalette: {
-        transforms: ['name/custom-dot', 'color/custom-palette'],
-        buildPath: TOKENS_OUTPUT_DIR,
-        options: {
-          groups: ['palette'],
-        },
-        files: [
-          {
-            format: 'raw',
-            destination: 'palettes-raw.tsx',
-          },
-        ],
-      },
       ts: {
         transforms: [
           'name/custom-dot',
@@ -137,7 +134,7 @@ const createConfig = (themeName: string): Config => {
           'box-shadow/custom-figma',
         ],
         transformGroup: 'js',
-        buildPath: TOKENS_OUTPUT_DIR,
+        buildPath: ARTIFACT_OUTPUT_DIR,
         files: typescriptFiles,
       },
       css: {
@@ -160,7 +157,7 @@ const createConfig = (themeName: string): Config => {
       },
       csv: {
         transforms: ['name/custom-dot', 'color/custom-palette'],
-        buildPath: TOKENS_OUTPUT_DIR,
+        buildPath: ARTIFACT_OUTPUT_DIR,
         options: {
           groups: ['paint', 'shadow', 'raw'],
         },
@@ -175,12 +172,61 @@ const createConfig = (themeName: string): Config => {
   };
 };
 
+const createPaletteConfig = (paletteFileName: string): Config => ({
+  source: [path.join(PALETTE_INPUT_DIR, paletteFileName)],
+  parsers: [
+    {
+      pattern: /\.tsx$/,
+      // Because we're using ESM we need to return the default property,
+      // else we get "default" in our token paths.
+      parse: ({ filePath }) => require(filePath).default,
+    },
+  ],
+  transform: {
+    'name/custom-dot': dotSyntax,
+  },
+  format: {
+    raw: formatterRaw as any,
+  },
+  platforms: {
+    rawPalette: {
+      transforms: ['name/custom-dot'],
+      buildPath: ARTIFACT_OUTPUT_DIR,
+      options: {
+        groups: ['palette'],
+      },
+      files: [
+        {
+          format: 'raw',
+          destination: path.join(`palettes-raw`, paletteFileName),
+        },
+      ],
+    },
+  },
+});
+
+/**
+ * Generates all necessary palette artifacts
+ */
+const paletteInputDir = `${__dirname}/../../src/palettes`;
+
+fs.readdirSync(paletteInputDir, { withFileTypes: true })
+  .filter((result) => !result.isDirectory())
+  .forEach((palette) => {
+    const config = createPaletteConfig(palette.name);
+    const StyleDictionary = styleDictionary.extend(config);
+    StyleDictionary.buildAllPlatforms();
+  });
+
+/**
+ * Generates all necessary theme artifacts
+ */
 const tokensInputDir = `${__dirname}/../../src/tokens`;
 
 fs.readdirSync(tokensInputDir, { withFileTypes: true })
   .filter((result) => result.isDirectory() && result.name !== 'default')
   .forEach((theme) => {
-    const config = createConfig(theme.name);
+    const config = createThemeConfig(theme.name as ThemesLongName);
     const StyleDictionary = styleDictionary.extend(config);
     StyleDictionary.buildAllPlatforms();
   });

@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { FormFooter } from '@atlaskit/form';
@@ -21,6 +22,9 @@ import {
   LinkPickerPlugin,
 } from '../types';
 
+import createEventPayload from '../../analytics.codegen';
+
+import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
 
@@ -142,6 +146,7 @@ function LinkPicker({
   url: initUrl,
   displayText: initDisplayText,
 }: LinkPickerProps) {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const [state, dispatch] = useReducer(reducer, {
     ...initState,
     url: normalizeUrl(initUrl) || '',
@@ -262,6 +267,12 @@ function LinkPicker({
 
   const handleInsert = useCallback(
     (url: string, title: string | null, inputType: LinkInputType) => {
+      const event = createAnalyticsEvent(
+        createEventPayload('form.submitted.linkPicker', {}),
+      );
+
+      event.fire(ANALYTICS_CHANNEL);
+
       onSubmit({
         url,
         displayText: displayText || null,
@@ -270,7 +281,7 @@ function LinkPicker({
         ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
       });
     },
-    [displayText, onSubmit, state.url],
+    [displayText, onSubmit, state.url, createAnalyticsEvent],
   );
 
   const handleSelected = useCallback(

@@ -7,3 +7,5 @@ docs/
 build/
 __tests__/
 tsconfig.json
+scripts/
+analytics.spec.yaml

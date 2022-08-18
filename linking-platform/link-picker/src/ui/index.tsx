@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 import { AnalyticsErrorBoundary } from '@atlaskit/analytics-next';
 import { LazySuspense, lazyForPaint } from 'react-loosely-lazy';
 
+import { COMPONENT_NAME, ANALYTICS_CHANNEL } from '../common/constants';
+
 import {
   name as packageName,
   version as packageVersion,
@@ -9,9 +11,6 @@ import {
 import { ErrorBoundaryFallback } from './error-boundary-fallback';
 import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
-
-const COMPONENT_NAME = 'LinkPicker';
-const ANALYTICS_CHANNEL = 'media';
 
 const PACKAGE_DATA = {
   packageName,

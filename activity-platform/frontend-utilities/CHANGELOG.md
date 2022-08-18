@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 1.1.0
+
+### Minor Changes
+
+- [`09e1f73b86e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09e1f73b86e) - Added documentation for the frontend utilities, as well as a MarkdownRenderer component
+
 ## 1.0.0
 
 ### Major Changes

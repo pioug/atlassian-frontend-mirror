@@ -1,9 +1,0 @@
-{
-  "name": "recent-work-service",
-  "publishMetadata": {
-    "metricTags": {}
-  },
-  "dimensions": {},
-  "tagScheme": "v001-n_$name$",
-  "frontend": true
-}

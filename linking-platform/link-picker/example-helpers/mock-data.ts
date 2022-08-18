@@ -6,6 +6,9 @@ export interface MockDataV3 {
           viewed: {
             edges: any[];
           };
+          workedOn: {
+            edges: any[];
+          };
         };
       };
     };
@@ -18,6 +21,9 @@ const MOCK_DATA_V3: MockDataV3 = {
     data: {
       activity: {
         myActivity: {
+          workedOn: {
+            edges: [],
+          },
           viewed: {
             edges: [
               {

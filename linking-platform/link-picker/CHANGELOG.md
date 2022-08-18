@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.7.1
+
+### Patch Changes
+
+- [`e900714203d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e900714203d) - Add "form submitted" analytics event.
+
 ## 1.7.0
 
 ### Minor Changes

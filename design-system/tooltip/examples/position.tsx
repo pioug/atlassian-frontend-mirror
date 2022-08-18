@@ -27,8 +27,8 @@ const PositionExample: FC<Props> = ({ color = 'blue' }) => {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div style={{ padding: '40px 40px' }}>
-      <Tooltip content={positionText} position={positionText}>
+    <div style={{ padding: '40px 40px' }} data-testid="position">
+      <Tooltip content={positionText} position={positionText} testId="position">
         {({ onClick, ...tooltipProps }) => (
           <Target
             color={color}

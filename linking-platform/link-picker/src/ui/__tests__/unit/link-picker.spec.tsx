@@ -15,8 +15,7 @@ import { act, fireEvent } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
-
-import { LinkPickerPlugin, LinkPickerProps } from '../../../';
+import { LinkPickerProps } from '../../../';
 import LinkPicker, { testIds } from '../../link-picker';
 
 import { messages } from '../../link-picker/messages';
@@ -39,13 +38,11 @@ describe('<LinkPicker />', () => {
     jest.clearAllMocks();
   });
 
-  interface SetupArgumentObject {
-    url?: string;
-    waitForResolves?: boolean;
-    plugins?: LinkPickerPlugin[];
-  }
-
-  const setupLinkPicker = ({ url = '', plugins }: SetupArgumentObject = {}) => {
+  const setupLinkPicker = ({
+    url = '',
+    plugins,
+    ...props
+  }: Partial<LinkPickerProps> = {}) => {
     const onSubmitMock: LinkPickerProps['onSubmit'] = jest.fn();
     const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
     const onContentResize: LinkPickerProps['onContentResize'] = jest.fn();
@@ -57,6 +54,7 @@ describe('<LinkPicker />', () => {
         plugins={plugins ?? []}
         onCancel={onCancelMock}
         onContentResize={onContentResize}
+        {...props}
       />,
     );
 
@@ -241,9 +239,9 @@ describe('<LinkPicker />', () => {
   });
 
   describe('with generic plugin', () => {
-    const setupLinkPickerWithGenericPlugin = ({
-      ...rest
-    }: SetupArgumentObject = {}) => {
+    const setupWithGenericPlugin = ({
+      ...props
+    }: Partial<LinkPickerProps> = {}) => {
       const initialResultPromise = Promise.resolve({
         value: { data: mockedPluginData.slice(0, 3) },
         done: false,
@@ -260,7 +258,7 @@ describe('<LinkPicker />', () => {
 
       const { testIds, onSubmitMock, onContentResize } = setupLinkPicker({
         plugins: [plugin],
-        ...rest,
+        ...props,
       });
 
       return {
@@ -273,7 +271,7 @@ describe('<LinkPicker />', () => {
     };
 
     it('should submit with valid url in the input field', async () => {
-      const { onSubmitMock, testIds } = setupLinkPickerWithGenericPlugin();
+      const { onSubmitMock, testIds } = setupWithGenericPlugin();
 
       await userEvent.type(
         screen.getByTestId(testIds.urlInputField),
@@ -296,7 +294,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should submit with valid url and title in the input field', async () => {
-      const { onSubmitMock, testIds } = setupLinkPickerWithGenericPlugin();
+      const { onSubmitMock, testIds } = setupWithGenericPlugin();
 
       await userEvent.type(
         screen.getByTestId(testIds.urlInputField),
@@ -325,12 +323,12 @@ describe('<LinkPicker />', () => {
        * one for the initial load and one for the isLoading state change
        */
       it('should call callback when picker is loaded', async () => {
-        const { onContentResize } = setupLinkPickerWithGenericPlugin();
+        const { onContentResize } = setupWithGenericPlugin();
         expect(onContentResize).toHaveBeenCalledTimes(2);
       });
 
       it('should call callback when user inputs a url', async () => {
-        const { onContentResize } = setupLinkPickerWithGenericPlugin();
+        const { onContentResize } = setupWithGenericPlugin();
 
         await userEvent.type(
           screen.getByTestId(testIds.urlInputField),
@@ -340,11 +338,7 @@ describe('<LinkPicker />', () => {
       });
 
       it('should call callback when results are loaded', async () => {
-        const {
-          onContentResize,
-          resolve,
-          plugin,
-        } = setupLinkPickerWithGenericPlugin({
+        const { onContentResize, resolve, plugin } = setupWithGenericPlugin({
           url: 'xyz',
         });
         expect(onContentResize).toHaveBeenCalledTimes(2);
@@ -372,7 +366,7 @@ describe('<LinkPicker />', () => {
           promise: promise2,
         });
 
-        const { onContentResize, testIds } = setupLinkPickerWithGenericPlugin({
+        const { onContentResize, testIds } = setupWithGenericPlugin({
           plugins: [plugin1, plugin2],
         });
 
@@ -389,7 +383,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should not trigger plugin to resolve results and should not be in loading state if provided a `url`', async () => {
-      const { testIds, resolve } = setupLinkPickerWithGenericPlugin({
+      const { testIds, resolve } = setupWithGenericPlugin({
         url: 'https://www.atlassian.com',
       });
 
@@ -414,7 +408,7 @@ describe('<LinkPicker />', () => {
         }),
       ]);
       const resolve = jest.spyOn(plugin, 'resolve');
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -432,7 +426,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should begin yielding plugin link results on mount if `url` is not a valid URL', async () => {
-      const { resolve, testIds, plugin } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds, plugin } = setupWithGenericPlugin({
         url: 'xyz',
       });
 
@@ -453,7 +447,7 @@ describe('<LinkPicker />', () => {
       const plugin = new MockLinkPickerPromisePlugin();
       const resolve = jest.spyOn(plugin, 'resolve');
 
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         plugins: [plugin],
       });
 
@@ -478,7 +472,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should show loading spinner before plugin resolves first results', async () => {
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -488,7 +482,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should render plugin results in `LinkSearchList` and then remove spinner if plugin is done', async () => {
-      const { resolve, testIds, plugin } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds, plugin } = setupWithGenericPlugin({
         url: 'xyz',
       });
 
@@ -517,7 +511,7 @@ describe('<LinkPicker />', () => {
         updatedResultPromise,
       ]);
       const resolve = jest.spyOn(plugin, 'resolve');
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -548,7 +542,7 @@ describe('<LinkPicker />', () => {
       });
       const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
       const resolve = jest.spyOn(plugin, 'resolve');
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -562,7 +556,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should trigger plugin to yield link results when input query changes', async () => {
-      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -577,7 +571,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should not trigger plugin to yield results and should not be in loading state if provided a `url`', async () => {
-      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds } = setupWithGenericPlugin({
         url: 'https://www.atlassian.com',
       });
 
@@ -589,7 +583,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should not trigger plugin to yield link results if the input query starts with https://', async () => {
-      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds } = setupWithGenericPlugin({
         url: 'https://',
       });
 
@@ -601,7 +595,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should not get plugin to yield link results if the input query starts with http://', async () => {
-      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds } = setupWithGenericPlugin({
         url: 'http://',
       });
 
@@ -613,7 +607,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should still request update from plugin when query is emptied after initial state has valid `url`', async () => {
-      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds } = setupWithGenericPlugin({
         url: 'www.atlassian.com',
       });
 
@@ -640,7 +634,7 @@ describe('<LinkPicker />', () => {
         secondResultPromise,
       ]);
       const resolve = jest.spyOn(plugin, 'resolve');
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -686,7 +680,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should still request update from plugin when query is emptied', async () => {
-      const { resolve, testIds } = setupLinkPickerWithGenericPlugin({
+      const { resolve, testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -712,7 +706,7 @@ describe('<LinkPicker />', () => {
         done: true,
       });
       const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
-      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+      const { testIds, onSubmitMock } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -734,7 +728,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display Error message when URL is invalid', async () => {
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -747,7 +741,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display Error message when URL is empty', async () => {
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -761,7 +755,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should remove invalid URL Error when Input is edited', async () => {
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -787,7 +781,7 @@ describe('<LinkPicker />', () => {
         done: true,
       });
       const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
-      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+      const { testIds, onSubmitMock } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -830,7 +824,7 @@ describe('<LinkPicker />', () => {
         done: true,
       });
       const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -854,7 +848,7 @@ describe('<LinkPicker />', () => {
         done: true,
       });
       const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -889,7 +883,7 @@ describe('<LinkPicker />', () => {
         resultPromise,
         resultPromise,
       ]);
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -909,7 +903,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should submit arbitrary link', async () => {
-      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+      const { testIds, onSubmitMock } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -937,7 +931,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display search icon', async () => {
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -945,7 +939,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should display a subtitle for recent items', async () => {
-      const { testIds, plugin } = setupLinkPickerWithGenericPlugin({
+      const { testIds, plugin } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -968,7 +962,7 @@ describe('<LinkPicker />', () => {
         resultPromise,
         resultPromise,
       ]);
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -983,7 +977,7 @@ describe('<LinkPicker />', () => {
     });
 
     it('should submit when insert button is clicked', async () => {
-      const { testIds, onSubmitMock } = setupLinkPickerWithGenericPlugin({
+      const { testIds, onSubmitMock } = setupWithGenericPlugin({
         url: '',
       });
 
@@ -1017,7 +1011,7 @@ describe('<LinkPicker />', () => {
         resultPromise,
         resultPromise,
       ]);
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -1037,7 +1031,7 @@ describe('<LinkPicker />', () => {
       const plugin = new MockLinkPickerGeneratorPlugin(
         Array(20).fill(resultPromise),
       );
-      const { testIds } = setupLinkPickerWithGenericPlugin({
+      const { testIds } = setupWithGenericPlugin({
         url: '',
         plugins: [plugin],
       });
@@ -1061,7 +1055,7 @@ describe('<LinkPicker />', () => {
           tabTitle: 'tab2',
         });
 
-        const { testIds } = setupLinkPickerWithGenericPlugin({
+        const { testIds } = setupWithGenericPlugin({
           plugins: [plugin1, plugin2],
         });
 
@@ -1078,7 +1072,7 @@ describe('<LinkPicker />', () => {
           tabTitle: 'tab1',
         });
 
-        const { testIds } = setupLinkPickerWithGenericPlugin({
+        const { testIds } = setupWithGenericPlugin({
           plugins: [plugin1],
         });
 
@@ -1102,7 +1096,7 @@ describe('<LinkPicker />', () => {
         const resolve1 = jest.spyOn(plugin1, 'resolve');
         const resolve2 = jest.spyOn(plugin2, 'resolve');
 
-        const { testIds } = setupLinkPickerWithGenericPlugin({
+        const { testIds } = setupWithGenericPlugin({
           plugins: [plugin1, plugin2],
         });
 
@@ -1135,7 +1129,7 @@ describe('<LinkPicker />', () => {
         const resolve1 = jest.spyOn(plugin1, 'resolve');
         const resolve2 = jest.spyOn(plugin2, 'resolve');
 
-        const { testIds } = setupLinkPickerWithGenericPlugin({
+        const { testIds } = setupWithGenericPlugin({
           plugins: [plugin1, plugin2],
         });
 
@@ -1176,7 +1170,7 @@ describe('<LinkPicker />', () => {
         });
         const resolve1 = jest.spyOn(plugin1, 'resolve');
 
-        const { testIds } = setupLinkPickerWithGenericPlugin({
+        const { testIds } = setupWithGenericPlugin({
           plugins: [plugin1],
         });
 
@@ -1203,7 +1197,7 @@ describe('<LinkPicker />', () => {
           }),
         ];
 
-        const { testIds } = setupLinkPickerWithGenericPlugin({
+        const { testIds } = setupWithGenericPlugin({
           plugins,
         });
 

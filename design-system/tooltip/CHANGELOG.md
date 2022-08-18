@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 17.5.15
+
+### Patch Changes
+
+- [`338ba1a1500`](https://bitbucket.org/atlassian/atlassian-frontend/commits/338ba1a1500) - [ux] Improves accuracy of Tooltip placement relative to the mouse when using `position="mouse"`
+
 ## 17.5.14
 
 ### Patch Changes

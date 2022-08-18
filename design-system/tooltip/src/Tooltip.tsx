@@ -6,6 +6,7 @@ import { jsx } from '@emotion/core';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import {
   Direction,
@@ -22,7 +23,7 @@ import { API, Entry, show, Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './TooltipContainer';
 import { TooltipProps } from './types';
-import { FakeMouseElement, getMousePosition } from './utilities';
+import { getMousePosition } from './utilities';
 
 const tooltipZIndex = layers.tooltip();
 const analyticsAttributes = {
@@ -30,7 +31,6 @@ const analyticsAttributes = {
   packageName: process.env._PACKAGE_NAME_ as string,
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
-function noop() {}
 
 // Inverts motion direction
 const invertedDirection = {
@@ -305,6 +305,18 @@ function Tooltip({
     }
   }, []);
 
+  const onMouseMove =
+    position === 'mouse'
+      ? (event: React.MouseEvent<HTMLElement>) => {
+          if (apiRef.current?.isActive()) {
+            apiRef.current.mousePosition = getMousePosition({
+              left: event.clientX,
+              top: event.clientY,
+            });
+          }
+        }
+      : undefined;
+
   const onMouseOverTooltip = useCallback(() => {
     if (apiRef.current && apiRef.current.isActive()) {
       apiRef.current.keep();
@@ -344,14 +356,8 @@ function Tooltip({
     state !== 'hide' && state !== 'fade-out';
 
   const getReferenceElement = () => {
-    // Use the initial mouse position if appropriate, or the target element
-    const api: API | null = apiRef.current;
-    const initialMouse: FakeMouseElement | null = api
-      ? api.getInitialMouse()
-      : null;
-
-    if (position === 'mouse' && initialMouse) {
-      return initialMouse;
+    if (position === 'mouse' && apiRef.current?.mousePosition) {
+      return apiRef.current?.mousePosition;
     }
     return targetRef.current || undefined;
   };
@@ -361,6 +367,7 @@ function Tooltip({
   const tooltipTriggerProps = {
     onMouseOver,
     onMouseOut,
+    onMouseMove,
     onClick,
     onMouseDown,
     onFocus,

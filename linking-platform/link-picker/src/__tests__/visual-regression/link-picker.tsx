@@ -129,8 +129,7 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 11/08/2022: https://product-fabric.atlassian.net/browse/EDM-4193
-  it.skip('Should render Linkpicker within Popup with input focused', async () => {
+  it('Should render Linkpicker within Popup with input focused', async () => {
     const url = getURL('with-plugins');
     const page = await setup(url);
 

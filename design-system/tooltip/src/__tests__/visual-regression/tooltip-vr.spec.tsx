@@ -1,6 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
+  takeElementScreenShot,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 
@@ -8,12 +9,12 @@ const examples = '#examples';
 const tooltipBtn = 'button';
 const addBtn = '[data-testid="add"]';
 
-describe('Snapshot Test', () => {
-  it('Tooltip should match production example', async () => {
+describe('@atlaskit/tooltip', () => {
+  it('should match production example', async () => {
     const url = getExampleUrl(
       'design-system',
       'tooltip',
-      'defaultTooltip',
+      'default-tooltip',
       global.__BASEURL__,
     );
     const { page } = global;
@@ -27,7 +28,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Custom tooltip should match production example', async () => {
+  it('should allow a custom tooltip', async () => {
     const url = getExampleUrl(
       'design-system',
       'tooltip',
@@ -48,7 +49,7 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Accessible tooltip should match production example', async () => {
+  it('should work with render props', async () => {
     const url = getExampleUrl(
       'design-system',
       'tooltip',
@@ -66,6 +67,24 @@ describe('Snapshot Test', () => {
     await waitForTooltip(page);
 
     const image = await page.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should dynamically position with mouse positioning', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'tooltip',
+      'position',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await page.goto(url);
+    await page.waitForSelector(examples);
+    await page.hover('[data-testid="position--container"]');
+
+    await waitForTooltip(page);
+
+    const image = await takeElementScreenShot(page, '[data-testid="position"]');
     expect(image).toMatchProdImageSnapshot();
   });
 });

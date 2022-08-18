@@ -21,7 +21,7 @@ export type Entry = {
 
 export type API = {
   isActive: () => boolean;
-  getInitialMouse: () => FakeMouseElement | null;
+  mousePosition: FakeMouseElement | null;
   requestHide: (value: { isImmediate: boolean }) => void;
   finishHideAnimation: () => void;
   keep: () => void;
@@ -175,7 +175,7 @@ export function show(entry: Entry): API {
     isActive,
     requestHide,
     finishHideAnimation,
-    getInitialMouse,
+    mousePosition: getInitialMouse(),
   };
 
   return result;

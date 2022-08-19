@@ -12,6 +12,7 @@ describe('line drawing', () => {
       'indicator',
       'closest-edge',
       global.__BASEURL__,
+      'light',
     );
     const selector = '[data-testid="layout--without-gap"]';
 
@@ -29,6 +30,7 @@ describe('line drawing', () => {
       'indicator',
       'closest-edge',
       global.__BASEURL__,
+      'light',
     );
     const selector = '[data-testid="layout--with-gap"]';
 
@@ -46,6 +48,7 @@ describe('line drawing', () => {
       'indicator',
       'gap',
       global.__BASEURL__,
+      'light',
     );
     const selector = '[data-testid="layout"]';
 

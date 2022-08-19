@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.2.3
+
+### Patch Changes
+
+- [`d043517e947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d043517e947) - [ux] Adds avatarUrl and unauthorised description to Forge Plugin
+
 ## 1.2.2
 
 ### Patch Changes

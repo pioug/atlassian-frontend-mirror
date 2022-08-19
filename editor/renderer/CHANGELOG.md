@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 101.0.1
+
+### Patch Changes
+
+- [`844e560b02f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/844e560b02f) - ED-15453 Fixed incorrect import in renderer
+
 ## 101.0.0
 
 ### Major Changes

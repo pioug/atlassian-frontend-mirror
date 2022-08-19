@@ -265,7 +265,7 @@ export class MentionResource
     this.onInviteItemClick = config.onInviteItemClick;
     this.userRole = config.userRole || 'basic';
     if (this.config.debounceTime) {
-      this.filter = debounce(this.filter, this.config.debounceTime);
+      this.filter = debounce(this.filter, this.config.debounceTime) as any;
     }
   }
 

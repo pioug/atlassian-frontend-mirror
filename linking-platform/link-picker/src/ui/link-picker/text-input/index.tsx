@@ -28,7 +28,6 @@ export interface Props
   autoFocus?: boolean;
   value: string;
   onChange: (value: string) => void;
-  onSubmit?: (value: string) => void;
   // overrides default browser undo behaviour (cmd/ctrl + z) with that function
   onUndo?: Function;
   // overrides default browser redo behaviour (cm + shift + z / ctrl + y) with that function
@@ -43,7 +42,6 @@ const PanelTextInput = (props: Props) => {
     name,
     label,
     autoFocus,
-    onSubmit,
     onRedo,
     onUndo,
     onChange,
@@ -80,11 +78,7 @@ const PanelTextInput = (props: Props) => {
 
   const handleKeydown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      const value = e.currentTarget.value;
-      if (e.keyCode === 13 && onSubmit) {
-        e.preventDefault(); // Prevent from submitting if an editor is inside a form.
-        onSubmit(value);
-      } else if (typeof onUndo === 'function' && isUndoEvent(e)) {
+      if (typeof onUndo === 'function' && isUndoEvent(e)) {
         e.preventDefault();
         onUndo();
       } else if (typeof onRedo === 'function' && isRedoEvent(e)) {
@@ -96,7 +90,7 @@ const PanelTextInput = (props: Props) => {
         onKeyDown(e);
       }
     },
-    [onSubmit, onUndo, onRedo, onKeyDown],
+    [onUndo, onRedo, onKeyDown],
   );
 
   const handleClear = useCallback(() => {
@@ -109,6 +103,7 @@ const PanelTextInput = (props: Props) => {
   const clearText = restProps.value !== '' && (
     <Tooltip content={clearLabel}>
       <button
+        type="button"
         css={clearTextButtonStyles}
         onClick={handleClear}
         data-testid={testIds.clearUrlButton}

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.8.0
+
+### Minor Changes
+
+- [`89fffde2a59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89fffde2a59) - Wrap link picker in native form element
+
 ## 1.7.1
 
 ### Patch Changes

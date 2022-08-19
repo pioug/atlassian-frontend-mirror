@@ -205,7 +205,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     input: string,
     items: LinkSearchListItemData[],
     quickSearchLimit: number,
-  ) => Promise<void>;
+  ) => Promise<void> | undefined;
   private fireCustomAnalytics?: FireAnalyticsCallback;
   private quickSearchQueryVersion: number = 0;
   private analyticSource: string = 'createLinkInlineDialog';

@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce';
 import {
   useComponentRenderTracking,
   PropsDifference,
+  ShallowPropsDifference,
 } from '@atlaskit/editor-common/utils';
 
 import {
@@ -38,13 +39,15 @@ export function RenderTracking<Props>(props: RenderTrackingProps<Props>) {
       if (!renderCount) {
         return;
       }
-      debouncedHandleAnalyticsEvent<Props>({
+      debouncedHandleAnalyticsEvent({
         payload: {
           action: props.action,
           actionSubject: props.actionSubject,
           attributes: {
             count: renderCount,
-            propsDifference: propsDifference as PropsDifference<Props>,
+            propsDifference: propsDifference as
+              | PropsDifference<unknown>
+              | ShallowPropsDifference<unknown>,
           },
           eventType: EVENT_TYPE.OPERATIONAL,
         },

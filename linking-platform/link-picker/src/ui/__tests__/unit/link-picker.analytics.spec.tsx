@@ -54,9 +54,7 @@ describe('LinkPicker analytics', () => {
       'www.atlassian.com',
     );
 
-    fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-      keyCode: 13,
-    });
+    fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
     expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({

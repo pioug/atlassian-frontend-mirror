@@ -5,8 +5,6 @@ import React from 'react';
 import { browser } from '../../link-picker/browser';
 import PanelTextInput from '../../link-picker/text-input';
 
-const noop = () => {};
-
 describe('<PanelTextInput />', () => {
   let panel: ReactWrapper;
 
@@ -28,54 +26,11 @@ describe('<PanelTextInput />', () => {
     jest.useRealTimers();
   });
 
-  it('should call onSubmit when ENTER key is pressed', () => {
-    const onSubmitHandler = jest.fn();
-    const onChangeHandler = jest.fn();
-    panel = mount(
-      <PanelTextInput
-        name="test"
-        value=""
-        onSubmit={onSubmitHandler}
-        onChange={onChangeHandler}
-      />,
-    );
-
-    const input = panel.find('input');
-    (input.getDOMNode() as any).value = 'http://atlassian.com';
-    input.simulate('keydown', { which: 'enter', keyCode: 13 });
-
-    expect(onSubmitHandler).toHaveBeenCalledWith('http://atlassian.com');
-  });
-
-  it('should prevent KeyDown event if ENTER key is pressed', () => {
-    const onSubmitHandler = jest.fn();
+  it('should not prevent KeyDown event when key is pressed', () => {
     const preventDefault = jest.fn();
     const onChangeHandler = jest.fn();
     panel = mount(
-      <PanelTextInput
-        name="test"
-        value=""
-        onSubmit={onSubmitHandler}
-        onChange={onChangeHandler}
-      />,
-    );
-
-    const input = panel.find('input');
-    input.simulate('keydown', { which: 'enter', keyCode: 13, preventDefault });
-
-    expect(preventDefault).toHaveBeenCalledTimes(1);
-  });
-
-  it('should not prevent KeyDown event if any other key is pressed', () => {
-    const preventDefault = jest.fn();
-    const onChangeHandler = jest.fn();
-    panel = mount(
-      <PanelTextInput
-        value=""
-        name="test"
-        onSubmit={noop}
-        onChange={onChangeHandler}
-      />,
+      <PanelTextInput value="" name="test" onChange={onChangeHandler} />,
     );
 
     const input = panel.find('input');

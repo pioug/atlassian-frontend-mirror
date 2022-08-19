@@ -74,9 +74,7 @@ describe('<LinkPicker />', () => {
         screen.getByTestId(testIds.urlInputField),
         'www.atlassian.com',
       );
-      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
       expect(onSubmitMock).toHaveBeenCalledWith({
@@ -106,9 +104,7 @@ describe('<LinkPicker />', () => {
         'www.atlassian.com',
       );
       await userEvent.type(screen.getByTestId(testIds.textInputField), 'link');
-      fireEvent.keyDown(screen.getByTestId(testIds.textInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.textInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
       expect(onSubmitMock).toHaveBeenCalledWith({
@@ -201,9 +197,7 @@ describe('<LinkPicker />', () => {
         'https://www.atlassian.com',
       );
       await userEvent.type(screen.getByTestId(testIds.textInputField), 'link');
-      fireEvent.keyDown(screen.getByTestId(testIds.textInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.textInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
       expect(onSubmitMock).toHaveBeenCalledWith({
@@ -277,9 +271,7 @@ describe('<LinkPicker />', () => {
         screen.getByTestId(testIds.urlInputField),
         'www.atlassian.com',
       );
-      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
       expect(onSubmitMock).toHaveBeenCalledWith({
@@ -301,9 +293,7 @@ describe('<LinkPicker />', () => {
         'www.atlassian.com',
       );
       await userEvent.type(screen.getByTestId(testIds.textInputField), 'link');
-      fireEvent.keyDown(screen.getByTestId(testIds.textInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.textInputField));
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);
       expect(onSubmitMock).toHaveBeenCalledWith({
@@ -733,9 +723,7 @@ describe('<LinkPicker />', () => {
       });
 
       await userEvent.type(screen.getByTestId(testIds.urlInputField), 'ABC');
-      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
       expect(screen.getByTestId(testIds.urlError)).toBeInTheDocument();
     });
@@ -746,9 +734,7 @@ describe('<LinkPicker />', () => {
       });
 
       act(() => {
-        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-          keyCode: 13,
-        });
+        fireEvent.submit(screen.getByTestId(testIds.urlInputField));
       });
 
       expect(screen.getByTestId(testIds.urlError)).toBeInTheDocument();
@@ -760,9 +746,7 @@ describe('<LinkPicker />', () => {
       });
 
       await userEvent.type(screen.getByTestId(testIds.urlInputField), 'ABC');
-      fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-        keyCode: 13,
-      });
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
       await userEvent.type(screen.getByTestId(testIds.urlInputField), 'D');
 
@@ -801,9 +785,7 @@ describe('<LinkPicker />', () => {
       });
       act(() => {
         // Submit
-        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-          keyCode: 13,
-        });
+        fireEvent.submit(screen.getByTestId(testIds.urlInputField));
       });
 
       const secondItem = mockedPluginData[1];
@@ -912,10 +894,8 @@ describe('<LinkPicker />', () => {
         'example.com',
       );
       act(() => {
-        // This should move to the second item in the list
-        fireEvent.keyDown(screen.getByTestId(testIds.urlInputField), {
-          keyCode: 13,
-        });
+        // Submit
+        fireEvent.submit(screen.getByTestId(testIds.urlInputField));
       });
 
       expect(onSubmitMock).toHaveBeenCalledTimes(1);

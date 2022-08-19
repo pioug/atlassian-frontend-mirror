@@ -7,6 +7,7 @@ describe('live region', () => {
       'live-region',
       'basic',
       global.__BASEURL__,
+      'light',
     );
     const { page } = global;
     await loadPage(page, url);

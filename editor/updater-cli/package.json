@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/updater-cli",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "description": "Updater CLI for Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
     "ora": "^3.0.0",
     "semver": "^7.3.0",
     "terminal-link": "^1.2.0",
-    "yarn-deduplicate": "^5.0.0"
+    "yarn-deduplicate": "^5.0.2"
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

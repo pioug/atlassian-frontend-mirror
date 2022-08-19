@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import {
+  FormEvent,
   Fragment,
   KeyboardEvent,
   useCallback,
@@ -290,26 +291,31 @@ function LinkPicker({
 
       if (selectedItem) {
         const { url, name } = selectedItem;
+        dispatchEvent(new Event('submit'));
         handleInsert(url, name, 'typeAhead');
       }
     },
     [handleInsert, items],
   );
 
-  const handleSubmit = useCallback(() => {
-    if (isSelectedItem && selectedItem) {
-      return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
-    }
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (isSelectedItem && selectedItem) {
+        return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
+      }
 
-    const normalized = normalizeUrl(url);
-    if (normalized) {
-      return handleInsert(normalized, null, 'manual');
-    }
+      const normalized = normalizeUrl(url);
+      if (normalized) {
+        return handleInsert(normalized, null, 'manual');
+      }
 
-    return dispatch({
-      invalidUrl: true,
-    });
-  }, [handleInsert, isSelectedItem, selectedItem, url]);
+      return dispatch({
+        invalidUrl: true,
+      });
+    },
+    [handleInsert, isSelectedItem, selectedItem, url],
+  );
 
   const linkPlaceHolder = isActivePlugin
     ? messages.placeholder
@@ -344,7 +350,11 @@ function LinkPicker({
   );
 
   return (
-    <div data-testid={testIds.linkPicker} css={rootContainerStyles}>
+    <form
+      data-testid={testIds.linkPicker}
+      css={rootContainerStyles}
+      onSubmit={handleSubmit}
+    >
       {screenReaderText && (
         <Announcer
           ariaLive="assertive"
@@ -374,7 +384,6 @@ function LinkPicker({
         aria-describedby={screenReaderDescriptionId}
         error={invalidUrl ? intl.formatMessage(messages.linkInvalid) : null}
         onClear={handleClear}
-        onSubmit={handleSubmit}
         onKeyDown={handleKeyDown}
         onChange={handleChangeUrl}
       />
@@ -388,7 +397,6 @@ function LinkPicker({
         clearLabel={intl.formatMessage(messages.clearText)}
         aria-label={intl.formatMessage(messages.linkAriaLabel)}
         onClear={handleClear}
-        onSubmit={handleSubmit}
         onKeyDown={handleKeyDown}
         onChange={handleChangeText}
       />
@@ -498,14 +506,13 @@ function LinkPicker({
           <Button
             type="submit"
             appearance="primary"
-            onClick={handleSubmit}
             testId={testIds.insertButton}
           >
             {intl.formatMessage(insertButtonMsg)}
           </Button>
         </ButtonGroup>
       </FormFooter>
-    </div>
+    </form>
   );
 }
 

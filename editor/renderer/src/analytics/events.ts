@@ -11,11 +11,11 @@ import {
   ShallowPropsDifference,
   UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 } from '@atlaskit/editor-common/utils';
-import type { UnsupportedContentPayload } from '@atlaskit/editor-common/utils';
+import type {
+  UnsupportedContentPayload,
+  UnsupportedContentTooltipPayload,
+} from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/src/utils/analytics';
 
 export enum PLATFORM {
   NATIVE = 'mobileNative',

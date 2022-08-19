@@ -155,6 +155,7 @@ declare interface SearchProviderInfo {
     name: string;
     avatarUrl: string;
     displayName?: string;
+    [key: string]: unknown;
   };
 }
 

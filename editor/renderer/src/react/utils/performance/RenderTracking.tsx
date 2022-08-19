@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import debounce from 'lodash/debounce';
 
 import {
-  useComponentRenderTracking,
   PropsDifference,
+  ShallowPropsDifference,
+  useComponentRenderTracking,
 } from '@atlaskit/editor-common/utils';
-
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { EVENT_TYPE, ACTION_SUBJECT, ACTION } from '../../../analytics/enums';
 
@@ -36,12 +36,14 @@ export function RenderTracking<Props>(props: RenderTrackingProps<Props>) {
       if (!renderCount) {
         return;
       }
-      debouncedHandleAnalyticsEvent<Props>({
+      debouncedHandleAnalyticsEvent({
         action: props.action,
         actionSubject: props.actionSubject,
         attributes: {
           count: renderCount,
-          propsDifference: propsDifference as PropsDifference<Props>,
+          propsDifference: propsDifference as
+            | PropsDifference<unknown>
+            | ShallowPropsDifference<unknown>,
           componentId,
         },
         eventType: EVENT_TYPE.OPERATIONAL,

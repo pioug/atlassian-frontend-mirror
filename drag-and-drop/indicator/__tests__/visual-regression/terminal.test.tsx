@@ -12,6 +12,7 @@ describe('drop indicator with a terminal', () => {
       'indicator',
       'terminal',
       global.__BASEURL__,
+      'light',
     );
     const selector = `[data-testid="layout--appearance"]`;
 

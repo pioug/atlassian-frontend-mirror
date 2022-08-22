@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 21.1.2
+
+### Patch Changes
+
+- [`a024e3c77ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a024e3c77ec) - Embed Preview: Add embed preview modal (WIP)
+
 ## 21.1.1
 
 ### Patch Changes

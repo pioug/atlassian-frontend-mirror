@@ -34,6 +34,9 @@ export type MessageKey =
   | 'not_found_title'
   | 'not_found_description'
   | 'preview'
+  | 'preview_close'
+  | 'preview_max_size'
+  | 'preview_min_size'
   | 'priority_blocker'
   | 'priority_critical'
   | 'priority_high'
@@ -256,6 +259,23 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Preview',
     description:
       'Click to view a richer view of your content, without needing to navigate to it.',
+  },
+  preview_close: {
+    id: 'fabric.linking.preview_close',
+    defaultMessage: 'Close preview',
+    description: 'Click to close embed preview modal.',
+  },
+  preview_max_size: {
+    id: 'fabric.linking.preview_max_size',
+    defaultMessage: 'View full screen',
+    description:
+      'Click to increase embed preview modal size to a maximum viewing size.',
+  },
+  preview_min_size: {
+    id: 'fabric.linking.preview_min_size',
+    defaultMessage: 'Close full screen',
+    description:
+      'Click to decrease embed preview modal size to a minimum viewing size.',
   },
   priority_blocker: {
     id: 'fabric.linking.priority_blocker',

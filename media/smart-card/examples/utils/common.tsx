@@ -28,7 +28,7 @@ export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
 
 const content = `
 <html>
-  <body style="font-family:sans-serif;text-align:center;">
+  <body style="font-family:sans-serif;text-align:center;background-color:#091E4208">
     VR TEST: EMBED CONTENT
   </body>
 </html>

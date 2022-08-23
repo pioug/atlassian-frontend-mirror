@@ -10,6 +10,35 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { LinkPickerProps } from '../../../';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import LinkPicker, { testIds } from '../../link-picker';
+import matches from 'lodash/matches';
+
+expect.extend({
+  toBeFiredWithAnalyticEventOnce(analyticsListenerSpy, event, channel) {
+    const matchingEvents = analyticsListenerSpy.mock.calls.filter(
+      (arg: any[]) => matches(event)(arg[0]),
+    );
+
+    if (matchingEvents.length === 1) {
+      if (channel && matchingEvents[0][1] !== channel) {
+        return {
+          message: () =>
+            `expected analytic event to have been fired once on channel '${channel}', it actually fired on channel '${matchingEvents[0][1]}'`,
+          pass: false,
+        };
+      }
+
+      return {
+        message: () => `analytic event was fired once`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () => `expected analytic event to have been fired once`,
+        pass: false,
+      };
+    }
+  },
+});
 
 describe('LinkPicker analytics', () => {
   afterAll(() => {
@@ -27,7 +56,7 @@ describe('LinkPicker analytics', () => {
   }: Partial<LinkPickerProps> = {}) => {
     const spy = jest.fn();
 
-    render(
+    const wrappedLinkPicker = render(
       <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
         <LinkPicker
           url={url}
@@ -43,10 +72,11 @@ describe('LinkPicker analytics', () => {
     return {
       spy,
       testIds,
+      wrappedLinkPicker,
     };
   };
 
-  it('should fire `form.submitted.linkPicker` on form submission', async () => {
+  it('should fire `ui.form.submitted.linkPicker` on form submission', async () => {
     const { spy, testIds } = setupLinkPicker();
 
     await userEvent.type(
@@ -56,8 +86,8 @@ describe('LinkPicker analytics', () => {
 
     fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
-    expect(spy).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(spy).toBeFiredWithAnalyticEventOnce(
+      {
         hasFired: true,
         payload: {
           action: 'submitted',
@@ -66,7 +96,45 @@ describe('LinkPicker analytics', () => {
           actionSubjectId: 'linkPicker',
           attributes: {},
         },
-      }),
+      },
+      ANALYTICS_CHANNEL,
+    );
+  });
+
+  it('should fire `ui.inlineDialog.viewed.linkPicker` once on picker mounting', async () => {
+    const { spy } = setupLinkPicker();
+
+    expect(spy).toBeFiredWithAnalyticEventOnce(
+      {
+        hasFired: true,
+        payload: {
+          action: 'viewed',
+          eventType: 'ui',
+          actionSubject: 'inlineDialog',
+          actionSubjectId: 'linkPicker',
+          attributes: {},
+        },
+      },
+      ANALYTICS_CHANNEL,
+    );
+  });
+
+  it('should fire `ui.inlineDialog.closed.linkPicker` once on picker unmounting', async () => {
+    const { spy, wrappedLinkPicker } = setupLinkPicker();
+
+    wrappedLinkPicker.unmount();
+
+    expect(spy).toBeFiredWithAnalyticEventOnce(
+      {
+        hasFired: true,
+        payload: {
+          action: 'closed',
+          eventType: 'ui',
+          actionSubject: 'inlineDialog',
+          actionSubjectId: 'linkPicker',
+          attributes: {},
+        },
+      },
       ANALYTICS_CHANNEL,
     );
   });

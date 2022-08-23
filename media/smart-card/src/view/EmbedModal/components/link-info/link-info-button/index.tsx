@@ -24,6 +24,7 @@ const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({
         href={href}
         iconBefore={icon}
         onClick={onClick}
+        spacing="none"
         target={target}
         testId={`${testId}-button`}
       />

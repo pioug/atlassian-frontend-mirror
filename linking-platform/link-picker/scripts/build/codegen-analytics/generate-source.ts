@@ -15,8 +15,13 @@ type EventSpec = {
   attributes: Record<string, AttributeSpec>;
 };
 
-const getEventKey = ({ action, actionSubject, actionSubjectId }: EventSpec) => {
-  return ([actionSubject, action, actionSubjectId].filter(
+const getEventKey = ({
+  type,
+  action,
+  actionSubject,
+  actionSubjectId,
+}: EventSpec) => {
+  return ([type, actionSubject, action, actionSubjectId].filter(
     Boolean,
   ) as string[]).join('.');
 };
@@ -178,27 +183,30 @@ export const generateSource = (spec: { events: EventSpec[] }): string => {
         ts.factory.createObjectLiteralExpression([
           ts.factory.createPropertyAssignment(
             'eventType',
-            ts.factory.createStringLiteral('ui'),
-          ),
-          ts.factory.createPropertyAssignment(
-            'actionSubject',
             ts.factory.createElementAccessExpression(
               ts.factory.createIdentifier('event'),
               0,
             ),
           ),
           ts.factory.createPropertyAssignment(
-            'action',
+            'actionSubject',
             ts.factory.createElementAccessExpression(
               ts.factory.createIdentifier('event'),
               1,
             ),
           ),
           ts.factory.createPropertyAssignment(
-            'actionSubjectId',
+            'action',
             ts.factory.createElementAccessExpression(
               ts.factory.createIdentifier('event'),
               2,
+            ),
+          ),
+          ts.factory.createPropertyAssignment(
+            'actionSubjectId',
+            ts.factory.createElementAccessExpression(
+              ts.factory.createIdentifier('event'),
+              3,
             ),
           ),
           ts.factory.createPropertyAssignment(

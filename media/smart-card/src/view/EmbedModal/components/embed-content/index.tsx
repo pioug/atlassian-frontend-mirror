@@ -6,7 +6,7 @@ import { EmbedProps } from './types';
 
 const iframeCss = css`
   width: 100%;
-  height: calc(100vh - 214px);
+  height: calc(100vh - 208px);
 `;
 
 const EmbedContent: FC<EmbedProps> = ({ isTrusted, name, src, testId }) => {

@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 15.6.1
+
+### Patch Changes
+
+- [`d9f112c7b09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9f112c7b09) - Reverts change to multiSelect's remove behaviour when using tokens, fixing issue with a pointer-events: none style
+
 ## 15.6.0
 
 ### Minor Changes

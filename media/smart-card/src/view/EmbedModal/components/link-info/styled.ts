@@ -1,17 +1,17 @@
 import { css } from '@emotion/core';
-import { gs } from '../../../common/utils';
-import { token } from '@atlaskit/tokens';
-import { N100 } from '@atlaskit/theme/colors';
 
 export const containerStyles = css`
   align-items: center;
   display: flex;
-  gap: ${gs(2)};
+  gap: 8px;
   justify-content: space-between;
-  padding: ${gs(2)} ${gs(3)};
+  // AK ModalBody has 2px padding top and bottom.
+  // Using 14px here to create 16px gap between
+  // link info and iframe
+  padding: 24px 24px 14px 24px;
 `;
 
-const iconSize = '32px';
+const iconSize = '24px';
 export const iconCss = css`
   img,
   span,
@@ -25,16 +25,15 @@ export const iconCss = css`
   }
 `;
 
+const height = '20px';
 export const titleCss = css`
   flex: 1 1 auto;
 
   h3 {
     flex: 1 1 auto;
-
-    // EDM-42336: UX is not finalised yet.
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 24px;
+    line-height: ${height};
 
     display: -webkit-box;
     overflow: hidden;
@@ -44,20 +43,25 @@ export const titleCss = css`
     -webkit-box-orient: vertical;
     // Fallback options
     @supports not (-webkit-line-clamp: 1) {
-      max-height: 24px;
+      max-height: ${height};
     }
   }
 `;
 
-export const subtitleCss = css`
-  color: ${token('color.text.subtlest', N100)};
-
-  // EDM-42336: UX is not finalised yet.
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-`;
-
 export const actionCss = css`
+  display: flex;
   flex: 0 0 auto;
+  gap: 4px;
+  line-height: ${height};
+  span {
+    line-height: ${height};
+  }
+
+  @media only screen and (max-width: 980px) {
+    // Hide resize button if the screen is smaller than the min width
+    // or too small to have enough impact to matter.
+    .smart-link-resize-button {
+      display: none;
+    }
+  }
 `;

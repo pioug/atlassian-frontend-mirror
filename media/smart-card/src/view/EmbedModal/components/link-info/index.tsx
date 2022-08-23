@@ -83,12 +83,14 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
       <VidFullScreenOnIcon label={message.defaultMessage as string} />
     );
     return (
-      <LinkInfoButton
-        content={<FormattedMessage {...message} />}
-        icon={icon}
-        onClick={onResizeButtonClick}
-        testId={`${testId}-resize`}
-      />
+      <span className="smart-link-resize-button">
+        <LinkInfoButton
+          content={<FormattedMessage {...message} />}
+          icon={icon}
+          onClick={onResizeButtonClick}
+          testId={`${testId}-resize`}
+        />
+      </span>
     );
   }, [onResizeButtonClick, size, testId]);
 

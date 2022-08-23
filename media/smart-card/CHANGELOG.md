@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 21.1.3
+
+### Patch Changes
+
+- [`d0b3a262e03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0b3a262e03) - [ux] Embed Preview: Update the new embed preview modal UX
+
+  - Make title smaller
+  - Reduce gap between element
+  - Hide resize button on smaller screen
+
 ## 21.1.2
 
 ### Patch Changes

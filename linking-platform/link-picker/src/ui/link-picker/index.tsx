@@ -4,6 +4,7 @@ import {
   Fragment,
   KeyboardEvent,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useReducer,
 } from 'react';
@@ -181,6 +182,24 @@ function LinkPicker({
     items?.[selectedIndex];
   const isSelectedItem = selectedItem?.url === url;
 
+  useEffect(() => {
+    // Anything in here is fired on component mount.
+    const event = createAnalyticsEvent(
+      createEventPayload('ui.inlineDialog.viewed.linkPicker', {}),
+    );
+
+    event.fire(ANALYTICS_CHANNEL);
+
+    return () => {
+      // Anything in here is fired on component unmount.
+      const event = createAnalyticsEvent(
+        createEventPayload('ui.inlineDialog.closed.linkPicker', {}),
+      );
+
+      event.fire(ANALYTICS_CHANNEL);
+    };
+  }, [createAnalyticsEvent]);
+
   useLayoutEffect(() => {
     if (onContentResize) {
       onContentResize();
@@ -269,7 +288,7 @@ function LinkPicker({
   const handleInsert = useCallback(
     (url: string, title: string | null, inputType: LinkInputType) => {
       const event = createAnalyticsEvent(
-        createEventPayload('form.submitted.linkPicker', {}),
+        createEventPayload('ui.form.submitted.linkPicker', {}),
       );
 
       event.fire(ANALYTICS_CHANNEL);

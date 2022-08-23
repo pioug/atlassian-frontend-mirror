@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.8.1
+
+### Patch Changes
+
+- [`afd2368145a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/afd2368145a) - Added link picker mount/unmount analytic events
+
 ## 1.8.0
 
 ### Minor Changes

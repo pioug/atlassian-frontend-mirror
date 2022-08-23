@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { waitFor } from '@testing-library/dom';
 import { act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -16,6 +17,8 @@ const TEST_ID_EXACT_CHECKBOX = `${TEST_ID}-exact-search--checkbox-label`;
 const TEST_ID_FILTERS_DROPDOWN = `${TEST_ID}-filters--trigger`;
 const TEST_ID_FILTERS_ACTIVE = `${TEST_ID}-filters-active`;
 const TEST_ID_FILTERS_DELETED = `${TEST_ID}-filters-deleted`;
+
+const FUSE_JS_WAIT_TIME = 5000;
 
 const TokenExplorerTest = <TokenExplorer testId={TEST_ID} />;
 
@@ -59,7 +62,7 @@ describe('Token explorer', () => {
     });
 
     it('should filter tokens by matching name', async () => {
-      const { getByTestId, findByTestId } = render(TokenExplorerTest);
+      const { getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
 
@@ -67,14 +70,16 @@ describe('Token explorer', () => {
         userEvent.type(search, 'color.text', { delay: 100 });
       });
 
-      const matchingTokenItem = await findByTestId(
-        `${TEST_ID_ITEM_NAME_PREFIX}color.text.[default]`,
+      const matchingTokenItem = await waitFor(
+        () => getByTestId(`${TEST_ID_ITEM_NAME_PREFIX}color.text.[default]`),
+        { timeout: FUSE_JS_WAIT_TIME },
       );
+
       expect(matchingTokenItem).toBeInTheDocument();
     });
 
     it('should filter tokens by matching exact name', async () => {
-      const { getByTestId, findByTestId } = render(TokenExplorerTest);
+      const { getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
       const exactCheckbox = getByTestId(TEST_ID_EXACT_CHECKBOX);
@@ -84,14 +89,16 @@ describe('Token explorer', () => {
         userEvent.click(exactCheckbox);
       });
 
-      const matchingTokenItem = await findByTestId(
-        `${TEST_ID_ITEM_NAME_PREFIX}color.text.brand`,
+      const matchingTokenItem = await waitFor(
+        () => getByTestId(`${TEST_ID_ITEM_NAME_PREFIX}color.text.brand`),
+        { timeout: FUSE_JS_WAIT_TIME },
       );
+
       expect(matchingTokenItem).toBeInTheDocument();
     });
 
     it('should filter tokens by matching value', async () => {
-      const { findAllByText, getByTestId } = render(TokenExplorerTest);
+      const { getAllByText, getByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
 
@@ -99,12 +106,15 @@ describe('Token explorer', () => {
         userEvent.type(search, 'N0');
       });
 
-      const matchingTokenItem = await findAllByText('N0');
+      const matchingTokenItem = await waitFor(() => getAllByText('N0'), {
+        timeout: FUSE_JS_WAIT_TIME,
+      });
+
       expect(matchingTokenItem[0]).toBeInTheDocument();
     });
 
     it('should filter tokens by matching exact value', async () => {
-      const { getByTestId, findAllByTestId } = render(TokenExplorerTest);
+      const { getByTestId, getAllByTestId } = render(TokenExplorerTest);
 
       const search = getByTestId(TEST_ID_SEARCH);
       const exactCheckbox = getByTestId(TEST_ID_EXACT_CHECKBOX);
@@ -114,9 +124,13 @@ describe('Token explorer', () => {
         userEvent.click(exactCheckbox);
       });
 
-      const matchingTokenItem = await findAllByTestId(
-        `${TEST_ID_ITEM_VALUE_PREFIX}N0`,
+      const matchingTokenItem = await waitFor(
+        () => getAllByTestId(`${TEST_ID_ITEM_VALUE_PREFIX}N0`),
+        {
+          timeout: FUSE_JS_WAIT_TIME,
+        },
       );
+
       expect(matchingTokenItem[0]).toBeInTheDocument();
     });
   });

@@ -3,12 +3,16 @@
  *
  * Generates analytics utilities from the package analytics spec yaml
  *
- * @codegen <<SignedSource::0cc1b4d9c22b31491ded3e581114ab2c>>
+ * @codegen <<SignedSource::ffa7ec78cc793f941d06cdb25b07dc8a>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
 type FormSubmittedLinkPickerAttributesType = {};
+type InlineDialogViewedLinkPickerAttributesType = {};
+type InlineDialogClosedLinkPickerAttributesType = {};
 type AnalyticsEventAttributes = {
-  'form.submitted.linkPicker': FormSubmittedLinkPickerAttributesType;
+  'ui.form.submitted.linkPicker': FormSubmittedLinkPickerAttributesType;
+  'ui.inlineDialog.viewed.linkPicker': InlineDialogViewedLinkPickerAttributesType;
+  'ui.inlineDialog.closed.linkPicker': InlineDialogClosedLinkPickerAttributesType;
 };
 function createEventPayload<K extends keyof AnalyticsEventAttributes>(
   eventKey: K,
@@ -16,10 +20,10 @@ function createEventPayload<K extends keyof AnalyticsEventAttributes>(
 ) {
   const event = eventKey.split('.');
   return {
-    eventType: 'ui',
-    actionSubject: event[0],
-    action: event[1],
-    actionSubjectId: event[2],
+    eventType: event[0],
+    actionSubject: event[1],
+    action: event[2],
+    actionSubjectId: event[3],
     attributes: attributes,
   };
 }

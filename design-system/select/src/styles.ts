@@ -271,20 +271,10 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       '@media screen and (-ms-high-contrast: active)': {
         border: isFocused ? '1px solid transparent' : 'none',
       },
-      pointerEvents: 'none',
 
       color: isFocused
         ? token('color.text.selected', 'hsl(0, 0%, 20%)')
         : token('color.text', 'hsl(0, 0%, 20%)'),
-
-      ':hover': {
-        backgroundColor: token('color.background.danger.hovered', N40),
-        color: token('color.text.danger', 'inherit'),
-      },
-      ':active': {
-        backgroundColor: token('color.background.danger.pressed', N40),
-        color: token('color.text.danger', 'inherit'),
-      },
     }),
     multiValueLabel: (css, { isFocused }) => ({
       ...css,
@@ -300,7 +290,6 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       },
     ) => ({
       ...css,
-      pointerEvents: 'auto',
       backgroundColor:
         isFocused && token('utility.UNSAFE_util.transparent', R75),
       fill: isFocused
@@ -309,12 +298,14 @@ export default function baseStyles<Option, IsMulti extends boolean>(
       paddingLeft: '2px',
       paddingRight: '2px',
       borderRadius: '0px 2px 2px 0px',
+
+      // DSP-6470 we should style like Tag once we have the :has selector
       ':hover': {
-        backgroundColor: token('utility.UNSAFE_util.transparent', R75),
+        backgroundColor: token('color.background.danger.hovered', R75),
         fill: token('color.text.danger', '#000'),
       },
       ':active': {
-        backgroundColor: token('utility.UNSAFE_util.transparent', R75),
+        backgroundColor: token('color.background.danger.pressed', R75),
         fill: token('color.text.danger', '#000'),
       },
     }),

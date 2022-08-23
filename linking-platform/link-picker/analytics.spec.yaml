@@ -4,3 +4,11 @@ events:
     actionSubjectId: linkPicker
     type: ui
     description: fired when the link picker is successfully submitted
+  - action: viewed
+    actionSubject: inlineDialog
+    actionSubjectId: linkPicker
+    type: ui
+  - action: closed
+    actionSubject: inlineDialog
+    actionSubjectId: linkPicker
+    type: ui

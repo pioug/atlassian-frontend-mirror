@@ -174,3 +174,5 @@ export function Card({ cardId }: { cardId: string }) {
 `@atlaskit/drag-and-drop` is compatible with deferred loading. This allows you to load in `@atlaskit/drag-and-drop` after time to interactive to some future time when you need it.
 
 See our [deferred loading guide]('./deferred-loading.md)
+
+TODO: create guide

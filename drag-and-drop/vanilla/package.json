@@ -17,7 +17,12 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Vanilla",
+      "category": "Libraries",
+      "draft": true
+    }
   },
   "af:exports": {
     "./adapter/element": "./src/entry-point/adapter/element.ts",

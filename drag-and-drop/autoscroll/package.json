@@ -1,5 +1,5 @@
 {
-  "name": "@atlaskit/drag-and-drop-beautiful-autoscroll",
+  "name": "@atlaskit/drag-and-drop-autoscroll",
   "version": "0.0.0",
   "description": "Beautiful auto scrolling addon for @atlaskit/drag-and-drop",
   "author": "Atlassian Pty Ltd",
@@ -20,15 +20,15 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    "./autoscroll": "./src/autoscroll.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
+    "@atlaskit/drag-and-drop": "^0.0.0",
     "@babel/runtime": "^7.0.0",
     "css-box-model": "^1.2.0"
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/drag-and-drop": "^0.0.0",
     "@atlaskit/motion": "^1.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tokens": "^0.10.11",

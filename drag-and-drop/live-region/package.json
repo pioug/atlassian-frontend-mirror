@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/drag-and-drop-live-region",
   "version": "0.0.0",
-  "description": "A live region helper for creating accessible experiences with @atlaskit/drag-and-drop",
+  "description": "An accompanying utility for `@atlaskit/drag-and-drop` which enables screen reader messaging for alternative flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

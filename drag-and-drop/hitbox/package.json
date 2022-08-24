@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/drag-and-drop-hitbox",
   "version": "0.0.0",
-  "description": "@atlaskit/drag-and-drop package hitbox testing",
+  "description": "An addon for `@atlaskit/drag-and-drop` with helpers for attaching interaction information to a drop target when it is being dragged over",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -10,7 +10,12 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Hitbox",
+      "category": "Libraries",
+      "draft": true
+    }
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",

@@ -1,9 +1,13 @@
-# DragAndDropTree
+# `@atlaskit/drag-and-drop-hitbox`
 
-Tree add-on for drag and drop.
+An addon for `@atlaskit/drag-and-drop` with helpers for attaching interaction information to a _drop target_ when it is being dragged over
+
+## Installation
+
+```sh
+yarn add @atlaskit/drag-and-drop-hitbox
+```
 
 ## Usage
 
-`import DragAndDropTree from '@atlaskit/drag-and-drop-hitbox';`
-
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/drag-and-drop/drag-and-drop-tree).
+Detailed docs and example usage can be found on [atlassian.design](https://atlassian.design/components/drag-and-drop/).

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/core';
 import { bind } from 'bind-event-listener';
@@ -10,7 +10,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import Popup, { PopupProps, TriggerProps } from '@atlaskit/popup';
+import Popup, { TriggerProps } from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -19,7 +19,7 @@ import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
 import SelectionStore from './internal/context/selection-store';
 import useGeneratedId from './internal/utils/use-generated-id';
-import type { DropdownMenuProps } from './types';
+import type { DropdownMenuProps, Placement } from './types';
 
 const gridSize = gridSizeFn();
 const spinnerContainerStyles = css({
@@ -29,13 +29,56 @@ const spinnerContainerStyles = css({
   justifyContent: 'center',
 });
 const MAX_HEIGHT = `calc(100vh - ${gridSize * 2}px)`;
-const fallbackPlacements: PopupProps['fallbackPlacements'] = [
-  'bottom',
-  'bottom-end',
-  'right-start',
-  'left-start',
-  'auto',
-];
+
+type mainAxes = 'top' | 'bottom' | 'left' | 'right' | 'auto';
+type crossAxes = 'start' | 'end';
+const opposites = {
+  top: 'bottom',
+  bottom: 'top',
+  left: 'right',
+  right: 'left',
+  start: 'end',
+  auto: 'auto',
+  end: 'start',
+};
+
+const getFallbackPlacements = (
+  placement: Placement,
+): Placement[] | undefined => {
+  const placementPieces = placement.split('-');
+  const mainAxis = placementPieces[0] as mainAxes;
+
+  // Left, right and auto placements can rely on standard popper sliding behaviour
+  if (!['top', 'bottom'].includes(mainAxis)) {
+    return undefined;
+  }
+
+  // Top and bottom placements need to flip to the right/left to ensure
+  // long lists don't extend off the screen
+  else if (
+    placementPieces.length === 2 &&
+    ['start', 'end'].includes(placementPieces[1])
+  ) {
+    const crossAxis = placementPieces[1] as crossAxes;
+    return [
+      `${mainAxis}`,
+      `${mainAxis}-${opposites[crossAxis]}`,
+      `${opposites[mainAxis]}-${crossAxis}`,
+      `${opposites[mainAxis]}`,
+      `${opposites[mainAxis]}-${opposites[crossAxis]}`,
+      'auto',
+    ] as Placement[];
+  } else {
+    return [
+      `${mainAxis}-start`,
+      `${mainAxis}-end`,
+      `${opposites[mainAxis]}`,
+      `${opposites[mainAxis]}-start`,
+      `${opposites[mainAxis]}-end`,
+      `auto`,
+    ] as Placement[];
+  }
+};
 
 /**
  * __Dropdown menu__
@@ -67,6 +110,9 @@ const DropdownMenu = (props: DropdownMenuProps) => {
   );
 
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
+  const fallbackPlacements = useMemo(() => getFallbackPlacements(placement), [
+    placement,
+  ]);
 
   const handleTriggerClicked = useCallback(
     // TODO: event is an `any` and is being cast incorrectly
@@ -165,7 +211,7 @@ const DropdownMenu = (props: DropdownMenuProps) => {
               aria-expanded={triggerProps['aria-expanded']}
               aria-haspopup={triggerProps['aria-haspopup']}
               isSelected={isLocalOpen}
-              iconAfter={<ExpandIcon size="medium" label="expand" />}
+              iconAfter={<ExpandIcon size="medium" label="" />}
               onClick={handleTriggerClicked}
               testId={testId && `${testId}--trigger`}
             >

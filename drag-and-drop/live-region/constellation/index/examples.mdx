@@ -1,0 +1,25 @@
+## Announce a message
+
+The `announce` function announces the provided message to assistive technology.
+
+Internally, a single live region will be created and reused across function calls. The live region is created with `role="alert"`, equivalent to setting:
+
+- `aria-live="assertive"`, meaning that messages will be announced immediately and interrupt any message currently being announced.
+- `aria-atomic="true"`, meaning that messages will always be read in full.
+
+```
+import * as liveRegion from '@atlaskit/live-region';
+
+liveRegion.announce('Task "Clean dishes" moved to list "Doing" from "Todo".');
+```
+
+## Cleanup live region
+The `cleanup` function will remove the live region created by announce from the DOM.
+
+If a live region does not exist, no error will be thrown and nothing will happen. This means that the function is safe to call optimistically.
+
+```
+import * as liveRegion from '@atlaskit/live-region';
+
+liveRegion.cleanup();
+```

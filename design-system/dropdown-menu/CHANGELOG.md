@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.3.1
+
+### Patch Changes
+
+- [`61d8af6f398`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61d8af6f398) - Adjusted the fallback placements for dropdown-menu to reduce how frequently the menu jumps while scrolling
+
 ## 11.3.0
 
 ### Minor Changes

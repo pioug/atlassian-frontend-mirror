@@ -21,6 +21,22 @@ describe('Snapshot Test', () => {
     expect(dropdownImage).toMatchProdImageSnapshot();
   });
 
+  it('it should set fallback placements correctly', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'dropdown-menu',
+      'testing-placements',
+      global.__BASEURL__,
+    );
+
+    const { page } = global;
+
+    await loadPage(page, url);
+
+    const dropdownImage = await page.screenshot();
+    expect(dropdownImage).toMatchProdImageSnapshot();
+  });
+
   it('should accept custom zIndex', async () => {
     const url = getExampleUrl(
       'design-system',

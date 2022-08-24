@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 
 import { ClassNames, css, jsx, SerializedStyles } from '@emotion/core';
 
-import type { Edge } from '@atlaskit/drag-and-drop-hitbox/closest-edge';
+import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
 
 import { cssVar, line, terminal } from './constants';
 

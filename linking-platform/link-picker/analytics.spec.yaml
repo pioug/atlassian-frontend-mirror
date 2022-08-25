@@ -1,14 +1,31 @@
+context:
+  LinkPickerAnalyticsContext: &LinkPickerAnalyticsContext
+    linkState:
+      type: ['editLink', 'newLink']
+      description: whether the link picker is inserting a new link or editing an existing link
+
 events:
   - action: submitted
     actionSubject: form
     actionSubjectId: linkPicker
     type: ui
     description: fired when the link picker is successfully submitted
+    attributes:
+      <<: *LinkPickerAnalyticsContext
+
   - action: viewed
     actionSubject: inlineDialog
     actionSubjectId: linkPicker
     type: ui
+    description: fired when the link picker component is mounted/viewed
+    attributes:
+      <<: *LinkPickerAnalyticsContext
+
   - action: closed
     actionSubject: inlineDialog
     actionSubjectId: linkPicker
     type: ui
+    description: fired when the link picked component is unmounted/dismissed for any reason
+    attributes:
+      <<: *LinkPickerAnalyticsContext
+

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-live-region",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An accompanying utility for `@atlaskit/drag-and-drop` which enables screen reader messaging for alternative flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
     "@testing-library/react": "^8.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.2.4",
+    "typescript": "4.3.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

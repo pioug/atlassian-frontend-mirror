@@ -90,4 +90,4 @@ export const createAutoScroller = () => {
   return { start, updateInput, stop };
 };
 
-export default createAutoScroller;
+export const autoScroller = createAutoScroller();

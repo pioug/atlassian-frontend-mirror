@@ -1,4 +1,5 @@
 import { JsonLd } from 'json-ld-types';
+import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 
 import { InvokeHandler } from '../../../model/invoke-handler';
 import { InvokeClientOpts } from '../../../model/invoke-opts';
@@ -72,6 +73,7 @@ export const extractPreviewAction = (
   testId?: string,
   platform?: CardPlatform,
   source?: CardInnerAppearance,
+  featureFlags?: Partial<LinkingPlatformFeatureFlags>,
 ) => {
   // Extract metadata from view props & raw JSON-LD.
   const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd, platform);
@@ -86,6 +88,7 @@ export const extractPreviewAction = (
     const key = extensionKey;
     const previewAction = PreviewAction({
       ...metadata,
+      featureFlags,
       testId,
       onOpen: () => {
         handleAnalytics(uiRenderSuccessEvent('preview', 'resolved', key));

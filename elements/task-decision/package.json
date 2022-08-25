@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/task-decision",
-  "version": "17.4.4",
+  "version": "17.4.5",
   "description": "Tasks and decisions react components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -57,7 +57,7 @@
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
     "sinon": "^2.2.0",
-    "typescript": "4.2.4",
+    "typescript": "4.3.5",
     "url-search-params": "^0.10.0"
   },
   "techstack": {

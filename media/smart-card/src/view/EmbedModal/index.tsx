@@ -8,6 +8,7 @@ import { MAX_MODAL_SIZE, MIN_MODAL_SIZE } from './constants';
 import EmbedContent from './components/embed-content';
 import { EmbedModalProps } from './types';
 import withErrorBoundary from './components/error-boundary';
+import withSizeExperiment from './components/size-experiment';
 
 const EmbedModal: React.FC<EmbedModalProps> = ({
   download: downloadUrl,
@@ -20,13 +21,14 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   onViewActionClick,
   providerName,
   showModal,
+  size: defaultSize = MIN_MODAL_SIZE,
   src,
-  testId = 'smart-links-preview-modal',
+  testId = 'smart-embed-preview-modal',
   title,
   url,
 }) => {
   const [isOpen, setIsOpen] = useState(showModal);
-  const [size, setSize] = useState(MIN_MODAL_SIZE);
+  const [size, setSize] = useState(defaultSize);
 
   const handleOnClose = useCallback(() => setIsOpen(false), []);
 
@@ -72,4 +74,4 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   );
 };
 
-export default withErrorBoundary(EmbedModal);
+export default withSizeExperiment(withErrorBoundary(EmbedModal));

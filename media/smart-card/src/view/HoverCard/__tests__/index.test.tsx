@@ -3,6 +3,15 @@ jest.mock('react-transition-group/Transition', () => (data: any) =>
   data.children,
 );
 jest.doMock('../../../utils/analytics/analytics');
+jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
+  switch (src) {
+    case 'src-error':
+      onError && onError();
+      return errored;
+    default:
+      return null;
+  }
+});
 
 import '../../__mocks__/intersection-observer.mock';
 import React from 'react';
@@ -18,6 +27,7 @@ import {
   mockJiraResponse,
   mockIframelyResponse,
   mockBaseResponseWithPreview,
+  mockBaseResponseWithErrorPreview,
   mockBaseResponseWithDownload,
   mockSSRResponse,
 } from './__mocks__/mocks';
@@ -81,16 +91,29 @@ describe('HoverCard', () => {
     expect(footerBlock.textContent?.trim()).toBe('ConfluenceCommentPreview');
   });
 
-  it('should render preview instead of snippet when it is available', async () => {
+  it('should render preview instead of snippet when preview data is available', async () => {
     const { findByTestId, queryByTestId } = await setup(
       mockBaseResponseWithPreview,
     );
     jest.runAllTimers();
-
     await findByTestId('smart-block-title-resolved-view');
     await findByTestId('smart-block-preview-resolved-view');
 
     expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
+  });
+
+  it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
+    const { findByTestId, queryByTestId } = await setup(
+      mockBaseResponseWithErrorPreview,
+    );
+    jest.runAllTimers();
+    await findByTestId('smart-block-title-resolved-view');
+    fireEvent.transitionEnd(
+      await findByTestId('smart-block-preview-resolved-view'),
+    );
+    await findByTestId('smart-block-snippet-resolved-view');
+
+    expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
   });
 
   describe('metadata', () => {

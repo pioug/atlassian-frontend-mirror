@@ -8,6 +8,7 @@ import { AnalyticsHandler } from '../../utils/types';
 import { ReactElement } from 'react';
 import { TitleBlockProps } from '../FlexibleCard/components/blocks/title-block/types';
 import { FlexibleCardProps } from '../FlexibleCard/types';
+import { JsonLd } from 'json-ld-types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
   id?: string;
@@ -43,4 +44,9 @@ export type HoverCardContentProps = {
 export type HoverCardLoadingViewProps = {
   flexibleCardProps: FlexibleCardProps;
   titleBlockProps: TitleBlockProps;
+};
+
+export type SnippetOrPreviewProps = {
+  data: JsonLd.Data.BaseData;
+  snippetHeight: number;
 };

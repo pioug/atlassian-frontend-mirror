@@ -1,12 +1,12 @@
 import { replaceRaf, Stub } from 'raf-stub';
 
-import { createAutoScroller } from '../../src';
+import { autoScroller } from '../../src';
 import config from '../../src/internal/config';
 import { minScroll } from '../../src/internal/constants';
 
 import { combine, getDefaultInput, getRect } from './_util';
 
-describe('createAutoScroller()', () => {
+describe('autoScroller', () => {
   replaceRaf();
 
   const requestAnimationFrame = (window.requestAnimationFrame as any) as Stub;
@@ -155,37 +155,37 @@ describe('createAutoScroller()', () => {
 
       afterEach(() => {
         jest.resetAllMocks();
+        autoScroller.stop();
         cleanup();
       });
 
       const scroll = scenario.scrollMock;
 
       it(`should not scroll ${scenario.target} on start()`, () => {
-        const { start } = createAutoScroller();
-        start({ input: getDefaultInput() });
+        autoScroller.start({ input: getDefaultInput() });
         expect(scroll).toHaveBeenCalledTimes(0);
       });
 
       describe('start/stop API methods', () => {
         it(`should not scroll ${scenario.target} if stop() is called in the same frame`, () => {
-          const { start, stop } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 75 } });
-          stop();
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 75 },
+          });
+          autoScroller.stop();
           tick();
 
           expect(scroll).toHaveBeenCalledTimes(0);
         });
 
         it(`should scroll ${scenario.target} in every rAf frame until stop() is called`, () => {
-          const { start, stop } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 75 } }); // nothing
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 75 },
+          }); // nothing
 
           tick(); // 1st
           tick(); // 2nd
           tick(); // 3rd
-          stop();
+          autoScroller.stop();
           tick(); // nothing
 
           expect(scroll).toHaveBeenCalledTimes(3);
@@ -194,30 +194,30 @@ describe('createAutoScroller()', () => {
 
       describe('vertical scrolling scenarios', () => {
         it(`should not scroll ${scenario.target} if element is lifted in the middle`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 50 },
+          });
           tick();
 
           expect(scroll).toHaveBeenCalledTimes(0);
         });
 
         it(`should not scroll ${scenario.target} if element is lifted 1px before the boundary of the scrollable area`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 74 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 74 },
+          });
           tick();
 
           expect(scroll).toHaveBeenCalledTimes(0);
         });
 
         it(`should not scroll ${scenario.target} if element is lifted in the middle and moved 1px before the boundary`, () => {
-          const { start, updateInput } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 50 },
+          });
           tick();
           expect(scroll).toHaveBeenCalledTimes(0);
-          updateInput({
+          autoScroller.updateInput({
             input: { ...getDefaultInput(), clientX: 50, clientY: 74 },
           });
           tick();
@@ -225,9 +225,9 @@ describe('createAutoScroller()', () => {
         });
 
         it(`should scroll ${scenario.target} by min value if element is lifted at the boundary of the scrollable area`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 75 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 75 },
+          });
           tick(config.durationDampening.stopDampeningAt);
 
           expect(scroll).toHaveBeenCalledTimes(1);
@@ -235,9 +235,9 @@ describe('createAutoScroller()', () => {
         });
 
         it(`should scroll ${scenario.target} by some amount if element is lifted in the scrollable area, after time dampening is finished`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 85 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 85 },
+          });
           tick(config.durationDampening.stopDampeningAt);
 
           expect(scroll).toHaveBeenCalledTimes(1);
@@ -245,9 +245,9 @@ describe('createAutoScroller()', () => {
         });
 
         it(`should scroll ${scenario.target} by max value if element is lifted close to the edge of the scrollable area after time dampening is finished`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 95 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 95 },
+          });
           tick(config.durationDampening.stopDampeningAt);
 
           expect(scroll).toHaveBeenCalledTimes(1);
@@ -256,13 +256,12 @@ describe('createAutoScroller()', () => {
 
         describe('time dampening', () => {
           it('should not dampen scrolling when lifted outside of the scrollable area', () => {
-            const { start, updateInput } = createAutoScroller();
-            start({
+            autoScroller.start({
               input: { ...getDefaultInput(), clientX: 50, clientY: 50 },
             });
             tick();
             expect(scroll).toHaveBeenCalledTimes(0);
-            updateInput({
+            autoScroller.updateInput({
               input: { ...getDefaultInput(), clientX: 50, clientY: 95 },
             });
             tick();
@@ -279,8 +278,7 @@ describe('createAutoScroller()', () => {
           });
 
           it('should accelerate scroll over time when element is lifted in the scrollable area', () => {
-            const { start } = createAutoScroller();
-            start({
+            autoScroller.start({
               input: { ...getDefaultInput(), clientX: 50, clientY: 95 },
             });
             tick();
@@ -300,21 +298,21 @@ describe('createAutoScroller()', () => {
 
       describe('horizontal scrolling scenarios', () => {
         it(`should not scroll ${scenario.target} if element is lifted 1px before the boundary of the scrollable area`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 74, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 74, clientY: 50 },
+          });
           tick();
 
           expect(scroll).toHaveBeenCalledTimes(0);
         });
 
         it(`should not scroll ${scenario.target} if element is lifted in the middle and moved 1px before the boundary`, () => {
-          const { start, updateInput } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 50, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 50, clientY: 50 },
+          });
           tick();
           expect(scroll).toHaveBeenCalledTimes(0);
-          updateInput({
+          autoScroller.updateInput({
             input: { ...getDefaultInput(), clientX: 74, clientY: 50 },
           });
           tick();
@@ -322,9 +320,9 @@ describe('createAutoScroller()', () => {
         });
 
         it(`should scroll ${scenario.target} by min value if element is lifted at the boundary of the scrollable area`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 75, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 75, clientY: 50 },
+          });
           tick(config.durationDampening.stopDampeningAt);
 
           expect(scroll).toHaveBeenCalledTimes(1);
@@ -332,9 +330,9 @@ describe('createAutoScroller()', () => {
         });
 
         it(`should scroll ${scenario.target} by some amount if element is lifted in the scrollable area, after time dampening is finished`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 85, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 85, clientY: 50 },
+          });
           tick(config.durationDampening.stopDampeningAt);
 
           expect(scroll).toHaveBeenCalledTimes(1);
@@ -342,9 +340,9 @@ describe('createAutoScroller()', () => {
         });
 
         it(`should scroll ${scenario.target} by max value if element is lifted close to the edge of the scrollable area after time dampening is finished`, () => {
-          const { start } = createAutoScroller();
-
-          start({ input: { ...getDefaultInput(), clientX: 95, clientY: 50 } });
+          autoScroller.start({
+            input: { ...getDefaultInput(), clientX: 95, clientY: 50 },
+          });
           tick(config.durationDampening.stopDampeningAt);
 
           expect(scroll).toHaveBeenCalledTimes(1);
@@ -353,13 +351,12 @@ describe('createAutoScroller()', () => {
 
         describe('time dampening', () => {
           it('should not dampen scrolling when lifted outside of the scrollable area', () => {
-            const { start, updateInput } = createAutoScroller();
-            start({
+            autoScroller.start({
               input: { ...getDefaultInput(), clientX: 50, clientY: 50 },
             });
             tick();
             expect(scroll).toHaveBeenCalledTimes(0);
-            updateInput({
+            autoScroller.updateInput({
               input: { ...getDefaultInput(), clientX: 95, clientY: 50 },
             });
             tick();
@@ -376,8 +373,7 @@ describe('createAutoScroller()', () => {
           });
 
           it('should accelerate scroll over time when element is lifted in the scrollable area', () => {
-            const { start } = createAutoScroller();
-            start({
+            autoScroller.start({
               input: { ...getDefaultInput(), clientX: 95, clientY: 50 },
             });
             tick();

@@ -10,10 +10,9 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   width,
   height,
 }) => {
-  const animationWidth = width ? `${width}rem` : '20px';
   const animationNameStyles = keyframes`
-    0% { background-position: -${animationWidth}  0; }
-    100% { background-position: ${animationWidth} 0; }
+    0% { background-position: 50%  0; }
+    100% { background-position: -50% 0; }
   `;
 
   const styles = css`

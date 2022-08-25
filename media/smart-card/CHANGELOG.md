@@ -1,5 +1,30 @@
 # @atlaskit/smart-card
 
+## 21.3.0
+
+### Minor Changes
+
+- [`1c76ddcd2f3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c76ddcd2f3) - [ux] Flex-UI: - Add props to generic block: - onRender - onTransitionEnd - blockRef
+  HoverCard: - use the above properties in Hover Card to apply transition to preview block and fallback to snippet
+
+## 21.2.0
+
+### Minor Changes
+
+- [`d2439a3c65d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2439a3c65d) - [ux] Embed Preview Modal: Add experiment modal with new UX and resize functionality (behind feature flag)
+
+### Patch Changes
+
+- [`6dd64ce82a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dd64ce82a8) - [ux] This changes icon loading for Flexible Smart Links. Previously, all `@atlaskit/icon-file-type/glyph/` icons in Flexible Smart Links would be loaded asynchronously. This change makes it so that the `@atlaskit/icon-file-type/glyph/blog` and `@atlaskit/icon-file-type/glyph/document`icons load synchronously in order to better support SSR use cases.
+- Updated dependencies
+
+## 21.1.4
+
+### Patch Changes
+
+- [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- Updated dependencies
+
 ## 21.1.3
 
 ### Patch Changes

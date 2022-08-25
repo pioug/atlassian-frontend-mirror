@@ -6,6 +6,7 @@ import { join } from 'path';
 import yaml from 'js-yaml';
 
 import { generateSource } from './generate-source';
+import { annotateContextualAttributes } from './context';
 
 const generateCode = () => {
   try {
@@ -15,7 +16,9 @@ const generateCode = () => {
       }),
     );
 
-    const source = format(generateSource(spec), {
+    const transformedSpec = annotateContextualAttributes(spec);
+
+    const source = format(generateSource(transformedSpec), {
       parser: 'typescript',
       singleQuote: true,
     });

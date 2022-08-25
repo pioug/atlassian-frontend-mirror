@@ -61,6 +61,7 @@ export const extractBlockActions = (
 ): ActionProps[] => {
   if (opts) {
     const {
+      featureFlags,
       handleInvoke,
       handleAnalytics,
       extensionKey,
@@ -77,6 +78,7 @@ export const extractBlockActions = (
       testId,
       platform,
       source,
+      featureFlags,
     );
 
     // The previewAction should always be the last action

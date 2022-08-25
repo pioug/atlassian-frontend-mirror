@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/visually-hidden",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A composable element that hides elements from the screen while keeping them accessible.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "react-dom": "^16.8.0",
-    "typescript": "4.2.4",
+    "typescript": "4.3.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

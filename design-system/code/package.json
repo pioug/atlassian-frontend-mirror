@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.3.8",
+  "version": "14.3.9",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
     "jscodeshift": "^0.13.0",
     "prismjs": "^1.25.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "keywords": [
     "atlaskit",

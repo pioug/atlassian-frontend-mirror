@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A performance optimized drag and drop framework for everyone",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
@@ -52,7 +52,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "tiny-invariant": "^1.2.0",
-    "typescript": "4.2.4",
+    "typescript": "4.3.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

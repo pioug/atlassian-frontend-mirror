@@ -1,14 +1,15 @@
 import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider, FormattedMessage } from 'react-intl-next';
+import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 
-import { ModalProps } from '../../common/Modal';
+import { EmbedModalWithExperimentProps } from '../../EmbedModal/types';
 import { ActionProps } from '../components/Action';
 import { IconProps } from '../../common/Icon';
 import { MetadataProps } from '../../common/Metadata';
 import { messages } from '../../../messages';
 
-export interface PreviewFunctionArg extends ModalProps {
+export interface PreviewFunctionArg extends EmbedModalWithExperimentProps {
   /* The id of a HTML element that will be used OR created to mount the modal from */
   popupMountPointId: string;
 }
@@ -41,7 +42,7 @@ export async function previewFunction({
     document.body.appendChild(popupMountPoint);
   }
 
-  let Modal = await import('../../common/Modal');
+  let Modal = await import('../../EmbedModal');
 
   ReactDOM.render(
     <IntlProvider locale="en">
@@ -77,6 +78,7 @@ type PreviewInfo = {
   onDownloadActionClick?: () => void;
   onOpen?: () => void;
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
+  featureFlags?: Partial<LinkingPlatformFeatureFlags>;
 };
 
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({

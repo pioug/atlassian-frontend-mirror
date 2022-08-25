@@ -116,7 +116,8 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('with DropdownMenu', async () => {
+  // FIXME: Unskip via https://product-fabric.atlassian.net/browse/DSP-6503
+  it.skip('with DropdownMenu', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToBottom);

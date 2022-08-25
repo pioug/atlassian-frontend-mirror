@@ -3,6 +3,9 @@ import Loadable from 'react-loadable';
 
 import { B200, B400, N700, R400 } from '@atlaskit/theme/colors';
 
+import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
+import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
+
 import { IconType } from '../../../../../constants';
 import { AtlaskitIconProps } from './types';
 import { token } from '@atlaskit/tokens';
@@ -13,9 +16,7 @@ const importIconMapper: {
 } = {
   [IconType.Archive]: () => import(/* webpackChunkName: "glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/16'),
   [IconType.Audio]: () => import(/* webpackChunkName: "glyphAudio" */ '@atlaskit/icon-file-type/glyph/audio/16'),
-  [IconType.Blog]: () => import(/* webpackChunkName: "glyphBlog" */ '@atlaskit/icon-object/glyph/blog/16'),
   [IconType.Code]: () => import(/* webpackChunkName: "glyphCode" */ '@atlaskit/icon-file-type/glyph/source-code/16'),
-  [IconType.Document]: () => import(/* webpackChunkName: "glyphDocument" */ '@atlaskit/icon-file-type/glyph/document/16'),
   [IconType.Executable]: () => import(/* webpackChunkName: "glyphExecutable" */ '@atlaskit/icon-file-type/glyph/executable/16'),
   [IconType.File]: () => import(/* webpackChunkName: "glyphFile" */ '@atlaskit/icon-file-type/glyph/generic/16'),
   [IconType.Folder]: () => import(/* webpackChunkName: "glyphFolder" */ '@atlaskit/icon-file-type/glyph/folder/16'),
@@ -100,6 +101,14 @@ const importIcon = (importFn: () => Promise<any>): any => {
 };
 
 const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
+  // Check for synchonously loaded icons first for SSR purposes
+  switch (icon) {
+    case IconType.Document:
+      return <DocumentIcon label={label || 'document'} testId={testId} />;
+    case IconType.Blog:
+      return <BlogIcon label={label || 'blog'} testId={testId} />;
+  }
+
   const importFn = getIconImportFn(icon);
   if (!importFn) {
     return null;

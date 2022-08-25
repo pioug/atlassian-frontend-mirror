@@ -7,13 +7,17 @@
 ```ts
 import type { Input } from '@atlaskit/drag-and-drop/types';
 
-declare const createAutoScroller: () => {
+export declare const autoScroller: {
   start: ({ input }: { input: Input }) => void;
   updateInput: ({ input }: { input: Input }) => void;
   stop: () => void;
 };
-export { createAutoScroller };
-export default createAutoScroller;
+
+export declare const createAutoScroller: () => {
+  start: ({ input }: { input: Input }) => void;
+  updateInput: ({ input }: { input: Input }) => void;
+  stop: () => void;
+};
 
 export {};
 ```

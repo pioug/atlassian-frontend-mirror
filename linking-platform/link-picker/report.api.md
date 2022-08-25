@@ -5,6 +5,8 @@
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
 ```ts
+/// <reference types="react" />
+
 import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';

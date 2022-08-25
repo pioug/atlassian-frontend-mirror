@@ -66,7 +66,7 @@ export function CardWithUrlContent({
 
   const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
   if (showHoverPreview === undefined && showHoverPreviewFlag !== undefined) {
-    showHoverPreview = showHoverPreviewFlag;
+    showHoverPreview = Boolean(showHoverPreviewFlag);
   }
 
   // Setup UI handlers.

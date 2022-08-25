@@ -1,13 +1,12 @@
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { extractType } from '@atlaskit/linking-common/extractors';
 import { JsonLd } from 'json-ld-types';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   ActionName,
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../constants';
-import extractPreview from '../../../extractors/flexible/extract-preview';
 import { extractMetadata } from '../../../extractors/hover/extractMetadata';
 import { useSmartCardActions } from '../../../state/actions';
 import { AnalyticsFacade } from '../../../state/analytics';
@@ -18,7 +17,6 @@ import FlexibleCard from '../../FlexibleCard';
 import {
   FooterBlock,
   MetadataBlock,
-  PreviewBlock,
   SnippetBlock,
   TitleBlock,
 } from '../../FlexibleCard/components/blocks';
@@ -33,10 +31,12 @@ import {
   footerBlockCss,
   metadataBlockCss,
   titleBlockCss,
+  hiddenSnippetStyles,
 } from '../styled';
 import { HoverCardContentProps } from '../types';
 import { getSimulatedMetadata, SMART_CARD_ANALYTICS_DISPLAY } from '../utils';
 import HoverCardLoadingView from './HoverCardLoadingView';
+import SnippetOrPreview from './SnippetOrPreview';
 
 export const getOpenAction = (
   url: string,
@@ -143,8 +143,16 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
 
   const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;
 
-  const body =
-    data && extractPreview(data) ? <PreviewBlock /> : <SnippetBlock />;
+  const snippetHeight = React.useRef<number>(0);
+  const snippetBlockRef = useRef<HTMLDivElement>(null);
+  const onSnippetRender = useCallback(() => {
+    snippetHeight.current =
+      snippetBlockRef.current?.getBoundingClientRect().height ?? 0;
+  }, []);
+  const body = SnippetOrPreview({
+    data: data,
+    snippetHeight: snippetHeight.current,
+  });
 
   const titleBlockProps: TitleBlockProps = {
     actions: titleActions,
@@ -186,6 +194,12 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
         maxLines={1}
       />
       {body}
+      <SnippetBlock
+        testId={'hidden-snippet'}
+        onRender={onSnippetRender}
+        blockRef={snippetBlockRef}
+        overrideCss={hiddenSnippetStyles}
+      />
       <FooterBlock
         actions={footerActions}
         size={SmartLinkSize.Large}

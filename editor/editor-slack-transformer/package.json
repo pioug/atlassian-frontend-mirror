@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-slack-transformer",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "Editor Slack transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,13 +38,13 @@
     "@atlaskit/editor-core": "^172.0.0",
     "@atlaskit/editor-test-helpers": "^17.1.0",
     "@atlaskit/emoji": "^65.1.0",
-    "@atlaskit/smart-card": "^21.1.0",
+    "@atlaskit/smart-card": "^21.3.0",
     "@atlaskit/theme": "^12.1.0",
     "@atlaskit/util-data-test": "^17.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "prosemirror-view": "1.23.2",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {

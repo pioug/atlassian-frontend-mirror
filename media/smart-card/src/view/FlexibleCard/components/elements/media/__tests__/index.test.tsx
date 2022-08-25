@@ -6,9 +6,18 @@ import { render } from '@testing-library/react';
 import Media from '../index';
 import { MediaType } from '../../../../../../constants';
 
-jest.mock('react-render-image', () => () => (
-  <img data-testid="smart-element-media-image" src="src-loaded" />
-));
+jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
+  switch (src) {
+    case 'src-error':
+      if (onError) {
+        onError();
+      }
+      return errored;
+    case 'src-loaded':
+    default:
+      return <img data-testid="smart-element-media-image" src="src-loaded" />;
+  }
+});
 
 describe('Element: Media', () => {
   const testId = 'smart-element-media';
@@ -56,5 +65,16 @@ describe('Element: Media', () => {
     const element = await findByTestId(testId);
 
     expect(element).toHaveStyleDeclaration('background-color', 'blue');
+  });
+
+  describe('Image', () => {
+    it('renders nothing on error', async () => {
+      const { findByTestId, queryByTestId } = render(
+        <Media type={MediaType.Image} url="src-error" />,
+      );
+      await findByTestId(testId);
+
+      expect(queryByTestId(`${testId}-image`)).toBeNull();
+    });
   });
 });

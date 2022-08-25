@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-service-support",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "description": "A library of support classes for integrating React components with REST HTTP services",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
     "es6-promise": "^4.0.5",
     "fetch-mock": "^8.0.0",
     "sinon": "^2.2.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "keywords": [
     "fabric",

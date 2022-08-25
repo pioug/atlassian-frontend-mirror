@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-image",
-  "version": "17.2.3",
+  "version": "17.2.4",
   "description": "Media image element - provides single display of image",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "enzyme": "^3.10.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

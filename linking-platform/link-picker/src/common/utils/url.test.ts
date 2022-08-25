@@ -1,4 +1,4 @@
-import { normalizeUrl } from '../../ui/link-picker/url';
+import { normalizeUrl } from './url';
 
 describe('normalizeUrl', () => {
   it.each<string | { input: string; expected: string | null }>([

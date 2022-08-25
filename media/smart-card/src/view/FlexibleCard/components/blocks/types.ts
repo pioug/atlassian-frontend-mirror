@@ -7,6 +7,7 @@ import {
 } from '../../../../constants';
 import { SerializedStyles } from '@emotion/core';
 import { ActionProps } from '../actions/action/types';
+import { Ref } from 'react';
 
 export type BlockProps = {
   /**
@@ -40,6 +41,23 @@ export type BlockProps = {
    * serving as a hook for automated tests
    */
   testId?: string;
+
+  /**
+   * Ref to block wrapper div.
+   */
+  blockRef?: Ref<HTMLDivElement>;
+
+  /**
+   * Function to be called on render of block.
+   * @internal
+   */
+  onRender?: () => void;
+
+  /**
+   * Function to be called on transition end of block.
+   * @internal
+   */
+  onTransitionEnd?: () => void;
 };
 
 /**

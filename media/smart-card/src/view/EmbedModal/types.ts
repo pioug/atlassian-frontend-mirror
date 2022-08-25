@@ -1,5 +1,7 @@
 import { ErrorInfo } from 'react';
 import { IconProps } from '../common/Icon';
+import { WithSizeExperimentProps } from './components/size-experiment/types';
+import { ModalProps } from '../common/Modal';
 
 export type EmbedModalProps = {
   /* Label to be used for the close 'x' */
@@ -28,6 +30,8 @@ export type EmbedModalProps = {
   providerName?: string;
   /* Toggle whether to show the modal or not */
   showModal?: boolean;
+  /* Size of the modal used in an experiment */
+  size?: string;
   /* URL used to load iframe */
   src?: string;
   /* For testing purposes */
@@ -37,3 +41,7 @@ export type EmbedModalProps = {
   /* If you are not providing src, you should still provide a url, allowing people to access the page where the document is */
   url?: string;
 };
+
+export type EmbedModalWithExperimentProps = EmbedModalProps &
+  ModalProps &
+  WithSizeExperimentProps;

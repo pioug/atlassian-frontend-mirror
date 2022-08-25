@@ -29,6 +29,7 @@ import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { ProviderProps } from '@atlaskit/link-provider';
 import { default as React_2 } from 'react';
 import { ReactChild } from 'react';
+import { Ref } from 'react';
 import { SerializedStyles } from '@emotion/core';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -237,6 +238,20 @@ declare type BlockProps = {
    * serving as a hook for automated tests
    */
   testId?: string;
+  /**
+   * Ref to block wrapper div.
+   */
+  blockRef?: Ref<HTMLDivElement>;
+  /**
+   * Function to be called on render of block.
+   * @internal
+   */
+  onRender?: () => void;
+  /**
+   * Function to be called on transition end of block.
+   * @internal
+   */
+  onTransitionEnd?: () => void;
 };
 
 export declare const Card: React_2.ForwardRefExoticComponent<
@@ -263,12 +278,12 @@ export declare const Card: React_2.ForwardRefExoticComponent<
     | 'key'
     | 'url'
     | 'ui'
+    | 'showHoverPreview'
     | 'showActions'
     | 'onResolve'
     | 'platform'
     | 'isFrameVisible'
     | 'embedIframeRef'
-    | 'showHoverPreview'
     | 'inlinePreloaderStyle'
     | 'importer'
     | 'container'
@@ -672,7 +687,13 @@ declare type Preview = {
  */
 export declare const PreviewBlock: React_2.FC<PreviewBlockProps>;
 
-declare type PreviewBlockProps = BlockProps;
+declare type PreviewBlockProps = {
+  /**
+   * Function to be called on error loading media.
+   * @internal
+   */
+  onError?: () => void;
+} & BlockProps;
 
 declare type PreviewDisplay = 'card' | 'embed';
 

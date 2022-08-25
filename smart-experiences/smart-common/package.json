@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-common",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Smarts common lib",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "fetch-mock": "^8.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "techstack": {
     "@atlassian/frontend": {

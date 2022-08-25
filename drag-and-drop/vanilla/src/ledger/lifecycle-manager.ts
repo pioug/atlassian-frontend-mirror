@@ -239,10 +239,7 @@ function start<DragType extends AllDragTypes>({
           location: state,
           updatedExternalPayload:
             dragInterface.startedFrom === 'external'
-              ? // This type is correctly narrowed in TS4.7
-                // But is not narrowing correctly in TS4.2
-                // @ts-expect-error
-                dragInterface.getDropPayload?.(event) || null
+              ? dragInterface.getDropPayload?.(event) || null
               : null,
         });
 

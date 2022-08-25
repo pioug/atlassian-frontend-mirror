@@ -1,19 +1,9 @@
 import * as ts from 'typescript';
 
-type EventType = 'ui' | 'screen' | 'operational' | 'track';
+import { EventSpec, AnalyticsSpec } from './types';
 
-type AttributeSpec = {
-  type: 'string' | 'number';
-};
-
-type EventSpec = {
-  action: string;
-  actionSubject: string;
-  actionSubjectId?: string;
-  type: EventType;
-  description: string;
-  attributes: Record<string, AttributeSpec>;
-};
+import { getAttributePropertySignature } from './attribute';
+import { generateContextDataTypeAliases } from './context';
 
 const getEventKey = ({
   type,
@@ -40,30 +30,7 @@ const getEventPayloadTypeName = ({
   );
 };
 
-const getEventAttributeType = (type: AttributeSpec['type']) => {
-  switch (type) {
-    case 'string':
-      return ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
-    case 'number':
-      return ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
-    default:
-      throw new Error(`Unsupported attribute type: ${type}`);
-  }
-};
-
-const getEventAttributePropertySignature = (
-  name: string,
-  attr: AttributeSpec,
-) => {
-  return ts.factory.createPropertySignature(
-    undefined,
-    name,
-    undefined,
-    getEventAttributeType(attr.type),
-  );
-};
-
-export const generateSource = (spec: { events: EventSpec[] }): string => {
+export const generateSource = (spec: AnalyticsSpec): string => {
   const file = ts.createSourceFile(
     'source.ts',
     '',
@@ -77,16 +44,19 @@ export const generateSource = (spec: { events: EventSpec[] }): string => {
   const events = spec.events.map(event => {
     const typeAliasDeclaration = ts.factory.createTypeAliasDeclaration(
       undefined,
-      undefined,
+      [ts.factory.createToken(ts.SyntaxKind.ExportKeyword)],
       getEventPayloadTypeName(event),
       undefined,
-      event.attributes
-        ? ts.factory.createTypeLiteralNode(
-            Object.entries(event.attributes).map(([attr, spec]) => {
-              return getEventAttributePropertySignature(attr, spec);
-            }),
-          )
-        : ts.factory.createTypeLiteralNode([]),
+      ts.factory.createTypeLiteralNode(
+        event.attributes
+          ? Object.entries(event.attributes)
+              // Filter out attributes that are provided via context
+              // For our purposes here we are only interested in the attributes
+              // directly provided via payload
+              .filter(([_, attributeSpec]) => !attributeSpec.context)
+              .map(getAttributePropertySignature)
+          : [],
+      ),
     );
 
     return {
@@ -219,9 +189,15 @@ export const generateSource = (spec: { events: EventSpec[] }): string => {
   );
 
   return [
+    // Context Type Aliases
+    ...generateContextDataTypeAliases(spec),
+    // Event Attribute Aliases
     ...events.map(({ typeAliasDeclaration }) => typeAliasDeclaration),
+    // Analytics Events Attributes Map
     analyticsEventAttributes,
+    // Util createEventPayload fn
     createEventPayloadDeclaration,
+    // Default export
     ts.factory.createExportDefault(createEventPayloadIdentifier),
   ]
     .map(node => printer.printNode(ts.EmitHint.Unspecified, node, file))

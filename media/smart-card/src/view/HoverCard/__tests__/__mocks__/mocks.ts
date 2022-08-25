@@ -117,6 +117,19 @@ export const mockBaseResponseWithPreview = {
   },
 };
 
+export const mockBaseResponseWithErrorPreview = {
+  meta: {
+    ...mockBaseResponse.meta,
+  },
+  data: {
+    ...mockBaseResponse.data,
+    image: {
+      '@type': 'Image',
+      url: 'src-error',
+    },
+  },
+};
+
 export const mockBaseResponseWithDownload = {
   meta: {
     ...mockBaseResponse.meta,

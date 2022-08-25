@@ -322,7 +322,7 @@ export function processRawValue(
           actionSubject: ACTION_SUBJECT.EDITOR,
           eventType: EVENT_TYPE.OPERATIONAL,
           attributes: {
-            error: err?.toString(),
+            errorStack: err?.toString(),
           },
         });
       }
@@ -345,7 +345,7 @@ export function processRawValue(
         actionSubject: ACTION_SUBJECT.EDITOR,
         eventType: EVENT_TYPE.OPERATIONAL,
         attributes: {
-          error: e?.toString(),
+          errorStack: e?.toString(),
         },
       });
     }

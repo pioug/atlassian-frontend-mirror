@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/core';
 
@@ -52,14 +52,25 @@ const Block: React.FC<BlockProps> = ({
   size = SmartLinkSize.Medium,
   testId = 'smart-block',
   overrideCss,
-}) => (
-  <div
-    css={[getBlockStyles(direction, size), overrideCss]}
-    data-smart-block
-    data-testid={testId}
-  >
-    {renderChildren(children, size)}
-  </div>
-);
+  blockRef,
+  onRender,
+  onTransitionEnd,
+}) => {
+  useEffect(() => {
+    onRender && onRender();
+  }, [onRender]);
+
+  return (
+    <div
+      css={[getBlockStyles(direction, size), overrideCss]}
+      data-smart-block
+      data-testid={testId}
+      onTransitionEnd={onTransitionEnd}
+      ref={blockRef}
+    >
+      {renderChildren(children, size)}
+    </div>
+  );
+};
 
 export default Block;

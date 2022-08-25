@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/activity-provider",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "A provider to support recent activities in editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "fetch-mock": "^8.0.0",
     "graphql": "^14.2.1",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "techstack": {
     "@atlassian/frontend": {

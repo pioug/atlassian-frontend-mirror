@@ -263,7 +263,7 @@ describe('Renderer', () => {
             eventType: EVENT_TYPE.OPERATIONAL,
             attributes: {
               platform: PLATFORM.WEB,
-              error:
+              errorStack:
                 'RangeError: Invalid collection of marks for node text: link,link',
             },
           }),

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/onboarding",
-  "version": "10.5.1",
+  "version": "10.5.2",
   "description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -64,7 +64,7 @@
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "techstack": {
     "@atlassian/frontend": {

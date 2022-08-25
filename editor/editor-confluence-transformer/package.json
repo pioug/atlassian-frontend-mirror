@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-confluence-transformer",
-  "version": "8.1.27",
+  "version": "8.1.28",
   "description": "Editor Confluence Transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@emotion/react": "^11.7.1",
     "@types/prosemirror-model": "^1.11.0",
     "pretty-data": "^0.40.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {

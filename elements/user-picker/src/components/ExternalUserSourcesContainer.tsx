@@ -33,6 +33,7 @@ export const ExternalUserSourcesContainer: React.FC<SourcesContainerProps> = ({
   }
 
   return React.Children.map(children, (child) =>
+    // @ts-expect-error
     React.cloneElement(child as JSX.Element, {
       sources,
       sourcesLoading,

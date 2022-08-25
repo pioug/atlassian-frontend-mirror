@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "2.16.0",
+  "version": "2.16.1",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,7 +49,7 @@
     "enzyme": "^3.10.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

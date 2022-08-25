@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-utils",
-  "version": "17.1.1",
+  "version": "17.1.2",
   "description": "Set of utilities to traverse, modify and create ADF documents.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "jscodeshift": "^0.13.0",
     "react": "^16.8.0",
-    "typescript": "4.2.4",
+    "typescript": "4.3.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

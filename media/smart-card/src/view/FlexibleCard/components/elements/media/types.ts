@@ -11,4 +11,10 @@ export type MediaProps = ElementProps & {
    * The URL of the associated media to display.
    */
   url?: string;
+
+  /**
+   * Function to be called on error loading media.
+   * @internal
+   */
+  onError?: () => void;
 };

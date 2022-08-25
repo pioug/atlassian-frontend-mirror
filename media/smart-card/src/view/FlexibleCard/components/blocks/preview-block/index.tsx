@@ -14,15 +14,15 @@ import { Preview } from '../../elements';
 const PreviewBlock: React.FC<PreviewBlockProps> = ({
   status = SmartLinkStatus.Fallback,
   testId = 'smart-block-preview',
+  onError,
   ...blockProps
 }) => {
   if (status !== SmartLinkStatus.Resolved) {
     return null;
   }
-
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
-      <Preview />
+      <Preview onError={onError} />
     </Block>
   );
 };

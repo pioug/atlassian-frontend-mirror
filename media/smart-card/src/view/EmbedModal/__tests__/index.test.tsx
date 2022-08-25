@@ -7,10 +7,12 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 import EmbedModal from '../index';
 import { EmbedModalProps } from '../types';
 import { messages } from '../../../messages';
 import { MAX_MODAL_SIZE } from '../constants';
+import { WithSizeExperimentProps } from '../components/size-experiment/types';
 
 const ThrowError: React.FC = () => {
   useEffect(() => {
@@ -19,13 +21,16 @@ const ThrowError: React.FC = () => {
   return <span />;
 };
 
-describe('embed-modal', () => {
+describe('EmbedModal', () => {
   const testId = 'embed-modal';
 
-  const renderEmbedModal = (props?: Partial<EmbedModalProps>) =>
+  const renderEmbedModal = (
+    props?: Partial<EmbedModalProps & WithSizeExperimentProps>,
+  ) =>
     render(
       <IntlProvider locale="en">
         <EmbedModal
+          featureFlags={{ embedModalSize: 'small' }}
           iframeName="iframe-name"
           onClose={() => {}}
           showModal={true}
@@ -34,6 +39,20 @@ describe('embed-modal', () => {
         />
       </IntlProvider>,
     );
+
+  const expectModalSize = (modal: HTMLElement, size: string) => {
+    // This check is not ideal but it is the only value on DS modal dialog
+    // HTML element that indicates change in size of the component.
+    expect(modal.getAttribute('style')).toContain(
+      `--modal-dialog-width: ${size};`,
+    );
+  };
+
+  const expectModalMaxSize = (modal: HTMLElement) =>
+    expectModalSize(modal, MAX_MODAL_SIZE);
+
+  const expectModalMinSize = (modal: HTMLElement) =>
+    expectModalSize(modal, '800px'); // This is DS modal dialog size for 'large'
 
   it('renders embed modal', async () => {
     const { findByTestId } = renderEmbedModal();
@@ -96,9 +115,7 @@ describe('embed-modal', () => {
       act(() => {
         userEvent.click(button);
       });
-      expect(modal.getAttribute('style')).toContain(
-        `--modal-dialog-width: ${MAX_MODAL_SIZE};`,
-      );
+      expectModalMaxSize(modal);
 
       // Resize to minimum size
       fireEvent.mouseOver(button);
@@ -109,9 +126,7 @@ describe('embed-modal', () => {
       act(() => {
         userEvent.click(button);
       });
-      expect(modal.getAttribute('style')).toContain(
-        '--modal-dialog-width: 800px;', // This is DS size for 'large'
-      );
+      expectModalMinSize(modal);
     });
 
     describe('with url button', () => {
@@ -200,5 +215,68 @@ describe('embed-modal', () => {
       onOpenFailed,
     });
     expect(onOpenFailed).toHaveBeenCalledTimes(1);
+  });
+
+  describe('with experiment', () => {
+    const embedModalComponentTestId = 'smart-embed-preview-modal';
+    const modalComponentTestId = 'smart-links-preview-modal';
+
+    it('return Modal component when feature flag is not available', async () => {
+      const { findByTestId } = renderEmbedModal({
+        featureFlags: undefined,
+        testId: undefined,
+      });
+      const modal = await findByTestId(modalComponentTestId);
+      expect(modal).toBeInTheDocument();
+    });
+
+    it('return Modal component when feature flag is off', async () => {
+      const { findByTestId } = renderEmbedModal({
+        featureFlags: {},
+        testId: undefined,
+      });
+      const modal = await findByTestId(modalComponentTestId);
+      expect(modal).toBeInTheDocument();
+    });
+
+    it('return Modal component when feature flag is control', async () => {
+      const { findByTestId } = renderEmbedModal({
+        featureFlags: { embedModalSize: 'control' },
+        testId: undefined,
+      });
+      const modal = await findByTestId(modalComponentTestId);
+      expect(modal).toBeInTheDocument();
+    });
+
+    it('return EmbedModal component with small size when feature flag is small', async () => {
+      const { findByTestId } = renderEmbedModal({
+        featureFlags: { embedModalSize: 'small' },
+        testId: undefined,
+      });
+      const modal = await findByTestId(embedModalComponentTestId);
+      expect(modal).toBeInTheDocument();
+      expectModalMinSize(modal);
+    });
+
+    it('return EmbedModal component when large size feature flag is large', async () => {
+      const { findByTestId } = renderEmbedModal({
+        featureFlags: { embedModalSize: 'large' },
+        testId: undefined,
+      });
+      const modal = await findByTestId(embedModalComponentTestId);
+      expect(modal).toBeInTheDocument();
+      expectModalMaxSize(modal);
+    });
+
+    it('return Modal component when feature flag has unexpected value', async () => {
+      const { findByTestId } = renderEmbedModal({
+        featureFlags: {
+          embedModalSize: '🇦🇺' as LinkingPlatformFeatureFlags['embedModalSize'],
+        },
+        testId: undefined,
+      });
+      const modal = await findByTestId(modalComponentTestId);
+      expect(modal).toBeInTheDocument();
+    });
   });
 });

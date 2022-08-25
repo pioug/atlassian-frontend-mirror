@@ -89,6 +89,13 @@ describe('LinkPicker analytics', () => {
     expect(spy).toBeFiredWithAnalyticEventOnce(
       {
         hasFired: true,
+        context: [
+          {
+            attributes: {
+              linkState: 'newLink',
+            },
+          },
+        ],
         payload: {
           action: 'submitted',
           eventType: 'ui',
@@ -107,6 +114,13 @@ describe('LinkPicker analytics', () => {
     expect(spy).toBeFiredWithAnalyticEventOnce(
       {
         hasFired: true,
+        context: [
+          {
+            attributes: {
+              linkState: 'newLink',
+            },
+          },
+        ],
         payload: {
           action: 'viewed',
           eventType: 'ui',
@@ -127,6 +141,13 @@ describe('LinkPicker analytics', () => {
     expect(spy).toBeFiredWithAnalyticEventOnce(
       {
         hasFired: true,
+        context: [
+          {
+            attributes: {
+              linkState: 'newLink',
+            },
+          },
+        ],
         payload: {
           action: 'closed',
           eventType: 'ui',
@@ -137,5 +158,68 @@ describe('LinkPicker analytics', () => {
       },
       ANALYTICS_CHANNEL,
     );
+  });
+
+  describe('LinkPickerAnalyticsContext', () => {
+    it('`linkState` attribute should be `newLink` when URL prop is NOT provided', async () => {
+      const { spy, testIds } = setupLinkPicker();
+
+      await userEvent.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          hasFired: true,
+          context: [
+            {
+              attributes: {
+                linkState: 'newLink',
+              },
+            },
+          ],
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            actionSubjectId: 'linkPicker',
+            attributes: {},
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
+    });
+
+    it('`linkState` attribute should be `editLink` when URL prop IS provided', async () => {
+      const { spy, testIds } = setupLinkPicker({
+        url: 'https://atlassian.com',
+      });
+
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          hasFired: true,
+          context: [
+            {
+              attributes: {
+                linkState: 'editLink',
+              },
+            },
+          ],
+          payload: {
+            action: 'submitted',
+            eventType: 'ui',
+            actionSubject: 'form',
+            actionSubjectId: 'linkPicker',
+            attributes: {},
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
+    });
   });
 });

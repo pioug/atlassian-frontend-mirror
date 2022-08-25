@@ -7,6 +7,7 @@ import {
   useEffect,
   useLayoutEffect,
   useReducer,
+  memo,
 } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl, IntlShape, FormattedMessage } from 'react-intl-next';
@@ -29,11 +30,12 @@ import createEventPayload from '../../analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
+import { withLinkPickerAnalyticsContext } from '../../services/with-link-picker-analytics';
 
 import { messages } from './messages';
 import PanelTextInput from './text-input';
 import LinkSearchList from './link-search-list';
-import { normalizeUrl, isSafeUrl } from './url';
+import { normalizeUrl, isSafeUrl } from '../../common/utils/url';
 import {
   rootContainerStyles,
   searchIconStyles,
@@ -535,7 +537,7 @@ function LinkPicker({
   );
 }
 
-export default LinkPicker;
+export default withLinkPickerAnalyticsContext(memo(LinkPicker));
 
 function getScreenReaderText(
   items: LinkSearchListItemData[],

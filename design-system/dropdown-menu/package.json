@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "11.3.1",
+  "version": "11.3.2",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@atlaskit/avatar": "^21.0.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/lozenge": "11.1.11",
+    "@atlaskit/lozenge": "11.1.12",
     "@atlaskit/modal-dialog": "^12.2.0",
     "@atlaskit/section-message": "^6.1.0",
     "@atlaskit/ssr": "*",
@@ -60,7 +60,7 @@
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
     "tiny-invariant": "^1.2.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "keywords": [
     "atlaskit",

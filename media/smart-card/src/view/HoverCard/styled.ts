@@ -95,3 +95,13 @@ export const skeletonContainer = css`
   gap: 0.625rem;
   align-items: center;
 `;
+
+export const hiddenSnippetStyles = css`
+  visibility: hidden;
+  position: absolute;
+`;
+
+export const getTransitionStyles = (snippetHeight: number) => css`
+  transition: height 300ms ease-in-out;
+  height: ${snippetHeight}px;
+`;

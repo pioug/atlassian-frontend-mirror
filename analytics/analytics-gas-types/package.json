@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-gas-types",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "Shared analytics functions/components for Fabric Elements",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "typescript": "4.2.4"
+    "typescript": "4.3.5"
   },
   "keywords": [
     "fabric",

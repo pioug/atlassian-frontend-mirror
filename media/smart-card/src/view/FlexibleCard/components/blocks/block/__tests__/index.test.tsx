@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { render, waitForElement, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Block from '../index';
 import {
@@ -26,6 +26,33 @@ describe('Block', () => {
     expect(block.getAttribute('data-smart-block')).toBeTruthy();
     expect(block.textContent).toBe('I am a block.');
     expect(block).toHaveStyleDeclaration('justify-content', 'flex-start');
+  });
+
+  it('calls OnRender', async () => {
+    const onRender = jest.fn();
+    const { getByTestId } = render(<Block onRender={onRender}></Block>);
+    await waitForElement(() => getByTestId(testId));
+
+    expect(onRender).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls OnTransitionEnd', async () => {
+    const onTransitionEnd = jest.fn();
+    const { getByTestId } = render(
+      <Block onTransitionEnd={onTransitionEnd}></Block>,
+    );
+    const block = await waitForElement(() => getByTestId(testId));
+    fireEvent.transitionEnd(block);
+
+    expect(onTransitionEnd).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns ref to block', async () => {
+    let ref = { current: null };
+    const { getByTestId } = render(<Block blockRef={ref}></Block>);
+    const block = await waitForElement(() => getByTestId(testId));
+
+    expect(ref.current).toEqual(block);
   });
 
   describe('size', () => {

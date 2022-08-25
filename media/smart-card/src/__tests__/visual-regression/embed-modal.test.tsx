@@ -2,12 +2,12 @@ import { getURL, setup } from '../__utils__/vr-helpers';
 import { MAX_MODAL_SIZE } from '../../view/EmbedModal/constants';
 
 describe('EmbedModal', () => {
-  const render = async () => {
+  const render = async (testName = 'vr-embed-modal') => {
     const height = 550;
     const width = 1200;
     const clip = { x: 0, y: 0, width, height };
 
-    const url = getURL('vr-embed-modal');
+    const url = getURL(testName);
     const page = await setup(url);
     await page.setViewport({ width, height });
     await page.waitForSelector('[data-testid="vr-test"]');
@@ -29,5 +29,18 @@ describe('EmbedModal', () => {
     );
     const image = await page.screenshot({ clip });
     expect(image).toMatchProdImageSnapshot();
+  });
+
+  describe('with default size experiment', () => {
+    it.each([['control'], ['large'], ['small']])(
+      'renders modal with %s size',
+      async (size: string) => {
+        const { clip, page } = await render(
+          `vr-embed-modal-experiment-${size}`,
+        );
+        const image = await page.screenshot({ clip });
+        expect(image).toMatchProdImageSnapshot();
+      },
+    );
   });
 });

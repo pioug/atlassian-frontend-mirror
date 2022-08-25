@@ -62,11 +62,11 @@ const Media: React.FC<MediaProps> = ({
   testId = 'smart-element-media',
   type,
   url,
+  onError,
 }) => {
   if (!type || !url) {
     return null;
   }
-
   return (
     <div
       css={[styles, overrideCss]}
@@ -74,7 +74,12 @@ const Media: React.FC<MediaProps> = ({
       data-smart-element-media
       data-testid={testId}
     >
-      <ImageIcon testId={`${testId}-image`} url={url} />
+      <ImageIcon
+        testId={`${testId}-image`}
+        url={url}
+        onError={onError}
+        defaultIcon={null}
+      />
     </div>
   );
 };

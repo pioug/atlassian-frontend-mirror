@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-hitbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "An addon for `@atlaskit/drag-and-drop` with helpers for attaching interaction information to a drop target when it is being dragged over",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
     "./experimental/tree": "./src/experimental/tree.ts"
   },
   "dependencies": {
-    "@atlaskit/drag-and-drop": "^0.0.0",
+    "@atlaskit/drag-and-drop": "^0.0.1",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {},
@@ -41,7 +41,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "typescript": "4.2.4",
+    "typescript": "4.3.5",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

@@ -3,12 +3,15 @@
  *
  * Generates analytics utilities from the package analytics spec yaml
  *
- * @codegen <<SignedSource::ffa7ec78cc793f941d06cdb25b07dc8a>>
+ * @codegen <<SignedSource::115bafba068f36f76da67200ee2d08c4>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
-type FormSubmittedLinkPickerAttributesType = {};
-type InlineDialogViewedLinkPickerAttributesType = {};
-type InlineDialogClosedLinkPickerAttributesType = {};
+export type LinkPickerAnalyticsContextType = {
+  linkState: 'editLink' | 'newLink';
+};
+export type FormSubmittedLinkPickerAttributesType = {};
+export type InlineDialogViewedLinkPickerAttributesType = {};
+export type InlineDialogClosedLinkPickerAttributesType = {};
 type AnalyticsEventAttributes = {
   'ui.form.submitted.linkPicker': FormSubmittedLinkPickerAttributesType;
   'ui.inlineDialog.viewed.linkPicker': InlineDialogViewedLinkPickerAttributesType;

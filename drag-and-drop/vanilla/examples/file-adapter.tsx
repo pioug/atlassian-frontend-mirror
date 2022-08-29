@@ -10,10 +10,7 @@ import {
   dropTargetForFiles,
   monitorForFiles,
 } from '../src/entry-point/adapter/file';
-import {
-  blockUnhandledDrags,
-  restoreStandardBehaviour,
-} from '../src/entry-point/util/block-unhandled-drags';
+import { cancelUnhandled } from '../src/entry-point/util/cancel-unhandled';
 import { combine } from '../src/entry-point/util/combine';
 
 import { fallbackColor } from './_util/fallback';
@@ -56,7 +53,7 @@ function FileList({ uploads }: { uploads: FileUpload[] }) {
     return null;
   }
   return (
-    <ul data-testid="dropped-files" id="foo">
+    <ul data-testid="dropped-files">
       {uploads.map((upload, index) => (
         <li key={index}>{upload.name}</li>
       ))}
@@ -92,11 +89,11 @@ function Uploader() {
       monitorForFiles({
         onDragStart: () => {
           setState('potential');
-          blockUnhandledDrags();
+          cancelUnhandled.start();
         },
         onDrop: () => {
+          cancelUnhandled.stop();
           setState('idle');
-          restoreStandardBehaviour();
         },
       }),
     );

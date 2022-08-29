@@ -84,17 +84,20 @@ describe('smart-card: success analytics', () => {
           attributes: {
             componentName: 'smart-cards',
             display: 'inline',
+            id: expect.any(String),
+            extensionKey: 'object-provider',
+            definitionId: 'd1',
           },
         },
         expect.any(Function),
       );
       expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
-        'inline',
-        'resolved',
-        'd1',
-        'object-provider',
-      );
+      expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+        display: 'inline',
+        status: 'resolved',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+      });
 
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-rendered',
@@ -231,18 +234,14 @@ describe('smart-card: success analytics', () => {
       // ensure default onclick for renderer is not triggered
       expect(mockWindowOpen).toHaveBeenCalledTimes(0);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
-        'some-uuid-1',
-        'flexible',
-        'resolved',
-        'd1',
-        'object-provider',
-        false,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      );
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+        id: 'some-uuid-1',
+        display: 'flexible',
+        status: 'resolved',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+        isModifierKeyPressed: false,
+      });
 
       // With special key pressed
       asMock(analytics.uiCardClickedEvent).mockReset();
@@ -255,18 +254,14 @@ describe('smart-card: success analytics', () => {
       // ensure default onclick for renderer is not triggered
       expect(mockWindowOpen).toHaveBeenCalledTimes(0);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
-        'some-uuid-1',
-        'flexible',
-        'resolved',
-        'd1',
-        'object-provider',
-        true,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      );
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+        id: 'some-uuid-1',
+        display: 'flexible',
+        status: 'resolved',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+        isModifierKeyPressed: true,
+      });
     });
 
     it('should fire clicked analytics event when a resolved URL is clicked on a inline link', async () => {
@@ -289,18 +284,14 @@ describe('smart-card: success analytics', () => {
 
       fireEvent.click(resolvedCard);
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
-        'some-uuid-1',
-        'inline',
-        'resolved',
-        'd1',
-        'object-provider',
-        false,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      );
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+        id: 'some-uuid-1',
+        display: 'inline',
+        status: 'resolved',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+        isModifierKeyPressed: false,
+      });
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
 
       // With special key pressed
@@ -312,18 +303,14 @@ describe('smart-card: success analytics', () => {
 
       expect(mockWindowOpen).toHaveBeenCalledTimes(1);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
-        'some-uuid-1',
-        'inline',
-        'resolved',
-        'd1',
-        'object-provider',
-        true,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      );
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+        id: 'some-uuid-1',
+        display: 'inline',
+        status: 'resolved',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+        isModifierKeyPressed: true,
+      });
     });
 
     it('should fire render failure when an unexpected error happens', async () => {
@@ -493,13 +480,13 @@ describe('smart-card: success analytics', () => {
     expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
     await wait(() => {
       expect(analytics.invokeFailedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.invokeFailedEvent).toHaveBeenCalledWith(
-        expect.any(String),
-        'CommentAction',
-        'block',
-        'something happened',
-        'object-provider',
-      );
+      expect(analytics.invokeFailedEvent).toHaveBeenCalledWith({
+        id: expect.any(String),
+        actionType: 'CommentAction',
+        display: 'block',
+        reason: 'something happened',
+        extensionKey: 'object-provider',
+      });
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-action-invocation',
         'some-uuid-1',
@@ -550,12 +537,12 @@ describe('smart-card: success analytics', () => {
     await wait(() => {
       expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
       expect(analytics.invokeSucceededEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.invokeSucceededEvent).toHaveBeenCalledWith(
-        expect.any(String),
-        'PreviewAction',
-        'block',
-        'object-provider',
-      );
+      expect(analytics.invokeSucceededEvent).toHaveBeenCalledWith({
+        id: expect.any(String),
+        actionType: 'PreviewAction',
+        display: 'block',
+        extensionKey: 'object-provider',
+      });
     });
 
     expect(mockStartUfoExperience).toBeCalledWith(

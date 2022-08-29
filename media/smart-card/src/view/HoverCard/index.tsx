@@ -25,12 +25,12 @@ const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
 
   const onError = useCallback(
     (error, info) => {
-      analytics.ui.renderFailedEvent(
-        SMART_CARD_ANALYTICS_DISPLAY,
+      analytics.ui.renderFailedEvent({
+        display: SMART_CARD_ANALYTICS_DISPLAY,
         id,
         error,
-        info,
-      );
+        errorInfo: info,
+      });
     },
     [analytics.ui, id],
   );

@@ -1,24 +1,22 @@
-import type { BaseToken } from '../../../../../src/palettes/palette';
+import palette, { BaseToken } from '../../../../../src/palettes/palette';
 import type { ShadowToken } from '../../../../../src/types';
 import boxShadow from '../../box-shadow';
 
 describe('palette transformer', () => {
   it('should transform values', () => {
-    expect(boxShadow.type).toEqual('value');
+    expect(boxShadow(palette).type).toEqual('value');
   });
 
   it('should match shadow tokens', () => {
     const token: any = { attributes: { group: 'shadow' } };
-
-    const actual = boxShadow.matcher?.(token);
+    const actual = boxShadow(palette).matcher?.(token);
 
     expect(actual).toEqual(true);
   });
 
   it('should not match other tokens', () => {
     const token: any = { attributes: { group: 'paint' } };
-
-    const actual = boxShadow.matcher?.(token);
+    const actual = boxShadow(palette).matcher?.(token);
 
     expect(actual).toEqual(false);
   });
@@ -41,7 +39,7 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow.transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer({ original: token } as any);
 
     expect(actual).toEqual('1px 2px 3px #E9F2FF');
   });
@@ -65,7 +63,7 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow.transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer({ original: token } as any);
 
     expect(actual).toEqual('1px 2px 3px 4px #E9F2FF');
   });
@@ -89,7 +87,7 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow.transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer({ original: token } as any);
 
     expect(actual).toEqual('inset 1px 2px 3px #E9F2FF');
   });
@@ -112,7 +110,7 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow.transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer({ original: token } as any);
 
     expect(actual).toEqual('1px 2px 3px #E9F2FF80');
   });
@@ -141,7 +139,7 @@ describe('palette transformer', () => {
       ],
     };
 
-    const actual = boxShadow.transformer({ original: token } as any);
+    const actual = boxShadow(palette).transformer({ original: token } as any);
 
     expect(actual).toEqual('1px 2px 3px #E9F2FF80, 0px 0px 1px #388BFF');
   });

@@ -27,7 +27,7 @@ export type DropIndicatorProps = {
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-const DropIndicator = ({
+export const TreeDropIndicator = ({
   children,
   edge,
   gap = 0,
@@ -70,5 +70,3 @@ const DropIndicator = ({
     </Terminal>
   );
 };
-
-export default DropIndicator;

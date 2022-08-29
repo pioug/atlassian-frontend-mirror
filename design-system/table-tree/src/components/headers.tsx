@@ -2,7 +2,7 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 import { Children, cloneElement, Component } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 

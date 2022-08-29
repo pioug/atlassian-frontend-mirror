@@ -5,22 +5,19 @@
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
 ```ts
-import { ReactNode } from 'react';
+/// <reference types="react" />
 
 /**
  * __Drop indicator__
  *
  * A drop indicator is used to communicate the intended resting place of the draggable item. The orientation of the drop indicator should always match the direction of the content flow.
  */
-declare const DropIndicator: ({
-  children,
+export declare const DropIndicator: ({
   edge,
   gap,
 }: DropIndicatorProps) => JSX.Element;
-export default DropIndicator;
 
 export declare type DropIndicatorProps = {
-  children: (props: { className?: string }) => ReactNode;
   /**
    * The edge of the child to draw the drop indicator on. Use `null` to hide the indicator.
    */
@@ -31,6 +28,8 @@ export declare type DropIndicatorProps = {
   gap?: number;
 };
 
+/** @jsx jsx */
+/// <reference types="react" />
 declare type Edge = 'top' | 'right' | 'bottom' | 'left';
 
 export {};

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { PureComponent } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';

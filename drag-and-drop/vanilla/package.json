@@ -30,7 +30,7 @@
     "./util/combine": "./src/entry-point/util/combine.ts",
     "./util/once": "./src/entry-point/util/once.ts",
     "./util/reorder": "./src/entry-point/util/reorder.ts",
-    "./util/block-unhandled-drags": "./src/entry-point/util/block-unhandled-drags.ts",
+    "./util/cancel-unhandled": "./src/entry-point/util/cancel-unhandled.ts",
     "./util/disable-native-drag-preview": "./src/entry-point/util/disable-native-drag-preview.ts",
     "./util/scroll-just-enough-into-view": "./src/entry-point/util/scroll-just-enough-into-view.ts",
     "./types": "./src/entry-point/types.ts",

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import color from 'color';
 
 import { borderRadius, colors, ThemedValue } from '../src';

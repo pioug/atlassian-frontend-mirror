@@ -188,12 +188,12 @@ describe('LoadingContainerAdvanced', () => {
       );
       wrappers.push(wrapper);
       assertTargetStylesAreCorrect(
-        wrapper.find(Contents).getDOMNode() as HTMLElement,
+        wrapper.find(Contents).find('div').getDOMNode() as HTMLElement,
         true,
       );
       wrapper.setProps({ isLoading: false });
       assertTargetStylesAreCorrect(
-        wrapper.find(Contents).getDOMNode() as HTMLElement,
+        wrapper.find(Contents).find('div').getDOMNode() as HTMLElement,
         false,
       );
     });
@@ -219,12 +219,12 @@ describe('LoadingContainerAdvanced', () => {
       );
       wrappers.push(wrapper);
       assertTargetStylesAreCorrect(
-        wrapper.find(InnerComponent).getDOMNode() as HTMLElement,
+        wrapper.find(InnerComponent).find('div').getDOMNode() as HTMLElement,
         true,
       );
       wrapper.setProps({ isLoading: false });
       assertTargetStylesAreCorrect(
-        wrapper.find(InnerComponent).getDOMNode() as HTMLElement,
+        wrapper.find(InnerComponent).find('div').getDOMNode() as HTMLElement,
         false,
       );
     });

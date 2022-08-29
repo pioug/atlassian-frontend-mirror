@@ -1,9 +1,31 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::05854e32ee4e25d83f2d3fbdb82d5739>>
+ * @codegen <<SignedSource::73a857568cd56494102a8abd48a3f08c>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
+  {
+    "value": "transparent",
+    "attributes": {
+      "group": "palette",
+      "category": "red"
+    },
+    "filePath": "src/palettes/legacy-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "transparent",
+      "attributes": {
+        "group": "palette",
+        "category": "red"
+      }
+    },
+    "name": "color.palette.transparent",
+    "path": [
+      "color",
+      "palette",
+      "transparent"
+    ]
+  },
   {
     "value": "#FFEBE6",
     "attributes": {
@@ -1347,7 +1369,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.02)",
+    "value": "#091e425",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1355,7 +1377,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.02)",
+      "value": "#091e425",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1369,7 +1391,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.04)",
+    "value": "#091e42a",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1377,7 +1399,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.04)",
+      "value": "#091e42a",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1391,7 +1413,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.08)",
+    "value": "#091e4214",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1399,7 +1421,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.08)",
+      "value": "#091e4214",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1413,7 +1435,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.13)",
+    "value": "#091e4221",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1421,7 +1443,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.13)",
+      "value": "#091e4221",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1435,7 +1457,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.25)",
+    "value": "#091e423f",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1443,7 +1465,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.25)",
+      "value": "#091e423f",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1457,7 +1479,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.31)",
+    "value": "#091e424f",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1465,7 +1487,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.31)",
+      "value": "#091e424f",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1479,7 +1501,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.36)",
+    "value": "#091e425b",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1487,7 +1509,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.36)",
+      "value": "#091e425b",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1501,7 +1523,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.42)",
+    "value": "#091e426b",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1509,7 +1531,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.42)",
+      "value": "#091e426b",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1523,7 +1545,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.48)",
+    "value": "#091e427a",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1531,7 +1553,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.48)",
+      "value": "#091e427a",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1545,7 +1567,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.54)",
+    "value": "#091e4289",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1553,7 +1575,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.54)",
+      "value": "#091e4289",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1567,7 +1589,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.60)",
+    "value": "#091e4299",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1575,7 +1597,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.60)",
+      "value": "#091e4299",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1589,7 +1611,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.66)",
+    "value": "#091e42a8",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1597,7 +1619,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.66)",
+      "value": "#091e42a8",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1611,7 +1633,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.71)",
+    "value": "#091e42b5",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1619,7 +1641,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.71)",
+      "value": "#091e42b5",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1633,7 +1655,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.77)",
+    "value": "#091e42c4",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1641,7 +1663,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.77)",
+      "value": "#091e42c4",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1655,7 +1677,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.82)",
+    "value": "#091e42d1",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1663,7 +1685,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.82)",
+      "value": "#091e42d1",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1677,7 +1699,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.89)",
+    "value": "#091e42e2",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1685,7 +1707,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.89)",
+      "value": "#091e42e2",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -1699,7 +1721,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(9, 30, 66, 0.95)",
+    "value": "#091e42f2",
     "attributes": {
       "group": "palette",
       "category": "light mode neutral"
@@ -1707,7 +1729,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(9, 30, 66, 0.95)",
+      "value": "#091e42f2",
       "attributes": {
         "group": "palette",
         "category": "light mode neutral"
@@ -2139,7 +2161,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.06)",
+    "value": "#0d1424f",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2147,7 +2169,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.06)",
+      "value": "#0d1424f",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2161,7 +2183,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.14)",
+    "value": "#0d142423",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2169,7 +2191,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.14)",
+      "value": "#0d142423",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2183,7 +2205,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.18)",
+    "value": "#0d14242d",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2191,7 +2213,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.18)",
+      "value": "#0d14242d",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2205,7 +2227,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.29)",
+    "value": "#0d142449",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2213,7 +2235,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.29)",
+      "value": "#0d142449",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2227,7 +2249,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.36)",
+    "value": "#0d14245b",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2235,7 +2257,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.36)",
+      "value": "#0d14245b",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2249,7 +2271,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.40)",
+    "value": "#0d142466",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2257,7 +2279,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.40)",
+      "value": "#0d142466",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2271,7 +2293,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.47)",
+    "value": "#0d142477",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2279,7 +2301,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.47)",
+      "value": "#0d142477",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2293,7 +2315,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.53)",
+    "value": "#0d142487",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2301,7 +2323,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.53)",
+      "value": "#0d142487",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2315,7 +2337,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.63)",
+    "value": "#0d1424a0",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2323,7 +2345,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.63)",
+      "value": "#0d1424a0",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2337,7 +2359,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.73)",
+    "value": "#0d1424ba",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2345,7 +2367,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.73)",
+      "value": "#0d1424ba",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2359,7 +2381,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.78)",
+    "value": "#0d1424c6",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2367,7 +2389,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.78)",
+      "value": "#0d1424c6",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2381,7 +2403,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.81)",
+    "value": "#0d1424ce",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2389,7 +2411,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.81)",
+      "value": "#0d1424ce",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2403,7 +2425,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.85)",
+    "value": "#0d1424d8",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2411,7 +2433,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.85)",
+      "value": "#0d1424d8",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2425,7 +2447,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.89)",
+    "value": "#0d1424e2",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2433,7 +2455,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.89)",
+      "value": "#0d1424e2",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2447,7 +2469,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.92)",
+    "value": "#0d1424ea",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2455,7 +2477,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.92)",
+      "value": "#0d1424ea",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2469,7 +2491,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.95)",
+    "value": "#0d1424f2",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2477,7 +2499,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.95)",
+      "value": "#0d1424f2",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"
@@ -2491,7 +2513,7 @@ const tokens = [
     ]
   },
   {
-    "value": "rgba(13, 20, 36, 0.97)",
+    "value": "#0d1424f7",
     "attributes": {
       "group": "palette",
       "category": "dark mode neutral"
@@ -2499,7 +2521,7 @@ const tokens = [
     "filePath": "src/palettes/legacy-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "rgba(13, 20, 36, 0.97)",
+      "value": "#0d1424f7",
       "attributes": {
         "group": "palette",
         "category": "dark mode neutral"

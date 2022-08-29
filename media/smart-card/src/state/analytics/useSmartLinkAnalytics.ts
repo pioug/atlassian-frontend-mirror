@@ -1,11 +1,6 @@
-import { ErrorInfo, useMemo } from 'react';
-import { CardType, APIError, getUrl } from '@atlaskit/linking-common';
-import { AnalyticsHandler } from '../../utils/types';
-import { CardInnerAppearance } from '../../view/Card/types';
-import {
-  PreviewDisplay,
-  PreviewInvokeMethod,
-} from '../../view/HoverCard/types';
+import { useMemo } from 'react';
+import { getUrl } from '@atlaskit/linking-common';
+import { AnalyticsHandler, AnalyticsPayload } from '../../utils/types';
 import {
   uiAuthEvent,
   uiAuthAlternateAccountEvent,
@@ -31,7 +26,6 @@ import {
   startUfoExperience,
   succeedUfoExperience,
 } from './ufoExperiences';
-import { InvokeType } from '../../model/invoke-opts';
 import {
   getDefinitionId,
   getExtensionKey,
@@ -40,10 +34,40 @@ import {
   getProduct,
 } from '../helpers';
 import {
-  DestinationProduct,
-  DestinationSubproduct,
+  CommonEventProps,
+  ConnectFailedEventProps,
+  ConnectSucceededEventProps,
+  InstrumentEventProps,
+  InvokeFailedEventProps,
+  InvokeSucceededEventProps,
+  ScreenAuthPopupEventProps,
+  TrackAppAccountConnectedProps,
+  UiActionClickedEventProps,
+  UiAuthAlternateAccountEventProps,
+  UiAuthEventProps,
+  UiCardClickedEventProps,
+  UiClosedAuthEventProps,
+  UiHoverCardDismissedEventProps,
+  UiHoverCardOpenLinkClickedEventProps,
+  UiHoverCardViewedEventProps,
+  UiRenderFailedEventProps,
+  UiRenderSuccessEventProps,
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+
+const applyCommonAttributes = (
+  event: AnalyticsPayload,
+  commonAttributes: CommonEventProps,
+) => {
+  if (event && event.attributes) {
+    for (const [key, value] of Object.entries(commonAttributes)) {
+      if (event.attributes[key] === undefined) {
+        event.attributes[key] = value;
+      }
+    }
+  }
+  return event;
+};
 
 /**
  * This hook provides usage of Smart Link analytics outside of the Card component.
@@ -72,6 +96,27 @@ export const useSmartLinkAnalytics = (
   const extractedSubproduct = getSubproduct(details);
   const extractedProduct = getProduct(details);
 
+  const commonAttributes: CommonEventProps = useMemo(
+    () => ({
+      id: defaultId,
+      definitionId: extractedDefinitionId,
+      extensionKey: extractedExtensionKey,
+      resourceType: extractedResourceType,
+      destinationSubproduct: extractedSubproduct,
+      destinationProduct: extractedProduct,
+      location: defaultLocation,
+    }),
+    [
+      defaultId,
+      extractedDefinitionId,
+      extractedExtensionKey,
+      extractedResourceType,
+      extractedSubproduct,
+      extractedProduct,
+      defaultLocation,
+    ],
+  );
+
   /** Contains all ui analytics events */
   const ui = useMemo(
     () => ({
@@ -83,11 +128,29 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @returns
        */
-      authEvent: (
-        display: CardInnerAppearance,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) => dispatchAnalytics(uiAuthEvent(display, definitionId, extensionKey)),
+      authEvent: ({
+        display,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiAuthEventProps) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiAuthEvent({
+              display,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        ),
       /**
        * This fires an event that represents when a user clicks on the authentication
        * call to action with a forbidden authenticated account. (i.e. Try another account).
@@ -96,13 +159,28 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @returns
        */
-      authAlternateAccountEvent: (
-        display: CardInnerAppearance,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) =>
+      authAlternateAccountEvent: ({
+        display,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiAuthAlternateAccountEventProps) =>
         dispatchAnalytics(
-          uiAuthAlternateAccountEvent(display, definitionId, extensionKey),
+          applyCommonAttributes(
+            uiAuthAlternateAccountEvent({
+              display,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         ),
       /**
        * This fires an event that represents when a user clicks on a Smart Link.
@@ -116,36 +194,33 @@ export const useSmartLinkAnalytics = (
        * @param destinationProduct The product the Smart Link is linked to.
        * @returns
        */
-      cardClickedEvent: (
-        id: string = defaultId,
-        display: CardInnerAppearance,
-        status: CardType,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-        isModifierKeyPressed?: boolean,
-        location: string | undefined = defaultLocation,
-        destinationProduct:
-          | DestinationProduct
-          | string
-          | undefined = extractedProduct,
-        destinationSubproduct:
-          | DestinationSubproduct
-          | string
-          | undefined = extractedSubproduct,
-        actionSubjectId?: string,
-      ) =>
+      cardClickedEvent: ({
+        id,
+        display,
+        status,
+        definitionId,
+        extensionKey,
+        isModifierKeyPressed,
+        location,
+        destinationProduct,
+        destinationSubproduct,
+        actionSubjectId,
+      }: UiCardClickedEventProps) =>
         dispatchAnalytics(
-          uiCardClickedEvent(
-            id,
-            display,
-            status,
-            definitionId,
-            extensionKey,
-            isModifierKeyPressed,
-            location,
-            destinationProduct,
-            destinationSubproduct,
-            actionSubjectId,
+          applyCommonAttributes(
+            uiCardClickedEvent({
+              id,
+              display,
+              status,
+              definitionId,
+              extensionKey,
+              isModifierKeyPressed,
+              location,
+              destinationProduct,
+              destinationSubproduct,
+              actionSubjectId,
+            }),
+            commonAttributes,
           ),
         ),
       /**
@@ -158,13 +233,18 @@ export const useSmartLinkAnalytics = (
        * @param invokeType Whether the action invoked made a call to a server.
        * @returns
        */
-      actionClickedEvent: (
-        id: string = defaultId,
-        extensionKey: string | undefined = extractedExtensionKey,
-        actionType: string,
-        display: CardInnerAppearance,
-        invokeType: InvokeType,
-      ) => {
+      actionClickedEvent: ({
+        id,
+        actionType,
+        display,
+        invokeType,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiActionClickedEventProps) => {
         startUfoExperience('smart-link-action-invocation', id, {
           actionType,
           display,
@@ -172,7 +252,20 @@ export const useSmartLinkAnalytics = (
           invokeType,
         });
         dispatchAnalytics(
-          uiActionClickedEvent(id, actionType, extensionKey, display),
+          applyCommonAttributes(
+            uiActionClickedEvent({
+              id,
+              actionType,
+              display,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         );
       },
       /**
@@ -183,19 +276,28 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @param previewInvokeMethod How the preview was triggered.
        */
-      hoverCardOpenLinkClickedEvent: (
-        previewDisplay: PreviewDisplay,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-        previewInvokeMethod?: PreviewInvokeMethod,
-      ) => {
+      hoverCardOpenLinkClickedEvent: ({
+        previewDisplay,
+        definitionId,
+        extensionKey,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+        previewInvokeMethod,
+      }: UiHoverCardOpenLinkClickedEventProps) => {
         dispatchAnalytics(
-          uiHoverCardOpenLinkClickedEvent(
-            defaultId,
-            previewDisplay,
-            definitionId,
-            extensionKey,
-            previewInvokeMethod,
+          applyCommonAttributes(
+            uiHoverCardOpenLinkClickedEvent({
+              id: defaultId,
+              previewDisplay,
+              definitionId,
+              extensionKey,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+              previewInvokeMethod,
+            }),
+            commonAttributes,
           ),
         );
       },
@@ -206,13 +308,28 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @returns
        */
-      closedAuthEvent: (
-        display: CardInnerAppearance,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) =>
+      closedAuthEvent: ({
+        display,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiClosedAuthEventProps) =>
         dispatchAnalytics(
-          uiClosedAuthEvent(display, definitionId, extensionKey),
+          applyCommonAttributes(
+            uiClosedAuthEvent({
+              display,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         ),
       /**
        * This fires an event that represents when a Smart Link was rendered successfully.
@@ -222,25 +339,42 @@ export const useSmartLinkAnalytics = (
        * @param definitionId The definitionId of the Smart Link resolver invoked.
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        */
-      renderSuccessEvent: (
-        display: CardInnerAppearance,
-        status: CardType,
-        id: string = defaultId,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) => {
-        succeedUfoExperience('smart-link-rendered', id, {
+      renderSuccessEvent: ({
+        display,
+        status,
+        id,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiRenderSuccessEventProps) => {
+        const experienceId = id ? id : defaultId;
+        succeedUfoExperience('smart-link-rendered', experienceId, {
           extensionKey,
           display,
         });
 
         // UFO will disregard this if authentication experience has not yet been started
-        succeedUfoExperience('smart-link-authenticated', id, {
+        succeedUfoExperience('smart-link-authenticated', experienceId, {
           display,
         });
 
         dispatchAnalytics(
-          uiRenderSuccessEvent(display, status, definitionId, extensionKey),
+          applyCommonAttributes(
+            uiRenderSuccessEvent({
+              display,
+              status,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         );
       },
       /**
@@ -250,19 +384,41 @@ export const useSmartLinkAnalytics = (
        * @param error: An error representing why the Smart Link render failed.
        * @param errorInfo: Additional details about the error including the stack trace.
        */
-      renderFailedEvent: (
-        display: CardInnerAppearance,
-        id: string = defaultId,
-        error: Error,
-        errorInfo: ErrorInfo,
-      ) => {
+      renderFailedEvent: ({
+        display,
+        id,
+        error,
+        errorInfo,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiRenderFailedEventProps) => {
+        const experienceId = id ? id : defaultId;
         // Start and fail the smart-link-rendered experience. If it has already
         // been started nothing happens.
-        startUfoExperience('smart-link-rendered', id);
-        failUfoExperience('smart-link-rendered', id);
-        failUfoExperience('smart-link-authenticated', id);
+        startUfoExperience('smart-link-rendered', experienceId);
+        failUfoExperience('smart-link-rendered', experienceId);
+        failUfoExperience('smart-link-authenticated', experienceId);
 
-        dispatchAnalytics(uiRenderFailedEvent(display, error, errorInfo));
+        dispatchAnalytics(
+          applyCommonAttributes(
+            uiRenderFailedEvent({
+              display,
+              error,
+              errorInfo,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        );
       },
       /**
        * This fires an event that represents a hover preview being opened.
@@ -272,20 +428,31 @@ export const useSmartLinkAnalytics = (
        * @param previewInvokeMethod How the preview was triggered.
        * @returns
        */
-      hoverCardViewedEvent: (
-        previewDisplay: PreviewDisplay,
-        previewInvokeMethod?: PreviewInvokeMethod,
-        id: string = defaultId,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) =>
+      hoverCardViewedEvent: ({
+        previewDisplay,
+        previewInvokeMethod,
+        id,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiHoverCardViewedEventProps) =>
         dispatchAnalytics(
-          uiHoverCardViewedEvent(
-            id,
-            previewDisplay,
-            definitionId,
-            extensionKey,
-            previewInvokeMethod,
+          applyCommonAttributes(
+            uiHoverCardViewedEvent({
+              id,
+              previewDisplay,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+              previewInvokeMethod,
+            }),
+            commonAttributes,
           ),
         ),
       /**
@@ -297,34 +464,37 @@ export const useSmartLinkAnalytics = (
        * @param previewInvokeMethod How the preview was triggered.
        * @returns
        */
-      hoverCardDismissedEvent: (
-        previewDisplay: PreviewDisplay,
-        hoverTime: number,
-        previewInvokeMethod?: PreviewInvokeMethod,
-        id: string = defaultId,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) =>
+      hoverCardDismissedEvent: ({
+        id,
+        previewDisplay,
+        hoverTime,
+        previewInvokeMethod,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: UiHoverCardDismissedEventProps) =>
         dispatchAnalytics(
-          uiHoverCardDismissedEvent(
-            id,
-            previewDisplay,
-            hoverTime,
-            definitionId,
-            extensionKey,
-            previewInvokeMethod,
+          applyCommonAttributes(
+            uiHoverCardDismissedEvent({
+              previewDisplay,
+              id,
+              hoverTime,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+              previewInvokeMethod,
+            }),
+            commonAttributes,
           ),
         ),
     }),
-    [
-      extractedDefinitionId,
-      extractedExtensionKey,
-      dispatchAnalytics,
-      defaultId,
-      defaultLocation,
-      extractedProduct,
-      extractedSubproduct,
-    ],
+    [defaultId, commonAttributes, dispatchAnalytics],
   );
 
   /** Contains all operational analytics events */
@@ -337,15 +507,33 @@ export const useSmartLinkAnalytics = (
        * @param actionType The type of action invoked, e.g. PreviewAction
        * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
        */
-      invokeSucceededEvent: (
-        id: string = defaultId,
-        extensionKey: string | undefined = extractedExtensionKey,
-        actionType: string,
-        display: CardInnerAppearance,
-      ) => {
+      invokeSucceededEvent: ({
+        id,
+        actionType,
+        display,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: InvokeSucceededEventProps) => {
         succeedUfoExperience('smart-link-action-invocation', id);
         dispatchAnalytics(
-          invokeSucceededEvent(id, actionType, display, extensionKey),
+          applyCommonAttributes(
+            invokeSucceededEvent({
+              id,
+              actionType,
+              display,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         );
       },
       /**
@@ -356,16 +544,35 @@ export const useSmartLinkAnalytics = (
        * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
        * @param reason The reason the invocation failed.
        */
-      invokeFailedEvent: (
-        id: string = defaultId,
-        providerKey: string | undefined = extractedExtensionKey,
-        actionType: string,
-        display: CardInnerAppearance,
-        reason: string,
-      ) => {
+      invokeFailedEvent: ({
+        id,
+        actionType,
+        display,
+        reason,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: InvokeFailedEventProps) => {
         failUfoExperience('smart-link-action-invocation', id);
         dispatchAnalytics(
-          invokeFailedEvent(id, actionType, display, reason, providerKey),
+          applyCommonAttributes(
+            invokeFailedEvent({
+              id,
+              actionType,
+              display,
+              reason,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         );
       },
       /**
@@ -374,16 +581,35 @@ export const useSmartLinkAnalytics = (
        * @param definitionId The definitionId of the Smart Link resolver invoked.
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        */
-      connectSucceededEvent: (
-        id: string = defaultId,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) => {
-        startUfoExperience('smart-link-authenticated', id, {
+      connectSucceededEvent: ({
+        id,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: ConnectSucceededEventProps) => {
+        const experienceId = id ? id : defaultId;
+        startUfoExperience('smart-link-authenticated', experienceId, {
           extensionKey,
           status: 'success',
         });
-        dispatchAnalytics(connectSucceededEvent(definitionId, extensionKey));
+        dispatchAnalytics(
+          applyCommonAttributes(
+            connectSucceededEvent({
+              ...commonAttributes,
+              id: experienceId,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        );
       },
       /**
        * This fires an event that represents an account unsuccessfully being connected.
@@ -392,18 +618,36 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @param reason The reason why the Smart Link connect account failed.
        */
-      connectFailedEvent: (
-        id: string = defaultId,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-        reason?: string,
-      ) => {
-        startUfoExperience('smart-link-authenticated', id, {
+      connectFailedEvent: ({
+        id,
+        reason,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: ConnectFailedEventProps) => {
+        const experienceId = id ? id : defaultId;
+        startUfoExperience('smart-link-authenticated', experienceId, {
           extensionKey,
           status: reason,
         });
         dispatchAnalytics(
-          connectFailedEvent(definitionId, extensionKey, reason),
+          applyCommonAttributes(
+            connectFailedEvent({
+              ...commonAttributes,
+              id: experienceId,
+              reason,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
         );
       },
       /**
@@ -415,34 +659,35 @@ export const useSmartLinkAnalytics = (
        * @param resourceType The type of resource that was invoked. This is provider specific (e.g. File, PullRequest).
        * @param error An error representing why the Smart Link request failed.
        */
-      instrument: (
-        id: string = defaultId,
-        status: CardType,
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-        resourceType: string | undefined = extractedResourceType,
-        error?: APIError,
-      ) => {
-        const event = instrumentEvent(
+      instrument: ({
+        id,
+        status,
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+        error,
+      }: InstrumentEventProps) => {
+        const event = instrumentEvent({
+          ...commonAttributes,
           id,
           status,
-          definitionId,
           extensionKey,
+          definitionId,
           resourceType,
+          destinationProduct,
+          destinationSubproduct,
+          location,
           error,
-        );
+        });
         if (event) {
-          dispatchAnalytics(event);
+          dispatchAnalytics(applyCommonAttributes(event, commonAttributes));
         }
       },
     }),
-    [
-      defaultId,
-      extractedResourceType,
-      extractedDefinitionId,
-      extractedExtensionKey,
-      dispatchAnalytics,
-    ],
+    [defaultId, commonAttributes, dispatchAnalytics],
   );
 
   /** Contains all track analytics events */
@@ -454,13 +699,30 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @returns
        */
-      appAccountConnected: (
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) =>
-        dispatchAnalytics(trackAppAccountConnected(definitionId, extensionKey)),
+      appAccountConnected: ({
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: TrackAppAccountConnectedProps) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackAppAccountConnected({
+              ...commonAttributes,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        ),
     }),
-    [extractedDefinitionId, extractedExtensionKey, dispatchAnalytics],
+    [commonAttributes, dispatchAnalytics],
   );
 
   /** Contains all screen analytics events */
@@ -472,12 +734,30 @@ export const useSmartLinkAnalytics = (
        * @param extensionKey The extensionKey of the Smart Link resovler invoked.
        * @returns
        */
-      authPopupEvent: (
-        definitionId: string | undefined = extractedDefinitionId,
-        extensionKey: string | undefined = extractedExtensionKey,
-      ) => dispatchAnalytics(screenAuthPopupEvent(definitionId, extensionKey)),
+      authPopupEvent: ({
+        extensionKey,
+        definitionId,
+        resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
+      }: ScreenAuthPopupEventProps) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            screenAuthPopupEvent({
+              ...commonAttributes,
+              extensionKey,
+              definitionId,
+              resourceType,
+              destinationProduct,
+              destinationSubproduct,
+              location,
+            }),
+            commonAttributes,
+          ),
+        ),
     }),
-    [extractedDefinitionId, extractedExtensionKey, dispatchAnalytics],
+    [commonAttributes, dispatchAnalytics],
   );
 
   return useMemo(() => ({ ui, operational, track, screen }), [

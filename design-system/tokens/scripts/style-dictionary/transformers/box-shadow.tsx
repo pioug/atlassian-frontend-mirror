@@ -1,7 +1,6 @@
 import padStart from 'lodash/padStart';
 import type { Transform } from 'style-dictionary';
 
-import palette from '../../../src/palettes/palette';
 import type { ShadowToken } from '../../../src/types';
 
 function isHex(hex: string) {
@@ -22,7 +21,7 @@ const shadowOpacity = (opacity: number): string => {
     : padStart(percentToHex(opacity).toUpperCase(), 2, '0');
 };
 
-const paletteValue = (color: string): string => {
+const paletteValue = (palette: object, color: string): string => {
   // elevation.shadow.overflow doesn't use a palette colour at the moment
   if (isHex(color)) {
     return color;
@@ -33,11 +32,9 @@ const paletteValue = (color: string): string => {
   return palette.color.palette[color].value.slice(0, 7);
 };
 
-const transform: Transform = {
+const transform = (palette: Record<string, any>): Transform => ({
   type: 'value',
-  matcher: (token) => {
-    return !!token.attributes && token.attributes.group === 'shadow';
-  },
+  matcher: (token) => !!token.attributes && token.attributes.group === 'shadow',
   transformer: (token) => {
     const shadowToken = token.original as ShadowToken<any>;
 
@@ -47,7 +44,7 @@ const transform: Transform = {
         // We don't use the opacity from the color value, but the opacity
         // defined in the token declaration.
         const opacityHex = shadowOpacity(shadow.opacity);
-        const paletteColor = paletteValue(shadow.color);
+        const paletteColor = paletteValue(palette, shadow.color);
         const shadowColor = `${paletteColor}${opacityHex}`;
         const optionalSpread = shadow.spread ? ` ${shadow.spread}px` : '';
         const optionalInset = shadow.inset ? 'inset ' : '';
@@ -56,6 +53,6 @@ const transform: Transform = {
       })
       .join(', ');
   },
-};
+});
 
 export default transform;

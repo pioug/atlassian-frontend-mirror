@@ -94,10 +94,8 @@ describe('with feature flag: lp-link-picker', () => {
       await page.waitForSelector(linkPickerSelectors.linkDisplayTextInput);
       await page.clear(linkPickerSelectors.linkDisplayTextInput);
       // Change the 'text to display' field to 'New heading' and press enter
-      await page.type(
-        linkPickerSelectors.linkDisplayTextInput,
-        'New heading\n',
-      );
+      await page.type(linkPickerSelectors.linkDisplayTextInput, 'New heading');
+      await page.keys(['Enter']);
 
       expect(
         await page.$eval(editable, getDocFromElement),

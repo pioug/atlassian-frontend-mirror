@@ -2,7 +2,7 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 import { cloneElement, Component } from 'react';
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 
 import toItemId from '../../utils/to-item-id';
 

@@ -51,14 +51,11 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
-      expect.any(String),
-      'fallback',
-      undefined,
-      undefined,
-      undefined,
-      new APIError('fallback', 'https://my', 'received bad request'),
-    );
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
+      id: expect.any(String),
+      status: 'fallback',
+      error: new APIError('fallback', 'https://my', 'received bad request'),
+    });
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -85,14 +82,11 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
-      expect.any(String),
-      'unauthorized',
-      'provider-not-found',
-      undefined,
-      undefined,
-      undefined,
-    );
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
+      id: expect.any(String),
+      status: 'unauthorized',
+      definitionId: 'provider-not-found',
+    });
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -158,14 +152,11 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
-      expect.any(String),
-      'errored',
-      undefined,
-      undefined,
-      undefined,
-      new APIError('error', 'https://my', 'received failure error'),
-    );
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
+      id: expect.any(String),
+      status: 'errored',
+      error: new APIError('error', 'https://my', 'received failure error'),
+    });
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -192,14 +183,11 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
-      expect.any(String),
-      'errored',
-      undefined,
-      undefined,
-      undefined,
-      new APIError('error', 'https://my', 'received timeout error'),
-    );
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
+      id: expect.any(String),
+      status: 'errored',
+      error: new APIError('error', 'https://my', 'received timeout error'),
+    });
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -226,14 +214,15 @@ describe('smart-card: error analytics', () => {
     );
 
     expect(erroredLink).toBeTruthy();
-    expect(analytics.unresolvedEvent).toHaveBeenCalledWith(
-      expect.any(String),
-      'errored',
-      undefined,
-      undefined,
-      undefined,
-      new APIError('error', 'https://my', 'received internal server error'),
-    );
+    expect(analytics.unresolvedEvent).toHaveBeenCalledWith({
+      id: expect.any(String),
+      status: 'errored',
+      error: new APIError(
+        'error',
+        'https://my',
+        'received internal server error',
+      ),
+    });
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
@@ -314,18 +303,17 @@ describe('smart-card: error analytics', () => {
     expect(resolvedView).toBeTruthy();
     expect(resolvedCard).toBeTruthy();
     expect(onError).not.toHaveBeenCalled();
-    expect(analytics.resolvedEvent).toBeCalledWith(
-      expect.any(String),
-      'd1',
-      'object-provider',
-      undefined,
-    );
+    expect(analytics.resolvedEvent).toBeCalledWith({
+      id: expect.any(String),
+      definitionId: 'd1',
+      extensionKey: 'object-provider',
+    });
     expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-    expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
-      'inline',
-      'resolved',
-      'd1',
-      'object-provider',
-    );
+    expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+      display: 'inline',
+      status: 'resolved',
+      definitionId: 'd1',
+      extensionKey: 'object-provider',
+    });
   });
 });

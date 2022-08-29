@@ -93,6 +93,9 @@ describe('smart-card: forbidden analytics', () => {
           attributes: {
             componentName: 'smart-cards',
             display: 'inline',
+            id: expect.any(String),
+            extensionKey: 'object-provider',
+            definitionId: 'd1',
           },
         },
         expect.any(Function),
@@ -138,11 +141,11 @@ describe('smart-card: forbidden analytics', () => {
       );
       expect(analyticsEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
       expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
-      expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledWith(
-        'd1',
-        'object-provider',
-        undefined,
-      );
+      expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledWith({
+        id: expect.any(String),
+        extensionKey: 'object-provider',
+        definitionId: 'd1',
+      });
     });
   });
 });

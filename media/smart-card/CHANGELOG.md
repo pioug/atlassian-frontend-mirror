@@ -1,5 +1,48 @@
 # @atlaskit/smart-card
 
+## 22.0.0
+
+### Major Changes
+
+- [`e2bd5c50884`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2bd5c50884) - This PR changes how Smart Link Analytics events are defined.
+  Analytics events now use object args rather than inline arguments.
+
+  Previously:
+
+  ```
+      const analytics = useSmartLinkAnalytics(
+          url,
+          analyticsHandler,
+          undefined,
+          location,
+      );
+      analytics.ui.cardClickedEvent(
+          id,
+          'block',
+          'resolved',
+          'this-is-a-test-definition-id',
+          'this-is-a-test-extension-key',
+      );
+  ```
+
+  After change:
+
+  ```
+      const analytics = useSmartLinkAnalytics(
+          url,
+          analyticsHandler,
+          undefined,
+          location,
+      );
+      analytics.ui.cardClickedEvent({
+          id,
+          display: 'block',
+          status: 'resolved',
+          definitionId: 'this-is-a-test-definition-id',
+          extensionKey: 'this-is-a-test-extension-key',
+      });
+  ```
+
 ## 21.3.0
 
 ### Minor Changes

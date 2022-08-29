@@ -5,6 +5,7 @@ import path from 'path';
 import styleDictionary, { Config } from 'style-dictionary';
 
 import { DEFAULT_THEME, THEME_NAME_MAP } from '../../src/constants';
+import legacyPalette from '../../src/palettes/legacy-palette';
 import defaultPalette from '../../src/palettes/palette';
 import { ThemesLongName } from '../../src/types';
 
@@ -25,9 +26,11 @@ const PALETTE_INPUT_DIR = './src/palettes/';
 const THEME_INPUT_DIR = './src/tokens/';
 const ARTIFACT_OUTPUT_DIR = './src/artifacts/';
 
-const paletteConfig = {
+const paletteConfig: Record<keyof typeof THEME_NAME_MAP, object> = {
   'atlassian-light': defaultPalette,
   'atlassian-dark': defaultPalette,
+  'atlassian-legacy-light': legacyPalette,
+  'atlassian-legacy-dark': legacyPalette,
 };
 
 const createThemeConfig = (themeName: ThemesLongName): Config => {
@@ -81,7 +84,7 @@ const createThemeConfig = (themeName: ThemesLongName): Config => {
     transform: {
       'name/custom-dot': dotSyntax,
       'color/custom-palette': paletteTransform(palette),
-      'box-shadow/custom-figma': boxShadowTransform,
+      'box-shadow/custom-figma': boxShadowTransform(palette),
     },
     source: [path.join(THEME_INPUT_DIR, `${themeName}/**/*.tsx`)],
     include: [

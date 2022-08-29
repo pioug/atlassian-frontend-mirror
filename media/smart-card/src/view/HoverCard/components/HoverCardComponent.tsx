@@ -46,7 +46,11 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     //Check its previously open to avoid firing events when moving between the child and hover card components
     if (isOpen === true && cardOpenTime.current) {
       const hoverTime = Date.now() - cardOpenTime.current;
-      analytics.ui.hoverCardDismissedEvent('card', hoverTime, 'mouse_hover');
+      analytics.ui.hoverCardDismissedEvent({
+        previewDisplay: 'card',
+        hoverTime,
+        previewInvokeMethod: 'mouse_hover',
+      });
     }
     setIsOpen(false);
   }, [analytics.ui, isOpen]);
@@ -69,7 +73,10 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         //Check if its previously closed to avoid firing events when moving between the child and hover card components
         if (isOpen === false) {
           cardOpenTime.current = Date.now();
-          analytics.ui.hoverCardViewedEvent(hoverDisplay, invokeMethod);
+          analytics.ui.hoverCardViewedEvent({
+            previewDisplay: hoverDisplay,
+            previewInvokeMethod: invokeMethod,
+          });
         }
         //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
         if (parentSpan.current && mousePos.current) {

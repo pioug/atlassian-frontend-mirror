@@ -289,8 +289,6 @@ test('[B, A(sticky)] -> [A] = [A]', () => {
   cleanup();
 });
 
-// parent changes: not sure
-
 test('[B(sticky), A] -> [X] = [X]', () => {
   const [draggableEl, B, A] = getBubbleOrderedTree();
   const [X] = getElements();

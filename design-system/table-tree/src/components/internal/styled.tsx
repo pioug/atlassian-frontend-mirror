@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { FC, HTMLAttributes } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 
 import { N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 0.10.17
+
+### Patch Changes
+
+- [`e6dc2779c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6dc2779c94) - Adds support for two new themes "Atlassian-legacy-light" & "Atlassian-legacy-dark". These are compatibility themes, utilising colors from the legacy color palette.
+
 ## 0.10.16
 
 ### Patch Changes

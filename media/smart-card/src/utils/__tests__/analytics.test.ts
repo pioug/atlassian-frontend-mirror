@@ -34,12 +34,12 @@ describe('fireSmartLinkEvent', () => {
 
 describe('resolvedEvent', () => {
   test('returns resolved events with definition id and resource type', () => {
-    const event = resolvedEvent(
-      'id',
-      'definition-id',
-      'extension-key',
-      'file-type',
-    );
+    const event = resolvedEvent({
+      id: 'id',
+      definitionId: 'definition-id',
+      extensionKey: 'extension-key',
+      resourceType: 'file-type',
+    });
 
     expect(event).toMatchInlineSnapshot(`
       Object {
@@ -68,14 +68,14 @@ describe('unresolvedEvent', () => {
       'something wrong',
       'ResolveFailedError',
     );
-    const event = unresolvedEvent(
-      'id',
-      'fail',
-      'definition-id',
-      'extension-key',
-      'file-type',
+    const event = unresolvedEvent({
+      id: 'id',
+      status: 'fail',
+      definitionId: 'definition-id',
+      extensionKey: 'extension-key',
+      resourceType: 'file-type',
       error,
-    );
+    });
 
     expect(event).toMatchInlineSnapshot(`
       Object {
@@ -110,14 +110,14 @@ describe('instrumentEvent', () => {
       'something wrong',
       'ResolveUnsupportedError',
     );
-    const event = instrumentEvent(
-      'id',
-      'errored',
-      'definition-id',
-      'extension-key',
-      'file-type',
+    const event = instrumentEvent({
+      id: 'id',
+      status: 'errored',
+      definitionId: 'definition-id',
+      extensionKey: 'extension-key',
+      resourceType: 'file-type',
       error,
-    );
+    });
     expect(event).toBeUndefined();
   });
 
@@ -128,14 +128,14 @@ describe('instrumentEvent', () => {
       'something wrong',
       'ResolveFailedError',
     );
-    const event = instrumentEvent(
-      'id',
-      'errored',
-      'definition-id',
-      'extension-key',
-      'file-type',
+    const event = instrumentEvent({
+      id: 'id',
+      status: 'errored',
+      definitionId: 'definition-id',
+      extensionKey: 'extension-key',
+      resourceType: 'file-type',
       error,
-    );
+    });
     expect(event).toMatchInlineSnapshot(`
       Object {
         "action": "unresolved",
@@ -171,12 +171,12 @@ describe('uiActionClickedEvent', () => {
   ])(
     'returns action button click event for action type %s',
     (actionType: string, actionSubjectId: string | undefined) => {
-      const event = uiActionClickedEvent(
-        'id',
+      const event = uiActionClickedEvent({
+        id: 'id',
         actionType,
-        'extension-key',
-        'block',
-      );
+        extensionKey: 'extension-key',
+        display: 'block',
+      });
 
       expect(event).toEqual({
         action: 'clicked',

@@ -92,9 +92,7 @@ describe('tokens', () => {
 
   it('should ensure all token files have the same shape', () => {
     const themes = fs
-      .readdirSync(`${__dirname}/../../tokens`, {
-        withFileTypes: true,
-      })
+      .readdirSync(`${__dirname}/../../tokens`, { withFileTypes: true })
       .filter((result) => result.isDirectory())
       .map((result) => result.name);
     const tokens: Record<string, any> = {};

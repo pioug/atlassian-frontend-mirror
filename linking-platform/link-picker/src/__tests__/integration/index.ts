@@ -30,16 +30,20 @@ BrowserTestCase(
     await page.goto(exampleUrl);
     await page.waitFor(testIds.linkPicker);
 
+    // Type url and submit using button
     await page.type(testIds.urlInputField, 'https://google.com');
     await page.type(testIds.textInputField, 'Inserted');
     await page.click(testIds.insertButton);
 
+    // Open to edit link details
     await page.click('a');
     await page.waitFor(testIds.linkPicker);
+
+    // Edit link text and submit using keyboard
     await page.click(testIds.clearUrlButton);
     await page.type(testIds.urlInputField, 'https://atlassian.com');
     await page.type(testIds.textInputField, 'Edited');
-    await page.click(testIds.insertButton);
+    await page.keys(['Enter']);
 
     expect(await page.isExisting(testIds.linkPicker)).toBe(false);
     expect(await page.getHTML('a')).toMatch('Edited');
@@ -58,19 +62,24 @@ BrowserTestCase(
     await page.goto(exampleUrl);
     await page.waitFor(testIds.linkPicker);
 
+    // Type url and submit using button
     await page.type(testIds.urlInputField, 'https://google.com');
     await page.type(testIds.textInputField, 'Inserted');
     await page.click(testIds.insertButton);
 
+    // Open to edit link details
     await page.click('a');
     await page.waitFor(testIds.linkPicker);
+
+    // Select new link from result list
     await page.click(testIds.clearUrlButton);
     await page.click(testIds.urlInputField);
     await page.keys('ArrowDown');
 
+    // Edit link text and submit using keyboard
     const selected = await page.getValue(testIds.urlInputField);
     await page.type(testIds.textInputField, 'Edited');
-    await page.click(testIds.insertButton);
+    await page.keys(['Enter']);
 
     expect(await page.isExisting(testIds.linkPicker)).toBe(false);
     expect(await page.getHTML('a')).toMatch('Edited');

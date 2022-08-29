@@ -82,17 +82,16 @@ export function CardWithUrlContent({
   const handleClickWrapper = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
       const isModifierKeyPressed = isSpecialEvent(event);
-      analytics.ui.cardClickedEvent(
+      analytics.ui.cardClickedEvent({
         id,
-        isFlexibleUi ? 'flexible' : appearance,
-        state.status,
+        display: isFlexibleUi ? 'flexible' : appearance,
+        status: state.status,
         definitionId,
         extensionKey,
         isModifierKeyPressed,
-        undefined,
-        product,
-        subproduct,
-      );
+        destinationProduct: product,
+        destinationSubproduct: subproduct,
+      });
       if (onClick) {
         onClick(event);
       } else if (!isFlexibleUi) {
@@ -132,14 +131,14 @@ export function CardWithUrlContent({
     measure.mark(id, state.status);
     if (state.status !== 'pending') {
       measure.create(id, state.status);
-      analytics.operational.instrument(
+      analytics.operational.instrument({
         id,
-        state.status,
+        status: state.status,
         definitionId,
         extensionKey,
         resourceType,
-        state.error,
-      );
+        error: state.error,
+      });
     }
   }, [
     id,
@@ -158,13 +157,13 @@ export function CardWithUrlContent({
   // - the unresolved states: viz. forbidden, not_found, unauthorized, errored.
   useEffect(() => {
     if (isFinalState(state.status)) {
-      analytics.ui.renderSuccessEvent(
-        appearance,
-        state.status,
+      analytics.ui.renderSuccessEvent({
+        display: appearance,
+        status: state.status,
         id,
         definitionId,
         extensionKey,
-      );
+      });
     }
   }, [
     appearance,

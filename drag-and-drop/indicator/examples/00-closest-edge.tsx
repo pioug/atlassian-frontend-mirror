@@ -10,12 +10,14 @@ export default function ClosestEdgeExample() {
     <div>
       <Layout testId="layout--without-gap">
         {edges.map(edge => (
-          <Card edge={edge}>{edge}</Card>
+          <Card key={edge} edge={edge}>
+            {edge}
+          </Card>
         ))}
       </Layout>
       <Layout testId="layout--with-gap">
         {edges.map(edge => (
-          <Card edge={edge} gap={32}>
+          <Card key={edge} edge={edge} gap={32}>
             {edge}
           </Card>
         ))}

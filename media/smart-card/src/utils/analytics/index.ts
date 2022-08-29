@@ -1,7 +1,7 @@
-import { APIError, CardType } from '@atlaskit/linking-common';
-import { resolvedEvent, unresolvedEvent } from './analytics';
-import { AnalyticsPayload } from '../types';
 import { getMeasure } from '../performance';
+import { AnalyticsPayload } from '../types';
+import { resolvedEvent, unresolvedEvent } from './analytics';
+import { InstrumentEventProps } from './types';
 
 export {
   ANALYTICS_CHANNEL,
@@ -27,17 +27,28 @@ export {
   uiHoverCardOpenLinkClickedEvent,
 } from './analytics';
 
-export const instrumentEvent = (
-  id: string,
-  status: CardType,
-  definitionId?: string,
-  extensionKey?: string,
-  resourceType?: string,
-  error?: APIError,
-): AnalyticsPayload | undefined => {
+export const instrumentEvent = ({
+  id,
+  status,
+  extensionKey,
+  definitionId,
+  resourceType,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  error,
+}: InstrumentEventProps): AnalyticsPayload | undefined => {
   const measure = getMeasure(id, status) || { duration: undefined };
   if (status === 'resolved') {
-    const event = resolvedEvent(id, definitionId, extensionKey, resourceType);
+    const event = resolvedEvent({
+      id,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    });
     return {
       ...event,
       attributes: {
@@ -47,14 +58,17 @@ export const instrumentEvent = (
     };
   } else {
     if (error?.type !== 'ResolveUnsupportedError') {
-      const event = unresolvedEvent(
+      const event = unresolvedEvent({
         id,
         status,
-        definitionId,
         extensionKey,
+        definitionId,
         resourceType,
+        destinationProduct,
+        destinationSubproduct,
+        location,
         error,
-      );
+      });
       return {
         ...event,
         attributes: {

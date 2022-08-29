@@ -374,6 +374,7 @@ describe('HoverCard', () => {
         action: 'renderSuccess',
         actionSubject: 'smartLink',
         attributes: {
+          id: expect.any(String),
           componentName: 'smart-cards',
           definitionId: 'd1',
           display: 'flexible',
@@ -467,6 +468,7 @@ describe('HoverCard', () => {
           actionType: 'PreviewAction',
           componentName: 'smart-cards',
           display: 'flexible',
+          definitionId: 'd1',
           id: expect.any(String),
           extensionKey: 'test-object-provider',
           packageName: '@atlaskit/smart-card',
@@ -513,6 +515,7 @@ describe('HoverCard', () => {
           componentName: 'smart-cards',
           display: 'flexible',
           id: expect.any(String),
+          definitionId: 'd1',
           extensionKey: 'test-object-provider',
           packageName: '@atlaskit/smart-card',
           packageVersion: '999.9.9',
@@ -545,6 +548,9 @@ describe('HoverCard', () => {
           error: new Error('something happened'),
           errorInfo: expect.any(Object),
           display: 'flexible',
+          definitionId: 'd1',
+          extensionKey: 'confluence-object-provider',
+          id: expect.any(String),
         },
         eventType: 'ui',
       });

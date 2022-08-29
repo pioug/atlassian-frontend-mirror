@@ -3,18 +3,30 @@ import {
   version as packageVersion,
 } from '../../version.json';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { APIError, CardType } from '@atlaskit/linking-common';
 
 import { AnalyticsPayload } from '../types';
-import { ErrorInfo } from 'react';
 import { CardInnerAppearance } from '../../view/Card/types';
-import {
-  PreviewDisplay,
-  PreviewInvokeMethod,
-} from '../../view/HoverCard/types';
 import { getMeasure } from '../performance';
-import { DestinationProduct, DestinationSubproduct } from './types';
-
+import {
+  ConnectFailedEventProps,
+  ConnectSucceededEventProps,
+  InvokeFailedEventProps,
+  InvokeSucceededEventProps,
+  ResolvedEventProps,
+  ScreenAuthPopupEventProps,
+  TrackAppAccountConnectedProps,
+  UiActionClickedEventProps,
+  UiAuthAlternateAccountEventProps,
+  UiAuthEventProps,
+  UiCardClickedEventProps,
+  UiClosedAuthEventProps,
+  UiHoverCardDismissedEventProps,
+  UiHoverCardOpenLinkClickedEventProps,
+  UiHoverCardViewedEventProps,
+  UiRenderFailedEventProps,
+  UiRenderSuccessEventProps,
+  UnresolvedEventProps,
+} from './types';
 export const ANALYTICS_CHANNEL = 'media';
 
 export const context = {
@@ -61,32 +73,27 @@ export const fireSmartLinkEvent = (
   }
 };
 
-export const resolvedEvent = (
-  id: string,
-  definitionId?: string,
-  extensionKey?: string,
-  resourceType?: string,
-): AnalyticsPayload => ({
+export const resolvedEvent = (props: ResolvedEventProps): AnalyticsPayload => ({
   action: 'resolved',
   actionSubject: 'smartLink',
   eventType: 'operational',
   attributes: {
-    id,
+    ...props,
     ...context,
-    ...(definitionId ? { definitionId } : {}),
-    ...(extensionKey ? { extensionKey } : {}),
-    ...(resourceType ? { resourceType } : {}),
   },
 });
 
-export const unresolvedEvent = (
-  id: string,
-  status: string,
-  definitionId?: string,
-  extensionKey?: string,
-  resourceType?: string,
-  error?: APIError,
-): AnalyticsPayload => ({
+export const unresolvedEvent = ({
+  id,
+  definitionId,
+  extensionKey,
+  resourceType,
+  destinationSubproduct,
+  destinationProduct,
+  error,
+  status,
+  location,
+}: UnresolvedEventProps): AnalyticsPayload => ({
   action: 'unresolved',
   actionSubject: 'smartLink',
   eventType: 'operational',
@@ -96,23 +103,30 @@ export const unresolvedEvent = (
     ...(definitionId ? { definitionId } : {}),
     ...(extensionKey ? { extensionKey } : {}),
     ...(resourceType ? { resourceType } : {}),
+    ...(destinationSubproduct ? { destinationSubproduct } : {}),
+    ...(destinationProduct ? { destinationProduct } : {}),
+    ...(location ? { location } : {}),
     reason: status,
     error: error
       ? {
-          message: error.message,
-          kind: error.kind,
-          type: error.type,
+          message: error?.message,
+          kind: error?.kind,
+          type: error?.type,
         }
       : undefined,
   },
 });
 
-export const invokeSucceededEvent = (
-  id: string,
-  actionType: string,
-  display: CardInnerAppearance,
-  extensionKey?: string,
-): AnalyticsPayload => {
+export const invokeSucceededEvent = ({
+  id,
+  actionType,
+  display,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: InvokeSucceededEventProps): AnalyticsPayload => {
   const measure = getMeasure(id, 'resolved') || { duration: undefined };
   return {
     action: 'resolved',
@@ -123,19 +137,27 @@ export const invokeSucceededEvent = (
       id,
       actionType,
       display,
-      extensionKey: extensionKey || '',
+      definitionId,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+      extensionKey,
       duration: measure.duration,
     },
   };
 };
 
-export const invokeFailedEvent = (
-  id: string,
-  actionType: string,
-  display: CardInnerAppearance,
-  reason: string,
-  extensionKey?: string,
-): AnalyticsPayload => {
+export const invokeFailedEvent = ({
+  id,
+  actionType,
+  display,
+  reason,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: InvokeFailedEventProps): AnalyticsPayload => {
   const measure = getMeasure(id, 'errored') || { duration: undefined };
   return {
     action: 'unresolved',
@@ -146,104 +168,138 @@ export const invokeFailedEvent = (
       id,
       actionType,
       display,
-      extensionKey: extensionKey || '',
+      extensionKey,
+      definitionId,
+      destinationProduct,
+      destinationSubproduct,
+      location,
       duration: measure.duration,
       reason,
     },
   };
 };
 
-export const connectSucceededEvent = (
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const connectSucceededEvent = ({
+  definitionId,
+  extensionKey,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: ConnectSucceededEventProps): AnalyticsPayload => ({
   action: 'connectSucceeded',
   actionSubject: 'smartLink',
   eventType: 'operational',
   attributes: {
     ...context,
-    ...(definitionId ? { definitionId } : {}),
-    ...(extensionKey ? { extensionKey } : {}),
+    definitionId,
+    extensionKey,
+    destinationProduct,
+    destinationSubproduct,
+    location,
   },
 });
 
-export const connectFailedEvent = (
-  definitionId?: string,
-  extensionKey?: string,
-  reason?: string,
-): AnalyticsPayload => ({
+export const connectFailedEvent = ({
+  definitionId,
+  extensionKey,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  reason,
+}: ConnectFailedEventProps): AnalyticsPayload => ({
   action: 'connectFailed',
   actionSubject: 'smartLink',
   actionSubjectId: reason,
   eventType: 'operational',
   attributes: {
     ...context,
-    ...(reason ? { reason: reason } : {}),
-    ...(definitionId ? { definitionId } : {}),
-    ...(extensionKey ? { extensionKey } : {}),
+    reason,
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
   },
 });
 
-export const trackAppAccountConnected = (
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const trackAppAccountConnected = ({
+  definitionId,
+  extensionKey,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: TrackAppAccountConnectedProps): AnalyticsPayload => ({
   action: 'connected',
   actionSubject: 'applicationAccount',
   eventType: 'track',
   attributes: {
     ...context,
-    ...(definitionId ? { definitionId } : {}),
-    ...(extensionKey ? { extensionKey } : {}),
+    definitionId,
+    extensionKey,
+    destinationProduct,
+    destinationSubproduct,
+    location,
   },
 });
 
-export const uiAuthEvent = (
-  display: CardInnerAppearance,
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const uiAuthEvent = ({
+  definitionId,
+  extensionKey,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  display,
+}: UiAuthEventProps): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'button',
   actionSubjectId: 'connectAccount',
   eventType: 'ui',
   attributes: {
     ...context,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
+    definitionId,
+    extensionKey,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     display,
   },
 });
 
-export const uiAuthAlternateAccountEvent = (
-  display: CardInnerAppearance,
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const uiAuthAlternateAccountEvent = ({
+  definitionId,
+  extensionKey,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  display,
+}: UiAuthAlternateAccountEventProps): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
   actionSubjectId: 'tryAnotherAccount',
   eventType: 'ui',
   attributes: {
     ...context,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
+    definitionId,
+    extensionKey,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     display,
   },
 });
 
-export const uiCardClickedEvent = (
-  id: string,
-  display: CardInnerAppearance,
-  status: CardType,
-  definitionId?: string,
-  extensionKey?: string,
-  isModifierKeyPressed?: boolean,
-  location?: string,
-  destinationProduct?: DestinationProduct | string,
-  destinationSubproduct?: DestinationSubproduct | string,
-  actionSubjectId?: string,
-): AnalyticsPayload => ({
+export const uiCardClickedEvent = ({
+  id,
+  display,
+  status,
+  definitionId,
+  extensionKey,
+  isModifierKeyPressed,
+  location,
+  destinationProduct,
+  destinationSubproduct,
+  actionSubjectId,
+}: UiCardClickedEventProps): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'smartLink',
   actionSubjectId,
@@ -252,8 +308,8 @@ export const uiCardClickedEvent = (
     ...context,
     id,
     status,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
+    definitionId,
+    extensionKey,
     display,
     isModifierKeyPressed,
     location,
@@ -262,12 +318,16 @@ export const uiCardClickedEvent = (
   },
 });
 
-export const uiActionClickedEvent = (
-  id: string,
-  actionType: string,
-  extensionKey?: string,
-  display?: CardInnerAppearance,
-): AnalyticsPayload => ({
+export const uiActionClickedEvent = ({
+  id,
+  actionType,
+  extensionKey,
+  display,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: UiActionClickedEventProps): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'button',
   actionSubjectId: uiActionSubjectIds[actionType],
@@ -276,63 +336,90 @@ export const uiActionClickedEvent = (
     ...context,
     id,
     display,
-    extensionKey: extensionKey || '',
     actionType: actionType,
+    extensionKey: extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
   },
 });
 
-export const uiClosedAuthEvent = (
-  display: CardInnerAppearance,
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const uiClosedAuthEvent = ({
+  display,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: UiClosedAuthEventProps): AnalyticsPayload => ({
   action: 'closed',
   actionSubject: 'consentModal',
   eventType: 'ui',
   attributes: {
     ...context,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     display,
   },
 });
 
-export const screenAuthPopupEvent = (
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const screenAuthPopupEvent = ({
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: ScreenAuthPopupEventProps): AnalyticsPayload => ({
   actionSubject: 'consentModal',
   eventType: 'screen',
   attributes: {
     ...context,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
   },
 });
 
-export const uiRenderSuccessEvent = (
-  display: CardInnerAppearance,
-  status: CardType,
-  definitionId?: string,
-  extensionKey?: string,
-): AnalyticsPayload => ({
+export const uiRenderSuccessEvent = ({
+  display,
+  status,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: UiRenderSuccessEventProps): AnalyticsPayload => ({
   action: 'renderSuccess',
   actionSubject: 'smartLink',
   eventType: 'ui',
   attributes: {
     ...context,
     status,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     display,
   },
 });
 
-export const uiRenderFailedEvent = (
-  display: CardInnerAppearance,
-  error: Error,
-  errorInfo: ErrorInfo,
-): AnalyticsPayload => ({
+export const uiRenderFailedEvent = ({
+  display,
+  error,
+  errorInfo,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+}: UiRenderFailedEventProps): AnalyticsPayload => ({
   actionSubject: 'smartLink',
   action: 'renderFailed',
   eventType: 'ui',
@@ -340,58 +427,78 @@ export const uiRenderFailedEvent = (
     error,
     errorInfo,
     display,
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
   },
 });
 
-export const uiHoverCardViewedEvent = (
-  id: string,
-  previewDisplay: PreviewDisplay,
-  definitionId?: string,
-  extensionKey?: string,
-  previewInvokeMethod?: PreviewInvokeMethod,
-): AnalyticsPayload => ({
+export const uiHoverCardViewedEvent = ({
+  id,
+  previewDisplay,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  previewInvokeMethod,
+}: UiHoverCardViewedEventProps): AnalyticsPayload => ({
   action: 'viewed',
   actionSubject: 'hoverCard',
   eventType: 'ui',
   attributes: {
     ...context,
     id,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
     previewDisplay,
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     previewInvokeMethod,
   },
 });
 
-export const uiHoverCardDismissedEvent = (
-  id: string,
-  previewDisplay: PreviewDisplay,
-  hoverTime: number,
-  definitionId?: string,
-  extensionKey?: string,
-  previewInvokeMethod?: PreviewInvokeMethod,
-): AnalyticsPayload => ({
+export const uiHoverCardDismissedEvent = ({
+  id,
+  previewDisplay,
+  hoverTime,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  previewInvokeMethod,
+}: UiHoverCardDismissedEventProps): AnalyticsPayload => ({
   action: 'dismissed',
   actionSubject: 'hoverCard',
   eventType: 'ui',
   attributes: {
     ...context,
     id,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
-    hoverTime,
     previewDisplay,
+    hoverTime,
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     previewInvokeMethod,
   },
 });
 
-export const uiHoverCardOpenLinkClickedEvent = (
-  id: string,
-  previewDisplay: string,
-  definitionId?: string,
-  extensionKey?: string,
-  previewInvokeMethod?: PreviewInvokeMethod,
-): AnalyticsPayload => ({
+export const uiHoverCardOpenLinkClickedEvent = ({
+  id,
+  previewDisplay,
+  extensionKey,
+  definitionId,
+  destinationProduct,
+  destinationSubproduct,
+  location,
+  previewInvokeMethod,
+}: UiHoverCardOpenLinkClickedEventProps): AnalyticsPayload => ({
   action: 'clicked',
   actionSubject: 'button',
   actionSubjectId: 'shortcutGoToLink',
@@ -399,9 +506,12 @@ export const uiHoverCardOpenLinkClickedEvent = (
   attributes: {
     ...context,
     id,
-    definitionId: definitionId || '',
-    extensionKey: extensionKey || '',
     previewDisplay,
+    extensionKey,
+    definitionId,
+    destinationProduct,
+    destinationSubproduct,
+    location,
     previewInvokeMethod,
   },
 });

@@ -70,18 +70,14 @@ describe('smart-card: unauthorized analytics', () => {
       expect(unauthorizedLink).toBeTruthy();
       fireEvent.click(unauthorizedLink);
       expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith(
-        'some-uuid-1',
-        'inline',
-        'unauthorized',
-        'd1',
-        'object-provider',
-        false,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-      );
+      expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+        id: 'some-uuid-1',
+        display: 'inline',
+        status: 'unauthorized',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+        isModifierKeyPressed: false,
+      });
     });
 
     it('should fire success event when the link is rendered', async () => {
@@ -105,12 +101,12 @@ describe('smart-card: unauthorized analytics', () => {
       );
       expect(unauthorizedLink).toBeTruthy();
       expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.uiRenderSuccessEvent).toBeCalledWith(
-        'inline',
-        'unauthorized',
-        'd1',
-        'object-provider',
-      );
+      expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+        display: 'inline',
+        status: 'unauthorized',
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+      });
     });
     it('should fire connectSucceeded event when auth succeeds', async () => {
       const mockUrl = 'https://https://this.is.a.url';
@@ -154,6 +150,9 @@ describe('smart-card: unauthorized analytics', () => {
           attributes: {
             componentName: 'smart-cards',
             display: 'inline',
+            id: expect.any(String),
+            extensionKey: 'object-provider',
+            definitionId: 'd1',
           },
         },
         expect.any(Function),
@@ -223,11 +222,12 @@ describe('smart-card: unauthorized analytics', () => {
         expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
         expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
         expect(analytics.connectFailedEvent).toHaveBeenCalledTimes(1);
-        expect(analytics.connectFailedEvent).toHaveBeenCalledWith(
-          'd1',
-          'object-provider',
-          errorType,
-        );
+        expect(analytics.connectFailedEvent).toHaveBeenCalledWith({
+          definitionId: 'd1',
+          extensionKey: 'object-provider',
+          reason: errorType,
+          id: expect.any(String),
+        });
 
         expect(mockStartUfoExperience).toBeCalledWith(
           'smart-link-authenticated',
@@ -288,11 +288,12 @@ describe('smart-card: unauthorized analytics', () => {
       expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
       expect(analytics.uiClosedAuthEvent).toHaveBeenCalledTimes(1);
       expect(analytics.connectFailedEvent).toHaveBeenCalledTimes(1);
-      expect(analytics.connectFailedEvent).toHaveBeenCalledWith(
-        'd1',
-        'object-provider',
-        'auth_window_closed',
-      );
+      expect(analytics.connectFailedEvent).toHaveBeenCalledWith({
+        definitionId: 'd1',
+        extensionKey: 'object-provider',
+        reason: 'auth_window_closed',
+        id: expect.any(String),
+      });
 
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-authenticated',

@@ -1,2 +1,2 @@
-export { default } from './drop-indicator';
+export { DropIndicator } from './drop-indicator';
 export type { DropIndicatorProps } from './drop-indicator';

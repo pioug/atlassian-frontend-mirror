@@ -8,25 +8,26 @@ describe('generated CSS', () => {
   it('should place css in the root css folder', () => {
     const names = getCSSFileNames();
 
-    expect(names).toEqual(['atlassian-dark.css', 'atlassian-light.css']);
+    expect(names).toEqual([
+      'atlassian-dark.css',
+      'atlassian-legacy-dark.css',
+      'atlassian-legacy-light.css',
+      'atlassian-light.css',
+    ]);
   });
 
   it('should place all themes on the theme attribute', () => {
-    const names = getCSSFileNames().filter(
-      (name) => !name.endsWith('-light.css'),
-    );
-
-    names.forEach((name) => {
+    getCSSFileNames().forEach((name) => {
       const css = getCSSFile(name);
 
-      expect(css).toMatch(/\nhtml\[data-theme="\w+"\] {\n/);
+      expect(css).toMatch(
+        /\nhtml\[data-theme="([a-z][a-z0-9]*)(-[a-z0-9]+)*"\] {\n/,
+      );
     });
   });
 
   it('should not have any unexpected values found in the CSS', () => {
-    const names = getCSSFileNames();
-
-    names.forEach((name) => {
+    getCSSFileNames().forEach((name) => {
       const css = getCSSFile(name);
 
       expect(css).not.toMatch(/undefined|\[object Object\]/);

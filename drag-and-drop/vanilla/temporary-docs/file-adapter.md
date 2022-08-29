@@ -90,28 +90,26 @@ For convenance, before `items` is provided to you, all non-file entities are str
 
 ## Blocking unhandled drags
 
-The default behaviour when dropping a file into a browser window is for that file to be opened in a new tab. Often, if you have drop targets for files on your page, you want file drops outside of those drop targets to be ignored, and not to open a new tab. You an use the optional `blockUnhandledDrags` addon to help with that.
+The default behaviour when dropping a file into a browser window is for that file to be opened in a new tab. Often, if you have drop targets for files on your page, you want file drops outside of those drop targets to be ignored, and not to open a new tab. You an use the optional `cancelUnhandled` addon to help with that.
 
-You can use `blockUnhandledDrags` inside a monitor
+You can use `cancelUnhandled` inside a monitor
 
 ```ts
 import { monitorForFiles } from '@atlaskit/drag-and-drop/adapter/file';
 import {
   blockUnhandledDrags,
   restoreStandardBehaviour,
-} from '@atlaskit/drag-and-drop/util/block-unhandled-drags';
+} from '@atlaskit/drag-and-drop/util/cancel-unhandled';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 
 monitorForFiles({
-  // when any drag starts for files block unhandled drags
   onDragStart: () => {
-    blockUnhandledDrags();
+    // when any drag starts for files block unhandled drags
+    cancelUnhandled.start();
   },
-  // when the drop finishes, restore default behaviour
-  // it is important that you restore standard behaviour
-  // or it will mess up future drag operations
   onDrop: () => {
-    restoreStandardBehaviour();
+    // resume standard behaviour when the drag is finished
+    cancelUnhandled.stop();
   },
 });
 ```

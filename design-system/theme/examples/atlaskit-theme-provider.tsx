@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';

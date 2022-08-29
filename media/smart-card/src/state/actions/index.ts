@@ -254,40 +254,44 @@ export const useSmartCardActions = (
       const services = getServices(details);
       // When authentication is triggered, let GAS know!
       if (status === 'unauthorized') {
-        analytics.ui.authEvent(appearance, definitionId, extensionKey);
-      }
-      if (status === 'forbidden') {
-        analytics.ui.authAlternateAccountEvent(
-          appearance,
+        analytics.ui.authEvent({
+          display: appearance,
           definitionId,
           extensionKey,
-        );
+        });
+      }
+      if (status === 'forbidden') {
+        analytics.ui.authAlternateAccountEvent({
+          display: appearance,
+          definitionId,
+          extensionKey,
+        });
       }
       if (services.length > 0) {
-        analytics.screen.authPopupEvent(definitionId, extensionKey);
+        analytics.screen.authPopupEvent({ definitionId, extensionKey });
         auth(services[0].url).then(
           () => {
-            analytics.track.appAccountConnected(definitionId, extensionKey);
-            analytics.operational.connectSucceededEvent(
+            analytics.track.appAccountConnected({ definitionId, extensionKey });
+            analytics.operational.connectSucceededEvent({
               id,
               definitionId,
               extensionKey,
-            );
+            });
             reload();
           },
           (err: AuthError) => {
-            analytics.operational.connectFailedEvent(
+            analytics.operational.connectFailedEvent({
               id,
               definitionId,
               extensionKey,
-              err.type,
-            );
+              reason: err.type,
+            });
             if (err.type === 'auth_window_closed') {
-              analytics.ui.closedAuthEvent(
-                appearance,
+              analytics.ui.closedAuthEvent({
+                display: appearance,
                 definitionId,
                 extensionKey,
-              );
+              });
             }
             reload();
           },
@@ -318,13 +322,13 @@ export const useSmartCardActions = (
       measure.mark(markName, 'pending');
       try {
         // Begin analytics instrumentation.
-        analytics.ui.actionClickedEvent(
+        analytics.ui.actionClickedEvent({
           id,
-          key,
-          action.type,
-          source,
-          opts.type,
-        );
+          extensionKey: key,
+          actionType: action.type,
+          display: source,
+          invokeType: opts.type,
+        });
         // Invoke action - either client-side or server-side.
         let response: JsonLd.Response | void;
         if (opts.type === 'client') {
@@ -333,22 +337,22 @@ export const useSmartCardActions = (
           response = await connections.client.postData(opts);
         }
         measure.mark(markName, 'resolved');
-        analytics.operational.invokeSucceededEvent(
+        analytics.operational.invokeSucceededEvent({
           id,
-          key,
-          action.type,
-          source,
-        );
+          extensionKey: key,
+          actionType: action.type,
+          display: source,
+        });
         return response;
       } catch (err) {
         measure.mark(markName, 'errored');
-        analytics.operational.invokeFailedEvent(
+        analytics.operational.invokeFailedEvent({
           id,
-          key,
-          action.type,
-          source,
-          (err as any).message,
-        );
+          extensionKey: key,
+          actionType: action.type,
+          display: source,
+          reason: (err as any).message,
+        });
         throw err;
       }
     },

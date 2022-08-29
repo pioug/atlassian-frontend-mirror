@@ -91,10 +91,18 @@ export const extractPreviewAction = (
       featureFlags,
       testId,
       onOpen: () => {
-        handleAnalytics(uiRenderSuccessEvent('preview', 'resolved', key));
+        handleAnalytics(
+          uiRenderSuccessEvent({
+            display: 'preview',
+            status: 'resolved',
+            extensionKey: key,
+          }),
+        );
       },
       onOpenFailed: (error, errorInfo) => {
-        handleAnalytics(uiRenderFailedEvent('preview', error, errorInfo));
+        handleAnalytics(
+          uiRenderFailedEvent({ display: 'preview', error, errorInfo }),
+        );
       },
       onDownloadActionClick: () => {
         handleInvoke(getInvokeOpts(key, 'DownloadAction'));

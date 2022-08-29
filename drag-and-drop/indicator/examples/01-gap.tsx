@@ -9,7 +9,7 @@ export default function ClosestEdgeExample() {
   return (
     <Layout testId="layout">
       {gaps.map(gap => (
-        <Card edge="right" gap={gap}>
+        <Card key={gap} edge="right" gap={gap}>
           {gap}px
         </Card>
       ))}

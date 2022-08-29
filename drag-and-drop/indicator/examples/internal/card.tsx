@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/core';
 
 import { token } from '@atlaskit/tokens';
 
-import DropIndicator, { DropIndicatorProps } from '../../src';
+import { DropIndicator, DropIndicatorProps } from '../../src';
 
 type CardProps = { children: ReactNode } & Pick<
   DropIndicatorProps,
@@ -24,17 +24,15 @@ const cardStyles = css({
     'rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.31) 0px 0px 1px',
   ),
   placeItems: 'center',
+  position: 'relative',
 });
 
 const Card = ({ children, edge, gap }: CardProps) => {
   return (
-    <DropIndicator edge={edge} gap={gap}>
-      {({ className }) => (
-        <div className={className} css={cardStyles} data-testid="card">
-          <strong>{children}</strong>
-        </div>
-      )}
-    </DropIndicator>
+    <div css={cardStyles} data-testid="card">
+      <strong>{children}</strong>
+      <DropIndicator edge={edge} gap={gap} />
+    </div>
   );
 };
 

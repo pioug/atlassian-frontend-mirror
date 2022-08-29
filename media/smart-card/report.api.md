@@ -348,6 +348,25 @@ declare type CommentCount = {
   name: ElementName.CommentCount;
 };
 
+declare interface CommonEventProps {
+  id?: string;
+  definitionId?: string;
+  extensionKey?: string;
+  resourceType?: string;
+  destinationSubproduct?: DestinationSubproduct | string;
+  destinationProduct?: DestinationProduct | string;
+  location?: string;
+}
+
+declare type ConnectFailedEventProps = CommonEventProps & {
+  id?: string;
+  reason?: string;
+};
+
+declare type ConnectSucceededEventProps = CommonEventProps & {
+  id?: string;
+};
+
 export declare const contentFooterClassName = 'smart-link-content-footer';
 
 /**
@@ -569,6 +588,25 @@ declare type InlinePreloaderStyle =
   | 'on-left-with-skeleton'
   | 'on-right-without-skeleton';
 
+declare type InstrumentEventProps = CommonEventProps & {
+  error?: APIError;
+  status: CardType;
+  id: string;
+};
+
+declare type InvokeFailedEventProps = CommonEventProps & {
+  id: string;
+  actionType: string;
+  display: CardInnerAppearance;
+  reason: string;
+};
+
+declare type InvokeSucceededEventProps = CommonEventProps & {
+  id: string;
+  actionType: string;
+  display: CardInnerAppearance;
+};
+
 declare type InvokeType = 'server' | 'client';
 
 /**
@@ -759,6 +797,8 @@ declare type RetryOptions = {
    */
   values?: Record<string, string>;
 };
+
+declare type ScreenAuthPopupEventProps = CommonEventProps;
 
 export { SmartCardContext as Context };
 export { SmartCardContext };
@@ -983,6 +1023,62 @@ declare type TitleBlockProps = {
   theme?: SmartLinkTheme;
 } & BlockProps;
 
+declare type TrackAppAccountConnectedProps = CommonEventProps;
+
+declare type UiActionClickedEventProps = CommonEventProps & {
+  id: string;
+  display: CardInnerAppearance;
+  actionType: string;
+  invokeType?: InvokeType;
+};
+
+declare type UiAuthAlternateAccountEventProps = CommonEventProps & {
+  display: CardInnerAppearance;
+};
+
+declare type UiAuthEventProps = CommonEventProps & {
+  display: CardInnerAppearance;
+};
+
+declare type UiCardClickedEventProps = CommonEventProps & {
+  id: string;
+  display: CardInnerAppearance;
+  status: CardType;
+  isModifierKeyPressed?: boolean;
+  actionSubjectId?: string;
+};
+
+declare type UiClosedAuthEventProps = CommonEventProps & {
+  display: CardInnerAppearance;
+};
+
+declare type UiHoverCardDismissedEventProps = CommonEventProps & {
+  previewDisplay: PreviewDisplay;
+  hoverTime: number;
+  previewInvokeMethod?: PreviewInvokeMethod;
+};
+
+declare type UiHoverCardOpenLinkClickedEventProps = CommonEventProps & {
+  previewDisplay: PreviewDisplay;
+  previewInvokeMethod?: PreviewInvokeMethod;
+};
+
+declare type UiHoverCardViewedEventProps = CommonEventProps & {
+  previewDisplay: PreviewDisplay;
+  previewInvokeMethod?: PreviewInvokeMethod;
+};
+
+declare type UiRenderFailedEventProps = CommonEventProps & {
+  display: CardInnerAppearance;
+  error: Error;
+  errorInfo: ErrorInfo;
+};
+
+declare type UiRenderSuccessEventProps = CommonEventProps & {
+  display: CardInnerAppearance;
+  status: CardType;
+};
+
 /**
  * This hook provides usage of Smart Link analytics outside of the Card component.
  * Can be provided to Card via the analyticsEvents prop to change the analytics events.
@@ -1007,11 +1103,15 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @returns
      */
-    authEvent: (
-      display: CardInnerAppearance,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    authEvent: ({
+      display,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiAuthEventProps) => void;
     /**
      * This fires an event that represents when a user clicks on the authentication
      * call to action with a forbidden authenticated account. (i.e. Try another account).
@@ -1020,11 +1120,15 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @returns
      */
-    authAlternateAccountEvent: (
-      display: CardInnerAppearance,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    authAlternateAccountEvent: ({
+      display,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiAuthAlternateAccountEventProps) => void;
     /**
      * This fires an event that represents when a user clicks on a Smart Link.
      * @param id The unique ID for this Smart Link.
@@ -1037,18 +1141,18 @@ export declare const useSmartLinkAnalytics: (
      * @param destinationProduct The product the Smart Link is linked to.
      * @returns
      */
-    cardClickedEvent: (
-      id: string | undefined,
-      display: CardInnerAppearance,
-      status: CardType,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-      isModifierKeyPressed?: boolean | undefined,
-      location?: string | undefined,
-      destinationProduct?: DestinationProduct | string | undefined,
-      destinationSubproduct?: DestinationSubproduct | string | undefined,
-      actionSubjectId?: string | undefined,
-    ) => void;
+    cardClickedEvent: ({
+      id,
+      display,
+      status,
+      definitionId,
+      extensionKey,
+      isModifierKeyPressed,
+      location,
+      destinationProduct,
+      destinationSubproduct,
+      actionSubjectId,
+    }: UiCardClickedEventProps) => void;
     /**
      * This fires an event that represents when a user clicks on a Smart Link action.
      * Note: This also starts the UFO smart-link-action-invocation experience.
@@ -1059,13 +1163,18 @@ export declare const useSmartLinkAnalytics: (
      * @param invokeType Whether the action invoked made a call to a server.
      * @returns
      */
-    actionClickedEvent: (
-      id: string | undefined,
-      extensionKey: string | undefined,
-      actionType: string,
-      display: CardInnerAppearance,
-      invokeType: InvokeType,
-    ) => void;
+    actionClickedEvent: ({
+      id,
+      actionType,
+      display,
+      invokeType,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiActionClickedEventProps) => void;
     /**
      * This fires an event that represents when a user clicks on a hover preview's "navigate to link" button.
      * https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3206743323/Analytics+Metrics+-+Hover+Previews
@@ -1074,12 +1183,15 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @param previewInvokeMethod How the preview was triggered.
      */
-    hoverCardOpenLinkClickedEvent: (
-      previewDisplay: PreviewDisplay,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-      previewInvokeMethod?: PreviewInvokeMethod | undefined,
-    ) => void;
+    hoverCardOpenLinkClickedEvent: ({
+      previewDisplay,
+      definitionId,
+      extensionKey,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+      previewInvokeMethod,
+    }: UiHoverCardOpenLinkClickedEventProps) => void;
     /**
      * This fires an event that represents when a user closed the authentication window without authenticating after opening it.
      * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
@@ -1087,11 +1199,15 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @returns
      */
-    closedAuthEvent: (
-      display: CardInnerAppearance,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    closedAuthEvent: ({
+      display,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiClosedAuthEventProps) => void;
     /**
      * This fires an event that represents when a Smart Link was rendered successfully.
      * Note: this fires even if the Smart Link request errored out.
@@ -1100,13 +1216,17 @@ export declare const useSmartLinkAnalytics: (
      * @param definitionId The definitionId of the Smart Link resolver invoked.
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      */
-    renderSuccessEvent: (
-      display: CardInnerAppearance,
-      status: CardType,
-      id?: string,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    renderSuccessEvent: ({
+      display,
+      status,
+      id,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiRenderSuccessEventProps) => void;
     /**
      * This fires an event that represents when a Smart Link renders unsuccessfuly.
      * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
@@ -1114,12 +1234,18 @@ export declare const useSmartLinkAnalytics: (
      * @param error: An error representing why the Smart Link render failed.
      * @param errorInfo: Additional details about the error including the stack trace.
      */
-    renderFailedEvent: (
-      display: CardInnerAppearance,
-      id: string | undefined,
-      error: Error,
-      errorInfo: ErrorInfo,
-    ) => void;
+    renderFailedEvent: ({
+      display,
+      id,
+      error,
+      errorInfo,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiRenderFailedEventProps) => void;
     /**
      * This fires an event that represents a hover preview being opened.
      * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
@@ -1128,13 +1254,17 @@ export declare const useSmartLinkAnalytics: (
      * @param previewInvokeMethod How the preview was triggered.
      * @returns
      */
-    hoverCardViewedEvent: (
-      previewDisplay: PreviewDisplay,
-      previewInvokeMethod?: PreviewInvokeMethod | undefined,
-      id?: string,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    hoverCardViewedEvent: ({
+      previewDisplay,
+      previewInvokeMethod,
+      id,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiHoverCardViewedEventProps) => void;
     /**
      * This fires an event that represents a hover preview being dismissed.
      * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
@@ -1144,14 +1274,18 @@ export declare const useSmartLinkAnalytics: (
      * @param previewInvokeMethod How the preview was triggered.
      * @returns
      */
-    hoverCardDismissedEvent: (
-      previewDisplay: PreviewDisplay,
-      hoverTime: number,
-      previewInvokeMethod?: PreviewInvokeMethod | undefined,
-      id?: string,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    hoverCardDismissedEvent: ({
+      id,
+      previewDisplay,
+      hoverTime,
+      previewInvokeMethod,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: UiHoverCardDismissedEventProps) => void;
   };
   operational: {
     /**
@@ -1161,12 +1295,17 @@ export declare const useSmartLinkAnalytics: (
      * @param actionType The type of action invoked, e.g. PreviewAction
      * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
      */
-    invokeSucceededEvent: (
-      id: string | undefined,
-      extensionKey: string | undefined,
-      actionType: string,
-      display: CardInnerAppearance,
-    ) => void;
+    invokeSucceededEvent: ({
+      id,
+      actionType,
+      display,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: InvokeSucceededEventProps) => void;
     /**
      * This fires an event that represents an action being unsuccessfully invoked.
      * @param id The unique ID for this Smart Link.
@@ -1175,24 +1314,33 @@ export declare const useSmartLinkAnalytics: (
      * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
      * @param reason The reason the invocation failed.
      */
-    invokeFailedEvent: (
-      id: string | undefined,
-      providerKey: string | undefined,
-      actionType: string,
-      display: CardInnerAppearance,
-      reason: string,
-    ) => void;
+    invokeFailedEvent: ({
+      id,
+      actionType,
+      display,
+      reason,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: InvokeFailedEventProps) => void;
     /**
      * This fires an event that represents an account successfully being connected via a Smart Link.
      * @param id The unique ID for this Smart Link.
      * @param definitionId The definitionId of the Smart Link resolver invoked.
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      */
-    connectSucceededEvent: (
-      id?: string,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    connectSucceededEvent: ({
+      id,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: ConnectSucceededEventProps) => void;
     /**
      * This fires an event that represents an account unsuccessfully being connected.
      * @param id The unique ID for this Smart Link.
@@ -1200,12 +1348,16 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @param reason The reason why the Smart Link connect account failed.
      */
-    connectFailedEvent: (
-      id?: string,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-      reason?: string | undefined,
-    ) => void;
+    connectFailedEvent: ({
+      id,
+      reason,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: ConnectFailedEventProps) => void;
     /**
      * This fires an event which represents a Smart Link request succeeding or failing based on the status.
      * @param id The unique ID for this Smart Link.
@@ -1215,14 +1367,17 @@ export declare const useSmartLinkAnalytics: (
      * @param resourceType The type of resource that was invoked. This is provider specific (e.g. File, PullRequest).
      * @param error An error representing why the Smart Link request failed.
      */
-    instrument: (
-      id: string | undefined,
-      status: CardType,
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-      resourceType?: string | undefined,
-      error?: APIError | undefined,
-    ) => void;
+    instrument: ({
+      id,
+      status,
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+      error,
+    }: InstrumentEventProps) => void;
   };
   track: {
     /**
@@ -1231,10 +1386,14 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @returns
      */
-    appAccountConnected: (
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    appAccountConnected: ({
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: TrackAppAccountConnectedProps) => void;
   };
   screen: {
     /**
@@ -1243,10 +1402,14 @@ export declare const useSmartLinkAnalytics: (
      * @param extensionKey The extensionKey of the Smart Link resovler invoked.
      * @returns
      */
-    authPopupEvent: (
-      definitionId?: string | undefined,
-      extensionKey?: string | undefined,
-    ) => void;
+    authPopupEvent: ({
+      extensionKey,
+      definitionId,
+      resourceType,
+      destinationProduct,
+      destinationSubproduct,
+      location,
+    }: ScreenAuthPopupEventProps) => void;
   };
 };
 

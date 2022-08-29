@@ -52,7 +52,7 @@ export const getOpenAction = (
         onActionClick('open-content');
       }
       window.open(url, '_blank');
-      analytics.ui.hoverCardOpenLinkClickedEvent('card');
+      analytics.ui.hoverCardOpenLinkClickedEvent({ previewDisplay: 'card' });
     },
     testId: 'hover-card-open-button',
   } as CustomActionItem);
@@ -95,10 +95,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   useEffect(() => {
     // Since hover preview only render on resolved status,
     // there is no need to check for statuses.
-    analytics.ui.renderSuccessEvent(
-      SMART_CARD_ANALYTICS_DISPLAY,
-      cardState.status,
-    );
+    analytics.ui.renderSuccessEvent({
+      display: SMART_CARD_ANALYTICS_DISPLAY,
+      status: cardState.status,
+    });
   }, [analytics.ui, cardState.status]);
 
   const extensionKey = useMemo(() => getExtensionKey(cardState.details), [
@@ -108,20 +108,15 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   const onClick = useCallback(
     (event: React.MouseEvent | React.KeyboardEvent) => {
       const isModifierKeyPressed = isSpecialEvent(event);
-      analytics.ui.cardClickedEvent(
-        undefined,
-        SMART_CARD_ANALYTICS_DISPLAY,
-        cardState.status,
-        undefined,
-        undefined,
+      analytics.ui.cardClickedEvent({
+        id,
+        display: SMART_CARD_ANALYTICS_DISPLAY,
+        status: cardState.status,
         isModifierKeyPressed,
-        undefined,
-        undefined,
-        undefined,
-        'titleGoToLink',
-      );
+        actionSubjectId: 'titleGoToLink',
+      });
     },
-    [cardState.status, analytics.ui],
+    [cardState.status, analytics.ui, id],
   );
 
   const titleActions = useMemo(

@@ -96,7 +96,12 @@ export function CardWithURLRenderer(props: CardProps) {
         const errorInfo: ErrorInfo = {
           componentStack,
         };
-        analytics.ui.renderFailedEvent(appearance, id, error, errorInfo);
+        analytics.ui.renderFailedEvent({
+          display: appearance,
+          id,
+          error,
+          errorInfo,
+        });
       }
     },
     [analytics.ui, appearance, id],

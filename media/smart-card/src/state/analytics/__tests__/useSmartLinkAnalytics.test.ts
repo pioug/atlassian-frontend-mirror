@@ -31,7 +31,11 @@ describe('useSmartLinkAnalytics', () => {
     const { result } = renderHook(() =>
       useSmartLinkAnalytics(url, mockedAnalyticsHandler),
     );
-    result.current.ui.cardClickedEvent('test-id', 'flexible', 'resolved');
+    result.current.ui.cardClickedEvent({
+      id: 'test-id',
+      display: 'flexible',
+      status: 'resolved',
+    });
     expect(mockedAnalyticsHandler).toBeCalled();
     expect(mockedAnalyticsHandler).toBeCalledWith({
       action: 'clicked',
@@ -47,6 +51,7 @@ describe('useSmartLinkAnalytics', () => {
         packageName: '@atlaskit/smart-card',
         packageVersion: '999.9.9',
         status: 'resolved',
+        resourceType: 'spaghetti-resource',
       },
       eventType: 'ui',
     });

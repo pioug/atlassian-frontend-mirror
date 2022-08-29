@@ -7,8 +7,7 @@ import styled from '@emotion/styled';
 import { Provider, Client, Card, useSmartLinkAnalytics } from '../src';
 import { AnalyticsPayload } from '../src/utils/types';
 
-const url =
-  'https://sdog.jira-dev.com/jira/software/projects/SLT/boards/574?selectedIssue=SLT-1';
+const url = 'https://www.google.com';
 const analyticsHandler = (event: AnalyticsPayload) => {
   console.log(event);
 };
@@ -44,13 +43,13 @@ const CardWithLocationAnalytics = () => {
   return (
     <Card
       onClick={() => {
-        analytics.ui.cardClickedEvent(
+        analytics.ui.cardClickedEvent({
           id,
-          'block',
-          'resolved',
-          'this-is-a-test-definition-id',
-          'this-is-a-test-extension-key',
-        );
+          display: 'block',
+          status: 'resolved',
+          definitionId: 'this-is-a-test-definition-id',
+          extensionKey: 'this-is-a-test-extension-key',
+        });
       }}
       id={id}
       url={url}

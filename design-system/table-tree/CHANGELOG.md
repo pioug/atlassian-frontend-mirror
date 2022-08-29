@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.1.10
+
+### Patch Changes
+
+- [`70c2c0e00ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70c2c0e00ea) - Updates `@emotion/core` v10 to `@emotion/react` v11. No expected behaviour change.
+
 ## 9.1.9
 
 ### Patch Changes

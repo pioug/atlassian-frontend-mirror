@@ -172,7 +172,7 @@ export declare function SmartCardProvider({
 
 export declare function useFeatureFlag(
   featureFlag: keyof LinkingPlatformFeatureFlags,
-): boolean | undefined;
+): boolean | 'control' | 'small' | 'large' | undefined;
 
 export declare function useSmartLinkContext(): CardContext;
 

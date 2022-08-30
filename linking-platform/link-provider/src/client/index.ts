@@ -210,7 +210,7 @@ export default class CardClient implements CardClientInterface {
       throw new APIError(
         'fatal',
         hostname,
-        response.toString(),
+        JSON.stringify(response),
         'UnexpectedError',
       );
     } else {

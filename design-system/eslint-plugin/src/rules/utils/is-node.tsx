@@ -3,7 +3,9 @@ import {
   CallExpression,
   Expression,
   isNodeOfType,
+  Property,
   TaggedTemplateExpression,
+  VariableDeclarator,
 } from 'eslint-codemod-utils';
 
 export const isDecendantOfGlobalToken = (node: Rule.Node): boolean => {
@@ -35,6 +37,24 @@ export const isDecendantOfType = (
     return isDecendantOfType(node.parent, type, false);
   }
 
+  return false;
+};
+
+export const isPropertyKey = (node: Rule.Node): boolean => {
+  if (isNodeOfType(node, 'Identifier') && isDecendantOfType(node, 'Property')) {
+    const parent = node.parent as Property;
+    return node === parent.key || parent.shorthand;
+  }
+  return false;
+};
+
+export const isVariableName = (node: Rule.Node): boolean => {
+  if (
+    isNodeOfType(node, 'Identifier') &&
+    isDecendantOfType(node, 'VariableDeclarator')
+  ) {
+    return node === (node.parent as VariableDeclarator).id;
+  }
   return false;
 };
 

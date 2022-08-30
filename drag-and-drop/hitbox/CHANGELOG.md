@@ -1,5 +1,15 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.1.0
+
+### Minor Changes
+
+- [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.1
 
 ### Patch Changes

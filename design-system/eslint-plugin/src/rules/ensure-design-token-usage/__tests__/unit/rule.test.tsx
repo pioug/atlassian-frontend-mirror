@@ -70,6 +70,27 @@ tester.run('ensure-design-token-usage', rule, {
       wrapper.find('#eeeeee').exists()
       `,
     },
+    {
+      code: `const green = token('color.background.accent.green');`,
+    },
+    {
+      code: `
+      const colors = { green: token('color.background.accent.green') };
+      return colors.green;
+      `,
+    },
+    {
+      code: `
+      const green = token('color.background.accent.green');
+      const colors = { green };
+      `,
+    },
+    {
+      code: `
+      colors.green = token('color.background.accent.green');
+      colors['blue'] = token('color.background.accent.blue');
+      `,
+    },
     // Using config -> shouldEnforceFallbacks: true
     {
       options: [{ shouldEnforceFallbacks: true }],
@@ -193,16 +214,16 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        css\`
-          \${e100};
-        \`
-      `,
+          css\`
+            \${e100};
+          \`
+        `,
       output: `
-        css\`
-          background-color: $\{token('color.background.card')};
-          box-shadow: \${token('shadow.card')};
-        \`
-      `,
+          css\`
+            background-color: $\{token('color.background.card')};
+            box-shadow: \${token('shadow.card')};
+          \`
+        `,
       errors: [{ messageId: 'legacyElevation' }],
     },
     {
@@ -211,18 +232,18 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        css\`
-          box-shadow: 0px 1px 1px #161A1D32;
-        \`
-      `,
+          css\`
+            box-shadow: 0px 1px 1px #161A1D32;
+          \`
+        `,
       errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `
-        css({
-          boxShadow: '0px 1px 1px #161A1D32',
-        })
-      `,
+          css({
+            boxShadow: '0px 1px 1px #161A1D32',
+          })
+        `,
       errors: [{ messageId: 'hardCodedColor' }],
     },
     {
@@ -231,19 +252,19 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-          css\`
-            white-space: nowrap;
-            color: red;
-            background-color: #ccc;
-            border-color: rgb(0, 0, 0);
-            outline-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0px 1px 1px hsl(0, 100%, 50%);
-            border-top-color: hsla(0, 100%, 50%, 0.5);
-            border-left-color: lch(29.2345% 44.2 27);
-            border-right-color: lab(29.2345% 39.3825 20.0664);
-            border-bottom-color: color(display-p3 1 0.5 0);
-          \`;
-        `,
+            css\`
+              white-space: nowrap;
+              color: red;
+              background-color: #ccc;
+              border-color: rgb(0, 0, 0);
+              outline-color: rgba(0, 0, 0, 0.5);
+              box-shadow: 0px 1px 1px hsl(0, 100%, 50%);
+              border-top-color: hsla(0, 100%, 50%, 0.5);
+              border-left-color: lch(29.2345% 44.2 27);
+              border-right-color: lab(29.2345% 39.3825 20.0664);
+              border-bottom-color: color(display-p3 1 0.5 0);
+            \`;
+          `,
       errors: [
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
@@ -258,19 +279,19 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-          styled.div\`
-            white-space: nowrap;
-            color: red;
-            background-color: #ccc;
-            border-color: rgb(0, 0, 0);
-            outline-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0px 1px 1px hsl(0, 100%, 50%);
-            border-top-color: hsla(0, 100%, 50%, 0.5);
-            border-left-color: lch(29.2345% 44.2 27);
-            border-right-color: lab(29.2345% 39.3825 20.0664);
-            border-bottom-color: color(display-p3 1 0.5 0);
-          \`;
-        `,
+            styled.div\`
+              white-space: nowrap;
+              color: red;
+              background-color: #ccc;
+              border-color: rgb(0, 0, 0);
+              outline-color: rgba(0, 0, 0, 0.5);
+              box-shadow: 0px 1px 1px hsl(0, 100%, 50%);
+              border-top-color: hsla(0, 100%, 50%, 0.5);
+              border-left-color: lch(29.2345% 44.2 27);
+              border-right-color: lab(29.2345% 39.3825 20.0664);
+              border-bottom-color: color(display-p3 1 0.5 0);
+            \`;
+          `,
       errors: [
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
@@ -285,29 +306,17 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-        css({
-          backgroundColor: background(),
-        });
-      `,
+          css({
+            backgroundColor: background(),
+          });
+        `,
       errors: [{ messageId: 'hardCodedColor' }],
     },
     {
       code: `
-        css({
-          color: colors.B100,
-          color: P100,
-        });
-      `,
-      errors: [
-        { messageId: 'hardCodedColor' },
-        { messageId: 'hardCodedColor' },
-      ],
-    },
-    {
-      code: `
           css({
-            color: 'red',
-            color: 'orange',
+            color: colors.B100,
+            color: P100,
           });
         `,
       errors: [
@@ -317,11 +326,11 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-          css({
-            color: 'hsl(30, 100%, 50%, 0.6)',
-            color: 'hsla(30, 100%, 50%, 0.6)',
-          });
-        `,
+            css({
+              color: 'red',
+              color: 'orange',
+            });
+          `,
       errors: [
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
@@ -329,11 +338,11 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-          css({
-            color: 'rgb(0, 0, 0)',
-            color: 'rgba(0, 0, 0, 0.5)',
-          });
-        `,
+            css({
+              color: 'hsl(30, 100%, 50%, 0.6)',
+              color: 'hsla(30, 100%, 50%, 0.6)',
+            });
+          `,
       errors: [
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },
@@ -341,12 +350,24 @@ tester.run('ensure-design-token-usage', rule, {
     },
     {
       code: `
-          css({
-            color: '#ccc',
-            color: '#cccaaa',
-            color: '#cccaaaff'
-          })
-        `,
+            css({
+              color: 'rgb(0, 0, 0)',
+              color: 'rgba(0, 0, 0, 0.5)',
+            });
+          `,
+      errors: [
+        { messageId: 'hardCodedColor' },
+        { messageId: 'hardCodedColor' },
+      ],
+    },
+    {
+      code: `
+            css({
+              color: '#ccc',
+              color: '#cccaaa',
+              color: '#cccaaaff'
+            })
+          `,
       errors: [
         { messageId: 'hardCodedColor' },
         { messageId: 'hardCodedColor' },

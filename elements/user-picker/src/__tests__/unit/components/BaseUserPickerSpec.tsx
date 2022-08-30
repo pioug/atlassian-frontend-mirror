@@ -10,7 +10,7 @@ import {
   BaseUserPickerProps,
 } from '../../../components/BaseUserPicker';
 import { getComponents } from '../../../components/components';
-import * as analytics from '../../../analytics';
+import { startSession } from '../../../analytics';
 import {
   optionToSelectableOption,
   optionToSelectableOptions,
@@ -62,6 +62,26 @@ jest.mock('@atlaskit/ufo', () => ({
     },
   }),
 }));
+
+jest.mock('../../../analytics', () => ({
+  ...jest.requireActual('../../../analytics'),
+  startSession: jest.fn(),
+}));
+const startSessionMock = startSession as jest.MockedFunction<
+  typeof startSession
+>;
+const mockSessionId = (
+  id: string,
+  jestMockFn: 'mockReturnValue' | 'mockReturnValueOnce' = 'mockReturnValue',
+) => {
+  startSessionMock[jestMockFn]({
+    start: 0,
+    inputChangeTime: 0,
+    upCount: 0,
+    downCount: 0,
+    id,
+  });
+};
 
 const ID_1 = '111111111111111111111111';
 const ID_2 = '111111111111111111111110';
@@ -160,6 +180,14 @@ describe('BaseUserPicker', () => {
   };
 
   const userOptions: Option[] = optionToSelectableOptions(options);
+
+  beforeEach(() => {
+    mockSessionId('random-session-id');
+  });
+
+  afterEach(() => {
+    startSessionMock.mockReset();
+  });
 
   it('should render using a Select', () => {
     const component = shallowUserPicker({ options });
@@ -293,6 +321,26 @@ describe('BaseUserPicker', () => {
         'select-option',
       );
     });
+
+    it('should call onSelection with an array of users', () => {
+      const onSelection = jest.fn();
+      const component = shallowUserPicker({
+        options,
+        isMulti: true,
+        open: true,
+        onSelection,
+      });
+
+      component
+        .find(Select)
+        .simulate('change', userOptions, { action: 'select-option' });
+
+      expect(onSelection).toHaveBeenCalledWith(
+        [options[0], options[1]],
+        'random-session-id',
+      );
+    });
+
     it('should remove user correctly', () => {
       let value = [] as Value;
       const onChange = jest.fn();
@@ -573,17 +621,8 @@ describe('BaseUserPicker', () => {
     });
 
     describe('with session id', () => {
-      let analyticsSpy: jest.SpyInstance;
       beforeEach(() => {
-        // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
-        //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
-        analyticsSpy = jest.spyOn(analytics, 'startSession').mockReturnValue({
-          id: 'random-session-id',
-        });
-      });
-
-      afterEach(() => {
-        analyticsSpy.mockRestore();
+        mockSessionId('random-session-id');
       });
 
       it('should pass sessionId to load option', () => {
@@ -661,9 +700,8 @@ describe('BaseUserPicker', () => {
       });
 
       it('should use the same session id on 2nd focus', async () => {
-        analyticsSpy
-          .mockReturnValueOnce({ id: 'session-first' })
-          .mockReturnValueOnce({ id: 'session-second' });
+        mockSessionId('session-first', 'mockReturnValueOnce');
+        mockSessionId('session-second', 'mockReturnValueOnce');
         const onFocus = jest.fn();
         const component = mount(getBasePickerWithAnalytics({ onFocus }));
         const input = component.find('input');
@@ -676,9 +714,8 @@ describe('BaseUserPicker', () => {
       });
 
       it('should use new session id for on focus if open is false', async () => {
-        analyticsSpy
-          .mockReturnValueOnce({ id: 'session-first' })
-          .mockReturnValueOnce({ id: 'session-second' });
+        mockSessionId('session-first', 'mockReturnValueOnce');
+        mockSessionId('session-second', 'mockReturnValueOnce');
         const onFocus = jest.fn();
         const component = mount(
           getBasePickerWithAnalytics({ onFocus, open: false }),
@@ -1583,28 +1620,10 @@ describe('BaseUserPicker', () => {
         });
 
         describe('with journeyId', () => {
-          let analyticsSpy: jest.SpyInstance;
-
-          beforeEach(() => {
-            analyticsSpy = jest
-              .spyOn(analytics, 'startSession')
-              .mockReturnValue({
-                id: 'random-session-id',
-                start: 0,
-                inputChangeTime: 0,
-                upCount: 0,
-                downCount: 0,
-              });
-          });
-
-          afterEach(() => {
-            analyticsSpy.mockRestore();
-          });
           it('should have the same id for journey id and session id on focus', async () => {
-            const mockSessionId = 'session-first';
-            analyticsSpy
-              .mockReturnValueOnce({ id: mockSessionId })
-              .mockReturnValue({ id: 'random-id' });
+            mockSessionId('session-first', 'mockReturnValueOnce');
+            mockSessionId('random-id', 'mockReturnValueOnce');
+
             component.setProps({ isMulti: true });
             component.find(Select).prop('onFocus')();
 
@@ -1612,8 +1631,8 @@ describe('BaseUserPicker', () => {
             expect(onEvent).toHaveBeenCalledTimes(1);
             expect(onEvent).toHaveBeenCalledWith(
               createEventMatcher('userPicker', 'focused', {
-                journeyId: mockSessionId,
-                sessionId: mockSessionId,
+                journeyId: 'session-first',
+                sessionId: 'session-first',
               }),
               'fabric-elements',
             );
@@ -1621,9 +1640,8 @@ describe('BaseUserPicker', () => {
           it('should use different journey id on second focus', async () => {
             const firstMockSessionId = 'session-first';
             const secondMockSessionId = 'session-second';
-            analyticsSpy
-              .mockReturnValueOnce({ id: firstMockSessionId })
-              .mockReturnValueOnce({ id: secondMockSessionId });
+            mockSessionId(firstMockSessionId, 'mockReturnValueOnce');
+            mockSessionId(secondMockSessionId, 'mockReturnValueOnce');
             component.find(Select).prop('onFocus')();
             component.find(Select).prop('onBlur')();
             component.find(Select).prop('onFocus')();
@@ -1658,9 +1676,8 @@ describe('BaseUserPicker', () => {
           it('should use same journey id across multiple selects', () => {
             const firstMockSessionId = 'session-first';
             const secondMockSessionId = 'session-second';
-            analyticsSpy
-              .mockReturnValueOnce({ id: firstMockSessionId })
-              .mockReturnValue({ id: secondMockSessionId });
+            mockSessionId(firstMockSessionId, 'mockReturnValueOnce');
+            mockSessionId(secondMockSessionId, 'mockReturnValueOnce');
             component.setProps({ isMulti: true, options });
             component.find(Select).prop('onFocus')();
             component.find(Select).prop('onChange')(

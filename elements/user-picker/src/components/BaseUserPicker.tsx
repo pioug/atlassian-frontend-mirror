@@ -170,8 +170,12 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
     switch (action) {
       case 'select-option':
-        if (value && !Array.isArray(value)) {
-          callCallback(onSelection, value.data, this.getSessionId());
+        if (value) {
+          callCallback(
+            onSelection,
+            extractOptionValue(value),
+            this.getSessionId(),
+          );
         }
         this.fireEvent(selectEvent, isMulti ? option : value);
         this.session = isMulti ? startSession() : undefined;

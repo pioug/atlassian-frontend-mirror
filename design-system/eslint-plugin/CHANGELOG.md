@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 4.9.0
+
+### Minor Changes
+
+- [`9701bf4a8b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9701bf4a8b3) - Fix false positives for variable names and object property keys
+
 ## 4.8.2
 
 ### Patch Changes

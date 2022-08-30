@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.2.5
+
+### Patch Changes
+
+- [`534ebc3f2da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/534ebc3f2da) - This changes fatal errors to return an APIError with a message that has been piped through `JSON.stringify()` instead of `.toString()` to gain more visibility into the underlying error.
+
 ## 1.2.4
 
 ### Patch Changes

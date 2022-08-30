@@ -14,6 +14,8 @@ import {
   isDecendantOfStyleBlock,
   isDecendantOfStyleJsxAttribute,
   isDecendantOfType,
+  isPropertyKey,
+  isVariableName,
 } from '../utils/is-node';
 
 type PluginConfig = {
@@ -108,25 +110,32 @@ token('color.background.blanket');
       Identifier(node) {
         if (
           isDecendantOfGlobalToken(node) ||
-          isDecendantOfType(node, 'ImportDeclaration')
+          isDecendantOfType(node, 'ImportDeclaration') ||
+          isPropertyKey(node) ||
+          isVariableName(node)
         ) {
           return;
         }
 
-        if (isLegacyColor(node.name) || isHardCodedColor(node.name)) {
+        const isNodeHardCodedColor = isHardCodedColor(node.name);
+        if (isLegacyColor(node.name) || isNodeHardCodedColor) {
           if (
             node.parent.type === 'MemberExpression' &&
             node.parent.object.type === 'Identifier'
           ) {
-            context.report({
-              messageId: 'hardCodedColor',
-              node,
-              suggest: getTokenSuggestion(
-                node.parent,
-                `${node.parent.object.name}.${node.name}`,
-                config,
-              ),
-            });
+            // Object members as named colors, like obj.ivory, should be valid,
+            // and hexes and color functions cannot be property names anyway.
+            if (!isNodeHardCodedColor) {
+              context.report({
+                messageId: 'hardCodedColor',
+                node,
+                suggest: getTokenSuggestion(
+                  node.parent,
+                  `${node.parent.object.name}.${node.name}`,
+                  config,
+                ),
+              });
+            }
             return;
           }
 

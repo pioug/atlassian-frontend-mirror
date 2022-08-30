@@ -1,0 +1,50 @@
+{
+  "name": "@atlaskit/editor-plugin-table",
+  "version": "0.0.0",
+  "description": "Table plugin for the @atlaskit/editor",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor",
+    "releaseModel": "continuous"
+  },
+  "dependencies": {
+    "@atlaskit/editor-common": "^69.1.0",
+    "@babel/runtime": "^7.0.0",
+    "@types/prosemirror-state": "^1.2.0",
+    "@types/prosemirror-view": "^1.9.0",
+    "prosemirror-model": "1.14.3",
+    "prosemirror-state": "1.3.4",
+    "prosemirror-view": "1.23.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
+  },
+  "devDependencies": {
+    "@atlaskit/editor-test-helpers": "^17.1.0",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "enzyme": "^3.10.0",
+    "react-dom": "^16.8.0",
+    "typescript": "4.3.5"
+  },
+  "af:exports": {
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "techstack": {
+    "@repo/internal": {
+      "theming": "tokens"
+    }
+  }
+}

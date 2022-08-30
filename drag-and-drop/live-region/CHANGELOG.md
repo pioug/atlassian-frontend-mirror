@@ -1,5 +1,11 @@
 # @atlaskit/drag-and-drop-live-region
 
+## 0.1.0
+
+### Minor Changes
+
+- [`73427c38077`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73427c38077) - Initial release of `@atlaskit/drag-and-drop` packages 🎉
+
 ## 0.0.1
 
 ### Patch Changes

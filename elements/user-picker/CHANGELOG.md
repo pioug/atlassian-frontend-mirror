@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 9.3.3
+
+### Patch Changes
+
+- [`2c7609cef36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c7609cef36) - onSelection prop is now also called for user pickers where isMulti=true. Previously onSelection was only called for user picker where isMulti was false
+
 ## 9.3.2
 
 ### Patch Changes

@@ -7,13 +7,17 @@ import {
   filterUsers,
   unassigned,
 } from '../example-helpers';
-import { LoadOptions, OnInputChange, OptionData } from '../src/types';
+import {
+  OptionData,
+  LoadOptions,
+  OnOption,
+  UserPickerProps,
+} from '../src/types';
 
 type ChildrenProps = {
-  loadUsers: LoadOptions;
   options: OptionData[];
-  onInputChange: OnInputChange;
-};
+  loadUsers: LoadOptions;
+} & Pick<UserPickerProps, 'onInputChange' | 'onSelection'>;
 
 export type Props = {
   children: (props: ChildrenProps) => React.ReactNode;
@@ -60,6 +64,13 @@ export class ExampleWrapper extends React.PureComponent<
     });
   };
 
+  private onSelection = (
+    selection: Parameters<OnOption>[0],
+    sessionId: Parameters<OnOption>[1],
+  ) => {
+    console.log('@atlaskit/user-picker onSelection:', selection, sessionId);
+  };
+
   render() {
     const { children, analytics } = this.props;
     const { options } = this.state;
@@ -68,6 +79,7 @@ export class ExampleWrapper extends React.PureComponent<
       options,
       loadUsers: this.loadUsers,
       onInputChange: this.onInputChange,
+      onSelection: this.onSelection,
     });
     return (
       <IntlProvider locale="en">

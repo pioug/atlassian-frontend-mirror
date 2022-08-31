@@ -1,5 +1,6 @@
 import { CardClient } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
+import { AnalyticsFacade } from '../state/analytics';
 
 export const mockContext = {
   '@vocab': 'https://www.w3.org/ns/activitystreams#',
@@ -117,6 +118,18 @@ export const mocks = {
       status: 'CompletedStatus',
     },
   },
+  analytics: {
+    status: 'resolved',
+    details: {
+      meta: {
+        definitionId: 'spaghetti-id',
+        key: 'spaghetti-key',
+        resourceType: 'spaghetti-resource',
+        subproduct: 'spaghetti-subproduct',
+        product: 'spaghetti-product',
+      },
+    },
+  },
 };
 export const fakeResponse = () => Promise.resolve(mocks.success);
 
@@ -141,3 +154,17 @@ export const fakeFactory: any = (
 
 export const waitFor = (time = 1) =>
   new Promise((res) => setTimeout(res, time));
+
+export const mockAnalytics = ({
+  ui: {
+    buttonClickedEvent: () => {},
+    modalClosedEvent: () => {},
+    renderSuccessEvent: () => {},
+    renderFailedEvent: () => {},
+  },
+  operational: {},
+  track: {},
+  screen: {
+    modalViewedEvent: () => {},
+  },
+} as unknown) as AnalyticsFacade;

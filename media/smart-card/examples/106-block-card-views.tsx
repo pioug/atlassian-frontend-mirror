@@ -27,6 +27,7 @@ import {
   BlockCardNotFoundView,
 } from '../src/view/BlockCard';
 import { CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
+import { mockAnalytics } from '../src/utils/mocks';
 
 const headerCSS = css`
   margin-top: 28px;
@@ -208,6 +209,7 @@ export default () => {
                 icon: resolvedIconProps,
                 download: 'something',
                 byline: 'Look some fancy text',
+                analytics: mockAnalytics,
               }),
             ]}
           />

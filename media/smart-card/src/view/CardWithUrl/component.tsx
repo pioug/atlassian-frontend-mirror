@@ -238,7 +238,7 @@ export function CardWithUrlContent({
           handleErrorRetry={handleRetry}
           handleInvoke={handleInvoke}
           handleFrameClick={handleClickWrapper}
-          handleAnalytics={dispatchAnalytics}
+          analytics={analytics}
           isSelected={isSelected}
           onResolve={onResolve}
           onError={onError}
@@ -257,7 +257,7 @@ export function CardWithUrlContent({
           handleErrorRetry={handleRetry}
           handleFrameClick={handleClickWrapper}
           handleInvoke={handleInvoke}
-          handleAnalytics={dispatchAnalytics}
+          analytics={analytics}
           isSelected={isSelected}
           isFrameVisible={isFrameVisible}
           platform={platform}

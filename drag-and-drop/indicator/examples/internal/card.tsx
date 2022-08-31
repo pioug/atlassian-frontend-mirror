@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/core';
 
 import { token } from '@atlaskit/tokens';
 
-import { DropIndicator, DropIndicatorProps } from '../../src';
+import { DropIndicator, DropIndicatorProps } from '../../src/box';
 
 type CardProps = { children: ReactNode } & Pick<
   DropIndicatorProps,

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 1.7.0
+
+### Minor Changes
+
+- [`826112611c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/826112611c2) - Update embed preview feature flag type to generic string
+
 ## 1.6.0
 
 ### Minor Changes

@@ -2,6 +2,17 @@ import { ErrorInfo } from 'react';
 import { IconProps } from '../common/Icon';
 import { WithSizeExperimentProps } from './components/size-experiment/types';
 import { ModalProps } from '../common/Modal';
+import { WithAnalytics } from './components/analytics/types';
+
+export enum EmbedModalSize {
+  Large = 'large',
+  Small = 'small',
+}
+
+export type EmbedModalContext = {
+  duration?: number;
+  size: EmbedModalSize;
+};
 
 export type EmbedModalProps = {
   /* Label to be used for the close 'x' */
@@ -15,15 +26,17 @@ export type EmbedModalProps = {
   /* A flag that determines whether link source can be trusted in iframe */
   isTrusted?: boolean;
   /* Add responses to the modal being closed */
-  onClose: () => any;
+  onClose: (context: EmbedModalContext) => void;
   /* Hook for when primary action is clicked */
   onDownloadActionClick?: () => void;
   /* Called once the modal has finished opening - things such as dropbox want
    * an iframe with an `iframeName` that they will add src to. You should likely
    * only have src OR onOpen */
-  onOpen?: () => void;
+  onOpen?: (context: EmbedModalContext) => void;
   /* Called if the modal failed to open */
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
+  /* Hook for when resize button is clicked */
+  onResize?: (context: EmbedModalContext) => void;
   /* Hook for when secondary action is clicked */
   onViewActionClick?: () => void;
   /* Name of the provider, used in the link out to the document. */
@@ -31,7 +44,7 @@ export type EmbedModalProps = {
   /* Toggle whether to show the modal or not */
   showModal?: boolean;
   /* Size of the modal used in an experiment */
-  size?: string;
+  size?: EmbedModalSize;
   /* URL used to load iframe */
   src?: string;
   /* For testing purposes */
@@ -44,4 +57,5 @@ export type EmbedModalProps = {
 
 export type EmbedModalWithExperimentProps = EmbedModalProps &
   ModalProps &
-  WithSizeExperimentProps;
+  WithSizeExperimentProps &
+  WithAnalytics;

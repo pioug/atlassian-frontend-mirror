@@ -545,12 +545,15 @@ describe('HoverCard', () => {
         action: 'renderFailed',
         actionSubject: 'smartLink',
         attributes: {
+          componentName: 'smart-cards',
           error: new Error('something happened'),
           errorInfo: expect.any(Object),
           display: 'flexible',
           definitionId: 'd1',
           extensionKey: 'confluence-object-provider',
           id: expect.any(String),
+          packageName: '@atlaskit/smart-card',
+          packageVersion: '999.9.9',
         },
         eventType: 'ui',
       });

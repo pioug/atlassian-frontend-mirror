@@ -1,11 +1,11 @@
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import { AnalyticsHandler } from '../../utils/types';
 import { CardPlatform, OnResolveCallback } from '../Card/types';
 import { ReactNode } from 'react';
 import { ActionProps } from '../BlockCard/components/Action';
 import { RequestAccessMessageKey } from '../../messages';
 import { OnErrorCallback } from '../types';
+import { AnalyticsFacade } from '../../state/analytics';
 
 export type EmbedCardProps = {
   url: string;
@@ -13,7 +13,7 @@ export type EmbedCardProps = {
   handleAuthorize: (() => void) | undefined;
   handleErrorRetry: () => void;
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-  handleAnalytics: AnalyticsHandler;
+  analytics: AnalyticsFacade;
   handleInvoke: InvokeHandler;
   id?: string;
   isSelected?: boolean;

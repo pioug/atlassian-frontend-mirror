@@ -55,6 +55,4 @@ Note: we don't recommend using these techniques directly. We have created `@atla
 
 Atlassian has some wrappers for working with dynamic imports which we recommend that you use:
 
-[`@atlaskit/async/react-async`]
-
-TODO: document!!! this is epic!!
+[`@atlaskit/async/react-async`](https://go/react-async) (for Atlassian's only at this stage)

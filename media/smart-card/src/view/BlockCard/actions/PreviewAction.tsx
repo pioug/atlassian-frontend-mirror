@@ -1,13 +1,15 @@
 import React, { ErrorInfo } from 'react';
 import ReactDOM from 'react-dom';
-import { IntlProvider, FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, IntlProvider } from 'react-intl-next';
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 
+import { AnalyticsFacade } from '../../../state/analytics';
 import { EmbedModalWithExperimentProps } from '../../EmbedModal/types';
 import { ActionProps } from '../components/Action';
 import { IconProps } from '../../common/Icon';
 import { MetadataProps } from '../../common/Metadata';
 import { messages } from '../../../messages';
+import { AnalyticsOrigin } from '../../../utils/types';
 
 export interface PreviewFunctionArg extends EmbedModalWithExperimentProps {
   /* The id of a HTML element that will be used OR created to mount the modal from */
@@ -48,9 +50,9 @@ export async function previewFunction({
     <IntlProvider locale="en">
       <Modal.default
         {...rest}
-        onClose={() => {
+        onClose={(context) => {
           if (popupMountPoint) {
-            onClose();
+            onClose(context);
             ReactDOM.unmountComponentAtNode(popupMountPoint);
           }
         }}
@@ -79,6 +81,8 @@ type PreviewInfo = {
   onOpen?: () => void;
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
   featureFlags?: Partial<LinkingPlatformFeatureFlags>;
+  analytics: AnalyticsFacade;
+  origin?: AnalyticsOrigin;
 };
 
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({

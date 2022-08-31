@@ -5,8 +5,6 @@
 [Learn more about API reports](https://hello.atlassian.net/wiki/spaces/UR/pages/1825484529/Package+API+Reports)
 
 ```ts
-/// <reference types="react" />
-
 export declare const convertToError: (e: unknown) => Error;
 
 declare type ExceptionHandlers = {
@@ -30,12 +28,6 @@ declare interface FailedFetchErrorProps {
 declare type GetStoredItemOptions = {
   useExpiredItem?: boolean;
 };
-
-export declare const MarkdownRenderer: ({
-  children,
-}: {
-  children: string;
-}) => JSX.Element;
 
 export declare const mockWindowStorage: (
   storageToMock?: ('localStorage' | 'sessionStorage')[],

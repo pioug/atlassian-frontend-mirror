@@ -4,7 +4,7 @@ import uuid from 'uuid';
 
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 import { useFeatureFlag } from '@atlaskit/link-provider';
-import type { AnalyticsHandler } from '../../utils/types';
+import type { AnalyticsHandler, AnalyticsOrigin } from '../../utils/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import { extractBlockProps as extractCardProps } from '../../extractors/block';
 
@@ -53,6 +53,10 @@ export interface UseSmartLinkActionsOpts {
    * @default 'web'
    */
   platform?: JsonLd.Primitives.Platforms;
+  /**
+   * Smart link origin that the action being invoked from.
+   */
+  origin?: AnalyticsOrigin;
 }
 
 export function useSmartLinkActions({
@@ -60,6 +64,7 @@ export function useSmartLinkActions({
   appearance,
   analyticsHandler,
   platform = 'web',
+  origin,
 }: UseSmartLinkActionsOpts) {
   const id = useMemo(() => uuid(), []);
   const [actions, setActions] = useState<LinkAction[]>([]);
@@ -88,7 +93,8 @@ export function useSmartLinkActions({
       {
         featureFlags,
         handleInvoke: (opts) => linkActions.invoke(opts, appearance),
-        handleAnalytics: analyticsHandler,
+        analytics: linkAnalytics,
+        origin,
         extensionKey: getExtensionKey(linkState.details),
         source: appearance,
       },
@@ -109,10 +115,11 @@ export function useSmartLinkActions({
   }, [
     linkState,
     linkActions,
-    analyticsHandler,
+    linkAnalytics,
     appearance,
     platform,
     embedModalSize,
+    origin,
   ]);
 
   return actions;

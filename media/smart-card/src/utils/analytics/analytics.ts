@@ -424,6 +424,7 @@ export const uiRenderFailedEvent = ({
   action: 'renderFailed',
   eventType: 'ui',
   attributes: {
+    ...context,
     error,
     errorInfo,
     display,

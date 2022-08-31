@@ -18,7 +18,7 @@ import {
   Edge,
   extractClosestEdge,
 } from '@atlaskit/drag-and-drop-hitbox/experimental/tree';
-import { TreeDropIndicator } from '@atlaskit/drag-and-drop-indicator/experimental/tree';
+import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/experimental/tree';
 import {
   draggable,
   dropTargetForElements,
@@ -116,7 +116,7 @@ const TreeItem = ({
   const Component = hasChildren ? TreeItemGroup : TreeItemLeaf;
 
   return (
-    <TreeDropIndicator hasTerminal edge={edge} inset={dropIndicatorInset}>
+    <DropIndicator hasTerminal edge={edge} inset={dropIndicatorInset}>
       {({ className }) => (
         <Component
           className={className}
@@ -139,7 +139,7 @@ const TreeItem = ({
           ))}
         </Component>
       )}
-    </TreeDropIndicator>
+    </DropIndicator>
   );
 };
 

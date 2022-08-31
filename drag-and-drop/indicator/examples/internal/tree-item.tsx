@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/core';
 import type { Edge } from '@atlaskit/drag-and-drop-hitbox/experimental/tree';
 import { token } from '@atlaskit/tokens';
 
-import { TreeDropIndicator } from '../../src/experimental/tree-drop-indicator';
+import { DropIndicator } from '../../src/experimental/tree-drop-indicator';
 
 type TreeItemProps = {
   children: ReactNode;
@@ -39,7 +39,7 @@ const TreeItem = ({ children, edge: edgeProp, gap }: TreeItemProps) => {
   const edge = isInset ? 'bottom' : edgeProp;
 
   return (
-    <TreeDropIndicator
+    <DropIndicator
       hasTerminal
       inset={isInset ? 32 : 0}
       // TODO: fix me
@@ -53,7 +53,7 @@ const TreeItem = ({ children, edge: edgeProp, gap }: TreeItemProps) => {
           <span>{children}</span>
         </div>
       )}
-    </TreeDropIndicator>
+    </DropIndicator>
   );
 };
 

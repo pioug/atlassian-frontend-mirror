@@ -24,7 +24,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       handleAuthorize,
       handleErrorRetry,
       handleFrameClick,
-      handleAnalytics,
+      analytics,
       handleInvoke,
       showActions,
       isSelected,
@@ -83,7 +83,8 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             );
           }
           const resolvedBlockViewProps = extractBlockProps(data, meta, {
-            handleAnalytics,
+            analytics,
+            origin: 'smartLinkEmbed',
             handleInvoke,
             extensionKey: getExtensionKey(details),
           });

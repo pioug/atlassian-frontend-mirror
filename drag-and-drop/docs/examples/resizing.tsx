@@ -13,7 +13,7 @@ import invariant from 'tiny-invariant';
 
 import { CodeBlock } from '@atlaskit/code';
 import { draggable } from '@atlaskit/drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/drag-and-drop/util/cancel-unhandled';
+import { cancelUnhandled } from '@atlaskit/drag-and-drop/addon/cancel-unhandled';
 import { disableNativeDragPreview } from '@atlaskit/drag-and-drop/util/disable-native-drag-preview';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';

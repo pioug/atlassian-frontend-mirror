@@ -1,5 +1,18 @@
 # @atlaskit/drag-and-drop-hitbox
 
+## 0.2.0
+
+### Minor Changes
+
+- [`dcebdf9404e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcebdf9404e) - We have improved our naming consistency across our drag and drop packages.
+
+  - `@atlaskit/drag-and-drop-hitbox/closest-edge` has been renamed to `@atlaskit/drag-and-drop-hitbox/addon/closest-edge`
+  - `@atlaskit/drag-and-drop-hitbox/reorder-with-edge` has been renamed to `@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

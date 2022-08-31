@@ -1,24 +1,29 @@
 import { useMemo } from 'react';
 import { getUrl } from '@atlaskit/linking-common';
-import { AnalyticsHandler, AnalyticsPayload } from '../../utils/types';
 import {
-  uiAuthEvent,
-  uiAuthAlternateAccountEvent,
-  uiCardClickedEvent,
+  AnalyticsHandler,
+  AnalyticsName,
+  AnalyticsPayload,
+} from '../../utils/types';
+import {
+  connectFailedEvent,
+  connectSucceededEvent,
+  context,
+  instrumentEvent,
+  invokeFailedEvent,
+  invokeSucceededEvent,
+  screenAuthPopupEvent,
+  trackAppAccountConnected,
   uiActionClickedEvent,
+  uiAuthAlternateAccountEvent,
+  uiAuthEvent,
+  uiCardClickedEvent,
   uiClosedAuthEvent,
-  uiRenderSuccessEvent,
-  uiRenderFailedEvent,
-  uiHoverCardViewedEvent,
   uiHoverCardDismissedEvent,
   uiHoverCardOpenLinkClickedEvent,
-  invokeSucceededEvent,
-  invokeFailedEvent,
-  connectSucceededEvent,
-  connectFailedEvent,
-  trackAppAccountConnected,
-  screenAuthPopupEvent,
-  instrumentEvent,
+  uiHoverCardViewedEvent,
+  uiRenderFailedEvent,
+  uiRenderSuccessEvent,
 } from '../../utils/analytics';
 
 import {
@@ -29,9 +34,9 @@ import {
 import {
   getDefinitionId,
   getExtensionKey,
+  getProduct,
   getResourceType,
   getSubproduct,
-  getProduct,
 } from '../helpers';
 import {
   CommonEventProps,
@@ -183,6 +188,28 @@ export const useSmartLinkAnalytics = (
           ),
         ),
       /**
+       * This fires an event that represents when a user
+       * click a button.
+       * @param data A partial analytics event payload
+       */
+      buttonClickedEvent: (
+        data: Partial<AnalyticsPayload> & {
+          actionSubjectId: Required<string>;
+        },
+      ) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            {
+              action: 'clicked',
+              actionSubject: 'button',
+              actionSubjectId: data.actionSubjectId,
+              attributes: { ...context, ...data.attributes },
+              eventType: 'ui',
+            },
+            commonAttributes,
+          ),
+        ),
+      /**
        * This fires an event that represents when a user clicks on a Smart Link.
        * @param id The unique ID for this Smart Link.
        * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
@@ -328,6 +355,27 @@ export const useSmartLinkAnalytics = (
               destinationSubproduct,
               location,
             }),
+            commonAttributes,
+          ),
+        ),
+      /**
+       * This fires an event that represents when a user close a modal.
+       * @param data A partial analytics event payload
+       */
+      modalClosedEvent: (
+        data: Partial<AnalyticsPayload> & {
+          actionSubjectId: Required<string>;
+        },
+      ) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            {
+              action: 'closed',
+              actionSubject: 'modal',
+              actionSubjectId: data.actionSubjectId,
+              attributes: { ...context, ...data.attributes },
+              eventType: 'ui',
+            },
             commonAttributes,
           ),
         ),
@@ -753,6 +801,27 @@ export const useSmartLinkAnalytics = (
               destinationSubproduct,
               location,
             }),
+            commonAttributes,
+          ),
+        ),
+      /**
+       * This fires an event that represents when a user view a modal.
+       * @param data A partial analytics event payload
+       */
+      modalViewedEvent: (
+        data: Partial<AnalyticsPayload> & {
+          name: Extract<AnalyticsName, 'embedPreviewModal'>;
+        },
+      ) =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            {
+              action: 'viewed',
+              actionSubject: data.name,
+              attributes: { ...context, ...data.attributes },
+              eventType: 'screen',
+              name: data.name,
+            },
             commonAttributes,
           ),
         ),

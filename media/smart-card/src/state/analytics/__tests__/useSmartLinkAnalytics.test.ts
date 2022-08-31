@@ -1,25 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import { useSmartLinkAnalytics } from '../useSmartLinkAnalytics';
+import { mocks } from '../../../utils/mocks';
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
-    store: {
-      getState: () => ({
-        'test-url': {
-          status: 'resolved',
-          details: {
-            meta: {
-              definitionId: 'spaghetti-id',
-              key: 'spaghetti-key',
-              resourceType: 'spaghetti-resource',
-              subproduct: 'spaghetti-subproduct',
-              product: 'spaghetti-product',
-            },
-          },
-        },
-      }),
-    },
+    store: { getState: () => ({ 'test-url': mocks.analytics }) },
   }),
 }));
 

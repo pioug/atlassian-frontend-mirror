@@ -25,7 +25,17 @@ export type AnalyticsActionSubject =
   | 'applicationAccount'
   | 'button'
   | 'consentModal'
-  | 'hoverCard';
+  | 'hoverCard'
+  | 'modal'
+  | 'embedPreviewModal';
+
+export type AnalyticsName = 'embedPreviewModal';
+
+export type AnalyticsOrigin =
+  | 'smartLinkCard'
+  | 'smartLinkEmbed'
+  | 'smartLinkInline'
+  | 'smartLinkPreviewHoverCard';
 
 export type AnalyticsPayload = GasPayload & {
   action?: AnalyticsAction;

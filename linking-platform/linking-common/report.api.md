@@ -160,7 +160,7 @@ export declare interface InvokePayload<T> {
 
 export declare interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
-  embedModalSize?: 'control' | 'small' | 'large';
+  embedModalSize?: string;
 }
 
 /**

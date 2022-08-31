@@ -1,12 +1,12 @@
 import {
-  CardProviderRenderers,
   CardAuthFlowOpts,
+  CardProviderRenderers,
 } from '@atlaskit/link-provider';
 import { CardState } from '../../state/types';
 import { InvokeHandler } from '../../model/invoke-handler';
-import { AnalyticsHandler } from '../../utils/types';
-import { OnResolveCallback, CardPlatform } from '../Card/types';
+import { CardPlatform, OnResolveCallback } from '../Card/types';
 import { OnErrorCallback } from '../types';
+import { AnalyticsFacade } from '../../state/analytics';
 
 export type BlockCardProps = {
   id: string;
@@ -15,7 +15,6 @@ export type BlockCardProps = {
   authFlow?: CardAuthFlowOpts['authFlow'];
   handleAuthorize: (() => void) | undefined;
   handleErrorRetry: () => void;
-  handleAnalytics: AnalyticsHandler;
   handleInvoke: InvokeHandler;
   handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   isSelected?: boolean;
@@ -25,4 +24,5 @@ export type BlockCardProps = {
   showActions?: boolean;
   renderers?: CardProviderRenderers;
   platform?: CardPlatform;
+  analytics: AnalyticsFacade;
 };

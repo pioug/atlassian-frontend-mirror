@@ -27,13 +27,13 @@ export type DropIndicatorProps = {
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const TreeDropIndicator = ({
+export function DropIndicator({
   children,
   edge,
   gap = 0,
   hasTerminal = false,
   inset = 0,
-}: DropIndicatorProps) => {
+}: DropIndicatorProps) {
   /**
    * To clearly communicate the resting place of a draggable item during a drag operation,
    * the drop indicator should be positioned half way between draggable items.
@@ -69,4 +69,4 @@ export const TreeDropIndicator = ({
       )}
     </Terminal>
   );
-};
+}

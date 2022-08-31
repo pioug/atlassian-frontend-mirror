@@ -1,4 +1,4 @@
 export interface LinkingPlatformFeatureFlags {
   showHoverPreview?: boolean;
-  embedModalSize?: 'control' | 'small' | 'large';
+  embedModalSize?: string;
 }

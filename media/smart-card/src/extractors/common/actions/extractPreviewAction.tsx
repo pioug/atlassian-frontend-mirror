@@ -1,24 +1,17 @@
 import { JsonLd } from 'json-ld-types';
-import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
-
-import { InvokeHandler } from '../../../model/invoke-handler';
 import { InvokeClientOpts } from '../../../model/invoke-opts';
-import {
-  uiRenderSuccessEvent,
-  uiRenderFailedEvent,
-} from '../../../utils/analytics';
 import { CardInnerAppearance, CardPlatform } from '../../../view/Card/types';
 
 import { extractDownloadUrl } from '../detail';
 import {
-  extractProvider,
   extractPreview,
+  extractProvider,
 } from '@atlaskit/linking-common/extractors';
-import { AnalyticsHandler } from '../../../utils/types';
 import {
   BlockCardResolvedViewProps,
   PreviewAction,
 } from '../../../view/BlockCard';
+import { ExtractBlockOpts } from '../../block/types';
 
 const getMetadataFromJsonLd = (
   jsonLd: JsonLd.Data.BaseData,
@@ -64,17 +57,22 @@ const getInvokeOpts = (
   },
 });
 
-export const extractPreviewAction = (
+export const extractPreviewAction = ({
   extensionKey = 'empty-object-provider',
-  viewProps: BlockCardResolvedViewProps,
-  jsonLd: JsonLd.Data.BaseData,
-  handleInvoke: InvokeHandler,
-  handleAnalytics: AnalyticsHandler,
-  testId?: string,
-  platform?: CardPlatform,
-  source?: CardInnerAppearance,
-  featureFlags?: Partial<LinkingPlatformFeatureFlags>,
-) => {
+  viewProps,
+  jsonLd,
+  handleInvoke,
+  testId,
+  platform,
+  origin,
+  source = 'block',
+  featureFlags,
+  analytics,
+}: ExtractBlockOpts & {
+  viewProps: BlockCardResolvedViewProps;
+  jsonLd: JsonLd.Data.BaseData;
+  platform?: CardPlatform;
+}) => {
   // Extract metadata from view props & raw JSON-LD.
   const metadataFromJsonLd = getMetadataFromJsonLd(jsonLd, platform);
   const metadataFromViewProps = getMetadataFromResolvedProps(viewProps);
@@ -88,22 +86,10 @@ export const extractPreviewAction = (
     const key = extensionKey;
     const previewAction = PreviewAction({
       ...metadata,
+      analytics,
+      origin,
       featureFlags,
       testId,
-      onOpen: () => {
-        handleAnalytics(
-          uiRenderSuccessEvent({
-            display: 'preview',
-            status: 'resolved',
-            extensionKey: key,
-          }),
-        );
-      },
-      onOpenFailed: (error, errorInfo) => {
-        handleAnalytics(
-          uiRenderFailedEvent({ display: 'preview', error, errorInfo }),
-        );
-      },
       onDownloadActionClick: () => {
         handleInvoke(getInvokeOpts(key, 'DownloadAction'));
       },
@@ -113,11 +99,7 @@ export const extractPreviewAction = (
     });
     // Setup props to go through proper Redux 'invocation' flow
     // for analytics, further state management if required in future.
-    const previewActionProps = getInvokeOpts(
-      key,
-      'PreviewAction',
-      source ?? 'block',
-    );
+    const previewActionProps = getInvokeOpts(key, 'PreviewAction', source);
     // - Promise invoked by the action invocation handler; open preview.
     previewActionProps.action.promise = previewAction.promise;
     // - Promise invoked on click of `Preview` on block card; trigger above promise.

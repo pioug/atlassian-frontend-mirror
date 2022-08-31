@@ -9,7 +9,7 @@ import {
   dropTargetForFiles,
   monitorForFiles,
 } from '@atlaskit/drag-and-drop/adapter/file';
-import { cancelUnhandled } from '@atlaskit/drag-and-drop/util/cancel-unhandled';
+import { cancelUnhandled } from '@atlaskit/drag-and-drop/addon/cancel-unhandled';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 import ImageIcon from '@atlaskit/icon/glyph/image';
 import { easeInOut } from '@atlaskit/motion/curves';

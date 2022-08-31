@@ -96,6 +96,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     url,
     appearance: SMART_CARD_ANALYTICS_DISPLAY,
     analyticsHandler,
+    origin: 'smartLinkPreviewHoverCard',
   });
   const onActionClick = useCallback(
     (actionId) => {

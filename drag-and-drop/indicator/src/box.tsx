@@ -65,7 +65,7 @@ const edgeStyles: Record<Edge, SerializedStyles> = {
  *
  * A drop indicator is used to communicate the intended resting place of the draggable item. The orientation of the drop indicator should always match the direction of the content flow.
  */
-export const DropIndicator = ({ edge, gap = 0 }: DropIndicatorProps) => {
+export function DropIndicator({ edge, gap = 0 }: DropIndicatorProps) {
   /**
    * To clearly communicate the resting place of a draggable item during a drag operation,
    * the drop indicator should be positioned half way between draggable items.
@@ -78,4 +78,4 @@ export const DropIndicator = ({ edge, gap = 0 }: DropIndicatorProps) => {
       style={{ '--local-line-offset': `${lineOffset}px` } as CSSProperties}
     />
   );
-};
+}

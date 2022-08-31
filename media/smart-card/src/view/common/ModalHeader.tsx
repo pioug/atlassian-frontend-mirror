@@ -88,7 +88,7 @@ export const Header = ({
               target="_blank"
               appearance="link"
               testId="preview-view-action"
-              iconAfter={<ShortcutIcon size="small" label="go to source" />}
+              iconAfter={<ShortcutIcon size="small" label="" />}
               onClick={onViewActionClick}
             >
               {providerName ? (
@@ -104,6 +104,7 @@ export const Header = ({
             appearance="subtle"
             iconBefore={<EditorCloseIcon label={label} />}
             onClick={onClose}
+            testId="preview-close-button"
           />
         </div>
       </div>

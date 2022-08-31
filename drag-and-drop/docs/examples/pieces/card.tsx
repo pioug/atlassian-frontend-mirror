@@ -9,8 +9,8 @@ import {
   attachClosestEdge,
   Edge,
   extractClosestEdge,
-} from '@atlaskit/drag-and-drop-hitbox/closest-edge';
-import { DropIndicator } from '@atlaskit/drag-and-drop-indicator';
+} from '@atlaskit/drag-and-drop-hitbox/addon/closest-edge';
+import { DropIndicator } from '@atlaskit/drag-and-drop-indicator/box';
 import {
   draggable,
   dropTargetForElements,

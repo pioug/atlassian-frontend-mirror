@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/frontend-utilities",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Collecton of small useful frontend utilities",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -24,7 +24,6 @@
   "atlaskit:src": "src/index.ts",
   "af:exports": {
     ".": "./src/index.ts",
-    "./markdown-renderer": "./src/documentation/markdown-renderer/index.ts",
     "./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
     "./retry-operation": "./src/network/retry-operation/index.ts",
     "./local-storage": "./src/storage/local-storage/index.ts",
@@ -34,18 +33,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@atlaskit/code": "^14.3.8",
-    "@atlaskit/docs": "*",
-    "@atlaskit/theme": "^12.1.0",
-    "@atlaskit/tokens": "^0.10.14",
-    "@babel/runtime": "^7.0.0",
-    "react-markdown": "^3.6.0",
-    "styled-components": "^3.2.6"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@atlaskit/docs": "*",
+    "@atlaskit/editor-markdown-transformer": "^4.2.13",
+    "@atlaskit/renderer": "^101.0.3",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^8.0.1",
     "typescript": "4.3.5",

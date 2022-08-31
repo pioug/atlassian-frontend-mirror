@@ -14,15 +14,17 @@ manually passed to your custom components.
 
 For a complete guide on customization using the new compositional API, refer to the docs at
 https://atlassian.design/components/modal-dialog/examples#customizing-modal-dialog. */
-import React, { useState, ErrorInfo } from 'react';
+import React, { ErrorInfo, useCallback, useRef, useState } from 'react';
 import ModalDialog, {
-  ModalTransition,
   ModalBody,
+  ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { Header } from './ModalHeader';
 import { IconProps } from './Icon';
 import { MetadataListProps } from './MetadataList';
 import { getIframeSandboxAttribute } from '../../utils';
+import withAnalytics from '../EmbedModal/components/analytics';
+import { EmbedModalContext, EmbedModalSize } from '../EmbedModal/types';
 
 const iframeStyles = {
   width: `100%`,
@@ -31,12 +33,12 @@ const iframeStyles = {
 
 export interface ModalProps {
   /* Add responses to the modal being closed */
-  onClose: () => any;
+  onClose: (context: EmbedModalContext) => void;
   /*
     Called once the modal has finished opening - things such as dropbox want an iframe
     with an `iframeName` that they will add src to. You should likely only have src OR onOpen
   */
-  onOpen?: () => void;
+  onOpen?: (context: EmbedModalContext) => void;
   /* Called if the modal failed to open */
   onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
   /* URL used to load iframe */
@@ -48,7 +50,7 @@ export interface ModalProps {
   /* Name of the provider, used in the link out to the document. */
   providerName?: string;
   /* Label to be used for the close 'x' */
-  closeLabel: string;
+  closeLabel?: string;
   /* If you are not providing src, you should still provide a url, allowing people to access the page where the document is */
   url?: string;
   /* The title of the document - this is displayed as a heading */
@@ -92,7 +94,7 @@ const Modal = ({
   providerName,
   metadata,
   icon,
-  closeLabel,
+  closeLabel = 'Close Preview',
   iframeName,
   title,
   url,
@@ -103,6 +105,21 @@ const Modal = ({
   onDownloadActionClick,
 }: ModalProps) => {
   let [isOpen, setIsOpen] = useState(showModal);
+  const openAt = useRef<number>();
+
+  const handleOnOpenComplete = useCallback(() => {
+    openAt.current = Date.now();
+    if (onOpen) {
+      onOpen({ size: EmbedModalSize.Small });
+    }
+  }, [onOpen]);
+
+  const handleOnCloseComplete = useCallback(() => {
+    if (onClose) {
+      const duration = openAt.current ? Date.now() - openAt.current : undefined;
+      onClose({ duration, size: EmbedModalSize.Small });
+    }
+  }, [onClose]);
 
   const sandbox = getIframeSandboxAttribute(isTrusted);
 
@@ -113,11 +130,11 @@ const Modal = ({
           height="100%"
           width="large"
           testId={testId}
-          onOpenComplete={onOpen}
+          onOpenComplete={handleOnOpenComplete}
           onClose={() => {
             setIsOpen(false);
           }}
-          onCloseComplete={onClose}
+          onCloseComplete={handleOnCloseComplete}
         >
           <Header
             providerName={providerName}
@@ -155,4 +172,4 @@ const Modal = ({
   );
 };
 
-export default ModalWithErrorBoundary;
+export default withAnalytics(ModalWithErrorBoundary);

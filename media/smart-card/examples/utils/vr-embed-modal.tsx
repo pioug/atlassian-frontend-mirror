@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { overrideEmbedContent } from './common';
 import { VRTestWrapper } from './vr-test';
+import { mockAnalytics } from '../../src/utils/mocks';
 
 export const renderEmbedModalVrTest = (
   title: string,
@@ -12,6 +13,7 @@ export const renderEmbedModalVrTest = (
   <VRTestWrapper title={title}>
     <IntlProvider locale="en">
       <EmbedModal
+        analytics={mockAnalytics}
         download="https://download-url"
         featureFlags={{ embedModalSize: size }}
         icon={{ icon: <AtlassianIcon appearance="brand" /> }}

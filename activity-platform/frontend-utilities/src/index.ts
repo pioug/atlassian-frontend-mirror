@@ -1,4 +1,3 @@
-export { MarkdownRenderer } from './documentation/markdown-renderer';
 export { convertToError } from './error-handling/convert-to-error';
 export { FailedFetchError, retryOnException } from './network/retry-operation';
 export { STORAGE_MOCK, mockWindowStorage } from './storage/local-storage';

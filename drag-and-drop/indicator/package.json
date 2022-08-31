@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop-indicator",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A react addon for @atlaskit/drag-and-drop which will draw drop indicators (eg lines)",
   "atlassian": {
     "team": "Design System Team",
@@ -16,14 +16,15 @@
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
+  "atlaskit:src": "src/index.ts",
   "af:exports": {
-    ".": "./src/index.tsx",
+    ".": "./src/index.ts",
+    "./box": "./src/box.tsx",
     "./experimental/tree": "./src/experimental/tree-drop-indicator.tsx"
   },
   "dependencies": {
-    "@atlaskit/drag-and-drop": "^0.1.0",
-    "@atlaskit/drag-and-drop-hitbox": "^0.1.0",
+    "@atlaskit/drag-and-drop": "^0.2.0",
+    "@atlaskit/drag-and-drop-hitbox": "^0.2.0",
     "@atlaskit/tokens": "^0.10.11",
     "@babel/runtime": "^7.0.0",
     "@emotion/core": "^10.0.9"

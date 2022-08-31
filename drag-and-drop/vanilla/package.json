@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/drag-and-drop",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A performance optimized drag and drop framework for everyone",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "author": "Atlassian Pty Ltd",
@@ -25,15 +25,16 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.ts",
     "./adapter/element": "./src/entry-point/adapter/element.ts",
     "./adapter/file": "./src/entry-point/adapter/file.ts",
+    "./types": "./src/entry-point/types.ts",
+    "./addon/cancel-unhandled": "./src/entry-point/addon/cancel-unhandled.ts",
     "./util/combine": "./src/entry-point/util/combine.ts",
     "./util/once": "./src/entry-point/util/once.ts",
     "./util/reorder": "./src/entry-point/util/reorder.ts",
-    "./util/cancel-unhandled": "./src/entry-point/util/cancel-unhandled.ts",
     "./util/disable-native-drag-preview": "./src/entry-point/util/disable-native-drag-preview.ts",
     "./util/scroll-just-enough-into-view": "./src/entry-point/util/scroll-just-enough-into-view.ts",
-    "./types": "./src/entry-point/types.ts",
     "./experimental/cross-window-element-adapter": "./src/entry-point/experimental/cross-with-element-adapter.ts"
   },
   "dependencies": {

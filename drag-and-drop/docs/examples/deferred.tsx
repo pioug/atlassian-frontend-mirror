@@ -89,10 +89,10 @@ function Uploader() {
       importForInteraction(
         () =>
           import(
-            /* webpackChunkName: "@atlaskit/drag-and-drop/util/cancel-unhandled" */ '@atlaskit/drag-and-drop/util/cancel-unhandled'
+            /* webpackChunkName: "@atlaskit/drag-and-drop/addon/cancel-unhandled" */ '@atlaskit/drag-and-drop/addon/cancel-unhandled'
           ),
         {
-          moduleId: '@atlaskit/drag-and-drop/util/cancel-unhandled',
+          moduleId: '@atlaskit/drag-and-drop/addon/cancel-unhandled',
         },
       ),
     ]).onComplete(

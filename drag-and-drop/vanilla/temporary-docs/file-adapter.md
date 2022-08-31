@@ -99,7 +99,7 @@ import { monitorForFiles } from '@atlaskit/drag-and-drop/adapter/file';
 import {
   blockUnhandledDrags,
   restoreStandardBehaviour,
-} from '@atlaskit/drag-and-drop/util/cancel-unhandled';
+} from '@atlaskit/drag-and-drop/addon/cancel-unhandled';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 
 monitorForFiles({

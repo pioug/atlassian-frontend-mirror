@@ -4,10 +4,6 @@ Collecton of small useful frontend utilities
 
 ## Utilities
 
-### Documentation
-
-#### [Markdown Renderer](./src/documentation/markdown-renderer/README.md)
-
 ### Error Handling
 
 #### [Convert to Error](./src/error-handling/convert-to-error/README.md)

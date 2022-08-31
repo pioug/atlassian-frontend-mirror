@@ -1,11 +1,13 @@
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 import { InvokeHandler } from '../../model/invoke-handler';
-import { AnalyticsHandler } from '../../utils/types';
+import { AnalyticsFacade } from '../../state/analytics';
 import { CardInnerAppearance } from '../../view/Card/types';
+import { AnalyticsOrigin } from '../../utils/types';
 
 export interface ExtractBlockOpts {
   handleInvoke: InvokeHandler;
-  handleAnalytics: AnalyticsHandler;
+  analytics: AnalyticsFacade;
+  origin?: AnalyticsOrigin;
   extensionKey?: string;
   featureFlags?: Partial<LinkingPlatformFeatureFlags>;
   source?: CardInnerAppearance;

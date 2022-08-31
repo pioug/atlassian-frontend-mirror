@@ -145,16 +145,16 @@ This technique is simple, powerful and cheap. It is the primary mechanism we rec
    2b. apply visual changes to the `draggable` element to make it clear to the user what element is being dragged
 3. in `onDrop` remove any visual changes you applied to the `draggable` element during the drag
 
-### Technique 2: `nativeSetDragImage`
+### Technique 3: `nativeSetDragImage`
 
 Inside of the `onGenerateDragPreview` event you get access to `nativeSetDragImage` which is a reference to the native [`setDragImage`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setDragImage) function. You can use `nativeSetDragImage` to use another visible element or an image as the drag preview.
 
-### Hiding the native drag preview
+### Technique 4: Disable the native drag preview
 
-In some situations you might want to completely hide the drag preview. We have created a `disableNativeDragPreview` utility to do this for you that will work across all supported browsers and platforms:
+In some situations you might want not completely disable the native drag preview. We have created a `disableNativeDragPreview` utility to do this for you that will work across all supported browsers and platforms:
 
 ```ts
-import { disableNativeDragPreview } from '@atlaskit/drag-and-drop/disable-native-drag-preview';
+import { disableNativeDragPreview } from '@atlaskit/drag-and-drop/util/disable-native-drag-preview';
 
 draggable({
   element: myElement,
@@ -166,6 +166,21 @@ draggable({
 
 This technique renders a `1x1` transparent image as the native drag preview. There are a few alternative techniques for hiding the drag preview, but this technique yielded the best results across many browsers and devices.
 
+### Technique 5: Render your own drag preview
+
+If you want to take complete control and render your own drag preview, here is what you need to do:
+
+1. Disable the native drag preview (see technique #4 above)
+2. in `onDragStart` create the element you want to have as your drag preview.
+
+- You need to ensure that the element is positioned correctly. under the users cursor. This can involve measuring the dimensions of the `draggable` element, and looking at the users input (`location.initial.input`)
+- You need to ensure your element is on a layer where it won't be impacted by parent elements. This usually involves rendering your element in a [portal](https://reactjs.org/docs/portals.html)
+
+3. Move your drag preview around in response to input changes using `onDrag()`. You will likely want to be using a css `transform()` to do this movement
+4. Remove your custom drag preview in `onDrop()`
+
+If you are doing this technique, you will likely want to use the `cancelUnhandled` _addon_. Using that addon will prevent the strange situation where when the user does not drop on a drop target there is a fairly large pause before the drop event. This is because the browser does a drop animation when the user does not drop on a drop target; a "return home" animation. Because you have hidden the native drag preview, the user won't see this return home drop animation, but will experience a delay. Using `cancelUnhandled()` ensures that the return home drop animation won't run.
+
 ## `dropTargetForElements`
 
 The `dropTargetForElements` is a [drop target](./drop-target.md) which only allows elements to be dropped on it.
@@ -173,6 +188,8 @@ The `dropTargetForElements` is a [drop target](./drop-target.md) which only allo
 The default `dropEffect` for this type of drop target is `"move"`. This lines up with our [visual affordance guide](TODO). You can override this default with `getDropEffect()`.
 
 ## `monitorForElements`
+
+A [monitor]('./monitor.md) for elements
 
 ## Source data
 

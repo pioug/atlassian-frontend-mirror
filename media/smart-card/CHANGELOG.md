@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 22.1.0
+
+### Minor Changes
+
+- [`c908307ef8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c908307ef8e) - Embed Preview: Update embed preview modal analytics
+
 ## 22.0.0
 
 ### Major Changes

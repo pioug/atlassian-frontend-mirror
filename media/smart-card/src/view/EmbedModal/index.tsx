@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import ModalDialog, {
   ModalBody,
   ModalTransition,
@@ -6,9 +6,16 @@ import ModalDialog, {
 import LinkInfo from './components/link-info';
 import { MAX_MODAL_SIZE, MIN_MODAL_SIZE } from './constants';
 import EmbedContent from './components/embed-content';
-import { EmbedModalProps } from './types';
+import { EmbedModalProps, EmbedModalSize } from './types';
 import withErrorBoundary from './components/error-boundary';
 import withSizeExperiment from './components/size-experiment';
+import withAnalytics from './components/analytics';
+
+const toSize = (width: string) =>
+  width === MAX_MODAL_SIZE ? EmbedModalSize.Large : EmbedModalSize.Small;
+
+const toWidth = (size: EmbedModalSize) =>
+  size === EmbedModalSize.Large ? MAX_MODAL_SIZE : MIN_MODAL_SIZE;
 
 const EmbedModal: React.FC<EmbedModalProps> = ({
   download: downloadUrl,
@@ -18,24 +25,45 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   onClose,
   onDownloadActionClick,
   onOpen,
+  onResize,
   onViewActionClick,
   providerName,
   showModal,
-  size: defaultSize = MIN_MODAL_SIZE,
+  size = EmbedModalSize.Small,
   src,
   testId = 'smart-embed-preview-modal',
   title,
   url,
 }) => {
+  const defaultWidth = toWidth(size);
   const [isOpen, setIsOpen] = useState(showModal);
-  const [size, setSize] = useState(defaultSize);
+  const [width, setWidth] = useState(defaultWidth);
+  const openAt = useRef<number>();
+
+  const handleOnOpenComplete = useCallback(() => {
+    openAt.current = Date.now();
+    if (onOpen) {
+      onOpen({ size });
+    }
+  }, [onOpen, size]);
 
   const handleOnClose = useCallback(() => setIsOpen(false), []);
 
-  const handleOnSizeClick = useCallback(() => {
-    const newSize = size === MIN_MODAL_SIZE ? MAX_MODAL_SIZE : MIN_MODAL_SIZE;
-    setSize(newSize);
-  }, [size]);
+  const handleOnCloseComplete = useCallback(() => {
+    if (onClose) {
+      const duration = openAt.current ? Date.now() - openAt.current : undefined;
+      onClose({ duration, size: toSize(width) });
+    }
+  }, [onClose, width]);
+
+  const handleOnResizeClick = useCallback(() => {
+    const newWidth = width === MIN_MODAL_SIZE ? MAX_MODAL_SIZE : MIN_MODAL_SIZE;
+    setWidth(newWidth);
+
+    if (onResize) {
+      onResize({ size: toSize(newWidth) });
+    }
+  }, [onResize, width]);
 
   return (
     <ModalTransition>
@@ -43,10 +71,10 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
         <ModalDialog
           height="100%"
           onClose={handleOnClose}
-          onCloseComplete={onClose}
-          onOpenComplete={onOpen}
+          onCloseComplete={handleOnCloseComplete}
+          onOpenComplete={handleOnOpenComplete}
           testId={testId}
-          width={size}
+          width={width}
         >
           <LinkInfo
             downloadUrl={downloadUrl}
@@ -54,8 +82,8 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
             providerName={providerName}
             onViewButtonClick={onViewActionClick}
             onDownloadButtonClick={onDownloadActionClick}
-            onResizeButtonClick={handleOnSizeClick}
-            size={size}
+            onResizeButtonClick={handleOnResizeClick}
+            size={width}
             title={title}
             testId={testId}
             url={url}
@@ -74,4 +102,4 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   );
 };
 
-export default withSizeExperiment(withErrorBoundary(EmbedModal));
+export default withSizeExperiment(withAnalytics(withErrorBoundary(EmbedModal)));

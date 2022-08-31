@@ -7,6 +7,7 @@ import {
 import { CardState } from '@atlaskit/linking-common';
 import { EmbedCard } from '../index';
 import { EmbedCardProps } from '../types';
+import { mockAnalytics } from '../../../utils/mocks';
 
 describe('EmbedCard view component', () => {
   describe('resolved embed with preview', () => {
@@ -54,7 +55,7 @@ describe('EmbedCard view component', () => {
           handleAuthorize={jest.fn()}
           handleErrorRetry={jest.fn()}
           handleFrameClick={handleFrameClickMock}
-          handleAnalytics={jest.fn()}
+          analytics={mockAnalytics}
           handleInvoke={jest.fn()}
           onResolve={onResolveMock}
           ref={ref}

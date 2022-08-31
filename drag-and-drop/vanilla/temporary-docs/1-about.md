@@ -8,63 +8,29 @@ Be sure to check out our [pre reading for early adopters](https://hello.atlassia
 
 ## Background
 
-There exist a wealth of existing drag and drop libraries for the web. Some drag and drop libraries are general purpose (eg `@shopify/draggable`, `react-dnd`), and some are for specific experiences (eg `react-beautiful-dnd` is for lists and connected lists). Some libraries leverage the platforms drag and drop capabilities, and some rebuild the drag and drop operation from scratch.
+There exist a wealth of existing drag and drop libraries for the web. Some drag and drop libraries are general purpose (eg `@shopify/draggable`, `react-dnd`), and some are for specific experiences (eg `react-beautiful-dnd` is for lists and connected lists). Some libraries leverage the platform's built in drag and drop capabilities, and some rebuild the drag and drop operation from scratch.
 
-The existing drag and drop libraries make tradeoffs regarding feature sets, user experience, startup performance and runtime performance. `@atlaskit/drag-and-drop` is a library that makes a novel set of tradeoffs.
+Every drag and drop solution will make tradeoffs regarding feature sets, user experience, startup performance and runtime performance.
 
-- `@atlaskit/drag-and-drop` optimisms for startup and runtime performance over _pseudomorphism_ (physical feeling) design affordances
-- `@atlaskit/drag-and-drop` caters for the _entire_ drag and drop problem domain (not just a part of it)
+The goals of `@atlaskit/drag-and-drop` are:
 
-<details>
-  <summary>Detailed library comparison</summary>
+- 🚀 Speed: Best of class startup and runtime performance
+- 🤸 Flexibility: Can be used to power any interaction
+- 🧑‍🦽 Accessibility\*: Ensuring that all users have a good experience
 
-| Characteristic                                       | `@atlaskit/drag-and-drop`<br/>(element adapter) | `react-beautiful-dnd` | `react-dnd`<br/>(`react-dnd` + `react-dnd-html5-backend`) | `dnd-kit`<br/>(`@dnd-kit/core` + `@dnd-kit/modifiers` + `@dnd-kit/sortable`) | `@shopify/draggable` |
-| ---------------------------------------------------- | ----------------------------------------------- | --------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------- |
-| Size (gzip)                                          | `4.49 kB`                                       | `31 kB`               | `9.1 kB` + `15.7 kB` (`24.8 kB`)                          | `18.7 kB`                                                                    | `11.8 kB`            |
-| Size (minified)                                      | `13.5 kB`                                       | `105 kB`              | `93.6 kB`                                                 | `54.3 kB`                                                                    | `68.2kB`             |
-| Supports deferred loading                            | ✅                                              | ❌                    | ❌                                                        | ❌                                                                           | ✅                   |
-| Accessible                                           | ✅ (with provided toolchain)                    | ✅                    | ❌                                                        | ✅                                                                           | ❌                   |
-| Pseudomorphism affordances                           | ❌ (uses lines and color)                       | ✅                    | ❌ (up to consumer)                                       | ✅                                                                           | ✅                   |
-| Incremental<br/>(only pay for what you use)          | ✅                                              | ❌                    | ❌                                                        | ✅                                                                           | ✅                   |
-| Framework compatibility                              | ✅ all                                          | ⚠️ `react` only       | ⚠️ `react` only                                           | ⚠️ `react` only                                                              | ✅all                |
-| Control of dragging item's movement<br/>(eg "rails") | ❌ (defer to web platform)                      | ✅                    | ✅                                                        | ✅                                                                           | ✅                   |
-| Feature: can drag elements?                          | ✅                                              | ✅                    | ✅                                                        | ✅                                                                           | ✅                   |
-| Feature: can handle file drops?                      | ✅                                              | ❌                    | ✅                                                        | ❌                                                                           | ❌                   |
-| Feature: can handle url, text, image dragging?       | ✅                                              | ❌                    | ✅                                                        | ❌                                                                           | ❌                   |
-| Feature: can drag across browser windows?            | ✅                                              | ❌                    | ❌                                                        | ❌                                                                           | ❌                   |
-| Feature: can change DOM during a drag?               | ✅                                              | ❌                    | ?                                                         | ?                                                                            | ?                    |
-| Feature: can power drawing?                          | ✅                                              | ❌                    | ?                                                         | ?                                                                            | ?                    |
-
-</details>
+> \*Accessible experiences are achieved through alternative keyboard and screen reader flows. Unfortunately, the browsers drag and drop behaviour is not accessible (yet). But don't worry, we have a comprehensive guide and toolchain to help you be successful here
 
 ## Core characteristics
 
-🌎 Platform powered: leverages the browsers drag and drop capabilities
-🪡 Incremental: you only pay for the features that they use
-🎨 Headless: you get to render all elements and styles (but we do have some helper packages including `line`)
-⏳ Deferred compatible: consumers can delay the loading of `@atlaskit/drag-and-drop` until they want it
-🎄 Framework agnostic: works with any frontend framework
-♿️ Accessible: comprehensive toolchain and patterns for creating highly accessible experiences
-
-## A word on performance
-
-In order to maximize **startup performance** you generally want to ship as little code as possible to clients machines.
-
-`@atlaskit/drag-and-drop` achieves a tiny footprint by:
-
-- leveraging the web platform to avoid re-inventing drag and drop
-- being incremental: consumers only pay for the features they use
-- allowed deferred loading of it's pieces - you can load in `@atlaskit/drag-and-drop` _after_ page startup if you like!
-
-When it comes to maximizing **runtime performance** we need to do as little work on the client as possible
-
-`@atlaskit/drag-and-drop` minimizes work on the client by:
-
-- leveraging the browsers drag and drop capabilities as much as possible
-- drag operation event throttling (we get this for free when using drag and drop on the platform)
-- internal event throttling
-- native rendering of drag previews is done outside of the event loop - so drag previews feel great to move around even when the browsers main thread is busy
-- internally leveraging of _event delegation_ to help performance scale well
+- 🌎 Platform powered: leverages the browsers drag and drop capabilities
+- 🐁 Tiny: ~`4.5kB` base
+- 🪡 Incremental: only pay for what you use
+- ⏳ Deferred compatible: consumers can delay the loading of `@atlaskit/drag-and-drop` (and related packages) in order to improve page load speeds
+- 🎨 Headless: full rendering and style control
+- 📱 Mobile support
+- 🎁 Addons: patterns that allow sharing small pieces of functionality that can be added together
+- 🎄 Framework agnostic: works with any frontend framework
+- 🧑‍🦽 Accessible: comprehensive toolchain and patterns for creating highly accessible experiences
 
 ## Feature set
 
@@ -80,61 +46,124 @@ Some experiences you can power with `@atlaskit/drag-and-drop`:
 - table row reordering
 - drawing
 - file uploads
+- resizing
+- dragging between windows (experimental)
 
 <details>
-<summary>More granular feature set</summary>
+    <summary>The lower level capabilities</summary>
 
-- Supports dragging of different entity types (eg `Element`, text, images, external files etc)
-- Nested `dropTargets`
-- Flexible `dropTarget` sizes
+- Supports dragging of different entity types (eg elements, text, images, external files etc)
+- Nested _drop targets_ (elements that can be dropped on)
+- Flexible _drop target_ sizes
+- Can add, remove, or change _drop targets_ while dragging
 - Conditional dropping
-- Auto scrolling (powered by the platform)
-- Can add, remove, or change `dropTargets` while dragging
-- Stickiness: a `dropTarget` can maintain selection even after it is no longer being dragged over
+- Auto scrolling
+- Stickiness: a _drop targets_ can maintain selection even after it is no longer being dragged over
 - [`dropEffect`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect) control
-- Listen to the active pointer position
+- High frequency input updates to power high fidelity interactions
 
-(Using the `element` adapter)
+(Using the element adapter)
 
-- Drag handles (drag an `Element`) by a part of it
+- Drag handles (drag a `draggable` element) by a part of it
 - Conditional dragging
-- Nested `draggables`
+- Nested `draggable` elements
 - Flexible `draggable` sizes
-- Can add, remove, or change `draggables` while dragging
-- Supports virtual list usage
-- Vertical reordering (element adapter + closest edge addon)
-- Horizontal reordering (element adapter + closest edge addon)
-- An `Element` can be a `dropTarget`, `draggable` or both
-- An `Element` can be a `dropTarget` for different entities (eg `dropTargetForElements` and `dropTargetForFiles`)
+- Many options to customize the appearance of the _drag preview_ (the thing that a user drags around during a drag)
+- Can add, remove, or change `draggables` while dragging (even the dragging `draggable`)
+- Supports virtual list usage for extreme performance
+- An element can be a _drop target_, `draggable` or both
+- An element can be a _drop target_ for different entities (eg `dropTargetForElements` and `dropTargetForFiles`)
 
 </details>
 
 ## High level concepts
 
-- drag adapter: teaches `@atlaskit/drag-and-drop` how to handle a particular entity (eg [elements]('./element-adapter.md'), files)
-- [drop target]('./drop-target.md'): an `Element` that can be dropped on (can be nested)
-- drag source: the entity that is dragging. These can be internal to a page (eg a `draggable` from the element adapter) or external (eg a file)
-- [monitor]('./monitor.md): a way of listening for `@atlaskit/drag-and-drop` drag operation events anywhere
-- addons: additional packages that provide additional functionality (eg the [closest edge addon]('./closest-edge-addon') allows you to know what the closest edge is of the _dropTarget_ you are dragging over)
-- utils: small helpers for common tasks (eg `once` for simple memoization, `combine` to collapse cleanup functions)
+### Adapter
 
-A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg elements). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
+A drag adapter teaches `@atlaskit/drag-and-drop` how to handle dragging a particular entity (eg [elements]('./element-adapter.md'), [external files]('./file-adapter.md), text etc). When you use a drag adapter you will bring in the code required for that entity and no more. For example, if you use the element adapter, your application won't include any code for handling files.
 
 A drag adapter always provides at least two pieces:
 
-1. A way of registering `dropTarget` (eg `dropTargetForElements`). A `dropTarget` is an `Element` that can be dropped onto
-2. A way to create a `monitor` (eg `monitorForFiles`). A `monitor` can be used to listen for events anywhere in your system
+1. A way of registering _drop target_ (eg `dropTargetForElements`).
+2. A way to create a _monitor_ (eg `monitorForFiles`).
 
-A drag adapter can also provide additional pieces. For example, the element adapter provides a `draggable` which is a way of registering an `Element` as being draggable.
+```ts
+import {
+  dropTargetForFiles,
+  monitorForFiles,
+} from '@atlaskit/drag-and-drop/adapter/file';
+
+import {
+  dropTargetForElements,
+  monitorForElements,
+} from '@atlaskit/drag-and-drop/adapter/element';
+```
+
+A drag adapter can also provide additional pieces. For example, the [element adapter]('./element-adapter.md) provides a `draggable` function which is a way of registering an `Element` as being draggable.
+
+```ts
+import { draggable } from '@atlaskit/drag-and-drop/adapter/element';
+
+draggable({
+  element: myElement,
+});
+```
+
+### Drop target
+
+An `Element` that can be dropped on by something that is dragging
+
+```ts
+import { dropTargetForFiles } from '@atlaskit/drag-and-drop/adapter/file';
+
+dropTargetForFiles({
+  element: myElement,
+});
+```
+
+More information → [drop target]('./drop-target.md)
+
+### Monitor
+
+A way of listening for `@atlaskit/drag-and-drop` drag operation events anywhere.
+
+```ts
+import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
+
+monitorForElements({
+  element: myElement,
+  onDragStart: () => console.log('an element started dragging'),
+});
+```
+
+### Addons
+
+An addon piece of code that impacts the control flow of your drag operation (eg [closest edge addon]('./closest-edge-addon')) or performs some side effect during the drag operation (eg the [auto scroller addon](./TODO)).
+
+### Utilities
+
+Small helpers functions common tasks (eg `once` for simple memoization, `combine` to collapse cleanup functions)
+
+### Term: Drag source
+
+The entity that is dragging. These can be internal to a page (eg a `draggable` from the [element adapter]('./element-adapter.md)) or external (eg a [file]('./file-adapter.md'))
+
+### Term: Drag preview
+
+The _thing_ that a user drags around. For elements, this is generally a picture of the drag source (a `draggable` element)
+
+### Term: Drop indicator
+
+Something that is drawn to indicate where the drag source will be dropped (generally a line). You are free to draw your own drop indicators. We also have a package of premade ones: `@atlaskit/drag-and-drop-indicator`.
 
 ## Getting started
 
 Install the adapter(s) you can to use
 
 - [Elements]('./element-adapter.md'): `@atlaskit/drag-and-drop/adapter/element`
-- Files: `@atlaskit/drag-and-drop/adapter/file` (coming soon)
-- Dragging elements between documents: TODO
-- Dragging text selections: TODO
+- [Files]('./file-adapter.md'): `@atlaskit/drag-and-drop/adapter/file`
+- Dragging text selections: _not created yet_
+- Dragging elements between documents: _experimental_
 
 ```bash
 # yarn
@@ -174,5 +203,3 @@ export function Card({ cardId }: { cardId: string }) {
 `@atlaskit/drag-and-drop` is compatible with deferred loading. This allows you to load in `@atlaskit/drag-and-drop` after time to interactive to some future time when you need it.
 
 See our [deferred loading guide]('./deferred-loading.md)
-
-TODO: create guide

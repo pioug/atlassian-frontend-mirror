@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { extractClosestEdge } from '@atlaskit/drag-and-drop-hitbox/closest-edge';
-import { reorderWithEdge } from '@atlaskit/drag-and-drop-hitbox/reorder-with-edge';
+import { extractClosestEdge } from '@atlaskit/drag-and-drop-hitbox/addon/closest-edge';
 import type { Edge } from '@atlaskit/drag-and-drop-hitbox/types';
+import { reorderWithEdge } from '@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge';
 import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
 import { monitorForFiles } from '@atlaskit/drag-and-drop/adapter/file';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';

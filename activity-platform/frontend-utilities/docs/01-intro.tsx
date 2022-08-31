@@ -1,10 +1,6 @@
 import { md } from '@atlaskit/docs';
 
 export default md`
-  ## Documentation
-
-  - [Markdown Renderer](./frontend-utilities/docs/markdown-renderer)
-
   ## Error Handling
 
   - [Convert to Error](./frontend-utilities/docs/convert-to-error)

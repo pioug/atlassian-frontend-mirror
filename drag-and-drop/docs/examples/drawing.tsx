@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/drag-and-drop/util/cancel-unhandled';
+import { cancelUnhandled } from '@atlaskit/drag-and-drop/addon/cancel-unhandled';
 import { combine } from '@atlaskit/drag-and-drop/util/combine';
 import { token } from '@atlaskit/tokens';
 

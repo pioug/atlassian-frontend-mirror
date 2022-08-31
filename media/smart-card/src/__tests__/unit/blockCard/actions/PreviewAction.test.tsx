@@ -11,6 +11,7 @@ import PreviewAction, {
   previewFunction,
 } from '../../../../view/BlockCard/actions/PreviewAction';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { mockAnalytics } from '../../../../utils/mocks';
 
 describe('PreviewAction', () => {
   beforeEach(() => {
@@ -25,7 +26,7 @@ describe('PreviewAction', () => {
   });
 
   it('sets up a renderer function which runs on execution of promise handler', async () => {
-    const action = PreviewAction({});
+    const action = PreviewAction({ analytics: mockAnalytics });
     expect(action).toEqual({
       id: 'preview-content',
       text: expect.any(Object),
@@ -46,6 +47,7 @@ describe('PreviewAction', () => {
         onClose: expect.any(Function),
         providerName: 'Preview',
         showModal: true,
+        analytics: expect.any(Object),
       },
       {},
     );
@@ -62,6 +64,7 @@ describe('PreviewAction', () => {
           onClose: mockOnClose,
           iframeName: 'my-iframe',
           closeLabel: 'my-close-label',
+          analytics: mockAnalytics,
         });
       }, []);
       return <div>My Preview</div>;

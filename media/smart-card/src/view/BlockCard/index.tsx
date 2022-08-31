@@ -1,5 +1,4 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
 import { getExtensionKey } from '../../state/helpers';
@@ -8,13 +7,10 @@ import { getEmptyJsonLd, getUnauthorizedJsonLd } from '../../utils/jsonld';
 import { ExtractBlockOpts } from '../../extractors/block/types';
 import { extractRequestAccessContext } from '../../extractors/common/context';
 import { CardLinkView } from '../LinkView';
-
-export { default as PreviewAction } from './actions/PreviewAction';
 import { AuthorizeAction } from './actions/AuthorizeAction';
 import { ForbiddenAction } from './actions/ForbiddenAction';
 
 import { ResolvedView as BlockCardResolvedView } from './views/ResolvedView';
-export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
 import { NotFoundView as BlockCardNotFoundView } from './views/NotFoundView';
 import { ResolvingView as BlockCardResolvingView } from './views/ResolvingView';
 import { UnauthorizedView as BlockCardUnauthorisedView } from './views/UnauthorizedView';
@@ -22,6 +18,9 @@ import { ForbiddenView as BlockCardForbiddenView } from './views/ForbiddenView';
 import { ErroredView as BlockCardErroredView } from './views/ErroredView';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
+
+export { default as PreviewAction } from './actions/PreviewAction';
+export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
 
 export {
   ForbiddenAction,
@@ -41,7 +40,6 @@ export const BlockCard: FC<BlockCardProps> = ({
   handleAuthorize,
   handleErrorRetry,
   handleFrameClick,
-  handleAnalytics,
   handleInvoke,
   renderers,
   isSelected,
@@ -50,6 +48,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   testId,
   showActions,
   platform,
+  analytics,
 }) => {
   // Actions do not have access to the react tree, so we need to obtain
   // feature flags here where we still can access SmartLinkContext context
@@ -63,8 +62,9 @@ export const BlockCard: FC<BlockCardProps> = ({
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
   const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
   const extractorOpts: ExtractBlockOpts = {
+    analytics,
+    origin: 'smartLinkCard',
     featureFlags,
-    handleAnalytics,
     handleInvoke,
     extensionKey: getExtensionKey(details),
   };

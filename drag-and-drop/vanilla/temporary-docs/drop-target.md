@@ -80,7 +80,7 @@ type GetFeedbackArgs = {
 };
 ```
 
-- `getDropEffect?: (args: GetFeedbackArgs) => DataTransfer['dropEffect']`. The `dropEffect` property will control the visual feedback (cursor) when dragging over it. As with `getData()`, `getDropEffect()` is repeatedly called throughout a drag operation. The default `dropEffect` will change depending on the adapter. `getDropEffect()` is called _repeatedly_ while a drop target is being dragged over to allow you change your mind about which drop effect should be applied.
+- `getDropEffect?: (args: GetFeedbackArgs) => DataTransfer['dropEffect']`. The `dropEffect` property will control the visual feedback (cursor) when dragging over it. As with `getData()`, `getDropEffect()` is repeatedly called throughout a drag operation. The default `dropEffect` is dependent on the adapter. `getDropEffect()` is called _repeatedly_ while a drop target is being dragged over to allow you change your mind about which drop effect should be applied.
 
 ```ts
 dropTargetForLinks({
@@ -116,8 +116,6 @@ A previous _drop target_ will be maintained when:
 1. The drop target `getIsSticky()` returns `true` AND
 2. The parent of a _drop target_ is unchanged
 
-> TODO: format + explain
-
 - Scenario: `[A(sticky)]` → `[]` = `[A]`
 - Scenario: `[B(sticky), A(sticky)]` → `[]` = `[B, A]`
 - Scenario: `[C, B(sticky), A(sticky)]` → `[]` = `[B, A]`
@@ -126,6 +124,7 @@ A previous _drop target_ will be maintained when:
 - Scenario: `[B, A(sticky)]` → `[A]` = `[A]`
 - Scenario: `[B(sticky), A]` → `[X]` = `[X]`
 - Scenario: `[B(sticky), A]` → `[]` = `[]`
+- Scenario: `[B(sticky), A(sticky)]` → `[X]` = `[X]`
 
 Stickiness is lost when the user drags out of the `window`
 

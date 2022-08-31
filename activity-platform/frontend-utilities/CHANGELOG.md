@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.0.0
+
+### Major Changes
+
+- [`6546b9fda06`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6546b9fda06) - Removed the markdown renderer as it is not needed
+
 ## 1.1.1
 
 ### Patch Changes

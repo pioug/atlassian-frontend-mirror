@@ -8,15 +8,14 @@ import {
   TEST_DOCUMENT_WITH_PREVIEW,
   TEST_DOCUMENT,
 } from '../../common/__mocks__/jsonld';
+import { mockAnalytics } from '../../../utils/mocks';
 
 describe('extractors.block.extractBlockActions', () => {
   let handleInvoke: jest.Mock;
-  let handleAnalytics: jest.Mock;
   const blockCardProps = { icon: { url: 'https://my/icon' } };
 
   beforeEach(() => {
     handleInvoke = jest.fn();
-    handleAnalytics = jest.fn();
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -31,7 +30,7 @@ describe('extractors.block.extractBlockActions', () => {
       TEST_DOCUMENT_WITH_ACTIONS,
       {
         handleInvoke,
-        handleAnalytics,
+        analytics: mockAnalytics,
       },
     );
     expect(props).toEqual([
@@ -61,7 +60,7 @@ describe('extractors.block.extractBlockActions', () => {
       TEST_DOCUMENT_WITH_PREVIEW,
       {
         handleInvoke,
-        handleAnalytics,
+        analytics: mockAnalytics,
       },
       'web',
     );

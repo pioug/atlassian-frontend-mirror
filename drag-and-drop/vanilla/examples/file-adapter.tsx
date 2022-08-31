@@ -10,7 +10,7 @@ import {
   dropTargetForFiles,
   monitorForFiles,
 } from '../src/entry-point/adapter/file';
-import { cancelUnhandled } from '../src/entry-point/util/cancel-unhandled';
+import { cancelUnhandled } from '../src/entry-point/addon/cancel-unhandled';
 import { combine } from '../src/entry-point/util/combine';
 
 import { fallbackColor } from './_util/fallback';

@@ -115,11 +115,15 @@ export declare type AnalyticsActionSubject =
   | 'applicationAccount'
   | 'button'
   | 'consentModal'
-  | 'hoverCard';
+  | 'hoverCard'
+  | 'modal'
+  | 'embedPreviewModal';
 
 declare type AnalyticsFacade = ReturnType<typeof useSmartLinkAnalytics>;
 
 export declare type AnalyticsHandler = (event: AnalyticsPayload) => void;
+
+declare type AnalyticsName = 'embedPreviewModal';
 
 export declare type AnalyticsPayload = GasPayload & {
   action?: AnalyticsAction;
@@ -278,8 +282,8 @@ export declare const Card: React_2.ForwardRefExoticComponent<
     | 'key'
     | 'url'
     | 'ui'
-    | 'showHoverPreview'
     | 'showActions'
+    | 'showHoverPreview'
     | 'onResolve'
     | 'platform'
     | 'isFrameVisible'
@@ -1130,6 +1134,16 @@ export declare const useSmartLinkAnalytics: (
       location,
     }: UiAuthAlternateAccountEventProps) => void;
     /**
+     * This fires an event that represents when a user
+     * click a button.
+     * @param data A partial analytics event payload
+     */
+    buttonClickedEvent: (
+      data: Partial<AnalyticsPayload> & {
+        actionSubjectId: Required<string>;
+      },
+    ) => void;
+    /**
      * This fires an event that represents when a user clicks on a Smart Link.
      * @param id The unique ID for this Smart Link.
      * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
@@ -1208,6 +1222,15 @@ export declare const useSmartLinkAnalytics: (
       destinationSubproduct,
       location,
     }: UiClosedAuthEventProps) => void;
+    /**
+     * This fires an event that represents when a user close a modal.
+     * @param data A partial analytics event payload
+     */
+    modalClosedEvent: (
+      data: Partial<AnalyticsPayload> & {
+        actionSubjectId: Required<string>;
+      },
+    ) => void;
     /**
      * This fires an event that represents when a Smart Link was rendered successfully.
      * Note: this fires even if the Smart Link request errored out.
@@ -1410,6 +1433,15 @@ export declare const useSmartLinkAnalytics: (
       destinationSubproduct,
       location,
     }: ScreenAuthPopupEventProps) => void;
+    /**
+     * This fires an event that represents when a user view a modal.
+     * @param data A partial analytics event payload
+     */
+    modalViewedEvent: (
+      data: Partial<AnalyticsPayload> & {
+        name: Extract<AnalyticsName, 'embedPreviewModal'>;
+      },
+    ) => void;
   };
 };
 

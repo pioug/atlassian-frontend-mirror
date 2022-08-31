@@ -1,5 +1,13 @@
 # @atlaskit/drag-and-drop
 
+## 0.2.0
+
+### Minor Changes
+
+- [`1cf9e484b4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cf9e484b4b) - We have improved our naming consistency across our drag and drop packages.
+
+  - `@atlaskit/drag-and-drop/util/cancel-unhandled` has been renamed to `@atlaskit/drag-and-drop/addon/cancel-unhandled`
+
 ## 0.1.0
 
 ### Minor Changes

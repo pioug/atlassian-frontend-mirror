@@ -1,7 +1,12 @@
 import React from 'react';
 
-import { MarkdownRenderer } from '../src/documentation/markdown-renderer';
-// @ts-ignore
-import input from '../src/network/retry-operation/README.md';
+import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
+import { ADFEncoder, ReactRenderer } from '@atlaskit/renderer';
 
-export default <MarkdownRenderer>{input}</MarkdownRenderer>;
+// @ts-ignore
+import DOCUMENT from '../src/network/retry-operation/README.md';
+
+const adfEncoder = new ADFEncoder(schema => new MarkdownTransformer(schema));
+const document = adfEncoder.encode(DOCUMENT);
+
+export default <ReactRenderer document={document} />;

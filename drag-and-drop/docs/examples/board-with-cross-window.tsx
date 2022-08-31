@@ -5,8 +5,8 @@ import invariant from 'tiny-invariant';
 import {
   Edge,
   extractClosestEdge,
-} from '@atlaskit/drag-and-drop-hitbox/closest-edge';
-import { reorderWithEdge } from '@atlaskit/drag-and-drop-hitbox/reorder-with-edge';
+} from '@atlaskit/drag-and-drop-hitbox/addon/closest-edge';
+import { reorderWithEdge } from '@atlaskit/drag-and-drop-hitbox/util/reorder-with-edge';
 import { monitorForElements } from '@atlaskit/drag-and-drop/adapter/element';
 import { monitorForFiles } from '@atlaskit/drag-and-drop/adapter/file';
 import {
